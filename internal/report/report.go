@@ -12,8 +12,11 @@ import (
 const TotalLabel = "TOTAL"
 
 // widths returns how wide the account column and the amount column have
-// to be to hold every row without wrapping.
+// to be to hold every row without wrapping. The total row counts as a
+// row, so its label and its amount are measured too.
 func widths(balances []ledger.AccountBalance) (account, amount int) {
+	account = len(TotalLabel)
+	amount = len(ledger.FormatAmount(ledger.GrandTotal(balances)))
 	for _, balance := range balances {
 		if n := len(balance.Account); n > account {
 			account = n
@@ -34,16 +37,16 @@ func Render(w io.Writer, balances []ledger.AccountBalance) error {
 	}
 
 	accountWidth, amountWidth := widths(balances)
-	for _, balance := range balances {
+	row := func(label string, cents int64) error {
 		_, err := fmt.Fprintf(w, "%-*s  %*s\n",
-			accountWidth, balance.Account,
-			amountWidth, ledger.FormatAmount(balance.Total))
-		if err != nil {
+			accountWidth, label, amountWidth, ledger.FormatAmount(cents))
+		return err
+	}
+
+	for _, balance := range balances {
+		if err := row(balance.Account, balance.Total); err != nil {
 			return err
 		}
 	}
-
-	// TODO: the total row still has to go here, and the label may be
-	// wider than the widest account name.
-	return nil
+	return row(TotalLabel, ledger.GrandTotal(balances))
 }
