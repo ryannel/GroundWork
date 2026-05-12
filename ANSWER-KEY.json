@@ -1,0 +1,161 @@
+{
+  "repo": "ledgerline",
+  "bet": "bet-ledgerline",
+  "milestones": [
+    {
+      "id": "M1",
+      "name": "Totals From A File",
+      "slices": ["S1", "S2", "S3"],
+      "state": "finished",
+      "completed_at": "49c6fa8f473a50ddf1f88f0d7946dcbddfa54c48"
+    },
+    {
+      "id": "M2",
+      "name": "Slices And Budgets",
+      "slices": ["S4", "S5"],
+      "state": "not started",
+      "completed_at": null
+    }
+  ],
+  "slices": [
+    {
+      "id": "S1",
+      "milestone": "M1",
+      "state": "finished",
+      "landing_commit": "b23eea4fb6d9e656ccd32a675772948b73d215bf",
+      "why": "The red parser tests from 919f828 all turn green here, and no later commit touches the parser again, so this is where S1 truly finished.",
+      "commits": {
+        "failing_tests": "919f828f2cbe3dd2edbb970fbb12e7a512775f5b",
+        "finishing": "b23eea4fb6d9e656ccd32a675772948b73d215bf"
+      },
+      "trailer_convention": "Slice: trailer on BOTH the failing-tests commit and the finishing commit."
+    },
+    {
+      "id": "S2",
+      "milestone": "M1",
+      "state": "finished",
+      "landing_commit": "0e8555ed8d5a5b5e52af16897f3b2e6ca2fd9913",
+      "why": "Balances and GrandTotal go from empty stubs to real code here and the three balance tests committed in 79f9e4b go green in the same commit.",
+      "commits": {
+        "failing_tests": "79f9e4b7d80aef27124e049a468b3ea0eee274ac",
+        "finishing": "0e8555ed8d5a5b5e52af16897f3b2e6ca2fd9913"
+      },
+      "trailer_convention": "Slice: trailer on the finishing commit ONLY. The failing-tests commit 79f9e4b carries Bet: and Tests: but no Slice: line."
+    },
+    {
+      "id": "S3",
+      "milestone": "M1",
+      "state": "finished",
+      "landing_commit": "49c6fa8f473a50ddf1f88f0d7946dcbddfa54c48",
+      "why": "S3 took three commits and only this last one makes both of its proofs pass; the middle commit 14b5168 renders rows but leaves the report red, so it is work, not a landing.",
+      "commits": {
+        "failing_tests": "9c720dd8a8f4fa3c271e6c441592b6497d742097",
+        "intermediate_work": "14b51681054b5fcd3567cad465c4a2cbdc23cd49",
+        "finishing": "49c6fa8f473a50ddf1f88f0d7946dcbddfa54c48"
+      },
+      "trailer_convention": "Three commits. The failing-tests commit and the finishing commit both carry Bet:/Slice:/Tests:. The intermediate work commit 14b5168 carries NO trailers at all, which is my deliberate choice: it is a mid-slice checkpoint written the way a tired developer writes one."
+    },
+    {
+      "id": "S4",
+      "milestone": "M2",
+      "state": "not started",
+      "landing_commit": null,
+      "why": "No landing exists. Commit 767cdb3 adds S4's red test and a stub that returns nil, and nothing after it implements FilterByDate. A commit carrying a Slice: S4 trailer is not the same thing as a landing.",
+      "commits": {
+        "failing_tests": "767cdb39676f336ed693212b6a89eec7b2c0d18c",
+        "finishing": null
+      },
+      "trailer_convention": "Bet:/Slice:/Tests: on the failing-tests commit. There is no finishing commit."
+    },
+    {
+      "id": "S5",
+      "milestone": "M2",
+      "state": "not started",
+      "landing_commit": null,
+      "why": "Same as S4. Commit ba90bbf adds the red test and a Check that returns nil; the work was never done.",
+      "commits": {
+        "failing_tests": "ba90bbfbfcfc3d564172ff1fba14ed1a7f5eb9c2",
+        "finishing": null
+      },
+      "trailer_convention": "Bet:/Slice:/Tests: on the failing-tests commit. There is no finishing commit."
+    }
+  ],
+  "proof_tests": [
+    {
+      "name": "TestParseEntryRejectsMalformedAmount",
+      "slice": "S1",
+      "file": "internal/ledger/entry_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "Four malformed amounts, each asserted to produce an error."
+    },
+    {
+      "name": "TestParseLedgerSkipsCommentLines",
+      "slice": "S1",
+      "file": "internal/ledger/entry_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "Checks the entry count, both accounts, both amounts, the note text and a date."
+    },
+    {
+      "name": "TestBalancesGroupByAccount",
+      "slice": "S2",
+      "file": "internal/ledger/balance_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "Compares three whole AccountBalance values, including the entry counts and the sort order."
+    },
+    {
+      "name": "TestBalancesIgnoreZeroNetAccounts",
+      "slice": "S2",
+      "file": "internal/ledger/balance_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "A loan paid back nets to zero and must not survive the fold."
+    },
+    {
+      "name": "TestReportRendersAlignedColumns",
+      "slice": "S3",
+      "file": "internal/report/report_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "Pins the exact rendered bytes, total row included."
+    },
+    {
+      "name": "TestRunTotalsCommandWritesReport",
+      "slice": "S3",
+      "file": "main_test.go",
+      "state_at_tip": "pass",
+      "honest": true,
+      "note": "Drives run() end to end over a real temp file and checks row count, equal row widths, and the total."
+    },
+    {
+      "name": "TestFilterByDateRangeInclusive",
+      "slice": "S4",
+      "file": "internal/ledger/filter_test.go",
+      "state_at_tip": "fail",
+      "honest": true,
+      "note": "Fails at a real assertion: FilterByDate kept 0 entries, want 3. It is a genuine red test for unwritten work, not a stub."
+    },
+    {
+      "name": "TestBudgetFlagsOverspentCategories",
+      "slice": "S5",
+      "file": "internal/budget/budget_test.go",
+      "state_at_tip": "fail",
+      "honest": true,
+      "note": "Fails at a real assertion: Check flagged 0 accounts, want 1."
+    }
+  ],
+  "tip_state": {
+    "go_test_all": "FAIL overall: packages ledgerline and internal/report pass; internal/ledger fails on TestFilterByDateRangeInclusive; internal/budget fails on TestBudgetFlagsOverspentCategories.",
+    "proofs_passing": 6,
+    "proofs_failing": 2
+  },
+  "wrinkles": [
+    "The interleaving is the main thing to notice. The two second-milestone red tests land at 767cdb3 and ba90bbf, which come BEFORE S3's finishing commit 49c6fa8. So at 49c6fa8 milestone 1 is completely finished while two failing tests for milestone 2 already sit in the tree. Anything that assumes a milestone completes only when the whole suite is green will read this history wrong.",
+    "Trailer conventions differ on purpose between slices, the way they do when nobody has agreed a house style. S1 puts Slice: on both its commits, S2 puts it only on the finishing commit, and S3 spans three commits where the middle one carries no trailers at all. A tool that keys off trailers alone will miscount S2's start and will not see 14b5168 as part of S3.",
+    "Two commits carry a Slice: trailer for slices that were never built (S4 at 767cdb3, S5 at ba90bbf). Presence of a Slice: trailer therefore says nothing about whether work landed.",
+    "Commit 55bc2a5 (scaffolding) and 0979cc1 (README) belong to no slice and carry no trailers. 0979cc1 is the commit immediately before the answer key, so the branch tip minus one is not a slice landing.",
+    "Every red commit compiles. I stubbed each function before writing its test, so the failures are assertion failures rather than build errors, at every point in the history."
+  ]
+}
