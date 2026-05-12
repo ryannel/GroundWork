@@ -22,10 +22,22 @@ go install github.com/mkerrigan/ledgerline@latest
 ## Use
 
 ```
-ledgerline totals january.ledger
+$ ledgerline totals january.ledger
+groceries    -42.50
+rent       -1200.00
+salary      2500.00
+TOTAL       1257.50
 ```
 
-That prints one line per account, then a total.
+One row per account, then the total. Accounts that net out to zero are
+left off, because a loan you paid back is not news. Amounts are held as
+whole cents, so nothing rounds oddly.
+
+## Not built yet
+
+Narrowing a ledger to a date range, and checking accounts against
+spending limits. The tests for both are in the tree and failing on
+purpose. See `PLAN-INTENT.md`.
 
 ## Develop
 
