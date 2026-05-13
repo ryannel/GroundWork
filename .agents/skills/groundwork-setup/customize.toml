@@ -1,0 +1,25 @@
+# DO NOT EDIT -- overwritten on every update.
+#
+# Workflow customization surface for groundwork-setup.
+
+[workflow]
+
+# Default paths to look for services
+service_search_paths = ["services", "apps", "packages", "cmd", "src"]
+
+# Default output directory for documentation
+docs_output_path = "docs"
+
+# Default state file location
+state_file_path = "docs/.groundwork/scan-state.json"
+
+# Architecture decisions directory (global ADRs)
+global_adrs_path = "docs/architecture/decisions"
+
+# Persistent facts the workflow keeps in mind for the whole run
+# Defines the strict "GroundWork Tone"
+persistent_facts = [
+  "Be definitive. Do not use 'might', 'seems to', or 'probably'. If you cannot confirm a pattern with 100% certainty from the code, output `_(To be completed)_` instead of guessing.",
+  "Prefer tables, lists, and Mermaid diagrams over long paragraphs. Engineers scan docs, they don't read them.",
+  "When documenting events, focus heavily on the 'Why' (Trigger Context) rather than just the 'What' (Payload Schema)."
+]

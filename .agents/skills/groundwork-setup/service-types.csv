@@ -1,0 +1,6 @@
+service_type_id,key_file_patterns,api_patterns,schema_patterns,event_patterns,test_patterns,critical_directories
+go-rest,go.mod;cmd/*/main.go,internal/entrypoints;routes;handlers,db/schema.sql;migrations,pubsub;kafka;nats,_test.go,internal/core;internal/provider
+python-fastapi,requirements.txt;pyproject.toml,routers;api;endpoints,alembic;models,celery;kafka,test_*.py;*_test.py,app;domain;infrastructure
+node-express,package.json;tsconfig.json,routes;controllers;handlers,prisma;migrations;models,events;queue,*.test.ts;*.spec.ts,src;lib
+rust-axum,Cargo.toml,src/handlers;src/routes,migrations;src/models,src/events;src/kafka,#[test],src/domain;src/infrastructure
+java-spring,pom.xml;build.gradle,src/main/java/*/controllers,src/main/resources/db/migration,src/main/java/*/events;src/main/java/*/kafka,*Test.java,src/main/java/*/domain;src/main/java/*/service
