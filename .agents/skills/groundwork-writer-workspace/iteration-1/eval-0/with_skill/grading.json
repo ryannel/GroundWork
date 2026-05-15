@@ -1,0 +1,14 @@
+{
+  "expectations": [
+    {
+      "text": "Rewritten text does not contain 'probably', 'essentially', 'in most cases', 'might be', or 'generally recommended'.",
+      "passed": true,
+      "evidence": "None of the hedging words are present."
+    },
+    {
+      "text": "Text uses imperative voice (e.g., 'Use PostgreSQL', 'Set up connection pooling').",
+      "passed": true,
+      "evidence": "Text starts directly with 'Use PostgreSQL' and 'Set up connection pooling'."
+    }
+  ]
+}

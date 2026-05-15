@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "Document contains YAML frontmatter.",
+      "passed": true,
+      "evidence": "Contains YAML frontmatter with title, owner, and status."
+    },
+    {
+      "text": "Document uses the Inverted Pyramid structure (core decisions stated first).",
+      "passed": true,
+      "evidence": "Immediately states the core architecture choices in the first sentence."
+    },
+    {
+      "text": "No hedging words regarding scaling (e.g. 'might need', 'basically').",
+      "passed": true,
+      "evidence": "Scaling constraint is stated directly without hedging."
+    }
+  ]
+}

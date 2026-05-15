@@ -1,0 +1,11 @@
+# GroundWork LLM Knowledge Index
+
+This file indexes the canonical documentation for GroundWork to optimize agent discovery and context loading.
+
+- [GroundWork Product Brief](docs/product-brief.md): The executive summary of GroundWork, detailing its capabilities, execution engine, and philosophy.
+- [Core Concepts](docs/methodology/core-concepts.md): The philosophical foundation of GroundWork, including its departure from BMAD and upfront technical delivery.
+- [Lifecycle Index](docs/lifecycle/index.md): Overview of the GroundWork execution phases.
+- [Initialization & Discovery](docs/lifecycle/01-initialization-and-discovery.md): Phase 1 details on project initialization and global style establishment.
+- [Extraction & Synthesis](docs/lifecycle/02-extraction-and-synthesis.md): Phase 2 details on codebase scanning and contract pinning.
+- [Continuous Maintenance](docs/lifecycle/03-continuous-maintenance.md): Phase 3 details on drift detection and surgical updates.
+- [Execution Pipeline](docs/lifecycle/04-execution-pipeline.md): Phase 4 details on problem statements, domain slices, and test-driven validation.

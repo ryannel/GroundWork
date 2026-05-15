@@ -14,7 +14,7 @@
    - **Tests:** Create a specific test file (e.g., `tests/integration/test_<feature>.py`) containing the failing tests that verify the story's acceptance criteria. Bind these tests to the newly generated API clients.
    - **Database:** If a schema change is required, define the migration.
    - **UI:** If UI is required, define the UI states and data bindings.
-4. Populate a TDD checklist mapping out these structural components. Read the template at `../templates/tdd-checklist.md` and save the filled version to `docs/bets/<bet-slug>/tdd/checklist.md`.
+4. Populate a TDD checklist mapping out these structural components. Read the template at `.agents/groundwork/skills/groundwork-bet/templates/tdd-checklist.md` and save the filled version to `docs/bets/<bet-slug>/tdd/checklist.md`.
 
 ## Transition
 
@@ -22,4 +22,4 @@ Once the Tests-Up-Front are written and the TDD checklist is complete, present t
 
 Ask for their approval to move to implementation.
 
-If they agree, read and follow: `./03-delivery.md`
+If they agree, read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/03-delivery.md`

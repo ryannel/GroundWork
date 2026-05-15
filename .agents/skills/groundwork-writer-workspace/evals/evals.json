@@ -1,0 +1,17 @@
+{
+  "skill_name": "groundwork-writer",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Review and rewrite this paragraph for me, please: 'We should probably look into using PostgreSQL for the primary database. In most cases, it essentially provides the best balance of features and reliability, though it might be a bit overkill for simpler tasks. It is generally recommended that you set up connection pooling if you expect high traffic.'",
+      "expected_output": "The text should be rewritten using active voice, without hedging ('probably', 'essentially', 'in most cases', 'might be', 'generally recommended'). It should assert the use of PostgreSQL directly and provide the connection pooling instruction declaratively.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Draft a quick Product Brief for a new 'User Notification Service'. It should mention that we will use Redis for queueing and send emails via SendGrid. Also, make sure to add that the service might need to scale horizontally if the load gets too high, but we can basically worry about that later.",
+      "expected_output": "A Product Brief document drafted using the Inverted Pyramid structure. Frontmatter should be included. No hedging should be used regarding scaling; it should be stated directly as a constraint or deferred decision. Language must be objective and declarative.",
+      "files": []
+    }
+  ]
+}

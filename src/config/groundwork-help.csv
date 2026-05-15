@@ -1,0 +1,9 @@
+module,skill,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
+Initialization,groundwork-setup:executive-summary,Executive Summary,ES,Guided elicitation to define product vision.,,,1-initialization,,,true,docs,executive-summary.md
+Initialization,groundwork-setup:design-system,Design System,DS,Define overarching design style globally.,,,1-initialization,groundwork-setup:executive-summary,,true,docs,design-system.md
+Extraction,groundwork-setup:extract,Extraction,EX,Deep extraction of exact boundaries and schemas.,,,2-extraction,groundwork-setup:design-system,,true,docs/.groundwork,scan-state.json
+Extraction,groundwork-setup:synthesize,Synthesis,SY,Stitch together cross-service data flows and global architecture.,,,2-extraction,groundwork-setup:extract,,true,docs/architecture,data-flow.md
+Execution,groundwork-brainstorm,Brainstorm Ideas,BS,Capture known user pain or brainstorm seed of new features.,,,anytime,,,false,docs/bets,pitch.md
+Execution,groundwork-bet,The Bet Pipeline,BT,Drive feature execution via the Bet Pipeline.,,,4-execution,groundwork-setup:synthesize,,true,docs/bets,pitch.md
+Maintenance,groundwork-check,Check Documentation,GC,Run drift detection in CI or locally to flag stale documentation.,,,anytime,,,false,,
+Maintenance,groundwork-update,Update Documentation,GU,Perform targeted surgical updates to docs based on code changes.,,,anytime,,,false,,

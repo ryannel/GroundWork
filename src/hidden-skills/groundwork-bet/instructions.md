@@ -14,4 +14,4 @@ When invoked, greet the user and ask what feature or problem they want to work o
 
 Then, load and execute the first phase of the pipeline:
 
-➡️ **Read and strictly follow:** `./workflows/01-discovery.md`
+➡️ **Read and strictly follow:** `.agents/groundwork/skills/groundwork-bet/workflows/01-discovery.md`

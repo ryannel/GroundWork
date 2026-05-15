@@ -1,0 +1,9 @@
+{
+  "eval_id": 0,
+  "eval_name": "rewrite-hedging",
+  "prompt": "Review and rewrite this paragraph for me, please: 'We should probably look into using PostgreSQL for the primary database. In most cases, it essentially provides the best balance of features and reliability, though it might be a bit overkill for simpler tasks. It is generally recommended that you set up connection pooling if you expect high traffic.'",
+  "assertions": [
+    "Rewritten text does not contain 'probably', 'essentially', 'in most cases', 'might be', or 'generally recommended'.",
+    "Text uses imperative voice (e.g., 'Use PostgreSQL', 'Set up connection pooling')."
+  ]
+}

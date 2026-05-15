@@ -1,0 +1,2 @@
+Here is the rewritten paragraph:
+Consider using PostgreSQL for the primary database. It provides a great balance of features and reliability, but can be overkill for simpler tasks. If you expect high traffic, it's recommended to set up connection pooling.

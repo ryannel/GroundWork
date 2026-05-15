@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "Document contains YAML frontmatter.",
+      "passed": false,
+      "evidence": "No frontmatter present."
+    },
+    {
+      "text": "Document uses the Inverted Pyramid structure (core decisions stated first).",
+      "passed": false,
+      "evidence": "The text reads as a narrative summary."
+    },
+    {
+      "text": "No hedging words regarding scaling (e.g. 'might need', 'basically').",
+      "passed": false,
+      "evidence": "Contains 'might need' and 'basically'."
+    }
+  ]
+}

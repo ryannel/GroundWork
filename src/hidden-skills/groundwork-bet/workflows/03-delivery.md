@@ -20,4 +20,4 @@
 
 Once all tests pass and the checklist is fully checked off, you are ready for validation.
 
-Read and follow: `./04-validation.md`
+Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/04-validation.md`

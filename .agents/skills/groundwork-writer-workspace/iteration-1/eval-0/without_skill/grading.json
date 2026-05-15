@@ -1,0 +1,14 @@
+{
+  "expectations": [
+    {
+      "text": "Rewritten text does not contain 'probably', 'essentially', 'in most cases', 'might be', or 'generally recommended'.",
+      "passed": true,
+      "evidence": "The text removed these words."
+    },
+    {
+      "text": "Text uses imperative voice (e.g., 'Use PostgreSQL', 'Set up connection pooling').",
+      "passed": false,
+      "evidence": "The text uses 'Consider using' and 'it's recommended' instead of strict imperative."
+    }
+  ]
+}

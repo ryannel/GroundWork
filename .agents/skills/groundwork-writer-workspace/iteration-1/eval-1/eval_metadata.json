@@ -1,0 +1,10 @@
+{
+  "eval_id": 1,
+  "eval_name": "draft-product-brief",
+  "prompt": "Draft a quick Product Brief for a new 'User Notification Service'. It should mention that we will use Redis for queueing and send emails via SendGrid. Also, make sure to add that the service might need to scale horizontally if the load gets too high, but we can basically worry about that later.",
+  "assertions": [
+    "Document contains YAML frontmatter.",
+    "Document uses the Inverted Pyramid structure (core decisions stated first).",
+    "No hedging words regarding scaling (e.g. 'might need', 'basically')."
+  ]
+}

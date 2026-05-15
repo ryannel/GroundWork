@@ -1,50 +1,52 @@
 # GroundWork Core Methodology & Philosophy
 
-GroundWork is an installable, AI-driven architectural framework. It is designed to act as the governing architectural layer for a codebase, ensuring that documentation and code remain perpetually in sync through structural contracts.
+GroundWork is an installable, AI-driven architectural framework. It enforces a strict **Upfront Technical Delivery** pipeline that ensures software is meticulously designed, contracted, and verified *before* code is written, effectively eliminating "just-in-time" engineering.
 
-## The Philosophy: Docs for Humans and Agents
-GroundWork operates on the overarching philosophy that architecture documentation must be a first-class citizen designed equally for **humans and agents**. 
-It explicitly breaks away from traditional AI documentation generation that produces massive, narrative "File Inventories" (often referred to as the Doxygen trap). 
+## The Philosophy: Upfront Technical Delivery
 
-If you want to know what a function takes as arguments or how it handles a specific error, you should read the code or use your IDE. **GroundWork does not document code.**
+GroundWork explicitly rejects the common AI-assisted workflow of "just start coding and figure it out." Instead, it operationalizes a highly disciplined progression:
 
-Instead, GroundWork focuses purely on **Architectural Abstraction and Synthesis**. It extracts the critical structural boundaries that code cannot easily explain on its own:
-1. **API Contracts**: The strict shapes of inputs and outputs.
-2. **Database Schemas**: The canonical data models.
-3. **Async Events**: The `published_when` and `consumed_by` triggers that drive async logic.
-4. **Data Flows**: Synthesizing those events into cross-service system maps.
-5. **Directory Boundaries**: What belongs in the domain layer vs. the adapter layer.
+1. **Problem Statement & Pitch**: Grounding every effort in real, evidenced user pain bounded by a strict appetite (opportunity cost).
+2. **TDD Foundations**:
+   - **UI Design**: Wireframes and user journeys dictate exactly what the user needs.
+   - **Data Flows**: The UI strictly dictates the service boundaries, operations, and failure modes.
+   - **Contracts & Schemas**: The data flows strictly dictate the API contracts (e.g., OpenAPI, AsyncAPI) and persistent schemas (e.g., PostgreSQL).
+3. **TDD Execution (Slicing)**:
+   - **Milestones**: Integration checkpoints that deliver user value.
+   - **Vertical Slices**: Smallest independently deployable units of work backed by falsifiable, system-level test assertions.
 
-## Document Generation & Placement
-GroundWork is designed to adapt to a repository's existing documentation strategy:
-- **Phase 0 (Start Up):** The system first determines if a dedicated documentation site (e.g., MkDocs, Docusaurus, Nextra) is already in use. 
-- **If a doc-site exists:** GroundWork locates the content directory. Because GroundWork assumes standard Markdown files organized in folders, it seamlessly injects its structural contracts into the existing site structure without breaking the build.
-- **If no doc-site exists:** GroundWork automatically rolls out a standardized `docs/` folder at the root of the repository to act as the standalone system of record.
+If a developer cannot build the API contracts purely from the Data Flow document, the Data Flow document is incomplete. **GroundWork builds the map before it drives the car.**
 
 ## Inspiration & Departure from BMAD
-GroundWork's execution engine is heavily inspired by the [BMAD Method](https://github.com/bmad-method). 
 
-**What we kept (The Engine):**
+GroundWork's execution engine is heavily inspired by the [BMAD Method](https://github.com/bmad-method).
+
+**What we kept (The Engine & Personas):**
 - Strict XML-routed workflows (`<step>`, `<action>`, `<check>`).
-- Aggressive token-window management (the "Write-and-Purge" mandate) to prevent LLM hallucination in large codebases.
-- Interactive, menu-driven "Deep Dives" that allow users to surgically expand documentation scope without forcing a massive, expensive full-repository scan upfront.
+- The use of specialized **Agent Personas**. GroundWork utilizes dedicated personas (e.g., `groundwork-pm`, `groundwork-architect`, `groundwork-data-engineer`, `groundwork-tester`) to enforce different stages of the pipeline with extreme rigor.
 
-**What we rejected (The Output):**
-- BMAD focuses on comprehensive file-by-file narrative generation. We reject this. We use the "GroundWork Tone" (persistent facts enforcing tables, lists, and definitive language) to compress thousands of lines of code into high-density, human-readable reference material.
+**What we rejected (The Output & Agile Focus):**
+- BMAD leans heavily into Agile Epics/Stories and often jumps from high-level architecture straight to coding.
+- GroundWork enforces **Upfront Technical Contracts** (OpenAPI, SQL Schemas) and **Vertical Slicing** with System-Level Test Scaffolding. We write the exact API specification and database schema before any code is generated.
 
-## The Toolchain
-GroundWork operates via an `npx groundwork init` CLI that provisions four core AI Agent Skills into a repository's `.agents/skills/` folder:
+## The Toolchain Ecosystem
 
-1. **`groundwork-setup` (The Heavy Lifter):** The core engine that discovers services, extracts the big three contracts (API, DB, Events), synthesizes global data flows, and generates the `docs/` site.
-2. **`groundwork-check` (The CI Guard):** A script that diffs frontmatter `source_of_truth` paths against git history to detect documentation drift and fail CI builds.
-3. **`groundwork-update` (The Surgeon):** A surgical update loop that patches specific architecture slices when code changes, avoiding full re-scans.
-4. **`skill-creator` (The Toolsmith):** A utility to help developers build dedicated code-writing skills.
+GroundWork operates via the `npx groundwork init` CLI, which provisions a suite of specialized methodology skills into a repository's `.agents/skills/` folder. The ecosystem is divided into:
 
-## The Skill Assessment Paradigm
-Codebases suffer from style drift. Having an AI guess your coding patterns by reading 5 random files is a recipe for disaster. GroundWork explicitly drops all "pattern extraction". 
+### 1. Agent Personas
+Dedicated system prompts that assume specialized roles in the delivery pipeline:
+- `groundwork-pm` (Appetite, Problem Statements, Pitches)
+- `groundwork-ux-designer` (Wireframes, States, Data Objects)
+- `groundwork-architect` (Data Flows, Boundary Inventories)
+- `groundwork-data-engineer` (REST/WS Contracts, Postgres Schemas)
+- `groundwork-tester` (Milestones, Vertical Slices, Test Assertions)
 
-Instead, during a scan, GroundWork performs a **Skill Assessment**. It checks the `.agents/skills/` directory for dedicated, explicitly authored code-writing skills targeting the detected tech stack (e.g., `write-python-ml`). 
-- If found, it assesses if the skill knows how to sync GroundWork contracts.
-- If missing, it flags the architecture document with a warning, advising the user to run the `skill-creator`.
+### 2. Methodology Skills
+The pipeline steps executed by the Personas:
+- **Discovery:** `groundwork-problem-statement`, `groundwork-pitch`
+- **Foundations:** `groundwork-ui-design`, `groundwork-data-flow`, `groundwork-contracts`, `groundwork-schema`
+- **Execution:** `groundwork-milestones`, `groundwork-slice`, `groundwork-test-stub`
+- **Maintenance:** `groundwork-check` (Drift detection), `groundwork-update` (Surgical architecture patches)
 
-**GroundWork builds the map. Dedicated coding skills drive the car.**
+## Document Generation & Placement
+GroundWork adapts to existing documentation strategies. It locates the target content directory (e.g., for MkDocs, Docusaurus, Nextra) and structures its artifacts accordingly, or provisions a standalone `docs/` system of record. Every document generated adheres strictly to the "GroundWork Tone"—objective, declarative, and devoid of filler.
