@@ -7,6 +7,7 @@
 1. **Micro-file Execution:** You must follow the workflow steps strictly, one file at a time.
 2. **State Tracking:** Bet state is maintained in `docs/bets/<bet-slug>/pitch.md` frontmatter.
 3. **No Jumping Ahead:** You cannot enter the Delivery (coding) phase until the Planning (TDD & Contracts) phase is complete and signed off by the user.
+4. **Writing Standards:** Apply the `groundwork-writer` skill when producing any document. All bet artifacts must follow GroundWork tone: declarative, assertive, zero-hedging.
 
 ## Activation
 

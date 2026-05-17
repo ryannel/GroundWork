@@ -1,0 +1,36 @@
+linters-settings:
+  govet:
+    enable:
+      - shadow
+  golint:
+    min-confidence: 0.8
+  gocyclo:
+    min-complexity: 15
+  maligned:
+    suggest-new: true
+  dupl:
+    threshold: 100
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - typecheck
+    - bodyclose
+    - gosec
+    - nilerr
+    - prealloc
+    - unparam
+
+run:
+  concurrency: 4
+  timeout: 5m
+  tests: false

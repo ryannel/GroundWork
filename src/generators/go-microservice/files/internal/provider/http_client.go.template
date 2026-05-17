@@ -1,0 +1,89 @@
+package provider
+
+import (
+	"context"
+	"fmt"
+	"io"
+	"net/http"
+	"time"
+
+	"github.com/cenkalti/backoff/v4"
+	"github.com/sony/gobreaker"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+)
+
+// ResilientClient wraps the standard HTTP client with tracing, retries, and circuit breaking.
+type ResilientClient struct {
+	client *http.Client
+	cb     *gobreaker.CircuitBreaker
+}
+
+// NewResilientClient creates a new HTTP client heavily optimized for production resilience.
+func NewResilientClient(name string) *ResilientClient {
+	// Configure Circuit Breaker
+	// Allows 10 sequential failures before tripping the circuit.
+	// Remains open for 30 seconds before half-opening to test the upstream.
+	cbSettings := gobreaker.Settings{
+		Name:        name,
+		MaxRequests: 5,
+		Interval:    time.Minute,
+		Timeout:     30 * time.Second,
+		ReadyToTrip: func(counts gobreaker.Counts) bool {
+			failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
+			return counts.Requests >= 10 && failureRatio >= 0.6
+		},
+	}
+
+	// Configure HTTP Client with OTel Tracing Middleware
+	client := &http.Client{
+		Timeout:   10 * time.Second, // Strict outbound timeout to prevent goroutine leaks
+		Transport: otelhttp.NewTransport(http.DefaultTransport),
+	}
+
+	return &ResilientClient{
+		client: client,
+		cb:     gobreaker.NewCircuitBreaker(cbSettings),
+	}
+}
+
+// Do executes an HTTP request wrapped in exponential backoff and the circuit breaker.
+func (c *ResilientClient) Do(req *http.Request) (*http.Response, error) {
+	var resp *http.Response
+
+	// Define the backoff policy (Exponential with Jitter)
+	b := backoff.NewExponentialBackOff()
+	b.InitialInterval = 200 * time.Millisecond
+	b.MaxInterval = 5 * time.Second
+	b.MaxElapsedTime = 15 * time.Second
+
+	operation := func() error {
+		// Circuit breaker executes the closure
+		res, err := c.cb.Execute(func() (interface{}, error) {
+			// Copy the request to allow for replay
+			// Deep copying bodies is out of scope for the wrapper, 
+			// but we can re-use the context and URL
+			var reqErr error
+			resp, reqErr = c.client.Do(req)
+			
+			// Trip the breaker on 500+ errors as well
+			if reqErr == nil && resp.StatusCode >= 500 {
+				return resp, backoff.Permanent(fmt.Errorf("server error: %d", resp.StatusCode)) // Or custom Error
+			}
+			return resp, reqErr
+		})
+
+		if err != nil {
+			return fmt.Errorf("circuit breaker execution: %w", err)
+		}
+
+		resp = res.(*http.Response)
+		return nil
+	}
+
+	// Execute with backoff
+	err := backoff.Retry(operation, backoff.WithContext(b, req.Context()))
+	if err != nil {
+		return nil, fmt.Errorf("resilient request failed: %w", err)
+	}
+	return resp, nil
+}

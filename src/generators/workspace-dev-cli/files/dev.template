@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# Resolve absolute path to project root
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export ROOT_DIR
+
+# Source UI helper
+source "${ROOT_DIR}/scripts/cli/_ui.sh"
+
+# ==========================================
+# GRACEFUL INTERRUPTION (Ctrl+C)
+# ==========================================
+function cleanup_on_interrupt() {
+  echo ""
+  stop_spinner "Aborted by user" ""
+  print_error_card "Process Interrupted" "Any partially started services may need to be stopped via './dev stop'"
+  exit 130
+}
+trap cleanup_on_interrupt SIGINT
+
+# ==========================================
+# HELP DASHBOARD
+# ==========================================
+function show_help() {
+  print_logo
+  
+  print_panel_start "LIFECYCLE"
+  print_panel_row "  ${CYAN}start${NC}" "Spin up environment" "(--docker)"
+  print_panel_row "  ${CYAN}stop${NC}" "Tear down components" ""
+  print_panel_row "  ${CYAN}logs${NC}" "Tail output logs" ""
+  print_panel_row "  ${CYAN}status${NC}" "Print local endpoints" "(--json)"
+  print_panel_row "  ${CYAN}clean${NC}" "Deep teardown & wipe" "(--hard)"
+  print_panel_end
+  echo ""
+
+  print_panel_start "MAINTENANCE & QUALITY"
+  print_panel_row "  ${CYAN}doctor${NC}" "Verify environment" ""
+  print_panel_row "  ${CYAN}test${NC}" "Execute testing suites" ""
+  print_panel_row "  ${CYAN}lint${NC}" "Run static analysis" ""
+  print_panel_end
+  echo ""
+}
+
+while [[ "$1" == -* ]]; do
+  case "$1" in
+    -v|--verbose)
+      export VERBOSE=1
+      shift
+      ;;
+    -h|--help)
+      show_help
+      exit 0
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+COMMAND=$1
+shift || true
+TARGETS=("$@")
+
+if [[ -z "$COMMAND" || "$COMMAND" == "help" ]]; then
+  show_help
+  exit 0
+fi
+
+# Sourcing the Domain Execution Modules
+source "${ROOT_DIR}/scripts/cli/lifecycle.sh"
+source "${ROOT_DIR}/scripts/cli/quality.sh"
+source "${ROOT_DIR}/scripts/cli/doctor.sh"
+
+# Route commands securely
+if declare -f "cmd_${COMMAND}" > /dev/null; then
+  "cmd_${COMMAND}" "${TARGETS[@]}"
+else
+  print_error "Unknown command: ${COMMAND}"
+  show_help
+  exit 1
+fi

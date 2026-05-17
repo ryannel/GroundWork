@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# ==========================================
+# DOMAIN: QUALITY
+# Commands: test, lint
+# ==========================================
+
+function cmd_test() {
+  print_header "Running Tests"
+
+  # Run Python system tests if the folder exists
+  if [ -d "$ROOT_DIR/tests/system" ]; then
+    print_step "Running System Tests (Pytest)"
+    cd "$ROOT_DIR/tests" && uv run pytest system/
+  else
+    print_info "No system tests found."
+  fi
+
+  # In the future we can run `nx run-many -t test` here
+  echo ""
+  print_success "Testing complete."
+}
+
+function cmd_lint() {
+  print_header "Running Linters"
+
+  for svc in $(ls "$ROOT_DIR/services" 2>/dev/null || true); do
+    local svc_dir="$ROOT_DIR/services/$svc"
+    
+    if [ -f "$svc_dir/.golangci.yml" ]; then
+      print_step "Linting Go Service: $svc"
+      (cd "$svc_dir" && golangci-lint run)
+    fi
+  done
+
+  echo ""
+  print_success "Linting complete."
+}

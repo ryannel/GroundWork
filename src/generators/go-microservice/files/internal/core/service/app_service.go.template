@@ -1,0 +1,74 @@
+package service
+
+import (
+	"context"
+	"fmt"
+
+	"<%= name %>/internal/core/domain"
+	"<%= name %>/internal/core/gateway"
+)
+
+// AppService orchestrates business use-cases, coordinating between
+// domain entities, database transactions, and message publishing.
+type AppService struct {
+	txManager gateway.TransactionManager
+	repo      gateway.Repository[domain.Entity]
+	eventHub  gateway.EventHub
+<% if (messaging !== 'none') { %>
+	outbox    gateway.OutboxRepository
+<% } %>
+}
+
+// NewAppService creates a new instance of the application service.
+func NewAppService(
+	txManager gateway.TransactionManager,
+	repo gateway.Repository[domain.Entity],
+	eventHub gateway.EventHub,
+<% if (messaging !== 'none') { %>
+	outbox gateway.OutboxRepository,
+<% } %>
+) *AppService {
+	return &AppService{
+		txManager: txManager,
+		repo:      repo,
+		eventHub:  eventHub,
+<% if (messaging !== 'none') { %>
+		outbox:    outbox,
+<% } %>
+	}
+}
+
+// ExecuteUseCase demonstrates a standard transactional use-case.
+func (s *AppService) ExecuteUseCase(ctx context.Context, entity *domain.Entity) error {
+	// Begin transaction
+	tx, err := s.txManager.Begin(ctx)
+	if err != nil {
+		return fmt.Errorf("begin transaction: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	// Perform business logic (e.g., save to DB)
+	if err := s.repo.Create(ctx, entity); err != nil {
+		return fmt.Errorf("create entity: %w", err)
+	}
+
+<% if (messaging !== 'none') { %>
+	// Insert domain event into the outbox within the same transaction
+	if err := s.outbox.InsertEvent(ctx, tx, "EntityCreated", []byte(`{"id":"`+entity.ID+`"}`)); err != nil {
+		return fmt.Errorf("insert outbox event: %w", err)
+	}
+<% } %>
+
+	// Commit transaction
+	if err := tx.Commit(ctx); err != nil {
+		return fmt.Errorf("commit transaction: %w", err)
+	}
+
+	// Broadcast the domain event synchronously to live clients
+	s.eventHub.Broadcast(domain.Event{
+		Type:    "entity.created",
+		Payload: entity,
+	})
+
+	return nil
+}

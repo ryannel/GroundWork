@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "groundwork",
+  "version": "1.0.0",
+  "generators": {
+    "go-microservice": {
+      "factory": "./dist/src/generators/go-microservice/generator",
+      "schema": "./src/generators/go-microservice/schema.json",
+      "description": "Scaffolds a highly opinionated Go microservice"
+    },
+    "system-test-runner": {
+      "factory": "./dist/src/generators/system-test-runner/generator",
+      "schema": "./src/generators/system-test-runner/schema.json",
+      "description": "Scaffolds a central docker-compose and Python system test suite"
+    },
+    "workspace-dev-cli": {
+      "factory": "./dist/src/generators/workspace-dev-cli/generator",
+      "schema": "./src/generators/workspace-dev-cli/schema.json",
+      "description": "Scaffolds a local ./dev CLI for managing services and infrastructure"
+    }
+  }
+}

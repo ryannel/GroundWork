@@ -1,0 +1,34 @@
+<% if (messaging === 'kafka') { %>package provider
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	"github.com/rs/zerolog/log"
+
+	"<%= name %>/internal/core/gateway"
+)
+
+// Ensure KafkaPublisher implements gateway.MessageQueue
+var _ gateway.MessageQueue = (*KafkaPublisher)(nil)
+
+type KafkaPublisher struct {
+	producer *kafka.Producer
+}
+
+func NewKafkaPublisher(brokers string) (*KafkaPublisher, error) {
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": brokers})
+	if err != nil {
+		return nil, fmt.Errorf("create kafka producer: %w", err)
+	}
+	
+	log.Info().Msg("Kafka publisher initialized")
+	return &KafkaPublisher{producer: p}, nil
+}
+
+func (k *KafkaPublisher) Publish(ctx context.Context, topic string, key, data []byte) error {
+	// Publish logic
+	return nil
+}
+<% } %>

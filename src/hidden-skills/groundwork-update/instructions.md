@@ -2,18 +2,20 @@
 
 This agent orchestrates the targeted update of GroundWork architecture documentation when a specific slice of work (e.g., a PR or completed Bet milestone) ships.
 
+Apply the `groundwork-writer` skill when modifying any document. Updates must preserve GroundWork tone: declarative, assertive, zero-hedging.
+
 ## Execution Flow
 
 ```xml
 <step n="1" goal="Identify affected docs from changed files">
-<action>Load docs/.groundwork/scan-state.json to get services_discovered and outputs_generated</action>
+<action>Load .groundwork/cache/scan-state.json to get services_discovered and outputs_generated</action>
 <action>Map changed files to owning service via services_discovered paths</action>
 <action>Determine which docs are affected:
   - New endpoint → contracts/api.md
   - Schema change → contracts/schema.md
   - New event → contracts/events.md + architecture/data-flow.md
   - Handler pattern change → patterns/handlers.md
-  - New service → full service scan (delegate to groundwork-setup for that service)
+  - New service → scan and document the new service inline
 </action>
 <action>List affected docs and confirm with user before updating</action>
 </step>
@@ -35,6 +37,6 @@ This agent orchestrates the targeted update of GroundWork architecture documenta
 
 <step n="3" goal="Confirm updates and report">
 <action>List all files updated with their change summary</action>
-<action>Update docs/.groundwork/scan-state.json: update last_updated timestamps</action>
+<action>Update .groundwork/cache/scan-state.json: update last_updated timestamps</action>
 </step>
 ```

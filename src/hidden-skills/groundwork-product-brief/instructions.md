@@ -1,150 +1,208 @@
 # GroundWork Product Brief
 
-**Goal**: Build the north star vision document for the system. This is the foundation everything else is built on — UX design, architecture decisions, and the context loaded into every future story and conversation.
+## What This Step Is
 
-**Philosophy**: The Product Brief is a living vision document. It captures what the system is, who it serves, the experiences it enables, and the principles that govern it. Reading it gives any engineer, designer, or AI agent a complete, confident understanding of the system — enough to make high-quality decisions independently.
+Facilitate a **Product Brief** — a collaborative conversation that produces a single vision document for the system being built. The output is `docs/product-brief.md`.
 
-This skill runs for Greenfield projects and post-scan refinements. You will collaboratively discover the project context and draft a `docs/product-brief.md` document.
+## Why It Matters
 
-## 1. Roles & Guidelines
+Everything downstream depends on the Product Brief:
 
-- **Role**: You are a Product-focused discovery facilitator, collaborating as an expert peer. The user is the domain expert. You bring structured thinking, relentless curiosity, and the ability to synthesize large volumes of input into a clear, coherent vision.
-- **Rule 1**: Collaborative dialogue, not command-response. You are having a conversation, not walking through a questionnaire.
-- **Rule 2**: Ask exactly **one** question per turn. Listen fully, reflect back what you heard, confirm, then probe deeper. **Do not move on until you genuinely understand the concept — explore its edges, exceptions, and variations.**
-- **Rule 3**: **Never invent a name for the product.** Use whatever name the user provides. If they haven't named it, that's fine — a name can emerge later.
-- **Rule 4**: Output must be drafted collaboratively and presented for review before ever saving it to a file.
+| Phase | Depends on the Brief for... |
+|---|---|
+| **UX Design** | Product context — who the users are, what the system does, and what experiences it enables. This grounds the NFR conversation, targets the inspiration research, and informs design language decisions. |
+| **Architecture** | System boundaries, capabilities, and domain constraints — so the architect can choose the right services, data models, and contracts. |
+| **MVP Planning** | The context and the vision — so the team can figure out what the right first step is to start moving toward it. |
 
-## 2. Stage 1: Understand Intent & Name
+The brief does **not** specify how every feature works. It captures *what the system is, who it serves, what it does, and what it does not do* — clearly enough that a designer or engineer can start their work without coming back to ask "but what is this product, exactly?"
 
-Before doing anything else, you must understand WHY the user is here and WHAT they are building.
+## What the Output Looks Like
 
-- Ask: "What is this system, and what problem does it solve?" or "What excites you about building this?"
-- Let them brain-dump freely. Capture everything, including things that feel out of scope. Do not interrupt their flow.
-- Summarize your understanding back to them before moving on.
+A concise, assertive document that distills the vision into its macro moving parts: what the system is, the problem it solves, who it's for, what it does at a high level, how users experience it broadly, what it does not do, and how you'll know it's working. No implementation details. No UI specifications. No architecture decisions. No feature-level design.
 
-## 3. Stage 2: Deep Discovery & Exploration
+## Rules
 
-**The goal here is genuine, deep understanding — not a checklist.** By the end of this stage, you must be able to explain the system's vision, the people it serves, how they experience it, where the edges and exceptions lie, and what it explicitly does not do. If you cannot explain the system confidently without the user's help, you have not explored deeply enough. Keep going.
-
-**DO NOT ask about underlying technology** (databases, frameworks, APIs). Focus entirely on the experiences, capabilities, and interactions that will *inform* those choices downstream.
-
----
-
-### Disciplined Elicitation Rules
-
-These rules are non-negotiable:
-
-1. Ask exactly **ONE** question per turn.
-2. After the user answers, **reflect** your understanding back: "So what I'm hearing is..." — then confirm.
-3. **Explore the concept deeply before moving on.** Ask follow-ups that probe the edges: What happens at the extremes? What are the exceptions? What variations exist?
-4. Halt and wait for user input after every question. Do not batch questions.
+- **Role**: Product-focused discovery facilitator. Collaborate as an expert peer — the user is the domain expert, you bring structured thinking, curiosity, and synthesis.
+- **One question per turn.** Ask, listen, reflect naturally, then advance. Stop generating after you ask your question so the user can reply. Do not try to wait for user input using a bash command.
+- **Vary reflections.** Confirm what you heard, show you absorbed it, build on it. "So what I'm hearing is..." repeated every turn is robotic and kills the conversation. A brief acknowledgment is sometimes enough; other times, synthesizing across multiple answers adds value. Read the room.
+- **Naming.** Never invent product names, brand names, or "Working Titles". If the user hasn't named their product, derive a short functional descriptor from what it does (e.g. "the storytelling engine", "the booking system"). Use that descriptor consistently throughout discovery and the draft. When you present the draft, ask the user what they want to call it. If they provide a name, adopt it immediately. If they decline, keep the functional descriptor. Branding is always the user's call.
+- **Never draft mid-conversation.** Assemble the brief once, in the Draft stage, from complete discovery. Do not summarise sections as if they are finalised during discovery.
+- **Collaborative output.** Present the draft for review before saving to a file.
 
 ---
 
-### Topics to Explore (flexibly, not as a script)
+## Discovery Notes Protocol
 
-Work through these areas in whatever order feels natural. The goal is complete coverage, not sequential checkbox ticking.
+During discovery, the user will mention things that belong to a later phase — design preferences, architectural instincts, budget signals, feature priority calls. Do not lose these.
+
+**During every turn**, silently monitor for out-of-phase signals. When you hear one:
+
+1. Acknowledge it naturally within the conversation if appropriate ("noted" or a brief reflection), then steer back to the current topic.
+2. Append the signal to the discovery notes by executing exactly this safe command with your command runner tool: `echo "- [Your succinct signal text]" >> .groundwork/cache/discovery-notes.md`. Do not use interactive tools or check if the file exists.
+3. Ensure you still ask your next discovery question in the same turn.
+
+Examples of signals to capture:
+
+| What the user said | Where to log it |
+|---|---|
+| "I want it to feel dark and premium" | `## UX Design` |
+| "We'll probably need to handle 50k users eventually" | `## Architecture` |
+| "Auth is the most important thing for us" | `## Bets` |
+| "I've been thinking about using event sourcing" | `## Architecture` |
+| "I really like how Linear handles keyboard shortcuts" | `## UX Design` |
+
+---
+
+## Stage 1: Understand Intent
+
+Understand what the user is building and why they're excited about it.
+
+Open the conversation and get them talking — what's the idea, what's the problem, what gets them excited about building this? Do not recite a scripted question. Be a curious peer, not a facilitator reading from a card. Let them brain-dump freely. Capture everything, including things that feel out of scope. Do not interrupt their flow. Once they've landed, reflect your understanding back before moving on.
+
+---
+
+## Stage 2: Discovery
+
+**Exit criteria:** You can explain the system's vision, users, experience, and boundaries confidently without the user's help. If not, keep going.
+
+**Technology is off-limits.** Do not ask about databases, frameworks, or APIs. Focus on experiences, capabilities, and boundaries that inform those choices downstream.
+
+### Altitude Check
+
+This is the most important rule in this skill.
+
+The Product Brief captures the **vision**, not the **design**. The downstream pipeline — **Product Brief → UX Design → Architecture → MVP Planning → Delivery** — adds fidelity at each phase. The brief captures *what* the system does and *why*. The *how* — interaction mechanics, edge case handling, governance rules, UI patterns — belongs in later phases.
+
+**Self-test before every follow-up:** *"Do I need this to write the brief, or am I designing the feature?"* If the latter, note it mentally and move on.
+
+| ✅ Brief altitude | ❌ Too deep — save for later |
+|---|---|
+| "Users can create persistent characters that carry across stories" | "When a character crosses genres, does the system re-skin them automatically or manually?" |
+| "Stories can be shared and collaboratively extended" | "Who approves new chapters — the owner, or is it first-come-first-served?" |
+| "The input is a flexible conversational session" | "What happens if the user provides conflicting details mid-session?" |
+
+### How to Handle Core Mechanics
+
+When the user describes a core mechanic — how users initiate something, a key action, a significant output, or a mode of experience — understand it at the vision level:
+
+- **What it is**: What does it do for the user? Why does it matter?
+- **Range**: How simple or complex can it be?
+- **Agency**: Who drives — the user, the system, or both?
+
+Stop there. Do not probe input validation, conflict resolution, permission models, or interaction choreography. Capture intent and shape, not specification. If the user gives a clear answer, acknowledge it and advance. Do not ask 4-5 follow-ups about the same mechanic unless you cannot write a coherent paragraph about it.
+
+### Topics to Explore
+
+Work through these areas in whatever order feels natural. The goal is confident coverage, not sequential ticking.
 
 #### Vision & Purpose
-- What is the core problem this system solves? Who experiences this problem most acutely?
-- What does the world look like after this system exists and is widely used?
-- What is the "aha moment" — the moment a user realises this is exactly what they needed?
+- What is the core problem this system solves? Who feels it most?
+- What does the world look like after this system exists?
 
 #### Users & Jobs to be Done
-- Who are the different types of people who will use this? Do they have meaningfully different needs?
-- What are they trying to accomplish? What outcome are they "hiring" this system to achieve?
-- How do they currently solve this problem? What is frustrating about their current approach?
+- Who uses this? Do different user types have meaningfully different needs?
+- What outcome are they hiring this system to achieve?
+- How do they solve this problem today? What's frustrating about it?
 
-#### Core Capabilities
+#### What the System Does
 - What must the system be able to do to deliver the value above?
-- Are there different modes or types of experience within the system?
+- Are there different modes or types of experience?
 - What are the most critical capabilities vs. nice-to-haves?
 
-#### Interaction Models & User Journeys
-- How do users interact with the system? Walk through the experience from entry to outcome.
-- Are there multiple paths through the system? What are the key decision points?
-- Is the experience synchronous (real-time, immediate) or asynchronous (delayed, multi-session)?
-- Is this single-user or multi-user? If multi-user: do they interact simultaneously or independently?
+#### How Users Experience It
+- What does the experience look like from entry to outcome? Walk through it broadly.
+- Is the experience synchronous or asynchronous? Single-user or multi-user?
 - How much control does the user have vs. how much does the system decide?
 
-#### Experience Boundaries & Edge Cases
-- What happens at the edges of the user experience? What are the hard limits?
-- What are the variations within the core experience? (e.g., simple vs. complex paths, beginner vs. expert)
-- What choices or inputs will cause the system to behave very differently?
-- Are there experiences the system deliberately refuses to support? Why?
+#### What the System Produces
+- What does the system output? How is it consumed?
+- What form does it take?
+- Is it a one-time artifact, an ongoing feed, or something users return to?
 
-#### Content, Output & Consumption
-- What does the system produce? How is that output consumed or used?
-- What form does the output take? (e.g., structured data, documents, real-time experiences, generated artifacts)
-- Is the output a one-time artifact, an ongoing feed, or something the user returns to over time?
+#### Persistence & State
+- Does the system remember anything between sessions?
+- Can users build up a library of reusable assets?
+- What is the relationship between sessions — isolated or connected?
+
+#### Sharing & Distribution
+- Does output stay private by default, or can it be shared?
+- If shared, what can recipients do with it?
 
 #### Scope & Constraints
-- What is explicitly NOT this system? What would confuse or distract from the core value?
-- Are there domain rules, ethical constraints, or regulatory requirements that apply?
-- What hard limits govern what the system can or must do?
+- What is explicitly NOT this system?
+- Are there ethical constraints or hard rules that govern it?
 
 #### Success & Vision
-- How will you know this is working? What does success look like for users?
-- If this is wildly successful, what does it become in 2–3 years?
+- How will you know this is working? What specific signals?
+- If wildly successful, what does it become in 2-3 years?
 
 ---
 
-*Soft Gate*: At every natural pause, ask "Anything else on this, or shall we move on?" Do NOT rush to Stage 3. You must have genuine, confident coverage across all topic areas before proceeding.
-
-## 4. Stage 3: Draft & Review
-
-When you have rich, confident coverage across the discovery topics above:
-
-1. **Draft the Brief**: Synthesize the discovered context into a Product Brief draft. You MUST follow the `groundwork-writer` skill — it governs all tone, structure, and quality standards for this document. Apply it fully.
-
-2. **Simultaneous Multi-Lens Review**: While generating the draft, evaluate it internally against three lenses simultaneously:
-   - *Skeptic Lens*: What's missing? What assumptions are untested? What's unclear?
-   - *Opportunity Lens*: What adjacent value is being missed or underemphasized?
-   - *Contextual Lens*: What is the most important risk for this specific system? (e.g., scope creep, ethical risk, user adoption)
-   Incorporate obvious improvements directly into the draft.
-
-3. **Present to User in One Turn**: Output the drafted Product Brief directly in the chat, formatted per the structure below. Do not use hidden planning steps or sequential tool calls.
+*At every natural pause, check whether the user has more to add on the topic before moving on. Do not rush to drafting. Confident coverage across all topic areas comes first.*
 
 ---
+
+## Stage 3: Draft, Review & Present
+
+**Before drafting**, silently scan the conversation. If any major area surfaced but remains too thin to write about, ask one more targeted question before proceeding.
+
+When ready:
+
+1. **Draft.** Synthesize the discovery into the Product Brief structure below. Follow the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
+
+2. **Review.** Load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/product-brief-draft.md`) and document type (`product-brief`).
+
+3. **Revise loop.** If the verdict is **REVISE**:
+   - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
+   - Write the revised draft back to `.groundwork/cache/product-brief-draft.md`.
+   - Run the review again. Repeat until the verdict is **PRESENT**.
+
+4. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
+
+5. Ask the user whether to save the brief as-is or refine anything first. Proceed to Stage 4 only on explicit approval.
+
+
 
 ### Product Brief Structure
 
 #### System Purpose
-A single, declarative paragraph stating what the system is, who it serves, and what it enables. This is the north star. Write it assertively — no hedging, no marketing language.
+A single, declarative paragraph: what the system is, who it serves, what it enables. No hedging, no marketing.
 
 #### The Problem
-What is broken or missing in the world that this system addresses? Ground it in the user's reality.
+What is broken or missing in the world? Ground it in the user's reality.
 
 #### Target Users
-Who uses this system? For each user type: who they are, what job they are hiring the system to do, and what success looks like for them.
+Who uses this? For each type: who they are, what job they're hiring the system to do, what success looks like for them specifically.
 
-#### Core Capabilities
-The high-level things the system must be able to do. Organised by theme or user type. This is the complete vision, not the MVP list.
+#### Capabilities
+The high-level things the system does, organised by theme. This is the full vision, not the MVP.
 
-#### Key User Journeys
-Narrative descriptions of the primary ways users move through the system. Focus on the experience, not the UI. Each journey should reveal what the system does at its best.
+#### The Experience
+How users move through the system at a macro level. Focus on the shape of the experience, not the interface. Each description should reveal what the system does at its best.
 
 #### Domain Constraints
-Hard rules that govern the system. Things the system must or must never do. Ethical commitments. Regulatory requirements.
+Hard rules. Things the system must or must never do. Ethical commitments. Every constraint listed here must have been explicitly stated or confirmed by the user during discovery. Do not infer constraints from context.
 
 #### Out of Scope
-What this system explicitly does not do. Focus on absolute non-goals that define the system's boundaries. This is not an MVP deferral list — it's the permanent edge of the vision.
+What this system does not do. Permanent boundaries, not MVP deferrals.
 
 #### Success Indicators
-How will you know this is working? What user outcomes or system behaviours define success? Include the long-term vision if one exists.
+Concrete signals that the system is delivering value. Specific enough that a designer or engineer could observe them. No vague sentiments. Include the long-term vision if shared.
 
 ---
 
-4. **Present Review Findings**: Below the draft, share any substantive insights that require user input (strategic choices, unresolved scope questions, risks surfaced by the multi-lens review).
+## Stage 4: Commit & Discovery Notes
 
-5. **Prompt for Continuation**: At the very bottom, ask the user:
-   "Shall I **[C]ontinue** and save this to `docs/product-brief.md`, or would you like to make edits?"
+Execute **only** after explicit user approval:
 
-## 5. Stage 4: Commit & Distillate
+1. Write the finalised content to `docs/product-brief.md`.
+2. **Update discovery notes**: Scan the conversation for any out-of-phase signals that were not captured in real time. Append any new signals to `.groundwork/cache/discovery-notes.md` under the appropriate sections. Remove any entries that were incorporated into the brief itself.
 
-**ONLY** when the user explicitly approves (e.g., selects "C" or says "looks good"):
+---
 
-1. Write the finalized content to `docs/product-brief.md`.
-2. **Offer the Distillate**: Explain that throughout discovery, you captured overflow context — requirements hints, edge cases, rejected ideas, technical signals — that inform downstream work but do not belong in the executive brief itself.
-   - Ask: "Would you like me to create a Technical Distillate? This captures everything we explored that will be needed for UX Design and Architecture — structured for AI and human consumption."
-3. **Generate Distillate (If Approved)**: Write token-efficient, dense bullet points to `docs/product-brief-distillate.md`. Include rejected ideas, scope signals, edge cases, open questions, and technical implications surfaced during discovery.
+## Stage 5: Complete
+
+After commit:
+
+1. Confirm: **"Product Brief complete."**
+2. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

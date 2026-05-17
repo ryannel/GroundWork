@@ -1,0 +1,16 @@
+package core
+
+// PageRequest models a standard cursor-based pagination request.
+type PageRequest struct {
+	Cursor string `json:"cursor" query:"cursor" description:"Opaque cursor for the next page of results"`
+	Limit  int    `json:"limit" query:"limit" description:"Maximum number of items to return" default:"50"`
+}
+
+// PageResponse is a generic container for paginated collections, ensuring all API
+// lists return the same shape.
+type PageResponse[T any] struct {
+	Items      []T    `json:"items" description:"The collection of items"`
+	NextCursor string `json:"nextCursor,omitempty" description:"Opaque cursor to retrieve the next page, omitted if there are no more pages"`
+	PrevCursor string `json:"prevCursor,omitempty" description:"Opaque cursor to retrieve the previous page"`
+	HasMore    bool   `json:"hasMore" description:"True if there are more items beyond the next cursor"`
+}

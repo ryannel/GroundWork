@@ -1,0 +1,16 @@
+package domain
+
+import "errors"
+
+// Standard Sentinel Errors
+// These errors should be used across the core domain to represent
+// business logic failures, allowing entrypoints (like HTTP routers)
+// to map them to the appropriate status codes.
+
+var (
+	ErrNotFound       = errors.New("resource not found")
+	ErrConflict       = errors.New("resource already exists")
+	ErrUnauthorized   = errors.New("unauthorized action")
+	ErrInvalidPayload = errors.New("invalid payload provided")
+	ErrInternal       = errors.New("internal server error")
+)

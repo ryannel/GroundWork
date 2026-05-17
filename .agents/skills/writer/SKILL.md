@@ -1,113 +1,86 @@
 ---
 name: writer
 description: >
-  Enforce GroundWork's "zero-fluff," declarative documentation style and 
-  agent-native documentation principles. Use this skill whenever generating, 
-  editing, reviewing, or refactoring documentation within GroundWork. This includes 
-  Product Briefs, Architecture logs, data flows, ADRs, and system specifications. 
-  Make sure to use this skill whenever a user asks to draft technical documents, 
-  mentions writing style, tone of voice, removing hedging, or asks about 
-  documentation architecture, even if they don't explicitly mention "writer."
+  Enforce GroundWork's declarative, zero-fluff writing style when generating,
+  editing, or reviewing any file inside the GroundWork source repository — skill
+  instruction files, SKILL.md frontmatter, contributor guides, methodology docs,
+  and architecture records. Use this skill whenever a task involves writing prose
+  inside this repo, even if the user doesn't say "writer."
 ---
 
-# GroundWork Technical Writer
+# GroundWork Writer (Dev)
 
-GroundWork documentation is designed for confident, efficient consumption by both humans and AI agents. Every document is a shared context layer — the foundation that engineers, designers, and agents use to make good decisions independently.
+This skill governs writing inside the GroundWork source repository — skill files, methodology documentation, contributor guides, and architecture records. The audience is agents and contributors working on GroundWork itself, not users of GroundWork-powered projects.
 
-Great GroundWork documentation has three qualities:
-- **Clarity**: The reader understands exactly what is being said and can act on it immediately.
-- **Confidence**: The writing asserts knowledge without qualification. The reader trusts it.
-- **Durability**: The structure and language survive context-switching, re-reading, and machine parsing.
-
-## 1. Writing Style & Tone
-
-Apply these rules when writing or reviewing any documentation:
-
-### Core Voice: Assertive and Assistive
-- **Direct:** State facts without qualification. ("The API returns a 404 error" instead of "The API might return a 404 error").
-- **Instructional:** Tell the reader what to do. ("Set the timeout" instead of "You may want to set the timeout").
-- **Confident:** Assert knowledge without hedging. 
-
-### Active Voice Mandate
-Identify the actor, the action, and the target—in that order.
-- ✅ *The API returns a JSON response.*
-- ❌ *A JSON response is returned.*
-
-### The Inverted Pyramid
-Place the most critical information at the top and progressively layer supporting details below.
-1. **Critical Info:** What do I need to know? (Answer the core question in the first paragraph).
-2. **Supporting Detail:** How does it work?
-3. **Background/Context:** Why is it this way?
-
-### Cognitive Weight Reduction
-- **Front-load keywords:** Start sentences with the most important noun or verb.
-- **One idea per sentence / One topic per paragraph.**
-- **Use Lists and Tables over prose:** Lists are faster to scan and easier for agents to parse.
-- **Code over description:** Show the config file instead of describing it.
-
-### Hedging Elimination
-Hedging phrases reduce reader confidence and introduce ambiguity. State the claim directly or drop it.
-- **Drop:** "It should work", "You might want to", "This could potentially cause", "Basically", "In most cases", "Please note that".
+Every file in this repo is either executed by an agent or read by a contributor. Both readers need the same thing: precise, unambiguous text that carries its full meaning on the first read.
 
 ---
 
-## 2. Agent-Native Documentation Principles
+## Writing Principles
 
-Documentation is part of the runtime environment for engineering work. A human reads the site through navigation; an agent reads the same knowledge through MCP, `llms.txt`, and per-page Markdown exports. 
+### Say it once, clearly
 
-### AI-Native Documentation Surfaces
-Every important documentation surface must survive machine consumption. 
-- **llms.txt**: A curated, high-signal index of documentation designed for LLM consumption. You MUST ensure this is updated when new documentation is created.
-- **llms-full.txt**: The consolidated corpus of all documentation. 
-- **MCP Resources**: Agent discovery interfaces.
-Agent-readiness is not an afterthought; it is a fundamental quality attribute of the docs system.
+State the point. Do not restate it with an example immediately after. Do not add a closing sentence that summarises what the paragraph just said. If the writing is precise, it does not need reinforcement.
 
-### Separation of Knowledge and Execution
-- **Docs hold knowledge:** Architecture principles, schemas, API references, and ADRs belong in the docs site.
-- **Skills control execution:** Agent skills own triggering, task routing, tool use, and verification. Skills should *reference* documentation, not duplicate durable engineering knowledge.
+The burden shifts to the words themselves. Every sentence must be unambiguous on first read — not because a follow-up sentence will clarify it, but because there is no follow-up sentence.
 
-### Active Docs
-A page is not "done" when written. Active docs declare:
-- **Ownership:** Who maintains it.
-- **Freshness Status:** Review cadence and last reviewed dates.
-- **Source-of-truth boundaries.**
+### Causal chains must be explicit
 
-### Automation is the First Reviewer
-Automated checks enforce cheap, high-signal rules: required frontmatter, broken links, invalid skill-to-doc references, and known version mismatches. Humans and agents review accuracy, judgment, and usefulness.
+When something matters because of a consequence, embed the consequence in the statement. Do not write two sentences where the first states a rule and the second explains why.
 
-### Prefer Generated Reference over Prose
-API specs, event contracts, database schemas, and CLI command tables have machine-readable sources. Render them from those sources instead of hand-writing reference pages.
+- ❌ "Constraints come first. This is because they eliminate options before design begins."
+- ✅ "Constraints come first because they eliminate options before design begins."
 
-### Append-Only Decisions
-Hard-to-reverse decisions live in ADRs. Accepted ADRs are not edited to match current preference; they are superseded with a new record that references the original.
+### Active voice, actor first
 
----
+Identify who does what to what — in that order. Passive constructions bury the actor and weaken the instruction.
 
-## 3. How to Execute This Skill
+- ✅ *The agent reads the Product Brief before starting the conversation.*
+- ❌ *The Product Brief is read before the conversation starts.*
 
-### When drafting a new document:
-1. **Apply the Inverted Pyramid:** Start with the answer.
-2. **Apply Frontmatter:** Ensure ownership, audience, and freshness tags are included (if applicable).
-3. **Draft the content:** Use active voice, simple language, and zero hedging. Use tables or lists for complex relationships.
-4. **Update llms.txt:** If creating a new canonical document, append its reference and summary to the `llms.txt` file so agents can discover it.
-5. **Review your own draft:** Check against the "Antipatterns" below. Rewrite any sentence that hedges or uses passive voice unnecessarily.
+### Inverted pyramid
 
-### When reviewing existing documentation:
-1. Identify all hedging ("probably", "might", "essentially", "basically"). Replace them with direct assertions or define the specific conditions.
-2. Identify passive voice and rewrite it into active voice.
-3. Identify verbose paragraphs that can be condensed into bullet points or tables.
-4. Ensure the document starts with the most critical information.
+Answer first. Detail below. Background last. A reader who stops after the first sentence should have the essential information.
+
+### No hedging
+
+Drop phrases that introduce uncertainty or soften a claim: "should work", "might want to", "typically", "in most cases", "please note", "it is worth considering." State the claim or remove it.
 
 ---
 
-## 4. Common Failure Modes
+## Writing Skill Instruction Files
 
-These patterns degrade documentation quality. Use them as a review checklist.
+Skill files (`instructions.md`, `SKILL.md`) are executed by agents. The writing conventions for these files are different from general documentation.
 
-- **Shadow docs in skills:** Durable policy duplicated into a `SKILL.md` instead of pointing to the canonical doc. Skills reference; docs hold knowledge.
-- **Prompt-shaped docs:** Human-facing documentation written like agent system prompts. Tone and structure must match the intended audience.
-- **Passive docs:** Pages without an owner, freshness metadata, or a review path. A doc without a maintainer is a liability.
-- **Unverifiable claims:** Version, standard, or API claims not checked against source. Assert only what can be confirmed.
-- **Manual generated reference:** Hand-written tables for data that can be rendered from contracts or code. Generate; don't transcribe.
-- **Mutable ADRs:** Editing accepted decisions instead of superseding them. History must be preserved.
-- **Hedging language:** Phrases like "It is generally recommended...", "This will probably...", "In order to...", or "It should..." signal uncertainty. State the claim directly or drop it.
+### Write intent, not scripts
+
+Never put quoted or italicised phrases in skill files that the agent is expected to say verbatim. Agents latch onto scripted phrases and repeat them in every session, killing natural conversation.
+
+- ❌ `Ask the user: *"Would you like to resume from where we left off, or start fresh?"*`
+- ✅ `Summarise progress and ask the user whether to resume or start fresh.`
+
+The agent knows how to ask a question. Your job is to specify the intent, not the words.
+
+### Explain why each phase or step exists
+
+An agent that understands the purpose of a phase makes better judgment calls within it than one following a checklist. Explain what each phase is trying to establish and why that matters for what follows — not just what to do.
+
+### Distinguish guidance from instruction
+
+Guidance tells the agent what to think about. Instruction tells the agent what to do. Both are valid, but they serve different purposes. A phase description is guidance. "Copy the template to `docs/architecture.md`" is an instruction. Keep them separate and be explicit about which is which.
+
+### Avoid enumerated checklists for open-ended thinking
+
+A bulleted list of things to "consider" or "explore" constrains the agent's thinking to what you listed. For open-ended phases, describe the goal and the reasoning dimensions — do not enumerate every possible topic. The agent will surface what is relevant.
+
+---
+
+## Common Failure Modes
+
+- **Restatement** — making a point clearly, then immediately backing it up with an example or closing sentence that says the same thing. Trust the writing.
+- **Scripted phrases** — quoted or italicised sample phrases the agent is expected to say verbatim. Write the intent instead.
+- **Split causal chains** — stating a rule in one sentence and its reason in the next. Combine them.
+- **Passive docs** — no owner, no `last_reviewed` date. A file without a maintainer drifts undetected.
+- **Shadow knowledge** — durable policy duplicated into a skill file instead of a methodology doc. Skills reference; docs hold knowledge.
+- **Hedging** — "It is generally recommended", "This will probably", "In order to." State the claim or drop it.
+- **Prompt-shaped docs** — methodology documentation written like agent system prompts. Match tone and structure to the intended reader.

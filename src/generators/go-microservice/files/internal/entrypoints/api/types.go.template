@@ -1,0 +1,70 @@
+package api
+
+import (
+	"encoding/base64"
+	"encoding/json"
+	"time"
+)
+
+// paginationEnvelope is the standard cursor-based pagination metadata returned in
+// every collection response.
+type paginationEnvelope struct {
+	NextCursor *string `json:"next_cursor"`
+	HasMore    bool    `json:"has_more"`
+}
+
+// cursorPayload is the internal (opaque) structure encoded into cursor tokens.
+// It contains the sort keys of the last returned item. Clients must never
+// parse this directly — they pass the base64 string back as-is.
+type cursorPayload struct {
+	ID        string    `json:"id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// encodeCursor encodes the last item's identity into an opaque cursor string.
+func encodeCursor(id string, createdAt time.Time) string {
+	payload := cursorPayload{ID: id, CreatedAt: createdAt}
+	data, _ := json.Marshal(payload)
+	return base64.URLEncoding.EncodeToString(data)
+}
+
+// decodeCursor decodes an opaque cursor string into its internal payload.
+// Returns nil if the cursor is empty or invalid.
+func decodeCursor(cursor string) *cursorPayload {
+	if cursor == "" {
+		return nil
+	}
+	data, err := base64.URLEncoding.DecodeString(cursor)
+	if err != nil {
+		return nil
+	}
+	var payload cursorPayload
+	if err := json.Unmarshal(data, &payload); err != nil {
+		return nil
+	}
+	return &payload
+}
+
+// buildPagination constructs a paginationEnvelope from a result set.
+// It uses the limit+1 technique: the caller fetches limit+1 rows, and if
+// we receive more than limit items, we know there are more pages.
+//
+// items should be the full slice returned from the DB (up to limit+1).
+// limit is the client-requested page size.
+// getID and getCreatedAt extract the cursor keys from the last item of type T.
+func buildPagination[T any](items []T, limit int, getID func(T) string, getCreatedAt func(T) time.Time) ([]T, paginationEnvelope) {
+	if len(items) > limit {
+		// Trim to requested limit and encode cursor from last returned item
+		trimmed := items[:limit]
+		last := trimmed[len(trimmed)-1]
+		cursor := encodeCursor(getID(last), getCreatedAt(last))
+		return trimmed, paginationEnvelope{
+			NextCursor: &cursor,
+			HasMore:    true,
+		}
+	}
+	return items, paginationEnvelope{
+		NextCursor: nil,
+		HasMore:    false,
+	}
+}

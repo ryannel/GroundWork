@@ -1,0 +1,45 @@
+<% if (auth === 'clerk') { %>package api
+
+import (
+	"net/http"
+	"strings"
+
+	"github.com/clerk/clerk-sdk-go/v2"
+	clerkhttp "github.com/clerk/clerk-sdk-go/v2/http"
+)
+
+// AuthMiddleware wraps the Clerk RequireHeaderAuthorization middleware
+// and adds custom checks for User Impersonation or specific Role Claims.
+func AuthMiddleware() func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		// Use Clerk's built-in HTTP middleware to verify the session
+		clerkHandler := clerkhttp.RequireHeaderAuthorization()(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			claims, ok := clerk.SessionClaimsFromContext(r.Context())
+			if !ok {
+				http.Error(w, "Unauthorized", http.StatusUnauthorized)
+				return
+			}
+
+			// Example: Handle user impersonation checking
+			// If actor exists, the user is being impersonated
+			actorID, isImpersonating := claims.Extra["act"].(map[string]interface{})["sub"].(string)
+			if isImpersonating {
+				r.Header.Set("X-Impersonator-ID", actorID)
+			}
+
+			r.Header.Set("X-User-ID", claims.Subject)
+			next.ServeHTTP(w, r)
+		}))
+
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// Allow bypassing auth for specific routes like /health or webhooks
+			if strings.HasPrefix(r.URL.Path, "/health") {
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			clerkHandler.ServeHTTP(w, r)
+		})
+	}
+}
+<% } %>

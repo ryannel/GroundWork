@@ -1,0 +1,17 @@
+{
+  "skill_name": "groundwork-scaffold-designer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to build a new Nx generator for a Python FastAPI microservice. Can you help me design the scaffold?",
+      "expected_output": "The agent should apply the GroundWork Day-2 Feature Checklist, asking the user how Python equivalents for things like Cenkalti backoff, OTel, and Idempotency will be handled.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We need to create a new generator for our Next.js frontend applications.",
+      "expected_output": "The agent should recognize this is a frontend app, adapt the checklist appropriately (focusing on Observability, Security, Testing), and draft an implementation plan that hooks the new app into the central docker-compose.yml.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<% if (websockets) { -%>
+package api
+
+import (
+	"log/slog"
+	"net/http"
+
+	"github.com/gorilla/websocket"
+
+	"<%= name %>/internal/provider/websocket"
+)
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	// STUB: Configure CheckOrigin securely for production
+	CheckOrigin: func(r *http.Request) bool { return true },
+}
+
+// ServeWebSocket upgrades the HTTP connection and registers the client with the hub.
+func ServeWebSocket(hub *websocket.Hub, w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		slog.Error("failed to upgrade websocket connection", slog.String("error", err.Error()))
+		return
+	}
+
+	// STUB: Extract UserID and SessionID from auth context (e.g., Clerk claims)
+	userID := "anonymous"
+	sessionID := "session-" + r.RemoteAddr
+
+	client := websocket.NewClient(r.Context(), hub, conn, userID, sessionID)
+	client.Hub().Register(client) // Assuming Hub is exposed or passed
+
+	// Start pump goroutines
+	go client.WritePump()
+	go client.ReadPump()
+}
+<% } -%>

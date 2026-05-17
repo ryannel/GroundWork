@@ -1,0 +1,57 @@
+package config
+
+import (
+	"context"
+	"fmt"
+	"time"
+
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/sdk/resource"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.24.0"
+)
+
+// InitProvider initializes an OpenTelemetry trace provider connected to an OTLP endpoint.
+func InitProvider(ctx context.Context, serviceName, collectorURL string) (func(context.Context) error, error) {
+	if collectorURL == "" {
+		// Use default standard OTEL environment variables if no URL is provided
+		collectorURL = "localhost:4317"
+	}
+
+	res, err := resource.Merge(
+		resource.Default(),
+		resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceName(serviceName),
+		),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("merge otel resources: %w", err)
+	}
+
+	client := otlptracegrpc.NewClient(
+		otlptracegrpc.WithEndpoint(collectorURL),
+		otlptracegrpc.WithInsecure(),
+	)
+
+	exporter, err := otlptrace.New(ctx, client)
+	if err != nil {
+		return nil, fmt.Errorf("create otel exporter: %w", err)
+	}
+
+	tp := sdktrace.NewTracerProvider(
+		sdktrace.WithBatcher(exporter),
+		sdktrace.WithResource(res),
+	)
+
+	otel.SetTracerProvider(tp)
+	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(
+		propagation.TraceContext{},
+		propagation.Baggage{},
+	))
+
+	return tp.Shutdown, nil
+}

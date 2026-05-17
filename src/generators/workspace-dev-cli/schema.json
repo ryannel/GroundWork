@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "workspace-dev-cli",
+  "title": "Workspace Dev CLI Generator",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "The name of your application to display in the CLI.",
+      "default": "Workspace"
+    },
+    "primaryColor": {
+      "type": "string",
+      "description": "The primary color for the CLI branding (e.g. BLUE, GREEN, or leave blank to use hexColor).",
+      "default": "BLUE"
+    },
+    "hexColor": {
+      "type": "string",
+      "description": "The exact Hex color code (e.g., #6366f1) to use for TrueColor branding in the CLI."
+    }
+  }
+}

@@ -1,0 +1,89 @@
+package api
+
+import (
+	"database/sql"
+	"net/http"
+	"strings"
+	"time"
+
+	"github.com/danielgtaylor/huma/v2"
+	"github.com/danielgtaylor/huma/v2/adapters/humachi"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+
+	"<%= name %>/internal/config"
+	"<%= name %>/internal/core/service"
+<% if (websockets) { -%>
+	"<%= name %>/internal/provider/websocket"
+<% } -%>
+)
+
+<% if (websockets) { -%>
+func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService, wsHub *websocket.Hub) http.Handler {
+<% } else { -%>
+func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService) http.Handler {
+<% } -%>
+	router := chi.NewRouter()
+
+	// OpenTelemetry HTTP middleware
+	router.Use(func(next http.Handler) http.Handler {
+		otelHandler := otelhttp.NewMiddleware("<%= name %>",
+			otelhttp.WithFilter(func(r *http.Request) bool {
+				return !strings.HasPrefix(r.URL.Path, "/health")
+			}),
+		)
+		return otelHandler(next)
+	})
+
+	// CORS middleware
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"*"}, // TODO: Configure via env
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "Idempotency-Key"},
+		ExposedHeaders:   []string{"Link", "Location"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
+
+	// Inbound Defenses
+	router.Use(LoadSheddingMiddleware(100))               // Max 100 concurrent requests
+	router.Use(TimeoutMiddleware(30 * time.Second))       // Global 30s timeout
+	router.Use(RateLimitMiddleware(cfg.Redis.URI, db))    // Rate limiter
+
+	// Idempotency requires a backing store (DB or Redis)
+	if db != nil || cfg.Redis.URI != "" {
+		// STUB: replace nil with redisClient if instantiated
+		router.Use(IdempotencyMiddleware(db, nil))
+	}
+
+<% if (websockets) { -%>
+	// Register WebSocket Handler directly on Chi
+	if wsHub != nil {
+		router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
+			ServeWebSocket(wsHub, w, r)
+		})
+	}
+<% } -%>
+
+	// Wrap Chi router with Huma for OpenAPI/Swagger generation and structured errors
+	api := humachi.New(router, huma.DefaultConfig("<%= name %> API", "1.0.0"))
+
+<% if (websockets) { -%>
+	router.Get("/asyncapi-ws.yaml", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "asyncapi-ws.yaml")
+	})
+<% } -%>
+
+<% if (messaging !== 'none') { -%>
+	router.Get("/asyncapi-pubsub.yaml", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "asyncapi-pubsub.yaml")
+	})
+<% } -%>
+
+	// Register Handlers
+	RegisterHealthHandler(api)
+	RegisterAppHandler(api, appSvc)
+
+	return router
+}

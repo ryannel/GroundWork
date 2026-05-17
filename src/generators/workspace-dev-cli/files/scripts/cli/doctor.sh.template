@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+function cmd_doctor() {
+  print_header "Environment Verification (Doctor)"
+  
+  local issues=0
+
+  print_panel_start "System Dependencies"
+
+  # Check Docker
+  if command -v docker >/dev/null 2>&1; then
+    print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Docker" "installed" ""
+  else
+    print_panel_row "${RED}${ICON_ERROR}${NC} Docker" "missing" "Required for infrastructure"
+    issues=$((issues + 1))
+  fi
+
+  # Check Docker Compose
+  if docker compose version >/dev/null 2>&1; then
+    print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Docker Compose" "installed" ""
+  else
+    print_panel_row "${RED}${ICON_ERROR}${NC} Docker Compose" "missing" "Required for infrastructure"
+    issues=$((issues + 1))
+  fi
+
+  print_panel_end
+  echo ""
+
+  # Scan services to dynamically determine required tools
+  local needs_node=false
+  local needs_go=false
+  local needs_air=false
+  local needs_python=false
+
+  for svc in $(ls "$ROOT_DIR/services" 2>/dev/null || true); do
+    if [ -f "$ROOT_DIR/services/$svc/package.json" ]; then
+      needs_node=true
+    fi
+    if [ -f "$ROOT_DIR/services/$svc/go.mod" ]; then
+      needs_go=true
+    fi
+    if [ -f "$ROOT_DIR/services/$svc/.air.toml" ]; then
+      needs_air=true
+    fi
+    if [ -f "$ROOT_DIR/services/$svc/pyproject.toml" ]; then
+      needs_python=true
+    fi
+  done
+
+  print_panel_start "Service Dependencies"
+
+  if $needs_node; then
+    if command -v npm >/dev/null 2>&1; then
+      print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Node/npm" "installed" ""
+    else
+      print_panel_row "${RED}${ICON_ERROR}${NC} Node/npm" "missing" "Required by a service"
+      issues=$((issues + 1))
+    fi
+  fi
+
+  if $needs_go; then
+    if command -v go >/dev/null 2>&1; then
+      print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Go" "installed" ""
+    else
+      print_panel_row "${RED}${ICON_ERROR}${NC} Go" "missing" "Required by a service"
+      issues=$((issues + 1))
+    fi
+  fi
+
+  if $needs_air; then
+    if command -v air >/dev/null 2>&1; then
+      print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Air (Go)" "installed" ""
+    else
+      print_panel_row "${RED}${ICON_ERROR}${NC} Air (Go)" "missing" "Required for Go hot-reloading"
+      issues=$((issues + 1))
+    fi
+  fi
+
+  if $needs_python; then
+    if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
+      print_panel_row "${GREEN}${ICON_SUCCESS}${NC} Python" "installed" ""
+    else
+      print_panel_row "${RED}${ICON_ERROR}${NC} Python" "missing" "Required by a service"
+      issues=$((issues + 1))
+    fi
+  fi
+
+  if ! $needs_node && ! $needs_go && ! $needs_air && ! $needs_python; then
+    print_panel_row "${DIM}No local service dependencies found${NC}" "" ""
+  fi
+
+  print_panel_end
+  echo ""
+
+  if [ "$issues" -eq 0 ]; then
+    print_success "Your environment is ready!"
+  else
+    print_error_card "Found $issues missing dependencies." "Please install them to run this workspace."
+  fi
+}

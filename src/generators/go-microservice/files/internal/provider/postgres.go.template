@@ -1,0 +1,145 @@
+package provider
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+
+	"<%= name %>/internal/core/domain"
+	"<%= name %>/internal/core/gateway"
+)
+
+// PostgresDB wraps the standard database connection.
+type PostgresDB struct {
+	DB *sql.DB
+}
+
+// NewPostgresDB initializes a new PostgreSQL connection.
+func NewPostgresDB(connString string) (*PostgresDB, error) {
+	// STUB: actual connection logic using e.g., pgx
+	db, err := sql.Open("postgres", connString)
+	if err != nil {
+		return nil, fmt.Errorf("open postgres connection: %w", err)
+	}
+	return &PostgresDB{DB: db}, nil
+}
+
+// Close terminates the database connection.
+func (db *PostgresDB) Close() error {
+	if err := db.DB.Close(); err != nil {
+		return fmt.Errorf("close postgres db: %w", err)
+	}
+	return nil
+}
+
+// PostgresTransactionManager implements gateway.TransactionManager.
+type PostgresTransactionManager struct {
+	db *PostgresDB
+}
+
+// Ensure interface compliance.
+var _ gateway.TransactionManager = (*PostgresTransactionManager)(nil)
+
+// NewPostgresTransactionManager creates a new transaction manager.
+func NewPostgresTransactionManager(db *PostgresDB) *PostgresTransactionManager {
+	return &PostgresTransactionManager{db: db}
+}
+
+// Begin starts a new transaction.
+func (m *PostgresTransactionManager) Begin(ctx context.Context) (gateway.Transaction, error) {
+	tx, err := m.db.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, fmt.Errorf("begin tx: %w", err)
+	}
+	return &PostgresTransaction{tx: tx}, nil
+}
+
+// PostgresTransaction wraps a sql.Tx to implement gateway.Transaction.
+type PostgresTransaction struct {
+	tx *sql.Tx
+}
+
+// Commit commits the transaction.
+func (t *PostgresTransaction) Commit(ctx context.Context) error {
+	if err := t.tx.Commit(); err != nil {
+		return fmt.Errorf("commit tx: %w", err)
+	}
+	return nil
+}
+
+// Rollback aborts the transaction.
+func (t *PostgresTransaction) Rollback(ctx context.Context) error {
+	if err := t.tx.Rollback(); err != nil {
+		return fmt.Errorf("rollback tx: %w", err)
+	}
+	return nil
+}
+
+// PostgresRepository implements gateway.Repository for domain.Entity.
+type PostgresRepository struct {
+	db *PostgresDB
+}
+
+// Ensure interface compliance.
+var _ gateway.Repository[domain.Entity] = (*PostgresRepository)(nil)
+
+// NewPostgresRepository creates a new generic entity repository.
+func NewPostgresRepository(db *PostgresDB) *PostgresRepository {
+	return &PostgresRepository{db: db}
+}
+
+// Create persists a new entity.
+func (r *PostgresRepository) Create(ctx context.Context, entity *domain.Entity) error {
+	// STUB: INSERT INTO entities (id, name) VALUES ($1, $2)
+	return nil
+}
+
+// GetByID retrieves an entity by its ID.
+func (r *PostgresRepository) GetByID(ctx context.Context, id string) (*domain.Entity, error) {
+	// STUB: SELECT id, name FROM entities WHERE id = $1
+	return &domain.Entity{ID: id}, nil
+}
+
+// Update modifies an existing entity.
+func (r *PostgresRepository) Update(ctx context.Context, entity *domain.Entity) error {
+	// STUB: UPDATE entities SET name = $2 WHERE id = $1
+	return nil
+}
+
+// Delete removes an entity by its ID.
+func (r *PostgresRepository) Delete(ctx context.Context, id string) error {
+	// STUB: DELETE FROM entities WHERE id = $1
+	return nil
+}
+
+<% if (messaging !== 'none') { %>
+// OutboxRepository implements gateway.OutboxRepository.
+type OutboxRepository struct {
+	db *PostgresDB
+}
+
+var _ gateway.OutboxRepository = (*OutboxRepository)(nil)
+
+// NewOutboxRepository creates a new outbox repository.
+func NewOutboxRepository(db *PostgresDB) *OutboxRepository {
+	return &OutboxRepository{db: db}
+}
+
+// InsertEvent saves a domain event to the outbox table.
+func (r *OutboxRepository) InsertEvent(ctx context.Context, tx gateway.Transaction, eventType string, payload []byte) error {
+	// STUB: INSERT INTO outbox (event_type, payload) VALUES ($1, $2)
+	return nil
+}
+
+// PollUnpublished fetches unpublished events from the outbox.
+func (r *OutboxRepository) PollUnpublished(ctx context.Context, limit int) ([]gateway.OutboxEvent, error) {
+	// STUB: SELECT * FROM outbox WHERE published = false ORDER BY created_at LIMIT $1 FOR UPDATE SKIP LOCKED
+	return nil, nil
+}
+
+// MarkPublished marks an outbox event as successfully published.
+func (r *OutboxRepository) MarkPublished(ctx context.Context, id string) error {
+	// STUB: UPDATE outbox SET published = true WHERE id = $1
+	return nil
+}
+<% } %>

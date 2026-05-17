@@ -4,7 +4,6 @@
 - [x] Remove automated pattern extraction and replace with Skill Assessment logic.
 - [x] ~~Integrate `skill-creator` into the GroundWork CLI installation~~ *(Deliberately excluded to keep meta-skills separate from production GroundWork methodology).*
 - [x] **Test CLI**: Execute `npx groundwork init` in a test repository (e.g., `video-generation`) to verify that all `.agents/skills` copy over correctly.
-- [ ] **Implement Parsers**: Build the Python/Bash helper scripts that back the XML actions in `groundwork-setup` (e.g., parsing `openapi.yaml`, `schema.sql`, and `asyncapi.yaml`).
 - [ ] **Build Update Engine**: Flesh out the `groundwork-update` skill to handle surgical, in-place diffing of architecture documents when specific source files change.
 
 ## Backlog / GroundWork Roadmap
@@ -38,16 +37,13 @@ To prevent blowing up the LLM context window with dozens of skill descriptions, 
 - [x] **`groundwork-orchestrator` (The Router)**: Instead of installing all methodology skills into the `.agents/skills/` directory, we install *only* the Orchestrator. 
 - [x] **The Manifest**: The Orchestrator holds a `manifest.csv` mapping user intents to specific Markdown instruction files stored in a non-registered folder. 
 - [x] **On-Demand Loading**: When the user requests a task, the agent uses the Orchestrator to find the right instruction file, `view_file`s it, and executes the instructions just-in-time.
-- [/] **Triage Routing**: Evaluate the workspace (Greenfield vs Brownfield) and suggest the right entry point (`groundwork-product-brief` vs `groundwork-setup`).
+- [x] **Triage Routing**: The orchestrator detects Greenfield vs Brownfield from the filesystem and routes to the correct lifecycle phase.
 - [ ] **Refactor Routing**: Clean up the Orchestrator triage logic once we have more examples of routing (i.e. more skills added to the manifest and pipeline).
 
 - [x] **Technical Writing Skill**: Bring in/develop a dedicated technical writing skill (e.g., `groundwork-writer`) that helps maintain the docs, provides AI metadata (frontmatter/tags), and ensures the GroundWork Tone is enforced consistently.
 - [ ] **Build Missing Phase 1-4 Skills**: 
   - [x] `groundwork-product-brief` (Interactive BMAD-style Greenfield PM facilitation)
-  - [ ] `groundwork-setup` (Automated Brownfield codebase extraction)
-  - [ ] `groundwork-setup:design-system`
   - [ ] `groundwork-brainstorm` (for Problem Statements)
-  - [x] `groundwork-help` (Orchestration/What's next)
 - [ ] **Publishing**: Configure `package.json` testing scripts and prepare the package for NPM publication.
 
 ## Ideas Backlog

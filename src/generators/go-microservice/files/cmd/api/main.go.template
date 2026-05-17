@@ -1,0 +1,140 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
+
+	"<%= name %>/internal/config"
+	"<%= name %>/internal/core/service"
+	"<%= name %>/internal/entrypoints/api"
+	"<%= name %>/internal/provider"
+<% if (websockets) { %>
+	"<%= name %>/internal/provider/websocket"
+<% } %>
+)
+
+func main() {
+	setupLogger()
+
+	// Initialize OpenTelemetry
+	// otelShutdown := config.InitOTel(context.Background(), "<%= name %>", "0.1.0")
+	// defer otelShutdown(context.Background())
+
+	cfg := config.Load()
+	
+	// db, err := provider.NewPostgresDB(cfg.Database.URI)
+	// if err != nil {
+	// 	log.Fatal().Err(err).Msg("Failed to connect to database")
+	// }
+	// defer db.Close()
+
+<% if (websockets) { %>
+	// Initialize WebSocket Hub
+	wsHub := websocket.NewHub(cfg)
+	go wsHub.Run()
+
+	// Composition Root: Wire up Gateways, Providers, and Services
+	// router, err := buildApp(cfg, db, wsHub)
+	router, err := buildApp(cfg, nil, wsHub) // STUB: replace nil with db when uncommented above
+<% } else { %>
+	// Composition Root: Wire up Gateways, Providers, and Services
+	// router, err := buildApp(cfg, db)
+	router, err := buildApp(cfg, nil) // STUB: replace nil with db when uncommented above
+<% } %>
+	if err != nil {
+		log.Fatal().Err(err).Msg("Failed to build application")
+	}
+
+	srv := &http.Server{
+		Addr:         fmt.Sprintf(":%d", cfg.Server.Port),
+		Handler:      router,
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 0,
+		IdleTimeout:  60 * time.Second,
+	}
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatal().Err(err).Msg("Server failed to start")
+		}
+	}()
+
+	log.Info().Int("port", cfg.Server.Port).Msg("Service ready")
+
+<% if (websockets) { %>
+	gracefulShutdown(srv, wsHub)
+<% } else { %>
+	gracefulShutdown(srv)
+<% } %>
+}
+
+// buildApp wires all repositories, external clients, and services together,
+// returning the fully configured HTTP handler. This enforces explicit dependency injection.
+<% if (websockets) { %>
+func buildApp(cfg *config.Config, db *provider.PostgresDB, wsHub *websocket.Hub) (http.Handler, error) {
+<% } else { %>
+func buildApp(cfg *config.Config, db *provider.PostgresDB) (http.Handler, error) {
+<% } %>
+	// --- Providers (Gateways) ---
+	
+	// txManager := provider.NewPostgresTransactionManager(db)
+	// entityRepo := provider.NewPostgresRepository(db)
+<% if (messaging !== 'none') { %>
+	// outboxRepo := provider.NewOutboxRepository(db)
+<% } %>
+
+	// --- Services (Use Cases) ---
+	
+	// appSvc := service.NewAppService(txManager, entityRepo<% if (messaging !== 'none') { %>, outboxRepo<% } %>)
+
+	// --- Router ---
+	// router := api.RegisterRoutes(cfg, db.DB, appSvc<% if (websockets) { %>, wsHub<% } %>)
+
+	// STUB: Remove this when you uncomment the actual wiring above
+	appSvc := service.NewAppService(nil, nil<% if (messaging !== 'none') { %>, nil<% } %>)
+	var sqlDB *sql.DB
+	// if db != nil { sqlDB = db.DB }
+	router := api.RegisterRoutes(cfg, sqlDB, appSvc<% if (websockets) { %>, wsHub<% } %>)
+
+	return router, nil
+}
+
+func setupLogger() {
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+}
+
+<% if (websockets) { %>
+func gracefulShutdown(srv *http.Server, wsHub *websocket.Hub) {
+<% } else { %>
+func gracefulShutdown(srv *http.Server) {
+<% } %>
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	log.Info().Msg("Shutting down server...")
+
+<% if (websockets) { %>
+	log.Info().Msg("Stopping WebSocket Hub...")
+	wsHub.Stop()
+<% } %>
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal().Err(err).Msg("Server forced to shutdown")
+	}
+
+	log.Info().Msg("Server exited properly")
+}

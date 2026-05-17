@@ -1,0 +1,33 @@
+asyncapi: 3.0.0
+info:
+  title: <%= name %> PubSub API
+  version: 0.1.0
+  description: Asynchronous event schema for <%= name %> backend message brokers.
+servers:
+  production:
+    host: broker.example.com
+    protocol: <%= messaging === 'kafka' ? 'kafka' : 'googlepubsub' %>
+channels:
+  <%= name %>-events:
+    address: <%= name %>.events
+    messages:
+      publish:
+        $ref: '#/components/messages/cloudEvent'
+components:
+  messages:
+    cloudEvent:
+      payload:
+        type: object
+        properties:
+          specversion:
+            type: string
+          id:
+            type: string
+          type:
+            type: string
+          source:
+            type: string
+          time:
+            type: string
+          data:
+            type: object

@@ -21,7 +21,7 @@ function printHelp() {
 
 To get started with GroundWork:
   1. Run \x1b[36mnpx groundwork init\x1b[0m to install the BMAD skills.
-  2. Ask your AI Agent to run the \x1b[36mgroundwork-setup\x1b[0m skill.
+  2. Ask your AI Agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill.
 
 This will scan your codebase and generate a complete, living architecture documentation site in the \`docs/\` directory.
 `);
@@ -47,7 +47,8 @@ function initGroundWork() {
   const targetDir = process.cwd();
   const targetSkillsDir = path.join(targetDir, '.agents', 'skills');
   const targetHiddenSkillsDir = path.join(targetDir, '.agents', 'groundwork', 'skills');
-  const targetConfigDir = path.join(targetDir, '.agents', 'config');
+  const targetConfigDir = path.join(targetDir, '.groundwork', 'config');
+  const targetCacheDir = path.join(targetDir, '.groundwork', 'cache');
   
   const sourceSkillsDir = path.join(__dirname, '..', 'src', 'skills');
   const sourceHiddenSkillsDir = path.join(__dirname, '..', 'src', 'hidden-skills');
@@ -62,7 +63,23 @@ function initGroundWork() {
     return;
   }
 
-  const dirsToCreate = [targetSkillsDir, targetHiddenSkillsDir, targetConfigDir];
+  // Clean up existing skills first to prevent stale/deprecated skills from lingering
+  if (fs.existsSync(targetSkillsDir)) {
+    try {
+      fs.rmSync(targetSkillsDir, { recursive: true, force: true });
+    } catch (err) {
+      console.warn(`\x1b[33m[warn]\x1b[0m Failed to clean existing skills dir: ${err.message}`);
+    }
+  }
+  if (fs.existsSync(targetHiddenSkillsDir)) {
+    try {
+      fs.rmSync(targetHiddenSkillsDir, { recursive: true, force: true });
+    } catch (err) {
+      console.warn(`\x1b[33m[warn]\x1b[0m Failed to clean existing hidden skills dir: ${err.message}`);
+    }
+  }
+
+  const dirsToCreate = [targetSkillsDir, targetHiddenSkillsDir, targetConfigDir, targetCacheDir];
   let createdDirs = false;
   dirsToCreate.forEach(dir => {
     if (!fs.existsSync(dir)) {
@@ -72,7 +89,7 @@ function initGroundWork() {
   });
   
   if (createdDirs) {
-    console.log(`\x1b[32m✔\x1b[0m Created .agents directories`);
+    console.log(`\x1b[32m✔\x1b[0m Created directories`);
   }
 
   // Copy Registered Skills
@@ -91,16 +108,17 @@ function initGroundWork() {
     console.error(`\x1b[31m✖\x1b[0m Failed to install hidden skills:`, err.message);
   }
 
-  // Copy config manifest
-  const sourceManifest = path.join(sourceConfigDir, 'groundwork-help.csv');
-  const targetManifest = path.join(targetConfigDir, 'groundwork-help.csv');
-  
-  if (fs.existsSync(sourceManifest)) {
+
+  // Create state file only if it doesn't exist — preserves completed phase history across updates
+  const sourceState = path.join(sourceConfigDir, 'groundwork-state.json');
+  const targetState = path.join(targetConfigDir, 'state.json');
+
+  if (fs.existsSync(sourceState) && !fs.existsSync(targetState)) {
     try {
-      fs.copyFileSync(sourceManifest, targetManifest);
-      console.log(`\x1b[32m✔\x1b[0m Configured orchestration manifest`);
+      fs.copyFileSync(sourceState, targetState);
+      console.log(`\x1b[32m✔\x1b[0m Initialized project state`);
     } catch (err) {
-      console.error(`\x1b[31m✖\x1b[0m Failed to configure manifest:`, err.message);
+      console.error(`\x1b[31m✖\x1b[0m Failed to initialize state:`, err.message);
     }
   }
 

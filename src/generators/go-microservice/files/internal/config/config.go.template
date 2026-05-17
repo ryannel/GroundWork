@@ -1,0 +1,33 @@
+package config
+
+import (
+	"log"
+
+	"github.com/caarlos0/env/v11"
+)
+
+type Config struct {
+	Server   ServerConfig
+	Database DatabaseConfig
+	Redis    RedisConfig
+}
+
+type ServerConfig struct {
+	Port int `env:"PORT" envDefault:"8080"`
+}
+
+type DatabaseConfig struct {
+	URI string `env:"DATABASE_URL" envDefault:"postgres://user:pass@localhost:5432/<%= name %>?sslmode=disable"`
+}
+
+type RedisConfig struct {
+	URI string `env:"REDIS_URL"` // Optional: If set, enables Valkey/Redis for backplane and rate limiting
+}
+
+func Load() *Config {
+	var cfg Config
+	if err := env.Parse(&cfg); err != nil {
+		log.Fatalf("failed to load configuration: %v", err)
+	}
+	return &cfg
+}

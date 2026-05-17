@@ -1,0 +1,28 @@
+package api
+
+import (
+	"context"
+
+	"github.com/danielgtaylor/huma/v2"
+)
+
+type HealthResponse struct {
+	Body struct {
+		Status string `json:"status"`
+	}
+}
+
+func RegisterHealthHandler(api huma.API) {
+	huma.Register(api, huma.Operation{
+		OperationID: "get-health",
+		Method:      "GET",
+		Path:        "/health",
+		Summary:     "Health check",
+		Description: "Check if the service is healthy",
+		Tags:        []string{"System"},
+	}, func(ctx context.Context, input *struct{}) (*HealthResponse, error) {
+		resp := &HealthResponse{}
+		resp.Body.Status = "ok"
+		return resp, nil
+	})
+}

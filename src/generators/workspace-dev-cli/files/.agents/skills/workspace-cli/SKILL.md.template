@@ -1,0 +1,26 @@
+---
+name: workspace-cli
+description: "The primary toolkit for starting, stopping, and checking the status of local services in this workspace."
+---
+
+# Workspace CLI Skill
+
+You are operating in a workspace that uses a custom `./dev` CLI to manage its local development environment.
+Whenever the user asks you to start, stop, or check the status of the local services, you MUST use this CLI.
+
+## Capabilities
+
+The `./dev` CLI is an executable bash script located in the root directory. It provides the following commands:
+
+- `./dev start`: Starts all services. It automatically handles spinning up infrastructure (like databases) in Docker, and booting application code natively.
+- `./dev start --docker`: Forces ALL services, including application code, to run inside Docker.
+- `./dev stop`: Gracefully kills all native processes and shuts down Docker containers.
+- `./dev status`: Displays a human-readable table of running Docker and native processes.
+- `./dev status --json`: Returns a strictly formatted JSON object of all running services, PIDs, and exposed ports. **Always use this flag when you need to programmatically determine what is running.**
+- `./dev logs`: Streams logs from all native services and Docker containers.
+
+## Best Practices for Agents
+
+1. **Service Discovery**: Do not guess what ports services are running on. Run `./dev status --json` to get the ground truth.
+2. **Log Reading**: Do not stream `./dev logs` using `run_command` as it will run indefinitely and hang. Instead, instruct the user to run `./dev logs` in their terminal, or read the individual log files generated in `.dev/logs/*.log`.
+3. **Idempotency**: `./dev start` and `./dev stop` are fully idempotent. It is safe to run them multiple times.

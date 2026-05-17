@@ -1,0 +1,69 @@
+# ============================================================
+# GroundWork — .gitignore
+# Nx monorepo · Node / TypeScript
+# ============================================================
+
+# ----------------------------
+# Dependencies
+# ----------------------------
+node_modules/
+
+# ----------------------------
+# Build output
+# ----------------------------
+dist/
+
+# ----------------------------
+# Nx cache & workspace data
+# ----------------------------
+.nx/
+
+# ----------------------------
+# OS & Editor
+# ----------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# JetBrains IDEs
+.idea/
+
+# VS Code (keep workspace file, ignore local settings)
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ----------------------------
+# Environment & Secrets
+# ----------------------------
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# ----------------------------
+# Test scaffolds & temp dirs
+# ----------------------------
+test-scaffold/
+tmp_*/
+
+# Generated service output (from Nx generators)
+services/
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# AI Agent Artifacts
+# ----------------------------
+plan.md
+task.md
+scratch.md
+scratch.txt
+walkthrough.md
+implementation_plan.md
+scratch/

@@ -1,0 +1,250 @@
+package websocket
+
+import (
+	"context"
+	"encoding/json"
+	"log/slog"
+	"sync"
+	"time"
+
+	"github.com/google/uuid"
+	"github.com/redis/go-redis/v9"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/propagation"
+
+	"<%= name %>/internal/config"
+	"<%= name %>/internal/core/domain"
+)
+
+// cloudEvent is the CloudEvents v1.0 JSON envelope sent over WebSocket.
+type cloudEvent struct {
+	SpecVersion    string `json:"specversion"`
+	ID             string `json:"id"`
+	Type           string `json:"type"`
+	Source         string `json:"source"`
+	Time           string `json:"time"`
+	Traceparent    string `json:"traceparent,omitempty"`
+	Tracestate     string `json:"tracestate,omitempty"`
+	SourceClientID string `json:"sourceClientId,omitempty"`
+	Data           any    `json:"data"`
+}
+
+// mapCarrier adapts a map for OTel text-map propagation injection.
+type mapCarrier map[string]string
+
+func (c mapCarrier) Get(key string) string { return c[key] }
+func (c mapCarrier) Set(key, value string) { c[key] = value }
+func (c mapCarrier) Keys() []string {
+	keys := make([]string, 0, len(c))
+	for k := range c {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+// Hub maintains the set of active WebSocket clients and broadcasts events.
+type Hub struct {
+	clients map[string]map[*Client]struct{} // Map by UserID or other partition key
+	mu      sync.RWMutex
+
+	registerCh   chan *Client
+	unregisterCh chan *Client
+	broadcastCh  chan domain.Event
+	stopCh       chan struct{}
+
+	redisClient  *redis.Client
+	redisPubSub  *redis.PubSub
+}
+
+func NewHub(cfg *config.Config) *Hub {
+	h := &Hub{
+		clients:      make(map[string]map[*Client]struct{}),
+		registerCh:   make(chan *Client, 64),
+		unregisterCh: make(chan *Client, 64),
+		broadcastCh:  make(chan domain.Event, 256),
+		stopCh:       make(chan struct{}),
+	}
+
+	if cfg.Redis.URI != "" {
+		opts, err := redis.ParseURL(cfg.Redis.URI)
+		if err == nil {
+			h.redisClient = redis.NewClient(opts)
+			h.redisPubSub = h.redisClient.Subscribe(context.Background(), "<%= name %>:ws:events")
+			slog.Info("WebSocket Hub connected to Redis Backplane")
+			go h.listenRedis()
+		} else {
+			slog.Warn("Failed to parse Redis URL for WebSocket Backplane", slog.String("error", err.Error()))
+		}
+	}
+
+	return h
+}
+
+func (h *Hub) Run() {
+	for {
+		select {
+		case client := <-h.registerCh:
+			h.addClient(client)
+		case client := <-h.unregisterCh:
+			h.removeClient(client)
+		case event := <-h.broadcastCh:
+			h.broadcastToUser(event)
+		case <-h.stopCh:
+			return
+		}
+	}
+}
+
+func (h *Hub) Stop() {
+	h.Reset()
+	close(h.stopCh)
+}
+
+func (h *Hub) Register(client *Client) {
+	h.registerCh <- client
+}
+
+func (h *Hub) Unregister(client *Client) {
+	h.unregisterCh <- client
+}
+
+// Broadcast queues a domain event for delivery.
+func (h *Hub) Broadcast(event domain.Event) {
+	select {
+	case h.broadcastCh <- event:
+	default:
+		slog.Warn("broadcast channel full, dropping event")
+	}
+}
+
+func (h *Hub) addClient(client *Client) {
+	h.mu.Lock()
+	defer h.mu.Unlock()
+	userID := client.UserID()
+	userClients, ok := h.clients[userID]
+	if !ok {
+		userClients = make(map[*Client]struct{})
+		h.clients[userID] = userClients
+	}
+	userClients[client] = struct{}{}
+	slog.Info("WebSocket client registered", slog.String("user_id", userID))
+}
+
+func (h *Hub) removeClient(client *Client) {
+	h.mu.Lock()
+	defer h.mu.Unlock()
+	userID := client.UserID()
+	userClients, ok := h.clients[userID]
+	if !ok {
+		return
+	}
+	if _, exists := userClients[client]; exists {
+		delete(userClients, client)
+		client.closeSend()
+	}
+	if len(userClients) == 0 {
+		delete(h.clients, userID)
+	}
+	slog.Info("WebSocket client unregistered", slog.String("user_id", userID))
+}
+
+func (h *Hub) broadcastToUser(event domain.Event) {
+	h.mu.RLock()
+	// Using a generic partition key from the event if applicable.
+	// STUB: Update partition key based on your domain.Event definition.
+	partitionKey := "all" 
+	
+	userClients, ok := h.clients[partitionKey]
+	if !ok || len(userClients) == 0 {
+		h.mu.RUnlock()
+		return
+	}
+
+	targets := make([]*Client, 0, len(userClients))
+	for client := range userClients {
+		targets = append(targets, client)
+	}
+	h.mu.RUnlock()
+
+	ctx := context.Background()
+
+	carrier := make(mapCarrier)
+	otel.GetTextMapPropagator().Inject(ctx, propagation.MapCarrier(carrier))
+
+	envelope := cloudEvent{
+		SpecVersion: "1.0",
+		ID:          uuid.New().String(),
+		Type:        "event", // STUB: string(event.Type)
+		Source:      "<%= name %>/ws",
+		Time:        time.Now().UTC().Format(time.RFC3339),
+		Traceparent: carrier["traceparent"],
+		Tracestate:  carrier["tracestate"],
+		Data:        event, // STUB: Extract relevant payload
+	}
+
+	data, err := json.Marshal(envelope)
+	if err != nil {
+		slog.ErrorContext(ctx, "failed to marshal CloudEvent", slog.String("error", err.Error()))
+		return
+	}
+
+	// Dynamic Backplane: If Redis is configured, publish to the backplane instead of just local clients
+	if h.redisClient != nil {
+		if err := h.redisClient.Publish(ctx, "<%= name %>:ws:events", data).Err(); err != nil {
+			slog.ErrorContext(ctx, "failed to publish event to Redis backplane", slog.String("error", err.Error()))
+		}
+		// In a real Redis setup, you'd rely entirely on the listenRedis goroutine to receive and broadcast it locally.
+		// For simplicity, we just broadcast locally here too, but you might want to skip local broadcast to avoid duplicates.
+	}
+
+	var evicted []*Client
+	for _, client := range targets {
+		select {
+		case client.send <- data:
+		default:
+			evicted = append(evicted, client)
+		}
+	}
+
+	for _, client := range evicted {
+		h.removeClient(client)
+	}
+}
+
+func (h *Hub) listenRedis() {
+	if h.redisPubSub == nil {
+		return
+	}
+	ch := h.redisPubSub.Channel()
+	for msg := range ch {
+		// Parse the envelope to find the partition key
+		var envelope cloudEvent
+		if err := json.Unmarshal([]byte(msg.Payload), &envelope); err != nil {
+			slog.Error("failed to unmarshal Redis backplane event", slog.String("error", err.Error()))
+			continue
+		}
+		
+		// For now, we broadcast to all. In production, extract user ID from the event and route specifically
+		h.mu.RLock()
+		for _, userClients := range h.clients {
+			for client := range userClients {
+				select {
+				case client.send <- []byte(msg.Payload):
+				default:
+				}
+			}
+		}
+		h.mu.RUnlock()
+	}
+}
+
+func (h *Hub) Reset() {
+	h.mu.Lock()
+	for _, userClients := range h.clients {
+		for client := range userClients {
+			client.closeSend()
+		}
+	}
+	h.clients = make(map[string]map[*Client]struct{})
+	h.mu.Unlock()
+}

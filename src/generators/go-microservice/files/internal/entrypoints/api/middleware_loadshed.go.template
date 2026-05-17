@@ -1,0 +1,38 @@
+package api
+
+import (
+	"net/http"
+	"time"
+)
+
+// LoadSheddingMiddleware bounds the number of concurrent in-flight requests.
+// If the server is at capacity, it immediately returns a 503 Service Unavailable 
+// rather than queueing requests forever and risking memory/CPU exhaustion.
+func LoadSheddingMiddleware(maxConcurrent int) func(http.Handler) http.Handler {
+	// A buffered channel acts as a semaphore for concurrent requests.
+	semaphore := make(chan struct{}, maxConcurrent)
+
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			select {
+			case semaphore <- struct{}{}:
+				// Acquired a slot
+				defer func() { <-semaphore }()
+				next.ServeHTTP(w, r)
+			default:
+				// Failed to acquire a slot instantly; shed the load.
+				w.Header().Set("Retry-After", "5") // Suggest retrying in 5 seconds
+				http.Error(w, "Service Unavailable (Load Shedding)", http.StatusServiceUnavailable)
+			}
+		})
+	}
+}
+
+// TimeoutMiddleware ensures no single HTTP request hangs indefinitely.
+// Note: While http.Server ReadTimeout/WriteTimeout protects the TCP layer,
+// this protects the application logic layer and cancels the request context.
+func TimeoutMiddleware(timeout time.Duration) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.TimeoutHandler(next, timeout, "Request Timeout")
+	}
+}

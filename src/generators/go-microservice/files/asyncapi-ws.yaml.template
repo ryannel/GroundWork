@@ -1,0 +1,34 @@
+asyncapi: 3.0.0
+info:
+  title: <%= name %> WebSocket API
+  version: 0.1.0
+  description: WebSocket API for real-time <%= name %> events.
+servers:
+  dev:
+    host: localhost:4000
+    protocol: ws
+    pathname: /api/v1/ws
+channels:
+  events:
+    address: /api/v1/ws
+    messages:
+      subscribe:
+        $ref: '#/components/messages/cloudEvent'
+components:
+  messages:
+    cloudEvent:
+      payload:
+        type: object
+        properties:
+          specversion:
+            type: string
+          id:
+            type: string
+          type:
+            type: string
+          source:
+            type: string
+          time:
+            type: string
+          data:
+            type: object

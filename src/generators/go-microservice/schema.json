@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "go-microservice",
+  "title": "Go Microservice",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the microservice",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the service?"
+    },
+    "messaging": {
+      "type": "string",
+      "enum": ["none", "kafka", "gcp-pubsub"],
+      "default": "none",
+      "description": "Include the Transactional Outbox pattern and message broker configuration",
+      "x-prompt": {
+        "message": "Which message broker do you want to use for the outbox pattern?",
+        "type": "list",
+        "items": [
+          { "value": "none", "label": "None" },
+          { "value": "kafka", "label": "Kafka" },
+          { "value": "gcp-pubsub", "label": "Google Cloud Pub/Sub" }
+        ]
+      }
+    },
+    "auth": {
+      "type": "string",
+      "enum": ["none", "service", "clerk"],
+      "default": "none",
+      "description": "The level of authentication boilerplate to include",
+      "x-prompt": {
+        "message": "Which authentication boilerplate should we include?",
+        "type": "list",
+        "items": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "service",
+            "label": "Service-to-Service Auth Only"
+          },
+          {
+            "value": "clerk",
+            "label": "Full Clerk User & Service Auth"
+          }
+        ]
+      }
+    },
+    "websockets": {
+      "type": "boolean",
+      "description": "Include WebSocket Hub, Session Manager, and AsyncAPI v3 generation",
+      "default": false,
+      "x-prompt": "Do you want to enable WebSockets?"
+    }
+  },
+  "required": ["name"]
+}

@@ -1,0 +1,87 @@
+package idempotency
+
+import (
+	"bytes"
+	"net/http"
+
+	"github.com/rs/zerolog/log"
+)
+
+// responseRecorder intercepts the HTTP response so we can store it.
+type responseRecorder struct {
+	http.ResponseWriter
+	status int
+	body   *bytes.Buffer
+}
+
+func (r *responseRecorder) WriteHeader(status int) {
+	r.status = status
+	r.ResponseWriter.WriteHeader(status)
+}
+
+func (r *responseRecorder) Write(b []byte) (int, error) {
+	r.body.Write(b)
+	return r.ResponseWriter.Write(b)
+}
+
+// Middleware ensures that POST/PUT/PATCH/DELETE requests containing an
+// Idempotency-Key header are executed exactly once.
+func Middleware(repo Repository) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// Only apply to mutating requests
+			if r.Method == http.MethodGet || r.Method == http.MethodOptions {
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			idemKey := r.Header.Get("Idempotency-Key")
+			if idemKey == "" {
+				// Not strict-enforced here to allow flexibility.
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			// In a real app, you might extract userID from context.
+			userID := "anonymous"
+
+			ctx := r.Context()
+			cached, err := repo.Get(ctx, idemKey, userID)
+			if err == nil && cached != nil {
+				log.Debug().Str("idempotency_key", idemKey).Msg("Returning cached idempotency response")
+				for k, v := range cached.Header {
+					for _, val := range v {
+						w.Header().Add(k, val)
+					}
+				}
+				w.WriteHeader(cached.Status)
+				w.Write(cached.Body)
+				return
+			}
+
+			// Record the response
+			rec := &responseRecorder{
+				ResponseWriter: w,
+				status:         http.StatusOK,
+				body:           &bytes.Buffer{},
+			}
+
+			next.ServeHTTP(rec, r)
+
+			// If successful (e.g. 2xx), save the response
+			if rec.status >= 200 && rec.status < 300 {
+				log.Debug().Str("idempotency_key", idemKey).Msg("Saving idempotency response")
+				
+				respToCache := &CachedResponse{
+					Status: rec.status,
+					Header: w.Header(),
+					Body:   rec.body.Bytes(),
+				}
+				
+				if err := repo.Save(ctx, idemKey, userID, respToCache); err != nil {
+					log.Error().Err(err).Msg("Failed to save idempotency response")
+				}
+			}
+		})
+	}
+}

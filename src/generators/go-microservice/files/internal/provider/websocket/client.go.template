@@ -1,0 +1,151 @@
+package websocket
+
+import (
+	"context"
+	"encoding/json"
+	"log/slog"
+	"sync"
+	"time"
+
+	"github.com/gorilla/websocket"
+)
+
+const (
+	writeWait      = 10 * time.Second
+	pongWait       = 60 * time.Second
+	pingPeriod     = (pongWait * 9) / 10
+	maxMessageSize = 512 * 1024 // 512 KB
+	sendBufferSize = 256
+)
+
+// inboundCloudEvent represents a CloudEvents-wrapped JSON command from the client.
+type inboundCloudEvent struct {
+	Type string          `json:"type"`
+	Data json.RawMessage `json:"data"`
+}
+
+// Client represents a single WebSocket connection for a specific user.
+type Client struct {
+	ctx        context.Context
+	hub        *Hub
+	conn       *websocket.Conn
+	userID     string
+	sessionID  string
+	send       chan []byte
+	closeOnce  sync.Once
+}
+
+func (c *Client) UserID() string {
+	return c.userID
+}
+
+func (c *Client) SessionID() string {
+	return c.sessionID
+}
+
+func (c *Client) closeSend() {
+	c.closeOnce.Do(func() {
+		close(c.send)
+	})
+}
+
+func NewClient(ctx context.Context, hub *Hub, conn *websocket.Conn, userID string, sessionID string) *Client {
+	return &Client{
+		ctx:       ctx,
+		hub:       hub,
+		conn:      conn,
+		userID:    userID,
+		sessionID: sessionID,
+		send:      make(chan []byte, sendBufferSize),
+	}
+}
+
+func (c *Client) ReadPump() {
+	defer func() {
+		c.hub.Unregister(c)
+		c.conn.Close()
+	}()
+
+	c.conn.SetReadLimit(maxMessageSize)
+	if err := c.conn.SetReadDeadline(time.Now().Add(pongWait)); err != nil {
+		slog.ErrorContext(c.ctx, "failed to set read deadline", slog.String("error", err.Error()))
+		return
+	}
+	c.conn.SetPongHandler(func(string) error {
+		return c.conn.SetReadDeadline(time.Now().Add(pongWait))
+	})
+
+	for {
+		messageType, message, err := c.conn.ReadMessage()
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+				slog.WarnContext(c.ctx, "WebSocket unexpected close", slog.String("user_id", c.userID), slog.String("error", err.Error()))
+			}
+			return
+		}
+
+		if messageType == websocket.TextMessage {
+			c.handleTextMessage(message)
+		}
+	}
+}
+
+func (c *Client) handleTextMessage(message []byte) {
+	var envelope inboundCloudEvent
+	if err := json.Unmarshal(message, &envelope); err != nil {
+		slog.WarnContext(c.ctx, "invalid JSON command", slog.String("user_id", c.userID), slog.String("error", err.Error()))
+		return
+	}
+
+	// STUB: Handle specific incoming command types here.
+	switch envelope.Type {
+	case "com.<%= name %>.example.command.v1":
+		slog.InfoContext(c.ctx, "received example command")
+	default:
+		slog.DebugContext(c.ctx, "unknown CloudEvents command type, ignoring",
+			slog.String("type", envelope.Type),
+			slog.String("user_id", c.userID))
+	}
+}
+
+func (c *Client) WritePump() {
+	ticker := time.NewTicker(pingPeriod)
+	defer func() {
+		ticker.Stop()
+		c.conn.Close()
+	}()
+
+	for {
+		select {
+		case message, ok := <-c.send:
+			if err := c.conn.SetWriteDeadline(time.Now().Add(writeWait)); err != nil {
+				return
+			}
+			if !ok {
+				if err := c.conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseGoingAway, "Server shutting down")); err != nil {
+					slog.WarnContext(c.ctx, "failed to write close message", slog.String("error", err.Error()))
+				}
+				return
+			}
+
+			if err := c.conn.WriteMessage(websocket.TextMessage, message); err != nil {
+				return
+			}
+
+			n := len(c.send)
+			for i := 0; i < n; i++ {
+				if err := c.conn.WriteMessage(websocket.TextMessage, <-c.send); err != nil {
+					return
+				}
+			}
+
+		case <-ticker.C:
+			if err := c.conn.SetWriteDeadline(time.Now().Add(writeWait)); err != nil {
+				return
+			}
+			if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil {
+				return
+			}
+		}
+	}
+}

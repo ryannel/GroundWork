@@ -7,9 +7,19 @@
     "groundwork": "./bin/groundwork.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
+  "generators": "./generators.json",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@nx/devkit": "^22.7.2",
+    "@types/node": "^25.8.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
+  }
 }

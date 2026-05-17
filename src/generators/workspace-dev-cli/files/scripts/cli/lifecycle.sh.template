@@ -1,0 +1,305 @@
+#!/usr/bin/env bash
+
+# ==========================================
+# DOMAIN: LIFECYCLE
+# Commands: start, stop, logs, status
+# ==========================================
+
+export COMPOSE="docker compose"
+PID_DIR="$ROOT_DIR/.dev/pids"
+LOG_DIR="$ROOT_DIR/.dev/logs"
+
+_ensure_dirs() {
+  mkdir -p "$PID_DIR" "$LOG_DIR"
+}
+
+_get_infra_services() {
+  local app_services
+  app_services=$(ls "$ROOT_DIR/services" 2>/dev/null || true)
+  local all_services
+  all_services=$($COMPOSE config --services 2>/dev/null || true)
+  local infra=()
+  for svc in $all_services; do
+    if ! echo "$app_services" | grep -qw "$svc"; then
+      infra+=("$svc")
+    fi
+  done
+  echo "${infra[@]}"
+}
+
+_get_app_services() {
+  ls "$ROOT_DIR/services" 2>/dev/null || true
+}
+
+_svc_running() {
+  local name="$1"
+  local pidfile="$PID_DIR/$name.pid"
+  if [ -f "$pidfile" ]; then
+    local pid
+    pid=$(cat "$pidfile")
+    if kill -0 "$pid" 2>/dev/null; then
+      return 0
+    fi
+    rm -f "$pidfile"
+  fi
+  return 1
+}
+
+_kill_tree() {
+  local pid="$1"
+  local children
+  children=$(pgrep -P "$pid" 2>/dev/null || true)
+  for child in $children; do
+    _kill_tree "$child"
+  done
+  kill -15 "$pid" 2>/dev/null || true
+  sleep 1
+  if kill -0 "$pid" 2>/dev/null; then
+    kill -9 "$pid" 2>/dev/null || true
+  fi
+}
+
+function cmd_start() {
+  local USE_DOCKER=false
+  for arg in "$@"; do
+    if [ "$arg" == "--docker" ]; then USE_DOCKER=true; fi
+  done
+
+  print_header "Starting Environment"
+  _ensure_dirs
+
+  local start_time=$(date +%s)
+
+  if $USE_DOCKER; then
+    start_spinner "Starting ALL services via Docker"
+    if ! $COMPOSE up -d >/dev/null 2>&1; then
+      stop_spinner "Failed" ""
+      fail "Docker compose failed to start" "Run '$COMPOSE up' directly to view errors"
+    fi
+    local end_time=$(date +%s)
+    local elapsed=$((end_time - start_time))
+    stop_spinner "Docker environment is up" "${elapsed}s"
+    return 0
+  fi
+
+  local infra
+  infra=$(_get_infra_services)
+  if [ -n "$infra" ]; then
+    start_spinner "Starting Infrastructure (Docker)"
+    if ! $COMPOSE up -d $infra >/dev/null 2>&1; then
+      stop_spinner "Failed" ""
+      fail "Failed to start infrastructure" "Run '$COMPOSE up' to view errors"
+    fi
+    local infra_end=$(date +%s)
+    local elapsed=$((infra_end - start_time))
+    stop_spinner "Infrastructure Started" "${elapsed}s"
+  fi
+
+  print_step "Starting Native Services"
+  for svc in $(_get_app_services); do
+    if _svc_running "$svc"; then
+      print_substep "$svc is already running."
+      continue
+    fi
+
+    local svc_dir="$ROOT_DIR/services/$svc"
+    local cmd=""
+
+    if [ -f "$svc_dir/.air.toml" ]; then
+      cmd="cd $svc_dir && air"
+    elif [ -f "$svc_dir/package.json" ]; then
+      cmd="cd $svc_dir && npm run dev"
+    elif [ -f "$svc_dir/pyproject.toml" ]; then
+      print_warn "Python service $svc found but no native start command known. Skipping."
+      continue
+    else
+      print_warn "Unknown service type for $svc. Skipping."
+      continue
+    fi
+
+    if [ -n "$cmd" ]; then
+      local logfile="$LOG_DIR/$svc.log"
+      start_spinner "Booting $svc"
+      
+      bash -c "$cmd" >>"$logfile" 2>&1 &
+      local pid=$!
+      echo "$pid" > "$PID_DIR/$svc.pid"
+      
+      # Give it a tiny bit of time to fail binding if port in use
+      sleep 0.5
+      
+      if ! kill -0 "$pid" 2>/dev/null; then
+        stop_spinner "Failed" ""
+        print_error_card "Failed to start $svc" "Run 'cat $logfile' to view stack trace"
+      else
+        stop_spinner "$svc started natively (PID $pid)" ""
+      fi
+    fi
+  done
+
+  echo ""
+  local total_end=$(date +%s)
+  local total_elapsed=$((total_end - start_time))
+  print_success "Development environment started. (${total_elapsed}s)"
+  print_info "Run './dev logs' to stream output."
+}
+
+function cmd_stop() {
+  print_header "Stopping Environment"
+
+  local start_time=$(date +%s)
+  
+  for svc in $(_get_app_services); do
+    local pidfile="$PID_DIR/$svc.pid"
+    if [ -f "$pidfile" ]; then
+      local pid
+      pid=$(cat "$pidfile")
+      if kill -0 "$pid" 2>/dev/null; then
+        start_spinner "Stopping $svc"
+        _kill_tree "$pid"
+        stop_spinner "Stopped $svc" ""
+      fi
+      rm -f "$pidfile"
+    fi
+  done
+
+  start_spinner "Stopping Docker containers"
+  $COMPOSE down >/dev/null 2>&1
+  local end_time=$(date +%s)
+  local elapsed=$((end_time - start_time))
+  stop_spinner "Environment stopped." "${elapsed}s"
+}
+
+function cmd_logs() {
+  print_header "Streaming Logs (Ctrl+C to stop)"
+  
+  local native_logs=()
+  for svc in $(_get_app_services); do
+    if _svc_running "$svc"; then
+      native_logs+=("$LOG_DIR/$svc.log")
+    fi
+  done
+
+  if [ ${#native_logs[@]} -gt 0 ]; then
+    tail -f "${native_logs[@]}" &
+    local TAIL_PID=$!
+    trap "kill $TAIL_PID 2>/dev/null" EXIT
+  fi
+
+  $COMPOSE logs -f
+}
+
+function cmd_status() {
+  local JSON_MODE=false
+  for arg in "$@"; do
+    if [ "$arg" == "--json" ]; then JSON_MODE=true; fi
+  done
+
+  if $JSON_MODE; then
+    echo "{"
+    echo "  \"docker\": ["
+    local first=true
+    $COMPOSE ps --format "{{.Service}}|{{.Status}}|{{.Ports}}" | while IFS='|' read -r svc status ports; do
+      if [ "$first" = true ]; then first=false; else echo ","; fi
+      echo "    {\"service\": \"$svc\", \"status\": \"$status\", \"ports\": \"$ports\"}"
+    done
+    echo "  ],"
+    echo "  \"native\": ["
+    first=true
+    for svc in $(_get_app_services); do
+      if _svc_running "$svc"; then
+        local pid=$(cat "$PID_DIR/$svc.pid")
+        if [ "$first" = true ]; then first=false; else echo ","; fi
+        echo "    {\"service\": \"$svc\", \"status\": \"running\", \"pid\": $pid}"
+      fi
+    done
+    echo "  ]"
+    echo "}"
+    return 0
+  fi
+
+  print_header "Local Status"
+  
+  print_panel_start "Docker Containers"
+  local count=0
+  local compose_ps
+  compose_ps=$($COMPOSE ps --format "{{.Service}}||{{.Status}}||{{.Ports}}" 2>/dev/null || true)
+  if [ -n "$compose_ps" ]; then
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      svc=$(echo "$line" | awk -F'||' '{print $1}')
+      status=$(echo "$line" | awk -F'||' '{print $2}')
+      ports=$(echo "$line" | awk -F'||' '{print $3}')
+      # Truncate long port strings
+      if [ ${#ports} -gt 15 ]; then ports="${ports:0:12}..."; fi
+      print_panel_row "${ICON_INFO} $svc" "$status" "$ports"
+      count=$((count + 1))
+    done <<< "$compose_ps"
+  fi
+  if [ $count -eq 0 ]; then
+    print_panel_row "${DIM}No containers${NC}" "" ""
+  fi
+  print_panel_end
+  
+  echo ""
+
+  print_panel_start "Native Processes"
+  local has_native=false
+  for svc in $(_get_app_services); do
+    if _svc_running "$svc"; then
+      local pid=$(cat "$PID_DIR/$svc.pid")
+      print_panel_row "${GREEN}${ICON_SUCCESS}${NC} $svc" "PID $pid" "native"
+      has_native=true
+    elif [ -f "$PID_DIR/$svc.pid" ]; then
+      print_panel_row "${RED}${ICON_ERROR}${NC} $svc" "dead" "native"
+      has_native=true
+    fi
+  done
+  if [ "$has_native" = false ]; then
+    print_panel_row "${DIM}No native processes${NC}" "" ""
+  fi
+  print_panel_end
+  echo ""
+}
+
+function cmd_clean() {
+  local HARD_MODE=false
+  for arg in "$@"; do
+    if [ "$arg" == "--hard" ]; then HARD_MODE=true; fi
+  done
+
+  print_header "Cleaning Environment"
+
+  local start_time=$(date +%s)
+
+  start_spinner "Stopping services & wiping native state"
+  # Force stop all running services
+  for svc in $(_get_app_services); do
+    local pidfile="$PID_DIR/$svc.pid"
+    if [ -f "$pidfile" ]; then
+      local pid=$(cat "$pidfile")
+      if kill -0 "$pid" 2>/dev/null; then
+        _kill_tree "$pid"
+      fi
+    fi
+  done
+  
+  # Nuke PID and Log directories
+  rm -rf "$PID_DIR"
+  rm -rf "$LOG_DIR"
+  _ensure_dirs
+  stop_spinner "Wiped native state (.dev/pids, .dev/logs)" ""
+
+  start_spinner "Cleaning Docker environment"
+  if $HARD_MODE; then
+    $COMPOSE down -v --remove-orphans >/dev/null 2>&1
+    stop_spinner "Docker environment completely destroyed (Volumes wiped)" ""
+  else
+    $COMPOSE down --remove-orphans >/dev/null 2>&1
+    stop_spinner "Docker environment stopped (Volumes preserved)" ""
+  fi
+
+  local end_time=$(date +%s)
+  local elapsed=$((end_time - start_time))
+  print_success "Workspace clean complete. (${elapsed}s)"
+}

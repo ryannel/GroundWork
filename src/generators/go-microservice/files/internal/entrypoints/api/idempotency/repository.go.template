@@ -1,0 +1,16 @@
+package idempotency
+
+import "context"
+
+// CachedResponse represents a previously recorded HTTP response.
+type CachedResponse struct {
+	Status int
+	Header map[string][]string
+	Body   []byte
+}
+
+// Repository defines the contract for storing and retrieving idempotent responses.
+type Repository interface {
+	Get(ctx context.Context, key string, userID string) (*CachedResponse, error)
+	Save(ctx context.Context, key string, userID string, resp *CachedResponse) error
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "SystemTestRunner",
+  "title": "System Test Runner",
+  "type": "object",
+  "properties": {
+    "projectPrefix": {
+      "type": "string",
+      "description": "The prefix for Docker container names (e.g. 'wordloop')",
+      "default": "groundwork"
+    }
+  },
+  "required": []
+}
