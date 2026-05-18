@@ -1,6 +1,5 @@
 {
   "skill_name": "groundwork-product-brief",
   "skill_path": "src/hidden-skills/groundwork-product-brief/instructions.md",
-  "user_persona": "An enthusiastic startup founder looking to build a new AI storytelling engine.",
-  "user_goal": "Work with the agent to define the product brief for a 'Choose Your Own Adventure' AI storytelling engine."
+  "turns": 25
 }

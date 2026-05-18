@@ -2,12 +2,30 @@ import os
 import json
 import argparse
 import shutil
+import time
+import subprocess
 from pathlib import Path
 from google import genai
 from google.genai import types
 
 # The repo root is two levels up from tests/evals/
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+import grader
+
+def retry_with_backoff(func, max_retries=8, base_delay=4):
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            if "503" in str(e) or "429" in str(e) or "exhausted" in str(e).lower():
+                delay = base_delay * (2 ** attempt)
+                print(f"  [API Rate Limit/Overload] Retrying in {delay}s...")
+                time.sleep(delay)
+            else:
+                raise e
 
 def get_tools(sandbox_dir: Path):
     def read_file(path: str) -> str:
@@ -38,7 +56,7 @@ def get_tools(sandbox_dir: Path):
             f.write("\n" + content)
         return f"Successfully appended to {path}"
         
-    def list_directory(path: str = ".") -> str:
+    def list_directory(path: str) -> str:
         """Lists files and directories in the specified path."""
         target = (sandbox_dir / path).resolve()
         if not str(target).startswith(str(sandbox_dir)):
@@ -61,16 +79,23 @@ def simulate_conversation(
     user_goal: str,
     sandbox_dir: Path,
     turns: int = 5,
-    model_id: str = "gemini-2.5-pro"
+    model_id: str = "gemini-2.5-flash"
 ):
     print(f"Starting simulation for {skill_name} in sandbox {sandbox_dir}...")
     
     # Setup Skill Agent with Tools
-    skill_system_prompt = f"You are a helpful assistant following these exact skill instructions:\n\n{skill_instructions}"
+    skill_system_prompt = f"""You are an expert AI agent.
+You have access to file editing tools (e.g., read_file, write_file, append_file, list_directory).
+When instructions tell you to "Use your file editing tool" or ask you to write, create, or append to a file, YOU MUST CALL THE APPROPRIATE TOOL FUNCTION. Do not just output the text or say you will do it.
+
+Follow these exact skill instructions:
+
+{skill_instructions}"""
     skill_config = types.GenerateContentConfig(
         system_instruction=skill_system_prompt,
         temperature=0.2,
-        tools=get_tools(sandbox_dir)
+        tools=get_tools(sandbox_dir),
+        automatic_function_calling={"disable": False}
     )
     
     # Setup User Agent (no tools)
@@ -89,25 +114,43 @@ Rules for your responses:
         temperature=0.7,
     )
     
-    transcript = []
-    
     skill_chat = client.chats.create(model=model_id, config=skill_config)
     user_chat = client.chats.create(model=model_id, config=user_config)
     
-    current_message = f"Hi! I need help with something. {user_goal}"
-    transcript.append({"role": "user", "content": current_message})
+    current_message = "Hi! I need some help starting on my project."
     print(f"\nUser:\n{current_message}")
     
     for i in range(turns):
         # 1. Skill Agent replies
         try:
-            skill_response = skill_chat.send_message(current_message)
-            skill_text = skill_response.text
+            skill_response = retry_with_backoff(lambda: skill_chat.send_message(current_message))
+            
+            # Print/log the skill response (text and function calls)
+            skill_text = ""
+            
+            try:
+                if skill_response.text:
+                    skill_text += skill_response.text
+            except Exception:
+                pass
+                
+            try:
+                if skill_response.function_calls:
+                    for fc in skill_response.function_calls:
+                        func_call_str = f"[Tool Call: {fc.name}({fc.args})]"
+                        print(f"  {func_call_str}")
+                        skill_text += "\n" + func_call_str
+            except Exception:
+                pass
+
+            if not skill_text:
+                print(f"  [DEBUG: skill_response text is empty! Full response:]\n{skill_response.model_dump_json(indent=2)}")
+                skill_text = "[Error: Model returned an empty response.]"
         except Exception as e:
             print(f"Error calling Skill Agent: {e}")
             break
+
             
-        transcript.append({"role": "assistant", "content": skill_text})
         print(f"\nAssistant:\n{skill_text}")
         
         if i == turns - 1:
@@ -115,16 +158,27 @@ Rules for your responses:
             
         # 3. User Agent replies
         try:
-            user_response = user_chat.send_message(skill_text)
+            user_response = retry_with_backoff(lambda: user_chat.send_message(skill_text))
             current_message = user_response.text
         except Exception as e:
             print(f"Error calling User Agent: {e}")
             break
             
-        transcript.append({"role": "user", "content": current_message})
         print(f"\nUser:\n{current_message}")
 
-    return transcript
+    # Serialize full history including function calls
+    res = []
+    for msg in skill_chat._curated_history:
+        m = {"role": msg.role, "parts": []}
+        for part in msg.parts:
+            if getattr(part, 'text', None):
+                m["parts"].append({"text": part.text})
+            elif getattr(part, 'function_call', None):
+                m["parts"].append({"function_call": {"name": part.function_call.name, "args": part.function_call.args}})
+            elif getattr(part, 'function_response', None):
+                m["parts"].append({"function_response": {"name": part.function_response.name, "response": part.function_response.response}})
+        res.append(m)
+    return res
 
 def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model_id: str):
     with open(scenario_file, 'r') as f:
@@ -145,27 +199,52 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model
         
     scenario_name = scenario_file.stem
     skill_name = scenario.get("skill_name", skill_path.parent.name)
-    user_persona = scenario.get("user_persona", "A standard developer")
-    user_goal = scenario.get("user_goal", "I want you to help me with a task.")
+    
+    suite_config_path = scenario_file.parent / "suite.json"
+    suite_config = {}
+    if suite_config_path.exists():
+        with open(suite_config_path, 'r') as f:
+            suite_config = json.load(f)
+            
+    user_persona = scenario.get("user_persona", suite_config.get("user_persona", "A standard developer"))
+    user_goal = scenario.get("user_goal", suite_config.get("user_goal", "I want you to help me with a task."))
     depends_on = scenario.get("depends_on")
+    turns = scenario.get("turns", turns)  # scenario JSON wins; CLI --turns is the fallback
     
     # Setup Sandbox & Caching
     base_dir = Path(__file__).parent.resolve()
-    sandbox_dir = base_dir / "sandbox" / suite_name / scenario_name
+    sandbox_dir = base_dir / "sandbox"
     cache_dir = base_dir / "cache" / suite_name / scenario_name
     
+    # 1. Wipe sandbox at start of each run for a clean slate
     if sandbox_dir.exists():
         shutil.rmtree(sandbox_dir)
     sandbox_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Seed cache if depends_on is set
+            
+    # 2. Initialize GroundWork in the sandbox
+    print("Running 'groundwork init' in sandbox to populate latest skills...")
+    try:
+        subprocess.run(
+            ["node", str(REPO_ROOT / "bin" / "groundwork.js"), "init"],
+            cwd=sandbox_dir,
+            check=True,
+            capture_output=True,
+            text=True
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"ERROR: groundwork init failed:\n{e.stderr}")
+        return
+
+    # 3. Move in the assets we need (from dependency cache)
     if depends_on:
         dep_cache = base_dir / "cache" / suite_name / depends_on
         if dep_cache.exists():
             print(f"Seeding sandbox from dependency cache: {depends_on}")
-            shutil.copytree(dep_cache, sandbox_dir, dirs_exist_ok=True)
+            # Ignore .agents so we keep the freshly initialized skills
+            shutil.copytree(dep_cache, sandbox_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.agents'))
         else:
-            print(f"WARNING: Dependency cache {dep_cache} does not exist. Sandbox will be empty.")
+            print(f"WARNING: Dependency cache {dep_cache} does not exist. Sandbox will not be seeded.")
+        
             
     transcript = simulate_conversation(
         client=client,
@@ -204,7 +283,7 @@ def main():
     parser.add_argument("--scenario", help="Name of the specific scenario file without extension (e.g., 01_product_brief)")
     parser.add_argument("--all", action="store_true", help="Run all scenarios in the suite sequentially")
     parser.add_argument("--turns", type=int, default=5, help="Number of conversation turns")
-    parser.add_argument("--model", default="gemini-2.5-pro", help="Gemini model to use")
+    parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model to use")
     args = parser.parse_args()
 
     api_key = os.environ.get("GEMINI_API_KEY")

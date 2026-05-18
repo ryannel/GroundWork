@@ -1,23 +1,47 @@
 import os
 import json
 import argparse
+import time
 from pathlib import Path
 from google import genai
 from google.genai import types
+
+def retry_with_backoff(func, max_retries=5, base_delay=4):
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            if "503" in str(e) or "429" in str(e) or "exhausted" in str(e).lower():
+                delay = base_delay * (2 ** attempt)
+                print(f"  [API Rate Limit/Overload] Retrying in {delay}s...")
+                time.sleep(delay)
+            else:
+                raise e
 
 def evaluate_transcript(
     client: genai.Client,
     transcript: list,
     rubric: str,
     skill_instructions: str,
-    model_id: str = "gemini-2.5-pro"
+    model_id: str = "gemini-2.5-flash"
 ):
     
     # Format transcript
     formatted_transcript = ""
     for msg in transcript:
-        role = "User Persona" if msg["role"] == "user" else "Skill Assistant"
-        formatted_transcript += f"\n[{role}]\n{msg['content']}\n"
+        role = "Simulated User" if msg["role"] == "user" else "Skill Assistant"
+        formatted_transcript += f"\n[{role}]\n"
+        for part in msg["parts"]:
+            if "text" in part:
+                formatted_transcript += f"{part['text']}\n"
+            elif "function_call" in part:
+                fc = part["function_call"]
+                formatted_transcript += f"*[Called Tool: {fc['name']} with args {fc['args']}]*\n"
+            elif "function_response" in part:
+                fr = part["function_response"]
+                formatted_transcript += f"*[Tool Output from {fr['name']}: {fr['response']}]*\n"
         
     system_prompt = f"""You are an expert AI evaluator grading a conversational test of an AI assistant skill.
 The skill's original instructions are:
@@ -42,11 +66,11 @@ Provide:
     )
     
     print("Evaluating transcript...")
-    response = client.models.generate_content(
+    response = retry_with_backoff(lambda: client.models.generate_content(
         model=model_id,
         contents=f"Please evaluate this transcript:\n<transcript>{formatted_transcript}</transcript>",
         config=config
-    )
+    ))
     
     return response.text
 
@@ -56,7 +80,7 @@ def main():
     parser.add_argument("--skill-path", required=True, help="Path to SKILL.md file")
     parser.add_argument("--rubric", required=False, help="Evaluation rubric string", default="1. Did the assistant avoid question-bombing? 2. Did the assistant correctly follow the skill instructions? 3. Did the assistant effectively fulfill the user's hidden goal?")
     parser.add_argument("--output", required=True, help="Path to save the evaluation report")
-    parser.add_argument("--model", default="gemini-2.5-pro", help="Gemini model to use")
+    parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model to use")
     args = parser.parse_args()
 
     api_key = os.environ.get("GEMINI_API_KEY")

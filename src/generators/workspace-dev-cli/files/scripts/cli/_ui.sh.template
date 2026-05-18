@@ -96,6 +96,14 @@ function print_warn() {
   echo -e "${PAD}${YELLOW}${ICON_WARN}${NC} $1"
 }
 
+function print_category() {
+  echo -e "\n  ${DIM}■ ${NC}${BOLD}$1${NC}"
+}
+
+function print_cmd() {
+  printf "    ${CYAN}%-15s${NC} %s\n" "$1" "$2"
+}
+
 function fail() {
   print_error_card "$1" "$2"
   exit 1

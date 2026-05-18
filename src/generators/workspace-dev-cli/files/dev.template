@@ -23,21 +23,22 @@ trap cleanup_on_interrupt SIGINT
 # ==========================================
 function show_help() {
   print_logo
-  
-  print_panel_start "LIFECYCLE"
-  print_panel_row "  ${CYAN}start${NC}" "Spin up environment" "(--docker)"
-  print_panel_row "  ${CYAN}stop${NC}" "Tear down components" ""
-  print_panel_row "  ${CYAN}logs${NC}" "Tail output logs" ""
-  print_panel_row "  ${CYAN}status${NC}" "Print local endpoints" "(--json)"
-  print_panel_row "  ${CYAN}clean${NC}" "Deep teardown & wipe" "(--hard)"
-  print_panel_end
+  echo -e "  Local Development CLI for ${CLI_APP_NAME}"
   echo ""
+  echo -e "  ${BOLD}USAGE${NC}"
+  echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}<verb>${NC} [nouns...]"
+  
+  print_category "LIFECYCLE"
+  print_cmd "start" "Spin up environment (--docker)"
+  print_cmd "stop" "Tear down components"
+  print_cmd "logs" "Tail output logs"
+  print_cmd "status" "Print local endpoints (--json)"
+  print_cmd "clean" "Deep teardown & wipe (--hard)"
 
-  print_panel_start "MAINTENANCE & QUALITY"
-  print_panel_row "  ${CYAN}doctor${NC}" "Verify environment" ""
-  print_panel_row "  ${CYAN}test${NC}" "Execute testing suites" ""
-  print_panel_row "  ${CYAN}lint${NC}" "Run static analysis" ""
-  print_panel_end
+  print_category "MAINTENANCE & QUALITY"
+  print_cmd "doctor" "Verify environment"
+  print_cmd "test" "Execute testing suites"
+  print_cmd "lint" "Run static analysis"
   echo ""
 }
 

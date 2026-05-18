@@ -4,28 +4,59 @@ set -e
 # Change to the directory of this script to ensure relative paths work
 cd "$(dirname "$0")"
 
+# Load environment variables if present
+if [ -f ".env" ]; then
+  set -a
+  source .env
+  set +a
+fi
+
+# Source UI functions
+if [ -f "scripts/_ui.sh" ]; then
+  source scripts/_ui.sh
+else
+  # Fallback functions if ui script is missing
+  print_logo() { echo "GroundWork Dev CLI"; }
+  print_step() { echo "-> $1"; }
+  print_info() { echo "  $1"; }
+  print_error() { echo "ERROR: $1"; }
+  fail() { echo "ERROR: $1"; exit 1; }
+fi
+
 COMMAND=$1
 
 case "$COMMAND" in
   test|eval)
     SUBCMD=$2
     if [ "$SUBCMD" = "nx" ]; then
-      echo "Running Nx tests..."
+      print_logo "Testing"
+      print_step "Running Nx tests..."
       npx nx run-many -t test
     elif [ "$SUBCMD" = "run" ]; then
       SUITE=$3
       SCENARIO=$4
       
       if [ -z "$SUITE" ]; then
-          echo "Usage: ./dev eval run <suite_name> [scenario_name]"
-          echo "Example: ./dev eval run storytelling_engine 01_product_brief"
+          print_logo "Evaluation Suites"
+          print_info "Available suites:"
+          echo ""
+          
+          # Dynamically list available suites using Python
+          python3 tests/evals/list_suites.py
+          
+          echo ""
+          print_info "Usage: ./dev eval run <suite_name> [scenario_name]"
+          print_info "Example: ./dev eval run storytelling_engine 01_product_brief"
           exit 1
       fi
 
-      echo "Activating evaluation environment..."
+      print_logo "Running Evaluation"
+      print_step "Suite: $SUITE"
+      
+      print_substep "Activating evaluation environment..."
       cd tests/evals
       if [ ! -d "venv" ]; then
-          echo "Creating venv..."
+          print_substep "Creating venv..."
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
@@ -39,19 +70,33 @@ case "$COMMAND" in
           python conversational_eval.py --suite "$SUITE" --all
       fi
     elif [ "$SUBCMD" = "clean" ]; then
-      echo "Cleaning evaluation sandboxes and caches..."
+      print_logo "Cleaning"
+      print_step "Cleaning evaluation sandboxes and caches..."
       rm -rf tests/evals/sandbox/* tests/evals/cache/*
-      echo "Cleaned."
+      print_success "Cleaned."
     else
-      echo "Usage:"
-      echo "  ./dev eval run <suite> [scenario]  # Run conversational evaluations"
-      echo "  ./dev eval clean                   # Clear eval caches & sandboxes"
-      echo "  ./dev test nx                      # Run Nx workspace tests"
+      print_logo
+      echo -e "  Local Development CLI for GroundWork"
+      echo ""
+      echo -e "  ${BOLD}USAGE${NC}"
+      echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}eval${NC} [action]"
+      
+      print_category "ACTIONS"
+      print_cmd "run" "Run conversational evaluations (lists suites if empty)"
+      print_cmd "clean" "Clear eval caches & sandboxes"
+      echo ""
     fi
     ;;
   *)
-    echo "GroundWork Dev CLI"
-    echo "Available commands:"
-    echo "  test, eval    Commands for running tests and evaluations"
+    print_logo
+    echo -e "  Local Development CLI for GroundWork"
+    echo ""
+    echo -e "  ${BOLD}USAGE${NC}"
+    echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}<verb>${NC} [nouns...]"
+    
+    print_category "QUALITY & TESTING"
+    print_cmd "eval" "Run AI skill evaluation harness"
+    print_cmd "test nx" "Run Nx workspace tests"
+    echo ""
     ;;
 esac

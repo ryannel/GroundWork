@@ -1,7 +1,6 @@
 {
   "skill_name": "groundwork-ux-design",
   "skill_path": "src/hidden-skills/groundwork-ux-design/instructions.md",
-  "user_persona": "A picky founder who expects premium, dark-mode, glassmorphism UI.",
-  "user_goal": "Help the agent design the UX for the storytelling engine based on the product brief.",
+  "turns": 15,
   "depends_on": "01_product_brief"
 }

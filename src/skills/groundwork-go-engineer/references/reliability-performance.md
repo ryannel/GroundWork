@@ -66,7 +66,24 @@ Every producer has a bounded queue and a defined behaviour when the queue fills:
 
 ### 5. Load Shedding Protects the System
 
-When saturated, serve fewer requests well. Shed on clearly-defined criteria: low-priority traffic first.
+When saturated, serve fewer requests well. Shed on clearly-defined criteria using inbound concurrency limits.
+
+```go
+import "golang.org/x/sync/semaphore"
+
+var maxInflight = semaphore.NewWeighted(1000)
+
+func LoadSheddingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        if !maxInflight.TryAcquire(1) {
+            http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
+            return
+        }
+        defer maxInflight.Release(1)
+        next.ServeHTTP(w, r)
+    })
+}
+```
 
 ### 6. Hot Paths Have No Allocations to Spare
 
