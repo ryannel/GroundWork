@@ -4,6 +4,43 @@ This track applies to products with a visual user interface: web apps, mobile ap
 
 ---
 
+## Core Contract: Intent In, Specification Out
+
+The user is not a designer or specification writer. They speak in taste, instinct, analogy, and feeling. That is the correct level of input.
+
+The process has three beats:
+
+1. **High-level conversation** (Stages 1–4): The agent and user talk about how the product should *feel* — its mood, its personality, its interaction philosophy. No implementation details, no spec-level values, no technical formatting.
+2. **Expert translation** (Stage 5a): The agent autonomously converts the approved direction into a rigorous, implementation-ready specification. This is the agent's core contribution.
+3. **Specific review** (Stage 5b): The agent presents the technical spec. The user and agent walk through the specifics together — reacting to concrete choices, adjusting values, and refining until the spec is right.
+
+This separation is non-negotiable.
+
+---
+
+## Operating Principles & Protocol
+
+Act as an opinionated, technical UX Researcher collaborating with a domain expert. Lead a rigorous, multi-turn, one-question-at-a-time discussion.
+
+Lead the design interview at just the right level of abstraction — high enough that the user never thinks about implementation details, but deep enough to extrapolate a detailed, actionable design system. Marry user preferences, guidance from `product-brief.md`, and leading-edge modern design practices.
+
+**Language**: Use the user's own words. Never assume the user recognizes acronyms or jargon they did not introduce themselves.
+
+**Orientation:** When starting a new stage, explain where the user is in the process and how the stage will be run.
+
+---
+
+## Discovery Notes Protocol
+
+During UX Design, the user will mention things that belong to a later phase — architectural instincts, infrastructure preferences, feature priority signals. Do not lose these.
+
+**During every turn**, silently monitor for out-of-phase signals. When you hear one:
+
+1. Acknowledge it naturally within the conversation if appropriate, then steer back to the current topic.
+2. Append the signal as a new bullet under the appropriate section header (`## Architecture`, `## Bets`, etc.) in `.groundwork/cache/discovery-notes.md`. Use your file editing tool — never a shell command. If the file does not exist, create it with the section headers `## UX Design`, `## Architecture`, `## Bets`.
+3. Ensure you still ask your next discovery question in the same turn.
+
+---
 ## Default Stance
 
 Be fluid. Adapt seamlessly to the user's preferences, product positioning, and purpose. The agent's role is to match the user's vision — not to impose a rigid aesthetic.
@@ -60,9 +97,11 @@ Present the proposed NFRs and refine collaboratively. Once the user approves, wr
 
 Drawing on the product context and agreed NFRs from Stage 1, build a targeted pool of inspiration.
 
-1. Gather a list of leading applications, websites, or physical experiences that exemplify modern, high-end design. Prioritise apps that solve similar UX problems to the ones this product faces and are trend-leading in how they do it.
-2. Present this Inspiration Library to the user, describing exactly what each example does well and how it applies to our product.
-3. **STOP and ask the user:** Ask for their thoughts. Do they agree with the references? Are there specific "vibes" or paradigms from this list they want to adopt? Do not proceed until they have confirmed the direction.
+1. Identify the 3–5 core UX challenges this product faces based on the product brief and Stage 1 NFRs (e.g., "async generation with delayed delivery," "multi-device intent capture," "media-heavy reading experience").
+2. For each challenge, find 1–2 leading applications that solve it exceptionally well. Describe the **specific pattern or interaction** worth borrowing — not just the app's general reputation. Bad: "Linear — for frictionless interaction." Good: "Linear — their command palette renders results from a local cache before the server responds, giving the illusion of zero latency. We should adopt this pattern for our intent-capture surface."
+3. Aim for 5–8 references total. Breadth across different UX challenges is more valuable than depth on a single challenge.
+4. Present this Inspiration Library to the user.
+5. **STOP and ask the user:** Ask for their thoughts. Do they agree with the references? Are there specific "vibes" or paradigms from this list they want to adopt? Do not proceed until they have confirmed the direction.
 
 Once the user approves, write the agreed inspiration library to the Stage 2 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 3.
 
@@ -102,6 +141,8 @@ Discuss the following with the user:
 - **Tone of Voice & Microcopy**: How does the UI speak to the user? Terse and functional (Linear-style), warm and conversational (Notion-style), or technical and precise?
 - **Data Visualisation**: If the product includes charts or metrics, what style? Minimal sparklines, rich interactive charts, or ambient data visualisation?
 
+**Coverage**: Explore each topic above through at least one question before the Synthesis Gate fires. Mark each topic as covered in `.groundwork/cache/ux-design-cache.md` as you go. Skip a topic only when it is clearly irrelevant to the product. Discuss one topic per turn — do not combine multiple topics into a single question.
+
 ### Synthesis Gate
 
 Before caching, distill the entire Stage 4 conversation into a structured design direction and present it to the user for confirmation. This is mandatory — scattered conversation notes are not sufficient input for Stage 5.
@@ -122,13 +163,12 @@ Once the user confirms the direction, write this synthesis to the Stage 4 sectio
 
 ---
 
-## Stage 5: Expert Translation & Review
+## Stage 5: Expert Translation & Guided Review
 
-Stage 5 has two distinct phases. The first is autonomous work by the agent. The second is a collaborative conversation about the specifics.
-
-### 5a: Translation (Agent-Driven)
 
 The user provided taste, instinct, and direction across Stages 1–4. The agent now translates that into a rigorous, CSS-level engineering specification — autonomously.
+
+**Output location**: `.groundwork/cache/ux-design-draft.md`. Writing to `docs/ux-design.md` is prohibited until Stage 6 (Commit). The draft must survive the full 5b walkthrough before promotion.
 
 Compile the full UX Design Guide using the approved outputs stored in `.groundwork/cache/ux-design-cache.md`. The document combines NFRs from Stage 1 with a comprehensive design system that the agent derives from the design language direction captured in Stage 4.
 
@@ -140,126 +180,41 @@ Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive
 
 ### UX Design Guide Target Structure
 
-#### Part 1: The Constraints (Non-Functional Requirements)
-Concrete behavioural rules derived from Stage 1. Performance budgets, accessibility baselines, platform targets, multi-device sync requirements, and offline/error tolerance.
+The spec must cover all of the following. Missing sections are not acceptable:
 
-#### Part 2: UX Principles & App Shell
-Interaction pillars (e.g., flow-state entry, frictionless inline editing, context preservation). Global navigation model, search, and layout skeleton from Stage 3. Empty states, loading patterns, and onboarding.
+**Part 1 — Constraints**: Performance budgets, a11y baselines, platform targets, sync requirements, error tolerance.
 
-#### Part 3: Design System
+**Part 2 — Shell**: Navigation model, layout skeleton, empty/loading states, onboarding.
 
-Translate the user's high-level design preferences into concrete, mathematical foundations. Each section must be deeply specified:
-
-##### Colour Architecture (OKLCH)
-- Define all colours exclusively in the **OKLCH** colour space for perceptual uniformity. HEX and RGB values are prohibited.
-- Define semantic colour roles as CSS variables: canvas (lowest z-layer), surface (elevated containers), text-primary, text-muted, accent (primary actions and focus rings), success, warning, error.
-- For each colour: specify the OKLCH value, its application context (where and when to use it), and both light and dark theme variants.
-- Define rules for dynamic alpha transparency.
-
-##### Typographic Scaling
-- Specify the font stack: a primary UI font and a monospace font for data/code.
-- Define a complete type scale with named steps: display, section header, body, UI control, micro/caption.
-- For each step: specify size (rem), weight, line-height, and letter-spacing/tracking.
-- Tracking must decrease as size increases to maintain optical tightness at display sizes.
-
-##### Spatial Architecture
-- Define a base grid (e.g., 8-point) that all dimensions (margins, padding, heights, gaps) must snap to.
-- Provide named spacing tokens (e.g., `--space-1` through `--space-8`) with their pixel values.
-- State the rule: no arbitrary pixel values outside the grid.
-
-##### Surface Treatments & Depth
-
-This is the section that separates a premium application from a generic SaaS product. Generative UI tools will not produce this level of polish without explicit, CSS-level guidance. Whatever aesthetic direction was chosen in Stage 4, the design system must define it at this depth.
-
-Specify the following, adapted to the chosen aesthetic:
-
-- **Elevation & Shadow System**: Define how the UI communicates depth. This could be multi-layered shadow stacks (ambient occlusion, direct shadow, penumbra, diffuse scatter, rim light), hard-edged brutalist borders, or soft neumorphic insets — but it must be a deliberate, multi-tier system with exact CSS for each elevation level. Single-layer `box-shadow` is never acceptable.
-- **Surface Differentiation**: Define how surfaces at different z-levels are visually distinguished. Specify the exact CSS treatments (backgrounds, borders, blurs, opacity) for each tier. Differentiate between surfaces resting on the canvas, chrome elements (sticky headers, sidebars), and floating overlays (command palettes, modals, dropdowns).
-- **Background & Texture Treatments**: Define how large, empty surfaces are treated to prevent visual monotony. This could be ambient gradient washes, subtle noise textures, or deliberate blankness — but the choice must be explicit, with CSS-level rules (gradient directions, colour stops, opacity, fallback layers).
-- **Active & Focus State Treatments**: Define how interactive elements communicate state beyond simple colour changes. Specify glow effects, ring treatments, scale transforms, or border transitions — with exact CSS values. These micro-details are what make a UI feel alive and responsive.
-
-##### Surface Class Hierarchy
-Define a clear hierarchy of named surface/utility classes and specify exactly when to use each one. Each class must have:
-- A name and its CSS definition.
-- A rule for when and where to apply it (e.g., "use for standard cards resting on the canvas" vs. "reserve strictly for floating overlays").
-- An explanation of how it relates to the other tiers in the hierarchy.
-
-This hierarchy prevents arbitrary mixing of depth treatments and ensures optical consistency across the entire application.
-
-##### Atomic Component Anatomy
-- **Buttons**: Standard heights, border-radius, variant rules (primary, secondary, ghost), and interaction states (hover scale, active press, disabled). Provide exact CSS for each variant.
-- **Inputs**: Heights matching buttons for horizontal alignment. Border states for rest, focus, and error. Focus ring specification (colour, spread, opacity). Provide exact CSS.
-- **Concentric Radii Rule**: Inner radius = outer radius − padding. Prevents visual clipping of nested elements.
-- **Interaction Micro-Details**: Define the small tactile details — hover transitions, active-state transforms, focus ring animations — that compound into a premium feel. Specify timing functions, durations, and transform values.
-
-##### Loading & Skeleton States
-Spinners are a last resort. Premium applications show shimmer skeletons that mirror the exact shape of the content they replace.
-- Define skeleton gradient animation: direction, speed, and colour (e.g., a subtle left-to-right sweep using the surface colour at varying opacity).
-- State the rule: skeleton shapes must match the content layout — rectangular blocks for text, circles for avatars, card outlines for cards. Generic grey boxes are not acceptable.
-- Specify the transition from skeleton to content: cross-fade timing and whether content appears all at once or progressively.
-
-##### Scrollbar Styling
-Default browser scrollbars break premium aesthetics. Define custom scrollbar treatments:
-- Width (thin, e.g., 6–8px), track transparency, thumb colour matched to the text-muted token.
-- Auto-hide behaviour (visible on scroll, fade after inactivity).
-- Consistent treatment across WebKit and Firefox (`::-webkit-scrollbar` and `scrollbar-width`/`scrollbar-color`).
-
-##### Text Selection & Cursor
-Most implementations neglect these immediately visible details:
-- `::selection` background and foreground colours matched to the accent palette.
-- Cursor treatments for interactive elements (e.g., `cursor: grab` on draggable items, `cursor: pointer` on clickable non-link elements).
-
-##### Text Rendering
-Font rendering affects perceived quality more than font choice:
-- Specify `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale` as global defaults.
-- Define `text-rendering` hints (e.g., `optimizeLegibility` for headings).
-
-##### Toast & Notification Anatomy
-Transient UI must receive the same level of polish as persistent UI:
-- Entry and exit animations (e.g., slide-in from edge with spring easing, fade-out on dismiss).
-- Positioning (e.g., bottom-right, top-center) and stacking behaviour when multiple toasts fire.
-- Auto-dismiss timing (e.g., 4 seconds for informational, persistent for errors until acknowledged).
-- Maximum visible count before older toasts are collapsed or queued.
-- Visual variants: informational, success, warning, error — each with distinct colour and icon treatments.
-
-##### Transition Choreography
-Individual element transitions are not enough. Define how groups of elements animate together:
-- **Staggered Entry**: When a list or grid of items appears, each item enters with a small incremental delay (e.g., 30–50ms per item) to create a cascading reveal.
-- **Coordinated State Changes**: When a view changes state (e.g., loading → loaded, collapsed → expanded), define the sequence — which elements move first, which fade, which scale.
-- **Page/View Transitions**: Define how the UI transitions between major views — cross-fade, slide, or shared-element transitions. Specify duration and easing.
-
-##### Border & Divider Strategy
-Inconsistent use of borders, spacing, and shadows to separate content is a common source of visual noise:
-- Define when to use a border (e.g., between list items), when to use spacing alone (e.g., between card groups), and when to use a shadow (e.g., for elevated surfaces).
-- Specify border colour and opacity (typically a low-opacity version of the text colour, not a hard grey).
-- State whether dividers are full-bleed or inset, and by how much.
-
-##### Content Overflow & Truncation
-Uncontrolled text overflow breaks layouts and feels unfinished:
-- Define the truncation strategy: single-line ellipsis, multi-line clamp (`-webkit-line-clamp`), or gradient fade-out.
-- Specify expand-on-hover or expand-on-click behaviour where applicable.
-- Define how overflowing lists handle their edges — gradient fade at the scroll boundary vs. hard cut.
-
-##### Empty States
-Blank screens with placeholder text are the most common premium killer:
-- Every major view must have a designed empty state that guides the user towards their first action.
-- Define the visual treatment: illustration or icon, heading, supporting text, and a primary action button.
-- Specify the tone (encouraging, not apologetic) and ensure it aligns with the product's voice from Stage 4.
-
-##### Error State Choreography
-"Red border on the input" is not error design. Define the full error experience:
-- **Inline Validation Timing**: When does validation fire — on blur, on submit, or after a debounce delay while typing?
-- **Error Message Entry**: How do error messages appear — slide-down, fade-in, or instant? Specify animation duration and easing.
-- **Attention Effects**: Define shake, pulse, or highlight effects that draw the user's eye to the problem without being aggressive.
-- **Recovery Guidance**: Error messages must state what went wrong and what to do next, not just flag the error.
-
-##### Responsive Degradation
-- Define the grid system per breakpoint (e.g., 12-column desktop, 8-column tablet, 4-column mobile).
-- Specify how key components transform at smaller viewports (e.g., tables → stacked cards, sidebars → bottom sheets).
+**Part 3 — Design System** (each with exact CSS values):
+Colour architecture (OKLCH, both themes) · Type scale (all steps) · Spacing tokens · Surface class hierarchy · Elevation & shadow stacks · Background & texture · Interaction states (hover, press, focus) · Button & input anatomy · Skeleton shimmer · Scrollbars · Text selection & rendering · Toasts & notifications · Transition choreography · Borders & dividers · Overflow & truncation · Empty states · Error choreography · Responsive grid
 
 ---
 
 Before presenting the draft, run this self-check: **every section must contain committed, implementable values — not echoes of the user's words**.
+
+**Coverage gate** — the draft must contain all of the following with concrete CSS values. If any item is missing, add the section before writing the draft. Do not defer to the walkthrough:
+
+- Colour architecture (both theme variants, semantic roles, alpha transparency rules)
+- Complete type scale (both font families, all named steps from display through micro)
+- Spacing tokens (--space-1 through --space-8 minimum)
+- Surface class hierarchy (named classes with usage rules)
+- Elevation system (3+ tiers, full shadow stacks)
+- Background and texture treatments with CSS
+- Active, hover, and focus state treatments with CSS
+- Button and input anatomy (all variants, exact CSS)
+- Concentric radii rule
+- Loading and skeleton shimmer with CSS
+- Scrollbar styling (WebKit and Firefox)
+- Text selection and cursor treatments
+- Text rendering hints
+- Toast and notification anatomy with animation
+- Transition choreography (staggered, coordinated, page-level)
+- Border and divider strategy
+- Content overflow and truncation rules
+- Empty state design treatment
+- Error state choreography (timing, animation, recovery)
+- Responsive grid per breakpoint
 
 The user's vocabulary must be fully translated:
 - "Warm vellum" → a specific OKLCH value for the canvas token.
@@ -270,14 +225,69 @@ The user's vocabulary must be fully translated:
 
 If any section still reads like a design brief rather than a build specification, the translation is incomplete. Derive the missing values from the approved direction — do not go back to the user. Making these calls is the agent's core contribution.
 
-### 5b: Review (Collaborative)
+Update the Stage 5 section in `.groundwork/cache/ux-design-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to Stage 5b.
 
-Present the complete draft to the user. This is the first time the user sees technical specifics — actual colour values, font selections, shadow definitions, timing functions.
+### 5b: Guided Review (Collaborative)
 
-The user's role shifts from providing direction to reacting to choices. They will say things like "that font doesn't feel right," "the shadows are too heavy," or "I love that colour palette." Walk through the spec together and adjust.
+The draft is a proposal. Present it to the user as one — explicitly frame it: "Here is what I've built from your direction. Let's walk through it together."
 
-Do not rush this. The user has earned a say in the details by providing clear direction earlier. If they push back on a choice, propose alternatives that still honour the original intent. If they approve, move on.
+**Do not ask the user to approve the full spec.** Do not present a summary of highlights and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing.
 
-Refine iteratively until the user is satisfied with the full specification.
+#### Cluster Walkthrough
 
-Once approved, return to `instructions.md` and execute Stage 6: Commit.
+Present the spec in three clusters. Each cluster groups related decisions so the user can react to them as a coherent design choice, not as isolated CSS values.
+
+**Cluster 1: Identity** — Colour palette (both themes), typography pairing, and surface texture.
+
+These are the "soul" decisions — the user's taste is the primary input, and wrong choices here feel fundamentally off. Present the colour table, the font pairing with sample text descriptions, and the texture approach side by side. Teach the reasoning: why OKLCH over HEX, why this serif's x-height works at screen resolution, how the texture opacity was calibrated. Offer 2–3 alternative pairings that honour the same direction but shift the feel. Wait for the user's reaction before advancing.
+
+**Cluster 2: Touch** — Surface depth and shadows, motion and easing curves, interaction states (hover, press, focus).
+
+These define how the product feels in the hand. The user cannot specify `cubic-bezier` values but will immediately sense if motion is too fast, too bouncy, or too flat. Present the shadow system, the easing curve, and the "press" transform as a connected system. Teach the trade-offs: snappy 150ms transitions feel efficient but clinical; weighted 300ms transitions feel premium but can add friction. Justify the specific choice against the user's Stage 4 direction. Offer alternatives. Wait for the user's reaction.
+
+**Cluster 3: Polish** — Everything else: scrollbars, toasts, error choreography, loading and skeleton states, empty states, borders and dividers, text rendering, content overflow, responsive grids.
+
+These are engineering craft — decisions the agent should own. Present the full set as a summary table: what was decided, in one line per topic. Call out any judgment calls that the user might have an opinion on (e.g., "I chose slide-down error messages over shake animations because shake can feel aggressive for a warm product voice"). Ask if anything feels wrong. Do not walk through each one individually unless the user flags a concern.
+
+#### Re-flow Protocol
+
+When the user requests a change in any cluster:
+
+1. Acknowledge the change and confirm understanding.
+2. Assess downstream impact — state explicitly which other sections are affected. "Switching to Source Serif 4 will affect the type scale weights and the line-heights in Spatial Architecture."
+3. **Regenerate the full spec** with the change applied cohesively. Write the updated draft to `.groundwork/cache/ux-design-draft.md`, replacing the previous version.
+4. Summarise the re-flow: list every section that changed and what specifically shifted.
+5. If a previously-approved cluster was affected substantively, re-present it before continuing.
+
+The re-flow is not optional. A design system is a web of interconnected decisions. Changing typography affects spatial rhythm, which affects component anatomy, which affects motion timing. Full regeneration with a clear change summary is the correct approach.
+
+#### Walkthrough Progress
+
+Track which clusters have been reviewed in `.groundwork/cache/ux-design-cache.md` under the Stage 5 checklist. Mark each cluster as complete when the user approves it. This enables session resumption — if the conversation is interrupted, the agent sees which clusters have been reviewed and resumes from the next unchecked item.
+
+#### Completion Gate
+
+The walkthrough is complete when all three clusters have been presented and approved. Only then does Stage 6 (Commit) execute. The agent must not write to `docs/ux-design.md` or delete the cache until the user has given explicit final approval of the complete spec.
+
+Once approved, proceed to Stage 6: Commit.
+
+---
+
+## Stage 6: Commit
+
+This stage executes **only** after Stage 5b has walked through every section of the draft and the user has explicitly approved the complete specification. Verify that all items in the Stage 5 walkthrough checklist in `.groundwork/cache/ux-design-cache.md` are marked complete before proceeding.
+
+When the user gives explicit final approval of the complete spec:
+
+1. Promote the finalised spec from `.groundwork/cache/ux-design-draft.md` to `docs/ux-design.md`.
+2. Delete the cache file `.groundwork/cache/ux-design-cache.md`.
+3. **Update upstream documents**: Scan the conversation for insights that refine or expand documents produced in earlier phases. Upstream docs are living documents — they grow as the project learns more. Read `docs/product-brief.md` and apply surgical updates where the UX conversation revealed:
+   - Sharper understanding of target users or their jobs to be done
+   - New capabilities or experience dimensions not captured in the brief
+   - Refined domain constraints or scope boundaries
+   - Success indicators that became clearer through design exploration
+   
+   Apply changes directly to the file. Do not ask for permission — these are refinements consistent with the user's own words, not new decisions. If no updates are warranted, skip this step silently.
+4. **Update discovery notes**: Scan the conversation for any out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md` under the appropriate sections. Remove any `## UX Design` entries that were incorporated into `docs/ux-design.md`.
+5. Confirm: **"UX Design complete."** If upstream documents were updated, list the changes briefly (e.g. "Updated `product-brief.md`: added [specific addition]").
+6. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

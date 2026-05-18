@@ -4,55 +4,6 @@
 
 This skill bridges the Product Brief and Architecture phases. It captures non-functional requirements (NFRs) that inform architectural design and develops a concrete design system appropriate to the product's interface type — whether that is a graphical application, a CLI tool, or an agentic protocol.
 
----
-
-## Core Contract: Intent In, Specification Out
-
-The user is not a designer or specification writer. They speak in taste, instinct, analogy, and feeling — "I want it to feel like git," "nothing pushy," "modern but not sterile." That is the correct level of input.
-
-The process has three beats:
-
-1. **High-level conversation** (Stages 1–4): The agent and user talk about how the product should *feel* — its mood, its personality, its interaction philosophy. No implementation details, no spec-level values, no technical formatting.
-2. **Expert translation** (Stage 5a): The agent autonomously converts the approved direction into a rigorous, implementation-ready specification. This is the agent's core contribution — the user does not need to provide technical details.
-3. **Specific review** (Stage 5b): The agent presents the technical spec. The user and agent walk through the specifics together — reacting to concrete choices, adjusting values, and refining until the spec is right.
-
-This separation is non-negotiable and applies to every track — graphical UI, CLI, and agentic protocol.
-
----
-
-## Operating Principles & Protocol
-
-Act as an opinionated, technical UX Researcher collaborating with a domain expert. Lead a rigorous, multi-turn, one-question-at-a-time discussion.
-
-Lead the design interview at just the right level of abstraction — high enough that the user never thinks about implementation details, but deep enough to extrapolate a detailed, actionable design system from their answers. Marry user preferences, guidance from `product-brief.md`, and leading-edge modern design practices to do this effectively.
-
-Probe user expectations, design preferences, and modern standards thoroughly. Do not advance until you have a deep, actionable understanding of their vision.
-
-**Orientation:** When starting a new stage, explain where the user is in the process and how the stage will be run.
-
----
-
-## Discovery Notes Protocol
-
-During UX Design, the user will mention things that belong to a later phase — architectural instincts, infrastructure preferences, feature priority signals. Do not lose these.
-
-**During every turn**, silently monitor for out-of-phase signals. When you hear one:
-
-1. Acknowledge it naturally within the conversation if appropriate, then steer back to the current topic.
-2. Append the signal to the discovery notes by executing exactly this safe command with your command runner tool: `echo "- [Your succinct signal text]" >> .groundwork/cache/discovery-notes.md`. Do not use interactive tools or check if the file exists.
-3. Ensure you still ask your next discovery question in the same turn.
-
-Examples of signals to capture:
-
-| What the user said | Where to log it |
-|---|---|
-| "We'll probably need to handle 50k users eventually" | `## Architecture` |
-| "Auth is the most important thing to build first" | `## Bets` |
-| "I've been thinking about using event sourcing" | `## Architecture` |
-| "We want a mobile app eventually" | `## Architecture` |
-
----
-
 ## Initialization & Resume Protocol
 
 ### Step 1: Cache Check
@@ -85,7 +36,7 @@ Write the determined type to the `interface_type` field in `.groundwork/cache/ux
 
 ### Step 3: Load Track
 
-Based on `interface_type`, load and execute the corresponding track file. The track contains the complete Stages 1–5 flow for that interface type.
+Based on `interface_type`, load and execute the corresponding track file. The track contains the complete Stages 1–6 flow for that interface type, as well as the Core Contract, Operating Principles, and Discovery Notes Protocol.
 
 | Interface Type | Track File |
 |---|---|
@@ -93,25 +44,4 @@ Based on `interface_type`, load and execute the corresponding track file. The tr
 | `cli` | `.agents/groundwork/skills/groundwork-ux-design/tracks/cli.md` |
 | `agentic-protocol` | `.agents/groundwork/skills/groundwork-ux-design/tracks/agentic-protocol.md` |
 
-Read the track file and execute from Stage 1 (or the appropriate resume point if resuming).
-
----
-
-## Stage 6: Commit
-
-This stage is executed after the track file completes Stage 5. It is universal across all interface types.
-
-When the user explicitly approves the draft from Stage 5:
-
-1. Write the finalised content to `docs/ux-design.md`.
-2. Delete the cache file `.groundwork/cache/ux-design-cache.md`.
-3. **Update upstream documents**: Scan the conversation for insights that refine or expand documents produced in earlier phases. Upstream docs are living documents — they grow as the project learns more. Read `docs/product-brief.md` and apply surgical updates where the UX conversation revealed:
-   - Sharper understanding of target users or their jobs to be done
-   - New capabilities or experience dimensions not captured in the brief
-   - Refined domain constraints or scope boundaries
-   - Success indicators that became clearer through design exploration
-   
-   Apply changes directly to the file. Do not ask for permission — these are refinements consistent with the user's own words, not new decisions. If no updates are warranted, skip this step silently.
-4. **Update discovery notes**: Scan the conversation for any out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md` under the appropriate sections. Remove any `## UX Design` entries that were incorporated into `docs/ux-design.md`.
-5. Confirm: **"UX Design complete."** If upstream documents were updated, list the changes briefly (e.g. "Updated `product-brief.md`: added [specific addition]").
-6. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+Read the track file and execute from Stage 1 (or the appropriate resume point if resuming). DO NOT retain these initialization instructions in context once the track is loaded. The track file is the single source of truth for the remainder of the session.

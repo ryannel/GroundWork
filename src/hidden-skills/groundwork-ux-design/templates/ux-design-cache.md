@@ -34,4 +34,31 @@
 
 **Status:** pending
 
-<!-- Replace this section with the captured design language preferences once the conversation concludes. -->
+### Topics Covered
+
+- [ ] Aesthetic Direction
+- [ ] Content Density & Readability
+- [ ] Colour Psychology & Mood
+- [ ] Surface & Depth Philosophy
+- [ ] Motion & Feedback
+- [ ] Iconography & Imagery
+- [ ] Tone of Voice & Microcopy
+- [ ] Data Visualisation (skip if N/A)
+
+### Synthesis
+
+<!-- Replace with the Stage 4 Synthesis Gate output once the user approves the direction. -->
+
+---
+
+## Stage 5: Expert Translation & Review
+
+**Status:** pending
+
+**Draft Location:** <!-- Written by the agent during 5a: path to .groundwork/cache/ux-design-draft.md -->
+
+### Walkthrough Progress
+
+- [ ] Cluster 1: Identity (colour, typography, texture)
+- [ ] Cluster 2: Touch (depth, motion, interaction states)
+- [ ] Cluster 3: Polish (scrollbars, toasts, errors, loading, empty states, borders, responsive)

@@ -38,7 +38,7 @@ During discovery, the user will mention things that belong to a later phase — 
 **During every turn**, silently monitor for out-of-phase signals. When you hear one:
 
 1. Acknowledge it naturally within the conversation if appropriate ("noted" or a brief reflection), then steer back to the current topic.
-2. Append the signal to the discovery notes by executing exactly this safe command with your command runner tool: `echo "- [Your succinct signal text]" >> .groundwork/cache/discovery-notes.md`. Do not use interactive tools or check if the file exists.
+2. Append the signal as a new bullet under the appropriate section header (`## UX Design`, `## Architecture`, `## Bets`, etc.) in `.groundwork/cache/discovery-notes.md`. Use your file editing tool — never a shell command. If the file does not exist, create it with the section headers `## UX Design`, `## Architecture`, `## Bets`.
 3. Ensure you still ask your next discovery question in the same turn.
 
 Examples of signals to capture:

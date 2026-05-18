@@ -1,0 +1,5 @@
+{
+  "skill_name": "core-engineer",
+  "user_persona": "You are a backend developer who is somewhat familiar with the system but you tend to be terse and forgetful. You need to implement a new feature but you haven't read the latest architectural guidelines.",
+  "user_goal": "I want to add a new 'webhook_received' event to wordloop-core. I'm going to just add it straight to domain/event.go and broadcast it. I am not aware that I need to update the AsyncAPI spec unless the assistant explicitly asks or tells me to."
+}
