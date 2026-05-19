@@ -1,0 +1,44 @@
+package service
+
+import (
+	"context"
+	"fmt"
+
+	"<%= name %>/internal/core/domain"
+	"<%= name %>/internal/core/gateway"
+)
+
+type UserService struct {
+	repo gateway.UserRepository
+}
+
+func NewUserService(repo gateway.UserRepository) *UserService {
+	return &UserService{
+		repo: repo,
+	}
+}
+
+func (s *UserService) GetByClerkID(ctx context.Context, clerkID string) (*domain.User, error) {
+	return s.repo.GetByClerkID(ctx, clerkID)
+}
+
+func (s *UserService) Save(ctx context.Context, user *domain.User) error {
+	if err := s.repo.Save(ctx, user); err != nil {
+		return fmt.Errorf("failed to save user: %w", err)
+	}
+	return nil
+}
+
+func (s *UserService) Update(ctx context.Context, user *domain.User) error {
+	if err := s.repo.Update(ctx, user); err != nil {
+		return fmt.Errorf("failed to update user: %w", err)
+	}
+	return nil
+}
+
+func (s *UserService) DeleteByClerkID(ctx context.Context, clerkID string) error {
+	if err := s.repo.DeleteByClerkID(ctx, clerkID); err != nil {
+		return fmt.Errorf("failed to delete user by clerk id: %w", err)
+	}
+	return nil
+}

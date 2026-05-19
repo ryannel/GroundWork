@@ -46,12 +46,12 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 | Task shape | Reference to load |
 |---|---|
-| Any non-trivial service change | `architecture.md`, `implementation-patterns.md` |
-| Go idioms, context, interfaces, DI, errors | `go-services.md` |
+| Any non-trivial service change | `architecture.md`, `implementation-patterns.md`, `go-services.md` |
+| Go idioms, context, interfaces, DI, errors, config validation | `go-services.md` |
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
-| HTTP endpoint, handler, request/response mapping | `http-handlers.md`, `api-design.md` |
-| Database repository, SQL, schema change, index, constraint | `postgres.md` |
+| HTTP endpoint, handler, idempotency, CORS | `http-handlers.md`, `api-design.md` |
+| Database repository, SQL, declarative schema, test isolation | `postgres.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
 | Reliability — retries, timeouts, graceful shutdown, backpressure | `reliability-performance.md` |
 | Performance — latency budgets, load shedding, profiling | `reliability-performance.md` |
@@ -100,6 +100,13 @@ These constraints prevent the most common classes of architectural damage in Go 
 ### Layer Discipline
 - Do not put business decisions in handlers, providers, middleware, migrations, or generated code when the architecture expects them in domain/service code.
 - Do not leak provider-specific types across layer boundaries. If a database driver type appears in a service interface, the architecture is broken.
+- Always validate configuration at startup (e.g., `envconfig`); do not scatter `os.Getenv` throughout the codebase.
+
+### Inbound Defenses & API Standards
+- Do not use offset/limit pagination for collections; enforce cursor-based pagination.
+- Do not allow mutating endpoints (POST/PATCH) without an `Idempotency-Key` implementation to prevent duplicate side-effects.
+- Do not omit inbound concurrency limits (load shedding); shed load rather than queuing indefinitely.
+- Never use wildcard CORS (`AllowedOrigins: []string{"*"}`).
 
 ### Error Handling
 - Do not log and return the same error at multiple layers. Wrap errors with context and log at the boundary established by existing code.
@@ -107,9 +114,9 @@ These constraints prevent the most common classes of architectural damage in Go 
 ### Concurrency
 - Do not launch untracked goroutines. Verify cancellation, error collection, and shutdown behavior for every concurrent operation.
 
-### Contract Integrity
+### Contract & Data Integrity
 - Do not change HTTP behavior without checking the OpenAPI source and any generated-client workflow.
-- Do not change database behavior without checking the target-state schema, the migration workflow, and dry-run output when feasible.
+- Do not change database behavior without checking the target-state schema, the migration workflow, and dry-run output when feasible. Use declarative schemas.
 - Do not add or modify domain event types without updating the corresponding event spec.
 
 ### Generation

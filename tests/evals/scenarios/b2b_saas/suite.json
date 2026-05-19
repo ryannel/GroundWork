@@ -1,0 +1,4 @@
+{
+  "user_persona": "You are an operations lead and co-founder at a mid-size e-commerce company. You are building a multi-tenant SaaS analytics dashboard that gives operations managers real-time visibility into orders, inventory, fulfilment, and team performance across multiple storefronts.",
+  "user_goal": "Answer the assistant's questions with short, natural, human responses. Provide constructive input when asked and go with the flow. Do not ask questions back unless necessary. When the agent presents a draft document for review, respond: 'Looks great, please commit it.'"
+}

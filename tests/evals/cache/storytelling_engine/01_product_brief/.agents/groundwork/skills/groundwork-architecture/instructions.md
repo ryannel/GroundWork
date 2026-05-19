@@ -22,21 +22,9 @@ Architecture is a multi-phase collaborative design session, not a questionnaire.
 
 ---
 
-## Discovery Notes Protocol
+## Operating Contract
 
-The user will mention things during Architecture that belong to a later phase — delivery priorities, MVP scope instincts, feature sequencing. Capture these without disrupting the conversation.
-
-**During every turn**, silently monitor for out-of-phase signals. When you hear one:
-
-1. Acknowledge it briefly if appropriate, then steer back to the current topic.
-2. Append the signal as a new bullet under the appropriate section header (`## Bets`, etc.) in `.groundwork/cache/discovery-notes.md`. Use your file editing tool — never a shell command. If the file does not exist, create it with the section headers `## UX Design`, `## Architecture`, `## Bets`.
-3. Ensure you still ask your next discovery question in the same turn.
-
-| Signal | Section |
-|---|---|
-| "Auth is the most important thing to build first" | `## Bets` |
-| "We want to ship something to users within 6 weeks" | `## Bets` |
-| "We should probably do payments before social features" | `## Bets` |
+**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
 
 ---
 
@@ -107,17 +95,19 @@ When you have a clear picture of the constraints, summarise them and confirm wit
 
 ---
 
-### Phase 3: Domain Topology
+### Phase 3: Service Design
 
-Understand the shape of the domain before deciding on services — the distinct areas that have their own data ownership and rules. Bounded contexts are business boundaries, not technical ones. Service boundaries follow from them.
+Decide how the system is divided into services and what each one owns. This decision determines deployment independence, operational complexity, and every integration contract downstream. Getting the boundaries wrong is expensive to undo.
+
+The goal is right-sized services — few enough to avoid distributed systems overhead, well-defined enough that each can be deployed and scaled independently. Splitting too finely creates operational noise for no benefit. Splitting too coarsely forces incompatible workloads into a single deployment.
+
+A service boundary is justified when multiple signals converge: the language and mental model shift, the runtime or scaling profile is incompatible with the rest, or the deployment cadence is fundamentally different. One signal alone is rarely enough.
 
 **How to run this conversation:**
 
-Start by sharing your current understanding of the domain based on what you've read. Then explore with the user: how they think about the different parts of the system, what belongs together, what feels separate, where things change at different speeds or for different reasons.
+Start by sharing your current read of the system from the existing documents. Then explore with the user where the natural fault lines are — where the work feels different, where the technology or scaling needs diverge.
 
-Once you understand the domain well enough to articulate its parts back to the user, propose an initial bounded context map. Walk through it together — which contexts produce data that others consume, which share a common model, and which need to stay insulated from each other. These relationships define where integration contracts will be needed.
-
-Propose the topology in text form and confirm it with the user before moving on.
+Propose the service map in text form: for each service, what it owns, why the boundary sits where it does, and a name following modern service naming conventions. Confirm before moving on.
 
 ---
 
@@ -125,18 +115,19 @@ Propose the topology in text form and confirm it with the user before moving on.
 
 Define the specific technology each part of the system will use to do its job — the database, the queue, the streaming platform, the cache, the auth provider, the file store.
 
+This is where the real design work happens. The technology choices surface constraints, tradeoffs, and implementation patterns that shape the service skeleton — how services communicate, where state lives, and what each service is responsible for. Do not rush through this phase. A shallow capability conversation produces a shallow architecture.
+
+Data flows, API contracts, and database schemas are not designed here. They belong to the Bet phase, where each feature is designed in detail. The architecture phase produces the skeleton those details will be built on.
+
 **How to run this conversation:**
 
-For each service, explore what it needs to do before recommending how. Understand the user's instincts and preferences — they may have strong opinions, prior experience, or constraints not yet surfaced. Once you understand what a service needs to achieve, propose a concrete approach and explain the reasoning.
+Work through one capability area at a time. Explore what the system needs to achieve in that area before recommending how. Understand the user's instincts and preferences — they may have strong opinions, prior experience, or constraints not yet surfaced. Confirm each decision before moving to the next. A user confirming one capability does not confirm the rest of the phase.
 
-Use design patterns (such as event sourcing, CQRS, pub/sub, saga orchestration, outbox, circuit breaking, and many others) as a thinking tool — they help surface edge cases, reveal hidden complexity, and identify technology that is a strong fit for the problem. Keep the conversation grounded in what the technology does and what it costs to operate, not in pattern names for their own sake.
+For every capability decision, surface the tradeoffs — what the chosen approach gives up relative to the alternatives. The user should understand what they are trading away, even when the recommendation is clear. Surface any downstream obligations: the implementation requirements that flow from this decision into service-level design.
 
-For every capability decision, surface three things:
-1. **What it requires across the stack** — every other service, client, or infrastructure component that must change or adapt as a result, not just the service making the decision.
-2. **The tradeoffs** — what the chosen approach gives up relative to the alternatives. The user should understand what they are trading away, even when the recommendation is clear.
-3. **The downstream obligations** — the specific implementation requirements that flow from this decision into service-level design. These become rows in the Service-Level Requirements table.
+As implementation details emerge — async flows, ownership decisions, callback patterns, schema implications — capture them immediately in `## Design Details` in `.groundwork/cache/discovery-notes.md`. These details feed the data flow, API contract, and database schema design phases downstream.
 
-Think across the full range of capabilities a system typically requires — such as data persistence, real-time delivery, search, background processing, file storage, authentication, and external integrations — and address each one that applies to this product.
+Think across the full range of capabilities a system typically requires — data persistence, real-time delivery, search, background processing, file storage, authentication, messaging, and external integrations — and address each one that applies.
 
 ---
 
@@ -146,11 +137,11 @@ Define the precise boundary of each service: what it owns, what it explicitly do
 
 **How to run this conversation:**
 
-Walk through each service with the user. Clarify ownership where it is ambiguous — especially where two services might both have a reasonable claim over a concept or a piece of data. Ownership ambiguity at this phase becomes coupling at the implementation phase.
+Discover before proposing. Start by exploring ownership with the user — what each service should be responsible for, where the ambiguity lies, and where two services might both have a reasonable claim over a concept or a piece of data. Do not open with a contract proposal. Ownership must be agreed before contracts are defined.
 
-Every place data crosses a domain boundary is a trust boundary. Validation at every boundary is a requirement — identifying which boundaries exist is an architectural decision made here; how validation is implemented is enforced at the service level.
+Once ownership is clear for a service, define how it exposes its capabilities. Every API and async interface where data crosses a boundary is enforced by a machine-consumable contract: REST APIs → OpenAPI spec, async events → AsyncAPI schema, agent capabilities → MCP schema. Propose the contract format after the boundary is agreed, not before.
 
-Every domain boundary — every API and async interface where data crosses between contexts — is enforced by a machine-consumable contract from which clients can be generated: REST APIs → OpenAPI spec, async events → AsyncAPI schema, agent capabilities → MCP schema.
+Every data boundary is a trust boundary. Identifying which boundaries exist is an architectural decision made here; how validation is implemented is enforced at the service level.
 
 ---
 
@@ -162,19 +153,10 @@ Fill each section from the decisions recorded in Phases 1–5. Apply the `ground
 
 The Service-Level Requirements table carries the architectural obligations into service-level design. Every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table.
 
-**Update upstream documents**: Scan the conversation for insights that refine or expand documents produced in earlier phases. Upstream docs are living documents — they grow as the project learns more. Read `docs/product-brief.md` and `docs/ux-design.md` and apply surgical updates where the architecture conversation revealed:
+Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
-| Upstream Doc | Update when architecture revealed... |
-|---|---|
-| `product-brief.md` | Sharper capability definitions, refined scope boundaries, new constraints discovered through technical analysis, success indicators that became measurable through architecture choices |
-| `ux-design.md` | Performance targets refined by infrastructure decisions, new NFRs surfaced by capability choices (e.g. eventual consistency affecting UX), real-time capabilities that expand or constrain the design system |
-
-Apply changes directly to each file. Do not ask for permission — these are refinements consistent with the user's own words and architectural decisions, not new product choices. If no updates are warranted for a given document, skip it silently.
-
-**Update discovery notes**: Scan the conversation for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md` under the appropriate sections. Remove any `## Architecture` entries incorporated into `docs/architecture.md`.
-
-**Delete the cache**: Remove `.groundwork/cache/architecture-cache.md` once `docs/architecture.md` has been written successfully.
-
-Confirm: **"Architecture complete. `docs/architecture.md` is ready."** If upstream documents were updated, list the changes briefly (e.g. "Updated `product-brief.md`: refined [specific area]. Updated `ux-design.md`: added [specific NFR]").
-
-Then immediately load and execute the `groundwork-orchestrator` skill. Do not ask the user to invoke it.
+1. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates to `docs/product-brief.md`, `docs/ux-design.md`, or any other existing document where architecture revealed new information. Do not ask for permission.
+2. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Architecture` entries incorporated into `docs/architecture.md`.
+3. Delete `.groundwork/cache/architecture-cache.md`.
+4. Confirm: **"Architecture complete. `docs/architecture.md` is ready."** If upstream documents were updated, list the changes briefly.
+5. Immediately load and execute the `groundwork-orchestrator` skill. Do not ask the user to invoke it.

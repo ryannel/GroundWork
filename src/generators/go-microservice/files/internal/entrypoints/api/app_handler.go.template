@@ -80,6 +80,9 @@ func RegisterAppHandler(api huma.API, appSvc *service.AppService) {
 			afterID = payload.ID
 			afterCreatedAt = payload.CreatedAt
 		}
+		
+		_ = afterID
+		_ = afterCreatedAt
 
 		// STUB: Use afterID, afterCreatedAt and input.Limit to fetch items. 
 		// Example: items, err := appSvc.ListEntities(ctx, afterID, afterCreatedAt, input.Limit+1)

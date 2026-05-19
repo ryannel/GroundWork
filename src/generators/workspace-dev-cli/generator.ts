@@ -19,6 +19,7 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
     appName: options.appName || 'Workspace',
     primaryColor: options.primaryColor || 'BLUE',
     hexColor: options.hexColor || '',
+    projectPrefix: (options.appName || 'Workspace').toLowerCase().replace(/\s+/g, '-'),
     tmpl: ''
   };
 

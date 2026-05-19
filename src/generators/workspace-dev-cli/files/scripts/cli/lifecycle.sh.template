@@ -65,7 +65,7 @@ function cmd_start() {
     if [ "$arg" == "--docker" ]; then USE_DOCKER=true; fi
   done
 
-  print_header "Starting Environment"
+  print_logo "Starting Environment"
   _ensure_dirs
 
   local start_time=$(date +%s)
@@ -145,7 +145,7 @@ function cmd_start() {
 }
 
 function cmd_stop() {
-  print_header "Stopping Environment"
+  print_logo "Stopping Environment"
 
   local start_time=$(date +%s)
   
@@ -171,7 +171,7 @@ function cmd_stop() {
 }
 
 function cmd_logs() {
-  print_header "Streaming Logs (Ctrl+C to stop)"
+  print_logo "Streaming Logs (Ctrl+C to stop)"
   
   local native_logs=()
   for svc in $(_get_app_services); do
@@ -218,18 +218,18 @@ function cmd_status() {
     return 0
   fi
 
-  print_header "Local Status"
+  print_logo "Local Status"
   
   print_panel_start "Docker Containers"
   local count=0
   local compose_ps
-  compose_ps=$($COMPOSE ps --format "{{.Service}}||{{.Status}}||{{.Ports}}" 2>/dev/null || true)
+  compose_ps=$($COMPOSE ps --format "{{.Service}}|{{.Status}}|{{.Ports}}" 2>/dev/null || true)
   if [ -n "$compose_ps" ]; then
     while IFS= read -r line; do
       [ -z "$line" ] && continue
-      svc=$(echo "$line" | awk -F'||' '{print $1}')
-      status=$(echo "$line" | awk -F'||' '{print $2}')
-      ports=$(echo "$line" | awk -F'||' '{print $3}')
+      svc=$(echo "$line" | awk -F'|' '{print $1}')
+      status=$(echo "$line" | awk -F'|' '{print $2}')
+      ports=$(echo "$line" | awk -F'|' '{print $3}')
       # Truncate long port strings
       if [ ${#ports} -gt 15 ]; then ports="${ports:0:12}..."; fi
       print_panel_row "${ICON_INFO} $svc" "$status" "$ports"
@@ -268,7 +268,7 @@ function cmd_clean() {
     if [ "$arg" == "--hard" ]; then HARD_MODE=true; fi
   done
 
-  print_header "Cleaning Environment"
+  print_logo "Cleaning Environment"
 
   local start_time=$(date +%s)
 

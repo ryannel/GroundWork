@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"net/http"
 	"os"
@@ -12,6 +11,8 @@ import (
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	_ "github.com/joho/godotenv/autoload"
+	_ "github.com/lib/pq"
 
 	"<%= name %>/internal/config"
 	"<%= name %>/internal/core/service"
@@ -25,17 +26,20 @@ import (
 func main() {
 	setupLogger()
 
-	// Initialize OpenTelemetry
-	// otelShutdown := config.InitOTel(context.Background(), "<%= name %>", "0.1.0")
-	// defer otelShutdown(context.Background())
-
 	cfg := config.Load()
+
+	// Initialize OpenTelemetry
+	otelShutdown, err := config.InitProvider(context.Background(), "<%= name %>", cfg.Telemetry.CollectorURL)
+	if err != nil {
+		log.Fatal().Err(err).Msg("Failed to initialize OpenTelemetry")
+	}
+	defer otelShutdown(context.Background())
 	
-	// db, err := provider.NewPostgresDB(cfg.Database.URI)
-	// if err != nil {
-	// 	log.Fatal().Err(err).Msg("Failed to connect to database")
-	// }
-	// defer db.Close()
+	db, err := provider.NewPostgresDB(cfg.Database.URI)
+	if err != nil {
+		log.Fatal().Err(err).Msg("Failed to connect to database")
+	}
+	defer db.Close()
 
 <% if (websockets) { %>
 	// Initialize WebSocket Hub
@@ -43,12 +47,10 @@ func main() {
 	go wsHub.Run()
 
 	// Composition Root: Wire up Gateways, Providers, and Services
-	// router, err := buildApp(cfg, db, wsHub)
-	router, err := buildApp(cfg, nil, wsHub) // STUB: replace nil with db when uncommented above
+	router, err := buildApp(cfg, db, wsHub)
 <% } else { %>
 	// Composition Root: Wire up Gateways, Providers, and Services
-	// router, err := buildApp(cfg, db)
-	router, err := buildApp(cfg, nil) // STUB: replace nil with db when uncommented above
+	router, err := buildApp(cfg, db)
 <% } %>
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to build application")
@@ -86,24 +88,31 @@ func buildApp(cfg *config.Config, db *provider.PostgresDB) (http.Handler, error)
 <% } %>
 	// --- Providers (Gateways) ---
 	
-	// txManager := provider.NewPostgresTransactionManager(db)
-	// entityRepo := provider.NewPostgresRepository(db)
+	txManager := provider.NewPostgresTransactionManager(db)
+	entityRepo := provider.NewPostgresRepository(db)
 <% if (messaging !== 'none') { %>
-	// outboxRepo := provider.NewOutboxRepository(db)
+	outboxRepo := provider.NewOutboxRepository(db)
 <% } %>
 
 	// --- Services (Use Cases) ---
 	
-	// appSvc := service.NewAppService(txManager, entityRepo<% if (messaging !== 'none') { %>, outboxRepo<% } %>)
+<% if (websockets) { %>
+	appSvc := service.NewAppService(txManager, entityRepo, wsHub<% if (messaging !== 'none') { %>, outboxRepo<% } %>)
+<% } else { %>
+	appSvc := service.NewAppService(txManager, entityRepo, nil<% if (messaging !== 'none') { %>, outboxRepo<% } %>)
+<% } %>
+
+<% if (auth === 'clerk') { %>
+	userRepo := provider.NewPostgresUserRepository(db)
+	userSvc := service.NewUserService(userRepo)
+<% } %>
 
 	// --- Router ---
-	// router := api.RegisterRoutes(cfg, db.DB, appSvc<% if (websockets) { %>, wsHub<% } %>)
-
-	// STUB: Remove this when you uncomment the actual wiring above
-	appSvc := service.NewAppService(nil, nil<% if (messaging !== 'none') { %>, nil<% } %>)
-	var sqlDB *sql.DB
-	// if db != nil { sqlDB = db.DB }
-	router := api.RegisterRoutes(cfg, sqlDB, appSvc<% if (websockets) { %>, wsHub<% } %>)
+<% if (websockets) { %>
+	router := api.RegisterRoutes(cfg, db.DB, appSvc<% if (auth === 'clerk') { %>, userSvc<% } %>, wsHub)
+<% } else { %>
+	router := api.RegisterRoutes(cfg, db.DB, appSvc<% if (auth === 'clerk') { %>, userSvc<% } %>)
+<% } %>
 
 	return router, nil
 }

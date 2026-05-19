@@ -7,21 +7,35 @@ import (
 )
 
 type Config struct {
-	Server   ServerConfig
-	Database DatabaseConfig
-	Redis    RedisConfig
+	Server    ServerConfig
+	Database  DatabaseConfig
+	Redis     RedisConfig
+	Telemetry TelemetryConfig
+<% if (auth === 'clerk') { %>
+	Auth      AuthConfig
+<% } %>
 }
+
+<% if (auth === 'clerk') { %>
+type AuthConfig struct {
+	ClerkWebhookSecret string `env:"CLERK_WEBHOOK_SIGNING_SECRET" envDefault:"whsec_stub"`
+}
+<% } %>
 
 type ServerConfig struct {
 	Port int `env:"PORT" envDefault:"8080"`
 }
 
 type DatabaseConfig struct {
-	URI string `env:"DATABASE_URL" envDefault:"postgres://user:pass@localhost:5432/<%= name %>?sslmode=disable"`
+	URI string `env:"DATABASE_URL" envDefault:"postgres://postgres:postgres@localhost:5432/<%= name %>?sslmode=disable"`
 }
 
 type RedisConfig struct {
 	URI string `env:"REDIS_URL"` // Optional: If set, enables Valkey/Redis for backplane and rate limiting
+}
+
+type TelemetryConfig struct {
+	CollectorURL string `env:"OTEL_EXPORTER_OTLP_ENDPOINT" envDefault:"localhost:4317"`
 }
 
 func Load() *Config {

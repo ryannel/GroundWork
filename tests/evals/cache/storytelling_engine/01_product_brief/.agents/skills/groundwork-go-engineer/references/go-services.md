@@ -34,7 +34,27 @@ Define interfaces in the package that consumes them — "accept interfaces, retu
 
 No runtime DI frameworks. Dependencies are passed into constructors. Composition happens in a `cmd/` entry point — the "composition root" pattern. Every dependency is visible at build time; cycles are impossible by construction.
 
-### 8. Tests Use the Real Thing Where Possible
+### 8. Configuration Validation at Startup
+
+Validate all environment variables immediately at startup using declarative struct tags (e.g., using `kelseyhightower/envconfig`). Do not scatter `os.Getenv` throughout the codebase. If configuration is missing or invalid, the service must crash immediately before accepting traffic.
+
+```go
+type Config struct {
+    DatabaseURL string `envconfig:"DATABASE_URL" required:"true"`
+    Port        int    `envconfig:"PORT" default:"8080"`
+    Environment string `envconfig:"ENVIRONMENT" default:"production"`
+}
+
+func main() {
+    var cfg Config
+    if err := envconfig.Process("myapp", &cfg); err != nil {
+        log.Fatalf("failed to load configuration: %v", err)
+    }
+    // ...
+}
+```
+
+### 9. Tests Use the Real Thing Where Possible
 
 Service tests spin up a real Postgres container via Testcontainers and exercise the handler through HTTP. Mock only the expensive external edges (model clients, third-party APIs).
 

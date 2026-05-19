@@ -112,6 +112,46 @@ if err != nil {
 
 Do not log errors in the handler and also return them. Log at the layer with enough context; wrap elsewhere.
 
+## Inbound Defenses
+
+### CORS Configuration
+
+Configure CORS explicitly at the router level. Never use wildcard `"*"` origins in production.
+
+```go
+import "github.com/go-chi/cors"
+
+router.Use(cors.Handler(cors.Options{
+    AllowedOrigins:   []string{"https://app.example.com"}, // Loaded from config
+    AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"},
+    AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "Idempotency-Key"},
+    AllowCredentials: true,
+}))
+```
+
+### Idempotency Middleware
+
+Mutating endpoints (`POST`, `PATCH`) must be idempotent. Extract the `Idempotency-Key` header and verify its state before allowing the handler to execute.
+
+```go
+func IdempotencyMiddleware(store IdempotencyStore) func(http.Handler) http.Handler {
+    return func(next http.Handler) http.Handler {
+        return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+            key := r.Header.Get("Idempotency-Key")
+            if key == "" && (r.Method == "POST" || r.Method == "PATCH") {
+                http.Error(w, "Idempotency-Key required", http.StatusBadRequest)
+                return
+            }
+            
+            // Check store and return cached response if COMPLETED,
+            // or 409 Conflict if IN_PROGRESS.
+            // Otherwise, proceed.
+            next.ServeHTTP(w, r)
+        })
+    }
+}
+```
+
 ## Handler Placement
 
 - One `RegisterXxx` function per domain resource in `internal/entrypoints/api/routes/<resource>.go`

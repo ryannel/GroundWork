@@ -108,6 +108,17 @@ func (h *Hub) Unregister(client *Client) {
 	h.unregisterCh <- client
 }
 
+// ConnectedUsers returns the total number of connected clients across all users.
+func (h *Hub) ConnectedUsers() int {
+	h.mu.RLock()
+	defer h.mu.RUnlock()
+	count := 0
+	for _, userClients := range h.clients {
+		count += len(userClients)
+	}
+	return count
+}
+
 // Broadcast queues a domain event for delivery.
 func (h *Hub) Broadcast(event domain.Event) {
 	select {

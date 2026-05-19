@@ -1,34 +1,88 @@
 import os
+import uuid
 import pytest
 import httpx
+import psycopg
+from tenacity import retry, stop_after_delay, wait_exponential
 
 @pytest.fixture(scope="session")
 def docker_compose_file(pytestconfig):
     """Path to the root docker-compose file."""
-    return os.path.join(str(pytestconfig.rootdir), "..", "docker-compose.yml")
+    return os.path.join(str(pytestconfig.rootdir), "docker-compose.test.yml")
 
 @pytest.fixture(scope="session")
 def docker_compose_project_name():
     """Prefix for the compose project."""
-    return "testloop-tests"
+    return "groundwork-tests"
 
 @pytest.fixture(scope="session")
 def cluster(docker_ip, docker_services):
     """
-    Ensure the docker-compose stack is up.
-    Since application services are under profiles, we might need to export COMPOSE_PROFILES=all
-    before running pytest, or explicitly pass it here.
+    Ensure the docker-compose stack is up and healthy.
     """
     os.environ["COMPOSE_PROFILES"] = "all"
     
-    # Wait for DB, Redis, etc to be healthy
+    @retry(stop=stop_after_delay(60), wait=wait_exponential(multiplier=1, min=2, max=10))
+    def wait_for_services():
+        # Example health check polling using tenacity instead of bare loops
+        # resp = httpx.get(f"http://{docker_ip}:4000/health", timeout=2.0)
+        # resp.raise_for_status()
+        pass
+
+    # Basic wait for testcontainers
     docker_services.wait_until_responsive(
-        timeout=60.0, pause=2.0, check=lambda: True # Add specific healthchecks here if needed
+        timeout=60.0, pause=2.0, check=lambda: True
     )
+    
+    wait_for_services()
     return docker_services
 
 @pytest.fixture
-async def api_client():
-    """Generic async HTTPX client for interacting with the services."""
-    async with httpx.AsyncClient(timeout=10.0) as client:
+def trace_id():
+    """Generate a W3C trace ID for observability."""
+    return uuid.uuid4().hex
+
+@pytest.fixture
+async def api_client(trace_id):
+    """
+    Generic async HTTPX client that injects W3C traceparent headers.
+    This ensures test traffic is identifiable in the Aspire/Jaeger dashboard.
+    """
+    # W3C traceparent format: 00-{trace-id}-{span-id}-01
+    span_id = uuid.uuid4().hex[:16]
+    traceparent = f"00-{trace_id}-{span_id}-01"
+    
+    headers = {
+        "traceparent": traceparent,
+        "x-test-run": "system-test"
+    }
+    
+    async with httpx.AsyncClient(headers=headers, timeout=10.0) as client:
         yield client
+
+@pytest.fixture(scope="function", autouse=True)
+def pure_state_reset():
+    """
+    Wipe domain state before each test to guarantee isolation.
+    Uses DELETE instead of TRUNCATE to avoid resetting sequence counters 
+    if that causes issues, or adjust to TRUNCATE CASCADE if preferred.
+    """
+    dsn = "postgresql://postgres:postgres@localhost:5433/groundwork"
+    tables = [
+        # List tables in dependency order
+        # "users",
+        # "orders"
+    ]
+    
+    try:
+        with psycopg.connect(dsn, autocommit=True) as conn:
+            with conn.cursor() as cur:
+                for table in tables:
+                    try:
+                        cur.execute(f"DELETE FROM {table}")
+                    except psycopg.errors.UndefinedTable:
+                        pass
+    except psycopg.OperationalError:
+        pass # DB might not be up if we are skipping full compose
+    
+    yield

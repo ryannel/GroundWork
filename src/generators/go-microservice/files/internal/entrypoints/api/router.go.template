@@ -17,12 +17,13 @@ import (
 <% if (websockets) { -%>
 	"<%= name %>/internal/provider/websocket"
 <% } -%>
+	"<%= name %>/internal/entrypoints/api/idempotency"
 )
 
 <% if (websockets) { -%>
-func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService, wsHub *websocket.Hub) http.Handler {
+func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService<% if (auth === 'clerk') { %>, userSvc *service.UserService<% } %>, wsHub *websocket.Hub) http.Handler {
 <% } else { -%>
-func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService) http.Handler {
+func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService<% if (auth === 'clerk') { %>, userSvc *service.UserService<% } %>) http.Handler {
 <% } -%>
 	router := chi.NewRouter()
 
@@ -52,10 +53,17 @@ func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService) 
 	router.Use(RateLimitMiddleware(cfg.Redis.URI, db))    // Rate limiter
 
 	// Idempotency requires a backing store (DB or Redis)
-	if db != nil || cfg.Redis.URI != "" {
-		// STUB: replace nil with redisClient if instantiated
-		router.Use(IdempotencyMiddleware(db, nil))
+	if db != nil {
+		idempotencyRepo := idempotency.NewPostgresRepository(db)
+		router.Use(idempotency.Middleware(idempotencyRepo))
 	}
+
+<% if (auth === 'clerk') { -%>
+	// Clerk webhooks — uses its own Svix signature verification, so we register
+	// it directly on the router. The auth middleware will see no Authorization
+	// header and pass through without setting a principal.
+	router.Post("/webhooks/clerk", ClerkWebhookHandler(userSvc, cfg.Auth.ClerkWebhookSecret))
+<% } -%>
 
 <% if (websockets) { -%>
 	// Register WebSocket Handler directly on Chi
@@ -82,7 +90,11 @@ func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService) 
 <% } -%>
 
 	// Register Handlers
-	RegisterHealthHandler(api)
+<% if (websockets) { -%>
+	RegisterHealthHandler(api, db, wsHub)
+<% } else { -%>
+	RegisterHealthHandler(api, db)
+<% } -%>
 	RegisterAppHandler(api, appSvc)
 
 	return router

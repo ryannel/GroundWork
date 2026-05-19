@@ -28,7 +28,7 @@ Every new backend service scaffold **MUST** support or explicitly opt-out of the
 - [ ] **Inbound Defenses & Middlewares**: Are endpoints protected by bounded concurrency (load shedding), global request timeouts, OpenTelemetry (RED) traces, robust CORS configurations, and sliding window rate limiting?
 - [ ] **Idempotency**: Are mutating endpoints protected by an `Idempotency-Key` interceptor backed by persistent state (Redis/Postgres)?
 - [ ] **API Standards & Docs**: Are collections uniformly returned using standardized, generic cursor-based pagination? Is the API spec (OpenAPI/AsyncAPI) generated automatically from the code structure?
-- [ ] **Testing**: Does the template scaffold a true integration testing suite utilizing tools like `testcontainers` (avoiding mocks where possible)?
+- [ ] **Honeycomb-Style Integration Testing**: Does the template scaffold a true Honeycomb-style integration testing suite utilizing `testcontainers`? It MUST test the fully-wired composition root (`buildApp`), avoiding mocks, and verify actual database/infrastructure behavior to prove Day-1 correctness.
 - [ ] **Dynamic Backplanes**: If websockets or async messaging are utilized, does the service dynamically fall back to appropriate local/cloud brokers (e.g., Redis vs Postgres LISTEN/NOTIFY)?
 - [ ] **Graceful Shutdown**: Does the service trap SIGINT/SIGTERM, allowing in-flight requests to complete while severing long-lived connections (like websockets)?
 - [ ] **Config Validation**: Is configuration robustly parsed and validated from environment variables at startup?

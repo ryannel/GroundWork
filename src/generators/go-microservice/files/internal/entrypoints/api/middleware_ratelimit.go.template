@@ -1,12 +1,10 @@
 package api
 
 import (
-	"context"
 	"database/sql"
 	"net/http"
 	"time"
 
-	"github.com/redis/go-redis/v9"
 	"github.com/sethvargo/go-limiter"
 	"github.com/sethvargo/go-limiter/httplimit"
 	"github.com/sethvargo/go-limiter/memorystore"
@@ -20,8 +18,6 @@ import (
 
 func RateLimitMiddleware(redisURL string, db *sql.DB) func(http.Handler) http.Handler {
 	var store limiter.Store
-	var err error
-
 	if redisURL != "" {
 		// Use Valkey/Redis if available
 		// store, err = redisstore.New(&redisstore.Config{...})

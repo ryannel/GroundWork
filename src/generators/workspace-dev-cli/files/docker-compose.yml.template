@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  db:
+    image: ankane/pgvector:v0.5.0
+    container_name: <%= projectPrefix %>-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=<%= projectPrefix %>
+    ports:
+      - "5432:5432"
+    networks:
+      - groundwork-net
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: <%= projectPrefix %>-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - groundwork-net
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  pubsub:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
+    container_name: <%= projectPrefix %>-pubsub
+    ports:
+      - "8085:8085"
+    networks:
+      - groundwork-net
+    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard:8.0.0-preview.4
+    container_name: <%= projectPrefix %>-aspire
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+      - DASHBOARD__OTLP__AUTHMODE=ApiKey
+      - DASHBOARD__OTLP__PRIMARYAPIKEY=testkey
+    ports:
+      - "18888:18888" # Dashboard UI
+      - "4317:18889"  # OTLP gRPC mapped to standard 4317
+      - "4318:18890"  # OTLP HTTP mapped to standard 4318
+    networks:
+      - groundwork-net
+
+volumes:
+  db_data:
+  redis_data:
+
+networks:
+  groundwork-net:
+    driver: bridge

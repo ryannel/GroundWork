@@ -32,6 +32,18 @@ case "$COMMAND" in
       print_logo "Testing"
       print_step "Running Nx tests..."
       npx nx run-many -t test
+    elif [ "$SUBCMD" = "scaffolds" ]; then
+      print_logo "Testing"
+      print_step "Running Scaffold End-to-End Tests..."
+      if [ ! -d "tests/scaffolds/venv" ]; then
+          print_substep "Creating venv..."
+          python3 -m venv tests/scaffolds/venv
+          source tests/scaffolds/venv/bin/activate
+          pip install pytest httpx pytest-asyncio
+      else
+          source tests/scaffolds/venv/bin/activate
+      fi
+      pytest tests/scaffolds/test_scaffolds.py -v -s
     elif [ "$SUBCMD" = "run" ]; then
       SUITE=$3
       SCENARIO=$4
@@ -72,7 +84,7 @@ case "$COMMAND" in
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
       print_step "Cleaning evaluation sandboxes and caches..."
-      rm -rf tests/evals/sandbox/* tests/evals/cache/*
+      rm -rf .sandboxes/evals tests/evals/cache/*
       print_success "Cleaned."
     else
       print_logo
@@ -96,6 +108,7 @@ case "$COMMAND" in
     
     print_category "QUALITY & TESTING"
     print_cmd "eval" "Run AI skill evaluation harness"
+    print_cmd "test scaffolds" "Run end-to-end tests for the Nx generators and DX workflow"
     print_cmd "test nx" "Run Nx workspace tests"
     echo ""
     ;;

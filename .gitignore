@@ -42,20 +42,43 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.*.example
+!.env.template
+!.env.*.template
 
 # ----------------------------
 # Test scaffolds & temp dirs
 # ----------------------------
 test-scaffold/
+.sandboxes/
+tmp_sandbox/
 tmp_*/
+pytest_out*.txt
 
 # Generated service output (from Nx generators)
 services/
 
 # ----------------------------
-# Logs
+# Logs & Transcripts
 # ----------------------------
 *.log
+tests/evals/transcripts/**/*_[0-9]*_[0-9]*.json
+
+# ----------------------------
+# Python & Pytest
+# ----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+
+# ----------------------------
+# Generated compose & dev-cli files
+# ----------------------------
+docker-compose.yml
+tests/system/docker-compose.test.yml
 
 # ----------------------------
 # AI Agent Artifacts

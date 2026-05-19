@@ -1,0 +1,13 @@
+package domain
+
+import "time"
+
+// User represents a synced user from an external Auth provider (e.g., Clerk)
+type User struct {
+	ID        string
+	ClerkID   string
+	Email     string
+	Username  string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}

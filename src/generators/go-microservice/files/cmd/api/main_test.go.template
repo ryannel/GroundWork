@@ -1,0 +1,99 @@
+package main
+
+import (
+	"context"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"testing"
+	"time"
+	"path/filepath"
+
+	"github.com/stretchr/testify/require"
+	"github.com/testcontainers/testcontainers-go"
+	"github.com/testcontainers/testcontainers-go/modules/postgres"
+	"github.com/testcontainers/testcontainers-go/wait"
+
+	"<%= name %>/internal/config"
+	"<%= name %>/internal/provider"
+<% if (websockets) { %>
+	"<%= name %>/internal/provider/websocket"
+<% } %>
+)
+
+func TestAPIIntegration(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping integration test")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+
+	// 1. Start Postgres Container
+	pgContainer, err := postgres.RunContainer(ctx,
+		testcontainers.WithImage("postgres:16-alpine"),
+		postgres.WithDatabase("<%= name %>_test"),
+		postgres.WithUsername("testuser"),
+		postgres.WithPassword("testpass"),
+		testcontainers.WithWaitStrategy(
+			wait.ForLog("database system is ready to accept connections").
+				WithOccurrence(2).WithStartupTimeout(5*time.Second)),
+	)
+	require.NoError(t, err)
+	defer func() {
+		if err := pgContainer.Terminate(context.Background()); err != nil {
+			t.Fatalf("failed to terminate container: %s", err)
+		}
+	}()
+
+	connStr, err := pgContainer.ConnectionString(ctx, "sslmode=disable")
+	require.NoError(t, err)
+
+	// 2. Set Env variables for Config
+	os.Setenv("DATABASE_URL", connStr)
+	os.Setenv("PORT", "8080")
+	// Dummy OTEL endpoint to prevent failure on startup
+	os.Setenv("OTEL_EXPORTER_OTLP_ENDPOINT", "localhost:4317")
+
+	cfg := config.Load()
+
+	// 3. Apply Schema
+	// In a real integration test, we use the schema diff tool or just execute the SQL
+	// Assuming db/schema.sql is available at the project root relative to cmd/api
+	schemaPath := filepath.Join("..", "..", "db", "schema.sql")
+	schemaBytes, err := os.ReadFile(schemaPath)
+	require.NoError(t, err, "failed to read schema.sql from %s", schemaPath)
+
+	db, err := provider.NewPostgresDB(cfg.Database.URI)
+	require.NoError(t, err)
+	defer db.Close()
+
+	_, err = db.DB.ExecContext(ctx, string(schemaBytes))
+	require.NoError(t, err, "failed to apply schema")
+
+<% if (websockets) { %>
+	// 4. Initialize WebSocket Hub
+	wsHub := websocket.NewHub(cfg)
+	go wsHub.Run()
+	defer wsHub.Stop()
+
+	// 5. Build the App
+	router, err := buildApp(cfg, db, wsHub)
+<% } else { %>
+	// 5. Build the App
+	router, err := buildApp(cfg, db)
+<% } %>
+	require.NoError(t, err)
+
+	// 6. Test the /health endpoint
+	req := httptest.NewRequest(http.MethodGet, "/health", nil)
+	req = req.WithContext(ctx)
+
+	rr := httptest.NewRecorder()
+	router.ServeHTTP(rr, req)
+
+	require.Equal(t, http.StatusOK, rr.Code)
+
+	// The health check response should have status ok since db and hub are healthy
+	require.Contains(t, rr.Body.String(), `"status":"ok"`)
+}

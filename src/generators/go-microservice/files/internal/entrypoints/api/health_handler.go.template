@@ -4,15 +4,38 @@ import (
 	"context"
 
 	"github.com/danielgtaylor/huma/v2"
+<% if (websockets) { %>
+	"<%= name %>/internal/provider/websocket"
+<% } %>
 )
 
-type HealthResponse struct {
-	Body struct {
-		Status string `json:"status"`
-	}
+// DBPinger is satisfied by *postgres.DB (via its embedded *sql.DB) and test doubles.
+type DBPinger interface {
+	PingContext(ctx context.Context) error
 }
 
-func RegisterHealthHandler(api huma.API) {
+type HealthCheck struct {
+	Status string `json:"status" example:"ok" enum:"ok,degraded"`
+	Checks struct {
+		DB  string `json:"db"  example:"ok" enum:"ok,error"`
+<% if (websockets) { %>
+		Hub string `json:"hub" example:"ok" enum:"ok,error"`
+<% } %>
+	} `json:"checks"`
+<% if (websockets) { %>
+	ConnectedUsers int `json:"connected_users"`
+<% } %>
+}
+
+type HealthResponse struct {
+	Body HealthCheck
+}
+
+<% if (websockets) { %>
+func RegisterHealthHandler(api huma.API, db DBPinger, hub *websocket.Hub) {
+<% } else { %>
+func RegisterHealthHandler(api huma.API, db DBPinger) {
+<% } %>
 	huma.Register(api, huma.Operation{
 		OperationID: "get-health",
 		Method:      "GET",
@@ -21,8 +44,37 @@ func RegisterHealthHandler(api huma.API) {
 		Description: "Check if the service is healthy",
 		Tags:        []string{"System"},
 	}, func(ctx context.Context, input *struct{}) (*HealthResponse, error) {
-		resp := &HealthResponse{}
-		resp.Body.Status = "ok"
-		return resp, nil
+		var body HealthCheck
+
+		// --- DB check ---
+		if err := db.PingContext(ctx); err != nil {
+			body.Checks.DB = "error"
+		} else {
+			body.Checks.DB = "ok"
+		}
+
+<% if (websockets) { %>
+		// --- Hub check ---
+		if hub != nil {
+			body.Checks.Hub = "ok"
+			body.ConnectedUsers = hub.ConnectedUsers()
+		} else {
+			body.Checks.Hub = "error"
+		}
+
+		if body.Checks.DB == "ok" && body.Checks.Hub == "ok" {
+			body.Status = "ok"
+		} else {
+			body.Status = "degraded"
+		}
+<% } else { %>
+		if body.Checks.DB == "ok" {
+			body.Status = "ok"
+		} else {
+			body.Status = "degraded"
+		}
+<% } %>
+
+		return &HealthResponse{Body: body}, nil
 	})
 }

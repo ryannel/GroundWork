@@ -2,6 +2,27 @@
 
 GroundWork is an installable, AI-driven architectural framework. It enforces a strict **Upfront Technical Delivery** pipeline that ensures software is meticulously designed, contracted, and verified *before* code is written, effectively eliminating "just-in-time" engineering.
 
+## The GroundWork Lifecycle
+
+GroundWork operates in two modes: **Setup** and **Delivery**.
+
+### Setup (one-time, per project)
+
+Establishes the skeleton — the vision, the design system, the service boundaries — and delivers the first working bet. Two paths depending on what exists:
+
+| Path | Flow | Source of truth |
+|---|---|---|
+| **Greenfield** | Product Brief → UX Design → Architecture → MVP Bet | Collaborative discovery with the user. The repo starts empty. |
+| **Brownfield** | Repo Scan + User Interview → Brief, Design, Architecture docs → Next Bet | A mix of automated repo analysis and user interview. |
+
+Greenfield builds the docs from scratch through conversation. Brownfield reconstructs them — the agent scans the repo to understand what's already built, then fills the gaps through targeted questions with the user. Both paths converge: once the docs exist and the first bet ships, the project enters the Delivery Loop.
+
+### Delivery Loop (repeating, ongoing)
+
+Discovery → Refinement → Delivery of Bets. Each cycle can refine any document as the project learns.
+
+All `docs/` artifacts are living documents. They grow as the project learns. Any phase, any bet, any conversation: if new information surfaces that refines an existing document, update it immediately.
+
 ## The Philosophy: Upfront Technical Delivery
 
 GroundWork explicitly rejects the common AI-assisted workflow of "just start coding and figure it out." Instead, it operationalizes a highly disciplined progression:
@@ -17,6 +38,16 @@ GroundWork explicitly rejects the common AI-assisted workflow of "just start cod
 
 If a developer cannot build the API contracts purely from the Data Flow document, the Data Flow document is incomplete. **GroundWork builds the map before it drives the car.**
 
+## The Operating Contract
+
+All methodology skills share a single set of behavioral protocols defined in the Operating Contract (`operating-contract.md`). These protocols govern:
+
+- **Discovery Notes**: How out-of-phase signals are captured and carried forward.
+- **Living Documents**: How existing docs are updated when new information surfaces.
+- **Phase Lifecycle**: How each phase initializes, executes, commits, and hands off.
+
+Every methodology skill loads and follows the Operating Contract. The protocols are defined once and referenced everywhere — never duplicated.
+
 ## Inspiration & Departure from BMAD
 
 GroundWork's execution engine is heavily inspired by the [BMAD Method](https://github.com/bmad-method).
@@ -31,21 +62,15 @@ GroundWork's execution engine is heavily inspired by the [BMAD Method](https://g
 
 ## The Toolchain Ecosystem
 
-GroundWork operates via the `npx groundwork init` CLI, which provisions a suite of specialized methodology skills into a repository's `.agents/skills/` folder. The ecosystem is divided into:
+GroundWork operates via the `npx groundwork init` CLI, which provisions a suite of specialized methodology skills into a repository's `.agents/` folder. The ecosystem is divided into:
 
 ### 1. Agent Personas
-Dedicated system prompts that assume specialized roles in the delivery pipeline:
-- `groundwork-pm` (Appetite, Problem Statements, Pitches)
-- `groundwork-ux-designer` (Wireframes, States, Data Objects)
-- `groundwork-architect` (Data Flows, Boundary Inventories)
-- `groundwork-data-engineer` (REST/WS Contracts, Postgres Schemas)
-- `groundwork-tester` (Milestones, Vertical Slices, Test Assertions)
+Dedicated system prompts that assume specialized roles in the delivery pipeline.
 
 ### 2. Methodology Skills
-The pipeline steps executed by the Personas:
-- **Discovery:** `groundwork-problem-statement`, `groundwork-pitch`
-- **Foundations:** `groundwork-ui-design`, `groundwork-data-flow`, `groundwork-contracts`, `groundwork-schema`
-- **Execution:** `groundwork-milestones`, `groundwork-slice`, `groundwork-test-stub`
+The pipeline steps executed by the Personas, organized into:
+- **Setup:** `groundwork-product-brief`, `groundwork-ux-design`, `groundwork-architecture`
+- **Delivery:** `groundwork-bet`
 - **Maintenance:** `groundwork-check` (Drift detection), `groundwork-update` (Surgical architecture patches)
 
 ## Document Generation & Placement

@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { execSync } from 'child_process';
 
 export interface GoMicroserviceGeneratorSchema {
   name: string;
@@ -20,35 +21,16 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
   // We'll scaffold it in `services/${serviceNames.fileName}` by default.
   const projectRoot = `services/${serviceNames.fileName}`;
 
-  // Read EJS templates
-  const templateOptions = {
-    ...options,
-    ...serviceNames,
-    tmpl: '' // required by generateFiles to remove the .tmpl or .template extension, we will use .ejs or .template, let's use standard __tmpl__ or .template. The default is removing .template or passing tmpl as string. By convention Nx replaces __tmpl__ with empty string or .template.
-  };
-
-  generateFiles(
-    tree,
-    path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'go-microservice', 'files'),
-    projectRoot,
-    templateOptions
-  );
-
-  // Auto-inject into docker-compose.yml if it exists
+  // Calculate assignedPort based on docker-compose.yml (if it exists)
+  let assignedPort = 4000;
+  let composeDoc: any = null;
   if (tree.exists('docker-compose.yml')) {
     try {
       const yaml = require('yaml');
       const composeContent = tree.read('docker-compose.yml', 'utf-8');
-      const composeDoc = yaml.parseDocument(composeContent);
-
-      const services = composeDoc.get('services');
-      if (!services) {
-        composeDoc.set('services', {});
-      }
+      composeDoc = yaml.parseDocument(composeContent);
 
       const servicesMap = composeDoc.get('services');
-
-      let assignedPort = 4000;
       if (servicesMap && servicesMap.items) {
         const usedPorts = new Set<number>();
         for (const item of servicesMap.items) {
@@ -70,6 +52,35 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
           assignedPort++;
         }
       }
+    } catch (e) {
+      console.warn('Failed to parse docker-compose.yml for port calculation:', e);
+    }
+  }
+
+  // Read EJS templates
+  const templateOptions = {
+    ...options,
+    ...serviceNames,
+    assignedPort,
+    tmpl: '' // required by generateFiles
+  };
+
+  generateFiles(
+    tree,
+    path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'go-microservice', 'files'),
+    projectRoot,
+    templateOptions
+  );
+
+  // Auto-inject into docker-compose.yml if it exists
+  if (composeDoc) {
+    try {
+      const yaml = require('yaml');
+      const services = composeDoc.get('services');
+      if (!services) {
+        composeDoc.set('services', {});
+      }
+      const servicesMap = composeDoc.get('services');
 
       if (!servicesMap.has(serviceNames.fileName)) {
         const newService = {
@@ -119,7 +130,34 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
 
   if (options.messaging === 'none') {
     tree.delete(`${projectRoot}/asyncapi-pubsub.yaml`);
+    tree.delete(`${projectRoot}/internal/core/gateway/message_queue.go`);
+    tree.delete(`${projectRoot}/internal/core/gateway/outbox_repository.go`);
+  }
+  
+  if (options.messaging !== 'kafka') {
+    tree.delete(`${projectRoot}/internal/provider/kafka.go`);
+  }
+  
+  if (options.messaging !== 'gcp-pubsub') {
+    tree.delete(`${projectRoot}/internal/provider/gcp_pubsub.go`);
+  }
+  
+  if (options.auth !== 'clerk') {
+    tree.delete(`${projectRoot}/internal/entrypoints/api/middleware_auth.go`);
+    tree.delete(`${projectRoot}/internal/entrypoints/api/clerk_webhook.go`);
+    tree.delete(`${projectRoot}/internal/core/domain/user.go`);
+    tree.delete(`${projectRoot}/internal/core/gateway/user_repository.go`);
+    tree.delete(`${projectRoot}/internal/core/service/user_service.go`);
+    tree.delete(`${projectRoot}/internal/provider/user_repository.go`);
   }
 
   await formatFiles(tree);
+
+  return () => {
+    try {
+      execSync('go mod tidy', { cwd: projectRoot, stdio: 'inherit' });
+    } catch (e) {
+      console.warn(`Failed to run go mod tidy in ${projectRoot}:`, e);
+    }
+  };
 }

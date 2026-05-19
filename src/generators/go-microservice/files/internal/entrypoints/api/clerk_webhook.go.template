@@ -1,0 +1,199 @@
+package api
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"time"
+
+	"github.com/rs/zerolog/log"
+	svix "github.com/svix/svix-webhooks/go"
+
+	"<%= name %>/internal/core/domain"
+	"<%= name %>/internal/core/service"
+)
+
+// clerkUserPayload is the relevant subset of a Clerk user webhook event payload.
+type clerkUserPayload struct {
+	ID             string  `json:"id"`
+	FirstName      string  `json:"first_name"`
+	LastName       string  `json:"last_name"`
+	Username       *string `json:"username"`
+	EmailAddresses []struct {
+		EmailAddress string `json:"email_address"`
+		ID           string `json:"id"`
+	} `json:"email_addresses"`
+	PrimaryEmailAddressID string `json:"primary_email_address_id"`
+}
+
+// clerkWebhookEvent wraps the Clerk webhook event envelope.
+type clerkWebhookEvent struct {
+	Type string          `json:"type"`
+	Data json.RawMessage `json:"data"`
+}
+
+// ClerkWebhookHandler returns an HTTP handler for Clerk webhook events.
+// The handler verifies the Svix signature and processes user lifecycle events.
+func ClerkWebhookHandler(userService *service.UserService, webhookSigningSecret string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if webhookSigningSecret == "" {
+			log.Error().Msg("CLERK_WEBHOOK_SIGNING_SECRET is not configured")
+			http.Error(w, "webhook not configured", http.StatusInternalServerError)
+			return
+		}
+
+		// Read the request body
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			log.Error().Err(err).Msg("Failed to read webhook body")
+			http.Error(w, "failed to read body", http.StatusBadRequest)
+			return
+		}
+
+		// Verify the Svix signature
+		wh, err := svix.NewWebhook(webhookSigningSecret)
+		if err != nil {
+			log.Error().Err(err).Msg("Failed to create Svix webhook verifier")
+			http.Error(w, "internal error", http.StatusInternalServerError)
+			return
+		}
+
+		headers := http.Header{}
+		headers.Set("svix-id", r.Header.Get("svix-id"))
+		headers.Set("svix-timestamp", r.Header.Get("svix-timestamp"))
+		headers.Set("svix-signature", r.Header.Get("svix-signature"))
+
+		if err := wh.Verify(body, headers); err != nil {
+			log.Warn().Err(err).Msg("Webhook signature verification failed")
+			http.Error(w, "invalid signature", http.StatusBadRequest)
+			return
+		}
+
+		// Parse the event envelope
+		var event clerkWebhookEvent
+		if err := json.Unmarshal(body, &event); err != nil {
+			log.Error().Err(err).Msg("Failed to parse webhook event")
+			http.Error(w, "invalid payload", http.StatusBadRequest)
+			return
+		}
+
+		log.Info().Str("type", event.Type).Msg("Received Clerk webhook event")
+
+		switch event.Type {
+		case "user.created":
+			handleUserCreated(r, userService, event.Data)
+		case "user.updated":
+			handleUserUpdated(r, userService, event.Data)
+		case "user.deleted":
+			handleUserDeleted(r, userService, event.Data)
+		default:
+			log.Debug().Str("type", event.Type).Msg("Ignoring unhandled webhook event type")
+		}
+
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte(`{"status":"ok"}`))
+	}
+}
+
+func handleUserCreated(r *http.Request, userService *service.UserService, data json.RawMessage) {
+	var payload clerkUserPayload
+	if err := json.Unmarshal(data, &payload); err != nil {
+		log.Error().Err(err).Msg("Failed to parse user.created payload")
+		return
+	}
+
+	email := primaryEmail(payload)
+	username := buildUsername(payload)
+	clerkID := payload.ID
+
+	now := time.Now().UTC()
+	user := &domain.User{
+		ClerkID:   clerkID,
+		Username:  username,
+		Email:     email,
+		CreatedAt: now,
+		UpdatedAt: now,
+	}
+
+	// Use Save (system principal) — idempotent: if user already exists by clerk_id, this is a retry.
+	err := userService.Save(r.Context(), user)
+	if err != nil {
+		log.Error().Err(err).Str("clerk_id", clerkID).Msg("Failed to create user from webhook")
+		return
+	}
+
+	log.Info().Str("clerk_id", clerkID).Str("email", email).Msg("User created via webhook")
+}
+
+func handleUserUpdated(r *http.Request, userService *service.UserService, data json.RawMessage) {
+	var payload clerkUserPayload
+	if err := json.Unmarshal(data, &payload); err != nil {
+		log.Error().Err(err).Msg("Failed to parse user.updated payload")
+		return
+	}
+
+	clerkID := payload.ID
+
+	// Look up existing user by Clerk ID
+	existing, err := userService.GetByClerkID(r.Context(), clerkID)
+	if err != nil {
+		log.Warn().Err(err).Str("clerk_id", clerkID).Msg("User not found for update webhook — skipping")
+		return
+	}
+
+	existing.Email = primaryEmail(payload)
+	existing.Username = buildUsername(payload)
+
+	if err := userService.Update(r.Context(), existing); err != nil {
+		log.Error().Err(err).Str("clerk_id", clerkID).Msg("Failed to update user from webhook")
+		return
+	}
+
+	log.Info().Str("clerk_id", clerkID).Msg("User updated via webhook")
+}
+
+func handleUserDeleted(r *http.Request, userService *service.UserService, data json.RawMessage) {
+	// For deleted events, Clerk sends a minimal payload with just the ID
+	var payload struct {
+		ID string `json:"id"`
+	}
+	if err := json.Unmarshal(data, &payload); err != nil {
+		log.Error().Err(err).Msg("Failed to parse user.deleted payload")
+		return
+	}
+
+	clerkID := payload.ID
+
+	if err := userService.DeleteByClerkID(r.Context(), clerkID); err != nil {
+		log.Error().Err(err).Str("clerk_id", clerkID).Msg("Failed to delete user from webhook")
+		return
+	}
+
+	log.Info().Str("clerk_id", clerkID).Msg("User deleted via webhook")
+}
+
+// primaryEmail extracts the primary email from the Clerk user payload.
+func primaryEmail(p clerkUserPayload) string {
+	for _, ea := range p.EmailAddresses {
+		if ea.ID == p.PrimaryEmailAddressID {
+			return ea.EmailAddress
+		}
+	}
+	if len(p.EmailAddresses) > 0 {
+		return p.EmailAddresses[0].EmailAddress
+	}
+	return ""
+}
+
+// buildUsername constructs a username from the Clerk user payload.
+func buildUsername(p clerkUserPayload) string {
+	if p.Username != nil && *p.Username != "" {
+		return *p.Username
+	}
+	name := fmt.Sprintf("%s %s", p.FirstName, p.LastName)
+	if name == " " {
+		return p.ID // Fallback to Clerk ID
+	}
+	return name
+}

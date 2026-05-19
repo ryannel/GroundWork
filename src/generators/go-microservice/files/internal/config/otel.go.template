@@ -3,7 +3,6 @@ package config
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
@@ -24,7 +23,7 @@ func InitProvider(ctx context.Context, serviceName, collectorURL string) (func(c
 	res, err := resource.Merge(
 		resource.Default(),
 		resource.NewWithAttributes(
-			semconv.SchemaURL,
+			"", // Use empty schemaURL to inherit from resource.Default()
 			semconv.ServiceName(serviceName),
 		),
 	)

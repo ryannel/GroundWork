@@ -1,3 +1,0 @@
-## UX Design
-## Architecture
-## Bets

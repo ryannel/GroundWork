@@ -1,6 +1,9 @@
 package idempotency
 
-import "context"
+import (
+	"context"
+	"database/sql"
+)
 
 // CachedResponse represents a previously recorded HTTP response.
 type CachedResponse struct {
@@ -13,4 +16,22 @@ type CachedResponse struct {
 type Repository interface {
 	Get(ctx context.Context, key string, userID string) (*CachedResponse, error)
 	Save(ctx context.Context, key string, userID string, resp *CachedResponse) error
+}
+
+type PostgresRepository struct {
+	db *sql.DB
+}
+
+func NewPostgresRepository(db *sql.DB) *PostgresRepository {
+	return &PostgresRepository{db: db}
+}
+
+func (r *PostgresRepository) Get(ctx context.Context, key string, userID string) (*CachedResponse, error) {
+	// STUB
+	return nil, nil
+}
+
+func (r *PostgresRepository) Save(ctx context.Context, key string, userID string, resp *CachedResponse) error {
+	// STUB
+	return nil
 }

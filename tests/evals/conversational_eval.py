@@ -4,6 +4,7 @@ import argparse
 import shutil
 import time
 import subprocess
+from datetime import datetime
 from pathlib import Path
 from google import genai
 from google.genai import types
@@ -11,21 +12,47 @@ from google.genai import types
 # The repo root is two levels up from tests/evals/
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
 
+# Hard safety cap — no run can exceed this regardless of scenario/CLI settings.
+# Prevents cost blowouts from bugs or infinite loops.
+ABSOLUTE_MAX_TURNS = 50
+
 import grader
 
+def _parse_retry_delay(err_str: str) -> float | None:
+    """Extract the suggested retryDelay (seconds) from a Gemini API error string."""
+    import re
+    match = re.search(r"[Rr]etry[_ ]?[Dd]elay['\"]?\s*[=:]\s*['\"]?(\d+(?:\.\d+)?)", err_str)
+    if match:
+        return float(match.group(1))
+    return None
+
 def retry_with_backoff(func, max_retries=8, base_delay=4):
-    for attempt in range(max_retries):
+    """Retry func on transient errors.
+
+    Quota / rate-limit errors (429 / 503 / RESOURCE_EXHAUSTED) are retried
+    indefinitely so the run always completes regardless of quota pressure.
+    The API retryDelay hint is used when present; otherwise exponential
+    backoff capped at 300s is applied.  All other errors are re-raised after
+    max_retries attempts.
+    """
+    attempt = 0
+    while True:
         try:
             return func()
         except Exception as e:
-            if attempt == max_retries - 1:
-                raise e
-            if "503" in str(e) or "429" in str(e) or "exhausted" in str(e).lower():
-                delay = base_delay * (2 ** attempt)
-                print(f"  [API Rate Limit/Overload] Retrying in {delay}s...")
+            err_str = str(e)
+            is_quota = "503" in err_str or "429" in err_str or "exhausted" in err_str.lower()
+            if is_quota:
+                hint = _parse_retry_delay(err_str)
+                delay = hint if hint else min(base_delay * (2 ** attempt), 300)
+                print(f"  [API Rate Limit/Overload] Retrying in {delay:.0f}s...")
                 time.sleep(delay)
+                attempt += 1
             else:
-                raise e
+                if attempt >= max_retries - 1:
+                    raise e
+                attempt += 1
+
 
 def get_tools(sandbox_dir: Path):
     def read_file(path: str) -> str:
@@ -78,9 +105,17 @@ def simulate_conversation(
     user_persona: str,
     user_goal: str,
     sandbox_dir: Path,
+    out_file: Path,
+    scenario_name: str,
     turns: int = 5,
-    model_id: str = "gemini-2.5-flash"
+    model_id: str = "gemini-2.5-flash",
+    turn_delay: float = 2.0,
+    success_files: list[str] | None = None,
 ):
+    # Enforce hard safety cap
+    if turns > ABSOLUTE_MAX_TURNS:
+        print(f"  ⚠ Requested {turns} turns exceeds ABSOLUTE_MAX_TURNS ({ABSOLUTE_MAX_TURNS}). Capping.")
+        turns = ABSOLUTE_MAX_TURNS
     print(f"Starting simulation for {skill_name} in sandbox {sandbox_dir}...")
     
     # Setup Skill Agent with Tools
@@ -117,13 +152,34 @@ Rules for your responses:
     skill_chat = client.chats.create(model=model_id, config=skill_config)
     user_chat = client.chats.create(model=model_id, config=user_config)
     
+    def save_transcript():
+        res = []
+        for msg in skill_chat._curated_history:
+            m = {"role": msg.role, "parts": []}
+            for part in msg.parts:
+                if getattr(part, 'text', None):
+                    m["parts"].append({"text": part.text})
+                elif getattr(part, 'function_call', None):
+                    m["parts"].append({"function_call": {"name": part.function_call.name, "args": part.function_call.args}})
+                elif getattr(part, 'function_response', None):
+                    m["parts"].append({"function_response": {"name": part.function_response.name, "response": part.function_response.response}})
+            res.append(m)
+        with open(out_file, 'w') as f:
+            json.dump({
+                "scenario": scenario_name,
+                "skill_name": skill_name,
+                "transcript": res
+            }, f, indent=2)
+
     current_message = "Hi! I need some help starting on my project."
     print(f"\nUser:\n{current_message}")
     
+    task_completed = False
     for i in range(turns):
         # 1. Skill Agent replies
         try:
             skill_response = retry_with_backoff(lambda: skill_chat.send_message(current_message))
+            save_transcript()
             
             # Print/log the skill response (text and function calls)
             skill_text = ""
@@ -151,36 +207,42 @@ Rules for your responses:
             break
 
             
-        print(f"\nAssistant:\n{skill_text}")
-        
-        if i == turns - 1:
+        print(f"\nAssistant (turn {i + 1}/{turns}):\n{skill_text}")
+
+        # Early-exit: stop as soon as all expected output files are present
+        if success_files and not task_completed:
+            present = [(f, (sandbox_dir / f).exists()) for f in success_files]
+            if all(exists for _, exists in present):
+                print(f"\n  [TERMINATION] Success Criteria Met: All success_files present after turn {i + 1}.")
+                for sf, _ in present:
+                    print(f"    - {sf} ✓")
+                task_completed = True
+
+        if task_completed:
             break
             
+        if i == turns - 1:
+            print(f"\n  [TERMINATION] Turn Limit Reached: Completed {turns} turns without meeting success criteria.")
+            break
+            
+        # Pace requests to stay within API quota
+        if turn_delay > 0:
+            time.sleep(turn_delay)
+
         # 3. User Agent replies
         try:
             user_response = retry_with_backoff(lambda: user_chat.send_message(skill_text))
             current_message = user_response.text
+            save_transcript()
         except Exception as e:
             print(f"Error calling User Agent: {e}")
             break
             
         print(f"\nUser:\n{current_message}")
 
-    # Serialize full history including function calls
-    res = []
-    for msg in skill_chat._curated_history:
-        m = {"role": msg.role, "parts": []}
-        for part in msg.parts:
-            if getattr(part, 'text', None):
-                m["parts"].append({"text": part.text})
-            elif getattr(part, 'function_call', None):
-                m["parts"].append({"function_call": {"name": part.function_call.name, "args": part.function_call.args}})
-            elif getattr(part, 'function_response', None):
-                m["parts"].append({"function_response": {"name": part.function_response.name, "response": part.function_response.response}})
-        res.append(m)
-    return res
+    return None
 
-def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model_id: str):
+def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model_id: str, turn_delay: float = 2.0):
     with open(scenario_file, 'r') as f:
         scenario = json.load(f)
         
@@ -209,11 +271,12 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model
     user_persona = scenario.get("user_persona", suite_config.get("user_persona", "A standard developer"))
     user_goal = scenario.get("user_goal", suite_config.get("user_goal", "I want you to help me with a task."))
     depends_on = scenario.get("depends_on")
+    success_files = scenario.get("success_files")  # optional list of paths relative to sandbox root
     turns = scenario.get("turns", turns)  # scenario JSON wins; CLI --turns is the fallback
     
     # Setup Sandbox & Caching
     base_dir = Path(__file__).parent.resolve()
-    sandbox_dir = base_dir / "sandbox"
+    sandbox_dir = REPO_ROOT / ".sandboxes" / "evals"
     cache_dir = base_dir / "cache" / suite_name / scenario_name
     
     # 1. Wipe sandbox at start of each run for a clean slate
@@ -245,16 +308,25 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model
         else:
             print(f"WARNING: Dependency cache {dep_cache} does not exist. Sandbox will not be seeded.")
         
+    # Prepare transcript out_file so it can be saved incrementally
+    out_dir = base_dir / "transcripts" / suite_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_file = out_dir / f"{scenario_name}_{timestamp}.json"
             
-    transcript = simulate_conversation(
+    simulate_conversation(
         client=client,
         skill_name=skill_name,
         skill_instructions=skill_instructions,
         user_persona=user_persona,
         user_goal=user_goal,
         sandbox_dir=sandbox_dir,
+        out_file=out_file,
+        scenario_name=scenario_name,
         turns=turns,
-        model_id=model_id
+        model_id=model_id,
+        turn_delay=turn_delay,
+        success_files=success_files,
     )
     
     # Save cache
@@ -263,18 +335,6 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int, model
     shutil.copytree(sandbox_dir, cache_dir, dirs_exist_ok=True)
     print(f"Sandbox saved to cache: {cache_dir}")
     
-    # Save transcript
-    out_dir = base_dir / "transcripts" / suite_name
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_file = out_dir / f"{scenario_name}_transcript.json"
-    
-    with open(out_file, 'w') as f:
-        json.dump({
-            "scenario": scenario_name,
-            "skill_name": skill_name,
-            "transcript": transcript
-        }, f, indent=2)
-        
     print(f"\nTranscript saved to {out_file}")
 
 def main():
@@ -284,6 +344,7 @@ def main():
     parser.add_argument("--all", action="store_true", help="Run all scenarios in the suite sequentially")
     parser.add_argument("--turns", type=int, default=5, help="Number of conversation turns")
     parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model to use")
+    parser.add_argument("--turn-delay", type=float, default=2.0, help="Seconds to wait between turns (default: 2.0)")
     args = parser.parse_args()
 
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -292,6 +353,7 @@ def main():
         exit(1)
         
     client = genai.Client(api_key=api_key)
+    turn_delay = args.turn_delay
 
     suite_dir = Path(__file__).parent / "scenarios" / args.suite
     if not suite_dir.exists():
@@ -301,13 +363,15 @@ def main():
     if args.all:
         scenarios = sorted(suite_dir.glob("*.json"))
         for s_file in scenarios:
-            run_scenario(client, args.suite, s_file, args.turns, args.model)
+            if s_file.name == "suite.json":
+                continue
+            run_scenario(client, args.suite, s_file, args.turns, args.model, turn_delay)
     elif args.scenario:
         s_file = suite_dir / f"{args.scenario}.json"
         if not s_file.exists():
             print(f"ERROR: Scenario file {s_file} does not exist.")
             exit(1)
-        run_scenario(client, args.suite, s_file, args.turns, args.model)
+        run_scenario(client, args.suite, s_file, args.turns, args.model, turn_delay)
     else:
         print("ERROR: Must specify either --scenario or --all")
 

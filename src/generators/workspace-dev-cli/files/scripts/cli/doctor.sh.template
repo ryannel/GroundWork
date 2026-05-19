@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function cmd_doctor() {
-  print_header "Environment Verification (Doctor)"
+  print_logo "Environment Verification (Doctor)"
   
   local issues=0
 

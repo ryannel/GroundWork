@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"<%= name %>/internal/provider/websocket"
+	ws "<%= name %>/internal/provider/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -18,7 +18,7 @@ var upgrader = websocket.Upgrader{
 }
 
 // ServeWebSocket upgrades the HTTP connection and registers the client with the hub.
-func ServeWebSocket(hub *websocket.Hub, w http.ResponseWriter, r *http.Request) {
+func ServeWebSocket(hub *ws.Hub, w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		slog.Error("failed to upgrade websocket connection", slog.String("error", err.Error()))
@@ -29,8 +29,8 @@ func ServeWebSocket(hub *websocket.Hub, w http.ResponseWriter, r *http.Request) 
 	userID := "anonymous"
 	sessionID := "session-" + r.RemoteAddr
 
-	client := websocket.NewClient(r.Context(), hub, conn, userID, sessionID)
-	client.Hub().Register(client) // Assuming Hub is exposed or passed
+	client := ws.NewClient(r.Context(), hub, conn, userID, sessionID)
+	hub.Register(client)
 
 	// Start pump goroutines
 	go client.WritePump()

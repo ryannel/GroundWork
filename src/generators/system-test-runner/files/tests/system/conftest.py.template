@@ -8,7 +8,7 @@ from tenacity import retry, stop_after_delay, wait_exponential
 @pytest.fixture(scope="session")
 def docker_compose_file(pytestconfig):
     """Path to the root docker-compose file."""
-    return os.path.join(str(pytestconfig.rootdir), "..", "docker-compose.yml")
+    return os.path.join(os.path.dirname(__file__), "docker-compose.test.yml")
 
 @pytest.fixture(scope="session")
 def docker_compose_project_name():
@@ -67,7 +67,7 @@ def pure_state_reset():
     Uses DELETE instead of TRUNCATE to avoid resetting sequence counters 
     if that causes issues, or adjust to TRUNCATE CASCADE if preferred.
     """
-    dsn = "postgresql://postgres:postgres@localhost:5432/<%= projectPrefix %>"
+    dsn = "postgresql://postgres:postgres@localhost:5433/<%= projectPrefix %>"
     tables = [
         # List tables in dependency order
         # "users",

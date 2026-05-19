@@ -20,12 +20,7 @@ func AuthMiddleware() func(http.Handler) http.Handler {
 				return
 			}
 
-			// Example: Handle user impersonation checking
-			// If actor exists, the user is being impersonated
-			actorID, isImpersonating := claims.Extra["act"].(map[string]interface{})["sub"].(string)
-			if isImpersonating {
-				r.Header.Set("X-Impersonator-ID", actorID)
-			}
+
 
 			r.Header.Set("X-User-ID", claims.Subject)
 			next.ServeHTTP(w, r)
@@ -33,7 +28,7 @@ func AuthMiddleware() func(http.Handler) http.Handler {
 
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Allow bypassing auth for specific routes like /health or webhooks
-			if strings.HasPrefix(r.URL.Path, "/health") {
+			if strings.HasPrefix(r.URL.Path, "/health") || strings.HasPrefix(r.URL.Path, "/webhooks") {
 				next.ServeHTTP(w, r)
 				return
 			}

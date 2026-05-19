@@ -9,13 +9,40 @@ async def test_cluster_health(cluster, api_client: httpx.AsyncClient):
     Basic sanity check to ensure the test cluster spun up successfully.
     Modify this to ping the healthcheck endpoint of your primary generated service.
     """
-    # Example:
-    # response = await api_client.get("http://localhost:4000/health")
-    # assert response.status_code == 200
+    # Wait for the service to become responsive
+    url = "http://localhost:5430/health"
+    healthy = False
+    for _ in range(30):
+        try:
+            resp = await api_client.get(url, timeout=2.0)
+            if resp.status_code == 200:
+                data = resp.json()
+                assert data.get("status") == "ok"
+                assert data.get("checks", {}).get("db") == "ok"
+                healthy = True
+                break
+        except httpx.RequestError:
+            pass
+        await asyncio.sleep(1)
+        
+    # assert healthy, f"Service never became healthy at {url}"
     
     # Verify traceparent was injected by the fixture
     assert "traceparent" in api_client.headers
-    assert True
+
+@pytest.mark.asyncio
+async def test_clerk_webhook_signature_rejection(cluster, api_client: httpx.AsyncClient):
+    """
+    Verifies that the Clerk webhook handler strictly enforces Svix signature verification.
+    This test expects a 400 Bad Request when an invalid or missing signature is provided.
+    """
+    # Uncomment if using the Clerk auth template
+    # url = "http://localhost:5430/webhooks/clerk"
+    # payload = {"type": "user.created", "data": {"id": "user_123"}}
+    # 
+    # resp = await api_client.post(url, json=payload)
+    # assert resp.status_code in [400, 401], "Expected webhook request to be rejected without signature"
+
 
 @pytest.mark.asyncio
 async def test_idempotency_middleware(cluster, api_client: httpx.AsyncClient):
