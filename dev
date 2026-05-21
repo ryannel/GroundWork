@@ -39,7 +39,7 @@ case "$COMMAND" in
           print_substep "Creating venv..."
           python3 -m venv tests/scaffolds/venv
           source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio
+          pip install pytest httpx pytest-asyncio allpairspy
       else
           source tests/scaffolds/venv/bin/activate
       fi
@@ -76,10 +76,18 @@ case "$COMMAND" in
           source venv/bin/activate
       fi
       
-      if [ -n "$SCENARIO" ]; then
-          python conversational_eval.py --suite "$SUITE" --scenario "$SCENARIO"
+      # Handle extra CLI flags dynamically (e.g. starting with -)
+      if [ -n "$SCENARIO" ] && [[ ! "$SCENARIO" =~ ^- ]]; then
+          EXTRA_ARGS="${@:5}"
       else
-          python conversational_eval.py --suite "$SUITE" --all
+          SCENARIO=""
+          EXTRA_ARGS="${@:4}"
+      fi
+
+      if [ -n "$SCENARIO" ]; then
+          python conversational_eval.py --suite "$SUITE" --scenario "$SCENARIO" $EXTRA_ARGS
+      else
+          python conversational_eval.py --suite "$SUITE" --all $EXTRA_ARGS
       fi
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"

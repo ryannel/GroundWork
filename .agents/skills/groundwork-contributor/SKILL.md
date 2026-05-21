@@ -57,9 +57,10 @@ groundWork/
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.
 │   ├── evals/                 ← Conversational evaluation harness for hidden skills.
 │   │   ├── conversational_eval.py   ← Main harness runner.
+│   │   ├── grader.py                ← LLM-based transcript grader.
 │   │   ├── scenarios/               ← One subdirectory per suite; suite.json defines shared persona.
-│   │   ├── cache/                   ← Persisted sandbox state per scenario (used by depends_on).
-│   │   └── transcripts/             ← Timestamped run transcripts (never overwritten).
+│   │   ├── fixtures/                ← Pre-baked sandbox snapshots for seeding depends_on chains.
+│   │   └── runs/                    ← Timestamped run output (transcripts + workspace snapshots).
 │   ├── scaffolds/             ← End-to-end scaffold generation and integration tests.
 │   └── system/                ← System test templates; generated into scaffold sandboxes at test time.
 ├── llms.txt                   ← Agent discovery index for this repo's docs.
@@ -241,36 +242,48 @@ the correct file outputs in an isolated sandbox.
 
 ### How It Works
 
-The harness spins up two LLM agents per run:
+The harness spins up two LLM agents per scenario:
 
-| Agent | Role |
-|---|---|
-| **Skill Agent** | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. |
-| **User Agent** | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. |
+| Agent | Model (default) | Role |
+|---|---|---|
+| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. Function calls are handled manually via explicit history management — the harness owns the `contents` list and passes it to `generate_content()` directly, bypassing the Chat SDK entirely. |
+| **User Agent** | `gemini-2.5-flash-lite` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Uses a cheaper model since it only generates short text. |
 
 The agents alternate turns. File operations by the Skill Agent are executed against
-the live sandbox. At the end of the run, the sandbox state is preserved and copied
-to `cache/` so later scenarios can depend on it.
+the live sandbox. When all `success_files` exist on disk the run terminates immediately —
+the `turns` ceiling is only a safety cap.
+
+**Architecture invariant**: The conversation loop guarantees strict alternation of
+user → model turns in the skill history. There are no injected system messages, no
+skipped user turns, and no consecutive same-role entries. This is enforced by building
+the `skill_history` list explicitly rather than relying on the Chat SDK.
 
 ### Directory Layout
 
 ```
 tests/evals/
 ├── conversational_eval.py       ← Harness entry point
+├── grader.py                    ← LLM-based transcript grader
+├── list_suites.py               ← List available suites
+├── requirements.txt             ← Python deps (google-genai, requests)
 ├── scenarios/
 │   └── <suite-name>/
-│       ├── suite.json            ← Shared user_persona and user_goal for all scenarios in this suite
+│       ├── suite.json            ← Shared user_persona and user_goal
 │       ├── 01_product_brief.json ← Scenario 1
 │       ├── 02_ux_design.json     ← Scenario 2 (depends_on: 01_product_brief)
-│       └── ...                   ← Additional scenarios
-├── cache/
+│       └── ...
+├── fixtures/
 │   └── <suite-name>/
-│       └── <scenario-name>/      ← Sandbox snapshot saved after each run
-└── transcripts/
+│       └── <scenario-name>/      ← Pre-baked sandbox snapshots for seeding
+└── runs/
     └── <suite-name>/
-        └── <scenario>_<timestamp>.json   ← Timestamped; accumulates across runs
+        └── run_<YYYYMMDD_HHMMSS>/  ← One directory per run (timestamped)
+            ├── 01_product_brief_transcript.json
+            ├── 02_ux_design_transcript.json
+            ├── 03_architecture_transcript.json
+            └── workspace/           ← Accumulated output files (docs/, .groundwork/)
 
-.sandboxes/evals/                 ← Live sandbox; wiped at run start, preserved after
+.sandboxes/evals/                 ← Live sandbox; wiped per scenario, preserved after last
 ```
 
 ### Scenario File Format
@@ -292,7 +305,7 @@ Each scenario is a JSON file:
 | `skill_name` | Yes | Display name for logging |
 | `skill_path` | Yes | Path to the `instructions.md` file, relative to repo root |
 | `turns` | No | Max conversation turns (safety ceiling). Wins over `--turns` CLI flag. Hard-capped at `ABSOLUTE_MAX_TURNS` (50) in the harness to prevent cost blowouts. |
-| `depends_on` | No | Scenario name whose cache to seed the sandbox with before running |
+| `depends_on` | No | Scenario name whose workspace output to seed the sandbox with before running |
 | `user_persona` | No | Overrides the suite-level persona for this scenario only |
 | `user_goal` | No | Overrides the suite-level goal for this scenario only |
 | `success_files` | No | List of file paths (relative to sandbox root) that signal task completion. The run stops as soon as all files exist — `turns` is only a safety ceiling. |
@@ -311,12 +324,15 @@ override both fields if a specific scenario needs a different persona.
 
 ### Sandbox Lifecycle
 
-1. **Wipe** — the `.sandboxes/evals/` directory is deleted at the start of every run.
+1. **Wipe** — the `.sandboxes/evals/` directory is deleted at the start of every scenario.
 2. **Init** — `groundwork init` runs inside the sandbox, installing the latest skills.
-3. **Seed** — if `depends_on` is set, the named scenario's cache is copied in (excluding `.agents/` to preserve fresh skills).
-4. **Run** — the Skill Agent and User Agent converse. The run ends when all `success_files` exist or the `turns` ceiling is reached.
-5. **Preserve** — the sandbox is left intact after the run for debugging.
-6. **Cache** — the sandbox is copied to `cache/<suite>/<scenario>/` for downstream scenarios.
+3. **Seed** — if `depends_on` is set and a previous scenario's workspace exists in the
+   current run, its contents are copied in (excluding `.agents/` to preserve fresh skills).
+   If no workspace exists, falls back to a pre-baked fixture in `fixtures/`.
+4. **Run** — the Skill Agent and User Agent converse. The run ends when all `success_files`
+   exist on disk (immediate exit) or the `turns` ceiling is reached.
+5. **Preserve** — on success, the sandbox is copied to the run's `workspace/` directory so
+   downstream scenarios can depend on it. On failure, the workspace is NOT updated.
 
 ### Running the Harness
 
@@ -326,28 +342,175 @@ file at the repo root — the CLI sources it automatically.
 ```bash
 ./dev eval run <suite>             # Run all scenarios in a suite sequentially
 ./dev eval run <suite> <scenario>  # Run one specific scenario
-./dev eval clean                   # Wipe cache and sandbox
+./dev eval clean                   # Wipe all eval runs and the sandbox
 ```
 
-**Example:**
+**Model selection** — the skill and user agents use different models by default.
+Override with CLI flags:
+
 ```bash
-./dev eval run storytelling_engine 02_ux_design
+./dev eval run storytelling_engine --skill-model gemini-2.5-pro --user-model gemini-2.5-flash-lite
+./dev eval run storytelling_engine 02_ux_design --skill-model gemini-2.5-flash
 ```
+
+| Flag | Default | Purpose |
+|---|---|---|
+| `--skill-model` | `gemini-2.5-flash` | Model for the skill agent (needs reliable function calling) |
+| `--user-model` | `gemini-2.5-flash-lite` | Model for the user agent (only generates text) |
+| `--turn-delay` | `2.0` | Seconds to wait between turns (API quota pacing) |
+| `--turns` | `5` | Default turn limit (overridden by scenario JSON) |
 
 ### Adding a New Scenario
 
 1. Create a JSON file in `tests/evals/scenarios/<suite-name>/`.
 2. Follow the scenario file format above.
 3. Set `depends_on` if the scenario requires a prior phase's output to be present.
-4. Set `turns` as a safety ceiling — high enough for the skill to complete its full flow including draft, review, and commit. Use `success_files` to end the run early when the expected outputs exist.
-5. Run `./dev eval run <suite> <scenario>` and confirm the expected output files appear in `.sandboxes/evals/`.
+4. Set `turns` as a safety ceiling — high enough for the skill to complete its full flow
+   including draft, review, and commit. Use `success_files` to end the run early when the
+   expected outputs exist.
+5. Run `./dev eval run <suite> <scenario>` and confirm the expected output files appear in
+   `.sandboxes/evals/`.
 
 ### Adding a New Suite
 
 1. Create `tests/evals/scenarios/<suite-name>/`.
-2. Add `suite.json` with a `user_persona` and `user_goal` describing the project context and how the simulated user behaves.
-3. Add scenario files numbered sequentially (`01_`, `02_`, etc.) to control execution order when using `--all`.
-4. The `user_goal` must instruct the simulated user to respond `'Looks great, please commit it.'` when a draft is presented, so the commit step executes.
+2. Add `suite.json` with a `user_persona` and `user_goal` describing the project context
+   and how the simulated user behaves.
+3. Add scenario files numbered sequentially (`01_`, `02_`, etc.) to control execution
+   order when running the full suite.
+4. The `user_goal` must instruct the simulated user to respond
+   `'Looks great, please commit it.'` when a draft is presented, so the commit step
+   executes.
+
+---
+
+### Debugging Eval Runs
+
+When the user asks to review, debug, or analyse an eval run, follow this playbook.
+
+#### Finding the Latest Run
+
+Runs are stored under `tests/evals/runs/<suite-name>/` with timestamped directory names
+in the format `run_YYYYMMDD_HHMMSS`. The most recently modified directory is the latest
+run.
+
+```bash
+ls -lt tests/evals/runs/storytelling_engine/ | head -5
+```
+
+#### Run Contents
+
+Each run directory contains one transcript JSON file per scenario that executed, plus a
+`workspace/` directory holding the accumulated file outputs.
+
+```
+run_20260520_221635/
+├── 01_product_brief_transcript.json
+├── 02_ux_design_transcript.json
+├── 03_architecture_transcript.json
+└── workspace/
+    └── docs/
+        ├── product-brief.md
+        └── ux-design.md       ← architecture.md absent = scenario 3 failed
+```
+
+**Quick health check** — for each transcript, report entry count, function calls, and
+whether the expected output file exists in `workspace/`:
+
+```python
+import json, os
+run = 'tests/evals/runs/storytelling_engine/run_XXXXXXXX_XXXXXX'
+for f in sorted(os.listdir(run)):
+    if not f.endswith('.json'): continue
+    data = json.load(open(os.path.join(run, f)))
+    t = data['transcript']
+    user = sum(1 for e in t if e['role'] == 'user')
+    fc = sum(1 for e in t for p in e.get('parts',[]) if isinstance(p,dict) and 'function_call' in p)
+    print(f"{f}: {len(t)} entries, {user} user, {fc} func_calls")
+```
+
+#### Transcript File Format
+
+Each transcript JSON has this shape:
+
+```json
+{
+  "scenario": "03_architecture",
+  "skill_name": "groundwork-architecture",
+  "transcript": [
+    {
+      "role": "user",
+      "parts": [{"text": "Hi! I need some help starting on my project."}]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {"text": "Hello! Let me check your existing documents..."},
+        {"function_call": {"name": "read_file", "args": {"path": "docs/product-brief.md"}}}
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {"function_response": {"name": "read_file", "response": {"result": "# Product Brief..."}}}
+      ]
+    }
+  ]
+}
+```
+
+Parts can contain `text`, `function_call` (with `name` and `args`), or
+`function_response` (with `name` and `response`). A single entry can have multiple
+parts — the model may generate text AND a function call in the same turn.
+
+#### Reading Conversations
+
+To see the conversation flow at a glance, print role + first line of each text entry:
+
+```python
+for i, e in enumerate(transcript):
+    for p in e.get('parts', []):
+        if isinstance(p, dict) and 'text' in p:
+            print(f"[{i}] {e['role']}: {p['text'][:120]}")
+        elif isinstance(p, dict) and 'function_call' in p:
+            fc = p['function_call']
+            print(f"[{i}] {e['role']}: → {fc['name']}({list(fc['args'].keys())})")
+```
+
+#### Checking Tool Usage
+
+List all function calls to understand what the model read and wrote:
+
+```python
+for i, e in enumerate(transcript):
+    for p in e.get('parts', []):
+        if isinstance(p, dict) and 'function_call' in p:
+            fc = p['function_call']
+            args_summary = ', '.join(f'{k}={repr(v)[:60]}' for k,v in fc['args'].items())
+            print(f"[{i}] {fc['name']}({args_summary})")
+```
+
+#### Checking the Live Sandbox
+
+The live sandbox at `.sandboxes/evals/` preserves the final state of the last scenario
+that ran. This is useful for checking file contents, cache state, and skill installation:
+
+```bash
+ls .sandboxes/evals/docs/                    # Output files
+ls .sandboxes/evals/.groundwork/cache/       # Cache files from the skill lifecycle
+cat .sandboxes/evals/docs/architecture.md    # Read a specific output
+```
+
+#### Common Failure Patterns
+
+| Symptom | Likely Cause | What to Check |
+|---|---|---|
+| Transcript has 0 function calls but model says "I've written the file" | Model is describing tool usage in text instead of calling tools. The harness has a `tool_code` fallback parser that catches the `print(default_api.write_file(...))` pattern — if it didn't fire, the text format was unexpected | Check the transcript for `tool_code` entries and verify the regex in `_try_parse_tool_code` matches |
+| Scenario stopped after very few turns (< 5) with no output | `generate_content` threw a non-retryable error | Run the scenario individually with console visible for error output |
+| Skill agent repeats the same response | Stuck detection fires after 2 identical consecutive responses | Check if the model is waiting for information the user agent isn't providing — may need a persona/goal adjustment |
+| `success_files` exist but the run didn't terminate | The success check runs after each skill turn; if the path doesn't match exactly, it won't trigger | Verify the `success_files` paths in the scenario JSON match exactly what `write_file` produces (relative to sandbox root) |
+| Output file has escaped `\n` instead of real newlines | The model passed literal `\n` strings in the `content` argument to `write_file` | This is a model behavior issue — check the skill instructions for formatting guidance |
+| User agent says "Let's continue where we left off" repeatedly | The user agent detected a conversation restart. With explicit history management this should not happen — if it does, check that `skill_text_for_user` is non-empty and meaningful | Print the skill response that was sent to the user agent |
 
 ---
 

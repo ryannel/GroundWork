@@ -1,0 +1,114 @@
+import { NextRequest, NextResponse } from "next/server";
+<% if (auth === 'clerk') { %>import { auth } from "@clerk/nextjs/server";<% } %>
+import { trace, context, propagation } from "@opentelemetry/api";
+
+/**
+ * Server-side reverse proxy to the backend API.
+ *
+ * All client-side API calls go to `/api/proxy/<path>` and this Route Handler
+ * forwards them to the backend service. The backend URL is read from the
+ * `API_URL` environment variable at **runtime** — no build-time coupling.
+ *<% if (auth === 'clerk') { %>
+ * Authentication:
+ *  - Injects the user's Clerk session JWT into the Authorization header.
+ *  - If the user isn't authenticated, clerkMiddleware will have already
+ *    blocked the request before it reaches this handler.
+ *<% } %>
+ * Distributed Tracing:
+ *  - Injects the server-side `traceparent`/`tracestate` headers via OTel
+ *    propagation, creating end-to-end traces across services.
+ */
+
+/** Headers that should NOT be forwarded to the upstream. */
+const HOP_BY_HOP = new Set([
+    "connection",
+    "keep-alive",
+    "transfer-encoding",
+    "te",
+    "trailer",
+    "upgrade",
+    "host",
+]);
+
+function getUpstreamUrl(request: NextRequest, path: string[]): string {
+    const base = process.env.API_URL ?? "http://localhost:4000";
+    const joined = `/${path.join("/")}`;
+    const search = request.nextUrl.search;
+    return `${base}${joined}${search}`;
+}
+
+async function forwardHeaders(incoming: Headers): Promise<HeadersInit> {
+    const out: Record<string, string> = {};
+
+    incoming.forEach((value, key) => {
+        if (!HOP_BY_HOP.has(key.toLowerCase())) {
+            out[key] = value;
+        }
+    });
+<% if (auth === 'clerk') { %>
+    // Inject the user's Clerk session JWT for authenticated requests.
+    try {
+        const { getToken } = await auth();
+        const clerkToken = await getToken();
+        if (clerkToken) {
+            out.Authorization = `Bearer ${clerkToken}`;
+        }
+    } catch {
+        // Auth failed - continue without token
+    }
+<% } %>
+    // Inject the server-side OTel trace context (traceparent + tracestate)
+    propagation.inject(context.active(), out);
+
+    return out;
+}
+
+async function handler(
+    request: NextRequest,
+    { params }: { params: Promise<{ path: string[] }> }
+): Promise<NextResponse> {
+    const { path } = await params;
+    const url = getUpstreamUrl(request, path);
+
+    const activeSpan = trace.getActiveSpan();
+    if (activeSpan) {
+        activeSpan.setAttribute("proxy.upstream_path", `/${path.join("/")}`);
+    }
+
+    try {
+        const upstream = await fetch(url, {
+            method: request.method,
+            headers: await forwardHeaders(request.headers),
+            body: request.body,
+            // @ts-expect-error -- Node fetch supports duplex for streaming request bodies
+            duplex: "half",
+        });
+
+        // Build response, forwarding status and filtered headers.
+        const responseHeaders = new Headers();
+        upstream.headers.forEach((value, key) => {
+            if (!HOP_BY_HOP.has(key.toLowerCase())) {
+                responseHeaders.set(key, value);
+            }
+        });
+
+        return new NextResponse(upstream.body, {
+            status: upstream.status,
+            statusText: upstream.statusText,
+            headers: responseHeaders,
+        });
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error("[api/proxy] upstream error:", err);
+        return NextResponse.json(
+            { detail: "Backend service unavailable" },
+            { status: 502 }
+        );
+    }
+}
+
+export const GET = handler;
+export const POST = handler;
+export const PUT = handler;
+export const PATCH = handler;
+export const DELETE = handler;

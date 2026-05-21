@@ -26,17 +26,17 @@ The brief does **not** specify how every feature works. It captures *what the sy
 
 Product discovery is a multi-stage collaborative conversation, not a questionnaire. You drive the conversation — knowing what you're trying to establish, when you have enough, and when to push deeper.
 
-- **One question per turn.** Ask, listen, reflect naturally, then advance. Do not ask compound questions. Stop generating after your question so the user can reply.
 - **Discover before structuring.** In Stage 1, let the user brain-dump. In Stage 2, explore systematically. The structure emerges from the conversation — it is not imposed on it.
 - **Vary reflections.** Confirm what you heard, show you absorbed it, build on it. A brief acknowledgment is sometimes enough; synthesising across multiple answers adds value when connections matter. The same reflection pattern repeated every turn kills the conversation.
-- **Cover ground at the pace the conversation allows.** One topic at a time when things are uncertain; capture multiple areas at once when a single exchange gives you confident answers across all of them.
 - **Naming.** Never invent product names or brand names. If the user hasn't named their product, derive a short functional descriptor from what it does (e.g., "the storytelling engine", "the booking system"). Use that descriptor consistently. When you present the draft, ask what they want to call it. Branding is always the user's call.
 
 ---
 
 ## Operating Contract
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
+
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 
@@ -90,11 +90,11 @@ Discovery is complete when you can write about each area with enough detail that
 
 For each **user type**, you need enough to write a paragraph that conveys their relationship to the problem — not just a demographic label. "Avid readers" is a label. "Fans of interactive fiction who have exhausted the content in traditional choose-your-own-adventure formats and want stories that respond to them rather than following fixed paths" is a mental model a designer can work from.
 
-For each **capability**, you need enough to explain what it does for the user, why it matters to the product's vision, and how it connects to other capabilities. "Dynamic narrative generation" is a feature name. Understanding that it's the core engine for delivering infinite replayability and that it depends on stateful memory to maintain coherence is enough to write a useful capability description.
+For each **capability**, you need enough to explain what it does for the user, why it matters to the product's vision, and how it connects to other capabilities. "Dynamic narrative generation" is a feature name. Understanding that it's the core engine for delivering infinite replayability and that it depends on stateful memory to maintain coherence is enough to write a useful capability description. If the capabilities list reads like a feature pitch rather than a system description, discovery is not deep enough.
 
-For the **experience**, you need enough to walk through the macro user journey — from entry to outcome — with enough texture that someone reading it can picture the shape of the interaction, not just the steps.
+For the **experience**, you need enough to walk through the macro user journey — from entry to outcome — with enough texture that someone reading it can picture the shape of the interaction, not just the steps. If the user described the experience without naming the medium (web app, CLI, API, physical device), ask them to clarify before transitioning to Stage 3.
 
-If you reach Stage 3 and realise you're thin on any of these, go back and ask one more targeted question before drafting.
+Before transitioning to Stage 3, self-test: for each section of the Product Brief Structure below, can you write at least one substantive paragraph? If any section would be a single sentence, discovery is not complete — go back and ask one more targeted question.
 
 ---
 
@@ -106,7 +106,7 @@ When ready:
 
 1. **Draft.** Synthesize the discovery into the Product Brief structure below. Follow the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
 
-2. **Review.** Load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/product-brief-draft.md`) and document type (`product-brief`).
+2. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/product-brief-draft.md`) and document type (`product-brief`). Report the verdict and any findings explicitly before proceeding.
 
 3. **Revise loop.** If the verdict is **REVISE**:
    - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
@@ -175,7 +175,7 @@ Who uses this? For each type: who they are, what job they're hiring the system t
 The high-level things the system does, organised by theme. This is the full vision, not the MVP.
 
 #### The Experience
-How users move through the system at a macro level. Focus on the shape of the experience, not the interface. Each description should reveal what the system does at its best.
+How users move through the system at a macro level. Name the interaction medium — screen-based app, command-line tool, API/protocol, voice interface, or physical device — and describe the experience through that medium. Downstream phases depend on this to make design and infrastructure decisions.
 
 #### Domain Constraints
 Hard rules. Things the system must or must never do. Ethical commitments. Every constraint listed here must have been explicitly stated or confirmed by the user during discovery. Do not infer constraints from context.
@@ -193,7 +193,8 @@ Concrete signals that the system is delivering value. Specific enough that a des
 Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
 1. Write the finalised content to `docs/product-brief.md`.
-2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact.
+2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
 3. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove entries incorporated into the brief.
-4. Confirm: **"Product Brief complete."**
-5. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+4. Confirm that the phase is complete.
+5. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+6. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

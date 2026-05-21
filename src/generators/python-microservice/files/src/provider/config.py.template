@@ -1,0 +1,38 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8', extra='ignore')
+    
+    server_port: int = <%= assignedPort %>
+<% if (postgres) { %>
+    db_host: str = "localhost"
+    db_port: int = 5432
+    db_user: str = "postgres"
+    db_password: str = "postgres"
+    db_name: str = "wordloop"
+    
+    @property
+    def database_url(self) -> str:
+        return f"postgresql+asyncpg://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
+<% } %>
+
+<% if (messaging === 'redis' || websockets) { %>
+    redis_url: str = "redis://localhost:6379"
+<% } %>
+
+<% if (messaging === 'kafka') { %>
+    kafka_brokers: str = "localhost:9092"
+<% } %>
+
+<% if (messaging === 'gcp-pubsub') { %>
+    pubsub_project_id: str = "local-project"
+<% } %>
+
+<% if (llm) { %>
+    llm_api_key: Optional[str] = None
+    llm_base_url: Optional[str] = None
+    llm_model: str = "gpt-4o"
+<% } %>
+
+settings = Settings()

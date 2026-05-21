@@ -1,0 +1,95 @@
+/**
+ * Isomorphic API fetcher.
+ *
+ * Works in both server-side and client-side contexts:
+ * - Server (RSC / Route Handlers): calls the backend API directly via API_URL.
+ * - Client (browser): calls through the reverse proxy at /api/proxy/.
+ *
+ * All data-fetching hooks (SWR) should use `customFetch` rather than
+ * raw `fetch` to get consistent error handling and auth injection.
+ */
+
+/** Structured error for API failures. */
+export class ApiError extends Error {
+  public readonly status: number;
+  public readonly statusText: string;
+  public readonly detail: string;
+
+  constructor(status: number, statusText: string, detail: string) {
+    super(`[${status}] ${detail}`);
+    this.name = "ApiError";
+    this.status = status;
+    this.statusText = statusText;
+    this.detail = detail;
+  }
+
+  /** User-friendly message for display in toasts / error boundaries. */
+  get userMessage(): string {
+    if (this.status === 401) return "Please sign in to continue.";
+    if (this.status === 403) return "You don't have permission to do that.";
+    if (this.status === 404) return "The requested resource was not found.";
+    if (this.status >= 500) return "Something went wrong. Please try again.";
+    return this.detail || "An unexpected error occurred.";
+  }
+}
+
+function getBaseUrl(): string {
+  if (typeof window === "undefined") {
+    // Server-side: call the backend directly
+    return process.env.API_URL ?? "http://localhost:4000";
+  }
+  // Client-side: go through the Next.js reverse proxy
+  return "/api/proxy";
+}
+
+/**
+ * Isomorphic fetch wrapper.
+ *
+ * @param path - API path (e.g., `/v1/items` or `/v1/items/123`)
+ * @param init - Standard RequestInit options
+ * @returns The parsed JSON response
+ * @throws {ApiError} When the response has a non-2xx status
+ */
+export async function customFetch<T = unknown>(
+  path: string,
+  init?: RequestInit
+): Promise<T> {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}${path}`;
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...(init?.headers as Record<string, string>),
+  };
+
+  const response = await fetch(url, {
+    ...init,
+    headers,
+  });
+
+  if (!response.ok) {
+    let detail = response.statusText;
+    try {
+      const body = await response.json();
+      detail = body.detail || body.message || body.error || detail;
+    } catch {
+      // Response body isn't JSON — use statusText
+    }
+    throw new ApiError(response.status, response.statusText, detail);
+  }
+
+  // Handle 204 No Content
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  return response.json() as Promise<T>;
+}
+
+/**
+ * SWR-compatible fetcher.
+ *
+ * Usage: `useSWR('/v1/items', swrFetcher)`
+ */
+export const swrFetcher = <T = unknown>(path: string): Promise<T> =>
+  customFetch<T>(path);

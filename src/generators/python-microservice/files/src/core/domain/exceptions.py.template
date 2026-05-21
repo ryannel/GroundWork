@@ -1,0 +1,43 @@
+class DomainError(Exception):
+    """Base class for domain exceptions."""
+    pass
+
+class NotFoundError(DomainError):
+    """Raised when a requested resource is not found."""
+    pass
+
+class UnauthorizedError(DomainError):
+    """Raised when authentication is missing or invalid."""
+    pass
+
+class ForbiddenError(DomainError):
+    """Raised when the user does not have permission."""
+    pass
+
+class ConflictError(DomainError):
+    """Raised when there is a conflict, such as a duplicate resource."""
+    pass
+
+class ValidationError(DomainError):
+    """Raised for field-level validation errors."""
+    pass
+
+class IdempotencyError(DomainError):
+    """Raised when an idempotency key collision occurs."""
+    pass
+
+class RateLimitExceededError(DomainError):
+    """Raised when concurrency limits or rate limits are exceeded."""
+    pass
+
+class CircuitBreakerOpenError(DomainError):
+    """Raised when an external service circuit breaker is open."""
+    pass
+
+class TransientInferenceError(DomainError):
+    """Raised for retriable provider/ML failures."""
+    pass
+
+class PermanentInferenceError(DomainError):
+    """Raised for non-retriable provider/ML failures."""
+    pass

@@ -17,6 +17,21 @@
       "factory": "./dist/src/generators/workspace-dev-cli/generator",
       "schema": "./src/generators/workspace-dev-cli/schema.json",
       "description": "Scaffolds a local ./dev CLI for managing services and infrastructure"
+    },
+    "python-microservice": {
+      "factory": "./dist/src/generators/python-microservice/generator",
+      "schema": "./src/generators/python-microservice/schema.json",
+      "description": "Scaffolds a highly opinionated Python microservice"
+    },
+    "nextjs-app": {
+      "factory": "./dist/src/generators/nextjs-app/generator",
+      "schema": "./src/generators/nextjs-app/schema.json",
+      "description": "Scaffolds a production-grade Next.js application with App Router"
+    },
+    "docs-site": {
+      "factory": "./dist/src/generators/docs-site/generator",
+      "schema": "./src/generators/docs-site/schema.json",
+      "description": "Scaffolds a Fumadocs-powered Next.js documentation site"
     }
   }
 }

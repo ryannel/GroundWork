@@ -6,17 +6,17 @@
 
 ## Protocol 1: Discovery Notes
 
-**ALWAYS capture out-of-phase signals. NEVER let them drop silently.**
+Out-of-phase signals captured now save the user from repeating themselves in later phases — capture them immediately.
 
 During any GroundWork conversation, the user will mention things that belong to a different phase — design preferences during a product brief, delivery priorities during architecture, architectural instincts during UX design. These signals are valuable and must be preserved.
 
-### The Rule
+### How It Works
 
-During **every turn**, silently monitor for out-of-phase signals. When you hear one:
+During every turn, silently monitor for out-of-phase signals. When you hear one:
 
 1. Acknowledge it naturally within the conversation if appropriate, then steer back to the current topic.
-2. Append the signal as a new bullet under the appropriate section header in `.groundwork/cache/discovery-notes.md`. Use your file editing tool — NEVER a shell command. If the file does not exist, create it with all section headers listed below.
-3. ALWAYS still ask your next discovery question in the same turn.
+2. Append the signal as a new bullet under the appropriate section header in `.groundwork/cache/discovery-notes.md`. Use file editing tools — shell commands (echo, sed) corrupt markdown formatting. If the file does not exist, create it with all section headers listed below.
+3. Continue with the next discovery question in the same turn so the user's flow is not interrupted.
 
 ### Section Headers
 
@@ -31,13 +31,13 @@ The discovery notes file uses these sections:
 
 ### When to Check
 
-At the start of any phase, check `.groundwork/cache/discovery-notes.md` for entries under your phase's header. Treat them as pre-discovered context — the user has already communicated these signals and MUST NOT be asked about them again. Carry this context into the relevant stages.
+At the start of any phase, check `.groundwork/cache/discovery-notes.md` for entries under your phase's header. Treat them as pre-discovered context. Re-asking signals that were already captured wastes the user's time and erodes trust in the process. Carry this context into the relevant stages.
 
 ---
 
 ## Protocol 2: Living Documents
 
-**ALL `docs/` artifacts are living documents. They grow as the project learns. ALWAYS update them when new information surfaces.**
+Documents that fall behind the conversation lose value. All `docs/` artifacts are living documents — update them as new information surfaces.
 
 This is not restricted to a specific phase or direction. Any phase, any bet, any conversation: if new information surfaces that refines an existing document, update it immediately.
 
@@ -57,7 +57,7 @@ This is not restricted to a specific phase or direction. Any phase, any bet, any
 
 ## Protocol 3: Phase Lifecycle
 
-**Every methodology phase follows the same lifecycle. NEVER deviate from this sequence.**
+Every methodology phase follows the same lifecycle. The sequence ensures artifacts are committed consistently — deviating risks orphaned cache files or lost discovery notes.
 
 ### 1. Initialize
 
@@ -77,7 +77,7 @@ Check `.groundwork/cache/discovery-notes.md` for entries under the current phase
 
 Work through the phase's stages as defined in its instructions. Update the cache file as each stage completes.
 
-**NEVER mark a phase complete until the user explicitly confirms.**
+Do not mark a phase complete until the user explicitly confirms — premature completion commits artifacts the user may not endorse.
 
 ### 4. Commit
 
@@ -88,5 +88,18 @@ When the user gives explicit final approval:
 3. **Apply the Living Documents protocol**: scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
 4. **Update discovery notes**: scan the conversation for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries that were incorporated into the committed artifact.
 5. Confirm completion with a brief, clear message.
-6. **Recommend a fresh context.** Tell the user: *"Start a new chat for the next phase — everything you need is in the committed docs, and a fresh context will give the next skill a clean working memory."* This is a recommendation, not a requirement — the user can continue if they prefer.
+6. **Recommend a fresh context** for the next phase — a clean context gives the next skill full working memory. This is a recommendation, not a requirement.
 7. Hand off to the `groundwork-orchestrator` skill immediately. Do not ask the user to invoke it.
+
+---
+
+## Protocol 4: Conversational Pacing
+
+The goal of pacing is to manage the user's cognitive load. Complex, structural decisions — the ones that shape the product, constrain the design space, or have downstream consequences — deserve focused attention. Rushing through them in a compound question produces shallow answers that collapse under implementation pressure.
+
+Give important questions room to breathe. When a decision has real trade-offs or downstream consequences, present it on its own, explore it fully, and resolve it before moving on. When several questions are straightforward or closely related, grouping them keeps the conversation moving without overwhelming the user.
+
+Converge toward proposals. Once you have enough signal to form a recommendation, propose it and let the user react — continued interrogation past the point of sufficient information wastes the user's time and energy. The conversation should feel like it's building toward something, not circling.
+
+Confirm before advancing to the next phase. Summarise what was established and get explicit confirmation before moving on — premature advancement commits decisions the user may not endorse.
+

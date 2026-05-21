@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "nextjs-app",
+  "title": "Next.js App",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Next.js application",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the app?"
+    },
+    "auth": {
+      "type": "string",
+      "enum": ["none", "clerk"],
+      "default": "none",
+      "description": "Authentication provider to include",
+      "x-prompt": {
+        "message": "Which authentication provider should we include?",
+        "type": "list",
+        "items": [
+          { "value": "none", "label": "None" },
+          { "value": "clerk", "label": "Clerk (User Auth + Middleware)" }
+        ]
+      }
+    },
+    "apiProxy": {
+      "type": "boolean",
+      "description": "Include a server-side reverse proxy to a backend API service",
+      "default": false,
+      "x-prompt": "Do you want to include an API reverse proxy to a backend service?"
+    },
+    "websockets": {
+      "type": "boolean",
+      "description": "Include a WebSocket provider with runtime config discovery",
+      "default": false,
+      "x-prompt": "Do you want to enable WebSocket support?"
+    }
+  },
+  "required": ["name"]
+}

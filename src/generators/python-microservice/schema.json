@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "python-microservice",
+  "title": "Python Microservice",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the microservice",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the service?"
+    },
+    "rest": {
+      "type": "boolean",
+      "description": "Scaffold a FastAPI REST application",
+      "default": true,
+      "x-prompt": "Do you want to enable FastAPI REST endpoints?"
+    },
+    "postgres": {
+      "type": "boolean",
+      "description": "Include SQLAlchemy and declarative schema management",
+      "default": false,
+      "x-prompt": "Do you want to enable Postgres (SQLAlchemy + declarative schema)?"
+    },
+    "messaging": {
+      "type": "string",
+      "enum": ["none", "redis", "kafka", "gcp-pubsub"],
+      "default": "none",
+      "description": "Include Pub/Sub bindings",
+      "x-prompt": {
+        "message": "Which message broker do you want to use for Pub/Sub?",
+        "type": "list",
+        "items": [
+          { "value": "none", "label": "None" },
+          { "value": "redis", "label": "Redis" },
+          { "value": "kafka", "label": "Kafka" },
+          { "value": "gcp-pubsub", "label": "Google Cloud Pub/Sub" }
+        ]
+      }
+    },
+    "websockets": {
+      "type": "boolean",
+      "description": "Scaffold FastAPI WebSocket endpoints with a Redis backplane",
+      "default": false,
+      "x-prompt": "Do you want to enable WebSockets?"
+    },
+    "runpod": {
+      "type": "boolean",
+      "description": "Include Runpod serverless worker entrypoint and ComfyUI pipeline boilerplate",
+      "default": false,
+      "x-prompt": "Do you want to enable Runpod serverless worker support?"
+    },
+    "llm": {
+      "type": "boolean",
+      "description": "Include abstract gateways for LLM generation",
+      "default": false,
+      "x-prompt": "Do you want to include LLM connection boilerplate?"
+    }
+  },
+  "required": ["name"]
+}

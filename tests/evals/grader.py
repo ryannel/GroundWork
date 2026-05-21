@@ -14,7 +14,7 @@ def retry_with_backoff(func, max_retries=5, base_delay=4):
             if attempt == max_retries - 1:
                 raise e
             if "503" in str(e) or "429" in str(e) or "exhausted" in str(e).lower():
-                delay = base_delay * (2 ** attempt)
+                delay = base_delay
                 print(f"  [API Rate Limit/Overload] Retrying in {delay}s...")
                 time.sleep(delay)
             else:
@@ -25,7 +25,7 @@ def evaluate_transcript(
     transcript: list,
     rubric: str,
     skill_instructions: str,
-    model_id: str = "gemini-2.5-flash"
+    model_id: str = "gemini-2.5-flash-lite"
 ):
     
     # Format transcript
@@ -41,7 +41,10 @@ def evaluate_transcript(
                 formatted_transcript += f"*[Called Tool: {fc['name']} with args {fc['args']}]*\n"
             elif "function_response" in part:
                 fr = part["function_response"]
-                formatted_transcript += f"*[Tool Output from {fr['name']}: {fr['response']}]*\n"
+                resp_str = str(fr.get("response", ""))
+                if len(resp_str) > 300:
+                    resp_str = resp_str[:300] + "... [TRUNCATED]"
+                formatted_transcript += f"*[Tool Output from {fr['name']}: {resp_str}]*\n"
         
     system_prompt = f"""You are an expert AI evaluator grading a conversational test of an AI assistant skill.
 The skill's original instructions are:
@@ -79,8 +82,8 @@ def main():
     parser.add_argument("--transcript", required=True, help="Path to transcript JSON file")
     parser.add_argument("--skill-path", required=True, help="Path to SKILL.md file")
     parser.add_argument("--rubric", required=False, help="Evaluation rubric string", default="1. Did the assistant avoid question-bombing? 2. Did the assistant correctly follow the skill instructions? 3. Did the assistant effectively fulfill the user's hidden goal?")
-    parser.add_argument("--output", required=True, help="Path to save the evaluation report")
-    parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model to use")
+    parser.add_argument("--output", required=False, help="Path to save the evaluation report (defaults to alongside transcript)")
+    parser.add_argument("--model", default="gemini-2.5-flash-lite", help="Gemini model to use")
     args = parser.parse_args()
 
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -94,6 +97,16 @@ def main():
         data = json.load(f)
         transcript = data.get("transcript", [])
         
+    # Deduplicate transcript to handle SDK history accumulation duplication bugs
+    seen = set()
+    deduped = []
+    for msg in transcript:
+        k = json.dumps({"role": msg.get("role"), "parts": msg.get("parts")}, sort_keys=True)
+        if k not in seen:
+            seen.add(k)
+            deduped.append(msg)
+    transcript = deduped
+        
     with open(args.skill_path, 'r') as f:
         skill_instructions = f.read()
         
@@ -105,7 +118,12 @@ def main():
         model_id=args.model
     )
     
-    out_file = Path(args.output)
+    if args.output:
+        out_file = Path(args.output)
+    else:
+        transcript_path = Path(args.transcript)
+        out_file = transcript_path.parent / f"{transcript_path.stem.replace('_transcript', '')}_report.md"
+        
     out_file.parent.mkdir(parents=True, exist_ok=True)
     
     with open(out_file, 'w') as f:

@@ -193,4 +193,21 @@ The user's role shifts from providing direction to reacting to choices. Walk thr
 
 Refine iteratively until the user is satisfied with the full specification.
 
-Once approved, return to `instructions.md` and execute Stage 6: Commit.
+Once approved, proceed to Stage 6: Commit.
+
+---
+
+## Stage 6: Commit
+
+Execute **only** after Stage 5b review is complete and the user has explicitly approved the specification.
+
+Follow the Phase Lifecycle commit protocol from the Operating Contract:
+
+1. Write the finalised spec to `docs/ux-design.md` by promoting it from `.groundwork/cache/ux-design-draft.md`.
+2. Delete the cache files `.groundwork/cache/ux-design-cache.md` and `.groundwork/cache/ux-design-draft.md`.
+3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates. Report what changed.
+4. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## UX Design` entries incorporated into `docs/ux-design.md`.
+5. Confirm that the phase is complete.
+6. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+7. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+

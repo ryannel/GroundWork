@@ -1,0 +1,15 @@
+import { NextResponse } from "next/server";
+
+/**
+ * Exposes runtime configuration to the client.
+ *
+ * This is how the browser discovers the WebSocket URL without any
+ * NEXT_PUBLIC_ build-time variables. The single API_URL env var
+ * drives both the HTTP proxy and this config endpoint.
+ */
+export function GET() {
+    const apiUrl = process.env.API_URL ?? "http://localhost:4000";
+    const wsUrl = apiUrl.replace(/^http/, "ws") + "/ws";
+
+    return NextResponse.json({ wsUrl });
+}

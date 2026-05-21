@@ -12,11 +12,11 @@ You are the authoritative architect for designing new scaffolding templates and 
 When a user asks to design a new service scaffold or generator, follow this exact process:
 
 1. **Information Gathering**: Understand the core purpose of the new scaffold. What languages/frameworks does it use? Is it a backend service, a frontend app, or a testing utility?
-2. **Feature Mapping**: Cross-reference the requirements with the **GroundWork Day-2 Feature Checklist** below. 
+2. **Feature Mapping**: Cross-reference the requirements with the relevant **GroundWork Day-2 Feature Checklist** below. Use the **Backend** checklist for Go/Python microservices and the **Frontend** checklist for Next.js apps. Apply both when the scaffold is a full-stack BFF (Backend For Frontend).
 3. **Draft the Implementation Plan**: Create a detailed plan specifying how the generator will produce the template files, how it will manipulate existing workspace files (like `docker-compose.yml` or `workspace.json`), and how it satisfies the required features.
 4. **User Review**: Always present the plan to the user for explicit approval before writing any generator code.
 
-## GroundWork Day-2 Feature Checklist
+## GroundWork Day-2 Feature Checklist — Backend Services
 
 Every new backend service scaffold **MUST** support or explicitly opt-out of the following features. Use this checklist to validate the design of the scaffold:
 
@@ -33,6 +33,24 @@ Every new backend service scaffold **MUST** support or explicitly opt-out of the
 - [ ] **Graceful Shutdown**: Does the service trap SIGINT/SIGTERM, allowing in-flight requests to complete while severing long-lived connections (like websockets)?
 - [ ] **Config Validation**: Is configuration robustly parsed and validated from environment variables at startup?
 - [ ] **Centralized Error Handling**: Does the API router map domain-level errors to standard HTTP status codes uniformly?
+
+## GroundWork Day-2 Feature Checklist — Frontend Apps (Next.js)
+
+Every new frontend app scaffold **MUST** support or explicitly opt-out of the following features:
+
+- [ ] **Enforced Server/Client Boundary**: Is every component a React Server Component by default, with `"use client"` applied only at the narrowest possible interactivity leaf? Are there no bare `fetch()` calls inside Client Components?
+- [ ] **Strict Dependency Graph**: Does the scaffold enforce the inward-facing layer hierarchy — `app/` → `components/<domain>/` → `components/ui/` → `hooks/` → `lib/api/` → `lib/schemas/` — preventing upward or sideways imports?
+- [ ] **Dynamic Composition Root (Provider Tree)**: Does the root layout (`app/layout.tsx`) dynamically `import()` the correct provider stack based on the runtime environment, so auth, analytics, and feature-flag providers can be swapped without touching layout code?
+- [ ] **Isomorphic Data Gateway**: Is there a single `customFetch` / API client module that transparently calls the backend directly on the server and through the `/api/proxy` reverse proxy in the browser — so data hooks never need to know where they're running?
+- [ ] **Type-Safe API Boundaries**: Are all external data shapes validated with Zod schemas? Are API types generated (via Orval or equivalent) rather than hand-written, so they stay in sync with the OpenAPI spec automatically?
+- [ ] **OpenTelemetry Instrumentation**: Is there an `instrumentation.ts` bootstrapping the Node SDK with OTLP HTTP trace and metric exporters, auto-instrumentation, and SIGTERM graceful shutdown — so every server-side render and Route Handler is visible in Aspire/Cloud Trace?
+- [ ] **Full Error Boundary Stack**: Does the scaffold include `error.tsx` (route-level), `global-error.tsx` (root layout, with inline `<html>` fallback), and `not-found.tsx`? Does `global-error.tsx` avoid importing from the design system (which may be broken when it fires)?
+- [ ] **Server-Only Config Module**: Is runtime configuration (`API_URL`, service name, auth flags) centralised in a `lib/config.ts` marked `import "server-only"`, preventing secrets from leaking into the client bundle?
+- [ ] **Component Testing Harness**: Does the scaffold include Vitest + React Testing Library configured with `jsdom`, auto-cleanup, and the `@testing-library/jest-dom` matchers — so component tests can be written immediately without extra setup?
+- [ ] **Standalone Docker Build**: Does `next.config.mjs` set `output: 'standalone'` and does the `Dockerfile` use a multi-stage pnpm build with a non-root runner image — so the app can be deployed identically in Docker Compose and production?
+- [ ] **Runtime Config Discovery**: For apps with WebSocket or dynamic backend URLs, is the backend URL resolved at runtime via an `/api/config` Route Handler rather than a `NEXT_PUBLIC_` build-time variable — so the same build artefact works across environments?
+- [ ] **Health Check Endpoint**: Does the scaffold expose `GET /api/healthz` returning `{ status, timestamp }` for Docker health checks and load-balancer probes?
+- [ ] **Port Allocation in 40xx Range**: Is the app assigned a deterministic port from the `40xx` range by scanning `docker-compose.yml`, ensuring no collisions and stable port identity across regeneration?
 
 ## Execution Guidelines
 

@@ -20,11 +20,11 @@
 
 ---
 
-## Phase 4: Capability Decisions
+## Phase 4: Data Flow & Communication
 
 **Status:** pending
 
-<!-- Replace with the agreed capability decisions and their downstream obligations once the user confirms. -->
+<!-- Replace with the agreed data flows, communication patterns, and technology decisions once the user confirms. -->
 
 ---
 
@@ -33,3 +33,11 @@
 **Status:** pending
 
 <!-- Replace with the agreed service boundaries, trust boundaries, and contract definitions once the user confirms. -->
+
+---
+
+## Phase 6: Draft, Review & Present
+
+**Status:** pending
+
+<!-- Set to complete once the user has approved the final draft for commit. -->

@@ -98,9 +98,11 @@ The second version produces the same behaviour but also equips the agent to hand
 
 ### Pace for depth, not coverage
 
-Skills that touch design decisions — architecture, UX, product strategy — need pacing instructions that force depth over breadth. An agent's default behaviour is to cover many topics shallowly in a single turn. This produces superficial answers and robs the user of the nuanced conversation where the real design work happens.
+Skills that touch design decisions — architecture, UX, product strategy — need pacing guidance that protects the user's cognitive load. An agent's default behaviour is to cover many topics shallowly in a single turn, producing superficial answers that collapse under implementation pressure.
 
-Instructions should enforce one topic per turn: present the problem space, explore trade-offs, reach a decision, then move on. The agent should never advance to the next topic until the current one is resolved. This is where skill instructions earn their value — an agent that rushes through five design decisions in one message is doing less useful work than one that spends five messages on a single decision.
+Skill instructions should frame pacing around cognitive load and the complexity of the decision, not around rigid turn counts. Complex decisions with real trade-offs deserve focused, single-topic exploration. Simple or closely related questions can be grouped to maintain momentum. The agent is better positioned than the skill author to judge which questions are complex in context — trust it to adapt.
+
+Depth must not sacrifice discovery breadth. A skill that paces well but exits discovery having surfaced only three capabilities has discovered poorly. Depth and coverage are both required.
 
 ### Earn conclusions through conversation
 
@@ -138,6 +140,12 @@ Frame defaults as the agent's informed starting position, not rigid requirements
 - ❌ `Use OKLCH for all colour definitions.`
 - ✅ `Perceptually uniform colour spaces (OKLCH). HEX and RGB produce unpredictable perceived brightness shifts across hue ranges — a blue and a yellow at the same HEX lightness look wildly different. OKLCH solves this by design.`
 
+### Structural consistency across sibling skills
+
+When multiple skills share a lifecycle — commit sequences, init/resume protocols, cache management — they must follow the same structure and wording. A commit section that uses numbered steps in one skill and prose paragraphs in another creates drift that compounds silently. The next contributor copies whichever version they find first, and the inconsistency spreads.
+
+When reviewing a skill, check its siblings. If the pattern has diverged, align them before the divergence becomes the norm.
+
 ---
 
 ## Common Failure Modes
@@ -155,4 +163,8 @@ Frame defaults as the agent's informed starting position, not rigid requirements
 - **Unearned conclusions** — presenting "best practices" or "industry standards" without exploring why they apply to the user's specific context. The agent becomes a textbook instead of a consultant.
 - **Assertion without invitation** — stating what the user should do without explaining why and inviting pushback. Collaboration requires two participants; dictation requires one.
 - **Shallow translation** — echoing the user's words back as the specification instead of translating them into concrete, implementable values. "Warm and editorial" is direction; `oklch(96% 0.008 60)` paired with `Freight Text Pro at 400/450` is a design system. The agent's core contribution is the translation — if the output reads like the user's input with formatting, no useful work was done.
+- **Service-by-service interrogation** — asking the same set of questions for each component individually instead of proposing the pattern for all components and letting the user react. This scales linearly with system size and exhausts the user before the conversation reaches the interesting design decisions.
+- **Ambiguous medium** — producing an Experience or journey description that describes what happens narratively without naming the interaction medium (screen, terminal, API, voice). Downstream skills depend on knowing the medium to make design and infrastructure decisions.
 - **Ungrounded defaults** — encoding opinionated technical defaults without reasoning. The agent either asserts them without justification or abandons them at first pushback. Every default needs a one-sentence "why" so the agent can defend it intelligently.
+- **Scripted confirmations** — bold-quoted completion strings like `Confirm: **"Phase complete."**` are a subtle variant of scripted phrases. The agent echoes the exact string instead of confirming naturally. Write the intent: `Confirm that the phase is complete.`
+- **Root-document drift** — when a shared contract (like an operating contract) contains a pattern, every skill that references it inherits that pattern. Fixing a scripted phrase in one skill without fixing the root means the next skill written from that contract inherits the same problem. Fix at the source.

@@ -1,0 +1,47 @@
+from typing import Protocol, Optional, Tuple
+from src.core.domain.entities import ExampleEntity, PaginatedResult, IdempotencyResponse
+
+class IdempotencyRepository(Protocol):
+    """Abstract gateway for storing idempotency state."""
+    
+    async def get(self, key: str, user_id: str) -> Optional[Tuple[str, Optional[IdempotencyResponse]]]:
+        """Returns (status, cached_response) if key exists, else None."""
+        ...
+        
+    async def lock(self, key: str, user_id: str) -> bool:
+        """Attempts to acquire lock (IN_PROGRESS). Returns True if successful."""
+        ...
+        
+    async def save(self, key: str, user_id: str, response: IdempotencyResponse) -> None:
+        """Saves completed response and marks as COMPLETED."""
+        ...
+
+<% if (postgres) { %>
+class ExampleRepository(Protocol):
+    """Abstract gateway for ExampleEntity storage."""
+    
+    async def get_by_id(self, entity_id: str) -> Optional[ExampleEntity]:
+        ...
+        
+    async def save(self, entity: ExampleEntity) -> None:
+        ...
+        
+    async def list_items(self, limit: int = 10, cursor: Optional[str] = None) -> PaginatedResult[ExampleEntity]:
+        ...
+<% } %>
+
+<% if (messaging !== 'none') { %>
+class MessageQueue(Protocol):
+    """Abstract gateway for publishing events."""
+    
+    async def publish(self, topic: str, payload: dict) -> None:
+        ...
+<% } %>
+
+<% if (llm) { %>
+class LLMGateway(Protocol):
+    """Abstract gateway for LLM inference."""
+    
+    async def generate_text(self, prompt: str, max_tokens: int = 100) -> str:
+        ...
+<% } %>

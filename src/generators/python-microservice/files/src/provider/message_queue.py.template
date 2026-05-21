@@ -1,0 +1,29 @@
+import json
+<% if (messaging === 'redis') { %>
+import redis.asyncio as redis
+from src.provider.config import settings
+
+class RedisMessageQueue:
+    def __init__(self):
+        self.redis = redis.from_url(settings.redis_url)
+        
+    async def publish(self, topic: str, payload: dict) -> None:
+        await self.redis.publish(topic, json.dumps(payload))
+        
+    async def close(self):
+        await self.redis.close()
+<% } %>
+
+<% if (messaging === 'kafka') { %>
+# Kafka implementation would go here using aiokafka
+class KafkaMessageQueue:
+    async def publish(self, topic: str, payload: dict) -> None:
+        pass
+<% } %>
+
+<% if (messaging === 'gcp-pubsub') { %>
+# GCP PubSub implementation would go here using google-cloud-pubsub
+class GCPMessageQueue:
+    async def publish(self, topic: str, payload: dict) -> None:
+        pass
+<% } %>

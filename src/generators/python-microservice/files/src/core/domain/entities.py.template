@@ -1,0 +1,22 @@
+from typing import Generic, TypeVar, List, Optional, Dict, Any
+from pydantic import BaseModel, Field
+
+T = TypeVar("T")
+
+class PaginatedResult(BaseModel, Generic[T]):
+    """Generic cursor-based pagination result."""
+    items: List[T]
+    next_cursor: Optional[str] = None
+    has_more: bool = False
+
+class IdempotencyResponse(BaseModel):
+    """Domain representation of a cached HTTP response."""
+    status_code: int
+    headers: Dict[str, str]
+    body: str
+
+class ExampleEntity(BaseModel):
+    """An example entity for the service."""
+    id: str
+    name: str
+    description: Optional[str] = None

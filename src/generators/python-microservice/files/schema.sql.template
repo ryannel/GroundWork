@@ -1,0 +1,19 @@
+-- Declarative Schema definition
+-- Use a diffing engine (e.g. pg-schema-diff or atlas) to apply this to the database.
+
+CREATE TABLE examples (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE idempotency_keys (
+    key VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    response_code INT,
+    response_body TEXT,
+    response_headers TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

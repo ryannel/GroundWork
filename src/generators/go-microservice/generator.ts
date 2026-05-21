@@ -6,6 +6,31 @@ import {
 } from '@nx/devkit';
 import * as path from 'path';
 import { execSync } from 'child_process';
+import * as fs from 'fs';
+
+function installHiddenSkill(tree: Tree, skillName: string) {
+  const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
+  
+  if (!fs.existsSync(sourcePath)) {
+    console.warn(`Hidden skill ${skillName} not found at ${sourcePath}`);
+    return;
+  }
+
+  function copyDir(src: string, dest: string) {
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    for (const entry of entries) {
+      const srcFile = path.join(src, entry.name);
+      const destFile = dest + '/' + entry.name;
+      if (entry.isDirectory()) {
+        copyDir(srcFile, destFile);
+      } else {
+        tree.write(destFile, fs.readFileSync(srcFile));
+      }
+    }
+  }
+
+  copyDir(sourcePath, `.agents/skills/${skillName}`);
+}
 
 export interface GoMicroserviceGeneratorSchema {
   name: string;
@@ -150,6 +175,8 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
     tree.delete(`${projectRoot}/internal/core/service/user_service.go`);
     tree.delete(`${projectRoot}/internal/provider/user_repository.go`);
   }
+
+  installHiddenSkill(tree, 'groundwork-go-engineer');
 
   await formatFiles(tree);
 

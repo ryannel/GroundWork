@@ -71,7 +71,7 @@ Once approved, write to the Stage 3 section of `.groundwork/cache/ux-design-cach
 
 This stage captures the user's taste — the raw material the agent will translate into concrete CSS in Stage 5. The user should never need to think about specific values. The agent's job is to understand their aesthetic instincts deeply enough to derive every token, shadow, and easing curve autonomously.
 
-Draw on the product brief for identity and audience context, and on the inspiration library from Stage 2 for concrete reference points. Explore design dimensions through conversation — one topic at a time, going deep before advancing:
+Draw on the product brief for identity and audience context, and on the inspiration library from Stage 2 for concrete reference points. Explore design dimensions through conversation — giving each design dimension the depth it needs (some dimensions warrant focused exploration, others can be covered quickly together):
 
 - **Aesthetic direction** — the overall vibe and what it's trying to achieve
 - **Content density and readability** — the balance between information and breathing room
@@ -82,7 +82,7 @@ Draw on the product brief for identity and audience context, and on the inspirat
 - **Tone of voice and microcopy** — how the UI speaks to the user
 - **Data visualisation** — chart and metric styles (if applicable)
 
-Mark each topic as covered in `.groundwork/cache/ux-design-cache.md` as you go. Skip a topic only when it is clearly irrelevant. Do not combine multiple topics into a single question.
+Mark each topic as covered in `.groundwork/cache/ux-design-cache.md` as you go. Skip a topic only when it is clearly irrelevant.
 
 ### Synthesis Gate
 
@@ -110,7 +110,7 @@ Once confirmed, write the synthesis to the Stage 4 section of `.groundwork/cache
 
 The user provided taste, instinct, and direction across Stages 1–4. The agent now translates that into a rigorous, CSS-level engineering specification — autonomously.
 
-**Output location**: `.groundwork/cache/ux-design-draft.md`. Writing to `docs/ux-design.md` is prohibited until Stage 6 (Commit). The draft must survive the full 5b walkthrough before promotion.
+**Output location**: `.groundwork/cache/ux-design-draft.md`. Writing to `docs/ux-design.md` is prohibited until Stage 6 (Commit). The draft must survive the full 5b walkthrough before promotion. Do not attempt to read `docs/ux-design.md` during this stage — on initial generation, the file does not exist. Write the draft directly to the cache location.
 
 Compile the full UX Design Guide using the approved outputs stored in `.groundwork/cache/ux-design-cache.md`. The document combines NFRs from Stage 1 with a comprehensive design system that the agent derives from the design language direction captured in Stage 4.
 
@@ -200,15 +200,6 @@ Before presenting the draft, run this self-check:
 2. **Does every CSS block have multi-value depth?** Single-property definitions (just a background colour, just a border radius) are insufficient. Each design concept requires the full property set — background, border, shadow, padding, transition, and theme variant.
 3. **Would a developer implementing this need to make any design decisions?** If yes, the spec is underspecified. Make the call — that is the agent's core contribution.
 
-The user's vocabulary must be fully translated:
-- "Warm vellum" → a specific OKLCH value for the canvas token.
-- "Editorial serif" → a named font at specific weights and sizes across the full type scale.
-- "Physical, tactile" → exact `transform`, `transition`, and `box-shadow` CSS for each interaction state.
-- "Generous whitespace" → concrete spacing tokens on an 8-point grid.
-- "Ambient shadows" → multi-layer `box-shadow` definitions for each elevation tier.
-
-If any section still reads like a design brief rather than a build specification, the translation is incomplete. Derive the missing values from the approved direction — do not go back to the user.
-
 Update the Stage 5 section in `.groundwork/cache/ux-design-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to Stage 5b.
 
 ### 5b: Guided Review (Collaborative)
@@ -259,14 +250,15 @@ Once approved, proceed to Stage 6: Commit.
 
 ## Stage 6: Commit
 
-This stage executes **only** after Stage 5b has walked through every section of the draft and the user has explicitly approved the complete specification. Verify that all items in the Stage 5 walkthrough checklist in `.groundwork/cache/ux-design-cache.md` are marked complete before proceeding.
+Execute **only** after Stage 5b has walked through every section of the draft and the user has explicitly approved the complete specification. Verify that all items in the Stage 5 walkthrough checklist in `.groundwork/cache/ux-design-cache.md` are marked complete before proceeding.
 
-When the user gives explicit final approval of the complete spec:
+Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
-1. Promote the finalised spec from `.groundwork/cache/ux-design-draft.md` to `docs/ux-design.md`.
-2. Delete the cache file `.groundwork/cache/ux-design-cache.md`.
-3. Follow the Phase Lifecycle commit protocol from the Operating Contract:
-   - Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates where the UX conversation revealed sharper understanding of users, new capabilities, or refined constraints. Do not ask for permission.
-   - Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## UX Design` entries incorporated into `docs/ux-design.md`.
-4. Confirm: **"UX Design complete."** If upstream documents were updated, list the changes briefly.
-5. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+1. Write the finalised spec to `docs/ux-design.md` by promoting it from `.groundwork/cache/ux-design-draft.md`.
+2. Delete the cache files `.groundwork/cache/ux-design-cache.md` and `.groundwork/cache/ux-design-draft.md`.
+3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates. Report what changed.
+4. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## UX Design` entries incorporated into `docs/ux-design.md`.
+5. Confirm that the phase is complete.
+6. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+7. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+

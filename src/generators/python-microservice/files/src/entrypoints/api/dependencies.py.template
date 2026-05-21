@@ -1,0 +1,47 @@
+from fastapi import Depends
+from src.core.service.example_service import ExampleService
+
+<% if (postgres) { %>
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.provider.database import get_db_session
+from src.provider.database_repository import PostgresExampleRepository
+
+def get_example_repository(session: AsyncSession = Depends(get_db_session)) -> PostgresExampleRepository:
+    return PostgresExampleRepository(session)
+<% } %>
+
+<% if (messaging !== 'none') { %>
+from src.provider.message_queue import <% if (messaging === 'redis') { %>RedisMessageQueue<% } else if (messaging === 'kafka') { %>KafkaMessageQueue<% } else { %>GCPMessageQueue<% } %>
+def get_message_queue():
+    # In a real app this might be a singleton in app state, but for scaffold we instantiate
+    return <% if (messaging === 'redis') { %>RedisMessageQueue()<% } else if (messaging === 'kafka') { %>KafkaMessageQueue()<% } else { %>GCPMessageQueue()<% } %>
+<% } %>
+
+<% if (llm) { %>
+from src.provider.llm_gateway import OpenAILLMGateway
+def get_llm_gateway() -> OpenAILLMGateway:
+    return OpenAILLMGateway()
+<% } %>
+
+def get_example_service(
+<% if (postgres) { %>
+    repository: PostgresExampleRepository = Depends(get_example_repository),
+<% } %>
+<% if (messaging !== 'none') { %>
+    message_queue = Depends(get_message_queue),
+<% } %>
+<% if (llm) { %>
+    llm_gateway: OpenAILLMGateway = Depends(get_llm_gateway),
+<% } %>
+) -> ExampleService:
+    return ExampleService(
+<% if (postgres) { %>
+        repository=repository,
+<% } %>
+<% if (messaging !== 'none') { %>
+        message_queue=message_queue,
+<% } %>
+<% if (llm) { %>
+        llm_gateway=llm_gateway,
+<% } %>
+    )

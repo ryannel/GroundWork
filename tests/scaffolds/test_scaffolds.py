@@ -96,6 +96,141 @@ def test_02_scaffold_go_microservice():
         # Any other global port shifting if needed
         pass
 
+
+def test_02b_scaffold_nextjs_app():
+    """Test generating a Next.js frontend application."""
+    print("\n--- Scaffolding Next.js App (my-frontend - full options) ---")
+    res = subprocess.run(
+        ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:nextjs-app", "--name", "my-frontend", "--auth", "clerk", "--apiProxy", "true", "--websockets", "true"],
+        cwd=SANDBOX_DIR,
+        capture_output=True,
+        text=True
+    )
+    assert res.returncode == 0, f"Generator failed:\n{res.stderr}"
+
+    frontend_dir = SANDBOX_DIR / "services" / "my-frontend"
+    assert frontend_dir.exists(), "my-frontend service directory was not created"
+
+    # Core files
+    assert (frontend_dir / "package.json").exists(), "package.json was not created"
+    assert (frontend_dir / "next.config.mjs").exists(), "next.config.mjs was not created"
+    assert (frontend_dir / "tsconfig.json").exists(), "tsconfig.json was not created"
+    assert (frontend_dir / "Dockerfile").exists(), "Dockerfile was not created"
+    assert (frontend_dir / "instrumentation.ts").exists(), "instrumentation.ts was not created"
+
+    # App Router structure
+    assert (frontend_dir / "app" / "layout.tsx").exists(), "Root layout was not created"
+    assert (frontend_dir / "app" / "page.tsx").exists(), "Home page was not created"
+    assert (frontend_dir / "app" / "error.tsx").exists(), "Error boundary was not created"
+    assert (frontend_dir / "app" / "global-error.tsx").exists(), "Global error boundary was not created"
+    assert (frontend_dir / "app" / "not-found.tsx").exists(), "404 page was not created"
+    assert (frontend_dir / "app" / "api" / "healthz" / "route.ts").exists(), "Health check route was not created"
+
+    # Dynamic route segments (verify Nx __var__ → Next.js [...] renaming worked)
+    assert (frontend_dir / "app" / "api" / "proxy" / "[...path]" / "route.ts").exists(), "Proxy catch-all route was not created"
+    assert (frontend_dir / "app" / "(auth)" / "sign-in" / "[[...sign-in]]" / "page.tsx").exists(), "Sign-in catch-all route was not created"
+    assert (frontend_dir / "app" / "(auth)" / "sign-up" / "[[...sign-up]]" / "page.tsx").exists(), "Sign-up catch-all route was not created"
+
+    # Auth middleware
+    assert (frontend_dir / "proxy.ts").exists(), "Clerk middleware (proxy.ts) was not created"
+
+    # Lib structure
+    assert (frontend_dir / "lib" / "api" / "fetcher.ts").exists(), "API fetcher was not created"
+    assert (frontend_dir / "lib" / "config.ts").exists(), "Server config was not created"
+    assert (frontend_dir / "lib" / "schemas" / "index.ts").exists(), "Schemas barrel was not created"
+
+    # Components
+    assert (frontend_dir / "components" / "providers" / "production.tsx").exists(), "Clerk provider was not created"
+    assert (frontend_dir / "components" / "theme-provider.tsx").exists(), "Theme provider was not created"
+
+    # Docker-compose was updated with the service
+    docker_compose = SANDBOX_DIR / "docker-compose.yml"
+    compose_content = docker_compose.read_text()
+    assert "my-frontend" in compose_content, "my-frontend was not added to docker-compose.yml"
+
+    # Hidden skill was installed
+    assert (SANDBOX_DIR / ".agents" / "skills" / "groundwork-nextjs-engineer" / "SKILL.md").exists(), "Next.js engineer skill was not installed"
+
+    print(f"Generated files:\n{subprocess.run(['find', str(frontend_dir), '-type', 'f'], capture_output=True, text=True).stdout}")
+
+
+def test_02c_scaffold_nextjs_app_minimal():
+    """Test generating a minimal Next.js app (no auth, no proxy, no websockets)."""
+    print("\n--- Scaffolding Next.js App (my-dashboard - minimal) ---")
+    res = subprocess.run(
+        ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:nextjs-app", "--name", "my-dashboard", "--auth", "none", "--apiProxy", "false", "--websockets", "false"],
+        cwd=SANDBOX_DIR,
+        capture_output=True,
+        text=True
+    )
+    assert res.returncode == 0, f"Generator failed:\n{res.stderr}"
+
+    dashboard_dir = SANDBOX_DIR / "services" / "my-dashboard"
+
+    # Core files present
+    assert (dashboard_dir / "package.json").exists(), "package.json was not created"
+    assert (dashboard_dir / "app" / "layout.tsx").exists(), "Root layout was not created"
+
+    # Auth files should NOT exist
+    assert not (dashboard_dir / "proxy.ts").exists(), "Clerk middleware should not exist for auth=none"
+    assert not (dashboard_dir / "app" / "(auth)").exists(), "Auth routes should not exist for auth=none"
+    assert not (dashboard_dir / "components" / "providers" / "production.tsx").exists(), "Clerk provider should not exist"
+
+    # API proxy files should NOT exist
+    assert not (dashboard_dir / "app" / "api" / "proxy").exists(), "Proxy route should not exist without apiProxy"
+    assert not (dashboard_dir / "lib" / "api").exists(), "API lib should not exist without apiProxy"
+    assert not (dashboard_dir / "lib" / "config.ts").exists(), "Server config should not exist without apiProxy"
+
+    # WebSocket config route should NOT exist
+    assert not (dashboard_dir / "app" / "api" / "config").exists(), "Config route should not exist without websockets"
+
+    # Default provider should exist
+    assert (dashboard_dir / "components" / "providers" / "default.tsx").exists(), "Default provider should exist"
+
+
+def test_02d_scaffold_python_microservice():
+    """Test generating a Python microservice with REST, Postgres, and GCP Pub/Sub."""
+    print("\n--- Scaffolding Python Microservice (narrative-engine) ---")
+    res = subprocess.run(
+        [
+            "npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:python-microservice",
+            "--name", "narrative-engine",
+            "--rest", "true",
+            "--postgres", "true",
+            "--messaging", "gcp-pubsub",
+            "--llm", "true",
+        ],
+        cwd=SANDBOX_DIR,
+        capture_output=True,
+        text=True
+    )
+    assert res.returncode == 0, f"Generator failed:\n{res.stderr}"
+
+    svc_dir = SANDBOX_DIR / "services" / "narrative-engine"
+    assert svc_dir.exists(), "narrative-engine directory was not created"
+    assert (svc_dir / "pyproject.toml").exists(), "pyproject.toml was not created"
+    assert (svc_dir / "src" / "main.py").exists(), "main.py was not created"
+    assert (svc_dir / "src" / "entrypoints" / "api").exists(), "API entrypoint missing for rest=True"
+    assert (svc_dir / "src" / "provider" / "database.py").exists(), "database.py missing for postgres=True"
+    assert (svc_dir / "src" / "provider" / "message_queue.py").exists(), "message_queue.py missing for messaging=gcp-pubsub"
+    assert (svc_dir / "src" / "provider" / "llm_gateway.py").exists(), "llm_gateway.py missing for llm=True"
+
+    # Shift port to avoid collision with Go services (9000, 9001)
+    env_file = svc_dir / ".env"
+    if env_file.exists():
+        content = env_file.read_text()
+        # Python generator starts at 8000; shift to 9002 for the boot test sandbox
+        content = content.replace("PORT=8000", "PORT=9002")
+        content = content.replace("SERVER_PORT=8000", "SERVER_PORT=9002")
+        env_file.write_text(content)
+
+    # Verify docker-compose.yml was updated
+    docker_compose = SANDBOX_DIR / "docker-compose.yml"
+    assert "narrative-engine" in docker_compose.read_text(), "narrative-engine missing from docker-compose.yml"
+
+    print(f"Python engineer skill installed: {(SANDBOX_DIR / '.agents' / 'skills' / 'groundwork-python-engineer' / 'SKILL.md').exists()}")
+
+
 def test_03_scaffold_system_test_runner():
     """Test generating the isolated system test environment."""
     print("\n--- Scaffolding System Test Runner ---")
@@ -204,6 +339,31 @@ async def test_05_verify_goapi_health():
             
             if not healthy:
                 pytest.fail(f"Go service '{name}' never became healthy at {url}")
+
+
+@pytest.mark.asyncio
+async def test_05b_verify_python_health():
+    """Test that the Python narrative-engine service starts and responds to health checks."""
+    url = "http://localhost:9002/health"
+
+    async with httpx.AsyncClient() as client:
+        healthy = False
+        for _ in range(60):
+            try:
+                resp = await client.get(url, timeout=2.0)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    if data.get("status") == "ok":
+                        healthy = True
+                        break
+            except (httpx.ConnectError, httpx.ReadTimeout):
+                pass
+            except ValueError:
+                pass  # Not JSON yet
+            await asyncio.sleep(1)
+
+        if not healthy:
+            pytest.fail(f"Python service 'narrative-engine' never became healthy at {url}")
 
 
 @pytest.mark.asyncio
