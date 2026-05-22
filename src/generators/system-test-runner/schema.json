@@ -6,7 +6,7 @@
   "properties": {
     "projectPrefix": {
       "type": "string",
-      "description": "The prefix for Docker container names (e.g. 'wordloop')",
+      "description": "The prefix for Docker container names (e.g. 'myapp')",
       "default": "groundwork"
     }
   },

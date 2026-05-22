@@ -8,11 +8,11 @@ import * as path from 'path';
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 
-function installHiddenSkill(tree: Tree, skillName: string) {
+function promoteEngineerSkill(tree: Tree, skillName: string) {
   const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
   
   if (!fs.existsSync(sourcePath)) {
-    console.warn(`Hidden skill ${skillName} not found at ${sourcePath}`);
+    console.warn(`Engineer skill ${skillName} not found at ${sourcePath}`);
     return;
   }
 
@@ -29,6 +29,8 @@ function installHiddenSkill(tree: Tree, skillName: string) {
     }
   }
 
+  // Engineer skills live in hidden-skills/ until a service is scaffolded, then
+  // they are promoted to .agents/skills/ so engineers have them immediately available.
   copyDir(sourcePath, `.agents/skills/${skillName}`);
 }
 
@@ -124,7 +126,7 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
             'DB_PORT=5432',
             'DB_USER=${DB_USER:-postgres}',
             'DB_PASSWORD=${DB_PASSWORD:-postgres}',
-            'DB_NAME=${DB_NAME:-wordloop}',
+            `DB_NAME=\${DB_NAME:-${serviceNames.fileName}}`,
             'REDIS_URL=redis:6379',
             'PUBSUB_EMULATOR_HOST=pubsub:${PUBSUB_PORT:-8085}',
             'OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317',
@@ -176,7 +178,7 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
     tree.delete(`${projectRoot}/internal/provider/user_repository.go`);
   }
 
-  installHiddenSkill(tree, 'groundwork-go-engineer');
+  promoteEngineerSkill(tree, 'groundwork-go-engineer');
 
   await formatFiles(tree);
 

@@ -7,11 +7,11 @@ import {
 import * as path from 'path';
 import * as fs from 'fs';
 
-function installHiddenSkill(tree: Tree, skillName: string) {
+function promoteEngineerSkill(tree: Tree, skillName: string) {
   const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
-  
+
   if (!fs.existsSync(sourcePath)) {
-    console.warn(`Hidden skill ${skillName} not found at ${sourcePath}`);
+    console.warn(`Engineer skill ${skillName} not found at ${sourcePath}`);
     return;
   }
 
@@ -28,6 +28,8 @@ function installHiddenSkill(tree: Tree, skillName: string) {
     }
   }
 
+  // Engineer skills live in hidden-skills/ until a service is scaffolded, then
+  // they are promoted to .agents/skills/ so engineers have them immediately available.
   copyDir(sourcePath, `.agents/skills/${skillName}`);
 }
 
@@ -178,7 +180,7 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
     tree.delete(`${projectRoot}/app/api/config`);
   }
 
-  installHiddenSkill(tree, 'groundwork-nextjs-engineer');
+  promoteEngineerSkill(tree, 'groundwork-nextjs-engineer');
 
   await formatFiles(tree);
 

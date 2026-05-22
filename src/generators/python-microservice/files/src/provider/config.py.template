@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     db_port: int = 5432
     db_user: str = "postgres"
     db_password: str = "postgres"
-    db_name: str = "wordloop"
+    db_name: str = "<%= fileName %>"
     
     @property
     def database_url(self) -> str:

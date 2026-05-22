@@ -522,19 +522,27 @@ GroundWork uses an end-to-end scaffold harness to ensure generated projects corr
 
 The scaffold harness creates a fresh sandbox, uses the Nx generators to build a multi-service monorepo, and then stands up the entire local infrastructure via Docker Compose and native binary runners.
 
-It operates in two layers:
-1. **The Outer Harness (`tests/scaffolds/test_scaffolds.py`)**: Uses `pytest` to invoke the workspace generators, compile the code, scaffold the `.sandboxes/scaffolds/testloop` environment, and boot up the native services via the `./dev` CLI. It verifies they reach a healthy state and connect to PostgreSQL.
-2. **The Inner System Tests (`src/generators/system-test-runner/files/test_system.py`)**: Generated directly into the scaffolded environment. These tests run inside the sandbox topology to verify cluster health, webhook rejection, load shedding, and cross-service communication.
+It operates in three layers — run them cheapest-first to fail fast:
+
+| Layer | File | What it checks | Speed |
+|---|---|---|---|
+| **Generation** | `test_generation.py` | Every combination of generator options produces the correct files and omits the correct ones. No compilation. | Fast (seconds) |
+| **Compilation** | `test_compilation.py` | Pairwise subset of combos actually compile (`go build`, `pnpm tsc`, `uv sync`). Catches import/type errors. | Minutes |
+| **End-to-End** | `test_scaffolds.py` | Full DX loop: generate, boot Docker, health-check services, run inner system tests. | Slow (requires Docker) |
+
+The **Inner System Tests** (`src/generators/system-test-runner/files/test_system.py`) are generated into the sandbox and run inside the boot topology to verify cluster health, webhook rejection, load shedding, and cross-service communication.
 
 ### Running the Harness
 
-Use the `./dev` CLI from the repo root to execute the scaffold test suite. 
+Use the `./dev` CLI from the repo root. Run layers in order — generation first to catch structural regressions cheaply.
 
 ```bash
-./dev test scaffolds
+./dev test generation   # Fast: structural checks for every option combination
+./dev test compilation  # Medium: pairwise compile checks (go build / tsc / uv sync)
+./dev test scaffolds    # Slow: full Docker boot + health checks + inner system tests
 ```
 
-This will run the full suite. To inspect the generated environment, you can temporarily comment out the teardown method in `test_scaffolds.py` so the sandbox persists at `.sandboxes/scaffolds/testloop/`.
+To inspect the generated environment after a full run, comment out the teardown in `test_scaffolds.py` — the sandbox persists at `.sandboxes/scaffolds/testloop/`.
 
 ---
 
@@ -549,7 +557,9 @@ from the repo root. It sources `.env` automatically, so set `GEMINI_API_KEY` the
 | `./dev eval run <suite> <scenario>` | Run one specific scenario |
 | `./dev eval clean` | Wipe all eval caches and the sandbox |
 | `./dev test nx` | Run Nx workspace unit tests |
-| `./dev test scaffolds` | Run the end-to-end scaffold generation and integration harness |
+| `./dev test generation` | Run generator structural tests (fast, all combinations) |
+| `./dev test compilation` | Run generator compilation tests (pairwise, go build / tsc / uv sync) |
+| `./dev test scaffolds` | Run end-to-end scaffold boot tests (Docker, health checks, inner system tests) |
 
 **`.env` setup** — create a `.env` file at the repo root:
 ```

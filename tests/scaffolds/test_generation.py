@@ -209,6 +209,34 @@ def test_nextjs_app_generation(auth, apiProxy, websockets):
 
 
 # ---------------------------------------------------------------------------
+# Docs Site — single combination (no options)
+# ---------------------------------------------------------------------------
+
+
+def test_docs_site_generation():
+    svc_name = "docs-site-test"
+    _cleanup(svc_name)
+    try:
+        result = _scaffold(svc_name, "docs-site")
+
+        assert result.returncode == 0, (
+            f"docs-site generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        svc = SANDBOX_DIR / "services" / svc_name
+        assert svc.exists(), "Service directory was not created"
+        assert (svc / "package.json").exists(), "package.json missing"
+        assert (svc / "next.config.mjs").exists(), "next.config.mjs missing"
+        assert (svc / "tsconfig.json").exists(), "tsconfig.json missing"
+        assert (svc / "Dockerfile").exists(), "Dockerfile missing"
+        assert (svc / "source.config.ts").exists(), "source.config.ts missing"
+        assert (svc / "app" / "layout.tsx").exists(), "Root layout missing"
+        assert (svc / "app" / "docs" / "[[...slug]]" / "page.tsx").exists(), "Docs catch-all route missing"
+    finally:
+        _cleanup(svc_name)
+
+
+# ---------------------------------------------------------------------------
 # Python Microservice — 128 combinations
 # ---------------------------------------------------------------------------
 
