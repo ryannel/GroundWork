@@ -32,8 +32,38 @@ case "$COMMAND" in
       print_logo "Testing"
       print_step "Running Nx tests..."
       npx nx run-many -t test
+    elif [ "$SUBCMD" = "generation" ]; then
+      print_logo "Testing"
+      print_step "Building TypeScript generators..."
+      npm install --silent && npm run build
+      print_step "Running Generation Tests (structural, all combos)..."
+      if [ ! -d "tests/scaffolds/venv" ]; then
+          print_substep "Creating venv..."
+          python3 -m venv tests/scaffolds/venv
+          source tests/scaffolds/venv/bin/activate
+          pip install pytest httpx pytest-asyncio allpairspy
+      else
+          source tests/scaffolds/venv/bin/activate
+      fi
+      pytest tests/scaffolds/test_generation.py -v -s
+    elif [ "$SUBCMD" = "compilation" ]; then
+      print_logo "Testing"
+      print_step "Building TypeScript generators..."
+      npm install --silent && npm run build
+      print_step "Running Compilation Tests (pairwise, compile checks)..."
+      if [ ! -d "tests/scaffolds/venv" ]; then
+          print_substep "Creating venv..."
+          python3 -m venv tests/scaffolds/venv
+          source tests/scaffolds/venv/bin/activate
+          pip install pytest httpx pytest-asyncio allpairspy
+      else
+          source tests/scaffolds/venv/bin/activate
+      fi
+      pytest tests/scaffolds/test_compilation.py -v -s
     elif [ "$SUBCMD" = "scaffolds" ]; then
       print_logo "Testing"
+      print_step "Building TypeScript generators..."
+      npm install --silent && npm run build
       print_step "Running Scaffold End-to-End Tests..."
       if [ ! -d "tests/scaffolds/venv" ]; then
           print_substep "Creating venv..."
@@ -47,15 +77,15 @@ case "$COMMAND" in
     elif [ "$SUBCMD" = "run" ]; then
       SUITE=$3
       SCENARIO=$4
-      
+
       if [ -z "$SUITE" ]; then
           print_logo "Evaluation Suites"
           print_info "Available suites:"
           echo ""
-          
+
           # Dynamically list available suites using Python
           python3 tests/evals/list_suites.py
-          
+
           echo ""
           print_info "Usage: ./dev eval run <suite_name> [scenario_name]"
           print_info "Example: ./dev eval run storytelling_engine 01_product_brief"
@@ -64,7 +94,7 @@ case "$COMMAND" in
 
       print_logo "Running Evaluation"
       print_step "Suite: $SUITE"
-      
+
       print_substep "Activating evaluation environment..."
       cd tests/evals
       if [ ! -d "venv" ]; then
@@ -75,7 +105,7 @@ case "$COMMAND" in
       else
           source venv/bin/activate
       fi
-      
+
       # Handle extra CLI flags dynamically (e.g. starting with -)
       if [ -n "$SCENARIO" ] && [[ ! "$SCENARIO" =~ ^- ]]; then
           EXTRA_ARGS="${@:5}"
@@ -100,7 +130,7 @@ case "$COMMAND" in
       echo ""
       echo -e "  ${BOLD}USAGE${NC}"
       echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}eval${NC} [action]"
-      
+
       print_category "ACTIONS"
       print_cmd "run" "Run conversational evaluations (lists suites if empty)"
       print_cmd "clean" "Clear eval caches & sandboxes"
@@ -113,10 +143,12 @@ case "$COMMAND" in
     echo ""
     echo -e "  ${BOLD}USAGE${NC}"
     echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}<verb>${NC} [nouns...]"
-    
+
     print_category "QUALITY & TESTING"
     print_cmd "eval" "Run AI skill evaluation harness"
-    print_cmd "test scaffolds" "Run end-to-end tests for the Nx generators and DX workflow"
+    print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
+    print_cmd "test compilation" "Run generator compilation tests (pairwise, go build / tsc / uv sync)"
+    print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"
     print_cmd "test nx" "Run Nx workspace tests"
     echo ""
     ;;

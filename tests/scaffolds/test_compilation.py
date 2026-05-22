@@ -6,9 +6,10 @@ space to a set of test cases where every pair of parameter values appears togeth
 at least once. This catches interaction bugs between two parameters without running
 every full combination through the compiler.
 
-Go:     18 combinations → ~9 pairwise cases  (go build ./...)
-Python: 128 combinations → ~16 pairwise cases (uv sync + python -c import)
-Next.js:  8 combinations → ~4 pairwise cases  (pnpm tsc --noEmit)
+Go:       18 combinations → ~9 pairwise cases  (go build ./...)
+Python:  128 combinations → ~16 pairwise cases (uv sync + python -c import)
+Next.js:   8 combinations → ~4 pairwise cases  (pnpm tsc --noEmit)
+Docs Site: 1 combination  →  1 case           (pnpm tsc --noEmit)
 
 Sandbox note: the sandbox lives under REPO_ROOT so Nx can walk up and find node_modules.
 """
@@ -210,6 +211,45 @@ def test_nextjs_app_compiles(params):
         assert tsc.returncode == 0, (
             f"TypeScript check failed for auth={auth}, apiProxy={apiProxy}, websockets={websockets}\n"
             f"STDOUT: {tsc.stdout}\nSTDERR: {tsc.stderr}"
+        )
+    finally:
+        _cleanup(svc_name)
+
+
+# ---------------------------------------------------------------------------
+# Docs Site — single case (no options)
+# ---------------------------------------------------------------------------
+
+
+def test_docs_site_compiles():
+    svc_name = "docs-site-comp-test"
+    _cleanup(svc_name)
+    try:
+        result = _scaffold(svc_name, "docs-site")
+        assert result.returncode == 0, (
+            f"Generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        svc_dir = SANDBOX_DIR / "services" / svc_name
+
+        install = subprocess.run(
+            ["pnpm", "install", "--frozen-lockfile"],
+            cwd=svc_dir,
+            capture_output=True,
+            text=True,
+        )
+        assert install.returncode == 0, (
+            f"pnpm install failed\nSTDOUT: {install.stdout}\nSTDERR: {install.stderr}"
+        )
+
+        tsc = subprocess.run(
+            ["pnpm", "tsc", "--noEmit"],
+            cwd=svc_dir,
+            capture_output=True,
+            text=True,
+        )
+        assert tsc.returncode == 0, (
+            f"TypeScript check failed\nSTDOUT: {tsc.stdout}\nSTDERR: {tsc.stderr}"
         )
     finally:
         _cleanup(svc_name)
