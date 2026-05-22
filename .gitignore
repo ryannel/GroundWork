@@ -35,6 +35,10 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/extensions.json
 
+# Agent local settings (machine-specific, not shared)
+.agents/settings.local.json
+.claude/settings.local.json
+
 # ----------------------------
 # Environment & Secrets
 # ----------------------------
