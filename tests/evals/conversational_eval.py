@@ -318,7 +318,7 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
         if resp_text:
             tr_model["parts"].append({"text": resp_text})
         for fc in fc_parts:
-            tr_model["parts"].append({"function_call": {"name": fc.name, "args": fc.args}})
+            tr_model["parts"].append({"function_call": {"name": fc.name, "args": dict(fc.args)}})
         transcript_entries.append(tr_model)
 
         # Execute each function call
@@ -402,9 +402,9 @@ def simulate_conversation(
     
     # Skill Agent config (with tools)
     skill_system_prompt = f"""You are an expert AI agent.
-You have access to file editing tools (e.g., read_file, write_file, append_file, list_directory).
-When instructions tell you to "Use your file editing tool" or ask you to write, create, or append to a file, YOU MUST CALL THE APPROPRIATE TOOL FUNCTION. Do not just output the text or say you will do it.
-Do not spontaneously write or append to temporary scratchpad files (e.g., in ~/.groundwork/ or elsewhere) unless explicitly requested. Keep all internal state or progress tracking in your thoughts or response text.
+You have access to file editing tools (read_file, write_file, append_file, list_directory).
+When your instructions tell you to read, check, or list files — YOU MUST CALL read_file or list_directory. When your instructions tell you to write, create, or append to a file — YOU MUST CALL write_file or append_file. Never describe a file operation in text instead of executing it.
+If you need scratch files for intermediate work, write them to .dev/ in the workspace.
 
 Follow these exact skill instructions:
 
