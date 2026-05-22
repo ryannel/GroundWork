@@ -281,10 +281,44 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                 continue
 
         if not fc_parts:
-            # No function calls — record the model's final text response
-            model_content = response.candidates[0].content
+            # The SDK performs automatic function calling: it executes the tool
+            # functions internally and only the final text returns on `response`
+            # (`response.function_calls` doesn't exist in this SDK version, so the
+            # manual FC branch above is never reached). Recover the executed calls
+            # from automatic_function_calling_history so the transcript records
+            # them. The history is [<input contents>, <fc/fr rounds>...]; the
+            # rounds the SDK added are everything past the input we passed in.
+            afc = getattr(response, "automatic_function_calling_history", None) or []
+            for c in afc[len(skill_history):]:
+                tr_parts = []
+                for p in (c.parts or []):
+                    fc = getattr(p, "function_call", None)
+                    fr = getattr(p, "function_response", None)
+                    if fc:
+                        args = dict(fc.args) if fc.args else {}
+                        tr_parts.append({"function_call": {"name": fc.name, "args": args}})
+                        all_fc_logs.append(f"[Tool Call: {fc.name}({args})]")
+                    elif fr:
+                        resp_d = dict(fr.response) if fr.response else {}
+                        for kk, vv in list(resp_d.items()):
+                            if isinstance(vv, str) and len(vv) > 500:
+                                resp_d[kk] = vv[:500] + "... [TRUNCATED]"
+                        tr_parts.append({"function_response": {"name": fr.name, "response": resp_d}})
+                    elif getattr(p, "text", None):
+                        tr_parts.append({"text": p.text})
+                if tr_parts:
+                    role = "model" if c.role == "model" else "user"
+                    transcript_entries.append({"role": role, "parts": tr_parts})
+
+            # Record the model's final text response. The model can return a
+            # candidate with no content (e.g. a safety/empty finish), so fall
+            # back to a placeholder rather than dereferencing None.
+            candidate = response.candidates[0] if response.candidates else None
+            model_content = candidate.content if candidate else None
+            if model_content is None:
+                model_content = types.Content(role="model", parts=[types.Part.from_text(text=" ")])
             # Fix empty content to prevent Pydantic validation errors in next turn
-            if not model_content.parts:
+            elif not model_content.parts:
                 model_content.parts = [types.Part.from_text(text=" ")]
             else:
                 for p in model_content.parts:
@@ -292,7 +326,7 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                         p.text = " "
             if not model_content.role:
                 model_content.role = "model"
-            
+
             new_entries.append(model_content)
             tr_parts = []
             if resp_text:
@@ -512,8 +546,12 @@ Rules for your responses:
 
         # ── 5. Send skill text to user agent ────────────────────────────
         if not skill_text_for_user:
-            # Skill produced only tool calls with no text. Describe what happened.
-            skill_text_for_user = "The assistant is working on your request (performing file operations)."
+            # Skill produced only tool calls with no text (e.g., initialisation).
+            # Skip the user-model call — don't waste a turn or pollute history.
+            # Use a neutral continuation so the skill receives something sensible.
+            current_message = "Please continue."
+            print(f"\nUser:\n{current_message}  [auto — tool-only turn]")
+            continue
 
         if turn_delay > 0:
             time.sleep(turn_delay)

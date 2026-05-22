@@ -246,7 +246,7 @@ The harness spins up two LLM agents per scenario:
 
 | Agent | Model (default) | Role |
 |---|---|---|
-| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. Function calls are handled manually via explicit history management — the harness owns the `contents` list and passes it to `generate_content()` directly, bypassing the Chat SDK entirely. |
+| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. The harness owns the `contents` list and passes it to `generate_content()` directly (no Chat SDK). Tool execution uses the SDK's **automatic function calling**: the Python tools are passed as callables, the SDK invokes them internally, and the harness recovers the executed calls from `response.automatic_function_calling_history` to record them in the transcript. (`response.function_calls` does not exist in google-genai 0.3.0, so the manual FC loop in `_skill_turn` is never reached.) |
 | **User Agent** | `gemini-2.5-flash-lite` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Uses a cheaper model since it only generates short text. |
 
 The agents alternate turns. File operations by the Skill Agent are executed against

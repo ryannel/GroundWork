@@ -43,6 +43,46 @@ Your architecture is being tracked by GroundWork.
 `);
 }
 
+function setupAgentLinks(targetDir) {
+  const claudeLink = path.join(targetDir, '.claude');
+  const agentsMd = path.join(targetDir, 'AGENTS.md');
+  const claudeMd = path.join(targetDir, 'CLAUDE.md');
+
+  // .claude → .agents
+  try {
+    const claudeStat = fs.existsSync(claudeLink) ? fs.lstatSync(claudeLink) : null;
+    if (!claudeStat) {
+      fs.symlinkSync('.agents', claudeLink, 'junction');
+      console.log(`\x1b[32m✔\x1b[0m Linked .claude → .agents`);
+    } else if (claudeStat.isSymbolicLink()) {
+      // already a symlink — no-op regardless of target
+    } else {
+      console.warn(`\x1b[33m[warn]\x1b[0m .claude already exists as a directory. To enable the link:`);
+      console.warn(`         move its contents into .agents/, delete .claude/, then run: ln -s .agents .claude`);
+    }
+  } catch (err) {
+    console.warn(`\x1b[33m[warn]\x1b[0m Could not create .claude symlink: ${err.message}`);
+    console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
+  }
+
+  // CLAUDE.md → AGENTS.md (only when AGENTS.md exists and CLAUDE.md doesn't)
+  try {
+    const agentsMdExists = fs.existsSync(agentsMd);
+    const claudeMdStat = fs.existsSync(claudeMd) ? fs.lstatSync(claudeMd) : null;
+    if (agentsMdExists && !claudeMdStat) {
+      fs.symlinkSync('AGENTS.md', claudeMd);
+      console.log(`\x1b[32m✔\x1b[0m Linked CLAUDE.md → AGENTS.md`);
+    } else if (claudeMdStat && !claudeMdStat.isSymbolicLink() && agentsMdExists) {
+      console.warn(`\x1b[33m[warn]\x1b[0m CLAUDE.md already exists as a file. To enable the link:`);
+      console.warn(`         rename it to AGENTS.md, then run: ln -s AGENTS.md CLAUDE.md`);
+    }
+    // Neither exists, or CLAUDE.md is already a symlink → no-op
+  } catch (err) {
+    console.warn(`\x1b[33m[warn]\x1b[0m Could not create CLAUDE.md symlink: ${err.message}`);
+    console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
+  }
+}
+
 function initGroundWork() {
   const targetDir = process.cwd();
   const targetSkillsDir = path.join(targetDir, '.agents', 'skills');
@@ -121,6 +161,8 @@ function initGroundWork() {
       console.error(`\x1b[31m✖\x1b[0m Failed to initialize state:`, err.message);
     }
   }
+
+  setupAgentLinks(targetDir);
 
   console.log(`\n\x1b[32m[success]\x1b[0m GroundWork initialization complete!`);
   console.log(`          Ask your AI to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill to find out what to do next.\n`);
