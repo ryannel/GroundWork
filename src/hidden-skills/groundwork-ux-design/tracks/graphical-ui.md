@@ -35,11 +35,11 @@ Draw inspiration from trend-setting companies: Linear, Vercel, Raycast, Arc, App
 
 NFRs define the engineering envelope the design system must operate within. Performance budgets, accessibility baselines, sync requirements, and error tolerance all constrain design choices downstream — a design system that specifies 300ms transitions in a product with a 50ms interaction budget is internally contradictory.
 
-Read `docs/product-brief.md` for product context. Then explore the user's values and priorities through a multi-turn conversation. Understand what they care about, what tradeoffs they'd accept, and what "broken" looks like to them.
+Read `docs/product-brief.md`. Using the product brief and the track defaults above as your starting position, draft a complete NFR proposal immediately — do not open with questions.
 
-The goal is to emerge with a clear picture of the product's non-functional constraints across these dimensions: performance and latency expectations, system vs user authority boundaries, multi-device and real-time requirements, accessibility standards, platform and viewport targets, offline and error tolerance, session persistence, notification model, and security UX. Not every dimension applies to every product — explore what's relevant, skip what isn't.
+Cover all relevant dimensions: performance and latency targets, accessibility baselines, multi-device and viewport requirements, real-time and sync needs, offline and error tolerance, session persistence, notification model, and security UX. Ground each decision in the product brief and apply the track defaults where applicable: sub-50ms perceived latency, WCAG 2.1 AA, 8-point grid, OKLCH, hardware-accelerated animation only. Skip dimensions that are clearly irrelevant to the product.
 
-After exploring through dialogue, **propose** a comprehensive set of granular NFRs that synthesise the user's stated values with modern best practices. Present them and refine collaboratively. Once approved, write them to the Stage 1 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 2.
+Present the proposed NFRs in full and invite the user to confirm, challenge, or adjust specific items. The proposal is the starting position — accept what the user confirms, revise what they challenge. Once approved, write the confirmed NFRs to the Stage 1 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 2.
 
 ---
 
@@ -71,18 +71,15 @@ Once approved, write to the Stage 3 section of `.groundwork/cache/ux-design-cach
 
 This stage captures the user's taste — the raw material the agent will translate into concrete CSS in Stage 5. The user should never need to think about specific values. The agent's job is to understand their aesthetic instincts deeply enough to derive every token, shadow, and easing curve autonomously.
 
-Draw on the product brief for identity and audience context, and on the inspiration library from Stage 2 for concrete reference points. Explore design dimensions through conversation — giving each design dimension the depth it needs (some dimensions warrant focused exploration, others can be covered quickly together):
+Draw on the product brief for identity and audience context, and on the inspiration library from Stage 2 for concrete reference points. Cover design language in three focused clusters — grouping related decisions so the user can react to a coherent aesthetic stance rather than isolated individual choices. For each cluster, open with a cohesive proposal that reflects what the product brief and inspiration library suggest, then invite the user to react and redirect.
 
-- **Aesthetic direction** — the overall vibe and what it's trying to achieve
-- **Content density and readability** — the balance between information and breathing room
-- **Colour psychology and mood** — the emotional register across both themes
-- **Surface and depth philosophy** — how physical the UI feels
-- **Motion and feedback** — what role micro-animations play and how they should feel
-- **Iconography and imagery** — visual weight and style
-- **Tone of voice and microcopy** — how the UI speaks to the user
-- **Data visualisation** — chart and metric styles (if applicable)
+**Cluster 1: Identity** — Aesthetic direction, colour psychology and mood, typography character. Propose the product's visual personality as a unified stance: what it feels like, what emotional register both themes carry, and what typographic character reinforces the identity.
 
-Mark each topic as covered in `.groundwork/cache/ux-design-cache.md` as you go. Skip a topic only when it is clearly irrelevant.
+**Cluster 2: Feel** — Surface and depth philosophy, motion and feedback, content density and readability. Propose how physical and tactile the UI should feel — layered or flat, animated or restrained, dense or spacious.
+
+**Cluster 3: Craft** — Iconography and imagery weight, tone of voice and microcopy, data visualisation (if applicable). Propose the visual weight of icons and the personality of the UI's copy.
+
+After each cluster proposal, invite the user to react and refine before advancing. Mark each cluster as covered in `.groundwork/cache/ux-design-cache.md` as you go. Skip a dimension only when it is clearly irrelevant to the product.
 
 ### Synthesis Gate
 
@@ -115,6 +112,44 @@ The user provided taste, instinct, and direction across Stages 1–4. The agent 
 Compile the full UX Design Guide using the approved outputs stored in `.groundwork/cache/ux-design-cache.md`. The document combines NFRs from Stage 1 with a comprehensive design system that the agent derives from the design language direction captured in Stage 4.
 
 Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive, and free of hedging. Structure it to read like a rigorous engineering specification that simultaneously serves as a powerful prompt for generative UI tools.
+
+#### Base Token Resolution
+
+Before writing any section of the spec, resolve these base tokens from the Stage 4 direction. Fill in every blank — these are the roots from which the entire design system grows. If you cannot commit to a specific value for any entry, return to Stage 4, gather more information, and resolve it before proceeding.
+
+```css
+/* === RESOLVE BEFORE DRAFTING === */
+
+/* Colour — light theme */
+--color-primary:      oklch(__ __ __);  /* primary action */
+--color-surface:      oklch(__ __ __);  /* page background */
+--color-surface-alt:  oklch(__ __ __);  /* card / panel background */
+--color-text-body:    oklch(__ __ __);  /* body text */
+--color-accent:       oklch(__ __ __);  /* accent / highlight */
+
+/* Colour — dark theme */
+[data-theme="dark"] {
+  --color-primary:      oklch(__ __ __);
+  --color-surface:      oklch(__ __ __);
+  --color-text-body:    oklch(__ __ __);
+}
+
+/* Shadow — Tier 1 (resting cards and containers) */
+--shadow-resting:
+  0 __px __px oklch(0% 0 0 / 0.__),   /* contact shadow */
+  0 __px __px oklch(0% 0 0 / 0.__);   /* ambient shadow */
+
+/* Typography */
+--font-display: "__";           /* heading family, weight */
+--font-body:    "__";           /* body family, weight */
+--text-base:    __px / __  "__"; /* base step: size / line-height */
+--text-lg:      __px / __  "__";
+--text-sm:      __px / __  "__";
+
+/* Motion */
+--ease-standard: cubic-bezier(__, __, __, __);
+--duration-base: __ms;
+```
 
 #### The Translation Mandate
 

@@ -149,6 +149,25 @@ function initGroundWork() {
   }
 
 
+  // Copy generators.json with absolute factory/schema paths so the scaffold skill
+  // can invoke generators from any user project without knowing the package location.
+  const sourceGeneratorsJson = path.join(__dirname, '..', 'generators.json');
+  const targetGeneratorsJson = path.join(targetConfigDir, 'generators.json');
+  if (fs.existsSync(sourceGeneratorsJson)) {
+    try {
+      const pkgRoot = path.resolve(__dirname, '..');
+      const generatorsJson = JSON.parse(fs.readFileSync(sourceGeneratorsJson, 'utf8'));
+      for (const gen of Object.values(generatorsJson.generators)) {
+        gen.factory = path.resolve(pkgRoot, gen.factory.replace(/^\.\//, ''));
+        gen.schema = path.resolve(pkgRoot, gen.schema.replace(/^\.\//, ''));
+      }
+      fs.writeFileSync(targetGeneratorsJson, JSON.stringify(generatorsJson, null, 2));
+      console.log(`\x1b[32m✔\x1b[0m Installed generators config`);
+    } catch (err) {
+      console.error(`\x1b[31m✖\x1b[0m Failed to install generators config:`, err.message);
+    }
+  }
+
   // Create state file only if it doesn't exist — preserves completed phase history across updates
   const sourceState = path.join(sourceConfigDir, 'groundwork-state.json');
   const targetState = path.join(targetConfigDir, 'state.json');

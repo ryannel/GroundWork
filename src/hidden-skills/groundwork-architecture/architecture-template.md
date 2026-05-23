@@ -1,9 +1,3 @@
----
-title: Foundation Architecture
-type: architecture
-last_reviewed: <YYYY-MM-DD>
----
-
 # Architecture Foundation
 
 This document defines the physical and logical boundaries of the system required to deliver the MVP.

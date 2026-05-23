@@ -126,7 +126,23 @@ def get_tools(sandbox_dir: Path):
         res = [f"{'[DIR]' if i.is_dir() else '[FILE]'} {i.name}" for i in items]
         return "\n".join(res) if res else "Empty directory"
 
-    tool_list = [read_file, write_file, append_file, list_directory]
+    def run_command(command: str) -> str:
+        """Runs a shell command in the workspace directory. Use for scaffold generators and infrastructure commands."""
+        try:
+            result = subprocess.run(
+                command, shell=True, cwd=sandbox_dir,
+                capture_output=True, text=True, timeout=180
+            )
+            output = (result.stdout + result.stderr).strip()
+            if len(output) > 4096:
+                output = output[:4096] + "\n... [TRUNCATED]"
+            return output if output else f"(exit code {result.returncode})"
+        except subprocess.TimeoutExpired:
+            return "Error: Command timed out after 180 seconds."
+        except Exception as e:
+            return f"Error running command: {e}"
+
+    tool_list = [read_file, write_file, append_file, list_directory, run_command]
     return tool_list
 
 
@@ -261,8 +277,8 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                         types.Part.from_function_response(name=fn_name, response={"result": fn_result})
                     )
                     result_trunc = str(fn_result)
-                    if len(result_trunc) > 500:
-                        result_trunc = result_trunc[:500] + "... [TRUNCATED]"
+                    if len(result_trunc) > 4096:
+                        result_trunc = result_trunc[:4096] + "... [TRUNCATED]"
                     tr_fr_parts.append({
                         "function_response": {"name": fn_name, "response": {"result": result_trunc}}
                     })
@@ -301,8 +317,8 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                     elif fr:
                         resp_d = dict(fr.response) if fr.response else {}
                         for kk, vv in list(resp_d.items()):
-                            if isinstance(vv, str) and len(vv) > 500:
-                                resp_d[kk] = vv[:500] + "... [TRUNCATED]"
+                            if isinstance(vv, str) and len(vv) > 4096:
+                                resp_d[kk] = vv[:4096] + "... [TRUNCATED]"
                         tr_parts.append({"function_response": {"name": fr.name, "response": resp_d}})
                     elif getattr(p, "text", None):
                         tr_parts.append({"text": p.text})
@@ -372,8 +388,8 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                 types.Part.from_function_response(name=fc.name, response={"result": result})
             )
             result_trunc = str(result)
-            if len(result_trunc) > 500:
-                result_trunc = result_trunc[:500] + "... [TRUNCATED]"
+            if len(result_trunc) > 4096:
+                result_trunc = result_trunc[:4096] + "... [TRUNCATED]"
             tr_fr_entry["parts"].append({
                 "function_response": {"name": fc.name, "response": {"result": result_trunc}}
             })
@@ -651,6 +667,24 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int,
     except subprocess.CalledProcessError as e:
         print(f"ERROR: groundwork init failed:\n{e.stderr}")
         return
+
+    # 2b. Scaffold workspace setup — every sandbox gets a minimal Nx workspace so
+    #     generator commands work if the skill has run_command tools available.
+    #     npm run build compiles the generators into dist/ (fast when cached).
+    print("Building GroundWork generators (dist/)...")
+    try:
+        subprocess.run(
+            ["npm", "run", "build"],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"WARNING: npm run build failed:\n{e.stderr}")
+
+    (sandbox_dir / "package.json").write_text('{"name": "sandbox"}')
+    (sandbox_dir / "nx.json").write_text('{}')
 
     # 3. Seed from dependency
     if depends_on:
