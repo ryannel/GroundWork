@@ -20,7 +20,7 @@ function printHelp() {
     console.log(`\x1b[33m[warn]\x1b[0m No architecture documentation found in this repository.
 
 To get started with GroundWork:
-  1. Run \x1b[36mnpx groundwork init\x1b[0m to install the BMAD skills.
+  1. Run \x1b[36mnpx groundwork init\x1b[0m to install the GroundWork skills.
   2. Ask your AI Agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill.
 
 This will scan your codebase and generate a complete, living architecture documentation site in the \`docs/\` directory.

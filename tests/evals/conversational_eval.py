@@ -247,20 +247,24 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
         if resp_text:
             all_texts.append(resp_text)
 
-        # Check for function calls
+        # Extract function calls from the response candidates directly.
+        # AFC is disabled so the SDK never executes tools — function calls
+        # appear as FunctionCall parts in candidates[0].content.parts.
         fc_parts = []
-        try:
-            if response.function_calls:
-                fc_parts = list(response.function_calls)
-        except Exception:
-            pass
+        candidate = response.candidates[0] if response.candidates else None
+        if candidate and candidate.content:
+            for p in (candidate.content.parts or []):
+                if hasattr(p, 'function_call') and p.function_call:
+                    fc_parts.append(p.function_call)
 
         # If no function calls, check for tool_code fallback
         if not fc_parts and resp_text:
             tc_results = _try_parse_tool_code(resp_text, function_map)
             if tc_results:
-                # Record the model's text (which contains tool_code) 
-                model_content = response.candidates[0].content
+                # Record the model's text (which contains tool_code)
+                model_content = candidate.content if candidate else None
+                if model_content is None:
+                    model_content = types.Content(role="model", parts=[types.Part.from_text(text=resp_text)])
                 if not model_content.role:
                     model_content.role = "model"
                 new_entries.append(model_content)
@@ -283,7 +287,7 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                         "function_response": {"name": fn_name, "response": {"result": result_trunc}}
                     })
 
-                fr_content = types.Content(role="tool", parts=fr_parts)
+                fr_content = types.Content(role="user", parts=fr_parts)
                 new_entries.append(fr_content)
                 transcript_entries.append({"role": "user", "parts": tr_fr_parts})
                 # Feed back and continue the FC loop
@@ -297,43 +301,11 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                 continue
 
         if not fc_parts:
-            # The SDK performs automatic function calling: it executes the tool
-            # functions internally and only the final text returns on `response`
-            # (`response.function_calls` doesn't exist in this SDK version, so the
-            # manual FC branch above is never reached). Recover the executed calls
-            # from automatic_function_calling_history so the transcript records
-            # them. The history is [<input contents>, <fc/fr rounds>...]; the
-            # rounds the SDK added are everything past the input we passed in.
-            afc = getattr(response, "automatic_function_calling_history", None) or []
-            for c in afc[len(skill_history):]:
-                tr_parts = []
-                for p in (c.parts or []):
-                    fc = getattr(p, "function_call", None)
-                    fr = getattr(p, "function_response", None)
-                    if fc:
-                        args = dict(fc.args) if fc.args else {}
-                        tr_parts.append({"function_call": {"name": fc.name, "args": args}})
-                        all_fc_logs.append(f"[Tool Call: {fc.name}({args})]")
-                    elif fr:
-                        resp_d = dict(fr.response) if fr.response else {}
-                        for kk, vv in list(resp_d.items()):
-                            if isinstance(vv, str) and len(vv) > 4096:
-                                resp_d[kk] = vv[:4096] + "... [TRUNCATED]"
-                        tr_parts.append({"function_response": {"name": fr.name, "response": resp_d}})
-                    elif getattr(p, "text", None):
-                        tr_parts.append({"text": p.text})
-                if tr_parts:
-                    role = "model" if c.role == "model" else "user"
-                    transcript_entries.append({"role": role, "parts": tr_parts})
-
-            # Record the model's final text response. The model can return a
-            # candidate with no content (e.g. a safety/empty finish), so fall
-            # back to a placeholder rather than dereferencing None.
-            candidate = response.candidates[0] if response.candidates else None
+            # No function calls — model replied with text only (or nothing).
+            # Add the model content to history so the next turn sees it.
             model_content = candidate.content if candidate else None
             if model_content is None:
                 model_content = types.Content(role="model", parts=[types.Part.from_text(text=" ")])
-            # Fix empty content to prevent Pydantic validation errors in next turn
             elif not model_content.parts:
                 model_content.parts = [types.Part.from_text(text=" ")]
             else:
@@ -342,7 +314,6 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                         p.text = " "
             if not model_content.role:
                 model_content.role = "model"
-
             new_entries.append(model_content)
             tr_parts = []
             if resp_text:
@@ -351,8 +322,8 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                 transcript_entries.append({"role": "model", "parts": tr_parts})
             break
 
-        # Real function calls — record the model turn
-        model_content = response.candidates[0].content
+        # Function calls present — record the model turn
+        model_content = candidate.content
         # Sanitize empty text parts alongside function calls
         if not model_content.parts:
             model_content.parts = [types.Part.from_text(text=" ")]
@@ -394,7 +365,7 @@ def _skill_turn(client, model_id: str, skill_history: list, config, function_map
                 "function_response": {"name": fc.name, "response": {"result": result_trunc}}
             })
 
-        fr_content = types.Content(role="tool", parts=fr_parts)
+        fr_content = types.Content(role="user", parts=fr_parts)
         new_entries.append(fr_content)
         transcript_entries.append(tr_fr_entry)
 
@@ -465,6 +436,12 @@ Follow these exact skill instructions:
         system_instruction=skill_system_prompt,
         temperature=0.2,
         tools=tool_list,
+        # Disable automatic function calling — the SDK's AFC history
+        # accumulates O(rounds²) entries due to a bug where extend(contents)
+        # runs on every round, leaking prior conversation into afc_new slices.
+        # With AFC off, function calls come back in candidates[0].content.parts
+        # and the manual loop below handles them with the _MAX_FUNCTION_ROUNDS cap.
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True, maximum_remote_calls=0),
     )
     
     # User Agent config (no tools)
@@ -478,7 +455,8 @@ Rules for your responses:
 3. Be concise.
 4. If the assistant fulfills your goal, you can acknowledge it and say you are satisfied.
 5. IMPORTANT: Never repeat the opening greeting or re-introduce yourself mid-conversation. You are always continuing the same conversation. If the assistant seems to restart, gently redirect: "We were already discussing this — let's continue where we left off."
-6. If the assistant tells you they have completed a file or document, respond naturally to that — acknowledge it, review it, or approve it. Do NOT restart the conversation.
+6. If the assistant uses phrases like "recommend a fresh context", "start a new session", "phase is complete", "clean context", or any similar handoff or wrap-up language, respond with ONLY: "Got it, thanks." Do NOT repeat the opening greeting or re-introduce yourself.
+7. If the assistant tells you they have completed a file or document, respond naturally to that — acknowledge it, review it, or approve it. Do NOT restart the conversation.
 """
     user_config = types.GenerateContentConfig(
         system_instruction=user_system_prompt,
@@ -685,6 +663,26 @@ def run_scenario(client, suite_name: str, scenario_file: Path, turns: int,
 
     (sandbox_dir / "package.json").write_text('{"name": "sandbox"}')
     (sandbox_dir / "nx.json").write_text('{}')
+
+    # 2c. Copy generator schemas into .groundwork/config/schemas/ and rewrite
+    #     generators.json to use sandbox-relative paths. This lets the skill agent
+    #     read schemas via read_file() without hitting the outside-workspace guard,
+    #     and gives Nx a resolvable schema path when running generators.
+    generators_json_path = sandbox_dir / ".groundwork" / "config" / "generators.json"
+    if generators_json_path.exists():
+        with open(generators_json_path) as f:
+            generators_data = json.load(f)
+        schemas_dir = sandbox_dir / ".groundwork" / "config" / "schemas"
+        schemas_dir.mkdir(parents=True, exist_ok=True)
+        for gen_name, gen_cfg in generators_data.get("generators", {}).items():
+            src_schema = Path(gen_cfg.get("schema", ""))
+            if src_schema.is_absolute() and src_schema.exists():
+                dest = schemas_dir / f"{gen_name}.json"
+                shutil.copy2(src_schema, dest)
+                gen_cfg["schema"] = f".groundwork/config/schemas/{gen_name}.json"
+        with open(generators_json_path, "w") as f:
+            json.dump(generators_data, f, indent=2)
+        print(f"Generator schemas copied to .groundwork/config/schemas/ ({len(generators_data.get('generators', {}))} generators)")
 
     # 3. Seed from dependency
     if depends_on:

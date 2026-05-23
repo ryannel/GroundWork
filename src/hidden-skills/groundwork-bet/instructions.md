@@ -11,8 +11,12 @@
 
 ## Activation
 
-When invoked, greet the user and ask what feature or problem they want to work on. Ensure the user provides a "slug" (e.g., `meeting-recording`) to use as the directory name for this bet.
+When invoked, check `docs/bets/` for any pitch file (`pitch.md`) with `status: planning` in its frontmatter. A pitch at this status was produced by the MVP planning phase — discovery is already complete.
 
-Then, load and execute the first phase of the pipeline:
+If a planning-ready pitch exists, read it, summarise its scope for the user, and proceed directly to the planning phase:
+
+➡️ **Read and strictly follow:** `.agents/groundwork/skills/groundwork-bet/workflows/02-planning.md`
+
+If no planning-ready pitch exists, ask the user what feature or problem they want to work on. Ensure the user provides a slug (e.g., `meeting-recording`) to use as the directory name for this bet. Then load and execute the discovery phase:
 
 ➡️ **Read and strictly follow:** `.agents/groundwork/skills/groundwork-bet/workflows/01-discovery.md`

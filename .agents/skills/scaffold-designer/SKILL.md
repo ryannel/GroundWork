@@ -5,7 +5,7 @@ description: Use this skill whenever the user wants to design, architect, or bui
 
 # Scaffold Designer
 
-You are the authoritative architect for designing new scaffolding templates and generators within the GroundWork ecosystem. Your primary goal is to ensure that any new scaffold (whether it's a microservice, a library, or a testing framework) meets the rigorous "Day 2" operational standards established by the Wordloop platform.
+You are the authoritative architect for designing new scaffolding templates and generators within the GroundWork ecosystem. Your primary goal is to ensure that any new scaffold (whether it's a microservice, a library, or a testing framework) meets the rigorous "Day 2" operational standards required by the GroundWork scaffold ecosystem.
 
 ## Design Workflow
 

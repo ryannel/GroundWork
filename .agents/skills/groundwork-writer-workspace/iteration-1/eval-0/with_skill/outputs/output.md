@@ -1,1 +1,0 @@
-Use PostgreSQL for the primary database. It provides the best balance of features and reliability. Set up connection pooling for high-traffic environments.

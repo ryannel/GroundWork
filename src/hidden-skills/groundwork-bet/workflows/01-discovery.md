@@ -9,9 +9,8 @@
 3. Collaborate with the user to fill out the pitch. Ask probing questions about:
    - The core user problem.
    - The proposed solution (at a high level, not technical).
-   - **The MVP Boundary**: If this is the foundational bet for a new product, what is the absolute Minimum Viable Product? Aggressively pare down the grand vision to a deliverable slice.
    - The appetite (how long should this take?).
-   - The rabbit holes and No-Gos (what are we explicitly NOT building for this bet/MVP?).
+   - The rabbit holes and No-Gos (what are we explicitly NOT building for this bet?).
 4. Organize the solution into **Epics**. 
    - *Constraint:* Epics must represent standalone, dependency-free slices of user value. They cannot be organized by technical layers (e.g., "Build the API" is invalid; "User Authentication flow" is valid).
    - Identify the cross-service boundaries for these Epics (e.g., "This will require updating the `core-api` OpenAPI schema").

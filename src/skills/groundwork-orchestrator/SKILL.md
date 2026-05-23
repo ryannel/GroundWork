@@ -38,7 +38,6 @@ Write `state.json` back whenever it changes.
 | State | Mode | Route to |
 |---|---|---|
 | Greenfield, setup incomplete | **Greenfield Setup** | Next phase skill (see table below) |
-| Brownfield, no docs | **Brownfield Setup** | `groundwork-setup` |
 | All setup phases complete | **Delivery Loop** | `groundwork-bet` |
 
 ### Greenfield Setup Phases
@@ -49,7 +48,7 @@ Write `state.json` back whenever it changes.
 | 2 | UX Design | `groundwork-ux-design` | `docs/ux-design.md` |
 | 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` |
 | 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
-| 5 | MVP Bet | `groundwork-bet` | `docs/bets/<name>.md` |
+| 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<name>.md` |
 
 ### Anytime Skills
 - `groundwork-update` — surgical doc updates after code changes
@@ -63,10 +62,10 @@ Write `state.json` back whenever it changes.
 | `groundwork-ux-design` | `.agents/groundwork/skills/groundwork-ux-design/instructions.md` |
 | `groundwork-architecture` | `.agents/groundwork/skills/groundwork-architecture/instructions.md` |
 | `groundwork-scaffold` | `.agents/groundwork/skills/groundwork-scaffold/instructions.md` |
+| `groundwork-mvp` | `.agents/groundwork/skills/groundwork-mvp/instructions.md` |
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
-| `groundwork-setup` | `.agents/groundwork/skills/groundwork-setup/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
-| `groundwork-check` | `.agents/groundwork/skills/groundwork-check/instructions.md` |
+| `groundwork-check` | `.agents/skills/groundwork-check/instructions.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
 
 ---

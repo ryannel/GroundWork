@@ -38,7 +38,7 @@ Rushing to execution before the mapping is confirmed, skipping verification beca
 
 Check if `.groundwork/cache/scaffold-cache.md` exists.
 
-- If it **does not exist**, create it with the following structure to track phase progress:
+- If it **does not exist**, create it with the following structure to track phase progress, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 
 ```markdown
 # Scaffold Cache
@@ -56,13 +56,15 @@ status: pending
 notes:
 ```
 
-- If it **does exist**, read it. Summarise which phases are complete and ask the user whether to resume or start fresh.
+- If it **does exist**, read it once. Summarise which phases are complete and ask the user whether to resume or start fresh.
 
 ### Step 2: Discovery Notes Check
 
 Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Architecture` or `## Design Details`.
 
 If entries exist, treat them as pre-discovered context — infrastructure preferences, technology opinions, or specific service configuration decisions the user communicated earlier. Carry them into the relevant phases.
+
+If the file does not exist, or exists with no entries under those headings, skip this step and proceed to Phase 1. Do not re-read the file later in the phase — its absence is final.
 
 ---
 
@@ -101,16 +103,18 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 ## Phase 2: Scaffolding Execution
 
 **If command execution tools are available:** Execute the confirmed generator commands in order, starting with `workspace-dev-cli` if it has not already been run. For each command:
-1. Run `npx --yes nx g .groundwork/config/generators.json:<generator-name> <parameters>`. The generators.json contains absolute factory paths so Nx resolves the implementation regardless of working directory.
+1. Run `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:<generator-name>" <parameters>`. The absolute `$(pwd)` prefix is required because Nx calls `require.resolve` on the collection argument — a relative path is treated as a module specifier and resolves against Nx's own `node_modules`, not the workspace. The generators.json itself contains absolute factory and schema paths, so once Nx loads it the generator runs correctly regardless of cwd.
 2. Verify the expected output files exist (e.g., `services/<name>/go.mod` for a Go service, `services/<name>/package.json` for a Next.js app).
 
 After all generators have run, verify that `docker-compose.yml` includes entries for every scaffolded service.
 
 Note: Python and Go generators automatically install the corresponding `groundwork-python-engineer` or `groundwork-go-engineer` skills into `.agents/skills/`. You do not need to copy these manually.
 
+<!-- TODO: After each generator runs, write YAML frontmatter into the corresponding docs/ output file (or a dedicated service doc) recording `last_reviewed` (today's date) and `source_of_truth` (the canonical file paths for this service — e.g. go.mod + the service src/ directory for a Go microservice, or the design-system token files for a Next.js app). This is what enables groundwork-check to detect documentation drift automatically. Design and implement this as part of the brownfield work. -->
+
 Update `scaffold-cache.md` to mark the Scaffolding Execution phase complete and proceed to Phase 3.
 
-**If command execution tools are unavailable:** The execution plan is already written in `scaffold-cache.md` from Phase 1. Present the full runbook to the user as a single handoff — all commands in order using the `npx --yes nx g .groundwork/config/generators.json:<generator-name> <parameters>` format, with the expected output for each. Do not ask them to run one command and report back — present the complete list so they can run it without further back-and-forth. Do not attempt to verify file existence after they confirm; the sandbox does not contain the generated files, so file-read verification will always fail regardless of whether the commands succeeded. Accept the user's confirmation and mark the Scaffolding Execution phase complete in `scaffold-cache.md`. Note that infrastructure verification (Phase 3) must be done manually.
+**If command execution tools are unavailable:** The execution plan is already written in `scaffold-cache.md` from Phase 1. Present the full runbook to the user as a single handoff — all commands in order using the `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:<generator-name>" <parameters>` format, with the expected output for each. Do not ask them to run one command and report back — present the complete list so they can run it without further back-and-forth. Do not attempt to verify file existence after they confirm; the sandbox does not contain the generated files, so file-read verification will always fail regardless of whether the commands succeeded. Accept the user's confirmation and mark the Scaffolding Execution phase complete in `scaffold-cache.md`. Note that infrastructure verification (Phase 3) must be done manually.
 
 ---
 
@@ -247,4 +251,4 @@ Execute only after explicit user approval from Phase 4.
 3. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact.
 4. Confirm that the phase is complete.
 5. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the MVP Bet. Do not ask the user to invoke it.
+6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to MVP Planning. Do not ask the user to invoke it.

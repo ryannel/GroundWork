@@ -11,6 +11,7 @@ last_reviewed:
 - **Problem:** What user problem are we solving?
 - **Appetite:** How much time are we willing to spend on this?
 - **Solution:** At a high level, how will we solve this?
+- **Success Signal:** What observable outcome confirms this bet delivered its intended value?
 
 ## Rabbit Holes & No-Gos
 *List the specific things we are explicitly NOT doing as part of this bet to prevent scope creep.*

@@ -1,2 +1,0 @@
-# Product Brief: User Notification Service
-We are building a User Notification Service. It will use Redis for queueing and SendGrid for sending emails. We might need to scale horizontally if the load gets too high, but we can basically worry about that later.

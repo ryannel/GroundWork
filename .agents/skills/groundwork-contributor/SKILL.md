@@ -32,18 +32,17 @@ groundWork/
 │   │
 │   ├── hidden-skills/         → Copied to .agents/groundwork/skills/ (not agent-registered).
 │   │   ├── operating-contract.md      ← Shared protocols loaded by every methodology skill.
-│   │   ├── groundwork-setup/          ← Brownfield/greenfield architecture scan.
 │   │   ├── groundwork-product-brief/  ← Greenfield PM facilitation.
 │   │   ├── groundwork-architecture/   ← Architecture facilitation.
-│   │   ├── groundwork-bet/            ← Bet/pitch shaping.
-│   │   ├── groundwork-help/           ← What's-next orchestration.
+│   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch.
+│   │   ├── groundwork-bet/            ← Delivery loop: discovery → planning → delivery → validation.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
 │   │   ├── groundwork-ux-design/      ← UX design facilitation.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   └── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
 │   │
 │   └── config/
-│       └── groundwork-help.csv        ← Source copy of orchestration manifest.
+│       └── groundwork-state.json      ← Initial orchestration state seeded on init.
 │
 ├── .agents/                   ← Meta-skills for building GroundWork. NOT shipped to users.
 │   └── skills/
@@ -82,12 +81,9 @@ delivers the first working bet. Two paths depending on what exists:
 
 | Path | Flow | Source of truth |
 |---|---|---|
-| **Greenfield** | Product Brief → UX Design → Architecture → MVP Bet | Collaborative discovery with the user. The repo is empty. |
-| **Brownfield** | Repo Scan + User Interview → Brief, Design, Architecture docs → Next Bet | Automated repo analysis combined with user interview. |
+| **Greenfield** | Product Brief → UX Design → Architecture → Scaffolding → MVP Planning → Delivery Loop | Collaborative discovery with the user. The repo is empty. |
 
-Greenfield builds the docs from scratch through conversation. Brownfield reconstructs them —
-the agent scans the repo to understand what's already built, then fills the gaps through
-targeted questions with the user. Both paths converge: once the docs exist and the first
+Greenfield builds the docs from scratch through conversation. Once the docs exist and the first
 bet ships, the project enters the Delivery Loop.
 
 ### Delivery Loop (repeating, ongoing)
@@ -129,8 +125,8 @@ These are instruction files loaded on demand by the orchestrator. They are not r
 in the agent toolchain, so they consume no context until invoked. This is the correct home
 for any new methodology skill (product-brief, setup, bet, ux-design, etc.).
 
-The orchestrator maps user intents → hidden skill paths via `src/config/groundwork-help.csv`.
-When adding a new methodology skill, update the CSV manifest.
+The orchestrator's routing table lives directly in `src/skills/groundwork-orchestrator/SKILL.md`.
+When adding a new methodology skill, add a row to the Skill Paths table there.
 
 ---
 
@@ -148,8 +144,7 @@ working drafts, and manifests. Two subdirectories separate concerns:
 .groundwork/
 ├── config/           # Persistent — settings, state, routing
 │   ├── config.toml   # Project classification (greenfield/brownfield)
-│   ├── state.json    # Orchestration phase tracking
-│   └── help.csv      # Orchestration routing manifest
+│   └── state.json    # Orchestration phase tracking
 └── cache/            # Transient — working files deleted when a skill completes
     ├── ux-design-cache.md
     ├── product-brief-distillate.md
@@ -158,7 +153,7 @@ working drafts, and manifests. Two subdirectories separate concerns:
 
 | Subdirectory | Purpose | Lifecycle |
 |---|---|---|
-| `config/` | Persistent settings, orchestration state, routing manifest | Seeded by installer, updated by skills, never bulk-deleted |
+| `config/` | Persistent settings and orchestration state | Seeded by installer, updated by skills, never bulk-deleted |
 | `cache/` | Stage-gated drafts, scan progress, overflow context | Created during skill execution, cleaned up on commit |
 
 ### `docs/` — Living Outputs
@@ -172,7 +167,8 @@ refine both the Product Brief and UX Design. Each document grows as the project 
 |---|---|
 | `product-brief.md` | Product vision document |
 | `ux-design.md` | Design system and NFRs |
-| `architecture/` | Architecture docs (brownfield) |
+| `architecture.md` | Architecture document |
+| `infrastructure.md` | Scaffold service map and run commands |
 | `bets/` | Bet pitches and plans |
 
 ### Cache Lifecycle Rules
@@ -180,7 +176,7 @@ refine both the Product Brief and UX Design. Each document grows as the project 
 - Skills **create** files in `.groundwork/cache/` at execution start.
 - Skills **delete** their cache file on successful commit (e.g., UX Design deletes
   `ux-design-cache.md` after writing `docs/ux-design.md`).
-- Stale cache files (>24h) are auto-archived by the setup skill.
+- Stale cache files (>24h) should be manually cleared or archived.
 - Never write final deliverables to `.groundwork/`. Final outputs go to `docs/`.
 
 ---
@@ -193,7 +189,6 @@ The CLI copies skills and seeds the `.groundwork/` directory:
 |---|---|---|
 | `src/skills/*` | `.agents/skills/` | Agent-registered skills |
 | `src/hidden-skills/*` | `.agents/groundwork/skills/` | On-demand methodology instructions |
-| `src/config/groundwork-help.csv` | `.groundwork/config/help.csv` | Orchestration routing manifest |
 | `src/config/groundwork-state.json` | `.groundwork/config/state.json` | Initial orchestration state (created only if absent) |
 
 The CLI also creates `.groundwork/cache/` as an empty directory.
@@ -246,7 +241,7 @@ The harness spins up two LLM agents per scenario:
 
 | Agent | Model (default) | Role |
 |---|---|---|
-| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. The harness owns the `contents` list and passes it to `generate_content()` directly (no Chat SDK). Tool execution uses the SDK's **automatic function calling**: the Python tools are passed as callables, the SDK invokes them internally, and the harness recovers the executed calls from `response.automatic_function_calling_history` to record them in the transcript. (`response.function_calls` does not exist in google-genai 0.3.0, so the manual FC loop in `_skill_turn` is never reached.) |
+| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. The harness owns the `contents` list and passes it to `generate_content()` directly (no Chat SDK). AFC is **disabled** (`AutomaticFunctionCallingConfig(disable=True)`) — the SDK's AFC loop has a bug where it `extend(contents)` on every round, producing O(rounds²) duplicates in `automatic_function_calling_history` that leak prior conversation entries into subsequent turns. With AFC off, function calls appear in `candidates[0].content.parts` and are executed by the manual FC loop in `_skill_turn`, capped at `_MAX_FUNCTION_ROUNDS = 10` per turn. |
 | **User Agent** | `gemini-2.5-flash-lite` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Uses a cheaper model since it only generates short text. |
 
 The agents alternate turns. File operations by the Skill Agent are executed against
@@ -575,7 +570,7 @@ The CLI sources this file before every command. Do not commit `.env`.
 ### Adding a new methodology skill
 1. Create `src/hidden-skills/<skill-name>/` with at minimum `SKILL.md` and `instructions.md`.
 2. Add a reference to load `operating-contract.md` at the top of the skill's instructions.
-3. Add the skill to `src/config/groundwork-help.csv` so the orchestrator can route to it.
+3. Add the skill to the Skill Paths table in `src/skills/groundwork-orchestrator/SKILL.md` so the orchestrator can route to it.
 4. Add a `groundwork-writer` reference to the skill's instructions (see Writer Enforcement below).
 5. If the skill produces working files, write them to `.groundwork/cache/` and delete on commit.
 6. If the skill produces final deliverables, write them to `docs/`.
@@ -628,7 +623,9 @@ output file. Example:
 |---|---|
 | Product Brief | ✅ Stage 3 drafting |
 | UX Design | ✅ Stage 5 compilation |
-| Setup | ✅ Guidelines section |
+| Architecture | ✅ Phase 6 draft |
+| Scaffold | ✅ Phase 4 draft |
+| MVP Planning | ✅ Phase 4 draft |
 | Bet | ✅ Core directives |
 | Update | ✅ Top-level mandate |
 
