@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 
-from src.core.config import settings
+from src.provider.config import settings
 from src.entrypoints.api.router import router as example_router
 from src.entrypoints.api.middleware import (
     DomainExceptionHandlerMiddleware,
@@ -71,9 +71,10 @@ app.include_router(example_router)
 app.include_router(ws_router)
 <% } %>
 
+@app.get("/health", status_code=200)
 @app.get("/healthz", status_code=200)
 async def liveness_probe():
-    """Kubernetes liveness probe. Fast and isolated."""
+    """Liveness probe."""
     return {"status": "alive"}
 
 @app.get("/readyz")

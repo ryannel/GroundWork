@@ -41,7 +41,7 @@ status: pending
 ## MVP Scope
 status: pending
 
-## Epic Definition
+## Milestone Definition
 status: pending
 ```
 
@@ -49,9 +49,9 @@ status: pending
 
 ### Step 2: Discovery Notes Check
 
-Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Architecture`, `## Design Details`, or `## Product`.
+Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Product Brief`, `## Architecture`, `## Design Details`, or `## Bets`.
 
-If entries exist, treat them as pre-discovered context and carry them into the scoping conversation.
+If entries exist, treat them as pre-discovered context and carry them into the scoping conversation. `## Bets` notes typically capture sequencing instincts and MVP scope opinions the user voiced earlier — exactly the input scoping depends on.
 
 ---
 
@@ -92,13 +92,13 @@ Mark Phase 2 complete in `mvp-cache.md`.
 
 ---
 
-## Phase 3: Epic Definition
+## Phase 3: Milestone Definition
 
-Break the agreed MVP scope into epics. An epic is a standalone, independently deliverable slice of user value — a user goal, not a technical layer. "User can log in and see their workspace" is valid; "implement the authentication API" is not.
+Break the agreed MVP scope into milestones. A milestone is a demonstrable state the product reaches — visible in the UI behind a feature flag. "User can log in and see their workspace" is valid; "implement the authentication API" is not.
 
-The test for a valid epic: if this epic were the only thing delivered, would a user receive meaningful value? If not, it is a technical task.
+The test for a valid milestone: can this state be demonstrated in the UI behind a feature flag, independently of the milestones that follow it? If not, it is a technical task, not a milestone.
 
-An MVP produces two to four epics; more than five signals that Phase 2 scope reduction is incomplete. Each epic should map directly to a portion of the essential workflow identified in Phase 2. For each, identify which architecture services it touches — this surfaces cross-service coordination requirements early.
+An MVP produces two to four milestones; more than five signals that Phase 2 scope reduction is incomplete. Each milestone should map directly to a step in the essential workflow identified in Phase 2. State dependencies between milestones explicitly — later milestones may depend on earlier ones. For each, identify which architecture services it touches — this surfaces the slices Planning will need to produce.
 
 Present the full breakdown at once and let the user react to the complete picture.
 
@@ -108,7 +108,7 @@ Mark Phase 3 complete in `mvp-cache.md`.
 
 ## Quality Standard: What the Pitch Must Contain
 
-A pitch that names features and lists epics is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
+A pitch that names features and lists milestones is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
 
 **Shallow (insufficient):**
 
@@ -121,12 +121,12 @@ A pitch that names features and lists epics is a task list. The pitch must captu
 - Appetite: 3 weeks.
 - Solution: Build the core project management features.
 
-## Epics
+## Milestones
 
-### Epic 1: Project Creation
+### Milestone 1: Project Creation
 - Goal: Users can create projects.
 
-### Epic 2: Task Management
+### Milestone 2: Task Management
 - Goal: Users can manage tasks.
 ```
 
@@ -156,21 +156,24 @@ A pitch that names features and lists epics is a task list. The pitch must captu
 - [ ] Task assignment — collaboration via shared project view only
 - [ ] Mobile layout — desktop-first for MVP
 
-## Epics
+## Milestones
 
-### Epic 1: Signup and Onboarding
+### Milestone 1: Signup and Onboarding
 - **Goal:** A new user can complete signup, confirm their email, and reach the empty project
   dashboard within two minutes.
+- **Depends on:** (none)
 - **FR Coverage:** FR-001 (User Registration), FR-002 (Email Verification), FR-003 (Onboarding)
 
-### Epic 2: Project Creation
+### Milestone 2: Project Creation
 - **Goal:** An authenticated user can create a named project, configure its visibility, and
   land in the project workspace ready to add collaborators.
+- **Depends on:** Milestone 1
 - **FR Coverage:** FR-010 (Project Creation), FR-011 (Project Settings)
 
-### Epic 3: Collaborator Invitation
+### Milestone 3: Collaborator Invitation
 - **Goal:** A project owner can invite a collaborator by email. The invitee receives an
   invitation link, creates an account or logs in, and lands in the shared project.
+- **Depends on:** Milestone 2
 - **FR Coverage:** FR-020 (Invitation Flow), FR-021 (Collaborator Permissions)
 ```
 
@@ -178,15 +181,17 @@ A pitch that names features and lists epics is a task list. The pitch must captu
 
 ## Phase 4: Draft & Review
 
-1. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: planning` in the frontmatter — discovery is complete and the bet enters the delivery loop at the planning phase.
+1. **Confirm the slug.** Before writing anything, derive a kebab-case directory slug from the bet name (e.g., bet name "Core Story Loop" → slug `core-story-loop`) and confirm it with the user in one sentence. The slug becomes the permanent directory name for this bet and every downstream artifact (`docs/bets/<slug>/pitch.md`, `docs/bets/<slug>/tdd/checklist.md`), so a one-line confirmation prevents a rename later. Accept any slug the user proposes if they redirect.
 
-2. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path and document type (`bet-pitch`). Report the verdict and findings before proceeding.
+2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: planning` in the frontmatter — discovery is complete and the bet enters the delivery loop at the planning phase.
 
-3. **Revise loop.** Apply all 🔴 Critical findings. Re-run the review. Repeat until the verdict is PRESENT.
+3. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path and document type (`bet-pitch`). Report the verdict and findings before proceeding.
 
-4. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
+4. **Revise loop.** Apply all 🔴 Critical findings. Re-run the review. Repeat until the verdict is PRESENT.
 
-5. Ask the user whether to save as-is or refine anything. Proceed to Phase 5 only on explicit approval.
+5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
+
+6. Ask the user whether to save as-is or refine anything. Proceed to Phase 5 only on explicit approval.
 
 ---
 
@@ -198,5 +203,5 @@ Execute only after explicit user approval from Phase 4.
 2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
 3. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact.
 4. Confirm that the phase is complete.
-5. Recommend a fresh context for the next phase.
-6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it.
+5. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, UX, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's planning phase needs. Stay in the same context so that context carries forward.
+6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: planning` and continue the same conversation.

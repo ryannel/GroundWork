@@ -58,7 +58,7 @@ Open the conversation and get them talking — what's the idea, what's the probl
 
 The Product Brief captures the **vision**, not the **design**. The downstream pipeline — Product Brief → UX Design → Architecture → MVP Planning → Delivery — adds fidelity at each phase. The brief captures *what* the system does and *why*. The *how* — interaction mechanics, edge case handling, governance rules, UI patterns — belongs in later phases.
 
-**Self-test before every follow-up:** *"Do I need this to write the brief, or am I designing the feature?"* If the latter, note it as a discovery note for the relevant downstream phase and move on.
+**Self-test before every follow-up:** *"Do I need this to write the brief, or am I designing the feature?"* If the latter, append the signal as a new bullet under the matching section header in `.groundwork/cache/discovery-notes.md` — `## UX Design` for design instincts, `## Architecture` for infrastructure or technology opinions, `## Design Details` for implementation specifics, `## Bets` for feature sequencing — and move on. Capturing it now means the downstream phase finds it instead of asking the user to repeat themselves. Create the file from the template at `.agents/groundwork/skills/templates/discovery-notes.md` if it does not exist.
 
 | ✅ Brief altitude | ❌ Too deep — save for later |
 |---|---|

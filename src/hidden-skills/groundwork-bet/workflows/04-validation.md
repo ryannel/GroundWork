@@ -1,15 +1,117 @@
 # Phase 4: Validation (Testing & Handoff)
 
-**Goal:** Verify the implementation and merge the temporary bet context back into the global architecture.
+**Goal:** Verify the implementation, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
+
+A bet that ships without updating upstream docs leaves the next bet operating against a stale map. The Validation phase exists to close the loop — the test suite proves the implementation works, the Living Documents scan proves the rest of the system still describes reality.
+
+## Operating Contract
+
+**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** This phase is the back-feed mechanism for the entire GroundWork lifecycle — Living Documents and Discovery Notes updates here are what keep the upstream `docs/` artifacts useful for every bet that follows.
 
 ## Instructions
 
-1. Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
-2. Perform a final execution of the test suite. Ensure 100% pass rate for the tests introduced during this bet.
-   - **Contract Verification:** Confirm that the test suite successfully utilized the generated API clients and that no manual schema definitions or rogue HTTP calls were introduced during delivery.
-3. Review the code changes with the user. Provide a summary of the delivery.
-4. **Handoff to Maintenance:** The architecture of the system has now changed. We must merge the local bet documentation (the API contracts, DB schemas) into the global system documentation.
-   - Advise the user that you are handing off to the `groundwork-update` skill.
-   - Run the equivalent of a doc update to ensure `docs/architecture/` correctly reflects the newly added capabilities.
-5. Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`.
-6. Congratulate the user on a successful bet!
+### Step 1: Mark validation status
+
+Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
+
+### Step 2: Run the test suite
+
+Execute the full test suite introduced during this bet. The bet does not advance until every test passes.
+
+**Contract verification:** Confirm that the test suite uses the generated API clients from Phase 2 and that no manual schema definitions or rogue HTTP calls were introduced during Delivery. A bet that delivered against side-channel contracts has compromised the architecture's integrity — flag it and revert.
+
+### Step 3: Review with the user
+
+Summarise what was delivered. Walk through the user-facing changes, the new contracts, and any constraints the implementation revealed. Capture the user's reactions — corrections, requests for follow-up bets, or observations about what surprised them all belong in the next step's scan.
+
+### Step 4: Apply the Living Documents protocol
+
+The architecture of the system has changed. Every upstream document that describes the changed surface must be updated to match — surgically, in place, without asking permission. This is the single most important step of the phase, and the one most likely to be skipped under deadline pressure.
+
+For each `docs/` artifact, scan the bet conversation and the delivered code for what now contradicts the document. Apply targeted updates. Report what changed.
+
+Documents to scan, in order:
+
+1. **`docs/architecture.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
+2. **`docs/ux-design.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
+3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog.
+4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
+
+For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
+
+If a scan finds nothing to update, say so explicitly. Silence is ambiguous — the user cannot tell whether you scanned and found nothing or skipped the scan.
+
+### Step 5: Update discovery notes
+
+Scan the bet conversation for signals that belong to a future bet — sequencing instincts ("we should do notifications next"), parking-lot ideas ("the search experience needs its own bet"), constraints the user surfaced about subsequent work. Append these as bullets under `## Bets` in `.groundwork/cache/discovery-notes.md` so the next bet's Discovery phase finds them.
+
+Remove any discovery-notes entries that were incorporated into the artifacts updated in Step 4. A signal that has been promoted into a permanent document does not belong in the parking lot.
+
+### Step 6: Mark the bet delivered
+
+Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`.
+
+### Step 7: Hand off
+
+Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
+
+## Quality Standard: What "Deep Enough" Looks Like
+
+The handoff fails when the Living Documents scan is a checkbox instead of a surgical update. A handoff that says "no changes needed" without naming what was scanned is indistinguishable from a handoff that skipped the scan entirely. The standard is concrete: state what you read, name what changed, and quote the change.
+
+**Shallow output (insufficient):**
+
+```
+Validation complete. Tests pass. Handing off to groundwork-update to refresh
+the docs.
+```
+
+**Deep output (required standard):**
+
+```
+Validation complete.
+
+Test suite: 47/47 passing. Contract verification: all cross-service calls
+use the generated `notification_client` from Phase 2; no rogue HTTP found.
+
+Living Documents scan:
+
+- `docs/architecture.md` — added `notification-service` to the service map
+  (Phase 3 — Service Design). Added two rows to the Service-Level
+  Requirements table: at-least-once delivery for outbound notifications,
+  idempotent webhook handler on the receiving side. Tech stack updated to
+  reference NATS JetStream as the chosen async transport with the same
+  reasoning attached to existing entries.
+- `docs/ux-design.md` — added `Toast` component variant for delivery-status
+  notifications. Updated interaction states to include the dismissable
+  state with focus-trap behaviour.
+- `docs/product-brief.md` — no changes; the bet implemented capabilities
+  already described.
+- `docs/infrastructure.md` — added `notification-service` (port 4002,
+  health endpoint `GET /health`) to the services table. Added NATS to
+  the infrastructure components table (port 4222, container
+  `<app>-nats`). Updated `./dev start` verification footnote to include
+  notification flow.
+
+Discovery notes:
+
+- Removed two `## Design Details` entries that were incorporated into the
+  notification service's contract.
+- Appended one `## Bets` entry: "Search experience parked — the user
+  raised it three times during this bet, and the architecture's search
+  capability is currently unmapped. Next bet candidate."
+
+Bet status: delivered.
+```
+
+The shallow version tells the user nothing. The deep version proves the scan happened, names what changed and why, and surfaces the discovery-note delta so the next bet starts with a clear inheritance.
+
+The same standard applies across all four scan targets:
+- **Architecture updates** must name the section, the change, and the reasoning — not just "added a service."
+- **UX updates** must name the component or pattern that changed and whether existing patterns are affected.
+- **Brief updates** must justify the vision-level change against what the user actually said during delivery.
+- **Infrastructure updates** must include the concrete observable changes — ports, commands, health endpoints — not a summary.
+
+## Congratulations
+
+Once Steps 1 through 7 are complete and the user has seen the handoff summary, congratulate them on a successful bet. The cycle returns to the orchestrator for the next bet or anytime skill.

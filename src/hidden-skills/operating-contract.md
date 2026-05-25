@@ -20,14 +20,15 @@ During every turn, silently monitor for out-of-phase signals. When you hear one:
 
 ### Section Headers
 
-The discovery notes file uses these sections:
+The discovery notes file uses these five sections. Every skill that writes or reads discovery notes uses exactly these headers — drift between writers and readers turns notes into orphans neither side can find.
 
 | Section | What goes here |
 |---|---|
-| `## UX Design` | Design preferences, aesthetic instincts, interaction patterns |
-| `## Architecture` | Infrastructure preferences, scaling instincts, technology opinions |
-| `## Bets` | Delivery priorities, MVP scope instincts, feature sequencing |
-| `## Design Details` | Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns |
+| `## Product Brief` | Vision-level signals surfaced during later phases — new user types, missing capabilities, refined success criteria. Captured for in-flight batched application to `docs/product-brief.md`. |
+| `## UX Design` | Design preferences, aesthetic instincts, interaction patterns surfaced outside the UX phase. |
+| `## Architecture` | Infrastructure preferences, scaling instincts, technology opinions surfaced outside the architecture phase. |
+| `## Design Details` | Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns. Feeds the Bet planning phase's API contract and database schema design. |
+| `## Bets` | Delivery priorities, MVP scope instincts, feature sequencing for future bets. Read by `groundwork-mvp` and the Bet discovery workflow. |
 
 ### When to Check
 

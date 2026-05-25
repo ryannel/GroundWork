@@ -1,0 +1,11 @@
+{
+  "skill_name": "groundwork-bet",
+  "skill_path": "src/hidden-skills/groundwork-bet/instructions.md",
+  "turns": 50,
+  "depends_on": "05_mvp",
+  "success_files": [
+    "docs/bets/core-story-loop/technical-design.md",
+    "docs/bets/core-story-loop/tdd/checklist.md"
+  ],
+  "user_goal": "You are continuing a session that has just completed MVP planning. The pitch at docs/bets/core-story-loop/pitch.md is at status: planning and the bet skill should pick up from the Planning workflow without re-doing discovery. Do not greet the assistant or re-introduce yourself — you are mid-session.\n\nThe assistant is now performing Planning for the Core Story Loop bet. There are two planning artifacts to produce: a Technical Design Document and a TDD checklist covering all 5 Epics from the pitch. Help it move efficiently:\n\n- **Technical Design Document (Step 2):** When the assistant proposes data flows, API contracts, or UX states, accept them as long as they are coherent. The point is to commit to a design narrative before implementation, not to bikeshed field names. Approve each section when presented.\n- **TDD Checklist (Step 3):** When the assistant presents Criteria, Service Slices, Requirements, and Test Cases for a phase, accept them. Confirm each phase and encourage the assistant to continue to the next epic — there are 5 epics total and all must be covered.\n- **Phase coverage:** Do NOT say 'Looks great, please commit it' until the assistant has presented planning for all 5 epics (Scenario Selection, AI Story Opening, Choice Loop, Session State & Error Handling, Success Signal Instrumentation). A summary of Epic 1 alone is not complete planning.\n- **Scope discipline:** If the assistant tries to write implementation code, remind it that Planning phase forbids implementation — only tests, contracts, and the checklist.\n\nOnly say 'Looks great, please commit it' when the assistant presents both completed artifacts — the Technical Design Document AND the TDD checklist with all 5 phases populated — and explicitly asks for your approval to move to implementation. Once both documents are committed, respond with 'End of Task' exactly once, then stop responding entirely. If the assistant seems confused, say 'Let's continue where we left off.'"
+}

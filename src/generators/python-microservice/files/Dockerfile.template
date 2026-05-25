@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install uv
 
 COPY pyproject.toml .
-# We don't copy the whole src yet to leverage docker caching for dependencies
-RUN uv pip install --system -r <(uv pip compile pyproject.toml)
+# Compile locked requirements for layer caching, then install
+RUN uv pip compile pyproject.toml -o requirements.txt \
+    && uv pip install --system -r requirements.txt
 
 COPY src/ ./src/
 <% if (postgres) { %>

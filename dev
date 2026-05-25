@@ -124,6 +124,28 @@ case "$COMMAND" in
       print_step "Cleaning evaluation sandboxes and caches..."
       rm -rf .sandboxes/evals tests/evals/cache/*
       print_success "Cleaned."
+    elif [ "$SUBCMD" = "validate" ]; then
+      SUITE=$3
+
+      print_logo "Scaffold Validation"
+
+      cd tests/evals
+      if [ ! -d "venv" ]; then
+          print_substep "Creating venv..."
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+      else
+          source venv/bin/activate
+      fi
+
+      EXTRA_ARGS="${@:4}"
+
+      if [ -n "$SUITE" ]; then
+          python validate_scaffold.py --suite "$SUITE" $EXTRA_ARGS
+      else
+          python validate_scaffold.py $EXTRA_ARGS
+      fi
     else
       print_logo
       echo -e "  Local Development CLI for GroundWork"
@@ -134,6 +156,7 @@ case "$COMMAND" in
       print_category "ACTIONS"
       print_cmd "run" "Run conversational evaluations (lists suites if empty)"
       print_cmd "clean" "Clear eval caches & sandboxes"
+      print_cmd "validate" "Manually probe a scaffold workspace (boots + health checks)"
       echo ""
     fi
     ;;
@@ -145,7 +168,8 @@ case "$COMMAND" in
     echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}<verb>${NC} [nouns...]"
 
     print_category "QUALITY & TESTING"
-    print_cmd "eval" "Run AI skill evaluation harness"
+    print_cmd "eval run" "Run conversational evaluations (lists suites if empty)"
+    print_cmd "eval validate" "Manually probe a scaffold workspace (boots + health checks)"
     print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
     print_cmd "test compilation" "Run generator compilation tests (pairwise, go build / tsc / uv sync)"
     print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"

@@ -1,7 +1,7 @@
 from src.core.domain.exceptions import TransientInferenceError, PermanentInferenceError, CircuitBreakerOpenError
 from tenacity import retry, wait_exponential_jitter, stop_after_attempt, retry_if_exception_type
 from circuitbreaker import circuit
-from src.core.config import settings
+from src.provider.config import settings
 import openai
 import logging
 

@@ -4,7 +4,7 @@ import json
 import logging
 from typing import Dict, Any, Optional
 from circuitbreaker import circuit
-from src.core.config import settings
+from src.provider.config import settings
 from src.core.domain.exceptions import TransientInferenceError, PermanentInferenceError, CircuitBreakerOpenError
 
 logger = logging.getLogger(__name__)

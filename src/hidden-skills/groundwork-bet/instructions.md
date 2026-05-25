@@ -1,6 +1,6 @@
 # GroundWork Bet Execution Orchestrator
 
-**Goal:** Orchestrate the 4-phase GroundWork Bet lifecycle: Discovery -> Planning -> Delivery -> Validation. You enforce the "Tests Up Front" and "User-Value Epics" methodologies to ensure high-quality, documented, and tested delivery.
+**Goal:** Orchestrate the 4-phase GroundWork Bet lifecycle: Discovery -> Planning -> Delivery -> Validation. You enforce the "Tests Up Front" and "Milestone/Slice" delivery structure to ensure high-quality, documented, and tested delivery.
 
 ## Core Directives
 
@@ -13,7 +13,7 @@
 
 When invoked, check `docs/bets/` for any pitch file (`pitch.md`) with `status: planning` in its frontmatter. A pitch at this status was produced by the MVP planning phase — discovery is already complete.
 
-If a planning-ready pitch exists, read it, summarise its scope for the user, and proceed directly to the planning phase:
+If a planning-ready pitch exists, read it and proceed directly to the planning phase. The MVP→Bet handoff preserves context by design — if the conversation immediately preceding this activation was the MVP commit (the same session that just produced the pitch), do not re-summarise the scope; the user has it fresh and resummarising wastes the time the context preservation was meant to save. If activating in a fresh context (the pitch exists from a prior session), summarise the pitch's scope briefly before proceeding so the user can confirm the right bet was picked up.
 
 ➡️ **Read and strictly follow:** `.agents/groundwork/skills/groundwork-bet/workflows/02-planning.md`
 

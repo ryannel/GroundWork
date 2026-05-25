@@ -32,14 +32,19 @@ groundWork/
 │   │
 │   ├── hidden-skills/         → Copied to .agents/groundwork/skills/ (not agent-registered).
 │   │   ├── operating-contract.md      ← Shared protocols loaded by every methodology skill.
+│   │   ├── templates/                 ← Shared file templates (discovery-notes.md, etc.) referenced by multiple skills.
 │   │   ├── groundwork-product-brief/  ← Greenfield PM facilitation.
+│   │   ├── groundwork-ux-design/      ← UX facilitation. Loads an interface-type track (graphical-ui, cli, agentic-protocol).
 │   │   ├── groundwork-architecture/   ← Architecture facilitation.
-│   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch.
+│   │   ├── groundwork-scaffold/       ← Greenfield scaffolding: runs Nx generators, boots infra, writes infrastructure.md.
+│   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch and hands off to Bet without context reset.
 │   │   ├── groundwork-bet/            ← Delivery loop: discovery → planning → delivery → validation.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
-│   │   ├── groundwork-ux-design/      ← UX design facilitation.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
-│   │   └── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
+│   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
+│   │   ├── groundwork-go-engineer/    ← Auto-installed alongside go-microservice generator output.
+│   │   ├── groundwork-python-engineer/← Auto-installed alongside python-microservice generator output.
+│   │   └── groundwork-nextjs-engineer/← Auto-installed alongside nextjs-app generator output.
 │   │
 │   └── config/
 │       └── groundwork-state.json      ← Initial orchestration state seeded on init.
@@ -56,7 +61,6 @@ groundWork/
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.
 │   ├── evals/                 ← Conversational evaluation harness for hidden skills.
 │   │   ├── conversational_eval.py   ← Main harness runner.
-│   │   ├── grader.py                ← LLM-based transcript grader.
 │   │   ├── scenarios/               ← One subdirectory per suite; suite.json defines shared persona.
 │   │   ├── fixtures/                ← Pre-baked sandbox snapshots for seeding depends_on chains.
 │   │   └── runs/                    ← Timestamped run output (transcripts + workspace snapshots).
@@ -77,14 +81,14 @@ GroundWork operates in two modes: **Setup** and **Delivery**.
 ### Setup (one-time, per project)
 
 Establishes the skeleton — the vision, the design system, the service boundaries — and
-delivers the first working bet. Two paths depending on what exists:
+delivers the first working bet. Currently only the **Greenfield** path is implemented:
 
 | Path | Flow | Source of truth |
 |---|---|---|
 | **Greenfield** | Product Brief → UX Design → Architecture → Scaffolding → MVP Planning → Delivery Loop | Collaborative discovery with the user. The repo is empty. |
 
 Greenfield builds the docs from scratch through conversation. Once the docs exist and the first
-bet ships, the project enters the Delivery Loop.
+bet ships, the project enters the Delivery Loop. Brownfield is a tracked roadmap item — see `TODO.md` — not a current capability.
 
 ### Delivery Loop (repeating, ongoing)
 
@@ -241,26 +245,26 @@ The harness spins up two LLM agents per scenario:
 
 | Agent | Model (default) | Role |
 |---|---|---|
-| **Skill Agent** | `gemini-2.5-flash` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`) scoped to the sandbox. The harness owns the `contents` list and passes it to `generate_content()` directly (no Chat SDK). AFC is **disabled** (`AutomaticFunctionCallingConfig(disable=True)`) — the SDK's AFC loop has a bug where it `extend(contents)` on every round, producing O(rounds²) duplicates in `automatic_function_calling_history` that leak prior conversation entries into subsequent turns. With AFC off, function calls appear in `candidates[0].content.parts` and are executed by the manual FC loop in `_skill_turn`, capped at `_MAX_FUNCTION_ROUNDS = 10` per turn. |
-| **User Agent** | `gemini-2.5-flash-lite` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Uses a cheaper model since it only generates short text. |
+| **Skill Agent** | `claude-haiku-4-5-20251001` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`, `run_command`) scoped to the sandbox. Uses the Anthropic SDK with explicit message history management. Tool calls appear as `tool_use` blocks in the response and are executed by the manual FC loop in `_skill_turn`, capped at `_MAX_FUNCTION_ROUNDS = 10` per turn. The skill system prompt is cached with `cache_control: ephemeral` to reduce cost on long scenarios. |
+| **User Agent** | `claude-haiku-4-5-20251001` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Runs on the same Anthropic account as the skill agent — single billing. |
 
 The agents alternate turns. File operations by the Skill Agent are executed against
 the live sandbox. When all `success_files` exist on disk the run terminates immediately —
 the `turns` ceiling is only a safety cap.
 
 **Architecture invariant**: The conversation loop guarantees strict alternation of
-user → model turns in the skill history. There are no injected system messages, no
+user → assistant turns in the skill history. There are no injected system messages, no
 skipped user turns, and no consecutive same-role entries. This is enforced by building
-the `skill_history` list explicitly rather than relying on the Chat SDK.
+the `skill_messages` list explicitly and passing it to `client.messages.create()` on
+every call.
 
 ### Directory Layout
 
 ```
 tests/evals/
 ├── conversational_eval.py       ← Harness entry point
-├── grader.py                    ← LLM-based transcript grader
 ├── list_suites.py               ← List available suites
-├── requirements.txt             ← Python deps (google-genai, requests)
+├── requirements.txt             ← Python deps (anthropic)
 ├── scenarios/
 │   └── <suite-name>/
 │       ├── suite.json            ← Shared user_persona and user_goal
@@ -331,7 +335,7 @@ override both fields if a specific scenario needs a different persona.
 
 ### Running the Harness
 
-Use the `./dev` CLI from the repo root. The `GEMINI_API_KEY` must be set in a `.env`
+Use the `./dev` CLI from the repo root. The `CLAUDE_API_KEY` must be set in a `.env`
 file at the repo root — the CLI sources it automatically.
 
 ```bash
@@ -340,19 +344,18 @@ file at the repo root — the CLI sources it automatically.
 ./dev eval clean                   # Wipe all eval runs and the sandbox
 ```
 
-**Model selection** — the skill and user agents use different models by default.
-Override with CLI flags:
+**Model selection** — both agents default to Haiku. Override with CLI flags:
 
 ```bash
-./dev eval run storytelling_engine --skill-model gemini-2.5-pro --user-model gemini-2.5-flash-lite
-./dev eval run storytelling_engine 02_ux_design --skill-model gemini-2.5-flash
+./dev eval run storytelling_engine --skill-model claude-sonnet-4-6
+./dev eval run storytelling_engine 02_ux_design --skill-model claude-sonnet-4-6
 ```
 
 | Flag | Default | Purpose |
 |---|---|---|
-| `--skill-model` | `gemini-2.5-flash` | Model for the skill agent (needs reliable function calling) |
-| `--user-model` | `gemini-2.5-flash-lite` | Model for the user agent (only generates text) |
-| `--turn-delay` | `2.0` | Seconds to wait between turns (API quota pacing) |
+| `--skill-model` | `claude-haiku-4-5-20251001` | Model for the skill agent |
+| `--user-model` | `claude-haiku-4-5-20251001` | Model for the user agent |
+| `--turn-delay` | `2.0` | Seconds to wait between turns (API rate pacing) |
 | `--turns` | `5` | Default turn limit (overridden by scenario JSON) |
 
 ### Adding a New Scenario
@@ -500,8 +503,7 @@ cat .sandboxes/evals/docs/architecture.md    # Read a specific output
 
 | Symptom | Likely Cause | What to Check |
 |---|---|---|
-| Transcript has 0 function calls but model says "I've written the file" | Model is describing tool usage in text instead of calling tools. The harness has a `tool_code` fallback parser that catches the `print(default_api.write_file(...))` pattern — if it didn't fire, the text format was unexpected | Check the transcript for `tool_code` entries and verify the regex in `_try_parse_tool_code` matches |
-| Scenario stopped after very few turns (< 5) with no output | `generate_content` threw a non-retryable error | Run the scenario individually with console visible for error output |
+| Scenario stopped after very few turns (< 5) with no output | `client.messages.create` threw a non-retryable error | Run the scenario individually with console visible for error output |
 | Skill agent repeats the same response | Stuck detection fires after 2 identical consecutive responses | Check if the model is waiting for information the user agent isn't providing — may need a persona/goal adjustment |
 | `success_files` exist but the run didn't terminate | The success check runs after each skill turn; if the path doesn't match exactly, it won't trigger | Verify the `success_files` paths in the scenario JSON match exactly what `write_file` produces (relative to sandbox root) |
 | Output file has escaped `\n` instead of real newlines | The model passed literal `\n` strings in the `content` argument to `write_file` | This is a model behavior issue — check the skill instructions for formatting guidance |
@@ -544,7 +546,7 @@ To inspect the generated environment after a full run, comment out the teardown 
 ## Dev CLI (`./dev`)
 
 The repo ships a `./dev` bash script at the root for local development tasks. Run it
-from the repo root. It sources `.env` automatically, so set `GEMINI_API_KEY` there.
+from the repo root. It sources `.env` automatically, so set `CLAUDE_API_KEY` there.
 
 | Command | Description |
 |---|---|
@@ -558,7 +560,7 @@ from the repo root. It sources `.env` automatically, so set `GEMINI_API_KEY` the
 
 **`.env` setup** — create a `.env` file at the repo root:
 ```
-GEMINI_API_KEY=your-key-here
+CLAUDE_API_KEY=your-key-here
 ```
 
 The CLI sources this file before every command. Do not commit `.env`.

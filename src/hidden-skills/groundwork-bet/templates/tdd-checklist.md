@@ -1,23 +1,59 @@
 # TDD Checklist & Proof of Work
 
-*This document serves as the absolute boundary and contract for the Delivery phase. The developer agent cannot proceed until all structural components and tests are defined here.*
-
-## Epic: [Epic Name]
-
-### Story: [Story Name]
-*Description of the vertical slice.*
-
-#### API Contracts (Schema-First)
-- [ ] OpenAPI (or equivalent) schema updated with new models/endpoints.
-- [ ] Local API clients generated/synced.
-
-#### Structural Contracts
-- [ ] **Database:** Migration for `resource` table defined.
-- [ ] **UI:** `ResourceView` component states (loading, success, error) defined.
-
-#### Tests (Failing)
-- [ ] `tests/integration/test_create_resource.py::test_successful_creation`
-- [ ] `tests/integration/test_create_resource.py::test_validation_error`
+*This document is the absolute boundary for the Delivery phase. Every phase from the pitch must be populated here before implementation begins. The developer agent cannot proceed until all criteria, slices, requirements, and test cases are defined.*
 
 ---
-*(Duplicate the Story block for all stories within the Epic)*
+
+## Milestone [N]: [Milestone Name]
+
+### Criteria — Definition of Done
+*The phase is complete when all of the following are true. Each criterion must be specific and testable — not "works correctly" but "returns 200 with session_id on valid input".*
+
+- [ ] [criterion]
+- [ ] [criterion]
+
+### Service-Level Slices
+*Which services are touched in this phase and what each one contributes. If a service is unchanged, omit it.*
+
+| Service | Responsibility in this phase |
+|---------|------------------------------|
+| [service name] | [what it provides] |
+
+### Requirements
+*Structural components that must exist before tests can pass. These become the implementation checklist in the Delivery phase.*
+
+**Backend:**
+- [ ] [component or endpoint]
+
+**Frontend:**
+- [ ] [component or state]
+
+**Database:**
+- [ ] [migration or seed]
+
+### Test Cases
+*Failing tests that define acceptance for this phase. Written before implementation. Each line maps to a test method that currently fails.*
+
+- [ ] `[test file path]::[TestClass]::[test_method]`
+- [ ] `[test file path]::[TestClass]::[test_method]`
+
+---
+*(Repeat the Milestone block for every Milestone defined in the pitch. All milestones must be present before Proof of Work is presented.)*
+
+---
+
+## Summary
+
+| Milestone | Test Count | Status |
+|-----------|-----------|--------|
+| [Milestone 1 name] | [n] | Defined |
+| [Milestone 2 name] | [n] | Defined |
+
+**Milestones covered:** [N] of [N total]
+**Total test cases:** [count]
+**Services touched:** [comma-separated list]
+
+**Proof of Work:**
+- [ ] `docs/bets/<bet-slug>/technical-design.md` drafted (data flows, API contracts, UX design)
+- [ ] All milestones present in this checklist with non-empty Criteria, Service Slices, Requirements, and Test Cases
+- [ ] Test files written to `docs/bets/<bet-slug>/tdd/` for each milestone

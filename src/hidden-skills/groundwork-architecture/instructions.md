@@ -217,7 +217,7 @@ When ready:
 
 1. **Load the template.** Read `.agents/groundwork/skills/groundwork-architecture/architecture-template.md` to load the required section structure. Do not invent a custom structure — the template is the canonical format.
 
-2. **Draft.** Synthesize Phases 2–5 into the template structure. The Service-Level Requirements table carries the architectural obligations into service-level design — every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record decisions and their rationale — not the options that were considered. Write the draft to `.groundwork/cache/architecture-draft.md` immediately.
+2. **Draft.** Synthesize Phases 2–5 into the template structure. The Service-Level Requirements table carries the architectural obligations into service-level design — every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record decisions and their rationale — not the options that were considered. Write the draft to `.groundwork/cache/architecture-draft.md` in sections — use `write_file` for the first major section, then `append_file` for each subsequent section. This keeps each tool call focused and assembles the full document correctly through the sequence of appends.
 
 3. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/architecture-draft.md`) and document type (`architecture`). Report the verdict and any findings explicitly before proceeding.
 

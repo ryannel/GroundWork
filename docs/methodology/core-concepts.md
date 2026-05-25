@@ -1,77 +1,90 @@
 # GroundWork Core Methodology & Philosophy
 
-GroundWork is an installable, AI-driven architectural framework. It enforces a strict **Upfront Technical Delivery** pipeline that ensures software is meticulously designed, contracted, and verified *before* code is written, effectively eliminating "just-in-time" engineering.
+GroundWork is an installable, AI-driven framework that enforces **Upfront Technical Delivery**: software is meticulously designed, contracted, and verified *before* code is written, eliminating "just-in-time" engineering.
 
 ## The GroundWork Lifecycle
 
-GroundWork operates in two modes: **Setup** and **Delivery**.
+GroundWork operates in two modes: **Setup** (one-time) and **Delivery Loop** (ongoing).
 
-### Setup (one-time, per project)
+### Setup
 
-Establishes the skeleton — the vision, the design system, the service boundaries — and delivers the first working bet. Two paths depending on what exists:
+A greenfield setup runs six phases in sequence, each producing a canonical document the next phase depends on:
 
-| Path | Flow | Source of truth |
+| Phase | Skill | Output |
 |---|---|---|
-| **Greenfield** | Product Brief → UX Design → Architecture → MVP Bet | Collaborative discovery with the user. The repo starts empty. |
-| **Brownfield** | Repo Scan + User Interview → Brief, Design, Architecture docs → Next Bet | A mix of automated repo analysis and user interview. |
+| 1. Product Brief | `groundwork-product-brief` | `docs/product-brief.md` |
+| 2. UX Design | `groundwork-ux-design` | `docs/ux-design.md` |
+| 3. Architecture | `groundwork-architecture` | `docs/architecture.md` |
+| 4. Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
+| 5. MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
+| 6. First Bet | `groundwork-bet` | First delivered feature; enters Delivery Loop afterwards |
 
-Greenfield builds the docs from scratch through conversation. Brownfield reconstructs them — the agent scans the repo to understand what's already built, then fills the gaps through targeted questions with the user. Both paths converge: once the docs exist and the first bet ships, the project enters the Delivery Loop.
+Every setup phase commits to its final document, then hands off to the orchestrator, which routes to the next incomplete phase. The MVP→Bet handoff is the one exception that preserves context across the transition — the rich greenfield discovery feeds directly into the first bet's planning phase without a context reset.
 
-### Delivery Loop (repeating, ongoing)
+Brownfield projects (initialising GroundWork against an existing codebase) are on the roadmap. They are not currently implemented.
 
-Discovery → Refinement → Delivery of Bets. Each cycle can refine any document as the project learns.
+### Delivery Loop
+
+After the first bet ships, the project enters an ongoing cycle. Every bet runs `groundwork-bet`'s four phases:
+
+| Bet Phase | Purpose |
+|---|---|
+| Discovery | Shape the problem into a pitch with milestones, appetite, and explicit no-gos. |
+| Planning | Translate milestones into slices, write Tests-Up-Front, generate API client stubs. No implementation code yet. |
+| Delivery | Implement strictly within the contracts and tests defined in Planning. |
+| Validation | Run the test suite, apply Living Documents updates to upstream docs, seed the next bet via discovery notes. |
 
 All `docs/` artifacts are living documents. They grow as the project learns. Any phase, any bet, any conversation: if new information surfaces that refines an existing document, update it immediately.
-
-## The Philosophy: Upfront Technical Delivery
-
-GroundWork explicitly rejects the common AI-assisted workflow of "just start coding and figure it out." Instead, it operationalizes a highly disciplined progression:
-
-1. **Problem Statement & Pitch**: Grounding every effort in real, evidenced user pain bounded by a strict appetite (opportunity cost).
-2. **TDD Foundations**:
-   - **UI Design**: Wireframes and user journeys dictate exactly what the user needs.
-   - **Data Flows**: The UI strictly dictates the service boundaries, operations, and failure modes.
-   - **Contracts & Schemas**: The data flows strictly dictate the API contracts (e.g., OpenAPI, AsyncAPI) and persistent schemas (e.g., PostgreSQL).
-3. **TDD Execution (Slicing)**:
-   - **Milestones**: Integration checkpoints that deliver user value.
-   - **Vertical Slices**: Smallest independently deployable units of work backed by falsifiable, system-level test assertions.
-
-If a developer cannot build the API contracts purely from the Data Flow document, the Data Flow document is incomplete. **GroundWork builds the map before it drives the car.**
 
 ## The Operating Contract
 
 All methodology skills share a single set of behavioral protocols defined in the Operating Contract (`operating-contract.md`). These protocols govern:
 
-- **Discovery Notes**: How out-of-phase signals are captured and carried forward.
-- **Living Documents**: How existing docs are updated when new information surfaces.
-- **Phase Lifecycle**: How each phase initializes, executes, commits, and hands off.
+- **Discovery Notes**: How out-of-phase signals are captured under a canonical 5-section header set (`## Product Brief`, `## UX Design`, `## Architecture`, `## Design Details`, `## Bets`) and carried forward to the phase that needs them.
+- **Living Documents**: How any phase or bet updates upstream `docs/` artifacts when new information warrants — surgically, without asking permission, with a report of what changed.
+- **Phase Lifecycle**: How each phase initialises (checks cache and discovery notes), executes (works through its stages), commits (writes the final artifact, runs Living Documents scan, updates discovery notes), and hands off.
 
 Every methodology skill loads and follows the Operating Contract. The protocols are defined once and referenced everywhere — never duplicated.
 
-## Inspiration & Departure from BMAD
+## The Philosophy: Upfront Technical Delivery
 
-GroundWork's execution engine is heavily inspired by the [BMAD Method](https://github.com/bmad-method).
+GroundWork explicitly rejects the common AI-assisted workflow of "just start coding and figure it out." Instead, it operationalises a disciplined progression:
 
-**What we kept (The Engine & Personas):**
-- Strict XML-routed workflows (`<step>`, `<action>`, `<check>`).
-- The use of specialized **Agent Personas**. GroundWork utilizes dedicated personas (e.g., `groundwork-pm`, `groundwork-architect`, `groundwork-data-engineer`, `groundwork-tester`) to enforce different stages of the pipeline with extreme rigor.
+1. **Pitch**: Every bet begins with a problem statement bounded by an appetite (an opportunity-cost judgment of how much time the work is worth).
+2. **Tests-Up-Front**: Before implementation begins, the bet's planning phase defines API contracts (OpenAPI/AsyncAPI), database schemas, UI states, and failing tests bound to generated API clients. These are Proof of Work.
+3. **Constrained Delivery**: Implementation may only write the code required to make the tests pass and satisfy the contracts. Discovering a flaw in the contracts means pausing, reverting to planning, and re-approving — not improvising around it.
+4. **Validation & Living Documents**: After tests pass, upstream docs are surgically updated to reflect what the bet delivered. The architecture, brief, UX design, and infrastructure documents continue to describe the system as it is.
 
-**What we rejected (The Output & Agile Focus):**
-- BMAD leans heavily into Agile Epics/Stories and often jumps from high-level architecture straight to coding.
-- GroundWork enforces **Upfront Technical Contracts** (OpenAPI, SQL Schemas) and **Vertical Slicing** with System-Level Test Scaffolding. We write the exact API specification and database schema before any code is generated.
+If a developer cannot build the API contracts purely from the Architecture and Planning artifacts, those artifacts are incomplete. **GroundWork builds the map before it drives the car.**
 
 ## The Toolchain Ecosystem
 
-GroundWork operates via the `npx groundwork init` CLI, which provisions a suite of specialized methodology skills into a repository's `.agents/` folder. The ecosystem is divided into:
+GroundWork installs via `npx groundwork init`. The CLI provisions a two-layer skill set into the project's `.agents/` directory and a `.groundwork/` directory for config and cache.
 
-### 1. Agent Personas
-Dedicated system prompts that assume specialized roles in the delivery pipeline.
+### Registered Skills (`.agents/skills/`)
 
-### 2. Methodology Skills
-The pipeline steps executed by the Personas, organized into:
-- **Setup:** `groundwork-product-brief`, `groundwork-ux-design`, `groundwork-architecture`
-- **Delivery:** `groundwork-bet`
-- **Maintenance:** `groundwork-check` (Drift detection), `groundwork-update` (Surgical architecture patches)
+Always visible to the agent toolchain. Kept short to minimise context cost:
+
+- **`groundwork-orchestrator`** — Routes user intent to the correct lifecycle phase based on project state.
+- **`groundwork-check`** — Detects documentation drift against the codebase.
+
+### Hidden Methodology Skills (`.agents/groundwork/skills/`)
+
+Loaded on demand by the orchestrator. Not registered in the agent toolchain, so they consume no context until invoked:
+
+| Mode | Skills |
+|---|---|
+| Setup | `groundwork-product-brief`, `groundwork-ux-design`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp` |
+| Delivery | `groundwork-bet` |
+| Anytime | `groundwork-update` (surgical doc patches), `groundwork-review` (internal draft review), `groundwork-writer` (style enforcer) |
+
+Implementation skills for specific stacks (`groundwork-go-engineer`, `groundwork-python-engineer`, `groundwork-nextjs-engineer`) install alongside their corresponding scaffolds.
 
 ## Document Generation & Placement
-GroundWork adapts to existing documentation strategies. It locates the target content directory (e.g., for MkDocs, Docusaurus, Nextra) and structures its artifacts accordingly, or provisions a standalone `docs/` system of record. Every document generated adheres strictly to the "GroundWork Tone"—objective, declarative, and devoid of filler.
+
+GroundWork's outputs land in two locations:
+
+- **`docs/`** — Living documents readable by humans and agents. Every document grows as the project learns.
+- **`.groundwork/`** — GroundWork's own home directory. `config/` holds persistent settings and orchestration state; `cache/` holds working drafts and discovery notes that get cleaned up on commit.
+
+Every generated document adheres to the **GroundWork Tone**: declarative, assertive, zero-hedging. The `groundwork-writer` skill enforces this on every output.

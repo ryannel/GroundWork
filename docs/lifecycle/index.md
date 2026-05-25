@@ -1,19 +1,25 @@
 # The GroundWork Lifecycle
 
-GroundWork is not a single script; it is a continuous, AI-assisted lifecycle designed to keep architecture documentation strictly aligned with the codebase. 
+GroundWork operates in two modes: a one-time **Setup** that establishes the project's foundations and ships the first bet, followed by an ongoing **Delivery Loop** of bets. A separate **Maintenance** layer keeps documentation aligned with code as the project evolves.
 
-This directory breaks down the entire process that GroundWork guides a user (and their AI agents) through. Each phase has specific requirements, constraints, and features.
+The lifecycle is documented across three files:
 
-## The Pipeline
+1. **[01. Greenfield Setup](./01-setup.md)** — The one-time, six-phase pipeline that takes a new project from idea to first shipped bet. Covers Product Brief, UX Design, Architecture, Scaffolding, MVP Planning, and the handoff to the first Bet.
 
-1. **[01. Project Initialization & Discovery](./01-initialization-and-discovery.md)**
-   Establishing the high-level boundaries, product vision, and overarching design style before any code scanning or generation begins.
+2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating four-phase Bet workflow (Discovery → Planning → Delivery → Validation) that drives all feature work after the MVP ships.
 
-2. **[02. Architecture Extraction & Synthesis](./02-extraction-and-synthesis.md)**
-   Mapping the actual reality of the codebase via Two-Tiered scanning, static contract pinning, and context-efficient write-and-purge loops.
+3. **[03. Maintenance](./03-maintenance.md)** — How documentation stays current: the Living Documents protocol applied at every bet's Validation, the `groundwork-update` skill for surgical patches, and the `groundwork-check` drift detector for CI.
 
-3. **[03. Continuous Maintenance](./03-continuous-maintenance.md)**
-   Treating documentation as a first-class citizen. Automatically detecting drift in CI and performing surgical, targeted updates when code ships.
+## The Operating Contract
 
-4. **[04. The Bet Pipeline (Execution)](./04-execution-pipeline.md)**
-   The engine for driving software delivery. Moving from Problem Statements to Test-Driven Proof of Work using Domain Slices and a Throwaway Bet Test Suite.
+All lifecycle phases share a single set of behavioral protocols defined in `operating-contract.md` and loaded by every methodology skill:
+
+- **Discovery Notes** — capturing signals that belong to a different phase under a canonical 5-section header set, so they're available to the phase that needs them.
+- **Living Documents** — surgical, permissionless updates to upstream `docs/` artifacts when any phase or bet reveals new information.
+- **Phase Lifecycle** — the init/check/execute/commit/handoff sequence every phase follows.
+
+Refer to the Operating Contract directly for protocol details. The lifecycle docs describe what each phase does and how phases connect; the contract describes the cross-phase behaviors that every phase shares.
+
+## Project Modes
+
+GroundWork currently implements the **Greenfield** path only. Brownfield initialisation (running GroundWork against an existing codebase) is on the roadmap — see `TODO.md`.

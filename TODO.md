@@ -46,5 +46,17 @@ To prevent blowing up the LLM context window with dozens of skill descriptions, 
   - [ ] `groundwork-brainstorm` (for Problem Statements)
 - [ ] **Publishing**: Configure `package.json` testing scripts and prepare the package for NPM publication.
 
+## Brownfield Initialisation (Roadmap)
+
+GroundWork currently only supports greenfield projects. Brownfield — initialising GroundWork against an existing codebase — was described in early framework docs but is not yet implemented. Stripped from `docs/methodology/core-concepts.md` and `docs/product-brief.md` on 2026-05-24 to stop describing it as a current capability.
+
+Required to ship brownfield:
+
+- [ ] **Orchestrator routing**: Add a brownfield path to `src/skills/groundwork-orchestrator/SKILL.md`. Project Type Detection already distinguishes greenfield from brownfield in the filesystem; brownfield currently routes nowhere.
+- [ ] **`groundwork-brief-extract`**: Reconstruct a product brief from existing README, package metadata, and a targeted user interview when the project already has shipped code.
+- [ ] **`groundwork-architecture-extract`**: Two-tiered scan (shallow service discovery, deep contract pinning) that infers `docs/architecture.md` from the existing codebase. Static contract pinning prioritises OpenAPI/AsyncAPI/Protobuf/migration files when present.
+- [ ] **`groundwork-ux-extract`**: Pull existing design tokens, component libraries, and Tailwind config into `docs/ux-design.md`; fill gaps via targeted interview.
+- [ ] **Drift baseline**: Once brownfield extraction completes, `groundwork-check` needs a baseline scan to populate `source_of_truth` frontmatter across all extracted artifacts.
+
 ## Ideas Backlog
 - *Add your ideas here...*

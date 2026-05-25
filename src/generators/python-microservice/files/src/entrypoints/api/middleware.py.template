@@ -15,7 +15,7 @@ from src.core.domain.exceptions import (
 )
 from src.core.domain.protocols import IdempotencyRepository
 from src.core.domain.entities import IdempotencyResponse
-from src.core.config import settings
+from src.provider.config import settings
 
 class DomainExceptionHandlerMiddleware(BaseHTTPMiddleware):
     """Maps domain exceptions to appropriate HTTP responses."""

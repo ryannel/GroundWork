@@ -48,7 +48,7 @@ Write `state.json` back whenever it changes.
 | 2 | UX Design | `groundwork-ux-design` | `docs/ux-design.md` |
 | 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` |
 | 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
-| 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<name>.md` |
+| 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
 
 ### Anytime Skills
 - `groundwork-update` — surgical doc updates after code changes

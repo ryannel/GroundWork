@@ -1,6 +1,6 @@
 ---
 name: groundwork-bet
-description: 'Manage the 4-phase execution lifecycle (Discovery, Planning, Delivery, Validation) for a new feature bet. Use when the user wants to start a new feature, epic, or bet.'
+description: 'Manage the 4-phase execution lifecycle (Discovery, Planning, Delivery, Validation) for a new feature bet. Use when the user wants to start a new feature, milestone, or bet.'
 ---
 
 # GroundWork Bet Orchestrator

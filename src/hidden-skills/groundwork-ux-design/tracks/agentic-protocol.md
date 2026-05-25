@@ -30,6 +30,12 @@ Draw inspiration from trend-setting systems: Shape Up, Linear Method, OpenAPI, P
 
 ---
 
+## Cross-Phase Signal Capture
+
+Protocol design conversations routinely surface signals that belong to a different phase — a context-budget constraint with infrastructure implications, a state-management decision that shapes architecture, a sequencing instinct about which capabilities ship first. As these signals arise during any stage, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for schema or contract implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+
+---
+
 ## Stage 1: Non-Functional Requirements (NFR)
 
 NFRs define the engineering envelope the protocol design system must operate within. Context-loading budgets, verification requirements, authority boundaries, and error resilience policies all constrain protocol design downstream — a protocol that specifies rich diagnostic output but must work within a 4K token context budget is internally contradictory.

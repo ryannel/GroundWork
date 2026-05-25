@@ -55,9 +55,11 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
       const composeContent = tree.read('docker-compose.yml', 'utf-8');
       composeDoc = yaml.parseDocument(composeContent);
 
+      const usedPorts = new Set<number>();
+
+      // Collect ports from docker-compose.yml
       const servicesMap = composeDoc.get('services');
       if (servicesMap && servicesMap.items) {
-        const usedPorts = new Set<number>();
         for (const item of servicesMap.items) {
           const service = item.value;
           if (service && service.get) {
@@ -73,9 +75,24 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
             }
           }
         }
-        while (usedPorts.has(assignedPort)) {
-          assignedPort++;
+      }
+
+      // Also collect ports from .env files of natively-run services (not in docker-compose)
+      if (tree.exists('services')) {
+        for (const svcName of tree.children('services') ?? []) {
+          const envPath = `services/${svcName}/.env`;
+          if (tree.exists(envPath)) {
+            const envContent = tree.read(envPath, 'utf-8') ?? '';
+            for (const line of envContent.split('\n')) {
+              const m = line.match(/^(?:PORT|SERVER_PORT)=(\d+)/);
+              if (m) usedPorts.add(parseInt(m[1], 10));
+            }
+          }
         }
+      }
+
+      while (usedPorts.has(assignedPort)) {
+        assignedPort++;
       }
     } catch (e) {
       console.warn('Failed to parse docker-compose.yml for port calculation:', e);

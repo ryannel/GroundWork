@@ -19,13 +19,15 @@ last_reviewed:
 - [ ] Out of scope item 1
 - [ ] Out of scope item 2
 
-## Epics (User Value Slices)
-*Break the solution down into Epics. Epics must be standalone, dependency-free slices of user value. Do NOT organize by technical layer.*
+## Milestones
+*Break the solution down into Milestones. Each milestone is a demonstrable state the product reaches — visible in the UI behind a feature flag. Do NOT organize by technical layer. State dependencies between milestones explicitly.*
 
-### Epic 1: [Epic Name]
-- **Goal:** What user outcome does this deliver?
+### Milestone 1: [Milestone Name]
+- **Goal:** What demonstrable state does this reach?
+- **Depends on:** (none, or Milestone N)
 - **FR Coverage:** What Functional Requirements does this satisfy?
 
-### Epic 2: [Epic Name]
-- **Goal:** What user outcome does this deliver?
+### Milestone 2: [Milestone Name]
+- **Goal:** What demonstrable state does this reach?
+- **Depends on:** (none, or Milestone N)
 - **FR Coverage:** What Functional Requirements does this satisfy?

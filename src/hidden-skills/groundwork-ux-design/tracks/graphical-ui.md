@@ -31,6 +31,12 @@ Draw inspiration from trend-setting companies: Linear, Vercel, Raycast, Arc, App
 
 ---
 
+## Cross-Phase Signal Capture
+
+UX conversations routinely surface signals that belong to a different phase — a performance target with infrastructure implications, an offline expectation that shapes data architecture, a sequencing instinct about which features matter first. As these signals arise during any stage, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for async or schema implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+
+---
+
 ## Stage 1: Non-Functional Requirements (NFR)
 
 NFRs define the engineering envelope the design system must operate within. Performance budgets, accessibility baselines, sync requirements, and error tolerance all constrain design choices downstream — a design system that specifies 300ms transitions in a product with a 50ms interaction budget is internally contradictory.
@@ -108,6 +114,13 @@ Once confirmed, write the synthesis to the Stage 4 section of `.groundwork/cache
 The user provided taste, instinct, and direction across Stages 1–4. The agent now translates that into a rigorous, CSS-level engineering specification — autonomously.
 
 **Output location**: `.groundwork/cache/ux-design-draft.md`. Writing to `docs/ux-design.md` is prohibited until Stage 6 (Commit). The draft must survive the full 5b walkthrough before promotion. Do not attempt to read `docs/ux-design.md` during this stage — on initial generation, the file does not exist. Write the draft directly to the cache location.
+
+**Write in sections**: Do not write the entire specification in a single `write_file` call. Build the document incrementally:
+1. Use `write_file` to create the file with Part 1 (Constraints).
+2. Use `append_file` to add Part 2 (Shell).
+3. Use `append_file` to add Part 3 (Design System), section by section if needed.
+
+Writing incrementally keeps each tool call focused and the complete document assembles correctly through the sequence of appends.
 
 Compile the full UX Design Guide using the approved outputs stored in `.groundwork/cache/ux-design-cache.md`. The document combines NFRs from Stage 1 with a comprehensive design system that the agent derives from the design language direction captured in Stage 4.
 

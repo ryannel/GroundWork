@@ -31,6 +31,12 @@ Draw inspiration from trend-setting CLIs: `gh`, `rg`, `fd`, `just`, `mise`, char
 
 ---
 
+## Cross-Phase Signal Capture
+
+CLI conversations routinely surface signals that belong to a different phase — a startup budget with infrastructure implications, a configuration store that shapes architecture, a sequencing instinct about which commands ship first. As these signals arise during any stage, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for protocol or schema implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+
+---
+
 ## Stage 1: Non-Functional Requirements (NFR)
 
 NFRs define the engineering envelope the CLI design system must operate within. Startup budgets, composability contracts, platform targets, and security models all constrain design choices downstream — a CLI that specifies rich interactive prompts but must work in headless CI pipelines is internally contradictory.
