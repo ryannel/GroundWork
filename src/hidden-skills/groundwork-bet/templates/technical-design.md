@@ -57,9 +57,9 @@ field: type — description
 
 ---
 
-## UX Design
+## Design
 
-*Screens and interaction states specific to this bet. References the global `docs/ux-design.md` for design system and visual language — do not repeat those rules here. Focus on what is new: the states each screen can be in, what triggers transitions between them, and what data drives each state.*
+*Screens and interaction states specific to this bet. References the global `docs/design-system.md` for design system and visual language — do not repeat those rules here. Focus on what is new: the states each screen can be in, what triggers transitions between them, and what data drives each state.*
 
 ### [Screen or Flow Name]
 

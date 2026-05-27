@@ -45,6 +45,13 @@ Answer first. Detail below. Background last. A reader who stops after the first 
 
 Drop phrases that introduce uncertainty or soften a claim: "should work", "might want to", "typically", "in most cases", "please note", "it is worth considering." State the claim or remove it.
 
+### Lead with what you believe, not what you reject
+
+State the position and why it holds. Do not establish it by contrasting against what others do or what you do not do — the comparison is rhetorical scaffolding the reader does not need to follow the claim, and if the position only makes sense as a rejection of an alternative, the position is not yet articulated.
+
+- ❌ "Agile vocabulary (Epic, Story, Sprint) carries an embedded assumption: every unit ships customer value on completion. GroundWork's delivery model does not work that way. Milestones are flag-gated internal proof points, not customer releases; Slices are component-level API contributions, not user-facing increments."
+- ✅ "Each unit defines a contract its dependents can rely on. A Bet's appetite holds while its scope is designed. A Milestone's capability is provable behind a flag before customers see it. A Slice's API surface is testable before anything consumes it."
+
 ---
 
 ## Writing Skill Instruction Files
@@ -150,23 +157,14 @@ When reviewing a skill, check its siblings. If the pattern has diverged, align t
 
 ## Common Failure Modes
 
-- **Restatement** — making a point clearly, then immediately backing it up with an example or closing sentence that says the same thing. Trust the writing.
-- **Scripted phrases** — quoted or italicised sample phrases the agent is expected to say verbatim. Write the intent instead.
-- **Split causal chains** — stating a rule in one sentence and its reason in the next. Combine them.
+The principles above cover most writing pitfalls. The patterns below are distinct phenomena that don't reduce to a writing principle — they describe structural or cross-file failures that only surface when the skill is read in context.
+
 - **Passive docs** — documentation with no clear owner drifts undetected. Every methodology doc and skill file should have a maintainer who notices when the content goes stale.
 - **Shadow knowledge** — durable policy duplicated into a skill file instead of a methodology doc. Skills reference; docs hold knowledge.
-- **Hedging** — "It is generally recommended", "This will probably", "In order to." State the claim or drop it.
 - **Prompt-shaped docs** — methodology documentation written like agent system prompts. Match tone and structure to the intended reader.
-- **Dump-and-approve** — producing a complete artifact and asking the user to approve it wholesale instead of walking through each section collaboratively. The agent skips the teaching and justification steps that build trust.
-- **Isolated edits to interconnected artifacts** — changing one section of a cohesive document without propagating the effects to dependent sections. Surgical edits to interconnected systems create contradictions that surface during implementation.
-- **Breadth over depth** — covering five topics in one turn instead of going deep on one. Design decisions made in a single sentence don't hold up during implementation because nobody explored the trade-offs.
-- **Unearned conclusions** — presenting "best practices" or "industry standards" without exploring why they apply to the user's specific context. The agent becomes a textbook instead of a consultant.
-- **Assertion without invitation** — stating what the user should do without explaining why and inviting pushback. Collaboration requires two participants; dictation requires one.
 - **Shallow translation** — echoing the user's words back as the specification instead of translating them into concrete, implementable values. "Warm and editorial" is direction; `oklch(96% 0.008 60)` paired with `Freight Text Pro at 400/450` is a design system. The agent's core contribution is the translation — if the output reads like the user's input with formatting, no useful work was done.
 - **Service-by-service interrogation** — asking the same set of questions for each component individually instead of proposing the pattern for all components and letting the user react. This scales linearly with system size and exhausts the user before the conversation reaches the interesting design decisions.
 - **Ambiguous medium** — producing an Experience or journey description that describes what happens narratively without naming the interaction medium (screen, terminal, API, voice). Downstream skills depend on knowing the medium to make design and infrastructure decisions.
-- **Ungrounded defaults** — encoding opinionated technical defaults without reasoning. The agent either asserts them without justification or abandons them at first pushback. Every default needs a one-sentence "why" so the agent can defend it intelligently.
-- **Scripted confirmations** — bold-quoted completion strings like `Confirm: **"Phase complete."**` are a subtle variant of scripted phrases. The agent echoes the exact string instead of confirming naturally. Write the intent: `Confirm that the phase is complete.`
 - **Root-document drift** — when a shared contract (like an operating contract) contains a pattern, every skill that references it inherits that pattern. Fixing a scripted phrase in one skill without fixing the root means the next skill written from that contract inherits the same problem. Fix at the source.
 - **Shared-contract non-conformance** — a skill that loads a shared contract must enact each of its protocols at the points where they apply. Naming the contract in a header is not conformance; executing the protocol steps is. A skill silent on a protocol does not run it, and the failure is invisible when the skill is read in isolation — it only surfaces when the cross-skill flow is exercised. When adding a skill that participates in a shared protocol, list every contract step and confirm the skill performs each one at the right point in its lifecycle.
 - **Identifier drift across producers and consumers** — shared identifiers (file paths, section headers, status values, frontmatter keys, slug patterns) must match exactly across the files that write them and the files that read them. Drift is silent: a consumer reading the wrong header simply finds nothing, with no error. This failure is distinct from structural consistency — the shape can be identical while the strings disagree. When introducing a shared identifier, list every writer and every reader in the same change, and verify the string matches everywhere.

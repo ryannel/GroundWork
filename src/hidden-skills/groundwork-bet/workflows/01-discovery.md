@@ -4,7 +4,9 @@
 
 ## Operating Contract
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there govern how this workflow operates — including how to capture out-of-phase signals during the pitch conversation and how to refine upstream documents when discovery reveals something they don't yet say.
+Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
+
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ## Discovery Notes Check
 
@@ -20,7 +22,7 @@ Read the relevant `docs/` artifacts before opening the conversation:
 
 - `docs/product-brief.md` — what the system is, who it serves, what it does not do.
 - `docs/architecture.md` — service boundaries and capability decisions the bet must respect.
-- `docs/ux-design.md` — design system and NFRs the bet must implement against.
+- `docs/design-system.md` — the design system and NFRs the bet must implement against.
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.
 
@@ -36,8 +38,17 @@ Arrive at the conversation already knowing what the system is and what the bet m
 4. Organize the solution into **Milestones**.
    - *Constraint:* Milestones must represent demonstrable product states — visible in the UI behind a feature flag. They cannot be organized by technical layer (e.g., "Build the API" is invalid; "User can authenticate and reach their workspace" is valid). State dependencies between milestones explicitly.
    - Identify the tech stack components each Milestone touches — this surfaces which services will need slices in Planning.
-5. Once the user approves the pitch and milestone breakdown, write it to `docs/bets/<bet-slug>/pitch.md`.
-6. Ensure the `pitch.md` frontmatter contains `status: discovery`.
+5. Once the user is satisfied with the pitch and milestone breakdown, write the draft to `.groundwork/cache/bet-pitch-draft.md`. The pitch is not yet committed — the draft passes through an independent review before becoming `docs/bets/<bet-slug>/pitch.md`. The pitch becomes the input to every downstream planning conversation; a silently dropped capability or invented constraint poisons the entire delivery loop, so the review pass catches what a collaborative conversation alone cannot.
+
+6. Run the independent review:
+   1. **Announce** the shift — the agent is moving from collaborative pitch-shaping into an independent review before committing the document.
+   2. **Invoke the review subagent** with `document_path: .groundwork/cache/bet-pitch-draft.md` and `document_type: bet-pitch`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list.
+   3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the draft — rewrite the affected sections rather than producing a list of suggestions. Write the revised draft back to `.groundwork/cache/bet-pitch-draft.md` and run the review again. Repeat until the verdict is **PRESENT**.
+   4. **Carry advisory findings forward.** When the verdict is PRESENT, surface any 🟡 Advisory findings to the user along with the reviewed pitch so they can decide whether to act on them.
+
+7. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
+
+8. Ensure the `pitch.md` frontmatter contains `status: discovery`.
 
 ## Transition
 

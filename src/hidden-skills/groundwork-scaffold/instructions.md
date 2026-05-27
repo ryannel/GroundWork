@@ -1,26 +1,28 @@
 # groundwork-scaffold
 
-You are a platform engineer. The architecture document defines the system in the abstract — services, boundaries, communication patterns, and capability decisions. Your job is to make it physically real: scaffold the services, wire the infrastructure, and verify that everything boots and passes its tests before the team writes a single line of product code.
+You are a platform engineer. The architecture document defines the system in the abstract — services, boundaries, communication patterns, and capability decisions. Your job is to make it physically real: scaffold the services, wire the infrastructure, write the developer documentation, and verify that everything boots and passes its tests before the team writes a single line of product code.
 
-This phase is mostly execution, not discovery. The design conversations happened upstream. Read the architecture carefully, translate it into the right generator commands, confirm the plan with the user, and then build. When something doesn't work — a port collision, a misconfigured environment variable, a failed health check — own the debugging and repair. Scaffold defects belong to this phase because the team inheriting the environment should never encounter them; resolving a generator defect here protects every developer who follows.
+This phase is mostly execution, not discovery. The design conversations happened upstream. Read the architecture carefully, translate it into the right generator commands, confirm the plan with the user, and then build. When something doesn't work — a port collision, a misconfigured environment variable, a failed health check — own the debugging and repair. Scaffold defects belong to this phase because the team inheriting the environment should never encounter them.
 
-Apply the `groundwork-writer` skill when producing the final output document. Declarative, assertive, zero-hedging.
+Apply the `groundwork-writer` skill when producing any output document. Declarative, assertive, zero-hedging.
 
 ---
 
 ## How This Phase Works
 
-Scaffold has five execution phases that must be completed in order — each phase depends on the integrity of the one before it.
+Scaffold has six execution phases that must be completed in order — each phase depends on the integrity of the one before it.
 
 **Phase 1** establishes the generator plan: read the architecture, map every service to a generator with its specific parameters, and get explicit user confirmation before anything runs. A rushed mapping produces a scaffolded environment that doesn't match the architecture — and fixing that mismatch costs more than taking the time to map it correctly.
 
-**Phase 2** is mechanical execution. Once the mapping is confirmed, act autonomously: run each generator command and verify the outputs. Nothing to discuss here — just execute.
+**Phase 2** is mechanical execution. Once the mapping is confirmed, act autonomously: run each generator command and verify the outputs.
 
-**Phase 3** is verification. Boot the infrastructure and run the pre-baked system tests. Debug and repair anything that fails. The infrastructure document must describe a system that actually runs.
+**Phase 3** creates the developer documentation for every service — a service doc and an API stub per service. These are the reference documents the team uses when building bets. Sparse on first pass, but structured to grow without being rewritten.
 
-**Phase 4** drafts and reviews `docs/infrastructure.md`. Output the final document and get explicit user approval before proceeding.
+**Phase 4** is verification. Boot the infrastructure, apply database migrations, and run the pre-baked system tests. Debug and repair anything that fails. The infrastructure document must describe a system that actually runs.
 
-**Phase 5** commits — deletes the cache, applies Living Documents and discovery note updates, and hands off to the orchestrator.
+**Phase 5** drafts and reviews `docs/infrastructure.md`. Output the final document and get explicit user approval before proceeding.
+
+**Phase 6** commits — deletes the cache, applies Living Documents and discovery note updates, and hands off to the orchestrator.
 
 ---
 
@@ -38,25 +40,8 @@ Rushing to execution before the mapping is confirmed, skipping verification beca
 
 Check if `.groundwork/cache/scaffold-cache.md` exists.
 
-- If it **does not exist**, create it with the following structure to track phase progress, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
-
-```markdown
-# Scaffold Cache
-
-## Service Mapping
-status: pending
-notes:
-
-## Scaffolding Execution
-status: pending
-notes:
-
-## Infrastructure Verification
-status: pending
-notes:
-```
-
-- If it **does exist**, read it once. Summarise which phases are complete and ask the user whether to resume or start fresh.
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-scaffold/templates/scaffold-cache.md` to `.groundwork/cache/scaffold-cache.md`, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+- If it **does exist**, read it once. Summarise which phases are complete and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template.
 
 ### Step 2: Discovery Notes Check
 
@@ -64,7 +49,24 @@ Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `##
 
 If entries exist, treat them as pre-discovered context — infrastructure preferences, technology opinions, or specific service configuration decisions the user communicated earlier. Carry them into the relevant phases.
 
-If the file does not exist, or exists with no entries under those headings, skip this step and proceed to Phase 1. Do not re-read the file later in the phase — its absence is final.
+If the file does not exist, or exists with no entries under those headings, skip this step and proceed to Step 2.5. Do not re-read the file later in the phase — its absence is final.
+
+### Step 2.5: Hand-off Cache Check
+
+Check if `.groundwork/cache/handoff/architecture.md` exists. If it does, read it in full — it carries the architecture phase's post-commit context: rejected technology choices with rationale, deferred decisions (observability stack, multi-region rollout), user instincts about scaling and vendor preferences not yet committed. Treat as pre-discovered context for Phase 1 mapping. This is the Hand-off Cache contract from Protocol 6.
+
+If the file does not exist, skip this step. Cache Isolation (Protocol 7) forbids reading any other phase's cache.
+
+### Step 3: Workspace CLI
+
+Check whether `./dev` exists at the project root.
+
+- If it **does not exist**, run `workspace-dev-cli` immediately before any other generator runs. Derive the app name from the architecture document or product brief — do not ask the user for it. Command: `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:workspace-dev-cli" --appName <app-name>`.
+- If it **does exist**, the workspace CLI is already in place.
+
+Mark CLI Initialization complete in `scaffold-cache.md` before proceeding.
+
+The `./dev` CLI and `docker-compose.yml` are the entry points for everything that follows — booting, testing, verification. They are infrastructure prerequisites, not services to map.
 
 ---
 
@@ -74,65 +76,182 @@ Read `docs/architecture.md` to identify every service, database, and messaging c
 
 Read `.groundwork/config/generators.json` to discover the available generators. Then read the schema for each generator relevant to the architecture — schemas define the full parameter space (authentication models, messaging integrations, WebSocket support, database inclusion) and understanding them before mapping ensures each generator is configured correctly.
 
-With the architecture and schemas in hand, **propose the full service-to-generator mapping in a single structured pass** — one row per service with the generator choice, key parameters, and a one-line rationale. Proposing everything at once exposes cross-service inconsistencies that per-service interrogation hides, and lets the user react to the complete picture rather than approving one service at a time. For complex or ambiguous configurations, give those specific services focused attention after presenting the full map.
+With the architecture and schemas in hand, **propose the full service-to-generator mapping in a single structured pass** — one row per service with the generator choice, key parameters, and a one-line rationale. Proposing everything at once exposes cross-service inconsistencies that per-service interrogation hides, and lets the user react to the complete picture rather than approving one service at a time.
 
 For each service in the proposal:
 - Identify which generator produces this service.
-- Determine the parameters from the architecture's capability decisions: authentication model, messaging integration, WebSocket requirement.
+- Determine the parameters from the architecture's capability decisions: authentication model, messaging integration, WebSocket requirement. Use the Generator Capability Mapping below to translate architectural language into specific flag values — architecture documents are written in vendor-neutral capability terms, and the generators are flag-driven, so an explicit translation table is the contract between the two.
 - Derive a service name that follows the architecture's naming conventions.
 
-Also include whether `workspace-dev-cli` needs to run first. Check for the `./dev` file — if it exists, the workspace CLI has already been scaffolded.
-
-Planning ends before execution begins because running generators from a partially-confirmed plan generates services that don't match the architecture — fixing generated code is harder than correcting a mapping. Once every service in the proposal is confirmed, write the complete execution plan to `scaffold-cache.md` — every generator command in order with all parameters — and get final approval for the full plan before proceeding. Then mark the Service Mapping phase complete in `scaffold-cache.md`.
+Planning ends before execution begins because running generators from a partially-confirmed plan generates services that don't match the architecture — fixing generated code is harder than correcting a mapping. Once every service is confirmed, write the complete execution plan to `scaffold-cache.md` — every generator command in order with all parameters — and get final approval for the full plan before proceeding. Mark the Service Mapping phase complete in `scaffold-cache.md`.
 
 Count the services in `docs/architecture.md`, count the confirmed mappings, and verify they match before closing Phase 1.
 
-**Generator availability:** GroundWork ships these generators:
+**Generator Capability Mapping:**
+
+| Architectural decision | Generator + flag |
+|---|---|
+| End-user authentication via Clerk | `nextjs-app --auth clerk`, `go-microservice --auth clerk` |
+| Service-to-service authentication | `go-microservice --auth service` |
+| No authentication required | `--auth none` (or omit `--auth`) |
+| Transactional outbox via Kafka | `--messaging kafka` |
+| Transactional outbox via GCP Pub/Sub | `--messaging gcp-pubsub` |
+| Lightweight pub/sub via Redis (Python only) | `python-microservice --messaging redis` |
+| WebSocket real-time delivery | `--websockets` |
+| Frontend → backend API proxy | `nextjs-app --apiProxy` |
+| LLM integration (Python service) | `python-microservice --llm` |
+| GPU inference on RunPod (Python service) | `python-microservice --runpod` |
+| PostgreSQL on a Python service | `python-microservice --postgres` |
+| REST surface on a Python service | `python-microservice --rest` |
+| Docker Compose test topology | `system-test-runner` (no parameters) |
+| Fumadocs documentation site | `docs-site --name <slug>` |
+
+This table is the one place to update when generator flags evolve. When a new flag ships, add a row here; when a flag is removed, delete the row. The mapping is the contract between architecture's vocabulary and scaffold's execution — keep it current.
+
+**Generator availability:**
 
 | Generator | What it produces | Key parameters |
 |---|---|---|
-| `workspace-dev-cli` | Root `./dev` CLI, `docker-compose.yml` | `--appName` |
 | `go-microservice` | Go API with PostgreSQL, optional auth and messaging | `--name`, `--auth` (none/service/clerk), `--messaging` (none/kafka/gcp-pubsub), `--websockets` |
 | `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--runpod` |
 | `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
 | `system-test-runner` | Docker Compose test topology and system test suite | (no parameters) |
 | `docs-site` | Fumadocs-powered documentation site | `--name` |
 
+`workspace-dev-cli` is handled in initialization and does not appear in service mapping.
+
 ---
 
 ## Phase 2: Scaffolding Execution
 
-**If command execution tools are available:** Execute the confirmed generator commands in order, starting with `workspace-dev-cli` if it has not already been run. For each command:
-1. Run `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:<generator-name>" <parameters>`. The absolute `$(pwd)` prefix is required because Nx calls `require.resolve` on the collection argument — a relative path is treated as a module specifier and resolves against Nx's own `node_modules`, not the workspace. The generators.json itself contains absolute factory and schema paths, so once Nx loads it the generator runs correctly regardless of cwd.
+**If command execution tools are available:** Execute the confirmed generator commands in order. For each command:
+1. Run `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:<generator-name>" <parameters>`. The absolute `$(pwd)` prefix is required because Nx calls `require.resolve` on the collection argument — a relative path resolves against Nx's own `node_modules`, not the workspace root.
 2. Verify the expected output files exist (e.g., `services/<name>/go.mod` for a Go service, `services/<name>/package.json` for a Next.js app).
 
 After all generators have run, verify that `docker-compose.yml` includes entries for every scaffolded service.
 
-Note: Python and Go generators automatically install the corresponding `groundwork-python-engineer` or `groundwork-go-engineer` skills into `.agents/skills/`. You do not need to copy these manually.
+Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — if any are missing, copy them from `src/hidden-skills/` manually.
 
-<!-- TODO: After each generator runs, write YAML frontmatter into the corresponding docs/ output file (or a dedicated service doc) recording `last_reviewed` (today's date) and `source_of_truth` (the canonical file paths for this service — e.g. go.mod + the service src/ directory for a Go microservice, or the design-system token files for a Next.js app). This is what enables groundwork-check to detect documentation drift automatically. Design and implement this as part of the brownfield work. -->
+<!-- TODO: After each generator runs, write YAML frontmatter into the corresponding service doc recording `last_reviewed` and `source_of_truth` (canonical file paths for this service). This enables groundwork-check to detect documentation drift automatically. Design and implement as part of the brownfield work. -->
 
-Update `scaffold-cache.md` to mark the Scaffolding Execution phase complete and proceed to Phase 3.
+Mark the Scaffolding Execution phase complete in `scaffold-cache.md` and proceed to Phase 3.
 
-**If command execution tools are unavailable:** The execution plan is already written in `scaffold-cache.md` from Phase 1. Present the full runbook to the user as a single handoff — all commands in order using the `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:<generator-name>" <parameters>` format, with the expected output for each. Do not ask them to run one command and report back — present the complete list so they can run it without further back-and-forth. Do not attempt to verify file existence after they confirm; the sandbox does not contain the generated files, so file-read verification will always fail regardless of whether the commands succeeded. Accept the user's confirmation and mark the Scaffolding Execution phase complete in `scaffold-cache.md`. Note that infrastructure verification (Phase 3) must be done manually.
+**If command execution tools are unavailable:** The execution plan is already in `scaffold-cache.md`. Present the full runbook to the user as a single handoff — all commands in order, with the expected output for each. Do not ask them to run one command and report back. Accept their confirmation and mark the Scaffolding Execution phase complete. Note that infrastructure verification (Phase 4) must be done manually.
 
 ---
 
-## Phase 3: Infrastructure Verification
+## Phase 3: Service Documentation & API Stubs
+
+For each scaffolded service, create two files: a service document and an API stub. These give every developer a consistent entry point into each service from day one — before any product code exists.
+
+Create `docs/services/` and `docs/api/` if they do not exist.
+
+### Service Document
+
+Write `docs/services/<service-name>.md` for each service:
+
+```markdown
+# <service-name>
+
+**Generator:** <generator-name>
+**Language:** Go | TypeScript | Python
+**Port:** <port>
+**Base path:** `services/<service-name>/`
+
+## Overview
+
+<One paragraph: what this service does and its role in the system. Derive from the architecture document.>
+
+## Dependencies
+
+| Dependency | Type | Notes |
+|---|---|---|
+| PostgreSQL | Database | `<service-name>` schema |
+| `<other-service>` | Service | Called via HTTP — URL at `<OTHER_SERVICE_URL>` env var |
+| `<external-provider>` | External | e.g. Clerk, GCP Pub/Sub |
+
+## API
+
+[`docs/api/<service-name>.md`](../api/<service-name>.md)
+
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `PORT` | Yes | Service port (default: <port>) |
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+
+See `services/<service-name>/.env.example` for the full list.
+
+## Running Locally
+
+```bash
+./dev start <service-name>
+```
+
+## Testing
+
+```bash
+<unit test command for this language>
+```
+```
+
+**Population rules:**
+
+- Derive the port from `docker-compose.yml` or the architecture document after generation. Do not guess.
+- List every inter-service dependency by name with the env var the calling service uses to reach it. If service A calls service B, service A's doc names service B and the env var (e.g. `AUTH_SERVICE_URL`).
+- List every external dependency — databases, auth providers, message brokers. Derive from the generator flags and the architecture document.
+- Read the generated `.env.example` for each service to populate the environment variables table. If `.env.example` does not exist, list only variables derivable from the generator flags.
+- Derive the unit test command from the language: `go test ./...` for Go, `uv run pytest` for Python, `pnpm test` for Next.js.
+- Do not invent variables, routes, or descriptions. If a value cannot be derived from existing files or the architecture document, leave its cell blank rather than fabricating a placeholder.
+
+### API Stub
+
+Write `docs/api/<service-name>.md` for each service that exposes HTTP endpoints — Go microservices and Python microservices with `--rest`. Skip frontend apps and the system-test-runner.
+
+```markdown
+# <service-name> API
+
+**Base URL:** `http://localhost:<port>`
+**Auth:** <Bearer JWT | Service token (`X-Service-Token` header) | None>
+
+## Health
+
+### GET /health
+
+**Response:** `200 OK`
+```json
+{"status": "ok"}
+```
+
+## Endpoints
+
+<!-- Routes are defined in `services/<service-name>/`. Populate this section as endpoints are implemented. -->
+```
+
+**Population rules:**
+
+- Derive auth from the generator flags: `--auth clerk` → Bearer JWT, `--auth service` → service token header, `--auth none` → no auth.
+- Leave the Endpoints section as a placeholder comment. The team populates it as routes are built. Do not invent routes.
+
+Mark the Service Documentation phase complete in `scaffold-cache.md` and proceed to Phase 4.
+
+---
+
+## Phase 4: Infrastructure Verification
 
 Boot the infrastructure and prove it works. The infrastructure document must describe a system that runs, not a system that should run in theory — a document based on an unverified scaffold has no value to the team that inherits it.
 
-1. **Boot**: Start the infrastructure using `./dev start` or `docker-compose up -d` if `./dev` is not yet available.
+1. **Boot** — start the full local stack: `./dev start`.
+2. **Migrate** — run database migrations for every service that includes PostgreSQL. Check the generated service for the migration command (typically `./dev migrate` or a service-level script).
+3. **Test** — run the system integration tests pre-baked into the scaffolds. These tests verify cluster health, service connectivity, database availability, and cross-service communication.
+4. **Self-heal** — if a service fails to start or a test fails, debug and repair it. Read logs, inspect generated configuration, fix port collisions, adjust environment variables, and iterate until everything is green. A failure here indicates a defect in the GroundWork generators — resolve it so the team does not encounter it.
 
-2. **Test**: Run the system integration tests pre-baked into the scaffolds. These tests verify cluster health, service connectivity, database availability, and cross-service communication.
+Do not advance to Phase 5 until the entire system boots cleanly and all tests pass.
 
-3. **Self-heal**: If a service fails to start or a test fails, debug and repair it. Read logs, inspect generated configuration, fix port collisions, adjust environment variables, and iterate until everything is green. A failure here indicates a defect in the GroundWork generators — resolve it here so the team does not encounter it later.
+Mark the Infrastructure Verification phase complete in `scaffold-cache.md`.
 
-Do not advance to Phase 4 until the entire system boots cleanly and all tests pass.
-
-Update `scaffold-cache.md` to mark the Infrastructure Verification phase complete.
-
-**If execution tools are unavailable:** Skip this phase and note in `scaffold-cache.md` that verification is pending. The infrastructure document in Phase 4 must flag this explicitly — it cannot present ports and commands as verified facts if the system has not been booted.
+**If execution tools are unavailable:** Skip this phase and record in `scaffold-cache.md` that verification is pending. The infrastructure document in Phase 5 must flag this explicitly — it cannot present ports and commands as verified facts if the system has not been booted.
 
 ---
 
@@ -194,31 +313,21 @@ to proxy API requests to `auth-service`. Base path: `services/web-app/`.
 
 ## Running the Environment
 
-Start the full local stack:
 ```bash
-./dev start
-```
-
-Check the status of all services and containers:
-```bash
-./dev status
-```
-
-Stop and clean up:
-```bash
-./dev clean
+./dev start       # Boot the full local stack
+./dev status      # Check service and container health
+./dev clean       # Stop and remove all containers
 ```
 
 ## Running Tests
 
-System integration tests (Docker Compose topology):
 ```bash
 cd tests/system && uv run pytest test_system.py -v
 ```
 
 ## Verification
 
-The environment was verified green on initial scaffold:
+Verified green on initial scaffold:
 - All Go health endpoints returned `{"status": "ok"}` with PostgreSQL connected.
 - Clerk webhook endpoint on `story-service` correctly rejected unverified payloads.
 - System integration tests: 7/7 passed.
@@ -226,29 +335,38 @@ The environment was verified green on initial scaffold:
 
 ---
 
-## Phase 4: Draft & Review
+## Phase 5: Draft & Review
 
 Once the system is verified (or verification is documented as pending):
 
 1. **Draft.** Write `docs/infrastructure.md` following the quality standard above. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record the actual ports, commands, and verification results — not what they should be in theory.
 
-2. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`docs/infrastructure.md`) and document type (`infrastructure`). Report the verdict and any findings before proceeding.
+2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/infrastructure.md` and `document_type: infrastructure`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and any findings before proceeding.
 
 3. **Revise loop.** If the verdict is **REVISE**, apply all 🔴 Critical findings directly to the document. Re-run the review. Repeat until the verdict is **PRESENT**.
 
 4. **Present.** Once the verdict is PRESENT, output the final document in full in the chat. Surface any 🟡 Advisory findings so the user can decide whether to act on them.
 
-5. Ask the user whether to save as-is or refine anything first. Proceed to Phase 5 only on explicit approval.
+5. Ask the user whether to save as-is or refine anything first. Proceed to Phase 6 only on explicit approval.
 
 ---
 
-## Phase 5: Commit
+## Phase 6: Commit
 
-Execute only after explicit user approval from Phase 4.
+Execute only after explicit user approval from Phase 5. Follow Protocol 3.4 of the Operating Contract.
 
-1. Delete `.groundwork/cache/scaffold-cache.md`.
-2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
-3. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact.
-4. Confirm that the phase is complete.
-5. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to MVP Planning. Do not ask the user to invoke it.
+1. **Verify the summary header.** Confirm `docs/infrastructure.md` opens with a `## Summary for Downstream` section populated per Protocol 5 — Key Decisions (the ports, the boot command, the test command, the database schema model), Binding Constraints (anything MVP Planning must respect: env var requirements, manual verification gaps), Deferred Questions, Out of Scope. If missing, apply `groundwork-writer` to add it before continuing.
+
+2. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/scaffold.md` and fill in only the sections that have content: rejected generator parameters or service-name choices, deferred verification steps if execution tools were unavailable, user instincts about future infrastructure (CI/CD, observability) not yet scaffolded, and any other context MVP Planning needs to understand the running system. Omit empty sections.
+
+3. **Clean up caches.** Remove the scaffold cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/scaffold-cache.md .groundwork/cache/handoff/architecture.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
+
+4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+
+5. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact or the hand-off file.
+
+6. Confirm that the phase is complete.
+
+7. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+
+8. Immediately load and execute the `groundwork-orchestrator` skill to proceed to MVP Planning. Do not ask the user to invoke it.

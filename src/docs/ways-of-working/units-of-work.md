@@ -1,10 +1,13 @@
+---
+title: Units of Work
+description: How GroundWork structures delivery — Bet, Milestone, and Slice.
+status: active
+last_reviewed: 2026-05-26
+---
+
 # Units of Work
 
-GroundWork organises delivery through three nested units: **Bet**, **Milestone**, and **Slice**.
-
-## Why these names
-
-Agile vocabulary (Epic, Story, Sprint) carries an embedded assumption: every unit ships customer value on completion. GroundWork's delivery model does not work that way. Design and planning happen before any code is written; Milestones are flag-gated internal proof points, not customer releases; Slices are component-level API contributions, not user-facing increments. The naming reflects this. "Milestone" and "Slice" share surface similarity with Wordloop's vocabulary but are defined differently here — Milestones are not independently shippable user value, and Slices are not tied to a microservices topology.
+GroundWork organises delivery through three nested units — **Bet**, **Milestone**, and **Slice** — each defined by the contract its dependents can rely on. A Bet's appetite holds while scope is designed. A Milestone's capability is provable behind a flag before customers see it. A Slice's API surface is testable before anything consumes it.
 
 ## Bet
 

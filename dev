@@ -160,6 +160,24 @@ case "$COMMAND" in
       echo ""
     fi
     ;;
+  check)
+    SUBCMD=$2
+    if [ "$SUBCMD" = "sync-anchors" ]; then
+      print_logo "Checking"
+      print_step "Verifying engineer skill sync anchors..."
+      python3 scripts/check_sync_anchors.py
+    else
+      print_logo
+      echo -e "  Local Development CLI for GroundWork"
+      echo ""
+      echo -e "  ${BOLD}USAGE${NC}"
+      echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}check${NC} [action]"
+
+      print_category "ACTIONS"
+      print_cmd "sync-anchors" "Verify engineer skill sync anchors match principle file hashes"
+      echo ""
+    fi
+    ;;
   *)
     print_logo
     echo -e "  Local Development CLI for GroundWork"
@@ -174,6 +192,7 @@ case "$COMMAND" in
     print_cmd "test compilation" "Run generator compilation tests (pairwise, go build / tsc / uv sync)"
     print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"
     print_cmd "test nx" "Run Nx workspace tests"
+    print_cmd "check sync-anchors" "Verify engineer skill sync anchors match principle file hashes"
     echo ""
     ;;
 esac

@@ -34,7 +34,7 @@ groundWork/
 │   │   ├── operating-contract.md      ← Shared protocols loaded by every methodology skill.
 │   │   ├── templates/                 ← Shared file templates (discovery-notes.md, etc.) referenced by multiple skills.
 │   │   ├── groundwork-product-brief/  ← Greenfield PM facilitation.
-│   │   ├── groundwork-ux-design/      ← UX facilitation. Loads an interface-type track (graphical-ui, cli, agentic-protocol).
+│   │   ├── groundwork-design-system/      ← Design system facilitation. Loads an interface-type track (graphical-ui, cli, agentic-protocol).
 │   │   ├── groundwork-architecture/   ← Architecture facilitation.
 │   │   ├── groundwork-scaffold/       ← Greenfield scaffolding: runs Nx generators, boots infra, writes infrastructure.md.
 │   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch and hands off to Bet without context reset.
@@ -85,7 +85,7 @@ delivers the first working bet. Currently only the **Greenfield** path is implem
 
 | Path | Flow | Source of truth |
 |---|---|---|
-| **Greenfield** | Product Brief → UX Design → Architecture → Scaffolding → MVP Planning → Delivery Loop | Collaborative discovery with the user. The repo is empty. |
+| **Greenfield** | Product Brief → Design System → Architecture → Scaffolding → MVP Planning → Delivery Loop | Collaborative discovery with the user. The repo is empty. |
 
 Greenfield builds the docs from scratch through conversation. Once the docs exist and the first
 bet ships, the project enters the Delivery Loop. Brownfield is a tracked roadmap item — see `TODO.md` — not a current capability.
@@ -121,13 +121,13 @@ available skills list. Keep this list short — context window cost scales with 
 
 Currently only the **orchestrator** and **check** live here. The orchestrator is the
 central router — it determines the project mode and loads the right hidden skill. All
-methodology skills (product-brief, architecture, ux-design, bet, writer) are hidden behind
+methodology skills (product-brief, architecture, design-system, bet, writer) are hidden behind
 the orchestrator's routing table to minimize always-on context cost.
 
 ### Hidden Skills (`src/hidden-skills/` → `.agents/groundwork/skills/`)
 These are instruction files loaded on demand by the orchestrator. They are not registered
 in the agent toolchain, so they consume no context until invoked. This is the correct home
-for any new methodology skill (product-brief, setup, bet, ux-design, etc.).
+for any new methodology skill (product-brief, setup, bet, design-system, etc.).
 
 The orchestrator's routing table lives directly in `src/skills/groundwork-orchestrator/SKILL.md`.
 When adding a new methodology skill, add a row to the Skill Paths table there.
@@ -150,7 +150,7 @@ working drafts, and manifests. Two subdirectories separate concerns:
 │   ├── config.toml   # Project classification (greenfield/brownfield)
 │   └── state.json    # Orchestration phase tracking
 └── cache/            # Transient — working files deleted when a skill completes
-    ├── ux-design-cache.md
+    ├── design-system-cache.md
     ├── product-brief-distillate.md
     └── scan-state.json
 ```
@@ -164,13 +164,13 @@ working drafts, and manifests. Two subdirectories separate concerns:
 
 Canonical documents that represent the current best understanding of the project. These are
 not frozen snapshots — later phases update earlier documents when new information refines or
-expands what was established. UX Design may sharpen the Product Brief. Architecture may
-refine both the Product Brief and UX Design. Each document grows as the project learns more.
+expands what was established. The Design System phase may sharpen the Product Brief. Architecture may
+refine both the Product Brief and Design System. Each document grows as the project learns more.
 
 | File | Purpose |
 |---|---|
 | `product-brief.md` | Product vision document |
-| `ux-design.md` | Design system and NFRs |
+| `design-system.md` | Design system and NFRs |
 | `architecture.md` | Architecture document |
 | `infrastructure.md` | Scaffold service map and run commands |
 | `bets/` | Bet pitches and plans |
@@ -178,8 +178,8 @@ refine both the Product Brief and UX Design. Each document grows as the project 
 ### Cache Lifecycle Rules
 
 - Skills **create** files in `.groundwork/cache/` at execution start.
-- Skills **delete** their cache file on successful commit (e.g., UX Design deletes
-  `ux-design-cache.md` after writing `docs/ux-design.md`).
+- Skills **delete** their cache file on successful commit (e.g., the Design System skill deletes
+  `design-system-cache.md` after writing `docs/design-system.md`).
 - Stale cache files (>24h) should be manually cleared or archived.
 - Never write final deliverables to `.groundwork/`. Final outputs go to `docs/`.
 
@@ -269,7 +269,7 @@ tests/evals/
 │   └── <suite-name>/
 │       ├── suite.json            ← Shared user_persona and user_goal
 │       ├── 01_product_brief.json ← Scenario 1
-│       ├── 02_ux_design.json     ← Scenario 2 (depends_on: 01_product_brief)
+│       ├── 02_design_system.json     ← Scenario 2 (depends_on: 01_product_brief)
 │       └── ...
 ├── fixtures/
 │   └── <suite-name>/
@@ -278,7 +278,7 @@ tests/evals/
     └── <suite-name>/
         └── run_<YYYYMMDD_HHMMSS>/  ← One directory per run (timestamped)
             ├── 01_product_brief_transcript.json
-            ├── 02_ux_design_transcript.json
+            ├── 02_design_system_transcript.json
             ├── 03_architecture_transcript.json
             └── workspace/           ← Accumulated output files (docs/, .groundwork/)
 
@@ -308,6 +308,31 @@ Each scenario is a JSON file:
 | `user_persona` | No | Overrides the suite-level persona for this scenario only |
 | `user_goal` | No | Overrides the suite-level goal for this scenario only |
 | `success_files` | No | List of file paths (relative to sandbox root) that signal task completion. The run stops as soon as all files exist — `turns` is only a safety ceiling. |
+| `max_input_tokens` | No | Per-call peak input-token budget. If any single API call's `input_tokens` exceeds this value, the scenario is recorded as a budget violation and marked failed. Peak (not cumulative) is the right metric — it measures the size of the largest single context, which is what context-efficiency work targets. Cumulative input would conflate conversation length with context bloat. |
+| `seed_summaries_only` | No | When `true` and `depends_on` is set, after seeding the sandbox from the dependency's workspace, every `docs/*.md` is trimmed to its frontmatter and `## Summary for Downstream` section. Tests whether the phase under test can work from summaries alone — the contract Protocol 5 of the operating contract assumes. A phase that fails on summary-only seeding indicates the previous phase's summary is missing binding information that the body carries. |
+
+### Token usage and budget reporting
+
+Each scenario transcript JSON now includes a `usage` block with the totals captured across the main skill loop **and** the isolated review subagent:
+
+```json
+{
+  "scenario": "03_architecture",
+  "skill_name": "groundwork-architecture",
+  "usage": {
+    "total_input_tokens": 412345,
+    "total_output_tokens": 18420,
+    "total_cache_creation_input_tokens": 22100,
+    "total_cache_read_input_tokens": 380000,
+    "peak_input_tokens": 18500,
+    "api_calls": 24,
+    "budget_violations": []
+  },
+  "transcript": [...]
+}
+```
+
+Use `peak_input_tokens` to evaluate context-efficiency work. The cache-read ratio (`total_cache_read_input_tokens / total_input_tokens`) measures how well the skill prompt structure is exploiting Anthropic's prompt cache — higher is better.
 
 ### Suite Config (`suite.json`)
 
@@ -348,7 +373,7 @@ file at the repo root — the CLI sources it automatically.
 
 ```bash
 ./dev eval run storytelling_engine --skill-model claude-sonnet-4-6
-./dev eval run storytelling_engine 02_ux_design --skill-model claude-sonnet-4-6
+./dev eval run storytelling_engine 02_design_system --skill-model claude-sonnet-4-6
 ```
 
 | Flag | Default | Purpose |
@@ -404,12 +429,12 @@ Each run directory contains one transcript JSON file per scenario that executed,
 ```
 run_20260520_221635/
 ├── 01_product_brief_transcript.json
-├── 02_ux_design_transcript.json
+├── 02_design_system_transcript.json
 ├── 03_architecture_transcript.json
 └── workspace/
     └── docs/
         ├── product-brief.md
-        └── ux-design.md       ← architecture.md absent = scenario 3 failed
+        └── design-system.md       ← architecture.md absent = scenario 3 failed
 ```
 
 **Quick health check** — for each transcript, report entry count, function calls, and
@@ -624,7 +649,7 @@ output file. Example:
 | Skill | Writer Reference |
 |---|---|
 | Product Brief | ✅ Stage 3 drafting |
-| UX Design | ✅ Stage 5 compilation |
+| Design System | ✅ Stage 5 compilation |
 | Architecture | ✅ Phase 6 draft |
 | Scaffold | ✅ Phase 4 draft |
 | MVP Planning | ✅ Phase 4 draft |

@@ -17,7 +17,7 @@ Each phase updates the pitch's `status` frontmatter as it activates (`discovery`
 
 ## Phase 1: Discovery
 
-Discovery establishes the boundary of the bet in terms of user value. The agent reads the upstream `docs/` artifacts (Product Brief, Architecture, UX Design) to ground the conversation in the existing system, checks the `## Bets` section of discovery notes for sequencing instincts captured earlier, then collaborates with the user on:
+Discovery establishes the boundary of the bet in terms of user value. The agent reads the upstream `docs/` artifacts (Product Brief, Architecture, Design System) to ground the conversation in the existing system, checks the `## Bets` section of discovery notes for sequencing instincts captured earlier, then collaborates with the user on:
 
 - The core user problem
 - The proposed solution at a high level (not technical)
@@ -60,7 +60,7 @@ The phase runs seven steps:
 1. Update pitch status to `validation`.
 2. Run the full test suite. Verify contract integrity (no rogue HTTP calls, no manual schemas).
 3. Review the delivery with the user.
-4. **Apply the Living Documents protocol** — scan and surgically update `docs/architecture.md`, `docs/ux-design.md`, `docs/product-brief.md`, and `docs/infrastructure.md` against what the bet delivered. Report each change.
+4. **Apply the Living Documents protocol** — scan and surgically update `docs/architecture.md`, `docs/design-system.md`, `docs/product-brief.md`, and `docs/infrastructure.md` against what the bet delivered. Report each change.
 5. **Update discovery notes** — append new `## Bets` entries for signals about future work; remove entries consumed during this bet.
 6. Mark the pitch `status: delivered`.
 7. Recommend a fresh context for the next bet. The rich delivery context has been compressed into doc updates and discovery notes.

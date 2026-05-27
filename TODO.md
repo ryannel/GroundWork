@@ -55,8 +55,13 @@ Required to ship brownfield:
 - [ ] **Orchestrator routing**: Add a brownfield path to `src/skills/groundwork-orchestrator/SKILL.md`. Project Type Detection already distinguishes greenfield from brownfield in the filesystem; brownfield currently routes nowhere.
 - [ ] **`groundwork-brief-extract`**: Reconstruct a product brief from existing README, package metadata, and a targeted user interview when the project already has shipped code.
 - [ ] **`groundwork-architecture-extract`**: Two-tiered scan (shallow service discovery, deep contract pinning) that infers `docs/architecture.md` from the existing codebase. Static contract pinning prioritises OpenAPI/AsyncAPI/Protobuf/migration files when present.
-- [ ] **`groundwork-ux-extract`**: Pull existing design tokens, component libraries, and Tailwind config into `docs/ux-design.md`; fill gaps via targeted interview.
+- [ ] **`groundwork-ux-extract`**: Pull existing design tokens, component libraries, and Tailwind config into `docs/design-system.md`; fill gaps via targeted interview.
 - [ ] **Drift baseline**: Once brownfield extraction completes, `groundwork-check` needs a baseline scan to populate `source_of_truth` frontmatter across all extracted artifacts.
+
+## Deferred from Plans
+
+- [ ] **Skill ↔ doc sync checks**: Skills are stand-alone (not references into docs), so updates to a skill and its related doc can drift apart silently. Extend the same drift-detection logic used for code ↔ doc sync (git-based check) to cover skill ↔ doc pairs. Captured 2026-05-27.
+- [ ] **Success-signal measurement plan (F14)**: The MVP pitch captures a success signal (a concrete observable outcome that confirms the MVP delivered value), but nothing wires that signal to a measurement plan. Needs its own design conversation — where metrics live, who instruments them, what triggers the readout. Deferred from `docs/plans/greenfield-flow-improvements.md` 2026-05-26.
 
 ## Ideas Backlog
 - *Add your ideas here...*

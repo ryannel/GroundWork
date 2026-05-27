@@ -54,6 +54,6 @@
 **Services touched:** [comma-separated list]
 
 **Proof of Work:**
-- [ ] `docs/bets/<bet-slug>/technical-design.md` drafted (data flows, API contracts, UX design)
+- [ ] `docs/bets/<bet-slug>/technical-design.md` drafted (data flows, API contracts, design)
 - [ ] All milestones present in this checklist with non-empty Criteria, Service Slices, Requirements, and Test Cases
 - [ ] Test files written to `docs/bets/<bet-slug>/tdd/` for each milestone

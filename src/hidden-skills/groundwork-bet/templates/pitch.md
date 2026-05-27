@@ -25,9 +25,7 @@ last_reviewed:
 ### Milestone 1: [Milestone Name]
 - **Goal:** What demonstrable state does this reach?
 - **Depends on:** (none, or Milestone N)
-- **FR Coverage:** What Functional Requirements does this satisfy?
 
 ### Milestone 2: [Milestone Name]
 - **Goal:** What demonstrable state does this reach?
 - **Depends on:** (none, or Milestone N)
-- **FR Coverage:** What Functional Requirements does this satisfy?

@@ -62,16 +62,20 @@ After the user confirms the output of each phase, update the corresponding secti
 
 **This phase is silent preparation — do not speak to the user.**
 
-Read the project's existing documents before starting the conversation. The Product Brief defines what the system does and who it serves. The UX Design captures non-functional requirements — performance targets, interaction latency, real-time needs, and the experience constraints that shape infrastructure decisions. Discovery Notes may contain architectural signals from earlier phases.
+Read upstream context in the order the Operating Contract Protocol 3.2 prescribes — hand-off first, then summary headers, then full body only when a specific decision requires it. Pre-loading the full upstream docs into context wastes the working memory you need for the architectural decisions ahead.
 
-Documents to read:
-- `docs/product-brief.md`
-- `docs/ux-design.md`
-- `.groundwork/cache/discovery-notes.md` (check for `## Architecture` entries)
+Read in this order:
 
-The orchestrator guarantees these documents exist before this skill is invoked — if a file is missing, proceed without it and note the gap internally.
+1. **Hand-off file (full)** — `.groundwork/cache/handoff/design-system.md` if it exists. Carries the design system phase's rejected directions, deferred decisions, and user instincts that did not fit in `docs/design-system.md`. Read in full.
+2. **Summary headers** — read only the `## Summary for Downstream` section of:
+   - `docs/product-brief.md` — Key Decisions, Binding Constraints, Deferred Questions
+   - `docs/design-system.md` — non-functional requirements, performance and interaction budgets, accessibility floors
+3. **Discovery notes** — `.groundwork/cache/discovery-notes.md`, only entries under `## Architecture`.
+4. **Full body sections — lazy** — read a section from the body of an upstream doc only when a specific decision in Phases 2–5 requires detail the summary does not carry. Do not pre-load the full body.
 
-Arrive at Phase 2 already knowing as much about the system as the existing documents can tell you.
+The orchestrator guarantees the upstream docs exist before this skill is invoked — if a file is missing, proceed without it and note the gap internally. The hand-off file is optional; if absent, the previous phase had nothing to drop.
+
+Arrive at Phase 2 already knowing as much about the system as the summaries and hand-off can tell you, with the body available for lazy reads when specific decisions demand it.
 
 ---
 
@@ -97,7 +101,7 @@ These areas commonly surface constraints, but the conversation may reveal others
 
 - **Existing technology and vendor constraints** — what is already in place, what is off the table, and what commitments already exist. An existing cloud provider relationship, a legacy system that must be integrated, a technology ban, or a team's existing expertise all constrain the design space in ways that the documents may not have captured.
 
-- **Performance** — latency and throughput targets are typically captured in the UX Design NFRs. Reference those directly. Only explore further here if they are absent or if the architecture introduces system paths the design phase did not account for.
+- **Performance** — latency and throughput targets are typically captured in the Design System NFRs. Reference those directly. Only explore further here if they are absent or if the architecture introduces system paths the design phase did not account for.
 
 When you have a clear picture of the constraints, summarise them and confirm with the user before moving to Phase 3.
 
@@ -217,16 +221,30 @@ When ready:
 
 1. **Load the template.** Read `.agents/groundwork/skills/groundwork-architecture/architecture-template.md` to load the required section structure. Do not invent a custom structure — the template is the canonical format.
 
-2. **Draft.** Synthesize Phases 2–5 into the template structure. The Service-Level Requirements table carries the architectural obligations into service-level design — every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record decisions and their rationale — not the options that were considered. Write the draft to `.groundwork/cache/architecture-draft.md` in sections — use `write_file` for the first major section, then `append_file` for each subsequent section. This keeps each tool call focused and assembles the full document correctly through the sequence of appends.
+2. **Draft.** Synthesize Phases 2–5 into the template structure. The Service-Level Requirements table carries the architectural obligations into service-level design — every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record decisions and their rationale — not the options that were considered.
 
-3. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/architecture-draft.md`) and document type (`architecture`). Report the verdict and any findings explicitly before proceeding.
+   Write the draft as a directory of per-section files under `.groundwork/cache/architecture-draft/`. Each file stays bounded in size, so any later change (review revise, post-review edit) touches only the affected files instead of regenerating the whole doc in a single turn. Regenerating the whole doc at once exhausts the per-response output token budget on rich architectures; the per-section layout makes that failure structurally impossible. Use one `write_file` call per section (the tool creates parent directories automatically):
+
+   | File | Content |
+   |---|---|
+   | `00-header.md` | Document title and brief introduction |
+   | `01-constraints-and-budgets.md` | Template section 1 |
+   | `02-top-level-topology.md` | Template section 2 |
+   | `03-key-capabilities.md` | Template section 3 (capability areas and technology decisions with rationale) |
+   | `04-component-boundaries.md` | Template section 4 |
+   | `05-communication-patterns.md` | Template section 5 |
+   | `06-service-level-requirements.md` | Template section 6 (the SLR table) |
+
+   The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — its top-level heading should start at H2 (`## 1. Constraints & Budgets`) to compose cleanly when the files are concatenated.
+
+3. **Review.** Announce that the review process is starting. Assemble the draft for review: `run_command("cat .groundwork/cache/architecture-draft/*.md > .groundwork/cache/architecture-draft.md")`. This is a shell operation, not a model emission — it does not consume output tokens regardless of doc size. Then invoke the review subagent with `document_path: .groundwork/cache/architecture-draft.md` and `document_type: architecture`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and any findings explicitly before proceeding.
 
 4. **Revise loop.** If the verdict is **REVISE**:
-   - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
-   - Write the revised draft back to `.groundwork/cache/architecture-draft.md`.
+   - Apply all 🔴 Critical findings directly to the affected section file(s) under `.groundwork/cache/architecture-draft/`. Do not produce a list of suggestions — rewrite only the files the finding implicates. Each `write_file` is bounded by the size of one section, never the whole doc.
+   - Re-assemble: `run_command("cat .groundwork/cache/architecture-draft/*.md > .groundwork/cache/architecture-draft.md")`.
    - Run the review again. Repeat until the verdict is **PRESENT**.
 
-5. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
+5. **Present.** Once the verdict is PRESENT, present the final draft section by section — emit each section file's contents in turn, pausing briefly between sections so the user can respond. Do not emit the full document in a single message; large architectures exceed the per-response output token budget. After all sections are presented, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them. Clean up the assembled file once presentation is complete: `run_command("rm .groundwork/cache/architecture-draft.md")`. The section files remain the source of truth for Phase 7.
 
 6. Ask the user whether to save the architecture as-is or refine anything first. Proceed to Phase 7 only on explicit approval.
 
@@ -234,13 +252,27 @@ When ready:
 
 ### Phase 7: Commit
 
-Execute **only** after the user has explicitly approved the complete draft in Phase 6 and all phases in `.groundwork/cache/architecture-cache.md` are marked `complete`. Follow the Phase Lifecycle commit protocol from the Operating Contract.
+Execute **only** after the user has explicitly approved the complete draft in Phase 6 and all phases in `.groundwork/cache/architecture-cache.md` are marked `complete`. Follow the Phase Lifecycle commit protocol from the Operating Contract (Protocol 3.4).
 
-1. Write the finalised architecture to `docs/architecture.md` by promoting it from `.groundwork/cache/architecture-draft.md`.
-2. Delete the cache files `.groundwork/cache/architecture-cache.md` and `.groundwork/cache/architecture-draft.md`.
-3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`, `docs/ux-design.md`). Apply surgical updates. Report what changed.
-4. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Architecture` entries incorporated into `docs/architecture.md`.
-5. Confirm that the phase is complete.
-6. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-7. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+1. **Verify the summary header.** Before assembling, verify `00-header.md` (or the first section file under `.groundwork/cache/architecture-draft/`) contains a `## Summary for Downstream` section populated per Protocol 5 — Key Decisions (technology choices, service boundaries, communication patterns), Binding Constraints (the constraints from Phase 2 that downstream services must respect), Deferred Questions (anything punted to bet planning), Out of Scope. If missing, apply the `groundwork-writer` skill to add it before assembling. The summary is the contract every downstream phase reads first.
+
+2. **Extract domain entities.** Identify every core domain entity that surfaces in the architecture — the nouns that services own (users, accounts, orders, sessions, events, and similar). For each entity, write a stub to `docs/domain/<entity-name>.md` using the template at `.agents/groundwork/skills/templates/domain-entity.md`. Each stub must specify: what the entity is, its core fields, its lifecycle states with transition triggers, the service that owns it, and the events it emits on state change. Stubs are explicitly incomplete — bet planning extends them as the system grows. Create the `docs/domain/` directory if it does not exist.
+
+3. **Write architectural decision records.** For each significant decision made during the architecture conversation — auth strategy, messaging pattern, database choice, communication patterns, service boundaries, deployment approach — write an ADR to `docs/decisions/NNNN-<slug>.md` using the template at `.agents/groundwork/skills/templates/adr.md`. Significance test: would a new engineer joining the project need to know this decision to avoid relitigating it? If yes, record it. Number sequentially: read the existing `docs/decisions/` directory and use the next available integer (zero-padded to four digits, starting at `0001`). Each ADR must contain: context (what forced the decision), decision (what was chosen), and trade-offs (what was given up, what risk was accepted). Status starts as `accepted`. Create the `docs/decisions/` directory if it does not exist.
+
+4. **Assemble the final architecture.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/architecture-draft/*.md > docs/architecture.md")`. The numeric prefixes guarantee the correct section order. This is a shell operation, not a model emission — it does not consume output tokens regardless of doc size.
+
+5. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/architecture.md` and fill in only the sections that have content: rejected technology choices with rationale, deferred decisions (multi-region rollout, observability stack, anything punted), user instincts about scaling or vendor preferences not yet committed, and any other context the scaffold phase needs. Omit empty sections. This is the Hand-off Cache contract from Protocol 6.
+
+6. **Clean up caches.** Remove the architecture phase's own caches and the previous phase's consumed hand-off: `run_command("rm -rf .groundwork/cache/architecture-draft .groundwork/cache/architecture-cache.md .groundwork/cache/handoff/design-system.md")`. The Cache Isolation rule (Protocol 7) requires the previous hand-off to be deleted once consumed.
+
+7. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`, `docs/design-system.md`). Apply surgical updates and refresh affected summary headers. Report what changed.
+
+8. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Architecture` entries incorporated into `docs/architecture.md` or the hand-off file.
+
+9. Confirm that the phase is complete.
+
+10. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+
+11. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
 

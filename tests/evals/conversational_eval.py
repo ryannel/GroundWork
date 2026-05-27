@@ -17,6 +17,31 @@ def print(*args, **kwargs):
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
 
+_INIT_REQUIRED_PATHS = [
+    ".agents/skills/groundwork-orchestrator/SKILL.md",
+    ".agents/skills/groundwork-check/SKILL.md",
+    ".agents/groundwork/skills/groundwork-product-brief/instructions.md",
+    ".agents/groundwork/skills/groundwork-design-system/instructions.md",
+    ".agents/groundwork/skills/groundwork-architecture/instructions.md",
+    ".agents/groundwork/skills/groundwork-scaffold/instructions.md",
+    ".agents/groundwork/skills/groundwork-mvp/instructions.md",
+    ".agents/groundwork/skills/groundwork-bet/instructions.md",
+    ".groundwork/config/generators.json",
+]
+
+
+def _assert_init_complete(sandbox_dir: Path) -> bool:
+    """Fail fast if groundwork init did not install the expected skill files."""
+    missing = [p for p in _INIT_REQUIRED_PATHS if not (sandbox_dir / p).exists()]
+    if missing:
+        print("ERROR: groundwork init is missing expected files:")
+        for p in missing:
+            print(f"  ✘ {p}")
+        return False
+    print(f"  [init-check] All {len(_INIT_REQUIRED_PATHS)} expected skill files present.")
+    return True
+
+
 # Hard safety cap — no run can exceed this regardless of scenario/CLI settings.
 ABSOLUTE_MAX_TURNS = 50
 
@@ -100,8 +125,20 @@ def retry_with_backoff(func, max_retries=8, base_delay=4):
 # Sandbox tools
 # ---------------------------------------------------------------------------
 
-def get_tools(sandbox_dir: Path):
-    """Return (function_map, tool_schemas) scoped to sandbox_dir."""
+def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, review_model_id: str | None = None, usage_accumulator: dict | None = None):
+    """Return (function_map, tool_schemas) scoped to sandbox_dir.
+
+    When `client` and `review_model_id` are provided, an `invoke_review` tool is
+    exposed. It runs the groundwork-review skill in an **isolated** SDK call —
+    the review's deliberation never reaches the calling skill's context. The
+    caller receives only the verdict and findings. This mirrors the Task-tool
+    subagent pattern used in Claude Code.
+
+    The optional `usage_accumulator` dict (if provided) is mutated to record
+    token usage from both the main skill loop and the review subagent. This
+    makes the review subagent's token spend visible in scenario reporting even
+    though it runs in a separate SDK conversation.
+    """
 
     def _guard(path: str) -> Path:
         target = (sandbox_dir / path).resolve()
@@ -144,6 +181,19 @@ def get_tools(sandbox_dir: Path):
             f.write("\n" + content)
         return f"Successfully appended to {path}"
 
+    def move_file(source: str, destination: str) -> str:
+        """Moves a file from source to destination, creating parent directories if needed."""
+        try:
+            src = _guard(source)
+            dst = _guard(destination)
+        except ValueError as e:
+            return f"Error: {e}"
+        if not src.exists():
+            return f"Error: File {source} does not exist."
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(src), str(dst))
+        return f"Successfully moved {source} to {destination}"
+
     def list_directory(path: str) -> str:
         """Lists files and directories in the specified path."""
         try:
@@ -174,12 +224,122 @@ def get_tools(sandbox_dir: Path):
         except Exception as e:
             return f"Error running command: {e}"
 
+    def invoke_review(document_path: str, document_type: str) -> str:
+        """Run the groundwork-review skill in an isolated SDK call.
+
+        The review subagent reads the document and upstream context inside its
+        own conversation, runs its checks, and returns verdict + findings only.
+        The caller sees the returned text and nothing else — the deliberation
+        does not flow back into the caller's context window. This is the
+        isolated-context contract Protocol 5/6 of the operating contract assume.
+        """
+        if client is None or review_model_id is None:
+            return "Error: invoke_review is not configured (client/model unavailable in this harness run)."
+
+        review_skill_path = sandbox_dir / ".agents" / "groundwork" / "skills" / "groundwork-review" / "instructions.md"
+        if not review_skill_path.exists():
+            return f"Error: review skill not installed at {review_skill_path}. Skill install incomplete."
+
+        # Verify the draft exists before spending an SDK call on it.
+        try:
+            draft_target = _guard(document_path)
+        except ValueError as e:
+            return f"Error: {e}"
+        if not draft_target.exists():
+            return f"Error: document_path {document_path} does not exist."
+
+        review_system_text = review_skill_path.read_text()
+        review_user_text = (
+            f"document_path: {document_path}\n"
+            f"document_type: {document_type}\n\n"
+            "Run the checks defined in your instructions and return only VERDICT and FINDINGS."
+        )
+
+        # The review subagent gets read-only tools — it must not write, move, or run commands.
+        review_fn_map = {"read_file": read_file, "list_directory": list_directory}
+        review_tool_schemas = [
+            {
+                "name": "read_file",
+                "description": "Reads the contents of a file.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"path": {"type": "string"}},
+                    "required": ["path"],
+                },
+            },
+            {
+                "name": "list_directory",
+                "description": "Lists files and directories in the specified path.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"path": {"type": "string"}},
+                    "required": ["path"],
+                },
+            },
+        ]
+
+        review_system = [{"type": "text", "text": review_system_text, "cache_control": {"type": "ephemeral"}}]
+        review_messages = [{"role": "user", "content": review_user_text}]
+
+        # Run the review's own tool-use loop. Capped at 8 rounds — a review
+        # typically needs <5: read draft, read 1-3 upstreams, return.
+        _REVIEW_MAX_ROUNDS = 8
+        final_texts: list[str] = []
+
+        try:
+            for _ in range(_REVIEW_MAX_ROUNDS):
+                response = retry_with_backoff(lambda: client.messages.create(
+                    model=review_model_id,
+                    max_tokens=4096,
+                    system=review_system,
+                    messages=review_messages,
+                    tools=review_tool_schemas,
+                    temperature=0.0,
+                ))
+                # Review subagent usage is captured into the same accumulator so
+                # scenario reporting sees the total spend even though the review
+                # ran in an isolated context.
+                _record_usage(response, usage_accumulator)
+
+                texts = [b.text for b in response.content if b.type == "text"]
+                tool_uses = [b for b in response.content if b.type == "tool_use"]
+                final_texts = texts  # keep most recent
+
+                asst_content = []
+                for t in texts:
+                    asst_content.append({"type": "text", "text": t})
+                for tu in tool_uses:
+                    asst_content.append({"type": "tool_use", "id": tu.id, "name": tu.name, "input": tu.input})
+                review_messages.append({"role": "assistant", "content": asst_content})
+
+                if response.stop_reason == "end_turn" or not tool_uses:
+                    break
+
+                tool_results = []
+                for tu in tool_uses:
+                    fn = review_fn_map.get(tu.name)
+                    if fn is None:
+                        result = f"Error: review subagent attempted disallowed tool '{tu.name}'"
+                    else:
+                        try:
+                            result = fn(**tu.input)
+                        except Exception as e:
+                            result = f"Error executing {tu.name}: {e}"
+                    tool_results.append({"type": "tool_result", "tool_use_id": tu.id, "content": str(result)})
+                review_messages.append({"role": "user", "content": tool_results})
+        except Exception as e:
+            return f"Error: review subagent failed: {type(e).__name__}: {str(e)[:200]}"
+
+        return "\n".join(final_texts).strip() or "Error: review subagent returned no text."
+
     fns = {
         "read_file": read_file,
         "write_file": write_file,
         "append_file": append_file,
+        "move_file": move_file,
         "list_directory": list_directory,
         "run_command": run_command,
+        "invoke_review": invoke_review,
     }
 
     schemas = [
@@ -217,6 +377,18 @@ def get_tools(sandbox_dir: Path):
             },
         },
         {
+            "name": "move_file",
+            "description": "Moves a file from source to destination. Use this to promote draft files (e.g. .groundwork/cache/<name>-draft.md) to their final location in docs/ without re-emitting the file contents through the model. Creates destination parent directories if needed.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "source": {"type": "string", "description": "Existing file path relative to workspace root."},
+                    "destination": {"type": "string", "description": "Destination file path relative to workspace root."},
+                },
+                "required": ["source", "destination"],
+            },
+        },
+        {
             "name": "list_directory",
             "description": "Lists files and directories in the specified path.",
             "input_schema": {
@@ -234,6 +406,18 @@ def get_tools(sandbox_dir: Path):
                 "required": ["command"],
             },
         },
+        {
+            "name": "invoke_review",
+            "description": "Runs the groundwork-review skill in an isolated subagent context. The subagent reads the draft and upstream summary headers in its own conversation, then returns verdict (PRESENT or REVISE) and findings list. The deliberation does not return — only the verdict and findings. Use this at every commit-step review checkpoint instead of reading the review instructions inline. This is the standard environment-agnostic invocation pattern from the operating contract.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "document_path": {"type": "string", "description": "Path to the draft to review, relative to workspace root."},
+                    "document_type": {"type": "string", "description": "One of: product-brief, design-system, architecture, infrastructure, bet-pitch, technical-design."},
+                },
+                "required": ["document_path", "document_type"],
+            },
+        },
     ]
 
     return fns, schemas
@@ -242,7 +426,38 @@ def get_tools(sandbox_dir: Path):
 # Skill agent turn
 # ---------------------------------------------------------------------------
 
-def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, system: list, tools: list, fns: dict):
+def _record_usage(response, usage_accumulator: dict | None) -> dict:
+    """Capture input/output token usage from a Messages API response.
+
+    Returns the per-call usage dict; also accumulates into the optional
+    scenario-level accumulator. Tracks input_tokens, output_tokens, and
+    the prompt-cache fields when present (cache hits cut the cost of long,
+    stable system prompts). Max input_tokens is also tracked separately
+    because the *peak* per-call input is the right proxy for context size
+    — cumulative input conflates conversation length with context bloat.
+    """
+    u = getattr(response, "usage", None)
+    if u is None:
+        return {}
+    per_call = {
+        "input_tokens": getattr(u, "input_tokens", 0) or 0,
+        "output_tokens": getattr(u, "output_tokens", 0) or 0,
+        "cache_creation_input_tokens": getattr(u, "cache_creation_input_tokens", 0) or 0,
+        "cache_read_input_tokens": getattr(u, "cache_read_input_tokens", 0) or 0,
+    }
+    if usage_accumulator is not None:
+        usage_accumulator["total_input_tokens"] = usage_accumulator.get("total_input_tokens", 0) + per_call["input_tokens"]
+        usage_accumulator["total_output_tokens"] = usage_accumulator.get("total_output_tokens", 0) + per_call["output_tokens"]
+        usage_accumulator["total_cache_creation_input_tokens"] = usage_accumulator.get("total_cache_creation_input_tokens", 0) + per_call["cache_creation_input_tokens"]
+        usage_accumulator["total_cache_read_input_tokens"] = usage_accumulator.get("total_cache_read_input_tokens", 0) + per_call["cache_read_input_tokens"]
+        prev_peak = usage_accumulator.get("peak_input_tokens", 0)
+        if per_call["input_tokens"] > prev_peak:
+            usage_accumulator["peak_input_tokens"] = per_call["input_tokens"]
+        usage_accumulator["api_calls"] = usage_accumulator.get("api_calls", 0) + 1
+    return per_call
+
+
+def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, system: list, tools: list, fns: dict, usage_accumulator: dict | None = None):
     """Execute one skill agent turn, including the tool-use loop.
 
     Returns (all_texts, all_fc_logs, new_messages, transcript_entries).
@@ -256,12 +471,13 @@ def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, syst
 
     response = retry_with_backoff(lambda: client.messages.create(
         model=model_id,
-        max_tokens=16000,
+        max_tokens=32000,
         system=system,
         messages=messages,
         tools=tools,
         temperature=0.2,
     ))
+    _record_usage(response, usage_accumulator)
 
     for _ in range(_MAX_FUNCTION_ROUNDS):
         # If the model ran out of tokens mid-generation, tool calls may be
@@ -327,12 +543,13 @@ def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, syst
 
         response = retry_with_backoff(lambda: client.messages.create(
             model=model_id,
-            max_tokens=16000,
+            max_tokens=32000,
             system=system,
             messages=messages + new_messages,
             tools=tools,
             temperature=0.2,
         ))
+        _record_usage(response, usage_accumulator)
 
     return all_texts, all_fc_logs, new_messages, transcript_entries
 
@@ -358,6 +575,7 @@ def simulate_conversation(
     user_model_id: str = "claude-haiku-4-5-20251001",
     turn_delay: float = 0.0,
     success_files: list[str] | None = None,
+    max_input_tokens: int | None = None,
 ):
     if turns > ABSOLUTE_MAX_TURNS:
         print(f"  ⚠ Requested {turns} turns exceeds ABSOLUTE_MAX_TURNS ({ABSOLUTE_MAX_TURNS}). Capping.")
@@ -365,8 +583,8 @@ def simulate_conversation(
     print(f"Starting simulation for {skill_name} (skill={skill_model_id}, user={user_model_id})...")
 
     skill_system_text = f"""You are an expert AI agent.
-You have access to file editing tools (read_file, write_file, append_file, list_directory).
-When your instructions tell you to read, check, or list files — YOU MUST CALL read_file or list_directory. When your instructions tell you to write, create, or append to a file — YOU MUST CALL write_file or append_file. Never describe a file operation in text instead of executing it.
+You have access to file editing tools (read_file, write_file, append_file, move_file, list_directory, run_command).
+When your instructions tell you to read, check, or list files — YOU MUST CALL read_file or list_directory. When your instructions tell you to write, create, or append to a file — YOU MUST CALL write_file or append_file. When promoting a draft to its final location, move or concatenate it via the filesystem (move_file for a single file, or run_command with `cat`/`mv` for directory-based drafts) — never read a large draft into the model and rewrite it through write_file, as round-tripping the contents through the model exhausts the output token budget. Never describe a file operation in text instead of executing it.
 If you need scratch files for intermediate work, write them to .dev/ in the workspace.
 
 Follow these exact skill instructions:
@@ -376,7 +594,20 @@ Follow these exact skill instructions:
     # Cache the system prompt — it's constant across all turns in a scenario.
     skill_system = [{"type": "text", "text": skill_system_text, "cache_control": {"type": "ephemeral"}}]
 
-    fns, tool_schemas = get_tools(sandbox_dir)
+    # Scenario-level usage accumulator. _skill_turn and invoke_review both
+    # write to it so reporting captures the total token spend including the
+    # isolated review subagent calls.
+    usage_accumulator: dict = {
+        "total_input_tokens": 0,
+        "total_output_tokens": 0,
+        "total_cache_creation_input_tokens": 0,
+        "total_cache_read_input_tokens": 0,
+        "peak_input_tokens": 0,
+        "api_calls": 0,
+        "budget_violations": [],
+    }
+
+    fns, tool_schemas = get_tools(sandbox_dir, client=client, review_model_id=skill_model_id, usage_accumulator=usage_accumulator)
 
     user_system = f"""You are a simulated user participating in a test of an AI assistant's skills.
 Your persona: {user_persona}
@@ -397,7 +628,12 @@ Rules:
 
     def save_transcript():
         with open(out_file, 'w') as f:
-            json.dump({"scenario": scenario_name, "skill_name": skill_name, "transcript": transcript_entries}, f, indent=2)
+            json.dump({
+                "scenario": scenario_name,
+                "skill_name": skill_name,
+                "usage": dict(usage_accumulator),
+                "transcript": transcript_entries,
+            }, f, indent=2)
 
     current_message = _OPENER
     print(f"\nUser:\n{current_message}")
@@ -415,7 +651,7 @@ Rules:
         # 2. Skill agent responds (with tool-use loop)
         try:
             all_texts, all_fc_logs, new_msgs, turn_tr = _skill_turn(
-                client, skill_model_id, skill_messages, skill_system, tool_schemas, fns
+                client, skill_model_id, skill_messages, skill_system, tool_schemas, fns, usage_accumulator
             )
             skill_messages.extend(new_msgs)
             transcript_entries.extend(turn_tr)
@@ -423,6 +659,23 @@ Rules:
         except Exception as e:
             print(f"Error calling Skill Agent: {e}")
             break
+
+        # 2b. Budget assertion: the peak input_tokens across all API calls in
+        # the scenario must stay under the scenario's max_input_tokens budget.
+        # Peak (not cumulative) is the right metric — it measures the size of
+        # the largest single context, which is what we are trying to keep
+        # small. Long conversations may have many turns and still pass.
+        if max_input_tokens is not None and usage_accumulator["peak_input_tokens"] > max_input_tokens:
+            violation = {
+                "turn": i + 1,
+                "peak_input_tokens": usage_accumulator["peak_input_tokens"],
+                "budget": max_input_tokens,
+            }
+            usage_accumulator["budget_violations"].append(violation)
+            print(f"\n  [BUDGET VIOLATION] peak_input_tokens={usage_accumulator['peak_input_tokens']} exceeds max_input_tokens={max_input_tokens} on turn {i + 1}")
+            save_transcript()
+            # The scenario continues so we can see what happens, but the
+            # violation is recorded and the scenario is marked failed at exit.
 
         skill_text = all_texts[-1].strip() if all_texts else ""
         log_text = "\n".join(all_texts + all_fc_logs) if (all_texts or all_fc_logs) else "[Empty response]"
@@ -494,9 +747,78 @@ Rules:
                 print(f"\n  [TERMINATION] User satisfied (no success_files required).")
                 break
 
+    # Final usage summary to stdout so eval runs are self-documenting.
+    print(
+        f"\n  [USAGE] input={usage_accumulator['total_input_tokens']} "
+        f"output={usage_accumulator['total_output_tokens']} "
+        f"peak_input={usage_accumulator['peak_input_tokens']} "
+        f"cache_read={usage_accumulator['total_cache_read_input_tokens']} "
+        f"api_calls={usage_accumulator['api_calls']}"
+    )
+    if usage_accumulator["budget_violations"]:
+        print(f"  [USAGE] {len(usage_accumulator['budget_violations'])} budget violation(s) recorded — scenario marked failed.")
+        return False
+
     if success_files:
         return task_completed
     return True
+
+
+def _trim_docs_to_summaries(docs_dir: Path) -> None:
+    """Trim every `*.md` in docs_dir to its frontmatter and Summary for Downstream section.
+
+    Walks the directory recursively. For each markdown file, preserves the
+    YAML frontmatter block (if present) and the `## Summary for Downstream`
+    section, then truncates everything that follows. Adds an explicit
+    `<!-- body trimmed for summary-only test -->` marker so debugging is
+    obvious. If a file has no summary section, it is left unchanged but a
+    warning is printed — the test depends on the summary contract being met.
+    """
+    import re
+
+    if not docs_dir.exists():
+        return
+
+    summary_heading_re = re.compile(r"^##\s+Summary for Downstream\s*$", re.MULTILINE)
+    next_h2_re = re.compile(r"^##\s+", re.MULTILINE)
+
+    trimmed = 0
+    missing = []
+    for md in docs_dir.rglob("*.md"):
+        text = md.read_text()
+        # Preserve frontmatter (--- delimited at top).
+        frontmatter = ""
+        body_start = 0
+        if text.startswith("---\n"):
+            end = text.find("\n---\n", 4)
+            if end != -1:
+                frontmatter = text[: end + 5]
+                body_start = end + 5
+
+        body = text[body_start:]
+        summary_match = summary_heading_re.search(body)
+        if not summary_match:
+            missing.append(str(md.relative_to(docs_dir.parent)))
+            continue
+
+        summary_start = summary_match.start()
+        # Find the next H2 after the summary heading to know where to cut.
+        next_h2 = next_h2_re.search(body, summary_match.end())
+        summary_end = next_h2.start() if next_h2 else len(body)
+
+        trimmed_content = (
+            frontmatter
+            + body[summary_start:summary_end].rstrip()
+            + "\n\n<!-- body trimmed for summary-only test — only the frontmatter and Summary for Downstream section remain -->\n"
+        )
+        md.write_text(trimmed_content)
+        trimmed += 1
+
+    print(f"  [summary-only seed] trimmed {trimmed} doc(s) to frontmatter + summary header.")
+    if missing:
+        print(f"  [summary-only seed] WARNING: {len(missing)} doc(s) missing `## Summary for Downstream` and left untrimmed:")
+        for m in missing:
+            print(f"    - {m}")
 
 
 def run_scenario(
@@ -539,6 +861,8 @@ def run_scenario(
     depends_on = scenario.get("depends_on")
     success_files = scenario.get("success_files")
     turns = scenario.get("turns", turns)
+    max_input_tokens = scenario.get("max_input_tokens")
+    seed_summaries_only = scenario.get("seed_summaries_only", False)
 
     base_dir = Path(__file__).parent.resolve()
     sandbox_dir = REPO_ROOT / ".sandboxes" / "evals"
@@ -559,6 +883,10 @@ def run_scenario(
         )
     except subprocess.CalledProcessError as e:
         print(f"ERROR: groundwork init failed:\n{e.stderr}")
+        return
+
+    if not _assert_init_complete(sandbox_dir):
+        print("ERROR: Init incomplete — aborting scenario. Check bin/groundwork.js install logic.")
         return
 
     # 2b. Build generators so scaffold skills have access to dist/
@@ -603,6 +931,14 @@ def run_scenario(
         else:
             print(f"WARNING: No workspace or fixture for {depends_on}. Sandbox not seeded.")
 
+        # Summary-only variant: trim each docs/*.md to its frontmatter and
+        # `## Summary for Downstream` section. This tests whether the next
+        # phase can work from summaries alone — the entire point of Protocol 5.
+        # If the phase fails on summary-only seeding, the summary is missing
+        # binding information the body carries, and the contract is broken.
+        if seed_summaries_only:
+            _trim_docs_to_summaries(sandbox_dir / "docs")
+
     run_dir.mkdir(parents=True, exist_ok=True)
     out_file = run_dir / f"{scenario_name}_transcript.json"
 
@@ -620,6 +956,7 @@ def run_scenario(
         user_model_id=user_model_id,
         turn_delay=turn_delay,
         success_files=success_files,
+        max_input_tokens=max_input_tokens,
     )
 
     if success:
@@ -627,6 +964,17 @@ def run_scenario(
             shutil.rmtree(workspace_dir)
         shutil.copytree(sandbox_dir, workspace_dir, dirs_exist_ok=True)
         print(f"Sandbox saved to workspace: {workspace_dir}")
+
+        if skill_name == "groundwork-scaffold":
+            print("\nRunning scaffold structure validation (--skip-boot)...")
+            val_script = REPO_ROOT / "tests" / "evals" / "validate_scaffold.py"
+            val_result = subprocess.run(
+                [sys.executable, str(val_script), "--workspace", str(workspace_dir), "--skip-boot"],
+            )
+            if val_result.returncode != 0:
+                print("WARNING: Scaffold structure validation failed — inspect workspace above.")
+            else:
+                print("Scaffold structure validation passed.")
     else:
         print(f"WARNING: Scenario failed. Workspace NOT updated.")
 
@@ -639,7 +987,7 @@ def main():
     parser.add_argument("--scenario", help="Specific scenario name (without .json)")
     parser.add_argument("--all", action="store_true", help="Run all scenarios in the suite")
     parser.add_argument("--turns", type=int, default=5, help="Default conversation turns")
-    parser.add_argument("--skill-model", default="claude-haiku-4-5-20251001", help="Model for the skill agent")
+    parser.add_argument("--skill-model", default="claude-sonnet-4-6", help="Model for the skill agent")
     parser.add_argument("--user-model", default="claude-haiku-4-5-20251001", help="Model for the user agent")
     parser.add_argument("--turn-delay", type=float, default=0.0, help="Seconds between turns (default: 0.0, set >0 only if hitting rate limits)")
     args = parser.parse_args()

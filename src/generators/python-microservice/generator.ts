@@ -33,6 +33,23 @@ function promoteEngineerSkill(tree: Tree, skillName: string) {
   copyDir(sourcePath, `.agents/skills/${skillName}`);
 }
 
+function deployStackDocs(tree: Tree, docsRoot: string) {
+  if (!fs.existsSync(docsRoot)) return;
+
+  function walk(src: string, relPath: string) {
+    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = relPath ? `${relPath}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(srcPath, destPath);
+      } else if (!tree.exists(destPath)) {
+        tree.write(destPath, fs.readFileSync(srcPath));
+      }
+    }
+  }
+  walk(docsRoot, 'docs');
+}
+
 export interface PythonMicroserviceGeneratorSchema {
   name: string;
   rest: boolean;
@@ -112,6 +129,8 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
     projectRoot,
     templateOptions
   );
+
+  deployStackDocs(tree, path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'python-microservice', 'docs'));
 
   // Auto-inject into docker-compose.yml if it exists
   if (composeDoc) {

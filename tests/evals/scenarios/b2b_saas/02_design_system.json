@@ -1,6 +1,6 @@
 {
-  "skill_name": "groundwork-ux-design",
-  "skill_path": "src/hidden-skills/groundwork-ux-design/instructions.md",
+  "skill_name": "groundwork-design-system",
+  "skill_path": "src/hidden-skills/groundwork-design-system/instructions.md",
   "turns": 15,
   "depends_on": "01_product_brief"
 }

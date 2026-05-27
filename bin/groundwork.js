@@ -43,6 +43,20 @@ Your architecture is being tracked by GroundWork.
 `);
 }
 
+function copyDocsIdempotent(srcDir, destDir) {
+  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+    if (entry.name === 'llms.txt') continue; // deployed separately to project root
+    const src = path.join(srcDir, entry.name);
+    const dest = path.join(destDir, entry.name);
+    if (entry.isDirectory()) {
+      fs.mkdirSync(dest, { recursive: true });
+      copyDocsIdempotent(src, dest);
+    } else if (!fs.existsSync(dest)) {
+      fs.copyFileSync(src, dest);
+    }
+  }
+}
+
 function setupAgentLinks(targetDir) {
   const claudeLink = path.join(targetDir, '.claude');
   const agentsMd = path.join(targetDir, 'AGENTS.md');
@@ -178,6 +192,31 @@ function initGroundWork() {
       console.log(`\x1b[32m✔\x1b[0m Initialized project state`);
     } catch (err) {
       console.error(`\x1b[31m✖\x1b[0m Failed to initialize state:`, err.message);
+    }
+  }
+
+  // Deploy documentation foundations (idempotent — never overwrites user edits)
+  const sourceDocsDir = path.join(__dirname, '..', 'src', 'docs');
+  const targetDocsDir = path.join(targetDir, 'docs');
+  if (fs.existsSync(sourceDocsDir)) {
+    try {
+      fs.mkdirSync(targetDocsDir, { recursive: true });
+      copyDocsIdempotent(sourceDocsDir, targetDocsDir);
+      console.log(`\x1b[32m✔\x1b[0m Installed documentation foundations`);
+    } catch (err) {
+      console.error(`\x1b[31m✖\x1b[0m Failed to install documentation foundations:`, err.message);
+    }
+
+    // Deploy llms.txt to project root (idempotent)
+    const sourceLlms = path.join(sourceDocsDir, 'llms.txt');
+    const targetLlms = path.join(targetDir, 'llms.txt');
+    if (fs.existsSync(sourceLlms) && !fs.existsSync(targetLlms)) {
+      try {
+        fs.copyFileSync(sourceLlms, targetLlms);
+        console.log(`\x1b[32m✔\x1b[0m Installed llms.txt`);
+      } catch (err) {
+        console.error(`\x1b[31m✖\x1b[0m Failed to install llms.txt:`, err.message);
+      }
     }
   }
 

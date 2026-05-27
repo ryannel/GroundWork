@@ -7,7 +7,7 @@ Six phases, each with one skill and one canonical output document:
 | Phase | Skill | Output | What it establishes |
 |---|---|---|---|
 | 1 | `groundwork-product-brief` | `docs/product-brief.md` | Vision, users, capabilities, domain constraints |
-| 2 | `groundwork-ux-design` | `docs/ux-design.md` | Design system, NFRs, interaction patterns |
+| 2 | `groundwork-design-system` | `docs/design-system.md` | Design system, NFRs, interaction patterns |
 | 3 | `groundwork-architecture` | `docs/architecture.md` | Services, data flows, contracts, technology choices |
 | 4 | `groundwork-scaffold` | `docs/infrastructure.md` | Running local environment, generator output, infrastructure topology |
 | 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, and milestones |
@@ -19,8 +19,8 @@ Phases run in order. Each phase commits its document to disk, applies the Living
 
 Each phase constrains the next, and the constraints flow downhill:
 
-- **Product Brief → UX Design**: The brief establishes who the users are and what the product does. UX needs this to ground NFR decisions, target inspiration research, and inform design language.
-- **UX Design → Architecture**: The UX phase captures NFRs (performance budgets, real-time needs, accessibility commitments). Architecture decisions must respect those constraints — a 50ms interaction budget eliminates entire infrastructure approaches.
+- **Product Brief → Design System**: The brief establishes who the users are and what the product does. The Design System phase needs this to ground NFR decisions, target inspiration research, and inform design language.
+- **Design System → Architecture**: The Design System phase captures NFRs (performance budgets, real-time needs, accessibility commitments). Architecture decisions must respect those constraints — a 50ms interaction budget eliminates entire infrastructure approaches.
 - **Architecture → Scaffolding**: The architecture defines the service boundaries, technology choices, and capability decisions. Scaffolding maps those decisions to specific Nx generator invocations.
 - **Scaffolding → MVP Planning**: The infrastructure is real before MVP scoping begins. The MVP can reference concrete services and capabilities rather than aspirational ones.
 - **MVP Planning → First Bet**: MVP produces a pitch at `status: planning`. The Bet skill picks up at the planning phase and continues without re-doing discovery.

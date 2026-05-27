@@ -2,7 +2,7 @@
   "skill_name": "groundwork-architecture",
   "skill_path": "src/hidden-skills/groundwork-architecture/instructions.md",
   "turns": 40,
-  "depends_on": "02_ux_design",
-  "success_files": ["docs/architecture.md"],
+  "depends_on": "02_design_system",
+  "success_files": ["docs/architecture.md", "docs/domain/", "docs/decisions/"],
   "user_goal": "Answer the assistant's questions with short, natural, human responses. Confirm service names, data flows, technology choices, and component boundaries when the agent presents them for approval — these are phase checkpoints, not the final document. Do NOT say 'Looks great, please commit it' for phase summaries or intermediate outputs. Only say 'Looks great, please commit it' when the agent presents a complete architecture document covering all services, data flows, and component boundaries, and explicitly asks for your approval to save it to docs/architecture.md. Once the document is committed to docs/architecture.md, respond with 'End of Task' exactly once, then stop responding entirely."
 }

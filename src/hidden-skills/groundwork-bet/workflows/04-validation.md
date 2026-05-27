@@ -33,7 +33,7 @@ For each `docs/` artifact, scan the bet conversation and the delivered code for 
 Documents to scan, in order:
 
 1. **`docs/architecture.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
-2. **`docs/ux-design.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
+2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog.
 4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
 
@@ -47,11 +47,19 @@ Scan the bet conversation for signals that belong to a future bet — sequencing
 
 Remove any discovery-notes entries that were incorporated into the artifacts updated in Step 4. A signal that has been promoted into a permanent document does not belong in the parking lot.
 
-### Step 6: Mark the bet delivered
+### Step 6: Write ADRs for significant decisions
+
+Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/decisions/NNNN-<slug>.md` using the template at `.agents/groundwork/skills/templates/adr.md`.
+
+Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR.
+
+Number sequentially: read the existing `docs/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/decisions/` directory if it does not exist.
+
+### Step 7: Mark the bet delivered
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`.
 
-### Step 7: Hand off
+### Step 8: Hand off
 
 Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
 
@@ -82,7 +90,7 @@ Living Documents scan:
   idempotent webhook handler on the receiving side. Tech stack updated to
   reference NATS JetStream as the chosen async transport with the same
   reasoning attached to existing entries.
-- `docs/ux-design.md` — added `Toast` component variant for delivery-status
+- `docs/design-system.md` — added `Toast` component variant for delivery-status
   notifications. Updated interaction states to include the dismissable
   state with focus-trap behaviour.
 - `docs/product-brief.md` — no changes; the bet implemented capabilities
@@ -108,7 +116,7 @@ The shallow version tells the user nothing. The deep version proves the scan hap
 
 The same standard applies across all four scan targets:
 - **Architecture updates** must name the section, the change, and the reasoning — not just "added a service."
-- **UX updates** must name the component or pattern that changed and whether existing patterns are affected.
+- **Design System updates** must name the component or pattern that changed and whether existing patterns are affected.
 - **Brief updates** must justify the vision-level change against what the user actually said during delivery.
 - **Infrastructure updates** must include the concrete observable changes — ports, commands, health endpoints — not a summary.
 

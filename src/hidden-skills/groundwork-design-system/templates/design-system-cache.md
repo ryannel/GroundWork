@@ -1,12 +1,12 @@
-# UX Design Cache
+# Design System Cache
 
-> This file captures approved outputs from each stage of the UX Design process. It is used to resume work and to compile the final `docs/ux-design.md`. Do not edit manually.
+> This file captures approved outputs from each phase of the Design System process. It is used to resume work and to compile the final `docs/design-system.md`. Do not edit manually.
 
 **Interface Type:** pending
 
 ---
 
-## Stage 1: Non-Functional Requirements
+## Phase 1: Non-Functional Requirements
 
 **Status:** pending
 
@@ -14,7 +14,7 @@
 
 ---
 
-## Stage 2: Inspiration Library
+## Phase 2: Inspiration Library
 
 **Status:** pending
 
@@ -22,7 +22,7 @@
 
 ---
 
-## Stage 3: Structure
+## Phase 3: Structure
 
 **Status:** pending
 
@@ -30,35 +30,34 @@
 
 ---
 
-## Stage 4: Design Language
+## Phase 4: Design Language
 
 **Status:** pending
 
-### Topics Covered
+### Cluster Coverage
 
-- [ ] Aesthetic Direction
-- [ ] Content Density & Readability
-- [ ] Colour Psychology & Mood
-- [ ] Surface & Depth Philosophy
-- [ ] Motion & Feedback
-- [ ] Iconography & Imagery
-- [ ] Tone of Voice & Microcopy
-- [ ] Data Visualisation (skip if N/A)
+Language clusters group aesthetic decisions for user reaction. Track-specific contents are defined in the active track file. Skip a cluster only when irrelevant to the medium.
+
+- [ ] Cluster 1: Identity
+- [ ] Cluster 2: Feel
+- [ ] Cluster 3: Craft
 
 ### Synthesis
 
-<!-- Replace with the Stage 4 Synthesis Gate output once the user approves the direction. -->
+<!-- Replace with the Phase 4 Synthesis Gate output once the user approves the direction. -->
 
 ---
 
-## Stage 5: Expert Translation & Review
+## Phase 5: Expert Translation & Review
 
 **Status:** pending
 
-**Draft Location:** <!-- Written by the agent during 5a: path to .groundwork/cache/ux-design-draft.md -->
+**Draft Location:** `.groundwork/cache/design-system-draft/` — a directory of per-section files. See the active track for the exact file layout. Concatenated into `docs/design-system.md` at commit.
 
 ### Walkthrough Progress
 
-- [ ] Cluster 1: Identity (colour, typography, texture)
-- [ ] Cluster 2: Touch (depth, motion, interaction states)
-- [ ] Cluster 3: Polish (scrollbars, toasts, errors, loading, empty states, borders, responsive)
+Spec clusters group implementation specifics for the Phase 5b walkthrough. Names are deliberately distinct from Phase 4's language clusters.
+
+- [ ] Cluster 1: Foundation (base tokens — colour, type scale, spacing equivalents)
+- [ ] Cluster 2: Interaction (depth, motion, interaction states, behaviour under load)
+- [ ] Cluster 3: Surface (everything else — refer to the active track for the full list)

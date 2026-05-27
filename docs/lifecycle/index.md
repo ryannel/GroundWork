@@ -4,7 +4,7 @@ GroundWork operates in two modes: a one-time **Setup** that establishes the proj
 
 The lifecycle is documented across three files:
 
-1. **[01. Greenfield Setup](./01-setup.md)** — The one-time, six-phase pipeline that takes a new project from idea to first shipped bet. Covers Product Brief, UX Design, Architecture, Scaffolding, MVP Planning, and the handoff to the first Bet.
+1. **[01. Greenfield Setup](./01-setup.md)** — The one-time, six-phase pipeline that takes a new project from idea to first shipped bet. Covers Product Brief, Design System, Architecture, Scaffolding, MVP Planning, and the handoff to the first Bet.
 
 2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating four-phase Bet workflow (Discovery → Planning → Delivery → Validation) that drives all feature work after the MVP ships.
 

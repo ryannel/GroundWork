@@ -341,3 +341,82 @@ def test_python_microservice_generation(rest, postgres, messaging, websockets, l
 
     finally:
         _cleanup(svc_name)
+
+
+# ---------------------------------------------------------------------------
+# Stack docs deployment
+# ---------------------------------------------------------------------------
+
+_STACK_DOCS_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "stack-docs"
+
+
+@pytest.fixture(scope="module", autouse=False)
+def stack_docs_workspace():
+    import shutil
+    if _STACK_DOCS_SANDBOX.exists():
+        shutil.rmtree(_STACK_DOCS_SANDBOX)
+    _STACK_DOCS_SANDBOX.mkdir(parents=True)
+    (_STACK_DOCS_SANDBOX / "package.json").write_text('{"name": "stackdocstest"}')
+    (_STACK_DOCS_SANDBOX / "nx.json").write_text("{}")
+    yield
+    shutil.rmtree(_STACK_DOCS_SANDBOX, ignore_errors=True)
+
+
+def _scaffold_in(sandbox: Path, service_name: str, generator: str, **params) -> subprocess.CompletedProcess:
+    cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:{generator}", "--name", service_name]
+    for key, value in params.items():
+        cli_key = "--" + key
+        cmd.extend([cli_key, str(value).lower() if isinstance(value, bool) else str(value)])
+    return subprocess.run(cmd, cwd=sandbox, capture_output=True, text=True)
+
+
+def test_go_stack_docs_deployed(stack_docs_workspace):
+    result = _scaffold_in(_STACK_DOCS_SANDBOX, "go-svc-docs", "go-microservice",
+                          auth="none", messaging="none", websockets=False)
+    assert result.returncode == 0, f"Go generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+
+    docs_root = _STACK_DOCS_SANDBOX / "docs" / "principles" / "stack" / "go"
+    assert (docs_root / "index.md").exists(), "Go stack docs index.md not deployed"
+    assert (docs_root / "concurrency.md").exists(), "Go stack docs concurrency.md not deployed"
+    assert (docs_root / "testing.md").exists(), "Go stack docs testing.md not deployed"
+
+
+def test_python_stack_docs_deployed(stack_docs_workspace):
+    result = _scaffold_in(_STACK_DOCS_SANDBOX, "py-svc-docs", "python-microservice",
+                          rest=True, postgres=False, messaging="none",
+                          websockets=False, llm=False, runpod=False)
+    assert result.returncode == 0, f"Python generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+
+    docs_root = _STACK_DOCS_SANDBOX / "docs" / "principles" / "stack" / "python"
+    assert (docs_root / "async.md").exists(), "Python stack docs async.md not deployed"
+    assert (docs_root / "resilience.md").exists(), "Python stack docs resilience.md not deployed"
+    assert (docs_root / "testing.md").exists(), "Python stack docs testing.md not deployed"
+    assert (docs_root / "documentation.md").exists(), "Python stack docs documentation.md not deployed"
+    assert (docs_root / "mcp.md").exists(), "Python stack docs mcp.md not deployed"
+
+
+def test_nextjs_stack_docs_deployed(stack_docs_workspace):
+    result = _scaffold_in(_STACK_DOCS_SANDBOX, "next-svc-docs", "nextjs-app",
+                          auth="none", apiProxy=False, websockets=False)
+    assert result.returncode == 0, f"Next.js generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+
+    docs_root = _STACK_DOCS_SANDBOX / "docs" / "principles" / "stack" / "typescript"
+    assert (docs_root / "frontend.md").exists(), "Next.js stack docs frontend.md not deployed"
+
+
+def test_stack_docs_idempotency(stack_docs_workspace):
+    """Second generation of the same language must not overwrite existing stack docs."""
+    go_index = _STACK_DOCS_SANDBOX / "docs" / "principles" / "stack" / "go" / "index.md"
+
+    # First generation (may already be present from test_go_stack_docs_deployed)
+    _scaffold_in(_STACK_DOCS_SANDBOX, "go-idempotency-1", "go-microservice",
+                 auth="none", messaging="none", websockets=False)
+    assert go_index.exists(), "Go index.md must exist after first generation"
+    original_mtime = go_index.stat().st_mtime
+
+    # Second generation — must not touch the file
+    _scaffold_in(_STACK_DOCS_SANDBOX, "go-idempotency-2", "go-microservice",
+                 auth="none", messaging="none", websockets=False)
+    assert go_index.stat().st_mtime == original_mtime, (
+        "go/index.md mtime changed on second generation — idempotency check failed"
+    )

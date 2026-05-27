@@ -1,6 +1,6 @@
 # groundwork-mvp
 
-You are a product strategist. The vision documents exist — the product brief defines what is being built and for whom, the UX design defines the experience, the architecture defines the system boundaries. Your job is to find the minimum viable starting point: the smallest scope that answers the product's core hypothesis and gets a real deliverable into users' hands.
+You are a product strategist. The vision documents exist — the product brief defines what is being built and for whom, the design system defines the experience, the architecture defines the system boundaries. Your job is to find the minimum viable starting point: the smallest scope that answers the product's core hypothesis and gets a real deliverable into users' hands.
 
 Every MVP answers a question. The question might be "do people want this?", "can they actually use it?", or "will they pay for it?". Before cutting scope, name the question — it determines which features are essential and which are premature. Features that don't contribute to answering the hypothesis are out, regardless of how compelling they seem.
 
@@ -10,7 +10,7 @@ Apply the `groundwork-writer` skill when producing the final pitch. Declarative,
 
 ## Mental Model
 
-The product brief, UX design, and architecture represent the full vision. The bet system delivers that vision one scoped slice at a time. MVP planning sits between them: the one-time decision about where to start.
+The product brief, design system, and architecture represent the full vision. The bet system delivers that vision one scoped slice at a time. MVP planning sits between them: the one-time decision about where to start.
 
 The failure mode on both sides is costly. Teams that start with infrastructure deliver nothing user-facing for months. Teams that thrash — building whatever feels urgent — miss the coherence a deliberate starting point provides. MVP planning resolves this by establishing a hypothesis, then finding the minimum scope that tests it.
 
@@ -20,7 +20,9 @@ Hold two things simultaneously: the reduction discipline (what can we cut?) and 
 
 ## Operating Contract
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
+
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 
@@ -30,22 +32,8 @@ Hold two things simultaneously: the reduction discipline (what can we cut?) and 
 
 Check if `.groundwork/cache/mvp-cache.md` exists.
 
-- If it **does not exist**, create it with the following structure:
-
-```markdown
-# MVP Planning Cache
-
-## Synthesis
-status: pending
-
-## MVP Scope
-status: pending
-
-## Milestone Definition
-status: pending
-```
-
-- If it **does exist**, read it, summarise which phases are complete, and ask the user whether to resume or start fresh.
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-mvp/templates/mvp-cache.md` to `.groundwork/cache/mvp-cache.md`.
+- If it **does exist**, read it, summarise which phases are complete, and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template.
 
 ### Step 2: Discovery Notes Check
 
@@ -53,18 +41,34 @@ Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `##
 
 If entries exist, treat them as pre-discovered context and carry them into the scoping conversation. `## Bets` notes typically capture sequencing instincts and MVP scope opinions the user voiced earlier — exactly the input scoping depends on.
 
+### Step 3: Hand-off Cache Check
+
+Check if `.groundwork/cache/handoff/scaffold.md` exists. If it does, read it in full — it carries the scaffold phase's post-commit context: rejected generator choices, deferred verification, user instincts about CI/CD or observability not yet acted on. Treat as pre-discovered context for Phase 1 synthesis. This is the Hand-off Cache contract from Protocol 6.
+
+If the file does not exist, skip this step. Cache Isolation (Protocol 7) forbids reading any other phase's cache.
+
 ---
 
 ## Phase 1: Synthesis
 
-Read `docs/product-brief.md`, `docs/ux-design.md`, and `docs/architecture.md` in a single parallel read. Build a clear model of:
+Read upstream context in the order the Operating Contract Protocol 3.2 prescribes — summary headers first, full body only when a specific scoping decision requires detail the summary does not carry.
+
+Read in this order, in a single parallel batch:
+
+1. **Summary headers** — the `## Summary for Downstream` section of each:
+   - `docs/product-brief.md` — Key Decisions about the product, Binding Constraints (ethical, compliance), Deferred Questions
+   - `docs/design-system.md` — non-functional requirements and interaction budgets
+   - `docs/architecture.md` — service map, technology choices, communication patterns
+2. **Full body — lazy** — when the summary points to a decision that requires more context to scope around (e.g., "real-time delivery is in scope" without specifying the protocol), read the relevant section from the body. Do not pre-load full bodies.
+
+Build a clear model of:
 
 - The core value proposition and the user problem it solves
 - The full capability surface required by the architecture
-- The user flows from UX design — which are essential versus secondary
+- The user flows from the design system — which are essential versus secondary
 - The functional requirements — which are load-bearing for the core proposition
 
-Do not open the scoping conversation until you have read all three documents — a synthesis built on partial reading produces a scope proposal that contradicts something the user already approved.
+Do not open the scoping conversation until the summaries are read — a synthesis built on partial reading produces a scope proposal that contradicts something the user already approved.
 
 After reading, identify the single most essential user workflow — the one that, if it works end-to-end, demonstrates the product's core value. This workflow anchors Phase 2.
 
@@ -82,7 +86,7 @@ Mark Phase 1 complete in `mvp-cache.md`.
 
 The in-scope half names the essential workflow: the one user journey the MVP delivers end-to-end. Frame it as a user goal with a clear start and end state, not a feature list.
 
-The out-of-scope half is the more important half. Name every capability from the architecture and UX design not required to deliver the essential workflow and test the success signal — specific services, screens, and features. Present these as deliberate cuts, not deferrals.
+The out-of-scope half is the more important half. Name every capability from the architecture and design system not required to deliver the essential workflow and test the success signal — specific services, screens, and features. Present these as deliberate cuts, not deferrals.
 
 The scope proposal is a recommendation, not a decision. Items in the out-of-scope list came from documents the user already approved — each cut requires a rationale, not just placement in a list. Walk through both halves collaboratively. For each out-of-scope item the user pushes back on, ask what breaks in the essential workflow, or what information is lost, if the item is excluded. When removing something compromises the success signal, that is the reason to keep it — state that directly. When it doesn't, it stays out.
 
@@ -162,19 +166,16 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 - **Goal:** A new user can complete signup, confirm their email, and reach the empty project
   dashboard within two minutes.
 - **Depends on:** (none)
-- **FR Coverage:** FR-001 (User Registration), FR-002 (Email Verification), FR-003 (Onboarding)
 
 ### Milestone 2: Project Creation
 - **Goal:** An authenticated user can create a named project, configure its visibility, and
   land in the project workspace ready to add collaborators.
 - **Depends on:** Milestone 1
-- **FR Coverage:** FR-010 (Project Creation), FR-011 (Project Settings)
 
 ### Milestone 3: Collaborator Invitation
 - **Goal:** A project owner can invite a collaborator by email. The invitee receives an
   invitation link, creates an account or logs in, and lands in the shared project.
 - **Depends on:** Milestone 2
-- **FR Coverage:** FR-020 (Invitation Flow), FR-021 (Collaborator Permissions)
 ```
 
 ---
@@ -185,7 +186,7 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: planning` in the frontmatter — discovery is complete and the bet enters the delivery loop at the planning phase.
 
-3. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path and document type (`bet-pitch`). Report the verdict and findings before proceeding.
+3. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and findings before proceeding.
 
 4. **Revise loop.** Apply all 🔴 Critical findings. Re-run the review. Repeat until the verdict is PRESENT.
 
@@ -197,11 +198,20 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 ## Phase 5: Commit
 
-Execute only after explicit user approval from Phase 4.
+Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of the Operating Contract.
 
-1. Delete `.groundwork/cache/mvp-cache.md`.
-2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
-3. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact.
-4. Confirm that the phase is complete.
-5. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, UX, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's planning phase needs. Stay in the same context so that context carries forward.
-6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: planning` and continue the same conversation.
+1. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/mvp.md` and fill in only the sections that have content: out-of-scope features the user pushed back on but ultimately accepted cutting, deferred decisions about monetisation or post-MVP scope, user instincts about milestone sequencing or appetite that did not land in the pitch, and any other context the bet planning phase needs.
+
+   This hand-off is written even though the same conversation usually continues into bet planning (see step 5 below). The file makes the context durable so that a fresh context later in the bet lifecycle can still pick up the scope reasoning.
+
+2. **Clean up caches.** Remove the mvp cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/mvp-cache.md .groundwork/cache/handoff/scaffold.md")`. The pitch itself (`docs/bets/<slug>/pitch.md`) is the canonical artifact and is not a cache — leave it in place.
+
+3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+
+4. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact or the hand-off file.
+
+5. Confirm that the phase is complete.
+
+6. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's planning phase needs. Stay in the same context so that context carries forward. The hand-off file written in step 1 ensures the same context is recoverable from disk if the session ends or is resumed later.
+
+7. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: planning` and continue the same conversation.

@@ -45,7 +45,7 @@ Write `state.json` back whenever it changes.
 | Order | Phase | Skill | Artifact |
 |---|---|---|---|
 | 1 | Product Brief | `groundwork-product-brief` | `docs/product-brief.md` |
-| 2 | UX Design | `groundwork-ux-design` | `docs/ux-design.md` |
+| 2 | Design System | `groundwork-design-system` | `docs/design-system.md` |
 | 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` |
 | 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
 | 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
@@ -59,7 +59,7 @@ Write `state.json` back whenever it changes.
 | Skill | Instruction file |
 |---|---|
 | `groundwork-product-brief` | `.agents/groundwork/skills/groundwork-product-brief/instructions.md` |
-| `groundwork-ux-design` | `.agents/groundwork/skills/groundwork-ux-design/instructions.md` |
+| `groundwork-design-system` | `.agents/groundwork/skills/groundwork-design-system/instructions.md` |
 | `groundwork-architecture` | `.agents/groundwork/skills/groundwork-architecture/instructions.md` |
 | `groundwork-scaffold` | `.agents/groundwork/skills/groundwork-scaffold/instructions.md` |
 | `groundwork-mvp` | `.agents/groundwork/skills/groundwork-mvp/instructions.md` |

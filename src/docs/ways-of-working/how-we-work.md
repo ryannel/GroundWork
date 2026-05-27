@@ -1,6 +1,13 @@
-# GroundWork Core Methodology & Philosophy
+---
+title: How We Work
+description: The GroundWork lifecycle — Setup, Delivery Loop, and Living Documents.
+status: active
+last_reviewed: 2026-05-26
+---
 
-GroundWork is an installable, AI-driven framework that enforces **Upfront Technical Delivery**: software is meticulously designed, contracted, and verified *before* code is written, eliminating "just-in-time" engineering.
+# How We Work
+
+GroundWork is an AI-driven framework that enforces **Upfront Technical Delivery**: software is meticulously designed, contracted, and verified *before* code is written, eliminating "just-in-time" engineering.
 
 ## The GroundWork Lifecycle
 
@@ -13,7 +20,7 @@ A greenfield setup runs six phases in sequence, each producing a canonical docum
 | Phase | Skill | Output |
 |---|---|---|
 | 1. Product Brief | `groundwork-product-brief` | `docs/product-brief.md` |
-| 2. UX Design | `groundwork-ux-design` | `docs/ux-design.md` |
+| 2. Design System | `groundwork-design-system` | `docs/design-system.md` |
 | 3. Architecture | `groundwork-architecture` | `docs/architecture.md` |
 | 4. Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
 | 5. MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
@@ -40,7 +47,7 @@ All `docs/` artifacts are living documents. They grow as the project learns. Any
 
 All methodology skills share a single set of behavioral protocols defined in the Operating Contract (`operating-contract.md`). These protocols govern:
 
-- **Discovery Notes**: How out-of-phase signals are captured under a canonical 5-section header set (`## Product Brief`, `## UX Design`, `## Architecture`, `## Design Details`, `## Bets`) and carried forward to the phase that needs them.
+- **Discovery Notes**: How out-of-phase signals are captured under a canonical 5-section header set (`## Product Brief`, `## Design System`, `## Architecture`, `## Design Details`, `## Bets`) and carried forward to the phase that needs them.
 - **Living Documents**: How any phase or bet updates upstream `docs/` artifacts when new information warrants — surgically, without asking permission, with a report of what changed.
 - **Phase Lifecycle**: How each phase initialises (checks cache and discovery notes), executes (works through its stages), commits (writes the final artifact, runs Living Documents scan, updates discovery notes), and hands off.
 
@@ -53,38 +60,11 @@ GroundWork explicitly rejects the common AI-assisted workflow of "just start cod
 1. **Pitch**: Every bet begins with a problem statement bounded by an appetite (an opportunity-cost judgment of how much time the work is worth).
 2. **Tests-Up-Front**: Before implementation begins, the bet's planning phase defines API contracts (OpenAPI/AsyncAPI), database schemas, UI states, and failing tests bound to generated API clients. These are Proof of Work.
 3. **Constrained Delivery**: Implementation may only write the code required to make the tests pass and satisfy the contracts. Discovering a flaw in the contracts means pausing, reverting to planning, and re-approving — not improvising around it.
-4. **Validation & Living Documents**: After tests pass, upstream docs are surgically updated to reflect what the bet delivered. The architecture, brief, UX design, and infrastructure documents continue to describe the system as it is.
+4. **Validation & Living Documents**: After tests pass, upstream docs are surgically updated to reflect what the bet delivered. The architecture, brief, design system, and infrastructure documents continue to describe the system as it is.
 
 If a developer cannot build the API contracts purely from the Architecture and Planning artifacts, those artifacts are incomplete. **GroundWork builds the map before it drives the car.**
 
-## The Toolchain Ecosystem
+## Where to Go Next
 
-GroundWork installs via `npx groundwork init`. The CLI provisions a two-layer skill set into the project's `.agents/` directory and a `.groundwork/` directory for config and cache.
-
-### Registered Skills (`.agents/skills/`)
-
-Always visible to the agent toolchain. Kept short to minimise context cost:
-
-- **`groundwork-orchestrator`** — Routes user intent to the correct lifecycle phase based on project state.
-- **`groundwork-check`** — Detects documentation drift against the codebase.
-
-### Hidden Methodology Skills (`.agents/groundwork/skills/`)
-
-Loaded on demand by the orchestrator. Not registered in the agent toolchain, so they consume no context until invoked:
-
-| Mode | Skills |
-|---|---|
-| Setup | `groundwork-product-brief`, `groundwork-ux-design`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp` |
-| Delivery | `groundwork-bet` |
-| Anytime | `groundwork-update` (surgical doc patches), `groundwork-review` (internal draft review), `groundwork-writer` (style enforcer) |
-
-Implementation skills for specific stacks (`groundwork-go-engineer`, `groundwork-python-engineer`, `groundwork-nextjs-engineer`) install alongside their corresponding scaffolds.
-
-## Document Generation & Placement
-
-GroundWork's outputs land in two locations:
-
-- **`docs/`** — Living documents readable by humans and agents. Every document grows as the project learns.
-- **`.groundwork/`** — GroundWork's own home directory. `config/` holds persistent settings and orchestration state; `cache/` holds working drafts and discovery notes that get cleaned up on commit.
-
-Every generated document adheres to the **GroundWork Tone**: declarative, assertive, zero-hedging. The `groundwork-writer` skill enforces this on every output.
+- [Units of Work](units-of-work.md) — the delivery vocabulary: what a Bet, Milestone, and Slice are and how they nest.
+- [Documentation Protocol](documentation.md) — how Living Documents work in practice, the document hierarchy, and how `groundwork-check` detects drift.

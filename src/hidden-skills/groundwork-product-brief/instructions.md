@@ -14,7 +14,7 @@ Everything downstream depends on the Product Brief:
 
 | Phase | Depends on the Brief for... |
 |---|---|
-| **UX Design** | Product context — who the users are, what the system does, and what experiences it enables. This grounds the NFR conversation, targets the inspiration research, and informs design language decisions. |
+| **Design System** | Product context — who the users are, what the system does, and what experiences it enables. This grounds the NFR conversation, targets the inspiration research, and informs design language decisions. |
 | **Architecture** | System boundaries, capabilities, and domain constraints — so the architect can choose the right services, data models, and contracts. |
 | **MVP Planning** | The context and the vision — so the team can figure out what the right first step is to start moving toward it. |
 
@@ -24,9 +24,9 @@ The brief does **not** specify how every feature works. It captures *what the sy
 
 ## How This Conversation Works
 
-Product discovery is a multi-stage collaborative conversation, not a questionnaire. You drive the conversation — knowing what you're trying to establish, when you have enough, and when to push deeper.
+Product discovery is a multi-phase collaborative conversation, not a questionnaire. You drive the conversation — knowing what you're trying to establish, when you have enough, and when to push deeper.
 
-- **Discover before structuring.** In Stage 1, let the user brain-dump. In Stage 2, explore systematically. The structure emerges from the conversation — it is not imposed on it.
+- **Discover before structuring.** In Phase 1, let the user brain-dump. In Phase 2, explore systematically. The structure emerges from the conversation — it is not imposed on it.
 - **Vary reflections.** Confirm what you heard, show you absorbed it, build on it. A brief acknowledgment is sometimes enough; synthesising across multiple answers adds value when connections matter. The same reflection pattern repeated every turn kills the conversation.
 - **Naming.** Never invent product names or brand names. If the user hasn't named their product, derive a short functional descriptor from what it does (e.g., "the storytelling engine", "the booking system"). Use that descriptor consistently. When you present the draft, ask what they want to call it. Branding is always the user's call.
 
@@ -40,7 +40,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 ---
 
-## Stage 1: Understand Intent
+## Phase 1: Understand Intent
 
 Understand what the user is building and why they're excited about it.
 
@@ -48,7 +48,7 @@ Open the conversation and get them talking — what's the idea, what's the probl
 
 ---
 
-## Stage 2: Discovery
+## Phase 2: Discovery
 
 **Exit criteria:** You can explain the system's vision, users, experience, and boundaries confidently without the user's help. If you cannot, keep going.
 
@@ -56,9 +56,9 @@ Open the conversation and get them talking — what's the idea, what's the probl
 
 ### Altitude Check
 
-The Product Brief captures the **vision**, not the **design**. The downstream pipeline — Product Brief → UX Design → Architecture → MVP Planning → Delivery — adds fidelity at each phase. The brief captures *what* the system does and *why*. The *how* — interaction mechanics, edge case handling, governance rules, UI patterns — belongs in later phases.
+The Product Brief captures the **vision**, not the **design**. The downstream pipeline — Product Brief → Design System → Architecture → MVP Planning → Delivery — adds fidelity at each phase. The brief captures *what* the system does and *why*. The *how* — interaction mechanics, edge case handling, governance rules, UI patterns — belongs in later phases.
 
-**Self-test before every follow-up:** *"Do I need this to write the brief, or am I designing the feature?"* If the latter, append the signal as a new bullet under the matching section header in `.groundwork/cache/discovery-notes.md` — `## UX Design` for design instincts, `## Architecture` for infrastructure or technology opinions, `## Design Details` for implementation specifics, `## Bets` for feature sequencing — and move on. Capturing it now means the downstream phase finds it instead of asking the user to repeat themselves. Create the file from the template at `.agents/groundwork/skills/templates/discovery-notes.md` if it does not exist.
+**Self-test before every follow-up:** *"Do I need this to write the brief, or am I designing the feature?"* If the latter, append the signal as a new bullet under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Design System` for design instincts, `## Architecture` for infrastructure or technology opinions, `## Design Details` for implementation specifics, `## Bets` for feature sequencing — and move on. Capturing it now means the downstream phase finds it instead of asking the user to repeat themselves. Create the file from the template at `.agents/groundwork/skills/templates/discovery-notes.md` if it does not exist.
 
 | ✅ Brief altitude | ❌ Too deep — save for later |
 |---|---|
@@ -92,13 +92,13 @@ For each **user type**, you need enough to write a paragraph that conveys their 
 
 For each **capability**, you need enough to explain what it does for the user, why it matters to the product's vision, and how it connects to other capabilities. "Dynamic narrative generation" is a feature name. Understanding that it's the core engine for delivering infinite replayability and that it depends on stateful memory to maintain coherence is enough to write a useful capability description. If the capabilities list reads like a feature pitch rather than a system description, discovery is not deep enough.
 
-For the **experience**, you need enough to walk through the macro user journey — from entry to outcome — with enough texture that someone reading it can picture the shape of the interaction, not just the steps. If the user described the experience without naming the medium (web app, CLI, API, physical device), ask them to clarify before transitioning to Stage 3.
+For the **experience**, you need enough to walk through the macro user journey — from entry to outcome — with enough texture that someone reading it can picture the shape of the interaction, not just the steps. If the user described the experience without naming the medium (web app, CLI, API, physical device), ask them to clarify before transitioning to Phase 3.
 
-Before transitioning to Stage 3, self-test: for each section of the Product Brief Structure below, can you write at least one substantive paragraph? If any section would be a single sentence, discovery is not complete — go back and ask one more targeted question.
+Before transitioning to Phase 3, self-test: for each section of the Product Brief Structure below, can you write at least one substantive paragraph? If any section would be a single sentence, discovery is not complete — go back and ask one more targeted question.
 
 ---
 
-## Stage 3: Draft, Review & Present
+## Phase 3: Draft, Review & Present
 
 **Before drafting**, silently scan the conversation. If any major area surfaced but remains too thin to write about, ask one more targeted question before proceeding.
 
@@ -106,7 +106,7 @@ When ready:
 
 1. **Draft.** Synthesize the discovery into the Product Brief structure below. Follow the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
 
-2. **Review.** Announce that the review process is starting, then load and execute `.agents/groundwork/skills/groundwork-review/instructions.md`. Pass it the draft path (`.groundwork/cache/product-brief-draft.md`) and document type (`product-brief`). Report the verdict and any findings explicitly before proceeding.
+2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Its deliberation does not return, which keeps the calling conversation's context window clean. Report the verdict and any findings explicitly before proceeding.
 
 3. **Revise loop.** If the verdict is **REVISE**:
    - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
@@ -115,7 +115,7 @@ When ready:
 
 4. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 
-5. Ask the user whether to save the brief as-is or refine anything first. Proceed to Stage 4 only on explicit approval.
+5. Ask the user whether to save the brief as-is or refine anything first. Proceed to Phase 4 only on explicit approval.
 
 ### Quality Standard: What "Deep Enough" Looks Like
 
@@ -188,13 +188,15 @@ Concrete signals that the system is delivering value. Specific enough that a des
 
 ---
 
-## Stage 4: Commit
+## Phase 4: Commit
 
-Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol from the Operating Contract:
+Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol from the Operating Contract (Protocol 3.4) — the steps below are the inline expression of that protocol:
 
-1. Write the finalised content to `docs/product-brief.md`.
-2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates. Report what changed.
-3. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove entries incorporated into the brief.
-4. Confirm that the phase is complete.
-5. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-6. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+1. Verify the draft contains a `## Summary for Downstream` section as the first section after frontmatter, populated per Protocol 5 (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope). If the section is missing or incomplete, apply the `groundwork-writer` skill to add it before committing — the summary is the contract every downstream phase reads first, and a commit without it forces every downstream phase to re-read the full brief.
+2. Promote the finalised brief to `docs/product-brief.md` by moving the file from `.groundwork/cache/product-brief-draft.md`. Use a move operation (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents, as the brief is large enough that re-emitting it through the model risks exhausting the output token budget.
+3. Write the hand-off file to `.groundwork/cache/handoff/product-brief.md`. Copy the template at `.agents/groundwork/skills/templates/handoff.md` and fill in only the sections that have content: rejected user-type or capability framings the user considered and ruled out, deferred decisions with the trigger that should reopen them, user instincts about design or architecture not yet formalised, and any other context the next phase needs that did not fit in the brief. Omit empty sections entirely. This is the Hand-off Cache contract from Protocol 6.
+4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+5. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove entries incorporated into the brief or the hand-off file.
+6. Confirm that the phase is complete.
+7. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+8. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

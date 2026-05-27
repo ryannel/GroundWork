@@ -32,64 +32,65 @@ Draw inspiration from trend-setting systems: Shape Up, Linear Method, OpenAPI, P
 
 ## Cross-Phase Signal Capture
 
-Protocol design conversations routinely surface signals that belong to a different phase — a context-budget constraint with infrastructure implications, a state-management decision that shapes architecture, a sequencing instinct about which capabilities ship first. As these signals arise during any stage, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for schema or contract implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+Protocol design conversations routinely surface signals that belong to a different phase — a context-budget constraint with infrastructure implications, a state-management decision that shapes architecture, a sequencing instinct about which capabilities ship first. As these signals arise during any phase, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for schema or contract implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
 
 ---
 
-## Stage 1: Non-Functional Requirements (NFR)
+## Phase 1: Non-Functional Requirements (NFR)
 
 NFRs define the engineering envelope the protocol design system must operate within. Context-loading budgets, verification requirements, authority boundaries, and error resilience policies all constrain protocol design downstream — a protocol that specifies rich diagnostic output but must work within a 4K token context budget is internally contradictory.
 
-Read `docs/product-brief.md` for product context. Then explore the user's values and priorities through a multi-turn conversation. Understand what they care about, what tradeoffs they'd accept, and what "broken" looks like in their protocol context.
+Read `docs/product-brief.md`. Using the product brief and the track defaults above as your starting position, draft a complete NFR proposal immediately — do not open with questions.
 
-The goal is to emerge with a clear picture of the protocol's non-functional constraints across these dimensions: agentic efficiency (context budgets, token consciousness), context persistence and resumability, authority model (human-led vs agent-led boundaries), verification and governance, error resilience, interoperability across agent runtimes, auditability and traceability, and security and trust boundaries. Not every dimension applies to every protocol — explore what's relevant, skip what isn't.
+Cover all relevant dimensions: agentic efficiency (context budgets, token consciousness, cold-start file-read ceiling), context persistence and resumability, authority model (human-led vs agent-led boundaries), verification and governance, error resilience, interoperability across agent runtimes, auditability and traceability, and security and trust boundaries. Ground each decision in the product brief and apply the track defaults where applicable: zero-boilerplate context loading (under 3 file reads from cold), declarative state in flat machine-readable files, agent-agnostic interfaces, filesystem-as-memory, deterministic phase transitions, version-controlled artifacts. Skip dimensions that are clearly irrelevant to the protocol.
 
-After exploring through dialogue, **propose** a comprehensive set of granular NFRs that synthesise the user's stated values with modern best practices. Present them and refine collaboratively. Once approved, write to the Stage 1 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 2.
+Present the proposed NFRs in full and invite the user to confirm, challenge, or adjust specific items. The proposal is the starting position — accept what the user confirms, revise what they challenge. Once approved, write the confirmed NFRs to the Phase 1 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 2.
 
 ---
 
-## Stage 2: Research
+## Phase 2: Research
 
 The inspiration library grounds the design conversation in concrete, existing systems. Abstract discussions ("make it precise") produce vague specs. Discussions anchored in specific examples ("Terraform's plan-apply-verify loop forces explicit human approval before any state mutation") produce actionable protocol decisions.
 
-Drawing on the product context and agreed NFRs from Stage 1, identify the core protocol challenges this product faces and find leading systems that solve similar problems exceptionally well. Describe the **specific pattern or mechanism** worth borrowing — not just the system's reputation. Sources span methodologies, specification systems, developer tools, formal methods, and protocol designs.
+Drawing on the product context and agreed NFRs from Phase 1, identify the core protocol challenges this product faces and find leading systems that solve similar problems exceptionally well. Describe the **specific pattern or mechanism** worth borrowing — not just the system's reputation. Sources span methodologies, specification systems, developer tools, formal methods, and protocol designs.
 
 Present the Inspiration Library and ask for the user's reaction. Do not proceed until they have confirmed the direction.
 
-Once approved, write to the Stage 2 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 3.
+Once approved, write to the Phase 2 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 3.
 
 ---
 
-## Stage 3: Workspace Topology
+## Phase 3: Workspace Topology
 
 The workspace topology is the structural container everything else lives inside — the filesystem architecture, state management, and discovery surfaces that agents and humans interact with. Getting this wrong means reworking every skill. Getting it right means every subsequent protocol decision has a home.
 
-Define the structural skeleton using patterns from the Stage 2 inspiration library. The agent should explore and propose decisions across: filesystem architecture (where config, state, cache, and deliverables live), state management (format, schema, valid transitions), skill and tool discovery (manifests, directory conventions, routing tables), context injection strategy (global vs phase vs task layers), empty and boot states (first run, interrupted, stale), and progressive disclosure (how complexity scales as the project matures).
+Define the structural skeleton using patterns from the Phase 2 inspiration library. The agent should explore and propose decisions across: filesystem architecture (where config, state, cache, and deliverables live), state management (format, schema, valid transitions), skill and tool discovery (manifests, directory conventions, routing tables), context injection strategy (global vs phase vs task layers), empty and boot states (first run, interrupted, stale), and progressive disclosure (how complexity scales as the project matures).
 
 Guide the conversation with leading-edge protocol patterns. Propose the topology based on the inspiration library, then ask the user to react and refine.
 
-Once approved, write to the Stage 3 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 4.
+When a topology decision implies a backend or infrastructure capability — state-store service, registry or routing backend, agent runtime, distribution channel, identity provider — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
+
+Once approved, write to the Phase 3 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 4.
 
 ---
 
-## Stage 4: Interaction Language
+## Phase 4: Interaction Language
 
-This stage captures the user's instincts about how the protocol communicates — the raw material the agent will translate into concrete protocol specifications in Stage 5. The user should never need to think about specific formatting rules or state schemas.
+This phase captures the user's instincts about how the protocol communicates — the raw material the agent will translate into concrete protocol specifications in Phase 5. The user should never need to think about specific formatting rules or state schemas.
 
-Explore interaction language dimensions through conversation — one topic at a time, going deep before advancing:
+Cover interaction language in three focused clusters — grouping related decisions so the user can react to a coherent stance rather than isolated individual choices. For each cluster, open with a cohesive proposal that reflects what the product brief and inspiration library suggest, then invite the user to react and redirect.
 
-- **Tone and posture** — how the agent communicates with the human and where it sits on the spectrum from terse to pedagogical
-- **Information density** — how much per turn, conclusions-first vs narrative
-- **Propose vs prompt** — whether the agent leads with proposals or asks open-ended questions
-- **Status semantics** — how the protocol signals system state
-- **Documentation hierarchy** — how protocol documents are structured for both humans and agents
-- **Error communication** — the spectrum from silent recovery to loud halts
-- **Naming and taxonomy** — conventions for commands, phases, artifacts, and vocabulary
-- **Microcopy and phrasing** — how the protocol speaks in its smallest units
+**Cluster 1: Identity** — Tone and posture, microcopy and phrasing, naming and taxonomy. Propose the agent's voice as a unified stance: where it sits on the terse-to-pedagogical spectrum, how its smallest text units feel, and what vocabulary conventions govern commands, phases, and artifacts.
+
+**Cluster 2: Feel** — Information density and the propose-vs-prompt ratio. Propose how much an agent communicates per turn, whether it leads conclusions-first or builds narrative, and where it defaults to proposals vs open questions.
+
+**Cluster 3: Craft** — Status semantics, documentation hierarchy, and error communication. Propose how state is signalled, how protocol documents are structured for both humans and agents, and where errors land on the spectrum from silent recovery to loud halts.
+
+After each cluster proposal, invite the user to react and refine before advancing. Mark each cluster as covered in `.groundwork/cache/design-system-cache.md` as you go. Skip a dimension only when it is clearly irrelevant to the product.
 
 ### Synthesis Gate
 
-Before caching, distill the entire Stage 4 conversation into a structured direction and present it to the user for confirmation. Scattered conversation notes are not sufficient input for Stage 5.
+Before caching, distill the entire Phase 4 conversation into a structured direction and present it to the user for confirmation. Scattered conversation notes are not sufficient input for Phase 5.
 
 The synthesis stays in the user's language. No state schemas, no format rules, no log level definitions. It captures the *decisions* the user made in terms they recognise:
 
@@ -103,23 +104,38 @@ The synthesis stays in the user's language. No state schemas, no format rules, n
 
 Present as a clear summary the user can scan and approve in one read. Confirm before proceeding.
 
-Once confirmed, write the synthesis to the Stage 4 section of `.groundwork/cache/ux-design-cache.md` and set its status to `done`. Proceed to Stage 5.
+Once confirmed, write the synthesis to the Phase 4 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 5.
 
 ---
 
-## Stage 5: Expert Translation & Review
+## Phase 5: Expert Translation & Review
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
-The user provided taste, instinct, and direction across Stages 1–4. The agent now translates that into a rigorous protocol design specification — autonomously.
+The user provided taste, instinct, and direction across Phases 1–4. The agent now translates that into a rigorous protocol design specification — autonomously.
 
-Compile the full UX Design Guide using the approved outputs stored in `.groundwork/cache/ux-design-cache.md`. The document combines NFRs from Stage 1 with a comprehensive protocol design system that the agent derives from the interaction language direction captured in Stage 4.
+**Output location**: `.groundwork/cache/design-system-draft/` — a directory of per-section files. Each file stays bounded in size, so any later change (review revise, 5b re-flow) touches only the affected files instead of regenerating the whole spec in a single turn. Regenerating the whole spec at once exhausts the per-response output token budget on rich specs; the per-section layout makes that failure structurally impossible. Writing to `docs/design-system.md` is prohibited until Phase 6 (Commit) — on initial generation that file does not exist; do not attempt to read it.
+
+**Write each section as a separate file.** Use one `write_file` call per section (the tool creates parent directories automatically):
+
+| File | Content |
+|---|---|
+| `00-header.md` | Document title and the "implementation-ready specification" intro paragraph |
+| `01-constraints.md` | Part 1 — context-loading budgets, verification requirements, authority boundaries, error resilience policies, interoperability guarantees |
+| `02-workspace-topology.md` | Part 2 — filesystem architecture, state management, discovery surfaces, context injection strategy, communication posture |
+| `03-foundation.md` | Part 3 Cluster 1 — state architecture, context hierarchy, document architecture |
+| `04-interaction.md` | Part 3 Cluster 2 — interaction semantics, tone & posture specification |
+| `05-surface.md` | Part 3 Cluster 3 — skill & tool anatomy, error & recovery choreography, naming & taxonomy, versioning & evolution |
+
+The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated.
+
+Compile each section using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive protocol design system that the agent derives from the interaction language direction captured in Phase 4.
 
 Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive, and free of hedging. Structure it to read like a rigorous protocol specification that simultaneously serves as instruction material for any agent runtime.
 
 #### The Translation Mandate
 
-The user said "collaborative peer" — the agent specifies the exact persona brief, prohibited hedging phrases, and propose-vs-prompt triggers. The user said "conclusions first" — the agent defines the inverted pyramid rule with concrete structural templates. The user said "verb-noun commands" — the agent produces a complete naming convention with casing rules, artifact patterns, and vocabulary definitions. Every high-level preference from Stage 4 must be resolved into concrete, enforceable specifications. If the cached direction is ambiguous, the agent makes the design call — that is the job.
+The user said "collaborative peer" — the agent specifies the exact persona brief, prohibited hedging phrases, and propose-vs-prompt triggers. The user said "conclusions first" — the agent defines the inverted pyramid rule with concrete structural templates. The user said "verb-noun commands" — the agent produces a complete naming convention with casing rules, artifact patterns, and vocabulary definitions. Every high-level preference from Phase 4 must be resolved into concrete, enforceable specifications. If the cached direction is ambiguous, the agent makes the design call — that is the job.
 
 Agent runtimes consistently fail to maintain protocol coherence without deeply specified interaction rules. The protocol design system must go beyond naming conventions and tone guidelines — it must prescribe exact state schemas, phase transition rules, error choreography, and a clear taxonomy.
 
@@ -186,7 +202,7 @@ The same standard applies across the entire specification:
 - **Naming and taxonomy**: Not just "use kebab-case" — command naming convention, artifact naming convention, vocabulary boundary definitions with precise term meanings, and the naming self-test.
 - **Versioning and evolution**: Breaking change protocol, backward compatibility guarantees, and changelog format.
 
-#### UX Design Guide Target Structure
+#### Design System Target Structure
 
 **Part 1 — Constraints**: Context-loading budgets, verification requirements, authority boundaries, error resilience policies, interoperability guarantees.
 
@@ -202,29 +218,85 @@ Before presenting the draft, run this self-check:
 2. **Does every specification include concrete schemas, templates, or tables?** Prose descriptions without structured examples are insufficient.
 3. **Would a developer implementing this protocol need to make any design decisions?** If yes, the spec is underspecified.
 
-### 5b: Review (Collaborative)
+### Independent Review (Pre-Walkthrough)
 
-Present the complete draft to the user. This is the first time the user sees technical specifics — actual state schemas, error format definitions, naming convention tables, phase transition rules.
+The user is about to see this draft in Phase 5b. Before they do, the draft passes through an independent review — `groundwork-review` checks the draft for silent invention, dropped commitments from Phase 4, and contradictions against the upstream Product Brief that the user is unlikely to catch during a walkthrough of state schemas and naming taxonomy tables. The protocol design system constrains every downstream skill and tool; catching these failures here is cheaper than catching them after `docs/design-system.md` becomes the source of truth.
 
-The user's role shifts from providing direction to reacting to choices. Walk through the spec together. Do not rush this — the user has earned a say in the details by providing clear direction earlier. If they push back on a choice, propose alternatives that still honour the original intent. If they approve, move on.
+1. **Announce** the shift — the agent is moving from translation into an independent review before presenting to the user.
+2. **Assemble the draft for review.** Run `run_command("cat .groundwork/cache/design-system-draft/*.md > .groundwork/cache/design-system-draft.md")` to concatenate the section files into a single document. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
+3. **Invoke the review subagent** with `document_path: .groundwork/cache/design-system-draft.md` and `document_type: design-system`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list.
+4. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the affected section file(s) under `.groundwork/cache/design-system-draft/` — rewrite only the files the finding implicates. After revisions, re-assemble with `cat` and run the review again. Repeat until the verdict is **PRESENT**.
+5. **Clean up the assembled file.** Once the verdict is PRESENT, run `run_command("rm .groundwork/cache/design-system-draft.md")`. The section files in the draft directory remain the source of truth for Phase 5b and Phase 6.
+6. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface to the user during or after Phase 5b so the user can decide whether to act on them.
 
-Refine iteratively until the user is satisfied with the full specification.
+Once the review verdict is PRESENT, proceed to Phase 5b.
 
-Once approved, proceed to Stage 6: Commit.
+### 5b: Guided Review (Collaborative)
+
+The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
+
+**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing.
+
+#### Cluster Walkthrough
+
+The cluster names here are deliberately distinct from the Phase 4 language clusters (Identity / Feel / Craft) — Phase 4 grouped *aesthetic decisions* the user owns; Phase 5b walks through *implementation specifics* the agent owns. Distinct names keep both schemes legible when both phases are referenced in the same conversation.
+
+**Cluster 1: Foundation** — State architecture, context hierarchy, and document architecture.
+
+These are the base primitives every later decision composes from. Present the state schema with required fields and transition rules, the context-injection layers with file ordering and budgets, and the document anatomy with frontmatter and heading hierarchy side by side. Teach the reasoning: why flat machine-readable state, why this load order, how the inverted-pyramid rule keeps documents agent-parseable. Offer alternatives that honour the same direction. Wait for the user's reaction before advancing.
+
+**Cluster 2: Interaction** — Interaction semantics and the tone & posture specification.
+
+These define how the agent behaves turn to turn. Present the status vocabulary table, the persona brief with prohibited phrases and required replacements, and the propose-vs-prompt trigger rules as a connected system. Teach the trade-offs: terse status markers feel efficient but reduce orientation; pedagogical microcopy builds trust but adds tokens. Justify the specific choices against the Phase 4 direction. Offer alternatives. Wait for the user's reaction.
+
+**Cluster 3: Surface** — Everything else: skill and tool anatomy, error and recovery choreography, naming and taxonomy specifications, versioning and evolution.
+
+These are engineering craft — decisions the agent should own. Present the full set as a summary table: what was decided, in one line per topic. Call out any judgment calls the user might have an opinion on. Ask if anything feels wrong. Do not walk through each one individually unless the user flags a concern.
+
+#### Re-flow Protocol
+
+When the user requests a change in any cluster:
+
+1. Acknowledge the change and confirm understanding.
+2. Assess downstream impact — state explicitly which section files are affected, including any downstream files whose rules reference the change.
+3. **Rewrite the affected section files.** Each section lives in its own file under `.groundwork/cache/design-system-draft/`. Use `write_file` to replace the implicated files in turn — for example, a change to the state schema rewrites `03-foundation.md`, and may ripple into `05-surface.md` if skill anatomy or error choreography references the state shape. Each `write_file` is bounded by the size of one section, never the whole spec.
+4. Summarise the re-flow: list every section file that changed and what specifically shifted.
+5. If a previously-approved cluster was affected substantively, re-present it before continuing.
+
+A protocol design system is a web of interconnected decisions. Changing the state schema affects skill anatomy, which affects error choreography. Propagate the change into every section file it implicates — file-by-file, never as a single full-spec rewrite. Isolated edits that ignore downstream effects create internal contradictions that surface during implementation; the propagation is mandatory, the file-at-a-time mechanic is what makes it safe.
+
+#### Walkthrough Progress
+
+Track which clusters have been reviewed in `.groundwork/cache/design-system-cache.md` under the Phase 5 checklist. Mark each cluster as complete when the user approves it.
+
+#### Completion Gate
+
+The walkthrough is complete when all three clusters have been presented and approved. Only then does Phase 6 (Commit) execute.
+
+Once approved, proceed to Phase 6: Commit.
 
 ---
 
-## Stage 6: Commit
+## Phase 6: Commit
 
-Execute **only** after Stage 5b review is complete and the user has explicitly approved the specification.
+Execute **only** after Phase 5b review is complete and the user has explicitly approved the specification.
 
 Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
-1. Write the finalised spec to `docs/ux-design.md` by promoting it from `.groundwork/cache/ux-design-draft.md`.
-2. Delete the cache files `.groundwork/cache/ux-design-cache.md` and `.groundwork/cache/ux-design-draft.md`.
-3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates. Report what changed.
-4. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## UX Design` entries incorporated into `docs/ux-design.md`.
-5. Confirm that the phase is complete.
-6. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-7. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+1. **Verify the summary header.** Confirm the draft directory's `00-header.md` (or first section file) contains a `## Summary for Downstream` section populated per Protocol 5 of the operating contract — Key Decisions (state schema shape, context-injection order, document architecture), Binding Constraints (token budgets, naming conventions, agent-parseable structure), Deferred Questions, Out of Scope. If missing, apply `groundwork-writer` to add it before assembling.
 
+2. **Assemble the final spec.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/design-system-draft/*.md > docs/design-system.md")`. The numeric prefixes guarantee the correct section order. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
+
+3. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected protocol-anatomy choices, deferred decisions (versioning policy, multi-skill orchestration), user instincts about agent posture or naming not yet committed, and any other context the architecture phase needs. Omit empty sections.
+
+4. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
+
+5. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed.
+
+6. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
+
+7. Confirm that the phase is complete.
+
+8. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+
+9. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

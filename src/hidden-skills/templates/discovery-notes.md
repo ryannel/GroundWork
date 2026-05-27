@@ -10,9 +10,9 @@
 
 ---
 
-## UX Design
+## Design System
 
-<!-- Design preferences, aesthetic instincts, interaction patterns surfaced outside the UX phase. -->
+<!-- Design preferences, aesthetic instincts, interaction patterns surfaced outside the Design System phase. -->
 
 ---
 
