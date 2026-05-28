@@ -9,11 +9,16 @@ from datetime import datetime
 from pathlib import Path
 import anthropic
 
-# Redefine print to always flush
+# Redefine print to always flush and optionally tee to a run log file.
+# _log_file is set by main() once the run_id is known.
 _print = print
+_log_file = None
+
 def print(*args, **kwargs):
     kwargs.setdefault('flush', True)
     _print(*args, **kwargs)
+    if _log_file is not None:
+        _print(*args, file=_log_file, **kwargs)
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
 
@@ -112,6 +117,10 @@ def retry_with_backoff(func, max_retries=8, base_delay=4):
                 print(f"  [API Overload {e.status_code}] Retrying in {delay:.1f}s (attempt {attempt + 1})...")
                 time.sleep(delay)
                 attempt += 1
+            elif e.status_code == 400:
+                # 400 = invalid_request_error — retrying will not help; raise immediately.
+                print(f"  [400 Bad Request] {e.message}. Not retrying.")
+                raise
             elif attempt >= max_retries - 1:
                 raise
             else:
@@ -651,6 +660,8 @@ Rules:
     prev_skill_text = None
     stuck_count = 0
     _STUCK_THRESHOLD = 2
+    consecutive_user_errors = 0
+    _USER_ERROR_THRESHOLD = 3
 
     for i in range(turns):
         # 1. Add user message to skill history
@@ -725,18 +736,30 @@ Rules:
 
         try:
             user_messages.append({"role": "user", "content": skill_text})
+            # Keep only the most recent exchanges so the user agent stays cheap and focused.
+            trimmed = user_messages[-6:] if len(user_messages) > 6 else user_messages
             user_response = retry_with_backoff(lambda: client.messages.create(
                 model=user_model_id,
                 max_tokens=512,
                 system=user_system,
-                messages=user_messages,
+                messages=trimmed,
                 temperature=0.1,
             ))
             current_message = user_response.content[0].text if user_response.content else "Please continue."
             user_messages.append({"role": "assistant", "content": current_message})
+            consecutive_user_errors = 0
         except Exception as e:
-            print(f"Error calling User Agent: {e}")
-            break
+            err_msg = f"{type(e).__name__}: {str(e)[:300]}"
+            print(f"Error calling User Agent: {err_msg}")
+            current_message = "Please continue."
+            # Keep user_messages balanced so the next call has a valid alternating history.
+            user_messages.append({"role": "assistant", "content": current_message})
+            transcript_entries.append({"role": "user", "parts": [{"text": f"[USER AGENT ERROR — {err_msg}]"}]})
+            save_transcript()
+            consecutive_user_errors += 1
+            if consecutive_user_errors >= _USER_ERROR_THRESHOLD:
+                print(f"\n  [TERMINATION] User agent failed {consecutive_user_errors} consecutive times. Stopping.")
+                break
 
         print(f"\nUser:\n{current_message}")
 
@@ -1023,6 +1046,13 @@ def main():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_id = f"run_{timestamp}"
 
+    # Open a run-level log file so all stdout is preserved for post-mortem.
+    global _log_file
+    run_log_dir = Path(__file__).parent / "runs" / args.suite / run_id
+    run_log_dir.mkdir(parents=True, exist_ok=True)
+    _log_file = open(run_log_dir / "run.log", "w", buffering=1)
+    print(f"Run log: {run_log_dir / 'run.log'}")
+
     if args.all:
         scenarios = sorted(suite_dir.glob("*.json"))
         from_scenario = getattr(args, 'from_scenario', None)
@@ -1049,6 +1079,9 @@ def main():
     else:
         print("ERROR: Must specify either --scenario or --all")
         sys.exit(1)
+
+    if _log_file is not None:
+        _log_file.close()
 
 
 if __name__ == "__main__":
