@@ -43,7 +43,7 @@ def _assert_init_complete(sandbox_dir: Path) -> bool:
 
 
 # Hard safety cap — no run can exceed this regardless of scenario/CLI settings.
-ABSOLUTE_MAX_TURNS = 50
+ABSOLUTE_MAX_TURNS = 65
 
 _MAX_FUNCTION_ROUNDS = 10  # Tool call rounds per skill turn
 
