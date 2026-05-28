@@ -1000,6 +1000,7 @@ def main():
     parser.add_argument("--suite", required=True, help="Name of the scenario suite")
     parser.add_argument("--scenario", help="Specific scenario name (without .json)")
     parser.add_argument("--all", action="store_true", help="Run all scenarios in the suite")
+    parser.add_argument("--from-scenario", default=None, help="With --all, skip scenarios before this one (e.g. 04_scaffold). Use with --workspace-from to resume a partial run.")
     parser.add_argument("--turns", type=int, default=5, help="Default conversation turns")
     parser.add_argument("--skill-model", default="claude-sonnet-4-6", help="Model for the skill agent")
     parser.add_argument("--user-model", default="claude-haiku-4-5-20251001", help="Model for the user agent")
@@ -1024,9 +1025,16 @@ def main():
 
     if args.all:
         scenarios = sorted(suite_dir.glob("*.json"))
+        from_scenario = getattr(args, 'from_scenario', None)
+        reached_start = from_scenario is None
         for s_file in scenarios:
             if s_file.name == "suite.json":
                 continue
+            if not reached_start:
+                if s_file.stem == from_scenario:
+                    reached_start = True
+                else:
+                    continue
             run_scenario(client, args.suite, s_file, args.turns,
                          args.skill_model, args.user_model, args.turn_delay, run_id,
                          workspace_from=args.workspace_from)
