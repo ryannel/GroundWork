@@ -68,6 +68,12 @@ def _rate_limit_delay(e: Exception, base_delay: float) -> float:
     return base_delay
 
 
+def _stream_create(client: anthropic.Anthropic, **kwargs) -> anthropic.types.Message:
+    """Use streaming to satisfy the Anthropic API requirement for long-running requests."""
+    with client.messages.stream(**kwargs) as stream:
+        return stream.get_final_message()
+
+
 def retry_with_backoff(func, max_retries=8, base_delay=4):
     """Retry func on transient errors.
 
@@ -288,7 +294,8 @@ def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, revi
 
         try:
             for _ in range(_REVIEW_MAX_ROUNDS):
-                response = retry_with_backoff(lambda: client.messages.create(
+                response = retry_with_backoff(lambda: _stream_create(
+                    client,
                     model=review_model_id,
                     max_tokens=4096,
                     system=review_system,
@@ -469,7 +476,8 @@ def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, syst
     new_messages: list[dict] = []
     transcript_entries: list[dict] = []
 
-    response = retry_with_backoff(lambda: client.messages.create(
+    response = retry_with_backoff(lambda: _stream_create(
+        client,
         model=model_id,
         max_tokens=32000,
         system=system,
@@ -541,7 +549,8 @@ def _skill_turn(client: anthropic.Anthropic, model_id: str, messages: list, syst
         new_messages.append({"role": "user", "content": tool_results})
         transcript_entries.append({"role": "user", "parts": tr_fr_parts})
 
-        response = retry_with_backoff(lambda: client.messages.create(
+        response = retry_with_backoff(lambda: _stream_create(
+            client,
             model=model_id,
             max_tokens=32000,
             system=system,
@@ -830,6 +839,7 @@ def run_scenario(
     user_model_id: str,
     turn_delay: float = 0.0,
     run_id: str = "run_default",
+    workspace_from: str | None = None,
 ):
     with open(scenario_file, 'r') as f:
         scenario = json.load(f)
@@ -922,9 +932,13 @@ def run_scenario(
     # 3. Seed from dependency
     if depends_on:
         dep_fixture = base_dir / "fixtures" / suite_name / depends_on
+        prior_run_workspace = base_dir / "runs" / suite_name / workspace_from / "workspace" if workspace_from else None
         if workspace_dir.exists():
             print(f"Seeding sandbox from current run workspace...")
             shutil.copytree(workspace_dir, sandbox_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.agents'))
+        elif prior_run_workspace and prior_run_workspace.exists():
+            print(f"Seeding sandbox from prior run workspace: {workspace_from}")
+            shutil.copytree(prior_run_workspace, sandbox_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.agents'))
         elif dep_fixture.exists():
             print(f"Seeding sandbox from fixtures: {depends_on}")
             shutil.copytree(dep_fixture, sandbox_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.agents'))
@@ -990,6 +1004,7 @@ def main():
     parser.add_argument("--skill-model", default="claude-sonnet-4-6", help="Model for the skill agent")
     parser.add_argument("--user-model", default="claude-haiku-4-5-20251001", help="Model for the user agent")
     parser.add_argument("--turn-delay", type=float, default=0.0, help="Seconds between turns (default: 0.0, set >0 only if hitting rate limits)")
+    parser.add_argument("--workspace-from", default=None, help="Seed sandbox from a prior run's workspace (e.g. run_20260527_220638). Useful for re-running a single step without replaying earlier steps.")
     args = parser.parse_args()
 
     api_key = os.environ.get("CLAUDE_API_KEY")
@@ -1013,14 +1028,16 @@ def main():
             if s_file.name == "suite.json":
                 continue
             run_scenario(client, args.suite, s_file, args.turns,
-                         args.skill_model, args.user_model, args.turn_delay, run_id)
+                         args.skill_model, args.user_model, args.turn_delay, run_id,
+                         workspace_from=args.workspace_from)
     elif args.scenario:
         s_file = suite_dir / f"{args.scenario}.json"
         if not s_file.exists():
             print(f"ERROR: Scenario file {s_file} does not exist.")
             sys.exit(1)
         run_scenario(client, args.suite, s_file, args.turns,
-                     args.skill_model, args.user_model, args.turn_delay, run_id)
+                     args.skill_model, args.user_model, args.turn_delay, run_id,
+                     workspace_from=args.workspace_from)
     else:
         print("ERROR: Must specify either --scenario or --all")
         sys.exit(1)

@@ -112,6 +112,7 @@ When ready:
    - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
    - Write the revised draft back to `.groundwork/cache/product-brief-draft.md`.
    - Run the review again. Repeat until the verdict is **PRESENT**.
+   - **Cap:** After 3 REVISE verdicts, stop revising and treat the next pass as PRESENT regardless of the verdict. Surface all remaining 🔴 Critical findings as 🟡 Advisory so the user can decide whether to address them before committing.
 
 4. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 

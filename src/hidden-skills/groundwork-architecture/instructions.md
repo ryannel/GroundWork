@@ -243,6 +243,7 @@ When ready:
    - Apply all 🔴 Critical findings directly to the affected section file(s) under `.groundwork/cache/architecture-draft/`. Do not produce a list of suggestions — rewrite only the files the finding implicates. Each `write_file` is bounded by the size of one section, never the whole doc.
    - Re-assemble: `run_command("cat .groundwork/cache/architecture-draft/*.md > .groundwork/cache/architecture-draft.md")`.
    - Run the review again. Repeat until the verdict is **PRESENT**.
+   - **Cap:** After 3 REVISE verdicts, stop revising and treat the next pass as PRESENT regardless of the verdict. Surface all remaining 🔴 Critical findings as 🟡 Advisory so the user can decide whether to address them before committing.
 
 5. **Present.** Once the verdict is PRESENT, present the final draft section by section — emit each section file's contents in turn, pausing briefly between sections so the user can respond. Do not emit the full document in a single message; large architectures exceed the per-response output token budget. After all sections are presented, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them. Clean up the assembled file once presentation is complete: `run_command("rm .groundwork/cache/architecture-draft.md")`. The section files remain the source of truth for Phase 7.
 
