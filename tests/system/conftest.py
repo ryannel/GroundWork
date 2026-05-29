@@ -46,7 +46,7 @@ def trace_id():
 async def api_client(trace_id):
     """
     Generic async HTTPX client that injects W3C traceparent headers.
-    This ensures test traffic is identifiable in the Aspire/Jaeger dashboard.
+    This ensures test traffic is identifiable in the Jaeger dashboard.
     """
     # W3C traceparent format: 00-{trace-id}-{span-id}-01
     span_id = uuid.uuid4().hex[:16]

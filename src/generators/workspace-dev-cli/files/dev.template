@@ -30,6 +30,7 @@ function show_help() {
   
   print_category "LIFECYCLE"
   print_cmd "start" "Spin up environment (--docker)"
+  print_cmd "migrate" "Create service DBs & apply schemas"
   print_cmd "stop" "Tear down components"
   print_cmd "logs" "Tail output logs"
   print_cmd "status" "Print local endpoints (--json)"

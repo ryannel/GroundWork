@@ -17,7 +17,7 @@ import (
 func InitProvider(ctx context.Context, serviceName, collectorURL string) (func(context.Context) error, error) {
 	if collectorURL == "" {
 		// Use default standard OTEL environment variables if no URL is provided
-		collectorURL = "localhost:4317"
+		collectorURL = "http://localhost:4317"
 	}
 
 	res, err := resource.Merge(
@@ -31,8 +31,11 @@ func InitProvider(ctx context.Context, serviceName, collectorURL string) (func(c
 		return nil, fmt.Errorf("merge otel resources: %w", err)
 	}
 
+	// WithEndpointURL is scheme-aware and accepts the full OTLP endpoint URL
+	// (e.g. http://otel-host:4317). WithEndpoint, by contrast, wants a bare
+	// host:port and silently mis-dials when handed an http:// value.
 	client := otlptracegrpc.NewClient(
-		otlptracegrpc.WithEndpoint(collectorURL),
+		otlptracegrpc.WithEndpointURL(collectorURL),
 		otlptracegrpc.WithInsecure(),
 	)
 

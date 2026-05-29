@@ -161,7 +161,7 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
         const envVars = [
           `PORT=${assignedPort}`,
           `OTEL_SERVICE_NAME=${serviceNames.fileName}`,
-          'OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318',
+          'OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318',
         ];
 
         if (options.apiProxy) {

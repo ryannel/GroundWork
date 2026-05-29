@@ -6,17 +6,43 @@
 # ==========================================
 
 function cmd_test() {
-  print_logo "Running Tests"
+  local MODE="$1"
+  local KEEP=false
+  for arg in "$@"; do
+    if [ "$arg" == "--keep" ]; then KEEP=true; fi
+  done
 
-  # Run Python system tests if the folder exists
-  if [ -d "$ROOT_DIR/tests/system" ]; then
-    print_step "Running System Tests (Pytest)"
-    cd "$ROOT_DIR/tests" && uv run pytest system/
-  else
+  if [ ! -d "$ROOT_DIR/tests/system" ]; then
+    print_logo "Running Tests"
     print_info "No system tests found."
+    return 0
   fi
 
-  # In the future we can run `nx run-many -t test` here
+  if [ "$MODE" == "integration" ]; then
+    print_logo "Running Integration Tests"
+    # Full loop: boot the dev stack, migrate, run the suite with FAIL-LOUD
+    # flags, then tear down (unless --keep).
+    cmd_start
+    cmd_migrate
+    print_step "Running System Tests (Pytest, REQUIRE_* enabled)"
+    local rc=0
+    ( cd "$ROOT_DIR/tests" && \
+      GROUNDWORK_REQUIRE_SERVICES=1 GROUNDWORK_REQUIRE_TRACES=1 uv run pytest system/ ) || rc=$?
+    if ! $KEEP; then
+      cmd_stop
+    fi
+    if [ "$rc" -ne 0 ]; then
+      fail "Integration tests failed" "Re-run with './dev test integration --keep' to inspect the running stack"
+    fi
+    echo ""
+    print_success "Integration tests passed."
+    return 0
+  fi
+
+  # Default: fast inner loop against an already-running stack.
+  print_logo "Running Tests"
+  print_step "Running System Tests (Pytest)"
+  cd "$ROOT_DIR/tests" && uv run pytest system/
   echo ""
   print_success "Testing complete."
 }

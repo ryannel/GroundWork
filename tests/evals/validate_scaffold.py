@@ -192,7 +192,7 @@ def check_structure(workspace: Path) -> bool:
     if dc.exists():
         ok("docker-compose.yml present")
         content = dc.read_text()
-        for required_token in ("aspire-dashboard", "db"):
+        for required_token in ("jaeger", "db"):
             if required_token in content:
                 ok(f"  docker-compose.yml includes '{required_token}'")
             else:
@@ -289,7 +289,7 @@ def check_structure(workspace: Path) -> bool:
 
     # System test runner
     st_dir = workspace / "tests" / "system"
-    if (st_dir / "test_system.py").exists() and (st_dir / "docker-compose.test.yml").exists():
+    if (st_dir / "test_system.py").exists():
         ok("System test runner present (tests/system/)")
     else:
         fail("System test runner missing — system-test-runner generator was not invoked")
@@ -433,8 +433,8 @@ def check_boot(workspace: Path) -> bool:
             fail("./dev status reports dead process(es)")
             print(status.stdout[:800])
             return False
-        if "aspire" in status.stdout.lower():
-            ok("  Aspire dashboard appears in status output")
+        if "jaeger" in status.stdout.lower():
+            ok("  Jaeger trace backend appears in status output")
     else:
         warn("./dev status returned non-zero — continuing")
 
@@ -462,19 +462,19 @@ def check_health(workspace: Path, services: list[Service]) -> bool:
 
     passed = True
 
-    # Aspire dashboard — always at 18888
-    info("Checking Aspire dashboard (port 18888) ...")
-    aspire_up = False
+    # Jaeger trace backend — UI + query API at 16686
+    info("Checking Jaeger trace backend (port 16686) ...")
+    jaeger_up = False
     for _ in range(30):
-        code, _ = _http_get("http://localhost:18888", timeout=3.0)
+        code, _ = _http_get("http://localhost:16686", timeout=3.0)
         if 0 < code < 500:
-            aspire_up = True
+            jaeger_up = True
             break
         time.sleep(1)
-    if aspire_up:
-        ok("Aspire dashboard reachable at :18888")
+    if jaeger_up:
+        ok("Jaeger reachable at :16686")
     else:
-        fail("Aspire dashboard not reachable at :18888 after 30s")
+        fail("Jaeger not reachable at :16686 after 30s")
         passed = False
 
     # Build a map of actual ports from package.json dev scripts (for Next.js services)

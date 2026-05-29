@@ -283,7 +283,7 @@ PostgreSQL: localhost:5432
 ## Environment Overview
 
 Three services run natively via `air` (Go) or `next dev` (Next.js). PostgreSQL and
-the Aspire dashboard run in Docker. All services are managed through the `./dev` CLI.
+the Jaeger trace backend run in Docker. All services are managed through the `./dev` CLI.
 
 ## Services
 
@@ -309,7 +309,7 @@ to proxy API requests to `auth-service`. Base path: `services/web-app/`.
 | Component | Port | Container Name |
 |---|---|---|
 | PostgreSQL | 5432 | `<app-name>-db` |
-| Aspire Dashboard | 18888 | `<app-name>-aspire-dashboard` |
+| Jaeger (tracing UI + query API) | 16686 | `<app-name>-jaeger` |
 
 ## Running the Environment
 

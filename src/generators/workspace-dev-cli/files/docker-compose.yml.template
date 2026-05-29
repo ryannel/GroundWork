@@ -49,17 +49,19 @@ services:
       timeout: 5s
       retries: 5
 
-  aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard:8.0.0-preview.4
-    container_name: <%= projectPrefix %>-aspire
+  # Trace backend + OTLP ingestion point. Services export OTLP to jaeger:4317
+  # (gRPC) / jaeger:4318 (HTTP); the UI and query API are on 16686. The query
+  # API (GET /api/traces/{traceID}) is what the system tests use to assert spans
+  # actually arrive — a real collector endpoint, not a dead hostname.
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    container_name: <%= projectPrefix %>-jaeger
     environment:
-      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
-      - DASHBOARD__OTLP__AUTHMODE=ApiKey
-      - DASHBOARD__OTLP__PRIMARYAPIKEY=testkey
+      - COLLECTOR_OTLP_ENABLED=true
     ports:
-      - "18888:18888" # Dashboard UI
-      - "4317:18889"  # OTLP gRPC mapped to standard 4317
-      - "4318:18890"  # OTLP HTTP mapped to standard 4318
+      - "16686:16686" # Jaeger UI + query API
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
     networks:
       - groundwork-net
 

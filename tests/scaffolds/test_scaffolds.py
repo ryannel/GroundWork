@@ -78,23 +78,6 @@ def test_02_scaffold_go_microservice():
     )
     assert res2.returncode == 0, f"Generator failed:\n{res2.stderr}"
     assert (SANDBOX_DIR / "services" / "goapi-full" / "go.mod").exists(), "goapi-full was not created properly"
-    print("\n--- Shifting Ports to Avoid Collision ---")
-    basic_env = SANDBOX_DIR / "services" / "goapi-basic" / ".env"
-    if basic_env.exists():
-        content = basic_env.read_text()
-        content = content.replace("PORT=4000", "PORT=9000")
-        basic_env.write_text(content)
-
-    full_env = SANDBOX_DIR / "services" / "goapi-full" / ".env"
-    if full_env.exists():
-        content = full_env.read_text()
-        content = content.replace("PORT=4001", "PORT=9001")
-        full_env.write_text(content)
-        
-    docker_compose = SANDBOX_DIR / "docker-compose.yml"
-    if docker_compose.exists():
-        # Any other global port shifting if needed
-        pass
 
 
 def test_02b_scaffold_nextjs_app():
@@ -215,15 +198,6 @@ def test_02d_scaffold_python_microservice():
     assert (svc_dir / "src" / "provider" / "message_queue.py").exists(), "message_queue.py missing for messaging=gcp-pubsub"
     assert (svc_dir / "src" / "provider" / "llm_gateway.py").exists(), "llm_gateway.py missing for llm=True"
 
-    # Shift port to avoid collision with Go services (9000, 9001)
-    env_file = svc_dir / ".env"
-    if env_file.exists():
-        content = env_file.read_text()
-        # Python generator starts at 8000; shift to 9002 for the boot test sandbox
-        content = content.replace("PORT=8000", "PORT=9002")
-        content = content.replace("SERVER_PORT=8000", "SERVER_PORT=9002")
-        env_file.write_text(content)
-
     # Verify docker-compose.yml was updated
     docker_compose = SANDBOX_DIR / "docker-compose.yml"
     assert "narrative-engine" in docker_compose.read_text(), "narrative-engine missing from docker-compose.yml"
@@ -241,7 +215,7 @@ def test_03_scaffold_system_test_runner():
         text=True
     )
     assert res.returncode == 0, f"Generator failed:\n{res.stderr}"
-    assert (SANDBOX_DIR / "tests" / "system" / "docker-compose.test.yml").exists(), "System test docker-compose was not created"
+    assert (SANDBOX_DIR / "tests" / "system" / "test_system.py").exists(), "System test suite was not created"
 
 
 def test_04_boot_dev_environment():
@@ -274,12 +248,17 @@ def test_04_boot_dev_environment():
     
     assert db_ready, f"PostgreSQL never became ready. Output: {res_ready.stderr}"
 
-    # Create the necessary databases for the services
-    for db_name in ["goapi-basic", "goapi-full"]:
-        # Only create if it doesn't exist
-        check_cmd = f"docker exec testloop-db psql -U postgres -tc \"SELECT 1 FROM pg_database WHERE datname = '{db_name}'\" | grep -q 1"
-        create_cmd = f"docker exec testloop-db psql -U postgres -c \"CREATE DATABASE \\\"{db_name}\\\";\""
-        subprocess.run(f"{check_cmd} || {create_cmd}", shell=True, executable="/bin/bash")
+    # Create per-service databases and apply schemas via the discovery-based migrate.
+    migrate_res = subprocess.run(
+        ["bash", "./dev", "migrate"],
+        cwd=SANDBOX_DIR,
+        capture_output=True,
+        text=True,
+    )
+    print(migrate_res.stdout)
+    if migrate_res.returncode != 0:
+        print(f"Stderr: {migrate_res.stderr}")
+    assert migrate_res.returncode == 0, "./dev migrate failed"
 
     # Trigger a rebuild to ensure services connect to the newly created DBs
     subprocess.run(["touch", "services/goapi-basic/cmd/api/main.go"], cwd=SANDBOX_DIR)
@@ -301,7 +280,7 @@ def test_04_boot_dev_environment():
     
     # Basic assertions to ensure our containers booted
     assert "db" in status_res.stdout
-    assert "aspire-dashboard" in status_res.stdout
+    assert "jaeger" in status_res.stdout
     
     # Assert native go processes are running
     assert "goapi-basic" in status_res.stdout
@@ -312,10 +291,10 @@ def test_04_boot_dev_environment():
 @pytest.mark.asyncio
 async def test_05_verify_goapi_health():
     """Test that the native Go services are processing traffic and connected to DB."""
-    # goapi-basic is 9000, goapi-full is 9001
+    # goapi-basic is 4000, goapi-full is 4001 (auto-assigned, no port shifts)
     services = [
-        ("goapi-basic", "http://localhost:9000/health"),
-        ("goapi-full", "http://localhost:9001/health")
+        ("goapi-basic", "http://localhost:4000/health"),
+        ("goapi-full", "http://localhost:4001/health")
     ]
     
     async with httpx.AsyncClient() as client:
@@ -344,7 +323,14 @@ async def test_05_verify_goapi_health():
 @pytest.mark.asyncio
 async def test_05b_verify_python_health():
     """Test that the Python narrative-engine service starts and responds to health checks."""
-    url = "http://localhost:9002/health"
+    svc_dir = SANDBOX_DIR / "services" / "narrative-engine"
+    port = None
+    for line in (svc_dir / ".env").read_text().splitlines():
+        if line.startswith("PORT=") or line.startswith("SERVER_PORT="):
+            port = line.split("=", 1)[1].strip()
+            break
+    assert port, "Could not find PORT in narrative-engine .env"
+    url = f"http://localhost:{port}/health"
 
     async with httpx.AsyncClient() as client:
         healthy = False
@@ -353,7 +339,8 @@ async def test_05b_verify_python_health():
                 resp = await client.get(url, timeout=2.0)
                 if resp.status_code == 200:
                     data = resp.json()
-                    if data.get("status") == "ok":
+                    # Python FastAPI health returns {"status": "alive"}
+                    if data.get("status") in ("ok", "alive"):
                         healthy = True
                         break
             except (httpx.ConnectError, httpx.ReadTimeout):
@@ -369,7 +356,7 @@ async def test_05b_verify_python_health():
 @pytest.mark.asyncio
 async def test_06_verify_clerk_webhook_rejection():
     """Test that the Clerk webhook handler rejects unverified requests."""
-    url = "http://localhost:9001/webhooks/clerk"
+    url = "http://localhost:4001/webhooks/clerk"
     payload = {"type": "user.created", "data": {"id": "user_123"}}
     
     async with httpx.AsyncClient() as client:
@@ -378,22 +365,21 @@ async def test_06_verify_clerk_webhook_rejection():
         assert resp.status_code in [400, 401], f"Expected webhook to reject, got {resp.status_code}"
         print(f"\nWebhook correctly rejected unverified payload: {resp.status_code}")
 
-def test_07_run_isolated_system_tests():
-    """Test running the offset 500x topology concurrently via the system test runner."""
-    print("\n--- Running System Tests (Isolated Topology) ---")
-    
-    # Run pytest inside the generated tests/system directory
+def test_07_run_booted_system_tests():
+    """Run the discovery-based system suite against the live dev stack."""
+    print("\n--- Running System Tests (Discovery, REQUIRE_* enabled) ---")
+    env = {**os.environ, "GROUNDWORK_REQUIRE_SERVICES": "1", "GROUNDWORK_REQUIRE_TRACES": "1"}
     res = subprocess.run(
-        ["uv", "run", "pytest", "test_system.py", "-v", "-s"],
-        cwd=SANDBOX_DIR / "tests" / "system",
+        ["uv", "run", "pytest", "system/", "-v", "-s"],
+        cwd=SANDBOX_DIR / "tests",
         capture_output=True,
-        text=True
+        text=True,
+        env=env,
     )
     print(res.stdout)
     if res.returncode != 0:
         print(f"Stderr: {res.stderr}")
-    
-    assert res.returncode == 0, "Isolated system tests failed to run"
+    assert res.returncode == 0, "Booted system tests failed"
 
 
 def test_08_teardown_dev_environment():

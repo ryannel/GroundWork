@@ -13,8 +13,8 @@ async def test_cluster_health(cluster, api_client: httpx.AsyncClient):
     # response = await api_client.get("http://localhost:4000/health")
     # assert response.status_code == 200
     
-    # Verify traceparent was injected by the fixture
-    assert "traceparent" in api_client.headers
+    # NOTE: tracing is covered by test_traces.py, which asserts spans actually
+    # reach the trace backend — not merely that a header was set on the client.
     assert True
 
 @pytest.mark.asyncio

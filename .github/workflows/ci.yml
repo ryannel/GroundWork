@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: ./dev test generation
+
+  compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: ./dev test compilation
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - run: npm ci
+      - name: Build generators
+        run: npm run build
+      # GitHub ubuntu runners ship Docker; the dev stack boots directly.
+      - name: End-to-end scaffold + harness
+        env:
+          GROUNDWORK_REQUIRE_SERVICES: '1'
+          GROUNDWORK_REQUIRE_TRACES: '1'
+        run: ./dev test scaffolds
+
+  # OPTIONAL — requires LLM API keys; gated to nightly / label, NOT required.
+  # Enable by adding secrets and uncommenting. Documented here per Phase 0 design.
+  # eval:
+  #   if: github.event_name == 'schedule' || contains(github.event.pull_request.labels.*.name, 'run-eval')
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with: { node-version: '20', cache: 'npm' }
+  #     - run: npm ci
+  #     - run: ./dev eval run
+  #       env:
+  #         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

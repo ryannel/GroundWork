@@ -165,7 +165,7 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
             `DB_NAME=\${DB_NAME:-${serviceNames.fileName}}`,
             'REDIS_URL=redis:6379',
             'PUBSUB_EMULATOR_HOST=pubsub:${PUBSUB_PORT:-8085}',
-            'OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317',
+            'OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317',
             'OTEL_EXPORTER_OTLP_PROTOCOL=grpc'
           ],
           depends_on: {

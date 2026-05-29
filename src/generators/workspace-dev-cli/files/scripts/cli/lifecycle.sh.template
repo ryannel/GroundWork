@@ -303,3 +303,62 @@ function cmd_clean() {
   local elapsed=$((end_time - start_time))
   print_success "Workspace clean complete. (${elapsed}s)"
 }
+
+function cmd_migrate() {
+  print_logo "Applying Database Migrations"
+
+  local db_container="<%= projectPrefix %>-db"
+
+  # Wait for postgres to accept connections before any CREATE DATABASE.
+  start_spinner "Waiting for database ($db_container)"
+  local ready=false
+  for _ in $(seq 1 60); do
+    if docker exec "$db_container" pg_isready -U postgres >/dev/null 2>&1; then
+      ready=true
+      break
+    fi
+    sleep 1
+  done
+  if ! $ready; then
+    stop_spinner "Failed" ""
+    fail "Database '$db_container' never became ready" "Run './dev start' first"
+  fi
+  stop_spinner "Database ready" ""
+
+  for svc in $(_get_app_services); do
+    local svc_dir="$ROOT_DIR/services/$svc"
+    local db_name="$svc"
+
+    print_step "Migrating $svc (db: $db_name)"
+
+    # Create the database if it does not exist.
+    local check="docker exec $db_container psql -U postgres -tc \"SELECT 1 FROM pg_database WHERE datname='$db_name'\" | grep -q 1"
+    local create="docker exec $db_container psql -U postgres -c \"CREATE DATABASE \\\"$db_name\\\";\""
+    if eval "$check"; then
+      print_substep "Database '$db_name' already exists."
+    else
+      if eval "$create" >/dev/null 2>&1; then
+        print_substep "Created database '$db_name'."
+      else
+        print_warn "Could not create database '$db_name' (continuing)."
+      fi
+    fi
+
+    # Apply declarative schema if the service ships one (Go services do).
+    if [ -f "$svc_dir/scripts/apply-schema.sh" ]; then
+      local db_url="postgres://postgres:postgres@localhost:5432/$db_name?sslmode=disable"
+      start_spinner "Applying schema for $svc"
+      if (cd "$svc_dir" && DATABASE_URL="$db_url" bash scripts/apply-schema.sh) >/dev/null 2>&1; then
+        stop_spinner "Schema applied for $svc" ""
+      else
+        stop_spinner "Failed" ""
+        fail "Schema migration failed for $svc" "Run 'cd services/$svc && DATABASE_URL=$db_url bash scripts/apply-schema.sh' to see the error"
+      fi
+    else
+      print_substep "No apply-schema.sh for $svc; database created only."
+    fi
+  done
+
+  echo ""
+  print_success "Migrations complete."
+}

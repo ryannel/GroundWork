@@ -35,7 +35,9 @@ type RedisConfig struct {
 }
 
 type TelemetryConfig struct {
-	CollectorURL string `env:"OTEL_EXPORTER_OTLP_ENDPOINT" envDefault:"localhost:4317"`
+	// Per the OTLP spec this carries a scheme (e.g. http://otel-host:4317).
+	// InitProvider parses it with WithEndpointURL, which is scheme-aware.
+	CollectorURL string `env:"OTEL_EXPORTER_OTLP_ENDPOINT" envDefault:"http://localhost:4317"`
 }
 
 func Load() *Config {

@@ -5,7 +5,7 @@
  * Automatically invoked by Next.js when the app starts (server-side only).
  *
  * Configuration is driven by standard OTEL_* environment variables so the
- * same code works for local development (OTel Collector → Aspire) and
+ * same code works for local development (OTLP → Jaeger) and
  * production (Google Cloud Trace / Monitoring).
  *
  * @see https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation

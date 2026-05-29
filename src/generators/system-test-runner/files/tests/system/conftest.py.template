@@ -1,88 +1,209 @@
+"""Shared fixtures for the system test suite.
+
+This suite runs against the DEV STACK (`./dev start`), not a parallel
+test-compose. Services and their ports/DBs are DISCOVERED at runtime by
+parsing the workspace ../../docker-compose.yml — there are no hardcoded
+ports and no manifest file. Adding a service to the workspace automatically
+brings it under test.
+
+FAIL LOUD, NOT SILENT: when GROUNDWORK_REQUIRE_SERVICES=1 (set by CI and by
+`./dev test integration`), an unreachable service is a FAILURE. Locally
+(flag unset) the same condition skips, so the inner loop stays ergonomic.
+"""
+
 import os
 import uuid
-import pytest
+from pathlib import Path
+
 import httpx
 import psycopg
-from tenacity import retry, stop_after_delay, wait_exponential
+import pytest
+import yaml
+from tenacity import RetryError, retry, stop_after_delay, wait_exponential
 
-@pytest.fixture(scope="session")
-def docker_compose_file(pytestconfig):
-    """Path to the root docker-compose file."""
-    return os.path.join(os.path.dirname(__file__), "docker-compose.test.yml")
+# system/ -> tests/ -> workspace root
+WORKSPACE_ROOT = Path(__file__).resolve().parent.parent.parent
+COMPOSE_PATH = WORKSPACE_ROOT / "docker-compose.yml"
+SERVICES_DIR = WORKSPACE_ROOT / "services"
 
-@pytest.fixture(scope="session")
-def docker_compose_project_name():
-    """Prefix for the compose project."""
-    return "<%= projectPrefix %>-tests"
+# Postgres on the dev stack is published to host localhost:5432.
+PG_HOST = "localhost"
+PG_PORT = 5432
+PG_USER = "postgres"
+PG_PASSWORD = "postgres"
 
-@pytest.fixture(scope="session")
-def cluster(docker_ip, docker_services):
+# Jaeger query API (UI + /api/services + /api/traces) on the dev stack.
+JAEGER_URL = os.environ.get("TRACE_BACKEND_URL", "http://localhost:16686")
+
+REQUIRE_SERVICES = os.environ.get("GROUNDWORK_REQUIRE_SERVICES") == "1"
+
+
+def _infer_type(name: str) -> str:
+    """Infer service type from on-disk markers under services/<name>/."""
+    svc = SERVICES_DIR / name
+    if (svc / "go.mod").exists():
+        return "go"
+    if (svc / "pyproject.toml").exists():
+        return "python"
+    if (svc / "package.json").exists():
+        return "next"
+    return "unknown"
+
+
+def _health_path_for(svc_type: str) -> str:
+    if svc_type == "next":
+        return "/api/healthz"
+    # Go (huma) and Python (FastAPI) both expose /health.
+    return "/health"
+
+
+def _discover_services() -> list[dict]:
+    """Parse the workspace docker-compose.yml and return APP services only.
+
+    Discriminator: an APP service has `build.context` starting with
+    `./services/`; infra services use `image:` and are skipped.
     """
-    Ensure the docker-compose stack is up and healthy.
-    """
-    os.environ["COMPOSE_PROFILES"] = "all"
-    
-    @retry(stop=stop_after_delay(60), wait=wait_exponential(multiplier=1, min=2, max=10))
-    def wait_for_services():
-        # Example health check polling using tenacity instead of bare loops
-        # resp = httpx.get(f"http://{docker_ip}:4000/health", timeout=2.0)
-        # resp.raise_for_status()
-        pass
+    if not COMPOSE_PATH.exists():
+        return []
+    doc = yaml.safe_load(COMPOSE_PATH.read_text()) or {}
+    services = doc.get("services", {}) or {}
+    discovered: list[dict] = []
+    for name, spec in services.items():
+        spec = spec or {}
+        build = spec.get("build")
+        context = build.get("context") if isinstance(build, dict) else None
+        if not (isinstance(context, str) and context.startswith("./services/")):
+            continue  # infra (image:-based) service
 
-    # Basic wait for testcontainers
-    docker_services.wait_until_responsive(
-        timeout=60.0, pause=2.0, check=lambda: True
-    )
-    
-    wait_for_services()
-    return docker_services
+        # host_port = left side of the first "X:Y" ports mapping.
+        host_port = None
+        for mapping in spec.get("ports", []) or []:
+            left = str(mapping).split(":")[0]
+            if left.isdigit():
+                host_port = int(left)
+                break
+
+        # db_name from environment DB_NAME (supports list or dict form),
+        # default to the service key.
+        db_name = name
+        env = spec.get("environment")
+        env_pairs: dict[str, str] = {}
+        if isinstance(env, list):
+            for item in env:
+                if "=" in str(item):
+                    k, v = str(item).split("=", 1)
+                    env_pairs[k] = v
+        elif isinstance(env, dict):
+            env_pairs = {k: str(v) for k, v in env.items()}
+        if "DB_NAME" in env_pairs:
+            # value may be "${DB_NAME:-svc}"; take the default after :- if present.
+            raw = env_pairs["DB_NAME"]
+            if ":-" in raw:
+                db_name = raw.split(":-", 1)[1].rstrip("}")
+            elif not raw.startswith("$"):
+                db_name = raw
+
+        svc_type = _infer_type(name)
+        discovered.append(
+            {
+                "name": name,
+                "host_port": host_port,
+                "db_name": db_name,
+                # otel_name == compose service key == Go otelhttp.NewMiddleware name.
+                "otel_name": name,
+                "health_path": _health_path_for(svc_type),
+                "type": svc_type,
+            }
+        )
+    return discovered
+
+
+@pytest.fixture(scope="session")
+def services_manifest() -> list[dict]:
+    """Discovered APP services. Empty list is allowed (no services yet)."""
+    return _discover_services()
+
+
+def _base_url(svc: dict) -> str:
+    return f"http://localhost:{svc['host_port']}"
+
+
+@pytest.fixture(scope="session")
+def cluster(services_manifest):
+    """Health-gate the dev stack: poll every discovered service's health
+    endpoint plus the jaeger query API. FAIL if REQUIRE_SERVICES and anything
+    is unreachable after the timeout; otherwise skip (local inner loop)."""
+
+    @retry(stop=stop_after_delay(120), wait=wait_exponential(multiplier=1, min=1, max=8))
+    def _wait():
+        unreachable = []
+        for svc in services_manifest:
+            if svc["host_port"] is None:
+                continue
+            url = f"{_base_url(svc)}{svc['health_path']}"
+            try:
+                r = httpx.get(url, timeout=2.0)
+                if r.status_code != 200:
+                    unreachable.append(url)
+            except httpx.HTTPError:
+                unreachable.append(url)
+        try:
+            j = httpx.get(f"{JAEGER_URL}/api/services", timeout=2.0)
+            if j.status_code != 200:
+                unreachable.append(f"{JAEGER_URL}/api/services")
+        except httpx.HTTPError:
+            unreachable.append(f"{JAEGER_URL}/api/services")
+        if unreachable:
+            raise RuntimeError(f"unreachable: {unreachable}")
+
+    try:
+        _wait()
+    except (RetryError, RuntimeError) as exc:
+        if REQUIRE_SERVICES:
+            pytest.fail(
+                f"dev stack not healthy and GROUNDWORK_REQUIRE_SERVICES=1: {exc}"
+            )
+        pytest.skip(f"dev stack not reachable (run `./dev start`): {exc}")
+    return services_manifest
+
 
 @pytest.fixture
 def trace_id():
-    """Generate a W3C trace ID for observability."""
+    """A W3C trace id (32 hex chars)."""
     return uuid.uuid4().hex
+
 
 @pytest.fixture
 async def api_client(trace_id):
-    """
-    Generic async HTTPX client that injects W3C traceparent headers.
-    This ensures test traffic is identifiable in the Aspire/Jaeger dashboard.
-    """
-    # W3C traceparent format: 00-{trace-id}-{span-id}-01
+    """Async HTTPX client that stamps a W3C traceparent so test traffic is
+    identifiable in jaeger."""
     span_id = uuid.uuid4().hex[:16]
     traceparent = f"00-{trace_id}-{span_id}-01"
-    
-    headers = {
-        "traceparent": traceparent,
-        "x-test-run": "system-test"
-    }
-    
+    headers = {"traceparent": traceparent, "x-test-run": "system-test"}
     async with httpx.AsyncClient(headers=headers, timeout=10.0) as client:
         yield client
 
+
 @pytest.fixture(scope="function", autouse=True)
-def pure_state_reset():
-    """
-    Wipe domain state before each test to guarantee isolation.
-    Uses DELETE instead of TRUNCATE to avoid resetting sequence counters 
-    if that causes issues, or adjust to TRUNCATE CASCADE if preferred.
-    """
-    dsn = "postgresql://postgres:postgres@localhost:5433/<%= projectPrefix %>"
-    tables = [
-        # List tables in dependency order
-        # "users",
-        # "orders"
-    ]
-    
-    try:
-        with psycopg.connect(dsn, autocommit=True) as conn:
-            with conn.cursor() as cur:
-                for table in tables:
-                    try:
-                        cur.execute(f"DELETE FROM {table}")
-                    except psycopg.errors.UndefinedTable:
-                        pass
-    except psycopg.OperationalError:
-        pass # DB might not be up if we are skipping full compose
-    
+def pure_state_reset(services_manifest):
+    """Truncate every table in each discovered service's database before each
+    test. Tolerates a missing DB (not yet created) and an empty table set."""
+    for svc in services_manifest:
+        dsn = (
+            f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{svc['db_name']}"
+        )
+        try:
+            with psycopg.connect(dsn, autocommit=True) as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        "SELECT tablename FROM pg_tables WHERE schemaname='public'"
+                    )
+                    tables = [row[0] for row in cur.fetchall()]
+                    if tables:
+                        joined = ", ".join(f'"{t}"' for t in tables)
+                        cur.execute(
+                            f"TRUNCATE {joined} RESTART IDENTITY CASCADE"
+                        )
+        except psycopg.OperationalError:
+            pass  # DB may not exist yet (pre-migrate); tolerate it.
     yield
