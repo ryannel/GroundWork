@@ -108,10 +108,9 @@ function cmd_start() {
     if [ -f "$svc_dir/.air.toml" ]; then
       cmd="cd $svc_dir && air"
     elif [ -f "$svc_dir/package.json" ]; then
-      cmd="cd $svc_dir && npm run dev"
+      cmd="cd $svc_dir && ([ -d node_modules ] || npm install --legacy-peer-deps) && npm run dev"
     elif [ -f "$svc_dir/pyproject.toml" ]; then
-      print_warn "Python service $svc found but no native start command known. Skipping."
-      continue
+      cmd="cd $svc_dir && uv run python src/main.py"
     else
       print_warn "Unknown service type for $svc. Skipping."
       continue

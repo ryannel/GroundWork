@@ -324,12 +324,12 @@ async def test_05_verify_goapi_health():
 async def test_05b_verify_python_health():
     """Test that the Python narrative-engine service starts and responds to health checks."""
     svc_dir = SANDBOX_DIR / "services" / "narrative-engine"
-    port = None
-    for line in (svc_dir / ".env").read_text().splitlines():
-        if line.startswith("PORT=") or line.startswith("SERVER_PORT="):
-            port = line.split("=", 1)[1].strip()
-            break
-    assert port, "Could not find PORT in narrative-engine .env"
+    # Python services don't generate a .env; read the port from the baked-in default in config.py.
+    import re
+    config_text = (svc_dir / "src" / "provider" / "config.py").read_text()
+    match = re.search(r"server_port: int = (\d+)", config_text)
+    port = match.group(1) if match else None
+    assert port, "Could not find server_port in narrative-engine src/provider/config.py"
     url = f"http://localhost:{port}/health"
 
     async with httpx.AsyncClient() as client:

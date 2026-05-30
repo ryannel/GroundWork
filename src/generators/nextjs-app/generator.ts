@@ -223,7 +223,7 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
   return () => {
     const { execSync } = require('child_process');
     try {
-      execSync('pnpm install --frozen-lockfile', { cwd: projectRoot, stdio: 'inherit' });
+      execSync('pnpm install', { cwd: projectRoot, stdio: 'inherit' });
     } catch (e) {
       console.warn(`Failed to run pnpm install in ${projectRoot}. Run it manually.`);
     }

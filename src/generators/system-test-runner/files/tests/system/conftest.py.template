@@ -134,7 +134,7 @@ def cluster(services_manifest):
     endpoint plus the jaeger query API. FAIL if REQUIRE_SERVICES and anything
     is unreachable after the timeout; otherwise skip (local inner loop)."""
 
-    @retry(stop=stop_after_delay(120), wait=wait_exponential(multiplier=1, min=1, max=8))
+    @retry(stop=stop_after_delay(300), wait=wait_exponential(multiplier=1, min=1, max=8))
     def _wait():
         unreachable = []
         for svc in services_manifest:

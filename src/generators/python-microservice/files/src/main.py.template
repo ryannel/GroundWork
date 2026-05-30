@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 
 from src.provider.config import settings
+<% if (rest) { %>
 from src.entrypoints.api.router import router as example_router
 from src.entrypoints.api.middleware import (
     DomainExceptionHandlerMiddleware,
@@ -11,12 +12,13 @@ from src.entrypoints.api.middleware import (
     GlobalTimeoutMiddleware,
     IdempotencyMiddleware
 )
+<% } %>
 <% if (postgres) { %>
 from src.provider.database import engine
 from src.provider.database_repository import PostgresIdempotencyRepository
 <% } %>
 
-<% if (websockets) { %>
+<% if (rest && websockets) { %>
 from src.entrypoints.api.websocket_handler import router as ws_router
 <% } %>
 
@@ -48,6 +50,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+<% if (rest) { %>
 # Middlewares are executed in reverse order of addition
 # 1. Exception Handler catches all
 app.add_middleware(DomainExceptionHandlerMiddleware)
@@ -55,7 +58,10 @@ app.add_middleware(DomainExceptionHandlerMiddleware)
 app.add_middleware(GlobalTimeoutMiddleware, timeout=30.0)
 # 3. Concurrency Limits protect from overload
 app.add_middleware(ConcurrencyLimitingMiddleware, max_concurrent_requests=100)
-# 4. CORS
+# 5. Idempotency protects mutating endpoints
+app.add_middleware(IdempotencyMiddleware)
+<% } %>
+# 4. CORS — always add
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://your-frontend.com"],
@@ -63,11 +69,10 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
-# 5. Idempotency protects mutating endpoints
-app.add_middleware(IdempotencyMiddleware)
-
+<% if (rest) { %>
 app.include_router(example_router)
-<% if (websockets) { %>
+<% } %>
+<% if (rest && websockets) { %>
 app.include_router(ws_router)
 <% } %>
 

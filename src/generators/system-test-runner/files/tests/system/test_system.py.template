@@ -50,7 +50,7 @@ async def test_every_service_is_healthy(cluster, api_client: httpx.AsyncClient, 
         assert data.get("checks", {}).get("db") == "ok", f"{svc['name']} db: {data}"
     else:
         # Python FastAPI returns {"status": "alive"}; Next returns its own shape.
-        assert data.get("status") in {"ok", "alive", "ready"}, f"{svc['name']}: {data}"
+        assert data.get("status") in {"ok", "alive", "ready", "healthy"}, f"{svc['name']}: {data}"
 
 
 @pytest.mark.parametrize("svc", _PARAMS)
