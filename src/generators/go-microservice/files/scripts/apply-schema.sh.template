@@ -14,8 +14,8 @@ echo "Applying declarative schema to database..."
 # Uses Stripe's pg-schema-diff to declaratively migrate the database 
 # to match the state defined in db/schema.sql
 go run github.com/stripe/pg-schema-diff/cmd/pg-schema-diff apply \
-    --dsn "$DB_URL" \
-    --schema-dir ./db \
-    --allow-destructive-changes
+    --from-dsn "$DB_URL" \
+    --to-dir ./db \
+    --skip-confirm-prompt
 
 echo "Schema applied successfully!"

@@ -309,11 +309,15 @@ function cmd_migrate() {
 
   local db_container="<%= projectPrefix %>-db"
 
-  # Wait for postgres to accept connections before any CREATE DATABASE.
+  # Wait for postgres to be fully initialized (not just accepting connections).
+  # pg_isready can return true during the brief init-restart window; the docker
+  # healthcheck is more reliable (it retries and waits for stability).
   start_spinner "Waiting for database ($db_container)"
   local ready=false
-  for _ in $(seq 1 60); do
-    if docker exec "$db_container" pg_isready -U postgres >/dev/null 2>&1; then
+  for _ in $(seq 1 120); do
+    local health
+    health=$(docker inspect --format='{{.State.Health.Status}}' "$db_container" 2>/dev/null || echo "")
+    if [ "$health" = "healthy" ]; then
       ready=true
       break
     fi

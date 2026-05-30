@@ -1,0 +1,10 @@
+//go:build tools
+
+// Package tools pins tool dependencies so go mod tidy retains them.
+// These packages are referenced via go run in shell scripts; the build
+// tag prevents them from being compiled into the main binary.
+package tools
+
+import (
+	_ "github.com/stripe/pg-schema-diff/cmd/pg-schema-diff"
+)
