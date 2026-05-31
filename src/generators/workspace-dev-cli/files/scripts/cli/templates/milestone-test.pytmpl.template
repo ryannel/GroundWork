@@ -1,0 +1,46 @@
+"""Bet-progress test — Milestone @@N@@: @@MILESTONE@@
+Bet: @@BET@@
+
+This test is RED by design. It defines the target state for Milestone @@N@@.
+Run './dev test bet @@BET@@' to see it fail; it will pass when Delivery is complete.
+
+Two complementary proof layers — fill in both before starting Delivery:
+  Layer 1 — Interface: what the user observes in the product's interface
+  Layer 2 — API:       what the running service returns end-to-end over HTTP
+"""
+
+import pytest
+
+
+# ---------------------------------------------------------------------------
+# Layer 1: Interface-level proof
+# ---------------------------------------------------------------------------
+# Use the fixture that matches your project's interface track (docs/design-system.md):
+#   graphical-ui     → page   (pytest-playwright browser fixture)
+#   cli              → subprocess.run / pexpect
+#   agentic-protocol → httpx to the protocol endpoint
+#
+# def test_milestone_@@N@@_@@MILESTONE@@_interface(cluster, page, frontend_base_url):
+#     """Assert what the user observes at Milestone @@N@@."""
+#     page.goto(f"{frontend_base_url}/your-route")
+#     # assert page.locator("...").is_visible()
+#     pytest.fail("bet-progress test not yet implemented — describe the user-visible target state here")
+
+
+# ---------------------------------------------------------------------------
+# Layer 2: API-level system proof
+# ---------------------------------------------------------------------------
+# Uses shared fixtures from tests/conftest.py (auto-discovered, no import needed):
+#   cluster     — health-gates the running services
+#   api_client  — async httpx.AsyncClient with traceparent header
+#
+@pytest.mark.asyncio
+async def test_milestone_@@N@@_@@MILESTONE@@_api(cluster, api_client):
+    """Assert the API-level outcome for Milestone @@N@@: @@MILESTONE@@."""
+    # TODO: replace with the real end-to-end HTTP assertion
+    # resp = await api_client.get("http://localhost:<port>/api/v1/...")
+    # assert resp.status_code == 200
+    pytest.fail(
+        "bet-progress test not yet implemented — "
+        "assert the user-visible outcome via the running API for milestone @@N@@ (@@MILESTONE@@)"
+    )

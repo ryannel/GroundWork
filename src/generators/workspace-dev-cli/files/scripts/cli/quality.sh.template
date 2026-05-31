@@ -8,8 +8,10 @@
 function cmd_test() {
   local MODE="$1"
   local KEEP=false
+  local INTEGRATION=false
   for arg in "$@"; do
     if [ "$arg" == "--keep" ]; then KEEP=true; fi
+    if [ "$arg" == "--integration" ]; then INTEGRATION=true; fi
   done
 
   if [ ! -d "$ROOT_DIR/tests/system" ]; then
@@ -36,6 +38,50 @@ function cmd_test() {
     fi
     echo ""
     print_success "Integration tests passed."
+    return 0
+  fi
+
+  if [ "$MODE" == "bet" ]; then
+    local SLUG="$2"
+    if [ -z "$SLUG" ]; then
+      fail "Usage: ./dev test bet <slug>" "Provide the bet slug (e.g. ./dev test bet user-auth)"
+    fi
+
+    local BET_DIR="$ROOT_DIR/tests/bets/$SLUG"
+    if [ ! -d "$BET_DIR" ]; then
+      fail "Bet test directory not found: tests/bets/$SLUG" \
+           "Run './dev new bet $SLUG' and author the test stubs first."
+    fi
+
+    if $INTEGRATION; then
+      print_logo "Running Bet Integration Tests — $SLUG"
+      cmd_start
+      cmd_migrate
+      # Install playwright browser binaries if any bet test uses playwright.
+      if grep -r "playwright\|from playwright" "$BET_DIR/" 2>/dev/null | grep -q .; then
+        print_step "Installing Playwright browser binaries (chromium)"
+        ( cd "$ROOT_DIR/tests" && uv run playwright install chromium ) || true
+      fi
+      print_step "Running bet-progress suite: bets/$SLUG/ (REQUIRE_SERVICES enabled)"
+      local rc=0
+      ( cd "$ROOT_DIR/tests" && \
+        GROUNDWORK_REQUIRE_SERVICES=1 uv run pytest "bets/$SLUG/" ) || rc=$?
+      if ! $KEEP; then
+        cmd_stop
+      fi
+      if [ "$rc" -ne 0 ]; then
+        fail "Bet tests failed" "Re-run with '--keep' to inspect the running stack"
+      fi
+      echo ""
+      print_success "Bet integration tests passed: $SLUG"
+    else
+      # Fast inner loop against an already-running stack.
+      print_logo "Running Bet Tests — $SLUG"
+      print_step "Running bet-progress suite: bets/$SLUG/"
+      cd "$ROOT_DIR/tests" && uv run pytest "bets/$SLUG/"
+      echo ""
+      print_success "Bet tests complete: $SLUG"
+    fi
     return 0
   fi
 

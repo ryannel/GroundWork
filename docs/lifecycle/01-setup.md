@@ -10,8 +10,8 @@ Six phases, each with one skill and one canonical output document:
 | 2 | `groundwork-design-system` | `docs/design-system.md` | Design system, NFRs, interaction patterns |
 | 3 | `groundwork-architecture` | `docs/architecture.md` | Services, data flows, contracts, technology choices |
 | 4 | `groundwork-scaffold` | `docs/infrastructure.md` | Running local environment, generator output, infrastructure topology |
-| 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, and milestones |
-| 6 | `groundwork-bet` (Planning onward) | First delivered feature | The first shipped value; enters the Delivery Loop afterwards |
+| 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, and explicit no-gos |
+| 6 | `groundwork-bet` (Design Foundations onward) | First delivered feature | The first shipped value; enters the Delivery Loop afterwards |
 
 Phases run in order. Each phase commits its document to disk, applies the Living Documents protocol against earlier documents, then hands off to the `groundwork-orchestrator`, which determines the next incomplete phase and routes to its skill.
 
@@ -23,7 +23,7 @@ Each phase constrains the next, and the constraints flow downhill:
 - **Design System → Architecture**: The Design System phase captures NFRs (performance budgets, real-time needs, accessibility commitments). Architecture decisions must respect those constraints — a 50ms interaction budget eliminates entire infrastructure approaches.
 - **Architecture → Scaffolding**: The architecture defines the service boundaries, technology choices, and capability decisions. Scaffolding maps those decisions to specific Nx generator invocations.
 - **Scaffolding → MVP Planning**: The infrastructure is real before MVP scoping begins. The MVP can reference concrete services and capabilities rather than aspirational ones.
-- **MVP Planning → First Bet**: MVP produces a pitch at `status: planning`. The Bet skill picks up at the planning phase and continues without re-doing discovery.
+- **MVP Planning → First Bet**: MVP produces a pitch at `status: design`. The Bet skill picks up at Design Foundations and continues without re-doing discovery.
 
 ## How phases communicate
 
@@ -35,9 +35,9 @@ Two protocols carry information between phases. Both are defined in the Operatin
 
 ## The MVP→Bet exception
 
-Every phase transition recommends a fresh context for the next phase — except the MVP→Bet handoff. The greenfield discovery surfaces a substantial amount of context the docs alone do not fully capture (the why behind each decision, the trade-offs that were considered, the user's recurring concerns). That context is needed by the first bet's planning phase to produce the right contracts and tests.
+Every phase transition recommends a fresh context for the next phase — except the MVP→Bet handoff. The greenfield discovery surfaces a substantial amount of context the docs alone do not fully capture (the why behind each decision, the trade-offs that were considered, the user's recurring concerns). That context is needed by the first bet's Design Foundations phase to produce the right interface design and contracts.
 
-To preserve it, the MVP commit step does not recommend a fresh context. The orchestrator routes to `groundwork-bet` in the same session, and the Bet skill picks up the pitch at `status: planning` and proceeds without re-summarising. After the first bet ships, every subsequent bet runs in a fresh context using only `docs/*.md` and discovery notes as ground truth.
+To preserve it, the MVP commit step does not recommend a fresh context. The orchestrator routes to `groundwork-bet` in the same session, and the Bet skill picks up the pitch at `status: design` and routes into `02-design.md` without re-summarising. After the first bet ships, every subsequent bet runs in a fresh context using only `docs/*.md` and discovery notes as ground truth.
 
 ## Resumption
 

@@ -1,13 +1,15 @@
-"""Shared fixtures for the system test suite.
+"""Shared fixtures for the system and bet-progress test suites.
 
-This suite runs against the DEV STACK (`./dev start`), not a parallel
-test-compose. Services and their ports/DBs are DISCOVERED at runtime by
-parsing the workspace ../../docker-compose.yml — there are no hardcoded
-ports and no manifest file. Adding a service to the workspace automatically
-brings it under test.
+This file is the single source of truth for service discovery and state
+management. Both tests/system/ and tests/bets/ import from here.
 
-FAIL LOUD, NOT SILENT: when GROUNDWORK_REQUIRE_SERVICES=1 (set by CI and by
-`./dev test integration`), an unreachable service is a FAILURE. Locally
+Services and their ports/DBs are DISCOVERED at runtime by parsing the
+workspace docker-compose.yml — there are no hardcoded ports and no
+manifest file. Adding a service to the workspace automatically brings
+it under test.
+
+FAIL LOUD, NOT SILENT: when GROUNDWORK_REQUIRE_SERVICES=1 (set by CI and
+by `./dev test integration`), an unreachable service is a FAILURE. Locally
 (flag unset) the same condition skips, so the inner loop stays ergonomic.
 """
 
@@ -21,8 +23,8 @@ import pytest
 import yaml
 from tenacity import RetryError, retry, stop_after_delay, wait_exponential
 
-# system/ -> tests/ -> workspace root
-WORKSPACE_ROOT = Path(__file__).resolve().parent.parent.parent
+# tests/ -> workspace root (conftest.py sits at tests/, one level above system/)
+WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
 COMPOSE_PATH = WORKSPACE_ROOT / "docker-compose.yml"
 SERVICES_DIR = WORKSPACE_ROOT / "services"
 
@@ -187,7 +189,8 @@ async def api_client(trace_id):
 @pytest.fixture(scope="function", autouse=True)
 def pure_state_reset(services_manifest):
     """Truncate every table in each discovered service's database before each
-    test. Tolerates a missing DB (not yet created) and an empty table set."""
+    test. Runs for BOTH system/ and bets/ suites (autouse is rootdir-scoped).
+    Tolerates a missing DB (not yet created) and an empty table set."""
     for svc in services_manifest:
         dsn = (
             f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{svc['db_name']}"
@@ -207,3 +210,21 @@ def pure_state_reset(services_manifest):
         except psycopg.OperationalError:
             pass  # DB may not exist yet (pre-migrate); tolerate it.
     yield
+
+
+<% if (interfaceMedium === 'graphical-ui') { %>
+@pytest.fixture(scope="session")
+def frontend_base_url(services_manifest):
+    """Base URL for the Next.js frontend service. Used by graphical-ui bet-progress tests.
+
+    Discovers the first service of type 'next' from the workspace docker-compose.yml
+    and returns its host URL. Skips cleanly when no Next.js service is present.
+    """
+    next_svcs = [s for s in services_manifest if s.get("type") == "next"]
+    if not next_svcs:
+        pytest.skip("No Next.js service found in docker-compose.yml — frontend_base_url unavailable")
+    svc = next_svcs[0]
+    if svc["host_port"] is None:
+        pytest.skip(f"Next.js service '{svc['name']}' has no published host port")
+    return f"http://localhost:{svc['host_port']}"
+<% } %>

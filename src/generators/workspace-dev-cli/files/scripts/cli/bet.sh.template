@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+
+# ==========================================
+# DOMAIN: BET WORKFLOW
+# Commands: new (bet|milestone|slice), archive
+# ==========================================
+
+# Validate a slug is lowercase kebab-case (a-z, 0-9, hyphens only, no leading/trailing hyphen).
+_validate_slug() {
+  local slug="$1"
+  local label="$2"
+  if [[ -z "$slug" || ! "$slug" =~ ^[a-z][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$ ]]; then
+    fail "Invalid $label slug: '$slug'" "Use lowercase kebab-case (e.g. my-feature, user-auth)"
+  fi
+}
+
+function cmd_new() {
+  local NOUN="$1"
+
+  case "$NOUN" in
+    bet)
+      local SLUG="$2"
+      if [[ -z "$SLUG" ]]; then
+        fail "Usage: ./dev new bet <slug>" "Provide a lowercase kebab-case slug (e.g. ./dev new bet user-auth)"
+      fi
+      _validate_slug "$SLUG" "bet"
+      print_logo "New Bet"
+      print_step "Scaffolding bet: $SLUG"
+      mkdir -p "$ROOT_DIR/docs/bets/$SLUG"
+      mkdir -p "$ROOT_DIR/tests/bets/$SLUG"
+      print_success "Created docs/bets/$SLUG/ and tests/bets/$SLUG/"
+      print_info "Next: run './dev new milestone $SLUG <milestone-slug>' to add a milestone test stub."
+      ;;
+
+    milestone)
+      local BET_SLUG="$2"
+      local MILESTONE_SLUG="$3"
+      if [[ -z "$BET_SLUG" || -z "$MILESTONE_SLUG" ]]; then
+        fail "Usage: ./dev new milestone <bet-slug> <milestone-slug>" \
+             "Example: ./dev new milestone user-auth basic-login"
+      fi
+      _validate_slug "$BET_SLUG" "bet"
+      _validate_slug "$MILESTONE_SLUG" "milestone"
+
+      local BET_DIR="$ROOT_DIR/tests/bets/$BET_SLUG"
+      if [[ ! -d "$BET_DIR" ]]; then
+        fail "Bet directory not found: tests/bets/$BET_SLUG" \
+             "Run './dev new bet $BET_SLUG' first."
+      fi
+
+      # Compute N = count of existing milestone test files + 1
+      local N
+      N=$(find "$BET_DIR" -maxdepth 1 -name "test_milestone_*.py" 2>/dev/null | wc -l | tr -d ' ')
+      N=$((N + 1))
+
+      local TEMPLATE="$ROOT_DIR/scripts/cli/templates/milestone-test.pytmpl"
+      if [[ ! -f "$TEMPLATE" ]]; then
+        fail "Milestone test template not found: $TEMPLATE" \
+             "The template should be at scripts/cli/templates/milestone-test.pytmpl"
+      fi
+
+      local OUTPUT="$BET_DIR/test_milestone_${N}_${MILESTONE_SLUG}.py"
+      print_logo "New Milestone Test"
+      print_step "Writing $OUTPUT"
+      sed \
+        -e "s/@@BET@@/$BET_SLUG/g" \
+        -e "s/@@MILESTONE@@/$MILESTONE_SLUG/g" \
+        -e "s/@@N@@/$N/g" \
+        "$TEMPLATE" > "$OUTPUT"
+      print_success "Created tests/bets/$BET_SLUG/test_milestone_${N}_${MILESTONE_SLUG}.py (RED)"
+      print_info "Fill in the target-state assertions before starting Delivery."
+      ;;
+
+    slice)
+      local BET_SLUG="$2"
+      local MILESTONE_SLUG="$3"
+      local SERVICE="$4"
+      local SLICE_SLUG="$5"
+      if [[ -z "$BET_SLUG" || -z "$MILESTONE_SLUG" || -z "$SERVICE" || -z "$SLICE_SLUG" ]]; then
+        fail "Usage: ./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>" \
+             "Example: ./dev new slice user-auth basic-login api session-create"
+      fi
+      _validate_slug "$BET_SLUG" "bet"
+      _validate_slug "$MILESTONE_SLUG" "milestone"
+      _validate_slug "$SLICE_SLUG" "slice"
+
+      local BET_DIR="$ROOT_DIR/tests/bets/$BET_SLUG"
+      if [[ ! -d "$BET_DIR" ]]; then
+        fail "Bet directory not found: tests/bets/$BET_SLUG" \
+             "Run './dev new bet $BET_SLUG' first."
+      fi
+
+      # Compute N = count of existing slice test files for this bet + 1
+      local N
+      N=$(find "$BET_DIR" -maxdepth 1 -name "test_slice_*.py" 2>/dev/null | wc -l | tr -d ' ')
+      N=$((N + 1))
+
+      local TEMPLATE="$ROOT_DIR/scripts/cli/templates/slice-test.pytmpl"
+      if [[ ! -f "$TEMPLATE" ]]; then
+        fail "Slice test template not found: $TEMPLATE" \
+             "The template should be at scripts/cli/templates/slice-test.pytmpl"
+      fi
+
+      local OUTPUT="$BET_DIR/test_slice_${N}_${SERVICE}_${SLICE_SLUG}.py"
+      print_logo "New Slice Test"
+      print_step "Writing $OUTPUT"
+      sed \
+        -e "s/@@BET@@/$BET_SLUG/g" \
+        -e "s/@@MILESTONE@@/$MILESTONE_SLUG/g" \
+        -e "s/@@SERVICE@@/$SERVICE/g" \
+        -e "s/@@SLUG@@/$SLICE_SLUG/g" \
+        -e "s/@@N@@/$N/g" \
+        "$TEMPLATE" > "$OUTPUT"
+      print_success "Created tests/bets/$BET_SLUG/test_slice_${N}_${SERVICE}_${SLICE_SLUG}.py (RED)"
+      print_info "Fill in the falsifiable capability assertions before starting Delivery."
+      ;;
+
+    *)
+      fail "Unknown noun for 'new': $NOUN" \
+           "Usage: ./dev new bet|milestone|slice [args...]"
+      ;;
+  esac
+}
+
+function cmd_archive() {
+  local NOUN="$1"
+
+  case "$NOUN" in
+    bet)
+      local SLUG="$2"
+      if [[ -z "$SLUG" ]]; then
+        fail "Usage: ./dev archive bet <slug>" \
+             "Example: ./dev archive bet user-auth"
+      fi
+
+      local SRC="$ROOT_DIR/tests/bets/$SLUG"
+      local DEST="$ROOT_DIR/tests/bets/_archive/$SLUG"
+
+      if [[ ! -d "$SRC" ]]; then
+        fail "Bet test directory not found: tests/bets/$SLUG" \
+             "Nothing to archive."
+      fi
+
+      if [[ -d "$DEST" ]]; then
+        fail "Already archived: tests/bets/_archive/$SLUG" \
+             "Remove the archive directory first if you need to re-archive."
+      fi
+
+      print_logo "Archive Bet"
+      print_step "Archiving tests/bets/$SLUG → tests/bets/_archive/$SLUG"
+      mkdir -p "$ROOT_DIR/tests/bets/_archive"
+
+      # Prefer git mv to preserve history; fall back to mv if not in a git repo.
+      if git -C "$ROOT_DIR" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        git -C "$ROOT_DIR" mv "tests/bets/$SLUG" "tests/bets/_archive/$SLUG"
+      else
+        mv "$SRC" "$DEST"
+      fi
+
+      print_success "Archived to tests/bets/_archive/$SLUG"
+      print_info "Permanent best-practice tests remain in place and cover the feature going forward."
+      ;;
+
+    *)
+      fail "Unknown noun for 'archive': $NOUN" \
+           "Usage: ./dev archive bet <slug>"
+      ;;
+  esac
+}

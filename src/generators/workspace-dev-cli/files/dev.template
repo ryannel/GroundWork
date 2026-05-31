@@ -40,6 +40,11 @@ function show_help() {
   print_cmd "doctor" "Verify environment"
   print_cmd "test" "Execute testing suites"
   print_cmd "lint" "Run static analysis"
+
+  print_category "BET WORKFLOW"
+  print_cmd "new" "Scaffold bet/milestone/slice + red test stubs"
+  print_cmd "test bet" "Run a bet's progress suite (--integration to boot)"
+  print_cmd "archive" "Archive a delivered bet's progress suite"
   echo ""
 }
 
@@ -72,6 +77,7 @@ fi
 source "${ROOT_DIR}/scripts/cli/lifecycle.sh"
 source "${ROOT_DIR}/scripts/cli/quality.sh"
 source "${ROOT_DIR}/scripts/cli/doctor.sh"
+source "${ROOT_DIR}/scripts/cli/bet.sh"
 
 # Route commands securely
 if declare -f "cmd_${COMMAND}" > /dev/null; then

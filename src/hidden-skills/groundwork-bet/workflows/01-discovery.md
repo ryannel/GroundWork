@@ -1,6 +1,6 @@
 # Phase 1: Discovery (The Pitch)
 
-**Goal:** Establish the boundary of the bet by generating the Pitch and Milestone breakdown.
+**Goal:** Establish the boundary of the bet by generating the fat-marker Pitch — the problem, appetite, solution sketch, success signal, and explicit no-gos.
 
 ## Operating Contract
 
@@ -34,24 +34,22 @@ Arrive at the conversation already knowing what the system is and what the bet m
    - The core user problem.
    - The proposed solution (at a high level, not technical).
    - The appetite (how long should this take?).
-   - The rabbit holes and No-Gos (what are we explicitly NOT building for this bet?).
-4. Organize the solution into **Milestones**.
-   - *Constraint:* Milestones must represent demonstrable product states — visible in the UI behind a feature flag. They cannot be organized by technical layer (e.g., "Build the API" is invalid; "User can authenticate and reach their workspace" is valid). State dependencies between milestones explicitly.
-   - Identify the tech stack components each Milestone touches — this surfaces which services will need slices in Planning.
-5. Once the user is satisfied with the pitch and milestone breakdown, write the draft to `.groundwork/cache/bet-pitch-draft.md`. The pitch is not yet committed — the draft passes through an independent review before becoming `docs/bets/<bet-slug>/pitch.md`. The pitch becomes the input to every downstream planning conversation; a silently dropped capability or invented constraint poisons the entire delivery loop, so the review pass catches what a collaborative conversation alone cannot.
+   - The success signal (what observable outcome confirms this bet delivered its intended value?).
+   - The rabbit holes and no-gos — what are we explicitly NOT building? Push past vague exclusions to name natural extensions users would expect but that are out of scope, and why. These prevent scope creep and stop reviewers from raising excluded items as gaps.
+4. Once the user is satisfied with the pitch, write the draft to `.groundwork/cache/bet-pitch-draft.md`. The pitch is not yet committed — the draft passes through an independent review before becoming `docs/bets/<bet-slug>/pitch.md`. The pitch becomes the input to every downstream design and decomposition conversation; a silently dropped capability or invented constraint poisons the entire delivery loop, so the review pass catches what a collaborative conversation alone cannot.
 
-6. Run the independent review:
+5. Run the independent review:
    1. **Announce** the shift — the agent is moving from collaborative pitch-shaping into an independent review before committing the document.
    2. **Invoke the review subagent** with `document_path: .groundwork/cache/bet-pitch-draft.md` and `document_type: bet-pitch`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list.
    3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the draft — rewrite the affected sections rather than producing a list of suggestions. Write the revised draft back to `.groundwork/cache/bet-pitch-draft.md` and run the review again. Repeat until the verdict is **PRESENT**.
    4. **Carry advisory findings forward.** When the verdict is PRESENT, surface any 🟡 Advisory findings to the user along with the reviewed pitch so they can decide whether to act on them.
 
-7. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
+6. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
 
-8. Ensure the `pitch.md` frontmatter contains `status: discovery`.
+7. Ensure the `pitch.md` frontmatter contains `status: discovery`.
 
 ## Transition
 
-Once `pitch.md` is saved and the user is satisfied with the milestone breakdown, prompt the user to continue to the Planning phase.
+Once `pitch.md` is saved and the user is satisfied with the pitch, prompt the user to continue to Design Foundations.
 
-If they agree, read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-planning.md`
+If they agree, read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-design.md`

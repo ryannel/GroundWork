@@ -38,7 +38,7 @@ groundWork/
 │   │   ├── groundwork-architecture/   ← Architecture facilitation.
 │   │   ├── groundwork-scaffold/       ← Greenfield scaffolding: runs Nx generators, boots infra, writes infrastructure.md.
 │   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch and hands off to Bet without context reset.
-│   │   ├── groundwork-bet/            ← Delivery loop: discovery → planning → delivery → validation.
+│   │   ├── groundwork-bet/            ← Delivery loop: discovery → design → decomposition → delivery → validation.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.

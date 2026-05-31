@@ -14,18 +14,7 @@ last_reviewed:
 - **Success Signal:** What observable outcome confirms this bet delivered its intended value?
 
 ## Rabbit Holes & No-Gos
-*List the specific things we are explicitly NOT doing as part of this bet to prevent scope creep.*
+*List the specific things we are explicitly NOT doing as part of this bet to prevent scope creep. Include natural extensions users would expect but are excluded — "users will expect X, but we are not doing X because…" — so reviewers do not raise them as gaps.*
 
-- [ ] Out of scope item 1
-- [ ] Out of scope item 2
-
-## Milestones
-*Break the solution down into Milestones. Each milestone is a demonstrable state the product reaches — visible in the UI behind a feature flag. Do NOT organize by technical layer. State dependencies between milestones explicitly.*
-
-### Milestone 1: [Milestone Name]
-- **Goal:** What demonstrable state does this reach?
-- **Depends on:** (none, or Milestone N)
-
-### Milestone 2: [Milestone Name]
-- **Goal:** What demonstrable state does this reach?
-- **Depends on:** (none, or Milestone N)
+- [ ] Out of scope item 1 — why it is excluded
+- [ ] Out of scope item 2 — why it is excluded

@@ -420,3 +420,141 @@ def test_stack_docs_idempotency(stack_docs_workspace):
     assert go_index.stat().st_mtime == original_mtime, (
         "go/index.md mtime changed on second generation — idempotency check failed"
     )
+
+
+# ---------------------------------------------------------------------------
+# System Test Runner — 3 interfaceMedium variants
+# ---------------------------------------------------------------------------
+
+_SYSTEM_TEST_RUNNER_SANDBOX_BASE = REPO_ROOT / ".sandboxes" / "scaffolds" / "system-test-runner"
+
+_INTERFACE_MEDIA = ["graphical-ui", "cli", "agentic-protocol"]
+_INTERFACE_MEDIA_IDS = _INTERFACE_MEDIA
+
+
+def _scaffold_workspace(sandbox: Path, generator: str, **params) -> subprocess.CompletedProcess:
+    """Run a workspace-level generator (no --name) into sandbox root."""
+    cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:{generator}"]
+    for key, value in params.items():
+        cli_key = "--" + key
+        cmd.extend([cli_key, str(value).lower() if isinstance(value, bool) else str(value)])
+    return subprocess.run(cmd, cwd=sandbox, capture_output=True, text=True)
+
+
+@pytest.mark.parametrize("medium", _INTERFACE_MEDIA, ids=_INTERFACE_MEDIA_IDS)
+def test_system_test_runner_generation(medium):
+    import shutil
+    sandbox = _SYSTEM_TEST_RUNNER_SANDBOX_BASE / medium.replace("-", "_")
+    if sandbox.exists():
+        shutil.rmtree(sandbox)
+    sandbox.mkdir(parents=True)
+    (sandbox / "package.json").write_text('{"name": "sysrunnertest"}')
+    (sandbox / "nx.json").write_text("{}")
+    try:
+        result = _scaffold_workspace(sandbox, "system-test-runner", interfaceMedium=medium)
+        assert result.returncode == 0, (
+            f"system-test-runner generator failed for interfaceMedium={medium}\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        # --- Always present ---
+        assert (sandbox / "tests" / "conftest.py").exists(), \
+            "tests/conftest.py (shared fixtures) missing"
+        assert not (sandbox / "tests" / "system" / "conftest.py").exists(), \
+            "tests/system/conftest.py should NOT exist — a child conftest with the same " \
+            "basename causes a circular import when test_system.py does 'from conftest import ...'. " \
+            "Fixtures are auto-discovered from the parent tests/conftest.py."
+        assert (sandbox / "tests" / "system" / "test_system.py").exists(), \
+            "tests/system/test_system.py missing"
+        assert (sandbox / "tests" / "bets" / ".gitkeep").exists(), \
+            "tests/bets/.gitkeep missing"
+        assert (sandbox / "tests" / "bets" / "_archive" / ".gitkeep").exists(), \
+            "tests/bets/_archive/.gitkeep missing"
+
+        # testpaths includes "bets"
+        pyproject = (sandbox / "tests" / "pyproject.toml").read_text()
+        assert '"bets"' in pyproject, \
+            f"pyproject.toml testpaths does not include 'bets' for medium={medium}"
+
+        # --- Conditional: pytest-playwright only for graphical-ui ---
+        if medium == "graphical-ui":
+            assert "pytest-playwright" in pyproject, \
+                "pytest-playwright dep missing for interfaceMedium=graphical-ui"
+            shared_conftest = (sandbox / "tests" / "conftest.py").read_text()
+            assert "frontend_base_url" in shared_conftest, \
+                "frontend_base_url fixture missing for interfaceMedium=graphical-ui"
+        else:
+            assert "pytest-playwright" not in pyproject, \
+                f"pytest-playwright should be absent for interfaceMedium={medium}"
+
+        # --- Shared conftest WORKSPACE_ROOT depth ---
+        # conftest.py now lives at tests/ — one level shallower than tests/system/.
+        # WORKSPACE_ROOT must use parent.parent (not parent.parent.parent).
+        shared = (sandbox / "tests" / "conftest.py").read_text()
+        assert "parent.parent.parent" not in shared, (
+            "WORKSPACE_ROOT has too many .parent calls — conftest.py is now at tests/, "
+            "not tests/system/; use .parent.parent"
+        )
+        assert "parent.parent" in shared, \
+            "WORKSPACE_ROOT path missing — expected .parent.parent in tests/conftest.py"
+
+    finally:
+        shutil.rmtree(sandbox, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# Workspace Dev CLI — bet workflow files
+# ---------------------------------------------------------------------------
+
+_WORKSPACE_DEV_CLI_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "workspace-dev-cli-bet"
+
+
+@pytest.fixture(scope="module", autouse=False)
+def workspace_dev_cli_bet_workspace():
+    import shutil
+    if _WORKSPACE_DEV_CLI_SANDBOX.exists():
+        shutil.rmtree(_WORKSPACE_DEV_CLI_SANDBOX)
+    _WORKSPACE_DEV_CLI_SANDBOX.mkdir(parents=True)
+    (_WORKSPACE_DEV_CLI_SANDBOX / "package.json").write_text('{"name": "devclibettest"}')
+    (_WORKSPACE_DEV_CLI_SANDBOX / "nx.json").write_text("{}")
+    yield
+    shutil.rmtree(_WORKSPACE_DEV_CLI_SANDBOX, ignore_errors=True)
+
+
+def test_workspace_dev_cli_bet_files(workspace_dev_cli_bet_workspace):
+    """workspace-dev-cli generates bet workflow shell module and test stub templates."""
+    result = _scaffold_workspace(_WORKSPACE_DEV_CLI_SANDBOX, "workspace-dev-cli")
+    assert result.returncode == 0, (
+        f"workspace-dev-cli generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+    )
+
+    # Bet workflow CLI module
+    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "bet.sh").exists(), \
+        "scripts/cli/bet.sh missing"
+
+    # Stub templates (pytest must NOT collect these — .pytmpl extension)
+    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "milestone-test.pytmpl").exists(), \
+        "scripts/cli/templates/milestone-test.pytmpl missing"
+    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "slice-test.pytmpl").exists(), \
+        "scripts/cli/templates/slice-test.pytmpl missing"
+
+    # Stub templates contain @@TOKEN@@ placeholders (not EJS — sed substitutes at runtime)
+    milestone_stub = (
+        _WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "milestone-test.pytmpl"
+    ).read_text()
+    assert "@@BET@@" in milestone_stub, "milestone-test.pytmpl missing @@BET@@ token"
+    assert "@@MILESTONE@@" in milestone_stub, "milestone-test.pytmpl missing @@MILESTONE@@ token"
+    assert "@@N@@" in milestone_stub, "milestone-test.pytmpl missing @@N@@ token"
+
+    slice_stub = (
+        _WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "slice-test.pytmpl"
+    ).read_text()
+    assert "@@SERVICE@@" in slice_stub, "slice-test.pytmpl missing @@SERVICE@@ token"
+    assert "@@SLUG@@" in slice_stub, "slice-test.pytmpl missing @@SLUG@@ token"
+
+    # dev script sources bet.sh
+    dev_script = (_WORKSPACE_DEV_CLI_SANDBOX / "dev").read_text()
+    assert "scripts/cli/bet.sh" in dev_script, "dev script does not source scripts/cli/bet.sh"
+
+    # dev script help mentions bet workflow
+    assert "BET WORKFLOW" in dev_script, "dev script help missing BET WORKFLOW category"

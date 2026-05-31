@@ -1,16 +1,18 @@
 ---
 name: workspace-cli
-description: "The primary toolkit for starting, stopping, and checking the status of local services in this workspace."
+description: "The primary toolkit for managing local services and the bet delivery workflow in this workspace. Use for start/stop/status, running tests, scaffolding bet/milestone/slice stubs, and archiving delivered bet-progress suites."
 ---
 
 # Workspace CLI Skill
 
-You are operating in a workspace that uses a custom `./dev` CLI to manage its local development environment.
-Whenever the user asks you to start, stop, or check the status of the local services, you MUST use this CLI.
+You are operating in a workspace that uses a custom `./dev` CLI to manage its local development environment and bet delivery workflow.
+Whenever the user asks you to start, stop, or check the status of the local services, or to scaffold a bet/milestone/slice, run bet-progress tests, or archive a delivered bet, you MUST use this CLI.
 
 ## Capabilities
 
 The `./dev` CLI is an executable bash script located in the root directory. It provides the following commands:
+
+### Lifecycle
 
 - `./dev start`: Starts all services. It automatically handles spinning up infrastructure (like databases) in Docker, and booting application code natively.
 - `./dev start --docker`: Forces ALL services, including application code, to run inside Docker.
@@ -19,8 +21,38 @@ The `./dev` CLI is an executable bash script located in the root directory. It p
 - `./dev status --json`: Returns a strictly formatted JSON object of all running services, PIDs, and exposed ports. **Always use this flag when you need to programmatically determine what is running.**
 - `./dev logs`: Streams logs from all native services and Docker containers.
 
+### Testing
+
+- `./dev test`: Run system tests against the already-running stack (fast inner loop).
+- `./dev test integration`: Boot the dev stack, run system tests with FAIL-LOUD flags, then tear down. Requires Docker — flag before running.
+- `./dev test bet <slug>`: Run a bet-progress suite at `tests/bets/<slug>/` against the already-running stack.
+- `./dev test bet <slug> --integration`: Boot the dev stack, run the bet-progress suite, then tear down. Requires Docker — flag before running.
+
+### Bet Workflow
+
+The bet workflow commands scaffold and manage bet-progress tests — the red, up-front proof-of-work suite written during Decomposition. Two test populations exist: **bet-progress tests** (temporary, in `tests/bets/<slug>/`, archived at delivery) and **permanent best-practice tests** (in service repos and `tests/system/`, stay forever).
+
+- `./dev new bet <slug>`: Create `docs/bets/<slug>/` and `tests/bets/<slug>/` directories for a new bet. `<slug>` must be lowercase kebab-case.
+- `./dev new milestone <bet-slug> <milestone-slug>`: Scaffold a red milestone test stub at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.py`. `N` is auto-incremented.
+- `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>`: Scaffold a red slice test stub at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.py`. `N` is auto-incremented.
+- `./dev archive bet <slug>`: Archive a delivered bet's progress suite — `git mv tests/bets/<slug>/ tests/bets/_archive/<slug>/`.
+
+### Layout
+
+```
+tests/bets/<slug>/                     # Active bet-progress suite (Phases 3–4)
+├── test_milestone_<N>_<slug>.py       # Milestone proof: interface-level + API-level
+└── test_slice_<N>_<service>_<slug>.py # Slice proof, bounded by parent milestone
+
+tests/bets/_archive/<slug>/            # Archived at Phase 5 (delivery); permanent tests take over
+```
+
+Shared fixtures (`cluster`, `api_client`, `pure_state_reset`, `frontend_base_url`) are auto-discovered from `tests/conftest.py` — no explicit import needed in bet test files.
+
 ## Best Practices for Agents
 
 1. **Service Discovery**: Do not guess what ports services are running on. Run `./dev status --json` to get the ground truth.
 2. **Log Reading**: Do not stream `./dev logs` using `run_command` as it will run indefinitely and hang. Instead, instruct the user to run `./dev logs` in their terminal, or read the individual log files generated in `.dev/logs/*.log`.
-3. **Idempotency**: `./dev start` and `./dev stop` are fully idempotent. It is safe to run them multiple times.
+3. **Idempotency**: `./dev start`, `./dev stop`, and `./dev new bet` are fully idempotent. It is safe to run them multiple times.
+4. **Bet test stubs**: After `./dev new milestone` or `./dev new slice`, fill in the `pytest.fail(...)` stub with the target-state assertion before starting Delivery. The stub is intentionally red — it should stay red until the implementation exists.
+5. **Docker gates**: `./dev test integration` and `./dev test bet <slug> --integration` boot Docker. Do not run these commands unless Docker is available and the user expects the boot cost.

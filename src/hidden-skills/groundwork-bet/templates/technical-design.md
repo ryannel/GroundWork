@@ -1,6 +1,35 @@
 # Technical Design: [Bet Name]
 
-*This document captures the design decisions behind this bet. It is written before implementation begins and carried into execution as the planning contract. The goal is reasoning, not enumeration — explain why each decision was made so that the developer executing this bet can make consistent choices when details are missing.*
+*This document captures the design decisions behind this bet. It is written before implementation begins and carried into execution as the planning contract. The goal is reasoning, not enumeration — explain why each decision was made so that the agent executing this bet can make consistent choices when details are missing.*
+
+---
+
+## Interface Design
+
+*Describe what the user observes and interacts with in this bet's interface medium. Organize by view, command, or interaction — not by feature or service. This section is the anchor milestones' interface-level tests will assert against.*
+
+*Use the vocabulary appropriate to the project's interface track (from `docs/design-system.md`):*
+- *`graphical-ui` — screens, views, regions, states (loading, active, empty, error, degraded)*
+- *`cli` — commands, flags, output format, error messages, exit codes*
+- *`agentic-protocol` — request/response turns, protocol states, expected response structure*
+
+### [View / Command / Interaction Name]
+
+**Purpose:** [what this interaction accomplishes for the user]
+
+**States:**
+
+| State | Trigger | What the user observes |
+|-------|---------|------------------------|
+| [state name] | [what causes this state] | [what the user sees, reads, or receives] |
+| [state name] | [what causes this state] | [what the user sees, reads, or receives] |
+
+**Key interactions:**
+- [user action] → [system response and any state transition]
+- [user action] → [system response]
+
+---
+*(Add a section for each view, command, or significant interaction introduced by this bet)*
 
 ---
 
@@ -57,29 +86,26 @@ field: type — description
 
 ---
 
-## Design
+## Data Schema
 
-*Screens and interaction states specific to this bet. References the global `docs/design-system.md` for design system and visual language — do not repeat those rules here. Focus on what is new: the states each screen can be in, what triggers transitions between them, and what data drives each state.*
+*Tables, collections, or stores this bet introduces or modifies. State key fields and lifecycle states for entities with state machines. Reference `docs/domain/` for canonical entity definitions rather than duplicating them — note the domain entity path and describe only what this bet adds or changes.*
 
-### [Screen or Flow Name]
+### [Entity or Store Name]
 
-**Purpose:** [what this screen accomplishes for the user]
+**Owned by:** [service that owns this store]
 
-**States:**
+**Key fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| [field] | [type] | [what it represents] |
 
-| State | Trigger | What the user sees |
-|-------|---------|-------------------|
-| Loading | [trigger] | [skeleton / spinner / placeholder] |
-| Success | [trigger] | [populated content description] |
-| Empty | [trigger] | [empty state — what to show when there is nothing] |
-| Error | [trigger] | [error message, recovery action] |
+**Lifecycle states** (if applicable):
 
-**Interactions:**
-- [user action] → [system response and any state transition]
-- [user action] → [system response]
+| State | Meaning | Transitions to |
+|-------|---------|----------------|
+| [state] | [what this state means] | [next states and triggers] |
 
-**Data bindings:**
-- [UI element] ← [data source — endpoint, local state, session storage]
+**Domain reference:** `docs/domain/<entity>.md` — [what this bet adds beyond what is already documented]
 
 ---
-*(Add a section for each screen or significant interaction introduced by this bet)*
+*(Add a section for each entity or store introduced or significantly changed by this bet)*

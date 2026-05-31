@@ -8,6 +8,12 @@
       "type": "string",
       "description": "The prefix for Docker container names (e.g. 'myapp')",
       "default": "groundwork"
+    },
+    "interfaceMedium": {
+      "type": "string",
+      "description": "The project's interface medium, from docs/design-system.md's interface track",
+      "enum": ["graphical-ui", "cli", "agentic-protocol"],
+      "default": "graphical-ui"
     }
   },
   "required": []

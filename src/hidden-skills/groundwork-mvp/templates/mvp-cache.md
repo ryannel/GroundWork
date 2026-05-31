@@ -7,6 +7,3 @@ status: pending
 
 ## MVP Scope
 status: pending
-
-## Milestone Definition
-status: pending

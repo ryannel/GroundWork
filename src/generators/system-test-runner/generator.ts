@@ -7,6 +7,7 @@ import * as path from 'path';
 
 export interface SystemTestRunnerGeneratorSchema {
   projectPrefix?: string;
+  interfaceMedium?: 'graphical-ui' | 'cli' | 'agentic-protocol';
 }
 
 export async function systemTestRunnerGenerator(
@@ -14,6 +15,7 @@ export async function systemTestRunnerGenerator(
   options: SystemTestRunnerGeneratorSchema
 ) {
   const projectPrefix = options.projectPrefix || 'groundwork';
+  const interfaceMedium = options.interfaceMedium || 'graphical-ui';
 
   // Generate files into the workspace root
   generateFiles(
@@ -23,6 +25,7 @@ export async function systemTestRunnerGenerator(
     {
       ...options,
       projectPrefix,
+      interfaceMedium,
       tmpl: ''
     }
   );

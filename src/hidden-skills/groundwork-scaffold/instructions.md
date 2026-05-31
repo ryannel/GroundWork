@@ -87,6 +87,8 @@ Planning ends before execution begins because running generators from a partiall
 
 Count the services in `docs/architecture.md`, count the confirmed mappings, and verify they match before closing Phase 1.
 
+**Interface medium:** Read `docs/design-system.md` and identify the project's interface track — `graphical-ui`, `cli`, or `agentic-protocol`. Pass this value as `--interfaceMedium` when running `system-test-runner`. This single flag determines whether `pytest-playwright` is included in the test dependencies and whether the `frontend_base_url` fixture is generated. For `graphical-ui` projects, pytest-playwright is included; for `cli` and `agentic-protocol`, it is not. Note: browser-driven interface proof is fully supported for `graphical-ui`; for `cli` and `agentic-protocol`, bet-progress tests use `subprocess`/HTTP against the running endpoint (no shared fixture is generated — write those tests against bare `subprocess`/HTTP).
+
 **Generator Capability Mapping:**
 
 | Architectural decision | Generator + flag |
@@ -103,7 +105,9 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 | GPU inference on RunPod (Python service) | `python-microservice --runpod` |
 | PostgreSQL on a Python service | `python-microservice --postgres` |
 | REST surface on a Python service | `python-microservice --rest` |
-| Docker Compose test topology | `system-test-runner` (no parameters) |
+| Docker Compose test topology (graphical-ui project) | `system-test-runner --interfaceMedium graphical-ui` |
+| Docker Compose test topology (CLI project) | `system-test-runner --interfaceMedium cli` |
+| Docker Compose test topology (agentic-protocol project) | `system-test-runner --interfaceMedium agentic-protocol` |
 | Fumadocs documentation site | `docs-site --name <slug>` |
 
 This table is the one place to update when generator flags evolve. When a new flag ships, add a row here; when a flag is removed, delete the row. The mapping is the contract between architecture's vocabulary and scaffold's execution — keep it current.
@@ -115,7 +119,7 @@ This table is the one place to update when generator flags evolve. When a new fl
 | `go-microservice` | Go API with PostgreSQL, optional auth and messaging | `--name`, `--auth` (none/service/clerk), `--messaging` (none/kafka/gcp-pubsub), `--websockets` |
 | `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--runpod` |
 | `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
-| `system-test-runner` | Docker Compose test topology and system test suite | (no parameters) |
+| `system-test-runner` | Docker Compose test topology and system test suite | `--interfaceMedium` (graphical-ui/cli/agentic-protocol, default: graphical-ui) |
 | `docs-site` | Fumadocs-powered documentation site | `--name` |
 
 `workspace-dev-cli` is handled in initialization and does not appear in service mapping.
@@ -322,7 +326,19 @@ to proxy API requests to `auth-service`. Base path: `services/web-app/`.
 ## Running Tests
 
 ```bash
-cd tests/system && uv run pytest test_system.py -v
+./dev test                                   # Fast inner loop — system tests against running stack
+./dev test integration                       # Boot + run system tests + tear down (Docker)
+./dev test bet <slug>                        # Run a bet-progress suite against running stack
+./dev test bet <slug> --integration          # Boot + run bet suite + tear down (Docker)
+```
+
+## Bet Workflow
+
+```bash
+./dev new bet <slug>                         # Create docs/bets/<slug>/ and tests/bets/<slug>/
+./dev new milestone <bet> <milestone>        # Scaffold a red milestone test stub
+./dev new slice <bet> <milestone> <svc> <s>  # Scaffold a red slice test stub
+./dev archive bet <slug>                     # Archive a delivered bet's progress suite
 ```
 
 ## Verification

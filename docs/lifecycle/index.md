@@ -6,7 +6,7 @@ The lifecycle is documented across three files:
 
 1. **[01. Greenfield Setup](./01-setup.md)** — The one-time, six-phase pipeline that takes a new project from idea to first shipped bet. Covers Product Brief, Design System, Architecture, Scaffolding, MVP Planning, and the handoff to the first Bet.
 
-2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating four-phase Bet workflow (Discovery → Planning → Delivery → Validation) that drives all feature work after the MVP ships.
+2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating five-phase Bet workflow (Discovery → Design Foundations → Decomposition → Delivery → Validation) that drives all feature work after the MVP ships.
 
 3. **[03. Maintenance](./03-maintenance.md)** — How documentation stays current: the Living Documents protocol applied at every bet's Validation, the `groundwork-update` skill for surgical patches, and the `groundwork-check` drift detector for CI.
 

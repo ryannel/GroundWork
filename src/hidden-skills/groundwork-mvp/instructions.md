@@ -96,21 +96,9 @@ Mark Phase 2 complete in `mvp-cache.md`.
 
 ---
 
-## Phase 3: Milestone Definition
-
-Break the agreed MVP scope into milestones. A milestone is a demonstrable state the product reaches — visible in the UI behind a feature flag. "User can log in and see their workspace" is valid; "implement the authentication API" is not.
-
-The test for a valid milestone: can this state be demonstrated in the UI behind a feature flag, independently of the milestones that follow it? If not, it is a technical task, not a milestone.
-
-An MVP produces two to four milestones; more than five signals that Phase 2 scope reduction is incomplete. Each milestone should map directly to a step in the essential workflow identified in Phase 2. State dependencies between milestones explicitly — later milestones may depend on earlier ones. For each, identify which architecture services it touches — this surfaces the slices Planning will need to produce.
-
-Present the full breakdown at once and let the user react to the complete picture.
-
-Mark Phase 3 complete in `mvp-cache.md`.
-
----
-
 ## Quality Standard: What the Pitch Must Contain
+
+The pitch has exactly two sections: `## The Pitch` and `## Rabbit Holes & No-Gos`. **Do not add a `## Milestones` section.** Milestones are produced later by the Decomposition phase (phase 3), after the design is locked. A pitch that lists milestones has contaminated the discovery artifact with decomposition work — the review subagent will flag this as a critical finding.
 
 A pitch that names features and lists milestones is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
 
@@ -125,13 +113,10 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 - Appetite: 3 weeks.
 - Solution: Build the core project management features.
 
-## Milestones
+## Rabbit Holes & No-Gos
 
-### Milestone 1: Project Creation
-- Goal: Users can create projects.
-
-### Milestone 2: Task Management
-- Goal: Users can manage tasks.
+- Analytics
+- Mobile
 ```
 
 **Deep (required standard):**
@@ -155,36 +140,23 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 ## Rabbit Holes & No-Gos
 
-- [ ] Analytics and reporting — not required to complete the core workflow
-- [ ] Email notifications — invitations via shareable link only for MVP
-- [ ] Task assignment — collaboration via shared project view only
-- [ ] Mobile layout — desktop-first for MVP
-
-## Milestones
-
-### Milestone 1: Signup and Onboarding
-- **Goal:** A new user can complete signup, confirm their email, and reach the empty project
-  dashboard within two minutes.
-- **Depends on:** (none)
-
-### Milestone 2: Project Creation
-- **Goal:** An authenticated user can create a named project, configure its visibility, and
-  land in the project workspace ready to add collaborators.
-- **Depends on:** Milestone 1
-
-### Milestone 3: Collaborator Invitation
-- **Goal:** A project owner can invite a collaborator by email. The invitee receives an
-  invitation link, creates an account or logs in, and lands in the shared project.
-- **Depends on:** Milestone 2
+- [ ] Analytics and reporting — users will expect a dashboard; excluded because it doesn't
+  test the core hypothesis that users complete the collaboration workflow.
+- [ ] Email notifications — users will expect email confirmation on invitation; excluded for
+  MVP; invitations are delivered via shareable link only.
+- [ ] Task assignment — users will expect to assign tasks to collaborators; excluded because
+  the MVP proves collaboration value through shared project access, not task workflow.
+- [ ] Mobile layout — users will expect the app to work on mobile; excluded because the
+  essential workflow is desktop-first for MVP and the design system defers mobile.
 ```
 
 ---
 
 ## Phase 4: Draft & Review
 
-1. **Confirm the slug.** Before writing anything, derive a kebab-case directory slug from the bet name (e.g., bet name "Core Story Loop" → slug `core-story-loop`) and confirm it with the user in one sentence. The slug becomes the permanent directory name for this bet and every downstream artifact (`docs/bets/<slug>/pitch.md`, `docs/bets/<slug>/tdd/checklist.md`), so a one-line confirmation prevents a rename later. Accept any slug the user proposes if they redirect.
+1. **Confirm the slug.** Before writing anything, derive a kebab-case directory slug from the bet name (e.g., bet name "Core Story Loop" → slug `core-story-loop`) and confirm it with the user in one sentence. The slug becomes the permanent directory name for this bet and every downstream artifact (`docs/bets/<slug>/pitch.md`, `docs/bets/<slug>/technical-design.md`, `docs/bets/<slug>/decomposition.md`), so a one-line confirmation prevents a rename later. Accept any slug the user proposes if they redirect.
 
-2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: planning` in the frontmatter — discovery is complete and the bet enters the delivery loop at the planning phase.
+2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: design` in the frontmatter — discovery is complete and the bet enters Design Foundations next.
 
 3. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and findings before proceeding.
 
@@ -200,7 +172,7 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of the Operating Contract.
 
-1. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/mvp.md` and fill in only the sections that have content: out-of-scope features the user pushed back on but ultimately accepted cutting, deferred decisions about monetisation or post-MVP scope, user instincts about milestone sequencing or appetite that did not land in the pitch, and any other context the bet planning phase needs.
+1. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/mvp.md` and fill in only the sections that have content: out-of-scope features the user pushed back on but ultimately accepted cutting, deferred decisions about monetisation or post-MVP scope, user instincts about scope sequencing that will feed the Decomposition phase (phase 3), and any other context the bet's Design and Decomposition phases need.
 
    This hand-off is written even though the same conversation usually continues into bet planning (see step 5 below). The file makes the context durable so that a fresh context later in the bet lifecycle can still pick up the scope reasoning.
 
@@ -214,4 +186,4 @@ Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of t
 
 6. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's planning phase needs. Stay in the same context so that context carries forward. The hand-off file written in step 1 ensures the same context is recoverable from disk if the session ends or is resumed later.
 
-7. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: planning` and continue the same conversation.
+7. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: design` and route into `02-design.md` to continue the same conversation.

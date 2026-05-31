@@ -259,3 +259,72 @@ def test_docs_site_compiles():
         )
     finally:
         _cleanup(svc_name)
+
+
+# ---------------------------------------------------------------------------
+# System Test Runner — uv sync resolves with new deps (no playwright install)
+# ---------------------------------------------------------------------------
+# Tests two variants: graphical-ui (adds pytest-playwright) and cli (no browser dep).
+# Both must resolve without running `playwright install` — browser binaries install
+# on demand at ./dev test bet <slug> --integration time, never during uv sync.
+
+_SYSTEM_TEST_RUNNER_COMP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "system-test-runner-comp"
+
+
+def _scaffold_workspace_comp(sandbox: Path, generator: str, **params) -> subprocess.CompletedProcess:
+    cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:{generator}"]
+    for key, value in params.items():
+        cli_key = "--" + key
+        cmd.extend([cli_key, str(value).lower() if isinstance(value, bool) else str(value)])
+    return subprocess.run(cmd, cwd=sandbox, capture_output=True, text=True)
+
+
+@pytest.mark.parametrize("medium", ["graphical-ui", "cli"], ids=["graphical-ui", "cli"])
+def test_system_test_runner_deps_resolve(medium):
+    """Verify the generated tests/pyproject.toml has valid TOML and the correct
+    dependency set for the given interfaceMedium. Structural check that confirms
+    the template renders correctly without running uv sync (which would inherit
+    the parent test runner's virtual environment and fight it).
+    """
+    import tomllib
+    sandbox = _SYSTEM_TEST_RUNNER_COMP_SANDBOX / medium.replace("-", "_")
+    if sandbox.exists():
+        shutil.rmtree(sandbox)
+    sandbox.mkdir(parents=True)
+    (sandbox / "package.json").write_text('{"name": "sysrunnercomp"}')
+    (sandbox / "nx.json").write_text("{}")
+    try:
+        result = _scaffold_workspace_comp(sandbox, "system-test-runner", interfaceMedium=medium)
+        assert result.returncode == 0, (
+            f"Generator failed for interfaceMedium={medium}\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        pyproject_path = sandbox / "tests" / "pyproject.toml"
+        assert pyproject_path.exists(), "tests/pyproject.toml not generated"
+
+        # Validate TOML is parseable — catches template rendering errors
+        with open(pyproject_path, "rb") as f:
+            config = tomllib.load(f)
+
+        deps = config.get("project", {}).get("dependencies", [])
+
+        # Core deps must always be present
+        dep_names = [d.split(">=")[0].split("==")[0].split("[")[0].lower() for d in deps]
+        for required in ["pytest", "pytest-asyncio", "httpx", "tenacity", "pyyaml", "psycopg"]:
+            assert required in dep_names, f"{required} missing from deps for medium={medium}"
+
+        # pytest-playwright only for graphical-ui
+        if medium == "graphical-ui":
+            assert "pytest-playwright" in dep_names, \
+                "pytest-playwright missing for interfaceMedium=graphical-ui"
+        else:
+            assert "pytest-playwright" not in dep_names, \
+                f"pytest-playwright should be absent for interfaceMedium={medium}"
+
+        # testpaths includes bets
+        testpaths = config.get("tool", {}).get("pytest", {}).get("ini_options", {}).get("testpaths", [])
+        assert "bets" in testpaths, "testpaths does not include 'bets'"
+
+    finally:
+        shutil.rmtree(sandbox, ignore_errors=True)

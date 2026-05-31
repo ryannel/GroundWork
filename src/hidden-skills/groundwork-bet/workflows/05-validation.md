@@ -1,6 +1,6 @@
-# Phase 4: Validation (Testing & Handoff)
+# Phase 5: Validation (Testing & Handoff)
 
-**Goal:** Verify the implementation, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
+**Goal:** Verify the implementation, archive the bet-progress suite, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
 
 A bet that ships without updating upstream docs leaves the next bet operating against a stale map. The Validation phase exists to close the loop — the test suite proves the implementation works, the Living Documents scan proves the rest of the system still describes reality.
 
@@ -16,15 +16,21 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
 
 ### Step 2: Run the test suite
 
-Execute the full test suite introduced during this bet. The bet does not advance until every test passes.
+Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing.
 
-**Contract verification:** Confirm that the test suite uses the generated API clients from Phase 2 and that no manual schema definitions or rogue HTTP calls were introduced during Delivery. A bet that delivered against side-channel contracts has compromised the architecture's integrity — flag it and revert.
+**Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — implementation must stay within the contracts established in the Design phase. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
 
-### Step 3: Review with the user
+### Step 3: Archive the bet-progress suite
+
+Move `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available; otherwise `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`.
+
+The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet-progress suite served its purpose as proof-of-work scaffolding and is now archived.
+
+### Step 4: Review with the user
 
 Summarise what was delivered. Walk through the user-facing changes, the new contracts, and any constraints the implementation revealed. Capture the user's reactions — corrections, requests for follow-up bets, or observations about what surprised them all belong in the next step's scan.
 
-### Step 4: Apply the Living Documents protocol
+### Step 5: Apply the Living Documents protocol
 
 The architecture of the system has changed. Every upstream document that describes the changed surface must be updated to match — surgically, in place, without asking permission. This is the single most important step of the phase, and the one most likely to be skipped under deadline pressure.
 
@@ -41,13 +47,13 @@ For each document updated, report the change in one line: "Updated `docs/archite
 
 If a scan finds nothing to update, say so explicitly. Silence is ambiguous — the user cannot tell whether you scanned and found nothing or skipped the scan.
 
-### Step 5: Update discovery notes
+### Step 6: Update discovery notes
 
 Scan the bet conversation for signals that belong to a future bet — sequencing instincts ("we should do notifications next"), parking-lot ideas ("the search experience needs its own bet"), constraints the user surfaced about subsequent work. Append these as bullets under `## Bets` in `.groundwork/cache/discovery-notes.md` so the next bet's Discovery phase finds them.
 
-Remove any discovery-notes entries that were incorporated into the artifacts updated in Step 4. A signal that has been promoted into a permanent document does not belong in the parking lot.
+Remove any discovery-notes entries that were incorporated into the artifacts updated in Step 5. A signal that has been promoted into a permanent document does not belong in the parking lot.
 
-### Step 6: Write ADRs for significant decisions
+### Step 7: Write ADRs for significant decisions
 
 Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/decisions/NNNN-<slug>.md` using the template at `.agents/groundwork/skills/templates/adr.md`.
 
@@ -55,11 +61,11 @@ Significance test: would a new engineer joining the project six months from now 
 
 Number sequentially: read the existing `docs/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/decisions/` directory if it does not exist.
 
-### Step 7: Mark the bet delivered
+### Step 8: Mark the bet delivered
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`.
 
-### Step 8: Hand off
+### Step 9: Hand off
 
 Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
 
@@ -80,7 +86,9 @@ the docs.
 Validation complete.
 
 Test suite: 47/47 passing. Contract verification: all cross-service calls
-use the generated `notification_client` from Phase 2; no rogue HTTP found.
+use the generated `notification_client`; no rogue HTTP found.
+
+Bet-progress suite archived to tests/bets/_archive/notification-delivery/.
 
 Living Documents scan:
 
@@ -122,4 +130,4 @@ The same standard applies across all four scan targets:
 
 ## Congratulations
 
-Once Steps 1 through 7 are complete and the user has seen the handoff summary, congratulate them on a successful bet. The cycle returns to the orchestrator for the next bet or anytime skill.
+Once Steps 1 through 8 are complete and the user has seen the handoff summary, congratulate them on a successful bet. The cycle returns to the orchestrator for the next bet or anytime skill.

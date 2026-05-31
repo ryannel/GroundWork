@@ -1,0 +1,38 @@
+"""Bet-progress test — Slice @@N@@: @@SLUG@@ (service: @@SERVICE@@)
+Bet: @@BET@@  |  Parent milestone: @@MILESTONE@@
+
+This test is RED by design. It proves the vertical capability this slice contributes
+toward Milestone @@MILESTONE@@. Tests are bounded by — not duplicates of — the parent
+milestone tests.
+
+Run './dev test bet @@BET@@' to see it fail; it will pass when this slice is merged.
+"""
+
+import pytest
+
+
+# ---------------------------------------------------------------------------
+# Slice capability proof (@@SERVICE@@ service)
+# ---------------------------------------------------------------------------
+# Slice tests hit the running service from the outside.
+# They do not import application code, mock services, or assume internal schema details.
+#
+# Use shared fixtures from tests/conftest.py (auto-discovered, no import needed):
+#   cluster     — health-gates the running stack
+#   api_client  — async httpx.AsyncClient with traceparent header
+#
+@pytest.mark.asyncio
+async def test_slice_@@N@@_@@SLUG@@(cluster, api_client):
+    """Assert the vertical capability for slice @@N@@ (@@SLUG@@) in @@SERVICE@@.
+
+    This slice contributes to Milestone @@MILESTONE@@.
+    Each assertion here should trace to a Required Capability in decomposition.md.
+    """
+    # TODO: replace with a falsifiable end-to-end HTTP assertion against @@SERVICE@@
+    # resp = await api_client.post("http://localhost:<port>/api/v1/...", json={...})
+    # assert resp.status_code == 201
+    # assert resp.json().get("id") is not None
+    pytest.fail(
+        "bet-progress test not yet implemented — "
+        "assert the vertical capability for slice @@N@@ (@@SLUG@@) in @@SERVICE@@"
+    )

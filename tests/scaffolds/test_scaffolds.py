@@ -220,11 +220,12 @@ def test_03_scaffold_system_test_runner():
 
 def test_04_boot_dev_environment():
     """Test booting the local DX environment and verify it's green."""
-    print("\n--- Booting ./dev Environment ---")
-    
-    # 1. Start the environment (this uses docker compose up -d internally and air in background)
+    print("\n--- Booting ./dev Environment (--docker mode) ---")
+
+    # 1. Start ALL services in Docker — this does not require `air` or any native
+    # language runtime on the host; Docker builds and runs every service image.
     res = subprocess.run(
-        ["bash", "./dev", "start"],
+        ["bash", "./dev", "start", "--docker"],
         cwd=SANDBOX_DIR,
         capture_output=True,
         text=True
@@ -234,21 +235,21 @@ def test_04_boot_dev_environment():
         print(f"Stderr: {res.stderr}")
     assert res.returncode == 0, "Failed to start ./dev environment"
 
-    # Wait for PostgreSQL to be ready
+    # Wait for PostgreSQL healthcheck to pass (docker inspect health status).
     db_ready = False
-    for _ in range(60):
-        res_ready = subprocess.run(
-            ["docker", "exec", "testloop-db", "pg_isready", "-U", "postgres"],
+    for _ in range(90):
+        health = subprocess.run(
+            ["docker", "inspect", "--format={{.State.Health.Status}}", "testloop-db"],
             capture_output=True, text=True
         )
-        if res_ready.returncode == 0:
+        if health.stdout.strip() == "healthy":
             db_ready = True
             break
-        time.sleep(1)
-    
-    assert db_ready, f"PostgreSQL never became ready. Output: {res_ready.stderr}"
+        time.sleep(2)
 
-    # Create per-service databases and apply schemas via the discovery-based migrate.
+    assert db_ready, "PostgreSQL container never became healthy"
+
+    # Create per-service databases and apply schemas.
     migrate_res = subprocess.run(
         ["bash", "./dev", "migrate"],
         cwd=SANDBOX_DIR,
@@ -260,15 +261,11 @@ def test_04_boot_dev_environment():
         print(f"Stderr: {migrate_res.stderr}")
     assert migrate_res.returncode == 0, "./dev migrate failed"
 
-    # Trigger a rebuild to ensure services connect to the newly created DBs
-    subprocess.run(["touch", "services/goapi-basic/cmd/api/main.go"], cwd=SANDBOX_DIR)
-    subprocess.run(["touch", "services/goapi-full/cmd/api/main.go"], cwd=SANDBOX_DIR)
-
-    # Wait for everything to be truly healthy
+    # Wait for app containers to finish their own startup (DB connect, healthcheck).
     print("\nWaiting for services to become responsive...")
-    time.sleep(5)
+    time.sleep(15)
 
-    # 2. Check the status command parses correctly
+    # 2. Check the status command parses correctly.
     status_res = subprocess.run(
         ["bash", "./dev", "status"],
         cwd=SANDBOX_DIR,
@@ -277,12 +274,12 @@ def test_04_boot_dev_environment():
     )
     assert status_res.returncode == 0, "Failed to get ./dev status"
     print(status_res.stdout)
-    
-    # Basic assertions to ensure our containers booted
+
+    # Basic assertions: infra containers present.
     assert "db" in status_res.stdout
     assert "jaeger" in status_res.stdout
-    
-    # Assert native go processes are running
+
+    # App services present in the compose output (all running in --docker mode).
     assert "goapi-basic" in status_res.stdout
     assert "goapi-full" in status_res.stdout
     assert "dead" not in status_res.stdout.lower()

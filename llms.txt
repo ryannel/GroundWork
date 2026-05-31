@@ -6,5 +6,5 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [How We Work](src/docs/ways-of-working/how-we-work.md): The philosophical foundation — Upfront Technical Delivery, the two-mode lifecycle, and the Operating Contract.
 - [Lifecycle Index](docs/lifecycle/index.md): How the Setup, Delivery Loop, and Maintenance layers fit together.
 - [Greenfield Setup](docs/lifecycle/01-setup.md): The one-time six-phase pipeline from Product Brief through First Bet, including the MVP→Bet context-preserving handoff.
-- [Delivery Loop](docs/lifecycle/02-delivery-loop.md): The repeating four-phase Bet workflow — Discovery, Planning (Tests-Up-Front), Delivery, Validation.
+- [Delivery Loop](docs/lifecycle/02-delivery-loop.md): The repeating five-phase Bet workflow — Discovery, Design Foundations, Decomposition, Delivery, Validation.
 - [Maintenance](docs/lifecycle/03-maintenance.md): How docs stay current — Living Documents during bets, `groundwork-update` for surgical patches, `groundwork-check` for CI drift detection.
