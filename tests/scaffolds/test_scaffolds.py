@@ -261,9 +261,21 @@ def test_04_boot_dev_environment():
         print(f"Stderr: {migrate_res.stderr}")
     assert migrate_res.returncode == 0, "./dev migrate failed"
 
-    # Wait for app containers to finish their own startup (DB connect, healthcheck).
+    # Restart Go app containers so they reconnect to the now-existing databases.
+    # Go services start before ./dev migrate creates their DBs (the compose dependency
+    # only waits for postgres to be healthy, not for schemas to be applied). A restart
+    # forces a clean DB connection attempt against the fully-initialised database.
+    for svc in ("goapi-basic", "goapi-full"):
+        subprocess.run(
+            ["docker", "compose", "restart", svc],
+            cwd=SANDBOX_DIR,
+            capture_output=True,
+            text=True,
+        )
+
+    # Wait for app containers to finish their restart and become responsive.
     print("\nWaiting for services to become responsive...")
-    time.sleep(15)
+    time.sleep(10)
 
     # 2. Check the status command parses correctly.
     status_res = subprocess.run(

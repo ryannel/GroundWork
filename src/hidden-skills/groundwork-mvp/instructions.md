@@ -184,6 +184,6 @@ Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of t
 
 5. Confirm that the phase is complete.
 
-6. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's planning phase needs. Stay in the same context so that context carries forward. The hand-off file written in step 1 ensures the same context is recoverable from disk if the session ends or is resumed later.
+6. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's Discovery and Design Foundations phases need. Stay in the same context so that context carries forward. The hand-off file written in step 1 ensures the same context is recoverable from disk if the session ends or is resumed later.
 
 7. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: design` and route into `02-design.md` to continue the same conversation.

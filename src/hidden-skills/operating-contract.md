@@ -27,7 +27,7 @@ The discovery notes file uses these five sections. Every skill that writes or re
 | `## Product Brief` | Vision-level signals surfaced during later phases — new user types, missing capabilities, refined success criteria. Captured for in-flight batched application to `docs/product-brief.md`. |
 | `## Design System` | Design preferences, aesthetic instincts, interaction patterns surfaced outside the Design System phase. |
 | `## Architecture` | Infrastructure preferences, scaling instincts, technology opinions surfaced outside the architecture phase. |
-| `## Design Details` | Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns. Feeds the Bet planning phase's API contract and database schema design. |
+| `## Design Details` | Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns. Feeds the Bet's Design Foundations phase when producing API contracts and data schema. |
 | `## Bets` | Delivery priorities, MVP scope instincts, feature sequencing for future bets. Read by `groundwork-mvp` and the Bet discovery workflow. |
 
 ### When to Check
@@ -58,6 +58,36 @@ This is not restricted to a specific phase or direction. Any phase, any bet, any
 - **Do not ask for permission.** These are refinements consistent with the user's own words and decisions, not new product choices.
 - **Report what changed.** After committing, briefly list any upstream documents that were updated and what specifically shifted.
 - If no updates are warranted, skip silently.
+
+---
+
+## Lifecycle Modes
+
+GroundWork operates in two distinct lifecycle modes. Skills must know which mode they operate in — it determines which protocols apply.
+
+### Sequential Setup
+
+**Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`
+
+All protocols apply: 1, 2, 3, 4, 5, 6, 7.
+
+- Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
+- Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
+- Every output document written to `docs/` opens with a `## Summary for Downstream` section (Protocol 5).
+- A fresh context is recommended between phases (Protocol 3.4.8).
+
+### Continuous Bet
+
+**Skills:** `groundwork-bet` (all five phases: discovery, design, decomposition, delivery, validation)
+
+Protocols 1, 2, and 4 apply. Protocols 3, 5, 6, and 7 do **not** apply.
+
+- The pitch frontmatter `status` field is the state machine. No cache file is created or deleted.
+- No hand-off files are written. Context is shared across all five phases — a fresh context is not recommended between bet phases.
+- Bet documents (`docs/bets/<slug>/*`) do not include a `## Summary for Downstream` section. The pitch's `status` field and the shared context serve the same function.
+- Protocol 7 cache isolation rules apply to the `.groundwork/cache/discovery-notes.md` file only.
+
+This divergence is intentional. The bet's tightly coupled five-phase flow benefits from shared context; the one-shot setup phases benefit from clean isolation. A skill that looks non-conformant against the setup protocols may be correctly implementing the continuous-bet mode.
 
 ---
 

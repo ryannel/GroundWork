@@ -149,7 +149,7 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
         const newService = {
           build: {
             context: `./${projectRoot}`,
-            dockerfile: 'Dockerfile'
+            dockerfile: 'Dockerfile.dev'
           },
           container_name: serviceNames.fileName,
           restart: 'unless-stopped',
@@ -158,6 +158,7 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
           ],
           environment: [
             `SERVER_PORT=${assignedPort}`,
+            `DATABASE_URL=postgres://\${DB_USER:-postgres}:\${DB_PASSWORD:-postgres}@db:5432/\${DB_NAME:-${serviceNames.fileName}}?sslmode=disable`,
             'DB_HOST=db',
             'DB_PORT=5432',
             'DB_USER=${DB_USER:-postgres}',

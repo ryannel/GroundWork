@@ -55,7 +55,9 @@
 
 ## API Contracts
 
-*Each entry here is a design commitment. Include enough reasoning that a developer understands the intent behind the shape — not just what the contract is, but why it was designed this way. Machine-readable schemas (OpenAPI, AsyncAPI) can live alongside this doc; this section carries the narrative.*
+*Each entry here is a design commitment. Include enough detail that a developer can implement the endpoint correctly without asking for clarification: full request shape with field types, full response shape with field types, all error cases, and the design rationale for any non-obvious choice.*
+
+*This is the design contract. During Delivery, each entry becomes the source for the service's machine-readable API documentation (OpenAPI, protobuf, or AsyncAPI). If a field, flow, or error case is not captured here, it will not be correctly implemented or documented.*
 
 ### [Service or Boundary Name]
 

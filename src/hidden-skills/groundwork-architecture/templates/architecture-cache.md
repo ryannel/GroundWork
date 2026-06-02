@@ -12,11 +12,11 @@
 
 ---
 
-## Phase 3: Domain Topology
+## Phase 3: Service Design
 
 **Status:** pending
 
-<!-- Replace with the agreed bounded context map and service topology once the user confirms. -->
+<!-- Replace with the agreed service boundaries, ownership decisions, and topology once the user confirms. -->
 
 ---
 

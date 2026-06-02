@@ -9,9 +9,7 @@ This phase is where the bet becomes executable. Milestones define the user-visib
 
 ## Operating Contract
 
-Standard assistant behaviour — covering too much ground per turn, rushing to propose milestones before the design has been absorbed, and treating the decomposition as settled after the first pass — undermines the collaborative process. These are the failure modes this phase is built to prevent.
-
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
 
 ## Step 1: Update pitch status
 
@@ -130,6 +128,84 @@ The review subagent applies these checks. The agent authoring the decomposition 
 | Technical Design | Every interface element/flow traces to the pitch | Milestones can be derived from it |
 | Milestones | Each goal is user-visible value traceable to the Interface Design | Every slice belongs to exactly one milestone |
 | Slices | Required Capabilities trace to contracts/schemas in `technical-design.md` | Test cases trace to milestone acceptance criteria |
+
+## Quality Standard: What Good Milestones and Slices Look Like
+
+A milestone is a user-visible state the product reaches — not a layer of the stack, not a phase of implementation. A slice is a vertical column through one component, not a horizontal pass. If neither description produces a name that means something to a user, the decomposition is wrong.
+
+**Shallow (insufficient):**
+
+```markdown
+## Milestones
+
+1. **Backend** — Build the database schema and notification service
+2. **Frontend** — Add notification UI components
+3. **Integration** — Connect frontend to backend and end-to-end test
+```
+
+**Deep (required standard):**
+
+```markdown
+## Milestones
+
+### Milestone 1: Notification Feed
+
+A user can see their unread notifications in the UI; the feed updates in real time
+as operations progress, without a page refresh.
+
+**Sequencing rationale:** This is the simplest end-to-end flow that proves the
+real-time update path works — operation event → notification service → websocket →
+UI. Nothing downstream can be verified until this channel is proven.
+
+**Acceptance criteria:**
+- Triggering an operation causes a new notification to appear in the feed within
+  2 seconds, without a page refresh.
+- The notification reflects the operation's live status at the moment it appears.
+
+**Test file:** `tests/bets/notifications/test_milestone_1_feed.py`
+
+---
+
+### Milestone 2: Status Transitions
+
+A notification in the feed updates in place as the underlying operation moves from
+`in_progress` to `completed` or `failed` — no duplicate entries.
+
+**Sequencing rationale:** Depends on Milestone 1's real-time channel. Extends the
+proven path to cover the full operation lifecycle, not just the initial creation event.
+```
+
+**Slice example (deep):**
+
+```markdown
+### Slice 1.1 — notification-service: Operation event intake
+
+**Owner service:** notification-service
+**Complexity:** M
+**Prerequisite:** none
+
+Wires the notification service to receive operation lifecycle events from the
+operations service and persist them as notification records. This is the
+notification-service's data foundation — every other slice depends on this record
+existing.
+
+**Required Capabilities:**
+- `POST /internal/events` accepts an operation lifecycle event matching the
+  `OperationEvent` schema in `technical-design.md §API Contracts`; returns `202 Accepted`
+- A notification record is created in the `notifications` table with status, message,
+  and operation_id populated from the event payload
+- Duplicate events for the same operation_id + status are idempotent; a second
+  identical event produces no additional record
+
+**Test Cases:**
+| Test | Location | Assertion |
+|------|----------|-----------|
+| Event intake creates record | `test_slice_1_notification_service_event_intake.py` | `POST /internal/events` with valid payload → 202; `SELECT * FROM notifications WHERE operation_id = ?` returns one row |
+| Duplicate event is idempotent | same | Second identical POST → 202; row count unchanged |
+| Invalid payload rejected | same | Missing required field → 422; no row created |
+```
+
+The shallow decomposition has horizontal milestones invisible to users, no acceptance criteria, no sequencing rationale, and no falsifiable test cases. The deep version has user-visible goals, explicit sequencing reasoning, and slice capabilities that trace directly to the technical design contract.
 
 ## Transition
 

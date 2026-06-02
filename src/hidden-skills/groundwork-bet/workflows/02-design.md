@@ -7,9 +7,7 @@
 
 ## Operating Contract
 
-Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
-
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
 
 ## Discovery Notes Check
 
@@ -42,7 +40,7 @@ The Technical Design Document covers the **entire bet** — not per-milestone. W
 
 **Data Flows:** Identify the key data paths this bet introduces or changes. For each path, describe what triggers it, which services handle it, what persists, and the key design decisions that shaped it. Skip trivial CRUD; focus on paths where timing, service boundaries, or failure modes are non-obvious.
 
-**API Contracts:** For each service boundary touched by this bet, define the endpoints with request/response shapes and the reasoning behind each design decision. The goal is a document a developer can pick up during Delivery and make consistent implementation choices from — explain the why, not just the what.
+**API Contracts:** For each service boundary touched by this bet, produce a fully specified endpoint design: full request shape with field types, full response shape with field types, all error cases with caller guidance, and design rationale for non-obvious decisions. Derive the specification from the pitch, upstream architecture, and the interface and data flow sections above — the user provides intent and context; you produce the detailed contract. Where a detail is ambiguous, propose the best design and confirm the key decisions with the user rather than leaving the field unspecified. Vague shapes ("returns the entity") cannot drive correct implementation. This section is the source from which Delivery will produce machine-readable API documentation (OpenAPI, protobuf, or AsyncAPI) — what is not here will not be in the implementation.
 
 **Data Schema:** For each table, collection, or store this bet introduces or changes, define key fields and any lifecycle state machines. Reference `docs/domain/` rather than duplicating it — note the domain entity path and describe only what this bet adds or changes.
 
@@ -56,6 +54,68 @@ The technical design is the contract Decomposition and Delivery execute against.
 2. **Invoke the review subagent** with `document_path: docs/bets/<bet-slug>/technical-design.md` and `document_type: technical-design`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list.
 3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the technical design — rewrite the affected sections rather than producing a list of suggestions. Write the revised technical design back to `docs/bets/<bet-slug>/technical-design.md` and run the review again. Repeat until the verdict is **PRESENT**.
 4. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface during the Decomposition review so the user can decide whether to act on them.
+
+## Quality Standard: What a Good Technical Design Section Looks Like
+
+The technical design is a contract, not an outline. Every section must be specific enough that a developer can implement from it without asking for clarification. Interface states, data flows, and API shapes must be explicit — not gestured at.
+
+**Shallow (insufficient):**
+
+```markdown
+## API Contracts
+
+### Notification Service
+
+**`GET /api/notifications`**
+- Returns list of notifications for the authenticated user
+- Requires auth token
+
+**`POST /api/notifications/mark-read`**
+- Marks notifications as read
+```
+
+**Deep (required standard):**
+
+```markdown
+## API Contracts
+
+### Notification Service
+
+**`GET /api/notifications`**
+
+**Purpose:** Returns unread notifications for the authenticated user, ordered newest-first.
+Used by the UI on initial load and by the polling fallback when the websocket is unavailable.
+
+**Request:**
+```
+Authorization: Bearer <token>   — required
+?limit: integer                 — max results (default 20, max 100)
+?before_id: uuid                — cursor; returns notifications older than this id
+```
+
+**Response:**
+```
+notifications: Notification[]
+  id: uuid
+  operation_id: uuid            — links to the triggering operation
+  operation_type: enum(export, import, sync)
+  status: enum(in_progress, completed, failed)
+  message: string               — human-readable current state description
+  created_at: timestamp
+  read_at: timestamp | null     — null if unread
+has_more: boolean               — true if older notifications exist past this page
+```
+
+**Errors:**
+- `401 Unauthorized` — missing or expired token; caller should redirect to login
+- `429 Too Many Requests` — polling interval too short; caller must back off to 10s
+
+**Design rationale:** Cursor-based pagination (before_id) rather than offset because
+the feed changes frequently — offset pagination skips or duplicates items as new
+notifications arrive between pages.
+```
+
+The shallow version has no request shapes, no response field types, no error cases, and no design rationale. The deep version gives a developer everything needed to implement the endpoint correctly on the first pass.
 
 ## Transition
 

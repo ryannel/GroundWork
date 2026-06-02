@@ -6,7 +6,7 @@ A bet that ships without updating upstream docs leaves the next bet operating ag
 
 ## Operating Contract
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** This phase is the back-feed mechanism for the entire GroundWork lifecycle — Living Documents and Discovery Notes updates here are what keep the upstream `docs/` artifacts useful for every bet that follows.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). This phase is the back-feed mechanism for the entire GroundWork lifecycle — Living Documents and Discovery Notes updates here are what keep the upstream `docs/` artifacts useful for every bet that follows.
 
 ## Instructions
 

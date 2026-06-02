@@ -90,9 +90,11 @@ Each document type has a defined purpose. Write only what belongs in each.
 
 ## Summary for Downstream
 
-Every canonical document under `docs/` opens with a `## Summary for Downstream` section as the first section after the frontmatter. This is the contract every downstream phase reads first; the body of the doc is consulted only when a specific decision requires detail the summary does not carry. A summary that omits a binding decision forces every downstream phase to re-read the full doc, which defeats the purpose of writing one.
+Every canonical document under `docs/` opened by **Sequential Setup phases** opens with a `## Summary for Downstream` section as the first section after the frontmatter. This is the contract every downstream phase reads first; the body of the doc is consulted only when a specific decision requires detail the summary does not carry. A summary that omits a binding decision forces every downstream phase to re-read the full doc, which defeats the purpose of writing one.
 
-This contract is defined in Protocol 5 of the operating contract. The writer skill enforces it.
+**Exception:** Bet documents (`docs/bets/<slug>/*`) are produced in Continuous Bet mode. They do not include a `## Summary for Downstream` section — the shared context and pitch `status` frontmatter serve the same function. Do not add a summary section to pitch, technical-design, or decomposition documents.
+
+This contract is defined in Protocol 5 and the Lifecycle Modes section of the operating contract. The writer skill enforces it for Sequential Setup documents only.
 
 ### Required Subsections
 
