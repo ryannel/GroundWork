@@ -160,6 +160,115 @@ case "$COMMAND" in
       echo ""
     fi
     ;;
+  sandbox)
+    # Create a standalone GroundWork project sandbox seeded with the same
+    # starting state a real user gets from `npx groundwork init`. Unlike the
+    # eval sandbox (.sandboxes/evals), this one is NOT wiped by eval runs, so
+    # you can start a fresh chat from the folder and walk the greenfield flow.
+    NAME="greenfield"
+    FORCE=0
+    NOBUILD=0
+    SIMULATE=0
+    SUITE="storytelling_engine"
+    for arg in "${@:2}"; do
+      case "$arg" in
+        --force) FORCE=1 ;;
+        --no-build) NOBUILD=1 ;;
+        --simulate) SIMULATE=1 ;;
+        --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
+        -*) print_error "Unknown flag: $arg"; exit 1 ;;
+        *) NAME="$arg" ;;
+      esac
+    done
+
+    REPO_ROOT="$PWD"
+    SANDBOX_DIR="$REPO_ROOT/.sandboxes/$NAME"
+
+    print_logo "Sandbox"
+    print_step "Target: .sandboxes/$NAME"
+
+    if [ -e "$SANDBOX_DIR" ] && [ -n "$(ls -A "$SANDBOX_DIR" 2>/dev/null)" ]; then
+      if [ "$FORCE" -ne 1 ]; then
+        printf "  %s already exists and is not empty. Overwrite? [y/N] " "$SANDBOX_DIR"
+        read -r REPLY
+        case "$REPLY" in
+          [yY]|[yY][eE][sS]) ;;
+          *) print_error "Aborted."; exit 1 ;;
+        esac
+      fi
+      print_substep "Wiping existing sandbox..."
+      rm -rf "$SANDBOX_DIR"
+    fi
+    mkdir -p "$SANDBOX_DIR"
+
+    if [ "$NOBUILD" -ne 1 ]; then
+      print_step "Building generators (dist/)..."
+      npm install --silent && npm run build
+    else
+      print_substep "Skipping build (--no-build)."
+    fi
+
+    print_step "Running 'groundwork init' in sandbox..."
+    (cd "$SANDBOX_DIR" && node "$REPO_ROOT/bin/groundwork.js" init)
+
+    # Make it a realistic Nx-style project root so the scaffold skill is happy.
+    printf '{"name": "%s"}\n' "$NAME" > "$SANDBOX_DIR/package.json"
+    printf '{}\n' > "$SANDBOX_DIR/nx.json"
+
+    # This sandbox is nested inside the GroundWork repo. Without a local boundary,
+    # a chat opened here could inherit the repo's CLAUDE.md / contributor skill and
+    # think it is building the framework. Assert the user-project context explicitly.
+    cat > "$SANDBOX_DIR/CLAUDE.md" <<'EOF'
+# Project context
+
+This is a fresh **GroundWork user project** — a sandbox for building a brand-new
+product with GroundWork. It is NOT the GroundWork framework source repository.
+
+- You are the GroundWork facilitator helping build a new product here.
+- Ignore any guidance loaded from a parent repository (e.g. a contributor or
+  framework-development skill). It does not apply in this project.
+- Follow the skills installed in `.agents/` and `.groundwork/` as a normal user
+  project would. Start by running the `groundwork-orchestrator` skill.
+EOF
+
+    # Fresh git repo so the greenfield flow can commit its documents.
+    if [ ! -d "$SANDBOX_DIR/.git" ]; then
+      print_substep "Initializing git repo..."
+      git -C "$SANDBOX_DIR" init -q
+    fi
+
+    # Verify the install produced the expected skill files.
+    print_step "Verifying init..."
+    MISSING=0
+    for p in \
+      ".agents/skills/groundwork-orchestrator/SKILL.md" \
+      ".agents/groundwork/skills/groundwork-product-brief/instructions.md" \
+      ".agents/groundwork/skills/groundwork-architecture/instructions.md" \
+      ".agents/groundwork/skills/groundwork-scaffold/instructions.md" \
+      ".agents/groundwork/skills/groundwork-mvp/instructions.md" \
+      ".agents/groundwork/skills/groundwork-bet/instructions.md" \
+      ".groundwork/config/generators.json"; do
+      if [ ! -e "$SANDBOX_DIR/$p" ]; then
+        print_error "Missing: $p"
+        MISSING=1
+      fi
+    done
+    if [ "$MISSING" -ne 0 ]; then
+      fail "Init incomplete — check bin/groundwork.js install logic."
+    fi
+
+    if [ "$SIMULATE" -eq 1 ]; then
+      print_step "Seeding simulation harness (suite: $SUITE)..."
+      node "$REPO_ROOT/scripts/seed_simulation.js" "$SUITE" "$SANDBOX_DIR"
+    fi
+
+    print_success "Sandbox ready at $SANDBOX_DIR"
+    if [ "$SIMULATE" -eq 1 ]; then
+      print_info "Start a new chat from that folder and run /simulate-greenfield to dry-run the flow against the simulated user."
+    else
+      print_info "Start a new chat from that folder and ask GroundWork to begin a new project."
+    fi
+    ;;
   check)
     SUBCMD=$2
     if [ "$SUBCMD" = "sync-anchors" ]; then
@@ -184,6 +293,10 @@ case "$COMMAND" in
     echo ""
     echo -e "  ${BOLD}USAGE${NC}"
     echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}<verb>${NC} [nouns...]"
+
+    print_category "SETUP"
+    print_cmd "sandbox" "Create a standalone GroundWork project sandbox (.sandboxes/<name>, default greenfield)"
+    print_cmd "sandbox --simulate" "...and seed a simulated-user harness so a chat can dry-run the greenfield flow (run /simulate-greenfield)"
 
     print_category "QUALITY & TESTING"
     print_cmd "eval run" "Run conversational evaluations (lists suites if empty)"

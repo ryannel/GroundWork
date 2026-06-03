@@ -82,7 +82,7 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7.
 
 Protocols 1, 2, and 4 apply. Protocols 3, 5, 6, and 7 do **not** apply.
 
-- The pitch frontmatter `status` field is the state machine. No cache file is created or deleted.
+- The pitch frontmatter `status` field is the state machine. No *per-phase* cache file is created at init and deleted at commit the way Sequential Setup phases do — the only cache files in play are the shared `discovery-notes.md` and transient drafts such as `bet-pitch-draft.md`.
 - No hand-off files are written. Context is shared across all five phases — a fresh context is not recommended between bet phases.
 - Bet documents (`docs/bets/<slug>/*`) do not include a `## Summary for Downstream` section. The pitch's `status` field and the shared context serve the same function.
 - Protocol 7 cache isolation rules apply to the `.groundwork/cache/discovery-notes.md` file only.

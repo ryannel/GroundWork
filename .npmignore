@@ -1,3 +1,5 @@
 .agents/
 TODO.md
 BMAD/
+tests/
+.sandboxes/

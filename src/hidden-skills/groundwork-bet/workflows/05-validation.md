@@ -130,4 +130,4 @@ The same standard applies across all four scan targets:
 
 ## Congratulations
 
-Once Steps 1 through 8 are complete and the user has seen the handoff summary, congratulate them on a successful bet. The cycle returns to the orchestrator for the next bet or anytime skill.
+Once Steps 1 through 9 are complete and the user has seen the handoff summary, congratulate them on a successful bet. The cycle returns to the orchestrator for the next bet or anytime skill.

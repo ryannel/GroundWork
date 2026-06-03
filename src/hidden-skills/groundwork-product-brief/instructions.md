@@ -104,7 +104,7 @@ Before transitioning to Phase 3, self-test: for each section of the Product Brie
 
 When ready:
 
-1. **Draft.** Synthesize the discovery into the Product Brief structure below. Follow the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
+1. **Draft.** Synthesize the discovery into the Product Brief structure below. Lead the draft with a `## Summary for Downstream` section as its very first section (per Protocol 5 of the operating contract): Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. This is the contract every downstream phase reads first, so it must be present in the draft that goes to review — not added later at commit. Apply the `groundwork-writer` skill for the summary structure, tone, and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
 
 2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Its deliberation does not return, which keeps the calling conversation's context window clean. Report the verdict and any findings explicitly before proceeding.
 

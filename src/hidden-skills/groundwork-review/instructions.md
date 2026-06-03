@@ -77,6 +77,8 @@ Read the document's own description of its purpose and who it serves. Then ask:
 
 For every person or role the document claims to serve, ask: what would they have to come back and ask before they could begin? Each unanswered question is a finding.
 
+For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, or `infrastructure`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract. Do not raise this finding for them.
+
 Pay particular attention to the `## Summary for Downstream` section (Protocol 5 of the operating contract). The summary is the first thing every downstream phase reads. Check that:
 
 - `### Key Decisions` covers every binding decision the body commits to.

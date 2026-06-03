@@ -119,10 +119,11 @@ GroundWork uses a deliberate split between what users see and what the agent see
 The agent toolchain picks these up automatically. Every skill here appears in the model's
 available skills list. Keep this list short — context window cost scales with every entry.
 
-Currently only the **orchestrator** and **check** live here. The orchestrator is the
-central router — it determines the project mode and loads the right hidden skill. All
-methodology skills (product-brief, architecture, design-system, bet, writer) are hidden behind
-the orchestrator's routing table to minimize always-on context cost.
+Currently the **orchestrator**, **check**, and **persona** live here. The orchestrator is the
+central router — it determines the project mode and loads the right hidden skill. `groundwork-persona`
+is an always-on conversational-posture skill (applied on every interaction) and is deliberately not in
+the routing table. All methodology skills (product-brief, architecture, design-system, bet, writer) are
+hidden behind the orchestrator's routing table to minimize always-on context cost.
 
 ### Hidden Skills (`src/hidden-skills/` → `.agents/groundwork/skills/`)
 These are instruction files loaded on demand by the orchestrator. They are not registered

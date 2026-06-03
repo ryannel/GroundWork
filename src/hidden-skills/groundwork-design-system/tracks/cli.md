@@ -121,7 +121,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 
 | File | Content |
 |---|---|
-| `00-header.md` | Document title and the "implementation-ready specification" intro paragraph |
+| `00-header.md` | The `## Summary for Downstream` section first (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope per Protocol 5), then the document title and the "implementation-ready specification" intro paragraph |
 | `01-constraints.md` | Part 1 — startup budgets, composability contracts, platform targets, terminal capability requirements, configuration hierarchy |
 | `02-command-architecture.md` | Part 2 — command taxonomy, I/O topology, configuration surface, help system, shell integration, progressive disclosure |
 | `03-foundation.md` | Part 3 Cluster 1 — colour architecture (ANSI 256 + truecolor + NO_COLOR), typographic hierarchy, output structure templates |

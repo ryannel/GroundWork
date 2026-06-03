@@ -172,18 +172,16 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of the Operating Contract.
 
-1. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/mvp.md` and fill in only the sections that have content: out-of-scope features the user pushed back on but ultimately accepted cutting, deferred decisions about monetisation or post-MVP scope, user instincts about scope sequencing that will feed the Decomposition phase (phase 3), and any other context the bet's Design and Decomposition phases need.
+MVP is the terminal Sequential Setup phase. Its successor — the `groundwork-bet` delivery loop — runs in **Continuous Bet** mode and does not read hand-off files (see the Lifecycle Modes section of the operating contract). MVP therefore writes **no** hand-off file: the scope reasoning that must survive into bet planning flows through the committed pitch and the discovery notes instead (step 3 below).
 
-   This hand-off is written even though the same conversation usually continues into bet planning (see step 5 below). The file makes the context durable so that a fresh context later in the bet lifecycle can still pick up the scope reasoning.
+1. **Clean up caches.** Remove the mvp cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/mvp-cache.md .groundwork/cache/handoff/scaffold.md")`. The pitch itself (`docs/bets/<slug>/pitch.md`) is the canonical artifact and is not a cache — leave it in place.
 
-2. **Clean up caches.** Remove the mvp cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/mvp-cache.md .groundwork/cache/handoff/scaffold.md")`. The pitch itself (`docs/bets/<slug>/pitch.md`) is the canonical artifact and is not a cache — leave it in place.
+2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
 
-3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+3. **Update discovery notes — the durable channel into the bet.** Scan for out-of-phase signals not captured in real time, and record the scope reasoning the bet's Design and Decomposition phases will need: out-of-scope features the user accepted cutting, deferred decisions about monetisation or post-MVP scope, and user instincts about scope sequencing. Append these under the `## Bets` section of `.groundwork/cache/discovery-notes.md` — the bet phases read this file, so it is what makes the reasoning recoverable if the session ends and is resumed later. Remove entries that were fully incorporated into the committed pitch.
 
-4. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact or the hand-off file.
+4. Confirm that the phase is complete.
 
-5. Confirm that the phase is complete.
+5. **Do not recommend a fresh context.** This is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's Discovery and Design Foundations phases need. Stay in the same context so that context carries forward.
 
-6. **Do not recommend a fresh context.** This handoff is the one exception to the standard "fresh context per phase" pattern. The greenfield discovery — the product brief, design system, architecture, and scaffold conversations — produced rich context that is not fully captured in the docs and that the first bet's Discovery and Design Foundations phases need. Stay in the same context so that context carries forward. The hand-off file written in step 1 ensures the same context is recoverable from disk if the session ends or is resumed later.
-
-7. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: design` and route into `02-design.md` to continue the same conversation.
+6. Immediately load and execute the `groundwork-orchestrator` skill to proceed to the delivery loop. Do not ask the user to invoke it. The orchestrator will route to `groundwork-bet`, which will pick up the pitch at `status: design` and route into `02-design.md` to continue the same conversation.
