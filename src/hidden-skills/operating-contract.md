@@ -53,11 +53,36 @@ This is not restricted to a specific phase or direction. Any phase, any bet, any
 
 ### How to Apply Updates
 
-- **Surgical and targeted.** Change only what new information warrants. Do not rewrite sections that are still accurate.
+- **Surgical and targeted.** Change only what new information warrants. Do not rewrite sections that remain accurate. But "surgical" is never licence to leave *inaccurate* text standing: any sentence the change makes false must be rewritten, not annotated around.
 - **Refresh the summary.** If the change touches a Key Decision, Binding Constraint, or Deferred Question, update the doc's `## Summary for Downstream` section (Protocol 5) in the same edit. A summary that drifts from the body it summarises is worse than no summary.
+- **State the current design declaratively.** Write the body and summary as if the current design were always the design. Never leave `~~strikethrough~~` of the old choice, "(was X, now Y)" parentheticals, or "superseded by…" notes in the body or summary — that hedging belongs in the superseding ADR alone. A doc that names both the old and the new design reads as contradictory to a downstream consumer and to the review.
 - **Do not ask for permission.** These are refinements consistent with the user's own words and decisions, not new product choices.
-- **Report what changed.** After committing, briefly list any upstream documents that were updated and what specifically shifted.
+- **Report what changed.** After committing, briefly list any documents that were updated and what specifically shifted. This change list is also the set of docs the reversal gate re-reviews (below) — keep it accurate.
 - If no updates are warranted, skip silently.
+
+### Refinements vs Reversals
+
+Most Living Documents updates are **refinements**: they add detail, sharpen wording, or record a decision compatible with what the doc already commits to. Refinements need only the surgical edits above.
+
+A **reversal** is different — it overturns a decision a prior doc already committed. Reversals are the dangerous case: they leave earlier docs describing a system that is no longer being built. A change is a **reversal** (not a refinement) if *either* of these is true:
+
+- **(a)** you write, or mark, an ADR that *supersedes* an accepted ADR; or
+- **(b)** your edit negates, removes, or replaces a bullet in any doc's `### Key Decisions` or `### Binding Constraints`.
+
+When in doubt, treat it as a reversal — the cost of an unnecessary re-review is far lower than the cost of canonical docs that contradict each other.
+
+### Reversal Protocol — reconcile, then re-gate
+
+When a change is a reversal, before you commit:
+
+1. **Reconcile the whole body, not just the summary.** Rewrite every sentence the reversal makes false, in every section of the doc — not only the `## Summary for Downstream`. The summary and the body must describe the same single design.
+2. **Reconcile every dependent doc that cites the reversed decision.** A reversal rarely lives in one file. Trace it into the docs that consumed it and fix them too: domain entities (`Owner:`, fields, lifecycle, events), service docs, infrastructure, and any doc whose summary references the reversed decision. Domain entity docs are especially easy to miss — they carry no summary, so nothing flags them automatically.
+3. **Record the supersession in an ADR.** The old design lives *only* in the superseding ADR (Context / Decision / what it cost), never as a residue in the body or summary.
+4. **Re-gate: re-invoke `groundwork-review` on every mutated canonical doc.** This is the safety net the reversal exists to trip. For each doc you changed, run the review with the matching `document_type` (a mutated `docs/domain/<entity>.md` uses `document_type: domain-entity`). Apply 🔴 findings and re-review until `PRESENT`.
+   - **Domain docs are re-reviewed unconditionally on a structural reversal.** When the reversal supersedes an accepted ADR or changes an architecture `### Key Decision` / `### Binding Constraint`, re-review **every** `docs/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit. Domain stubs carry no summary, so nothing flags them when they drift — and "the facilitator forgot the domain docs were dependents" is the exact failure this protocol exists to prevent. The set is small and the re-review is cheap; do not gate it on your own judgement of which entities the reversal touched.
+   - **Cap:** After 3 REVISE verdicts on a given doc, treat the next pass as PRESENT and surface remaining 🔴 findings as 🟡 Advisory for the user to weigh before committing. (Same cap the drafting phases use.)
+
+**Accepted residual:** a *refinement* that introduces a body-only inconsistency while leaving the summary accurate is not re-gated — downstream phases read the summary first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the summary's own contract and the dependent docs; refinements are not, to keep the common case cheap.
 
 ---
 
@@ -127,7 +152,7 @@ When the user gives explicit final approval:
 2. Write the hand-off file to `.groundwork/cache/handoff/<current-phase>.md` as defined in Protocol 6.
 3. Delete the phase's cache file from `.groundwork/cache/`.
 4. If a hand-off file from the previous phase exists at `.groundwork/cache/handoff/<previous-phase>.md`, delete it — this phase has now consumed it.
-5. **Apply the Living Documents protocol**: scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+5. **Apply the Living Documents protocol**: scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. If any update is a **reversal** (Protocol 2 — it supersedes an ADR or overturns a prior Key Decision / Binding Constraint), follow the Reversal Protocol: reconcile the full body and every dependent doc, then re-invoke `groundwork-review` on each mutated doc before committing.
 6. **Update discovery notes**: scan the conversation for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries that were incorporated into the committed artifact or the hand-off file.
 7. Confirm completion with a brief, clear message.
 8. **Recommend a fresh context** for the next phase — a clean context gives the next skill full working memory. This is a recommendation, not a requirement.

@@ -45,6 +45,8 @@ Documents to scan, in order:
 
 For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
 
+**Distinguish refinements from reversals (Protocol 2).** Most bet updates are refinements — new rows, new boundaries, additive detail. But if the bet *overturned* a prior Key Decision or Binding Constraint, or you are about to write a superseding ADR in Step 7, that update is a **reversal**, and the Reversal Protocol applies even in Continuous Bet mode (Protocols 1, 2, 4 apply to the bet). For each reversal: reconcile the *full body* of the affected doc and every dependent doc it touches, write the superseding ADR (Step 7), and **re-invoke `groundwork-review` on each mutated doc** until `PRESENT`, capping at 3 REVISE passes. Because the reversal supersedes an ADR, also re-review **every** `docs/domain/*.md` unconditionally (`document_type: domain-entity`) — their `Owner:`/fields go stale silently since they carry no summary to flag the drift, and they are the dependents most often missed. A bet that mutates four setup docs is exactly where contradictory canonical docs creep in — the re-gate is the guard.
+
 If a scan finds nothing to update, say so explicitly. Silence is ambiguous — the user cannot tell whether you scanned and found nothing or skipped the scan.
 
 ### Step 6: Update discovery notes

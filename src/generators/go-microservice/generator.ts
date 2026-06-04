@@ -51,6 +51,58 @@ function deployStackDocs(tree: Tree, docsRoot: string) {
   walk(docsRoot, 'docs');
 }
 
+/**
+ * Inject the optional infrastructure a service needs into the shared
+ * docker-compose. redis and the pubsub emulator are not in the base compose;
+ * they are added here on demand and only once, so a project provisions only the
+ * infrastructure some service actually uses.
+ */
+function ensureOptionalInfra(
+  composeDoc: any,
+  servicesMap: any,
+  opts: { usesRedis: boolean; usesPubSub: boolean }
+) {
+  if (opts.usesRedis && !servicesMap.has('redis')) {
+    servicesMap.set('redis', {
+      image: 'redis:7-alpine',
+      restart: 'unless-stopped',
+      ports: ['6379:6379'],
+      networks: ['groundwork-net'],
+      volumes: ['redis_data:/data'],
+      healthcheck: {
+        test: ['CMD', 'redis-cli', 'ping'],
+        interval: '5s',
+        timeout: '3s',
+        retries: 5
+      }
+    });
+    let volumesMap = composeDoc.get('volumes');
+    if (!volumesMap) {
+      composeDoc.set('volumes', {});
+      volumesMap = composeDoc.get('volumes');
+    }
+    if (!volumesMap.has('redis_data')) {
+      volumesMap.set('redis_data', null);
+    }
+  }
+
+  if (opts.usesPubSub && !servicesMap.has('pubsub')) {
+    servicesMap.set('pubsub', {
+      image: 'gcr.io/google.com/cloudsdktool/cloud-sdk:emulators',
+      restart: 'unless-stopped',
+      ports: ['8085:8085'],
+      networks: ['groundwork-net'],
+      command: 'gcloud beta emulators pubsub start --host-port=0.0.0.0:8085',
+      healthcheck: {
+        test: ['CMD', 'curl', '-f', 'http://localhost:8085'],
+        interval: '5s',
+        timeout: '5s',
+        retries: 5
+      }
+    });
+  }
+}
+
 export interface GoMicroserviceGeneratorSchema {
   name: string;
   messaging: 'none' | 'kafka' | 'gcp-pubsub';
@@ -146,7 +198,40 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
       const servicesMap = composeDoc.get('services');
 
       if (!servicesMap.has(serviceNames.fileName)) {
-        const newService = {
+        // Only wire the infrastructure this service actually uses. Redis backs
+        // the WebSocket hub; the Pub/Sub emulator backs GCP Pub/Sub messaging.
+        // A service using neither should declare neither.
+        const usesRedis = options.websockets;
+        const usesPubSub = options.messaging === 'gcp-pubsub';
+
+        const environment: string[] = [
+          `SERVER_PORT=${assignedPort}`,
+          `DATABASE_URL=postgres://\${DB_USER:-postgres}:\${DB_PASSWORD:-postgres}@db:5432/\${DB_NAME:-${serviceNames.fileName}}?sslmode=disable`,
+          'DB_HOST=db',
+          'DB_PORT=5432',
+          'DB_USER=${DB_USER:-postgres}',
+          'DB_PASSWORD=${DB_PASSWORD:-postgres}',
+          `DB_NAME=\${DB_NAME:-${serviceNames.fileName}}`
+        ];
+        if (usesRedis) {
+          environment.push('REDIS_URL=redis:6379');
+        }
+        if (usesPubSub) {
+          environment.push('PUBSUB_EMULATOR_HOST=pubsub:${PUBSUB_PORT:-8085}');
+        }
+        environment.push(
+          'OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317',
+          'OTEL_EXPORTER_OTLP_PROTOCOL=grpc'
+        );
+
+        const dependsOn: Record<string, { condition: string }> = {
+          db: { condition: 'service_healthy' }
+        };
+        if (usesRedis) {
+          dependsOn.redis = { condition: 'service_healthy' };
+        }
+
+        const newService: Record<string, unknown> = {
           build: {
             context: `./${projectRoot}`,
             dockerfile: 'Dockerfile.dev'
@@ -156,29 +241,15 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
           ports: [
             `${assignedPort}:${assignedPort}`
           ],
-          environment: [
-            `SERVER_PORT=${assignedPort}`,
-            `DATABASE_URL=postgres://\${DB_USER:-postgres}:\${DB_PASSWORD:-postgres}@db:5432/\${DB_NAME:-${serviceNames.fileName}}?sslmode=disable`,
-            'DB_HOST=db',
-            'DB_PORT=5432',
-            'DB_USER=${DB_USER:-postgres}',
-            'DB_PASSWORD=${DB_PASSWORD:-postgres}',
-            `DB_NAME=\${DB_NAME:-${serviceNames.fileName}}`,
-            'REDIS_URL=redis:6379',
-            'PUBSUB_EMULATOR_HOST=pubsub:${PUBSUB_PORT:-8085}',
-            'OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317',
-            'OTEL_EXPORTER_OTLP_PROTOCOL=grpc'
-          ],
-          depends_on: {
-            db: { condition: 'service_healthy' },
-            redis: { condition: 'service_healthy' }
-          },
+          environment,
+          depends_on: dependsOn,
           networks: [
             'groundwork-net'
           ]
         };
 
         servicesMap.set(serviceNames.fileName, newService);
+        ensureOptionalInfra(composeDoc, servicesMap, { usesRedis, usesPubSub });
         tree.write('docker-compose.yml', composeDoc.toString());
       }
     } catch (e) {

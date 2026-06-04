@@ -102,6 +102,11 @@ The pitch has exactly two sections: `## The Pitch` and `## Rabbit Holes & No-Gos
 
 A pitch that names features and lists milestones is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
 
+The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both matter:
+
+- **Rabbit Holes** — the technical traps and unknowns that could silently eat the appetite. These are the parts where the work could balloon: the hard coherence problem, the latency budget that the safety check threatens, the prompt that grows unbounded, the retry path that risks double-writes. Each rabbit hole should name its guard or spike. A bet that carries obvious technical risk but lists *only* scope cuts has hidden its real danger — the review subagent flags a Rabbit Holes & No-Gos section with no genuine rabbit hole as a critical finding. Only a bet that is truly low-risk technically may say so and move on.
+- **No-Gos** — the explicit scope cuts that keep the appetite honest, each naming the user expectation it defers.
+
 **Shallow (insufficient):**
 
 ```markdown
@@ -139,6 +144,15 @@ A pitch that names features and lists milestones is a task list. The pitch must 
   discoverable and compelling enough to drive the product's collaborative value.
 
 ## Rabbit Holes & No-Gos
+
+**Rabbit Holes**
+
+- [ ] Risk: Invitation delivery without email could balloon into building presence/real-time
+  sync so collaborators "appear." Guard: shareable link only; no presence in this bet.
+- [ ] Risk: Permission model for shared projects can sprawl (roles, per-field ACLs). Guard:
+  two roles only — owner and collaborator — decided up front; spike anything beyond in week 1.
+
+**No-Gos**
 
 - [ ] Analytics and reporting — users will expect a dashboard; excluded because it doesn't
   test the core hypothesis that users complete the collaboration workflow.

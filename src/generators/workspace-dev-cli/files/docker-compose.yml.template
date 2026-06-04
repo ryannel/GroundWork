@@ -20,34 +20,11 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    image: redis:7-alpine
-    container_name: <%= projectPrefix %>-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - groundwork-net
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
-  pubsub:
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
-    container_name: <%= projectPrefix %>-pubsub
-    ports:
-      - "8085:8085"
-    networks:
-      - groundwork-net
-    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8085"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+  # redis and the pubsub emulator are NOT defined here. They are optional
+  # infrastructure: the python/go microservice generators inject them into this
+  # file on demand, only for a service that actually uses them (a WebSocket
+  # backplane, Redis pub/sub, or GCP Pub/Sub messaging). A project that needs
+  # neither never provisions them, so `./dev start` boots nothing unused.
 
   # Trace backend + OTLP ingestion point. Services export OTLP to jaeger:4317
   # (gRPC) / jaeger:4318 (HTTP); the UI and query API are on 16686. The query
@@ -67,7 +44,7 @@ services:
 
 volumes:
   db_data:
-  redis_data:
+  # redis_data is added by a generator when a service that needs Redis is scaffolded.
 
 networks:
   groundwork-net:

@@ -267,7 +267,7 @@ Execute **only** after the user has explicitly approved the complete draft in Ph
 
 6. **Clean up caches.** Remove the architecture phase's own caches and the previous phase's consumed hand-off: `run_command("rm -rf .groundwork/cache/architecture-draft .groundwork/cache/architecture-cache.md .groundwork/cache/handoff/design-system.md")`. The Cache Isolation rule (Protocol 7) requires the previous hand-off to be deleted once consumed.
 
-7. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`, `docs/design-system.md`). Apply surgical updates and refresh affected summary headers. Report what changed.
+7. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`, `docs/design-system.md`). Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2 — e.g. architecture overturns a design-system or brief commitment), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
 
 8. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Architecture` entries incorporated into `docs/architecture.md` or the hand-off file.
 

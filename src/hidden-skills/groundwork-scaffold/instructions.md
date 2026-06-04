@@ -112,6 +112,8 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 
 This table is the one place to update when generator flags evolve. When a new flag ships, add a row here; when a flag is removed, delete the row. The mapping is the contract between architecture's vocabulary and scaffold's execution — keep it current.
 
+**When the generators cannot honour an architecture decision.** This is common and expected: the architecture may have chosen a vendor, language, or topology the available generators do not produce (e.g. a TypeScript backend when only Go/Python exist, or Supabase auth when only Clerk is wired). Surface the genuine product trade-off to the user as a single decision (Protocol 4), take their call, then recognise what you are doing to the docs: **adopting the generator's path almost always *reverses* an architecture Key Decision or supersedes an ADR.** That makes it a **reversal** under Protocol 2 — not a refinement. At commit (Phase 6) you must follow the Reversal Protocol in full: reconcile the architecture *body* (not just its summary), reconcile every dependent doc the reversal touches — the domain entity docs (`Owner:`, fields), service docs, infrastructure — write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc. The committed architecture must describe the system you actually scaffolded, with no residue of the abandoned one.
+
 **Generator availability:**
 
 | Generator | What it produces | Key parameters |
@@ -236,7 +238,8 @@ Write `docs/api/<service-name>.md` for each service that exposes HTTP endpoints 
 **Population rules:**
 
 - Derive auth from the generator flags: `--auth clerk` → Bearer JWT, `--auth service` → service token header, `--auth none` → no auth.
-- Leave the Endpoints section as a placeholder comment. The team populates it as routes are built. Do not invent routes.
+- **If the architecture document already specifies this service's contract — an explicit endpoint, an event stream, a request/response or SSE event schema (e.g. a streaming generation endpoint with named events) — transcribe that contract into the Endpoints section.** This is not inventing routes; it is carrying forward a commitment the architecture already made, so the system's key interface has a documented home from day one. Mark each as `status: planned`.
+- Only when the architecture specifies *no* contract for the service, leave the Endpoints section as a placeholder comment for the team to populate as routes are built. Never fabricate routes the architecture did not commit.
 
 Mark the Service Documentation phase complete in `scaffold-cache.md` and proceed to Phase 4.
 
@@ -377,7 +380,7 @@ Execute only after explicit user approval from Phase 5. Follow Protocol 3.4 of t
 
 3. **Clean up caches.** Remove the scaffold cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/scaffold-cache.md .groundwork/cache/handoff/architecture.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
 
-4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. **Scaffold-time vendor/language/topology changes are reversals** (Protocol 2): reconcile the architecture body and every dependent doc — domain entities, service docs, infrastructure — write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing. Because this reversal supersedes ADRs, re-review **every** `docs/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit — these stubs carry no summary and are the dependents most often left stale. Do not leave the architecture body or domain docs describing the design you replaced.
 
 5. Update discovery notes — scan for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries incorporated into the committed artifact or the hand-off file.
 

@@ -161,6 +161,33 @@ case "$COMMAND" in
     fi
     ;;
   sandbox)
+    # `./dev sandbox review [name] [--session <id>]` — render the latest chat
+    # transcript for a sandbox into a readable Markdown bundle for assessment.
+    if [ "$2" = "review" ]; then
+      RNAME="greenfield"
+      RSESSION=""
+      shift 2
+      while [ $# -gt 0 ]; do
+        case "$1" in
+          --session) RSESSION="$2"; shift 2 ;;
+          --session=*) RSESSION="${1#*=}"; shift ;;
+          -*) print_error "Unknown flag: $1"; exit 1 ;;
+          *) RNAME="$1"; shift ;;
+        esac
+      done
+      SANDBOX_DIR="$PWD/.sandboxes/$RNAME"
+      OUT_DIR="$PWD/.sandboxes/$RNAME-review"
+      if [ ! -d "$SANDBOX_DIR" ]; then
+        fail "No sandbox at .sandboxes/$RNAME. Create one with: ./dev sandbox $RNAME --simulate"
+      fi
+      print_logo "Sandbox Review"
+      print_step "Rendering transcript for .sandboxes/$RNAME → .sandboxes/$RNAME-review"
+      python3 "$PWD/scripts/render_transcript.py" "$SANDBOX_DIR" "$OUT_DIR" $RSESSION
+      print_success "Review bundle ready at .sandboxes/$RNAME-review/"
+      print_info "Open .sandboxes/$RNAME-review/conversation.md alongside .sandboxes/$RNAME/docs/."
+      exit 0
+    fi
+
     # Create a standalone GroundWork project sandbox seeded with the same
     # starting state a real user gets from `npx groundwork init`. Unlike the
     # eval sandbox (.sandboxes/evals), this one is NOT wiped by eval runs, so
@@ -297,6 +324,7 @@ EOF
     print_category "SETUP"
     print_cmd "sandbox" "Create a standalone GroundWork project sandbox (.sandboxes/<name>, default greenfield)"
     print_cmd "sandbox --simulate" "...and seed a simulated-user harness so a chat can dry-run the greenfield flow (run /simulate-greenfield)"
+    print_cmd "sandbox review" "Render a sandbox's latest chat transcript into a readable Markdown bundle (.sandboxes/<name>-review/)"
 
     print_category "QUALITY & TESTING"
     print_cmd "eval run" "Run conversational evaluations (lists suites if empty)"

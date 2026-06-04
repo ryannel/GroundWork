@@ -23,7 +23,7 @@ The contract is environment-agnostic — input and output are the same regardles
 The calling skill passes two fields:
 
 - `document_path` — the draft to review. The path may point to a cache draft (e.g. `.groundwork/cache/product-brief-draft.md`) or a committed canonical doc.
-- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `bet-pitch`, `technical-design`. Used to locate upstream documents.
+- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`. Used to locate upstream documents.
 
 Read the document at `document_path` before beginning any check.
 
@@ -77,7 +77,7 @@ Read the document's own description of its purpose and who it serves. Then ask:
 
 For every person or role the document claims to serve, ask: what would they have to come back and ask before they could begin? Each unanswered question is a finding.
 
-For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, or `infrastructure`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract. Do not raise this finding for them.
+For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, or `infrastructure`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) and domain entity docs (`domain-entity`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract and the domain-entity template. Do not raise this finding for them.
 
 Pay particular attention to the `## Summary for Downstream` section (Protocol 5 of the operating contract). The summary is the first thing every downstream phase reads. Check that:
 
@@ -100,6 +100,8 @@ The chain is:
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design
 ```
 
+**`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md`'s `## Summary for Downstream` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
+
 For the given `document_type`, read every upstream document that exists. The foundational documents live at canonical paths: `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md`. The bet documents live under the bet slug: `docs/bets/<slug>/pitch.md` and `docs/bets/<slug>/technical-design.md`. When reviewing a bet document, infer `<slug>` from the document path — the draft path contains the slug as a directory component.
 
 **Read upstream summary headers first.** For each upstream doc, the `## Summary for Downstream` section is the canonical contract; check the document under review against that section. Read the upstream body only when a specific claim in the document under review needs verification the summary cannot provide.
@@ -117,6 +119,19 @@ For each upstream:
 - Has any upstream commitment been silently dropped?
 
 Each contradiction, omission, or silent departure is a finding.
+
+---
+
+## Check 4: Document-Type Specifics
+
+Some document types carry a requirement the generic checks do not cover.
+
+**`bet-pitch` — the `## Rabbit Holes & No-Gos` section must contain actual rabbit holes, not only no-gos.** These are two distinct things:
+
+- **No-Gos** are scope exclusions — features deliberately cut ("users will expect authoring, but it is bet two").
+- **Rabbit Holes** are technical traps or unknowns that could silently consume the appetite — the parts where the work could balloon (long-session coherence, classifier latency against a tight budget, prompt-size growth, idempotency under retries) — each ideally paired with a guard or a spike.
+
+If the section lists only scope cuts and names no technical rabbit hole, yet the bet plainly carries technical risk, that is a 🔴 finding: the pitch has not surfaced where the appetite is actually at risk. A bet that is genuinely low-risk technically may state so explicitly instead.
 
 ---
 
