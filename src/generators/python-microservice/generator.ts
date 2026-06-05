@@ -5,102 +5,11 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
-import * as fs from 'fs';
-
-function promoteEngineerSkill(tree: Tree, skillName: string) {
-  const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
-
-  if (!fs.existsSync(sourcePath)) {
-    console.warn(`Engineer skill ${skillName} not found at ${sourcePath}`);
-    return;
-  }
-
-  function copyDir(src: string, dest: string) {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-    for (const entry of entries) {
-      const srcFile = path.join(src, entry.name);
-      const destFile = dest + '/' + entry.name;
-      if (entry.isDirectory()) {
-        copyDir(srcFile, destFile);
-      } else {
-        tree.write(destFile, fs.readFileSync(srcFile));
-      }
-    }
-  }
-
-  // Engineer skills live in hidden-skills/ until a service is scaffolded, then
-  // they are promoted to .agents/skills/ so engineers have them immediately available.
-  copyDir(sourcePath, `.agents/skills/${skillName}`);
-}
-
-function deployStackDocs(tree: Tree, docsRoot: string) {
-  if (!fs.existsSync(docsRoot)) return;
-
-  function walk(src: string, relPath: string) {
-    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-      const srcPath = path.join(src, entry.name);
-      const destPath = relPath ? `${relPath}/${entry.name}` : entry.name;
-      if (entry.isDirectory()) {
-        walk(srcPath, destPath);
-      } else if (!tree.exists(destPath)) {
-        tree.write(destPath, fs.readFileSync(srcPath));
-      }
-    }
-  }
-  walk(docsRoot, 'docs');
-}
-
-/**
- * Inject the optional infrastructure a service needs into the shared
- * docker-compose. redis and the pubsub emulator are not in the base compose;
- * they are added here on demand and only once, so a project provisions only the
- * infrastructure some service actually uses.
- */
-function ensureOptionalInfra(
-  composeDoc: any,
-  servicesMap: any,
-  opts: { usesRedis: boolean; usesPubSub: boolean }
-) {
-  if (opts.usesRedis && !servicesMap.has('redis')) {
-    servicesMap.set('redis', {
-      image: 'redis:7-alpine',
-      restart: 'unless-stopped',
-      ports: ['6379:6379'],
-      networks: ['groundwork-net'],
-      volumes: ['redis_data:/data'],
-      healthcheck: {
-        test: ['CMD', 'redis-cli', 'ping'],
-        interval: '5s',
-        timeout: '3s',
-        retries: 5
-      }
-    });
-    let volumesMap = composeDoc.get('volumes');
-    if (!volumesMap) {
-      composeDoc.set('volumes', {});
-      volumesMap = composeDoc.get('volumes');
-    }
-    if (!volumesMap.has('redis_data')) {
-      volumesMap.set('redis_data', null);
-    }
-  }
-
-  if (opts.usesPubSub && !servicesMap.has('pubsub')) {
-    servicesMap.set('pubsub', {
-      image: 'gcr.io/google.com/cloudsdktool/cloud-sdk:emulators',
-      restart: 'unless-stopped',
-      ports: ['8085:8085'],
-      networks: ['groundwork-net'],
-      command: 'gcloud beta emulators pubsub start --host-port=0.0.0.0:8085',
-      healthcheck: {
-        test: ['CMD', 'curl', '-f', 'http://localhost:8085'],
-        interval: '5s',
-        timeout: '5s',
-        retries: 5
-      }
-    });
-  }
-}
+import {
+  promoteEngineerSkill,
+  deployStackDocs,
+  ensureOptionalInfra,
+} from '../shared/scaffold-helpers';
 
 export interface PythonMicroserviceGeneratorSchema {
   name: string;
@@ -237,6 +146,22 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
           ],
           environment
         };
+        // Only the REST entrypoint serves /healthz; the runpod worker image
+        // runs a background worker with no HTTP server, so it gets no probe.
+        if (options.rest && !options.runpod) {
+          // The python:slim runtime image has no curl, so probe the health
+          // endpoint with the interpreter that is guaranteed to be present.
+          newService.healthcheck = {
+            test: [
+              'CMD-SHELL',
+              `python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:${assignedPort}/healthz').status==200 else 1)"`
+            ],
+            interval: '10s',
+            timeout: '5s',
+            retries: 5,
+            start_period: '20s'
+          };
+        }
         if (Object.keys(dependsOn).length > 0) {
           newService.depends_on = dependsOn;
         }

@@ -249,11 +249,11 @@ def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, revi
         isolated-context contract Protocol 5/6 of the operating contract assume.
         """
         if client is None or review_model_id is None:
-            return "Error: invoke_review is not configured (client/model unavailable in this harness run)."
+            return "REVIEW_UNAVAILABLE: invoke_review is not configured (client/model unavailable in this harness run)."
 
         review_skill_path = sandbox_dir / ".agents" / "groundwork" / "skills" / "groundwork-review" / "instructions.md"
         if not review_skill_path.exists():
-            return f"Error: review skill not installed at {review_skill_path}. Skill install incomplete."
+            return f"REVIEW_UNAVAILABLE: review skill not installed at {review_skill_path}. Skill install incomplete."
 
         # Verify the draft exists before spending an SDK call on it.
         try:
@@ -299,6 +299,10 @@ def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, revi
         # Run the review's own tool-use loop. Capped at 8 rounds — a review
         # typically needs <5: read draft, read 1-3 upstreams, return.
         _REVIEW_MAX_ROUNDS = 8
+        # Bound each review request so a stalled stream surfaces as a failed
+        # round instead of hanging the whole scenario. A review reads a draft
+        # and a few upstream sections at max_tokens=4096 — 120s is generous.
+        _REVIEW_REQUEST_TIMEOUT = 120.0
         final_texts: list[str] = []
 
         try:
@@ -311,6 +315,7 @@ def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, revi
                     messages=review_messages,
                     tools=review_tool_schemas,
                     temperature=0.0,
+                    timeout=_REVIEW_REQUEST_TIMEOUT,
                 ))
                 # Review subagent usage is captured into the same accumulator so
                 # scenario reporting sees the total spend even though the review
@@ -344,9 +349,9 @@ def get_tools(sandbox_dir: Path, client: anthropic.Anthropic | None = None, revi
                     tool_results.append({"type": "tool_result", "tool_use_id": tu.id, "content": str(result)})
                 review_messages.append({"role": "user", "content": tool_results})
         except Exception as e:
-            return f"Error: review subagent failed: {type(e).__name__}: {str(e)[:200]}"
+            return f"REVIEW_UNAVAILABLE: review subagent failed: {type(e).__name__}: {str(e)[:200]}"
 
-        return "\n".join(final_texts).strip() or "Error: review subagent returned no text."
+        return "\n".join(final_texts).strip() or "REVIEW_UNAVAILABLE: review subagent returned no text."
 
     fns = {
         "read_file": read_file,

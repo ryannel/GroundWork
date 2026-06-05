@@ -5,50 +5,10 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
-import * as fs from 'fs';
-
-function promoteEngineerSkill(tree: Tree, skillName: string) {
-  const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
-
-  if (!fs.existsSync(sourcePath)) {
-    console.warn(`Engineer skill ${skillName} not found at ${sourcePath}`);
-    return;
-  }
-
-  function copyDir(src: string, dest: string) {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-    for (const entry of entries) {
-      const srcFile = path.join(src, entry.name);
-      const destFile = dest + '/' + entry.name;
-      if (entry.isDirectory()) {
-        copyDir(srcFile, destFile);
-      } else {
-        tree.write(destFile, fs.readFileSync(srcFile));
-      }
-    }
-  }
-
-  // Engineer skills live in hidden-skills/ until a service is scaffolded, then
-  // they are promoted to .agents/skills/ so engineers have them immediately available.
-  copyDir(sourcePath, `.agents/skills/${skillName}`);
-}
-
-function deployStackDocs(tree: Tree, docsRoot: string) {
-  if (!fs.existsSync(docsRoot)) return;
-
-  function walk(src: string, relPath: string) {
-    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-      const srcPath = path.join(src, entry.name);
-      const destPath = relPath ? `${relPath}/${entry.name}` : entry.name;
-      if (entry.isDirectory()) {
-        walk(srcPath, destPath);
-      } else if (!tree.exists(destPath)) {
-        tree.write(destPath, fs.readFileSync(srcPath));
-      }
-    }
-  }
-  walk(docsRoot, 'docs');
-}
+import {
+  promoteEngineerSkill,
+  deployStackDocs,
+} from '../shared/scaffold-helpers';
 
 export interface NextjsAppGeneratorSchema {
   name: string;
@@ -184,6 +144,21 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
             `${assignedPort}:${assignedPort}`
           ],
           environment: envVars,
+          // The node:alpine runtime image has no curl, but ships busybox wget,
+          // which probes the health route without an extra binary.
+          healthcheck: {
+            test: [
+              'CMD',
+              'wget',
+              '-q',
+              '--spider',
+              `http://localhost:${assignedPort}/api/healthz`
+            ],
+            interval: '10s',
+            timeout: '5s',
+            retries: 5,
+            start_period: '20s'
+          },
           networks: [
             'groundwork-net'
           ]

@@ -30,6 +30,10 @@ What we chose, stated as a single sentence followed by elaboration.
 
 ## Alternatives considered
 
-Other options on the table and why they were rejected.
+Other options on the table and why they were rejected. State each rejection at
+the right epistemic level: a measured or sourced fact may be stated as fact; an
+unvalidated judgement must be framed as a judgement with its basis ("we judge X
+weaker for our quality bar, pending validation"), not asserted as established
+fact.
 
 - ...

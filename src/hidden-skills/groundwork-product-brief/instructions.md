@@ -106,13 +106,13 @@ When ready:
 
 1. **Draft.** Synthesize the discovery into the Product Brief structure below. Lead the draft with a `## Summary for Downstream` section as its very first section (per Protocol 5 of the operating contract): Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. This is the contract every downstream phase reads first, so it must be present in the draft that goes to review — not added later at commit. Apply the `groundwork-writer` skill for the summary structure, tone, and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
 
-2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Its deliberation does not return, which keeps the calling conversation's context window clean. Report the verdict and any findings explicitly before proceeding.
+2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Its deliberation does not return, which keeps the calling conversation's context window clean. Report the verdict and any findings explicitly before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; if the reviewer errors, returns `REVIEW_UNAVAILABLE`, or returns no parseable verdict, the review has not run — do not commit, report the failure, and pause.
 
 3. **Revise loop.** If the verdict is **REVISE**:
    - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
    - Write the revised draft back to `.groundwork/cache/product-brief-draft.md`.
    - Run the review again. Repeat until the verdict is **PRESENT**.
-   - **Cap:** After 3 REVISE verdicts, stop revising and treat the next pass as PRESENT regardless of the verdict. Surface all remaining 🔴 Critical findings as 🟡 Advisory so the user can decide whether to address them before committing.
+   - **Cap.** After 3 REVISE verdicts, apply the revise cap defined in Protocol 8: stop revising, surface remaining 🔴 Critical findings as 🟡 Advisory, and disclose that the review did not reach PRESENT and how many critical findings remain.
 
 4. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 

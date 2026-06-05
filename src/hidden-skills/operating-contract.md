@@ -80,7 +80,7 @@ When a change is a reversal, before you commit:
 3. **Record the supersession in an ADR.** The old design lives *only* in the superseding ADR (Context / Decision / what it cost), never as a residue in the body or summary.
 4. **Re-gate: re-invoke `groundwork-review` on every mutated canonical doc.** This is the safety net the reversal exists to trip. For each doc you changed, run the review with the matching `document_type` (a mutated `docs/domain/<entity>.md` uses `document_type: domain-entity`). Apply 🔴 findings and re-review until `PRESENT`.
    - **Domain docs are re-reviewed unconditionally on a structural reversal.** When the reversal supersedes an accepted ADR or changes an architecture `### Key Decision` / `### Binding Constraint`, re-review **every** `docs/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit. Domain stubs carry no summary, so nothing flags them when they drift — and "the facilitator forgot the domain docs were dependents" is the exact failure this protocol exists to prevent. The set is small and the re-review is cheap; do not gate it on your own judgement of which entities the reversal touched.
-   - **Cap:** After 3 REVISE verdicts on a given doc, treat the next pass as PRESENT and surface remaining 🔴 findings as 🟡 Advisory for the user to weigh before committing. (Same cap the drafting phases use.)
+   - **Cap and fail-closed handling:** the revise cap and the rule for a reviewer that cannot run are defined once in Protocol 8 (Review Gate) and apply here unchanged — a re-gate that errors blocks the commit exactly as a drafting-phase review does.
 
 **Accepted residual:** a *refinement* that introduces a body-only inconsistency while leaving the summary accurate is not re-gated — downstream phases read the summary first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the summary's own contract and the dependent docs; refinements are not, to keep the common case cheap.
 
@@ -94,7 +94,7 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 
 **Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`
 
-All protocols apply: 1, 2, 3, 4, 5, 6, 7.
+All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
 - Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
@@ -105,7 +105,7 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7.
 
 **Skills:** `groundwork-bet` (all five phases: discovery, design, decomposition, delivery, validation)
 
-Protocols 1, 2, and 4 apply. Protocols 3, 5, 6, and 7 do **not** apply.
+Protocols 1, 2, 4, and 8 apply. Protocols 3, 5, 6, and 7 do **not** apply.
 
 - The pitch frontmatter `status` field is the state machine. No *per-phase* cache file is created at init and deleted at commit the way Sequential Setup phases do — the only cache files in play are the shared `discovery-notes.md` and transient drafts such as `bet-pitch-draft.md`.
 - No hand-off files are written. Context is shared across all five phases — a fresh context is not recommended between bet phases.
@@ -262,3 +262,30 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 ### Enforcement at init
 
 Each phase's init step verifies its own caches are clean — no stale draft directory, no orphan cache file from a previous run that did not commit. If foreign state is found, the phase asks the user to confirm a clean restart before proceeding.
+
+---
+
+## Protocol 8: Review Gate
+
+A review checkpoint is a gate, not a formality. A phase passes only on a positive, parseable verdict from the isolated reviewer — every other outcome blocks. Gating on the *presence of a pass* rather than on *detecting a failure* is what keeps the gate safe: an unrecognised error, a dropped connection, and a truncated response all read as "not a pass" and stop the phase, instead of slipping through as a silent success.
+
+This protocol governs every place a skill invokes `groundwork-review` — the Sequential Setup drafting phases, the Reversal Protocol re-gate (Protocol 2), and the Continuous Bet validation reviews.
+
+### The gate
+
+Presenting a draft as reviewed, or committing it, is permitted only when the reviewer returns a parseable `VERDICT: PRESENT`. Every other outcome blocks:
+
+- `VERDICT: REVISE` — apply the 🔴 findings and re-invoke, subject to the cap below.
+- A `REVIEW_UNAVAILABLE` sentinel, any error string, an empty response, or output carrying no parseable `VERDICT:` line — the review did not run. This is a hard failure, never a pass.
+
+### Fail closed when the review cannot run
+
+When a positive verdict cannot be obtained because the reviewer errored or returned nothing, the phase must not commit and must not state or imply that the review passed. Report to the user that the independent review failed to run, include the error, and pause. Each Sequential Setup phase already pauses for explicit user approval before committing (Protocol 3.4) — fold the failure into that pause rather than proceeding around it.
+
+The author reviewing its own draft is not a substitute. The reviewer runs in an isolated context precisely so the agent that wrote the draft does not judge it — running the checks inline destroys that guarantee and re-introduces the blind spots the gate exists to catch. An adversarial self-review is permitted only when the user explicitly authorises it as a fallback, and only when the output labels it loudly as a self-review that does not satisfy the independent-review gate. It never counts as a passed gate, silently or otherwise.
+
+### The revise cap
+
+A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: surface every remaining 🔴 Critical finding to the user as 🟡 Advisory, and state plainly that the review did not reach PRESENT and how many critical findings remain unresolved. The user weighs them before approving the commit. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
+
+Hitting the cap is a disclosed, user-visible outcome, not a silent downgrade. It differs from the fail-closed case above by when it fires: the cap fires after the review *ran* and could not be satisfied; fail-closed fires when the review *could not run at all*. Both block a silent pass, and both surface to the user.

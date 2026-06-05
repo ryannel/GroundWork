@@ -172,7 +172,7 @@ Write `docs/services/<service-name>.md` for each service:
 
 | Dependency | Type | Notes |
 |---|---|---|
-| PostgreSQL | Database | `<service-name>` schema |
+| PostgreSQL | Database | `<service-name>` database — DB-backed services only; a stateless frontend owns no database |
 | `<other-service>` | Service | Called via HTTP — URL at `<OTHER_SERVICE_URL>` env var |
 | `<external-provider>` | External | e.g. Clerk, GCP Pub/Sub |
 
@@ -185,7 +185,7 @@ Write `docs/services/<service-name>.md` for each service:
 | Variable | Required | Description |
 |---|---|---|
 | `PORT` | Yes | Service port (default: <port>) |
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `<database connection vars>` | Yes | Database connection — language-specific names, DB-backed services only (see population rules) |
 
 See `services/<service-name>/.env.example` for the full list.
 
@@ -207,6 +207,8 @@ See `services/<service-name>/.env.example` for the full list.
 - Derive the port from `docker-compose.yml` or the architecture document after generation. Do not guess.
 - List every inter-service dependency by name with the env var the calling service uses to reach it. If service A calls service B, service A's doc names service B and the env var (e.g. `AUTH_SERVICE_URL`).
 - List every external dependency — databases, auth providers, message brokers. Derive from the generator flags and the architecture document.
+- A stateless frontend owns no database. The `nextjs-app` generator scaffolds no datastore, so its service doc omits the PostgreSQL dependency row and every database environment variable. Only a service scaffolded with a database — a Go microservice, or a Python microservice with `--postgres` — names a database. Naming a database for a frontend describes infrastructure that does not exist.
+- The database connection is exposed through language-specific environment variables, so populate the variables the generated service actually reads. A Go service reads a single `DATABASE_URL` connection string. A Python service reads discrete variables — `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` — and composes the connection internally. The generated `.env.example` is the ground truth; do not assume `DATABASE_URL` for a service that reads discrete variables.
 - Read the generated `.env.example` for each service to populate the environment variables table. If `.env.example` does not exist, list only variables derivable from the generator flags.
 - Derive the unit test command from the language: `go test ./...` for Go, `uv run pytest` for Python, `pnpm test` for Next.js.
 - Do not invent variables, routes, or descriptions. If a value cannot be derived from existing files or the architecture document, leave its cell blank rather than fabricating a placeholder.
@@ -360,9 +362,9 @@ Once the system is verified (or verification is documented as pending):
 
 1. **Draft.** Write `docs/infrastructure.md` following the quality standard above. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record the actual ports, commands, and verification results — not what they should be in theory.
 
-2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/infrastructure.md` and `document_type: infrastructure`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and any findings before proceeding.
+2. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/infrastructure.md` and `document_type: infrastructure`. The subagent runs in an isolated context — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and any findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; if the reviewer errors, returns `REVIEW_UNAVAILABLE`, or returns no parseable verdict, the review has not run — do not commit, report the failure, and pause.
 
-3. **Revise loop.** If the verdict is **REVISE**, apply all 🔴 Critical findings directly to the document. Re-run the review. Repeat until the verdict is **PRESENT**.
+3. **Revise loop.** If the verdict is **REVISE**, apply all 🔴 Critical findings directly to the document. Re-run the review. Repeat until the verdict is **PRESENT**. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
 
 4. **Present.** Once the verdict is PRESENT, output the final document in full in the chat. Surface any 🟡 Advisory findings so the user can decide whether to act on them.
 
