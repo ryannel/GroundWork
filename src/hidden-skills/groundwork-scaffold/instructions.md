@@ -101,7 +101,8 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 | Lightweight pub/sub via Redis (Python only) | `python-microservice --messaging redis` |
 | WebSocket real-time delivery | `--websockets` |
 | Frontend → backend API proxy | `nextjs-app --apiProxy` |
-| LLM integration (Python service) | `python-microservice --llm` |
+| Command-line application as the product (or a CLI surface for a service) | `cli-app --name <name>` (add `--repl` when the design system specified an interactive/REPL paradigm) |
+| LLM integration (Python service) | `python-microservice --llm --llmProvider <openai\|anthropic>` (default `openai`) |
 | GPU inference on RunPod (Python service) | `python-microservice --runpod` |
 | PostgreSQL on a Python service | `python-microservice --postgres` |
 | REST surface on a Python service | `python-microservice --rest` |
@@ -114,13 +115,16 @@ This table is the one place to update when generator flags evolve. When a new fl
 
 **When the generators cannot honour an architecture decision.** This is common and expected: the architecture may have chosen a vendor, language, or topology the available generators do not produce (e.g. a TypeScript backend when only Go/Python exist, or Supabase auth when only Clerk is wired). Surface the genuine product trade-off to the user as a single decision (Protocol 4), take their call, then recognise what you are doing to the docs: **adopting the generator's path almost always *reverses* an architecture Key Decision or supersedes an ADR.** That makes it a **reversal** under Protocol 2 — not a refinement. At commit (Phase 6) you must follow the Reversal Protocol in full: reconcile the architecture *body* (not just its summary), reconcile every dependent doc the reversal touches — the domain entity docs (`Owner:`, fields), service docs, infrastructure — write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc. The committed architecture must describe the system you actually scaffolded, with no residue of the abandoned one.
 
+**LLM provider: scaffold the boilerplate, hand the integration to the bet.** When the architecture names an LLM provider, map it to `--llmProvider` (`openai` or `anthropic`) so the generated gateway targets the right SDK and a sensible default model from the start. But be precise about what the generator delivers and what it does not. The `--llm` flag produces a *generic gateway*: a single `generate_text` call behind the abstract `LLMGateway` port, with retries and a circuit breaker. It does **not** implement the provider-specific behaviour an architecture usually depends on — prompt caching a large shared context, streaming responses, structured outputs, a moderation/safety gate, or tool use. Those are **bet/MVP development work**, not scaffold output. Record them in the scaffold hand-off as work the first bet must build, and say so plainly when presenting the scaffold. Never describe the generated gateway as "provider-agnostic" or imply it already satisfies an architectural capability it only stubs — an honest "the gateway is scaffolded; prompt caching and streaming are bet work" is worth more than a green checkmark that papers over the gap. If the architecture's provider is not one the flag offers, that is the reversal path above, not a silent substitution to whatever the generator defaults to.
+
 **Generator availability:**
 
 | Generator | What it produces | Key parameters |
 |---|---|---|
 | `go-microservice` | Go API with PostgreSQL, optional auth and messaging | `--name`, `--auth` (none/service/clerk), `--messaging` (none/kafka/gcp-pubsub), `--websockets` |
-| `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--runpod` |
+| `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--llmProvider` (openai/anthropic, default openai), `--runpod` |
 | `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
+| `cli-app` | Branded Node+TypeScript command-line application, themed from `brand-tokens.json` | `--name`, `--repl` (scaffold the interactive REPL layer) |
 | `system-test-runner` | Docker Compose test topology and system test suite | `--interfaceMedium` (graphical-ui/cli/agentic-protocol, default: graphical-ui) |
 | `docs-site` | Fumadocs-powered documentation site | `--name` |
 

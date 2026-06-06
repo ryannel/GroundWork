@@ -1,4 +1,55 @@
-from src.core.domain.exceptions import TransientInferenceError, PermanentInferenceError, CircuitBreakerOpenError
+<% if (llmProvider === 'anthropic') { %>from src.core.domain.exceptions import TransientInferenceError, PermanentInferenceError, CircuitBreakerOpenError
+from tenacity import retry, wait_exponential_jitter, stop_after_attempt, retry_if_exception_type
+from circuitbreaker import circuit
+from src.provider.config import settings
+import anthropic
+import logging
+
+logger = logging.getLogger(__name__)
+
+def fallback_circuit_breaker(e):
+    logger.error(f"Circuit breaker tripped or open! {e}")
+    raise CircuitBreakerOpenError(f"External LLM API is unavailable. Please try again later.")
+
+class LLMGatewayAdapter:
+    def __init__(self):
+        # base_url is optional — leave LLM_BASE_URL blank to use Anthropic's default endpoint.
+        self.client = anthropic.AsyncAnthropic(
+            api_key=settings.llm_api_key,
+            base_url=settings.llm_base_url or None,
+        )
+        self.model = settings.llm_model
+
+    @circuit(failure_threshold=5, recovery_timeout=30, fallback_function=fallback_circuit_breaker, expected_exception=TransientInferenceError)
+    @retry(
+        wait=wait_exponential_jitter(initial=1, max=30),
+        stop=stop_after_attempt(5),
+        retry=retry_if_exception_type(TransientInferenceError)
+    )
+    async def generate_text(self, prompt: str, max_tokens: int = 100) -> str:
+        try:
+            response = await self.client.messages.create(
+                model=self.model,
+                max_tokens=max_tokens,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            # Boundary validation: ensure we got a valid text response
+            content = next((block.text for block in response.content if block.type == "text"), None)
+            if not content:
+                raise PermanentInferenceError("Received empty response from LLM provider")
+
+            return content
+
+        except anthropic.APIConnectionError as e:
+            raise TransientInferenceError(f"Connection error: {e}")
+        except anthropic.RateLimitError as e:
+            raise TransientInferenceError(f"Rate limited: {e}")
+        except anthropic.APIStatusError as e:
+            if e.status_code >= 500:
+                raise TransientInferenceError(f"Provider server error: {e}")
+            raise PermanentInferenceError(f"Provider request error: {e}")
+<% } else { %>from src.core.domain.exceptions import TransientInferenceError, PermanentInferenceError, CircuitBreakerOpenError
 from tenacity import retry, wait_exponential_jitter, stop_after_attempt, retry_if_exception_type
 from circuitbreaker import circuit
 from src.provider.config import settings
@@ -11,7 +62,7 @@ def fallback_circuit_breaker(e):
     logger.error(f"Circuit breaker tripped or open! {e}")
     raise CircuitBreakerOpenError(f"External LLM API is unavailable. Please try again later.")
 
-class OpenAILLMGateway:
+class LLMGatewayAdapter:
     def __init__(self):
         self.client = openai.AsyncOpenAI(
             api_key=settings.llm_api_key,
@@ -32,14 +83,14 @@ class OpenAILLMGateway:
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens
             )
-            
+
             # Boundary validation: ensure we got a valid response
             content = response.choices[0].message.content
             if not content:
                 raise PermanentInferenceError("Received empty response from LLM provider")
-                
+
             return content
-            
+
         except openai.APIConnectionError as e:
             raise TransientInferenceError(f"Connection error: {e}")
         except openai.RateLimitError as e:
@@ -48,3 +99,4 @@ class OpenAILLMGateway:
             if e.status_code >= 500:
                 raise TransientInferenceError(f"Provider server error: {e}")
             raise PermanentInferenceError(f"Provider request error: {e}")
+<% } %>

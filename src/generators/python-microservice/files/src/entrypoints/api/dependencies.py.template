@@ -18,9 +18,9 @@ def get_message_queue():
 <% } %>
 
 <% if (llm) { %>
-from src.provider.llm_gateway import OpenAILLMGateway
-def get_llm_gateway() -> OpenAILLMGateway:
-    return OpenAILLMGateway()
+from src.provider.llm_gateway import LLMGatewayAdapter
+def get_llm_gateway() -> LLMGatewayAdapter:
+    return LLMGatewayAdapter()
 <% } %>
 
 def get_example_service(
@@ -31,7 +31,7 @@ def get_example_service(
     message_queue = Depends(get_message_queue),
 <% } %>
 <% if (llm) { %>
-    llm_gateway: OpenAILLMGateway = Depends(get_llm_gateway),
+    llm_gateway: LLMGatewayAdapter = Depends(get_llm_gateway),
 <% } %>
 ) -> ExampleService:
     return ExampleService(

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "CliApp",
+  "title": "CLI App",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The CLI product name (used for the binary, package name, and branding fallback).",
+      "x-prompt": "What is the CLI called?"
+    },
+    "repl": {
+      "type": "boolean",
+      "description": "Scaffold the interactive REPL layer on top of the composable spine.",
+      "default": false
+    }
+  },
+  "required": ["name"]
+}

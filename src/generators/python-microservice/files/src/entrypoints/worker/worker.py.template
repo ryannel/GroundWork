@@ -2,7 +2,7 @@ import runpod
 from typing import Any, Dict
 
 <% if (llm) { %>
-from src.provider.llm_gateway import OpenAILLMGateway
+from src.provider.llm_gateway import LLMGatewayAdapter
 <% } %>
 <% if (postgres) { %>
 from src.provider.database import get_db_session

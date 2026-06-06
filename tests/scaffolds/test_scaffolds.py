@@ -225,7 +225,7 @@ def test_04_boot_dev_environment():
     # 1. Start ALL services in Docker — this does not require `air` or any native
     # language runtime on the host; Docker builds and runs every service image.
     res = subprocess.run(
-        ["bash", "./dev", "start", "--docker"],
+        ["node", "./dev", "start", "--docker"],
         cwd=SANDBOX_DIR,
         capture_output=True,
         text=True
@@ -251,7 +251,7 @@ def test_04_boot_dev_environment():
 
     # Create per-service databases and apply schemas.
     migrate_res = subprocess.run(
-        ["bash", "./dev", "migrate"],
+        ["node", "./dev", "migrate"],
         cwd=SANDBOX_DIR,
         capture_output=True,
         text=True,
@@ -279,7 +279,7 @@ def test_04_boot_dev_environment():
 
     # 2. Check the status command parses correctly.
     status_res = subprocess.run(
-        ["bash", "./dev", "status"],
+        ["node", "./dev", "status"],
         cwd=SANDBOX_DIR,
         capture_output=True,
         text=True
@@ -396,7 +396,7 @@ def test_08_teardown_dev_environment():
     print("\n--- Cleaning up ./dev Environment ---")
     
     res = subprocess.run(
-        ["bash", "./dev", "clean", "--hard"],
+        ["node", "./dev", "clean", "--hard"],
         cwd=SANDBOX_DIR,
         capture_output=True,
         text=True

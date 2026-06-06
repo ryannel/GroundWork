@@ -26,7 +26,11 @@ dependencies = [
     "runpod>=1.5.0",
 <% } %>
 <% if (llm) { %>
+<% if (llmProvider === 'anthropic') { %>
+    "anthropic>=0.40.0",
+<% } else { %>
     "openai>=1.14.0",
+<% } %>
 <% } %>
 ]
 

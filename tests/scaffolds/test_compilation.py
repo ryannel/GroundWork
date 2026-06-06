@@ -164,6 +164,47 @@ def test_python_microservice_compiles(params):
         _cleanup(svc_name)
 
 
+# The pairwise matrix above always runs the default (openai) provider. Add one
+# anthropic case so the Anthropic SDK dependency resolves and the generated
+# gateway imports cleanly — the openai path is already covered by the matrix.
+def test_python_microservice_anthropic_provider_compiles():
+    svc_name = _safe_name("py-c-llm-anthropic")
+    _cleanup(svc_name)
+    try:
+        result = _scaffold(svc_name, "python-microservice",
+                           rest=True, postgres=False, messaging="none",
+                           websockets=False, llm=True, runpod=False,
+                           llmProvider="anthropic")
+        assert result.returncode == 0, (
+            f"Generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        svc_dir = SANDBOX_DIR / "services" / svc_name
+
+        sync = subprocess.run(
+            ["uv", "sync"],
+            cwd=svc_dir,
+            capture_output=True,
+            text=True,
+        )
+        assert sync.returncode == 0, (
+            f"uv sync failed\nSTDOUT: {sync.stdout}\nSTDERR: {sync.stderr}"
+        )
+
+        check = subprocess.run(
+            ["uv", "run", "python", "-c", "import src.main"],
+            cwd=svc_dir,
+            capture_output=True,
+            text=True,
+        )
+        assert check.returncode == 0, (
+            f"Python import check failed for llmProvider=anthropic\n"
+            f"STDOUT: {check.stdout}\nSTDERR: {check.stderr}"
+        )
+    finally:
+        _cleanup(svc_name)
+
+
 # ---------------------------------------------------------------------------
 # Next.js App — pairwise
 # ---------------------------------------------------------------------------

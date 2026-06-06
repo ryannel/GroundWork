@@ -1,0 +1,67 @@
+/*
+ * <%= name %> — command-line entry point.
+ *
+ * Built on the composable spine every GroundWork CLI shares: structured `--json`
+ * output, exit-code discipline (0/1/2, 130 on interrupt), colour that degrades, and a
+ * non-TTY fallback so the tool never blocks in CI or pipes. The render layer in
+ * src/theme/ is themed from your design system's brand tokens (src/brand.json), so this
+ * CLI and the project's ./dev control plane look like kin.
+ */
+import brand from './brand.json';
+import { COMMANDS, findCommand, CommandGroup } from './registry';
+import { makeRenderer, Renderer } from './theme/render';
+
+function showHelp(r: Renderer): void {
+  r.logo('<%= name %>');
+  const groups: CommandGroup[] = ['CORE', 'META'];
+  for (const g of groups) {
+    const cmds = COMMANDS.filter((c) => c.group === g);
+    if (cmds.length === 0) continue;
+    r.category(g);
+    for (const c of cmds) r.cmd(c.name, c.summary);
+  }
+  process.stderr.write('\n');
+}
+
+async function main(): Promise<number> {
+  const argv = process.argv.slice(2);
+  let json = false;
+  let help = false;
+  const rest: string[] = [];
+  for (const a of argv) {
+    if (a === '--json') json = true;
+    else if (a === '-h' || a === '--help') help = true;
+    else if (a === '--version' || a === '-V') {
+      process.stdout.write('<%= binName %> 0.1.0\n');
+      return 0;
+    } else rest.push(a);
+  }
+
+  const r = makeRenderer(brand);
+  const command = rest[0];
+  const args = rest.slice(1);
+
+  if (!command || command === 'help' || help) {
+    showHelp(r);
+    return 0;
+  }
+  const def = findCommand(command);
+  if (!def) {
+    r.error(`Unknown command: ${command}`);
+    showHelp(r);
+    return 2;
+  }
+  return def.handler({ r, json, args });
+}
+
+process.on('SIGINT', () => {
+  process.stderr.write('\n\x1b[?25h');
+  process.exit(130);
+});
+
+main()
+  .then((code) => process.exit(code))
+  .catch((err) => {
+    makeRenderer(brand).error(err?.message ?? String(err));
+    process.exit(1);
+  });

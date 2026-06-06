@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "prepublishOnly": "tsc"
+    "build": "npm run build:dev-cli && tsc",
+    "build:dev-cli": "tsc --noEmit -p src/generators/workspace-dev-cli/cli-src/tsconfig.json && node src/generators/workspace-dev-cli/cli-src/build.mjs",
+    "prepublishOnly": "npm run build:dev-cli && tsc"
   },
   "generators": "./generators.json",
   "keywords": [],
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@nx/devkit": "^22.7.2",
     "@types/node": "^25.8.0",
+    "esbuild": "^0.25.12",
     "typescript": "^6.0.3"
   },
   "dependencies": {

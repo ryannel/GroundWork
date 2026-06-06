@@ -1,0 +1,42 @@
+# <%= name %>
+
+A command-line tool scaffolded by GroundWork. It is built on the **composable spine**
+every GroundWork CLI shares — structured `--json` output, exit-code discipline, colour
+that degrades to plain text, and a non-TTY fallback so it never blocks in CI or pipes —
+and it is themed from your design system's **brand tokens**, so it looks like a sibling of
+this project's `./dev` control plane.
+
+## Develop
+
+```bash
+npm install
+npm run build      # bundle to dist/cli.js
+npm run typecheck  # tsc --noEmit
+node dist/cli.js --help
+node dist/cli.js hello you
+node dist/cli.js hello you --json
+```
+
+## Structure
+
+```
+src/
+├── cli.ts            # entry: arg parsing, dispatch, --json, exit codes
+├── registry.ts       # the command registry (single source of truth)
+├── brand.json        # brand tokens projected from the design system
+├── theme/            # the shared render layer (colour resolution, output hierarchy)
+│   ├── tokens.ts
+│   ├── color.ts
+│   └── render.ts
+└── commands/
+    └── hello.ts      # a sample command — replace with your own
+```
+
+`src/brand.json` is projected from `.groundwork/config/brand-tokens.json` at scaffold time.
+Re-run the design system to evolve the brand; update `brand.json` to match.
+
+## Add a command
+
+1. Create `src/commands/<name>.ts` exporting `async function <name>(ctx): Promise<number>`.
+2. Register it in `src/registry.ts`.
+3. It gets `--json`, exit-code handling, and themed output for free.

@@ -58,6 +58,20 @@
       "description": "Include abstract gateways for LLM generation",
       "default": false,
       "x-prompt": "Do you want to include LLM connection boilerplate?"
+    },
+    "llmProvider": {
+      "type": "string",
+      "enum": ["openai", "anthropic"],
+      "default": "openai",
+      "description": "LLM provider for the generated gateway boilerplate (only applies when --llm is set)",
+      "x-prompt": {
+        "message": "Which LLM provider should the gateway target?",
+        "type": "list",
+        "items": [
+          { "value": "openai", "label": "OpenAI (or any OpenAI-compatible endpoint)" },
+          { "value": "anthropic", "label": "Anthropic (Claude)" }
+        ]
+      }
     }
   },
   "required": ["name"]

@@ -1,0 +1,15 @@
+// Bundles the CLI into a single executable at dist/cli.js.
+import { build } from 'esbuild';
+
+await build({
+  entryPoints: ['src/cli.ts'],
+  bundle: true,
+  platform: 'node',
+  target: 'node18',
+  format: 'cjs',
+  outfile: 'dist/cli.js',
+  banner: { js: '#!/usr/bin/env node' },
+  loader: { '.json': 'json' },
+  legalComments: 'none',
+  logLevel: 'info',
+});

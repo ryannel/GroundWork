@@ -19,6 +19,7 @@ export interface PythonMicroserviceGeneratorSchema {
   websockets: boolean;
   runpod: boolean;
   llm: boolean;
+  llmProvider: 'openai' | 'anthropic';
 }
 
 export default async function (tree: Tree, options: PythonMicroserviceGeneratorSchema) {
@@ -77,10 +78,15 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
     }
   }
 
+  // Default the provider so programmatic callers (e.g. tests) that omit it get
+  // today's OpenAI behaviour unchanged. Only consumed inside `--llm` templates.
+  const llmProvider = options.llmProvider ?? 'openai';
+
   const templateOptions = {
     ...options,
     ...serviceNames,
     assignedPort,
+    llmProvider,
     tmpl: '' // required by generateFiles
   };
 

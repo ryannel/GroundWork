@@ -327,16 +327,18 @@ Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
 2. **Assemble the final spec.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/design-system-draft/*.md > docs/design-system.md")`. The numeric prefixes guarantee the correct section order. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
 
-3. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected aesthetic directions (e.g. typography pairings the user considered and ruled out), deferred design decisions (theming, internationalisation, future variants), user instincts about motion or interaction not yet committed, and any other context the architecture phase needs. Omit empty sections.
+3. **Emit brand tokens.** Write `.groundwork/config/brand-tokens.json` (Tier 1) following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — identity essentials only: `appName`, a short `wordmark` glyph, `primary` and `accent` colours projected from the design system's palette, and a `voice` descriptor. This is a mechanical projection of decisions already made, not a new conversation. It exists so scaffolding can brand the project's `./dev` CLI even though this product is not itself a CLI. The file lives in persistent config and is not removed by the cache cleanup in the next step.
 
-4. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
+4. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected aesthetic directions (e.g. typography pairings the user considered and ruled out), deferred design decisions (theming, internationalisation, future variants), user instincts about motion or interaction not yet committed, and any other context the architecture phase needs. Omit empty sections.
 
-5. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed.
+5. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
 
-6. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
+6. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed.
 
-7. Confirm that the phase is complete.
+7. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
 
-8. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+8. Confirm that the phase is complete.
 
-9. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+9. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
+
+10. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.

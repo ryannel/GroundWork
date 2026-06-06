@@ -613,6 +613,19 @@ If it must be registered, add it to `src/skills/` and test that it appears in `.
 The CLI is a single file at `bin/groundwork.js`. Keep it simple. The CLI's job is file
 copying and user messaging — methodology and intelligence belong in skills, not scripts.
 
+### Updating the scaffolded `./dev` CLI
+The `./dev` CLI that ships into generated projects is a TypeScript program under
+`src/generators/workspace-dev-cli/cli-src/`, bundled by esbuild into a single
+zero-dependency file at `cli-src/dist/dev-bundle.js`. The `workspace-dev-cli` generator
+copies that bundle in verbatim (raw `tree.write`, never through EJS) alongside a `dev`
+launcher and a `.dev/dev.config.json` projected from `.groundwork/config/brand-tokens.json`.
+
+**After editing anything in `cli-src/`, rebuild the bundle** — `npm run build:dev-cli` (also
+run as part of `npm run build` and `prepublishOnly`). The committed bundle is what ships, so
+a stale bundle ships stale behavior. The render/theme layer in `cli-src/src/theme/` is a
+deliberately self-contained module (it consumes brand tokens and nothing project-specific)
+so it can be shared with a future `cli-app` product generator.
+
 ### The two writer skills
 
 This repo has two writer skills with different names, audiences, and purposes.

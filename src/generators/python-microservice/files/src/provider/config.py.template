@@ -36,7 +36,7 @@ class Settings(BaseSettings):
 <% if (llm) { %>
     llm_api_key: Optional[str] = None
     llm_base_url: Optional[str] = None
-    llm_model: str = "gpt-4o"
+    llm_model: str = "<% if (llmProvider === 'anthropic') { %>claude-sonnet-4-6<% } else { %>gpt-4o<% } %>"
 <% } %>
 
 settings = Settings()

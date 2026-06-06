@@ -1,0 +1,17 @@
+import type { Ctx } from '../registry';
+
+/** A sample command. It demonstrates the spine: themed human output by default, clean
+ *  JSON on stdout under --json. Replace it with your own commands. */
+export async function hello(ctx: Ctx): Promise<number> {
+  const who = ctx.args[0] ?? 'world';
+
+  if (ctx.json) {
+    process.stdout.write(JSON.stringify({ greeting: `Hello, ${who}!` }) + '\n');
+    return 0;
+  }
+
+  ctx.r.logo();
+  ctx.r.success(`Hello, ${who}!`);
+  ctx.r.info('Edit src/commands/ and register new commands in src/registry.ts.');
+  return 0;
+}

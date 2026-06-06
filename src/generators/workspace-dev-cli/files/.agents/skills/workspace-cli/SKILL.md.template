@@ -10,7 +10,7 @@ Whenever the user asks you to start, stop, or check the status of the local serv
 
 ## Capabilities
 
-The `./dev` CLI is an executable bash script located in the root directory. It provides the following commands:
+The `./dev` CLI is an executable Node program in the root directory — a thin launcher over a prebuilt, zero-dependency bundle in `.dev/`. It needs no `npm install`; it runs on the Node the workspace already requires. It provides the following commands:
 
 ### Lifecycle
 
@@ -18,8 +18,12 @@ The `./dev` CLI is an executable bash script located in the root directory. It p
 - `./dev start --docker`: Forces ALL services, including application code, to run inside Docker.
 - `./dev stop`: Gracefully kills all native processes and shuts down Docker containers.
 - `./dev status`: Displays a human-readable table of running Docker and native processes.
-- `./dev status --json`: Returns a strictly formatted JSON object of all running services, PIDs, and exposed ports. **Always use this flag when you need to programmatically determine what is running.**
-- `./dev logs`: Streams logs from all native services and Docker containers.
+- `./dev status --json`: Returns JSON `{ "docker": [{service,status,ports}], "native": [{service,status,pid}] }` on stdout. **Always use this flag when you need to programmatically determine what is running** — never guess ports.
+- `./dev status --watch`: A live, self-refreshing dashboard for humans (TTY only; press `q` to exit). Do not call from a tool — use `--json` instead.
+- `./dev logs`: Prints the recent tail of native and Docker logs, then exits. Safe to run non-interactively.
+- `./dev logs --follow`: Streams logs continuously (TTY only). Do not run this from a tool call — it will not return.
+- `./dev doctor` / `./dev doctor --json`: Verify the local environment. Always exits 0 (it reports, it does not gate).
+- `./dev completion bash|zsh|fish`: Print a shell completion script.
 
 ### Testing
 
@@ -52,7 +56,16 @@ Shared fixtures (`cluster`, `api_client`, `pure_state_reset`, `frontend_base_url
 ## Best Practices for Agents
 
 1. **Service Discovery**: Do not guess what ports services are running on. Run `./dev status --json` to get the ground truth.
-2. **Log Reading**: Do not stream `./dev logs` using `run_command` as it will run indefinitely and hang. Instead, instruct the user to run `./dev logs` in their terminal, or read the individual log files generated in `.dev/logs/*.log`.
+2. **Log Reading**: `./dev logs` prints the recent tail and exits — safe to call. Only `./dev logs --follow` streams and will hang a tool call; never use `--follow` from `run_command`. For deeper history, read the per-service files in `.dev/logs/*.log`.
 3. **Idempotency**: `./dev start`, `./dev stop`, and `./dev new bet` are fully idempotent. It is safe to run them multiple times.
 4. **Bet test stubs**: After `./dev new milestone` or `./dev new slice`, fill in the `pytest.fail(...)` stub with the target-state assertion before starting Delivery. The stub is intentionally red — it should stay red until the implementation exists.
 5. **Docker gates**: `./dev test integration` and `./dev test bet <slug> --integration` boot Docker. Do not run these commands unless Docker is available and the user expects the boot cost.
+
+## Non-interactive behavior (the agent contract)
+
+The CLI never blocks an agent. `--json` and any non-TTY invocation skip all spinners, live rendering, and prompts — output is plain and the command always returns.
+
+- `./dev status --json` and `./dev doctor --json` emit machine-readable JSON to stdout; all human chrome goes to stderr, so the JSON is pipe-clean.
+- `./dev new bet|milestone|slice` with all arguments supplied runs fully non-interactively — always safe. (When run in a terminal with arguments omitted, it may prompt; supply the arguments to avoid that.)
+- `./dev logs` is non-streaming by default. Only `./dev logs --follow` streams, and it requires a TTY — never call it from a tool.
+- Exit codes: `0` success, `1` failure, `2` usage error (unknown command / bad arguments), `130` on interrupt.

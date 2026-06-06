@@ -22,6 +22,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "src/generators/**/files/**/*"
+    "src/generators/**/files/**/*",
+    "src/generators/workspace-dev-cli/cli-src/**/*"
   ]
 }

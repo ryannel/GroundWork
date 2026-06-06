@@ -14,6 +14,8 @@ must live within the repo so Nx can locate node_modules by walking up.
 """
 
 import itertools
+import json
+import os
 import re
 import subprocess
 import pytest
@@ -344,6 +346,55 @@ def test_python_microservice_generation(rest, postgres, messaging, websockets, l
 
 
 # ---------------------------------------------------------------------------
+# Python Microservice — LLM provider selection (--llm-provider)
+# ---------------------------------------------------------------------------
+#
+# The provider is a boilerplate-only choice: both branches emit the same gateway
+# shape (LLMGatewayAdapter implementing the abstract LLMGateway protocol), differing
+# only in SDK, default model, and exception namespace. openai is the default — a
+# plain --llm with no --llmProvider must reproduce the OpenAI gateway unchanged.
+
+@pytest.mark.parametrize(
+    "provider,expect_import,expect_model,expect_dep",
+    [
+        ("openai", "import openai", "gpt-4o", "openai>="),
+        ("anthropic", "import anthropic", "claude-sonnet-4-6", "anthropic>="),
+        (None, "import openai", "gpt-4o", "openai>="),  # default → openai, unchanged
+    ],
+    ids=["openai", "anthropic", "default-is-openai"],
+)
+def test_python_microservice_llm_provider(provider, expect_import, expect_model, expect_dep):
+    svc_name = _safe_name(f"py-llm-{provider or 'default'}")
+    _cleanup(svc_name)
+    try:
+        params = dict(rest=True, postgres=False, messaging="none",
+                      websockets=False, llm=True, runpod=False)
+        if provider is not None:
+            params["llmProvider"] = provider
+        result = _scaffold(svc_name, "python-microservice", **params)
+        assert result.returncode == 0, (
+            f"Generator failed for llmProvider={provider}\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        svc = SANDBOX_DIR / "services" / svc_name
+        gateway = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        config = (svc / "src" / "provider" / "config.py").read_text()
+        env = (svc / ".env.example").read_text()
+        pyproject = (svc / "pyproject.toml").read_text()
+
+        # Provider-specific SDK + model default, but a provider-neutral class name.
+        assert expect_import in gateway, f"expected {expect_import!r} in llm_gateway.py"
+        assert "class LLMGatewayAdapter:" in gateway, "gateway class must be provider-neutral LLMGatewayAdapter"
+        assert "OpenAILLMGateway" not in gateway, "legacy provider-specific class name must be gone"
+        assert f'llm_model: str = "{expect_model}"' in config, f"config default model should be {expect_model}"
+        assert f"LLM_MODEL={expect_model}" in env, f".env default model should be {expect_model}"
+        assert expect_dep in pyproject, f"pyproject should pin {expect_dep}"
+    finally:
+        _cleanup(svc_name)
+
+
+# ---------------------------------------------------------------------------
 # Stack docs deployment
 # ---------------------------------------------------------------------------
 
@@ -522,39 +573,130 @@ def workspace_dev_cli_bet_workspace():
 
 
 def test_workspace_dev_cli_bet_files(workspace_dev_cli_bet_workspace):
-    """workspace-dev-cli generates bet workflow shell module and test stub templates."""
-    result = _scaffold_workspace(_WORKSPACE_DEV_CLI_SANDBOX, "workspace-dev-cli")
+    """workspace-dev-cli generates the Node ./dev CLI (launcher + prebuilt bundle +
+    brand config) and the language-agnostic bet-workflow test-stub templates, and the
+    generated CLI actually runs."""
+    sb = _WORKSPACE_DEV_CLI_SANDBOX
+    result = _scaffold_workspace(sb, "workspace-dev-cli")
     assert result.returncode == 0, (
         f"workspace-dev-cli generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
     )
 
-    # Bet workflow CLI module
-    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "bet.sh").exists(), \
-        "scripts/cli/bet.sh missing"
+    # --- Node CLI artifacts ---
+    assert (sb / "dev").exists(), "dev launcher missing"
+    assert (sb / ".dev" / "dev-bundle.js").exists(), ".dev/dev-bundle.js (prebuilt bundle) missing"
+    assert (sb / ".dev" / "dev.config.json").exists(), ".dev/dev.config.json missing"
 
-    # Stub templates (pytest must NOT collect these — .pytmpl extension)
-    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "milestone-test.pytmpl").exists(), \
+    # Launcher requires the bundle and is executable
+    dev_script = (sb / "dev").read_text()
+    assert "dev-bundle.js" in dev_script, "dev launcher does not require .dev/dev-bundle.js"
+    assert os.access(sb / "dev", os.X_OK), "dev launcher is not executable"
+
+    # dev.config.json is valid JSON carrying the projected brand identity
+    config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+    assert config.get("identity", {}).get("appName"), "dev.config.json missing identity.appName"
+    assert "projectPrefix" in config, "dev.config.json missing projectPrefix"
+
+    # --- Bet workflow stub templates (language-agnostic; pytest must NOT collect .pytmpl) ---
+    assert (sb / "scripts" / "cli" / "templates" / "milestone-test.pytmpl").exists(), \
         "scripts/cli/templates/milestone-test.pytmpl missing"
-    assert (_WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "slice-test.pytmpl").exists(), \
+    assert (sb / "scripts" / "cli" / "templates" / "slice-test.pytmpl").exists(), \
         "scripts/cli/templates/slice-test.pytmpl missing"
 
-    # Stub templates contain @@TOKEN@@ placeholders (not EJS — sed substitutes at runtime)
-    milestone_stub = (
-        _WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "milestone-test.pytmpl"
-    ).read_text()
+    milestone_stub = (sb / "scripts" / "cli" / "templates" / "milestone-test.pytmpl").read_text()
     assert "@@BET@@" in milestone_stub, "milestone-test.pytmpl missing @@BET@@ token"
     assert "@@MILESTONE@@" in milestone_stub, "milestone-test.pytmpl missing @@MILESTONE@@ token"
     assert "@@N@@" in milestone_stub, "milestone-test.pytmpl missing @@N@@ token"
 
-    slice_stub = (
-        _WORKSPACE_DEV_CLI_SANDBOX / "scripts" / "cli" / "templates" / "slice-test.pytmpl"
-    ).read_text()
+    slice_stub = (sb / "scripts" / "cli" / "templates" / "slice-test.pytmpl").read_text()
     assert "@@SERVICE@@" in slice_stub, "slice-test.pytmpl missing @@SERVICE@@ token"
     assert "@@SLUG@@" in slice_stub, "slice-test.pytmpl missing @@SLUG@@ token"
 
-    # dev script sources bet.sh
-    dev_script = (_WORKSPACE_DEV_CLI_SANDBOX / "dev").read_text()
-    assert "scripts/cli/bet.sh" in dev_script, "dev script does not source scripts/cli/bet.sh"
+    # --- Smoke gate: the generated CLI loads and runs (the compile-equivalent this
+    # generator otherwise lacks). Invoke via `node dev` so it does not depend on the
+    # executable bit surviving every environment. ---
+    help_run = subprocess.run(
+        ["node", "dev", "--help"], cwd=sb, capture_output=True, text=True, timeout=60
+    )
+    assert help_run.returncode == 0, f"./dev --help failed\nSTDERR: {help_run.stderr}"
 
-    # dev script help mentions bet workflow
-    assert "BET WORKFLOW" in dev_script, "dev script help missing BET WORKFLOW category"
+    status_run = subprocess.run(
+        ["node", "dev", "status", "--json"], cwd=sb, capture_output=True, text=True, timeout=60
+    )
+    assert status_run.returncode == 0, f"./dev status --json failed\nSTDERR: {status_run.stderr}"
+    parsed = json.loads(status_run.stdout)
+    assert "docker" in parsed and "native" in parsed, \
+        f"status --json shape unexpected: {status_run.stdout[:200]}"
+
+
+# ---------------------------------------------------------------------------
+# CLI App — branded product CLI generator
+# ---------------------------------------------------------------------------
+
+_CLI_APP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "cli-app"
+
+_BRAND_TOKENS_FIXTURE = """{
+  "schema": "groundwork.brand-tokens", "version": 1, "tier": 2,
+  "identity": {"appName": "Demo", "wordmark": "*", "primary": "#a855f7", "accent": "#22d3ee", "voice": "crisp"},
+  "terminal": {
+    "colorRoles": {"success": {"truecolor": "#22c55e", "ansi256": 34, "noColor": "bold"}, "error": {"truecolor": "#ef4444", "ansi256": 196, "noColor": "bold"}, "warning": {"truecolor": "#eab308", "ansi256": 178, "noColor": "bold"}, "info": {"truecolor": "#a855f7", "ansi256": 135, "noColor": "dim"}, "muted": {"truecolor": "#888888", "ansi256": 245, "noColor": "dim"}, "accent": {"truecolor": "#22d3ee", "ansi256": 51, "noColor": "underline"}, "header": {"truecolor": null, "ansi256": null, "noColor": "bold+upper"}, "key": {"truecolor": "#a855f7", "ansi256": 135, "noColor": "plain"}, "value": {"truecolor": "#d0d0d0", "ansi256": 252, "noColor": "plain"}},
+    "symbols": {"success": {"unicode": "\\u2714", "ascii": "OK"}, "error": {"unicode": "\\u2716", "ascii": "x"}, "warning": {"unicode": "\\u26a0", "ascii": "!"}, "info": {"unicode": "\\u25cf", "ascii": "*"}, "step": {"unicode": "\\u25b6", "ascii": ">"}, "substep": {"unicode": "\\u21b3", "ascii": "-"}, "active": {"unicode": "\\u276f", "ascii": ">"}},
+    "splash": {"style": "wordmark-line", "tagline": ""},
+    "typography": {"header": "bold + UPPERCASE", "title": "bold + primary", "body": "plain", "muted": "dim"}
+  }
+}"""
+
+
+@pytest.fixture()
+def cli_app_workspace():
+    import shutil
+    if _CLI_APP_SANDBOX.exists():
+        shutil.rmtree(_CLI_APP_SANDBOX)
+    (_CLI_APP_SANDBOX / ".groundwork" / "config").mkdir(parents=True)
+    (_CLI_APP_SANDBOX / "package.json").write_text('{"name": "cliapptest"}')
+    (_CLI_APP_SANDBOX / "nx.json").write_text("{}")
+    (_CLI_APP_SANDBOX / ".groundwork" / "config" / "brand-tokens.json").write_text(_BRAND_TOKENS_FIXTURE)
+    yield
+    shutil.rmtree(_CLI_APP_SANDBOX, ignore_errors=True)
+
+
+def test_cli_app_generation(cli_app_workspace):
+    """cli-app scaffolds a branded TypeScript CLI product themed from brand-tokens.json,
+    including the shared theme layer and (with --repl) the interactive layer; and the
+    generated TypeScript type-checks."""
+    sb = _CLI_APP_SANDBOX
+    cmd = [
+        "npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:cli-app",
+        "--name", "Demo CLI", "--repl=true",
+    ]
+    result = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+    assert result.returncode == 0, (
+        f"cli-app generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+    )
+
+    proj = sb / "services" / "demo-cli"
+    # --- Structural ---
+    for rel in [
+        "package.json", "tsconfig.json", "build.mjs", "README.md",
+        "src/cli.ts", "src/registry.ts", "src/commands/hello.ts", "src/brand.json",
+        "src/theme/tokens.ts", "src/theme/color.ts", "src/theme/render.ts",
+        "src/commands/repl.ts", "src/util/prompt.ts",  # --repl layer
+    ]:
+        assert (proj / rel).exists(), f"cli-app missing {rel}"
+
+    # --- Brand projected from tokens ---
+    brand = json.loads((proj / "src" / "brand.json").read_text())
+    assert brand["identity"]["appName"] == "Demo", "brand.json appName not projected from tokens"
+    assert brand["identity"]["primary"] == "#a855f7", "brand.json primary not projected from tokens"
+    assert "terminal" in brand, "Tier-2 terminal block not projected"
+
+    # --- REPL registered ---
+    assert "repl" in (proj / "src" / "registry.ts").read_text(), "repl not registered for --repl"
+
+    # --- Generated TypeScript type-checks (resolves tooling from the repo) ---
+    tsc = REPO_ROOT / "node_modules" / ".bin" / "tsc"
+    tc = subprocess.run(
+        [str(tsc), "--noEmit", "-p", str(proj / "tsconfig.json")],
+        cwd=REPO_ROOT, capture_output=True, text=True, timeout=120,
+    )
+    assert tc.returncode == 0, f"generated cli-app does not type-check\nSTDOUT: {tc.stdout}\nSTDERR: {tc.stderr}"

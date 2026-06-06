@@ -1,0 +1,27 @@
+// Bundles the ./dev CLI source into a single zero-runtime-dependency file that the
+// workspace-dev-cli generator copies verbatim into generated projects.
+//
+// The output is intentionally written OUTSIDE the generator's `files/` directory so it
+// never passes through Nx's EJS templating (a bundle can contain `<%` in strings/regexes
+// that EJS would corrupt). generator.ts reads dist/dev-bundle.js and writes it raw.
+//
+// Run from the repo root: `npm run build:dev-cli`.
+
+import { build } from 'esbuild';
+import { fileURLToPath } from 'url';
+import * as path from 'path';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+
+await build({
+  entryPoints: [path.join(here, 'src', 'index.ts')],
+  bundle: true,
+  platform: 'node',
+  target: 'node18',
+  format: 'cjs',
+  outfile: path.join(here, 'dist', 'dev-bundle.js'),
+  legalComments: 'none',
+  logLevel: 'info',
+});
+
+console.log('Built dist/dev-bundle.js');
