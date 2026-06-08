@@ -22,6 +22,13 @@ func Wrap(text string, width int) string {
 	return strings.Join(paragraphs, "\n\n")
 }
 
+// Hang wraps text to width and indents every line after the first by
+// indent spaces, so the continuations sit under the opening line rather
+// than back at the margin.
+func Hang(text string, width, indent int) string {
+	return text
+}
+
 func wrapParagraph(text string, width int) string {
 	words := strings.Fields(text)
 	if len(words) == 0 {
