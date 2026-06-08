@@ -26,7 +26,14 @@ func Wrap(text string, width int) string {
 // indent spaces, so the continuations sit under the opening line rather
 // than back at the margin.
 func Hang(text string, width, indent int) string {
-	return text
+	lines := strings.Split(Wrap(text, width), "\n")
+	for i := 1; i < len(lines); i++ {
+		if lines[i] == "" {
+			continue
+		}
+		lines[i] = "  " + lines[i]
+	}
+	return strings.Join(lines, "\n")
 }
 
 func wrapParagraph(text string, width int) string {
