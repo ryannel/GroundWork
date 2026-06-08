@@ -1,0 +1,7 @@
+{
+  "skill_name": "groundwork-infra-adopt",
+  "skill_path": "src/hidden-skills/groundwork-infra-adopt/instructions.md",
+  "turns": 25,
+  "depends_on": "03_architecture_extract",
+  "success_files": ["docs/infrastructure.md", "docs/onboarding-report.md"]
+}

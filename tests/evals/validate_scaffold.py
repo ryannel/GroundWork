@@ -616,7 +616,8 @@ def resolve_workspace(suite: str | None, workspace_arg: str | None) -> Path | No
                     info(f"Using workspace from {run.name}")
                     return candidate
         print(f"  {R}✘{NC} No scaffold workspace found in tests/evals/runs/{suite}/")
-        print(f"      Run:  ./dev eval run {suite} 04_scaffold")
+        print("      Generate one with the scaffold harness (./dev test scaffolds) or")
+        print("      point at a sandbox: --workspace .sandboxes/<name>")
         return None
 
     # Last resort: live sandbox
@@ -626,7 +627,7 @@ def resolve_workspace(suite: str | None, workspace_arg: str | None) -> Path | No
 
     print(f"  {R}✘{NC} No workspace found.")
     print("      Provide --suite <name> or --workspace <path>.")
-    print("      Or run the scaffold eval first: ./dev eval run <suite> 04_scaffold")
+    print("      Or generate a scaffold first: ./dev test scaffolds")
     return None
 
 

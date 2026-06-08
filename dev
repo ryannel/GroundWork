@@ -74,89 +74,47 @@ case "$COMMAND" in
           source tests/scaffolds/venv/bin/activate
       fi
       pytest tests/scaffolds/test_scaffolds.py -v -s
-    elif [ "$SUBCMD" = "run" ]; then
-      SUITE=$3
-      SCENARIO=$4
-
-      if [ -z "$SUITE" ]; then
-          print_logo "Evaluation Suites"
-          print_info "Available suites:"
-          echo ""
-
-          # Dynamically list available suites using Python
-          python3 tests/evals/list_suites.py
-
-          echo ""
-          print_info "Usage: ./dev eval run <suite_name> [scenario_name]"
-          print_info "Example: ./dev eval run storytelling_engine 01_product_brief"
-          exit 1
-      fi
-
-      print_logo "Running Evaluation"
-      print_step "Suite: $SUITE"
-
-      print_substep "Activating evaluation environment..."
-      cd tests/evals
-      if [ ! -d "venv" ]; then
+    elif [ "$SUBCMD" = "contracts" ]; then
+      print_logo "Testing"
+      print_step "Building generators + dev-cli bundle..."
+      npm install --silent && npm run build
+      print_step "Running Contract Tests (fast: bundle freshness, adopt-merge idempotency)..."
+      if [ ! -d "tests/scaffolds/venv" ]; then
           print_substep "Creating venv..."
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          python3 -m venv tests/scaffolds/venv
+          source tests/scaffolds/venv/bin/activate
+          pip install pytest httpx pytest-asyncio allpairspy
       else
-          source venv/bin/activate
+          source tests/scaffolds/venv/bin/activate
       fi
-
-      # Handle extra CLI flags dynamically (e.g. starting with -)
-      if [ -n "$SCENARIO" ] && [[ ! "$SCENARIO" =~ ^- ]]; then
-          EXTRA_ARGS="${@:5}"
-      else
-          SCENARIO=""
-          EXTRA_ARGS="${@:4}"
-      fi
-
-      if [ -n "$SCENARIO" ]; then
-          python conversational_eval.py --suite "$SUITE" --scenario "$SCENARIO" $EXTRA_ARGS
-      else
-          python conversational_eval.py --suite "$SUITE" --all $EXTRA_ARGS
-      fi
+      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py -v -s
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
-      print_step "Cleaning evaluation sandboxes and caches..."
+      print_step "Cleaning legacy eval sandboxes and caches..."
       rm -rf .sandboxes/evals tests/evals/cache/*
       print_success "Cleaned."
     elif [ "$SUBCMD" = "validate" ]; then
+      # Scaffold boot-prober (validate_scaffold.py) — stdlib only, no venv needed.
       SUITE=$3
-
       print_logo "Scaffold Validation"
-
-      cd tests/evals
-      if [ ! -d "venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-      else
-          source venv/bin/activate
-      fi
-
       EXTRA_ARGS="${@:4}"
-
       if [ -n "$SUITE" ]; then
-          python validate_scaffold.py --suite "$SUITE" $EXTRA_ARGS
+          python3 tests/evals/validate_scaffold.py --suite "$SUITE" $EXTRA_ARGS
       else
-          python validate_scaffold.py $EXTRA_ARGS
+          python3 tests/evals/validate_scaffold.py $EXTRA_ARGS
       fi
     else
       print_logo
       echo -e "  Local Development CLI for GroundWork"
       echo ""
       echo -e "  ${BOLD}USAGE${NC}"
-      echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}eval${NC} [action]"
+      echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}test${NC} [action]"
+      echo ""
+      print_info "Flow testing is now simulation-based — see ./dev sandbox --simulate."
 
       print_category "ACTIONS"
-      print_cmd "run" "Run conversational evaluations (lists suites if empty)"
-      print_cmd "clean" "Clear eval caches & sandboxes"
       print_cmd "validate" "Manually probe a scaffold workspace (boots + health checks)"
+      print_cmd "clean" "Clear legacy eval caches & sandboxes"
       echo ""
     fi
     ;;
@@ -183,33 +141,97 @@ case "$COMMAND" in
       print_logo "Sandbox Review"
       print_step "Rendering transcript for .sandboxes/$RNAME → .sandboxes/$RNAME-review"
       python3 "$PWD/scripts/render_transcript.py" "$SANDBOX_DIR" "$OUT_DIR" $RSESSION
+      print_step "Running structural checklist (durable artifacts)..."
+      python3 "$PWD/scripts/sandbox_checklist.py" "$SANDBOX_DIR" "$OUT_DIR/checklist.md"
       print_success "Review bundle ready at .sandboxes/$RNAME-review/"
-      print_info "Open .sandboxes/$RNAME-review/conversation.md alongside .sandboxes/$RNAME/docs/."
+      print_info "Open .sandboxes/$RNAME-review/conversation.md and checklist.md alongside .sandboxes/$RNAME/docs/."
+      print_info "For an independent quality verdict, open a NEW chat in .sandboxes/$RNAME and run /judge."
       exit 0
+    fi
+
+    # `./dev sandbox checkpoint <capture|list>` — manage phase snapshots harvested
+    # from a successful simulation run. A checkpoint is the durable workspace
+    # (docs/ + .groundwork/, NEVER .agents/) at a point in the flow, so a fresh
+    # sandbox can be seeded to resume mid-flow with `./dev sandbox <name> --from <label>`.
+    # Checkpoints are a cache of the last green run — stale them when a phase's
+    # output format changes.
+    if [ "$2" = "checkpoint" ]; then
+      CKPT_DIR="$PWD/.sandboxes/checkpoints"
+      CK_ACTION="$3"
+      if [ "$CK_ACTION" = "list" ]; then
+        print_logo "Checkpoints"
+        if [ -d "$CKPT_DIR" ] && [ -n "$(ls -A "$CKPT_DIR" 2>/dev/null)" ]; then
+          for c in "$CKPT_DIR"/*/; do
+            [ -d "$c" ] || continue
+            print_info "$(basename "$c")"
+          done
+        else
+          print_info "(no checkpoints captured yet)"
+        fi
+        exit 0
+      elif [ "$CK_ACTION" = "capture" ]; then
+        CK_NAME="greenfield"
+        CK_LABEL=""
+        shift 3
+        while [ $# -gt 0 ]; do
+          case "$1" in
+            --as) CK_LABEL="$2"; shift 2 ;;
+            --as=*) CK_LABEL="${1#*=}"; shift ;;
+            -*) print_error "Unknown flag: $1"; exit 1 ;;
+            *) CK_NAME="$1"; shift ;;
+          esac
+        done
+        SRC="$PWD/.sandboxes/$CK_NAME"
+        [ -d "$SRC" ] || fail "No sandbox at .sandboxes/$CK_NAME to capture."
+        [ -n "$CK_LABEL" ] || fail "Provide a label: ./dev sandbox checkpoint capture $CK_NAME --as <label>"
+        DEST="$CKPT_DIR/$CK_LABEL"
+        print_logo "Checkpoint"
+        print_step "Capturing .sandboxes/$CK_NAME → checkpoints/$CK_LABEL (docs/ + .groundwork/)"
+        rm -rf "$DEST"
+        mkdir -p "$DEST"
+        [ -d "$SRC/docs" ] && cp -R "$SRC/docs" "$DEST/docs"
+        [ -d "$SRC/.groundwork" ] && cp -R "$SRC/.groundwork" "$DEST/.groundwork"
+        print_success "Checkpoint saved: checkpoints/$CK_LABEL"
+        print_info "Resume from it with: ./dev sandbox <name> --from $CK_LABEL"
+        exit 0
+      else
+        fail "Usage: ./dev sandbox checkpoint <capture [name] --as <label> | list>"
+      fi
     fi
 
     # Create a standalone GroundWork project sandbox seeded with the same
     # starting state a real user gets from `npx groundwork init`. Unlike the
     # eval sandbox (.sandboxes/evals), this one is NOT wiped by eval runs, so
     # you can start a fresh chat from the folder and walk the greenfield flow.
-    NAME="greenfield"
+    NAME=""
     FORCE=0
     NOBUILD=0
     SIMULATE=0
-    SUITE="storytelling_engine"
+    FLOW_PATH="greenfield"
+    SUITE=""
+    FROM=""
     for arg in "${@:2}"; do
       case "$arg" in
         --force) FORCE=1 ;;
         --no-build) NOBUILD=1 ;;
+        --brownfield) FLOW_PATH="brownfield" ;;
         --simulate) SIMULATE=1 ;;
         --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
+        --from) print_error "Use --from=<label> (no space)."; exit 1 ;;
+        --from=*) FROM="${arg#*=}" ;;
         -*) print_error "Unknown flag: $arg"; exit 1 ;;
         *) NAME="$arg" ;;
       esac
     done
+    # Default the sandbox dir name and suite to the flow path when unset.
+    [ -n "$NAME" ] || NAME="$FLOW_PATH"
+    if [ -z "$SUITE" ]; then
+      if [ "$FLOW_PATH" = "brownfield" ]; then SUITE="brownfield_monorepo"; else SUITE="storytelling_engine"; fi
+    fi
 
     REPO_ROOT="$PWD"
     SANDBOX_DIR="$REPO_ROOT/.sandboxes/$NAME"
+    BROWNFIELD_FIXTURE="$REPO_ROOT/tests/evals/fixtures/brownfield_monorepo/00_codebase"
 
     print_logo "Sandbox"
     print_step "Target: .sandboxes/$NAME"
@@ -235,34 +257,65 @@ case "$COMMAND" in
       print_substep "Skipping build (--no-build)."
     fi
 
-    print_step "Running 'groundwork init' in sandbox..."
-    (cd "$SANDBOX_DIR" && node "$REPO_ROOT/bin/groundwork.js" init)
-
-    # Make it a realistic Nx-style project root so the scaffold skill is happy.
-    printf '{"name": "%s"}\n' "$NAME" > "$SANDBOX_DIR/package.json"
-    printf '{}\n' > "$SANDBOX_DIR/nx.json"
+    # --- Brownfield: lay down the existing codebase and commit it as the baseline ---
+    # Brownfield adoption diffs against a real starting commit (infra-adopt records
+    # baseline.source_commit), so the existing code must be committed BEFORE GroundWork
+    # touches anything. A brownfield repo is deliberately NOT an Nx workspace — the
+    # infra-adopt phase bootstraps nx.json itself.
+    if [ "$FLOW_PATH" = "brownfield" ]; then
+      [ -d "$BROWNFIELD_FIXTURE" ] || fail "Brownfield fixture missing: $BROWNFIELD_FIXTURE"
+      print_step "Seeding existing codebase from fixture (brownfield baseline)..."
+      cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
+    else
+      # Greenfield: a realistic Nx-style project root so the scaffold skill is happy.
+      printf '{"name": "%s"}\n' "$NAME" > "$SANDBOX_DIR/package.json"
+      printf '{}\n' > "$SANDBOX_DIR/nx.json"
+    fi
 
     # This sandbox is nested inside the GroundWork repo. Without a local boundary,
     # a chat opened here could inherit the repo's CLAUDE.md / contributor skill and
     # think it is building the framework. Assert the user-project context explicitly.
-    cat > "$SANDBOX_DIR/CLAUDE.md" <<'EOF'
+    cat > "$SANDBOX_DIR/CLAUDE.md" <<EOF
 # Project context
 
-This is a fresh **GroundWork user project** — a sandbox for building a brand-new
-product with GroundWork. It is NOT the GroundWork framework source repository.
+This is a GroundWork **$FLOW_PATH user project** — a sandbox for $([ "$FLOW_PATH" = brownfield ] && echo "adopting GroundWork onto an existing codebase" || echo "building a brand-new product with GroundWork"). It is NOT the GroundWork framework source repository.
 
-- You are the GroundWork facilitator helping build a new product here.
+- You are the GroundWork facilitator working in a user project here.
 - Ignore any guidance loaded from a parent repository (e.g. a contributor or
   framework-development skill). It does not apply in this project.
-- Follow the skills installed in `.agents/` and `.groundwork/` as a normal user
-  project would. Start by running the `groundwork-orchestrator` skill.
+- Follow the skills installed in \`.agents/\` and \`.groundwork/\` as a normal user
+  project would. Start by running the \`groundwork-orchestrator\` skill.
 EOF
 
-    # Fresh git repo so the greenfield flow can commit its documents.
+    # Fresh git repo so the flow can commit its documents.
     if [ ! -d "$SANDBOX_DIR/.git" ]; then
       print_substep "Initializing git repo..."
       git -C "$SANDBOX_DIR" init -q
     fi
+    if [ "$FLOW_PATH" = "brownfield" ]; then
+      print_substep "Committing existing codebase as the adoption baseline..."
+      git -C "$SANDBOX_DIR" add -A
+      git -C "$SANDBOX_DIR" -c user.email=sim@groundwork.dev -c user.name=sim commit -q -m "baseline: existing codebase (pre-GroundWork)"
+    fi
+
+    print_step "Running 'groundwork init' in sandbox..."
+    (cd "$SANDBOX_DIR" && node "$REPO_ROOT/bin/groundwork.js" init)
+
+    # --- Resume from a captured checkpoint (docs/ + .groundwork/ from a green run) ---
+    if [ -n "$FROM" ]; then
+      FROM_DIR="$REPO_ROOT/.sandboxes/checkpoints/$FROM"
+      [ -d "$FROM_DIR" ] || fail "No checkpoint '$FROM' at $FROM_DIR (see: ./dev sandbox checkpoint list)"
+      print_step "Seeding from checkpoint '$FROM' (resume mid-flow)..."
+      if [ -d "$FROM_DIR/docs" ]; then
+        mkdir -p "$SANDBOX_DIR/docs"
+        cp -R "$FROM_DIR/docs/." "$SANDBOX_DIR/docs/"
+      fi
+      # Merge over the fresh init state — checkpoint never carries .agents/ (always fresh skills).
+      [ -d "$FROM_DIR/.groundwork" ] && cp -R "$FROM_DIR/.groundwork/." "$SANDBOX_DIR/.groundwork/"
+    fi
+
+    # Marker read by the structural checklist and review to pick the right contract.
+    printf '{"path": "%s", "suite": "%s"}\n' "$FLOW_PATH" "$SUITE" > "$SANDBOX_DIR/.groundwork-sim.json"
 
     # Verify the install produced the expected skill files.
     print_step "Verifying init..."
@@ -285,13 +338,15 @@ EOF
     fi
 
     if [ "$SIMULATE" -eq 1 ]; then
-      print_step "Seeding simulation harness (suite: $SUITE)..."
-      node "$REPO_ROOT/scripts/seed_simulation.js" "$SUITE" "$SANDBOX_DIR"
+      print_step "Seeding simulation harness ($FLOW_PATH, suite: $SUITE)..."
+      node "$REPO_ROOT/scripts/seed_simulation.js" "$SUITE" "$SANDBOX_DIR" "$FLOW_PATH"
     fi
 
     print_success "Sandbox ready at $SANDBOX_DIR"
     if [ "$SIMULATE" -eq 1 ]; then
-      print_info "Start a new chat from that folder and run /simulate-greenfield to dry-run the flow against the simulated user."
+      print_info "Start a new chat from that folder and run /simulate-$FLOW_PATH to dry-run the flow against the simulated user."
+      print_info "After it runs: ./dev sandbox review $NAME   (transcript + structural checklist)"
+      print_info "For a quality verdict, open a fresh chat there and run /judge."
     else
       print_info "Start a new chat from that folder and ask GroundWork to begin a new project."
     fi
@@ -323,13 +378,16 @@ EOF
 
     print_category "SETUP"
     print_cmd "sandbox" "Create a standalone GroundWork project sandbox (.sandboxes/<name>, default greenfield)"
-    print_cmd "sandbox --simulate" "...and seed a simulated-user harness so a chat can dry-run the greenfield flow (run /simulate-greenfield)"
-    print_cmd "sandbox review" "Render a sandbox's latest chat transcript into a readable Markdown bundle (.sandboxes/<name>-review/)"
+    print_cmd "sandbox --simulate" "...and seed a simulated-user harness so a chat can dry-run the flow (run /simulate-<path>)"
+    print_cmd "sandbox --brownfield" "Seed the existing-codebase fixture + baseline commit instead of an empty repo"
+    print_cmd "sandbox --from=<label>" "Resume mid-flow by seeding docs/ + .groundwork/ from a captured checkpoint"
+    print_cmd "sandbox checkpoint" "capture <name> --as <label> | list — snapshot a green run to resume from later"
+    print_cmd "sandbox review" "Render the latest chat transcript + structural checklist into .sandboxes/<name>-review/"
 
     print_category "QUALITY & TESTING"
-    print_cmd "eval run" "Run conversational evaluations (lists suites if empty)"
-    print_cmd "eval validate" "Manually probe a scaffold workspace (boots + health checks)"
+    print_cmd "test validate" "Manually probe a scaffold workspace (boots + health checks)"
     print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
+    print_cmd "test contracts" "Run scaffold contract tests (fast: bundle freshness, adopt-merge idempotency)"
     print_cmd "test compilation" "Run generator compilation tests (pairwise, go build / tsc / uv sync)"
     print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"
     print_cmd "test nx" "Run Nx workspace tests"

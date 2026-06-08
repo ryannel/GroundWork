@@ -13,15 +13,20 @@ import * as path from 'path';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
+// Default writes the committed bundle. Tests set DEV_CLI_OUTFILE to a temp path to
+// build a fresh bundle without mutating the working tree, then diff it against the
+// committed one (the freshness contract) — sharing this one esbuild config.
+const outfile = process.env.DEV_CLI_OUTFILE || path.join(here, 'dist', 'dev-bundle.js');
+
 await build({
   entryPoints: [path.join(here, 'src', 'index.ts')],
   bundle: true,
   platform: 'node',
   target: 'node18',
   format: 'cjs',
-  outfile: path.join(here, 'dist', 'dev-bundle.js'),
+  outfile,
   legalComments: 'none',
   logLevel: 'info',
 });
 
-console.log('Built dist/dev-bundle.js');
+console.log(`Built ${outfile}`);

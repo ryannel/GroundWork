@@ -46,17 +46,24 @@ To prevent blowing up the LLM context window with dozens of skill descriptions, 
   - [ ] `groundwork-brainstorm` (for Problem Statements)
 - [ ] **Publishing**: Configure `package.json` testing scripts and prepare the package for NPM publication.
 
-## Brownfield Initialisation (Roadmap)
+## Brownfield Initialisation
 
-GroundWork currently only supports greenfield projects. Brownfield — initialising GroundWork against an existing codebase — was described in early framework docs but is not yet implemented. Stripped from `docs/methodology/core-concepts.md` and `docs/product-brief.md` on 2026-05-24 to stop describing it as a current capability.
+Brownfield — initialising GroundWork against an existing codebase — is now implemented. The track scans the repo, reverse-engineers the canonical doc set, additively bolts on the operational layer, and converges to the same end-state as greenfield before entering the bet loop. Phase sequence: `groundwork-scan` (Phase 0) → `groundwork-product-brief-extract` → `groundwork-design-system-extract` → `groundwork-architecture-extract` → `groundwork-infra-adopt` → bet loop.
 
-Required to ship brownfield:
+- [x] **Orchestrator routing**: Brownfield Setup Phases table, Skill Paths, Mode Detection, the `fan_out` hint, the durable `scan` marker, contract-aware completion, and Adopt/Upgrade mode added to `src/skills/groundwork-orchestrator/SKILL.md`.
+- [x] **`groundwork-scan`**: New Phase 0 engine. Classify → deterministic structural map (depwire, with LLM-inference fallback) → scope-confirm → dual-execution digest (sub-agent fan-out / sequential batch) → concern-split findings cache. Reads every code file via the parser; the LLM reads selectively.
+- [x] **`groundwork-product-brief-extract`**: Recovers `docs/product-brief.md` from scan findings + README + package metadata; interviews only the why/who/success gaps.
+- [x] **`groundwork-architecture-extract`**: Two-tier reconstruction from `scan/architecture-findings.md` + `repo-map.json`. Mints domain stubs from schemas/migrations; mints ADRs only where the interview supplies rationale.
+- [x] **`groundwork-design-system-extract`** (was `groundwork-ux-extract`, renamed for parity): Recovers tokens from Tailwind/CSS/theme/component config into `docs/design-system.md`; emits `brand-tokens.json`.
+- [x] **`groundwork-infra-adopt`**: nx.json bootstrap + infra generators only (compose adopt/merge guard); adopts existing services into `docs/services` + `docs/api` (`status: live`) without regeneration.
+- [x] **Drift baseline**: Folded into each phase's commit (`generation_mode: extracted` + `source_of_truth` + `last_reviewed`); `groundwork-infra-adopt` sets `baseline.source_commit`. `groundwork-check` glob extended to `docs/architecture.md`, `docs/api/`, `docs/domain/`.
+- [x] **Gap ledger**: `docs/onboarding-report.md` records distance from GroundWork standard (blocks-delivery / standard-divergence / cosmetic); feeds first-bet planning.
+- [x] **depwire as a first-class code map**: registered as an MCP server by `npx groundwork init`; consumed by scan, architecture-extract, and `groundwork-check`; degrades to LLM inference when absent.
 
-- [ ] **Orchestrator routing**: Add a brownfield path to `src/skills/groundwork-orchestrator/SKILL.md`. Project Type Detection already distinguishes greenfield from brownfield in the filesystem; brownfield currently routes nowhere.
-- [ ] **`groundwork-brief-extract`**: Reconstruct a product brief from existing README, package metadata, and a targeted user interview when the project already has shipped code.
-- [ ] **`groundwork-architecture-extract`**: Two-tiered scan (shallow service discovery, deep contract pinning) that infers `docs/architecture.md` from the existing codebase. Static contract pinning prioritises OpenAPI/AsyncAPI/Protobuf/migration files when present.
-- [ ] **`groundwork-ux-extract`**: Pull existing design tokens, component libraries, and Tailwind config into `docs/design-system.md`; fill gaps via targeted interview.
-- [ ] **Drift baseline**: Once brownfield extraction completes, `groundwork-check` needs a baseline scan to populate `source_of_truth` frontmatter across all extracted artifacts.
+Follow-ups deferred from the brownfield build:
+
+- [ ] **Run the brownfield simulation** (`./dev sandbox --brownfield --simulate`) end-to-end in real Claude Code and assess via `./dev sandbox review` + `/judge`. The SDK eval harness was removed in favour of simulation, so this now exercises the real skill-loading, subagent dispatch, and depwire fan-out paths — no API key / turn budgets to tune.
+- [ ] **Restore brownfield to framework docs**: re-add the brownfield path to `docs/methodology/core-concepts.md` and `docs/product-brief.md` (stripped 2026-05-24 when it was not yet a capability).
 
 ## Deferred from Plans
 
@@ -64,4 +71,4 @@ Required to ship brownfield:
 - [ ] **Success-signal measurement plan (F14)**: The MVP pitch captures a success signal (a concrete observable outcome that confirms the MVP delivered value), but nothing wires that signal to a measurement plan. Needs its own design conversation — where metrics live, who instruments them, what triggers the readout. Deferred from `docs/plans/greenfield-flow-improvements.md` 2026-05-26.
 
 ## Ideas Backlog
-- *Add your ideas here...*
+- [ ] **Desktop and mobile app generators**: Electron (desktop, cross-platform) and React Native (mobile, cross-platform) are the natural fit given the existing JS/TS toolchain. Native per-platform (Swift, Kotlin) is a longer-term consideration. Parked until the web app generator is solid.

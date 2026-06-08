@@ -142,8 +142,6 @@ After all generators have run, verify that `docker-compose.yml` includes entries
 
 Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — if any are missing, copy them from `src/hidden-skills/` manually.
 
-<!-- TODO: After each generator runs, write YAML frontmatter into the corresponding service doc recording `last_reviewed` and `source_of_truth` (canonical file paths for this service). This enables groundwork-check to detect documentation drift automatically. Design and implement as part of the brownfield work. -->
-
 Mark the Scaffolding Execution phase complete in `scaffold-cache.md` and proceed to Phase 3.
 
 **If command execution tools are unavailable:** The execution plan is already in `scaffold-cache.md`. Present the full runbook to the user as a single handoff — all commands in order, with the expected output for each. Do not ask them to run one command and report back. Accept their confirmation and mark the Scaffolding Execution phase complete. Note that infrastructure verification (Phase 4) must be done manually.
@@ -216,6 +214,8 @@ See `services/<service-name>/.env.example` for the full list.
 - Read the generated `.env.example` for each service to populate the environment variables table. If `.env.example` does not exist, list only variables derivable from the generator flags.
 - Derive the unit test command from the language: `go test ./...` for Go, `uv run pytest` for Python, `pnpm test` for Next.js.
 - Do not invent variables, routes, or descriptions. If a value cannot be derived from existing files or the architecture document, leave its cell blank rather than fabricating a placeholder.
+
+**Drift frontmatter.** Open each `docs/services/<name>.md` and `docs/api/<name>.md` with YAML frontmatter so `groundwork-check` can detect drift automatically: `generation_mode: generated`, `source_of_truth:` (the canonical code paths for this service — its `services/<name>/` root and any contract files), and `last_reviewed:` (today's date). The `generated` mode routes `groundwork-check`'s recovery to re-running the generator; the brownfield extract phases use `extracted` instead. Both stamp the same three keys, so the check glob reads greenfield and brownfield docs identically.
 
 ### API Stub
 

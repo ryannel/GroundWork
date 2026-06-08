@@ -97,6 +97,35 @@ function setupAgentLinks(targetDir) {
   }
 }
 
+// Register depwire as a project-scoped MCP server. depwire is a deterministic, local
+// dependency/symbol-graph tool (tree-sitter, 16+ languages) that GroundWork treats as a
+// first-class code map: the brownfield scan, the architecture extractor, and groundwork-check
+// all reason over it. The registration is idempotent and additive — it never clobbers an
+// existing .mcp.json or other servers, and every consumer degrades gracefully when depwire is
+// absent (e.g. the eval harness), so this is a force-multiplier, never a hard dependency.
+function registerDepwireMcp(targetDir) {
+  const mcpPath = path.join(targetDir, '.mcp.json');
+  const depwireServer = { command: 'npx', args: ['-y', 'depwire-cli', 'mcp'] };
+  try {
+    let config = { mcpServers: {} };
+    if (fs.existsSync(mcpPath)) {
+      config = JSON.parse(fs.readFileSync(mcpPath, 'utf8'));
+      if (!config.mcpServers || typeof config.mcpServers !== 'object') {
+        config.mcpServers = {};
+      }
+    }
+    if (config.mcpServers.depwire) {
+      return; // already registered — preserve the user's configuration
+    }
+    config.mcpServers.depwire = depwireServer;
+    fs.writeFileSync(mcpPath, JSON.stringify(config, null, 2));
+    console.log(`\x1b[32m✔\x1b[0m Registered depwire code-map MCP server (.mcp.json)`);
+  } catch (err) {
+    console.warn(`\x1b[33m[warn]\x1b[0m Could not register depwire MCP server: ${err.message}`);
+    console.warn(`         GroundWork still works without it — the code map falls back to LLM inference.`);
+  }
+}
+
 function initGroundWork() {
   const targetDir = process.cwd();
   const targetSkillsDir = path.join(targetDir, '.agents', 'skills');
@@ -221,6 +250,8 @@ function initGroundWork() {
   }
 
   setupAgentLinks(targetDir);
+
+  registerDepwireMcp(targetDir);
 
   console.log(`\n\x1b[32m[success]\x1b[0m GroundWork initialization complete!`);
   console.log(`          Ask your AI to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill to find out what to do next.\n`);

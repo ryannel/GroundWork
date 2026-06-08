@@ -92,14 +92,26 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 
 ### Sequential Setup
 
-**Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`
+**Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`, `groundwork-product-brief-extract`, `groundwork-design-system-extract`, `groundwork-architecture-extract`, `groundwork-infra-adopt`
 
-All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8.
+All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, summary, and review obligations are identical to their greenfield counterparts.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
 - Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
 - Every output document written to `docs/` opens with a `## Summary for Downstream` section (Protocol 5).
 - A fresh context is recommended between phases (Protocol 3.4.8).
+
+### Brownfield Scan (carve-out)
+
+**Skill:** `groundwork-scan`
+
+`groundwork-scan` is the Phase 0 preparation step of the brownfield track. It reads an existing codebase and writes a **scan baseline** — a resumable progress file and concern-split findings — into `.groundwork/cache/`, which the brownfield extract phases distil into canonical docs. It produces no `docs/` artifact, so three Sequential Setup obligations do not apply to it:
+
+- **No Summary for Downstream and no hand-off file** (Protocols 5 and 6) — it writes no `docs/` artifact and no `handoff/<phase>.md`. Its structured findings files *are* the hand-off, and they fan out to three readers rather than a single next phase.
+- **No review gate** (Protocol 8) — there is no canonical doc to gate. The review gate fires on each downstream extract when it commits its `docs/` artifact.
+- **Findings persist past commit, not deleted at commit** (inverting Protocol 3.4.3) — the findings are the durable input the extract phases consume. `groundwork-infra-adopt`, the last setup phase that reads the baseline, deletes the shared scan cache at its commit.
+
+Scan completion is tracked as a durable `scan` marker in `state.json`, not inferred from a `docs/` artifact, because the scan cache is purged before setup ends. Protocols 1 and 4 still apply: the scan captures out-of-phase signals into `discovery-notes.md` and paces its one scope-confirmation interview.
 
 ### Continuous Bet
 
@@ -252,6 +264,8 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 | `<phase>-draft/` or `<phase>-draft.md` | The current phase's own draft state | During execute and revise stages |
 | `discovery-notes.md` | Cross-phase signal capture (Protocol 1) | Init (check own section) and during execute (capture out-of-phase signals) |
 | `handoff/<previous-phase>.md` | The previous phase's hand-off (Protocol 6) | Init only |
+| `scan-state.json`, `scan/overview.md`, `repo-map.json` | The brownfield scan baseline — shared classification, partition map, and deterministic code map | Init and execute, **brownfield extract and adopt phases only** |
+| `scan/<own-slice>.md` | The brownfield findings slice this phase consumes (`product-findings.md`, `design-findings.md`, or `architecture-findings.md`) | Init and execute, **the one owning extract phase only** |
 
 ### What a phase must not read from `.groundwork/cache/`
 

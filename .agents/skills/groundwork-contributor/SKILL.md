@@ -38,6 +38,11 @@ groundWork/
 │   │   ├── groundwork-architecture/   ← Architecture facilitation.
 │   │   ├── groundwork-scaffold/       ← Greenfield scaffolding: runs Nx generators, boots infra, writes infrastructure.md.
 │   │   ├── groundwork-mvp/            ← One-time MVP scoping; produces first bet pitch and hands off to Bet without context reset.
+│   │   ├── groundwork-scan/                       ← Brownfield Phase 0: deep codebase scan → scan baseline cache (no docs artifact).
+│   │   ├── groundwork-product-brief-extract/      ← Brownfield Phase 1: reverse-engineers docs/product-brief.md from the scan.
+│   │   ├── groundwork-design-system-extract/      ← Brownfield Phase 2: recovers docs/design-system.md + brand-tokens.json from code.
+│   │   ├── groundwork-architecture-extract/       ← Brownfield Phase 3: reconstructs architecture + domain + ADRs from scan + repo-map.
+│   │   ├── groundwork-infra-adopt/                ← Brownfield Phase 4: adopts existing services, bolts on the operational layer, commits the gap ledger.
 │   │   ├── groundwork-bet/            ← Delivery loop: discovery → design → decomposition → delivery → validation.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
@@ -59,12 +64,11 @@ groundWork/
 ├── docs/                      ← GroundWork's own framework documentation (methodology, lifecycle, concepts).
 │                                 NOT output from running GroundWork on this repo.
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.
-│   ├── evals/                 ← Conversational evaluation harness for hidden skills.
-│   │   ├── conversational_eval.py   ← Main harness runner.
-│   │   ├── scenarios/               ← One subdirectory per suite; suite.json defines shared persona.
-│   │   ├── fixtures/                ← Pre-baked sandbox snapshots for seeding depends_on chains.
-│   │   └── runs/                    ← Timestamped run output (transcripts + workspace snapshots).
-│   ├── scaffolds/             ← End-to-end scaffold generation and integration tests.
+│   ├── evals/                 ← Simulation suites (personas + fixtures). Not a runner — see Flow Testing.
+│   │   ├── scenarios/               ← One subdir per suite; suite.json defines the persona.
+│   │   ├── fixtures/                ← Brownfield input codebase + legacy per-phase seed workspaces.
+│   │   └── validate_scaffold.py     ← Scaffold boot-prober (./dev test validate); not the flow harness.
+│   ├── scaffolds/             ← Deterministic generator tests (generation, compilation, scaffolds, contracts).
 │   └── system/                ← System test templates; generated into scaffold sandboxes at test time.
 ├── llms.txt                   ← Agent discovery index for this repo's docs.
 ├── skills-lock.json           ← Tracks externally sourced skills (e.g. skill-creator).
@@ -81,14 +85,18 @@ GroundWork operates in two modes: **Setup** and **Delivery**.
 ### Setup (one-time, per project)
 
 Establishes the skeleton — the vision, the design system, the service boundaries — and
-delivers the first working bet. Currently only the **Greenfield** path is implemented:
+delivers the first working bet. Two paths are implemented:
 
 | Path | Flow | Source of truth |
 |---|---|---|
 | **Greenfield** | Product Brief → Design System → Architecture → Scaffolding → MVP Planning → Delivery Loop | Collaborative discovery with the user. The repo is empty. |
+| **Brownfield** | Scan → Product Brief Extract → Design System Extract → Architecture Extract → Infra Adoption → Delivery Loop | The existing codebase. Docs are reverse-engineered from it; the user is interviewed only for the gaps code cannot reveal. |
 
-Greenfield builds the docs from scratch through conversation. Once the docs exist and the first
-bet ships, the project enters the Delivery Loop. Brownfield is a tracked roadmap item — see `TODO.md` — not a current capability.
+Greenfield builds the docs from scratch through conversation. Brownfield scans an existing
+codebase, reverse-engineers the same canonical doc set, and additively bolts on the operational
+layer (`./dev`, system tests, optionally a docs site) without regenerating the app — converging
+to the same end-state. Both paths end in the Delivery Loop. The orchestrator detects which path
+applies from the filesystem and routes accordingly.
 
 ### Delivery Loop (repeating, ongoing)
 
@@ -234,308 +242,122 @@ During development, specific sandbox projects are used to test and validate Grou
 
 ---
 
-### Evaluation Harness
+### Flow Testing — the Simulation Harness
 
-GroundWork ships a conversational evaluation harness at `tests/evals/`. It simulates
-real user conversations against any hidden skill and verifies that the agent produces
-the correct file outputs in an isolated sandbox.
+Flow testing (the greenfield and brownfield methodology paths) is **not** a
+programmatic agent driver. There is no SDK loop. A flow test is a **real Claude
+Code session, run by a human, against the real installed skills** — so it
+exercises genuine skill loading, orchestrator routing, subagent dispatch, and the
+depwire MCP server, none of which a hand-rolled loop can reproduce faithfully.
 
-### How It Works
+> The old `conversational_eval.py` harness (a raw Anthropic Messages loop with two
+> Haiku agents) has been removed. It re-implemented the agent loop and could only
+> exercise the sequential, LLM-only path — a green run there did not prove the
+> skill worked in the product. Simulation replaces it.
 
-The harness spins up two LLM agents per scenario:
+#### How it works
 
-| Agent | Model (default) | Role |
+`./dev sandbox --simulate` scaffolds a sandbox and seeds three artifacts into it
+(via `scripts/seed_simulation.js`), then a human opens a Claude Code session in
+that folder and runs the kickoff command:
+
+| Artifact | Path | Role |
 |---|---|---|
-| **Skill Agent** | `claude-haiku-4-5-20251001` | Runs the hidden skill under test. Has file tools (`read_file`, `write_file`, `append_file`, `list_directory`, `run_command`) scoped to the sandbox. Uses the Anthropic SDK with explicit message history management. Tool calls appear as `tool_use` blocks in the response and are executed by the manual FC loop in `_skill_turn`, capped at `_MAX_FUNCTION_ROUNDS = 10` per turn. The skill system prompt is cached with `cache_control: ephemeral` to reduce cost on long scenarios. |
-| **User Agent** | `claude-haiku-4-5-20251001` | Simulates the human. Driven by `user_persona` and `user_goal` from the suite config. Has no tools. Runs on the same Anthropic account as the skill agent — single billing. |
+| **Persona subagent** | `.claude/agents/sandbox-user.md` | The simulated human client. Persona text is lifted verbatim from the suite's `suite.json`, so the dry-run and any future probe share one source of truth. |
+| **Kickoff command** | `.claude/commands/simulate-<path>.md` | The facilitator's operating loop. Walks the full path, delegating every user-facing turn to `sandbox-user` instead of pausing for the real human. |
+| **Judge command** | `.claude/commands/judge.md` | A non-gating quality rubric, run in a **fresh** session (see Assessment). |
 
-The agents alternate turns. File operations by the Skill Agent are executed against
-the live sandbox. When all `success_files` exist on disk the run terminates immediately —
-the `turns` ceiling is only a safety cap.
+The session runs the real skills and writes real `docs/*.md` + `.groundwork`
+state, committing when the persona approves a draft. The simulation is the
+**instrument**, not the thing under test — when a skill behaves poorly, the
+operating loop runs it faithfully so the weakness shows in the transcript.
 
-**Architecture invariant**: The conversation loop guarantees strict alternation of
-user → assistant turns in the skill history. There are no injected system messages, no
-skipped user turns, and no consecutive same-role entries. This is enforced by building
-the `skill_messages` list explicitly and passing it to `client.messages.create()` on
-every call.
-
-### Directory Layout
-
-```
-tests/evals/
-├── conversational_eval.py       ← Harness entry point
-├── list_suites.py               ← List available suites
-├── requirements.txt             ← Python deps (anthropic)
-├── scenarios/
-│   └── <suite-name>/
-│       ├── suite.json            ← Shared user_persona and user_goal
-│       ├── 01_product_brief.json ← Scenario 1
-│       ├── 02_design_system.json     ← Scenario 2 (depends_on: 01_product_brief)
-│       └── ...
-├── fixtures/
-│   └── <suite-name>/
-│       └── <scenario-name>/      ← Pre-baked sandbox snapshots for seeding
-└── runs/
-    └── <suite-name>/
-        └── run_<YYYYMMDD_HHMMSS>/  ← One directory per run (timestamped)
-            ├── 01_product_brief_transcript.json
-            ├── 02_design_system_transcript.json
-            ├── 03_architecture_transcript.json
-            └── workspace/           ← Accumulated output files (docs/, .groundwork/)
-
-.sandboxes/evals/                 ← Live sandbox; wiped per scenario, preserved after last
-```
-
-### Scenario File Format
-
-Each scenario is a JSON file:
-
-```json
-{
-  "skill_name": "groundwork-product-brief",
-  "skill_path": "src/hidden-skills/groundwork-product-brief/instructions.md",
-  "turns": 35,
-  "depends_on": "01_product_brief",
-  "success_files": ["docs/product-brief.md"]
-}
-```
-
-| Field | Required | Description |
-|---|---|---|
-| `skill_name` | Yes | Display name for logging |
-| `skill_path` | Yes | Path to the `instructions.md` file, relative to repo root |
-| `turns` | No | Max conversation turns (safety ceiling). Wins over `--turns` CLI flag. Hard-capped at `ABSOLUTE_MAX_TURNS` (50) in the harness to prevent cost blowouts. |
-| `depends_on` | No | Scenario name whose workspace output to seed the sandbox with before running |
-| `user_persona` | No | Overrides the suite-level persona for this scenario only |
-| `user_goal` | No | Overrides the suite-level goal for this scenario only |
-| `success_files` | No | List of file paths (relative to sandbox root) that signal task completion. The run stops as soon as all files exist — `turns` is only a safety ceiling. |
-| `max_input_tokens` | No | Per-call peak input-token budget. If any single API call's `input_tokens` exceeds this value, the scenario is recorded as a budget violation and marked failed. Peak (not cumulative) is the right metric — it measures the size of the largest single context, which is what context-efficiency work targets. Cumulative input would conflate conversation length with context bloat. |
-| `seed_summaries_only` | No | When `true` and `depends_on` is set, after seeding the sandbox from the dependency's workspace, every `docs/*.md` is trimmed to its frontmatter and `## Summary for Downstream` section. Tests whether the phase under test can work from summaries alone — the contract Protocol 5 of the operating contract assumes. A phase that fails on summary-only seeding indicates the previous phase's summary is missing binding information that the body carries. |
-
-### Token usage and budget reporting
-
-Each scenario transcript JSON now includes a `usage` block with the totals captured across the main skill loop **and** the isolated review subagent:
-
-```json
-{
-  "scenario": "03_architecture",
-  "skill_name": "groundwork-architecture",
-  "usage": {
-    "total_input_tokens": 412345,
-    "total_output_tokens": 18420,
-    "total_cache_creation_input_tokens": 22100,
-    "total_cache_read_input_tokens": 380000,
-    "peak_input_tokens": 18500,
-    "api_calls": 24,
-    "budget_violations": []
-  },
-  "transcript": [...]
-}
-```
-
-Use `peak_input_tokens` to evaluate context-efficiency work. The cache-read ratio (`total_cache_read_input_tokens / total_input_tokens`) measures how well the skill prompt structure is exploiting Anthropic's prompt cache — higher is better.
-
-### Suite Config (`suite.json`)
-
-Defines the shared user identity for all scenarios in the suite. Scenario files can
-override both fields if a specific scenario needs a different persona.
-
-```json
-{
-  "user_persona": "You are the Client/User building <product>. You are cooperative.",
-  "user_goal": "Answer questions with short, natural responses. When the agent presents a draft, respond: 'Looks great, please commit it.'"
-}
-```
-
-### Sandbox Lifecycle
-
-1. **Wipe** — the `.sandboxes/evals/` directory is deleted at the start of every scenario.
-2. **Init** — `groundwork init` runs inside the sandbox, installing the latest skills.
-3. **Seed** — if `depends_on` is set and a previous scenario's workspace exists in the
-   current run, its contents are copied in (excluding `.agents/` to preserve fresh skills).
-   If no workspace exists, falls back to a pre-baked fixture in `fixtures/`.
-4. **Run** — the Skill Agent and User Agent converse. The run ends when all `success_files`
-   exist on disk (immediate exit) or the `turns` ceiling is reached.
-5. **Preserve** — on success, the sandbox is copied to the run's `workspace/` directory so
-   downstream scenarios can depend on it. On failure, the workspace is NOT updated.
-
-### Running the Harness
-
-Use the `./dev` CLI from the repo root. The `CLAUDE_API_KEY` must be set in a `.env`
-file at the repo root — the CLI sources it automatically.
+#### Running a simulation
 
 ```bash
-./dev eval run <suite>             # Run all scenarios in a suite sequentially
-./dev eval run <suite> <scenario>  # Run one specific scenario
-./dev eval clean                   # Wipe all eval runs and the sandbox
+./dev sandbox --simulate                      # greenfield, default suite (storytelling_engine)
+./dev sandbox --simulate=b2b_saas             # greenfield, a specific suite/persona
+./dev sandbox --brownfield --simulate         # brownfield: seeds the existing-codebase fixture + baseline commit
+./dev sandbox myrun --simulate                # custom sandbox dir name (.sandboxes/myrun)
 ```
 
-**Model selection** — both agents default to Haiku. Override with CLI flags:
+Then open a new Claude Code chat **from the sandbox folder** and run
+`/simulate-greenfield` (or `/simulate-brownfield`). The real human observes and
+may interject; any real-human message is treated as an override, not the persona.
+
+- **Greenfield** inits into an empty repo (with a throwaway Nx-style root so the
+  scaffold skill is happy). Sequence: Product Brief → Design System → Architecture
+  → Scaffold → MVP → first Bet.
+- **Brownfield** copies `tests/evals/fixtures/brownfield_monorepo/00_codebase` in,
+  **commits it as the adoption baseline before GroundWork touches anything**
+  (infra-adopt diffs against `baseline.source_commit`), then inits. A brownfield
+  repo is deliberately not an Nx workspace — infra-adopt bootstraps `nx.json`
+  itself. Sequence: Scan → Product Brief Extract → Design System Extract →
+  Architecture Extract → Infra Adoption → first Bet.
+
+Every sandbox carries a `CLAUDE.md` boundary file asserting it is a user project,
+not the framework repo — without it, a chat opened in the nested sandbox would
+inherit this repo's contributor skill and think it is building GroundWork.
+
+#### Personas — the coverage knob
+
+Personas live in `tests/evals/scenarios/<suite>/suite.json` (`user_persona` +
+`user_goal`). The simulated user is the test's input oracle: a bland
+"looks great, commit it" persona makes a test that always passes. The current
+suites are **cooperative** by design while the harness is shaken out; adversarial
+variants (ambiguous, contradictory, terse) are the lever for deeper coverage and
+are added as additional suites.
+
+#### Assessment
+
+There is no automated pass/fail — the verdict is a human reading two surfaces:
 
 ```bash
-./dev eval run storytelling_engine --skill-model claude-sonnet-4-6
-./dev eval run storytelling_engine 02_design_system --skill-model claude-sonnet-4-6
+./dev sandbox review <name>      # → .sandboxes/<name>-review/
 ```
 
-| Flag | Default | Purpose |
-|---|---|---|
-| `--skill-model` | `claude-haiku-4-5-20251001` | Model for the skill agent |
-| `--user-model` | `claude-haiku-4-5-20251001` | Model for the user agent |
-| `--turn-delay` | `2.0` | Seconds to wait between turns (API rate pacing) |
-| `--turns` | `5` | Default turn limit (overridden by scenario JSON) |
+1. **`conversation.md`** — the rendered transcript (`scripts/render_transcript.py`).
+2. **`checklist.md`** — a structural checklist (`scripts/sandbox_checklist.py`):
+   a non-gating mechanical check of **durable** artifacts only — canonical
+   `docs/*.md` present/non-empty/titled, `state.json` `project_type` + completed
+   phases, and git commits. It deliberately ignores `.groundwork/cache/*` (deleted
+   on commit — checking it reports false failures in a full-flow run) and
+   frontmatter (GroundWork doc templates carry none).
 
-### Adding a New Scenario
+For a **quality** verdict, open a *fresh* Claude Code chat in the sandbox and run
+`/judge`. A fresh context is a genuine critic; a judge sharing the context that
+wrote the docs would only rubber-stamp its own work. The judge is non-gating —
+it tells you whether the output is good and where it is weak.
 
-1. Create a JSON file in `tests/evals/scenarios/<suite-name>/`.
-2. Follow the scenario file format above.
-3. Set `depends_on` if the scenario requires a prior phase's output to be present.
-4. Set `turns` as a safety ceiling — high enough for the skill to complete its full flow
-   including draft, review, and commit. Use `success_files` to end the run early when the
-   expected outputs exist.
-5. Run `./dev eval run <suite> <scenario>` and confirm the expected output files appear in
-   `.sandboxes/evals/`.
+#### Checkpoints — resume mid-flow
 
-### Adding a New Suite
-
-1. Create `tests/evals/scenarios/<suite-name>/`.
-2. Add `suite.json` with a `user_persona` and `user_goal` describing the project context
-   and how the simulated user behaves.
-3. Add scenario files numbered sequentially (`01_`, `02_`, etc.) to control execution
-   order when running the full suite.
-4. The `user_goal` must instruct the simulated user to respond
-   `'Looks great, please commit it.'` when a draft is presented, so the commit step
-   executes.
-
----
-
-### Debugging Eval Runs
-
-When the user asks to review, debug, or analyse an eval run, follow this playbook.
-
-#### Finding the Latest Run
-
-Runs are stored under `tests/evals/runs/<suite-name>/` with timestamped directory names
-in the format `run_YYYYMMDD_HHMMSS`. The most recently modified directory is the latest
-run.
+A full flow is expensive to re-run when you only want to debug one phase.
+Checkpoints snapshot a successful run's durable workspace (`docs/` +
+`.groundwork/`, never `.agents/` — skills are always re-installed fresh) so a new
+sandbox can be seeded to resume from that point:
 
 ```bash
-ls -lt tests/evals/runs/storytelling_engine/ | head -5
+./dev sandbox checkpoint capture <name> --as <label>   # snapshot a green run
+./dev sandbox checkpoint list                           # list captured checkpoints
+./dev sandbox <newname> --from=<label> --simulate       # resume from a checkpoint
 ```
 
-#### Run Contents
+Checkpoints are a **cache of the last green run**, not a frozen golden — when a
+phase's output format changes, re-harvest the downstream checkpoints from a fresh
+green run.
 
-Each run directory contains one transcript JSON file per scenario that executed, plus a
-`workspace/` directory holding the accumulated file outputs.
+#### Suites and fixtures
 
-```
-run_20260520_221635/
-├── 01_product_brief_transcript.json
-├── 02_design_system_transcript.json
-├── 03_architecture_transcript.json
-└── workspace/
-    └── docs/
-        ├── product-brief.md
-        └── design-system.md       ← architecture.md absent = scenario 3 failed
-```
+| Path | Contents |
+|---|---|
+| `tests/evals/scenarios/<suite>/suite.json` | Persona + goal (the single source of truth, read by `seed_simulation.js`). |
+| `tests/evals/scenarios/<suite>/NN_*.json` | Per-phase descriptors (skill path, durable `success_files`) — a phase-list hint. |
+| `tests/evals/fixtures/brownfield_monorepo/00_codebase` | The existing codebase the brownfield path adopts. |
+| `tests/evals/fixtures/<suite>/<phase>/` | Pre-baked per-phase workspaces (legacy seeds). |
 
-**Quick health check** — for each transcript, report entry count, function calls, and
-whether the expected output file exists in `workspace/`:
-
-```python
-import json, os
-run = 'tests/evals/runs/storytelling_engine/run_XXXXXXXX_XXXXXX'
-for f in sorted(os.listdir(run)):
-    if not f.endswith('.json'): continue
-    data = json.load(open(os.path.join(run, f)))
-    t = data['transcript']
-    user = sum(1 for e in t if e['role'] == 'user')
-    fc = sum(1 for e in t for p in e.get('parts',[]) if isinstance(p,dict) and 'function_call' in p)
-    print(f"{f}: {len(t)} entries, {user} user, {fc} func_calls")
-```
-
-#### Transcript File Format
-
-Each transcript JSON has this shape:
-
-```json
-{
-  "scenario": "03_architecture",
-  "skill_name": "groundwork-architecture",
-  "transcript": [
-    {
-      "role": "user",
-      "parts": [{"text": "Hi! I need some help starting on my project."}]
-    },
-    {
-      "role": "model",
-      "parts": [
-        {"text": "Hello! Let me check your existing documents..."},
-        {"function_call": {"name": "read_file", "args": {"path": "docs/product-brief.md"}}}
-      ]
-    },
-    {
-      "role": "user",
-      "parts": [
-        {"function_response": {"name": "read_file", "response": {"result": "# Product Brief..."}}}
-      ]
-    }
-  ]
-}
-```
-
-Parts can contain `text`, `function_call` (with `name` and `args`), or
-`function_response` (with `name` and `response`). A single entry can have multiple
-parts — the model may generate text AND a function call in the same turn.
-
-#### Reading Conversations
-
-To see the conversation flow at a glance, print role + first line of each text entry:
-
-```python
-for i, e in enumerate(transcript):
-    for p in e.get('parts', []):
-        if isinstance(p, dict) and 'text' in p:
-            print(f"[{i}] {e['role']}: {p['text'][:120]}")
-        elif isinstance(p, dict) and 'function_call' in p:
-            fc = p['function_call']
-            print(f"[{i}] {e['role']}: → {fc['name']}({list(fc['args'].keys())})")
-```
-
-#### Checking Tool Usage
-
-List all function calls to understand what the model read and wrote:
-
-```python
-for i, e in enumerate(transcript):
-    for p in e.get('parts', []):
-        if isinstance(p, dict) and 'function_call' in p:
-            fc = p['function_call']
-            args_summary = ', '.join(f'{k}={repr(v)[:60]}' for k,v in fc['args'].items())
-            print(f"[{i}] {fc['name']}({args_summary})")
-```
-
-#### Checking the Live Sandbox
-
-The live sandbox at `.sandboxes/evals/` preserves the final state of the last scenario
-that ran. This is useful for checking file contents, cache state, and skill installation:
-
-```bash
-ls .sandboxes/evals/docs/                    # Output files
-ls .sandboxes/evals/.groundwork/cache/       # Cache files from the skill lifecycle
-cat .sandboxes/evals/docs/architecture.md    # Read a specific output
-```
-
-#### Common Failure Patterns
-
-| Symptom | Likely Cause | What to Check |
-|---|---|---|
-| Scenario stopped after very few turns (< 5) with no output | `client.messages.create` threw a non-retryable error | Run the scenario individually with console visible for error output |
-| Skill agent repeats the same response | Stuck detection fires after 2 identical consecutive responses | Check if the model is waiting for information the user agent isn't providing — may need a persona/goal adjustment |
-| `success_files` exist but the run didn't terminate | The success check runs after each skill turn; if the path doesn't match exactly, it won't trigger | Verify the `success_files` paths in the scenario JSON match exactly what `write_file` produces (relative to sandbox root) |
-| Output file has escaped `\n` instead of real newlines | The model passed literal `\n` strings in the `content` argument to `write_file` | This is a model behavior issue — check the skill instructions for formatting guidance |
-| User agent says "Let's continue where we left off" repeatedly | The user agent detected a conversation restart. With explicit history management this should not happen — if it does, check that `skill_text_for_user` is non-empty and meaningful | Print the skill response that was sent to the user agent |
-
----
+> Note: `tests/evals/validate_scaffold.py` is **not** part of the flow harness —
+> it is a scaffold boot-prober (a sibling of the scaffold tests). Run it via
+> `./dev test validate`.
 
 ### Scaffold Test Harness
 
@@ -545,11 +367,12 @@ GroundWork uses an end-to-end scaffold harness to ensure generated projects corr
 
 The scaffold harness creates a fresh sandbox, uses the Nx generators to build a multi-service monorepo, and then stands up the entire local infrastructure via Docker Compose and native binary runners.
 
-It operates in three layers — run them cheapest-first to fail fast:
+It operates in layers — run them cheapest-first to fail fast:
 
 | Layer | File | What it checks | Speed |
 |---|---|---|---|
 | **Generation** | `test_generation.py` | Every combination of generator options produces the correct files and omits the correct ones. No compilation. | Fast (seconds) |
+| **Contracts** | `test_contracts.py`, `test_brownfield_adopt.py` | Generator contracts beyond file shape: shipped `./dev` bundle is fresh vs its source, brownfield adopt/merge is idempotent and preserves existing app source + compose services. No Docker. | Fast (seconds) |
 | **Compilation** | `test_compilation.py` | Pairwise subset of combos actually compile (`go build`, `pnpm tsc`, `uv sync`). Catches import/type errors. | Minutes |
 | **End-to-End** | `test_scaffolds.py` | Full DX loop: generate, boot Docker, health-check services, run inner system tests. | Slow (requires Docker) |
 
@@ -561,6 +384,7 @@ Use the `./dev` CLI from the repo root. Run layers in order — generation first
 
 ```bash
 ./dev test generation   # Fast: structural checks for every option combination
+./dev test contracts    # Fast: bundle freshness + adopt-merge idempotency (no Docker)
 ./dev test compilation  # Medium: pairwise compile checks (go build / tsc / uv sync)
 ./dev test scaffolds    # Slow: full Docker boot + health checks + inner system tests
 ```
@@ -576,13 +400,15 @@ from the repo root. It sources `.env` automatically, so set `CLAUDE_API_KEY` the
 
 | Command | Description |
 |---|---|
-| `./dev eval run <suite>` | Run all scenarios in a suite sequentially |
-| `./dev eval run <suite> <scenario>` | Run one specific scenario |
-| `./dev eval clean` | Wipe all eval caches and the sandbox |
+| `./dev sandbox [name] [--brownfield] [--simulate[=suite]] [--from=<label>]` | Scaffold a simulation sandbox (see Flow Testing) |
+| `./dev sandbox review <name>` | Render transcript + structural checklist into `.sandboxes/<name>-review/` |
+| `./dev sandbox checkpoint capture <name> --as <label>` / `list` | Snapshot a green run to resume from later |
 | `./dev test nx` | Run Nx workspace unit tests |
 | `./dev test generation` | Run generator structural tests (fast, all combinations) |
+| `./dev test contracts` | Run scaffold contract tests (fast: bundle freshness, adopt-merge idempotency) |
 | `./dev test compilation` | Run generator compilation tests (pairwise, go build / tsc / uv sync) |
 | `./dev test scaffolds` | Run end-to-end scaffold boot tests (Docker, health checks, inner system tests) |
+| `./dev test validate <suite>` | Manually probe a generated scaffold workspace (boots + health checks) |
 
 **`.env` setup** — create a `.env` file at the repo root:
 ```

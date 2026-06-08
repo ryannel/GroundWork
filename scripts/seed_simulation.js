@@ -2,24 +2,32 @@
 /**
  * Seed a sandbox with the GroundWork simulation harness.
  *
- * Writes two artifacts into the sandbox so a fresh chat opened from the folder
- * can dry-run the greenfield flow against a *simulated* user instead of a human:
+ * Flow testing in GroundWork is NOT a programmatic agent driver. It is a real
+ * Claude Code session, run by a human, against the real installed skills. This
+ * script writes the artifacts that make that session a faithful, repeatable
+ * dry-run instead of an ad-hoc chat:
  *
- *   .claude/agents/sandbox-user.md        ← persona subagent (the "client")
- *   .claude/commands/simulate-greenfield.md ← kickoff command (the operating loop)
+ *   .claude/agents/sandbox-user.md           ← persona subagent (the simulated "client")
+ *   .claude/commands/simulate-<path>.md      ← the facilitator's operating loop
+ *   .claude/commands/judge.md                ← non-gating quality rubric (run in a FRESH session)
  *
  * The persona is lifted verbatim from the eval suite's suite.json, so the
- * interactive dry-run and the automated eval harness share one source of truth.
+ * interactive dry-run and any future automated probe share one source of truth.
  *
- * Usage: node scripts/seed_simulation.js <suite> <sandboxDir>
+ * Usage: node scripts/seed_simulation.js <suite> <sandboxDir> [greenfield|brownfield]
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const [, , suite, sandboxDir] = process.argv;
+const [, , suite, sandboxDir, pathArg] = process.argv;
+const flowPath = pathArg || 'greenfield';
 if (!suite || !sandboxDir) {
-  console.error('Usage: node scripts/seed_simulation.js <suite> <sandboxDir>');
+  console.error('Usage: node scripts/seed_simulation.js <suite> <sandboxDir> [greenfield|brownfield]');
+  process.exit(1);
+}
+if (flowPath !== 'greenfield' && flowPath !== 'brownfield') {
+  console.error(`✖ Unknown path "${flowPath}". Expected "greenfield" or "brownfield".`);
   process.exit(1);
 }
 
@@ -36,11 +44,41 @@ if (!user_persona || !user_goal) {
   process.exit(1);
 }
 
+// --- Per-path operating loop configuration --------------------------------
+// Each path differs only in its starting state, phase sequence, and the
+// orchestrator's mode detection. The delegation loop is identical.
+const PATHS = {
+  greenfield: {
+    startState:
+      'This is a fresh greenfield project: empty `docs/`, no application source, ' +
+      'state.json `project_type: null` and `completed: []`.',
+    sequence:
+      '**Product Brief → Design System → Architecture → Scaffold → MVP planning → first Bet.**',
+    modeNote:
+      'The orchestrator will detect greenfield from the empty filesystem and route to the ' +
+      'Product Brief phase first.',
+  },
+  brownfield: {
+    startState:
+      'This is a brownfield project: an existing codebase is already committed (a Go API + ' +
+      'Next.js web monorepo wired with docker-compose), `docs/` is empty, and state.json is ' +
+      '`project_type: null`. GroundWork is being adopted onto the existing repo.',
+    sequence:
+      '**Scan → Product Brief Extract → Design System Extract → Architecture Extract → ' +
+      'Infra Adoption → first Bet.**',
+    modeNote:
+      'The orchestrator will detect brownfield from the existing application source and route ' +
+      'to the Scan phase first. The docs are reverse-engineered from the code; the simulated ' +
+      'user is interviewed only for the gaps the code cannot reveal.',
+  },
+};
+const cfg = PATHS[flowPath];
+
 // --- Persona subagent: the simulated human client -------------------------
 const personaAgent = `---
 name: sandbox-user
 description: >-
-  Simulated human client for a GroundWork greenfield dry-run (suite: ${suite}).
+  Simulated human client for a GroundWork ${flowPath} dry-run (suite: ${suite}).
   Plays the user being interviewed by the facilitator. Invoke this for every
   turn where a GroundWork skill would address the human — questions and draft
   approvals. Continue the same conversation across turns so it stays in character.
@@ -68,21 +106,24 @@ ${user_goal}
 
 // --- Kickoff command: the facilitator's operating loop --------------------
 const kickoffCommand = `---
-description: Dry-run the GroundWork greenfield flow against a simulated user (suite: ${suite}).
+description: Dry-run the GroundWork ${flowPath} flow against a simulated user (suite: ${suite}).
 ---
 
-Run the **GroundWork greenfield flow end-to-end** against a *simulated* human
+Run the **GroundWork ${flowPath} flow end-to-end** against a *simulated* human
 user. Do NOT ask me (the real human) the discovery questions — delegate every
 user-facing turn to the \`sandbox-user\` subagent.
+
+## Starting state
+
+${cfg.startState}
 
 ## Operating loop
 
 1. Invoke the \`groundwork-orchestrator\` skill to determine project state and the
-   next phase. This is a fresh greenfield project (empty \`docs/\`, state.json
-   \`project_type: null\`).
-2. Proceed through the full greenfield sequence, letting the orchestrator route
+   next phase. ${cfg.modeNote}
+2. Proceed through the full ${flowPath} sequence, letting the orchestrator route
    and loading each hidden skill as directed:
-   **Product Brief → Design System → Architecture → Scaffold → MVP planning → first Bet.**
+   ${cfg.sequence}
 3. Whenever the active skill would **ask the human a question** or **present a
    draft for review/approval**, do NOT pause for me. Instead:
    - Send the exact question or draft to the \`sandbox-user\` subagent (Agent tool,
@@ -108,6 +149,59 @@ user-facing turn to the \`sandbox-user\` subagent.
   said, and what you're writing.
 - This is a faithful dry-run: use the real skills and real file outputs. Do not
   shortcut the methodology or fabricate the user's answers yourself.
+- The simulation is the *instrument*, not the thing under test. If a skill behaves
+  poorly, do NOT paper over it — run it faithfully so the weakness is visible in
+  the transcript. Surfacing the flaw is the point.
+`;
+
+// --- Judge command: non-gating quality rubric (FRESH session) -------------
+// Run after a simulation completes, in a NEW Claude Code session opened from the
+// same sandbox. A fresh context is a genuine critic — a judge that shares the
+// context that wrote the docs would only rubber-stamp its own work.
+const judgeCommand = `---
+description: Assess the documents a GroundWork ${flowPath} simulation produced (non-gating quality review).
+---
+
+You are a **fresh, independent reviewer**. You did NOT write these documents —
+do not assume they are good. Read what is actually on disk and judge it honestly.
+
+This is a **non-gating** quality review. Nothing depends on a passing verdict;
+your job is to tell the human running the simulation whether the output is
+genuinely good and where it is weak.
+
+## What to read
+
+1. Every file under \`docs/\` (product brief, design system, architecture,
+   infrastructure, and any \`bets/\`).
+2. \`.groundwork/config/state.json\` to confirm which phases the flow recorded.
+${flowPath === 'brownfield'
+    ? '3. The existing application source the docs were reverse-engineered from, so you can\n   judge whether the docs match the real code (no invented services, no missed ones).'
+    : '3. The git log, so you can see the order documents were committed in.'}
+
+## How to judge
+
+Do not check for file existence — a separate structural checklist already does
+that. Judge **quality and coherence**:
+
+- **Faithfulness** — does each document reflect what the simulated user actually
+  said in the interview, or did the facilitator invent requirements?
+- **Coherence across phases** — does the architecture follow from the design
+  system, which follows from the product brief? Flag drift, especially the
+  scaffold/architecture mismatch this flow is prone to.
+- **Specificity** — is the content concrete and decision-bearing, or generic
+  filler that would read the same for any product?
+- **GroundWork tone** — declarative, assertive, no hedging (per groundwork-writer).
+${flowPath === 'brownfield'
+    ? '- **Grounding** — every service, endpoint, and token in the docs must trace to\n  real code. Invented capabilities are the brownfield failure mode.'
+    : ''}
+
+## Output
+
+Present, in the conversation (do not write a file):
+
+1. A one-line **verdict** per document: \`strong\` / \`acceptable\` / \`weak\`, with a reason.
+2. The **single most important problem** across all the docs, with a fix.
+3. Anything the simulated user said that the documents failed to capture.
 `;
 
 function writeFile(relPath, contents) {
@@ -118,5 +212,6 @@ function writeFile(relPath, contents) {
 }
 
 writeFile(path.join('.claude', 'agents', 'sandbox-user.md'), personaAgent);
-writeFile(path.join('.claude', 'commands', 'simulate-greenfield.md'), kickoffCommand);
-console.log(`  Persona sourced from suite: ${suite}`);
+writeFile(path.join('.claude', 'commands', `simulate-${flowPath}.md`), kickoffCommand);
+writeFile(path.join('.claude', 'commands', 'judge.md'), judgeCommand);
+console.log(`  Path: ${flowPath}  ·  persona sourced from suite: ${suite}`);

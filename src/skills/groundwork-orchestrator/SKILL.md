@@ -29,6 +29,14 @@ For each phase in the current path, check whether its artifact exists on disk:
 
 Write `state.json` back whenever it changes.
 
+**The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
+
+**Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — a `## Summary for Downstream` section, plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead.
+
+### Adopt/Upgrade Mode
+
+A brownfield repo may already hold docs — a hand-authored README-style brief, an ad-hoc architecture file, or canonical docs written against an older GroundWork standard. These must be brought forward, not overwritten, so existing projects come along when the framework improves. When an artifact exists but fails the contract check above, route to the phase's extract skill and signal Adopt/Upgrade mode. The skill ingests the existing doc as its primary source, fills the missing contract sections, re-stamps frontmatter, gates through review, and commits — preserving the user's content while raising it to the current standard.
+
 ---
 
 ## Routing
@@ -37,7 +45,8 @@ Write `state.json` back whenever it changes.
 
 | State | Mode | Route to |
 |---|---|---|
-| Greenfield, setup incomplete | **Greenfield Setup** | Next phase skill (see table below) |
+| Greenfield, setup incomplete | **Greenfield Setup** | Next greenfield phase skill (see table below) |
+| Brownfield, setup incomplete | **Brownfield Setup** | Next brownfield phase skill (see table below) |
 | All setup phases complete | **Delivery Loop** | `groundwork-bet` |
 
 ### Greenfield Setup Phases
@@ -49,6 +58,20 @@ Write `state.json` back whenever it changes.
 | 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` |
 | 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
 | 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
+
+### Brownfield Setup Phases
+
+The brownfield track reverse-engineers the same canonical artifacts from an existing codebase, then bolts on the missing GroundWork operational layer without regenerating the app. It converges to the same end-state as greenfield and enters the same Delivery Loop. There is no MVP phase — `groundwork-bet` cold-starts its own discovery, informed by the gap ledger that infra adoption commits.
+
+| Order | Phase | Skill | Completion signal |
+|---|---|---|---|
+| 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) |
+| 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` |
+| 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` |
+| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture.md` |
+| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/onboarding-report.md` |
+
+When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
 
 ### Anytime Skills
 - `groundwork-update` — surgical doc updates after code changes
@@ -63,6 +86,11 @@ Write `state.json` back whenever it changes.
 | `groundwork-architecture` | `.agents/groundwork/skills/groundwork-architecture/instructions.md` |
 | `groundwork-scaffold` | `.agents/groundwork/skills/groundwork-scaffold/instructions.md` |
 | `groundwork-mvp` | `.agents/groundwork/skills/groundwork-mvp/instructions.md` |
+| `groundwork-scan` | `.agents/groundwork/skills/groundwork-scan/instructions.md` |
+| `groundwork-product-brief-extract` | `.agents/groundwork/skills/groundwork-product-brief-extract/instructions.md` |
+| `groundwork-design-system-extract` | `.agents/groundwork/skills/groundwork-design-system-extract/instructions.md` |
+| `groundwork-architecture-extract` | `.agents/groundwork/skills/groundwork-architecture-extract/instructions.md` |
+| `groundwork-infra-adopt` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/instructions.md` |

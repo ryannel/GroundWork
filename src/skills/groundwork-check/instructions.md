@@ -5,8 +5,8 @@ This agent runs the documentation staleness detection algorithm. It is designed 
 ## Execution Flow
 
 ```xml
-<step n="1" goal="Read frontmatter from all generated docs">
-<action>Find all markdown files in docs/services/ and docs/architecture/</action>
+<step n="1" goal="Read frontmatter from all generated and extracted docs">
+<action>Find all code-coupled docs carrying drift frontmatter: the files under docs/services/, docs/api/, and docs/domain/, plus the top-level docs/architecture.md. These are the docs that name a source_of_truth — greenfield scaffold and the brownfield extract phases both stamp it.</action>
 <action>For each file, extract the YAML frontmatter:
   - last_reviewed
   - source_of_truth
@@ -22,6 +22,7 @@ This agent runs the documentation staleness detection algorithm. It is designed 
   <action>Mark document as STALE</action>
   <action>Update in-memory list of stale documents</action>
 </check>
+<action optional="true">When a deterministic code-graph tool is available (GroundWork registers depwire as an MCP server), sharpen the signal beyond file-path git history: call its impact analysis on the changed symbols to find documents whose source_of_truth depends — through the dependency graph — on code that changed elsewhere. A contract doc can be stale because a type it references moved in another file the git-log path filter would miss. This is an enhancement; the git-log check is the baseline and runs with or without depwire.</action>
 </step>
 
 <step n="3" goal="Generate report and exit">
