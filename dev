@@ -90,8 +90,8 @@ case "$COMMAND" in
       pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py -v -s
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
-      print_step "Cleaning legacy eval sandboxes and caches..."
-      rm -rf .sandboxes/evals tests/evals/cache/*
+      print_step "Cleaning legacy eval sandboxes and the brownfield repo cache..."
+      rm -rf .sandboxes/evals tests/evals/cache/* .sandboxes/.cache
       print_success "Cleaned."
     elif [ "$SUBCMD" = "validate" ]; then
       # Scaffold boot-prober (validate_scaffold.py) — stdlib only, no venv needed.
@@ -210,6 +210,8 @@ case "$COMMAND" in
     FLOW_PATH="greenfield"
     SUITE=""
     FROM=""
+    REPO=""
+    REFRESH=0
     for arg in "${@:2}"; do
       case "$arg" in
         --force) FORCE=1 ;;
@@ -219,6 +221,11 @@ case "$COMMAND" in
         --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
         --from) print_error "Use --from=<label> (no space)."; exit 1 ;;
         --from=*) FROM="${arg#*=}" ;;
+        # Seed the brownfield baseline from a real GitHub repo (any repo). It is
+        # cloned once into a gitignored cache under .sandboxes/ and reused across
+        # runs. Format: owner/repo or owner/repo@ref. Implies --brownfield.
+        --repo=*) REPO="${arg#*=}"; FLOW_PATH="brownfield" ;;
+        --refresh) REFRESH=1 ;;
         -*) print_error "Unknown flag: $arg"; exit 1 ;;
         *) NAME="$arg" ;;
       esac
@@ -263,9 +270,44 @@ case "$COMMAND" in
     # touches anything. A brownfield repo is deliberately NOT an Nx workspace — the
     # infra-adopt phase bootstraps nx.json itself.
     if [ "$FLOW_PATH" = "brownfield" ]; then
-      [ -d "$BROWNFIELD_FIXTURE" ] || fail "Brownfield fixture missing: $BROWNFIELD_FIXTURE"
-      print_step "Seeding existing codebase from fixture (brownfield baseline)..."
-      cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
+      if [ -n "$REPO" ]; then
+        # Seed from a real GitHub repo. Clone ONCE into a gitignored cache under
+        # .sandboxes/ (recursing submodules) and reuse it across runs so a 200MB+
+        # monorepo isn't re-fetched every time. Then rsync into the sandbox with
+        # all VCS metadata stripped (including nested submodule .git) so the
+        # baseline is one clean commit GroundWork adopts.
+        command -v gh >/dev/null 2>&1 || fail "gh CLI required for --repo (brew install gh; gh auth login)."
+        REPO_REF=""; REPO_SLUG_SRC="$REPO"
+        case "$REPO" in *@*) REPO_REF="${REPO#*@}"; REPO_SLUG_SRC="${REPO%@*}" ;; esac
+        CACHE_SLUG="$(printf '%s' "$REPO_SLUG_SRC" | tr '/' '__')"
+        CACHE_DIR="$REPO_ROOT/.sandboxes/.cache/repos/$CACHE_SLUG"
+        if [ "$REFRESH" -eq 1 ] && [ -d "$CACHE_DIR" ]; then
+          print_substep "Refreshing repo cache ($REPO_SLUG_SRC)..."
+          rm -rf "$CACHE_DIR"
+        fi
+        if [ ! -d "$CACHE_DIR" ]; then
+          print_step "Cloning $REPO_SLUG_SRC into repo cache (once; recursing submodules)..."
+          mkdir -p "$(dirname "$CACHE_DIR")"
+          gh repo clone "$REPO_SLUG_SRC" "$CACHE_DIR" -- \
+            --depth 1 --recurse-submodules --shallow-submodules \
+            || fail "Clone failed for $REPO_SLUG_SRC (check access / gh auth)."
+          if [ -n "$REPO_REF" ]; then
+            print_substep "Checking out ref $REPO_REF..."
+            git -C "$CACHE_DIR" fetch -q --depth 1 origin "$REPO_REF" \
+              && git -C "$CACHE_DIR" checkout -q FETCH_HEAD \
+              && git -C "$CACHE_DIR" submodule update --init --recursive --depth 1 \
+              || fail "Could not check out ref '$REPO_REF'."
+          fi
+        else
+          print_step "Reusing cached clone of $REPO_SLUG_SRC (--refresh to re-pull)..."
+        fi
+        print_substep "Seeding sandbox baseline from cache (stripping VCS metadata)..."
+        rsync -a --exclude='.git' "$CACHE_DIR"/ "$SANDBOX_DIR"/
+      else
+        [ -d "$BROWNFIELD_FIXTURE" ] || fail "Brownfield fixture missing: $BROWNFIELD_FIXTURE"
+        print_step "Seeding existing codebase from synthetic fixture (brownfield baseline)..."
+        cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
+      fi
     else
       # Greenfield: a realistic Nx-style project root so the scaffold skill is happy.
       printf '{"name": "%s"}\n' "$NAME" > "$SANDBOX_DIR/package.json"
@@ -379,7 +421,8 @@ EOF
     print_category "SETUP"
     print_cmd "sandbox" "Create a standalone GroundWork project sandbox (.sandboxes/<name>, default greenfield)"
     print_cmd "sandbox --simulate" "...and seed a simulated-user harness so a chat can dry-run the flow (run /simulate-<path>)"
-    print_cmd "sandbox --brownfield" "Seed the existing-codebase fixture + baseline commit instead of an empty repo"
+    print_cmd "sandbox --brownfield" "Seed the synthetic existing-codebase fixture + baseline commit instead of an empty repo"
+    print_cmd "sandbox --repo=owner/repo[@ref]" "Brownfield from a real GitHub repo (cloned once into a gitignored cache; --refresh to re-pull)"
     print_cmd "sandbox --from=<label>" "Resume mid-flow by seeding docs/ + .groundwork/ from a captured checkpoint"
     print_cmd "sandbox checkpoint" "capture <name> --as <label> | list — snapshot a green run to resume from later"
     print_cmd "sandbox review" "Render the latest chat transcript + structural checklist into .sandboxes/<name>-review/"

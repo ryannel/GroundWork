@@ -277,7 +277,8 @@ operating loop runs it faithfully so the weakness shows in the transcript.
 ```bash
 ./dev sandbox --simulate                      # greenfield, default suite (storytelling_engine)
 ./dev sandbox --simulate=b2b_saas             # greenfield, a specific suite/persona
-./dev sandbox --brownfield --simulate         # brownfield: seeds the existing-codebase fixture + baseline commit
+./dev sandbox --brownfield --simulate         # brownfield from the synthetic fixture (offline)
+./dev sandbox --repo=owner/repo --simulate    # brownfield from a real GitHub repo (cached clone)
 ./dev sandbox myrun --simulate                # custom sandbox dir name (.sandboxes/myrun)
 ```
 
@@ -288,16 +289,29 @@ may interject; any real-human message is treated as an override, not the persona
 - **Greenfield** inits into an empty repo (with a throwaway Nx-style root so the
   scaffold skill is happy). Sequence: Product Brief → Design System → Architecture
   → Scaffold → MVP → first Bet.
-- **Brownfield** copies `tests/evals/fixtures/brownfield_monorepo/00_codebase` in,
-  **commits it as the adoption baseline before GroundWork touches anything**
-  (infra-adopt diffs against `baseline.source_commit`), then inits. A brownfield
-  repo is deliberately not an Nx workspace — infra-adopt bootstraps `nx.json`
-  itself. Sequence: Scan → Product Brief Extract → Design System Extract →
-  Architecture Extract → Infra Adoption → first Bet.
+- **Brownfield** seeds an existing codebase, **commits it as the adoption baseline
+  before GroundWork touches anything** (infra-adopt diffs against
+  `baseline.source_commit`), then inits. A brownfield repo is deliberately not an
+  Nx workspace — infra-adopt bootstraps `nx.json` itself. Sequence: Scan → Product
+  Brief Extract → Design System Extract → Architecture Extract → Infra Adoption →
+  first Bet.
+
+The brownfield codebase comes from one of two sources:
+
+| Source | Flag | What it is |
+|---|---|---|
+| **Synthetic fixture** (default) | `--brownfield` | `tests/evals/fixtures/brownfield_monorepo/00_codebase` — a tiny two-service repo. Offline, deterministic, fast. Proves the flow runs; too small to stress the scan phase. |
+| **Real GitHub repo** | `--repo=owner/repo[@ref]` | Any repo, cloned **once** into a gitignored cache at `.sandboxes/.cache/repos/<slug>` (recursing submodules) and reused across runs — `--refresh` re-pulls, `./dev test clean` clears it. The first clone of a large monorepo is slow (~1 min); subsequent runs reuse the cache in seconds. Requires `gh` auth (works for private repos + private submodules). Not reproducible for anyone without repo access → they fall back to the fixture. `@ref` pins the umbrella commit (and, via gitlinks, its submodules) for determinism. |
+
+> A real multi-service monorepo (4 services, ~1600 files) scanned by a live Opus
+> session across scan + four extract phases is a long, expensive run — reserve it
+> for deliberate deep runs, not casual iteration.
 
 Every sandbox carries a `CLAUDE.md` boundary file asserting it is a user project,
 not the framework repo — without it, a chat opened in the nested sandbox would
-inherit this repo's contributor skill and think it is building GroundWork.
+inherit this repo's contributor skill and think it is building GroundWork. (When
+seeding from a real repo, this boundary file replaces any `CLAUDE.md` the source
+carried.)
 
 #### Personas — the coverage knob
 
@@ -400,7 +414,7 @@ from the repo root. It sources `.env` automatically, so set `CLAUDE_API_KEY` the
 
 | Command | Description |
 |---|---|
-| `./dev sandbox [name] [--brownfield] [--simulate[=suite]] [--from=<label>]` | Scaffold a simulation sandbox (see Flow Testing) |
+| `./dev sandbox [name] [--brownfield\|--repo=owner/repo[@ref]] [--simulate[=suite]] [--from=<label>] [--refresh]` | Scaffold a simulation sandbox (see Flow Testing) |
 | `./dev sandbox review <name>` | Render transcript + structural checklist into `.sandboxes/<name>-review/` |
 | `./dev sandbox checkpoint capture <name> --as <label>` / `list` | Snapshot a green run to resume from later |
 | `./dev test nx` | Run Nx workspace unit tests |
