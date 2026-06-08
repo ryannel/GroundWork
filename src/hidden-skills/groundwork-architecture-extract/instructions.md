@@ -111,7 +111,7 @@ The recovered architecture must convey the *reasoning* the system embodies, not 
 
    Each section's heading starts at H2 to concatenate cleanly. Apply `groundwork-writer`.
 
-3. **Review.** Assemble: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > .groundwork/cache/architecture-extract-draft.md")`. Invoke the review subagent — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — with `document_path: .groundwork/cache/architecture-extract-draft.md` and `document_type: architecture`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
+3. **Review.** Assemble: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > .groundwork/cache/architecture-extract-draft.md")`. Invoke the review subagent — via the `Task` tool in Claude Code — with `document_path: .groundwork/cache/architecture-extract-draft.md` and `document_type: architecture`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
 4. **Revise loop.** On REVISE, apply 🔴 findings to the affected section file(s), re-assemble, re-review. Revise cap at 3 (Protocol 8).
 

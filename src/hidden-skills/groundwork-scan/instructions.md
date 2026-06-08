@@ -72,7 +72,7 @@ Build an exact map of the codebase — module boundaries, import and call edges,
 
 **Preferred path — a code-graph tool.** If a deterministic code-graph tool is available in this environment (GroundWork registers **depwire** as an MCP server at init), use it to extract the dependency and symbol graph and the import/export relationships. This is exact, cheap, and free of the hallucinated edges an LLM produces when it infers structure from prose. Cache the result to `.groundwork/cache/repo-map.json`: the module/partition boundaries, the import/call edges, a centrality ranking of the most-referenced symbols, and the contract/symbol index. Find the tool with a tool search for the code-graph or dependency-graph capability before assuming it is absent.
 
-**Fallback path — LLM inference.** When no code-graph tool is available (the evaluation harness is one such environment), infer the same structure from targeted reads — entry points, manifests, and import statements — and write `repo-map.json` in the **same shape**. The downstream contract is identical; only the means of producing it differs. Do not let the fallback change what the file holds.
+**Fallback path — LLM inference.** When no code-graph tool is available (e.g. a sandboxed or headless environment without the depwire MCP server), infer the same structure from targeted reads — entry points, manifests, and import statements — and write `repo-map.json` in the **same shape**. The downstream contract is identical; only the means of producing it differs. Do not let the fallback change what the file holds.
 
 `repo-map.json` is a first-class GroundWork artifact: the architecture extract phase reads it for exact dependency facts, and `groundwork-check` reuses it for impact analysis. Treat its shape as a contract, not an internal scratch file.
 
@@ -148,6 +148,6 @@ Do not delete the findings. They are the durable hand-off the extract phases con
 ## Stage 5: Present & Hand Off
 
 1. Present a short summary to the user: the repo shape, the partitions scanned, what each findings slice captured, and any coverage gaps. This is orientation, not a document — keep it brief.
-2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. Then write `.groundwork/cache/scan/complete.md` containing a one-line completion note; this terminal marker is the signal that the scan finished (the evaluation harness keys on it, and it is written only here, at the true end).
+2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. Then write `.groundwork/cache/scan/complete.md` containing a one-line completion note; this terminal marker is the signal that the scan finished — written only here, at the true end.
 3. Capture any out-of-phase signals from the conversation into `.groundwork/cache/discovery-notes.md` (Protocol 1).
 4. Immediately load and execute the `groundwork-orchestrator` skill to route to the first extract phase. Do not ask the user to invoke it — hand off automatically.

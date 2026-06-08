@@ -96,7 +96,7 @@ Mirror the greenfield brief's drafting exactly — the output contract is identi
 
 1. **Draft.** Synthesise the recovered context and the interview into the Product Brief Structure below, leading with the `## Summary for Downstream` section (Protocol 5: Key Decisions, Binding Constraints, Deferred Questions, Out of Scope). Apply the `groundwork-writer` skill. Write to `.groundwork/cache/product-brief-extract-draft.md`.
 
-2. **Review.** Announce the review, then invoke the review subagent — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — with `document_path: .groundwork/cache/product-brief-extract-draft.md` and `document_type: product-brief`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`. On error, `REVIEW_UNAVAILABLE`, or no parseable verdict, the review did not run — do not commit, report it, and pause.
+2. **Review.** Announce the review, then invoke the review subagent — via the `Task` tool in Claude Code — with `document_path: .groundwork/cache/product-brief-extract-draft.md` and `document_type: product-brief`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`. On error, `REVIEW_UNAVAILABLE`, or no parseable verdict, the review did not run — do not commit, report it, and pause.
 
 3. **Revise loop.** On **REVISE**, apply all 🔴 Critical findings directly to the draft, rewrite the file, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT.
 

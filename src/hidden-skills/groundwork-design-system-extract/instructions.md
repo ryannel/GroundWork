@@ -86,7 +86,7 @@ Capture out-of-phase signals under their headers in `.groundwork/cache/discovery
 
 2. **Draft `brand-tokens.json` in the cache.** Project the recovered branding into the brand-tokens contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. Emit **Tier 1** (`identity`: appName, wordmark, primary, accent, voice) for `graphical-ui` and `agentic-protocol`; emit **Tier 2** (Tier 1 plus the full `terminal` block) for `cli`, carrying the same colour values as the colour architecture in the design-system doc. Derive every value from a recovered decision — never invent. Stage it at `.groundwork/cache/brand-tokens-draft.json`; it is promoted at commit.
 
-3. **Review.** Invoke the review subagent — via the `Task` tool in Claude Code or the `invoke_review` tool in the eval harness — with `document_path: .groundwork/cache/design-system-extract-draft.md` and `document_type: design-system`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
+3. **Review.** Invoke the review subagent — via the `Task` tool in Claude Code — with `document_path: .groundwork/cache/design-system-extract-draft.md` and `document_type: design-system`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
 4. **Revise loop.** On REVISE, apply 🔴 findings to the draft and re-review; revise cap at 3 (Protocol 8).
 

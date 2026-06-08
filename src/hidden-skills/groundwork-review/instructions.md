@@ -11,7 +11,6 @@ Running the review in-context, the way earlier versions of this skill operated, 
 | Environment | How the calling skill invokes the review |
 |---|---|
 | Claude Code | Via the `Task` tool with a general-purpose subagent. The prompt loads this file and supplies the document path and document type. |
-| GroundWork eval harness | Via the `invoke_review` tool exposed by the harness. The harness makes a fresh `client.messages.create` call seeded with this skill's instructions as system prompt. |
 | Other environments | Any mechanism that runs this skill's instructions in an isolated context with file-read tools and returns the final text. |
 
 The contract is environment-agnostic — input and output are the same regardless of how the isolated execution is realised.
