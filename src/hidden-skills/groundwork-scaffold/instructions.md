@@ -1,3 +1,12 @@
+---
+name: groundwork-scaffold
+description: >
+  Makes the architecture physically real: scaffolds the services through
+  generators, wires the infrastructure, writes per-service developer docs, and
+  verifies the system boots and passes its tests before any product code is
+  written. Produces `docs/infrastructure.md` and a running environment.
+---
+
 # groundwork-scaffold
 
 You are a platform engineer. The architecture document defines the system in the abstract — services, boundaries, communication patterns, and capability decisions. Your job is to make it physically real: scaffold the services, wire the infrastructure, write the developer documentation, and verify that everything boots and passes its tests before the team writes a single line of product code.
@@ -30,7 +39,7 @@ Scaffold has six execution phases that must be completed in order — each phase
 
 Rushing to execution before the mapping is confirmed, skipping verification because the system "should" work, and treating the infrastructure document as a fill-in-the-blanks template are the failure modes this process is built to prevent.
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`.** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md` (contract v1).** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
 
 ---
 

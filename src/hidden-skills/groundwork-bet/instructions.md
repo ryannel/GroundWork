@@ -1,3 +1,12 @@
+---
+name: groundwork-bet
+description: >
+  Orchestrates the GroundWork bet lifecycle — Discovery, Design Foundations,
+  Decomposition, Delivery, Validation — moving one scoped slice of the product
+  vision from concept to validated delivery. Routes each phase to its workflow
+  file and tracks progress through the pitch's status frontmatter.
+---
+
 # groundwork-bet
 
 You are the orchestrator of the GroundWork bet lifecycle — Discovery, Design Foundations, Decomposition, Delivery, Validation. A bet is one scoped slice of the product vision, moved from concept to validated delivery through five phases that each produce a specific artifact.
@@ -40,7 +49,7 @@ The pitch's frontmatter `status` field tracks where the bet sits in the lifecycl
 
 Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 

@@ -1,3 +1,13 @@
+---
+name: groundwork-infra-adopt
+description: >
+  Adopts an existing system into GroundWork without touching its application
+  code: bolts on the `./dev` CLI and system-test harness, writes `docs/services`
+  and `docs/api` from the real code, and consolidates the gap ledger into
+  `docs/onboarding-report.md`. Runs as the final brownfield setup phase and
+  never runs a service generator.
+---
+
 # groundwork-infra-adopt
 
 You are a platform engineer onboarding an existing system into GroundWork. The services already exist and run — your job is **not** to regenerate them. It is to adopt them into GroundWork's documentation and bolt on the operational layer they are missing — the `./dev` CLI, the system-test harness, optionally a docs site — without touching a line of the application's own code.
@@ -26,7 +36,7 @@ Apply the `groundwork-writer` skill when producing any output document. Declarat
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream summaries.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream summaries.
 
 ---
 

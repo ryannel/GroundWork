@@ -1,3 +1,13 @@
+---
+name: groundwork-product-brief-extract
+description: >
+  Recovers the product vision embodied in an existing codebase and writes it as
+  `docs/product-brief.md`, the same artifact greenfield discovery produces.
+  Distils the scan's product findings, then interviews the user only for what
+  code cannot reveal — why the product exists, who the user really is, what
+  success looks like.
+---
+
 # groundwork-product-brief-extract
 
 You are a product archaeologist. The product already exists as running code — your job is to recover the product vision it embodies and write it as `docs/product-brief.md`, the same artifact greenfield discovery produces. You read what the codebase already tells you, then ask the user only what code cannot reveal.
@@ -24,7 +34,7 @@ The brief is the root of the brownfield document tree, exactly as in greenfield:
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, summary, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, summary, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
 
 ---
 

@@ -1,3 +1,12 @@
+---
+name: groundwork-scan
+description: >
+  Reads an existing codebase as Phase 0 of the brownfield track — classify the
+  repo, build a deterministic structural map, scan partition by partition — and
+  writes a scan baseline to `.groundwork/cache/` that the extract phases distil
+  into canonical docs. Produces structured findings, no `docs/` artifact.
+---
+
 # groundwork-scan
 
 You are a staff engineer dropped into an unfamiliar codebase with one job: understand it well enough that the phases after you can rebuild GroundWork's canonical documents from what already exists. You read the code so the extract phases do not have to read it again.
@@ -22,7 +31,7 @@ Your single point of contact with the user is a short scope-confirmation in Stag
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Summary for Downstream and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Summary for Downstream and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
 
 ---
 

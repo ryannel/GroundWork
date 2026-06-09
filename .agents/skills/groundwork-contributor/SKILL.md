@@ -462,8 +462,8 @@ Release checklist:
 ## Contribution Patterns
 
 ### Adding a new methodology skill
-1. Create `src/hidden-skills/<skill-name>/` with at minimum `SKILL.md` and `instructions.md`.
-2. Add a reference to load `operating-contract.md` at the top of the skill's instructions.
+1. Create `src/hidden-skills/<skill-name>/` with a single `instructions.md` as the canonical instruction file, opening with YAML frontmatter carrying `name` (the directory name, exactly) and `description`. Do not add a separate `SKILL.md` — only registered skills and the engineer/writer skills use `SKILL.md` as their canonical file.
+2. Add a reference to load `operating-contract.md` at the top of the skill's instructions, naming the contract major version: `(contract v1)` appended to the path reference.
 3. Add the skill to the Skill Paths table in `src/skills/groundwork-orchestrator/SKILL.md` so the orchestrator can route to it.
 4. Add a `groundwork-writer` reference to the skill's instructions (see Writer Enforcement below).
 5. If the skill produces working files, write them to `.groundwork/cache/` and delete on commit.

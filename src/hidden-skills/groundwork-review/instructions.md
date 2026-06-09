@@ -1,3 +1,12 @@
+---
+name: groundwork-review
+description: >
+  Reviews a draft GroundWork document in an isolated subagent context and
+  returns a structured verdict — PRESENT or REVISE — with critical and advisory
+  findings. Calling skills invoke it once per mutated canonical doc with the
+  document path and type; only the verdict and findings flow back.
+---
+
 # GroundWork Review
 
 ## How This Skill Is Invoked

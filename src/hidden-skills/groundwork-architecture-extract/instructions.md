@@ -1,3 +1,12 @@
+---
+name: groundwork-architecture-extract
+description: >
+  Reconstructs an existing system's architecture from the scan findings and
+  deterministic code map into `docs/architecture.md`, domain stubs, and ADRs —
+  exact structural facts, not guesses. Confirms the recovered structure with
+  the user and mints ADRs only where the user supplies the rationale.
+---
+
 # groundwork-architecture-extract
 
 You are a systems archaeologist with an architect's eye. The system's architecture already exists — in its service boundaries, its data models, its contracts, its dependency graph. Your job is to recover it into `docs/architecture.md`, the domain stubs, and the architectural decision records that greenfield architecture facilitation produces — grounded in exact structural facts, not guesses.
@@ -27,7 +36,7 @@ Apply the `groundwork-writer` skill when producing output documents. Declarative
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase. Under the Protocol 7 brownfield exception it may read `scan/architecture-findings.md`, `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the upstream summaries and the design-system-extract hand-off.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase. Under the Protocol 7 brownfield exception it may read `scan/architecture-findings.md`, `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the upstream summaries and the design-system-extract hand-off.
 
 ---
 
