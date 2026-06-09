@@ -6,6 +6,7 @@ relevance for AI agents working in this codebase.
 ## Vision and direction
 - [Product Brief](docs/product-brief.md): The product's vision, users, and constraints.
 - [Design System](docs/design-system.md): Interface decisions, NFRs, and design language.
+- [Maturity Roadmap](docs/maturity.md): The project's assessment against the GroundWork maturity model and the tracked roadmap of open gaps.
 
 ## How we work
 - [How we work](docs/ways-of-working/how-we-work.md): The two-mode lifecycle — setup and delivery loop.

@@ -58,6 +58,7 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 | A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.agents/groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
 | User-visible capability added or removed | `docs/product-brief.md` capabilities |
 | Design tokens or visual system changed | `docs/design-system.md` and `.groundwork/config/brand-tokens.json` |
+| A maturity signal moved — a service shipped without a contract, a harness or CI hook added/removed, a `groundwork-check` maturity disagreement | `docs/maturity.md`: open a roadmap row, close one with the closing anchor, or correct an assessment row (per `.agents/groundwork/skills/maturity-model.md`) |
 
 Classify each planned edit as a **refinement** or a **reversal** using Protocol 2's test: superseding an accepted ADR, or negating a bullet in any doc's `### Key Decisions` or `### Binding Constraints`, makes it a reversal. When in doubt, treat it as a reversal.
 
