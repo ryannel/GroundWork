@@ -1,0 +1,55 @@
+# Publishes the npm package when a version tag is pushed.
+#
+# Release procedure (also in the contributor guide's Release Checklist):
+#   1. Move the Unreleased section of CHANGELOG.md under the new version heading.
+#   2. npm version <minor|patch> --no-git-tag-version, commit, then tag vX.Y.Z and push the tag.
+#   3. This workflow gates on the cheap test layers, then publishes.
+#
+# NOTE: the npm name `groundwork` is currently held by an unrelated package
+# (aniftyco/groundwork). Until the name question is resolved (scope, rename, or
+# transfer), keep `dry-run: true` — the workflow exercises the full path without
+# publishing. Flip to false once the name is ours and NPM_TOKEN is configured.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - name: Verify tag matches package.json version
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG_VERSION" >&2
+            exit 1
+          fi
+      - name: Verify CHANGELOG has an entry for this version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          grep -q "^## \[$TAG_VERSION\]" CHANGELOG.md || {
+            echo "CHANGELOG.md has no entry for $TAG_VERSION" >&2
+            exit 1
+          }
+      - name: Build
+        run: npm run build
+      - name: Cheap test gates
+        run: |
+          ./dev test generation
+          ./dev test contracts
+      - name: Publish (dry-run until the npm name is resolved)
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

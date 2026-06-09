@@ -1,7 +1,7 @@
 {
   "name": "groundwork",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.9.0",
+  "description": "An installable delivery system for AI-driven software development: facilitated discovery to canonical docs, generators to a booted monorepo, and a contract-gated bet delivery loop.",
   "main": "index.js",
   "bin": {
     "groundwork": "./bin/groundwork.js"
@@ -14,8 +14,22 @@
     "prepublishOnly": "npm run build:dev-cli && tsc && node scripts/generate_workflow_index.js --check"
   },
   "generators": "./generators.json",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ai",
+    "agents",
+    "claude",
+    "delivery",
+    "methodology",
+    "scaffolding",
+    "nx",
+    "architecture",
+    "shape-up"
+  ],
+  "author": "RNEL",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryannel/GroundWork.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "@nx/devkit": "^22.7.2",

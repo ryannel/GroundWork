@@ -62,6 +62,7 @@ Evidence behind each gap. File references are to this repo.
 | F18 | Brownfield simulation never run end-to-end in real Claude Code (`TODO.md`, standing follow-up); the path's protocol conformance has never been observed live | Q7 | 🔴 |
 | F19 | Zero automated tests for `bin/groundwork.js` (init, symlinks, depwire registration, self-copy guard) and zero for orchestrator state resolution/reconciliation logic | Q7 | 🟡 |
 | F20 | Skill ↔ doc drift is unchecked (`TODO.md` deferred item): a skill and its lifecycle doc can silently disagree | Q7 | 🟡 |
+| F21 | The npm name `groundwork` is held by an unrelated package (aniftyco/groundwork, since 2023) — `npx groundwork` resolves to someone else's CLI. Publishing requires a name decision: scope (`@rnel/groundwork`), rename, or attempt a transfer. Release workflow stays `--dry-run` until resolved. **User decision required.** | Q3 | 🔴 |
 
 ---
 
@@ -189,7 +190,7 @@ Evidence behind each gap. File references are to this repo.
 | S4 | P0 | Refresh product brief | — | ✅ (brief + lifecycle docs; TODO item closed) |
 | S5 | P0 | Root README + getting started | docs/product.md (done) | ✅ |
 | S6 | P0 | Help surface | — | ✅ |
-| S7 | P1 | Semver + changelog + release | S1–S6 | ☐ |
+| S7 | P1 | Semver + changelog + release | S1–S6 | ✅ (publish dry-run pending F21 name decision) |
 | S8 | P1 | Version stamping | S7 | ☐ |
 | S9 | P1 | Migration notes in update | S2, S8 | ☐ |
 | S10 | P1 | SKILL.md frontmatter sweep | — | ☐ |

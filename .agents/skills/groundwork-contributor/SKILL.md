@@ -433,6 +433,31 @@ The CLI sources this file before every command. Do not commit `.env`.
 
 ---
 
+## Releasing
+
+GroundWork versions with semver from `0.x`. Three version points must agree (decision D4 in
+`docs/plans/bmad-quality-uplift.md`): the npm package version, the `groundwork.version` stamp
+the CLI writes into installed projects' `state.json`, and the operating contract's
+`version` frontmatter (bumped only on breaking protocol changes).
+
+Release checklist:
+
+1. Move the `## [Unreleased]` content in `CHANGELOG.md` under a new `## [X.Y.Z] - <date>` heading.
+   Prefix any entry that requires action in an existing installation with `[migration]` —
+   `npx groundwork update` surfaces those lines to users when it detects a version jump.
+2. Bump `package.json` (`npm version <minor|patch> --no-git-tag-version`). Bump the operating
+   contract's `version` frontmatter only if a protocol changed incompatibly, and add a
+   `[migration]` changelog entry when you do.
+3. Run the cheap gates locally: `./dev test generation && ./dev test contracts`.
+4. Commit, tag `vX.Y.Z`, push the tag. `.github/workflows/release.yml` verifies tag ↔
+   package.json ↔ CHANGELOG agreement, runs the gates, and publishes.
+
+> The npm name `groundwork` is currently held by an unrelated package (aniftyco/groundwork).
+> The release workflow publishes with `--dry-run` until the name is resolved — scope, rename,
+> or transfer is an open product decision.
+
+---
+
 ## Contribution Patterns
 
 ### Adding a new methodology skill
