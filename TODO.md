@@ -4,7 +4,7 @@
 - [x] Remove automated pattern extraction and replace with Skill Assessment logic.
 - [x] ~~Integrate `skill-creator` into the GroundWork CLI installation~~ *(Deliberately excluded to keep meta-skills separate from production GroundWork methodology).*
 - [x] **Test CLI**: Execute `npx groundwork init` in a test repository (e.g., `video-generation`) to verify that all `.agents/skills` copy over correctly.
-- [ ] **Build Update Engine**: Flesh out the `groundwork-update` skill to handle surgical, in-place diffing of architecture documents when specific source files change.
+- [x] **Build Update Engine**: `groundwork-update` rebuilt as a full maintenance skill — change-set resolution, three-pass code→doc mapping, surgical Living-Documents edits, fail-closed review gate. (2026-06-09)
 
 ## Backlog / GroundWork Roadmap
 
@@ -67,7 +67,7 @@ Follow-ups deferred from the brownfield build:
 
 ## Deferred from Plans
 
-- [ ] **Skill ↔ doc sync checks**: Skills are stand-alone (not references into docs), so updates to a skill and its related doc can drift apart silently. Extend the same drift-detection logic used for code ↔ doc sync (git-based check) to cover skill ↔ doc pairs. Captured 2026-05-27.
+- [x] **Skill ↔ doc sync checks**: covered mechanically by `./dev lint skills` (doc-pairs check: routed phases must appear in the lifecycle docs; every cited protocol number must exist in the operating contract; routing ↔ filesystem agreement both directions). Wired into CI. (2026-06-09)
 - [ ] **Success-signal measurement plan (F14)**: The MVP pitch captures a success signal (a concrete observable outcome that confirms the MVP delivered value), but nothing wires that signal to a measurement plan. Needs its own design conversation — where metrics live, who instruments them, what triggers the readout. Deferred from `docs/plans/greenfield-flow-improvements.md` 2026-05-26.
 
 ## Ideas Backlog

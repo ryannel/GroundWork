@@ -17,7 +17,9 @@ noticing after the third skill:
                         both directions.
   6. llms-links       — llms.txt links resolve (repo root against the repo; the shipped
                         template against src/docs/ plus the runtime doc set).
-  7. index-fresh      — the generated workflow-index.md matches the routing tables.
+  7. doc-pairs        — declared skill↔doc pairs agree: routed phases appear in the
+                        lifecycle docs; every cited protocol number exists in the contract.
+  8. index-fresh      — the generated workflow-index.md matches the routing tables.
 
 Exit 0 when clean; exit 1 with named findings otherwise.
 """
@@ -261,6 +263,53 @@ def check_llms_links():
             fail("llms-links", shipped, f"link neither ships under src/docs/ nor is a known runtime doc: {link}")
 
 
+def check_doc_pairs():
+    """Declared skill↔doc pairs that must agree (S21).
+
+    The orchestrator's routing tables and the lifecycle docs describe the same
+    flow from two sides; a protocol number cited in a skill must exist in the
+    contract. Drift between them is silent — a reader of either side sees a
+    coherent story that happens to be wrong.
+    """
+    setup_doc = ROOT / "docs" / "lifecycle" / "01-setup.md"
+    loop_doc = ROOT / "docs" / "lifecycle" / "02-delivery-loop.md"
+    skill_md = (REGISTERED / "groundwork-orchestrator" / "SKILL.md").read_text(encoding="utf-8")
+
+    # 1. Every phase skill in the routing tables appears in the setup lifecycle doc.
+    if setup_doc.exists():
+        setup_text = setup_doc.read_text(encoding="utf-8")
+        for section in ("### Greenfield Setup Phases", "### Brownfield Setup Phases"):
+            block = skill_md.split(section, 1)[1].split("###", 1)[0]
+            for name in re.findall(r"`(groundwork-[\w-]+)`", block):
+                if name not in setup_text:
+                    fail("doc-pairs", setup_doc,
+                         f"orchestrator routes setup phase `{name}` but the setup lifecycle doc never mentions it")
+    else:
+        fail("doc-pairs", setup_doc, "setup lifecycle doc missing")
+
+    # 2. Every bet workflow phase appears in the delivery-loop lifecycle doc.
+    if loop_doc.exists():
+        loop_text = loop_doc.read_text(encoding="utf-8").lower()
+        for wf in sorted((HIDDEN / "groundwork-bet" / "workflows").glob("*.md")):
+            phase = wf.stem.split("-", 1)[1]  # 01-discovery -> discovery
+            if phase not in loop_text:
+                fail("doc-pairs", loop_doc,
+                     f"bet workflow {wf.name} exists but the delivery-loop doc never mentions '{phase}'")
+    else:
+        fail("doc-pairs", loop_doc, "delivery-loop lifecycle doc missing")
+
+    # 3. Every protocol number cited anywhere resolves to a heading in the contract.
+    contract = (HIDDEN / "operating-contract.md").read_text(encoding="utf-8")
+    defined = set(re.findall(r"^## Protocol (\d+):", contract, re.M))
+    scan_dirs = [HIDDEN, REGISTERED, ROOT / ".agents" / "skills" / "groundwork-contributor"]
+    for base in scan_dirs:
+        for path in sorted(base.rglob("*.md")):
+            cited = set(re.findall(r"Protocol (\d+)", path.read_text(encoding="utf-8")))
+            for n in sorted(cited - defined):
+                fail("doc-pairs", path,
+                     f"cites Protocol {n}, which the operating contract does not define")
+
+
 def check_index_fresh():
     proc = subprocess.run(
         ["node", str(ROOT / "scripts" / "generate_workflow_index.js"), "--check"],
@@ -278,6 +327,7 @@ def main() -> int:
     check_notes_headers()
     check_routing()
     check_llms_links()
+    check_doc_pairs()
     check_index_fresh()
 
     if findings:
@@ -285,7 +335,7 @@ def main() -> int:
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, workflow index.")
+    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index.")
     return 0
 
 
