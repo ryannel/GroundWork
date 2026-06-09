@@ -14,6 +14,16 @@ If entries exist, treat them as pre-discovered context — sequencing instincts,
 
 If the file does not exist or has no `## Bets` entries, skip this step.
 
+## Maturity Roadmap Check
+
+Read `docs/maturity.md` if it exists (the maturity model behind it is defined in `.agents/groundwork/skills/maturity-model.md`). Roadmap rows with status `open` and recommendation `fix-now` or `blocks-delivery` are candidate work for this bet — the system's own distance from the state where delivery runs well.
+
+- When the user's chosen problem **is** an open gap, connect them explicitly: cite the row in the pitch's problem statement and mark the row `in-bet (<slug>)` at commit.
+- When a `blocks-delivery` gap is open and the user proposes unrelated work, surface the trade-off once, concretely — what the gap costs *during this bet* (a missing system-test harness means delivery cannot prove its slices; a missing contract means design hand-derives the API surface) and what closing it buys every bet after. Propose absorbing it into the appetite or making it the bet. The user decides. If they decline, the row stays `open` — or moves to `accepted` if they say the gap is permanent — and is not raised again within this bet.
+- Rows with status `accepted` are settled decisions. Do not re-propose them.
+
+The roadmap is the steering mechanism, not a gate: a user who knowingly defers maturity work is exercising judgement, not failing a check.
+
 ## Context Inputs
 
 Read the relevant `docs/` artifacts before opening the conversation:
@@ -101,6 +111,8 @@ Before drafting, verify all elements are present and specific (falsifiable signa
 5. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
 
 6. Ensure the `pitch.md` frontmatter contains `status: discovery`.
+
+7. If the bet absorbed or became a maturity-roadmap gap, update the affected rows in `docs/maturity.md` to `in-bet (<bet-slug>)` and append a line to its `## History` section.
 
 ## Quality Standard: What a Good Pitch Looks Like
 

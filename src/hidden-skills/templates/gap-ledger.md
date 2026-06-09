@@ -1,6 +1,6 @@
 # Gap Ledger
 
-> Working file. Each brownfield phase appends the divergences from GroundWork standard it discovers. `groundwork-infra-adopt` consolidates this into `docs/onboarding-report.md` at the end of setup, and the bet loop reads it when planning the first bet.
+> Working file. Each brownfield phase appends the divergences from GroundWork standard it discovers. `groundwork-infra-adopt` consolidates this into the roadmap table of `docs/maturity.md` at the end of setup (model: `.agents/groundwork/skills/maturity-model.md`), and the bet loop reads it when planning every bet.
 
 Each entry records what diverges, the standard it violates, a severity, and a recommendation. Severity tiers:
 

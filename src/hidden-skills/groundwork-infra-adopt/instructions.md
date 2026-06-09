@@ -3,16 +3,16 @@ name: groundwork-infra-adopt
 description: >
   Adopts an existing system into GroundWork without touching its application
   code: bolts on the `./dev` CLI and system-test harness, writes `docs/services`
-  and `docs/api` from the real code, and consolidates the gap ledger into
-  `docs/onboarding-report.md`. Runs as the final brownfield setup phase and
-  never runs a service generator.
+  and `docs/api` from the real code, and consolidates the gap ledger into the
+  living maturity roadmap at `docs/maturity.md`. Runs as the final brownfield
+  setup phase and never runs a service generator.
 ---
 
 # groundwork-infra-adopt
 
 You are a platform engineer onboarding an existing system into GroundWork. The services already exist and run — your job is **not** to regenerate them. It is to adopt them into GroundWork's documentation and bolt on the operational layer they are missing — the `./dev` CLI, the system-test harness, optionally a docs site — without touching a line of the application's own code.
 
-This is Phase 4 of the brownfield track and its final setup phase. It is the analogue of greenfield scaffold, inverted: greenfield *generates* services from the architecture; you *adopt* services that already exist and add only the GroundWork tooling around them. You also consolidate the gap ledger the extract phases built into `docs/onboarding-report.md`, the bridge into first-bet planning.
+This is Phase 4 of the brownfield track and its final setup phase. It is the analogue of greenfield scaffold, inverted: greenfield *generates* services from the architecture; you *adopt* services that already exist and add only the GroundWork tooling around them. You also consolidate the gap ledger the extract phases built into `docs/maturity.md` — the living assessment of the project against the GroundWork maturity model and the roadmap the bet loop steers by.
 
 Two rules are absolute:
 
@@ -29,7 +29,7 @@ Apply the `groundwork-writer` skill when producing any output document. Declarat
 2. **Operational layer** — bootstrap the minimal Nx workspace, run the infrastructure generators with the docker-compose adopt/merge guard, and verify nothing existing was clobbered.
 3. **Adopt services into docs** — write `docs/services` and `docs/api` for each existing service by reading its real code, never by regenerating it.
 4. **Verification** — boot the stack and run the system tests, or document verification as pending.
-5. **Consolidate & draft** — turn the gap ledger into `docs/onboarding-report.md`, draft `docs/infrastructure.md`, review both.
+5. **Consolidate & draft** — assess the project against the maturity model, turn the gap ledger into `docs/maturity.md`, draft `docs/infrastructure.md`, review both.
 6. **Commit** — stamp drift frontmatter, set the baseline, tear down the scan cache, and hand off to the bet loop.
 
 ---
@@ -126,15 +126,18 @@ Mark the verification phase complete (or pending) in the cache.
 
 ## Phase 5: Consolidate the Gap Ledger & Draft
 
-1. **Consolidate `docs/onboarding-report.md`.** Read `.groundwork/cache/gap-ledger.md` (the running ledger the extract phases appended to) and write it up as `docs/onboarding-report.md`, leading with a `## Summary for Downstream` (Protocol 5). The report is the honest distance between the existing system and GroundWork standard: the blocks-delivery gaps first (missing machine-readable contracts, anything the operational layer could not add), then standard divergences, then cosmetic. For each, state the gap, the standard it violates, and the recommendation (fix-now / defer / blocks-delivery). This document is what `groundwork-bet` reads when planning the first bet — it is the mechanism by which onboarding debt becomes prioritised work. Apply `groundwork-writer`.
+1. **Consolidate `docs/maturity.md`.** Read the maturity model at `.agents/groundwork/skills/maturity-model.md`, then write `docs/maturity.md` from the template at `.agents/groundwork/skills/templates/maturity.md`, leading with a `## Summary for Downstream` (Protocol 5). Two parts:
 
-   Note in the report which gaps this phase *closed* — most importantly, if it added the system-test harness, that blocks-delivery gap is now resolved and the report should say so.
+   - **Assessment** — score the project against the seven dimensions, with evidence from what this phase just observed: the booted stack (D3), the harness it added (D4), the registered code map (D5), the contracts the scan pinned or found missing (D2). Brownfield projects usually land 🟡/🔴 on several dimensions — score honestly; the roadmap is where the distance becomes work.
+   - **Roadmap** — read `.groundwork/cache/gap-ledger.md` (the running ledger the extract phases appended to) and convert each entry to a roadmap row: gap, dimension (D1–D7), severity, recommendation, status `open`, evidence. Blocks-delivery gaps first. Mark the gaps this phase *closed* as `closed (infra-adopt)` — most importantly, if it added the system-test harness, that blocks-delivery gap is resolved and the roadmap says so. Seed `## History` with one line recording this initial assessment.
+
+   This document is what `groundwork-bet` reads when planning every bet — it is the mechanism by which onboarding debt becomes prioritised, schedulable work that the user steers, never a forced march. Apply `groundwork-writer`.
 
 2. **Draft `docs/infrastructure.md`** following greenfield scaffold's quality standard: the environment overview, the service table with ports and health endpoints, the infrastructure components, the `./dev` commands, the bet workflow, and the verification results (or the pending-verification flag). Apply `groundwork-writer`.
 
-3. **Review `docs/infrastructure.md`.** Invoke the review subagent — via the `Task` tool in Claude Code — with `document_type: infrastructure`. Fail-closed gate, revise cap at 3 (Protocol 8). **Do not run `groundwork-review` on `docs/onboarding-report.md`.** The gap ledger is a non-canonical brownfield artifact with no place in the review skill's document-type set or its upstream chain — the same reason the scan baseline carries no review gate. Its gate is the user-approval walkthrough in the next step; its content was already gated indirectly, because each gap was recorded by an extract phase whose canonical doc passed review.
+3. **Review both documents.** Invoke the review subagent — via the `Task` tool in Claude Code — once per document: `docs/infrastructure.md` with `document_type: infrastructure`, and `docs/maturity.md` with `document_type: maturity`. Fail-closed gate, revise cap at 3 (Protocol 8). The maturity review checks that every row carries a valid dimension, severity, and status, and that the assessment does not contradict the docs this setup just committed.
 
-4. **Present** both documents, surface 🟡 Advisory findings from the infrastructure review, and walk the user through the onboarding report's gaps and recommendations. Proceed to commit only on explicit user approval of both.
+4. **Present** both documents, surface 🟡 Advisory findings from the reviews, and walk the user through the maturity roadmap — each gap, the dimension it blocks, what leaving it open costs, and the recommendation. Invite the user to re-rank or to mark gaps `accepted` where they consciously disagree; record their reasoning in the row. Proceed to commit only on explicit user approval of both documents.
 
 ---
 
@@ -142,7 +145,7 @@ Mark the verification phase complete (or pending) in the cache.
 
 Execute **only** after explicit user approval (Protocol 3.4):
 
-1. **Verify summary headers** on `docs/infrastructure.md` and `docs/onboarding-report.md`. Add with `groundwork-writer` if missing.
+1. **Verify summary headers** on `docs/infrastructure.md` and `docs/maturity.md`. Add with `groundwork-writer` if missing. Add a one-line `llms.txt` entry for each newly created doc, `docs/maturity.md` included.
 
 2. **Stamp drift-baseline frontmatter** on the code-coupled docs this phase wrote: each `docs/services/<name>.md` and `docs/api/<name>.md` gets `generation_mode: extracted`, `source_of_truth:` (the service's code paths and contract files), and `last_reviewed:` (today's date). The architecture phase already stamped `docs/architecture.md` and the domain docs.
 
@@ -150,12 +153,12 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 4. **Tear down the scan cache (this phase owns it).** Delete `.groundwork/cache/scan/` (overview and any remaining findings), `.groundwork/cache/scan-state.json`, and the consumed architecture-extract hand-off. **Preserve `.groundwork/cache/repo-map.json`** — it is a first-class artifact `groundwork-check` and the bet loop reuse for impact analysis, regenerable on demand by depwire. Delete `docker-compose.yml.bak` only after confirming the merged compose boots; otherwise leave it for the user.
 
-5. **Delete the phase cache** `.groundwork/cache/infra-adopt-cache.md`. Delete the gap ledger working file `.groundwork/cache/gap-ledger.md` now that it is committed as `docs/onboarding-report.md`.
+5. **Delete the phase cache** `.groundwork/cache/infra-adopt-cache.md`. Delete the gap ledger working file `.groundwork/cache/gap-ledger.md` now that its entries live in `docs/maturity.md`.
 
 6. Apply the Living Documents protocol. If adopting the operational layer surfaced a contradiction with `docs/architecture.md` (a port, a dependency, a service the architecture misdescribed), reconcile it. A change that overturns an architecture Key Decision or Binding Constraint is a reversal (Protocol 2) — reconcile the body and dependent docs, write the superseding ADR, and re-review every mutated doc.
 
 7. Update discovery notes — remove `## Architecture` entries now captured.
 
-8. Confirm the brownfield setup is complete. State plainly what exists now: the full canonical doc set, the operational layer, and the onboarding report with its prioritised gaps.
+8. Confirm the brownfield setup is complete. State plainly what exists now: the full canonical doc set, the operational layer, and the maturity roadmap with its prioritised gaps.
 
-9. Recommend a fresh context, then immediately load and execute the `groundwork-orchestrator` skill. With all setup phases complete, the orchestrator routes to `groundwork-bet` for the first bet — which reads `docs/onboarding-report.md` to weigh whether the first bet should close a blocks-delivery gap or pursue value elsewhere. Do not ask the user to invoke it.
+9. Recommend a fresh context, then immediately load and execute the `groundwork-orchestrator` skill. With all setup phases complete, the orchestrator routes to `groundwork-bet` for the first bet — whose discovery reads `docs/maturity.md` to weigh closing a blocks-delivery gap against pursuing value elsewhere. Do not ask the user to invoke it.

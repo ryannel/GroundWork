@@ -199,8 +199,8 @@ Evidence behind each gap. File references are to this repo.
 | S13 | P1 | `./dev lint skills` | S10–S12 | ☐ |
 | S14 | P1 | Adopt/Upgrade in extract skills | — | ☐ |
 | M1 | P1 | Maturity model + review type | — | ✅ |
-| M2 | P1 | Infra-adopt writes maturity.md | M1 | ☐ |
-| M3 | P1 | Bet-loop maturity steering | M1 | ☐ |
+| M2 | P1 | Infra-adopt writes maturity.md | M1 | ✅ |
+| M3 | P1 | Bet-loop maturity steering | M1 | ✅ |
 | M4 | P1 | Continuous maturity assessment | M1, S2 | ☐ |
 | S15 | P2 | Shipped checklists | S11 | ☐ |
 | S16 | P2 | Implementation-readiness gate | S15 | ☐ |

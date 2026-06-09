@@ -27,9 +27,9 @@ When the repository already holds an application, setup inverts: the code is the
 | 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
 | 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
 | 3 | `groundwork-architecture-extract` | `docs/architecture.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force |
-| 4 | `groundwork-infra-adopt` | `docs/infrastructure.md` + gap report | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
+| 4 | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
 
-There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into the report the first bet reads, so onboarding debt becomes prioritised, schedulable work rather than a lecture. The first bet weighs closing a blocks-delivery gap against pursuing product value — the user decides.
+There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
 
 Existing docs are never blind-overwritten. A repo that already carries a brief or architecture doc routes through **Adopt/Upgrade mode**: the extract skill ingests the existing document as its primary source, fills the missing contract sections, and raises it to the current standard while preserving the user's content.
 

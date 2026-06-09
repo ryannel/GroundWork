@@ -57,7 +57,7 @@ Brownfield — initialising GroundWork against an existing codebase — is now i
 - [x] **`groundwork-design-system-extract`** (was `groundwork-ux-extract`, renamed for parity): Recovers tokens from Tailwind/CSS/theme/component config into `docs/design-system.md`; emits `brand-tokens.json`.
 - [x] **`groundwork-infra-adopt`**: nx.json bootstrap + infra generators only (compose adopt/merge guard); adopts existing services into `docs/services` + `docs/api` (`status: live`) without regeneration.
 - [x] **Drift baseline**: Folded into each phase's commit (`generation_mode: extracted` + `source_of_truth` + `last_reviewed`); `groundwork-infra-adopt` sets `baseline.source_commit`. `groundwork-check` glob extended to `docs/architecture.md`, `docs/api/`, `docs/domain/`.
-- [x] **Gap ledger**: `docs/onboarding-report.md` records distance from GroundWork standard (blocks-delivery / standard-divergence / cosmetic); feeds first-bet planning.
+- [x] **Gap ledger**: records distance from GroundWork standard (blocks-delivery / standard-divergence / cosmetic); feeds bet planning. (Superseded 2026-06-09: consolidates into the living `docs/maturity.md` roadmap instead of the one-shot `docs/onboarding-report.md`.)
 - [x] **depwire as a first-class code map**: registered as an MCP server by `npx groundwork init`; consumed by scan, architecture-extract, and `groundwork-check`; degrades to LLM inference when absent.
 
 Follow-ups deferred from the brownfield build:

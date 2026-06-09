@@ -38,7 +38,7 @@ DURABLE_DOCS = {
         "docs/design-system.md",
         "docs/architecture.md",
         "docs/infrastructure.md",
-        "docs/onboarding-report.md",  # gap ledger
+        "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
     ],
 }
 

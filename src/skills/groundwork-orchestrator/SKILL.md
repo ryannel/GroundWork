@@ -71,7 +71,7 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 | 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` |
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` |
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/onboarding-report.md` |
+| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` |
 
 When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
 

@@ -28,7 +28,7 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 | 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` | `.agents/groundwork/skills/groundwork-product-brief-extract/instructions.md` |
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` | `.agents/groundwork/skills/groundwork-design-system-extract/instructions.md` |
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture.md` | `.agents/groundwork/skills/groundwork-architecture-extract/instructions.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/onboarding-report.md` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
 
 ## Delivery Loop (all setup phases complete)
 

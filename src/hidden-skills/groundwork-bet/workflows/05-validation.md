@@ -42,6 +42,7 @@ Documents to scan, in order:
 2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog.
 4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
+5. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that added a service's OpenAPI contract may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`.
 
 For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
 
