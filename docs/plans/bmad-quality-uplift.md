@@ -187,7 +187,7 @@ Evidence behind each gap. File references are to this repo.
 | S2 | P0 | Real CLI `update`/`check` | S1 | ✅ |
 | S3 | P0 | Resolve `groundwork-persona` | — | ✅ (stays registered; editorial pass to skill-writer standard) |
 | S4 | P0 | Refresh product brief | — | ✅ (brief + lifecycle docs; TODO item closed) |
-| S5 | P0 | Root README + getting started | docs/product.md (done) | ☐ |
+| S5 | P0 | Root README + getting started | docs/product.md (done) | ✅ |
 | S6 | P0 | Help surface | — | ✅ |
 | S7 | P1 | Semver + changelog + release | S1–S6 | ☐ |
 | S8 | P1 | Version stamping | S7 | ☐ |
