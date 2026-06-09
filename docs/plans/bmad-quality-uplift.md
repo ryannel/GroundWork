@@ -4,6 +4,8 @@ This plan closes the gap between GroundWork's current state and the operational 
 
 The companion analysis lives in `docs/groundwork-vs-bmad.md`. Its conclusion is locked: **GroundWork stays standalone** and adopts BMAD's operational mechanics, not its runtime or its agile methodology. Do not re-open that decision inside this plan.
 
+> **Status (2026-06-09):** executed. All P0, P1 (incl. Workstream M), and P2 slices are ✅ except the human-gated S19 (sandbox seeded, needs a live session). P3: S22/S23/S25-greenfield done, S24 deferred with reason. Open user decisions: **F21** (npm name `groundwork` is taken — scope, rename, or transfer) and the S19 run. Verification at close: `./dev lint skills` green, 12 contract+CLI tests green, 167 generation tests green.
+
 ---
 
 ## 1. Resume Instructions (read this first)
