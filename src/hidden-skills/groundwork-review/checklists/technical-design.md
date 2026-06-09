@@ -1,0 +1,75 @@
+---
+name: technical-design-checklist
+description: >
+  Type-specific failure modes for reviewing a bet's technical design — the
+  contract Decomposition and Delivery execute against.
+---
+
+# Technical Design Checklist
+
+This checklist checks a draft `docs/bets/<slug>/technical-design.md`. It answers one question:
+**could a developer implement from this document on the first pass — and could a milestone test
+pass or fail against it unambiguously?**
+
+Each item names a violation. Match it against the document text, the bet's pitch, and the
+upstream summaries. Bet documents carry no `## Summary for Downstream` — do not flag its
+absence.
+
+## Document Shape
+
+- [ ] 🔴 **Implementation code present**: the document contains application logic — the design
+  phase is forbidden from writing implementation code; only design documentation, interface
+  specifications, contracts, and schemas belong here.
+- [ ] 🟡 **Per-milestone organisation**: the design is split by milestone or phase rather than
+  covering the entire bet — decomposition has leaked into the design artifact.
+- [ ] 🟡 **Section missing without reason**: one of Interface Design, Data Flows, API Contracts,
+  or Data Schema is absent and the document does not state why it does not apply to this bet.
+
+## Interface Design
+
+- [ ] 🔴 **Untestable interface**: a view, command, or interaction is described too vaguely for a
+  test to pass or fail against it — milestone interface-tests assert against this section, so
+  "the user can manage their notifications" specifies nothing.
+- [ ] 🔴 **Missing states**: a view or command defines its happy path but not its loading, empty,
+  error, or degraded states — the states are where implementations diverge silently.
+- [ ] 🟡 **Wrong medium vocabulary**: the interface section does not use the vocabulary of the
+  project's interface track in `docs/design-system.md` — screens and states for graphical UI,
+  commands and output for CLI, request/response turns for agentic protocol.
+- [ ] 🟡 **Organised by service, not by interaction**: the interface section is structured by
+  feature or service instead of by view, command, or interaction — the user-observable surface
+  is the unit milestones prove.
+
+## API Contracts
+
+- [ ] 🔴 **Vague shape**: an endpoint says "returns the entity" or "accepts the standard payload"
+  instead of the full request and response shapes with field types — vague shapes cannot drive
+  correct implementation, and what is not here will not be in the implementation.
+- [ ] 🔴 **No error cases**: an endpoint defines no error responses, or lists status codes
+  without caller guidance — the caller's recovery behaviour is part of the contract.
+- [ ] 🟡 **Untyped field**: a request or response field appears without a type, nullability, or
+  allowed values where they matter (enums, cursors, identifiers).
+- [ ] 🟡 **Auth unstated**: a contract does not state its authentication requirement, on a
+  boundary where the architecture defines one.
+- [ ] 🟡 **Rationale-free surprise**: a non-obvious contract decision (pagination model,
+  idempotency rule, versioning) is asserted with no design rationale — the next reader will
+  relitigate it.
+
+## Data Flows and Schema
+
+- [ ] 🔴 **Flow without a trigger or a sink**: a data path does not state what initiates it,
+  which services handle it, or what persists at the end — an arrow with a missing end.
+- [ ] 🟡 **Domain doc duplicated**: the schema section restates an entity already defined in
+  `docs/domain/` instead of referencing the entity doc and describing only what this bet adds or
+  changes — the copies will drift.
+- [ ] 🟡 **Schema without lifecycle**: a table or store that carries a status field defines no
+  state machine for it, and no reference to where one is defined.
+
+## Chain Integrity
+
+- [ ] 🔴 **Pitched capability undesigned**: a capability or outcome the pitch commits to has no
+  interface element, flow, or contract covering it — Delivery will discover the hole mid-bet.
+- [ ] 🔴 **Silent scope growth**: an interface element or flow traces to nothing in the pitch —
+  the design has quietly expanded the bet beyond its appetite.
+- [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts the architecture summary
+  or an accepted ADR — a sync call across a boundary the architecture made async, a store a
+  service does not own.

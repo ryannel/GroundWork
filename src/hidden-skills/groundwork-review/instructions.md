@@ -37,6 +37,16 @@ Read the document at `document_path` before beginning any check.
 
 ---
 
+## Type-Specific Checklist
+
+After reading the document, load `.agents/groundwork/skills/groundwork-review/checklists/<document_type>.md` if it exists. The checklist names the failure modes specific to this document type; apply its items as the type-specific pass alongside Checks 1–4. When a checklist item is violated, cite it **by name** in the finding — e.g. `checklist: Label without a person — 'Role-Playing Groups' has no job-to-be-done` — not by restating the item's text.
+
+If the checklist file is missing, proceed with the generic checks alone — its absence is not an error.
+
+Checklist findings flow through the same output contract below: the item's 🔴/🟡 marking sets the finding's severity, the verdict rules apply unchanged, and the length discipline holds — cite item names, not item text.
+
+---
+
 ## Output Contract
 
 Return exactly two blocks of structured output, in this order, and nothing else:
