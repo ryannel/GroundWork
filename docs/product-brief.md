@@ -1,7 +1,7 @@
 ---
 owner: "@RNEL"
 audience: "Humans, AI Agents"
-last_reviewed: "2026-05-24"
+last_reviewed: "2026-06-09"
 ---
 
 # GroundWork Product Brief
@@ -17,6 +17,7 @@ GroundWork is an installable, AI-driven framework that enforces an Upfront Techn
 - **Context Preservation**: Eliminates the decision fatigue and context collapse of story-driven development by defining the architecture upfront, preventing AI hallucinations and hidden defects during implementation.
 - **Living Documentation**: All `docs/` artifacts update continuously through the Living Documents protocol. Any phase or bet can refine any upstream document when new information surfaces — surgically, without ceremony.
 - **Iterative Validation**: Treats the upfront plan as a guiding light, not rigid Big Design Up Front. Teams assess and alter the plan iteratively after every delivered bet.
+- **Brownfield Adoption**: Initialises against an existing codebase by scanning it, reverse-engineering the canonical doc set, and additively bolting on the operational layer — converging to the same end-state as greenfield without regenerating the app.
 
 ## Domain Constraints
 - **Execution Over Ideation**: GroundWork assumes the problem is defined. It focuses strictly on the core delivery loop.
@@ -27,4 +28,3 @@ GroundWork is an installable, AI-driven framework that enforces an Upfront Techn
 ## Out of Scope
 - Brainstorming, user research, and early-stage product ideation.
 - Generating unverified application code without explicit technical contracts.
-- **Brownfield initialisation** — running GroundWork against an existing codebase is on the roadmap (see `TODO.md`); the current implementation only supports greenfield projects.

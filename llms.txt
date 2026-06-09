@@ -2,7 +2,9 @@
 
 This file indexes the canonical documentation for GroundWork to optimize agent discovery and context loading.
 
+- [What GroundWork Is](docs/product.md): The product description — the problem GroundWork solves, the two-mode lifecycle, what ships, and who it is for.
 - [GroundWork Product Brief](docs/product-brief.md): The executive summary of GroundWork — capabilities, constraints, and what is in vs. out of scope.
+- [GroundWork and BMAD](docs/groundwork-vs-bmad.md): How GroundWork differs from BMAD-METHOD, and the locked decision to remain standalone while adopting BMAD's operational mechanics.
 - [How We Work](src/docs/ways-of-working/how-we-work.md): The philosophical foundation — Upfront Technical Delivery, the two-mode lifecycle, and the Operating Contract.
 - [Lifecycle Index](docs/lifecycle/index.md): How the Setup, Delivery Loop, and Maintenance layers fit together.
 - [Greenfield Setup](docs/lifecycle/01-setup.md): The one-time six-phase pipeline from Product Brief through First Bet, including the MVP→Bet context-preserving handoff.
