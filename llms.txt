@@ -6,6 +6,7 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Getting Started](docs/getting-started.md): One greenfield session walked end to end — init, discovery, review gates, scaffold, first bet — with excerpts from a real session.
 - [GroundWork Product Brief](docs/product-brief.md): The executive summary of GroundWork — capabilities, constraints, and what is in vs. out of scope.
 - [GroundWork and BMAD](docs/groundwork-vs-bmad.md): How GroundWork differs from BMAD-METHOD, and the locked decision to remain standalone while adopting BMAD's operational mechanics.
+- [Host Agent Support](docs/host-support.md): What GroundWork requires of a host agent, what degrades gracefully, and the honest verified/untested support matrix.
 - [How We Work](src/docs/ways-of-working/how-we-work.md): The philosophical foundation — Upfront Technical Delivery, the two-mode lifecycle, and the Operating Contract.
 - [Lifecycle Index](docs/lifecycle/index.md): How the Setup, Delivery Loop, and Maintenance layers fit together.
 - [Setup](docs/lifecycle/01-setup.md): The one-time setup pipeline — greenfield's six phases from Product Brief through First Bet, and brownfield's scan/extract/adopt track — converging on the same delivery loop.

@@ -209,8 +209,8 @@ Evidence behind each gap. File references are to this repo.
 | S19 | P2 | Brownfield sim end-to-end | S14 | ☐ |
 | S20 | P2 | CLI + orchestrator tests | S2 | ✅ (CLI: 9 tests incl. self-copy guard — which was a real latent bug, fixed. Orchestrator reconciliation is model-executed prose: mechanically covered by lint routing↔fs; behaviorally by sim runs S19/S22) |
 | S21 | P2 | Skill ↔ doc drift check | — | ✅ (lint doc-pairs check; closes the TODO deferred item) |
-| S22 | P3 | Adversarial suites | S19 | ☐ |
-| S23 | P3 | Multi-tool support statement | — | ☐ |
+| S22 | P3 | Adversarial suites | S19 | ✅ authored (ambiguous, terse, reversal, scope-creep) — live runs pend S19's human session |
+| S23 | P3 | Multi-tool support statement | — | ✅ (docs/host-support.md) |
 | S24 | P3 | Dogfood docs site | S5 | ☐ |
 | S25 | P3 | Examples & showcase | S19 | ☐ |
 
