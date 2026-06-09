@@ -65,8 +65,10 @@ function getPaths() {
   };
 }
 
+// True when the command runs inside the GroundWork package/source tree itself —
+// installing there would rm-and-replace the repo's own skill sources.
 function isSelfCopy(p) {
-  return path.resolve(p.targetSkillsDir) === path.resolve(p.sourceSkillsDir);
+  return path.resolve(p.targetDir) === path.resolve(__dirname, '..');
 }
 
 // ─── Version stamp (decision D4) ────────────────────────────────────────────

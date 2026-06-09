@@ -46,6 +46,18 @@ case "$COMMAND" in
           source tests/scaffolds/venv/bin/activate
       fi
       pytest tests/scaffolds/test_generation.py -v -s
+    elif [ "$SUBCMD" = "cli" ]; then
+      print_logo "Testing"
+      print_step "Running CLI contract tests (init/update/check)..."
+      if [ ! -d "tests/scaffolds/venv" ]; then
+          print_substep "Creating venv..."
+          python3 -m venv tests/scaffolds/venv
+          source tests/scaffolds/venv/bin/activate
+          pip install pytest httpx pytest-asyncio allpairspy
+      else
+          source tests/scaffolds/venv/bin/activate
+      fi
+      pytest tests/cli/test_cli.py -v
     elif [ "$SUBCMD" = "compilation" ]; then
       print_logo "Testing"
       print_step "Building TypeScript generators..."
@@ -442,6 +454,7 @@ EOF
     print_cmd "test validate" "Manually probe a scaffold workspace (boots + health checks)"
     print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
     print_cmd "test contracts" "Run scaffold contract tests (fast: bundle freshness, adopt-merge idempotency)"
+    print_cmd "test cli" "Run groundwork CLI contract tests (init/update/check in scratch repos)"
     print_cmd "test compilation" "Run generator compilation tests (pairwise, go build / tsc / uv sync)"
     print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"
     print_cmd "test nx" "Run Nx workspace tests"

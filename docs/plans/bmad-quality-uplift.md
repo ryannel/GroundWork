@@ -207,7 +207,7 @@ Evidence behind each gap. File references are to this repo.
 | S17 | P2 | User config surface | — | ✅ |
 | S18 | P2 | Custom skill registration | S17 | ✅ |
 | S19 | P2 | Brownfield sim end-to-end | S14 | ☐ |
-| S20 | P2 | CLI + orchestrator tests | S2 | ☐ |
+| S20 | P2 | CLI + orchestrator tests | S2 | ✅ (CLI: 9 tests incl. self-copy guard — which was a real latent bug, fixed. Orchestrator reconciliation is model-executed prose: mechanically covered by lint routing↔fs; behaviorally by sim runs S19/S22) |
 | S21 | P2 | Skill ↔ doc drift check | — | ☐ |
 | S22 | P3 | Adversarial suites | S19 | ☐ |
 | S23 | P3 | Multi-tool support statement | — | ☐ |
