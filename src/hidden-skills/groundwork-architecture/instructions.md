@@ -53,6 +53,10 @@ Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `##
 - If entries exist, treat them as pre-discovered context — the user has already communicated these signals and should not be asked about them again. Carry this context into the relevant phases.
 - If the file does not exist, skip this step.
 
+### Step 2.5: User Defaults Check
+
+Read `.groundwork/config/config.toml` if it exists. Entries under `[defaults]` (stack, llm_provider, llm_model) are the user's standing preferences — bring each one into the relevant phase as your opening proposal, with the same reasoning you would give any recommendation, and let the user confirm or override. A default is a starting position the user configured once so they stop re-answering it per project; it is never silently applied and never beyond challenge when the product's needs argue against it.
+
 ---
 
 ## Phase Flow

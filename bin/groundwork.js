@@ -347,6 +347,18 @@ function initGroundWork() {
     }
   }
 
+  // Seed the user config once; it is user-owned and never overwritten afterwards.
+  const sourceConfigToml = path.join(p.sourceConfigDir, 'config.toml');
+  const targetConfigToml = path.join(p.targetConfigDir, 'config.toml');
+  if (fs.existsSync(sourceConfigToml) && !fs.existsSync(targetConfigToml)) {
+    try {
+      fs.copyFileSync(sourceConfigToml, targetConfigToml);
+      c.ok(`Seeded user config (.groundwork/config/config.toml)`);
+    } catch (err) {
+      c.err(`Failed to seed user config: ${err.message}`);
+    }
+  }
+
   // Deploy documentation foundations (idempotent — never overwrites user edits)
   const targetDocsDir = path.join(p.targetDir, 'docs');
   if (fs.existsSync(p.sourceDocsDir)) {

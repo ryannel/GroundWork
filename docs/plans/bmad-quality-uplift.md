@@ -204,8 +204,8 @@ Evidence behind each gap. File references are to this repo.
 | M4 | P1 | Continuous maturity assessment | M1, S2 | ✅ |
 | S15 | P2 | Shipped checklists | S11 | ☐ |
 | S16 | P2 | Implementation-readiness gate | S15 | ☐ |
-| S17 | P2 | User config surface | — | ☐ |
-| S18 | P2 | Custom skill registration | S17 | ☐ |
+| S17 | P2 | User config surface | — | ✅ |
+| S18 | P2 | Custom skill registration | S17 | ✅ |
 | S19 | P2 | Brownfield sim end-to-end | S14 | ☐ |
 | S20 | P2 | CLI + orchestrator tests | S2 | ☐ |
 | S21 | P2 | Skill ↔ doc drift check | — | ☐ |

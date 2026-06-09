@@ -79,6 +79,10 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 - `groundwork-update` — surgical doc updates after code changes
 - `groundwork-check` — staleness detection
 
+### Custom Skills (user-registered)
+
+Read `.groundwork/config/config.toml` during state resolution. Each entry in its `[skills]` table maps an intent to an instruction file path; merge these into routing after the built-in tables — a built-in route wins any conflict. The file is user-owned: never write to it. When a configured path does not exist on disk, tell the user the route is broken instead of silently skipping it.
+
 ### Skill Paths
 
 | Skill | Instruction file |

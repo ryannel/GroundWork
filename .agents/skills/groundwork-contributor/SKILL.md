@@ -156,8 +156,8 @@ working drafts, and manifests. Two subdirectories separate concerns:
 ```
 .groundwork/
 ├── config/           # Persistent — settings, state, routing
-│   ├── config.toml   # Project classification (greenfield/brownfield)
-│   └── state.json    # Orchestration phase tracking
+│   ├── config.toml   # User-owned config: [defaults] proposals + [skills] custom routing. Seeded once, never overwritten by update.
+│   └── state.json    # Orchestration phase tracking + groundwork.version stamp
 └── cache/            # Transient — working files deleted when a skill completes
     ├── design-system-cache.md
     ├── product-brief-distillate.md

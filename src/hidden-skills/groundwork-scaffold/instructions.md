@@ -85,6 +85,8 @@ Read `docs/architecture.md` to identify every service, database, and messaging c
 
 Read `.groundwork/config/generators.json` to discover the available generators. Then read the schema for each generator relevant to the architecture — schemas define the full parameter space (authentication models, messaging integrations, WebSocket support, database inclusion) and understanding them before mapping ensures each generator is configured correctly.
 
+Also read `.groundwork/config/config.toml` if it exists: entries under `[defaults.generators]` (flags keyed by generator name) and `[defaults]` (llm_provider, llm_model) are the user's standing preferences. Fold them into the mapping proposal as the configured starting position — named as coming from their config, never silently applied, and overridden without ceremony when the architecture demands it.
+
 With the architecture and schemas in hand, **propose the full service-to-generator mapping in a single structured pass** — one row per service with the generator choice, key parameters, and a one-line rationale. Proposing everything at once exposes cross-service inconsistencies that per-service interrogation hides, and lets the user react to the complete picture rather than approving one service at a time.
 
 For each service in the proposal:
