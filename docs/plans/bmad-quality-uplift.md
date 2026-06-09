@@ -203,7 +203,7 @@ Evidence behind each gap. File references are to this repo.
 | M3 | P1 | Bet-loop maturity steering | M1 | ✅ |
 | M4 | P1 | Continuous maturity assessment | M1, S2 | ✅ |
 | S15 | P2 | Shipped checklists | S11 | ✅ (9 types, named-failure-mode style, cited by item name in findings) |
-| S16 | P2 | Implementation-readiness gate | S15 | ☐ |
+| S16 | P2 | Implementation-readiness gate | S15 | ✅ (inline fail-closed gate at delivery Step 0, checklist-backed) |
 | S17 | P2 | User config surface | — | ✅ |
 | S18 | P2 | Custom skill registration | S17 | ✅ |
 | S19 | P2 | Brownfield sim end-to-end | S14 | 🟡 sandbox seeded at `.sandboxes/brownfield-s19` with the 0.9.0 install — needs a **human-run** Claude Code session: open a chat there, run `/simulate-brownfield`; assess via `./dev sandbox review brownfield-s19` + `/judge`; triage defects into this tracker |

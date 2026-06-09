@@ -10,6 +10,14 @@
 
 This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode). Implementation rarely surfaces phase-crossing signals — but when it does, capture it under the matching section in `.groundwork/cache/discovery-notes.md` and continue. The full Living Documents scan happens in Validation (Phase 5). Do not interrupt delivery to apply upstream updates mid-flight.
 
+## Step 0: Implementation Readiness Gate
+
+Before any slice work, verify the bet is actually executable. Load `.agents/groundwork/skills/groundwork-review/checklists/implementation-readiness.md` and check every item against the bet's artifacts — the document chain, the contracts, the test scaffolding, and currency. These are mechanical existence and consistency checks; run them inline (no review subagent — the artifacts were already authorship-gated when their phases committed them, and there is nothing here to be biased about).
+
+The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item by name with what is missing, route back to the owning phase (a missing contract → Design Foundations; missing tests → Decomposition; an unreconciled discovery note → resolve it with the user now), and do not begin implementation until the item passes. 🟡 items are surfaced to the user with your read on whether they touch this bet; the user decides whether to proceed.
+
+When every 🔴 item passes, state so in one line and proceed.
+
 ## Instructions
 
 1. Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`.
