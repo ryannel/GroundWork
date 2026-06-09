@@ -206,12 +206,12 @@ Evidence behind each gap. File references are to this repo.
 | S16 | P2 | Implementation-readiness gate | S15 | ☐ |
 | S17 | P2 | User config surface | — | ✅ |
 | S18 | P2 | Custom skill registration | S17 | ✅ |
-| S19 | P2 | Brownfield sim end-to-end | S14 | ☐ |
+| S19 | P2 | Brownfield sim end-to-end | S14 | 🟡 sandbox seeded at `.sandboxes/brownfield-s19` with the 0.9.0 install — needs a **human-run** Claude Code session: open a chat there, run `/simulate-brownfield`; assess via `./dev sandbox review brownfield-s19` + `/judge`; triage defects into this tracker |
 | S20 | P2 | CLI + orchestrator tests | S2 | ✅ (CLI: 9 tests incl. self-copy guard — which was a real latent bug, fixed. Orchestrator reconciliation is model-executed prose: mechanically covered by lint routing↔fs; behaviorally by sim runs S19/S22) |
 | S21 | P2 | Skill ↔ doc drift check | — | ✅ (lint doc-pairs check; closes the TODO deferred item) |
 | S22 | P3 | Adversarial suites | S19 | ✅ authored (ambiguous, terse, reversal, scope-creep) — live runs pend S19's human session |
 | S23 | P3 | Multi-tool support statement | — | ✅ (docs/host-support.md) |
-| S24 | P3 | Dogfood docs site | S5 | ☐ |
+| S24 | P3 | Dogfood docs site | S5 | ☐ deferred: the docs-site generator targets an Nx workspace, which this repo is not; standing one up also needs a hosting decision (user call). Revisit after F21 naming is settled. |
 | S25 | P3 | Examples & showcase | S19 | 🟡 greenfield half done (docs/examples/greenfield-verse.md, harvested from the real run); brownfield half pends S19 |
 
 **Definition of done for the plan:** every P0–P2 slice verified; `./dev lint skills` and the test suite green in CI; a stranger can go from the README to a delivered first bet without reading this repo's source; and a release exists whose CHANGELOG describes all of it.

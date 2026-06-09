@@ -29,9 +29,25 @@ feature-complete across both setup paths but its operational surface is still ha
 - **Help surface**: a workflow index generated from the orchestrator routing tables
   (`npm run gen:workflow-index`), served by the orchestrator's help intent and `npx groundwork help`;
   freshness is CI-gated.
-- **Maturity steering (D8)**: the operating model for guiding existing systems toward
-  GroundWork's target state — a maturity model with named dimensions, a living roadmap doc,
-  and bet-loop integration (in progress).
+- **Maturity steering (D8)**: a seven-dimension maturity model defining GroundWork's target
+  state, a living `docs/maturity.md` (assessment + tracked gap roadmap) written by both setup
+  paths, bet-loop steering (discovery proposes pulling gaps in, validation closes rows), and
+  continuous re-assessment in `groundwork-check`. Supersedes the one-shot onboarding report.
+- **Shipped review checklists**: per-document-type named-failure-mode checklists under
+  `groundwork-review/checklists/`, cited by item name in review findings.
+- **Skill conformance linter**: `./dev lint skills` (CI-gated) — frontmatter, versioned
+  contract references, fail-closed review-gate blocks, canonical discovery-notes headers,
+  routing↔filesystem agreement, llms.txt links, skill↔doc pairs, workflow-index freshness.
+- **User config surface**: `.groundwork/config/config.toml` seeded once at init —
+  `[defaults]` proposals (stack, models, generator flags) read by architecture/scaffold,
+  `[skills]` custom routing merged after the built-in table.
+- **CLI contract tests**: `./dev test cli` (CI-gated) covering init/update/check semantics;
+  exposed and fixed a self-copy guard bug that could have deleted the source repo's own skills.
+- **Adversarial simulation suites**: ambiguous, terse, mid-flow-reversal, and scope-creep
+  personas for the simulation harness.
+- **Host support statement** (`docs/host-support.md`), a greenfield output showcase
+  (`docs/examples/greenfield-verse.md`), and BMAD-artifact ingestion named explicitly in all
+  three brownfield extract skills (Adopt/Upgrade mode).
 - Root `README.md` and `docs/getting-started.md` (walkthrough with excerpts from a real
   greenfield simulation session).
 - `Maintenance (anytime)` lifecycle mode in the operating contract, defining which protocols
