@@ -184,7 +184,7 @@ Evidence behind each gap. File references are to this repo.
 | Slice | Band | Title | Depends on | Status |
 |---|---|---|---|---|
 | S1 | P0 | Build the update engine | — | ✅ |
-| S2 | P0 | Real CLI `update`/`check` | S1 | ☐ |
+| S2 | P0 | Real CLI `update`/`check` | S1 | ✅ |
 | S3 | P0 | Resolve `groundwork-persona` | — | ✅ (stays registered; editorial pass to skill-writer standard) |
 | S4 | P0 | Refresh product brief | — | ✅ (brief + lifecycle docs; TODO item closed) |
 | S5 | P0 | Root README + getting started | docs/product.md (done) | ☐ |

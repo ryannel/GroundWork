@@ -2,45 +2,90 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 
 const command = process.argv[2];
 
+// ─── Output helpers ─────────────────────────────────────────────────────────
+
+const c = {
+  ok: (msg) => console.log(`\x1b[32m✔\x1b[0m ${msg}`),
+  warn: (msg) => console.warn(`\x1b[33m[warn]\x1b[0m ${msg}`),
+  err: (msg) => console.error(`\x1b[31m✖\x1b[0m ${msg}`),
+  info: (msg) => console.log(`\x1b[34m[info]\x1b[0m ${msg}`),
+  dim: (msg) => console.log(`\x1b[2m${msg}\x1b[0m`),
+};
+
+function banner() {
+  console.log(`\n\x1b[1m\x1b[36m▲ GroundWork\x1b[0m\n`);
+}
+
 function printHelp() {
-  const targetDir = process.cwd();
-  const docsIndex = path.join(targetDir, 'docs', 'index.md');
-  const hasDocs = fs.existsSync(docsIndex);
-
-  console.log(`
-\x1b[1m\x1b[36m▲ GroundWork\x1b[0m
-
-`);
-
-  if (!hasDocs) {
-    console.log(`\x1b[33m[warn]\x1b[0m No architecture documentation found in this repository.
-
-To get started with GroundWork:
-  1. Run \x1b[36mnpx groundwork init\x1b[0m to install the GroundWork skills.
-  2. Ask your AI Agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill.
-
-This will scan your codebase and generate a complete, living architecture documentation site in the \`docs/\` directory.
-`);
-  } else {
-    console.log(`\x1b[32m✔\x1b[0m Architecture documentation found at ./docs/
-    
-Your architecture is being tracked by GroundWork.
-`);
-  }
-
+  banner();
   console.log(`\x1b[1mCommands:\x1b[0m
-  \x1b[36minit\x1b[0m      Install GroundWork skills into the current project
-  \x1b[36mupdate\x1b[0m    Trigger the groundwork-update skill for a slice
-  \x1b[36mcheck\x1b[0m     Run the groundwork-check staleness detection
+  \x1b[36minit\x1b[0m      Install GroundWork skills, config, and the depwire code map into the current project
+  \x1b[36mupdate\x1b[0m    Refresh installed skills to match this package version (preserves .groundwork/config and docs)
+  \x1b[36mcheck\x1b[0m     Detect documentation drift: compares last_reviewed against git history of source_of_truth paths
+  \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1mExamples:\x1b[0m
   npx groundwork init
+  npx groundwork update
   npx groundwork check
+
+After init, ask your AI agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill — it reads project
+state and routes to the next lifecycle step (greenfield discovery, brownfield scan, or the bet loop).
 `);
+}
+
+// ─── Shared install/copy machinery ──────────────────────────────────────────
+
+function getPaths() {
+  const targetDir = process.cwd();
+  return {
+    targetDir,
+    targetSkillsDir: path.join(targetDir, '.agents', 'skills'),
+    targetHiddenSkillsDir: path.join(targetDir, '.agents', 'groundwork', 'skills'),
+    targetConfigDir: path.join(targetDir, '.groundwork', 'config'),
+    targetCacheDir: path.join(targetDir, '.groundwork', 'cache'),
+    sourceSkillsDir: path.join(__dirname, '..', 'src', 'skills'),
+    sourceHiddenSkillsDir: path.join(__dirname, '..', 'src', 'hidden-skills'),
+    sourceConfigDir: path.join(__dirname, '..', 'src', 'config'),
+    sourceDocsDir: path.join(__dirname, '..', 'src', 'docs'),
+  };
+}
+
+function isSelfCopy(p) {
+  return path.resolve(p.targetSkillsDir) === path.resolve(p.sourceSkillsDir);
+}
+
+function walkFiles(dir, base) {
+  // Returns relative file paths under dir, sorted for stable diff output.
+  const out = [];
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const rel = base ? path.join(base, entry.name) : entry.name;
+    if (entry.isDirectory()) {
+      out.push(...walkFiles(path.join(dir, entry.name), rel));
+    } else {
+      out.push(rel);
+    }
+  }
+  return out.sort();
+}
+
+function diffDirs(srcDir, destDir) {
+  const srcFiles = walkFiles(srcDir, '');
+  const destFiles = walkFiles(destDir, '');
+  const destSet = new Set(destFiles);
+  const srcSet = new Set(srcFiles);
+  const added = srcFiles.filter((f) => !destSet.has(f));
+  const removed = destFiles.filter((f) => !srcSet.has(f));
+  const changed = srcFiles.filter((f) => {
+    if (!destSet.has(f)) return false;
+    return !fs.readFileSync(path.join(srcDir, f)).equals(fs.readFileSync(path.join(destDir, f)));
+  });
+  return { added, changed, removed };
 }
 
 function copyDocsIdempotent(srcDir, destDir) {
@@ -57,6 +102,42 @@ function copyDocsIdempotent(srcDir, destDir) {
   }
 }
 
+// Clean-copy the two skill trees. Removing first prevents deprecated skills from lingering.
+function installSkillTrees(p) {
+  for (const [src, dest, label] of [
+    [p.sourceSkillsDir, p.targetSkillsDir, 'Registered skills'],
+    [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, 'Hidden methodology skills'],
+  ]) {
+    if (fs.existsSync(dest)) {
+      try {
+        fs.rmSync(dest, { recursive: true, force: true });
+      } catch (err) {
+        c.warn(`Failed to clean ${label.toLowerCase()} dir: ${err.message}`);
+      }
+    }
+    fs.mkdirSync(dest, { recursive: true });
+    try {
+      execSync(`cp -R "${src}/"* "${dest}/"`);
+    } catch (err) {
+      c.err(`Failed to install ${label.toLowerCase()}: ${err.message}`);
+    }
+  }
+}
+
+// generators.json ships with repo-relative factory/schema paths; resolve them against the
+// installed package location so the scaffold skill can invoke generators from any project.
+function buildGeneratorsConfig() {
+  const sourceGeneratorsJson = path.join(__dirname, '..', 'generators.json');
+  if (!fs.existsSync(sourceGeneratorsJson)) return null;
+  const pkgRoot = path.resolve(__dirname, '..');
+  const generatorsJson = JSON.parse(fs.readFileSync(sourceGeneratorsJson, 'utf8'));
+  for (const gen of Object.values(generatorsJson.generators)) {
+    gen.factory = path.resolve(pkgRoot, gen.factory.replace(/^\.\//, ''));
+    gen.schema = path.resolve(pkgRoot, gen.schema.replace(/^\.\//, ''));
+  }
+  return JSON.stringify(generatorsJson, null, 2);
+}
+
 function setupAgentLinks(targetDir) {
   const claudeLink = path.join(targetDir, '.claude');
   const agentsMd = path.join(targetDir, 'AGENTS.md');
@@ -67,15 +148,15 @@ function setupAgentLinks(targetDir) {
     const claudeStat = fs.existsSync(claudeLink) ? fs.lstatSync(claudeLink) : null;
     if (!claudeStat) {
       fs.symlinkSync('.agents', claudeLink, 'junction');
-      console.log(`\x1b[32m✔\x1b[0m Linked .claude → .agents`);
+      c.ok(`Linked .claude → .agents`);
     } else if (claudeStat.isSymbolicLink()) {
       // already a symlink — no-op regardless of target
     } else {
-      console.warn(`\x1b[33m[warn]\x1b[0m .claude already exists as a directory. To enable the link:`);
+      c.warn(`.claude already exists as a directory. To enable the link:`);
       console.warn(`         move its contents into .agents/, delete .claude/, then run: ln -s .agents .claude`);
     }
   } catch (err) {
-    console.warn(`\x1b[33m[warn]\x1b[0m Could not create .claude symlink: ${err.message}`);
+    c.warn(`Could not create .claude symlink: ${err.message}`);
     console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
   }
 
@@ -85,14 +166,14 @@ function setupAgentLinks(targetDir) {
     const claudeMdStat = fs.existsSync(claudeMd) ? fs.lstatSync(claudeMd) : null;
     if (agentsMdExists && !claudeMdStat) {
       fs.symlinkSync('AGENTS.md', claudeMd);
-      console.log(`\x1b[32m✔\x1b[0m Linked CLAUDE.md → AGENTS.md`);
+      c.ok(`Linked CLAUDE.md → AGENTS.md`);
     } else if (claudeMdStat && !claudeMdStat.isSymbolicLink() && agentsMdExists) {
-      console.warn(`\x1b[33m[warn]\x1b[0m CLAUDE.md already exists as a file. To enable the link:`);
+      c.warn(`CLAUDE.md already exists as a file. To enable the link:`);
       console.warn(`         rename it to AGENTS.md, then run: ln -s AGENTS.md CLAUDE.md`);
     }
     // Neither exists, or CLAUDE.md is already a symlink → no-op
   } catch (err) {
-    console.warn(`\x1b[33m[warn]\x1b[0m Could not create CLAUDE.md symlink: ${err.message}`);
+    c.warn(`Could not create CLAUDE.md symlink: ${err.message}`);
     console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
   }
 }
@@ -119,145 +200,263 @@ function registerDepwireMcp(targetDir) {
     }
     config.mcpServers.depwire = depwireServer;
     fs.writeFileSync(mcpPath, JSON.stringify(config, null, 2));
-    console.log(`\x1b[32m✔\x1b[0m Registered depwire code-map MCP server (.mcp.json)`);
+    c.ok(`Registered depwire code-map MCP server (.mcp.json)`);
   } catch (err) {
-    console.warn(`\x1b[33m[warn]\x1b[0m Could not register depwire MCP server: ${err.message}`);
+    c.warn(`Could not register depwire MCP server: ${err.message}`);
     console.warn(`         GroundWork still works without it — the code map falls back to LLM inference.`);
   }
 }
 
+// ─── init ───────────────────────────────────────────────────────────────────
+
 function initGroundWork() {
-  const targetDir = process.cwd();
-  const targetSkillsDir = path.join(targetDir, '.agents', 'skills');
-  const targetHiddenSkillsDir = path.join(targetDir, '.agents', 'groundwork', 'skills');
-  const targetConfigDir = path.join(targetDir, '.groundwork', 'config');
-  const targetCacheDir = path.join(targetDir, '.groundwork', 'cache');
-  
-  const sourceSkillsDir = path.join(__dirname, '..', 'src', 'skills');
-  const sourceHiddenSkillsDir = path.join(__dirname, '..', 'src', 'hidden-skills');
-  const sourceConfigDir = path.join(__dirname, '..', 'src', 'config');
+  const p = getPaths();
 
-  console.log(`\n\x1b[1m\x1b[36m▲ GroundWork\x1b[0m\n`);
-  console.log(`\x1b[34m[info]\x1b[0m Initializing in \x1b[2m${targetDir}\x1b[0m\n`);
+  banner();
+  c.info(`Initializing in \x1b[2m${p.targetDir}\x1b[0m\n`);
 
-  if (path.resolve(targetSkillsDir) === path.resolve(sourceSkillsDir)) {
-    console.warn(`\x1b[33m[warn]\x1b[0m You are running this command inside the GroundWork source repository itself.`);
+  if (isSelfCopy(p)) {
+    c.warn(`You are running this command inside the GroundWork source repository itself.`);
     console.warn(`       Skipping skill installation to prevent recursive copying.\n`);
     return;
   }
 
-  // Clean up existing skills first to prevent stale/deprecated skills from lingering
-  if (fs.existsSync(targetSkillsDir)) {
+  for (const dir of [p.targetSkillsDir, p.targetHiddenSkillsDir, p.targetConfigDir, p.targetCacheDir]) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  installSkillTrees(p);
+  c.ok(`Installed orchestrator, registered skills, and hidden methodology skills`);
+
+  const generatorsConfig = buildGeneratorsConfig();
+  if (generatorsConfig) {
     try {
-      fs.rmSync(targetSkillsDir, { recursive: true, force: true });
+      fs.writeFileSync(path.join(p.targetConfigDir, 'generators.json'), generatorsConfig);
+      c.ok(`Installed generators config`);
     } catch (err) {
-      console.warn(`\x1b[33m[warn]\x1b[0m Failed to clean existing skills dir: ${err.message}`);
-    }
-  }
-  if (fs.existsSync(targetHiddenSkillsDir)) {
-    try {
-      fs.rmSync(targetHiddenSkillsDir, { recursive: true, force: true });
-    } catch (err) {
-      console.warn(`\x1b[33m[warn]\x1b[0m Failed to clean existing hidden skills dir: ${err.message}`);
-    }
-  }
-
-  const dirsToCreate = [targetSkillsDir, targetHiddenSkillsDir, targetConfigDir, targetCacheDir];
-  let createdDirs = false;
-  dirsToCreate.forEach(dir => {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-      createdDirs = true;
-    }
-  });
-  
-  if (createdDirs) {
-    console.log(`\x1b[32m✔\x1b[0m Created directories`);
-  }
-
-  // Copy Registered Skills
-  try {
-    execSync(`cp -R "${sourceSkillsDir}/"* "${targetSkillsDir}/"`);
-    console.log(`\x1b[32m✔\x1b[0m Installed Orchestrator and Registered Skills`);
-  } catch (err) {
-    console.error(`\x1b[31m✖\x1b[0m Failed to install registered skills:`, err.message);
-  }
-
-  // Copy Hidden Methodology Skills
-  try {
-    execSync(`cp -R "${sourceHiddenSkillsDir}/"* "${targetHiddenSkillsDir}/"`);
-    console.log(`\x1b[32m✔\x1b[0m Installed Hidden Methodology Skills`);
-  } catch (err) {
-    console.error(`\x1b[31m✖\x1b[0m Failed to install hidden skills:`, err.message);
-  }
-
-
-  // Copy generators.json with absolute factory/schema paths so the scaffold skill
-  // can invoke generators from any user project without knowing the package location.
-  const sourceGeneratorsJson = path.join(__dirname, '..', 'generators.json');
-  const targetGeneratorsJson = path.join(targetConfigDir, 'generators.json');
-  if (fs.existsSync(sourceGeneratorsJson)) {
-    try {
-      const pkgRoot = path.resolve(__dirname, '..');
-      const generatorsJson = JSON.parse(fs.readFileSync(sourceGeneratorsJson, 'utf8'));
-      for (const gen of Object.values(generatorsJson.generators)) {
-        gen.factory = path.resolve(pkgRoot, gen.factory.replace(/^\.\//, ''));
-        gen.schema = path.resolve(pkgRoot, gen.schema.replace(/^\.\//, ''));
-      }
-      fs.writeFileSync(targetGeneratorsJson, JSON.stringify(generatorsJson, null, 2));
-      console.log(`\x1b[32m✔\x1b[0m Installed generators config`);
-    } catch (err) {
-      console.error(`\x1b[31m✖\x1b[0m Failed to install generators config:`, err.message);
+      c.err(`Failed to install generators config: ${err.message}`);
     }
   }
 
   // Create state file only if it doesn't exist — preserves completed phase history across updates
-  const sourceState = path.join(sourceConfigDir, 'groundwork-state.json');
-  const targetState = path.join(targetConfigDir, 'state.json');
-
+  const sourceState = path.join(p.sourceConfigDir, 'groundwork-state.json');
+  const targetState = path.join(p.targetConfigDir, 'state.json');
   if (fs.existsSync(sourceState) && !fs.existsSync(targetState)) {
     try {
       fs.copyFileSync(sourceState, targetState);
-      console.log(`\x1b[32m✔\x1b[0m Initialized project state`);
+      c.ok(`Initialized project state`);
     } catch (err) {
-      console.error(`\x1b[31m✖\x1b[0m Failed to initialize state:`, err.message);
+      c.err(`Failed to initialize state: ${err.message}`);
     }
   }
 
   // Deploy documentation foundations (idempotent — never overwrites user edits)
-  const sourceDocsDir = path.join(__dirname, '..', 'src', 'docs');
-  const targetDocsDir = path.join(targetDir, 'docs');
-  if (fs.existsSync(sourceDocsDir)) {
+  const targetDocsDir = path.join(p.targetDir, 'docs');
+  if (fs.existsSync(p.sourceDocsDir)) {
     try {
       fs.mkdirSync(targetDocsDir, { recursive: true });
-      copyDocsIdempotent(sourceDocsDir, targetDocsDir);
-      console.log(`\x1b[32m✔\x1b[0m Installed documentation foundations`);
+      copyDocsIdempotent(p.sourceDocsDir, targetDocsDir);
+      c.ok(`Installed documentation foundations`);
     } catch (err) {
-      console.error(`\x1b[31m✖\x1b[0m Failed to install documentation foundations:`, err.message);
+      c.err(`Failed to install documentation foundations: ${err.message}`);
     }
 
     // Deploy llms.txt to project root (idempotent)
-    const sourceLlms = path.join(sourceDocsDir, 'llms.txt');
-    const targetLlms = path.join(targetDir, 'llms.txt');
+    const sourceLlms = path.join(p.sourceDocsDir, 'llms.txt');
+    const targetLlms = path.join(p.targetDir, 'llms.txt');
     if (fs.existsSync(sourceLlms) && !fs.existsSync(targetLlms)) {
       try {
         fs.copyFileSync(sourceLlms, targetLlms);
-        console.log(`\x1b[32m✔\x1b[0m Installed llms.txt`);
+        c.ok(`Installed llms.txt`);
       } catch (err) {
-        console.error(`\x1b[31m✖\x1b[0m Failed to install llms.txt:`, err.message);
+        c.err(`Failed to install llms.txt: ${err.message}`);
       }
     }
   }
 
-  setupAgentLinks(targetDir);
-
-  registerDepwireMcp(targetDir);
+  setupAgentLinks(p.targetDir);
+  registerDepwireMcp(p.targetDir);
 
   console.log(`\n\x1b[32m[success]\x1b[0m GroundWork initialization complete!`);
   console.log(`          Ask your AI to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill to find out what to do next.\n`);
 }
 
-if (!command || command === 'help') {
+// ─── update ─────────────────────────────────────────────────────────────────
+
+function updateGroundWork() {
+  const p = getPaths();
+
+  banner();
+
+  if (isSelfCopy(p)) {
+    c.warn(`You are running this command inside the GroundWork source repository itself.`);
+    console.warn(`       Skipping update to prevent recursive copying.\n`);
+    return;
+  }
+
+  if (!fs.existsSync(p.targetSkillsDir) && !fs.existsSync(p.targetHiddenSkillsDir)) {
+    c.err(`No GroundWork installation found in ${p.targetDir}`);
+    console.error(`  Run \x1b[36mnpx groundwork init\x1b[0m first.\n`);
+    process.exitCode = 1;
+    return;
+  }
+
+  // Diff before touching anything, so the summary reflects what actually changes.
+  const skillsDiff = diffDirs(p.sourceSkillsDir, p.targetSkillsDir);
+  const hiddenDiff = diffDirs(p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir);
+
+  const generatorsConfig = buildGeneratorsConfig();
+  const targetGeneratorsJson = path.join(p.targetConfigDir, 'generators.json');
+  const generatorsChanged =
+    generatorsConfig !== null &&
+    (!fs.existsSync(targetGeneratorsJson) ||
+      fs.readFileSync(targetGeneratorsJson, 'utf8') !== generatorsConfig);
+
+  const total =
+    skillsDiff.added.length + skillsDiff.changed.length + skillsDiff.removed.length +
+    hiddenDiff.added.length + hiddenDiff.changed.length + hiddenDiff.removed.length +
+    (generatorsChanged ? 1 : 0);
+
+  if (total === 0) {
+    c.ok(`Already up to date — installed skills match this package.`);
+    console.log(`  \x1b[2m.groundwork/config and docs/ were not touched.\x1b[0m\n`);
+    return;
+  }
+
+  installSkillTrees(p);
+  if (generatorsChanged) {
+    fs.mkdirSync(p.targetConfigDir, { recursive: true });
+    fs.writeFileSync(targetGeneratorsJson, generatorsConfig);
+  }
+
+  c.ok(`Updated GroundWork skills\n`);
+  const report = (label, diff) => {
+    if (diff.added.length + diff.changed.length + diff.removed.length === 0) return;
+    console.log(`\x1b[1m${label}\x1b[0m`);
+    for (const f of diff.added) console.log(`  \x1b[32m+ ${f}\x1b[0m`);
+    for (const f of diff.changed) console.log(`  \x1b[33m~ ${f}\x1b[0m`);
+    for (const f of diff.removed) console.log(`  \x1b[31m- ${f}\x1b[0m`);
+  };
+  report('.agents/skills/', skillsDiff);
+  report('.agents/groundwork/skills/', hiddenDiff);
+  if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
+
+  console.log(`\n  \x1b[2mPreserved: .groundwork/config (state, settings), .groundwork/cache, docs/\x1b[0m\n`);
+}
+
+// ─── check ──────────────────────────────────────────────────────────────────
+
+function parseFrontmatter(content) {
+  // Minimal YAML frontmatter reader: flat `key: value` pairs between --- fences.
+  if (!content.startsWith('---')) return null;
+  const end = content.indexOf('\n---', 3);
+  if (end === -1) return null;
+  const fm = {};
+  for (const line of content.slice(3, end).split('\n')) {
+    const m = line.match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (m) fm[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
+  }
+  return fm;
+}
+
+function checkGroundWork() {
+  const p = getPaths();
+  const docsDir = path.join(p.targetDir, 'docs');
+
+  banner();
+
+  if (!fs.existsSync(docsDir)) {
+    c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
+    process.exitCode = 1;
+    return;
+  }
+
+  // The drift-tracked set: code-coupled docs that carry source_of_truth frontmatter.
+  const candidates = [];
+  for (const sub of ['services', 'api', 'domain']) {
+    const dir = path.join(docsDir, sub);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (f.endsWith('.md')) candidates.push(path.join(dir, f));
+    }
+  }
+  const archDoc = path.join(docsDir, 'architecture.md');
+  if (fs.existsSync(archDoc)) candidates.push(archDoc);
+
+  if (candidates.length === 0) {
+    c.warn(`No drift-tracked docs found (docs/services/, docs/api/, docs/domain/, docs/architecture.md).`);
+    console.log(`  Nothing to check yet — docs gain drift tracking once scaffold or brownfield adoption stamps them.\n`);
+    return;
+  }
+
+  const stale = [];
+  const current = [];
+  const unassessed = [];
+
+  for (const docPath of candidates) {
+    const rel = path.relative(p.targetDir, docPath);
+    const fm = parseFrontmatter(fs.readFileSync(docPath, 'utf8'));
+    if (!fm || !fm.last_reviewed || !fm.source_of_truth) {
+      unassessed.push({ rel, reason: !fm ? 'no frontmatter' : 'missing last_reviewed or source_of_truth' });
+      continue;
+    }
+    const sources = fm.source_of_truth.split(/[;,]/).map((s) => s.trim()).filter(Boolean);
+    let commits;
+    try {
+      commits = execFileSync(
+        'git',
+        ['log', `--since=${fm.last_reviewed}`, '--oneline', '--', ...sources],
+        { cwd: p.targetDir, encoding: 'utf8' }
+      ).trim();
+    } catch (err) {
+      c.err(`git log failed for ${rel}: ${err.message}`);
+      process.exitCode = 2;
+      return;
+    }
+    if (commits) {
+      stale.push({ rel, fm, count: commits.split('\n').length });
+    } else {
+      current.push(rel);
+    }
+  }
+
+  console.log(`Checked ${candidates.length} drift-tracked doc(s): \x1b[32m${current.length} current\x1b[0m, \x1b[31m${stale.length} stale\x1b[0m, \x1b[33m${unassessed.length} unassessed\x1b[0m\n`);
+
+  if (stale.length > 0) {
+    console.log(`\x1b[1mStale — code changed after last_reviewed:\x1b[0m`);
+    const recovery = {
+      generated: 're-run the generator that produced it',
+      extracted: 'run the groundwork-update skill',
+      authored: 'manual review required',
+    };
+    for (const s of stale) {
+      const mode = s.fm.generation_mode || 'authored';
+      console.log(`  \x1b[31m✖\x1b[0m ${s.rel} — ${s.count} commit(s) since ${s.fm.last_reviewed} → ${recovery[mode] || recovery.authored}`);
+    }
+    console.log('');
+  }
+
+  if (unassessed.length > 0) {
+    console.log(`\x1b[1mUnassessed — cannot be drift-checked:\x1b[0m`);
+    for (const u of unassessed) {
+      console.log(`  \x1b[33m?\x1b[0m ${u.rel} (${u.reason})`);
+    }
+    console.log('');
+  }
+
+  if (stale.length > 0) {
+    console.log(`Repair: ask your AI agent to run the \x1b[36mgroundwork-update\x1b[0m skill — it maps the`);
+    console.log(`commits behind this report to surgical doc edits and gates them through review.`);
+    console.log(`For dependency-graph-aware detection beyond file paths, run the \x1b[36mgroundwork-check\x1b[0m skill.\n`);
+    process.exitCode = 1;
+  } else {
+    c.ok(`Documentation is current with the code it describes.\n`);
+  }
+}
+
+// ─── Dispatch ───────────────────────────────────────────────────────────────
+
+if (!command || command === 'help' || command === '--help' || command === '-h') {
   printHelp();
   process.exit(0);
 }
@@ -267,12 +466,10 @@ switch (command) {
     initGroundWork();
     break;
   case 'update':
-    console.log('Triggering groundwork-update...');
-    // Implementation for invoking the update skill will go here
+    updateGroundWork();
     break;
   case 'check':
-    console.log('Running groundwork-check...');
-    // Implementation for running the CI staleness check will go here
+    checkGroundWork();
     break;
   default:
     console.log(`Unknown command: ${command}`);
