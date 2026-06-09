@@ -126,6 +126,14 @@ Protocols 1, 2, 4, and 8 apply. Protocols 3, 5, 6, and 7 do **not** apply.
 
 This divergence is intentional. The bet's tightly coupled five-phase flow benefits from shared context; the one-shot setup phases benefit from clean isolation. A skill that looks non-conformant against the setup protocols may be correctly implementing the continuous-bet mode.
 
+### Maintenance (anytime)
+
+**Skills:** `groundwork-update`, `groundwork-check`
+
+Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-update`, Protocols 1, 2, 4, and 8 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
+
+`groundwork-check` is read-only and diagnostic: it mutates nothing, so only Protocol 7's read rules bind it. Its obligation is reporting honesty — a doc it cannot assess is reported as unassessed, never as current.
+
 ---
 
 ## Protocol 3: Phase Lifecycle
@@ -264,7 +272,8 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 | `<phase>-draft/` or `<phase>-draft.md` | The current phase's own draft state | During execute and revise stages |
 | `discovery-notes.md` | Cross-phase signal capture (Protocol 1) | Init (check own section) and during execute (capture out-of-phase signals) |
 | `handoff/<previous-phase>.md` | The previous phase's hand-off (Protocol 6) | Init only |
-| `scan-state.json`, `scan/overview.md`, `repo-map.json` | The brownfield scan baseline — shared classification, partition map, and deterministic code map | Init and execute, **brownfield extract and adopt phases only** |
+| `scan-state.json`, `scan/overview.md` | The brownfield scan baseline — shared classification and partition map | Init and execute, **brownfield extract and adopt phases only** |
+| `repo-map.json` | The deterministic code map. Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-update`, and the bet loop thereafter, for impact analysis |
 | `scan/<own-slice>.md` | The brownfield findings slice this phase consumes (`product-findings.md`, `design-findings.md`, or `architecture-findings.md`) | Init and execute, **the one owning extract phase only** |
 
 ### What a phase must not read from `.groundwork/cache/`
