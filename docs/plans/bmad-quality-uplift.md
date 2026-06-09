@@ -212,6 +212,6 @@ Evidence behind each gap. File references are to this repo.
 | S22 | P3 | Adversarial suites | S19 | ✅ authored (ambiguous, terse, reversal, scope-creep) — live runs pend S19's human session |
 | S23 | P3 | Multi-tool support statement | — | ✅ (docs/host-support.md) |
 | S24 | P3 | Dogfood docs site | S5 | ☐ |
-| S25 | P3 | Examples & showcase | S19 | ☐ |
+| S25 | P3 | Examples & showcase | S19 | 🟡 greenfield half done (docs/examples/greenfield-verse.md, harvested from the real run); brownfield half pends S19 |
 
 **Definition of done for the plan:** every P0–P2 slice verified; `./dev lint skills` and the test suite green in CI; a stranger can go from the README to a delivered first bet without reading this repo's source; and a release exists whose CHANGELOG describes all of it.
