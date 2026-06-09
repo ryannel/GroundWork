@@ -193,12 +193,12 @@ Evidence behind each gap. File references are to this repo.
 | S7 | P1 | Semver + changelog + release | S1–S6 | ✅ (publish dry-run pending F21 name decision) |
 | S8 | P1 | Version stamping | S7 | ✅ |
 | S9 | P1 | Migration notes in update | S2, S8 | ✅ |
-| S10 | P1 | SKILL.md frontmatter sweep | — | ☐ |
+| S10 | P1 | SKILL.md frontmatter sweep | — | ✅ |
 | S11 | P1 | Review-gate conformance | S1 | ☐ |
 | S12 | P1 | Discovery-notes conformance | — | ☐ |
 | S13 | P1 | `./dev lint skills` | S10–S12 | ☐ |
 | S14 | P1 | Adopt/Upgrade in extract skills | — | ☐ |
-| M1 | P1 | Maturity model + review type | — | ☐ |
+| M1 | P1 | Maturity model + review type | — | ✅ |
 | M2 | P1 | Infra-adopt writes maturity.md | M1 | ☐ |
 | M3 | P1 | Bet-loop maturity steering | M1 | ☐ |
 | M4 | P1 | Continuous maturity assessment | M1, S2 | ☐ |

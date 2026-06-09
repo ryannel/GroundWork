@@ -31,7 +31,7 @@ The contract is environment-agnostic — input and output are the same regardles
 The calling skill passes two fields:
 
 - `document_path` — the draft to review. The path may point to a cache draft (e.g. `.groundwork/cache/product-brief-draft.md`) or a committed canonical doc.
-- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`. Used to locate upstream documents.
+- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`, `maturity`. Used to locate upstream documents.
 
 Read the document at `document_path` before beginning any check.
 
@@ -85,7 +85,7 @@ Read the document's own description of its purpose and who it serves. Then ask:
 
 For every person or role the document claims to serve, ask: what would they have to come back and ask before they could begin? Each unanswered question is a finding.
 
-For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, or `infrastructure`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) and domain entity docs (`domain-entity`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract and the domain-entity template. Do not raise this finding for them.
+For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, `infrastructure`, or `maturity`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) and domain entity docs (`domain-entity`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract and the domain-entity template. Do not raise this finding for them.
 
 Pay particular attention to the `## Summary for Downstream` section (Protocol 5 of the operating contract). The summary is the first thing every downstream phase reads. Check that:
 
@@ -107,6 +107,8 @@ The chain is:
 ```
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design
 ```
+
+**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.agents/groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D7), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
 
 **`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md`'s `## Summary for Downstream` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
 
@@ -142,6 +144,13 @@ Some document types carry a requirement the generic checks do not cover.
 - **Rabbit Holes** are technical traps or unknowns that could silently consume the appetite — the parts where the work could balloon (long-session coherence, classifier latency against a tight budget, prompt-size growth, idempotency under retries) — each ideally paired with a guard or a spike.
 
 If the section lists only scope cuts and names no technical rabbit hole, yet the bet plainly carries technical risk, that is a 🔴 finding: the pitch has not surfaced where the appetite is actually at risk. A bet that is genuinely low-risk technically may state so explicitly instead.
+
+**`maturity` — rows must be complete and evidenced.** Check every row against the model's allowed values:
+
+- Each assessment row carries a state (✅/🟡/🔴) **and** evidence — a state with no cited file, command output, or absence is a 🔴 finding.
+- Each roadmap row carries a dimension (D1–D7), a severity (`blocks-delivery`/`standard-divergence`/`cosmetic`), a recommendation (`fix-now`/`defer`/`blocks-delivery`), and a status (`open`/`in-bet (<slug>)`/`closed (<slug>)`/`accepted`). A missing or out-of-vocabulary value is a 🔴 finding — downstream skills parse these strings.
+- A row marked `closed` must name the closing bet slug; a row marked `accepted` must record who accepted it and why in its notes. Either absence is a 🔴 finding: an unattributed closure or acceptance cannot be audited later.
+- A 🟡 partial assessment that does not name exactly which part of the dimension fails is a 🔴 finding — "partially done" with no specifics steers no one.
 
 ---
 
