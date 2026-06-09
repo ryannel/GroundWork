@@ -1,6 +1,17 @@
+---
+name: operating-contract
+version: "1"
+description: >
+  Shared behavioral protocols every GroundWork methodology skill loads and enacts:
+  discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
+  summaries, hand-off cache, cache isolation, and the review gate.
+---
+
 # GroundWork Operating Contract
 
 **This document is mandatory. Every GroundWork methodology skill MUST load and follow these protocols. They are non-negotiable and apply in every phase, every bet, and every conversation.**
+
+The `version` in this file's frontmatter is the contract's major version. Skills name the contract version they were written against; a skill that expects v1 running against a v2 contract is operating on assumptions the contract no longer makes — surface the mismatch to the user instead of proceeding silently.
 
 ---
 

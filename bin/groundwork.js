@@ -5,6 +5,7 @@ const path = require('path');
 const { execSync, execFileSync } = require('child_process');
 
 const command = process.argv[2];
+const PKG = require(path.join(__dirname, '..', 'package.json'));
 
 // ─── Output helpers ─────────────────────────────────────────────────────────
 
@@ -66,6 +67,93 @@ function getPaths() {
 
 function isSelfCopy(p) {
   return path.resolve(p.targetSkillsDir) === path.resolve(p.sourceSkillsDir);
+}
+
+// ─── Version stamp (decision D4) ────────────────────────────────────────────
+// state.json's top-level `version` is the state-schema version; the framework
+// version that wrote the install lives under `groundwork.version`.
+
+function readStampedVersion(p) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    return (state.groundwork && state.groundwork.version) || null;
+  } catch {
+    return null;
+  }
+}
+
+function stampVersion(p) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    let state = {};
+    if (fs.existsSync(statePath)) {
+      state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    }
+    state.groundwork = { ...(state.groundwork || {}), version: PKG.version };
+    fs.mkdirSync(p.targetConfigDir, { recursive: true });
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+  } catch (err) {
+    c.warn(`Could not stamp framework version into state.json: ${err.message}`);
+  }
+}
+
+// ─── Changelog (migration notes on update) ──────────────────────────────────
+
+function semverCompare(a, b) {
+  const pa = a.split('.').map(Number);
+  const pb = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) {
+    if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) - (pb[i] || 0);
+  }
+  return 0;
+}
+
+function parseChangelog() {
+  const clPath = path.join(__dirname, '..', 'CHANGELOG.md');
+  if (!fs.existsSync(clPath)) return [];
+  const entries = [];
+  let current = null;
+  for (const line of fs.readFileSync(clPath, 'utf8').split('\n')) {
+    const m = line.match(/^## \[(\d+\.\d+\.\d+)\] - (.+)$/);
+    if (m) {
+      current = { version: m[1], date: m[2], lines: [] };
+      entries.push(current);
+    } else if (current) {
+      current.lines.push(line);
+    }
+  }
+  return entries; // newest first, matching file order
+}
+
+// Prints the changelog entries in (fromVersion, toVersion], flagging [migration] lines.
+function printChangelogSlice(fromVersion, toVersion) {
+  const entries = parseChangelog().filter(
+    (e) =>
+      semverCompare(e.version, toVersion) <= 0 &&
+      (fromVersion === null || semverCompare(e.version, fromVersion) > 0)
+  );
+  if (entries.length === 0) return;
+
+  console.log(`\x1b[1mWhat changed:\x1b[0m`);
+  const migrations = [];
+  for (const e of entries) {
+    console.log(`\n  \x1b[1m${e.version}\x1b[0m \x1b[2m(${e.date})\x1b[0m`);
+    for (const line of e.lines) {
+      if (!line.trim()) continue;
+      if (/\[migration\]/i.test(line)) migrations.push(line.trim());
+      if (line.startsWith('### ')) {
+        console.log(`    \x1b[1m${line.slice(4)}\x1b[0m`);
+      } else {
+        console.log(`    ${line}`);
+      }
+    }
+  }
+  if (migrations.length > 0) {
+    console.log(`\n\x1b[33m\x1b[1m⚠ Migration required:\x1b[0m`);
+    for (const m of migrations) console.log(`  \x1b[33m${m.replace(/\[migration\]\s*/i, '')}\x1b[0m`);
+  }
+  console.log('');
 }
 
 function walkFiles(dir, base) {
@@ -283,10 +371,12 @@ function initGroundWork() {
     }
   }
 
+  stampVersion(p);
+
   setupAgentLinks(p.targetDir);
   registerDepwireMcp(p.targetDir);
 
-  console.log(`\n\x1b[32m[success]\x1b[0m GroundWork initialization complete!`);
+  console.log(`\n\x1b[32m[success]\x1b[0m GroundWork ${PKG.version} initialization complete!`);
   console.log(`          Ask your AI to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill to find out what to do next.\n`);
 }
 
@@ -310,6 +400,8 @@ function updateGroundWork() {
     return;
   }
 
+  const stamped = readStampedVersion(p);
+
   // Diff before touching anything, so the summary reflects what actually changes.
   const skillsDiff = diffDirs(p.sourceSkillsDir, p.targetSkillsDir);
   const hiddenDiff = diffDirs(p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir);
@@ -327,9 +419,16 @@ function updateGroundWork() {
     (generatorsChanged ? 1 : 0);
 
   if (total === 0) {
-    c.ok(`Already up to date — installed skills match this package.`);
+    if (stamped !== PKG.version) stampVersion(p); // files identical, stamp drifted — repair silently
+    c.ok(`Already up to date — installed skills match groundwork ${PKG.version}.`);
     console.log(`  \x1b[2m.groundwork/config and docs/ were not touched.\x1b[0m\n`);
     return;
+  }
+
+  if (stamped && stamped !== PKG.version) {
+    c.info(`Updating ${stamped} → ${PKG.version}\n`);
+  } else if (!stamped) {
+    c.info(`No version stamp found (pre-0.9 install) — updating to ${PKG.version}\n`);
   }
 
   installSkillTrees(p);
@@ -351,6 +450,13 @@ function updateGroundWork() {
   if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
 
   console.log(`\n  \x1b[2mPreserved: .groundwork/config (state, settings), .groundwork/cache, docs/\x1b[0m\n`);
+
+  // Migration notes: surface the changelog slice between the stamped and current versions.
+  if (stamped === null || semverCompare(stamped, PKG.version) < 0) {
+    printChangelogSlice(stamped, PKG.version);
+  }
+
+  stampVersion(p);
 }
 
 // ─── check ──────────────────────────────────────────────────────────────────
@@ -378,6 +484,12 @@ function checkGroundWork() {
     c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
     process.exitCode = 1;
     return;
+  }
+
+  const stamped = readStampedVersion(p);
+  if (stamped && stamped !== PKG.version) {
+    c.warn(`Installed skills were written by groundwork ${stamped}; this CLI is ${PKG.version}.`);
+    console.log(`         Run \x1b[36mnpx groundwork update\x1b[0m to refresh them.\n`);
   }
 
   // The drift-tracked set: code-coupled docs that carry source_of_truth frontmatter.

@@ -445,6 +445,7 @@ Release checklist:
 1. Move the `## [Unreleased]` content in `CHANGELOG.md` under a new `## [X.Y.Z] - <date>` heading.
    Prefix any entry that requires action in an existing installation with `[migration]` —
    `npx groundwork update` surfaces those lines to users when it detects a version jump.
+   Keep each `[migration]` entry on a single line; the CLI extracts the line, not the paragraph.
 2. Bump `package.json` (`npm version <minor|patch> --no-git-tag-version`). Bump the operating
    contract's `version` frontmatter only if a protocol changed incompatibly, and add a
    `[migration]` changelog entry when you do.

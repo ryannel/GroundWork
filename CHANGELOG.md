@@ -40,6 +40,7 @@ feature-complete across both setup paths but its operational surface is still ha
 
 ### Changed
 
+- [migration] Installs made before 0.9.0 carry no version stamp — run `npx groundwork update` once to stamp `groundwork.version` into `.groundwork/config/state.json` and enable migration notes for future upgrades.
 - `groundwork-persona` editorial pass to the skill-writer standard (stays registered — always-on
   conversational posture cannot load on demand).
 - Lifecycle docs cover the brownfield path (scan → extract ×3 → infra adoption) and Adopt/Upgrade

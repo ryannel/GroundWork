@@ -191,8 +191,8 @@ Evidence behind each gap. File references are to this repo.
 | S5 | P0 | Root README + getting started | docs/product.md (done) | ✅ |
 | S6 | P0 | Help surface | — | ✅ |
 | S7 | P1 | Semver + changelog + release | S1–S6 | ✅ (publish dry-run pending F21 name decision) |
-| S8 | P1 | Version stamping | S7 | ☐ |
-| S9 | P1 | Migration notes in update | S2, S8 | ☐ |
+| S8 | P1 | Version stamping | S7 | ✅ |
+| S9 | P1 | Migration notes in update | S2, S8 | ✅ |
 | S10 | P1 | SKILL.md frontmatter sweep | — | ☐ |
 | S11 | P1 | Review-gate conformance | S1 | ☐ |
 | S12 | P1 | Discovery-notes conformance | — | ☐ |
