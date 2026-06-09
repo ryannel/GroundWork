@@ -81,6 +81,8 @@ Evidence behind each gap. File references are to this repo.
 
 **D7 — Help is generated, not hand-maintained.** The workflow index (S6) is derived from the orchestrator routing tables by a script, so it cannot drift from the actual routes.
 
+**D8 — Maturity is steered, not forced (user directive, 2026-06-09).** GroundWork carries an explicit maturity model — the named dimensions of its target state (current docs, machine-readable contracts, operational layer, system-test harness, code intelligence, CI doc-currency, delivery discipline) — and every project gets a living `docs/maturity.md` that assesses the project against it and tracks the roadmap toward it. The framework informs and guides: each gap names the dimension it blocks and the cost of leaving it open; the bet loop *proposes* pulling maturity work into bets and the user decides. `docs/maturity.md` supersedes the one-shot `docs/onboarding-report.md` — the gap ledger consolidates into a tracked roadmap that the bet loop closes against and `groundwork-check` re-assesses, instead of a report that freezes at the end of setup.
+
 ---
 
 ## 5. Workstreams and slices
@@ -130,6 +132,20 @@ Evidence behind each gap. File references are to this repo.
 
 **S14 — Adopt/Upgrade mode in remaining extract skills (F13).** Port `groundwork-product-brief-extract`'s Step-1 mode detection (Absent → Extract; present-without-contract → Adopt/Upgrade: ingest, fill contract sections, re-stamp, review, commit) into `groundwork-design-system-extract` and `groundwork-architecture-extract`.
 *Verify:* brownfield sandbox seeded with a hand-authored `docs/architecture.md`: the extract preserves its content, adds the Summary for Downstream contract, and never blind-overwrites. Also covers BMAD-artifact ingestion (a BMAD PRD/architecture doc is exactly this shape) — the interop move from `docs/groundwork-vs-bmad.md`.
+
+### Workstream M — Maturity steering (D8; priority equal to P1)
+
+**M1 — Author the maturity model.** A shared reference at `src/hidden-skills/maturity-model.md`: the named dimensions of GroundWork's target state, why each matters (the concrete failure it prevents), and the mechanical signal that assesses it where one exists. A `templates/maturity.md` template for the living doc. `groundwork-review` gains `document_type: maturity` with type-specific checks (every gap row carries dimension, severity, recommendation, status; every assessment claim carries evidence).
+*Verify:* the model is generic (no sandbox-product leakage); every dimension names its failure mode and its assessment signal; review skill accepts the new type.
+
+**M2 — Infra-adopt consolidates into `docs/maturity.md`.** Phase 5 writes the living maturity doc (model assessment + roadmap from the gap ledger) in place of `docs/onboarding-report.md`. Orchestrator completion signal, lifecycle docs, and sim checklist references updated in the same slice.
+*Verify:* no reference to `onboarding-report.md` remains anywhere in `src/` or `docs/`; the brownfield completion signal names `docs/maturity.md`.
+
+**M3 — Bet-loop steering.** Bet discovery reads the maturity roadmap and proposes — never forces — pulling open fix-now/blocks-delivery items into the bet, framing the trade-off (value now vs. capability that compounds). Bet validation marks gaps the bet closed, updates their status and closing bet slug, and re-stamps the doc.
+*Verify:* discovery instructions present maturity items as proposals with the cost of deferral; validation updates roadmap rows; wording follows the operating contract's pacing protocol.
+
+**M4 — Continuous assessment.** `groundwork-check` re-assesses the mechanical dimensions (contracts present, harness present, docs current, depwire registered) and flags `docs/maturity.md` rows that disagree with observed state. `groundwork-update`'s semantic mapping gains a maturity row (new service without a contract → new gap row). Greenfield scaffold writes the initial `docs/maturity.md` at commit, so maturity is a framework-wide concept, not a brownfield artifact.
+*Verify:* check flags a seeded disagreement (gap marked closed while signal says open); greenfield scaffold output includes a mostly-green maturity doc.
 
 ### Band P2 — Quality gates, customization, verification
 
@@ -181,6 +197,10 @@ Evidence behind each gap. File references are to this repo.
 | S12 | P1 | Discovery-notes conformance | — | ☐ |
 | S13 | P1 | `./dev lint skills` | S10–S12 | ☐ |
 | S14 | P1 | Adopt/Upgrade in extract skills | — | ☐ |
+| M1 | P1 | Maturity model + review type | — | ☐ |
+| M2 | P1 | Infra-adopt writes maturity.md | M1 | ☐ |
+| M3 | P1 | Bet-loop maturity steering | M1 | ☐ |
+| M4 | P1 | Continuous maturity assessment | M1, S2 | ☐ |
 | S15 | P2 | Shipped checklists | S11 | ☐ |
 | S16 | P2 | Implementation-readiness gate | S15 | ☐ |
 | S17 | P2 | User config surface | — | ☐ |
