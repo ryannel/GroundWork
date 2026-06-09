@@ -63,7 +63,7 @@ Brownfield — initialising GroundWork against an existing codebase — is now i
 Follow-ups deferred from the brownfield build:
 
 - [ ] **Run the brownfield simulation** (`./dev sandbox --brownfield --simulate`) end-to-end in real Claude Code and assess via `./dev sandbox review` + `/judge`. The SDK eval harness was removed in favour of simulation, so this now exercises the real skill-loading, subagent dispatch, and depwire fan-out paths — no API key / turn budgets to tune.
-- [ ] **Restore brownfield to framework docs**: re-add the brownfield path to `docs/methodology/core-concepts.md` and `docs/product-brief.md` (stripped 2026-05-24 when it was not yet a capability).
+- [x] **Restore brownfield to framework docs**: brownfield restored to `docs/product-brief.md` (capability bullet, stale exclusion removed) and to the lifecycle docs (`docs/lifecycle/index.md`, `01-setup.md` brownfield path section). `docs/methodology/core-concepts.md` no longer exists — the lifecycle docs are its successor. (2026-06-09)
 
 ## Deferred from Plans
 

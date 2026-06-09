@@ -1,6 +1,8 @@
-# 01. Greenfield Setup
+# 01. Setup
 
-Setup runs once per project. It establishes the vision, design system, service boundaries, scaffolded infrastructure, and the first bet pitch — then hands off to the Delivery Loop and is never invoked again.
+Setup runs once per project. It establishes the vision, design system, service boundaries, and running infrastructure — then hands off to the Delivery Loop and is never invoked again. Two paths exist: **greenfield** builds these foundations through facilitated discovery in an empty repository; **brownfield** recovers them from an existing codebase. Both converge to the same canonical doc set and the same Delivery Loop.
+
+## The Greenfield Path
 
 Six phases, each with one skill and one canonical output document:
 
@@ -14,6 +16,22 @@ Six phases, each with one skill and one canonical output document:
 | 6 | `groundwork-bet` (Design Foundations onward) | First delivered feature | The first shipped value; enters the Delivery Loop afterwards |
 
 Phases run in order. Each phase commits its document to disk, applies the Living Documents protocol against earlier documents, then hands off to the `groundwork-orchestrator`, which determines the next incomplete phase and routes to its skill.
+
+## The Brownfield Path
+
+When the repository already holds an application, setup inverts: the code is the source of truth and the documents are reverse-engineered from it. The user is interviewed only for what code cannot reveal — the why, the who, and what success looks like.
+
+| Phase | Skill | Output | What it establishes |
+|---|---|---|---|
+| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Deterministic code map (via depwire when present), concern-split findings for the extract phases |
+| 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
+| 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
+| 3 | `groundwork-architecture-extract` | `docs/architecture.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force |
+| 4 | `groundwork-infra-adopt` | `docs/infrastructure.md` + gap report | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
+
+There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into the report the first bet reads, so onboarding debt becomes prioritised, schedulable work rather than a lecture. The first bet weighs closing a blocks-delivery gap against pursuing product value — the user decides.
+
+Existing docs are never blind-overwritten. A repo that already carries a brief or architecture doc routes through **Adopt/Upgrade mode**: the extract skill ingests the existing document as its primary source, fills the missing contract sections, and raises it to the current standard while preserving the user's content.
 
 ## Why the order
 

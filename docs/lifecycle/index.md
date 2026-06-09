@@ -4,7 +4,7 @@ GroundWork operates in two modes: a one-time **Setup** that establishes the proj
 
 The lifecycle is documented across three files:
 
-1. **[01. Greenfield Setup](./01-setup.md)** — The one-time, six-phase pipeline that takes a new project from idea to first shipped bet. Covers Product Brief, Design System, Architecture, Scaffolding, MVP Planning, and the handoff to the first Bet.
+1. **[01. Setup](./01-setup.md)** — The one-time pipeline that takes a project from idea (greenfield) or existing codebase (brownfield) to its first bet. Covers both paths: greenfield's facilitated discovery through Product Brief, Design System, Architecture, Scaffolding, and MVP Planning; and brownfield's Scan and extract phases through Infra Adoption.
 
 2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating five-phase Bet workflow (Discovery → Design Foundations → Decomposition → Delivery → Validation) that drives all feature work after the MVP ships.
 
@@ -22,4 +22,4 @@ Refer to the Operating Contract directly for protocol details. The lifecycle doc
 
 ## Project Modes
 
-GroundWork currently implements the **Greenfield** path only. Brownfield initialisation (running GroundWork against an existing codebase) is on the roadmap — see `TODO.md`.
+Setup adapts to what it finds. **Greenfield** (an empty repository) builds the canonical documents through facilitated discovery, then scaffolds the designed system with generators. **Brownfield** (an existing codebase) reverse-engineers the same documents from the code itself and additively bolts on the operational layer without regenerating the app. Both paths converge to the same end-state and enter the same Delivery Loop. The orchestrator detects the mode from the filesystem and routes accordingly.
