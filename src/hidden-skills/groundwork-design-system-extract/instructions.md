@@ -39,7 +39,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check whether `docs/design-system.md` already exists.
 
 - **Absent** — standard **Extract** mode.
-- **Present but missing the current contract** (no `## Summary for Downstream`, no companion `brand-tokens.json`, or written against an older standard) — **Adopt/Upgrade** mode. Ingest the existing file as primary source, preserve its decisions, and fill the missing contract sections and emit the missing `brand-tokens.json` rather than rediscovering the system.
+- **Present but missing the current contract** (no `## Summary for Downstream`, no companion `brand-tokens.json`, or written against an older standard) — **Adopt/Upgrade** mode. Ingest the existing file as primary source, preserve its decisions, and fill the missing contract sections and emit the missing `brand-tokens.json` rather than rediscovering the system. A design or UX spec authored under another framework (a BMAD UX specification, a brand guideline doc) is exactly this shape — bring it forward the same way.
 
 ### Step 2: Read Upstream Context
 

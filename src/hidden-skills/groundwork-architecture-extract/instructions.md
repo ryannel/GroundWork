@@ -47,7 +47,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check whether `docs/architecture.md` already exists.
 
 - **Absent** — standard **Extract** mode.
-- **Present but missing the current contract** (no `## Summary for Downstream` or no `generation_mode` frontmatter) — **Adopt/Upgrade** mode. Ingest the existing architecture as primary source, preserve its decisions and ADRs, and fill the missing contract sections and frontmatter rather than reconstructing from scratch.
+- **Present but missing the current contract** (no `## Summary for Downstream` or no `generation_mode` frontmatter) — **Adopt/Upgrade** mode. Ingest the existing architecture as primary source, preserve its decisions and ADRs, and fill the missing contract sections and frontmatter rather than reconstructing from scratch. An architecture doc authored under another framework (a BMAD architecture document, a design RFC) is exactly this shape — bring it forward the same way, reconciling it against the code where they disagree (the code wins).
 
 ### Step 2: Read Upstream Context (Protocol 3.2 order)
 

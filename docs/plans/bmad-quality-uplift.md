@@ -197,7 +197,7 @@ Evidence behind each gap. File references are to this repo.
 | S11 | P1 | Review-gate conformance | S1 | ✅ (audit found gates present; wording aligned, review skill routed) |
 | S12 | P1 | Discovery-notes conformance | — | ✅ (4 capture/init gaps fixed: product-brief, design-system, infra-adopt, bet 03) |
 | S13 | P1 | `./dev lint skills` | S10–S12 | ✅ |
-| S14 | P1 | Adopt/Upgrade in extract skills | — | ☐ |
+| S14 | P1 | Adopt/Upgrade in extract skills | — | ✅ (F13 was already fixed upstream; added BMAD-artifact interop naming to all three extracts) |
 | M1 | P1 | Maturity model + review type | — | ✅ |
 | M2 | P1 | Infra-adopt writes maturity.md | M1 | ✅ |
 | M3 | P1 | Bet-loop maturity steering | M1 | ✅ |

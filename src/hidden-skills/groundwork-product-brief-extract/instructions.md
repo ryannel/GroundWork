@@ -45,7 +45,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check whether `docs/product-brief.md` already exists.
 
 - **Absent** — standard **Extract** mode. Recover the brief from scan findings and interview.
-- **Present but missing the current contract** (no `## Summary for Downstream`, or written against an older GroundWork standard) — **Adopt/Upgrade** mode. The orchestrator routes here precisely so an existing doc is brought forward, not overwritten. Ingest the existing file as your primary source of truth, preserve the user's content and intent, and treat the work as filling the missing contract sections and raising it to the current standard rather than rediscovering the product. Run the same ingest, gap-interview, draft, and review stages — the existing doc simply pre-populates most of what you would otherwise infer.
+- **Present but missing the current contract** (no `## Summary for Downstream`, or written against an older GroundWork standard) — **Adopt/Upgrade** mode. The orchestrator routes here precisely so an existing doc is brought forward, not overwritten. Ingest the existing file as your primary source of truth, preserve the user's content and intent, and treat the work as filling the missing contract sections and raising it to the current standard rather than rediscovering the product. Run the same ingest, gap-interview, draft, and review stages — the existing doc simply pre-populates most of what you would otherwise infer. Documents authored under another framework are exactly this shape: a BMAD PRD or product brief, an RFC-style vision doc, a hand-written README manifesto all enter here — ingest them as the existing brief and bring them forward, never overwrite them.
 
 ### Step 2: Cache Check
 
