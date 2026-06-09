@@ -72,6 +72,8 @@ Produce two mappings and confirm both with the user before running anything (Pro
 
 Confirm the existing-service count against the architecture's service map before closing this phase. Write the confirmed plan to the cache.
 
+Through every phase of this skill, capture out-of-phase signals the user voices — product framing corrections (`## Product Brief`), design instincts (`## Design System`), delivery sequencing for the first bet (`## Bets`) — under their headers in `.groundwork/cache/discovery-notes.md` (Protocol 1).
+
 ---
 
 ## Phase 2: Lay Down the Operational Layer
@@ -135,7 +137,7 @@ Mark the verification phase complete (or pending) in the cache.
 
 2. **Draft `docs/infrastructure.md`** following greenfield scaffold's quality standard: the environment overview, the service table with ports and health endpoints, the infrastructure components, the `./dev` commands, the bet workflow, and the verification results (or the pending-verification flag). Apply `groundwork-writer`.
 
-3. **Review both documents.** Invoke the review subagent — via the `Task` tool in Claude Code — once per document: `docs/infrastructure.md` with `document_type: infrastructure`, and `docs/maturity.md` with `document_type: maturity`. Fail-closed gate, revise cap at 3 (Protocol 8). The maturity review checks that every row carries a valid dimension, severity, and status, and that the assessment does not contradict the docs this setup just committed.
+3. **Review both documents.** Invoke the review subagent — via the `Task` tool in Claude Code — once per document: `docs/infrastructure.md` with `document_type: infrastructure`, and `docs/maturity.md` with `document_type: maturity`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for each; on error, `REVIEW_UNAVAILABLE`, or no parseable verdict, the review did not run — do not commit, report the failure, and pause. Revise cap at 3. The maturity review checks that every row carries a valid dimension, severity, and status, and that the assessment does not contradict the docs this setup just committed.
 
 4. **Present** both documents, surface 🟡 Advisory findings from the reviews, and walk the user through the maturity roadmap — each gap, the dimension it blocks, what leaving it open costs, and the recommendation. Invite the user to re-rank or to mark gaps `accepted` where they consciously disagree; record their reasoning in the row. Proceed to commit only on explicit user approval of both documents.
 

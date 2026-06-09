@@ -95,6 +95,7 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 | `groundwork-infra-adopt` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
+| `groundwork-review` | `.agents/groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/instructions.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
 

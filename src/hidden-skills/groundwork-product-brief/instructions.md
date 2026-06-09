@@ -49,6 +49,12 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 ---
 
+## Initialization: Discovery Notes Check
+
+Check `.groundwork/cache/discovery-notes.md` for entries under `## Product Brief` (Protocol 1). Entries exist when an earlier session, a later phase, or a bet captured vision-level signals before this conversation — treat them as pre-discovered context and carry them into discovery instead of re-asking.
+
+---
+
 ## Phase 1: Understand Intent
 
 Understand what the user is building and why they're excited about it.

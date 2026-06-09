@@ -30,6 +30,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      - run: ./dev lint skills
       - run: ./dev test contracts
 
   compilation:

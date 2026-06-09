@@ -393,6 +393,17 @@ EOF
       print_info "Start a new chat from that folder and ask GroundWork to begin a new project."
     fi
     ;;
+  lint)
+    SUBCMD=$2
+    if [ "$SUBCMD" = "skills" ] || [ -z "$SUBCMD" ]; then
+      print_logo "Linting"
+      print_step "Running skill conformance lint..."
+      python3 scripts/lint_skills.py
+    else
+      print_info "Unknown lint target: $SUBCMD (try: ./dev lint skills)"
+      exit 1
+    fi
+    ;;
   check)
     SUBCMD=$2
     if [ "$SUBCMD" = "sync-anchors" ]; then
@@ -435,6 +446,7 @@ EOF
     print_cmd "test scaffolds" "Run end-to-end scaffold boot tests (Docker, health checks)"
     print_cmd "test nx" "Run Nx workspace tests"
     print_cmd "check sync-anchors" "Verify engineer skill sync anchors match principle file hashes"
+    print_cmd "lint skills" "Mechanical skill conformance: frontmatter, contract refs, review gates, headers, routing, llms links"
     echo ""
     ;;
 esac

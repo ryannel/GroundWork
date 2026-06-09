@@ -67,6 +67,8 @@ Check if `.groundwork/cache/design-system-cache.md` exists.
 
 Apply the Discovery Notes check from the Operating Contract. Check `.groundwork/cache/discovery-notes.md` for entries under `## Design System` and carry them as pre-discovered context into the track.
 
+The capture half of Protocol 1 applies through every phase of the track: when the user voices an out-of-phase signal — an architecture instinct, a delivery priority, an implementation specific — append it under its header (`## Architecture`, `## Bets`, `## Design Details`) in `.groundwork/cache/discovery-notes.md` and steer back to the design conversation. Create the file from the template at `.agents/groundwork/skills/templates/discovery-notes.md` if it does not exist.
+
 ### Step 1.6: Hand-off Cache Check
 
 Check if `.groundwork/cache/handoff/product-brief.md` exists. If it does, read it in full — it carries the previous phase's post-commit context: rejected user-type framings, deferred design decisions, user aesthetic instincts not yet formalised. Treat this as pre-discovered context the same way as discovery notes. This is the Hand-off Cache contract from Protocol 6 of the Operating Contract.

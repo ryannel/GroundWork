@@ -11,6 +11,8 @@ This phase is where the bet becomes executable. Milestones define the user-visib
 
 This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
 
+Protocol 1 applies throughout: milestone and slice discussions surface signals that belong elsewhere — future-bet instincts (`## Bets`), implementation details worth preserving (`## Design Details`). Capture them in `.groundwork/cache/discovery-notes.md` as they occur, then steer back to sequencing.
+
 ## Step 1: Update pitch status
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
