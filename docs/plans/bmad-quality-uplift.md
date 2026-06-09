@@ -188,7 +188,7 @@ Evidence behind each gap. File references are to this repo.
 | S3 | P0 | Resolve `groundwork-persona` | — | ✅ (stays registered; editorial pass to skill-writer standard) |
 | S4 | P0 | Refresh product brief | — | ✅ (brief + lifecycle docs; TODO item closed) |
 | S5 | P0 | Root README + getting started | docs/product.md (done) | ☐ |
-| S6 | P0 | Help surface | — | ☐ |
+| S6 | P0 | Help surface | — | ✅ |
 | S7 | P1 | Semver + changelog + release | S1–S6 | ☐ |
 | S8 | P1 | Version stamping | S7 | ☐ |
 | S9 | P1 | Migration notes in update | S2, S8 | ☐ |

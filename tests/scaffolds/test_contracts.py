@@ -59,6 +59,24 @@ def test_dev_bundle_is_fresh(tmp_path):
     )
 
 
+def test_workflow_index_is_fresh():
+    """The committed workflow-index.md equals a fresh derivation from the
+    orchestrator routing tables (decision D7: help is generated, not
+    hand-maintained). Catches the 'edited a routing table but forgot to
+    regenerate the index' drift.
+    """
+    proc = subprocess.run(
+        ["node", str(REPO_ROOT / "scripts" / "generate_workflow_index.js"), "--check"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, (
+        f"workflow-index.md is stale or unparseable: {proc.stderr or proc.stdout}\n"
+        "Regenerate and commit it: `npm run gen:workflow-index`."
+    )
+
+
 # The adopt/merge algorithm the infra-adopt skill prescribes, expressed once and
 # driven through the real `yaml` library the generators use (not reimplemented in
 # Python), so the test exercises the actual mechanism.

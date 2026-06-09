@@ -21,6 +21,17 @@ jobs:
       - run: npm ci
       - run: ./dev test generation
 
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: ./dev test contracts
+
   compilation:
     runs-on: ubuntu-latest
     steps:

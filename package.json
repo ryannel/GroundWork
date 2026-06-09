@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:dev-cli && tsc",
     "build:dev-cli": "tsc --noEmit -p src/generators/workspace-dev-cli/cli-src/tsconfig.json && node src/generators/workspace-dev-cli/cli-src/build.mjs",
-    "prepublishOnly": "npm run build:dev-cli && tsc"
+    "gen:workflow-index": "node scripts/generate_workflow_index.js",
+    "prepublishOnly": "npm run build:dev-cli && tsc && node scripts/generate_workflow_index.js --check"
   },
   "generators": "./generators.json",
   "keywords": [],

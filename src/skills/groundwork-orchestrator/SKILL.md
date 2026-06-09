@@ -41,6 +41,8 @@ A brownfield repo may already hold docs — a hand-authored README-style brief, 
 
 ## Routing
 
+The tables in this section are the source for the generated `workflow-index.md` (same directory) — after editing any of them, regenerate it with `npm run gen:workflow-index` in the GroundWork source repo. Keep the table shapes parseable.
+
 ### Mode Detection
 
 | State | Mode | Route to |
@@ -109,7 +111,7 @@ Match intent to a skill. Briefly introduce it, then load and execute the instruc
 3. Load and execute immediately.
 
 ### User asks for help
-Explain what GroundWork is, what phase the project is in, and what the next step produces.
+Read `.agents/skills/groundwork-orchestrator/workflow-index.md` — the generated map of every lifecycle route. Answer with: what GroundWork is (one paragraph), which mode and phase this project is in (from state resolution), what the next step produces, and the index table for the current mode so the user can see the whole road. Do not paste all four tables — the current mode's table plus the Anytime table is the useful subset.
 
 ---
 

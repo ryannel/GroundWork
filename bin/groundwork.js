@@ -36,6 +36,15 @@ function printHelp() {
 After init, ask your AI agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill — it reads project
 state and routes to the next lifecycle step (greenfield discovery, brownfield scan, or the bet loop).
 `);
+
+  // Print the generated workflow index so `npx groundwork help` shows the same
+  // lifecycle map the orchestrator's help intent presents.
+  const indexPath = path.join(__dirname, '..', 'src', 'skills', 'groundwork-orchestrator', 'workflow-index.md');
+  if (fs.existsSync(indexPath)) {
+    const body = fs.readFileSync(indexPath, 'utf8').replace(/^<!--[\s\S]*?-->\s*/, '');
+    console.log(`\x1b[1mThe lifecycle map:\x1b[0m\n`);
+    console.log(body.split('\n').map((l) => `  ${l}`).join('\n'));
+  }
 }
 
 // ─── Shared install/copy machinery ──────────────────────────────────────────
