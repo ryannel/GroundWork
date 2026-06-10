@@ -78,6 +78,7 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 ### Anytime Skills
 - `groundwork-update` — surgical doc updates after code changes
 - `groundwork-check` — staleness detection
+- `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 
 ### Custom Skills (user-registered)
 
@@ -99,6 +100,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-infra-adopt` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
+| `groundwork-elicit` | `.agents/groundwork/skills/groundwork-elicit/instructions.md` |
 | `groundwork-review` | `.agents/groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |

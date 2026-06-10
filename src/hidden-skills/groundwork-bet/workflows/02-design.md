@@ -119,7 +119,7 @@ The shallow version has no request shapes, no response field types, no error cas
 
 ## Transition
 
-Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Interface Design first — that is where the user's mental model of the bet lives — then the data flows, API contracts, and schema.
+Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Interface Design first — that is where the user's mental model of the bet lives — then the data flows, API contracts, and schema. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
 
 On approval:
 

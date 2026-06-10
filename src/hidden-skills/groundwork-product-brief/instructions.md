@@ -140,7 +140,7 @@ When ready:
 
 4. **Present.** Once the verdict is PRESENT, present the final draft in the chat. Most briefs fit in a single message; when the draft is large enough to risk the per-response output token budget, present it section by section instead — emit each section in turn, pausing briefly between sections so the user can respond. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 
-5. Ask the user whether to save the brief as-is or refine anything first. Proceed to Phase 4 only on explicit approval.
+5. Ask the user whether to save the brief as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard below — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 4 only on explicit approval.
 
 ### Quality Standard: What "Deep Enough" Looks Like
 

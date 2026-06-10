@@ -262,7 +262,7 @@ When ready:
 
 5. **Present.** Once the verdict is PRESENT, present the final draft section by section — emit each section file's contents in turn, pausing briefly between sections so the user can respond. Do not emit the full document in a single message; large architectures exceed the per-response output token budget. After all sections are presented, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them. Clean up the assembled file once presentation is complete: `run_command("rm .groundwork/cache/architecture-draft.md")`. The section files remain the source of truth for Phase 7.
 
-6. Ask the user whether to save the architecture as-is or refine anything first. Proceed to Phase 7 only on explicit approval.
+6. Ask the user whether to save the architecture as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 7 only on explicit approval.
 
 ---
 

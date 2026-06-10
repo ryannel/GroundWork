@@ -44,3 +44,4 @@ Available in any mode, on demand.
 |---|---|---|
 | `groundwork-update` | surgical doc updates after code changes | `.agents/groundwork/skills/groundwork-update/instructions.md` |
 | `groundwork-check` | staleness detection | `.agents/skills/groundwork-check/SKILL.md` |
+| `groundwork-elicit` | strengthens a weak draft section through structured elicitation, mid-phase while a draft is open | `.agents/groundwork/skills/groundwork-elicit/instructions.md` |
