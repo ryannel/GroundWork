@@ -4,7 +4,8 @@ version: "1"
 description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
-  summaries, hand-off cache, cache isolation, and the review gate.
+  summaries, hand-off cache, cache isolation, the review gate, and review
+  invocation.
 ---
 
 # GroundWork Operating Contract
@@ -91,7 +92,7 @@ When a change is a reversal, before you commit:
 3. **Record the supersession in an ADR.** The old design lives *only* in the superseding ADR (Context / Decision / what it cost), never as a residue in the body or summary.
 4. **Re-gate: re-invoke `groundwork-review` on every mutated canonical doc.** This is the safety net the reversal exists to trip. For each doc you changed, run the review with the matching `document_type` (a mutated `docs/domain/<entity>.md` uses `document_type: domain-entity`). Apply 🔴 findings and re-review until `PRESENT`.
    - **Domain docs are re-reviewed unconditionally on a structural reversal.** When the reversal supersedes an accepted ADR or changes an architecture `### Key Decision` / `### Binding Constraint`, re-review **every** `docs/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit. Domain stubs carry no summary, so nothing flags them when they drift — and "the facilitator forgot the domain docs were dependents" is the exact failure this protocol exists to prevent. The set is small and the re-review is cheap; do not gate it on your own judgement of which entities the reversal touched.
-   - **Cap and fail-closed handling:** the revise cap and the rule for a reviewer that cannot run are defined once in Protocol 8 (Review Gate) and apply here unchanged — a re-gate that errors blocks the commit exactly as a drafting-phase review does.
+   - **Cap and fail-closed handling:** the revise cap and the rule for a reviewer that cannot run are defined once in Protocol 8 (Review Gate), and the dispatch and failure procedure once in Protocol 9 (Review Invocation); both apply here unchanged — a re-gate that errors blocks the commit exactly as a drafting-phase review does.
 
 **Accepted residual:** a *refinement* that introduces a body-only inconsistency while leaving the summary accurate is not re-gated — downstream phases read the summary first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the summary's own contract and the dependent docs; refinements are not, to keep the common case cheap.
 
@@ -105,7 +106,7 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 
 **Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`, `groundwork-product-brief-extract`, `groundwork-design-system-extract`, `groundwork-architecture-extract`, `groundwork-infra-adopt`
 
-All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, summary, and review obligations are identical to their greenfield counterparts.
+All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, summary, and review obligations are identical to their greenfield counterparts.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
 - Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
@@ -128,7 +129,7 @@ Scan completion is tracked as a durable `scan` marker in `state.json`, not infer
 
 **Skills:** `groundwork-bet` (all five phases: discovery, design, decomposition, delivery, validation)
 
-Protocols 1, 2, 4, and 8 apply. Protocols 3, 5, 6, and 7 do **not** apply.
+Protocols 1, 2, 4, 8, and 9 apply. Protocols 3, 5, 6, and 7 do **not** apply.
 
 - The pitch frontmatter `status` field is the state machine. No *per-phase* cache file is created at init and deleted at commit the way Sequential Setup phases do — the only cache files in play are the shared `discovery-notes.md` and transient drafts such as `bet-pitch-draft.md`.
 - No hand-off files are written. Context is shared across all five phases — a fresh context is not recommended between bet phases.
@@ -141,7 +142,7 @@ This divergence is intentional. The bet's tightly coupled five-phase flow benefi
 
 **Skills:** `groundwork-update`, `groundwork-check`
 
-Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-update`, Protocols 1, 2, 4, and 8 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
+Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-update`, Protocols 1, 2, 4, 8, and 9 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
 
 `groundwork-check` is read-only and diagnostic: it mutates nothing, so only Protocol 7's read rules bind it. Its obligation is reporting honesty — a doc it cannot assess is reported as unassessed, never as current.
 
@@ -316,10 +317,37 @@ Presenting a draft as reviewed, or committing it, is permitted only when the rev
 
 When a positive verdict cannot be obtained because the reviewer errored or returned nothing, the phase must not commit and must not state or imply that the review passed. Report to the user that the independent review failed to run, include the error, and pause. Each Sequential Setup phase already pauses for explicit user approval before committing (Protocol 3.4) — fold the failure into that pause rather than proceeding around it.
 
-The author reviewing its own draft is not a substitute. The reviewer runs in an isolated context precisely so the agent that wrote the draft does not judge it — running the checks inline destroys that guarantee and re-introduces the blind spots the gate exists to catch. An adversarial self-review is permitted only when the user explicitly authorises it as a fallback, and only when the output labels it loudly as a self-review that does not satisfy the independent-review gate. It never counts as a passed gate, silently or otherwise.
+The author reviewing its own draft is not a substitute. The reviewer runs in an isolated context precisely so the agent that wrote the draft does not judge it — running the checks inline destroys that guarantee and re-introduces the blind spots the gate exists to catch. An adversarial self-review is permitted only when the user explicitly authorises it as a fallback, and only when the output labels it loudly as a self-review that does not satisfy the independent-review gate. It never counts as a passed gate, silently or otherwise. Protocol 9 (Review Invocation) turns this rule into the operational procedure a phase follows when the reviewer cannot run.
 
 ### The revise cap
 
 A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: surface every remaining 🔴 Critical finding to the user as 🟡 Advisory, and state plainly that the review did not reach PRESENT and how many critical findings remain unresolved. The user weighs them before approving the commit. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
 
 Hitting the cap is a disclosed, user-visible outcome, not a silent downgrade. It differs from the fail-closed case above by when it fires: the cap fires after the review *ran* and could not be satisfied; fail-closed fires when the review *could not run at all*. Both block a silent pass, and both surface to the user.
+
+---
+
+## Protocol 9: Review Invocation
+
+Protocol 8 defines what the reviewer's verdict means; this protocol defines how the review runs. Every invocation of `groundwork-review` — drafting-phase gates, Reversal Protocol re-gates (Protocol 2), bet validation re-reviews — follows this one procedure. Calling skills state what they pass and when in their phase the review fires; the dispatch mechanics and the failure procedure live here and are never restated per skill.
+
+### Dispatch
+
+The reviewer runs as an independent subagent with a fresh context, dispatched through the host's subagent mechanism — the `Task` tool in Claude Code. The dispatch prompt loads the `groundwork-review` skill and passes `document_path` (the draft under review) and `document_type` (which checklist the reviewer applies). Only the verdict and findings return to the caller; the reviewer's deliberation stays in its own context, which keeps the calling conversation's window clean and the judgement independent of the author.
+
+### The verdict gates the commit
+
+The gate is fail-closed (Protocol 8): the phase presents the draft as reviewed, or commits it, only on a parseable `VERDICT: PRESENT`. On `VERDICT: REVISE`, apply the 🔴 findings to the draft and re-dispatch, subject to Protocol 8's revise cap.
+
+### When the review cannot run
+
+A dispatch that errors, returns `REVIEW_UNAVAILABLE`, or returns no parseable verdict has reviewed nothing. A subagent that has produced no output for an unreasonably long time is in the same state — treat the hang as a failure rather than waiting indefinitely, because a review that never returns gates nothing. A host with no subagent mechanism cannot dispatch at all; that is the same failure, known before the first attempt.
+
+In every one of these cases the phase MUST NOT proceed as if reviewed and MUST NOT quietly run the review checks itself — the author judging its own draft re-introduces exactly the blind spots the isolated reviewer exists to catch (Protocol 8). Instead:
+
+1. **Stop and report.** Tell the user plainly that the independent review could not run, and why — the error, the hang, or the missing dispatch mechanism.
+2. **Offer exactly two paths, and take neither until the user chooses:**
+   - **Retry the dispatch** (where a dispatch mechanism exists — transient failures usually clear on retry).
+   - **An authorised self-review** — only with the user's explicit authorisation, run the review checks inline and label the output loudly as a self-review that does not satisfy the independent-review gate. This is Protocol 8's fallback rule as an operational procedure; it never counts as a passed gate.
+
+There is no third path: committing, presenting the draft as reviewed, or self-reviewing without authorisation defeats the gate.

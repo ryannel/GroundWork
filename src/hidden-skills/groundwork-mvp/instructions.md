@@ -181,7 +181,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: design` in the frontmatter — discovery is complete and the bet enters Design Foundations next.
 
-3. **Review.** Announce that the review process is starting, then invoke the review subagent with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. The subagent runs in an isolated context — via the `Task` tool in Claude Code — and returns only `VERDICT: PRESENT | REVISE` and a findings list. Report the verdict and findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; if the reviewer errors, returns `REVIEW_UNAVAILABLE`, or returns no parseable verdict, the review has not run — do not commit, report the failure, and pause.
+3. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. Report the verdict and findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
 4. **Revise loop.** Apply all 🔴 Critical findings. Re-run the review. Repeat until the verdict is PRESENT. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
 

@@ -84,7 +84,7 @@ Edits land in place — git is the rollback boundary. Nothing is committed to gi
 
 ## Step 4: Review Gate
 
-Announce the review, then invoke the review subagent — via the `Task` tool in Claude Code — once per mutated canonical doc, with `document_path` set to the doc's path and `document_type` matched to it (`docs/domain/<entity>.md` → `domain-entity`, `docs/architecture.md` → `architecture`, and so on). The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for every mutated doc. On error, `REVIEW_UNAVAILABLE`, or no parseable verdict, the review did not run — do not commit, report it, and pause.
+Announce the review, then invoke the review subagent (Protocol 9) once per mutated canonical doc, with `document_path` set to the doc's path and `document_type` matched to it (`docs/domain/<entity>.md` → `domain-entity`, `docs/architecture.md` → `architecture`, and so on). The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for every mutated doc; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
 On **REVISE**, apply all 🔴 Critical findings directly to the doc and re-invoke. After 3 REVISE verdicts on a single doc, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT.
 
