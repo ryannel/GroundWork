@@ -8,6 +8,44 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+Second-pass quality sweep over the 0.9.0 surface — a fresh-eyes audit of every shipped
+skill, the CLI, and the docs, plus two capability adoptions.
+
+### Added
+
+- **`groundwork-elicit`**: structured elicitation as an anytime utility skill — diagnoses a
+  weak draft section, proposes the one best-fit technique (24 curated methods, loaded only at
+  invocation), executes it conversationally, and applies the strengthened section to the open
+  draft with the review gate re-run before commit. Offered from the draft walkthroughs of
+  product brief, architecture, the design-system tracks, and bet design.
+- **Operating contract Protocol 9 (Review Invocation)**: the review-dispatch mechanics and the
+  failure procedure now live in one place. A review that errors, hangs, or returns no verdict
+  stops the phase — never a silent self-review; an inline self-review requires explicit user
+  authorisation and is loudly labelled as not satisfying the gate. Additive; contract stays v1.
+
+### Changed
+
+- **Per-phase step files**: `groundwork-architecture` and `groundwork-scaffold` (31KB each)
+  split into slim entries plus `phases/NN-*.md` loaded at each phase's start — a session in a
+  late phase no longer carries every earlier phase's instructions. Content-preserving move.
+- **Extract-path consistency**: Adopt/Upgrade detection is one structural rule stated
+  identically across all three extract skills; `brand-tokens.json` is preserved when valid;
+  state recording and frontmatter exemptions are stated as intent instead of left implicit;
+  infra-adopt halts on a service-count mismatch and records a gap row.
+- **Greenfield lifecycle gaps**: product-brief gains the sibling resume protocol; MVP defines
+  its post-review refine path; scaffold flags unverified output with a Verification Status
+  section; the reversal-protocol sentence is aligned across all phases.
+- **Registered-skill context cost**: persona description cut 77→36 words; check loses its
+  duplicated description and dead reference; orchestrator anchors the operating contract and
+  explains its rules.
+- `groundwork check` prints a friendly guard when run outside a git repository; the seeded
+  `llms.txt` states that setup-phase docs appear as each phase commits.
+
+### Removed
+
+- The in-repo `BMAD/` reference clone (the analysis it informed is committed; the clone lives
+  outside the repo). Stale `main` field in package.json and stale `.npmignore` entries.
+
 ## [0.9.0] - 2026-06-09
 
 First tracked release. GroundWork adopts semver from `0.x` honestly — the framework is
