@@ -49,7 +49,16 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 ---
 
-## Initialization: Discovery Notes Check
+## Initialization & Resume Protocol
+
+### Step 1: Cache Check
+
+Check if `.groundwork/cache/product-brief-draft.md` exists.
+
+- If it **does not exist**, this is a fresh session — proceed to Step 2.
+- If it **does exist**, read it. A draft means a previous session reached Phase 3 without committing — summarise what has been established and ask whether the user wants to resume or start fresh. If they choose to start fresh, delete the draft file. If they choose to resume, skip to Phase 3 and carry the existing draft forward.
+
+### Step 2: Discovery Notes Check
 
 Check `.groundwork/cache/discovery-notes.md` for entries under `## Product Brief` (Protocol 1). Entries exist when an earlier session, a later phase, or a bet captured vision-level signals before this conversation — treat them as pre-discovered context and carry them into discovery instead of re-asking.
 
@@ -119,7 +128,7 @@ Before transitioning to Phase 3, self-test: for each section of the Product Brie
 
 When ready:
 
-1. **Draft.** Synthesize the discovery into the Product Brief structure below. Lead the draft with a `## Summary for Downstream` section as its very first section (per Protocol 5 of the operating contract): Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. This is the contract every downstream phase reads first, so it must be present in the draft that goes to review — not added later at commit. Apply the `groundwork-writer` skill for the summary structure, tone, and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately.
+1. **Draft.** Synthesize the discovery into the Product Brief structure below. Lead the draft with a `## Summary for Downstream` section as its very first section (per Protocol 5 of the operating contract): Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. This is the contract every downstream phase reads first, so it must be present in the draft that goes to review — not added later at commit. Apply the `groundwork-writer` skill for the summary structure, tone, and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 
 2. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. Report the verdict and any findings explicitly before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
@@ -129,7 +138,7 @@ When ready:
    - Run the review again. Repeat until the verdict is **PRESENT**.
    - **Cap.** After 3 REVISE verdicts, apply the revise cap defined in Protocol 8: stop revising, surface remaining 🔴 Critical findings as 🟡 Advisory, and disclose that the review did not reach PRESENT and how many critical findings remain.
 
-4. **Present.** Once the verdict is PRESENT, output the final draft in full in the chat. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
+4. **Present.** Once the verdict is PRESENT, present the final draft in the chat. Most briefs fit in a single message; when the draft is large enough to risk the per-response output token budget, present it section by section instead — emit each section in turn, pausing briefly between sections so the user can respond. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 
 5. Ask the user whether to save the brief as-is or refine anything first. Proceed to Phase 4 only on explicit approval.
 
@@ -211,7 +220,7 @@ Execute **only** after explicit user approval. Follow the Phase Lifecycle commit
 1. Verify the draft contains a `## Summary for Downstream` section as the first section after frontmatter, populated per Protocol 5 (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope). If the section is missing or incomplete, apply the `groundwork-writer` skill to add it before committing — the summary is the contract every downstream phase reads first, and a commit without it forces every downstream phase to re-read the full brief.
 2. Promote the finalised brief to `docs/product-brief.md` by moving the file from `.groundwork/cache/product-brief-draft.md`. Use a move operation (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents, as the brief is large enough that re-emitting it through the model risks exhausting the output token budget.
 3. Write the hand-off file to `.groundwork/cache/handoff/product-brief.md`. Copy the template at `.agents/groundwork/skills/templates/handoff.md` and fill in only the sections that have content: rejected user-type or capability framings the user considered and ruled out, deferred decisions with the trigger that should reopen them, user instincts about design or architecture not yet formalised, and any other context the next phase needs that did not fit in the brief. Omit empty sections entirely. This is the Hand-off Cache contract from Protocol 6.
-4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
 5. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove entries incorporated into the brief or the hand-off file.
 6. Confirm that the phase is complete.
 7. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.

@@ -41,7 +41,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 Check if `.groundwork/cache/mvp-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-mvp/templates/mvp-cache.md` to `.groundwork/cache/mvp-cache.md`.
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-mvp/templates/mvp-cache.md` to `.groundwork/cache/mvp-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it, summarise which phases are complete, and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template.
 
 ### Step 2: Discovery Notes Check
@@ -187,7 +187,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
 
-6. Ask the user whether to save as-is or refine anything. Proceed to Phase 5 only on explicit approval.
+6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. Proceed to Phase 5 only on a passing verdict and explicit approval.
 
 ---
 
@@ -199,7 +199,7 @@ MVP is the terminal Sequential Setup phase. Its successor — the `groundwork-be
 
 1. **Clean up caches.** Remove the mvp cache and the consumed previous hand-off: `run_command("rm -f .groundwork/cache/mvp-cache.md .groundwork/cache/handoff/scaffold.md")`. The pitch itself (`docs/bets/<slug>/pitch.md`) is the canonical artifact and is not a cache — leave it in place.
 
-2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed.
+2. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
 
 3. **Update discovery notes — the durable channel into the bet.** Scan for out-of-phase signals not captured in real time, and record the scope reasoning the bet's Design and Decomposition phases will need: out-of-scope features the user accepted cutting, deferred decisions about monetisation or post-MVP scope, and user instincts about scope sequencing. Append these under the `## Bets` section of `.groundwork/cache/discovery-notes.md` — the bet phases read this file, so it is what makes the reasoning recoverable if the session ends and is resumed later. Remove entries that were fully incorporated into the committed pitch.
 

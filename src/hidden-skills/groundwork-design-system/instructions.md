@@ -60,7 +60,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 Check if `.groundwork/cache/design-system-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-design-system/templates/design-system-cache.md` to `.groundwork/cache/design-system-cache.md`.
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-design-system/templates/design-system-cache.md` to `.groundwork/cache/design-system-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it. If an `interface_type` is already recorded and phases are in progress, summarise what has been completed and ask whether the user wants to resume or start fresh. If they choose to start fresh, reset the cache file from the template. If they choose to resume, skip to Step 3.
 
 ### Step 1.5: Discovery Notes Check

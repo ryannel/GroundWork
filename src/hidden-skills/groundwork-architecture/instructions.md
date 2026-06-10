@@ -43,7 +43,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 Check if `.groundwork/cache/architecture-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-architecture/templates/architecture-cache.md` to `.groundwork/cache/architecture-cache.md`.
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-architecture/templates/architecture-cache.md` to `.groundwork/cache/architecture-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it. If any phases have a status of `complete`, summarise what has been established and ask whether the user wants to resume or start fresh. If they choose to start fresh, reset the cache from the template. If they choose to resume, skip to the first phase that is still `pending`.
 
 ### Step 2: Discovery Notes Check
