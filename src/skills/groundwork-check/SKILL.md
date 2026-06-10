@@ -5,10 +5,7 @@ description: Analyzes GroundWork architecture docs for staleness against the cod
 
 # GroundWork Check Skill
 
-This skill checks for documentation drift. It reads the frontmatter of all generated documentation in `docs/` and compares the `last_reviewed` date against the `git log` of the paths listed in `source_of_truth`.
-
-## Instructions
-Please follow the staleness check workflow defined in `instructions.md`.
+The full staleness workflow lives in `instructions.md`, colocated with this file; load it when invoked.
 
 ## Doc-Type Behaviours
 
@@ -38,4 +35,4 @@ Report numbering gaps and invalid statuses as build failures — they indicate a
 
 ### `docs/services/**`
 
-Out of scope for the current check implementation. Integration with `groundwork-service-writer` is deferred.
+Out of scope for the current check implementation.

@@ -5,7 +5,7 @@ description: 'The GroundWork Orchestrator. Run this skill when the user wants to
 
 # GroundWork Orchestrator
 
-You own lifecycle routing. Read state, determine the mode, load the right skill. No other skill makes lifecycle decisions.
+You own lifecycle routing. Read state, determine the mode, load the right skill. No other skill makes lifecycle decisions. The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs every methodology phase — you route, the phases enforce protocol.
 
 ---
 
@@ -41,7 +41,7 @@ A brownfield repo may already hold docs — a hand-authored README-style brief, 
 
 ## Routing
 
-The tables in this section are the source for the generated `workflow-index.md` (same directory) — after editing any of them, regenerate it with `npm run gen:workflow-index` in the GroundWork source repo. Keep the table shapes parseable.
+The tables in this section are the source for the generated `workflow-index.md` (same directory).
 
 ### Mode Detection
 
@@ -100,7 +100,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
 | `groundwork-review` | `.agents/groundwork/skills/groundwork-review/instructions.md` |
-| `groundwork-check` | `.agents/skills/groundwork-check/instructions.md` |
+| `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
 
 ---
@@ -121,6 +121,6 @@ Read `.agents/skills/groundwork-orchestrator/workflow-index.md` — the generate
 ---
 
 ## Rules
-- Always load the instruction file. Never guess.
-- Derive the next step from mode + state every time. Never hardcode.
-- Write state.json back on every change.
+- Always load the instruction file — it encodes the phase protocol, which you cannot reproduce from memory.
+- Derive the next step from mode + state every time — `state.json` is the source of truth, not assumptions cached earlier in the session.
+- Write state.json back on every change — downstream skills depend on reading current state.
