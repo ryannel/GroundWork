@@ -19,3 +19,6 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Python: Mcp](docs/principles/stack/python/mcp.md): Stack-specific engineering principles.
 - [Python: Resilience](docs/principles/stack/python/resilience.md): Stack-specific engineering principles.
 - [Python: Testing](docs/principles/stack/python/testing.md): Stack-specific engineering principles.
+- [Go: Concurrency](docs/principles/stack/go/concurrency.md): Stack-specific engineering principles.
+- [Go: Overview](docs/principles/stack/go/index.md): Stack-specific engineering principles.
+- [Go: Testing](docs/principles/stack/go/testing.md): Stack-specific engineering principles.
