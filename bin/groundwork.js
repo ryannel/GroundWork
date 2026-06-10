@@ -494,6 +494,17 @@ function checkGroundWork() {
 
   banner();
 
+  // Drift detection compares last_reviewed against git history — without a repo,
+  // every per-doc `git log` would fail with a cryptic error.
+  try {
+    execFileSync('git', ['rev-parse', '--git-dir'], { cwd: p.targetDir, stdio: 'ignore' });
+  } catch {
+    c.err(`groundwork check requires a git repository (drift detection reads git history).`);
+    console.error(`  Run it from your project root, or \x1b[36mgit init\x1b[0m first.\n`);
+    process.exitCode = 1;
+    return;
+  }
+
   if (!fs.existsSync(docsDir)) {
     c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
     process.exitCode = 1;

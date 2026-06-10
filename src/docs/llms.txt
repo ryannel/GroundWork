@@ -3,6 +3,10 @@
 The canonical documents in this project, in their expected order of
 relevance for AI agents working in this codebase.
 
+*The Vision-and-direction and System documents are created by the GroundWork
+setup phases and appear here as each phase commits — those links resolve once
+setup runs. The other sections ship at install time.*
+
 ## Vision and direction
 - [Product Brief](docs/product-brief.md): The product's vision, users, and constraints.
 - [Design System](docs/design-system.md): Interface decisions, NFRs, and design language.

@@ -2,7 +2,6 @@
   "name": "groundwork",
   "version": "0.9.0",
   "description": "An installable delivery system for AI-driven software development: facilitated discovery to canonical docs, generators to a booted monorepo, and a contract-gated bet delivery loop.",
-  "main": "index.js",
   "bin": {
     "groundwork": "./bin/groundwork.js"
   },

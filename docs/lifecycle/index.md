@@ -12,7 +12,7 @@ The lifecycle is documented across three files:
 
 ## The Operating Contract
 
-All lifecycle phases share a single set of behavioral protocols defined in `operating-contract.md` and loaded by every methodology skill:
+All lifecycle phases share a single set of behavioral protocols defined in `operating-contract.md` (source: `src/hidden-skills/operating-contract.md`; installed into user projects at `.agents/groundwork/skills/operating-contract.md`) and loaded by every methodology skill:
 
 - **Discovery Notes** — capturing signals that belong to a different phase under a canonical 5-section header set, so they're available to the phase that needs them.
 - **Living Documents** — surgical, permissionless updates to upstream `docs/` artifacts when any phase or bet reveals new information.
