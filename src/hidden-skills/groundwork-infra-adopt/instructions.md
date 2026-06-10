@@ -70,7 +70,7 @@ Produce two mappings and confirm both with the user before running anything (Pro
 | `system-test-runner` | no system-test harness exists | `--interfaceMedium <type>` from `docs/design-system.md`'s interface track. A missing harness is a blocks-delivery gap — adding it is the single highest-value thing this phase does. |
 | `docs-site` | opt-in, when no docs site exists | Ask the user once whether they want a Fumadocs site. Default to running it when the repo has no documentation surface. |
 
-Confirm the existing-service count against the architecture's service map before closing this phase. Write the confirmed plan to the cache.
+Confirm the existing-service count against the architecture's service map before closing this phase. On a mismatch, halt: surface the disagreement to the user, ask which source is authoritative — the architecture doc or what the code shows — and append a row to `.groundwork/cache/gap-ledger.md` recording the discrepancy and its resolution before proceeding. Write the confirmed plan to the cache.
 
 Through every phase of this skill, capture out-of-phase signals the user voices — product framing corrections (`## Product Brief`), design instincts (`## Design System`), delivery sequencing for the first bet (`## Bets`) — under their headers in `.groundwork/cache/discovery-notes.md` (Protocol 1).
 
@@ -137,7 +137,7 @@ Mark the verification phase complete (or pending) in the cache.
 
 2. **Draft `docs/infrastructure.md`** following greenfield scaffold's quality standard: the environment overview, the service table with ports and health endpoints, the infrastructure components, the `./dev` commands, the bet workflow, and the verification results (or the pending-verification flag). Apply `groundwork-writer`.
 
-3. **Review both documents.** Invoke the review subagent (Protocol 9) once per document: `docs/infrastructure.md` with `document_type: infrastructure`, and `docs/maturity.md` with `document_type: maturity`. The gate is fail-closed and the revise cap applies (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for each. The maturity review checks that every row carries a valid dimension, severity, and status, and that the assessment does not contradict the docs this setup just committed.
+3. **Review both documents.** Invoke the review subagent (Protocol 9) once per document: `docs/infrastructure.md` with `document_type: infrastructure`, and `docs/maturity.md` with `document_type: maturity`. The gate is fail-closed and the revise cap applies (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for each. The maturity review checks that every row carries a valid dimension, severity, and status, and that the assessment does not contradict the docs this setup just committed. The domain stubs are not re-reviewed here — the architecture phase reviewed them at its commit, and they re-enter review only when a reconciliation in this phase mutates one (Protocol 2).
 
 4. **Present** both documents, surface 🟡 Advisory findings from the reviews, and walk the user through the maturity roadmap — each gap, the dimension it blocks, what leaving it open costs, and the recommendation. Invite the user to re-rank or to mark gaps `accepted` where they consciously disagree; record their reasoning in the row. Proceed to commit only on explicit user approval of both documents.
 
@@ -151,7 +151,7 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 2. **Stamp drift-baseline frontmatter** on the code-coupled docs this phase wrote: each `docs/services/<name>.md` and `docs/api/<name>.md` gets `generation_mode: extracted`, `source_of_truth:` (the service's code paths and contract files), and `last_reviewed:` (today's date). The architecture phase already stamped `docs/architecture.md` and the domain docs.
 
-3. **Set the baseline in state.json.** Write `baseline: { source_commit: <current git SHA>, scanned_at: <iso> }` into `.groundwork/config/state.json`. This anchors drift detection — `groundwork-check` compares the code's git history against `source_commit` for extracted docs.
+3. **Set the baseline in state.json.** Write `baseline: { source_commit: <current git SHA>, scanned_at: <iso> }` into `.groundwork/config/state.json`. This anchors drift detection — `groundwork-check` compares the code's git history against `source_commit` for extracted docs. Add nothing to the `completed` array — the orchestrator infers this phase's completion from `docs/infrastructure.md` and `docs/maturity.md` carrying their `## Summary for Downstream` sections; only the scan writes a durable marker, because it leaves no `docs/` artifact.
 
 4. **Tear down the scan cache (this phase owns it).** Delete `.groundwork/cache/scan/` (overview and any remaining findings), `.groundwork/cache/scan-state.json`, and the consumed architecture-extract hand-off. **Preserve `.groundwork/cache/repo-map.json`** — it is a first-class artifact `groundwork-check` and the bet loop reuse for impact analysis, regenerable on demand by depwire. Delete `docker-compose.yml.bak` only after confirming the merged compose boots; otherwise leave it for the user.
 

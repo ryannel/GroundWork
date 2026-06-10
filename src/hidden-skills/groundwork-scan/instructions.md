@@ -91,7 +91,7 @@ Build an exact map of the codebase — module boundaries, import and call edges,
 
 The scan is otherwise autonomous. Confirm exactly two things with the user, paced per Protocol 4 — keep this tight, you are confirming inferences, not interrogating:
 
-1. **Partition boundaries.** Present the parts you detected and how you intend to partition the scan — typically one partition per service or package, or per top-level source area in a single service. Let the user correct a boundary you read wrong; they know the repo.
+1. **Partition boundaries.** Present the parts you detected and how you intend to partition the scan. The rule is one partition per service or package; a single-service repo partitions per top-level source area instead, and an oversized partition is sub-partitioned in Stage 3. Let the user correct a boundary you read wrong; they know the repo.
 2. **Scan depth.** Offer the three depths and recommend one based on repo size and the user's intent:
    - **Quick** — manifests, configs, the README, and contract/route files only; no deep source reading. Right for a first orientation or a very large repo.
    - **Deep** — quick plus every file in the critical directories the project type designates. The default for most repos.
@@ -111,7 +111,7 @@ Branch on the `fan_out` hint.
 
 Dispatch one scan sub-agent per partition, guided by the structural map so each agent knows its partition's hubs.
 
-- **Bound the fan-out at 8 concurrent sub-agents.** With more partitions than that, run in waves. With a single partition far larger than the rest (a file count or size well beyond its siblings), sub-partition it by sub-directory, or under Quick/Deep depth priority-sample it — contract-bearing and high-centrality files first — rather than reading every file. A concurrency cap alone does not bound one oversized partition; handle it explicitly.
+- **Bound the fan-out at 8 concurrent sub-agents.** With more partitions than that, run in waves. With a single partition far larger than the rest (a file count or size well beyond its siblings), sub-partition it by sub-directory, or under Quick/Deep depth priority-sample it rather than reading every file. Sampling always includes the contract-bearing files (specs, migrations, config) and the high-centrality modules — rank by `repo-map.json`'s centrality when present; the budget falls on the leaves, never on the contracts. A concurrency cap alone does not bound one oversized partition; handle it explicitly.
 - Give each sub-agent its partition root, the exclusion globs, the scan depth, the partition's hub symbols from the structural map, and the digest schema — with the instruction to return the structured digest only, never file contents.
 - **Assemble without reading files yourself.** As each digest returns, route its fields into the concern-split findings files (below) with `append_file`, update the partition's status and one-line summary in `scan-state.json`, and move on. You never open a source file in the parent context — the sub-agents read; you assemble. This is what keeps the parent lean at full fan-out.
 

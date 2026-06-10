@@ -47,7 +47,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check whether `docs/architecture.md` already exists.
 
 - **Absent** — standard **Extract** mode.
-- **Present but missing the current contract** (no `## Summary for Downstream` or no `generation_mode` frontmatter) — **Adopt/Upgrade** mode. Ingest the existing architecture as primary source, preserve its decisions and ADRs, and fill the missing contract sections and frontmatter rather than reconstructing from scratch. An architecture doc authored under another framework (a BMAD architecture document, a design RFC) is exactly this shape — bring it forward the same way, reconciling it against the code where they disagree (the code wins).
+- **Present but lacking an element this phase's commit produces** (for the architecture: the `## Summary for Downstream` section, or the `generation_mode`/`source_of_truth` frontmatter) — **Adopt/Upgrade** mode. Ingest the existing architecture as primary source, preserve its decisions and ADRs, and fill the missing contract sections and frontmatter rather than reconstructing from scratch. An architecture doc authored under another framework (a BMAD architecture document, a design RFC) is exactly this shape — bring it forward the same way, reconciling it against the code where they disagree (the code wins).
 
 ### Step 2: Read Upstream Context (Protocol 3.2 order)
 
@@ -154,4 +154,4 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 11. Update discovery notes — remove `## Architecture` and `## Design Details` entries now captured.
 
-12. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it.
+12. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/architecture.md` carrying its `## Summary for Downstream` and the stamped `generation_mode`/`source_of_truth` frontmatter; only the scan writes a durable marker, because it leaves no `docs/` artifact.
