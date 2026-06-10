@@ -8,8 +8,50 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
-Second-pass quality sweep over the 0.9.0 surface — a fresh-eyes audit of every shipped
-skill, the CLI, and the docs, plus two capability adoptions.
+Contract-grade delivery: the bet loop's design → tests → delivery chain becomes
+machine-enforced end to end. Design emits specs, the proof suite is reviewed
+assertion-by-assertion and sealed by hash manifest, delivery is tracked per-slice in a
+machine-readable manifest, and the loop closes with a retrospective. Plus the package
+rename and the BMAD delivery-loop adoptions. Also includes the second-pass quality
+sweep over the 0.9.0 surface.
+
+### Added (contract-grade delivery, 2026-06-10)
+
+- **Specs at design time**: Design Foundations writes `docs/bets/<slug>/contracts/`
+  (`openapi.yaml`, `asyncapi.yaml`, `schema.sql`); decomposition tests derive every shape
+  from the specs; validation promotes them to `docs/api/<service>/` as the canonical record.
+- **The signing gate**: a generated `test-review.md` puts every test's verbatim assertions
+  and traceability in front of the user at Proof of Work; on approval `./dev bet sign`
+  seals the suite with a SHA-256 manifest. `./dev test bet` refuses a tampered suite; the
+  delivery workflow forbids test edits; a wrong test routes through the Amendment Protocol
+  with user sign-off and a re-seal.
+- **The progress surface**: `.groundwork/bets/<slug>/decomposition.json` mirrors the
+  decomposition machine-readably; delivery records per-slice status, baseline/delivered
+  commits, file lists, and notes; `./dev bet status [--json]` renders the milestone/slice
+  board with seal verification.
+- **Delivery-loop mechanics adopted from BMAD**: per-slice context capsule (read every file
+  the slice modifies before changing it), three-lens slice review (blind reviewer, edge-case
+  tracer, acceptance auditor against the specs) with decision/patch/defer/dismiss triage
+  wired to the maturity ledger, the bet retrospective (slice-record mining, previous-retro
+  follow-through audit, significant-discovery detection, readiness exploration), and Change
+  Navigation with written before/after change proposals.
+- **`groundwork-patch`**: the small-change lane — one bounded user-facing goal, tested,
+  Living-Documents-passed, logged to `docs/bets/patch-ledger.md`; clustering patches surface
+  as a bet signal in discovery. Contract/schema changes never qualify.
+- **Generated test surface**: contract-conformance system test (served spec vs promoted
+  spec), Playwright page-object scaffold + axe a11y smoke for graphical-ui projects, and a
+  per-stack "Bet Slice Rollout" permanent-test taxonomy in the engineer skills.
+- **1.0 criteria** written down in `docs/plans/contract-grade-delivery.md` §9.5.
+
+### Changed (contract-grade delivery, 2026-06-10)
+
+- [migration] Package renamed `groundwork` → `groundwork-method` — the binary stays `groundwork`; change any `npx groundwork …` invocations in your scripts to `npx groundwork-method …`.
+- Rename context: the bare npm name is held by an unrelated package, and the `-method` suffix matches the methodology-package convention.
+- Release workflow publishes for real (dry-run gate removed); requires the `NPM_TOKEN` secret.
+- Infra images pinned (`postgres:16`, `redis:7`); `groundwork check` exit codes documented.
+- `docs/groundwork-vs-bmad.md` corrected: BMAD does deliver (full implementation phase);
+  GroundWork's differentiators are the executable layer and the sealed design-locked test
+  contract, not "they stop at documents."
 
 ### Added
 

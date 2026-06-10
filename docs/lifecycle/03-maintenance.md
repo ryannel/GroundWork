@@ -1,10 +1,11 @@
 # 03. Maintenance
 
-Documentation in GroundWork is not a separate maintenance phase — it is continuously kept current by mechanisms embedded in the lifecycle itself. Three layers cooperate:
+Documentation in GroundWork is not a separate maintenance phase — it is continuously kept current by mechanisms embedded in the lifecycle itself. Four layers cooperate:
 
 1. **Living Documents** (in-flight) — every phase and bet updates upstream docs surgically when new information surfaces.
-2. **`groundwork-update`** (on-demand) — surgical, in-place patches when code ships outside the bet workflow.
-3. **`groundwork-check`** (CI) — automated drift detection comparing doc `last_reviewed` dates against the Git history of declared source files.
+2. **`groundwork-update`** (on-demand) — surgical, in-place doc patches when code ships outside the bet workflow.
+3. **`groundwork-patch`** (on-demand) — the small-change code lane: one bounded user-facing goal, tested, doc-passed, and logged to `docs/bets/patch-ledger.md` so clustering patches surface as a bet signal instead of silent scope creep. Contract or schema changes never qualify — those are bet-scoped.
+4. **`groundwork-check`** (CI) — automated drift detection comparing doc `last_reviewed` dates against the Git history of declared source files.
 
 ## Living Documents
 
@@ -36,7 +37,7 @@ This makes documentation drift visible and addressable rather than silent. A fla
 
 ### Current state
 
-`groundwork-check` exists as a registered skill at `src/skills/groundwork-check/`. The `source_of_truth` and `last_reviewed` frontmatter conventions are defined, but no scaffold generator currently writes that frontmatter into the documents it produces — a TODO comment in `src/hidden-skills/groundwork-scaffold/instructions.md` Phase 2 captures the gap.
+`groundwork-check` exists as a registered skill at `src/skills/groundwork-check/`. The `source_of_truth` and `last_reviewed` frontmatter conventions are defined, and the scaffold skill stamps them into every generated service and API doc (`groundwork-scaffold` phase 3), so drift detection works from the first commit of a greenfield project.
 
 Until the scaffold generators populate the frontmatter, `groundwork-check` runs against an empty source-of-truth graph. Closing this gap is part of the Brownfield work tracked in `TODO.md`.
 

@@ -1,6 +1,6 @@
 # Implementation Plan: Bet Lifecycle Restructure (Milestones, Slices, Tests-as-Proof)
 
-**Status:** Half 1 complete — start at Workstream E
+**Status:** COMPLETE — all workstreams A–I shipped (Half 2 closed via the `./dev new bet|milestone|slice` scaffolding and test templates; Docker gate closed via `./dev test scaffolds`). Superseded for further delivery-loop work by `contract-grade-delivery.md`.
 **Audience:** An engineer or agent implementing this change. Written to be executed step-by-step without judgment calls — every file path, edit, and acceptance check is explicit.
 **Scope owner:** `groundwork-bet` skill, with coupled changes to `groundwork-mvp`, shared templates, eval scenarios, and framework lifecycle docs.
 

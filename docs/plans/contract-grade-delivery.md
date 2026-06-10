@@ -1,6 +1,6 @@
 # Implementation Plan: Contract-Grade Delivery (Machine-Readable Design, Signed Tests, Visible Progress)
 
-**Status:** Proposed — produced by a full framework review on 2026-06-10. No workstream started.
+**Status:** EXECUTED 2026-06-10 (same-day bake-out) — everything implementable without live verification or new product surfaces is shipped. See the **Execution ledger** (§9.5) for the per-slice record. What remains is exactly two buckets: **testing & validation** (A1–A3, B3 runtime drift check, E live-gated parallel delivery, H8 headless evals) and **new solution types** (mobile/desktop generators, G3 docs site).
 **Audience:** An engineer or agent implementing this change. Each slice names its files and acceptance check; judgment calls that remain are listed as open decisions in §8.
 **Scope owner:** `groundwork-bet` skill and the `workspace-dev-cli` / `system-test-runner` generators, with coupled changes to `groundwork-check`, the operating contract, review checklists, and framework lifecycle docs.
 
@@ -203,6 +203,47 @@ Adopt BMAD's two-pattern eval design for methodology skills, run **headless in t
 **G3 — Docs site (S24, deferred earlier).** Dogfood the docs-site generator on `docs/` once 1.0 criteria are set — the methodology is now distinctive enough to be worth publishing.
 
 ---
+
+## 9.5. Execution ledger (2026-06-10)
+
+| Slice | Status | Where it landed |
+|---|---|---|
+| A1–A3 | ⏳ remaining (testing) | Live sims + orchestrator table-tests — the open verification bucket |
+| A4 | ✅ | Judge rubric committed as the seeder's single source of truth |
+| A5, A6, A7 | ✅ pre-existing | `./dev lint skills`, bet-lifecycle Half 2, scaffold drift frontmatter — these plan findings were stale |
+| B1, B5 | ✅ | `02-design.md` Step 2.2 emits `contracts/` specs; template + technical-design checklist updated |
+| B2 | ✅ | `03-decomposition.md`: test shapes derive from specs; gate + checklist enforce it |
+| B3 | ⏳ remaining (testing) | Runtime served-spec drift check needs booted services; static conformance test ships via F1 |
+| B4 | ✅ | `05-validation.md` Step 2.5 promotes specs to `docs/api/<service>/` |
+| C1 | ✅ | Test-review surface: Step 6.6 + `templates/test-review.md` + assertion-by-assertion walkthrough |
+| C2 | ✅ | Test Semantics section in the decomposition review checklist |
+| C3 | ✅ | `./dev bet sign` + manifest verification in `./dev test bet`; the skill writes the manifest directly where the CLI is absent |
+| C4 | ✅ | Amendment Protocol in `04-delivery.md`; sealed-suite prohibition in its restrictions |
+| C5 | ✅ | Seal recorded in the manifest; implementation-readiness gate blocks unsigned or drifted suites |
+| D1 | ✅ | `.groundwork/bets/<slug>/decomposition.json`, Step 6.5 |
+| D2 | ✅ | `./dev bet status [--json]` board |
+| D3 | ✅ | Slice loop records status / baseline / files / notes in the manifest |
+| D4 | ✂️ dropped with reason | Pitch `status` + the bet manifest already answer "where were we"; duplicating into `state.json` adds a second source of truth to reconcile |
+| E1–E3 | ⏳ remaining (post-verification) | Parallel delivery gated on C+D proven live (decision D5) |
+| F1, F2, F4 | ✅ | Contract-conformance test template; Playwright page objects + a11y smoke; pinned infra images + documented exit codes |
+| F3 | ✅ | Bet Slice Rollout taxonomy in all three engineer testing references |
+| G1 | ✅ | Package renamed `groundwork-method` (bin stays `groundwork`); release workflow publishes for real |
+| G2 | ✅ | 1.0 criteria below |
+| G3 | ⏳ remaining (new surface) | Docs-site dogfood |
+| H1–H7 | ✅ | Slice records, context capsule, three-lens review, triage→maturity, retrospective, change navigation, `groundwork-patch` lane |
+| H8 | ⏳ remaining (testing) | Headless A/B evals — verification bucket |
+
+### 1.0 criteria (G2)
+
+GroundWork ships 1.0 when, and only when:
+
+1. **Greenfield proven live** — a full `/simulate-greenfield` run on the current skill set, checklist green, judge report committed (A2).
+2. **Brownfield proven live** — the same for `/simulate-brownfield` (A1).
+3. **The sealed loop exercised end-to-end** — one bet in a live simulation passes through spec emission → signed suite → sealed delivery → spec promotion → retrospective, with `./dev bet status` rendering and a seal-tamper rejection observed in the transcript.
+4. **Orchestrator state table-tests green in CI** (A3).
+5. **`groundwork-method@1.0.0` publishes** via the release workflow, with the operating-contract version and changelog migration notes agreeing.
+
+Mobile/desktop generators, parallel slice delivery (WS-E), and the docs site are post-1.0 surface — explicitly not gates.
 
 ## 10. Sequencing
 

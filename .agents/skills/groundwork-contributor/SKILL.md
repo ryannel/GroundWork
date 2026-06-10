@@ -44,6 +44,7 @@ groundWork/
 │   │   ├── groundwork-architecture-extract/       ← Brownfield Phase 3: reconstructs architecture + domain + ADRs from scan + repo-map.
 │   │   ├── groundwork-infra-adopt/                ← Brownfield Phase 4: adopts existing services, bolts on the operational layer, commits the gap ledger.
 │   │   ├── groundwork-bet/            ← Delivery loop: discovery → design → decomposition → delivery → validation.
+│   │   ├── groundwork-patch/          ← Small-change lane: bounded code fixes outside the bet ceremony, logged to the patch ledger.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
