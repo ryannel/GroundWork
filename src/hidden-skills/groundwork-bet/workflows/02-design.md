@@ -40,11 +40,23 @@ The Technical Design Document covers the **entire bet** — not per-milestone. W
 
 **Data Flows:** Identify the key data paths this bet introduces or changes. For each path, describe what triggers it, which services handle it, what persists, and the key design decisions that shaped it. Skip trivial CRUD; focus on paths where timing, service boundaries, or failure modes are non-obvious.
 
-**API Contracts:** For each service boundary touched by this bet, produce a fully specified endpoint design: full request shape with field types, full response shape with field types, all error cases with caller guidance, and design rationale for non-obvious decisions. Derive the specification from the pitch, upstream architecture, and the interface and data flow sections above — the user provides intent and context; you produce the detailed contract. Where a detail is ambiguous, propose the best design and confirm the key decisions with the user rather than leaving the field unspecified. Vague shapes ("returns the entity") cannot drive correct implementation. This section is the source from which Delivery will produce machine-readable API documentation (OpenAPI, protobuf, or AsyncAPI) — what is not here will not be in the implementation.
+**API Contracts:** For each service boundary touched by this bet, produce a fully specified endpoint design: full request shape with field types, full response shape with field types, all error cases with caller guidance, and design rationale for non-obvious decisions. Derive the specification from the pitch, upstream architecture, and the interface and data flow sections above — the user provides intent and context; you produce the detailed contract. Where a detail is ambiguous, propose the best design and confirm the key decisions with the user rather than leaving the field unspecified. Vague shapes ("returns the entity") cannot drive correct implementation. The shapes themselves live in the spec files written in Step 2.2 — this section carries the purpose, error guidance, and design rationale the spec format cannot, and references the spec rather than restating field tables.
 
 **Data Schema:** For each table, collection, or store this bet introduces or changes, define key fields and any lifecycle state machines. Reference `docs/domain/` rather than duplicating it — note the domain entity path and describe only what this bet adds or changes.
 
 Write the draft to `docs/bets/<bet-slug>/technical-design.md`. This document is a commitment — it should reflect the actual design decisions, not a placeholder.
+
+## Step 2.2: Emit machine-readable contract specs
+
+A contract that exists only as prose cannot generate a client, validate a response, or fail a drift check — it becomes executable only when someone re-types it, and every re-typing is a chance to diverge. Write the contract's shapes as spec files at design time so Decomposition writes tests against the same artifact Delivery implements against.
+
+Write to `docs/bets/<bet-slug>/contracts/`:
+
+- **`openapi.yaml`** — every HTTP boundary this bet introduces or changes, as OpenAPI 3.x: paths, methods, request/response schemas with field types, error responses. One file covering all touched services, with `tags` naming the owning service.
+- **`asyncapi.yaml`** — only when the bet touches events, messaging, or websockets: channels, message schemas, delivery semantics.
+- **`schema.sql`** — only when the bet introduces or alters persistent state: DDL sketches for each table or store change (`CREATE TABLE` / `ALTER TABLE` with types, constraints, and indexes that carry design intent). This is the design commitment, not the migration file — Delivery derives migrations from it.
+
+The spec files and the prose sections describe one contract. Field shapes live in the specs; purpose, error-case guidance, and rationale live in the prose; neither restates the other. A shape that appears in prose but not in a spec file is an unfinished contract.
 
 ## Step 2.5: Independent Review of the Technical Design
 

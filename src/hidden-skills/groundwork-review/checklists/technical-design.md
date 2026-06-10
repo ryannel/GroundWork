@@ -41,9 +41,17 @@ absence.
 
 ## API Contracts
 
-- [ ] 🔴 **Vague shape**: an endpoint says "returns the entity" or "accepts the standard payload"
-  instead of the full request and response shapes with field types — vague shapes cannot drive
-  correct implementation, and what is not here will not be in the implementation.
+- [ ] 🔴 **Missing spec files**: the bet touches an HTTP boundary but `docs/bets/<slug>/contracts/openapi.yaml`
+  does not exist, or it touches events/messaging with no `asyncapi.yaml`, or it changes persistent
+  state with no `schema.sql` — a contract that exists only as prose cannot generate a client,
+  validate a response, or fail a drift check.
+- [ ] 🔴 **Prose↔spec drift**: an endpoint, field, channel, or table appears in the prose sections
+  but not in the spec files, or vice versa — the two describe different contracts and Delivery
+  will implement one while Decomposition tests the other.
+- [ ] 🔴 **Vague shape**: a spec schema or prose entry says "returns the entity" or "accepts the
+  standard payload" instead of the full request and response shapes with field types — vague
+  shapes cannot drive correct implementation, and what is not here will not be in the
+  implementation.
 - [ ] 🔴 **No error cases**: an endpoint defines no error responses, or lists status codes
   without caller guidance — the caller's recovery behaviour is part of the contract.
 - [ ] 🟡 **Untyped field**: a request or response field appears without a type, nullability, or

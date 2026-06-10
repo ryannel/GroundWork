@@ -55,9 +55,9 @@
 
 ## API Contracts
 
-*Each entry here is a design commitment. Include enough detail that a developer can implement the endpoint correctly without asking for clarification: full request shape with field types, full response shape with field types, all error cases, and the design rationale for any non-obvious choice.*
+*Each entry here is a design commitment. The field shapes live in the machine-readable specs at `contracts/` (`openapi.yaml`, and `asyncapi.yaml` / `schema.sql` where the bet needs them) — this section carries what the spec format cannot: each endpoint's purpose, error-case guidance for callers, and the design rationale for non-obvious choices. Reference the spec; do not restate its field tables.*
 
-*This is the design contract. During Delivery, each entry becomes the source for the service's machine-readable API documentation (OpenAPI, protobuf, or AsyncAPI). If a field, flow, or error case is not captured here, it will not be correctly implemented or documented.*
+*The specs are the source Decomposition writes tests against and Delivery implements against. If a field, flow, or error case is not in the spec, it will not be correctly implemented or tested.*
 
 ### [Service or Boundary Name]
 
@@ -65,17 +65,7 @@
 
 **Purpose:** [what this endpoint does and why it exists as a distinct endpoint]
 
-**Request:**
-```
-field: type — description
-field: type — description
-```
-
-**Response:**
-```
-field: type — description
-field: type — description
-```
+**Spec:** `contracts/openapi.yaml` → [operationId or path reference — request/response shapes live there]
 
 **Errors:**
 - `4xx [reason]` — [when this fires and what the caller should do]

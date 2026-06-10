@@ -1,7 +1,7 @@
 """
 Init smoke test (Slice 7c)
 
-Verifies that `npx groundwork init` deploys the expected documentation tree into
+Verifies that `npx groundwork-method init` deploys the expected documentation tree into
 a fresh project directory. Checks:
 
 - Every path listed in §5.2 of the documentation plan exists with non-empty content

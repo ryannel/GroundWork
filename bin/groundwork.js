@@ -30,15 +30,20 @@ function printHelp() {
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1mExamples:\x1b[0m
-  npx groundwork init
-  npx groundwork update
-  npx groundwork check
+  npx groundwork-method init
+  npx groundwork-method update
+  npx groundwork-method check
+
+\x1b[1mExit codes (check):\x1b[0m
+  0   documentation is current with the code it describes
+  1   drift detected (stale docs), or check could not run (no git repo, no docs/)
+  2   internal error — git history could not be read for a tracked doc
 
 After init, ask your AI agent to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill — it reads project
 state and routes to the next lifecycle step (greenfield discovery, brownfield scan, or the bet loop).
 `);
 
-  // Print the generated workflow index so `npx groundwork help` shows the same
+  // Print the generated workflow index so `npx groundwork-method help` shows the same
   // lifecycle map the orchestrator's help intent presents.
   const indexPath = path.join(__dirname, '..', 'src', 'skills', 'groundwork-orchestrator', 'workflow-index.md');
   if (fs.existsSync(indexPath)) {
@@ -409,7 +414,7 @@ function updateGroundWork() {
 
   if (!fs.existsSync(p.targetSkillsDir) && !fs.existsSync(p.targetHiddenSkillsDir)) {
     c.err(`No GroundWork installation found in ${p.targetDir}`);
-    console.error(`  Run \x1b[36mnpx groundwork init\x1b[0m first.\n`);
+    console.error(`  Run \x1b[36mnpx groundwork-method init\x1b[0m first.\n`);
     process.exitCode = 1;
     return;
   }
@@ -514,7 +519,7 @@ function checkGroundWork() {
   const stamped = readStampedVersion(p);
   if (stamped && stamped !== PKG.version) {
     c.warn(`Installed skills were written by groundwork ${stamped}; this CLI is ${PKG.version}.`);
-    console.log(`         Run \x1b[36mnpx groundwork update\x1b[0m to refresh them.\n`);
+    console.log(`         Run \x1b[36mnpx groundwork-method update\x1b[0m to refresh them.\n`);
   }
 
   // The drift-tracked set: code-coupled docs that carry source_of_truth frontmatter.
@@ -615,6 +620,11 @@ switch (command) {
     updateGroundWork();
     break;
   case 'check':
+    // `check --help` documents behavior (incl. exit codes) instead of running.
+    if (process.argv.includes('--help') || process.argv.includes('-h')) {
+      printHelp();
+      process.exit(0);
+    }
     checkGroundWork();
     break;
   default:

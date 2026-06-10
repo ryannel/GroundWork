@@ -61,6 +61,31 @@ not flag its absence.
 - [ ] 🟡 **Test Plan header missing**: the document does not open with the Test Plan header
   describing the two test populations and their lifecycles.
 
+## Test Semantics
+
+Open the actual test files — these checks cannot be made from the decomposition document alone.
+A structurally perfect suite that asserts the wrong things sends Delivery to the wrong
+destination with a green light.
+
+- [ ] 🔴 **Assertion does not match the capability**: a test's assertion proves something other
+  than the Required Capability it is linked to — the capability says 202-and-idempotent, the
+  test asserts 200-and-exists. Delivery will satisfy the test and miss the capability.
+- [ ] 🔴 **Shape not in the spec**: a test hand-rolls a request body, response field, or table
+  shape that `docs/bets/<slug>/contracts/` does not define — the test is asserting a contract
+  that does not exist.
+- [ ] 🔴 **Tautological test**: a test that cannot fail once any implementation exists — asserting
+  a response is received without asserting its content, or catching the failure it should
+  surface.
+- [ ] 🔴 **White-box assertion**: a bet-progress test imports application code, mocks internals,
+  or asserts module structure — these tests are black-box proof at the interface and API level
+  only.
+- [ ] 🔴 **Red for the wrong reason**: a test fails on an import error, fixture error, or typo
+  rather than on the feature's absence — it will not flip green when the feature works.
+- [ ] 🟡 **Error path untested**: a capability whose contract defines error cases has tests only
+  for the happy path — the error contract ships unverified.
+- [ ] 🟡 **Test-review surface stale or incomplete**: `docs/bets/<slug>/test-review.md` is missing
+  an entry for a test function, or quotes an assertion block that no longer matches the file.
+
 ## Chain Integrity
 
 The Document Chain Integrity table in the decomposition workflow defines the full chain; these

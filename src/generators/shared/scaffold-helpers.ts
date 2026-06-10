@@ -175,7 +175,8 @@ export function ensureOptionalInfra(
 
   if (opts.usesPubSub && !servicesMap.has('pubsub')) {
     servicesMap.set('pubsub', {
-      image: 'gcr.io/google.com/cloudsdktool/cloud-sdk:emulators',
+      // Pinned: the bare `:emulators` tag floats with every cloud-sdk release.
+      image: 'gcr.io/google.com/cloudsdktool/cloud-sdk:572.0.0-emulators',
       restart: 'unless-stopped',
       ports: ['8085:8085'],
       networks: ['groundwork-net'],

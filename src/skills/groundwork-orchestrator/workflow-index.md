@@ -45,3 +45,4 @@ Available in any mode, on demand.
 | `groundwork-update` | surgical doc updates after code changes | `.agents/groundwork/skills/groundwork-update/instructions.md` |
 | `groundwork-check` | staleness detection | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-elicit` | strengthens a weak draft section through structured elicitation, mid-phase while a draft is open | `.agents/groundwork/skills/groundwork-elicit/instructions.md` |
+| `groundwork-patch` | bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this). | `.agents/groundwork/skills/groundwork-patch/instructions.md` |

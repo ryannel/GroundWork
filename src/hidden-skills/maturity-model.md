@@ -26,7 +26,7 @@ Each dimension states what it is, the failure it prevents, and the mechanical si
 The canonical doc set — `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md` — exists, carries the GroundWork contract (`## Summary for Downstream`, frontmatter), and describes the system as it currently is.
 
 **Failure it prevents:** every agent session re-derives context from raw code, makes a different guess, and starts from wrong foundations — the defect class GroundWork exists to eliminate.
-**Signal:** the four docs exist with populated summary sections; `npx groundwork check` exits 0.
+**Signal:** the four docs exist with populated summary sections; `npx groundwork-method check` exits 0.
 
 ### D2. Machine-readable contracts
 

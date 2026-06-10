@@ -13,3 +13,9 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Setup](docs/lifecycle/01-setup.md): The one-time setup pipeline — greenfield's six phases from Product Brief through First Bet, and brownfield's scan/extract/adopt track — converging on the same delivery loop.
 - [Delivery Loop](docs/lifecycle/02-delivery-loop.md): The repeating five-phase Bet workflow — Discovery, Design Foundations, Decomposition, Delivery, Validation.
 - [Maintenance](docs/lifecycle/03-maintenance.md): How docs stay current — Living Documents during bets, `groundwork-update` for surgical patches, `groundwork-check` for CI drift detection.
+- [Typescript: Frontend](docs/principles/stack/typescript/frontend.md): Stack-specific engineering principles.
+- [Python: Async](docs/principles/stack/python/async.md): Stack-specific engineering principles.
+- [Python: Documentation](docs/principles/stack/python/documentation.md): Stack-specific engineering principles.
+- [Python: Mcp](docs/principles/stack/python/mcp.md): Stack-specific engineering principles.
+- [Python: Resilience](docs/principles/stack/python/resilience.md): Stack-specific engineering principles.
+- [Python: Testing](docs/principles/stack/python/testing.md): Stack-specific engineering principles.

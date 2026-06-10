@@ -5,7 +5,7 @@
 One command drops a complete product-development lifecycle into your repository: facilitated discovery that produces a Product Brief, Design System, and Architecture; code generators that scaffold the designed system as running, tested services; and a continuous Bet delivery loop that ships features against explicit contracts. The output of setup is not a stack of documents awaiting implementation — it is a booted, health-checked monorepo whose documentation and code were born from the same decisions.
 
 ```bash
-npx groundwork init
+npx groundwork-method init
 ```
 
 Then ask your AI agent (Claude Code is the verified host) to run the **groundwork-orchestrator** skill. It reads project state, detects whether the repo is empty or already holds an application, and routes to the right next step. That's the whole interface — one command, one skill, and the orchestrator drives everything else.
@@ -33,9 +33,9 @@ Greenfield builds the canonical documents through facilitated conversation with 
 
 **Delivery** runs on **bets**, not sprints. A bet pairs a problem with an appetite — the time you're willing to spend — and moves through discovery, design, decomposition into contract-defined slices, delivery, and validation. Every draft document passes a fail-closed independent review before it commits; every completed bet updates the living docs so they describe the system as it is.
 
-**Maintenance** keeps it true: `npx groundwork check` detects doc/code drift in CI, and the `groundwork-update` skill maps shipped changes to surgical doc edits.
+**Maintenance** keeps it true: `npx groundwork-method check` detects doc/code drift in CI, and the `groundwork-update` skill maps shipped changes to surgical doc edits. `check` exits `0` when docs are current, `1` on detected drift (or when it cannot run: no git repo, no `docs/`), and `2` when git history cannot be read — gate CI on any non-zero exit.
 
-Run `npx groundwork help` for the full lifecycle map.
+Run `npx groundwork-method help` for the full lifecycle map.
 
 ## What ships
 

@@ -21,9 +21,9 @@ Each phase establishes one thing the next phase depends on:
 
 - **Discovery** establishes the *what* and the *why*. It produces the pitch — the problem, the appetite, the solution sketch, the success signal, and the explicit no-gos. Without it, design has nothing to anchor against.
 - **Design Foundations** establishes the *contract*. It produces the technical design — interface design first, then data flows, API contracts, and data schema. Without a locked design, decomposition produces milestones and tests that contradict each other.
-- **Decomposition** establishes *the order of work and the proof*. With the design locked, it breaks the bet into milestones (user-visible states ordered by integration value) and slices (vertical capability units), and authors the bet-progress tests — written red, up front, before any implementation. Without this Proof of Work, delivery has no test to pass and no sequence to follow.
-- **Delivery** turns the bet-progress tests green, slice by slice. As each slice completes, permanent best-practice tests are rolled out. Without the Decomposition contract, every design question becomes a mid-implementation conversation made under coding pressure.
-- **Validation** confirms the delivered bet behaves as designed, archives the bet-progress suite, and folds what the bet learned back into upstream documents for every subsequent bet.
+- **Decomposition** establishes *the order of work and the proof*. With the design locked, it breaks the bet into milestones (user-visible states ordered by integration value) and slices (vertical capability units), and authors the bet-progress tests — written red, up front, before any implementation, with every shape derived from the design's contract specs. The user reviews the suite assertion by assertion and signs it; the signed manifest seals the tests as the bet's fixed definition of done. Without this Proof of Work, delivery has no test to pass and no sequence to follow.
+- **Delivery** turns the sealed bet-progress tests green, slice by slice, recording each slice's outcome in the bet's manifest so progress is visible (`./dev bet status`) and resumable. As each slice completes, permanent best-practice tests are rolled out. A test that looks wrong mid-delivery is amended with the user's signature, never edited around. Without the Decomposition contract, every design question becomes a mid-implementation conversation made under coding pressure.
+- **Validation** confirms the delivered bet behaves as designed, promotes the bet's contract specs into the canonical per-service record, archives the bet-progress suite, runs the bet retrospective, and folds what the bet learned back into upstream documents for every subsequent bet.
 
 The lifecycle is sequential because each phase's output is the next phase's input. The order is structural, not procedural — gating design before decomposition is not a rule to follow but the only way the artifacts compose.
 
@@ -36,10 +36,10 @@ Each phase runs in its own workflow file because each demands a different mode. 
 | Phase | Workflow | Status | Output |
 |---|---|---|---|
 | 1. Discovery | `workflows/01-discovery.md` | `discovery` | `docs/bets/<slug>/pitch.md` |
-| 2. Design Foundations | `workflows/02-design.md` | `design` | `docs/bets/<slug>/technical-design.md` |
-| 3. Decomposition | `workflows/03-decomposition.md` | `decomposition` | `docs/bets/<slug>/decomposition.md` + `tests/bets/<slug>/` |
-| 4. Delivery | `workflows/04-delivery.md` | `delivery` | Implementation that turns bet-progress tests green |
-| 5. Validation | `workflows/05-validation.md` | `validation` → `delivered` | Validation report; bet-progress suite archived |
+| 2. Design Foundations | `workflows/02-design.md` | `design` | `docs/bets/<slug>/technical-design.md` + `contracts/` specs |
+| 3. Decomposition | `workflows/03-decomposition.md` | `decomposition` | `decomposition.md` + `test-review.md` + `tests/bets/<slug>/` + signed manifest |
+| 4. Delivery | `workflows/04-delivery.md` | `delivery` | Implementation that turns the sealed tests green; slice records in the manifest |
+| 5. Validation | `workflows/05-validation.md` | `validation` → `delivered` | Specs promoted; retrospective; bet-progress suite archived |
 
 The pitch's frontmatter `status` field tracks where the bet sits in the lifecycle. Status transitions on entry to each phase and is the routing signal that lets a fresh context pick up the bet at the right place.
 

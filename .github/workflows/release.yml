@@ -5,10 +5,10 @@
 #   2. npm version <minor|patch> --no-git-tag-version, commit, then tag vX.Y.Z and push the tag.
 #   3. This workflow gates on the cheap test layers, then publishes.
 #
-# NOTE: the npm name `groundwork` is currently held by an unrelated package
-# (aniftyco/groundwork). Until the name question is resolved (scope, rename, or
-# transfer), keep `dry-run: true` — the workflow exercises the full path without
-# publishing. Flip to false once the name is ours and NPM_TOKEN is configured.
+# The package publishes as `groundwork-method` (decision 2026-06-10: the bare name
+# `groundwork` is held by an unrelated package; the -method suffix matches the
+# category convention). The bin stays `groundwork`. Publishing requires the
+# NPM_TOKEN secret to be configured on the repository.
 
 name: Release
 
@@ -49,7 +49,7 @@ jobs:
         run: |
           ./dev test generation
           ./dev test contracts
-      - name: Publish (dry-run until the npm name is resolved)
-        run: npm publish --dry-run
+      - name: Publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

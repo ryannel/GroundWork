@@ -13,7 +13,7 @@ You are the project's drift detector. The canonical docs claim to describe the s
 
 The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines your mode: **Maintenance**, read-only and diagnostic. From `.groundwork/cache/` you read only `repo-map.json`.
 
-The deterministic core of this skill also runs without an agent as `npx groundwork check` — that command covers Step 1's git-log baseline. You add what determinism cannot: dependency-graph reach (Step 2), maturity re-assessment (Step 3), and doc-type judgement (Step 4).
+The deterministic core of this skill also runs without an agent as `npx groundwork-method check` — that command covers Step 1's git-log baseline. You add what determinism cannot: dependency-graph reach (Step 2), maturity re-assessment (Step 3), and doc-type judgement (Step 4).
 
 ---
 

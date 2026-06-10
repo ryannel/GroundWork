@@ -6,7 +6,7 @@ last_reviewed: "2026-06-09"
 
 # GroundWork Product Brief
 
-GroundWork is an installable, AI-driven framework that enforces an Upfront Technical Delivery pipeline. A single `npx groundwork init` drops a rigorous lifecycle into a project — Product Brief, Design System, Architecture, Scaffolding, MVP Planning, and a continuous Bet delivery loop — ensuring software is designed, contracted, and verified before code is written.
+GroundWork is an installable, AI-driven framework that enforces an Upfront Technical Delivery pipeline. A single `npx groundwork-method init` drops a rigorous lifecycle into a project — Product Brief, Design System, Architecture, Scaffolding, MVP Planning, and a continuous Bet delivery loop — ensuring software is designed, contracted, and verified before code is written.
 
 ## Target Audience
 - **Senior Engineers**: Developers accustomed to working at the level of technical design, who use AI agents to abstract away syntax and scale their impact.

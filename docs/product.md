@@ -6,7 +6,7 @@ last_reviewed: "2026-06-09"
 
 # What GroundWork Is
 
-GroundWork is an installable delivery system for AI-driven software development. One command — `npx groundwork init` — drops a complete product-development lifecycle into a repository: facilitated discovery that produces a Product Brief, Design System, and Architecture; code generators that scaffold the designed system as running, tested services; and a continuous Bet delivery loop that ships features against explicit contracts. The output of setup is not a stack of documents awaiting implementation — it is a booted, health-checked monorepo whose documentation and code were born from the same decisions.
+GroundWork is an installable delivery system for AI-driven software development. One command — `npx groundwork-method init` — drops a complete product-development lifecycle into a repository: facilitated discovery that produces a Product Brief, Design System, and Architecture; code generators that scaffold the designed system as running, tested services; and a continuous Bet delivery loop that ships features against explicit contracts. The output of setup is not a stack of documents awaiting implementation — it is a booted, health-checked monorepo whose documentation and code were born from the same decisions.
 
 ## The problem it solves
 

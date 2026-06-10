@@ -420,3 +420,12 @@ it('shows error message on server failure', async () => {
 | `pnpm test -- --coverage` | Generate coverage report |
 | `pnpm test -- meeting-card` | Run tests matching pattern |
 | `pnpm test -- --reporter=verbose` | Verbose output |
+
+## Bet Slice Rollout — the permanent tests a slice owes
+
+When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery step 5). The bet-progress tests prove the capability once and are archived; these stay.
+
+- **Interface test (always).** One Playwright test per user-observable behaviour the slice delivered, using the page objects under `tests/system/pages/` — selectors live in the page object, assertions in the test.
+- **Component tests (when state earned them).** Components the slice introduced with conditional rendering, optimistic updates, or error states get component-level tests; purely presentational markup does not.
+- **Accessibility coverage (when the slice added a surface).** A new screen or interactive flow extends the a11y smoke — axe scan clean and keyboard path exercised — because regressions here are invisible to every other test type.
+- **Server action / route tests (when the slice added them).** Server actions and route handlers the slice introduced get request-level tests with Zod schema failures exercised, not just the happy path.

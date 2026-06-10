@@ -42,6 +42,8 @@ For each approved milestone, write its proof test file before moving to slices. 
 
 **API-level system test** — end-to-end HTTP against the running services, using the shared `api_client` and `cluster` fixtures from `tests/conftest.py`. When the interface test goes red, the API test localizes the failure: frontend problem vs API problem.
 
+**Tests derive their shapes from the spec files.** Every request body, response assertion, and field name in a bet-progress test comes from `docs/bets/<bet-slug>/contracts/` (`openapi.yaml`, `asyncapi.yaml`, `schema.sql`) — load the spec and build the test's shapes from it, generating a client or validator where the project's toolchain supports it. A test that hand-rolls a shape the spec does not define is testing a contract that does not exist; the review blocks it.
+
 **Writing the tests:**
 
 Discover the project's test language and service names from the scaffold — from `docs/infrastructure.md` and the generated `docker-compose.yml`. Do not hardcode a language or service name.
@@ -95,6 +97,36 @@ The document contains:
 
 Apply `groundwork-writer` when drafting this document — declarative, assertive, zero-hedging.
 
+## Step 6.5: Write the decomposition manifest
+
+The prose document is for humans; delivery tracking needs the same structure machine-readably, so `./dev bet status` can render progress and a resumed session can find the active slice without re-deriving it.
+
+Write `.groundwork/bets/<bet-slug>/decomposition.json` mirroring the decomposition exactly:
+
+```json
+{
+  "bet": "<bet-slug>",
+  "created": "<YYYY-MM-DD>",
+  "milestones": [
+    { "id": "m1", "slug": "<milestone-slug>", "title": "<user-visible goal>",
+      "test_file": "tests/bets/<bet-slug>/test_milestone_1_<milestone-slug>.<ext>",
+      "status": "pending",
+      "slices": [
+        { "id": "1.1", "slug": "<slice-slug>", "service": "<owner-service>",
+          "test_file": "tests/bets/<bet-slug>/test_slice_1_<service>_<slice-slug>.<ext>",
+          "status": "pending", "baseline_commit": null, "delivered_commit": null,
+          "files": [], "notes": null } ] } ]
+}
+```
+
+Every milestone and slice in `decomposition.md` appears here with the same slugs and test paths — the two files describe one decomposition, and Delivery updates only the manifest's status fields.
+
+## Step 6.6: Render the test-review surface
+
+The user is about to stake the bet's delivery on these tests — implementing to green *is* done. A review that confirms files exist and fail tells the user nothing about whether the assertions are the right ones. The test-review surface puts the actual assertions in front of the user with their full chain of justification, so approval means "I read what these tests prove and it is what I want proven."
+
+Write `docs/bets/<bet-slug>/test-review.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test: the capability or acceptance criterion it proves, the contract operation it traces to (spec path and operation), the test file, the **verbatim assertion block** quoted from the test, and a one-line plain-language reading of what the assertion proves. Generate this from the real test files — a surface that paraphrases the tests can drift from them, and drift here defeats its purpose.
+
 ## Step 7: Independent review
 
 The decomposition is the sequencing commitment this bet executes against. A milestone that is not user-visible, a slice that is horizontal, or a test that does not trace to the design compounds into every delivery decision. The review pass catches these before the plan hardens.
@@ -116,7 +148,10 @@ Before presenting Proof of Work, verify every item:
 - Every slice has falsifiable Required Capabilities, each tracing to a contract or schema in `technical-design.md`.
 - Every slice has a bet-progress test file at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
 - Every bet-progress test is **red** — it fails because the implementation does not exist. A test that passes before any implementation is either testing nothing or testing existing code, which means it is not a bet-progress test.
+- Every request shape, response assertion, and field name in the tests traces to `docs/bets/<bet-slug>/contracts/` — no hand-rolled shapes the spec does not define.
 - `docs/bets/<bet-slug>/decomposition.md` is complete: milestone map, slice specs, and test file links all populated.
+- `.groundwork/bets/<bet-slug>/decomposition.json` mirrors the document — same milestones, slugs, and test paths.
+- `docs/bets/<bet-slug>/test-review.md` quotes the current assertion blocks from every test file.
 
 A partial decomposition is not Proof of Work. Do not present it as such.
 
@@ -214,8 +249,11 @@ The shallow decomposition has horizontal milestones invisible to users, no accep
 Present the milestone map and the red bet-progress suite together as Proof of Work:
 
 - `docs/bets/<bet-slug>/decomposition.md` — the sequencing commitment
+- `docs/bets/<bet-slug>/test-review.md` — what the tests actually assert, with the chain of justification
 - `tests/bets/<bet-slug>/` — the runnable proof suite (all tests red)
 
-Walk through the milestone map with the user — confirm the ordering rationale, confirm the test files exist, and confirm the suite is red. On approval:
+Walk through the milestone map first — ordering rationale, user-visible goals. Then walk the test-review surface **assertion by assertion**: for each test, what it proves, where that traces in the design, and the verbatim assertion. The user is approving the definition of done — pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges an assertion, fix the test, re-render the affected test-review entry, and continue.
+
+On approval, **seal the suite**: run `./dev bet sign <bet-slug>` if the project ships the dev CLI; otherwise write `.groundwork/bets/<bet-slug>/test-manifest.json` directly — `{"bet", "signed": <date>, "review_verdict": "PRESENT", "files": {<path>: <sha256> for every file under tests/bets/<bet-slug>/}}`, computing hashes with the shell's `shasum -a 256`. The manifest is the user's signature on the suite: from this point the tests are the bet's fixed contract, `./dev test bet` refuses a tampered suite, and changes route through the Amendment Protocol in `workflows/04-delivery.md`.
 
 ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/04-delivery.md`

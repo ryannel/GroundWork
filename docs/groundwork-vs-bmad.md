@@ -1,14 +1,16 @@
 ---
 owner: "@RNEL"
 audience: "Humans, AI Agents"
-last_reviewed: "2026-06-09"
+last_reviewed: "2026-06-10"
 ---
 
 # GroundWork and BMAD
 
-GroundWork and BMAD solve adjacent problems at different layers. BMAD is a **process framework**: it structures the conversation between a human and a team of AI personas so that planning produces disciplined documents. GroundWork is a **delivery system**: it structures the same upstream conversation, then carries the result all the way to running, tested infrastructure and a contract-gated delivery loop. The document trail is BMAD's product; for GroundWork it is the means to a booted system.
+GroundWork and BMAD solve the same problem — disciplined AI-driven development from idea to working code — with different delivery models and different executable layers. BMAD models development as an agile team of named AI personas and **does deliver**: its implementation phase runs story-by-story through a complete workflow suite — per-story context assembly, a test-first dev loop with definition-of-done gates, three-layer parallel code review, sprint-status tracking, retrospectives. GroundWork runs the same upstream conversation, then delivers through contract-locked bets against generated, booted, health-checked infrastructure. The real differences are the **unit of delivery** (stories versus bets with locked designs) and the **executable layer** (BMAD ships instruction workflows only; GroundWork additionally ships generators, a dev CLI, and a system-test harness the delivered code must run inside).
 
-**Verdict: GroundWork should remain standalone.** The full reasoning is in [Standalone or extension](#standalone-or-extension), but the short version: the half of GroundWork that BMAD's extension system could host is the half that is least differentiated, and the two frameworks disagree at the methodological core — agile stories versus contract-first bets. What GroundWork should take from BMAD is not its runtime but its operational maturity: release engineering, customization without forking, shipped quality checklists, and a help surface. That adoption list is the spine of [the quality uplift plan](plans/bmad-quality-uplift.md).
+> **Correction (2026-06-10):** an earlier revision of this document claimed BMAD is a "process framework" whose output "stops at documents." That was a research error — the analyzed v6.6 clone carries a full implementation phase (`src/bmm-skills/4-implementation/`: sprint planning, story creation, dev-story, code review, correct-course, retrospectives). The comparison throughout this document reflects the corrected reading, and the delivery-loop mechanics worth adopting are folded into [the contract-grade delivery plan](plans/contract-grade-delivery.md).
+
+**Verdict: GroundWork should remain standalone.** The full reasoning is in [Standalone or extension](#standalone-or-extension), but the short version: the half of GroundWork that BMAD's extension system could host is the half that is least differentiated, and the two frameworks disagree at the methodological core — agile stories versus contract-first bets. What GroundWork should take from BMAD is its operational maturity (release engineering, customization without forking, shipped quality checklists, a help surface — the spine of [the quality uplift plan](plans/bmad-quality-uplift.md)) and the strongest mechanics of its delivery loop (machine-tracked story status, per-story context capsules, triage-based review, retrospective follow-through — adopted in [the contract-grade delivery plan](plans/contract-grade-delivery.md)).
 
 ---
 
@@ -18,7 +20,7 @@ BMAD (Breakthrough Method for Agile AI-Driven Development) is an open-source fra
 
 Its operational machinery is its real strength. A three-tier TOML customization hierarchy (base → team → personal) lets users reshape any agent or workflow without forking. A module system (BMM core, test architect, game dev, creative, builder) plus third-party expansion packs extend it into new domains. An interactive installer remembers answers, supports CI, and upgrades cleanly across frequent releases. Web bundles deploy subsets to ChatGPT and Gemini. Every workflow is indexed in a help system that tells the user where they are and what comes next.
 
-Its known weaknesses are the inverse of its discipline: ceremony overhead for small work, context bloat from feeding comprehensive artifacts into every downstream step, prescriptive phases that fit exploratory work poorly, and a planning output that stops at documents — implementation quality depends entirely on the executing agent's environment, because BMAD ships no scaffolding, no generators, no boot harness, and no tests that run against real infrastructure.
+Its known weaknesses are the inverse of its discipline: ceremony overhead for small work (partially answered by its own `bmad-quick-dev` lane and stakes-calibrated PRD depth), context bloat from feeding comprehensive artifacts into every downstream step, and prescriptive phases that fit exploratory work poorly. Its structural gap is the executable layer: BMAD ships no scaffolding, no generators, and no boot harness — the dev workflow implements into whatever environment the user's agent provides, and its generated QA tests run against that environment rather than a framework-provisioned, health-checked topology. Delivery discipline is enforced by instructions and checklists, not by tooling: nothing machine-verifies that tests existed before code, that the implementation stayed inside the architecture's contracts, or that the story file's claims (file lists, completion notes) match the repo.
 
 ---
 
@@ -26,9 +28,11 @@ Its known weaknesses are the inverse of its discipline: ceremony overhead for sm
 
 ### Methodology: stories versus bets
 
-BMAD's spine is agile: PRD → epics → stories → sprints, with story-by-story implementation and sprint ceremonies. The embedded assumption is that every unit ships customer value on completion.
+BMAD's spine is agile: PRD → epics → stories → sprints. Delivery is genuinely worked out: `sprint-planning` parses the epics file into a machine-tracked `sprint-status.yaml` state machine (backlog → ready-for-dev → in-progress → review → done); `create-story` assembles a per-story context capsule (epic requirements, architecture guardrails, the previous story's learnings, git history, just-in-time web research); `dev-story` implements red-green-refactor with a fail-closed definition-of-done; `code-review` runs three parallel adversarial layers (a blind diff-only hunter, an edge-case path tracer, an acceptance auditor checking the diff against the story's criteria) and triages findings into decision-needed / patch / defer / dismiss buckets. The embedded assumption is that every unit ships customer value on completion, and that the story file — spec, work tracker, review record, and completion log in one — is the contract.
 
 GroundWork rejects story-driven development deliberately. Delivery runs on **bets with appetites** (Shape Up lineage): a Milestone is a flag-gated internal proof point, a Slice is a contract-defined API contribution testable before anything consumes it. Architectural context is established once during setup and refined through living documents, instead of being re-derived inside every story. This is not a stylistic difference — it is each framework's answer to the same failure mode (AI context collapse during implementation), and the answers are incompatible.
+
+The test discipline divides the same way. In BMAD, the implementing agent writes tests *during* implementation — red-green-refactor inside each story task, gated by a definition-of-done checklist the same agent fills in. In GroundWork, the proof suite is written *before* implementation in a separate Decomposition phase, reviewed as its own artifact, and the Delivery phase implements only to turn it green. BMAD locks scope per story and trusts the dev loop; GroundWork locks the design and the tests, and treats the dev loop as untrusted until the pre-agreed suite passes.
 
 ### Team model: persona troupe versus expert peer
 
@@ -43,10 +47,11 @@ GroundWork's two-layer skill architecture registers exactly three skills in the 
 | Dimension | BMAD | GroundWork |
 |---|---|---|
 | Planning output | PRD, architecture doc, epics, stories | Product brief, design system + brand tokens, architecture, infrastructure map |
-| Implementation support | Dev/QA personas guide the user's agent | Nx generators emit compiling services; Docker topology boots and health-checks; system tests run inside it |
-| Brownfield | Document-project workflow (describe the codebase) | Full reverse-engineering path: deterministic scan via depwire MCP, four extract phases, additive infra adoption, gap ledger |
-| Doc currency | Versioned artifacts, manual upkeep | Living Documents protocol + `groundwork-check` staleness detection in CI |
-| Verification of the framework itself | Community usage | Generator/compilation/boot test harness, simulation suites with personas, transcript review + judge rubric |
+| Delivery loop | Story workflow suite: per-story context capsule, test-first dev loop with definition-of-done gates, three-layer parallel code review with triage, sprint-status tracking, retrospectives | Five-phase bet loop: locked technical design, pre-written reviewed proof suite, slice-by-slice delivery to green, validation with Living Documents updates |
+| Execution environment | Whatever the user's agent provides — no scaffolding, generators, or boot harness ship with the framework | Nx generators emit compiling services; Docker topology boots and health-checks; system tests run inside it |
+| Brownfield | Document-project workflow (describe the codebase) + project-context generation | Full reverse-engineering path: deterministic scan via depwire MCP, four extract phases, additive infra adoption, gap ledger |
+| Doc currency | Versioned artifacts, decision logs, manual upkeep | Living Documents protocol + `groundwork-check` staleness detection in CI |
+| Verification of the framework itself | Headless evals (artifact-correctness + process-discipline patterns), deterministic skill validator, installer test suite | Generator/compilation/boot test harness, simulation suites with personas, transcript review + judge rubric |
 
 ### Where BMAD is simply ahead
 
@@ -71,7 +76,7 @@ BMAD's module system is genuinely capable: a module ships agents, workflows, tem
 Standalone does not mean isolated. Three moves capture most of the extension's upside at none of its cost:
 
 - **Accept BMAD artifacts as brownfield input.** A repo carrying a BMAD PRD and architecture doc is a brownfield project with unusually good docs. The extract skills' Adopt/Upgrade mode already exists for exactly this shape — ingest the existing document, fill the missing contract sections, re-stamp, review, commit. Naming BMAD explicitly as a supported migration source costs little and gives every BMAD user a path in.
-- **Adopt BMAD's proven operational mechanics.** Release engineering, the customization hierarchy, shipped checklists, a help index — these are methodology-neutral and battle-tested at 43K-star scale. The uplift plan adopts each one.
+- **Adopt BMAD's proven operational mechanics.** Release engineering, the customization hierarchy, shipped checklists, a help index — these are methodology-neutral and battle-tested at 43K-star scale. The uplift plan adopts each one. The same applies to its delivery-loop mechanics: machine-tracked status, per-unit context capsules, baseline-commit capture, triage-based review with a deferred-work ledger, and retrospective follow-through translate cleanly into bet vocabulary without importing the story model — `plans/contract-grade-delivery.md` Workstream H carries that adoption.
 - **Revisit the persona backlog with this lens.** A then-extant TODO list sketched BMAD-style personas (`groundwork-pm`, `groundwork-architect`, …); decision D2 in `docs/plans/bmad-quality-uplift.md` superseded that backlog. The single-facilitator model is a deliberate design bet that has tested well; persona names should only return as labels on subagent dispatches (review panel, scan fan-out) where isolation already exists — not as a user-facing troupe.
 
 A future distribution experiment — packaging GroundWork's facilitation subset as a BMAD-compatible bundle to reach that community — remains possible precisely because the core stays standalone. Build the standalone quality first; a bridge is only worth crossing toward something solid.

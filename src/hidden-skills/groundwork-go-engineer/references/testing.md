@@ -128,3 +128,12 @@ Tests are risk-weighted assertions about production behaviour — not boxes tick
 - **Shared staging environments as test bed.** No hermetic guarantees, no reproducibility.
 - **Magic `time.Sleep` in tests.** Use `eventually` loops with tight timeouts.
 - **One giant test.** Each test case should be independently runnable and independently failing.
+
+## Bet Slice Rollout — the permanent tests a slice owes
+
+When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery step 5). The bet-progress tests prove the capability once and are archived; these stay.
+
+- **Service perimeter test (always).** One Tier 1 test per capability the slice delivered, exercising the real handler against real Postgres — this is the honeycomb wall that survives refactors.
+- **Unit tests (when logic earned them).** Pure-function tests for branching business logic the slice introduced — state machines, pricing rules, parsers. CRUD plumbing does not earn unit tests; the perimeter test already covers it.
+- **Property-based tests (when invariants exist).** A slice that introduced an invariant — serialization round-trips, idempotent handlers, commutative merges — pins it with a property test (`testing/quick` or rapid), because example-based tests sample invariants instead of stating them.
+- **Contract conformance (when the slice changed an API).** The served OpenAPI must match the promoted spec in `docs/api/<service>/openapi.yaml`; the generated system suite checks this — the slice's job is to keep the spec promotion current, not to hand-write the check.

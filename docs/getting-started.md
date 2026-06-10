@@ -6,7 +6,7 @@ last_reviewed: "2026-06-09"
 
 # Getting Started
 
-This guide walks one greenfield project from `npx groundwork init` to its first committed bet. Every quoted excerpt is verbatim from a real session — a simulation run where the facilitator built **Narrative**, a browser platform where creators author interactive story worlds and an AI engine generates each story beat live from a player's choices. The full setup took 31 conversational turns and ended with a booted two-service monorepo and a scoped first bet.
+This guide walks one greenfield project from `npx groundwork-method init` to its first committed bet. Every quoted excerpt is verbatim from a real session — a simulation run where the facilitator built **Narrative**, a browser platform where creators author interactive story worlds and an AI engine generates each story beat live from a player's choices. The full setup took 31 conversational turns and ended with a booted two-service monorepo and a scoped first bet.
 
 If your repository already contains an application, the same `init` applies — the orchestrator detects it and routes through the brownfield path instead ([lifecycle docs](lifecycle/01-setup.md) cover both).
 
@@ -14,7 +14,7 @@ If your repository already contains an application, the same `init` applies — 
 
 ```bash
 cd your-project
-npx groundwork init
+npx groundwork-method init
 ```
 
 Init installs the orchestrator and registered skills into `.agents/skills/`, seventeen hidden methodology skills into `.agents/groundwork/skills/`, seeds `.groundwork/config/`, links `.claude → .agents` for Claude Code, and registers the depwire code-map MCP server. It touches nothing else.
@@ -80,8 +80,8 @@ Setup is now over, permanently. From here the project lives in the [Delivery Loo
 Two commands keep code and docs converged for the life of the project:
 
 ```bash
-npx groundwork check    # CI drift detection: code changed after a doc's last_reviewed?
-npx groundwork update   # refresh installed skills when the package updates
+npx groundwork-method check    # CI drift detection: code changed after a doc's last_reviewed?
+npx groundwork-method update   # refresh installed skills when the package updates
 ```
 
 When `check` reports drift, ask your agent to run the `groundwork-update` skill — it maps the offending commits to surgical doc edits and gates them through the same review.
@@ -95,4 +95,4 @@ When `check` reports drift, ask your agent to run the `groundwork-update` skill 
 | `.groundwork/config/` | Project state and settings |
 | `.groundwork/cache/` | Transient working files — drafts, discovery notes, hand-offs; cleaned up as phases commit |
 
-Run `npx groundwork help` for the full lifecycle map, or ask the orchestrator for help at any time — it knows where the project is and what comes next.
+Run `npx groundwork-method help` for the full lifecycle map, or ask the orchestrator for help at any time — it knows where the project is and what comes next.

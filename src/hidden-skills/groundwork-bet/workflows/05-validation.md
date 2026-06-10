@@ -16,9 +16,13 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
 
 ### Step 2: Run the test suite
 
-Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing.
+Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing — and the manifest verification must pass with it: a suite that drifted from `.groundwork/bets/<bet-slug>/test-manifest.json` without a recorded amendment is not the suite the user signed.
 
-**Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — implementation must stay within the contracts established in the Design phase. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
+**Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — cross-service calls use clients derived from `docs/bets/<bet-slug>/contracts/`, and no endpoint, field, or table exists that the specs do not define. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
+
+### Step 2.5: Promote the contract specs
+
+The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
 
 ### Step 3: Archive the bet-progress suite
 
@@ -63,6 +67,17 @@ Review the technical decisions made during this bet. If any decision was signifi
 Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR.
 
 Number sequentially: read the existing `docs/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/decisions/` directory if it does not exist.
+
+### Step 7.5: Run the bet retrospective
+
+A bet that ships without extracting its lessons leaves the next bet to rediscover them at delivery prices. The retrospective is one facilitated pass over four mechanics — checklist items in a single conversation, not a ceremony — and its output is `docs/bets/<bet-slug>/retrospective.md` plus action items the next bet reads.
+
+1. **Mine the slice records.** Read every slice's `notes`, `files`, and review findings from `.groundwork/bets/<bet-slug>/decomposition.json` and any change proposals or amendments in the bet directory. Surface *patterns*, not anecdotes: a finding type that appeared in two or more slice reviews, a struggle that recurred, a contract that needed amending. One-off issues are noise; repeats are process signal.
+2. **Audit the previous bet's action items.** Read the previous bet's `retrospective.md` (if one exists). For each action item: done, in progress, or ignored — and if ignored, did it cost us this bet? An item that was ignored *and* costly escalates to a `docs/maturity.md` row so it stops depending on anyone's memory.
+3. **Detect significant discoveries.** Check whether this bet invalidated anything queued bets depend on: an architectural assumption broken, a dependency the next pitch does not account for, debt that changes the appetite math, user behaviour different from what the brief assumed. On detection, recommend re-pitching the affected bets before the next one starts — never start a bet on premises this one just disproved.
+4. **Explore readiness.** Green is not live. Confirm with the user where the delivered work actually stands — deployed, accepted, observed in use — and carry anything unresolved forward as an explicit item rather than an assumption.
+
+Write `docs/bets/<bet-slug>/retrospective.md`: the patterns found, the follow-through audit results, any discovery alerts, the readiness state, and the action items — each with a stable ID (`<bet-slug>-R1`, `-R2`, …) so the next retrospective can audit them mechanically. Append the action items as bullets under `## Bets` in `.groundwork/cache/discovery-notes.md`, each carrying its ID — the next bet's Discovery phase already reads that section.
 
 ### Step 8: Mark the bet delivered
 

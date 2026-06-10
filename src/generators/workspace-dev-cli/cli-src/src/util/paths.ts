@@ -29,6 +29,8 @@ export const SERVICES_DIR = path.join(ROOT, 'services');
 export const TESTS_DIR = path.join(ROOT, 'tests');
 export const DOCS_DIR = path.join(ROOT, 'docs');
 export const CONFIG_PATH = path.join(DEV_DIR, 'dev.config.json');
+/** Durable, committed bet artifacts (decomposition + sealed test manifest) — NOT cache. */
+export const GROUNDWORK_BETS_DIR = path.join(ROOT, '.groundwork', 'bets');
 
 export function ensureDirs(): void {
   fs.mkdirSync(PID_DIR, { recursive: true });

@@ -30,6 +30,14 @@ export async function systemTestRunnerGenerator(
     }
   );
 
+  // Playwright structure ships only with a graphical UI: the page-object
+  // package and the axe-core a11y smoke depend on pytest-playwright, which
+  // the pyproject template declares only for graphical-ui.
+  if (interfaceMedium !== 'graphical-ui') {
+    tree.delete('tests/system/pages');
+    tree.delete('tests/system/test_a11y_smoke.py');
+  }
+
   await formatFiles(tree);
 }
 

@@ -517,6 +517,9 @@ def test_system_test_runner_generation(medium):
             "Fixtures are auto-discovered from the parent tests/conftest.py."
         assert (sandbox / "tests" / "system" / "test_system.py").exists(), \
             "tests/system/test_system.py missing"
+        assert (sandbox / "tests" / "system" / "test_contract_conformance.py").exists(), \
+            "tests/system/test_contract_conformance.py missing — served-spec vs " \
+            "docs/api/<service>/openapi.yaml conformance is generated for every medium"
         assert (sandbox / "tests" / "bets" / ".gitkeep").exists(), \
             "tests/bets/.gitkeep missing"
         assert (sandbox / "tests" / "bets" / "_archive" / ".gitkeep").exists(), \
@@ -527,16 +530,26 @@ def test_system_test_runner_generation(medium):
         assert '"bets"' in pyproject, \
             f"pyproject.toml testpaths does not include 'bets' for medium={medium}"
 
-        # --- Conditional: pytest-playwright only for graphical-ui ---
+        # --- Conditional: Playwright structure only for graphical-ui ---
         if medium == "graphical-ui":
             assert "pytest-playwright" in pyproject, \
                 "pytest-playwright dep missing for interfaceMedium=graphical-ui"
             shared_conftest = (sandbox / "tests" / "conftest.py").read_text()
             assert "frontend_base_url" in shared_conftest, \
                 "frontend_base_url fixture missing for interfaceMedium=graphical-ui"
+            assert (sandbox / "tests" / "system" / "pages" / "__init__.py").exists(), \
+                "tests/system/pages/__init__.py missing for interfaceMedium=graphical-ui"
+            assert (sandbox / "tests" / "system" / "pages" / "base_page.py").exists(), \
+                "tests/system/pages/base_page.py missing for interfaceMedium=graphical-ui"
+            assert (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
+                "tests/system/test_a11y_smoke.py missing for interfaceMedium=graphical-ui"
         else:
             assert "pytest-playwright" not in pyproject, \
                 f"pytest-playwright should be absent for interfaceMedium={medium}"
+            assert not (sandbox / "tests" / "system" / "pages").exists(), \
+                f"tests/system/pages/ should be absent for interfaceMedium={medium}"
+            assert not (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
+                f"tests/system/test_a11y_smoke.py should be absent for interfaceMedium={medium}"
 
         # --- Shared conftest WORKSPACE_ROOT depth ---
         # conftest.py now lives at tests/ — one level shallower than tests/system/.

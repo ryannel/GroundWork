@@ -107,6 +107,17 @@ export const COMMANDS: CommandDef[] = [
     handler: bet.archive,
   },
   {
+    name: 'bet',
+    group: 'BET WORKFLOW',
+    summary: 'Bet tooling (status [<slug>] | sign <slug>)',
+    nouns: ['status', 'sign'],
+    flags: [
+      { name: '--amend', desc: 'Overwrite an existing test manifest (sign)' },
+      { name: '--json', desc: 'Emit machine-readable JSON (status)' },
+    ],
+    handler: bet.betCmd,
+  },
+  {
     name: 'completion',
     group: 'META',
     summary: 'Print a shell completion script (bash|zsh|fish)',

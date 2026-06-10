@@ -140,9 +140,11 @@ This divergence is intentional. The bet's tightly coupled five-phase flow benefi
 
 ### Maintenance (anytime)
 
-**Skills:** `groundwork-update`, `groundwork-check`
+**Skills:** `groundwork-update`, `groundwork-check`, `groundwork-patch`
 
 Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-update`, Protocols 1, 2, 4, 8, and 9 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
+
+`groundwork-patch` runs under the same protocol set as `groundwork-update` (1, 2, 4; 8 and 9 when a reversal re-gate fires). Its additional obligation is the patch ledger: every patch appends a row to `docs/bets/patch-ledger.md`, and its scope test routes contract-touching or clustering work to the bet lifecycle instead of absorbing it.
 
 `groundwork-check` is read-only and diagnostic: it mutates nothing, so only Protocol 7's read rules bind it. Its obligation is reporting honesty — a doc it cannot assess is reported as unassessed, never as current.
 

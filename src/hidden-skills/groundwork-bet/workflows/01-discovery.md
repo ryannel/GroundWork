@@ -10,9 +10,13 @@ This workflow operates under the protocols defined in `.agents/groundwork/skills
 
 Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Bets`.
 
-If entries exist, treat them as pre-discovered context — sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases. Carry them into the pitch conversation. Re-asking signals the user has already given erodes trust in the process.
+If entries exist, treat them as pre-discovered context — sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items carrying stable IDs (`<bet-slug>-R<n>`) from the previous bet's validation. Carry them into the pitch conversation; an action item the new bet absorbs is cited in the pitch by its ID so the next retrospective's follow-through audit can close it. Re-asking signals the user has already given erodes trust in the process.
 
 If the file does not exist or has no `## Bets` entries, skip this step.
+
+## Patch Ledger Check
+
+Read `docs/bets/patch-ledger.md` if it exists. Two or more patches in one area are a demand signal the user has already expressed in small pieces — surface the cluster as a candidate problem for this bet, citing the ledger rows. A bet that absorbs a patch cluster notes the rows in its pitch; the cluster is then settled and not re-raised.
 
 ## Maturity Roadmap Check
 

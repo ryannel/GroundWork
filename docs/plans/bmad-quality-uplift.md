@@ -52,7 +52,7 @@ Evidence behind each gap. File references are to this repo.
 | F6 | No workflow index. BMAD's `module-help.csv` maps every workflow to phase, prerequisites, and outputs; GroundWork's equivalent knowledge exists only inside the orchestrator's routing tables | Q2 | 🟡 |
 | F7 | `package.json` pinned at `1.0.0`; no `CHANGELOG.md`; no release workflow in `.github/workflows/` | Q3 | 🔴 |
 | F8 | No version stamp anywhere in an installed project: `src/config/groundwork-state.json` has no `version` field; `operating-contract.md` has no version; a 1.1 framework cannot detect a 1.0 install | Q3 | 🔴 |
-| F9 | Re-running `npx groundwork init` is the only refresh path; it is skill-copy idempotent but has no migration notes and no awareness of what changed | Q3 | 🟡 |
+| F9 | Re-running `npx groundwork-method init` is the only refresh path; it is skill-copy idempotent but has no migration notes and no awareness of what changed | Q3 | 🟡 |
 | F10 | 18 of 21 hidden skills have `instructions.md` with no SKILL.md frontmatter — no canonical name/description for tooling to parse | Q4 | 🟡 |
 | F11 | Review-gate non-conformance: `groundwork-mvp` commits its pitch without invoking `groundwork-review`; `groundwork-update` never references review. Contrast `groundwork-product-brief-extract`, which gates fail-closed | Q4 | 🔴 |
 | F12 | Discovery-notes non-conformance: `groundwork-bet/instructions.md` and `groundwork-mvp` are silent on the capture protocol the operating contract mandates | Q4 | 🟡 |
@@ -105,9 +105,9 @@ Evidence behind each gap. File references are to this repo.
 *Verify:* no document in `docs/` contradicts the shipped brownfield path; `TODO.md` item checked off.
 
 **S5 — Root README + Getting Started (F5).** README: what GroundWork is (draw from `docs/product.md`), install, the 60-second first run, lifecycle diagram, links into `docs/`. A `docs/getting-started.md` walks one greenfield session end-to-end with real command/transcript excerpts from a simulation run.
-*Verify:* a reader who has never seen the repo can state, from the README alone, what `npx groundwork init` installs and what happens next; npm `files` includes the README.
+*Verify:* a reader who has never seen the repo can state, from the README alone, what `npx groundwork-method init` installs and what happens next; npm `files` includes the README.
 
-**S6 — Help surface (F6, D7).** Script `scripts/generate_workflow_index.js` derives `src/skills/groundwork-orchestrator/workflow-index.md` (phase, skill, prerequisites, artifact, mode) from the routing tables; orchestrator's help intent loads it; CLI `npx groundwork help` prints the same map.
+**S6 — Help surface (F6, D7).** Script `scripts/generate_workflow_index.js` derives `src/skills/groundwork-orchestrator/workflow-index.md` (phase, skill, prerequisites, artifact, mode) from the routing tables; orchestrator's help intent loads it; CLI `npx groundwork-method help` prints the same map.
 *Verify:* index regenerates deterministically; CI fails if committed index is stale (same pattern as the dev-cli bundle freshness contract test).
 
 ### Band P1 — Release engineering and conformance
