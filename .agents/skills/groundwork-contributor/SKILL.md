@@ -60,7 +60,6 @@ groundWork/
 │       ├── skill-writer/              ← How to write skill instructions. Dev-only, not shipped.
 │       └── skill-creator/             ← Anthropic skill creation workflow.
 │
-├── BMAD/                      ← Reference BMAD installation used for inspiration/comparison.
 ├── docs/                      ← GroundWork's own framework documentation (methodology, lifecycle, concepts).
 │                                 NOT output from running GroundWork on this repo.
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.

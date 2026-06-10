@@ -1,10 +1,10 @@
 # BMAD-Bar Quality Uplift
 
-This plan closes the gap between GroundWork's current state and the operational quality bar set by BMAD-METHOD (v6.x, cloned at `BMAD/` for reference). It is written to survive a context reset — a fresh chat with zero prior context can open this file and execute the next slice without further setup.
+This plan closes the gap between GroundWork's current state and the operational quality bar set by BMAD-METHOD (v6.x; the reference clone lives outside this repo). It is written to survive a context reset — a fresh chat with zero prior context can open this file and execute the next slice without further setup.
 
 The companion analysis lives in `docs/groundwork-vs-bmad.md`. Its conclusion is locked: **GroundWork stays standalone** and adopts BMAD's operational mechanics, not its runtime or its agile methodology. Do not re-open that decision inside this plan.
 
-> **Status (2026-06-09):** executed. All P0, P1 (incl. Workstream M), and P2 slices are ✅ except the human-gated S19 (sandbox seeded, needs a live session). P3: S22/S23/S25-greenfield done, S24 deferred with reason. Open user decisions: **F21** (npm name `groundwork` is taken — scope, rename, or transfer) and the S19 run. Verification at close: `./dev lint skills` green, 12 contract+CLI tests green, 167 generation tests green.
+> **Status (2026-06-09):** executed. All P0, P1 (incl. Workstream M), and P2 slices are ✅ except the human-gated S19 (sandbox seeded, needs a live session). P3: S22/S23/S25-greenfield done, S24 deferred with reason. Open user decisions: **F21** (npm name `groundwork` is taken — scope, rename, or transfer) and the S19 run. Verification at close: `./dev lint skills` green, 12 contract+CLI tests green, 167 generation tests green. Re-verified 2026-06-10 with the full gate sweep: lint, 167 generation, 5 contracts, 9 CLI, 27 compilation (+1 deliberate xfail), and 12 end-to-end Docker scaffold-boot tests — all green. BMAD v6.6→v6.8 delta reviewed: a web-bundle release packager only; nothing new to adopt.
 
 ---
 
