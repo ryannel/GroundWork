@@ -72,14 +72,20 @@ MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
 # fail-closed review gate. Bet workflow 04-delivery implements code, not
 # canonical docs, and is exempt. groundwork-design-system's drafting phases
 # live in its track files — the gate lives there, not in instructions.md.
+# groundwork-architecture and groundwork-scaffold are split into per-phase
+# files — the gate lives in their draft/review phase file, not in instructions.md.
 COMMITTING_FILES = [
     HIDDEN / s / "instructions.md"
     for s in METHODOLOGY
-    if s not in ("groundwork-review", "groundwork-scan", "groundwork-bet", "groundwork-design-system")
+    if s not in ("groundwork-review", "groundwork-scan", "groundwork-bet",
+                 "groundwork-design-system", "groundwork-architecture", "groundwork-scaffold")
 ] + [
     HIDDEN / "groundwork-bet" / "workflows" / w
     for w in ("01-discovery.md", "02-design.md", "03-decomposition.md", "05-validation.md")
-] + sorted((HIDDEN / "groundwork-design-system" / "tracks").glob("*.md"))
+] + sorted((HIDDEN / "groundwork-design-system" / "tracks").glob("*.md")) + [
+    HIDDEN / "groundwork-architecture" / "phases" / "06-draft-review-present.md",
+    HIDDEN / "groundwork-scaffold" / "phases" / "05-draft-review.md",
+]
 
 REVIEW_GATE_MARKERS = {
     "review subagent invocation": re.compile(r"review subagent|groundwork-review", re.I),
