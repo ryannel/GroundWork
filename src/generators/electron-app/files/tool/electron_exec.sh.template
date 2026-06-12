@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# Toolchain guard for every Nx target of this app. Node is assumed (the
+# workspace itself runs on it); what this guard covers is the Electron binary
+# download (bootstrap state) and, for the boot smoke, display availability —
+# Electron is never truly headless, so Linux CI runs the smoke under xvfb. A
+# missing prerequisite reports skipped-with-reason instead of failing
+# cryptically — the same way ./dev degrades when the Docker daemon is absent.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+ensure_bootstrapped() {
+  if [ ! -d node_modules ]; then
+    echo "node_modules missing — tier skipped." >&2
+    echo "Run: npx nx run <%= fileName %>:bootstrap" >&2
+    exit 1
+  fi
+  ELECTRON_BIN="$(node -p "require('electron')" 2>/dev/null || true)"
+  if [ -z "$ELECTRON_BIN" ] || [ ! -e "$ELECTRON_BIN" ]; then
+    echo "electron binary not available — tier skipped." >&2
+    echo "npm install downloads it; run: npx nx run <%= fileName %>:bootstrap" >&2
+    exit 1
+  fi
+}
+
+# Linux without a display server: wrap in xvfb-run when available, otherwise
+# the smoke tier is skipped with a reason (never silently green).
+run_with_display() {
+  if [ "$(uname -s)" = "Linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${WAYLAND_DISPLAY:-}" ]; then
+    if command -v xvfb-run >/dev/null 2>&1; then
+      xvfb-run --auto-servernum -- "$@"
+    else
+      echo "no display server and xvfb-run not found — smoke tier skipped." >&2
+      echo "Install xvfb (CI) or run from a desktop session." >&2
+      exit 1
+    fi
+  else
+    "$@"
+  fi
+}
+
+case "${1:-}" in
+  bootstrap)
+    # Generation shipped only sources (no install required). Bootstrap resolves
+    # packages and downloads the Electron binary (~100 MB, cached by npm).
+    npm install
+    ;;
+  run)
+    ensure_bootstrapped
+    npm run dev -- "${@:2}"
+    ;;
+  build)
+    ensure_bootstrapped
+    npm run build -- "${@:2}"
+    ;;
+  lint)
+    ensure_bootstrapped
+    npm run lint -- "${@:2}"
+    ;;
+  typecheck)
+    ensure_bootstrapped
+    npm run typecheck
+    ;;
+  test)
+    ensure_bootstrapped
+    npm test -- "${@:2}"
+    ;;
+  smoke)
+    # Boot tier: build, then drive the built app with Playwright _electron
+    # (docs/principles/stack/electron — testing references).
+    ensure_bootstrapped
+    npm run build
+    run_with_display npm run smoke -- "${@:2}"
+    ;;
+  package)
+    ensure_bootstrapped
+    npm run build
+    npm run package -- "${@:2}"
+    ;;
+  *)
+    echo "Usage: tool/electron_exec.sh {bootstrap|run|build|lint|typecheck|test|smoke|package}" >&2
+    exit 2
+    ;;
+esac

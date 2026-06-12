@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "./brand.css";
+
+/* Map the projected brand custom properties into Tailwind v4 theme tokens.
+   brand.css is GENERATED from .groundwork/config/brand-tokens.json — evolve
+   the brand there, never here. Components consume the utilities these tokens
+   create (bg-surface, text-primary, font-display, rounded-base, ...) and never
+   read the --gw-* variables directly
+   (docs/principles/stack/typescript/frontend.md). */
+@theme inline {
+  --color-primary: var(--gw-primary);
+  --color-accent: var(--gw-accent);
+  --color-surface: var(--gw-surface);
+  --color-surface-alt: var(--gw-surface-alt);
+  --color-foreground: var(--gw-text-body);
+  --color-success: var(--gw-success);
+  --color-error: var(--gw-error);
+  --color-warning: var(--gw-warning);
+  --color-info: var(--gw-info);
+  --font-display: var(--gw-font-display);
+  --font-body: var(--gw-font-body);
+  --radius-base: var(--gw-radius-base);
+}
+
+@layer base {
+  html {
+    background-color: var(--gw-surface);
+    color: var(--gw-text-body);
+  }
+  body {
+    font-family: var(--gw-font-body), system-ui, sans-serif;
+    font-weight: var(--gw-font-body-weight);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--gw-font-display), system-ui, sans-serif;
+    font-weight: var(--gw-font-display-weight);
+  }
+}

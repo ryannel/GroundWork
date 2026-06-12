@@ -1,0 +1,65 @@
+{
+  "name": "<%= fileName %>",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "services/<%= fileName %>/src",
+  "tags": ["surface:desktop", "stack:electron"],
+  "targets": {
+    "bootstrap": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh bootstrap",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh run",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh build",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh lint",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh typecheck",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh test",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "smoke": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh smoke",
+        "cwd": "services/<%= fileName %>"
+      }
+    },
+    "package": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tool/electron_exec.sh package",
+        "cwd": "services/<%= fileName %>"
+      }
+    }
+  }
+}

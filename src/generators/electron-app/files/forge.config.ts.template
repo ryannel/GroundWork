@@ -1,0 +1,44 @@
+import type { ForgeConfig } from '@electron-forge/shared-types';
+import { MakerZIP } from '@electron-forge/maker-zip';
+import { FusesPlugin } from '@electron-forge/plugin-fuses';
+import { FuseV1Options, FuseVersion } from '@electron/fuses';
+
+// Packaging is where the security posture becomes physical: fuses are flipped
+// inside this pipeline so an unhardened binary cannot reach a release channel
+// (docs/principles/stack/electron/packaging-and-updates.md). Run `electron-vite
+// build` before packaging — package.json's `main` points at the built output.
+//
+// Code signing is non-optional for release builds (macOS Developer ID +
+// notarytool, Windows Azure Artifact Signing); wire osxSign/osxNotarize and the
+// Windows signing hook here when release credentials exist. An unsigned build
+// is a development artifact, never a release.
+const config: ForgeConfig = {
+  packagerConfig: {
+    asar: true,
+    appBundleId: '<%= appId %>',
+  },
+  makers: [new MakerZIP({}, ['darwin', 'linux', 'win32'])],
+  plugins: [
+    new FusesPlugin({
+      version: FuseVersion.V1,
+      // The shipped binary must not double as a general-purpose Node
+      // executable (docs/principles/stack/electron/security.md).
+      [FuseV1Options.RunAsNode]: false,
+      [FuseV1Options.EnableCookieEncryption]: true,
+      [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
+      // Left ON deliberately: flipping nodeCliInspect off breaks Playwright's
+      // _electron launch, and the agent-closable smoke loop outranks the
+      // marginal hardening (docs/principles/stack/electron/security.md).
+      [FuseV1Options.EnableNodeCliInspectArguments]: true,
+      // CVE-2025-55305: local V8 heap-snapshot tampering backdoored Signal,
+      // Slack, and 1Password past their code-integrity checks. ASAR integrity
+      // validation + asar-only load is the fix; shipping without it is a
+      // defect, not a hardening opportunity
+      // (docs/principles/stack/electron/security.md).
+      [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
+      [FuseV1Options.OnlyLoadAppFromAsar]: true,
+    }),
+  ],
+};
+
+export default config;

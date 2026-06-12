@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# electron-vite build output
+out/
+dist/
+
+# Electron Forge packaging output
+.vite/
+make/
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# Tooling
+*.tsbuildinfo
+.DS_Store
+.env.local

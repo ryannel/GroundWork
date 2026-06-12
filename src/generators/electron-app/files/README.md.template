@@ -1,0 +1,122 @@
+# <%= name %>
+
+An Electron desktop surface scaffolded by GroundWork. It is a thin adapter
+over the workspace's capability core: business logic lives behind the promoted
+contracts and is proven there once; this app proves wiring, rendering, and
+interaction. The shell follows the flagship-app architecture — a privileged
+main process that only orchestrates, a fully sandboxed Node-free renderer on
+the same React + Tailwind stack as the web surface, and a typed IPC contract
+at the process seam. Electron is GroundWork's standard desktop pick per its
+surface-stack-selection principle (Playwright's `_electron` driver makes it
+the strongest agent-closable loop of any desktop option); the engineering
+principles this app embodies live in `docs/principles/stack/electron/`.
+
+## Toolchain
+
+Node is assumed (the workspace runs on it); the Electron binary is a
+**declared prerequisite, not an assumption** — generation required no install,
+everything below does. Every Nx target runs through `tool/electron_exec.sh`,
+which reports `tier skipped` with a reason instead of failing cryptically when
+the binary (or, for the smoke, a display server) is missing.
+
+```bash
+npx nx run <%= fileName %>:bootstrap   # one-time: npm install (downloads the Electron binary)
+npx nx run <%= fileName %>:run         # electron-vite dev (renderer HMR, main/preload hot-reload)
+npx nx run <%= fileName %>:build       # electron-vite build → out/
+npx nx run <%= fileName %>:lint        # eslint, including the process-boundary rules
+npx nx run <%= fileName %>:typecheck   # tsc per process target (node + web tsconfigs)
+npx nx run <%= fileName %>:test        # vitest: main policy tests (node) + renderer tests (jsdom)
+npx nx run <%= fileName %>:smoke       # build + Playwright _electron boot smoke
+npx nx run <%= fileName %>:package     # electron-forge package (flips the fuses)
+```
+
+This app joins the Nx workspace through `project.json` run-commands targets
+and does **not** join `docker-compose.yml` (a desktop app has no Docker boot).
+Its verification tiers follow the multi-surface contract: **generation**
+(snapshot, no toolchain), **compilation** (`tsc` + lint, renderer and main
+both), **boot** (Playwright `_electron` launch + smoke — under `xvfb` on
+Linux CI, since Electron is never truly headless).
+
+## Structure
+
+```
+src/
+├── main/                 # privileged orchestration — Node + Electron main APIs
+│   ├── index.ts          # window creation (hardened quartet), security policy,
+│   │                     # bundle protocol, nativeTheme broadcast
+│   ├── ipc.ts            # ipcMain.handle: sender validation + zod payloads
+│   ├── policy.ts         # pure, unit-tested security rules (no Electron imports)
+│   └── policy.test.ts
+├── preload/
+│   └── index.ts          # the narrow contextBridge API — never raw ipcRenderer
+├── renderer/             # a normal Vite + React web app — no Node, no Electron
+│   ├── index.html        # strict CSP
+│   └── src/
+│       ├── assets/brand.css   # GENERATED from brand-tokens.json — do not hand-edit
+│       ├── assets/main.css    # Tailwind v4 + @theme token mapping
+│       ├── App.tsx
+│       ├── App.test.tsx
+│       └── main.tsx           # React root + theme sync subscription
+└── shared/
+    └── ipc.ts            # the typed IPC contract — types only, both sides import it
+tests/smoke/              # Playwright _electron boot smoke (the boot tier)
+```
+
+The folder split is enforced, not conventional: the renderer and shared
+tsconfig/eslint configurations fail the build when renderer code imports
+anything Node-touching (`docs/principles/stack/electron/process-model.md`).
+
+## Security posture (baked, not advisory)
+
+- **The hardened quartet** — `contextIsolation: true`, `sandbox: true`,
+  `nodeIntegration: false`, `webSecurity: true` — set explicitly in
+  `src/main/index.ts` and asserted by the framework's generation tests. No
+  code path turns them off.
+- **Permissions denied by default**; navigation restricted via `will-navigate`
+  and `setWindowOpenHandler`; `shell.openExternal` only on allowlisted https
+  URLs (`src/main/policy.ts` — pure and unit-tested).
+- **The renderer ships over the custom `app://` protocol**, never `file://`.
+- **A strict CSP** in `index.html` — privileged data flows over IPC, not fetch.
+- **Fuses flipped at package time** (`forge.config.ts`): `RunAsNode` off, ASAR
+  integrity validation + asar-only load on (CVE-2025-55305). `nodeCliInspect`
+  stays on deliberately — Playwright's `_electron` launch needs it, and the
+  agent-closable loop outranks the marginal hardening.
+
+See `docs/principles/stack/electron/security.md` for the full baseline.
+
+## The IPC contract
+
+`src/shared/ipc.ts` is the single seam between renderer and main. Adding a
+channel: declare it in the contract type, implement the handler in
+`src/main/ipc.ts` (sender validation always; zod for non-trivial payloads),
+expose a purpose-named method in `src/preload/index.ts`. The renderer fetches
+through TanStack Query with `queryFn`s calling `window.api` — caching, retry,
+and invalidation exactly as in an HTTP app. For a hosted capability core, core
+access belongs on the privileged side of this seam: main talks to the gateway,
+the renderer talks to main.
+
+## Theme: a projection, not an authoring surface
+
+`src/renderer/src/assets/brand.css` is generated from
+`.groundwork/config/brand-tokens.json` (the design system's `visual` block —
+palette roles in both themes, typography families, base radius). `main.css`
+maps the custom properties into Tailwind v4 theme tokens, so components
+consume utilities (`bg-surface`, `text-primary`, `font-display`) and never
+declare hex values. Dark mode is `nativeTheme` in main, broadcast over IPC,
+mirrored onto `<html data-theme>`. Re-run the design system to evolve the
+brand, then regenerate `brand.css` to match.
+
+## Testing
+
+Three tiers, mirroring `docs/principles/stack/electron/` and the web stack's
+testing discipline:
+
+1. **Unit (node)** — `src/main/policy.test.ts`: the pure security rules.
+2. **Unit (jsdom)** — renderer components with the bridge faked at the
+   `window.api` seam.
+3. **Smoke (Playwright `_electron`)** — `tests/smoke/`: launch the built app,
+   assert title + rendering, one IPC round-trip, and the theme push channel.
+   Thin by design; emulator-class minutes are the expensive currency here too.
+
+Surface tests never re-prove core business logic — that proof lives at the
+core's contract.

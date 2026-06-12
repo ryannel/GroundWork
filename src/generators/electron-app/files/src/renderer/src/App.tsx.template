@@ -1,0 +1,30 @@
+import type { JSX } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+// Data fetching is TanStack Query over the typed bridge: queryFns call
+// window.api, and caching/retry/invalidation work exactly as in an HTTP app —
+// the transport is IPC instead of fetch
+// (docs/principles/stack/electron/ipc-contracts.md). Component idiom, styling,
+// and accessibility follow the web stack unchanged
+// (docs/principles/stack/typescript/frontend.md).
+export default function App(): JSX.Element {
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['app', 'status'],
+    queryFn: () => window.api.getStatus(),
+  });
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-surface text-foreground">
+      <h1 className="font-display text-3xl font-semibold text-primary">
+        <%= name %>
+      </h1>
+      <p data-testid="app-status" className="text-sm">
+        {isPending
+          ? 'Connecting to the shell…'
+          : isError
+            ? 'Shell unreachable'
+            : `Wired to the desktop shell — status ${data.status}, v${data.version} (${data.platform})`}
+      </p>
+    </main>
+  );
+}

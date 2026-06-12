@@ -1,0 +1,53 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { expect, test } from '@playwright/test';
+import { _electron as electron } from 'playwright';
+import type { AppStatus } from '../../src/shared/ipc';
+
+// Boot-tier smoke: the real built app launches, renders, and completes one
+// IPC round-trip. This is the agent-closable loop the stack was chosen for —
+// keep it thin (happy path only); rules are proven in the unit tiers and at
+// the capability core's contracts. Runs under xvfb on Linux CI via the smoke
+// target; tool/electron_exec.sh builds first and skips-with-reason when the
+// Electron binary or a display server is unavailable.
+
+const MAIN_ENTRY = path.join(__dirname, '..', '..', 'out', 'main', 'index.js');
+
+test('boots, renders, and answers an IPC round-trip', async () => {
+  if (!fs.existsSync(MAIN_ENTRY)) {
+    throw new Error(
+      'out/main/index.js not found — run the build first (the smoke target does: npx nx run <%= fileName %>:smoke)',
+    );
+  }
+
+  const app = await electron.launch({ args: [MAIN_ENTRY] });
+  try {
+    const page = await app.firstWindow();
+
+    // The window booted and rendered app content.
+    await expect(page).toHaveTitle('<%= name %>');
+    await expect(page.getByRole('heading', { name: '<%= name %>' })).toBeVisible();
+
+    // One invoke/handle round-trip through the typed bridge.
+    const status = await page.evaluate(() => {
+      const bridged = globalThis as unknown as {
+        api: { getStatus(): Promise<AppStatus> };
+      };
+      return bridged.api.getStatus();
+    });
+    expect(status.status).toBe('ok');
+    await expect(page.getByTestId('app-status')).toHaveText(/status ok/);
+
+    // The main → renderer push channel delivered the initial theme.
+    await expect(page.locator('html')).toHaveAttribute(
+      'data-theme',
+      /^(light|dark)$/,
+    );
+
+    // Main-process assertion via the driver's main-process hook.
+    const isPackaged = await app.evaluate(({ app: electronApp }) => electronApp.isPackaged);
+    expect(isPackaged).toBe(false);
+  } finally {
+    await app.close();
+  }
+});
