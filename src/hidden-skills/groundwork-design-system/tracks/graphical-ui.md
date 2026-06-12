@@ -67,6 +67,8 @@ The app shell is the structural container everything else lives inside — navig
 
 Define the structural skeleton using the layout paradigms from the Phase 2 inspiration library. The agent should explore and propose decisions across: global navigation and search patterns, layout skeleton, context preservation (how sub-tasks work without losing the main context), notification and presence surfaces, empty and loading states, and onboarding and first-run experience.
 
+When the product's graphical-ui surfaces span beyond web, settle the skeleton per platform — a tab-and-stack scaffold on a phone and a multi-pane window on desktop are different structures, not renderings of one web shell. Phase 5's Platform Dimension section states how the platform set is read and which vocabulary each platform's translation uses.
+
 Guide the conversation with leading-edge structural trends. Propose the app shell based on the inspiration library, then ask the user to react and refine.
 
 When a shell decision implies a backend capability — notifications, search, session state, presence, real-time delivery — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the shell conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
@@ -78,6 +80,38 @@ Once approved, write to this type's subsection under Phase 3 in `.groundwork/cac
 ## Phase 5: Expert Translation & Guided Review
 
 *The foundation flow runs this phase once per active type, after the brand language direction (foundation Phase 4) is confirmed. The agent's job here is to derive every token, shadow, and easing curve autonomously from that direction.*
+
+### Platform Dimension
+
+This track designs for the type; a product can express it through web, mobile, and desktop surfaces sharing this one run. Before translating, resolve which platforms the product's graphical-ui surfaces target: when `docs/surfaces.md` exists (lazy activation, brownfield), read each graphical-ui entry's platform field; pre-registry — the normal greenfield case, because architecture writes the registry after this phase — read the surface set carried in the `## Summary for Downstream` of `docs/product-brief.md`. Translate for the platforms of the surfaces in this run's scope; a platform arriving at a later horizon gains its guidance when `groundwork-surface-activation` births its surface.
+
+The platform dimension changes vocabulary and ergonomics, never the brand: one Phase 4 direction, one Tier 2 visual block, one spec — with each platform's content written in that platform's language. Platform content folds into the existing draft section files (platform targets into the constraints file, per-platform shell expression into the shell file, ergonomics and motion into the interaction file); the file layout, review pass, and walkthrough clusters keep their shape regardless of the platform set.
+
+#### Web (baseline)
+
+Everything in this track is written in web vocabulary — CSS tokens, viewports, hover states, scrollbars, responsive grids. That content is the web baseline, not one platform's appendix: a product whose graphical-ui surfaces are web-only runs the phase exactly as written, and the mobile and desktop subsections below never enter the conversation.
+
+#### Mobile (Flutter idiom)
+
+When a mobile surface is in scope, its content in the spec speaks Flutter's language — the app is widgets composed into screens, and a spec that prescribes hover states and scrollbar styling for a phone forces the implementer to translate twice.
+
+- **Navigation is stacks and tabs, not URLs.** Express the shell as navigation stacks, tab scaffolds, and modal presentations in go_router idiom: typed routes, a tab scaffold with per-tab navigation state (`StatefulShellRoute`), and deep links that fall out of every declared route — which makes the route structure a first-class state container worth designing deliberately. The shell content states which journeys live on which tab, what pushes onto a stack versus presents modally, and where deep links land.
+- **Touch ergonomics replace pointer precision.** Every interactive element meets the 48dp tap-target minimum. Hover does not exist on touch — specify pressed, focused, and disabled states instead. Gestures the product relies on need visible affordances, because an undiscoverable gesture is a missing feature to the user who never finds it. Place recurring primary actions within thumb reach — the bottom half of the screen on one-handed phones.
+- **Material is the base system.** Specify the mobile UI as a token-themed expression of Material, not a parallel from-scratch component language — component anatomy describes how the tokens restyle Material parts. This keeps the generated theme module the single styling authority and the brand consistent with the web surface at the token level.
+- **Motion respects mobile attention.** Full-screen transitions span more distance than pointer micro-interactions and read slower; mobile sessions are short and interruption-driven, so motion must inform without delaying. The type scale must survive the platform's dynamic type — large accessibility text scales cannot break layouts, and contrast floors hold through the token palette exactly as on web.
+- **Tokens project into a generated theme.** The conversation still produces token values — OKLCH palette, type scale, radii, durations — and the visual block carries them; the Flutter app's theme module is generated from those tokens into `ThemeData` and semantic theme extensions, and widgets consume the theme, never literals. Write the spec at token level; never prescribe Dart or widget code. Where mobile ergonomics need token support — the tap-target minimum, a touch motion scale — record them in the visual block's `platform.touch` fields per the brand-tokens contract: the same shared block web reads, extended, never a per-platform fork.
+
+#### Desktop (Electron idiom)
+
+A desktop surface is the web design running inside a desktop shell: the renderer reuses the web design wholesale — components, styling, accessibility, and theme contents come from the web baseline unchanged. This subsection owns only what the shell adds; never respecify the web content for desktop.
+
+- **Windows and chrome.** Decide the title-bar treatment — native platform chrome, hidden-inset content that sits beneath the platform's window controls (macOS traffic lights), or fully custom — and hold it consistent across every window the product opens.
+- **Menus and keyboard-first interaction.** Desktop users expect an application menu and OS-level keyboard accelerators; the baseline's command-palette stance deepens here into native menu conventions. Specify the menu structure and the shortcut vocabulary alongside the palette, not as an afterthought to it.
+- **Multi-window and multi-pane layouts.** A desktop shell earns persistent multi-pane layouts and secondary windows that a browser tab does not. Specify what content justifies a pane versus a second window, and how the layout behaves when windows resize or multiply.
+- **Density for pointer precision.** Pointer input tolerates denser layouts and smaller targets than touch; when the desktop surface warrants tighter spacing than the baseline, record the override in the visual block's `platform.desktop.density` field rather than forking the spacing system.
+- **Theme follows the OS.** Light/dark sync comes from `nativeTheme` in the shell's main process, broadcast to the renderer and mapped onto the document — the spec states that the OS preference drives the theme; the mechanism belongs to the generator. What the theme contains is the baseline's dual-theme palette, unchanged.
+
+Where desktop chrome needs token support — title-bar treatment, menu style, density — record it in the visual block's `platform.desktop` fields per the brand-tokens contract.
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
@@ -290,6 +324,6 @@ The walkthrough is complete when all three clusters have been presented and appr
 Phase 6 runs once for the whole design system, in the foundation flow. This track contributes:
 
 - **Document section:** the `# Graphical UI` section files assembled into `docs/design-system.md`.
-- **Brand tokens:** the Tier 2 `visual` block — semantic palette (both themes), typography, shape, density, and motion descriptors per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — projected mechanically from the colour architecture, type scale, and motion sections just written into the document. Graphical app generators read it to seed their theme (Tailwind today; other theme projections as surface generators land).
+- **Brand tokens:** the Tier 2 `visual` block — semantic palette (both themes), typography, shape, density, and motion descriptors per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`, plus the optional `platform` sub-object when a mobile or desktop surface is in scope (the Platform Dimension subsections name its fields) — projected mechanically from the colour architecture, type scale, and motion sections just written into the document. Graphical app generators read it to seed their theme (Tailwind today; other theme projections as surface generators land).
 - **Summary key decisions:** the chosen colour space, typography family, motion personality; binding constraints include accessibility floors, performance budgets, responsive breakpoints.
 - **Hand-off content:** rejected aesthetic directions (e.g. typography pairings the user considered and ruled out), deferred design decisions (theming, internationalisation, future variants), user instincts about motion or interaction not yet committed.

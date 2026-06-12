@@ -16,7 +16,7 @@ Every project gets a `./dev` CLI regardless of what it is building, so **every p
 |---|---|---|---|
 | `identity` (Tier 1) | every product, exactly once | name, wordmark glyph, primary/accent colour, voice | `./dev`, lightly — and every Tier 2 consumer as the fallback root |
 | `terminal` (Tier 2) | the `cli` track | colour role table, symbol vocabulary, splash, typography | `./dev` richly + the product CLI, via the shared render layer |
-| `visual` (Tier 2) | the `graphical-ui` track | semantic palette (both themes), typography, shape, density, motion | graphical app generators, to seed the surface theme (Tailwind today; other theme projections as surface generators land) |
+| `visual` (Tier 2) | the `graphical-ui` track | semantic palette (both themes), typography, shape, density, motion, optional `platform` ergonomics | graphical app generators, to seed the surface theme (Tailwind today; other theme projections as surface generators land) |
 
 The `agentic-protocol` track contributes no Tier 2 block — a protocol has no terminal or visual treatment to project.
 
@@ -52,12 +52,15 @@ The `tier` field reads as a capability summary: `1` means identity only; `2` mea
 - `shape` — `{ radiusBase, character }`. `radiusBase` is the base corner radius (e.g. `"8px"`); `character` is a one-line descriptor of the shape language (e.g. `"soft, concentric nesting"`).
 - `density` — a one-line spacing/density descriptor carrying the grid base (e.g. `"comfortable, 8pt grid"`).
 - `motion` — `{ easeStandard, durationBaseMs, personality }`. `easeStandard` is the standard easing curve (`"cubic-bezier(0.2, 0, 0, 1)"`), `durationBaseMs` the base duration, `personality` a one-word register (`"snappy"`, `"weighted"`, `"restrained"`).
+- `platform` — optional; present only when a mobile or desktop surface shares the visual block. Sub-objects keyed by platform dimension; each theme projection reads the sub-object it serves and ignores the rest. Web needs no sub-object — the fields above are the web baseline, and one visual block serves every platform.
+  - `platform.touch` (mobile surfaces) — `{ targetMin, durationScale }`. `targetMin` is the minimum interactive dimension (e.g. `"48dp"`); the mobile theme projection enforces it in tap-target sizing. `durationScale` (optional, default 1) multiplies `durationBaseMs` for touch surfaces, where full-screen transitions span more distance than pointer micro-interactions.
+  - `platform.desktop` (desktop surfaces) — `{ titleBar, menuStyle, density }`. `titleBar` is the window-chrome treatment: `"native"`, `"hidden-inset"` (content extends beneath the platform's window controls), or `"custom"`. `menuStyle` is `"native"` (OS menu bar) or `"in-window"`. `density` (optional) overrides the top-level `density` descriptor for pointer-precision layouts. The desktop shell owns these fields; its renderer reads the shared fields unchanged.
 
 ---
 
 ## Annotated example — a product carrying both Tier 2 blocks
 
-A web app plus an admin CLI: the graphical-ui track emitted `visual`, the cli track emitted `terminal`, and both project the same brand.
+A web app, a mobile app, and a desktop shell plus an admin CLI: the graphical-ui track emitted one `visual` block for all three graphical surfaces — with `platform` ergonomics for mobile and desktop — the cli track emitted `terminal`, and every projection carries the same brand.
 
 ```json
 {
@@ -94,6 +97,10 @@ A web app plus an admin CLI: the graphical-ui track emitted `visual`, the cli tr
       "easeStandard": "cubic-bezier(0.2, 0, 0, 1)",
       "durationBaseMs": 150,
       "personality": "snappy"
+    },
+    "platform": {
+      "touch":   { "targetMin": "48dp", "durationScale": 1.25 },
+      "desktop": { "titleBar": "hidden-inset", "menuStyle": "native", "density": "compact, 8pt grid" }
     }
   },
   "terminal": {
@@ -128,7 +135,7 @@ A web app plus an admin CLI: the graphical-ui track emitted `visual`, the cli tr
 }
 ```
 
-A CLI-only product is the same object without the `visual` block; a web-only product, without the `terminal` block. A Tier-1 file (`"tier": 1`) carries neither — `identity` only.
+A CLI-only product is the same object without the `visual` block; a web-only product, without the `terminal` block — and without `platform`, which appears only when a mobile or desktop surface shares the visual block. A Tier-1 file (`"tier": 1`) carries neither block — `identity` only.
 
 ---
 
@@ -137,5 +144,5 @@ A CLI-only product is the same object without the `visual` block; a web-only pro
 - **Derive, never invent.** Every value traces to an approved Design System decision. `terminal.colorRoles` is the machine form of the CLI section's colour architecture; `visual.palette` is the machine form of the graphical section's colour architecture — block and document must carry the same values.
 - **Tier 1 is always derivable.** For products with no cli track, project the brand's primary palette colour to `identity.primary`, pick a secondary as `accent`, and take the product name and voice from the brief. This is a mechanical projection, not a new design conversation.
 - **One block per type, one writer per block.** Each type's track emits its own block at the single Design System commit (or at lazy activation, when a type's track runs later). Blocks never share or override each other's fields.
-- **Versioned contract.** `version` is bumped only when the shape of an existing field changes. Adding a block kind is additive — `version` stays 1. Consumers ignore unknown fields and unknown blocks, and tolerate any missing Tier 2 block.
+- **Versioned contract.** `version` is bumped only when the shape of an existing field changes. Adding a block kind, or an optional field or sub-object within a block (e.g. `visual.platform`), is additive — `version` stays 1. Consumers ignore unknown fields and unknown blocks, and tolerate any missing Tier 2 block or optional field.
 - **Many readers, by key.** The `workspace-dev-cli` generator, the shared CLI render layer, and the `cli-app` product generator read `terminal`; graphical app generators read `visual`; none of them write, and none locate a block through the `tier` field.
