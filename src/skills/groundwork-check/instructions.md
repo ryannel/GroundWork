@@ -17,6 +17,24 @@ The deterministic core of this skill also runs without an agent as `npx groundwo
 
 ---
 
+## Step 0: Framework staleness
+
+Before doc drift, test whether the install itself has been left behind — the CLI's
+framework section (`npx groundwork-method check`) covers this deterministically; mirror
+its reading when you run instead of it:
+
+- Compare `groundwork.version` in `.groundwork/config/state.json` against the installed
+  package version. A gap means the mechanical lane is owed: report it with the route
+  `npx groundwork-method update` (never attempt the refresh yourself — the CLI owns it).
+- `.groundwork/cache/upgrade-brief.json` with pending items means judgment-lane work is
+  waiting: report the pending count with the route `groundwork-upgrade`.
+- No `.groundwork/config/manifest.json` on an otherwise current install means the
+  project predates install manifests — one `npx groundwork-method update` bootstraps it.
+
+Framework staleness is a **warning**, not a build failure — the project's docs may be
+perfectly current while the framework trails. Report it first so the reader knows which
+tooling vintage produced the rest of the report.
+
 ## Step 1: Staleness baseline
 
 Find every code-coupled doc: the files under `docs/services/`, `docs/api/`, and `docs/domain/`, plus `docs/architecture.md`. From each doc's frontmatter take `last_reviewed`, `source_of_truth`, and `generation_mode`.

@@ -35,6 +35,12 @@ For each phase in the current path, check whether its artifact exists on disk:
 
 Write `state.json` back whenever it changes.
 
+**An unconsumed upgrade brief outranks routine routing.** When
+`.groundwork/cache/upgrade-brief.json` exists with pending items, the framework left
+work for a working session — surface it in your first reply (one line: "N framework
+upgrade items are pending — say 'upgrade groundwork' when you want to run them") and
+route to `groundwork-upgrade` when the user agrees. Do not block other work on it.
+
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
 **Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — a `## Summary for Downstream` section, plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead.
@@ -82,7 +88,8 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
 
 ### Anytime Skills
-- `groundwork-update` — surgical doc updates after code changes
+- `groundwork-update` — surgical updates to **project documents** after code changes
+- `groundwork-upgrade` — brings the **project up to the current framework version**: executes the upgrade brief `npx groundwork-method update` compiles (doc merges, migrations, scaffold reconciliation). Route here for "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Not the same as `groundwork-update`, which maintains the project's own docs.
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 - `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this).
@@ -108,6 +115,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-infra-adopt` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
+| `groundwork-upgrade` | `.agents/groundwork/skills/groundwork-upgrade/instructions.md` |
 | `groundwork-patch` | `.agents/groundwork/skills/groundwork-patch/instructions.md` |
 | `groundwork-surface-activation` | `.agents/groundwork/skills/groundwork-surface-activation/instructions.md` |
 | `groundwork-elicit` | `.agents/groundwork/skills/groundwork-elicit/instructions.md` |
