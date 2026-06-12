@@ -29,6 +29,8 @@ Greenfield builds the canonical documents through facilitated conversation, then
 
 Delivery runs on **Bets**, not sprints. A bet pairs a problem with an appetite — the time the team is willing to spend — and moves through discovery, design, decomposition into contract-defined slices, delivery, and validation. Milestones are flag-gated internal proof points; slices define API surfaces that are testable before anything consumes them. Each completed bet updates the living documents, so the docs describe the system as it is, not as it was once imagined.
 
+GroundWork is multi-surface by design. Every product is modelled as one headless **capability core** plus zero or more **surfaces** — web app, mobile app, CLI, MCP server — registered in `docs/surfaces.md` and tracked capability-by-capability in a parity ledger, so a feature that ships on web and deliberately skips the CLI is a recorded decision, not a silent gap (see `docs/principles/capability-core-and-surfaces.md`). A single-surface product pays zero ceremony for this: every phase degrades to its familiar behaviour when the registry holds one surface.
+
 ## What ships
 
 | Layer | Contents |

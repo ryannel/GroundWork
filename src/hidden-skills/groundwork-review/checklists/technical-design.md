@@ -41,10 +41,14 @@ absence.
 
 ## API Contracts
 
-- [ ] 🔴 **Missing spec files**: the bet touches an HTTP boundary but `docs/bets/<slug>/contracts/openapi.yaml`
-  does not exist, or it touches events/messaging with no `asyncapi.yaml`, or it changes persistent
-  state with no `schema.sql` — a contract that exists only as prose cannot generate a client,
-  validate a response, or fail a drift check.
+- [ ] 🔴 **Missing spec files**: the bet touches a core boundary but `docs/bets/<slug>/contracts/`
+  carries no spec for it, or it changes persistent state with no `schema.sql` — a contract that
+  exists only as prose cannot generate a client, validate a response, or fail a drift check.
+- [ ] 🔴 **Spec format disagrees with the core's deployment**: the format does not match
+  `docs/surfaces.md` — a hosted HTTP boundary without `openapi.yaml` (events without
+  `asyncapi.yaml`, gRPC without `.proto`), or an embedded core whose contract is not a typed
+  public API definition in the project's language. When no registry exists, hosted HTTP is the
+  default and OpenAPI is expected.
 - [ ] 🔴 **Prose↔spec drift**: an endpoint, field, channel, or table appears in the prose sections
   but not in the spec files, or vice versa — the two describe different contracts and Delivery
   will implement one while Decomposition tests the other.

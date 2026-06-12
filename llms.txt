@@ -13,6 +13,8 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Setup](docs/lifecycle/01-setup.md): The one-time setup pipeline — greenfield's six phases from Product Brief through First Bet, and brownfield's scan/extract/adopt track — converging on the same delivery loop.
 - [Delivery Loop](docs/lifecycle/02-delivery-loop.md): The repeating five-phase Bet workflow — Discovery, Design Foundations, Decomposition, Delivery, Validation.
 - [Maintenance](docs/lifecycle/03-maintenance.md): How docs stay current — Living Documents during bets, `groundwork-update` for surgical patches, `groundwork-check` for CI drift detection.
+- [Capability Core and Surfaces](docs/principles/capability-core-and-surfaces.md): The multi-surface model — one headless capability core, N surface adapters, the surface registry, and the capability parity ledger.
+- [Surface Stack Selection](docs/principles/surface-stack-selection.md): How GroundWork picks the standard stack per surface platform — training-set fluency, the agent-closable loop, the capability ceiling.
 - [Typescript: Frontend](docs/principles/stack/typescript/frontend.md): Stack-specific engineering principles.
 - [Python: Async](docs/principles/stack/python/async.md): Stack-specific engineering principles.
 - [Python: Documentation](docs/principles/stack/python/documentation.md): Stack-specific engineering principles.
@@ -22,3 +24,9 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Go: Concurrency](docs/principles/stack/go/concurrency.md): Stack-specific engineering principles.
 - [Go: Overview](docs/principles/stack/go/index.md): Stack-specific engineering principles.
 - [Go: Testing](docs/principles/stack/go/testing.md): Stack-specific engineering principles.
+
+## Repository internals (contributors)
+
+- [Contributor Guide](.agents/skills/groundwork-contributor/SKILL.md): Repo orientation — architecture, lifecycle, cross-phase contracts, test infrastructure, the plans convention, and the release process.
+- [Design Plans](docs/plans/): One plan document per cross-cutting restructure, carrying the design rationale for the repo's current shape. Each plan's Status header states its execution state — verify it against the working tree before executing from it.
+- [Changelog](CHANGELOG.md): Release history; `[migration]` entries are surfaced to existing installations by `npx groundwork-method update`.

@@ -50,13 +50,15 @@ Write the draft to `docs/bets/<bet-slug>/technical-design.md`. This document is 
 
 A contract that exists only as prose cannot generate a client, validate a response, or fail a drift check — it becomes executable only when someone re-types it, and every re-typing is a chance to diverge. Write the contract's shapes as spec files at design time so Decomposition writes tests against the same artifact Delivery implements against.
 
-Write to `docs/bets/<bet-slug>/contracts/`:
+The spec format follows the capability core's deployment as recorded in `docs/surfaces.md` (when no registry exists, the project predates it — treat the core as hosted HTTP, today's behaviour). Write to `docs/bets/<bet-slug>/contracts/`:
 
-- **`openapi.yaml`** — every HTTP boundary this bet introduces or changes, as OpenAPI 3.x: paths, methods, request/response schemas with field types, error responses. One file covering all touched services, with `tags` naming the owning service.
-- **`asyncapi.yaml`** — only when the bet touches events, messaging, or websockets: channels, message schemas, delivery semantics.
-- **`schema.sql`** — only when the bet introduces or alters persistent state: DDL sketches for each table or store change (`CREATE TABLE` / `ALTER TABLE` with types, constraints, and indexes that carry design intent). This is the design commitment, not the migration file — Delivery derives migrations from it.
+- **Hosted core, HTTP boundaries** — **`openapi.yaml`**: every HTTP boundary this bet introduces or changes, as OpenAPI 3.x: paths, methods, request/response schemas with field types, error responses. One file covering all touched services, with `tags` naming the owning service. This is the common case and is unchanged.
+- **Hosted core, events/messaging/websockets** — **`asyncapi.yaml`**: channels, message schemas, delivery semantics.
+- **Hosted core, gRPC boundaries** — **`.proto`** files: services, messages, field types.
+- **Embedded core** — a typed public API definition in the project's own language (e.g. a `.d.ts`, a Go interface file, a Python protocol/stub file): every exported function, type, and error the core's surface consumes, with full signatures. The contract discipline is identical to OpenAPI's — only the format speaks the language the core is linked in.
+- **`schema.sql`** — whenever the bet introduces or alters persistent state, regardless of deployment: DDL sketches for each table or store change (`CREATE TABLE` / `ALTER TABLE` with types, constraints, and indexes that carry design intent). This is the design commitment, not the migration file — Delivery derives migrations from it.
 
-The spec files and the prose sections describe one contract. Field shapes live in the specs; purpose, error-case guidance, and rationale live in the prose; neither restates the other. A shape that appears in prose but not in a spec file is an unfinished contract.
+The spec files and the prose sections describe one contract. Field shapes live in the specs; purpose, error-case guidance, and rationale live in the prose; neither restates the other. The invariant holds across every format: a shape that exists only in prose is an unfinished contract.
 
 ## Step 2.5: Independent Review of the Technical Design
 
@@ -64,7 +66,7 @@ The technical design is the contract Decomposition and Delivery execute against.
 
 1. **Announce** the shift — the agent is moving from drafting into an independent review of the technical design before handing off to Decomposition.
 2. **Invoke the review subagent** (Protocol 9) with `document_path: docs/bets/<bet-slug>/technical-design.md` and `document_type: technical-design`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
-3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the technical design — rewrite the affected sections rather than producing a list of suggestions. Write the revised technical design back to `docs/bets/<bet-slug>/technical-design.md` and run the review again. Repeat until the verdict is **PRESENT**. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
+3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the technical design — rewrite the affected sections rather than producing a list of suggestions. Write the revised technical design back to `docs/bets/<bet-slug>/technical-design.md` and run the review again. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach **PRESENT** (Protocol 8).
 4. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface during the Decomposition review so the user can decide whether to act on them.
 
 ## Quality Standard: What a Good Technical Design Section Looks Like
