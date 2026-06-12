@@ -16,3 +16,5 @@ This document defines the physical and logical boundaries of the system required
 
 | Requirement | Originates From | Applies To |
 |---|---|---|
+
+## 7. Surfaces & Capability Core

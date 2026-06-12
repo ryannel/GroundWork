@@ -2,7 +2,8 @@
 
 > This file captures approved outputs from each phase of the Design System process. It is used to resume work and to compile the final `docs/design-system.md`. Do not edit manually.
 
-**Interface Type:** pending
+**Interface Types:** pending
+**Deferred Types:** none
 
 ---
 
@@ -26,7 +27,7 @@
 
 **Status:** pending
 
-<!-- Replace this section with the agreed structure definition once the user approves it. -->
+<!-- One subsection per active interface type. Replace with each type's agreed structure definition once the user approves it. -->
 
 ---
 
@@ -36,7 +37,7 @@
 
 ### Cluster Coverage
 
-Language clusters group aesthetic decisions for user reaction. Track-specific contents are defined in the active track file. Skip a cluster only when irrelevant to the medium.
+Language clusters group aesthetic decisions for user reaction. The brand-level core is defined in the foundation flow; each active track's Type language contribution folds into the same clusters. Skip a cluster only when irrelevant to the product.
 
 - [ ] Cluster 1: Identity
 - [ ] Cluster 2: Feel
@@ -52,11 +53,11 @@ Language clusters group aesthetic decisions for user reaction. Track-specific co
 
 **Status:** pending
 
-**Draft Location:** `.groundwork/cache/design-system-draft/` — a directory of per-section files. See the active track for the exact file layout. Concatenated into `docs/design-system.md` at commit.
+**Draft Location:** `.groundwork/cache/design-system-draft/` — a directory of per-section files shared by all active types. See each track's file table and the foundation flow's Draft Layout rule. Concatenated into `docs/design-system.md` at commit.
 
 ### Walkthrough Progress
 
-Spec clusters group implementation specifics for the Phase 5b walkthrough. Names are deliberately distinct from Phase 4's language clusters.
+Spec clusters group implementation specifics for the Phase 5b walkthrough. Names are deliberately distinct from Phase 4's language clusters. Phase 5 runs once per active type — duplicate this checklist under a heading per type.
 
 - [ ] Cluster 1: Foundation (base tokens — colour, type scale, spacing equivalents)
 - [ ] Cluster 2: Interaction (depth, motion, interaction states, behaviour under load)

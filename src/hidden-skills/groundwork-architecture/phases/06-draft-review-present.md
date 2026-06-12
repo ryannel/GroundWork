@@ -21,6 +21,7 @@ When ready:
    | `04-component-boundaries.md` | Template section 4 |
    | `05-communication-patterns.md` | Template section 5 |
    | `06-service-level-requirements.md` | Template section 6 (the SLR table) |
+   | `07-surfaces-and-capability-core.md` | Template section 7: the core's deployment (hosted or embedded) with its consequence for contract format, and one line per surface — type, access path, auth. For independently deployed surfaces, the contract-compatibility stance. Detail lives in `docs/surfaces.md` (written at commit); this section carries the decisions |
 
    The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — its top-level heading should start at H2 (`## 1. Constraints & Budgets`) to compose cleanly when the files are concatenated.
 

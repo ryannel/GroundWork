@@ -15,6 +15,11 @@ Each item names a violation. Match it against the document text; answer yes/no. 
 across all interface tracks (graphical UI, CLI, agentic protocol) — read "value" as the track's
 unit of commitment: a CSS token, a terminal colour role, a protocol field.
 
+A design system legitimately carries one titled section per interface type in use (`# Graphical
+UI`, `# CLI`, `# Agentic Protocol`), plus a shared foundation when several types are active.
+Multiple type sections — and the multi-block brand-tokens file they project to — are the
+contract for multi-type products, never duplication or contradiction findings in themselves.
+
 ## Summary Contract
 
 - [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
@@ -53,9 +58,10 @@ unit of commitment: a CSS token, a terminal colour role, a protocol field.
 - [ ] 🟡 **Target-structure gap**: a section the track's target structure requires (constraints,
   shell, error choreography, empty states, or the track equivalent) is absent with no stated
   reason.
-- [ ] 🟡 **Token contradicts token**: two sections commit to different values for the same
-  concept — a spacing step, a duration, a colour role — leaving the implementer to pick a
-  winner.
+- [ ] 🟡 **Token contradicts token**: two sections within the same interface-type section (or
+  the shared foundation) commit to different values for the same concept — a spacing step, a
+  duration, a colour role — leaving the implementer to pick a winner. Different types
+  legitimately express the same brand decision differently.
 
 ## Constraints
 
@@ -73,6 +79,10 @@ unit of commitment: a CSS token, a terminal colour role, a protocol field.
 - [ ] 🔴 **Brief commitment contradicted**: a value or pattern in this document conflicts with a
   Key Decision or Binding Constraint in `docs/product-brief.md`'s summary — e.g. a brief that
   commits to a terminal medium answered with screen-design sections.
+- [ ] 🔴 **Type section unbacked or missing**: when the brief's summary carries a surface set,
+  the document's titled type sections disagree with it — a type section with no MVP-horizon
+  surface of that type behind it, or an MVP-horizon interface type with no section (and no
+  stated deferral).
 - [ ] 🔴 **User type unserved**: a user type the product brief commits to has no design answer —
   no journey, shell state, or interaction pattern accounts for them.
 - [ ] 🟡 **Silently introduced product decision**: the document commits to a product-level

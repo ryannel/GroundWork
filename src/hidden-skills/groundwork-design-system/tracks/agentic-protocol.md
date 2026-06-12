@@ -2,6 +2,8 @@
 
 This track applies to products whose primary interface is an agent-to-human or agent-to-agent protocol: skill frameworks, MCP servers, developer methodology tools, agent orchestrators, and any product where the "user interface" is a structured conversation between humans and AI agents.
 
+The shared foundation flow (`tracks/_foundation.md`) owns the session spine: it runs the brand-level Phases 1, 2, and 4 once for the whole product, drawing this track's contributions from the Foundation Contributions section below, and it runs this track's Phase 3 and Phase 5 at the right points. Its Cross-Phase Signal Capture rule stays in force throughout every phase of this track.
+
 ---
 
 ## Default Stance
@@ -30,37 +32,38 @@ Draw inspiration from trend-setting systems: Shape Up, Linear Method, OpenAPI, P
 
 ---
 
-## Cross-Phase Signal Capture
+## Foundation Contributions
 
-Protocol design conversations routinely surface signals that belong to a different phase — a context-budget constraint with infrastructure implications, a state-management decision that shapes architecture, a sequencing instinct about which capabilities ship first. As these signals arise during any phase, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for schema or contract implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+The shared foundation flow pulls these sections into its brand-level phases.
 
----
+### Envelope (foundation Phase 1)
 
-## Phase 1: Non-Functional Requirements (NFR)
+Cover all relevant dimensions of the protocol envelope: agentic efficiency (context budgets, token consciousness, cold-start file-read ceiling), context persistence and resumability, authority model (human-led vs agent-led boundaries), verification and governance, error resilience, interoperability across agent runtimes, auditability and traceability, and security and trust boundaries. Ground each decision in the product brief and apply the track defaults where applicable: zero-boilerplate context loading (under 3 file reads from cold), declarative state in flat machine-readable files, agent-agnostic interfaces, filesystem-as-memory, deterministic phase transitions, version-controlled artifacts.
 
-NFRs define the engineering envelope the protocol design system must operate within. Context-loading budgets, verification requirements, authority boundaries, and error resilience policies all constrain protocol design downstream — a protocol that specifies rich diagnostic output but must work within a 4K token context budget is internally contradictory.
+### Research notes (foundation Phase 2)
 
-Read `docs/product-brief.md`. Using the product brief and the track defaults above as your starting position, draft a complete NFR proposal immediately — do not open with questions.
+Sources for this type span methodologies, specification systems, developer tools, formal methods, and protocol designs — describe the specific **mechanism** worth borrowing, not the system's reputation.
 
-Cover all relevant dimensions: agentic efficiency (context budgets, token consciousness, cold-start file-read ceiling), context persistence and resumability, authority model (human-led vs agent-led boundaries), verification and governance, error resilience, interoperability across agent runtimes, auditability and traceability, and security and trust boundaries. Ground each decision in the product brief and apply the track defaults where applicable: zero-boilerplate context loading (under 3 file reads from cold), declarative state in flat machine-readable files, agent-agnostic interfaces, filesystem-as-memory, deterministic phase transitions, version-controlled artifacts. Skip dimensions that are clearly irrelevant to the protocol.
+### Type language (foundation Phase 4)
 
-Present the proposed NFRs in full and invite the user to confirm, challenge, or adjust specific items. The proposal is the starting position — accept what the user confirms, revise what they challenge. Once approved, write the confirmed NFRs to the Phase 1 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 2.
+Fold these dimensions into the foundation's language clusters. The user should never need to think about specific formatting rules or state schemas:
 
----
+- **Cluster 1: Identity** — Tone and posture, microcopy and phrasing, naming and taxonomy. Propose the agent's voice as a unified stance: where it sits on the terse-to-pedagogical spectrum, how its smallest text units feel, and what vocabulary conventions govern commands, phases, and artifacts.
+- **Cluster 2: Feel** — Information density and the propose-vs-prompt ratio. Propose how much an agent communicates per turn, whether it leads conclusions-first or builds narrative, and where it defaults to proposals vs open questions.
+- **Cluster 3: Craft** — Status semantics, documentation hierarchy, and error communication. Propose how state is signalled, how protocol documents are structured for both humans and agents, and where errors land on the spectrum from silent recovery to loud halts.
 
-## Phase 2: Research
+This type's Synthesis Gate expression fields:
 
-The inspiration library grounds the design conversation in concrete, existing systems. Abstract discussions ("make it precise") produce vague specs. Discussions anchored in specific examples ("Terraform's plan-apply-verify loop forces explicit human approval before any state mutation") produce actionable protocol decisions.
-
-Drawing on the product context and agreed NFRs from Phase 1, identify the core protocol challenges this product faces and find leading systems that solve similar problems exceptionally well. Describe the **specific pattern or mechanism** worth borrowing — not just the system's reputation. Sources span methodologies, specification systems, developer tools, formal methods, and protocol designs.
-
-Present the Inspiration Library and ask for the user's reaction. Do not proceed until they have confirmed the direction.
-
-Once approved, write to the Phase 2 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 3.
+- **Propose-vs-prompt ratio**: The default interaction mode.
+- **Status language**: How the protocol signals state.
+- **Naming instinct**: The vocabulary style.
+- **Microcopy tone**: How the smallest units of text feel.
 
 ---
 
 ## Phase 3: Workspace Topology
+
+*Runs inside the foundation flow's Phase 3 step — once for this type.*
 
 The workspace topology is the structural container everything else lives inside — the filesystem architecture, state management, and discovery surfaces that agents and humans interact with. Getting this wrong means reworking every skill. Getting it right means every subsequent protocol decision has a home.
 
@@ -70,45 +73,13 @@ Guide the conversation with leading-edge protocol patterns. Propose the topology
 
 When a topology decision implies a backend or infrastructure capability — state-store service, registry or routing backend, agent runtime, distribution channel, identity provider — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
 
-Once approved, write to the Phase 3 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 4.
-
----
-
-## Phase 4: Interaction Language
-
-This phase captures the user's instincts about how the protocol communicates — the raw material the agent will translate into concrete protocol specifications in Phase 5. The user should never need to think about specific formatting rules or state schemas.
-
-Cover interaction language in three focused clusters — grouping related decisions so the user can react to a coherent stance rather than isolated individual choices. For each cluster, open with a cohesive proposal that reflects what the product brief and inspiration library suggest, then invite the user to react and redirect.
-
-**Cluster 1: Identity** — Tone and posture, microcopy and phrasing, naming and taxonomy. Propose the agent's voice as a unified stance: where it sits on the terse-to-pedagogical spectrum, how its smallest text units feel, and what vocabulary conventions govern commands, phases, and artifacts.
-
-**Cluster 2: Feel** — Information density and the propose-vs-prompt ratio. Propose how much an agent communicates per turn, whether it leads conclusions-first or builds narrative, and where it defaults to proposals vs open questions.
-
-**Cluster 3: Craft** — Status semantics, documentation hierarchy, and error communication. Propose how state is signalled, how protocol documents are structured for both humans and agents, and where errors land on the spectrum from silent recovery to loud halts.
-
-After each cluster proposal, invite the user to react and refine before advancing. Mark each cluster as covered in `.groundwork/cache/design-system-cache.md` as you go. Skip a dimension only when it is clearly irrelevant to the product.
-
-### Synthesis Gate
-
-Before caching, distill the entire Phase 4 conversation into a structured direction and present it to the user for confirmation. Scattered conversation notes are not sufficient input for Phase 5.
-
-The synthesis stays in the user's language. No state schemas, no format rules, no log level definitions. It captures the *decisions* the user made in terms they recognise:
-
-- **Communication posture**: A short characterisation of the agent's personality.
-- **Information density**: How much per turn.
-- **Propose-vs-prompt ratio**: The default interaction mode.
-- **Error philosophy**: How failures are communicated.
-- **Status language**: How the protocol signals state.
-- **Naming instinct**: The vocabulary style.
-- **Microcopy tone**: How the smallest units of text feel.
-
-Present as a clear summary the user can scan and approve in one read. Confirm before proceeding.
-
-Once confirmed, write the synthesis to the Phase 4 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 5.
+Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
 
 ---
 
 ## Phase 5: Expert Translation & Review
+
+*The foundation flow runs this phase once per active type, after the brand language direction (foundation Phase 4) is confirmed. The agent translates that direction into concrete protocol specifications — the user never sees a raw schema until the walkthrough.*
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
@@ -128,6 +99,8 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `05-surface.md` | Part 3 Cluster 3 — skill & tool anatomy, error & recovery choreography, naming & taxonomy, versioning & evolution |
 
 The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated.
+
+This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# Agentic Protocol`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
 
 Compile each section using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive protocol design system that the agent derives from the interaction language direction captured in Phase 4.
 
@@ -271,34 +244,15 @@ Track which clusters have been reviewed in `.groundwork/cache/design-system-cach
 
 #### Completion Gate
 
-The walkthrough is complete when all three clusters have been presented and approved. Only then does Phase 6 (Commit) execute.
-
-Once approved, proceed to Phase 6: Commit.
+The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
 
 ---
 
-## Phase 6: Commit
+## Commit Contributions
 
-Execute **only** after Phase 5b review is complete and the user has explicitly approved the specification.
+Phase 6 runs once for the whole design system, in the foundation flow. This track contributes:
 
-Follow the Phase Lifecycle commit protocol from the Operating Contract:
-
-1. **Verify the summary header.** Confirm the draft directory's `00-header.md` (or first section file) contains a `## Summary for Downstream` section populated per Protocol 5 of the operating contract — Key Decisions (state schema shape, context-injection order, document architecture), Binding Constraints (token budgets, naming conventions, agent-parseable structure), Deferred Questions, Out of Scope. If missing, apply `groundwork-writer` to add it before assembling.
-
-2. **Assemble the final spec.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/design-system-draft/*.md > docs/design-system.md")`. The numeric prefixes guarantee the correct section order. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
-
-3. **Emit brand tokens.** Write `.groundwork/config/brand-tokens.json` (Tier 1) following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — identity essentials only: `appName`, a short `wordmark` glyph, `primary` and `accent` colours, and a `voice` descriptor, projected mechanically from the product brief and any palette decisions. This is not a new conversation. It exists so scaffolding can brand the project's `./dev` CLI even though this product is a protocol, not a CLI. The file lives in persistent config and is not removed by the cache cleanup in the next step.
-
-4. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected protocol-anatomy choices, deferred decisions (versioning policy, multi-skill orchestration), user instincts about agent posture or naming not yet committed, and any other context the architecture phase needs. Omit empty sections.
-
-5. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
-
-6. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2 — e.g. the design system overturns a brief commitment), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
-
-7. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
-
-8. Confirm that the phase is complete.
-
-9. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-
-10. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+- **Document section:** the `# Agentic Protocol` section files assembled into `docs/design-system.md`.
+- **Brand tokens:** no Tier 2 block — a protocol has no terminal or visual treatment to project. When this is the only active type, the file is Tier 1: `identity` essentials only (`appName`, a short `wordmark` glyph, `primary` and `accent` colours, and a `voice` descriptor), projected mechanically from the product brief and any palette decisions, so scaffolding can brand the project's `./dev` CLI even though this product is a protocol, not a CLI.
+- **Summary key decisions:** state schema shape, context-injection order, document architecture. Binding constraints include token budgets, naming conventions, agent-parseable structure.
+- **Hand-off content:** rejected protocol-anatomy choices, deferred decisions (versioning policy, multi-skill orchestration), user instincts about agent posture or naming not yet committed.

@@ -2,6 +2,8 @@
 
 This track applies to products whose primary interface is a command-line tool: terminal applications, shell utilities, developer CLIs, build systems, package managers, infrastructure tools, and any product where humans interact through typed commands and terminal output.
 
+The shared foundation flow (`tracks/_foundation.md`) owns the session spine: it runs the brand-level Phases 1, 2, and 4 once for the whole product, drawing this track's contributions from the Foundation Contributions section below, and it runs this track's Phase 3 and Phase 5 at the right points. Its Cross-Phase Signal Capture rule stays in force throughout every phase of this track.
+
 ---
 
 ## Default Stance
@@ -61,43 +63,48 @@ Draw inspiration from trend-setting CLIs — as a palette to pull from by paradi
 
 ---
 
-## Cross-Phase Signal Capture
+## Foundation Contributions
 
-Design system conversations routinely surface signals that belong to a different phase — a startup budget with infrastructure implications, a configuration store that shapes architecture, a sequencing instinct about which commands ship first. As these signals arise during any phase, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for protocol or schema implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+The shared foundation flow pulls these sections into its brand-level phases.
 
----
+### Envelope (foundation Phase 1)
 
-## Phase 1: Non-Functional Requirements (NFR)
+**Place the CLI on the spectrum first.** Before drafting this type's NFRs, infer where the CLI sits on the composable → interactive → hybrid spectrum from the product brief, and **propose** it: "this reads as a hybrid — a composable one-shot core with an interactive session surface, because the brief describes both scripting in CI and a conversational workflow." Then let the user react. Propose-first, never a questionnaire. Default an ambiguous read to **hybrid** — it carries the broadest envelope, so nothing is foreclosed. The paradigm decides which NFR dimensions and which later phases carry weight, so it is the first thing to settle. Record the agreed position in the Phase 1 section of `.groundwork/cache/design-system-cache.md`.
 
-NFRs define the engineering envelope the CLI design system must operate within. Startup budgets, composability contracts, platform targets, and security models all constrain design choices downstream — a CLI that specifies rich interactive prompts but must work in headless CI pipelines is internally contradictory.
-
-### Place the CLI on the spectrum first
-
-Before drafting NFRs, infer where this CLI sits on the composable → interactive → hybrid spectrum from the product brief, and **propose** it: "this reads as a hybrid — a composable one-shot core with an interactive session surface, because the brief describes both scripting in CI and a conversational workflow." Then let the user react. Propose-first, never a questionnaire. Default an ambiguous read to **hybrid** — it carries the broadest envelope, so nothing is foreclosed. The paradigm decides which NFR dimensions and which later phases carry weight, so it is the first thing to settle. Record the agreed position in the Phase 1 section of `.groundwork/cache/design-system-cache.md`.
-
-Read `docs/product-brief.md`. Using the product brief and the track defaults above as your starting position, draft a complete NFR proposal immediately — do not open with questions.
-
-Cover all relevant dimensions: startup and runtime performance budgets, composability and piping contracts, platform and shell compatibility, terminal capability detection, exit code discipline, signal handling, offline and error tolerance, configuration hierarchy, security, and accessibility. Ground each decision in the product brief and apply the track defaults where applicable: sub-100ms cold start, NO_COLOR compliance, XDG Base Directory compliance, structured output mode alongside human-readable defaults, POSIX signal handling, exit code 0/1/2 convention. Skip dimensions that are clearly irrelevant to the product.
+Cover all relevant dimensions of the CLI envelope: startup and runtime performance budgets, composability and piping contracts, platform and shell compatibility, terminal capability detection, exit code discipline, signal handling, offline and error tolerance, configuration hierarchy, security, and accessibility. Ground each decision in the product brief and apply the track defaults where applicable: sub-100ms cold start, NO_COLOR compliance, XDG Base Directory compliance, structured output mode alongside human-readable defaults, POSIX signal handling, exit code 0/1/2 convention.
 
 When the paradigm is interactive or hybrid, the NFR proposal also covers the interactive envelope alongside the composable floor: session persistence and resumability, the interrupt model, streaming render budget, autocomplete latency, TUI/alt-screen support with its non-TTY degradation path, multimodal and file input, and context-window management. The composable spine defaults stay in force for every paradigm — they are the floor the interactive layer builds on.
 
-Present the proposed NFRs in full and invite the user to confirm, challenge, or adjust specific items. The proposal is the starting position — accept what the user confirms, revise what they challenge. Once approved, write the confirmed NFRs to the Phase 1 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 2.
+### Research notes (foundation Phase 2)
 
----
+Pull from the paradigm-aware palette in the Default Stance: composable tools for output and composition challenges, the interactive/agentic cluster (Claude Code, Gemini CLI, Aider, the Charm stack) for session, streaming, slash-command, and autocomplete challenges. Match the source to the paradigm settled in Phase 1.
 
-## Phase 2: Research
+### Type language (foundation Phase 4)
 
-The inspiration library grounds the design conversation in concrete, existing tools. Abstract discussions ("make it feel polished") produce vague specs. Discussions anchored in specific examples ("ripgrep renders results from a streaming parser so the first match appears before the search completes") produce actionable design decisions.
+Fold these dimensions into the foundation's language clusters. The user should never need to think about specific ANSI codes:
 
-Drawing on the product context and agreed NFRs from Phase 1, identify the core design challenges this CLI faces and find leading tools that solve similar problems exceptionally well. Describe the **specific pattern or interaction** worth borrowing — not just the tool's reputation. Pull from the paradigm-aware palette in the Default Stance: composable tools for output and composition challenges, the interactive/agentic cluster (Claude Code, Gemini CLI, Aider, the Charm stack) for session, streaming, slash-command, and autocomplete challenges. Match the source to the paradigm settled in Phase 1 — an interactive product needs interactive exemplars, and a composable one does not need to borrow REPL patterns it will never use.
+- **Cluster 1: Identity** — Output personality, colour philosophy, iconography and symbol vocabulary, and in-terminal branding. Propose the CLI's voice as a unified stance: how terse or pedagogical it is, whether colour is functional or decorative, whether the symbol palette is Unicode, emoji, ASCII, or none, and — for interactive products — how present the branding is (a splash or wordmark on launch, or restraint).
+- **Cluster 2: Feel** — Information density, progress and feedback, structured output character, and live-rendering feel. Propose how dense the default verbosity is, how long-running operations communicate, and how data presentations degrade in narrow terminals. When the paradigm is interactive or hybrid, also propose the streaming feel: whether output streams token-by-token or lands in blocks, how "alive" the thinking indicator feels, and how settled or busy the repaint cadence reads — as a *feel*, not a number.
+- **Cluster 3: Craft** — Error tone, interactive posture, interrupt posture, and autocomplete assertiveness. Propose how errors feel (diagnostic vs terse), and when the CLI prompts vs assumes. For interactive products, also propose how interruption feels (can you stop a runaway response cleanly) and how eager autocomplete is (passive ghost-text vs an assertive menu).
 
-Present the Inspiration Library and ask for the user's reaction. Do not proceed until they have confirmed the direction.
+This type's Synthesis Gate expression fields:
 
-Once approved, write to the Phase 2 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 3.
+- **Colour philosophy**: The role colour plays.
+- **Symbol vocabulary**: The marker style.
+- **Feedback style**: How the CLI communicates work-in-progress.
+- **Interactive posture**: When the CLI should ask vs. assume.
+
+When the paradigm is interactive or hybrid, also capture:
+
+- **Streaming feel**: How output arrives — token-by-token or in blocks — and how alive the thinking state feels.
+- **Branding posture**: How present the in-terminal identity is on launch.
+- **Interactive assertiveness**: How eager prompts, autocomplete, and interruption feel.
 
 ---
 
 ## Phase 3: Command Architecture
+
+*Runs inside the foundation flow's Phase 3 step — once for this type.*
 
 The command architecture is the structural container everything else lives inside — the taxonomy, I/O topology, configuration surface, and discovery model. Getting this wrong means reworking every command. Getting it right means every subsequent design decision has a home.
 
@@ -113,50 +120,13 @@ Guide the conversation with leading-edge CLI design patterns. Propose the archit
 
 When a command-architecture decision implies a backend or infrastructure capability — authentication backend, telemetry sink, update channel, remote config service, credential storage — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
 
-Once approved, write to the Phase 3 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 4.
-
----
-
-## Phase 4: Terminal Language
-
-This phase captures the user's instincts about how the CLI communicates through the terminal — the raw material the agent will translate into concrete ANSI specifications in Phase 5. The user should never need to think about specific ANSI codes.
-
-Cover terminal language in three focused clusters — grouping related decisions so the user can react to a coherent stance rather than isolated individual choices. For each cluster, open with a cohesive proposal that reflects what the product brief and inspiration library suggest, then invite the user to react and redirect.
-
-**Cluster 1: Identity** — Output personality, colour philosophy, iconography and symbol vocabulary, and in-terminal branding. Propose the CLI's voice as a unified stance: how terse or pedagogical it is, whether colour is functional or decorative, whether the symbol palette is Unicode, emoji, ASCII, or none, and — for interactive products — how present the branding is (a splash or wordmark on launch, or restraint).
-
-**Cluster 2: Feel** — Information density, progress and feedback, structured output character, and live-rendering feel. Propose how dense the default verbosity is, how long-running operations communicate, and how data presentations degrade in narrow terminals. When the paradigm is interactive or hybrid, also propose the streaming feel: whether output streams token-by-token or lands in blocks, how "alive" the thinking indicator feels, and how settled or busy the repaint cadence reads — as a *feel*, not a number.
-
-**Cluster 3: Craft** — Error tone, interactive posture, interrupt posture, and autocomplete assertiveness. Propose how errors feel (diagnostic vs terse), and when the CLI prompts vs assumes. For interactive products, also propose how interruption feels (can you stop a runaway response cleanly) and how eager autocomplete is (passive ghost-text vs an assertive menu).
-
-After each cluster proposal, invite the user to react and refine before advancing. Mark each cluster as covered in `.groundwork/cache/design-system-cache.md` as you go. Skip a dimension only when it is clearly irrelevant to the product.
-
-### Synthesis Gate
-
-Before caching, distill the entire Phase 4 conversation into a structured direction and present it to the user for confirmation. Scattered conversation notes are not sufficient input for Phase 5.
-
-The synthesis stays in the user's language. No ANSI codes, no output templates, no column widths. It captures the *decisions* the user made in terms they recognise:
-
-- **Output personality**: A short characterisation of the CLI's voice.
-- **Information density**: The default verbosity posture.
-- **Colour philosophy**: The role colour plays.
-- **Feedback style**: How the CLI communicates work-in-progress.
-- **Error tone**: How errors feel.
-- **Interactive posture**: When the CLI should ask vs. assume.
-- **Symbol vocabulary**: The marker style.
-
-When the paradigm is interactive or hybrid, also capture:
-- **Streaming feel**: How output arrives — token-by-token or in blocks — and how alive the thinking state feels.
-- **Branding posture**: How present the in-terminal identity is on launch.
-- **Interactive assertiveness**: How eager prompts, autocomplete, and interruption feel.
-
-Present as a clear summary the user can scan and approve in one read. Confirm before proceeding.
-
-Once confirmed, write the synthesis to the Phase 4 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 5.
+Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
 
 ---
 
 ## Phase 5: Expert Translation & Review
+
+*The foundation flow runs this phase once per active type, after the brand language direction (foundation Phase 4) is confirmed. The agent translates that direction into concrete ANSI specifications — the user never has to think about a raw escape code.*
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
@@ -183,6 +153,8 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `07-live-surface.md` | Live-render/TUI regions and their non-TTY fallback, session persistence and context-window management, in-terminal branding and splash |
 
 The numeric prefixes determine concatenation order at commit, and the commit/review `cat *.md` globs pick up `06`/`07` automatically with no change. Split into two files (rather than one) so the Phase 5b re-flow stays unambiguous: `06` is walked in the Interaction cluster, `07` in the Surface cluster, so each cluster maps to a single file. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated.
+
+This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# CLI`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames (the `06`/`07` session files take the next slots in this type's decade) with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
 
 Compile each section using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive CLI design system that the agent derives from the terminal language direction captured in Phase 4.
 
@@ -358,34 +330,15 @@ Track which clusters have been reviewed in `.groundwork/cache/design-system-cach
 
 #### Completion Gate
 
-The walkthrough is complete when all three clusters have been presented and approved. Only then does Phase 6 (Commit) execute.
-
-Once approved, proceed to Phase 6: Commit.
+The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
 
 ---
 
-## Phase 6: Commit
+## Commit Contributions
 
-Execute **only** after Phase 5b review is complete and the user has explicitly approved the specification.
+Phase 6 runs once for the whole design system, in the foundation flow. This track contributes:
 
-Follow the Phase Lifecycle commit protocol from the Operating Contract:
-
-1. **Verify the summary header.** Confirm the draft directory's `00-header.md` (or first section file) contains a `## Summary for Downstream` section populated per Protocol 5 of the operating contract — Key Decisions (colour role table, output structure, exit-code policy; and for interactive/hybrid CLIs, the session model, streaming budget, and slash-command grammar), Binding Constraints (ANSI fallback chain, machine-readability requirements, accessibility floors), Deferred Questions, Out of Scope. If missing, apply `groundwork-writer` to add it before assembling.
-
-2. **Assemble the final spec.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/design-system-draft/*.md > docs/design-system.md")`. The numeric prefixes guarantee the correct section order — the glob picks up `06`/`07` automatically when they exist. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
-
-3. **Emit brand tokens.** Write `.groundwork/config/brand-tokens.json` following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. The CLI track emits **Tier 2** — identity plus the full `terminal` block (colour role table, symbol vocabulary, splash, typography), carrying the *same* values as the colour architecture and symbol vocabulary just written into `docs/design-system.md`. This is the machine projection scaffolding reads to brand the `./dev` CLI and the product's own CLI. It lives in persistent config and is not removed by the cache cleanup in the next step.
-
-4. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected colour palettes or output templates, deferred decisions (composition rules, plugin architecture), user instincts about CLI ergonomics not yet committed, and any other context the architecture phase needs. Omit empty sections.
-
-5. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
-
-6. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2 — e.g. the design system overturns a brief commitment), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
-
-7. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
-
-8. Confirm that the phase is complete.
-
-9. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-
-10. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+- **Document section:** the `# CLI` section files assembled into `docs/design-system.md`, including the session and live-surface files for interactive/hybrid paradigms.
+- **Brand tokens:** the Tier 2 `terminal` block — colour role table, symbol vocabulary, splash, typography per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — carrying the *same* values as the colour architecture and symbol vocabulary just written into the document. This is the machine projection scaffolding reads to brand the `./dev` CLI and the product's own CLI.
+- **Summary key decisions:** colour role table, output structure, exit-code policy; and for interactive/hybrid CLIs, the session model, streaming budget, and slash-command grammar. Binding constraints include the ANSI fallback chain, machine-readability requirements, accessibility floors.
+- **Hand-off content:** rejected colour palettes or output templates, deferred decisions (composition rules, plugin architecture), user instincts about CLI ergonomics not yet committed.

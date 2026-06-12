@@ -88,7 +88,7 @@ A hidden skill whose session moves through distinct modes splits its instruction
 |---|---|---|---|
 | `workflows/` | groundwork-bet | bet lifecycle phase | pitch `status` frontmatter |
 | `phases/` | groundwork-architecture, groundwork-scaffold | conversation phase | phase status in the skill's cache file |
-| `tracks/` | groundwork-design-system | interface type | `interface_type` |
+| `tracks/` | groundwork-design-system | interface type (plus `_foundation.md`, the brand-level flow run once) | `interface_types` |
 
 `templates/` directories hold output skeletons, never instructions. When restructuring a skill, keep the directory name that matches its routing shape — the convention is how a reader predicts a skill's internals without listing it.
 

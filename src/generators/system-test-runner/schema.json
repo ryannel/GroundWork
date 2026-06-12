@@ -9,9 +9,13 @@
       "description": "The prefix for Docker container names (e.g. 'myapp')",
       "default": "groundwork"
     },
+    "surfaces": {
+      "type": "string",
+      "description": "JSON array of surface specs from the surface registry (.groundwork/surfaces.json): [{\"slug\": \"web-app\", \"medium\": \"playwright\", \"reach\": \"...\"}]. 'medium' is the registry's testMedium (playwright | subprocess-cli | protocol-client | others register without a runner fixture); 'reach' is an optional static base URL (playwright/protocol-client) or launch command (subprocess-cli) — omitted, URL mediums are discovered from docker-compose.yml by slug. Generates the slug-keyed 'surfaces' fixture plus one runner fixture per surface. Supersedes interfaceMedium when both are given."
+    },
     "interfaceMedium": {
       "type": "string",
-      "description": "The project's interface medium, from docs/design-system.md's interface track",
+      "description": "DEPRECATED single-surface alias for 'surfaces' — the project's interface medium, from docs/design-system.md's interface track. Used only when no surface registry exists; generates the legacy frontend_base_url fixture instead of the surfaces map",
       "enum": ["graphical-ui", "cli", "agentic-protocol"],
       "default": "graphical-ui"
     }

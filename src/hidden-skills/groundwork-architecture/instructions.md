@@ -75,11 +75,11 @@ Each phase runs from its own file because each demands a different mode. At the 
 |---|---|---|
 | 1. Context Ingestion | `phases/01-context-ingestion.md` | Silent read of upstream hand-off, summaries, and discovery notes |
 | 2. Technical Constraints | `phases/02-technical-constraints.md` | The constraint envelope every later decision must fit |
-| 3. Service Design | `phases/03-service-design.md` | The service map — what the system is divided into and what each owns |
+| 3. Service Design | `phases/03-service-design.md` | The service map — core services and surface apps, what each owns, and the core's deployment |
 | 4. Data Flow & Communication | `phases/04-data-flow-communication.md` | How data moves, communication patterns, and the technology per capability |
-| 5. Component Boundaries & Contracts | `phases/05-component-boundaries-contracts.md` | Precise ownership and contract format per service |
+| 5. Component Boundaries & Contracts | `phases/05-component-boundaries-contracts.md` | Precise ownership and contract format per service; each surface's access path and auth model |
 | 6. Draft, Review & Present | `phases/06-draft-review-present.md` | The reviewed draft, presented section by section for approval |
-| 7. Commit | `phases/07-commit.md` | `docs/architecture.md`, domain stubs, ADRs, hand-off, and cleanup |
+| 7. Commit | `phases/07-commit.md` | `docs/architecture.md`, the surface registry (`docs/surfaces.md` + `.groundwork/surfaces.json`), domain stubs, ADRs, hand-off, and cleanup |
 
 ---
 

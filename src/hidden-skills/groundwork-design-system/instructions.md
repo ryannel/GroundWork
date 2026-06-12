@@ -3,8 +3,9 @@ name: groundwork-design-system
 description: >
   Translates the user's aesthetic intent — mood, personality, interaction
   philosophy — into an implementation-ready `docs/design-system.md` that
-  eliminates all downstream design decisions. Taste conversation in, precision
-  specification out, reviewed with the user section by section.
+  eliminates all downstream design decisions. The brand conversation runs once;
+  a translation track runs per interface type in use. Taste conversation in,
+  precision specification out, reviewed with the user section by section.
 ---
 
 # GroundWork Design System
@@ -25,12 +26,12 @@ The user is not a designer or specification writer. They speak in taste, instinc
 
 The process has three beats:
 
-1. **High-level conversation** (Phases 1–4): The agent and user talk about how the product should *feel* — its mood, its personality, its interaction philosophy. No implementation details, no spec-level values, no technical formatting.
-2. **Expert translation** (Phase 5a): The agent autonomously converts the approved direction into a rigorous, implementation-ready specification. This is the agent's core contribution.
+1. **High-level conversation** (Phases 1–4): The agent and user talk about how the product should *feel* — its mood, its personality, its interaction philosophy. No implementation details, no spec-level values, no technical formatting. This conversation runs **once, at brand level** — a product has one personality no matter how many interface types express it.
+2. **Expert translation** (Phase 5a): The agent autonomously converts the approved direction into a rigorous, implementation-ready specification. This is the agent's core contribution, and it runs **once per interface type in use** — the same brand direction becomes CSS tokens for a screen, ANSI roles for a terminal, protocol semantics for an agent surface.
 
    When entering Phase 5a, announce the shift from collaborative conversation to autonomous translation — the user should understand the interaction pattern is changing and that the agent will return with a complete design system for review. Cache updates during this phase are preparation steps, not interruptions of the conversation.
 
-3. **Specific review** (Phase 5b): The agent presents the design system as a proposal. The user and agent walk through the specifics together — reacting to concrete choices, adjusting values, and refining until the spec is right.
+3. **Specific review** (Phase 5b): The agent presents each type's design system as a proposal. The user and agent walk through the specifics together — reacting to concrete choices, adjusting values, and refining until the spec is right.
 
 This separation is non-negotiable. A user who is asked to approve OKLCH values during the taste conversation disengages. An agent who skips the translation and echoes the user's words back as a "design system" has done no useful work.
 
@@ -61,7 +62,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check if `.groundwork/cache/design-system-cache.md` exists.
 
 - If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-design-system/templates/design-system-cache.md` to `.groundwork/cache/design-system-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
-- If it **does exist**, read it. If an `interface_type` is already recorded and phases are in progress, summarise what has been completed and ask whether the user wants to resume or start fresh. If they choose to start fresh, reset the cache file from the template. If they choose to resume, skip to Step 3.
+- If it **does exist**, read it. If `interface_types` is already recorded and phases are in progress, summarise what has been completed and ask whether the user wants to resume or start fresh. If they choose to start fresh, reset the cache file from the template. If they choose to resume, skip to Step 3.
 
 ### Step 1.5: Discovery Notes Check
 
@@ -77,9 +78,13 @@ If the file does not exist, skip this step. The Operating Contract's Cache Isola
 
 ### Step 2: Interface Type Detection
 
-Read the `## Summary for Downstream` section of `docs/product-brief.md` first — that section carries the Key Decisions, Binding Constraints, and Deferred Questions the product brief committed to, and is sufficient to determine the interface type for most products. Only read the body of `docs/product-brief.md` if the summary does not name the interaction medium clearly enough to classify.
+Read the `## Summary for Downstream` section of `docs/product-brief.md` first — that section carries the Key Decisions, Binding Constraints, and Deferred Questions the product brief committed to. Only read the body of `docs/product-brief.md` if the summary does not name the interaction surfaces clearly enough to classify.
 
-Determine the product's primary interface type. The interface type describes what the end-user interacts with, not what the backend does. An AI-powered product with a visual frontend is `graphical-ui` regardless of backend complexity.
+Design tracks run once per **interface type** in use, not per surface — a web app and a mobile app are both `graphical-ui` and share one track run. When the summary's Key Decisions carry the surface set with horizon markers (MVP / later / aspirational), classify each surface into a type using the table below; the distinct types of the **MVP-horizon** surfaces are this session's active set. Types appearing only at later or aspirational horizons are deferred — record them in the cache, but do not run their tracks now: they run lazily when `groundwork-surface-activation` births the first surface of that type, appending its section to the existing design system.
+
+When the summary carries no surface set (a brief written before surfaces were enumerated), fall back to single-type detection: determine the product's primary interface type and treat it as an active set of one.
+
+The interface type describes what the end-user interacts with, not what the backend does. An AI-powered product with a visual frontend is `graphical-ui` regardless of backend complexity.
 
 | Type | Signals | Examples |
 |---|---|---|
@@ -87,19 +92,19 @@ Determine the product's primary interface type. The interface type describes wha
 | `cli` | Command-line tool, terminal application, shell utility — a human sits at a terminal and interacts through typed commands and rendered output, whether the tool runs one-shot or as an interactive session | Developer tools, build systems, package managers, infrastructure CLI, interactive coding assistants and agentic terminal apps (Claude Code, Gemini CLI, Aider) |
 | `agentic-protocol` | Agent framework, skill system, MCP server, developer methodology, protocol — the consumer is another program or agent integrating via API, with no human terminal surface | GroundWork itself, LangChain, agent orchestrators, MCP servers |
 
-If `docs/product-brief.md` does not exist or cannot be read, ask the user what kind of interface their product has — visual app, command-line tool, or agent/protocol system. Use their answer to determine the type. Do not proceed without a confirmed `interface_type`.
+If `docs/product-brief.md` does not exist or cannot be read, ask the user what kind of interface their product has — visual app, command-line tool, or agent/protocol system, or a combination. Use their answer to determine the types. Do not proceed without a confirmed active set in `interface_types`.
 
 If the product brief describes end-consumers (players, readers, shoppers, viewers) as target users but uses backend or engine language, the product is `graphical-ui`. The `agentic-protocol` type applies only when the primary users are developers or other agents integrating via API.
 
 Disambiguate `cli` from `agentic-protocol` by **who consumes the output**: a human watching a terminal, or a program integrating via API. A product where a human sits at a terminal interacting with an embedded agent is `cli`, even when an LLM drives the experience underneath — the design problem is terminal rendering, streaming, and interaction. `agentic-protocol` is for the framework or protocol consumed via API with no human terminal surface. A coding assistant a developer runs in their shell routes to `cli`; the MCP server or agent framework it talks to routes to `agentic-protocol`.
 
-If the product brief contains explicit interface vocabulary (web app, CLI tool, agent framework), record the type. If the brief describes the system without naming the interaction surface, treat it as ambiguous and ask the user a single, direct question to determine which of the three types applies.
+If the product brief contains explicit interface vocabulary (web app, CLI tool, agent framework), record the types. If the brief describes the system without naming any interaction surface, treat it as ambiguous and ask the user a single, direct question to determine which of the three types applies.
 
-Write the determined type to the `interface_type` field in `.groundwork/cache/design-system-cache.md`.
+Write the active set to the `interface_types` field in `.groundwork/cache/design-system-cache.md`, and any deferred types to its `deferred_types` field.
 
-### Step 3: Load Track
+### Step 3: Load Foundation and Tracks
 
-Based on `interface_type`, load and execute the corresponding track file. The track contains the complete Phases 1–6 flow for that interface type.
+Load and execute `.agents/groundwork/skills/groundwork-design-system/tracks/_foundation.md` — the shared foundation flow. It owns the session spine: the brand-level Phases 1–4 run once, each active type's Phase 5 translation and walkthrough run from its track file, and one commit closes the phase. The foundation draws each type's contributions from the corresponding track file:
 
 | Interface Type | Track File |
 |---|---|
@@ -107,10 +112,12 @@ Based on `interface_type`, load and execute the corresponding track file. The tr
 | `cli` | `.agents/groundwork/skills/groundwork-design-system/tracks/cli.md` |
 | `agentic-protocol` | `.agents/groundwork/skills/groundwork-design-system/tracks/agentic-protocol.md` |
 
-Read the track file and execute from Phase 1 (or the appropriate resume point if resuming). DO NOT retain these initialization instructions in context once the track is loaded. The track file is the single source of truth for the remainder of the session.
+Read the foundation file and the active tracks, then execute from the foundation's Phase 1 (or the appropriate resume point if resuming). DO NOT retain these initialization instructions in context once the foundation is loaded. The foundation file is the single source of truth for the session spine; each track is the single source of truth for its type's design content.
 
-### Commit Contract for All Tracks
+The output, `docs/design-system.md`, carries the shared brand foundation plus one titled section per active type (`# Graphical UI`, `# CLI`, `# Agentic Protocol`) — the section `docs/surfaces.md` design-track references resolve to. A deferred type gets its section later: `groundwork-surface-activation` runs that type's track lazily against the existing foundation, without re-running the brand conversation.
 
-Every track's commit step must follow Protocol 3.4 of the Operating Contract — including writing the `## Summary for Downstream` section into `docs/design-system.md` (Protocol 5, enforced by `groundwork-writer`) and writing the hand-off file to `.groundwork/cache/handoff/design-system.md` (Protocol 6, template at `.agents/groundwork/skills/templates/handoff.md`). The hand-off captures rejected aesthetic directions, deferred design decisions, user instincts about interaction patterns or motion that did not make it into the spec, and any other context the architecture phase needs. The previous phase's hand-off at `.groundwork/cache/handoff/product-brief.md` is deleted at the same commit — this phase has now consumed it.
+### Commit Contract
 
-**Brand tokens.** Every track's commit also writes `.groundwork/config/brand-tokens.json` — the machine-readable projection of the branding decisions, following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. This is what scaffolding reads to brand the `./dev` CLI, so every product gets it regardless of interface type. The `graphical-ui` and `agentic-protocol` tracks emit **Tier 1** (identity essentials — name, wordmark, primary/accent colour, voice), projected mechanically from the brand's palette and the product brief — not a new design conversation. The `cli` track emits **Tier 2** (Tier 1 plus the full terminal block: colour role table, symbol vocabulary, splash, typography), carrying the same values as the colour architecture in `docs/design-system.md`. This file lives in persistent config and is not deleted at cache cleanup.
+The commit runs once, in the foundation flow's Phase 6, after every active type's walkthrough completes. It must follow Protocol 3.4 of the Operating Contract — including writing the `## Summary for Downstream` section into `docs/design-system.md` (Protocol 5, enforced by `groundwork-writer`) and writing the hand-off file to `.groundwork/cache/handoff/design-system.md` (Protocol 6, template at `.agents/groundwork/skills/templates/handoff.md`). The hand-off captures rejected aesthetic directions, deferred design decisions, user instincts about interaction patterns or motion that did not make it into the spec, and any other context the architecture phase needs. The previous phase's hand-off at `.groundwork/cache/handoff/product-brief.md` is deleted at the same commit — this phase has now consumed it.
+
+**Brand tokens.** The commit also writes `.groundwork/config/brand-tokens.json` — the machine-readable projection of the branding decisions, following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. Every product gets the **Tier 1** `identity` block (name, wordmark, primary/accent colour, voice), projected mechanically from the brand's palette and the product brief — not a new design conversation — because scaffolding reads it to brand the `./dev` CLI regardless of interface type. Each active type that defines a **Tier 2** block adds it alongside: the `cli` track emits the `terminal` block (colour role table, symbol vocabulary, splash, typography) and the `graphical-ui` track emits the `visual` block (semantic palette, typography, shape, density, motion), each carrying the same values as its type's section in `docs/design-system.md`. A product with both types in use carries both blocks. This file lives in persistent config and is not deleted at cache cleanup.

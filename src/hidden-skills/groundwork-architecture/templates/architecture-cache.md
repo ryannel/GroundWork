@@ -16,7 +16,7 @@
 
 **Status:** pending
 
-<!-- Replace with the agreed service boundaries, ownership decisions, and topology once the user confirms. -->
+<!-- Replace with the agreed service boundaries, ownership decisions, topology, the core/surface classification of every component, and the core's deployment (hosted or embedded) once the user confirms. -->
 
 ---
 
@@ -32,7 +32,7 @@
 
 **Status:** pending
 
-<!-- Replace with the agreed service boundaries, trust boundaries, and contract definitions once the user confirms. -->
+<!-- Replace with the agreed service boundaries, trust boundaries, contract definitions, each surface's access path and auth model, and the contract-compatibility stance where surfaces deploy independently, once the user confirms. -->
 
 ---
 

@@ -2,6 +2,8 @@
 
 This track applies to products with a visual user interface: web apps, mobile apps, desktop applications, dashboards, and any product where humans interact through a screen.
 
+The shared foundation flow (`tracks/_foundation.md`) owns the session spine: it runs the brand-level Phases 1, 2, and 4 once for the whole product, drawing this track's contributions from the Foundation Contributions section below, and it runs this track's Phase 3 and Phase 5 at the right points. Its Cross-Phase Signal Capture rule stays in force throughout every phase of this track.
+
 ---
 
 ## Default Stance
@@ -31,37 +33,35 @@ Draw inspiration from trend-setting companies: Linear, Vercel, Raycast, Arc, App
 
 ---
 
-## Cross-Phase Signal Capture
+## Foundation Contributions
 
-Design system conversations routinely surface signals that belong to a different phase — a performance target with infrastructure implications, an offline expectation that shapes data architecture, a sequencing instinct about which features matter first. As these signals arise during any phase, append them as bullets under the matching section header in `.groundwork/cache/discovery-notes.md` — `## Architecture` for infrastructure or technology opinions, `## Design Details` for async or schema implications, `## Bets` for feature sequencing, `## Product Brief` for vision-level refinements — then return to the current topic. Capturing them now means the downstream phase finds them instead of asking the user to repeat themselves.
+The shared foundation flow pulls these sections into its brand-level phases.
 
----
+### Envelope (foundation Phase 1)
 
-## Phase 1: Non-Functional Requirements (NFR)
+Cover all relevant dimensions of the graphical envelope: performance and latency targets, accessibility baselines, multi-device and viewport requirements, real-time and sync needs, offline and error tolerance, session persistence, notification model, and security UX. Ground each decision in the product brief and apply the track defaults where applicable: sub-50ms perceived latency, WCAG 2.1 AA, 8-point grid, OKLCH, hardware-accelerated animation only.
 
-NFRs define the engineering envelope the design system must operate within. Performance budgets, accessibility baselines, sync requirements, and error tolerance all constrain design choices downstream — a design system that specifies 300ms transitions in a product with a 50ms interaction budget is internally contradictory.
+### Type language (foundation Phase 4)
 
-Read `docs/product-brief.md`. Using the product brief and the track defaults above as your starting position, draft a complete NFR proposal immediately — do not open with questions.
+Fold these dimensions into the foundation's language clusters:
 
-Cover all relevant dimensions: performance and latency targets, accessibility baselines, multi-device and viewport requirements, real-time and sync needs, offline and error tolerance, session persistence, notification model, and security UX. Ground each decision in the product brief and apply the track defaults where applicable: sub-50ms perceived latency, WCAG 2.1 AA, 8-point grid, OKLCH, hardware-accelerated animation only. Skip dimensions that are clearly irrelevant to the product.
+- **Cluster 1: Identity** — Aesthetic direction, colour psychology and mood, typography character. Propose the product's visual personality as a unified stance: what it feels like, what emotional register both themes carry, and what typographic character reinforces the identity.
+- **Cluster 2: Feel** — Surface and depth philosophy, motion and feedback, content density and readability. Propose how physical and tactile the UI should feel — layered or flat, animated or restrained, dense or spacious.
+- **Cluster 3: Craft** — Iconography and imagery weight, tone of voice and microcopy, data visualisation (if applicable). Propose the visual weight of icons and the personality of the UI's copy.
 
-Present the proposed NFRs in full and invite the user to confirm, challenge, or adjust specific items. The proposal is the starting position — accept what the user confirms, revise what they challenge. Once approved, write the confirmed NFRs to the Phase 1 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 2.
+This type's Synthesis Gate expression fields:
 
----
-
-## Phase 2: Research
-
-The inspiration library grounds the design conversation in concrete, existing products. Abstract aesthetic discussions ("make it premium") produce vague specs. Discussions anchored in specific examples ("Linear's command palette renders from local cache before the server responds") produce actionable design decisions.
-
-Drawing on the product context and agreed NFRs from Phase 1, identify the 3–5 core design challenges this product faces (e.g., "async generation with delayed delivery," "multi-device intent capture," "media-heavy reading experience"). For each challenge, find 1–2 leading applications that solve it exceptionally well. Describe the **specific pattern or interaction** worth borrowing — not just the app's reputation. Aim for 5–8 references total. Breadth across challenges is more valuable than depth on one.
-
-Present this Inspiration Library and ask for the user's reaction. Do they agree? Are there specific "vibes" or paradigms they want to adopt? Do not proceed until they have confirmed the direction.
-
-Once approved, write to the Phase 2 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 3.
+- **Colour mood**: The emotional temperature for both themes.
+- **Depth and surface**: How physical the UI feels and what techniques create that physicality.
+- **Typography character**: The personality of the type, not the font name.
+- **Motion philosophy**: How the UI responds to touch.
+- **Iconography feel**: The visual weight and style.
 
 ---
 
 ## Phase 3: App Shell
+
+*Runs inside the foundation flow's Phase 3 step — once for this type.*
 
 The app shell is the structural container everything else lives inside — navigation, layout, context preservation, and system-level states. Getting this wrong means reworking every screen. Getting it right means every subsequent design decision has a home.
 
@@ -71,45 +71,13 @@ Guide the conversation with leading-edge structural trends. Propose the app shel
 
 When a shell decision implies a backend capability — notifications, search, session state, presence, real-time delivery — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the shell conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
 
-Once approved, write to the Phase 3 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 4.
-
----
-
-## Phase 4: Design Language
-
-This phase captures the user's taste — the raw material the agent will translate into concrete CSS in Phase 5. The user should never need to think about specific values. The agent's job is to understand their aesthetic instincts deeply enough to derive every token, shadow, and easing curve autonomously.
-
-Draw on the product brief for identity and audience context, and on the inspiration library from Phase 2 for concrete reference points. Cover design language in three focused clusters — grouping related decisions so the user can react to a coherent aesthetic stance rather than isolated individual choices. For each cluster, open with a cohesive proposal that reflects what the product brief and inspiration library suggest, then invite the user to react and redirect.
-
-**Cluster 1: Identity** — Aesthetic direction, colour psychology and mood, typography character. Propose the product's visual personality as a unified stance: what it feels like, what emotional register both themes carry, and what typographic character reinforces the identity.
-
-**Cluster 2: Feel** — Surface and depth philosophy, motion and feedback, content density and readability. Propose how physical and tactile the UI should feel — layered or flat, animated or restrained, dense or spacious.
-
-**Cluster 3: Craft** — Iconography and imagery weight, tone of voice and microcopy, data visualisation (if applicable). Propose the visual weight of icons and the personality of the UI's copy.
-
-After each cluster proposal, invite the user to react and refine before advancing. Mark each cluster as covered in `.groundwork/cache/design-system-cache.md` as you go. Skip a dimension only when it is clearly irrelevant to the product.
-
-### Synthesis Gate
-
-Before caching, distill the entire Phase 4 conversation into a structured design direction and present it to the user for confirmation. Scattered conversation notes are not sufficient input for Phase 5 — the synthesis forces the agent to reconcile any contradictions and present a coherent vision.
-
-The synthesis stays in the user's language. No CSS values, no OKLCH codes, no pixel dimensions. It captures the *decisions* the user made in terms they recognise and can confidently approve or correct:
-
-- **Aesthetic identity**: A short characterisation of the overall feel.
-- **Colour mood**: The emotional temperature for both themes.
-- **Depth and surface**: How physical the UI feels and what techniques create that physicality.
-- **Typography character**: The personality of the type, not the font name.
-- **Motion philosophy**: How the UI responds to touch.
-- **Voice and tone**: How the UI speaks.
-- **Iconography feel**: The visual weight and style.
-
-Present this as a clear summary the user can scan and approve in one read. Ask them to confirm or correct before proceeding.
-
-Once confirmed, write the synthesis to the Phase 4 section of `.groundwork/cache/design-system-cache.md` and set its status to `done`. Proceed to Phase 5.
+Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
 
 ---
 
 ## Phase 5: Expert Translation & Guided Review
+
+*The foundation flow runs this phase once per active type, after the brand language direction (foundation Phase 4) is confirmed. The agent's job here is to derive every token, shadow, and easing curve autonomously from that direction.*
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
@@ -129,6 +97,8 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `05-surface.md` | Part 3 Cluster 3 — scrollbars, toasts, error choreography, skeletons, borders, overflow, responsive grid, and any remaining engineering-craft sections from the target structure |
 
 The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 (`## Colour Architecture`) as appropriate so the files compose cleanly when concatenated.
+
+This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# Graphical UI`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
 
 Compile the full design system document using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive design system that the agent derives from the design language direction captured in Phase 4.
 
@@ -256,7 +226,7 @@ Before presenting the draft, run this self-check:
 2. **Does every CSS block have multi-value depth?** Single-property definitions (just a background colour, just a border radius) are insufficient. Each design concept requires the full property set — background, border, shadow, padding, transition, and theme variant.
 3. **Would a developer implementing this need to make any design decisions?** If yes, the spec is underspecified. Make the call — that is the agent's core contribution.
 
-Update the Phase 5 section in `.groundwork/cache/design-system-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to the Independent Review pass.
+Update this type's Phase 5 entry in `.groundwork/cache/design-system-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to the Independent Review pass.
 
 ### Independent Review (Pre-Walkthrough)
 
@@ -311,34 +281,15 @@ Track which clusters have been reviewed in `.groundwork/cache/design-system-cach
 
 #### Completion Gate
 
-The walkthrough is complete when all three clusters have been presented and approved. Only then does Phase 6 (Commit) execute.
-
-Once approved, proceed to Phase 6: Commit.
+The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
 
 ---
 
-## Phase 6: Commit
+## Commit Contributions
 
-Execute **only** after Phase 5b has walked through every section of the draft and the user has explicitly approved the complete specification. Verify that all items in the Phase 5 walkthrough checklist in `.groundwork/cache/design-system-cache.md` are marked complete before proceeding.
+Phase 6 runs once for the whole design system, in the foundation flow. This track contributes:
 
-Follow the Phase Lifecycle commit protocol from the Operating Contract:
-
-1. **Verify the summary header.** Confirm the draft directory's `00-header.md` (or first section file) contains a `## Summary for Downstream` section populated per Protocol 5 of the operating contract — Key Decisions (the chosen colour space, typography family, motion personality), Binding Constraints (accessibility floors, performance budgets, responsive breakpoints), Deferred Questions, Out of Scope. If missing, apply `groundwork-writer` to add it before assembling.
-
-2. **Assemble the final spec.** Concatenate the section files into the canonical location: `run_command("cat .groundwork/cache/design-system-draft/*.md > docs/design-system.md")`. The numeric prefixes guarantee the correct section order. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
-
-3. **Emit brand tokens.** Write `.groundwork/config/brand-tokens.json` (Tier 1) following the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — identity essentials only: `appName`, a short `wordmark` glyph, `primary` and `accent` colours projected from the design system's palette, and a `voice` descriptor. This is a mechanical projection of decisions already made, not a new conversation. It exists so scaffolding can brand the project's `./dev` CLI even though this product is not itself a CLI. The file lives in persistent config and is not removed by the cache cleanup in the next step.
-
-4. **Write the hand-off file.** Copy `.agents/groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected aesthetic directions (e.g. typography pairings the user considered and ruled out), deferred design decisions (theming, internationalisation, future variants), user instincts about motion or interaction not yet committed, and any other context the architecture phase needs. Omit empty sections.
-
-5. **Clean up caches.** Remove the draft directory, the design-system cache, and the consumed previous hand-off: `run_command("rm -rf .groundwork/cache/design-system-draft .groundwork/cache/design-system-cache.md .groundwork/cache/handoff/product-brief.md")`. Cache Isolation (Protocol 7) requires the previous hand-off to be deleted once consumed.
-
-6. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`). Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2 — e.g. the design system overturns a brief commitment), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
-
-7. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Design System` entries incorporated into `docs/design-system.md` or the hand-off file.
-
-8. Confirm that the phase is complete.
-
-9. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-
-10. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+- **Document section:** the `# Graphical UI` section files assembled into `docs/design-system.md`.
+- **Brand tokens:** the Tier 2 `visual` block — semantic palette (both themes), typography, shape, density, and motion descriptors per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — projected mechanically from the colour architecture, type scale, and motion sections just written into the document. Graphical app generators read it to seed their theme (Tailwind today; other theme projections as surface generators land).
+- **Summary key decisions:** the chosen colour space, typography family, motion personality; binding constraints include accessibility floors, performance budgets, responsive breakpoints.
+- **Hand-off content:** rejected aesthetic directions (e.g. typography pairings the user considered and ruled out), deferred design decisions (theming, internationalisation, future variants), user instincts about motion or interaction not yet committed.

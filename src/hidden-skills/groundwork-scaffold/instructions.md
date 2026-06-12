@@ -94,6 +94,8 @@ The `./dev` CLI and `docker-compose.yml` are the entry points for everything tha
 
 The infrastructure document must give any developer everything they need to run the local environment without asking a question. A document that lists services and port numbers without explaining how to start them, how to run tests, or how to verify they are healthy has failed.
 
+When the project has a surface registry (`docs/surfaces.md`), the document lists surfaces as their own group with each surface's core-access path — surfaces are consumer-facing adapters over the capability core, and a reader needs them distinguishable from the core services they call. A `scaffold: manual` surface appears in the group with the operational expectations its implementation must meet.
+
 **Shallow output (insufficient):**
 
 ```markdown
@@ -138,6 +140,19 @@ outbox pattern. PostgreSQL database: `story-service`. Base path: `services/story
 
 **web-app** — Next.js frontend. Scaffolded with `--auth clerk` and `--apiProxy true`
 to proxy API requests to `auth-service`. Base path: `services/web-app/`.
+
+## Surfaces
+
+| Surface | Type | Core Access | Scaffold | Test Medium |
+|---|---|---|---|---|
+| `web-app` | graphical-ui | http-gateway (`/api/proxy` → auth-service) | nextjs-app | playwright |
+| `admin-cli` | cli | http-direct (service tokens) | cli-app | subprocess-cli |
+| `mobile-app` | graphical-ui | http-gateway | manual | flutter-integration |
+
+**mobile-app** is `scaffold: manual` — no generator produced it. Its registration
+here and in the `surfaces` test fixture is a contract the manual implementation
+must meet when it lands: expose a health endpoint, integrate with `./dev`, and
+provide a reach value the fixture can resolve.
 
 ## Infrastructure
 

@@ -17,7 +17,12 @@ Planning ends before execution begins because running generators from a partiall
 
 Count the services in `docs/architecture.md`, count the confirmed mappings, and verify they match before closing Phase 1.
 
-**Interface medium:** Read `docs/design-system.md` and identify the project's interface track — `graphical-ui`, `cli`, or `agentic-protocol`. Pass this value as `--interfaceMedium` when running `system-test-runner`. This single flag determines whether `pytest-playwright` is included in the test dependencies and whether the `frontend_base_url` fixture is generated. For `graphical-ui` projects, pytest-playwright is included; for `cli` and `agentic-protocol`, it is not. Note: browser-driven interface proof is fully supported for `graphical-ui`; for `cli` and `agentic-protocol`, bet-progress tests use `subprocess`/HTTP against the running endpoint (no shared fixture is generated — write those tests against bare `subprocess`/HTTP).
+**Surfaces:** Read the surface registry — `docs/surfaces.md` and its machine twin `.groundwork/surfaces.json` — when it exists. The registry, not the design system, decides what gets scaffolded and how it gets tested, because the architecture phase already settled each surface's scaffold target and test medium there. Each `active` surface drives two mapping decisions:
+
+- **Scaffold target.** A surface whose `scaffold` field names a generator (`nextjs-app`, `cli-app`) gets its own generator invocation in the execution plan, named by its slug. A `scaffold: manual` surface gets no generator invocation — the registry never blocks on tooling — but the execution plan still records its three obligations: an entry in `docs/infrastructure.md`'s Surfaces group (Phase 5), registration in the test fixtures via the `--surfaces` entry below, and an operational-expectations note stating what the manual implementation must meet to keep that registration honest — a health endpoint, `./dev` integration, and a reach value the fixtures can use.
+- **Test medium.** Run `system-test-runner` once, passing every active surface in `--surfaces`: a JSON array of `{"slug", "medium", "reach"?}` where `medium` is the surface's registry `testMedium` and `reach` is a static base URL (`playwright`/`protocol-client` surfaces — omit it to discover the docker-compose service named after the slug) or the launch command for a `subprocess-cli` surface (a generated `cli-app` builds to `node services/<slug>/dist/cli.js`). The generator emits a session `surfaces` fixture keyed by slug plus one runner fixture per surface — `<slug>_page`, `<slug>_runner`, `<slug>_client` by medium — and includes `pytest-playwright` whenever a `playwright` surface is present. A medium with no fixture family yet (a manual mobile surface) is registered in the `surfaces` fixture and nothing more; its tests arrive with its tooling.
+
+**When no registry exists**, the project predates it — behave exactly as before: read `docs/design-system.md`, identify the single interface track (`graphical-ui`, `cli`, or `agentic-protocol`), and pass it as `--interfaceMedium`, the deprecated single-surface alias. That flag alone determines whether `pytest-playwright` and the `frontend_base_url` fixture are generated. Browser-driven interface proof is fully supported for `graphical-ui`; for `cli` and `agentic-protocol`, bet-progress tests use `subprocess`/HTTP against the running endpoint (no shared fixture is generated — write those tests against bare `subprocess`/HTTP).
 
 **Generator Capability Mapping:**
 
@@ -36,9 +41,8 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 | GPU inference on RunPod (Python service) | `python-microservice --runpod` |
 | PostgreSQL on a Python service | `python-microservice --postgres` |
 | REST surface on a Python service | `python-microservice --rest` |
-| Docker Compose test topology (graphical-ui project) | `system-test-runner --interfaceMedium graphical-ui` |
-| Docker Compose test topology (CLI project) | `system-test-runner --interfaceMedium cli` |
-| Docker Compose test topology (agentic-protocol project) | `system-test-runner --interfaceMedium agentic-protocol` |
+| Docker Compose test topology (surface registry present) | `system-test-runner --surfaces '<JSON array of {slug, medium, reach?} from .groundwork/surfaces.json>'` |
+| Docker Compose test topology (no registry — single interface type) | `system-test-runner --interfaceMedium <graphical-ui\|cli\|agentic-protocol>` |
 | Fumadocs documentation site | `docs-site --name <slug>` |
 
 This table is the one place to update when generator flags evolve. When a new flag ships, add a row here; when a flag is removed, delete the row. The mapping is the contract between architecture's vocabulary and scaffold's execution — keep it current.
@@ -55,7 +59,7 @@ This table is the one place to update when generator flags evolve. When a new fl
 | `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--llmProvider` (openai/anthropic, default openai), `--runpod` |
 | `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
 | `cli-app` | Branded Node+TypeScript command-line application, themed from `brand-tokens.json` | `--name`, `--repl` (scaffold the interactive REPL layer) |
-| `system-test-runner` | Docker Compose test topology and system test suite | `--interfaceMedium` (graphical-ui/cli/agentic-protocol, default: graphical-ui) |
+| `system-test-runner` | Docker Compose test topology and system test suite | `--surfaces` (JSON array of `{slug, medium, reach?}` from the surface registry), `--interfaceMedium` (deprecated single-surface alias: graphical-ui/cli/agentic-protocol, default: graphical-ui) |
 | `docs-site` | Fumadocs-powered documentation site | `--name` |
 
 `workspace-dev-cli` is handled in initialization and does not appear in service mapping.

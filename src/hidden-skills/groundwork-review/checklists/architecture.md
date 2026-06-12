@@ -61,6 +61,25 @@ time forces a separate revise cycle per gap and burns the revise cap without con
 - [ ] 🟡 **Contract format unstated**: a service interface is described with no contract format
   committed (REST → OpenAPI, async events → AsyncAPI, agent capability → MCP schema).
 
+## Surfaces and the Capability Core
+
+- [ ] 🔴 **Registry ↔ service-map disagreement**: a component the topology presents as a surface
+  app (a web client, a CLI, a mobile app, an MCP server) is missing from the Surfaces &
+  Capability Core section — or from `docs/surfaces.md` where it exists — or a listed surface maps
+  to no component in the service map. The scaffold derives its targets from the registry, so a
+  desync ships the wrong set of apps.
+- [ ] 🔴 **Core deployment undecided**: the document does not state whether the capability core
+  is hosted (services reached over a network) or embedded (a library in-process with its single
+  surface) — the contract spec format follows this decision, so leaving it open blocks every
+  contract definition downstream.
+- [ ] 🔴 **Independently deployed surfaces without a compatibility stance**: two or more surfaces
+  deploy independently, and no Binding Constraint states what the system promises about
+  published contract fields — a client fleet that lags releases turns the first contract change
+  into an incident.
+- [ ] 🟡 **Surface without an access path or auth model**: a surface is listed without how it
+  reaches the core (direct, gateway, BFF) or which auth model it uses — both are registry fields
+  the commit step cannot fill from an undecided document.
+
 ## Data Flow and Communication
 
 - [ ] 🔴 **Mechanism implied but not provisioned**: a flow depends on infrastructure the document

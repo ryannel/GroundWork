@@ -1,9 +1,10 @@
 """Minimal page-object base for graphical-ui system tests.
 
 Subclass per screen and add intent-named methods (e.g. submit_login) on top of
-the shared navigation/assertion helpers here. The frontend base URL comes from
+the shared navigation/assertion helpers here. <% if (!surfaces) { %>The frontend base URL comes from
 the conftest `frontend_base_url` fixture, which discovers the Next.js service
-from the workspace docker-compose.yml.
+from the workspace docker-compose.yml.<% } else { %>Each graphical surface's base URL
+comes from the conftest `surfaces` fixture (slug -> reach).<% } %>
 """
 
 from playwright.sync_api import Page, expect
@@ -13,7 +14,11 @@ class BasePage:
     """Holds the Playwright page plus the frontend base URL.
 
     Helpers return self so page interactions chain:
+<% if (!surfaces) { -%>
         HomePage(page, frontend_base_url).goto("/").expect_visible("main")
+<% } else { -%>
+        HomePage(page, surfaces["<%= graphicalSurfaces.length ? graphicalSurfaces[0].slug : 'web-app' %>"]["reach"]).goto("/").expect_visible("main")
+<% } -%>
     """
 
     def __init__(self, page: Page, base_url: str):

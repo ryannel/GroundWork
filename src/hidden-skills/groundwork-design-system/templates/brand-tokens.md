@@ -4,26 +4,31 @@
 
 **Location:** `.groundwork/config/brand-tokens.json` — the persistent config home, alongside `config.toml` and `state.json`. It is not a draft and it is not deleted on cache cleanup.
 
-**Why it exists:** one brand, two terminals. The scaffolded `./dev` control plane reads these tokens to brand itself, and — when the product being built is a CLI — the product's own CLI starter reads the *same* tokens through the *same* render layer. The framework wears the brand it helps design.
+**Why it exists:** one brand, many renderers. The scaffolded `./dev` control plane reads these tokens to brand itself; a CLI product's own starter reads the same tokens through the same render layer; a graphical product's app generator reads them to seed its theme. The framework wears the brand it helps design.
 
 ---
 
-## Two tiers
+## Tier 1 plus per-type Tier 2 blocks
 
-Every project gets a `./dev` CLI regardless of what it is building, so **every design-system track emits Tier 1**. Only the CLI track produces the full terminal treatment, so **the CLI track emits Tier 2** (Tier 1 plus the `terminal` block).
+Every project gets a `./dev` CLI regardless of what it is building, so **every product emits Tier 1** — the singular `identity` block, because identity is brand-level. **Tier 2 is a set of per-type blocks**, keyed by name at the top level of the JSON: each interface type whose design track produces a machine-projectable treatment contributes one block, so a product with several types in use carries several blocks side by side.
 
-| Tier | Emitted by | Carries | Brands |
+| Block | Emitted by | Carries | Read by |
 |---|---|---|---|
-| **Tier 1 — Identity** | every track (graphical-ui, cli, agentic-protocol) | name, wordmark glyph, primary/accent colour, voice | `./dev`, lightly |
-| **Tier 2 — Terminal** | the CLI track only | Tier 1 + colour role table, symbol vocabulary, splash, typography | `./dev` richly + the product CLI |
+| `identity` (Tier 1) | every product, exactly once | name, wordmark glyph, primary/accent colour, voice | `./dev`, lightly — and every Tier 2 consumer as the fallback root |
+| `terminal` (Tier 2) | the `cli` track | colour role table, symbol vocabulary, splash, typography | `./dev` richly + the product CLI, via the shared render layer |
+| `visual` (Tier 2) | the `graphical-ui` track | semantic palette (both themes), typography, shape, density, motion | graphical app generators, to seed the surface theme (Tailwind today; other theme projections as surface generators land) |
 
-Tier 2 is **additive** over Tier 1 — the `terminal` block is the only addition. A consumer reading a Tier-1 file simply finds no `terminal` block and falls back to a derived default theme. Never reshape Tier-1 fields to add Tier 2; only append.
+The `agentic-protocol` track contributes no Tier 2 block — a protocol has no terminal or visual treatment to project.
+
+Tier 2 blocks are **additive** over Tier 1 and over each other. Consumers read the block they need **by key**, tolerate its absence (falling back to a theme derived from `identity`), and ignore blocks they do not know. Never reshape Tier-1 fields to add a block; only append.
+
+The `tier` field reads as a capability summary: `1` means identity only; `2` means the file carries at least one Tier 2 block. Consumers must not branch on `tier` to locate blocks — presence of the block key is the only reliable signal, and existing consumers already work this way.
 
 ---
 
 ## Field reference
 
-### Tier 1 — `identity` (required, every track)
+### Tier 1 — `identity` (required, every product)
 
 | Field | Type | Meaning |
 |---|---|---|
@@ -33,16 +38,26 @@ Tier 2 is **additive** over Tier 1 — the `terminal` block is the only addition
 | `accent` | string `#rrggbb` | A secondary accent for emphasis and selection. |
 | `voice` | string | A short descriptor of the product's tone (e.g. `"terse, Unix-traditional"`). Informs default verbosity and microcopy. |
 
-### Tier 2 — `terminal` (CLI track only)
+### Tier 2 — `terminal` (cli track)
 
 - `colorRoles` — a map of semantic role → resolution across colour depths. Roles: `success`, `error`, `warning`, `info`, `muted`, `accent`, `header`, `key`, `value`. Each role carries `truecolor` (`#rrggbb` or `null`), `ansi256` (0–255 or `null`), and `noColor` (the bold/dim/underline/case treatment used when colour is stripped). The render layer resolves truecolor → ansi256 → noColor → plain by terminal capability. Roles with `null` colour fields (e.g. `header`) are expressed by `noColor` treatment at every depth.
 - `symbols` — a map of marker → `{ unicode, ascii }`. The render layer uses `unicode` on capable terminals and `ascii` otherwise. Markers: `success`, `error`, `warning`, `info`, `step`, `substep`, `active`.
 - `splash` — `{ style, tagline }`. `style` is one of `wordmark-line` (the mark + name on one line), `banner` (a multi-line header), or `none`. `tagline` is optional.
 - `typography` — treatment per content tier: `header`, `title`, `body`, `muted`. Values are treatment descriptors (`"bold + UPPERCASE"`, `"bold + primary"`, `"plain"`, `"dim"`).
 
+### Tier 2 — `visual` (graphical-ui track)
+
+- `palette` — a map of semantic role → `{ light, dark }` CSS colour strings (OKLCH or `#rrggbb`), the machine form of the colour architecture in `docs/design-system.md`. Roles: `primary`, `accent`, `surface`, `surfaceAlt`, `textBody`, `success`, `error`, `warning`, `info`. Both theme values are required for every role — the design system commits to dual-theme palettes, so the projection carries both.
+- `typography` — `{ display, body, scale }`. `display` and `body` are `{ family, weight }` for the heading and body families. `scale` is a short descriptor of the type-scale treatment (e.g. `"1.25 modular from 16px, fluid clamp"`), enough for a generator to reconstruct the scale's character without re-deriving every step — the full scale lives in the document.
+- `shape` — `{ radiusBase, character }`. `radiusBase` is the base corner radius (e.g. `"8px"`); `character` is a one-line descriptor of the shape language (e.g. `"soft, concentric nesting"`).
+- `density` — a one-line spacing/density descriptor carrying the grid base (e.g. `"comfortable, 8pt grid"`).
+- `motion` — `{ easeStandard, durationBaseMs, personality }`. `easeStandard` is the standard easing curve (`"cubic-bezier(0.2, 0, 0, 1)"`), `durationBaseMs` the base duration, `personality` a one-word register (`"snappy"`, `"weighted"`, `"restrained"`).
+
 ---
 
-## Annotated example (Tier 2)
+## Annotated example — a product carrying both Tier 2 blocks
+
+A web app plus an admin CLI: the graphical-ui track emitted `visual`, the cli track emitted `terminal`, and both project the same brand.
 
 ```json
 {
@@ -55,6 +70,31 @@ Tier 2 is **additive** over Tier 1 — the `terminal` block is the only addition
     "primary": "#5fafff",
     "accent": "#d7afff",
     "voice": "terse, Unix-traditional"
+  },
+  "visual": {
+    "palette": {
+      "primary":    { "light": "oklch(55% 0.18 250)", "dark": "oklch(70% 0.15 250)" },
+      "accent":     { "light": "oklch(70% 0.15 300)", "dark": "oklch(75% 0.13 300)" },
+      "surface":    { "light": "oklch(98% 0.005 250)", "dark": "oklch(18% 0.01 250)" },
+      "surfaceAlt": { "light": "oklch(95% 0.008 250)", "dark": "oklch(22% 0.012 250)" },
+      "textBody":   { "light": "oklch(25% 0.01 250)", "dark": "oklch(90% 0.005 250)" },
+      "success":    { "light": "oklch(60% 0.13 160)", "dark": "oklch(70% 0.12 160)" },
+      "error":      { "light": "oklch(55% 0.18 25)",  "dark": "oklch(68% 0.16 25)" },
+      "warning":    { "light": "oklch(70% 0.14 85)",  "dark": "oklch(78% 0.13 85)" },
+      "info":       { "light": "oklch(60% 0.14 250)", "dark": "oklch(72% 0.12 250)" }
+    },
+    "typography": {
+      "display": { "family": "Instrument Sans", "weight": 600 },
+      "body":    { "family": "Inter", "weight": 400 },
+      "scale":   "1.25 modular from 16px, fluid clamp"
+    },
+    "shape": { "radiusBase": "8px", "character": "soft, concentric nesting" },
+    "density": "comfortable, 8pt grid",
+    "motion": {
+      "easeStandard": "cubic-bezier(0.2, 0, 0, 1)",
+      "durationBaseMs": 150,
+      "personality": "snappy"
+    }
   },
   "terminal": {
     "colorRoles": {
@@ -88,13 +128,14 @@ Tier 2 is **additive** over Tier 1 — the `terminal` block is the only addition
 }
 ```
 
-A Tier-1 file is the same object with `"tier": 1` and no `terminal` block.
+A CLI-only product is the same object without the `visual` block; a web-only product, without the `terminal` block. A Tier-1 file (`"tier": 1`) carries neither — `identity` only.
 
 ---
 
 ## Rules
 
-- **Derive, never invent.** Every value traces to an approved Design System decision. The `terminal.colorRoles` table is the machine form of the colour architecture in `docs/design-system.md` — they must carry the same values.
-- **Tier 1 is always derivable.** For graphical-ui and agentic-protocol products, project the brand's primary palette colour to `identity.primary`, pick a secondary as `accent`, and take the product name and voice from the brief. This is a mechanical projection, not a new design conversation.
-- **Versioned contract.** `version` is bumped only when the shape changes. Consumers ignore unknown fields and tolerate a missing `terminal` block. Keep changes additive.
-- **One writer, many readers.** Only the Design System commit writes this file. The `workspace-dev-cli` generator, the shared CLI render layer, and the `cli-app` product generator read it; none of them write it.
+- **Derive, never invent.** Every value traces to an approved Design System decision. `terminal.colorRoles` is the machine form of the CLI section's colour architecture; `visual.palette` is the machine form of the graphical section's colour architecture — block and document must carry the same values.
+- **Tier 1 is always derivable.** For products with no cli track, project the brand's primary palette colour to `identity.primary`, pick a secondary as `accent`, and take the product name and voice from the brief. This is a mechanical projection, not a new design conversation.
+- **One block per type, one writer per block.** Each type's track emits its own block at the single Design System commit (or at lazy activation, when a type's track runs later). Blocks never share or override each other's fields.
+- **Versioned contract.** `version` is bumped only when the shape of an existing field changes. Adding a block kind is additive — `version` stays 1. Consumers ignore unknown fields and unknown blocks, and tolerate any missing Tier 2 block.
+- **Many readers, by key.** The `workspace-dev-cli` generator, the shared CLI render layer, and the `cli-app` product generator read `terminal`; graphical app generators read `visual`; none of them write, and none locate a block through the `tier` field.

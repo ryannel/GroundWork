@@ -562,6 +562,144 @@ def test_system_test_runner_generation(medium):
         assert "parent.parent" in shared, \
             "WORKSPACE_ROOT path missing — expected .parent.parent in tests/conftest.py"
 
+        # --- Registry mode is opt-in ---
+        # The deprecated single-medium alias must emit none of the surfaces-mode
+        # artifacts: legacy output is the compatibility contract for projects
+        # that predate the surface registry.
+        assert "_SURFACE_SPECS" not in shared, \
+            f"surfaces-mode spec map leaked into single-medium output for medium={medium}"
+        assert "def surfaces(" not in shared, \
+            f"surfaces fixture leaked into single-medium output for medium={medium}"
+        assert "pexpect" not in (sandbox / "tests" / "pyproject.toml").read_text(), \
+            f"pexpect dep leaked into single-medium output for medium={medium}"
+
+    finally:
+        shutil.rmtree(sandbox, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# System Test Runner — surface-registry mode (--surfaces)
+# ---------------------------------------------------------------------------
+
+
+def _make_runner_sandbox(name: str) -> Path:
+    import shutil
+    sandbox = _SYSTEM_TEST_RUNNER_SANDBOX_BASE / name
+    if sandbox.exists():
+        shutil.rmtree(sandbox)
+    sandbox.mkdir(parents=True)
+    (sandbox / "package.json").write_text('{"name": "sysrunnertest"}')
+    (sandbox / "nx.json").write_text("{}")
+    return sandbox
+
+
+def _py_compiles(path: Path) -> None:
+    """The generated file must be valid Python — structural greps cannot catch
+    a template rendering that produces syntactically broken fixtures."""
+    proc = subprocess.run(
+        ["python3", "-m", "py_compile", str(path)], capture_output=True, text=True
+    )
+    assert proc.returncode == 0, f"{path.name} does not compile:\n{proc.stderr}"
+
+
+def test_system_test_runner_two_surface_generation():
+    """A web + CLI registry produces both fixture families, the slug-keyed
+    `surfaces` map, and the deprecated frontend_base_url alias (generated while
+    exactly one graphical surface exists)."""
+    import shutil
+    sandbox = _make_runner_sandbox("two_surface")
+    specs = json.dumps([
+        {"slug": "web-app", "medium": "playwright"},
+        {"slug": "admin-cli", "medium": "subprocess-cli",
+         "reach": "node services/admin-cli/dist/cli.js"},
+    ])
+    try:
+        result = _scaffold_workspace(sandbox, "system-test-runner", surfaces=specs)
+        assert result.returncode == 0, (
+            f"system-test-runner generator failed for --surfaces (web+cli)\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        conftest = (sandbox / "tests" / "conftest.py").read_text()
+        _py_compiles(sandbox / "tests" / "conftest.py")
+
+        # --- The canonical surfaces map: slug-keyed specs + session fixture ---
+        assert '"web-app": {"medium": "playwright", "reach": None}' in conftest, \
+            "web-app spec missing from _SURFACE_SPECS"
+        assert ('"admin-cli": {"medium": "subprocess-cli", '
+                '"reach": "node services/admin-cli/dist/cli.js"}') in conftest, \
+            "admin-cli spec (with static reach) missing from _SURFACE_SPECS"
+        assert "def surfaces(services_manifest)" in conftest, \
+            "slug-keyed surfaces fixture missing"
+
+        # --- One runner fixture per surface, named by slug + medium family ---
+        assert "def web_app_page(browser, surfaces):" in conftest, \
+            "playwright page fixture missing for web-app"
+        assert "def admin_cli_runner(surfaces):" in conftest, \
+            "subprocess runner fixture missing for admin-cli"
+
+        # --- Deprecated alias survives while exactly one graphical surface exists ---
+        assert "def frontend_base_url(surfaces):" in conftest, \
+            "frontend_base_url alias missing for single-graphical registry"
+
+        # --- Playwright structure + per-CLI pexpect ship with their surfaces ---
+        pyproject = (sandbox / "tests" / "pyproject.toml").read_text()
+        assert "pytest-playwright" in pyproject, \
+            "pytest-playwright missing despite a playwright surface"
+        assert "pexpect" in pyproject, \
+            "pexpect missing despite a subprocess-cli surface"
+        assert (sandbox / "tests" / "system" / "pages" / "base_page.py").exists(), \
+            "page-object package missing despite a playwright surface"
+        a11y_path = sandbox / "tests" / "system" / "test_a11y_smoke.py"
+        assert a11y_path.exists(), "a11y smoke missing despite a playwright surface"
+        _py_compiles(a11y_path)
+        assert "def test_web_app_root_a11y_smoke" in a11y_path.read_text(), \
+            "a11y smoke not generated per graphical surface"
+    finally:
+        shutil.rmtree(sandbox, ignore_errors=True)
+
+
+def test_system_test_runner_manual_surface_registration():
+    """A surface whose medium has no generated fixture family yet (the
+    scaffold: manual bridge — e.g. a mobile surface on flutter-integration) is
+    registered in the `surfaces` fixture so tests can name it, and nothing else
+    is generated for it."""
+    import shutil
+    sandbox = _make_runner_sandbox("manual_surface")
+    specs = json.dumps([
+        {"slug": "web-app", "medium": "playwright"},
+        {"slug": "mobile-app", "medium": "flutter-integration"},
+    ])
+    try:
+        result = _scaffold_workspace(sandbox, "system-test-runner", surfaces=specs)
+        assert result.returncode == 0, (
+            f"system-test-runner generator failed for --surfaces (manual mobile)\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        conftest = (sandbox / "tests" / "conftest.py").read_text()
+        _py_compiles(sandbox / "tests" / "conftest.py")
+
+        # --- Registered in the surfaces map... ---
+        assert '"mobile-app": {"medium": "flutter-integration", "reach": None}' in conftest, \
+            "manual surface not registered in _SURFACE_SPECS"
+
+        # --- ...but no runner fixture until its medium ships a family ---
+        assert "mobile_app_page" not in conftest, \
+            "manual surface must not get a playwright page fixture"
+        assert "mobile_app_runner" not in conftest, \
+            "manual surface must not get a subprocess runner fixture"
+        assert "mobile_app_client" not in conftest, \
+            "manual surface must not get a protocol client fixture"
+
+        # --- The graphical surface is unaffected ---
+        assert "def web_app_page(browser, surfaces):" in conftest, \
+            "web-app page fixture missing"
+        assert "def frontend_base_url(surfaces):" in conftest, \
+            "frontend_base_url alias missing — web-app is still the only graphical surface"
+        pyproject = (sandbox / "tests" / "pyproject.toml").read_text()
+        assert "pexpect" not in pyproject, \
+            "pexpect should be absent without a subprocess-cli surface"
     finally:
         shutil.rmtree(sandbox, ignore_errors=True)
 
