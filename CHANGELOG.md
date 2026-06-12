@@ -8,6 +8,55 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+Multi-surface restructure: every product is modelled as one headless **capability
+core** plus zero or more **surfaces** (web, mobile, CLI, MCP), with parity tracked
+per capability instead of presumed. A single-surface product pays zero added
+ceremony — every phase degrades to its prior behaviour when the registry holds one
+surface or none exists.
+
+### Added (multi-surface, 2026-06-12)
+
+- **Surface registry + capability ledger**: architecture (greenfield) and
+  architecture-extract (brownfield) write `docs/surfaces.md` with a machine twin at
+  `.groundwork/surfaces.json`; bet validation fills a capability × surface ledger row
+  per delivered capability (`delivered`/`planned`/`omitted`/`n/a`; empty cells
+  illegal; retired columns freeze).
+- **The bet loop's core/surface spine**: pitches declare `surfaces:` scope and surface
+  no-gos; technical designs split into Surface Design (per-surface, per-type
+  vocabulary) and Capability Design (headless; the contract must serve every in-scope
+  surface and presume none); milestones are typed capability-first vs surface, with
+  prove-once enforcement (surface tests never re-prove core logic); headless delivery
+  is legal and ledger-recorded.
+- **`groundwork-surface-activation`** (eighteenth hidden skill): register → design
+  (lazy track run) → scaffold → triage the ledger column → hand off; bootstraps the
+  registry on pre-restructure products.
+- **Two new solution types, full chains**: `flutter-app` (mobile) and `electron-app`
+  (desktop) generators with survey-dated stack principles
+  (`docs/principles/stack/{flutter,electron}/`), hidden engineer skills with
+  hash-pinned sync anchors, brand-token theme projection, and toolchain guards that
+  skip-with-reason (never silently green).
+- **Multi-medium system tests**: `system-test-runner --surfaces` generates a
+  `surfaces` fixture (slug → `{slug, medium, reach}`) with per-surface
+  page/runner/client fixtures across five mediums; `frontend_base_url` survives as a
+  deprecated alias for single-graphical-surface products.
+- **Tooling**: `./dev surface status` renders the registry, ledger matrix, and
+  planned-cell sync backlog; `groundwork-check` gains five surface signals (twin
+  drift, empty cells, stale planned intent, untested active surface, missing
+  registry).
+- **Design system**: shared brand foundation runs once; tracks run per interface type
+  in use; brand tokens carry per-type Tier-2 blocks (`terminal` + new `visual`, with
+  platform ergonomics); the graphical-ui track gains web/mobile/desktop platform
+  subsections.
+- **Maturity + evals**: dimensions D8 (surface parity discipline) and D9 (contract
+  compatibility); seeded `multi_surface` and `headless_api` simulation suites.
+- Contract spec formats follow the core's deployment (OpenAPI/AsyncAPI hosted, proto
+  for gRPC, typed module API embedded).
+
+### Fixed (multi-surface, 2026-06-12)
+
+- The brownfield eval fixture's `services/` tree was silently excluded by the repo
+  `.gitignore` and never tracked; negation rules added and the fixture committed.
+
 Contract-grade delivery: the bet loop's design → tests → delivery chain becomes
 machine-enforced end to end. Design emits specs, the proof suite is reviewed
 assertion-by-assertion and sealed by hash manifest, delivery is tracked per-slice in a

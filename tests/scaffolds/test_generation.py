@@ -660,20 +660,21 @@ def test_system_test_runner_two_surface_generation():
 
 
 def test_system_test_runner_manual_surface_registration():
-    """A surface whose medium has no generated fixture family yet (the
-    scaffold: manual bridge — e.g. a mobile surface on flutter-integration) is
-    registered in the `surfaces` fixture so tests can name it, and nothing else
-    is generated for it."""
+    """A surface whose medium has no generated fixture family (the
+    scaffold: manual bridge — e.g. a kiosk surface tested through bespoke
+    appium tooling) is registered in the `surfaces` fixture so tests can name
+    it, and nothing else is generated for it. (flutter-integration was the
+    example here until H3 gave it a fixture family.)"""
     import shutil
     sandbox = _make_runner_sandbox("manual_surface")
     specs = json.dumps([
         {"slug": "web-app", "medium": "playwright"},
-        {"slug": "mobile-app", "medium": "flutter-integration"},
+        {"slug": "kiosk-app", "medium": "appium"},
     ])
     try:
         result = _scaffold_workspace(sandbox, "system-test-runner", surfaces=specs)
         assert result.returncode == 0, (
-            f"system-test-runner generator failed for --surfaces (manual mobile)\n"
+            f"system-test-runner generator failed for --surfaces (manual kiosk)\n"
             f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
         )
 
@@ -681,16 +682,19 @@ def test_system_test_runner_manual_surface_registration():
         _py_compiles(sandbox / "tests" / "conftest.py")
 
         # --- Registered in the surfaces map... ---
-        assert '"mobile-app": {"medium": "flutter-integration", "reach": None}' in conftest, \
+        assert '"kiosk-app": {"medium": "appium", "reach": None}' in conftest, \
             "manual surface not registered in _SURFACE_SPECS"
 
         # --- ...but no runner fixture until its medium ships a family ---
-        assert "mobile_app_page" not in conftest, \
+        assert "kiosk_app_page" not in conftest, \
             "manual surface must not get a playwright page fixture"
-        assert "mobile_app_runner" not in conftest, \
+        assert "kiosk_app_runner" not in conftest, \
             "manual surface must not get a subprocess runner fixture"
-        assert "mobile_app_client" not in conftest, \
+        assert "kiosk_app_client" not in conftest, \
             "manual surface must not get a protocol client fixture"
+        # No app-harness machinery without a flutter/electron surface.
+        assert "_HARNESS_MEDIUMS" not in conftest, \
+            "app-harness medium map leaked without a flutter/electron surface"
 
         # --- The graphical surface is unaffected ---
         assert "def web_app_page(browser, surfaces):" in conftest, \
@@ -698,6 +702,84 @@ def test_system_test_runner_manual_surface_registration():
         assert "def frontend_base_url(surfaces):" in conftest, \
             "frontend_base_url alias missing — web-app is still the only graphical surface"
         pyproject = (sandbox / "tests" / "pyproject.toml").read_text()
+        assert "pexpect" not in pyproject, \
+            "pexpect should be absent without a subprocess-cli surface"
+    finally:
+        shutil.rmtree(sandbox, ignore_errors=True)
+
+
+def test_system_test_runner_app_harness_surface_generation():
+    """A web + mobile (flutter-integration) + desktop (playwright-electron)
+    registry generates the slug-keyed `surfaces` map for all three plus the
+    two app-harness runner fixtures (H3/H7): each drives the app's OWN test
+    suite as a subprocess through its Nx target, reusing the per-app
+    tool/*_exec.sh toolchain guard, and skips with reason — never silently
+    green."""
+    import shutil
+    sandbox = _make_runner_sandbox("app_harness_surfaces")
+    specs = json.dumps([
+        {"slug": "web-app", "medium": "playwright"},
+        {"slug": "mobile-app", "medium": "flutter-integration"},
+        {"slug": "desktop-app", "medium": "playwright-electron"},
+    ])
+    try:
+        result = _scaffold_workspace(sandbox, "system-test-runner", surfaces=specs)
+        assert result.returncode == 0, (
+            f"system-test-runner generator failed for --surfaces (web+mobile+desktop)\n"
+            f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
+        )
+
+        conftest = (sandbox / "tests" / "conftest.py").read_text()
+        _py_compiles(sandbox / "tests" / "conftest.py")
+
+        # --- All three surfaces registered in the spec map ---
+        assert '"web-app": {"medium": "playwright", "reach": None}' in conftest, \
+            "web-app spec missing from _SURFACE_SPECS"
+        assert '"mobile-app": {"medium": "flutter-integration", "reach": None}' in conftest, \
+            "mobile-app spec missing from _SURFACE_SPECS"
+        assert '"desktop-app": {"medium": "playwright-electron", "reach": None}' in conftest, \
+            "desktop-app spec missing from _SURFACE_SPECS"
+        assert "def surfaces(services_manifest)" in conftest, \
+            "slug-keyed surfaces fixture missing"
+
+        # --- One runner fixture per app-harness surface, runner family naming ---
+        assert "def mobile_app_runner(surfaces, services_manifest):" in conftest, \
+            "flutter-integration runner fixture missing for mobile-app"
+        assert "def desktop_app_runner(surfaces, services_manifest):" in conftest, \
+            "playwright-electron runner fixture missing for desktop-app"
+
+        # --- Reach resolves to the app's own Nx test target ---
+        assert '"flutter-integration": "test-integration"' in conftest, \
+            "flutter-integration -> test-integration target mapping missing"
+        assert '"playwright-electron": "smoke"' in conftest, \
+            "playwright-electron -> smoke target mapping missing"
+        assert "npx nx run {slug}:{_HARNESS_MEDIUMS[spec['medium']]}" in conftest, \
+            "harness reach discovery (npx nx run <slug>:<target>) missing"
+
+        # --- The booted topology flows in: dart-define for Flutter, env for Electron ---
+        assert "--dart-define=API_BASE_URL=" in conftest, \
+            "flutter runner must forward the core's gateway URL via --dart-define"
+        assert '"API_BASE_URL": api_base' in conftest, \
+            "electron runner must pass the core's gateway URL via env"
+
+        # --- Skip-with-reason, never silently green ---
+        assert "never silently green" in conftest, \
+            "verification-contract wording missing from harness runner docstrings"
+        assert "not silently green" in conftest, \
+            "flutter SDK/emulator skip reasons missing"
+        assert "tier skipped" in conftest, \
+            "toolchain-guard skip translation (tier skipped -> pytest.skip) missing"
+
+        # --- Patrol is named as the escalation path, not wired ---
+        assert "Patrol" in conftest, \
+            "flutter runner docstring must name Patrol as the OS-boundary escalation path"
+
+        # --- Web surface untouched; no CLI deps leak ---
+        assert "def web_app_page(browser, surfaces):" in conftest, \
+            "web-app page fixture missing"
+        pyproject = (sandbox / "tests" / "pyproject.toml").read_text()
+        assert "pytest-playwright" in pyproject, \
+            "pytest-playwright missing despite a playwright surface"
         assert "pexpect" not in pyproject, \
             "pexpect should be absent without a subprocess-cli surface"
     finally:

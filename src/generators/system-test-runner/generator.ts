@@ -8,9 +8,11 @@ import * as path from 'path';
 /** One surface from the registry (`.groundwork/surfaces.json`). The slug is the
  *  join key everywhere — ledger cells, fixture map keys, generated fixture
  *  names. `medium` is the registry's `testMedium`; `reach` is an optional
- *  static base URL (playwright / protocol-client) or launch command
- *  (subprocess-cli) — omitted, URL mediums are discovered at test time from
- *  the docker-compose service named after the slug. */
+ *  static base URL (playwright / protocol-client), launch command
+ *  (subprocess-cli), or test-harness command (flutter-integration /
+ *  playwright-electron) — omitted, URL mediums are discovered at test time
+ *  from the docker-compose service named after the slug, and harness mediums
+ *  resolve to `npx nx run <slug>:<target>` when services/<slug> exists. */
 export interface SurfaceSpec {
   slug: string;
   medium: string;
@@ -83,6 +85,11 @@ export async function systemTestRunnerGenerator(
   const graphicalSurfaces = (surfaces ?? []).filter((s) => s.medium === 'playwright');
   const cliSurfaces = (surfaces ?? []).filter((s) => s.medium === 'subprocess-cli');
   const protocolSurfaces = (surfaces ?? []).filter((s) => s.medium === 'protocol-client');
+  // App-harness mediums: the surface ships its own test harness (Flutter
+  // integration_test / Playwright _electron smoke); the runner fixture drives
+  // it as a subprocess through the app's Nx target.
+  const flutterSurfaces = (surfaces ?? []).filter((s) => s.medium === 'flutter-integration');
+  const electronSurfaces = (surfaces ?? []).filter((s) => s.medium === 'playwright-electron');
 
   // Playwright structure follows graphical surfaces: any playwright surface in
   // registry mode, the graphical-ui value in single-medium mode. pexpect ships
@@ -105,6 +112,8 @@ export async function systemTestRunnerGenerator(
       graphicalSurfaces,
       cliSurfaces,
       protocolSurfaces,
+      flutterSurfaces,
+      electronSurfaces,
       includePlaywright,
       includePexpect,
       tmpl: ''
