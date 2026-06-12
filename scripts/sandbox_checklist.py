@@ -31,6 +31,7 @@ DURABLE_DOCS = {
         "docs/product-brief.md",
         "docs/design-system.md",
         "docs/architecture.md",
+        "docs/surfaces.md",  # surface registry (architecture commit; written even for one surface)
         "docs/infrastructure.md",
     ],
     "brownfield": [

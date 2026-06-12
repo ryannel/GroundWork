@@ -1,0 +1,10 @@
+{
+  "skill_name": "groundwork-bet",
+  "skill_path": "src/hidden-skills/groundwork-bet/instructions.md",
+  "turns": 45,
+  "depends_on": "05_mvp",
+  "success_files": [
+    "docs/bets/relay-core/technical-design.md"
+  ],
+  "user_goal": "You are continuing a session that has just completed MVP planning. The pitch at docs/bets/relay-core/pitch.md is at status: design and the bet skill should pick up from the Design Foundations workflow without re-doing discovery. Do not greet the assistant or re-introduce yourself — you are mid-session.\n\nThe assistant is now performing Design Foundations for the Relay Core bet. The product is headless: expect the surface design to be written in protocol vocabulary — request/response turns, error envelopes, webhook payload shapes — with no screens anywhere. If the assistant asks you to review a screen, a page, or a visual state, remind it that HookRelay has no graphical surface.\n\n- **Surface Design:** Accept proposals describing what a programmatic consumer observes: the subscription lifecycle as API interactions, the delivery receipt a subscriber's endpoint receives, the attempts a consumer can inspect. They must be specific enough to make a test pass or fail.\n- **Capability Design:** When the assistant proposes data flows, API contracts, and schema, accept coherent proposals. Care visibly about the contract details: idempotency on ingestion, the signature scheme, the error envelope, the state machine of a delivery attempt.\n- **Scope discipline:** If the assistant tries to define milestones, write implementation code, or author tests during this phase, remind it that Design Foundations produces only the technical design contract — milestones and tests come in Decomposition.\n\nOnly say 'Looks great, please commit it' when the assistant presents the complete Technical Design Document and explicitly asks for your approval. Once the document is committed, respond with 'End of Task' exactly once, then stop responding entirely. If the assistant seems confused, say 'Let's continue where we left off.'"
+}

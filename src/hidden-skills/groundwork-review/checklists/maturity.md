@@ -2,7 +2,7 @@
 name: maturity-checklist
 description: >
   Type-specific failure modes for reviewing a maturity doc — the evidenced
-  assessment and roadmap against the seven-dimension maturity model.
+  assessment and roadmap against the nine-dimension maturity model.
 ---
 
 # Maturity Checklist
@@ -11,7 +11,8 @@ This checklist checks a draft `docs/maturity.md`. It answers one question: **is 
 evidenced, every roadmap row parseable, and every claim consistent with the committed doc set?**
 
 Read the model at `.agents/groundwork/skills/maturity-model.md` first — it defines the
-dimensions (D1–D7), the assessment states, and the allowed severity, recommendation, and status
+dimensions (D1–D9), the assessment states (including the `n/a` state reserved for the
+conditional dimensions D8 and D9), and the allowed severity, recommendation, and status
 values. Match each item against the document text and the canonical doc summaries.
 
 ## Summary Contract
@@ -30,7 +31,9 @@ values. Match each item against the document text and the canonical doc summarie
   opinion.
 - [ ] 🔴 **Partial without specifics**: a 🟡 partial assessment does not name exactly which part
   of the dimension fails — "partially done" with no specifics steers no one.
-- [ ] 🔴 **Dimension missing**: one of the seven dimensions (D1–D7) has no assessment row.
+- [ ] 🔴 **Dimension missing**: one of the nine dimensions (D1–D9) has no assessment row —
+  a conditional dimension whose precondition does not hold still gets a row, with state `n/a`
+  and the precondition as evidence.
 - [ ] 🟡 **Assessment stamp missing**: the assessment carries no date or no record of which phase
   or skill ran it.
 - [ ] 🟡 **Evidence that proves nothing**: the cited evidence does not bear on the dimension's
@@ -47,7 +50,7 @@ Downstream skills parse these strings exactly; a near-miss is a silent orphan.
   `blocks-delivery`.
 - [ ] 🔴 **Out-of-vocabulary status**: a status other than `open`, `in-bet (<slug>)`,
   `closed (<slug>)`, or `accepted`.
-- [ ] 🔴 **Row without a dimension**: a roadmap row names no dimension (D1–D7) — the gap cannot
+- [ ] 🔴 **Row without a dimension**: a roadmap row names no dimension (D1–D9) — the gap cannot
   be tied to what it blocks.
 - [ ] 🟡 **Gap without a cost**: a roadmap row does not state what leaving the gap open costs —
   the model exists to let the user weigh maturity work against product work with full

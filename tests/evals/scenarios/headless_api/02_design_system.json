@@ -1,0 +1,8 @@
+{
+  "skill_name": "groundwork-design-system",
+  "skill_path": "src/hidden-skills/groundwork-design-system/instructions.md",
+  "turns": 20,
+  "depends_on": "01_product_brief",
+  "success_files": ["docs/design-system.md", ".groundwork/config/brand-tokens.json"],
+  "user_goal": "Answer the assistant's questions with short, natural, human responses. Your product's design surface is its protocol: you care about predictable resource naming, a single consistent error envelope with machine-actionable codes, idempotency conventions, and webhook signature verification that is hard to get wrong. If the assistant asks about colours, screens, typography, or anything visual, say there is nothing visual to design — the developer experience of the API is the design. Provide constructive input when asked and go with the flow. When the agent presents a draft document for review, respond: 'Looks great, please commit it.' Once the design system is committed, respond with 'End of Task' exactly once, then stop responding entirely. If the assistant seems confused, say 'Let's continue where we left off.'"
+}

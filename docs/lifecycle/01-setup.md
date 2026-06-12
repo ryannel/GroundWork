@@ -8,11 +8,11 @@ Six phases, each with one skill and one canonical output document:
 
 | Phase | Skill | Output | What it establishes |
 |---|---|---|---|
-| 1 | `groundwork-product-brief` | `docs/product-brief.md` | Vision, users, capabilities, domain constraints |
-| 2 | `groundwork-design-system` | `docs/design-system.md` | Design system, NFRs, interaction patterns |
-| 3 | `groundwork-architecture` | `docs/architecture.md` | Services, data flows, contracts, technology choices |
-| 4 | `groundwork-scaffold` | `docs/infrastructure.md` | Running local environment, generator output, infrastructure topology |
-| 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, and explicit no-gos |
+| 1 | `groundwork-product-brief` | `docs/product-brief.md` | Vision, users, capabilities, domain constraints, the surfaces users meet the product through (with MVP/later horizons) |
+| 2 | `groundwork-design-system` | `docs/design-system.md` | Design system, NFRs, interaction patterns — a shared brand foundation plus one design track per interface type in use |
+| 3 | `groundwork-architecture` | `docs/architecture.md` + `docs/surfaces.md` | Services, data flows, contracts, technology choices; the surface registry with the core's deployment (hosted or embedded) and each surface's core-access path |
+| 4 | `groundwork-scaffold` | `docs/infrastructure.md` | Running local environment, one generated app per registry surface with a generator (`scaffold: manual` honored for the rest), infrastructure topology |
+| 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, explicit no-gos, and the surfaces it ships on |
 | 6 | `groundwork-bet` (Design Foundations onward) | First delivered feature | The first shipped value; enters the Delivery Loop afterwards |
 
 Phases run in order. Each phase commits its document to disk, applies the Living Documents protocol against earlier documents, then hands off to the `groundwork-orchestrator`, which determines the next incomplete phase and routes to its skill.
@@ -26,7 +26,7 @@ When the repository already holds an application, setup inverts: the code is the
 | 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Deterministic code map (via depwire when present), concern-split findings for the extract phases |
 | 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
 | 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
-| 3 | `groundwork-architecture-extract` | `docs/architecture.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force |
+| 3 | `groundwork-architecture-extract` | `docs/architecture.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |
 | 4 | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
 
 There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
@@ -37,9 +37,9 @@ Existing docs are never blind-overwritten. A repo that already carries a brief o
 
 Each phase constrains the next, and the constraints flow downhill:
 
-- **Product Brief → Design System**: The brief establishes who the users are and what the product does. The Design System phase needs this to ground NFR decisions, target inspiration research, and inform design language.
+- **Product Brief → Design System**: The brief establishes who the users are, what the product does, and through which surfaces users meet it. The Design System phase needs this to ground NFR decisions, target inspiration research, and inform design language — and to know which interface types' tracks to run (a web app and a mobile app share one `graphical-ui` track; a CLI adds its own).
 - **Design System → Architecture**: The Design System phase captures NFRs (performance budgets, real-time needs, accessibility commitments). Architecture decisions must respect those constraints — a 50ms interaction budget eliminates entire infrastructure approaches.
-- **Architecture → Scaffolding**: The architecture defines the service boundaries, technology choices, and capability decisions. Scaffolding maps those decisions to specific Nx generator invocations.
+- **Architecture → Scaffolding**: The architecture defines the service boundaries, technology choices, and the surface registry. Scaffolding reads the registry and maps those decisions to Nx generator invocations — one app per surface with a generator; a `scaffold: manual` surface still gets its infrastructure entry, fixture registration, and operational expectations.
 - **Scaffolding → MVP Planning**: The infrastructure is real before MVP scoping begins. The MVP can reference concrete services and capabilities rather than aspirational ones.
 - **MVP Planning → First Bet**: MVP produces a pitch at `status: design`. The Bet skill picks up at Design Foundations and continues without re-doing discovery.
 

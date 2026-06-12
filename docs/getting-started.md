@@ -1,7 +1,7 @@
 ---
 owner: "@RNEL"
 audience: "Humans, AI Agents"
-last_reviewed: "2026-06-09"
+last_reviewed: "2026-06-12"
 ---
 
 # Getting Started
@@ -55,7 +55,7 @@ Downstream phases read the upstream summaries and arrive with positions. The fac
 >    - **UI responsiveness:** every interface action … feels instant — under ~50ms, optimistic.
 >    - **Narrative generation:** the next beat *streams*. Target first words on screen in **≤1.5s** … We never show a Player a blank spinner — the stream is the experience."
 
-Architecture ends with committed service boundaries, domain entity docs, and numbered ADRs — in this session, a two-service topology, five domain entities, and seven decision records.
+Architecture ends with committed service boundaries, domain entity docs, and numbered ADRs — in this session, a two-service topology, five domain entities, and seven decision records. The commit also writes the surface registry (`docs/surfaces.md` with its machine twin `.groundwork/surfaces.json`): every surface the product ships through — a web app, a CLI, a mobile app — registered with its status and core-access path, plus the capability ledger that bet validation fills as capabilities reach each surface. A single-surface product like Narrative gets a one-entry registry and no added ceremony.
 
 ## 6. Scaffold — the design becomes a running system
 
@@ -90,7 +90,7 @@ When `check` reports drift, ask your agent to run the `groundwork-update` skill 
 
 | Location | Contents |
 |---|---|
-| `docs/` | The living canonical documents — brief, design system, architecture, infrastructure, domain entities, ADRs, bets |
+| `docs/` | The living canonical documents — brief, design system, architecture, surface registry, infrastructure, domain entities, ADRs, bets |
 | `.agents/` | Skills (the orchestrator and the hidden methodology set) |
 | `.groundwork/config/` | Project state and settings |
 | `.groundwork/cache/` | Transient working files — drafts, discovery notes, hand-offs; cleaned up as phases commit |

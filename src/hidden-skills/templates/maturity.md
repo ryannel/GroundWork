@@ -23,7 +23,7 @@ last_reviewed: <YYYY-MM-DD>
 
 ---
 
-This document tracks the project against the GroundWork maturity model — the seven dimensions of the target state defined in `.agents/groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
+This document tracks the project against the GroundWork maturity model — the nine dimensions of the target state defined in `.agents/groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
 
 ## Current Assessment
 
@@ -36,6 +36,8 @@ This document tracks the project against the GroundWork maturity model — the s
 | D5. Code intelligence | ✅ / 🟡 / 🔴 | |
 | D6. Doc currency automation | ✅ / 🟡 / 🔴 | |
 | D7. Delivery discipline | ✅ / 🟡 / 🔴 | |
+| D8. Surface parity discipline | ✅ / 🟡 / 🔴 / n/a | <`n/a` when no surface registry exists — name that as the evidence> |
+| D9. Contract compatibility | ✅ / 🟡 / 🔴 / n/a | <`n/a` below two independently deployed surfaces — name that as the evidence> |
 
 **Assessed:** <YYYY-MM-DD> by <phase or skill that ran the assessment>
 
@@ -45,7 +47,7 @@ One row per gap. Severity/recommendation reuse the gap-ledger tiers; status move
 
 | # | Gap | Dimension | Severity | Recommendation | Status | Evidence / Notes |
 |---|---|---|---|---|---|---|
-| G1 | <what diverges from the target state> | D1–D7 | blocks-delivery / standard-divergence / cosmetic | fix-now / defer / blocks-delivery | open | <evidence; for accepted: who accepted and why> |
+| G1 | <what diverges from the target state> | D1–D9 | blocks-delivery / standard-divergence / cosmetic | fix-now / defer / blocks-delivery | open | <evidence; for accepted: who accepted and why> |
 
 ## History
 

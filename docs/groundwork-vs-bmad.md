@@ -1,7 +1,7 @@
 ---
 owner: "@RNEL"
 audience: "Humans, AI Agents"
-last_reviewed: "2026-06-10"
+last_reviewed: "2026-06-12"
 ---
 
 # GroundWork and BMAD
@@ -40,7 +40,13 @@ BMAD distributes the methodology across six named personas the user addresses in
 
 ### Context economy
 
-GroundWork's two-layer skill architecture registers exactly three skills in the agent toolchain; eighteen methodology skills load on demand and cost nothing until invoked. BMAD installs its full skill surface, and its own community names context bloat as a top criticism. For agent-native tooling, always-on context is the scarcest resource; this is a structural advantage GroundWork should protect.
+GroundWork's two-layer skill architecture registers exactly two skills in the agent toolchain (the orchestrator and the drift checker); eighteen methodology skills load on demand and cost nothing until invoked. BMAD installs its full skill surface, and its own community names context bloat as a top criticism. For agent-native tooling, always-on context is the scarcest resource; this is a structural advantage GroundWork should protect.
+
+### Multi-surface delivery
+
+GroundWork models every product as one capability core plus zero or more **surfaces** — the deployed artifacts consumers interact with (web app, CLI binary, mobile app, MCP server). The model is load-bearing across the lifecycle: architecture commits a surface registry (`docs/surfaces.md` with a machine-readable twin), the design system runs one track per interface type in use, scaffolding generates one app per surface, bets declare surface scope and type their milestones (capability proofs at the contract, surface proofs per medium), and validation fills a capability ledger that records, per capability and surface, `delivered`/`planned`/`omitted`/`n/a` — so a feature shipping on web but not mobile is a decision on record, not silent drift. A dedicated activation flow (`groundwork-surface-activation`) handles adding a surface to a live product, and `./dev surface status` renders the parity picture on demand.
+
+BMAD has no equivalent concept: its PRD, architecture, and stories describe one application, and nothing in its workflow suite tracks which clients a capability reached or gates a story's completion on deciding the question. For a single-interface product the difference is invisible — GroundWork's registry holds one entry and adds no ceremony. For a product with a web app, a CLI, and a mobile client, it is the difference between parity being tracked and parity being presumed.
 
 ### Where each one stops
 
@@ -49,6 +55,7 @@ GroundWork's two-layer skill architecture registers exactly three skills in the 
 | Planning output | PRD, architecture doc, epics, stories | Product brief, design system + brand tokens, architecture, infrastructure map |
 | Delivery loop | Story workflow suite: per-story context capsule, test-first dev loop with definition-of-done gates, three-layer parallel code review with triage, sprint-status tracking, retrospectives | Five-phase bet loop: locked technical design, pre-written reviewed proof suite, slice-by-slice delivery to green, validation with Living Documents updates |
 | Execution environment | Whatever the user's agent provides — no scaffolding, generators, or boot harness ship with the framework | Nx generators emit compiling services; Docker topology boots and health-checks; system tests run inside it |
+| Multi-surface products | No surface model — epics and stories carry no per-client scope or parity record | Surface registry + capability ledger (`docs/surfaces.md` and its JSON twin), per-type design tracks, capability/surface milestone typing, ledger-gated bet validation, surface-activation flow |
 | Brownfield | Document-project workflow (describe the codebase) + project-context generation | Full reverse-engineering path: deterministic scan via depwire MCP, four extract phases, additive infra adoption, gap ledger |
 | Doc currency | Versioned artifacts, decision logs, manual upkeep | Living Documents protocol + `groundwork-check` staleness detection in CI |
 | Verification of the framework itself | Headless evals (artifact-correctness + process-discipline patterns), deterministic skill validator, installer test suite | Generator/compilation/boot test harness, simulation suites with personas, transcript review + judge rubric |

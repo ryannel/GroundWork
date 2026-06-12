@@ -1,0 +1,11 @@
+{
+  "skill_name": "groundwork-surface-activation",
+  "skill_path": "src/hidden-skills/groundwork-surface-activation/instructions.md",
+  "turns": 30,
+  "depends_on": "08_bet_validation",
+  "success_files": [
+    "docs/surfaces.md",
+    ".groundwork/surfaces.json"
+  ],
+  "user_goal": "This is a follow-on session on the same FieldFlow project, after at least one bet has delivered and the ledger has rows. The contracted mobile team is starting next month, so you want the technician mobile app activated as a real surface now. The orchestrator should route to the surface-activation skill. Answer the assistant's questions with short, natural, human responses:\n\n- **Register:** The mobile app stays on scaffold: manual — the outside team builds it in their own repo and consumes the FieldFlow API. It reaches the core the same way the CLI does; technicians authenticate with their own accounts. Confirm the registry entry when presented.\n- **Design:** The mobile app is a graphical interface; if the assistant proposes running or extending the graphical design track for it, go along with its proposal.\n- **Ledger triage:** When the assistant walks the existing capability rows to fill or confirm the mobile column, decide each one concretely: anything a technician needs in the field (seeing assigned work orders, updating status) is planned; back-office functions (bulk import, schedule exports) are omitted with that rationale. If a cell was already decided at bet validation, confirm it stands.\n- **Contract compatibility:** If the assistant checks whether the architecture's compatibility stance covers a mobile fleet that updates slowly, confirm it does — no breaking changes to published fields, deprecation windows for removals.\n\nWhen the assistant presents the updated registry and triaged ledger for approval, respond: 'Looks great, please commit it.' Once the activation completes and the planned cells are handed to discovery notes, respond with 'End of Task' exactly once, then stop responding entirely. If the assistant seems confused, say 'Let's continue where we left off.'"
+}

@@ -2,22 +2,22 @@
 name: maturity-model
 version: "1"
 description: >
-  Defines GroundWork's target state as seven named maturity dimensions — what each one is,
+  Defines GroundWork's target state as nine named maturity dimensions — what each one is,
   the failure it prevents, and the signal that assesses it — plus the lifecycle of the living
   maturity roadmap (docs/maturity.md) that tracks a project's distance from that state.
 ---
 
 # The GroundWork Maturity Model
 
-GroundWork's end state is not "the docs exist." It is a system where documentation, contracts, operations, and verification reinforce each other tightly enough that an AI agent can deliver work inside explicit constraints — and a human can trust the result. This file names that target state as seven dimensions so it can be assessed, tracked, and steered toward, one bet at a time.
+GroundWork's end state is not "the docs exist." It is a system where documentation, contracts, operations, and verification reinforce each other tightly enough that an AI agent can deliver work inside explicit constraints — and a human can trust the result. This file names that target state as nine dimensions so it can be assessed, tracked, and steered toward, one bet at a time.
 
 **The model informs and guides; it never forces.** Every gap names the dimension it blocks and the concrete cost of leaving it open, so the user can weigh maturity work against product work with full information. The user's decision to defer — or to permanently accept — a gap is recorded and respected, not re-litigated every session. A project that consciously accepts a gap is healthier than one nagged into resentment.
 
-Every project carries a living `docs/maturity.md` (template: `.agents/groundwork/skills/templates/maturity.md`): the current assessment against the seven dimensions, and the roadmap of open gaps. Greenfield projects are born near the target and use the doc to track the dimensions that need ongoing discipline; brownfield projects start with an honest distance and close it incrementally.
+Every project carries a living `docs/maturity.md` (template: `.agents/groundwork/skills/templates/maturity.md`): the current assessment against the nine dimensions, and the roadmap of open gaps. Greenfield projects are born near the target and use the doc to track the dimensions that need ongoing discipline; brownfield projects start with an honest distance and close it incrementally.
 
 ---
 
-## The Seven Dimensions
+## The Nine Dimensions
 
 Each dimension states what it is, the failure it prevents, and the mechanical signal that assesses it (where one exists — judgement-based dimensions say so).
 
@@ -70,6 +70,20 @@ Work flows through bets: a problem paired with an appetite, decomposed into cont
 **Failure it prevents:** ad-hoc changes bypass the gates and the architecture erodes one hotfix at a time — each individually reasonable, collectively unaccountable.
 **Signal:** judgement-based. Evidence: `docs/bets/` shows pitches progressing through statuses; recent doc commits trace to bets or `groundwork-update` runs.
 
+### D8. Surface parity discipline
+
+The surface registry and capability ledger (`docs/surfaces.md` with its machine twin `.groundwork/surfaces.json`) describe the product as it is: the two projections agree, every capability row fills every surface column, and `planned` cells move — drawn into bets or consciously re-triaged to `omitted` or `n/a` — rather than aging in place.
+
+**Failure it prevents:** capabilities ship on one surface and silently never reach the others; divergence between surfaces stops being a decision on record and becomes drift nobody chose.
+**Signal:** `./dev surface status` renders with zero twin drift and zero empty cells; no `planned` cell is older than three closed bets without a referencing pitch (the `groundwork-check` staleness threshold). A project with no surface registry assesses this dimension `n/a`.
+
+### D9. Contract compatibility
+
+Once two or more surfaces deploy independently — a web app ships continuously while a mobile fleet lags releases by months — published contracts outlive any single deploy. The architecture carries a versioning/compatibility stance as a Binding Constraint ("we never break a published contract field" is the common shape), and the contract drift gates honor it: the generated contract-conformance tests treat breaking drift from the promoted specs as failure and additive drift as a stale-spec warning.
+
+**Failure it prevents:** a contract change that is a refactor for the fastest-shipping surface becomes an incident for every fleet that has not shipped yet.
+**Signal:** the stance appears under Binding Constraints in `docs/architecture.md`; the contract-conformance system tests report no breaking drift against the promoted specs in `docs/api/`. Below two independently deployed surfaces this dimension assesses `n/a` — it activates the moment the second one registers.
+
 ---
 
 ## Assessment levels
@@ -81,6 +95,9 @@ Each dimension is assessed as one of three states, always with evidence:
 | ✅ met | The signal holds now. |
 | 🟡 partial | Some of the dimension holds — name exactly which part does not. |
 | 🔴 absent | The dimension's signal fails outright. |
+| `n/a` | The dimension's precondition does not hold — D8 on a project with no surface registry, D9 below two independently deployed surfaces. Name the precondition in the evidence; the dimension re-enters assessment the moment it arrives. |
+
+`n/a` is reserved for the conditional dimensions (D8, D9). It records a precondition that does not hold, never a gap left unassessed.
 
 An assessment row without evidence is an opinion. Cite the file, command output, or absence that justifies the state.
 
@@ -102,7 +119,7 @@ Gaps discovered anywhere — the brownfield gap ledger, a bet's validation, a `g
 | `groundwork-scaffold` (greenfield) | Writes the initial `docs/maturity.md` at commit — mostly ✅, with the discipline dimensions (D6, D7) opened as rows where not yet wired. |
 | `groundwork-bet` discovery | Reads the roadmap; proposes pulling open `fix-now`/`blocks-delivery` rows into the bet, framing the trade-off. Never forces. |
 | `groundwork-bet` validation | Marks rows the bet closed (`closed (<slug>)`), re-assesses affected dimensions, re-stamps the doc. |
-| `groundwork-check` | Re-evaluates the mechanical signals (D1–D6) and flags roadmap rows whose status disagrees with observed state. |
+| `groundwork-check` | Re-evaluates the mechanical signals (D1–D6, plus D8's registry and ledger signals) and flags roadmap rows whose status disagrees with observed state. |
 | `groundwork-update` | Adds rows when shipped changes open new gaps (e.g. a new service without a contract). |
 
 `docs/maturity.md` is a canonical doc: it opens with a `## Summary for Downstream`, is review-gated with `document_type: maturity`, and is indexed in `llms.txt`.

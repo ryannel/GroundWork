@@ -120,7 +120,7 @@ The chain is:
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design
 ```
 
-**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.agents/groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D7), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
+**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.agents/groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
 
 **`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md`'s `## Summary for Downstream` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
 
@@ -159,8 +159,8 @@ If the section lists only scope cuts and names no technical rabbit hole, yet the
 
 **`maturity` — rows must be complete and evidenced.** Check every row against the model's allowed values:
 
-- Each assessment row carries a state (✅/🟡/🔴) **and** evidence — a state with no cited file, command output, or absence is a 🔴 finding.
-- Each roadmap row carries a dimension (D1–D7), a severity (`blocks-delivery`/`standard-divergence`/`cosmetic`), a recommendation (`fix-now`/`defer`/`blocks-delivery`), and a status (`open`/`in-bet (<slug>)`/`closed (<slug>)`/`accepted`). A missing or out-of-vocabulary value is a 🔴 finding — downstream skills parse these strings.
+- Each assessment row carries a state (✅/🟡/🔴, or `n/a` on the conditional dimensions D8–D9) **and** evidence — a state with no cited file, command output, or absence is a 🔴 finding.
+- Each roadmap row carries a dimension (D1–D9), a severity (`blocks-delivery`/`standard-divergence`/`cosmetic`), a recommendation (`fix-now`/`defer`/`blocks-delivery`), and a status (`open`/`in-bet (<slug>)`/`closed (<slug>)`/`accepted`). A missing or out-of-vocabulary value is a 🔴 finding — downstream skills parse these strings.
 - A row marked `closed` must name the closing bet slug; a row marked `accepted` must record who accepted it and why in its notes. Either absence is a 🔴 finding: an unattributed closure or acceptance cannot be audited later.
 - A 🟡 partial assessment that does not name exactly which part of the dimension fails is a 🔴 finding — "partially done" with no specifics steers no one.
 
