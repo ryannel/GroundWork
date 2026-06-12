@@ -68,11 +68,16 @@ groundWork/
 │   ├── principles/            → Stack-specific engineering principles, mirrored into the engineer skills.
 │   ├── plans/                 → Design plans for cross-cutting restructures (see Design Plans below).
 │   └── examples/              → Artifacts committed from real runs, referenced by getting-started.
+├── migrations/                ← The migration registry (ships in the package). index.json + cli modules +
+│                                agent briefs; every release that changes the shipped surface adds an entry.
+│                                Format and rules: migrations/README.md.
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.
+│   ├── cli/                   ← CLI contract tests (init/update/check, manifest, migrations, upgrade path).
 │   ├── evals/                 ← Simulation suites (personas + fixtures). Not a runner — see Flow Testing.
 │   │   ├── scenarios/               ← One subdir per suite; suite.json defines the persona.
 │   │   ├── fixtures/                ← Brownfield input codebase + legacy per-phase seed workspaces.
 │   │   └── validate_scaffold.py     ← Scaffold boot-prober (./dev test validate); not the flow harness.
+│   ├── fixtures/installs/     ← Frozen old-install snapshots the upgrade-path tests update from.
 │   ├── scaffolds/             ← Deterministic generator tests (generation, compilation, scaffolds, contracts).
 │   └── system/                ← System test templates; generated into scaffold sandboxes at test time.
 ├── llms.txt                   ← Agent discovery index for this repo's docs.
@@ -494,6 +499,43 @@ Two rules keep plans trustworthy:
 
 ---
 
+## Shipping a Change That Touches Installed Projects
+
+A GroundWork install is a deployment of the framework into a project, and `npx
+groundwork-method update` is how that deployment tracks its source (design:
+`docs/plans/framework-upgrade-path.md`). Every installed artifact has an owner, recorded
+per file in the project's `.groundwork/config/manifest.json`:
+
+| Tier | What | Carry-forward rule |
+|---|---|---|
+| 1 | Framework-owned: `.agents/skills/`, `.agents/groundwork/skills/`, `generators.json`, the `./dev` bundle + launcher | Clean-replaced on `update` — never edit these in a project |
+| 2 | Framework-seeded, user-editable: `src/docs/` → `docs/`, `AGENTS.md`, `llms.txt` | Hash-classified on `update`: pristine → auto-refresh; edited → queued for the `groundwork-upgrade` skill to merge |
+| 3 | Generator-produced: compose injections, `tests/system/`, `.dev/dev.config.json` | Provenance-recorded (`recordGeneratorProvenance` in `src/generators/shared/provenance.ts`); the upgrade skill regenerates with recorded options and reconciles |
+| 4 | Project-owned, shape-versioned: `state.json`, `surfaces.json`, doc shapes, bet shapes | Never overwritten — carried forward by migrations |
+
+**When your change needs a migration.** Skills are exempt (clean-copy carries them).
+Everything else that ships into projects — `src/docs/`, `src/config/`, generator
+templates, `cli-src/`, schema shapes, canonical doc shapes — needs one of:
+
+- **A `cli` migration** (`migrations/<id>.js`) when the carry-forward is mechanical: a
+  file to seed, a key to add, a JSON shape to bump. Runs inside `update`.
+- **An `agent` migration** (`migrations/<id>/brief.md`, Detect/Transform/Accept) when it
+  needs judgment: a doc rename, a new required section, a registry bootstrap. Executed by
+  the `groundwork-upgrade` skill from the upgrade brief `update` compiles.
+- **A `[no-migration]` annotation** on the changelog line when the change is additive and
+  old installs genuinely need nothing (new generator, new optional doc). Tier-2 content
+  changes never qualify — the refresh/merge path is how they propagate, but they still
+  need the changelog line.
+
+Start from `migrations/_template/`; the format and rules live in `migrations/README.md`.
+Register the entry in `migrations/index.json` at the unreleased version, reference its id
+from the changelog line — `[migration] … (gw-your-id)` — and prove it against a fixture
+under `tests/fixtures/installs/`. The migration-coverage gate in `./dev test contracts`
+fails when a shipped-surface change has neither a registry entry nor an annotation, and
+the changelog↔registry cross-check fails when either side of the id reference is missing.
+
+---
+
 ## Releasing
 
 GroundWork versions with semver from `0.x`. Three version points must agree (decision D4 in
@@ -506,12 +548,20 @@ Release checklist:
 1. Move the `## [Unreleased]` content in `CHANGELOG.md` under a new `## [X.Y.Z] - <date>` heading.
    Prefix any entry that requires action in an existing installation with `[migration]` —
    `npx groundwork update` surfaces those lines to users when it detects a version jump.
-   Keep each `[migration]` entry on a single line; the CLI extracts the line, not the paragraph.
+   Keep each `[migration]` entry on a single line ending with its registry id in parens
+   (see Shipping a Change That Touches Installed Projects); purely additive changes that
+   old installs don't need carry `[no-migration]` instead.
 2. Bump `package.json` (`npm version <minor|patch> --no-git-tag-version`). Bump the operating
    contract's `version` frontmatter only if a protocol changed incompatibly, and add a
    `[migration]` changelog entry when you do.
-3. Run the cheap gates locally: `./dev test generation && ./dev test contracts`.
-4. Commit, tag `vX.Y.Z`, push the tag. `.github/workflows/release.yml` verifies tag ↔
+3. Rebuild the dev bundle: `npm run build:dev-cli`. The bundle embeds the package version
+   (`./dev --version`), so every version bump changes it — a stale committed bundle fails
+   the freshness contract test.
+4. Verify every new `migrations/index.json` entry is exercised by a fixture under
+   `tests/fixtures/installs/` (add the pre-change shape if no existing fixture covers it).
+5. Run the cheap gates locally: `./dev test generation && ./dev test contracts && ./dev test cli`.
+   Contracts includes the migration-coverage gate and the changelog↔registry cross-check.
+6. Commit, tag `vX.Y.Z`, push the tag. `.github/workflows/release.yml` verifies tag ↔
    package.json ↔ CHANGELOG agreement, runs the gates, and publishes.
 
 > The npm name `groundwork` is currently held by an unrelated package (aniftyco/groundwork).

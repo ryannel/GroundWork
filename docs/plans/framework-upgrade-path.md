@@ -1,6 +1,10 @@
 # Implementation Plan: The Framework Upgrade Path (No Project Left Behind)
 
-**Status:** PROPOSED 2026-06-12
+**Status:** EXECUTED 2026-06-12 — all workstreams A–H landed. Remaining: the H3 live
+simulation run (suite seeded at `tests/evals/scenarios/upgrade/`; needs a human-driven
+session per the flow-testing harness) and the catch-up gate's live `groundwork-upgrade`
+session (same dependency). G1's tag-diff gate is committed but skips until the first
+release tag exists. See Execution notes (§13) for deviations.
 **Audience:** An engineer or agent implementing this change. Each slice names its files and an acceptance check; judgment calls that remain are listed as open decisions in §9.
 **Scope owner:** `bin/groundwork.js` (`update`/`check`), a new `migrations/` registry in the package, a new hidden skill `groundwork-upgrade`, the `workspace-dev-cli` generator, with coupled changes to `groundwork-check`, the orchestrator, the contributor guide, and the release workflow.
 
@@ -227,3 +231,35 @@ Start order: **A1, B1, H1 in the first pass** — manifest, registry format, and
 2. **The idempotency gate.** H2's invariants green in CI: convergence, preservation, idempotency, detect-honesty.
 3. **The forcing-function gate.** G1 red on an unannotated change to the shipped surface; the next real release after this plan ships at least one registry-backed `[migration]` entry exercised by a fixture.
 4. **The visibility gate.** A stale project's `groundwork check` names the version gap and pending work without network access, and `./dev doctor` flags a trailing bundle.
+
+## 13. Execution notes (2026-06-12)
+
+Deviations and refinements discovered while landing the plan; the tree is the truth,
+this section explains where it differs from the sections above.
+
+- **Tier-2 entries gained a `base` field** (refining O5): `base` is the hash of the
+  *package* content a file was last reconciled against (null = unknown ancestry). A
+  merge queues only when the package moves past `base` — without this, a user edit to
+  a file the framework never changed queued a pointless merge. The upgrade skill
+  re-bases the entry after each merge.
+- **H1 fixtures are built from commit SHAs, not tags** — the repo has no release tags
+  yet. `pre-0.9` ← `1498e0a` (genuinely unstamped: that CLI had no `stampVersion`);
+  `0.9-pre-surfaces` ← `f81cc6b`. The dev bundle is not git-tracked (the unanchored
+  `dist/` ignore), so the fixture's old bundle was *built* from the old commit's
+  `cli-src`. Provenance in `tests/fixtures/installs/README.md`.
+- **A fifth backfill brief shipped**: `gw-package-rename-invocations` (the
+  `npx groundwork` → `npx groundwork-method` rename) — B3's cross-check flagged the
+  existing changelog line the moment the convention became a test, which is the
+  forcing function doing its job on day one. The B3 test scopes the id-suffix
+  requirement to sections ≥ 0.10.0; older `[migration]` lines are prose history.
+- **Two real cli migrations seed the registry**: `gw-seed-config-toml` and
+  `gw-register-depwire-mcp` — both heal things `init` does that `update` never did.
+- **Migration completion is recorded for *settled* entries too**: a `detect` that
+  answers done/n-a is recorded in `state.json` so it is never re-asked, and a fresh
+  `init` records the entire registry (detect-honesty: a new install owes nothing).
+- **`cli-app` was not wired for A2 provenance** — it carried uncommitted in-flight
+  changes from another work session at execution time. Wire
+  `recordGeneratorProvenance` into it when that work lands (one import + one call
+  after `formatFiles`, like the other eight generators).
+- **G1 diffs `cli-src/src/` instead of `cli-src/dist/`** (the bundle is untracked) and
+  skips with a reason until the first `v*` tag exists.
