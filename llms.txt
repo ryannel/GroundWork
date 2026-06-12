@@ -24,6 +24,18 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Go: Concurrency](docs/principles/stack/go/concurrency.md): Stack-specific engineering principles.
 - [Go: Overview](docs/principles/stack/go/index.md): Stack-specific engineering principles.
 - [Go: Testing](docs/principles/stack/go/testing.md): Stack-specific engineering principles.
+- [Flutter: Overview](docs/principles/stack/flutter/index.md): Stack-specific engineering principles for mobile surfaces — survey-dated set covering architecture, state, widgets, testing, native interop, releases.
+- [Flutter: Architecture](docs/principles/stack/flutter/architecture.md): Stack-specific engineering principles.
+- [Flutter: State Management](docs/principles/stack/flutter/state-management.md): Stack-specific engineering principles.
+- [Flutter: Widgets & Composition](docs/principles/stack/flutter/widgets-and-composition.md): Stack-specific engineering principles.
+- [Flutter: Testing](docs/principles/stack/flutter/testing.md): Stack-specific engineering principles.
+- [Flutter: Platform Channels](docs/principles/stack/flutter/platform-channels.md): Stack-specific engineering principles.
+- [Flutter: Releases & Distribution](docs/principles/stack/flutter/releases-and-distribution.md): Stack-specific engineering principles.
+- [Electron: Overview](docs/principles/stack/electron/index.md): Stack-specific engineering principles for desktop surfaces — survey-dated set covering process model, IPC contracts, security, packaging; renderer idiom defers to the TypeScript set.
+- [Electron: Process Model](docs/principles/stack/electron/process-model.md): Stack-specific engineering principles.
+- [Electron: IPC Contracts](docs/principles/stack/electron/ipc-contracts.md): Stack-specific engineering principles.
+- [Electron: Security](docs/principles/stack/electron/security.md): Stack-specific engineering principles.
+- [Electron: Packaging & Updates](docs/principles/stack/electron/packaging-and-updates.md): Stack-specific engineering principles.
 
 ## Repository internals (contributors)
 
