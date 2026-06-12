@@ -1,0 +1,10 @@
+{
+  "projectPrefix": "acme",
+  "identity": {
+    "appName": "Acme",
+    "wordmark": "AC",
+    "primary": "#5fafff",
+    "accent": "#d7afff",
+    "voice": "clear, modern"
+  }
+}

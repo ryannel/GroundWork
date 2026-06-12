@@ -1,0 +1,30 @@
+# GroundWork project configuration.
+#
+# This file is yours: `groundwork init` seeds it once and `groundwork update`
+# never touches it. All sections are optional — an empty file behaves exactly
+# like no file.
+
+# ── Defaults ────────────────────────────────────────────────────────────────
+# Starting positions the facilitation skills PROPOSE during conversation.
+# A default is never silently applied: the architecture and scaffold phases
+# present it with reasoning and you still make the call.
+
+[defaults]
+# stack = "go"                   # preferred backend: go | python
+# frontend = "nextjs"            # preferred frontend generator
+# llm_provider = "anthropic"     # provider proposed for AI-powered services
+# llm_model = "claude-sonnet-4-6"
+
+# Generator flags the scaffold phase proposes, keyed by generator name.
+[defaults.generators]
+# go-microservice = "--withPostgres"
+
+# ── Custom skills ───────────────────────────────────────────────────────────
+# Your own methodology skills, merged into the orchestrator's routing AFTER
+# the built-in table — a built-in route wins any conflict. Key is the intent
+# the orchestrator matches; value is the instruction file path relative to
+# the project root. Keep custom skill files outside .agents/groundwork/skills/
+# (that tree is replaced by `groundwork update`).
+
+[skills]
+# "security-review" = ".agents/custom/security-review/instructions.md"

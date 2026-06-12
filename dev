@@ -48,7 +48,7 @@ case "$COMMAND" in
       pytest tests/scaffolds/test_generation*.py -v -s
     elif [ "$SUBCMD" = "cli" ]; then
       print_logo "Testing"
-      print_step "Running CLI contract tests (init/update/check)..."
+      print_step "Running CLI contract tests (init/update/check, manifest, migrations, upgrade path)..."
       if [ ! -d "tests/scaffolds/venv" ]; then
           print_substep "Creating venv..."
           python3 -m venv tests/scaffolds/venv
@@ -57,7 +57,7 @@ case "$COMMAND" in
       else
           source tests/scaffolds/venv/bin/activate
       fi
-      pytest tests/cli/test_cli.py -v
+      pytest tests/cli/ -v
     elif [ "$SUBCMD" = "compilation" ]; then
       print_logo "Testing"
       print_step "Building TypeScript generators..."
@@ -90,7 +90,7 @@ case "$COMMAND" in
       print_logo "Testing"
       print_step "Building generators + dev-cli bundle..."
       npm install --silent && npm run build
-      print_step "Running Contract Tests (fast: bundle freshness, adopt-merge idempotency)..."
+      print_step "Running Contract Tests (fast: bundle freshness, adopt-merge idempotency, migration coverage)..."
       if [ ! -d "tests/scaffolds/venv" ]; then
           print_substep "Creating venv..."
           python3 -m venv tests/scaffolds/venv
@@ -99,7 +99,7 @@ case "$COMMAND" in
       else
           source tests/scaffolds/venv/bin/activate
       fi
-      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py -v -s
+      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/cli/test_migration_gate.py -v -s
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
       print_step "Cleaning legacy eval sandboxes and the brownfield repo cache..."

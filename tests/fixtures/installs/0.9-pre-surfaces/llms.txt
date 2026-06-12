@@ -1,0 +1,52 @@
+# GroundWork Documentation Index
+
+The canonical documents in this project, in their expected order of
+relevance for AI agents working in this codebase.
+
+*The Vision-and-direction and System documents are created by the GroundWork
+setup phases and appear here as each phase commits — those links resolve once
+setup runs. The other sections ship at install time.*
+
+## Vision and direction
+- [Product Brief](docs/product-brief.md): The product's vision, users, and constraints.
+- [Design System](docs/design-system.md): Interface decisions, NFRs, and design language.
+- [Maturity Roadmap](docs/maturity.md): The project's assessment against the GroundWork maturity model and the tracked roadmap of open gaps.
+
+## How we work
+- [How we work](docs/ways-of-working/how-we-work.md): The two-mode lifecycle — setup and delivery loop.
+- [Units of work](docs/ways-of-working/units-of-work.md): Bets, milestones, and slices — the delivery vocabulary.
+- [Documentation protocol](docs/ways-of-working/documentation.md): Living documents, drift detection, and ADR conventions.
+
+## Engineering principles
+- [Manifesto](docs/principles/index.md): Core engineering beliefs that govern every decision.
+- [Code craft](docs/principles/foundations/code-craft.md): How we write and structure code.
+- [Documentation](docs/principles/foundations/documentation.md): What to document and how.
+- [Testing](docs/principles/foundations/testing.md): Test strategy and coverage philosophy.
+- [Product engineering](docs/principles/foundations/product-engineering.md): Shipping with user outcomes in mind.
+- [Reliability](docs/principles/quality/reliability.md): Fault tolerance and failure modes.
+- [Observability](docs/principles/quality/observability.md): Logging, tracing, and alerting.
+- [Performance](docs/principles/quality/performance.md): Latency, throughput, and resource efficiency.
+- [Security](docs/principles/quality/security.md): Threat modelling and secure defaults.
+- [Privacy](docs/principles/quality/privacy.md): Data minimisation and consent.
+- [Accessibility](docs/principles/quality/accessibility.md): Inclusive design and WCAG compliance.
+- [Developer experience](docs/principles/delivery/devex.md): Fast feedback loops and ergonomic tooling.
+- [Progressive delivery](docs/principles/delivery/progressive-delivery.md): Feature flags and incremental rollout.
+- [Platform](docs/principles/delivery/platform.md): Internal platform and developer self-service.
+- [Cost engineering](docs/principles/delivery/cost-engineering.md): Cloud cost ownership and optimisation.
+- [Hexagonal architecture](docs/principles/system-design/hexagonal-architecture.md): Ports, adapters, and domain isolation.
+- [API design](docs/principles/system-design/api-design.md): REST, gRPC, and contract-first design.
+- [Integration patterns](docs/principles/system-design/integration-patterns.md): Events, queues, and service communication.
+- [Real-time patterns](docs/principles/system-design/real-time.md): WebSocket, SSE, and streaming.
+- [Data engineering](docs/principles/system-design/data-engineering.md): Pipelines, schemas, and analytical patterns.
+- [AI engineering](docs/principles/ai-native/ai-engineering.md): Prompts, evals, and model integration.
+- [Agent-native systems](docs/principles/ai-native/agent-native-systems.md): Designing for agentic workloads.
+- [Postgres](docs/principles/stack/postgres.md): Schema design, migrations, and query patterns.
+
+## System
+- [Architecture](docs/architecture.md): Service topology and communication patterns.
+- [Infrastructure](docs/infrastructure.md): Boot order, ports, health checks, and run commands.
+- [Domain](docs/domain/): Entity definitions, lifecycle state machines, and invariants.
+- [Decisions](docs/decisions/): Architectural decision records.
+
+## Stack principles (added by generators)
+<!-- Stack-specific docs are appended here when a generator deploys them. -->

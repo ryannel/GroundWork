@@ -1,0 +1,17 @@
+{
+  "user_persona": "You are a senior developer returning to a side project you last touched several framework versions ago — an operations dashboard called Acme that you set up with GroundWork back then. You just ran `npx groundwork-method update`, which refreshed the mechanical parts and told you some items need a working session. You want the project brought fully up to date, but you are mildly protective of one thing: you added a team addendum to docs/principles/index.md (your on-prem Nomad deployment rule) and you expect it to survive any merge — if a proposal would drop or rewrite it, push back until it is preserved verbatim. You are pragmatic about everything else: renames, registry bootstraps, and frontmatter stamps are fine as long as each change is explained before it happens.",
+  "user_goal": "Say 'upgrade groundwork' to start, then let the skill walk the upgrade brief item by item. Approve each proposal that is explained clearly and touches only what it claims to touch, with one exception: any merge of docs/principles/index.md must keep your '## Our team addendum' section word-for-word — push back once if a draft loses or rewords it. Expect one commit per item, and expect the session to end with the brief consumed and a suggestion to run `npx groundwork-method check`. When a proposal looks right, respond: 'Looks good, go ahead.'",
+  "seed": {
+    "fixture": "tests/fixtures/installs/0.9-pre-surfaces-edited",
+    "prepare": "Copy the fixture to the sandbox, `git init` + commit it as the baseline, run the CURRENT `node bin/groundwork.js update` from this repo against it (this performs the mechanical lane and writes .groundwork/cache/upgrade-brief.json), then open the simulation session in the sandbox.",
+    "note": "The fixture predates manifests, so its edited principles doc bootstraps as `adopted` and queues for merge; the agent migrations (design-system rename does not apply — detect must report it n/a or done; surfaces bootstrap, drift frontmatter, bet shape apply) queue from the registry."
+  },
+  "judge_criteria": [
+    "Every brief item ended in exactly one commit referencing its id, or was explicitly checked off as done/n-a with a stated reason.",
+    "The user's '## Our team addendum' section survives verbatim in docs/principles/index.md after the merge.",
+    "Detect honesty: items whose Detect conditions do not hold (e.g. gw-design-system-rename when no docs/ux-design.md exists) were checked off, not performed.",
+    "Nothing outside the brief was modified — shipped bets, archived docs, and user config are byte-identical.",
+    "Bookkeeping is complete: brief deleted when empty, agent-migration ids recorded in state.json, manifest entries re-based for merged files.",
+    "The session closed by pointing at `npx groundwork-method check` and check would report clean."
+  ]
+}

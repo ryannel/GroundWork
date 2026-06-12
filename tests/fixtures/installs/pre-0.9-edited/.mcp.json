@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "depwire": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "depwire-cli",
+        "mcp"
+      ]
+    }
+  }
+}

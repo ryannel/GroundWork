@@ -1,0 +1,96 @@
+# Phase 4: Delivery
+
+**Goal:** Turn bet-progress tests green, slice by slice, while rolling out permanent best-practice tests as each slice completes — and leave a delivery record behind that the next slice, the validation phase, and the next bet can learn from.
+
+## Restrictions
+
+⚠️ **CRITICAL CONSTRAINT — the suite is sealed.** The bet-progress tests in `tests/bets/<bet-slug>/` were reviewed assertion-by-assertion and signed by the user; they are the bet's fixed definition of done. Never edit, delete, or add to them during delivery — a red test that looks wrong is a stop-and-escalate through the Amendment Protocol below, not an edit. `./dev test bet` verifies the suite against `.groundwork/bets/<bet-slug>/test-manifest.json` and refuses a tampered suite.
+
+⚠️ **CRITICAL CONSTRAINT — scope.** Write only the code required to make the bet-progress tests pass and satisfy the contracts in `docs/bets/<bet-slug>/contracts/`. Stay within the milestones and slices in `decomposition.md`. Do not perform large refactors or touch unrelated subsystems. If reality contradicts the locked design, follow Change Navigation below.
+
+## Operating Contract
+
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode). Implementation rarely surfaces phase-crossing signals — but when it does, capture it under the matching section in `.groundwork/cache/discovery-notes.md` and continue. The full Living Documents scan happens in Validation (Phase 5). Do not interrupt delivery to apply upstream updates mid-flight.
+
+## Step 0: Implementation Readiness Gate
+
+Before any slice work, verify the bet is actually executable. Load `.agents/groundwork/skills/groundwork-review/checklists/implementation-readiness.md` and check every item against the bet's artifacts — the document chain, the contracts, the test scaffolding, and currency. If the checklist file is absent, stop and report it — the install is broken and `npx groundwork-method update` restores it; do not improvise the gate from memory. These are mechanical existence and consistency checks; run them inline (no review subagent — the artifacts were already authorship-gated when their phases committed them, and there is nothing here to be biased about).
+
+The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item by name with what is missing, route back to the owning phase (a missing contract → Design Foundations; missing tests or an unsigned suite → Decomposition; an unreconciled discovery note → resolve it with the user now), and do not begin implementation until the item passes. 🟡 items are surfaced to the user with your read on whether they touch this bet; the user decides whether to proceed.
+
+When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and inform the user you are entering Developer Mode.
+
+## The Slice Loop
+
+Work through the milestone order in `decomposition.md`, slice by slice. Each slice runs the same loop; the manifest at `.groundwork/bets/<bet-slug>/decomposition.json` records where the loop stands, so a fresh context resumes from the manifest instead of re-deriving progress.
+
+### 1. Assemble the slice context capsule
+
+Most implementation failures are context failures — the agent that breaks an existing behaviour usually never read the file it was changing. Before writing any code for a slice:
+
+- **Read the previous slice's record** in `decomposition.json` (`files`, `notes`) — the patterns it established, the review findings it ate, the approaches that worked. Repeat its lessons, not its mistakes.
+- **Read every existing file this slice modifies, in full.** For each, hold three things: what it does today, what this slice changes, and what must keep working. A slice must leave the system working end-to-end — behaviour required for the feature to work correctly is a requirement whether or not the decomposition spells it out.
+- **Scan recent git history** for the conventions in play — naming, error handling, test placement — so the slice reads like the codebase it lands in.
+- **Verify library specifics just-in-time** when the slice pins behaviour on a dependency — current API shape and breaking changes, from the web when training knowledge is likely stale.
+
+### 2. Open the slice
+
+Mark the slice `in-progress` in `decomposition.json` and record `baseline_commit` (`git rev-parse HEAD`). The baseline ties the slice's diff to the exact code state it was built against.
+
+### 3. Implement to green
+
+Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) — red, because the implementation does not exist. Implement until they pass, staying inside the contracts: generate or derive clients from `docs/bets/<bet-slug>/contracts/` for cross-service calls; a hand-written request shape or side-channel schema is a contract violation even when the test passes.
+
+### 4. Review the slice
+
+Dispatch the slice diff for review through three parallel, independent lenses (Protocol 9 mechanics — isolated subagents; the three lenses catch different failure classes and none substitutes for another):
+
+- **Blind reviewer** — receives only the diff, no bet context. Familiarity hides bugs; this lens has none.
+- **Edge-case tracer** — receives the diff plus repo read access. Walks every branch and boundary the diff introduces and reports only unhandled paths: null/empty inputs, failure timing, races, off-by-ones.
+- **Acceptance auditor** — receives the diff, the slice's Required Capabilities, and `contracts/`. Verifies the implementation does what the contract says and nothing more: undeclared endpoints, fields beyond the spec, and silently skipped error cases are findings even when tests pass.
+
+**Triage every finding** into exactly one bucket, deduplicating across lenses:
+
+| Bucket | Meaning | Handling |
+|---|---|---|
+| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now |
+| patch | Unambiguous fix within the slice's scope | Fix before closing the slice |
+| defer | Real, but pre-existing — not caused by this slice | Append as a row to `docs/maturity.md` with severity; do not fix mid-slice |
+| dismiss | False positive or noise | Drop; do not persist |
+
+A slice closes only with zero open decision-needed and patch findings.
+
+### 5. Roll out permanent tests
+
+Once the slice's bet-progress tests are green and the review is clear, roll out that slice's **permanent best-practice tests** — interface tests, HTTP API system tests, honeycomb service-perimeter tests, and unit tests for complex logic, per the project's testing strategy. These live in the service repos and `tests/system/`, not in `tests/bets/`, and stay in the codebase after the bet is archived.
+
+### 6. Record and close the slice
+
+Update the slice's manifest entry: `status: delivered`, `delivered_commit`, `files` (every file added, modified, or deleted, repo-relative), and `notes` — one or two sentences on what the next slice should know: a pattern established, a deviation taken and why, a struggle worth not repeating. The record is what makes Step 1's capsule and Validation's retrospective possible; an empty `notes` field on a slice that fought you is a record that lies.
+
+### Milestone close
+
+After all of a milestone's slices are delivered, run the milestone's bet-progress tests (`test_milestone_<n>_*`) to confirm the full user-visible outcome, then mark the milestone `delivered` in the manifest. `./dev bet status` renders the board from the manifest at any point — keep it true.
+
+## Amendment Protocol — when a sealed test is wrong
+
+A signed test can still be wrong: it can assert a shape the contract never defined, encode a misread capability, or fail for a reason no implementation can fix. The seal does not make the test right — it makes changing it a decision the user takes, not a convenience the implementing agent reaches for.
+
+1. **Stop work on the affected slice.** Do not edit the test, and do not implement toward an assertion you believe is wrong.
+2. **State the case:** what the test asserts, what you believe it should assert, and which artifact is the source of the error — the test alone, or the contract/design behind it.
+3. **Route by depth.** A wrong test against a correct contract is a test amendment: on the user's explicit approval, fix the test, re-render its `test-review.md` entry, and re-seal (`./dev bet sign <bet-slug> --amend`, or rewrite the manifest hashes directly). A wrong contract is deeper — follow Change Navigation below.
+4. **Record the amendment** in the slice's `notes` so Validation's retrospective sees how the suite moved after signing.
+
+## Change Navigation — when reality contradicts the locked design
+
+Mid-delivery discoveries that invalidate the design are not failures of the process; pushing through them silently is. When implementation reveals the design committed to something wrong:
+
+1. **Pause the slice** and write a change proposal at `docs/bets/<bet-slug>/change-proposal-<n>.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/change-proposal.md`: the discovery and its evidence, the impact across pitch / technical design / contracts / decomposition / signed tests (name each affected section), the before/after of every proposed edit, and the severity.
+2. **Route by severity.** *Minor* — contracts and milestones survive; specific tests and design sections need correction: on user approval, apply the edits, re-review mutated docs (Protocol 9), amend and re-seal affected tests, resume the slice. *Structural* — a contract, milestone, or the appetite itself is wrong: on user approval, revert to Design Foundations (`status: design`), rework the design with the proposal as input, and re-run Decomposition for the affected scope; unaffected delivered slices stand.
+3. The proposal stays in the bet directory either way — it is the audit trail Validation and the retrospective read.
+
+## Transition
+
+Once all bet-progress tests are green, every slice's manifest entry is `delivered` with its record filled, and the permanent best-practice tests for every slice are in place, you are ready for validation.
+
+➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/05-validation.md`

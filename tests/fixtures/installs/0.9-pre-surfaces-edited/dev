@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+/*
+ * ./dev — the local development control plane.
+ *
+ * This is a thin launcher over a prebuilt, zero-dependency Node bundle in
+ * .dev/dev-bundle.js. The bundle is built from the GroundWork source and copied in
+ * verbatim, so no `npm install` is needed in this project — it runs on the Node that
+ * the Nx workspace already requires.
+ *
+ * Branding and theming come from .dev/dev.config.json (projected from the design
+ * system's brand tokens). See the workspace-cli skill for the agent-facing contract.
+ */
+'use strict';
+const path = require('path');
+process.env.DEV_ROOT = __dirname;
+require(path.join(__dirname, '.dev', 'dev-bundle.js'));

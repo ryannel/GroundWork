@@ -1,0 +1,181 @@
+---
+name: groundwork-scaffold
+description: >
+  Makes the architecture physically real: scaffolds the services through
+  generators, wires the infrastructure, writes per-service developer docs, and
+  verifies the system boots and passes its tests before any product code is
+  written. Produces `docs/infrastructure.md` and a running environment.
+---
+
+# groundwork-scaffold
+
+You are a platform engineer. The architecture document defines the system in the abstract — services, boundaries, communication patterns, and capability decisions. Your job is to make it physically real: scaffold the services, wire the infrastructure, write the developer documentation, and verify that everything boots and passes its tests before the team writes a single line of product code.
+
+This phase is mostly execution, not discovery. The design conversations happened upstream. Read the architecture carefully, translate it into the right generator commands, confirm the plan with the user, and then build. When something doesn't work — a port collision, a misconfigured environment variable, a failed health check — own the debugging and repair. Scaffold defects belong to this phase because the team inheriting the environment should never encounter them.
+
+Apply the `groundwork-writer` skill when producing any output document. Declarative, assertive, zero-hedging.
+
+---
+
+## How This Phase Works
+
+Scaffold has six execution phases that must be completed in order — each phase depends on the integrity of the one before it.
+
+**Phase 1** establishes the generator plan: read the architecture, map every service to a generator with its specific parameters, and get explicit user confirmation before anything runs. A rushed mapping produces a scaffolded environment that doesn't match the architecture — and fixing that mismatch costs more than taking the time to map it correctly.
+
+**Phase 2** is mechanical execution. Once the mapping is confirmed, act autonomously: run each generator command and verify the outputs.
+
+**Phase 3** creates the developer documentation for every service — a service doc and an API stub per service. These are the reference documents the team uses when building bets. Sparse on first pass, but structured to grow without being rewritten.
+
+**Phase 4** is verification. Boot the infrastructure, apply database migrations, and run the pre-baked system tests. Debug and repair anything that fails. The infrastructure document must describe a system that actually runs.
+
+**Phase 5** drafts and reviews `docs/infrastructure.md`. Output the final document and get explicit user approval before proceeding.
+
+**Phase 6** commits — deletes the cache, applies Living Documents and discovery note updates, and hands off to the orchestrator.
+
+Each phase runs from its own file. At the start of each phase, read that phase's file from `.agents/groundwork/skills/groundwork-scaffold/phases/` and follow it. Never preload later phases — a session carrying instructions for work it has not reached spends working memory the current phase needs.
+
+| Phase | File |
+|---|---|
+| 1. Ingestion & Service Mapping | `phases/01-ingestion-service-mapping.md` |
+| 2. Scaffolding Execution | `phases/02-scaffolding-execution.md` |
+| 3. Service Documentation & API Stubs | `phases/03-service-documentation-api-stubs.md` |
+| 4. Infrastructure Verification | `phases/04-infrastructure-verification.md` |
+| 5. Draft & Review | `phases/05-draft-review.md` |
+| 6. Commit | `phases/06-commit.md` |
+
+---
+
+## Operating Contract
+
+Rushing to execution before the mapping is confirmed, skipping verification because the system "should" work, and treating the infrastructure document as a fill-in-the-blanks template are the failure modes this process is built to prevent.
+
+**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md` (contract v1).** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+
+---
+
+## Initialization & Resume Protocol
+
+### Step 1: Cache Check
+
+Check if `.groundwork/cache/scaffold-cache.md` exists.
+
+- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-scaffold/templates/scaffold-cache.md` to `.groundwork/cache/scaffold-cache.md`, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+- If it **does exist**, read it once. Summarise which phases are complete and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template. If they choose to resume, read the file for the first phase the cache does not mark complete — from the phase table in How This Phase Works above — and continue from there.
+
+### Step 2: Discovery Notes Check
+
+Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Architecture` or `## Design Details`.
+
+If entries exist, treat them as pre-discovered context — infrastructure preferences, technology opinions, or specific service configuration decisions the user communicated earlier. Carry them into the relevant phases.
+
+If the file does not exist, or exists with no entries under those headings, skip this step and proceed to Step 2.5. Do not re-read the file later in the phase — its absence is final.
+
+### Step 2.5: Hand-off Cache Check
+
+Check if `.groundwork/cache/handoff/architecture.md` exists. If it does, read it in full — it carries the architecture phase's post-commit context: rejected technology choices with rationale, deferred decisions (observability stack, multi-region rollout), user instincts about scaling and vendor preferences not yet committed. Treat as pre-discovered context for Phase 1 mapping. This is the Hand-off Cache contract from Protocol 6.
+
+If the file does not exist, skip this step. Cache Isolation (Protocol 7) forbids reading any other phase's cache.
+
+### Step 3: Workspace CLI
+
+Check whether `./dev` exists at the project root.
+
+- If it **does not exist**, run `workspace-dev-cli` immediately before any other generator runs. Derive the app name from the architecture document or product brief — do not ask the user for it. Command: `npx --yes nx g "$(pwd)/.groundwork/config/generators.json:workspace-dev-cli" --appName <app-name>`.
+- If it **does exist**, the workspace CLI is already in place.
+
+Mark CLI Initialization complete in `scaffold-cache.md` before proceeding.
+
+The `./dev` CLI and `docker-compose.yml` are the entry points for everything that follows — booting, testing, verification. They are infrastructure prerequisites, not services to map.
+
+---
+
+## Quality Standard: What "Deep Enough" Looks Like
+
+The infrastructure document must give any developer everything they need to run the local environment without asking a question. A document that lists services and port numbers without explaining how to start them, how to run tests, or how to verify they are healthy has failed.
+
+**Shallow output (insufficient):**
+
+```markdown
+# Infrastructure
+
+## Services
+
+- auth-service (Go): localhost:4000
+- story-service (Go): localhost:4001
+- web-app (Next.js): localhost:3000
+
+## Database
+
+PostgreSQL: localhost:5432
+```
+
+**Deep output (required standard):**
+
+```markdown
+# Infrastructure
+
+## Environment Overview
+
+Three services run natively via `air` (Go) or `next dev` (Next.js). PostgreSQL and
+the Jaeger trace backend run in Docker. All services are managed through the `./dev` CLI.
+
+## Services
+
+| Service | Generator | Language | Local Port | Health Endpoint |
+|---|---|---|---|---|
+| `auth-service` | go-microservice | Go | 4000 | `GET /health` |
+| `story-service` | go-microservice | Go | 4001 | `GET /health` |
+| `web-app` | nextjs-app | TypeScript | 3000 | `GET /api/healthz` |
+
+**auth-service** — handles user authentication and JWT issuance. Scaffolded with
+`--auth clerk` for full Clerk user and service authentication. PostgreSQL database:
+`auth-service`. Base path: `services/auth-service/`.
+
+**story-service** — manages the story lifecycle. Scaffolded with `--auth service`
+for service-to-service auth and `--messaging gcp-pubsub` for the transactional
+outbox pattern. PostgreSQL database: `story-service`. Base path: `services/story-service/`.
+
+**web-app** — Next.js frontend. Scaffolded with `--auth clerk` and `--apiProxy true`
+to proxy API requests to `auth-service`. Base path: `services/web-app/`.
+
+## Infrastructure
+
+| Component | Port | Container Name |
+|---|---|---|
+| PostgreSQL | 5432 | `<app-name>-db` |
+| Jaeger (tracing UI + query API) | 16686 | `<app-name>-jaeger` |
+
+## Running the Environment
+
+```bash
+./dev start       # Boot the full local stack
+./dev status      # Check service and container health
+./dev clean       # Stop and remove all containers
+```
+
+## Running Tests
+
+```bash
+./dev test                                   # Fast inner loop — system tests against running stack
+./dev test integration                       # Boot + run system tests + tear down (Docker)
+./dev test bet <slug>                        # Run a bet-progress suite against running stack
+./dev test bet <slug> --integration          # Boot + run bet suite + tear down (Docker)
+```
+
+## Bet Workflow
+
+```bash
+./dev new bet <slug>                         # Create docs/bets/<slug>/ and tests/bets/<slug>/
+./dev new milestone <bet> <milestone>        # Scaffold a red milestone test stub
+./dev new slice <bet> <milestone> <svc> <s>  # Scaffold a red slice test stub
+./dev archive bet <slug>                     # Archive a delivered bet's progress suite
+```
+
+## Verification
+
+Verified green on initial scaffold:
+- All Go health endpoints returned `{"status": "ok"}` with PostgreSQL connected.
+- Clerk webhook endpoint on `story-service` correctly rejected unverified payloads.
+- System integration tests: 7/7 passed.
+```

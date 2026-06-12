@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "groundwork",
+  "version": "1.0.0",
+  "generators": {
+    "go-microservice": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/go-microservice/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/go-microservice/schema.json",
+      "description": "Scaffolds a highly opinionated Go microservice"
+    },
+    "system-test-runner": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/system-test-runner/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/system-test-runner/schema.json",
+      "description": "Scaffolds a central docker-compose and Python system test suite"
+    },
+    "workspace-dev-cli": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/workspace-dev-cli/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/workspace-dev-cli/schema.json",
+      "description": "Scaffolds a local ./dev CLI for managing services and infrastructure"
+    },
+    "cli-app": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/cli-app/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/cli-app/schema.json",
+      "description": "Scaffolds a branded command-line application (Node + TypeScript), themed from the design system's brand tokens"
+    },
+    "python-microservice": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/python-microservice/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/python-microservice/schema.json",
+      "description": "Scaffolds a highly opinionated Python microservice"
+    },
+    "nextjs-app": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/nextjs-app/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/nextjs-app/schema.json",
+      "description": "Scaffolds a production-grade Next.js application with App Router"
+    },
+    "docs-site": {
+      "factory": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/dist/src/generators/docs-site/generator",
+      "schema": "/Users/ryannel/.claude/jobs/8244e758/tmp/wt-pre09/src/generators/docs-site/schema.json",
+      "description": "Scaffolds a Fumadocs-powered Next.js documentation site"
+    }
+  }
+}

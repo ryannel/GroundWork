@@ -1,0 +1,53 @@
+---
+title: Maturity Roadmap
+service: "cross-cutting"
+type: "index"
+last_reviewed: <YYYY-MM-DD>
+---
+
+# Maturity Roadmap
+
+## Summary for Downstream
+
+### Key Decisions
+<!-- e.g. "- Gaps G2, G4 accepted permanently — single-tenant deployment" -->
+
+### Binding Constraints
+<!-- e.g. "- No bet enters delivery while G1 (no system-test harness) is open" -->
+
+### Deferred Questions
+<!-- e.g. "- CI provider for groundwork check — resolved in first infra bet" -->
+
+### Out of Scope
+<!-- Dimensions or gaps the project has permanently accepted, stated plainly -->
+
+---
+
+This document tracks the project against the GroundWork maturity model — the seven dimensions of the target state defined in `.agents/groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
+
+## Current Assessment
+
+| Dimension | State | Evidence |
+|---|---|---|
+| D1. Documented truth | ✅ / 🟡 / 🔴 | <file or command output that justifies the state> |
+| D2. Machine-readable contracts | ✅ / 🟡 / 🔴 | |
+| D3. One-command operations | ✅ / 🟡 / 🔴 | |
+| D4. System-level proof | ✅ / 🟡 / 🔴 | |
+| D5. Code intelligence | ✅ / 🟡 / 🔴 | |
+| D6. Doc currency automation | ✅ / 🟡 / 🔴 | |
+| D7. Delivery discipline | ✅ / 🟡 / 🔴 | |
+
+**Assessed:** <YYYY-MM-DD> by <phase or skill that ran the assessment>
+
+## Roadmap
+
+One row per gap. Severity/recommendation reuse the gap-ledger tiers; status moves `open` → `in-bet (<slug>)` → `closed (<slug>)`, or to `accepted` when the user decides the gap stays.
+
+| # | Gap | Dimension | Severity | Recommendation | Status | Evidence / Notes |
+|---|---|---|---|---|---|---|
+| G1 | <what diverges from the target state> | D1–D7 | blocks-delivery / standard-divergence / cosmetic | fix-now / defer / blocks-delivery | open | <evidence; for accepted: who accepted and why> |
+
+## History
+
+<!-- Append-only log: one line per assessment or status change.
+     e.g. "2026-06-09 — initial assessment by groundwork-infra-adopt; G1–G5 opened." -->

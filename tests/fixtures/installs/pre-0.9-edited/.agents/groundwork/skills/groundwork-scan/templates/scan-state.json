@@ -1,0 +1,19 @@
+{
+  "status": "scanning",
+  "schema_version": 1,
+  "scan_depth": null,
+  "fan_out_mode": null,
+  "classification": {
+    "repo_shape": null,
+    "parts": []
+  },
+  "exclusions": ["node_modules", ".git", "dist", "build", "coverage", "vendor", "target", ".next", "*.min.js", "*.map", "lockfiles"],
+  "partitions": [],
+  "findings_files": [
+    "scan/overview.md",
+    "scan/product-findings.md",
+    "scan/design-findings.md",
+    "scan/architecture-findings.md"
+  ],
+  "resume_pointer": null
+}

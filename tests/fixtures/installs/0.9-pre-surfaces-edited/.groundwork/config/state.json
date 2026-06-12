@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "project_type": null,
+  "completed": [],
+  "groundwork": {
+    "version": "0.9.0",
+    "agents": [
+      "claude-code"
+    ]
+  }
+}
