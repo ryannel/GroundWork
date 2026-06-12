@@ -40,7 +40,7 @@ BMAD distributes the methodology across six named personas the user addresses in
 
 ### Context economy
 
-GroundWork's two-layer skill architecture registers exactly three skills in the agent toolchain; seventeen methodology skills load on demand and cost nothing until invoked. BMAD installs its full skill surface, and its own community names context bloat as a top criticism. For agent-native tooling, always-on context is the scarcest resource; this is a structural advantage GroundWork should protect.
+GroundWork's two-layer skill architecture registers exactly three skills in the agent toolchain; eighteen methodology skills load on demand and cost nothing until invoked. BMAD installs its full skill surface, and its own community names context bloat as a top criticism. For agent-native tooling, always-on context is the scarcest resource; this is a structural advantage GroundWork should protect.
 
 ### Where each one stops
 

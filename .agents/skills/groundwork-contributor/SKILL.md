@@ -47,6 +47,7 @@ groundWork/
 │   │   ├── groundwork-bet/            ← Delivery loop: discovery → design → decomposition → delivery → validation.
 │   │   ├── groundwork-patch/          ← Small-change lane: bounded code fixes outside the bet ceremony, logged to the patch ledger.
 │   │   ├── groundwork-update/         ← Surgical doc updates.
+│   │   ├── groundwork-surface-activation/ ← Adds a surface to a live product: registry entry, lazy design track, scaffold, ledger triage. Bootstraps the registry on pre-restructure products.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
 │   │   ├── groundwork-go-engineer/    ← Auto-installed alongside go-microservice generator output.
@@ -595,6 +596,7 @@ output file. Example:
 | MVP Planning | ✅ Phase 4 draft |
 | Bet | ✅ Core directives |
 | Update | ✅ Top-level mandate |
+| Surface Activation | ✅ Top-level mandate |
 
 When adding a new skill, add the writer reference before submitting.
 

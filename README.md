@@ -41,7 +41,7 @@ Run `npx groundwork-method help` for the full lifecycle map.
 
 | Layer | Contents |
 |---|---|
-| **Methodology** | An orchestrator skill that routes every lifecycle request, backed by seventeen hidden methodology skills loaded on demand — always-on context cost stays near zero |
+| **Methodology** | An orchestrator skill that routes every lifecycle request, backed by eighteen hidden methodology skills loaded on demand — always-on context cost stays near zero |
 | **Generators** | Nx generators for Go microservices, Python microservices, Next.js apps, CLI apps, a docs site, and a system-test runner |
 | **Operations** | A zero-dependency `./dev` CLI bundled into every generated workspace, system tests generated into the boot topology, CI drift detection |
 | **Code intelligence** | The depwire MCP server, registered at init — a deterministic structural map of the codebase instead of LLM guesswork |

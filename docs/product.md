@@ -35,7 +35,7 @@ GroundWork is multi-surface by design. Every product is modelled as one headless
 
 | Layer | Contents |
 |---|---|
-| **Methodology** | An orchestrator skill that routes every lifecycle request, backed by seventeen hidden methodology skills (facilitation, extraction, review, writing) loaded on demand to keep always-on context cost near zero. All skills share one Operating Contract governing discovery-note capture, living-document updates, and phase lifecycle. |
+| **Methodology** | An orchestrator skill that routes every lifecycle request, backed by eighteen hidden methodology skills (facilitation, extraction, review, writing) loaded on demand to keep always-on context cost near zero. All skills share one Operating Contract governing discovery-note capture, living-document updates, and phase lifecycle. |
 | **Generators** | Nx generators for Go microservices, Python microservices, Next.js apps, CLI apps, a docs site, and a system-test runner — each producing services that compile, boot under Docker Compose, and pass health checks out of the box. |
 | **Operations** | A zero-dependency `./dev` CLI bundled into every generated workspace, system tests generated into the boot topology, and `groundwork-check` for CI-time staleness detection between code and docs. |
 | **Code intelligence** | The depwire MCP server, registered at init, giving the scan and architecture phases a deterministic structural map of the codebase instead of LLM guesswork. |

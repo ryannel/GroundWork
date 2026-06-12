@@ -13,7 +13,7 @@ GroundWork installs skills, not a runtime — every behavior is an instruction f
 | Capability | Used for | If missing |
 |---|---|---|
 | Loads registered skills from `.agents/skills/` (or `.claude/`, `.windsurf/` — init symlinks them to the canonical `.agents/`) with YAML `name`/`description` frontmatter | Discovering the orchestrator, check, and persona skills | **Required.** Without skill discovery there is no entry point beyond pasting instructions manually. |
-| Reads arbitrary project files on demand | Loading the seventeen hidden methodology skills, the operating contract, templates | **Required.** The two-layer architecture is on-demand file reads. |
+| Reads arbitrary project files on demand | Loading the eighteen hidden methodology skills, the operating contract, templates | **Required.** The two-layer architecture is on-demand file reads. |
 | Writes and edits files | Docs, caches, state | **Required.** |
 | Executes shell commands | Generators, `./dev`, git-based drift checks, boot verification | Degrades: facilitation and doc phases work fully; scaffold/infra-adopt present a runbook for the user to execute instead (the skills handle this case explicitly), and verification is recorded as pending. |
 | Dispatches isolated subagents (Claude Code: the `Task` tool) | The fail-closed review gate, brownfield scan fan-out | Degrades, fail-closed: reviews that cannot run **block commits** rather than silently passing (operating contract, Protocol 8); the orchestrator passes `fan_out: sequential` to the scan. An explicit user-authorised self-review fallback exists but never counts as a passed gate. |
