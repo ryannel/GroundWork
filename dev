@@ -99,7 +99,7 @@ case "$COMMAND" in
       else
           source tests/scaffolds/venv/bin/activate
       fi
-      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/cli/test_migration_gate.py -v -s
+      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -v -s
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
       print_step "Cleaning legacy eval sandboxes and the brownfield repo cache..."

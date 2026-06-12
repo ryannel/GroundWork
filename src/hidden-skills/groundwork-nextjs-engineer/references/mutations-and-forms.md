@@ -13,7 +13,7 @@
 
 ## Server Actions for All Mutations
 
-Every data mutation in the the Next.js application flows through a Server Action. Client components never call `lib/api.ts` directly for writes — they invoke Server Actions, which run on the server and can safely access secrets, validate data, and revalidate caches.
+Every data mutation in the Next.js application flows through a Server Action. Client components never call `lib/api.ts` directly for writes — they invoke Server Actions, which run on the server and can safely access secrets, validate data, and revalidate caches.
 
 ```tsx
 // app/actions/meeting-actions.ts
@@ -166,7 +166,7 @@ export function MeetingForm() {
         <input
           id="title"
           {...form.register('title')}
-          autoFocus  {/* Focus immediately — speed principle */}
+          autoFocus // Focus immediately — speed principle
         />
         {form.formState.errors.title && (
           <p className="text-[--color-error]">
@@ -290,7 +290,7 @@ Use `revalidatePath` for page-level cache busting. Use `revalidateTag` when mult
 
 ## Error Flow
 
-Errors in the the Next.js application follow a layered defence strategy:
+Errors in the Next.js application follow a layered defence strategy:
 
 ```
 ┌─ Client validation (react-hook-form + Zod) ─ catches typos, missing fields

@@ -7,7 +7,7 @@
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 ## Discovery Notes Check
 

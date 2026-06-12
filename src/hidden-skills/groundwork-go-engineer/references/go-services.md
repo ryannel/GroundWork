@@ -10,7 +10,7 @@ Go code is boring on purpose. It leans into the standard library, uses interface
 
 ### 2. Gateway Pattern
 
-Every service is structured as a gateway: a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and repository interfaces (ports) with Postgres-backed implementations. Flat package layout, exported interfaces, unexported concrete types.
+Every service is structured as a gateway: a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and repository interfaces (ports) with Postgres-backed implementations. Packages are nested under `internal/` — `internal/core/domain`, `internal/core/service`, and `internal/core/gateway` (ports), `internal/provider` (adapters), `internal/entrypoints/api` (HTTP edge) — with composition roots in `cmd/`. Exported interfaces, unexported concrete types.
 
 ### 3. Errors Are Values with Context
 

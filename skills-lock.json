@@ -1,17 +1,20 @@
 {
-  "version": 1,
+  "version": 2,
+  "hashRecipe": "shasum -a 256 <localPath> — the hash of the vendored file as accepted into this repo (local edits included). Recompute and update when deliberately changing a vendored skill; a mismatch means the file drifted without review.",
   "skills": {
     "golang-pro": {
       "source": "jeffallan/claude-skills",
       "sourceType": "github",
       "skillPath": "skills/golang-pro/SKILL.md",
-      "computedHash": "12b4cac8f65228f82cbc26f0da9232aba87ffa45ccd01afa3998fb8ec61dc288"
+      "localPath": ".agents/skills/golang-pro/SKILL.md",
+      "computedHash": "937bafb4bd14906e33420206500a8404a9de14705184ade02c77734221e748d6"
     },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/skill-creator/SKILL.md",
-      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+      "localPath": ".agents/skills/skill-creator/SKILL.md",
+      "computedHash": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf"
     }
   }
 }

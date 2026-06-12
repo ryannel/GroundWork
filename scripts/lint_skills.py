@@ -62,6 +62,8 @@ SKILLMD_SKILLS = [
     "groundwork-go-engineer",
     "groundwork-python-engineer",
     "groundwork-nextjs-engineer",
+    "groundwork-flutter-engineer",
+    "groundwork-electron-engineer",
 ]
 # Methodology skills that must reference the versioned operating contract.
 # groundwork-review is exempt by design: it is the isolated reviewer the
@@ -71,7 +73,10 @@ MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
 # Files that commit or mutate canonical docs and therefore must carry the
 # fail-closed review gate. Bet workflow 04-delivery implements code, not
 # canonical docs, and is exempt. groundwork-design-system's drafting phases
-# live in its track files — the gate lives there, not in instructions.md.
+# live in its track files — the gate lives there, not in instructions.md, and
+# tracks/_foundation.md is the multi-type coordinator that delegates Phase 5
+# (translation + review) to each active track, so the gate lives in the tracks
+# it loads, not in the coordinator.
 # groundwork-architecture and groundwork-scaffold are split into per-phase
 # files — the gate lives in their draft/review phase file, not in instructions.md.
 COMMITTING_FILES = [
@@ -82,7 +87,10 @@ COMMITTING_FILES = [
 ] + [
     HIDDEN / "groundwork-bet" / "workflows" / w
     for w in ("01-discovery.md", "02-design.md", "03-decomposition.md", "05-validation.md")
-] + sorted((HIDDEN / "groundwork-design-system" / "tracks").glob("*.md")) + [
+] + sorted(
+    p for p in (HIDDEN / "groundwork-design-system" / "tracks").glob("*.md")
+    if p.name != "_foundation.md"
+) + [
     HIDDEN / "groundwork-architecture" / "phases" / "06-draft-review-present.md",
     HIDDEN / "groundwork-scaffold" / "phases" / "05-draft-review.md",
 ]

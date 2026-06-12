@@ -6,7 +6,7 @@
 
 After all generators have run, verify that `docker-compose.yml` includes entries for every scaffolded service.
 
-Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — if any are missing, copy them from `src/hidden-skills/` manually.
+Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — if any are missing, copy them from `.agents/groundwork/skills/` manually.
 
 Mark the Scaffolding Execution phase complete in `scaffold-cache.md` and proceed to Phase 3.
 

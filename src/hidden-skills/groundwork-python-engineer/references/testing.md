@@ -67,10 +67,10 @@ Route handler, service, and validation all run for real. Only the external API c
 
 ### Live Provider Tests
 
-Gated behind `--run-integration`:
+Marked `@pytest.mark.live` and selected explicitly with pytest's `-m` flag (excluded from normal runs with `-m "not live"`):
 
 ```python
-@pytest.mark.integration
+@pytest.mark.live
 async def test_provider_against_real_api(gateway, fixture_data):
     result = await gateway.process(fixture_data)
     assert result.confidence > 0
@@ -154,8 +154,8 @@ async def test_process_success(client): ...
 
 ```bash
 uv run pytest tests/unit                        # No infrastructure
-uv run pytest tests/integration                 # Requires Docker
-uv run pytest tests/integration --run-integration  # Includes live APIs
+uv run pytest tests/integration -m "not live"   # Requires Docker; skips live APIs
+uv run pytest tests/integration -m live         # Live API tests — requires real keys
 uv run pytest tests/system                      # Bootstrap + golden path
 ```
 

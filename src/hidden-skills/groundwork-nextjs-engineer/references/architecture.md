@@ -14,7 +14,7 @@
 
 ## Dependency Graph
 
-The the Next.js application enforces a strict inward-facing dependency graph. Every import must point **downward** in this hierarchy — never upward or sideways.
+The Next.js application enforces a strict inward-facing dependency graph. Every import must point **downward** in this hierarchy — never upward or sideways.
 
 ```
 ┌─────────────────────────────────────────────────┐

@@ -51,7 +51,7 @@ Validation errors include a field-level `errors` array:
 
 ```json
 {
-  "status": 400,
+  "status": 422,
   "title": "Unprocessable Entity",
   "detail": "Request body did not match the schema.",
   "errors": [
@@ -67,7 +67,7 @@ Validation errors include a field-level `errors` array:
 | 401 | Unauthorized | Missing or invalid auth token | Re-authenticate |
 | 403 | Forbidden | Authenticated but not authorised | Confirm role. Do not retry |
 | 404 | Not Found | Resource does not exist | Verify identifier |
-| 400 | Unprocessable Entity | Request body did not match schema | Inspect `errors` array |
+| 422 | Unprocessable Entity | Request body did not match schema | Inspect `errors` array |
 | 409 | Conflict | Idempotency-Key reused with different payload | Generate a fresh key |
 | 429 | Too Many Requests | Rate limit exceeded | Back off per `Retry-After` |
 | 504 | Gateway Timeout | Downstream dependency timed out | Retry with backoff |

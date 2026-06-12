@@ -97,7 +97,7 @@ Use framework helpers for expected domain errors; return unwrapped errors for un
 ```go
 // Domain validation error
 if err := entity.Validate(); err != nil {
-    return nil, huma.NewError(http.StatusBadRequest, err.Error())
+    return nil, huma.NewError(http.StatusUnprocessableEntity, err.Error())
 }
 
 // Auth failure

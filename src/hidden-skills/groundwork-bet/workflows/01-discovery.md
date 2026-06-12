@@ -4,7 +4,7 @@
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 ## Discovery Notes Check
 
@@ -50,9 +50,7 @@ Arrive at the conversation already knowing what the system is and what the bet m
 
 ### Track Selection
 
-Ask the user which discovery track fits their situation:
-
-> "Do you want to think through the problem together — explore the evidence, shape the hypothesis, and validate the approach before committing — or do you have a clear idea and want to move directly to capturing and executing it?"
+Ask the user which discovery track fits their situation: thinking the problem through together — exploring the evidence, shaping the hypothesis, validating the approach before committing — or moving directly to capturing and executing an idea they already hold clearly.
 
 - **Track 1 (Product-driven):** The user wants to explore and validate. Go through the Product-driven steps below.
 - **Track 2 (Execution-focused):** The user has a clear idea. Go through the Execution-focused steps below.
@@ -63,25 +61,25 @@ Both tracks produce the same Pitch artifact and require the same review before c
 
 ### Track 1: Product-driven
 
-Work through the following questions in sequence. Give each important question room to breathe — do not group questions that carry real trade-offs or downstream consequences. Converge toward a proposal once you have enough signal.
+Work through the following elements in sequence. Give each important question room to breathe — do not group questions that carry real trade-offs or downstream consequences. Converge toward a proposal once you have enough signal.
 
-- **Problem:** "What problem are users experiencing? What evidence — usage data, support tickets, user feedback — tells you this is real and worth solving?"
+- **Problem:** Establish what problem users are experiencing and what evidence — usage data, support tickets, user feedback — shows it is real and worth solving.
 
   Push past symptoms to root causes. A problem like "users don't know about feature X" is a symptom; the problem might be "the first-run experience doesn't surface the workflow that leads users to feature X."
 
-- **Hypothesis:** "What outcome would prove this problem is solved? Express it as a falsifiable signal — a measurable result you could observe in user behaviour or system data."
+- **Hypothesis:** Pin down the outcome that would prove the problem solved, expressed as a falsifiable signal — a measurable result observable in user behaviour or system data.
 
   Reject vague signals ("users are happier") and abstract metrics ("engagement improves"). The signal must be specific enough that a no-answer is just as informative as a yes-answer.
 
-- **Solution sketch:** "What is your high-level proposed approach? What alternatives did you consider, and what makes this one the right choice? What is the single biggest risk in the solution?"
+- **Solution sketch:** Surface the high-level proposed approach, the alternatives considered and what makes this one the right choice, and the single biggest risk in the solution.
 
   Do not design the solution at this stage — that is Design Foundations. The sketch names the approach and its key assumption.
 
-- **Appetite:** "How long is this problem worth? What scope fits inside that time boundary, and what scope must be cut to fit?"
+- **Appetite:** Establish how long the problem is worth, what scope fits inside that time boundary, and what scope must be cut to fit.
 
   Frame appetite as an opportunity-cost judgment, not an estimate. The scope adjusts to fit the appetite — the appetite does not stretch to fit the scope.
 
-- **No-gos:** "What are we explicitly not building in this bet? Name the natural extensions users would expect but that are out of scope, and explain why each one is excluded and where it belongs."
+- **No-gos:** Name what this bet is explicitly not building — the natural extensions users would expect but that are out of scope, why each one is excluded, and where it belongs.
 
   Push past vague exclusions. "No mobile" is not a no-go; "No mobile push notifications — users expect these but they do not test the core in-app visibility hypothesis; separate bet" is.
 
@@ -93,13 +91,13 @@ Once all elements are captured, draft the Pitch. Weave in the success signal ver
 
 Capture the essential Pitch elements efficiently. The user knows what they want to build — your job is to ensure the Pitch is complete and internally consistent before it becomes the input to Design Foundations.
 
-- **Problem and solution:** "What do you want to build, and what user problem does it solve?"
+- **Problem and solution:** What the user wants to build, and what user problem it solves.
 
-- **Success signal:** "How will you know this bet delivered its intended value? Give a specific, measurable outcome."
+- **Success signal:** How they will know the bet delivered its intended value — a specific, measurable outcome.
 
-- **Appetite:** "How long should this take? What is in scope within that time, and what is explicitly out?"
+- **Appetite:** How long it should take, what is in scope within that time, and what is explicitly out.
 
-- **No-gos:** "What are we not building — the natural extensions a user would expect that this bet explicitly excludes? For each, explain why it is excluded."
+- **No-gos:** What is not being built — the natural extensions a user would expect that this bet explicitly excludes, with the reason each is excluded.
 
 Before drafting, verify all elements are present and specific (falsifiable signal, no-gos with reasoning, appetite with scope boundary). Surface any gaps and fill them. Then continue to **Review and Commit** below.
 

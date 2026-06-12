@@ -36,7 +36,7 @@ Need to fetch data?
     └── Use a Route Handler
 ```
 
-The rule: **never use `useEffect` for data fetching** in the the Next.js application. All client-side data fetching goes through SWR, which provides caching, deduplication, revalidation, and focus-aware refetching out of the box.
+The rule: **never use `useEffect` for data fetching** in the Next.js application. All client-side data fetching goes through SWR, which provides caching, deduplication, revalidation, and focus-aware refetching out of the box.
 
 ---
 

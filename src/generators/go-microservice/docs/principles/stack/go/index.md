@@ -22,7 +22,7 @@ Go rewards the engineer who resists cleverness. A Go codebase that reads like th
 
 ### 2. Gateway pattern for services
 
-Every service is structured as a gateway: a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and repository interfaces (our "ports") with Postgres-backed implementations. This is hexagonal in Go idioms — flat package layout, exported interfaces, unexported concrete types.
+Every service is structured as a gateway: a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and repository interfaces (our "ports") with Postgres-backed implementations. This is hexagonal in Go idioms — packages nested under `internal/` (`internal/core/domain`, `internal/core/service`, `internal/core/gateway` for ports, `internal/provider` for adapters, `internal/entrypoints/api` for the HTTP edge) with composition roots in `cmd/`, exported interfaces, unexported concrete types.
 
 ### 3. Errors are values, and they carry context
 

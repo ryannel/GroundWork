@@ -32,7 +32,7 @@ Everything at levels 1-4 is verified by tooling. Levels 5-6 are human promises w
 
 ## Types and Zod as Documentation
 
-In the the Next.js application codebase, **TypeScript types and Zod schemas are the primary documentation layer.** They are the single source of truth for data structures — verified by the compiler and used by the runtime.
+In the Next.js application codebase, **TypeScript types and Zod schemas are the primary documentation layer.** They are the single source of truth for data structures — verified by the compiler and used by the runtime.
 
 ### TypeScript Interfaces as Documentation
 

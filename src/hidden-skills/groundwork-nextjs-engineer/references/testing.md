@@ -15,7 +15,7 @@
 
 ## Testing Philosophy
 
-Tests in the the Next.js application follow four rules:
+Tests in the Next.js application follow four rules:
 
 1. **Vitest + React Testing Library** for all component and hook tests
 2. **MSW** (Mock Service Worker) for network mocking — never mock `fetch` directly

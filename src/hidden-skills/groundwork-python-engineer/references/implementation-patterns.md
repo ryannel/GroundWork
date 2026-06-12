@@ -119,9 +119,9 @@ import tempfile, os
 @contextmanager
 def temporary_file(data: bytes, suffix: str = ".tmp"):
     """Ensures ephemeral files are always deleted after processing."""
-    path = tempfile.mktemp(suffix=suffix)
+    fd, path = tempfile.mkstemp(suffix=suffix)
     try:
-        with open(path, "wb") as f:
+        with os.fdopen(fd, "wb") as f:
             f.write(data)
         yield path
     finally:

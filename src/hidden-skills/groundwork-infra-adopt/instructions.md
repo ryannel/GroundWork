@@ -67,7 +67,7 @@ Produce two mappings and confirm both with the user before running anything (Pro
 | Generator | Run when | Notes |
 |---|---|---|
 | `workspace-dev-cli` | `./dev` does not already exist | Lays down `./dev`, `.dev/`, and a base `docker-compose.yml`. Subject to the merge guard below. Derive `--appName` from the product brief or architecture; do not ask. |
-| `system-test-runner` | no system-test harness exists | `--interfaceMedium <type>` from the surface registry — each active surface's type and test medium in `docs/surfaces.md`. A missing harness is a blocks-delivery gap — adding it is the single highest-value thing this phase does. |
+| `system-test-runner` | no system-test harness exists | `--surfaces '<JSON array of {slug, medium, reach?}>'` from the surface registry — one entry per `active` surface in `.groundwork/surfaces.json` (the machine twin of `docs/surfaces.md`, written by the architecture extract), `medium` from its `testMedium`. A missing harness is a blocks-delivery gap — adding it is the single highest-value thing this phase does. |
 | `docs-site` | opt-in, when no docs site exists | Ask the user once whether they want a Fumadocs site. Default to running it when the repo has no documentation surface. |
 
 Confirm the existing-service count against the architecture's service map before closing this phase. On a mismatch, halt: surface the disagreement to the user, ask which source is authoritative — the architecture doc or what the code shows — and append a row to `.groundwork/cache/gap-ledger.md` recording the discrepancy and its resolution before proceeding. Write the confirmed plan to the cache.
@@ -90,7 +90,7 @@ Through every phase of this skill, capture out-of-phase signals the user voices 
 
    When no `docker-compose.yml` exists, run `workspace-dev-cli` normally — there is nothing to merge.
 
-3. **Run `system-test-runner --interfaceMedium <type>`** and, if opted in, **`docs-site --name <slug>`**. Apply the same detect-and-adopt caution to any file these would overwrite.
+3. **Run `system-test-runner --surfaces '<JSON array of {slug, medium, reach?}>'`** — one entry per `active` surface in `.groundwork/surfaces.json`, `medium` from its `testMedium`, `reach` only when a surface has a static base URL or launch command the compose topology cannot discover — and, if opted in, **`docs-site --name <slug>`**. Apply the same detect-and-adopt caution to any file these would overwrite.
 
 4. **Verify nothing existing was clobbered.** Confirm the merged `docker-compose.yml` contains every previously-existing service plus the GroundWork base, and that no application source changed.
 

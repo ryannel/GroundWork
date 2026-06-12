@@ -55,7 +55,13 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 ## Activation
 
-Check `docs/bets/` for any pitch (`pitch.md`) and read its `status` frontmatter:
+Check `docs/bets/` for pitches (`<slug>/pitch.md`) and route on the pitch's `status` frontmatter.
+
+`docs/bets/` accumulates one pitch per bet, so several may exist. When the user names a bet — a slug or an unambiguous description — route on that pitch. Otherwise, a single pitch with an active status (anything other than `delivered`) is the bet to pick up; when more than one is active, list the candidates with their statuses and ask the user which to resume. Delivered pitches are the project's history, never resume candidates.
+
+- **`status: discovery`** — the pitch is committed but the bet has not entered Design Foundations. Read the pitch and proceed to Design Foundations.
+
+  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-design.md`
 
 - **`status: design`** — the MVP handoff just completed; discovery is done. Read the pitch and proceed directly to Design Foundations.
 
@@ -72,6 +78,8 @@ Check `docs/bets/` for any pitch (`pitch.md`) and read its `status` frontmatter:
 - **`status: validation`** — delivery is done; proceed to Validation.
 
   ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/05-validation.md`
+
+- **`status: delivered`** — the bet is complete; validation closed it. Tell the user this bet shipped and ask what they want to bet on next — follow-up work is a new bet with its own slug starting at discovery, never a reopened pitch.
 
 - **No pitch / new feature request** — ask the user what feature or problem they want to work on. Ensure the user provides a slug (e.g., `meeting-recording`) to use as the directory name for this bet. Then load and execute discovery.
 

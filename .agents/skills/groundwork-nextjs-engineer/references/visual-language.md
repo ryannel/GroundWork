@@ -13,7 +13,7 @@
 
 ## Colour Architecture (OKLCH)
 
-All colours in the the Next.js application are defined using the OKLCH colour space. OKLCH provides perceptually uniform lightness, which means a colour at `L=0.7` looks equally bright regardless of hue. This is superior to HSL, where "50% lightness" produces wildly different perceived brightness across hues.
+All colours in the Next.js application are defined using the OKLCH colour space. OKLCH provides perceptually uniform lightness, which means a colour at `L=0.7` looks equally bright regardless of hue. This is superior to HSL, where "50% lightness" produces wildly different perceived brightness across hues.
 
 **Hexadecimal, RGB, and HSL are strictly forbidden.**
 
@@ -79,7 +79,7 @@ This maintains a single source of truth for each colour while allowing per-compo
 
 ## Typography (Geist)
 
-The the Next.js application uses Geist as its sole typeface family, loaded via `next/font` (see `references/performance-and-deployment.md` for font loading setup).
+The Next.js application uses Geist as its sole typeface family, loaded via `next/font` (see `references/performance-and-deployment.md` for font loading setup).
 
 ### Typographic Scale
 
@@ -137,7 +137,7 @@ Only use 4px (`0.25rem`) for sub-grid adjustments — optical alignment of icons
 
 ## Bento Layout Grid
 
-The the Next.js application uses a 12-column CSS Grid for dashboard and overview layouts. Visual importance is communicated through surface area — more important items span more grid columns and rows.
+The Next.js application uses a 12-column CSS Grid for dashboard and overview layouts. Visual importance is communicated through surface area — more important items span more grid columns and rows.
 
 ```css
 .bento-grid {

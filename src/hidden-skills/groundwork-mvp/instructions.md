@@ -110,7 +110,7 @@ Mark Phase 2 complete in `mvp-cache.md`.
 
 ## Quality Standard: What the Pitch Must Contain
 
-The pitch has exactly two sections: `## The Pitch` and `## Rabbit Holes & No-Gos`. **Do not add a `## Milestones` section.** Milestones are produced later by the Decomposition phase (phase 3), after the design is locked. A pitch that lists milestones has contaminated the discovery artifact with decomposition work — the review subagent will flag this as a critical finding.
+The pitch has exactly two sections: `## The Pitch` and `## Rabbit Holes & No-Gos`. **Do not add a `## Milestones` section.** Milestones are produced later by the Decomposition phase (phase 3 of the bet lifecycle), after the design is locked. A pitch that lists milestones has contaminated the discovery artifact with decomposition work — the review subagent will flag this as a critical finding.
 
 A pitch that names features and lists milestones is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
 
@@ -178,7 +178,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 ---
 
-## Phase 4: Draft & Review
+## Phase 3: Draft & Review
 
 1. **Confirm the slug.** Before writing anything, derive a kebab-case directory slug from the bet name (e.g., bet name "Core Story Loop" → slug `core-story-loop`) and confirm it with the user in one sentence. The slug becomes the permanent directory name for this bet and every downstream artifact (`docs/bets/<slug>/pitch.md`, `docs/bets/<slug>/technical-design.md`, `docs/bets/<slug>/decomposition.md`), so a one-line confirmation prevents a rename later. Accept any slug the user proposes if they redirect.
 
@@ -190,13 +190,13 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
 
-6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. Proceed to Phase 5 only on a passing verdict and explicit approval.
+6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. Proceed to Phase 4 only on a passing verdict and explicit approval.
 
 ---
 
-## Phase 5: Commit
+## Phase 4: Commit
 
-Execute only after explicit user approval from Phase 4. Follow Protocol 3.4 of the Operating Contract.
+Execute only after explicit user approval from Phase 3. Follow Protocol 3.4 of the Operating Contract.
 
 MVP is the terminal Sequential Setup phase. Its successor — the `groundwork-bet` delivery loop — runs in **Continuous Bet** mode and does not read hand-off files (see the Lifecycle Modes section of the operating contract). MVP therefore writes **no** hand-off file: the scope reasoning that must survive into bet planning flows through the committed pitch and the discovery notes instead (step 4 below).
 

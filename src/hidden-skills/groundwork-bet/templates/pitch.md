@@ -1,6 +1,5 @@
 ---
 status: discovery
-last_reviewed: 
 surfaces: [<registry-slug>, <registry-slug>]
 ---
 

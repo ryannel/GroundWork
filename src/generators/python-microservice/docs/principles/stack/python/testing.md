@@ -116,17 +116,17 @@ async def test_transcribe_returns_structured_result(client, app, fake_transcript
 
 The key distinction: we are replacing the provider at the dependency injection boundary. The route handler, service, and validation logic all run for real. Only the external API call is substituted.
 
-**Live provider tests** (requiring real API keys) live in `tests/integration/providers/` and are gated behind `--run-integration`:
+**Live provider tests** (requiring real API keys) live in `tests/integration/providers/` and are marked `@pytest.mark.live` so they can be excluded from normal runs with pytest's `-m` flag:
 
 ```python
-@pytest.mark.integration
+@pytest.mark.live
 async def test_assemblyai_transcribes_real_audio(transcription_gateway, audio_fixture):
     result = await transcription_gateway.transcribe(audio_fixture)
     assert len(result.segments) > 0
     assert result.metadata.duration > 0
 ```
 
-Run with: `uv run pytest tests/integration --run-integration`
+Run with: `uv run pytest tests/integration -m live`
 
 ---
 
@@ -260,8 +260,8 @@ A failing test name should give an on-call engineer enough information to form a
 
 ```bash
 uv run pytest tests/unit                        # Unit tests — no infrastructure required
-uv run pytest tests/integration                 # Service tests — requires Docker
-uv run pytest tests/integration --run-integration  # Includes live API provider tests
+uv run pytest tests/integration -m "not live"   # Service tests — requires Docker; skips live APIs
+uv run pytest tests/integration -m live         # Live API provider tests — requires real keys
 uv run pytest tests/system                      # Bootstrap + golden path
 uv run pytest                                   # Everything
 ```

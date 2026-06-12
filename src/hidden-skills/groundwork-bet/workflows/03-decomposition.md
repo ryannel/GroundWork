@@ -9,7 +9,7 @@ This phase is where the bet becomes executable. Milestones define the demonstrab
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, and 4 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 Protocol 1 applies throughout: milestone and slice discussions surface signals that belong elsewhere — future-bet instincts (`## Bets`), implementation details worth preserving (`## Design Details`). Capture them in `.groundwork/cache/discovery-notes.md` as they occur, then steer back to sequencing.
 
@@ -59,7 +59,7 @@ Surface tests resolve their target through the surfaces fixture — the mapping 
 
 Discover the project's test language and service names from the scaffold — from `docs/infrastructure.md` and the generated `docker-compose.yml`. Do not hardcode a language or service name.
 
-If `./dev new milestone <bet-slug> <milestone-slug>` exists in the project (added by Workstream F), run it to scaffold the stub at the correct path. If it does not exist (e.g. the eval sandbox), write the file directly. Either way the path and naming are identical:
+If `./dev new milestone <bet-slug> <milestone-slug>` exists in the project, run it to scaffold the stub at the correct path. If it does not exist, write the file directly. Either way the path and naming are identical:
 
 ```
 tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>

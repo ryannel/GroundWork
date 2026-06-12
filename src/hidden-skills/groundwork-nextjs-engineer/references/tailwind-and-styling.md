@@ -14,7 +14,7 @@
 
 ## Tailwind v4 CSS-First Architecture
 
-Tailwind v4 eliminates the JavaScript configuration file. All customisation happens in CSS via `@theme` blocks and CSS custom properties. There is no `tailwind.config.ts` or `tailwind.config.js` in the the Next.js application.
+Tailwind v4 eliminates the JavaScript configuration file. All customisation happens in CSS via `@theme` blocks and CSS custom properties. There is no `tailwind.config.ts` or `tailwind.config.js` in the Next.js application.
 
 ### What Changed from v3
 
@@ -130,7 +130,7 @@ Do not add `autoprefixer` separately — `@tailwindcss/postcss` handles vendor p
 
 ## Dark Mode with @custom-variant
 
-The the Next.js application uses class-based dark mode. The `dark` custom variant activates when the `.dark` class is present on an ancestor element.
+The Next.js application uses class-based dark mode. The `dark` custom variant activates when the `.dark` class is present on an ancestor element.
 
 ```css
 @custom-variant dark (&:is(.dark *));
@@ -182,7 +182,7 @@ Both approaches work. Use the shorthand (`text-accent`) for theme-defined colour
 
 ## Animations with tw-animate-css
 
-The the Next.js application uses `tw-animate-css` for utility-based animations. This provides enter/exit animations without custom keyframe definitions.
+The Next.js application uses `tw-animate-css` for utility-based animations. This provides enter/exit animations without custom keyframe definitions.
 
 ```tsx
 // Fade in on mount
@@ -219,7 +219,7 @@ Animations must feel **liquid** — organic easing, not mechanical. Follow these
 
 ## Theme Tokens (Obsidian / Milk)
 
-The the Next.js application ships two themes:
+The Next.js application ships two themes:
 
 | Theme | Class | Description |
 |-------|-------|-------------|

@@ -1,6 +1,6 @@
 # Theming & Tokens — the Desktop Delta
 
-This reference covers **only what the desktop shell adds** to theming. Tailwind composition rules, styling discipline, visual language, and accessibility are the web stack's, unchanged: `groundwork-nextjs-engineer/references/tailwind-and-styling.md` and `references/visual-language.md` (or `docs/principles/stack/typescript/frontend.md` when no web surface is installed).
+This reference covers **only what the desktop shell adds** to theming. Tailwind composition rules, styling discipline, visual language, and accessibility are the web stack's, unchanged: `groundwork-nextjs-engineer/references/tailwind-and-styling.md` and `groundwork-nextjs-engineer/references/visual-language.md` (or `docs/principles/stack/typescript/frontend.md` when no web surface is installed).
 
 ## Table of Contents
 - [The Projection Chain](#the-projection-chain)

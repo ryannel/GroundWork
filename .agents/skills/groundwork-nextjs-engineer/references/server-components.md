@@ -14,7 +14,7 @@
 
 ## RSC by Default
 
-Every component in the the Next.js application is a React Server Component unless explicitly marked otherwise. Server Components run on the server, have zero client-side JavaScript overhead, and can directly fetch data, read cookies, and access server-only resources.
+Every component in the Next.js application is a React Server Component unless explicitly marked otherwise. Server Components run on the server, have zero client-side JavaScript overhead, and can directly fetch data, read cookies, and access server-only resources.
 
 Add the `"use client"` directive only when the component strictly requires:
 - React hooks (`useState`, `useEffect`, `useRef`, `useContext`, etc.)

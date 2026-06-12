@@ -211,6 +211,61 @@ sweep over the 0.9.0 surface.
 - The in-repo `BMAD/` reference clone (the analysis it informed is committed; the clone lives
   outside the repo). Stale `main` field in package.json and stale `.npmignore` entries.
 
+### Fixed (full-corpus skill audit, 2026-06-12)
+
+Every SKILL.md, instructions file, template, and checklist in the shipped corpus was
+read and ~1,076 cross-references mechanically verified; the findings ledger executed:
+
+- **Security**: `package.json` gains a `files` allowlist — a local `npm pack` previously
+  shipped the repo's `.env` (live API keys), `.nx/` caches, and stray workspaces
+  (2,832 files → 482). The CI release path was never affected. [no-migration]
+- **Sandbox leak scrubbed from the Next.js engineer skill**: 12 live `wordloop.app`/
+  cloudinary identifiers replaced with generic hosts, 14 "the the Next.js application"
+  find/replace artifacts repaired across 8 reference files, and an invalid
+  attribute-position JSX comment fixed in `mutations-and-forms.md`. [no-migration]
+- **infra-adopt joins the multi-surface seam**: Phase 2 now runs
+  `system-test-runner --surfaces` from `.groundwork/surfaces.json` instead of the
+  deprecated single-surface `--interfaceMedium` alias — brownfield always has a
+  registry by then, and the alias produced a fixture-less harness plus false
+  groundwork-check warnings. [no-migration]
+- **Broken shipped paths**: scaffold Phase 2's missing-skill fallback pointed at the
+  repo-internal `src/hidden-skills/` (now `.agents/groundwork/skills/`);
+  groundwork-writer's document-type table caught up with the canon
+  (`docs/services/<service>.md`, `docs/decisions/`, `docs/api/<service>.md`, root
+  `llms.txt`, new Domain Entity row). [no-migration]
+- **Engineer-skill contract drift**: Go validation responses unified on 422 across
+  SKILL.md, `api-design.md`, and `http-handlers.md` (matching the Python skill and
+  huma's default); the insecure `tempfile.mktemp` exemplar (CWE-377) replaced with
+  `mkstemp`; the "flat package layout" claim corrected to the nested `internal/`
+  layout the generator actually scaffolds (fixed in the pinned principle and
+  re-anchored); the phantom `--run-integration` pytest flag replaced with real
+  `-m live` marker selection. [no-migration]
+- **Protocol-list drift**: all bet workflow headers now carry the contract's
+  Continuous Bet set (Protocols 1, 2, 4, 8, 9); the contract's Maintenance mode
+  gains `groundwork-upgrade`; update/upgrade headers name Protocol 9. [no-migration]
+- **Bet activation**: routes added for `status: discovery` (resume into design) and
+  `status: delivered` (terminal — next work is a new bet), plus multi-pitch
+  disambiguation when several active pitches exist. [no-migration]
+- **Scan digest schema**: four new fields (`inferred_users`, `licensing_signals`,
+  `theme_framework`, `interaction_a11y`) and routing so the brownfield extracts'
+  findings-template sections (Inferred Users, Licensing, Product Surface, Theme &
+  Framework, Interaction/A11y) are actually populated by the scan. [no-migration]
+- **Governance (repo-side)**: engineer-skill mirror rule documented (canon =
+  `src/hidden-skills/`, `.agents/skills/` copies are read-only) and enforced by two
+  new gates in `./dev test contracts` (mirror byte-identity + sync-anchor hash
+  verification — the anchors' "CI verifies" claim is now true); CLAUDE.md routes Go
+  work to `groundwork-go-engineer` (was the vendored `golang-pro`) and gains a Python
+  route; `skills-lock.json` hashes recomputed against the vendored files with the
+  recipe documented; the contributor guide's repo map lists all eight dev skills and
+  its phantom `./dev check contracts` reference now names the real conformance path.
+- **Minors**: MVP phases renumbered contiguously (1–4); maturity prose reconciled
+  with its four-row table (`n/a` is a precondition marker, not a state); `dormant`
+  surfaces keep their recorded `testMedium` (exercised only while `active`); three
+  electron cross-skill reference paths qualified; "Workstream F" plan leak removed
+  from bet decomposition; scripted discovery questions converted to intent; dead
+  `last_reviewed` dropped from the pitch template; groundwork-check's dimension
+  range updated for D8/D9. [no-migration]
+
 ## [0.9.0] - 2026-06-09
 
 First tracked release. GroundWork adopts semver from `0.x` honestly — the framework is

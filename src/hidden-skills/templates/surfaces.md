@@ -200,7 +200,7 @@ Written and updated in the same commit as `docs/surfaces.md` — the two never d
 
 - `core.deployment` — `"hosted"` or `"embedded"`. `core.contractFormat` — `"openapi"`, `"asyncapi"`, `"proto"`, or `"typed-module-api"`; a core with several boundary kinds lists the dominant one and the prose section carries the rest.
 - `surfaces[].slug` is the join key everywhere: ledger cells, test fixtures (`surfaces["web-app"]`), pitch `surfaces:` frontmatter, decomposition slice `surface` fields. Slugs are kebab-case and never renamed — rename means retire + add.
-- `surfaces[].testMedium` is `null` only for `planned` and `retired` surfaces; an `active` surface without a test medium is a `groundwork-check` finding.
+- `surfaces[].testMedium` is `null` only for `planned` and `retired` surfaces; a `dormant` surface keeps its medium — recorded so reactivation knows the fixture family, exercised only while the surface is `active`; an `active` surface without a test medium is a `groundwork-check` finding.
 - `capabilities[].cells` carries one entry per registry surface (including retired ones — frozen history or auto-`n/a` per the retired-column rule). A missing cell key is the machine form of the illegal empty cell.
 - Cell payloads: `delivered` requires `bet`; `planned` requires `ref` (a bet slug or `discovery-notes` pointer); `omitted` requires `rationale`; `n/a` carries no payload.
 - **Versioned contract.** `version` bumps only when the shape changes. Consumers ignore unknown fields. Keep changes additive.

@@ -88,7 +88,7 @@ Once two or more surfaces deploy independently — a web app ships continuously 
 
 ## Assessment levels
 
-Each dimension is assessed as one of three states, always with evidence:
+Each dimension is assessed as one of three states — or recorded `n/a` when its precondition does not hold — always with evidence:
 
 | State | Meaning |
 |---|---|

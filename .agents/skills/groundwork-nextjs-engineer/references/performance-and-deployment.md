@@ -45,7 +45,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api.wordloop.app',
+        hostname: 'api.example.com',
         pathname: '/v1/media/**',
       },
       {
@@ -59,7 +59,7 @@ const nextConfig = {
 
 ```tsx
 <Image
-  src={`https://api.wordloop.app/v1/media/${imageId}`}
+  src={`https://api.example.com/v1/media/${imageId}`}
   alt={imageAlt}
   width={800}
   height={450}
@@ -128,7 +128,7 @@ export default function cloudinaryLoader({
   src, width, quality,
 }: { src: string; width: number; quality?: number }) {
   const params = ['f_auto', 'c_limit', `w_${width}`, `q_${quality ?? 'auto'}`];
-  return `https://res.cloudinary.com/wordloop/image/upload/${params.join(',')}${src}`;
+  return `https://res.cloudinary.com/example/image/upload/${params.join(',')}${src}`;
 }
 ```
 
@@ -462,10 +462,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    default: 'WordLoop',
-    template: '%s | WordLoop',  // Child pages: "Meetings | WordLoop"
+    default: 'Example App',
+    template: '%s | Example App',  // Child pages: "Meetings | Example App"
   },
-  description: 'AI-powered meeting intelligence platform',
+  description: 'Meeting management for modern teams',
 };
 ```
 
@@ -560,7 +560,7 @@ export default function OGImage() {
         fontSize: 64,
         fontWeight: 700,
       }}>
-        WordLoop
+        Example App
       </div>
     ),
     { ...size }
@@ -582,7 +582,7 @@ export default async function OGImage() {
   const fontData = await readFile(fontPath);
 
   return new ImageResponse(
-    (<div style={{ fontFamily: 'Geist', fontSize: 64 }}>WordLoop</div>),
+    (<div style={{ fontFamily: 'Geist', fontSize: 64 }}>Example App</div>),
     {
       width: 1200,
       height: 630,
@@ -637,7 +637,7 @@ export default async function sitemap({
   const meetings = await getMeetings(start, end);
 
   return meetings.map(meeting => ({
-    url: `https://wordloop.app/meetings/${meeting.id}`,
+    url: `https://example.com/meetings/${meeting.id}`,
     lastModified: meeting.updated_at,
   }));
 }
@@ -684,7 +684,7 @@ DATABASE_URL=postgres://...
 API_SECRET_KEY=sk-xxx
 
 # Public — embedded in client bundle
-NEXT_PUBLIC_API_URL=https://api.wordloop.app
+NEXT_PUBLIC_API_URL=https://api.example.com
 NEXT_PUBLIC_POSTHOG_KEY=phc_xxx
 ```
 
@@ -742,7 +742,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=https://api.wordloop.app
+      - NEXT_PUBLIC_API_URL=https://api.example.com
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 30s

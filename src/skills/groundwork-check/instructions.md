@@ -47,9 +47,9 @@ Path-filtered git history misses drift by construction: a contract doc goes stal
 
 ## Step 3: Maturity re-assessment
 
-If `docs/maturity.md` exists, re-evaluate the mechanical signals of the maturity model (`.agents/groundwork/skills/maturity-model.md`, dimensions D1–D6 — D7 is judgement-based and out of scope for a check run):
+If `docs/maturity.md` exists, re-evaluate the mechanical signals of the maturity model (`.agents/groundwork/skills/maturity-model.md`, dimensions D1–D6 plus D8's registry and ledger signals — D7 is judgement-based and D9 is re-assessed by bet validation, so both are out of scope for a check run):
 
-- For each assessment row, test its signal now: do the canonical docs exist with summaries (D1)? does each service have a referenced contract (D2)? does `./dev` exist (D3)? is the system-test runner present (D4)? is depwire registered with a code map (D5)? does CI invoke the check (D6)?
+- For each assessment row, test its signal now: do the canonical docs exist with summaries (D1)? does each service have a referenced contract (D2)? does `./dev` exist (D3)? is the system-test runner present (D4)? is depwire registered with a code map (D5)? does CI invoke the check (D6)? do the registry twins agree with every ledger cell filled (D8 — `n/a` when no registry exists)?
 - Flag every **disagreement** between observed state and the doc: a dimension marked ✅ whose signal now fails (regression — critical), a roadmap row `closed` whose gap is observably back (critical), and a row `open` whose signal now passes (good news — propose closing it via `groundwork-update`).
 - Rows marked `accepted` are settled; verify nothing, report nothing, unless the underlying severity escalated to `blocks-delivery`.
 

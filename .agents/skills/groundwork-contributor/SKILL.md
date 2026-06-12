@@ -61,7 +61,12 @@ groundWork/
 │   └── skills/
 │       ├── groundwork-contributor/    ← This skill. Always loaded in this repo.
 │       ├── skill-writer/              ← How to write skill instructions. Dev-only, not shipped.
-│       └── skill-creator/             ← Anthropic skill creation workflow.
+│       ├── skill-creator/             ← Anthropic skill creation workflow (vendored; tracked in skills-lock.json).
+│       ├── scaffold-designer/         ← How to design new Nx generators for this repo.
+│       ├── golang-pro/                ← Vendored general Go skill (tracked in skills-lock.json). Routing prefers the go-engineer mirror.
+│       ├── groundwork-go-engineer/    ← Read-only mirror of src/hidden-skills/groundwork-go-engineer (see Engineer-skill mirrors).
+│       ├── groundwork-python-engineer/← Read-only mirror of src/hidden-skills/groundwork-python-engineer.
+│       └── groundwork-nextjs-engineer/← Read-only mirror of src/hidden-skills/groundwork-nextjs-engineer.
 │
 ├── docs/                      ← GroundWork's own framework documentation. NOT output from running GroundWork on this repo.
 │   ├── lifecycle/             → The user-facing methodology reference: setup, delivery loop, maintenance.
@@ -162,6 +167,18 @@ for any new methodology skill (product-brief, setup, bet, design-system, etc.).
 The orchestrator's routing table lives directly in `src/skills/groundwork-orchestrator/SKILL.md`.
 When adding a new methodology skill, add a row to the Skill Paths table there.
 
+### Engineer-skill mirrors
+
+The three engineer skills (`groundwork-go-engineer`, `groundwork-python-engineer`,
+`groundwork-nextjs-engineer`) exist twice in this repo: the **canon** in
+`src/hidden-skills/` (what ships to users) and a copy in `.agents/skills/` so the same
+expertise is available while working on this repo itself. The mirror is read-only —
+edit the canon, then copy it over the mirror (`rsync -a --delete src/hidden-skills/<skill>/ .agents/skills/<skill>/`).
+This is the one place where the "`.agents/` is authoritative" rule inverts. Two gates in
+`./dev test contracts` (`tests/scaffolds/test_skill_sync.py`) enforce it: mirrors must be
+byte-identical to canon, and every `sync-anchor.md` hash must match its pinned principle
+file — so a principle edit forces a skill review in the same commit.
+
 ---
 
 ## File Storage Convention
@@ -221,10 +238,10 @@ The phases communicate through shared artifacts and identifiers. Each is written
 
 | Artifact / identifier | Written by | Read by |
 |---|---|---|
-| `interface_type` → the interface track recorded in `docs/design-system.md` | design-system Step 2 (greenfield); design-system-extract Stage 1 (brownfield) | design-system track loader; scaffold Phase 1 (`--interfaceMedium` → system-test-runner deps + fixtures); bet design + bet-progress-test templates (vocabulary, test medium) |
+| `interface_type` → the interface track recorded in `docs/design-system.md` | design-system Step 2 (greenfield); design-system-extract Stage 1 (brownfield) | design-system track loader; scaffold Phase 1 / infra-adopt Phase 2 (surface registry → system-test-runner `--surfaces` deps + fixtures); bet design + bet-progress-test templates (vocabulary, test medium) |
 | Pitch `status` frontmatter (`docs/bets/<slug>/pitch.md`) | each bet workflow on phase entry | bet activation routing; orchestrator state reconciliation; groundwork-check |
 | `docs/bets/<slug>/contracts/` spec files | bet 02-design Step 2.2 | 03-decomposition (test shapes); 04-delivery (derived clients); 05-validation (verification + promotion) |
-| `docs/api/<service>/` canonical specs | 05-validation Step 2.5 promotion | contract-conformance tests; `./dev check contracts`; groundwork-check |
+| `docs/api/<service>/` canonical specs | 05-validation Step 2.5 promotion | the generated contract-conformance system tests (run by the project's `./dev test`); groundwork-check |
 | `.groundwork/bets/<slug>/decomposition.json` | 03-decomposition Step 6.5; 04-delivery slice loop (status fields only) | `./dev bet status`; resumed delivery sessions; 05-validation retrospective |
 | `.groundwork/bets/<slug>/test-manifest.json` | the seal at Proof of Work; amendments (`--amend`) | `./dev test bet` tamper check; 05-validation |
 | `.groundwork/config/brand-tokens.json` | design-system commit (every track) | scaffold → `workspace-dev-cli` theming (`.dev/dev.config.json`) |
@@ -643,7 +660,7 @@ output file. Example:
 | Design System | ✅ Stage 5 compilation |
 | Architecture | ✅ Phase 6 draft |
 | Scaffold | ✅ Phase 4 draft |
-| MVP Planning | ✅ Phase 4 draft |
+| MVP Planning | ✅ Phase 3 draft |
 | Bet | ✅ Core directives |
 | Update | ✅ Top-level mandate |
 | Surface Activation | ✅ Top-level mandate |

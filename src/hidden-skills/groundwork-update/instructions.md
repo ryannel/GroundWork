@@ -19,7 +19,7 @@ Apply the `groundwork-writer` skill when modifying any document. Updates must pr
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), 4 (Pacing), and 8 (Review Gate) apply. There is no phase cache, no hand-off file, and no fresh-context recommendation — a maintenance run starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md` and `repo-map.json`.
+The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), 4 (Pacing), 8 (Review Gate), and 9 (Review Invocation) apply. There is no phase cache, no hand-off file, and no fresh-context recommendation — a maintenance run starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md` and `repo-map.json`.
 
 ---
 

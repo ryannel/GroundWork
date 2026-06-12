@@ -14,7 +14,7 @@
 
 ## Operational layer plan
 
-<!-- Which infra generators to run: workspace-dev-cli (if ./dev absent), system-test-runner (--interfaceMedium), docs-site (opt-in). -->
+<!-- Which infra generators to run: workspace-dev-cli (if ./dev absent), system-test-runner (--surfaces from .groundwork/surfaces.json), docs-site (opt-in). -->
 
 ## Compose merge
 

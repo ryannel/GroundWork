@@ -75,10 +75,11 @@ Each document type has a defined purpose. Write only what belongs in each.
 |---|---|---|
 | **Index** (`index.md`) | Entry point. Lists services, links to each. | `docs/` |
 | **Product Brief** | North star vision. Drives design system, architecture, and every downstream story. | `docs/product-brief.md` |
-| **Service Doc** | Tech stack, contracts, patterns for one service. | `docs/<service>/` |
-| **Data Flow** | Cross-service event chains and operation sequences. | `docs/architecture/` |
-| **ADR** | Append-only record of a hard-to-reverse decision. | `docs/architecture/decisions/` |
-| **API Contract** | OpenAPI/AsyncAPI rendered from source. Never hand-written. | `docs/<service>/api.md` |
+| **Service Doc** | Tech stack, contracts, patterns for one service. | `docs/services/<service>.md` |
+| **Data Flow** | Cross-service event chains and operation sequences. | `docs/architecture.md` (its cross-service sections) |
+| **ADR** | Append-only record of a hard-to-reverse decision. | `docs/decisions/` |
+| **API Contract** | OpenAPI/AsyncAPI rendered from source. Never hand-written. | `docs/api/<service>.md` |
+| **Domain Entity** | One owned noun: fields, lifecycle states, owning service, emitted events. | `docs/domain/<entity>.md` |
 
 ### Product Brief Quality Gates
 
@@ -161,7 +162,7 @@ GroundWork documentation is part of the agent's runtime environment.
 
 ### llms.txt
 
-Every new canonical document must be referenced in `docs/llms.txt` — the agent discovery index. If a document is not listed, agents will not find it. Append a one-line summary after creating any new doc:
+Every new canonical document must be referenced in `llms.txt` at the project root — the agent discovery index. If a document is not listed, agents will not find it. Append a one-line summary after creating any new doc:
 
 ```
 /docs/<path>.md — <one sentence describing what the document covers>

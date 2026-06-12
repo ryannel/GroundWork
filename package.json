@@ -5,6 +5,14 @@
   "bin": {
     "groundwork": "./bin/groundwork.js"
   },
+  "files": [
+    "bin/",
+    "src/",
+    "dist/",
+    "migrations/",
+    "generators.json",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:dev-cli && tsc",
