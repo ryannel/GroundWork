@@ -179,6 +179,30 @@ This is the one place where the "`.agents/` is authoritative" rule inverts. Two 
 byte-identical to canon, and every `sync-anchor.md` hash must match its pinned principle
 file — so a principle edit forces a skill review in the same commit.
 
+### Engineer-skill families
+
+The five engineer skills follow two deliberate SKILL.md templates, split by what the
+agent is wired into:
+
+| Family | Skills | Section spine |
+|---|---|---|
+| **Backend** | go-engineer, python-engineer | Operating Contract → Required First Checks → Context Routing → Skill Handoffs → Execution Checklist → Safety Gates → Quick Reference → Output Expectations |
+| **Surface** | nextjs-, flutter-, electron-engineer | Operating Contract → Core Pillars → How to Use This Skill → Task Routing → Safety Gates → Hallucination Controls → Output Expectations → Antipatterns |
+
+The split is intentional: backend skills front-load contract checks and hand-offs
+because their work is gated by specs and sibling services; surface skills front-load
+pillars and hallucination controls because their failure mode is plausible-but-wrong
+UI idiom. When writing a new engineer skill, copy the newest sibling **from the same
+family** — not whichever skill you found first.
+
+### Vendored skills
+
+Skills sourced from outside this repo (`golang-pro`, `skill-creator`) are tracked in
+`skills-lock.json` with the SHA-256 of the locally accepted file. They keep their
+upstream voice — do not restyle them to the skill-writer standard; a diff against
+upstream should show deliberate changes only. When you do change one deliberately,
+recompute its hash in the lock (the recipe is documented in the file).
+
 ---
 
 ## File Storage Convention

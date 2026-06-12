@@ -43,6 +43,8 @@ After reading the document, load `.agents/groundwork/skills/groundwork-review/ch
 
 If the checklist file is missing, proceed with the generic checks alone — its absence is not an error.
 
+One checklist deliberately sits outside the `document_type` enum: `checklists/implementation-readiness.md` is the delivery workflow's inline gate, applied directly by the bet skill before the first slice — it never routes through this review and must not be added as a `document_type`.
+
 Checklist findings flow through the same output contract below: the item's 🔴/🟡 marking sets the finding's severity, the verdict rules apply unchanged, and the length discipline holds — cite item names, not item text.
 
 ---
@@ -117,7 +119,7 @@ Every document after the first inherits commitments from the documents that came
 The chain is:
 
 ```
-product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design
+product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design → decomposition
 ```
 
 **`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.agents/groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.

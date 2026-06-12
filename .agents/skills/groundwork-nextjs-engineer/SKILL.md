@@ -15,13 +15,13 @@ description: >
 
 Frontend execution engineer for Next.js applications. This skill guides implementation within the Next.js App Router architecture — server-first rendering, type-safe data boundaries, accessible UI, and a cohesive visual system.
 
-
 ## Operating Contract
 
 1. Locate the architectural layer before editing. Server Components, Client Components, Server Actions, hooks, and lib modules each have distinct responsibilities.
-2. Prefer Server Components by default. Client Components are for state, events, or browser APIs — not just convenience.
-3. Route durable frontend policy to canonical docs instead of duplicating it in the skill.
-4. Verify types, accessibility, theme behavior, and data-fetching boundaries before declaring work complete.
+2. The capability core owns business logic. The web surface is wired to it through typed fetchers and Server Actions at validated data boundaries — never re-implement a rule the core's contract already proves.
+3. Prefer Server Components by default. Client Components are for state, events, or browser APIs — not just convenience.
+4. Route durable frontend policy to the canonical docs (`docs/principles/stack/typescript/frontend.md`) instead of duplicating it in code comments or this skill.
+5. Verify types, accessibility, theme behavior, and data-fetching boundaries before declaring work complete.
 
 ## Core Pillars
 
@@ -31,8 +31,7 @@ Frontend execution engineer for Next.js applications. This skill guides implemen
 
 3. **Accessible by Default** — Accessibility is a design constraint, not a post-hoc audit. Semantic HTML, ARIA attributes, keyboard navigation, focus management, color contrast, and screen reader testing are part of every feature, not a separate checklist. Inaccessible UI is a bug.
 
-4. **Cohesive Visual System** — The project uses a design token system (often with Tailwind CSS). Colors, spacing, typography, and elevation should follow the project's design guide. Hardcoded values bypass the system and create visual debt. Every visual decision should trace back to a design token or an explicit deviation.
-
+4. **Cohesive Visual System** — The project uses a design token system projected through Tailwind CSS. Colors, spacing, typography, and elevation follow the project's design guide. Hardcoded values bypass the system and create visual debt. Every visual decision traces back to a design token or an explicit deviation.
 
 5. **Optimistic, Resilient UI** — Mutations use optimistic updates with proper rollback. Error boundaries catch failures gracefully. Loading states are intentional, not afterthoughts. The UI should feel responsive even when the network isn't.
 
@@ -58,10 +57,10 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 
 ## Task Routing
 
-- **Data fetching or mutations** → Read app implementation and frontend principle. Verify server/client boundary.
-- **UI/design work** → Read design guide and UX guide. Check design tokens for colors and spacing.
-- **Routing/modal work** → Read app architecture. Check existing route conventions.
-- **Real-time UI** → Read real-time principle and event references. Load `references/data-fetching.md` for streaming patterns.
+- **Data fetching or mutations** → Load `references/data-fetching.md` and `references/mutations-and-forms.md`. Verify the server/client boundary.
+- **UI/design work** → Load `references/visual-language.md` and `references/ux-principles.md`. Check design tokens for colors and spacing.
+- **Routing/modal work** → Load `references/routing-and-navigation.md` and `references/architecture.md`. Check existing route conventions.
+- **Real-time UI** → Load `references/data-fetching.md` for streaming and revalidation patterns and `references/server-components.md` for the streaming boundary.
 - **Form work** → Load `references/mutations-and-forms.md`. Verify Zod schema patterns.
 - **Styling/theming** → Load `references/tailwind-and-styling.md` and `references/visual-language.md`. Check design guide.
 - **Performance issues** → Load `references/performance-and-deployment.md`. Profile before optimizing.
@@ -72,7 +71,7 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 - Do not introduce hardcoded colors, spacing, or font sizes. Check the design guide or design tokens.
 - Do not invent framework versions or API assumptions; verify `package.json`.
 - Do not add `"use client"` to a component without confirming it needs browser APIs or interactive state.
-- Run app tests and lint where applicable.
+- Run typecheck, lint, and the app's tests where the toolchain is available; report a tier as skipped-with-reason (never silently green) where it is not.
 
 ## Hallucination Controls
 

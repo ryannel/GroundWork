@@ -46,8 +46,8 @@ Route each field into the findings file its downstream consumer reads. A field c
 | `design_tokens`, `ui_components` | `scan/design-findings.md` → Design Tokens, Component Library |
 | `theme_framework` | `scan/design-findings.md` → Theme & Framework |
 | `interaction_a11y` | `scan/design-findings.md` → Interaction & Accessibility Signals |
-| `interface_type` | `scan/product-findings.md` → Product Surface; `scan/design-findings.md` → Interface Surfaces; `scan/architecture-findings.md` → Service Map (Surface column) |
-| `purpose`, `entry_points`, `exported_surface` | `scan/architecture-findings.md` → Service Map, Entry Points |
+| `interface_type` | `scan/product-findings.md` → Product Surface; `scan/design-findings.md` → Interface Surfaces; `scan/architecture-findings.md` → Service / Partition Map (Surface column) |
+| `purpose`, `entry_points`, `exported_surface` | `scan/architecture-findings.md` → Service / Partition Map, Entry Points |
 | `external_contracts` | `scan/architecture-findings.md` → External Contracts |
 | `data_models`, `persistence` | `scan/architecture-findings.md` → Data Models & Persistence |
 | `dependencies` | `scan/architecture-findings.md` → Dependencies |

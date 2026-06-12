@@ -265,6 +265,21 @@ read and ~1,076 cross-references mechanically verified; the findings ledger exec
   from bet decomposition; scripted discovery questions converted to intent; dead
   `last_reviewed` dropped from the pitch template; groundwork-check's dimension
   range updated for D8/D9. [no-migration]
+- **Audit backlog sweep** (second pass, same day): the Next.js engineer SKILL.md
+  rejoined its family template (capability-core clause, named principle path, real
+  reference files behind every Task Routing entry, hedge-free safety gates); sandbox
+  `Story*` identifiers generalized out of the Python database reference; Python DI
+  exemplar re-typed against the gateway Protocol; idempotency-key scope unified on
+  POST/PATCH with PUT's HTTP-semantics exemption stated; stale Go 1.22 loop-var
+  idiom removed and the provider-boundary `%v` wrap given its rationale; snapshot
+  testing scoped to genuinely opaque artefacts (matching the Go rule); electron's
+  sync-anchor now pins its `typescript/frontend.md` deferral target; the review
+  skill documents `implementation-readiness.md` as deliberately outside the
+  `document_type` enum and its upstream chain includes `decomposition`; digest
+  routing labels exact-match the `## Service / Partition Map` header; the engineer
+  two-family SKILL.md split and the vendored-skill style policy are now recorded in
+  the contributor guide; scaffold-designer's checklists carry a summaries-not-canon
+  caveat and its stale `workspace.json` claim is gone. [no-migration]
 
 ## [0.9.0] - 2026-06-09
 

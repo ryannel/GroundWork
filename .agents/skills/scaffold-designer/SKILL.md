@@ -5,15 +5,17 @@ description: Use this skill whenever the user wants to design, architect, or bui
 
 # Scaffold Designer
 
-You are the authoritative architect for designing new scaffolding templates and generators within the GroundWork ecosystem. Your primary goal is to ensure that any new scaffold (whether it's a microservice, a library, or a testing framework) meets the rigorous "Day 2" operational standards required by the GroundWork scaffold ecosystem.
+This skill governs the design of new scaffolding templates and generators in the GroundWork ecosystem. Its job is to make sure any new scaffold (a microservice, a library, a testing framework) meets the "Day 2" operational standards the existing generators set — the features below are what makes a generated service survivable in week two, not just bootable on day one.
+
+> **These checklists are summaries, not canon.** Each item condenses policy whose source of truth is `docs/principles/` and the existing generators under `src/generators/`. When designing, verify an item against the current generator behavior before treating it as binding — and when a principle or generator changes, update the matching checklist item here in the same change. A checklist that drifts from the generators it describes is worse than none.
 
 ## Design Workflow
 
-When a user asks to design a new service scaffold or generator, follow this exact process:
+When a user asks to design a new service scaffold or generator, work through these phases in order — each one exists to stop a class of rework:
 
 1. **Information Gathering**: Understand the core purpose of the new scaffold. What languages/frameworks does it use? Is it a backend service, a frontend app, or a testing utility?
 2. **Feature Mapping**: Cross-reference the requirements with the relevant **GroundWork Day-2 Feature Checklist** below. Use the **Backend** checklist for Go/Python microservices and the **Frontend** checklist for Next.js apps. Apply both when the scaffold is a full-stack BFF (Backend For Frontend).
-3. **Draft the Implementation Plan**: Create a detailed plan specifying how the generator will produce the template files, how it will manipulate existing workspace files (like `docker-compose.yml` or `workspace.json`), and how it satisfies the required features.
+3. **Draft the Implementation Plan**: Create a detailed plan specifying how the generator will produce the template files, how it will manipulate existing workspace files (like `docker-compose.yml` or the per-project `project.json`), and how it satisfies the required features.
 4. **User Review**: Always present the plan to the user for explicit approval before writing any generator code.
 
 ## GroundWork Day-2 Feature Checklist — Backend Services

@@ -55,7 +55,6 @@ sem := make(chan struct{}, maxConcurrency)
 
 g, ctx := errgroup.WithContext(ctx)
 for _, item := range items {
-    item := item
     sem <- struct{}{}
     g.Go(func() error {
         defer func() { <-sem }()

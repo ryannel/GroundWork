@@ -9,6 +9,7 @@
 - [Modal Pattern](#modal-pattern)
 - [Navigation Hooks](#navigation-hooks)
 - [Suspense Boundaries for Hooks](#suspense-boundaries-for-hooks)
+- [Static Route Pre-rendering](#static-route-pre-rendering)
 - [Link Component](#link-component)
 
 ---

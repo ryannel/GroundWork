@@ -278,13 +278,12 @@ Always include `(username)` and issue reference.
 
 ## Service README Template
 
+The app lives inside the workspace monorepo, so its README is a lean orientation page — purpose, how to run it, configuration — not a standalone open-source front door. No clone instructions, badges, or license stanza.
+
 ```markdown
 # [App Name]
 
 One-sentence description of what this frontend does.
-
-[![CI](badge-url)](ci-url)
-[![Coverage](badge-url)](coverage-url)
 
 ## Architecture
 
@@ -300,9 +299,8 @@ Pages (app/)
 ## Quick Start
 
 \```bash
-git clone https://github.com/org/[app].git && cd [app]
 cp .env.example .env.local
-pnpm install && pnpm dev
+./dev start
 \```
 
 App: `http://localhost:3000`
@@ -317,12 +315,10 @@ App: `http://localhost:3000`
 ## Testing
 
 \```bash
-pnpm test              # All tests
-pnpm test -- --watch   # Watch mode
-pnpm test -- --coverage
+./dev test
 \```
 
-## License
+## Further Reading
 
-[MIT](LICENSE)
+Durable architecture and policy live in `docs/` — this README covers only how to run the app.
 ```

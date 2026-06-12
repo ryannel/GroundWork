@@ -1,10 +1,10 @@
 {
-  "skill_name": "groundwork-scaffold-designer",
+  "skill_name": "scaffold-designer",
   "evals": [
     {
       "id": 1,
       "prompt": "I need to build a new Nx generator for a Python FastAPI microservice. Can you help me design the scaffold?",
-      "expected_output": "The agent should apply the GroundWork Day-2 Feature Checklist, asking the user how Python equivalents for things like Cenkalti backoff, OTel, and Idempotency will be handled.",
+      "expected_output": "The agent should apply the GroundWork Day-2 Feature Checklist (Backend), asking the user how the Python service will satisfy outbound resiliency (exponential backoff and circuit breakers, e.g. tenacity), OpenTelemetry instrumentation, and Idempotency-Key handling.",
       "files": []
     },
     {

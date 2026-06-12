@@ -33,19 +33,19 @@ Inject the `AsyncSession` into concrete Providers. **Never pass the session into
 
 ```python
 from fastapi import Depends
-from myservice.core.gateways import StoryGateway
-from myservice.providers.postgres.story_repo import PostgresStoryRepository
+from myservice.core.gateways import OrderGateway
+from myservice.providers.postgres.order_repo import PostgresOrderRepository
 
-def get_story_gateway(
+def get_order_gateway(
     session: AsyncSession = Depends(get_db_session)
-) -> StoryGateway:
-    # PostgresStoryRepository implements StoryGateway
-    return PostgresStoryRepository(session=session)
+) -> OrderGateway:
+    # PostgresOrderRepository implements OrderGateway
+    return PostgresOrderRepository(session=session)
 
-def get_story_service(
-    gateway: StoryGateway = Depends(get_story_gateway)
-) -> StoryService:
-    return StoryService(gateway=gateway)
+def get_order_service(
+    gateway: OrderGateway = Depends(get_order_gateway)
+) -> OrderService:
+    return OrderService(gateway=gateway)
 ```
 
 ## 3. Transaction Boundaries
@@ -66,7 +66,7 @@ from sqlalchemy import text
 @pytest.fixture(autouse=True)
 async def clear_database(db_session: AsyncSession):
     """Truncates all tables between tests."""
-    await db_session.execute(text("TRUNCATE TABLE stories, users CASCADE;"))
+    await db_session.execute(text("TRUNCATE TABLE orders, users CASCADE;"))
     await db_session.commit()
 ```
 

@@ -4,7 +4,7 @@ Every Python service must expose a hardened, predictable API surface. Implement 
 
 ## 1. Idempotency
 
-Mutating endpoints (`POST`, `PATCH`, `PUT`) must be idempotent to allow safe client retries.
+Mutating endpoints (`POST`, `PATCH`) must be idempotent to allow safe client retries; `PUT` is idempotent by HTTP semantics and needs no key.
 
 - Require an `Idempotency-Key` header on mutating requests.
 - Intercept the key in middleware or a FastAPI dependency before business logic executes.

@@ -11,3 +11,4 @@ hashes match.
 | src/generators/electron-app/docs/principles/stack/electron/ipc-contracts.md | 11d728db5d33c0c9cb3a082a58a55c96d6195f61558ca38fae91806db72da9e3 | 2026-06-12 |
 | src/generators/electron-app/docs/principles/stack/electron/security.md | 316c118dcfb6de110d3d62b8a4c95ca79b58f5368e1b41881cd842628b3902f8 | 2026-06-12 |
 | src/generators/electron-app/docs/principles/stack/electron/packaging-and-updates.md | b5f91ed102290dd73e52890fd389bce5be825a3d76a0f0353673cfe32ae09871 | 2026-06-12 |
+| src/generators/electron-app/docs/principles/stack/typescript/frontend.md | 98232d067ad03c08d6c1ca5f2caec30e7c3400da55c3afb7754482bc121d7554 | 2026-06-12 |

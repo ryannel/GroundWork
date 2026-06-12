@@ -54,6 +54,8 @@ func (r *PostgresStore) Get(ctx context.Context, id string) (*domain.Entity, err
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("provider execution failed: %w", domain.ErrNotFound)
 		}
+		// %v, not %w: unexpected driver errors stay opaque at the provider
+		// boundary so callers cannot couple to infrastructure internals.
 		return nil, fmt.Errorf("unexpected db error: %v", err)
 	}
 	return &entity, nil

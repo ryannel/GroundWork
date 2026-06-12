@@ -20,7 +20,7 @@ Tests in the Next.js application follow four rules:
 1. **Vitest + React Testing Library** for all component and hook tests
 2. **MSW** (Mock Service Worker) for network mocking — never mock `fetch` directly
 3. **100% coverage for `lib/utils.ts`** — all pure utility functions are fully tested
-4. **Hook isolation** — data-fetching hooks are tested with `@testing-library/react-hooks`
+4. **Hook isolation** — data-fetching hooks are tested with `renderHook` from `@testing-library/react`
 
 Tests verify behaviour from the user's perspective, not implementation details. Query by accessible roles and text content, not by CSS classes or data-test attributes.
 
@@ -245,6 +245,8 @@ describe('useMeetings', () => {
 ## Theme Coverage
 
 Every component must be rendered and verified in both Obsidian (dark) and Milk (light) themes. Add theme variants to tests for visual components.
+
+The snapshot below is the deliberate exception to the no-snapshots-by-default rule: snapshots are reserved for genuinely opaque generated artefacts — here, the resolved theme-specific styles — never for ordinary component output.
 
 ```tsx
 describe('MeetingCard', () => {

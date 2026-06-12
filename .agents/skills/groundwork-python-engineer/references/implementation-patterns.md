@@ -85,11 +85,16 @@ Constructor injection at the entrypoint startup:
 ```python
 from fastapi import Depends
 
+def get_processing_gateway() -> ProcessingGateway:
+    return ConcreteProvider()
+
 def get_processing_service(
-    provider: ConcreteProvider = Depends()
+    gateway: ProcessingGateway = Depends(get_processing_gateway)
 ) -> ProcessingService:
-    return ProcessingService(gateway=provider)
+    return ProcessingService(gateway=gateway)
 ```
+
+The dependency is typed as the Protocol, not the concrete provider — the seam stays on the port, and tests override `get_processing_gateway` without touching the service.
 
 ## 4. Strict Typing over Duck Typing
 
