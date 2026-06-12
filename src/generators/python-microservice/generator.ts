@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
@@ -213,4 +214,6 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
   promoteEngineerSkill(tree, 'groundwork-python-engineer');
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'python-microservice', options as unknown as Record<string, unknown>);
 }

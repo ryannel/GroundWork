@@ -4,6 +4,7 @@ import { COMMANDS, findCommand, CommandGroup } from './registry';
 import { Ctx, CliError, UsageError } from './util/context';
 import { makeRenderer, Renderer } from './theme/render';
 import { CONFIG_PATH } from './util/paths';
+import { DEV_CLI_VERSION } from './util/version';
 
 interface DevConfig {
   projectPrefix?: string;
@@ -37,6 +38,11 @@ function showHelp(r: Renderer): void {
 
 async function main(): Promise<number> {
   const argv = process.argv.slice(2);
+
+  if (argv.includes('--version')) {
+    process.stdout.write(`${DEV_CLI_VERSION}\n`);
+    return 0;
+  }
 
   // Extract global flags from anywhere in the args.
   let json = false;

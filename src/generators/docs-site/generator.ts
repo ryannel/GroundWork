@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 
 export interface DocsSiteGeneratorSchema {
   name: string;
@@ -117,6 +118,8 @@ export default async function (tree: Tree, options: DocsSiteGeneratorSchema) {
   }
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'docs-site', options as unknown as Record<string, unknown>);
 
   return () => {
     const { execSync } = require('child_process');

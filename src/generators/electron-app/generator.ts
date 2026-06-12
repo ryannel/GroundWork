@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
@@ -259,6 +260,8 @@ export default async function (tree: Tree, options: ElectronAppGeneratorSchema) 
   promoteEngineerSkill(tree, 'groundwork-electron-engineer');
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'electron-app', options as unknown as Record<string, unknown>);
 
   return () => {
     // Deliberate deviation from the nextjs-app callback (which runs an install

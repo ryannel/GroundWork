@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
@@ -323,6 +324,8 @@ export default async function (tree: Tree, options: FlutterAppGeneratorSchema) {
   promoteEngineerSkill(tree, 'groundwork-flutter-engineer');
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'flutter-app', options as unknown as Record<string, unknown>);
 
   return () => {
     const { execSync } = require('child_process');

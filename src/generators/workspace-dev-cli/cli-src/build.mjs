@@ -10,8 +10,17 @@
 import { build } from 'esbuild';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
+import * as fs from 'fs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+
+// Embed the package version so the deployed bundle knows its vintage (./dev --version,
+// doctor's framework-alignment check). NOTE: this makes the committed bundle
+// version-dependent — rebuild it after every `npm version` bump (the bundle-freshness
+// contract test fails the release gates if you forget).
+const PKG_VERSION = JSON.parse(
+  fs.readFileSync(path.join(here, '..', '..', '..', '..', 'package.json'), 'utf8'),
+).version;
 
 // Default writes the committed bundle. Tests set DEV_CLI_OUTFILE to a temp path to
 // build a fresh bundle without mutating the working tree, then diff it against the
@@ -27,6 +36,7 @@ await build({
   outfile,
   legalComments: 'none',
   logLevel: 'info',
+  define: { 'process.env.GW_DEV_CLI_VERSION': JSON.stringify(PKG_VERSION) },
 });
 
 console.log(`Built ${outfile}`);

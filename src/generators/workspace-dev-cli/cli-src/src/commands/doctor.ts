@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Ctx } from '../util/context';
 import { capture, commandExists } from '../util/proc';
 import { getAppServices, serviceDir } from '../util/services';
+import { DEV_CLI_VERSION, stampedFrameworkVersion } from '../util/version';
 
 interface Check {
   name: string;
@@ -41,6 +42,18 @@ export async function doctor(ctx: Ctx): Promise<number> {
       ok: commandExists('python3') || commandExists('python'),
       hint: 'Install Python 3.',
     });
+
+  // Framework alignment: a ./dev bundle that trails the install's framework stamp
+  // means `npx groundwork-method update` ran from an older package or never ran —
+  // the bundle is framework-owned and update refreshes it.
+  const stamp = stampedFrameworkVersion();
+  if (stamp && DEV_CLI_VERSION !== 'unknown') {
+    checks.push({
+      name: 'dev bundle version',
+      ok: stamp === DEV_CLI_VERSION,
+      hint: `bundle ${DEV_CLI_VERSION} trails framework ${stamp} — run npx groundwork-method update, then groundwork check for the full staleness report.`,
+    });
+  }
 
   const missing = checks.filter((c) => !c.ok);
 

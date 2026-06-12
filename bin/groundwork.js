@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const readline = require('readline');
 const { execSync, execFileSync } = require('child_process');
 
@@ -26,8 +27,10 @@ function printHelp() {
   banner();
   console.log(`\x1b[1mCommands:\x1b[0m
   \x1b[36minit\x1b[0m      Install GroundWork skills, config, and the depwire code map into the current project
-  \x1b[36mupdate\x1b[0m    Refresh installed skills to match this package version (preserves .groundwork/config and docs)
-  \x1b[36mcheck\x1b[0m     Detect documentation drift: compares last_reviewed against git history of source_of_truth paths
+  \x1b[36mupdate\x1b[0m    Bring the install up to this package version: skills, seeded docs, the ./dev bundle,
+            and scripted migrations. Judgment-lane work lands in an upgrade brief for your agent.
+            \x1b[2m--dry-run prints the full plan without writing anything.\x1b[0m
+  \x1b[36mcheck\x1b[0m     Report framework staleness (version gap, pending migrations) and documentation drift
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -76,6 +79,8 @@ function getPaths() {
     sourceConfigDir: path.join(__dirname, '..', 'src', 'config'),
     sourceDocsDir: path.join(__dirname, '..', 'src', 'docs'),
     sourceAgentsMd: path.join(__dirname, '..', 'src', 'AGENTS.md'),
+    sourceDevBundle: path.join(__dirname, '..', 'src', 'generators', 'workspace-dev-cli', 'cli-src', 'dist', 'dev-bundle.js'),
+    sourceDevLauncher: path.join(__dirname, '..', 'src', 'generators', 'workspace-dev-cli', 'files', 'dev.template'),
   };
 }
 
@@ -201,18 +206,471 @@ function diffDirs(srcDir, destDir) {
   return { added, changed, removed };
 }
 
-function copyDocsIdempotent(srcDir, destDir) {
-  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
-    if (entry.name === 'llms.txt') continue; // deployed separately to project root
-    const src = path.join(srcDir, entry.name);
-    const dest = path.join(destDir, entry.name);
-    if (entry.isDirectory()) {
-      fs.mkdirSync(dest, { recursive: true });
-      copyDocsIdempotent(src, dest);
-    } else if (!fs.existsSync(dest)) {
-      fs.copyFileSync(src, dest);
+// ─── Install manifest (upgrade-path plan WS-A) ─────────────────────────────
+// The manifest records what was deployed, from which package version, and the
+// content hash at deploy — the base every later update classifies against.
+// It lives apart from state.json: state is lifecycle, the manifest is a ledger.
+
+const MANIFEST_VERSION = 1;
+
+function sha256(buf) {
+  return crypto.createHash('sha256').update(buf).digest('hex');
+}
+
+function hashFile(file) {
+  try {
+    return sha256(fs.readFileSync(file));
+  } catch {
+    return null;
+  }
+}
+
+function manifestPath(p) {
+  return path.join(p.targetConfigDir, 'manifest.json');
+}
+
+function readManifest(p) {
+  try {
+    const m = JSON.parse(fs.readFileSync(manifestPath(p), 'utf8'));
+    return m && typeof m === 'object' ? m : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeManifestFile(p, manifest) {
+  fs.mkdirSync(p.targetConfigDir, { recursive: true });
+  fs.writeFileSync(manifestPath(p), JSON.stringify(manifest, null, 2) + '\n');
+}
+
+function emptyManifest() {
+  return {
+    manifest_version: MANIFEST_VERSION,
+    _schema:
+      'files: { <project-relative path>: { tier, source, version, hash, provenance, base? } }. ' +
+      'tier 1 = framework-owned (clean-replaced on update); tier 2 = framework-seeded, user-editable ' +
+      '(hash-classified: pristine refreshes, edited queues for the groundwork-upgrade skill). ' +
+      'provenance "deployed" = this CLI wrote it; "adopted" = found on disk with unknown ancestry, treated as user-edited. ' +
+      'base (tier 2 only) = hash of the PACKAGE content this file was last reconciled against — a merge queues only ' +
+      'when the package moves past it; null means unknown ancestry. ' +
+      'generated: { <generator[:name]>: { generator, version, options, files } } — written by the Nx generators.',
+    files: {},
+    generated: {},
+  };
+}
+
+// The deployable tier-1/tier-2 surface, as { rel, tier, source, sourcePath } specs.
+// generators.json and the dev bundle/launcher are handled separately: the former's
+// content is machine-resolved, the latter pair exists only in scaffolded projects.
+function deployableSpecs(p) {
+  const pkgRoot = path.resolve(__dirname, '..');
+  const specs = [];
+  const pushTree = (srcDir, destPrefix, tier) => {
+    for (const f of walkFiles(srcDir, '')) {
+      const sourcePath = path.join(srcDir, f);
+      specs.push({ rel: path.join(destPrefix, f), tier, source: path.relative(pkgRoot, sourcePath), sourcePath });
+    }
+  };
+  pushTree(p.sourceSkillsDir, path.join('.agents', 'skills'), 1);
+  pushTree(p.sourceHiddenSkillsDir, path.join('.agents', 'groundwork', 'skills'), 1);
+  if (fs.existsSync(p.sourceDocsDir)) {
+    for (const f of walkFiles(p.sourceDocsDir, '')) {
+      if (f === 'llms.txt') continue; // deployed to the project root, not docs/
+      const sourcePath = path.join(p.sourceDocsDir, f);
+      specs.push({ rel: path.join('docs', f), tier: 2, source: path.relative(pkgRoot, sourcePath), sourcePath });
+    }
+    const llms = path.join(p.sourceDocsDir, 'llms.txt');
+    if (fs.existsSync(llms)) specs.push({ rel: 'llms.txt', tier: 2, source: path.relative(pkgRoot, llms), sourcePath: llms });
+  }
+  if (fs.existsSync(p.sourceAgentsMd)) {
+    specs.push({ rel: 'AGENTS.md', tier: 2, source: path.relative(pkgRoot, p.sourceAgentsMd), sourcePath: p.sourceAgentsMd });
+  }
+  return specs;
+}
+
+// A3 — backfill a manifest for an install that predates manifests. Files matching
+// the current package's bytes are recorded pristine; anything else on disk is
+// `adopted` (unknown ancestry — treated as user-edited until proven otherwise).
+function bootstrapManifest(p, stampedVersion) {
+  const manifest = emptyManifest();
+  const version = stampedVersion || 'unknown';
+  for (const spec of deployableSpecs(p)) {
+    const diskHash = hashFile(path.join(p.targetDir, spec.rel));
+    if (diskHash === null) continue; // absent — nothing to record yet
+    const pkgHash = hashFile(spec.sourcePath);
+    const pristine = diskHash === pkgHash;
+    manifest.files[spec.rel] = {
+      tier: spec.tier,
+      source: spec.source,
+      version: pristine ? PKG.version : version,
+      hash: diskHash,
+      provenance: pristine ? 'deployed' : 'adopted',
+      ...(spec.tier === 2 ? { base: pristine ? pkgHash : null } : {}),
+    };
+  }
+  const genJson = path.join(p.targetConfigDir, 'generators.json');
+  const genHash = hashFile(genJson);
+  if (genHash !== null) {
+    manifest.files[path.join('.groundwork', 'config', 'generators.json')] = {
+      tier: 1, source: 'generators.json', version, hash: genHash, provenance: 'deployed',
+    };
+  }
+  // Generator output without provenance: detect the dev CLI heuristically so the
+  // bundle lands in tier 1 and the rest of its output gets a reconcile candidate.
+  const bundleHash = hashFile(path.join(p.targetDir, '.dev', 'dev-bundle.js'));
+  if (bundleHash !== null) {
+    manifest.files[path.join('.dev', 'dev-bundle.js')] = {
+      tier: 1, source: 'src/generators/workspace-dev-cli/cli-src/dist/dev-bundle.js',
+      version, hash: bundleHash, provenance: 'deployed',
+    };
+    const launcherHash = hashFile(path.join(p.targetDir, 'dev'));
+    if (launcherHash !== null) {
+      manifest.files['dev'] = {
+        tier: 1, source: 'src/generators/workspace-dev-cli/files/dev.template',
+        version, hash: launcherHash, provenance: 'deployed',
+      };
+    }
+    manifest.generated['workspace-dev-cli'] = {
+      generator: 'workspace-dev-cli', version, options: null, files: null, provenance: 'adopted',
+    };
+  }
+  return manifest;
+}
+
+// ─── Tier-2 refresh (upgrade-path plan WS-C) ────────────────────────────────
+// Seeded docs stop fossilizing: pristine (disk hash == deploy hash) files refresh
+// to the current package content; edited files are left alone and queued for the
+// groundwork-upgrade skill; absent files are copied as before.
+
+function classifyTier2(p, manifest) {
+  const out = { copy: [], refresh: [], current: [], edited: [] };
+  for (const spec of deployableSpecs(p)) {
+    if (spec.tier !== 2) continue;
+    const destPath = path.join(p.targetDir, spec.rel);
+    const diskHash = hashFile(destPath);
+    const pkgHash = hashFile(spec.sourcePath);
+    if (diskHash === null) {
+      out.copy.push(spec);
+    } else if (diskHash === pkgHash) {
+      out.current.push(spec);
+    } else {
+      const entry = manifest.files[spec.rel];
+      const pristine = entry && entry.provenance === 'deployed' && entry.hash === diskHash;
+      if (pristine) {
+        out.refresh.push(spec);
+      } else {
+        // User-edited (or unknown ancestry). A merge is only owed when the package
+        // has moved past the base this copy was last reconciled against — an edit
+        // to a file the framework never changed is simply the user's file.
+        const base = entry ? (entry.base !== undefined ? entry.base : entry.hash) : null;
+        if (base === null || pkgHash !== base) out.edited.push({ ...spec, baseHash: base });
+      }
     }
   }
+  return out;
+}
+
+function applyTier2(p, tier2) {
+  for (const spec of [...tier2.copy, ...tier2.refresh]) {
+    const dest = path.join(p.targetDir, spec.rel);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.copyFileSync(spec.sourcePath, dest);
+  }
+}
+
+// Rebuild the manifest's `files` section after an update has deployed everything.
+// Edited/adopted tier-2 entries keep their original record — the deploy-time hash
+// is the merge base the upgrade skill reasons against (decision O5).
+function rebuildManifest(p, previous, tier2, generatorsConfig, devCli) {
+  const manifest = emptyManifest();
+  manifest.generated = (previous && previous.generated) || {};
+  const editedSet = new Set((tier2 ? tier2.edited : []).map((s) => s.rel));
+  for (const spec of deployableSpecs(p)) {
+    if (spec.tier === 2 && editedSet.has(spec.rel)) {
+      const prior = previous && previous.files[spec.rel];
+      manifest.files[spec.rel] = prior || {
+        tier: 2, source: spec.source, version: 'unknown',
+        hash: hashFile(path.join(p.targetDir, spec.rel)), provenance: 'adopted', base: null,
+      };
+      continue;
+    }
+    const hash = hashFile(path.join(p.targetDir, spec.rel));
+    if (hash === null) continue;
+    manifest.files[spec.rel] = {
+      tier: spec.tier, source: spec.source, version: PKG.version, hash, provenance: 'deployed',
+      ...(spec.tier === 2 ? { base: hash } : {}),
+    };
+  }
+  if (generatorsConfig) {
+    manifest.files[path.join('.groundwork', 'config', 'generators.json')] = {
+      tier: 1, source: 'generators.json', version: PKG.version, hash: sha256(generatorsConfig), provenance: 'deployed',
+    };
+  }
+  if (devCli) {
+    for (const [rel, source] of [
+      [path.join('.dev', 'dev-bundle.js'), 'src/generators/workspace-dev-cli/cli-src/dist/dev-bundle.js'],
+      ['dev', 'src/generators/workspace-dev-cli/files/dev.template'],
+    ]) {
+      const hash = hashFile(path.join(p.targetDir, rel));
+      if (hash === null) continue;
+      const prior = previous && previous.files[rel];
+      const refreshed = (devCli.replaceBundle && rel !== 'dev') || (devCli.replaceLauncher && rel === 'dev');
+      manifest.files[rel] = refreshed || !prior
+        ? { tier: 1, source, version: PKG.version, hash, provenance: 'deployed' }
+        : prior;
+    }
+  }
+  return manifest;
+}
+
+// ─── Dev CLI refresh (upgrade-path plan WS-D, D1) ───────────────────────────
+// The ./dev bundle + launcher are framework-owned (decision S7): built from
+// cli-src, copied verbatim, never meant to be user-edited. A scaffolded project
+// gets them clean-replaced on update; a customized launcher (hash matches neither
+// the manifest nor the shipped template) is queued for judgment instead.
+
+function classifyDevCli(p, manifest) {
+  const out = { present: false, replaceBundle: false, replaceLauncher: false, customLauncher: false };
+  const bundleDisk = hashFile(path.join(p.targetDir, '.dev', 'dev-bundle.js'));
+  if (bundleDisk === null) return out; // not a scaffolded project — nothing to track
+  out.present = true;
+  const bundlePkg = hashFile(p.sourceDevBundle);
+  if (bundlePkg !== null && bundleDisk !== bundlePkg) out.replaceBundle = true;
+  const launcherDisk = hashFile(path.join(p.targetDir, 'dev'));
+  const launcherPkg = hashFile(p.sourceDevLauncher);
+  if (launcherDisk !== null && launcherPkg !== null && launcherDisk !== launcherPkg) {
+    const entry = manifest.files['dev'];
+    if (entry && entry.hash === launcherDisk) out.replaceLauncher = true;
+    else out.customLauncher = true;
+  }
+  return out;
+}
+
+function applyDevCli(p, devCli) {
+  if (devCli.replaceBundle) {
+    fs.copyFileSync(p.sourceDevBundle, path.join(p.targetDir, '.dev', 'dev-bundle.js'));
+  }
+  if (devCli.replaceLauncher) {
+    const dest = path.join(p.targetDir, 'dev');
+    fs.copyFileSync(p.sourceDevLauncher, dest);
+    fs.chmodSync(dest, 0o755);
+  }
+}
+
+// ─── Migration registry (upgrade-path plan WS-B) ────────────────────────────
+// migrations/index.json ships in the package. `cli` migrations are scripted and
+// run inside update; `agent` migrations are briefs the groundwork-upgrade skill
+// executes. All migrations are forward-only, idempotent, and detect-first.
+// GROUNDWORK_MIGRATIONS_DIR overrides the registry location (test seam).
+
+function migrationsDir() {
+  return process.env.GROUNDWORK_MIGRATIONS_DIR || path.join(__dirname, '..', 'migrations');
+}
+
+function loadMigrationRegistry() {
+  const dir = migrationsDir();
+  const indexPath = path.join(dir, 'index.json');
+  if (!fs.existsSync(indexPath)) return { dir, entries: [] };
+  try {
+    const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+    return { dir, entries: Array.isArray(index.migrations) ? index.migrations : [] };
+  } catch (err) {
+    c.warn(`Could not read migration registry: ${err.message}`);
+    return { dir, entries: [] };
+  }
+}
+
+function readCompletedMigrations(p) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    return (state.groundwork && Array.isArray(state.groundwork.migrations)) ? state.groundwork.migrations : [];
+  } catch {
+    return [];
+  }
+}
+
+function recordMigrations(p, ids) {
+  if (ids.length === 0) return;
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    let state = {};
+    if (fs.existsSync(statePath)) state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    state.groundwork = state.groundwork || {};
+    const done = new Set(Array.isArray(state.groundwork.migrations) ? state.groundwork.migrations : []);
+    for (const id of ids) done.add(id);
+    state.groundwork.migrations = [...done];
+    fs.mkdirSync(p.targetConfigDir, { recursive: true });
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+  } catch (err) {
+    c.warn(`Could not record migrations in state.json: ${err.message}`);
+  }
+}
+
+// Partition unrecorded registry entries into work. cli entries are asked via
+// detect(); agent entries are version-gated — their brief's own Detect section
+// decides applicability when the skill picks the item up.
+function pendingMigrations(p, registry, stamped) {
+  const done = new Set(readCompletedMigrations(p));
+  const ctx = { targetDir: p.targetDir, packageRoot: path.resolve(__dirname, '..') };
+  const cli = [];
+  const agent = [];
+  const settled = []; // detect said done/n-a — record so detect isn't re-asked forever
+  for (const entry of registry.entries) {
+    if (done.has(entry.id)) continue;
+    if (entry.kind === 'cli') {
+      let mod;
+      try {
+        mod = require(path.join(registry.dir, `${entry.id}.js`));
+      } catch (err) {
+        c.warn(`Migration ${entry.id} could not be loaded: ${err.message}`);
+        continue;
+      }
+      let verdict;
+      try {
+        verdict = mod.detect(ctx);
+      } catch (err) {
+        c.warn(`Migration ${entry.id} detect() failed: ${err.message}`);
+        continue;
+      }
+      if (verdict === 'pending') cli.push({ entry, mod, ctx });
+      else settled.push(entry.id);
+    } else if (entry.kind === 'agent') {
+      if (stamped === null || semverCompare(entry.version, stamped) > 0) agent.push(entry);
+      else settled.push(entry.id);
+    }
+  }
+  return { cli, agent, settled };
+}
+
+// B2 — run pending cli migrations in registry order. A failure stops the run with
+// the migration named and the version stamp is NOT advanced past it.
+function runCliMigrations(p, pending) {
+  const completed = [];
+  for (const { entry, mod, ctx } of pending) {
+    try {
+      mod.run(ctx);
+      completed.push(entry.id);
+      c.ok(`Migration ${entry.id} — ${entry.title}`);
+    } catch (err) {
+      recordMigrations(p, completed);
+      c.err(`Migration ${entry.id} failed: ${err.message}`);
+      console.error(`  The version stamp was not advanced. Fix the issue and re-run \x1b[36mnpx groundwork-method update\x1b[0m —`);
+      console.error(`  migrations are idempotent, so completed ones are skipped and this one retries.\n`);
+      return { completed, failed: entry };
+    }
+  }
+  recordMigrations(p, completed);
+  return { completed, failed: null };
+}
+
+// ─── The upgrade brief (upgrade-path plan WS-E input) ───────────────────────
+// Everything that needs judgment — agent migrations, edited tier-2 merges,
+// generator-output reconciliation — is compiled into a brief the
+// groundwork-upgrade skill works through conversationally. Briefs and incoming
+// content are copied into .groundwork/cache so the skill needs nothing from the
+// npx package cache.
+
+function upgradeBriefPath(p) {
+  return path.join(p.targetDir, '.groundwork', 'cache', 'upgrade-brief.json');
+}
+
+function buildBriefItems(p, registry, agentEntries, tier2, devCli, manifest) {
+  const items = [];
+  for (const entry of agentEntries) {
+    items.push({
+      type: 'agent-migration',
+      id: entry.id,
+      title: entry.title,
+      summary: entry.summary,
+      brief: path.join('.groundwork', 'cache', 'upgrade', 'briefs', `${entry.id}.md`),
+      status: 'pending',
+    });
+  }
+  for (const spec of tier2.edited) {
+    items.push({
+      type: 'tier2-merge',
+      id: `tier2:${spec.rel}`,
+      path: spec.rel,
+      incoming: path.join('.groundwork', 'cache', 'upgrade', 'tier2', spec.rel),
+      base_hash: spec.baseHash,
+      summary: `Framework improvements to ${spec.rel} need merging into your edited copy.`,
+      status: 'pending',
+    });
+  }
+  if (devCli.customLauncher) {
+    items.push({
+      type: 'tier1-custom',
+      id: 'tier1:dev',
+      path: 'dev',
+      incoming: path.join('.groundwork', 'cache', 'upgrade', 'tier1', 'dev'),
+      summary: 'The ./dev launcher was customized; the framework ships a newer one. Reconcile by hand.',
+      status: 'pending',
+    });
+  }
+  for (const [key, gen] of Object.entries(manifest.generated || {})) {
+    if (gen.version === PKG.version) continue;
+    items.push({
+      type: 'regenerate',
+      id: `regen:${key}`,
+      artifact: key,
+      generator: gen.generator,
+      options: gen.options,
+      recorded_version: gen.version,
+      summary: `Generator output recorded at ${gen.version}; regenerate with recorded options and reconcile the diff.`,
+      status: 'pending',
+    });
+  }
+  return items;
+}
+
+// Write the brief (merging an existing one by item id — completed work survives)
+// and stage every referenced payload into the cache.
+function writeUpgradeBrief(p, registry, items, stamped) {
+  const briefPath = upgradeBriefPath(p);
+  let brief = { brief_version: 1, from: stamped, to: PKG.version, items: [] };
+  try {
+    if (fs.existsSync(briefPath)) {
+      const existing = JSON.parse(fs.readFileSync(briefPath, 'utf8'));
+      if (existing && Array.isArray(existing.items)) {
+        brief.items = existing.items;
+        // The brief spans the whole catch-up: keep the original `from` so a
+        // re-run after stamping doesn't rewrite history (and stays a no-op).
+        if (existing.from !== undefined) brief.from = existing.from;
+      }
+    }
+  } catch { /* corrupt brief — rebuild from scratch */ }
+  const have = new Set(brief.items.map((i) => i.id));
+  for (const item of items) {
+    if (!have.has(item.id)) brief.items.push(item);
+  }
+  if (brief.items.length === 0) return 0;
+
+  for (const item of brief.items) {
+    if (item.status !== 'pending') continue;
+    if (item.type === 'agent-migration') {
+      const src = path.join(registry.dir, item.id, 'brief.md');
+      const dest = path.join(p.targetDir, item.brief);
+      if (fs.existsSync(src)) {
+        fs.mkdirSync(path.dirname(dest), { recursive: true });
+        fs.copyFileSync(src, dest);
+      }
+    } else if (item.type === 'tier2-merge') {
+      const spec = deployableSpecs(p).find((s) => s.rel === item.path);
+      if (spec) {
+        const dest = path.join(p.targetDir, item.incoming);
+        fs.mkdirSync(path.dirname(dest), { recursive: true });
+        fs.copyFileSync(spec.sourcePath, dest);
+      }
+    } else if (item.type === 'tier1-custom' && item.path === 'dev') {
+      const dest = path.join(p.targetDir, item.incoming);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      fs.copyFileSync(p.sourceDevLauncher, dest);
+    }
+  }
+  fs.mkdirSync(path.dirname(briefPath), { recursive: true });
+  fs.writeFileSync(briefPath, JSON.stringify(brief, null, 2) + '\n');
+  return brief.items.filter((i) => i.status === 'pending').length;
 }
 
 // Clean-copy the two skill trees. Removing first prevents deprecated skills from lingering.
@@ -561,35 +1019,33 @@ async function initGroundWork(options = {}) {
     }
   }
 
-  // Deploy documentation foundations (idempotent — never overwrites user edits)
-  const targetDocsDir = path.join(p.targetDir, 'docs');
-  if (fs.existsSync(p.sourceDocsDir)) {
-    try {
-      fs.mkdirSync(targetDocsDir, { recursive: true });
-      copyDocsIdempotent(p.sourceDocsDir, targetDocsDir);
-      c.ok(`Installed documentation foundations`);
-    } catch (err) {
-      c.err(`Failed to install documentation foundations: ${err.message}`);
-    }
-
-    // Deploy llms.txt to project root (idempotent)
-    const sourceLlms = path.join(p.sourceDocsDir, 'llms.txt');
-    const targetLlms = path.join(p.targetDir, 'llms.txt');
-    if (fs.existsSync(sourceLlms) && !fs.existsSync(targetLlms)) {
-      try {
-        fs.copyFileSync(sourceLlms, targetLlms);
-        c.ok(`Installed llms.txt`);
-      } catch (err) {
-        c.err(`Failed to install llms.txt: ${err.message}`);
-      }
-    }
+  // Deploy documentation foundations + llms.txt + AGENTS.md (tier 2: copy when
+  // absent, never overwrite what exists — classification handles the rest on update).
+  // AGENTS.md must precede wireAgents so the CLAUDE.md → AGENTS.md link resolves.
+  try {
+    const tier2 = classifyTier2(p, emptyManifest());
+    applyTier2(p, tier2);
+    c.ok(`Installed documentation foundations`);
+    if (tier2.copy.some((s) => s.rel === 'AGENTS.md')) c.ok(`Installed canonical AGENTS.md`);
+  } catch (err) {
+    c.err(`Failed to install documentation foundations: ${err.message}`);
   }
 
-  // Deploy the canonical AGENTS.md instruction router — the single source of truth every
-  // agent tool is wired to. Must precede wireAgents so the CLAUDE.md → AGENTS.md link resolves.
-  if (ensureAgentsMd(p)) c.ok(`Installed canonical AGENTS.md`);
-
   stampVersion(p);
+
+  // A fresh install needs no migrations: record the whole registry as settled so
+  // update never queues catch-up work this init already delivered (detect-honesty).
+  const registry = loadMigrationRegistry();
+  recordMigrations(p, registry.entries.map((e) => e.id));
+
+  // Write the install manifest — the provenance ledger every future update
+  // classifies against (what was deployed, from which version, with which hash).
+  try {
+    writeManifestFile(p, rebuildManifest(p, readManifest(p), classifyTier2(p, emptyManifest()), generatorsConfig, classifyDevCli(p, emptyManifest())));
+    c.ok(`Wrote install manifest (.groundwork/config/manifest.json)`);
+  } catch (err) {
+    c.warn(`Could not write install manifest: ${err.message}`);
+  }
 
   // Decide which agent tools to wire to the canonical source: explicit --agent flags win,
   // then --yes uses the detected set, otherwise prompt (detected agents pre-selected).
@@ -615,8 +1071,28 @@ async function initGroundWork(options = {}) {
 
 // ─── update ─────────────────────────────────────────────────────────────────
 
-function updateGroundWork() {
+function reportDiff(label, diff) {
+  if (diff.added.length + diff.changed.length + diff.removed.length === 0) return;
+  console.log(`\x1b[1m${label}\x1b[0m`);
+  for (const f of diff.added) console.log(`  \x1b[32m+ ${f}\x1b[0m`);
+  for (const f of diff.changed) console.log(`  \x1b[33m~ ${f}\x1b[0m`);
+  for (const f of diff.removed) console.log(`  \x1b[31m- ${f}\x1b[0m`);
+}
+
+function reportTier2(tier2, devCli) {
+  if (tier2.copy.length + tier2.refresh.length + tier2.edited.length === 0 && !devCli.replaceBundle && !devCli.replaceLauncher && !devCli.customLauncher) return;
+  console.log(`\x1b[1mSeeded docs & framework files\x1b[0m`);
+  for (const s of tier2.copy) console.log(`  \x1b[32m+ ${s.rel}\x1b[0m \x1b[2m(missing — copied)\x1b[0m`);
+  for (const s of tier2.refresh) console.log(`  \x1b[33m~ ${s.rel}\x1b[0m \x1b[2m(pristine — refreshed)\x1b[0m`);
+  for (const s of tier2.edited) console.log(`  \x1b[36m⊜ ${s.rel}\x1b[0m \x1b[2m(edited — queued for the upgrade skill, your copy untouched)\x1b[0m`);
+  if (devCli.replaceBundle) console.log(`  \x1b[33m~ .dev/dev-bundle.js\x1b[0m \x1b[2m(framework-owned — replaced with the current bundle)\x1b[0m`);
+  if (devCli.replaceLauncher) console.log(`  \x1b[33m~ dev\x1b[0m \x1b[2m(framework-owned — replaced with the current launcher)\x1b[0m`);
+  if (devCli.customLauncher) console.log(`  \x1b[36m⊜ dev\x1b[0m \x1b[2m(customized — queued for the upgrade skill, your copy untouched)\x1b[0m`);
+}
+
+function updateGroundWork(flags = {}) {
   const p = getPaths();
+  const dryRun = !!flags.dryRun;
 
   banner();
 
@@ -635,7 +1111,20 @@ function updateGroundWork() {
 
   const stamped = readStampedVersion(p);
 
-  // Diff before touching anything, so the summary reflects what actually changes.
+  // A3 — a pre-manifest install gets its manifest backfilled before anything
+  // reads it: tier-2 classification needs a base to compare against.
+  let manifest = readManifest(p);
+  const bootstrapped = manifest === null;
+  if (bootstrapped) {
+    manifest = bootstrapManifest(p, stamped);
+    if (!dryRun) {
+      writeManifestFile(p, manifest);
+      c.ok(`Bootstrapped install manifest (.groundwork/config/manifest.json)`);
+    }
+  }
+
+  // Classify everything before touching anything, so the summary (and --dry-run)
+  // reflects exactly what a real run performs.
   const skillsDiff = diffDirs(p.sourceSkillsDir, p.targetSkillsDir);
   const hiddenDiff = diffDirs(p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir);
 
@@ -646,13 +1135,26 @@ function updateGroundWork() {
     (!fs.existsSync(targetGeneratorsJson) ||
       fs.readFileSync(targetGeneratorsJson, 'utf8') !== generatorsConfig);
 
+  const tier2 = classifyTier2(p, manifest);
+  const devCli = classifyDevCli(p, manifest);
+  const registry = loadMigrationRegistry();
+  const pending = pendingMigrations(p, registry, stamped);
+  const briefItems = buildBriefItems(p, registry, pending.agent, tier2, devCli, manifest);
+
   const total =
     skillsDiff.added.length + skillsDiff.changed.length + skillsDiff.removed.length +
     hiddenDiff.added.length + hiddenDiff.changed.length + hiddenDiff.removed.length +
-    (generatorsChanged ? 1 : 0);
+    (generatorsChanged ? 1 : 0) +
+    tier2.copy.length + tier2.refresh.length +
+    (devCli.replaceBundle ? 1 : 0) + (devCli.replaceLauncher ? 1 : 0) +
+    pending.cli.length + briefItems.length;
 
   if (total === 0) {
-    if (stamped !== PKG.version) stampVersion(p); // files identical, stamp drifted — repair silently
+    if (!dryRun) {
+      recordMigrations(p, pending.settled);
+      if (stamped !== PKG.version) stampVersion(p); // files identical, stamp drifted — repair silently
+      if (bootstrapped) writeManifestFile(p, rebuildManifest(p, manifest, tier2, generatorsConfig, devCli));
+    }
     c.ok(`Already up to date — installed skills match groundwork ${PKG.version}.`);
     console.log(`  \x1b[2m.groundwork/config and docs/ were not touched.\x1b[0m\n`);
     return;
@@ -664,25 +1166,50 @@ function updateGroundWork() {
     c.info(`No version stamp found (pre-0.9 install) — updating to ${PKG.version}\n`);
   }
 
+  // B4 — dry run: print the full plan, mutate nothing.
+  if (dryRun) {
+    console.log(`\x1b[1mDry run — nothing will be written.\x1b[0m\n`);
+    reportDiff('.agents/skills/', skillsDiff);
+    reportDiff('.agents/groundwork/skills/', hiddenDiff);
+    if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
+    reportTier2(tier2, devCli);
+    if (pending.cli.length) {
+      console.log(`\x1b[1mScripted migrations to run:\x1b[0m`);
+      for (const { entry } of pending.cli) console.log(`  \x1b[33m▸ ${entry.id}\x1b[0m — ${entry.title}`);
+    }
+    if (briefItems.length) {
+      console.log(`\x1b[1mUpgrade brief (judgment lane — handled by the groundwork-upgrade skill):\x1b[0m`);
+      for (const item of briefItems) console.log(`  \x1b[36m▸ ${item.id}\x1b[0m — ${item.summary || item.title}`);
+    }
+    console.log('');
+    return;
+  }
+
+  // ── Mechanical lane ──
   installSkillTrees(p);
   if (generatorsChanged) {
     fs.mkdirSync(p.targetConfigDir, { recursive: true });
     fs.writeFileSync(targetGeneratorsJson, generatorsConfig);
   }
+  applyTier2(p, tier2);
+  applyDevCli(p, devCli);
 
   c.ok(`Updated GroundWork skills\n`);
-  const report = (label, diff) => {
-    if (diff.added.length + diff.changed.length + diff.removed.length === 0) return;
-    console.log(`\x1b[1m${label}\x1b[0m`);
-    for (const f of diff.added) console.log(`  \x1b[32m+ ${f}\x1b[0m`);
-    for (const f of diff.changed) console.log(`  \x1b[33m~ ${f}\x1b[0m`);
-    for (const f of diff.removed) console.log(`  \x1b[31m- ${f}\x1b[0m`);
-  };
-  report('.agents/skills/', skillsDiff);
-  report('.agents/groundwork/skills/', hiddenDiff);
+  reportDiff('.agents/skills/', skillsDiff);
+  reportDiff('.agents/groundwork/skills/', hiddenDiff);
   if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
+  reportTier2(tier2, devCli);
 
-  console.log(`\n  \x1b[2mPreserved: .groundwork/config (state, settings), .groundwork/cache, docs/\x1b[0m\n`);
+  console.log(`\n  \x1b[2mPreserved: .groundwork/config (state, settings), .groundwork/cache, and every doc you edited.\x1b[0m\n`);
+
+  // B2 — run pending scripted migrations in registry order; record completions.
+  let migrationResult = { completed: [], failed: null };
+  if (pending.cli.length) {
+    console.log(`\x1b[1mRunning migrations:\x1b[0m`);
+    migrationResult = runCliMigrations(p, pending.cli);
+    console.log('');
+  }
+  recordMigrations(p, pending.settled);
 
   // Migration notes: surface the changelog slice between the stamped and current versions.
   if (stamped === null || semverCompare(stamped, PKG.version) < 0) {
@@ -698,7 +1225,24 @@ function updateGroundWork() {
     if (!readPersistedAgents(p)) persistAgents(p, agents);
   }
 
+  // E4 — compile the judgment lane's work list. Written even when a migration
+  // failed: the brief is how the rest of the catch-up happens.
+  const briefCount = writeUpgradeBrief(p, registry, briefItems, stamped);
+
+  // A failed migration stops the stamp from advancing past it (decision S4:
+  // idempotent + detect-first makes the re-run safe).
+  if (migrationResult.failed) {
+    process.exitCode = 1;
+    return;
+  }
+
+  writeManifestFile(p, rebuildManifest(p, manifest, tier2, generatorsConfig, devCli));
   stampVersion(p);
+
+  if (briefCount > 0) {
+    console.log(`\n\x1b[33m\x1b[1m⚠ ${briefCount} item(s) need a working session:\x1b[0m open your agent and say \x1b[36m"upgrade groundwork"\x1b[0m.`);
+    console.log(`  \x1b[2mThe work list is at .groundwork/cache/upgrade-brief.json — the groundwork-upgrade skill consumes it.\x1b[0m\n`);
+  }
 }
 
 // ─── check ──────────────────────────────────────────────────────────────────
@@ -716,11 +1260,72 @@ function parseFrontmatter(content) {
   return fm;
 }
 
+// F1 — the framework section of `check`: is this install behind the framework?
+// No network: the package running the check IS the newest version the user
+// fetched (decision O2). Returns true when the install is stale.
+function reportFrameworkStatus(p) {
+  const installed = fs.existsSync(p.targetSkillsDir) || fs.existsSync(p.targetHiddenSkillsDir);
+  if (!installed) return false;
+
+  let stale = false;
+  const stamped = readStampedVersion(p);
+  console.log(`\x1b[1mFramework:\x1b[0m installed ${stamped || 'unstamped (pre-0.9)'} · package ${PKG.version}`);
+
+  if (!stamped || stamped !== PKG.version) {
+    stale = true;
+    c.warn(`This install trails the framework — run \x1b[36mnpx groundwork-method update\x1b[0m.`);
+  } else {
+    // Same version: any divergence from the package is a user edit to framework-owned
+    // files, which clean-replace will revert — name it instead of surprising them.
+    const mismatched = [];
+    for (const [src, dest, prefix] of [
+      [p.sourceSkillsDir, p.targetSkillsDir, '.agents/skills'],
+      [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, '.agents/groundwork/skills'],
+    ]) {
+      const d = diffDirs(src, dest);
+      for (const f of [...d.changed, ...d.removed]) mismatched.push(path.join(prefix, f));
+    }
+    if (mismatched.length) {
+      stale = true;
+      c.warn(`${mismatched.length} framework-owned file(s) differ from the package (edits here are lost on update):`);
+      for (const f of mismatched.slice(0, 10)) console.log(`         ${f}`);
+      if (mismatched.length > 10) console.log(`         … and ${mismatched.length - 10} more`);
+    }
+  }
+
+  const registry = loadMigrationRegistry();
+  const pending = pendingMigrations(p, registry, stamped);
+  const pendingCount = pending.cli.length + pending.agent.length;
+  if (pendingCount > 0) {
+    stale = true;
+    c.warn(`${pendingCount} pending migration(s): ${[...pending.cli.map((m) => m.entry.id), ...pending.agent.map((e) => e.id)].join(', ')}`);
+    console.log(`         Run \x1b[36mnpx groundwork-method update\x1b[0m — scripted ones run there; the rest land in the upgrade brief.`);
+  }
+
+  try {
+    const brief = JSON.parse(fs.readFileSync(upgradeBriefPath(p), 'utf8'));
+    const open = (brief.items || []).filter((i) => i.status === 'pending').length;
+    if (open > 0) {
+      stale = true;
+      c.warn(`Unconsumed upgrade brief: ${open} item(s) await a working session — say \x1b[36m"upgrade groundwork"\x1b[0m to your agent.`);
+    }
+  } catch { /* no brief — nothing pending */ }
+
+  if (!stale) c.ok(`Install is current with the framework.`);
+  console.log('');
+  return stale;
+}
+
 function checkGroundWork() {
   const p = getPaths();
   const docsDir = path.join(p.targetDir, 'docs');
 
   banner();
+
+  // Framework staleness first — it needs no git history and tells the project it
+  // has been left behind even when doc drift cannot run.
+  const frameworkStale = reportFrameworkStatus(p);
+  if (frameworkStale) process.exitCode = 1;
 
   // Drift detection compares last_reviewed against git history — without a repo,
   // every per-doc `git log` would fail with a cryptic error.
@@ -737,12 +1342,6 @@ function checkGroundWork() {
     c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
     process.exitCode = 1;
     return;
-  }
-
-  const stamped = readStampedVersion(p);
-  if (stamped && stamped !== PKG.version) {
-    c.warn(`Installed skills were written by groundwork ${stamped}; this CLI is ${PKG.version}.`);
-    console.log(`         Run \x1b[36mnpx groundwork-method update\x1b[0m to refresh them.\n`);
   }
 
   // The drift-tracked set: code-coupled docs that carry source_of_truth frontmatter.
@@ -849,7 +1448,7 @@ switch (command) {
     break;
   }
   case 'update':
-    updateGroundWork();
+    updateGroundWork({ dryRun: process.argv.includes('--dry-run') });
     break;
   case 'check':
     // `check --help` documents behavior (incl. exit codes) instead of running.

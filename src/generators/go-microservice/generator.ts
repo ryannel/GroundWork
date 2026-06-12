@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 import { execSync } from 'child_process';
 import {
   promoteEngineerSkill,
@@ -213,6 +214,8 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
   promoteEngineerSkill(tree, 'groundwork-go-engineer');
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'go-microservice', options as unknown as Record<string, unknown>);
 
   return () => {
     try {

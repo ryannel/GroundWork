@@ -4,6 +4,7 @@ import {
   Tree,
 } from '@nx/devkit';
 import * as path from 'path';
+import { recordGeneratorProvenance } from '../shared/provenance';
 
 /** One surface from the registry (`.groundwork/surfaces.json`). The slug is the
  *  join key everywhere — ledger cells, fixture map keys, generated fixture
@@ -129,6 +130,8 @@ export async function systemTestRunnerGenerator(
   }
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'system-test-runner', options as unknown as Record<string, unknown>);
 }
 
 export default systemTestRunnerGenerator;

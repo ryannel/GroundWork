@@ -8,6 +8,47 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+The framework upgrade path (design: `docs/plans/framework-upgrade-path.md`): every
+installed artifact gets an owner and a provenance record, and every framework change
+that touches installed projects ships with a migration — so no project is left behind
+as the framework improves.
+
+### Added (upgrade path, 2026-06-12)
+
+- **Install manifest**: init/update write `.groundwork/config/manifest.json` — every
+  deployed tier-1/tier-2 file with source, package version, and SHA-256 at deploy;
+  generators record provenance (name, version, options, file hashes) into the same
+  ledger. Pre-manifest installs are backfilled on their next update (pristine vs
+  `adopted` classification).
+- **Migration registry**: `migrations/index.json` ships in the package. `cli`
+  migrations (detect-first, idempotent, forward-only) run inside `update` and record
+  completions in `state.json`; `agent` migrations are Detect/Transform/Accept briefs
+  executed by the new skill. Changelog `[migration]` lines now reference registry ids.
+- **Seeded docs stop fossilizing**: `update` hash-classifies `docs/` foundations,
+  `AGENTS.md`, and `llms.txt` — pristine copies refresh to the current package, edited
+  copies are queued for a skill-mediated merge, absent ones are copied as before.
+- **The `./dev` bundle is framework-owned**: `update` clean-replaces `.dev/dev-bundle.js`
+  and the `dev` launcher (a customized launcher is queued for judgment instead); the
+  bundle embeds its version (`./dev --version`) and `./dev doctor` flags a bundle that
+  trails the framework stamp.
+- **`groundwork-upgrade`** (nineteenth hidden skill): executes the upgrade brief
+  `update` compiles — one item, one explained proposal, one commit. Distinct from
+  `groundwork-update` (project docs); the orchestrator surfaces an unconsumed brief at
+  session start.
+- **`update --dry-run`** prints the full plan (skill diff, tier-2 classification,
+  pending migrations, brief contents) without writing; `groundwork check` gains a
+  framework section (version gap, pending migrations, tier-1 corruption, unconsumed
+  brief) that needs no network.
+- **Upgrade-path tests**: frozen old-install fixtures (`tests/fixtures/installs/`),
+  convergence/preservation/idempotency/detect-honesty contract tests, a
+  migration-coverage gate in the contracts lane, and an `upgrade` simulation suite.
+- [migration] Old installs never received `.groundwork/config/config.toml`; update now seeds the commented default (gw-seed-config-toml)
+- [migration] Old installs never registered the depwire code-map MCP server; update now adds it to `.mcp.json` (gw-register-depwire-mcp)
+- [migration] Projects carrying `docs/ux-design.md` from before the Design System reframe need the rename and reference uplift (gw-design-system-rename)
+- [migration] Products set up before the multi-surface restructure need the surface registry + capability ledger bootstrapped (gw-surfaces-registry-bootstrap)
+- [migration] Code-coupled docs written before drift tracking need `last_reviewed`/`source_of_truth` frontmatter stamped (gw-drift-frontmatter-stamp)
+- [migration] Bets opened before the bet-loop restructure need their tracking files uplifted to the current shape (gw-bet-shape-uplift)
+
 Multi-surface restructure: every product is modelled as one headless **capability
 core** plus zero or more **surfaces** (web, mobile, CLI, MCP), with parity tracked
 per capability instead of presumed. A single-surface product pays zero added
@@ -127,7 +168,7 @@ sweep over the 0.9.0 surface.
 
 ### Changed (contract-grade delivery, 2026-06-10)
 
-- [migration] Package renamed `groundwork` → `groundwork-method` — the binary stays `groundwork`; change any `npx groundwork …` invocations in your scripts to `npx groundwork-method …`.
+- [migration] Package renamed `groundwork` → `groundwork-method` — the binary stays `groundwork`; change any `npx groundwork …` invocations in your scripts to `npx groundwork-method …` (gw-package-rename-invocations)
 - Rename context: the bare npm name is held by an unrelated package, and the `-method` suffix matches the methodology-package convention.
 - Release workflow publishes for real (dry-run gate removed); requires the `NPM_TOKEN` secret.
 - Infra images pinned (`postgres:16`, `redis:7`); `groundwork check` exit codes documented.

@@ -1,0 +1,54 @@
+{
+  "registry_version": 1,
+  "migrations": [
+    {
+      "id": "gw-seed-config-toml",
+      "version": "0.10.0",
+      "title": "Seed .groundwork/config/config.toml",
+      "kind": "cli",
+      "summary": "Installs the user-owned config file on installs that predate it. init seeds it once; update never touched it, so older installs have none."
+    },
+    {
+      "id": "gw-register-depwire-mcp",
+      "version": "0.10.0",
+      "title": "Register the depwire code-map MCP server",
+      "kind": "cli",
+      "summary": "Adds the depwire MCP server to .mcp.json on installs that predate the registration. Additive and idempotent; never touches other servers."
+    },
+    {
+      "id": "gw-package-rename-invocations",
+      "version": "0.10.0",
+      "title": "Rewrite npx groundwork invocations to npx groundwork-method",
+      "kind": "agent",
+      "summary": "The package publishes as groundwork-method (the bare npm name is taken); project scripts and CI invoking `npx groundwork` resolve to the wrong package."
+    },
+    {
+      "id": "gw-design-system-rename",
+      "version": "0.10.0",
+      "title": "Rename docs/ux-design.md to docs/design-system.md",
+      "kind": "agent",
+      "summary": "The UX Design phase became the Design System phase; projects carrying the old document need the rename and its cross-references carried forward."
+    },
+    {
+      "id": "gw-surfaces-registry-bootstrap",
+      "version": "0.10.0",
+      "title": "Bootstrap the surface registry and capability ledger",
+      "kind": "agent",
+      "summary": "Products set up before the multi-surface restructure have no docs/surfaces.md / .groundwork/surfaces.json; bootstrap them via groundwork-surface-activation."
+    },
+    {
+      "id": "gw-drift-frontmatter-stamp",
+      "version": "0.10.0",
+      "title": "Stamp drift-tracking frontmatter on code-coupled docs",
+      "kind": "agent",
+      "summary": "Docs written before drift tracking lack last_reviewed / source_of_truth frontmatter, so groundwork check cannot assess them."
+    },
+    {
+      "id": "gw-bet-shape-uplift",
+      "version": "0.10.0",
+      "title": "Uplift in-flight bets to the current bet shape",
+      "kind": "agent",
+      "summary": "Bets opened before the bet-loop restructure lack decomposition.json and current pitch frontmatter; uplift in-flight bets, leave shipped ones alone."
+    }
+  ]
+}

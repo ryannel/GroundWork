@@ -1,6 +1,7 @@
 import { formatFiles, generateFiles, Tree } from '@nx/devkit';
 import * as path from 'path';
 import * as fs from 'fs';
+import { recordGeneratorProvenance } from '../shared/provenance';
 
 export interface WorkspaceDevCliGeneratorSchema {
   appName?: string;
@@ -107,4 +108,10 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
   }
 
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'workspace-dev-cli', {
+    appName,
+    primaryColor: templateOptions.primaryColor,
+    hexColor: templateOptions.hexColor,
+  });
 }
