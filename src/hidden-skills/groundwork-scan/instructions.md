@@ -139,8 +139,8 @@ Route every digest's fields into these files under `.groundwork/cache/scan/`, ea
 |---|---|---|
 | `scan/overview.md` | Repo shape, per-part project type, partition map, scan depth, coverage and gaps | all three extracts (shared) |
 | `scan/product-findings.md` | README value proposition, user-facing capabilities, product surface, inferred users, licensing/monetisation signals | `groundwork-product-brief-extract` |
-| `scan/design-findings.md` | Design tokens, component library inventory, theme/Tailwind config, UI framework, interaction and accessibility signals | `groundwork-design-system-extract` |
-| `scan/architecture-findings.md` | Service/partition map, entry points, external contracts (OpenAPI/AsyncAPI/proto/routes), data models and migrations, persistence, internal and external dependencies, infra/deployment (compose, IaC, CI, env examples), notable patterns, risks and TODOs | `groundwork-architecture-extract` |
+| `scan/design-findings.md` | Interface surfaces (every one the repo carries, typed), design tokens, component library inventory, theme/Tailwind config, UI framework, interaction and accessibility signals | `groundwork-design-system-extract` |
+| `scan/architecture-findings.md` | Service/partition map with each partition's surface type, entry points, external contracts (OpenAPI/AsyncAPI/proto/routes), data models and migrations, persistence, internal and external dependencies, infra/deployment (compose, IaC, CI, env examples), notable patterns, risks and TODOs | `groundwork-architecture-extract` |
 
 The digest schema's field-to-file routing is defined alongside the schema in `references/digest-schema.md` — follow it exactly so each extract finds what it expects under its own header.
 

@@ -2,14 +2,15 @@
 name: groundwork-architecture-extract
 description: >
   Reconstructs an existing system's architecture from the scan findings and
-  deterministic code map into `docs/architecture.md`, domain stubs, and ADRs —
+  deterministic code map into `docs/architecture.md`, the surface registry
+  (`docs/surfaces.md` + `.groundwork/surfaces.json`), domain stubs, and ADRs —
   exact structural facts, not guesses. Confirms the recovered structure with
   the user and mints ADRs only where the user supplies the rationale.
 ---
 
 # groundwork-architecture-extract
 
-You are a systems archaeologist with an architect's eye. The system's architecture already exists — in its service boundaries, its data models, its contracts, its dependency graph. Your job is to recover it into `docs/architecture.md`, the domain stubs, and the architectural decision records that greenfield architecture facilitation produces — grounded in exact structural facts, not guesses.
+You are a systems archaeologist with an architect's eye. The system's architecture already exists — in its service boundaries, its data models, its contracts, its dependency graph. Your job is to recover it into `docs/architecture.md`, the surface registry, the domain stubs, and the architectural decision records that greenfield architecture facilitation produces — grounded in exact structural facts, not guesses.
 
 This is Phase 3 of the brownfield track, and the heaviest extract phase. The scan left you an architecture findings slice and a deterministic code map (`repo-map.json`). You reconstruct the architecture from them, confirm the structure with the user, recover the *why* behind decisions worth recording, and commit. The output matches greenfield architecture exactly — and downstream domain docs are reviewed against its summary.
 
@@ -28,7 +29,7 @@ Apply the `groundwork-writer` skill when producing output documents. Declarative
 
 | Consumer | Depends on the architecture for... |
 |---|---|
-| **Infra Adoption** | The service map, ports, dependencies, and contracts — to adopt existing services into `docs/services` and `docs/api` and to wire the operational layer without regenerating them. |
+| **Infra Adoption** | The service map, ports, dependencies, and contracts — to adopt existing services into `docs/services` and `docs/api` and to wire the operational layer without regenerating them — plus the surface registry's test mediums, which the system-test harness is provisioned against. |
 | **Domain docs & ADRs** | Reviewed against this document's `## Summary for Downstream` and accepted ADRs — a constraint absent here is invisible to every entity that must honour it. |
 | **First Bet** | The boundaries and contracts a new bet must respect, and the gap ledger this phase fills most heavily. |
 
@@ -77,6 +78,7 @@ Present the recovered architecture to the user and let them correct it. This is 
 Work through, leading each with what you recovered:
 
 - **Service map & boundaries** — the services, what each owns, why the boundary sits where it does (from the dependency graph). Confirm the boundaries are real and intended, not accidental.
+- **Surfaces & capability core** — which partitions are interface surfaces (the scan typed each in the Service Map's Surface column) and which form the capability core; whether the core is hosted (services reached over a network) or embedded (a library in-process with its single surface); per surface, the core-access path and auth model the code shows. Confirm every surface — a repo can carry a web app and a CLI, and the registry written at commit records each one.
 - **Data flows & communication** — how data moves between services, sync vs async, what each persists. Confirm the patterns and surface any the code makes ambiguous.
 - **Technology stack** — the datastores, brokers, auth providers, and any LLM provider the code reveals, with the obligations each imposes. Name an LLM provider and model explicitly if the system calls one — it is a first-class architectural fact.
 - **Constraints & budgets** — the binding constraints inherited from the design system's non-functional requirements, plus any the infrastructure enforces (scale-to-zero, regional hosting, compliance posture visible in the code).
@@ -117,6 +119,7 @@ The recovered architecture must convey the *reasoning* the system embodies, not 
    | `04-component-boundaries.md` | Template section 4 |
    | `05-communication-patterns.md` | Template section 5 |
    | `06-service-level-requirements.md` | Template section 6 (the SLR table — every obligation a service must honour) |
+   | `07-surfaces-and-capability-core.md` | Template section 7: the core's deployment as observed (hosted or embedded) with its consequence for contract format, and one line per observed surface — type, access path, auth. Detail lives in `docs/surfaces.md` (written at commit); this section carries the facts |
 
    Each section's heading starts at H2 to concatenate cleanly. Apply `groundwork-writer`.
 
@@ -140,18 +143,20 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 4. **Assemble** the final doc: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > docs/architecture.md")`.
 
-5. **Stamp drift-baseline frontmatter.** Add frontmatter to `docs/architecture.md` and each `docs/domain/<entity>.md`: `generation_mode: extracted`, `source_of_truth:` (the code paths each doc was reconstructed from — service roots, contract files, migration dirs), and `last_reviewed:` (today's date). This is what `groundwork-check` reads to detect drift between the extracted docs and the code they came from, and the `extracted` mode routes its recovery through `groundwork-update` rather than a generator re-run.
+5. **Write the surface registry.** Create `docs/surfaces.md` following the contract at `.agents/groundwork/skills/templates/surfaces.md`, projecting what the code shows: the Capability Core section (what the core owns, its deployment as observed, where its contracts live), and one Surface Registry entry per observed surface with `status: active` — these surfaces ship today, so the registry records each one, and one dropped here is invisible to design tracks, scaffolding, and parity tracking for the life of the product. Per entry: `core access` and `auth` as the code shows them; `scaffold: manual` — adopted surfaces were not generated, and `manual` is first-class; `test medium` as the fixture family the surface's type and platform imply (`playwright` for a web `graphical-ui`, `subprocess-cli` for a `cli`, `protocol-client` for an `agentic-protocol`) — infra adoption provisions the harness against it; `design track` pointing at the matching type section of `docs/design-system.md`. The Capability Ledger section is its table header with **no rows**, and the machine twin `.groundwork/surfaces.json` is written in the same step with an empty `capabilities` array — the two files are projections of the same facts and are always written together. Do not reverse-engineer capability rows from the code: a scanned ledger is confidently wrong where an empty one is honestly unknown — rows grow per-bet as validation touches capabilities, and infra adoption records this stance in the gap ledger. Write the registry even for a single-surface repo — one entry, and downstream phases read it.
 
-6. **Review the domain stubs and ADRs.** Invoke the review subagent on each `docs/domain/<entity>.md` with `document_type: domain-entity`. The isolated reviewer checks each entity against the architecture summary and the accepted ADRs. Apply 🔴 findings and re-review until PRESENT. Fail-closed, revise cap applies (Protocol 8).
+6. **Stamp drift-baseline frontmatter.** Add frontmatter to `docs/architecture.md` and each `docs/domain/<entity>.md`: `generation_mode: extracted`, `source_of_truth:` (the code paths each doc was reconstructed from — service roots, contract files, migration dirs), and `last_reviewed:` (today's date). This is what `groundwork-check` reads to detect drift between the extracted docs and the code they came from, and the `extracted` mode routes its recovery through `groundwork-update` rather than a generator re-run.
 
-7. **Append architecture gaps to the ledger** at `.groundwork/cache/gap-ledger.md` (create from `.agents/groundwork/skills/templates/gap-ledger.md` if absent). This is the heaviest gap contribution: every missing machine-readable contract at blocks-delivery severity, every standard divergence at its tier, with the evidence path.
+7. **Review the domain stubs and ADRs.** Invoke the review subagent on each `docs/domain/<entity>.md` with `document_type: domain-entity`. The isolated reviewer checks each entity against the architecture summary and the accepted ADRs. Apply 🔴 findings and re-review until PRESENT. Fail-closed, revise cap applies (Protocol 8).
 
-8. **Write the hand-off** to `.groundwork/cache/handoff/architecture-extract.md` from the shared template: deferred decisions, recovered-but-unrecorded reasoning the infra phase needs, user instincts about the operational layer. Omit empty sections (Protocol 6).
+8. **Append architecture gaps to the ledger** at `.groundwork/cache/gap-ledger.md` (create from `.agents/groundwork/skills/templates/gap-ledger.md` if absent). This is the heaviest gap contribution: every missing machine-readable contract at blocks-delivery severity, every standard divergence at its tier, with the evidence path.
 
-9. **Teardown.** Delete the consumed findings slice `.groundwork/cache/scan/architecture-findings.md`, the previous hand-off `.groundwork/cache/handoff/design-system-extract.md`, the draft directory, and the phase cache. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json` — infra adoption still reads them.
+9. **Write the hand-off** to `.groundwork/cache/handoff/architecture-extract.md` from the shared template: deferred decisions, recovered-but-unrecorded reasoning the infra phase needs, user instincts about the operational layer. Omit empty sections (Protocol 6).
 
-10. Apply the Living Documents protocol — refine `docs/product-brief.md` or `docs/design-system.md` where the architecture conversation surfaced refinements. If any update reverses a prior Key Decision or Binding Constraint, follow the Reversal Protocol: reconcile the full body and dependent docs, write the superseding ADR, and re-review every mutated doc.
+10. **Teardown.** Delete the consumed findings slice `.groundwork/cache/scan/architecture-findings.md`, the previous hand-off `.groundwork/cache/handoff/design-system-extract.md`, the draft directory, and the phase cache. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json` — infra adoption still reads them.
 
-11. Update discovery notes — remove `## Architecture` and `## Design Details` entries now captured.
+11. Apply the Living Documents protocol — refine `docs/product-brief.md` or `docs/design-system.md` where the architecture conversation surfaced refinements. If any update reverses a prior Key Decision or Binding Constraint, follow the Reversal Protocol: reconcile the full body and dependent docs, write the superseding ADR, and re-review every mutated doc.
 
-12. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/architecture.md` carrying its `## Summary for Downstream` and the stamped `generation_mode`/`source_of_truth` frontmatter; only the scan writes a durable marker, because it leaves no `docs/` artifact.
+12. Update discovery notes — remove `## Architecture` and `## Design Details` entries now captured.
+
+13. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/architecture.md` carrying its `## Summary for Downstream` and the stamped `generation_mode`/`source_of_truth` frontmatter; only the scan writes a durable marker, because it leaves no `docs/` artifact.

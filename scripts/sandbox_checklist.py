@@ -37,6 +37,7 @@ DURABLE_DOCS = {
         "docs/product-brief.md",
         "docs/design-system.md",
         "docs/architecture.md",
+        "docs/surfaces.md",  # surface registry (architecture-extract; ledger empty by design)
         "docs/infrastructure.md",
         "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
     ],

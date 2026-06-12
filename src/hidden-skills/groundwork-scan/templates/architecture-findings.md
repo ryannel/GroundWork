@@ -4,10 +4,10 @@
 
 ## Service / Partition Map
 
-<!-- One row per service or partition: name, root path, language, runtime, responsibility. -->
+<!-- One row per service or partition: name, root path, language, runtime, responsibility, and — for partitions a consumer interacts with — the interface surface type (graphical-ui | cli | agentic-protocol); `—` for core services. Record every surface-bearing partition: the architecture extract writes the surface registry from this column, and a surface missing here is missing from the registry. -->
 
-| Service | Root | Language | Responsibility |
-|---|---|---|---|
+| Service | Root | Language | Responsibility | Surface |
+|---|---|---|---|---|
 
 ## Entry Points
 

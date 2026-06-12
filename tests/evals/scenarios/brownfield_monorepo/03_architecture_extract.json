@@ -3,5 +3,5 @@
   "skill_path": "src/hidden-skills/groundwork-architecture-extract/instructions.md",
   "turns": 30,
   "depends_on": "02_design_system_extract",
-  "success_files": ["docs/architecture.md"]
+  "success_files": ["docs/architecture.md", "docs/surfaces.md", ".groundwork/surfaces.json"]
 }

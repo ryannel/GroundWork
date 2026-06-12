@@ -10,7 +10,7 @@
 
 ## Recovered structure
 
-<!-- Service map, boundaries, data flows, stack — as confirmed. -->
+<!-- Service map, boundaries, surfaces (every one, typed) and core deployment, data flows, stack — as confirmed. -->
 
 ## ADR candidates
 

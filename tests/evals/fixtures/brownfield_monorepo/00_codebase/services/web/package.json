@@ -1,0 +1,21 @@
+{
+  "name": "tasklet-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.1",
+    "typescript": "5.4.0",
+    "vitest": "1.6.0"
+  }
+}

@@ -2,9 +2,9 @@
 
 > Consumed by `groundwork-design-system-extract`. Raw design signals extracted from config and code. Not a design system — the extract phase distils them and interviews to fill aesthetic-intent gaps.
 
-## Interface Type
+## Interface Surfaces
 
-<!-- graphical-ui | cli | agentic-protocol — the taxonomy the design-system phase uses. -->
+<!-- One line per interface surface found: partition, type (graphical-ui | cli | agentic-protocol), platform evidence. Record every surface — a repo can carry a web app AND a CLI, and one omitted here is lost to the design and registry phases. A repo with one surface gets one line. -->
 
 ## Design Tokens
 

@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Tasklet API
+  version: 0.1.0
+# NOTE: this spec documents /health and /boards only. The /tasks routes shipped
+# without being added here — a real-world partial contract.
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+  /boards:
+    get:
+      summary: List boards
+      responses:
+        '200':
+          description: A list of boards
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Board' }
+    post:
+      summary: Create a board
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BoardInput' }
+      responses:
+        '201':
+          description: Created
+components:
+  schemas:
+    Board:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        createdAt: { type: string, format: date-time }
+    BoardInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }

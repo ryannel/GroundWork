@@ -48,7 +48,7 @@ Create `.groundwork/cache/infra-adopt-cache.md` from its template if absent; on 
 
 ### Step 2: Read Upstream Context
 
-Read the architecture-extract hand-off (`.groundwork/cache/handoff/architecture-extract.md`) in full; then `docs/architecture.md`'s `## Summary for Downstream` and its service map and SLR table (the architecture is the source of truth for what services exist and what they own); then `.groundwork/cache/discovery-notes.md` entries under `## Architecture`.
+Read the architecture-extract hand-off (`.groundwork/cache/handoff/architecture-extract.md`) in full; then `docs/architecture.md`'s `## Summary for Downstream` and its service map and SLR table (the architecture is the source of truth for what services exist and what they own); then the surface registry `docs/surfaces.md` (the active surfaces and the test mediums the harness must serve); then `.groundwork/cache/discovery-notes.md` entries under `## Architecture`.
 
 ### Step 3: Read the Scan Baseline
 
@@ -67,7 +67,7 @@ Produce two mappings and confirm both with the user before running anything (Pro
 | Generator | Run when | Notes |
 |---|---|---|
 | `workspace-dev-cli` | `./dev` does not already exist | Lays down `./dev`, `.dev/`, and a base `docker-compose.yml`. Subject to the merge guard below. Derive `--appName` from the product brief or architecture; do not ask. |
-| `system-test-runner` | no system-test harness exists | `--interfaceMedium <type>` from `docs/design-system.md`'s interface track. A missing harness is a blocks-delivery gap — adding it is the single highest-value thing this phase does. |
+| `system-test-runner` | no system-test harness exists | `--interfaceMedium <type>` from the surface registry — each active surface's type and test medium in `docs/surfaces.md`. A missing harness is a blocks-delivery gap — adding it is the single highest-value thing this phase does. |
 | `docs-site` | opt-in, when no docs site exists | Ask the user once whether they want a Fumadocs site. Default to running it when the repo has no documentation surface. |
 
 Confirm the existing-service count against the architecture's service map before closing this phase. On a mismatch, halt: surface the disagreement to the user, ask which source is authoritative — the architecture doc or what the code shows — and append a row to `.groundwork/cache/gap-ledger.md` recording the discrepancy and its resolution before proceeding. Write the confirmed plan to the cache.
@@ -131,7 +131,7 @@ Mark the verification phase complete (or pending) in the cache.
 1. **Consolidate `docs/maturity.md`.** Read the maturity model at `.agents/groundwork/skills/maturity-model.md`, then write `docs/maturity.md` from the template at `.agents/groundwork/skills/templates/maturity.md`, leading with a `## Summary for Downstream` (Protocol 5). Two parts:
 
    - **Assessment** — score the project against the seven dimensions, with evidence from what this phase just observed: the booted stack (D3), the harness it added (D4), the registered code map (D5), the contracts the scan pinned or found missing (D2). Brownfield projects usually land 🟡/🔴 on several dimensions — score honestly; the roadmap is where the distance becomes work.
-   - **Roadmap** — read `.groundwork/cache/gap-ledger.md` (the running ledger the extract phases appended to) and convert each entry to a roadmap row: gap, dimension (D1–D7), severity, recommendation, status `open`, evidence. Blocks-delivery gaps first. Mark the gaps this phase *closed* as `closed (infra-adopt)` — most importantly, if it added the system-test harness, that blocks-delivery gap is resolved and the roadmap says so. Seed `## History` with one line recording this initial assessment.
+   - **Roadmap** — read `.groundwork/cache/gap-ledger.md` (the running ledger the extract phases appended to) and convert each entry to a roadmap row: gap, dimension (D1–D7), severity, recommendation, status `open`, evidence. Blocks-delivery gaps first. Mark the gaps this phase *closed* as `closed (infra-adopt)` — most importantly, if it added the system-test harness, that blocks-delivery gap is resolved and the roadmap says so. Append one stance row of this phase's own before converting: the capability ledger in `docs/surfaces.md` starts **empty at adoption by design** — reverse-engineering capability parity from an existing codebase produces confident fiction, so parity stays unknown until a bet touches each capability and bet validation grows the rows. Severity `cosmetic`, recommendation `defer`, evidence `docs/surfaces.md`. The row puts the empty ledger on record as a decision, so no future reader mistakes it for a missed extraction step. Seed `## History` with one line recording this initial assessment.
 
    This document is what `groundwork-bet` reads when planning every bet — it is the mechanism by which onboarding debt becomes prioritised, schedulable work that the user steers, never a forced march. Apply `groundwork-writer`.
 

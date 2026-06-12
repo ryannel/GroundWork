@@ -95,3 +95,12 @@ walkthrough.md
 implementation_plan.md
 scratch/
 tests/evals/runs/
+
+# ----------------------------
+# Brownfield eval fixture — real committed source, not generated output.
+# The repo-wide `services/` and `docker-compose.yml` ignores would otherwise
+# swallow the fixture's codebase on a fresh clone.
+# ----------------------------
+!tests/evals/fixtures/brownfield_monorepo/00_codebase/services/
+!tests/evals/fixtures/brownfield_monorepo/00_codebase/services/**
+!tests/evals/fixtures/brownfield_monorepo/00_codebase/docker-compose.yml

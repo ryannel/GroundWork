@@ -39,7 +39,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 Check whether `docs/design-system.md` already exists.
 
 - **Absent** — standard **Extract** mode.
-- **Present but lacking an element this phase's commit produces** (for the design system: the `## Summary for Downstream` section, or the companion `.groundwork/config/brand-tokens.json`) — **Adopt/Upgrade** mode. Ingest the existing file as primary source, preserve its decisions, and fill the missing contract elements rather than rediscovering the system. An existing `brand-tokens.json` that validates against the contract is preserved as-is — emit one only when it is absent or the confirmed interface type changes its tier. A design or UX spec authored under another framework (a BMAD UX specification, a brand guideline doc) is exactly this shape — bring it forward the same way.
+- **Present but lacking an element this phase's commit produces** (for the design system: the `## Summary for Downstream` section, or the companion `.groundwork/config/brand-tokens.json`) — **Adopt/Upgrade** mode. Ingest the existing file as primary source, preserve its decisions, and fill the missing contract elements rather than rediscovering the system. An existing `brand-tokens.json` that validates against the contract is preserved as-is — emit one only when it is absent or the confirmed type set changes the Tier-2 blocks it must carry. A design or UX spec authored under another framework (a BMAD UX specification, a brand guideline doc) is exactly this shape — bring it forward the same way.
 
 ### Step 2: Read Upstream Context
 
@@ -47,13 +47,13 @@ Read in the Protocol 3.2 order: the product-brief-extract hand-off (`.groundwork
 
 ### Step 3: Cache Check
 
-Create `.groundwork/cache/design-system-extract-cache.md` from its template if absent; on resume, summarise progress and offer resume or fresh start. Record the determined `interface_type` in this cache.
+Create `.groundwork/cache/design-system-extract-cache.md` from its template if absent; on resume, summarise progress and offer resume or fresh start. Record the determined `interface_types` set in this cache.
 
 ---
 
-## Stage 1: Determine Interface Type
+## Stage 1: Determine Interface Types
 
-The interface type describes what the end-user interacts with, not what the backend does. The scan recorded a candidate in `scan/design-findings.md`; confirm it against the taxonomy:
+The interface type describes what the end-user interacts with, not what the backend does. A repo can carry more than one surface — a web app and an admin CLI are two surfaces of one product — and each surface's type owns its own design treatment. The scan recorded every surface it found under `## Interface Surfaces` in `scan/design-findings.md`; confirm each against the taxonomy:
 
 | Type | The consumer | Examples |
 |---|---|---|
@@ -61,7 +61,7 @@ The interface type describes what the end-user interacts with, not what the back
 | `cli` | A human watching a terminal | developer tools, terminal apps, an embedded-agent shell experience |
 | `agentic-protocol` | Another program or agent via API, no human terminal surface | agent frameworks, MCP servers, protocols |
 
-Disambiguate by who consumes the output. A human at a terminal is `cli` even when an LLM drives it underneath; a framework consumed via API with no terminal surface is `agentic-protocol`. Record the confirmed type in the phase cache — it determines the brand-tokens tier (Tier 2 for `cli`, Tier 1 otherwise) and the shape of the recovered design system.
+Disambiguate each surface by who consumes its output. A human at a terminal is `cli` even when an LLM drives it underneath; a framework consumed via API with no terminal surface is `agentic-protocol`. Record the confirmed **type set** in the phase cache — it determines which type sections the recovered design system carries and which Tier-2 brand-tokens blocks are emitted. A repo with one surface confirms one type, and the rest of the phase runs exactly as it always has.
 
 ---
 
@@ -74,6 +74,8 @@ Read `scan/design-findings.md` and, where the findings cite specific config or t
 | Colour palette and semantic roles, type scale and families, spacing/radius/shadow scales, component inventory, breakpoints, dark-mode handling, terminal theme (CLI), the non-functional budgets visible in config (bundle targets, image policies, a11y lint rules) | Whether the system is deliberate or accreted; the feeling the design targets; which inconsistencies are intentional; brand voice; accessibility commitments beyond what is enforced |
 
 Recover concrete values, not labels. The contribution of this phase is translating `tailwind.config.ts` and `globals.css` into a stated design system — `oklch(62% 0.19 256)` as the primary with its semantic role and usage rule, not "there is a blue."
+
+When the repo carries more than one interface type, recover each type's specifics from its own surface's code — the web app's Tailwind config says nothing about the CLI's terminal treatment. Brand-level values (palette, type families, voice) are shared across types; everything medium-specific is recovered per type, and a type whose surface encodes little (a CLI with plain `fmt.Println` output) is a gap to interview, not a section to invent.
 
 ---
 
@@ -91,9 +93,9 @@ Capture out-of-phase signals under their headers in `.groundwork/cache/discovery
 
 ## Stage 4: Draft, Review & Present
 
-1. **Draft `docs/design-system.md`.** Match the canonical design-system document structure and depth — lead with the `## Summary for Downstream` (Protocol 5), then the recovered system: non-functional requirements, colour architecture with concrete values and semantic roles, typography, spacing, components, interaction patterns, and (for `cli`) the terminal treatment. Apply the `groundwork-writer` skill. Write to `.groundwork/cache/design-system-extract-draft.md`.
+1. **Draft `docs/design-system.md`.** Match the canonical design-system document structure and depth — lead with the `## Summary for Downstream` (Protocol 5), then the **shared foundation** (non-functional requirements, colour architecture with concrete values and semantic roles, typography, brand voice), then **one titled section per confirmed interface type** — `Graphical UI`, `CLI`, `Agentic Protocol`, as applicable. Each type section carries that type's medium-specific system — spacing, components, breakpoints, and interaction patterns for `graphical-ui`; the terminal treatment for `cli`; response shape and error vocabulary for `agentic-protocol`. Spell the section titles exactly: they are the design-track anchors the surface registry's `design track` field points at (`docs/design-system.md § CLI`), and a drifted title orphans the reference. A single-type product carries one type section — the same shape greenfield facilitation produces. Apply the `groundwork-writer` skill. Write to `.groundwork/cache/design-system-extract-draft.md`.
 
-2. **Draft `brand-tokens.json` in the cache.** Project the recovered branding into the brand-tokens contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. Emit **Tier 1** (`identity`: appName, wordmark, primary, accent, voice) for `graphical-ui` and `agentic-protocol`; emit **Tier 2** (Tier 1 plus the full `terminal` block) for `cli`, carrying the same colour values as the colour architecture in the design-system doc. Derive every value from a recovered decision — never invent. Stage it at `.groundwork/cache/brand-tokens-draft.json`; it is promoted at commit. In Adopt/Upgrade mode, skip this step when the existing `.groundwork/config/brand-tokens.json` validates against the contract and carries the tier the confirmed interface type requires — preserve it as-is.
+2. **Draft `brand-tokens.json` in the cache.** Project the recovered branding into the brand-tokens contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. Emit **Tier 1** (`identity`: appName, wordmark, primary, accent, voice) always; then add the Tier-2 block each confirmed type defines per the contract — the `terminal` block for `cli`, the `visual` block for `graphical-ui` — so a product carrying both types carries both blocks. The `terminal` block's colour roles are the machine form of the CLI section's colour architecture and must carry the same values. Derive every value from a recovered decision — never invent; a type whose code reveals no token-worthy treatment gets no block padded from imagination. Stage it at `.groundwork/cache/brand-tokens-draft.json`; it is promoted at commit. In Adopt/Upgrade mode, skip this step when the existing `.groundwork/config/brand-tokens.json` validates against the contract and carries the Tier-2 blocks the confirmed type set requires — preserve it as-is.
 
 3. **Review.** Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/design-system-extract-draft.md` and `document_type: design-system`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
@@ -113,7 +115,7 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 1. Verify the draft leads with a populated `## Summary for Downstream`. Add it with `groundwork-writer` if missing.
 2. Promote the design system to `docs/design-system.md` with a move operation (do not re-emit the body through the model). Stamp no drift frontmatter — the design system doc is exempt from frontmatter-based drift by design, because `groundwork-check` reads `generation_mode`/`source_of_truth` only from the code-coupled docs (`docs/architecture.md`, `docs/services/`, `docs/api/`, `docs/domain/`).
-3. **Promote brand tokens.** Move `.groundwork/cache/brand-tokens-draft.json` to `.groundwork/config/brand-tokens.json` (when Adopt/Upgrade preserved an existing valid file, there is no draft — leave the existing file untouched). Verify it validates against the contract and carries the correct tier for the interface type. This file is persistent config — it is never deleted at cache cleanup, and infra adoption depends on it.
+3. **Promote brand tokens.** Move `.groundwork/cache/brand-tokens-draft.json` to `.groundwork/config/brand-tokens.json` (when Adopt/Upgrade preserved an existing valid file, there is no draft — leave the existing file untouched). Verify it validates against the contract and carries the Tier-2 blocks the confirmed type set requires. This file is persistent config — it is never deleted at cache cleanup, and infra adoption depends on it.
 4. **Append design gaps to the ledger** at `.groundwork/cache/gap-ledger.md` (create from `.agents/groundwork/skills/templates/gap-ledger.md` if absent): design divergences from standard this phase uniquely saw.
 5. Write the hand-off to `.groundwork/cache/handoff/design-system-extract.md` from the shared template: rejected design directions, deferred decisions, user instincts about interaction not captured in the spec. Omit empty sections (Protocol 6).
 6. **Delete the consumed findings slice** `.groundwork/cache/scan/design-findings.md`. Delete the previous hand-off `.groundwork/cache/handoff/product-brief-extract.md` (now consumed) and the phase cache `.groundwork/cache/design-system-extract-cache.md`. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json`.

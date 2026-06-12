@@ -3,9 +3,9 @@
 > Resume state for `groundwork-design-system-extract`. Deleted at commit.
 
 - **Mode:** <!-- extract | adopt-upgrade -->
-- **interface_type:** <!-- graphical-ui | cli | agentic-protocol -->
-- **brand-tokens tier:** <!-- 1 | 2 (2 only for cli) -->
-- **Stage 1 — Interface type:** pending
+- **interface_types:** <!-- every confirmed type — graphical-ui | cli | agentic-protocol -->
+- **brand-tokens Tier-2 blocks:** <!-- none | terminal (cli) | visual (graphical-ui) | both -->
+- **Stage 1 — Interface types:** pending
 - **Stage 2 — Ingest & synthesise:** pending
 - **Stage 3 — Gap interview:** pending
 - **Stage 4 — Draft, review & present:** pending

@@ -37,7 +37,8 @@ Route each field into the findings file its downstream consumer reads. A field c
 | Digest field | Findings file / section |
 |---|---|
 | `purpose` (product framing), `product_signals` | `scan/product-findings.md` |
-| `design_tokens`, `ui_components`, `interface_type` | `scan/design-findings.md` |
+| `design_tokens`, `ui_components` | `scan/design-findings.md` → Design Tokens, Component Library |
+| `interface_type` | `scan/design-findings.md` → Interface Surfaces; `scan/architecture-findings.md` → Service Map (Surface column) |
 | `purpose`, `entry_points`, `exported_surface` | `scan/architecture-findings.md` → Service Map, Entry Points |
 | `external_contracts` | `scan/architecture-findings.md` → External Contracts |
 | `data_models`, `persistence` | `scan/architecture-findings.md` → Data Models & Persistence |
@@ -51,3 +52,5 @@ Route each field into the findings file its downstream consumer reads. A field c
 `infra_deployment` is a distinct field, not a kind of contract — docker-compose, IaC, CI, and env examples have a guaranteed home so they are never lost between the contract and dependency slots.
 
 When `external_contracts` is empty for a partition that exposes routes, record the absence in `risks_todos` as a missing-contract gap. The architecture extract phase promotes it to a blocks-delivery entry in the gap ledger — the contract-driven bet loop depends on machine-readable contracts.
+
+Every partition whose `interface_type` is not `none` is an **interface surface**, and the findings record all of them — a repo can carry a web app and a CLI, and each gets its own line in both destinations. The design extract recovers a design section per surface type and the architecture extract writes the surface registry from these lines; a surface dropped here never reaches either.

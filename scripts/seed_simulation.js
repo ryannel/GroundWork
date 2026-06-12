@@ -61,8 +61,8 @@ const PATHS = {
   brownfield: {
     startState:
       'This is a brownfield project: an existing codebase is already committed (a Go API + ' +
-      'Next.js web monorepo wired with docker-compose), `docs/` is empty, and state.json is ' +
-      '`project_type: null`. GroundWork is being adopted onto the existing repo.',
+      'Next.js web + Go CLI monorepo wired with docker-compose), `docs/` is empty, and ' +
+      'state.json is `project_type: null`. GroundWork is being adopted onto the existing repo.',
     sequence:
       '**Scan → Product Brief Extract → Design System Extract → Architecture Extract → ' +
       'Infra Adoption → first Bet.**',
