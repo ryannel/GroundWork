@@ -24,6 +24,10 @@ When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/
 
 Work through the milestone order in `decomposition.md`, slice by slice. Each slice runs the same loop; the manifest at `.groundwork/bets/<bet-slug>/decomposition.json` records where the loop stands, so a fresh context resumes from the manifest instead of re-deriving progress.
 
+When the decomposition types its slices (`surface: core` or a surface slug — registry projects), core slices merge before the surface slices that consume them. A surface slice wires a contract that must already be proven green, not one being built beneath it in parallel — the milestone order already encodes this (the capability milestone opens the bet); hold it at slice granularity too.
+
+The slice context capsule for a surface slice includes the capability milestone's test file — the contract proof the slice builds on. Reading those green assertions tells the surface slice exactly what the core guarantees, so its own work stays bounded to wiring, rendering, and interaction instead of re-deriving core behaviour.
+
 ### 1. Assemble the slice context capsule
 
 Most implementation failures are context failures — the agent that breaks an existing behaviour usually never read the file it was changing. Before writing any code for a slice:
@@ -70,7 +74,7 @@ Update the slice's manifest entry: `status: delivered`, `delivered_commit`, `fil
 
 ### Milestone close
 
-After all of a milestone's slices are delivered, run the milestone's bet-progress tests (`test_milestone_<n>_*`) to confirm the full user-visible outcome, then mark the milestone `delivered` in the manifest. `./dev bet status` renders the board from the manifest at any point — keep it true.
+After all of a milestone's slices are delivered, run the milestone's bet-progress tests (`test_milestone_<n>_*`) to confirm the milestone's full demonstrable outcome, then mark the milestone `delivered` in the manifest. `./dev bet status` renders the board from the manifest at any point — keep it true.
 
 ## Amendment Protocol — when a sealed test is wrong
 

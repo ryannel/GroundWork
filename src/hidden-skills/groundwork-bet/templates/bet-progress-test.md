@@ -6,18 +6,22 @@
 
 ## What bet-progress tests are
 
-Bet-progress tests are **temporary, black-box proof-of-work** written before any implementation exists. They assert what a user would observe in the product if the feature were complete. Red means the work is not done. Green means it is proven.
+Bet-progress tests are **temporary, black-box proof-of-work** written before any implementation exists. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven.
 
-Two complementary layers form each milestone's proof:
+A milestone's proof follows its type:
 
-**Interface-level tests** assert the user-visible outcome in the product's interface medium. The medium comes from `docs/design-system.md`'s interface track — never hardcode an assumption:
+**Capability-level tests** prove a capability milestone — they hit the contract directly, end-to-end against the running services over HTTP (or against the embedded core's public API), with no surface in the loop. Every business rule the bet introduces is proven here, exactly once.
+
+**Interface-level tests** prove a surface milestone — they assert what that surface's users observe, in that surface's medium:
 - `graphical-ui` — a browser-driven test that navigates to the feature and verifies what the user sees
 - `cli` — a test that invokes the command and verifies the output, exit code, or side-effect
 - `agentic-protocol` — a test that sends a protocol request and verifies the response structure
 
-**API-level system tests** exercise the running services end-to-end over HTTP. When an interface test goes red, the API test localizes the failure: frontend problem vs API problem. They use the shared service-discovery fixtures from `tests/conftest.py`.
+Interface-level tests resolve their target surface through the surfaces fixture (slug → entry point) and are bounded to wiring, rendering, and interaction. **They never re-prove core logic** — a business rule already proven at the contract re-asserted in a surface test is a review finding, because it multiplies the test pyramid by the surface count for nothing. When an interface test goes red against green capability tests, the failure is in the surface's adapter layer by elimination.
 
-Slice tests prove the vertical capability a slice contributes toward its parent milestone. They are **informed by and bounded by** the parent milestone's tests — a slice test proves a specific capability; the milestone test proves the user-visible outcome those capabilities enable.
+When the project has no surface registry, the two layers pair up per milestone exactly as they always have: an interface-level test in the project's single medium, plus an API-level system test that localizes failures.
+
+Slice tests prove the vertical capability a slice contributes toward its parent milestone. They are **informed by and bounded by** the parent milestone's tests — a slice test proves a specific capability; the milestone test proves the consumer-visible outcome those capabilities enable. A slice's `surface` field names the discipline that applies: `core` slices prove contract behaviour; surface slices prove wiring in their surface's medium.
 
 ---
 
@@ -65,13 +69,14 @@ tests/bets/_archive/<bet-slug>/
 
 Bet-progress tests reuse the shared fixtures from `tests/conftest.py`:
 - `cluster` — boots and health-checks all services; provides the running topology
-- `api_client` — an HTTP client configured with the discovered service base URLs
+- `api_client` — an HTTP client configured with the discovered service base URLs; capability-level tests use this to hit the contract directly
 - `pure_state_reset` — truncates all service data stores before each test (autouse)
-- `frontend_base_url` — the base URL of the graphical-ui service, if the project has one
+- `surfaces` — the mapping from registry slug to that surface's entry point (base URL for a web surface, binary path for a CLI, protocol endpoint for an agentic surface); interface-level tests resolve their target surface here
+- `frontend_base_url` — the legacy alias for the single graphical surface's base URL; present when exactly one graphical surface exists, for suites written before the surfaces fixture
 
 Declare the fixtures you need as test-function parameters; pytest resolves them from the parent conftest automatically.
 
-For interface-level tests against a `graphical-ui` project, the `page` fixture (from pytest-playwright) drives a real browser. For `cli` projects, use `subprocess` or `pexpect` to invoke the binary directly.
+For interface-level tests against a `graphical-ui` surface, the `page` fixture (from pytest-playwright) drives a real browser. For `cli` surfaces, use `subprocess` or `pexpect` to invoke the binary directly.
 
 ---
 
@@ -83,7 +88,15 @@ When the implementation does not exist yet, a test stub must be **explicitly red
 - Go: `t.Fatal("bet-progress test not yet implemented — <describe target state>")`
 - TypeScript: `throw new Error("bet-progress test not yet implemented — <describe target state>")`
 
-Comment the stub with the two layers it will eventually assert, so the Delivery agent knows exactly what to implement:
+Comment the stub with what it will eventually assert, so the Delivery agent knows exactly what to implement. For a capability milestone stub:
+```
+# Contract: [the end-to-end behaviour the core should prove — request, response, persisted effect]
+```
+For a surface milestone stub:
+```
+# Surface <slug>: [what the user should observe in this surface's medium — wiring and rendering only]
+```
+For an untyped milestone (no surface registry), comment both layers:
 ```
 # Layer 1 — interface: [what the user should observe in the product]
 # Layer 2 — API: [what the service should return end-to-end over HTTP]
@@ -94,7 +107,8 @@ Comment the stub with the two layers it will eventually assert, so the Delivery 
 ## What makes a good bet-progress test
 
 A bet-progress test is good when:
-- It asserts a **falsifiable, user-visible outcome** — not an internal state
+- It asserts a **falsifiable, consumer-visible outcome** — at the contract or in a surface's medium, never an internal state
 - It would fail if the feature shipped incomplete
 - It would pass without any special knowledge of how the feature is implemented internally
+- It proves each business rule exactly once — at the contract; surface tests assert only wiring, rendering, and interaction
 - A reviewer can read it and confirm it matches the milestone's acceptance criteria in `decomposition.md`

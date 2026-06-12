@@ -17,6 +17,13 @@ Checked against the bet's committed artifacts immediately before the first slice
 - [ ] 🔴 **Status out of sequence**: the pitch frontmatter `status` is not `delivery` (or `decomposition` about to transition) — a fresh context picked up the wrong bet or a phase was skipped.
 - [ ] 🔴 **Unreviewed artifact**: the technical design or decomposition was committed without its review gate reaching `VERDICT: PRESENT` (visible in conversation history or flagged in the doc) — an ungated plan is a draft, not a contract.
 
+## Surface scope
+
+These items apply only when the project carries a surface registry (`docs/surfaces.md`). A project with no registry has a single implicit surface; none of these items fire. The ledger itself is gated at validation — a bet cannot reach `delivered` with an empty ledger cell — so readiness checks the scope agreement that makes that gate satisfiable.
+
+- [ ] 🔴 **Pitch ↔ design surface disagreement**: the pitch's `surfaces:` frontmatter and the technical design's Surface Design subsections name different surface sets — delivery would build for surfaces the bet never scoped, or skip ones it committed to, and validation's ledger row would have no honest state for the mismatched column.
+- [ ] 🔴 **Slice surface unmapped**: a slice's `surface` value in `decomposition.md` or `decomposition.json` is missing, or is neither `core` nor a registry slug — core-before-surface sequencing cannot run, and the slice's outcome has no ledger column to land in.
+
 ## Contracts
 
 - [ ] 🔴 **Slice without a contract**: a slice in `decomposition.md` introduces or changes a service API whose shapes are absent from `docs/bets/<slug>/contracts/` — that slice will be implemented against guesswork.

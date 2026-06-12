@@ -8,8 +8,9 @@ description: >
 # Decomposition Checklist
 
 This checklist checks a draft `docs/bets/<slug>/decomposition.md`. It answers one question:
-**does every milestone name user-visible value, every slice cut vertically, and every capability
-trace to the technical design with a falsifiable test?**
+**does every milestone name consumer-visible value — proven once at the contract, then per
+surface — every slice cut vertically, and every capability trace to the technical design with a
+falsifiable test?**
 
 Each item names a violation. Match it against the document text and
 `docs/bets/<slug>/technical-design.md`. Bet documents carry no `## Summary for Downstream` — do
@@ -20,15 +21,40 @@ not flag its absence.
 - [ ] 🔴 **Horizontal milestone**: a milestone names a layer of the stack ("Backend", "Build all
   the schemas", "Integration") rather than a demonstrable state in the product's interface — it
   is invisible to the user and proves nothing end-to-end.
-- [ ] 🔴 **Goal not traceable to the Interface Design**: a milestone's user-visible goal
-  corresponds to nothing in the Interface Design section of `technical-design.md` — the
-  milestone proves something the design never committed to.
+- [ ] 🔴 **Goal not traceable to the design**: a milestone's goal corresponds to nothing in
+  `technical-design.md` — a surface milestone's user-visible goal traces to no Surface Design
+  subsection, or a capability milestone's contract state traces to no Capability Design
+  contract. The milestone proves something the design never committed to.
 - [ ] 🔴 **No acceptance criteria**: a milestone carries no concrete, observable acceptance
   criteria a reviewer could check against the running product.
 - [ ] 🟡 **No sequencing rationale**: a milestone does not state why it sits where it does — what
   the first milestone proves architecturally, why the next can only follow it.
 - [ ] 🟡 **Milestone count outside 2–5**: one milestone suggests the bet is not scoped in
-  user-visible increments; six or more suggests it is a roadmap, not a bet.
+  user-visible increments; six or more suggests it is a roadmap, not a bet. Exception: a
+  headless delivery legitimately carries a single capability milestone with every surface
+  milestone deferred — when the pitch's surface no-gos say so, do not flag it.
+
+## Milestone and Slice Typing
+
+These items apply only when the project carries a surface registry (`docs/surfaces.md`). A
+project with no registry decomposes against its single implicit surface — untyped milestones,
+no slice `Surface` field — and none of these items fire.
+
+- [ ] 🔴 **Milestone untyped or mistyped**: a milestone carries no `Type:`, or its type
+  contradicts its content — a milestone whose demonstrable state is a contract exercised
+  headless is a capability milestone; one asserting in a surface's medium is a surface
+  milestone, and the surface slug it names must exist in the registry.
+- [ ] 🔴 **Capability proof not first**: the bet introduces new capability but does not open
+  with the capability milestone proving it at the contract — surface milestones are sequenced
+  before the contract proof they depend on.
+- [ ] 🔴 **Surface milestone asserting business outcomes**: a surface milestone's goal or
+  acceptance criteria assert business rules rather than wiring, rendering, and interaction —
+  the milestone is re-litigating what the capability milestone proves at the contract.
+- [ ] 🟡 **Consumer unnamed**: a capability milestone does not record who its consumer is — the
+  in-scope surfaces that build on it, or the latent agentic surface for a headless delivery.
+- [ ] 🔴 **Slice surface missing or invalid**: a slice spec carries no `Surface` field, or its
+  value is neither `core` nor a registry slug, in `decomposition.md` or `decomposition.json` —
+  delivery cannot sequence core-before-surface, and the slice's test discipline is undeclared.
 
 ## Slice Verticality
 
@@ -38,9 +64,9 @@ not flag its absence.
   slice existing — it fails the vertical-slice test and must be merged up or reframed.
 - [ ] 🟡 **Orphan slice or empty milestone**: a slice belongs to no milestone, or a milestone
   decomposes into no slices.
-- [ ] 🟡 **Anatomy incomplete**: a slice spec is missing one of its six parts — Owner service,
-  Complexity (S/M/L), Prerequisite, one-paragraph intro, Required Capabilities, Test Cases
-  table.
+- [ ] 🟡 **Anatomy incomplete**: a slice spec is missing one of its parts — Owner service,
+  Surface (`core` or a registry slug; registry projects only), Complexity (S/M/L),
+  Prerequisite, one-paragraph intro, Required Capabilities, Test Cases table.
 - [ ] 🟡 **Vague prerequisite**: a prerequisite does not name the exact prior merge gate (e.g.
   "Slice 1.2 merged") — "after the backend work" sequences nothing.
 
@@ -79,6 +105,11 @@ destination with a green light.
 - [ ] 🔴 **White-box assertion**: a bet-progress test imports application code, mocks internals,
   or asserts module structure — these tests are black-box proof at the interface and API level
   only.
+- [ ] 🔴 **Core logic re-proven at a surface**: a surface milestone or surface-slice test
+  re-asserts a business rule already proven by the capability milestone's contract tests —
+  prove-once is the principle that keeps surface count from multiplying the test pyramid;
+  surface tests assert wiring, rendering, and interaction only. (Registry projects only; an
+  untyped suite pairs interface and API layers per milestone as before.)
 - [ ] 🔴 **Red for the wrong reason**: a test fails on an import error, fixture error, or typo
   rather than on the feature's absence — it will not flip green when the feature works.
 - [ ] 🟡 **Error path untested**: a capability whose contract defines error cases has tests only

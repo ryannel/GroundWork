@@ -1,6 +1,6 @@
-# Phase 2: Design Foundations (Interface, Data Flows, Contracts, Schema)
+# Phase 2: Design Foundations (Surface Design, Data Flows, Contracts, Schema)
 
-**Goal:** Produce the design contract this bet executes against — before any decomposition begins. The contract anchors everything downstream: milestone interface-tests assert against the Interface Design; slice capabilities trace to the API Contracts and Data Schema; the review loop verifies the chain is intact. Design that skips to data flows before the interface is settled produces contracts the milestones cannot prove.
+**Goal:** Produce the design contract this bet executes against — before any decomposition begins. The contract anchors everything downstream: surface milestone tests assert against the Surface Design subsections; slice capabilities trace to the Capability Design's API Contracts and Data Schema; the review loop verifies the chain is intact. Design that locks the contract before the surface designs are settled produces a contract shaped by guesswork about the experiences it must serve.
 
 ## Restrictions
 ⚠️ **CRITICAL CONSTRAINT:** You are FORBIDDEN from writing implementation code during this phase. You may only write design documentation, interface specifications, API contracts, and schemas.
@@ -34,13 +34,17 @@ Confirm any domain doc changes with the user before proceeding to Step 2. Skip t
 
 Draft `docs/bets/<bet-slug>/technical-design.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/technical-design.md`.
 
-The Technical Design Document covers the **entire bet** — not per-milestone. Write it before any decomposition into milestones or slices. The sections are ordered so each one provides the foundation the next depends on: the interface is what the user sees; data flows describe how the system produces it; API contracts specify the service boundaries; data schema grounds the contracts in persistent state.
+The Technical Design Document covers the **entire bet** — not per-milestone. Write it before any decomposition into milestones or slices. The document carries two top-level sections whose order is the design's logic: **Surface Design** is drafted first, because the contract must serve the experiences — never the other way around; **Capability Design** (data flows, API contracts, data schema) is then written once beneath all of them, surface-neutral and headless.
 
-**Interface Design:** Describe what the user observes and interacts with in this bet's interface medium. Organise by view, command, or interaction — not by feature or service. For each: the purpose, its states (loading, active, empty, error, degraded), and its key interactions. Use the vocabulary from the project's interface track in `docs/design-system.md`: screens and states for `graphical-ui`, commands and output for `cli`, request/response turns for `agentic-protocol`. This section is what milestone interface-tests will assert against — it must be specific enough to make a test pass or fail unambiguously.
+**Surface Design:** One subsection per surface in the pitch's `surfaces:` frontmatter. Each subsection describes what that surface's users observe and interact with, organised by view, command, or interaction — not by feature or service. For each: the purpose, its states (loading, active, empty, error, degraded), and its key interactions. Write each subsection in the vocabulary of that surface's interface type, from its design track in `docs/design-system.md`: screens and states for `graphical-ui`, commands and output for `cli`, request/response turns for `agentic-protocol` — a bet spanning a web app and a CLI carries one subsection in each vocabulary. Each subsection is what that surface's milestone tests will assert against — it must be specific enough to make a test pass or fail unambiguously. When the project has no surface registry (`docs/surfaces.md` absent), the product has a single implicit surface: write one subsection for it in the project's interface medium and skip every other surface consideration in this workflow — the result is today's document with the headings one level deeper. A single-surface registry likewise produces exactly one subsection, with no added questions.
+
+**Capability Design** is the headless core of the bet — everything in it must be designable, implementable, and provable with no surface running. Its three subsections:
 
 **Data Flows:** Identify the key data paths this bet introduces or changes. For each path, describe what triggers it, which services handle it, what persists, and the key design decisions that shaped it. Skip trivial CRUD; focus on paths where timing, service boundaries, or failure modes are non-obvious.
 
-**API Contracts:** For each service boundary touched by this bet, produce a fully specified endpoint design: full request shape with field types, full response shape with field types, all error cases with caller guidance, and design rationale for non-obvious decisions. Derive the specification from the pitch, upstream architecture, and the interface and data flow sections above — the user provides intent and context; you produce the detailed contract. Where a detail is ambiguous, propose the best design and confirm the key decisions with the user rather than leaving the field unspecified. Vague shapes ("returns the entity") cannot drive correct implementation. The shapes themselves live in the spec files written in Step 2.2 — this section carries the purpose, error guidance, and design rationale the spec format cannot, and references the spec rather than restating field tables.
+**API Contracts:** For each service boundary touched by this bet, produce a fully specified endpoint design: full request shape with field types, full response shape with field types, all error cases with caller guidance, and design rationale for non-obvious decisions. Derive the specification from the pitch, upstream architecture, and the surface design and data flow sections above — the user provides intent and context; you produce the detailed contract. Where a detail is ambiguous, propose the best design and confirm the key decisions with the user rather than leaving the field unspecified. Vague shapes ("returns the entity") cannot drive correct implementation. The shapes themselves live in the spec files written in Step 2.2 — this section carries the purpose, error guidance, and design rationale the spec format cannot, and references the spec rather than restating field tables.
+
+**The contract serves every in-scope surface and presumes none.** Designing the contract against all of its consumers at once is the cheapest moment to catch a web-shaped API a mobile client or CLI cannot use — a session assumption baked into a response, markup returned where data belongs, pagination sized to a viewport. Walk each surface's design against the contract before locking it. When only one surface is in scope, the latent agentic surface stands in as the second consumer: would a programmatic caller, with no UI and no session, find this contract complete? The review enforces this check.
 
 **Data Schema:** For each table, collection, or store this bet introduces or changes, define key fields and any lifecycle state machines. Reference `docs/domain/` rather than duplicating it — note the domain entity path and describe only what this bet adds or changes.
 
@@ -71,14 +75,14 @@ The technical design is the contract Decomposition and Delivery execute against.
 
 ## Quality Standard: What a Good Technical Design Section Looks Like
 
-The technical design is a contract, not an outline. Every section must be specific enough that a developer can implement from it without asking for clarification. Interface states, data flows, and API shapes must be explicit — not gestured at.
+The technical design is a contract, not an outline. Every section must be specific enough that a developer can implement from it without asking for clarification. Surface states, data flows, and API shapes must be explicit — not gestured at.
 
 **Shallow (insufficient):**
 
 ```markdown
-## API Contracts
+### API Contracts
 
-### Notification Service
+#### Notification Service
 
 **`GET /api/notifications`**
 - Returns list of notifications for the authenticated user
@@ -91,9 +95,9 @@ The technical design is a contract, not an outline. Every section must be specif
 **Deep (required standard):**
 
 ```markdown
-## API Contracts
+### API Contracts
 
-### Notification Service
+#### Notification Service
 
 **`GET /api/notifications`**
 
@@ -133,7 +137,7 @@ The shallow version has no request shapes, no response field types, no error cas
 
 ## Transition
 
-Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Interface Design first — that is where the user's mental model of the bet lives — then the data flows, API contracts, and schema. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
+Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Surface Design first, subsection by subsection — that is where the user's mental model of the bet lives — then the Capability Design: data flows, API contracts, and schema. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
 
 On approval:
 

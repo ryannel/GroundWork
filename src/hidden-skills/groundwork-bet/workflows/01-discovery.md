@@ -10,7 +10,7 @@ This workflow operates under the protocols defined in `.agents/groundwork/skills
 
 Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Bets`.
 
-If entries exist, treat them as pre-discovered context — sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items carrying stable IDs (`<bet-slug>-R<n>`) from the previous bet's validation. Carry them into the pitch conversation; an action item the new bet absorbs is cited in the pitch by its ID so the next retrospective's follow-through audit can close it. Re-asking signals the user has already given erodes trust in the process.
+If entries exist, treat them as pre-discovered context — sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items carrying stable IDs (`<bet-slug>-R<n>`) from the previous bet's validation. Some entries are `planned` capability-ledger cells cross-posted by a previous bet's validation — capabilities already committed to reach a named surface. These are discovery input: when one touches the problem the user brings, surface it as candidate scope for this bet rather than letting the commitment age in the parking lot. Carry all of it into the pitch conversation; an action item the new bet absorbs is cited in the pitch by its ID so the next retrospective's follow-through audit can close it. Re-asking signals the user has already given erodes trust in the process.
 
 If the file does not exist or has no `## Bets` entries, skip this step.
 
@@ -35,8 +35,11 @@ Read the relevant `docs/` artifacts before opening the conversation:
 - `docs/product-brief.md` — what the system is, who it serves, what it does not do.
 - `docs/architecture.md` — service boundaries and capability decisions the bet must respect.
 - `docs/design-system.md` — the design system and NFRs the bet must implement against.
+- `docs/surfaces.md` — the surface registry and capability ledger, when the project has one. The bet's surface scope is chosen against this real registry, not from memory: which surfaces the capability reaches in this bet, which are deferred or omitted. The ledger's `planned` cells are commitments earlier bets already made — a `planned` cell this bet could deliver is candidate scope.
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.
+
+**Surface scope degrades with the registry.** When `docs/surfaces.md` does not exist, the project has a single implicit surface: skip every surface-scope step in this workflow — the pitch carries no `surfaces:` frontmatter, the No-Gos carry no surface no-gos, and the conversation gains no surface questions. When the registry holds exactly one surface, scope is settled by inspection: write that one slug into `surfaces:` and ask nothing — there is no scope to choose.
 
 ## Instructions
 
@@ -102,6 +105,12 @@ Before drafting, verify all elements are present and specific (falsifiable signa
 
 ---
 
+### Surface scope (both tracks — multi-surface registries only)
+
+When the registry holds two or more surfaces, the no-gos conversation includes surface scope: which registry surfaces does this bet deliver to, and for each surface it does not reach, is that a deferral (with intent) or an omission (with rationale)? Appetite is the natural frame — each additional surface costs a surface milestone, so reaching fewer surfaces is the same scope-cutting move as cutting a feature. The dispositions land in the pitch: in-scope slugs in the `surfaces:` frontmatter, the rest as surface no-gos. Validation writes the ledger from exactly these decisions, so a surface the conversation never decided becomes a cell the bet cannot close.
+
+---
+
 ### Review and Commit (both tracks)
 
 3. Write the drafted Pitch to `.groundwork/cache/bet-pitch-draft.md`. The pitch is not yet committed — the draft passes through an independent review before becoming `docs/bets/<bet-slug>/pitch.md`. The pitch becomes the input to every downstream design and decomposition conversation; a silently dropped capability or invented constraint poisons the entire delivery loop.
@@ -114,7 +123,7 @@ Before drafting, verify all elements are present and specific (falsifiable signa
 
 5. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
 
-6. Ensure the `pitch.md` frontmatter contains `status: discovery`.
+6. Ensure the `pitch.md` frontmatter contains `status: discovery` — and, when the project has a surface registry, `surfaces:` listing the registry slugs this bet delivers to. Every registry surface outside that list appears under the No-Gos as a surface no-go, marked deferred or omitted. When no registry exists, the frontmatter carries no `surfaces:` key at all.
 
 7. If the bet absorbed or became a maturity-roadmap gap, update the affected rows in `docs/maturity.md` to `in-bet (<bet-slug>)` and append a line to its `## History` section.
 

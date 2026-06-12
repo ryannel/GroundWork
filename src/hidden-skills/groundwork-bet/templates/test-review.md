@@ -12,7 +12,7 @@
 
 ### [test function name]
 
-**Traces to:** [Interface Design section in `technical-design.md`, or `contracts/openapi.yaml` operation]
+**Traces to:** [a Surface Design subsection in `technical-design.md` for a surface milestone, or a `contracts/openapi.yaml` operation for a capability milestone]
 
 ```
 [verbatim assertion block from the test file — the lines that decide pass/fail,

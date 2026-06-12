@@ -24,6 +24,37 @@ Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytes
 
 The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
 
+### Step 2.7: Record the bet in the capability ledger
+
+Skip this step entirely when the project has no `docs/surfaces.md` — a project without a registry has a single implicit surface and no ledger to maintain.
+
+The capability ledger (in `docs/surfaces.md`) is where surface divergence becomes a recorded decision instead of silent drift, and validation is the one writer that appends capability rows. For each capability this bet delivered — user-meaningful, typically 1–3 per bet, coarse enough to stay readable, never per-endpoint — write its ledger row:
+
+- **Row key:** `<bet-slug>/<capability-slug>` — stable, greppable, collision-free.
+- **Every surface column filled** with exactly one state and its payload: `delivered` (this bet's slug), `planned` (a bet ref or discovery-notes pointer), `omitted` (one-line rationale), or `n/a` (no payload). The pitch's `surfaces:` scope and surface no-gos are the source: in-scope surfaces whose surface milestones went green are `delivered`; deferred no-gos and deferred surface milestones are `planned`; omitted no-gos are `omitted`, carrying the pitch's rationale; structurally meaningless columns are `n/a`. A retired surface's column fills `n/a` automatically.
+- **Cross-post every `planned` cell** as a bullet under `## Bets` in `.groundwork/cache/discovery-notes.md`, naming the capability key and the target surface — the next bet's Discovery reads that section, so the deferral becomes backlog instead of memory.
+- **Update `.groundwork/surfaces.json` in the same change:** append the capability entries with the same keys, states, and payloads. The prose ledger and its machine twin are projections of the same decisions; they never drift.
+
+**The gate:** a bet cannot reach `delivered` status with an empty ledger cell. An unfilled column is an undecided divergence — decide it with the user (`planned`, `omitted`, or `n/a`) before Step 8.
+
+**Shallow ledger update (insufficient):**
+
+```markdown
+| `notifications/status` | delivered | planned | planned |
+```
+
+States without payloads, `planned` cells pointing nowhere, nothing cross-posted to discovery notes, the JSON twin untouched — a deferral recorded where no future bet will find it is silent drift wearing a ledger row.
+
+**Deep ledger update (required standard):**
+
+```markdown
+| Capability | web-app | admin-cli | mcp-server |
+|---|---|---|---|
+| `notification-delivery/in-app-status` | delivered (`notification-delivery`) | planned (discovery-notes — operators asked for failure visibility during the Step 4 review) | omitted — agents query operation status directly via the contract; a push feed duplicates it |
+```
+
+Plus, in the same change: the `planned` cell cross-posted under `## Bets` in discovery notes ("`notification-delivery/in-app-status` → `admin-cli`: operators need failure visibility; deferred from `notification-delivery`"), and `.groundwork/surfaces.json` gaining the matching capability entry with identical states and payloads. Every column decided, every decision findable.
+
 ### Step 3: Archive the bet-progress suite
 
 Move `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available; otherwise `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`.
@@ -46,7 +77,8 @@ Documents to scan, in order:
 2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog.
 4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
-5. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that added a service's OpenAPI contract may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`.
+5. **`docs/surfaces.md`** — when it exists: registry entries whose reality changed (a `planned` surface this bet activated, a changed core-access path or test medium), and confirm Step 2.7's ledger rows landed with their `.groundwork/surfaces.json` twin in lockstep. Skip when the project has no registry.
+6. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that added a service's OpenAPI contract may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`.
 
 For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
 
@@ -81,7 +113,7 @@ Write `docs/bets/<bet-slug>/retrospective.md`: the patterns found, the follow-th
 
 ### Step 8: Mark the bet delivered
 
-Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`.
+Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`. On a registry project, Step 2.7's gate applies: do not write `delivered` while any ledger cell for this bet's capabilities is empty — fill the column or the bet does not close.
 
 ### Step 9: Hand off
 
@@ -126,6 +158,11 @@ Living Documents scan:
   the infrastructure components table (port 4222, container
   `<app>-nats`). Updated `./dev start` verification footnote to include
   notification flow.
+- `docs/surfaces.md` — ledger row `notification-delivery/in-app-status`
+  written: web-app delivered (`notification-delivery`), admin-cli planned
+  (cross-posted to discovery notes), mcp-server omitted (agents query
+  operation status via the contract). `.groundwork/surfaces.json` updated
+  in the same change; no empty cells.
 
 Discovery notes:
 
@@ -140,11 +177,12 @@ Bet status: delivered.
 
 The shallow version tells the user nothing. The deep version proves the scan happened, names what changed and why, and surfaces the discovery-note delta so the next bet starts with a clear inheritance.
 
-The same standard applies across all four scan targets:
+The same standard applies across every scan target:
 - **Architecture updates** must name the section, the change, and the reasoning — not just "added a service."
 - **Design System updates** must name the component or pattern that changed and whether existing patterns are affected.
 - **Brief updates** must justify the vision-level change against what the user actually said during delivery.
 - **Infrastructure updates** must include the concrete observable changes — ports, commands, health endpoints — not a summary.
+- **Ledger updates** must carry every cell's state with its payload and name where each `planned` deferral was cross-posted — a state without its payload is a decision without its record.
 
 ## Congratulations
 

@@ -1,9 +1,12 @@
 ---
 status: discovery
 last_reviewed: 
+surfaces: [<registry-slug>, <registry-slug>]
 ---
 
 # Bet: [Feature Name]
+
+*`surfaces:` lists the registry slugs (from `docs/surfaces.md`) this bet delivers to — validation fills the capability ledger from this scope. When the project has no surface registry, omit the key entirely: the bet runs against the single implicit surface, exactly as before the registry existed. A single-surface registry means one entry and nothing more.*
 
 ## The Pitch
 *Provide a brief explanation of the problem, the proposed solution, and the appetite.*
@@ -24,3 +27,8 @@ last_reviewed:
 
 - [ ] Out of scope item 1 — why it is excluded
 - [ ] Out of scope item 2 — why it is excluded
+
+**Surface no-gos** — when the registry holds surfaces beyond this bet's `surfaces:` scope, name each surface the capability will not reach in this bet, with its disposition: **deferred** (will reach it later — state the intent) or **omitted** (deliberately never — state the rationale). Validation writes these dispositions into the capability ledger; a surface left unstated here becomes an empty ledger cell the bet cannot close with. Skip this list when the registry holds one surface or the project has no registry.
+
+- [ ] Surface `<slug>` — deferred: <what brings the capability there, and roughly when>
+- [ ] Surface `<slug>` — omitted: <why this capability deliberately never ships here>

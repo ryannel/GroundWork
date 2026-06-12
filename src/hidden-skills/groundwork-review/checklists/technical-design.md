@@ -22,20 +22,30 @@ absence.
   specifications, contracts, and schemas belong here.
 - [ ] 🟡 **Per-milestone organisation**: the design is split by milestone or phase rather than
   covering the entire bet — decomposition has leaked into the design artifact.
-- [ ] 🟡 **Section missing without reason**: one of Interface Design, Data Flows, API Contracts,
+- [ ] 🟡 **Section missing without reason**: one of Surface Design, Data Flows, API Contracts,
   or Data Schema is absent and the document does not state why it does not apply to this bet.
 
-## Interface Design
+## Surface Design
 
+Surface Design carries one subsection per surface in the pitch's `surfaces:` frontmatter. When
+the project has no surface registry (`docs/surfaces.md`), the product has a single implicit
+surface — expect exactly one subsection in the project's interface medium, and do not flag the
+absence of surface ceremony.
+
+- [ ] 🔴 **In-scope surface undesigned**: a surface in the pitch's `surfaces:` scope has no
+  Surface Design subsection — that surface's milestone tests will have nothing to assert
+  against, and delivery will improvise the experience.
 - [ ] 🔴 **Untestable interface**: a view, command, or interaction is described too vaguely for a
-  test to pass or fail against it — milestone interface-tests assert against this section, so
+  test to pass or fail against it — surface milestone tests assert against these subsections, so
   "the user can manage their notifications" specifies nothing.
 - [ ] 🔴 **Missing states**: a view or command defines its happy path but not its loading, empty,
   error, or degraded states — the states are where implementations diverge silently.
-- [ ] 🟡 **Wrong medium vocabulary**: the interface section does not use the vocabulary of the
-  project's interface track in `docs/design-system.md` — screens and states for graphical UI,
-  commands and output for CLI, request/response turns for agentic protocol.
-- [ ] 🟡 **Organised by service, not by interaction**: the interface section is structured by
+- [ ] 🟡 **Wrong medium vocabulary**: a surface's subsection does not use the vocabulary of that
+  surface's interface type in `docs/design-system.md` — screens and states for graphical UI,
+  commands and output for CLI, request/response turns for agentic protocol. Each subsection
+  speaks its own surface's vocabulary; a CLI subsection describing "screens" is a violation even
+  when the bet also scopes a graphical surface.
+- [ ] 🟡 **Organised by service, not by interaction**: a surface subsection is structured by
   feature or service instead of by view, command, or interaction — the user-observable surface
   is the unit milestones prove.
 
@@ -58,6 +68,12 @@ absence.
   implementation.
 - [ ] 🔴 **No error cases**: an endpoint defines no error responses, or lists status codes
   without caller guidance — the caller's recovery behaviour is part of the contract.
+- [ ] 🔴 **Contract shaped for one consumer**: a contract shape only one in-scope surface can
+  consume — it presumes web session state, returns markup where data belongs, paginates by
+  viewport, or encodes one surface's rendering concerns. The contract serves every in-scope
+  surface and presumes none; when only one surface is in scope, the latent agentic surface is
+  the second consumer — a programmatic caller with no UI and no session must find the contract
+  complete.
 - [ ] 🟡 **Untyped field**: a request or response field appears without a type, nullability, or
   allowed values where they matter (enums, cursors, identifiers).
 - [ ] 🟡 **Auth unstated**: a contract does not state its authentication requirement, on a

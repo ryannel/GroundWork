@@ -60,6 +60,24 @@ could silently consume the appetite.
   cut, not a technical trap — the two lists have been blended, which hides whether real risk was
   considered.
 
+## Surface Scope
+
+These items apply only when the project carries a surface registry (`docs/surfaces.md`). A
+project with no registry has a single implicit surface — the pitch carries no `surfaces:` key,
+and none of these items fire. A single-surface registry needs exactly one `surfaces:` entry and
+no surface no-gos.
+
+- [ ] 🔴 **Surface scope missing or unregistered**: the registry exists but the pitch frontmatter
+  carries no `surfaces:` key, or a listed slug does not appear in the registry — the bet's
+  delivery target is undeclared or fictional, and validation will have no scope to write the
+  ledger from.
+- [ ] 🔴 **Undecided surface**: a registry surface outside the pitch's `surfaces:` list is
+  plausibly touched by this capability, yet no surface no-go defers or omits it — validation
+  will face a ledger cell with no recorded decision behind it.
+- [ ] 🟡 **Surface no-go without a disposition**: a surface no-go names a surface but is not
+  marked deferred (with intent) or omitted (with rationale) — the divergence is noted but not
+  decided, which is the silent drift the ledger exists to prevent.
+
 ## Upstream Contract
 
 - [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something the product brief's
