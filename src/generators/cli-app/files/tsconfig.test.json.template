@@ -1,0 +1,11 @@
+{
+  "//": "Test build: compiles src/ (including *.test.ts) to CommonJS in dist-test/ so node --test runs it directly. The shipped bundle still comes from build.mjs.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": "dist-test",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  }
+}

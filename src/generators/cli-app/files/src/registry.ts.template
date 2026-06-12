@@ -1,6 +1,7 @@
 import type { Renderer } from './theme/render';
 import { hello } from './commands/hello';
-<% if (repl) { %>import { repl } from './commands/repl';
+<% if (core) { %>import { status } from './commands/status';
+<% } %><% if (repl) { %>import { repl } from './commands/repl';
 <% } %>
 export interface Ctx {
   r: Renderer;
@@ -21,7 +22,8 @@ export interface CommandDef {
  *  here and the command is wired into both. */
 export const COMMANDS: CommandDef[] = [
   { name: 'hello', group: 'CORE', summary: 'Print a themed greeting (supports --json)', handler: hello },
-<% if (repl) { %>  { name: 'repl', group: 'CORE', summary: 'Start an interactive session', handler: repl },
+<% if (core) { %>  { name: 'status', group: 'CORE', summary: 'Probe the workspace core (exit 0 reachable, 1 not)', handler: status },
+<% } %><% if (repl) { %>  { name: 'repl', group: 'CORE', summary: 'Start an interactive session', handler: repl },
 <% } %>];
 
 export function findCommand(name: string): CommandDef | undefined {

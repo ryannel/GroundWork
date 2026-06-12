@@ -13,6 +13,11 @@
       "type": "boolean",
       "description": "Scaffold the interactive REPL layer on top of the composable spine.",
       "default": false
+    },
+    "core": {
+      "type": "boolean",
+      "description": "Wire the CLI to the workspace core: scaffolds the core-access seam (src/core/client.ts, API_BASE_URL-configurable, Bearer auth seam) and a `status` wiring-proof command. Omit for a standalone tool that fronts no services.",
+      "default": false
     }
   },
   "required": ["name"]

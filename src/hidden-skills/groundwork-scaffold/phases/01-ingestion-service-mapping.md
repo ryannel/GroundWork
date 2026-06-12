@@ -36,7 +36,7 @@ Count the services in `docs/architecture.md`, count the confirmed mappings, and 
 | Lightweight pub/sub via Redis (Python only) | `python-microservice --messaging redis` |
 | WebSocket real-time delivery | `--websockets` |
 | Frontend → backend API proxy | `nextjs-app --apiProxy` |
-| Command-line application as the product (or a CLI surface for a service) | `cli-app --name <name>` (add `--repl` when the design system specified an interactive/REPL paradigm) |
+| Command-line application as the product (or a CLI surface for a service) | `cli-app --name <name>` (add `--repl` when the design system specified an interactive/REPL paradigm; add `--core` when the CLI fronts workspace services — e.g. its registry access path is http-direct — to scaffold the core-access seam and the `status` wiring-proof command; omit `--core` for a standalone tool) |
 | Mobile surface (registry `platform: mobile`) | `flutter-app --name <slug>` (never joins docker-compose; the Flutter SDK is a runtime prerequisite, not a generation one) |
 | Desktop surface (registry `platform: desktop`) | `electron-app --name <slug>` (never joins docker-compose; the Electron binary downloads at bootstrap, and the boot smoke needs a display — xvfb on Linux CI) |
 | LLM integration (Python service) | `python-microservice --llm --llmProvider <openai\|anthropic>` (default `openai`) |
@@ -60,7 +60,7 @@ This table is the one place to update when generator flags evolve. When a new fl
 | `go-microservice` | Go API with PostgreSQL, optional auth and messaging | `--name`, `--auth` (none/service/clerk), `--messaging` (none/kafka/gcp-pubsub), `--websockets` |
 | `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--llmProvider` (openai/anthropic, default openai), `--runpod` |
 | `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
-| `cli-app` | Branded Node+TypeScript command-line application, themed from `brand-tokens.json` | `--name`, `--repl` (scaffold the interactive REPL layer) |
+| `cli-app` | Branded Node+TypeScript command-line application, themed from `brand-tokens.json`; standalone by default, or a frontend for workspace services with `--core` | `--name`, `--repl` (scaffold the interactive REPL layer), `--core` (wire the workspace core-access seam + `status` wiring proof; `API_BASE_URL` overrides the gateway URL) |
 | `flutter-app` | Flutter mobile app (official MVVM architecture, Riverpod, go_router), themed from `brand-tokens.json`; pubspec-based — wires into Nx via run-commands targets, never joins docker-compose | `--name`, `--org` (reverse-domain bundle id prefix, default `com.example`) |
 | `electron-app` | Electron desktop app (hardened main/preload/renderer split, typed IPC, React + Tailwind renderer), themed from `brand-tokens.json`; wires into Nx via run-commands targets, never joins docker-compose | `--name`, `--org` (reverse-domain app id prefix, default `com.example`) |
 | `system-test-runner` | Docker Compose test topology and system test suite | `--surfaces` (JSON array of `{slug, medium, reach?}` from the surface registry), `--interfaceMedium` (deprecated single-surface alias: graphical-ui/cli/agentic-protocol, default: graphical-ui) |

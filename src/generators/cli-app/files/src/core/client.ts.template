@@ -1,0 +1,64 @@
+// The core-access seam: the ONLY place this CLI talks to the workspace
+// gateway. Commands consume these functions and never carry transport
+// detail themselves — the terminal twin of the desktop scaffold's
+// main-process core client and the mobile scaffold's thin dio client.
+//
+// Contract-client stance (O8): hand-rolled and deliberately thin — one
+// function per promoted-contract operation, typed results beside them.
+// When the promoted openapi.yaml grows past a handful of operations, switch
+// to a generated TypeScript client and keep this module as the seam the
+// commands consume — nothing above it changes.
+
+/** The workspace core's health as commands render it. An unreachable core
+ *  is a value, not an exception: a CLI fronting a down service reports it
+ *  through output and exit code, never a stack trace. */
+export type CoreHealth = {
+  reachable: boolean;
+  status: string;
+};
+
+export const DEFAULT_CORE_BASE_URL = 'http://localhost:4000';
+
+/** Where the workspace core lives. The system-test harness (and any
+ *  deployed environment) overrides via the API_BASE_URL environment
+ *  variable. Standalone use never reaches this module — the seam only
+ *  exists when the CLI fronts workspace services. */
+export function coreBaseUrl(env: NodeJS.ProcessEnv = process.env): string {
+  const configured = env['API_BASE_URL']?.trim();
+  return configured ? configured : DEFAULT_CORE_BASE_URL;
+}
+
+/** The auth seam: headers attached to every core request. Unauthenticated
+ *  by default — wire your identity provider here (e.g. a service token from
+ *  the environment becomes `Authorization: Bearer <token>`); the core's
+ *  /health route stays public. */
+export function coreAuthHeaders(token?: string): Record<string, string> {
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+/** Probe the gateway's health endpoint — the wiring proof the `status`
+ *  command renders. `/health` is what GroundWork's Go and Python cores
+ *  serve; a Next.js BFF would be `/api/healthz` — adjust to your gateway.
+ *  Failures map to a value, never a throw: an unreachable core is a state
+ *  the command reports (exit 1), not an exception that kills the process. */
+export async function fetchCoreHealth(
+  baseUrl: string = coreBaseUrl(),
+  fetchImpl: typeof fetch = fetch,
+): Promise<CoreHealth> {
+  try {
+    const response = await fetchImpl(new URL('/health', baseUrl), {
+      headers: { Accept: 'application/json', ...coreAuthHeaders() },
+      signal: AbortSignal.timeout(5_000),
+    });
+    if (!response.ok) {
+      return { reachable: false, status: `http ${response.status}` };
+    }
+    const body = (await response.json()) as { status?: unknown };
+    return {
+      reachable: true,
+      status: typeof body.status === 'string' ? body.status : 'ok',
+    };
+  } catch {
+    return { reachable: false, status: 'unreachable' };
+  }
+}

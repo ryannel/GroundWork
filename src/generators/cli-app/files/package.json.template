@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test \"dist-test/**/*.test.js\"",
     "dev": "node build.mjs && node dist/cli.js",
     "start": "node dist/cli.js"
   },

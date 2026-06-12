@@ -1,0 +1,35 @@
+// The registry is the single source of truth for dispatch and help — these
+// tests keep it honest as commands accrete. Runs on node:test (zero deps).
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { COMMANDS, findCommand } from './registry';
+
+describe('command registry', () => {
+  it('registers at least one command', () => {
+    assert.ok(COMMANDS.length > 0);
+  });
+
+  it('has no duplicate command names', () => {
+    const names = COMMANDS.map((c) => c.name);
+    assert.equal(new Set(names).size, names.length);
+  });
+
+  it('gives every command a group and a summary (help renders from these)', () => {
+    for (const c of COMMANDS) {
+      assert.ok(c.summary.length > 0, `command ${c.name} has no summary`);
+      assert.ok(['CORE', 'META'].includes(c.group), `command ${c.name} has an unknown group`);
+    }
+  });
+
+  it('resolves a registered command', () => {
+    assert.ok(findCommand('hello'));
+  });
+
+  it('returns undefined for an unknown command (cli.ts exits 2 on this)', () => {
+    assert.equal(findCommand('no-such-command'), undefined);
+  });
+<% if (core) { %>
+  it('registers the core status probe — the wiring proof to the workspace core', () => {
+    assert.ok(findCommand('status'));
+  });
+<% } %>});

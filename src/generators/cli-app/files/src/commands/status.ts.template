@@ -1,0 +1,23 @@
+import type { Ctx } from '../registry';
+import { coreBaseUrl, fetchCoreHealth } from '../core/client';
+
+/** Probe the workspace core this CLI fronts — the surface's wiring proof.
+ *  Exit-code discipline carries the verdict: 0 reachable, 1 unreachable, so
+ *  scripts and the system-test harness gate on it without parsing output. */
+export async function status(ctx: Ctx): Promise<number> {
+  const baseUrl = coreBaseUrl();
+  const health = await fetchCoreHealth(baseUrl);
+
+  if (ctx.json) {
+    process.stdout.write(JSON.stringify({ baseUrl, ...health }) + '\n');
+    return health.reachable ? 0 : 1;
+  }
+
+  if (health.reachable) {
+    ctx.r.success(`Workspace core reachable at ${baseUrl} — status ${health.status}`);
+    return 0;
+  }
+  ctx.r.error(`Workspace core unreachable at ${baseUrl} (${health.status})`);
+  ctx.r.info('Set API_BASE_URL to point at your workspace gateway.');
+  return 1;
+}

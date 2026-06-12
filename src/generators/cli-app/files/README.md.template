@@ -12,6 +12,7 @@ this project's `./dev` control plane.
 npm install
 npm run build      # bundle to dist/cli.js
 npm run typecheck  # tsc --noEmit
+npm test           # node:test — compiles src/ to dist-test/ and runs *.test.ts
 node dist/cli.js --help
 node dist/cli.js hello you
 node dist/cli.js hello you --json
@@ -23,19 +24,52 @@ node dist/cli.js hello you --json
 src/
 ├── cli.ts            # entry: arg parsing, dispatch, --json, exit codes
 ├── registry.ts       # the command registry (single source of truth)
+├── registry.test.ts  # keeps the registry honest as commands accrete
 ├── brand.json        # brand tokens projected from the design system
 ├── theme/            # the shared render layer (colour resolution, output hierarchy)
 │   ├── tokens.ts
 │   ├── color.ts
 │   └── render.ts
-└── commands/
+<% if (core) { %>├── core/
+│   ├── client.ts       # the core-access seam — the ONLY place this CLI talks to the workspace gateway
+│   └── client.test.ts  # seam proven without a network (fetch injected)
+<% } %>└── commands/
     └── hello.ts      # a sample command — replace with your own
 ```
 
 `src/brand.json` is projected from `.groundwork/config/brand-tokens.json` at scaffold time.
 Re-run the design system to evolve the brand; update `brand.json` to match.
 
-## Add a command
+<% if (core) { %>## Workspace core mode
+
+This CLI fronts the workspace's services. All gateway traffic flows through the
+**core-access seam** (`src/core/client.ts`) — commands consume its typed functions and
+never carry transport detail themselves.
+
+```bash
+node dist/cli.js status            # the wiring proof: probes the core's /health
+node dist/cli.js status --json     # {"baseUrl": ..., "reachable": ..., "status": ...}
+API_BASE_URL=http://staging:4000 node dist/cli.js status
+```
+
+- **Base URL** — defaults to `http://localhost:4000` (the workspace gateway); override
+  with the `API_BASE_URL` environment variable.
+- **Auth** — unauthenticated by default. Wire your identity provider in
+  `coreAuthHeaders` (a service token becomes a `Bearer` header); `/health` stays public.
+- **Exit codes** — `status` exits 0 when the core is reachable, 1 when it is not, so
+  scripts and the system-test harness gate on it without parsing output.
+- **Growing the contract** — add one thin function per promoted-contract operation to
+  `src/core/client.ts`; when the contract outgrows hand-rolled functions, switch to a
+  generated client and keep this module as the seam.
+
+<% } else { %>## Standalone
+
+This CLI was scaffolded **standalone** — it fronts no workspace services and carries no
+core client. If it later grows into a frontend for the workspace's services, re-run the
+generator with `--core=true` (or copy the `src/core/` seam from a core-wired sibling)
+to add the core-access seam and the `status` wiring-proof command.
+
+<% } %>## Add a command
 
 1. Create `src/commands/<name>.ts` exporting `async function <name>(ctx): Promise<number>`.
 2. Register it in `src/registry.ts`.

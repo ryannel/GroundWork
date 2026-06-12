@@ -5,6 +5,9 @@ import * as fs from 'fs';
 export interface CliAppGeneratorSchema {
   name: string;
   repl?: boolean;
+  /** Wire the CLI to the workspace core (core-access seam + `status` wiring
+   *  proof). Omit for a standalone tool that fronts no services. */
+  core?: boolean;
 }
 
 const BRAND_TOKENS_PATH = '.groundwork/config/brand-tokens.json';
@@ -57,6 +60,7 @@ export default async function (tree: Tree, options: CliAppGeneratorSchema) {
   const name = options.name;
   const binName = kebab(name) || 'cli';
   const repl = Boolean(options.repl);
+  const core = Boolean(options.core);
   const projectRoot = path.join('services', binName);
 
   const filesDir = path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'cli-app', 'files');
@@ -64,8 +68,20 @@ export default async function (tree: Tree, options: CliAppGeneratorSchema) {
     name,
     binName,
     repl,
+    core,
     tmpl: '',
   });
+
+  // Standalone mode: the CLI is the whole product and fronts no services, so
+  // it carries no core-access seam. Core mode (--core) keeps these files —
+  // the same seam shape electron-app (src/main/core-client.ts) and
+  // flutter-app (lib/data/services/api_client.dart) ship unconditionally;
+  // here it is opt-in because a standalone CLI genuinely has no core.
+  if (!core) {
+    tree.delete(path.join(projectRoot, 'src/core/client.ts'));
+    tree.delete(path.join(projectRoot, 'src/core/client.test.ts'));
+    tree.delete(path.join(projectRoot, 'src/commands/status.ts'));
+  }
 
   // Copy the shared render layer as owned product source.
   copyShared(tree, 'theme/tokens.ts', path.join(projectRoot, 'src/theme/tokens.ts'));

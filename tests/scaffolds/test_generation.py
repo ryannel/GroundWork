@@ -967,10 +967,41 @@ def cli_app_workspace():
     shutil.rmtree(_CLI_APP_SANDBOX, ignore_errors=True)
 
 
+def _typecheck_cli_app(proj):
+    """Type-check the generated project with the repo's TypeScript (no install)."""
+    tsc = REPO_ROOT / "node_modules" / ".bin" / "tsc"
+    tc = subprocess.run(
+        [str(tsc), "--noEmit", "-p", str(proj / "tsconfig.json")],
+        cwd=REPO_ROOT, capture_output=True, text=True, timeout=120,
+    )
+    assert tc.returncode == 0, f"generated cli-app does not type-check\nSTDOUT: {tc.stdout}\nSTDERR: {tc.stderr}"
+
+
+def _run_generated_unit_tests(proj):
+    """Run the scaffold's own `npm test` path without an install: compile the
+    test build (tsconfig.test.json -> dist-test/) with the repo's TypeScript
+    standing in for the project devDep, then execute the node:test suite."""
+    tsc = REPO_ROOT / "node_modules" / ".bin" / "tsc"
+    emit = subprocess.run(
+        [str(tsc), "-p", str(proj / "tsconfig.test.json")],
+        cwd=REPO_ROOT, capture_output=True, text=True, timeout=180,
+    )
+    assert emit.returncode == 0, f"cli-app test build failed\nSTDOUT: {emit.stdout}\nSTDERR: {emit.stderr}"
+    run = subprocess.run(
+        ["node", "--test", "dist-test/**/*.test.js"],
+        cwd=proj, capture_output=True, text=True, timeout=120,
+    )
+    assert run.returncode == 0, (
+        f"generated node:test suite failed\nSTDOUT: {run.stdout}\nSTDERR: {run.stderr}"
+    )
+    return run.stdout
+
+
 def test_cli_app_generation(cli_app_workspace):
     """cli-app scaffolds a branded TypeScript CLI product themed from brand-tokens.json,
-    including the shared theme layer and (with --repl) the interactive layer; and the
-    generated TypeScript type-checks."""
+    including the shared theme layer and (with --repl) the interactive layer; the
+    generated TypeScript type-checks and its node:test suite passes. Without --core
+    the scaffold is standalone: no core-access seam, no status command."""
     sb = _CLI_APP_SANDBOX
     cmd = [
         "npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:cli-app",
@@ -984,12 +1015,19 @@ def test_cli_app_generation(cli_app_workspace):
     proj = sb / "services" / "demo-cli"
     # --- Structural ---
     for rel in [
-        "package.json", "tsconfig.json", "build.mjs", "README.md",
-        "src/cli.ts", "src/registry.ts", "src/commands/hello.ts", "src/brand.json",
+        "package.json", "tsconfig.json", "tsconfig.test.json", "build.mjs", "README.md",
+        "src/cli.ts", "src/registry.ts", "src/registry.test.ts",
+        "src/commands/hello.ts", "src/brand.json",
         "src/theme/tokens.ts", "src/theme/color.ts", "src/theme/render.ts",
         "src/commands/repl.ts", "src/util/prompt.ts",  # --repl layer
     ]:
         assert (proj / rel).exists(), f"cli-app missing {rel}"
+
+    # --- Standalone: the core-access seam must NOT be generated ---
+    for rel in ["src/core/client.ts", "src/core/client.test.ts", "src/commands/status.ts"]:
+        assert not (proj / rel).exists(), f"standalone cli-app must not ship {rel}"
+    registry = (proj / "src" / "registry.ts").read_text()
+    assert "'status'" not in registry, "standalone cli-app must not register a status command"
 
     # --- Brand projected from tokens ---
     brand = json.loads((proj / "src" / "brand.json").read_text())
@@ -998,12 +1036,110 @@ def test_cli_app_generation(cli_app_workspace):
     assert "terminal" in brand, "Tier-2 terminal block not projected"
 
     # --- REPL registered ---
-    assert "repl" in (proj / "src" / "registry.ts").read_text(), "repl not registered for --repl"
+    assert "repl" in registry, "repl not registered for --repl"
 
-    # --- Generated TypeScript type-checks (resolves tooling from the repo) ---
-    tsc = REPO_ROOT / "node_modules" / ".bin" / "tsc"
-    tc = subprocess.run(
-        [str(tsc), "--noEmit", "-p", str(proj / "tsconfig.json")],
-        cwd=REPO_ROOT, capture_output=True, text=True, timeout=120,
+    # --- Test harness wired into the scaffold's own DX ---
+    pkg = json.loads((proj / "package.json").read_text())
+    assert "node --test" in pkg["scripts"].get("test", ""), "npm test must run the node:test suite"
+
+    # --- Generated TypeScript type-checks and its unit tests pass ---
+    _typecheck_cli_app(proj)
+    _run_generated_unit_tests(proj)
+
+
+def test_cli_app_core_generation(cli_app_workspace):
+    """--core wires the CLI as a frontend for workspace services: the core-access
+    seam (src/core/client.ts) reads API_BASE_URL, probes /health (Go/Python cores;
+    a Next.js BFF would be /api/healthz), carries the Bearer auth seam, and the
+    `status` command is the wiring proof with exit-code discipline (0 reachable,
+    1 not). The seam's unit tests run, and the compiled CLI is executed for real
+    against a stub gateway — reachable and unreachable both behave."""
+    sb = _CLI_APP_SANDBOX
+    cmd = [
+        "npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:cli-app",
+        "--name", "Demo CLI", "--core=true",
+    ]
+    result = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+    assert result.returncode == 0, (
+        f"cli-app generator failed\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
     )
-    assert tc.returncode == 0, f"generated cli-app does not type-check\nSTDOUT: {tc.stdout}\nSTDERR: {tc.stderr}"
+
+    proj = sb / "services" / "demo-cli"
+    # --- Structural: the core layer rides on top of the spine ---
+    for rel in [
+        "src/core/client.ts", "src/core/client.test.ts", "src/commands/status.ts",
+        "src/registry.test.ts", "tsconfig.test.json",
+    ]:
+        assert (proj / rel).exists(), f"cli-app --core missing {rel}"
+
+    # --- The seam's contract (mirrors the electron core-client assertions) ---
+    client = (proj / "src" / "core" / "client.ts").read_text()
+    assert "API_BASE_URL" in client, "core base URL must come from API_BASE_URL"
+    assert "'/health'" in client, "wiring proof must probe the core's /health route"
+    assert "Bearer" in client, "auth seam (Bearer header) missing"
+    registry = (proj / "src" / "registry.ts").read_text()
+    assert "'status'" in registry, "status wiring-proof command not registered for --core"
+    readme = (proj / "README.md").read_text()
+    assert "API_BASE_URL" in readme, "README must document the core gateway override"
+
+    # --- Type-checks; the seam's unit tests pass without a network ---
+    _typecheck_cli_app(proj)
+    _run_generated_unit_tests(proj)
+
+    # --- Execute the compiled CLI end-to-end (the test build emits a runnable
+    #     CJS tree, so no npm install is needed) ---
+    cli = proj / "dist-test" / "cli.js"
+    assert cli.exists(), "test build should emit a runnable cli.js"
+
+    hello = subprocess.run(
+        ["node", str(cli), "hello", "--json"],
+        cwd=proj, capture_output=True, text=True, timeout=30,
+    )
+    assert hello.returncode == 0, f"hello --json failed\nSTDERR: {hello.stderr}"
+    assert json.loads(hello.stdout) == {"greeting": "Hello, world!"}
+
+    import threading
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+
+    class _StubGateway(BaseHTTPRequestHandler):
+        def do_GET(self):
+            if self.path == "/health":
+                body = b'{"status": "ok"}'
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+            else:
+                self.send_response(404)
+                self.end_headers()
+
+        def log_message(self, *_args):  # keep pytest output clean
+            pass
+
+    server = HTTPServer(("127.0.0.1", 0), _StubGateway)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        base = f"http://127.0.0.1:{server.server_port}"
+        up = subprocess.run(
+            ["node", str(cli), "status", "--json"],
+            cwd=proj, capture_output=True, text=True, timeout=30,
+            env={**os.environ, "API_BASE_URL": base},
+        )
+        assert up.returncode == 0, (
+            f"status must exit 0 against a healthy core\nSTDOUT: {up.stdout}\nSTDERR: {up.stderr}"
+        )
+        assert json.loads(up.stdout) == {"baseUrl": base, "reachable": True, "status": "ok"}
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+
+    down = subprocess.run(
+        ["node", str(cli), "status", "--json"],
+        cwd=proj, capture_output=True, text=True, timeout=30,
+        env={**os.environ, "API_BASE_URL": "http://127.0.0.1:1"},
+    )
+    assert down.returncode == 1, "status must exit 1 against an unreachable core"
+    payload = json.loads(down.stdout)
+    assert payload["reachable"] is False, "unreachable core must map to a value, not a crash"
