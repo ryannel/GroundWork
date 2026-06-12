@@ -5,7 +5,7 @@ import 'router.dart';
 import 'ui/core/theme/app_theme.dart';
 
 /// The application shell: theme projection + router. Nothing else lives here —
-/// features live under ui/<feature>/, data access under data/.
+/// features live under `ui/<feature>/`, data access under `data/`.
 class App extends ConsumerWidget {
   const App({super.key});
 

@@ -1,0 +1,63 @@
+// Proves the core-access seam's request shape without any network: a stub
+// adapter captures what dio would send. The auth seam contract is exact —
+// a supplied token becomes `Authorization: Bearer <token>` on every request,
+// and the unauthenticated default adds no header at all.
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:<%= pubspecName %>/data/services/api_client.dart';
+
+class _CaptureAdapter implements HttpClientAdapter {
+  RequestOptions? last;
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    last = options;
+    return ResponseBody.fromString(
+      '{"status":"ok"}',
+      200,
+      headers: {
+        Headers.contentTypeHeader: [Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+Dio _dioWith(_CaptureAdapter adapter, Future<String?> Function() token) {
+  final dio = Dio(BaseOptions(baseUrl: 'http://core.test'));
+  dio.httpClientAdapter = adapter;
+  dio.interceptors.add(authInterceptor(token));
+  return dio;
+}
+
+void main() {
+  test('a supplied token rides every request as a Bearer header', () async {
+    final adapter = _CaptureAdapter();
+    final client = ApiClient(_dioWith(adapter, () async => 'jwt-123'));
+
+    final status = await client.health();
+
+    expect(adapter.last?.headers['Authorization'], 'Bearer jwt-123');
+    expect(status.reachable, isTrue);
+    expect(status.status, 'ok');
+  });
+
+  test('the unauthenticated default sends no Authorization header', () async {
+    final adapter = _CaptureAdapter();
+    final client = ApiClient(_dioWith(adapter, () async => null));
+
+    await client.health();
+
+    expect(adapter.last?.headers.containsKey('Authorization'), isFalse);
+    expect(adapter.last?.path, '/health');
+  });
+}

@@ -121,9 +121,11 @@ function cssColorToHex(value: unknown): string | null {
   return null;
 }
 
-/** Dart Color literal from an rrggbb hex string. */
+/** Dart Color literal from an rrggbb hex string. Tolerates a leading `#`
+ *  (the neutral-default palette carries CSS-style values) so no path can
+ *  emit a malformed literal like `Color(0xFF#3B6FD4)`. */
 function dartColor(hex: string): string {
-  return `Color(0xFF${hex.toUpperCase()})`;
+  return `Color(0xFF${hex.replace(/^#/, '').toUpperCase()})`;
 }
 
 /** Parse a radius descriptor like "8px" / "0.5rem" / "12" into logical pixels. */

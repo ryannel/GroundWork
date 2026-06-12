@@ -57,6 +57,39 @@ surface or none exists.
 - The brownfield eval fixture's `services/` tree was silently excluded by the repo
   `.gitignore` and never tracked; negation rules added and the fixture committed.
 
+### Fixed (multi-surface live bake-out, 2026-06-12)
+
+End-to-end sandbox run of the full chain — Go core + Flutter + Electron scaffolds
+booted together, both surfaces proven live against the running core (real SDKs:
+Flutter 3.44.2, Electron via Playwright `_electron`):
+
+- **Flutter wiring proof now true out of the box**: the scaffold's `ApiClient`
+  probed `/api/healthz` (the Next.js BFF route) while Go/Python cores serve
+  `/health` — a freshly scaffolded mobile app rendered "unreachable" against its
+  own healthy core. The client now probes `/health` (BFF variance documented).
+- **Electron surface actually wired to the core**: the scaffold never consumed the
+  `API_BASE_URL` the test harness passes. New `src/main/core-client.ts` seam (main
+  fetches the gateway; the CSP-sandboxed renderer rides the typed `core:health`
+  channel), rendered as a wiring-proof line in the home view, asserted in the
+  Playwright smoke, unit-tested with injected fetch.
+- **Auth seams on both surfaces**: Flutter gains `authTokenProvider` + a tested
+  Bearer interceptor; Electron's core client exposes `coreAuthHeaders` —
+  unauthenticated by default, identity-provider wiring documented at the seam.
+- **`flutter create` pollution at bootstrap**: the platform-shell bootstrap now uses
+  `--empty`, keeping the counter-app sample `widget_test.dart` (which references a
+  `MyApp` the scaffold doesn't have) from breaking analyze/test post-bootstrap.
+- **Re-running `workspace-dev-cli` no longer resets docker-compose.yml**: the
+  topology accreted by service generators is preserved verbatim (a re-run erased
+  the core's registration, and `./dev migrate` silently migrated nothing).
+- **`./dev` lifecycle commands no longer treat surfaces as backends**: app services
+  are now the `services/` directories wired into compose, so migrate/start/doctor
+  skip mobile/desktop surface apps instead of creating phantom databases for them.
+- **Flutter runner device probe counts only android/ios devices**: host "devices"
+  (macOS, Chrome) no longer turn the intended skip into a hard no-devices failure;
+  the skip names the missing device class.
+- All of the above locked in by new generation tests (core-access seam wiring,
+  `--empty` bootstrap, auth seams, compose preservation, device-probe filter).
+
 Contract-grade delivery: the bet loop's design → tests → delivery chain becomes
 machine-enforced end to end. Design emits specs, the proof suite is reviewed
 assertion-by-assertion and sealed by hash manifest, delivery is tracked per-slice in a

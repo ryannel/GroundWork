@@ -45,6 +45,9 @@ src/
 │   ├── index.ts          # window creation (hardened quartet), security policy,
 │   │                     # bundle protocol, nativeTheme broadcast
 │   ├── ipc.ts            # ipcMain.handle: sender validation + zod payloads
+│   ├── core-client.ts    # the core-access seam: main fetches the workspace
+│   │                     # gateway (API_BASE_URL); the renderer never can (CSP)
+│   ├── core-client.test.ts
 │   ├── policy.ts         # pure, unit-tested security rules (no Electron imports)
 │   └── policy.test.ts
 ├── preload/

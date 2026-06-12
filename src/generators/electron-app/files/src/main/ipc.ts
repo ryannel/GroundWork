@@ -1,6 +1,7 @@
 import { app, ipcMain, shell } from 'electron';
 import { z } from 'zod';
-import type { AppStatus, OpenExternalResult } from '../shared/ipc';
+import type { AppStatus, CoreHealth, OpenExternalResult } from '../shared/ipc';
+import { fetchCoreHealth } from './core-client';
 import { isAllowedExternalUrl, isTrustedSender } from './policy';
 
 // Main treats renderer input as untrusted, the same way an API treats the
@@ -29,6 +30,11 @@ export function registerIpcHandlers(devServerUrl?: string): void {
       version: app.getVersion(),
       platform: process.platform,
     };
+  });
+
+  ipcMain.handle('core:health', async (event): Promise<CoreHealth> => {
+    assertTrustedSender(event, devServerUrl);
+    return fetchCoreHealth();
   });
 
   ipcMain.handle(

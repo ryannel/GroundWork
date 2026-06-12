@@ -12,6 +12,12 @@ export default function App(): JSX.Element {
     queryKey: ['app', 'status'],
     queryFn: () => window.api.getStatus(),
   });
+  // The wiring proof: the workspace core probed through main's core-access
+  // seam (src/main/core-client.ts). An unreachable core renders as a state.
+  const core = useQuery({
+    queryKey: ['core', 'health'],
+    queryFn: () => window.api.getCoreHealth(),
+  });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-surface text-foreground">
@@ -24,6 +30,13 @@ export default function App(): JSX.Element {
           : isError
             ? 'Shell unreachable'
             : `Wired to the desktop shell — status ${data.status}, v${data.version} (${data.platform})`}
+      </p>
+      <p data-testid="core-status" className="text-sm">
+        {core.isPending
+          ? 'Probing the workspace core…'
+          : core.isError || !core.data.reachable
+            ? 'Workspace core unreachable'
+            : `Wired to the workspace core — status ${core.data.status}`}
       </p>
     </main>
   );

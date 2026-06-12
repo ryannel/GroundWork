@@ -19,6 +19,7 @@ scenario gets its own sandbox under .sandboxes/scaffolds/generation-flutter/.
 """
 
 import json
+import re
 import shutil
 import subprocess
 import pytest
@@ -152,6 +153,7 @@ def test_flutter_app_file_set(default_app):
         "lib/data/services/api_client.dart",
         "lib/domain/models/health_status.dart",
         "test/home_view_test.dart",
+        "test/api_client_test.dart",
         "test/fakes/fake_status_repository.dart",
         "integration_test/app_test.dart",
     ]
@@ -194,6 +196,44 @@ def test_toolchain_guard_degrades_with_reason(default_app):
     assert "tier skipped" in guard, "guard must report the tier as skipped"
 
 
+def test_core_access_seam_targets_the_core_health_route(default_app):
+    """The wiring proof must hit the route GroundWork cores actually serve:
+    Go and Python cores answer /health. /api/healthz is the Next.js BFF route
+    and 404s against a scaffolded core — proven live in the manual sandbox
+    (the home view rendered 'unreachable' against a healthy core)."""
+    client = (
+        default_app / "services" / "mobile-app" / "lib" / "data" / "services" / "api_client.dart"
+    ).read_text()
+    assert "'/health'" in client, "wiring proof must probe the core's /health route"
+    assert "'/api/healthz'" not in client, (
+        "/api/healthz is the Next.js BFF route — it 404s against Go/Python cores"
+    )
+
+
+def test_auth_seam_is_present_and_unauthenticated_by_default(default_app):
+    """The surface ships a token seam (provider + interceptor), not a baked
+    credential: a supplied token rides as a Bearer header, the default adds
+    nothing, and the seam has its own adapter-level test."""
+    app = default_app / "services" / "mobile-app"
+    client = (app / "lib" / "data" / "services" / "api_client.dart").read_text()
+    assert "authTokenProvider" in client, "auth token seam missing"
+    assert "authInterceptor" in client, "auth interceptor missing"
+    assert "Bearer" in client, "token must ride as an Authorization: Bearer header"
+    test_src = (app / "test" / "api_client_test.dart").read_text()
+    assert "package:mobile_app/" in test_src, "seam test must import the app package"
+    assert "Authorization" in test_src
+
+
+def test_bootstrap_creates_empty_platform_shells(default_app):
+    """`flutter create` without --empty adds its counter-app sample test
+    (referencing a MyApp this scaffold does not have), breaking analyze and
+    test straight after bootstrap — proven live in the manual sandbox."""
+    guard = (default_app / "services" / "mobile-app" / "tool" / "flutter_exec.sh").read_text()
+    assert "flutter create . --empty" in guard, (
+        "bootstrap must use --empty so create adds no sample app files"
+    )
+
+
 def test_engineer_skill_promoted(default_app):
     """The flutter engineer skill is auto-installed alongside the output."""
     skill = default_app / ".agents" / "skills" / "groundwork-flutter-engineer"
@@ -206,20 +246,42 @@ def test_engineer_skill_promoted(default_app):
 
 
 def test_generated_files_nonempty_and_no_ejs_artifacts(default_app):
+    # Platform shells (android/, ios/) and pub artifacts are flutter-tool
+    # output, not generator output — they appear when the SDK is on PATH
+    # (bootstrap runs at generation time) and contain binaries (gradle jars,
+    # icons) the EJS scan must not read.
+    toolchain_dirs = {"android", "ios", ".dart_tool", "build"}
     app = default_app / "services" / "mobile-app"
     for path in app.rglob("*"):
         if not path.is_file():
             continue
+        rel = path.relative_to(app)
+        if rel.parts[0] in toolchain_dirs:
+            continue
         content = path.read_text()
-        assert content.strip(), f"generated file is empty: {path.relative_to(app)}"
-        assert "<%" not in content, (
-            f"EJS artifact leaked into generated file: {path.relative_to(app)}"
-        )
+        assert content.strip(), f"generated file is empty: {rel}"
+        assert "<%" not in content, f"EJS artifact leaked into generated file: {rel}"
 
 
 # ---------------------------------------------------------------------------
 # Workspace wiring — pubspec-based, never docker-compose / npm workspaces
 # ---------------------------------------------------------------------------
+
+def test_palette_color_literals_are_valid_dart(default_app):
+    """Every emitted Color literal must be 0xFF + 6 hex digits. The neutral
+    default palette carries CSS-style '#rrggbb' values; an unstripped '#'
+    produced `Color(0xFF#3B6FD4)` — caught only when the compile tier first
+    ran with a real SDK, so it is pinned here SDK-free."""
+    palette = (
+        default_app / "services" / "mobile-app" / "lib" / "ui" / "core" / "theme" / "brand_palette.dart"
+    ).read_text()
+    literals = re.findall(r"Color\(([^)]*)\)", palette)
+    assert literals, "palette must emit Color literals"
+    for literal in literals:
+        assert re.fullmatch(r"0xFF[0-9A-F]{6}", literal), (
+            f"malformed Dart Color literal: Color({literal})"
+        )
+
 
 def test_flutter_app_never_joins_docker_compose():
     sandbox = _make_sandbox("compose")

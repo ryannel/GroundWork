@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { expect, test } from '@playwright/test';
 import { _electron as electron } from 'playwright';
-import type { AppStatus } from '../../src/shared/ipc';
+import type { AppStatus, CoreHealth } from '../../src/shared/ipc';
 
 // Boot-tier smoke: the real built app launches, renders, and completes one
 // IPC round-trip. This is the agent-closable loop the stack was chosen for —
@@ -37,6 +37,21 @@ test('boots, renders, and answers an IPC round-trip', async () => {
     });
     expect(status.status).toBe('ok');
     await expect(page.getByTestId('app-status')).toHaveText(/status ok/);
+
+    // The core-access seam answers through the bridge. Reachability depends
+    // on whether a workspace core is up at API_BASE_URL (the system-test
+    // harness boots one); the seam itself must answer a value either way.
+    const coreHealth = await page.evaluate(() => {
+      const bridged = globalThis as unknown as {
+        api: { getCoreHealth(): Promise<CoreHealth> };
+      };
+      return bridged.api.getCoreHealth();
+    });
+    expect(typeof coreHealth.reachable).toBe('boolean');
+    expect(coreHealth.status.length).toBeGreaterThan(0);
+    await expect(page.getByTestId('core-status')).toHaveText(
+      /Wired to the workspace core|Workspace core unreachable/,
+    );
 
     // The main → renderer push channel delivered the initial theme.
     await expect(page.locator('html')).toHaveAttribute(

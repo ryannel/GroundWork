@@ -5,14 +5,42 @@ import { capture, sleep } from './proc';
 
 export type ServiceType = 'go' | 'node' | 'python' | 'unknown';
 
-/** App services are the subdirectories of `services/`. */
+let composeServicesCache: Set<string> | null | undefined;
+
+/** Compose membership, resolved once per process. `null` means the topology
+ *  could not be read (no docker CLI / no compose file) — callers fall back to
+ *  directory listing so the CLI still degrades gracefully without Docker. */
+function getComposeServices(): Set<string> | null {
+  if (composeServicesCache !== undefined) return composeServicesCache;
+  const r = capture('docker', ['compose', 'config', '--services']);
+  composeServicesCache =
+    r.status === 0
+      ? new Set(
+          r.stdout
+            .split('\n')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        )
+      : null;
+  return composeServicesCache;
+}
+
+/** App services are the subdirectories of `services/` that are wired into the
+ *  workspace docker-compose topology. Surface apps (mobile, desktop, CLI)
+ *  live under `services/` too but never join compose — they have their own
+ *  Nx targets and are excluded from backend lifecycle commands
+ *  (start/migrate/doctor would otherwise boot phantom backends and create
+ *  phantom databases for them). */
 export function getAppServices(): string[] {
   if (!fs.existsSync(SERVICES_DIR)) return [];
-  return fs
+  const dirs = fs
     .readdirSync(SERVICES_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
     .sort();
+  const compose = getComposeServices();
+  if (compose === null) return dirs;
+  return dirs.filter((d) => compose.has(d));
 }
 
 /** Infra services are compose services that are NOT app services. */

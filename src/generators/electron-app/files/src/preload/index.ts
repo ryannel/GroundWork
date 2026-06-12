@@ -8,6 +8,7 @@ import type { RendererApi, ThemeInfo } from '../shared/ipc';
 
 const api: RendererApi = {
   getStatus: () => ipcRenderer.invoke('app:get-status'),
+  getCoreHealth: () => ipcRenderer.invoke('core:health'),
   openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
   onThemeChanged: (callback) => {
     const listener = (_event: Electron.IpcRendererEvent, theme: ThemeInfo) =>

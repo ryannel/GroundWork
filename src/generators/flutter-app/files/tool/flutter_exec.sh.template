@@ -26,7 +26,10 @@ case "${1:-}" in
     # Generation shipped only the Dart-level app (no SDK required). Bootstrap
     # materializes the platform shells and resolves packages.
     if [ ! -d android ] && [ ! -d ios ]; then
-      flutter create . --platforms android,ios --org "<%= org %>" --project-name "<%= pubspecName %>"
+      # --empty keeps `flutter create` from adding its counter-app sample
+      # files (test/widget_test.dart references a MyApp this scaffold does not
+      # have); existing scaffold files are never overwritten either way.
+      flutter create . --empty --platforms android,ios --org "<%= org %>" --project-name "<%= pubspecName %>"
     fi
     flutter pub get
     ;;

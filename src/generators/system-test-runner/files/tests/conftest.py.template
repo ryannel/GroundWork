@@ -438,9 +438,18 @@ def <%= s.ident %>_runner(surfaces, services_manifest):
         devices = json.loads(probe.stdout or "[]")
     except (OSError, subprocess.SubprocessError, ValueError):
         devices = []
-    if not devices:
+    # Only platforms this app project supports count: a host machine usually
+    # reports desktop/web "devices" (macOS, Chrome) that `flutter test
+    # integration_test` cannot target for an android/ios scaffold — counting
+    # them turns the intended skip into a hard no-devices failure.
+    mobile_devices = [
+        d
+        for d in devices
+        if str(d.get("targetPlatform", "")).startswith(("android", "ios"))
+    ]
+    if not mobile_devices:
         pytest.skip(
-            "no Flutter device or emulator available — '<%= s.slug %>' surface tier "
+            "no Android/iOS device or emulator available — '<%= s.slug %>' surface tier "
             "skipped, not silently green (boot a headless Android emulator; "
             "docs/principles/stack/flutter/testing.md)"
         )

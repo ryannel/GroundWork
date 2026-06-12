@@ -19,6 +19,13 @@ export type OpenExternalResult = {
   opened: boolean;
 };
 
+/** The workspace core's health as the home view renders it. An unreachable
+ *  core is a value, not an exception (src/main/core-client.ts). */
+export type CoreHealth = {
+  reachable: boolean;
+  status: string;
+};
+
 export type ThemeInfo = {
   shouldUseDarkColors: boolean;
 };
@@ -26,6 +33,7 @@ export type ThemeInfo = {
 /** Request/response channels, served by ipcMain.handle in src/main/ipc.ts. */
 export type IpcContract = {
   'app:get-status': { args: []; result: AppStatus };
+  'core:health': { args: []; result: CoreHealth };
   'shell:open-external': { args: [url: string]; result: OpenExternalResult };
 };
 
@@ -38,6 +46,8 @@ export type IpcPushContract = {
  *  name capabilities, never transport — raw ipcRenderer is never exposed. */
 export type RendererApi = {
   getStatus: () => Promise<AppStatus>;
+  /** Probe the workspace core through main — the surface's wiring proof. */
+  getCoreHealth: () => Promise<CoreHealth>;
   openExternal: (url: string) => Promise<OpenExternalResult>;
   /** Subscribe to native theme changes; returns an unsubscribe function. */
   onThemeChanged: (callback: (theme: ThemeInfo) => void) => () => void;

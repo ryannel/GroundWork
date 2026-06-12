@@ -58,8 +58,10 @@ tmp_sandbox/
 tmp_*/
 pytest_out*.txt
 
-# Generated service output (from Nx generators)
-services/
+# Generated service output (from Nx generators) — anchored to the repo root:
+# an unanchored `services/` silently ignored generator template files like
+# src/generators/flutter-app/files/lib/data/services/api_client.dart
+/services/
 
 # ----------------------------
 # Logs & Transcripts

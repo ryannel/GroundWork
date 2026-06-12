@@ -745,6 +745,18 @@ def test_system_test_runner_app_harness_surface_generation():
         # --- One runner fixture per app-harness surface, runner family naming ---
         assert "def mobile_app_runner(surfaces, services_manifest):" in conftest, \
             "flutter-integration runner fixture missing for mobile-app"
+
+        # --- Device probe counts only platforms the app project supports ---
+        # A host machine reports desktop/web "devices" (macOS, Chrome) that
+        # `flutter test integration_test` cannot target for an android/ios
+        # scaffold; counting them turns the intended skip into a hard failure
+        # (proven live in the manual multi-surface sandbox).
+        assert 'd.get("targetPlatform", "")' in conftest, \
+            "flutter runner must filter devices by targetPlatform"
+        assert '.startswith(("android", "ios"))' in conftest, \
+            "flutter runner must only count android/ios devices"
+        assert "no Android/iOS device or emulator available" in conftest, \
+            "flutter runner skip reason must name the missing device class"
         assert "def desktop_app_runner(surfaces, services_manifest):" in conftest, \
             "playwright-electron runner fixture missing for desktop-app"
 
@@ -893,6 +905,35 @@ def test_workspace_dev_cli_bet_files(workspace_dev_cli_bet_workspace):
     assert board["backlog"] == {"web-app": 1}, \
         f"retired surfaces must be excluded from backlog counts: {board['backlog']}"
     assert board["illegalCells"] == [], f"complete ledger flagged illegal cells: {board['illegalCells']}"
+
+
+def test_workspace_dev_cli_rerun_preserves_compose_topology(workspace_dev_cli_bet_workspace):
+    """Re-running workspace-dev-cli (e.g. to pick up a newer CLI bundle) must
+    not reset docker-compose.yml to the base infra: service generators accrete
+    their registrations into that file after the first run. Proven live in the
+    manual multi-surface sandbox, where a re-run erased the api service and
+    ./dev migrate silently migrated nothing."""
+    sb = _WORKSPACE_DEV_CLI_SANDBOX
+    compose_path = sb / "docker-compose.yml"
+    if not compose_path.exists():
+        first = _scaffold_workspace(sb, "workspace-dev-cli")
+        assert first.returncode == 0, first.stderr
+    accreted = compose_path.read_text() + (
+        "  accreted-svc:\n"
+        "    image: alpine:3.20\n"
+        "    container_name: accreted-svc\n"
+    )
+    compose_path.write_text(accreted)
+
+    rerun = _scaffold_workspace(sb, "workspace-dev-cli")
+    assert rerun.returncode == 0, (
+        f"workspace-dev-cli re-run failed\nSTDOUT: {rerun.stdout}\nSTDERR: {rerun.stderr}"
+    )
+    after = compose_path.read_text()
+    assert "accreted-svc" in after, (
+        "re-running workspace-dev-cli reset docker-compose.yml — service "
+        "registrations accreted by other generators were erased"
+    )
 
 
 # ---------------------------------------------------------------------------

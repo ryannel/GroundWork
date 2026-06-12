@@ -163,6 +163,8 @@ def test_electron_app_file_set(default_app):
         "tool/electron_exec.sh",
         "src/main/index.ts",
         "src/main/ipc.ts",
+        "src/main/core-client.ts",
+        "src/main/core-client.test.ts",
         "src/main/policy.ts",
         "src/main/policy.test.ts",
         "src/preload/index.ts",
@@ -218,6 +220,34 @@ def test_toolchain_guard_degrades_with_reason(default_app):
     assert "require('electron')" in guard, "guard must detect the Electron binary"
     assert "xvfb-run" in guard, "smoke must run under xvfb on displayless Linux CI"
     assert "DISPLAY" in guard, "guard must check display availability"
+
+
+def test_core_access_seam_wired_through_main(default_app):
+    """The desktop surface reaches the workspace core through main's
+    core-client seam — the renderer's CSP forbids direct fetch, so the probe
+    rides the typed bridge: API_BASE_URL is consumed in main, /health is the
+    route (Go/Python cores; a Next.js BFF would be /api/healthz), the auth
+    seam is a Bearer header, and the wiring proof renders in the home view.
+    Before this seam existed the harness passed API_BASE_URL to an app that
+    never read it — proven live in the manual sandbox."""
+    root = _app_root(default_app)
+    core = (root / "src" / "main" / "core-client.ts").read_text()
+    assert "API_BASE_URL" in core, "core base URL must come from API_BASE_URL"
+    assert "'/health'" in core, "wiring proof must probe the core's /health route"
+    assert "Bearer" in core, "auth seam (Bearer header) missing"
+    shared = (root / "src" / "shared" / "ipc.ts").read_text()
+    assert "'core:health'" in shared, "core:health channel missing from the contract"
+    assert "CoreHealth" in shared and "getCoreHealth" in shared
+    main_ipc = (root / "src" / "main" / "ipc.ts").read_text()
+    assert "'core:health'" in main_ipc and "fetchCoreHealth" in main_ipc, (
+        "main must serve core:health via the core-client seam"
+    )
+    preload = (root / "src" / "preload" / "index.ts").read_text()
+    assert "getCoreHealth" in preload, "bridge must expose the core probe"
+    app_tsx = (root / "src" / "renderer" / "src" / "App.tsx").read_text()
+    assert "core-status" in app_tsx, "home view must render the core wiring proof"
+    smoke = (root / "tests" / "smoke" / "app.spec.ts").read_text()
+    assert "getCoreHealth" in smoke, "smoke must assert the core seam answers"
 
 
 def test_engineer_skill_promoted(default_app):

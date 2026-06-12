@@ -57,6 +57,14 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
     tmpl: '',
   };
 
+  // docker-compose.yml accretes service registrations from every service
+  // generator after this one runs. A re-run of this generator (e.g. to pick
+  // up a newer CLI bundle) must never reset the workspace topology to the
+  // base infra — preserve the existing file verbatim.
+  const existingCompose = tree.exists('docker-compose.yml')
+    ? tree.read('docker-compose.yml', 'utf-8')
+    : null;
+
   // EJS-templated files: the launcher, docker-compose, bet stub templates, and the
   // workspace-cli skill. The prebuilt bundle is deliberately NOT among these — EJS
   // would corrupt `<%` sequences inside bundled code.
@@ -66,6 +74,10 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
     projectRoot,
     templateOptions,
   );
+
+  if (existingCompose !== null) {
+    tree.write('docker-compose.yml', existingCompose);
+  }
 
   // Copy the prebuilt CLI bundle verbatim (raw write — never through EJS).
   const bundlePath = path.join(
