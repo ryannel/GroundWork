@@ -178,3 +178,30 @@ console.log('ok');
 
     # No judgment-lane work on a fresh install either.
     assert not (fresh_init / ".groundwork/cache/upgrade-brief.json").exists()
+
+
+def test_fail_closed_copy_error_does_not_advance_stamp(tmp_path):
+    """A copy failure mid-update aborts before the stamp and manifest advance —
+    a partial apply must read as "update failed, re-run", never as a clean update
+    whose half-copied files classify as user edits on the next run."""
+    project = seed("0.9-pre-surfaces", tmp_path)
+    state_before = (project / ".groundwork/config/state.json").read_bytes()
+
+    # Read-only on the whole tree — dirs (no unlink/create of entries) AND
+    # files (no overwrite) — so the clean-copy fails with EACCES. The top dir
+    # alone is not enough: cp -R happily overwrites writable files deeper in.
+    skills_dir = project / ".agents/skills"
+    tree = [skills_dir, *skills_dir.rglob("*")]
+    for f in tree:
+        f.chmod(0o555 if f.is_dir() else 0o444)
+    try:
+        proc = run_cli(["update"], project)
+    finally:
+        for f in tree:
+            f.chmod(0o755 if f.is_dir() else 0o644)
+
+    assert proc.returncode != 0, "update must exit non-zero on a copy failure"
+    assert "Aborted" in proc.stderr
+    assert (project / ".groundwork/config/state.json").read_bytes() == state_before, (
+        "state.json (stamp, migrations) must not advance past a failed apply"
+    )

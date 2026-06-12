@@ -37,7 +37,7 @@
     "type": "git",
     "url": "git+https://github.com/ryannel/GroundWork.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@nx/devkit": "^22.7.2",
     "@types/node": "^25.8.0",

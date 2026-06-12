@@ -674,6 +674,7 @@ function writeUpgradeBrief(p, registry, items, stamped) {
 }
 
 // Clean-copy the two skill trees. Removing first prevents deprecated skills from lingering.
+// Throws on copy failure — callers abort rather than report success over a partial install.
 function installSkillTrees(p) {
   for (const [src, dest, label] of [
     [p.sourceSkillsDir, p.targetSkillsDir, 'Registered skills'],
@@ -690,7 +691,7 @@ function installSkillTrees(p) {
     try {
       execSync(`cp -R "${src}/"* "${dest}/"`);
     } catch (err) {
-      c.err(`Failed to install ${label.toLowerCase()}: ${err.message}`);
+      throw new Error(`Failed to install ${label.toLowerCase()}: ${err.message}`);
     }
   }
 }
@@ -982,7 +983,14 @@ async function initGroundWork(options = {}) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  installSkillTrees(p);
+  try {
+    installSkillTrees(p);
+  } catch (err) {
+    c.err(err.message);
+    c.err(`Install aborted — resolve the issue and re-run npx groundwork-method init.`);
+    process.exitCode = 1;
+    return;
+  }
   c.ok(`Installed orchestrator, registered skills, and hidden methodology skills`);
 
   const generatorsConfig = buildGeneratorsConfig();
@@ -1186,13 +1194,23 @@ function updateGroundWork(flags = {}) {
   }
 
   // ── Mechanical lane ──
-  installSkillTrees(p);
-  if (generatorsChanged) {
-    fs.mkdirSync(p.targetConfigDir, { recursive: true });
-    fs.writeFileSync(targetGeneratorsJson, generatorsConfig);
+  // Any I/O failure here aborts before the stamp and manifest advance: a partial
+  // apply must read as "update failed, re-run" — never as a clean update whose
+  // half-copied files classify as user edits on the next run.
+  try {
+    installSkillTrees(p);
+    if (generatorsChanged) {
+      fs.mkdirSync(p.targetConfigDir, { recursive: true });
+      fs.writeFileSync(targetGeneratorsJson, generatorsConfig);
+    }
+    applyTier2(p, tier2);
+    applyDevCli(p, devCli);
+  } catch (err) {
+    c.err(`Update failed while copying files: ${err.message}`);
+    c.err(`Aborted — version stamp and manifest were not advanced. Re-run npx groundwork-method update after resolving.`);
+    process.exitCode = 1;
+    return;
   }
-  applyTier2(p, tier2);
-  applyDevCli(p, devCli);
 
   c.ok(`Updated GroundWork skills\n`);
   reportDiff('.agents/skills/', skillsDiff);

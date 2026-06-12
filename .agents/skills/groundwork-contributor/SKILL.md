@@ -605,9 +605,9 @@ Release checklist:
 6. Commit, tag `vX.Y.Z`, push the tag. `.github/workflows/release.yml` verifies tag ↔
    package.json ↔ CHANGELOG agreement, runs the gates, and publishes.
 
-> The npm name `groundwork` is currently held by an unrelated package (aniftyco/groundwork).
-> The release workflow publishes with `--dry-run` until the name is resolved — scope, rename,
-> or transfer is an open product decision.
+> The package publishes as `groundwork-method` (the bare npm name `groundwork` is held by an
+> unrelated package — aniftyco/groundwork). The release workflow publishes **for real** and
+> requires the `NPM_TOKEN` repository secret; there is no dry-run gate.
 
 ---
 

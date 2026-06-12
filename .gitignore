@@ -97,6 +97,7 @@ walkthrough.md
 implementation_plan.md
 scratch/
 tests/evals/runs/
+.agents/scheduled_tasks.lock
 
 # ----------------------------
 # Brownfield eval fixture — real committed source, not generated output.

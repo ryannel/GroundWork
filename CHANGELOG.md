@@ -281,6 +281,24 @@ read and ~1,076 cross-references mechanically verified; the findings ledger exec
   the contributor guide; scaffold-designer's checklists carry a summaries-not-canon
   caveat and its stale `workspace.json` claim is gone. [no-migration]
 
+### Fixed (production-readiness pass, 2026-06-12)
+
+- **`update` fails closed on copy errors**: the mechanical lane (skill trees,
+  generators config, tier-2 docs, dev bundle) now aborts on any I/O failure
+  *before* the version stamp and manifest advance — a partial apply reads as
+  "update failed, re-run", never as a clean update whose half-copied files
+  classify as user edits on the next run. `init` likewise aborts instead of
+  printing success over a failed skill install. [no-migration]
+- **Bet workflows pin the contract version**: all five `groundwork-bet`
+  workflow headers now reference the operating contract as `(contract v1)`,
+  matching every other methodology skill. [no-migration]
+- **License metadata**: `package.json` declared ISC while the LICENSE file is
+  MIT; the manifest now says MIT. [no-migration]
+- **Repo hygiene** (dev-only): nine committed scratch scripts (Gemini SDK
+  explorations) and an accidentally committed session lock file removed from
+  the repo root; the lock path is now gitignored. The contributor guide's
+  release section no longer claims the publish workflow is dry-run gated.
+
 ## [0.9.0] - 2026-06-09
 
 First tracked release. GroundWork adopts semver from `0.x` honestly — the framework is
