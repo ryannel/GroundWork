@@ -122,7 +122,7 @@ The recovered architecture must convey the *reasoning* the system embodies, not 
 
 3. **Review.** Assemble: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > .groundwork/cache/architecture-extract-draft.md")`. Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/architecture-extract-draft.md` and `document_type: architecture`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
-4. **Revise loop.** On REVISE, apply 🔴 findings to the affected section file(s), re-assemble, re-review. Revise cap at 3 (Protocol 8).
+4. **Revise loop.** On REVISE, apply all 🔴 Critical findings to the affected section file(s), re-assemble, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT. The cap is a hard stop, not a target to push past. If the reviewer keeps finding fresh summary↔body desyncs every pass, the fault is an unreconciled summary in `00-header.md` (Protocol 5: author it last), not a draft that needs five reviews.
 
 5. **Present** section by section (not the whole doc in one message), then surface 🟡 Advisory findings. Clean up the assembled file: `run_command("rm .groundwork/cache/architecture-extract-draft.md")`. Proceed to commit only on explicit approval.
 

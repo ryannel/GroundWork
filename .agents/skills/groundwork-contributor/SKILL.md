@@ -32,6 +32,7 @@ groundWork/
 │   │
 │   ├── hidden-skills/         → Copied to .agents/groundwork/skills/ (not agent-registered).
 │   │   ├── operating-contract.md      ← Shared protocols loaded by every methodology skill.
+│   │   ├── groundwork-persona/        ← Always-on conversational posture; loaded by the orchestrator on every session.
 │   │   ├── templates/                 ← Shared file templates (discovery-notes.md, etc.) referenced by multiple skills.
 │   │   ├── groundwork-product-brief/  ← Greenfield PM facilitation.
 │   │   ├── groundwork-design-system/      ← Design system facilitation. Loads an interface-type track (graphical-ui, cli, agentic-protocol).
@@ -61,8 +62,11 @@ groundWork/
 │       ├── skill-writer/              ← How to write skill instructions. Dev-only, not shipped.
 │       └── skill-creator/             ← Anthropic skill creation workflow.
 │
-├── docs/                      ← GroundWork's own framework documentation (methodology, lifecycle, concepts).
-│                                 NOT output from running GroundWork on this repo.
+├── docs/                      ← GroundWork's own framework documentation. NOT output from running GroundWork on this repo.
+│   ├── lifecycle/             → The user-facing methodology reference: setup, delivery loop, maintenance.
+│   ├── principles/            → Stack-specific engineering principles, mirrored into the engineer skills.
+│   ├── plans/                 → Design plans for cross-cutting restructures (see Design Plans below).
+│   └── examples/              → Artifacts committed from real runs, referenced by getting-started.
 ├── tests/                     ← Framework test suite. Tests GroundWork-as-a-tool, not a project built with it.
 │   ├── evals/                 ← Simulation suites (personas + fixtures). Not a runner — see Flow Testing.
 │   │   ├── scenarios/               ← One subdir per suite; suite.json defines the persona.
@@ -75,6 +79,18 @@ groundWork/
 ├── .npmignore                 ← Excludes meta-skills and dev tooling from the npm package.
 └── package.json               ← npm package config. Binary: groundwork → bin/groundwork.js
 ```
+
+### Multi-phase skill layout
+
+A hidden skill whose session moves through distinct modes splits its instruction body into per-mode files that `instructions.md` routes to — loading only the active mode keeps the conversation in one mode at a time. The directory name signals what drives the routing:
+
+| Directory | Used by | One file per | Routed by |
+|---|---|---|---|
+| `workflows/` | groundwork-bet | bet lifecycle phase | pitch `status` frontmatter |
+| `phases/` | groundwork-architecture, groundwork-scaffold | conversation phase | phase status in the skill's cache file |
+| `tracks/` | groundwork-design-system | interface type | `interface_type` |
+
+`templates/` directories hold output skeletons, never instructions. When restructuring a skill, keep the directory name that matches its routing shape — the convention is how a reader predicts a skill's internals without listing it.
 
 ---
 
@@ -127,11 +143,10 @@ GroundWork uses a deliberate split between what users see and what the agent see
 The agent toolchain picks these up automatically. Every skill here appears in the model's
 available skills list. Keep this list short — context window cost scales with every entry.
 
-Currently the **orchestrator**, **check**, and **persona** live here. The orchestrator is the
-central router — it determines the project mode and loads the right hidden skill. `groundwork-persona`
-is an always-on conversational-posture skill (applied on every interaction) and is deliberately not in
-the routing table. All methodology skills (product-brief, architecture, design-system, bet, writer) are
-hidden behind the orchestrator's routing table to minimize always-on context cost.
+Currently only the **orchestrator** and **check** live here. The orchestrator is the
+central router — it determines the project mode and loads the right hidden skill. All methodology skills
+(product-brief, architecture, design-system, bet, writer) and the always-on persona are hidden behind
+the orchestrator's routing table to minimize always-on context cost.
 
 ### Hidden Skills (`src/hidden-skills/` → `.agents/groundwork/skills/`)
 These are instruction files loaded on demand by the orchestrator. They are not registered
@@ -191,6 +206,25 @@ refine both the Product Brief and Design System. Each document grows as the proj
   `design-system-cache.md` after writing `docs/design-system.md`).
 - Stale cache files (>24h) should be manually cleared or archived.
 - Never write final deliverables to `.groundwork/`. Final outputs go to `docs/`.
+
+---
+
+## Cross-Phase Contracts
+
+The phases communicate through shared artifacts and identifiers. Each is written by one skill and read by others — usually in different files, often in different sessions — so a change to any writer must update every reader in the same change (`skill-writer` names the failure mode: identifier drift is silent; a consumer reading a stale shape finds nothing, with no error). This table is the map of those chains. It is also where to start any cross-cutting restructure: the chains are where single-phase assumptions hide.
+
+| Artifact / identifier | Written by | Read by |
+|---|---|---|
+| `interface_type` → the interface track recorded in `docs/design-system.md` | design-system Step 2 (greenfield); design-system-extract Stage 1 (brownfield) | design-system track loader; scaffold Phase 1 (`--interfaceMedium` → system-test-runner deps + fixtures); bet design + bet-progress-test templates (vocabulary, test medium) |
+| Pitch `status` frontmatter (`docs/bets/<slug>/pitch.md`) | each bet workflow on phase entry | bet activation routing; orchestrator state reconciliation; groundwork-check |
+| `docs/bets/<slug>/contracts/` spec files | bet 02-design Step 2.2 | 03-decomposition (test shapes); 04-delivery (derived clients); 05-validation (verification + promotion) |
+| `docs/api/<service>/` canonical specs | 05-validation Step 2.5 promotion | contract-conformance tests; `./dev check contracts`; groundwork-check |
+| `.groundwork/bets/<slug>/decomposition.json` | 03-decomposition Step 6.5; 04-delivery slice loop (status fields only) | `./dev bet status`; resumed delivery sessions; 05-validation retrospective |
+| `.groundwork/bets/<slug>/test-manifest.json` | the seal at Proof of Work; amendments (`--amend`) | `./dev test bet` tamper check; 05-validation |
+| `.groundwork/config/brand-tokens.json` | design-system commit (every track) | scaffold → `workspace-dev-cli` theming (`.dev/dev.config.json`) |
+| `docs/infrastructure.md` | scaffold Phases 4–6; infra-adopt | bet 03-decomposition (test language, service names); delivery |
+| `## Summary for Downstream` sections + hand-off cache (`.groundwork/cache/handoff/<phase>.md`) | each setup phase's commit (Protocols 5–6) | the next phase's init; the hand-off file is deleted when consumed |
+| Discovery-notes headers (`## Architecture`, `## Design System`, `## Design Details`, `## Bets`) in `.groundwork/cache/discovery-notes.md` | any phase, on out-of-phase signals (Protocol 1) | the phase that owns the matching header, at its init or design step |
 
 ---
 
@@ -306,6 +340,12 @@ The brownfield codebase comes from one of two sources:
 > A real multi-service monorepo (4 services, ~1600 files) scanned by a live Opus
 > session across scan + four extract phases is a long, expensive run — reserve it
 > for deliberate deep runs, not casual iteration.
+
+> **Pin the model before a review run.** Set Opus (`/model`) before kicking off a flow
+> you intend to assess — a Sonnet run grinds the review loop harder (weaker first drafts →
+> more revise cycles) and muddies whether a defect is a skill weakness or a model weakness.
+> `render_transcript.py` records the model that actually ran in the review header, so check
+> it there before drawing conclusions from a transcript.
 
 Every sandbox carries a `CLAUDE.md` boundary file asserting it is a user project,
 not the framework repo — without it, a chat opened in the nested sandbox would
@@ -430,6 +470,26 @@ CLAUDE_API_KEY=your-key-here
 ```
 
 The CLI sources this file before every command. Do not commit `.env`.
+
+---
+
+## Design Plans (`docs/plans/`)
+
+Cross-cutting restructures are designed in a plan document before any slice executes. A plan is the unit of repo evolution the way a bet is the unit of product delivery — past plans are the design rationale for the repo's current shape, so read the plan that shaped a subsystem before reworking it.
+
+Every plan follows the house format (`docs/plans/contract-grade-delivery.md` is the reference example):
+
+- A header block: **Status** (PROPOSED, or EXECUTED with date and what remains), **Audience**, **Scope owner**.
+- §0 mental model first — the thesis or reframe, before any task list.
+- A findings table with stable IDs the workstreams reference.
+- Lettered workstreams (WS-A…) of slices, each naming its files and an acceptance check.
+- A decisions table, split into settled (with rationale) and open.
+- Sequencing, and the gates that define "done".
+
+Two rules keep plans trustworthy:
+
+- **Verify the Status header against the working tree before executing from a plan.** Headers have gone stale repeatedly — slices were delivered without the header moving. The tree is the truth; the header is a claim.
+- **Update the Status line in the same commit that executes slices**, so the next reader inherits a true claim.
 
 ---
 

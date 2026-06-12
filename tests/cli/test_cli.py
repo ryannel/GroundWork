@@ -54,10 +54,38 @@ def test_init_installs_the_contract(project):
     assert (project / ".groundwork/config/config.toml").exists()
     assert (project / ".groundwork/config/generators.json").exists()
     assert (project / ".groundwork/cache").is_dir()
-    # Agent surfaces
+    # Agent surfaces: AGENTS.md is the canonical real file; Claude Code (the verified host,
+    # the non-interactive fallback) is wired to it via symlinks and recorded in state.
+    assert (project / "AGENTS.md").is_file() and not (project / "AGENTS.md").is_symlink()
     assert (project / ".claude").is_symlink()
+    claude_md = project / "CLAUDE.md"
+    assert claude_md.is_symlink() and Path(claude_md.readlink()).name == "AGENTS.md"
+    assert state["groundwork"]["agents"] == ["claude-code"]
     assert "depwire" in json.loads((project / ".mcp.json").read_text())["mcpServers"]
     assert (project / "llms.txt").exists()
+
+
+def test_init_agent_flag_wires_only_named_agents(project):
+    # A native agent (Cursor reads AGENTS.md + .agents/skills directly) gets the canonical
+    # files but no Claude-specific symlinks.
+    proc = run_cli(["init", "--agent", "cursor"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert (project / "AGENTS.md").is_file()
+    assert not (project / ".claude").exists()
+    assert not (project / "CLAUDE.md").exists()
+    state = json.loads((project / ".groundwork/config/state.json").read_text())
+    assert state["groundwork"]["agents"] == ["cursor"]
+    assert "natively" in proc.stdout
+
+
+def test_init_does_not_clobber_existing_real_claude_md(project):
+    (project / "CLAUDE.md").write_text("# hand-written\n")
+    proc = run_cli(["init", "--agent", "claude-code"], project)
+    assert proc.returncode == 0, proc.stderr
+    claude_md = project / "CLAUDE.md"
+    assert not claude_md.is_symlink()
+    assert claude_md.read_text() == "# hand-written\n"
+    assert "already exists" in proc.stdout + proc.stderr
 
 
 def test_reinit_preserves_state_and_user_config(project):

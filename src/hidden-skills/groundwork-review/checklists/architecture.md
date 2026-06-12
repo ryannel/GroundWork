@@ -26,6 +26,13 @@ answer yes/no.
   product brief or design system (consent gating, confirmation rules, data-handling limits) is
   absent from `### Binding Constraints` here — downstream docs are reviewed against this
   summary, never against the brief.
+- [ ] 🔴 **Service count disagrees with the service list**: a "N services" claim that does not
+  match the number of services actually named, e.g. counting an `infrastructure`/Terraform
+  partition as a service. State the count and the named set consistently.
+
+**Enumerate every summary↔body desync in one pass** — walk the whole body and list each missing
+decision or constraint as its own finding; do not return after the first. Surfacing them one at a
+time forces a separate revise cycle per gap and burns the revise cap without converging.
 
 ## Technology Decisions
 

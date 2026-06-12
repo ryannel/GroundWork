@@ -1,6 +1,6 @@
 # Implementation Plan: Contract-Grade Delivery (Machine-Readable Design, Signed Tests, Visible Progress)
 
-**Status:** EXECUTED 2026-06-10 (same-day bake-out) — everything implementable without live verification or new product surfaces is shipped. See the **Execution ledger** (§9.5) for the per-slice record. What remains is exactly two buckets: **testing & validation** (A1–A3, B3 runtime drift check, E live-gated parallel delivery, H8 headless evals) and **new solution types** (mobile/desktop generators, G3 docs site).
+**Status:** EXECUTED 2026-06-10 (same-day bake-out) — everything implementable without live verification or new product surfaces is shipped. See the **Execution ledger** (§9.5) for the per-slice record. What remains is exactly two buckets: **testing & validation** (A1–A3, B3 runtime drift check, E live-gated parallel delivery, H8 headless evals) and **new solution types** (mobile/desktop generators — now committed as WS-H of `multi-surface-restructure.md` with stacks settled (Flutter mobile, Electron desktop); G3 docs site remains here).
 **Audience:** An engineer or agent implementing this change. Each slice names its files and acceptance check; judgment calls that remain are listed as open decisions in §8.
 **Scope owner:** `groundwork-bet` skill and the `workspace-dev-cli` / `system-test-runner` generators, with coupled changes to `groundwork-check`, the operating contract, review checklists, and framework lifecycle docs.
 

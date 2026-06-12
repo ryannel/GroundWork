@@ -72,9 +72,19 @@ def check_doc(sandbox: Path, rel: str) -> tuple[str, str]:
     text = f.read_text(errors="replace").strip()
     if not text:
         return "empty", "0 bytes of content"
-    if not any(line.lstrip().startswith("#") for line in text.splitlines()[:5]):
-        return "weak", "no title heading in first 5 lines"
     lines = text.count("\n") + 1
+    # GroundWork docs carry no H1 by design — they lead with `## Summary for Downstream`
+    # (Protocol 5), optionally preceded by drift-tracking YAML frontmatter on code-coupled
+    # docs. Strip a leading frontmatter block, then require the first content line to be a
+    # heading. Checking only the first 5 raw lines misfired on every frontmatter-stamped doc.
+    body = text
+    if body.startswith("---"):
+        end = body.find("\n---", 3)
+        if end != -1:
+            body = body[end + 4:].lstrip()
+    first = next((ln for ln in body.splitlines() if ln.strip()), "")
+    if not first.lstrip().startswith("#"):
+        return "weak", "does not lead with a heading"
     return "ok", f"{len(text)} chars, {lines} lines"
 
 

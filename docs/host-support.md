@@ -12,7 +12,7 @@ GroundWork installs skills, not a runtime — every behavior is an instruction f
 
 | Capability | Used for | If missing |
 |---|---|---|
-| Loads registered skills from `.agents/skills/` (or `.claude/` — init symlinks them) with YAML `name`/`description` frontmatter | Discovering the orchestrator, check, and persona skills | **Required.** Without skill discovery there is no entry point beyond pasting instructions manually. |
+| Loads registered skills from `.agents/skills/` (or `.claude/`, `.windsurf/` — init symlinks them to the canonical `.agents/`) with YAML `name`/`description` frontmatter | Discovering the orchestrator, check, and persona skills | **Required.** Without skill discovery there is no entry point beyond pasting instructions manually. |
 | Reads arbitrary project files on demand | Loading the seventeen hidden methodology skills, the operating contract, templates | **Required.** The two-layer architecture is on-demand file reads. |
 | Writes and edits files | Docs, caches, state | **Required.** |
 | Executes shell commands | Generators, `./dev`, git-based drift checks, boot verification | Degrades: facilitation and doc phases work fully; scaffold/infra-adopt present a runbook for the user to execute instead (the skills handle this case explicitly), and verification is recorded as pending. |
@@ -24,7 +24,20 @@ GroundWork installs skills, not a runtime — every behavior is an instruction f
 | Host | Status | Evidence |
 |---|---|---|
 | **Claude Code** | **Verified** | The simulation harness runs real Claude Code sessions against the installed skills (greenfield end-to-end on record; transcripts in the repo's test infrastructure). The generator/boot harness runs in CI. All skill text uses Claude Code tool names where a concrete mechanism must be named, always alongside the environment-agnostic contract. |
-| Cursor, Windsurf, Copilot Workspace, Codex CLI, other `AGENTS.md`-aware agents | Compatible in principle, **untested** | The skill format is plain markdown + frontmatter and init maintains the `AGENTS.md`/`CLAUDE.md` pairing, but no verified run exists. The subagent-isolation contract is the most likely friction point — hosts without isolated dispatch fall back to the blocking behavior above. |
+| Cursor, Codex, OpenCode, Cline (the `AGENTS.md`-native cluster) | Compatible, explicitly wired, **untested** | `init` generates the canonical `AGENTS.md` and these hosts read it plus `.agents/skills/` directly — no symlink needed. The wiring is offered by name at install (detect + prompt + `--agent`), but no verified end-to-end run exists yet. The subagent-isolation contract is the most likely friction point — hosts without isolated dispatch fall back to the blocking behavior above. |
+| Windsurf, Copilot Workspace, other `AGENTS.md`-aware agents | Compatible in principle, **untested** | The skill format is plain markdown + frontmatter and `AGENTS.md` is canonical, but these hosts are not yet in the `init` wiring registry — wire them by hand (e.g. symlink their instruction file to `AGENTS.md`). |
 | Plain LLM chat (no tools) | Not supported | GroundWork's output is a running system, not advice; a host without file and shell tools cannot execute the lifecycle. |
 
 Verification means a recorded end-to-end run reviewed against the structural checklist and judge rubric — not "it probably works." Hosts move up this table by being run, and we say so when they have been.
+
+## Agent wiring
+
+GroundWork keeps a **single source of truth** — `AGENTS.md` (instructions) and `.agents/` (skills) — and wires each agent tool to it with symlinks, never copies, so there is no second copy to drift. `AGENTS.md` is always the real file; agent-specific files (`CLAUDE.md`, …) are symlinks pointing at it, so adding or switching agents never moves or orphans the canonical.
+
+`init` decides what to wire in this order:
+
+1. `--agent <name>` flags (repeatable, comma-friendly) — wire exactly those, no prompt.
+2. `--yes`/`-y` — non-interactive: wire the auto-detected agents (or Claude Code if none detected).
+3. Otherwise, in a TTY, prompt with detected agents pre-selected; non-TTY installs fall back to the detected set (or Claude Code).
+
+Supported agent keys: `claude-code`, `cursor`, `codex`, `opencode`, `cline`. Claude Code gets `.claude → .agents` and `CLAUDE.md → AGENTS.md`; the `AGENTS.md`-native cluster reads the canonical files directly. The selection is recorded in `.groundwork/config/state.json` so `update` self-heals the same links. Add an agent later with `npx groundwork-method init --agent <name>` — non-destructive.

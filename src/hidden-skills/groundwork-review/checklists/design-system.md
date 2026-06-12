@@ -21,7 +21,10 @@ unit of commitment: a CSS token, a terminal colour role, a protocol field.
   empty, or not the first section after the frontmatter.
 - [ ] 🔴 **Summary omits a budget**: a performance budget, accessibility floor, or platform
   target stated in the body has no bullet under `### Binding Constraints` — architecture works
-  from the summary and will never honour it.
+  from the summary and will never honour it. **Enumerate every omission in one pass** — this
+  doc carries many binding values (colour accent rule, dark-mode pairing, motion policy,
+  microcopy rules); list each missing one as its own finding rather than the first you spot, or
+  the caller pays a full revise cycle per gap.
 
 ## Translation Depth
 

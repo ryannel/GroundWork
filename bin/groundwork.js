@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const readline = require('readline');
 const { execSync, execFileSync } = require('child_process');
 
 const command = process.argv[2];
@@ -29,8 +30,15 @@ function printHelp() {
   \x1b[36mcheck\x1b[0m     Detect documentation drift: compares last_reviewed against git history of source_of_truth paths
   \x1b[36mhelp\x1b[0m      Show this message
 
+\x1b[1minit flags:\x1b[0m
+  \x1b[36m--agent <name>\x1b[0m   Wire a specific agent (repeatable, comma-friendly); skips the prompt
+  \x1b[36m--yes, -y\x1b[0m        Non-interactive: wire the auto-detected agents (or Claude Code)
+  \x1b[2mSupported agents: claude-code, cursor, codex, opencode, cline\x1b[0m
+
 \x1b[1mExamples:\x1b[0m
   npx groundwork-method init
+  npx groundwork-method init --agent claude-code --agent cursor
+  npx groundwork-method init --yes
   npx groundwork-method update
   npx groundwork-method check
 
@@ -67,6 +75,7 @@ function getPaths() {
     sourceHiddenSkillsDir: path.join(__dirname, '..', 'src', 'hidden-skills'),
     sourceConfigDir: path.join(__dirname, '..', 'src', 'config'),
     sourceDocsDir: path.join(__dirname, '..', 'src', 'docs'),
+    sourceAgentsMd: path.join(__dirname, '..', 'src', 'AGENTS.md'),
   };
 }
 
@@ -242,44 +251,230 @@ function buildGeneratorsConfig() {
   return JSON.stringify(generatorsJson, null, 2);
 }
 
-function setupAgentLinks(targetDir) {
-  const claudeLink = path.join(targetDir, '.claude');
-  const agentsMd = path.join(targetDir, 'AGENTS.md');
-  const claudeMd = path.join(targetDir, 'CLAUDE.md');
+// ─── Agent wiring ─────────────────────────────────────────────────────────────
+// GroundWork keeps one canonical source of truth — AGENTS.md (instructions) + .agents/
+// (skills) — and wires each agent tool to it with symlinks rather than copies, so there is
+// never a second copy to drift. AGENTS.md is ALWAYS the real file; agent-specific files
+// (CLAUDE.md, …) are symlinks pointing at it, so adding or switching agents never moves or
+// orphans the canonical.
+//
+// `native: true` agents (Cursor, Codex, OpenCode, Cline) read AGENTS.md and .agents/skills/
+// directly — generating the canonical files is the entire wiring; they need no symlink.
+const AGENT_ADAPTERS = {
+  'claude-code': {
+    label: 'Claude Code',
+    detect: ['.claude', 'CLAUDE.md'],
+    dirLink: { link: '.claude', target: '.agents' },
+    fileLink: { link: 'CLAUDE.md', target: 'AGENTS.md' },
+  },
+  'cursor':   { label: 'Cursor',   detect: ['.cursor', '.cursorrules'], native: true },
+  'codex':    { label: 'Codex',    detect: ['.codex'], native: true },
+  'opencode': { label: 'OpenCode', detect: ['.opencode', 'opencode.json'], native: true },
+  'cline':    { label: 'Cline',    detect: ['.clinerules', '.cline'], native: true },
+};
+const AGENT_KEYS = Object.keys(AGENT_ADAPTERS);
 
-  // .claude → .agents
+// Agents whose marker files/dirs already exist in the target — used to pre-select the prompt
+// and as the non-interactive default.
+function detectAgents(targetDir) {
+  return AGENT_KEYS.filter((key) =>
+    AGENT_ADAPTERS[key].detect.some((marker) => fs.existsSync(path.join(targetDir, marker)))
+  );
+}
+
+// Deploy the canonical AGENTS.md router to the project root (idempotent — never overwrites a
+// user-authored AGENTS.md). Returns true only when it actually created the file.
+function ensureAgentsMd(p) {
+  if (!fs.existsSync(p.sourceAgentsMd)) return false;
+  const target = path.join(p.targetDir, 'AGENTS.md');
+  if (fs.existsSync(target)) return false;
   try {
-    const claudeStat = fs.existsSync(claudeLink) ? fs.lstatSync(claudeLink) : null;
-    if (!claudeStat) {
-      fs.symlinkSync('.agents', claudeLink, 'junction');
-      c.ok(`Linked .claude → .agents`);
-    } else if (claudeStat.isSymbolicLink()) {
-      // already a symlink — no-op regardless of target
+    fs.copyFileSync(p.sourceAgentsMd, target);
+    return true;
+  } catch (err) {
+    c.err(`Failed to install AGENTS.md: ${err.message}`);
+    return false;
+  }
+}
+
+// Create one symlink (link → target) relative to targetDir, gracefully handling an existing
+// real file/dir and Windows symlink restrictions. `type` is 'junction' for directory links.
+function linkOne(targetDir, link, target, type) {
+  const linkPath = path.join(targetDir, link);
+  const isDir = type === 'junction';
+  try {
+    const stat = fs.existsSync(linkPath) ? fs.lstatSync(linkPath) : null;
+    if (!stat) {
+      fs.symlinkSync(target, linkPath, type);
+      c.ok(`Linked ${link} → ${target}`);
+    } else if (stat.isSymbolicLink()) {
+      // already a symlink — no-op regardless of where it points
     } else {
-      c.warn(`.claude already exists as a directory. To enable the link:`);
-      console.warn(`         move its contents into .agents/, delete .claude/, then run: ln -s .agents .claude`);
+      c.warn(`${link} already exists as a real ${isDir ? 'directory' : 'file'}. To enable the link:`);
+      console.warn(`         move its contents into ${target}${isDir ? '/' : ''}, delete ${link}${isDir ? '/' : ''}, then run: ln -s ${target} ${link}`);
     }
   } catch (err) {
-    c.warn(`Could not create .claude symlink: ${err.message}`);
-    console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
+    c.warn(`Could not create ${link} symlink: ${err.message}`);
+    console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry,`);
+    console.warn(`         or create it manually: ln -s ${target} ${link}`);
   }
+}
 
-  // CLAUDE.md → AGENTS.md (only when AGENTS.md exists and CLAUDE.md doesn't)
-  try {
-    const agentsMdExists = fs.existsSync(agentsMd);
-    const claudeMdStat = fs.existsSync(claudeMd) ? fs.lstatSync(claudeMd) : null;
-    if (agentsMdExists && !claudeMdStat) {
-      fs.symlinkSync('AGENTS.md', claudeMd);
-      c.ok(`Linked CLAUDE.md → AGENTS.md`);
-    } else if (claudeMdStat && !claudeMdStat.isSymbolicLink() && agentsMdExists) {
-      c.warn(`CLAUDE.md already exists as a file. To enable the link:`);
-      console.warn(`         rename it to AGENTS.md, then run: ln -s AGENTS.md CLAUDE.md`);
+// Wire the selected agent tools to the canonical AGENTS.md + .agents/ source of truth.
+// Idempotent: re-running never duplicates or clobbers, so init and update can both call it.
+function wireAgents(targetDir, selectedKeys) {
+  const keys = selectedKeys.filter((k) => AGENT_ADAPTERS[k]);
+  if (keys.length === 0) return;
+
+  const native = [];
+  for (const key of keys) {
+    const a = AGENT_ADAPTERS[key];
+    if (a.native) {
+      native.push(a.label);
+      continue;
     }
-    // Neither exists, or CLAUDE.md is already a symlink → no-op
-  } catch (err) {
-    c.warn(`Could not create CLAUDE.md symlink: ${err.message}`);
-    console.warn(`         On Windows, enable Developer Mode or run as Administrator and retry.`);
+    if (a.dirLink) linkOne(targetDir, a.dirLink.link, a.dirLink.target, 'junction');
+    // The file symlink only fires once the canonical AGENTS.md exists (init generates it first).
+    if (a.fileLink && fs.existsSync(path.join(targetDir, a.fileLink.target))) {
+      linkOne(targetDir, a.fileLink.link, a.fileLink.target);
+    }
   }
+  if (native.length) {
+    c.ok(`${native.join(', ')} read AGENTS.md + .agents/skills/ natively — no link needed`);
+  }
+}
+
+// Record the wired agents so `update` self-heals the same links and re-init stays idempotent.
+function persistAgents(p, keys) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    let state = {};
+    if (fs.existsSync(statePath)) state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    state.groundwork = { ...(state.groundwork || {}), agents: keys };
+    fs.mkdirSync(p.targetConfigDir, { recursive: true });
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+  } catch (err) {
+    c.warn(`Could not record wired agents in state.json: ${err.message}`);
+  }
+}
+
+function readPersistedAgents(p) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    return state.groundwork && Array.isArray(state.groundwork.agents) ? state.groundwork.agents : null;
+  } catch {
+    return null;
+  }
+}
+
+// Interactive checkbox picker (arrow keys + space to toggle), built on Node's raw-mode
+// keypress events — no dependency. Detected agents start checked. Falls back to the detected
+// set (or Claude Code) when there's no TTY (piped npx, CI) so unattended installs still wire.
+function promptAgents(detected) {
+  return new Promise((resolve) => {
+    if (!process.stdin.isTTY || !process.stdout.isTTY) {
+      resolve(detected.length ? detected : ['claude-code']);
+      return;
+    }
+
+    const rows = AGENT_KEYS.length;
+    const checked = new Set(detected);
+    let cursor = 0;
+
+    const header = `\x1b[1mWhich agent tools do you use here?\x1b[0m  \x1b[2m(AGENTS.md is the canonical source; each is symlinked to it)\x1b[0m`;
+    const hint = `  \x1b[2m↑/↓ move · space toggle · a all · enter confirm\x1b[0m`;
+
+    const draw = (first) => {
+      // Repaint in place: return to the header line and clear downward (skip on first paint).
+      let out = first ? '' : `\r\x1b[${rows + 1}A\x1b[J`;
+      out += header + '\n';
+      AGENT_KEYS.forEach((key, i) => {
+        const a = AGENT_ADAPTERS[key];
+        const active = i === cursor;
+        const pointer = active ? '\x1b[36m❯\x1b[0m ' : '  ';
+        const box = checked.has(key) ? '\x1b[32m●\x1b[0m' : '○';
+        const note = a.native ? ' \x1b[2m(reads AGENTS.md natively)\x1b[0m' : '';
+        const label = active ? `\x1b[36m${a.label}\x1b[0m` : a.label;
+        out += `${pointer}${box} ${label}${note}\n`;
+      });
+      out += hint;
+      process.stdout.write(out);
+    };
+
+    const cleanup = () => {
+      process.stdin.removeListener('keypress', onKey);
+      if (process.stdin.isTTY) process.stdin.setRawMode(false);
+      process.stdin.pause();
+      process.stdout.write('\x1b[?25h\n'); // restore cursor, drop to a fresh line
+    };
+
+    const onKey = (str, key) => {
+      if (!key) return;
+      if (key.ctrl && key.name === 'c') { cleanup(); process.exit(130); }
+      const allChecked = AGENT_KEYS.every((k) => checked.has(k));
+      switch (key.name) {
+        case 'up':    cursor = (cursor - 1 + rows) % rows; break;
+        case 'down':  cursor = (cursor + 1) % rows; break;
+        case 'space': {
+          const k = AGENT_KEYS[cursor];
+          checked.has(k) ? checked.delete(k) : checked.add(k);
+          break;
+        }
+        case 'return':
+        case 'enter':
+          cleanup();
+          resolve(AGENT_KEYS.filter((k) => checked.has(k)));
+          return;
+        default:
+          if (str === 'k') cursor = (cursor - 1 + rows) % rows;
+          else if (str === 'j') cursor = (cursor + 1) % rows;
+          else if (str === 'a') AGENT_KEYS.forEach((k) => (allChecked ? checked.delete(k) : checked.add(k)));
+          else if (str === 'q') { cleanup(); process.exit(130); }
+          else return; // unrecognized key — no repaint
+      }
+      draw(false);
+    };
+
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdout.write('\x1b[?25l\n'); // hide cursor + one blank spacer line above the list
+    draw(true);
+    process.stdin.on('keypress', onKey);
+  });
+}
+
+// Parse `--agent <key>` / `--agent=<key>` (repeatable, comma-friendly) and `--yes`/`-y`.
+function parseInitFlags(argv) {
+  const requested = [];
+  let yes = false;
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--yes' || arg === '-y') {
+      yes = true;
+    } else if (arg === '--agent' || arg === '--agents') {
+      const val = argv[i + 1];
+      if (val && !val.startsWith('-')) { requested.push(...val.split(',')); i++; }
+    } else if (arg.startsWith('--agent=') || arg.startsWith('--agents=')) {
+      requested.push(...arg.slice(arg.indexOf('=') + 1).split(','));
+    }
+  }
+  const normalized = requested.map((s) => s.trim()).filter(Boolean);
+  return {
+    agents: normalized.filter((a) => AGENT_ADAPTERS[a]),
+    invalid: normalized.filter((a) => !AGENT_ADAPTERS[a]),
+    yes,
+  };
+}
+
+// The "switch implications" guidance: make the single-source-of-truth model explicit.
+function printWiringGuidance(selectedKeys) {
+  const labels = selectedKeys.map((k) => AGENT_ADAPTERS[k] && AGENT_ADAPTERS[k].label).filter(Boolean).join(', ');
+  console.log(`\n\x1b[1mAgent wiring\x1b[0m`);
+  console.log(`  \x1b[2mAGENTS.md is your single source of truth.\x1b[0m ${labels || 'No agents wired'}${labels ? ` ${selectedKeys.length === 1 ? 'reads' : 'read'} it.` : '.'}`);
+  console.log(`  \x1b[2mAdd one later:\x1b[0m npx groundwork-method init --agent <name>  \x1b[2m(non-destructive)\x1b[0m`);
+  console.log(`  \x1b[2mEdit AGENTS.md, never a symlinked copy — switching agents never moves it.\x1b[0m`);
 }
 
 // Register depwire as a project-scoped MCP server. depwire is a deterministic, local
@@ -313,7 +508,7 @@ function registerDepwireMcp(targetDir) {
 
 // ─── init ───────────────────────────────────────────────────────────────────
 
-function initGroundWork() {
+async function initGroundWork(options = {}) {
   const p = getPaths();
 
   banner();
@@ -390,10 +585,29 @@ function initGroundWork() {
     }
   }
 
+  // Deploy the canonical AGENTS.md instruction router — the single source of truth every
+  // agent tool is wired to. Must precede wireAgents so the CLAUDE.md → AGENTS.md link resolves.
+  if (ensureAgentsMd(p)) c.ok(`Installed canonical AGENTS.md`);
+
   stampVersion(p);
 
-  setupAgentLinks(p.targetDir);
+  // Decide which agent tools to wire to the canonical source: explicit --agent flags win,
+  // then --yes uses the detected set, otherwise prompt (detected agents pre-selected).
+  const detected = detectAgents(p.targetDir);
+  let selected;
+  if (options.agents && options.agents.length) {
+    selected = options.agents;
+  } else if (options.yes) {
+    selected = detected.length ? detected : ['claude-code'];
+  } else {
+    selected = await promptAgents(detected);
+  }
+  wireAgents(p.targetDir, selected);
+  persistAgents(p, selected);
+
   registerDepwireMcp(p.targetDir);
+
+  printWiringGuidance(selected);
 
   console.log(`\n\x1b[32m[success]\x1b[0m GroundWork ${PKG.version} initialization complete!`);
   console.log(`          Ask your AI to run the \x1b[36mgroundwork-orchestrator\x1b[0m skill to find out what to do next.\n`);
@@ -473,6 +687,15 @@ function updateGroundWork() {
   // Migration notes: surface the changelog slice between the stamped and current versions.
   if (stamped === null || semverCompare(stamped, PKG.version) < 0) {
     printChangelogSlice(stamped, PKG.version);
+  }
+
+  // Self-heal agent wiring: ensure the canonical AGENTS.md exists and the recorded agents'
+  // symlinks are intact (idempotent). Pre-0.9 installs have no record — fall back to detection.
+  if (ensureAgentsMd(p)) c.ok(`Installed canonical AGENTS.md`);
+  const agents = readPersistedAgents(p) || detectAgents(p.targetDir);
+  if (agents.length) {
+    wireAgents(p.targetDir, agents);
+    if (!readPersistedAgents(p)) persistAgents(p, agents);
   }
 
   stampVersion(p);
@@ -613,9 +836,18 @@ if (!command || command === 'help' || command === '--help' || command === '-h') 
 }
 
 switch (command) {
-  case 'init':
-    initGroundWork();
+  case 'init': {
+    const flags = parseInitFlags(process.argv.slice(3));
+    if (flags.invalid.length) {
+      c.warn(`Unknown agent(s) ignored: ${flags.invalid.join(', ')}`);
+      console.warn(`         Supported: ${AGENT_KEYS.join(', ')}`);
+    }
+    initGroundWork(flags).catch((err) => {
+      c.err(`init failed: ${err.message}`);
+      process.exit(1);
+    });
     break;
+  }
   case 'update':
     updateGroundWork();
     break;

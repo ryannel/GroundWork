@@ -231,6 +231,10 @@ The entire summary section is ≤200 words. Bullets, not prose. If a decision ca
 - **No rejected options.** Rejected options belong in the hand-off file (Protocol 6) so the next phase can see what was considered.
 - **No marketing or framing.** The summary is for an agent reading the doc cold. State facts, not narrative.
 
+### Author and Reconcile It Last
+
+Write the body first, then derive the summary from it as the **final** drafting action — never maintain the two in parallel. Before handing the draft to the review gate, do a single deliberate pass: walk every binding decision, constraint, deferred question, and permanent exclusion in the body and confirm each one is reflected in the summary, and that the summary asserts nothing the body does not. A summary hand-maintained alongside the body desyncs on every edit, and the review gate then surfaces those omissions one at a time — each costing a full revise cycle. Reconciling the summary from the finished body in one pass is what keeps the review loop short.
+
 ### Enforcement
 
 The `groundwork-writer` skill enforces this contract. Every commit step that writes a `docs/` artifact loads `groundwork-writer` and produces the summary header alongside the body.

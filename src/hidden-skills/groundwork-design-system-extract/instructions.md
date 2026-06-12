@@ -97,7 +97,7 @@ Capture out-of-phase signals under their headers in `.groundwork/cache/discovery
 
 3. **Review.** Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/design-system-extract-draft.md` and `document_type: design-system`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
-4. **Revise loop.** On REVISE, apply 🔴 findings to the draft and re-review; revise cap at 3 (Protocol 8).
+4. **Revise loop.** On REVISE, apply all 🔴 Critical findings to the draft, rewrite the file, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT. The cap is a hard stop, not a target to push past — a fourth and fifth pass that each fix "one small remaining critical" is exactly the runaway loop the cap exists to end. If the reviewer keeps finding fresh summary↔body desyncs every pass, the fault is an unreconciled summary (Protocol 5: author it last), not a draft that needs five reviews.
 
 5. **Present.** On PRESENT, present the design system and the brand-tokens tier you will write, then surface 🟡 Advisory findings. Proceed to commit only on explicit approval.
 

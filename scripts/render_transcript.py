@@ -259,11 +259,35 @@ def main():
             (out_dir / "subagents" / fname).write_text(render_subagent(af, meta))
             sub_links.append(f"  - [`subagents/{fname}`](subagents/{fname}) — {meta.get('description', label)}")
 
+    # Detect which flow this was (greenfield vs brownfield) from the sim marker,
+    # so the review is not mislabelled. Default to greenfield if the marker is absent.
+    flow, suite = "greenfield", "?"
+    marker = sandbox / ".groundwork-sim.json"
+    if marker.exists():
+        try:
+            m = json.loads(marker.read_text())
+            flow, suite = m.get("path", "greenfield"), m.get("suite", "?")
+        except json.JSONDecodeError:
+            pass
+
+    # Capture the model that actually ran — review signal is uninterpretable without it
+    # (e.g. a Sonnet run grinds the review loop harder than Opus). Ignore synthetic rows.
+    model_counts: dict[str, int] = {}
+    for r in rows:
+        msg = r.get("message")
+        if isinstance(msg, dict):
+            mdl = msg.get("model")
+            if mdl and mdl != "<synthetic>":
+                model_counts[mdl] = model_counts.get(mdl, 0) + 1
+    model = max(model_counts, key=model_counts.get) if model_counts else "(unknown)"
+
     tool_summary = ", ".join(f"{k} ×{v}" for k, v in sorted(stats["tool_counts"].items()))
     header = [
-        "# Greenfield simulation — conversation review",
+        f"# {flow.capitalize()} simulation — conversation review",
         "",
         f"- **Session:** `{sid}`",
+        f"- **Suite:** `{suite}`",
+        f"- **Model:** `{model}`",
         f"- **Source:** `{session}`",
         f"- **Span:** {when}",
         f"- **Rendered:** {datetime.now().isoformat(timespec='seconds')}",

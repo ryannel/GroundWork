@@ -133,7 +133,7 @@ The decomposition is the sequencing commitment this bet executes against. A mile
 
 1. **Announce** the shift — the agent is moving from authoring into an independent review of the decomposition before presenting Proof of Work.
 2. **Invoke the review subagent** (Protocol 9) with `document_path: docs/bets/<bet-slug>/decomposition.md` and `document_type: decomposition`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
-3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the decomposition and the affected test files. Rewrite sections rather than annotating them. Run the review again. Repeat until the verdict is **PRESENT**. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
+3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the decomposition and the affected test files. Rewrite sections rather than annotating them. Run the review again. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach **PRESENT** (Protocol 8).
 4. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface during the Proof of Work transition so the user can decide whether to act on them.
 
 The review verifies document-chain integrity — see the **Document Chain Integrity** section below for the exact checks the reviewer applies.

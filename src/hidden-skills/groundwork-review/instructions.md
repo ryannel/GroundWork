@@ -106,6 +106,8 @@ Pay particular attention to the `## Summary for Downstream` section (Protocol 5 
 
 A summary header that omits a binding decision from the body is a 🔴 finding.
 
+**Sweep exhaustively — report every summary↔body desync in this one pass.** Do not stop at the first omission. Walk the entire body, list each binding decision/constraint/deferral the summary is missing as its own finding, and likewise flag anything the summary asserts that the body does not support. A reviewer that surfaces these one at a time forces the caller into a separate revise cycle per gap, and a dense document can carry many — that is precisely the loop that burns the revise cap without converging. One complete enumeration lets the caller fix them all at once.
+
 ---
 
 ## Check 3: Upstream Contract

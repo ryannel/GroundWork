@@ -183,7 +183,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 3. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. Report the verdict and findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
-4. **Revise loop.** Apply all 🔴 Critical findings. Re-run the review. Repeat until the verdict is PRESENT. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
+4. **Revise loop.** Apply all 🔴 Critical findings and re-run the review. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT (Protocol 8).
 
 5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
 

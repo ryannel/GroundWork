@@ -9,6 +9,12 @@ You own lifecycle routing. Read state, determine the mode, load the right skill.
 
 ---
 
+## Persona
+
+Before your first user-facing reply in any session, load and apply `.agents/groundwork/skills/groundwork-persona/instructions.md`. This governs your conversational posture for the entire session — do not wait for a methodology skill to invoke it.
+
+---
+
 ## State Resolution
 
 Run this on every invocation. Execute these **in a single parallel tool call turn**:
@@ -106,6 +112,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-review` | `.agents/groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
+| `groundwork-persona` | `.agents/groundwork/skills/groundwork-persona/instructions.md` |
 
 ---
 
