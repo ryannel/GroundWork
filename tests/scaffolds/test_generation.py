@@ -779,6 +779,39 @@ def test_workspace_dev_cli_bet_files(workspace_dev_cli_bet_workspace):
     assert "docker" in parsed and "native" in parsed, \
         f"status --json shape unexpected: {status_run.stdout[:200]}"
 
+    # --- Surface board: graceful no-registry state, then retired-column rule ---
+    surface_empty = subprocess.run(
+        ["node", "dev", "surface", "status"], cwd=sb, capture_output=True, text=True, timeout=60
+    )
+    assert surface_empty.returncode == 0, f"./dev surface status failed\nSTDERR: {surface_empty.stderr}"
+    assert "no surface registry" in (surface_empty.stdout + surface_empty.stderr).lower(), \
+        "surface status without surfaces.json must say so and point at the activation skill"
+
+    (sb / ".groundwork").mkdir(exist_ok=True)
+    (sb / ".groundwork" / "surfaces.json").write_text(json.dumps({
+        "schema": "groundwork.surfaces", "version": 1,
+        "surfaces": [
+            {"slug": "web-app", "type": "graphical-ui", "platform": "web", "status": "active",
+             "scaffold": "nextjs-app", "testMedium": "playwright"},
+            {"slug": "old-ui", "type": "graphical-ui", "platform": "desktop", "status": "retired",
+             "scaffold": "manual", "testMedium": None},
+        ],
+        "capabilities": [
+            {"key": "demo/thing", "name": "Demo", "cells": {
+                "web-app": {"state": "planned", "ref": "demo"},
+                "old-ui": {"state": "n/a"},
+            }},
+        ],
+    }))
+    surface_json = subprocess.run(
+        ["node", "dev", "surface", "status", "--json"], cwd=sb, capture_output=True, text=True, timeout=60
+    )
+    assert surface_json.returncode == 0, f"./dev surface status --json failed\nSTDERR: {surface_json.stderr}"
+    board = json.loads(surface_json.stdout)
+    assert board["backlog"] == {"web-app": 1}, \
+        f"retired surfaces must be excluded from backlog counts: {board['backlog']}"
+    assert board["illegalCells"] == [], f"complete ledger flagged illegal cells: {board['illegalCells']}"
+
 
 # ---------------------------------------------------------------------------
 # CLI App — branded product CLI generator

@@ -3,6 +3,7 @@ import * as lifecycle from './commands/lifecycle';
 import * as quality from './commands/quality';
 import { doctor } from './commands/doctor';
 import * as bet from './commands/bet';
+import { surfaceCmd } from './commands/surface';
 import { completion } from './commands/completion';
 
 export type CommandGroup = 'LIFECYCLE' | 'QUALITY' | 'BET WORKFLOW' | 'META';
@@ -116,6 +117,14 @@ export const COMMANDS: CommandDef[] = [
       { name: '--json', desc: 'Emit machine-readable JSON (status)' },
     ],
     handler: bet.betCmd,
+  },
+  {
+    name: 'surface',
+    group: 'BET WORKFLOW',
+    summary: 'Surface registry & capability ledger (status)',
+    nouns: ['status'],
+    flags: [{ name: '--json', desc: 'Emit machine-readable JSON (status)' }],
+    handler: surfaceCmd,
   },
   {
     name: 'completion',

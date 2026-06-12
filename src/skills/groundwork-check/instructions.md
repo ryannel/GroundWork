@@ -39,14 +39,14 @@ Do not edit `docs/maturity.md` — you are read-only. Disagreements are findings
 
 ## Step 4: Doc-type judgement
 
-Apply the Doc-Type Behaviours defined in this skill's `SKILL.md`: principles and ways-of-working docs get a 12-month advisory instead of code-drift checks; domain entity docs are cross-checked against code definitions in both directions (advisory); ADRs are checked for sequential numbering and valid `status` fields (build failure on corruption); `docs/services/` deep integration is deferred.
+Apply the Doc-Type Behaviours defined in this skill's `SKILL.md`: principles and ways-of-working docs get a 12-month advisory instead of code-drift checks; domain entity docs are cross-checked against code definitions in both directions (advisory); ADRs are checked for sequential numbering and valid `status` fields (build failure on corruption); the surface registry and capability ledger are cross-checked against their prose twin, the test fixtures, and the bet history (twin drift and empty cells are build failures; stale `planned` intent and untested active surfaces are warnings; a missing registry is an advisory); `docs/services/` deep integration is deferred.
 
 ## Step 5: Report
 
 Group findings by service, severity first:
 
-1. **Critical** — stale contract-bearing docs (API, schema, events), ADR corruption, maturity regressions, `closed` rows whose gap is back. These fail the build: end with a failing status.
-2. **Warnings** — other stale docs, domain cross-check mismatches, unassessed docs.
-3. **Advisory** — aging stable docs, `open` roadmap rows whose signal now passes.
+1. **Critical** — stale contract-bearing docs (API, schema, events), ADR corruption, surface-ledger corruption (twin drift, empty cells), maturity regressions, `closed` rows whose gap is back. These fail the build: end with a failing status.
+2. **Warnings** — other stale docs, domain cross-check mismatches, unassessed docs, stale `planned` ledger cells, untested active surfaces.
+3. **Advisory** — aging stable docs, `open` roadmap rows whose signal now passes, GroundWork docs with no surface registry (route: `groundwork-surface-activation` bootstraps it).
 
 For every finding name the recovery route: `generation_mode: generated` → re-run the generator that produced it; `extracted` or prose docs → run the `groundwork-update` skill; maturity disagreements → `groundwork-update` with this report as the change-set anchor. If nothing drifted, say exactly that — and state which steps ran (with or without depwire, with or without a maturity doc), so a clean report is auditable.

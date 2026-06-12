@@ -45,7 +45,7 @@ case "$COMMAND" in
       else
           source tests/scaffolds/venv/bin/activate
       fi
-      pytest tests/scaffolds/test_generation.py -v -s
+      pytest tests/scaffolds/test_generation*.py -v -s
     elif [ "$SUBCMD" = "cli" ]; then
       print_logo "Testing"
       print_step "Running CLI contract tests (init/update/check)..."
