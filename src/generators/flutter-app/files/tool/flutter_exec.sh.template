@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Toolchain guard for every Nx target of this app. The Flutter SDK is a
+# declared prerequisite, not an assumption: when it is missing, the affected
+# tier reports skipped-with-reason instead of failing cryptically — the same
+# way ./dev degrades when the Docker daemon is absent.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+if ! command -v flutter >/dev/null 2>&1; then
+  echo "flutter SDK not found — tier skipped." >&2
+  echo "Install the Flutter SDK (https://docs.flutter.dev/get-started/install)," >&2
+  echo "then run: npx nx run <%= fileName %>:bootstrap" >&2
+  exit 1
+fi
+
+ensure_platforms() {
+  if [ ! -d android ] && [ ! -d ios ]; then
+    echo "Platform directories missing — run the bootstrap target first:" >&2
+    echo "  npx nx run <%= fileName %>:bootstrap" >&2
+    exit 1
+  fi
+}
+
+case "${1:-}" in
+  bootstrap)
+    # Generation shipped only the Dart-level app (no SDK required). Bootstrap
+    # materializes the platform shells and resolves packages.
+    if [ ! -d android ] && [ ! -d ios ]; then
+      flutter create . --platforms android,ios --org "<%= org %>" --project-name "<%= pubspecName %>"
+    fi
+    flutter pub get
+    ;;
+  run)
+    ensure_platforms
+    flutter run "${@:2}"
+    ;;
+  build)
+    ensure_platforms
+    flutter build apk --debug "${@:2}"
+    ;;
+  analyze)
+    flutter analyze "${@:2}"
+    ;;
+  test)
+    flutter test "${@:2}"
+    ;;
+  test-integration)
+    ensure_platforms
+    # Runs on a device or emulator; CI uses a headless Android emulator
+    # (docs/principles/stack/flutter/testing.md).
+    flutter test integration_test "${@:2}"
+    ;;
+  *)
+    echo "Usage: tool/flutter_exec.sh {bootstrap|run|build|analyze|test|test-integration}" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,47 @@
+name: <%= pubspecName %>
+description: >-
+  <%= name %> — a GroundWork mobile surface. A thin Flutter adapter over the
+  workspace's capability core, following the official two-layer MVVM
+  architecture (see docs/principles/stack/flutter/architecture.md).
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.0
+  flutter: ">=3.44.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management + dependency injection: the provider graph IS the DI graph.
+  # Pinned to 3.x per the stack principles — Riverpod's experimental persistence
+  # API stays out of load-bearing paths.
+  flutter_riverpod: ^3.0.3
+
+  # Navigation: URL-based declarative routing, deep-linkable by construction.
+  # Adopt go_router_builder typed routes as the route table grows.
+  go_router: ^17.3.0
+
+  # HTTP client for the core-access seam (interceptors, base config,
+  # cancellation). See lib/data/services/api_client.dart for the O8 stance on
+  # contract-client tooling.
+  dio: ^5.7.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  # Bundle the design system's font families here when their assets are added,
+  # so BrandPalette's typography projection takes effect:
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: assets/fonts/Inter-Regular.ttf

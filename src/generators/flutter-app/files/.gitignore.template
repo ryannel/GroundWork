@@ -1,0 +1,30 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Platform shells are bootstrapped (tool/flutter_exec.sh bootstrap) and then
+# owned by the repo — commit android/ and ios/ once they exist. Their build
+# intermediates stay out:
+android/.gradle/
+android/local.properties
+android/app/.cxx/
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+
+# Signing material never enters git
+# (docs/principles/stack/flutter/releases-and-distribution.md)
+*.keystore
+*.jks
+key.properties
+*.p8
+*.p12
+*.mobileprovision
+
+# IDE
+.idea/
+*.iml

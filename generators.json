@@ -33,6 +33,11 @@
       "schema": "./src/generators/nextjs-app/schema.json",
       "description": "Scaffolds a production-grade Next.js application with App Router"
     },
+    "flutter-app": {
+      "factory": "./dist/src/generators/flutter-app/generator",
+      "schema": "./src/generators/flutter-app/schema.json",
+      "description": "Scaffolds a Flutter mobile app (official MVVM architecture, Riverpod, go_router), themed from the design system's brand tokens"
+    },
     "docs-site": {
       "factory": "./dist/src/generators/docs-site/generator",
       "schema": "./src/generators/docs-site/schema.json",

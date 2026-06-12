@@ -1,0 +1,38 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../data/repositories/status_repository.dart';
+import '../../domain/models/health_status.dart';
+
+/// The home feature's UI state. Immutable, derived from repository data —
+/// never mutated in place.
+class HomeState {
+  const HomeState({required this.appName, required this.gateway});
+
+  final String appName;
+  final HealthStatus gateway;
+}
+
+/// One ViewModel per feature view (MVVM, per the official architecture guide).
+/// It transforms repository data into [HomeState] and exposes commands for
+/// user events. It never touches widgets, and the view never touches
+/// repositories.
+class HomeViewModel extends AsyncNotifier<HomeState> {
+  @override
+  Future<HomeState> build() async {
+    final gateway = await ref.watch(statusRepositoryProvider).status();
+    return HomeState(appName: '<%= name %>', gateway: gateway);
+  }
+
+  /// Command: re-probe the gateway. Views call commands; they never reach
+  /// into repositories themselves.
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final gateway = await ref.read(statusRepositoryProvider).status();
+      return HomeState(appName: '<%= name %>', gateway: gateway);
+    });
+  }
+}
+
+final homeViewModelProvider =
+    AsyncNotifierProvider<HomeViewModel, HomeState>(HomeViewModel.new);

@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'router.dart';
+import 'ui/core/theme/app_theme.dart';
+
+/// The application shell: theme projection + router. Nothing else lives here —
+/// features live under ui/<feature>/, data access under data/.
+class App extends ConsumerWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      title: '<%= name %>',
+      routerConfig: ref.watch(routerProvider),
+      // Both themes are built from the design system's projected brand tokens.
+      // Dual-theme support is a brand commitment, not an option.
+      theme: buildLightTheme(),
+      darkTheme: buildDarkTheme(),
+      themeMode: ThemeMode.system,
+    );
+  }
+}

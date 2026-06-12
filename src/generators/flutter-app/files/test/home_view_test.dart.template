@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:<%= pubspecName %>/data/repositories/status_repository.dart';
+import 'package:<%= pubspecName %>/domain/models/health_status.dart';
+import 'package:<%= pubspecName %>/ui/core/theme/app_theme.dart';
+import 'package:<%= pubspecName %>/ui/home/home_view.dart';
+
+import 'fakes/fake_status_repository.dart';
+
+/// Widget tests carry the bulk of surface coverage: they prove rendering and
+/// interaction through the semantics tree, with the repository faked at the
+/// provider seam. They never re-prove core business logic — that proof lives
+/// at the core's contract (docs/principles/stack/flutter/testing.md).
+void main() {
+  Widget harness(StatusRepository fake) {
+    return ProviderScope(
+      overrides: [statusRepositoryProvider.overrideWithValue(fake)],
+      child: MaterialApp(theme: buildLightTheme(), home: const HomeView()),
+    );
+  }
+
+  testWidgets('renders the gateway status when the core is reachable',
+      (tester) async {
+    final fake = FakeStatusRepository();
+
+    await tester.pumpWidget(harness(fake));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Wired to the workspace gateway'), findsOneWidget);
+    expect(find.bySemanticsLabel('Gateway status: ok'), findsOneWidget);
+    expect(fake.calls, 1);
+  });
+
+  testWidgets('renders the unreachable state without crashing',
+      (tester) async {
+    final fake = FakeStatusRepository(
+      result: const HealthStatus.unreachable(),
+    );
+
+    await tester.pumpWidget(harness(fake));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Gateway unreachable'), findsOneWidget);
+  });
+
+  testWidgets('the refresh command re-probes the gateway', (tester) async {
+    final fake = FakeStatusRepository();
+
+    await tester.pumpWidget(harness(fake));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byTooltip('Refresh gateway status'));
+    await tester.pumpAndSettle();
+
+    expect(fake.calls, 2);
+  });
+}

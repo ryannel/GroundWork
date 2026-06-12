@@ -1,0 +1,19 @@
+import 'package:<%= pubspecName %>/data/repositories/status_repository.dart';
+import 'package:<%= pubspecName %>/domain/models/health_status.dart';
+
+/// Fakes over mocks (the official guide's strong recommendation): an
+/// in-memory implementation of the abstract repository survives refactors
+/// that stub-and-verify mocks break on, and serves unit and widget tests
+/// alike (docs/principles/stack/flutter/testing.md).
+class FakeStatusRepository implements StatusRepository {
+  FakeStatusRepository({this.result = const HealthStatus(reachable: true, status: 'ok')});
+
+  HealthStatus result;
+  int calls = 0;
+
+  @override
+  Future<HealthStatus> status() async {
+    calls++;
+    return result;
+  }
+}

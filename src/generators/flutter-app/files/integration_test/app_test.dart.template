@@ -1,0 +1,30 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:<%= pubspecName %>/app.dart';
+import 'package:<%= pubspecName %>/data/repositories/status_repository.dart';
+
+import '../test/fakes/fake_status_repository.dart';
+
+/// Boot-tier smoke: the real app binary launches and renders home on a
+/// headless Android emulator — the CI-canonical loop. Keep this tier thin
+/// (happy paths only); emulator minutes are the most expensive test currency
+/// in this stack. The gateway is faked so the smoke proves boot + rendering,
+/// not network reachability (docs/principles/stack/flutter/testing.md).
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('the app boots to the home view', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          statusRepositoryProvider.overrideWithValue(FakeStatusRepository()),
+        ],
+        child: const App(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Wired to the workspace gateway'), findsOneWidget);
+  });
+}

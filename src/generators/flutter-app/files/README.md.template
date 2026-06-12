@@ -1,0 +1,100 @@
+# <%= name %>
+
+A Flutter mobile surface scaffolded by GroundWork. It is a thin adapter over the
+workspace's capability core: business logic lives behind the promoted contracts
+and is proven there once; this app proves wiring, rendering, and interaction.
+The architecture is the official Flutter two-layer MVVM model — Riverpod for
+state and DI, go_router for navigation, a dio-based typed client as the
+core-access seam. Flutter is GroundWork's standard mobile pick per its
+surface-stack-selection principle (training-set fluency, the agent-closable
+loop, the platform capability ceiling); the engineering principles this app
+embodies live in `docs/principles/stack/flutter/`.
+
+## Toolchain
+
+The Flutter SDK is a **declared prerequisite, not an assumption**. Generation
+required no SDK; everything below does. Every Nx target runs through
+`tool/flutter_exec.sh`, which reports `flutter SDK not found — tier skipped`
+instead of failing cryptically when the SDK is missing.
+
+```bash
+npx nx run <%= fileName %>:bootstrap   # one-time: flutter create (android/ios shells) + pub get
+npx nx run <%= fileName %>:run         # flutter run against a device/emulator
+npx nx run <%= fileName %>:analyze     # flutter analyze
+npx nx run <%= fileName %>:test        # widget + unit tests (headless, fast)
+npx nx run <%= fileName %>:test-integration  # integration_test on an emulator
+npx nx run <%= fileName %>:build       # debug APK
+```
+
+This project lives on pubspec and the Dart toolchain, not npm — it is wired
+into the Nx workspace through `project.json` run-commands targets and does
+**not** join `docker-compose.yml` (a mobile app has no Docker boot; see the
+testing principles for what "boots" means here).
+
+## Structure
+
+```
+lib/
+├── main.dart                 # ProviderScope root
+├── app.dart                  # MaterialApp.router + theme projection
+├── router.dart               # go_router route table
+├── config/app_config.dart    # --dart-define configuration (API_BASE_URL)
+├── ui/                       # feature-first: one View + ViewModel per feature
+│   ├── core/theme/
+│   │   ├── brand_palette.dart   # GENERATED from brand-tokens.json — do not hand-edit
+│   │   └── app_theme.dart       # ThemeData built from the palette
+│   └── home/
+│       ├── home_view.dart       # widgets only
+│       └── home_view_model.dart # state + commands
+├── data/                     # type-first: shared across features
+│   ├── repositories/         # source of truth; abstract class + remote impl
+│   └── services/             # stateless wrappers; the contract client lives here
+└── domain/models/            # immutable models
+test/                         # unit + widget tests (the bulk of coverage)
+integration_test/             # happy-path smoke for the emulator lane
+```
+
+See `docs/principles/stack/flutter/architecture.md` for why each piece sits
+where it does.
+
+## Theme: a projection, not an authoring surface
+
+`lib/ui/core/theme/brand_palette.dart` is generated from
+`.groundwork/config/brand-tokens.json` (the design system's `visual` block —
+palette roles in both themes, typography families, base radius). Widgets
+consume `Theme.of(context)` and the `StatusColors` extension; they never
+declare `Color(0xFF...)` literals. Re-run the design system to evolve the
+brand, then regenerate the palette to match. To make the typography families
+render, bundle their font assets in `pubspec.yaml`.
+
+## The core-access seam (contract-client tooling)
+
+`lib/data/services/api_client.dart` is a **hand-rolled thin client** over the
+workspace gateway: one method per promoted-contract operation, typed models in
+`domain/models/`, repositories translating contract payloads into domain
+models. This is the lightest path that consumes the promoted contract directly
+and adds no JVM codegen dependency to the toolchain.
+
+**When the contract surface grows** past a handful of operations, switch to
+generated clients — `openapi_generator`'s `dart-dio` output against the
+promoted `openapi.yaml` — and keep the seam where it is: repositories consume
+the generated client, and nothing above the data layer changes. Re-implementing
+a large promoted contract by hand is the defect the principles warn about
+(`docs/principles/stack/flutter/architecture.md`).
+
+The gateway URL arrives via `--dart-define=API_BASE_URL=...`
+(default `http://localhost:4000`; the Android emulator reaches the host's
+localhost at `http://10.0.2.2:4000`).
+
+## Testing
+
+Three tiers, per `docs/principles/stack/flutter/testing.md`:
+
+1. **Unit** — pure Dart, fakes over mocks, `ProviderContainer` overrides.
+2. **Widget** (`test/`) — the bulk: rendering and interaction through the
+   semantics tree, repositories faked at the provider seam.
+3. **Integration** (`integration_test/`) — thin happy-path smoke; CI runs it
+   on a headless Android emulator. iOS is a local-only lane, never a CI gate.
+
+Surface tests never re-prove core business logic — that proof lives at the
+core's contract.
