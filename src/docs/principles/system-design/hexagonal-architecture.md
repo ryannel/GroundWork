@@ -52,6 +52,10 @@ Hexagonal is not an invitation to pile on layers. The mistake we actively guard 
 
 Hexagonal is a mental model, not a framework. It applies equally in Go, Python, TypeScript, and any future language we adopt. The file-layout conventions differ — in Go we tend toward flat package trees with internal interfaces; in Python we use explicit `ports/` and `adapters/` directories; in TypeScript we use feature folders with `*.port.ts` and `*.adapter.ts` suffixes — but the structure and the dependency rule are the same everywhere. Agents and engineers who internalise the pattern stay productive when the stack changes.
 
+## Default to a modular monolith; watch the distributed monolith
+
+The starting posture is a **modular monolith** — one deployable with strong internal module boundaries, one bounded context per module — and microservice extraction is an earned move on a converging-signals case, not a default. The failure mode to name is the **distributed monolith**: services that deploy in lock-step, share a database schema, or call each other synchronously three deep — the operational cost of microservices with none of the independence. So the **consolidation signal** is as first-class as the split test: two services that always change together should be merged back. And per **Conway's law**, boundaries track teams — align a bounded context with a stream-aligned team and shape teams to the architecture (Reverse Conway), rather than letting the org chart draw the boundaries.
+
 ## How we apply this
 
 In new backend services, every service ships hexagonal from day one. The bootstrapping template includes the directory layout, the import-linter rules, and a stub domain + one adapter to demonstrate the flow.

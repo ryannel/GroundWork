@@ -48,6 +48,10 @@ We alert when users are affected — SLO burn rate, error-rate spikes on user jo
 
 Post-incident, we write a blameless postmortem that names the specific reliability assumption the incident invalidated and proposes the specific change that would have caught it. We do not write "be more careful" as an action item. We do not write "add more monitoring" without specifying the signal. The goal is one concrete, closable ticket per incident, enforceable and measurable.
 
+### 9. Cells, living SLOs, and semantic failure
+
+Blast-radius isolation generalises at scale to **cell-based architecture** — independent cells so a failure is contained to one cell's users. SLOs are hypotheses reviewed against burn (multi-window, multi-burn-rate alerting), not static contracts, and failure rehearsal is **continuous verification bounded by an automated blast-radius policy**, not an occasional game-day. A model in the loop fails differently — a wrong answer returns 200-OK, valid, on time — so AI features carry a **per-SLI accuracy/consistency budget** distinct from latency, and the model provider is treated as the least-reliable dependency.
+
 ## How we apply this
 
 - [Observability](observability.md) — the measurement layer that makes SLOs possible.

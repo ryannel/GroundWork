@@ -50,6 +50,8 @@ groundWork/
 │   │   ├── groundwork-surface-activation/ ← Adds a surface to a live product: registry entry, lazy design track, scaffold, ledger triage. Bootstraps the registry on pre-restructure products.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
+│   │   ├── groundwork-architect/      ← Architecture-discipline persona. Adopted inside the architecture workflow + bet design; principles baked into its references/.
+│   │   ├── groundwork-product/        ← Product-discipline persona. Adopted inside the product-brief workflow + bet discovery; principles baked into its references/.
 │   │   ├── groundwork-go-engineer/    ← Auto-installed alongside go-microservice generator output.
 │   │   ├── groundwork-python-engineer/← Auto-installed alongside python-microservice generator output.
 │   │   └── groundwork-nextjs-engineer/← Auto-installed alongside nextjs-app generator output.
@@ -194,6 +196,43 @@ because their work is gated by specs and sibling services; surface skills front-
 pillars and hallucination controls because their failure mode is plausible-but-wrong
 UI idiom. When writing a new engineer skill, copy the newest sibling **from the same
 family** — not whichever skill you found first.
+
+### Discipline-expert skills
+
+The engineer skills are persistent *implementation* experts. The **discipline-expert
+personas** are the design-side equivalent, built on the same anatomy (`SKILL.md` +
+`sync-anchor.md` + `references/`) with a **persona header** grafted on the spine.
+Two exist today — `groundwork-architect` (the pilot) and `groundwork-product` — and
+`groundwork-designer` is planned. The model is **persona-in-a-workflow-route**: a
+persona is not a lifecycle phase the orchestrator routes to on its own — it is
+*adopted within* a setup workflow and the `groundwork-bet` lifecycle:
+
+- **`groundwork-architect`** — adopted inside the `groundwork-architecture` setup
+  workflow and the bet design phase (`workflows/02-design.md`), whenever a structural
+  trade-off is in play. Distils `src/docs/principles/{system-design,quality,delivery,ai-native}`.
+  Owns the **feasibility** risk.
+- **`groundwork-product`** — adopted inside the `groundwork-product-brief` setup
+  workflow and the bet discovery phase (`workflows/01-discovery.md`), whenever what to
+  build and whether it is worth it is in play; lighter touches in bet validation
+  (`workflows/05-validation.md`). Distils the product corpus under
+  `src/docs/principles/foundations/` (product-engineering, continuous-discovery,
+  product-risks, success-metrics, requirements-and-specs, prioritization-and-appetite)
+  plus `ai-native/ai-native-product.md`. Owns the **value** and **viability** risks.
+
+The personas divide the product-risk space cleanly: product owns value + viability,
+the planned designer owns usability, architect + engineers own feasibility.
+
+Two rules make each one work, both mirrored from the engineer skills:
+
+- **Self-contained references.** The principles are *distilled into the skill's own
+  `references/`*, written for that persona's decision-time lens. The skill never
+  depends on the user keeping a `docs/principles/` folder at runtime.
+- **Sync-anchored to source.** `sync-anchor.md` pins every source principle's SHA-256,
+  so a principle edit forces a review of the matching reference in the same commit
+  (the same `./dev test contracts` gate that guards the engineer skills — it
+  auto-discovers any `src/hidden-skills/*/sync-anchor.md`). No mirror in
+  `.agents/skills/` is needed: contributors do discipline facilitation in *user*
+  projects, not in this repo.
 
 ### Vendored skills
 

@@ -16,9 +16,9 @@ The difference between a real-time product that feels smooth and one that feels 
 
 ## Our principles
 
-### 1. WebSocket is the default transport
+### 1. Transport is a per-direction decision
 
-For bidirectional, persistent connections we use WebSockets. Server-Sent Events are fine for one-way server-to-client streams but we avoid them for anything a client might want to influence. Long-polling is rejected outright — it gives the worst of both latency profiles.
+**SSE** is the default for server→client streaming — auto-reconnecting, CDN-friendly, no sticky sessions, plain HTTP — and it is the streaming substrate for AI (MCP and LLM token delivery ride it). **WebSockets** are for genuinely bidirectional connections where the client also pushes frequently. Reaching for a WebSocket to push a one-way stream is over-engineering; long-polling is rejected outright.
 
 ### 2. Every message carries a sequence number
 
@@ -47,6 +47,10 @@ A trace that enters via HTTP, opens a WebSocket, streams many events, and closes
 ### 8. Client state is recoverable, not sacred
 
 Any state held on the client that matters must be recoverable from the server. We do not rely on the client's in-memory view surviving. If the client crashes or navigates away, rejoining the session should produce the same observable state — the server is the source of truth.
+
+### 9. LLM streaming and local-first collaboration
+
+The canonical AI real-time pattern is **SSE for the token data-plane** plus a WebSocket (or internal gRPC) **control-plane** for cancel and feedback injection — its failure modes (slow first token, partial-response loss on a provider retry, backpressure stalls) extend the ones above. For multi-user editing and offline-first apps, **CRDTs** (Yjs, Automerge) make the local copy the source of truth with background sync — the principled answer where echo suppression and recoverable state were gesturing. WebTransport is promising but not shippable in 2026 (no Safari) — prototype only.
 
 ## How we apply this
 

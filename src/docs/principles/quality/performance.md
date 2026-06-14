@@ -48,6 +48,10 @@ Every non-trivial optimisation starts with a profile. The "obvious" bottleneck i
 
 Bundle sizes, lighthouse scores, worst-case handler latencies — these are measured in CI against committed thresholds. A PR that regresses a budget requires an explicit, reviewed waiver. Performance regressions that slip in once slip in a hundred times; automation is cheaper than vigilance.
 
+### 9. Place compute deliberately, and price the tokens
+
+*Where* code runs is a design axis, not only *how much*: the edge for latency-sensitive, cacheable, geo-distributed work (proximity flattens the tail); WebAssembly as the edge/FaaS/plugin compute unit; containers for stateful or heavy work — most systems blend all three. Caching is multi-tier (client, CDN/edge, service, store) with an explicit hit-ratio target, and autoscaling is event-driven with real scale-to-zero (KEDA/Karpenter), not CPU-only HPA. For a model-in-the-loop path, latency and cost track **tokens, not requests** — the levers are model routing, semantic caching, and an AI gateway.
+
 ## How we apply this
 
 - [Observability](observability.md) — the measurement surface for latency work.

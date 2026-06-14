@@ -48,6 +48,10 @@ When a downstream is failing, we stop calling it. A circuit breaker opens after 
 
 A test that exercises the real integration — the real signature verification, the real retry curve, the real idempotency behaviour — runs in CI against an emulator. "It works in the happy path" is not a test; an integration that has only happy-path coverage is an incident waiting for its trigger.
 
+### 9. Dead letters, jitter, and workflow-as-code
+
+A consumer that exhausts its retries routes to a **dead-letter queue that alerts and is worked**, never a silent bin. Retry backoff carries **jitter** — synchronized retries without it are a retry storm. We pick orchestration vs choreography by step count (choreography for simple 2–4-step flows, orchestration for 5+ or branching), and for genuinely long-running, multi-step, or compensating processes we reach for **durable execution** (workflow-as-code) rather than hand-assembling outbox + idempotency + retry + sweeper ([Durable Execution](durable-execution.md)). Webhooks carry a stable event-id, a timestamp replay-window, rotating signing keys via JWKS, and a CloudEvents payload.
+
 ## How we apply this
 
 - [Reliability](../quality/reliability.md) — the broader system-level treatment of failure modes.

@@ -48,6 +48,10 @@ For predictable baseline workloads, reserved instances and committed-use discoun
 
 Cost engineering is something every team does, not a team that does it on behalf of others. The central function provides tooling and visibility; the distributed decisions are made by the teams that built the spend.
 
+### 9. AI cost runs through a gateway; carbon is a cost too
+
+AI spend is the 2026 FinOps story: model calls are priced per token (output ≈4× input), so cost runs through an **AI gateway** that does model routing, semantic caching, fallback, and per-key budgets — the difference between an experiment and a cost incident. And sustainability has become a first-class concern: measure with the Green Software Foundation's SCI and shift deferrable work for *carbon* the way we shift it for cost (carbon-aware scheduling), expressed as a fitness function so it cannot regress silently.
+
 ## How we apply this
 
 - [Observability](../quality/observability.md) — the measurement substrate for cost per unit.

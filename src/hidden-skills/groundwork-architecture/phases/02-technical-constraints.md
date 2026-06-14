@@ -2,6 +2,8 @@
 
 Constraints define the boundaries of the design space. Establishing them first means technology and topology decisions are made within a realistic envelope — not revisited when a hard constraint rules out a design already agreed on.
 
+**Apply from the architect references:** `security-and-trust.md` (trust model, multi-tenancy strategy, the privacy and compliance inputs), `reliability.md` (SLOs, RTO/RPO and what they demand of the topology), and `performance-and-scale.md` (reading the demand shape, scale-to-zero, managed-vs-self-managed). Load the reference when its constraint area is in play and apply its reasoning rather than re-deriving it.
+
 **How to run this conversation:**
 
 Open by summarising what you already know from the existing documents. Then work through the constraint areas — one at a time if needed, but if a single exchange gives you confident answers across multiple areas, capture them all. Never advance on a constraint that is unclear or assumed; resolve it before moving on.

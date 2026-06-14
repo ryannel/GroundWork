@@ -48,6 +48,10 @@ Platform code is reviewed, tested, versioned, and deployed the same way product 
 
 Platform success is measured by the application teams' outcomes — DORA metrics, onboarding time, number of tickets filed against the platform. Not by the platform team's own output metrics, which can be excellent while the users are miserable.
 
+### 9. Name the substrate; buy the platform when it pays
+
+Infrastructure-as-code is a deliberate choice, not a default: **Terraform** (incumbent), **OpenTofu** (OSS-governed and now *diverging* — state encryption Terraform lacks, possible provider drift, no longer a silent drop-in), or **Pulumi** (real languages). And the platform itself is build-vs-buy: a self-hosted developer portal is a platform-team tax that a managed one often beats below a couple hundred engineers. Treat that decision as product strategy.
+
 ## How we apply this
 
 - [DevEx](devex.md) — the developer-facing experience the platform enables.

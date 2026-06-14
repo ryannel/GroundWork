@@ -18,7 +18,7 @@ When a platform handles sensitive user data, a security incident is not an incon
 
 ### 1. Zero trust between services
 
-Services authenticate each other on every request. No "internal" network is trusted implicitly; every call carries an identity, every identity is authorised per operation. The breach-resistance argument is simple — if an attacker pivots into one service, they do not inherit the blast radius of the entire system.
+Services authenticate each other on every request. No "internal" network is trusted implicitly; every call carries an identity, every identity is authorised per operation. The concrete mechanism is **workload identity** — SPIFFE/SPIRE issuing short-lived, auto-rotated SVIDs and mTLS established through the service mesh with no secret in application code; machine identity is the new perimeter. The breach-resistance argument is simple — if an attacker pivots into one service, they do not inherit the blast radius of the entire system.
 
 ### 2. Threat model the change, not just the product
 
@@ -34,7 +34,7 @@ Every piece of input at a trust boundary is validated: request bodies, webhook p
 
 ### 5. Supply chain is part of our attack surface
 
-Every third-party dependency is a potential exploit vector. We pin versions, review new dependencies before adoption, run SBOM generation and vulnerability scans on every build, and follow SLSA supply-chain integrity practices. A dependency added without review is a back door added without review.
+Every third-party dependency is a potential exploit vector. We pin versions, review new dependencies before adoption, and scan on every build. Beyond the SBOM (what is inside) we emit **provenance** (where it came from): artifacts are signed with Sigstore/cosign and ship signed build attestations expressed as SLSA build levels. A dependency added without review is a back door added without review.
 
 ### 6. Least privilege by default
 
@@ -47,6 +47,10 @@ We do not invent auth. Proven auth providers handle user authentication; service
 ### 8. Detect and respond, not just prevent
 
 Assume prevention will sometimes fail. We log security-relevant events, alert on suspicious patterns, and run incident-response tabletops so the team knows what to do when something happens. Detection that arrives after the incident is cleaned up is not detection.
+
+### 9. The model is an attack surface
+
+A model in the system widens the threat model in ways classic AppSec misses. **Prompt injection** leads the OWASP LLM risks and is structural — the model mixes instructions and data in one channel, and the injection arrives indirectly through retrieved content, tool outputs, and other agents (it propagates across co-running agents). We defend in depth: scrutinise inputs, constrain agent authority (excessive agency is the architectural control), give non-human actors their own identity and per-action tool authorization, and treat a tool/MCP catalogue as an execution surface to threat-model, not just an API. Output validation alone is not a defence.
 
 ## How we apply this
 

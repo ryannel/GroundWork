@@ -36,6 +36,17 @@ If a feature is not moving an outcome, we remove it. Deletion is the most under-
 
 A feature that is not measured does not exist from a product engineering point of view. We decide the signal *before* we ship — event, dashboard, success criterion — and we check the signal after release. If we cannot measure it, we negotiate the feature until we can.
 
+## The product discipline
+
+This page is the spine of a wider product corpus — the discipline of moving outcomes, expanded into its working parts:
+
+- [Continuous Discovery](continuous-discovery.md) — mapping the problem space as a weekly habit, before choosing a solution.
+- [Product Risks](product-risks.md) — the four risks (value, usability, feasibility, viability) a bet must clear, and who owns each.
+- [Success Metrics](success-metrics.md) — designing the measure of an outcome: North Star, leading indicators, counter-metrics.
+- [Requirements & Specs](requirements-and-specs.md) — turning validated needs into testable, evidence-grounded statements.
+- [Prioritization & Appetite](prioritization-and-appetite.md) — the portfolio view: choosing and sequencing bets by opportunity cost.
+- [AI-Native Product](../ai-native/ai-native-product.md) — product practice for probabilistic systems: evals, the outcome envelope, the three cost layers.
+
 ## How we apply this
 
 - [Progressive Delivery](../delivery/progressive-delivery.md) — canaries and flags are the mechanism by which we measure outcomes safely.

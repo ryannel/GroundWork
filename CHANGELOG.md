@@ -13,6 +13,101 @@ installed artifact gets an owner and a provenance record, and every framework ch
 that touches installed projects ships with a migration — so no project is left behind
 as the framework improves.
 
+### Added (product-discipline persona + product-principles corpus, 2026-06-14) `[no-migration]`
+
+The second discipline-expert persona (after `groundwork-architect`), with a first-class
+product-principles corpus behind it (plan: `docs/plans/architecture-2026-refresh.md`
+sibling — product wave). Modelled on the same persona-in-a-workflow-route pattern;
+research-grounded against 2026 product practice (Cagan's four risks, Torres's continuous
+discovery, AI-native product).
+
+- **`groundwork-product` skill** (new hidden skill): a persistent product-discipline persona
+  (Cagan/Torres/Bezos lineage) owning the **value + viability** risks. Persona header +
+  operating contract + context routing + four-risk handoffs, with **7 self-contained
+  `references/`** (discovery-and-opportunity, product-risks, requirements-and-specs,
+  success-metrics-and-signals, shaping-and-appetite, scope-and-sequencing, ai-native-product)
+  sync-anchored to the source pages. Ships on `init`; present in every project.
+- **Product-principles corpus** (6 new first-class pages): `foundations/continuous-discovery`
+  (opportunity-solution tree, problem space before solution), `foundations/product-risks`
+  (the four risks + owner table), `foundations/success-metrics` (North Star, counter-metrics,
+  signal before ship), `foundations/requirements-and-specs` (JTBD, journeys, stable-ID FRs,
+  Given/When/Then), `foundations/prioritization-and-appetite` (the portfolio view: appetite,
+  the bet, scoring frameworks in their place), and `ai-native/ai-native-product` (the AI-native
+  loop, evals as a product responsibility, dual metrics, the three cost layers). `product-engineering`
+  refreshed as the corpus anchor; 6 `llms.txt` entries added.
+- **Persona wired into the lifecycle**: product-brief setup (`Step 0` activation), bet discovery
+  (`01-discovery.md` — the pitch shaped as the persona, both tracks), bet validation
+  (`05-validation.md` — product-brief refinements + re-pitch judgement). Architect's product
+  handoff flipped from "(when available)" to active; the two personas now divide the product-risk
+  space (product: value + viability · architect/engineers: feasibility · designer *planned*:
+  usability). Orchestrator + contributor guide updated.
+
+### Added (architecture 2026 refresh — P0, 2026-06-14)
+
+Research-driven refresh of the architecture guidance against 2026 best practices
+(plan: `docs/plans/architecture-2026-refresh.md`). P0 — the AI/agentic cross-cut +
+enforcement layer:
+
+- **`agentic-systems` principle + architect reference** (new): architecting systems where
+  AI agents are first-class actors — single-agent-first topology (naive multi-agent is the
+  anti-pattern), the MCP + A2A + AG-UI protocol stack, context engineering + tiered memory,
+  durable execution for long-running agents, the prompt-injection threat model + guardrails,
+  least-agency + human-in/on-the-loop, and trace/eval-based reliability.
+- **`evolutionary-architecture` principle + architect reference** (new): designing for change
+  and governing it with **fitness functions** ("a record documents; a fitness function
+  assures"), architecture-as-code, strangler-fig modernization, reversibility, and advisory
+  governance (advice process / guild) over a review-board gate.
+- **`ai-native-architecture` reference sharpened**: the agent protocol stack (A2A/AG-UI beside
+  MCP, Resources vs Tools), the RAG pattern taxonomy (naive→advanced→agentic→adaptive,
+  GraphRAG), and cost mechanism (model routing, semantic caching, AI gateway); topology/memory/
+  durability/guardrails handed to `agentic-systems`.
+- **AI-ops + 2026 cross-cut** woven through the operational principles + architect references:
+  reliability (cell-based isolation, living burn-reviewed SLOs, AI semantic-failure + per-SLI
+  budgets), observability (OTel GenAI conventions, eBPF/OBI auto-instrumentation, wide events),
+  security (SPIFFE workload identity, Sigstore provenance/SLSA levels, prompt-injection + agent
+  security as OWASP LLM01), performance (compute placement / edge / WebAssembly, KEDA event-driven
+  scale-to-zero, model-routing + semantic-caching cost levers), platform/delivery (OpenTofu vs
+  Terraform vs Pulumi, OpenFeature, GitOps rollout engines, AI gateway control plane, carbon-aware
+  scheduling).
+- **Enforcement/governance**: contract testing + `can-i-deploy` gate + Spectral linting + RFC 9457
+  + protocol-selection added to API guidance; advice-process governance + fitness-function pairing
+  added to decision records.
+- **Three new structural principle pages + architect references** (P1): **`surface-architecture`**
+  (surfaces as adapters over the core — the BFF seam, micro-frontend decomposition, render
+  placement, design-system-as-contract), **`identity-and-access`** (authn/authz as architecture —
+  OIDC/OAuth 2.1, SPIFFE workload identity, first-class agent identity + delegation, modelled
+  authorization), and **`durable-execution`** (workflow-as-code — checkpointed long-running and
+  multi-step processes, orchestration vs choreography, the reliability substrate for durable agents).
+- **Topic improvements** (P2) to existing principles + references: integration (dead-letter handling,
+  backoff-with-jitter, orchestration-vs-choreography, modern webhooks via JWKS/CloudEvents), data
+  (CDC vs outbox, registry-enforced schema compatibility, the AI-era vector/RAG/feature-store layer,
+  lakehouse + Iceberg), real-time (SSE as the per-direction default + LLM token-streaming pattern,
+  CRDTs/local-first, WebTransport deferred), and boundaries (modular-monolith-default, the
+  distributed-monolith smell + consolidation signal, Conway/Team-Topologies). Edge/WebAssembly +
+  carbon-aware (P3) folded into performance/platform/cost rather than promoted to standalone pages.
+- Tier-2 manifesto pages refresh on `update`; architect skill is clean-copied. `[no-migration]`.
+
+
+
+- **`groundwork-architect`** (new hidden skill): a persistent architecture-discipline
+  persona built on the engineer-skill anatomy (`SKILL.md` + `sync-anchor.md` +
+  self-contained `references/`). It is adopted *within* the architecture setup workflow
+  and the bet design phase (`groundwork-bet/workflows/02-design.md`) — bringing the
+  house engineering principles (boundaries/hexagonal, contracts, integration,
+  reliability, security, performance, observability, data, platform/delivery,
+  AI-native, ADRs) to bear at every point an architecture decision is made. The
+  principles are distilled into the skill's own `references/` and sync-anchored to
+  `src/docs/principles/*`, which previously had no reader in the design flow.
+  `[no-migration]` — skills are carried forward by clean-copy on `update`.
+- **Architecture Decisions principle + governed ADR template**: a new first-class
+  principle page (`docs/principles/system-design/architecture-decisions.md`) establishing
+  the modern governed-decision standard — records carry **assumptions**, a **review
+  trigger**, and an **owner**; they are immutable as records (superseded, never overwritten)
+  and double as the decision-context layer humans and agents read before revisiting a
+  choice. The shipped ADR template (`templates/adr.md`) and manifesto belief #7 are updated
+  to match; the architecture commit phase now emits the governed fields. Tier-2 docs refresh
+  on `update`; the template is framework-owned (clean-replaced).
+
 ### Added (upgrade path, 2026-06-12)
 
 - **Install manifest**: init/update write `.groundwork/config/manifest.json` — every

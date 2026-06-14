@@ -48,6 +48,10 @@ Every dataset we store has a retention policy — deletion after N days, archiva
 
 Changing the shape of historical data — renaming a field, re-computing a derived column — is a project with a plan, a rollback, and a measurement. We do not backfill by running a script and hoping. Backfills are rehearsed in staging and measured in production.
 
+### 9. Change capture, enforced schemas, and the AI-era layer
+
+**CDC** streams a table's changes to consumers — distinct from the outbox (intentional domain events we own) as a derived stream from a table we may not, and now a backbone for replication and agent context. Schema evolution is **enforced**, not just versioned: a registry checks compatibility at registration and blocks an incompatible producer in CI. The AI-era data layer is first-class architecture — vector/embedding stores as the RAG core (chunking, hybrid search, re-ranking, metadata filtering as design concerns), feature stores for ML, and re-embedding/backfill discipline like any planned backfill. On storage, the mesh-vs-lakehouse debate resolved to *both, layered*, with an open table format (Iceberg) as the portability choice.
+
 ## How we apply this
 
 - [Postgres](../stack/postgres.md) — how we apply these principles inside our chosen database.

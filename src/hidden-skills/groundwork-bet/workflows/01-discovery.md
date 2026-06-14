@@ -39,6 +39,8 @@ Read the relevant `docs/` artifacts before opening the conversation:
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.
 
+When the bet appears to challenge a boundary or capability decision `docs/architecture.md` committed, adopt the architect persona (`.agents/groundwork/skills/groundwork-architect/SKILL.md`) to weigh whether the boundary should hold or move — surface the tension here rather than discovering it mid-design.
+
 **Surface scope degrades with the registry.** When `docs/surfaces.md` does not exist, the project has a single implicit surface: skip every surface-scope step in this workflow — the pitch carries no `surfaces:` frontmatter, the No-Gos carry no surface no-gos, and the conversation gains no surface questions. When the registry holds exactly one surface, scope is settled by inspection: write that one slug into `surfaces:` and ask nothing — there is no scope to choose.
 
 ## Instructions
@@ -56,6 +58,14 @@ Ask the user which discovery track fits their situation: thinking the problem th
 - **Track 2 (Execution-focused):** The user has a clear idea. Go through the Execution-focused steps below.
 
 Both tracks produce the same Pitch artifact and require the same review before committing. The difference is the front-end process.
+
+### Adopt the product persona
+
+The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.agents/groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, on whichever track.
+
+Route to its `references/` by what the pitch turns on: `discovery-and-opportunity.md` to pressure-test that the problem is real and rooted in a root cause, not a symptom; `product-risks.md` to name the riskiest assumption and what would kill the bet before delivery; `success-metrics-and-signals.md` for a falsifiable success signal with its counter-metric; `scope-and-sequencing.md` for an opportunity-cost appetite and no-gos that hold under pressure. Apply the reference's reasoning and its antipatterns to the pitch.
+
+The bet must fit inside what `docs/product-brief.md` already committed — its users, capabilities, and out-of-scope boundaries. Where the pitch re-opens one, the persona surfaces it explicitly and records why, rather than letting the product's scope drift one quiet bet at a time. (Structural questions — whether a boundary should hold or move — remain the architect persona's, adopted above when the bet challenges `docs/architecture.md`.)
 
 ---
 

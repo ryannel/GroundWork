@@ -48,6 +48,10 @@ A release is healthy when the relevant user-journey SLOs are within tolerance ([
 
 One rollout model, one flag system, one canary pattern. Different services with different release mechanics multiply cognitive load and reduce the effectiveness of the on-call engineer. Consistency is a force multiplier.
 
+### 9. Standard flags, GitOps-driven rollout
+
+Feature flags use the vendor-neutral **OpenFeature** standard so the flag system stays swappable, and the progressive-delivery engine follows the GitOps tool — Argo Rollouts with ArgoCD, Flagger with Flux — which owns traffic weighting and the automated canary analysis. The rollout machinery is declarative and lives in the repository, not in a console someone clicks.
+
 ## How we apply this
 
 - [DevEx](devex.md) — the inner loop that feeds into continuous delivery.

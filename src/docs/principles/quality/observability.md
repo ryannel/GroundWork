@@ -48,6 +48,14 @@ Every log line is structured (JSON), carries its trace ID, and is emitted at a s
 
 High-cardinality attributes (per-user, per-tenant, per-session) are valuable for debugging but expensive in storage. We tag deliberately — high cardinality on traces where it is queryable, lower cardinality on metrics where it multiplies by every time window. Runaway cardinality is one of the most expensive mistakes a team can make in observability; it is a design call, not a default.
 
+### 9. Wide events, and instrument by default
+
+We lean toward "observability 2.0" — arbitrarily-wide, high-cardinality structured events queried after the fact — over pre-aggregated metrics that decide the question in advance. And we auto-instrument: kernel-level eBPF (OpenTelemetry OBI) and continuous profiling correlated to trace IDs give telemetry with no code change, leaving hand-instrumentation for the domain spans only we can name.
+
+### 10. AI systems are observed through GenAI conventions
+
+A model in the system is instrumented with the OTel GenAI semantic conventions: token usage (cost and latency track tokens, not requests), prompt/response capture, agent and MCP tool-call spans, and eval traces — with failed production traces promoted into the eval set so the suite grows from real behaviour. A model call logged as an opaque string is unobservable.
+
 ## How we apply this
 
 - [Reliability](reliability.md) — the SLO layer built on top of this telemetry.

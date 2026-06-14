@@ -123,6 +123,10 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
 | `groundwork-persona` | `.agents/groundwork/skills/groundwork-persona/instructions.md` |
+| `groundwork-architect` | `.agents/groundwork/skills/groundwork-architect/SKILL.md` |
+| `groundwork-product` | `.agents/groundwork/skills/groundwork-product/SKILL.md` |
+
+> `groundwork-architect` and `groundwork-product` are discipline-expert personas, not lifecycle phases. Neither is routed to on its own — each is adopted *within* a setup workflow and the bet lifecycle: the architect inside the architecture workflow and the bet design phase (whenever a structural trade-off is in play); the product persona inside the product-brief workflow and the bet discovery phase (whenever what to build and whether it is worth it is in play). Each carries its principles self-contained in its own `references/`.
 
 ---
 

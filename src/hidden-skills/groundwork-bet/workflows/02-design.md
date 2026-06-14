@@ -30,6 +30,16 @@ Read `docs/domain/` if it exists. Identify whether this bet introduces any new d
 
 Confirm any domain doc changes with the user before proceeding to Step 2. Skip this step entirely if the bet introduces no new entities or state transitions.
 
+## Step 1.9: Adopt the architect persona
+
+The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the rest of this phase.
+
+Route to its `references/` by what this bet touches: `boundaries-and-hexagonal.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
+
+The bet must fit inside the boundaries `docs/architecture.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
+
+If a design decision changes what the bet delivers to its users — cutting a capability to fit the appetite, or expanding scope the pitch did not commit — that is a value/scope call, not a structural one: defer it to the product persona (`.agents/groundwork/skills/groundwork-product/SKILL.md`) rather than deciding it from the architecture seat. The architect owns feasibility; product owns whether the changed scope is still worth building.
+
 ## Step 2: Draft the Technical Design Document
 
 Draft `docs/bets/<bet-slug>/technical-design.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/technical-design.md`.

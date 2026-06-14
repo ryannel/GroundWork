@@ -23,6 +23,11 @@ setup runs. The other sections ship at install time.*
 - [Documentation](docs/principles/foundations/documentation.md): What to document and how.
 - [Testing](docs/principles/foundations/testing.md): Test strategy and coverage philosophy.
 - [Product engineering](docs/principles/foundations/product-engineering.md): Shipping with user outcomes in mind.
+- [Continuous discovery](docs/principles/foundations/continuous-discovery.md): Discovery as a weekly habit — the opportunity-solution tree, problem space before solution.
+- [Product risks](docs/principles/foundations/product-risks.md): The four risks every bet must clear — value, usability, feasibility, viability — and killing the riskiest assumption first.
+- [Success metrics](docs/principles/foundations/success-metrics.md): Designing the measure — North Star and inputs, leading vs lagging, counter-metrics, signal before ship.
+- [Requirements & specs](docs/principles/foundations/requirements-and-specs.md): Evidence-grounded, testable specification — jobs-to-be-done, journeys, stable-ID requirements, Given/When/Then.
+- [Prioritization & appetite](docs/principles/foundations/prioritization-and-appetite.md): Choosing and sequencing across the portfolio — appetite over estimate, the bet as the unit, scoring frameworks in their place.
 - [Reliability](docs/principles/quality/reliability.md): Fault tolerance and failure modes.
 - [Observability](docs/principles/quality/observability.md): Logging, tracing, and alerting.
 - [Performance](docs/principles/quality/performance.md): Latency, throughput, and resource efficiency.
@@ -38,8 +43,15 @@ setup runs. The other sections ship at install time.*
 - [Integration patterns](docs/principles/system-design/integration-patterns.md): Events, queues, and service communication.
 - [Real-time patterns](docs/principles/system-design/real-time.md): WebSocket, SSE, and streaming.
 - [Data engineering](docs/principles/system-design/data-engineering.md): Pipelines, schemas, and analytical patterns.
+- [Architecture decisions](docs/principles/system-design/architecture-decisions.md): ADRs as governed, re-evaluable records — assumptions, review triggers, supersession.
+- [Evolutionary architecture](docs/principles/system-design/evolutionary-architecture.md): Designing for change — fitness functions, architecture-as-code, strangler-fig modernization, advisory governance.
+- [Surface architecture](docs/principles/system-design/surface-architecture.md): Surfaces as adapters over the core — BFF seam, micro-frontends, render placement, design-system-as-contract.
+- [Identity & access](docs/principles/system-design/identity-and-access.md): Authn/authz as architecture — OIDC/OAuth2.1, SPIFFE workload identity, first-class agent identity, modelled authorization.
+- [Durable execution](docs/principles/system-design/durable-execution.md): Workflow-as-code — checkpointed long-running/multi-step processes, orchestration vs choreography, the substrate for durable agents.
 - [AI engineering](docs/principles/ai-native/ai-engineering.md): Prompts, evals, and model integration.
 - [Agent-native systems](docs/principles/ai-native/agent-native-systems.md): Designing for agentic workloads.
+- [Agentic systems](docs/principles/ai-native/agentic-systems.md): Agents as first-class actors — topology, MCP/A2A/AG-UI, memory, durable execution, guardrails, oversight.
+- [AI-native product](docs/principles/ai-native/ai-native-product.md): Product management for probabilistic systems — the continuous decision loop, evals as a product responsibility, dual success metrics, the three AI cost layers.
 - [Postgres](docs/principles/stack/postgres.md): Schema design, migrations, and query patterns.
 
 ## System

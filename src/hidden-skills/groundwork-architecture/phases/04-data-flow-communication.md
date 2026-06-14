@@ -6,6 +6,8 @@ This phase turns the service map from Phase 3 into a living system. Understandin
 
 API contracts and database schemas are not designed here. They belong to the Bet phase, where each feature is designed in detail. The architecture phase produces the skeleton those details will be built on.
 
+**Apply from the architect references:** `integration-patterns.md` (the sync-vs-async decision, outbox, retries, timeouts as budgets), `realtime-and-async.md` (any streaming/live path), `data-architecture.md` (data ownership, event/table contracts, retention), and `ai-native-architecture.md` (the model-provider decision and what it obligates). Load the reference for the pattern in play and embed its trade-off in the proposal.
+
 **How to run this conversation:**
 
 Use the service map from Phase 3 and the constraints from Phase 2 to draft a complete data flow proposal covering every service at once. For each service, specify: inputs and their sources, outputs and their consumers, communication pattern (sync vs async) with the reasoning behind the choice, and storage needs including data shape and access patterns. Present this as a single structured proposal the user can scan, correct, and refine — proposing all flows together exposes cross-service dependencies and inconsistencies that per-service interrogation hides.

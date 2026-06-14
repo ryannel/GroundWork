@@ -48,6 +48,10 @@ OpenAPI specs include rich descriptions on every field, enumerations for every f
 
 We treat WebSocket and message broker events with the same rigour as HTTP — an AsyncAPI spec, generated client and server models, additive evolution. Events that are "informal" today are the integration bugs of next quarter.
 
+### 9. The contract is enforced, not just authored
+
+A spec no one verifies drifts the moment a provider ships. We lint specs in CI (Spectral), run consumer-driven or bi-directional contract tests behind a `can-i-deploy` gate so a provider cannot break a consumer, bind errors to **RFC 9457 Problem Details**, and choose the protocol deliberately — REST at the edge, gRPC internal, federated GraphQL for composition, tRPC only inside a TypeScript monorepo. Contract-first authoring without contract testing is half the loop.
+
 ## Anti-patterns we reject
 
 - **Breaking changes without a version bump.** "It is a small breaking change, no one uses that field" — the assumption is always wrong in an agent-consuming world.
