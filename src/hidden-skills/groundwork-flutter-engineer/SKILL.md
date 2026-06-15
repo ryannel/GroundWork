@@ -23,6 +23,10 @@ Mobile execution engineer for Flutter applications. This skill guides implementa
 3. Route durable mobile policy to the canonical docs (`docs/principles/stack/flutter/`) instead of duplicating it in code comments or this skill.
 4. Verify lints, widget tests, theme consumption, and accessibility semantics before declaring work complete.
 
+## Symbolic code intelligence (Serena)
+
+GroundWork registers the **Serena** MCP server at init — LSP-backed symbol navigation and editing. Prefer it over reading whole files: locate code with `get_symbols_overview` / `find_symbol`, trace impact with `find_referencing_symbols`, and make reference-aware edits with `replace_symbol_body` / `insert_after_symbol` / `rename`. Full tool guidance and the graceful-degradation contract live in `.agents/groundwork/skills/serena-tools.md`; fall back to ordinary reads and edits when Serena is unavailable.
+
 ## Core Pillars
 
 1. **MVVM Over Two Layers** — Every feature is one View (widgets only) paired with one ViewModel (state + commands). Repositories are the data layer's source of truth; services wrap external interfaces. A Domain layer is added only when it earns its place. This is the official Flutter architecture, adopted wholesale — code written against it is code every Flutter engineer recognises.

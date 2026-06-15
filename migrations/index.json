@@ -9,11 +9,11 @@
       "summary": "Installs the user-owned config file on installs that predate it. init seeds it once; update never touched it, so older installs have none."
     },
     {
-      "id": "gw-register-depwire-mcp",
+      "id": "gw-register-serena-mcp",
       "version": "0.10.0",
-      "title": "Register the depwire code-map MCP server",
+      "title": "Register the Serena code-intelligence MCP server",
       "kind": "cli",
-      "summary": "Adds the depwire MCP server to .mcp.json on installs that predate the registration. Additive and idempotent; never touches other servers."
+      "summary": "Adds the Serena MCP server to .mcp.json and removes the retired depwire server. Idempotent; only the depwire entry is removed, other servers are untouched."
     },
     {
       "id": "gw-package-rename-invocations",

@@ -23,7 +23,7 @@ When the repository already holds an application, setup inverts: the code is the
 
 | Phase | Skill | Output | What it establishes |
 |---|---|---|---|
-| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Deterministic code map (via depwire when present), concern-split findings for the extract phases |
+| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Code map (via Serena when present), concern-split findings for the extract phases |
 | 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
 | 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
 | 3 | `groundwork-architecture-extract` | `docs/architecture.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |

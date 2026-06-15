@@ -17,7 +17,7 @@ GroundWork installs skills, not a runtime — every behavior is an instruction f
 | Writes and edits files | Docs, caches, state | **Required.** |
 | Executes shell commands | Generators, `./dev`, git-based drift checks, boot verification | Degrades: facilitation and doc phases work fully; scaffold/infra-adopt present a runbook for the user to execute instead (the skills handle this case explicitly), and verification is recorded as pending. |
 | Dispatches isolated subagents (Claude Code: the `Task` tool) | The fail-closed review gate, brownfield scan fan-out | Degrades, fail-closed: reviews that cannot run **block commits** rather than silently passing (operating contract, Protocol 8); the orchestrator passes `fan_out: sequential` to the scan. An explicit user-authorised self-review fallback exists but never counts as a passed gate. |
-| MCP server support | The depwire deterministic code map | Degrades: scan, check, and update fall back to LLM inference and path-based git checks — slower and less precise, never blocking. |
+| MCP server support — plus `uv` on the host, which the Serena server's `uvx` launch needs | The Serena LSP code map — symbol navigation, reference-based impact analysis, and symbolic editing | Degrades: without MCP support or `uv`, scan, check, and update fall back to LLM inference and path-based git checks — slower and less precise, never blocking. |
 
 ## Support matrix
 

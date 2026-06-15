@@ -23,6 +23,10 @@ Frontend execution engineer for Next.js applications. This skill guides implemen
 4. Route durable frontend policy to the canonical docs (`docs/principles/stack/typescript/frontend.md`) instead of duplicating it in code comments or this skill.
 5. Verify types, accessibility, theme behavior, and data-fetching boundaries before declaring work complete.
 
+## Symbolic code intelligence (Serena)
+
+GroundWork registers the **Serena** MCP server at init — LSP-backed symbol navigation and editing. Prefer it over reading whole files: locate code with `get_symbols_overview` / `find_symbol`, trace impact with `find_referencing_symbols`, and make reference-aware edits with `replace_symbol_body` / `insert_after_symbol` / `rename`. Full tool guidance and the graceful-degradation contract live in `.agents/groundwork/skills/serena-tools.md`; fall back to ordinary reads and edits when Serena is unavailable.
+
 ## Core Pillars
 
 1. **Server-First Rendering** — Server Components are the default. They reduce client bundle size, eliminate waterfall fetches, and keep sensitive logic server-side. Only reach for `"use client"` when the component genuinely needs browser APIs, user interaction state, or event handlers. This boundary decision is the most impactful architectural choice in the app.

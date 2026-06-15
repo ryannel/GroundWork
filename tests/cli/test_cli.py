@@ -61,7 +61,8 @@ def test_init_installs_the_contract(project):
     claude_md = project / "CLAUDE.md"
     assert claude_md.is_symlink() and Path(claude_md.readlink()).name == "AGENTS.md"
     assert state["groundwork"]["agents"] == ["claude-code"]
-    assert "depwire" in json.loads((project / ".mcp.json").read_text())["mcpServers"]
+    mcp_servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
+    assert "serena" in mcp_servers and "depwire" not in mcp_servers
     assert (project / "llms.txt").exists()
 
 

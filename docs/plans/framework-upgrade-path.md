@@ -253,7 +253,7 @@ this section explains where it differs from the sections above.
   forcing function doing its job on day one. The B3 test scopes the id-suffix
   requirement to sections ≥ 0.10.0; older `[migration]` lines are prose history.
 - **Two real cli migrations seed the registry**: `gw-seed-config-toml` and
-  `gw-register-depwire-mcp` — both heal things `init` does that `update` never did.
+  `gw-register-serena-mcp` — both heal things `init` does that `update` never did.
 - **Migration completion is recorded for *settled* entries too**: a `detect` that
   answers done/n-a is recorded in `state.json` so it is never re-asked, and a fresh
   `init` records the entire registry (detect-honesty: a new install owes nothing).

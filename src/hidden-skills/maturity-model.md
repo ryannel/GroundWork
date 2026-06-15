@@ -51,10 +51,10 @@ A system-test harness runs inside the boot topology, and bets author their progr
 
 ### D5. Code intelligence
 
-The depwire MCP server is registered and a current `repo-map.json` exists, giving every scan, impact analysis, and drift check a deterministic structural map.
+The Serena MCP server is registered and a current `repo-map.json` exists, giving every scan, impact analysis, and drift check an LSP-accurate structural map.
 
 **Failure it prevents:** structural questions fall back to LLM inference — slower, costlier, and hallucination-prone exactly where precision matters most.
-**Signal:** `.mcp.json` registers depwire; `.groundwork/cache/repo-map.json` exists or is regenerable on demand.
+**Signal:** `.mcp.json` registers Serena; `.groundwork/cache/repo-map.json` exists or is regenerable on demand.
 
 ### D6. Doc currency automation
 
