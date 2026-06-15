@@ -26,7 +26,7 @@ function banner() {
 function printHelp() {
   banner();
   console.log(`\x1b[1mCommands:\x1b[0m
-  \x1b[36minit\x1b[0m      Install GroundWork skills, config, and the depwire code map into the current project
+  \x1b[36minit\x1b[0m      Install GroundWork skills, config, and the Serena code-intelligence MCP server into the current project
   \x1b[36mupdate\x1b[0m    Bring the install up to this package version: skills, seeded docs, the ./dev bundle,
             and scripted migrations. Judgment-lane work lands in an upgrade brief for your agent.
             \x1b[2m--dry-run prints the full plan without writing anything.\x1b[0m
@@ -936,15 +936,20 @@ function printWiringGuidance(selectedKeys) {
   console.log(`  \x1b[2mEdit AGENTS.md, never a symlinked copy — switching agents never moves it.\x1b[0m`);
 }
 
-// Register depwire as a project-scoped MCP server. depwire is a deterministic, local
-// dependency/symbol-graph tool (tree-sitter, 16+ languages) that GroundWork treats as a
-// first-class code map: the brownfield scan, the architecture extractor, and groundwork-check
-// all reason over it. The registration is idempotent and additive — it never clobbers an
-// existing .mcp.json or other servers, and every consumer degrades gracefully when depwire is
-// absent (e.g. the eval harness), so this is a force-multiplier, never a hard dependency.
-function registerDepwireMcp(targetDir) {
+// Register Serena (github.com/oraios/serena) as a project-scoped MCP server. Serena is an
+// LSP-based code-intelligence tool (40+ languages) that GroundWork treats as a first-class
+// code map: the brownfield scan, the architecture extractor, and groundwork-check reason over
+// its symbol/reference queries (and build repo-map.json from them), and the engineer skills
+// use its symbolic editing. The registration is idempotent and additive — it never clobbers
+// other servers — and it removes any prior depwire entry so a re-init/upgrade swaps cleanly.
+// Every consumer degrades gracefully when Serena is absent (it needs `uv`), so this is a
+// force-multiplier, never a hard dependency.
+const SERENA_MCP_SERVER = {
+  command: 'uvx',
+  args: ['--from', 'serena-agent==1.5.3', 'serena', 'start-mcp-server', '--context', 'ide-assistant', '--project', '.'],
+};
+function registerSerenaMcp(targetDir) {
   const mcpPath = path.join(targetDir, '.mcp.json');
-  const depwireServer = { command: 'npx', args: ['-y', 'depwire-cli', 'mcp'] };
   try {
     let config = { mcpServers: {} };
     if (fs.existsSync(mcpPath)) {
@@ -953,14 +958,16 @@ function registerDepwireMcp(targetDir) {
         config.mcpServers = {};
       }
     }
-    if (config.mcpServers.depwire) {
-      return; // already registered — preserve the user's configuration
+    const hadDepwire = Boolean(config.mcpServers.depwire);
+    if (hadDepwire) delete config.mcpServers.depwire; // pull out the retired server
+    if (config.mcpServers.serena && !hadDepwire) {
+      return; // already registered and nothing to remove — preserve the user's configuration
     }
-    config.mcpServers.depwire = depwireServer;
+    config.mcpServers.serena = SERENA_MCP_SERVER;
     fs.writeFileSync(mcpPath, JSON.stringify(config, null, 2));
-    c.ok(`Registered depwire code-map MCP server (.mcp.json)`);
+    c.ok(`Registered Serena code-intelligence MCP server (.mcp.json)`);
   } catch (err) {
-    c.warn(`Could not register depwire MCP server: ${err.message}`);
+    c.warn(`Could not register Serena MCP server: ${err.message}`);
     console.warn(`         GroundWork still works without it — the code map falls back to LLM inference.`);
   }
 }
@@ -1069,7 +1076,7 @@ async function initGroundWork(options = {}) {
   wireAgents(p.targetDir, selected);
   persistAgents(p, selected);
 
-  registerDepwireMcp(p.targetDir);
+  registerSerenaMcp(p.targetDir);
 
   printWiringGuidance(selected);
 

@@ -138,7 +138,7 @@ enforcement layer:
   convergence/preservation/idempotency/detect-honesty contract tests, a
   migration-coverage gate in the contracts lane, and an `upgrade` simulation suite.
 - [migration] Old installs never received `.groundwork/config/config.toml`; update now seeds the commented default (gw-seed-config-toml)
-- [migration] Old installs never registered the depwire code-map MCP server; update now adds it to `.mcp.json` (gw-register-depwire-mcp)
+- [migration] Register the Serena code-intelligence MCP server in `.mcp.json` and remove the retired depwire server (gw-register-serena-mcp)
 - [migration] Projects carrying `docs/ux-design.md` from before the Design System reframe need the rename and reference uplift (gw-design-system-rename)
 - [migration] Products set up before the multi-surface restructure need the surface registry + capability ledger bootstrapped (gw-surfaces-registry-bootstrap)
 - [migration] Code-coupled docs written before drift tracking need `last_reviewed`/`source_of_truth` frontmatter stamped (gw-drift-frontmatter-stamp)
@@ -402,7 +402,7 @@ feature-complete across both setup paths but its operational surface is still ha
 ### Added
 
 - **Update engine**: `groundwork-update` rebuilt as a full maintenance skill — change-set
-  resolution, three-pass code→doc mapping (path intersection, depwire impact analysis,
+  resolution, three-pass code→doc mapping (path intersection, Serena impact analysis,
   semantic mapping), surgical edits under the Living Documents protocol, fail-closed review
   gate per mutated doc.
 - **Real CLI `update` and `check`**: `update` diffs installed skills against the package and
@@ -456,5 +456,5 @@ phases (product brief, design system, architecture, scaffold, MVP); the brownfie
 three extract phases, infra adoption, gap ledger); the operating contract (discovery notes,
 living documents, phase lifecycle, summaries, hand-off cache, cache isolation, review gate);
 Nx generators for Go/Python microservices, Next.js apps, CLI apps, docs sites, and the
-system-test runner; the bundled `./dev` workspace CLI; depwire MCP registration; the scaffold
+system-test runner; the bundled `./dev` workspace CLI; Serena MCP registration; the scaffold
 test harness (generation/contracts/compilation/e2e) and the simulation harness with checkpoints.

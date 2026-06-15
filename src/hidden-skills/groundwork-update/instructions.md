@@ -44,7 +44,7 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 
 **Pass 1 — path intersection (deterministic).** Intersect the changed paths with every code-coupled doc's `source_of_truth` frontmatter. A doc whose source paths contain a changed file is affected. This is the baseline and runs in every environment.
 
-**Pass 2 — dependency graph (depwire, when registered).** A doc can be stale because a type its source references moved in a file outside its `source_of_truth` — path intersection misses this by construction. When the depwire MCP server is available, run impact analysis on the changed symbols and add any doc whose sources depend on changed code through the graph. `.groundwork/cache/repo-map.json`, when present, serves the same purpose offline. Skip this pass without comment when neither exists.
+**Pass 2 — reference graph (Serena, when registered).** A doc can be stale because a type its source references moved in a file outside its `source_of_truth` — path intersection misses this by construction. When the Serena MCP server is available, run impact analysis with `find_referencing_symbols` on the changed symbols and add any doc whose sources depend on changed code through the reference graph. `.groundwork/cache/repo-map.json`, when present, serves the same purpose offline. Skip this pass without comment when neither exists.
 
 **Pass 3 — semantic mapping (judgement).** Prose docs carry no `source_of_truth`, so read the diff and ask what each change *means* for the documentation set:
 

@@ -368,7 +368,7 @@ Flow testing (the greenfield and brownfield methodology paths) is **not** a
 programmatic agent driver. There is no SDK loop. A flow test is a **real Claude
 Code session, run by a human, against the real installed skills** — so it
 exercises genuine skill loading, orchestrator routing, subagent dispatch, and the
-depwire MCP server, none of which a hand-rolled loop can reproduce faithfully.
+Serena MCP server, none of which a hand-rolled loop can reproduce faithfully.
 
 > The old `conversational_eval.py` harness (a raw Anthropic Messages loop with two
 > Haiku agents) has been removed. It re-implemented the agent loop and could only

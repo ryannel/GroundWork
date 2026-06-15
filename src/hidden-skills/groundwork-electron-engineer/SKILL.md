@@ -23,6 +23,10 @@ Desktop execution engineer for Electron applications. This skill guides implemen
 3. Route durable desktop policy to the canonical docs (`docs/principles/stack/electron/`) instead of duplicating it in code comments or this skill.
 4. Verify typecheck (both tsconfigs), lint (including the boundary rules), unit tests, and — for shell-touching changes — the boot smoke before declaring work complete.
 
+## Symbolic code intelligence (Serena)
+
+GroundWork registers the **Serena** MCP server at init — LSP-backed symbol navigation and editing. Prefer it over reading whole files: locate code with `get_symbols_overview` / `find_symbol`, trace impact with `find_referencing_symbols`, and make reference-aware edits with `replace_symbol_body` / `insert_after_symbol` / `rename`. Full tool guidance and the graceful-degradation contract live in `.agents/groundwork/skills/serena-tools.md`; fall back to ordinary reads and edits when Serena is unavailable.
+
 ## Core Pillars
 
 1. **Main Is an Orchestrator** — Window creation, security policy, IPC registration, OS integration. CPU-heavy or crash-prone work runs in a `utilityProcess` with MessagePorts wired renderer↔utility directly. A blocked main process freezes every window the app has.

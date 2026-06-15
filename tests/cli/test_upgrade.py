@@ -133,8 +133,11 @@ def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     recorded = state["groundwork"]["migrations"]
     assert "gw-seed-config-toml" in recorded
-    # depwire was registered by this fixture's init — detect settles it without running.
-    assert "gw-register-depwire-mcp" in recorded
+    # This fixture's .mcp.json still carries the retired depwire server — the swap migration
+    # runs, removes it, and registers Serena.
+    assert "gw-register-serena-mcp" in recorded
+    mcp_servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
+    assert "serena" in mcp_servers and "depwire" not in mcp_servers
     # Agent migrations are not recorded by the CLI; they queue in the brief.
     brief = json.loads((project / ".groundwork/cache/upgrade-brief.json").read_text())
     ids = {i["id"] for i in brief["items"]}

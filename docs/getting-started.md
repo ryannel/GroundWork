@@ -17,7 +17,7 @@ cd your-project
 npx groundwork-method init
 ```
 
-Init installs the orchestrator and registered skills into `.agents/skills/`, eighteen hidden methodology skills into `.agents/groundwork/skills/`, seeds `.groundwork/config/`, links `.claude → .agents` for Claude Code, and registers the depwire code-map MCP server. It touches nothing else.
+Init installs the orchestrator and registered skills into `.agents/skills/`, eighteen hidden methodology skills into `.agents/groundwork/skills/`, seeds `.groundwork/config/`, links `.claude → .agents` for Claude Code, and registers the Serena code-intelligence MCP server. It touches nothing else.
 
 ## 2. Start the conversation
 

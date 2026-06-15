@@ -26,6 +26,12 @@ Go backend execution router for service repositories. Durable engineering guidan
 
 ---
 
+## Symbolic code intelligence (Serena)
+
+GroundWork registers the **Serena** MCP server at init — LSP-backed symbol navigation and editing. Prefer it over reading whole files: locate code with `get_symbols_overview` / `find_symbol`, trace impact with `find_referencing_symbols`, and make reference-aware edits with `replace_symbol_body` / `insert_after_symbol` / `rename`. Full tool guidance and the graceful-degradation contract live in `.agents/groundwork/skills/serena-tools.md`; fall back to ordinary reads and edits when Serena is unavailable.
+
+---
+
 ## Required First Checks
 
 Before non-trivial Go implementation or review work:
