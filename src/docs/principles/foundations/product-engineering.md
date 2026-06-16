@@ -26,7 +26,7 @@ No work enters a sprint without having been *shaped*: the problem stated in user
 
 ### 3. Appetite, not estimate
 
-We set an *appetite* — "this is worth about two weeks of one engineer's attention" — and then design a solution that fits inside it. If it cannot fit, we either reduce scope or reject the work. This inverts the usual flow: instead of estimating the cost of a fixed solution, we fix the cost and negotiate the solution. It forces the team to ask "what is the cheapest version of this that delivers the outcome?" and it kills the tendency of work to expand to the time available.
+We set an *appetite* — a statement of how much a problem is worth solving, judged by opportunity cost — and then design a solution that fits inside it. If it cannot fit, we either reduce scope or reject the work. This inverts the usual flow: instead of estimating the cost of a fixed solution, we fix the worth and negotiate the solution. It forces the team to ask "what is the best version of this we can deliver for what it is worth?" and it kills the tendency of work to expand to fill the time available. We denominate appetite in worth, not effort, and not by default in calendar time — AI compresses execution unpredictably, so a fixed "two weeks" now anchors on the axis that just got cheap and noisy. How big a bet is, separately, is its *stakes* — what is at risk if we are wrong; see [prioritization-and-appetite](prioritization-and-appetite.md).
 
 ### 4. Kill your darlings
 

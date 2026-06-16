@@ -8,8 +8,8 @@ description: >
 # Bet Pitch Checklist
 
 This checklist checks a draft `docs/bets/<slug>/pitch.md`. It answers one question: **does this
-pitch state a real problem, cap it with an appetite, and honestly surface where that appetite is
-at risk?**
+pitch state a real problem, size it on both axes — appetite (worth) and stakes (what is at risk
+if it is wrong) — and honestly surface where that appetite is at risk?**
 
 Each item names a violation. Match it against the document text plus the upstream summaries;
 answer yes/no. Bet documents carry no `## Summary for Downstream` — do not flag its absence.
@@ -22,14 +22,19 @@ answer yes/no. Bet documents carry no `## Summary for Downstream` — do not fla
 - [ ] 🟡 **Off-template section**: the pitch carries sections beyond `## The Pitch` and
   `## Rabbit Holes & No-Gos` — schemas, task lists, or designs that belong to later phases.
 
-## Problem, Appetite, Solution
+## Problem, Appetite, Stakes, Solution
 
 - [ ] 🔴 **Problem without a sufferer**: the problem statement names no user or situation in
   which the pain occurs — "users need better project management" is a category, not a problem.
-- [ ] 🔴 **Appetite missing or unbounded**: no appetite is stated, or it is framed as an estimate
-  of how long the work will take rather than a constraint that caps the scope.
-- [ ] 🟡 **Appetite without a boundary**: an appetite number is given but nothing states what is
+- [ ] 🔴 **Appetite missing or unbounded**: no appetite is stated, or it is framed as an effort
+  estimate of how long the work will take rather than a worth judgement that caps the scope.
+- [ ] 🟡 **Appetite without a boundary**: an appetite is given but nothing states what is
   bounded out to make it hold — the cap exists but the scope it caps is open.
+- [ ] 🔴 **Stakes not sized**: the pitch records no stakes — it has not said what is at risk if
+  the bet is wrong (blast radius, reversibility, the human review the work demands). A bet sized
+  only by worth is half-sized; stakes is what earns the discovery and review rigour.
+- [ ] 🟡 **Stakes as effort**: the stakes read describes how hard the work is to build rather
+  than what is at risk if it is wrong — effort is the deflated axis, not the size of the bet.
 - [ ] 🟡 **Solution as feature list**: the solution enumerates features without stating the
   end-to-end outcome a user reaches — a task list wearing a pitch's clothes.
 

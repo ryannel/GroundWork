@@ -85,9 +85,13 @@ Work through the following elements in sequence. Give each important question ro
 
   Do not design the solution at this stage — that is Design Foundations. The sketch names the approach and its key assumption.
 
-- **Appetite:** Establish how long the problem is worth, what scope fits inside that time boundary, and what scope must be cut to fit.
+- **Appetite:** Establish how much solving the problem is worth, what scope fits inside that worth, and what scope must be cut to fit.
 
-  Frame appetite as an opportunity-cost judgment, not an estimate. The scope adjusts to fit the appetite — the appetite does not stretch to fit the scope.
+  Frame appetite as an opportunity-cost judgment — worth, not an effort estimate, and not by default a calendar-time budget (AI made execution time an unstable proxy for worth). The scope adjusts to fit the appetite — the appetite does not stretch to fit the scope.
+
+- **Stakes:** Establish what is at risk if the bet goes wrong — its blast radius (surface touched, who feels a mistake), its reversibility (one-way door vs. iterate-behind-a-flag), and its review load (how much a human must hold to vouch for the work).
+
+  Stakes is the bet's size, and it is not effort: a low-effort change to a load-bearing path is high-stakes. Stakes earns the rigour — a high-stakes bet earns deeper discovery, tighter review, and a smaller validating increment, even when it is fast to build.
 
 - **No-gos:** Name what this bet is explicitly not building — the natural extensions users would expect but that are out of scope, why each one is excluded, and where it belongs.
 
@@ -162,9 +166,12 @@ A pitch that names features or lists milestones is a task list. The pitch must c
 - **Problem:** Users have no visibility into long-running operations they trigger.
   They refresh manually to check for completion, miss failures for hours, and contact
   support with questions the system already knows the answer to.
-- **Appetite:** 2 weeks. Bounded to in-app status updates for the three highest-volume
-  operation types. Email notifications, mobile push, and notification preferences are
-  excluded.
+- **Appetite:** Worth a bounded slice this cycle — the support load is real, but it ranks
+  below the billing work, so scope is capped tight. Bounded to in-app status updates for the
+  three highest-volume operation types; email notifications, mobile push, and notification
+  preferences are excluded.
+- **Stakes:** Low. A read-only status panel behind a feature flag — narrow blast radius,
+  fully reversible, and a reviewer can vouch for it at a glance. A light discovery pass is enough.
 - **Solution:** Surface real-time status updates in the UI as operations progress through
   their lifecycle states, without requiring a manual refresh.
 - **Success Signal:** Support tickets citing "I didn't know the operation failed" drop

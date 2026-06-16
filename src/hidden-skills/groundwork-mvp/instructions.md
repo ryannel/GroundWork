@@ -102,7 +102,9 @@ The scope proposal is a recommendation, not a decision. Items in the out-of-scop
 
 **Scope the surfaces.** When the registry (`docs/surfaces.md`) exists, the in-scope half also names which surfaces the first bet delivers to. The usual answer is one surface plus the headless capability core: the hypothesis is almost always answerable on a single surface, and each additional one adds its own wiring, rendering, and test layer to the appetite without strengthening the signal. Propose the surface the essential workflow lives on; treat a second surface like any other scope item — it earns its place only if excluding it compromises the success signal. When the registry holds one surface, state in one line that the bet ships on it and move on — there is nothing to discuss. No registry means a single implicit surface: skip this entirely.
 
-**Appetite.** Once scope is agreed, establish how much time the team is willing to spend. Frame it as a constraint, not an estimate: the appetite caps the scope, not the other way around. If the agreed scope exceeds the ceiling, look for further cuts.
+**Appetite.** Once scope is agreed, establish how much solving this is worth — judged by opportunity cost, not by how long it will take. Frame it as a constraint, not an estimate: the appetite caps the scope, not the other way around. State worth, not calendar time (AI made execution time an unstable proxy for it); reach for a time budget only when human-coordination time is the real constraint. If the agreed scope exceeds the ceiling, look for further cuts.
+
+**Stakes.** Establish what is at risk if the MVP is wrong — its blast radius (surface and users a mistake reaches), reversibility (one-way door vs. iterate-behind-a-flag), and review load (how much a human must hold to vouch for it). Stakes is the bet's size, not its effort, and it sets how much rigour the bet earns: a high-stakes MVP earns tighter review and a smaller validating increment even when it is quick to build.
 
 Mark Phase 2 complete in `mvp-cache.md`.
 
@@ -147,8 +149,12 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
   core value — collaborative project tracking — is invisible until users have completed
   setup, invited collaborators, and created their first project. Most abandon before
   reaching this point.
-- **Appetite:** 3 weeks. Bounded to the signup-to-first-collaboration path. Analytics,
+- **Appetite:** Worth the cycle — without a working signup-to-collaboration path there is
+  no product to test, so this earns the first full slice. Bounded to that path; analytics,
   notifications, and advanced filtering are excluded.
+- **Stakes:** Moderate. Touches account creation and the first-run path, so a wrong call
+  shapes every user's first impression — but each step is reversible behind the onboarding
+  flow. Earns careful review of the signup and invite steps, lighter elsewhere.
 - **Solution:** Deliver the end-to-end signup, project creation, and collaborator invitation
   flow. A user who completes this workflow has experienced the product's core value.
 - **Success Signal:** ≥60% of users who complete signup also send at least one collaborator

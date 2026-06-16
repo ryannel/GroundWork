@@ -19,7 +19,7 @@ Multiple Pitches may exist at once. Committing to a Pitch converts it into an ac
 
 ## Bet
 
-A Bet is the committed execution of a Pitch — active from the moment the team decides to execute through Validation. A Bet operates on a fixed appetite with variable scope: the time boundary is set upfront and does not move; scope adjusts to fit what can be delivered within it.
+A Bet is the committed execution of a Pitch — active from the moment the team decides to execute through Validation. A Bet operates on a fixed appetite with variable scope: the worth it is bounded to — judged by opportunity cost, not a calendar-time estimate — is set upfront and does not move; scope adjusts to fit what can be delivered within it.
 
 Milestones and slices are defined in the Decomposition phase, from the locked technical design. They are not part of the Pitch.
 

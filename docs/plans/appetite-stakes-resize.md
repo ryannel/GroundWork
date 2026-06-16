@@ -1,6 +1,6 @@
 # Plan: Resize the framework — worth + stakes, not effort
 
-**Status:** PROPOSED — 2026-06-15. No slices executed yet.
+**Status:** EXECUTED — 2026-06-16. All workstreams (A–F) landed. Open questions resolved: O1 — kept "stakes" as the term (already in the vocabulary). O2 — review/judgement load pushed as a first-class third ingredient of stakes everywhere (pitch, workflows, checklists).
 **Audience:** Contributors reworking the prioritization/sizing concepts.
 **Scope owner:** ryannel.
 

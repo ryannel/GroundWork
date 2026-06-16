@@ -8,10 +8,11 @@ surfaces: [<registry-slug>, <registry-slug>]
 *`surfaces:` lists the registry slugs (from `docs/surfaces.md`) this bet delivers to — validation fills the capability ledger from this scope. When the project has no surface registry, omit the key entirely: the bet runs against the single implicit surface, exactly as before the registry existed. A single-surface registry means one entry and nothing more.*
 
 ## The Pitch
-*Provide a brief explanation of the problem, the proposed solution, and the appetite.*
+*Provide a brief explanation of the problem, the proposed solution, the appetite, and the stakes.*
 
 - **Problem:** What user problem are we solving?
-- **Appetite:** How much time are we willing to spend on this?
+- **Appetite:** How much is solving this worth — judged by opportunity cost, what else this cycle could hold? State worth, not an effort estimate. (Express in calendar time only when human-coordination time is the real constraint.)
+- **Stakes:** What is at risk if we get this wrong — blast radius (surface touched, who feels it), reversibility (one-way door or iterate-behind-a-flag), and review load (how much a human must hold to vouch for it)? Stakes earns the rigour; it is not effort.
 - **Solution:** At a high level, how will we solve this?
 - **Success Signal:** What observable outcome confirms this bet delivered its intended value?
 

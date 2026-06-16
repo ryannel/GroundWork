@@ -54,7 +54,7 @@ Each risk is tested differently, and using the wrong instrument wastes the disco
 
 ### 6. Low stakes earn a lighter pass
 
-The frame scales to the stakes. A small, reversible, low-cost change does not need a four-risk discovery — it needs a quick gut-check and a willingness to undo it. The full, evidence-backed pass is for bets that are expensive to build, hard to reverse, or load-bearing for the product. Running heavy discovery on trivial work is its own failure mode; the discipline is proportionality, not ceremony.
+The frame scales to the **stakes** — blast radius × reversibility × the human review the work demands, the bet's size axis defined in [prioritization-and-appetite](prioritization-and-appetite.md) §2. A small-blast-radius, reversible change does not need a four-risk discovery — it needs a quick gut-check and a willingness to undo it. The full, evidence-backed pass is for bets that are hard to reverse, wide in blast radius, or load-bearing for the product. Note that stakes is not effort: a low-effort change to a one-way door is high-stakes and earns the full pass, even when it is fast to build. Running heavy discovery on genuinely low-stakes work is its own failure mode; the discipline is proportionality, not ceremony.
 
 ## How we apply this
 

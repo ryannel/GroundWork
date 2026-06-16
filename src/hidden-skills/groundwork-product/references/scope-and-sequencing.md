@@ -4,7 +4,9 @@ Prioritization is the portfolio decision: of all the things worth doing, which d
 
 ## The bet is the unit of commitment
 
-Commit in **bets**: a shaped problem, a fixed appetite, a solution sketch, a success signal, and explicit no-gos. The bet is deliberately small and time-boxed so a wrong call costs one cycle, not a quarter — and so the team re-decides frequently with fresh information rather than locking a long plan. Between bets the team is free to change direction entirely; that optionality is the point. Big up-front roadmaps trade it away for a false sense of certainty.
+Commit in **bets**: a shaped problem, an appetite (its worth), a stakes read (what is at risk if it goes wrong), a solution sketch, a success signal, and explicit no-gos. The bet is deliberately small and reversible so a wrong call costs one cycle, not a quarter — and so the team re-decides frequently with fresh information rather than locking a long plan. Between bets the team is free to change direction entirely; that optionality is the point. Big up-front roadmaps trade it away for a false sense of certainty.
+
+Size a bet on two axes, never on effort. **Worth** (the appetite) says how much to invest, judged by opportunity cost. **Stakes** — blast radius × reversibility × the human review the work demands — says how carefully, and earns the discovery and rigour. Effort and complexity are the deflated axis: AI compresses execution unpredictably, so "how hard to build" no longer tracks either worth or stakes.
 
 ## Prioritise the opportunity, then bound the solution
 

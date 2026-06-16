@@ -13,6 +13,27 @@ installed artifact gets an owner and a provenance record, and every framework ch
 that touches installed projects ships with a migration — so no project is left behind
 as the framework improves.
 
+### Changed (resize work on worth + stakes, not effort, 2026-06-16)
+
+Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).
+Reframes how GroundWork sizes work for an AI-native shop: appetite is re-denominated from
+calendar time to **worth** (opportunity cost), and **stakes** (blast radius × reversibility ×
+review/judgement load) is promoted to a first-class measure of a bet's size — effort/complexity
+named as the axis AI deflated. No shipped surface has changed yet (the corpus is unreleased), so
+no migration is involved.
+
+- **`foundations/prioritization-and-appetite`**: re-denominated appetite (worth, not a
+  time-budget — "N weeks" demoted to one optional lens); new principle **"Size is stakes, not
+  effort"**; "Sizing by complexity" added to the anti-patterns.
+- **`foundations/product-risks`** §6: stakes named as blast radius × reversibility × review load,
+  cross-linked to the canonical definition; effort framing dropped.
+- **`groundwork-product` references** (`shaping-and-appetite`, `scope-and-sequencing`) + sync-anchor
+  re-pinned to the edited sources.
+- **Bet artifacts**: pitch template gains a **Stakes** line and a worth-framed appetite; bet
+  discovery + MVP workflows elicit worth + stakes; `bet-pitch` and `technical-design` review
+  checklists verify stakes is sized and not confused with effort.
+- **Vocabulary aligned** in `product-engineering` §3, `ways-of-working/units-of-work`, `docs/product.md`.
+
 ### Added (product-discipline persona + product-principles corpus, 2026-06-14) `[no-migration]`
 
 The second discipline-expert persona (after `groundwork-architect`), with a first-class
