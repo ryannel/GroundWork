@@ -3,6 +3,7 @@
   "summary": "Raw gateway. The LLMGateway port plus a not-yet-implemented stub adapter and a strict-xfail contract test — a bet. No provider SDK, no env, no infrastructure. Implement the adapter (or run `add-capability` with a real provider) to cash the bet.",
   "env": [],
   "stacks": {
-    "python": { "dependencies": [] }
+    "python": { "dependencies": [] },
+    "go": { "dependencies": [] }
   }
 }

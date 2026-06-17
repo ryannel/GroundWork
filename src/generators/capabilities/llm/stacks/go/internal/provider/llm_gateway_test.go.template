@@ -1,0 +1,33 @@
+package provider
+
+import (
+	"context"
+	"testing"
+
+	"<%= moduleName %>/internal/core/gateway"
+)
+
+// Compile-time conformance: the adapter satisfies the LLMGateway port. If the
+// port and adapter drift, this test file fails to build — the contract is
+// enforced at compile time, the strongest place to put it.
+var _ gateway.LLMGateway = (*LLMGatewayAdapter)(nil)
+
+func TestLLMGatewayConformsToPort(t *testing.T) {
+	var _ gateway.LLMGateway = (*LLMGatewayAdapter)(nil)
+}
+<% if (provider === 'none') { %>
+// Bet: the raw gateway has no implementation yet. While the stub returns an
+// error this test Skips, so a freshly scaffolded service stays green. The moment
+// you implement GenerateText it runs for real and asserts the contract — your
+// cue that the bet is delivered and this Skip can come out. The port is the
+// spec, the adapter is the bet.
+func TestRawGatewayGeneratesText(t *testing.T) {
+	out, err := NewLLMGatewayAdapter().GenerateText(context.Background(), "ping", 8)
+	if err != nil {
+		t.Skipf("bet: LLM raw gateway not implemented yet: %v", err)
+	}
+	if out == "" {
+		t.Fatal("expected non-empty text from the LLM gateway")
+	}
+}
+<% } %>

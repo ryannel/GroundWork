@@ -11,7 +11,18 @@
       "adapter": "src/provider/llm_gateway.py",
       "adapterSymbol": "LLMGatewayAdapter",
       "contractTest": "tests/contracts/test_llm_port.py",
+      "envFile": ".env.example",
       "wiring": "Provide LLMGatewayAdapter() to your composition root (e.g. dependencies.py get_llm_gateway) typed as the LLMGateway port, and call generate_text() from your service."
+    },
+    "go": {
+      "port": "internal/core/gateway/llm_gateway.go",
+      "portSymbol": "LLMGateway",
+      "adapter": "internal/provider/llm_gateway.go",
+      "adapterSymbol": "LLMGatewayAdapter",
+      "contractTest": "internal/provider/llm_gateway_test.go",
+      "envFile": ".env",
+      "module": true,
+      "wiring": "Construct provider.NewLLMGatewayAdapter() in cmd/api/main.go and pass it (typed as the gateway.LLMGateway port) into your service. Run `go mod tidy` if a provider added a dependency."
     }
   }
 }

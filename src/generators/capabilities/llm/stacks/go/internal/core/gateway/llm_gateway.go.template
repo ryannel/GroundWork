@@ -1,0 +1,11 @@
+package gateway
+
+import "context"
+
+// LLMGateway is the port for large-language-model text generation. Concrete
+// adapters live in internal/provider/llm_gateway.go and are swappable at
+// scaffold time (anthropic | openai | local | none) without touching this port
+// or its callers — the hexagonal boundary the rest of the core depends on.
+type LLMGateway interface {
+	GenerateText(ctx context.Context, prompt string, maxTokens int) (string, error)
+}

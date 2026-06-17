@@ -38,6 +38,12 @@ export interface CapabilityStack {
   adapter: string;
   adapterSymbol: string;
   contractTest: string;
+  /** The example env file to record the provider's env footprint in
+   *  (`.env.example` for python, `.env` for go). Defaults to `.env.example`. */
+  envFile?: string;
+  /** When true, the stack's templates need the service's module/import path
+   *  (Go: the `module` line in go.mod) substituted as `moduleName`. */
+  module?: boolean;
   wiring?: string;
 }
 
@@ -106,7 +112,33 @@ function injectPyprojectDeps(tree: Tree, pyprojectPath: string, deps: string[]):
   tree.write(pyprojectPath, content);
 }
 
-/** Append env vars (by name, idempotent) to a service's .env.example. */
+/** Add module requires to the first `require ( ... )` block of a go.mod,
+ *  skipping any whose module path is already present. Idempotent. */
+function injectGoModRequires(tree: Tree, goModPath: string, deps: string[]): void {
+  if (!deps.length || !tree.exists(goModPath)) return;
+  let content = tree.read(goModPath, 'utf-8') || '';
+  const open = content.indexOf('require (');
+  if (open === -1) return;
+  const close = content.indexOf(')', open);
+  if (close === -1) return;
+  const block = content.slice(open, close);
+  const modPath = (spec: string) => spec.split(/\s+/)[0].trim();
+  const toAdd = deps.filter((d) => !block.includes(modPath(d)));
+  if (!toAdd.length) return;
+  const insertion = toAdd.map((d) => `\t${d}\n`).join('');
+  content = content.slice(0, close) + insertion + content.slice(close);
+  tree.write(goModPath, content);
+}
+
+/** The module/import path of a Go service, read from go.mod's `module` line. */
+function readGoModule(tree: Tree, serviceRoot: string): string {
+  const goMod = `${serviceRoot}/go.mod`;
+  if (!tree.exists(goMod)) return '';
+  const m = (tree.read(goMod, 'utf-8') || '').match(/^module\s+(\S+)/m);
+  return m ? m[1] : '';
+}
+
+/** Append env vars (by name, idempotent) to a service's env-example file. */
 function appendEnvExample(
   tree: Tree,
   envPath: string,
@@ -162,7 +194,9 @@ export function applyCapability(
   const footprint = loadFootprint(capability, provider);
 
   const root = capabilitiesRoot();
-  const subs = { provider, capability, stack, tmpl: '' };
+  // Go templates import the service's module path; resolve it from go.mod.
+  const moduleName = stackSpec.module ? readGoModule(tree, serviceRoot) : '';
+  const subs = { provider, capability, stack, moduleName, tmpl: '' };
 
   // Port + contract test (capability-owned, provider-agnostic except the test's
   // `none` branch). generateFiles renders the templated subtree into serviceRoot.
@@ -183,8 +217,15 @@ export function applyCapability(
       `${serviceRoot}/pyproject.toml`,
       footprint.stacks?.python?.dependencies ?? [],
     );
+  } else if (stack === 'go') {
+    injectGoModRequires(tree, `${serviceRoot}/go.mod`, footprint.stacks?.go?.dependencies ?? []);
   }
-  appendEnvExample(tree, `${serviceRoot}/.env.example`, capability, footprint.env ?? []);
+  appendEnvExample(
+    tree,
+    `${serviceRoot}/${stackSpec.envFile || '.env.example'}`,
+    capability,
+    footprint.env ?? [],
+  );
 
   return {
     capability,

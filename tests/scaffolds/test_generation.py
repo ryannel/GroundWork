@@ -1149,6 +1149,64 @@ def test_add_capability_generator_adds_raw_gateway_to_existing_service():
         shutil.rmtree(sb, ignore_errors=True)
 
 
+def test_go_add_capability_llm_none_raw_gateway():
+    """The capability layer is general across stacks: add-capability bolts the LLM
+    port onto a Go service too. `none` ships the gateway.LLMGateway port, a stub
+    adapter that returns an error, and a contract test that Skips while the bet is
+    open. Go adapters use net/http (no SDK), so go.mod gains no dependency."""
+    import shutil
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        go = _scaffold_service_into(sb, "api", "go-microservice")
+        assert go.returncode == 0, f"go-microservice failed\nSTDERR: {go.stderr}"
+        cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:add-capability",
+               "--service", "api", "--capability", "llm", "--provider", "none"]
+        add = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+        assert add.returncode == 0, f"add-capability (go) failed\nSTDOUT: {add.stdout}\nSTDERR: {add.stderr}"
+        svc = sb / "services" / "api"
+        port = (svc / "internal" / "core" / "gateway" / "llm_gateway.go").read_text()
+        assert "LLMGateway interface" in port, "the Go LLMGateway port must be generated"
+        adapter = (svc / "internal" / "provider" / "llm_gateway.go").read_text()
+        assert "not implemented" in adapter, "none provider must ship a stub that errors (the bet)"
+        assert "api/internal/core/gateway" in adapter, "adapter must import the port via the module path from go.mod"
+        test = (svc / "internal" / "provider" / "llm_gateway_test.go").read_text()
+        assert "var _ gateway.LLMGateway = (*LLMGatewayAdapter)(nil)" in test, "compile-time port conformance assertion"
+        assert "Skip" in test, "none must ship the strict bet test (Skip while unimplemented)"
+        gomod = (svc / "go.mod").read_text()
+        assert "anthropic" not in gomod and "openai" not in gomod, \
+            f"net/http Go adapter must add no module dependency:\n{gomod}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_go_add_capability_llm_anthropic_http_adapter():
+    """A real Go provider ships a net/http adapter against the vendor API and
+    records its env footprint, with no go.mod dependency and the port untouched."""
+    import shutil
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        assert _scaffold_service_into(sb, "api", "go-microservice").returncode == 0
+        cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:add-capability",
+               "--service", "api", "--capability", "llm", "--provider", "anthropic"]
+        add = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+        assert add.returncode == 0, f"add-capability (go anthropic) failed\nSTDOUT: {add.stdout}\nSTDERR: {add.stderr}"
+        svc = sb / "services" / "api"
+        adapter = (svc / "internal" / "provider" / "llm_gateway.go").read_text()
+        assert "api.anthropic.com" in adapter and "anthropic-version" in adapter, \
+            "anthropic Go adapter must call the Messages API"
+        assert 'var _ gateway.LLMGateway = (*LLMGatewayAdapter)(nil)' in adapter, "adapter must assert port conformance"
+        env = (svc / ".env").read_text()
+        assert "LLM_API_KEY=" in env and "claude" in env, f"env footprint must land in .env:\n{env}"
+        gomod = (svc / "go.mod").read_text()
+        assert "anthropic" not in gomod, f"net/http adapter must not add an SDK dependency:\n{gomod}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
 # ---------------------------------------------------------------------------
 # CLI App — branded product CLI generator
 # ---------------------------------------------------------------------------

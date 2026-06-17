@@ -77,6 +77,14 @@ The composable capability-port model (above) is now driven by the architecture, 
 - **`groundwork-scaffold`**: Phase 1 reads the registry and maps ports to flags / `add-capability`; Phases 2 + 4 reconcile footprints. `--llmProvider` mapping extended with `local` and `none`.
 - New contract `.agents/groundwork/skills/templates/capability-ports.md` (schema + footprint model, disambiguated from the surface capability *ledger*); Cross-Phase Contracts table updated. Skills clean-copy on update — `[no-migration]`.
 
+### Added (Go LLM capability family, 2026-06-17) `[no-migration]`
+
+The capability layer (above) now spans the Go stack, proving it is genuinely general and not Python-only (plan: `docs/plans/dev-cli-native-runners.md`, WS-F F5/O9 — Go only; surfaces and frontend stacks consume the LLM via the backend's contract rather than embedding an adapter, keeping keys server-side and one port per owner).
+
+- `capabilities/llm` gains a `go` stack: the `gateway.LLMGateway` port (`internal/core/gateway/`), adapters in `internal/provider/`, and a contract test with a compile-time `var _ gateway.LLMGateway` conformance assertion plus a Skip-based bet test for `none`.
+- Go adapters are **`net/http` against the provider REST APIs** (Anthropic Messages, OpenAI/`local` Chat Completions) — no SDK dependency, so `go.mod` is untouched and the generated code compiles standalone. A transparent starting point to extend or swap for an SDK behind the same port.
+- `add-capability` detects the Go stack (go.mod) and is the entry point for adding the LLM port to a Go service; `applyCapability` resolves the module import path from `go.mod` and records the env footprint in `.env`.
+
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
 Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).
