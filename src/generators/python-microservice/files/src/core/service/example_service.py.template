@@ -7,7 +7,7 @@ from src.core.domain.protocols import ExampleRepository
 from src.core.domain.protocols import MessageQueue
 <% } %>
 <% if (llm) { %>
-from src.core.domain.protocols import LLMGateway
+from src.core.domain.llm_port import LLMGateway
 <% } %>
 import uuid
 

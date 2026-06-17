@@ -47,6 +47,11 @@
       "factory": "./dist/src/generators/docs-site/generator",
       "schema": "./src/generators/docs-site/schema.json",
       "description": "Scaffolds a Fumadocs-powered Next.js documentation site"
+    },
+    "add-capability": {
+      "factory": "./dist/src/generators/add-capability/generator",
+      "schema": "./src/generators/add-capability/schema.json",
+      "description": "Adds a hexagonal capability port + provider adapter (or a raw `none` gateway) to an existing service"
     }
   }
 }

@@ -1,0 +1,12 @@
+{
+  "kind": "env",
+  "summary": "A self-hosted, OpenAI-compatible endpoint (Ollama, vLLM, llama.cpp, LM Studio). Points at a base URL you run; no cloud key, no infrastructure this scaffold provisions. If you containerise the model server, add it as a compose service; if it is a host process, register it as a runner.",
+  "env": [
+    { "name": "LLM_API_KEY", "required": false, "default": "not-needed" },
+    { "name": "LLM_BASE_URL", "required": true, "default": "http://localhost:11434/v1" },
+    { "name": "LLM_MODEL", "required": false, "default": "llama3.1" }
+  ],
+  "stacks": {
+    "python": { "dependencies": ["openai>=1.14.0"] }
+  }
+}

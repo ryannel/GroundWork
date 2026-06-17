@@ -1,0 +1,25 @@
+"""Raw LLM gateway — the port is defined, the adapter is NOT YET implemented.
+
+This is a *bet*. The LLMGateway port (src/core/domain/llm_port.py) fixes the
+contract your domain depends on; this adapter is the slot where you build the
+implementation. The contract test in tests/contracts/test_llm_port.py is marked
+xfail(strict): the suite stays green while the bet is open and flips red the
+moment you make generate_text work — your cue to remove the marker.
+
+To cash the bet, either implement generate_text below, or regenerate against a
+shipped provider:
+
+    nx g add-capability --service=<this-service> --capability=llm --provider=anthropic
+"""
+
+
+class LLMGatewayAdapter:
+    def __init__(self) -> None:
+        # No provider client to construct yet — that's the bet.
+        pass
+
+    async def generate_text(self, prompt: str, max_tokens: int = 100) -> str:
+        raise NotImplementedError(
+            "LLM raw gateway is not implemented. Build out LLMGatewayAdapter.generate_text, "
+            "or scaffold a provider with `add-capability --capability=llm --provider=anthropic|openai|local`."
+        )

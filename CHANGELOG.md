@@ -42,6 +42,33 @@ Retro-registering surfaces in pre-existing projects is a future enhancement (pla
 - **Surface/sidecar generators**: electron / flutter / cli / `python --native` self-register a
   runner via the new shared `registerRunner` helper; `./dev status --json` gains a `runners` array.
 
+### Added (composable capability ports & providers, 2026-06-17) `[no-migration]`
+
+Infrastructure is now a consequence of providers, not a default (plan: `docs/plans/dev-cli-native-runners.md`,
+WS-F core). A **capability** is a hexagonal port plus a catalog of swappable **providers**; choosing a
+provider chooses an adapter, and each provider declares an operational **footprint** — `env`,
+`compose-service`, `runner`, or `none`. The registry is data, not code
+(`src/generators/capabilities/<capability>/`), so adding a provider is a folder, not a generator change.
+
+LLM ships as the first worked family (`capabilities/llm/`, Python stack) with providers `anthropic`,
+`openai`, `local` (self-hosted, OpenAI-compatible), and **`none`** — the raw gateway: the `LLMGateway`
+port + a not-yet-implemented stub + a strict-xfail contract test. `none` is GroundWork's own thesis
+turned on the scaffold — the port is the spec, the adapter is a **bet**; the suite stays green while the
+bet is open and flips red the moment you implement it.
+
+- **`add-capability` generator** (new): bolts a capability port + provider (or a raw `none` gateway)
+  onto an existing service on Day 2 / inside a bet — the standalone surface over the shared injector.
+- **`src/generators/shared/capabilities.ts`** (new): one `applyCapability` injector consumed by both
+  the service generators (scaffold time) and `add-capability` (Day 2) — port + adapter + contract test
+  + provider dependency + env footprint, no per-provider drift.
+- **`python-microservice`**: `--llm` now routes through the capability registry; `--llmProvider` gains
+  `local` and `none`. The `LLMGateway` port moved from `protocols.py` to its own `llm_port.py` so the
+  port is reusable by `add-capability`. Generated output for the existing `anthropic`/`openai` providers
+  is unchanged. Additive for installs (new generator + registry; existing services untouched) — `[no-migration]`.
+
+Still open in WS-F: architecture phase declaring capabilities (F7), scaffold reconciliation (F8/WS-D),
+engineer-skill alignment doc (F6), and provider families for the Go/Next.js stacks (F5/O9).
+
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
 Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).

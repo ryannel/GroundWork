@@ -1,0 +1,12 @@
+{
+  "kind": "env",
+  "summary": "OpenAI (or any OpenAI-compatible endpoint) over HTTPS. API key in env; no infrastructure.",
+  "env": [
+    { "name": "LLM_API_KEY", "required": true, "default": "" },
+    { "name": "LLM_BASE_URL", "required": false, "default": "" },
+    { "name": "LLM_MODEL", "required": false, "default": "gpt-4o" }
+  ],
+  "stacks": {
+    "python": { "dependencies": ["openai>=1.14.0"] }
+  }
+}

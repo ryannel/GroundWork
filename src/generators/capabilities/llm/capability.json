@@ -1,0 +1,17 @@
+{
+  "id": "llm",
+  "title": "LLM inference",
+  "description": "Text generation via a large language model, behind a hexagonal port. The port is fixed; the provider (and therefore the operational footprint) is a scaffold-time choice.",
+  "default": "anthropic",
+  "providers": ["anthropic", "openai", "local", "none"],
+  "stacks": {
+    "python": {
+      "port": "src/core/domain/llm_port.py",
+      "portSymbol": "LLMGateway",
+      "adapter": "src/provider/llm_gateway.py",
+      "adapterSymbol": "LLMGatewayAdapter",
+      "contractTest": "tests/contracts/test_llm_port.py",
+      "wiring": "Provide LLMGatewayAdapter() to your composition root (e.g. dependencies.py get_llm_gateway) typed as the LLMGateway port, and call generate_text() from your service."
+    }
+  }
+}

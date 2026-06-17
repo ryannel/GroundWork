@@ -1052,6 +1052,104 @@ def test_python_native_registers_sidecar_runner_and_no_compose_service():
 
 
 # ---------------------------------------------------------------------------
+# Composable capability ports & providers (plan WS-F)
+# ---------------------------------------------------------------------------
+
+_CAP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "capabilities"
+
+
+def test_python_llm_none_ships_raw_gateway_as_a_bet():
+    """`--llm --llmProvider=none` is the raw gateway: the LLMGateway port, a
+    not-yet-implemented stub adapter, and a strict-xfail contract test — a bet,
+    not an implementation. No provider SDK is added and no LLM env is written.
+    The port lives in its own module (llm_port.py), not protocols.py, so the
+    standalone add-capability generator can reuse it."""
+    import shutil
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        r = _scaffold_service_into(sb, "ai", "python-microservice",
+                                   llm=True, llmProvider="none", rest=False, postgres=False)
+        assert r.returncode == 0, f"python --llm none failed\nSTDERR: {r.stderr}"
+        svc = sb / "services" / "ai"
+        port = (svc / "src" / "core" / "domain" / "llm_port.py").read_text()
+        assert "class LLMGateway" in port, "the LLMGateway port must be generated"
+        adapter = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        assert "NotImplementedError" in adapter, "none provider must ship a stub adapter (the bet)"
+        test = (svc / "tests" / "contracts" / "test_llm_port.py").read_text()
+        assert "xfail" in test and "issubclass" in test, "none must ship a strict-xfail contract test"
+        pyproject = (svc / "pyproject.toml").read_text()
+        assert "anthropic" not in pyproject and "openai" not in pyproject, \
+            f"raw gateway must add no provider SDK:\n{pyproject}"
+        protocols = (svc / "src" / "core" / "domain" / "protocols.py").read_text()
+        assert "class LLMGateway" not in protocols, "the port must live in llm_port.py, not protocols.py"
+        env = (svc / ".env.example").read_text()
+        assert "LLM_API_KEY" not in env, f"none footprint writes no LLM env:\n{env}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_python_llm_anthropic_provider_footprint():
+    """A real provider selects its adapter and materializes its footprint: the
+    Anthropic SDK dependency in pyproject and the LLM env (key + claude model) in
+    .env.example. Swapping the provider swaps only the adapter — the port and its
+    callers are untouched. The contract test is a plain conformance check (no
+    xfail — the adapter is implemented)."""
+    import shutil
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        r = _scaffold_service_into(sb, "ai", "python-microservice",
+                                   llm=True, llmProvider="anthropic", rest=False, postgres=False)
+        assert r.returncode == 0, f"python --llm anthropic failed\nSTDERR: {r.stderr}"
+        svc = sb / "services" / "ai"
+        adapter = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        assert "import anthropic" in adapter, "anthropic provider must ship the anthropic adapter"
+        pyproject = (svc / "pyproject.toml").read_text()
+        # Parse the TOML so a malformed injection (e.g. splicing inside another
+        # dependency spec) is caught — a substring check alone would not see it.
+        import tomllib
+        deps = tomllib.loads(pyproject)["project"]["dependencies"]
+        assert any(d.startswith("anthropic>=") for d in deps), \
+            f"anthropic footprint must inject the SDK dep as a valid entry:\n{deps}"
+        assert all(d.startswith("uvicorn[standard]") is False or "]>=" in d for d in deps if "uvicorn" in d), \
+            f"existing deps must remain intact (no corruption):\n{deps}"
+        env = (svc / ".env.example").read_text()
+        assert "LLM_API_KEY=" in env and "claude" in env, f"env footprint must document the key + model:\n{env}"
+        test = (svc / "tests" / "contracts" / "test_llm_port.py").read_text()
+        assert "xfail" not in test, "an implemented provider's contract test must not be xfail"
+        assert (svc / "src" / "core" / "domain" / "llm_port.py").exists(), "the port is always generated"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_add_capability_generator_adds_raw_gateway_to_existing_service():
+    """The standalone add-capability generator is the Day-2 / bet entry point: it
+    bolts a capability port + provider onto a service that was scaffolded without
+    it, through the same injector the service generators use."""
+    import shutil
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        base = _scaffold_service_into(sb, "ai", "python-microservice",
+                                      llm=False, rest=False, postgres=False)
+        assert base.returncode == 0, f"base python service failed\nSTDERR: {base.stderr}"
+        svc = sb / "services" / "ai"
+        assert not (svc / "src" / "core" / "domain" / "llm_port.py").exists(), \
+            "precondition: the base service has no LLM port"
+        cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:add-capability",
+               "--service", "ai", "--capability", "llm", "--provider", "none"]
+        add = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+        assert add.returncode == 0, f"add-capability failed\nSTDOUT: {add.stdout}\nSTDERR: {add.stderr}"
+        assert (svc / "src" / "core" / "domain" / "llm_port.py").exists(), "add-capability must generate the port"
+        adapter = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        assert "NotImplementedError" in adapter, "add-capability none must ship the stub"
+        assert (svc / "tests" / "contracts" / "test_llm_port.py").exists(), "add-capability must ship the contract test"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
 # CLI App — branded product CLI generator
 # ---------------------------------------------------------------------------
 

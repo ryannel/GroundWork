@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "add-capability",
+  "title": "Add Capability",
+  "description": "Add a hexagonal capability port + a chosen provider adapter (or a raw `none` gateway) to an existing service. The footprint — env / compose-service / runner / none — follows from the provider.",
+  "type": "object",
+  "properties": {
+    "service": {
+      "type": "string",
+      "description": "The service to add the capability to (directory name under services/, or a path to the service root).",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Which service should the capability be added to?"
+    },
+    "capability": {
+      "type": "string",
+      "default": "llm",
+      "description": "The capability to add (must exist in the capability registry).",
+      "x-prompt": "Which capability do you want to add?"
+    },
+    "provider": {
+      "type": "string",
+      "description": "The provider that satisfies the port. Defaults to the capability's default provider. Use `none` for a raw gateway (port + stub + red contract test, to be built as a bet)."
+    },
+    "stack": {
+      "type": "string",
+      "description": "Language stack of the target service. Auto-detected from the service when omitted (e.g. pyproject.toml -> python)."
+    }
+  },
+  "required": ["service"]
+}

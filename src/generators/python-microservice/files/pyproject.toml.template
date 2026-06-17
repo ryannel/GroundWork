@@ -25,14 +25,8 @@ dependencies = [
 <% if (runpod) { %>
     "runpod>=1.5.0",
 <% } %>
-<% if (llm) { %>
-<% if (llmProvider === 'anthropic') { %>
-    "anthropic>=0.40.0",
-<% } else { %>
-    "openai>=1.14.0",
-<% } %>
-<% } %>
-]
+]<%# The LLM provider dependency (anthropic/openai/none) is injected by the llm
+    capability footprint, plan WS-F — not declared inline. %>
 
 [project.optional-dependencies]
 dev = [

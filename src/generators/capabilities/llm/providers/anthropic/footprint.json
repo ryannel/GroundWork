@@ -1,0 +1,12 @@
+{
+  "kind": "env",
+  "summary": "Anthropic Claude over HTTPS. API key in env; no infrastructure.",
+  "env": [
+    { "name": "LLM_API_KEY", "required": true, "default": "" },
+    { "name": "LLM_BASE_URL", "required": false, "default": "" },
+    { "name": "LLM_MODEL", "required": false, "default": "claude-sonnet-4-6" }
+  ],
+  "stacks": {
+    "python": { "dependencies": ["anthropic>=0.40.0"] }
+  }
+}

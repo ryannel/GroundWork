@@ -13,6 +13,7 @@ import {
   readProjectPrefix,
   registerRunner,
 } from '../shared/scaffold-helpers';
+import { applyCapability } from '../shared/capabilities';
 
 export interface PythonMicroserviceGeneratorSchema {
   name: string;
@@ -22,7 +23,7 @@ export interface PythonMicroserviceGeneratorSchema {
   websockets: boolean;
   runpod: boolean;
   llm: boolean;
-  llmProvider: 'openai' | 'anthropic';
+  llmProvider: 'openai' | 'anthropic' | 'local' | 'none';
   native?: boolean;
 }
 
@@ -246,8 +247,18 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
     tree.delete(`${projectRoot}/src/provider/comfyui_gateway.py`);
   }
 
-  if (!options.llm) {
-    tree.delete(`${projectRoot}/src/provider/llm_gateway.py`);
+  // LLM is a composable capability port (plan WS-F). The chosen provider —
+  // anthropic | openai | local | none — selects the adapter; the port, the
+  // contract test, the provider dependency and its env footprint all come from
+  // the capability registry via one shared injector (no inline per-provider
+  // template here). `none` ships a raw gateway: the port + a stub + a red bet.
+  if (options.llm) {
+    applyCapability(tree, {
+      capability: 'llm',
+      provider: llmProvider,
+      stack: 'python',
+      serviceRoot: projectRoot,
+    });
   }
 
   promoteEngineerSkill(tree, 'groundwork-python-engineer');
