@@ -1,0 +1,131 @@
+{
+  "manifest_version": 1,
+  "files": {},
+  "generated": {
+    "go-microservice:go-idempotency-1": {
+      "generator": "go-microservice",
+      "version": "0.9.0",
+      "options": {
+        "name": "go-idempotency-1",
+        "auth": "none",
+        "messaging": "none",
+        "websockets": false
+      },
+      "files": {}
+    },
+    "go-microservice:go-idempotency-2": {
+      "generator": "go-microservice",
+      "version": "0.9.0",
+      "options": {
+        "name": "go-idempotency-2",
+        "auth": "none",
+        "messaging": "none",
+        "websockets": false
+      },
+      "files": {
+        "services/go-idempotency-2/.air.toml": "d139873fff4bb88f584dab19756c7ffe6746737c5e62ac101970a94bd01acc38",
+        "services/go-idempotency-2/.env": "bcbe1c50e0ed18b184f512f3d10bdec486aaf94ccef5895b6fae1a62ba4ca7be",
+        "services/go-idempotency-2/.golangci.yml": "56626f0b5e46124d658be07b5d0595a9e9a72ba98feb2a1e0745c9e4d9ea33f7",
+        "services/go-idempotency-2/Dockerfile.dev": "2ea807088c6633ef80ed499ffd2987f2d6fabcad158c4ccb98e4fef4dd567780",
+        "services/go-idempotency-2/cmd/api/main.go": "e1928fde667ce1be4db274b52bd6f0bc9dc3b3945cb8dfdce8e2dd97aa80f794",
+        "services/go-idempotency-2/cmd/api/main_test.go": "dec4e7e7999e36b65506ea84f146ea448d1cadfde5da745caa0b6bb1996f4966",
+        "services/go-idempotency-2/cmd/worker/cleanup/main.go": "1d136191711b227d44307ebee6a546522745a9f244cad0a9ece5c9e5cf2a4890",
+        "services/go-idempotency-2/db/schema.sql": "216bab6790dacb516f81dc0abc11be404de9378afad8e53b23dbf5d3fa134c72",
+        "services/go-idempotency-2/go.mod": "2ad7279805a3584b5f9b259d85d892bd288ae4d4a1c840571c47fa9c9bf70324",
+        "services/go-idempotency-2/internal/config/config.go": "1d417fbce1ec8469b61c86fb0bf50d9ca652adc30bf06045ff29c3c8669e3335",
+        "services/go-idempotency-2/internal/config/otel.go": "35b2640fd1e409556e5c711179ff1e93c50c7dcd4274f6901eb560b0c14e2f75",
+        "services/go-idempotency-2/internal/core/domain/errors.go": "a753d2917ae895ef06e920eaec802648dc54f68bbeebd6aeb9bd19c736b9c081",
+        "services/go-idempotency-2/internal/core/domain/model.go": "c7916d6e49d1cc99f8916440c09b77cf3e70022bd20827be6dd599920129b215",
+        "services/go-idempotency-2/internal/core/gateway/event_hub.go": "13d32eccfd1fc94d83d5081ded183d125c5c0f1cf52528575cfeb571e5f4a7ba",
+        "services/go-idempotency-2/internal/core/gateway/repository.go": "0bbce97a9ad4082cef2778c45abe58f14fbcb6bfc37721e9c8a1c8fa399041f4",
+        "services/go-idempotency-2/internal/core/pagination.go": "ca1f55d2c706e0673c84bac5693d8444c8fa3a3598037b734ef9d5c4c56cb117",
+        "services/go-idempotency-2/internal/core/service/app_service.go": "6cae06f38d0402fb067de91e2b556df2a7a873f897a348b4c20a26b6d9c395cc",
+        "services/go-idempotency-2/internal/entrypoints/api/app_handler.go": "051bc64235938153a930e7fc795af5ac0a85160b01643c7e9b61344a414e4e85",
+        "services/go-idempotency-2/internal/entrypoints/api/health_handler.go": "ecd8b5fc150ff177bb1024e4476f0c567b78942078669c2c7c0a3044554f1871",
+        "services/go-idempotency-2/internal/entrypoints/api/idempotency/middleware.go": "6034f61bae9f8a11a11f5c3b9a96f2e2ee9de2844f19f067ac0ec04be6251f4a",
+        "services/go-idempotency-2/internal/entrypoints/api/idempotency/repository.go": "b51fb3a621bb94bac27f1b808218dfcd8f28324a3271215050be8f901186b412",
+        "services/go-idempotency-2/internal/entrypoints/api/middleware_loadshed.go": "373e7e0445ed0c4f2fec1dd72366ff70a8aeeff9ead26a2c5031d6f323aab363",
+        "services/go-idempotency-2/internal/entrypoints/api/middleware_ratelimit.go": "1ca705ae7730657f6d82ad3e02848303dd67525577fc2471c8ee65e8e03cb003",
+        "services/go-idempotency-2/internal/entrypoints/api/router.go": "c168f88fabcab473c02ef8e501881771732a7db04eb9111a62abeb568332fbbe",
+        "services/go-idempotency-2/internal/entrypoints/api/types.go": "3726944403ca28ae2b56e1ee28f15b429b4132829f4d2aa70754f3b9fa833705",
+        "services/go-idempotency-2/internal/provider/http_client.go": "044b2708236b431eb01d5ca2cb40b76d8a65133f5e4d75ea69ce63cf54cd535c",
+        "services/go-idempotency-2/internal/provider/postgres.go": "a29548d5309f8c8ec3e85363f03da3adb571093c18d0aa80af568f5cbb94abde",
+        "services/go-idempotency-2/scripts/apply-schema.sh": "01bf3435f0e862eb026123ff8847e50d540a999763822d3c96f7ff0d5ac4ff21",
+        "services/go-idempotency-2/tools/tools.go": "bdc1b77e3d001ab24070f5c321b2eb618c1c2f000c5ab345b764425aad02a00a"
+      }
+    },
+    "workspace-dev-cli": {
+      "generator": "workspace-dev-cli",
+      "version": "0.9.0",
+      "options": {
+        "appName": "Workspace",
+        "primaryColor": "BLUE",
+        "hexColor": ""
+      },
+      "files": {
+        ".agents/skills/workspace-cli/SKILL.md": "c158f9b370cda493bca39bdb90be5ecdfc1f0154fcdf20385544890fb18fbbc4",
+        "dev": "300e8dd6e4340b09bf7de25aaf6f42f3edfe845e28020540595a5ae52169b6be",
+        "docker-compose.yml": "7d30517ee28c8d9fa14fd24db04d99f20d9ee91d1b85a6e4127ff48bb3579d6a",
+        "scripts/cli/templates/milestone-test.pytmpl": "ca749ed79259c492fc4f4a8441ec3ba04d1e6ffea80ee82554d8602fa21d4339",
+        "scripts/cli/templates/slice-test.pytmpl": "da2f46eb0cb17f5c785447d54da9c34ec36db99ae2df728eed9554ce62d138ea",
+        ".dev/dev-bundle.js": "33d538ff46bf0d7dd368c3c8241d558444035de3e9ac96fd93ae8c8ded79d83c",
+        ".dev/dev.config.json": "a53b822089c40cdb3063aab12b40a6a6d2ac079f54c29222b345b95c6d341be1"
+      }
+    },
+    "go-microservice:api": {
+      "generator": "go-microservice",
+      "version": "0.9.0",
+      "options": {
+        "name": "api",
+        "messaging": "none",
+        "auth": "none",
+        "websockets": false
+      },
+      "files": {
+        "services/api/.air.toml": "d139873fff4bb88f584dab19756c7ffe6746737c5e62ac101970a94bd01acc38",
+        "services/api/.env": "81605ce1d7ac5ee794a8834d10a78504b9fd993e08e155fcdf5675165d35d4c7",
+        "services/api/.golangci.yml": "56626f0b5e46124d658be07b5d0595a9e9a72ba98feb2a1e0745c9e4d9ea33f7",
+        "services/api/Dockerfile.dev": "2ea807088c6633ef80ed499ffd2987f2d6fabcad158c4ccb98e4fef4dd567780",
+        "services/api/cmd/api/main.go": "13f14682637116e476a2025c56303524b0b0defa4f0baecbaf397ea21039860b",
+        "services/api/cmd/api/main_test.go": "da51b94b0c3eaa452136d280524ef53796b3ef51ee1bd7425964375dca232629",
+        "services/api/cmd/worker/cleanup/main.go": "1d136191711b227d44307ebee6a546522745a9f244cad0a9ece5c9e5cf2a4890",
+        "services/api/db/schema.sql": "216bab6790dacb516f81dc0abc11be404de9378afad8e53b23dbf5d3fa134c72",
+        "services/api/go.mod": "d212caa19ad3787f5a690f41f6ab64259fe5a4efdb96261475e7044aff528c07",
+        "services/api/internal/config/config.go": "95732fbddd30ae9c562ed0d9f1229b2ecadcfa99f5392c132573df05547de7a2",
+        "services/api/internal/config/otel.go": "35b2640fd1e409556e5c711179ff1e93c50c7dcd4274f6901eb560b0c14e2f75",
+        "services/api/internal/core/domain/errors.go": "a753d2917ae895ef06e920eaec802648dc54f68bbeebd6aeb9bd19c736b9c081",
+        "services/api/internal/core/domain/model.go": "c7916d6e49d1cc99f8916440c09b77cf3e70022bd20827be6dd599920129b215",
+        "services/api/internal/core/gateway/event_hub.go": "d461a6b5bfd171adaba1b12bca1a25460e25278b73f31315afbc6fd90bcf9554",
+        "services/api/internal/core/gateway/repository.go": "0bbce97a9ad4082cef2778c45abe58f14fbcb6bfc37721e9c8a1c8fa399041f4",
+        "services/api/internal/core/pagination.go": "ca1f55d2c706e0673c84bac5693d8444c8fa3a3598037b734ef9d5c4c56cb117",
+        "services/api/internal/core/service/app_service.go": "d6f1561a9fd10f468dabbc6e5b5a4637eeb4f573631af86be3203ccfe5794122",
+        "services/api/internal/entrypoints/api/app_handler.go": "4d989bffa6eeec522d014aee61b868d7b351fff4b4646f11e48d0dca67f56e07",
+        "services/api/internal/entrypoints/api/health_handler.go": "ecd8b5fc150ff177bb1024e4476f0c567b78942078669c2c7c0a3044554f1871",
+        "services/api/internal/entrypoints/api/idempotency/middleware.go": "6034f61bae9f8a11a11f5c3b9a96f2e2ee9de2844f19f067ac0ec04be6251f4a",
+        "services/api/internal/entrypoints/api/idempotency/repository.go": "b51fb3a621bb94bac27f1b808218dfcd8f28324a3271215050be8f901186b412",
+        "services/api/internal/entrypoints/api/middleware_loadshed.go": "373e7e0445ed0c4f2fec1dd72366ff70a8aeeff9ead26a2c5031d6f323aab363",
+        "services/api/internal/entrypoints/api/middleware_ratelimit.go": "1ca705ae7730657f6d82ad3e02848303dd67525577fc2471c8ee65e8e03cb003",
+        "services/api/internal/entrypoints/api/router.go": "7185bd8f58720a416860a62fc2ee86c835c37f7479704394352b256f2dd2cb5c",
+        "services/api/internal/entrypoints/api/types.go": "3726944403ca28ae2b56e1ee28f15b429b4132829f4d2aa70754f3b9fa833705",
+        "services/api/internal/provider/http_client.go": "044b2708236b431eb01d5ca2cb40b76d8a65133f5e4d75ea69ce63cf54cd535c",
+        "services/api/internal/provider/postgres.go": "8c68b24ff22a3584efbc6b327a8a0657e73f18677d941a98fbd3334da09b3a3e",
+        "services/api/scripts/apply-schema.sh": "f7663990d7ed7c501cb7bda074964c68cebc6f3e33cc1ad285151b99f4b9efe0",
+        "services/api/tools/tools.go": "bdc1b77e3d001ab24070f5c321b2eb618c1c2f000c5ab345b764425aad02a00a",
+        "docker-compose.yml": "c005113a40b6152f696c83c8b950d21061ad3516348739b7c2ca7d71e5b2b667"
+      }
+    },
+    "add-capability": {
+      "generator": "add-capability",
+      "version": "0.9.0",
+      "options": {
+        "service": "api",
+        "capability": "llm",
+        "provider": "none"
+      },
+      "files": {
+        "services/api/internal/provider/llm_gateway_test.go": "8abfec037649e80cbc7093bed5bfc311d5a2ed1965e0bcd46aa061d521c581a9",
+        "services/api/internal/provider/llm_gateway.go": "3f90ded6d9b772dfbe9ba2030c6d3768a7532e8e457dc33cd4899c4bb8109039"
+      }
+    }
+  }
+}
