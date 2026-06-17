@@ -11,6 +11,7 @@ import {
   promoteEngineerSkill,
   deployStackDocs,
   ensureOptionalInfra,
+  readProjectPrefix,
 } from '../shared/scaffold-helpers';
 
 export interface GoMicroserviceGeneratorSchema {
@@ -101,9 +102,10 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
   if (composeDoc) {
     try {
       const yaml = require('yaml');
-      const services = composeDoc.get('services');
-      if (!services) {
-        composeDoc.set('services', {});
+      if (!composeDoc.get('services')) {
+        // createNode so the result is a YAMLMap with .has/.set — a plain {} is
+        // not, and the base compose no longer ships a services: block.
+        composeDoc.set('services', composeDoc.createNode({}));
       }
       const servicesMap = composeDoc.get('services');
 
@@ -174,7 +176,16 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
         };
 
         servicesMap.set(serviceNames.fileName, newService);
-        ensureOptionalInfra(composeDoc, servicesMap, { usesRedis, usesPubSub });
+        // A Go microservice always uses a per-service database and exports
+        // telemetry, so it provisions db + jaeger on demand (they are no longer
+        // in the base compose).
+        ensureOptionalInfra(composeDoc, servicesMap, {
+          usesRedis,
+          usesPubSub,
+          usesDb: true,
+          usesTelemetry: true,
+          projectPrefix: readProjectPrefix(tree),
+        });
         tree.write('docker-compose.yml', composeDoc.toString());
       }
     } catch (e) {

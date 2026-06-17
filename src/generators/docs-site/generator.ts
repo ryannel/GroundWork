@@ -87,8 +87,12 @@ export default async function (tree: Tree, options: DocsSiteGeneratorSchema) {
   // Auto-inject into docker-compose.yml if it exists
   if (composeDoc) {
     try {
+      if (!composeDoc.get('services')) {
+        // createNode so the result is a YAMLMap with .has/.set (a plain {} is not).
+        composeDoc.set('services', composeDoc.createNode({}));
+      }
       const servicesMap = composeDoc.get('services');
-      if (servicesMap && !servicesMap.has(serviceNames.fileName)) {
+      if (!servicesMap.has(serviceNames.fileName)) {
         const envVars = [
           `PORT=3000`,
         ];

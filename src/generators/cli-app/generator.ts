@@ -1,6 +1,8 @@
 import { formatFiles, generateFiles, Tree } from '@nx/devkit';
 import * as path from 'path';
 import * as fs from 'fs';
+import { recordGeneratorProvenance } from '../shared/provenance';
+import { registerRunner } from '../shared/scaffold-helpers';
 
 export interface CliAppGeneratorSchema {
   name: string;
@@ -119,5 +121,18 @@ export async function repl(ctx: Ctx): Promise<number> {
     );
   }
 
+  // A CLI is invoked ad hoc, not a long-running service — register it as a
+  // runner so `./dev status` reports it and `./dev` knows how to run it, but
+  // autostart is false so it is never launched by `./dev start`.
+  registerRunner(tree, {
+    name: binName,
+    kind: 'surface',
+    cmd: 'npm run dev',
+    cwd: projectRoot,
+    autostart: false,
+  });
+
   await formatFiles(tree);
+
+  recordGeneratorProvenance(tree, 'cli-app', options as unknown as Record<string, unknown>);
 }

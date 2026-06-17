@@ -1,4 +1,5 @@
 import { Renderer } from '../theme/render';
+import { Runner } from './runners';
 
 /** Raised by a command to abort with an error card and exit code 1, mirroring the
  *  bash `fail()` helper. */
@@ -29,6 +30,8 @@ export interface Ctx {
   args: string[];
   /** Project prefix (for container names etc.), from dev.config.json. */
   projectPrefix: string;
+  /** Declared native runners (surfaces, sidecars) from dev.config.json. */
+  runners: Runner[];
 }
 
 export function elapsedSince(startMs: number): string {

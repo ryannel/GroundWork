@@ -13,6 +13,35 @@ installed artifact gets an owner and a provenance record, and every framework ch
 that touches installed projects ships with a migration — so no project is left behind
 as the framework improves.
 
+### Changed (honest dev infrastructure + native runner registry, 2026-06-16) `[no-migration]`
+
+The scaffolded `./dev` CLI no longer assumes a server (plan: `docs/plans/dev-cli-native-runners.md`).
+db (Postgres+pgvector) and jaeger are no longer seeded into the base docker-compose — they are
+injected on demand by the service generators that use them, exactly like redis/pubsub. A workspace
+with no containerized service (a desktop, CLI, or local-first app) provisions no infrastructure, and
+`./dev start` reports "nothing to start" instead of faking a success on an empty stack.
+
+A native **runner registry** decouples "managed by `./dev`" from "is a docker-compose service": the
+`runners` array in `.dev/dev.config.json` declares native processes (surfaces, sidecars) that
+`./dev` start/stop/status/logs now manage. Surface generators (electron-app, flutter-app, cli-app)
+and `python-microservice --native` self-register their runner, so a desktop app and a native sidecar
+finally appear in `./dev status` and boot with `./dev start`.
+
+Additive for existing installs: the CLI bundle is Tier-1 (clean-replaced on update), the `runners`
+field is optional (configs without it manage zero runners), and existing docker-compose files are
+left untouched (the template change affects new generation only) — hence `[no-migration]`.
+Retro-registering surfaces in pre-existing projects is a future enhancement (plan WS-E1).
+
+- **`workspace-dev-cli`**: db/jaeger removed from `docker-compose.yml.template`; CLI bundle gains
+  `cli-src/util/runners.ts`, runner-aware start (Phase C) / stop / clean / status / logs, an honest
+  empty-start notice, a db-less `migrate` no-op, and `runners: []` seeding + preservation on re-run.
+- **`ensureOptionalInfra`**: injects db (+`db_data` volume) and jaeger on demand; `createNode` fix
+  for creating the services/volumes maps when the base compose ships neither.
+- **Service generators** (go / python / nextjs / docs-site): create the compose services map on
+  demand and inject db/jaeger per what each service uses.
+- **Surface/sidecar generators**: electron / flutter / cli / `python --native` self-register a
+  runner via the new shared `registerRunner` helper; `./dev status --json` gains a `runners` array.
+
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
 Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).

@@ -937,6 +937,121 @@ def test_workspace_dev_cli_rerun_preserves_compose_topology(workspace_dev_cli_be
 
 
 # ---------------------------------------------------------------------------
+# Infrastructure is opt-in — db/jaeger are injected on demand, not seeded
+# ---------------------------------------------------------------------------
+
+_INFRA_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "infra-on-demand"
+
+
+def _fresh_workspace_sandbox(sandbox: Path):
+    import shutil
+    if sandbox.exists():
+        shutil.rmtree(sandbox)
+    sandbox.mkdir(parents=True)
+    (sandbox / "package.json").write_text('{"name": "infratest"}')
+    (sandbox / "nx.json").write_text("{}")
+
+
+def _scaffold_service_into(sandbox: Path, service_name: str, generator: str, **params) -> subprocess.CompletedProcess:
+    """Run a service generator (with --name) into an arbitrary sandbox root."""
+    cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:{generator}", "--name", service_name]
+    for key, value in params.items():
+        cmd.extend(["--" + key, str(value).lower() if isinstance(value, bool) else str(value)])
+    return subprocess.run(cmd, cwd=sandbox, capture_output=True, text=True)
+
+
+def test_base_compose_provisions_no_default_infrastructure():
+    """A bare workspace provisions nothing: db and jaeger are no longer seeded
+    into the base compose — they are injected on demand by the service generators
+    that use them, exactly like redis/pubsub. A desktop / CLI / local-first
+    workspace with no containerized service therefore gets no infrastructure, so
+    `./dev start` never boots an empty stack. Also seeds an empty runner registry."""
+    import shutil
+    sb = _INFRA_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        result = _scaffold_workspace(sb, "workspace-dev-cli")
+        assert result.returncode == 0, result.stderr
+        compose = (sb / "docker-compose.yml").read_text()
+        # Match real service definitions (image lines), not the explanatory comment
+        # that names db/jaeger to document the on-demand contract.
+        assert "image: jaegertracing" not in compose, f"base compose must not seed jaeger:\n{compose}"
+        assert "image: ankane/pgvector" not in compose, f"base compose must not seed a database:\n{compose}"
+        assert "container_name:" not in compose, f"base compose must define no services:\n{compose}"
+        config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+        assert config.get("runners") == [], \
+            f"dev.config.json must seed an empty runner registry, got: {config.get('runners')!r}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_go_microservice_injects_db_and_jaeger_on_demand():
+    """A Go microservice uses a per-service database and exports telemetry, so it
+    provisions db + jaeger into the shared compose on demand. The db container is
+    named <prefix>-db so `./dev migrate` can find it."""
+    import shutil
+    sb = _INFRA_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        go = _scaffold_service_into(sb, "api", "go-microservice")
+        assert go.returncode == 0, f"go-microservice failed\nSTDOUT: {go.stdout}\nSTDERR: {go.stderr}"
+        compose = (sb / "docker-compose.yml").read_text()
+        assert "pgvector" in compose, f"go microservice must inject db (pgvector):\n{compose}"
+        assert "jaeger" in compose, f"go microservice must inject jaeger:\n{compose}"
+        assert "container_name: workspace-db" in compose, \
+            f"db must be named <prefix>-db for ./dev migrate:\n{compose}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_electron_app_registers_autostart_surface_runner():
+    """An Electron app is a managed unit: it registers as an autostart surface
+    runner in dev.config.json so `./dev start` launches it and `./dev status`
+    reports it — while still never joining docker-compose."""
+    import shutil
+    sb = _INFRA_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        r = _scaffold_service_into(sb, "desktop-app", "electron-app")
+        assert r.returncode == 0, f"electron-app failed\nSTDERR: {r.stderr}"
+        config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+        runners = {x["name"]: x for x in config.get("runners", [])}
+        assert "desktop-app" in runners, f"electron app must register a runner: {config.get('runners')}"
+        run = runners["desktop-app"]
+        assert run["kind"] == "surface", f"electron runner kind: {run}"
+        assert run.get("autostart") is True, f"electron runner must autostart: {run}"
+        compose = (sb / "docker-compose.yml").read_text()
+        assert "desktop-app" not in compose, "electron app must not join docker-compose"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_python_native_registers_sidecar_runner_and_no_compose_service():
+    """--native runs the service as a host process (e.g. needs Metal/MPS): it
+    registers a sidecar runner and adds NO compose service for itself."""
+    import shutil
+    sb = _INFRA_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        r = _scaffold_service_into(sb, "compute-service", "python-microservice", native=True, rest=False)
+        assert r.returncode == 0, f"python-microservice --native failed\nSTDERR: {r.stderr}"
+        config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+        runners = {x["name"]: x for x in config.get("runners", [])}
+        assert "compute-service" in runners, f"native python must register a sidecar runner: {config.get('runners')}"
+        run = runners["compute-service"]
+        assert run["kind"] == "sidecar", f"native python runner kind: {run}"
+        assert "uv run" in run["cmd"], f"native python runner cmd: {run}"
+        compose = (sb / "docker-compose.yml").read_text()
+        assert "container_name: compute-service" not in compose, \
+            "native python sidecar must not define a compose service for itself"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
 # CLI App — branded product CLI generator
 # ---------------------------------------------------------------------------
 

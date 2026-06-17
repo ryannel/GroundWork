@@ -9,6 +9,7 @@ import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
+  registerRunner,
 } from '../shared/scaffold-helpers';
 
 export interface FlutterAppGeneratorSchema {
@@ -317,9 +318,18 @@ export default async function (tree: Tree, options: FlutterAppGeneratorSchema) {
   deployStackDocs(tree, path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'flutter-app', 'docs'));
 
   // A Flutter app lives on pubspec and the Dart toolchain, not npm, and it has
-  // no Docker boot: it joins the Nx workspace through project.json run-commands
-  // targets (O7) and is deliberately NOT added to docker-compose.yml or any
-  // package.json workspaces list.
+  // no Docker boot. It never joins docker-compose.yml or the package.json
+  // workspaces list; instead it registers as a native runner so `./dev` can
+  // report and tail it. autostart is false — `flutter run` needs a target
+  // device/emulator chosen interactively, so it is registered and runnable but
+  // not part of the unattended `./dev start` boot set.
+  registerRunner(tree, {
+    name: serviceNames.fileName,
+    kind: 'surface',
+    cmd: 'bash tool/flutter_exec.sh run',
+    cwd: projectRoot,
+    autostart: false,
+  });
 
   promoteEngineerSkill(tree, 'groundwork-flutter-engineer');
 

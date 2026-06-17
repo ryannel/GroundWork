@@ -9,6 +9,7 @@ import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
+  registerRunner,
 } from '../shared/scaffold-helpers';
 
 export interface ElectronAppGeneratorSchema {
@@ -251,11 +252,20 @@ export default async function (tree: Tree, options: ElectronAppGeneratorSchema) 
 
   deployStackDocs(tree, path.join(__dirname, '..', '..', '..', '..', 'src', 'generators', 'electron-app', 'docs'));
 
-  // An Electron app has no Docker boot: it joins the Nx workspace through
-  // project.json run-commands targets and is deliberately NOT added to
-  // docker-compose.yml or any package.json workspaces list. Its verification
-  // tiers are defined by the multi-surface contract: generation (snapshot),
-  // compilation (tsc + lint), boot (Playwright _electron under xvfb).
+  // An Electron app has no Docker boot — but it IS a managed unit. It never
+  // joins docker-compose.yml or the package.json workspaces list; instead it
+  // registers as a native runner so `./dev` start/stop/status/logs manage it
+  // like any other process. autostart: the desktop app comes up with `./dev
+  // start`. Its verification tiers are defined by the multi-surface contract:
+  // generation (snapshot), compilation (tsc + lint), boot (Playwright _electron
+  // under xvfb).
+  registerRunner(tree, {
+    name: serviceNames.fileName,
+    kind: 'surface',
+    cmd: 'bash tool/electron_exec.sh run',
+    cwd: projectRoot,
+    autostart: true,
+  });
 
   promoteEngineerSkill(tree, 'groundwork-electron-engineer');
 

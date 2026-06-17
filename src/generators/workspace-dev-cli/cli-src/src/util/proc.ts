@@ -54,11 +54,19 @@ export function dockerComposeRun(args: string[]): number {
   return run('docker', [...COMPOSE, ...args]);
 }
 
-/** Spawn a detached background process writing to a log file; returns its PID. */
-export function spawnBackground(command: string, logStream: number): number {
+/** Spawn a detached background process writing to a log file; returns its PID.
+ *  Optional cwd/env let a declared runner launch from its own directory with a
+ *  merged environment (native runners, sidecars). */
+export function spawnBackground(
+  command: string,
+  logStream: number,
+  opts: { cwd?: string; env?: NodeJS.ProcessEnv } = {},
+): number {
   const child = spawn('bash', ['-c', command], {
     stdio: ['ignore', logStream, logStream],
     detached: true,
+    cwd: opts.cwd,
+    env: opts.env,
   });
   child.unref();
   return child.pid ?? -1;

@@ -1,50 +1,19 @@
 version: '3.8'
 
-services:
-  db:
-    image: ankane/pgvector:v0.5.0
-    container_name: <%= projectPrefix %>-db
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=<%= projectPrefix %>
-    ports:
-      - "5432:5432"
-    networks:
-      - groundwork-net
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  # redis and the pubsub emulator are NOT defined here. They are optional
-  # infrastructure: the python/go microservice generators inject them into this
-  # file on demand, only for a service that actually uses them (a WebSocket
-  # backplane, Redis pub/sub, or GCP Pub/Sub messaging). A project that needs
-  # neither never provisions them, so `./dev start` boots nothing unused.
-
-  # Trace backend + OTLP ingestion point. Services export OTLP to jaeger:4317
-  # (gRPC) / jaeger:4318 (HTTP); the UI and query API are on 16686. The query
-  # API (GET /api/traces/{traceID}) is what the system tests use to assert spans
-  # actually arrive — a real collector endpoint, not a dead hostname.
-  jaeger:
-    image: jaegertracing/all-in-one:1.62.0
-    container_name: <%= projectPrefix %>-jaeger
-    environment:
-      - COLLECTOR_OTLP_ENABLED=true
-    ports:
-      - "16686:16686" # Jaeger UI + query API
-      - "4317:4317"   # OTLP gRPC
-      - "4318:4318"   # OTLP HTTP
-    networks:
-      - groundwork-net
-
-volumes:
-  db_data:
-  # redis_data is added by a generator when a service that needs Redis is scaffolded.
+# No infrastructure is provisioned by default. There is intentionally no
+# `services:` block here — every backing service is opt-in, added on demand by
+# the generator for a service that actually uses it, so a project provisions
+# only what it needs and `./dev start` never boots an unused (or empty) stack:
+#
+#   - db (Postgres + pgvector) + jaeger (OTLP traces): added by the go / python
+#     microservice generators, which use a per-service database and export
+#     telemetry. jaeger alone is added by the nextjs generator.
+#   - redis / the pubsub emulator: added only for a WebSocket backplane, Redis
+#     pub/sub, or GCP Pub/Sub messaging.
+#
+# A workspace with no containerized service (e.g. a desktop or CLI app whose
+# stores are local-file) has no services at all; its surfaces and native
+# sidecars are managed as runners in .dev/dev.config.json instead.
 
 networks:
   groundwork-net:

@@ -10,6 +10,8 @@ import {
   promoteEngineerSkill,
   deployStackDocs,
   ensureOptionalInfra,
+  readProjectPrefix,
+  registerRunner,
 } from '../shared/scaffold-helpers';
 
 export interface PythonMicroserviceGeneratorSchema {
@@ -21,6 +23,7 @@ export interface PythonMicroserviceGeneratorSchema {
   runpod: boolean;
   llm: boolean;
   llmProvider: 'openai' | 'anthropic';
+  native?: boolean;
 }
 
 export default async function (tree: Tree, options: PythonMicroserviceGeneratorSchema) {
@@ -103,15 +106,18 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
   // Auto-inject into docker-compose.yml if it exists
   if (composeDoc) {
     try {
+      if (!composeDoc.get('services')) {
+        // createNode so the result is a YAMLMap with .has/.set (a plain {} is not).
+        composeDoc.set('services', composeDoc.createNode({}));
+      }
       const servicesMap = composeDoc.get('services');
-      if (servicesMap && !servicesMap.has(serviceNames.fileName)) {
-        // Only wire the infrastructure this service actually uses. Redis is
-        // needed for the WebSocket backplane or Redis pub/sub; the Pub/Sub
-        // emulator only for GCP Pub/Sub messaging. A plain --rest --postgres
-        // --llm service provisions neither.
-        const usesRedis = options.websockets || options.messaging === 'redis';
-        const usesPubSub = options.messaging === 'gcp-pubsub';
-
+      // Only wire the infrastructure this service actually uses. Redis is needed
+      // for the WebSocket backplane or Redis pub/sub; the Pub/Sub emulator only
+      // for GCP Pub/Sub messaging. A plain --rest --postgres --llm service
+      // provisions neither.
+      const usesRedis = options.websockets || options.messaging === 'redis';
+      const usesPubSub = options.messaging === 'gcp-pubsub';
+      if (!options.native && !servicesMap.has(serviceNames.fileName)) {
         const environment: string[] = [`SERVER_PORT=${assignedPort}`];
         if (options.postgres) {
           environment.push(
@@ -175,12 +181,45 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
         newService.networks = ['groundwork-net'];
 
         servicesMap.set(serviceNames.fileName, newService);
-        ensureOptionalInfra(composeDoc, servicesMap, { usesRedis, usesPubSub });
+        // db only when this service uses Postgres; jaeger always for a
+        // containerized service (it exports OTLP). Neither is in the base compose.
+        ensureOptionalInfra(composeDoc, servicesMap, {
+          usesRedis,
+          usesPubSub,
+          usesDb: !!options.postgres,
+          usesTelemetry: true,
+          projectPrefix: readProjectPrefix(tree),
+        });
+        tree.write('docker-compose.yml', composeDoc.toString());
+      } else if (options.native && (options.postgres || usesRedis || usesPubSub)) {
+        // Native sidecar: no app container in compose, but provision the backing
+        // infra it connects to. A host process gets no forced tracing backend —
+        // telemetry is wired only if the project explicitly runs jaeger.
+        ensureOptionalInfra(composeDoc, servicesMap, {
+          usesRedis,
+          usesPubSub,
+          usesDb: !!options.postgres,
+          usesTelemetry: false,
+          projectPrefix: readProjectPrefix(tree),
+        });
         tree.write('docker-compose.yml', composeDoc.toString());
       }
     } catch (e) {
       console.warn('Failed to update docker-compose.yml:', e);
     }
+  }
+
+  // Native mode: the service runs as a host process (e.g. it needs Metal/MPS that
+  // Docker on macOS can't provide), so register it as a sidecar runner instead of
+  // a compose service. `./dev start` launches it via `uv run`.
+  if (options.native) {
+    registerRunner(tree, {
+      name: serviceNames.fileName,
+      kind: 'sidecar',
+      cmd: 'uv run python src/main.py',
+      cwd: projectRoot,
+      autostart: true,
+    });
   }
 
   if (!options.rest) {

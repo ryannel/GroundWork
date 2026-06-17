@@ -20,7 +20,8 @@ import {
   writePid,
   serviceDir,
 } from '../util/services';
-import { ensureDirs, logFile, PID_DIR, LOG_DIR } from '../util/paths';
+import { ensureDirs, logFile, PID_DIR, LOG_DIR, ROOT } from '../util/paths';
+import { Runner } from '../util/runners';
 import * as path from 'path';
 
 export async function start(ctx: Ctx): Promise<number> {
@@ -39,8 +40,20 @@ export async function start(ctx: Ctx): Promise<number> {
     return 0;
   }
 
-  // Phase A: infrastructure in Docker
   const infra = getInfraServices();
+  const services = getAppServices();
+  const autostartRunners = ctx.runners.filter((x) => x.autostart !== false);
+
+  // Tell the truth: a workspace with no containers, no app services, and no
+  // runners has nothing to start. Report that plainly rather than printing a
+  // success card for an empty stack (the bug this replaces).
+  if (infra.length === 0 && services.length === 0 && autostartRunners.length === 0) {
+    r.info('Nothing to start: no containerized services or native runners are registered.');
+    r.info('See docs/infrastructure.md for how this workspace runs.');
+    return 0;
+  }
+
+  // Phase A: infrastructure in Docker
   if (infra.length > 0) {
     r.startSpinner('Starting Infrastructure (Docker)');
     if (dockerComposeRun(['up', '-d', ...infra]) !== 0) {
@@ -51,7 +64,6 @@ export async function start(ctx: Ctx): Promise<number> {
   }
 
   // Phase B: app services natively
-  const services = getAppServices();
   for (const svc of services) {
     if (isRunning(svc)) {
       r.substep(`${svc} is already running`);
@@ -76,7 +88,33 @@ export async function start(ctx: Ctx): Promise<number> {
     }
   }
 
-  r.success(`Development environment started. (${elapsedSince(startMs)})`);
+  // Phase C: declared native runners (surfaces, sidecars)
+  for (const runner of autostartRunners) {
+    if (isRunning(runner.name)) {
+      r.substep(`${runner.name} is already running`);
+      continue;
+    }
+    r.startSpinner(`Booting ${runner.name}`);
+    const fd = fs.openSync(logFile(runner.name), 'a');
+    const env = runner.env ? { ...process.env, ...runner.env } : process.env;
+    const cwd = runner.cwd ? path.join(ROOT, runner.cwd) : ROOT;
+    const pid = spawnBackground(runner.cmd, fd, { cwd, env });
+    fs.closeSync(fd);
+    writePid(runner.name, pid);
+    await sleep(500);
+    if (readPid(runner.name) !== null && !isRunning(runner.name)) {
+      r.failSpinner(`${runner.name} failed to start`);
+      r.errorCard(`${runner.name} exited immediately`, `Check .dev/logs/${runner.name}.log for the cause.`);
+    } else {
+      r.stopSpinner(`${runner.name} started natively (PID ${pid})`);
+    }
+  }
+
+  const parts: string[] = [];
+  if (infra.length) parts.push(`${infra.length} infra`);
+  if (services.length) parts.push(`${services.length} service${services.length > 1 ? 's' : ''}`);
+  if (autostartRunners.length) parts.push(`${autostartRunners.length} runner${autostartRunners.length > 1 ? 's' : ''}`);
+  r.success(`Development environment started — ${parts.join(', ')}. (${elapsedSince(startMs)})`);
   r.info("Run './dev logs' to read service output.");
   return 0;
 }
@@ -91,6 +129,13 @@ export async function stop(ctx: Ctx): Promise<number> {
       await killTree(pid);
     }
     removePid(svc);
+  }
+  for (const runner of ctx.runners) {
+    const pid = readPid(runner.name);
+    if (pid !== null && isRunning(runner.name)) {
+      await killTree(pid);
+    }
+    removePid(runner.name);
   }
   if (dockerComposeRun(['down']) !== 0) {
     // down is best-effort; continue
@@ -107,6 +152,12 @@ export async function clean(ctx: Ctx): Promise<number> {
   for (const svc of getAppServices()) {
     const pid = readPid(svc);
     if (pid !== null && isRunning(svc)) {
+      await killTree(pid);
+    }
+  }
+  for (const runner of ctx.runners) {
+    const pid = readPid(runner.name);
+    if (pid !== null && isRunning(runner.name)) {
       await killTree(pid);
     }
   }
@@ -129,6 +180,22 @@ export async function clean(ctx: Ctx): Promise<number> {
 
 export async function migrate(ctx: Ctx): Promise<number> {
   const { r } = ctx;
+
+  // No database in this workspace → nothing to migrate. A local-first or
+  // surface-only project provisions no `db` service; don't wait 120s for a
+  // container that will never appear.
+  const composeServices = capture('docker', ['compose', 'config', '--services']);
+  const hasDb =
+    composeServices.status === 0 &&
+    composeServices.stdout
+      .split('\n')
+      .map((s) => s.trim())
+      .includes('db');
+  if (!hasDb) {
+    r.info('No database in this workspace; nothing to migrate.');
+    return 0;
+  }
+
   const db = `${ctx.projectPrefix}-db`;
   r.startSpinner(`Waiting for database (${db})`);
   let ready = false;
@@ -198,7 +265,7 @@ export async function logs(ctx: Ctx): Promise<number> {
   if (!follow) {
     // Non-streaming by default: print recent native logs and a compose snapshot,
     // then exit. This keeps the command safe for agents and pipes.
-    for (const svc of getAppServices()) {
+    for (const svc of [...getAppServices(), ...ctx.runners.map((x) => x.name)]) {
       const f = logFile(svc);
       if (fs.existsSync(f)) {
         const lines = fs.readFileSync(f, 'utf8').split('\n');
@@ -224,7 +291,7 @@ interface StatusJson {
   native: Array<{ service: string; status: 'running'; pid: number }>;
 }
 
-function collectStatus(): StatusJson {
+function collectStatus(runners: Runner[]): StatusJson {
   const composePs = dockerComposeCapture(['ps', '--format', '{{.Service}}|{{.Status}}|{{.Ports}}']);
   const docker = composePs.stdout
     .split('\n')
@@ -238,10 +305,13 @@ function collectStatus(): StatusJson {
   for (const svc of getAppServices()) {
     if (isRunning(svc)) native.push({ service: svc, status: 'running', pid: readPid(svc)! });
   }
+  for (const runner of runners) {
+    if (isRunning(runner.name)) native.push({ service: runner.name, status: 'running', pid: readPid(runner.name)! });
+  }
   return { docker, native };
 }
 
-function renderStatusTables(r: Ctx['r'], data: StatusJson): void {
+function renderStatusTables(r: Ctx['r'], data: StatusJson, runners: Runner[]): void {
   r.table(
     'Docker Containers',
     data.docker.map((d) => {
@@ -255,6 +325,13 @@ function renderStatusTables(r: Ctx['r'], data: StatusJson): void {
   for (const svc of getAppServices()) {
     if (!running.has(svc) && isDead(svc)) nativeRows.push([svc, 'dead', 'native']);
   }
+  for (const runner of runners) {
+    if (running.has(runner.name)) continue;
+    const label = runner.kind ?? 'runner';
+    if (isDead(runner.name)) nativeRows.push([runner.name, 'dead', label]);
+    else if (runner.autostart === false) nativeRows.push([runner.name, 'not started', label]);
+    else nativeRows.push([runner.name, 'stopped', label]);
+  }
   r.table('Native Processes', nativeRows);
 }
 
@@ -264,7 +341,19 @@ export async function status(ctx: Ctx): Promise<number> {
   const watch = ctx.args.includes('--watch');
 
   if (json) {
-    process.stdout.write(JSON.stringify(collectStatus(), null, 2) + '\n');
+    // `native` lists running processes (back-compat). `runners` lists every
+    // registered runner with its state — so tooling (and the scaffold
+    // reconciliation probe) can see registered-but-stopped surfaces/sidecars,
+    // which `native` omits.
+    const data = collectStatus(ctx.runners);
+    const runners = ctx.runners.map((rn) => ({
+      name: rn.name,
+      kind: rn.kind ?? null,
+      state: isRunning(rn.name) ? 'running' : isDead(rn.name) ? 'dead' : 'stopped',
+      pid: isRunning(rn.name) ? readPid(rn.name) : null,
+      autostart: rn.autostart !== false,
+    }));
+    process.stdout.write(JSON.stringify({ ...data, runners }, null, 2) + '\n');
     return 0;
   }
 
@@ -280,7 +369,7 @@ export async function status(ctx: Ctx): Promise<number> {
   // progress/spinners from other commands stay on stderr.
   const ro = r.asStream(process.stdout);
   ro.logo('Local Status');
-  renderStatusTables(ro, collectStatus());
+  renderStatusTables(ro, collectStatus(ctx.runners), ctx.runners);
   return 0;
 }
 
@@ -312,7 +401,7 @@ async function watchStatus(ctx: Ctx): Promise<number> {
     while (!stop) {
       out.write('\x1b[2J\x1b[H'); // clear + home
       r.logo('Live Status');
-      renderStatusTables(r, collectStatus());
+      renderStatusTables(r, collectStatus(ctx.runners), ctx.runners);
       out.write(`\n  ${r.painter.dim('Refreshing every 2s — press q or Ctrl+C to exit')}\n`);
       // Poll the stop flag finely so the keypress feels responsive.
       for (let i = 0; i < 20 && !stop; i += 1) await sleep(100);

@@ -9,6 +9,8 @@ import { recordGeneratorProvenance } from '../shared/provenance';
 import {
   promoteEngineerSkill,
   deployStackDocs,
+  ensureOptionalInfra,
+  readProjectPrefix,
 } from '../shared/scaffold-helpers';
 
 export interface NextjsAppGeneratorSchema {
@@ -117,8 +119,12 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
   // Auto-inject into docker-compose.yml if it exists
   if (composeDoc) {
     try {
+      if (!composeDoc.get('services')) {
+        // createNode so the result is a YAMLMap with .has/.set (a plain {} is not).
+        composeDoc.set('services', composeDoc.createNode({}));
+      }
       const servicesMap = composeDoc.get('services');
-      if (servicesMap && !servicesMap.has(serviceNames.fileName)) {
+      if (!servicesMap.has(serviceNames.fileName)) {
         const envVars = [
           `PORT=${assignedPort}`,
           `OTEL_SERVICE_NAME=${serviceNames.fileName}`,
@@ -166,6 +172,14 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
         };
 
         servicesMap.set(serviceNames.fileName, newService);
+        // A Next.js app exports OTLP telemetry but uses no database, so it
+        // provisions jaeger only (no longer in the base compose).
+        ensureOptionalInfra(composeDoc, servicesMap, {
+          usesRedis: false,
+          usesPubSub: false,
+          usesTelemetry: true,
+          projectPrefix: readProjectPrefix(tree),
+        });
         tree.write('docker-compose.yml', composeDoc.toString());
       }
     } catch (e) {

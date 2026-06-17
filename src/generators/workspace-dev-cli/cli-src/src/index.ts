@@ -5,11 +5,13 @@ import { Ctx, CliError, UsageError } from './util/context';
 import { makeRenderer, Renderer } from './theme/render';
 import { CONFIG_PATH } from './util/paths';
 import { DEV_CLI_VERSION } from './util/version';
+import { parseRunners } from './util/runners';
 
 interface DevConfig {
   projectPrefix?: string;
   identity?: unknown;
   terminal?: unknown;
+  runners?: unknown;
 }
 
 function loadConfig(): { config: DevConfig; tokens: unknown } {
@@ -79,6 +81,7 @@ async function main(): Promise<number> {
     json,
     args,
     projectPrefix: config.projectPrefix || 'workspace',
+    runners: parseRunners(config.runners),
   };
 
   return def.handler(ctx);

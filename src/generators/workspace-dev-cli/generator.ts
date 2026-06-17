@@ -97,8 +97,22 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
   const bundle = fs.readFileSync(bundlePath, 'utf-8');
   tree.write('.dev/dev-bundle.js', bundle);
 
-  // Project brand tokens into the runtime config the bundle reads.
+  // Project brand tokens into the runtime config the bundle reads. The runner
+  // registry accretes entries from surface/sidecar generators that run after
+  // this one — and a re-run (e.g. to pick up a newer bundle) must not reset it,
+  // exactly like the docker-compose topology above. Preserve any existing
+  // runners verbatim.
+  let preservedRunners: unknown = [];
+  if (tree.exists('.dev/dev.config.json')) {
+    try {
+      const prev = JSON.parse(tree.read('.dev/dev.config.json', 'utf-8') || '{}');
+      if (Array.isArray(prev.runners)) preservedRunners = prev.runners;
+    } catch {
+      /* malformed prior config — fall back to an empty registry */
+    }
+  }
   const devConfig = buildDevConfig(tree, projectPrefix, appName, templateOptions.hexColor);
+  devConfig.runners = preservedRunners;
   tree.write('.dev/dev.config.json', JSON.stringify(devConfig, null, 2) + '\n');
 
   // Ensure the launcher is executable (generateFiles preserves the template's mode,

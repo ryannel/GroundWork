@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { PID_DIR, SERVICES_DIR, pidFile } from './paths';
 import { capture, sleep } from './proc';
+import { runnerNames } from './runners';
 
 export type ServiceType = 'go' | 'node' | 'python' | 'unknown';
 
@@ -33,10 +34,15 @@ function getComposeServices(): Set<string> | null {
  *  phantom databases for them). */
 export function getAppServices(): string[] {
   if (!fs.existsSync(SERVICES_DIR)) return [];
+  const runners = runnerNames();
   const dirs = fs
     .readdirSync(SERVICES_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
+    // A dir registered as a runner is managed as a native runner, not an app
+    // service — exclude it from both the compose-readable and the fallback path
+    // so it is never double-managed or boot-detected by marker file.
+    .filter((d) => !runners.has(d))
     .sort();
   const compose = getComposeServices();
   if (compose === null) return dirs;

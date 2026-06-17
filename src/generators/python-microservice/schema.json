@@ -72,6 +72,12 @@
           { "value": "anthropic", "label": "Anthropic (Claude)" }
         ]
       }
+    },
+    "native": {
+      "type": "boolean",
+      "description": "Run as a native host process managed by ./dev as a runner, instead of a docker-compose container. Use when the service needs host-only resources (e.g. Apple-Silicon Metal/MPS, VideoToolbox) that Docker on macOS cannot provide.",
+      "default": false,
+      "x-prompt": "Run this service natively (as a ./dev runner) instead of in Docker?"
     }
   },
   "required": ["name"]

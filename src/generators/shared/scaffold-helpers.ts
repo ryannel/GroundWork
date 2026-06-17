@@ -138,17 +138,131 @@ export function deployStackDocs(tree: Tree, docsRoot: string) {
   walk(docsRoot, 'docs');
 }
 
+/** A native process the generated `./dev` CLI manages directly — a surface app
+ *  (Electron, Flutter, CLI) or a native sidecar. Mirrors the Runner interface in
+ *  the dev CLI bundle (cli-src/src/util/runners.ts); kept in sync by hand. */
+export interface RunnerSpec {
+  name: string;
+  kind?: 'sidecar' | 'surface';
+  cmd: string;
+  cwd?: string;
+  env?: Record<string, string>;
+  health?: unknown;
+  autostart?: boolean;
+}
+
+/**
+ * Register a native runner in `.dev/dev.config.json` so `./dev`
+ * start/stop/status/logs manage it. Idempotent by `name` (re-running a generator
+ * updates the entry in place rather than duplicating it). A no-op with a warning
+ * when the dev CLI has not been scaffolded yet — workspace-dev-cli runs first in
+ * the scaffold flow, so this only fires for a surface generated standalone.
+ */
+export function registerRunner(tree: Tree, runner: RunnerSpec): void {
+  const CONFIG = '.dev/dev.config.json';
+  if (!tree.exists(CONFIG)) {
+    console.warn(
+      `registerRunner: ${CONFIG} not found; skipping runner "${runner.name}". Run the workspace-dev-cli generator first.`
+    );
+    return;
+  }
+  let config: Record<string, unknown> = {};
+  try {
+    config = JSON.parse(tree.read(CONFIG, 'utf-8') || '{}');
+  } catch {
+    config = {};
+  }
+  const runners = Array.isArray(config.runners) ? (config.runners as RunnerSpec[]) : [];
+  const idx = runners.findIndex((r) => r && r.name === runner.name);
+  if (idx >= 0) runners[idx] = runner;
+  else runners.push(runner);
+  config.runners = runners;
+  tree.write(CONFIG, JSON.stringify(config, null, 2) + '\n');
+}
+
+/**
+ * The workspace project prefix the dev CLI was generated with, read from
+ * `.dev/dev.config.json`. Used to name the db/jaeger containers consistently
+ * with what `./dev` expects. Falls back to 'workspace' when the config is
+ * absent or unreadable (e.g. a bare workspace before the dev CLI ran).
+ */
+export function readProjectPrefix(tree: Tree): string {
+  const CONFIG = '.dev/dev.config.json';
+  if (!tree.exists(CONFIG)) return 'workspace';
+  try {
+    const raw = JSON.parse(tree.read(CONFIG, 'utf-8') || '{}');
+    return typeof raw.projectPrefix === 'string' && raw.projectPrefix ? raw.projectPrefix : 'workspace';
+  } catch {
+    return 'workspace';
+  }
+}
+
 /**
  * Inject the optional infrastructure a service needs into the shared
- * docker-compose. redis and the pubsub emulator are not in the base compose;
- * they are added here on demand and only once, so a project provisions only the
- * infrastructure some service actually uses.
+ * docker-compose. Nothing is in the base compose; every backing service is
+ * added here on demand and only once, so a project provisions only the
+ * infrastructure some service actually uses. A workspace with no service that
+ * uses any of these provisions none of them.
+ *
+ * `projectPrefix` names the db container (`<prefix>-db`) so `./dev migrate` can
+ * find it by `docker inspect`; the service is still reachable on the compose
+ * network by its service name `db`.
  */
 export function ensureOptionalInfra(
   composeDoc: any,
   servicesMap: any,
-  opts: { usesRedis: boolean; usesPubSub: boolean }
+  opts: {
+    usesRedis: boolean;
+    usesPubSub: boolean;
+    usesDb?: boolean;
+    usesTelemetry?: boolean;
+    projectPrefix?: string;
+  }
 ) {
+  if (opts.usesDb && !servicesMap.has('db')) {
+    const db: Record<string, unknown> = {
+      image: 'ankane/pgvector:v0.5.0',
+      environment: [
+        'POSTGRES_USER=postgres',
+        'POSTGRES_PASSWORD=postgres',
+        `POSTGRES_DB=${opts.projectPrefix || 'workspace'}`,
+      ],
+      ports: ['5432:5432'],
+      networks: ['groundwork-net'],
+      volumes: ['db_data:/var/lib/postgresql/data'],
+      healthcheck: {
+        test: ['CMD-SHELL', 'pg_isready -U postgres'],
+        interval: '5s',
+        timeout: '5s',
+        retries: 5,
+      },
+    };
+    if (opts.projectPrefix) {
+      db.container_name = `${opts.projectPrefix}-db`;
+    }
+    servicesMap.set('db', db);
+    let volumesMap = composeDoc.get('volumes');
+    if (!volumesMap) {
+      // createNode so the result is a YAMLMap with .has/.set (a plain {} is not);
+      // the base compose no longer ships a volumes: block.
+      composeDoc.set('volumes', composeDoc.createNode({}));
+      volumesMap = composeDoc.get('volumes');
+    }
+    if (!volumesMap.has('db_data')) {
+      volumesMap.set('db_data', null);
+    }
+  }
+
+  if (opts.usesTelemetry && !servicesMap.has('jaeger')) {
+    servicesMap.set('jaeger', {
+      image: 'jaegertracing/all-in-one:1.62.0',
+      ...(opts.projectPrefix ? { container_name: `${opts.projectPrefix}-jaeger` } : {}),
+      environment: ['COLLECTOR_OTLP_ENABLED=true'],
+      ports: ['16686:16686', '4317:4317', '4318:4318'],
+      networks: ['groundwork-net'],
+    });
+  }
+
   if (opts.usesRedis && !servicesMap.has('redis')) {
     servicesMap.set('redis', {
       image: 'redis:7-alpine',
@@ -165,7 +279,9 @@ export function ensureOptionalInfra(
     });
     let volumesMap = composeDoc.get('volumes');
     if (!volumesMap) {
-      composeDoc.set('volumes', {});
+      // createNode so the result is a YAMLMap with .has/.set (a plain {} is not);
+      // the base compose no longer ships a volumes: block.
+      composeDoc.set('volumes', composeDoc.createNode({}));
       volumesMap = composeDoc.get('volumes');
     }
     if (!volumesMap.has('redis_data')) {
