@@ -311,6 +311,7 @@ The phases communicate through shared artifacts and identifiers. Each is written
 | `docs/infrastructure.md` | scaffold Phases 4–6; infra-adopt | bet 03-decomposition (test language, service names); delivery |
 | `## Summary for Downstream` sections + hand-off cache (`.groundwork/cache/handoff/<phase>.md`) | each setup phase's commit (Protocols 5–6) | the next phase's init; the hand-off file is deleted when consumed |
 | Discovery-notes headers (`## Architecture`, `## Design System`, `## Design Details`, `## Bets`) in `.groundwork/cache/discovery-notes.md` | any phase, on out-of-phase signals (Protocol 1) | the phase that owns the matching header, at its init or design step |
+| `docs/architecture.md` §3 Capability Ports & Providers + `.groundwork/capability-ports.json` (each technical port → provider → footprint) | architecture Phase 7 commit (step 5b); architecture-extract commit | scaffold Phase 1 (port → generator flag / `add-capability` invocation); scaffold Phase 2 (footprint registration check); scaffold Phase 4 (reconcile footprints — compose service / runner / env / `none`-xfail); bet delivery (a `none` raw gateway is the bet) |
 
 ---
 

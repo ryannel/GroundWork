@@ -69,6 +69,14 @@ bet is open and flips red the moment you implement it.
 Still open in WS-F: architecture phase declaring capabilities (F7), scaffold reconciliation (F8/WS-D),
 engineer-skill alignment doc (F6), and provider families for the Go/Next.js stacks (F5/O9).
 
+### Added (architecture declares capability ports; scaffold reconciles, 2026-06-17) `[no-migration]`
+
+The composable capability-port model (above) is now driven by the architecture, not just generator flags (plan: `docs/plans/dev-cli-native-runners.md`, WS-F F7/F8). The architecture phase elicits, per technical capability, its **provider** and **operational footprint** (`env` / `compose-service` / `runner` / `none`) and records them in `docs/architecture.md` §3 "Capability Ports & Providers" plus a machine twin `.groundwork/capability-ports.json`. The scaffold reads that twin to choose generator flags (or an `add-capability` invocation), injects only the infrastructure providers require, and **reconciles** at boot: every `compose-service` footprint is a running container, every `runner` is in `./dev status`, every `env` is documented, every `none` raw gateway has its strict-xfail contract test — a declared footprint with no materialization is a build error, not a silent gap.
+
+- **`groundwork-architecture`**: template §3 gains the Capability Ports & Providers table; Phase 5 elicits provider + footprint per port (`none` = raw gateway / bet); Phase 7 writes the `.groundwork/capability-ports.json` twin. `groundwork-architecture-extract` recovers ports from brownfield code (unimplemented port → `none`).
+- **`groundwork-scaffold`**: Phase 1 reads the registry and maps ports to flags / `add-capability`; Phases 2 + 4 reconcile footprints. `--llmProvider` mapping extended with `local` and `none`.
+- New contract `.agents/groundwork/skills/templates/capability-ports.md` (schema + footprint model, disambiguated from the surface capability *ledger*); Cross-Phase Contracts table updated. Skills clean-copy on update — `[no-migration]`.
+
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
 Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).
