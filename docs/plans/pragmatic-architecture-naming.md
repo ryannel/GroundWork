@@ -16,6 +16,13 @@
 
 **The reframe, in one line:** *Rely on abstractions, inject dependencies, keep the core pure, enforce the dependency direction — and express all of it in each language's own idiom, with no framework label attached.* Same discipline, named after what it does, written the way the language is written.
 
+**The bar these two goals set, together.** A generated service must do two things at once, and neither is allowed to win at the other's expense:
+
+1. **Uphold the discipline** — pure core, inward dependencies, interface-driven edges, enforced in CI.
+2. **Be instantly familiar** — a seasoned Go (or Python, or TS) engineer who has *never seen GroundWork* should open the service and find the layout unsurprising, because it matches how that language is conventionally written elsewhere.
+
+This is the explicit rejection of "the word reads fine in English, so keep it." `port`/`provider`/`gateway`/`adapter` as a code *structure* are a cross-language metaphor no single language's practitioners actually use; we replace them with what each language's community already reaches for. The discipline is constant across languages; its *expression* is native to each. The test for any naming choice is therefore not "is it clean?" but **"would a practitioner of this language, coming from another codebase, expect to see exactly this?"**
+
 **The organizing idea for this plan:** the work is a *rename*, not a redesign — the structure stays, the words change. But "rename" undersells the hazard. The jargon is woven into a tight contract chain (capability registry → generator code → generated files → engineer skills → architecture template → machine twins → CI lint rules → tests → fixtures → migrations). A word changed in one link with the chain unfollowed leaves a silent break. **So the entire value of this plan is in the discovery: build the complete map first, then the execution is mechanical.**
 
 ### The one hazard that dominates everything: "provider" means two things
@@ -59,8 +66,8 @@ IDs are referenced by discovery and implementation workstreams. Counts are from 
 ## 2. Scope boundaries (what discovery treats as in vs out)
 
 - **In:** the named principle and its persona reference (F1, F2); generated-code package/dir/symbol naming for Go and Python (F3, F4); the jargon embedded in capability data (F5); the *prose framing* everywhere (F6, F7, F8, F13); the CI rules, tests, and migrations that ride along (F9–F12).
-- **Open (decided in §5, D-OPEN-3):** whether the architecture-level contract keeps the *words* "Capability Ports & Providers" (treating `port`/`provider` as legitimate architecture vocabulary, like `provider`-the-vendor) or is renamed too. This is a real fork — the contract's machine twin, schema, and scaffold reconciliation all key off these words, so renaming them is a multiplier on blast radius for arguably little gain. Recommendation seeded in §5.
-- **Out:** Next.js React "providers" and `auth` provider naming (F-hazard table); third-party library names; the four prior plans' historical text; user's *already-generated* service code in the field (the migration touches GroundWork-owned artifacts and ships guidance, but does not rewrite a user's hand-evolved service — see D5/D-OPEN-4).
+- **In (decided — see D-SET-5):** the architecture-level contract is de-jargoned too. "Capability **Ports**" loses the hexagonal word in its human-facing framing; the legitimately-idiomatic vendor "provider" stays. The one residual question is purely mechanical, not vocabulary: whether the *machine identifiers* (the `capability-ports.json` filename and its JSON keys) are renamed in lockstep or held stable as opaque identifiers behind renamed human-facing words — a blast-radius call that D4's chain analysis settles, not a naming call.
+- **Out:** Next.js React "providers" and `auth` provider naming (F-hazard table); third-party library names; the four prior plans' historical text; user's *already-generated* service code in the field (the migration touches GroundWork-owned artifacts and ships guidance, but does not rewrite a user's hand-evolved service — see D5/D-OPEN-3).
 
 ---
 
@@ -78,7 +85,7 @@ Produce the complete, deduplicated occurrence list. Method: grep the full tree (
 | (c) generated-code symbol (interface/struct/class/var) | rename — language-idiom dependent (needs D3) |
 | (d) comment / docstring | reword |
 | (e) schema / option description text | reword |
-| (f) cross-phase contract identifier (JSON keys, field values) | rename only if D-OPEN-3 says so; high blast radius |
+| (f) cross-phase contract identifier (JSON keys, field values) | de-jargon the prose (D-SET-6); rename the machine keys only on D4's blast-radius call — high blast radius |
 | (g) test assertion (path or symbol) | follows (b)/(c) |
 | (h) frozen fixture (F11) | DO NOT EDIT — feeds migration scope (D5) |
 
@@ -88,13 +95,13 @@ Produce the complete, deduplicated occurrence list. Method: grep the full tree (
 For every `provider`, `gateway`, `adapter` hit from D1, classify into the three senses from §0 (adapter-naming → rename; vendor-choice → keep; framework/React → keep). Where ambiguous, read the surrounding code. Pay special attention to the collisions: `capability.json` uses `provider` (vendor, keep) *and* generates code into a `provider/` package (rename); the Python `ComfyUIGateway` class is an *adapter* despite the name. *Output:* the kind-(b)/(c)/(f) rows of `inventory.md` annotated RENAME or KEEP, with a one-line reason on every KEEP so the rename pass can't second-guess it.
 
 ### D3 — Per-language idiom research → target naming scheme
-The decision that everything mechanical keys off. For Go, Python, and TypeScript, determine the *idiomatic* way to express "interface owned by the core, implementation at the edge, injected" — researched against language norms, not invented. Concretely answer, per language: where do interfaces live, what are they called, where do implementations live, what are the packages/modules named, how is DI wired, and what does the CI dependency-rule config look like under the new names. Sketch the before/after directory tree for each scaffold. *Output:* `naming-scheme.md` — the proposed target conventions, which becomes **D-OPEN-1/2** for sign-off. (Seed expectation: Go → interfaces in the core/domain package, implementations in technology-named packages, no `gateway`/`provider` packages; Python → Protocols in the domain, implementations in named modules; TS/Next.js → already idiomatic, mostly prose.)
+The decision that everything mechanical keys off. For Go, Python, and TypeScript, determine the *idiomatic* way to express "interface owned by the core, implementation at the edge, injected" — researched against language norms, not invented. Concretely answer, per language: where do interfaces live, what are they called, where do implementations live, what are the packages/modules named, how is DI wired, and what does the CI dependency-rule config look like under the new names. Sketch the before/after directory tree for each scaffold. *Acceptance bar for the scheme (per D-SET-5):* for each language, the before/after tree must pass the familiarity test — *"would a practitioner of this language, arriving from an unrelated codebase, expect to see exactly this and find nothing surprising?"* Validate it the way the simulation harness validates skills: ideally a quick read by someone fluent in each language (or a fresh-context agent prompted as that practitioner) confirming the layout looks native, not framework-imposed. *Output:* `naming-scheme.md` — the proposed target conventions, which becomes **D-OPEN-1/2** for sign-off. (Seed expectation: Go → interfaces in the core/domain package where consumed, implementations in technology-named packages, no `gateway`/`provider` packages; Python → Protocols in the domain, implementations in named modules; TS/Next.js → already idiomatic, mostly prose.)
 
 ### D4 — The contract-chain dependency graph
 Trace what *reads* each RENAME identifier, so nothing drifts. Start from `capability.json` `portSymbol`/`adapterSymbol` and the file paths, and follow: → `shared/capabilities.ts` → the generators that emit code → the generated file paths → engineer-skill references that describe the structure → the architecture template + `capability-ports.json` schema → scaffold Phase-1/Phase-4 reconciliation → CI lint configs (F9) → tests (F10). *Output:* `chain.md` — an ordered dependency list per renamed identifier, so the implementation can change a name and walk every reader in the same slice. This is the cross-phase-contract discipline the contributor guide mandates.
 
 ### D5 — Migration & upgrade-path surface
-Determine exactly what shape changes for existing installs and what each tier needs (per the contributor guide's tier table): the principle-doc rename (tier-2 doc — hash-classified refresh/merge, plus an agent migration if the *filename* changes since that's a rename not a content edit); generator output (tier-3 — regenerate with recorded options); `capability-ports.json` schema (tier-4 if D-OPEN-3 renames its keys — needs a shape migration). Define the **migration boundary**: GroundWork-owned artifacts get migrated; a user's already-scaffolded, hand-evolved service code is theirs — decide whether we ship an *agent* migration brief that offers to rename their packages or merely document the new convention going forward (D-OPEN-4). Confirm against the frozen fixtures (F11) which "from" states must be exercised. *Output:* `migration-plan.md` — the registry entries, changelog `[migration]` lines, version target, and fixture coverage needed.
+Determine exactly what shape changes for existing installs and what each tier needs (per the contributor guide's tier table): the principle-doc rename (tier-2 doc — hash-classified refresh/merge, plus an agent migration if the *filename* changes since that's a rename not a content edit); generator output (tier-3 — regenerate with recorded options); `capability-ports.json` schema (tier-4 if D4's call renames its keys per D-SET-6 — needs a shape migration). Define the **migration boundary**: GroundWork-owned artifacts get migrated; a user's already-scaffolded, hand-evolved service code is theirs — decide whether we ship an *agent* migration brief that offers to rename their packages or merely document the new convention going forward (D-OPEN-3). Confirm against the frozen fixtures (F11) which "from" states must be exercised. *Output:* `migration-plan.md` — the registry entries, changelog `[migration]` lines, version target, and fixture coverage needed.
 
 ### D6 — Test & enforcement-gate impact
 Enumerate every test and CI rule that asserts the old paths/symbols (F9, F10) and the sync-anchor hashes that will change when F1/F2/F7 are reworded. Confirm the mirror-sync gate and `sync-anchor.md` SHA pins are updated in the same slice as the principle edit. *Output:* `test-impact.md` — the list of test files to update and gates to re-green, so the implementation knows its definition of done.
@@ -102,7 +109,7 @@ Enumerate every test and CI rule that asserts the old paths/symbols (F9, F10) an
 ### D7 — Naming proposal & external sanity check
 Propose the replacement for the principle's title/filename and the de-jargoned framing language, lightly checked against how current (2026) practitioners frame this without the framework label (e.g. "dependency inversion", "ports without the jargon", "core-and-edges"). *Output:* candidate names feeding **D-OPEN-1**.
 
-**Discovery exit criteria:** `inventory.md` complete and fully classified; `naming-scheme.md`, `chain.md`, `migration-plan.md`, `test-impact.md` written; §5 open decisions D-OPEN-1..4 resolved with the user. Only then does Part B execute.
+**Discovery exit criteria:** `inventory.md` complete and fully classified; `naming-scheme.md`, `chain.md`, `migration-plan.md`, `test-impact.md` written; §5 open decisions D-OPEN-1..3 resolved with the user. Only then does Part B execute.
 
 ---
 
@@ -110,12 +117,12 @@ Propose the replacement for the principle's title/filename and the de-jargoned f
 
 Sequenced so the discipline never goes un-enforced and the tree never sits broken. Each workstream's exact file list comes from D1/D4; acceptance checks come from D6.
 
-- **WS-I0 — Land the naming decisions.** Record D-OPEN-1..4 outcomes in §5 as *settled*. Nothing downstream starts until these are fixed.
+- **WS-I0 — Land the naming decisions.** Record D-OPEN-1..3 outcomes in §5 as *settled*. Nothing downstream starts until these are fixed.
 - **WS-I1 — Principle doc + persona reference (F1, F2, F13).** Rename/reword `hexagonal-architecture.md` and `boundaries-and-hexagonal.md`, fix `index.md` and every prose cross-ref (D1 kind-a), update `groundwork-architect/sync-anchor.md` SHAs. *Accept:* `./dev test contracts` sync gates green; no stale link to the old filename.
 - **WS-I2 — Capability data + shared generator layer (F5).** Apply the D3 scheme to `capability.json` (`portSymbol`/`adapterSymbol`, file paths), `shared/capabilities.ts`, `add-capability` generator + schema. KEEP every vendor-`provider` per D2. *Accept:* `./dev test generation` green for capability combos.
 - **WS-I3 — Go scaffold (F3) + Python scaffold (F4).** Rename packages/dirs/symbols per D3; move the CI dependency-rule config (F9) in the same slice; update every importer (from D4's chain). *Accept:* `./dev test generation` + `./dev test compilation` green; the dependency-direction rule still fails on an inward-flow violation (prove the guarantee survived the rename).
 - **WS-I4 — Engineer-skill references + mirrors (F7).** Reword the structure descriptions in canon, re-sync the `.agents/` mirrors byte-for-byte, update sync anchors. *Accept:* mirror-sync + sync-anchor gates green.
-- **WS-I5 — Architecture & scaffold methodology + the cross-phase contract (F6).** Reword the framing; rename the contract keys only if D-OPEN-3 says so (then update the JSON twin, schema, and Phase-1/4 reconciliation together). *Accept:* architecture-template + scaffold phase docs consistent; capability-ports contract doc and schema agree.
+- **WS-I5 — Architecture & scaffold methodology + the cross-phase contract (F6).** Reword the framing per D-SET-6; rename the machine keys only on D4's blast-radius call (then update the JSON twin, schema, and Phase-1/4 reconciliation together). *Accept:* architecture-template + scaffold phase docs consistent; capability-ports contract doc and schema agree.
 - **WS-I6 — Brownfield scan/extract (F8).** Update what the scan looks for and how findings are templated. *Accept:* brownfield generation/contract tests green.
 - **WS-I7 — Tests (F10).** Update assertions per D6. *Accept:* full fast-gate suite (`generation`, `contracts`, `cli`) green; a deliberate live `./dev test compilation` run on the renamed scaffolds.
 - **WS-I8 — Migrations + release (F11, F12).** Author the registry entries and changelog `[migration]` lines from D5, exercise them against the frozen fixtures, bump the version, rebuild the dev bundle. *Accept:* migration-coverage gate + changelog↔registry cross-check green; fixture upgrade tests pass.
@@ -129,7 +136,9 @@ Sequenced so the discipline never goes un-enforced and the tree never sits broke
 | ID | Decision | Rationale |
 |---|---|---|
 | D-SET-1 | The structural discipline (pure core, inward dependencies, interface-driven edges, CI-enforced direction) is unchanged. Only naming and framing change. | This is a rename, not a redesign — the thesis is sound; the label is the liability. |
-| D-SET-2 | The capability *vendor-choice* "provider" concept is preserved verbatim. | It is genuine domain vocabulary, orthogonal to the hexagonal-adapter naming (§0 hazard table). |
+| D-SET-2 | The capability *vendor-choice* "provider" concept is preserved verbatim (anthropic / postgres / clerk as the *implementation that satisfies a capability*). | It is **idiomatic**, not merely "fine English": every practitioner already expects "provider" for this concept (Terraform/cloud/OAuth providers). It passes the D-SET-5 familiarity test, so it stays — distinct from "provider"-the-adapter-package, which fails it and goes. |
+| D-SET-5 | **Idiomatic-per-language is the supreme rule, above "it reads fine in English."** Every generated service must simultaneously (a) uphold the clean-architecture discipline and (b) be instantly familiar to a practitioner of that language arriving from another codebase. Where the two could pull apart, idiom is the tie-breaker, never a cross-language metaphor. (User decision, 2026-06-17.) | The services are read far more than the principle doc; their credibility is "does this look like real, native Go/Python/TS?" A familiar layout that also enforces the discipline beats a "clean" layout that announces a framework. |
+| D-SET-6 | The architecture-level contract is de-jargoned too (resolves former D-OPEN-3): drop "hexagonal" and the `port` framing from its human-facing prose, keep the vendor "provider". Whether the machine identifiers (`capability-ports.json` filename + JSON keys) are renamed in lockstep or held stable behind the renamed prose is a blast-radius call deferred to D4, not a vocabulary call. | User steer (2026-06-17): port/provider aren't kept just because they parse in English. The cross-language *words* get de-jargoned; the *identifier-rename cost* is decided on engineering grounds once D4 maps the readers. |
 | D-SET-3 | Frozen install fixtures (`tests/fixtures/installs/**`) are never hand-edited; the rename ships a migration that carries old installs forward. | They are the "from" state for upgrade tests (F11). |
 | D-SET-4 | Discovery is read-only and completes before any edit. | The entire risk is an unfollowed contract-chain link; the map must exist first. |
 
@@ -138,8 +147,7 @@ Sequenced so the discipline never goes un-enforced and the tree never sits broke
 |---|---|---|
 | D-OPEN-1 | New name + framing for the principle (and its filename). | Lead candidate: name it after the rule, not the shape — e.g. `dependency-direction.md` / "Dependencies Point Inward", keeping the four labels mentioned once as "you may know this as…". Final wording from D7. |
 | D-OPEN-2 | The concrete per-language target conventions (Go / Python / TS). | From D3. Seed: Go drops the `gateway`/`provider` packages for core-owned interfaces + technology-named implementation packages; Python keeps Protocols-in-domain but renames `src/provider/`; TS stays as-is. |
-| D-OPEN-3 | Does the architecture-level contract get renamed off "Capability **Ports** & **Providers**", or are `port`/`provider` kept there as legitimate architecture vocabulary? | **Recommend KEEP the contract words**, change only its prose framing (drop "preaches hexagonal architecture"). Renaming the JSON twin keys + schema + scaffold reconciliation is a large blast radius for a term that, at the architecture altitude, reads as plain English rather than framework jargon. |
-| D-OPEN-4 | For users' already-scaffolded service code, do we ship an agent migration that offers to rename their packages, or only document the new convention for new code? | **Recommend document-only** for existing user code (their evolved code is theirs); migrate GroundWork-owned artifacts and new generation. Revisit if the field signal says otherwise. |
+| D-OPEN-3 | For users' already-scaffolded service code, do we ship an agent migration that offers to rename their packages, or only document the new convention for new code? | **Recommend document-only** for existing user code (their evolved code is theirs); migrate GroundWork-owned artifacts and new generation. Revisit if the field signal says otherwise. (Was D-OPEN-4; D-OPEN-3 resolved into D-SET-6.) |
 
 ---
 
@@ -150,7 +158,7 @@ D1 ─┬─ D2 ─── D3 ──┐
     └─ D7 ──────────┤
 D4, D5, D6 (after D1) ┘
         ↓
-   §5 decisions resolved (D-OPEN-1..4)
+   §5 decisions resolved (D-OPEN-1..3)
         ↓
 WS-I0 → I1 ─┐
         I2 ─┼─ I3 ─ I4 ─ I5 ─ I6 ─ I7 ─ I8 ─ I9
