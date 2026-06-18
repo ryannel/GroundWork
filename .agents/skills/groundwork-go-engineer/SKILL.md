@@ -56,6 +56,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Go idioms, context, interfaces, DI, errors, config validation | `go-services.md` |
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
+| Capability port + provider (LLM etc.), generated adapter shape, raw-gateway bet, `add-capability` | `capability-ports.md`, `architecture.md` |
 | HTTP endpoint, handler, idempotency, CORS | `http-handlers.md`, `api-design.md` |
 | Database repository, SQL, declarative schema, test isolation | `postgres.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |

@@ -70,6 +70,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Code documentation, docstrings, Pydantic Field docs | `documentation-mcp.md` |
 | Error handling, exception hierarchy, domain errors | `implementation-patterns.md` |
 | Dependency injection, Protocol ports, wiring | `implementation-patterns.md`, `architecture.md`, `database.md` |
+| Capability port + provider (LLM etc.), generated adapter shape, raw-gateway bet, `add-capability` | `capability-ports.md`, `architecture.md` |
 
 ---
 

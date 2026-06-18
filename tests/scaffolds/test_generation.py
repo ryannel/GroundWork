@@ -1207,6 +1207,74 @@ def test_go_add_capability_llm_anthropic_http_adapter():
         shutil.rmtree(sb, ignore_errors=True)
 
 
+def test_add_capability_llm_ollama_registers_runner_footprint():
+    """The footprint matrix, runner arm: a `runner`-footprint provider materializes
+    as a native process, not a container. Selecting `ollama` registers an
+    `ollama serve` runner in .dev/dev.config.json so `./dev start` brings it up;
+    no compose service is injected. The port and adapter are the same
+    OpenAI-compatible shape as every other LLM provider — only the footprint
+    differs, which is the whole thesis: infrastructure is a consequence of the
+    provider choice, not a default."""
+    import shutil, json
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        assert _scaffold_service_into(sb, "ai", "python-microservice",
+                                      llm=False, rest=False, postgres=False).returncode == 0
+        cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:add-capability",
+               "--service", "ai", "--capability", "llm", "--provider", "ollama"]
+        add = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+        assert add.returncode == 0, f"add-capability ollama failed\nSTDOUT: {add.stdout}\nSTDERR: {add.stderr}"
+        svc = sb / "services" / "ai"
+        adapter = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        assert "openai" in adapter, "ollama uses the OpenAI-compatible adapter"
+        config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+        runners = {r["name"]: r for r in config.get("runners", [])}
+        assert "ollama" in runners, f"runner footprint must register a runner:\n{config}"
+        assert runners["ollama"]["cmd"] == "ollama serve", \
+            f"the ollama runner must launch the server: {runners['ollama']}"
+        compose = (sb / "docker-compose.yml").read_text()
+        assert "ollama" not in compose, f"a runner footprint must inject no compose service:\n{compose}"
+        env = (svc / ".env.example").read_text()
+        assert "LLM_BASE_URL=" in env, f"runner footprint still documents its env:\n{env}"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
+def test_add_capability_llm_localai_injects_compose_service_footprint():
+    """The footprint matrix, compose arm: a `compose-service`-footprint provider
+    materializes as a container in the workspace docker-compose — the
+    capability-driven generalisation of WS-A's on-demand db/jaeger injection.
+    Selecting `localai` injects the model-server service and its named volume; the
+    adapter is the same OpenAI-compatible client pointed at it. No runner is
+    registered. Generation re-serializes the whole compose via the YAML document,
+    so a returncode of 0 plus these markers proves the file stayed well-formed."""
+    import shutil, json
+    sb = _CAP_SANDBOX
+    _fresh_workspace_sandbox(sb)
+    try:
+        assert _scaffold_workspace(sb, "workspace-dev-cli").returncode == 0
+        assert _scaffold_service_into(sb, "ai", "python-microservice",
+                                      llm=False, rest=False, postgres=False).returncode == 0
+        cmd = ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:add-capability",
+               "--service", "ai", "--capability", "llm", "--provider", "localai"]
+        add = subprocess.run(cmd, cwd=sb, capture_output=True, text=True)
+        assert add.returncode == 0, f"add-capability localai failed\nSTDOUT: {add.stdout}\nSTDERR: {add.stderr}"
+        compose = (sb / "docker-compose.yml").read_text()
+        assert "localai:" in compose, f"compose footprint must inject the service:\n{compose}"
+        assert "localai/localai" in compose, f"compose footprint must set the model-server image:\n{compose}"
+        assert "localai_models" in compose, f"compose footprint must declare its named volume:\n{compose}"
+        config = json.loads((sb / ".dev" / "dev.config.json").read_text())
+        assert config.get("runners", []) == [], \
+            f"a compose footprint must register no runner:\n{config}"
+        svc = sb / "services" / "ai"
+        adapter = (svc / "src" / "provider" / "llm_gateway.py").read_text()
+        assert "openai" in adapter, "localai uses the OpenAI-compatible adapter"
+    finally:
+        shutil.rmtree(sb, ignore_errors=True)
+
+
 # ---------------------------------------------------------------------------
 # CLI App — branded product CLI generator
 # ---------------------------------------------------------------------------

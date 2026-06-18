@@ -1,0 +1,29 @@
+{
+  "kind": "compose-service",
+  "summary": "A model-inference server (LocalAI) running as a docker-compose service, exposing an OpenAI-compatible API on :8080. Selecting it injects the container into the workspace compose; the adapter talks to it by env-configured base URL (the compose service name on the network, or localhost from the host).",
+  "env": [
+    { "name": "LLM_API_KEY", "required": false, "default": "not-needed" },
+    { "name": "LLM_BASE_URL", "required": true, "default": "http://localhost:8080/v1" },
+    { "name": "LLM_MODEL", "required": false, "default": "gpt-4" }
+  ],
+  "composeService": {
+    "name": "localai",
+    "definition": {
+      "image": "localai/localai:latest-aio-cpu",
+      "ports": ["8080:8080"],
+      "networks": ["groundwork-net"],
+      "volumes": ["localai_models:/models"],
+      "healthcheck": {
+        "test": ["CMD", "curl", "-f", "http://localhost:8080/readyz"],
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 5
+      }
+    },
+    "volumes": ["localai_models"]
+  },
+  "stacks": {
+    "python": { "dependencies": ["openai>=1.14.0"] },
+    "go": { "dependencies": [] }
+  }
+}

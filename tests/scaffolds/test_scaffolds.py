@@ -394,7 +394,7 @@ def test_07_run_booted_system_tests():
 def test_08_teardown_dev_environment():
     """Test cleaning up the DX environment."""
     print("\n--- Cleaning up ./dev Environment ---")
-    
+
     res = subprocess.run(
         ["node", "./dev", "clean", "--hard"],
         cwd=SANDBOX_DIR,
@@ -403,3 +403,62 @@ def test_08_teardown_dev_environment():
     )
     print(res.stdout)
     assert res.returncode == 0, "Failed to clean ./dev environment"
+
+
+def test_09_runner_lifecycle_without_docker():
+    """The runner registry, end to end, with no Docker (the Magpie desktop/sidecar
+    case): a registered native runner is a first-class managed unit. `./dev start`
+    launches it (straight to Phase C — no infra, no app services, so Docker is
+    never touched), `status --json` reports it running with a PID, and `./dev stop`
+    kills it and clears its pid file. Runs in its own container-less workspace so
+    it neither needs nor starts any of the shared sandbox's services."""
+    import json
+    runner_sb = REPO_ROOT / ".sandboxes" / "scaffolds" / "runner-boot"
+    if runner_sb.exists():
+        shutil.rmtree(runner_sb)
+    runner_sb.mkdir(parents=True)
+    (runner_sb / "package.json").write_text('{"name": "runnerboot"}')
+    (runner_sb / "nx.json").write_text("{}")
+    pid_file = runner_sb / ".dev" / "pids" / "probe.pid"
+    try:
+        gen = subprocess.run(
+            ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:workspace-dev-cli", "--appName", "runnerboot"],
+            cwd=runner_sb, capture_output=True, text=True,
+        )
+        assert gen.returncode == 0, f"workspace-dev-cli failed:\n{gen.stderr}"
+
+        # Register a trivial long-lived runner — no Docker, no real service.
+        config_path = runner_sb / ".dev" / "dev.config.json"
+        config = json.loads(config_path.read_text())
+        config["runners"] = [
+            {"name": "probe", "kind": "sidecar", "cmd": "sleep 600", "autostart": True}
+        ]
+        config_path.write_text(json.dumps(config, indent=2) + "\n")
+
+        start = subprocess.run(["node", "./dev", "start"], cwd=runner_sb,
+                               capture_output=True, text=True, timeout=60)
+        assert start.returncode == 0, f"./dev start failed:\n{start.stdout}\n{start.stderr}"
+        assert pid_file.exists(), f"start must write the runner pid file:\n{start.stdout}"
+
+        st = subprocess.run(["node", "./dev", "status", "--json"], cwd=runner_sb,
+                            capture_output=True, text=True, timeout=60)
+        assert st.returncode == 0, f"status failed:\n{st.stderr}"
+        runners = {r["name"]: r for r in json.loads(st.stdout).get("runners", [])}
+        assert runners.get("probe", {}).get("state") == "running", \
+            f"runner must report running:\n{st.stdout}"
+        assert runners["probe"]["pid"], "a running runner must report a pid"
+
+        stop = subprocess.run(["node", "./dev", "stop"], cwd=runner_sb,
+                              capture_output=True, text=True, timeout=60)
+        assert stop.returncode == 0, f"./dev stop failed:\n{stop.stderr}"
+        assert not pid_file.exists(), "stop must remove the runner pid file"
+        st2 = subprocess.run(["node", "./dev", "status", "--json"], cwd=runner_sb,
+                             capture_output=True, text=True, timeout=60)
+        runners2 = {r["name"]: r for r in json.loads(st2.stdout).get("runners", [])}
+        assert runners2.get("probe", {}).get("state") != "running", \
+            f"runner must be stopped after ./dev stop:\n{st2.stdout}"
+    finally:
+        # Best-effort: never leave a stray `sleep` behind on a failed assertion.
+        subprocess.run(["node", "./dev", "stop"], cwd=runner_sb,
+                       capture_output=True, text=True)
+        shutil.rmtree(runner_sb, ignore_errors=True)

@@ -3,7 +3,7 @@
   "title": "LLM inference",
   "description": "Text generation via a large language model, behind a hexagonal port. The port is fixed; the provider (and therefore the operational footprint) is a scaffold-time choice.",
   "default": "anthropic",
-  "providers": ["anthropic", "openai", "local", "none"],
+  "providers": ["anthropic", "openai", "local", "ollama", "localai", "none"],
   "stacks": {
     "python": {
       "port": "src/core/domain/llm_port.py",

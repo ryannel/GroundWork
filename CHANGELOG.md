@@ -30,7 +30,7 @@ finally appear in `./dev status` and boot with `./dev start`.
 Additive for existing installs: the CLI bundle is Tier-1 (clean-replaced on update), the `runners`
 field is optional (configs without it manage zero runners), and existing docker-compose files are
 left untouched (the template change affects new generation only) — hence `[no-migration]`.
-Retro-registering surfaces in pre-existing projects is a future enhancement (plan WS-E1).
+Retro-registering surfaces in pre-existing projects ships as the `gw-runner-retro-registration` agent migration (below).
 
 - **`workspace-dev-cli`**: db/jaeger removed from `docker-compose.yml.template`; CLI bundle gains
   `cli-src/util/runners.ts`, runner-aware start (Phase C) / stop / clean / status / logs, an honest
@@ -84,6 +84,27 @@ The capability layer (above) now spans the Go stack, proving it is genuinely gen
 - `capabilities/llm` gains a `go` stack: the `gateway.LLMGateway` port (`internal/core/gateway/`), adapters in `internal/provider/`, and a contract test with a compile-time `var _ gateway.LLMGateway` conformance assertion plus a Skip-based bet test for `none`.
 - Go adapters are **`net/http` against the provider REST APIs** (Anthropic Messages, OpenAI/`local` Chat Completions) — no SDK dependency, so `go.mod` is untouched and the generated code compiles standalone. A transparent starting point to extend or swap for an SDK behind the same port.
 - `add-capability` detects the Go stack (go.mod) and is the entry point for adding the LLM port to a Go service; `applyCapability` resolves the module import path from `go.mod` and records the env footprint in `.env`.
+
+### Added (capability footprint completion + retro-registration, 2026-06-17)
+
+WS-F rounding-out (plan: `docs/plans/dev-cli-native-runners.md`, F6/F9/D2 + WS-E1). The footprint
+matrix is now complete and the runner registry is reachable by existing installs.
+
+- **`applyCapability` materializes all four footprints.** It already wrote `env`/`none`; it now
+  injects a `compose-service` footprint's container into the workspace `docker-compose.yml` (the
+  capability-driven form of WS-A's on-demand db/jaeger) and registers a `runner` footprint with
+  `./dev` via `dev.config.json`. Two new LLM providers exercise these arms and prove "swap the
+  footprint, keep the port and adapter": **`ollama`** (runner — `ollama serve`) and **`localai`**
+  (compose-service — a model-server container), both reusing the OpenAI-compatible adapter.
+- **Engineer-skill reference** `capability-ports.md` added to `groundwork-go-engineer` and
+  `groundwork-python-engineer` (the stacks that emit ports): the generated port/adapter/footprint
+  shape and the `none` bet, so a hand-written adapter matches the generated one. Skills clean-copy
+  on update — `[no-migration]`.
+- **`infrastructure.md` gains a "What `./dev start` does" section** (scaffold Phase 5): one row per
+  managed unit (container / native app-service / runner) with its run mode, cross-checked against
+  `./dev status --json`, so the doc can never describe a stack the CLI cannot run.
+- Generation tests cover the full footprint matrix (env / compose-service / runner / none).
+- [migration] Projects scaffolded before the runner registry have a runner-less `dev.config.json`; register their surfaces and native sidecars as runners without touching db/jaeger compose (gw-runner-retro-registration)
 
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 

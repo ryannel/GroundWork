@@ -55,8 +55,16 @@ export default async function (tree: Tree, options: AddCapabilityGeneratorSchema
     console.log(`  bet:           the contract test is strict-xfail — implement the adapter to cash it.`);
   }
   if (result.footprint === 'compose-service') {
-    console.log(`  footprint:     this provider needs a docker-compose service — add it to docker-compose.yml.`);
+    console.log(
+      result.materialized
+        ? `  footprint:     injected its container into docker-compose.yml — run \`./dev start\` to boot it.`
+        : `  footprint:     needs a docker-compose service, but no docker-compose.yml was found — run workspace-dev-cli first.`,
+    );
   } else if (result.footprint === 'runner') {
-    console.log(`  footprint:     this provider runs as a process — register it via registerRunner / dev.config.json.`);
+    console.log(
+      result.materialized
+        ? `  footprint:     registered as a native runner in .dev/dev.config.json — \`./dev start\` will launch it.`
+        : `  footprint:     runs as a process, but no .dev/dev.config.json was found — run workspace-dev-cli first.`,
+    );
   }
 }

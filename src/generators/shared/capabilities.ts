@@ -1,6 +1,7 @@
 import { Tree, generateFiles } from '@nx/devkit';
 import * as path from 'path';
 import * as fs from 'fs';
+import { registerRunner, RunnerSpec } from './scaffold-helpers';
 
 /**
  * Composable capability ports & providers (plan WS-F).
@@ -25,11 +26,24 @@ export interface EnvVar {
   default?: string;
 }
 
+/** A `compose-service`-footprint provider declares the container it injects into
+ *  the workspace docker-compose (e.g. a self-hosted model-inference server). */
+export interface ComposeServiceFootprint {
+  name: string;
+  definition: Record<string, unknown>;
+  /** Top-level named volumes the service references (declared under `volumes:`). */
+  volumes?: string[];
+}
+
 export interface ProviderFootprint {
   kind: FootprintKind;
   summary?: string;
   env?: EnvVar[];
   stacks?: Record<string, { dependencies?: string[] }>;
+  /** Present iff kind === 'runner': the native process to register with `./dev`. */
+  runner?: RunnerSpec;
+  /** Present iff kind === 'compose-service': the container to inject. */
+  composeService?: ComposeServiceFootprint;
 }
 
 export interface CapabilityStack {
@@ -154,22 +168,70 @@ function appendEnvExample(
   tree.write(envPath, content);
 }
 
+/**
+ * Inject a provider's container into the workspace docker-compose. The compose
+ * file is at the workspace root (not the service root) and is shared by the whole
+ * stack, exactly like the db/jaeger/redis on-demand injectors — a compose-service
+ * footprint is the capability-driven generalisation of that pattern. Idempotent
+ * by service name. A no-op with a warning when no compose file exists yet
+ * (workspace-dev-cli writes the network-only base before any service generator
+ * runs, so this only misses for a service generated into a bare directory).
+ */
+function injectComposeService(tree: Tree, svc: ComposeServiceFootprint): void {
+  const COMPOSE = 'docker-compose.yml';
+  if (!tree.exists(COMPOSE)) {
+    console.warn(
+      `applyCapability: ${COMPOSE} not found; skipping compose service "${svc.name}". Run the workspace-dev-cli generator first.`,
+    );
+    return;
+  }
+  // require('yaml') resolves at runtime (it is a transitive dep of @nx/devkit and
+  // is what the service generators already use to edit this same file).
+  const yaml = require('yaml');
+  const doc = yaml.parseDocument(tree.read(COMPOSE, 'utf-8') || '');
+  let services = doc.get('services');
+  if (!services) {
+    // createNode so the result is a YAMLMap with .has/.set — a plain {} is not.
+    doc.set('services', doc.createNode({}));
+    services = doc.get('services');
+  }
+  if (!services.has(svc.name)) {
+    services.set(svc.name, doc.createNode(svc.definition));
+  }
+  if (svc.volumes && svc.volumes.length) {
+    let volumes = doc.get('volumes');
+    if (!volumes) {
+      doc.set('volumes', doc.createNode({}));
+      volumes = doc.get('volumes');
+    }
+    for (const v of svc.volumes) {
+      if (!volumes.has(v)) volumes.set(v, null);
+    }
+  }
+  tree.write(COMPOSE, doc.toString());
+}
+
 export interface ApplyCapabilityResult {
   capability: string;
   provider: string;
   stack: string;
   footprint: FootprintKind;
   wiring?: string;
+  /** True once the footprint's infra/runner was actually materialised (compose
+   *  service injected or runner registered). False when the workspace context was
+   *  missing (no compose file / no dev.config.json) and the caller must finish it. */
+  materialized: boolean;
   files: { port: string; adapter: string; contractTest: string };
 }
 
 /**
  * Materialize a capability+provider into a service: the port, the chosen
  * adapter (or the `none` stub), the contract test, the provider's stack
- * dependencies, and its env footprint. Compose-service / runner footprints are
- * handled by the caller (they need the workspace-level docker-compose / dev
- * config, which this service-scoped injector deliberately does not touch) — this
- * function returns the footprint kind so the caller can wire those.
+ * dependencies, and its env footprint — plus its operational footprint. An
+ * `env`/`none` footprint is service-local; a `compose-service` footprint injects
+ * the container into the workspace docker-compose and a `runner` footprint
+ * registers a native process with `./dev` (both no-op gracefully when the
+ * workspace file is absent, reported via `materialized`).
  *
  * Idempotent: capability-owned files are overwritten with identical content on
  * re-run; deps and env are added only if absent.
@@ -227,12 +289,28 @@ export function applyCapability(
     footprint.env ?? [],
   );
 
+  // Compose-service / runner footprints are workspace-level, not service-level:
+  // they materialise into the shared docker-compose / dev.config.json. This is
+  // the capability-driven form of WS-A's on-demand infra — infrastructure is a
+  // consequence of a provider choice, not a default. Both injectors no-op (with a
+  // warning) when their workspace file is absent, so `materialized` reports
+  // whether the footprint was actually wired or left for the caller to finish.
+  let materialized = footprint.kind === 'env' || footprint.kind === 'none';
+  if (footprint.kind === 'compose-service' && footprint.composeService) {
+    injectComposeService(tree, footprint.composeService);
+    materialized = tree.exists('docker-compose.yml');
+  } else if (footprint.kind === 'runner' && footprint.runner) {
+    registerRunner(tree, footprint.runner);
+    materialized = tree.exists('.dev/dev.config.json');
+  }
+
   return {
     capability,
     provider,
     stack,
     footprint: footprint.kind,
     wiring: stackSpec.wiring,
+    materialized,
     files: {
       port: `${serviceRoot}/${stackSpec.port}`,
       adapter: `${serviceRoot}/${stackSpec.adapter}`,

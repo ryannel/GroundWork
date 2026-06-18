@@ -1,0 +1,20 @@
+{
+  "kind": "runner",
+  "summary": "Ollama running as a local host process (`ollama serve`), exposing an OpenAI-compatible API on :11434. Registered as a native runner so `./dev start` brings it up alongside your services — no container. Requires the ollama binary installed on the host; pull a model with `ollama pull <model>`.",
+  "env": [
+    { "name": "LLM_API_KEY", "required": false, "default": "not-needed" },
+    { "name": "LLM_BASE_URL", "required": true, "default": "http://localhost:11434/v1" },
+    { "name": "LLM_MODEL", "required": false, "default": "llama3.1" }
+  ],
+  "runner": {
+    "name": "ollama",
+    "kind": "sidecar",
+    "cmd": "ollama serve",
+    "autostart": true,
+    "health": { "type": "port", "port": 11434 }
+  },
+  "stacks": {
+    "python": { "dependencies": ["openai>=1.14.0"] },
+    "go": { "dependencies": [] }
+  }
+}

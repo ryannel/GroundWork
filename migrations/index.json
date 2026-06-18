@@ -49,6 +49,13 @@
       "title": "Uplift in-flight bets to the current bet shape",
       "kind": "agent",
       "summary": "Bets opened before the bet-loop restructure lack decomposition.json and current pitch frontmatter; uplift in-flight bets, leave shipped ones alone."
+    },
+    {
+      "id": "gw-runner-retro-registration",
+      "version": "0.10.0",
+      "title": "Register surfaces and native sidecars as ./dev runners",
+      "kind": "agent",
+      "summary": "Projects scaffolded before the runner registry have a runner-less dev.config.json, so their Electron/CLI/Flutter surfaces and native sidecars are invisible to ./dev; register them without touching db/jaeger compose."
     }
   ]
 }

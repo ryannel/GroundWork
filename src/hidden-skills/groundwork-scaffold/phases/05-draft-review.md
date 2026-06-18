@@ -2,7 +2,7 @@
 
 Once the system is verified (or verification is documented as pending):
 
-1. **Draft.** Write `docs/infrastructure.md` following the quality standard in the entry `instructions.md`. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record the actual ports, commands, and verification results — not what they should be in theory.
+1. **Draft.** Write `docs/infrastructure.md` following the quality standard in the entry `instructions.md`. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record the actual ports, commands, and verification results — not what they should be in theory. Include the **What `./dev start` does** section: one row per managed unit (container, native app-service, or registered runner) with its run mode and boot command, derived from the final `docker-compose.yml` + `.dev/dev.config.json`. The set must match `./dev status --json` (its `docker`/`native`/`runners` arrays) — if you cannot make the doc and the CLI agree, the gap is a reconciliation failure to fix in Phase 4, not to describe around.
 
    When `scaffold-cache.md` records verification as pending (Phase 4 was skipped), open the document body — immediately after the `## Summary for Downstream` section — with a `## Verification Status` section stating that the system was not booted and that the ports, commands, and health checks below are derived from generated configuration, not observed from a running system, so the reader must run the Phase 4 verification steps before relying on them. Two to three sentences is enough — the point is that no reader can mistake an unverified scaffold for a verified one. Omit the section entirely when verification ran green; the `## Verification` results section covers that case.
 

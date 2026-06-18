@@ -161,12 +161,36 @@ provide a reach value the fixture can resolve.
 | PostgreSQL | 5432 | `<app-name>-db` |
 | Jaeger (tracing UI + query API) | 16686 | `<app-name>-jaeger` |
 
+Infrastructure is on-demand: a component appears here only because some service or
+provider footprint asked for it. A local-first or desktop-only workspace has none.
+
+## What `./dev start` does
+
+A **managed unit** is anything `./dev` starts, stops, tails, and reports on — the
+union of docker-compose services, native app-services, and registered runners
+(surfaces and sidecars in `.dev/dev.config.json`). The table below is that exact
+set and must equal what `./dev status --json` reports across its `docker`,
+`native`, and `runners` arrays. A unit listed here that `./dev status` does not
+show is documentation drift, not a footnote — reconcile it (Phase 4), do not paper
+over it.
+
+| Managed unit | Run mode | How `./dev` starts it | Why |
+|---|---|---|---|
+| `<app-name>-db` | container (compose) | `docker compose up db` | on-demand: a service uses a relational/vector store |
+| `<app-name>-jaeger` | container (compose) | `docker compose up jaeger` | on-demand: a service exports OTLP telemetry |
+| `auth-service` | native app-service | `air` (Go hot reload) | detected by `.air.toml` |
+| `web-app` | runner (surface) | `npx nx run web-app:serve` | a surface generator self-registered it; autostart |
+| `compute-service` | runner (sidecar) | `uv run python src/main.py` | native because it needs Metal/MPS — cannot be containerized |
+
+When the union is empty, `./dev start` prints an honest "nothing registered" notice
+and exits 0 — it never reports a started environment it did not start.
+
 ## Running the Environment
 
 ```bash
-./dev start       # Boot the full local stack
-./dev status      # Check service and container health
-./dev clean       # Stop and remove all containers
+./dev start       # Boot every managed unit (containers, app-services, runners)
+./dev status      # Check service, container, and runner health
+./dev clean       # Stop and remove all containers and runner processes
 ```
 
 ## Running Tests
