@@ -51,10 +51,10 @@ A system-test harness runs inside the boot topology, and bets author their progr
 
 ### D5. Code intelligence
 
-The Serena MCP server is registered and a current `repo-map.json` exists, giving every scan, impact analysis, and drift check an LSP-accurate structural map.
+A current `repo-map.json` exists — built by the deterministic generator (`npx groundwork-method repo-map`: tree-sitter import edges + PageRank centrality) — and the Serena MCP server is registered for live per-symbol navigation. Together they give every scan, impact analysis, and drift check a structural map: the generator for the whole-repo aggregate, Serena for precise on-demand lookups.
 
 **Failure it prevents:** structural questions fall back to LLM inference — slower, costlier, and hallucination-prone exactly where precision matters most.
-**Signal:** `.mcp.json` registers Serena; `.groundwork/cache/repo-map.json` exists or is regenerable on demand.
+**Signal:** `.groundwork/cache/repo-map.json` exists and is regenerable on demand via `npx groundwork-method repo-map` (deterministic, no network); `.mcp.json` registers Serena. The map carries `generated_at_commit`, so `npx groundwork-method repo-map --check` reports whether it is current with HEAD.
 
 ### D6. Doc currency automation
 
