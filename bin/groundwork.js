@@ -31,6 +31,9 @@ function printHelp() {
             and scripted migrations. Judgment-lane work lands in an upgrade brief for your agent.
             \x1b[2m--dry-run prints the full plan without writing anything.\x1b[0m
   \x1b[36mcheck\x1b[0m     Report framework staleness (version gap, pending migrations) and documentation drift
+  \x1b[36mrepo-map\x1b[0m  Build the deterministic code map (.groundwork/cache/repo-map.json): tree-sitter
+            import edges + PageRank centrality for Go, Python, and TS/JS. Incremental —
+            only changed files reparse. \x1b[2m--check reports staleness without rebuilding.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -1363,6 +1366,9 @@ function checkGroundWork() {
     return;
   }
 
+  // Code-map freshness — advisory, never fails the build (Serena/LLM fallbacks exist).
+  reportRepoMapStatus(p);
+
   if (!fs.existsSync(docsDir)) {
     c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
     process.exitCode = 1;
@@ -1452,6 +1458,77 @@ function checkGroundWork() {
   }
 }
 
+// ─── repo-map ─────────────────────────────────────────────────────────────
+// The deterministic code map: tree-sitter import edges + PageRank centrality,
+// cached to .groundwork/cache/repo-map.json. Complements Serena — Serena answers
+// precise per-symbol questions live; this is the whole-repo aggregate it cannot
+// export. Engine lives in lib/repo-map so the CLI stays require-only.
+
+function loadRepoMapEngine() {
+  try {
+    return require(path.join(__dirname, '..', 'lib', 'repo-map'));
+  } catch (err) {
+    c.err(`repo-map engine unavailable: ${err.message}`);
+    console.error(`  The tree-sitter dependencies failed to load. Reinstall, or rely on`);
+    console.error(`  the LLM-inference fallback path in the groundwork-scan skill.\n`);
+    return null;
+  }
+}
+
+// Advisory used by `check`: warn (never fail) when the cached map trails HEAD.
+function reportRepoMapStatus(p) {
+  const engine = loadRepoMapEngine();
+  if (!engine) return;
+  const s = engine.staleness({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
+  if (s.state === 'absent') return; // no map yet — not every project builds one
+  if (s.state === 'stale') {
+    c.warn(`Code map is stale — ${s.changedSource.length} source file(s) changed since it was generated.`);
+    console.warn(`         Refresh with \x1b[36mnpx groundwork-method repo-map\x1b[0m (incremental — only changed files reparse).\n`);
+  } else if (s.state === 'fresh') {
+    c.ok(`Code map (repo-map.json) is current with HEAD.`);
+  }
+}
+
+async function repoMapCommand(argv) {
+  const p = getPaths();
+  banner();
+  const engine = loadRepoMapEngine();
+  if (!engine) { process.exitCode = 1; return; }
+
+  if (argv.includes('--check')) {
+    const s = engine.staleness({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
+    if (s.state === 'absent') {
+      c.warn(`No code map yet (.groundwork/cache/repo-map.json). Run \x1b[36mnpx groundwork-method repo-map\x1b[0m to build one.\n`);
+    } else if (s.state === 'stale') {
+      c.warn(`Code map is stale — ${s.changedSource.length} source file(s) changed since ${s.sinceCommit.slice(0, 8)}.`);
+      console.warn(`         Refresh: \x1b[36mnpx groundwork-method repo-map\x1b[0m\n`);
+    } else if (s.state === 'unknown') {
+      c.info(`Code map freshness indeterminate (${s.reason}).\n`);
+    } else {
+      c.ok(`Code map is current with HEAD.\n`);
+    }
+    return; // advisory: never fails the build
+  }
+
+  const { map, cache, stats } = await engine.generate({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
+  if (map.stats.files === 0) {
+    c.warn(`No supported source files found (Go, Python, TS/JS). Nothing to map.\n`);
+    return;
+  }
+  engine.write({ cacheDir: p.targetCacheDir, map, cache });
+
+  const langs = Object.entries(map.stats.languages).map(([l, n]) => `${l}:${n}`).join(' ');
+  c.ok(`Wrote .groundwork/cache/repo-map.json — ${map.stats.files} files, ${map.stats.edges} edges (${langs})`);
+  c.dim(`  ${stats.parsed} parsed, ${stats.cached} reused from cache`);
+  if (map.centrality.length) {
+    console.log(`\n\x1b[1mMost-referenced files (centrality):\x1b[0m`);
+    for (const hub of map.centrality.slice(0, 5)) {
+      console.log(`  ${hub.file} \x1b[2m(rank ${hub.rank}, ${hub.in} incoming)\x1b[0m`);
+    }
+  }
+  console.log('');
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -1482,6 +1559,16 @@ switch (command) {
       process.exit(0);
     }
     checkGroundWork();
+    break;
+  case 'repo-map':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) {
+      printHelp();
+      process.exit(0);
+    }
+    repoMapCommand(process.argv.slice(3)).catch((err) => {
+      c.err(`repo-map failed: ${err.message}`);
+      process.exit(1);
+    });
     break;
   default:
     console.log(`Unknown command: ${command}`);

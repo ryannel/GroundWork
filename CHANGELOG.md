@@ -13,6 +13,20 @@ installed artifact gets an owner and a provenance record, and every framework ch
 that touches installed projects ships with a migration — so no project is left behind
 as the framework improves.
 
+### Added (deterministic code map generator, 2026-06-19) `[no-migration]`
+
+`npx groundwork-method repo-map` builds `.groundwork/cache/repo-map.json` deterministically:
+a tree-sitter pass (Go, Python, TypeScript/JavaScript) resolves import edges and ranks files
+by PageRank centrality, with a per-file parse cache keyed by content hash so reruns reparse
+only what changed. This makes the code map a first-class, regenerable artifact rather than
+something assembled from LLM inference — closing maturity dimension D5's "regenerable on
+demand" honestly. Serena stays the live, per-symbol complement (navigation, editing, impact
+analysis); the generator is the whole-repo aggregate it cannot export. `repo-map --check`
+(and `groundwork check`) report staleness against `generated_at_commit` as an advisory; refresh
+is detect-and-lazy by default, with no git hook unless opted in. Schema: the installed
+`repo-map-schema.md` reference. Adds runtime deps `web-tree-sitter` and `tree-sitter-wasms`
+(pinned; bundled grammars, no network at run time).
+
 ### Changed (honest dev infrastructure + native runner registry, 2026-06-16) `[no-migration]`
 
 The scaffolded `./dev` CLI no longer assumes a server (plan: `docs/plans/dev-cli-native-runners.md`).

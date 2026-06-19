@@ -7,6 +7,7 @@
   },
   "files": [
     "bin/",
+    "lib/",
     "src/",
     "dist/",
     "migrations/",
@@ -45,6 +46,8 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "tree-sitter-wasms": "0.1.13",
+    "web-tree-sitter": "0.22.6",
     "yaml": "^2.9.0"
   }
 }
