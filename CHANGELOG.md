@@ -28,7 +28,9 @@ is detect-and-lazy by default, with no git hook unless opted in. Schema: the ins
 `serena-tools.md`) gives a working agent the orientation workflow — build/refresh the map,
 read centrality for the hubs, navigate and edit with Serena — and the engineer skills point
 to it. Adds runtime deps `web-tree-sitter` and `tree-sitter-wasms` (pinned; bundled grammars,
-no network at run time).
+no network at run time). The greenfield scaffold seeds an initial map at verification time
+(Phase 4) so a project is born with one, and `getting-started.md` documents a CI lane
+(`repo-map` then `check`).
 
 ### Changed (honest dev infrastructure + native runner registry, 2026-06-16) `[no-migration]`
 
