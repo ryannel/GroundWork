@@ -77,14 +77,30 @@ Setup is now over, permanently. From here the project lives in the [Delivery Loo
 
 ## 8. Keeping it true
 
-Two commands keep code and docs converged for the life of the project:
+These commands keep code and docs converged for the life of the project:
 
 ```bash
-npx groundwork-method check    # CI drift detection: code changed after a doc's last_reviewed?
-npx groundwork-method update   # refresh installed skills when the package updates
+npx groundwork-method repo-map  # refresh the deterministic code map (tree-sitter + PageRank)
+npx groundwork-method check     # CI drift detection: code changed after a doc's last_reviewed?
+npx groundwork-method update    # refresh installed skills when the package updates
 ```
 
 When `check` reports drift, ask your agent to run the `groundwork-update` skill — it maps the offending commits to surgical doc edits and gates them through the same review.
+
+### In CI
+
+A minimal lane builds the code map fresh, then runs the drift check — which uses the map for
+impact analysis and reports if the map itself has drifted:
+
+```yaml
+# .github/workflows/groundwork.yml (excerpt)
+- run: npx groundwork-method repo-map   # build the code map (deterministic, no network)
+- run: npx groundwork-method check      # doc drift + maturity signals; non-zero on critical drift
+```
+
+If your team commits `.groundwork/cache/repo-map.json` instead of rebuilding it, swap the first
+step for `npx groundwork-method repo-map --check` to flag any PR that changed source without
+refreshing the map (advisory — it never fails the build on its own).
 
 ## Where everything lives
 
