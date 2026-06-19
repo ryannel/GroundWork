@@ -24,8 +24,11 @@ demand" honestly. Serena stays the live, per-symbol complement (navigation, edit
 analysis); the generator is the whole-repo aggregate it cannot export. `repo-map --check`
 (and `groundwork check`) report staleness against `generated_at_commit` as an advisory; refresh
 is detect-and-lazy by default, with no git hook unless opted in. Schema: the installed
-`repo-map-schema.md` reference. Adds runtime deps `web-tree-sitter` and `tree-sitter-wasms`
-(pinned; bundled grammars, no network at run time).
+`repo-map-schema.md` reference. The installed `code-intelligence.md` guide (renamed from
+`serena-tools.md`) gives a working agent the orientation workflow — build/refresh the map,
+read centrality for the hubs, navigate and edit with Serena — and the engineer skills point
+to it. Adds runtime deps `web-tree-sitter` and `tree-sitter-wasms` (pinned; bundled grammars,
+no network at run time).
 
 ### Changed (honest dev infrastructure + native runner registry, 2026-06-16) `[no-migration]`
 

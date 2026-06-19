@@ -1,0 +1,82 @@
+# Code intelligence — the repo map + Serena
+
+GroundWork gives an agent working in a codebase two complementary tools for understanding and
+changing code by *structure* instead of by reading and rewriting whole files. Use them together:
+
+- **The repo map** (`npx groundwork-method repo-map`) — a deterministic, whole-repo aggregate:
+  module boundaries, import edges, and a PageRank centrality ranking, cached to
+  `.groundwork/cache/repo-map.json`. Built by tree-sitter (Go, Python, TS/JS), no network. It
+  answers *“what is the shape of this codebase, and which files are the hubs?”*
+- **Serena** (`github.com/oraios/serena`, an LSP-backed MCP server registered at init) — live,
+  per-symbol navigation and editing. It answers *“where is this symbol, who references it, change
+  it safely.”* It needs `uv` on the host; find it with a tool search for the code-intelligence or
+  symbol capability before assuming it is unavailable.
+
+Neither replaces the other: the map is the aerial view Serena cannot export; Serena is the precise
+per-symbol lookup the map does not hold. Both are force-multipliers, never hard dependencies —
+[degraded mode](#degraded-mode) below covers their absence.
+
+## The orientation workflow
+
+When you start non-trivial work in an unfamiliar codebase — implementing a slice, reviewing a
+change, tracing a bug — orient through the map before reading widely:
+
+1. **Make the map current.** Run `npx groundwork-method repo-map` (incremental — only changed
+   files reparse) or `--check` to see if it is stale. If the project has no map yet, building one
+   is the fast first step.
+2. **Read the hubs, skim the leaves.** Open `.groundwork/cache/repo-map.json` and read its
+   `centrality` ranking: the top files are the architectural hubs the system turns on. Read those
+   deeply; skim the leaves. A function called by twenty others is more valuable context than a
+   private helper called once — centrality is how you tell them apart without reading everything.
+3. **Navigate in with Serena.** Use `get_symbols_overview` on a hub to read its outline, then
+   `find_symbol` to read just the bodies you need, and `find_referencing_symbols` to trace what
+   depends on the code you are about to touch (live impact analysis).
+4. **Edit by symbol.** Make reference-aware changes with `replace_symbol_body`, `rename`, and the
+   insert tools (below) rather than line-based rewrites.
+5. **Keep the map honest.** After a structural change (files added/removed, imports changed),
+   refresh with `npx groundwork-method repo-map` so the next reader — agent or `groundwork-check`
+   — orients off the truth. Refresh is incremental, so this is cheap.
+
+## Navigation (read) — Serena
+
+- `get_symbols_overview` — the symbol outline of a file or package. Start here instead of reading
+  a file top-to-bottom.
+- `find_symbol` — resolve a symbol by name/path and read just its body.
+- `find_referencing_symbols` — every reference to a symbol (LSP-accurate). The primitive behind
+  impact analysis: who breaks if this changes.
+- `find_implementations` / `type_hierarchy` — interface implementors and type ancestry.
+- `search_for_pattern` — fall back to text search when a symbol query does not fit.
+
+The brownfield scan (`groundwork-scan`), `groundwork-check`, and `groundwork-update` use these for
+live impact analysis. The whole-repo map itself is built by the deterministic generator, not
+assembled from Serena queries — these tools read and reason over the code the map points them at.
+
+## Editing (write) — Serena
+
+Edit by symbol so edits stay anchored to structure, not line numbers:
+
+- `replace_symbol_body` — rewrite a function/method/class body in place.
+- `insert_after_symbol` / `insert_before_symbol` — add a sibling symbol (new method, helper).
+- `rename` — rename a symbol and update every reference through the LSP.
+- `safe_delete` — remove a symbol and clean up references.
+
+Use these for precise, reference-aware changes; use ordinary file edits for non-symbol changes
+(config, prose, whole-file rewrites) or when Serena is unavailable.
+
+## The map — what you read from it
+
+`.groundwork/cache/repo-map.json` (full contract: `repo-map-schema.md`). The fields you reach for:
+
+- `centrality` — every file ranked by PageRank; the top entries are the hubs to read first.
+- `edges` — directed `from`→`to` import edges; the dependency graph.
+- `modules` — top-level partitions and their sizes, for a quick map of the territory.
+- `contracts` — detected API/spec files (OpenAPI, proto, GraphQL).
+- `generated_at_commit` — the freshness anchor; `repo-map --check` compares it against HEAD.
+
+## Degraded mode
+
+No Serena (no `uv`, sandboxed, or headless): navigate with ordinary reads and project search, edit
+with ordinary file edits. No repo map for a language the generator does not cover: infer the
+missing structure from targeted reads (entry points, manifests, imports) in the same shape. The
+downstream contract is identical — only the means differ. Say so rather than implying structural
+coverage you did not have.

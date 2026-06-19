@@ -295,7 +295,7 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 | `discovery-notes.md` | Cross-phase signal capture (Protocol 1) | Init (check own section) and during execute (capture out-of-phase signals) |
 | `handoff/<previous-phase>.md` | The previous phase's hand-off (Protocol 6) | Init only |
 | `scan-state.json`, `scan/overview.md` | The brownfield scan baseline — shared classification and partition map | Init and execute, **brownfield extract and adopt phases only** |
-| `repo-map.json` | The deterministic code map. Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-update`, and the bet loop thereafter, for impact analysis |
+| `repo-map.json` | The deterministic code map (build/refresh: `npx groundwork-method repo-map`). Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact. How to leverage it with Serena: `.agents/groundwork/skills/code-intelligence.md` | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-update`, and the bet loop thereafter, for impact analysis |
 | `scan/<own-slice>.md` | The brownfield findings slice this phase consumes (`product-findings.md`, `design-findings.md`, or `architecture-findings.md`) | Init and execute, **the one owning extract phase only** |
 
 ### What a phase must not read from `.groundwork/cache/`

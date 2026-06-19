@@ -7,7 +7,7 @@ This file pins the shape so producer and consumers agree — whether the map was
 generator or, for an unsupported language, filled in by LLM inference in the same shape.
 
 It is a coarse, whole-repo aggregate by design. Precise, live, per-symbol questions are
-Serena's job (see `serena-tools.md`); this map is the bird's-eye view Serena cannot export.
+Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Serena cannot export.
 
 ## Shape
 
