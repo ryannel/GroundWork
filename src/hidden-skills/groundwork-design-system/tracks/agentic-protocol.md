@@ -256,3 +256,14 @@ Phase 6 runs once for the whole design system, in the foundation flow. This trac
 - **Brand tokens:** no Tier 2 block — a protocol has no terminal or visual treatment to project. When this is the only active type, the file is Tier 1: `identity` essentials only (`appName`, a short `wordmark` glyph, `primary` and `accent` colours, and a `voice` descriptor), projected mechanically from the product brief and any palette decisions, so scaffolding can brand the project's `./dev` CLI even though this product is a protocol, not a CLI.
 - **Summary key decisions:** state schema shape, context-injection order, document architecture. Binding constraints include token budgets, naming conventions, agent-parseable structure.
 - **Hand-off content:** rejected protocol-anatomy choices, deferred decisions (versioning policy, multi-skill orchestration), user instincts about agent posture or naming not yet committed.
+
+## Verification Gate
+
+The visual verification loop is medium-general: observe the running artifact in its medium, against intent and reference. For an `agentic-protocol` surface the artifact is the **response payload**, and the same three tiers apply — graphical screenshots are one instance of a wider pattern.
+
+- **Capture:** the protocol response to a representative request, captured by the surface's interface tests.
+- **Tier 1 — does it run:** the request succeeds and the response is well-formed against the contract — deterministic, asserted on structure and status.
+- **Tier 2 — does it read coherently:** the delivery agent reads the captured payload and judges it against this track's response anatomy and naming conventions.
+- **Tier 3 — is it excellent:** response shape and ergonomics graded against the protocol spec and the reference protocols this track names — token economy, parseability, error vocabulary.
+
+This is the lightest-touch instance and its build is deferred; the framing here keeps the gate concept covering all three interface types so no track is silently graphical-only.

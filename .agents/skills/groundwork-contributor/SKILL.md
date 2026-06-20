@@ -202,8 +202,8 @@ family** — not whichever skill you found first.
 The engineer skills are persistent *implementation* experts. The **discipline-expert
 personas** are the design-side equivalent, built on the same anatomy (`SKILL.md` +
 `sync-anchor.md` + `references/`) with a **persona header** grafted on the spine.
-Two exist today — `groundwork-architect` (the pilot) and `groundwork-product` — and
-`groundwork-designer` is planned. The model is **persona-in-a-workflow-route**: a
+Three exist today — `groundwork-architect` (the pilot), `groundwork-product`, and
+`groundwork-designer`. The model is **persona-in-a-workflow-route**: a
 persona is not a lifecycle phase the orchestrator routes to on its own — it is
 *adopted within* a setup workflow and the `groundwork-bet` lifecycle:
 
@@ -218,9 +218,17 @@ persona is not a lifecycle phase the orchestrator routes to on its own — it is
   `src/docs/principles/foundations/` (product-engineering, continuous-discovery,
   product-risks, success-metrics, requirements-and-specs, prioritization-and-appetite)
   plus `ai-native/ai-native-product.md`. Owns the **value** and **viability** risks.
+- **`groundwork-designer`** — adopted inside the `groundwork-design-system` setup
+  workflow and the bet design phase (`workflows/02-design.md`), whenever how the
+  product looks, feels, or behaves is in play; a lighter touch in bet validation
+  (`workflows/05-validation.md`) when the delivered UI is judged against its intent.
+  Distils the design corpus under `src/docs/principles/design/` (design-foundations,
+  visual-design, layout-and-space, interaction-and-motion, usability-and-ux,
+  design-systems-and-tokens, ai-native-design) plus `quality/accessibility.md`.
+  Owns the **usability** risk.
 
 The personas divide the product-risk space cleanly: product owns value + viability,
-the planned designer owns usability, architect + engineers own feasibility.
+the designer owns usability, architect + engineers own feasibility.
 
 Two rules make each one work, both mirrored from the engineer skills:
 
@@ -312,6 +320,10 @@ The phases communicate through shared artifacts and identifiers. Each is written
 | `## Summary for Downstream` sections + hand-off cache (`.groundwork/cache/handoff/<phase>.md`) | each setup phase's commit (Protocols 5–6) | the next phase's init; the hand-off file is deleted when consumed |
 | Discovery-notes headers (`## Architecture`, `## Design System`, `## Design Details`, `## Bets`) in `.groundwork/cache/discovery-notes.md` | any phase, on out-of-phase signals (Protocol 1) | the phase that owns the matching header, at its init or design step |
 | `docs/architecture.md` §3 Capability Ports & Providers + `.groundwork/capability-ports.json` (each technical port → provider → footprint) | architecture Phase 7 commit (step 5b); architecture-extract commit | scaffold Phase 1 (port → generator flag / `add-capability` invocation); scaffold Phase 2 (footprint registration check); scaffold Phase 4 (reconcile footprints — compose service / runner / env / `none`-xfail); bet delivery (a `none` raw gateway is the bet) |
+| Screenshot capture path `.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png` (+ `_smoke/<surface>/<route>__<viewport>__<theme>.png`) | system-test-runner render-smoke (`_smoke` set); bet-progress interface tests (per-state set) | 04-delivery Tier 2 inspection (delivery agent); 05-validation Tier 3 critic (groundwork-review `visual-fidelity`) |
+| `## Design References` in `docs/design-system.md` + `references` array in `brand-tokens.json` `visual` block | design-system commit (_foundation Phase 6 + graphical-ui Commit Contributions); design-system-extract | Tier 3 `visual-fidelity` review (live reference research calibration) |
+| Per-screen visual intent in the bet's `technical-design.md` Surface Design | bet 02-design Step 1.95 (designer persona) | 04-delivery Tier 2 inspection; 05-validation Tier 3 critique |
+| `visual-fidelity` review `document_type` (image input — `document_path` is the capture directory) | 05-validation Step 2.6 review invocation | groundwork-review machinery + `checklists/visual-fidelity.md` |
 
 ---
 

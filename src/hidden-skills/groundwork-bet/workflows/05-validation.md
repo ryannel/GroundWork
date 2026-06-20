@@ -24,6 +24,16 @@ Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytes
 
 The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
 
+### Step 2.6: Visual verification gate
+
+**Conditional — graphical surfaces only.** Skip this step entirely, and say so in one line, when the bet touched no `graphical-ui` surface: a backend, CLI, or agentic bet pays nothing. For a bet that delivered a graphical surface, confirm the visual ladder before the bet can reach `delivered`:
+
+1. **Tier 1 — the render-smoke pyramid is green.** Step 2 already ran the suite; confirm `tests/system/test_render_smoke.py` and `test_a11y_smoke.py` passed across the viewport × theme matrix. A red layer is a render bug and blocks the bet — it is not a flaky test to wave through.
+2. **Tier 2 — inspection happened.** Confirm each graphical milestone recorded its per-screen visual verdict during delivery (the manifest notes from `04-delivery.md` Milestone close). A milestone that closed with no visual verdict did not run the inspection — route it back.
+3. **Tier 3 — the fidelity critique.** Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/visual/<bet-slug>/` and `document_type: visual-fidelity`. The reviewer adopts the designer persona, reads the captured screenshots, grades craft against the design system's intent and `## Design References` with live-researched reference imagery as calibration, and returns the standard verdict. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; on `VERDICT: REVISE`, address the 🔴 findings and re-invoke, subject to the revise cap, which prevents an infinite polish loop. 🟡 advisory findings carry to the user.
+
+Report which tiers ran and the Tier-3 verdict in one line, so the run/skip is auditable — the multimodal critique with live web research is the costly tier and its execution is stated, never silent.
+
 ### Step 2.7: Record the bet in the capability ledger
 
 Skip this step entirely when the project has no `docs/surfaces.md` — a project without a registry has a single implicit surface and no ledger to maintain.
@@ -74,7 +84,7 @@ For each `docs/` artifact, scan the bet conversation and the delivered code for 
 Documents to scan, in order:
 
 1. **`docs/architecture.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
-2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
+2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate. When the refinement is a design change — a new pattern or component variant, an interaction state, or an accessibility commitment — adopt the designer persona (`.agents/groundwork/skills/groundwork-designer/SKILL.md`) so the update carries the same reasoning standard the design system was built to.
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog. When the refinement is a vision-level product change — a new user type, a reframed success criterion, a capability that shifted the product's scope — adopt the product persona (`.agents/groundwork/skills/groundwork-product/SKILL.md`) so the update carries the same reasoning standard the brief was built to.
 4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
 5. **`docs/surfaces.md`** — when it exists: registry entries whose reality changed (a `planned` surface this bet activated, a changed core-access path or test medium), and confirm Step 2.7's ledger rows landed with their `.groundwork/surfaces.json` twin in lockstep. Skip when the project has no registry.

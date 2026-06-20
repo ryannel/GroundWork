@@ -78,6 +78,14 @@ Declare the fixtures you need as test-function parameters; pytest resolves them 
 
 For interface-level tests against a `graphical-ui` surface, the `page` fixture (from pytest-playwright) drives a real browser. For `cli` surfaces, use `subprocess` or `pexpect` to invoke the binary directly.
 
+## Capturing screenshots for the visual verification loop
+
+For `graphical-ui` interface tests, capture a screenshot of each key state of the screen under test — default, hover, focus, empty, loading, error — written to `.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png` (create the directory first). These are the states where "renders broken" and "looks unfinished" both live, and the captures are what the delivery agent reads (Tier 2 inspection) and the validation fidelity critique grades (Tier 3). Capture after the state is reached and assertions pass — the screenshot records the proven state, it does not replace the assertion. Capture nothing for `cli` and `agentic-protocol` surfaces; their observable output is text, asserted directly.
+
+**What capture sees, and what it does not.** A static screenshot verifies render correctness, coherence, and composition. It does *not* see motion (easing, durations, press physics) or perceived latency — both committed in the design system — so those stay behaviour-tested, asserted on timing and state, never on a frame. Do not treat a captured screen as proof of an animation or a latency budget.
+
+**Declare the routes the bet touched.** The permanent route-driven gates (render-smoke, geometry, visual-regression) sweep the screens listed in `tests/system/routes.json` (a JSON array of paths), defaulting to the app root when absent. When a bet adds or changes a `graphical-ui` route, add it to that manifest so the permanent suite covers it — the same promotion shape as the bet's other best-practice tests.
+
 ---
 
 ## Placeholder structure for red tests

@@ -180,6 +180,13 @@ def test_nextjs_app_generation(auth, apiProxy, websockets):
         assert (svc / "app" / "layout.tsx").exists(), "Root layout missing"
         assert (svc / "app" / "api" / "healthz" / "route.ts").exists(), "Health check route missing"
 
+        # --- Visual verification loop: token-conformance lint (B1) + component render test (B2) ---
+        eslint_cfg = (svc / "eslint.config.mjs").read_text()
+        assert "no-restricted-syntax" in eslint_cfg, "token-conformance lint rule missing from eslint config"
+        assert "Tailwind arbitrary colour value" in eslint_cfg, "token-conformance lint messages missing"
+        assert (svc / "components" / "render-smoke.test.tsx").exists(), \
+            "component render-test example missing"
+
         # --- Auth ---
         if auth == "clerk":
             assert (svc / "proxy.ts").exists(), "proxy.ts missing for auth=clerk"
@@ -558,6 +565,10 @@ def test_system_test_runner_generation(medium):
                 "tests/system/pages/base_page.py missing for interfaceMedium=graphical-ui"
             assert (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
                 "tests/system/test_a11y_smoke.py missing for interfaceMedium=graphical-ui"
+            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py"):
+                p = sandbox / "tests" / "system" / layer
+                assert p.exists(), f"tests/system/{layer} missing for interfaceMedium=graphical-ui"
+                _py_compiles(p)
         else:
             assert "pytest-playwright" not in pyproject, \
                 f"pytest-playwright should be absent for interfaceMedium={medium}"
@@ -565,6 +576,9 @@ def test_system_test_runner_generation(medium):
                 f"tests/system/pages/ should be absent for interfaceMedium={medium}"
             assert not (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
                 f"tests/system/test_a11y_smoke.py should be absent for interfaceMedium={medium}"
+            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py"):
+                assert not (sandbox / "tests" / "system" / layer).exists(), \
+                    f"tests/system/{layer} should be absent for interfaceMedium={medium}"
 
         # --- Shared conftest WORKSPACE_ROOT depth ---
         # conftest.py now lives at tests/ — one level shallower than tests/system/.
@@ -670,6 +684,21 @@ def test_system_test_runner_two_surface_generation():
         _py_compiles(a11y_path)
         assert "def test_web_app_root_a11y_smoke" in a11y_path.read_text(), \
             "a11y smoke not generated per graphical surface"
+        render_smoke_path = sandbox / "tests" / "system" / "test_render_smoke.py"
+        assert render_smoke_path.exists(), "render smoke missing despite a playwright surface"
+        _py_compiles(render_smoke_path)
+        assert "def test_web_app_render_smoke" in render_smoke_path.read_text(), \
+            "render smoke not generated per graphical surface"
+        geometry_path = sandbox / "tests" / "system" / "test_layout_geometry.py"
+        assert geometry_path.exists(), "geometry gate missing despite a playwright surface"
+        _py_compiles(geometry_path)
+        assert "def test_web_app_no_horizontal_overflow" in geometry_path.read_text(), \
+            "geometry gate not generated per graphical surface"
+        visreg_path = sandbox / "tests" / "system" / "test_visual_regression.py"
+        assert visreg_path.exists(), "visual regression gate missing despite a playwright surface"
+        _py_compiles(visreg_path)
+        assert "def test_web_app_visual_regression" in visreg_path.read_text(), \
+            "visual regression gate not generated per graphical surface"
     finally:
         shutil.rmtree(sandbox, ignore_errors=True)
 

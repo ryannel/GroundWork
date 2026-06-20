@@ -32,13 +32,19 @@ Confirm any domain doc changes with the user before proceeding to Step 2. Skip t
 
 ## Step 1.9: Adopt the architect persona
 
-The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the rest of this phase.
+The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the Capability Design and contract work in this phase. The Surface Design subsection is the designer's — see Step 1.95.
 
 Route to its `references/` by what this bet touches: `core-and-boundaries.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
 
 The bet must fit inside the boundaries `docs/architecture.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
 
 If a design decision changes what the bet delivers to its users — cutting a capability to fit the appetite, or expanding scope the pitch did not commit — that is a value/scope call, not a structural one: defer it to the product persona (`.agents/groundwork/skills/groundwork-product/SKILL.md`) rather than deciding it from the architecture seat. The architect owns feasibility; product owns whether the changed scope is still worth building.
+
+## Step 1.95: Adopt the designer persona for Surface Design
+
+The **Surface Design** subsection of the Technical Design Document (Step 2) is design discipline — how each surface looks, the states it must cover, and the interaction and visual intent that the contract then serves. For that subsection, load `.agents/groundwork/skills/groundwork-designer/SKILL.md` and design as that persona; return to the architect for Capability Design. The designer owns usability and craft, the architect owns feasibility — and Surface Design is drafted first precisely because the contract must serve the experience.
+
+Route to the designer's `references/` by what the surface needs: `interaction-and-motion.md` for the full set of states (empty, loading, partial, error, success) and the feedback and motion each demands; `usability-and-ux.md` for the flow, forms, and error recovery; `visual-craft.md` and `layout-and-space.md` where the surface introduces visual or spatial decisions the design system has not already settled; `accessibility.md` for keyboard, focus, and contrast obligations. Specify the per-surface visual intent concretely enough that a milestone test can judge the rendered result against it, and use the design system in `docs/design-system.md` rather than inventing a parallel one.
 
 ## Step 2: Draft the Technical Design Document
 

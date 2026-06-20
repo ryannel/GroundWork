@@ -1,0 +1,104 @@
+"""Visual regression gate — Tier 1 of the visual verification loop, OPT-IN.
+
+Screenshot-baseline diffing catches *unintended* visual change against a known-good
+baseline. It is off by default (decision D8): it carries real baseline-management and
+flakiness cost, and it does nothing for a screen's *first* render — that is what the
+render-smoke, a11y, and geometry gates plus the agent's own inspection cover. Turn it
+on only once a surface is visually stable and worth pinning.
+
+Enable: set GROUNDWORK_VISUAL_REGRESSION=1. Baselines live in
+tests/system/visual-baselines/<surface>/<route>.png and are committed to the repo.
+Update protocol: review the diff, then re-run with GROUNDWORK_VISUAL_REGRESSION=update
+to overwrite the baseline deliberately — never auto-update in CI.
+
+Determinism note: when enabled the gate pins the viewport, disables animations, and
+masks nothing by default; add per-project masks for dynamic regions (timestamps,
+avatars) before trusting it. Requires Pillow for the pixel diff; skips if absent.
+"""
+
+import json
+import os
+import pathlib
+
+import pytest
+from playwright.sync_api import Page
+
+_MODE = os.environ.get("GROUNDWORK_VISUAL_REGRESSION", "")
+_BASELINE_DIR = pathlib.Path("tests/system/visual-baselines")
+# Fraction of differing pixels tolerated before a route is considered changed.
+_DIFF_THRESHOLD = 0.01
+DESKTOP = (1280, 800)
+
+
+def _load_routes() -> tuple[str, ...]:
+    manifest = pathlib.Path("tests/system/routes.json")
+    if manifest.exists():
+        try:
+            routes = json.loads(manifest.read_text())
+            if isinstance(routes, list) and routes:
+                return tuple(routes)
+        except Exception:  # noqa: BLE001 — a malformed manifest falls back to root
+            pass
+    return ("/",)
+
+
+ROUTES = _load_routes()
+
+
+def _diff_fraction(a_bytes: bytes, b_bytes: bytes) -> float:
+    from io import BytesIO
+
+    from PIL import Image, ImageChops
+
+    a = Image.open(BytesIO(a_bytes)).convert("RGB")
+    b = Image.open(BytesIO(b_bytes)).convert("RGB")
+    if a.size != b.size:
+        return 1.0
+    diff = ImageChops.difference(a, b)
+    bbox = diff.getbbox()
+    if bbox is None:
+        return 0.0
+    changed = sum(1 for px in diff.crop(bbox).getdata() if any(px))
+    return changed / float(a.size[0] * a.size[1])
+
+
+def _visual_regression(page: Page, surface_slug: str, base_url: str | None) -> None:
+    if not _MODE:
+        pytest.skip("visual regression is opt-in; set GROUNDWORK_VISUAL_REGRESSION=1")
+    try:
+        import PIL  # noqa: F401
+    except ImportError:
+        pytest.skip("visual regression needs Pillow (pip install Pillow)")
+
+    page.set_viewport_size({"width": DESKTOP[0], "height": DESKTOP[1]})
+    out_dir = _BASELINE_DIR / surface_slug
+    for route in ROUTES:
+        target = (base_url.rstrip("/") + route) if base_url else route
+        page.goto(target, wait_until="load")
+        page.wait_for_load_state("networkidle")
+        shot = page.screenshot(animations="disabled", full_page=True)
+
+        slug = route.strip("/").replace("/", "_") or "root"
+        baseline = out_dir / f"{slug}.png"
+        if _MODE == "update" or not baseline.exists():
+            out_dir.mkdir(parents=True, exist_ok=True)
+            baseline.write_bytes(shot)
+            if _MODE != "update":
+                pytest.skip(f"no baseline for {surface_slug} {route}; wrote one — review and commit it")
+            continue
+
+        frac = _diff_fraction(baseline.read_bytes(), shot)
+        assert frac <= _DIFF_THRESHOLD, (
+            f"{surface_slug} {route} changed visually: {frac:.1%} of pixels differ "
+            f"from the baseline (threshold {_DIFF_THRESHOLD:.0%}). Review the change; "
+            f"re-run with GROUNDWORK_VISUAL_REGRESSION=update to accept it."
+        )
+<% if (!surfaces) { -%>
+
+def test_frontend_visual_regression(cluster, frontend_base_url, page: Page):
+    _visual_regression(page, "frontend", frontend_base_url)
+<% } else { -%><% graphicalSurfaces.forEach((s) => { %>
+
+def test_<%= s.ident %>_visual_regression(cluster, <%= s.ident %>_page: Page):
+    _visual_regression(<%= s.ident %>_page, "<%= s.slug %>", None)
+<% }) %><% } -%>

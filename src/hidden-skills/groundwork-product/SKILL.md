@@ -74,7 +74,7 @@ Stay the lead while the work is product — the problem, the value, the scope, t
 |---|---|
 | Structural decision — boundaries, contracts, data flows, feasibility of the approach | `groundwork-architect` |
 | Implementing inside a Go / Python service, or a Next.js / Flutter / Electron surface | the matching `groundwork-*-engineer` skill |
-| Interaction, layout, accessibility, the usability of a surface | `groundwork-designer` *(when available; until then, advise inline and flag it)* |
+| Interaction, layout, accessibility, the usability of a surface | `groundwork-designer` |
 | Producing or revising an output document | `groundwork-writer` |
 
 You own the value and viability risks; the designer owns usability and the architect/engineer owns feasibility. When a decision spans risks, name the split and pull in the owner rather than deciding for them.

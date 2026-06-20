@@ -342,3 +342,14 @@ Phase 6 runs once for the whole design system, in the foundation flow. This trac
 - **Brand tokens:** the Tier 2 `terminal` block — colour role table, symbol vocabulary, splash, typography per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — carrying the *same* values as the colour architecture and symbol vocabulary just written into the document. This is the machine projection scaffolding reads to brand the `./dev` CLI and the product's own CLI.
 - **Summary key decisions:** colour role table, output structure, exit-code policy; and for interactive/hybrid CLIs, the session model, streaming budget, and slash-command grammar. Binding constraints include the ANSI fallback chain, machine-readability requirements, accessibility floors.
 - **Hand-off content:** rejected colour palettes or output templates, deferred decisions (composition rules, plugin architecture), user instincts about CLI ergonomics not yet committed.
+
+## Verification Gate
+
+The visual verification loop is medium-general: observe the running artifact in its medium, against intent and reference. For a `cli` surface the artifact is **terminal output**, and the same three tiers apply — graphical screenshots are one instance of a wider pattern, not a special case.
+
+- **Capture:** the command's rendered output (stdout/stderr, exit code), captured by the surface's interface tests via `subprocess`/`pexpect`.
+- **Tier 1 — does it run:** the command executes, exits with the policy's code, and does not crash to stderr — deterministic, asserted directly on output and exit status.
+- **Tier 2 — does it read coherently:** the delivery agent reads the captured output and judges it against this track's output structure and colour-role table.
+- **Tier 3 — is it excellent:** output ergonomics graded against the CLI spec and the reference tools this track names (ripgrep, Terraform) — alignment, density, colour discipline, error legibility.
+
+The deterministic CLI gate runs today through the surface's interface tests; the graphical render-smoke generator is the first built instance of Tier 1, and the CLI equivalent is sequenced after it. No track is silently graphical-only.

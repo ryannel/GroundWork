@@ -52,6 +52,13 @@ setup runs. The other sections ship at install time.*
 - [Agent-native systems](docs/principles/ai-native/agent-native-systems.md): Designing for agentic workloads.
 - [Agentic systems](docs/principles/ai-native/agentic-systems.md): Agents as first-class actors — topology, MCP/A2A/AG-UI, memory, durable execution, guardrails, oversight.
 - [AI-native product](docs/principles/ai-native/ai-native-product.md): Product management for probabilistic systems — the continuous decision loop, evals as a product responsibility, dual success metrics, the three AI cost layers.
+- [Design foundations](docs/principles/design/design-foundations.md): The design discipline's core beliefs — taste as input, implemented specification as output, every interface state designed.
+- [Visual design](docs/principles/design/visual-design.md): Perceptual colour (OKLCH), typographic rigour, modelled light and depth, hierarchy by weight before size.
+- [Layout & space](docs/principles/design/layout-and-space.md): Spacing scale, grid, intrinsic and fluid layout, container queries, density, responsiveness.
+- [Interaction & motion](docs/principles/design/interaction-and-motion.md): Affordance and feedback, the full set of interface states, purposeful motion, perceived performance.
+- [Usability & UX](docs/principles/design/usability-and-ux.md): Heuristics and UX laws, cognitive load, forms, error prevention, navigation and scent.
+- [Design systems & tokens](docs/principles/design/design-systems-and-tokens.md): Token tiers and naming, theming, components as contracts, design-system governance.
+- [AI-native design](docs/principles/design/ai-native-design.md): Designing probabilistic and generative features — latency, confidence, failure, autonomy, chat-vs-GUI.
 - [Postgres](docs/principles/stack/postgres.md): Schema design, migrations, and query patterns.
 
 ## System

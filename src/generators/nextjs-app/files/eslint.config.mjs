@@ -63,7 +63,34 @@ export default tseslint.config(
       "@typescript-eslint/ban-ts-comment": "warn",
       "react-hooks/exhaustive-deps": "warn",
       "react-hooks/rules-of-hooks": "warn",
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+
+      // Token-conformance gate (visual verification loop, Tier 1). Design values
+      // live in the token layer — CSS custom properties in app/globals.css, surfaced
+      // as Tailwind token utilities (bg-primary, text-foreground, px-4). A raw colour
+      // or length literal in a component bypasses the design system and drifts
+      // silently, so it fails lint. globals.css is the token-definition layer and is
+      // not linted here (ESLint does not lint CSS). Catches inline-style hex/px and
+      // Tailwind arbitrary values; token utilities and CSS-variable references pass.
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "JSXAttribute[name.name='style'] Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+          message: "Raw hex colour in an inline style — use a design token (a Tailwind token utility or a CSS custom property defined in globals.css), not a literal.",
+        },
+        {
+          selector: "JSXAttribute[name.name='style'] Literal[value=/[0-9](px|rem)\\b/]",
+          message: "Raw length literal in an inline style — use a spacing/size token from the design system, not a hardcoded px/rem value.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'] Literal[value=/\\[#[0-9a-fA-F]/]",
+          message: "Tailwind arbitrary colour value (e.g. bg-[#3b82f6]) — use a semantic token utility (bg-primary, text-foreground) defined in the token layer.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'] Literal[value=/\\[[0-9.]+(px|rem)\\]/]",
+          message: "Tailwind arbitrary length value (e.g. p-[12px]) — use a spacing-scale utility (p-3, gap-4), not a hardcoded length.",
+        },
+      ],
     },
   },
   {

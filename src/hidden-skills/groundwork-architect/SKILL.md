@@ -85,7 +85,7 @@ Stay the lead while the work is structural — boundaries, contracts, trade-offs
 | Implementing inside a Go / Python service | `groundwork-go-engineer` / `groundwork-python-engineer` |
 | Building a Next.js / Flutter / Electron surface | `groundwork-nextjs-engineer` / `groundwork-flutter-engineer` / `groundwork-electron-engineer` |
 | Product framing — user value, scope, success criteria, sequencing | `groundwork-product` |
-| Design language, interaction, accessibility of a surface | `groundwork-designer` *(when available; until then, advise inline and flag it)* |
+| Design language, interaction, accessibility of a surface | `groundwork-designer` |
 | Producing or revising an output document | `groundwork-writer` |
 
 The engineer skill is the authority on whether an implementation honours the boundary you set; you are the authority on where the boundary belongs.

@@ -125,8 +125,9 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-persona` | `.agents/groundwork/skills/groundwork-persona/instructions.md` |
 | `groundwork-architect` | `.agents/groundwork/skills/groundwork-architect/SKILL.md` |
 | `groundwork-product` | `.agents/groundwork/skills/groundwork-product/SKILL.md` |
+| `groundwork-designer` | `.agents/groundwork/skills/groundwork-designer/SKILL.md` |
 
-> `groundwork-architect` and `groundwork-product` are discipline-expert personas, not lifecycle phases. Neither is routed to on its own — each is adopted *within* a setup workflow and the bet lifecycle: the architect inside the architecture workflow and the bet design phase (whenever a structural trade-off is in play); the product persona inside the product-brief workflow and the bet discovery phase (whenever what to build and whether it is worth it is in play). Each carries its principles self-contained in its own `references/`.
+> `groundwork-architect`, `groundwork-product`, and `groundwork-designer` are discipline-expert personas, not lifecycle phases. None is routed to on its own — each is adopted *within* a setup workflow and the bet lifecycle: the architect inside the architecture workflow and the bet design phase (whenever a structural trade-off is in play); the product persona inside the product-brief workflow and the bet discovery phase (whenever what to build and whether it is worth it is in play); the designer inside the design-system workflow and the bet design phase (whenever how it looks, feels, or behaves is in play), with a lighter touch in bet validation when the delivered UI is judged against its intent. Each carries its principles self-contained in its own `references/`.
 
 ---
 

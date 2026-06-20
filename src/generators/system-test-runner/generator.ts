@@ -122,11 +122,15 @@ export async function systemTestRunnerGenerator(
   );
 
   // Playwright structure ships only with a graphical surface: the page-object
-  // package and the axe-core a11y smoke depend on pytest-playwright, which
-  // the pyproject template declares only when includePlaywright is set.
+  // package, the axe-core a11y smoke, and the render-smoke gate depend on
+  // pytest-playwright, which the pyproject template declares only when
+  // includePlaywright is set.
   if (!includePlaywright) {
     tree.delete('tests/system/pages');
     tree.delete('tests/system/test_a11y_smoke.py');
+    tree.delete('tests/system/test_render_smoke.py');
+    tree.delete('tests/system/test_layout_geometry.py');
+    tree.delete('tests/system/test_visual_regression.py');
   }
 
   await formatFiles(tree);

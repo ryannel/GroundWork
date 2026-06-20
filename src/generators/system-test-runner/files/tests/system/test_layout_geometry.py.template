@@ -1,0 +1,109 @@
+<% if (!surfaces) { -%>
+"""Layout geometry gate — Tier 1 of the visual verification loop.
+
+A deliberately small handful of deterministic layout invariants that responsive
+breakage violates — kept narrow to avoid heuristic flakiness. Today it asserts the
+highest-signal one: no horizontal overflow at the mobile breakpoint, the defect that
+ships a sideways-scrolling phone layout unseen. Grow the invariant set per project
+(landmark-in-viewport, no-clipped-primary-content) only where it stays deterministic.
+
+Skips cleanly when no frontend service is discovered (frontend_base_url skips).
+"""
+
+import json
+import pathlib
+
+from playwright.sync_api import Page
+
+MOBILE = (375, 812)
+# Sub-pixel rounding can add a fraction; a small tolerance avoids false failures.
+_OVERFLOW_TOLERANCE_PX = 2
+
+
+def _load_routes() -> tuple[str, ...]:
+    manifest = pathlib.Path("tests/system/routes.json")
+    if manifest.exists():
+        try:
+            routes = json.loads(manifest.read_text())
+            if isinstance(routes, list) and routes:
+                return tuple(routes)
+        except Exception:  # noqa: BLE001 — a malformed manifest falls back to root
+            pass
+    return ("/",)
+
+
+ROUTES = _load_routes()
+
+
+def _no_horizontal_overflow(page: Page, surface_slug: str, base_url: str | None) -> None:
+    page.set_viewport_size({"width": MOBILE[0], "height": MOBILE[1]})
+    for route in ROUTES:
+        target = (base_url.rstrip("/") + route) if base_url else route
+        page.goto(target, wait_until="load")
+        page.wait_for_load_state("networkidle")
+        widths = page.evaluate(
+            "() => ({ scroll: document.documentElement.scrollWidth,"
+            " client: document.documentElement.clientWidth })"
+        )
+        assert widths["scroll"] <= widths["client"] + _OVERFLOW_TOLERANCE_PX, (
+            f"{surface_slug} {route} overflows horizontally at {MOBILE[0]}px "
+            f"(scrollWidth {widths['scroll']} > clientWidth {widths['client']})"
+        )
+
+
+def test_frontend_no_horizontal_overflow(cluster, frontend_base_url, page: Page):
+    _no_horizontal_overflow(page, "frontend", frontend_base_url)
+<% } else { -%>
+"""Layout geometry gate, one test per graphical surface — Tier 1 of the visual loop.
+
+A deliberately small handful of deterministic layout invariants that responsive
+breakage violates — kept narrow to avoid heuristic flakiness. Today it asserts the
+highest-signal one: no horizontal overflow at the mobile breakpoint, the defect that
+ships a sideways-scrolling phone layout unseen. Grow the invariant set per project
+only where it stays deterministic.
+
+Skips cleanly when a surface is not reachable (its page fixture skips).
+"""
+
+import json
+import pathlib
+
+from playwright.sync_api import Page
+
+MOBILE = (375, 812)
+_OVERFLOW_TOLERANCE_PX = 2
+
+
+def _load_routes() -> tuple[str, ...]:
+    manifest = pathlib.Path("tests/system/routes.json")
+    if manifest.exists():
+        try:
+            routes = json.loads(manifest.read_text())
+            if isinstance(routes, list) and routes:
+                return tuple(routes)
+        except Exception:  # noqa: BLE001 — a malformed manifest falls back to root
+            pass
+    return ("/",)
+
+
+ROUTES = _load_routes()
+
+
+def _no_horizontal_overflow(page: Page, surface_slug: str) -> None:
+    page.set_viewport_size({"width": MOBILE[0], "height": MOBILE[1]})
+    for route in ROUTES:
+        page.goto(route, wait_until="load")
+        page.wait_for_load_state("networkidle")
+        widths = page.evaluate(
+            "() => ({ scroll: document.documentElement.scrollWidth,"
+            " client: document.documentElement.clientWidth })"
+        )
+        assert widths["scroll"] <= widths["client"] + _OVERFLOW_TOLERANCE_PX, (
+            f"{surface_slug} {route} overflows horizontally at {MOBILE[0]}px "
+            f"(scrollWidth {widths['scroll']} > clientWidth {widths['client']})"
+        )
+<% graphicalSurfaces.forEach((s) => { %>
+
+def test_<%= s.ident %>_no_horizontal_overflow(cluster, <%= s.ident %>_page: Page):
+    _no_horizontal_overflow(<%= s.ident %>_page, "<%= s.slug %>")
+<% }) %><% } -%>

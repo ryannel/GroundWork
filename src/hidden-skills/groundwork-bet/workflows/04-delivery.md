@@ -66,7 +66,7 @@ A slice closes only with zero open decision-needed and patch findings.
 
 ### 5. Roll out permanent tests
 
-Once the slice's bet-progress tests are green and the review is clear, roll out that slice's **permanent best-practice tests** — interface tests, HTTP API system tests, honeycomb service-perimeter tests, and unit tests for complex logic, per the project's testing strategy. These live in the service repos and `tests/system/`, not in `tests/bets/`, and stay in the codebase after the bet is archived.
+Once the slice's bet-progress tests are green and the review is clear, roll out that slice's **permanent best-practice tests** — interface tests, HTTP API system tests, honeycomb service-perimeter tests, and unit tests for complex logic, per the project's testing strategy. For a `graphical-ui` slice, this includes **component render tests** across the states the design system names — default, loading, empty, error, long-content — so a component that throws on a prop or state combination is caught in isolation before any page integrates it (the scaffold ships the pattern at `components/render-smoke.test.tsx`); and adding any new route to `tests/system/routes.json` so the permanent render-smoke, geometry, and a11y gates sweep it. These live in the service repos and `tests/system/`, not in `tests/bets/`, and stay in the codebase after the bet is archived.
 
 ### 6. Record and close the slice
 
@@ -75,6 +75,13 @@ Update the slice's manifest entry: `status: delivered`, `delivered_commit`, `fil
 ### Milestone close
 
 After all of a milestone's slices are delivered, run the milestone's bet-progress tests (`test_milestone_<n>_*`) to confirm the milestone's full demonstrable outcome, then mark the milestone `delivered` in the manifest. `./dev bet status` renders the board from the manifest at any point — keep it true.
+
+**Visual verification — graphical surface milestones only.** A behavioural test asserting a selector exists passes while the rendered page is blank, throwing, unstyled, or showing an error-boundary fallback — the bug class assertion tests cannot see. Before a milestone that closed a `graphical-ui` surface is marked `delivered`, run the ladder against the *running* app; skip this entirely for `core`/`cli`/`agentic-protocol` milestones, which pay nothing.
+
+1. **Tier 1 — the render-smoke pyramid is green.** The permanent `tests/system/test_render_smoke.py` and `test_a11y_smoke.py` run as part of the suite: navigation returns 2xx/3xx, zero `error`-level console output, zero uncaught exceptions, no failed same-origin requests, no error overlay, a non-blank render across the viewport × theme matrix, and the axe gate at the design system's accessibility baseline. A red layer blocks the milestone — it is a real render bug, not a flaky test.
+2. **Tier 2 — look at what you built.** Read the screenshots Tier 1 captured (`.groundwork/cache/visual/_smoke/<surface>/<route>__<viewport>__<theme>.png`, plus any per-state captures written by interface tests to `.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png`). Adopt the designer persona (`.agents/groundwork/skills/groundwork-designer/SKILL.md`, reference `design-review.md`) and judge each screen against the per-screen visual intent in `technical-design.md` and the design system: reason over rendering integrity, layout and alignment, asset fidelity, and whether each state (empty/loading/error) reads as designed rather than as a failure. Surface what is wrong; do not recite a fixed checklist. Record a one-line visual verdict per screen in the milestone's manifest notes — a milestone cannot close without it.
+
+A coherence defect the inspection spots is fixed in this same delivery phase, where it is cheapest. A finding genuinely deferred is logged as a discovery note or a `docs/maturity.md` row, never silently dropped. The Tier-3 fidelity critique against live-researched references runs once at validation (Phase 5), not per milestone.
 
 ## Amendment Protocol — when a sealed test is wrong
 

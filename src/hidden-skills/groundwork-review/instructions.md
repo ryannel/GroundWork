@@ -31,9 +31,11 @@ The contract is environment-agnostic — input and output are the same regardles
 The calling skill passes two fields:
 
 - `document_path` — the draft to review. The path may point to a cache draft (e.g. `.groundwork/cache/product-brief-draft.md`) or a committed canonical doc.
-- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`, `maturity`. Used to locate upstream documents.
+- `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`, `maturity`, `visual-fidelity`. Used to locate upstream documents.
 
 Read the document at `document_path` before beginning any check.
+
+`visual-fidelity` is the one type whose input is **images, not a prose document** — its `document_path` is the captured-screenshots directory (`.groundwork/cache/visual/<bet-slug>/`). It runs the Visual-Fidelity Review below in place of Checks 1–4. The generic text-document checks do not apply to it.
 
 ---
 
@@ -165,6 +167,16 @@ If the section lists only scope cuts and names no technical rabbit hole, yet the
 - Each roadmap row carries a dimension (D1–D9), a severity (`blocks-delivery`/`standard-divergence`/`cosmetic`), a recommendation (`fix-now`/`defer`/`blocks-delivery`), and a status (`open`/`in-bet (<slug>)`/`closed (<slug>)`/`accepted`). A missing or out-of-vocabulary value is a 🔴 finding — downstream skills parse these strings.
 - A row marked `closed` must name the closing bet slug; a row marked `accepted` must record who accepted it and why in its notes. Either absence is a 🔴 finding: an unattributed closure or acceptance cannot be audited later.
 - A 🟡 partial assessment that does not name exactly which part of the dimension fails is a 🔴 finding — "partially done" with no specifics steers no one.
+
+---
+
+## Visual-Fidelity Review (image input)
+
+Applies only when `document_type` is `visual-fidelity`. The input is the captured-screenshots directory at `document_path` (`.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png` and the `_smoke` captures), not a prose document — so Checks 1–4 do not run. Tier 1 (the deterministic render-smoke + a11y pyramid) has already passed before this review is invoked; this review grades **craft**, which a machine cannot.
+
+Adopt the designer persona — load `.agents/groundwork/skills/groundwork-designer/SKILL.md` and apply its `design-review.md` reference. Read the screenshots as images. Read two upstream sources for intent: `docs/design-system.md` (its visual spec and its `## Design References` record) and the bet's `docs/bets/<slug>/technical-design.md` Surface Design (the per-screen visual intent). Then **research current reference imagery live** — WebSearch/WebFetch for grabs of the market-leading apps named in `## Design References` (their design language is abundantly and stably public) — and use it as calibration for "what good looks like at this craft level."
+
+Apply `checklists/visual-fidelity.md` as the pass. Grade craft *dimensions* against the design system's own intent — never similarity to a reference. A "make it look like Linear" finding is itself a defect: off-brand and plagiaristic. Each finding names the screen, state, dimension, the gap against intent, and a concrete fix, calibrated to the checklist's shallow-vs-deep quality bar. Severity maps to the standard contract: a design-system violation or a critical render/legibility defect the eye catches is 🔴; a craft shortfall that is on-brand but below the bar is 🟡. Return the same `VERDICT`/`FINDINGS` blocks; the revise cap and fail-closed rules apply unchanged.
 
 ---
 
