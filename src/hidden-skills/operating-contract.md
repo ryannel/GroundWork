@@ -37,9 +37,9 @@ The discovery notes file uses these five sections. Every skill that writes or re
 | Section | What goes here |
 |---|---|
 | `## Product Brief` | Vision-level signals surfaced during later phases — new user types, missing capabilities, refined success criteria. Captured for in-flight batched application to `docs/product-brief.md`. |
-| `## Design System` | Design preferences, aesthetic instincts, interaction patterns surfaced outside the Design System phase. |
+| `## Design System` | Anything about **what the user sees or does** — interaction patterns, search/browse/navigation flows, aesthetic instincts, look-and-feel preferences — surfaced outside the Design System phase. The bright line vs `## Design Details`: if the signal describes the user-facing experience it goes here, even when it names a concrete mechanism (e.g. "faceted pills alongside conversational search", "more-like-this pivots"). |
 | `## Architecture` | Infrastructure preferences, scaling instincts, technology opinions surfaced outside the architecture phase. |
-| `## Design Details` | Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns. Feeds the Bet's Design Foundations phase when producing API contracts and data schema. |
+| `## Design Details` | **Internal mechanisms the user never sees directly** — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns — from capability and boundary conversations. Feeds the Bet's Design Foundations phase when producing API contracts and data schema. Not for user-facing interaction patterns; those go to `## Design System`. |
 | `## Bets` | Delivery priorities, MVP scope instincts, feature sequencing for future bets. Read by `groundwork-mvp` and the Bet discovery workflow. |
 
 ### When to Check

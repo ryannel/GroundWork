@@ -12,7 +12,7 @@
 
 ## Design System
 
-<!-- Design preferences, aesthetic instincts, interaction patterns surfaced outside the Design System phase. -->
+<!-- What the user sees or does: interaction patterns, search/browse/navigation flows, aesthetic instincts. User-facing signals go here even when they name a concrete mechanism (e.g. faceted vs conversational search). Internal mechanisms belong in ## Design Details. -->
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## Design Details
 
-<!-- Implementation details from capability and boundary conversations — async flows, callback patterns, job lifecycles, data ownership, contract format choices, resiliency patterns. -->
+<!-- Internal mechanisms the user never sees directly — async flows, callback patterns, job lifecycles, data ownership, contract format choices, resiliency patterns. Not user-facing interaction patterns; those go to ## Design System. -->
 
 ---
 
