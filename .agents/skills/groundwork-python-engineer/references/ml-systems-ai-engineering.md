@@ -7,11 +7,11 @@ Python ML services are services first. They meet the same bars for reliability, 
 ### 1. FastAPI for HTTP, Uvicorn for Serving, `uv` for Everything Else
 One combination, applied everywhere. The Python ecosystem has a hundred alternatives — pick one and stick.
 
-### 2. Hexagonal from the Outset
-Explicit `domain/`, `gateways/`, `providers/`, and `entrypoints/` packages, enforced by `import-linter` in CI. Model clients, storage, and the FastAPI router are all adapters. The domain has no model-library imports.
+### 2. A Pure Core, Swappable Edges from the Outset
+Explicit `core/domain`, `core/ports.py`, `core/service`, `adapters/`, and `entrypoints/` packages under `src/<package>/` (src-layout), with the inward-dependency rule enforced by `import-linter` in CI. Model clients, storage, and the FastAPI router are all adapters. The core has no model-library imports.
 
 ### 3. Model Calls Are External Integrations
-Every model call is wrapped in a gateway port, implemented by a provider with timeouts, retries with jitter, circuit breaking, and rate-limit respect. The domain never knows which provider is behind the port. Swapping providers is an adapter change.
+Every model call is wrapped behind a port the core owns, implemented by an adapter with timeouts, retries with jitter, circuit breaking, and rate-limit respect. The core never knows which provider is behind the port. Swapping providers is an adapter change.
 
 ### 4. Evals Are Part of the Test Suite
 Eval sets for every significant model-driven behaviour. Run in CI. Numeric scores with committed thresholds. Regressions block merge. "The model got a little worse" is not an acceptable landing state.

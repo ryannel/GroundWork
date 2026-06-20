@@ -10,10 +10,10 @@ forces a review of the matching reference so the distillation never drifts.
 
 | Principle file | SHA-256 | Last reviewed |
 |---|---|---|
-| src/docs/principles/foundations/product-engineering.md | 4b18f0a1eef7a7758401c97a6e0c61b29f05b563a5f5b7d83f9d45bf156a42ca | 2026-06-16 |
-| src/docs/principles/foundations/continuous-discovery.md | de543cc7b4d0e2fa85a44b1f2c46169c43080efd5bfdc9e0e35f69db4fa328c0 | 2026-06-14 |
-| src/docs/principles/foundations/product-risks.md | 9f0eabb60e7ee057f34b440a2d57b94b0403060d828b0dfcd45cd71ea1ac2f6f | 2026-06-16 |
-| src/docs/principles/foundations/success-metrics.md | 1b56701792b0d27313b15a622d9f591fb3b3e2a8a5d485eb5b0f3fbc8b6f7618 | 2026-06-14 |
-| src/docs/principles/foundations/requirements-and-specs.md | ac4289654af6ccdb7b4cbf89b820e2b15067766e262d1dfc8d4d83572d804d7f | 2026-06-14 |
-| src/docs/principles/foundations/prioritization-and-appetite.md | b4ce5ed6b41df2bbb546d684ae769d101afdea09247c6427e330bd9cebb57806 | 2026-06-16 |
-| src/docs/principles/ai-native/ai-native-product.md | 4b3f444bde6a843de73488129c2abeb46fe007b195f97313f8b67f1819c9a8bd | 2026-06-14 |
+| src/docs/principles/foundations/product-engineering.md | d3fcc05841b0ad353cfab01667997866a546b5dd252a818a98be8fef13c577bd | 2026-06-19 |
+| src/docs/principles/foundations/continuous-discovery.md | 4ab56e83a03bbbc2575b7695980f7ee4036c86624da21fcdc966ad62c3f35afc | 2026-06-19 |
+| src/docs/principles/foundations/product-risks.md | 398eaa9179c741af4b849c84b8a925095e192c89195e98246ab000e464cbe262 | 2026-06-19 |
+| src/docs/principles/foundations/success-metrics.md | 0273825959258009a1efa9d13eb2fcaa03e26792b444f7428afee6a7ca5835fe | 2026-06-19 |
+| src/docs/principles/foundations/requirements-and-specs.md | 49f5d554397ccf51ad73e2729caf5991bf3c47d0f1013a083b1177d2356e3b79 | 2026-06-19 |
+| src/docs/principles/foundations/prioritization-and-appetite.md | 09bfe8a05f84296ae06443d36fc11113d4485e56b2510da7ede7803f93787b4b | 2026-06-19 |
+| src/docs/principles/ai-native/ai-native-product.md | 38527dd861c7cfbc0bcba59155d778e06cdc82619608cb574ad0754301a6918b | 2026-06-19 |

@@ -5,7 +5,7 @@
 Every ML pipeline step follows the same structure:
 
 1. **Receive a typed domain input** — no SDK types, no raw dicts
-2. **Call a provider** through its gateway interface
+2. **Call a provider** through the port the core owns
 3. **Validate the output** — confidence, shape, required fields — before it crosses the boundary
 4. **Return a typed domain output** safe for downstream consumption
 
@@ -50,12 +50,13 @@ def validate_segments(
     return valid
 ```
 
-## Provider Mapping
+## Mapping at the Edge
 
-Providers map SDK responses to domain types at the boundary. Domain logic never imports any external SDK:
+Adapters map SDK responses to domain types at the boundary. Core logic never imports any external SDK:
 
 ```python
-class ExternalProvider:
+# src/<package>/adapters/external_api.py
+class ExternalAPIClient:
     async def process(self, input_uri: str) -> ProcessedOutput:
         raw = await self._client.process(input_uri)
         return self._to_domain(raw)
@@ -110,7 +111,7 @@ class SemanticEndpointer:
 
 ## Anti-Patterns
 
-- **Raw SDK responses in domain logic.** Map at the provider boundary.
+- **Raw SDK responses in domain logic.** Map at the adapter boundary.
 - **Hardcoded thresholds.** Confidence scores belong in configuration.
 - **Embedding one at a time.** Always batch.
 - **Embedding without versioning.** Unqueryable after model change.

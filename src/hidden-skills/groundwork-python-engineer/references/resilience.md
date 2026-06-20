@@ -106,9 +106,9 @@ Return partial results rather than hard errors when non-critical steps fail:
 
 ```python
 async def process_with_enrichment(self, input_uri: str) -> Result:
-    base = await self.primary_gateway.process(input_uri)
+    base = await self.processor.process(input_uri)
     try:
-        enrichment = await self.secondary_gateway.enrich(base)
+        enrichment = await self.enricher.enrich(base)
         return base.with_enrichment(enrichment)
     except EnrichmentUnavailableError:
         logger.warning("enrichment.unavailable", item_id=base.id)

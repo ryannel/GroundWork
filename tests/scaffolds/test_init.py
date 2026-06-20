@@ -36,7 +36,7 @@ EXPECTED_DOCS = [
     "docs/principles/delivery/devex.md",
     "docs/principles/delivery/progressive-delivery.md",
     "docs/principles/delivery/platform.md",
-    "docs/principles/system-design/hexagonal-architecture.md",
+    "docs/principles/system-design/code-structure.md",
     "docs/principles/system-design/api-design.md",
     "docs/principles/system-design/integration-patterns.md",
     "docs/principles/system-design/real-time.md",

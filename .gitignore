@@ -39,6 +39,10 @@ Thumbs.db
 .agents/settings.local.json
 .claude/settings.local.json
 
+# Background-task git worktrees (created on demand, never committed)
+.agents/worktrees/
+.claude/worktrees/
+
 # ----------------------------
 # Environment & Secrets
 # ----------------------------

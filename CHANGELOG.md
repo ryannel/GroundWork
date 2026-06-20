@@ -8,6 +8,73 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (architecture de-jargoned — keep the discipline, drop the label, 2026-06-19)
+
+The structural discipline is unchanged — a pure domain core, dependencies pointing inward,
+swappable edges, the rule enforced in CI — but it is no longer named after the "hexagonal /
+ports-and-adapters" framework, and the generated services now use each language's own idiom
+instead of a cross-language metaphor (plan: `docs/plans/pragmatic-architecture-naming.md`).
+
+- **Principle reframed.** `system-design/hexagonal-architecture.md` → `code-structure.md` ("How
+  We Structure Code"); the manifesto, `llms.txt`, the architect persona, and every cross-reference
+  follow. The whole principles corpus was deep-rewritten to research-backed, decision-grade depth.
+- **Go scaffold made idiomatic.** Interfaces move from `internal/core/gateway/` into the consuming
+  `internal/core/service` package; `internal/provider/` splits into technology-named packages
+  (`internal/postgres`, `internal/kafka`, `internal/pubsub`, `internal/httpclient`,
+  `internal/websocket`, `internal/llm`). A real `depguard` config now fails the build when the core
+  imports an edge package — the inward-flow rule is an enforced gate, not a comment.
+- **Python scaffold made idiomatic.** `core/domain/protocols.py` → `core/ports.py`; `src/provider/`
+  → `src/adapters/` with technology-prefixed implementations. The service now uses a proper PEP
+  src-layout: the importable package is `src/<service>/` (the service name in snake_case) rather
+  than a flat `src`, so imports read `from <service>.core.ports import …` and the hatch wheel,
+  Docker entrypoints, native runner, and `import-linter` root all target the real package. A real
+  `import-linter` contract now fails when `<service>.core` imports an adapter, an entrypoint, or a
+  web/db framework.
+- **Engineer skills + methodology** re-expressed in the new idiom; the capability registry, the
+  cross-phase "Capability Ports & Providers" contract, and the brownfield extractor de-jargoned.
+  The vendor "provider" concept and the `capability-ports.json` machine twin are kept verbatim.
+- New generation produces the idiomatic layout; skills clean-copy on update — `[no-migration]` for
+  scaffold templates and engineer skills, which carry forward by clean-copy and affect new
+  generation only. A user's already-scaffolded service code is theirs and is documented-forward,
+  not rewritten.
+- [migration] Installs carrying the orphaned `hexagonal-architecture.md` from before the reframe need it retired and its live cross-references carried forward to `code-structure.md` (gw-code-structure-rename)
+
+### Changed (docs-site generator now actually serves docs/, as a native runner, 2026-06-19) `[no-migration]`
+
+The `docs-site` generator (plan: `docs/plans/docs-site-scaffold.md`) is finished and verified
+against a real `next build`. It now:
+
+- **Serves the live `docs/` tree as a native `./dev` runner**, not a docker-compose service. The
+  site compiles the repo-root `docs/` at build time, which is outside any per-service Docker build
+  context — so the old containerized build could never see the docs. It registers a non-autostart
+  surface runner (`pnpm dev`) via the runner registry and no longer touches `docker-compose.yml`;
+  the Dockerfile is removed.
+- **Renders GroundWork's frontmatter-free docs with real titles.** Fumadocs requires a `title`;
+  GroundWork docs carry none. `source.config.ts` now derives each page's title (sidebar + header)
+  from its first `# H1`, so bets and lifecycle docs are browsable with correct labels — and the
+  sidebar floats the **Bets** section to the top.
+- **Pins a build-clean stack** (`fumadocs-* 14.7.7` / `fumadocs-mdx 11.10.1`, Next `15.1.8`, React
+  `19.0.0` stable, matching React 19 types, `autoprefixer`) and runs `fumadocs-mdx` on `postinstall`
+  so `@/.source` type-checks. The compilation test is no longer `xfail`.
+- **Installs and runs cleanly under pnpm 10+.** A `pnpm-workspace.yaml` allows the first-party Next
+  build deps (esbuild/sharp) to run, so `pnpm install` exits 0 and the `pnpm dev`/`pnpm build`
+  pre-run dependency check passes — otherwise pnpm's build-script gating exits non-zero and blocks
+  the runner from starting. Verified end-to-end: `./dev start` boots the runner and serves `/docs`.
+
+Offered as an **optional, default-off** step in the scaffold flow. Additive for existing installs:
+the generator is Tier-1/Tier-3 (clean-replaced / regenerated on upgrade), and a project without a
+docs site needs nothing.
+
+### Added (orchestrator answers scaffold-capability questions, 2026-06-18) `[no-migration]`
+
+The orchestrator now has a capability-discovery intent handler: when a user asks "can we scaffold a
+docs site?", "what can GroundWork generate?", or "is there a generator for X?", it answers from the
+shipped generator catalog (`.groundwork/config/generators.json`, already deployed on init/update)
+rather than guessing or loading the scaffold flow. Flag-level detail (auth, messaging, LLM provider,
+docs-site engine) is read read-only from the scaffold skill's single mapping table — no second
+catalog to drift. Skills are Tier-1 (clean-replaced on update), so existing installs pick this up on
+their next `npx groundwork-method update` with no migration.
+
 The framework upgrade path (design: `docs/plans/framework-upgrade-path.md`): every
 installed artifact gets an owner and a provenance record, and every framework change
 that touches installed projects ships with a migration — so no project is left behind

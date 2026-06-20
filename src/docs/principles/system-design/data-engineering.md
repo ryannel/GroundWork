@@ -2,7 +2,7 @@
 title: Data Engineering
 description: Events, streams, CQRS, event sourcing, and the data contracts that outlive any service.
 status: active
-last_reviewed: 2026-05-26
+last_reviewed: 2026-06-19
 ---
 # Data Engineering
 
@@ -26,11 +26,19 @@ Event payloads have explicit versions. New fields are additive; removed fields a
 
 ### 3. Partition keys are chosen deliberately
 
-Event topics partition by the identifier that matters for ordering — typically the primary entity's ID — so that all events for a single entity flow through a single partition in sequence. Choosing a partition key casually is one of the most expensive mistakes in a data system; we treat it as a design decision that deserves review.
+Partitioning forces a tradeoff with no universal answer: ordering pulls toward concentrating related records on one partition, even distribution pulls toward spreading them. The key that guarantees per-entity order — the entity's ID — also creates a hot partition the moment one entity is far busier than the rest, and the broker will not rebalance skew away for you. You size for the hottest partition and waste the rest.
+
+Decision rule:
+
+- Per-entity ordering needed and entities are roughly uniform → partition by entity ID.
+- Ordering needed but some entities are hot → use a composite key (`tenantId|entityId`) to widen routing cardinality while preserving order for the inner entity, or salt the hot key into K buckets and accept that order is lost *across* buckets.
+- No ordering requirement → leave the key null and let the producer round-robin for even load.
+
+Choosing a partition key casually is one of the most expensive mistakes in a data system. Repartitioning a live topic is a migration, not a config change, so the key gets reviewed at design time.
 
 ### 4. CQRS where it pays
 
-For read-heavy surfaces with complex projections, we maintain a read model separate from the write model. The write model owns truth; the read model owns query performance. We do not apply CQRS universally; we apply it where the read load and the write load have genuinely different shapes.
+For read-heavy surfaces with complex projections, we maintain a read model separate from the write model. The write model owns truth; the read model owns query performance. We do not apply CQRS universally; we apply it where the read load and the write load have genuinely different shapes. The tax is eventual consistency — the read model lags the write, so any surface built on it must not assume read-after-write. If a single well-indexed table serves both paths, you do not have a CQRS problem; splitting the model early buys two things to keep in sync and nothing else.
 
 ### 5. Event sourcing is a tool, not a religion
 
@@ -50,7 +58,13 @@ Changing the shape of historical data — renaming a field, re-computing a deriv
 
 ### 9. Change capture, enforced schemas, and the AI-era layer
 
-**CDC** streams a table's changes to consumers — distinct from the outbox (intentional domain events we own) as a derived stream from a table we may not, and now a backbone for replication and agent context. Schema evolution is **enforced**, not just versioned: a registry checks compatibility at registration and blocks an incompatible producer in CI. The AI-era data layer is first-class architecture — vector/embedding stores as the RAG core (chunking, hybrid search, re-ranking, metadata filtering as design concerns), feature stores for ML, and re-embedding/backfill discipline like any planned backfill. On storage, the mesh-vs-lakehouse debate resolved to *both, layered*, with an open table format (Iceberg) as the portability choice.
+**Change capture vs. outbox.** The transactional outbox is the events we *mean* to publish, written in the same database transaction as the state change so there is no dual write to lose. CDC streams the raw row changes of a table. They are complementary, not rivals: the cleanest outbox relay *is* CDC — Debezium tailing the write-ahead log — rather than a polling loop. We reach for raw-table CDC as an integration backbone only when the source cannot give us a real contract; a CDC feed of someone else's schema is a contract we never negotiated, and they can break it without telling us.
+
+**Enforced, not just versioned.** Versioning (principle 2) is the policy; enforcement is the mechanism. A schema registry checks compatibility at registration and fails the producer's build on a breaking change, shifting the contract left into CI instead of into a consumer's pager at 3am. The contract is owned by the producer; an unowned contract is stale documentation.
+
+**The AI-era data layer is architecture, not a bolt-on.** Vector/embedding stores are the retrieval core of RAG, and chunking, hybrid (lexical + semantic) search, re-ranking, and metadata filtering are design decisions, not library defaults. Default to `pgvector` in the database you already run — under roughly ten million vectors it matches dedicated stores on latency and recall while saving you a whole system to operate and keep consistent. Move to a dedicated vector database when scale, recall under heavy concurrency, or index build time make Postgres the bottleneck. Embeddings are derived data: a model change invalidates them, so re-embedding is a planned backfill (principle 8) against a versioned embedding model, never an ad-hoc rerun.
+
+**Storage: layer, don't pick a camp.** Data mesh and the lakehouse answer different questions — mesh is an org model (domain-owned data products, federated governance), the lakehouse is a technical substrate. The working pattern is layered: a platform team owns storage, catalog, and CI templates; domain teams own the products on top. For the table format there is no clean winner — Delta Lake if you are Spark/Databricks-centric, Apache Iceberg if you want engine-agnostic optionality and the broader catalog ecosystem. Pick for the engines you actually run and the vendor coupling you can tolerate, not for the benchmark of the week.
 
 ## How we apply this
 
@@ -70,3 +84,4 @@ Changing the shape of historical data — renaming a field, re-computing a deriv
 - *Data Mesh*, Zhamak Dehghani — the argument for treating data as a first-class product with owners.
 - *Streaming Systems*, Akidau, Chernyak, Lax — the deep treatment of time, watermarks, and windowing in stream processing.
 - *Event Sourcing and CQRS*, Vaughn Vernon (the relevant chapters of *Implementing DDD*) — a grounded, implementation-focused view.
+- *Data Contracts*, Chad Sanderson, Mark Freeman & B. E. Schmidt (O'Reilly, 2025) — producer-owned, shift-left enforcement of the contracts in principles 6 and 9.

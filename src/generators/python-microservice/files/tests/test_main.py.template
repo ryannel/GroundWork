@@ -2,7 +2,7 @@ import pytest
 from httpx import AsyncClient, ASGITransport
 import pytest_asyncio
 <% if (rest) { %>
-from src.main import app
+from <%= packageName %>.main import app
 <% } %>
 
 <% if (postgres) { %>

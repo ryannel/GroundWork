@@ -1,0 +1,35 @@
+<% if (messaging === 'gcp-pubsub') { %>package pubsub
+
+import (
+	"context"
+	"fmt"
+
+	gcppubsub "cloud.google.com/go/pubsub"
+	"github.com/rs/zerolog/log"
+
+	"<%= name %>/internal/core/service"
+)
+
+// Ensure Publisher implements service.MessageQueue
+var _ service.MessageQueue = (*Publisher)(nil)
+
+type Publisher struct {
+	client *gcppubsub.Client
+}
+
+func NewPublisher(projectID string) (*Publisher, error) {
+	ctx := context.Background()
+	client, err := gcppubsub.NewClient(ctx, projectID)
+	if err != nil {
+		return nil, fmt.Errorf("create pubsub client: %w", err)
+	}
+
+	log.Info().Msg("GCP Pub/Sub publisher initialized")
+	return &Publisher{client: client}, nil
+}
+
+func (p *Publisher) Publish(ctx context.Context, topic string, key, data []byte) error {
+	// Publish logic
+	return nil
+}
+<% } %>

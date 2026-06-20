@@ -1,6 +1,6 @@
 ---
 title: Go Services
-description: Idiomatic Go, gateway patterns, error handling, concurrency, and the shape of a Go microservice.
+description: Idiomatic Go, a pure core with swappable edges, error handling, concurrency, and the shape of a Go microservice.
 status: active
 last_reviewed: 2026-05-26
 ---
@@ -8,7 +8,7 @@ last_reviewed: 2026-05-26
 
 ## TL;DR
 
-Our Go code is boring on purpose. It leans into the standard library, uses interfaces only where they earn their keep, treats errors as values with context, and structures services with the gateway pattern — our Go-idiomatic expression of hexagonal architecture.
+Our Go code is boring on purpose. It leans into the standard library, uses interfaces only where they earn their keep, treats errors as values with context, and structures every service as a pure core wrapped by swappable edges — the inward-dependency rule written the Go way.
 
 ## Why this matters
 
@@ -20,9 +20,9 @@ Go rewards the engineer who resists cleverness. A Go codebase that reads like th
 
 `net/http`, `context`, `database/sql` — the standard library is the default, and we reach for a third-party package only when the standard library demonstrably cannot do the job. Frameworks that "wrap" the standard library to make it "easier" usually make it harder to reason about and harder for a new reader to follow.
 
-### 2. Gateway pattern for services
+### 2. A pure core, swappable edges
 
-Every service is structured as a gateway: a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and repository interfaces (our "ports") with Postgres-backed implementations. This is hexagonal in Go idioms — packages nested under `internal/` (`internal/core/domain`, `internal/core/service`, `internal/core/gateway` for ports, `internal/provider` for adapters, `internal/entrypoints/api` for the HTTP edge) with composition roots in `cmd/`, exported interfaces, unexported concrete types.
+Every service is a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and interfaces — `Repository`, `MessageQueue`, `TextGenerator` — declared in the core package that consumes them, with Postgres-backed (and other technology-named) implementations at the edge. Packages nest under `internal/`: `internal/core/domain` and `internal/core/service` (the latter holds both the orchestration **and** the interfaces it calls), technology-named edge packages (`internal/postgres`, `internal/kafka`, `internal/pubsub`, `internal/httpclient`, `internal/websocket`, `internal/llm`), and `internal/entrypoints/api` for the HTTP edge, with composition roots in `cmd/`. Exported interfaces declared at the point of use, concrete edge types returned. `depguard` (in `.golangci.yml.template`) fails the build if `internal/core/...` imports an edge package — the inward-flow rule is a real gate, not a convention.
 
 ### 3. Errors are values, and they carry context
 

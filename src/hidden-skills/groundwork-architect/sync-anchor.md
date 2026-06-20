@@ -10,25 +10,25 @@ a review of the matching reference so the distillation never drifts.
 
 | Principle file | SHA-256 | Last reviewed |
 |---|---|---|
-| src/docs/principles/system-design/hexagonal-architecture.md | db8b8522781944df561e2ce48ebc6f0ed5bdeeaebf12e8d5a4d4efd7056e208c | 2026-06-14 |
-| src/docs/principles/system-design/api-design.md | 59d550461bb400732340b15739256bf38160e03e1d0db47cad6e9b496b170590 | 2026-06-14 |
-| src/docs/principles/system-design/integration-patterns.md | 4f35102594c4ba8d7334960a17bb49e80637a5d5852f3449a198043640855005 | 2026-06-14 |
-| src/docs/principles/system-design/real-time.md | 33432760cf02f49e50cfbc4dfc4a108f13e5611c3f17163c7bc0bbfd4a2c65f5 | 2026-06-14 |
-| src/docs/principles/system-design/data-engineering.md | 887df4c63ea5b0b5a49205799e145e309bcf00bea2977918e729c1758e3c456e | 2026-06-14 |
-| src/docs/principles/quality/reliability.md | 6bd829f36618bcd09f89828783a8e49e627d36f0bc24da6a43114ee0636f0c74 | 2026-06-14 |
-| src/docs/principles/quality/performance.md | 18904b7e9f4eddc1c0b9b7de57b55ff8bcb218aea7d213f9520938ec6e8558d6 | 2026-06-14 |
-| src/docs/principles/quality/observability.md | e7d22e13a7fb2e0053508079d378c5d7b2df0b4fa8dff0a2c87644f66f72a184 | 2026-06-14 |
-| src/docs/principles/quality/security.md | f3e4578fe408e6eb4c9a419d6585e7440fc642c641e73b8acba695696d61a33a | 2026-06-14 |
-| src/docs/principles/quality/privacy.md | 4cc7ef656c2cc5b48932f3dccc40ff59c6598a1effb66a944f3bd2fed468dd81 | 2026-06-13 |
-| src/docs/principles/delivery/platform.md | e65c9ebf8ec125f77677291e93effad8e7c7824b32d5dc9536bcbd56d963fe92 | 2026-06-14 |
-| src/docs/principles/delivery/progressive-delivery.md | 4e29819df3ffa4da2b60e15b6491219ca1ba0810d0ecc4ce196135473ca03e22 | 2026-06-14 |
-| src/docs/principles/delivery/cost-engineering.md | 541a70fe40fcf239250a40c919c22e55ea52d8f7ef44a22fb7bf6862f3dcec45 | 2026-06-14 |
-| src/docs/principles/ai-native/agent-native-systems.md | 60e7c7bdc376340e87169a6bcae0b90c812d7eda52763d10350df14b5b7f0fd0 | 2026-06-13 |
-| src/docs/principles/ai-native/ai-engineering.md | c45bab702c57e6c58b3572f2f1af36adf1c89f4b9da6d0f9f2361e0880c9e01a | 2026-06-13 |
-| src/docs/principles/ai-native/agentic-systems.md | dabc4be9c7aa9b43a0ce7428369ed29c87388ceb614c84a5c06462ffd28abcfc | 2026-06-14 |
-| src/docs/principles/system-design/architecture-decisions.md | 6882b60d363ab32857dfdfd2c26ccb23a753300c2e412ff8cf378c661fb8bf41 | 2026-06-14 |
-| src/docs/principles/system-design/evolutionary-architecture.md | 03ecc9d6be68b4b043fcbfea45d683b643bc567cdb36f1a23d1c9d54fe152437 | 2026-06-14 |
-| src/docs/principles/system-design/surface-architecture.md | 6300fca8509c483e3ad371f6527c931b00bbe77e46b660c56c87a9c0d4e8c2dc | 2026-06-14 |
-| src/docs/principles/system-design/identity-and-access.md | ba8b3a25d00ff79cc598ff2937e8709bfa753fc7a83ec1b2e094e1f246f2f539 | 2026-06-14 |
-| src/docs/principles/system-design/durable-execution.md | 74a533606e3b03c4ce3549f0b1af46a6d59e86769132aa9f248432af6ddd00bd | 2026-06-14 |
-| src/docs/principles/index.md | 59e0d6bd8f83846ef243508479ed99c58cd4742bce7eb2f4da1d86bb8b62c54a | 2026-06-13 |
+| src/docs/principles/system-design/code-structure.md | e46fb0a5fc9c4ecee1ac840af9b43dcf00fa66cf9635ce55faabfd5d95bc2362 | 2026-06-19 |
+| src/docs/principles/system-design/api-design.md | e892bd9a1e5edbb016d95fd7a6073076c0cbd1369c22ea6b489bb2fb54d2358f | 2026-06-19 |
+| src/docs/principles/system-design/integration-patterns.md | c06186e2611f1cf393639fbbee46eb19851f83d0b68ec03c8e56df8db781d43c | 2026-06-19 |
+| src/docs/principles/system-design/real-time.md | da420fd1c174b7baa1e9a71902a2384e62f561eb3801a531fdc9831ded72d8f3 | 2026-06-19 |
+| src/docs/principles/system-design/data-engineering.md | fd0df432fc96d51c52e6ad87bd0159fa7eac7840e669fbb4174a2b6a68ae331d | 2026-06-19 |
+| src/docs/principles/quality/reliability.md | 9c9788504e0963458667d2727c3fc2359776108be593a2efc6603f6470002252 | 2026-06-19 |
+| src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-06-19 |
+| src/docs/principles/quality/observability.md | d38ac0eb660fdcebf2532f5955f371e10ada7030c6eda58e360f40e1b82b439c | 2026-06-19 |
+| src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-19 |
+| src/docs/principles/quality/privacy.md | d84f6bed50169b40daeb2a0ec7082dbd12d91d3abfa304b169cb9eb3fab494fb | 2026-06-19 |
+| src/docs/principles/delivery/platform.md | 3cbf6c13298bf1c148278ae26acdbc2601a06615ff8d85cdb0de3b41c008c626 | 2026-06-19 |
+| src/docs/principles/delivery/progressive-delivery.md | 002806b15448ea8c509edd0fdf050d35397ed9e39e77abf5b8fbb3943ab296d9 | 2026-06-19 |
+| src/docs/principles/delivery/cost-engineering.md | b2e29328e8f704c6d385173247b7d3ccaf205b71b240b54f14193b8372befe58 | 2026-06-19 |
+| src/docs/principles/ai-native/agent-native-systems.md | a59972f54655061a66e696b000fb484563f7e882a463d7d448fe848f6b1a6162 | 2026-06-19 |
+| src/docs/principles/ai-native/ai-engineering.md | 79f8796d9ede943a3685ffc897e196c3ed081fd2861052df3003d34d3374e939 | 2026-06-19 |
+| src/docs/principles/ai-native/agentic-systems.md | faf79028b59ccb6221c1e88ab2f67685c4e1b3626498a81e2bf5c7fc58298990 | 2026-06-19 |
+| src/docs/principles/system-design/architecture-decisions.md | 0ea57bf74be9b1ea8006f9f4124b3272203328d61199e8107dec4a67262a038b | 2026-06-19 |
+| src/docs/principles/system-design/evolutionary-architecture.md | 6b50d45c4c15b087160e37f1cc98934eb5ba1031319adae61aa838b930abd366 | 2026-06-19 |
+| src/docs/principles/system-design/surface-architecture.md | 724e2183433b0db8d54466deffc0be877d847cdb6b61f0da9060491907151b91 | 2026-06-19 |
+| src/docs/principles/system-design/identity-and-access.md | 18c99f755a37bec69de595a9784171c88639845c13c2f5a8497b55e40c3a5edf | 2026-06-19 |
+| src/docs/principles/system-design/durable-execution.md | e4faad5864bcbecb80c79983be6a941fee652f2f78b38701dd8bd2dda47c3ec3 | 2026-06-19 |
+| src/docs/principles/index.md | 768a6702488641666b785e1aaa694414b4544d97ee098488d447c3c59b20b096 | 2026-06-19 |

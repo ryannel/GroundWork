@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	ws "<%= name %>/internal/provider/websocket"
+	ws "<%= name %>/internal/websocket"
 )
 
 var upgrader = websocket.Upgrader{

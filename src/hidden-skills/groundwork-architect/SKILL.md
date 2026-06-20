@@ -27,7 +27,7 @@ Durable architectural guidance lives in `references/`. This skill decides what t
   1. Complexity is the enemy; the simplest structure that holds is the right one.
   2. Contracts are the single source of truth — specs are authored, clients and tests derived.
   3. Reliability and security are designed in from the first boundary, never patched on.
-  4. Hexagonal structure: dependencies flow inward toward a domain that imports nothing.
+  4. Core-and-edges structure: dependencies point inward toward a core that imports nothing concrete.
   5. We test the system, not the mock of it — boundaries are chosen to be testable against real things.
   6. Decisions are recorded and governed — context, assumptions, and trade-offs, with an owner and a review trigger — so they can be re-evaluated when their assumptions break. The record is immutable; the decision is not.
   7. Agents are first-class consumers — every interface is designed to be machine-consumable.
@@ -58,7 +58,7 @@ Load only the rows relevant to the decision. Reference files are in this skill's
 
 | Decision shape | Reference to load |
 |---|---|
-| Service boundaries, what a service owns, dependency direction, layering | `boundaries-and-hexagonal.md` |
+| Service boundaries, what a service owns, dependency direction, layering | `core-and-boundaries.md` |
 | HTTP/RPC contract shape, versioning, pagination, error model, idempotency | `api-and-contracts.md` |
 | Sync vs async, outbox, webhooks, retries, circuit breakers, timeouts | `integration-patterns.md` |
 | WebSockets, streaming, backpressure, reconnection, sequencing | `realtime-and-async.md` |

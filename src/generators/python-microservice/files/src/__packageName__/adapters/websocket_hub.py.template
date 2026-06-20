@@ -1,0 +1,36 @@
+import json
+import redis.asyncio as redis
+from <%= packageName %>.adapters.config import settings
+import asyncio
+from typing import Set
+
+class WebSocketHub:
+    def __init__(self):
+        self.redis = redis.from_url(settings.redis_url)
+        self.pubsub = self.redis.pubsub()
+        self.active_connections: Set = set()
+        self.background_tasks: Set[asyncio.Task] = set()
+        
+    async def connect(self, websocket):
+        await websocket.accept()
+        self.active_connections.add(websocket)
+        
+    def disconnect(self, websocket):
+        self.active_connections.discard(websocket)
+        
+    async def subscribe(self, channel: str):
+        await self.pubsub.subscribe(channel)
+        
+        task = asyncio.create_task(self._listen())
+        self.background_tasks.add(task)
+        task.add_done_callback(self.background_tasks.discard)
+        
+    async def _listen(self):
+        async for message in self.pubsub.listen():
+            if message['type'] == 'message':
+                data = message['data'].decode('utf-8')
+                for connection in self.active_connections:
+                    await connection.send_text(data)
+                    
+    async def broadcast(self, channel: str, message: dict):
+        await self.redis.publish(channel, json.dumps(message))

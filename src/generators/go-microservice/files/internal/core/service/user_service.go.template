@@ -5,14 +5,13 @@ import (
 	"fmt"
 
 	"<%= name %>/internal/core/domain"
-	"<%= name %>/internal/core/gateway"
 )
 
 type UserService struct {
-	repo gateway.UserRepository
+	repo UserRepository
 }
 
-func NewUserService(repo gateway.UserRepository) *UserService {
+func NewUserService(repo UserRepository) *UserService {
 	return &UserService{
 		repo: repo,
 	}

@@ -2,39 +2,57 @@
 title: Product Engineering
 description: Engineering in service of user outcomes — shaped work, appetite-based planning, and the refusal to ship the wrong thing faster.
 status: active
-last_reviewed: 2026-05-26
+last_reviewed: 2026-06-19
 ---
 # Product Engineering
 
 ## TL;DR
 
-We are product engineers before we are coders. Our job is to move user outcomes — not to ship tickets. Work is shaped before it is scheduled, scheduled against a fixed appetite rather than an estimate, and measured by the change it makes in user behaviour rather than the volume of code it produces.
+We are product engineers before we are coders. Our job is to move outcomes — not to ship tickets. Work is shaped before it is scheduled, scheduled against a fixed appetite rather than an estimate, and judged by the behaviour it changes rather than the volume of code it produces.
 
 ## Why this matters
 
-The dominant failure mode of engineering teams in 2026 is not technical debt — it is building the wrong thing well. Feature factories optimise cycle time and output velocity and end up with a product surface that grows faster than the value it delivers. Product engineering is the discipline of resisting that. It says the unit of work is a user outcome, the unit of planning is an appetite, and the test of a PR is whether a real user can feel it.
+The dominant failure mode of engineering teams is not technical debt — it is building the wrong thing well. John Cutler's "feature factory" and Melissa Perri's "build trap" name the same trap: a team optimises cycle time and output velocity until the product surface grows faster than the value it delivers, and "shipped" quietly replaces "worked" as the definition of done.
+
+AI sharpens this, it does not soften it. When generating code is nearly free, the binding constraint moves from *can we build it* to *should we, and did it work*. The 2024 and 2025 DORA reports found that AI adoption raised individual throughput but correlated with **lower delivery stability** — larger batch sizes, more code in flight, more ways to be wrong — because friction "doesn't vanish so much as move: from manual grind to deciding and verifying." Product engineering is the discipline that holds the line where the friction now lives: the unit of work is an outcome, the unit of planning is an appetite, and the test of a change is whether someone — a user, an operator, the next engineer — can feel the difference.
 
 ## Our principles
 
 ### 1. Outcomes over outputs
 
-An "output" is a feature shipped, a ticket closed, a migration completed. An "outcome" is a change in what a user can do, how quickly they can do it, or how reliably the system supports them. We plan around outcomes and let outputs be whatever shape is required to deliver them. A sprint ending with three closed tickets and no user-visible outcome is a sprint of failed work.
+An "output" is a feature shipped, a ticket closed, a migration completed. An "outcome" is, in Josh Seiden's phrase, a change in behaviour that drives results — what a user can now do, how fast they can do it, how reliably the system holds them up. We plan around outcomes and let outputs be whatever shape delivers them.
+
+The honest qualifier: outcomes are not always user-visible, and treating "no user-facing change this sprint" as failed work is wrong. Security patching, a load-bearing refactor that unblocks the next three features, paving a platform path that removes friction for internal developers — these move real outcomes (a class of incident disappears, an operator sleeps, a team ships faster) without a single end user noticing. Platform teams are measured this way on purpose: by adoption and friction removed, not deliverables counted.
+
+So the failure mode is not "invisible to users." It is **output that traces to nothing**: work whose only justification is the ticket it closes. Decision rule: before work is scheduled, name the behaviour change and who experiences it — end user, internal developer, or operator. If no one can name it, the work is unjustified, not merely unshippable.
 
 ### 2. Shape work before scheduling it
 
-No work enters a sprint without having been *shaped*: the problem stated in user terms, the rough solution sketched, the boundaries drawn to exclude rabbit holes. Shaped work is expensive upfront and cheap downstream. Unshaped work is the single biggest source of mid-sprint drift, scope creep, and late-breaking discovery that the whole approach was wrong.
+No work enters a cycle without being *shaped*: the problem stated in user terms, the rough solution sketched, the boundaries drawn to exclude rabbit holes. Shaped work is expensive upfront and cheap downstream. Unshaped work is the single biggest source of mid-cycle drift, scope creep, and late discovery that the whole approach was wrong.
+
+Shaping is bounded on both sides. Too vague and the team inherits the unsolved problem; too concrete and it is waterfall wearing a friendlier name — a finished design handed down, with no room for the people building it to make the hundred small calls only visible from inside the code. Shape Up's altitude is deliberate: concrete enough to bound the work, abstract enough to leave the build to the builders.
+
+You can only shape what you understand. Decision rule: shape when you know the problem well enough to bound the solution; when you do not — novel domain, unproven technical approach — the move is a time-boxed spike to *buy* that understanding, not a confident shape built on guesses. AI has made a throwaway prototype cheap enough that "shape by building a spike and discarding it" is now often faster than shaping on paper.
 
 ### 3. Appetite, not estimate
 
-We set an *appetite* — a statement of how much a problem is worth solving, judged by opportunity cost — and then design a solution that fits inside it. If it cannot fit, we either reduce scope or reject the work. This inverts the usual flow: instead of estimating the cost of a fixed solution, we fix the worth and negotiate the solution. It forces the team to ask "what is the best version of this we can deliver for what it is worth?" and it kills the tendency of work to expand to fill the time available. We denominate appetite in worth, not effort, and not by default in calendar time — AI compresses execution unpredictably, so a fixed "two weeks" now anchors on the axis that just got cheap and noisy. How big a bet is, separately, is its *stakes* — what is at risk if we are wrong; see [prioritization-and-appetite](prioritization-and-appetite.md).
+We set an *appetite* — a statement of how much a problem is worth solving, judged by opportunity cost — and design a solution that fits inside it. If it cannot fit, we reduce scope or reject the work. This inverts the usual flow: an estimate starts with a fixed solution and ends with a number; an appetite starts with the number and ends with a solution. It forces "what is the best version of this we can deliver for what it is worth?" and it kills the tendency of work to expand to fill the time available.
+
+We denominate appetite in worth, not effort, and not by default in calendar time. AI compresses execution unpredictably — sometimes a 19% *slowdown* on familiar code an expert already moves fast through, sometimes a large speedup on unfamiliar ground (per METR's 2025 trial) — so a fixed "two weeks" now anchors on the axis that just got cheap and noisy.
+
+Appetite does not abolish estimation everywhere, and pretending it does is its own failure. A partner-integration deadline, a compliance date, a contractual SLA — these demand a real estimate and a real date, and the appetite must respect them as constraints. Decision rule: appetite governs discretionary product bets, which is most of the portfolio; estimate where a hard external date or dependency exists, and feed that estimate in as a boundary. The error is mixing them up — estimating discretionary work, or setting a soft "appetite" for an obligation that has a date attached. How big a bet is, separately, is its *stakes* — what is at risk if we are wrong; see [prioritization-and-appetite](prioritization-and-appetite.md).
 
 ### 4. Kill your darlings
 
-If a feature is not moving an outcome, we remove it. Deletion is the most under-used tool in a product engineer's kit. Every line of code, every page of docs, every dashboard tile, every CLI flag that does not pay for its maintenance cost should be cut. A smaller, sharper product is cheaper to operate and easier for the next engineer to understand.
+If a feature is not moving an outcome, we remove it. Deletion is the most under-used tool in a product engineer's kit. Every line of code, every doc page, every dashboard tile, every CLI flag that does not pay its maintenance cost is a candidate for the cut. A smaller, sharper product is cheaper to operate and easier for the next engineer to understand.
 
-### 5. Instrument everything you ship
+Removal has its own cost, and the test is the *net* one. For anything with external surface, Hyrum's Law holds: with enough users, every observable behaviour is depended on by someone, so a hard cut breaks callers and burns trust faster than the cruft ever cost you. Decision rule: internal-only cruft, just delete it; anything users observe or script against goes through deprecate → measure usage → remove, and stays if the migration cost outweighs the carrying cost. The discipline is to default to deletion and make *keeping* earn its place — not to delete blind.
 
-A feature that is not measured does not exist from a product engineering point of view. We decide the signal *before* we ship — event, dashboard, success criterion — and we check the signal after release. If we cannot measure it, we negotiate the feature until we can.
+### 5. Instrument what you ship
+
+We decide the signal *before* we ship — event, threshold, success criterion — and we check it after release. A feature whose effect no one watches is a feature no one owns.
+
+Instrumentation is not the same as quantification, and conflating them produces dashboards that decorate rather than inform. Some outcomes resist a clean number — trust, perceived quality, a rare catastrophic failure avoided. For those the signal is qualitative (interview themes, support-ticket clusters) or a tripwire (a counter-metric that fires when you have made something worse), not another tile. So the real bar is not "measurable" — it is *owned and falsifiable*. Decision rule: before shipping, name the signal **and** the evidence that would make you reverse course. If you cannot say what would change your mind, you are not measuring, you are decorating. And measure the outcome, not the act of shipping — the 2025 DORA finding is that individual throughput gains evaporate at the org level unless they are tied back to a business result. More dashboards is not more insight; one honest counter-metric beats ten vanity lines.
 
 ## The product discipline
 
@@ -55,13 +73,18 @@ This page is the spine of a wider product corpus — the discipline of moving ou
 
 ## Anti-patterns we reject
 
-- **Velocity-as-KPI.** Story points per sprint measure nothing about user outcomes. Optimising for it corrupts the team.
-- **Estimate-driven planning.** Estimates anchor on how long the team thinks work will take, not on how much the work is worth. We use appetites instead.
-- **"Build it and they will come."** Launching a feature without a measurement plan is a signal that no one owns the outcome.
-- **Technical-debt-for-its-own-sake projects.** Refactors without a user-visible payoff are a smell; wrap them inside an outcome that demands them.
+- **Velocity-as-KPI.** Story points per sprint measure nothing about user outcomes. Optimising for it corrupts the team — and with AI inflating raw output, it corrupts faster.
+- **Estimate-driven planning.** Estimates anchor on how long the team thinks work will take, not on how much it is worth. We use appetites for discretionary work, and reserve estimates for hard external dates.
+- **"Build it and they will come."** Launching without a signal — and without naming what would make you walk it back — means no one owns the outcome.
+- **Technical-debt-for-its-own-sake projects.** Refactors with no payoff anyone can name are a smell. Tie them to the outcome they enable — faster delivery, fewer incidents, lower carrying cost — and that outcome is the justification.
+- **Big-design-up-front in a shaping costume.** A fully specified solution handed down with no room for the builders is waterfall, whatever the cycle is called.
 
 ## Further reading
 
 - *Shape Up*, Ryan Singer — the canonical treatment of shaped work and fixed appetites.
 - *Inspired*, Marty Cagan — the product-engineering triad and its implications for how teams are built.
 - *Escaping the Build Trap*, Melissa Perri — why feature-factory metrics corrupt outcomes.
+- *Outcomes Over Output*, Josh Seiden — the working definition of an outcome as a change in behaviour.
+- "12 Signs You're Working in a Feature Factory," John Cutler — the field guide to the failure mode this discipline resists.
+- *State of DevOps* (DORA), 2024 and 2025 reports — the evidence that AI raises throughput while pressuring stability, and that gains must be tied to outcomes to count.
+- "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity," METR (2025) — why execution time under AI is unpredictable, not uniformly faster.

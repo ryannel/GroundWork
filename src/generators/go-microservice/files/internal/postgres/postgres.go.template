@@ -1,0 +1,145 @@
+package postgres
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+
+	"<%= name %>/internal/core/domain"
+	"<%= name %>/internal/core/service"
+)
+
+// DB wraps the standard database connection.
+type DB struct {
+	DB *sql.DB
+}
+
+// NewDB initializes a new PostgreSQL connection.
+func NewDB(connString string) (*DB, error) {
+	// STUB: actual connection logic using e.g., pgx
+	db, err := sql.Open("postgres", connString)
+	if err != nil {
+		return nil, fmt.Errorf("open postgres connection: %w", err)
+	}
+	return &DB{DB: db}, nil
+}
+
+// Close terminates the database connection.
+func (db *DB) Close() error {
+	if err := db.DB.Close(); err != nil {
+		return fmt.Errorf("close postgres db: %w", err)
+	}
+	return nil
+}
+
+// TransactionManager implements service.TransactionManager.
+type TransactionManager struct {
+	db *DB
+}
+
+// Ensure interface compliance.
+var _ service.TransactionManager = (*TransactionManager)(nil)
+
+// NewTransactionManager creates a new transaction manager.
+func NewTransactionManager(db *DB) *TransactionManager {
+	return &TransactionManager{db: db}
+}
+
+// Begin starts a new transaction.
+func (m *TransactionManager) Begin(ctx context.Context) (service.Transaction, error) {
+	tx, err := m.db.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, fmt.Errorf("begin tx: %w", err)
+	}
+	return &Transaction{tx: tx}, nil
+}
+
+// Transaction wraps a sql.Tx to implement service.Transaction.
+type Transaction struct {
+	tx *sql.Tx
+}
+
+// Commit commits the transaction.
+func (t *Transaction) Commit(ctx context.Context) error {
+	if err := t.tx.Commit(); err != nil {
+		return fmt.Errorf("commit tx: %w", err)
+	}
+	return nil
+}
+
+// Rollback aborts the transaction.
+func (t *Transaction) Rollback(ctx context.Context) error {
+	if err := t.tx.Rollback(); err != nil {
+		return fmt.Errorf("rollback tx: %w", err)
+	}
+	return nil
+}
+
+// Repository implements service.Repository for domain.Entity.
+type Repository struct {
+	db *DB
+}
+
+// Ensure interface compliance.
+var _ service.Repository[domain.Entity] = (*Repository)(nil)
+
+// NewRepository creates a new generic entity repository.
+func NewRepository(db *DB) *Repository {
+	return &Repository{db: db}
+}
+
+// Create persists a new entity.
+func (r *Repository) Create(ctx context.Context, entity *domain.Entity) error {
+	// STUB: INSERT INTO entities (id, name) VALUES ($1, $2)
+	return nil
+}
+
+// GetByID retrieves an entity by its ID.
+func (r *Repository) GetByID(ctx context.Context, id string) (*domain.Entity, error) {
+	// STUB: SELECT id, name FROM entities WHERE id = $1
+	return &domain.Entity{ID: id}, nil
+}
+
+// Update modifies an existing entity.
+func (r *Repository) Update(ctx context.Context, entity *domain.Entity) error {
+	// STUB: UPDATE entities SET name = $2 WHERE id = $1
+	return nil
+}
+
+// Delete removes an entity by its ID.
+func (r *Repository) Delete(ctx context.Context, id string) error {
+	// STUB: DELETE FROM entities WHERE id = $1
+	return nil
+}
+
+<% if (messaging !== 'none') { %>
+// OutboxRepository implements service.OutboxRepository.
+type OutboxRepository struct {
+	db *DB
+}
+
+var _ service.OutboxRepository = (*OutboxRepository)(nil)
+
+// NewOutboxRepository creates a new outbox repository.
+func NewOutboxRepository(db *DB) *OutboxRepository {
+	return &OutboxRepository{db: db}
+}
+
+// InsertEvent saves a domain event to the outbox table.
+func (r *OutboxRepository) InsertEvent(ctx context.Context, tx service.Transaction, eventType string, payload []byte) error {
+	// STUB: INSERT INTO outbox (event_type, payload) VALUES ($1, $2)
+	return nil
+}
+
+// PollUnpublished fetches unpublished events from the outbox.
+func (r *OutboxRepository) PollUnpublished(ctx context.Context, limit int) ([]service.OutboxEvent, error) {
+	// STUB: SELECT * FROM outbox WHERE published = false ORDER BY created_at LIMIT $1 FOR UPDATE SKIP LOCKED
+	return nil, nil
+}
+
+// MarkPublished marks an outbox event as successfully published.
+func (r *OutboxRepository) MarkPublished(ctx context.Context, id string) error {
+	// STUB: UPDATE outbox SET published = true WHERE id = $1
+	return nil
+}
+<% } %>

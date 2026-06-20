@@ -46,7 +46,7 @@
     "docs-site": {
       "factory": "./dist/src/generators/docs-site/generator",
       "schema": "./src/generators/docs-site/schema.json",
-      "description": "Scaffolds a Fumadocs-powered Next.js documentation site"
+      "description": "Scaffolds a Fumadocs documentation site that serves the project's docs/ folder (product brief, architecture, bets), runs as a native ./dev runner"
     },
     "add-capability": {
       "factory": "./dist/src/generators/add-capability/generator",

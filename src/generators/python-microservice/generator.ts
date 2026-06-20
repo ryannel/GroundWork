@@ -30,6 +30,14 @@ export interface PythonMicroserviceGeneratorSchema {
 export default async function (tree: Tree, options: PythonMicroserviceGeneratorSchema) {
   const serviceNames = names(options.name);
   const projectRoot = `services/${serviceNames.fileName}`;
+  // src-layout: the importable package is `src/<packageName>` (PEP src-layout),
+  // so the package name is the service name in snake_case (a valid Python
+  // identifier). It names the `src/__packageName__/` template dir, every
+  // `from <pkg>.…` import, the hatch wheel package, and the import-linter root.
+  // Derive it from the kebab fileName (hyphens → underscores), NOT constantName:
+  // nx's constantName collapses single-char segments (`a-b1` → `AB1`), which would
+  // make the package name diverge from the intuitive `a_b1` a developer expects.
+  const packageName = serviceNames.fileName.replace(/-/g, '_');
 
   let assignedPort = 8000;
   let composeDoc: any = null;
@@ -90,6 +98,7 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
   const templateOptions = {
     ...options,
     ...serviceNames,
+    packageName,
     assignedPort,
     llmProvider,
     tmpl: '' // required by generateFiles
@@ -217,41 +226,43 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
     registerRunner(tree, {
       name: serviceNames.fileName,
       kind: 'sidecar',
-      cmd: 'uv run python src/main.py',
+      cmd: `uv run python -m ${packageName}.main`,
       cwd: projectRoot,
       autostart: true,
     });
   }
 
+  const pkgRoot = `${projectRoot}/src/${packageName}`;
+
   if (!options.rest) {
-    tree.delete(`${projectRoot}/src/entrypoints/api`);
+    tree.delete(`${pkgRoot}/entrypoints/api`);
   }
 
   if (!options.postgres) {
-    tree.delete(`${projectRoot}/src/provider/database.py`);
-    tree.delete(`${projectRoot}/src/provider/database_repository.py`);
+    tree.delete(`${pkgRoot}/adapters/database.py`);
+    tree.delete(`${pkgRoot}/adapters/repository.py`);
     tree.delete(`${projectRoot}/schema.sql`);
   }
 
   if (!options.websockets) {
-    tree.delete(`${projectRoot}/src/entrypoints/api/websocket_handler.py`);
-    tree.delete(`${projectRoot}/src/provider/websocket_hub.py`);
+    tree.delete(`${pkgRoot}/entrypoints/api/websocket_handler.py`);
+    tree.delete(`${pkgRoot}/adapters/websocket_hub.py`);
   }
 
   if (options.messaging === 'none') {
-    tree.delete(`${projectRoot}/src/provider/message_queue.py`);
+    tree.delete(`${pkgRoot}/adapters/message_queue.py`);
   }
 
   if (!options.runpod) {
-    tree.delete(`${projectRoot}/src/entrypoints/worker`);
-    tree.delete(`${projectRoot}/src/provider/comfyui_gateway.py`);
+    tree.delete(`${pkgRoot}/entrypoints/worker`);
+    tree.delete(`${pkgRoot}/adapters/comfyui.py`);
   }
 
   // LLM is a composable capability port (plan WS-F). The chosen provider —
   // anthropic | openai | local | none — selects the adapter; the port, the
   // contract test, the provider dependency and its env footprint all come from
   // the capability registry via one shared injector (no inline per-provider
-  // template here). `none` ships a raw gateway: the port + a stub + a red bet.
+  // template here). `none` ships the bare port: the interface + a stub + a red bet.
   if (options.llm) {
     applyCapability(tree, {
       capability: 'llm',

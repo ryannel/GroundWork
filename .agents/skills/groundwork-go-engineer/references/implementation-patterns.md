@@ -1,6 +1,6 @@
 # Implementation Patterns
 
-Concrete Go patterns for trace-first logging, clean architecture, error handling, and dependency injection.
+Concrete Go patterns for trace-first logging, a pure core with swappable edges, error handling, and dependency injection.
 
 ## 1. Trace-First Development
 
@@ -22,7 +22,7 @@ func (s *OrderService) Process(ctx context.Context, orderID string) error {
 
 ### Passing Context
 
-Context is King. Do not store context in structs. Pass it as the first parameter to every Domain, Service, and Provider function. Dropping the context severs the distributed trace.
+Context is King. Do not store context in structs. Pass it as the first parameter to every domain, service, and edge-implementation function. Dropping the context severs the distributed trace.
 
 ## 2. Error Handling
 
@@ -41,20 +41,21 @@ var ErrNotFound    = errors.New("not found")
 var ErrUnauthorized = errors.New("unauthorized access")
 ```
 
-### Wrapping & Mapping Errors in Providers
+### Wrapping & Mapping Errors at the Edge
 
-A Provider catching an infrastructure error wraps it into a Domain error before returning:
+An edge implementation catching an infrastructure error wraps it into a Domain error before returning:
 
 ```go
-func (r *PostgresStore) Get(ctx context.Context, id string) (*domain.Entity, error) {
+// internal/postgres
+func (r *Repository) Get(ctx context.Context, id string) (*domain.Entity, error) {
 	var entity domain.Entity
 	err := r.db.QueryRowContext(ctx, "SELECT ...").Scan(...)
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, fmt.Errorf("provider execution failed: %w", domain.ErrNotFound)
+			return nil, fmt.Errorf("lookup failed: %w", domain.ErrNotFound)
 		}
-		// %v, not %w: unexpected driver errors stay opaque at the provider
+		// %v, not %w: unexpected driver errors stay opaque at the storage
 		// boundary so callers cannot couple to infrastructure internals.
 		return nil, fmt.Errorf("unexpected db error: %v", err)
 	}
@@ -64,12 +65,12 @@ func (r *PostgresStore) Get(ctx context.Context, id string) (*domain.Entity, err
 
 ## 3. Dependency Injection
 
-### The Port (Defined by the Core)
+### The Interface (Declared by the Core)
 
-The interface belongs in `internal/core/gateway/` and speaks Domain language:
+The interface belongs in `internal/core/service` (package `service`), declared at the point of use and speaking Domain language:
 
 ```go
-package gateway
+package service
 
 import "myservice/internal/core/domain"
 
@@ -83,11 +84,11 @@ type EntityStore interface {
 Constructor injection assembles pieces at startup without globals:
 
 ```go
-// 1. Initialize the concrete Provider
-dbProvider := provider.NewPostgresStore(sqlDB)
+// 1. Initialize the concrete edge implementation
+store := postgres.NewRepository(sqlDB)
 
-// 2. Inject into the Service (which only knows the Gateway Interface)
-entityService := service.NewEntityService(dbProvider)
+// 2. Inject into the Service (which only knows the service.EntityStore interface)
+entityService := service.NewEntityService(store)
 
 // 3. Inject the Service into the inbound HTTP route
 entrypoints.RegisterEntityRoutes(router, entityService)
@@ -95,10 +96,12 @@ entrypoints.RegisterEntityRoutes(router, entityService)
 
 ## 4. Accept Interfaces, Return Structs
 
-This idiom is the bedrock of Clean Architecture. Gateways (Ports) define the interfaces. Services accept those interfaces. Providers return concrete struct representations.
+This idiom is how the inward-dependency rule is written in Go. The core service declares the interface; it accepts that interface; the edge implementation returns a concrete struct that satisfies it.
 
 ```go
-// 1. The Gateway (Port) is an interface
+// 1. The interface lives in the core, with the code that calls it
+package service
+
 type Store interface {
 	Get(ctx context.Context, id string) (*domain.Entity, error)
 }
@@ -108,11 +111,13 @@ func NewService(store Store) *Service {
 	return &Service{store: store}
 }
 
-// 3. The Provider (Adapter) returns the concrete struct
-type PostgresStore struct { /* ... */ }
+// 3. The edge implementation returns the concrete struct
+package postgres
 
-func NewPostgresStore(db *sql.DB) *PostgresStore {
-	return &PostgresStore{db: db}
+type Repository struct { /* ... */ }
+
+func NewRepository(db *sql.DB) *Repository {
+	return &Repository{db: db}
 }
 ```
 

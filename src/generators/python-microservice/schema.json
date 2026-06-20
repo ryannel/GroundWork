@@ -63,15 +63,15 @@
       "type": "string",
       "enum": ["openai", "anthropic", "local", "none"],
       "default": "openai",
-      "description": "LLM provider satisfying the LLMGateway port (only applies when --llm is set). `none` ships the port + a not-yet-implemented stub + a strict-xfail contract test — a raw gateway to build out as a bet.",
+      "description": "LLM provider satisfying the TextGenerator interface (only applies when --llm is set). `none` ships the interface + a not-yet-implemented stub + a strict-xfail contract test — a bare interface to build out as a bet.",
       "x-prompt": {
-        "message": "Which provider should satisfy the LLM port?",
+        "message": "Which provider should satisfy the LLM interface?",
         "type": "list",
         "items": [
           { "value": "anthropic", "label": "Anthropic (Claude)" },
           { "value": "openai", "label": "OpenAI (or any OpenAI-compatible endpoint)" },
           { "value": "local", "label": "Local / self-hosted (Ollama, vLLM, llama.cpp)" },
-          { "value": "none", "label": "None — raw gateway (port + red contract test, build it as a bet)" }
+          { "value": "none", "label": "None — bare interface (interface + red contract test, build it as a bet)" }
         ]
       }
     },

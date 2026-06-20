@@ -34,7 +34,7 @@ Confirm any domain doc changes with the user before proceeding to Step 2. Skip t
 
 The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the rest of this phase.
 
-Route to its `references/` by what this bet touches: `boundaries-and-hexagonal.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
+Route to its `references/` by what this bet touches: `core-and-boundaries.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
 
 The bet must fit inside the boundaries `docs/architecture.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
 

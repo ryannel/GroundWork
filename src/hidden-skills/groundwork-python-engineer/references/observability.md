@@ -30,7 +30,7 @@ High-cardinality on traces (per-user, per-tenant), lower cardinality on metrics.
 
 - Use `structlog` for structured logging. Inject `trace_id` and `span_id` from the current OTel context.
 - Every route handler and background task initialises a root span.
-- Provider calls (API, database, Pub/Sub) extract and cascade the span.
+- Adapter calls (API, database, Pub/Sub) extract and cascade the span.
 - ML model calls emit spans with: input hash, prompt version, model ID, latency, token counts, cost.
 
 ```python

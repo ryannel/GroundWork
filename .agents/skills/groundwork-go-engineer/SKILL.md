@@ -6,8 +6,9 @@ description: >
   backend handlers, services, providers, domain models, migrations, telemetry,
   structured logging, dependency injection, tests, concurrency, or service
   architecture. This skill is the execution router for Go backend work: it loads
-  reference docs selectively, preserves hexagonal boundaries, coordinates with
-  adjacent skills, and verifies changes against contracts and tests. Use this
+  reference docs selectively, preserves core/edge boundaries and the inward
+  dependency rule, coordinates with adjacent skills, and verifies changes
+  against contracts and tests. Use this
   skill whenever the user works in a Go service directory or asks about Go
   backend behavior, even if they do not explicitly ask for a "go engineer."
 ---
@@ -56,7 +57,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Go idioms, context, interfaces, DI, errors, config validation | `go-services.md` |
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
-| Capability port + provider (LLM etc.), generated adapter shape, raw-gateway bet, `add-capability` | `capability-ports.md`, `architecture.md` |
+| Capability interface + provider (LLM etc.), generated adapter shape, bare-interface bet, `add-capability` | `capability-ports.md`, `architecture.md` |
 | HTTP endpoint, handler, idempotency, CORS | `http-handlers.md`, `api-design.md` |
 | Database repository, SQL, declarative schema, test isolation | `postgres.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
@@ -105,8 +106,8 @@ These constraints prevent the most common classes of architectural damage in Go 
 - Do not create new layer boundaries without evidence from docs or existing code.
 
 ### Layer Discipline
-- Do not put business decisions in handlers, providers, middleware, migrations, or generated code when the architecture expects them in domain/service code.
-- Do not leak provider-specific types across layer boundaries. If a database driver type appears in a service interface, the architecture is broken.
+- Do not put business decisions in handlers, edge implementations, middleware, migrations, or generated code when the architecture expects them in domain/service code.
+- Do not leak implementation-specific types across the core/edge boundary. If a database driver type appears in a core interface, the architecture is broken.
 - Always validate configuration at startup (e.g., `envconfig`); do not scatter `os.Getenv` throughout the codebase.
 
 ### Inbound Defenses & API Standards

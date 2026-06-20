@@ -192,11 +192,11 @@ def test_02d_scaffold_python_microservice():
     svc_dir = SANDBOX_DIR / "services" / "narrative-engine"
     assert svc_dir.exists(), "narrative-engine directory was not created"
     assert (svc_dir / "pyproject.toml").exists(), "pyproject.toml was not created"
-    assert (svc_dir / "src" / "main.py").exists(), "main.py was not created"
-    assert (svc_dir / "src" / "entrypoints" / "api").exists(), "API entrypoint missing for rest=True"
-    assert (svc_dir / "src" / "provider" / "database.py").exists(), "database.py missing for postgres=True"
-    assert (svc_dir / "src" / "provider" / "message_queue.py").exists(), "message_queue.py missing for messaging=gcp-pubsub"
-    assert (svc_dir / "src" / "provider" / "llm_gateway.py").exists(), "llm_gateway.py missing for llm=True"
+    assert (svc_dir / "src" / "narrative_engine" / "main.py").exists(), "main.py was not created"
+    assert (svc_dir / "src" / "narrative_engine" / "entrypoints" / "api").exists(), "API entrypoint missing for rest=True"
+    assert (svc_dir / "src" / "narrative_engine" / "adapters" / "database.py").exists(), "database.py missing for postgres=True"
+    assert (svc_dir / "src" / "narrative_engine" / "adapters" / "message_queue.py").exists(), "message_queue.py missing for messaging=gcp-pubsub"
+    assert (svc_dir / "src" / "narrative_engine" / "adapters" / "llm.py").exists(), "adapters/llm.py missing for llm=True"
 
     # Verify docker-compose.yml was updated
     docker_compose = SANDBOX_DIR / "docker-compose.yml"
@@ -335,10 +335,10 @@ async def test_05b_verify_python_health():
     svc_dir = SANDBOX_DIR / "services" / "narrative-engine"
     # Python services don't generate a .env; read the port from the baked-in default in config.py.
     import re
-    config_text = (svc_dir / "src" / "provider" / "config.py").read_text()
+    config_text = (svc_dir / "src" / "narrative_engine" / "adapters" / "config.py").read_text()
     match = re.search(r"server_port: int = (\d+)", config_text)
     port = match.group(1) if match else None
-    assert port, "Could not find server_port in narrative-engine src/provider/config.py"
+    assert port, "Could not find server_port in narrative-engine src/narrative_engine/adapters/config.py"
     url = f"http://localhost:{port}/health"
 
     async with httpx.AsyncClient() as client:
@@ -462,3 +462,88 @@ def test_09_runner_lifecycle_without_docker():
         subprocess.run(["node", "./dev", "stop"], cwd=runner_sb,
                        capture_output=True, text=True)
         shutil.rmtree(runner_sb, ignore_errors=True)
+
+
+def test_10_docs_site_runner_serves_docs():
+    """The docs-site runner, end to end: the generator registers a `pnpm dev` surface
+    runner, `./dev start` boots it (no Docker), and the site actually serves the
+    repo-root docs/ tree on its port. The runner ships autostart:false (a docs site
+    is not part of every boot); the test flips it on to exercise the `./dev start`
+    path. Proves the generator-registered cmd/cwd/env launch a working server."""
+    import json
+    import time
+    import urllib.request
+
+    if shutil.which("pnpm") is None:
+        pytest.skip("pnpm not available")
+
+    sb = REPO_ROOT / ".sandboxes" / "scaffolds" / "docs-runner-boot"
+    if sb.exists():
+        shutil.rmtree(sb)
+    (sb / "docs" / "bets" / "dark-mode").mkdir(parents=True)
+    (sb / "package.json").write_text('{"name": "docsboot"}')
+    (sb / "nx.json").write_text("{}")
+    # The site reads ../../docs at build time; seed a frontmatter-free bet + home.
+    (sb / "docs" / "index.md").write_text("# Welcome\n\nHome.\n")
+    (sb / "docs" / "bets" / "dark-mode" / "pitch.md").write_text("# Pitch: Dark Mode\n\nA bet.\n")
+
+    def _port_pids():
+        out = subprocess.run(["lsof", "-ti", "tcp:4000"], capture_output=True, text=True)
+        return [p for p in out.stdout.split() if p]
+
+    try:
+        assert subprocess.run(
+            ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:workspace-dev-cli", "--appName", "docsboot"],
+            cwd=sb, capture_output=True, text=True,
+        ).returncode == 0, "workspace-dev-cli failed"
+
+        gen = subprocess.run(
+            ["npx", "--yes", "nx", "g", f"{GENERATORS_JSON}:docs-site", "--name", "docs"],
+            cwd=sb, capture_output=True, text=True, timeout=300,
+        )
+        assert gen.returncode == 0, f"docs-site failed:\n{gen.stderr}"
+
+        svc = sb / "services" / "docs"
+        # Deterministic install (the post-gen hook may have run already). The
+        # pnpm-workspace.yaml the generator ships makes this exit 0 under pnpm 10+.
+        install = subprocess.run(["pnpm", "install"], cwd=svc, capture_output=True, text=True, timeout=300)
+        assert install.returncode == 0, (
+            f"pnpm install must exit 0 (pnpm-workspace.yaml allows builds):\n{install.stdout}\n{install.stderr}"
+        )
+
+        # Flip the docs runner to autostart so `./dev start` includes it.
+        config_path = sb / ".dev" / "dev.config.json"
+        config = json.loads(config_path.read_text())
+        for r in config.get("runners", []):
+            if r["name"] == "docs":
+                r["autostart"] = True
+        config_path.write_text(json.dumps(config, indent=2) + "\n")
+
+        start = subprocess.run(["node", "./dev", "start"], cwd=sb,
+                               capture_output=True, text=True, timeout=120)
+        assert start.returncode == 0, f"./dev start failed:\n{start.stdout}\n{start.stderr}"
+
+        # Poll the docs route (next dev compiles the route on first request).
+        body, code = "", None
+        for _ in range(60):
+            try:
+                with urllib.request.urlopen("http://localhost:4000/docs", timeout=3) as resp:
+                    code = resp.status
+                    body = resp.read().decode("utf-8", "replace")
+                    if code == 200:
+                        break
+            except Exception:
+                pass
+            time.sleep(1)
+        assert code == 200, f"docs site did not serve /docs (last code={code})\nstart:\n{start.stdout}"
+        assert "<title>Welcome</title>" in body, "served page must carry the H1-derived title"
+
+        stop = subprocess.run(["node", "./dev", "stop"], cwd=sb,
+                              capture_output=True, text=True, timeout=120)
+        assert stop.returncode == 0, f"./dev stop failed:\n{stop.stderr}"
+    finally:
+        subprocess.run(["node", "./dev", "stop"], cwd=sb, capture_output=True, text=True)
+        # next dev spawns a child server; make sure nothing keeps port 4000.
+        for pid in _port_pids():
+            subprocess.run(["kill", "-9", pid], capture_output=True, text=True)
+        shutil.rmtree(sb, ignore_errors=True)
