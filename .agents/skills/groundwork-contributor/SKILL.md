@@ -65,14 +65,11 @@ groundWork/
 │       ├── skill-writer/              ← How to write skill instructions. Dev-only, not shipped.
 │       ├── skill-creator/             ← Anthropic skill creation workflow (vendored; tracked in skills-lock.json).
 │       ├── scaffold-designer/         ← How to design new Nx generators for this repo.
-│       ├── golang-pro/                ← Vendored general Go skill (tracked in skills-lock.json). Routing prefers the go-engineer mirror.
-│       ├── groundwork-go-engineer/    ← Read-only mirror of src/hidden-skills/groundwork-go-engineer (see Engineer-skill mirrors).
-│       ├── groundwork-python-engineer/← Read-only mirror of src/hidden-skills/groundwork-python-engineer.
-│       └── groundwork-nextjs-engineer/← Read-only mirror of src/hidden-skills/groundwork-nextjs-engineer.
+│       └── golang-pro/                ← Vendored general Go skill (tracked in skills-lock.json). Engineer skills are NOT mirrored here — read their canon in src/hidden-skills/.
 │
 ├── docs/                      ← GroundWork's own framework documentation. NOT output from running GroundWork on this repo.
 │   ├── lifecycle/             → The user-facing methodology reference: setup, delivery loop, maintenance.
-│   ├── principles/            → Stack-specific engineering principles, mirrored into the engineer skills.
+│   ├── principles/            → Stack-specific engineering principles, distilled into the engineer/discipline skill references (sync-anchored).
 │   ├── plans/                 → Design plans for cross-cutting restructures (see Design Plans below).
 │   └── examples/              → Artifacts committed from real runs, referenced by getting-started.
 ├── migrations/                ← The migration registry (ships in the package). index.json + cli modules +
@@ -169,17 +166,19 @@ for any new methodology skill (product-brief, setup, bet, design-system, etc.).
 The orchestrator's routing table lives directly in `src/skills/groundwork-orchestrator/SKILL.md`.
 When adding a new methodology skill, add a row to the Skill Paths table there.
 
-### Engineer-skill mirrors
+### Engineer-skill delivery
 
 The three engineer skills (`groundwork-go-engineer`, `groundwork-python-engineer`,
-`groundwork-nextjs-engineer`) exist twice in this repo: the **canon** in
-`src/hidden-skills/` (what ships to users) and a copy in `.agents/skills/` so the same
-expertise is available while working on this repo itself. The mirror is read-only —
-edit the canon, then copy it over the mirror (`rsync -a --delete src/hidden-skills/<skill>/ .agents/skills/<skill>/`).
-This is the one place where the "`.agents/` is authoritative" rule inverts. Two gates in
-`./dev test contracts` (`tests/scaffolds/test_skill_sync.py`) enforce it: mirrors must be
-byte-identical to canon, and every `sync-anchor.md` hash must match its pinned principle
-file — so a principle edit forces a skill review in the same commit.
+`groundwork-nextjs-engineer`) are product deliverables. Their canon lives only in
+`src/hidden-skills/`; `promoteEngineerSkill()` (`src/generators/shared/scaffold-helpers.ts`)
+copies the matching skill into a scaffolded project per language — Go for
+`go-microservice`, Python for `python-microservice`, Next.js for `nextjs-app`. They are
+**not** mirrored into this repo's `.agents/skills/`: this repo has no Go/Python/Next.js
+service code, only generator templates, and delivery reads the canon directly. For in-repo
+work, read the canon under `src/hidden-skills/`. The `sync-anchor.md` gate in
+`./dev test contracts` (`tests/scaffolds/test_skill_sync.py`) still guards them — every
+pinned principle hash must match, so a principle edit forces a skill review in the same
+commit.
 
 ### Engineer-skill families
 
@@ -230,7 +229,7 @@ persona is not a lifecycle phase the orchestrator routes to on its own — it is
 The personas divide the product-risk space cleanly: product owns value + viability,
 the designer owns usability, architect + engineers own feasibility.
 
-Two rules make each one work, both mirrored from the engineer skills:
+Two rules make each one work, both shared with the engineer skills:
 
 - **Self-contained references.** The principles are *distilled into the skill's own
   `references/`*, written for that persona's decision-time lens. The skill never
