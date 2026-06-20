@@ -830,80 +830,59 @@ function readPersistedAgents(p) {
   }
 }
 
-// Interactive checkbox picker (arrow keys + space to toggle), built on Node's raw-mode
-// keypress events — no dependency. Detected agents start checked. Falls back to the detected
-// set (or Claude Code) when there's no TTY (piped npx, CI) so unattended installs still wire.
+// The native tools (Cursor, Codex, OpenCode, Cline) read AGENTS.md + .agents/skills/ directly, so
+// they need no setup. The ONLY decision worth a prompt is whether to wire Claude Code, which looks
+// for CLAUDE.md / .claude/ instead and gets symlinks to the canonical. So the interactive prompt
+// is a single yes/no, not a five-box picker where four boxes are no-ops.
+// No TTY (piped npx, CI): wire any detected wired tool, else default to Claude Code, so unattended
+// installs still wire the verified host.
 function promptAgents(detected) {
+  const wiredKeys = AGENT_KEYS.filter((k) => !AGENT_ADAPTERS[k].native);
+  const nativeLabels = AGENT_KEYS.filter((k) => AGENT_ADAPTERS[k].native).map((k) => AGENT_ADAPTERS[k].label);
+
   return new Promise((resolve) => {
     if (!process.stdin.isTTY || !process.stdout.isTTY) {
-      resolve(detected.length ? detected : ['claude-code']);
+      const det = wiredKeys.filter((k) => detected.includes(k));
+      resolve(det.length ? det : ['claude-code']);
       return;
     }
 
-    const rows = AGENT_KEYS.length;
-    const checked = new Set(detected);
-    let cursor = 0;
+    // Today there is exactly one wired (non-native) tool: Claude Code. If a second is ever added,
+    // restore a checkbox picker over `wiredKeys` here — this single yes/no only covers one.
+    const only = wiredKeys[0];
+    const a = AGENT_ADAPTERS[only];
+    const claudeDetected = detected.includes(only);
+    const nativeDetected = AGENT_KEYS.some((k) => AGENT_ADAPTERS[k].native && detected.includes(k));
+    // Default yes unless a native tool is the only thing we detected (then they're already set up).
+    const defaultYes = claudeDetected || !nativeDetected;
 
-    const header = `\x1b[1mWhich agent tools do you use here?\x1b[0m  \x1b[2m(AGENTS.md is the canonical source; each is symlinked to it)\x1b[0m`;
-    const hint = `  \x1b[2m↑/↓ move · space toggle · a all · enter confirm\x1b[0m`;
+    // Lead with the consequence: the native tools already work, so the question is only about
+    // Claude Code — and a "yes" is the one answer that writes files.
+    const nativeList = nativeLabels.length > 1
+      ? `${nativeLabels.slice(0, -1).join(', ')}, and ${nativeLabels[nativeLabels.length - 1]}`
+      : nativeLabels[0] || '';
+    console.log(`\n\x1b[1mGroundWork keeps all your project guidance in ${a.fileLink.target} and the ${a.dirLink.target}/ folder.\x1b[0m`);
+    if (nativeList) {
+      console.log(`  \x1b[32m✓\x1b[0m \x1b[2m${nativeList} read them automatically — nothing to set up.\x1b[0m`);
+    }
+    console.log(`  \x1b[2m${a.label} looks for ${a.fileLink.link} / ${a.dirLink.link}/ instead, so it needs links to them.\x1b[0m`);
 
-    const draw = (first) => {
-      // Repaint in place: return to the header line and clear downward (skip on first paint).
-      let out = first ? '' : `\r\x1b[${rows + 1}A\x1b[J`;
-      out += header + '\n';
-      AGENT_KEYS.forEach((key, i) => {
-        const a = AGENT_ADAPTERS[key];
-        const active = i === cursor;
-        const pointer = active ? '\x1b[36m❯\x1b[0m ' : '  ';
-        const box = checked.has(key) ? '\x1b[32m●\x1b[0m' : '○';
-        const note = a.native ? ' \x1b[2m(reads AGENTS.md natively)\x1b[0m' : '';
-        const label = active ? `\x1b[36m${a.label}\x1b[0m` : a.label;
-        out += `${pointer}${box} ${label}${note}\n`;
-      });
-      out += hint;
-      process.stdout.write(out);
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    const choices = defaultYes ? '\x1b[2m[Y/n]\x1b[0m' : '\x1b[2m[y/N]\x1b[0m';
+    let settled = false;
+    const settle = (yes) => {
+      if (settled) return;
+      settled = true;
+      rl.close();
+      resolve(yes ? [only] : []);
     };
-
-    const cleanup = () => {
-      process.stdin.removeListener('keypress', onKey);
-      if (process.stdin.isTTY) process.stdin.setRawMode(false);
-      process.stdin.pause();
-      process.stdout.write('\x1b[?25h\n'); // restore cursor, drop to a fresh line
-    };
-
-    const onKey = (str, key) => {
-      if (!key) return;
-      if (key.ctrl && key.name === 'c') { cleanup(); process.exit(130); }
-      const allChecked = AGENT_KEYS.every((k) => checked.has(k));
-      switch (key.name) {
-        case 'up':    cursor = (cursor - 1 + rows) % rows; break;
-        case 'down':  cursor = (cursor + 1) % rows; break;
-        case 'space': {
-          const k = AGENT_KEYS[cursor];
-          checked.has(k) ? checked.delete(k) : checked.add(k);
-          break;
-        }
-        case 'return':
-        case 'enter':
-          cleanup();
-          resolve(AGENT_KEYS.filter((k) => checked.has(k)));
-          return;
-        default:
-          if (str === 'k') cursor = (cursor - 1 + rows) % rows;
-          else if (str === 'j') cursor = (cursor + 1) % rows;
-          else if (str === 'a') AGENT_KEYS.forEach((k) => (allChecked ? checked.delete(k) : checked.add(k)));
-          else if (str === 'q') { cleanup(); process.exit(130); }
-          else return; // unrecognized key — no repaint
-      }
-      draw(false);
-    };
-
-    readline.emitKeypressEvents(process.stdin);
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
-    process.stdout.write('\x1b[?25l\n'); // hide cursor + one blank spacer line above the list
-    draw(true);
-    process.stdin.on('keypress', onKey);
+    // Enter answers; an empty line or EOF (Ctrl-D / a closed pipe) takes the shown default so the
+    // prompt can never hang an install.
+    rl.on('close', () => settle(defaultYes));
+    rl.question(`\nAre you using ${a.label} in this project?  ${choices} `, (ans) => {
+      const t = ans.trim().toLowerCase();
+      settle(t === '' ? defaultYes : t[0] === 'y');
+    });
   });
 }
 
@@ -933,8 +912,13 @@ function parseInitFlags(argv) {
 // The "switch implications" guidance: make the single-source-of-truth model explicit.
 function printWiringGuidance(selectedKeys) {
   const labels = selectedKeys.map((k) => AGENT_ADAPTERS[k] && AGENT_ADAPTERS[k].label).filter(Boolean).join(', ');
+  // No wired tool (e.g. a Cursor/Codex user) is not "nothing set up" — their tool reads AGENTS.md
+  // directly, so frame the empty case around the canonical, not around a missing link.
+  const reads = labels
+    ? `${labels} ${selectedKeys.length === 1 ? 'reads' : 'read'} them.`
+    : `Your AI tool reads them directly — no links needed.`;
   console.log(`\n\x1b[1mAgent wiring\x1b[0m`);
-  console.log(`  \x1b[2mAGENTS.md is your single source of truth.\x1b[0m ${labels || 'No agents wired'}${labels ? ` ${selectedKeys.length === 1 ? 'reads' : 'read'} it.` : '.'}`);
+  console.log(`  \x1b[2mAGENTS.md and .agents/ are your single source of truth.\x1b[0m ${reads}`);
   console.log(`  \x1b[2mAdd one later:\x1b[0m npx groundwork-method init --agent <name>  \x1b[2m(non-destructive)\x1b[0m`);
   console.log(`  \x1b[2mEdit AGENTS.md, never a symlinked copy — switching agents never moves it.\x1b[0m`);
 }
