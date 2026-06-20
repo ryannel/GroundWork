@@ -1,0 +1,33 @@
+package llm
+
+import (
+	"context"
+	"testing"
+
+	"<%= moduleName %>/internal/core/service"
+)
+
+// Compile-time conformance: the adapter satisfies the service.TextGenerator
+// interface. If the interface and adapter drift, this test file fails to build —
+// the contract is enforced at compile time, the strongest place to put it.
+var _ service.TextGenerator = (*Client)(nil)
+
+func TestClientConformsToInterface(t *testing.T) {
+	var _ service.TextGenerator = (*Client)(nil)
+}
+<% if (provider === 'none') { %>
+// Bet: the bare adapter has no implementation yet. While the stub returns an
+// error this test Skips, so a freshly scaffolded service stays green. The moment
+// you implement GenerateText it runs for real and asserts the contract — your
+// cue that the bet is delivered and this Skip can come out. The interface is the
+// spec, the adapter is the bet.
+func TestClientGeneratesText(t *testing.T) {
+	out, err := NewClient().GenerateText(context.Background(), "ping", 8)
+	if err != nil {
+		t.Skipf("bet: LLM adapter not implemented yet: %v", err)
+	}
+	if out == "" {
+		t.Fatal("expected non-empty text from the LLM client")
+	}
+}
+<% } %>

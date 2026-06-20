@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "id": "add-capability",
   "title": "Add Capability",
-  "description": "Add a hexagonal capability port + a chosen provider adapter (or a raw `none` gateway) to an existing service. The footprint — env / compose-service / runner / none — follows from the provider.",
+  "description": "Add a capability interface + a chosen provider implementation (or a bare `none` interface) to an existing service. The footprint — env / compose-service / runner / none — follows from the provider.",
   "type": "object",
   "properties": {
     "service": {
@@ -19,7 +19,7 @@
     },
     "provider": {
       "type": "string",
-      "description": "The provider that satisfies the port. Defaults to the capability's default provider. Use `none` for a raw gateway (port + stub + red contract test, to be built as a bet)."
+      "description": "The provider that satisfies the capability. Defaults to the capability's default provider. Use `none` for a bare interface (interface + stub + red contract test, to be built as a bet)."
     },
     "stack": {
       "type": "string",

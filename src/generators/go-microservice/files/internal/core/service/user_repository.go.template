@@ -1,0 +1,15 @@
+package service
+
+import (
+	"context"
+
+	"<%= name %>/internal/core/domain"
+)
+
+// UserRepository defines the interface for user data access
+type UserRepository interface {
+	GetByClerkID(ctx context.Context, clerkID string) (*domain.User, error)
+	Save(ctx context.Context, user *domain.User) error
+	Update(ctx context.Context, user *domain.User) error
+	DeleteByClerkID(ctx context.Context, clerkID string) error
+}

@@ -1,0 +1,130 @@
+import base64
+import json
+import datetime
+from typing import Optional, Tuple
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, func
+from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.orm import Mapped, mapped_column
+from <%= packageName %>.core.domain.entities import ExampleEntity, PaginatedResult, IdempotencyResponse
+from <%= packageName %>.adapters.database import Base
+
+# SQLAlchemy Models
+class ExampleModel(Base):
+    __tablename__ = "examples"
+    
+    id: Mapped[str] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    description: Mapped[Optional[str]]
+    
+    def to_domain(self) -> ExampleEntity:
+        return ExampleEntity(id=self.id, name=self.name, description=self.description)
+        
+    @classmethod
+    def from_domain(cls, entity: ExampleEntity) -> "ExampleModel":
+        return cls(id=entity.id, name=entity.name, description=entity.description)
+
+class IdempotencyKeyModel(Base):
+    __tablename__ = "idempotency_keys"
+    
+    key: Mapped[str] = mapped_column(primary_key=True)
+    user_id: Mapped[str]
+    status: Mapped[str]
+    response_code: Mapped[Optional[int]]
+    response_body: Mapped[Optional[str]]
+    response_headers: Mapped[Optional[str]]
+    created_at: Mapped[datetime.datetime] = mapped_column(server_default=func.now())
+    updated_at: Mapped[datetime.datetime] = mapped_column(server_default=func.now(), onupdate=func.now())
+
+# Repository Implementation
+class PostgresExampleRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+        
+    async def get_by_id(self, entity_id: str) -> Optional[ExampleEntity]:
+        result = await self.session.execute(
+            select(ExampleModel).where(ExampleModel.id == entity_id)
+        )
+        model = result.scalar_one_or_none()
+        return model.to_domain() if model else None
+        
+    async def save(self, entity: ExampleEntity) -> None:
+        model = ExampleModel.from_domain(entity)
+        self.session.add(model)
+        await self.session.commit()
+        
+    async def list_items(self, limit: int = 10, cursor: Optional[str] = None) -> PaginatedResult[ExampleEntity]:
+        query = select(ExampleModel).order_by(ExampleModel.id.asc()).limit(limit + 1)
+        
+        if cursor:
+            try:
+                decoded_cursor = base64.b64decode(cursor).decode('utf-8')
+                query = query.where(ExampleModel.id > decoded_cursor)
+            except Exception:
+                pass # Invalid cursor handled gracefully
+                
+        result = await self.session.execute(query)
+        models = result.scalars().all()
+        
+        has_more = len(models) > limit
+        items = models[:limit]
+        
+        next_cursor = None
+        if has_more and items:
+            last_id = items[-1].id
+            next_cursor = base64.b64encode(last_id.encode('utf-8')).decode('utf-8')
+            
+        domain_items = [model.to_domain() for model in items]
+        return PaginatedResult(items=domain_items, next_cursor=next_cursor, has_more=has_more)
+
+class PostgresIdempotencyRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def get(self, key: str, user_id: str) -> Optional[Tuple[str, Optional[IdempotencyResponse]]]:
+        result = await self.session.execute(
+            select(IdempotencyKeyModel).where(
+                IdempotencyKeyModel.key == key,
+                IdempotencyKeyModel.user_id == user_id
+            )
+        )
+        model = result.scalar_one_or_none()
+        if not model:
+            return None
+            
+        if model.status == "COMPLETED" and model.response_code is not None:
+            headers = json.loads(model.response_headers) if model.response_headers else {}
+            resp = IdempotencyResponse(
+                status_code=model.response_code,
+                headers=headers,
+                body=model.response_body or ""
+            )
+            return (model.status, resp)
+            
+        return (model.status, None)
+
+    async def lock(self, key: str, user_id: str) -> bool:
+        # Atomic insert: if the key exists, do nothing (fails to acquire lock)
+        stmt = insert(IdempotencyKeyModel).values(
+            key=key,
+            user_id=user_id,
+            status="IN_PROGRESS"
+        ).on_conflict_do_nothing()
+        
+        result = await self.session.execute(stmt)
+        await self.session.commit()
+        return result.rowcount > 0
+
+    async def save(self, key: str, user_id: str, response: IdempotencyResponse) -> None:
+        result = await self.session.execute(
+            select(IdempotencyKeyModel).where(
+                IdempotencyKeyModel.key == key,
+                IdempotencyKeyModel.user_id == user_id
+            )
+        )
+        model = result.scalar_one()
+        model.status = "COMPLETED"
+        model.response_code = response.status_code
+        model.response_body = response.body
+        model.response_headers = json.dumps(response.headers)
+        await self.session.commit()

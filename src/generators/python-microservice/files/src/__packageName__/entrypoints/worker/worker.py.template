@@ -1,0 +1,28 @@
+import runpod
+from typing import Any, Dict
+
+<% if (llm) { %>
+from <%= packageName %>.adapters.llm import LLMClient
+<% } %>
+<% if (postgres) { %>
+from <%= packageName %>.adapters.database import get_db_session
+from <%= packageName %>.adapters.repository import PostgresExampleRepository
+from <%= packageName %>.core.domain.entities import ExampleEntity
+import uuid
+import asyncio
+<% } %>
+
+def handler(job: Dict[str, Any]) -> Dict[str, Any]:
+    job_input = job['input']
+    
+    # Example boundary validation
+    if 'prompt' not in job_input:
+        return {"error": "Missing required field 'prompt' in input"}
+        
+    prompt = job_input['prompt']
+    
+    # In a real app, initialize services here. For async, use asyncio.run
+    return {"status": "success", "echo": prompt}
+
+if __name__ == '__main__':
+    runpod.serverless.start({'handler': handler})

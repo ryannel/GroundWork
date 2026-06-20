@@ -17,15 +17,18 @@ RUN uv pip compile pyproject.toml -o requirements.txt \
     && uv pip install --system -r requirements.txt
 
 COPY src/ ./src/
+# src-layout: the importable package is src/<%= packageName %>, so the source root
+# (not the app root) is what goes on the import path.
+ENV PYTHONPATH=/app/src
 <% if (postgres) { %>
 COPY schema.sql ./
 <% } %>
 
 <% if (runpod) { %>
 # Runpod serverless entrypoint
-CMD ["python", "-m", "src.entrypoints.worker.worker"]
+CMD ["python", "-m", "<%= packageName %>.entrypoints.worker.worker"]
 <% } else { %>
 # FastAPI entrypoint
 EXPOSE <%= assignedPort %>
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "<%= assignedPort %>"]
+CMD ["uvicorn", "<%= packageName %>.main:app", "--host", "0.0.0.0", "--port", "<%= assignedPort %>"]
 <% } %>

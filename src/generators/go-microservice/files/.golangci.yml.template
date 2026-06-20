@@ -1,36 +1,82 @@
-linters-settings:
-  govet:
-    enable:
-      - shadow
-  golint:
-    min-confidence: 0.8
-  gocyclo:
-    min-complexity: 15
-  maligned:
-    suggest-new: true
-  dupl:
-    threshold: 100
-  goconst:
-    min-len: 2
-    min-occurrences: 2
-
-linters:
-  disable-all: true
-  enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - unused
-    - typecheck
-    - bodyclose
-    - gosec
-    - nilerr
-    - prealloc
-    - unparam
+version: "2"
 
 run:
   concurrency: 4
-  timeout: 5m
-  tests: false
+
+linters:
+  default: none
+  enable:
+    - bodyclose
+    - depguard
+    - errcheck
+    - gosec
+    - govet
+    - ineffassign
+    - nilerr
+    - prealloc
+    - staticcheck
+    - unparam
+    - unused
+  settings:
+    govet:
+      enable:
+        - shadow
+    # depguard enforces the inward dependency rule mechanically: the core
+    # (internal/core/... — domain entities and the application services that
+    # declare the interfaces they consume) must never import an edge adapter or
+    # an infrastructure driver. Adapters (internal/postgres, internal/kafka, …)
+    # and the composition root (cmd/...) may import anything; the arrow only ever
+    # points inward (edge -> core). This makes the architecture a CI gate, not a
+    # convention. A deliberate internal/core -> internal/postgres import fails the
+    # `golangci-lint run`.
+    depguard:
+      rules:
+        core:
+          files:
+            - "**/internal/core/**"
+          deny:
+            - pkg: "<%= name %>/internal/postgres"
+              desc: "the core declares interfaces; it must not import the postgres adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/kafka"
+              desc: "the core must not import the kafka adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/pubsub"
+              desc: "the core must not import the pubsub adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/httpclient"
+              desc: "the core must not import the outbound HTTP adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/websocket"
+              desc: "the core must not import the websocket adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/llm"
+              desc: "the core must not import the llm adapter (edge -> core only)"
+            - pkg: "<%= name %>/internal/entrypoints"
+              desc: "the core must not import the inbound HTTP edge (edge -> core only)"
+            - pkg: "database/sql"
+              desc: "the core is persistence-agnostic; SQL belongs in internal/postgres"
+            - pkg: "net/http"
+              desc: "the core is transport-agnostic; HTTP belongs at the edges"
+            - pkg: "github.com/go-chi/chi/v5"
+              desc: "routing is an edge concern; keep web frameworks out of the core"
+            - pkg: "github.com/danielgtaylor/huma/v2"
+              desc: "the API framework is an edge concern; keep it out of the core"
+            - pkg: "github.com/gorilla/websocket"
+              desc: "the websocket driver belongs in internal/websocket, not the core"
+            - pkg: "github.com/lib/pq"
+              desc: "the postgres driver belongs in internal/postgres, not the core"
+            - pkg: "github.com/confluentinc/confluent-kafka-go/v2/kafka"
+              desc: "the kafka driver belongs in internal/kafka, not the core"
+            - pkg: "cloud.google.com/go/pubsub"
+              desc: "the pubsub driver belongs in internal/pubsub, not the core"
+        domain:
+          files:
+            - "**/internal/core/domain/**"
+          deny:
+            - pkg: "<%= name %>/internal"
+              desc: "the domain depends on nothing inside the module; pure types and rules only"
+  exclusions:
+    generated: lax
+    rules:
+      - path: _test\.go
+        linters:
+          - bodyclose
+          - errcheck
+          - gosec
+          - unparam

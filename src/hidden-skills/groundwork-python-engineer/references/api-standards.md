@@ -52,7 +52,7 @@ class PaginatedList(BaseModel, Generic[T]):
 
 @router.get("/items")
 async def list_items(cursor: str | None = None, limit: int = 50) -> PaginatedList[ItemResponse]:
-    # Pass cursor down to the gateway/repository
+    # Pass cursor down to the repository port
     pass
 ```
 

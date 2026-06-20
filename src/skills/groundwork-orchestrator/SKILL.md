@@ -143,6 +143,13 @@ Match intent to a skill. Briefly introduce it, then load and execute the instruc
 ### User asks for help
 Read `.agents/skills/groundwork-orchestrator/workflow-index.md` — the generated map of every lifecycle route. Answer with: what GroundWork is (one paragraph), which mode and phase this project is in (from state resolution), what the next step produces, and the index table for the current mode so the user can see the whole road. Do not paste all four tables — the current mode's table plus the Anytime table is the useful subset.
 
+### User asks what GroundWork can scaffold
+A capability question — "can we scaffold a docs site?", "what can GroundWork generate?", "is there a Go service generator?" — is answered from the **shipped generator catalog**, never from memory and never by entering the scaffold flow to find out.
+
+1. Read `.groundwork/config/generators.json` (the deployed Nx generator registry). Every entry's `name` + `description` is the catalog of what can be scaffolded — backend services, surfaces (Next.js, Flutter, Electron, CLI), the **docs site**, the system-test runner, the dev CLI. Answer the "is there a generator for X?" question directly from it. If the file is absent (a pre-config install), fall back to the package's `generators.json`.
+2. For **flag-level** detail — auth modes, messaging backends, LLM providers, the docs-site engine, etc. — the single source of truth is the generator-availability and capability→flag tables in `.agents/groundwork/skills/groundwork-scaffold/phases/01-ingestion-service-mapping.md`. Read that file read-only to answer; do not duplicate its contents here, and do not execute the scaffold phase just to quote it.
+3. Knowing a capability exists is not the same as adding it. If the user wants to actually scaffold it, route to the work: greenfield Setup phase 4 (`groundwork-scaffold`), or after setup the `groundwork-scaffold` / `groundwork-surface-activation` lane. State which, then proceed.
+
 ---
 
 ## Rules

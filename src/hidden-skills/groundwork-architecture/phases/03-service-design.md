@@ -4,7 +4,7 @@ Decide how the system is divided into services and what each one owns. This deci
 
 The goal is right-sized services — few enough to avoid distributed systems overhead, well-defined enough that each can be deployed and scaled independently. Splitting too finely creates operational noise for no benefit. Splitting too coarsely forces incompatible workloads into a single deployment.
 
-**Apply from the architect references:** `boundaries-and-hexagonal.md` — the converging-signals test for when a boundary is justified, the core/surface model, and the inward-dependency rule that keeps the domain clean. This is the persona's core reference; load it before proposing the service map.
+**Apply from the architect references:** `core-and-boundaries.md` — the converging-signals test for when a boundary is justified, the core/surface model, and the inward-dependency rule that keeps the domain clean. This is the persona's core reference; load it before proposing the service map.
 
 A service boundary is justified when multiple signals converge: the language and mental model shift, the runtime or scaling profile is incompatible with the rest, or the deployment cadence is fundamentally different. One signal alone is rarely enough.
 

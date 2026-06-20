@@ -1,28 +1,30 @@
-# Clean Architecture for Python Services
+# A Pure Core, Swappable Edges (Python)
 
 ## Dependency Rule
 
-Dependencies flow inward. Inner layers never import from outer layers.
+Dependencies flow inward. The core never imports from the edge. `import-linter` (a `[tool.importlinter]` contract in `pyproject.toml`) makes this a real gate: it forbids `<package>.core` (and `<package>.core.*`) from importing `<package>.adapters`, `<package>.entrypoints`, `fastapi`, or `sqlalchemy`, and a `<package>.core` → `<package>.adapters` import fails `lint-imports`.
 
-## Layers
+## Where code lives
 
-| Layer | Location | Depends on | Contains |
+`src/` holds the importable package `src/<package>/` (src-layout); `<package>` is the service name in snake_case. The pieces (paths relative to `src/<package>/`):
+
+| Zone | Location | Depends on | Contains |
 |---|---|---|---|
-| **Domain** | `src/<pkg>/core/domain` | Nothing (stdlib + Pydantic only) | Pydantic/dataclass entities, value objects, exceptions, constants |
-| **Gateways (Ports)** | `src/<pkg>/core/gateways` | Domain only | `typing.Protocol` or `abc.ABC` definitions describing capabilities |
-| **Services** | `src/<pkg>/core/services` | Domain + Gateways | Use-case orchestration, workflow coordination |
-| **Providers (Adapters)** | `src/<pkg>/providers/` | Domain + Gateways | Concrete implementations (Postgres, external APIs, message brokers) |
-| **Entrypoints** | `src/<pkg>/entrypoints/` | Domain + Services | FastAPI routes, CLI, Pub/Sub consumers, MCP servers |
+| **Domain** | `src/<package>/core/domain` | Nothing (stdlib + Pydantic only) | Pydantic/dataclass entities, value objects, exceptions, constants |
+| **Ports** | `src/<package>/core/ports.py` (+ per-capability modules like `src/<package>/core/llm.py`) | Domain only | `typing.Protocol` (default) or `abc.ABC` definitions describing the capabilities the core consumes |
+| **Services** | `src/<package>/core/service` | Domain + Ports | Use-case orchestration, workflow coordination |
+| **Adapters** | `src/<package>/adapters/` | Domain + Ports | Concrete implementations (Postgres, external APIs, message brokers) |
+| **Entrypoints** | `src/<package>/entrypoints/` | Domain + Services | FastAPI routes, CLI, Pub/Sub consumers, MCP servers |
 
 ## Structural Invariants
 
 - The Domain imports no framework, no SDK, no database driver, no HTTP library. Pydantic and stdlib only.
-- Gateways define _what_ (e.g., `store`, `transcribe`), never _how_. Signatures use Domain entities exclusively.
-- Gateways use generic names: `publish(msg: Message)`, not `send_to_sqs(msg: Message)`.
-- Services depend on Gateways (Protocols), not concrete Providers. Return concrete Domain objects.
-- Providers map external SDK responses into Domain entities. Catch library-specific errors and raise Domain exceptions.
+- Ports define _what_ (e.g., `store`, `transcribe`), never _how_. Signatures use Domain entities exclusively.
+- Ports use domain names: `publish(msg: Message)`, not `send_to_sqs(msg: Message)`.
+- Services depend on ports (Protocols), not concrete adapters. Return concrete Domain objects.
+- Adapters map external SDK responses into Domain entities. Catch library-specific errors and raise Domain exceptions.
 - Entrypoints validate inputs, map request schemas to Domain objects, and delegate all business decisions to Services.
-- All concrete Provider-to-Service wiring happens at the outermost edge (entrypoint startup or a dedicated `container.py`).
+- All concrete adapter-to-service wiring happens at the outermost edge (entrypoint startup or a dedicated `dependencies.py` / `container.py`).
 
 ## Dependency Injection
 
@@ -48,8 +50,8 @@ Run a live instance against real infrastructure via Testcontainers. Zero mocks. 
 
 ## Anti-Patterns
 
-- **Framework-coupled domain.** If the domain imports FastAPI or SQLAlchemy, it is broken.
-- **Leaky ports.** A gateway with SDK types in its signature is a provider in disguise.
+- **Framework-coupled domain.** If the core imports FastAPI or SQLAlchemy, it is broken.
+- **Leaky ports.** A port with SDK types in its signature is an adapter in disguise.
 - **Anaemic domain models.** Data structs with no behaviour and a thick service.
 - **Over-layering.** Five layers of DTO translation. Adapters are thin.
-- **Layer-skipping.** Entrypoints talking directly to providers.
+- **Layer-skipping.** Entrypoints talking directly to adapters.

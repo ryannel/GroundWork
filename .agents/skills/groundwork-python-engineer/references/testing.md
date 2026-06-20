@@ -52,13 +52,13 @@ Replace at the FastAPI boundary, not by patching internals:
 from unittest.mock import AsyncMock
 
 @pytest.fixture
-def fake_gateway():
-    gw = AsyncMock()
-    gw.process.return_value = DomainResult(...)
-    return gw
+def fake_processor():
+    proc = AsyncMock()
+    proc.process.return_value = DomainResult(...)
+    return proc
 
-async def test_endpoint_returns_result(client, app, fake_gateway):
-    app.dependency_overrides[get_gateway] = lambda: fake_gateway
+async def test_endpoint_returns_result(client, app, fake_processor):
+    app.dependency_overrides[get_processor] = lambda: fake_processor
     response = await client.post("/process", json={"input": "test"})
     assert response.status_code == 200
 ```
@@ -71,8 +71,8 @@ Marked `@pytest.mark.live` and selected explicitly with pytest's `-m` flag (excl
 
 ```python
 @pytest.mark.live
-async def test_provider_against_real_api(gateway, fixture_data):
-    result = await gateway.process(fixture_data)
+async def test_adapter_against_real_api(processor, fixture_data):
+    result = await processor.process(fixture_data)
     assert result.confidence > 0
 ```
 
@@ -88,9 +88,9 @@ Appropriate when logic is genuinely complex, has many branches, operates on pure
 - Pure algorithms (confidence thresholding, chunking strategies)
 
 **What does NOT earn a unit test:**
-- Service methods that orchestrate gateway calls
+- Service methods that orchestrate adapter calls
 - Endpoint handlers that validate and delegate
-- Providers that translate SDK responses
+- Adapters that translate SDK responses
 
 ```python
 class TestDomainModel:
@@ -162,7 +162,7 @@ uv run pytest tests/system                      # Bootstrap + golden path
 ## Anti-Patterns
 
 - **Mocking the interior.** Test what comes out, not which methods were called.
-- **Testing delegation.** `assert gateway.called_once_with(...)` tests the mock, not the code.
+- **Testing delegation.** `assert adapter.called_once_with(...)` tests the mock, not the code.
 - **Fixture factories that mirror domain.** Construct only what the test needs.
 - **`scope="session"` on mutable state.** Containers: safe. Application state: not.
 - **Skipping the async client.** `TestClient` hides async behaviour. Use `httpx.AsyncClient`.

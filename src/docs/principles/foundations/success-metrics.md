@@ -2,7 +2,7 @@
 title: Success Metrics
 description: Designing the measure of an outcome — North Star and inputs, leading vs lagging, counter-metrics, and deciding the signal before you ship.
 status: active
-last_reviewed: 2026-06-14
+last_reviewed: 2026-06-19
 ---
 # Success Metrics
 
@@ -22,7 +22,9 @@ The success signal is a design decision made *before* the work starts, not a que
 
 ### 2. A North Star, supported by inputs
 
-We anchor on a single **North Star** metric that captures the core value the product delivers to users — the one number that, if it moves the right way sustainably, means the product is winning. Beneath it sit a handful of **input metrics**: the leading indicators a team can actually influence week to week, which roll up into the North Star. The North Star keeps the team aimed at value; the inputs are what they steer by. One lighthouse, a few levers — not a wall of dashboards nobody acts on.
+We anchor on a **North Star** that captures the core value the product delivers to *users* — the one number that, if it moves the right way sustainably, means the product is winning. It must be a value metric, not an activity or revenue proxy. Engagement North Stars (sessions, time-on-site) optimise for the product's interest over the user's and decay into dark patterns; revenue North Stars measure extraction, not value delivered, and can climb while the product rots. Beneath the North Star sit a handful of **input metrics**: the leading indicators a team can actually move week to week, whose causal link to the North Star is earned by trial and error, not assumed. Amazon's *Working Backwards* calls these *controllable input metrics* and steers by them precisely because output metrics like revenue report too late and too diffusely to act on.
+
+The single North Star is genuinely contested, and the objection is fair: one number cannot represent a two-sided marketplace, a multi-product portfolio, or segments with materially different value. Forced onto those, a single metric either flattens real trade-offs or hums along green while the business bleeds — the North Star is never a substitute for business viability. The answer is not a wall of dashboards. **Decision rule:** a focused product with one dominant value loop gets one North Star. A marketplace, platform, or portfolio gets a North Star *strategy* — a one-sentence statement of the value being created — plus a small constellation (roughly one metric per side or segment) that together evidence it. Either way the count stays small and every metric is acted on. One lighthouse's worth of focus, a few levers — not literally one number when the product has two sides.
 
 ### 3. Distinguish leading from lagging
 
@@ -30,7 +32,7 @@ Lagging metrics (retention, revenue, churn) confirm whether value landed but rep
 
 ### 4. Counter-metrics are as load-bearing as primaries
 
-Every primary metric we optimise gets a **counter-metric** that guards against winning it the wrong way. Optimising for time-on-task? Counter with task-completion, so we do not reward confusion. Optimising for adoption? Counter with retention, so we do not reward a one-time spike. The counter-metric names the most likely way the primary gets gamed and makes that failure visible. A primary metric without a counter-metric is an invitation to optimise the product into a corner.
+Every primary metric we optimise gets a **counter-metric** that guards against winning it the wrong way. This is Goodhart's Law made operational: when a measure becomes a target it ceases to be a good measure, because people optimise the number rather than the value behind it — and the more weight the metric carries, the harder it gets gamed (Campbell's Law). Optimising for time-on-task? Counter with task-completion, so we do not reward confusion. Optimising for adoption? Counter with retention, so we do not reward a one-time spike. The counter-metric — what the experimentation world calls a *guardrail* — names the most likely way the primary gets gamed and makes that failure visible. A primary metric without a counter-metric is an invitation to optimise the product into a corner.
 
 ### 5. The metric must produce a falsifiable verdict
 
@@ -59,3 +61,6 @@ Metric design scales with the bet. A load-bearing product decision earns a North
 - *Escaping the Build Trap*, Melissa Perri — why output metrics corrupt product teams and how outcome metrics fix it.
 - *Lean Analytics*, Croll & Yoskovitz — the One Metric That Matters and choosing it by stage.
 - Amplitude's *North Star Playbook* — the North Star and its input metrics as an operating model.
+- *Working Backwards*, Colin Bryar & Bill Carr — controllable input metrics vs. output metrics, Amazon's operating model for steering by leading indicators.
+- Goodhart's Law (Charles Goodhart) and Campbell's Law (Donald Campbell) — the foundations of why a measure-as-target gets gamed, and why counter-metrics are non-optional.
+- Ravi Mehta, *Your product team doesn't need a North Star Metric* — the case for a North Star strategy over a single number when one metric cannot capture the value.

@@ -194,32 +194,32 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
   }
 
   if (!options.websockets) {
-    tree.delete(`${projectRoot}/internal/provider/websocket`);
+    tree.delete(`${projectRoot}/internal/websocket`);
     tree.delete(`${projectRoot}/internal/entrypoints/api/websocket_handler.go`);
     tree.delete(`${projectRoot}/asyncapi-ws.yaml`);
   }
 
   if (options.messaging === 'none') {
     tree.delete(`${projectRoot}/asyncapi-pubsub.yaml`);
-    tree.delete(`${projectRoot}/internal/core/gateway/message_queue.go`);
-    tree.delete(`${projectRoot}/internal/core/gateway/outbox_repository.go`);
+    tree.delete(`${projectRoot}/internal/core/service/message_queue.go`);
+    tree.delete(`${projectRoot}/internal/core/service/outbox_repository.go`);
   }
-  
+
   if (options.messaging !== 'kafka') {
-    tree.delete(`${projectRoot}/internal/provider/kafka.go`);
+    tree.delete(`${projectRoot}/internal/kafka/kafka.go`);
   }
-  
+
   if (options.messaging !== 'gcp-pubsub') {
-    tree.delete(`${projectRoot}/internal/provider/gcp_pubsub.go`);
+    tree.delete(`${projectRoot}/internal/pubsub/gcp_pubsub.go`);
   }
-  
+
   if (options.auth !== 'clerk') {
     tree.delete(`${projectRoot}/internal/entrypoints/api/middleware_auth.go`);
     tree.delete(`${projectRoot}/internal/entrypoints/api/clerk_webhook.go`);
     tree.delete(`${projectRoot}/internal/core/domain/user.go`);
-    tree.delete(`${projectRoot}/internal/core/gateway/user_repository.go`);
+    tree.delete(`${projectRoot}/internal/core/service/user_repository.go`);
     tree.delete(`${projectRoot}/internal/core/service/user_service.go`);
-    tree.delete(`${projectRoot}/internal/provider/user_repository.go`);
+    tree.delete(`${projectRoot}/internal/postgres/user_repository.go`);
   }
 
   promoteEngineerSkill(tree, 'groundwork-go-engineer');

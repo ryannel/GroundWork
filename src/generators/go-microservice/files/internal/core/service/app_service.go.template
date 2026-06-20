@@ -5,27 +5,32 @@ import (
 	"fmt"
 
 	"<%= name %>/internal/core/domain"
-	"<%= name %>/internal/core/gateway"
 )
 
 // AppService orchestrates business use-cases, coordinating between
 // domain entities, database transactions, and message publishing.
+//
+// The interfaces it depends on (TransactionManager, Repository, EventHub,
+// OutboxRepository) are declared in this package — the consumer owns the
+// interface it needs, and adapters in internal/postgres, internal/kafka, etc.
+// satisfy them implicitly. The dependency arrow points inward (edge -> core),
+// enforced by depguard.
 type AppService struct {
-	txManager gateway.TransactionManager
-	repo      gateway.Repository[domain.Entity]
-	eventHub  gateway.EventHub
+	txManager TransactionManager
+	repo      Repository[domain.Entity]
+	eventHub  EventHub
 <% if (messaging !== 'none') { %>
-	outbox    gateway.OutboxRepository
+	outbox    OutboxRepository
 <% } %>
 }
 
 // NewAppService creates a new instance of the application service.
 func NewAppService(
-	txManager gateway.TransactionManager,
-	repo gateway.Repository[domain.Entity],
-	eventHub gateway.EventHub,
+	txManager TransactionManager,
+	repo Repository[domain.Entity],
+	eventHub EventHub,
 <% if (messaging !== 'none') { %>
-	outbox gateway.OutboxRepository,
+	outbox OutboxRepository,
 <% } %>
 ) *AppService {
 	return &AppService{

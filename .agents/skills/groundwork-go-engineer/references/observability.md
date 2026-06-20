@@ -38,7 +38,7 @@ High-cardinality attributes (per-user, per-tenant) are valuable for debugging bu
 
 - Use `slog` exclusively for structured logging. Always inject `trace_id` and `span_id` from the current context.
 - Every HTTP endpoint and background job must initialize a Root Span.
-- Provider calls (SQL queries, Pub/Sub publishing) must extract and cascade the span.
+- Adapter calls (SQL queries, Pub/Sub publishing) must extract and cascade the span.
 
 ## Anti-Patterns
 

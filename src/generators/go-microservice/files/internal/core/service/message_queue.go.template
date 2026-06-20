@@ -1,0 +1,10 @@
+<% if (messaging !== 'none') { %>package service
+
+import "context"
+
+// MessageQueue defines operations for publishing domain messages
+// to an asynchronous message bus or queue.
+type MessageQueue interface {
+	Publish(ctx context.Context, topic string, key, data []byte) error
+}
+<% } %>

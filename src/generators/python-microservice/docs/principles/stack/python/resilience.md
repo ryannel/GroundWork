@@ -166,10 +166,10 @@ Define degradation explicitly at the service layer:
 
 ```python
 async def transcribe_with_diarization(self, audio_uri: str) -> TranscriptionResult:
-    transcript = await self.transcription_gateway.transcribe(audio_uri)
+    transcript = await self.transcriber.transcribe(audio_uri)
 
     try:
-        speakers = await self.diarization_gateway.diarise(transcript)
+        speakers = await self.diarizer.diarise(transcript)
         return transcript.with_speakers(speakers)
     except DiarizationUnavailableError:
         logger.warning("diarization.unavailable", meeting_id=transcript.meeting_id)

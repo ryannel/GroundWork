@@ -28,7 +28,7 @@ Use explicit `Exception` subclasses defined in the Domain to prevent SDK errors 
 ### Defining Domain Exceptions
 
 ```python
-# src/<pkg>/core/exceptions.py
+# src/<package>/core/domain/exceptions.py
 
 class AppError(Exception):
     """Base exception for all application errors."""
@@ -46,17 +46,18 @@ class PermanentInferenceError(AppError):
     """Raised on permanent failures — do not retry."""
 ```
 
-### Wrapping Errors in Providers
+### Wrapping Errors in Adapters
 
-Providers catch library-specific errors and raise Domain exceptions:
+Adapters catch library-specific errors and raise Domain exceptions:
 
 ```python
-class ExternalAPIProvider:
+# src/<package>/adapters/external_api.py
+class ExternalAPIClient:
     def process(self, payload: str) -> Result:
         try:
             raw = self._client.call(payload)
             if raw.error:
-                raise ModelInferenceError(f"Provider failed: {raw.error}")
+                raise ModelInferenceError(f"upstream call failed: {raw.error}")
             return self._to_domain(raw)
         except sdk.ServerError as e:
             raise TransientInferenceError("Provider unavailable", cause=e)
@@ -66,15 +67,15 @@ class ExternalAPIProvider:
 
 ## 3. Dependency Injection
 
-### The Port (Gateway)
+### The Port
 
-The Protocol belongs in `core/gateways/` and uses only Domain language:
+The Protocol belongs in `src/<package>/core/ports.py` (or its own `src/<package>/core/<capability>.py` module) and uses only Domain language:
 
 ```python
 from typing import Protocol
-from myservice.core.domain.models import Result
+from <package>.core.domain.models import Result
 
-class ProcessingGateway(Protocol):
+class Processor(Protocol):
     def process(self, input_uri: str) -> Result: ...
 ```
 
@@ -84,17 +85,18 @@ Constructor injection at the entrypoint startup:
 
 ```python
 from fastapi import Depends
+from <package>.adapters.processor import ConcreteProcessor
 
-def get_processing_gateway() -> ProcessingGateway:
-    return ConcreteProvider()
+def get_processor() -> Processor:
+    return ConcreteProcessor()
 
 def get_processing_service(
-    gateway: ProcessingGateway = Depends(get_processing_gateway)
+    processor: Processor = Depends(get_processor)
 ) -> ProcessingService:
-    return ProcessingService(gateway=gateway)
+    return ProcessingService(processor=processor)
 ```
 
-The dependency is typed as the Protocol, not the concrete provider — the seam stays on the port, and tests override `get_processing_gateway` without touching the service.
+The dependency is typed as the Protocol port, not the concrete adapter — the seam stays on the port, and tests override `get_processor` without touching the service.
 
 ## 4. Strict Typing over Duck Typing
 
@@ -109,7 +111,7 @@ class ProcessingRequest:
     input_url: str
     language: str
 
-class ProcessingGateway(Protocol):
+class Processor(Protocol):
     def process(self, request: ProcessingRequest) -> str: ...
 ```
 

@@ -2,13 +2,13 @@
 title: Documentation
 description: Docs as an active product surface for humans and AI agents — canonical knowledge, machine-readable interfaces, automation-first governance, and drift control.
 status: active
-last_reviewed: 2026-05-26
+last_reviewed: 2026-06-19
 ---
 # Documentation
 
 ## TL;DR
 
-Documentation is an active product surface. The docs are the canonical source for durable engineering knowledge; agent skills are the execution layer that selects, loads, and applies that knowledge safely. We design documentation for humans and AI agents at the same time, organise it with Diátaxis, expose it through `llms.txt`, Markdown exports, and MCP, and enforce freshness with automation wherever a human would drift.
+Documentation is an active product surface. The docs are the canonical source for durable engineering knowledge; agent skills are the execution layer that selects, loads, and applies that knowledge safely. We design documentation for humans and AI agents at the same time, organise it with Diátaxis as the default frame, expose it through clean Markdown exports, a curated `llms.txt` index, and MCP resources, and enforce freshness with automation wherever a human would drift.
 
 ## Why this matters
 
@@ -28,11 +28,19 @@ Agent skills are a control surface, not a second documentation site. A skill own
 
 ### 3. AI-native documentation is first class
 
-Every important documentation surface must survive machine consumption. We publish `llms.txt` as the curated index, and `.md` exports for individual pages. Agent-readiness is not an afterthought or an SEO trick; it is a quality attribute of the docs system.
+Every important documentation surface must survive machine consumption. Three surfaces carry the load, and they are not interchangeable:
+
+- **Clean per-page Markdown exports and semantic HTML** are the floor. Any agent, crawler, or RAG pipeline can read them today with no special support. This is non-negotiable.
+- **`llms.txt`** is a curated index that helps a client *route* to the right pages instead of scraping the whole site. Be honest about its reach: no major model provider treats it as a crawl signal — Google's public position is that it behaves like the long-dead `keywords` meta tag, and AI-bot logs show near-zero direct requests for it. Its real value is business-to-agent: an agent you control, or an opted-in client (an IDE assistant, an MCP doc server such as `mcpdoc`), reads the index and pulls only the pages it needs. Publish it for that audience; do not assume an external crawler will honour it.
+- **MCP resources** are the path when retrieval must be scoped and auditable. MCP gives the agent explicit, token-efficient fetches and gives us a log of what was actually read, instead of hoping a crawler lands on the right page.
+
+Decision rule: ship the Markdown/HTML floor for everyone; add `llms.txt` as a routing index for agents you or your users control; reach for MCP when retrieval must be governed and inspectable. Agent-readiness is a quality attribute of the docs system, not an SEO play.
 
 ### 4. Diátaxis is the structural frame
 
 We organise by reader intent, not by our internal org chart. Tutorials teach, how-to guides solve, reference pages support lookup, and explanation pages build understanding. A page that mixes these jobs forces both humans and agents to infer the purpose from context, which makes retrieval weaker and maintenance harder.
+
+Diátaxis is the default partition, not a cage. It was designed for *tools* with shallow conceptual models; dense domains — a framework, a language, a protocol — need forms it does not name. The two it most often misses: a **conceptual overview** for the reader still deciding whether to adopt at all (different from an explanation aimed at someone already learning), and **annotated examples and recipes** that teach a way of thinking rather than one procedure. Allow those page types explicitly. The failure mode is dogma: refusing to write the page a reader needs because no quadrant fits, or forcing a genuinely sequential lesson into random-access reference. Use the four types to keep each page honest about its job; add a fifth when the domain demands it.
 
 ### 5. Active docs replace passive docs
 
@@ -44,7 +52,9 @@ Automated checks enforce the cheap, high-signal rules: required frontmatter, bro
 
 ### 7. Prefer generated reference over prose
 
-API specs, event contracts, database schemas, CLI command tables, and error catalogues have machine-readable sources. We render them from those sources instead of hand-writing reference pages. Hand-written reference material drifts; generated reference material can be rebuilt and checked.
+API specs, event contracts, database schemas, CLI command tables, and error catalogues have machine-readable sources. We render them from those sources instead of hand-writing reference pages. Hand-written reference drifts; generated reference rebuilds and validates.
+
+Generation covers the *facts*, not the *orientation*. A raw OpenAPI dump is accurate and nearly unusable — readers still need hand-written narrative explaining what the API is for, the common flows, and the constraints a schema cannot express. Decision rule: generate every fact that has a machine source; hand-write the connective tissue around it; never paraphrase a generated fact back into prose, where it will silently rot out of sync with the source.
 
 ### 8. Decisions are append-only
 
@@ -86,7 +96,7 @@ When code, docs, skills, specs, and design records disagree, we identify the sou
 ## Further reading
 
 - [Diátaxis](https://diataxis.fr) — the structural model for tutorials, how-to guides, reference, and explanation.
-- [llms.txt](https://llmstxt.org) — the emerging convention behind our AI-readable documentation index.
+- [llms.txt](https://llmstxt.org) — the curated-index convention behind our AI-readable docs; adopted by developer-doc tooling and MCP clients, not honoured by major web crawlers.
 - [Model Context Protocol](https://modelcontextprotocol.io) — the protocol for structured agent access to docs resources and tools.
 - *Docs for Developers*, Bhatti et al. — practical guidance for engineering documentation.
 - *Living Documentation*, Cyrille Martraire — using code and automation to reduce documentation drift.

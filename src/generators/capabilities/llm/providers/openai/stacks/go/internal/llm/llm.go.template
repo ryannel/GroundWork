@@ -1,0 +1,98 @@
+package llm
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"time"
+
+	"<%= moduleName %>/internal/core/service"
+)
+
+// Ensure Client implements the service.TextGenerator interface.
+var _ service.TextGenerator = (*Client)(nil)
+
+// Client calls the OpenAI Chat Completions API (or any
+// OpenAI-compatible endpoint via LLM_BASE_URL) over HTTPS. Minimal net/http
+// adapter (no SDK dependency) — extend or swap for the official SDK behind this
+// same port. Reads LLM_API_KEY / LLM_BASE_URL / LLM_MODEL from env.
+type Client struct {
+	apiKey  string
+	baseURL string
+	model   string
+	http    *http.Client
+}
+
+func NewClient() *Client {
+	base := os.Getenv("LLM_BASE_URL")
+	if base == "" {
+		base = "https://api.openai.com/v1"
+	}
+	model := os.Getenv("LLM_MODEL")
+	if model == "" {
+		model = "gpt-4o"
+	}
+	return &Client{
+		apiKey:  os.Getenv("LLM_API_KEY"),
+		baseURL: base,
+		model:   model,
+		http:    &http.Client{Timeout: 60 * time.Second},
+	}
+}
+
+func (a *Client) GenerateText(ctx context.Context, prompt string, maxTokens int) (string, error) {
+	reqBody, err := json.Marshal(map[string]any{
+		"model":      a.model,
+		"max_tokens": maxTokens,
+		"messages":   []map[string]string{{"role": "user", "content": prompt}},
+	})
+	if err != nil {
+		return "", fmt.Errorf("llm: marshal request: %w", err)
+	}
+
+	var lastErr error
+	for attempt := 0; attempt < 3; attempt++ {
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, a.baseURL+"/chat/completions", bytes.NewReader(reqBody))
+		if err != nil {
+			return "", fmt.Errorf("llm: build request: %w", err)
+		}
+		req.Header.Set("content-type", "application/json")
+		req.Header.Set("authorization", "Bearer "+a.apiKey)
+
+		resp, err := a.http.Do(req)
+		if err != nil {
+			lastErr = fmt.Errorf("llm: connection error: %w", err)
+			continue // transient — retry
+		}
+		body, _ := io.ReadAll(resp.Body)
+		resp.Body.Close()
+
+		if resp.StatusCode >= 500 || resp.StatusCode == http.StatusTooManyRequests {
+			lastErr = fmt.Errorf("llm: transient provider error (status %d): %s", resp.StatusCode, body)
+			continue
+		}
+		if resp.StatusCode >= 400 {
+			return "", fmt.Errorf("llm: provider request error (status %d): %s", resp.StatusCode, body)
+		}
+
+		var parsed struct {
+			Choices []struct {
+				Message struct {
+					Content string `json:"content"`
+				} `json:"message"`
+			} `json:"choices"`
+		}
+		if err := json.Unmarshal(body, &parsed); err != nil {
+			return "", fmt.Errorf("llm: decode response: %w", err)
+		}
+		if len(parsed.Choices) == 0 || parsed.Choices[0].Message.Content == "" {
+			return "", fmt.Errorf("llm: empty response from provider")
+		}
+		return parsed.Choices[0].Message.Content, nil
+	}
+	return "", fmt.Errorf("llm: exhausted retries: %w", lastErr)
+}

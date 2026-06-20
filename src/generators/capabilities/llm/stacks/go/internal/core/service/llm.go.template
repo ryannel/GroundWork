@@ -1,0 +1,12 @@
+package service
+
+import "context"
+
+// TextGenerator is the interface the core depends on for large-language-model
+// text generation. It is declared here, in the consuming service package, so
+// the dependency arrow points inward: concrete adapters live in internal/llm
+// and are swappable at scaffold time (anthropic | openai | local | none)
+// without touching this interface or its callers.
+type TextGenerator interface {
+	GenerateText(ctx context.Context, prompt string, maxTokens int) (string, error)
+}

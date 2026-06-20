@@ -2,7 +2,7 @@
 title: Performance
 description: Latency budgets, tail latency, backpressure, and load shedding.
 status: active
-last_reviewed: 2026-05-26
+last_reviewed: 2026-06-19
 ---
 # Performance
 
@@ -18,11 +18,13 @@ Users notice latency before they notice almost anything else. A response that re
 
 ### 1. Latency is a budget, allocated top-down
 
-Every user-facing operation starts with a latency budget at the edge — say, 500ms — and that budget is allocated to downstream hops. If one fetch has 300ms and another join has 150ms, the handler has 50ms of its own work. When a hop overruns its allocation, somebody else's budget gets squeezed. The budgeting view makes trade-offs explicit.
+Every user-facing operation starts with a latency budget at the edge — say, 500ms — and that budget is allocated to downstream hops. If one fetch has 300ms and another join has 150ms, the handler has 50ms of its own work. When a hop overruns its allocation, somebody else's budget gets squeezed. The budgeting view makes trade-offs explicit. A budget written once and never checked is fiction: reconcile the allocation against measured per-hop latency, and when the numbers don't add up, the budget is wrong or the architecture is — decide which before you ship.
 
 ### 2. Measure tail latency, not average
 
-p50 is a marketing number. p95 and p99 are what users experience. We measure and alert on the tail; we design for the tail. A system with a great median and a terrible p99 will have an awful reputation, no matter what the dashboard says.
+p50 tells you about capacity and the typical case; it tells you almost nothing about the experience that drives your reputation. Users remember the slow request, and *which* percentile is the slow request is set by fan-out, not taste. Dean and Barroso's *The Tail at Scale* makes the arithmetic unavoidable: a request that touches 100 backends, each with a 1-in-100 chance of exceeding its p99, will overrun that latency 63% of the time end-to-end (1 − 0.99¹⁰⁰). At fan-out, a leaf service's p99.9 becomes the user's effective median.
+
+So the budget percentile is a decision, not a default: target p99 for a single-hop interaction, p99.9 or higher for a high-fan-out request. Measure with coordinated omission in mind — naive load-test clients silently drop the slow samples that matter most (Gil Tene). And the tail is attackable directly, not only by tuning: hedged requests — issue a duplicate after the p95 elapses, take the first to return — cut Dean and Barroso's BigTable p99 from 1800ms to 74ms for roughly 2% extra backend work.
 
 ### 3. Pre-compute, cache, and denormalise deliberately
 
@@ -34,23 +36,27 @@ Every producer has a bounded queue and a defined behaviour when the queue fills:
 
 ### 5. Load shedding protects the system from itself
 
-When the system is saturated, the right behaviour is not to try harder — it is to serve fewer requests well. We shed on clearly-defined criteria: low-priority traffic first, new sessions before active ones, non-interactive before interactive. Shedding is a designed degradation mode, not an accident.
+When the system is saturated, the right behaviour is not to try harder — it is to serve fewer requests well, because trying harder is exactly how an overload turns into a cascading failure (Google SRE). Requests carry a criticality assigned at the edge — Netflix's CRITICAL / DEGRADED / BEST_EFFORT / BULK taxonomy is a sound template — and we shed from the bottom up: prefetch and background work long before user-initiated requests.
+
+The shed *trigger* is adaptive, not a hand-tuned RPS or CPU threshold that is stale the day load patterns shift. An adaptive concurrency limit that watches the latency gradient finds the saturation point on its own and tracks it as the system changes. And shedding has a softer sibling: graceful degradation reduces the work *per* request — serve cached data, drop personalisation, fall back to a cheaper ranking — before it drops requests entirely. Shedding is a designed degradation mode, not an accident.
 
 ### 6. Hot paths have no allocations to spare
 
-For the hottest inner loops — real-time processing, per-request ingestion at high throughput — we write allocation-aware code. Every allocation is a GC pause in waiting, and at high rate the pauses become the latency. Most code does not need this discipline; the hot paths demand it.
+For the hottest inner loops — real-time processing, per-request ingestion at high throughput — we write allocation-aware code. Every allocation is a GC pause in waiting, and at high rate the pauses become the latency. The discipline is scoped, not universal: it applies to the paths a profiler has shown to be hot, and applying it everywhere is the over-optimisation it warns against. Most code does not need it; the hot paths demand it.
 
 ### 7. Profile before you optimise
 
-Every non-trivial optimisation starts with a profile. The "obvious" bottleneck is almost always wrong, and effort spent tuning a cold path is effort wasted. We profile in production-representative conditions; profiles from developer laptops lie.
+Two truths usually pitched as opposites. Tuning existing code without a profile is waste — the "obvious" bottleneck is almost always wrong, and Knuth's "premature optimization is the root of all evil," read in full, says forget small efficiencies 97% of the time *and do not pass up the critical 3%*. So every non-trivial tuning effort starts with a profile, taken in production-representative conditions; profiles from developer laptops lie.
+
+But a profiler only ever tells you where the time goes in the design you already have. It will never tell you to pick a better data structure, flatten an allocation-heavy layout, or kill an N+1 access pattern — and those design-time choices dominate the result, are cheap on the first pass, and are expensive to retrofit. "We'll profile it later" is the standard excuse for skipping them. Decision rule: choose data models, access patterns, and algorithmic complexity with performance in mind up front; reach for the profiler to direct local tuning, never to license thoughtless design.
 
 ### 8. Budgets are enforced in CI
 
-Bundle sizes, lighthouse scores, worst-case handler latencies — these are measured in CI against committed thresholds. A PR that regresses a budget requires an explicit, reviewed waiver. Performance regressions that slip in once slip in a hundred times; automation is cheaper than vigilance.
+Performance regressions that slip in once slip in a hundred times, and automation is cheaper than vigilance — so budgets live in CI against committed thresholds, and a PR that regresses one needs an explicit, reviewed waiver. But *what* you gate on matters more than *that* you gate. Shared CI runners are noisy, and a wall-clock microbenchmark that cries wolf on every PR trains engineers to ignore it — worse than no gate at all. So gate hard on the metrics that are deterministic regardless of the runner: bundle size, query count per request, allocation counts, Lighthouse scores. Treat wall-clock timings as a tracked trend with relative thresholds and statistical comparison, or run them on dedicated hardware — never as a hard pass/fail on a shared runner.
 
 ### 9. Place compute deliberately, and price the tokens
 
-*Where* code runs is a design axis, not only *how much*: the edge for latency-sensitive, cacheable, geo-distributed work (proximity flattens the tail); WebAssembly as the edge/FaaS/plugin compute unit; containers for stateful or heavy work — most systems blend all three. Caching is multi-tier (client, CDN/edge, service, store) with an explicit hit-ratio target, and autoscaling is event-driven with real scale-to-zero (KEDA/Karpenter), not CPU-only HPA. For a model-in-the-loop path, latency and cost track **tokens, not requests** — the levers are model routing, semantic caching, and an AI gateway.
+*Where* code runs is a design axis, not only *how much*: the edge for latency-sensitive, cacheable, geo-distributed work (proximity flattens the tail); WebAssembly as the edge/FaaS/plugin compute unit; containers for stateful or heavy work — most systems blend all three. Caching is multi-tier (client, CDN/edge, service, store) with an explicit hit-ratio target, and autoscaling is event-driven with real scale-to-zero (KEDA/Karpenter), not CPU-only HPA. For a model-in-the-loop path, latency and cost track **tokens, not requests** — the levers are model routing, semantic caching at the gateway, prompt/KV caching to cut time-to-first-token, and streaming so the user sees output before generation completes.
 
 ## How we apply this
 
@@ -60,11 +66,12 @@ Bundle sizes, lighthouse scores, worst-case handler latencies — these are meas
 
 ## Anti-patterns we reject
 
-- **Optimising on hunch.** No profile, no optimisation.
+- **Optimising on hunch.** No profile, no tuning — and no "we'll profile it later" as cover for an unconsidered data model.
 - **"It is fast on my laptop."** Dev latency is not production latency. Measure in the environment that matters.
-- **Average-as-metric.** p50 is a lie. Use percentiles.
+- **Average-as-metric.** Reporting only the mean or p50 hides the tail that defines your reputation. Pick the percentile your fan-out demands.
 - **Unbounded queues.** A queue without a max is a latency bomb.
 - **Cache invalidation left to the reader.** If the cache can serve stale data under a defined circumstance, that circumstance is documented. Otherwise it is a bug.
+- **Flaky perf gates.** A wall-clock benchmark gated on a noisy shared runner teaches the team to rubber-stamp red. Gate on deterministic metrics; track the noisy ones.
 - **"We will fix performance later."** If you ship slow, users will remember slow.
 
 ## Further reading
@@ -73,3 +80,5 @@ Bundle sizes, lighthouse scores, worst-case handler latencies — these are meas
 - *High Performance Browser Networking*, Ilya Grigorik — the frontend-and-network half of the story.
 - *Latency Numbers Every Programmer Should Know* (Jeff Dean) — calibrate your intuition.
 - Gil Tene, "How NOT to Measure Latency" — the talk on coordinated omission and why naive latency measurements lie.
+- Jeff Dean & Luiz Barroso, "The Tail at Scale" (CACM, 2013) — the fan-out arithmetic and the hedged-request pattern.
+- *Google SRE Book*, "Handling Overload" and "Addressing Cascading Failures" — criticality, client-side throttling, and load shedding done right.

@@ -1,28 +1,28 @@
 {
   "id": "llm",
   "title": "LLM inference",
-  "description": "Text generation via a large language model, behind a hexagonal port. The port is fixed; the provider (and therefore the operational footprint) is a scaffold-time choice.",
+  "description": "Text generation via a large language model. The interface is fixed; the provider (and therefore the operational footprint) is a scaffold-time choice.",
   "default": "anthropic",
   "providers": ["anthropic", "openai", "local", "ollama", "localai", "none"],
   "stacks": {
     "python": {
-      "port": "src/core/domain/llm_port.py",
-      "portSymbol": "LLMGateway",
-      "adapter": "src/provider/llm_gateway.py",
-      "adapterSymbol": "LLMGatewayAdapter",
-      "contractTest": "tests/contracts/test_llm_port.py",
+      "port": "src/__packageName__/core/llm.py",
+      "portSymbol": "TextGenerator",
+      "adapter": "src/__packageName__/adapters/llm.py",
+      "adapterSymbol": "LLMClient",
+      "contractTest": "tests/contracts/test_llm.py",
       "envFile": ".env.example",
-      "wiring": "Provide LLMGatewayAdapter() to your composition root (e.g. dependencies.py get_llm_gateway) typed as the LLMGateway port, and call generate_text() from your service."
+      "wiring": "Provide LLMClient() to your composition root (e.g. dependencies.py get_text_generator) typed as the TextGenerator protocol from core.llm, and call generate_text() from your service."
     },
     "go": {
-      "port": "internal/core/gateway/llm_gateway.go",
-      "portSymbol": "LLMGateway",
-      "adapter": "internal/provider/llm_gateway.go",
-      "adapterSymbol": "LLMGatewayAdapter",
-      "contractTest": "internal/provider/llm_gateway_test.go",
+      "port": "internal/core/service/llm.go",
+      "portSymbol": "TextGenerator",
+      "adapter": "internal/llm/llm.go",
+      "adapterSymbol": "Client",
+      "contractTest": "internal/llm/llm_test.go",
       "envFile": ".env",
       "module": true,
-      "wiring": "Construct provider.NewLLMGatewayAdapter() in cmd/api/main.go and pass it (typed as the gateway.LLMGateway port) into your service. Run `go mod tidy` if a provider added a dependency."
+      "wiring": "Construct llm.NewClient() in cmd/api/main.go and pass it (typed as the service.TextGenerator interface) into your service. Run `go mod tidy` if a provider added a dependency."
     }
   }
 }

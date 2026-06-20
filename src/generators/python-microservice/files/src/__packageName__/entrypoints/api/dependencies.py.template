@@ -1,0 +1,50 @@
+from fastapi import Depends
+from <%= packageName %>.core.service.example_service import ExampleService
+
+<% if (postgres) { %>
+from sqlalchemy.ext.asyncio import AsyncSession
+from <%= packageName %>.core.ports import ExampleRepository
+from <%= packageName %>.adapters.database import get_db_session
+from <%= packageName %>.adapters.repository import PostgresExampleRepository
+
+def get_example_repository(session: AsyncSession = Depends(get_db_session)) -> ExampleRepository:
+    return PostgresExampleRepository(session)
+<% } %>
+
+<% if (messaging !== 'none') { %>
+from <%= packageName %>.core.ports import MessageQueue
+from <%= packageName %>.adapters.message_queue import <% if (messaging === 'redis') { %>RedisMessageQueue<% } else if (messaging === 'kafka') { %>KafkaMessageQueue<% } else { %>GCPMessageQueue<% } %>
+def get_message_queue() -> MessageQueue:
+    # In a real app this might be a singleton in app state, but for scaffold we instantiate
+    return <% if (messaging === 'redis') { %>RedisMessageQueue()<% } else if (messaging === 'kafka') { %>KafkaMessageQueue()<% } else { %>GCPMessageQueue()<% } %>
+<% } %>
+
+<% if (llm) { %>
+from <%= packageName %>.core.llm import TextGenerator
+from <%= packageName %>.adapters.llm import LLMClient
+def get_text_generator() -> TextGenerator:
+    return LLMClient()
+<% } %>
+
+def get_example_service(
+<% if (postgres) { %>
+    repository: ExampleRepository = Depends(get_example_repository),
+<% } %>
+<% if (messaging !== 'none') { %>
+    message_queue: MessageQueue = Depends(get_message_queue),
+<% } %>
+<% if (llm) { %>
+    text_generator: TextGenerator = Depends(get_text_generator),
+<% } %>
+) -> ExampleService:
+    return ExampleService(
+<% if (postgres) { %>
+        repository=repository,
+<% } %>
+<% if (messaging !== 'none') { %>
+        message_queue=message_queue,
+<% } %>
+<% if (llm) { %>
+        text_generator=text_generator,
+<% } %>
+    )

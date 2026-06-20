@@ -17,7 +17,7 @@ We test from the perimeter of the service inward. A request goes in through the 
 
 The classical test pyramid (many unit tests → some integration tests → few E2E tests) made sense when running a database in a test was expensive and slow. That constraint no longer exists. Testcontainers spins up a real Postgres or Pub/Sub emulator in seconds, and the confidence it provides is categorically different from any mock.
 
-The failure mode of a mock-heavy suite is insidious: tests pass while production breaks. Mocked gateways drift from real behaviour. SQL queries are never exercised. Serialisation boundaries are never crossed. The suite is green and the system is broken.
+The failure mode of a mock-heavy suite is insidious: tests pass while production breaks. Mocked adapters drift from real behaviour. SQL queries are never exercised. Serialisation boundaries are never crossed. The suite is green and the system is broken.
 
 The **honeycomb model** inverts the priority:
 
@@ -96,17 +96,17 @@ When a provider calls a live third-party API, replace it at the FastAPI boundary
 # tests/integration/entrypoints/test_transcribe_api.py
 import pytest
 from unittest.mock import AsyncMock
-from app.entrypoints.api.dependencies import get_transcription_gateway
+from app.entrypoints.api.dependencies import get_transcriber
 from app.core.domain.models import Transcript
 
 @pytest.fixture
-def fake_transcription_gateway():
-    gw = AsyncMock()
-    gw.transcribe.return_value = Transcript(...)
-    return gw
+def fake_transcriber():
+    port = AsyncMock()
+    port.transcribe.return_value = Transcript(...)
+    return port
 
-async def test_transcribe_returns_structured_result(client, app, fake_transcription_gateway):
-    app.dependency_overrides[get_transcription_gateway] = lambda: fake_transcription_gateway
+async def test_transcribe_returns_structured_result(client, app, fake_transcriber):
+    app.dependency_overrides[get_transcriber] = lambda: fake_transcriber
 
     response = await client.post("/transcribe", json={"audio_url": "gs://bucket/file.mp3"})
 
@@ -120,8 +120,8 @@ The key distinction: we are replacing the provider at the dependency injection b
 
 ```python
 @pytest.mark.live
-async def test_assemblyai_transcribes_real_audio(transcription_gateway, audio_fixture):
-    result = await transcription_gateway.transcribe(audio_fixture)
+async def test_assemblyai_transcribes_real_audio(transcriber, audio_fixture):
+    result = await transcriber.transcribe(audio_fixture)
     assert len(result.segments) > 0
     assert result.metadata.duration > 0
 ```
@@ -134,7 +134,7 @@ Run with: `uv run pytest tests/integration -m live`
 
 A unit test is appropriate when the logic is genuinely complex, has many branches, operates on pure data, and would be painful to exercise through the full HTTP stack. Domain model invariants, audio codec transformations, confidence score calculations, and parsing algorithms are good candidates.
 
-The test for "does this service method call the gateway and return the result" is not a unit test. That behaviour is validated by a service test.
+The test for "does this service method call the adapter and return the result" is not a unit test. That behaviour is validated by a service test.
 
 **What earns a unit test:**
 
@@ -145,7 +145,7 @@ The test for "does this service method call the gateway and return the result" i
 
 **What does not earn a unit test:**
 
-- Service methods that orchestrate calls between a gateway and a domain object
+- Service methods that orchestrate calls between an adapter and a domain object
 - Endpoint handlers that validate input and delegate
 - Providers that translate SDK responses into domain types
 
@@ -270,9 +270,9 @@ uv run pytest                                   # Everything
 
 ## Anti-Patterns
 
-**Mocking the interior of a service.** Replacing a gateway with `MagicMock` inside a service test asserts nothing about real behaviour. If you are mocking something that could run in a container, use a container.
+**Mocking the interior of a service.** Replacing an adapter with `MagicMock` inside a service test asserts nothing about real behaviour. If you are mocking something that could run in a container, use a container.
 
-**Testing that delegation happens.** `assert gateway.transcribe.called_once_with(segment)` is an assertion about the implementation, not the behaviour. Test what comes back out of the system, not which internal methods were invoked.
+**Testing that delegation happens.** `assert transcriber.transcribe.called_once_with(segment)` is an assertion about the implementation, not the behaviour. Test what comes back out of the system, not which internal methods were invoked.
 
 **Fixture factories that mirror the domain.** A fixture that constructs a complex domain object with many defaults trains engineers to not think about what data matters for the test. Construct only what the test needs; leave everything else visible.
 

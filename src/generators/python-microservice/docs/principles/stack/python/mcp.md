@@ -73,7 +73,7 @@ Write the docstring as if the reader is an LLM deciding whether and how to invok
 - **Second paragraph:** when to use it — this is the selection signal
 - **`Args`:** every parameter with its expected format and valid values
 
-**Return domain types, not SDK types.** Tool return types must serialise cleanly to JSON. Domain Pydantic models serialise correctly. SDK response objects do not — and passing them across the entrypoint boundary violates hexagonal architecture.
+**Return domain types, not SDK types.** Tool return types must serialise cleanly to JSON. Domain Pydantic models serialise correctly. SDK response objects do not — and passing them across the entrypoint boundary leaks an implementation detail into the core, breaking the inward-dependency rule.
 
 **Type hints are enforced at runtime.** FastMCP validates inputs against the function signature before the tool is called. Missing or incorrect type hints cause silent schema degradation that only surfaces when an agent tries to invoke the tool.
 

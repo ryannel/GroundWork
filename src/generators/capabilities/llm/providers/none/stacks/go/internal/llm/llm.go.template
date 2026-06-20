@@ -1,0 +1,35 @@
+// Package llm — bare LLM adapter: the interface is defined, the adapter is NOT
+// implemented. A bet.
+//
+// The service.TextGenerator interface (internal/core/service/llm.go) fixes the
+// contract the core depends on; this adapter is the slot where you build the
+// implementation. The contract test (llm_test.go) Skips while this stub returns
+// an error and flips to a live assertion the moment GenerateText works — your
+// cue the bet is delivered.
+//
+// To cash the bet, implement GenerateText below, or regenerate against a shipped
+// provider:
+//
+//	nx g add-capability --service <this-service> --capability llm --provider anthropic
+package llm
+
+import (
+	"context"
+	"fmt"
+
+	"<%= moduleName %>/internal/core/service"
+)
+
+// Ensure Client implements the service.TextGenerator interface.
+var _ service.TextGenerator = (*Client)(nil)
+
+type Client struct{}
+
+func NewClient() *Client {
+	// No provider client to construct yet — that's the bet.
+	return &Client{}
+}
+
+func (a *Client) GenerateText(ctx context.Context, prompt string, maxTokens int) (string, error) {
+	return "", fmt.Errorf("llm adapter is not implemented: build out Client.GenerateText, or scaffold a provider with `add-capability --capability=llm --provider=anthropic|openai|local`")
+}

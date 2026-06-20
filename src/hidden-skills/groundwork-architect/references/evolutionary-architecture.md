@@ -10,7 +10,7 @@ Optimise for evolvability over speculative completeness. You cannot predict whic
 
 Every architectural characteristic you actually care about should get an automated check that fails when it is violated:
 
-- **dependency direction / layering** — the hexagonal inward-flow rule is the archetype, automatable with `depguard` / `import-linter` / ArchUnit; this is what turns "hexagonal" from a style into a guarantee.
+- **dependency direction / layering** — the inward-flow rule (the core imports nothing concrete; edges depend inward) is the archetype, automatable with `depguard` / `import-linter` / ArchUnit; this is what turns it from a style into a guarantee.
 - **API conformance** — spec linting (Spectral) + contract tests with a `can-i-deploy` gate ([api-and-contracts.md](api-and-contracts.md)).
 - **budgets** — latency, bundle size, allowed couplings — checked in CI against committed thresholds.
 

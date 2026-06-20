@@ -1,0 +1,7 @@
+# pnpm 10+ gates dependency build scripts by default and exits non-zero
+# (ERR_PNPM_IGNORED_BUILDS) when it skips them — which also makes `pnpm dev` and
+# `pnpm build` fail their pre-run dependency check. The skipped scripts here are
+# first-party Next.js build deps (esbuild, sharp) whose native binaries this app
+# legitimately wants, so allow dependency builds to run — the same behaviour npm
+# and yarn give by default. (These settings moved out of .npmrc in pnpm 10.)
+dangerouslyAllowAllBuilds: true

@@ -15,9 +15,9 @@ import (
 	"github.com/testcontainers/testcontainers-go/wait"
 
 	"<%= name %>/internal/config"
-	"<%= name %>/internal/provider"
+	pg "<%= name %>/internal/postgres"
 <% if (websockets) { %>
-	"<%= name %>/internal/provider/websocket"
+	"<%= name %>/internal/websocket"
 <% } %>
 )
 
@@ -64,7 +64,7 @@ func TestAPIIntegration(t *testing.T) {
 	schemaBytes, err := os.ReadFile(schemaPath)
 	require.NoError(t, err, "failed to read schema.sql from %s", schemaPath)
 
-	db, err := provider.NewPostgresDB(cfg.Database.URI)
+	db, err := pg.NewDB(cfg.Database.URI)
 	require.NoError(t, err)
 	defer db.Close()
 

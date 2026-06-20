@@ -6,8 +6,9 @@ description: >
   backend handlers, services, providers, domain models, ML pipelines, FastAPI
   routes, async patterns, dependency injection, tests, resilience, or service
   architecture. This skill is the execution router for Python backend work: it
-  loads reference docs selectively, preserves hexagonal boundaries, coordinates
-  with adjacent skills, and verifies changes against contracts and tests. Use
+  loads reference docs selectively, preserves core/edge boundaries and the
+  inward dependency rule, coordinates with adjacent skills, and verifies
+  changes against contracts and tests. Use
   this skill whenever the user works in a Python service directory or asks about
   Python backend / ML engineering, even if they do not explicitly ask for a
   "python engineer."
@@ -70,7 +71,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Code documentation, docstrings, Pydantic Field docs | `documentation-mcp.md` |
 | Error handling, exception hierarchy, domain errors | `implementation-patterns.md` |
 | Dependency injection, Protocol ports, wiring | `implementation-patterns.md`, `architecture.md`, `database.md` |
-| Capability port + provider (LLM etc.), generated adapter shape, raw-gateway bet, `add-capability` | `capability-ports.md`, `architecture.md` |
+| Capability port + provider (LLM etc.), generated adapter shape, bare-port bet, `add-capability` | `capability-ports.md`, `architecture.md` |
 
 ---
 
@@ -109,8 +110,8 @@ If the collaborating skill does not exist in the project, handle the concern inl
 - Do not create new layer boundaries without evidence from docs or existing code.
 
 ### Layer Discipline
-- Do not put business decisions in entrypoints, providers, or middleware when the architecture expects them in service code.
-- Do not leak provider-specific types across layer boundaries. If an SDK response type appears in a service interface, the architecture is broken.
+- Do not put business decisions in entrypoints, adapters, or middleware when the architecture expects them in service code.
+- Do not leak adapter-specific types across the core/edge boundary. If an SDK response type appears in a core port, the architecture is broken.
 - FastAPI `Depends`, `Request`, `Session` objects never enter the Service or Domain layers.
 - Always use `pydantic-settings` to validate configuration at startup.
 
@@ -121,7 +122,7 @@ If the collaborating skill does not exist in the project, handle the concern inl
 - Never use wildcard CORS (`allow_origins=["*"]`).
 
 ### Error Handling
-- Do not log and re-raise the same error at multiple layers. Wrap errors with domain exceptions at the provider boundary and handle at the entrypoint.
+- Do not log and re-raise the same error at multiple layers. Wrap errors with domain exceptions at the adapter boundary and handle at the entrypoint.
 - Map SDK errors to domain exception types before retrying.
 
 ### Async Discipline
@@ -164,24 +165,24 @@ If the collaborating skill does not exist in the project, handle the concern inl
 
 | Tier | What | Infrastructure |
 |---|---|---|
-| Service test (default) | HTTP → Service → Provider | Testcontainers + `dependency_overrides` |
+| Service test (default) | HTTP → Service → Adapter | Testcontainers + `dependency_overrides` |
 | Unit test (reserved) | Complex domain logic | None |
 | System test (minimal) | Bootstrap + golden path | Full live stack |
 
 ### Dependency Injection
 
 ```python
-# Gateway (Port) — in core/gateways/
-class ProcessingGateway(Protocol):
+# Port — in src/<package>/core/ports.py
+class Processor(Protocol):
     async def process(self, uri: str) -> Result: ...
 
-# Provider (Adapter) — in providers/
-class ConcreteProvider:
+# Adapter — in src/<package>/adapters/
+class ConcreteProcessor:
     async def process(self, uri: str) -> Result: ...
 
-# Wiring — in entrypoints/ or container.py
+# Wiring — in entrypoints/ or dependencies.py, typed as the port
 def get_service() -> ProcessingService:
-    return ProcessingService(gateway=ConcreteProvider())
+    return ProcessingService(processor=ConcreteProcessor())
 ```
 
 ---

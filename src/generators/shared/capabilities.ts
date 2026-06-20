@@ -4,13 +4,14 @@ import * as fs from 'fs';
 import { registerRunner, RunnerSpec } from './scaffold-helpers';
 
 /**
- * Composable capability ports & providers (plan WS-F).
+ * Composable capabilities and providers (plan WS-F).
  *
- * GroundWork preaches hexagonal architecture: a domain port, swappable adapters
- * at the edge. This module turns that into scaffold mechanics. A *capability*
- * (e.g. `llm`) is a port plus a catalog of *providers*; choosing a provider is
- * choosing an adapter, and each provider declares an operational *footprint* —
- * `env` (just config), `compose-service`, `runner`, or `none` (the raw gateway).
+ * The core depends on an interface it owns; the implementation is wired in at
+ * the edge and is swappable. This module turns that into scaffold mechanics. A
+ * *capability* (e.g. `llm`) is an interface plus a catalog of *providers*;
+ * choosing a provider selects the implementation wired in at the edge, and each
+ * provider declares an operational *footprint* — `env` (just config),
+ * `compose-service`, `runner`, or `none` (the bare interface, no provider).
  *
  * The registry is data, not code (src/generators/capabilities/<cap>/...), so
  * adding a provider is a folder, not a generator change. Both the service
@@ -152,6 +153,29 @@ function readGoModule(tree: Tree, serviceRoot: string): string {
   return m ? m[1] : '';
 }
 
+/**
+ * The importable package name of a Python service (src-layout: `src/<pkg>`).
+ * Read from pyproject.toml's hatch `packages = ["src/<pkg>"]` so the standalone
+ * add-capability generator learns it from the service on disk — no new option.
+ * Falls back to the lone non-dunder directory under `src/` when the marker is
+ * absent (e.g. a hand-rolled service), and to `''` when undiscoverable.
+ */
+function readPythonPackage(tree: Tree, serviceRoot: string): string {
+  const py = `${serviceRoot}/pyproject.toml`;
+  if (tree.exists(py)) {
+    const m = (tree.read(py, 'utf-8') || '').match(/packages\s*=\s*\[\s*["']src\/([A-Za-z0-9_]+)["']/);
+    if (m) return m[1];
+  }
+  const srcDir = `${serviceRoot}/src`;
+  if (tree.exists(srcDir)) {
+    const dirs = (tree.children(srcDir) ?? []).filter(
+      (c) => !c.startsWith('__') && tree.children(`${srcDir}/${c}`).length > 0,
+    );
+    if (dirs.length === 1) return dirs[0];
+  }
+  return '';
+}
+
 /** Append env vars (by name, idempotent) to a service's env-example file. */
 function appendEnvExample(
   tree: Tree,
@@ -258,7 +282,12 @@ export function applyCapability(
   const root = capabilitiesRoot();
   // Go templates import the service's module path; resolve it from go.mod.
   const moduleName = stackSpec.module ? readGoModule(tree, serviceRoot) : '';
-  const subs = { provider, capability, stack, moduleName, tmpl: '' };
+  // Python templates land in the src-layout package `src/<pkg>` and import from
+  // it; resolve the package from the service's pyproject. `__packageName__` in a
+  // capability path (template dir or capability.json) is substituted with it.
+  const packageName = stack === 'python' ? readPythonPackage(tree, serviceRoot) : '';
+  const resolvePath = (p: string) => p.replace(/__packageName__/g, packageName);
+  const subs = { provider, capability, stack, moduleName, packageName, tmpl: '' };
 
   // Port + contract test (capability-owned, provider-agnostic except the test's
   // `none` branch). generateFiles renders the templated subtree into serviceRoot.
@@ -312,9 +341,9 @@ export function applyCapability(
     wiring: stackSpec.wiring,
     materialized,
     files: {
-      port: `${serviceRoot}/${stackSpec.port}`,
-      adapter: `${serviceRoot}/${stackSpec.adapter}`,
-      contractTest: `${serviceRoot}/${stackSpec.contractTest}`,
+      port: `${serviceRoot}/${resolvePath(stackSpec.port)}`,
+      adapter: `${serviceRoot}/${resolvePath(stackSpec.adapter)}`,
+      contractTest: `${serviceRoot}/${resolvePath(stackSpec.contractTest)}`,
     },
   };
 }

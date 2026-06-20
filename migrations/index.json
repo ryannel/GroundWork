@@ -30,6 +30,13 @@
       "summary": "The UX Design phase became the Design System phase; projects carrying the old document need the rename and its cross-references carried forward."
     },
     {
+      "id": "gw-code-structure-rename",
+      "version": "0.10.0",
+      "title": "Retire hexagonal-architecture.md for code-structure.md",
+      "kind": "agent",
+      "summary": "The structural-design principle was reframed away from the hexagonal label to How We Structure Code; installs carrying the orphaned hexagonal-architecture.md need it removed and its live cross-references carried forward to code-structure.md."
+    },
+    {
       "id": "gw-surfaces-registry-bootstrap",
       "version": "0.10.0",
       "title": "Bootstrap the surface registry and capability ledger",

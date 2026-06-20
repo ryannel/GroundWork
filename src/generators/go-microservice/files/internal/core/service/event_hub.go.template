@@ -1,0 +1,9 @@
+package service
+
+import "<%= name %>/internal/core/domain"
+
+// EventHub defines an interface for synchronously broadcasting domain events
+// to connected clients (e.g., via WebSockets).
+type EventHub interface {
+	Broadcast(event domain.Event)
+}

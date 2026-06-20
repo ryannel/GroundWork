@@ -17,9 +17,9 @@ import (
 	"<%= name %>/internal/config"
 	"<%= name %>/internal/core/service"
 	"<%= name %>/internal/entrypoints/api"
-	"<%= name %>/internal/provider"
+	"<%= name %>/internal/postgres"
 <% if (websockets) { %>
-	"<%= name %>/internal/provider/websocket"
+	"<%= name %>/internal/websocket"
 <% } %>
 )
 
@@ -35,7 +35,7 @@ func main() {
 	}
 	defer otelShutdown(context.Background())
 	
-	db, err := provider.NewPostgresDB(cfg.Database.URI)
+	db, err := postgres.NewDB(cfg.Database.URI)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to connect to database")
 	}
@@ -46,10 +46,10 @@ func main() {
 	wsHub := websocket.NewHub(cfg)
 	go wsHub.Run()
 
-	// Composition Root: Wire up Gateways, Providers, and Services
+	// Composition root: wire adapters into services
 	router, err := buildApp(cfg, db, wsHub)
 <% } else { %>
-	// Composition Root: Wire up Gateways, Providers, and Services
+	// Composition root: wire adapters into services
 	router, err := buildApp(cfg, db)
 <% } %>
 	if err != nil {
@@ -82,16 +82,16 @@ func main() {
 // buildApp wires all repositories, external clients, and services together,
 // returning the fully configured HTTP handler. This enforces explicit dependency injection.
 <% if (websockets) { %>
-func buildApp(cfg *config.Config, db *provider.PostgresDB, wsHub *websocket.Hub) (http.Handler, error) {
+func buildApp(cfg *config.Config, db *postgres.DB, wsHub *websocket.Hub) (http.Handler, error) {
 <% } else { %>
-func buildApp(cfg *config.Config, db *provider.PostgresDB) (http.Handler, error) {
+func buildApp(cfg *config.Config, db *postgres.DB) (http.Handler, error) {
 <% } %>
-	// --- Providers (Gateways) ---
-	
-	txManager := provider.NewPostgresTransactionManager(db)
-	entityRepo := provider.NewPostgresRepository(db)
+	// --- Adapters ---
+
+	txManager := postgres.NewTransactionManager(db)
+	entityRepo := postgres.NewRepository(db)
 <% if (messaging !== 'none') { %>
-	outboxRepo := provider.NewOutboxRepository(db)
+	outboxRepo := postgres.NewOutboxRepository(db)
 <% } %>
 
 	// --- Services (Use Cases) ---
@@ -103,7 +103,7 @@ func buildApp(cfg *config.Config, db *provider.PostgresDB) (http.Handler, error)
 <% } %>
 
 <% if (auth === 'clerk') { %>
-	userRepo := provider.NewPostgresUserRepository(db)
+	userRepo := postgres.NewUserRepository(db)
 	userSvc := service.NewUserService(userRepo)
 <% } %>
 

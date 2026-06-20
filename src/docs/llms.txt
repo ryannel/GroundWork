@@ -38,7 +38,7 @@ setup runs. The other sections ship at install time.*
 - [Progressive delivery](docs/principles/delivery/progressive-delivery.md): Feature flags and incremental rollout.
 - [Platform](docs/principles/delivery/platform.md): Internal platform and developer self-service.
 - [Cost engineering](docs/principles/delivery/cost-engineering.md): Cloud cost ownership and optimisation.
-- [Hexagonal architecture](docs/principles/system-design/hexagonal-architecture.md): Ports, adapters, and domain isolation.
+- [How we structure code](docs/principles/system-design/code-structure.md): A pure core, swappable edges, and one obvious place for everything.
 - [API design](docs/principles/system-design/api-design.md): REST, gRPC, and contract-first design.
 - [Integration patterns](docs/principles/system-design/integration-patterns.md): Events, queues, and service communication.
 - [Real-time patterns](docs/principles/system-design/real-time.md): WebSocket, SSE, and streaming.

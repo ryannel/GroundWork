@@ -16,7 +16,7 @@ Push rendering and data assembly server-side or to the edge; ship the client the
 
 ## Decompose a large surface by domain, right-sized
 
-A surface decomposes like services do — by bounded domain, only when teams or load demand it. **Micro-frontends** / **islands** are for independent teams shipping parts of one surface autonomously; for most products a single well-structured surface is simpler and correct. The distributed-monolith failure mode has a front-end twin: many micro-frontends that must deploy in lock-step. Apply the same converging-signals discipline as [boundaries-and-hexagonal.md](boundaries-and-hexagonal.md).
+A surface decomposes like services do — by bounded domain, only when teams or load demand it. **Micro-frontends** / **islands** are for independent teams shipping parts of one surface autonomously; for most products a single well-structured surface is simpler and correct. The distributed-monolith failure mode has a front-end twin: many micro-frontends that must deploy in lock-step. Apply the same converging-signals discipline as [core-and-boundaries.md](core-and-boundaries.md).
 
 ## The design system is a contract
 

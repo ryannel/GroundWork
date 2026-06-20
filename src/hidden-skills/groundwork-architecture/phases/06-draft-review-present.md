@@ -17,7 +17,7 @@ When ready:
    | `00-header.md` | The `## Summary for Downstream` section first (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope per Protocol 5), then the document title and brief introduction |
    | `01-constraints-and-budgets.md` | Template section 1 |
    | `02-top-level-topology.md` | Template section 2 |
-   | `03-key-capabilities.md` | Template section 3 (capability areas and technology decisions with rationale, including the **Capability Ports & Providers** table: each port → provider → footprint settled in Phase 5) |
+   | `03-key-capabilities.md` | Template section 3 (capability areas and technology decisions with rationale, including the **Capability Ports & Providers** table: each capability → provider → footprint settled in Phase 5) |
    | `04-component-boundaries.md` | Template section 4 |
    | `05-communication-patterns.md` | Template section 5 |
    | `06-service-level-requirements.md` | Template section 6 (the SLR table) |

@@ -15,7 +15,7 @@ import (
 	"<%= name %>/internal/config"
 	"<%= name %>/internal/core/service"
 <% if (websockets) { -%>
-	"<%= name %>/internal/provider/websocket"
+	"<%= name %>/internal/websocket"
 <% } -%>
 	"<%= name %>/internal/entrypoints/api/idempotency"
 )

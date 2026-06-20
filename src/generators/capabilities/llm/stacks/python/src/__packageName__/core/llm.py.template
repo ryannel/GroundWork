@@ -1,0 +1,15 @@
+from typing import Protocol, runtime_checkable
+
+
+@runtime_checkable
+class TextGenerator(Protocol):
+    """Port: large-language-model text generation.
+
+    This interface is the stable contract the domain depends on. Concrete
+    adapters live in src/<%= packageName %>/adapters/llm.py and are swappable at scaffold time
+    (anthropic | openai | local | none) without touching this port or its
+    callers — that is the whole point of the ports/adapters boundary.
+    """
+
+    async def generate_text(self, prompt: str, max_tokens: int = 100) -> str:
+        ...
