@@ -84,7 +84,7 @@ def test_instrumented_get_exports_span(cluster, svc):
     # may transiently 5xx. Retry until the route is ready so this asserts span
     # export, not startup ordering (test_every_service_is_healthy covers liveness).
     resp = None
-    for attempt in range(15):
+    for attempt in range(8):
         resp = httpx.get(
             f"{_base_url(svc)}{probe}",
             headers={"traceparent": traceparent},
