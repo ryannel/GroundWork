@@ -63,6 +63,13 @@
       "title": "Register surfaces and native sidecars as ./dev runners",
       "kind": "agent",
       "summary": "Projects scaffolded before the runner registry have a runner-less dev.config.json, so their Electron/CLI/Flutter surfaces and native sidecars are invisible to ./dev; register them without touching db/jaeger compose."
+    },
+    {
+      "id": "gw-nextjs-atmosphere-tokens",
+      "version": "0.10.0",
+      "title": "Project the atmosphere token layer into existing Next.js apps",
+      "kind": "agent",
+      "summary": "Next.js apps scaffolded before the per-app token projection carry a hardcoded globals.css and no brand.css, so the design system's atmosphere (elevation, blur, gradients, surface treatments, motion, type-role micro) cannot reach the UI and the token-conformance gate is absent; regenerate the token layer from brand-tokens.json, reconcile any hand-edited globals.css, and add the conformance test."
     }
   ]
 }

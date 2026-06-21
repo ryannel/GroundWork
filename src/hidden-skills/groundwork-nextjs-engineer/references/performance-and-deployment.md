@@ -886,7 +886,7 @@ This speeds up the dev server restart when working on a single page.
 1. `pnpm build` completes without errors
 2. `pnpm test` passes all suites
 3. `pnpm lint` reports no issues
-4. All pages tested in both Obsidian and Milk themes
+4. All pages tested in both dark and light themes
 5. Images use `next/image` with proper `sizes` and `alt`
 6. Fonts load via `next/font`, no external `<link>` tags
 7. No `console.log` in production code

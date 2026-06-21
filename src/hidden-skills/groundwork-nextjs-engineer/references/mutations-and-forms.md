@@ -169,7 +169,7 @@ export function MeetingForm() {
           autoFocus // Focus immediately — speed principle
         />
         {form.formState.errors.title && (
-          <p className="text-[--color-error]">
+          <p className="text-destructive">
             {form.formState.errors.title.message}
           </p>
         )}
@@ -185,7 +185,7 @@ export function MeetingForm() {
       </div>
 
       {form.formState.errors.root && (
-        <p className="text-[--color-error]">
+        <p className="text-destructive">
           {form.formState.errors.root.message}
         </p>
       )}
@@ -377,7 +377,7 @@ export function EditableTitle({ meeting }: { meeting: Meeting }) {
   return (
     <h1
       onClick={() => setIsEditing(true)}
-      className="cursor-pointer hover:text-[--color-accent]"
+      className="cursor-pointer hover:text-primary"
       role="button"
       tabIndex={0}
       onKeyDown={e => e.key === 'Enter' && setIsEditing(true)}

@@ -271,7 +271,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{ backgroundColor: 'oklch(0 0 0 / 0.5)' }}
     >
-      <div className="glass-elevated max-w-2xl w-full mx-4 p-6">
+      <div className="surface-elevated max-w-2xl w-full mx-4 p-6">
         <button
           onClick={() => router.back()}
           className="absolute top-4 right-4"
@@ -396,7 +396,7 @@ export function NavLink({ href, children }: { href: string; children: React.Reac
   return (
     <Link
       href={href}
-      className={isActive ? 'text-[--color-accent]' : 'text-[--color-text-secondary]'}
+      className={isActive ? 'text-primary' : 'text-muted-foreground'}
     >
       {children}
     </Link>

@@ -70,8 +70,12 @@ export default tseslint.config(
       // as Tailwind token utilities (bg-primary, text-foreground, px-4). A raw colour
       // or length literal in a component bypasses the design system and drifts
       // silently, so it fails lint. globals.css is the token-definition layer and is
-      // not linted here (ESLint does not lint CSS). Catches inline-style hex/px and
-      // Tailwind arbitrary values; token utilities and CSS-variable references pass.
+      // not linted here (ESLint does not lint CSS). Catches inline-style hex/px,
+      // raw gradients, and Tailwind arbitrary values (colour, length, shadow, blur,
+      // gradient) — the atmosphere layer (elevation, blur, gradients, surface
+      // treatments) is projected from brand-tokens.json into token utilities, so a
+      // literal recipe in a component is drift. Token utilities and CSS-variable
+      // references pass.
       "no-restricted-syntax": [
         "error",
         {
@@ -89,6 +93,22 @@ export default tseslint.config(
         {
           selector: "JSXAttribute[name.name='className'] Literal[value=/\\[[0-9.]+(px|rem)\\]/]",
           message: "Tailwind arbitrary length value (e.g. p-[12px]) — use a spacing-scale utility (p-3, gap-4), not a hardcoded length.",
+        },
+        {
+          selector: "JSXAttribute[name.name='style'] Literal[value=/(radial|linear|conic)-gradient\\(/]",
+          message: "Raw CSS gradient in an inline style — use a gradient/surface token (a utility from the token layer), not a literal recipe. Atmosphere lives in the design system, not the component.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'] Literal[value=/(shadow|drop-shadow)-\\[/]",
+          message: "Tailwind arbitrary shadow (e.g. shadow-[0_1px_2px]) — use an elevation token utility (shadow-low/mid/high) projected from brand-tokens.json, not a literal stack.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'] Literal[value=/(backdrop-blur|blur)-\\[/]",
+          message: "Tailwind arbitrary blur (e.g. backdrop-blur-[20px]) — use a blur token utility projected from the design system, not a literal radius.",
+        },
+        {
+          selector: "JSXAttribute[name.name='className'] Literal[value=/\\[(radial|linear|conic)-gradient/]",
+          message: "Tailwind arbitrary gradient — use a gradient/surface token utility from the token layer, not a literal recipe.",
         },
       ],
     },

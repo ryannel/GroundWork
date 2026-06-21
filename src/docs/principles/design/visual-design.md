@@ -2,13 +2,13 @@
 title: Visual Design
 description: Perceptual colour, typographic rigour, spatial depth, and visual hierarchy — the craft that separates an implemented design from a framework default.
 status: active
-last_reviewed: 2026-06-20
+last_reviewed: 2026-06-21
 ---
 # Visual Design
 
 ## TL;DR
 
-The visual layer is built on perception, not convenience. Colour is authored in a perceptually uniform space so palettes are even and predictable; type is a system of co-tuned roles, not a list of font sizes; depth comes from light modelled honestly; hierarchy is carried by weight and colour before size. The gap between a designed interface and a generic one lives entirely in these details, and every one of them has a correct, defensible default.
+The visual layer is built on perception, not convenience. Colour is authored in a perceptually uniform space so palettes are even and predictable; type is a system of co-tuned roles, not a list of font sizes; depth comes from light modelled honestly; hierarchy is carried by weight and colour before size. Atmosphere — translucency, ambient glow, and grain — is modelled material used with restraint, never decoration; and the finishing details (optical alignment, pixel-crisp edges, tabular figures) are where polish is won or lost. The gap between a designed interface and a generic one lives entirely in these details, and every one of them has a correct, defensible default.
 
 ## Why this matters
 
@@ -44,9 +44,17 @@ Each scale step is a `clamp(min, preferred, max)` that interpolates between two 
 
 Elevation comes from a multi-layer shadow stack — several shadows with progressively larger offset and blur and inversely scaled alpha — sharing one light-source direction (vertical offset roughly twice the horizontal) and tinted toward the background hue rather than pure black, because real light casts many soft accumulating shadows from a consistent source. A single `box-shadow` is a fuzzy grey box; the layered stack reads as physical. Edges catch light: prefer a translucent, luminosity-aware border or a 1px top highlight over a flat opaque grey line. Gradients interpolate in OKLCH/OKLab and carry ~1% noise to kill banding, because sRGB interpolation produces a muddy mid-stop dead zone.
 
-### 8. Hierarchy is carried by weight and colour before size
+### 8. Atmosphere is modelled material — translucency, glow, and grain, used with restraint
+
+High-end surfaces read as material in an environment, not flat fills, and the techniques that build that atmosphere are exactly the ones a generic build skips. **Translucency (glass):** a surface tinted with alpha over a `backdrop-filter` blur samples the content beneath, placing the surface in front of a scene rather than on a void — reserved for layered chrome (navigation, overlays, command surfaces), always with a tint opaque enough to hold text contrast and a solid fallback for engines without backdrop support. **Ambient glow and gradient mesh:** a barely-perceptible radial wash (opacity well under ~0.15, fading to transparent over a solid fallback) warms a large surface and leads the eye — interpolated in OKLCH with ~1% noise, never a hard two-stop dump. **Grain:** a fine, low-opacity noise overlay defeats banding and lends tactility to large flats. Depth is multi-plane: foreground, surface, and background blur and move differently so the interface reads as layers, not a sheet. The whole discipline is restraint — atmosphere serves the content; when blur, glow, and grain become the subject, the surface has become decoration. Borrow the *technique and rigour* of the work you admire, never its signature look: the look dates, the rigour does not.
+
+### 9. Hierarchy is carried by weight and colour before size
 
 The fastest way to a flat, undifferentiated screen is to express every level with a different font size. We build hierarchy with a small set of greys (near-black primary, mid secondary, light tertiary) and two weights first; size is the last lever, not the first, because secondary text that is merely smaller still competes for attention, while lightening it makes it recede. We compose grayscale-first — if the layout fails without colour, its weight-and-spacing hierarchy is broken — and never let colour be the sole differentiator. Proximity groups: related elements sit closer than unrelated ones, so equal spacing everywhere destroys structure.
+
+### 10. Align optically and render crisp; set figures in tabular numerals
+
+Polish lives below the level most builds check. **Optical alignment is not mathematical alignment:** a triangle or play icon centred by its bounding box looks off-centre, and text centred by its line box sits high — nudge by eye to where the visual mass balances. **Render on the pixel grid:** keep 1px borders and hairlines crisp rather than smeared across two subpixels — integer offsets for sharp edges, no fractional positioning of thin lines. **Set figures in tabular numerals** wherever values are compared or change in place (tables, metrics, timers, counters) so digits hold their columns and the layout stops jittering; reserve proportional numerals for running prose. Each of these is invisible until it is wrong, and collectively they are the difference between considered and almost.
 
 ## How we apply this
 
@@ -62,6 +70,10 @@ The fastest way to a flat, undifferentiated screen is to express every level wit
 - **Size-only type tokens.** Font sizes named by their pixel value with no paired line-height, weight, or tracking, and one global letter-spacing.
 - **The single-layer shadow.** One `box-shadow` with a pure-black colour, plus a flat opaque grey border, the documented "AI slop" depth signature.
 - **The default gradient.** A two-stop indigo/purple hero gradient interpolated in sRGB with visible banding.
+- **Blur as decoration.** Backdrop blur on opaque or non-layered surfaces, or without a contrast-safe tint and a solid fallback — the cost of glass without the layered-scene payoff.
+- **Glow/grain dump.** A high-opacity or hard-stop "ambient" gradient, or heavy noise, used as ornament rather than a sub-perceptual wash that serves the content.
+- **Signature mimicry.** Copying a named product's signature surface look instead of borrowing the underlying technique and restraint.
+- **Bounding-box centring.** Trusting mathematical centre for icons, arrows, and optically-uneven glyphs instead of nudging to optical balance; blurred hairlines from fractional pixel offsets.
 - **Hierarchy by size alone.** Five font sizes standing in for a hierarchy that weight and colour would carry better.
 
 ## Further reading

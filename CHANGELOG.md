@@ -8,6 +8,18 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (high-end micro-polish: per-app atmosphere tokens, token-driven engineer, deterministic conformance, 2026-06-21)
+
+Design craft is now specified as per-app tokens and verified deterministically, so agents deliver the micro-level polish — atmosphere, motion, optical finish — that separates high-end UI from a framework default. The lever is "specify concretely → build to spec → verify against spec," not vision-grading screenshots.
+
+- **brand-tokens `visual` contract extended** with the atmosphere layer: `elevation` (multi-layer shadow stacks), `blur`, `gradients`, `surface` treatments (glass/elevated/hero), `motion.interactions`, and `typography.roles` (per-role line-height/tracking + `numeric`). The design system fills these per app.
+- **Next.js token projection (parity with electron/flutter).** The nextjs-app generator now reads `brand-tokens.json` and projects the palette + atmosphere into a generated `app/brand.css`; `app/globals.css` maps them into Tailwind token utilities (`shadow-low/mid/high`, `backdrop-blur-*`, semantic `success/warning/info`) and surface classes (`.surface-glass/.surface-elevated/.surface-hero`).
+- **Engineer skill is token-driven.** `groundwork-nextjs-engineer` no longer carries a fixed aesthetic catalogue (the glass variants, the 4-layer shadow values, named themes, the Geist mandate); its references teach the stack mechanics and point at the app's design system. Atmosphere is delivered per app, never baked into a skill.
+- **Designer canon deepened** with the atmosphere/material layer (translucency, ambient glow, grain, multi-plane depth) and optical finish (optical alignment, crisp 1px rendering, tabular numerals), anti-mimicry framed.
+- **Per-surface micro-polish spec + convergent technique research.** Bet design requires a token-traceable motion/atmosphere/static-micro spec per graphical surface (concreteness-gated at review); at design-settle the design system runs a convergent pass over high-end exemplars of the chosen aesthetic, recording concrete techniques (not images) as a technique library.
+- **Deterministic verification.** New `test_token_conformance.py` (Tier 1) asserts the atmosphere actually landed (tokens resolve, multi-layer elevation, backdrop blur on surface treatments); the token-conformance lint now also bans raw shadow/blur/gradient literals. The vision-grading Tier-3 `visual-fidelity` review is removed — the craft bar is the concrete spec, judged for conformance by the deterministic gate and a designer spec-conformance pass at delivery.
+- [migration] Existing Next.js apps regenerate their token layer — gaining `app/brand.css`, the restructured token-driven `globals.css`, and `test_token_conformance.py` — with hand-edited `globals.css` reconciled rather than clobbered (gw-nextjs-atmosphere-tokens)
+
 ### Added (off-script support: composable `./dev`, the Day-2 baseline, and customization guidance, 2026-06-21)
 
 GroundWork now treats its shipped scaffolds and `./dev` CLI as a starting point the project owns and grows, and holds off-script work to the same bar as the paved road (plan: `docs/plans/customization-and-forge.md`).

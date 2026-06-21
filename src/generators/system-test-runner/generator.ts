@@ -131,6 +131,7 @@ export async function systemTestRunnerGenerator(
     tree.delete('tests/system/test_render_smoke.py');
     tree.delete('tests/system/test_layout_geometry.py');
     tree.delete('tests/system/test_visual_regression.py');
+    tree.delete('tests/system/test_token_conformance.py');
   }
 
   await formatFiles(tree);

@@ -244,7 +244,7 @@ describe('useMeetings', () => {
 
 ## Theme Coverage
 
-Every component must be rendered and verified in both Obsidian (dark) and Milk (light) themes. Add theme variants to tests for visual components.
+Every component must be rendered and verified in both dark and light themes. Add theme variants to tests for visual components.
 
 The snapshot below is the deliberate exception to the no-snapshots-by-default rule: snapshots are reserved for genuinely opaque generated artefacts — here, the resolved theme-specific styles — never for ordinary component output.
 
