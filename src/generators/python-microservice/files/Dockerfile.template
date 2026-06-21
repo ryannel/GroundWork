@@ -21,7 +21,9 @@ COPY src/ ./src/
 # (not the app root) is what goes on the import path.
 ENV PYTHONPATH=/app/src
 <% if (postgres) { %>
-COPY schema.sql ./
+# Declarative schema (db/schema.sql) + apply-schema.sh, applied by `./dev migrate`.
+COPY db/ ./db/
+COPY scripts/ ./scripts/
 <% } %>
 
 <% if (runpod) { %>
