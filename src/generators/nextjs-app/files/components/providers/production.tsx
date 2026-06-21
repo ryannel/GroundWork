@@ -20,7 +20,7 @@ export default function ProductionLayoutProvider({
 }) {
   return (
     <ClerkProvider
-      appearance={{ baseTheme: dark }}
+      appearance={{ theme: dark }}
       signInUrl="/sign-in"
       signUpUrl="/sign-up"
       signInFallbackRedirectUrl="/"
