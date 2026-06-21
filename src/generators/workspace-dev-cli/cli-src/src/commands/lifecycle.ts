@@ -4,6 +4,7 @@ import {
   capture,
   dockerComposeRun,
   dockerComposeCapture,
+  httpProbe,
   run,
   sleep,
   spawnBackground,
@@ -19,6 +20,8 @@ import {
   bootCommand,
   writePid,
   serviceDir,
+  servicePort,
+  serviceHealthPath,
 } from '../util/services';
 import { ensureDirs, logFile, PID_DIR, LOG_DIR, ROOT } from '../util/paths';
 import { Runner } from '../util/runners';
@@ -178,6 +181,86 @@ export async function clean(ctx: Ctx): Promise<number> {
   return 0;
 }
 
+/** Full-cycle recycle: stop everything → wipe volumes → start fresh → migrate.
+ *  Forwards `--docker` to `start` so `./dev reset --docker` cleanly rebuilds the
+ *  Docker topology. Reuses the existing lifecycle steps rather than reimplementing
+ *  teardown/wipe. */
+export async function reset(ctx: Ctx): Promise<number> {
+  const { r } = ctx;
+  r.logo('Resetting Environment');
+  r.info('Full cycle: stop → clean (wipe volumes) → start → migrate.');
+
+  await stop(ctx);
+  // clean reads --hard from ctx.args; force a volume wipe regardless of how
+  // reset was invoked, while leaving start's view of --docker intact.
+  await clean({ ...ctx, args: ['--hard'] });
+  await start(ctx);
+  await migrate(ctx);
+
+  r.success('Environment reset complete.');
+  return 0;
+}
+
+interface HealthRow {
+  service: string;
+  port: number | null;
+  status: 'healthy' | 'down' | 'unknown';
+  code: number;
+}
+
+async function probeService(svc: string): Promise<HealthRow> {
+  const port = servicePort(svc);
+  if (port === null) return { service: svc, port: null, status: 'unknown', code: 0 };
+  const code = await httpProbe(`http://localhost:${port}${serviceHealthPath(svc)}`);
+  return { service: svc, port, status: code === 200 ? 'healthy' : 'down', code };
+}
+
+function healthLabel(row: HealthRow): [string, string, string] {
+  if (row.status === 'unknown') return [row.service, 'unknown port', 'skipped'];
+  if (row.status === 'healthy') return [row.service, 'healthy', row.port ? `:${row.port}` : ''];
+  const detail = row.code ? `down (${row.code})` : 'down';
+  return [row.service, detail, row.port ? `:${row.port}` : ''];
+}
+
+/** Actively HTTP-poll every app service's health endpoint plus Jaeger's query
+ *  API. A down endpoint is a row, never a crash; exits 1 if anything is unhealthy. */
+export async function health(ctx: Ctx): Promise<number> {
+  const { r } = ctx;
+  const json = ctx.json || ctx.args.includes('--json');
+
+  const services = await Promise.all(getAppServices().map(probeService));
+  const jcode = await httpProbe('http://localhost:16686/api/services');
+  const jaeger: HealthRow = {
+    service: 'jaeger',
+    port: 16686,
+    status: jcode === 200 ? 'healthy' : 'down',
+    code: jcode,
+  };
+
+  const unhealthy = [...services, jaeger].filter((row) => row.status !== 'healthy').length;
+
+  if (json) {
+    process.stdout.write(
+      JSON.stringify({ ok: unhealthy === 0, services, observability: [jaeger] }, null, 2) + '\n',
+    );
+    return unhealthy === 0 ? 0 : 1;
+  }
+
+  r.logo('Service Health');
+  r.table('App Services', services.length ? services.map(healthLabel) : []);
+  r.table('Observability', [healthLabel(jaeger)]);
+
+  if (unhealthy === 0) {
+    r.success('All services healthy.');
+    return 0;
+  }
+  r.errorCard(
+    `${unhealthy} endpoint(s) unhealthy.`,
+    "Run './dev start' (or './dev start --docker') and retry.",
+  );
+  return 1;
+}
+
 export async function migrate(ctx: Ctx): Promise<number> {
   const { r } = ctx;
 
@@ -258,9 +341,56 @@ export async function migrate(ctx: Ctx): Promise<number> {
   return 0;
 }
 
+/** True if `name` is a known docker-compose service in this workspace. */
+function composeServiceExists(name: string): boolean {
+  const res = dockerComposeCapture(['config', '--services']);
+  if (res.status !== 0) return false;
+  return res.stdout
+    .split('\n')
+    .map((s) => s.trim())
+    .includes(name);
+}
+
 export async function logs(ctx: Ctx): Promise<number> {
   const { r } = ctx;
   const follow = ctx.args.includes('--follow') || ctx.args.includes('-f');
+  const target = ctx.args.find((a) => !a.startsWith('-'));
+
+  if (target) {
+    // Prefer a native log file if the service has one; otherwise treat it as a
+    // docker-compose container. Unknown names fail loud rather than streaming
+    // everything (the surprising alternative).
+    const f = logFile(target);
+    if (fs.existsSync(f)) {
+      if (follow) {
+        if (!r.painter.caps.isTTY) {
+          throw new CliError(
+            'logs --follow requires an interactive terminal',
+            `Omit --follow to print recent logs, or read .dev/logs/${target}.log directly.`,
+          );
+        }
+        r.info(`Streaming logs: ${target} (Ctrl+C to stop)...`);
+        return run('tail', ['-f', f]);
+      }
+      const tail = fs.readFileSync(f, 'utf8').split('\n').slice(-40).join('\n');
+      r.step(`${target} (last 40 lines)`);
+      process.stdout.write(tail + '\n');
+      return 0;
+    }
+    if (composeServiceExists(target)) {
+      if (follow) {
+        if (!r.painter.caps.isTTY) {
+          throw new CliError(
+            'logs --follow requires an interactive terminal',
+            'Omit --follow to print recent logs and exit.',
+          );
+        }
+        return dockerComposeRun(['logs', '-f', target]);
+      }
+      return dockerComposeRun(['logs', '--tail', '40', target]);
+    }
+    throw new CliError(`Unknown service: ${target}`, "Run './dev status' to list known services.");
+  }
 
   if (!follow) {
     // Non-streaming by default: print recent native logs and a compose snapshot,

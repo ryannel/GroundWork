@@ -1,0 +1,55 @@
+// @vitest-environment node
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { NextRequest } from "next/server";
+import { GET } from "./route";
+
+function makeRequest(path: string): NextRequest {
+  return new NextRequest(new Request(`http://localhost/api/proxy/${path}`));
+}
+
+function makeParams(path: string[]) {
+  return { params: Promise.resolve({ path }) };
+}
+
+describe("api proxy error handling", () => {
+  const realFetch = global.fetch;
+
+  beforeEach(() => {
+    process.env.API_URL = "http://upstream.test";
+  });
+
+  afterEach(() => {
+    global.fetch = realFetch;
+    vi.restoreAllMocks();
+  });
+
+  it("forwards an upstream 502 as a 502", async () => {
+    global.fetch = vi.fn(async () =>
+      new Response("bad gateway", { status: 502, statusText: "Bad Gateway" })
+    ) as unknown as typeof fetch;
+
+    const res = await GET(makeRequest("entities"), makeParams(["entities"]));
+    expect(res.status).toBe(502);
+  });
+
+  it("maps an upstream fetch failure (e.g. timeout/abort) to a 502", async () => {
+    global.fetch = vi.fn(async () => {
+      // Simulate an AbortController timeout / network failure: fetch rejects.
+      throw new DOMException("The operation was aborted.", "AbortError");
+    }) as unknown as typeof fetch;
+
+    const res = await GET(makeRequest("entities"), makeParams(["entities"]));
+    expect(res.status).toBe(502);
+    const body = await res.json();
+    expect(body.detail).toBe("Backend service unavailable");
+  });
+
+  it("passes through a successful upstream status", async () => {
+    global.fetch = vi.fn(async () =>
+      new Response(JSON.stringify({ ok: true }), { status: 200 })
+    ) as unknown as typeof fetch;
+
+    const res = await GET(makeRequest("entities"), makeParams(["entities"]));
+    expect(res.status).toBe(200);
+  });
+});

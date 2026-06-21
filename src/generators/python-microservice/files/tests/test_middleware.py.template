@@ -1,0 +1,109 @@
+<% if (rest) { %>
+import pytest
+from httpx import AsyncClient, ASGITransport
+import pytest_asyncio
+from fastapi import FastAPI
+
+from <%= packageName %>.entrypoints.api.middleware import (
+    IdempotencyMiddleware,
+    ConcurrencyLimitingMiddleware,
+)
+from <%= packageName %>.core.domain.entities import IdempotencyResponse
+
+
+class InMemoryIdempotencyRepo:
+    """Real (non-mock) IdempotencyRepository implementation for tests."""
+
+    def __init__(self):
+        self.completed = {}   # (key, user_id) -> IdempotencyResponse
+        self.in_progress = set()
+
+    async def get(self, key, user_id):
+        k = (key, user_id)
+        if k in self.completed:
+            return ("COMPLETED", self.completed[k])
+        if k in self.in_progress:
+            return ("IN_PROGRESS", None)
+        return None
+
+    async def lock(self, key, user_id):
+        k = (key, user_id)
+        if k in self.in_progress or k in self.completed:
+            return False
+        self.in_progress.add(k)
+        return True
+
+    async def save(self, key, user_id, response: IdempotencyResponse):
+        k = (key, user_id)
+        self.in_progress.discard(k)
+        self.completed[k] = response
+
+
+def build_app_with_idempotency():
+    app = FastAPI()
+    app.add_middleware(IdempotencyMiddleware)
+    app.state.idempotency_repo = InMemoryIdempotencyRepo()
+    app.state.calls = 0
+
+    @app.post("/thing")
+    async def create_thing():
+        app.state.calls += 1
+        return {"created": True}
+
+    return app
+
+
+@pytest_asyncio.fixture
+async def idem_client():
+    app = build_app_with_idempotency()
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        yield client, app
+
+
+@pytest.mark.asyncio
+async def test_idempotency_replays_cached_response(idem_client):
+    client, app = idem_client
+    headers = {"Idempotency-Key": "abc-123"}
+
+    r1 = await client.post("/thing", headers=headers)
+    assert r1.status_code == 200
+
+    r2 = await client.post("/thing", headers=headers)
+    # Second call replays the cached response; the handler runs exactly once.
+    assert r2.status_code == r1.status_code
+    assert app.state.calls == 1
+
+
+@pytest.mark.asyncio
+async def test_idempotency_get_is_not_deduplicated(idem_client):
+    client, app = idem_client
+    # GET bypasses the middleware entirely (no /thing GET route -> 405, never cached).
+    r = await client.get("/thing", headers={"Idempotency-Key": "abc-123"})
+    assert r.status_code in (404, 405)
+
+
+@pytest.mark.asyncio
+async def test_concurrency_limit_sheds_with_503():
+    import asyncio
+
+    app = FastAPI()
+    app.add_middleware(ConcurrencyLimitingMiddleware, max_concurrent_requests=1)
+    release = asyncio.Event()
+
+    @app.get("/slow")
+    async def slow():
+        await release.wait()
+        return {"ok": True}
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        # Hold the single slot, then fire a second request which must be shed (503).
+        first = asyncio.create_task(client.get("/slow"))
+        await asyncio.sleep(0.05)
+        second = await client.get("/slow")
+        assert second.status_code == 503
+        assert second.json()["detail"].startswith("Service overloaded")
+        release.set()
+        r1 = await first
+        assert r1.status_code == 200
+<% } %>

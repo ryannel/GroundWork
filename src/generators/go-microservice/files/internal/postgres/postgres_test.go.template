@@ -1,0 +1,156 @@
+package postgres
+
+import (
+	"context"
+	"os"
+	"path/filepath"
+	"testing"
+	"time"
+
+	"github.com/stretchr/testify/require"
+	"github.com/testcontainers/testcontainers-go"
+	tcpostgres "github.com/testcontainers/testcontainers-go/modules/postgres"
+	"github.com/testcontainers/testcontainers-go/wait"
+
+	"<%= name %>/internal/core/domain"
+
+	_ "github.com/lib/pq"
+)
+
+// setupTestDB starts a Postgres container, applies db/schema.sql, and returns a live DB.
+// Each test gets its own isolated container.
+func setupTestDB(t *testing.T) (*DB, context.Context) {
+	t.Helper()
+	if testing.Short() {
+		t.Skip("skipping data-layer integration test in -short mode")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	t.Cleanup(cancel)
+
+	pgContainer, err := tcpostgres.RunContainer(ctx,
+		testcontainers.WithImage("postgres:16-alpine"),
+		tcpostgres.WithDatabase("<%= name %>_test"),
+		tcpostgres.WithUsername("testuser"),
+		tcpostgres.WithPassword("testpass"),
+		testcontainers.WithWaitStrategy(
+			wait.ForLog("database system is ready to accept connections").
+				WithOccurrence(2).WithStartupTimeout(30*time.Second)),
+	)
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = pgContainer.Terminate(context.Background()) })
+
+	connStr, err := pgContainer.ConnectionString(ctx, "sslmode=disable")
+	require.NoError(t, err)
+
+	db, err := NewDB(connStr)
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = db.Close() })
+
+	// internal/postgres -> ../../db/schema.sql (same depth as cmd/api).
+	schemaPath := filepath.Join("..", "..", "db", "schema.sql")
+	schemaBytes, err := os.ReadFile(schemaPath)
+	require.NoError(t, err, "failed to read schema.sql from %s", schemaPath)
+	_, err = db.DB.ExecContext(ctx, string(schemaBytes))
+	require.NoError(t, err, "failed to apply schema")
+
+	return db, ctx
+}
+
+func TestRepository_CRUDRoundTrip(t *testing.T) {
+	db, ctx := setupTestDB(t)
+	repo := NewRepository(db)
+
+	ent := &domain.Entity{Name: "first"}
+	require.NoError(t, repo.Create(ctx, ent))
+	require.NotEmpty(t, ent.ID, "Create must populate the generated ID")
+
+	got, err := repo.GetByID(ctx, ent.ID)
+	require.NoError(t, err)
+	require.Equal(t, "first", got.Name)
+
+	got.Name = "renamed"
+	require.NoError(t, repo.Update(ctx, got))
+	reloaded, err := repo.GetByID(ctx, ent.ID)
+	require.NoError(t, err)
+	require.Equal(t, "renamed", reloaded.Name)
+
+	require.NoError(t, repo.Delete(ctx, ent.ID))
+	_, err = repo.GetByID(ctx, ent.ID)
+	require.Error(t, err, "GetByID after Delete must return an error (not found)")
+}
+
+// NOTE on transactional writes: service.Transaction exposes only Commit/Rollback,
+// not Exec — you cannot write *through* the wrapper tx from a test. So we verify
+// real transactional semantics directly on the raw *sql.Tx (db.DB.BeginTx), AND
+// verify the manager's Begin->Commit/Rollback lifecycle works. Do NOT route writes
+// through db.DB.ExecContext and then call tx.Commit/Rollback: a pool Exec
+// autocommits on a *different* connection, so the manager tx would be a no-op.
+
+func TestTransaction_RawRollbackDiscards(t *testing.T) {
+	db, ctx := setupTestDB(t)
+
+	tx, err := db.DB.BeginTx(ctx, nil)
+	require.NoError(t, err)
+	_, err = tx.ExecContext(ctx, "INSERT INTO entities (name) VALUES ('rolled-back')")
+	require.NoError(t, err)
+	require.NoError(t, tx.Rollback())
+
+	var count int
+	err = db.DB.QueryRowContext(ctx, "SELECT count(*) FROM entities WHERE name = 'rolled-back'").Scan(&count)
+	require.NoError(t, err)
+	require.Equal(t, 0, count, "rolled-back insert must not persist")
+}
+
+func TestTransaction_RawCommitPersists(t *testing.T) {
+	db, ctx := setupTestDB(t)
+
+	tx, err := db.DB.BeginTx(ctx, nil)
+	require.NoError(t, err)
+	_, err = tx.ExecContext(ctx, "INSERT INTO entities (name) VALUES ('committed')")
+	require.NoError(t, err)
+	require.NoError(t, tx.Commit())
+
+	var count int
+	err = db.DB.QueryRowContext(ctx, "SELECT count(*) FROM entities WHERE name = 'committed'").Scan(&count)
+	require.NoError(t, err)
+	require.Equal(t, 1, count, "committed insert must persist")
+}
+
+func TestTransactionManager_BeginCommitRollbackLifecycle(t *testing.T) {
+	db, ctx := setupTestDB(t)
+	tm := NewTransactionManager(db)
+
+	// Begin -> Commit must succeed.
+	txA, err := tm.Begin(ctx)
+	require.NoError(t, err)
+	require.NoError(t, txA.Commit(ctx))
+
+	// Begin -> Rollback must succeed.
+	txB, err := tm.Begin(ctx)
+	require.NoError(t, err)
+	require.NoError(t, txB.Rollback(ctx))
+}
+
+<% if (messaging !== 'none') { %>
+func TestOutboxRepository_InsertPollMark(t *testing.T) {
+	db, ctx := setupTestDB(t)
+	repo := NewOutboxRepository(db)
+	tm := NewTransactionManager(db)
+
+	tx, err := tm.Begin(ctx)
+	require.NoError(t, err)
+	require.NoError(t, repo.InsertEvent(ctx, tx, "entity.created", []byte(`{"id":"e1"}`)))
+	require.NoError(t, tx.Commit(ctx))
+
+	events, err := repo.PollUnpublished(ctx, 10)
+	require.NoError(t, err)
+	require.Len(t, events, 1, "the inserted event must be pollable as unpublished")
+	require.Equal(t, "entity.created", events[0].EventType)
+
+	require.NoError(t, repo.MarkPublished(ctx, events[0].ID))
+
+	after, err := repo.PollUnpublished(ctx, 10)
+	require.NoError(t, err)
+	require.Empty(t, after, "a published event must no longer appear as unpublished")
+}
+<% } %>

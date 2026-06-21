@@ -1,4 +1,5 @@
 import { spawn, spawnSync, SpawnSyncOptions } from 'child_process';
+import * as http from 'http';
 
 export interface RunResult {
   status: number;
@@ -74,4 +75,32 @@ export function spawnBackground(
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Probe an HTTP endpoint and resolve with its status code, or 0 on a connection
+ *  error/timeout. Never throws — used by health/doctor connectivity checks so a
+ *  hung or absent port renders as a row, not a crash. Localhost-only (http). */
+export function httpProbe(url: string, timeoutMs = 3000): Promise<number> {
+  return new Promise((resolve) => {
+    let settled = false;
+    const done = (code: number): void => {
+      if (settled) return;
+      settled = true;
+      resolve(code);
+    };
+    try {
+      const req = http.get(url, (res) => {
+        const code = res.statusCode ?? 0;
+        res.resume(); // drain so the socket can close
+        done(code);
+      });
+      req.setTimeout(timeoutMs, () => {
+        req.destroy();
+        done(0);
+      });
+      req.on('error', () => done(0));
+    } catch {
+      done(0);
+    }
+  });
 }

@@ -6,10 +6,34 @@ import { NextResponse } from "next/server";
  * This is how the browser discovers the WebSocket URL without any
  * NEXT_PUBLIC_ build-time variables. The single API_URL env var
  * drives both the HTTP proxy and this config endpoint.
+ *
+ * API_URL is validated before transforming http(s) → ws(s). A malformed
+ * value fails loud with a 500 rather than emitting a broken WebSocket URL.
  */
 export function GET() {
     const apiUrl = process.env.API_URL ?? "http://localhost:4000";
-    const wsUrl = apiUrl.replace(/^http/, "ws") + "/ws";
+
+    let parsed: URL;
+    try {
+        parsed = new URL(apiUrl);
+    } catch {
+        return NextResponse.json(
+            { detail: "API_URL is not a valid URL" },
+            { status: 500 }
+        );
+    }
+
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        return NextResponse.json(
+            { detail: "API_URL must use http or https" },
+            { status: 500 }
+        );
+    }
+
+    // http → ws, https → wss (anchored to the protocol, not a blind replace).
+    const wsProtocol = parsed.protocol === "https:" ? "wss:" : "ws:";
+    parsed.protocol = wsProtocol;
+    const wsUrl = `${parsed.origin}/ws`;
 
     return NextResponse.json({ wsUrl });
 }

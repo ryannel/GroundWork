@@ -40,6 +40,13 @@ export const COMMANDS: CommandDef[] = [
     handler: lifecycle.stop,
   },
   {
+    name: 'reset',
+    group: 'LIFECYCLE',
+    summary: 'Stop, wipe volumes, start & migrate (full recycle)',
+    flags: [{ name: '--docker', desc: 'Recycle the all-Docker topology' }],
+    handler: lifecycle.reset,
+  },
+  {
     name: 'migrate',
     group: 'LIFECYCLE',
     summary: 'Create service databases & apply schemas',
@@ -58,9 +65,16 @@ export const COMMANDS: CommandDef[] = [
   {
     name: 'logs',
     group: 'LIFECYCLE',
-    summary: 'Print recent logs (--follow to stream)',
+    summary: 'Print recent logs (logs <service> to filter; --follow to stream)',
     flags: [{ name: '--follow', desc: 'Stream logs (TTY only)' }],
     handler: lifecycle.logs,
+  },
+  {
+    name: 'health',
+    group: 'LIFECYCLE',
+    summary: 'Poll every app service + Jaeger health endpoint',
+    flags: [{ name: '--json', desc: 'Emit machine-readable JSON' }],
+    handler: lifecycle.health,
   },
   {
     name: 'clean',

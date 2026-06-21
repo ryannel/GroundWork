@@ -1,0 +1,81 @@
+package api
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"sync"
+	"testing"
+	"time"
+
+	"github.com/stretchr/testify/require"
+)
+
+// okHandler always returns 200.
+func okHandler() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+}
+
+func TestLoadSheddingMiddleware_ShedsBeyondCapacity(t *testing.T) {
+	// maxConcurrent = 1. The first request blocks inside the handler holding the only
+	// slot; the second must be shed with 503 immediately.
+	release := make(chan struct{})
+	entered := make(chan struct{})
+	blocking := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		entered <- struct{}{}
+		<-release
+		w.WriteHeader(http.StatusOK)
+	})
+
+	h := LoadSheddingMiddleware(1)(blocking)
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	rr1 := httptest.NewRecorder()
+	go func() {
+		defer wg.Done()
+		h.ServeHTTP(rr1, httptest.NewRequest(http.MethodGet, "/", nil))
+	}()
+
+	<-entered // first request now occupies the only slot
+
+	rr2 := httptest.NewRecorder()
+	h.ServeHTTP(rr2, httptest.NewRequest(http.MethodGet, "/", nil))
+	require.Equal(t, http.StatusServiceUnavailable, rr2.Code, "second concurrent request must be shed")
+	require.Equal(t, "5", rr2.Header().Get("Retry-After"))
+
+	close(release)
+	wg.Wait()
+	require.Equal(t, http.StatusOK, rr1.Code, "first request completes normally")
+}
+
+func TestTimeoutMiddleware_TimesOut(t *testing.T) {
+	slow := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(100 * time.Millisecond)
+		w.WriteHeader(http.StatusOK)
+	})
+	h := TimeoutMiddleware(10 * time.Millisecond)(slow)
+
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, httptest.NewRequest(http.MethodGet, "/", nil))
+	// http.TimeoutHandler responds 503 with the configured message when exceeded.
+	require.Equal(t, http.StatusServiceUnavailable, rr.Code)
+	require.Contains(t, rr.Body.String(), "Request Timeout")
+}
+
+func TestRateLimitMiddleware_429AfterThreshold(t *testing.T) {
+	// memorystore is configured with Tokens:15 per minute. The 16th request from
+	// the same IP within the window must be rejected with 429.
+	h := RateLimitMiddleware("", nil)(okHandler())
+
+	var last int
+	for i := 0; i < 16; i++ {
+		rr := httptest.NewRecorder()
+		req := httptest.NewRequest(http.MethodGet, "/", nil)
+		req.RemoteAddr = "203.0.113.7:12345" // stable key for IPKeyFunc
+		h.ServeHTTP(rr, req)
+		last = rr.Code
+	}
+	require.Equal(t, http.StatusTooManyRequests, last, "16th request within window must be rate limited")
+}

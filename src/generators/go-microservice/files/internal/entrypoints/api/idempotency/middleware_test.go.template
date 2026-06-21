@@ -1,0 +1,76 @@
+package idempotency
+
+import (
+	"context"
+	"net/http"
+	"net/http/httptest"
+	"sync/atomic"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
+
+// fakeRepo is an in-memory Repository for testing the middleware without a DB.
+type fakeRepo struct {
+	store map[string]*CachedResponse
+}
+
+func newFakeRepo() *fakeRepo { return &fakeRepo{store: map[string]*CachedResponse{}} }
+
+func (f *fakeRepo) Get(ctx context.Context, key, userID string) (*CachedResponse, error) {
+	return f.store[key+":"+userID], nil
+}
+
+func (f *fakeRepo) Save(ctx context.Context, key, userID string, resp *CachedResponse) error {
+	f.store[key+":"+userID] = resp
+	return nil
+}
+
+func TestIdempotencyMiddleware_DuplicateKeyReplaysCached(t *testing.T) {
+	repo := newFakeRepo()
+
+	var calls int32
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&calls, 1)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(`{"id":"abc"}`))
+	})
+	h := Middleware(repo)(handler)
+
+	// First POST executes the handler and caches the 201 response.
+	rr1 := httptest.NewRecorder()
+	req1 := httptest.NewRequest(http.MethodPost, "/api/v1/entities", nil)
+	req1.Header.Set("Idempotency-Key", "key-1")
+	h.ServeHTTP(rr1, req1)
+	require.Equal(t, http.StatusCreated, rr1.Code)
+	require.Equal(t, `{"id":"abc"}`, rr1.Body.String())
+
+	// Duplicate POST with the same key replays the cached response; handler not re-run.
+	rr2 := httptest.NewRecorder()
+	req2 := httptest.NewRequest(http.MethodPost, "/api/v1/entities", nil)
+	req2.Header.Set("Idempotency-Key", "key-1")
+	h.ServeHTTP(rr2, req2)
+	require.Equal(t, http.StatusCreated, rr2.Code)
+	require.Equal(t, `{"id":"abc"}`, rr2.Body.String())
+
+	require.Equal(t, int32(1), atomic.LoadInt32(&calls), "handler must execute exactly once for a repeated key")
+}
+
+func TestIdempotencyMiddleware_GetBypassesCache(t *testing.T) {
+	repo := newFakeRepo()
+	var calls int32
+	h := Middleware(repo)(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		atomic.AddInt32(&calls, 1)
+		w.WriteHeader(http.StatusOK)
+	}))
+
+	for i := 0; i < 2; i++ {
+		rr := httptest.NewRecorder()
+		req := httptest.NewRequest(http.MethodGet, "/api/v1/entities", nil)
+		req.Header.Set("Idempotency-Key", "key-2")
+		h.ServeHTTP(rr, req)
+		require.Equal(t, http.StatusOK, rr.Code)
+	}
+	require.Equal(t, int32(2), atomic.LoadInt32(&calls), "GET must never be deduplicated")
+}

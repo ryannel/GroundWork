@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Ctx, CliError } from '../util/context';
-import { run } from '../util/proc';
-import { getAppServices, serviceDir } from '../util/services';
+import { run, commandExists } from '../util/proc';
+import { getAppServices, serviceDir, detectType } from '../util/services';
 import { TESTS_DIR } from '../util/paths';
 import { start, migrate, stop } from './lifecycle';
 import { checkSeal } from './bet';
@@ -109,10 +109,38 @@ export async function lint(ctx: Ctx): Promise<number> {
   const { r } = ctx;
   r.logo('Running Linters');
   let last = 0;
+  // A missing linter binary is a loud warning, not a silent skip — the service
+  // still went unlinted and the developer needs to know.
   for (const svc of getAppServices()) {
-    if (fs.existsSync(path.join(serviceDir(svc), '.golangci.yml'))) {
+    const dir = serviceDir(svc);
+    const type = detectType(svc);
+
+    if (type === 'go' || fs.existsSync(path.join(dir, '.golangci.yml'))) {
       r.step(`Linting Go service: ${svc}`);
-      last = run('golangci-lint', ['run'], { cwd: serviceDir(svc) });
+      if (commandExists('golangci-lint')) {
+        const code = run('golangci-lint', ['run'], { cwd: dir });
+        if (code !== 0) last = code;
+      } else {
+        r.warn('golangci-lint not installed — skipping. Install: https://golangci-lint.run');
+      }
+    } else if (type === 'node') {
+      r.step(`Linting Next.js service: ${svc}`);
+      if (commandExists('npm')) {
+        const code = run('npm', ['run', 'lint'], { cwd: dir });
+        if (code !== 0) last = code;
+      } else {
+        r.warn('npm not installed — skipping. Install Node.js (includes npm).');
+      }
+    } else if (type === 'python') {
+      r.step(`Linting Python service: ${svc}`);
+      if (commandExists('uv')) {
+        const ruff = run('uv', ['run', 'ruff', 'check', '.'], { cwd: dir });
+        const black = run('uv', ['run', 'black', '--check', '.'], { cwd: dir });
+        if (ruff !== 0) last = ruff;
+        if (black !== 0) last = black;
+      } else {
+        r.warn('uv not installed — skipping ruff/black. Install: https://docs.astral.sh/uv');
+      }
     }
   }
   r.success('Linting complete.');

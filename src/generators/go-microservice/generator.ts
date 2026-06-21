@@ -215,7 +215,9 @@ export default async function (tree: Tree, options: GoMicroserviceGeneratorSchem
 
   if (options.auth !== 'clerk') {
     tree.delete(`${projectRoot}/internal/entrypoints/api/middleware_auth.go`);
+    tree.delete(`${projectRoot}/internal/entrypoints/api/auth_middleware_test.go`);
     tree.delete(`${projectRoot}/internal/entrypoints/api/clerk_webhook.go`);
+    tree.delete(`${projectRoot}/internal/entrypoints/api/clerk_webhook_test.go`);
     tree.delete(`${projectRoot}/internal/core/domain/user.go`);
     tree.delete(`${projectRoot}/internal/core/service/user_repository.go`);
     tree.delete(`${projectRoot}/internal/core/service/user_service.go`);

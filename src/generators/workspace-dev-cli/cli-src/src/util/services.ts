@@ -75,6 +75,71 @@ export function detectType(svc: string): ServiceType {
   return 'unknown';
 }
 
+/** Locate a Python service's pydantic Settings module (it carries `server_port`).
+ *  The package name is dynamic, so walk `src/` rather than assuming a fixed path. */
+function findPythonConfig(dir: string): string | null {
+  const src = path.join(dir, 'src');
+  if (!fs.existsSync(src)) return null;
+  const stack = [src];
+  while (stack.length > 0) {
+    const cur = stack.pop() as string;
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(cur, { withFileTypes: true });
+    } catch {
+      continue;
+    }
+    for (const e of entries) {
+      const full = path.join(cur, e.name);
+      if (e.isDirectory()) stack.push(full);
+      else if (e.name === 'config.py') return full;
+    }
+  }
+  return null;
+}
+
+/** Resolve a service's HTTP port from its language marker file. Go reads
+ *  `.env` (PORT/SERVER_PORT); Node reads `package.json` (`next dev --port`);
+ *  Python reads `server_port` from its Settings module. Returns null when the
+ *  port can't be determined (the caller renders this as an "unknown port" row). */
+export function servicePort(svc: string): number | null {
+  const dir = serviceDir(svc);
+  switch (detectType(svc)) {
+    case 'go': {
+      const env = path.join(dir, '.env');
+      if (fs.existsSync(env)) {
+        const m = fs.readFileSync(env, 'utf8').match(/^(?:PORT|SERVER_PORT)=(\d+)/m);
+        if (m) return parseInt(m[1], 10);
+      }
+      return null;
+    }
+    case 'node': {
+      const pkg = path.join(dir, 'package.json');
+      if (fs.existsSync(pkg)) {
+        const m = fs.readFileSync(pkg, 'utf8').match(/next dev --port (\d+)/);
+        if (m) return parseInt(m[1], 10);
+      }
+      return null;
+    }
+    case 'python': {
+      const cfg = findPythonConfig(dir);
+      if (cfg) {
+        const m = fs.readFileSync(cfg, 'utf8').match(/server_port:\s*int\s*=\s*(\d+)/);
+        if (m) return parseInt(m[1], 10);
+      }
+      return null;
+    }
+    default:
+      return null;
+  }
+}
+
+/** A service's health endpoint path. Next.js/Node apps expose `/api/healthz`;
+ *  Go and Python services expose `/health`. */
+export function serviceHealthPath(svc: string): string {
+  return detectType(svc) === 'node' ? '/api/healthz' : '/health';
+}
+
 /** The boot command for a service, faithful to the bash CLI. */
 export function bootCommand(svc: string): string | null {
   const dir = serviceDir(svc);

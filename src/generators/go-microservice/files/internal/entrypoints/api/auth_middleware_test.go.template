@@ -1,0 +1,52 @@
+<% if (auth === 'clerk') { %>package api
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
+
+func protectedHandler() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte("protected"))
+	})
+}
+
+// NOTE on status codes: Clerk's clerkhttp.RequireHeaderAuthorization (v2) responds
+// with HTTP 403 Forbidden — NOT 401 — when the Authorization header is missing or
+// carries an unverifiable token (it short-circuits before reaching the wrapped
+// handler that would otherwise emit 401). No Clerk secret key is required for these
+// paths: a missing token never decodes a JWT, and a malformed token fails
+// jwt.Decode locally before any key/JWKS lookup, so both surface 403 offline.
+
+func TestAuthMiddleware_BypassesHealthAndWebhooks(t *testing.T) {
+	h := AuthMiddleware()(protectedHandler())
+
+	for _, path := range []string{"/health", "/webhooks/clerk"} {
+		rr := httptest.NewRecorder()
+		h.ServeHTTP(rr, httptest.NewRequest(http.MethodGet, path, nil))
+		require.Equal(t, http.StatusOK, rr.Code, "auth must bypass %s", path)
+	}
+}
+
+func TestAuthMiddleware_RejectsMissingToken(t *testing.T) {
+	// No Authorization header on a protected route -> Clerk's RequireHeaderAuthorization
+	// rejects with 403 before reaching the inner handler.
+	h := AuthMiddleware()(protectedHandler())
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, httptest.NewRequest(http.MethodGet, "/api/v1/entities", nil))
+	require.Equal(t, http.StatusForbidden, rr.Code)
+}
+
+func TestAuthMiddleware_RejectsBadToken(t *testing.T) {
+	h := AuthMiddleware()(protectedHandler())
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/entities", nil)
+	req.Header.Set("Authorization", "Bearer not-a-real-jwt")
+	h.ServeHTTP(rr, req)
+	require.Equal(t, http.StatusForbidden, rr.Code, "an unverifiable token must not pass")
+}
+<% } %>

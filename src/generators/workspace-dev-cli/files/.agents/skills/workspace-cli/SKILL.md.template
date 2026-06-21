@@ -17,12 +17,15 @@ The `./dev` CLI is an executable Node program in the root directory — a thin l
 - `./dev start`: Starts all services. It automatically handles spinning up infrastructure (like databases) in Docker, and booting application code natively.
 - `./dev start --docker`: Forces ALL services, including application code, to run inside Docker.
 - `./dev stop`: Gracefully kills all native processes and shuts down Docker containers.
+- `./dev reset` / `./dev reset --docker`: Full-cycle recycle — stop, wipe volumes (`clean --hard`), start, then migrate. Use to recover from a corrupted local environment.
 - `./dev status`: Displays a human-readable table of running Docker and native processes.
 - `./dev status --json`: Returns JSON `{ "docker": [{service,status,ports}], "native": [{service,status,pid}] }` on stdout. **Always use this flag when you need to programmatically determine what is running** — never guess ports.
 - `./dev status --watch`: A live, self-refreshing dashboard for humans (TTY only; press `q` to exit). Do not call from a tool — use `--json` instead.
 - `./dev logs`: Prints the recent tail of native and Docker logs, then exits. Safe to run non-interactively.
+- `./dev logs <service>`: Filters to a single service — its native log file if it has one, otherwise its Docker container. An unknown name fails loud (exit 1).
 - `./dev logs --follow`: Streams logs continuously (TTY only). Do not run this from a tool call — it will not return.
-- `./dev doctor` / `./dev doctor --json`: Verify the local environment. Always exits 0 (it reports, it does not gate).
+- `./dev health` / `./dev health --json`: Actively HTTP-polls every app service's health endpoint plus Jaeger and prints a pass/fail panel. Exits 1 when any endpoint is down — safe to run non-interactively.
+- `./dev doctor` / `./dev doctor --json`: Verify the local environment. Dependency checks are advisory, but runtime-connectivity failures (DB/Redis/Jaeger unreachable, stack down, missing migration tooling) gate the exit code (non-zero).
 - `./dev completion bash|zsh|fish`: Print a shell completion script.
 
 ### Testing

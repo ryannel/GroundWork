@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+
+# Loads environment variables if .env exists
+if [ -f .env ]; then
+    export $(cat .env | xargs)
+fi
+
+# Ensure database URL is available
+DB_URL=${DATABASE_URL:-"postgres://postgres:postgres@localhost:5432/<%= name %>?sslmode=disable"}
+
+echo "Applying declarative schema to database..."
+
+# Uses Stripe's pg-schema-diff to declaratively migrate the database
+# to match the state defined in db/schema.sql
+go run github.com/stripe/pg-schema-diff/cmd/pg-schema-diff apply \
+    --from-dsn "$DB_URL" \
+    --to-dir ./db \
+    --skip-confirm-prompt
+
+echo "Schema applied successfully!"

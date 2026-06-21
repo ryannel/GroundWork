@@ -236,12 +236,16 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
 
   if (!options.rest) {
     tree.delete(`${pkgRoot}/entrypoints/api`);
+    // Middleware tests import the API entrypoint, which only exists with --rest.
+    tree.delete(`${projectRoot}/tests/test_middleware.py`);
   }
 
   if (!options.postgres) {
     tree.delete(`${pkgRoot}/adapters/database.py`);
     tree.delete(`${pkgRoot}/adapters/repository.py`);
-    tree.delete(`${projectRoot}/schema.sql`);
+    // Schema lives in db/ (parity with Go); migrate runs scripts/apply-schema.sh.
+    tree.delete(`${projectRoot}/db`);
+    tree.delete(`${projectRoot}/scripts/apply-schema.sh`);
   }
 
   if (!options.websockets) {
@@ -256,6 +260,8 @@ export default async function (tree: Tree, options: PythonMicroserviceGeneratorS
   if (!options.runpod) {
     tree.delete(`${pkgRoot}/entrypoints/worker`);
     tree.delete(`${pkgRoot}/adapters/comfyui.py`);
+    // Worker test imports the runpod worker handler, deleted above.
+    tree.delete(`${projectRoot}/tests/test_worker.py`);
   }
 
   // LLM is a composable capability port (plan WS-F). The chosen provider —

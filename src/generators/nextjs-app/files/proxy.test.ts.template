@@ -1,0 +1,30 @@
+// @vitest-environment node
+import { describe, it, expect, afterEach } from "vitest";
+import { NextRequest } from "next/server";
+import type { NextFetchEvent } from "next/server";
+import middleware, { config } from "./proxy";
+
+describe("clerk auth middleware (proxy.ts)", () => {
+  const original = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  afterEach(() => {
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = original;
+  });
+
+  it("is a no-op (NextResponse.next) when Clerk is not configured", async () => {
+    delete process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    const req = new NextRequest(new Request("http://localhost/dashboard"));
+    // When the publishable key is absent the middleware must not throw and must
+    // return a response that lets the request continue.
+    const res = middleware(req, {} as NextFetchEvent);
+    expect(res).toBeDefined();
+    // NextResponse.next() yields a 200-class response with no redirect.
+    const status = (res as Response).status ?? 200;
+    expect(status).toBeLessThan(400);
+  });
+
+  it("exports a matcher config covering API routes", () => {
+    expect(Array.isArray(config.matcher)).toBe(true);
+    expect(config.matcher.some((m) => m.includes("api"))).toBe(true);
+  });
+});

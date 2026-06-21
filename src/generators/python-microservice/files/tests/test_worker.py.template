@@ -1,0 +1,16 @@
+<% if (runpod) { %>
+from <%= packageName %>.entrypoints.worker.worker import handler
+
+
+def test_worker_rejects_missing_prompt():
+    # Boundary validation: a job without 'prompt' must return a structured error,
+    # never raise an unhandled exception.
+    result = handler({"input": {}})
+    assert "error" in result
+    assert "prompt" in result["error"]
+
+
+def test_worker_echoes_valid_prompt():
+    result = handler({"input": {"prompt": "hello"}})
+    assert result == {"status": "success", "echo": "hello"}
+<% } %>

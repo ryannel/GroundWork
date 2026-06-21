@@ -51,31 +51,24 @@ async def test_readiness_probe(async_client: AsyncClient):
     assert response.json() == {"status": "ready"}
 
 @pytest.mark.asyncio
-async def test_idempotency_middleware(async_client: AsyncClient):
-    """
-    Tests that duplicate requests with the same Idempotency-Key
-    return the exact same cached response (200), or 409 if in progress.
-    Note: Requires the idempotency_repo to be properly bound in lifespan.
-    """
-    # Assuming there's a POST endpoint /example 
-    # For now, we just mock the request and assert the middleware acts on the headers
-    response1 = await async_client.post("/example", headers={"Idempotency-Key": "test-key-123"})
-    # It might return 404 or 422 depending on the router, but the key is now cached.
-    
-    response2 = await async_client.post("/example", headers={"Idempotency-Key": "test-key-123"})
-    # It should match exactly the status and body of response1
-    assert response1.status_code == response2.status_code
+async def test_health_alias_reports_alive(async_client: AsyncClient):
+    # /health and /healthz are both wired to the liveness probe.
+    response = await async_client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "alive"}
 
 @pytest.mark.asyncio
-async def test_concurrency_load_shedding(async_client: AsyncClient):
-    """
-    Tests that exceeding the concurrency limit returns a 503.
-    """
-    import asyncio
-    
-    # Send 101 concurrent requests (assuming limit is 100)
-    # This is a bit tricky to mock perfectly without sleep in endpoints,
-    # but the structure serves as a validation hook.
-    pass
+async def test_readyz_503_when_dependency_down(async_client: AsyncClient):
+    # Drives the real readiness 503 branch (main.py readiness_probe): when a
+    # backing dependency failed to start, /readyz must report not-ready.
+    # Phase 1-4 is expected to replace this flag with a live DB ping; tighten
+    # this test to exercise that ping once it lands.
+    app.state.startup_failed = True
+    try:
+        response = await async_client.get("/readyz")
+        assert response.status_code == 503
+        assert response.json() == {"status": "not ready"}
+    finally:
+        app.state.startup_failed = False
 
 <% } %>

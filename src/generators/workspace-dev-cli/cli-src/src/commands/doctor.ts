@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Ctx } from '../util/context';
-import { capture, commandExists } from '../util/proc';
+import { capture, commandExists, dockerComposeCapture, httpProbe } from '../util/proc';
 import { getAppServices, serviceDir } from '../util/services';
 import { DEV_CLI_VERSION, stampedFrameworkVersion } from '../util/version';
 
@@ -55,13 +55,59 @@ export async function doctor(ctx: Ctx): Promise<number> {
     });
   }
 
-  const missing = checks.filter((c) => !c.ok);
+  // ── Runtime connectivity (FAIL LOUD) ──────────────────────────────────────
+  // Beyond "is the binary installed", prove the running stack is actually
+  // reachable. Uses compose SERVICE names (db/redis/jaeger), not container names.
+  const cfg = dockerComposeCapture(['config', '--services']);
+  const composeServices = new Set(
+    cfg.status === 0 ? cfg.stdout.split('\n').map((s) => s.trim()).filter(Boolean) : [],
+  );
+  const stackUp = dockerComposeCapture(['ps', '-q']).stdout.trim().length > 0;
+  const hasServices = getAppServices().length > 0;
+
+  const connectivity: Check[] = [];
+  if (hasServices && !stackUp) {
+    connectivity.push({ name: 'stack', ok: false, hint: "down — run './dev start' (or './dev start --docker')." });
+  }
+  if (composeServices.has('db')) {
+    const ok = stackUp && dockerComposeCapture(['exec', '-T', 'db', 'pg_isready', '-U', 'postgres']).status === 0;
+    connectivity.push({ name: 'postgres (:5432)', ok, hint: ok ? undefined : 'db not accepting connections.' });
+  }
+  if (composeServices.has('redis')) {
+    const ping = stackUp ? dockerComposeCapture(['exec', '-T', 'redis', 'redis-cli', 'ping']) : null;
+    const ok = ping !== null && /PONG/i.test(ping.stdout);
+    connectivity.push({ name: 'redis (:6379)', ok, hint: ok ? undefined : 'no PONG from redis.' });
+  }
+  if (composeServices.has('jaeger')) {
+    const code = await httpProbe('http://localhost:16686/api/services');
+    const ok = code === 200;
+    connectivity.push({ name: 'jaeger (:16686)', ok, hint: ok ? undefined : `query API returned ${code}.` });
+  }
+
+  // Migration tooling: Python services apply schemas via pg-schema-diff, which
+  // runs through the Go toolchain (same path Go services use).
+  const tooling: Check[] = [];
+  if (needsPython) {
+    const ok = commandExists('go');
+    tooling.push({
+      name: 'go (pg-schema-diff)',
+      ok,
+      hint: ok ? undefined : "Python './dev migrate' needs the Go toolchain.",
+    });
+  }
+
+  const depMissing = checks.filter((c) => !c.ok);
+  // Runtime/tooling failures are genuine problems and gate the exit code; the
+  // dependency checks above stay advisory (historical behaviour).
+  const runtimeMissing = [...connectivity, ...tooling].filter((c) => !c.ok);
+  const exitCode = runtimeMissing.length > 0 ? 1 : 0;
 
   if (json) {
+    const allChecks = [...checks, ...connectivity, ...tooling];
     process.stdout.write(
-      JSON.stringify({ ok: missing.length === 0, checks }, null, 2) + '\n',
+      JSON.stringify({ ok: allChecks.every((c) => c.ok), checks: allChecks }, null, 2) + '\n',
     );
-    return 0; // doctor is an info command — always exits 0
+    return exitCode;
   }
 
   r.logo('Environment Verification (Doctor)');
@@ -69,13 +115,25 @@ export async function doctor(ctx: Ctx): Promise<number> {
     'Dependencies',
     checks.map((c) => [c.name, c.ok ? 'ok' : 'MISSING', c.ok ? '' : (c.hint ?? '')] as [string, string, string]),
   );
-  if (missing.length === 0) {
+  r.table(
+    'Runtime Connectivity',
+    connectivity.map((c) => [c.name, c.ok ? 'ok' : 'FAIL', c.ok ? '' : (c.hint ?? '')] as [string, string, string]),
+  );
+  if (tooling.length > 0) {
+    r.table(
+      'Migration Tooling',
+      tooling.map((c) => [c.name, c.ok ? 'ok' : 'MISSING', c.ok ? '' : (c.hint ?? '')] as [string, string, string]),
+    );
+  }
+
+  const allMissing = [...depMissing, ...runtimeMissing];
+  if (allMissing.length === 0) {
     r.success('Your environment is ready!');
   } else {
     r.errorCard(
-      `Found ${missing.length} missing ${missing.length === 1 ? 'dependency' : 'dependencies'}.`,
-      missing.map((c) => `${c.name}: ${c.hint ?? ''}`).join('  '),
+      `Found ${allMissing.length} issue(s).`,
+      allMissing.map((c) => `${c.name}: ${c.hint ?? ''}`).join('  '),
     );
   }
-  return 0; // always 0, even with missing deps
+  return exitCode;
 }

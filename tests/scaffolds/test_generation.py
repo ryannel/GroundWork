@@ -332,11 +332,15 @@ def test_python_microservice_generation(rest, postgres, messaging, websockets, l
         if postgres:
             assert (svc / "src" / pkg / "adapters" / "database.py").exists(), "database.py missing"
             assert (svc / "src" / pkg / "adapters" / "repository.py").exists(), "repository.py missing"
-            assert (svc / "schema.sql").exists(), "schema.sql missing"
+            # Schema lives under db/ for parity with the Go scaffold (pg-schema-diff
+            # --to-dir ./db), applied by scripts/apply-schema.sh.
+            assert (svc / "db" / "schema.sql").exists(), "db/schema.sql missing"
+            assert (svc / "scripts" / "apply-schema.sh").exists(), "apply-schema.sh missing"
         else:
             assert not (svc / "src" / pkg / "adapters" / "database.py").exists(), "database.py should be absent"
             assert not (svc / "src" / pkg / "adapters" / "repository.py").exists(), "repository.py should be absent"
-            assert not (svc / "schema.sql").exists(), "schema.sql should be absent"
+            assert not (svc / "db" / "schema.sql").exists(), "db/schema.sql should be absent"
+            assert not (svc / "scripts" / "apply-schema.sh").exists(), "apply-schema.sh should be absent"
 
         # --- Messaging ---
         msg_queue = svc / "src" / pkg / "adapters" / "message_queue.py"

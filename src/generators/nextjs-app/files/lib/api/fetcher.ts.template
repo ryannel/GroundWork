@@ -9,6 +9,8 @@
  * raw `fetch` to get consistent error handling and auth injection.
  */
 
+import type { ZodType } from "zod";
+
 /** Structured error for API failures. */
 export class ApiError extends Error {
   public readonly status: number;
@@ -30,6 +32,17 @@ export class ApiError extends Error {
     if (this.status === 404) return "The requested resource was not found.";
     if (this.status >= 500) return "Something went wrong. Please try again.";
     return this.detail || "An unexpected error occurred.";
+  }
+}
+
+/** Thrown when an API response fails schema validation. */
+export class ValidationError extends Error {
+  public readonly issues: unknown;
+
+  constructor(path: string, issues: unknown) {
+    super(`Response from ${path} failed schema validation`);
+    this.name = "ValidationError";
+    this.issues = issues;
   }
 }
 
@@ -84,6 +97,28 @@ export async function customFetch<T = unknown>(
   }
 
   return response.json() as Promise<T>;
+}
+
+/**
+ * Like `customFetch`, but validates the response body against a Zod schema.
+ * Returns the parsed, typed value. Throws {@link ValidationError} on mismatch
+ * and {@link ApiError} on non-2xx — fail loud, never return unchecked data.
+ *
+ * @param path - API path (e.g. `/v1/items`)
+ * @param schema - Zod schema describing the expected response shape
+ * @param init - Standard RequestInit options
+ */
+export async function validatedFetch<T>(
+  path: string,
+  schema: ZodType<T>,
+  init?: RequestInit
+): Promise<T> {
+  const raw = await customFetch<unknown>(path, init);
+  const result = schema.safeParse(raw);
+  if (!result.success) {
+    throw new ValidationError(path, result.error.issues);
+  }
+  return result.data;
 }
 
 /**

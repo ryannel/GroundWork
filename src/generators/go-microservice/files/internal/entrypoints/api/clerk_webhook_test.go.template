@@ -1,0 +1,82 @@
+<% if (auth === 'clerk') { %>package api
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+	"time"
+
+	"github.com/stretchr/testify/require"
+)
+
+// testSecret is a Svix-format signing secret ("whsec_" + base64). The body of the
+// secret after the prefix must be valid base64 because the verifier decodes it.
+const testSecret = "whsec_MfKQ9r8GKYqrTwjUPD8ILPZIo2LaLaSw"
+
+// signSvix produces a valid v1 Svix signature for the given id/timestamp/payload,
+// matching what svix.Webhook.Verify expects: HMAC-SHA256 over "id.timestamp.body"
+// keyed by the base64-decoded secret, base64-encoded and prefixed with "v1,".
+func signSvix(t *testing.T, secret, msgID string, ts time.Time, payload []byte) string {
+	t.Helper()
+	secretBytes, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(secret, "whsec_"))
+	require.NoError(t, err)
+	toSign := fmt.Sprintf("%s.%d.%s", msgID, ts.Unix(), string(payload))
+	mac := hmac.New(sha256.New, secretBytes)
+	_, _ = mac.Write([]byte(toSign))
+	sig := base64.StdEncoding.EncodeToString(mac.Sum(nil))
+	return "v1," + sig
+}
+
+func TestClerkWebhook_MissingSecretReturns503(t *testing.T) {
+	// An unset signing secret is a server misconfiguration: the handler fails loud
+	// with 503 rather than processing or returning a misleading "invalid signature".
+	h := ClerkWebhookHandler(nil, "")
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, httptest.NewRequest(http.MethodPost, "/webhooks/clerk", strings.NewReader("{}")))
+	require.Equal(t, http.StatusServiceUnavailable, rr.Code)
+}
+
+func TestClerkWebhook_MissingSignatureReturns400(t *testing.T) {
+	h := ClerkWebhookHandler(nil, testSecret)
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhooks/clerk", strings.NewReader("{}"))
+	// No svix-* headers set.
+	h.ServeHTTP(rr, req)
+	require.Equal(t, http.StatusBadRequest, rr.Code)
+}
+
+func TestClerkWebhook_BadSignatureReturns400(t *testing.T) {
+	h := ClerkWebhookHandler(nil, testSecret)
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhooks/clerk", strings.NewReader("{}"))
+	req.Header.Set("svix-id", "msg_test")
+	req.Header.Set("svix-timestamp", fmt.Sprintf("%d", time.Now().Unix()))
+	req.Header.Set("svix-signature", "v1,deadbeefnotavalidsignature")
+	h.ServeHTTP(rr, req)
+	require.Equal(t, http.StatusBadRequest, rr.Code)
+}
+
+func TestClerkWebhook_ValidSignatureReturns200(t *testing.T) {
+	// Use an unhandled event type so the handler verifies the signature and
+	// returns 200 without invoking the (nil) UserService.
+	payload := []byte(`{"type":"session.created","data":{}}`)
+	msgID := "msg_valid"
+	ts := time.Now()
+
+	h := ClerkWebhookHandler(nil, testSecret)
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/webhooks/clerk", strings.NewReader(string(payload)))
+	req.Header.Set("svix-id", msgID)
+	req.Header.Set("svix-timestamp", fmt.Sprintf("%d", ts.Unix()))
+	req.Header.Set("svix-signature", signSvix(t, testSecret, msgID, ts, payload))
+	h.ServeHTTP(rr, req)
+
+	require.Equal(t, http.StatusOK, rr.Code)
+	require.Contains(t, rr.Body.String(), `"status":"ok"`)
+}
+<% } %>

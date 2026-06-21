@@ -191,6 +191,7 @@ export default async function (tree: Tree, options: NextjsAppGeneratorSchema) {
   if (options.auth !== 'clerk') {
     tree.delete(`${projectRoot}/app/(auth)`);
     tree.delete(`${projectRoot}/proxy.ts`);
+    tree.delete(`${projectRoot}/proxy.test.ts`);
     tree.delete(`${projectRoot}/components/providers/production.tsx`);
   }
 
