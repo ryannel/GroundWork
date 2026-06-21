@@ -79,11 +79,19 @@ def test_instrumented_get_exports_span(cluster, svc):
     # TRACE_PROBE_PATH overrides for ad-hoc runs.
     probe = os.environ.get("TRACE_PROBE_PATH", svc["probe_path"])
 
-    resp = httpx.get(
-        f"{_base_url(svc)}{probe}",
-        headers={"traceparent": traceparent},
-        timeout=5.0,
-    )
+    # Warm up: the first request to a freshly-booted service can transiently fail
+    # (cold connection pool, etc.). Retry briefly so this asserts span export, not
+    # cold-start reliability (test_every_service_is_healthy already covers the latter).
+    resp = None
+    for attempt in range(5):
+        resp = httpx.get(
+            f"{_base_url(svc)}{probe}",
+            headers={"traceparent": traceparent},
+            timeout=5.0,
+        )
+        if resp.status_code == 200:
+            break
+        time.sleep(1)
     assert resp.status_code == 200, f"probe failed: {resp.status_code}"
 
     trace = _fetch_trace(trace_id)
