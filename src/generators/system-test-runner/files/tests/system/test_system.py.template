@@ -57,13 +57,13 @@ async def test_every_service_is_healthy(cluster, api_client: httpx.AsyncClient, 
 def test_instrumented_get_exports_span(cluster, svc):
     """A traced GET to an instrumented route produces a span that reaches jaeger.
 
-    Only Go is verifiable in Phase 0: the Go scaffold ships
-    OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 in .env, so native export
-    works. Python has no OTLP endpoint until Phase 3, and Next is unverified —
-    both xfail here.
+    Go and Python both export spans over OTLP: Go via otel.go, Python via the
+    FastAPI instrumentation wired in adapters/telemetry.py. Next.js server-side
+    tracing is unverified through this harness (no domain GET route to probe),
+    so it xfails here.
     """
-    if svc["type"] != "go":
-        pytest.xfail(f"{svc['type']} trace export not wired until a later phase (TODO)")
+    if svc["type"] not in ("go", "python"):
+        pytest.xfail(f"{svc['type']} trace export not verified through this harness (TODO)")
     if svc["host_port"] is None:
         pytest.skip(f"{svc['name']} has no published host port")
 
@@ -72,8 +72,10 @@ def test_instrumented_get_exports_span(cluster, svc):
     # The trailing -01 (sampled) flag is load-bearing: ParentBased(AlwaysSample)
     # inherits it. -00 exports nothing.
     traceparent = f"00-{trace_id}-{span_id}-01"
-    # /health is excluded from tracing by the otelhttp middleware; use a real route.
-    probe = os.environ.get("TRACE_PROBE_PATH", "/api/v1/entities")
+    # /health is excluded from tracing by the otelhttp middleware; use a real
+    # route. Default is per-service-type (Go /api/v1/entities, Python /examples);
+    # TRACE_PROBE_PATH overrides for ad-hoc runs.
+    probe = os.environ.get("TRACE_PROBE_PATH", svc["probe_path"])
 
     resp = httpx.get(
         f"{_base_url(svc)}{probe}",
@@ -102,15 +104,15 @@ def test_instrumented_get_exports_span(cluster, svc):
 @pytest.mark.parametrize("svc", _PARAMS)
 def test_trace_context_propagates_unchanged(cluster, svc):
     """The service continues the incoming trace id rather than starting a new one."""
-    if svc["type"] != "go":
-        pytest.xfail(f"{svc['type']} trace export not wired until a later phase (TODO)")
+    if svc["type"] not in ("go", "python"):
+        pytest.xfail(f"{svc['type']} trace export not verified through this harness (TODO)")
     if svc["host_port"] is None:
         pytest.skip(f"{svc['name']} has no published host port")
 
     trace_id = uuid.uuid4().hex
     span_id = uuid.uuid4().hex[:16]
     traceparent = f"00-{trace_id}-{span_id}-01"
-    probe = os.environ.get("TRACE_PROBE_PATH", "/api/v1/entities")
+    probe = os.environ.get("TRACE_PROBE_PATH", svc["probe_path"])
 
     httpx.get(
         f"{_base_url(svc)}{probe}",

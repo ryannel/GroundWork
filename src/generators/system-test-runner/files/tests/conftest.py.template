@@ -71,6 +71,16 @@ def _health_path_for(svc_type: str) -> str:
     return "/health"
 
 
+def _probe_path_for(svc_type: str) -> str:
+    """A real (traced) GET route per service type, used by the span tests.
+    /health is excluded from tracing by the otelhttp middleware, so use a
+    domain route. Go ships /api/v1/entities; the Python scaffold's example
+    router is mounted at /examples."""
+    if svc_type == "python":
+        return "/examples"
+    return "/api/v1/entities"
+
+
 def _discover_services() -> list[dict]:
     """Parse the workspace docker-compose.yml and return APP services only.
 
@@ -126,6 +136,7 @@ def _discover_services() -> list[dict]:
                 # otel_name == compose service key == Go otelhttp.NewMiddleware name.
                 "otel_name": name,
                 "health_path": _health_path_for(svc_type),
+                "probe_path": _probe_path_for(svc_type),
                 "type": svc_type,
             }
         )

@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 
 from <%= packageName %>.adapters.config import settings
+from <%= packageName %>.adapters.telemetry import setup_telemetry, setup_logging
 <% if (rest) { %>
 from <%= packageName %>.entrypoints.api.router import router as example_router
 from <%= packageName %>.entrypoints.api.middleware import (
@@ -26,6 +27,11 @@ from <%= packageName %>.entrypoints.api.websocket_handler import router as ws_ro
 async def lifespan(app: FastAPI):
     # Initialize resources like Redis pools, DB connections
     app.state.startup_failed = False
+    # Start OpenTelemetry first: instruments `app` and begins exporting spans via
+    # OTLP, and configures JSON logging with trace_id/span_id correlation. Must run
+    # before the app serves traffic, which the lifespan guarantees.
+    tracer_provider = setup_telemetry(app, settings.otel_exporter_otlp_endpoint)
+    setup_logging()
     try:
 <% if (postgres) { %>
         # Provide the repository for the idempotency middleware
@@ -37,10 +43,12 @@ async def lifespan(app: FastAPI):
         pass
     except Exception:
         app.state.startup_failed = True
-        
+
     yield
-    
+
     # Cleanup resources gracefully
+    # Flush buffered spans before exit (BatchSpanProcessor flushes on shutdown).
+    tracer_provider.shutdown()
 <% if (postgres) { %>
     await engine.dispose()
 <% } %>

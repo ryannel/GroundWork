@@ -5,6 +5,12 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8', extra='ignore')
     
     server_port: int = <%= assignedPort %>
+
+    # OTLP gRPC endpoint for trace export. Compose injects
+    # OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317 for docker; this default
+    # covers native (`./dev start`) runs. BaseSettings maps the env var
+    # case-insensitively onto this field.
+    otel_exporter_otlp_endpoint: str = "http://localhost:4317"
 <% if (postgres) { %>
     db_host: str = "localhost"
     db_port: int = 5432

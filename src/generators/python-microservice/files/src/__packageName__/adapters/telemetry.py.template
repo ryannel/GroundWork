@@ -1,0 +1,68 @@
+"""OpenTelemetry bootstrap for the FastAPI app.
+
+Builds a TracerProvider with an OTLP gRPC exporter and instruments the FastAPI
+app so inbound requests produce spans that are exported to the configured
+collector (Jaeger in dev). Mirrors the Go scaffold: BatchSpanProcessor +
+ParentBased(AlwaysSample) default sampler, service.name set on the resource.
+
+Also configures structured JSON logging with trace_id/span_id correlation so
+logs are joinable to traces.
+"""
+import logging
+
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.semconv.resource import ResourceAttributes
+from pythonjsonlogger import jsonlogger
+
+
+def setup_telemetry(app, endpoint: str) -> TracerProvider:
+    """Initialize tracing and instrument the FastAPI app.
+
+    Returns the TracerProvider so the caller can shut it down (flush the
+    BatchSpanProcessor) on application stop.
+    """
+    resource = Resource.create({ResourceAttributes.SERVICE_NAME: "<%= name %>"})
+
+    provider = TracerProvider(resource=resource)
+    # insecure=True: the dev endpoint is plain h2c (http://...:4317), no TLS.
+    exporter = OTLPSpanExporter(endpoint=endpoint, insecure=True)
+    provider.add_span_processor(BatchSpanProcessor(exporter))
+
+    trace.set_tracer_provider(provider)
+    FastAPIInstrumentor.instrument_app(app)
+    return provider
+
+
+class _TraceContextFilter(logging.Filter):
+    """Attaches the active span's trace_id/span_id to every log record."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        span = trace.get_current_span()
+        ctx = span.get_span_context()
+        if ctx.is_valid:
+            record.trace_id = format(ctx.trace_id, "032x")
+            record.span_id = format(ctx.span_id, "016x")
+        else:
+            record.trace_id = ""
+            record.span_id = ""
+        return True
+
+
+def setup_logging() -> None:
+    """Configure root logging as JSON with trace correlation fields."""
+    handler = logging.StreamHandler()
+    handler.setFormatter(
+        jsonlogger.JsonFormatter(
+            "%(asctime)s %(levelname)s %(name)s %(message)s %(trace_id)s %(span_id)s"
+        )
+    )
+    handler.addFilter(_TraceContextFilter())
+    root = logging.getLogger()
+    root.handlers.clear()
+    root.addHandler(handler)
+    root.setLevel(logging.INFO)
