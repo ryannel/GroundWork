@@ -90,6 +90,12 @@ The `./dev` CLI and `docker-compose.yml` are the entry points for everything tha
 
 ---
 
+## Adapt the Starting Point — Never Inert, Never Duplicated
+
+The generators and the `./dev` CLI are a high-quality *starting point*, not a fixed artifact to accept or work around. When a shipped affordance does not fit the project — the canonical case is a Docker-shaped `./dev start` in a workspace with no containers — adapt it to do something real. The `./dev` toolkit is built to grow: register a native app as a runner in `.dev/dev.config.json`, or add a project command under `.dev/commands/` (or a `commands` block in `.dev/dev.config.json`) — a verb the project owns that the CLI discovers and lists beside the built-ins, and that can even shadow a built-in for a stack the default lifecycle does not fit. Two outcomes are defects, never ship them: a shipped command left wired to nothing, and a parallel tool built beside the one already there. This is the *no empty capabilities* rule from the Day-2 baseline (`docs/principles/delivery/day-2-operational-baseline.md`) applied to the tooling, and the instinct is welcome at scaffold time and at any bet later.
+
+---
+
 ## Quality Standard: What "Deep Enough" Looks Like
 
 The infrastructure document must give any developer everything they need to run the local environment without asking a question. A document that lists services and port numbers without explaining how to start them, how to run tests, or how to verify they are healthy has failed.
@@ -210,6 +216,21 @@ and exits 0 — it never reports a started environment it did not start.
 ./dev new slice <bet> <milestone> <svc> <s>  # Scaffold a red slice test stub
 ./dev archive bet <slug>                     # Archive a delivered bet's progress suite
 ```
+
+## Extending `./dev`
+
+`./dev` is yours to grow — every repeated task should become a command. Add a
+project-owned command without touching the framework bundle: drop a JSON file in
+`.dev/commands/`, or add a `commands` entry to `.dev/dev.config.json`.
+
+```json
+{ "name": "seed", "summary": "Load demo fixtures", "run": "psql $DATABASE_URL -f db/seed.sql" }
+```
+
+It appears in `./dev help` and shell completion beside the built-ins and runs as a
+subprocess with any extra args appended. A project command may reuse a built-in name to
+shadow it (e.g. redefine `start` for a stack the default lifecycle doesn't fit). These
+commands are project-owned — `groundwork update` never overwrites them.
 
 ## Verification
 

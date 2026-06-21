@@ -32,6 +32,11 @@
 - [user action] → [system response and any state transition]
 - [user action] → [system response]
 
+**Micro-polish spec** *(graphical-ui only — token-traceable, not adjectives):*
+- *Motion:* [the motion profile or `{duration, easing, transform}` per interaction/state transition — `hover`, `press`, `enter`/`exit`, `stagger`]
+- *Atmosphere / material:* [surface treatment token — `surface-glass`/`surface-elevated`/`surface-hero`, or an explicit blur/tint/border/elevation/gradient composition — plus any glow or grain]
+- *Static micro:* [elevation token (`shadow-low/mid/high`), spacing steps, type roles with line-height/tracking, colour roles, optical-alignment and crisp-rendering obligations]
+
 ---
 *(Add a view/command/interaction block for each significant interaction this bet introduces on this surface; add a `### Surface:` subsection for each in-scope surface)*
 

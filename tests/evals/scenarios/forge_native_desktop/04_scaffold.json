@@ -1,0 +1,8 @@
+{
+  "skill_name": "groundwork-scaffold",
+  "skill_path": "src/hidden-skills/groundwork-scaffold/instructions.md",
+  "turns": 20,
+  "depends_on": "03_architecture",
+  "success_files": ["docs/infrastructure.md", "dev"],
+  "note": "No generator exists for native Swift/AppKit. The scaffold phase must offer the three unsupported-stack options and, when the persona chooses to forge, route to groundwork-stack-forge: a self-contained Swift/AppKit engineer skill under .agents/skills/, a Day-2 seed wired into ./dev as a runner or project command (NOT Docker-shaped — `./dev start` must run the app, never no-op), and a Forged Stack Checklist in the hand-off. Verify `./dev start` is not an empty capability."
+}

@@ -295,7 +295,7 @@ import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 export function MeetingDialog({ children, title }: MeetingDialogProps) {
   return (
     <Dialog>
-      <DialogContent className="glass-elevated">
+      <DialogContent className="surface-elevated">
         <DialogHeader>{title}</DialogHeader>
         {children}
       </DialogContent>

@@ -1,5 +1,6 @@
 import { Renderer } from '../theme/render';
 import { Runner } from './runners';
+import type { CommandDef } from '../registry';
 
 /** Raised by a command to abort with an error card and exit code 1, mirroring the
  *  bash `fail()` helper. */
@@ -32,6 +33,9 @@ export interface Ctx {
   projectPrefix: string;
   /** Declared native runners (surfaces, sidecars) from dev.config.json. */
   runners: Runner[];
+  /** The merged command registry (built-ins + project commands) — the single source
+   *  of truth shared by dispatch, `--help`, and completion. */
+  commands: CommandDef[];
 }
 
 export function elapsedSince(startMs: number): string {

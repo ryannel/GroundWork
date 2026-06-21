@@ -1,14 +1,13 @@
 import { Ctx, UsageError } from '../util/context';
 
-/** Generate a shell completion script from the command registry. Imported lazily by
- *  the registry, so we require COMMANDS here to avoid a cycle at module load. */
+/** Generate a shell completion script from the merged command registry on the context,
+ *  so a project's own commands complete exactly like the built-ins. */
 export async function completion(ctx: Ctx): Promise<number> {
   const shell = ctx.args[0];
-  // Pull the registry at call time to avoid an import cycle.
-  const { COMMANDS } = await import('../registry');
-  const verbs = COMMANDS.map((c) => c.name);
-  const nounsByVerb = COMMANDS.filter((c) => c.nouns?.length).map((c) => ({ verb: c.name, nouns: c.nouns! }));
-  const flagsByVerb = COMMANDS.filter((c) => c.flags?.length).map((c) => ({
+  const commands = ctx.commands;
+  const verbs = commands.map((c) => c.name);
+  const nounsByVerb = commands.filter((c) => c.nouns?.length).map((c) => ({ verb: c.name, nouns: c.nouns! }));
+  const flagsByVerb = commands.filter((c) => c.flags?.length).map((c) => ({
     verb: c.name,
     flags: c.flags!.map((f) => f.name),
   }));

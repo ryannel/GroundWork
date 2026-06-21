@@ -35,7 +35,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 3. **Accessible by Default** — Accessibility is a design constraint, not a post-hoc audit. Semantic HTML, ARIA attributes, keyboard navigation, focus management, color contrast, and screen reader testing are part of every feature, not a separate checklist. Inaccessible UI is a bug.
 
-4. **Cohesive Visual System** — The project uses a design token system projected through Tailwind CSS. Colors, spacing, typography, and elevation follow the project's design guide. Hardcoded values bypass the system and create visual debt. Every visual decision traces back to a design token or an explicit deviation.
+4. **Cohesive Visual System** — Every visual value is owned by the design system, not this skill. `docs/design-system.md` is the human source of truth; `.groundwork/config/brand-tokens.json` is its machine projection; the generator projects both into `app/brand.css` and the token utilities + surface classes (`.surface-glass/.surface-elevated/.surface-hero`) in `app/globals.css`. Colour, type, spacing, elevation, blur, gradients, surfaces, and motion are consumed through those tokens — read values from the design system, never invent them. A hardcoded literal bypasses the system, fails the token-conformance lint, and is visual debt.
 
 5. **Optimistic, Resilient UI** — Mutations use optimistic updates with proper rollback. Error boundaries catch failures gracefully. Loading states are intentional, not afterthoughts. The UI should feel responsive even when the network isn't.
 
@@ -52,8 +52,8 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 | Routing & Navigation | `references/routing-and-navigation.md` | App Router conventions, layouts, parallel routes, intercepting routes, modals. |
 | Error Boundaries | `references/error-boundaries.md` | Error handling UI, fallback components, recovery patterns. |
 | Type System | `references/type-system.md` | TypeScript patterns, Zod schemas, shared types, type narrowing. |
-| Tailwind & Styling | `references/tailwind-and-styling.md` | Design tokens, Tailwind CSS usage, theming, responsive design, dark mode. |
-| Visual Language | `references/visual-language.md` | Color system, typography, spacing grid, elevation, surface dynamics. |
+| Tailwind & Styling | `references/tailwind-and-styling.md` | Tailwind v4 mechanics, consuming projected tokens, theming, dark mode, responsive design. |
+| Visual Language | `references/visual-language.md` | Consuming the design system: colour/type/spacing/elevation/surface technique and the projected token + surface utilities. |
 | UX Principles | `references/ux-principles.md` | Interaction patterns, progressive disclosure, feedback, empty states. |
 | Testing | `references/testing.md` | Component tests, integration tests, accessibility testing, test utilities. |
 | Performance & Deployment | `references/performance-and-deployment.md` | Bundle analysis, lazy loading, image optimization, build configuration. |
@@ -72,7 +72,7 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 ## Safety Gates
 
 - Do not use `useEffect` for data fetching — this is an App Router codebase with server-side data fetching. Verify against current patterns in the codebase before introducing fetch-in-effect.
-- Do not introduce hardcoded colors, spacing, or font sizes. Check the design guide or design tokens.
+- Do not introduce hardcoded visual literals (colour, spacing, type, shadow, blur, gradient). Read values from `docs/design-system.md` / `.groundwork/config/brand-tokens.json` and consume token utilities or surface classes — arbitrary literals fail the token-conformance lint.
 - Do not invent framework versions or API assumptions; verify `package.json`.
 - Do not add `"use client"` to a component without confirming it needs browser APIs or interactive state.
 - Run typecheck, lint, and the app's tests where the toolchain is available; report a tier as skipped-with-reason (never silently green) where it is not.
@@ -83,7 +83,7 @@ Before presenting frontend guidance as factual:
 
 - Check `package.json` for framework versions and available dependencies.
 - Check existing components for naming conventions, file structure, and patterns before proposing new ones.
-- Check the design guide or configuration for color values, spacing scale, and typography before recommending visual changes.
+- Load `docs/design-system.md` and `.groundwork/config/brand-tokens.json` for colour, type, spacing, elevation, and motion values before any visual work — never recall or invent them.
 - Check the app's route structure before inventing new route paths or layouts.
 - Label any recommendation based on general Next.js knowledge (rather than project-specific patterns) as an inference.
 
@@ -101,7 +101,7 @@ Reject these patterns:
 
 - **Client Component by default** — Adding `"use client"` out of habit rather than necessity. Server Components are the default for a reason.
 - **Fetch-in-useEffect** — Client-side data fetching when server-side fetching would eliminate the loading waterfall and reduce bundle size.
-- **Hardcoded visual values** — Magic numbers for colors, spacing, or typography that bypass the design token system.
+- **Hardcoded visual values** — Magic numbers or literal recipes for colour, spacing, typography, shadow, blur, or gradient that bypass the projected token system.
 - **Untyped form data** — Processing form submissions without Zod validation at the Server Action boundary.
 - **Accessibility bolted on** — Treating a11y as a separate pass instead of building it into the component from the start.
 - **God components** — Components that mix data fetching, business logic, and presentation instead of composing smaller, focused pieces.

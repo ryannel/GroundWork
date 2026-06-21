@@ -42,7 +42,7 @@ The command palette is the central navigation hub. Users can search for anything
 - Launch with `⌘K` (macOS) / `Ctrl+K`
 - Results group by category (pages, actions, recent items)
 - Keyboard navigation with arrow keys + Enter
-- Uses `.glass-elevated` styling (see `references/visual-language.md`)
+- Uses `.surface-elevated` styling (see `references/visual-language.md`)
 
 ### Keyboard Shortcuts
 
@@ -119,14 +119,14 @@ Never exceed 5% scale change — larger shifts feel cartoonish.
 
 ### Calm Alerts
 
-Notifications and status indicators use muted colours from the palette — no harsh stoplight reds or electric greens.
+Notifications and status indicators use the semantic role tokens from the design system — never a hand-picked hex. The specific hue for each role (often muted rather than a harsh stoplight) is the design system's decision; consume the role, not a colour.
 
-| State | Colour | Token |
-|-------|--------|-------|
-| Success | Sage Green | `--color-success` |
-| Error | Muted Rose | `--color-error` |
-| Warning | Warm Amber | `--color-warning` |
-| Info | Accent Blue | `--color-accent` |
+| State | Role token |
+|-------|------------|
+| Success | the `success` role |
+| Error | the `error` / `destructive` role |
+| Warning | the `warning` role |
+| Info | the `info` role |
 
 Toasts and banners should be dismissible, auto-fade after a reasonable duration (4-6 seconds for success, persistent for errors), and never stack vertically in a pile of doom.
 
@@ -157,7 +157,7 @@ Accessibility is not optional — it is a baseline requirement.
 - Body text must meet **WCAG AA** (4.5:1 contrast ratio)
 - Large text (18px+ or 14px+ bold) must meet **3:1**
 - Interactive elements must meet **3:1** against their background
-- Test in both Obsidian and Milk themes
+- Test in both dark and light themes
 
 ### Focus States
 
@@ -191,10 +191,10 @@ Accessibility is not optional — it is a baseline requirement.
 - Pair colour indicators with icons or text labels:
   ```tsx
   // Bad — colour-only status
-  <span className="text-[--color-success]">●</span>
+  <span className="text-success">●</span>
   
   // Good — colour + icon + text
-  <span className="text-[--color-success] flex items-center gap-1">
+  <span className="text-success flex items-center gap-1">
     <CheckCircle size={16} aria-hidden />
     Completed
   </span>
@@ -214,10 +214,10 @@ When a user first encounters a section with no data, the empty state should:
 ```tsx
 export function EmptyMeetingList() {
   return (
-    <div className="glass-surface p-8 text-center">
-      <CalendarPlus size={48} className="mx-auto text-[--color-text-secondary]" aria-hidden />
+    <div className="surface-glass p-8 text-center">
+      <CalendarPlus size={48} className="mx-auto text-muted-foreground" aria-hidden />
       <h3 className="text-title mt-4">No meetings yet</h3>
-      <p className="text-[--color-text-secondary] mt-2">
+      <p className="text-muted-foreground mt-2">
         Schedule your first meeting to get started.
       </p>
       <Button className="mt-6">
@@ -238,10 +238,10 @@ Error states must tell the user what went wrong and what they can do about it. N
 <p>Error 500: ECONNREFUSED</p>
 
 // Good
-<div className="glass-surface p-6 text-center" role="alert">
-  <AlertCircle size={32} className="mx-auto text-[--color-error]" aria-hidden />
+<div className="surface-glass p-6 text-center" role="alert">
+  <AlertCircle size={32} className="mx-auto text-destructive" aria-hidden />
   <h3 className="text-title mt-4">Couldn't load your meetings</h3>
-  <p className="text-[--color-text-secondary] mt-2">
+  <p className="text-muted-foreground mt-2">
     We're having trouble connecting right now. Your data is safe.
   </p>
   <Button onClick={reset} className="mt-4">Try again</Button>

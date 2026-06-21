@@ -11,7 +11,7 @@ a review of the matching reference so the distillation never drifts.
 | Principle file | SHA-256 | Last reviewed |
 |---|---|---|
 | src/docs/principles/design/design-foundations.md | 8e9a9e29e2d3787b0242df75e6aa090b817ba19d675fec494d725d71b21ad584 | 2026-06-20 |
-| src/docs/principles/design/visual-design.md | 870e7c9b37d274ee683fe487756eba7bbbd6eccc03deee855e86f08032c71ff5 | 2026-06-20 |
+| src/docs/principles/design/visual-design.md | 40c4a59f2658f6075f60c745ac1d320afa1a2728542a1c0145153dc1752e20d2 | 2026-06-21 |
 | src/docs/principles/design/layout-and-space.md | 757c407126cf3cbc60be071bbdf6d17721c8d77105c7e6a9a6237d039fa1d09b | 2026-06-20 |
 | src/docs/principles/design/interaction-and-motion.md | 99c47d80bd0960b5bd325842cb55199697e10917034511a82af89c873fc76e39 | 2026-06-20 |
 | src/docs/principles/design/usability-and-ux.md | 5c08dfcaeddd79ae110dfd336a04a1e4ef151fb942b0c49c53f247fcb9bf133a | 2026-06-20 |

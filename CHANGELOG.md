@@ -8,6 +8,28 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (high-end micro-polish: per-app atmosphere tokens, token-driven engineer, deterministic conformance, 2026-06-21)
+
+Design craft is now specified as per-app tokens and verified deterministically, so agents deliver the micro-level polish — atmosphere, motion, optical finish — that separates high-end UI from a framework default. The lever is "specify concretely → build to spec → verify against spec," not vision-grading screenshots.
+
+- **brand-tokens `visual` contract extended** with the atmosphere layer: `elevation` (multi-layer shadow stacks), `blur`, `gradients`, `surface` treatments (glass/elevated/hero), `motion.interactions`, and `typography.roles` (per-role line-height/tracking + `numeric`). The design system fills these per app.
+- **Next.js token projection (parity with electron/flutter).** The nextjs-app generator now reads `brand-tokens.json` and projects the palette + atmosphere into a generated `app/brand.css`; `app/globals.css` maps them into Tailwind token utilities (`shadow-low/mid/high`, `backdrop-blur-*`, semantic `success/warning/info`) and surface classes (`.surface-glass/.surface-elevated/.surface-hero`).
+- **Engineer skill is token-driven.** `groundwork-nextjs-engineer` no longer carries a fixed aesthetic catalogue (the glass variants, the 4-layer shadow values, named themes, the Geist mandate); its references teach the stack mechanics and point at the app's design system. Atmosphere is delivered per app, never baked into a skill.
+- **Designer canon deepened** with the atmosphere/material layer (translucency, ambient glow, grain, multi-plane depth) and optical finish (optical alignment, crisp 1px rendering, tabular numerals), anti-mimicry framed.
+- **Per-surface micro-polish spec + convergent technique research.** Bet design requires a token-traceable motion/atmosphere/static-micro spec per graphical surface (concreteness-gated at review); at design-settle the design system runs a convergent pass over high-end exemplars of the chosen aesthetic, recording concrete techniques (not images) as a technique library.
+- **Deterministic verification.** New `test_token_conformance.py` (Tier 1) asserts the atmosphere actually landed (tokens resolve, multi-layer elevation, backdrop blur on surface treatments); the token-conformance lint now also bans raw shadow/blur/gradient literals. The vision-grading Tier-3 `visual-fidelity` review is removed — the craft bar is the concrete spec, judged for conformance by the deterministic gate and a designer spec-conformance pass at delivery.
+- [migration] Existing Next.js apps regenerate their token layer — gaining `app/brand.css`, the restructured token-driven `globals.css`, and `test_token_conformance.py` — with hand-edited `globals.css` reconciled rather than clobbered (gw-nextjs-atmosphere-tokens)
+
+### Added (off-script support: composable `./dev`, the Day-2 baseline, and customization guidance, 2026-06-21)
+
+GroundWork now treats its shipped scaffolds and `./dev` CLI as a starting point the project owns and grows, and holds off-script work to the same bar as the paved road (plan: `docs/plans/customization-and-forge.md`).
+
+- **The `./dev` CLI is composable.** A project adds its own commands without touching the framework bundle — a JSON file under `.dev/commands/`, or a `commands` block in `.dev/dev.config.json`. Project commands appear in `./dev help` and shell completion beside the built-ins, run as subprocesses with extra args appended, and may shadow a built-in (e.g. redefine `start` for a stack the default lifecycle does not fit). The command layer is project-owned: `update` never overwrites it (the bundle that reads it is framework-owned and clean-replaces as before).
+- **`./dev start` never no-ops silently.** An empty workspace — no containers, native services, or runners — prints an honest "nothing registered" notice pointing at how to register a runner or add a command (the *no empty capabilities* rule).
+- **New principle — the Day-2 Operational Baseline** (`docs/principles/delivery/day-2-operational-baseline.md`): the stack-agnostic bar (config validation, typed errors, a debug entry point, observability, graceful shutdown, a pure core, a fast test, dev-CLI integration) every project clears, plus the *no empty capabilities* and *off-script still lands well* rules.
+- **Customization guidance** woven into the scaffold and bet-delivery flows: adapt shipped tooling to fit, never leave a command inert, never build a parallel tool beside it.
+- [no-migration] The new `./dev` bundle clean-replaces on update like any framework-owned bundle; the project command layer it reads is additive and project-owned, so old installs need nothing beyond the normal bundle refresh, and the new principle doc arrives through the Tier-2 doc refresh.
+
 ### Changed (architecture de-jargoned — keep the discipline, drop the label, 2026-06-19)
 
 The structural discipline is unchanged — a pure domain core, dependencies pointing inward,

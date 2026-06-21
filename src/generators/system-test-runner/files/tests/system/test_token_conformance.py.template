@@ -1,0 +1,206 @@
+<% if (!surfaces) { -%>
+"""Token-conformance gate — Tier 1 of the visual verification loop.
+
+The deterministic answer to "did the polish actually land?" A behavioural test
+passes while the atmosphere has silently degraded to a flat default — the build
+dropped the design system's surface treatment, or the projected tokens never
+reached the page. This gate reads computed styles and asserts the opposite:
+the atmosphere tokens resolve, the elevation is a multi-layer stack (not one
+default drop shadow), and any surface treatment in the DOM renders with its
+backdrop blur and layered shadow rather than collapsing to a framework default.
+
+It is deliberately structural, not aesthetic: it cannot judge taste (that is the
+designer's spec-conformance pass), but it makes "the tokens are applied" a fact,
+not an opinion. Skips cleanly when no frontend service is discovered.
+"""
+
+import json
+import pathlib
+
+from playwright.sync_api import Page
+
+# Atmosphere tokens the nextjs-app generator projects into brand.css from the
+# design system's visual block. Their presence proves the projection landed.
+_PROBE = """
+() => {
+  const root = getComputedStyle(document.documentElement);
+  const tok = (n) => (root.getPropertyValue(n) || '').trim();
+  const countLayers = (s) => {
+    s = (s || '').trim();
+    if (!s || s === 'none') return 0;
+    let depth = 0, n = 1;
+    for (const ch of s) {
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      else if (ch === ',' && depth === 0) n++;
+    }
+    return n;
+  };
+  const surfaces = [];
+  for (const el of document.querySelectorAll('.surface-glass, .surface-elevated, .surface-hero')) {
+    const cs = getComputedStyle(el);
+    const bf = (cs.backdropFilter || cs.webkitBackdropFilter || '').trim();
+    surfaces.push({
+      cls: el.className,
+      hasBlur: /blur\\(/.test(bf),
+      shadowLayers: countLayers(cs.boxShadow),
+    });
+  }
+  return {
+    shadowMid: tok('--gw-shadow-mid'),
+    shadowMidLayers: countLayers(tok('--gw-shadow-mid')),
+    blurStandard: tok('--gw-blur-standard'),
+    surfaces,
+  };
+}
+"""
+
+
+def _load_routes() -> tuple[str, ...]:
+    manifest = pathlib.Path("tests/system/routes.json")
+    if manifest.exists():
+        try:
+            routes = json.loads(manifest.read_text())
+            if isinstance(routes, list) and routes:
+                return tuple(routes)
+        except Exception:  # noqa: BLE001 — a malformed manifest falls back to root
+            pass
+    return ("/",)
+
+
+ROUTES = _load_routes()
+
+
+def _assert_token_conformance(page: Page, surface_slug: str, base_url: str | None) -> None:
+    for route in ROUTES:
+        target = (base_url.rstrip("/") + route) if base_url else route
+        page.goto(target, wait_until="load")
+        page.wait_for_load_state("networkidle")
+        r = page.evaluate(_PROBE)
+
+        # The atmosphere layer projected into :root.
+        assert r["shadowMid"], (
+            f"{surface_slug} {route}: --gw-shadow-mid is undefined — the brand.css "
+            f"projection did not reach the page (atmosphere tokens missing)."
+        )
+        assert r["blurStandard"], (
+            f"{surface_slug} {route}: --gw-blur-standard is undefined — blur tokens "
+            f"did not project."
+        )
+        assert r["shadowMidLayers"] >= 2, (
+            f"{surface_slug} {route}: --gw-shadow-mid is a single-layer shadow "
+            f"({r['shadowMidLayers']} layer) — the multi-layer elevation stack "
+            f"degraded to a default drop shadow."
+        )
+
+        # Any surface treatment in the DOM rendered its atmosphere, not a flat default.
+        for s in r["surfaces"]:
+            assert s["hasBlur"], (
+                f"{surface_slug} {route}: '{s['cls']}' rendered with no backdrop "
+                f"blur — the glass treatment was stripped to a flat fill."
+            )
+            assert s["shadowLayers"] >= 2, (
+                f"{surface_slug} {route}: '{s['cls']}' rendered with "
+                f"{s['shadowLayers']} shadow layer(s) — the elevation stack was lost."
+            )
+
+
+def test_frontend_token_conformance(cluster, frontend_base_url, page: Page):
+    _assert_token_conformance(page, "frontend", frontend_base_url)
+<% } else { -%>
+"""Token-conformance gate, one test per graphical surface — Tier 1 of the visual loop.
+
+The deterministic answer to "did the polish actually land?" A behavioural test
+passes while the atmosphere has silently degraded to a flat default. This gate
+reads computed styles and asserts the atmosphere tokens resolve, the elevation is
+a multi-layer stack, and any surface treatment in the DOM renders with its
+backdrop blur and layered shadow rather than a framework default. Structural, not
+aesthetic — taste is the designer's spec-conformance pass. Skips cleanly when a
+surface is not reachable.
+"""
+
+import json
+import pathlib
+
+from playwright.sync_api import Page
+
+_PROBE = """
+() => {
+  const root = getComputedStyle(document.documentElement);
+  const tok = (n) => (root.getPropertyValue(n) || '').trim();
+  const countLayers = (s) => {
+    s = (s || '').trim();
+    if (!s || s === 'none') return 0;
+    let depth = 0, n = 1;
+    for (const ch of s) {
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      else if (ch === ',' && depth === 0) n++;
+    }
+    return n;
+  };
+  const surfaces = [];
+  for (const el of document.querySelectorAll('.surface-glass, .surface-elevated, .surface-hero')) {
+    const cs = getComputedStyle(el);
+    const bf = (cs.backdropFilter || cs.webkitBackdropFilter || '').trim();
+    surfaces.push({
+      cls: el.className,
+      hasBlur: /blur\\(/.test(bf),
+      shadowLayers: countLayers(cs.boxShadow),
+    });
+  }
+  return {
+    shadowMid: tok('--gw-shadow-mid'),
+    shadowMidLayers: countLayers(tok('--gw-shadow-mid')),
+    blurStandard: tok('--gw-blur-standard'),
+    surfaces,
+  };
+}
+"""
+
+
+def _load_routes() -> tuple[str, ...]:
+    manifest = pathlib.Path("tests/system/routes.json")
+    if manifest.exists():
+        try:
+            routes = json.loads(manifest.read_text())
+            if isinstance(routes, list) and routes:
+                return tuple(routes)
+        except Exception:  # noqa: BLE001 — a malformed manifest falls back to root
+            pass
+    return ("/",)
+
+
+ROUTES = _load_routes()
+
+
+def _assert_token_conformance(page: Page, surface_slug: str) -> None:
+    for route in ROUTES:
+        page.goto(route, wait_until="load")
+        page.wait_for_load_state("networkidle")
+        r = page.evaluate(_PROBE)
+
+        assert r["shadowMid"], (
+            f"{surface_slug} {route}: --gw-shadow-mid is undefined — the brand.css "
+            f"projection did not reach the page."
+        )
+        assert r["blurStandard"], (
+            f"{surface_slug} {route}: --gw-blur-standard is undefined."
+        )
+        assert r["shadowMidLayers"] >= 2, (
+            f"{surface_slug} {route}: --gw-shadow-mid degraded to a single-layer "
+            f"shadow ({r['shadowMidLayers']} layer)."
+        )
+        for s in r["surfaces"]:
+            assert s["hasBlur"], (
+                f"{surface_slug} {route}: '{s['cls']}' rendered with no backdrop blur."
+            )
+            assert s["shadowLayers"] >= 2, (
+                f"{surface_slug} {route}: '{s['cls']}' rendered with "
+                f"{s['shadowLayers']} shadow layer(s) — elevation stack lost."
+            )
+<% graphicalSurfaces.forEach((s) => { %>
+
+def test_<%= s.ident %>_token_conformance(cluster, <%= s.ident %>_page: Page):
+    _assert_token_conformance(<%= s.ident %>_page, "<%= s.slug %>")
+<% }) %><% } -%>

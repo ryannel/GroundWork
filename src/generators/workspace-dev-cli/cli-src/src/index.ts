@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import * as fs from 'fs';
-import { COMMANDS, findCommand, CommandGroup } from './registry';
+import { CommandDef, buildRegistry, findCommand } from './registry';
 import { Ctx, CliError, UsageError } from './util/context';
 import { makeRenderer, Renderer } from './theme/render';
 import { CONFIG_PATH } from './util/paths';
 import { DEV_CLI_VERSION } from './util/version';
 import { parseRunners } from './util/runners';
+import { loadProjectCommands } from './util/extensions';
 
 interface DevConfig {
   projectPrefix?: string;
@@ -26,11 +27,20 @@ function loadConfig(): { config: DevConfig; tokens: unknown } {
   return { config: {}, tokens: {} };
 }
 
-function showHelp(r: Renderer): void {
+/** Built-in groups render first, in this order; project-declared groups (PROJECT and
+ *  any custom name) follow, so a project's own verbs are visible but never crowd out the
+ *  golden-path lifecycle. */
+const CORE_GROUPS = ['LIFECYCLE', 'QUALITY', 'BET WORKFLOW', 'META'];
+
+function showHelp(r: Renderer, commands: CommandDef[]): void {
   r.logo('Local Development CLI');
-  const groups: CommandGroup[] = ['LIFECYCLE', 'QUALITY', 'BET WORKFLOW', 'META'];
-  for (const g of groups) {
-    const cmds = COMMANDS.filter((c) => c.group === g);
+  const present = [...new Set(commands.map((c) => c.group))];
+  const order = [
+    ...CORE_GROUPS.filter((g) => present.includes(g)),
+    ...present.filter((g) => !CORE_GROUPS.includes(g)).sort(),
+  ];
+  for (const g of order) {
+    const cmds = commands.filter((c) => c.group === g);
     if (cmds.length === 0) continue;
     r.category(g);
     for (const c of cmds) r.cmd(c.name, c.summary);
@@ -61,18 +71,23 @@ async function main(): Promise<number> {
   const { config, tokens } = loadConfig();
   const r = makeRenderer(tokens);
 
+  // The merged registry: built-ins plus the project's own commands, the latter
+  // shadowing a built-in of the same name. One source of truth for dispatch, help,
+  // and completion.
+  const registry = buildRegistry(loadProjectCommands());
+
   const command = rest[0];
   const args = rest.slice(1);
 
   if (!command || command === 'help' || help) {
-    showHelp(r);
+    showHelp(r, registry);
     return 0;
   }
 
-  const def = findCommand(command);
+  const def = findCommand(registry, command);
   if (!def) {
     r.error(`Unknown command: ${command}`);
-    showHelp(r);
+    showHelp(r, registry);
     return 2;
   }
 
@@ -82,6 +97,7 @@ async function main(): Promise<number> {
     args,
     projectPrefix: config.projectPrefix || 'workspace',
     runners: parseRunners(config.runners),
+    commands: registry,
   };
 
   return def.handler(ctx);

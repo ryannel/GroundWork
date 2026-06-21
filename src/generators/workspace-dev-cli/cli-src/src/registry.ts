@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Ctx } from './util/context';
 import * as lifecycle from './commands/lifecycle';
 import * as quality from './commands/quality';
@@ -5,8 +6,14 @@ import { doctor } from './commands/doctor';
 import * as bet from './commands/bet';
 import { surfaceCmd } from './commands/surface';
 import { completion } from './commands/completion';
+import { ProjectCommand } from './util/extensions';
+import { run } from './util/proc';
+import { ROOT } from './util/paths';
 
-export type CommandGroup = 'LIFECYCLE' | 'QUALITY' | 'BET WORKFLOW' | 'META';
+/** Built-in groups, plus `PROJECT` and any custom group a project command declares.
+ *  The `string & {}` keeps editor completion for the known literals while admitting
+ *  project-defined group names. */
+export type CommandGroup = 'LIFECYCLE' | 'QUALITY' | 'BET WORKFLOW' | 'META' | 'PROJECT' | (string & {});
 
 export interface FlagDef {
   name: string;
@@ -149,6 +156,42 @@ export const COMMANDS: CommandDef[] = [
   },
 ];
 
-export function findCommand(name: string): CommandDef | undefined {
-  return COMMANDS.find((c) => c.name === name);
+export function findCommand(list: CommandDef[], name: string): CommandDef | undefined {
+  return list.find((c) => c.name === name);
+}
+
+/** Single-quote an argument for safe interpolation into a `bash -c` string. */
+function shellQuote(arg: string): string {
+  return `'${arg.replace(/'/g, `'\\''`)}'`;
+}
+
+/** Wrap a project command as a CommandDef whose handler runs it as a subprocess,
+ *  appending any extra args the user passed after the verb. Running as a subprocess
+ *  keeps the bundle zero-dependency — the project's command can pull in whatever it
+ *  needs without the core CLI knowing. */
+export function projectCommandDef(pc: ProjectCommand): CommandDef {
+  return {
+    name: pc.name,
+    group: pc.group || 'PROJECT',
+    summary: pc.summary,
+    handler: async (ctx: Ctx) => {
+      const cwd = pc.cwd ? path.join(ROOT, pc.cwd) : ROOT;
+      const env = pc.env ? { ...process.env, ...pc.env } : process.env;
+      const extra = ctx.args.map(shellQuote).join(' ');
+      const command = extra ? `${pc.run} ${extra}` : pc.run;
+      return run('bash', ['-c', command], { cwd, env });
+    },
+  };
+}
+
+/** Merge the built-in registry with the project's own commands. A project command
+ *  shadows a built-in of the same name — project wins — so a project can redefine a
+ *  verb (e.g. `start`) for a stack the default lifecycle does not fit, without editing
+ *  the bundle. The merged list is the single source of truth for dispatch, `--help`,
+ *  and completion, exactly as COMMANDS is for the built-ins alone. */
+export function buildRegistry(project: ProjectCommand[]): CommandDef[] {
+  const projDefs = project.map(projectCommandDef);
+  const shadowed = new Set(projDefs.map((d) => d.name));
+  const core = COMMANDS.filter((c) => !shadowed.has(c.name));
+  return [...core, ...projDefs];
 }

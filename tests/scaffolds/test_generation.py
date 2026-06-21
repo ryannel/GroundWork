@@ -569,7 +569,7 @@ def test_system_test_runner_generation(medium):
                 "tests/system/pages/base_page.py missing for interfaceMedium=graphical-ui"
             assert (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
                 "tests/system/test_a11y_smoke.py missing for interfaceMedium=graphical-ui"
-            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py"):
+            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py", "test_token_conformance.py"):
                 p = sandbox / "tests" / "system" / layer
                 assert p.exists(), f"tests/system/{layer} missing for interfaceMedium=graphical-ui"
                 _py_compiles(p)
@@ -580,7 +580,7 @@ def test_system_test_runner_generation(medium):
                 f"tests/system/pages/ should be absent for interfaceMedium={medium}"
             assert not (sandbox / "tests" / "system" / "test_a11y_smoke.py").exists(), \
                 f"tests/system/test_a11y_smoke.py should be absent for interfaceMedium={medium}"
-            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py"):
+            for layer in ("test_render_smoke.py", "test_layout_geometry.py", "test_visual_regression.py", "test_token_conformance.py"):
                 assert not (sandbox / "tests" / "system" / layer).exists(), \
                     f"tests/system/{layer} should be absent for interfaceMedium={medium}"
 
@@ -703,6 +703,11 @@ def test_system_test_runner_two_surface_generation():
         _py_compiles(visreg_path)
         assert "def test_web_app_visual_regression" in visreg_path.read_text(), \
             "visual regression gate not generated per graphical surface"
+        conformance_path = sandbox / "tests" / "system" / "test_token_conformance.py"
+        assert conformance_path.exists(), "token-conformance gate missing despite a playwright surface"
+        _py_compiles(conformance_path)
+        assert "def test_web_app_token_conformance" in conformance_path.read_text(), \
+            "token-conformance gate not generated per graphical surface"
     finally:
         shutil.rmtree(sandbox, ignore_errors=True)
 

@@ -51,14 +51,14 @@ export default function MeetingsError({
   reset: () => void;
 }) {
   return (
-    <div className="glass-surface p-6 text-center" role="alert">
-      <h2 className="text-[--color-error]">Something went wrong</h2>
-      <p className="text-[--color-text-secondary] mt-2">
+    <div className="surface-glass p-6 text-center" role="alert">
+      <h2 className="text-destructive">Something went wrong</h2>
+      <p className="text-muted-foreground mt-2">
         Failed to load meetings. This has been logged.
       </p>
       <button
         onClick={reset}
-        className="mt-4 px-4 py-2 bg-[--color-accent] rounded"
+        className="mt-4 px-4 py-2 bg-primary rounded"
       >
         Try again
       </button>
@@ -117,12 +117,12 @@ import Link from 'next/link';
 
 export default function MeetingNotFound() {
   return (
-    <div className="glass-surface p-8 text-center">
+    <div className="surface-glass p-8 text-center">
       <h2 className="text-xl font-semibold">Meeting not found</h2>
-      <p className="text-[--color-text-secondary] mt-2">
+      <p className="text-muted-foreground mt-2">
         This meeting may have been deleted or the link is incorrect.
       </p>
-      <Link href="/meetings" className="mt-4 text-[--color-accent] inline-block">
+      <Link href="/meetings" className="mt-4 text-primary inline-block">
         Back to meetings
       </Link>
     </div>
@@ -177,9 +177,9 @@ Create corresponding error pages:
 // app/forbidden.tsx
 export default function Forbidden() {
   return (
-    <div className="glass-surface p-8 text-center">
+    <div className="surface-glass p-8 text-center">
       <h2>Access Denied</h2>
-      <p className="text-[--color-text-secondary]">
+      <p className="text-muted-foreground">
         You don't have permission to view this resource.
       </p>
     </div>
@@ -189,9 +189,9 @@ export default function Forbidden() {
 // app/unauthorized.tsx
 export default function Unauthorized() {
   return (
-    <div className="glass-surface p-8 text-center">
+    <div className="surface-glass p-8 text-center">
       <h2>Sign In Required</h2>
-      <p className="text-[--color-text-secondary]">
+      <p className="text-muted-foreground">
         Please sign in to access this page.
       </p>
     </div>

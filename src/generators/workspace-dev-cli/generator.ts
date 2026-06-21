@@ -103,16 +103,21 @@ export default async function (tree: Tree, options: WorkspaceDevCliGeneratorSche
   // exactly like the docker-compose topology above. Preserve any existing
   // runners verbatim.
   let preservedRunners: unknown = [];
+  let preservedCommands: unknown = undefined;
   if (tree.exists('.dev/dev.config.json')) {
     try {
       const prev = JSON.parse(tree.read('.dev/dev.config.json', 'utf-8') || '{}');
       if (Array.isArray(prev.runners)) preservedRunners = prev.runners;
+      // Project-owned commands (the composability seam) are never reset by a re-run —
+      // they belong to the project, not the framework. Carry them verbatim.
+      if (Array.isArray(prev.commands)) preservedCommands = prev.commands;
     } catch {
       /* malformed prior config — fall back to an empty registry */
     }
   }
   const devConfig = buildDevConfig(tree, projectPrefix, appName, templateOptions.hexColor);
   devConfig.runners = preservedRunners;
+  if (preservedCommands !== undefined) devConfig.commands = preservedCommands;
   tree.write('.dev/dev.config.json', JSON.stringify(devConfig, null, 2) + '\n');
 
   // Ensure the launcher is executable (generateFiles preserves the template's mode,

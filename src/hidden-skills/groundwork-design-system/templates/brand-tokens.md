@@ -16,7 +16,7 @@ Every project gets a `./dev` CLI regardless of what it is building, so **every p
 |---|---|---|---|
 | `identity` (Tier 1) | every product, exactly once | name, wordmark glyph, primary/accent colour, voice | `./dev`, lightly — and every Tier 2 consumer as the fallback root |
 | `terminal` (Tier 2) | the `cli` track | colour role table, symbol vocabulary, splash, typography | `./dev` richly + the product CLI, via the shared render layer |
-| `visual` (Tier 2) | the `graphical-ui` track | semantic palette (both themes), typography, shape, density, motion, optional `platform` ergonomics | graphical app generators, to seed the surface theme (Tailwind today; other theme projections as surface generators land) |
+| `visual` (Tier 2) | the `graphical-ui` track | semantic palette (both themes), typography (with per-role micro), shape, density, motion (with interaction profiles), elevation, blur, gradients, surface treatments, optional `platform` ergonomics | graphical app generators, to seed the surface theme (Tailwind today; other theme projections as surface generators land) |
 
 The `agentic-protocol` track contributes no Tier 2 block — a protocol has no terminal or visual treatment to project.
 
@@ -48,11 +48,15 @@ The `tier` field reads as a capability summary: `1` means identity only; `2` mea
 ### Tier 2 — `visual` (graphical-ui track)
 
 - `palette` — a map of semantic role → `{ light, dark }` CSS colour strings (OKLCH or `#rrggbb`), the machine form of the colour architecture in `docs/design-system.md`. Roles: `primary`, `accent`, `surface`, `surfaceAlt`, `textBody`, `success`, `error`, `warning`, `info`. Both theme values are required for every role — the design system commits to dual-theme palettes, so the projection carries both.
-- `typography` — `{ display, body, scale }`. `display` and `body` are `{ family, weight }` for the heading and body families. `scale` is a short descriptor of the type-scale treatment (e.g. `"1.25 modular from 16px, fluid clamp"`), enough for a generator to reconstruct the scale's character without re-deriving every step — the full scale lives in the document.
+- `typography` — `{ display, body, scale }`. `display` and `body` are `{ family, weight }` for the heading and body families. `scale` is a short descriptor of the type-scale treatment (e.g. `"1.25 modular from 16px, fluid clamp"`), enough for a generator to reconstruct the scale's character without re-deriving every step — the full scale lives in the document. Optionally carries `roles` — a map of type role (`display`, `title`, `body`, `caption`, `label`) → `{ size, lineHeight, weight, tracking }`, the concrete per-role micro (line-height and tracking) that separates considered type from framework defaults — and `numeric` (e.g. `"tabular-nums"`) where columns of figures must align.
 - `shape` — `{ radiusBase, character }`. `radiusBase` is the base corner radius (e.g. `"8px"`); `character` is a one-line descriptor of the shape language (e.g. `"soft, concentric nesting"`).
 - `density` — a one-line spacing/density descriptor carrying the grid base (e.g. `"comfortable, 8pt grid"`).
-- `motion` — `{ easeStandard, durationBaseMs, personality }`. `easeStandard` is the standard easing curve (`"cubic-bezier(0.2, 0, 0, 1)"`), `durationBaseMs` the base duration, `personality` a one-word register (`"snappy"`, `"weighted"`, `"restrained"`).
-- `references` — optional; the machine-readable form of the design system's `## Design References` record. An array of `{ name, admired }` objects (e.g. `{ "name": "Linear", "admired": "command-palette density, backdrop blur, restraint with colour" }`), naming the market-leading products the design drew from and the specific qualities admired. The Tier-3 visual-fidelity review reads it to know which references to research live as calibration; present when the design system committed a reference record. Sub-objects keyed by platform dimension; each theme projection reads the sub-object it serves and ignores the rest. Web needs no sub-object — the fields above are the web baseline, and one visual block serves every platform.
+- `motion` — `{ easeStandard, durationBaseMs, personality }`. `easeStandard` is the standard easing curve (`"cubic-bezier(0.2, 0, 0, 1)"`), `durationBaseMs` the base duration, `personality` a one-word register (`"snappy"`, `"weighted"`, `"restrained"`). Optionally carries `interactions` — a map of context (`hover`, `press`, `enter`, `exit`, `stagger`) → `{ durationMs, ease, transform }`, the per-context motion profiles a surface spec references so feedback timing is a token rather than an ad-hoc value invented per component.
+- `elevation` — optional; a map of level name → an ordered array of shadow layers, each `{ y, blur, spread?, color }` (CSS length plus an OKLCH/`#rrggbb` colour, alpha tapering as the layer widens). The machine form of the design system's depth model: a level is a *stack* — several layers reading as one modelled shadow — not a single drop shadow. Name levels by role (`low`, `mid`, `high`) or by the product's own vocabulary. The geometry serves both themes; carry theme-specific tinting in the layer colour where the design system calls for it.
+- `blur` — optional; a map of level name → CSS length (e.g. `"subtle": "8px"`, `"standard": "12px"`, `"heavy": "20px"`), the backdrop-blur radii the surface treatments draw on.
+- `gradients` — optional; a map of name → a CSS gradient string (the mesh/aurora recipe, e.g. a layered `radial-gradient`), or `{ light, dark }` when the recipe differs by theme. The machine form of the design system's ambient-texture decisions.
+- `surface` — optional; a map of named surface treatment → a composition of the tokens above: `{ blur?, tint?, border?, elevation?, gradient?, noise? }`, where `blur`/`elevation`/`gradient` name an entry in those maps (or carry a literal value) and `tint`/`border` are CSS colours with alpha. This is the per-app surface vocabulary — the glass/elevated/hero treatments a product composes once and reuses — and it is the home for surface recipes that must never be baked into an engineer skill. A generator projects each treatment into one utility class.
+- `references` — optional; the machine-readable form of the design system's `## Design References` record. An array of `{ name, admired }` objects (e.g. `{ "name": "Linear", "admired": "command-palette density, backdrop blur, restraint with colour" }`), naming the market-leading products the design drew from and the specific qualities admired. It is the machine index of the technique library — it informs the atmosphere and motion tokens and the per-surface micro-polish spec at bet design; present when the design system committed a reference record. Sub-objects keyed by platform dimension; each theme projection reads the sub-object it serves and ignores the rest. Web needs no sub-object — the fields above are the web baseline, and one visual block serves every platform.
   - `platform.touch` (mobile surfaces) — `{ targetMin, durationScale }`. `targetMin` is the minimum interactive dimension (e.g. `"48dp"`); the mobile theme projection enforces it in tap-target sizing. `durationScale` (optional, default 1) multiplies `durationBaseMs` for touch surfaces, where full-screen transitions span more distance than pointer micro-interactions.
   - `platform.desktop` (desktop surfaces) — `{ titleBar, menuStyle, density }`. `titleBar` is the window-chrome treatment: `"native"`, `"hidden-inset"` (content extends beneath the platform's window controls), or `"custom"`. `menuStyle` is `"native"` (OS menu bar) or `"in-window"`. `density` (optional) overrides the top-level `density` descriptor for pointer-precision layouts. The desktop shell owns these fields; its renderer reads the shared fields unchanged.
 
@@ -89,14 +93,44 @@ A web app, a mobile app, and a desktop shell plus an admin CLI: the graphical-ui
     "typography": {
       "display": { "family": "Instrument Sans", "weight": 600 },
       "body":    { "family": "Inter", "weight": 400 },
-      "scale":   "1.25 modular from 16px, fluid clamp"
+      "scale":   "1.25 modular from 16px, fluid clamp",
+      "roles": {
+        "display": { "size": "2.5rem",   "lineHeight": 1.1,  "weight": 600, "tracking": "-0.02em" },
+        "title":   { "size": "1.5rem",   "lineHeight": 1.25, "weight": 600, "tracking": "-0.01em" },
+        "body":    { "size": "1rem",     "lineHeight": 1.6,  "weight": 400, "tracking": "0" },
+        "caption": { "size": "0.875rem", "lineHeight": 1.5,  "weight": 400, "tracking": "0.01em" }
+      },
+      "numeric": "tabular-nums"
     },
     "shape": { "radiusBase": "8px", "character": "soft, concentric nesting" },
     "density": "comfortable, 8pt grid",
     "motion": {
       "easeStandard": "cubic-bezier(0.2, 0, 0, 1)",
       "durationBaseMs": 150,
-      "personality": "snappy"
+      "personality": "snappy",
+      "interactions": {
+        "hover":   { "durationMs": 150, "ease": "cubic-bezier(0, 0, 0.2, 1)", "transform": "translateY(-1px)" },
+        "press":   { "durationMs": 100, "ease": "cubic-bezier(0.4, 0, 1, 1)", "transform": "scale(0.97)" },
+        "enter":   { "durationMs": 200, "ease": "cubic-bezier(0, 0, 0.2, 1)", "transform": "scale(0.98)" },
+        "stagger": { "durationMs": 30,  "ease": "linear",                     "transform": "none" }
+      }
+    },
+    "elevation": {
+      "low":  [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" } ],
+      "mid":  [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" },
+                { "y": "4px", "blur": "8px", "color": "oklch(0% 0 0 / 0.04)" } ],
+      "high": [ { "y": "1px",  "blur": "2px",  "color": "oklch(0% 0 0 / 0.06)" },
+                { "y": "4px",  "blur": "8px",  "color": "oklch(0% 0 0 / 0.04)" },
+                { "y": "12px", "blur": "24px", "color": "oklch(0% 0 0 / 0.03)" } ]
+    },
+    "blur": { "subtle": "8px", "standard": "12px", "heavy": "20px" },
+    "gradients": {
+      "aurora": "radial-gradient(60% 60% at 30% 20%, oklch(70% 0.15 300 / 0.18), transparent 70%)"
+    },
+    "surface": {
+      "glass":    { "blur": "standard", "tint": "oklch(98% 0.005 250 / 0.72)", "border": "oklch(100% 0 0 / 0.08)", "elevation": "mid" },
+      "elevated": { "blur": "heavy",    "tint": "oklch(98% 0.005 250 / 0.82)", "border": "oklch(100% 0 0 / 0.12)", "elevation": "high" },
+      "hero":     { "blur": "standard", "tint": "oklch(98% 0.005 250 / 0.65)", "border": "oklch(100% 0 0 / 0.10)", "elevation": "high", "gradient": "aurora" }
     },
     "platform": {
       "touch":   { "targetMin": "48dp", "durationScale": 1.25 },
