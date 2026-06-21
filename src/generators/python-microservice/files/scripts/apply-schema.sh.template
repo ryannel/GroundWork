@@ -11,9 +11,13 @@ DB_URL=${DATABASE_URL:-"postgres://postgres:postgres@localhost:5432/<%= name %>?
 
 echo "Applying declarative schema to database..."
 
-# Uses Stripe's pg-schema-diff to declaratively migrate the database
-# to match the state defined in db/schema.sql
-go run github.com/stripe/pg-schema-diff/cmd/pg-schema-diff apply \
+# Uses Stripe's pg-schema-diff to declaratively migrate the database to match
+# db/schema.sql. This is a Python service (no go.mod), so the tool is pinned with
+# an explicit @version — `go run <pkg>@<ver>` runs module-independently, whereas a
+# bare `go run <pkg>` would require a surrounding go.mod. Version matches the Go
+# scaffold's pinned pg-schema-diff for parity. Requires the Go toolchain on PATH
+# (./dev doctor checks for it when a Python service is present).
+go run github.com/stripe/pg-schema-diff/cmd/pg-schema-diff@v1.0.5 apply \
     --from-dsn "$DB_URL" \
     --to-dir ./db \
     --skip-confirm-prompt
