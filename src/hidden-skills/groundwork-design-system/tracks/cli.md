@@ -294,7 +294,7 @@ Once the review verdict is PRESENT, proceed to Phase 5b.
 
 The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
 
-**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
+**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
 
 #### Cluster Walkthrough
 
@@ -339,7 +339,7 @@ The walkthrough is complete when all three clusters have been presented and appr
 Phase 6 runs once for the whole design system, in the foundation flow. This track contributes:
 
 - **Document section:** the `# CLI` section files assembled into `docs/design-system.md`, including the session and live-surface files for interactive/hybrid paradigms.
-- **Brand tokens:** the Tier 2 `terminal` block — colour role table, symbol vocabulary, splash, typography per the contract at `.agents/groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — carrying the *same* values as the colour architecture and symbol vocabulary just written into the document. This is the machine projection scaffolding reads to brand the `./dev` CLI and the product's own CLI.
+- **Brand tokens:** the Tier 2 `terminal` block — colour role table, symbol vocabulary, splash, typography per the contract at `.groundwork/skills/groundwork-design-system/templates/brand-tokens.md` — carrying the *same* values as the colour architecture and symbol vocabulary just written into the document. This is the machine projection scaffolding reads to brand the `./dev` CLI and the product's own CLI.
 - **Summary key decisions:** colour role table, output structure, exit-code policy; and for interactive/hybrid CLIs, the session model, streaming budget, and slash-command grammar. Binding constraints include the ANSI fallback chain, machine-readability requirements, accessibility floors.
 - **Hand-off content:** rejected colour palettes or output templates, deferred decisions (composition rules, plugin architecture), user instincts about CLI ergonomics not yet committed.
 

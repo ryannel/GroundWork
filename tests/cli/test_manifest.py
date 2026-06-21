@@ -47,7 +47,7 @@ def test_init_manifest_covers_everything_the_installer_wrote(project):
     files = manifest["files"]
 
     # Completeness: every skill file on disk has an entry.
-    for tree in (".agents/skills", ".agents/groundwork/skills"):
+    for tree in (".agents/skills", ".groundwork/skills"):
         for f in (project / tree).rglob("*"):
             if f.is_file():
                 rel = str(f.relative_to(project))
@@ -115,7 +115,7 @@ def test_generator_provenance_survives_update(project):
     }
     manifest_path.write_text(json.dumps(manifest, indent=2))
     # Force a real update pass (not the no-op early return).
-    shutil.rmtree(project / ".agents/groundwork/skills/groundwork-update")
+    shutil.rmtree(project / ".groundwork/skills/groundwork-update")
 
     proc = run_cli(["update"], project)
     assert proc.returncode == 0, proc.stderr

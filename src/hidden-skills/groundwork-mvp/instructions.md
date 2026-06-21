@@ -31,7 +31,7 @@ Hold two things simultaneously: the reduction discipline (what can we cut?) and 
 
 Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 
@@ -41,7 +41,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 Check if `.groundwork/cache/mvp-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-mvp/templates/mvp-cache.md` to `.groundwork/cache/mvp-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+- If it **does not exist**, copy the template from `.groundwork/skills/groundwork-mvp/templates/mvp-cache.md` to `.groundwork/cache/mvp-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it, summarise which phases are complete, and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template.
 
 ### Step 2: Discovery Notes Check
@@ -190,7 +190,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 1. **Confirm the slug.** Before writing anything, derive a kebab-case directory slug from the bet name (e.g., bet name "Core Story Loop" → slug `core-story-loop`) and confirm it with the user in one sentence. The slug becomes the permanent directory name for this bet and every downstream artifact (`docs/bets/<slug>/pitch.md`, `docs/bets/<slug>/technical-design.md`, `docs/bets/<slug>/decomposition.md`), so a one-line confirmation prevents a rename later. Accept any slug the user proposes if they redirect.
 
-2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.agents/groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: design` in the frontmatter — discovery is complete and the bet enters Design Foundations next. When `docs/surfaces.md` exists, add `surfaces:` to the frontmatter — a YAML list of the surface slugs this bet delivers to, agreed in Phase 2, each spelled exactly as registered: the slug is the join key the capability ledger, test fixtures, and decomposition all use, so a near-miss spelling silently breaks every consumer. A project without a registry omits the key.
+2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: design` in the frontmatter — discovery is complete and the bet enters Design Foundations next. When `docs/surfaces.md` exists, add `surfaces:` to the frontmatter — a YAML list of the surface slugs this bet delivers to, agreed in Phase 2, each spelled exactly as registered: the slug is the join key the capability ledger, test fixtures, and decomposition all use, so a near-miss spelling silently breaks every consumer. A project without a registry omits the key.
 
 3. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. Report the verdict and findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 

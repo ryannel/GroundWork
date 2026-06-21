@@ -17,7 +17,7 @@ signals stay dark.
 ## Transform
 
 Do not invent a bootstrap procedure here. Load
-`.agents/groundwork/skills/groundwork-surface-activation/instructions.md` and run its
+`.groundwork/skills/groundwork-surface-activation/instructions.md` and run its
 registry-bootstrap flow — bootstrapping pre-restructure products is that skill's
 designed first move. It reads `docs/architecture.md` and the existing scaffold to
 propose the surface set, writes both twins, and starts the ledger empty by stance.

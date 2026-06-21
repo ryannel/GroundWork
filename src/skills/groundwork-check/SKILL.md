@@ -35,7 +35,7 @@ Report numbering gaps and invalid statuses as build failures — they indicate a
 
 ### `docs/surfaces.md` and `.groundwork/surfaces.json`
 
-The surface registry and capability ledger are twins: the prose doc and the JSON are projections of the same decisions, written by the same commits (contract: `.agents/groundwork/skills/templates/surfaces.md`). Exclude `retired` surfaces from every staleness and backlog count below — a retired column is frozen history, never backlog.
+The surface registry and capability ledger are twins: the prose doc and the JSON are projections of the same decisions, written by the same commits (contract: `.groundwork/skills/templates/surfaces.md`). Exclude `retired` surfaces from every staleness and backlog count below — a retired column is frozen history, never backlog.
 
 Report as build failures:
 

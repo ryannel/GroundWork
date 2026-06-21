@@ -33,7 +33,7 @@ Scaffold has six execution phases that must be completed in order — each phase
 
 **Phase 6** commits — deletes the cache, applies Living Documents and discovery note updates, and hands off to the orchestrator.
 
-Each phase runs from its own file. At the start of each phase, read that phase's file from `.agents/groundwork/skills/groundwork-scaffold/phases/` and follow it. Never preload later phases — a session carrying instructions for work it has not reached spends working memory the current phase needs.
+Each phase runs from its own file. At the start of each phase, read that phase's file from `.groundwork/skills/groundwork-scaffold/phases/` and follow it. Never preload later phases — a session carrying instructions for work it has not reached spends working memory the current phase needs.
 
 | Phase | File |
 |---|---|
@@ -50,7 +50,7 @@ Each phase runs from its own file. At the start of each phase, read that phase's
 
 Rushing to execution before the mapping is confirmed, skipping verification because the system "should" work, and treating the infrastructure document as a fill-in-the-blanks template are the failure modes this process is built to prevent.
 
-**Before proceeding, load and apply all protocols from `.agents/groundwork/skills/operating-contract.md` (contract v1).** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+**Before proceeding, load and apply all protocols from `.groundwork/skills/operating-contract.md` (contract v1).** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
 
 ---
 
@@ -60,7 +60,7 @@ Rushing to execution before the mapping is confirmed, skipping verification beca
 
 Check if `.groundwork/cache/scaffold-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-scaffold/templates/scaffold-cache.md` to `.groundwork/cache/scaffold-cache.md`, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+- If it **does not exist**, copy the template from `.groundwork/skills/groundwork-scaffold/templates/scaffold-cache.md` to `.groundwork/cache/scaffold-cache.md`, then proceed directly to Step 2. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it once. Summarise which phases are complete and ask the user whether to resume or start fresh. If they choose to start fresh, reset the cache file from the template. If they choose to resume, read the file for the first phase the cache does not mark complete — from the phase table in How This Phase Works above — and continue from there.
 
 ### Step 2: Discovery Notes Check

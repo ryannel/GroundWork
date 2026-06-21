@@ -62,7 +62,7 @@ The Living Documents protocol is what keeps this relationship coherent. When it 
 
 **When to write one**: Any decision a future engineer should not relitigate without a new ADR. Significance test: would someone joining six months from now need to know this to avoid repeating the decision? If yes, write an ADR.
 
-**How to write one**: Use the template at `.agents/groundwork/skills/templates/adr.md`. Number sequentially with zero-padded four digits: 0001, 0002, 0003. The slug is a short hyphenated description of the decision.
+**How to write one**: Use the template at `.groundwork/skills/templates/adr.md`. Number sequentially with zero-padded four digits: 0001, 0002, 0003. The slug is a short hyphenated description of the decision.
 
 **How to supersede**: Change `status:` to `superseded by [NNNN](NNNN-slug.md)` and add a note at the bottom explaining what changed and why. Never edit an ADR's content after acceptance. Supersede it instead.
 

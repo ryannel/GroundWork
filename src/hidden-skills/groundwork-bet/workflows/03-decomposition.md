@@ -9,7 +9,7 @@ This phase is where the bet becomes executable. Milestones define the demonstrab
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 Protocol 1 applies throughout: milestone and slice discussions surface signals that belong elsewhere — future-bet instincts (`## Bets`), implementation details worth preserving (`## Design Details`). Capture them in `.groundwork/cache/discovery-notes.md` as they occur, then steer back to sequencing.
 
@@ -67,7 +67,7 @@ tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>
 
 where `<bet-slug>` is the bet directory name, `<milestone-slug>` is the kebab-case milestone name, `<N>` is the milestone number, and `<ext>` is the project's test extension.
 
-Tests describe the **target state** — write each test as if the feature already exists. Tests are red because the implementation does not exist yet; a placeholder that fails explicitly is correct. Consult `.agents/groundwork/skills/groundwork-bet/templates/bet-progress-test.md` for the placeholder pattern and quality criteria.
+Tests describe the **target state** — write each test as if the feature already exists. Tests are red because the implementation does not exist yet; a placeholder that fails explicitly is correct. Consult `.groundwork/skills/groundwork-bet/templates/bet-progress-test.md` for the placeholder pattern and quality criteria.
 
 ## Step 4: Decompose milestones into slices
 
@@ -100,7 +100,7 @@ As in Step 3: discover language and service names from the scaffold; use `./dev 
 
 ## Step 6: Write `decomposition.md`
 
-Write the human-readable, reviewable artifact to `docs/bets/<bet-slug>/decomposition.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/decomposition.md`.
+Write the human-readable, reviewable artifact to `docs/bets/<bet-slug>/decomposition.md` using the template at `.groundwork/skills/groundwork-bet/templates/decomposition.md`.
 
 The document contains:
 - **Test Plan header** — the two populations and their lifecycles (one short paragraph each)
@@ -138,7 +138,7 @@ Every milestone and slice in `decomposition.md` appears here with the same slugs
 
 The user is about to stake the bet's delivery on these tests — implementing to green *is* done. A review that confirms files exist and fail tells the user nothing about whether the assertions are the right ones. The test-review surface puts the actual assertions in front of the user with their full chain of justification, so approval means "I read what these tests prove and it is what I want proven."
 
-Write `docs/bets/<bet-slug>/test-review.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test: the capability or acceptance criterion it proves, the contract operation it traces to (spec path and operation), the test file, the **verbatim assertion block** quoted from the test, and a one-line plain-language reading of what the assertion proves. Generate this from the real test files — a surface that paraphrases the tests can drift from them, and drift here defeats its purpose.
+Write `docs/bets/<bet-slug>/test-review.md` using the template at `.groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test: the capability or acceptance criterion it proves, the contract operation it traces to (spec path and operation), the test file, the **verbatim assertion block** quoted from the test, and a one-line plain-language reading of what the assertion proves. Generate this from the real test files — a surface that paraphrases the tests can drift from them, and drift here defeats its purpose.
 
 ## Step 7: Independent review
 
@@ -302,4 +302,4 @@ Walk through the milestone map first — ordering rationale, milestone types, de
 
 On approval, **seal the suite**: run `./dev bet sign <bet-slug>` if the project ships the dev CLI; otherwise write `.groundwork/bets/<bet-slug>/test-manifest.json` directly — `{"bet", "signed": <date>, "review_verdict": "PRESENT", "files": {<path>: <sha256> for every file under tests/bets/<bet-slug>/}}`, computing hashes with the shell's `shasum -a 256`. The manifest is the user's signature on the suite: from this point the tests are the bet's fixed contract, `./dev test bet` refuses a tampered suite, and changes route through the Amendment Protocol in `workflows/04-delivery.md`.
 
-➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/04-delivery.md`
+➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`

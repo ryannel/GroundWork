@@ -10,7 +10,7 @@ description: >
 This checklist checks a draft `docs/maturity.md`. It answers one question: **is every assessment
 evidenced, every roadmap row parseable, and every claim consistent with the committed doc set?**
 
-Read the model at `.agents/groundwork/skills/maturity-model.md` first — it defines the
+Read the model at `.groundwork/skills/maturity-model.md` first — it defines the
 dimensions (D1–D9), the assessment states (including the `n/a` state reserved for the
 conditional dimensions D8 and D9), and the allowed severity, recommendation, and status
 values. Match each item against the document text and the canonical doc summaries.

@@ -13,12 +13,13 @@ import * as fs from 'fs';
  */
 
 /**
- * Engineer skills live in hidden-skills/ until a service is scaffolded, then
- * they are promoted to .agents/skills/ so engineers have them immediately
- * available in their toolchain.
+ * Engineer skills are canon under src/engineer-skills/ and are never installed
+ * at the GroundWork root. When a service is scaffolded they are promoted into
+ * the project's .agents/skills/ so engineers have them immediately available in
+ * their toolchain — this is the only place they become a registered skill.
  */
 export function promoteEngineerSkill(tree: Tree, skillName: string) {
-  const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'hidden-skills', skillName);
+  const sourcePath = path.join(__dirname, '..', '..', '..', '..', 'src', 'engineer-skills', skillName);
 
   if (!fs.existsSync(sourcePath)) {
     console.warn(`Engineer skill ${skillName} not found at ${sourcePath}`);

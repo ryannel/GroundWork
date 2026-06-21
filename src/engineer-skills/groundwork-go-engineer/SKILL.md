@@ -29,7 +29,7 @@ Go backend execution router for service repositories. Durable engineering guidan
 
 ## Code intelligence (repo map + Serena)
 
-GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.agents/groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
+GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
 
 ---
 

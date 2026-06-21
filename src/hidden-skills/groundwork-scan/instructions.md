@@ -31,7 +31,7 @@ Your single point of contact with the user is a short scope-confirmation in Stag
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Summary for Downstream and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Summary for Downstream and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
 
 ---
 
@@ -47,7 +47,7 @@ The orchestrator passes a `fan_out` hint when it invokes this skill: `parallel` 
 
 Check if `.groundwork/cache/scan-state.json` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-scan/templates/scan-state.json` to `.groundwork/cache/scan-state.json`.
+- If it **does not exist**, copy the template from `.groundwork/skills/groundwork-scan/templates/scan-state.json` to `.groundwork/cache/scan-state.json`.
 - If it **does exist**, read it. If any partitions have a status of `complete`, summarise the coverage so far — the classification and which partitions are scanned — and ask whether the user wants to resume or start fresh. On resume, skip directly to the first partition still `pending` in Stage 3. On a fresh start, reset the scan state and findings from the templates.
 
 ### Step 2: Cache Isolation Check
@@ -71,7 +71,7 @@ Establish:
 - **Repo shape** — a single service, a multi-part repo (a client and a server), or a monorepo of many packages and services.
 - **Per-part project type** — language and framework for each part, matched from its key files (a `package.json` with `next.config.*` is a Next.js app; a `go.mod` with a `cmd/` directory is a Go service).
 
-Write the classification into `scan-state.json`. The exclusion globs and the contract-bearing file priorities you will apply are defined in `.agents/groundwork/skills/groundwork-scan/references/exclusions.md` — load it now; it governs every read that follows.
+Write the classification into `scan-state.json`. The exclusion globs and the contract-bearing file priorities you will apply are defined in `.groundwork/skills/groundwork-scan/references/exclusions.md` — load it now; it governs every read that follows.
 
 ---
 
@@ -85,7 +85,7 @@ Build an exact map of the codebase — module boundaries, import and call edges,
 
 **Fallback path — LLM inference.** When the generator cannot run, or for a language it does not cover, infer the missing structure from targeted reads — entry points, manifests, and import statements — and write those parts of `repo-map.json` in the **same shape**. The downstream contract is identical; only the means of producing it differs. Do not let the fallback change what the file holds.
 
-`repo-map.json` is a first-class GroundWork artifact (schema: `.agents/groundwork/skills/repo-map-schema.md`): the architecture extract phase reads it for exact dependency facts, and `groundwork-check` reuses it for impact analysis. Treat its shape as a contract, not an internal scratch file. It carries `generated_at_commit`, so `groundwork-check` and `npx groundwork-method repo-map --check` can tell when it has drifted from HEAD and a refresh is owed.
+`repo-map.json` is a first-class GroundWork artifact (schema: `.groundwork/skills/repo-map-schema.md`): the architecture extract phase reads it for exact dependency facts, and `groundwork-check` reuses it for impact analysis. Treat its shape as a contract, not an internal scratch file. It carries `generated_at_commit`, so `groundwork-check` and `npx groundwork-method repo-map --check` can tell when it has drifted from HEAD and a refresh is owed.
 
 ---
 
@@ -105,7 +105,7 @@ Record the confirmed partitions and depth in `scan-state.json`. If the user volu
 
 ## Stage 3: Partition & Scan
 
-Each partition yields one **digest** — a structured, capped summary defined in `.agents/groundwork/skills/groundwork-scan/references/digest-schema.md`. Load that schema now; both execution paths produce it identically, and that identity is what lets the evaluation-tested sequential path certify the output contract for the parallel path it cannot exercise. A digest is never raw file contents — it is the interpreted result of reading them.
+Each partition yields one **digest** — a structured, capped summary defined in `.groundwork/skills/groundwork-scan/references/digest-schema.md`. Load that schema now; both execution paths produce it identically, and that identity is what lets the evaluation-tested sequential path certify the output contract for the parallel path it cannot exercise. A digest is never raw file contents — it is the interpreted result of reading them.
 
 Branch on the `fan_out` hint.
 
@@ -135,7 +135,7 @@ An oversized single partition is sub-partitioned or priority-sampled exactly as 
 
 ### Findings Layout (both paths)
 
-Route every digest's fields into these files under `.groundwork/cache/scan/`, each consumed by exactly one downstream phase (Protocol 7). Create them from the templates in `.agents/groundwork/skills/groundwork-scan/templates/` on first write.
+Route every digest's fields into these files under `.groundwork/cache/scan/`, each consumed by exactly one downstream phase (Protocol 7). Create them from the templates in `.groundwork/skills/groundwork-scan/templates/` on first write.
 
 | File | Holds | Consumer |
 |---|---|---|

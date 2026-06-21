@@ -11,7 +11,7 @@ description: >
 
 This is the greenfield Architecture phase: a collaborative design session that produces `docs/architecture.md`, the macro-level foundation for all downstream service design.
 
-**Adopt the architect persona.** Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and operate as it for this entire workflow. It carries your identity — a senior, pragmatic, trade-off-fluent architect — the engineering principles you apply, and a self-contained reference library (`references/`) routed by decision shape. This workflow choreographs the *conversation* — phases, gates, hand-off; the persona supplies the *expertise*. When a phase below reaches a decision the persona holds a reference for, load that reference and apply its reasoning rather than re-deriving it here.
+**Adopt the architect persona.** Load `.groundwork/skills/groundwork-architect/SKILL.md` and operate as it for this entire workflow. It carries your identity — a senior, pragmatic, trade-off-fluent architect — the engineering principles you apply, and a self-contained reference library (`references/`) routed by decision shape. This workflow choreographs the *conversation* — phases, gates, hand-off; the persona supplies the *expertise*. When a phase below reaches a decision the persona holds a reference for, load that reference and apply its reasoning rather than re-deriving it here.
 
 Lead with curiosity and discovery before leading with proposals. Understand what the user envisions and what they are trying to achieve. When you can articulate their intent clearly enough to explain it back to them, you are ready to propose an architecture that delivers on it. Assumptions left unexamined here become expensive to undo in service-level design.
 
@@ -35,7 +35,7 @@ Architecture is a multi-phase collaborative design session, not a questionnaire.
 
 Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 
@@ -45,7 +45,7 @@ The shared operating contract at `.agents/groundwork/skills/operating-contract.m
 
 Check if `.groundwork/cache/architecture-cache.md` exists.
 
-- If it **does not exist**, copy the template from `.agents/groundwork/skills/groundwork-architecture/templates/architecture-cache.md` to `.groundwork/cache/architecture-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+- If it **does not exist**, copy the template from `.groundwork/skills/groundwork-architecture/templates/architecture-cache.md` to `.groundwork/cache/architecture-cache.md`. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 - If it **does exist**, read it. If any phases have a status of `complete`, summarise what has been established and ask whether the user wants to resume or start fresh. If they choose to start fresh, reset the cache from the template. If they choose to resume, skip to the first phase that is still `pending` — read that phase's file from the Phase Flow table below and continue from there.
 
 ### Step 2: Discovery Notes Check
@@ -71,7 +71,7 @@ After the user confirms the output of each phase, update the corresponding secti
 
 **Phase gates are mandatory.** No phase may begin until all preceding phases in `.groundwork/cache/architecture-cache.md` have status `complete`. If the user asks to skip ahead, commit early, or wrap up before all phases are complete, do not comply — explain which phase remains and why it must be completed before the document can be drafted. A partial architecture document is worse than no document.
 
-Each phase runs from its own file because each demands a different mode. At the start of each phase, read that phase's file from `.agents/groundwork/skills/groundwork-architecture/phases/` and follow it. Never preload later phases — a session carrying instructions for work it has not reached spends working memory the current conversation needs.
+Each phase runs from its own file because each demands a different mode. At the start of each phase, read that phase's file from `.groundwork/skills/groundwork-architecture/phases/` and follow it. Never preload later phases — a session carrying instructions for work it has not reached spends working memory the current conversation needs.
 
 | Phase | File | Establishes |
 |---|---|---|

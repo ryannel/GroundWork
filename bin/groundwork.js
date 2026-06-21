@@ -74,7 +74,7 @@ function getPaths() {
   return {
     targetDir,
     targetSkillsDir: path.join(targetDir, '.agents', 'skills'),
-    targetHiddenSkillsDir: path.join(targetDir, '.agents', 'groundwork', 'skills'),
+    targetHiddenSkillsDir: path.join(targetDir, '.groundwork', 'skills'),
     targetConfigDir: path.join(targetDir, '.groundwork', 'config'),
     targetCacheDir: path.join(targetDir, '.groundwork', 'cache'),
     sourceSkillsDir: path.join(__dirname, '..', 'src', 'skills'),
@@ -275,7 +275,7 @@ function deployableSpecs(p) {
     }
   };
   pushTree(p.sourceSkillsDir, path.join('.agents', 'skills'), 1);
-  pushTree(p.sourceHiddenSkillsDir, path.join('.agents', 'groundwork', 'skills'), 1);
+  pushTree(p.sourceHiddenSkillsDir, path.join('.groundwork', 'skills'), 1);
   if (fs.existsSync(p.sourceDocsDir)) {
     for (const f of walkFiles(p.sourceDocsDir, '')) {
       if (f === 'llms.txt') continue; // deployed to the project root, not docs/
@@ -1172,7 +1172,7 @@ function updateGroundWork(flags = {}) {
   if (dryRun) {
     console.log(`\x1b[1mDry run — nothing will be written.\x1b[0m\n`);
     reportDiff('.agents/skills/', skillsDiff);
-    reportDiff('.agents/groundwork/skills/', hiddenDiff);
+    reportDiff('.groundwork/skills/', hiddenDiff);
     if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
     reportTier2(tier2, devCli);
     if (pending.cli.length) {
@@ -1208,7 +1208,7 @@ function updateGroundWork(flags = {}) {
 
   c.ok(`Updated GroundWork skills\n`);
   reportDiff('.agents/skills/', skillsDiff);
-  reportDiff('.agents/groundwork/skills/', hiddenDiff);
+  reportDiff('.groundwork/skills/', hiddenDiff);
   if (generatorsChanged) console.log(`\x1b[1m.groundwork/config/\x1b[0m\n  \x1b[33m~ generators.json\x1b[0m`);
   reportTier2(tier2, devCli);
 
@@ -1292,7 +1292,7 @@ function reportFrameworkStatus(p) {
     const mismatched = [];
     for (const [src, dest, prefix] of [
       [p.sourceSkillsDir, p.targetSkillsDir, '.agents/skills'],
-      [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, '.agents/groundwork/skills'],
+      [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, '.groundwork/skills'],
     ]) {
       const d = diffDirs(src, dest);
       for (const f of [...d.changed, ...d.removed]) mismatched.push(path.join(prefix, f));

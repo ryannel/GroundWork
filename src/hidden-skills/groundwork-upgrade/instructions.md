@@ -20,7 +20,7 @@ generator output drifted from its template. The CLI compiled that work into the
 been set up at the current version all along.
 
 Apply the `groundwork-writer` skill when modifying any document. The shared operating
-contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs
+contract at `.groundwork/skills/operating-contract.md` (contract v1) governs
 this skill in **Maintenance** mode: Protocols 1 (Discovery Notes), 2 (Living
 Documents), and 4 (Pacing) apply, and Protocols 8 and 9 (Review Gate, Review
 Invocation) apply when an item mutates a canonical doc. There is no phase cache

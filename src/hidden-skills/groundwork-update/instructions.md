@@ -19,7 +19,7 @@ Apply the `groundwork-writer` skill when modifying any document. Updates must pr
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), 4 (Pacing), 8 (Review Gate), and 9 (Review Invocation) apply. There is no phase cache, no hand-off file, and no fresh-context recommendation — a maintenance run starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md` and `repo-map.json`.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), 4 (Pacing), 8 (Review Gate), and 9 (Review Invocation) apply. There is no phase cache, no hand-off file, and no fresh-context recommendation — a maintenance run starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md` and `repo-map.json`.
 
 ---
 
@@ -52,13 +52,13 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 |---|---|
 | Endpoint added, removed, or reshaped | `docs/api/<service>.md`; `docs/services/<service>.md` if env vars or dependencies moved |
 | Entity field, lifecycle state, or domain event changed | `docs/domain/<entity>.md` — and `docs/architecture.md` if the change crosses a service boundary |
-| New entity introduced | New `docs/domain/<entity>.md` from `.agents/groundwork/skills/templates/domain-entity.md` |
+| New entity introduced | New `docs/domain/<entity>.md` from `.groundwork/skills/templates/domain-entity.md` |
 | Service added, removed, or rewired | `docs/architecture.md` topology and boundaries, `docs/infrastructure.md` service table |
 | Port, boot command, or test command changed | `docs/infrastructure.md` |
-| A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.agents/groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
+| A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
 | User-visible capability added or removed | `docs/product-brief.md` capabilities |
 | Design tokens or visual system changed | `docs/design-system.md` and `.groundwork/config/brand-tokens.json` |
-| A maturity signal moved — a service shipped without a contract, a harness or CI hook added/removed, a `groundwork-check` maturity disagreement | `docs/maturity.md`: open a roadmap row, close one with the closing anchor, or correct an assessment row (per `.agents/groundwork/skills/maturity-model.md`) |
+| A maturity signal moved — a service shipped without a contract, a harness or CI hook added/removed, a `groundwork-check` maturity disagreement | `docs/maturity.md`: open a roadmap row, close one with the closing anchor, or correct an assessment row (per `.groundwork/skills/maturity-model.md`) |
 
 Classify each planned edit as a **refinement** or a **reversal** using Protocol 2's test: superseding an accepted ADR, or negating a bullet in any doc's `### Key Decisions` or `### Binding Constraints`, makes it a reversal. When in doubt, treat it as a reversal.
 

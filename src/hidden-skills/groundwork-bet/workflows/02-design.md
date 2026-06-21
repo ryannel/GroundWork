@@ -7,7 +7,7 @@
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 ## Discovery Notes Check
 
@@ -25,24 +25,24 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: design`.
 
 Read `docs/domain/` if it exists. Identify whether this bet introduces any new domain entities or adds new lifecycle states to existing ones. This is the Living Documents protocol applied to `docs/domain/`.
 
-- If the bet introduces a **new entity** (a noun a service will own that does not yet have a file in `docs/domain/`), create a stub at `docs/domain/<entity-name>.md` using the template at `.agents/groundwork/skills/templates/domain-entity.md`. Fill in what the bet already implies — ownership, core fields, and lifecycle states as far as they are known. Stubs are explicitly incomplete.
+- If the bet introduces a **new entity** (a noun a service will own that does not yet have a file in `docs/domain/`), create a stub at `docs/domain/<entity-name>.md` using the template at `.groundwork/skills/templates/domain-entity.md`. Fill in what the bet already implies — ownership, core fields, and lifecycle states as far as they are known. Stubs are explicitly incomplete.
 - If the bet adds **new lifecycle states** to an existing entity, update the relevant `docs/domain/<entity-name>.md` file in place.
 
 Confirm any domain doc changes with the user before proceeding to Step 2. Skip this step entirely if the bet introduces no new entities or state transitions.
 
 ## Step 1.9: Adopt the architect persona
 
-The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.agents/groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the Capability Design and contract work in this phase. The Surface Design subsection is the designer's — see Step 1.95.
+The Technical Design Document and the contract specs below are architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the Capability Design and contract work in this phase. The Surface Design subsection is the designer's — see Step 1.95.
 
 Route to its `references/` by what this bet touches: `core-and-boundaries.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
 
 The bet must fit inside the boundaries `docs/architecture.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
 
-If a design decision changes what the bet delivers to its users — cutting a capability to fit the appetite, or expanding scope the pitch did not commit — that is a value/scope call, not a structural one: defer it to the product persona (`.agents/groundwork/skills/groundwork-product/SKILL.md`) rather than deciding it from the architecture seat. The architect owns feasibility; product owns whether the changed scope is still worth building.
+If a design decision changes what the bet delivers to its users — cutting a capability to fit the appetite, or expanding scope the pitch did not commit — that is a value/scope call, not a structural one: defer it to the product persona (`.groundwork/skills/groundwork-product/SKILL.md`) rather than deciding it from the architecture seat. The architect owns feasibility; product owns whether the changed scope is still worth building.
 
 ## Step 1.95: Adopt the designer persona for Surface Design
 
-The **Surface Design** subsection of the Technical Design Document (Step 2) is design discipline — how each surface looks, the states it must cover, and the interaction and visual intent that the contract then serves. For that subsection, load `.agents/groundwork/skills/groundwork-designer/SKILL.md` and design as that persona; return to the architect for Capability Design. The designer owns usability and craft, the architect owns feasibility — and Surface Design is drafted first precisely because the contract must serve the experience.
+The **Surface Design** subsection of the Technical Design Document (Step 2) is design discipline — how each surface looks, the states it must cover, and the interaction and visual intent that the contract then serves. For that subsection, load `.groundwork/skills/groundwork-designer/SKILL.md` and design as that persona; return to the architect for Capability Design. The designer owns usability and craft, the architect owns feasibility — and Surface Design is drafted first precisely because the contract must serve the experience.
 
 Route to the designer's `references/` by what the surface needs: `interaction-and-motion.md` for the full set of states (empty, loading, partial, error, success) and the feedback and motion each demands; `usability-and-ux.md` for the flow, forms, and error recovery; `visual-craft.md` and `layout-and-space.md` where the surface introduces visual or spatial decisions the design system has not already settled; `accessibility.md` for keyboard, focus, and contrast obligations. Specify the per-surface visual intent concretely enough that a milestone test can judge the rendered result against it, and use the design system in `docs/design-system.md` rather than inventing a parallel one.
 
@@ -56,7 +56,7 @@ Write each as the token it resolves to (`surface-elevated`, `shadow-mid`, the `p
 
 ## Step 2: Draft the Technical Design Document
 
-Draft `docs/bets/<bet-slug>/technical-design.md` using the template at `.agents/groundwork/skills/groundwork-bet/templates/technical-design.md`.
+Draft `docs/bets/<bet-slug>/technical-design.md` using the template at `.groundwork/skills/groundwork-bet/templates/technical-design.md`.
 
 The Technical Design Document covers the **entire bet** — not per-milestone. Write it before any decomposition into milestones or slices. The document carries two top-level sections whose order is the design's logic: **Surface Design** is drafted first, because the contract must serve the experiences — never the other way around; **Capability Design** (data flows, API contracts, data schema) is then written once beneath all of them, surface-neutral and headless.
 
@@ -163,9 +163,9 @@ The shallow version has no request shapes, no response field types, no error cas
 
 ## Transition
 
-Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Surface Design first, subsection by subsection — that is where the user's mental model of the bet lives — then the Capability Design: data flows, API contracts, and schema. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
+Once the technical design has passed review, present it to the user as the design contract for this bet. Walk through the Surface Design first, subsection by subsection — that is where the user's mental model of the bet lives — then the Capability Design: data flows, API contracts, and schema. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
 
 On approval:
 
 1. Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition` — the design is locked and the bet advances to the Decomposition phase.
-2. ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/03-decomposition.md`
+2. ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/03-decomposition.md`

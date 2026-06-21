@@ -14,7 +14,7 @@ GroundWork flows from the orchestrator; you do not need to memorize the lifecycl
 
 - **Registered skills** (auto-loaded): `.agents/skills/` — the orchestrator, `groundwork-check`,
   and any installed engineer personas.
-- **Hidden methodology skills** (loaded on demand by the orchestrator): `.agents/groundwork/skills/`.
+- **Hidden methodology skills** (loaded on demand by the orchestrator): `.groundwork/skills/`.
 - **Project docs**: `docs/` — product brief, architecture, lifecycle, bets, and principles.
 - **Config & state**: `.groundwork/config/` — never hand-edit `state.json`.
 - **Knowledge index**: `llms.txt` at the project root.

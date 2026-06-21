@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (hidden skills relocated out of `.agents/` into `.groundwork/skills/`, 2026-06-21)
+
+On-demand methodology skills, the discipline personas, `groundwork-writer`, and the shared references are GroundWork's private, orchestrator-routed instruction files — never meant for an agent's skill scanner to discover. They now install into `.groundwork/skills/` (GroundWork's home directory) instead of `.agents/groundwork/skills/`, so no agent's discovery rules can pick them up. Only the genuinely-registered skills (`groundwork-orchestrator`, `groundwork-check`) remain under `.agents/skills/`.
+
+- **Install destination moved.** `npx groundwork init`/`update` now copy `src/hidden-skills/*` to `.groundwork/skills/`; the orchestrator routing table, every inter-skill path reference, the install manifest (tier 1), and the docs follow.
+- **Engineer skills are canon-in-`src`, promoted at scaffold only.** The five engineer skills moved to `src/engineer-skills/` and are no longer installed at the GroundWork root. A service generator still promotes the matching skill into the scaffolded project's `.agents/skills/` (the only place it becomes a registered skill).
+- [migration] Existing installs have the orphaned `.agents/groundwork/skills/` tree removed on update; the new tree installs at `.groundwork/skills/`, and any promoted `.agents/skills/groundwork-*-engineer/` is left untouched (gw-relocate-hidden-skills)
+
 ### Added (high-end micro-polish: per-app atmosphere tokens, token-driven engineer, deterministic conformance, 2026-06-21)
 
 Design craft is now specified as per-app tokens and verified deterministically, so agents deliver the micro-level polish — atmosphere, motion, optical finish — that separates high-end UI from a framework default. The lever is "specify concretely → build to spec → verify against spec," not vision-grading screenshots.

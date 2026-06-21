@@ -376,11 +376,11 @@ EOF
     MISSING=0
     for p in \
       ".agents/skills/groundwork-orchestrator/SKILL.md" \
-      ".agents/groundwork/skills/groundwork-product-brief/instructions.md" \
-      ".agents/groundwork/skills/groundwork-architecture/instructions.md" \
-      ".agents/groundwork/skills/groundwork-scaffold/instructions.md" \
-      ".agents/groundwork/skills/groundwork-mvp/instructions.md" \
-      ".agents/groundwork/skills/groundwork-bet/instructions.md" \
+      ".groundwork/skills/groundwork-product-brief/instructions.md" \
+      ".groundwork/skills/groundwork-architecture/instructions.md" \
+      ".groundwork/skills/groundwork-scaffold/instructions.md" \
+      ".groundwork/skills/groundwork-mvp/instructions.md" \
+      ".groundwork/skills/groundwork-bet/instructions.md" \
       ".groundwork/config/generators.json"; do
       if [ ! -e "$SANDBOX_DIR/$p" ]; then
         print_error "Missing: $p"

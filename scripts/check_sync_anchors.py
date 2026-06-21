@@ -13,7 +13,10 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-ANCHOR_GLOB = "src/hidden-skills/*/sync-anchor.md"
+# Discipline personas keep their anchors under hidden-skills/; engineer skills
+# are canon under engineer-skills/ (promoted into scaffolds, never installed at
+# the root). Both carry sync-anchor.md, so both trees are scanned.
+ANCHOR_GLOBS = ("src/hidden-skills/*/sync-anchor.md", "src/engineer-skills/*/sync-anchor.md")
 TABLE_ROW = re.compile(r"^\|\s*([^|]+?)\s*\|\s*([a-f0-9]{64})\s*\|")
 
 
@@ -50,7 +53,7 @@ def check_anchor(anchor_path: Path) -> list[str]:
 
 
 def main() -> int:
-    anchors = sorted(REPO_ROOT.glob(ANCHOR_GLOB))
+    anchors = sorted(p for g in ANCHOR_GLOBS for p in REPO_ROOT.glob(g))
     if not anchors:
         print("No sync-anchor.md files found — nothing to check.")
         return 0

@@ -18,7 +18,7 @@ This is a utility, not a phase. It runs inside another skill's lifecycle while t
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs this skill. Protocol 4 (Pacing) shapes the execution — one technique, run with full attention, beats three run shallowly. Protocol 7 (Cache Isolation) bounds the writes: this skill mutates only the file the invoking phase is actively drafting in, never a committed `docs/` artifact and never another phase's state.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Protocol 4 (Pacing) shapes the execution — one technique, run with full attention, beats three run shallowly. Protocol 7 (Cache Isolation) bounds the writes: this skill mutates only the file the invoking phase is actively drafting in, never a committed `docs/` artifact and never another phase's state.
 
 ---
 
@@ -35,7 +35,7 @@ Operate on one section at a time. A whole-document elicitation dilutes every tec
 
 ## The Loop
 
-Read `.agents/groundwork/skills/groundwork-elicit/methods.md` now — at invocation, not before. It is the curated technique table this loop selects from.
+Read `.groundwork/skills/groundwork-elicit/methods.md` now — at invocation, not before. It is the curated technique table this loop selects from.
 
 ### 1. Diagnose
 

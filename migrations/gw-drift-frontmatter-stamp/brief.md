@@ -17,7 +17,7 @@ is blind exactly where it matters.
 ## Transform
 
 Stamp each unassessed doc following the frontmatter contract the brownfield extract
-skills define (see `.agents/groundwork/skills/groundwork-architecture-extract/` —
+skills define (see `.groundwork/skills/groundwork-architecture-extract/` —
 reference their stamping rules, do not restate them):
 
 - `source_of_truth`: the code paths this doc actually describes — read the doc and

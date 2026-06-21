@@ -4,7 +4,7 @@
 
 ## Operating Contract
 
-This workflow operates under the protocols defined in `.agents/groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
+This workflow operates under the protocols defined in `.groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
 ## Discovery Notes Check
 
@@ -20,7 +20,7 @@ Read `docs/bets/patch-ledger.md` if it exists. Two or more patches in one area a
 
 ## Maturity Roadmap Check
 
-Read `docs/maturity.md` if it exists (the maturity model behind it is defined in `.agents/groundwork/skills/maturity-model.md`). Roadmap rows with status `open` and recommendation `fix-now` or `blocks-delivery` are candidate work for this bet — the system's own distance from the state where delivery runs well.
+Read `docs/maturity.md` if it exists (the maturity model behind it is defined in `.groundwork/skills/maturity-model.md`). Roadmap rows with status `open` and recommendation `fix-now` or `blocks-delivery` are candidate work for this bet — the system's own distance from the state where delivery runs well.
 
 - When the user's chosen problem **is** an open gap, connect them explicitly: cite the row in the pitch's problem statement and mark the row `in-bet (<slug>)` at commit.
 - When a `blocks-delivery` gap is open and the user proposes unrelated work, surface the trade-off once, concretely — what the gap costs *during this bet* (a missing system-test harness means delivery cannot prove its slices; a missing contract means design hand-derives the API surface) and what closing it buys every bet after. Propose absorbing it into the appetite or making it the bet. The user decides. If they decline, the row stays `open` — or moves to `accepted` if they say the gap is permanent — and is not raised again within this bet.
@@ -39,7 +39,7 @@ Read the relevant `docs/` artifacts before opening the conversation:
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.
 
-When the bet appears to challenge a boundary or capability decision `docs/architecture.md` committed, adopt the architect persona (`.agents/groundwork/skills/groundwork-architect/SKILL.md`) to weigh whether the boundary should hold or move — surface the tension here rather than discovering it mid-design.
+When the bet appears to challenge a boundary or capability decision `docs/architecture.md` committed, adopt the architect persona (`.groundwork/skills/groundwork-architect/SKILL.md`) to weigh whether the boundary should hold or move — surface the tension here rather than discovering it mid-design.
 
 **Surface scope degrades with the registry.** When `docs/surfaces.md` does not exist, the project has a single implicit surface: skip every surface-scope step in this workflow — the pitch carries no `surfaces:` frontmatter, the No-Gos carry no surface no-gos, and the conversation gains no surface questions. When the registry holds exactly one surface, scope is settled by inspection: write that one slug into `surfaces:` and ask nothing — there is no scope to choose.
 
@@ -48,7 +48,7 @@ When the bet appears to challenge a boundary or capability decision `docs/archit
 ### Setup
 
 1. Ensure a directory exists for this bet at `docs/bets/<bet-slug>/`. Create it if it doesn't exist.
-2. Read the `.agents/groundwork/skills/groundwork-bet/templates/pitch.md` template.
+2. Read the `.groundwork/skills/groundwork-bet/templates/pitch.md` template.
 
 ### Track Selection
 
@@ -61,7 +61,7 @@ Both tracks produce the same Pitch artifact and require the same review before c
 
 ### Adopt the product persona
 
-The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.agents/groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, on whichever track.
+The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, on whichever track.
 
 Route to its `references/` by what the pitch turns on: `discovery-and-opportunity.md` to pressure-test that the problem is real and rooted in a root cause, not a symptom; `product-risks.md` to name the riskiest assumption and what would kill the bet before delivery; `success-metrics-and-signals.md` for a falsifiable success signal with its counter-metric; `scope-and-sequencing.md` for an opportunity-cost appetite and no-gos that hold under pressure. Apply the reference's reasoning and its antipatterns to the pitch.
 
@@ -195,4 +195,4 @@ The shallow version has no concrete problem evidence, no falsifiable success sig
 
 Once `pitch.md` is saved and the user is satisfied with the pitch, prompt the user to continue to Design Foundations.
 
-If they agree, read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-design.md`
+If they agree, read and follow: `.groundwork/skills/groundwork-bet/workflows/02-design.md`

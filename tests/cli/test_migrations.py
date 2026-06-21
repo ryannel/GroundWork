@@ -211,7 +211,7 @@ def test_dry_run_lists_the_plan_and_mutates_nothing(project, tmp_path):
     edited = project / "docs/principles/index.md"
     edited.write_text(edited.read_text() + "\nuser edit\n")
     import shutil as _shutil
-    _shutil.rmtree(project / ".agents/groundwork/skills/groundwork-update")
+    _shutil.rmtree(project / ".groundwork/skills/groundwork-update")
 
     before = tree_hash(project)
     proc = run_cli(["update", "--dry-run"], project, migrations_dir=mig)

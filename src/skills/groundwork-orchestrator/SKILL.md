@@ -5,13 +5,13 @@ description: 'The GroundWork Orchestrator. Run this skill when the user wants to
 
 # GroundWork Orchestrator
 
-You own lifecycle routing. Read state, determine the mode, load the right skill. No other skill makes lifecycle decisions. The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs every methodology phase — you route, the phases enforce protocol.
+You own lifecycle routing. Read state, determine the mode, load the right skill. No other skill makes lifecycle decisions. The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs every methodology phase — you route, the phases enforce protocol.
 
 ---
 
 ## Persona
 
-Before your first user-facing reply in any session, load and apply `.agents/groundwork/skills/groundwork-persona/instructions.md`. This governs your conversational posture for the entire session — do not wait for a methodology skill to invoke it.
+Before your first user-facing reply in any session, load and apply `.groundwork/skills/groundwork-persona/instructions.md`. This governs your conversational posture for the entire session — do not wait for a methodology skill to invoke it.
 
 ---
 
@@ -103,30 +103,30 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 
 | Skill | Instruction file |
 |---|---|
-| `groundwork-product-brief` | `.agents/groundwork/skills/groundwork-product-brief/instructions.md` |
-| `groundwork-design-system` | `.agents/groundwork/skills/groundwork-design-system/instructions.md` |
-| `groundwork-architecture` | `.agents/groundwork/skills/groundwork-architecture/instructions.md` |
-| `groundwork-scaffold` | `.agents/groundwork/skills/groundwork-scaffold/instructions.md` |
-| `groundwork-stack-forge` | `.agents/groundwork/skills/groundwork-stack-forge/instructions.md` |
-| `groundwork-mvp` | `.agents/groundwork/skills/groundwork-mvp/instructions.md` |
-| `groundwork-scan` | `.agents/groundwork/skills/groundwork-scan/instructions.md` |
-| `groundwork-product-brief-extract` | `.agents/groundwork/skills/groundwork-product-brief-extract/instructions.md` |
-| `groundwork-design-system-extract` | `.agents/groundwork/skills/groundwork-design-system-extract/instructions.md` |
-| `groundwork-architecture-extract` | `.agents/groundwork/skills/groundwork-architecture-extract/instructions.md` |
-| `groundwork-infra-adopt` | `.agents/groundwork/skills/groundwork-infra-adopt/instructions.md` |
-| `groundwork-bet` | `.agents/groundwork/skills/groundwork-bet/instructions.md` |
-| `groundwork-update` | `.agents/groundwork/skills/groundwork-update/instructions.md` |
-| `groundwork-upgrade` | `.agents/groundwork/skills/groundwork-upgrade/instructions.md` |
-| `groundwork-patch` | `.agents/groundwork/skills/groundwork-patch/instructions.md` |
-| `groundwork-surface-activation` | `.agents/groundwork/skills/groundwork-surface-activation/instructions.md` |
-| `groundwork-elicit` | `.agents/groundwork/skills/groundwork-elicit/instructions.md` |
-| `groundwork-review` | `.agents/groundwork/skills/groundwork-review/instructions.md` |
+| `groundwork-product-brief` | `.groundwork/skills/groundwork-product-brief/instructions.md` |
+| `groundwork-design-system` | `.groundwork/skills/groundwork-design-system/instructions.md` |
+| `groundwork-architecture` | `.groundwork/skills/groundwork-architecture/instructions.md` |
+| `groundwork-scaffold` | `.groundwork/skills/groundwork-scaffold/instructions.md` |
+| `groundwork-stack-forge` | `.groundwork/skills/groundwork-stack-forge/instructions.md` |
+| `groundwork-mvp` | `.groundwork/skills/groundwork-mvp/instructions.md` |
+| `groundwork-scan` | `.groundwork/skills/groundwork-scan/instructions.md` |
+| `groundwork-product-brief-extract` | `.groundwork/skills/groundwork-product-brief-extract/instructions.md` |
+| `groundwork-design-system-extract` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
+| `groundwork-architecture-extract` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
+| `groundwork-infra-adopt` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| `groundwork-bet` | `.groundwork/skills/groundwork-bet/instructions.md` |
+| `groundwork-update` | `.groundwork/skills/groundwork-update/instructions.md` |
+| `groundwork-upgrade` | `.groundwork/skills/groundwork-upgrade/instructions.md` |
+| `groundwork-patch` | `.groundwork/skills/groundwork-patch/instructions.md` |
+| `groundwork-surface-activation` | `.groundwork/skills/groundwork-surface-activation/instructions.md` |
+| `groundwork-elicit` | `.groundwork/skills/groundwork-elicit/instructions.md` |
+| `groundwork-review` | `.groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |
-| `groundwork-writer` | `.agents/groundwork/skills/groundwork-writer/SKILL.md` |
-| `groundwork-persona` | `.agents/groundwork/skills/groundwork-persona/instructions.md` |
-| `groundwork-architect` | `.agents/groundwork/skills/groundwork-architect/SKILL.md` |
-| `groundwork-product` | `.agents/groundwork/skills/groundwork-product/SKILL.md` |
-| `groundwork-designer` | `.agents/groundwork/skills/groundwork-designer/SKILL.md` |
+| `groundwork-writer` | `.groundwork/skills/groundwork-writer/SKILL.md` |
+| `groundwork-persona` | `.groundwork/skills/groundwork-persona/instructions.md` |
+| `groundwork-architect` | `.groundwork/skills/groundwork-architect/SKILL.md` |
+| `groundwork-product` | `.groundwork/skills/groundwork-product/SKILL.md` |
+| `groundwork-designer` | `.groundwork/skills/groundwork-designer/SKILL.md` |
 
 > `groundwork-stack-forge` is not a lifecycle phase either — it is invoked *from within* the scaffold phase, when Phase 1 maps a service or surface to a stack no generator can produce and the user chooses to build it properly. It researches the stack, authors a self-contained engineer skill, builds a Day-2 seed wired into `./dev`, and hands its Day-2 checklist to MVP. Do not route to it on its own.
 
@@ -151,7 +151,7 @@ Read `.agents/skills/groundwork-orchestrator/workflow-index.md` — the generate
 A capability question — "can we scaffold a docs site?", "what can GroundWork generate?", "is there a Go service generator?" — is answered from the **shipped generator catalog**, never from memory and never by entering the scaffold flow to find out.
 
 1. Read `.groundwork/config/generators.json` (the deployed Nx generator registry). Every entry's `name` + `description` is the catalog of what can be scaffolded — backend services, surfaces (Next.js, Flutter, Electron, CLI), the **docs site**, the system-test runner, the dev CLI. Answer the "is there a generator for X?" question directly from it. If the file is absent (a pre-config install), fall back to the package's `generators.json`.
-2. For **flag-level** detail — auth modes, messaging backends, LLM providers, the docs-site engine, etc. — the single source of truth is the generator-availability and capability→flag tables in `.agents/groundwork/skills/groundwork-scaffold/phases/01-ingestion-service-mapping.md`. Read that file read-only to answer; do not duplicate its contents here, and do not execute the scaffold phase just to quote it.
+2. For **flag-level** detail — auth modes, messaging backends, LLM providers, the docs-site engine, etc. — the single source of truth is the generator-availability and capability→flag tables in `.groundwork/skills/groundwork-scaffold/phases/01-ingestion-service-mapping.md`. Read that file read-only to answer; do not duplicate its contents here, and do not execute the scaffold phase just to quote it.
 3. Knowing a capability exists is not the same as adding it. If the user wants to actually scaffold it, route to the work: greenfield Setup phase 4 (`groundwork-scaffold`), or after setup the `groundwork-scaffold` / `groundwork-surface-activation` lane. State which, then proceed.
 
 ---

@@ -11,7 +11,7 @@ description: >
 
 You are the project's drift detector. The canonical docs claim to describe the system as it is; your job is to test that claim mechanically and report honestly. You run non-interactively when needed (CI), mutate nothing, and never soften a finding — a doc you cannot assess is reported as unassessed, not skipped.
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines your mode: **Maintenance**, read-only and diagnostic. From `.groundwork/cache/` you read only `repo-map.json`.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines your mode: **Maintenance**, read-only and diagnostic. From `.groundwork/cache/` you read only `repo-map.json`.
 
 The deterministic core of this skill also runs without an agent as `npx groundwork-method check` — that command covers Step 1's git-log baseline. You add what determinism cannot: dependency-graph reach (Step 2), maturity re-assessment (Step 3), and doc-type judgement (Step 4).
 
@@ -47,7 +47,7 @@ Path-filtered git history misses drift by construction: a contract doc goes stal
 
 ## Step 3: Maturity re-assessment
 
-If `docs/maturity.md` exists, re-evaluate the mechanical signals of the maturity model (`.agents/groundwork/skills/maturity-model.md`, dimensions D1–D6 plus D8's registry and ledger signals — D7 is judgement-based and D9 is re-assessed by bet validation, so both are out of scope for a check run):
+If `docs/maturity.md` exists, re-evaluate the mechanical signals of the maturity model (`.groundwork/skills/maturity-model.md`, dimensions D1–D6 plus D8's registry and ledger signals — D7 is judgement-based and D9 is re-assessed by bet validation, so both are out of scope for a check run):
 
 - For each assessment row, test its signal now: do the canonical docs exist with summaries (D1)? does each service have a referenced contract (D2)? does `./dev` exist (D3)? is the system-test runner present (D4)? is Serena registered with a code map (D5)? does CI invoke the check (D6)? do the registry twins agree with every ledger cell filled (D8 — `n/a` when no registry exists)?
 - Flag every **disagreement** between observed state and the doc: a dimension marked ✅ whose signal now fails (regression — critical), a roadmap row `closed` whose gap is observably back (critical), and a row `open` whose signal now passes (good news — propose closing it via `groundwork-update`).

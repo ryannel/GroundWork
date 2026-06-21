@@ -1,6 +1,6 @@
 # Gap Ledger
 
-> Working file. Each brownfield phase appends the divergences from GroundWork standard it discovers. `groundwork-infra-adopt` consolidates this into the roadmap table of `docs/maturity.md` at the end of setup (model: `.agents/groundwork/skills/maturity-model.md`), and the bet loop reads it when planning every bet.
+> Working file. Each brownfield phase appends the divergences from GroundWork standard it discovers. `groundwork-infra-adopt` consolidates this into the roadmap table of `docs/maturity.md` at the end of setup (model: `.groundwork/skills/maturity-model.md`), and the bet loop reads it when planning every bet.
 
 Each entry records what diverges, the standard it violates, a severity, and a recommendation. Severity and Recommendation are closed value sets defined by the maturity model — write the values exactly as spelled below, because the roadmap reuses these strings verbatim and a drifted spelling orphans the row.
 

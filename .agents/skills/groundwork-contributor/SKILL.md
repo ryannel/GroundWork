@@ -30,7 +30,7 @@ groundWork/
 │   │   ├── groundwork-orchestrator/   ← The only skill users see in their agent toolchain.
 │   │   └── groundwork-check/          ← Staleness detection skill.
 │   │
-│   ├── hidden-skills/         → Copied to .agents/groundwork/skills/ (not agent-registered).
+│   ├── hidden-skills/         → Copied to .groundwork/skills/ (GroundWork's home dir — no agent scanner reaches it).
 │   │   ├── operating-contract.md      ← Shared protocols loaded by every methodology skill.
 │   │   ├── groundwork-persona/        ← Always-on conversational posture; loaded by the orchestrator on every session.
 │   │   ├── templates/                 ← Shared file templates (discovery-notes.md, etc.) referenced by multiple skills.
@@ -51,10 +51,15 @@ groundWork/
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
 │   │   ├── groundwork-architect/      ← Architecture-discipline persona. Adopted inside the architecture workflow + bet design; principles baked into its references/.
-│   │   ├── groundwork-product/        ← Product-discipline persona. Adopted inside the product-brief workflow + bet discovery; principles baked into its references/.
-│   │   ├── groundwork-go-engineer/    ← Auto-installed alongside go-microservice generator output.
-│   │   ├── groundwork-python-engineer/← Auto-installed alongside python-microservice generator output.
-│   │   └── groundwork-nextjs-engineer/← Auto-installed alongside nextjs-app generator output.
+│   │   └── groundwork-product/        ← Product-discipline persona. Adopted inside the product-brief workflow + bet discovery; principles baked into its references/.
+│   │
+│   ├── engineer-skills/       → NOT installed at init. Promoted into a scaffolded project's
+│   │   │                         .agents/skills/ per language (the only place they become registered).
+│   │   ├── groundwork-go-engineer/      ← Promoted alongside go-microservice generator output.
+│   │   ├── groundwork-python-engineer/  ← Promoted alongside python-microservice generator output.
+│   │   ├── groundwork-nextjs-engineer/  ← Promoted alongside nextjs-app generator output.
+│   │   ├── groundwork-flutter-engineer/ ← Promoted alongside flutter-app generator output.
+│   │   └── groundwork-electron-engineer/← Promoted alongside electron-app generator output.
 │   │
 │   └── config/
 │       └── groundwork-state.json      ← Initial orchestration state seeded on init.
@@ -65,7 +70,7 @@ groundWork/
 │       ├── skill-writer/              ← How to write skill instructions. Dev-only, not shipped.
 │       ├── skill-creator/             ← Anthropic skill creation workflow (vendored; tracked in skills-lock.json).
 │       ├── scaffold-designer/         ← How to design new Nx generators for this repo.
-│       └── golang-pro/                ← Vendored general Go skill (tracked in skills-lock.json). Engineer skills are NOT mirrored here — read their canon in src/hidden-skills/.
+│       └── golang-pro/                ← Vendored general Go skill (tracked in skills-lock.json). Engineer skills are NOT mirrored here — read their canon in src/engineer-skills/.
 │
 ├── docs/                      ← GroundWork's own framework documentation. NOT output from running GroundWork on this repo.
 │   ├── lifecycle/             → The user-facing methodology reference: setup, delivery loop, maintenance.
@@ -133,7 +138,7 @@ project learns.
 
 All methodology skills share a single set of behavioral protocols defined in
 `src/hidden-skills/operating-contract.md`. This file ships to user projects at
-`.agents/groundwork/skills/operating-contract.md`. It governs:
+`.groundwork/skills/operating-contract.md`. It governs:
 
 - **Discovery Notes**: How out-of-phase signals are captured and carried forward.
 - **Living Documents**: How existing docs are updated when new information surfaces —
@@ -147,7 +152,11 @@ everywhere — never duplicated inline.
 
 ## The Two-Layer Skill Architecture
 
-GroundWork uses a deliberate split between what users see and what the agent sees.
+GroundWork keeps a deliberate split between what an agent's skill scanner can discover and
+what is GroundWork's private, orchestrator-routed instruction set. The dividing line is the
+install directory, **not** the filename: only `.agents/skills/` is a skill-discovery root, so
+anything under `.groundwork/skills/` is invisible to the scanner regardless of whether its
+file is named `SKILL.md` or `instructions.md`.
 
 ### Registered Skills (`src/skills/` → `.agents/skills/`)
 The agent toolchain picks these up automatically. Every skill here appears in the model's
@@ -158,27 +167,32 @@ central router — it determines the project mode and loads the right hidden ski
 (product-brief, architecture, design-system, bet, writer) and the always-on persona are hidden behind
 the orchestrator's routing table to minimize always-on context cost.
 
-### Hidden Skills (`src/hidden-skills/` → `.agents/groundwork/skills/`)
-These are instruction files loaded on demand by the orchestrator. They are not registered
-in the agent toolchain, so they consume no context until invoked. This is the correct home
-for any new methodology skill (product-brief, setup, bet, design-system, etc.).
+### Hidden Skills (`src/hidden-skills/` → `.groundwork/skills/`)
+These are instruction files loaded on demand by the orchestrator. They install into
+`.groundwork/skills/` — GroundWork's home directory, alongside `config/` and `cache/` — which
+is **not** a skill-discovery root for any agent (Claude Code, Cursor, Codex, OpenCode, Cline),
+so they consume no context until the orchestrator opens one by path. This is the correct home
+for any new methodology skill (product-brief, setup, bet, design-system, etc.). They are
+clean-replaced on `update` exactly like the registered skills (tier 1, framework-owned).
 
 The orchestrator's routing table lives directly in `src/skills/groundwork-orchestrator/SKILL.md`.
-When adding a new methodology skill, add a row to the Skill Paths table there.
+When adding a new methodology skill, add a row to the Skill Paths table there (pointing at
+`.groundwork/skills/<name>/instructions.md`).
 
 ### Engineer-skill delivery
 
-The three engineer skills (`groundwork-go-engineer`, `groundwork-python-engineer`,
-`groundwork-nextjs-engineer`) are product deliverables. Their canon lives only in
-`src/hidden-skills/`; `promoteEngineerSkill()` (`src/generators/shared/scaffold-helpers.ts`)
-copies the matching skill into a scaffolded project per language — Go for
-`go-microservice`, Python for `python-microservice`, Next.js for `nextjs-app`. They are
-**not** mirrored into this repo's `.agents/skills/`: this repo has no Go/Python/Next.js
-service code, only generator templates, and delivery reads the canon directly. For in-repo
-work, read the canon under `src/hidden-skills/`. The `sync-anchor.md` gate in
-`./dev test contracts` (`tests/scaffolds/test_skill_sync.py`) still guards them — every
-pinned principle hash must match, so a principle edit forces a skill review in the same
-commit.
+The five engineer skills (`groundwork-{go,python,nextjs,flutter,electron}-engineer`) are
+product deliverables. Their canon lives in `src/engineer-skills/` and is **never installed at
+the GroundWork root** — `promoteEngineerSkill()` (`src/generators/shared/scaffold-helpers.ts`)
+copies the matching skill into a scaffolded project's `.agents/skills/` per language (Go for
+`go-microservice`, Python for `python-microservice`, Next.js for `nextjs-app`, plus
+`flutter-app` and `electron-app`). That scaffolded `.agents/skills/` location is the **only**
+place an engineer skill becomes a registered skill — by design, so the engineer persona is in
+the toolchain for the project that has that language's code. For in-repo work, read the canon
+under `src/engineer-skills/`. The `sync-anchor.md` gate in `./dev test contracts`
+(`tests/scaffolds/test_skill_sync.py` → `scripts/check_sync_anchors.py`) scans both
+`src/hidden-skills/*` (the discipline personas) and `src/engineer-skills/*` — every pinned
+principle hash must match, so a principle edit forces a skill review in the same commit.
 
 ### Engineer-skill families
 
@@ -237,7 +251,8 @@ Two rules make each one work, both shared with the engineer skills:
 - **Sync-anchored to source.** `sync-anchor.md` pins every source principle's SHA-256,
   so a principle edit forces a review of the matching reference in the same commit
   (the same `./dev test contracts` gate that guards the engineer skills — it
-  auto-discovers any `src/hidden-skills/*/sync-anchor.md`). No mirror in
+  auto-discovers any `src/hidden-skills/*/sync-anchor.md` and
+  `src/engineer-skills/*/sync-anchor.md`). No mirror in
   `.agents/skills/` is needed: contributors do discipline facilitation in *user*
   projects, not in this repo.
 
@@ -333,8 +348,11 @@ The CLI copies skills and seeds the `.groundwork/` directory:
 | Source | Destination | What it contains |
 |---|---|---|
 | `src/skills/*` | `.agents/skills/` | Agent-registered skills |
-| `src/hidden-skills/*` | `.agents/groundwork/skills/` | On-demand methodology instructions |
+| `src/hidden-skills/*` | `.groundwork/skills/` | On-demand methodology instructions (not a skill-discovery root) |
 | `src/config/groundwork-state.json` | `.groundwork/config/state.json` | Initial orchestration state (created only if absent) |
+
+`src/engineer-skills/*` is **not** copied at init — a service generator promotes the matching
+engineer skill into the scaffolded project's `.agents/skills/` (see Engineer-skill delivery).
 
 The CLI also creates `.groundwork/cache/` as an empty directory.
 
@@ -600,7 +618,7 @@ per file in the project's `.groundwork/config/manifest.json`:
 
 | Tier | What | Carry-forward rule |
 |---|---|---|
-| 1 | Framework-owned: `.agents/skills/`, `.agents/groundwork/skills/`, `generators.json`, the `./dev` bundle + launcher | Clean-replaced on `update` — never edit these in a project |
+| 1 | Framework-owned: `.agents/skills/`, `.groundwork/skills/`, `generators.json`, the `./dev` bundle + launcher | Clean-replaced on `update` — never edit these in a project |
 | 2 | Framework-seeded, user-editable: `src/docs/` → `docs/`, `AGENTS.md`, `llms.txt` | Hash-classified on `update`: pristine → auto-refresh; edited → queued for the `groundwork-upgrade` skill to merge |
 | 3 | Generator-produced: compose injections, `tests/system/`, `.dev/dev.config.json` | Provenance-recorded (`recordGeneratorProvenance` in `src/generators/shared/provenance.ts`); the upgrade skill regenerates with recorded options and reconciles |
 | 4 | Project-owned, shape-versioned: `state.json`, `surfaces.json`, doc shapes, bet shapes | Never overwritten — carried forward by migrations |
@@ -671,7 +689,7 @@ Release checklist:
 4. Add a `groundwork-writer` reference to the skill's instructions (see Writer Enforcement below).
 5. If the skill produces working files, write them to `.groundwork/cache/` and delete on commit.
 6. If the skill produces final deliverables, write them to `docs/`.
-7. Test the full install flow: run `npx groundwork init` in a separate test repo and verify the skill appears in `.agents/groundwork/skills/`.
+7. Test the full install flow: run `npx groundwork init` in a separate test repo and verify the skill appears in `.groundwork/skills/`.
 
 ### Adding a new registered skill
 Only do this if the skill genuinely needs to be always visible in the agent toolchain.

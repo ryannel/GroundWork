@@ -8,7 +8,7 @@ After all generators have run, verify that `docker-compose.yml` includes entries
 
 Then reconcile against `.groundwork/capability-ports.json`: every capability with a `compose-service` footprint must have its service in `docker-compose.yml`, every `runner` footprint an entry in `.dev/dev.config.json` `runners[]`, and every `none` capability its stub plus a strict-xfail contract test in the service. A declared footprint with no materialization is a mapping or generation error — fix it before advancing, since the generators inject infrastructure only on demand and a missing provider leaves the capability silently unsatisfied.
 
-Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — if any are missing, copy them from `.agents/groundwork/skills/` manually.
+Go and Python generators automatically install the corresponding `groundwork-go-engineer` or `groundwork-python-engineer` skill into `.agents/skills/`. The Next.js generator installs `groundwork-nextjs-engineer`. Verify each skill file exists after its generator runs — the generator promotes it directly from the framework package, so if any are missing, re-run that service's generator.
 
 Mark the Scaffolding Execution phase complete in `scaffold-cache.md` and proceed to Phase 3.
 

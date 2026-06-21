@@ -31,7 +31,7 @@ skill, infrastructure notes, the hand-off. Declarative, assertive, zero-hedging.
 
 ## Operating Contract
 
-**Load and apply all protocols from `.agents/groundwork/skills/operating-contract.md`
+**Load and apply all protocols from `.groundwork/skills/operating-contract.md`
 (contract v1).** This skill runs inside the scaffold phase, so the Phase Lifecycle, Living
 Documents, and Hand-off protocols bind it: what you forge is recorded in the canonical docs
 and carried to MVP, never left as undocumented local cleverness.

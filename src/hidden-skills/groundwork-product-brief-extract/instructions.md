@@ -34,7 +34,7 @@ The brief is the root of the brownfield document tree, exactly as in greenfield:
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, summary, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, summary, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
 
 ---
 
@@ -49,7 +49,7 @@ Check whether `docs/product-brief.md` already exists.
 
 ### Step 2: Cache Check
 
-Check if `.groundwork/cache/product-brief-extract-cache.md` exists. If it does not, create it from the template at `.agents/groundwork/skills/groundwork-product-brief-extract/templates/product-brief-extract-cache.md`. If it does and shows work in progress, summarise what has been recovered and ask whether to resume or start fresh.
+Check if `.groundwork/cache/product-brief-extract-cache.md` exists. If it does not, create it from the template at `.groundwork/skills/groundwork-product-brief-extract/templates/product-brief-extract-cache.md`. If it does and shows work in progress, summarise what has been recovered and ask whether to resume or start fresh.
 
 ### Step 3: Discovery Notes Check
 
@@ -130,8 +130,8 @@ Execute **only** after explicit user approval. Follow the Phase Lifecycle commit
 
 1. Verify the draft leads with a populated `## Summary for Downstream` section. If missing, apply `groundwork-writer` to add it before committing.
 2. Promote the brief to `docs/product-brief.md` with a move operation (`move_file` or `mv`) — do not re-emit the body through the model. In Adopt/Upgrade mode, overwrite the existing file with the upgraded version. Stamp no drift frontmatter — the brief is exempt from frontmatter-based drift by design, because `groundwork-check` reads `generation_mode`/`source_of_truth` only from the code-coupled docs (`docs/architecture.md`, `docs/services/`, `docs/api/`, `docs/domain/`).
-3. **Append product gaps to the ledger.** If Stage 3 surfaced product-surface divergences from GroundWork standard, append them to `.groundwork/cache/gap-ledger.md` (create from `.agents/groundwork/skills/templates/gap-ledger.md` if absent). Most gaps come later; add only what this phase uniquely saw.
-4. Write the hand-off file to `.groundwork/cache/handoff/product-brief-extract.md` from `.agents/groundwork/skills/templates/handoff.md`: rejected framings, deferred decisions with their reopening trigger, user instincts about design or architecture not yet formalised. Omit empty sections (Protocol 6).
+3. **Append product gaps to the ledger.** If Stage 3 surfaced product-surface divergences from GroundWork standard, append them to `.groundwork/cache/gap-ledger.md` (create from `.groundwork/skills/templates/gap-ledger.md` if absent). Most gaps come later; add only what this phase uniquely saw.
+4. Write the hand-off file to `.groundwork/cache/handoff/product-brief-extract.md` from `.groundwork/skills/templates/handoff.md`: rejected framings, deferred decisions with their reopening trigger, user instincts about design or architecture not yet formalised. Omit empty sections (Protocol 6).
 5. **Delete the consumed findings slice.** Remove `.groundwork/cache/scan/product-findings.md` — this phase has consumed it. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json` in place; later phases still read them.
 6. Delete the phase cache: `.groundwork/cache/product-brief-extract-cache.md`.
 7. Apply the Living Documents protocol — refine any existing `docs/` artifact the conversation touched, and refresh affected summaries.

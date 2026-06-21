@@ -16,6 +16,13 @@
       "summary": "Adds the Serena MCP server to .mcp.json and removes the retired depwire server. Idempotent; only the depwire entry is removed, other servers are untouched."
     },
     {
+      "id": "gw-relocate-hidden-skills",
+      "version": "0.10.0",
+      "title": "Remove the orphaned .agents/groundwork/skills/ tree",
+      "kind": "cli",
+      "summary": "Hidden methodology skills moved to .groundwork/skills/ so no agent skill scanner can pick them up. update installs the new tree; this deletes the old .agents/groundwork/skills/ location. Promoted engineer skills under .agents/skills/ are untouched."
+    },
+    {
       "id": "gw-package-rename-invocations",
       "version": "0.10.0",
       "title": "Rewrite npx groundwork invocations to npx groundwork-method",

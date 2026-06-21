@@ -23,7 +23,7 @@ last_reviewed: <YYYY-MM-DD>
 
 ---
 
-This document tracks the project against the GroundWork maturity model — the nine dimensions of the target state defined in `.agents/groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
+This document tracks the project against the GroundWork maturity model — the nine dimensions of the target state defined in `.groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
 
 ## Current Assessment
 

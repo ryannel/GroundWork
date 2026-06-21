@@ -22,7 +22,7 @@ Uplift tracking files only — the bet's substance (problem, appetite, design) i
 user's work and is not rewritten:
 
 - Stamp pitch frontmatter to the current contract defined by the `groundwork-bet`
-  skill's templates (`.agents/groundwork/skills/groundwork-bet/` — read the current
+  skill's templates (`.groundwork/skills/groundwork-bet/` — read the current
   pitch template for the required fields; do not work from memory). Infer `status`
   from the artifacts present and confirm the inference with the user.
 - For bets at or past decomposition, reconstruct `decomposition.json` from the

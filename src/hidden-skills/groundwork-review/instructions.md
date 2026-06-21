@@ -39,7 +39,7 @@ Read the document at `document_path` before beginning any check.
 
 ## Type-Specific Checklist
 
-After reading the document, load `.agents/groundwork/skills/groundwork-review/checklists/<document_type>.md` if it exists. The checklist names the failure modes specific to this document type; apply its items as the type-specific pass alongside Checks 1–4. When a checklist item is violated, cite it **by name** in the finding — e.g. `checklist: Label without a person — 'Role-Playing Groups' has no job-to-be-done` — not by restating the item's text.
+After reading the document, load `.groundwork/skills/groundwork-review/checklists/<document_type>.md` if it exists. The checklist names the failure modes specific to this document type; apply its items as the type-specific pass alongside Checks 1–4. When a checklist item is violated, cite it **by name** in the finding — e.g. `checklist: Label without a person — 'Role-Playing Groups' has no job-to-be-done` — not by restating the item's text.
 
 If the checklist file is missing, proceed with the generic checks alone — its absence is not an error.
 
@@ -122,7 +122,7 @@ The chain is:
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design → decomposition
 ```
 
-**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.agents/groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
+**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
 
 **`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md`'s `## Summary for Downstream` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
 

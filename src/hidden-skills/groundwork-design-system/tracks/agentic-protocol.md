@@ -208,7 +208,7 @@ Once the review verdict is PRESENT, proceed to Phase 5b.
 
 The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
 
-**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it.
+**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
 
 #### Cluster Walkthrough
 

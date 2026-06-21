@@ -71,10 +71,14 @@ def test_convergence_tier1_matches_fresh_init(label, tmp_path, fresh_init):
     proc = run_cli(["update"], project)
     assert proc.returncode == 0, proc.stderr
 
-    for tree in (".agents/skills", ".agents/groundwork/skills"):
+    for tree in (".agents/skills", ".groundwork/skills"):
         assert dir_bytes(project / tree) == dir_bytes(fresh_init / tree), (
             f"{label}: {tree} did not converge to the current package"
         )
+    # The pre-relocation hidden tree is removed by the gw-relocate-hidden-skills migration.
+    assert not (project / ".agents/groundwork").exists(), (
+        f"{label}: stale .agents/groundwork/ tree survived the update"
+    )
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     assert state["groundwork"]["version"] == PKG_VERSION
     assert (project / ".groundwork/config/manifest.json").exists()

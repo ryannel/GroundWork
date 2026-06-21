@@ -49,7 +49,7 @@ The pitch's frontmatter `status` field tracks where the bet sits in the lifecycl
 
 Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
 
 ---
 
@@ -61,28 +61,28 @@ Check `docs/bets/` for pitches (`<slug>/pitch.md`) and route on the pitch's `sta
 
 - **`status: discovery`** — the pitch is committed but the bet has not entered Design Foundations. Read the pitch and proceed to Design Foundations.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-design.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/02-design.md`
 
 - **`status: design`** — the MVP handoff just completed; discovery is done. Read the pitch and proceed directly to Design Foundations.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/02-design.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/02-design.md`
 
 - **`status: decomposition`** — design is locked; proceed to Decomposition.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/03-decomposition.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/03-decomposition.md`
 
 - **`status: delivery`** — decomposition is done; proceed to Delivery.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/04-delivery.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`
 
 - **`status: validation`** — delivery is done; proceed to Validation.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/05-validation.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/05-validation.md`
 
 - **`status: delivered`** — the bet is complete; validation closed it. Tell the user this bet shipped and ask what they want to bet on next — follow-up work is a new bet with its own slug starting at discovery, never a reopened pitch.
 
 - **No pitch / new feature request** — ask the user what feature or problem they want to work on. Ensure the user provides a slug (e.g., `meeting-recording`) to use as the directory name for this bet. Then load and execute discovery.
 
-  ➡️ Read and follow: `.agents/groundwork/skills/groundwork-bet/workflows/01-discovery.md`
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/01-discovery.md`
 
 If activating in a fresh context against an existing pitch, briefly summarise the pitch's scope so the user can confirm the right bet was picked up before proceeding.

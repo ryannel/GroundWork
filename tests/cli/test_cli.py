@@ -45,8 +45,12 @@ def test_init_installs_the_contract(project):
     # Skill trees
     assert (project / ".agents/skills/groundwork-orchestrator/SKILL.md").exists()
     assert (project / ".agents/skills/groundwork-orchestrator/workflow-index.md").exists()
-    assert (project / ".agents/groundwork/skills/operating-contract.md").exists()
-    assert (project / ".agents/groundwork/skills/groundwork-bet/instructions.md").exists()
+    assert (project / ".groundwork/skills/operating-contract.md").exists()
+    assert (project / ".groundwork/skills/groundwork-bet/instructions.md").exists()
+    # Hidden skills no longer live under .agents/ — nothing an agent scanner can reach.
+    assert not (project / ".agents/groundwork").exists()
+    # Engineer skills are not installed at the root; they promote into scaffolds only.
+    assert not (project / ".groundwork/skills/groundwork-go-engineer").exists()
     # Config: state seed, version stamp, user config, generators
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     assert state["groundwork"]["version"] == PKG_VERSION
@@ -115,7 +119,7 @@ def test_update_refreshes_and_reports_drift(project):
     run_cli(["init"], project)
     mutated = project / ".agents/skills/groundwork-check/SKILL.md"
     mutated.write_text(mutated.read_text() + "\ndrift\n")
-    removed = project / ".agents/groundwork/skills/groundwork-update"
+    removed = project / ".groundwork/skills/groundwork-update"
     shutil.rmtree(removed)
 
     proc = run_cli(["update"], project)

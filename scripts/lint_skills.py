@@ -32,6 +32,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent.resolve()
 HIDDEN = ROOT / "src" / "hidden-skills"
 REGISTERED = ROOT / "src" / "skills"
+# Engineer skills are canon here and never installed at the GroundWork root —
+# a generator promotes one into a scaffolded project's .agents/skills/.
+ENGINEER = ROOT / "src" / "engineer-skills"
 
 findings: list[str] = []
 
@@ -56,9 +59,12 @@ METHODOLOGY = [
     "groundwork-update",
     "groundwork-review",
 ]
-# Single-file skills whose canonical file is SKILL.md.
+# Single-file skills under HIDDEN whose canonical file is SKILL.md.
 SKILLMD_SKILLS = [
     "groundwork-writer",
+]
+# Engineer skills (canonical file SKILL.md) live under ENGINEER, not HIDDEN.
+ENGINEER_SKILLS = [
     "groundwork-go-engineer",
     "groundwork-python-engineer",
     "groundwork-nextjs-engineer",
@@ -145,6 +151,8 @@ def check_frontmatter():
         targets.append((HIDDEN / name / "instructions.md", name))
     for name in SKILLMD_SKILLS:
         targets.append((HIDDEN / name / "SKILL.md", name))
+    for name in ENGINEER_SKILLS:
+        targets.append((ENGINEER / name / "SKILL.md", name))
     for d in sorted(REGISTERED.iterdir()):
         if d.is_dir():
             targets.append((d / "SKILL.md", d.name))
@@ -200,7 +208,7 @@ def check_notes_headers():
 
     # Any backticked `## X` token within 3 lines of a discovery-notes mention
     # must be a canonical header — drifted strings orphan the note.
-    for path in sorted(HIDDEN.rglob("*.md")) + sorted(REGISTERED.rglob("*.md")):
+    for path in sorted(HIDDEN.rglob("*.md")) + sorted(REGISTERED.rglob("*.md")) + sorted(ENGINEER.rglob("*.md")):
         lines = path.read_text(encoding="utf-8").splitlines()
         notes_lines = [i for i, l in enumerate(lines) if "discovery-notes.md" in l]
         for i in notes_lines:
@@ -221,8 +229,8 @@ def routing_table():
 def check_routing():
     paths = routing_table()
     for skill, install_path in paths.items():
-        if install_path.startswith(".agents/groundwork/skills/"):
-            src = HIDDEN / install_path[len(".agents/groundwork/skills/"):]
+        if install_path.startswith(".groundwork/skills/"):
+            src = HIDDEN / install_path[len(".groundwork/skills/"):]
         elif install_path.startswith(".agents/skills/"):
             src = REGISTERED / install_path[len(".agents/skills/"):]
         else:
@@ -233,8 +241,10 @@ def check_routing():
             fail("routing", src, f"Skill Paths routes `{skill}` to a file that does not exist in src/")
 
     # Reverse: every routed hidden skill directory appears in the table.
+    # Engineer skills live under ENGINEER (promoted by generators, never routed),
+    # so HIDDEN now contains only directories that must appear in the table.
     routed = set(paths.keys())
-    exempt = set(SKILLMD_SKILLS) - {"groundwork-writer"}  # engineer skills install with generator output
+    exempt: set[str] = set()
     for d in sorted(HIDDEN.iterdir()):
         if not d.is_dir() or d.name == "templates":
             continue
@@ -315,7 +325,7 @@ def check_doc_pairs():
     # 3. Every protocol number cited anywhere resolves to a heading in the contract.
     contract = (HIDDEN / "operating-contract.md").read_text(encoding="utf-8")
     defined = set(re.findall(r"^## Protocol (\d+):", contract, re.M))
-    scan_dirs = [HIDDEN, REGISTERED, ROOT / ".agents" / "skills" / "groundwork-contributor"]
+    scan_dirs = [HIDDEN, REGISTERED, ENGINEER, ROOT / ".agents" / "skills" / "groundwork-contributor"]
     for base in scan_dirs:
         for path in sorted(base.rglob("*.md")):
             cited = set(re.findall(r"Protocol (\d+)", path.read_text(encoding="utf-8")))

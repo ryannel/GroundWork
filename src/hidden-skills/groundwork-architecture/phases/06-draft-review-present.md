@@ -6,7 +6,7 @@ The architecture document synthesises decisions from Phases 2 through 5. Draftin
 
 When ready:
 
-1. **Load the template.** Read `.agents/groundwork/skills/groundwork-architecture/architecture-template.md` to load the required section structure. Do not invent a custom structure — the template is the canonical format.
+1. **Load the template.** Read `.groundwork/skills/groundwork-architecture/architecture-template.md` to load the required section structure. Do not invent a custom structure — the template is the canonical format.
 
 2. **Draft.** Synthesize Phases 2–5 into the template structure. The Service-Level Requirements table carries the architectural obligations into service-level design — every decision made in Phase 4 that imposes a requirement on a downstream service gets a row in this table. Apply the `groundwork-writer` skill: declarative, active voice, no hedging. Record decisions and their rationale — not the options that were considered.
 
@@ -35,4 +35,4 @@ When ready:
 
 5. **Present.** Once the verdict is PRESENT, present the final draft section by section — emit each section file's contents in turn, pausing briefly between sections so the user can respond. Do not emit the full document in a single message; large architectures exceed the per-response output token budget. After all sections are presented, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them. Clean up the assembled file once presentation is complete: `run_command("rm .groundwork/cache/architecture-draft.md")`. The section files remain the source of truth for Phase 7.
 
-6. Ask the user whether to save the architecture as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard in the entry `instructions.md` — load `.agents/groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 7 only on explicit approval.
+6. Ask the user whether to save the architecture as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard in the entry `instructions.md` — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 7 only on explicit approval.

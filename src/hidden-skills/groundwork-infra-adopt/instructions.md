@@ -36,7 +36,7 @@ Apply the `groundwork-writer` skill when producing any output document. Declarat
 
 ## Operating Contract
 
-The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream summaries.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream summaries.
 
 ---
 
@@ -128,7 +128,7 @@ Mark the verification phase complete (or pending) in the cache.
 
 ## Phase 5: Consolidate the Gap Ledger & Draft
 
-1. **Consolidate `docs/maturity.md`.** Read the maturity model at `.agents/groundwork/skills/maturity-model.md`, then write `docs/maturity.md` from the template at `.agents/groundwork/skills/templates/maturity.md`, leading with a `## Summary for Downstream` (Protocol 5). Two parts:
+1. **Consolidate `docs/maturity.md`.** Read the maturity model at `.groundwork/skills/maturity-model.md`, then write `docs/maturity.md` from the template at `.groundwork/skills/templates/maturity.md`, leading with a `## Summary for Downstream` (Protocol 5). Two parts:
 
    - **Assessment** — score the project against the nine dimensions, with evidence from what this phase just observed: the booted stack (D3), the harness it added (D4), the registered code map (D5), the contracts the scan pinned or found missing (D2), the registry the architecture extract wrote (D8 — its deliberately empty ledger has no rows and therefore no empty cells; D9 assesses `n/a` until two surfaces deploy independently). Brownfield projects usually land 🟡/🔴 on several dimensions — score honestly; the roadmap is where the distance becomes work.
    - **Roadmap** — read `.groundwork/cache/gap-ledger.md` (the running ledger the extract phases appended to) and convert each entry to a roadmap row: gap, dimension (D1–D9), severity, recommendation, status `open`, evidence. Blocks-delivery gaps first. Mark the gaps this phase *closed* as `closed (infra-adopt)` — most importantly, if it added the system-test harness, that blocks-delivery gap is resolved and the roadmap says so. Append one stance row of this phase's own before converting: the capability ledger in `docs/surfaces.md` starts **empty at adoption by design** — reverse-engineering capability parity from an existing codebase produces confident fiction, so parity stays unknown until a bet touches each capability and bet validation grows the rows. Severity `cosmetic`, recommendation `defer`, evidence `docs/surfaces.md`. The row puts the empty ledger on record as a decision, so no future reader mistakes it for a missed extraction step. Seed `## History` with one line recording this initial assessment.

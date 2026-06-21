@@ -13,7 +13,7 @@ GroundWork's end state is not "the docs exist." It is a system where documentati
 
 **The model informs and guides; it never forces.** Every gap names the dimension it blocks and the concrete cost of leaving it open, so the user can weigh maturity work against product work with full information. The user's decision to defer — or to permanently accept — a gap is recorded and respected, not re-litigated every session. A project that consciously accepts a gap is healthier than one nagged into resentment.
 
-Every project carries a living `docs/maturity.md` (template: `.agents/groundwork/skills/templates/maturity.md`): the current assessment against the nine dimensions, and the roadmap of open gaps. Greenfield projects are born near the target and use the doc to track the dimensions that need ongoing discipline; brownfield projects start with an honest distance and close it incrementally.
+Every project carries a living `docs/maturity.md` (template: `.groundwork/skills/templates/maturity.md`): the current assessment against the nine dimensions, and the roadmap of open gaps. Greenfield projects are born near the target and use the doc to track the dimensions that need ongoing discipline; brownfield projects start with an honest distance and close it incrementally.
 
 ---
 

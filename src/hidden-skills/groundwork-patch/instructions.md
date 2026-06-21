@@ -12,7 +12,7 @@ description: >
 
 You are delivering a patch — one bounded code change with a single user-facing goal. The bet lifecycle exists because design-heavy work fails without locked contracts and pre-agreed proof; forcing a typo fix through five phases teaches users to bypass the framework entirely. The patch lane is the pressure valve: small work moves at small-work speed, while the ledger keeps it honest — every patch is recorded, and patches that cluster in one area are the signal that the area deserves a bet.
 
-Apply the `groundwork-writer` skill when producing any artifact this lane commits. The shared operating contract at `.agents/groundwork/skills/operating-contract.md` (contract v1) governs this skill in Maintenance mode: Protocols 1, 2, and 4 apply; Protocols 8 and 9 apply when a patch's Living Documents pass mutates a canonical doc through a reversal.
+Apply the `groundwork-writer` skill when producing any artifact this lane commits. The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill in Maintenance mode: Protocols 1, 2, and 4 apply; Protocols 8 and 9 apply when a patch's Living Documents pass mutates a canonical doc through a reversal.
 
 ---
 
