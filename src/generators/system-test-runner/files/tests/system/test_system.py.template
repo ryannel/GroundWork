@@ -79,11 +79,12 @@ def test_instrumented_get_exports_span(cluster, svc):
     # TRACE_PROBE_PATH overrides for ad-hoc runs.
     probe = os.environ.get("TRACE_PROBE_PATH", svc["probe_path"])
 
-    # Warm up: the first request to a freshly-booted service can transiently fail
-    # (cold connection pool, etc.). Retry briefly so this asserts span export, not
-    # cold-start reliability (test_every_service_is_healthy already covers the latter).
+    # Warm up: a just-booted service can serve liveness before its DB-backed routes
+    # are ready (e.g. a schema migration is still settling), so the first requests
+    # may transiently 5xx. Retry until the route is ready so this asserts span
+    # export, not startup ordering (test_every_service_is_healthy covers liveness).
     resp = None
-    for attempt in range(5):
+    for attempt in range(15):
         resp = httpx.get(
             f"{_base_url(svc)}{probe}",
             headers={"traceparent": traceparent},
@@ -91,8 +92,8 @@ def test_instrumented_get_exports_span(cluster, svc):
         )
         if resp.status_code == 200:
             break
-        time.sleep(1)
-    assert resp.status_code == 200, f"probe failed: {resp.status_code}"
+        time.sleep(2)
+    assert resp.status_code == 200, f"probe failed after warmup retries: {resp.status_code}"
 
     trace = _fetch_trace(trace_id)
     if trace is None:
