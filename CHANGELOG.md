@@ -13,7 +13,7 @@ automatically when it detects a version jump.
 The structural discipline is unchanged — a pure domain core, dependencies pointing inward,
 swappable edges, the rule enforced in CI — but it is no longer named after the "hexagonal /
 ports-and-adapters" framework, and the generated services now use each language's own idiom
-instead of a cross-language metaphor (plan: `docs/plans/pragmatic-architecture-naming.md`).
+instead of a cross-language metaphor (plan: `docs/plans/archive/pragmatic-architecture-naming.md`).
 
 - **Principle reframed.** `system-design/hexagonal-architecture.md` → `code-structure.md` ("How
   We Structure Code"); the manifesto, `llms.txt`, the architect persona, and every cross-reference
@@ -41,7 +41,7 @@ instead of a cross-language metaphor (plan: `docs/plans/pragmatic-architecture-n
 
 ### Changed (docs-site generator now actually serves docs/, as a native runner, 2026-06-19) `[no-migration]`
 
-The `docs-site` generator (plan: `docs/plans/docs-site-scaffold.md`) is finished and verified
+The `docs-site` generator (plan: `docs/plans/archive/docs-site-scaffold.md`) is finished and verified
 against a real `next build`. It now:
 
 - **Serves the live `docs/` tree as a native `./dev` runner**, not a docker-compose service. The
@@ -75,7 +75,7 @@ docs-site engine) is read read-only from the scaffold skill's single mapping tab
 catalog to drift. Skills are Tier-1 (clean-replaced on update), so existing installs pick this up on
 their next `npx groundwork-method update` with no migration.
 
-The framework upgrade path (design: `docs/plans/framework-upgrade-path.md`): every
+The framework upgrade path (design: `docs/plans/archive/framework-upgrade-path.md`): every
 installed artifact gets an owner and a provenance record, and every framework change
 that touches installed projects ships with a migration — so no project is left behind
 as the framework improves.
@@ -101,7 +101,7 @@ no network at run time). The greenfield scaffold seeds an initial map at verific
 
 ### Changed (honest dev infrastructure + native runner registry, 2026-06-16) `[no-migration]`
 
-The scaffolded `./dev` CLI no longer assumes a server (plan: `docs/plans/dev-cli-native-runners.md`).
+The scaffolded `./dev` CLI no longer assumes a server (plan: `docs/plans/archive/dev-cli-native-runners.md`).
 db (Postgres+pgvector) and jaeger are no longer seeded into the base docker-compose — they are
 injected on demand by the service generators that use them, exactly like redis/pubsub. A workspace
 with no containerized service (a desktop, CLI, or local-first app) provisions no infrastructure, and
@@ -130,7 +130,7 @@ Retro-registering surfaces in pre-existing projects ships as the `gw-runner-retr
 
 ### Added (composable capability ports & providers, 2026-06-17) `[no-migration]`
 
-Infrastructure is now a consequence of providers, not a default (plan: `docs/plans/dev-cli-native-runners.md`,
+Infrastructure is now a consequence of providers, not a default (plan: `docs/plans/archive/dev-cli-native-runners.md`,
 WS-F core). A **capability** is a hexagonal port plus a catalog of swappable **providers**; choosing a
 provider chooses an adapter, and each provider declares an operational **footprint** — `env`,
 `compose-service`, `runner`, or `none`. The registry is data, not code
@@ -157,7 +157,7 @@ engineer-skill alignment doc (F6), and provider families for the Go/Next.js stac
 
 ### Added (architecture declares capability ports; scaffold reconciles, 2026-06-17) `[no-migration]`
 
-The composable capability-port model (above) is now driven by the architecture, not just generator flags (plan: `docs/plans/dev-cli-native-runners.md`, WS-F F7/F8). The architecture phase elicits, per technical capability, its **provider** and **operational footprint** (`env` / `compose-service` / `runner` / `none`) and records them in `docs/architecture.md` §3 "Capability Ports & Providers" plus a machine twin `.groundwork/capability-ports.json`. The scaffold reads that twin to choose generator flags (or an `add-capability` invocation), injects only the infrastructure providers require, and **reconciles** at boot: every `compose-service` footprint is a running container, every `runner` is in `./dev status`, every `env` is documented, every `none` raw gateway has its strict-xfail contract test — a declared footprint with no materialization is a build error, not a silent gap.
+The composable capability-port model (above) is now driven by the architecture, not just generator flags (plan: `docs/plans/archive/dev-cli-native-runners.md`, WS-F F7/F8). The architecture phase elicits, per technical capability, its **provider** and **operational footprint** (`env` / `compose-service` / `runner` / `none`) and records them in `docs/architecture.md` §3 "Capability Ports & Providers" plus a machine twin `.groundwork/capability-ports.json`. The scaffold reads that twin to choose generator flags (or an `add-capability` invocation), injects only the infrastructure providers require, and **reconciles** at boot: every `compose-service` footprint is a running container, every `runner` is in `./dev status`, every `env` is documented, every `none` raw gateway has its strict-xfail contract test — a declared footprint with no materialization is a build error, not a silent gap.
 
 - **`groundwork-architecture`**: template §3 gains the Capability Ports & Providers table; Phase 5 elicits provider + footprint per port (`none` = raw gateway / bet); Phase 7 writes the `.groundwork/capability-ports.json` twin. `groundwork-architecture-extract` recovers ports from brownfield code (unimplemented port → `none`).
 - **`groundwork-scaffold`**: Phase 1 reads the registry and maps ports to flags / `add-capability`; Phases 2 + 4 reconcile footprints. `--llmProvider` mapping extended with `local` and `none`.
@@ -165,7 +165,7 @@ The composable capability-port model (above) is now driven by the architecture, 
 
 ### Added (Go LLM capability family, 2026-06-17) `[no-migration]`
 
-The capability layer (above) now spans the Go stack, proving it is genuinely general and not Python-only (plan: `docs/plans/dev-cli-native-runners.md`, WS-F F5/O9 — Go only; surfaces and frontend stacks consume the LLM via the backend's contract rather than embedding an adapter, keeping keys server-side and one port per owner).
+The capability layer (above) now spans the Go stack, proving it is genuinely general and not Python-only (plan: `docs/plans/archive/dev-cli-native-runners.md`, WS-F F5/O9 — Go only; surfaces and frontend stacks consume the LLM via the backend's contract rather than embedding an adapter, keeping keys server-side and one port per owner).
 
 - `capabilities/llm` gains a `go` stack: the `gateway.LLMGateway` port (`internal/core/gateway/`), adapters in `internal/provider/`, and a contract test with a compile-time `var _ gateway.LLMGateway` conformance assertion plus a Skip-based bet test for `none`.
 - Go adapters are **`net/http` against the provider REST APIs** (Anthropic Messages, OpenAI/`local` Chat Completions) — no SDK dependency, so `go.mod` is untouched and the generated code compiles standalone. A transparent starting point to extend or swap for an SDK behind the same port.
@@ -173,7 +173,7 @@ The capability layer (above) now spans the Go stack, proving it is genuinely gen
 
 ### Added (capability footprint completion + retro-registration, 2026-06-17)
 
-WS-F rounding-out (plan: `docs/plans/dev-cli-native-runners.md`, F6/F9/D2 + WS-E1). The footprint
+WS-F rounding-out (plan: `docs/plans/archive/dev-cli-native-runners.md`, F6/F9/D2 + WS-E1). The footprint
 matrix is now complete and the runner registry is reachable by existing installs.
 
 - **`applyCapability` materializes all four footprints.** It already wrote `env`/`none`; it now
@@ -194,7 +194,7 @@ matrix is now complete and the runner registry is reachable by existing installs
 
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
-Refines the unreleased product-principles corpus (plan: `docs/plans/appetite-stakes-resize.md`).
+Refines the unreleased product-principles corpus (plan: `docs/plans/archive/appetite-stakes-resize.md`).
 Reframes how GroundWork sizes work for an AI-native shop: appetite is re-denominated from
 calendar time to **worth** (opportunity cost), and **stakes** (blast radius × reversibility ×
 review/judgement load) is promoted to a first-class measure of a bet's size — effort/complexity
@@ -216,7 +216,7 @@ no migration is involved.
 ### Added (product-discipline persona + product-principles corpus, 2026-06-14) `[no-migration]`
 
 The second discipline-expert persona (after `groundwork-architect`), with a first-class
-product-principles corpus behind it (plan: `docs/plans/architecture-2026-refresh.md`
+product-principles corpus behind it (plan: `docs/plans/archive/architecture-2026-refresh.md`
 sibling — product wave). Modelled on the same persona-in-a-workflow-route pattern;
 research-grounded against 2026 product practice (Cagan's four risks, Torres's continuous
 discovery, AI-native product).
@@ -245,7 +245,7 @@ discovery, AI-native product).
 ### Added (architecture 2026 refresh — P0, 2026-06-14)
 
 Research-driven refresh of the architecture guidance against 2026 best practices
-(plan: `docs/plans/architecture-2026-refresh.md`). P0 — the AI/agentic cross-cut +
+(plan: `docs/plans/archive/architecture-2026-refresh.md`). P0 — the AI/agentic cross-cut +
 enforcement layer:
 
 - **`agentic-systems` principle + architect reference** (new): architecting systems where
@@ -459,7 +459,7 @@ sweep over the 0.9.0 surface.
 - **Generated test surface**: contract-conformance system test (served spec vs promoted
   spec), Playwright page-object scaffold + axe a11y smoke for graphical-ui projects, and a
   per-stack "Bet Slice Rollout" permanent-test taxonomy in the engineer skills.
-- **1.0 criteria** written down in `docs/plans/contract-grade-delivery.md` §9.5.
+- **1.0 criteria** written down in `docs/plans/archive/contract-grade-delivery.md` §9.5.
 
 ### Changed (contract-grade delivery, 2026-06-10)
 

@@ -573,9 +573,9 @@ The CLI sources this file before every command. Do not commit `.env`.
 
 ## Design Plans (`docs/plans/`)
 
-Cross-cutting restructures are designed in a plan document before any slice executes. A plan is the unit of repo evolution the way a bet is the unit of product delivery — past plans are the design rationale for the repo's current shape, so read the plan that shaped a subsystem before reworking it.
+Cross-cutting restructures are designed in a plan document before any slice executes. A plan is the unit of repo evolution the way a bet is the unit of product delivery — past plans are the design rationale for the repo's current shape, so read the plan that shaped a subsystem before reworking it. Active plans live directly in `docs/plans/`; once delivered, a plan moves to `docs/plans/archive/` (see that folder's README) — it stays as the rationale record rather than being deleted.
 
-Every plan follows the house format (`docs/plans/contract-grade-delivery.md` is the reference example):
+Every plan follows the house format (`docs/plans/archive/contract-grade-delivery.md` is the reference example):
 
 - A header block: **Status** (PROPOSED, or EXECUTED with date and what remains), **Audience**, **Scope owner**.
 - §0 mental model first — the thesis or reframe, before any task list.
@@ -595,7 +595,7 @@ Two rules keep plans trustworthy:
 
 A GroundWork install is a deployment of the framework into a project, and `npx
 groundwork-method update` is how that deployment tracks its source (design:
-`docs/plans/framework-upgrade-path.md`). Every installed artifact has an owner, recorded
+`docs/plans/archive/framework-upgrade-path.md`). Every installed artifact has an owner, recorded
 per file in the project's `.groundwork/config/manifest.json`:
 
 | Tier | What | Carry-forward rule |
@@ -631,7 +631,7 @@ the changelog↔registry cross-check fails when either side of the id reference 
 ## Releasing
 
 GroundWork versions with semver from `0.x`. Three version points must agree (decision D4 in
-`docs/plans/bmad-quality-uplift.md`): the npm package version, the `groundwork.version` stamp
+`docs/plans/archive/bmad-quality-uplift.md`): the npm package version, the `groundwork.version` stamp
 the CLI writes into installed projects' `state.json`, and the operating contract's
 `version` frontmatter (bumped only on breaking protocol changes).
 

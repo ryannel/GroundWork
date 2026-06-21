@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Generates src/skills/groundwork-orchestrator/workflow-index.md from the routing
 // tables in src/skills/groundwork-orchestrator/SKILL.md (decision D7 in
-// docs/plans/bmad-quality-uplift.md: help is generated, not hand-maintained, so it
+// docs/plans/archive/bmad-quality-uplift.md: help is generated, not hand-maintained, so it
 // cannot drift from the actual routes).
 //
 //   node scripts/generate_workflow_index.js          # write the index
