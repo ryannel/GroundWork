@@ -1,0 +1,40 @@
+package api
+
+import (
+	"context"
+	"net/http"
+
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
+	"go.opentelemetry.io/otel/trace"
+)
+
+type loggerCtxKey struct{}
+
+// LoggerFromContext returns the request-scoped logger (carrying trace_id/span_id
+// when a span is active), or the global logger as a fallback. Handlers call this
+// to emit logs that are joinable to traces.
+func LoggerFromContext(ctx context.Context) *zerolog.Logger {
+	if l, ok := ctx.Value(loggerCtxKey{}).(*zerolog.Logger); ok {
+		return l
+	}
+	return &log.Logger
+}
+
+// TraceLoggingMiddleware stores a request-scoped logger in the context, enriched
+// with the active span's trace_id and span_id. Must be registered AFTER the
+// otelhttp middleware so the span context is populated.
+func TraceLoggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		l := log.Logger
+		sc := trace.SpanContextFromContext(r.Context())
+		if sc.IsValid() {
+			l = l.With().
+				Str("trace_id", sc.TraceID().String()).
+				Str("span_id", sc.SpanID().String()).
+				Logger()
+		}
+		ctx := context.WithValue(r.Context(), loggerCtxKey{}, &l)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}

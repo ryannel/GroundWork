@@ -37,6 +37,10 @@ func RegisterRoutes(cfg *config.Config, db *sql.DB, appSvc *service.AppService<%
 		return otelHandler(next)
 	})
 
+	// Per-request logger carrying trace_id/span_id (must run after otelhttp so
+	// the span context exists). Handlers read it via LoggerFromContext.
+	router.Use(TraceLoggingMiddleware)
+
 	// CORS middleware
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"*"}, // TODO: Configure via env

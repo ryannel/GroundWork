@@ -5,10 +5,12 @@ import (
 	"fmt"
 
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
+	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.24.0"
 )
@@ -55,5 +57,37 @@ func InitProvider(ctx context.Context, serviceName, collectorURL string) (func(c
 		propagation.Baggage{},
 	))
 
-	return tp.Shutdown, nil
+	// --- Metrics ---
+	// The otelhttp middleware records baseline HTTP server metrics (request
+	// count, latency histogram, active in-flight requests) automatically once a
+	// global MeterProvider is registered. Export them over OTLP gRPC on a
+	// periodic reader to the same collector as traces.
+	metricExporter, err := otlpmetricgrpc.New(ctx,
+		otlpmetricgrpc.WithEndpointURL(collectorURL),
+		otlpmetricgrpc.WithInsecure(),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("create otel metric exporter: %w", err)
+	}
+
+	mp := sdkmetric.NewMeterProvider(
+		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(metricExporter)),
+		sdkmetric.WithResource(res),
+	)
+	otel.SetMeterProvider(mp)
+
+	// Combined shutdown: flush and close both providers. The returned signature
+	// is unchanged, so main.go's `defer otelShutdown(ctx)` call is untouched.
+	shutdown := func(ctx context.Context) error {
+		var firstErr error
+		if err := tp.Shutdown(ctx); err != nil {
+			firstErr = err
+		}
+		if err := mp.Shutdown(ctx); err != nil && firstErr == nil {
+			firstErr = err
+		}
+		return firstErr
+	}
+
+	return shutdown, nil
 }

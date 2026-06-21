@@ -13,6 +13,9 @@ require (
 	go.opentelemetry.io/otel/sdk v1.24.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.24.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.24.0
+	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.24.0
+	go.opentelemetry.io/otel/metric v1.24.0
+	go.opentelemetry.io/otel/sdk/metric v1.24.0
 	github.com/stripe/pg-schema-diff v1.0.5
 	github.com/lib/pq v1.10.9
 <% if (auth === 'clerk') { %>
