@@ -20,6 +20,8 @@ The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item 
 
 When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and inform the user you are entering Developer Mode.
 
+The scaffold and the `./dev` CLI are a starting point you keep shaping as the product grows. When a repeated delivery task earns it, or shipped tooling does not fit the work, adapt the tooling rather than scripting around it — add a project command under `.dev/commands/`, register a runner, or extend the relevant scaffold. Never leave a shipped command inert and never build a parallel tool beside it (the *no empty capabilities* rule, `docs/principles/delivery/day-2-operational-baseline.md`).
+
 ## The Slice Loop
 
 Work through the milestone order in `decomposition.md`, slice by slice. Each slice runs the same loop; the manifest at `.groundwork/bets/<bet-slug>/decomposition.json` records where the loop stands, so a fresh context resumes from the manifest instead of re-deriving progress.

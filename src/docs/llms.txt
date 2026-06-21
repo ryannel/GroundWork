@@ -34,6 +34,7 @@ setup runs. The other sections ship at install time.*
 - [Security](docs/principles/quality/security.md): Threat modelling and secure defaults.
 - [Privacy](docs/principles/quality/privacy.md): Data minimisation and consent.
 - [Accessibility](docs/principles/quality/accessibility.md): Inclusive design and WCAG compliance.
+- [The Day-2 Operational Baseline](docs/principles/delivery/day-2-operational-baseline.md): The stack-agnostic bar every project clears to be operable and debuggable on day two, plus the no-empty-capabilities and off-script-still-lands-well rules.
 - [Developer experience](docs/principles/delivery/devex.md): Fast feedback loops and ergonomic tooling.
 - [Progressive delivery](docs/principles/delivery/progressive-delivery.md): Feature flags and incremental rollout.
 - [Platform](docs/principles/delivery/platform.md): Internal platform and developer self-service.

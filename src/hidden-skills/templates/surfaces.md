@@ -25,7 +25,7 @@ One entry per surface, current and planned. Each entry is a heading (`### <slug>
 | `status` | `active` \| `planned` \| `dormant` \| `retired` | `active` ships and is tested; `planned` is on the roadmap with no code; `dormant` exists but is not currently maintained; `retired` is decommissioned (see the retired-column rule below). |
 | `core access` | e.g. `http-gateway`, `http-direct`, `grpc`, `in-process` | How this surface reaches the core — the access path the architecture phase settled (direct, gateway, BFF). |
 | `auth` | free text | The auth model this surface uses against the core. |
-| `scaffold` | a generator name (`nextjs-app`, `cli-app`, `flutter-app`, `electron-app`) or `manual` | What generates the surface's app. `manual` is first-class: a surface participates fully in design, bets, the ledger, and tests before a generator exists for it — the registry never blocks on tooling. |
+| `scaffold` | a generator name (`nextjs-app`, `cli-app`, `flutter-app`, `electron-app`), `forged`, or `manual` | What generates the surface's app. `manual` is first-class: a surface participates fully in design, bets, the ledger, and tests before a generator exists for it — the registry never blocks on tooling. `forged` means no generator exists but `groundwork-stack-forge` built a Day-2 seed and a stack engineer skill for it — like `manual`, no generator invocation, but unlike `manual`, a real seed already boots. |
 | `test medium` | e.g. `playwright`, `subprocess-cli`, `protocol-client`, `flutter-integration`, `playwright-electron` | The fixture family `system-test-runner` provisions for this surface. |
 | `design track` | section reference into `docs/design-system.md` | The interface-type section that governs this surface's design vocabulary. |
 

@@ -7,7 +7,9 @@ description: Use this skill whenever the user wants to design, architect, or bui
 
 This skill governs the design of new scaffolding templates and generators in the GroundWork ecosystem. Its job is to make sure any new scaffold (a microservice, a library, a testing framework) meets the "Day 2" operational standards the existing generators set — the features below are what makes a generated service survivable in week two, not just bootable on day one.
 
-> **These checklists are summaries, not canon.** Each item condenses policy whose source of truth is `docs/principles/` and the existing generators under `src/generators/`. When designing, verify an item against the current generator behavior before treating it as binding — and when a principle or generator changes, update the matching checklist item here in the same change. A checklist that drifts from the generators it describes is worse than none.
+> **These checklists are summaries, not canon.** Each item condenses policy whose source of truth is `src/docs/principles/` and the existing generators under `src/generators/`. When designing, verify an item against the current generator behavior before treating it as binding — and when a principle or generator changes, update the matching checklist item here in the same change. A checklist that drifts from the generators it describes is worse than none.
+>
+> **The stack-agnostic canon is [The Day-2 Operational Baseline](../../../src/docs/principles/delivery/day-2-operational-baseline.md).** It defines what *good* means independent of language or framework — config validation, typed errors, a debug entry point, observability, graceful shutdown, a pure core, a fast test, dev-CLI integration — plus the two rules every scaffold upholds: **no empty capabilities** and **off-script still lands well**. The Backend and Frontend lists below are that baseline elaborated into a specific stack's idiom. When a new stack has no generator, the forge skill (`groundwork-stack-forge`) holds it to the baseline directly; design any new generator to clear the baseline first and the stack-specific list second.
 
 ## Design Workflow
 

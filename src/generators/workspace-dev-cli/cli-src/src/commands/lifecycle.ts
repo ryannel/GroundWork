@@ -45,11 +45,12 @@ export async function start(ctx: Ctx): Promise<number> {
   const autostartRunners = ctx.runners.filter((x) => x.autostart !== false);
 
   // Tell the truth: a workspace with no containers, no app services, and no
-  // runners has nothing to start. Report that plainly rather than printing a
-  // success card for an empty stack (the bug this replaces).
+  // runners has nothing to start. Report that plainly — and point at the fix —
+  // rather than printing a success card for an empty stack (no empty capabilities).
   if (infra.length === 0 && services.length === 0 && autostartRunners.length === 0) {
-    r.info('Nothing to start: no containerized services or native runners are registered.');
-    r.info('See docs/infrastructure.md for how this workspace runs.');
+    r.warn('Nothing to start: no containerized services, native services, or runners are registered.');
+    r.info('Wire this app into ./dev so `start` runs it: register a runner in .dev/dev.config.json');
+    r.info('(name + launch command), or add a project command under .dev/commands/. See docs/infrastructure.md.');
     return 0;
   }
 

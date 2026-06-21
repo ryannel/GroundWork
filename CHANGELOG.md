@@ -8,6 +8,16 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (off-script support: composable `./dev`, the Day-2 baseline, and customization guidance, 2026-06-21)
+
+GroundWork now treats its shipped scaffolds and `./dev` CLI as a starting point the project owns and grows, and holds off-script work to the same bar as the paved road (plan: `docs/plans/customization-and-forge.md`).
+
+- **The `./dev` CLI is composable.** A project adds its own commands without touching the framework bundle — a JSON file under `.dev/commands/`, or a `commands` block in `.dev/dev.config.json`. Project commands appear in `./dev help` and shell completion beside the built-ins, run as subprocesses with extra args appended, and may shadow a built-in (e.g. redefine `start` for a stack the default lifecycle does not fit). The command layer is project-owned: `update` never overwrites it (the bundle that reads it is framework-owned and clean-replaces as before).
+- **`./dev start` never no-ops silently.** An empty workspace — no containers, native services, or runners — prints an honest "nothing registered" notice pointing at how to register a runner or add a command (the *no empty capabilities* rule).
+- **New principle — the Day-2 Operational Baseline** (`docs/principles/delivery/day-2-operational-baseline.md`): the stack-agnostic bar (config validation, typed errors, a debug entry point, observability, graceful shutdown, a pure core, a fast test, dev-CLI integration) every project clears, plus the *no empty capabilities* and *off-script still lands well* rules.
+- **Customization guidance** woven into the scaffold and bet-delivery flows: adapt shipped tooling to fit, never leave a command inert, never build a parallel tool beside it.
+- [no-migration] The new `./dev` bundle clean-replaces on update like any framework-owned bundle; the project command layer it reads is additive and project-owned, so old installs need nothing beyond the normal bundle refresh, and the new principle doc arrives through the Tier-2 doc refresh.
+
 ### Changed (architecture de-jargoned — keep the discipline, drop the label, 2026-06-19)
 
 The structural discipline is unchanged — a pure domain core, dependencies pointing inward,

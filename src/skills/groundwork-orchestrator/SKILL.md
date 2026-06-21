@@ -107,6 +107,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-design-system` | `.agents/groundwork/skills/groundwork-design-system/instructions.md` |
 | `groundwork-architecture` | `.agents/groundwork/skills/groundwork-architecture/instructions.md` |
 | `groundwork-scaffold` | `.agents/groundwork/skills/groundwork-scaffold/instructions.md` |
+| `groundwork-stack-forge` | `.agents/groundwork/skills/groundwork-stack-forge/instructions.md` |
 | `groundwork-mvp` | `.agents/groundwork/skills/groundwork-mvp/instructions.md` |
 | `groundwork-scan` | `.agents/groundwork/skills/groundwork-scan/instructions.md` |
 | `groundwork-product-brief-extract` | `.agents/groundwork/skills/groundwork-product-brief-extract/instructions.md` |
@@ -126,6 +127,8 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-architect` | `.agents/groundwork/skills/groundwork-architect/SKILL.md` |
 | `groundwork-product` | `.agents/groundwork/skills/groundwork-product/SKILL.md` |
 | `groundwork-designer` | `.agents/groundwork/skills/groundwork-designer/SKILL.md` |
+
+> `groundwork-stack-forge` is not a lifecycle phase either — it is invoked *from within* the scaffold phase, when Phase 1 maps a service or surface to a stack no generator can produce and the user chooses to build it properly. It researches the stack, authors a self-contained engineer skill, builds a Day-2 seed wired into `./dev`, and hands its Day-2 checklist to MVP. Do not route to it on its own.
 
 > `groundwork-architect`, `groundwork-product`, and `groundwork-designer` are discipline-expert personas, not lifecycle phases. None is routed to on its own — each is adopted *within* a setup workflow and the bet lifecycle: the architect inside the architecture workflow and the bet design phase (whenever a structural trade-off is in play); the product persona inside the product-brief workflow and the bet discovery phase (whenever what to build and whether it is worth it is in play); the designer inside the design-system workflow and the bet design phase (whenever how it looks, feels, or behaves is in play), with a lighter touch in bet validation when the delivered UI is judged against its intent. Each carries its principles self-contained in its own `references/`.
 

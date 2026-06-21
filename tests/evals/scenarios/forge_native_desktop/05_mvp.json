@@ -1,0 +1,8 @@
+{
+  "skill_name": "groundwork-mvp",
+  "skill_path": "src/hidden-skills/groundwork-mvp/instructions.md",
+  "turns": 14,
+  "depends_on": "04_scaffold",
+  "success_files": ["docs/bets/first-forge-mvp/pitch.md"],
+  "note": "MVP must read the Forged Stack Checklist from the hand-off and scope the applicable to-be-built Day-2 items (error handling, debug loop, graceful teardown, observability in AppKit idiom) into the first bets rather than dropping them — operational depth the seed's skeleton owes."
+}
