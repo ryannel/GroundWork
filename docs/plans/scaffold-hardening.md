@@ -1,5 +1,19 @@
 # Plan: Harden the Scaffold Generators for the MVP Foundation
 
+**Status (updated 2026-06-21):** PARTIALLY EXECUTED. The task bodies below were written
+against the pre-restructure scaffold layout; verify intent against the current generators,
+not the literal paths. Per-phase state, audited against the current code:
+
+- **Phase 0 (harness + CI):** ✅ landed — `.github/workflows/ci.yml`, real `tests/scaffolds/*`, and the Jaeger-polling trace assertion live in the generated `test_system.py` (gated by `GROUNDWORK_REQUIRE_TRACES=1`), not a `test_traces.py`.
+- **Phase 1 (security):** ✅ landed; the one residual fail-open (Clerk webhook `whsec_stub` default) was removed 2026-06-21 — unconfigured now fails loud (503).
+- **Phase 2 (resilience):** ✅ landed — rate limiter, load-shedding, app-layer `TimeoutMiddleware` (`WriteTimeout: 0` is deliberate, paired with it), readiness probes.
+- **Phase 3 (observability):** ✅ executed 2026-06-21 (Python OTel init, Go metrics, Next custom metric + browser spans, log↔trace correlation across all three). See its DoD for the verification record + caveats (live Jaeger boot pending a Docker daemon; pre-existing Clerk `baseTheme` `tsc` error).
+- **Phase 4 (reference CRUD):** ✅ landed — persisting Postgres repository + idempotent replay (Go + Python).
+- **Phase 5 (data & DX):** ❌ NOT done — `./dev reset`/`health`, schema-tooling parity, ruff/black, Zod `validatedFetch`, config-route validation all still absent.
+- **Phase 6 (test depth):** ❌ NOT done — the gated cross-stack unit-test suite (Go middleware/idempotency/webhook tests, Python middleware/worker/llm tests, Next route tests) does not exist; only the weak `test_main.py` remains.
+
+**Remaining to fully close this plan:** Phase 5, Phase 6, and a live-boot run of the Phase-3 trace assertions once Docker is available.
+
 ## Context
 
 We just found that the OpenTelemetry trace pipeline in generated services had **never worked** — every service exported to a `otel-collector` host that didn't exist, the Go exporter mis-used `WithEndpoint`, and the only "trace test" asserted a header the test itself set. It survived because **nothing ran the tests**: the system-test suite is all stubs and there is no CI.
