@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 <% if (auth === 'clerk') { %>import { auth } from "@clerk/nextjs/server";<% } %>
-import { trace, context, propagation } from "@opentelemetry/api";
+import { trace, context, propagation, metrics } from "@opentelemetry/api";
 
 /**
  * Server-side reverse proxy to the backend API.
@@ -29,6 +29,13 @@ const HOP_BY_HOP = new Set([
     "upgrade",
     "host",
 ]);
+
+// Custom metric: counts proxied requests, labelled by upstream route + method.
+// Exported via the PeriodicExportingMetricReader configured in instrumentation.ts.
+const proxyMeter = metrics.getMeter("<%= fileName %>-proxy");
+const proxyRequestCounter = proxyMeter.createCounter("proxy_requests_total", {
+    description: "Total number of requests forwarded by the API proxy.",
+});
 
 function getUpstreamUrl(request: NextRequest, path: string[]): string {
     const base = process.env.API_URL ?? "http://localhost:4000";
@@ -74,6 +81,11 @@ async function handler(
     if (activeSpan) {
         activeSpan.setAttribute("proxy.upstream_path", `/${path.join("/")}`);
     }
+
+    proxyRequestCounter.add(1, {
+        "http.route": `/${path.join("/")}`,
+        "http.method": request.method,
+    });
 
     try {
         const upstream = await fetch(url, {

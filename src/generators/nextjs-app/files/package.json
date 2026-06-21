@@ -14,13 +14,16 @@
   "dependencies": {
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/auto-instrumentations-node": "^0.72.0",
+    "@opentelemetry/context-zone": "^2.6.1",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.214.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.214.0",
     "@opentelemetry/instrumentation": "^0.214.0",
+    "@opentelemetry/instrumentation-fetch": "^0.214.0",
     "@opentelemetry/resources": "^2.6.1",
     "@opentelemetry/sdk-metrics": "^2.6.1",
     "@opentelemetry/sdk-node": "^0.214.0",
     "@opentelemetry/sdk-trace-base": "^2.6.1",
+    "@opentelemetry/sdk-trace-web": "^2.6.1",
     "@opentelemetry/semantic-conventions": "^1.40.0",<% if (auth === 'clerk') { %>
     "@clerk/nextjs": "^7.0.8",
     "@clerk/themes": "^2.4.57",<% } %>

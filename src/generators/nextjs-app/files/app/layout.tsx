@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { ThemeProvider } from '@/components/theme-provider'
+import { TelemetryProvider } from '@/components/providers/telemetry'
 import './globals.css'
 
 const geistSans = Geist({
@@ -40,6 +41,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <TelemetryProvider />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
