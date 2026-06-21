@@ -88,27 +88,48 @@ func NewRepository(db *DB) *Repository {
 	return &Repository{db: db}
 }
 
-// Create persists a new entity.
+// Create persists a new entity, letting the database generate the id and
+// timestamps, and writes them back onto the entity.
 func (r *Repository) Create(ctx context.Context, entity *domain.Entity) error {
-	// STUB: INSERT INTO entities (id, name) VALUES ($1, $2)
+	const q = `INSERT INTO entities (name) VALUES ($1)
+		RETURNING id, created_at, updated_at`
+	if err := r.db.DB.QueryRowContext(ctx, q, entity.Name).
+		Scan(&entity.ID, &entity.CreatedAt, &entity.UpdatedAt); err != nil {
+		return fmt.Errorf("insert entity: %w", err)
+	}
 	return nil
 }
 
-// GetByID retrieves an entity by its ID.
+// GetByID retrieves an entity by its ID. Returns sql.ErrNoRows (wrapped) when
+// no row matches, so callers can distinguish "not found" from a query failure.
 func (r *Repository) GetByID(ctx context.Context, id string) (*domain.Entity, error) {
-	// STUB: SELECT id, name FROM entities WHERE id = $1
-	return &domain.Entity{ID: id}, nil
+	const q = `SELECT id, name, created_at, updated_at FROM entities WHERE id = $1`
+	var e domain.Entity
+	if err := r.db.DB.QueryRowContext(ctx, q, id).
+		Scan(&e.ID, &e.Name, &e.CreatedAt, &e.UpdatedAt); err != nil {
+		return nil, fmt.Errorf("get entity %s: %w", id, err)
+	}
+	return &e, nil
 }
 
-// Update modifies an existing entity.
+// Update modifies an existing entity's name and bumps updated_at.
 func (r *Repository) Update(ctx context.Context, entity *domain.Entity) error {
-	// STUB: UPDATE entities SET name = $2 WHERE id = $1
+	const q = `UPDATE entities SET name = $2, updated_at = NOW() WHERE id = $1`
+	res, err := r.db.DB.ExecContext(ctx, q, entity.ID, entity.Name)
+	if err != nil {
+		return fmt.Errorf("update entity %s: %w", entity.ID, err)
+	}
+	if n, _ := res.RowsAffected(); n == 0 {
+		return fmt.Errorf("update entity %s: %w", entity.ID, sql.ErrNoRows)
+	}
 	return nil
 }
 
 // Delete removes an entity by its ID.
 func (r *Repository) Delete(ctx context.Context, id string) error {
-	// STUB: DELETE FROM entities WHERE id = $1
+	if _, err := r.db.DB.ExecContext(ctx, `DELETE FROM entities WHERE id = $1`, id); err != nil {
+		return fmt.Errorf("delete entity %s: %w", id, err)
+	}
 	return nil
 }
 
@@ -125,21 +146,50 @@ func NewOutboxRepository(db *DB) *OutboxRepository {
 	return &OutboxRepository{db: db}
 }
 
-// InsertEvent saves a domain event to the outbox table.
+// InsertEvent saves a domain event to the outbox table within the caller's
+// transaction, so the event is committed atomically with the domain mutation.
 func (r *OutboxRepository) InsertEvent(ctx context.Context, tx service.Transaction, eventType string, payload []byte) error {
-	// STUB: INSERT INTO outbox (event_type, payload) VALUES ($1, $2)
+	pgTx, ok := tx.(*Transaction)
+	if !ok || pgTx.tx == nil {
+		return fmt.Errorf("outbox InsertEvent requires a postgres transaction, got %T", tx)
+	}
+	const q = `INSERT INTO outbox_events (event_type, payload) VALUES ($1, $2::jsonb)`
+	if _, err := pgTx.tx.ExecContext(ctx, q, eventType, string(payload)); err != nil {
+		return fmt.Errorf("insert outbox event: %w", err)
+	}
 	return nil
 }
 
-// PollUnpublished fetches unpublished events from the outbox.
+// PollUnpublished fetches unpublished events from the outbox, oldest first.
 func (r *OutboxRepository) PollUnpublished(ctx context.Context, limit int) ([]service.OutboxEvent, error) {
-	// STUB: SELECT * FROM outbox WHERE published = false ORDER BY created_at LIMIT $1 FOR UPDATE SKIP LOCKED
-	return nil, nil
+	const q = `SELECT id, event_type, payload, EXTRACT(EPOCH FROM created_at)::bigint
+		FROM outbox_events
+		WHERE published_at IS NULL
+		ORDER BY created_at
+		LIMIT $1`
+	rows, err := r.db.DB.QueryContext(ctx, q, limit)
+	if err != nil {
+		return nil, fmt.Errorf("poll outbox: %w", err)
+	}
+	defer rows.Close()
+
+	var events []service.OutboxEvent
+	for rows.Next() {
+		var e service.OutboxEvent
+		if err := rows.Scan(&e.ID, &e.EventType, &e.Payload, &e.CreatedAt); err != nil {
+			return nil, fmt.Errorf("scan outbox event: %w", err)
+		}
+		events = append(events, e)
+	}
+	return events, rows.Err()
 }
 
 // MarkPublished marks an outbox event as successfully published.
 func (r *OutboxRepository) MarkPublished(ctx context.Context, id string) error {
-	// STUB: UPDATE outbox SET published = true WHERE id = $1
+	if _, err := r.db.DB.ExecContext(ctx,
+		`UPDATE outbox_events SET published_at = NOW() WHERE id = $1`, id); err != nil {
+		return fmt.Errorf("mark outbox event %s published: %w", id, err)
+	}
 	return nil
 }
 <% } %>
