@@ -38,8 +38,11 @@ type clerkWebhookEvent struct {
 func ClerkWebhookHandler(userService *service.UserService, webhookSigningSecret string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if webhookSigningSecret == "" {
+			// Fail loud: the secret is unset, so the endpoint cannot verify any
+			// signature. Reject with a clear server-misconfiguration signal rather
+			// than processing or returning a misleading "invalid signature".
 			log.Error().Msg("CLERK_WEBHOOK_SIGNING_SECRET is not configured")
-			http.Error(w, "webhook not configured", http.StatusInternalServerError)
+			http.Error(w, "webhook not configured", http.StatusServiceUnavailable)
 			return
 		}
 

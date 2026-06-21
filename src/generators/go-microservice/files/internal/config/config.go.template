@@ -18,7 +18,10 @@ type Config struct {
 
 <% if (auth === 'clerk') { %>
 type AuthConfig struct {
-	ClerkWebhookSecret string `env:"CLERK_WEBHOOK_SIGNING_SECRET" envDefault:"whsec_stub"`
+	// No default: a missing secret leaves this empty so the webhook handler
+	// fails loud ("not configured") rather than masquerading as a configured
+	// service with a stub secret that silently rejects every signature.
+	ClerkWebhookSecret string `env:"CLERK_WEBHOOK_SIGNING_SECRET"`
 }
 <% } %>
 

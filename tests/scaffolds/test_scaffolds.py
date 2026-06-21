@@ -370,8 +370,10 @@ async def test_06_verify_clerk_webhook_rejection():
     
     async with httpx.AsyncClient() as client:
         resp = await client.post(url, json=payload, timeout=2.0)
-        # Should be 400 Bad Request or 401 Unauthorized because of missing Svix signature
-        assert resp.status_code in [400, 401], f"Expected webhook to reject, got {resp.status_code}"
+        # Must reject: either 400/401 (bad/missing Svix signature when a secret is
+        # configured) or 503 (no CLERK_WEBHOOK_SIGNING_SECRET set — the scaffold
+        # ships unconfigured and fails loud rather than processing the payload).
+        assert resp.status_code in [400, 401, 503], f"Expected webhook to reject, got {resp.status_code}"
         print(f"\nWebhook correctly rejected unverified payload: {resp.status_code}")
 
 def test_07_run_booted_system_tests():
