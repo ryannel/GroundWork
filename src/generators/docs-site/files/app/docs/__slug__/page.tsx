@@ -3,6 +3,12 @@ import { DocsPage, DocsBody, DocsDescription, DocsTitle } from 'fumadocs-ui/page
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { ComponentProps, FC } from 'react';
+import { Mermaid } from '@/components/mermaid';
+
+// MDX components injected into every rendered doc. `Mermaid` resolves the
+// `<Mermaid chart="…" />` nodes the remark transform (source.config.ts) emits for fenced
+// ```mermaid blocks.
+const mdxComponents = { Mermaid };
 
 // The custom title-from-H1 schema (source.config.ts) is a transform, which stops
 // createMDXSource from threading the full page-data type through — the inferred
@@ -72,7 +78,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
       <DocsBody>
-        <MDX />
+        <MDX components={mdxComponents} />
       </DocsBody>
     </DocsPage>
   );

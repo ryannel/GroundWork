@@ -2,7 +2,7 @@
 name: groundwork-docs-uplift
 description: >
   Brings an existing project's documentation site to the current GroundWork target state —
-  brand theming, build-time diagrams, ordered navigation, a real landing page — and gives its
+  brand theming, rendered diagrams, ordered navigation, a real landing page — and gives its
   docs a reader-first pass. Use when a project predates the branded docs-site, when its site was
   hand-built or has drifted, or when the user asks to "fix / improve / refresh the docs site".
   Opinionated about what a GroundWork doc site is, and able to refactor one into that shape.
@@ -32,7 +32,7 @@ These are the properties a GroundWork doc site has. They are the checklist you a
 |---|---|---|
 | T1 | **Branded theme** | An `app/brand.css` projects `brand-tokens.json` onto the site's theme variables; `app/layout.tsx` imports it and the brand font. An unbranded project (no `brand-tokens.json`) correctly stays on the stock theme — that is target, not a gap. |
 | T2 | **Reading typography** | A measure near 68ch, ~1.6 line-height, and an explicit heading scale — not the framework default body. |
-| T3 | **Build-time diagrams** | Fenced ` ```mermaid ` blocks render to static SVG at build (`rehype-mermaid` in the MDX pipeline). The same block renders natively on GitHub. |
+| T3 | **Rendered diagrams** | Fenced ` ```mermaid ` blocks render in the browser — a remark transform rewrites them to a `<Mermaid chart>` node, a `Mermaid` client component renders them, and no headless browser is needed at build. The same block renders natively on GitHub. |
 | T4 | **Ordered navigation** | A `docs/meta.json` orders the canonical doc set (product-brief → design-system → architecture → infrastructure → domain → services → decisions → api → ways-of-working → principles, with principles sunk last/collapsed). No imperative sidebar-ordering hack in the layout. |
 | T5 | **A landing page** | The site root is a brand-driven hero + section cards derived from the doc tree — not a bare redirect or an auto-generated link dump. |
 | T6 | **Clean content** | Published `docs/*.md` read as reference documentation: timeless-present register, `title` + `description` frontmatter, no leftover `## Summary for Downstream` section, a diagram where structure or flow is described. |
@@ -64,7 +64,7 @@ The fastest correct uplift is to regenerate. The `docs-site` generator already b
 Refactor in place, item by item, to the target state — porting the generator's approach rather than inventing a parallel one:
 
 - **T1/T2** — add `app/brand.css` projecting `brand-tokens.json` onto the site's theme variables, and an `app/docs.css` carrying the measure / line-height / heading scale; wire both in the layout. Read the `docs-site` generator for the exact projection so the brand reads identically across surfaces.
-- **T3** — add `rehype-mermaid` (build-time) to the MDX pipeline and its dependency.
+- **T3** — add a remark transform (` ```mermaid ` → `<Mermaid chart>`) to the MDX pipeline, the `mermaid` dependency, and a `Mermaid` client component wired into the docs page's MDX components map (avoid `rehype-mermaid`/Playwright).
 - **T4** — write `docs/meta.json` in the canonical order; remove any imperative sidebar-ordering code.
 - **T5** — replace a redirect/link-dump root with a brand-driven hero + section cards derived from the doc tree.
 

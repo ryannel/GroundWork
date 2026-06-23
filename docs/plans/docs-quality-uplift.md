@@ -64,7 +64,7 @@ GitHub-alert callouts (`> [!NOTE]`/`[!IMPORTANT]`/`[!WARNING]`) in the writer, u
 Extract `resolveVisual` + validators + `ResolvedVisual` into `src/generators/shared/brand-tokens.ts` (nextjs-app imports them; its `app/brand.css` stays byte-identical, guarded by `./dev test generation`). `docs-site/generator.ts` maps the palette onto the installed Fumadocs `--color-fd-*` variables via a new `renderDocsBrandCss`; typography (~68ch, 1.6 line-height, h1–h4 scale); unbranded fallback unchanged.
 
 **WS-G — Mermaid + nav order + landing.** ✅
-Build-time `rehype-mermaid` in `source.config.ts`; seed a root `docs/meta.json` ordering the canonical set and retire `betsFirst()`; a generated branded landing replacing the redirect (with the `/docs` index as fallback).
+Client-side mermaid via a small remark transform (` ```mermaid ` → `<Mermaid chart>`) + a `Mermaid` client renderer (`mermaid` dep, no `rehype-mermaid`/Playwright) in `source.config.ts`; seed a root `docs/meta.json` ordering the canonical set and retire `betsFirst()`; a generated branded landing replacing the redirect (with the `/docs` index as fallback).
 
 **WS-H — Doc-site uplift skill (new).** ✅
 `src/hidden-skills/groundwork-docs-uplift/instructions.md`, routed from the orchestrator's anytime lane: opinionated about the WS-F/G target state (a T1–T6 checklist), regenerates generator-produced sites or refactors hand-built ones, seeds/fixes `meta.json`, and runs a content pass (via `groundwork-writer` + the review gate) that strips any leftover in-body `## Summary for Downstream` sections, graduating their decisions to ADRs.

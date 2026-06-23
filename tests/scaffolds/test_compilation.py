@@ -267,14 +267,20 @@ def test_docs_site_compiles():
     here by running `fumadocs-mdx` explicitly (the package's `postinstall`) before
     tsc — install with --ignore-scripts so pnpm's dependency-build gating doesn't
     fail the install, then generate the source map by hand. The docs dir the site
-    reads (../../docs) is seeded so type generation has a collection to map."""
+    reads (../../docs) is seeded so type generation has a collection to map.
+
+    The seed deliberately contains a ```mermaid block so codegen exercises the remark
+    transform (fence -> `<Mermaid chart>`). A diagram-free seed once let a Playwright-
+    dragging mermaid pipeline pass here while failing on any real doc with a diagram."""
     svc_name = "docs-site-comp-test"
     _cleanup(svc_name)
     docs_dir = SANDBOX_DIR / "docs"
     try:
-        # The site compiles ../../docs at type-gen time; seed a minimal tree.
+        # Seed a minimal tree; the mermaid fence is load-bearing (see docstring).
         docs_dir.mkdir(parents=True, exist_ok=True)
-        (docs_dir / "index.md").write_text("# Welcome\n\nDocs home.\n")
+        (docs_dir / "index.md").write_text(
+            "# Welcome\n\nDocs home.\n\n```mermaid\ngraph TD\n  A[Client] --> B[API]\n  B --> C[(DB)]\n```\n"
+        )
 
         result = _scaffold(svc_name, "docs-site")
         assert result.returncode == 0, (
