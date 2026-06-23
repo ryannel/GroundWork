@@ -5,8 +5,12 @@ changing code by *structure* instead of by reading and rewriting whole files. Us
 
 - **The repo map** (`npx groundwork-method repo-map`) — a deterministic, whole-repo aggregate:
   module boundaries, import edges, and a PageRank centrality ranking, cached to
-  `.groundwork/cache/repo-map.json`. Built by tree-sitter (Go, Python, TS/JS), no network. It
-  answers *“what is the shape of this codebase, and which files are the hubs?”*
+  `.groundwork/cache/repo-map.json`. Built by tree-sitter, no network. It answers *“what is the
+  shape of this codebase, and which files are the hubs?”* Coverage scales with the language:
+  Go, Python, TypeScript/JavaScript, Java, and Dart map at full **graph fidelity** (import edges +
+  centrality); many more (Rust, Kotlin, C#, C/C++, Scala, Swift, PHP, Ruby, Lua) yield a symbol
+  index and module shape at **symbols fidelity**; and any language can be enabled in your project
+  — see [Enable repo-map for your language](#enable-repo-map-for-your-language).
 - **Serena** (`github.com/oraios/serena`, an LSP-backed MCP server registered at init) — live,
   per-symbol navigation and editing. It answers *“where is this symbol, who references it, change
   it safely.”* It needs `uv` on the host; find it with a tool search for the code-intelligence or
@@ -70,13 +74,56 @@ Use these for precise, reference-aware changes; use ordinary file edits for non-
 - `centrality` — every file ranked by PageRank; the top entries are the hubs to read first.
 - `edges` — directed `from`→`to` import edges; the dependency graph.
 - `modules` — top-level partitions and their sizes, for a quick map of the territory.
+- `coverage` — per language, its file count and fidelity (`graph` = contributes edges +
+  centrality; `symbols` = symbol index only). Trust the graph for graph-fidelity languages;
+  for symbols-fidelity ones, lean on `symbols` + `modules` and read for structure.
 - `contracts` — detected API/spec files (OpenAPI, proto, GraphQL).
+- `unmapped` — languages present in the repo but **not** mapped (and why). A non-empty list
+  means the map is partial; enable those languages (below) or fall back to targeted reads.
 - `generated_at_commit` — the freshness anchor; `repo-map --check` compares it against HEAD.
+
+## Enable repo-map for your language
+
+repo-map covers the common stacks out of the box, but your app may use a language it does not map
+yet — `repo-map` prints exactly which (its `unmapped` list), so this is never a silent gap. Enabling
+one is a small, in-repo change — no fork of GroundWork. Commit
+`.groundwork/config/repo-map.languages.js` exporting an array of language definitions; `repo-map`
+merges them on its next run. Each entry needs a grammar and two queries (a `resolve` function is
+optional and unlocks edges):
+
+```js
+// .groundwork/config/repo-map.languages.js
+module.exports = [{
+  id: 'zig',
+  extensions: ['.zig'],
+  // Point at a tree-sitter grammar compiled to wasm. Build one with the tree-sitter
+  // CLI whose major version matches the engine's web-tree-sitter (they share the
+  // wasm format): `npx tree-sitter@<ver> build --wasm <grammar-src> -o tree-sitter-zig.wasm`.
+  // (The grammars GroundWork ships can also be named directly, e.g.
+  //  grammar: 'tree-sitter-go.wasm', to re-map a built-in.)
+  grammarPath: './.groundwork/grammars/tree-sitter-zig.wasm',
+  // tree-sitter queries — capture imports as @imp, top-level definitions as @sym.
+  // Node names are grammar-specific: dump a parsed file's tree to discover them.
+  importQuery: "(builtin_function (builtin_identifier) @imp)",     // illustrative
+  symbolQuery: "(function_declaration name: (identifier) @sym)",  // illustrative
+  // Optional: turn an import string into the internal file(s) it points to → real
+  // edges + centrality (graph fidelity). Omit it for a symbols-only mapping.
+  resolve(spec, fromFile, files) { /* your module-resolution rules */ return null; },
+}];
+```
+
+The effort is the `resolve` function: it encodes your ecosystem's module-resolution rules, and a
+*wrong* resolver yields a confidently-wrong centrality ranking — so verify it against a few real
+imports, or omit it and ship symbols-only (still useful, never misleading). A definition whose
+`extensions` collide with a built-in **replaces** it — the same hook lets you upgrade a resolver or
+swap in your own grammar build. The one hard requirement is the wasm format: a grammar must be built
+for the same web-tree-sitter the engine bundles, or it will fail to load and the language stays in
+`unmapped` (the usual reason a custom grammar does not take).
 
 ## Degraded mode
 
 No Serena (no `uv`, sandboxed, or headless): navigate with ordinary reads and project search, edit
-with ordinary file edits. No repo map for a language the generator does not cover: infer the
-missing structure from targeted reads (entry points, manifests, imports) in the same shape. The
-downstream contract is identical — only the means differ. Say so rather than implying structural
-coverage you did not have.
+with ordinary file edits. No repo map for a language — not built in and not yet enabled (check the
+`unmapped` list): either enable it (above) or infer the missing structure from targeted reads
+(entry points, manifests, imports) in the same shape. The downstream contract is identical — only
+the means differ. Say so rather than implying structural coverage you did not have.

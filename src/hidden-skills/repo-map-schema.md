@@ -23,6 +23,10 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
     "edges": 412,                          // resolved internal import edges
     "languages": { "go": 80, "python": 30, "typescript": 18 }
   },
+  "coverage": {                            // per language: file count + fidelity
+    "go": { "files": 80, "fidelity": "graph" },     // graph = edges + centrality
+    "rust": { "files": 12, "fidelity": "symbols" }  // symbols = symbol index only
+  },
   "modules": [                             // top-level partition → file count, by size desc
     { "path": "services", "files": 64 },
     { "path": "web", "files": 40 }
@@ -37,7 +41,10 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
     "services/auth/token.go": ["Mint", "Verify", "Claims"]
   },
   "contracts": [ "api/openapi.yaml", "rpc/user.proto" ],   // detected contract/spec files
-  "external_dependencies": [ "fmt", "react", "github.com/x/y" ]  // distinct external imports
+  "external_dependencies": [ "fmt", "react", "github.com/x/y" ],  // distinct external imports
+  "unmapped": [                            // languages present but NOT mapped (+ why)
+    { "language": "Elixir", "files": 14, "reason": "no built-in queries yet" }
+  ]
 }
 ```
 
@@ -61,9 +68,23 @@ by content hash (`repo-map.cache.json`), so a rerun reparses only changed files.
 **detect-and-lazy-refresh** — `groundwork-check` reports drift as an advisory and consumers
 regenerate on use when stale; no git hook runs by default (opt-in only, see `host-support.md`).
 
-## Known coverage limits (v1)
+## Coverage and fidelity
 
-- Languages: Go, Python, TypeScript/JavaScript (incl. TSX/JSX). Others fall to LLM inference.
+Languages map at one of two fidelities, declared per language in `coverage`:
+
+- **`graph`** — import edges resolve to internal files, so `edges` and `centrality` are real.
+  Built in for Go, Python, TypeScript/JavaScript (incl. TSX/JSX), Java, and Dart.
+- **`symbols`** — `symbols`, `external_dependencies`, and `modules` are populated, but the
+  language contributes no internal edges (no verified resolver). Built in for Rust, Kotlin,
+  C#, C/C++, Scala, Swift, PHP, Ruby, and Lua.
+
+Anything else a repo can enable at either fidelity via the project extension seam
+(`.groundwork/config/repo-map.languages.js`; see `code-intelligence.md`). Languages present but
+neither built in nor enabled appear in `unmapped` with a reason — they are not silently dropped.
+Where the map cannot cover a language at all, the scan falls back to LLM inference in the same shape.
+
+## Known limits (v1)
+
 - Edges are import-level. `require()`/dynamic `import()` and call-graph edges are not yet
   resolved; the symbol index is top-level definitions, not a full reference graph — that
   precision is Serena's live job, not the map's.

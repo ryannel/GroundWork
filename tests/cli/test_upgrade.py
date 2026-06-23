@@ -84,6 +84,11 @@ def test_convergence_tier1_matches_fresh_init(label, tmp_path, fresh_init):
     assert (project / ".groundwork/config/manifest.json").exists()
 
 
+@pytest.mark.skipif(
+    not PKG_BUNDLE.exists(),
+    reason="dev-bundle not built (gitignored artifact) — run `npm run build:dev-cli`; "
+    "the ./dev test harness builds it automatically before pytest",
+)
 def test_convergence_dev_bundle_replaced(tmp_path):
     project = seed("0.9-pre-surfaces", tmp_path)
     old = (project / ".dev/dev-bundle.js").read_bytes()

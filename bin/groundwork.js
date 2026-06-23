@@ -32,8 +32,9 @@ function printHelp() {
             \x1b[2m--dry-run prints the full plan without writing anything.\x1b[0m
   \x1b[36mcheck\x1b[0m     Report framework staleness (version gap, pending migrations) and documentation drift
   \x1b[36mrepo-map\x1b[0m  Build the deterministic code map (.groundwork/cache/repo-map.json): tree-sitter
-            import edges + PageRank centrality for Go, Python, and TS/JS. Incremental —
-            only changed files reparse. \x1b[2m--check reports staleness without rebuilding.\x1b[0m
+            import edges + PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index
+            for many more languages; extensible per-project. Incremental — only changed files
+            reparse. \x1b[2m--check reports staleness without rebuilding.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -1494,23 +1495,48 @@ async function repoMapCommand(argv) {
     return; // advisory: never fails the build
   }
 
-  const { map, cache, stats } = await engine.generate({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
+  const { map, cache, stats, diagnostics } = await engine.generate({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
+
+  // A malformed project-local language config is the user's to fix — surface it.
+  for (const e of diagnostics.projectErrors || []) c.warn(`repo-map.languages.js: ${e}`);
+
   if (map.stats.files === 0) {
-    c.warn(`No supported source files found (Go, Python, TS/JS). Nothing to map.\n`);
+    c.warn(`No mappable source files found. Nothing to map.`);
+    reportUnmapped(diagnostics.unmapped);
     return;
   }
   engine.write({ cacheDir: p.targetCacheDir, map, cache });
 
-  const langs = Object.entries(map.stats.languages).map(([l, n]) => `${l}:${n}`).join(' ');
-  c.ok(`Wrote .groundwork/cache/repo-map.json — ${map.stats.files} files, ${map.stats.edges} edges (${langs})`);
+  const langList = Object.entries(map.stats.languages).map(([l, n]) => `${l}:${n}`).join(' ');
+  c.ok(`Wrote .groundwork/cache/repo-map.json — ${map.stats.files} files, ${map.stats.edges} edges (${langList})`);
   c.dim(`  ${stats.parsed} parsed, ${stats.cached} reused from cache`);
+  if (diagnostics.projectLanguages && diagnostics.projectLanguages.length) {
+    c.dim(`  project languages: ${diagnostics.projectLanguages.join(', ')}`);
+  }
   if (map.centrality.length) {
     console.log(`\n\x1b[1mMost-referenced files (centrality):\x1b[0m`);
     for (const hub of map.centrality.slice(0, 5)) {
       console.log(`  ${hub.file} \x1b[2m(rank ${hub.rank}, ${hub.in} incoming)\x1b[0m`);
     }
   }
+  reportUnmapped(diagnostics.unmapped);
   console.log('');
+}
+
+// Nudge: name the languages present in the repo but not mapped, and point at the
+// one place that explains how to enable them. This is the "lay the groundwork"
+// path — repo-map says what it cannot see rather than implying full coverage.
+function reportUnmapped(unmapped) {
+  if (!unmapped || !unmapped.length) return;
+  console.log('');
+  c.warn(`Some languages in this repo are not mapped:`);
+  for (const u of unmapped) {
+    console.warn(`         • ${u.language} — ${u.files} file(s); ${u.reason}`);
+  }
+  console.warn(
+    `         Enable them by adding \x1b[36m.groundwork/config/repo-map.languages.js\x1b[0m —`
+  );
+  console.warn(`         see \x1b[36m.groundwork/skills/code-intelligence.md\x1b[0m (“Enable repo-map for your language”).`);
 }
 
 // ─── Dispatch ───────────────────────────────────────────────────────────────
