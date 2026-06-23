@@ -8,6 +8,13 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (docs site no longer 404s at its `/docs` root, 2026-06-23)
+
+The scaffolded Fumadocs site (`docs-site` generator) compiles the pristine root `docs/` tree untouched, which ships without an `index.md`. The home route redirects `/` → `/docs`, but the empty slug had no backing page, so a freshly provisioned site 404'd on first load even though every real page (`/docs/architecture`, `/docs/product-brief`, …) served correctly — the failure mode seen running `./dev docs`.
+
+- The catch-all route now renders a generated overview at the `/docs` root instead of 404ing: it lists every doc grouped by its top-level section, derived live from the page list. The root `docs/` tree stays pristine (no injected `index.md`), unknown slugs still 404, and the landing title comes from the project's `navTitle`.
+- [no-migration] The docs site is generator-produced (Tier 3); existing installs regenerate it through the normal upgrade path and pick up the fix — no dedicated migration step is required.
+
 ### Changed (hidden skills relocated out of `.agents/` into `.groundwork/skills/`, 2026-06-21)
 
 On-demand methodology skills, the discipline personas, `groundwork-writer`, and the shared references are GroundWork's private, orchestrator-routed instruction files — never meant for an agent's skill scanner to discover. They now install into `.groundwork/skills/` (GroundWork's home directory) instead of `.agents/groundwork/skills/`, so no agent's discovery rules can pick them up. Only the genuinely-registered skills (`groundwork-orchestrator`, `groundwork-check`) remain under `.agents/skills/`.
