@@ -19,7 +19,7 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
 
 ## Step 2: Propose milestones
 
-Read `docs/bets/<bet-slug>/technical-design.md` in full. From the Surface Design subsections and the Capability Design (data flows, API contracts, data schema), decompose the bet into milestones — then present the breakdown for review before writing a single test.
+Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `00-overview.md` for the business logic and data flows, `01-surface-design.md` for the Surface Design subsections, `02-capability-design.md` for the API contracts and data schema. From these, decompose the bet into milestones — then present the breakdown for review before writing a single test.
 
 **What a milestone is:** a demonstrable state the product reaches, ordered so each one is independently shippable. Its consumer gets value from Milestone 1 even if Milestone 2 never ships. Milestones come in two types:
 
@@ -83,7 +83,7 @@ Each slice spec must contain:
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
 - **One-paragraph intro** — links the slice to its parent milestone and states what vertical capability it contributes
-- **Required Capabilities** — falsifiable behaviour statements, each tracing to a contract or schema section in `technical-design.md`. "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API contract" is.
+- **Required Capabilities** — falsifiable behaviour statements, each tracing to a contract or schema section in `technical-design/02-capability-design.md` (and its spec in `contracts/`). "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API contract" is.
 - **Test Cases table** — `Test | Location | Assertion` — with specific, falsifiable assertions that a reviewer can verify against the milestone's acceptance criteria
 
 ## Step 5: Author slice bet-progress tests

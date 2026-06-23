@@ -6,6 +6,14 @@ This document defines the physical and logical boundaries of the system required
 
 ## 2. Top-Level Topology
 
+A `graph` diagram is **required** here — it is the reader's first mental model of the system. Show every service and the external dependencies (datastores, brokers, third-party APIs) and the connections between them; label each edge with what flows along it. The prose names what each node owns; the diagram carries the shape.
+
+```mermaid
+graph TD
+    client[Client] --> api[Core API]
+    api --> db[(Postgres)]
+```
+
 ## 3. Key Capabilities & Technical Decisions
 
 ### Capability Ports & Providers
@@ -20,6 +28,19 @@ Each technical capability the system depends on — LLM inference, a relational 
 ## 4. Component Boundaries & Contracts
 
 ## 5. Communication & Integration Patterns
+
+For each non-trivial flow across services — a request that fans out, an event chain, an async path — draw a `sequenceDiagram` so timing and ordering are legible. The prose explains the failure modes and the design decisions the diagram cannot show. Skip trivial single-hop calls.
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant A as Core API
+    participant W as Worker
+    C->>A: submit job
+    A->>W: enqueue
+    W-->>A: result
+    A-->>C: 200 + job id
+```
 
 ## 6. Service-Level Requirements
 

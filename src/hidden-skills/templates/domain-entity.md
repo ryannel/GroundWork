@@ -24,8 +24,19 @@ invariant the entity exists to enforce.
 ## Lifecycle
 
 States and what triggers each transition. If the entity has no meaningful
-state machine (e.g. immutable record), say so explicitly and remove the
-table.
+state machine (e.g. immutable record), say so explicitly and remove both the
+diagram and the table.
+
+When the entity does have a state machine, draw it as a `stateDiagram-v2` so a
+reader sees the shape before reading the triggers. The table below the diagram
+carries the detail the diagram cannot.
+
+```mermaid
+stateDiagram-v2
+    [*] --> draft: creation
+    draft --> active: <trigger>
+    active --> [*]: <trigger>
+```
 
 Every trigger must be mechanically detectable — backed by a field in the
 Fields table or an emitted event. A state reached by the passage of time or

@@ -12,9 +12,11 @@ description: >
 GroundWork documentation serves two readers simultaneously: the engineer who built the system and the AI agent tasked with understanding it cold. Every document is a shared context layer. It must work when read linearly by a human and when retrieved as a chunk by an agent.
 
 Good GroundWork documentation is:
+- **Reference, not report-out**: Describes the system as it is, in the timeless present. It never narrates the conversation or the process that produced it.
+- **Reader-first**: Opens by orienting a reader who was never in the room — what this is, why it exists — before any detail.
 - **Declarative**: States what is true, not what is hoped or intended.
 - **Assertive**: Writes with confidence. No hedging, no qualification.
-- **Structured for scanning**: Inverted pyramid — conclusion first, detail below.
+- **Diagram-rich**: Reaches for a diagram wherever structure, flow, or lifecycle is easier seen than read.
 
 ---
 
@@ -40,12 +42,33 @@ Identify actor → action → target, in that order.
 - ✅ *The Core API stores the image and returns the URL.*
 - ❌ *The image is stored and the URL is returned.*
 
-### Structure
+### Reference register — the system is the subject, in the present
 
-Use the inverted pyramid on every page:
-1. The answer or conclusion — in the first paragraph.
-2. Supporting detail — how it works.
-3. Background — why it is this way.
+Write about the system as it is, not about the work that built it. The grammatical subject is the system, the service, the entity — never "we", never the phase. Use the timeless present tense: the system *does*, not the team *decided*.
+
+This is the single biggest lever on whether a doc reads as documentation or as a report-out of the setup conversation. A doc that says "we decided to use Postgres because…" is narrating a meeting; a doc that says "The Core stores orders in Postgres." is describing a system.
+
+Ban the report-out vocabulary outright — these phrases betray the conversation behind the doc:
+
+- ❌ "We decided to…", "We chose…", "The team agreed…" → ✅ state what the system does.
+- ❌ "…is deferred to a later phase", "out of scope for now", "in this phase we…" → ✅ if it is not part of the system, do not describe it; if a boundary matters to a reader, state the boundary as a fact ("The API does not handle payment capture; that is the billing service's responsibility.").
+- ❌ "Currently…", "for the MVP…", "at this stage…" → ✅ describe the present design plainly; temporal hedging dates the doc the moment it is written.
+
+Deferred questions, rejected options, and phase scoping are flow bookkeeping — they belong in the Downstream Context file (Protocol 5) and the hand-off cache (Protocol 6), never in the published doc.
+
+### Structure — orient first, then disclose progressively
+
+Lead every page with **orientation**: in the first one or two paragraphs, tell a cold reader what this document covers, what the thing it describes *is*, and the mental model they need to make sense of the rest. A reader who was never in the room must be able to hold the shape of the system before meeting its parts.
+
+After orientation, disclose progressively — the spine of the page follows the reader's information need, not the order the phase produced its outputs. Within any one section, still front-load: the conclusion or the rule first, the supporting detail below. Inverted-pyramid is a within-section tactic; the page as a whole is a guided descent from "what is this and why" into specifics.
+
+### Accessibility — earn the reader's understanding
+
+A reference doc that only the author can follow has failed its second reader. Make each doc self-teaching:
+
+- **Define terms on first use.** A domain noun or an acronym gets a one-clause definition the first time it appears.
+- **Intuition before precision.** Give the plain-language shape of an idea before the exact rule, schema, or constraint that pins it down.
+- **Concrete before abstract.** Lead a hard concept with a concrete instance, then generalise.
 
 ### Format
 
@@ -64,6 +87,42 @@ State the position and why it holds. Do not establish it by contrasting against 
 
 - ❌ "Traditional CRUD APIs treat each endpoint as a standalone operation. Our system does not work that way — endpoints compose into transactions that share a commit boundary."
 - ✅ "Endpoints compose into transactions that share a commit boundary."
+
+---
+
+## Diagrams
+
+Structure, flow, and lifecycle are easier seen than read. Where a doc describes how parts connect, how data moves, or how state changes, it carries a **diagram inline with the prose** — not as decoration, but as the primary explanation the prose then annotates.
+
+Author every diagram as a fenced ` ```mermaid ` block. Mermaid renders natively on GitHub (where the raw `.md` is read) and on the Fumadocs site, so one source serves both readers and nothing goes stale against a checked-in image.
+
+Reach for the diagram type the content calls for:
+
+| When the doc describes… | Use | Lives in |
+|---|---|---|
+| How services / components connect | `graph` (topology) | architecture topology, a bet's overview, a service doc |
+| A flow across services or time (request, event chain, async path) | `sequenceDiagram` | architecture communication, a bet's data flows |
+| Entities and their relationships | `erDiagram` | data model / domain overview |
+| The lifecycle states of one entity | `stateDiagram-v2` | a domain entity doc |
+
+Keep each diagram focused — one question per diagram. A topology that also tries to show every sequence becomes unreadable; split it. Label edges with what flows along them. The prose around a diagram explains *why* and calls out the non-obvious; it does not re-narrate every node.
+
+## Callouts
+
+Use GitHub-style alerts to lift a canonical truth or a hazard out of the body — they render on GitHub and in Fumadocs:
+
+```markdown
+> [!NOTE]
+> A fact a reader must not miss, but which would interrupt the sentence flow.
+
+> [!IMPORTANT]
+> A binding rule or invariant the system depends on.
+
+> [!WARNING]
+> A hazard — a foot-gun, a destructive operation, a constraint that bites if ignored.
+```
+
+Use them sparingly. A page where every other paragraph is a callout has no emphasis at all — reserve them for the few statements that genuinely must survive a skim.
 
 ---
 
@@ -161,11 +220,12 @@ Every new canonical document must be referenced in `llms.txt` at the project roo
 
 ### Frontmatter
 
-Every document carries minimal frontmatter for agent filtering:
+Every document carries frontmatter for agent filtering and for the docs site. `title` and `description` are **required** — the site renders them as the page heading and subtitle, and an agent reads them to decide whether to open the doc. `description` is one sentence stating what the doc covers.
 
 ```yaml
 ---
 title: <document title>
+description: <one sentence describing what the document covers>
 service: <service name or "cross-cutting">
 type: <index | service | data-flow | adr | contract>
 last_reviewed: <YYYY-MM-DD>
@@ -182,7 +242,11 @@ API specs, schemas, and event contracts have source-of-truth files. Render table
 
 The writing-style principles above cover most prose pitfalls. The patterns below are distinct operational failures specific to GroundWork documents.
 
+- **Report-out register** — "we decided", "is deferred", "out of scope", "for the MVP". The doc narrates the conversation that produced it instead of describing the system. Rewrite in the timeless present with the system as subject; move the bookkeeping to the Downstream Context file.
+- **No orientation** — the doc opens mid-detail, with no paragraph telling a cold reader what this is or why it exists. The first reader who was never in the room is lost by the second heading.
+- **Prose where a diagram belongs** — a multi-service flow or an entity lifecycle described only in sentences. If it has structure, draw it (` ```mermaid `) and let the prose annotate.
 - **Passive docs** — no owner, no `last_reviewed` date. A document without a maintainer drifts undetected.
 - **Missing llms.txt entry** — new doc exists but is invisible to agents.
+- **Missing `description` frontmatter** — the docs site renders an empty subtitle and agents lose the one-line filter.
 - **Mutable ADRs** — editing an accepted decision instead of superseding it with a new ADR.
 - **Identifier drift** — a service name, folder path, or llms.txt entry that disagrees with itself across files. Pick one canonical identifier and grep the docs tree before committing.
