@@ -16,7 +16,7 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
 
 ### Step 2: Run the test suite
 
-Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing — and run the **test-integrity reconciliation once over the whole bet**: every assertion in `docs/bets/<bet-slug>/test-review.md` is still present verbatim in the code, and `git log <approval_commit>..HEAD -- tests/bets/<bet-slug>/` (the `approval_commit` is recorded in `decomposition.json`) shows only changes paired with an approved amendment. A suite that drifted from its approved record without a recorded amendment is not the suite the user approved — flag it and revert.
+Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing — and run the **test-integrity reconciliation once over the whole bet**: `git log <approval_commit>..HEAD -- tests/bets/<bet-slug>/` (the `approval_commit` is recorded in `decomposition.json`) shows only changes paired with an approved amendment, and every test still proves what its `docs/bets/<bet-slug>/test-review.md` entry describes. A suite that drifted from its approved record without a recorded amendment is not the suite the user approved — flag it and revert.
 
 **Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — cross-service calls use clients derived from `docs/bets/<bet-slug>/contracts/`, and no endpoint, field, or table exists that the specs do not define. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
 

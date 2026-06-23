@@ -112,10 +112,13 @@ destination with a green light.
   untyped suite pairs interface and API layers per milestone as before.)
 - [ ] 🔴 **Red for the wrong reason**: a test fails on an import error, fixture error, or typo
   rather than on the feature's absence — it will not flip green when the feature works.
-- [ ] 🟡 **Error path untested**: a capability whose contract defines error cases has tests only
-  for the happy path — the error contract ships unverified.
+- [ ] 🟡 **Headline error case missing**: a milestone whose demonstrable outcome depends on an
+  error case (e.g. the dependency being unavailable) proves only the happy path. Exhaustive
+  error-matrix coverage is not expected here — it lands in Delivery's permanent tests — but an
+  error the milestone's proof rests on belongs in the headline suite.
 - [ ] 🟡 **Test-review surface stale or incomplete**: `docs/bets/<slug>/test-review.md` is missing
-  an entry for a test function, or quotes an assertion block that no longer matches the file.
+  an entry for a test in the suite, or describes a test that no longer exists or whose prose proof
+  no longer matches the test.
 
 ## Chain Integrity
 

@@ -119,4 +119,7 @@ A bet-progress test is good when:
 - It would fail if the feature shipped incomplete
 - It would pass without any special knowledge of how the feature is implemented internally
 - It proves each business rule exactly once — at the contract; surface tests assert only wiring, rendering, and interaction
+- It is a **headline proof, not a permutation** — it proves the milestone's outcome or the slice's capability, not every input variant or error code
 - A reviewer can read it and confirm it matches the milestone's acceptance criteria in `decomposition.md`
+
+**Keep the up-front suite lean.** Bet-progress tests are the high-impact proofs the user reviews and signs — a milestone's consumer-visible outcome and each slice's vertical capability, typically one to three assertions apiece. If an assertion is an edge case, a permutation, or an error variant rather than the headline outcome, it does not belong here; it is part of the slice's permanent best-practice tests, written when the slice is built in Delivery (`workflows/04-delivery.md` Step 5). A wall of assertions up front is unreviewable and front-loads coverage the delivery suite is meant to carry.

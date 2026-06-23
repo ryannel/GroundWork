@@ -10,9 +10,9 @@
 
 This bet uses two populations of tests with distinct lifecycles:
 
-**Bet-progress tests** (`tests/bets/<bet-slug>/`) — written red, up front, during this Decomposition phase. One file per milestone and one file per slice. These are the single source of truth for "is this milestone/slice done?" Red means work to do; green means proven. Archived to `tests/bets/_archive/<bet-slug>/` when the bet is delivered.
+**Bet-progress tests** (`tests/bets/<bet-slug>/`) — written red, up front, during this Decomposition phase. One file per milestone and one file per slice, each holding only the **headline proofs**: the milestone's consumer-visible outcome and the slice's vertical capability, typically one to three assertions apiece. These are the single source of truth for "is this milestone/slice done?" and the suite the user reviews and signs — kept lean so it stays reviewable. Red means work to do; green means proven. Archived to `tests/bets/_archive/<bet-slug>/` when the bet is delivered.
 
-**Permanent best-practice tests** (service repos / `tests/system/`) — written during Delivery as each slice completes. Interface tests, HTTP API system tests, service-perimeter tests, and unit tests for complex logic. These remain in the codebase permanently and are what covers the feature after the bet-progress tests are archived.
+**Permanent best-practice tests** (service repos / `tests/system/`) — written during Delivery as each slice is built. Interface tests, HTTP API system tests, service-perimeter tests, unit tests for complex logic, and the exhaustive edge-case, permutation, and error-matrix coverage. These remain in the codebase permanently and are what covers the feature after the bet-progress tests are archived. Granularity lives here, not in the up-front suite.
 
 ---
 
