@@ -106,6 +106,7 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 - `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this).
 - `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
+- `groundwork-docs-uplift` — brings an existing documentation site to the current target state (brand theme, build-time diagrams, ordered nav, a real landing page) and gives the docs a reader-first pass. Route here for "fix / improve / refresh the docs site", or when a project predates the branded docs-site or its site has drifted. Available only after setup completes.
 
 ### Custom Skills (user-registered)
 
@@ -131,6 +132,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-upgrade` | `.groundwork/skills/groundwork-upgrade/instructions.md` |
 | `groundwork-patch` | `.groundwork/skills/groundwork-patch/instructions.md` |
 | `groundwork-surface-activation` | `.groundwork/skills/groundwork-surface-activation/instructions.md` |
+| `groundwork-docs-uplift` | `.groundwork/skills/groundwork-docs-uplift/instructions.md` |
 | `groundwork-elicit` | `.groundwork/skills/groundwork-elicit/instructions.md` |
 | `groundwork-review` | `.groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |

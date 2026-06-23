@@ -760,6 +760,7 @@ output file. Example:
 | Bet | ✅ Core directives |
 | Update | ✅ Top-level mandate |
 | Surface Activation | ✅ Top-level mandate |
+| Docs Uplift | ✅ Content pass (Step 3) |
 
 When adding a new skill, add the writer reference before submitting.
 
