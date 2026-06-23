@@ -7,7 +7,7 @@ changing code by *structure* instead of by reading and rewriting whole files. Us
   module boundaries, import edges, and a PageRank centrality ranking, cached to
   `.groundwork/cache/repo-map.json`. Built by tree-sitter, no network. It answers *“what is the
   shape of this codebase, and which files are the hubs?”* Coverage scales with the language:
-  Go, Python, TypeScript/JavaScript, and Java map at full **graph fidelity** (import edges +
+  Go, Python, TypeScript/JavaScript, Java, and Dart map at full **graph fidelity** (import edges +
   centrality); many more (Rust, Kotlin, C#, C/C++, Scala, Swift, PHP, Ruby, Lua) yield a symbol
   index and module shape at **symbols fidelity**; and any language can be enabled in your project
   — see [Enable repo-map for your language](#enable-repo-map-for-your-language).
@@ -88,37 +88,37 @@ repo-map covers the common stacks out of the box, but your app may use a languag
 yet — `repo-map` prints exactly which (its `unmapped` list), so this is never a silent gap. Enabling
 one is a small, in-repo change — no fork of GroundWork. Commit
 `.groundwork/config/repo-map.languages.js` exporting an array of language definitions; `repo-map`
-merges them on its next run. Each entry needs four things (a fifth, `resolve`, unlocks edges):
+merges them on its next run. Each entry needs a grammar and two queries (a `resolve` function is
+optional and unlocks edges):
 
 ```js
 // .groundwork/config/repo-map.languages.js
-const path = require('path');
 module.exports = [{
-  id: 'dart',
-  extensions: ['.dart'],
-  // A grammar bundled with GroundWork by name, OR `grammarPath: './grammars/x.wasm'`
-  // pointing at a tree-sitter wasm you install into the repo yourself.
-  grammar: 'tree-sitter-dart.wasm',
-  // tree-sitter queries. Capture imports as @imp and top-level definitions as @sym.
-  importQuery: "(import_or_export (library_import (configurable_uri (uri) @imp)))",
-  symbolQuery: "[(class_definition name: (identifier) @sym) (function_signature name: (identifier) @sym)]",
-  // Optional. Turn an import string into the internal file(s) it points to → real
+  id: 'zig',
+  extensions: ['.zig'],
+  // Point at a tree-sitter grammar compiled to wasm. Build one with the tree-sitter
+  // CLI whose major version matches the engine's web-tree-sitter (they share the
+  // wasm format): `npx tree-sitter@<ver> build --wasm <grammar-src> -o tree-sitter-zig.wasm`.
+  // (The grammars GroundWork ships can also be named directly, e.g.
+  //  grammar: 'tree-sitter-go.wasm', to re-map a built-in.)
+  grammarPath: './.groundwork/grammars/tree-sitter-zig.wasm',
+  // tree-sitter queries — capture imports as @imp, top-level definitions as @sym.
+  // Node names are grammar-specific: dump a parsed file's tree to discover them.
+  importQuery: "(builtin_function (builtin_identifier) @imp)",     // illustrative
+  symbolQuery: "(function_declaration name: (identifier) @sym)",  // illustrative
+  // Optional: turn an import string into the internal file(s) it points to → real
   // edges + centrality (graph fidelity). Omit it for a symbols-only mapping.
-  resolve(spec, fromFile, files) {
-    if (!spec.startsWith('package:')) return null;       // external package
-    const rel = 'lib/' + spec.replace(/^package:[^/]+\//, '');
-    return files.has(rel) ? [rel] : null;
-  },
+  resolve(spec, fromFile, files) { /* your module-resolution rules */ return null; },
 }];
 ```
 
 The effort is the `resolve` function: it encodes your ecosystem's module-resolution rules, and a
 *wrong* resolver yields a confidently-wrong centrality ranking — so verify it against a few real
-imports, or omit it and ship symbols-only (still useful, never misleading). To write the queries,
-dump a parsed file's tree-sitter node types and match against them. A definition whose `extensions`
-collide with a built-in **replaces** it — the same hook lets you upgrade a resolver or, when a
-bundled grammar is the wrong tree-sitter ABI for the engine (the usual reason a language lands in
-`unmapped`), point `grammarPath` at a compatible wasm you supply.
+imports, or omit it and ship symbols-only (still useful, never misleading). A definition whose
+`extensions` collide with a built-in **replaces** it — the same hook lets you upgrade a resolver or
+swap in your own grammar build. The one hard requirement is the wasm format: a grammar must be built
+for the same web-tree-sitter the engine bundles, or it will fail to load and the language stays in
+`unmapped` (the usual reason a custom grammar does not take).
 
 ## Degraded mode
 

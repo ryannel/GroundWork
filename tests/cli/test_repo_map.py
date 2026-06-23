@@ -181,10 +181,39 @@ def test_symbols_tier_indexes_without_edges(project):
     assert "crate::util::helper" in m["external_dependencies"]
 
 
+def test_dart_resolves_edges_at_graph_fidelity(project):
+    # Dart maps at graph fidelity: a self-package import (package:<self>/x) and a
+    # schemeless relative import both resolve to internal files, while other
+    # packages and dart: SDK libraries fall to external.
+    write(project, "pubspec.yaml", "name: myapp\nenvironment:\n  sdk: \">=3.0.0\"\n")
+    write(project, "lib/widgets/button.dart", "class Button {}\n")
+    write(project, "lib/models/user.dart", "class User {}\n")
+    write(project, "lib/home.dart",
+          "import 'package:myapp/widgets/button.dart';\n"
+          "import 'models/user.dart';\n"
+          "import 'package:flutter/material.dart';\n"
+          "import 'dart:async';\n"
+          "class HomePage { void build(){} }\n")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    m = read_map(project)
+
+    edge_pairs = {(e["from"], e["to"]) for e in m["edges"]}
+    assert ("lib/home.dart", "lib/widgets/button.dart") in edge_pairs   # package:<self>
+    assert ("lib/home.dart", "lib/models/user.dart") in edge_pairs      # schemeless relative
+    assert m["coverage"]["dart"]["fidelity"] == "graph"
+    assert "HomePage" in m["symbols"]["lib/home.dart"]
+    # other-package and SDK imports are external, not internal edges
+    assert "package:flutter/material.dart" in m["external_dependencies"]
+    assert "dart:async" in m["external_dependencies"]
+
+
 def test_unmapped_language_degrades_gracefully(project):
-    # A vendored-but-unusable grammar (Dart's ABI is newer than the engine's)
-    # must never crash the run: the file is reported as unmapped, with a reason.
-    write(project, "lib/home.dart", "import 'package:flutter/material.dart';\nclass Home {}\n")
+    # A known code language with no built-in support (Elixir) must never crash the
+    # run: its files are reported as unmapped, with a reason, alongside a real map.
+    write(project, "lib/app.ex", "defmodule App do\nend\n")
     write(project, "web/a.ts", "export const a = 1;\n")
     commit_all(project)
 
@@ -192,8 +221,8 @@ def test_unmapped_language_degrades_gracefully(project):
     assert proc.returncode == 0, proc.stderr  # graceful — does not fail the build
     m = read_map(project)
 
-    dart = [u for u in m["unmapped"] if u["language"] == "Dart"]
-    assert dart and dart[0]["files"] == 1 and dart[0]["reason"]
+    elixir = [u for u in m["unmapped"] if u["language"] == "Elixir"]
+    assert elixir and elixir[0]["files"] == 1 and elixir[0]["reason"]
     assert "not mapped" in proc.stdout + proc.stderr
     assert "code-intelligence.md" in proc.stdout + proc.stderr
 

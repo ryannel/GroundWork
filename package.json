@@ -19,6 +19,7 @@
     "build": "npm run build:dev-cli && tsc",
     "build:dev-cli": "tsc --noEmit -p src/generators/workspace-dev-cli/cli-src/tsconfig.json && node src/generators/workspace-dev-cli/cli-src/build.mjs",
     "gen:workflow-index": "node scripts/generate_workflow_index.js",
+    "build:grammars": "node scripts/build-grammars.mjs",
     "prepublishOnly": "npm run build:dev-cli && tsc && node scripts/generate_workflow_index.js --check"
   },
   "generators": "./generators.json",
@@ -41,13 +42,29 @@
   "license": "MIT",
   "devDependencies": {
     "@nx/devkit": "^22.7.2",
+    "@tree-sitter-grammars/tree-sitter-kotlin": "1.1.0",
+    "@tree-sitter-grammars/tree-sitter-lua": "0.4.1",
     "@types/node": "^25.8.0",
     "esbuild": "^0.25.12",
+    "tree-sitter-c": "0.24.1",
+    "tree-sitter-c-sharp": "0.23.5",
+    "tree-sitter-cli": "0.26.9",
+    "tree-sitter-cpp": "0.23.4",
+    "tree-sitter-dart": "1.0.0",
+    "tree-sitter-go": "0.25.0",
+    "tree-sitter-java": "0.23.5",
+    "tree-sitter-javascript": "0.25.0",
+    "tree-sitter-php": "0.24.2",
+    "tree-sitter-python": "0.25.0",
+    "tree-sitter-ruby": "0.23.1",
+    "tree-sitter-rust": "0.24.0",
+    "tree-sitter-scala": "0.24.0",
+    "tree-sitter-swift": "0.7.1",
+    "tree-sitter-typescript": "0.23.2",
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "tree-sitter-wasms": "0.1.13",
-    "web-tree-sitter": "0.22.6",
+    "web-tree-sitter": "0.26.9",
     "yaml": "^2.9.0"
   }
 }

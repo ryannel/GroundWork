@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (repo-map is now multi-language and extensible, 2026-06-23)
+
+The deterministic code map grew from four languages to a fidelity-tiered, project-extensible map. Graph fidelity (real import edges + PageRank centrality) now covers Go, Python, TypeScript/JavaScript, **Java, and Dart**; a further ten languages (Rust, Kotlin, C#, C/C++, Scala, Swift, PHP, Ruby, Lua) map at symbols fidelity (symbol index + module shape + external deps). `repo-map.json` gains `coverage` (per-language file count + fidelity) and `unmapped` (languages present but not mapped, with reasons), and the CLI nudges toward enabling them.
+
+- **Project extension seam.** A repo enables any language repo-map does not cover — or overrides a built-in — by committing `.groundwork/config/repo-map.languages.js` (grammar + tree-sitter queries + an optional resolver). No fork required. A grammar that fails to load degrades gracefully (reported in `unmapped`) instead of crashing the run.
+- **Grammar supply chain owned in-repo.** Enabling Dart required tree-sitter ABI 15, which forced `web-tree-sitter` `0.22.6` → `0.26.9` (a changed wasm format that the old `tree-sitter-wasms` pack could not satisfy). The shipped grammars are now built from pinned sources by `scripts/build-grammars.mjs` (tree-sitter CLI + a self-contained wasi-sdk — no Docker) and vendored under `lib/repo-map/grammars/`, replacing the `tree-sitter-wasms` dependency. Net install footprint drops (a 49 MB dependency removed; ~2.5 MB gzipped vendored).
+- [no-migration] `repo-map` is run via `npx groundwork-method`; existing installs pick up the new engine and grammars automatically, and the added cache fields are regenerated on next run.
+
 ### Fixed (docs site no longer 404s at its `/docs` root, 2026-06-23)
 
 The scaffolded Fumadocs site (`docs-site` generator) compiles the pristine root `docs/` tree untouched, which ships without an `index.md`. The home route redirects `/` → `/docs`, but the empty slug had no backing page, so a freshly provisioned site 404'd on first load even though every real page (`/docs/architecture`, `/docs/product-brief`, …) served correctly — the failure mode seen running `./dev docs`.

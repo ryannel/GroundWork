@@ -43,7 +43,7 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
   "contracts": [ "api/openapi.yaml", "rpc/user.proto" ],   // detected contract/spec files
   "external_dependencies": [ "fmt", "react", "github.com/x/y" ],  // distinct external imports
   "unmapped": [                            // languages present but NOT mapped (+ why)
-    { "language": "Dart", "files": 14, "reason": "the bundled grammar targets a newer tree-sitter ABI than the engine supports" }
+    { "language": "Elixir", "files": 14, "reason": "no built-in queries yet" }
   ]
 }
 ```
@@ -73,7 +73,7 @@ regenerate on use when stale; no git hook runs by default (opt-in only, see `hos
 Languages map at one of two fidelities, declared per language in `coverage`:
 
 - **`graph`** — import edges resolve to internal files, so `edges` and `centrality` are real.
-  Built in for Go, Python, TypeScript/JavaScript (incl. TSX/JSX), and Java.
+  Built in for Go, Python, TypeScript/JavaScript (incl. TSX/JSX), Java, and Dart.
 - **`symbols`** — `symbols`, `external_dependencies`, and `modules` are populated, but the
   language contributes no internal edges (no verified resolver). Built in for Rust, Kotlin,
   C#, C/C++, Scala, Swift, PHP, Ruby, and Lua.
