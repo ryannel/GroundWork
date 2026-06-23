@@ -36,7 +36,7 @@ Each phase runs in its own workflow file because each demands a different mode. 
 | Phase | Workflow | Status | Output |
 |---|---|---|---|
 | 1. Discovery | `workflows/01-discovery.md` | `discovery` | `docs/bets/<slug>/pitch.md` |
-| 2. Design Foundations | `workflows/02-design.md` | `design` | `docs/bets/<slug>/technical-design.md` + `contracts/` specs |
+| 2. Design Foundations | `workflows/02-design.md` | `design` | `docs/bets/<slug>/technical-design/` (`00-overview.md`, `01-surface-design.md`, `02-capability-design.md`) + `contracts/` specs |
 | 3. Decomposition | `workflows/03-decomposition.md` | `decomposition` | `decomposition.md` + `test-review.md` + `tests/bets/<slug>/` + signed manifest |
 | 4. Delivery | `workflows/04-delivery.md` | `delivery` | Implementation that turns the sealed tests green; slice records in the manifest |
 | 5. Validation | `workflows/05-validation.md` | `validation` → `delivered` | Specs promoted; retrospective; bet-progress suite archived |

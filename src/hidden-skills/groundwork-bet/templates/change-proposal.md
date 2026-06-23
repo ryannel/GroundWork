@@ -15,7 +15,7 @@
 | Artifact | Affected section | Why |
 |---|---|---|
 | `pitch.md` | [section or none] | [how the discovery touches it] |
-| `technical-design.md` | [section] | |
+| `technical-design/` | [section file — `00-overview.md` / `01-surface-design.md` / `02-capability-design.md`] | |
 | `contracts/` | [spec + operation/table] | |
 | `decomposition.md` | [milestone/slice] | |
 | Signed tests | [test file(s)] | |
