@@ -23,6 +23,13 @@
       "summary": "Hidden methodology skills moved to .groundwork/skills/ so no agent skill scanner can pick them up. update installs the new tree; this deletes the old .agents/groundwork/skills/ location. Promoted engineer skills under .agents/skills/ are untouched."
     },
     {
+      "id": "gw-drop-test-manifest",
+      "version": "0.10.0",
+      "title": "Remove orphaned bet test-manifest.json seal files",
+      "kind": "cli",
+      "summary": "The SHA-256 test-manifest seal was removed (./dev bet sign is gone; ./dev test bet no longer verifies a manifest). The dev-bundle update drops the bet sign command; this deletes the now-inert .groundwork/bets/<slug>/test-manifest.json files. decomposition.json and other bet artifacts are untouched."
+    },
+    {
       "id": "gw-package-rename-invocations",
       "version": "0.10.0",
       "title": "Rewrite npx groundwork invocations to npx groundwork-method",

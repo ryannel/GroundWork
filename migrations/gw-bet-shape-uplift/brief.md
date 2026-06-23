@@ -1,10 +1,10 @@
 # gw-bet-shape-uplift — bring in-flight bets to the current bet shape
 
 The bet loop was restructured: pitches carry `status` frontmatter that routes the
-workflow phases, decomposition writes a machine twin at
-`.groundwork/bets/<slug>/decomposition.json`, and delivery seals a test manifest. A
-bet opened before the restructure has none of this — the orchestrator cannot route
-it, and `./dev bet status` cannot see it.
+workflow phases, and decomposition writes a machine twin at
+`.groundwork/bets/<slug>/decomposition.json`. A bet opened before the restructure
+has none of this — the orchestrator cannot route it, and `./dev bet status` cannot
+see it.
 
 ## Detect
 

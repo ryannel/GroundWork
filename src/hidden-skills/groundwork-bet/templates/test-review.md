@@ -40,4 +40,4 @@ including the target-state description in the explicit-failure placeholder]
 **Reads as:** [one plain-language sentence]
 
 ---
-*(One entry per test function in the suite. A test function with no entry here is unreviewed; an entry whose quoted block no longer matches the file is stale — both block the sign-off.)*
+*(One entry per test function in the suite. A test function with no entry here is unreviewed; an entry whose quoted block no longer matches the file is stale — both block approval.)*

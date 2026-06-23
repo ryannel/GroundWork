@@ -4,7 +4,7 @@
 
 ## Restrictions
 
-⚠️ **CRITICAL CONSTRAINT — the suite is sealed.** The bet-progress tests in `tests/bets/<bet-slug>/` were reviewed assertion-by-assertion and signed by the user; they are the bet's fixed definition of done. Never edit, delete, or add to them during delivery — a red test that looks wrong is a stop-and-escalate through the Amendment Protocol below, not an edit. `./dev test bet` verifies the suite against `.groundwork/bets/<bet-slug>/test-manifest.json` and refuses a tampered suite.
+⚠️ **CRITICAL CONSTRAINT — the approved suite is the fixed definition of done.** The bet-progress tests in `tests/bets/<bet-slug>/` were reviewed assertion-by-assertion and approved by the user, then committed at Decomposition close (the *approval commit*, its SHA recorded in `decomposition.json`). Never edit, delete, or add to them during delivery — a red test that looks wrong is a stop-and-escalate through the Amendment Protocol below, not an edit. What holds the suite to the approved definition is not a hash gate but the record itself: every test's verbatim assertions live in `docs/bets/<bet-slug>/test-review.md`, and the test files are under git from the approval commit forward — so any change to them is visible in the diff and is checked by the test-integrity reconciliation in Step 4. An edit that did not route through an approved amendment is a delivery defect.
 
 ⚠️ **CRITICAL CONSTRAINT — scope.** Write only the code required to make the bet-progress tests pass and satisfy the contracts in `docs/bets/<bet-slug>/contracts/`. Stay within the milestones and slices in `decomposition.md`. Do not perform large refactors or touch unrelated subsystems. If reality contradicts the locked design, follow Change Navigation below.
 
@@ -16,7 +16,7 @@ This workflow operates under the protocols defined in `.groundwork/skills/operat
 
 Before any slice work, verify the bet is actually executable. Load `.groundwork/skills/groundwork-review/checklists/implementation-readiness.md` and check every item against the bet's artifacts — the document chain, the contracts, the test scaffolding, and currency. If the checklist file is absent, stop and report it — the install is broken and `npx groundwork-method update` restores it; do not improvise the gate from memory. These are mechanical existence and consistency checks; run them inline (no review subagent — the artifacts were already authorship-gated when their phases committed them, and there is nothing here to be biased about).
 
-The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item by name with what is missing, route back to the owning phase (a missing contract → Design Foundations; missing tests or an unsigned suite → Decomposition; an unreconciled discovery note → resolve it with the user now), and do not begin implementation until the item passes. 🟡 items are surfaced to the user with your read on whether they touch this bet; the user decides whether to proceed.
+The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item by name with what is missing, route back to the owning phase (a missing contract → Design Foundations; missing tests or an un-approved/uncommitted suite → Decomposition; an unreconciled discovery note → resolve it with the user now), and do not begin implementation until the item passes. 🟡 items are surfaced to the user with your read on whether they touch this bet; the user decides whether to proceed.
 
 When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and inform the user you are entering Developer Mode.
 
@@ -49,13 +49,18 @@ Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) �
 
 ### 4. Review the slice
 
-Dispatch the slice diff for review through three parallel, independent lenses (Protocol 9 mechanics — isolated subagents; the three lenses catch different failure classes and none substitutes for another):
+**First, reconcile the tests (mechanical — no subagent).** A green suite proves nothing if the suite was quietly weakened or the implementation was gamed to pass it. Two cheap checks on the slice diff catch both:
+
+- **Test integrity.** For every file under `tests/bets/<bet-slug>/` that this slice's diff touched, confirm the change was an approved amendment: `git log <approval-commit>..HEAD -- tests/bets/<bet-slug>/` shows only commits paired with a re-rendered `docs/bets/<bet-slug>/test-review.md` entry, and each current assertion still matches its **verbatim block** in `test-review.md`. A test file changed without that paired amendment trail — a weakened assertion, a deleted case, an added `skip` — is a `decision-needed` finding. (Most slices touch no test file at all; then this is a one-line no-op.)
+- **Honest green.** The implementation must satisfy the approved assertions for the right reason. A return value hardcoded to the test's expected output, an input special-cased to the fixture, a `if TEST_MODE`-style branch, or a mocked-out unit of real work is a `decision-needed` finding even though the suite is green — *a weak suite that generated code passes is worse than no suite* (`docs/principles/foundations/testing.md`).
+
+**Then dispatch the slice diff for review** through three parallel, independent lenses (Protocol 9 mechanics — isolated subagents; the three lenses catch different failure classes and none substitutes for another):
 
 - **Blind reviewer** — receives only the diff, no bet context. Familiarity hides bugs; this lens has none.
 - **Edge-case tracer** — receives the diff plus repo read access. Walks every branch and boundary the diff introduces and reports only unhandled paths: null/empty inputs, failure timing, races, off-by-ones.
-- **Acceptance auditor** — receives the diff, the slice's Required Capabilities, and `contracts/`. Verifies the implementation does what the contract says and nothing more: undeclared endpoints, fields beyond the spec, and silently skipped error cases are findings even when tests pass.
+- **Acceptance auditor** — receives the diff, the slice's Required Capabilities, and `contracts/`. Verifies the implementation does what the contract says and nothing more — and that it does so honestly: undeclared endpoints, fields beyond the spec, silently skipped error cases, and implementation gamed to the test (hardcoded returns, special-cased inputs, test-only branches) are findings even when tests pass.
 
-**Triage every finding** into exactly one bucket, deduplicating across lenses:
+**Triage every finding** into exactly one bucket, deduplicating across lenses and the reconciliation:
 
 | Bucket | Meaning | Handling |
 |---|---|---|
@@ -85,21 +90,21 @@ After all of a milestone's slices are delivered, run the milestone's bet-progres
 
 A coherence defect the inspection spots is fixed in this same delivery phase, where it is cheapest. A finding genuinely deferred is logged as a discovery note or a `docs/maturity.md` row, never silently dropped. Tier 1 asserts the tokens landed; this Tier-2 judgement covers what computation cannot — optical alignment, restraint, and whether the whole reads as considered against the spec.
 
-## Amendment Protocol — when a sealed test is wrong
+## Amendment Protocol — when an approved test is wrong
 
-A signed test can still be wrong: it can assert a shape the contract never defined, encode a misread capability, or fail for a reason no implementation can fix. The seal does not make the test right — it makes changing it a decision the user takes, not a convenience the implementing agent reaches for.
+An approved test can still be wrong: it can assert a shape the contract never defined, encode a misread capability, or fail for a reason no implementation can fix. Approval does not make the test right — it makes changing it a decision the user takes, not a convenience the implementing agent reaches for. The amendment leaves a trail (a re-rendered `test-review.md` entry + its commit) precisely so the Step 4 reconciliation can tell an approved change from a silent one.
 
 1. **Stop work on the affected slice.** Do not edit the test, and do not implement toward an assertion you believe is wrong.
 2. **State the case:** what the test asserts, what you believe it should assert, and which artifact is the source of the error — the test alone, or the contract/design behind it.
-3. **Route by depth.** A wrong test against a correct contract is a test amendment: on the user's explicit approval, fix the test, re-render its `test-review.md` entry, and re-seal (`./dev bet sign <bet-slug> --amend`, or rewrite the manifest hashes directly). A wrong contract is deeper — follow Change Navigation below.
-4. **Record the amendment** in the slice's `notes` so Validation's retrospective sees how the suite moved after signing.
+3. **Route by depth.** A wrong test against a correct contract is a test amendment: on the user's explicit approval, fix the test, re-render its `docs/bets/<bet-slug>/test-review.md` entry, and **commit the test change and the re-rendered entry together** — that paired commit is the amendment trail the reconciliation reads. A wrong contract is deeper — follow Change Navigation below.
+4. **Record the amendment** in the slice's `notes` so Validation's retrospective sees how the suite moved after approval.
 
 ## Change Navigation — when reality contradicts the locked design
 
 Mid-delivery discoveries that invalidate the design are not failures of the process; pushing through them silently is. When implementation reveals the design committed to something wrong:
 
-1. **Pause the slice** and write a change proposal at `docs/bets/<bet-slug>/change-proposal-<n>.md` using the template at `.groundwork/skills/groundwork-bet/templates/change-proposal.md`: the discovery and its evidence, the impact across pitch / technical design / contracts / decomposition / signed tests (name each affected section), the before/after of every proposed edit, and the severity.
-2. **Route by severity.** *Minor* — contracts and milestones survive; specific tests and design sections need correction: on user approval, apply the edits, re-review mutated docs (Protocol 9), amend and re-seal affected tests, resume the slice. *Structural* — a contract, milestone, or the appetite itself is wrong: on user approval, revert to Design Foundations (`status: design`), rework the design with the proposal as input, and re-run Decomposition for the affected scope; unaffected delivered slices stand.
+1. **Pause the slice** and write a change proposal at `docs/bets/<bet-slug>/change-proposal-<n>.md` using the template at `.groundwork/skills/groundwork-bet/templates/change-proposal.md`: the discovery and its evidence, the impact across pitch / technical design / contracts / decomposition / approved tests (name each affected section), the before/after of every proposed edit, and the severity.
+2. **Route by severity.** *Minor* — contracts and milestones survive; specific tests and design sections need correction: on user approval, apply the edits, re-review mutated docs (Protocol 9), amend affected tests through the Amendment Protocol (fix the test, re-render its `test-review.md` entry, commit the pair), resume the slice. *Structural* — a contract, milestone, or the appetite itself is wrong: on user approval, revert to Design Foundations (`status: design`), rework the design with the proposal as input, and re-run Decomposition for the affected scope; unaffected delivered slices stand.
 3. The proposal stays in the bet directory either way — it is the audit trail Validation and the retrospective read.
 
 ## Transition

@@ -119,6 +119,7 @@ Write `.groundwork/bets/<bet-slug>/decomposition.json` mirroring the decompositi
 {
   "bet": "<bet-slug>",
   "created": "<YYYY-MM-DD>",
+  "approval_commit": null,
   "milestones": [
     { "id": "m1", "slug": "<milestone-slug>", "title": "<demonstrable goal>",
       "test_file": "tests/bets/<bet-slug>/test_milestone_1_<milestone-slug>.<ext>",
@@ -132,7 +133,7 @@ Write `.groundwork/bets/<bet-slug>/decomposition.json` mirroring the decompositi
 }
 ```
 
-Every milestone and slice in `decomposition.md` appears here with the same slugs and test paths — the two files describe one decomposition, and Delivery updates only the manifest's status fields. Each slice's `surface` value (`"core"` or a registry slug) matches its spec's **Surface** field; omit the key entirely when the project has no surface registry — the addition is additive, and consumers like `./dev bet status` ignore fields they do not read.
+Every milestone and slice in `decomposition.md` appears here with the same slugs and test paths — the two files describe one decomposition, and Delivery updates only the manifest's status fields. `approval_commit` stays `null` until the user approves the suite (Transition, below); it then carries the SHA of the approval commit and becomes the baseline the delivery test-integrity reconciliation diffs against. Each slice's `surface` value (`"core"` or a registry slug) matches its spec's **Surface** field; omit the key entirely when the project has no surface registry — the addition is additive, and consumers like `./dev bet status` ignore fields they do not read.
 
 ## Step 6.6: Render the test-review surface
 
@@ -300,6 +301,6 @@ Present the milestone map and the red bet-progress suite together as Proof of Wo
 
 Walk through the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the test-review surface **assertion by assertion**: for each test, what it proves, where that traces in the design, and the verbatim assertion. The user is approving the definition of done — pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges an assertion, fix the test, re-render the affected test-review entry, and continue.
 
-On approval, **seal the suite**: run `./dev bet sign <bet-slug>` if the project ships the dev CLI; otherwise write `.groundwork/bets/<bet-slug>/test-manifest.json` directly — `{"bet", "signed": <date>, "review_verdict": "PRESENT", "files": {<path>: <sha256> for every file under tests/bets/<bet-slug>/}}`, computing hashes with the shell's `shasum -a 256`. The manifest is the user's signature on the suite: from this point the tests are the bet's fixed contract, `./dev test bet` refuses a tampered suite, and changes route through the Amendment Protocol in `workflows/04-delivery.md`.
+On approval, **commit the suite**: stage the bet-progress tests under `tests/bets/<bet-slug>/` together with `docs/bets/<bet-slug>/test-review.md` and commit them in one commit (e.g. `bet(<bet-slug>): approve test suite`). Then record that commit's SHA as `approval_commit` in `.groundwork/bets/<bet-slug>/decomposition.json`. The commit is the user's signature on the suite — not a hash file, but the git baseline itself: from this point the approved assertions in `test-review.md` are the bet's fixed definition of done, every test change is visible in the diff from `approval_commit` forward, and Delivery's Step 4 test-integrity reconciliation flags any change that did not route through the Amendment Protocol in `workflows/04-delivery.md`. (If the project is not under git, there is no baseline to anchor to — note that in the bet record; the reconciliation then falls back to comparing the live test files against their verbatim `test-review.md` blocks.)
 
 ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`

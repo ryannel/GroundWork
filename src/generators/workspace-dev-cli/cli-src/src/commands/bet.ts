@@ -1,13 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { createHash } from 'node:crypto';
 import { Ctx, CliError } from '../util/context';
 import { capture } from '../util/proc';
 import { ROOT, TESTS_DIR, DOCS_DIR, GROUNDWORK_BETS_DIR } from '../util/paths';
 import { getAppServices } from '../util/services';
 import { isInteractive, selectPrompt, textPrompt } from '../util/prompt';
 import { Painter } from '../theme/color';
-import { Renderer } from '../theme/render';
 
 const SLUG_RE = /^([a-z][a-z0-9-]*[a-z0-9]|[a-z0-9])$/;
 const SLUG_HINT = 'Use lowercase kebab-case: letters, digits, and single hyphens, no leading/trailing hyphen.';
@@ -190,19 +188,13 @@ export async function archive(ctx: Ctx): Promise<number> {
 }
 
 // ---------------------------------------------------------------------------
-// Sealed test manifest + progress board (`./dev bet sign|status`)
+// Bet progress board (`./dev bet status`)
 //
-// Two durable, committed artifacts live in .groundwork/bets/<slug>/ (NOT cache):
-//   decomposition.json — milestone/slice plan, written by the methodology skills
-//   test-manifest.json — the seal: sha256 of every file in tests/bets/<slug>/
+// The durable, committed plan lives in .groundwork/bets/<slug>/decomposition.json,
+// written by the methodology skills. The approved suite is held to its definition
+// of done by the approval commit + the delivery review reconciliation, not by a
+// hash manifest — see groundwork-bet/workflows/{03-decomposition,04-delivery}.md.
 // ---------------------------------------------------------------------------
-
-interface TestManifest {
-  bet: string;
-  signed: string;
-  review_verdict: string;
-  files: Record<string, string>;
-}
 
 interface Slice {
   id: string;
@@ -231,23 +223,8 @@ interface Decomposition {
   milestones: Milestone[];
 }
 
-export interface SealCheck {
-  state: 'unsigned' | 'intact' | 'tampered';
-  signed?: string;
-  /** Signed files whose content hash no longer matches. */
-  modified: string[];
-  /** Signed files no longer present on disk. */
-  missing: string[];
-  /** Files on disk that are not in the manifest. */
-  unsigned: string[];
-}
-
 function betsConfigDir(slug: string): string {
   return path.join(GROUNDWORK_BETS_DIR, slug);
-}
-
-function manifestPath(slug: string): string {
-  return path.join(betsConfigDir(slug), 'test-manifest.json');
 }
 
 function decompositionPath(slug: string): string {
@@ -280,130 +257,14 @@ function listSuiteFiles(betDir: string): string[] {
   return out.sort();
 }
 
-/** sha256 every file in tests/bets/<slug>/ keyed by project-relative path. */
-function hashSuite(slug: string): Record<string, string> {
-  const betDir = path.join(TESTS_DIR, 'bets', slug);
-  const files: Record<string, string> = {};
-  for (const rel of listSuiteFiles(betDir)) {
-    const digest = createHash('sha256')
-      .update(fs.readFileSync(path.join(betDir, rel)))
-      .digest('hex');
-    files[`tests/bets/${slug}/${rel}`] = digest;
-  }
-  return files;
-}
-
-/** Verify tests/bets/<slug>/ against its sealed manifest. Shared by
- *  `./dev bet status` and the pre-pytest gate in `./dev test bet`. */
-export function checkSeal(slug: string): SealCheck {
-  const manifest = readJson<TestManifest>(manifestPath(slug), 'test-manifest.json');
-  if (!manifest || !manifest.files) {
-    return { state: 'unsigned', modified: [], missing: [], unsigned: [] };
-  }
-  const betDir = path.join(TESTS_DIR, 'bets', slug);
-  const current = fs.existsSync(betDir) ? hashSuite(slug) : {};
-  const modified: string[] = [];
-  const missing: string[] = [];
-  const unsigned: string[] = [];
-  for (const [file, hash] of Object.entries(manifest.files)) {
-    if (!(file in current)) missing.push(file);
-    else if (current[file] !== hash) modified.push(file);
-  }
-  for (const file of Object.keys(current)) {
-    if (!(file in manifest.files)) unsigned.push(file);
-  }
-  const tampered = modified.length + missing.length + unsigned.length > 0;
-  return { state: tampered ? 'tampered' : 'intact', signed: manifest.signed, modified, missing, unsigned };
-}
-
-function todayStamp(): string {
-  const d = new Date();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  return `${d.getFullYear()}-${mm}-${dd}`;
-}
-
 export async function betCmd(ctx: Ctx): Promise<number> {
-  let noun = ctx.args.filter((a) => !a.startsWith('-'))[0];
-  if (!noun && isInteractive()) {
-    noun = await selectPrompt(ctx.r.painter, 'Bet tooling:', [
-      { label: 'status', value: 'status', hint: 'progress board for a bet (or all bets)' },
-      { label: 'sign', value: 'sign', hint: 'seal the bet test suite into a manifest' },
-    ]);
-  }
-  switch (noun) {
-    case 'sign':
-      return sign(ctx);
+  const noun = ctx.args.filter((a) => !a.startsWith('-'))[0];
+  switch (noun ?? 'status') {
     case 'status':
       return status(ctx);
     default:
-      throw new CliError('Usage: ./dev bet sign <slug> [--amend] | ./dev bet status [<slug>] [--json]');
+      throw new CliError('Usage: ./dev bet status [<slug>] [--json]');
   }
-}
-
-async function sign(ctx: Ctx): Promise<number> {
-  const { r } = ctx;
-  const positional = ctx.args.filter((a) => !a.startsWith('-'));
-  let slug = positional[1];
-  if (!slug && isInteractive()) {
-    const existing = existingBetSlugs();
-    if (existing.length > 0) {
-      slug = await selectPrompt(r.painter, 'Sign which bet?', existing.map((s) => ({ label: s, value: s })));
-    }
-  }
-  if (!slug) throw new CliError('Usage: ./dev bet sign <slug> [--amend]');
-  validateSlug(slug, 'bet slug');
-
-  const betDir = path.join(TESTS_DIR, 'bets', slug);
-  if (!fs.existsSync(betDir)) {
-    throw new CliError(`Bet suite not found: tests/bets/${slug}`, `Run: ./dev new bet ${slug}`);
-  }
-  const files = hashSuite(slug);
-  const count = Object.keys(files).length;
-  if (count === 0) {
-    throw new CliError(`Bet suite is empty: tests/bets/${slug}`, `Scaffold tests first: ./dev new milestone ${slug} <milestone-slug>`);
-  }
-
-  const amend = ctx.args.includes('--amend');
-  const existing = readJson<TestManifest>(manifestPath(slug), 'test-manifest.json');
-  if (existing && !amend) {
-    throw new CliError(
-      `A test manifest already exists for ${slug} (signed ${existing.signed})`,
-      `The signed suite is the contract. To re-seal after an approved amendment, run: ./dev bet sign ${slug} --amend`,
-    );
-  }
-
-  r.logo('Sign Bet Suite');
-  r.step(`Sealing tests/bets/${slug}/ (${count} file${count === 1 ? '' : 's'})`);
-
-  if (existing && amend) {
-    const old = existing.files ?? {};
-    const added = Object.keys(files).filter((f) => !(f in old)).sort();
-    const removed = Object.keys(old).filter((f) => !(f in files)).sort();
-    const rehashed = Object.keys(files)
-      .filter((f) => f in old && old[f] !== files[f])
-      .sort();
-    if (added.length + removed.length + rehashed.length === 0) {
-      r.info(`No file changes since ${existing.signed} — manifest re-signed as of today.`);
-    } else {
-      for (const f of added) r.substep(`added:     ${f}`);
-      for (const f of removed) r.substep(`removed:   ${f}`);
-      for (const f of rehashed) r.substep(`re-hashed: ${f}`);
-    }
-  }
-
-  const manifest: TestManifest = {
-    bet: slug,
-    signed: todayStamp(),
-    review_verdict: 'PRESENT',
-    files,
-  };
-  fs.mkdirSync(betsConfigDir(slug), { recursive: true });
-  fs.writeFileSync(manifestPath(slug), JSON.stringify(manifest, null, 2) + '\n');
-
-  r.success(`${amend && existing ? 'Amended' : 'Signed'} manifest: .groundwork/bets/${slug}/test-manifest.json`);
-  r.info(`./dev test bet ${slug} now verifies the suite against this seal before running.`);
-  return 0;
 }
 
 function sliceGlyph(p: Painter, status: string): string {
@@ -418,27 +279,6 @@ function progressOf(decomp: Decomposition): { delivered: number; total: number; 
   const delivered = slices.filter((s) => s.status === 'delivered').length;
   const total = slices.length;
   return { delivered, total, percent: total === 0 ? 0 : Math.round((delivered / total) * 100) };
-}
-
-function sealSummary(seal: SealCheck): string {
-  if (seal.state === 'intact') return `signed ${seal.signed} · intact`;
-  if (seal.state === 'tampered') return `signed ${seal.signed} · TAMPERED`;
-  return 'unsigned';
-}
-
-function renderSealLine(ro: Renderer, slug: string, seal: SealCheck): void {
-  if (seal.state === 'intact') {
-    ro.success(`Seal: signed ${seal.signed} — manifest intact`);
-    return;
-  }
-  if (seal.state === 'tampered') {
-    ro.error(`Seal: signed ${seal.signed} — TAMPERED`);
-    for (const f of seal.modified) ro.error(`  modified: ${f}`);
-    for (const f of seal.missing) ro.error(`  missing:  ${f}`);
-    for (const f of seal.unsigned) ro.error(`  unsigned: ${f}`);
-    return;
-  }
-  ro.info(`Seal: unsigned — run ./dev bet sign ${slug} to seal the suite`);
 }
 
 function decompositionSlugs(): string[] {
@@ -461,7 +301,6 @@ async function status(ctx: Ctx): Promise<number> {
   validateSlug(slug, 'bet slug');
   const decomp = readJson<Decomposition>(decompositionPath(slug), 'decomposition.json');
   const betDir = path.join(TESTS_DIR, 'bets', slug);
-  const seal = checkSeal(slug);
 
   if (!decomp && !fs.existsSync(betDir)) {
     throw new CliError(
@@ -474,27 +313,25 @@ async function status(ctx: Ctx): Promise<number> {
   if (!decomp) {
     const testFiles = listSuiteFiles(betDir).map((f) => `tests/bets/${slug}/${f}`);
     if (json) {
-      process.stdout.write(JSON.stringify({ bet: slug, decomposition: null, test_files: testFiles, seal }, null, 2) + '\n');
+      process.stdout.write(JSON.stringify({ bet: slug, decomposition: null, test_files: testFiles }, null, 2) + '\n');
       return 0;
     }
     const ro = r.asStream(process.stdout);
     ro.logo(`Bet Board — ${slug}`);
     ro.warn(`No decomposition manifest at .groundwork/bets/${slug}/decomposition.json — listing test files only.`);
     ro.info('The methodology skills write decomposition.json during bet decomposition.');
-    renderSealLine(ro, slug, seal);
     ro.table('Test Files', testFiles.map((f) => [path.basename(f), '', ''] as [string, string, string]));
     return 0;
   }
 
   const progress = progressOf(decomp);
   if (json) {
-    process.stdout.write(JSON.stringify({ ...decomp, progress, seal }, null, 2) + '\n');
+    process.stdout.write(JSON.stringify({ ...decomp, progress }, null, 2) + '\n');
     return 0;
   }
 
   const ro = r.asStream(process.stdout);
   ro.logo(`Bet Board — ${slug}`);
-  renderSealLine(ro, slug, seal);
   for (const m of decomp.milestones ?? []) {
     ro.step(`${m.id} · ${m.title} — ${m.status}`);
     // Pre-pad the visible text: the painted glyph carries ANSI escapes that would
@@ -518,13 +355,11 @@ async function statusAll(ctx: Ctx, json: boolean): Promise<number> {
   const slugs = decompositionSlugs();
   const summaries = slugs.map((slug) => {
     const decomp = readJson<Decomposition>(decompositionPath(slug), 'decomposition.json');
-    const seal = checkSeal(slug);
     return {
       bet: slug,
       created: decomp?.created ?? null,
       decomposition: Boolean(decomp),
       progress: decomp ? progressOf(decomp) : null,
-      seal,
     };
   });
 
@@ -542,8 +377,8 @@ async function statusAll(ctx: Ctx, json: boolean): Promise<number> {
   }
   for (const s of summaries) {
     const line = s.progress
-      ? `${s.progress.delivered}/${s.progress.total} slices delivered (${s.progress.percent}%) — ${sealSummary(s.seal)}`
-      : `no decomposition.json — ${sealSummary(s.seal)}`;
+      ? `${s.progress.delivered}/${s.progress.total} slices delivered (${s.progress.percent}%)`
+      : 'no decomposition.json';
     ro.cmd(s.bet, line);
   }
   ro.info('Run ./dev bet status <slug> for the full board.');

@@ -5,7 +5,6 @@ import { run, commandExists } from '../util/proc';
 import { getAppServices, serviceDir, detectType } from '../util/services';
 import { TESTS_DIR } from '../util/paths';
 import { start, migrate, stop } from './lifecycle';
-import { checkSeal } from './bet';
 
 function hasSystemTests(): boolean {
   return fs.existsSync(path.join(TESTS_DIR, 'system'));
@@ -46,27 +45,8 @@ export async function test(ctx: Ctx): Promise<number> {
     const betDir = path.join(TESTS_DIR, 'bets', slug);
     if (!fs.existsSync(betDir)) throw new CliError(`Bet suite not found: tests/bets/${slug}`);
 
-    // Verify the sealed test manifest BEFORE anything runs — the seal is the contract.
-    const seal = checkSeal(slug);
-    if (seal.state === 'tampered') {
-      r.logo(`Bet Tests — ${slug}`);
-      r.error(`The bet suite no longer matches its signed manifest (.groundwork/bets/${slug}/test-manifest.json):`);
-      for (const f of seal.modified) r.error(`  modified: ${f}`);
-      for (const f of seal.missing) r.error(`  missing:  ${f}`);
-      for (const f of seal.unsigned) r.error(`  unsigned: ${f}`);
-      throw new CliError(
-        `Sealed test manifest verification failed: ${slug}`,
-        `The signed suite is the contract — route changes through the amendment protocol, then \`./dev bet sign ${slug} --amend\`.`,
-      );
-    }
-    const unsignedNote =
-      seal.state === 'unsigned'
-        ? `Bet suite is unsigned (no test manifest) — running without seal verification. Seal it with: ./dev bet sign ${slug}`
-        : null;
-
     if (integrationFlag) {
       r.logo(`Running Bet Integration Tests — ${slug}`);
-      if (unsignedNote) r.info(unsignedNote);
       await start(ctx);
       await migrate(ctx);
       // Install Playwright browsers on demand if the suite references them.
@@ -90,7 +70,6 @@ export async function test(ctx: Ctx): Promise<number> {
     }
 
     r.logo(`Running Bet Tests — ${slug}`);
-    if (unsignedNote) r.info(unsignedNote);
     r.step(`Running bet-progress suite: bets/${slug}/`);
     const code = run('uv', ['run', 'pytest', `bets/${slug}/`], { cwd: TESTS_DIR });
     if (code === 0) r.success(`Bet tests passed: ${slug}`);

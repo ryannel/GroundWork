@@ -10,8 +10,8 @@ The `groundwork-bet` skill orchestrates the loop. It activates either by detecti
 |---|---|---|
 | 1. Discovery | Shape the problem into a fat-marker pitch — problem, appetite, solution sketch, success signal, and explicit no-gos. | `workflows/01-discovery.md` |
 | 2. Design Foundations | Produce the technical design contract — Surface Design first (one subsection per in-scope surface, in its interface type's vocabulary), then the surface-neutral Capability Design: data flows, API contracts, data schema — plus machine-readable spec files at `contracts/`. No implementation code. | `workflows/02-design.md` |
-| 3. Decomposition | With design locked, break the bet into milestones — a capability milestone proving the core's contract headless first, then surface milestones per in-scope surface — and slices (vertical capability units). Author the bet-progress tests up front — written red, shapes derived from the specs. The user reviews the suite assertion by assertion and signs it; the signed manifest seals it. | `workflows/03-decomposition.md` |
-| 4. Delivery | Turn the sealed bet-progress tests green, slice by slice, recording each slice's outcome in the bet manifest. Three-lens review per slice; permanent best-practice tests roll out as each slice completes. | `workflows/04-delivery.md` |
+| 3. Decomposition | With design locked, break the bet into milestones — a capability milestone proving the core's contract headless first, then surface milestones per in-scope surface — and slices (vertical capability units). Author the bet-progress tests up front — written red, shapes derived from the specs. The user reviews the suite assertion by assertion and approves it; the approved suite is committed (the *approval commit* is its signature). | `workflows/03-decomposition.md` |
+| 4. Delivery | Turn the approved bet-progress tests green, slice by slice, recording each slice's outcome in the bet manifest. Per slice: a test-integrity reconciliation against the approved record, then a three-lens review; permanent best-practice tests roll out as each slice completes. | `workflows/04-delivery.md` |
 | 5. Validation | Verify the implementation, promote the contract specs to the canonical per-service record, write the capability ledger rows (every surface column decided), archive the bet-progress suite, run the bet retrospective, fold learnings back into upstream docs, seed the next bet. | `workflows/05-validation.md` |
 
 Each phase updates the pitch's `status` frontmatter as it activates (`discovery` → `design` → `decomposition` → `delivery` → `validation` → `delivered`), so the orchestrator and any contributor can see where the bet sits at any moment.
@@ -68,17 +68,17 @@ Each milestone is then broken into **vertical slices** — the smallest independ
 
 Every shape a test asserts derives from the design's spec files — a hand-rolled shape the spec does not define is a review-blocking finding.
 
-The outputs are `decomposition.md` (milestone map + slice specs), a machine-readable mirror at `.groundwork/bets/<slug>/decomposition.json` (the manifest delivery tracking updates), `test-review.md` (every test's verbatim assertions with their chain of justification), and the red suite at `tests/bets/<slug>/`. At Proof of Work the user walks the test-review surface assertion by assertion and signs the suite — `./dev bet sign` writes a hash manifest that seals it. The bet may not enter Delivery until the decomposition gate passes and the suite is sealed.
+The outputs are `decomposition.md` (milestone map + slice specs), a machine-readable mirror at `.groundwork/bets/<slug>/decomposition.json` (the manifest delivery tracking updates), `test-review.md` (every test's verbatim assertions with their chain of justification), and the red suite at `tests/bets/<slug>/`. At Proof of Work the user walks the test-review surface assertion by assertion and approves the suite; the agent then commits the tests together with `test-review.md` and records that commit's SHA as `approval_commit` in `decomposition.json` — the commit is the signature and the baseline. The bet may not enter Delivery until the decomposition gate passes and the suite is approved and committed.
 
 ## Phase 4: Delivery
 
 ⚠️ Delivery is constrained to writing only the code required to turn bet-progress tests green within the established contracts.
 
-The sealed suite is the fixed definition of done: the implementing agent never edits `tests/bets/<slug>/`, and `./dev test bet` refuses a suite that drifted from its signed manifest. A test that looks wrong mid-delivery routes through the **Amendment Protocol** — stop, state the case, and change the test only with the user's approval and a re-seal.
+The approved suite is the fixed definition of done: the implementing agent never edits `tests/bets/<slug>/`, and each slice's review runs a test-integrity reconciliation — every assertion still matches its verbatim `test-review.md` block, and git history since `approval_commit` shows no test change outside an approved amendment. A test that looks wrong mid-delivery routes through the **Amendment Protocol** — stop, state the case, and change the test only with the user's approval, re-rendering the `test-review.md` entry and committing the pair.
 
 Core slices merge before the surface slices that consume them, and a surface slice's context capsule includes the capability milestone's test file — the contract proof it builds on. Each slice runs the same loop: assemble a context capsule (previous slice's record, every file the slice modifies read in full, recent conventions), record the baseline commit, implement to green inside the contracts, pass a three-lens review (blind reviewer, edge-case tracer, acceptance auditor against the specs) with findings triaged into decision-needed / patch / defer / dismiss, roll out the slice's permanent best-practice tests, then record the outcome — files, commits, notes — in the bet manifest. `./dev bet status` renders the milestone/slice board from that manifest at any point.
 
-Discovering a fundamental design flaw during delivery routes through **Change Navigation** — a written change proposal with before/after edits and severity, approved by the user; minor corrections amend and re-seal, structural ones revert the bet to Design Foundations — not improvisation around the flaw.
+Discovering a fundamental design flaw during delivery routes through **Change Navigation** — a written change proposal with before/after edits and severity, approved by the user; minor corrections amend the affected tests through the Amendment Protocol, structural ones revert the bet to Design Foundations — not improvisation around the flaw.
 
 ## Phase 5: Validation
 
@@ -87,7 +87,7 @@ Validation is the back-feed mechanism that keeps upstream docs aligned with the 
 The phase runs nine steps:
 
 1. Update pitch status to `validation`.
-2. Run the full bet-progress test suite with manifest verification. Verify contract integrity (no rogue HTTP calls, no shapes the specs do not define), then **promote the contract specs** — merge the bet's `contracts/` into the canonical per-service record at `docs/api/<service>/` — and **write the capability ledger rows**: for each capability the bet delivered, every surface column in `docs/surfaces.md` is decided (`delivered`, `planned`, `omitted`, or `n/a`), the JSON twin updated in the same change, and `planned` deferrals cross-posted to discovery notes. A bet cannot close with an empty ledger cell.
+2. Run the full bet-progress test suite, and the test-integrity reconciliation once over the whole bet (every approved assertion still present in code; the only test-file changes since `approval_commit` are approved amendments). Verify contract integrity (no rogue HTTP calls, no shapes the specs do not define), then **promote the contract specs** — merge the bet's `contracts/` into the canonical per-service record at `docs/api/<service>/` — and **write the capability ledger rows**: for each capability the bet delivered, every surface column in `docs/surfaces.md` is decided (`delivered`, `planned`, `omitted`, or `n/a`), the JSON twin updated in the same change, and `planned` deferrals cross-posted to discovery notes. A bet cannot close with an empty ledger cell.
 3. **Archive the bet-progress suite** — move `tests/bets/<slug>/` → `tests/bets/_archive/<slug>/`. The permanent tests remain in place; they are the ongoing coverage going forward.
 4. Review the delivery with the user.
 5. **Apply the Living Documents protocol** — scan and surgically update `docs/architecture.md`, `docs/design-system.md`, `docs/product-brief.md`, `docs/infrastructure.md`, `docs/surfaces.md`, and `docs/maturity.md` against what the bet delivered. Report each change.
@@ -107,10 +107,9 @@ Generated workspaces include a `./dev` CLI that surfaces the bet workflow as fir
 | `./dev new bet <slug>` | Phase 3 start — create `docs/bets/<slug>/` and `tests/bets/<slug>/` |
 | `./dev new milestone <bet> <milestone>` | Phase 3 — scaffold a red milestone test stub (`test_milestone_<N>_<slug>.py`) |
 | `./dev new slice <bet> <milestone> <service> <slice>` | Phase 3 — scaffold a red slice test stub (`test_slice_<N>_<service>_<slug>.py`) |
-| `./dev bet sign <slug>` | Phase 3 close — seal the approved suite with a hash manifest |
 | `./dev bet status [<slug>]` | Anytime — render the milestone/slice board from the bet manifest |
 | `./dev surface status` | Anytime — render the surface registry and capability ledger from `.groundwork/surfaces.json`, with `planned`-cell counts per surface |
-| `./dev test bet <slug>` | Phase 4 — fast inner loop against the running stack; verifies the seal first |
+| `./dev test bet <slug>` | Phase 4 — fast inner loop against the running stack; runs the bet-progress suite |
 | `./dev test bet <slug> --integration` | Phase 4 / CI — boot stack, run suite, tear down (Docker required) |
 | `./dev archive bet <slug>` | Phase 5 — `git mv tests/bets/<slug>/ tests/bets/_archive/<slug>/` |
 

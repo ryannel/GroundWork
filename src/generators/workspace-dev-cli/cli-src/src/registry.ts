@@ -131,12 +131,9 @@ export const COMMANDS: CommandDef[] = [
   {
     name: 'bet',
     group: 'BET WORKFLOW',
-    summary: 'Bet tooling (status [<slug>] | sign <slug>)',
-    nouns: ['status', 'sign'],
-    flags: [
-      { name: '--amend', desc: 'Overwrite an existing test manifest (sign)' },
-      { name: '--json', desc: 'Emit machine-readable JSON (status)' },
-    ],
+    summary: 'Bet progress board (status [<slug>])',
+    nouns: ['status'],
+    flags: [{ name: '--json', desc: 'Emit machine-readable JSON (status)' }],
     handler: bet.betCmd,
   },
   {

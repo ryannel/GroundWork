@@ -33,11 +33,11 @@ These items apply only when the project carries a surface registry (`docs/surfac
 ## Proof of work
 
 - [ ] 🔴 **Missing test scaffolding**: `tests/bets/<slug>/` does not contain the bet-progress test files the decomposition's Test Cases tables reference — there is no red suite to turn green, so "done" has no definition.
-- [ ] 🔴 **Suite not sealed**: `.groundwork/bets/<slug>/test-manifest.json` is absent, or its hashes do not match the files in `tests/bets/<slug>/` — the suite was never signed at Proof of Work, or it changed after signing without an amendment. An unsealed suite is a draft, not a definition of done.
+- [ ] 🔴 **Suite not approved/committed**: `decomposition.json` has no `approval_commit` (under git), or the bet-progress tests under `tests/bets/<slug>/` were never committed at Proof of Work — the suite was never approved, so there is no baseline the delivery reconciliation can hold it to. An unapproved suite is a draft, not a definition of done.
 - [ ] 🔴 **Manifest missing or drifted**: `.groundwork/bets/<slug>/decomposition.json` is absent, or its milestones/slices/test paths disagree with `decomposition.md` — delivery tracking would record progress against the wrong plan.
 - [ ] 🔴 **Tests not red**: a bet-progress test already passes before any implementation exists — it tests nothing, and the slice it covers will report done on arrival.
 - [ ] 🟡 **Test/table drift**: a decomposition Test Cases row with no matching test, or a test file with no matching row — the proof and the plan disagree about what is being proven.
-- [ ] 🟡 **Test-review surface stale**: `docs/bets/<slug>/test-review.md` is missing an entry for a test function or quotes an assertion that no longer matches the file — the user signed something other than what delivery will execute against.
+- [ ] 🟡 **Test-review surface stale**: `docs/bets/<slug>/test-review.md` is missing an entry for a test function or quotes an assertion that no longer matches the file — the user approved something other than what delivery will execute against.
 
 ## Currency
 

@@ -18,7 +18,7 @@
 | `technical-design/` | [section file — `00-overview.md` / `01-surface-design.md` / `02-capability-design.md`] | |
 | `contracts/` | [spec + operation/table] | |
 | `decomposition.md` | [milestone/slice] | |
-| Signed tests | [test file(s)] | |
+| Approved tests | [test file(s)] | |
 
 ## Proposed changes
 
@@ -36,4 +36,4 @@
 
 ## Routing
 
-[Minor: edits applied on approval, mutated docs re-reviewed, affected tests amended and re-sealed, slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]
+[Minor: edits applied on approval, mutated docs re-reviewed, affected tests amended through the Amendment Protocol (re-rendered test-review entry + commit), slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]

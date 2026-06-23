@@ -12,21 +12,13 @@ do not cover:
      infra-adopt phase is a realistic operation (interrupted run, re-onboarding);
      it must not duplicate services or re-home churn.
 
-  3. **Sealed test manifest** — `./dev bet sign` seals a bet's test suite into
-     `.groundwork/bets/<slug>/test-manifest.json`, and `./dev test bet` must hard-fail
-     before running anything when the suite no longer matches the seal. The signed
-     suite is the delivery contract; a silent drift here defeats the whole gate.
-
 The nx-bootstrap and first-pass compose-merge contracts are covered by
 test_brownfield_adopt.py; this file adds the freshness and idempotency edges.
 Each test skips cleanly when its toolchain (esbuild / node `yaml`) is absent.
 """
 
-import hashlib
 import json
-import os
 import subprocess
-import tempfile
 from pathlib import Path
 
 import pytest
@@ -82,64 +74,6 @@ def test_workflow_index_is_fresh():
         f"workflow-index.md is stale or unparseable: {proc.stderr or proc.stdout}\n"
         "Regenerate and commit it: `npm run gen:workflow-index`."
     )
-
-
-def _dev(project: Path, *args: str) -> subprocess.CompletedProcess:
-    """Run the committed dev bundle directly with node against a temp project."""
-    return subprocess.run(
-        ["node", str(COMMITTED_BUNDLE), *args],
-        cwd=project,
-        capture_output=True,
-        text=True,
-        timeout=60,
-        env={**os.environ, "DEV_ROOT": str(project)},
-    )
-
-
-def test_bet_sign_seals_and_test_bet_rejects_tampering(tmp_path):
-    """`./dev bet sign <slug>` writes a sha256 manifest of tests/bets/<slug>/
-    (excluding __pycache__/.pyc), refuses to re-sign without --amend, and
-    `./dev test bet <slug>` hard-fails BEFORE pytest when the suite has drifted
-    from the seal — naming the offending file and the --amend remedy.
-    """
-    if not COMMITTED_BUNDLE.exists():
-        pytest.fail(f"committed bundle missing: {COMMITTED_BUNDLE} — run npm run build:dev-cli")
-
-    project = tmp_path / "proj"
-    suite = project / "tests" / "bets" / "demo"
-    suite.mkdir(parents=True)
-    (project / "tests" / "system").mkdir()  # `test` early-gates on tests/system existing
-    test_file = suite / "test_slice_1_api_thing.py"
-    test_file.write_text("def test_ok():\n    assert True\n")
-    # Compiled artifacts must not enter the seal.
-    pycache = suite / "__pycache__"
-    pycache.mkdir()
-    (pycache / "junk.cpython-312.pyc").write_bytes(b"\x00")
-
-    # Sign → manifest with exactly the one source file, correctly hashed.
-    signed = _dev(project, "bet", "sign", "demo")
-    assert signed.returncode == 0, f"bet sign failed\nSTDERR: {signed.stderr}"
-    manifest_path = project / ".groundwork" / "bets" / "demo" / "test-manifest.json"
-    assert manifest_path.exists(), "test-manifest.json not written"
-    manifest = json.loads(manifest_path.read_text())
-    assert manifest["bet"] == "demo"
-    expected_hash = hashlib.sha256(test_file.read_bytes()).hexdigest()
-    assert manifest["files"] == {"tests/bets/demo/test_slice_1_api_thing.py": expected_hash}, (
-        f"manifest files wrong (pycache leaked or hash drifted): {manifest['files']}"
-    )
-
-    # Re-signing without --amend is refused — the seal is not casually overwritten.
-    again = _dev(project, "bet", "sign", "demo")
-    assert again.returncode != 0, "re-sign without --amend should fail"
-    assert "--amend" in (again.stderr + again.stdout)
-
-    # Tamper with a signed file → `test bet` hard-fails before running pytest.
-    test_file.write_text("def test_ok():\n    assert False\n")
-    run = _dev(project, "test", "bet", "demo")
-    assert run.returncode != 0, "test bet must hard-fail on a tampered suite"
-    output = run.stderr + run.stdout
-    assert "test_slice_1_api_thing.py" in output, f"offending file not named:\n{output}"
-    assert "--amend" in output, f"remedy (amendment protocol) not surfaced:\n{output}"
 
 
 # The adopt/merge algorithm the infra-adopt skill prescribes, expressed once and

@@ -8,6 +8,15 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (the bet test-suite SHA seal is replaced by a documented-vs-actual reconciliation, 2026-06-23)
+
+The sealed test manifest (`./dev bet sign` writing a SHA-256 `test-manifest.json`, and `./dev test bet` refusing a "tampered" suite) is removed. It hashed the *test files* while the user actually approved the *doc* (`test-review.md`), caught only the crudest cheat (editing a test file) while being blind to implementation-gaming, was applied uniformly against the project's own "proportionality, not ceremony" principle, and in projects without the dev CLI degraded to a hand-written manifest nothing ever verified. The protective intent — an approved test is the fixed definition of done, changing one is a deliberate decision — is kept, but enforced by the artifacts that already exist.
+
+- **Approval commit replaces the seal.** At Decomposition close the agent commits the approved `tests/bets/<slug>/` together with `docs/bets/<slug>/test-review.md` and records that commit's SHA as `approval_commit` in `decomposition.json`. The commit is the signature and the git baseline.
+- **Delivery reconciliation replaces the hash gate.** The per-slice review (and a once-over at Validation) reconciles the documented assertions (verbatim in `test-review.md`) against the code and against `git log <approval_commit>..HEAD -- tests/bets/<slug>/`: any test change not paired with an approved amendment is a finding. The existing Acceptance auditor lens additionally owns *honest green* — implementation gamed to the test (hardcoded returns, special-cased inputs, test-only branches) is a finding even when the suite passes.
+- **`./dev bet sign` is removed**; `./dev bet status` and `./dev test bet` are unchanged except that `test bet` no longer runs a seal check before pytest.
+- [migration] Existing installs carry orphaned `.groundwork/bets/*/test-manifest.json` seal files; the obsolete `bet sign` command goes away with the dev-bundle update, and the stray manifests are deleted (gw-drop-test-manifest)
+
 ### Added (docs site is branded, draws diagrams, and orders its own sidebar, 2026-06-23)
 
 The scaffolded Fumadocs site (`docs-site` generator) consumed none of the brand system GroundWork already generates, drew no diagrams, and rendered its sidebar in raw filesystem order patched by a JS hack. It now wears the project's brand, renders Mermaid client-side, orders the canonical doc set declaratively, and opens on a generated landing instead of a redirect (plan: `docs/plans/docs-quality-uplift.md`, WS-F + WS-G).
