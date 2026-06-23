@@ -44,7 +44,7 @@ Run `npx groundwork-method help` for the full lifecycle map.
 | **Methodology** | An orchestrator skill that routes every lifecycle request, backed by eighteen hidden methodology skills loaded on demand — always-on context cost stays near zero |
 | **Generators** | Nx generators for Go microservices, Python microservices, Next.js apps, CLI apps, a docs site, and a system-test runner |
 | **Operations** | A zero-dependency `./dev` CLI bundled into every generated workspace, system tests generated into the boot topology, CI drift detection |
-| **Code intelligence** | A deterministic code map (`npx groundwork-method repo-map`: tree-sitter import edges + PageRank centrality for Go/Python/TS/JS) gives a structural map of the codebase instead of LLM guesswork; the Serena MCP server (LSP-backed), registered at init, adds live symbol-level navigation, reference-based impact analysis, and symbolic editing |
+| **Code intelligence** | A deterministic code map (`npx groundwork-method repo-map`: tree-sitter import edges + PageRank centrality for Go/Python/TS/JS/Java, a symbol index for many more languages, and per-project language extension) gives a structural map of the codebase instead of LLM guesswork; the Serena MCP server (LSP-backed), registered at init, adds live symbol-level navigation, reference-based impact analysis, and symbolic editing |
 
 GroundWork confines itself to three directories — `.agents/` for skills, `.groundwork/` for config and cache, `docs/` for living artifacts — and touches nothing else until you ask it to scaffold.
 
