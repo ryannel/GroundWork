@@ -1,4 +1,5 @@
 import { defineDocs, defineConfig, frontmatterSchema } from 'fumadocs-mdx/config';
+import rehypeMermaid from 'rehype-mermaid';
 import { z } from 'zod';
 
 // GroundWork docs ship WITHOUT frontmatter — they are plain Markdown that always
@@ -38,4 +39,14 @@ export const { docs, meta } = defineDocs({
   },
 });
 
-export default defineConfig();
+// Render fenced ```mermaid blocks to static SVG at BUILD TIME (rehype-mermaid,
+// strategy 'inline-svg'). Build-time rendering keeps the site fully static and
+// matches GitHub's native rendering of the same fenced block — the content stays
+// plain Markdown (dual-render: GitHub + agent cold-read + this site), so a doc
+// gets a diagram in all three without MDX components. rehype-mermaid runs after
+// the built-in rehype plugins (the `(v) => [...]` form preserves them).
+export default defineConfig({
+  mdxOptions: {
+    rehypePlugins: (v) => [[rehypeMermaid, { strategy: 'inline-svg' }], ...v],
+  },
+});
