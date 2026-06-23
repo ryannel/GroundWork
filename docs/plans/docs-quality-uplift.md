@@ -1,6 +1,6 @@
 # Implementation Plan: Docs Quality Uplift — Separate Setup Context from Product Documentation
 
-**Status:** PARTIALLY EXECUTED 2026-06-23. Content track **WS-A–WS-E delivered** (commits on `docs-quality-uplift`): context split + Setup Graduation, reader-first writer voice, diagram/callout mandates, bet technical-design split. Site track **WS-F–WS-H in progress** (branded docs-site, mermaid/nav/landing, the new uplift skill). Supersedes the original pre-reframe version of this plan.
+**Status:** EXECUTED 2026-06-23 on branch `docs-quality-uplift` (unpushed). All workstreams delivered: WS-A context split + Setup Graduation, WS-B/C/D reader-first writer voice + diagram/callout mandates, WS-E bet technical-design split, WS-F/G branded docs-site (theme, build-time mermaid, ordered nav, landing), WS-H the `groundwork-docs-uplift` skill. Mechanical gates green (`./dev test generation` 225 passed; contracts/migration/workflow-index fresh). **Remaining:** the live-simulation quality acceptance (`./dev sandbox --simulate`) — needs a human Claude Code session, see §3. Supersedes the original pre-reframe version of this plan.
 **Audience:** An engineer or agent implementing or reviewing this change. Each workstream names its files and an acceptance check.
 **Scope owner:** The operating contract + every setup-phase skill (the context split), `groundwork-writer` (voice + diagrams), `groundwork-bet` (design-doc shape), the `docs-site` generator + shared brand projection (the site), and a new `groundwork-docs-uplift` skill.
 
@@ -58,16 +58,16 @@ GitHub-alert callouts (`> [!NOTE]`/`[!IMPORTANT]`/`[!WARNING]`) in the writer, u
 **WS-E — Split the bet technical design (`groundwork-bet`).** ✅
 `docs/bets/<slug>/technical-design/` replaces the single file: `00-overview.md` (business logic + data flows with required mermaid diagrams — the gold file), `01-surface-design.md`, `02-capability-design.md`. Template split to match; 02-design drafts the three and assembles them for review like architecture; decomposition/delivery/templates/instructions and the contributor table repointed.
 
-### Site track — IN PROGRESS
+### Site track — DELIVERED
 
-**WS-F — Brand the doc-site target state.** 🔨 in progress
+**WS-F — Brand the doc-site target state.** ✅
 Extract `resolveVisual` + validators + `ResolvedVisual` into `src/generators/shared/brand-tokens.ts` (nextjs-app imports them; its `app/brand.css` stays byte-identical, guarded by `./dev test generation`). `docs-site/generator.ts` maps the palette onto the installed Fumadocs `--color-fd-*` variables via a new `renderDocsBrandCss`; typography (~68ch, 1.6 line-height, h1–h4 scale); unbranded fallback unchanged.
 
-**WS-G — Mermaid + nav order + landing.** 🔨 in progress
+**WS-G — Mermaid + nav order + landing.** ✅
 Build-time `rehype-mermaid` in `source.config.ts`; seed a root `docs/meta.json` ordering the canonical set and retire `betsFirst()`; a generated branded landing replacing the redirect (with the `/docs` index as fallback).
 
-**WS-H — Doc-site uplift skill (new).** ⬜ pending
-`src/hidden-skills/groundwork-docs-uplift/instructions.md`, routed from the orchestrator: opinionated about the WS-F/G target state, regenerates generator-produced sites or refactors hand-built ones, seeds/fixes `meta.json`, and runs a content pass (via `groundwork-writer`) that strips any leftover in-body `## Summary for Downstream` sections.
+**WS-H — Doc-site uplift skill (new).** ✅
+`src/hidden-skills/groundwork-docs-uplift/instructions.md`, routed from the orchestrator's anytime lane: opinionated about the WS-F/G target state (a T1–T6 checklist), regenerates generator-produced sites or refactors hand-built ones, seeds/fixes `meta.json`, and runs a content pass (via `groundwork-writer` + the review gate) that strips any leftover in-body `## Summary for Downstream` sections, graduating their decisions to ADRs.
 
 ---
 
