@@ -53,6 +53,8 @@ Surface tests resolve their target through the surfaces fixture — the mapping 
 
 **Degrade rule:** with no surface registry, write each milestone's proof as the two familiar layers — an interface-level test in the project's single medium plus an API-level system test that localizes failures — exactly as before milestone typing existed.
 
+**Keep it to the headline proof.** A milestone test is the small set of assertions that prove its consumer-visible outcome — typically one to three. It does not enumerate every permutation, error code, or boundary; that granular coverage is the permanent best-practice tests rolled out per slice in Delivery (`workflows/04-delivery.md` Step 5), not the up-front suite the user reviews. Include an error case here only when the milestone's demonstrable outcome depends on it.
+
 **Tests derive their shapes from the spec files.** Every request body, response assertion, and field name in a bet-progress test comes from `docs/bets/<bet-slug>/contracts/` (`openapi.yaml`, `asyncapi.yaml`, `schema.sql`) — load the spec and build the test's shapes from it, generating a client or validator where the project's toolchain supports it. A test that hand-rolls a shape the spec does not define is testing a contract that does not exist; the review blocks it.
 
 **Writing the tests:**
@@ -88,7 +90,7 @@ Each slice spec must contain:
 
 ## Step 5: Author slice bet-progress tests
 
-For each slice, write its proof test file. Slice tests are **informed by and bounded by** the parent milestone's tests — they prove the vertical capability that contributes to that milestone, not the full milestone outcome.
+For each slice, write its proof test file. Slice tests are **informed by and bounded by** the parent milestone's tests — they prove the vertical capability that contributes to that milestone, not the full milestone outcome. Keep this to the handful of assertions that prove the slice's capability is present; the exhaustive edge-case, permutation, and unit coverage is added when the slice is built, as the permanent best-practice tests in Delivery (`workflows/04-delivery.md` Step 5).
 
 ```
 tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>
@@ -136,9 +138,9 @@ Every milestone and slice in `decomposition.md` appears here with the same slugs
 
 ## Step 6.6: Render the test-review surface
 
-The user is about to stake the bet's delivery on these tests — implementing to green *is* done. A review that confirms files exist and fail tells the user nothing about whether the assertions are the right ones. The test-review surface puts the actual assertions in front of the user with their full chain of justification, so approval means "I read what these tests prove and it is what I want proven."
+The user is about to stake the bet's delivery on these tests — implementing to green *is* done. A review that confirms files exist and fail tells the user nothing about whether the proofs are the right ones. The test-review surface puts each test's proof in front of the user in plain language with its chain of justification, so approval means "I read what these tests prove and it is what I want proven."
 
-Write `docs/bets/<bet-slug>/test-review.md` using the template at `.groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test: the capability or acceptance criterion it proves, the contract operation it traces to (spec path and operation), the test file, the **verbatim assertion block** quoted from the test, and a one-line plain-language reading of what the assertion proves. Generate this from the real test files — a surface that paraphrases the tests can drift from them, and drift here defeats its purpose.
+Write `docs/bets/<bet-slug>/test-review.md` using the template at `.groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test, write **prose**: what the test proves about the product, why that is the right proof, the test file, and the contract operation or schema it traces to. Never paste assertion code into this surface — it is a human review, not a code listing. Faithfulness comes from writing each entry from the test's own target-state intent and walking it with the user at approval, not from quoting the placeholder strings inside red stubs. This surface covers the headline suite — one entry per milestone and slice test, not every assertion.
 
 ## Step 7: Independent review
 
@@ -166,7 +168,7 @@ Before presenting Proof of Work, verify every item:
 - Every request shape, response assertion, and field name in the tests traces to `docs/bets/<bet-slug>/contracts/` — no hand-rolled shapes the spec does not define.
 - `docs/bets/<bet-slug>/decomposition.md` is complete: milestone map, slice specs, and test file links all populated.
 - `.groundwork/bets/<bet-slug>/decomposition.json` mirrors the document — same milestones, slugs, and test paths.
-- `docs/bets/<bet-slug>/test-review.md` quotes the current assertion blocks from every test file.
+- `docs/bets/<bet-slug>/test-review.md` describes, in prose, what every milestone and slice test proves and why — one entry per test file, none quoting raw assertion code.
 
 A partial decomposition is not Proof of Work. Do not present it as such.
 
@@ -295,10 +297,10 @@ The shallow decomposition has horizontal milestones invisible to every consumer,
 Present the milestone map and the red bet-progress suite together as Proof of Work:
 
 - `docs/bets/<bet-slug>/decomposition.md` — the sequencing commitment
-- `docs/bets/<bet-slug>/test-review.md` — what the tests actually assert, with the chain of justification
+- `docs/bets/<bet-slug>/test-review.md` — what each test proves, in plain language, with the chain of justification
 - `tests/bets/<bet-slug>/` — the runnable proof suite (all tests red)
 
-Walk through the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the test-review surface **assertion by assertion**: for each test, what it proves, where that traces in the design, and the verbatim assertion. The user is approving the definition of done — pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges an assertion, fix the test, re-render the affected test-review entry, and continue.
+Walk through the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the test-review surface **test by test**: for each one, what it proves, where that traces in the design, and why it is the right proof. The surface is prose, but the scrutiny is assertion-grade — the user is approving the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the test, re-render the affected test-review entry, and continue.
 
 On approval, **seal the suite**: run `./dev bet sign <bet-slug>` if the project ships the dev CLI; otherwise write `.groundwork/bets/<bet-slug>/test-manifest.json` directly — `{"bet", "signed": <date>, "review_verdict": "PRESENT", "files": {<path>: <sha256> for every file under tests/bets/<bet-slug>/}}`, computing hashes with the shell's `shasum -a 256`. The manifest is the user's signature on the suite: from this point the tests are the bet's fixed contract, `./dev test bet` refuses a tampered suite, and changes route through the Amendment Protocol in `workflows/04-delivery.md`.
 

@@ -88,6 +88,27 @@ State the position and why it holds. Do not establish it by contrasting against 
 - ❌ "Traditional CRUD APIs treat each endpoint as a standalone operation. Our system does not work that way — endpoints compose into transactions that share a commit boundary."
 - ✅ "Endpoints compose into transactions that share a commit boundary."
 
+### Density — one idea per unit
+
+"One idea per sentence" is the rule; these are the four ways docs break it. Each packs structure into one dense unit instead of giving the reader a unit per idea. A reader who must decompress a sentence before understanding it has been handed the writer's job.
+
+**Compression em-dashes.** An em-dash stapling three to five ideas into one sentence. Reserve `—` for a single parenthetical aside; when it is doing the work of three sentences, write three sentences.
+
+- ❌ "SQLite is the store for the catalog, the index, and person records — the domain is relational with complex query patterns, and SQLite is embeddable, single-file, and extension-loadable for vector search, so no separate database process."
+- ✅ "SQLite stores the catalog, the search index, and person records. The domain is relational with complex query patterns — filtered facet searches, joins across ownership. SQLite suits it: embeddable, single-file, and extension-loadable for vector search, with no separate database process."
+
+**Run-on bullets.** A bullet or checkbox carrying several distinct behaviours. One behaviour per bullet — a bullet that needs commas to list what it covers is several bullets.
+
+- ❌ "`normalize()` maps a synonym to its canonical value, drops a sub-threshold tag, discards an off-vocabulary tag, groups by axis, and is deterministic."
+- ✅ Five bullets, one behaviour each: maps a synonym to its canonical value · drops a sub-threshold tag · discards an off-vocabulary tag · groups survivors by axis · returns the same output for the same input.
+
+**Numbered-prose walls.** A numbered list where each number is a two-to-three-sentence paragraph. Numbering promises steps; prose delivers a wall. Make it a true one-line step list, or — when it is a flow across components or time — a `sequenceDiagram` the prose annotates.
+
+**Inline-rationale tables.** A decision or selection table with the *why* buried mid-cell behind an em-dash. The reader cannot scan the decisions because the rationale interrupts every row. Give rationale its own column, or state the decisions in the table and the reasoning in prose below it.
+
+- ❌ `| Captioning | Qwen3-VL-30B (4-bit) — chosen for caption quality, the search backbone | GPU |`
+- ✅ `| Captioning | Qwen3-VL-30B (4-bit) | GPU |` with a sentence below: "Captioning runs on Qwen3-VL because caption quality is the search backbone."
+
 ---
 
 ## Diagrams
@@ -244,6 +265,7 @@ The writing-style principles above cover most prose pitfalls. The patterns below
 
 - **Report-out register** — "we decided", "is deferred", "out of scope", "for the MVP". The doc narrates the conversation that produced it instead of describing the system. Rewrite in the timeless present with the system as subject; move the bookkeeping to the Downstream Context file.
 - **No orientation** — the doc opens mid-detail, with no paragraph telling a cold reader what this is or why it exists. The first reader who was never in the room is lost by the second heading.
+- **Compressed density** — a sentence stapling three to five ideas behind em-dashes, a bullet listing several behaviours, a numbered wall of paragraphs, or a table with rationale buried mid-cell. The reader decompresses before they understand. Give a unit per idea — see *Density — one idea per unit*.
 - **Prose where a diagram belongs** — a multi-service flow or an entity lifecycle described only in sentences. If it has structure, draw it (` ```mermaid `) and let the prose annotate.
 - **Passive docs** — no owner, no `last_reviewed` date. A document without a maintainer drifts undetected.
 - **Missing llms.txt entry** — new doc exists but is invisible to agents.

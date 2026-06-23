@@ -91,7 +91,7 @@ A signed test can still be wrong: it can assert a shape the contract never defin
 
 1. **Stop work on the affected slice.** Do not edit the test, and do not implement toward an assertion you believe is wrong.
 2. **State the case:** what the test asserts, what you believe it should assert, and which artifact is the source of the error — the test alone, or the contract/design behind it.
-3. **Route by depth.** A wrong test against a correct contract is a test amendment: on the user's explicit approval, fix the test, re-render its `test-review.md` entry, and re-seal (`./dev bet sign <bet-slug> --amend`, or rewrite the manifest hashes directly). A wrong contract is deeper — follow Change Navigation below.
+3. **Route by depth.** A wrong test against a correct contract is a test amendment: on the user's explicit approval, fix the test, rewrite its `test-review.md` entry so the prose proof matches the corrected test, and re-seal (`./dev bet sign <bet-slug> --amend`, or rewrite the manifest hashes directly). A wrong contract is deeper — follow Change Navigation below.
 4. **Record the amendment** in the slice's `notes` so Validation's retrospective sees how the suite moved after signing.
 
 ## Change Navigation — when reality contradicts the locked design

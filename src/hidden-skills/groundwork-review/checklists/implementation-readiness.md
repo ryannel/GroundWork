@@ -37,7 +37,7 @@ These items apply only when the project carries a surface registry (`docs/surfac
 - [ ] 🔴 **Manifest missing or drifted**: `.groundwork/bets/<slug>/decomposition.json` is absent, or its milestones/slices/test paths disagree with `decomposition.md` — delivery tracking would record progress against the wrong plan.
 - [ ] 🔴 **Tests not red**: a bet-progress test already passes before any implementation exists — it tests nothing, and the slice it covers will report done on arrival.
 - [ ] 🟡 **Test/table drift**: a decomposition Test Cases row with no matching test, or a test file with no matching row — the proof and the plan disagree about what is being proven.
-- [ ] 🟡 **Test-review surface stale**: `docs/bets/<slug>/test-review.md` is missing an entry for a test function or quotes an assertion that no longer matches the file — the user signed something other than what delivery will execute against.
+- [ ] 🟡 **Test-review surface stale**: `docs/bets/<slug>/test-review.md` is missing an entry for a test in the suite, or describes a test that no longer exists or whose prose proof no longer matches the test — the user signed something other than what delivery will execute against.
 
 ## Currency
 
