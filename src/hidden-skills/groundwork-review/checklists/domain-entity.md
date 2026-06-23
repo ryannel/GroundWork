@@ -2,19 +2,19 @@
 name: domain-entity-checklist
 description: >
   Type-specific failure modes for reviewing a domain entity doc — checked
-  against the current architecture summary and the accepted (non-superseded) ADRs.
+  against the current architecture doc and the accepted (non-superseded) ADRs.
 ---
 
 # Domain Entity Checklist
 
 This checklist checks a draft `docs/domain/<entity>.md`. It answers one question: **does this
-entity describe the system currently being built — agreeing with `docs/architecture.md`'s
-`## Summary for Downstream` and the accepted ADRs — and is every state, event, and invariant
+entity describe the system currently being built — agreeing with `docs/architecture.md`
+and the accepted ADRs — and is every state, event, and invariant
 mechanically enforceable?**
 
-Each item names a violation. Match it against the document text, the architecture summary, and
+Each item names a violation. Match it against the document text, `docs/architecture.md`, and
 the ADRs under `docs/decisions/` (skip any ADR whose `status` is `superseded`). Domain entity
-docs carry no `## Summary for Downstream` — do not flag its absence.
+docs carry no Downstream Context file and no summary section — do not flag the absence of either.
 
 ## Identity and Ownership
 

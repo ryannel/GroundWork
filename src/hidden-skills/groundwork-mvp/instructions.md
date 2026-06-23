@@ -60,16 +60,16 @@ If the file does not exist, skip this step. Cache Isolation (Protocol 7) forbids
 
 ## Phase 1: Synthesis
 
-Read upstream context in the order the Operating Contract Protocol 3.2 prescribes — summary headers first, full body only when a specific scoping decision requires detail the summary does not carry.
+Read upstream context in the order the Operating Contract Protocol 3.2 prescribes — Downstream Context files first, full body only when a specific scoping decision requires detail the context file does not carry.
 
 Read in this order, in a single parallel batch:
 
-1. **Summary headers** — the `## Summary for Downstream` section of each:
-   - `docs/product-brief.md` — Key Decisions about the product, Binding Constraints (ethical, compliance), Deferred Questions
-   - `docs/design-system.md` — non-functional requirements and interaction budgets
-   - `docs/architecture.md` — service map, technology choices, communication patterns
+1. **Downstream Context files (Protocol 5)** — read each upstream phase's context file from `.groundwork/context/`:
+   - `.groundwork/context/product-brief.md` — Key Decisions about the product, Binding Constraints (ethical, compliance), Deferred Questions
+   - `.groundwork/context/design-system.md` — non-functional requirements and interaction budgets
+   - `.groundwork/context/architecture.md` — service map, technology choices, communication patterns
 2. **Surface registry** — `docs/surfaces.md`, when it exists: the registered surfaces with their statuses, and the capability core's deployment. Phase 2 scopes the first bet's surfaces against this registry. When the file is absent, the product has a single implicit surface and surface scoping reduces to nothing — proceed exactly as if this step did not exist.
-3. **Full body — lazy** — when the summary points to a decision that requires more context to scope around (e.g., "real-time delivery is in scope" without specifying the protocol), read the relevant section from the body. Do not pre-load full bodies.
+3. **Full body — lazy** — when a context file points to a decision that requires more context to scope around (e.g., "real-time delivery is in scope" without specifying the protocol), read the relevant section from the upstream `docs/*.md` body. Do not pre-load full bodies.
 
 Build a clear model of:
 
@@ -78,7 +78,7 @@ Build a clear model of:
 - The user flows from the design system — which are essential versus secondary
 - The functional requirements — which are load-bearing for the core proposition
 
-Do not open the scoping conversation until the summaries are read — a synthesis built on partial reading produces a scope proposal that contradicts something the user already approved.
+Do not open the scoping conversation until the Downstream Context files are read — a synthesis built on partial reading produces a scope proposal that contradicts something the user already approved.
 
 After reading, identify the single most essential user workflow — the one that, if it works end-to-end, demonstrates the product's core value. This workflow anchors Phase 2.
 
@@ -212,7 +212,7 @@ MVP is the terminal Sequential Setup phase. Its successor — the `groundwork-be
 
 2. **Record the surface scope in the registry.** When `docs/surfaces.md` exists and holds more than one surface, set each surface outside the scope agreed in Phase 2 to the status that matches its state: `planned` for a surface with no code yet, `dormant` for one that is scaffolded but untouched by this bet. Update `docs/surfaces.md` and `.groundwork/surfaces.json` in the same edit — they are twins, projections of the same decision, and tooling reads the JSON, so a registry that disagrees with its twin is a `groundwork-check` finding. A single-surface registry needs no edit.
 
-3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
+3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh the affected Downstream Context files in `.groundwork/context/` (Protocol 5). Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
 
 4. **Update discovery notes — the durable channel into the bet.** Scan for out-of-phase signals not captured in real time, and record the scope reasoning the bet's Design and Decomposition phases will need: out-of-scope features the user accepted cutting, deferred decisions about monetisation or post-MVP scope, and user instincts about scope sequencing. Append these under the `## Bets` section of `.groundwork/cache/discovery-notes.md` — the bet phases read this file, so it is what makes the reasoning recoverable if the session ends and is resumed later. Remove entries that were fully incorporated into the committed pitch.
 

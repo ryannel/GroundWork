@@ -66,8 +66,8 @@ This is not restricted to a specific phase or direction. Any phase, any bet, any
 ### How to Apply Updates
 
 - **Surgical and targeted.** Change only what new information warrants. Do not rewrite sections that remain accurate. But "surgical" is never licence to leave *inaccurate* text standing: any sentence the change makes false must be rewritten, not annotated around.
-- **Refresh the summary.** If the change touches a Key Decision, Binding Constraint, or Deferred Question, update the doc's `## Summary for Downstream` section (Protocol 5) in the same edit. A summary that drifts from the body it summarises is worse than no summary.
-- **State the current design declaratively.** Write the body and summary as if the current design were always the design. Never leave `~~strikethrough~~` of the old choice, "(was X, now Y)" parentheticals, or "superseded by…" notes in the body or summary — that hedging belongs in the superseding ADR alone. A doc that names both the old and the new design reads as contradictory to a downstream consumer and to the review.
+- **Refresh the Downstream Context if it is still live.** During setup, if the change touches a Key Decision, Binding Constraint, or Deferred Question of an upstream phase whose `.groundwork/context/<phase>.md` has not yet been torn down (Protocol 10), update that file in the same edit. After setup completes there is no context file to refresh — the published doc is the only living record.
+- **State the current design declaratively.** Write the body as if the current design were always the design. Never leave `~~strikethrough~~` of the old choice, "(was X, now Y)" parentheticals, or "superseded by…" notes in the body — that hedging belongs in the superseding ADR alone. A doc that names both the old and the new design reads as contradictory to a downstream consumer and to the review.
 - **Do not ask for permission.** These are refinements consistent with the user's own words and decisions, not new product choices.
 - **Report what changed.** After committing, briefly list any documents that were updated and what specifically shifted. This change list is also the set of docs the reversal gate re-reviews (below) — keep it accurate.
 - If no updates are warranted, skip silently.
@@ -87,14 +87,14 @@ When in doubt, treat it as a reversal — the cost of an unnecessary re-review i
 
 When a change is a reversal, before you commit:
 
-1. **Reconcile the whole body, not just the summary.** Rewrite every sentence the reversal makes false, in every section of the doc — not only the `## Summary for Downstream`. The summary and the body must describe the same single design.
-2. **Reconcile every dependent doc that cites the reversed decision.** A reversal rarely lives in one file. Trace it into the docs that consumed it and fix them too: domain entities (`Owner:`, fields, lifecycle, events), service docs, infrastructure, and any doc whose summary references the reversed decision. Domain entity docs are especially easy to miss — they carry no summary, so nothing flags them automatically.
+1. **Reconcile the whole body.** Rewrite every sentence the reversal makes false, in every section of the doc. If the reversed phase's `.groundwork/context/<phase>.md` is still live, reconcile it too so it and the body describe the same single design.
+2. **Reconcile every dependent doc that cites the reversed decision.** A reversal rarely lives in one file. Trace it into the docs that consumed it and fix them too: domain entities (`Owner:`, fields, lifecycle, events), service docs, infrastructure, and any doc that references the reversed decision.
 3. **Record the supersession in an ADR.** The old design lives *only* in the superseding ADR (Context / Decision / what it cost), never as a residue in the body or summary.
 4. **Re-gate: re-invoke `groundwork-review` on every mutated canonical doc.** This is the safety net the reversal exists to trip. For each doc you changed, run the review with the matching `document_type` (a mutated `docs/domain/<entity>.md` uses `document_type: domain-entity`). Apply 🔴 findings and re-review until `PRESENT`.
    - **Domain docs are re-reviewed unconditionally on a structural reversal.** When the reversal supersedes an accepted ADR or changes an architecture `### Key Decision` / `### Binding Constraint`, re-review **every** `docs/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit. Domain stubs carry no summary, so nothing flags them when they drift — and "the facilitator forgot the domain docs were dependents" is the exact failure this protocol exists to prevent. The set is small and the re-review is cheap; do not gate it on your own judgement of which entities the reversal touched.
    - **Cap and fail-closed handling:** the revise cap and the rule for a reviewer that cannot run are defined once in Protocol 8 (Review Gate), and the dispatch and failure procedure once in Protocol 9 (Review Invocation); both apply here unchanged — a re-gate that errors blocks the commit exactly as a drafting-phase review does.
 
-**Accepted residual:** a *refinement* that introduces a body-only inconsistency while leaving the summary accurate is not re-gated — downstream phases read the summary first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the summary's own contract and the dependent docs; refinements are not, to keep the common case cheap.
+**Accepted residual:** a *refinement* that introduces a minor body-only inconsistency while the live Downstream Context (if any) stays accurate is not re-gated — downstream setup phases read the Downstream Context first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the cross-phase contract and the dependent docs; refinements are not, to keep the common case cheap.
 
 ---
 
@@ -106,11 +106,12 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 
 **Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`, `groundwork-product-brief-extract`, `groundwork-design-system-extract`, `groundwork-architecture-extract`, `groundwork-infra-adopt`
 
-All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, summary, and review obligations are identical to their greenfield counterparts.
+All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, context, and review obligations are identical to their greenfield counterparts.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
 - Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
-- Every output document written to `docs/` opens with a `## Summary for Downstream` section (Protocol 5).
+- Each phase writes a Downstream Context file to `.groundwork/context/<phase>.md` on commit (Protocol 5); the published `docs/` artifact carries no `## Summary for Downstream` section.
+- The setup→delivery transition runs Setup Graduation (Protocol 10): durable context graduates into `docs/`, then `.groundwork/context/` is torn down.
 - A fresh context is recommended between phases (Protocol 3.4.8).
 
 ### Brownfield Scan (carve-out)
@@ -119,7 +120,7 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9. The brownfield extract and adopt
 
 `groundwork-scan` is the Phase 0 preparation step of the brownfield track. It reads an existing codebase and writes a **scan baseline** — a resumable progress file and concern-split findings — into `.groundwork/cache/`, which the brownfield extract phases distil into canonical docs. It produces no `docs/` artifact, so three Sequential Setup obligations do not apply to it:
 
-- **No Summary for Downstream and no hand-off file** (Protocols 5 and 6) — it writes no `docs/` artifact and no `handoff/<phase>.md`. Its structured findings files *are* the hand-off, and they fan out to three readers rather than a single next phase.
+- **No Downstream Context file and no hand-off file** (Protocols 5 and 6) — it writes no `docs/` artifact and no `handoff/<phase>.md`. Its structured findings files *are* the hand-off, and they fan out to three readers rather than a single next phase.
 - **No review gate** (Protocol 8) — there is no canonical doc to gate. The review gate fires on each downstream extract when it commits its `docs/` artifact.
 - **Findings persist past commit, not deleted at commit** (inverting Protocol 3.4.3) — the findings are the durable input the extract phases consume. `groundwork-infra-adopt`, the last setup phase that reads the baseline, deletes the shared scan cache at its commit.
 
@@ -133,7 +134,7 @@ Protocols 1, 2, 4, 8, and 9 apply. Protocols 3, 5, 6, and 7 do **not** apply.
 
 - The pitch frontmatter `status` field is the state machine. No *per-phase* cache file is created at init and deleted at commit the way Sequential Setup phases do — the only cache files in play are the shared `discovery-notes.md` and transient drafts such as `bet-pitch-draft.md`.
 - No hand-off files are written. Context is shared across all five phases — a fresh context is not recommended between bet phases.
-- Bet documents (`docs/bets/<slug>/*`) do not include a `## Summary for Downstream` section. The pitch's `status` field and the shared context serve the same function.
+- Bet documents (`docs/bets/<slug>/*`) have no Downstream Context file and no `## Summary for Downstream` section. The pitch's `status` field and the shared context serve the same function.
 - Protocol 7 cache isolation rules apply to the `.groundwork/cache/discovery-notes.md` file only.
 
 This divergence is intentional. The bet's tightly coupled five-phase flow benefits from shared context; the one-shot setup phases benefit from clean isolation. A skill that looks non-conformant against the setup protocols may be correctly implementing the continuous-bet mode.
@@ -170,8 +171,8 @@ Check if the phase's cache file exists in `.groundwork/cache/`.
 Read context from the prior phase in this exact order — the order minimises context consumption while preserving every cross-phase signal:
 
 1. **Hand-off file** — `.groundwork/cache/handoff/<previous-phase>.md` if it exists. This is the previous phase's post-commit context drop (Protocol 6). Read it in full.
-2. **Summary headers** — for each upstream `docs/*.md` the phase depends on, read only the `## Summary for Downstream` section (Protocol 5). Use the summary as the working context.
-3. **Full upstream sections — lazy** — read the body of an upstream doc only when a specific decision in the current phase requires detail the summary does not carry. Do not pre-load entire upstream docs into context.
+2. **Downstream Context files** — for each upstream phase this phase depends on, read `.groundwork/context/<upstream-phase>.md` (Protocol 5). Use it as the working context.
+3. **Full upstream sections — lazy** — read the body of an upstream `docs/*.md` only when a specific decision in the current phase requires detail the context file does not carry. Do not pre-load entire upstream docs into context.
 4. **Discovery notes** — check `.groundwork/cache/discovery-notes.md` for entries under your phase's section header (Protocol 1).
 
 Skills must name their upstream chain explicitly — which prior phases the hand-off and summaries are read from. Do not infer the chain from project state.
@@ -186,11 +187,11 @@ Do not mark a phase complete until the user explicitly confirms — premature co
 
 When the user gives explicit final approval:
 
-1. Write the final artifact to `docs/`. The artifact must lead with a `## Summary for Downstream` section as defined in Protocol 5 — this is enforced by the `groundwork-writer` skill.
+1. Write the two setup artifacts. **(a)** Write the final document to `docs/` — a clean published document with **no** `## Summary for Downstream` section. **(b)** Write the Downstream Context file to `.groundwork/context/<current-phase>.md` (Protocol 5), derived from the finished doc as the final drafting action. Both are enforced by the `groundwork-writer` skill.
 2. Write the hand-off file to `.groundwork/cache/handoff/<current-phase>.md` as defined in Protocol 6.
 3. Delete the phase's cache file from `.groundwork/cache/`.
 4. If a hand-off file from the previous phase exists at `.groundwork/cache/handoff/<previous-phase>.md`, delete it — this phase has now consumed it.
-5. **Apply the Living Documents protocol**: scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh affected summary headers. Report what changed. If any update is a **reversal** (Protocol 2 — it supersedes an ADR or overturns a prior Key Decision / Binding Constraint), follow the Reversal Protocol: reconcile the full body and every dependent doc, then re-invoke `groundwork-review` on each mutated doc before committing.
+5. **Apply the Living Documents protocol**: scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates; if a refined doc belongs to an upstream setup phase whose Downstream Context is still live, refresh that `.groundwork/context/<phase>.md` too. Report what changed. If any update is a **reversal** (Protocol 2 — it supersedes an ADR or overturns a prior Key Decision / Binding Constraint), follow the Reversal Protocol: reconcile the full body and every dependent doc, then re-invoke `groundwork-review` on each mutated doc before committing.
 6. **Update discovery notes**: scan the conversation for out-of-phase signals not captured in real time. Append new signals to `.groundwork/cache/discovery-notes.md`. Remove entries that were incorporated into the committed artifact or the hand-off file.
 7. Confirm completion with a brief, clear message.
 8. **Recommend a fresh context** for the next phase — a clean context gives the next skill full working memory. This is a recommendation, not a requirement.
@@ -210,13 +211,21 @@ Confirm before advancing to the next phase. Summarise what was established and g
 
 ---
 
-## Protocol 5: Summary for Downstream
+## Protocol 5: Downstream Context
 
-Every canonical document under `docs/` opens with a `## Summary for Downstream` section. Downstream phases consume the summary first; they read the body only when a specific decision requires detail the summary does not carry. A summary that fails to capture every binding decision forces every downstream phase to re-read the full doc, which defeats the purpose of writing one.
+Each Sequential Setup phase writes a **Downstream Context** file to `.groundwork/context/<phase>.md` at commit. This is the cross-phase contract the *flow* runs on: the next setup phases consume it first, and read an upstream doc's body only when a specific decision requires detail the context file does not carry. The context file is the **only** place this contract lives — the published `docs/` artifact carries none of it.
+
+This separation is deliberate. A setup phase produces two different things for two different readers: the cross-phase machinery the *flow* needs to make its next decision, and the product documentation a reader who was never in the room needs. They have opposite shapes — the first is a terse decision ledger, the second is reference prose. Keeping the ledger out of `docs/` is what lets the published doc read as documentation rather than a report-out of the conversation that produced it.
+
+The store is **scaffolding, not a durable ledger.** It persists through setup so each downstream phase reads its upstream contract, and it is torn down when setup completes (Protocol 10). Nothing in `.groundwork/context/` survives into delivery; everything durable graduates into `docs/` first.
+
+### Location and naming
+
+`.groundwork/context/<phase>.md` — one file per phase, named after the *writing* phase. Example: `groundwork-architecture` writes `.groundwork/context/architecture.md`. The file is persistent across setup phases (unlike the single-hop hand-off cache, Protocol 6) and is created on demand — write tools create the `context/` directory if absent.
 
 ### Structure
 
-The summary contains exactly four subsections, in this order:
+The context file contains exactly four subsections, in this order:
 
 | Subsection | What goes here |
 |---|---|
@@ -227,21 +236,21 @@ The summary contains exactly four subsections, in this order:
 
 ### Length Budget
 
-The entire summary section is ≤200 words. Bullets, not prose. If a decision cannot be stated in 15 words, the decision itself is incomplete — finish the decision before writing the bullet.
+The entire file is ≤200 words. Bullets, not prose. If a decision cannot be stated in 15 words, the decision itself is incomplete — finish the decision before writing the bullet.
 
-### What the Summary Does Not Contain
+### What the Context File Does Not Contain
 
-- **No rationale.** Why a decision was made belongs in the body or in an ADR. The summary states the decision only.
+- **No rationale.** Why a decision was made belongs in the published doc body or in an ADR. The context file states the decision only.
 - **No rejected options.** Rejected options belong in the hand-off file (Protocol 6) so the next phase can see what was considered.
-- **No marketing or framing.** The summary is for an agent reading the doc cold. State facts, not narrative.
+- **No marketing or framing.** The context file is for an agent making the next phase's decisions. State facts, not narrative.
 
-### Author and Reconcile It Last
+### Derive It From the Finished Doc, Last
 
-Write the body first, then derive the summary from it as the **final** drafting action — never maintain the two in parallel. Before handing the draft to the review gate, do a single deliberate pass: walk every binding decision, constraint, deferred question, and permanent exclusion in the body and confirm each one is reflected in the summary, and that the summary asserts nothing the body does not. A summary hand-maintained alongside the body desyncs on every edit, and the review gate then surfaces those omissions one at a time — each costing a full revise cycle. Reconciling the summary from the finished body in one pass is what keeps the review loop short.
+Write the published doc body first, then derive the context file from it as the **final** drafting action — never maintain the two in parallel. Do a single deliberate pass: walk every binding decision, constraint, deferred question, and permanent exclusion in the doc and confirm each is reflected in the context file, and that the context file asserts nothing the doc does not. A context file hand-maintained alongside the body desyncs on every edit.
 
 ### Enforcement
 
-The `groundwork-writer` skill enforces this contract. Every commit step that writes a `docs/` artifact loads `groundwork-writer` and produces the summary header alongside the body.
+The `groundwork-writer` skill enforces this contract. Every commit step that writes a Sequential Setup `docs/` artifact loads `groundwork-writer`, writes the clean published doc to `docs/`, and writes the Downstream Context file to `.groundwork/context/<phase>.md`.
 
 ---
 
@@ -261,7 +270,7 @@ The hand-off cache carries post-commit context from one phase to the next when t
 | Read | At init (Protocol 3.2.1) | The next phase in the chain |
 | Deleted | At the consumer's commit (Protocol 3.4.4) | The phase that consumed it |
 
-Single-hop only. A hand-off file from phase N is consumed by phase N+1 and then deleted. Phase N+2 reads its context from N+1's hand-off and from the summary headers in the canonical docs, not from a chain of stale hand-offs. Long-range context flows through summary headers in `docs/*.md`, not through hand-off files.
+Single-hop only. A hand-off file from phase N is consumed by phase N+1 and then deleted. Phase N+2 reads its context from N+1's hand-off and from the Downstream Context files in `.groundwork/context/`, not from a chain of stale hand-offs. Long-range context flows through the Downstream Context files (Protocol 5), not through hand-off files.
 
 ### Template
 
@@ -302,11 +311,15 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 
 - Any other phase's `<phase>-cache.md` — that state is internal to the writing phase and is deleted at commit.
 - Any other phase's `<phase>-draft.md` or `<phase>-draft/` — drafts are working artifacts; the committed `docs/*.md` is the authoritative version.
-- Any hand-off file other than the previous phase's. Cross-phase context from older phases flows through summary headers, not through hand-off chains.
+- Any hand-off file other than the previous phase's. Cross-phase context from older phases flows through the Downstream Context files in `.groundwork/context/`, not through hand-off chains.
 
 ### Enforcement at init
 
 Each phase's init step verifies its own caches are clean — no stale draft directory, no orphan cache file from a previous run that did not commit. If foreign state is found, the phase asks the user to confirm a clean restart before proceeding.
+
+### The Downstream Context store is not cache
+
+`.groundwork/context/` is a sibling of `.groundwork/cache/`, not part of it. Unlike a phase's transient cache (created at init, deleted at that phase's commit), a Downstream Context file persists across **all** downstream setup phases so each can read its upstream contract (Protocol 5). It is not bound by the per-phase read restrictions above — any setup phase may read the context file of any phase it declares as upstream. The whole store is torn down once, at setup completion (Protocol 10); nothing in it survives into delivery.
 
 ---
 
@@ -361,3 +374,27 @@ In every one of these cases the phase MUST NOT proceed as if reviewed and MUST N
    - **An authorised self-review** — only with the user's explicit authorisation, run the review checks inline and label the output loudly as a self-review that does not satisfy the independent-review gate. This is Protocol 8's fallback rule as an operational procedure; it never counts as a passed gate.
 
 There is no third path: committing, presenting the draft as reviewed, or self-reviewing without authorisation defeats the gate.
+
+---
+
+## Protocol 10: Setup Graduation
+
+The Downstream Context store (Protocol 5) is setup scaffolding. Left standing after setup, it becomes a second, stale source of truth alongside `docs/` — and a dangerous one, because it reads like a decision ledger but is no longer maintained. Setup Graduation is the single step that dismantles the scaffolding once the building stands: everything durable graduates into `docs/` as proper technical documentation, and everything left over from the green/brown setup process is removed.
+
+### When it fires
+
+Once, at the **setup→delivery transition** — after the last Sequential Setup phase commits (greenfield: `groundwork-scaffold`/`groundwork-mvp`; brownfield: `groundwork-infra-adopt`) and before the first bet. The **orchestrator** owns the trigger: on detecting that all setup phases are complete, it runs Graduation before routing into the Delivery Loop. It is not a methodology phase and writes no phase cache — it is a reconcile-and-teardown pass over artifacts the setup phases already produced.
+
+### The three steps
+
+1. **Graduate binding decisions into ADRs.** Walk every `.groundwork/context/*.md` file. Each Key Decision or Binding Constraint that still constrains future work and is not already captured in `docs/decisions/` becomes a proper ADR there (the architect's decision-record convention). A decision already recorded in an ADR or fully stated in a canonical doc body needs no new ADR — graduate, do not duplicate.
+2. **Reconcile the rest into the docs.** Run a Living Documents pass (Protocol 2) so any remaining durable context — a constraint, a deferred question now answerable, a scope boundary — is reflected in the proper `docs/` technical documentation. After this step, `docs/` is the complete durable record; the context store holds nothing the docs do not.
+3. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit.
+
+### The invariant
+
+By the end of the flow, everything durable lives in `docs/` as proper technical documentation; everything else is removed. A reader who opens the project after setup finds one source of truth — the docs — and no setup bookkeeping to mistake for it.
+
+### Fail-safe
+
+Graduation never deletes before it has graduated. If step 1 or 2 cannot complete — an ADR cannot be written, a doc reconciliation is ambiguous — stop and surface it to the user; do not run step 3. A torn-down store whose decisions never reached `docs/` is unrecoverable.

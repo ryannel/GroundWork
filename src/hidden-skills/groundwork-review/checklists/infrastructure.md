@@ -11,19 +11,14 @@ This checklist checks a draft `docs/infrastructure.md`. It answers one question:
 developer run the local environment from this document alone — boot it, test it, and verify it
 is healthy — without asking a question?**
 
-Each item names a violation. Match it against the document text plus the architecture summary;
+Each item names a violation. Match it against the document text plus `docs/architecture.md`;
 answer yes/no.
 
-## Summary Contract
+## Document Hygiene
 
-- [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
-  empty, or not the first section after the frontmatter.
-- [ ] 🔴 **Summary omits the operating surface**: the boot command, test command, or database
-  model the body commits to has no bullet under `### Key Decisions` — MVP planning reads the
-  summary first.
-- [ ] 🔴 **Verification gap hidden from summary**: the body records pending or manual
-  verification steps but `### Binding Constraints` does not carry them — downstream phases will
-  treat the environment as fully verified.
+- [ ] 🟡 **Leftover downstream summary**: the published doc still carries a `## Summary for
+  Downstream` section. The cross-phase contract now lives in `.groundwork/context/infrastructure.md`,
+  not in the published doc; an old-template summary section is residue and should be removed.
 
 ## Runnability
 
@@ -53,7 +48,7 @@ answer yes/no.
 
 ## Service Inventory
 
-- [ ] 🔴 **Architecture service missing**: a service named in `docs/architecture.md`'s summary
+- [ ] 🔴 **Architecture service missing**: a service named in `docs/architecture.md`
   does not appear in this document's inventory, with no explicit note that it is not yet
   scaffolded.
 - [ ] 🔴 **Orphan service**: a service appears here that the architecture does not define —

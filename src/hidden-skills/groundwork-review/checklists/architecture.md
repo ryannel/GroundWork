@@ -11,28 +11,17 @@ This checklist checks a draft `docs/architecture.md`. It answers one question: *
 downstream engineer design services and contracts from this document without coming back to ask
 "why this technology?" or "what does this service actually own?"**
 
-Each item names a violation. Match it against the document text plus the upstream summaries;
+Each item names a violation. Match it against the document text plus the upstream docs;
 answer yes/no.
 
-## Summary Contract
+## Document Hygiene
 
-- [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
-  empty, or not the first section after the frontmatter.
-- [ ] 🔴 **Summary omits a structural decision**: a technology choice, service boundary, or
-  communication pattern the body commits to has no bullet under `### Key Decisions` — domain
-  entities and bets are reviewed against this summary, so the omission makes the decision
-  invisible.
-- [ ] 🔴 **Inherited constraint dropped from summary**: a binding user-facing constraint from the
-  product brief or design system (consent gating, confirmation rules, data-handling limits) is
-  absent from `### Binding Constraints` here — downstream docs are reviewed against this
-  summary, never against the brief.
+- [ ] 🟡 **Leftover downstream summary**: the published doc still carries a `## Summary for
+  Downstream` section. The cross-phase contract now lives in `.groundwork/context/architecture.md`,
+  not in the published doc; an old-template summary section is residue and should be removed.
 - [ ] 🔴 **Service count disagrees with the service list**: a "N services" claim that does not
   match the number of services actually named, e.g. counting an `infrastructure`/Terraform
   partition as a service. State the count and the named set consistently.
-
-**Enumerate every summary↔body desync in one pass** — walk the whole body and list each missing
-decision or constraint as its own finding; do not return after the first. Surfacing them one at a
-time forces a separate revise cycle per gap and burns the revise cap without converging.
 
 ## Technology Decisions
 
@@ -94,11 +83,11 @@ time forces a separate revise cycle per gap and burns the revise cap without con
 
 ## Upstream Contract
 
-- [ ] 🔴 **Budget without an answer**: a performance budget or availability target from the
-  design system's summary has no architectural mechanism that could meet it — the number was
+- [ ] 🔴 **Budget without an answer**: a performance budget or availability target from
+  `docs/design-system.md` has no architectural mechanism that could meet it — the number was
   inherited but nothing here serves it.
-- [ ] 🔴 **Capability silently dropped**: a capability or user type committed in the product
-  brief's summary maps to no service, flow, or explicit deferral in this document.
+- [ ] 🔴 **Capability silently dropped**: a capability or user type committed in
+  `docs/product-brief.md` maps to no service, flow, or explicit deferral in this document.
 - [ ] 🟡 **Constraint relaxed without record**: the document quietly weakens an upstream
   constraint (a residency rule applied to some data, a budget restated with a looser number)
   instead of honouring it or escalating it.

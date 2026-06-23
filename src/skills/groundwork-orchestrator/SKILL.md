@@ -43,7 +43,7 @@ route to `groundwork-upgrade` when the user agrees. Do not block other work on i
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
-**Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — a `## Summary for Downstream` section, plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead.
+**Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — its Downstream Context file at `.groundwork/context/<phase>.md` (present until Setup Graduation tears the store down), plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead. (Once `setup_graduated: true`, the store is gone by design — completion is settled and this check no longer gates setup.)
 
 ### Adopt/Upgrade Mode
 
@@ -62,6 +62,18 @@ The tables in this section are the source for the generated `workflow-index.md` 
 | Greenfield, setup incomplete | **Greenfield Setup** | Next greenfield phase skill (see table below) |
 | Brownfield, setup incomplete | **Brownfield Setup** | Next brownfield phase skill (see table below) |
 | All setup phases complete | **Delivery Loop** | `groundwork-bet` |
+
+**Gate:** on the *first* transition into the Delivery Loop — setup complete but `state.json` lacks `setup_graduated: true` — run **Setup Graduation** (below) before routing to `groundwork-bet`.
+
+### Setup Graduation (the setup→delivery handoff)
+
+Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-contract Protocol 5). It is scaffolding, and the orchestrator dismantles it at the moment setup completes — once, before the first bet — so delivery starts against `docs/` as the single source of truth.
+
+**Detection.** Setup is complete but not yet graduated when all setup phases are done *and* `state.json` does not carry `setup_graduated: true`. (`.groundwork/context/` still holding files is the corroborating signal.) When that holds, do not route to `groundwork-bet` yet — run graduation first.
+
+**Run it.** Load `.groundwork/skills/operating-contract.md` and execute **Protocol 10 (Setup Graduation)** in order: (1) graduate every still-binding decision in `.groundwork/context/*.md` into a proper ADR under `docs/decisions/` if not already recorded; (2) run a Living Documents pass so the rest is reflected in `docs/`; (3) tear down `.groundwork/context/`, drain `.groundwork/cache/discovery-notes.md`, and clear any other setup residue. Load `groundwork-writer` for any ADR or doc edit. Protocol 10's fail-safe binds: never run step 3 if steps 1–2 could not complete — surface the blocker to the user instead.
+
+**Record it.** On success, set `setup_graduated: true` in `state.json`, report what graduated (ADRs written, docs reconciled, store removed), then route to `groundwork-bet` for the first bet.
 
 ### Greenfield Setup Phases
 

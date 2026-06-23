@@ -7,22 +7,6 @@ last_reviewed: <YYYY-MM-DD>
 
 # Maturity Roadmap
 
-## Summary for Downstream
-
-### Key Decisions
-<!-- e.g. "- Gaps G2, G4 accepted permanently — single-tenant deployment" -->
-
-### Binding Constraints
-<!-- e.g. "- No bet enters delivery while G1 (no system-test harness) is open" -->
-
-### Deferred Questions
-<!-- e.g. "- CI provider for groundwork check — resolved in first infra bet" -->
-
-### Out of Scope
-<!-- Dimensions or gaps the project has permanently accepted, stated plainly -->
-
----
-
 This document tracks the project against the GroundWork maturity model — the nine dimensions of the target state defined in `.groundwork/skills/maturity-model.md`. The assessment says where the project stands; the roadmap says what closing the distance is worth and what it costs. Gaps are proposals, not obligations: `accepted` is a legitimate terminal status.
 
 ## Current Assessment

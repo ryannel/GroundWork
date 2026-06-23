@@ -23,10 +23,10 @@ Each dimension states what it is, the failure it prevents, and the mechanical si
 
 ### D1. Documented truth
 
-The canonical doc set — `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md` — exists, carries the GroundWork contract (`## Summary for Downstream`, frontmatter), and describes the system as it currently is.
+The canonical doc set — `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md` — exists as clean published reference documentation (frontmatter intact, no summary section) and describes the system as it currently is.
 
 **Failure it prevents:** every agent session re-derives context from raw code, makes a different guess, and starts from wrong foundations — the defect class GroundWork exists to eliminate.
-**Signal:** the four docs exist with populated summary sections; `npx groundwork-method check` exits 0.
+**Signal:** the four docs exist as clean published documentation; `npx groundwork-method check` exits 0.
 
 ### D2. Machine-readable contracts
 
@@ -122,4 +122,4 @@ Gaps discovered anywhere — the brownfield gap ledger, a bet's validation, a `g
 | `groundwork-check` | Re-evaluates the mechanical signals (D1–D6, plus D8's registry and ledger signals) and flags roadmap rows whose status disagrees with observed state. |
 | `groundwork-update` | Adds rows when shipped changes open new gaps (e.g. a new service without a contract). |
 
-`docs/maturity.md` is a canonical doc: it opens with a `## Summary for Downstream`, is review-gated with `document_type: maturity`, and is indexed in `llms.txt`.
+`docs/maturity.md` is a canonical doc: clean published documentation with no summary section, review-gated with `document_type: maturity`, and indexed in `llms.txt`.

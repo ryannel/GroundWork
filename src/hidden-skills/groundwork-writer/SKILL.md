@@ -89,70 +89,61 @@ Each document type has a defined purpose. Write only what belongs in each.
 
 ---
 
-## Summary for Downstream
+## Downstream Context (the cross-phase contract)
 
-Every canonical document under `docs/` opened by **Sequential Setup phases** opens with a `## Summary for Downstream` section as the first section after the frontmatter. This is the contract every downstream phase reads first; the body of the doc is consulted only when a specific decision requires detail the summary does not carry. A summary that omits a binding decision forces every downstream phase to re-read the full doc, which defeats the purpose of writing one.
+A Sequential Setup phase produces two artifacts, for two different readers, and the writer keeps them separate:
 
-**Exception:** Bet documents (`docs/bets/<slug>/*`) are produced in Continuous Bet mode. They do not include a `## Summary for Downstream` section — the shared context and pitch `status` frontmatter serve the same function. Do not add a summary section to pitch, technical-design, or decomposition documents.
+1. The **published document** in `docs/` — clean reference documentation for a reader who was never in the room. It carries **no** `## Summary for Downstream` section.
+2. The **Downstream Context file** at `.groundwork/context/<phase>.md` — the terse decision ledger the *next setup phases* read first. This is the only place the cross-phase contract lives.
 
-This contract is defined in Protocol 5 and the Lifecycle Modes section of the operating contract. The writer skill enforces it for Sequential Setup documents only.
+This separation is what lets the published doc read as documentation rather than a report-out of the conversation that produced it. The contract is defined in Protocol 5 and Protocol 10 of the operating contract; the writer enforces it for Sequential Setup documents only.
 
-### Required Subsections
+**Exception:** Bet documents (`docs/bets/<slug>/*`) are produced in Continuous Bet mode — no published summary and no context file. The shared context and pitch `status` frontmatter serve the same function. Maintenance-skill docs likewise carry neither.
 
-The summary contains exactly four subsections, in this order. Skip a subsection entirely if it has no content — never include an empty heading.
+### The context file's four subsections
+
+`.groundwork/context/<phase>.md` contains exactly these, in order. Skip a subsection entirely if it has no content — never an empty heading.
 
 | Subsection | What goes here |
 |---|---|
-| `### Key Decisions` | The decisions this phase committed to that downstream phases must respect. Bulleted, one decision per bullet, ≤15 words each. State the decision; do not justify it. |
-| `### Binding Constraints` | The hard rules, performance budgets, data residency, compliance, or vendor limits that any downstream phase must work within. Bulleted, one constraint per bullet. |
+| `### Key Decisions` | The decisions this phase committed to that downstream phases must respect. Bulleted, one per bullet, ≤15 words each. State the decision; do not justify it. |
+| `### Binding Constraints` | The hard rules, performance budgets, data residency, compliance, or vendor limits any downstream phase must work within. One constraint per bullet. |
 | `### Deferred Questions` | Decisions intentionally left open, with the phase that will resolve them. Format: `- <question> — resolved in <phase>`. |
 | `### Out of Scope` | What this phase deliberately did not address. Different from deferred — this is permanent absence. |
 
-### Length Budget
+The whole file is ≤200 words, bullets not prose. No rationale (it belongs in the doc body or an ADR), no rejected options (those go in the Protocol 6 hand-off), no framing.
 
-The entire summary section is ≤200 words. Bullets, not prose. If a decision cannot fit in 15 words, the decision is incomplete — finish it before writing the bullet.
-
-### What the Summary Does Not Contain
-
-- **No rationale.** Why a decision was made belongs in the body or in an ADR. The summary states the decision only.
-- **No rejected options.** Rejected options go in the hand-off file under Protocol 6 of the operating contract.
-- **No marketing or framing.** State facts, not narrative.
-
-### Example
+### Example (`.groundwork/context/product-brief.md`)
 
 ```markdown
-## Summary for Downstream
-
 ### Key Decisions
 
 - Storytelling engine; single-player; web-app only at MVP
 - Stories are co-created turn-by-turn; not pre-authored
 - Persistent characters carry state across stories
-- Sharing is read-only link; no collaborative editing at MVP
 
 ### Binding Constraints
 
 - All generated content must support adult-content gate at user level
 - Time-to-first-token ≤ 2s; full turn ≤ 6s on slowest reference device
-- No PII beyond auth identity; stories are not training data
 
 ### Deferred Questions
 
 - Monetisation model — resolved in MVP Planning
-- Co-author multiplayer mechanics — resolved in post-MVP bet
 
 ### Out of Scope
 
 - Mobile-native app
 - Voice or audio narration
-- Public discovery feed
 ```
 
-The example is 92 words. A complex product brief may run to the 200-word ceiling; most do not need it.
+### Derive it from the finished doc, last
 
-### Updates on Living Document Edits
+Write the published doc body first, then derive the context file from it as the final drafting action — never maintain the two in parallel. Walk every binding decision, constraint, deferred question, and permanent exclusion in the doc and confirm each is reflected in the context file, and that the context file asserts nothing the doc does not.
 
-When the body of a `docs/*.md` changes under Protocol 2 (Living Documents), the writer must update the summary in the same edit if the change touched a Key Decision, Binding Constraint, or Deferred Question. A summary that drifts from its body is worse than no summary — agents trust it and read no further.
+### Living Document edits
+
+When a `docs/*.md` body changes under Protocol 2 during setup, refresh the matching live `.groundwork/context/<phase>.md` in the same edit if the change touched a Key Decision, Binding Constraint, or Deferred Question. After setup completes the context store is gone (Protocol 10) — the published doc is then the only living record, so there is nothing to keep in sync.
 
 ---
 

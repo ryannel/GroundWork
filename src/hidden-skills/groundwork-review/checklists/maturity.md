@@ -13,16 +13,13 @@ evidenced, every roadmap row parseable, and every claim consistent with the comm
 Read the model at `.groundwork/skills/maturity-model.md` first — it defines the
 dimensions (D1–D9), the assessment states (including the `n/a` state reserved for the
 conditional dimensions D8 and D9), and the allowed severity, recommendation, and status
-values. Match each item against the document text and the canonical doc summaries.
+values. Match each item against the document text and the canonical doc set.
 
-## Summary Contract
+## Document Hygiene
 
-- [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
-  empty, or not the first section after the frontmatter — maturity is a setup document and
-  carries the summary like the rest.
-- [ ] 🔴 **Accepted gap missing from summary**: a roadmap row with status `accepted` is not
-  reflected under `### Key Decisions` or `### Out of Scope` — downstream skills must see
-  accepted gaps without parsing the table.
+- [ ] 🟡 **Leftover downstream summary**: the published doc still carries a `## Summary for
+  Downstream` section. The cross-phase contract now lives in `.groundwork/context/maturity.md`,
+  not in the published doc; an old-template summary section is residue and should be removed.
 
 ## Assessment Rows
 

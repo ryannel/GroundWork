@@ -91,7 +91,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 
 | File | Content |
 |---|---|
-| `00-header.md` | The `## Summary for Downstream` section first (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope per Protocol 5), then the document title and the "implementation-ready specification" intro paragraph |
+| `00-header.md` | The document title and the "implementation-ready specification" intro paragraph. No summary section — the Downstream Context (Protocol 5) is written separately to `.groundwork/context/design-system.md` at commit, not concatenated into the spec |
 | `01-constraints.md` | Part 1 — context-loading budgets, verification requirements, authority boundaries, error resilience policies, interoperability guarantees |
 | `02-workspace-topology.md` | Part 2 — filesystem architecture, state management, discovery surfaces, context injection strategy, communication posture |
 | `03-foundation.md` | Part 3 Cluster 1 — state architecture, context hierarchy, document architecture |

@@ -14,17 +14,11 @@ designer, architect, and MVP planner each start their work from this document wi
 Each item names a violation. Match it against the document text; answer yes/no. A matched 🔴 item
 means downstream phases start from wrong foundations; a matched 🟡 item is advisory.
 
-## Summary Contract
+## Document Hygiene
 
-- [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
-  empty, or not the first section after the frontmatter.
-- [ ] 🔴 **Summary omits a body commitment**: a decision or hard rule the body commits to has no
-  bullet under `### Key Decisions` or `### Binding Constraints` — downstream phases read the
-  summary first and will never see it.
-- [ ] 🔴 **Deferral without an owner**: a `### Deferred Questions` entry names no resolving
-  phase, or an open question in the body appears nowhere in the summary.
-- [ ] 🟡 **Deferral filed as exclusion**: an item under `### Out of Scope` is actually a deferral
-  ("not in the first version") rather than a permanent boundary.
+- [ ] 🟡 **Leftover downstream summary**: the published doc still carries a `## Summary for
+  Downstream` section. The cross-phase contract now lives in `.groundwork/context/product-brief.md`,
+  not in the published doc; an old-template summary section is residue and should be removed.
 
 ## Users
 

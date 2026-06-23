@@ -83,7 +83,7 @@ Once approved, write to this type's subsection under Phase 3 in `.groundwork/cac
 
 ### Platform Dimension
 
-This track designs for the type; a product can express it through web, mobile, and desktop surfaces sharing this one run. Before translating, resolve which platforms the product's graphical-ui surfaces target: when `docs/surfaces.md` exists (lazy activation, brownfield), read each graphical-ui entry's platform field; pre-registry — the normal greenfield case, because architecture writes the registry after this phase — read the surface set carried in the `## Summary for Downstream` of `docs/product-brief.md`. Translate for the platforms of the surfaces in this run's scope; a platform arriving at a later horizon gains its guidance when `groundwork-surface-activation` births its surface.
+This track designs for the type; a product can express it through web, mobile, and desktop surfaces sharing this one run. Before translating, resolve which platforms the product's graphical-ui surfaces target: when `docs/surfaces.md` exists (lazy activation, brownfield), read each graphical-ui entry's platform field; pre-registry — the normal greenfield case, because architecture writes the registry after this phase — read the surface set carried in the product brief's Downstream Context file `.groundwork/context/product-brief.md` (Protocol 5). Translate for the platforms of the surfaces in this run's scope; a platform arriving at a later horizon gains its guidance when `groundwork-surface-activation` births its surface.
 
 The platform dimension changes vocabulary and ergonomics, never the brand: one Phase 4 direction, one Tier 2 visual block, one spec — with each platform's content written in that platform's language. Platform content folds into the existing draft section files (platform targets into the constraints file, per-platform shell expression into the shell file, ergonomics and motion into the interaction file); the file layout, review pass, and walkthrough clusters keep their shape regardless of the platform set.
 
@@ -123,7 +123,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 
 | File | Content |
 |---|---|
-| `00-header.md` | The `## Summary for Downstream` section first (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope per Protocol 5), then the document title and the "implementation-ready specification" intro paragraph |
+| `00-header.md` | The document title and the "implementation-ready specification" intro paragraph. No summary section — the Downstream Context (Protocol 5) is written separately to `.groundwork/context/design-system.md` at commit, not concatenated into the spec |
 | `01-constraints.md` | Part 1 — performance budgets, a11y baselines, platform targets, sync, error tolerance |
 | `02-shell.md` | Part 2 — navigation model, layout skeleton, empty/loading states, onboarding |
 | `03-foundation.md` | Part 3 Cluster 1 — colour architecture (both themes), the full type scale, spacing tokens |

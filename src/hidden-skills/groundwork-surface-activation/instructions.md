@@ -36,7 +36,7 @@ A product that adopted GroundWork before the surface model exists has canonical 
 
 Reconstruct the registry from what the project already proves:
 
-- **`docs/architecture.md`** — read the `## Summary for Downstream` first and descend into the body only where the summary lacks surface detail. It names the services, the surface apps among them, the access paths, and the core's deployment as decided.
+- **`docs/architecture.md`** — read its body for the surface detail: it names the services, the surface apps among them, the access paths, and the core's deployment as decided. (This skill runs after setup, so there is no Downstream Context file to read first — the published doc body is the record.)
 - **`docs/infrastructure.md`** — the scaffold's record of what actually exists: the apps, ports, run commands, test mediums. Where the architecture and the infrastructure doc disagree, the infrastructure doc describes today and wins.
 
 Enter every current surface as `active`, with the fields the docs support: type, platform, core access, auth, scaffold (the generator that produced it, or `manual`), test medium, design-track reference into `docs/design-system.md`. Write the Capability Core section from the deployment as observed. Leave the Capability Ledger **empty — table headers, zero rows**. Reconstructing capability parity from a live product is expensive and fuzzy; an empty ledger is honest ("parity unknown until a bet touches it") where a synthesized one would be confidently wrong. Rows grow per-bet from here, written by bet validation.

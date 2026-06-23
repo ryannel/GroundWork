@@ -11,8 +11,9 @@ This checklist checks a draft `docs/bets/<slug>/pitch.md`. It answers one questi
 pitch state a real problem, size it on both axes — appetite (worth) and stakes (what is at risk
 if it is wrong) — and honestly surface where that appetite is at risk?**
 
-Each item names a violation. Match it against the document text plus the upstream summaries;
-answer yes/no. Bet documents carry no `## Summary for Downstream` — do not flag its absence.
+Each item names a violation. Match it against the document text plus the upstream docs;
+answer yes/no. Bet documents carry no Downstream Context file and no summary section — do not
+flag the absence of either.
 
 ## Structure
 
@@ -85,9 +86,9 @@ no surface no-gos.
 
 ## Upstream Contract
 
-- [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something the product brief's
-  `### Out of Scope` permanently excludes, with no recorded decision reversing that boundary.
-- [ ] 🔴 **Constraint breach**: the pitched solution violates a Binding Constraint from the
-  architecture or design system summary — a budget, a data rule, a platform commitment.
+- [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something `docs/product-brief.md`
+  permanently excludes, with no recorded decision reversing that boundary.
+- [ ] 🔴 **Constraint breach**: the pitched solution violates a binding constraint from
+  `docs/architecture.md` or `docs/design-system.md` — a budget, a data rule, a platform commitment.
 - [ ] 🟡 **Unacknowledged dependency**: the pitch assumes a capability (a service, an
   integration, a data source) that no upstream doc records as existing or planned.

@@ -31,7 +31,7 @@ Your single point of contact with the user is a short scope-confirmation in Stag
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Summary for Downstream and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Downstream Context file and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
 
 ---
 

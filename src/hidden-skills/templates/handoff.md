@@ -16,7 +16,7 @@
 
 ## Deferred Decisions
 
-<!-- Decisions explicitly left open, with the trigger that should reopen them. Distinct from the Deferred Questions in the doc's summary header — these entries carry the conversational context behind the deferral. Format: decision — context — revisit trigger. -->
+<!-- Decisions explicitly left open, with the trigger that should reopen them. Distinct from the Deferred Questions in the phase's Downstream Context file (Protocol 5) — these entries carry the conversational context behind the deferral. Format: decision — context — revisit trigger. -->
 
 - <decision> — <context> — <revisit trigger>
 

@@ -20,16 +20,11 @@ UI`, `# CLI`, `# Agentic Protocol`), plus a shared foundation when several types
 Multiple type sections — and the multi-block brand-tokens file they project to — are the
 contract for multi-type products, never duplication or contradiction findings in themselves.
 
-## Summary Contract
+## Document Hygiene
 
-- [ ] 🔴 **Summary absent or displaced**: the `## Summary for Downstream` section is missing,
-  empty, or not the first section after the frontmatter.
-- [ ] 🔴 **Summary omits a budget**: a performance budget, accessibility floor, or platform
-  target stated in the body has no bullet under `### Binding Constraints` — architecture works
-  from the summary and will never honour it. **Enumerate every omission in one pass** — this
-  doc carries many binding values (colour accent rule, dark-mode pairing, motion policy,
-  microcopy rules); list each missing one as its own finding rather than the first you spot, or
-  the caller pays a full revise cycle per gap.
+- [ ] 🟡 **Leftover downstream summary**: the published doc still carries a `## Summary for
+  Downstream` section. The cross-phase contract now lives in `.groundwork/context/design-system.md`,
+  not in the published doc; an old-template summary section is residue and should be removed.
 
 ## Translation Depth
 
@@ -77,9 +72,9 @@ contract for multi-type products, never duplication or contradiction findings in
 ## Upstream Contract
 
 - [ ] 🔴 **Brief commitment contradicted**: a value or pattern in this document conflicts with a
-  Key Decision or Binding Constraint in `docs/product-brief.md`'s summary — e.g. a brief that
+  decision or hard rule in `docs/product-brief.md` — e.g. a brief that
   commits to a terminal medium answered with screen-design sections.
-- [ ] 🔴 **Type section unbacked or missing**: when the brief's summary carries a surface set,
+- [ ] 🔴 **Type section unbacked or missing**: when `docs/product-brief.md` carries a surface set,
   the document's titled type sections disagree with it — a type section with no MVP-horizon
   surface of that type behind it, or an MVP-horizon interface type with no section (and no
   stated deferral).

@@ -70,13 +70,12 @@ Present the plan in one compact block — each affected doc, what changed in the
 
 Edit each affected doc under the Living Documents protocol:
 
-- **Touch only what the change made false — but all of what it made false.** Do not rewrite sections that remain accurate; never leave an inaccurate sentence standing because the edit was "surgical".
-- **Refresh `## Summary for Downstream` in the same edit** when a change touches a Key Decision, Binding Constraint, or Deferred Question. A summary that drifts from its body is worse than no summary.
+- **Touch only what the change made false — but all of what it made false.** Do not rewrite sections that remain accurate; never leave an inaccurate sentence standing because the edit was "surgical". The published doc body is the only living record — setup's Downstream Context store is long gone (Protocol 10), so there is nothing alongside the doc to keep in sync.
 - **State the current design declaratively.** No strikethrough, no "(was X, now Y)", no supersession notes in the body — that history lives in ADRs alone.
 - **Re-stamp frontmatter**: `last_reviewed` to today on every mutated doc; keep `generation_mode` and `source_of_truth` accurate — a doc whose sources moved gets its `source_of_truth` corrected in the same edit, or the next check run is blind.
 - **Index new docs.** Any newly created doc gets a one-line entry in the project's `llms.txt`. Agents cannot find docs that are not indexed.
 
-**Reversals get the full Reversal Protocol (Protocol 2) before anything commits:** reconcile every sentence the reversal falsifies across the whole body, trace it into every dependent doc (domain entity docs especially — they carry no summary, so nothing flags them), record the supersession in an ADR, and re-review every `docs/domain/*.md` unconditionally when the reversal is structural.
+**Reversals get the full Reversal Protocol (Protocol 2) before anything commits:** reconcile every sentence the reversal falsifies across the whole body, trace it into every dependent doc (domain entity docs especially — nothing automated flags them stale), record the supersession in an ADR, and re-review every `docs/domain/*.md` unconditionally when the reversal is structural.
 
 Edits land in place — git is the rollback boundary. Nothing is committed to git until the gate passes and the user approves.
 

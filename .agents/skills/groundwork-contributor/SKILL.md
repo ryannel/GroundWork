@@ -281,6 +281,8 @@ working drafts, and manifests. Two subdirectories separate concerns:
 ├── config/           # Persistent — settings, state, routing
 │   ├── config.toml   # User-owned config: [defaults] proposals + [skills] custom routing. Seeded once, never overwritten by update.
 │   └── state.json    # Orchestration phase tracking + groundwork.version stamp
+├── context/          # Setup-only — the cross-phase contract (Protocol 5); torn down at Setup Graduation
+│   └── <phase>.md    # one Downstream Context file per setup phase
 └── cache/            # Transient — working files deleted when a skill completes
     ├── design-system-cache.md
     ├── product-brief-distillate.md
@@ -290,6 +292,7 @@ working drafts, and manifests. Two subdirectories separate concerns:
 | Subdirectory | Purpose | Lifecycle |
 |---|---|---|
 | `config/` | Persistent settings and orchestration state | Seeded by installer, updated by skills, never bulk-deleted |
+| `context/` | The Downstream Context store — each setup phase's cross-phase contract (Protocol 5), read by later setup phases | Created at each setup phase's commit; the whole store is deleted once, at Setup Graduation (Protocol 10), as setup hands off to delivery |
 | `cache/` | Stage-gated drafts, scan progress, overflow context | Created during skill execution, cleaned up on commit |
 
 ### `docs/` — Living Outputs
@@ -331,7 +334,7 @@ The phases communicate through shared artifacts and identifiers. Each is written
 | `.groundwork/bets/<slug>/test-manifest.json` | the seal at Proof of Work; amendments (`--amend`) | `./dev test bet` tamper check; 05-validation |
 | `.groundwork/config/brand-tokens.json` | design-system commit (every track) | scaffold → `workspace-dev-cli` theming (`.dev/dev.config.json`) |
 | `docs/infrastructure.md` | scaffold Phases 4–6; infra-adopt | bet 03-decomposition (test language, service names); delivery |
-| `## Summary for Downstream` sections + hand-off cache (`.groundwork/cache/handoff/<phase>.md`) | each setup phase's commit (Protocols 5–6) | the next phase's init; the hand-off file is deleted when consumed |
+| Downstream Context files (`.groundwork/context/<phase>.md`) + hand-off cache (`.groundwork/cache/handoff/<phase>.md`) | each setup phase's commit (Protocols 5–6) | the next setup phases' inits; the hand-off is single-hop (deleted when consumed), the context store is torn down at Setup Graduation (Protocol 10). Published `docs/` carry no summary section |
 | Discovery-notes headers (`## Architecture`, `## Design System`, `## Design Details`, `## Bets`) in `.groundwork/cache/discovery-notes.md` | any phase, on out-of-phase signals (Protocol 1) | the phase that owns the matching header, at its init or design step |
 | `docs/architecture.md` §3 Capability Ports & Providers + `.groundwork/capability-ports.json` (each technical port → provider → footprint) | architecture Phase 7 commit (step 5b); architecture-extract commit | scaffold Phase 1 (port → generator flag / `add-capability` invocation); scaffold Phase 2 (footprint registration check); scaffold Phase 4 (reconcile footprints — compose service / runner / env / `none`-xfail); bet delivery (a `none` raw gateway is the bet) |
 | Screenshot capture path `.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png` (+ `_smoke/<surface>/<route>__<viewport>__<theme>.png`) | system-test-runner render-smoke (`_smoke` set); bet-progress interface tests (per-state set) | 04-delivery Tier 2 spec-conformance inspection (delivery agent); 05-validation confirms it ran |

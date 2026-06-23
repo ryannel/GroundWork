@@ -77,6 +77,13 @@
       "title": "Project the atmosphere token layer into existing Next.js apps",
       "kind": "agent",
       "summary": "Next.js apps scaffolded before the per-app token projection carry a hardcoded globals.css and no brand.css, so the design system's atmosphere (elevation, blur, gradients, surface treatments, motion, type-role micro) cannot reach the UI and the token-conformance gate is absent; regenerate the token layer from brand-tokens.json, reconcile any hand-edited globals.css, and add the conformance test."
+    },
+    {
+      "id": "gw-context-split",
+      "version": "0.10.0",
+      "title": "Graduate in-doc Summary for Downstream sections out of docs/",
+      "kind": "agent",
+      "summary": "The cross-phase Summary for Downstream contract moved out of published docs/ into a temporary .groundwork/context/ store torn down at setup completion. Projects predating the change carry a stale summary section atop each setup doc; graduate each summary's binding decisions into docs/decisions/ ADRs or the doc body, then strip the section, leaving docs/ as clean reference documentation."
     }
   ]
 }

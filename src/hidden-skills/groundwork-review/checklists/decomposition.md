@@ -13,8 +13,8 @@ surface — every slice cut vertically, and every capability trace to the techni
 falsifiable test?**
 
 Each item names a violation. Match it against the document text and
-`docs/bets/<slug>/technical-design.md`. Bet documents carry no `## Summary for Downstream` — do
-not flag its absence.
+`docs/bets/<slug>/technical-design.md`. Bet documents carry no Downstream Context file and no
+summary section — do not flag the absence of either.
 
 ## Milestone Shape
 

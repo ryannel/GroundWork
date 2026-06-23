@@ -14,7 +14,7 @@ When ready:
 
    | File | Content |
    |---|---|
-   | `00-header.md` | The `## Summary for Downstream` section first (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope per Protocol 5), then the document title and brief introduction |
+   | `00-header.md` | The document title and brief introduction. No summary section — the Downstream Context (Protocol 5) is written separately at commit, not concatenated into the doc |
    | `01-constraints-and-budgets.md` | Template section 1 |
    | `02-top-level-topology.md` | Template section 2 |
    | `03-key-capabilities.md` | Template section 3 (capability areas and technology decisions with rationale, including the **Capability Ports & Providers** table: each capability → provider → footprint settled in Phase 5) |

@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (setup context split out of published docs/, 2026-06-23)
+
+GroundWork's setup flows produced one artifact serving two masters: the cross-phase `## Summary for Downstream` block the *flow* reads, and the product documentation a reader needs — both crammed atop every `docs/*.md`, which made the published docs read as a report-out of the setup conversation. The two are now separate. Each setup phase writes its cross-phase contract to a temporary `.groundwork/context/<phase>.md` store; published `docs/` carry only clean reference documentation.
+
+- **The Downstream Context store (Protocol 5).** The four-subsection contract (Key Decisions / Binding Constraints / Deferred Questions / Out of Scope) moves to `.groundwork/context/<phase>.md`, read by downstream setup phases. Published setup docs no longer open with a `## Summary for Downstream` section. The writer skill, every setup-phase commit, and the review checklists follow.
+- **Setup Graduation (Protocol 10).** The context store is scaffolding, not a ledger: at the setup→delivery transition the orchestrator graduates every still-binding decision into a `docs/decisions/` ADR, reconciles the rest into `docs/`, then tears the store down. By the end of setup everything durable lives in `docs/`; nothing setup-only remains.
+- [migration] Existing installs carry a stale summary section atop each setup doc; it is graduated in place — binding decisions promoted to ADRs or the doc body, then the section stripped — leaving docs/ as clean reference documentation (gw-context-split)
+
 ### Fixed (docs site no longer 404s at its `/docs` root, 2026-06-23)
 
 The scaffolded Fumadocs site (`docs-site` generator) compiles the pristine root `docs/` tree untouched, which ships without an `index.md`. The home route redirects `/` → `/docs`, but the empty slug had no backing page, so a freshly provisioned site 404'd on first load even though every real page (`/docs/architecture`, `/docs/product-brief`, …) served correctly — the failure mode seen running `./dev docs`.

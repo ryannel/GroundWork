@@ -12,8 +12,8 @@ This checklist checks a draft `docs/bets/<slug>/technical-design.md`. It answers
 pass or fail against it unambiguously?**
 
 Each item names a violation. Match it against the document text, the bet's pitch, and the
-upstream summaries. Bet documents carry no `## Summary for Downstream` — do not flag its
-absence.
+upstream docs. Bet documents carry no Downstream Context file and no summary section — do not
+flag the absence of either.
 
 ## Document Shape
 
@@ -101,6 +101,6 @@ absence of surface ceremony.
 - [ ] 🟡 **Stakes mismatch**: the design's actual blast radius or reversibility is graver than
   the pitch's stakes read — it touches a one-way door, a load-bearing path, or a wider surface
   than the pitch sized for — yet no rigour (deeper review, a flag, a smaller increment) answers it.
-- [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts the architecture summary
+- [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts `docs/architecture.md`
   or an accepted ADR — a sync call across a boundary the architecture made async, a store a
   service does not own.

@@ -34,7 +34,7 @@ The brief is the root of the brownfield document tree, exactly as in greenfield:
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, summary, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, Downstream Context, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
 
 ---
 
@@ -45,7 +45,7 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 Check whether `docs/product-brief.md` already exists.
 
 - **Absent** — standard **Extract** mode. Recover the brief from scan findings and interview.
-- **Present but lacking an element this phase's commit produces** (for the brief: the `## Summary for Downstream` section) — **Adopt/Upgrade** mode. The orchestrator routes here precisely so an existing doc is brought forward, not overwritten. Ingest the existing file as your primary source of truth, preserve the user's content and intent, and treat the work as filling the missing contract sections and raising it to the current standard rather than rediscovering the product. Run the same ingest, gap-interview, draft, and review stages — the existing doc simply pre-populates most of what you would otherwise infer. Documents authored under another framework are exactly this shape: a BMAD PRD or product brief, an RFC-style vision doc, a hand-written README manifesto all enter here — ingest them as the existing brief and bring them forward, never overwrite them.
+- **Present but lacking an element this phase's commit produces** (for the brief: its Downstream Context file at `.groundwork/context/product-brief-extract.md`) — **Adopt/Upgrade** mode. The orchestrator routes here precisely so an existing doc is brought forward, not overwritten. Ingest the existing file as your primary source of truth, preserve the user's content and intent, and treat the work as filling the missing contract sections and raising it to the current standard rather than rediscovering the product. Run the same ingest, gap-interview, draft, and review stages — the existing doc simply pre-populates most of what you would otherwise infer. Documents authored under another framework are exactly this shape: a BMAD PRD or product brief, an RFC-style vision doc, a hand-written README manifesto all enter here — ingest them as the existing brief and bring them forward, never overwrite them.
 
 ### Step 2: Cache Check
 
@@ -104,7 +104,7 @@ If, while reconciling code against the user's account, you find the product dive
 
 Mirror the greenfield brief's drafting exactly — the output contract is identical.
 
-1. **Draft.** Synthesise the recovered context and the interview into the Product Brief Structure below, leading with the `## Summary for Downstream` section (Protocol 5: Key Decisions, Binding Constraints, Deferred Questions, Out of Scope). Apply the `groundwork-writer` skill. Write to `.groundwork/cache/product-brief-extract-draft.md`.
+1. **Draft.** Synthesise the recovered context and the interview into the Product Brief Structure below — a clean published brief with no summary section. Apply the `groundwork-writer` skill. Write to `.groundwork/cache/product-brief-extract-draft.md`.
 
 2. **Review.** Announce the review, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-extract-draft.md` and `document_type: product-brief`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
@@ -128,12 +128,12 @@ Identical to the greenfield brief: **System Purpose**, **The Problem**, **Target
 
 Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol (Protocol 3.4):
 
-1. Verify the draft leads with a populated `## Summary for Downstream` section. If missing, apply `groundwork-writer` to add it before committing.
-2. Promote the brief to `docs/product-brief.md` with a move operation (`move_file` or `mv`) — do not re-emit the body through the model. In Adopt/Upgrade mode, overwrite the existing file with the upgraded version. Stamp no drift frontmatter — the brief is exempt from frontmatter-based drift by design, because `groundwork-check` reads `generation_mode`/`source_of_truth` only from the code-coupled docs (`docs/architecture.md`, `docs/services/`, `docs/api/`, `docs/domain/`).
+1. Promote the brief to `docs/product-brief.md` with a move operation (`move_file` or `mv`) — do not re-emit the body through the model. In Adopt/Upgrade mode, overwrite the existing file with the upgraded version. Stamp no drift frontmatter — the brief is exempt from frontmatter-based drift by design, because `groundwork-check` reads `generation_mode`/`source_of_truth` only from the code-coupled docs (`docs/architecture.md`, `docs/services/`, `docs/api/`, `docs/domain/`).
+2. **Write the Downstream Context file** to `.groundwork/context/product-brief-extract.md` (Protocol 5), derived from the committed brief: the four subsections (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope), ≤200 words, via `groundwork-writer`. This is the contract every downstream phase reads first; the published brief carries no summary section.
 3. **Append product gaps to the ledger.** If Stage 3 surfaced product-surface divergences from GroundWork standard, append them to `.groundwork/cache/gap-ledger.md` (create from `.groundwork/skills/templates/gap-ledger.md` if absent). Most gaps come later; add only what this phase uniquely saw.
 4. Write the hand-off file to `.groundwork/cache/handoff/product-brief-extract.md` from `.groundwork/skills/templates/handoff.md`: rejected framings, deferred decisions with their reopening trigger, user instincts about design or architecture not yet formalised. Omit empty sections (Protocol 6).
 5. **Delete the consumed findings slice.** Remove `.groundwork/cache/scan/product-findings.md` — this phase has consumed it. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json` in place; later phases still read them.
 6. Delete the phase cache: `.groundwork/cache/product-brief-extract-cache.md`.
-7. Apply the Living Documents protocol — refine any existing `docs/` artifact the conversation touched, and refresh affected summaries.
+7. Apply the Living Documents protocol — refine any existing `docs/` artifact the conversation touched, and refresh the matching live Downstream Context file where the change touched a Key Decision, Binding Constraint, or Deferred Question.
 8. Update discovery notes — remove `## Product Brief` entries now captured in the brief or hand-off.
-9. Confirm completion, recommend a fresh context, and immediately load and execute the `groundwork-orchestrator` skill to route to the next phase. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/product-brief.md` carrying its `## Summary for Downstream`; only the scan writes a durable marker, because it leaves no `docs/` artifact.
+9. Confirm completion, recommend a fresh context, and immediately load and execute the `groundwork-orchestrator` skill to route to the next phase. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/product-brief.md` plus its Downstream Context file `.groundwork/context/product-brief-extract.md`; only the scan writes a durable marker, because it leaves no `docs/` artifact.

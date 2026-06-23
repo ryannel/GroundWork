@@ -97,18 +97,11 @@ Read the document's own description of its purpose and who it serves. Then ask:
 
 For every person or role the document claims to serve, ask: what would they have to come back and ask before they could begin? Each unanswered question is a finding.
 
-For **setup documents** (a `document_type` of `product-brief`, `design-system`, `architecture`, `infrastructure`, or `maturity`), the `## Summary for Downstream` section is mandatory and must be the first section after the frontmatter. If it is **missing or empty**, that alone is a 🔴 finding — downstream phases read it first and cannot start without it. Bet documents (`bet-pitch`, `technical-design`, `decomposition`) and domain entity docs (`domain-entity`) are exempt: they carry no summary, per the Lifecycle Modes section of the operating contract and the domain-entity template. Do not raise this finding for them.
+Published `docs/` artifacts are **clean reference documentation** — they carry no `## Summary for Downstream` section. The cross-phase contract (Key Decisions / Binding Constraints / Deferred Questions / Out of Scope) lives in the ephemeral Downstream Context file at `.groundwork/context/<phase>.md` (Protocol 5 of the operating contract), written at commit and torn down at setup completion (Protocol 10). That context file is **not** the document under review and is **not** part of this gate — the reviewer assesses the published doc body as reference documentation. Do not read `.groundwork/context/` and do not require, or check the contents of, any summary section in the published doc.
 
-Pay particular attention to the `## Summary for Downstream` section (Protocol 5 of the operating contract). The summary is the first thing every downstream phase reads. Check that:
+If a published setup doc still carries a leftover `## Summary for Downstream` section (an old-template artifact), that is itself worth a 🟡 finding — the section no longer belongs in published docs — but its **absence** is correct and must never be flagged.
 
-- `### Key Decisions` covers every binding decision the body commits to.
-- `### Binding Constraints` covers every constraint that downstream phases must respect.
-- `### Deferred Questions` names the resolving phase for each open decision.
-- `### Out of Scope` lists permanent exclusions, not deferrals.
-
-A summary header that omits a binding decision from the body is a 🔴 finding.
-
-**Sweep exhaustively — report every summary↔body desync in this one pass.** Do not stop at the first omission. Walk the entire body, list each binding decision/constraint/deferral the summary is missing as its own finding, and likewise flag anything the summary asserts that the body does not support. A reviewer that surfaces these one at a time forces the caller into a separate revise cycle per gap, and a dense document can carry many — that is precisely the loop that burns the revise cap without converging. One complete enumeration lets the caller fix them all at once.
+Apply the Handoff Test to the body itself: every decision, constraint, deferral, and exclusion the consumers need must be present and coherent **in the body**. A binding decision the body fails to record, or an open question the body silently resolves, is a finding on the body — not on any summary header.
 
 ---
 
@@ -122,15 +115,15 @@ The chain is:
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design → decomposition
 ```
 
-**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set's summaries: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
+**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture.md` does not have) is a 🔴 finding.
 
-**`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md`'s `## Summary for Downstream` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
+**`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture.md` plus the accepted (non-superseded) ADRs under `docs/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
 
 An invariant that asserts a guarantee an accepted ADR explicitly surrendered or weakened — claiming a pre-screen where the ADR records a monitor, immediate consistency where the ADR accepted eventual — is a 🔴 finding: it overstates what the system enforces. A domain event listed as published when the architecture provisions no message broker or event bus is a 🔴 finding for the same reason: it implies a mechanism that does not exist.
 
 For the given `document_type`, read every upstream document that exists. The foundational documents live at canonical paths: `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md`. The bet documents live under the bet slug: `docs/bets/<slug>/pitch.md` and `docs/bets/<slug>/technical-design.md`. When reviewing a bet document, infer `<slug>` from the document path — the draft path contains the slug as a directory component.
 
-**Read upstream summary headers first.** For each upstream doc, the `## Summary for Downstream` section is the canonical contract; check the document under review against that section. Read the upstream body only when a specific claim in the document under review needs verification the summary cannot provide.
+**Read each upstream doc's body.** Published upstream docs are reference documentation with no summary section; the doc body is the contract. Check the document under review against the decisions and constraints the upstream body commits to.
 
 If an upstream document doesn't exist, skip this check for that upstream and note its absence — do not fail on it.
 
@@ -140,8 +133,8 @@ For each upstream:
 
 **Does the document honour every commitment from upstream?**
 
-- Are all Key Decisions, Binding Constraints, and users/capabilities accounted for — either addressed, explicitly deferred, or quietly compatible?
-- Does anything in this document contradict the upstream summary or body?
+- Are all decisions, constraints, and users/capabilities the upstream body commits to accounted for — either addressed, explicitly deferred, or quietly compatible?
+- Does anything in this document contradict the upstream body?
 - Has any upstream commitment been silently dropped?
 
 Each contradiction, omission, or silent departure is a finding.
