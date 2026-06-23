@@ -19,7 +19,7 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
 
 ## Step 2: Propose milestones
 
-Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `00-overview.md` for the business logic and data flows, `01-surface-design.md` for the Surface Design subsections, `02-capability-design.md` for the API contracts and data schema. From these, decompose the bet into milestones — then present the breakdown for review before writing a single test.
+Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `01-ui-design.md` for the UI design subsections, `02-data-flows.md` for the business logic and data flows, `03-api-design.md` for the interfaces, and `04-data-design.md` for the schema and data model. From these, decompose the bet into milestones — then present the breakdown for review before writing a single test.
 
 **What a milestone is:** a demonstrable state the product reaches, ordered so each one is independently shippable. Its consumer gets value from Milestone 1 even if Milestone 2 never ships. Milestones come in two types:
 
@@ -85,7 +85,7 @@ Each slice spec must contain:
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
 - **One-paragraph intro** — links the slice to its parent milestone and states what vertical capability it contributes
-- **Required Capabilities** — falsifiable behaviour statements, each tracing to a contract or schema section in `technical-design/02-capability-design.md` (and its spec in `contracts/`). "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API contract" is.
+- **Required Capabilities** — falsifiable behaviour statements, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md` (and its spec in `contracts/`). "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API contract" is.
 - **Test Cases table** — `Test | Location | Assertion` — with specific, falsifiable assertions that a reviewer can verify against the milestone's acceptance criteria
 
 ## Step 5: Author slice bet-progress tests
@@ -157,12 +157,12 @@ The review verifies document-chain integrity — see the **Document Chain Integr
 
 Before presenting Proof of Work, verify every item:
 
-- Every milestone names a demonstrable goal a reviewer can trace to `technical-design/`: a surface milestone's user-visible goal traces to its surface's subsection in `01-surface-design.md`; a capability milestone's contract state traces to `02-capability-design.md` (and the data flows in `00-overview.md`), with its consumer named.
+- Every milestone names a demonstrable goal a reviewer can trace to `technical-design/`: a surface milestone's user-visible goal traces to its surface's subsection in `01-ui-design.md`; a capability milestone's contract state traces to `03-api-design.md` / `04-data-design.md` (and the data flows in `02-data-flows.md`), with its consumer named.
 - When the project has a surface registry: every milestone is typed (`capability` or `surface (<slug>)`), the bet's new capability opens with its capability milestone, and every slice carries a `surface` value (`core` or a registry slug) in both `decomposition.md` and `decomposition.json`. With no registry, none of this applies — untyped milestones, no surface fields.
 - Every milestone has a bet-progress test file at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>`.
 - No surface milestone test re-asserts a business rule the capability milestone proves at the contract — surface tests are bounded to wiring, rendering, and interaction.
 - Every slice is vertical — it can be deployed and verified without any future slice existing.
-- Every slice has falsifiable Required Capabilities, each tracing to a contract or schema in `technical-design/02-capability-design.md`.
+- Every slice has falsifiable Required Capabilities, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`.
 - Every slice has a bet-progress test file at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
 - Every bet-progress test is **red** — it fails because the implementation does not exist. A test that passes before any implementation is either testing nothing or testing existing code, which means it is not a bet-progress test.
 - Every request shape, response assertion, and field name in the tests traces to `docs/bets/<bet-slug>/contracts/` — no hand-rolled shapes the spec does not define.
@@ -181,7 +181,7 @@ The review subagent applies these checks. The agent authoring the decomposition 
 | Pitch | Solves the stated problem within appetite | Design covers the pitched solution |
 | Technical Design | Every surface element/flow traces to the pitch | Milestones can be derived from it |
 | Milestones | Each goal is consumer-visible value — at the contract for capability milestones, in the surface's medium for surface milestones — traceable to the design | Every slice belongs to exactly one milestone |
-| Slices | Required Capabilities trace to contracts/schemas in `technical-design/02-capability-design.md` | Test cases trace to milestone acceptance criteria |
+| Slices | Required Capabilities trace to interfaces/stores in `technical-design/03-api-design.md` / `04-data-design.md` | Test cases trace to milestone acceptance criteria |
 
 ## Quality Standard: What Good Milestones and Slices Look Like
 
@@ -276,7 +276,7 @@ existing.
 
 **Required Capabilities:**
 - `POST /internal/events` accepts an operation lifecycle event matching the
-  `OperationEvent` schema in `technical-design/02-capability-design.md §API Contracts`; returns `202 Accepted`
+  `OperationEvent` schema in `technical-design/03-api-design.md`; returns `202 Accepted`
 - A notification record is created in the `notifications` table with status, message,
   and operation_id populated from the event payload
 - Duplicate events for the same operation_id + status are idempotent; a second

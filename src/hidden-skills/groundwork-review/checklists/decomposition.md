@@ -22,9 +22,9 @@ summary section — do not flag the absence of either.
   the schemas", "Integration") rather than a demonstrable state in the product's interface — it
   is invisible to the user and proves nothing end-to-end.
 - [ ] 🔴 **Goal not traceable to the design**: a milestone's goal corresponds to nothing in
-  `technical-design.md` — a surface milestone's user-visible goal traces to no Surface Design
-  subsection, or a capability milestone's contract state traces to no Capability Design
-  contract. The milestone proves something the design never committed to.
+  `technical-design/` — a surface milestone's user-visible goal traces to no UI Design
+  subsection, or a capability milestone's contract state traces to no API Design interface or
+  Schema & Data Design store. The milestone proves something the design never committed to.
 - [ ] 🔴 **No acceptance criteria**: a milestone carries no concrete, observable acceptance
   criteria a reviewer could check against the running product.
 - [ ] 🟡 **No sequencing rationale**: a milestone does not state why it sits where it does — what

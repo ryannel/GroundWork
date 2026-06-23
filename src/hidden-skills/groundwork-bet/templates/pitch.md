@@ -16,6 +16,17 @@ surfaces: [<registry-slug>, <registry-slug>]
 - **Solution:** At a high level, how will we solve this?
 - **Success Signal:** What observable outcome confirms this bet delivered its intended value?
 
+### Topology
+
+*A `graph` of the services and components this bet touches and how they connect — the picture that frames the solution at a glance. Renders on GitHub and the docs site. Leave the placeholder below at discovery; the design phase fills it in once the actual shape is known (`workflows/02-design.md` updates it as a living document), so a reader of the pitch always sees the system the bet plays in.*
+
+```mermaid
+graph TD
+  A[Surface / caller] --> B[Service this bet touches]
+  B --> C[(Store)]
+  B --> D[Downstream service]
+```
+
 ## Rabbit Holes & No-Gos
 *Two distinct lists. Rabbit holes protect the appetite from technical surprise; no-gos protect it from scope creep.*
 
