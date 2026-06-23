@@ -4,8 +4,8 @@ version: "1"
 description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
-  summaries, hand-off cache, cache isolation, the review gate, and review
-  invocation.
+  the downstream context store, setup graduation, hand-off cache, cache isolation,
+  the review gate, and review invocation.
 ---
 
 # GroundWork Operating Contract

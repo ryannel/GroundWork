@@ -1,16 +1,15 @@
 import { defineDocs, defineConfig, frontmatterSchema } from 'fumadocs-mdx/config';
 import { z } from 'zod';
 
-// GroundWork docs ship WITHOUT frontmatter — they are plain Markdown that always
-// opens with a single `# H1`. Fumadocs requires every page to have a `title`, and
-// the default schema hard-errors when one is missing. So relax `title` to optional
-// and derive it from the document's first H1 when frontmatter omits it. This lets
-// the site serve the live root docs/ tree (bets included) untouched, with real
-// titles in the sidebar and on every page.
+// GroundWork docs carry `title` + `description` frontmatter (required by the
+// groundwork-writer skill); the site renders them as the page heading and subtitle.
+// `title` is relaxed to optional only as a fallback: when a doc omits it, the schema
+// derives the title from the document's first `# H1`, so the site still serves any
+// doc (bets, hand-written pages) with a real title in the sidebar and on the page.
 //
 // Note: the schema function runs before remark, so we read the raw `source`. The
-// first `# ` line of a GroundWork doc is always its title; a `#` inside an opening
-// code fence is not a case GroundWork docs hit.
+// first `# ` line is the title; a `#` inside an opening code fence is not a case
+// GroundWork docs hit.
 export const { docs, meta } = defineDocs({
   // Direct compile-time access to the pristine root docs directory.
   dir: '../../docs',
