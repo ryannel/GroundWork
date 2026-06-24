@@ -46,7 +46,8 @@ groundWork/
 │   │   ├── groundwork-infra-adopt/                ← Brownfield Phase 4: adopts existing services, bolts on the operational layer, commits the gap ledger.
 │   │   ├── groundwork-bet/            ← Delivery loop: discovery → design → decomposition → delivery → validation.
 │   │   ├── groundwork-patch/          ← Small-change lane: bounded code fixes outside the bet ceremony, logged to the patch ledger.
-│   │   ├── groundwork-update/         ← Surgical doc updates.
+│   │   ├── groundwork-doc-sync/       ← Surgical doc updates: syncs the project's docs to its own code.
+│   │   ├── groundwork-update/         ← Framework front door: brings the project current — works the upgrade brief, then reconciles each artifact family to the current canonical (Family Index).
 │   │   ├── groundwork-surface-activation/ ← Adds a surface to a live product: registry entry, lazy design track, scaffold, ledger triage. Bootstraps the registry on pre-restructure products.
 │   │   ├── groundwork-review/         ← Internal review panel for draft quality.
 │   │   ├── groundwork-writer/         ← Writing style enforcer. Loaded on demand during output.
@@ -621,30 +622,36 @@ per file in the project's `.groundwork/config/manifest.json`:
 | Tier | What | Carry-forward rule |
 |---|---|---|
 | 1 | Framework-owned: `.agents/skills/`, `.groundwork/skills/`, `generators.json`, the `./dev` bundle + launcher | Clean-replaced on `update` — never edit these in a project |
-| 2 | Framework-seeded, user-editable: `src/docs/` → `docs/`, `AGENTS.md`, `llms.txt` | Hash-classified on `update`: pristine → auto-refresh; edited → queued for the `groundwork-upgrade` skill to merge |
-| 3 | Generator-produced: compose injections, `tests/system/`, `.dev/dev.config.json` | Provenance-recorded (`recordGeneratorProvenance` in `src/generators/shared/provenance.ts`); the upgrade skill regenerates with recorded options and reconciles |
-| 4 | Project-owned, shape-versioned: `state.json`, `surfaces.json`, doc shapes, bet shapes | Never overwritten — carried forward by migrations |
+| 2 | Framework-seeded, user-editable: `src/docs/` → `docs/`, `AGENTS.md`, `llms.txt` | Hash-classified on `update`: pristine → auto-refresh; edited → queued for the `groundwork-update` skill to merge (Phase A) |
+| 3 | Generator-produced: compose injections, `tests/system/`, `.dev/dev.config.json` | Provenance-recorded (`recordGeneratorProvenance` in `src/generators/shared/provenance.ts`); the `groundwork-update` skill regenerates with recorded options and reconciles |
+| 4 | Project-owned, shape-versioned: `state.json`, `surfaces.json`, doc shapes, bet shapes | Never overwritten — advanced in place by the `groundwork-update` skill's reconcile pass (Family Index), or a `cli` migration for a mechanical shape bump |
 
-**When your change needs a migration.** Skills are exempt (clean-copy carries them).
-Everything else that ships into projects — `src/docs/`, `src/config/`, generator
-templates, `cli-src/`, schema shapes, canonical doc shapes — needs one of:
+**When your change needs a migration — or a reconcile family.** Skills are exempt
+(clean-copy carries them). Everything else that ships into projects — `src/docs/`,
+`src/config/`, generator templates, `cli-src/`, schema shapes, canonical doc shapes —
+needs one of:
 
 - **A `cli` migration** (`migrations/<id>.js`) when the carry-forward is mechanical: a
-  file to seed, a key to add, a JSON shape to bump. Runs inside `update`.
-- **An `agent` migration** (`migrations/<id>/brief.md`, Detect/Transform/Accept) when it
-  needs judgment: a doc rename, a new required section, a registry bootstrap. Executed by
-  the `groundwork-upgrade` skill from the upgrade brief `update` compiles.
-- **A `[no-migration]` annotation** on the changelog line when the change is additive and
-  old installs genuinely need nothing (new generator, new optional doc). Tier-2 content
+  file to seed, a key to add, a JSON shape to bump, a dead artifact to delete. Runs inside
+  `update`. Register it in `migrations/index.json` and reference its id from the changelog
+  line — `[migration] … (gw-your-id)`.
+- **A reconcile family** in the `groundwork-update` skill's Family Index when the
+  carry-forward needs judgment: a doc rename, a new required section, a structural
+  relocation, a registry bootstrap. Do **not** author a per-change migration — add or
+  extend a family (owner → legacy signal → advance), and the skill's Phase B reconcile
+  advances legacy instances against the current canonical. Annotate the changelog line
+  `[no-migration]` (the reconcile is not a registry migration).
+- **A plain `[no-migration]` annotation** on the changelog line when the change is additive
+  and old installs genuinely need nothing (new generator, new optional doc). Tier-2 content
   changes never qualify — the refresh/merge path is how they propagate, but they still
   need the changelog line.
 
-Start from `migrations/_template/`; the format and rules live in `migrations/README.md`.
-Register the entry in `migrations/index.json` at the unreleased version, reference its id
-from the changelog line — `[migration] … (gw-your-id)` — and prove it against a fixture
-under `tests/fixtures/installs/`. The migration-coverage gate in `./dev test contracts`
-fails when a shipped-surface change has neither a registry entry nor an annotation, and
-the changelog↔registry cross-check fails when either side of the id reference is missing.
+For a `cli` migration, start from `migrations/_template/cli-migration.js`; the format and
+rules live in `migrations/README.md`. Prove it against a fixture under
+`tests/fixtures/installs/`. The migration-coverage gate in `./dev test contracts` fails
+when a shipped-surface change has neither a registry entry nor a `[no-migration]`
+annotation, and the changelog↔registry cross-check fails when either side of an id
+reference is missing.
 
 ---
 

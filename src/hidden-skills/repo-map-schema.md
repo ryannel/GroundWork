@@ -2,7 +2,7 @@
 
 `.groundwork/cache/repo-map.json` is GroundWork's deterministic structural map of a
 codebase. The generator (`npx groundwork-method repo-map`) is its producer; the brownfield
-scan, architecture extraction, and `groundwork-check`/`groundwork-update` are its consumers.
+scan, architecture extraction, and `groundwork-check`/`groundwork-doc-sync` are its consumers.
 This file pins the shape so producer and consumers agree — whether the map was built by the
 generator or, for an unsupported language, filled in by LLM inference in the same shape.
 

@@ -12,7 +12,7 @@ This file indexes the canonical documentation for GroundWork to optimize agent d
 - [Lifecycle Index](docs/lifecycle/index.md): How the Setup, Delivery Loop, and Maintenance layers fit together.
 - [Setup](docs/lifecycle/01-setup.md): The one-time setup pipeline — greenfield's six phases from Product Brief through First Bet, and brownfield's scan/extract/adopt track — converging on the same delivery loop.
 - [Delivery Loop](docs/lifecycle/02-delivery-loop.md): The repeating five-phase Bet workflow — Discovery, Design Foundations, Decomposition, Delivery, Validation.
-- [Maintenance](docs/lifecycle/03-maintenance.md): How docs stay current — Living Documents during bets, `groundwork-update` for surgical patches, `groundwork-check` for CI drift detection.
+- [Maintenance](docs/lifecycle/03-maintenance.md): How docs stay current — Living Documents during bets, `groundwork-doc-sync` for surgical patches, `groundwork-check` for CI drift detection.
 - [Capability Core and Surfaces](docs/principles/capability-core-and-surfaces.md): The multi-surface model — one headless capability core, N surface adapters, the surface registry, and the capability parity ledger.
 - [Surface Stack Selection](docs/principles/surface-stack-selection.md): How GroundWork picks the standard stack per surface platform — training-set fluency, the agent-closable loop, the capability ceiling.
 - [Typescript: Frontend](docs/principles/stack/typescript/frontend.md): Stack-specific engineering principles.

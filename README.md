@@ -33,7 +33,7 @@ Greenfield builds the canonical documents through facilitated conversation with 
 
 **Delivery** runs on **bets**, not sprints. A bet pairs a problem with an appetite — the time you're willing to spend — and moves through discovery, design, decomposition into contract-defined slices, delivery, and validation. Every draft document passes a fail-closed independent review before it commits; every completed bet updates the living docs so they describe the system as it is.
 
-**Maintenance** keeps it true: `npx groundwork-method check` detects doc/code drift in CI, and the `groundwork-update` skill maps shipped changes to surgical doc edits. `check` exits `0` when docs are current, `1` on detected drift (or when it cannot run: no git repo, no `docs/`), and `2` when git history cannot be read — gate CI on any non-zero exit.
+**Maintenance** keeps it true: `npx groundwork-method check` detects doc/code drift in CI, and the `groundwork-doc-sync` skill maps shipped changes to surgical doc edits. `check` exits `0` when docs are current, `1` on detected drift (or when it cannot run: no git repo, no `docs/`), and `2` when git history cannot be read — gate CI on any non-zero exit.
 
 Run `npx groundwork-method help` for the full lifecycle map.
 

@@ -56,7 +56,7 @@ METHODOLOGY = [
     "groundwork-architecture-extract",
     "groundwork-infra-adopt",
     "groundwork-bet",
-    "groundwork-update",
+    "groundwork-doc-sync",
     "groundwork-review",
 ]
 # Single-file skills under HIDDEN whose canonical file is SKILL.md.

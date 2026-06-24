@@ -85,7 +85,7 @@ npx groundwork-method check     # CI drift detection: code changed after a doc's
 npx groundwork-method update    # refresh installed skills when the package updates
 ```
 
-When `check` reports drift, ask your agent to run the `groundwork-update` skill — it maps the offending commits to surgical doc edits and gates them through the same review.
+When `check` reports drift, ask your agent to run the `groundwork-doc-sync` skill — it maps the offending commits to surgical doc edits and gates them through the same review.
 
 ### In CI
 

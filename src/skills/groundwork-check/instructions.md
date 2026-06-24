@@ -27,7 +27,7 @@ its reading when you run instead of it:
   package version. A gap means the mechanical lane is owed: report it with the route
   `npx groundwork-method update` (never attempt the refresh yourself — the CLI owns it).
 - `.groundwork/cache/upgrade-brief.json` with pending items means judgment-lane work is
-  waiting: report the pending count with the route `groundwork-upgrade`.
+  waiting: report the pending count with the route `groundwork-update`.
 - No `.groundwork/config/manifest.json` on an otherwise current install means the
   project predates install manifests — one `npx groundwork-method update` bootstraps it.
 
@@ -50,10 +50,10 @@ Path-filtered git history misses drift by construction: a contract doc goes stal
 If `docs/maturity.md` exists, re-evaluate the mechanical signals of the maturity model (`.groundwork/skills/maturity-model.md`, dimensions D1–D6 plus D8's registry and ledger signals — D7 is judgement-based and D9 is re-assessed by bet validation, so both are out of scope for a check run):
 
 - For each assessment row, test its signal now: do the canonical docs exist with summaries (D1)? does each service have a referenced contract (D2)? does `./dev` exist (D3)? is the system-test runner present (D4)? is Serena registered with a code map (D5)? does CI invoke the check (D6)? do the registry twins agree with every ledger cell filled (D8 — `n/a` when no registry exists)?
-- Flag every **disagreement** between observed state and the doc: a dimension marked ✅ whose signal now fails (regression — critical), a roadmap row `closed` whose gap is observably back (critical), and a row `open` whose signal now passes (good news — propose closing it via `groundwork-update`).
+- Flag every **disagreement** between observed state and the doc: a dimension marked ✅ whose signal now fails (regression — critical), a roadmap row `closed` whose gap is observably back (critical), and a row `open` whose signal now passes (good news — propose closing it via `groundwork-doc-sync`).
 - Rows marked `accepted` are settled; verify nothing, report nothing, unless the underlying severity escalated to `blocks-delivery`.
 
-Do not edit `docs/maturity.md` — you are read-only. Disagreements are findings for `groundwork-update` to apply.
+Do not edit `docs/maturity.md` — you are read-only. Disagreements are findings for `groundwork-doc-sync` to apply.
 
 ## Step 4: Doc-type judgement
 
@@ -67,4 +67,4 @@ Group findings by service, severity first:
 2. **Warnings** — other stale docs, domain cross-check mismatches, unassessed docs, stale `planned` ledger cells, untested active surfaces.
 3. **Advisory** — aging stable docs, `open` roadmap rows whose signal now passes, GroundWork docs with no surface registry (route: `groundwork-surface-activation` bootstraps it).
 
-For every finding name the recovery route: `generation_mode: generated` → re-run the generator that produced it; `extracted` or prose docs → run the `groundwork-update` skill; maturity disagreements → `groundwork-update` with this report as the change-set anchor. If nothing drifted, say exactly that — and state which steps ran (with or without Serena, with or without a maturity doc), so a clean report is auditable.
+For every finding name the recovery route: `generation_mode: generated` → re-run the generator that produced it; `extracted` or prose docs → run the `groundwork-doc-sync` skill; maturity disagreements → `groundwork-doc-sync` with this report as the change-set anchor. If nothing drifted, say exactly that — and state which steps ran (with or without Serena, with or without a maturity doc), so a clean report is auditable.

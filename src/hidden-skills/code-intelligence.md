@@ -51,7 +51,7 @@ change, tracing a bug — orient through the map before reading widely:
 - `find_implementations` / `type_hierarchy` — interface implementors and type ancestry.
 - `search_for_pattern` — fall back to text search when a symbol query does not fit.
 
-The brownfield scan (`groundwork-scan`), `groundwork-check`, and `groundwork-update` use these for
+The brownfield scan (`groundwork-scan`), `groundwork-check`, and `groundwork-doc-sync` use these for
 live impact analysis. The whole-repo map itself is built by the deterministic generator, not
 assembled from Serena queries — these tools read and reason over the code the map points them at.
 

@@ -141,15 +141,15 @@ This divergence is intentional. The bet's tightly coupled five-phase flow benefi
 
 ### Maintenance (anytime)
 
-**Skills:** `groundwork-update`, `groundwork-upgrade`, `groundwork-check`, `groundwork-patch`, `groundwork-surface-activation`
+**Skills:** `groundwork-doc-sync`, `groundwork-update`, `groundwork-check`, `groundwork-patch`, `groundwork-surface-activation`
 
-Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-update`, Protocols 1, 2, 4, 8, and 9 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
+Maintenance skills run on demand at any point after setup — they keep the committed doc set true, rather than producing new phase artifacts. For `groundwork-doc-sync`, Protocols 1, 2, 4, 8, and 9 apply; Protocols 3, 5, and 6 do not — a maintenance run has no phase cache, no hand-off file, and no fresh-context recommendation. Under Protocol 7 it reads only `discovery-notes.md` and `repo-map.json` from the cache. When a maintenance run *creates* a doc (a new domain entity, a superseding ADR), the new file follows the same template and contract as its setup-phase counterpart.
 
-`groundwork-upgrade` runs under the same protocol set as `groundwork-update` (1, 2, 4; 8 and 9 when a brief item mutates a canonical doc). Its additional obligation is the upgrade brief: it executes only the items `npx groundwork-method update` compiled into `.groundwork/cache/upgrade-brief.json`, in the brief's order — there is no phase cache beyond the brief itself.
+`groundwork-update` (the framework front door — distinct from `groundwork-doc-sync`, which syncs docs to the project's own code) runs under the same protocol set as `groundwork-doc-sync` (1, 2, 4; 8 and 9 when a brief item or a reconcile advance mutates a canonical doc). Its additional obligation is the framework catch-up: Phase A executes the items `npx groundwork-method update` compiled into `.groundwork/cache/upgrade-brief.json`, in order; Phase B reconciles each artifact family to the current canonical that ships in `.groundwork/skills/` (its Family Index) — there is no phase cache beyond the brief itself.
 
-`groundwork-patch` runs under the same protocol set as `groundwork-update` (1, 2, 4; 8 and 9 when a reversal re-gate fires). Its additional obligation is the patch ledger: every patch appends a row to `docs/bets/patch-ledger.md`, and its scope test routes contract-touching or clustering work to the bet lifecycle instead of absorbing it.
+`groundwork-patch` runs under the same protocol set as `groundwork-doc-sync` (1, 2, 4; 8 and 9 when a reversal re-gate fires). Its additional obligation is the patch ledger: every patch appends a row to `docs/bets/patch-ledger.md`, and its scope test routes contract-touching or clustering work to the bet lifecycle instead of absorbing it.
 
-`groundwork-surface-activation` runs under the same protocol set as `groundwork-update` (1, 2, 4; 8 and 9 when a reversal re-gate fires — typically a contract-compatibility stance overturning an architecture Key Decision). Its additional obligation is the registry twins: every change to `docs/surfaces.md` updates `.groundwork/surfaces.json` in the same edit, and its ledger triage leaves no cell of the new surface's column empty.
+`groundwork-surface-activation` runs under the same protocol set as `groundwork-doc-sync` (1, 2, 4; 8 and 9 when a reversal re-gate fires — typically a contract-compatibility stance overturning an architecture Key Decision). Its additional obligation is the registry twins: every change to `docs/surfaces.md` updates `.groundwork/surfaces.json` in the same edit, and its ledger triage leaves no cell of the new surface's column empty.
 
 `groundwork-check` is read-only and diagnostic: it mutates nothing, so only Protocol 7's read rules bind it. Its obligation is reporting honesty — a doc it cannot assess is reported as unassessed, never as current.
 
@@ -304,7 +304,7 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 | `discovery-notes.md` | Cross-phase signal capture (Protocol 1) | Init (check own section) and during execute (capture out-of-phase signals) |
 | `handoff/<previous-phase>.md` | The previous phase's hand-off (Protocol 6) | Init only |
 | `scan-state.json`, `scan/overview.md` | The brownfield scan baseline — shared classification and partition map | Init and execute, **brownfield extract and adopt phases only** |
-| `repo-map.json` | The deterministic code map (build/refresh: `npx groundwork-method repo-map`). Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact. How to leverage it with Serena: `.groundwork/skills/code-intelligence.md` | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-update`, and the bet loop thereafter, for impact analysis |
+| `repo-map.json` | The deterministic code map (build/refresh: `npx groundwork-method repo-map`). Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact. How to leverage it with Serena: `.groundwork/skills/code-intelligence.md` | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-doc-sync`, and the bet loop thereafter, for impact analysis |
 | `scan/<own-slice>.md` | The brownfield findings slice this phase consumes (`product-findings.md`, `design-findings.md`, or `architecture-findings.md`) | Init and execute, **the one owning extract phase only** |
 
 ### What a phase must not read from `.groundwork/cache/`

@@ -68,7 +68,7 @@ A current `repo-map.json` exists — built by the deterministic generator (`npx 
 Work flows through bets: a problem paired with an appetite, decomposed into contract-defined slices, with canonical-doc changes passing the review gate. This dimension is behavioral — it is about how the team works, not what is installed.
 
 **Failure it prevents:** ad-hoc changes bypass the gates and the architecture erodes one hotfix at a time — each individually reasonable, collectively unaccountable.
-**Signal:** judgement-based. Evidence: `docs/bets/` shows pitches progressing through statuses; recent doc commits trace to bets or `groundwork-update` runs.
+**Signal:** judgement-based. Evidence: `docs/bets/` shows pitches progressing through statuses; recent doc commits trace to bets or `groundwork-doc-sync` runs.
 
 ### D8. Surface parity discipline
 
@@ -120,6 +120,6 @@ Gaps discovered anywhere — the brownfield gap ledger, a bet's validation, a `g
 | `groundwork-bet` discovery | Reads the roadmap; proposes pulling open `fix-now`/`blocks-delivery` rows into the bet, framing the trade-off. Never forces. |
 | `groundwork-bet` validation | Marks rows the bet closed (`closed (<slug>)`), re-assesses affected dimensions, re-stamps the doc. |
 | `groundwork-check` | Re-evaluates the mechanical signals (D1–D6, plus D8's registry and ledger signals) and flags roadmap rows whose status disagrees with observed state. |
-| `groundwork-update` | Adds rows when shipped changes open new gaps (e.g. a new service without a contract). |
+| `groundwork-doc-sync` | Adds rows when shipped changes open new gaps (e.g. a new service without a contract). |
 
 `docs/maturity.md` is a canonical doc: clean published documentation with no summary section, review-gated with `document_type: maturity`, and indexed in `llms.txt`.

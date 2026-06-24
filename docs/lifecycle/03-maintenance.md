@@ -3,7 +3,7 @@
 Documentation in GroundWork is not a separate maintenance phase — it is continuously kept current by mechanisms embedded in the lifecycle itself. Five layers cooperate:
 
 1. **Living Documents** (in-flight) — every phase and bet updates upstream docs surgically when new information surfaces.
-2. **`groundwork-update`** (on-demand) — surgical, in-place doc patches when code ships outside the bet workflow.
+2. **`groundwork-doc-sync`** (on-demand) — surgical, in-place doc patches when code ships outside the bet workflow.
 3. **`groundwork-patch`** (on-demand) — the small-change code lane: one bounded user-facing goal, tested, doc-passed, and logged to `docs/bets/patch-ledger.md` so clustering patches surface as a bet signal instead of silent scope creep. Contract or schema changes never qualify — those are bet-scoped.
 4. **`groundwork-surface-activation`** (on-demand) — the lifecycle event for adding a surface to a live product: register it, run its interface type's design track if missing, scaffold (or record `scaffold: manual`), and triage every capability ledger row's new column so the sync decision is made once and recorded. On a pre-restructure product with GroundWork docs but no registry, it bootstraps `docs/surfaces.md` first.
 5. **`groundwork-check`** (CI) — automated drift detection comparing doc `last_reviewed` dates against the Git history of declared source files, plus surface registry and capability ledger signals.
@@ -18,7 +18,7 @@ Concretely, every commit step in every phase ends with a Living Documents scan: 
 
 This is the back-feed mechanism that prevents the documentation tree from going stale. A bet that adds a new service updates `docs/architecture/index.md` at Validation; an architecture conversation that surfaces a new user type updates `docs/product-brief.md` at commit. The user does not have to remember to keep documents in sync — the protocol does.
 
-## `groundwork-update`
+## `groundwork-doc-sync`
 
 Used when code ships outside the normal bet workflow — direct edits, refactors, or fixes that bypass the bet pipeline. The skill performs lightweight, in-place modifications to specific `docs/` artifacts based on the diff. It does not re-scan the whole repository.
 
@@ -34,7 +34,7 @@ The mechanism:
 - The document also declares a `last_reviewed` date.
 - `groundwork-check` compares the Git modification timestamps of the declared source files against `last_reviewed`. When the code is newer, the document is mathematically stale and flagged.
 
-This makes documentation drift visible and addressable rather than silent. A flagged document either gets updated (via `groundwork-update` or the next bet's Validation) or has its `last_reviewed` date refreshed to acknowledge that the current content is still accurate.
+This makes documentation drift visible and addressable rather than silent. A flagged document either gets updated (via `groundwork-doc-sync` or the next bet's Validation) or has its `last_reviewed` date refreshed to acknowledge that the current content is still accurate.
 
 ### Surface signals
 
@@ -56,6 +56,10 @@ Until the scaffold generators populate the frontmatter, `groundwork-check` runs 
 
 ## What gets maintained vs. what gets replaced
 
-Living Documents and `groundwork-update` are for *refinement* — updating an existing document to reflect new reality. They are not for wholesale rewrites or structural overhauls.
+Living Documents and `groundwork-doc-sync` are for *refinement* — updating an existing document to reflect new reality. They are not for wholesale rewrites or structural overhauls.
 
 When a document needs a full structural rewrite (e.g., the system has been re-architected at a level the existing document cannot represent), the right path is to re-run the corresponding setup phase against the current state — not to keep patching the old document. This case is rare in greenfield projects (the docs evolved alongside the system); it becomes more relevant once brownfield is implemented.
+
+## Framework currency (distinct from doc currency)
+
+The five layers above keep the project's **own docs** true to its **own code**. Keeping the project current with the **GroundWork framework itself** — newer skills, moved structures, an advanced docs-site generator — is a separate concern with a single front door: `npx groundwork-method update` does the mechanical work (refreshes skills, runs the scripted `cli` migrations, compiles an upgrade brief), then the **`groundwork-update`** skill finishes it — working the brief and reconciling each artifact family to the framework's current canonical shape (its Family Index). There is no per-change migration to hunt down: the reconcile compares the project against the live canonical and advances whatever has drifted.

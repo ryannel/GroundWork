@@ -135,7 +135,7 @@ The handoff fails when the Living Documents scan is a checkbox instead of a surg
 **Shallow output (insufficient):**
 
 ```
-Validation complete. Tests pass. Handing off to groundwork-update to refresh
+Validation complete. Tests pass. Handing off to groundwork-doc-sync to refresh
 the docs.
 ```
 

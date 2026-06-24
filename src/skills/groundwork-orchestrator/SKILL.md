@@ -38,8 +38,8 @@ Write `state.json` back whenever it changes.
 **An unconsumed upgrade brief outranks routine routing.** When
 `.groundwork/cache/upgrade-brief.json` exists with pending items, the framework left
 work for a working session — surface it in your first reply (one line: "N framework
-upgrade items are pending — say 'upgrade groundwork' when you want to run them") and
-route to `groundwork-upgrade` when the user agrees. Do not block other work on it.
+update items are pending — say 'update groundwork' when you want to run them") and
+route to `groundwork-update` when the user agrees. Do not block other work on it.
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
@@ -100,13 +100,12 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
 
 ### Anytime Skills
-- `groundwork-update` — surgical updates to **project documents** after code changes
-- `groundwork-upgrade` — brings the **project up to the current framework version**: executes the upgrade brief `npx groundwork-method update` compiles (doc merges, migrations, scaffold reconciliation). Route here for "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Not the same as `groundwork-update`, which maintains the project's own docs.
+- `groundwork-doc-sync` — surgical updates to **project documents** after code changes (maps a diff to the docs it makes stale; the project's docs kept in sync with the project's own code)
+- `groundwork-update` — the single call to bring the **project up to the current framework**: Phase A works the upgrade brief `npx groundwork-method update` compiles (doc merges, scaffold reconciliation), then Phase B reconciles each artifact family (bets, architecture docs, contracts, surfaces, docs-site) to the current canonical shape. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Not the same as `groundwork-doc-sync`, which keeps the project's own docs in sync with its own code.
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 - `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this).
 - `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
-- `groundwork-docs-uplift` — brings an existing documentation site to the current target state (brand theme, rendered diagrams, ordered nav, a real landing page) and gives the docs a reader-first pass. Route here for "fix / improve / refresh the docs site", or when a project predates the branded docs-site or its site has drifted. Available only after setup completes.
 
 ### Custom Skills (user-registered)
 
@@ -128,11 +127,10 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-architecture-extract` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
 | `groundwork-infra-adopt` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.groundwork/skills/groundwork-bet/instructions.md` |
+| `groundwork-doc-sync` | `.groundwork/skills/groundwork-doc-sync/instructions.md` |
 | `groundwork-update` | `.groundwork/skills/groundwork-update/instructions.md` |
-| `groundwork-upgrade` | `.groundwork/skills/groundwork-upgrade/instructions.md` |
 | `groundwork-patch` | `.groundwork/skills/groundwork-patch/instructions.md` |
 | `groundwork-surface-activation` | `.groundwork/skills/groundwork-surface-activation/instructions.md` |
-| `groundwork-docs-uplift` | `.groundwork/skills/groundwork-docs-uplift/instructions.md` |
 | `groundwork-elicit` | `.groundwork/skills/groundwork-elicit/instructions.md` |
 | `groundwork-review` | `.groundwork/skills/groundwork-review/instructions.md` |
 | `groundwork-check` | `.agents/skills/groundwork-check/SKILL.md` |

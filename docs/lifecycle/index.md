@@ -8,7 +8,7 @@ The lifecycle is documented across three files:
 
 2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating five-phase Bet workflow (Discovery → Design Foundations → Decomposition → Delivery → Validation) that drives all feature work after the MVP ships. Each bet declares its surface scope, types its milestones capability-vs-surface, and fills the capability ledger at Validation.
 
-3. **[03. Maintenance](./03-maintenance.md)** — How documentation stays current: the Living Documents protocol applied at every bet's Validation, the `groundwork-update` skill for surgical patches, the `groundwork-check` drift detector for CI (including its surface registry and ledger signals), and the `groundwork-surface-activation` skill for adding a surface to a live product.
+3. **[03. Maintenance](./03-maintenance.md)** — How documentation stays current: the Living Documents protocol applied at every bet's Validation, the `groundwork-doc-sync` skill for surgical patches, the `groundwork-check` drift detector for CI (including its surface registry and ledger signals), and the `groundwork-surface-activation` skill for adding a surface to a live product.
 
 ## The Operating Contract
 
