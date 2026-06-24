@@ -32,7 +32,7 @@ Determine which code changed and over what range. The user's invocation usually 
 | A bet slug or slice name | Commits whose messages reference the slug, or the range since the pitch's `status` last advanced — confirm the range with the user if ambiguous. |
 | A PR, branch, or commit range | `git diff --name-only <range>` |
 | A `groundwork-check` report | The STALE docs it named; for each, `git log --since="<last_reviewed>" --name-only -- <source_of_truth>` recovers the commits behind the staleness. |
-| No anchor given | Run the check baseline yourself: for every code-coupled doc (`docs/services/*.md`, `docs/api/*.md`, `docs/domain/*.md`, `docs/architecture.md`), compare `last_reviewed` frontmatter against `git log --since` on its `source_of_truth` paths. The union of flagged commits is the change set. |
+| No anchor given | Run the check baseline yourself: for every code-coupled doc (`docs/architecture/services/*.md`, `docs/architecture/api/*.md`, `docs/architecture/domain/*.md`, `docs/architecture/index.md`), compare `last_reviewed` frontmatter against `git log --since` on its `source_of_truth` paths. The union of flagged commits is the change set. |
 
 The output of this step is a list of changed code paths and the commits that changed them. If the change set is empty, report that the docs are current and stop.
 
@@ -50,11 +50,11 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 
 | Change in code | Doc to update |
 |---|---|
-| Endpoint added, removed, or reshaped | `docs/api/<service>.md`; `docs/services/<service>.md` if env vars or dependencies moved |
-| Entity field, lifecycle state, or domain event changed | `docs/domain/<entity>.md` — and `docs/architecture.md` if the change crosses a service boundary |
-| New entity introduced | New `docs/domain/<entity>.md` from `.groundwork/skills/templates/domain-entity.md` |
-| Service added, removed, or rewired | `docs/architecture.md` topology and boundaries, `docs/infrastructure.md` service table |
-| Port, boot command, or test command changed | `docs/infrastructure.md` |
+| Endpoint added, removed, or reshaped | `docs/architecture/api/<service>.md`; `docs/architecture/services/<service>.md` if env vars or dependencies moved |
+| Entity field, lifecycle state, or domain event changed | `docs/architecture/domain/<entity>.md` — and `docs/architecture/index.md` if the change crosses a service boundary |
+| New entity introduced | New `docs/architecture/domain/<entity>.md` from `.groundwork/skills/templates/domain-entity.md` |
+| Service added, removed, or rewired | `docs/architecture/index.md` topology and boundaries, `docs/architecture/infrastructure.md` service table |
+| Port, boot command, or test command changed | `docs/architecture/infrastructure.md` |
 | A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
 | User-visible capability added or removed | `docs/product-brief.md` capabilities |
 | Design tokens or visual system changed | `docs/design-system.md` and `.groundwork/config/brand-tokens.json` |
@@ -75,7 +75,7 @@ Edit each affected doc under the Living Documents protocol:
 - **Re-stamp frontmatter**: `last_reviewed` to today on every mutated doc; keep `generation_mode` and `source_of_truth` accurate — a doc whose sources moved gets its `source_of_truth` corrected in the same edit, or the next check run is blind.
 - **Index new docs.** Any newly created doc gets a one-line entry in the project's `llms.txt`. Agents cannot find docs that are not indexed.
 
-**Reversals get the full Reversal Protocol (Protocol 2) before anything commits:** reconcile every sentence the reversal falsifies across the whole body, trace it into every dependent doc (domain entity docs especially — nothing automated flags them stale), record the supersession in an ADR, and re-review every `docs/domain/*.md` unconditionally when the reversal is structural.
+**Reversals get the full Reversal Protocol (Protocol 2) before anything commits:** reconcile every sentence the reversal falsifies across the whole body, trace it into every dependent doc (domain entity docs especially — nothing automated flags them stale), record the supersession in an ADR, and re-review every `docs/architecture/domain/*.md` unconditionally when the reversal is structural.
 
 Edits land in place — git is the rollback boundary. Nothing is committed to git until the gate passes and the user approves.
 
@@ -83,7 +83,7 @@ Edits land in place — git is the rollback boundary. Nothing is committed to gi
 
 ## Step 4: Review Gate
 
-Announce the review, then invoke the review subagent (Protocol 9) once per mutated canonical doc, with `document_path` set to the doc's path and `document_type` matched to it (`docs/domain/<entity>.md` → `domain-entity`, `docs/architecture.md` → `architecture`, and so on). The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for every mutated doc; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
+Announce the review, then invoke the review subagent (Protocol 9) once per mutated canonical doc, with `document_path` set to the doc's path and `document_type` matched to it (`docs/architecture/domain/<entity>.md` → `domain-entity`, `docs/architecture/index.md` → `architecture`, and so on). The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for every mutated doc; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
 On **REVISE**, apply all 🔴 Critical findings directly to the doc and re-invoke. After 3 REVISE verdicts on a single doc, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT.
 

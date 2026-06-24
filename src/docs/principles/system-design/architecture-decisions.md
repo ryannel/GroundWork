@@ -58,7 +58,7 @@ A record is not a gate. "Governed" means an **advice process** — the decider s
 
 ## How we apply this
 
-Records live in `docs/decisions/NNNN-<slug>.md`, numbered sequentially. We record at the moment of the decision, not as after-the-fact paperwork — the cheapest time to capture the context is while it is still in the room. The significance test: would a new engineer or agent otherwise have to reconstruct, or relitigate, the reasoning from scratch? A reversible, low-cost, local choice does not earn a record; a durable, cross-cutting, expensive-to-reverse one does.
+Records live in `docs/architecture/decisions/NNNN-<slug>.md`, numbered sequentially. We record at the moment of the decision, not as after-the-fact paperwork — the cheapest time to capture the context is while it is still in the room. The significance test: would a new engineer or agent otherwise have to reconstruct, or relitigate, the reasoning from scratch? A reversible, low-cost, local choice does not earn a record; a durable, cross-cutting, expensive-to-reverse one does.
 
 - [How We Structure Code](code-structure.md) — the boundary decisions most often worth recording.
 - [Agent-Native Systems](../ai-native/agent-native-systems.md) — why records are written to be read by agents.

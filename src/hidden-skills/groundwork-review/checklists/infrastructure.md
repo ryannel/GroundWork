@@ -7,11 +7,11 @@ description: >
 
 # Infrastructure Checklist
 
-This checklist checks a draft `docs/infrastructure.md`. It answers one question: **could any
+This checklist checks a draft `docs/architecture/infrastructure.md`. It answers one question: **could any
 developer run the local environment from this document alone — boot it, test it, and verify it
 is healthy — without asking a question?**
 
-Each item names a violation. Match it against the document text plus `docs/architecture.md`;
+Each item names a violation. Match it against the document text plus `docs/architecture/index.md`;
 answer yes/no.
 
 ## Document Hygiene
@@ -48,7 +48,7 @@ answer yes/no.
 
 ## Service Inventory
 
-- [ ] 🔴 **Architecture service missing**: a service named in `docs/architecture.md`
+- [ ] 🔴 **Architecture service missing**: a service named in `docs/architecture/index.md`
   does not appear in this document's inventory, with no explicit note that it is not yet
   scaffolded.
 - [ ] 🔴 **Orphan service**: a service appears here that the architecture does not define —

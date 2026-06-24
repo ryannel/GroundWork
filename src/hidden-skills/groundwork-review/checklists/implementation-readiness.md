@@ -27,7 +27,7 @@ These items apply only when the project carries a surface registry (`docs/surfac
 ## Contracts
 
 - [ ] 🔴 **Slice without a contract**: a slice in the decomposition tree introduces or changes a service API whose shapes are absent from the prose design (`technical-design/03-api-design.md`, or the store in `04-data-design.md`) — that slice will be implemented against guesswork.
-- [ ] 🟡 **Contract orphan**: a designed interface in `technical-design/03-api-design.md` that no slice implements — either scope was silently cut in decomposition or the design carries dead weight. The interface is what the implementation's generated contract (canonical `docs/api/<service>/`, captured at validation) must eventually carry.
+- [ ] 🟡 **Contract orphan**: a designed interface in `technical-design/03-api-design.md` that no slice implements — either scope was silently cut in decomposition or the design carries dead weight. The interface is what the implementation's generated contract (canonical `docs/architecture/api/<service>/`, captured at validation) must eventually carry.
 
 ## Proof of work
 

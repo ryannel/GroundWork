@@ -7,13 +7,13 @@ description: >
 
 # Domain Entity Checklist
 
-This checklist checks a draft `docs/domain/<entity>.md`. It answers one question: **does this
-entity describe the system currently being built — agreeing with `docs/architecture.md`
+This checklist checks a draft `docs/architecture/domain/<entity>.md`. It answers one question: **does this
+entity describe the system currently being built — agreeing with `docs/architecture/index.md`
 and the accepted ADRs — and is every state, event, and invariant
 mechanically enforceable?**
 
-Each item names a violation. Match it against the document text, `docs/architecture.md`, and
-the ADRs under `docs/decisions/` (skip any ADR whose `status` is `superseded`). Domain entity
+Each item names a violation. Match it against the document text, `docs/architecture/index.md`, and
+the ADRs under `docs/architecture/decisions/` (skip any ADR whose `status` is `superseded`). Domain entity
 docs carry no Downstream Context file and no summary section — do not flag the absence of either.
 
 ## Identity and Ownership

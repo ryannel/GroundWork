@@ -19,7 +19,7 @@ Lean — three to five sections plus a thin governance header. Each field is loa
 - **Assumptions** — what must stay true for this to remain the right call: the load profile, team size, vendor, cost, or regulatory boundary it rests on. The linchpin of governance — a decision is valid exactly as long as its assumptions hold, and a record with none cannot be told when it has gone stale.
 - **Review trigger** — the condition that should bring it back: "when we add a second region", "if throughput passes 50k/s", or a date when nothing better applies. Decisions expire against reality, not the calendar — the trigger makes revisiting proactive.
 - **Trade-offs** — what was given up and what risk was accepted. A decision without its cost recorded is half a record.
-- **Header** — status, an **owner** accountable today (not whoever wrote it), and supersession links. Numbered sequentially (`docs/decisions/NNNN-<slug>.md`).
+- **Header** — status, an **owner** accountable today (not whoever wrote it), and supersession links. Numbered sequentially (`docs/architecture/decisions/NNNN-<slug>.md`).
 
 ## The record is immutable; the decision is not
 

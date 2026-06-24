@@ -26,7 +26,7 @@ a review of the matching reference so the distillation never drifts.
 | src/docs/principles/ai-native/agent-native-systems.md | a59972f54655061a66e696b000fb484563f7e882a463d7d448fe848f6b1a6162 | 2026-06-19 |
 | src/docs/principles/ai-native/ai-engineering.md | 79f8796d9ede943a3685ffc897e196c3ed081fd2861052df3003d34d3374e939 | 2026-06-19 |
 | src/docs/principles/ai-native/agentic-systems.md | faf79028b59ccb6221c1e88ab2f67685c4e1b3626498a81e2bf5c7fc58298990 | 2026-06-19 |
-| src/docs/principles/system-design/architecture-decisions.md | 0ea57bf74be9b1ea8006f9f4124b3272203328d61199e8107dec4a67262a038b | 2026-06-19 |
+| src/docs/principles/system-design/architecture-decisions.md | f02a30e5b490d2228ec1c06277e9e5967d40b9c3677e03c86a9b0683b119b874 | 2026-06-24 |
 | src/docs/principles/system-design/evolutionary-architecture.md | 6b50d45c4c15b087160e37f1cc98934eb5ba1031319adae61aa838b930abd366 | 2026-06-19 |
 | src/docs/principles/system-design/surface-architecture.md | 724e2183433b0db8d54466deffc0be877d847cdb6b61f0da9060491907151b91 | 2026-06-19 |
 | src/docs/principles/system-design/identity-and-access.md | 18c99f755a37bec69de595a9784171c88639845c13c2f5a8497b55e40c3a5edf | 2026-06-19 |

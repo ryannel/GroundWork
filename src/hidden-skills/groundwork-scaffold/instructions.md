@@ -4,7 +4,8 @@ description: >
   Makes the architecture physically real: scaffolds the services through
   generators, wires the infrastructure, writes per-service developer docs, and
   verifies the system boots and passes its tests before any product code is
-  written. Produces `docs/infrastructure.md` and a running environment.
+  written. Produces `docs/architecture/infrastructure.md`, the
+  `docs/getting-started/` developer on-ramp, and a running environment.
 ---
 
 # groundwork-scaffold
@@ -29,7 +30,7 @@ Scaffold has six execution phases that must be completed in order — each phase
 
 **Phase 4** is verification. Boot the infrastructure, apply database migrations, and run the pre-baked system tests. Debug and repair anything that fails. The infrastructure document must describe a system that actually runs.
 
-**Phase 5** drafts and reviews `docs/infrastructure.md`. Output the final document and get explicit user approval before proceeding.
+**Phase 5** drafts and reviews `docs/architecture/infrastructure.md`, then authors the `docs/getting-started/` developer on-ramp. Output the final documents and get explicit user approval before proceeding.
 
 **Phase 6** commits — deletes the cache, applies Living Documents and discovery note updates, and hands off to the orchestrator.
 
@@ -191,46 +192,23 @@ over it.
 When the union is empty, `./dev start` prints an honest "nothing registered" notice
 and exits 0 — it never reports a started environment it did not start.
 
-## Running the Environment
+## Running it
+
+The boot, test, and migration commands a developer needs day to day — and the
+fresh-clone setup walkthrough — live in the getting-started on-ramp
+(`docs/getting-started/`), not here. State the canonical three so this document is
+self-sufficient for a reader checking the running system, and point to the on-ramp
+for the rest:
 
 ```bash
 ./dev start       # Boot every managed unit (containers, app-services, runners)
 ./dev status      # Check service, container, and runner health
-./dev clean       # Stop and remove all containers and runner processes
+./dev test        # Run the system tests against the running stack
 ```
 
-## Running Tests
-
-```bash
-./dev test                                   # Fast inner loop — system tests against running stack
-./dev test integration                       # Boot + run system tests + tear down (Docker)
-./dev test bet <slug>                        # Run a bet-progress suite against running stack
-./dev test bet <slug> --integration          # Boot + run bet suite + tear down (Docker)
-```
-
-## Bet Workflow
-
-```bash
-./dev new bet <slug>                         # Create docs/bets/<slug>/ and tests/bets/<slug>/
-./dev new milestone <bet> <milestone>        # Scaffold a red milestone test stub
-./dev new slice <bet> <milestone> <svc> <s>  # Scaffold a red slice test stub
-./dev archive bet <slug>                     # Archive a delivered bet's progress suite
-```
-
-## Extending `./dev`
-
-`./dev` is yours to grow — every repeated task should become a command. Add a
-project-owned command without touching the framework bundle: drop a JSON file in
-`.dev/commands/`, or add a `commands` entry to `.dev/dev.config.json`.
-
-```json
-{ "name": "seed", "summary": "Load demo fixtures", "run": "psql $DATABASE_URL -f db/seed.sql" }
-```
-
-It appears in `./dev help` and shell completion beside the built-ins and runs as a
-subprocess with any extra args appended. A project command may reuse a built-in name to
-shadow it (e.g. redefine `start` for a stack the default lifecycle doesn't fit). These
-commands are project-owned — `groundwork update` never overwrites them.
+If any service runs a database, also name the migration command (`./dev migrate`).
+See `docs/getting-started/` for prerequisites, dependency install, `./dev doctor`,
+and the full `./dev` command reference.
 
 ## Verification
 
@@ -239,3 +217,38 @@ Verified green on initial scaffold:
 - Clerk webhook endpoint on `story-service` correctly rejected unverified payloads.
 - System integration tests: 7/7 passed.
 ```
+
+---
+
+## The developer on-ramp: `docs/getting-started/`
+
+`infrastructure.md` describes the *shape* of the running system. The getting-started
+section answers a different question — **how does someone who just cloned the repo
+get it running?** — and it is the doc set the docs-site landing page routes a new
+developer to. Author three files under `docs/getting-started/`, each a clean
+published doc under `groundwork-writer`:
+
+- **`index.md`** — the on-ramp overview. Two short paragraphs: what this system is in
+  one line (lift from the product brief), and the two reading paths — set it up here,
+  or understand the product via `docs/product-brief.md`. Link to `setup.md` and
+  `dev-cli-reference.md`. Keep it to a screen; it is a signpost, not a tutorial.
+
+- **`setup.md`** — the fresh-clone walkthrough, in order, with the *actual* values this
+  scaffold produced: **prerequisites** (the runtimes and tools the stack needs —
+  Docker, the language runtimes per service, any CLI like `air`/`uv`/`pnpm` — with
+  versions), then `./dev doctor` to verify the environment, then **install
+  dependencies** (the real per-stack commands), then env configuration (the variables
+  `infrastructure.md` lists as required, and where they go), then `./dev start`, then
+  how to confirm health (`./dev status` / the health endpoints). This is the content
+  `infrastructure.md` never carried — write it from what Phase 4 verification actually
+  did, not from theory. If verification was pending, say so here too.
+
+- **`dev-cli-reference.md`** — the complete `./dev` command catalogue. **Derive it from
+  `./dev help`** (the CLI's registry is the single source of truth — never hand-list
+  commands from memory, or the doc drifts the moment a command is added): one section
+  per command group (Lifecycle, Quality, Bet Workflow, Meta), each command with its
+  summary and flags, plus the "Extending `./dev`" note on project-owned commands
+  (`.dev/commands/` and the `commands` block in `.dev/dev.config.json`).
+
+These are skill-authored, not templated, precisely so they carry this project's real
+prerequisites, install commands, and command set rather than a generic stand-in.

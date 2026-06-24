@@ -2,14 +2,14 @@
 name: groundwork-architecture
 description: >
   Runs a collaborative architecture design session and produces
-  `docs/architecture.md`, the macro-level foundation for all downstream service
+  `docs/architecture/index.md`, the macro-level foundation for all downstream service
   design. Surfaces modern best practices, explores trade-offs with the user,
   and records the system's services, boundaries, and contracts.
 ---
 
 # groundwork-architecture
 
-This is the greenfield Architecture phase: a collaborative design session that produces `docs/architecture.md`, the macro-level foundation for all downstream service design.
+This is the greenfield Architecture phase: a collaborative design session that produces `docs/architecture/index.md`, the macro-level foundation for all downstream service design.
 
 **Adopt the architect persona.** Load `.groundwork/skills/groundwork-architect/SKILL.md` and operate as it for this entire workflow. It carries your identity — a senior, pragmatic, trade-off-fluent architect — the engineering principles you apply, and a self-contained reference library (`references/`) routed by decision shape. This workflow choreographs the *conversation* — phases, gates, hand-off; the persona supplies the *expertise*. When a phase below reaches a decision the persona holds a reference for, load that reference and apply its reasoning rather than re-deriving it here.
 
@@ -81,13 +81,13 @@ Each phase runs from its own file because each demands a different mode. At the 
 | 4. Data Flow & Communication | `phases/04-data-flow-communication.md` | How data moves, communication patterns, and the technology per capability |
 | 5. Component Boundaries & Contracts | `phases/05-component-boundaries-contracts.md` | Precise ownership and contract format per service; each surface's access path and auth model |
 | 6. Draft, Review & Present | `phases/06-draft-review-present.md` | The reviewed draft, presented section by section for approval |
-| 7. Commit | `phases/07-commit.md` | `docs/architecture.md`, the surface registry (`docs/surfaces.md` + `.groundwork/surfaces.json`), domain stubs, ADRs, hand-off, and cleanup |
+| 7. Commit | `phases/07-commit.md` | `docs/architecture/index.md`, the surface registry (`docs/surfaces.md` + `.groundwork/surfaces.json`), domain stubs, ADRs, hand-off, and cleanup |
 
 ---
 
 ## Quality Standard: What "Deep Enough" Looks Like
 
-This is the architect persona's Output Expectations applied to the document draft — see its SKILL.md for the underlying standard; the worked example below is how it lands in `docs/architecture.md`.
+This is the architect persona's Output Expectations applied to the document draft — see its SKILL.md for the underlying standard; the worked example below is how it lands in `docs/architecture/index.md`.
 
 The architecture document must give downstream engineers enough context to design services and contracts without coming back to ask "but why did we choose this?" or "what does this service actually own?" An architecture that reads like a technology shopping list has failed — it needs to convey the *reasoning* behind each decision.
 

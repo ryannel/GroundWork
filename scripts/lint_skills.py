@@ -257,14 +257,17 @@ def check_routing():
 RUNTIME_DOCS = {
     "docs/product-brief.md",
     "docs/design-system.md",
-    "docs/architecture.md",
-    "docs/infrastructure.md",
+    "docs/architecture/index.md",
+    "docs/architecture/infrastructure.md",
     "docs/maturity.md",
     # Runtime directories minted by lifecycle phases in the user's project.
-    "docs/domain/",
-    "docs/decisions/",
-    "docs/services/",
-    "docs/api/",
+    # The architecture set nests under docs/architecture/; the getting-started
+    # on-ramp is authored by the setup skills.
+    "docs/architecture/domain/",
+    "docs/architecture/decisions/",
+    "docs/architecture/services/",
+    "docs/architecture/api/",
+    "docs/getting-started/",
     "docs/bets/",
 }
 

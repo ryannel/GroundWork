@@ -4,7 +4,7 @@
 
 *`Surface:` applies only when the project carries a surface registry (`docs/surfaces.md`); omit it with no registry.*
 
-**Owner service:** [service name from `docs/infrastructure.md`]
+**Owner service:** [service name from `docs/architecture/infrastructure.md`]
 
 **Surface:** core | [surface-slug from `docs/surfaces.md`]
 

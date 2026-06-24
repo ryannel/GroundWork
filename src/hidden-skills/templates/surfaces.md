@@ -33,7 +33,7 @@ A product with zero surface entries is legal: a headless API product's only surf
 
 ### 3. Capability Ledger
 
-A capability × surface matrix. **Rows** are user-meaningful capabilities, named at bet validation — typically 1–3 per bet, coarse enough to stay readable, never per-endpoint (endpoints already have `docs/api/` promotion). Row keys follow `<bet-slug>/<capability-slug>` — stable, greppable, collision-free. **Columns** are the registry's surfaces. Each cell carries exactly one state:
+A capability × surface matrix. **Rows** are user-meaningful capabilities, named at bet validation — typically 1–3 per bet, coarse enough to stay readable, never per-endpoint (endpoints already have `docs/architecture/api/` promotion). Row keys follow `<bet-slug>/<capability-slug>` — stable, greppable, collision-free. **Columns** are the registry's surfaces. Each cell carries exactly one state:
 
 | State | Meaning | Required payload |
 |---|---|---|
@@ -58,7 +58,7 @@ When a surface's status moves to `retired`, its ledger column freezes: existing 
 ## Capability Core
 
 Hosted core: three Go services behind an HTTP gateway own ordering, inventory,
-and notification logic. Contracts are OpenAPI 3.x, promoted to `docs/api/` at
+and notification logic. Contracts are OpenAPI 3.x, promoted to `docs/architecture/api/` at
 bet validation. All capability behaviour is provable against these contracts
 with no surface running.
 
@@ -127,7 +127,7 @@ Written and updated in the same commit as `docs/surfaces.md` — the two never d
   "core": {
     "deployment": "hosted",
     "contractFormat": "openapi",
-    "contractsPath": "docs/api/"
+    "contractsPath": "docs/architecture/api/"
   },
   "surfaces": [
     {

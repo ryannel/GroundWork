@@ -15,16 +15,16 @@ Different doc types have different drift semantics. Apply these rules when scann
 
 These are project-stable docs not derived from code. Do **not** flag them for code drift. Do surface a low-severity advisory (not a build failure) for any file whose `last_reviewed` date is more than 12 months old. Advisory format: "Advisory: `<path>` has not been reviewed in over 12 months — consider a manual review pass."
 
-### `docs/domain/<entity>.md`
+### `docs/architecture/domain/<entity>.md`
 
-Entity docs should reflect the domain as it appears in code. When discoverable (schema migration files, model definitions), compare entity names found in code against the names of files in `docs/domain/`. Flag two conditions as warnings:
+Entity docs should reflect the domain as it appears in code. When discoverable (schema migration files, model definitions), compare entity names found in code against the names of files in `docs/architecture/domain/`. Flag two conditions as warnings:
 
-- An entity file exists in `docs/domain/` but no corresponding code definition can be found — possible deletion or rename.
-- A code definition exists but no entity file exists in `docs/domain/` — the architecture phase may have missed it, or a bet added it without documentation.
+- An entity file exists in `docs/architecture/domain/` but no corresponding code definition can be found — possible deletion or rename.
+- A code definition exists but no entity file exists in `docs/architecture/domain/` — the architecture phase may have missed it, or a bet added it without documentation.
 
 Do not fail the build on domain mismatches — these are advisory warnings requiring human judgement.
 
-### `docs/decisions/NNNN-*.md`
+### `docs/architecture/decisions/NNNN-*.md`
 
 ADRs are append-only historical records. Do **not** check for code drift. Do check:
 
@@ -49,8 +49,8 @@ Report as warnings:
 
 Report as an advisory (not a build failure):
 
-- **No registry** — GroundWork docs exist but neither `docs/surfaces.md` nor `.groundwork/surfaces.json` does. This is a pre-restructure adoption, not drift. Point at `groundwork-surface-activation`, whose first move on such a product is to bootstrap the registry from `docs/architecture.md` and the existing scaffold.
+- **No registry** — GroundWork docs exist but neither `docs/surfaces.md` nor `.groundwork/surfaces.json` does. This is a pre-restructure adoption, not drift. Point at `groundwork-surface-activation`, whose first move on such a product is to bootstrap the registry from `docs/architecture/index.md` and the existing scaffold.
 
-### `docs/services/**`
+### `docs/architecture/services/**`
 
 Out of scope for the current check implementation.

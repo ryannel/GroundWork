@@ -24,7 +24,7 @@ When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/
 
 The approved decomposition is prose; Delivery's first act is to render it into the runnable red board it tracks progress against. From the approved Proof-of-work prose, generate one red stub per milestone and per slice — the board the rest of this phase turns green.
 
-For each milestone `index.md` and each slice file under `docs/bets/<bet-slug>/decomposition/`, materialize its named `Test file:` as a red stub that fails explicitly (never skips), commenting the stub with what the Proof-of-work prose says it must eventually assert so the slice loop knows exactly what to implement. Discover the project's test language and service names from the scaffold (`docs/infrastructure.md`, the generated `docker-compose.yml`) — never assume. Use `./dev new milestone <bet-slug> <milestone-slug>` and `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>` when they exist to scaffold the stubs at the correct paths; write the files directly otherwise. Either way the paths match the prose exactly:
+For each milestone `index.md` and each slice file under `docs/bets/<bet-slug>/decomposition/`, materialize its named `Test file:` as a red stub that fails explicitly (never skips), commenting the stub with what the Proof-of-work prose says it must eventually assert so the slice loop knows exactly what to implement. Discover the project's test language and service names from the scaffold (`docs/architecture/infrastructure.md`, the generated `docker-compose.yml`) — never assume. Use `./dev new milestone <bet-slug> <milestone-slug>` and `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>` when they exist to scaffold the stubs at the correct paths; write the files directly otherwise. Either way the paths match the prose exactly:
 
 ```
 tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>
@@ -58,7 +58,7 @@ Note the slice's baseline commit (`git rev-parse HEAD`) — it ties the slice's 
 
 ### 3. Implement to green
 
-Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) — red, because the implementation does not exist. Implement until they pass, staying inside the design: build each interface to the shapes in `docs/bets/<bet-slug>/technical-design/03-api-design.md` and the stores in `04-data-design.md`, and generate the service's machine-readable contract (OpenAPI/AsyncAPI/proto) from the running code rather than hand-writing it. For a cross-service call, derive the client from the consumed service's canonical `docs/api/<service>/` contract; a hand-written request shape or side-channel schema is a design violation even when the test passes.
+Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) — red, because the implementation does not exist. Implement until they pass, staying inside the design: build each interface to the shapes in `docs/bets/<bet-slug>/technical-design/03-api-design.md` and the stores in `04-data-design.md`, and generate the service's machine-readable contract (OpenAPI/AsyncAPI/proto) from the running code rather than hand-writing it. For a cross-service call, derive the client from the consumed service's canonical `docs/architecture/api/<service>/` contract; a hand-written request shape or side-channel schema is a design violation even when the test passes.
 
 ### 4. Review the slice
 

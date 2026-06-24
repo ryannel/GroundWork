@@ -88,7 +88,7 @@ absence of surface ceremony.
   prose with no `sequenceDiagram` or `flowchart` — ordering and service boundaries that a diagram
   makes legible are left to the reader to reconstruct.
 - [ ] 🟡 **Domain doc duplicated**: the schema section restates an entity already defined in
-  `docs/domain/` instead of referencing the entity doc and describing only what this bet adds or
+  `docs/architecture/domain/` instead of referencing the entity doc and describing only what this bet adds or
   changes — the copies will drift.
 - [ ] 🟡 **Schema without lifecycle**: a table or store that carries a status field defines no
   state machine for it, and no reference to where one is defined.
@@ -102,7 +102,7 @@ absence of surface ceremony.
 - [ ] 🟡 **Stakes mismatch**: the design's actual blast radius or reversibility is graver than
   the pitch's stakes read — it touches a one-way door, a load-bearing path, or a wider surface
   than the pitch sized for — yet no rigour (deeper review, a flag, a smaller increment) answers it.
-- [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts `docs/architecture.md`
+- [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts `docs/architecture/index.md`
   or an accepted ADR — a sync call across a boundary the architecture made async, a store a
   service does not own.
 - [ ] 🟡 **Pitch topology missing or stale**: the design establishes the services and components

@@ -63,7 +63,7 @@ For each milestone, break it into **vertical slices** — the smallest units tha
 Never slice horizontally: "all schemas, then all APIs, then all UI" is three horizontal passes. Each slice must cross whatever service boundaries are needed to deliver a testable capability end-to-end.
 
 Each slice spec must contain:
-- **Owner service** — the primary service this slice lives in (from `docs/infrastructure.md`)
+- **Owner service** — the primary service this slice lives in (from `docs/architecture/infrastructure.md`)
 - **Surface** — `core` for a slice implementing capability-core behaviour, or the registry slug of the surface it wires (omit the field entirely when the project has no surface registry). The field drives delivery sequencing — core slices merge before the surface slices that consume them — and tells the reviewer which test discipline applies: contract proof for `core`, wiring-only for a surface.
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
@@ -81,7 +81,7 @@ Write the reviewable artifact as a **browsable tree** at `docs/bets/<bet-slug>/d
 | `decomposition/NN-<milestone-slug>/index.md` | One folder per milestone; `index.md` is its landing page — type, consumer, demonstrable goal, sequencing rationale, acceptance criteria, **Proof of work** (Step 3), and links to its slices. | `decomposition/milestone-index.md` |
 | `decomposition/NN-<milestone-slug>/NN-<slice-slug>.md` | One file per slice — header, **Scope** (intro + Required Capabilities), **Design**, **Proof of work** (Step 4 / Step 5). | `decomposition/slice.md` |
 
-The `NN-` numeric prefixes order the milestone folders and the slices within each, so the tree reads top to bottom on the docs site as the order of work. Discover the project's test language and service names from the scaffold (`docs/infrastructure.md` and the generated `docker-compose.yml`) so each `Test file:` path names the right extension and owning service — do not hardcode a language or service name. The path is named; the stub is generated at Delivery start.
+The `NN-` numeric prefixes order the milestone folders and the slices within each, so the tree reads top to bottom on the docs site as the order of work. Discover the project's test language and service names from the scaffold (`docs/architecture/infrastructure.md` and the generated `docker-compose.yml`) so each `Test file:` path names the right extension and owning service — do not hardcode a language or service name. The path is named; the stub is generated at Delivery start.
 
 **The slice's Proof of work is the prose proof.** Write each `Proves` / `How we prove it` from the slice's target-state intent — what becomes true and the observable condition that shows it — never assertion code. A `core` slice proves contract behaviour; a surface slice proves wiring, rendering, and interaction only. This is the headline proof, not every assertion: the granular edge-case and permutation coverage is added when the slice is built in Delivery.
 

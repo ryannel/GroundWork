@@ -43,5 +43,5 @@ Authored from the Electron ecosystem survey dated **2026-06-12**. Load-bearing s
 - [VS Code sandbox migration](https://code.visualstudio.com/blogs/2022/11/28/vscode-sandbox) and [Slack: The App Sandbox](https://slack.engineering/the-app-sandbox/) — the reference process architectures.
 - [Trail of Bits, CVE-2025-55305](https://blog.trailofbits.com/2025/09/03/subverting-code-integrity-checks-to-locally-backdoor-signal-1password-slack-and-more/) — why fuses are now expected.
 - [Why Electron Forge](https://www.electronforge.io/core-concepts/why-electron-forge), [electron-vite](https://electron-vite.org/guide/) (v5, alex8088), [Updating Applications](https://www.electronjs.org/docs/latest/tutorial/updates), [update.electronjs.org](https://github.com/electron/update.electronjs.org).
-- [Playwright Electron class](https://playwright.dev/docs/api/class-electron) — the loop driver.
+- [Playwright Electron class](https://playwright.dev/docs/architecture/api/class-electron) — the loop driver.
 - [Azure Artifact Signing](https://azure.microsoft.com/en-us/products/artifact-signing) — Windows signing (renamed from Trusted Signing, GA Jan 2026).

@@ -89,6 +89,6 @@ no surface no-gos.
 - [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something `docs/product-brief.md`
   permanently excludes, with no recorded decision reversing that boundary.
 - [ ] 🔴 **Constraint breach**: the pitched solution violates a binding constraint from
-  `docs/architecture.md` or `docs/design-system.md` — a budget, a data rule, a platform commitment.
+  `docs/architecture/index.md` or `docs/design-system.md` — a budget, a data rule, a platform commitment.
 - [ ] 🟡 **Unacknowledged dependency**: the pitch assumes a capability (a service, an
   integration, a data source) that no upstream doc records as existing or planned.

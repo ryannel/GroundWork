@@ -3,7 +3,7 @@
 // The bet became pure prose: every machine-readable artifact is now built in code at
 // Delivery. Three shapes are gone — `docs/bets/<slug>/decomposition.json` (the suite and
 // git are the record), `docs/bets/<slug>/contracts/` (the prose API/data design carries the
-// shapes; the canonical contract is captured from the running service into `docs/api/<service>/`),
+// shapes; the canonical contract is captured from the running service into `docs/architecture/api/<service>/`),
 // and the monolithic `decomposition.md` (now a browsable `decomposition/` prose tree). The
 // approval baseline moved from `approval_commit` in `decomposition.json` to the git tag
 // `bet/<slug>/approved` on the approved-prose commit.
@@ -11,7 +11,7 @@
 // Restructuring a *live* bet's docs is risky, so this migration is largely ADVISORY: it
 // prints the model change and names any active bet a contributor must restructure by hand.
 // Where cleanup is SAFE and mechanical it acts — already-DELIVERED bets under
-// `docs/bets/_archive/` (whose contracts were already captured to `docs/api/` at Validation)
+// `docs/bets/_archive/` (whose contracts were already captured to `docs/architecture/api/` at Validation)
 // and stray `.groundwork/bets/<slug>/decomposition.json` files have their obsolete
 // `decomposition.json` / `contracts/` artifacts removed. Active bets are advised, never mutated;
 // their prose record (including any archived `decomposition.md`) is left untouched.
@@ -91,7 +91,7 @@ module.exports = {
     console.log('    • docs/bets/<slug>/decomposition.md  →  a browsable docs/bets/<slug>/decomposition/ prose tree');
     console.log('    • decomposition.json is dropped — the bet-progress suite plus git history are the record');
     console.log('    • docs/bets/<slug>/contracts/ is removed — the prose API/data design carries the shapes,');
-    console.log('      and the canonical contract is captured into docs/api/<service>/ from the running service');
+    console.log('      and the canonical contract is captured into docs/architecture/api/<service>/ from the running service');
     console.log('    • the approval baseline is the git tag bet/<slug>/approved on the approved-prose commit');
 
     const active = activeBetsNeedingAttention(targetDir);

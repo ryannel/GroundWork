@@ -1,7 +1,7 @@
 """Contract conformance: the served API vs the promoted design spec.
 
 For each discovered APP service (see conftest.services_manifest) with a
-canonical promoted spec at docs/api/<service>/openapi.yaml, fetch the spec the
+canonical promoted spec at docs/architecture/api/<service>/openapi.yaml, fetch the spec the
 RUNNING service serves (Huma on Go and FastAPI both expose /openapi.json) and
 structurally compare paths + methods + response codes.
 
@@ -109,7 +109,7 @@ def test_served_api_conforms_to_design_spec(cluster, svc):
     design_doc = _load_design_spec(svc["name"])
     if design_doc is None:
         pytest.skip(
-            f"no promoted design spec at docs/api/{svc['name']}/openapi.yaml — "
+            f"no promoted design spec at docs/architecture/api/{svc['name']}/openapi.yaml — "
             "promote one in bet validation to bring this service under contract test"
         )
     if svc["host_port"] is None:
@@ -129,12 +129,12 @@ def test_served_api_conforms_to_design_spec(cluster, svc):
     if additive:
         warnings.warn(
             f"ADDITIVE drift for {svc['name']} — the served API exceeds "
-            f"docs/api/{svc['name']}/openapi.yaml; re-promote the spec:\n  "
+            f"docs/architecture/api/{svc['name']}/openapi.yaml; re-promote the spec:\n  "
             + "\n  ".join(additive)
         )
 
     assert not breaking, (
         f"BREAKING drift for {svc['name']} — the design spec at "
-        f"docs/api/{svc['name']}/openapi.yaml promises surface the running "
+        f"docs/architecture/api/{svc['name']}/openapi.yaml promises surface the running "
         "service does not deliver:\n  " + "\n  ".join(breaking)
     )

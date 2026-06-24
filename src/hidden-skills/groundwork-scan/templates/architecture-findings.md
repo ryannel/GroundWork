@@ -1,6 +1,6 @@
 # Architecture Findings
 
-> Consumed by `groundwork-architecture-extract`. Exact structural facts extracted from the codebase and the `repo-map.json` code map. The heaviest findings slice — the architecture phase reverse-engineers `docs/architecture.md`, domain stubs, and contract docs from it.
+> Consumed by `groundwork-architecture-extract`. Exact structural facts extracted from the codebase and the `repo-map.json` code map. The heaviest findings slice — the architecture phase reverse-engineers `docs/architecture/index.md`, domain stubs, and contract docs from it.
 
 ## Service / Partition Map
 

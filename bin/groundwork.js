@@ -1373,7 +1373,7 @@ function checkGroundWork() {
   if (fs.existsSync(archDoc)) candidates.push(archDoc);
 
   if (candidates.length === 0) {
-    c.warn(`No drift-tracked docs found (docs/services/, docs/api/, docs/domain/, docs/architecture.md).`);
+    c.warn(`No drift-tracked docs found (docs/architecture/services/, docs/architecture/api/, docs/architecture/domain/, docs/architecture/index.md).`);
     console.log(`  Nothing to check yet — docs gain drift tracking once scaffold or brownfield adoption stamps them.\n`);
     return;
   }

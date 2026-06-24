@@ -10,8 +10,8 @@ Six phases, each with one skill and one canonical output document:
 |---|---|---|---|
 | 1 | `groundwork-product-brief` | `docs/product-brief.md` | Vision, users, capabilities, domain constraints, the surfaces users meet the product through (with MVP/later horizons) |
 | 2 | `groundwork-design-system` | `docs/design-system.md` | Design system, NFRs, interaction patterns — a shared brand foundation plus one design track per interface type in use |
-| 3 | `groundwork-architecture` | `docs/architecture.md` + `docs/surfaces.md` | Services, data flows, contracts, technology choices; the surface registry with the core's deployment (hosted or embedded) and each surface's core-access path |
-| 4 | `groundwork-scaffold` | `docs/infrastructure.md` | Running local environment, one generated app per registry surface with a generator (`scaffold: manual` honored for the rest), infrastructure topology |
+| 3 | `groundwork-architecture` | `docs/architecture/index.md` + `docs/surfaces.md` | Services, data flows, contracts, technology choices; the surface registry with the core's deployment (hosted or embedded) and each surface's core-access path |
+| 4 | `groundwork-scaffold` | `docs/architecture/infrastructure.md` | Running local environment, one generated app per registry surface with a generator (`scaffold: manual` honored for the rest), infrastructure topology |
 | 5 | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | Scoped first bet with appetite, success signal, explicit no-gos, and the surfaces it ships on |
 | 6 | `groundwork-bet` (Design Foundations onward) | First delivered feature | The first shipped value; enters the Delivery Loop afterwards |
 
@@ -26,8 +26,8 @@ When the repository already holds an application, setup inverts: the code is the
 | 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Code map (via Serena when present), concern-split findings for the extract phases |
 | 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
 | 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
-| 3 | `groundwork-architecture-extract` | `docs/architecture.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |
-| 4 | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
+| 3 | `groundwork-architecture-extract` | `docs/architecture/index.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |
+| 4 | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
 
 There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
 

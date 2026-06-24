@@ -36,8 +36,8 @@ A product that adopted GroundWork before the surface model exists has canonical 
 
 Reconstruct the registry from what the project already proves:
 
-- **`docs/architecture.md`** — read its body for the surface detail: it names the services, the surface apps among them, the access paths, and the core's deployment as decided. (This skill runs after setup, so there is no Downstream Context file to read first — the published doc body is the record.)
-- **`docs/infrastructure.md`** — the scaffold's record of what actually exists: the apps, ports, run commands, test mediums. Where the architecture and the infrastructure doc disagree, the infrastructure doc describes today and wins.
+- **`docs/architecture/index.md`** — read its body for the surface detail: it names the services, the surface apps among them, the access paths, and the core's deployment as decided. (This skill runs after setup, so there is no Downstream Context file to read first — the published doc body is the record.)
+- **`docs/architecture/infrastructure.md`** — the scaffold's record of what actually exists: the apps, ports, run commands, test mediums. Where the architecture and the infrastructure doc disagree, the infrastructure doc describes today and wins.
 
 Enter every current surface as `active`, with the fields the docs support: type, platform, core access, auth, scaffold (the generator that produced it, or `manual`), test medium, design-track reference into `docs/design-system.md`. Write the Capability Core section from the deployment as observed. Leave the Capability Ledger **empty — table headers, zero rows**. Reconstructing capability parity from a live product is expensive and fuzzy; an empty ledger is honest ("parity unknown until a bet touches it") where a synthesized one would be confidently wrong. Rows grow per-bet from here, written by bet validation.
 
@@ -52,7 +52,7 @@ Establish the new surface's registry entry with the user: slug (kebab-case, neve
 - **Core access.** Direct, gateway, or BFF is asked, not presumed. Surface the trade-space against what the architecture already runs — an existing gateway argues for joining it; a surface with needs the shared API cannot serve cleanly argues for a BFF — and let the user decide.
 - **Auth.** The new surface's auth model against the core, in the architecture's terms. A surface that cannot use the existing auth path (a CLI that needs tokens where the web app uses session cookies) is a real decision, not a field to fill.
 
-**Contract compatibility.** A new surface that deploys independently of the core — and a second deployed artifact does — turns "we changed the contract" from a refactor into an incident the moment release cadences diverge. If `docs/architecture.md` carries no contract-compatibility stance, establish one with the user now and record it under the architecture's Binding Constraints via Living Documents. When the stance overturns a committed Key Decision, that is a reversal: the full Reversal Protocol applies, review re-gate included.
+**Contract compatibility.** A new surface that deploys independently of the core — and a second deployed artifact does — turns "we changed the contract" from a refactor into an incident the moment release cadences diverge. If `docs/architecture/index.md` carries no contract-compatibility stance, establish one with the user now and record it under the architecture's Binding Constraints via Living Documents. When the stance overturns a committed Key Decision, that is a reversal: the full Reversal Protocol applies, review re-gate included.
 
 Write the registry entry and the JSON twin in the same change.
 
@@ -70,7 +70,7 @@ When the surface's `scaffold` field names a generator, generate the app: one inv
 
 When the field is `manual`, no generator runs. `manual` is first-class — the surface participates fully in design, bets, the ledger, and tests before tooling exists for its platform.
 
-Either way, the operational expectations are the same and go on the record: a health endpoint (or the medium's equivalent liveness probe), `./dev` integration so the surface boots with the rest of the topology, and registration in the `surfaces` test fixture — re-invoke `system-test-runner --surfaces` with the full active set from `.groundwork/surfaces.json` so the fixture map gains the new slug with its medium and reach. For a generated surface these arrive with the scaffold; for a manual surface they are obligations its implementation must meet to keep the registration honest. Update `docs/infrastructure.md`'s Surfaces group with the new entry either way (Living Documents).
+Either way, the operational expectations are the same and go on the record: a health endpoint (or the medium's equivalent liveness probe), `./dev` integration so the surface boots with the rest of the topology, and registration in the `surfaces` test fixture — re-invoke `system-test-runner --surfaces` with the full active set from `.groundwork/surfaces.json` so the fixture map gains the new slug with its medium and reach. For a generated surface these arrive with the scaffold; for a manual surface they are obligations its implementation must meet to keep the registration honest. Update `docs/architecture/infrastructure.md`'s Surfaces group with the new entry either way (Living Documents).
 
 ## Step 4: Triage the ledger
 

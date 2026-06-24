@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { source } from '@/app/source';
 
 // A generated, brand-driven landing page (F4): a hero (project name + a one-line
-// tagline) over section cards derived live from the doc tree. Nothing here is
-// product-specific — the project name and sections come from the workspace and
-// the docs/ folder, so this renders sensibly for any project GroundWork builds.
-// The /docs index (the catch-all route's DocsIndex) remains the fallback link.
+// tagline) over two audience on-ramps, then section cards derived live from the
+// doc tree. Nothing here is product-specific — the project name, the on-ramp
+// targets, and the sections all come from the workspace and the docs/ folder, so
+// this renders sensibly for any project GroundWork builds. The /docs index (the
+// catch-all route's DocsIndex) remains the fallback link.
 
 const TITLE = '<%= projectName %>';
 const TAGLINE = '<%= tagline %>';
@@ -14,6 +15,43 @@ const WORDMARK = '<%= wordmark %>';
 /** Human-friendly label for a top-level docs folder segment. */
 function label(slug: string): string {
   return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/** Every page url under /docs, lower-cased once for cheap existence checks. */
+function pageUrls(): Set<string> {
+  return new Set(source.getPages().map((p) => p.url.toLowerCase()));
+}
+
+/** True when any doc exists at exactly `url` or nested beneath it — lets an
+ *  on-ramp target either a leaf doc (product-brief) or a section (getting-started)
+ *  without 404ing on a fresh scaffold where the setup skills have not yet authored
+ *  the doc. */
+function hasRoute(urls: Set<string>, url: string): boolean {
+  const target = url.toLowerCase();
+  for (const u of urls) {
+    if (u === target || u.startsWith(target + '/')) return true;
+  }
+  return false;
+}
+
+/** The two audience on-ramps, in reading order — a fresh-clone developer first,
+ *  a product reader second. Only the ones whose target doc actually exists are
+ *  rendered, so the hero degrades gracefully before setup authors the docs. */
+function onramps(
+  urls: Set<string>,
+): { title: string; blurb: string; url: string }[] {
+  return [
+    {
+      title: 'New here — get it running',
+      blurb: 'Install dependencies, boot the stack, and learn the ./dev workflow.',
+      url: '/docs/getting-started',
+    },
+    {
+      title: 'Understand the product',
+      blurb: 'What the system is, who it serves, and what it does and does not do.',
+      url: '/docs/product-brief',
+    },
+  ].filter((r) => hasRoute(urls, r.url));
 }
 
 /** The top-level sections present under /docs, derived from the page list, plus
@@ -36,6 +74,8 @@ function sections(): { slug: string; title: string; url: string; count: number }
 }
 
 export default function HomePage() {
+  const urls = pageUrls();
+  const ramps = onramps(urls);
   const cards = sections();
   return (
     <main className="flex flex-1 flex-col items-center px-4 py-16">
@@ -61,7 +101,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mt-14 grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {ramps.length ? (
+        <section className="mt-12 grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
+          {ramps.map((r) => (
+            <Link
+              key={r.url}
+              href={r.url}
+              className="rounded-xl border border-fd-border bg-fd-card p-6 text-left transition-colors hover:border-fd-primary hover:bg-fd-accent"
+            >
+              <div className="text-lg font-semibold text-fd-card-foreground">{r.title}</div>
+              <div className="mt-2 text-sm text-fd-muted-foreground">{r.blurb}</div>
+            </Link>
+          ))}
+        </section>
+      ) : null}
+
+      <section className="mt-10 grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c) => (
           <Link
             key={c.slug}

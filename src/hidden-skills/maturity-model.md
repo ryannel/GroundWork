@@ -23,17 +23,17 @@ Each dimension states what it is, the failure it prevents, and the mechanical si
 
 ### D1. Documented truth
 
-The canonical doc set — `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md` — exists as clean published reference documentation (frontmatter intact, no summary section) and describes the system as it currently is.
+The canonical doc set — `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture/index.md`, `docs/architecture/infrastructure.md` — exists as clean published reference documentation (frontmatter intact, no summary section) and describes the system as it currently is.
 
 **Failure it prevents:** every agent session re-derives context from raw code, makes a different guess, and starts from wrong foundations — the defect class GroundWork exists to eliminate.
 **Signal:** the four docs exist as clean published documentation; `npx groundwork-method check` exits 0.
 
 ### D2. Machine-readable contracts
 
-Every service boundary exposes a pinned, machine-readable contract — OpenAPI, AsyncAPI, or proto — captured from the running service into `docs/api/<service>/`, with `docs/api/*.md` transcribing from it. The contract is code-first: the running service is the source of truth, snapshotted at Validation, never a spec promoted ahead of the code that serves it.
+Every service boundary exposes a pinned, machine-readable contract — OpenAPI, AsyncAPI, or proto — captured from the running service into `docs/architecture/api/<service>/`, with `docs/architecture/api/*.md` transcribing from it. The contract is code-first: the running service is the source of truth, snapshotted at Validation, never a spec promoted ahead of the code that serves it.
 
 **Failure it prevents:** agents invent API shapes mid-implementation; integration defects surface at runtime instead of design time; cross-service callers wire against a shape nothing actually serves.
-**Signal:** every service named in `docs/architecture.md` has a contract file under `docs/api/<service>/`, captured from the running service and referenced from its `docs/api/<service>.md`.
+**Signal:** every service named in `docs/architecture/index.md` has a contract file under `docs/architecture/api/<service>/`, captured from the running service and referenced from its `docs/architecture/api/<service>.md`.
 
 ### D3. One-command operations
 
@@ -82,7 +82,7 @@ The surface registry and capability ledger (`docs/surfaces.md` with its machine 
 Once two or more surfaces deploy independently — a web app ships continuously while a mobile fleet lags releases by months — published contracts outlive any single deploy. The architecture carries a versioning/compatibility stance as a Binding Constraint ("we never break a published contract field" is the common shape), and the contract drift gates honor it: the generated contract-conformance tests treat breaking drift from the captured specs as failure and additive drift as a stale-spec warning.
 
 **Failure it prevents:** a contract change that is a refactor for the fastest-shipping surface becomes an incident for every fleet that has not shipped yet.
-**Signal:** the stance appears under Binding Constraints in `docs/architecture.md`; the contract-conformance system tests report no breaking drift against the captured specs in `docs/api/`. Below two independently deployed surfaces this dimension assesses `n/a` — it activates the moment the second one registers.
+**Signal:** the stance appears under Binding Constraints in `docs/architecture/index.md`; the contract-conformance system tests report no breaking drift against the captured specs in `docs/architecture/api/`. Below two independently deployed surfaces this dimension assesses `n/a` — it activates the moment the second one registers.
 
 ---
 

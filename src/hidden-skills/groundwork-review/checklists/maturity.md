@@ -65,7 +65,7 @@ Downstream skills parse these strings exactly; a near-miss is a silent orphan.
 ## Consistency with the Doc Set
 
 - [ ] 🔴 **Assessment contradicts a committed doc**: a state or roadmap row contradicts the
-  canonical doc set — claiming D3 ✅ while `docs/infrastructure.md` records no `./dev` surface,
-  or naming a service `docs/architecture.md` does not have.
+  canonical doc set — claiming D3 ✅ while `docs/architecture/infrastructure.md` records no `./dev` surface,
+  or naming a service `docs/architecture/index.md` does not have.
 - [ ] 🟡 **Status contradicts the roadmap's own evidence**: a row's notes describe the gap as
   resolved while its status reads `open`, or vice versa — the row disagrees with itself.

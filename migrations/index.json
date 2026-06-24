@@ -97,7 +97,14 @@
       "version": "0.10.0",
       "title": "Retire the machine-readable bet artifacts for the prose model",
       "kind": "cli",
-      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Largely advisory: prints the model change and names active bets to restructure by hand; mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json."
+      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/architecture/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Largely advisory: prints the model change and names active bets to restructure by hand; mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json."
+    },
+    {
+      "id": "gw-nest-architecture-docs",
+      "version": "0.10.0",
+      "title": "Nest the architecture docs under docs/architecture/",
+      "kind": "agent",
+      "summary": "Architecture docs were flat at the docs/ root (architecture.md, infrastructure.md, domain/, services/, api/, decisions/); they now nest under docs/architecture/ with architecture.md becoming index.md, so the docs-site sidebar reads as a product-learning journey. Relocates the files, rewrites docs/meta.json + seeds docs/architecture/meta.json, and carries live cross-references forward; runs last so any decisions/ ADRs other migrations graduated are moved into place. Leaves historical records alone and does not author the net-new getting-started on-ramp."
     }
   ]
 }
