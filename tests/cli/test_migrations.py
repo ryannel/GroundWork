@@ -176,38 +176,31 @@ def test_config_toml_healing_is_additive_only(project, tmp_path):
     assert "review_quorum = 2" in after
 
 
-def test_agent_migration_is_queued_with_staged_brief(project, tmp_path):
+def test_non_cli_registry_entry_is_ignored(project, tmp_path):
+    """The registry is cli-only now. A stray non-cli entry is skipped — never run,
+    never queued into a brief, never recorded. Structural/judgment advancement lives
+    in the groundwork-update skill's reconcile pass, not the migration registry."""
     mig = make_registry(
         tmp_path,
-        [{"id": "gw-test-judgment", "version": "99.0.0", "title": "Judge", "kind": "agent", "summary": "needs eyes"}],
-        briefs={"gw-test-judgment": "# brief\n## Detect\nx\n## Transform\ny\n## Accept\nz\n"},
+        [{"id": "gw-test-stray", "version": "99.0.0", "title": "Stray", "kind": "agent", "summary": "x"}],
     )
     proc = run_cli(["update"], project, migrations_dir=mig)
     assert proc.returncode == 0, proc.stderr
-    assert "1 item(s) need a working session" in proc.stdout
-
-    brief = json.loads((project / ".groundwork/cache/upgrade-brief.json").read_text())
-    (item,) = brief["items"]
-    assert item["id"] == "gw-test-judgment"
-    assert item["status"] == "pending"
-    staged = project / item["brief"]
-    assert staged.read_text().startswith("# brief")
-    # Not recorded as done — only the upgrade skill records agent migrations.
+    # No brief is written for a non-cli entry …
+    assert not (project / ".groundwork/cache/upgrade-brief.json").exists()
+    # … and it is never recorded as a completed migration.
     state = json.loads((project / ".groundwork/config/state.json").read_text())
-    assert "gw-test-judgment" not in state["groundwork"].get("migrations", [])
+    assert "gw-test-stray" not in state["groundwork"].get("migrations", [])
 
 
 def test_dry_run_lists_the_plan_and_mutates_nothing(project, tmp_path):
     mig = make_registry(
         tmp_path,
-        [
-            {"id": "gw-test-marker", "version": "99.0.0", "title": "Write marker", "kind": "cli", "summary": "t"},
-            {"id": "gw-test-judgment", "version": "99.0.0", "title": "Judge", "kind": "agent", "summary": "needs eyes"},
-        ],
+        [{"id": "gw-test-marker", "version": "99.0.0", "title": "Write marker", "kind": "cli", "summary": "t"}],
         modules={"gw-test-marker": MARKER_MIGRATION},
-        briefs={"gw-test-judgment": "# brief\n"},
     )
-    # Make every lane show up in the plan: an edited tier-2 file and a deleted skill.
+    # Make multiple lanes show up in the plan: a scripted migration, an edited tier-2
+    # file (judgment lane), and a deleted skill (clean-replace diff).
     edited = project / "docs/principles/index.md"
     edited.write_text(edited.read_text() + "\nuser edit\n")
     import shutil as _shutil
@@ -221,5 +214,4 @@ def test_dry_run_lists_the_plan_and_mutates_nothing(project, tmp_path):
     out = proc.stdout
     assert "Dry run" in out
     assert "gw-test-marker" in out          # scripted migration
-    assert "gw-test-judgment" in out        # judgment-lane item
     assert "groundwork-update/instructions.md" in out  # skill diff

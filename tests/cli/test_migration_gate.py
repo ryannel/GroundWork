@@ -32,23 +32,19 @@ def test_registry_entries_are_well_formed():
     for e in entries:
         assert re.fullmatch(r"gw-[a-z0-9-]+", e["id"]), e["id"]
         assert re.fullmatch(r"\d+\.\d+\.\d+", e["version"]), e
-        assert e["kind"] in ("cli", "agent"), e
+        # The registry is cli-only: agent migrations were retired in favour of the
+        # groundwork-update skill's reconcile pass (its Family Index).
+        assert e["kind"] == "cli", e
         assert e["title"] and e["summary"], e
 
 
 def test_every_entry_has_its_artifact():
     for e in registry_entries():
-        if e["kind"] == "cli":
-            module = MIGRATIONS / f"{e['id']}.js"
-            assert module.is_file(), f"{e['id']} is kind=cli but {module.name} is missing"
-            src = module.read_text()
-            assert "detect" in src and "run" in src
-        else:
-            brief = MIGRATIONS / e["id"] / "brief.md"
-            assert brief.is_file(), f"{e['id']} is kind=agent but brief.md is missing"
-            body = brief.read_text()
-            for section in ("## Detect", "## Transform", "## Accept"):
-                assert section in body, f"{e['id']} brief lacks required section {section}"
+        assert e["kind"] == "cli", f"{e['id']} must be kind=cli (the registry is cli-only)"
+        module = MIGRATIONS / f"{e['id']}.js"
+        assert module.is_file(), f"{e['id']} is kind=cli but {module.name} is missing"
+        src = module.read_text()
+        assert "detect" in src and "run" in src
 
 
 def test_cli_migrations_load_and_detect_cleanly_on_fresh_dirs(tmp_path):

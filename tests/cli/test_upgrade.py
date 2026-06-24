@@ -147,10 +147,15 @@ def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):
     assert "gw-register-serena-mcp" in recorded
     mcp_servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
     assert "serena" in mcp_servers and "depwire" not in mcp_servers
-    # Agent migrations are not recorded by the CLI; they queue in the brief.
-    brief = json.loads((project / ".groundwork/cache/upgrade-brief.json").read_text())
-    ids = {i["id"] for i in brief["items"]}
-    assert {"gw-design-system-rename", "gw-surfaces-registry-bootstrap"} <= ids
+    # Agent migrations are retired: structural advancement is the groundwork-update
+    # skill's reconcile pass (its Family Index), never a registry-driven brief item.
+    # The brief, if written at all, carries only file-lane work (tier2/tier1/regenerate).
+    brief_path = project / ".groundwork/cache/upgrade-brief.json"
+    if brief_path.exists():
+        ids = {i["id"] for i in json.loads(brief_path.read_text())["items"]}
+        assert not any(i.startswith("gw-") for i in ids), (
+            f"no migration-derived brief items expected post-retirement, got {ids}"
+        )
 
 
 @pytest.mark.parametrize("label", LABELS)
