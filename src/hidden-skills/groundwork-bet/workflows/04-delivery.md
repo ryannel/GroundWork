@@ -1,16 +1,24 @@
 # Phase 4: Delivery
 
-**Goal:** Turn bet-progress tests green, slice by slice, while rolling out permanent best-practice tests as each slice completes — and leave a delivery record behind that the next slice, the validation phase, and the next bet can learn from.
+**Goal:** Turn the bet-progress board green, milestone by milestone, by driving a fresh worker through each slice, reviewing its work, and pausing at each milestone to confirm the milestone honestly proved what it set out to prove and that the remaining plan still holds — leaving a delivery record behind that the next slice, the validation phase, and the next bet can learn from.
+
+## You are the delivery driver
+
+Delivery is an orchestration, not a single linear loop you run in one context. You are the **driver**: you hold the thin spine — the board, the milestone order, the delivery granularity the user chose, and the triage and course-correction judgement — and you keep that context small so you can reason about the bet as a whole.
+
+You do not implement slices in your own context. Each slice is delivered by a **fresh slice-worker subagent** (`briefs/slice-worker.md`) you dispatch with a tight context capsule; it implements to green and returns a short report, and its implementation reasoning dies with its context. You review every worker's diff through independent lenses, triage the findings, commit the slice, and at each milestone boundary you run the postmortem that decides whether the plan needs to change. This division is what keeps the heavy implementation context disposable and your own context clear enough to course-correct.
 
 ## Restrictions
 
-⚠️ **CRITICAL CONSTRAINT — the approved prose is the fixed definition of done.** The decomposition tree (`docs/bets/<bet-slug>/decomposition/`) and the technical design were reviewed proof by proof, at assertion-grade scrutiny, approved by the user, and sealed at the `bet/<bet-slug>/approved` git tag. That **prose** is frozen — Delivery builds *against* it, never edits it. The tests and the implementation are *built* this phase: Step 0.5 materializes the red board from the approved Proof-of-work prose, and the slice loop turns it green. What is forbidden is changing the approved prose contract: a Proof-of-work proof that looks wrong is a stop-and-escalate through the Amendment Protocol below, not a quiet prose edit. The seal holds because the prose is under git from the tag forward — any change to it shows in `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/` and is checked by the prose-integrity reconciliation in Step 4. A prose change that did not route through an approved amendment is a delivery defect.
+⚠️ **CRITICAL CONSTRAINT — the approved prose is the fixed definition of done.** The decomposition tree (`docs/bets/<bet-slug>/decomposition/`) and the technical design were reviewed proof by proof, at assertion-grade scrutiny, approved by the user, and sealed at the `bet/<bet-slug>/approved` git tag. That **prose** is frozen — Delivery builds *against* it, never edits it. The tests and the implementation are *built* this phase: Step 0.5 materializes the red board from the approved Proof-of-work prose, and the milestone loop turns it green. What is forbidden is changing the approved prose contract: a Proof-of-work proof that looks wrong is a stop-and-escalate through the Amendment Protocol below, not a quiet prose edit. The seal holds because the prose is under git from the tag forward — any change to it shows in `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/` and is checked by the prose-integrity reconciliation in the slice review. A prose change that did not route through an approved amendment is a delivery defect.
 
-⚠️ **CRITICAL CONSTRAINT — scope.** Write only the code required to make the bet-progress tests green and satisfy the API and data design in `docs/bets/<bet-slug>/technical-design/`. Stay within the milestones and slices in the decomposition tree. Do not perform large refactors or touch unrelated subsystems. If reality contradicts the locked design, follow Change Navigation below.
+⚠️ **CRITICAL CONSTRAINT — scope.** Each slice writes only the code required to make its bet-progress tests green and satisfy the API and data design in `docs/bets/<bet-slug>/technical-design/`. Stay within the milestones and slices in the decomposition tree. No large refactors, no touching unrelated subsystems. If reality contradicts the locked design, follow Change Navigation below.
 
 ## Operating Contract
 
 This workflow operates under the protocols defined in `.groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode). Implementation rarely surfaces phase-crossing signals — but when it does, capture it under the matching section in `.groundwork/cache/discovery-notes.md` and continue. The full Living Documents scan happens in Validation (Phase 5). Do not interrupt delivery to apply upstream updates mid-flight.
+
+Subagent dispatch follows Protocol 9's mechanics throughout this phase — the slice-worker and every review lens run as isolated subagents (the `Task` tool in Claude Code), and only their reports flow back. A host with no subagent mechanism cannot run this phase as designed; surface that to the user before starting rather than collapsing the workers into your own context.
 
 ## Step 0: Implementation Readiness Gate
 
@@ -24,7 +32,7 @@ When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/
 
 The approved decomposition is prose; Delivery's first act is to render it into the runnable red board it tracks progress against. From the approved Proof-of-work prose, generate one red stub per milestone and per slice — the board the rest of this phase turns green.
 
-For each milestone `index.md` and each slice file under `docs/bets/<bet-slug>/decomposition/`, materialize its named `Test file:` as a red stub that fails explicitly (never skips), commenting the stub with what the Proof-of-work prose says it must eventually assert so the slice loop knows exactly what to implement. Discover the project's test language and service names from the scaffold (`docs/architecture/infrastructure.md`, the generated `docker-compose.yml`) — never assume. Use `./dev new milestone <bet-slug> <milestone-slug>` and `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>` when they exist to scaffold the stubs at the correct paths; write the files directly otherwise. Either way the paths match the prose exactly:
+For each milestone `index.md` and each slice file under `docs/bets/<bet-slug>/decomposition/`, materialize its named `Test file:` as a red stub that fails explicitly (never skips), commenting the stub with what the Proof-of-work prose says it must eventually assert so the slice worker knows exactly what to implement. Discover the project's test language and service names from the scaffold (`docs/architecture/infrastructure.md`, the generated `docker-compose.yml`) — never assume. Use `./dev new milestone <bet-slug> <milestone-slug>` and `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>` when they exist to scaffold the stubs at the correct paths; write the files directly otherwise. Either way the paths match the prose exactly:
 
 ```
 tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>
@@ -35,39 +43,56 @@ Consult `.groundwork/skills/groundwork-bet/templates/bet-progress-test.md` for t
 
 The scaffold and the `./dev` CLI are a starting point you keep shaping as the product grows. When a repeated delivery task earns it, or shipped tooling does not fit the work, adapt the tooling rather than scripting around it — add a project command under `.dev/commands/`, register a runner, or extend the relevant scaffold. Never leave a shipped command inert and never build a parallel tool beside it (the *no empty capabilities* rule, `docs/principles/delivery/day-2-operational-baseline.md`).
 
-## The Slice Loop
+## Step 0.7: Choose delivery granularity
 
-Work through the milestone order in the decomposition tree, slice by slice. Each slice runs the same loop; there is no tracking file — the suite is the status and git is the record. A fresh context resumes by reading the board (`./dev bet status` renders red/green per milestone and slice from the suite) and the git log of delivery commits, not a manifest.
+Delivery can run at three cadences. The cadence sets where you pause for the user; it never relaxes the gates. Offer the choice in one turn and recommend the default:
 
-When the decomposition types its slices (`surface: core` or a surface slug — registry projects), core slices merge before the surface slices that consume them. A surface slice wires a contract that must already be proven green, not one being built beneath it in parallel — the milestone order already encodes this (the capability milestone opens the bet); hold it at slice granularity too.
+| Mode | Runs autonomously | Pauses for the user |
+|---|---|---|
+| **Slice by slice** | one slice | after every slice closes, and at every milestone postmortem |
+| **Milestone by milestone** *(default)* | all of a milestone's slices | at every milestone postmortem |
+| **Whole bet** | all milestones | only on a hard stop, and at a postmortem that flags a course-correction |
 
-The slice context capsule for a surface slice includes the capability milestone's test file — the contract proof the slice builds on. Reading those green assertions tells the surface slice exactly what the core guarantees, so its own work stays bounded to wiring, rendering, and interaction instead of re-deriving core behaviour.
+**Hard stops pause in every mode, the autonomy choice notwithstanding:** a `decision-needed` review finding, an Amendment Protocol trigger (an approved proof looks wrong), or a Change Navigation trigger (reality contradicts the locked design). Autonomy speeds the path between gates; it never lets the driver decide one of these alone.
 
-### 1. Assemble the slice context capsule
+Recommend the user pin a top reasoning model for this driver session — the driver carries the triage and course-correction judgement, which is the hardest reasoning in the bet. The slice-workers run as subagents and may use a cheaper tier; their correctness is gated by the independent review, not taken on trust.
 
-Most implementation failures are context failures — the agent that breaks an existing behaviour usually never read the file it was changing. Before writing any code for a slice:
+State the chosen mode back in one line, then begin the milestone loop. The choice is a session preference, not a stored artifact — on a fresh-context resume (the board and git log tell you where delivery stands), re-confirm the mode before continuing; it is one cheap question.
 
-- **Read the previous slice's delivery commit** — its message (the files it touched, the notes it left for the next slice) and its diff. The patterns it established, the review findings it ate, the approaches that worked are all there. Repeat its lessons, not its mistakes.
-- **Read every existing file this slice modifies, in full.** For each, hold three things: what it does today, what this slice changes, and what must keep working. A slice must leave the system working end-to-end — behaviour required for the feature to work correctly is a requirement whether or not the decomposition spells it out.
-- **Scan recent git history** for the conventions in play — naming, error handling, test placement — so the slice reads like the codebase it lands in.
-- **Verify library specifics just-in-time** when the slice pins behaviour on a dependency — current API shape and breaking changes, from the web when training knowledge is likely stale.
+## The Milestone Loop
 
-### 2. Open the slice
+Work through the milestone order in the decomposition tree. For each milestone, drive its slices to green (the Slice Loop), close the milestone, then run the milestone postmortem before moving to the next. A fresh context resumes by reading the board (`./dev bet status` renders red/green per milestone and slice from the suite) and the git log of delivery commits, not a manifest — the first red slice is where to pick up.
 
-Note the slice's baseline commit (`git rev-parse HEAD`) — it ties the slice's diff to the exact code state it was built against, and is the reference the test-integrity check and the slice review read.
+When the decomposition types its slices (`surface: core` or a surface slug — registry projects), core slices merge before the surface slices that consume them. A surface slice wires a contract that must already be proven green, not one being built beneath it in parallel — the milestone order already encodes this (the capability milestone opens the bet); hold it at slice granularity too. The slice-worker capsule for a surface slice includes the capability milestone's green test file — the contract proof the slice builds on.
 
-### 3. Implement to green
+### The Slice Loop — the driver's per-slice sequence
 
-Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) — red, because the implementation does not exist. Implement until they pass, staying inside the design: build each interface to the shapes in `docs/bets/<bet-slug>/technical-design/03-api-design.md` and the stores in `04-data-design.md`, and generate the service's machine-readable contract (OpenAPI/AsyncAPI/proto) from the running code rather than hand-writing it. For a cross-service call, derive the client from the consumed service's canonical `docs/architecture/api/<service>/` contract; a hand-written request shape or side-channel schema is a design violation even when the test passes.
+For each slice in the milestone, in order:
 
-### 4. Review the slice
+#### 1. Dispatch the slice-worker
 
-**First, reconcile against the approved prose (mechanical — no subagent).** A green suite proves nothing if the frozen prose was quietly altered or the implementation was gamed to pass. Two cheap checks catch both — and note the inversion from the sealed-up-front model: the test files are *built* this phase and are *supposed* to change; what is frozen is the prose.
+Assemble the context capsule and dispatch a fresh slice-worker subagent (Protocol 9 mechanics — an isolated subagent loading `.groundwork/skills/groundwork-bet/briefs/slice-worker.md`). Pass it:
+
+- `bet_slug` and the slice's `slice_file` path under `docs/bets/<bet-slug>/decomposition/`.
+- The **previous slice's delivery commit** — hash, message, and the instruction to read the diff. Its established patterns, eaten review findings, and `Notes:` line are how this slice repeats lessons instead of mistakes.
+- The **exact existing files this slice modifies**, named, to read in full.
+- For a **surface** slice, the **capability milestone's green test file** — the contract it wires onto.
+- The slice's materialized red `Test file:` path(s).
+
+The worker implements to green inside the locked design, runs its mechanical self-reconcile, and returns a short report (files touched, `NOTES:`, self-reconcile result, and any `BLOCKING CONCERN`). It does not commit. Keeping the capsule tight is what keeps the worker bounded: it reads what it needs to change and the contract it builds on, not the whole bet.
+
+**Act on a `BLOCKING CONCERN` before reviewing.** A worker that reports an approved proof looks wrong, that reality contradicts the locked design, or that a real dependency the proof names cannot be reached has hit a hard stop — route it through the Amendment Protocol or Change Navigation below (and pause for the user) before any further slice work. Do not let a worker that could not honestly reach green be reviewed as if it did.
+
+#### 2. Review the slice
+
+A worker's green report is the author's account of its own work; it is not the gate. Review the slice's uncommitted diff before closing it — and note the inversion from the sealed-up-front model: the test files are *built* this phase and are *supposed* to change; what is frozen is the prose.
+
+**First, reconcile against the approved prose (mechanical — run it yourself, no subagent).** The worker's self-reconcile is a first pass; confirm it.
 
 - **Prose integrity.** The approved contract is the decomposition tree and the technical design, sealed at the `bet/<bet-slug>/approved` tag. Confirm it has not silently moved: `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/decomposition/ docs/bets/<bet-slug>/technical-design/` shows no change except an approved amendment (the Amendment Protocol's commit trail). A Proof-of-work proof, an acceptance criterion, or an API shape changed without that trail — a weakened proof, a dropped case, a loosened shape — is a `decision-needed` finding. (Most slices change no prose at all; then this is a one-line no-op.) The built test must also still honestly prove what its slice's Proof-of-work prose describes — a stub filled in to assert less than the prose promised is the same finding.
-- **Honest green.** The implementation must satisfy the proof for the right reason. A return value hardcoded to the test's expected output, an input special-cased to the fixture, a `if TEST_MODE`-style branch, or a mocked-out unit of real work is a `decision-needed` finding even though the suite is green — *a weak suite that generated code passes is worse than no suite* (`docs/principles/foundations/testing.md`).
+- **Honest green.** The implementation must satisfy the proof for the right reason. A return value hardcoded to the test's expected output, an input special-cased to the fixture, a `if TEST_MODE`-style branch, or a mocked-out unit of real work is a `decision-needed` finding even though the suite is green — *a weak suite that generated code passes is worse than no suite* (`docs/principles/foundations/testing.md`). A worker's `SELF-RECONCILE` flag here is a lead to confirm, not a verdict to trust.
 
-**Then dispatch the slice diff for review** through three parallel, independent lenses (Protocol 9 mechanics — isolated subagents; the three lenses catch different failure classes and none substitutes for another):
+**Then dispatch the slice diff for review** through three parallel, independent lenses (Protocol 9 mechanics — isolated subagents; the three lenses catch different failure classes and none substitutes for another; none is the slice-worker, which authored the diff and cannot judge it):
 
 - **Blind reviewer** — receives only the diff, no bet context. Familiarity hides bugs; this lens has none.
 - **Edge-case tracer** — receives the diff plus repo read access. Walks every branch and boundary the diff introduces and reports only unhandled paths: null/empty inputs, failure timing, races, off-by-ones.
@@ -77,20 +102,22 @@ Run the slice's bet-progress tests (`tests/bets/<bet-slug>/test_slice_<n>_*`) �
 
 | Bucket | Meaning | Handling |
 |---|---|---|
-| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now |
+| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now (a hard stop) |
 | patch | Unambiguous fix within the slice's scope | Fix before closing the slice |
 | defer | Real, but pre-existing — not caused by this slice | Append as a row to `docs/maturity.md` with severity; do not fix mid-slice |
 | dismiss | False positive or noise | Drop; do not persist |
 
-A slice closes only with zero open decision-needed and patch findings.
+Apply `patch` fixes yourself when small and bounded, or re-dispatch a worker for a larger one. A slice closes only with zero open decision-needed and patch findings.
 
-### 5. Roll out permanent tests
+#### 3. Roll out permanent tests
 
 Once the slice's bet-progress tests are green and the review is clear, roll out that slice's **permanent best-practice tests** — interface tests, HTTP API system tests, honeycomb service-perimeter tests, and unit tests for complex logic, per the project's testing strategy. For a `graphical-ui` slice, this includes **component render tests** across the states the design system names — default, loading, empty, error, long-content — so a component that throws on a prop or state combination is caught in isolation before any page integrates it (the scaffold ships the pattern at `components/render-smoke.test.tsx`); and adding any new route to `tests/system/routes.json` so the permanent render-smoke, geometry, and a11y gates sweep it. These live in the service repos and `tests/system/`, not in `tests/bets/`, and stay in the codebase after the bet is archived.
 
-### 6. Record and close the slice
+#### 4. Record and close the slice
 
-Commit the slice — that commit **is** the record. Use a structured message: a `bet(<bet-slug>): slice <N.M> <slice-slug>` subject, then a body listing every file added, modified, or deleted, and a `Notes:` line — one or two sentences on what the next slice should know: a pattern established, a deviation taken and why, a struggle worth not repeating. The commit is what makes Step 1's capsule and Validation's retrospective possible; an empty `Notes:` on a slice that fought you is a record that lies. The slice flips green on the board the moment its tests pass — no status field to maintain.
+Commit the slice — that commit **is** the record, and the driver writes it (the worker left the changes unstaged). Use a structured message: a `bet(<bet-slug>): slice <N.M> <slice-slug>` subject, then a body listing every file added, modified, or deleted, and a `Notes:` line — one or two sentences on what the next slice should know: a pattern established, a deviation taken and why, a struggle worth not repeating (carry the worker's `NOTES:` forward here). The commit is what makes the next slice's capsule and Validation's retrospective possible; an empty `Notes:` on a slice that fought us is a record that lies. The slice flips green on the board the moment its tests pass — no status field to maintain.
+
+**In slice-by-slice mode, pause here** — show the user the closed slice (what it proved, what the review found, the commit) and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
 
 ### Milestone close
 
@@ -103,18 +130,32 @@ After all of a milestone's slices are delivered, run the milestone's bet-progres
 
 A coherence defect the inspection spots is fixed in this same delivery phase, where it is cheapest. A finding genuinely deferred is logged as a discovery note or a `docs/maturity.md` row, never silently dropped. Tier 1 asserts the tokens landed; this Tier-2 judgement covers what computation cannot — optical alignment, restraint, and whether the whole reads as considered against the spec.
 
+### Milestone postmortem & course-correction
+
+A green milestone is not a finished milestone. The board going green proves the suite passes; it does not prove the milestone proved *what it set out to prove*, and it does not ask whether what the milestone taught us should change the rest of the plan. The retrospective in Validation (Phase 5) is too late for that — by then the whole bet is built against assumptions a mid-bet milestone may already have disproved. This checkpoint is the proactive one: at every milestone boundary, before the next milestone opens, run a focused pass over four questions. It is a facilitated conversation, not a ceremony — and it is where course-correction happens while it is still cheap.
+
+1. **Did this milestone honestly prove its intent?** Read the milestone's Proof-of-work prose against what was actually built. The board is green — but is it green for the right reason? The failure this catches is the *quietly hollowed proof*: a milestone whose intent was to exercise a real dependency — a live model call, a real external service, an actual queue — delivered instead against a light mock or a stub, so the suite passes while proving nothing the milestone existed to prove. The honest-green check runs per slice, but a milestone-level intent can erode across slices in a way no single slice review sees. When you find it, that is a course-correction: the milestone did not prove its intent, and the fix is to work the real thing in and re-prove it now — not to roll forward and discover at validation that the bet never proved its core premise. Treat a deferred-to-mock-where-the-real-thing-was-meant as a finding, every time, even on a fully green board.
+
+2. **What did building this milestone teach that the remaining plan does not yet know?** Implementation reveals what design could only assume. Re-read the remaining milestones and slices in light of what is now built: an assumption that broke, a downstream slice now redundant because this milestone subsumed it, a slice now missing because a real boundary turned out to need wiring the design did not foresee, a proof downstream that reads wrong now that its premise is concrete. The question is not "is the plan still perfect" — it is "does what we learned change what we should build next."
+
+3. **Route any needed change through the integrity machinery — never a silent edit.** A change to the *plan prose* (a milestone's or slice's Proof of work, an acceptance criterion) is an **Amendment** (below): on the user's approval, edit the prose, move the `bet/<bet-slug>/approved` tag to a commit that includes the edit, then adjust the affected board and code. A change to the *design itself* (an API/data shape, a milestone's existence, the appetite) is **Change Navigation** (below): write the change proposal and route by severity. Either way the trail — edited prose + re-tag, or a change-proposal file — is what lets the next slice's prose-integrity reconciliation tell an approved change from a silent one. "Adjust as we go" is a feature of this process precisely because it leaves that trail.
+
+4. **Where does the delivered work actually stand?** Note anything the milestone surfaced that the next milestone or the final validation needs — a readiness caveat, a discovery-note signal for a future bet (`.groundwork/cache/discovery-notes.md`), a `docs/maturity.md` row. Capture it now while it is fresh; do not bank on remembering it at validation.
+
+**Pause per the chosen mode.** In slice-by-slice and milestone-by-milestone modes, always pause here: present the postmortem — what the milestone proved, anything that did not hold, and any course-correction you recommend — and get the user's decision before opening the next milestone. In whole-bet mode, surface the postmortem summary and proceed automatically *unless* it found a course-correction (a hollowed proof, a remaining-plan change, an amendment, or a Change Navigation): a course-correction is the user's call and pauses even in whole-bet mode. A clean postmortem in whole-bet mode rolls straight into the next milestone with its summary on the record.
+
 ## Amendment Protocol — when an approved proof is wrong
 
-An approved proof can still be wrong: its Proof-of-work prose can describe a shape the design never defined, encode a misread capability, or demand an outcome no implementation can reach. Approval does not make the prose right — it makes changing it a decision the user takes, not a convenience the implementing agent reaches for. The amendment leaves a trail (the edited prose + a re-tag) precisely so the Step 4 prose-integrity reconciliation can tell an approved change from a silent one.
+An approved proof can still be wrong: its Proof-of-work prose can describe a shape the design never defined, encode a misread capability, or demand an outcome no implementation can reach. Approval does not make the prose right — it makes changing it a decision the user takes, not a convenience the implementing worker or driver reaches for. The amendment leaves a trail (the edited prose + a re-tag) precisely so the prose-integrity reconciliation can tell an approved change from a silent one. This protocol fires from three places: a slice-worker's `BLOCKING CONCERN`, a `decision-needed` review finding, or the milestone postmortem.
 
-1. **Stop work on the affected slice.** Do not edit the prose, and do not implement toward a proof you believe is wrong.
+1. **Stop work on the affected slice or milestone.** Do not edit the prose, and do not implement toward a proof you believe is wrong.
 2. **State the case:** what the Proof-of-work proof (or the API shape behind it) says, what you believe it should say, and which artifact is the source of the error — the proof alone, or the technical design behind it.
 3. **Route by depth.** A wrong proof against a correct design is a proof amendment: on the user's explicit approval, edit the slice's (or milestone's) Proof-of-work prose, **move the `bet/<bet-slug>/approved` tag to a commit that includes the edit** (`git tag -f`, or record the amended commit in the bet record when re-tagging is undesirable), then change the built test and code to match. That edited-prose commit is the amendment trail the reconciliation reads. A wrong API/data design is deeper — follow Change Navigation below.
-4. **Record the amendment** in the slice's delivery commit `Notes:` so Validation's retrospective sees how the contract moved after approval.
+4. **Record the amendment** in the slice's delivery commit `Notes:` (and in the postmortem record when it surfaced there) so Validation's retrospective sees how the contract moved after approval.
 
 ## Change Navigation — when reality contradicts the locked design
 
-Mid-delivery discoveries that invalidate the design are not failures of the process; pushing through them silently is. When implementation reveals the design committed to something wrong:
+Mid-delivery discoveries that invalidate the design are not failures of the process; pushing through them silently is. When implementation reveals the design committed to something wrong — surfaced by a slice-worker, a review, or the milestone postmortem:
 
 1. **Pause the slice** and write a change proposal at `docs/bets/<bet-slug>/change-proposal-<n>.md` using the template at `.groundwork/skills/groundwork-bet/templates/change-proposal.md`: the discovery and its evidence, the impact across pitch / technical design / decomposition / built artifacts (name each affected section), the before/after of every proposed edit, and the severity.
 2. **Route by severity.** *Minor* — the API/data design and milestones survive; specific proofs and design sections need correction: on user approval, apply the edits, re-review mutated docs (Protocol 9), amend affected proofs through the Amendment Protocol (edit the prose, re-tag, change the built test and code), resume the slice. *Structural* — an API/data design, a milestone, or the appetite itself is wrong: on user approval, revert to Design Foundations (`status: design`), rework the design with the proposal as input, and re-run Decomposition for the affected scope; unaffected delivered slices stand.
@@ -122,6 +163,6 @@ Mid-delivery discoveries that invalidate the design are not failures of the proc
 
 ## Transition
 
-Once all bet-progress tests are green, every slice is committed with its record filled, and the permanent best-practice tests for every slice are in place, you are ready for validation.
+Once all bet-progress tests are green, every slice is committed with its record filled, every milestone postmortem has run, and the permanent best-practice tests for every slice are in place, you are ready for validation.
 
 ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/05-validation.md`

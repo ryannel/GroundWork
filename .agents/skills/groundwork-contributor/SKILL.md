@@ -105,7 +105,7 @@ A hidden skill whose session moves through distinct modes splits its instruction
 | `phases/` | groundwork-architecture, groundwork-scaffold | conversation phase | phase status in the skill's cache file |
 | `tracks/` | groundwork-design-system | interface type (plus `_foundation.md`, the brand-level flow run once) | `interface_types` |
 
-`templates/` directories hold output skeletons, never instructions. When restructuring a skill, keep the directory name that matches its routing shape — the convention is how a reader predicts a skill's internals without listing it.
+`templates/` directories hold output skeletons, never instructions. `briefs/` directories hold **dispatched subagent instruction sets** — a self-contained brief a worker loads when the skill's driver spawns it as an isolated subagent (e.g. `groundwork-bet/briefs/slice-worker.md`, dispatched once per slice by the delivery driver). A brief is not routed by skill state; it is invoked by another part of the same skill, the way Protocol 9 dispatches `groundwork-review`. When restructuring a skill, keep the directory name that matches its routing shape — the convention is how a reader predicts a skill's internals without listing it.
 
 ---
 
