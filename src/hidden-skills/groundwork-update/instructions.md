@@ -1,100 +1,132 @@
 ---
-name: groundwork-update
+name: groundwork-upgrade
 description: >
-  Applies surgical documentation updates after code changes — a delivered slice, a merged
-  PR, or a groundwork-check staleness report. Maps the change set to the docs whose truth
-  it touches, edits them under the Living Documents protocol, and gates every mutated
-  canonical doc through review before committing.
+  Brings a project up to the current GroundWork framework version by executing the
+  upgrade brief that `npx groundwork-method update` compiles — merging framework
+  improvements into user-edited docs, running agent migrations (doc renames, registry
+  bootstraps, shape uplifts), and reconciling regenerated scaffold output. One brief
+  item, one explained proposal, one commit. Distinct from groundwork-update, which
+  updates project documents after code changes.
 ---
 
-# groundwork-update
+# groundwork-upgrade
 
-You are the Living Documents protocol pointed at the code. The canonical docs describe the system as it is; the code has moved; your job is to close that gap surgically — touching only the sentences the change made false, and proving through review that the docs still hold together afterwards.
+You are the judgment lane of the framework upgrade path. The CLI has already done
+everything mechanical — refreshed skills, replaced the framework-owned `./dev` bundle,
+copied pristine seeded docs, run scripted migrations. What remains is the work that
+needs eyes: the user edited a doc the framework also improved, a document shape moved,
+generator output drifted from its template. The CLI compiled that work into the
+**upgrade brief**; you execute it conversationally and leave the project as if it had
+been set up at the current version all along.
 
-This skill runs in three situations: a bet slice or milestone just shipped, a PR or manual code change landed outside the bet loop, or `groundwork-check` reported stale docs. In every case the work is the same: establish the change set, map it to affected docs, edit, gate, report.
-
-Apply the `groundwork-writer` skill when modifying any document. Updates must preserve GroundWork tone: declarative, assertive, zero-hedging.
-
----
-
-## Operating Contract
-
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), 4 (Pacing), 8 (Review Gate), and 9 (Review Invocation) apply. There is no phase cache, no hand-off file, and no fresh-context recommendation — a maintenance run starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md` and `repo-map.json`.
-
----
-
-## Step 1: Establish the Change Set
-
-Determine which code changed and over what range. The user's invocation usually carries the anchor:
-
-| Invocation | Change set |
-|---|---|
-| A bet slug or slice name | Commits whose messages reference the slug, or the range since the pitch's `status` last advanced — confirm the range with the user if ambiguous. |
-| A PR, branch, or commit range | `git diff --name-only <range>` |
-| A `groundwork-check` report | The STALE docs it named; for each, `git log --since="<last_reviewed>" --name-only -- <source_of_truth>` recovers the commits behind the staleness. |
-| No anchor given | Run the check baseline yourself: for every code-coupled doc (`docs/architecture/services/*.md`, `docs/architecture/api/*.md`, `docs/architecture/domain/*.md`, `docs/architecture/index.md`), compare `last_reviewed` frontmatter against `git log --since` on its `source_of_truth` paths. The union of flagged commits is the change set. |
-
-The output of this step is a list of changed code paths and the commits that changed them. If the change set is empty, report that the docs are current and stop.
+Apply the `groundwork-writer` skill when modifying any document. The shared operating
+contract at `.groundwork/skills/operating-contract.md` (contract v1) governs
+this skill in **Maintenance** mode: Protocols 1 (Discovery Notes), 2 (Living
+Documents), and 4 (Pacing) apply, and Protocols 8 and 9 (Review Gate, Review
+Invocation) apply when an item mutates a canonical doc. There is no phase cache
+beyond the brief itself.
 
 ---
 
-## Step 2: Map Changes to Affected Docs
+## The brief is the work list
 
-Build the update plan in three passes. Each pass catches drift the previous one cannot see.
+Read `.groundwork/cache/upgrade-brief.json`. If it does not exist, there is no
+judgment-lane work: tell the user the install is current on this lane, point them at
+`npx groundwork-method update` (or `update --dry-run` to preview), and stop.
 
-**Pass 1 — path intersection (deterministic).** Intersect the changed paths with every code-coupled doc's `source_of_truth` frontmatter. A doc whose source paths contain a changed file is affected. This is the baseline and runs in every environment.
+The brief carries `from` (the version this install was stamped at), `to` (the version
+it is being raised to), and `items[]`, each with a stable `id`, a `type`, a `status`,
+and pointers to payloads the CLI staged under `.groundwork/cache/upgrade/` — you never
+need the npm package itself.
 
-**Pass 2 — reference graph (Serena, when registered).** A doc can be stale because a type its source references moved in a file outside its `source_of_truth` — path intersection misses this by construction. When the Serena MCP server is available, run impact analysis with `find_referencing_symbols` on the changed symbols and add any doc whose sources depend on changed code through the reference graph. `.groundwork/cache/repo-map.json`, when present, serves the same purpose offline. Skip this pass without comment when neither exists.
+Open the session with the shape of the work: the version jump and a one-line list of
+pending items. Then walk the items **top to bottom** — the CLI ordered them. For each:
 
-**Pass 3 — semantic mapping (judgement).** Prose docs carry no `source_of_truth`, so read the diff and ask what each change *means* for the documentation set:
+1. **Verify it applies.** Every item type has a detect step (below). An item that is
+   already done or not applicable is checked off with a note, not performed.
+2. **Propose, then act.** Explain what will change and why in two or three sentences,
+   show the concrete diff or plan, and get the user's approval. Never batch approvals
+   across items.
+3. **Commit.** One item, one commit, referencing the item id —
+   `chore(groundwork): <what changed> (<id>)`. Nothing outside the item's scope goes
+   into its commit.
+4. **Record completion** (bookkeeping contract below) before moving on.
 
-| Change in code | Doc to update |
-|---|---|
-| Endpoint added, removed, or reshaped | `docs/architecture/api/<service>.md`; `docs/architecture/services/<service>.md` if env vars or dependencies moved |
-| Entity field, lifecycle state, or domain event changed | `docs/architecture/domain/<entity>.md` — and `docs/architecture/index.md` if the change crosses a service boundary |
-| New entity introduced | New `docs/architecture/domain/<entity>.md` from `.groundwork/skills/templates/domain-entity.md` |
-| Service added, removed, or rewired | `docs/architecture/index.md` topology and boundaries, `docs/architecture/infrastructure.md` service table |
-| Port, boot command, or test command changed | `docs/architecture/infrastructure.md` |
-| A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
-| User-visible capability added or removed | `docs/product-brief.md` capabilities |
-| Design tokens or visual system changed | `docs/design-system.md` and `.groundwork/config/brand-tokens.json` |
-| A maturity signal moved — a service shipped without a contract, a harness or CI hook added/removed, a `groundwork-check` maturity disagreement | `docs/maturity.md`: open a roadmap row, close one with the closing anchor, or correct an assessment row (per `.groundwork/skills/maturity-model.md`) |
+Stop at any point the user asks; the brief survives across sessions and `update`
+re-runs merge into it without duplicating items.
 
-Classify each planned edit as a **refinement** or a **reversal** using Protocol 2's test: superseding an accepted ADR, or negating a bullet in any doc's `### Key Decisions` or `### Binding Constraints`, makes it a reversal. When in doubt, treat it as a reversal.
+## Item types
 
-Present the plan in one compact block — each affected doc, what changed in the code, which sections will move, and the refinement/reversal classification — then proceed. These are refinements consistent with code the user already shipped, not new product decisions; the plan is shown so the user can redirect, not to request permission (Protocol 2). Pause only when a mapped change implies a decision the code does not prove — a capability that might be an experiment, a removal that might be temporary.
+### `agent-migration`
 
----
+The item's `brief` field points at a staged migration brief
+(`.groundwork/cache/upgrade/briefs/<id>.md`) with three sections: **Detect**,
+**Transform**, **Accept**. Load it and treat it as your instructions for this item —
+run Detect honestly (its "already done" and "n/a" arms are as binding as "applies"),
+perform Transform within its invariants, and verify Accept before committing. When a
+brief delegates to another skill's flow, load that skill's instructions rather than
+improvising the procedure.
 
-## Step 3: Apply Surgical Edits
+### `tier2-merge`
 
-Edit each affected doc under the Living Documents protocol:
+A framework-seeded doc the user edited, where the framework has since improved its
+copy. `path` is the user's file, `incoming` is the new package content (staged in the
+cache), `base_hash` is the manifest's record of what was originally deployed (null
+means unknown ancestry).
 
-- **Touch only what the change made false — but all of what it made false.** Do not rewrite sections that remain accurate; never leave an inaccurate sentence standing because the edit was "surgical". The published doc body is the only living record — setup's Downstream Context store is long gone (Protocol 10), so there is nothing alongside the doc to keep in sync.
-- **State the current design declaratively.** No strikethrough, no "(was X, now Y)", no supersession notes in the body — that history lives in ADRs alone.
-- **Re-stamp frontmatter**: `last_reviewed` to today on every mutated doc; keep `generation_mode` and `source_of_truth` accurate — a doc whose sources moved gets its `source_of_truth` corrected in the same edit, or the next check run is blind.
-- **Index new docs.** Any newly created doc gets a one-line entry in the project's `llms.txt`. Agents cannot find docs that are not indexed.
+Reason over both versions: what did the user change, and what did the framework
+improve? Produce a merge that **preserves the user's intent and adopts the framework's
+improvements** — never a mechanical overwrite in either direction, never conflict
+markers. When user edits and framework improvements collide on the same passage, show
+both and let the user pick. `AGENTS.md` deserves extra care: it routes every agent
+session, so a broken merge breaks the project's tooling.
 
-**Reversals get the full Reversal Protocol (Protocol 2) before anything commits:** reconcile every sentence the reversal falsifies across the whole body, trace it into every dependent doc (domain entity docs especially — nothing automated flags them stale), record the supersession in an ADR, and re-review every `docs/architecture/domain/*.md` unconditionally when the reversal is structural.
+### `tier1-custom`
 
-Edits land in place — git is the rollback boundary. Nothing is committed to git until the gate passes and the user approves.
+A framework-owned file (typically the `dev` launcher) the user customized, blocking
+the clean replace. Show what the customization does, show the `incoming` framework
+version, and either port the customization onto the new version or — if the
+customization is obsolete — adopt the framework file. The user decides.
 
----
+### `regenerate`
 
-## Step 4: Review Gate
+Generator output whose generator has moved since it was deployed. Re-run the recorded
+generator in a scratch workspace and reconcile:
 
-Announce the review, then invoke the review subagent (Protocol 9) once per mutated canonical doc, with `document_path` set to the doc's path and `document_type` matched to it (`docs/architecture/domain/<entity>.md` → `domain-entity`, `docs/architecture/index.md` → `architecture`, and so on). The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` for every mutated doc; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
+1. Create `.groundwork/cache/upgrade/regen/<artifact>/` with minimal Nx markers
+   (`package.json` `{"name":"regen"}`, empty `nx.json`) and copy
+   `.groundwork/config/brand-tokens.json` in if the generator themes from it.
+2. Run the generator there with the item's recorded `options`, via the project's
+   `.groundwork/config/generators.json` registration
+   (`npx nx g <generators.json-path>:<generator> …`). If `options` is null (adopted
+   output, unknown ancestry), reconstruct them from the artifact — e.g.
+   `.dev/dev.config.json` carries the app name and colors — and confirm with the user.
+3. Diff the regenerated files against the project, walking the provenance file list.
+   Propose framework-section changes; leave user-section changes alone (a
+   docker-compose service the user added is theirs; the generator's infra block is the
+   framework's). An empty diff is a clean check-off.
 
-On **REVISE**, apply all 🔴 Critical findings directly to the doc and re-invoke. After 3 REVISE verdicts on a single doc, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT.
+## Bookkeeping — exact, every item
 
-Bet documents under `docs/bets/` are working artifacts of their own lifecycle and are not re-gated here — only canonical docs pass through this gate.
+This contract is what keeps `update`, `check`, and future sessions honest. After each
+item is committed (or checked off as done/n-a):
 
----
+- **Brief:** set the item's `status` to `"done"` in
+  `.groundwork/cache/upgrade-brief.json`.
+- **Migrations** (`agent-migration` items): append the id to
+  `groundwork.migrations` in `.groundwork/config/state.json` so no future update
+  re-queues it.
+- **Manifest** (`tier2-merge` and `tier1-custom` items): in
+  `.groundwork/config/manifest.json`, set the file's entry to the merged reality —
+  `hash` = SHA-256 of the file now on disk, `base` = SHA-256 of the `incoming` package
+  content you merged against, `version` = the brief's `to`. (Compute with
+  `shasum -a 256 <file>`.) This is what stops the same merge being queued forever.
+- **Manifest** (`regenerate` items): set `generated[<artifact>].version` to the
+  brief's `to`, and record the `options` you used if the entry had none.
 
-## Step 5: Report and Commit
+Include the bookkeeping edits in the item's commit.
 
-1. **Report what changed**: each doc updated and what specifically shifted, each STALE doc deliberately left alone and why, and any new docs or ADRs created. This list is the change record the user approves.
-2. **Capture stray signals.** Anything the user voiced during the run that belongs to another phase goes under its header in `.groundwork/cache/discovery-notes.md` (Protocol 1).
-3. **Commit on approval.** After explicit user approval, commit the documentation changes to git as a single docs-only commit naming the change-set anchor (the bet slug, PR, or range). If the user declines, leave the edits uncommitted and say so plainly.
-
-If the run surfaced drift this skill cannot close — a `generation_mode: generated` doc whose generator must re-run, a topology change that needs the scaffold skill — name it in the report with the recovery route rather than approximating the fix by hand.
+When every item is done, delete the brief and the staged payloads
+(`.groundwork/cache/upgrade-brief.json`, `.groundwork/cache/upgrade/`) — cache
+lifecycle rules — in a final tidy commit, and close with one line naming the version
+the project now stands at. Suggest `npx groundwork-method check` as the proof.
