@@ -253,7 +253,7 @@ function emptyManifest() {
     _schema:
       'files: { <project-relative path>: { tier, source, version, hash, provenance, base? } }. ' +
       'tier 1 = framework-owned (clean-replaced on update); tier 2 = framework-seeded, user-editable ' +
-      '(hash-classified: pristine refreshes, edited queues for the groundwork-upgrade skill). ' +
+      '(hash-classified: pristine refreshes, edited queues for the groundwork-update skill). ' +
       'provenance "deployed" = this CLI wrote it; "adopted" = found on disk with unknown ancestry, treated as user-edited. ' +
       'base (tier 2 only) = hash of the PACKAGE content this file was last reconciled against — a merge queues only ' +
       'when the package moves past it; null means unknown ancestry. ' +
@@ -344,7 +344,7 @@ function bootstrapManifest(p, stampedVersion) {
 // ─── Tier-2 refresh (upgrade-path plan WS-C) ────────────────────────────────
 // Seeded docs stop fossilizing: pristine (disk hash == deploy hash) files refresh
 // to the current package content; edited files are left alone and queued for the
-// groundwork-upgrade skill; absent files are copied as before.
+// groundwork-update skill; absent files are copied as before.
 
 function classifyTier2(p, manifest) {
   const out = { copy: [], refresh: [], current: [], edited: [] };
@@ -384,7 +384,7 @@ function applyTier2(p, tier2) {
 
 // Rebuild the manifest's `files` section after an update has deployed everything.
 // Edited/adopted tier-2 entries keep their original record — the deploy-time hash
-// is the merge base the upgrade skill reasons against (decision O5).
+// is the merge base the update skill reasons against (decision O5).
 function rebuildManifest(p, previous, tier2, generatorsConfig, devCli) {
   const manifest = emptyManifest();
   manifest.generated = (previous && previous.generated) || {};
@@ -462,9 +462,10 @@ function applyDevCli(p, devCli) {
 }
 
 // ─── Migration registry (upgrade-path plan WS-B) ────────────────────────────
-// migrations/index.json ships in the package. `cli` migrations are scripted and
-// run inside update; `agent` migrations are briefs the groundwork-upgrade skill
-// executes. All migrations are forward-only, idempotent, and detect-first.
+// migrations/index.json ships in the package. Every registry entry is a scripted
+// `cli` migration — mechanical, forward-only, idempotent, detect-first file ops run
+// inside update. Structural/judgment advancement is no longer a per-change migration:
+// the groundwork-update skill reconciles each artifact family to the current canonical.
 // GROUNDWORK_MIGRATIONS_DIR overrides the registry location (test seam).
 
 function migrationsDir() {
@@ -511,40 +512,35 @@ function recordMigrations(p, ids) {
   }
 }
 
-// Partition unrecorded registry entries into work. cli entries are asked via
-// detect(); agent entries are version-gated — their brief's own Detect section
-// decides applicability when the skill picks the item up.
-function pendingMigrations(p, registry, stamped) {
+// Partition unrecorded registry entries into work. The registry is cli-only now:
+// each entry is asked via its detect(). Structural advancement moved out of the
+// registry to the groundwork-update skill's reconcile pass.
+function pendingMigrations(p, registry) {
   const done = new Set(readCompletedMigrations(p));
   const ctx = { targetDir: p.targetDir, packageRoot: path.resolve(__dirname, '..') };
   const cli = [];
-  const agent = [];
   const settled = []; // detect said done/n-a — record so detect isn't re-asked forever
   for (const entry of registry.entries) {
     if (done.has(entry.id)) continue;
-    if (entry.kind === 'cli') {
-      let mod;
-      try {
-        mod = require(path.join(registry.dir, `${entry.id}.js`));
-      } catch (err) {
-        c.warn(`Migration ${entry.id} could not be loaded: ${err.message}`);
-        continue;
-      }
-      let verdict;
-      try {
-        verdict = mod.detect(ctx);
-      } catch (err) {
-        c.warn(`Migration ${entry.id} detect() failed: ${err.message}`);
-        continue;
-      }
-      if (verdict === 'pending') cli.push({ entry, mod, ctx });
-      else settled.push(entry.id);
-    } else if (entry.kind === 'agent') {
-      if (stamped === null || semverCompare(entry.version, stamped) > 0) agent.push(entry);
-      else settled.push(entry.id);
+    if (entry.kind !== 'cli') continue; // registry is cli-only; ignore stray kinds
+    let mod;
+    try {
+      mod = require(path.join(registry.dir, `${entry.id}.js`));
+    } catch (err) {
+      c.warn(`Migration ${entry.id} could not be loaded: ${err.message}`);
+      continue;
     }
+    let verdict;
+    try {
+      verdict = mod.detect(ctx);
+    } catch (err) {
+      c.warn(`Migration ${entry.id} detect() failed: ${err.message}`);
+      continue;
+    }
+    if (verdict === 'pending') cli.push({ entry, mod, ctx });
+    else settled.push(entry.id);
   }
-  return { cli, agent, settled };
+  return { cli, settled };
 }
 
 // B2 — run pending cli migrations in registry order. A failure stops the run with
@@ -569,28 +565,18 @@ function runCliMigrations(p, pending) {
 }
 
 // ─── The upgrade brief (upgrade-path plan WS-E input) ───────────────────────
-// Everything that needs judgment — agent migrations, edited tier-2 merges,
-// generator-output reconciliation — is compiled into a brief the
-// groundwork-upgrade skill works through conversationally. Briefs and incoming
-// content are copied into .groundwork/cache so the skill needs nothing from the
-// npx package cache.
+// The file-level judgment work — edited tier-2 merges, a customized launcher,
+// generator-output reconciliation — is compiled into a brief the groundwork-update
+// skill works through conversationally (its Phase A). Incoming content is copied
+// into .groundwork/cache so the skill needs nothing from the npx package cache.
+// Structural advancement is the skill's Phase B reconcile, not a brief item.
 
 function upgradeBriefPath(p) {
   return path.join(p.targetDir, '.groundwork', 'cache', 'upgrade-brief.json');
 }
 
-function buildBriefItems(p, registry, agentEntries, tier2, devCli, manifest) {
+function buildBriefItems(p, tier2, devCli, manifest) {
   const items = [];
-  for (const entry of agentEntries) {
-    items.push({
-      type: 'agent-migration',
-      id: entry.id,
-      title: entry.title,
-      summary: entry.summary,
-      brief: path.join('.groundwork', 'cache', 'upgrade', 'briefs', `${entry.id}.md`),
-      status: 'pending',
-    });
-  }
   for (const spec of tier2.edited) {
     items.push({
       type: 'tier2-merge',
@@ -630,7 +616,7 @@ function buildBriefItems(p, registry, agentEntries, tier2, devCli, manifest) {
 
 // Write the brief (merging an existing one by item id — completed work survives)
 // and stage every referenced payload into the cache.
-function writeUpgradeBrief(p, registry, items, stamped) {
+function writeUpgradeBrief(p, items, stamped) {
   const briefPath = upgradeBriefPath(p);
   let brief = { brief_version: 1, from: stamped, to: PKG.version, items: [] };
   try {
@@ -652,14 +638,7 @@ function writeUpgradeBrief(p, registry, items, stamped) {
 
   for (const item of brief.items) {
     if (item.status !== 'pending') continue;
-    if (item.type === 'agent-migration') {
-      const src = path.join(registry.dir, item.id, 'brief.md');
-      const dest = path.join(p.targetDir, item.brief);
-      if (fs.existsSync(src)) {
-        fs.mkdirSync(path.dirname(dest), { recursive: true });
-        fs.copyFileSync(src, dest);
-      }
-    } else if (item.type === 'tier2-merge') {
+    if (item.type === 'tier2-merge') {
       const spec = deployableSpecs(p).find((s) => s.rel === item.path);
       if (spec) {
         const dest = path.join(p.targetDir, item.incoming);
@@ -1087,10 +1066,10 @@ function reportTier2(tier2, devCli) {
   console.log(`\x1b[1mSeeded docs & framework files\x1b[0m`);
   for (const s of tier2.copy) console.log(`  \x1b[32m+ ${s.rel}\x1b[0m \x1b[2m(missing — copied)\x1b[0m`);
   for (const s of tier2.refresh) console.log(`  \x1b[33m~ ${s.rel}\x1b[0m \x1b[2m(pristine — refreshed)\x1b[0m`);
-  for (const s of tier2.edited) console.log(`  \x1b[36m⊜ ${s.rel}\x1b[0m \x1b[2m(edited — queued for the upgrade skill, your copy untouched)\x1b[0m`);
+  for (const s of tier2.edited) console.log(`  \x1b[36m⊜ ${s.rel}\x1b[0m \x1b[2m(edited — queued for the update skill, your copy untouched)\x1b[0m`);
   if (devCli.replaceBundle) console.log(`  \x1b[33m~ .dev/dev-bundle.js\x1b[0m \x1b[2m(framework-owned — replaced with the current bundle)\x1b[0m`);
   if (devCli.replaceLauncher) console.log(`  \x1b[33m~ dev\x1b[0m \x1b[2m(framework-owned — replaced with the current launcher)\x1b[0m`);
-  if (devCli.customLauncher) console.log(`  \x1b[36m⊜ dev\x1b[0m \x1b[2m(customized — queued for the upgrade skill, your copy untouched)\x1b[0m`);
+  if (devCli.customLauncher) console.log(`  \x1b[36m⊜ dev\x1b[0m \x1b[2m(customized — queued for the update skill, your copy untouched)\x1b[0m`);
 }
 
 function updateGroundWork(flags = {}) {
@@ -1141,8 +1120,8 @@ function updateGroundWork(flags = {}) {
   const tier2 = classifyTier2(p, manifest);
   const devCli = classifyDevCli(p, manifest);
   const registry = loadMigrationRegistry();
-  const pending = pendingMigrations(p, registry, stamped);
-  const briefItems = buildBriefItems(p, registry, pending.agent, tier2, devCli, manifest);
+  const pending = pendingMigrations(p, registry);
+  const briefItems = buildBriefItems(p, tier2, devCli, manifest);
 
   const total =
     skillsDiff.added.length + skillsDiff.changed.length + skillsDiff.removed.length +
@@ -1181,7 +1160,7 @@ function updateGroundWork(flags = {}) {
       for (const { entry } of pending.cli) console.log(`  \x1b[33m▸ ${entry.id}\x1b[0m — ${entry.title}`);
     }
     if (briefItems.length) {
-      console.log(`\x1b[1mUpgrade brief (judgment lane — handled by the groundwork-upgrade skill):\x1b[0m`);
+      console.log(`\x1b[1mUpgrade brief (judgment lane — handled by the groundwork-update skill):\x1b[0m`);
       for (const item of briefItems) console.log(`  \x1b[36m▸ ${item.id}\x1b[0m — ${item.summary || item.title}`);
     }
     console.log('');
@@ -1240,7 +1219,7 @@ function updateGroundWork(flags = {}) {
 
   // E4 — compile the judgment lane's work list. Written even when a migration
   // failed: the brief is how the rest of the catch-up happens.
-  const briefCount = writeUpgradeBrief(p, registry, briefItems, stamped);
+  const briefCount = writeUpgradeBrief(p, briefItems, stamped);
 
   // A failed migration stops the stamp from advancing past it (decision S4:
   // idempotent + detect-first makes the re-run safe).
@@ -1253,8 +1232,8 @@ function updateGroundWork(flags = {}) {
   stampVersion(p);
 
   if (briefCount > 0) {
-    console.log(`\n\x1b[33m\x1b[1m⚠ ${briefCount} item(s) need a working session:\x1b[0m open your agent and say \x1b[36m"upgrade groundwork"\x1b[0m.`);
-    console.log(`  \x1b[2mThe work list is at .groundwork/cache/upgrade-brief.json — the groundwork-upgrade skill consumes it.\x1b[0m\n`);
+    console.log(`\n\x1b[33m\x1b[1m⚠ ${briefCount} item(s) need a working session:\x1b[0m open your agent and say \x1b[36m"update groundwork"\x1b[0m.`);
+    console.log(`  \x1b[2mThe work list is at .groundwork/cache/upgrade-brief.json — the groundwork-update skill consumes it, then reconciles structure.\x1b[0m\n`);
   }
 }
 
@@ -1307,12 +1286,12 @@ function reportFrameworkStatus(p) {
   }
 
   const registry = loadMigrationRegistry();
-  const pending = pendingMigrations(p, registry, stamped);
-  const pendingCount = pending.cli.length + pending.agent.length;
+  const pending = pendingMigrations(p, registry);
+  const pendingCount = pending.cli.length;
   if (pendingCount > 0) {
     stale = true;
-    c.warn(`${pendingCount} pending migration(s): ${[...pending.cli.map((m) => m.entry.id), ...pending.agent.map((e) => e.id)].join(', ')}`);
-    console.log(`         Run \x1b[36mnpx groundwork-method update\x1b[0m — scripted ones run there; the rest land in the upgrade brief.`);
+    c.warn(`${pendingCount} pending migration(s): ${pending.cli.map((m) => m.entry.id).join(', ')}`);
+    console.log(`         Run \x1b[36mnpx groundwork-method update\x1b[0m — these scripted migrations run there.`);
   }
 
   try {
@@ -1434,7 +1413,7 @@ function checkGroundWork() {
   }
 
   if (stale.length > 0) {
-    console.log(`Repair: ask your AI agent to run the \x1b[36mgroundwork-update\x1b[0m skill — it maps the`);
+    console.log(`Repair: ask your AI agent to run the \x1b[36mgroundwork-doc-sync\x1b[0m skill — it maps the`);
     console.log(`commits behind this report to surgical doc edits and gates them through review.`);
     console.log(`For dependency-graph-aware detection beyond file paths, run the \x1b[36mgroundwork-check\x1b[0m skill.\n`);
     process.exitCode = 1;

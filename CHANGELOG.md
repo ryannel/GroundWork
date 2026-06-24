@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (one update lane, reconciled to the current canonical, 2026-06-24)
+
+The framework now has a single call to bring a project current, and one durable engine behind it. `groundwork-upgrade` is renamed `groundwork-update` and reframed: Phase A still works the residual upgrade brief the CLI compiles (edited seeded docs, a customized launcher, generator output behind its generator), and a new Phase B **reconciles each artifact family to the framework's current canonical** — reading the live shape that ships in `.groundwork/skills/`, detecting divergence, and advancing legacy structure forward with agent judgment. This replaces the change-indexed agent-migration registry: structural advancement is no longer a per-change migration but a target-state reconcile driven by a small ownership map (the skill's Family Index), so a future structural change is picked up for free when its owning skill changes. The standalone `groundwork-docs-uplift` skill folds in as the Docs-site family. The former `groundwork-update` (docs-kept-in-sync-with-your-own-code) is renamed `groundwork-doc-sync` to end the name collision; its behavior is unchanged. The migration registry keeps only its mechanical `cli` migrations; the ten `agent` migrations are retired, their transform knowledge relocated into the Family Index.
+
+- [no-migration] Skill renames clean-replace on update like every framework skill (`installSkillTrees`), and no project artifact stores a skill directory name. Structural advancement that the retired agent-migrations performed is now carried by the `groundwork-update` skill's Phase B reconcile against the current canonical — run it after `npx groundwork-method update`.
+
 ### Changed (the bet becomes pure prose; tests and contracts are built in code at Delivery, 2026-06-24)
 
 The bet is now pure prose, and every machine-readable artifact is built in code at Delivery rather than authored up front. Decomposition is a browsable prose tree at `docs/bets/<slug>/decomposition/` (`meta.json` + a milestone `index.md` + a file per slice, each with a **Proof of work** section); the monolithic `decomposition.md`, the `decomposition.json` mirror, and the separate `test-review.md` surface are gone. The bet-progress suite is materialized red at Delivery start from the approved prose, turned green slice by slice — the suite is the board (`./dev bet status`, derived), git is the record. The API/data design prose carries the shapes at design fidelity, so `docs/bets/<slug>/contracts/` is removed; the canonical machine-readable contract is captured code-first into `docs/architecture/api/<service>/` from the running service at Validation. The approval baseline moved from `approval_commit` to the git tag `bet/<slug>/approved` on the approved-prose commit, and the integrity model inverts: the prose is frozen (tamper-checked against the tag) while the code — tests and the generated contract — is free to change. The whole bet is archived at Delivery (`docs/bets/<slug>/` and `tests/bets/<slug>/` → `_archive/`).
@@ -23,7 +29,7 @@ The scaffolded docs site opened on an undifferentiated link dump and rendered it
 - **Nested architecture docs.** `docs/architecture.md` becomes `docs/architecture/index.md`, and `infrastructure.md`, `domain/`, `services/`, `api/`, and `decisions/` move under `docs/architecture/`. The authoring skills (architecture, architecture-extract, scaffold, infra-adopt) and every live cross-reference across the skill corpus, review checklists, orchestrator, and `./dev` now point at the nested paths; the two raw `cat > docs/architecture/index.md` assemble steps gained a `mkdir -p` guard.
 - **Skill-authored getting-started on-ramp.** `groundwork-scaffold` (greenfield) and `groundwork-infra-adopt` (brownfield) now author `docs/getting-started/{index,setup,dev-cli-reference}.md` — a routing index, a fresh-clone setup walkthrough (prerequisites → `./dev doctor` → install dependencies → `./dev start`, the content `infrastructure.md` never carried), and a `./dev` command reference derived from `./dev help`. `infrastructure.md` slims to the running-system shape plus the canonical three commands and a pointer to the on-ramp.
 - **Docs-uplift target state.** `groundwork-docs-uplift` T4/T5 are rewritten to the nested order and two-audience landing, and route existing flat-layout sites through the migration first.
-- [migration] Existing installs carry the flat architecture layout (`docs/architecture.md`, `docs/infrastructure.md`, `docs/domain/`, `docs/services/`, `docs/api/`, `docs/decisions/`); they are relocated under `docs/architecture/` with `architecture.md` becoming `index.md`, the sidebar metas rewritten, and live cross-references carried forward (gw-nest-architecture-docs)
+- [no-migration] Existing installs carry the flat architecture layout (`docs/architecture.md`, `docs/infrastructure.md`, `docs/domain/`, `docs/services/`, `docs/api/`, `docs/decisions/`); the `groundwork-update` skill's Architecture-docs family relocates them under `docs/architecture/` with `architecture.md` becoming `index.md`, rewrites the sidebar metas, and carries live cross-references forward
 
 ### Changed (the bet test-suite SHA seal is replaced by a documented-vs-actual reconciliation, 2026-06-23)
 
@@ -51,7 +57,7 @@ GroundWork's setup flows produced one artifact serving two masters: the cross-ph
 
 - **The Downstream Context store (Protocol 5).** The four-subsection contract (Key Decisions / Binding Constraints / Deferred Questions / Out of Scope) moves to `.groundwork/context/<phase>.md`, read by downstream setup phases. Published setup docs no longer open with a `## Summary for Downstream` section. The writer skill, every setup-phase commit, and the review checklists follow.
 - **Setup Graduation (Protocol 10).** The context store is scaffolding, not a ledger: at the setup→delivery transition the orchestrator graduates every still-binding decision into a `docs/decisions/` ADR, reconciles the rest into `docs/`, then tears the store down. By the end of setup everything durable lives in `docs/`; nothing setup-only remains.
-- [migration] Existing installs carry a stale summary section atop each setup doc; it is graduated in place — binding decisions promoted to ADRs or the doc body, then the section stripped — leaving docs/ as clean reference documentation (gw-context-split)
+- [no-migration] Existing installs carry a stale summary section atop each setup doc; the `groundwork-update` skill's Doc-contracts family graduates it in place — binding decisions promoted to ADRs or the doc body, then the section stripped — leaving docs/ as clean reference documentation
 ### Changed (repo-map is now multi-language and extensible, 2026-06-23)
 
 The deterministic code map grew from four languages to a fidelity-tiered, project-extensible map. Graph fidelity (real import edges + PageRank centrality) now covers Go, Python, TypeScript/JavaScript, **Java, and Dart**; a further ten languages (Rust, Kotlin, C#, C/C++, Scala, Swift, PHP, Ruby, Lua) map at symbols fidelity (symbol index + module shape + external deps). `repo-map.json` gains `coverage` (per-language file count + fidelity) and `unmapped` (languages present but not mapped, with reasons), and the CLI nudges toward enabling them.
@@ -85,7 +91,7 @@ Design craft is now specified as per-app tokens and verified deterministically, 
 - **Designer canon deepened** with the atmosphere/material layer (translucency, ambient glow, grain, multi-plane depth) and optical finish (optical alignment, crisp 1px rendering, tabular numerals), anti-mimicry framed.
 - **Per-surface micro-polish spec + convergent technique research.** Bet design requires a token-traceable motion/atmosphere/static-micro spec per graphical surface (concreteness-gated at review); at design-settle the design system runs a convergent pass over high-end exemplars of the chosen aesthetic, recording concrete techniques (not images) as a technique library.
 - **Deterministic verification.** New `test_token_conformance.py` (Tier 1) asserts the atmosphere actually landed (tokens resolve, multi-layer elevation, backdrop blur on surface treatments); the token-conformance lint now also bans raw shadow/blur/gradient literals. The vision-grading Tier-3 `visual-fidelity` review is removed — the craft bar is the concrete spec, judged for conformance by the deterministic gate and a designer spec-conformance pass at delivery.
-- [migration] Existing Next.js apps regenerate their token layer — gaining `app/brand.css`, the restructured token-driven `globals.css`, and `test_token_conformance.py` — with hand-edited `globals.css` reconciled rather than clobbered (gw-nextjs-atmosphere-tokens)
+- [no-migration] Existing Next.js apps regenerate their token layer — gaining `app/brand.css`, the restructured token-driven `globals.css`, and `test_token_conformance.py` — with hand-edited `globals.css` reconciled rather than clobbered; the `groundwork-update` skill's Next.js-token-layer family drives this via the generator-regenerate path
 
 ### Added (off-script support: composable `./dev`, the Day-2 baseline, and customization guidance, 2026-06-21)
 
@@ -126,7 +132,7 @@ instead of a cross-language metaphor (plan: `docs/plans/archive/pragmatic-archit
   scaffold templates and engineer skills, which carry forward by clean-copy and affect new
   generation only. A user's already-scaffolded service code is theirs and is documented-forward,
   not rewritten.
-- [migration] Installs carrying the orphaned `hexagonal-architecture.md` from before the reframe need it retired and its live cross-references carried forward to `code-structure.md` (gw-code-structure-rename)
+- [no-migration] Installs carrying the orphaned `hexagonal-architecture.md` from before the reframe have it retired and its live cross-references carried forward to `code-structure.md` by the `groundwork-update` skill's Naming family
 
 ### Changed (docs-site generator now actually serves docs/, as a native runner, 2026-06-19) `[no-migration]`
 
@@ -279,7 +285,7 @@ matrix is now complete and the runner registry is reachable by existing installs
   managed unit (container / native app-service / runner) with its run mode, cross-checked against
   `./dev status --json`, so the doc can never describe a stack the CLI cannot run.
 - Generation tests cover the full footprint matrix (env / compose-service / runner / none).
-- [migration] Projects scaffolded before the runner registry have a runner-less `dev.config.json`; register their surfaces and native sidecars as runners without touching db/jaeger compose (gw-runner-retro-registration)
+- [no-migration] Projects scaffolded before the runner registry have a runner-less `dev.config.json`; the `groundwork-update` skill's Surfaces-registry family registers their surfaces and native sidecars as runners without touching db/jaeger compose
 
 ### Changed (resize work on worth + stakes, not effort, 2026-06-16)
 
@@ -428,10 +434,10 @@ enforcement layer:
   migration-coverage gate in the contracts lane, and an `upgrade` simulation suite.
 - [migration] Old installs never received `.groundwork/config/config.toml`; update now seeds the commented default (gw-seed-config-toml)
 - [migration] Register the Serena code-intelligence MCP server in `.mcp.json` and remove the retired depwire server (gw-register-serena-mcp)
-- [migration] Projects carrying `docs/ux-design.md` from before the Design System reframe need the rename and reference uplift (gw-design-system-rename)
-- [migration] Products set up before the multi-surface restructure need the surface registry + capability ledger bootstrapped (gw-surfaces-registry-bootstrap)
-- [migration] Code-coupled docs written before drift tracking need `last_reviewed`/`source_of_truth` frontmatter stamped (gw-drift-frontmatter-stamp)
-- [migration] Bets opened before the bet-loop restructure need their tracking files uplifted to the current shape (gw-bet-shape-uplift)
+- [no-migration] Projects carrying `docs/ux-design.md` from before the Design System reframe get the rename and reference uplift from the `groundwork-update` skill's Naming family
+- [no-migration] Products set up before the multi-surface restructure get the surface registry + capability ledger bootstrapped by the `groundwork-update` skill's Surfaces-registry family
+- [no-migration] Code-coupled docs written before drift tracking get `last_reviewed`/`source_of_truth` frontmatter stamped by the `groundwork-update` skill's Doc-contracts family
+- [no-migration] Bets opened before the bet-loop restructure have their tracking files uplifted to the current shape by the `groundwork-update` skill's Bets family
 
 Multi-surface restructure: every product is modelled as one headless **capability
 core** plus zero or more **surfaces** (web, mobile, CLI, MCP), with parity tracked
@@ -552,7 +558,7 @@ sweep over the 0.9.0 surface.
 
 ### Changed (contract-grade delivery, 2026-06-10)
 
-- [migration] Package renamed `groundwork` → `groundwork-method` — the binary stays `groundwork`; change any `npx groundwork …` invocations in your scripts to `npx groundwork-method …` (gw-package-rename-invocations)
+- [no-migration] Package renamed `groundwork` → `groundwork-method` — the binary stays `groundwork`; the `groundwork-update` skill's Naming family rewrites any `npx groundwork …` invocations in your scripts to `npx groundwork-method …`
 - Rename context: the bare npm name is held by an unrelated package, and the `-method` suffix matches the methodology-package convention.
 - Release workflow publishes for real (dry-run gate removed); requires the `NPM_TOKEN` secret.
 - Infra images pinned (`postgres:16`, `redis:7`); `groundwork check` exit codes documented.

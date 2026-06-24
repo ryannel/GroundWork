@@ -30,81 +30,11 @@
       "summary": "The SHA-256 test-manifest seal was removed (./dev bet sign is gone; ./dev test bet no longer verifies a manifest). The dev-bundle update drops the bet sign command; this deletes the now-inert .groundwork/bets/<slug>/test-manifest.json files. decomposition.json and other bet artifacts are untouched."
     },
     {
-      "id": "gw-package-rename-invocations",
-      "version": "0.10.0",
-      "title": "Rewrite npx groundwork invocations to npx groundwork-method",
-      "kind": "agent",
-      "summary": "The package publishes as groundwork-method (the bare npm name is taken); project scripts and CI invoking `npx groundwork` resolve to the wrong package."
-    },
-    {
-      "id": "gw-design-system-rename",
-      "version": "0.10.0",
-      "title": "Rename docs/ux-design.md to docs/design-system.md",
-      "kind": "agent",
-      "summary": "The UX Design phase became the Design System phase; projects carrying the old document need the rename and its cross-references carried forward."
-    },
-    {
-      "id": "gw-code-structure-rename",
-      "version": "0.10.0",
-      "title": "Retire hexagonal-architecture.md for code-structure.md",
-      "kind": "agent",
-      "summary": "The structural-design principle was reframed away from the hexagonal label to How We Structure Code; installs carrying the orphaned hexagonal-architecture.md need it removed and its live cross-references carried forward to code-structure.md."
-    },
-    {
-      "id": "gw-surfaces-registry-bootstrap",
-      "version": "0.10.0",
-      "title": "Bootstrap the surface registry and capability ledger",
-      "kind": "agent",
-      "summary": "Products set up before the multi-surface restructure have no docs/surfaces.md / .groundwork/surfaces.json; bootstrap them via groundwork-surface-activation."
-    },
-    {
-      "id": "gw-drift-frontmatter-stamp",
-      "version": "0.10.0",
-      "title": "Stamp drift-tracking frontmatter on code-coupled docs",
-      "kind": "agent",
-      "summary": "Docs written before drift tracking lack last_reviewed / source_of_truth frontmatter, so groundwork check cannot assess them."
-    },
-    {
-      "id": "gw-bet-shape-uplift",
-      "version": "0.10.0",
-      "title": "Uplift in-flight bets to the current bet shape",
-      "kind": "agent",
-      "summary": "Bets opened before the bet-loop restructure lack decomposition.json and current pitch frontmatter; uplift in-flight bets, leave shipped ones alone."
-    },
-    {
-      "id": "gw-runner-retro-registration",
-      "version": "0.10.0",
-      "title": "Register surfaces and native sidecars as ./dev runners",
-      "kind": "agent",
-      "summary": "Projects scaffolded before the runner registry have a runner-less dev.config.json, so their Electron/CLI/Flutter surfaces and native sidecars are invisible to ./dev; register them without touching db/jaeger compose."
-    },
-    {
-      "id": "gw-nextjs-atmosphere-tokens",
-      "version": "0.10.0",
-      "title": "Project the atmosphere token layer into existing Next.js apps",
-      "kind": "agent",
-      "summary": "Next.js apps scaffolded before the per-app token projection carry a hardcoded globals.css and no brand.css, so the design system's atmosphere (elevation, blur, gradients, surface treatments, motion, type-role micro) cannot reach the UI and the token-conformance gate is absent; regenerate the token layer from brand-tokens.json, reconcile any hand-edited globals.css, and add the conformance test."
-    },
-    {
-      "id": "gw-context-split",
-      "version": "0.10.0",
-      "title": "Graduate in-doc Summary for Downstream sections out of docs/",
-      "kind": "agent",
-      "summary": "The cross-phase Summary for Downstream contract moved out of published docs/ into a temporary .groundwork/context/ store torn down at setup completion. Projects predating the change carry a stale summary section atop each setup doc; graduate each summary's binding decisions into docs/decisions/ ADRs or the doc body, then strip the section, leaving docs/ as clean reference documentation."
-    },
-    {
       "id": "gw-bet-prose-redesign",
       "version": "0.10.0",
       "title": "Retire the machine-readable bet artifacts for the prose model",
       "kind": "cli",
-      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/architecture/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Largely advisory: prints the model change and names active bets to restructure by hand; mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json."
-    },
-    {
-      "id": "gw-nest-architecture-docs",
-      "version": "0.10.0",
-      "title": "Nest the architecture docs under docs/architecture/",
-      "kind": "agent",
-      "summary": "Architecture docs were flat at the docs/ root (architecture.md, infrastructure.md, domain/, services/, api/, decisions/); they now nest under docs/architecture/ with architecture.md becoming index.md, so the docs-site sidebar reads as a product-learning journey. Relocates the files, rewrites docs/meta.json + seeds docs/architecture/meta.json, and carries live cross-references forward; runs last so any decisions/ ADRs other migrations graduated are moved into place. Leaves historical records alone and does not author the net-new getting-started on-ramp."
+      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/architecture/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json; the groundwork-update skill's Bets family advances any in-flight bet's prose structure."
     }
   ]
 }

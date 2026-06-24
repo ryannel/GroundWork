@@ -1,8 +1,9 @@
 // gw-<id> — <one-line imperative title>
 //
 // <Why this migration exists: what init does now that update never did, or what
-// shape moved. cli migrations are mechanical — if the change needs judgment about
-// the user's content, write an agent brief instead (see _template/brief.md).>
+// shape moved. Migrations are mechanical only — if the change needs judgment about
+// the user's content, add a Family Index entry to the groundwork-update skill's
+// reconcile pass instead of a migration.>
 //
 // Contract (migrations/README.md): forward-only, idempotent, detect-first.
 // detect() MUST be read-only — `update --dry-run` calls it. Use only Node built-ins;
