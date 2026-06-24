@@ -22,24 +22,28 @@ flag the absence of either.
   specifications, contracts, and schemas belong here.
 - [ ] 🟡 **Per-milestone organisation**: the design is split by milestone or phase rather than
   covering the entire bet — decomposition has leaked into the design artifact.
-- [ ] 🟡 **Section missing without reason**: one of Surface Design, Data Flows, API Contracts,
-  or Data Schema is absent and the document does not state why it does not apply to this bet.
+- [ ] 🟡 **Section missing without reason**: one of UI Design, Data Flows, API Design,
+  or Schema & Data Design is absent and the document does not state why it does not apply to this bet.
 
-## Surface Design
+## UI Design
 
-Surface Design carries one subsection per surface in the pitch's `surfaces:` frontmatter. When
+UI Design carries one subsection per surface in the pitch's `surfaces:` frontmatter. When
 the project has no surface registry (`docs/surfaces.md`), the product has a single implicit
 surface — expect exactly one subsection in the project's interface medium, and do not flag the
 absence of surface ceremony.
 
 - [ ] 🔴 **In-scope surface undesigned**: a surface in the pitch's `surfaces:` scope has no
-  Surface Design subsection — that surface's milestone tests will have nothing to assert
+  UI Design subsection — that surface's milestone tests will have nothing to assert
   against, and delivery will improvise the experience.
 - [ ] 🔴 **Untestable interface**: a view, command, or interaction is described too vaguely for a
   test to pass or fail against it — surface milestone tests assert against these subsections, so
   "the user can manage their notifications" specifies nothing.
 - [ ] 🔴 **Missing states**: a view or command defines its happy path but not its loading, empty,
   error, or degraded states — the states are where implementations diverge silently.
+- [ ] 🟡 **Wireframe missing**: a `graphical-ui` surface's key view defines states but carries no
+  wireframe — neither an ASCII sketch nor a linked mockup — so its layout and hierarchy are left
+  for the build to improvise. The ASCII wireframe is the always-present baseline; a mockup image
+  supplements but does not replace it.
 - [ ] 🟡 **Wrong medium vocabulary**: a surface's subsection does not use the vocabulary of that
   surface's interface type in `docs/design-system.md` — screens and states for graphical UI,
   commands and output for CLI, request/response turns for agentic protocol. Each subsection
@@ -49,7 +53,7 @@ absence of surface ceremony.
   feature or service instead of by view, command, or interaction — the user-observable surface
   is the unit milestones prove.
 
-## API Contracts
+## API Design
 
 - [ ] 🔴 **Missing spec files**: the bet touches a core boundary but `docs/bets/<slug>/contracts/`
   carries no spec for it, or it changes persistent state with no `schema.sql` — a contract that
@@ -82,10 +86,13 @@ absence of surface ceremony.
   idempotency rule, versioning) is asserted with no design rationale — the next reader will
   relitigate it.
 
-## Data Flows and Schema
+## Data Flows & Data Design
 
 - [ ] 🔴 **Flow without a trigger or a sink**: a data path does not state what initiates it,
   which services handle it, or what persists at the end — an arrow with a missing end.
+- [ ] 🟡 **Flow without a diagram**: a non-trivial cross-service or routing flow is described in
+  prose with no `sequenceDiagram` or `flowchart` — ordering and service boundaries that a diagram
+  makes legible are left to the reader to reconstruct.
 - [ ] 🟡 **Domain doc duplicated**: the schema section restates an entity already defined in
   `docs/domain/` instead of referencing the entity doc and describing only what this bet adds or
   changes — the copies will drift.
@@ -104,3 +111,8 @@ absence of surface ceremony.
 - [ ] 🔴 **Architecture contradiction**: a contract or flow contradicts `docs/architecture.md`
   or an accepted ADR — a sync call across a boundary the architecture made async, a store a
   service does not own.
+- [ ] 🟡 **Pitch topology missing or stale**: the design establishes the services and components
+  this bet touches, but the pitch's Solution carries no topology graph — or still shows the
+  template placeholder — so a reader of the pitch cannot see the system the bet plays in. A
+  trivial single-component bet may carry a one-line note instead of a graph; silence is the
+  violation.

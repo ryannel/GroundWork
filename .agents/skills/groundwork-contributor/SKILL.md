@@ -340,7 +340,7 @@ The phases communicate through shared artifacts and identifiers. Each is written
 | Screenshot capture path `.groundwork/cache/visual/<bet-slug>/<surface>/<state>.png` (+ `_smoke/<surface>/<route>__<viewport>__<theme>.png`) | system-test-runner render-smoke (`_smoke` set); bet-progress interface tests (per-state set) | 04-delivery Tier 2 spec-conformance inspection (delivery agent); 05-validation confirms it ran |
 | `## Design References` (technique library) in `docs/design-system.md` + `references` array in `brand-tokens.json` `visual` block | design-system commit (_foundation Phase 6 convergent technique-research pass + graphical-ui Commit Contributions); design-system-extract | the atmosphere/motion token projection + the per-surface micro-polish spec at bet design |
 | `visual` block atmosphere tokens (`elevation`, `blur`, `gradients`, `surface`, `motion.interactions`, `typography.roles`) in `brand-tokens.json` | design-system commit (graphical-ui Commit Contributions) | nextjs-app generator projection → `app/brand.css` + `globals.css` token utilities; `tests/system/test_token_conformance.py` (Tier 1) |
-| Per-screen micro-polish spec in the bet's `technical-design/01-surface-design.md` Surface Design (motion / atmosphere / static-micro, token-traceable) | bet 02-design Step 1.95 (designer persona); concreteness-gated at Step 2.5 | 04-delivery Tier 2 spec-conformance inspection; 05-validation |
+| Per-screen micro-polish spec in the bet's `technical-design/01-ui-design.md` UI Design (motion / atmosphere / static-micro, token-traceable) | bet 02-design Step 1.95 (designer persona); concreteness-gated at Step 2.5 | 04-delivery Tier 2 spec-conformance inspection; 05-validation |
 
 ---
 

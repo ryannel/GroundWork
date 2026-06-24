@@ -21,7 +21,7 @@ Checked against the bet's committed artifacts immediately before the first slice
 
 These items apply only when the project carries a surface registry (`docs/surfaces.md`). A project with no registry has a single implicit surface; none of these items fire. The ledger itself is gated at validation — a bet cannot reach `delivered` with an empty ledger cell — so readiness checks the scope agreement that makes that gate satisfiable.
 
-- [ ] 🔴 **Pitch ↔ design surface disagreement**: the pitch's `surfaces:` frontmatter and the technical design's Surface Design subsections name different surface sets — delivery would build for surfaces the bet never scoped, or skip ones it committed to, and validation's ledger row would have no honest state for the mismatched column.
+- [ ] 🔴 **Pitch ↔ design surface disagreement**: the pitch's `surfaces:` frontmatter and the technical design's UI Design subsections name different surface sets — delivery would build for surfaces the bet never scoped, or skip ones it committed to, and validation's ledger row would have no honest state for the mismatched column.
 - [ ] 🔴 **Slice surface unmapped**: a slice's `surface` value in `decomposition.md` or `decomposition.json` is missing, or is neither `core` nor a registry slug — core-before-surface sequencing cannot run, and the slice's outcome has no ledger column to land in.
 
 ## Contracts

@@ -49,7 +49,7 @@ This bet uses two populations of tests with distinct lifecycles:
 [One paragraph linking this slice to Milestone 1 — what vertical capability it contributes and how that capability demonstrably moves the milestone forward.]
 
 **Required Capabilities:**
-- [Falsifiable capability statement tracing to a contract/schema in `technical-design/02-capability-design.md`]
+- [Falsifiable capability statement tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`]
 - [Falsifiable capability statement]
 
 **Test Cases:**
@@ -115,4 +115,4 @@ Before the Decomposition gate, verify the chain is intact:
 | Pitch | Solves the stated problem within appetite | Design covers the pitched solution |
 | Technical Design | Every interface element/flow traces to the pitch | Milestones can be derived from it |
 | Milestones | Each goal is consumer-visible value — at the contract (capability) or in the surface's medium (surface) — traceable to the design | Every slice belongs to exactly one milestone |
-| Slices | Capabilities trace to contracts/schemas in `technical-design/02-capability-design.md` | Test cases trace to milestone acceptance criteria |
+| Slices | Capabilities trace to interfaces/stores in `technical-design/03-api-design.md` / `04-data-design.md` | Test cases trace to milestone acceptance criteria |

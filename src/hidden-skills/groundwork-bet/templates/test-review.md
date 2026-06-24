@@ -12,7 +12,7 @@
 
 **How we prove it:** [the shape of the proof in prose — what the test exercises end to end and the observable condition it passes on. A reader should understand the test without seeing its code.]
 
-**Test:** `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` · traces to [the contract operation in `02-capability-design.md` for a capability milestone, or the surface subsection in `01-surface-design.md` for a surface milestone].
+**Test:** `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` · traces to [the interface in `03-api-design.md` (or store in `04-data-design.md`) for a capability milestone, or the surface subsection in `01-ui-design.md` for a surface milestone].
 
 ---
 
