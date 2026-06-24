@@ -193,6 +193,60 @@ def test_non_cli_registry_entry_is_ignored(project, tmp_path):
     assert "gw-test-stray" not in state["groundwork"].get("migrations", [])
 
 
+def _seed_precutover_brief(project, extra_items=None):
+    """Write a brief shaped like one left by a pre-retirement (agent-migration)
+    update, plus its staged payload dir."""
+    cache = project / ".groundwork/cache"
+    staged = cache / "upgrade/briefs"
+    staged.mkdir(parents=True, exist_ok=True)
+    (staged / "gw-legacy-thing.md").write_text("# legacy brief\n## Detect\nx\n")
+    items = [{
+        "type": "agent-migration", "id": "gw-legacy-thing",
+        "title": "Legacy", "summary": "x",
+        "brief": ".groundwork/cache/upgrade/briefs/gw-legacy-thing.md",
+        "status": "pending",
+    }]
+    items += extra_items or []
+    (cache / "upgrade-brief.json").write_text(json.dumps(
+        {"brief_version": 1, "from": "0.9.0", "to": "0.9.0", "items": items}
+    ))
+
+
+def test_precutover_brief_with_only_agent_items_is_removed(project):
+    """A leftover brief whose only items are retired agent-migrations is pruned to
+    nothing and deleted — the skill never sees a type it cannot run. This exercises
+    the `total == 0` path (a fresh init has no other update work)."""
+    _seed_precutover_brief(project)
+
+    proc = run_cli(["update"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert not (project / ".groundwork/cache/upgrade-brief.json").exists(), \
+        "stale agent-migration brief should be deleted"
+    assert not (project / ".groundwork/cache/upgrade/briefs").exists(), \
+        "orphaned briefs/ payload cache should be cleared"
+
+
+def test_precutover_brief_keeps_supported_items_drops_agent_items(project, tmp_path):
+    """When a leftover brief mixes a retired agent-migration with a still-supported
+    item, the agent item is dropped and the supported one survives."""
+    _seed_precutover_brief(project, extra_items=[{
+        "type": "tier2-merge", "id": "tier2:llms.txt", "path": "llms.txt",
+        "incoming": ".groundwork/cache/upgrade/tier2/llms.txt",
+        "base_hash": None, "summary": "merge", "status": "pending",
+    }])
+
+    # A no-op registry so update does no migration work; the brief merge still runs.
+    mig = make_registry(tmp_path, [])
+    proc = run_cli(["update"], project, migrations_dir=mig)
+    assert proc.returncode == 0, proc.stderr
+
+    brief = json.loads((project / ".groundwork/cache/upgrade-brief.json").read_text())
+    ids = {i["id"] for i in brief["items"]}
+    assert "tier2:llms.txt" in ids, "supported item must survive the prune"
+    assert "gw-legacy-thing" not in ids, "retired agent-migration item must be pruned"
+    assert not (project / ".groundwork/cache/upgrade/briefs").exists()
+
+
 def test_dry_run_lists_the_plan_and_mutates_nothing(project, tmp_path):
     mig = make_registry(
         tmp_path,

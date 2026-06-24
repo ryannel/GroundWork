@@ -614,9 +614,45 @@ function buildBriefItems(p, tier2, devCli, manifest) {
   return items;
 }
 
+// Item types the groundwork-update skill's Phase A still executes. A brief written
+// before the agent-migration retirement can carry orphaned `agent-migration` items
+// (their work is now the skill's Phase B reconcile); they are pruned on the next
+// update so the skill is never handed a type it cannot run.
+const SUPPORTED_BRIEF_ITEM_TYPES = new Set(['tier2-merge', 'tier1-custom', 'regenerate']);
+
+// Normalize a pre-cutover brief on disk: clear the orphaned agent-migration payload
+// cache, drop items whose type the current skill can't run, and delete the brief
+// when nothing supported survives. Idempotent and safe when no brief exists. Called
+// on both update paths so a stale brief is cleaned even when nothing else changed.
+function pruneStaleBrief(p) {
+  // The briefs/ cache staged agent-migration payloads only; the current brief never
+  // writes there, so a lingering dir is orphaned by the retirement.
+  const orphanedBriefs = path.join(p.targetDir, '.groundwork', 'cache', 'upgrade', 'briefs');
+  if (fs.existsSync(orphanedBriefs)) fs.rmSync(orphanedBriefs, { recursive: true, force: true });
+
+  const briefPath = upgradeBriefPath(p);
+  if (!fs.existsSync(briefPath)) return;
+  let brief;
+  try { brief = JSON.parse(fs.readFileSync(briefPath, 'utf8')); }
+  catch { return; } // corrupt brief — leave for writeUpgradeBrief to rebuild
+  if (!brief || !Array.isArray(brief.items)) return;
+
+  const kept = brief.items.filter((i) => SUPPORTED_BRIEF_ITEM_TYPES.has(i.type));
+  if (kept.length === brief.items.length) return; // nothing to prune
+  if (kept.length === 0) {
+    // Pruning emptied the brief — remove it so `check` and the skill don't see a
+    // phantom work list.
+    fs.rmSync(briefPath, { force: true });
+    return;
+  }
+  brief.items = kept;
+  fs.writeFileSync(briefPath, JSON.stringify(brief, null, 2) + '\n');
+}
+
 // Write the brief (merging an existing one by item id — completed work survives)
 // and stage every referenced payload into the cache.
 function writeUpgradeBrief(p, items, stamped) {
+  pruneStaleBrief(p); // normalize any pre-cutover brief before merging into it
   const briefPath = upgradeBriefPath(p);
   let brief = { brief_version: 1, from: stamped, to: PKG.version, items: [] };
   try {
@@ -1133,6 +1169,7 @@ function updateGroundWork(flags = {}) {
 
   if (total === 0) {
     if (!dryRun) {
+      pruneStaleBrief(p); // a pre-cutover brief is the one thing `total` can't see — clean it
       recordMigrations(p, pending.settled);
       if (stamped !== PKG.version) stampVersion(p); // files identical, stamp drifted — repair silently
       if (bootstrapped) writeManifestFile(p, rebuildManifest(p, manifest, tier2, generatorsConfig, devCli));
