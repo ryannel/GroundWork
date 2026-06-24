@@ -1,12 +1,12 @@
 # Bet-Progress Test Guidance
 
-*This document explains how to write bet-progress tests — the red, up-front proof-of-work suite written during Decomposition. It is guidance for the agent authoring tests, not a runnable test file. The actual test stubs live under `tests/bets/<bet-slug>/`.*
+*This document explains how to write bet-progress tests — the red proof-of-work suite generated at Delivery start from the bet's approved prose decomposition. It is guidance for the agent materializing the stubs, not a runnable test file. The actual test stubs live under `tests/bets/<bet-slug>/`.*
 
 ---
 
 ## What bet-progress tests are
 
-Bet-progress tests are **temporary, black-box proof-of-work** written before any implementation exists. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven.
+Bet-progress tests are **temporary, black-box proof-of-work** materialized from the approved prose before any implementation exists. Each one renders the Proof-of-work prose of a milestone or slice — the proof the user already reviewed and approved in the decomposition tree — into a runnable red stub. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven. Running the suite is the bet's live progress board.
 
 A milestone's proof follows its type:
 
@@ -120,6 +120,6 @@ A bet-progress test is good when:
 - It would pass without any special knowledge of how the feature is implemented internally
 - It proves each business rule exactly once — at the contract; surface tests assert only wiring, rendering, and interaction
 - It is a **headline proof, not a permutation** — it proves the milestone's outcome or the slice's capability, not every input variant or error code
-- A reviewer can read it and confirm it matches the milestone's acceptance criteria in `decomposition.md`
+- A reviewer can read it and confirm it matches the milestone's acceptance criteria and Proof-of-work prose in its `decomposition/NN-<milestone-slug>/index.md`
 
-**Keep the up-front suite lean.** Bet-progress tests are the high-impact proofs the user reviews and signs — a milestone's consumer-visible outcome and each slice's vertical capability, typically one to three assertions apiece. If an assertion is an edge case, a permutation, or an error variant rather than the headline outcome, it does not belong here; it is part of the slice's permanent best-practice tests, written when the slice is built in Delivery (`workflows/04-delivery.md` Step 5). A wall of assertions up front is unreviewable and front-loads coverage the delivery suite is meant to carry.
+**Keep the suite lean.** Bet-progress tests render the high-impact proofs the user reviewed and signed as prose — a milestone's consumer-visible outcome and each slice's vertical capability, typically one to three assertions apiece. If an assertion is an edge case, a permutation, or an error variant rather than the headline outcome, it does not belong here; it is part of the slice's permanent best-practice tests, written when the slice is built in Delivery (`workflows/04-delivery.md` Step 5). A wall of assertions is unreviewable upstream and front-loads coverage the delivery suite is meant to carry.

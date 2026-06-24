@@ -15,10 +15,9 @@
 | Artifact | Affected section | Why |
 |---|---|---|
 | `pitch.md` | [section or none] | [how the discovery touches it] |
-| `technical-design/` | [section file — `01-ui-design.md` / `02-data-flows.md` / `03-api-design.md` / `04-data-design.md`] | |
-| `contracts/` | [spec + operation/table] | |
-| `decomposition.md` | [milestone/slice] | |
-| Approved tests | [test file(s)] | |
+| `technical-design/` | [section file — `01-ui-design.md` / `02-data-flows.md` / `03-api-design.md` (shapes) / `04-data-design.md`] | |
+| `decomposition/` | [milestone `index.md` / slice file] | |
+| Built artifacts | [test stub(s) under `tests/bets/<slug>/`, the served contract] | |
 
 ## Proposed changes
 
@@ -36,4 +35,4 @@
 
 ## Routing
 
-[Minor: edits applied on approval, mutated docs re-reviewed, affected tests amended through the Amendment Protocol (re-rendered test-review entry + commit), slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]
+[Minor: edits applied on approval, mutated docs re-reviewed, affected proofs amended through the Amendment Protocol (edit the slice/milestone prose, re-tag `bet/<slug>/approved`, then change the code), slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]

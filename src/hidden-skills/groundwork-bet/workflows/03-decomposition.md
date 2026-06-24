@@ -1,11 +1,11 @@
 # Phase 3: Decomposition (Milestones, Slices, Proof of Work)
 
-**Goal:** With the design locked, break the bet into the order of work and author the tests that prove each step — agent-led, then reviewed. The agent proposes the breakdown and writes the tests; the user reviews sequencing and the tests. No implementation code.
+**Goal:** With the design locked, break the bet into the order of work and write — in prose — the proof each step must pass. Agent-led, then reviewed: the agent proposes the breakdown and authors the proofs; the user reviews sequencing and the proofs. This phase produces **prose only** — the decomposition tree. No test code, no implementation code. The prose proofs are the contract; Delivery materializes them into a red suite and turns it green.
 
-This phase is where the bet becomes executable. Milestones define the demonstrable checkpoints — capability proofs at the contract, surface proofs in each surface's medium. Slices define the vertical units of work. Bet-progress tests define what "done" means for each — written red, up front, so the Delivery phase has a clear pass/fail signal for every increment.
+This phase is where the bet becomes executable. Milestones define the demonstrable checkpoints — capability proofs at the contract, surface proofs in each surface's medium. Slices define the vertical units of work. Each milestone and each slice carries a **Proof of work** written in plain language: what it proves and how the suite will prove it. That prose is the definition of done the user approves — turning it green is Delivery's job, and the red board is generated from this approved prose at Delivery start (`workflows/04-delivery.md` Step 0).
 
 ## Restrictions
-⚠️ **CRITICAL CONSTRAINT:** You are FORBIDDEN from writing implementation code during this phase. You may write test stubs, test scaffolding, and the decomposition document — nothing that a compiler or interpreter would run as application logic.
+⚠️ **CRITICAL CONSTRAINT:** This phase produces **prose only** — the decomposition tree. You are FORBIDDEN from writing implementation code, and equally from writing test code: both belong to Delivery. The Proof-of-work sections describe each proof in plain language; the runnable red stubs are generated from them at Delivery start. Nothing a compiler or interpreter would run is authored in this phase.
 
 ## Operating Contract
 
@@ -19,7 +19,7 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
 
 ## Step 2: Propose milestones
 
-Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `01-ui-design.md` for the UI design subsections, `02-data-flows.md` for the business logic and data flows, `03-api-design.md` for the interfaces, and `04-data-design.md` for the schema and data model. From these, decompose the bet into milestones — then present the breakdown for review before writing a single test.
+Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `01-ui-design.md` for the UI design subsections, `02-data-flows.md` for the business logic and data flows, `03-api-design.md` for the interfaces and their shapes, and `04-data-design.md` for the schema and data model. From these, decompose the bet into milestones — then present the breakdown for review before writing a single proof.
 
 **What a milestone is:** a demonstrable state the product reaches, ordered so each one is independently shippable. Its consumer gets value from Milestone 1 even if Milestone 2 never ships. Milestones come in two types:
 
@@ -38,38 +38,21 @@ Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `01-ui-d
 
 Present the milestone list with the **sequencing rationale** for each: what architectural proof Milestone 1 provides, why Milestone 2 can only follow it, and so on. The review focuses on **ordering, typing, and whether each milestone names a demonstrable outcome for a named consumer** — not implementation detail. Revise the ordering until the user is satisfied before proceeding.
 
-## Step 3: Author milestone bet-progress tests
+## Step 3: Write each milestone's Proof of work (prose)
 
-For each approved milestone, write its proof test file before moving to slices. A milestone's proof follows its type:
+For each approved milestone, write its **Proof of work** prose before moving to slices — the proof the user reviews and signs, in plain language, with no assertion code. A milestone's proof follows its type:
 
-**Capability milestone tests** hit the contract directly — end-to-end against the running services using the shared `api_client` and `cluster` fixtures from `tests/conftest.py`, or against the embedded core's public API when the core is embedded. Every assertion exercises the contract the design committed to: requests, responses, error cases, persisted effects. No surface is in the loop.
+**Capability milestone proofs** describe what is exercised against the contract directly — end-to-end against the running services (or the embedded core's public API): the request made, the response and persisted effect observed, the error case the milestone's outcome rests on. No surface is in the loop. Write it so a reader understands exactly what becomes true at the contract.
 
-**Surface milestone tests** assert what that surface's users observe, in that surface's medium. The medium comes from the surface's registry entry (`docs/surfaces.md`) — never assume:
-- `graphical-ui` → browser-driven test using the `page` fixture
-- `cli` → test that invokes the binary via `subprocess` or `pexpect`
-- `agentic-protocol` → test that sends a protocol request and verifies the response
+**Surface milestone proofs** describe what that surface's users observe, in that surface's medium — `graphical-ui` what renders and how the user interacts, `cli` the command and its output, `agentic-protocol` the request and the response structure. **A surface proof never re-proves core logic** — the capability milestone already proved every business rule at the contract, and re-asserting one at a surface multiplies the test pyramid by the surface count for nothing. Surface proofs cover wiring, rendering, and interaction.
 
-Surface tests resolve their target through the surfaces fixture — the mapping from registry slug to that surface's entry point (base URL, binary, or protocol endpoint). **Surface milestone tests never re-prove core logic** — the capability milestone already proved every business rule at the contract, and a surface test that re-asserts one multiplies the test pyramid by the surface count for nothing. Surface tests assert wiring, rendering, and interaction; when one goes red, the capability milestone's green contract tests localize the failure to the surface's adapter layer.
+**Degrade rule:** with no surface registry, write each milestone's proof as the two familiar layers — an interface-level proof in the project's single medium plus an API-level proof that localizes failures — exactly as before milestone typing existed.
 
-**Degrade rule:** with no surface registry, write each milestone's proof as the two familiar layers — an interface-level test in the project's single medium plus an API-level system test that localizes failures — exactly as before milestone typing existed.
+**Keep it to the headline proof.** A milestone's Proof of work is the small set of outcomes that prove its consumer-visible state — typically one to three. It does not enumerate every permutation, error code, or boundary; that granular coverage is the permanent best-practice tests rolled out per slice in Delivery (`workflows/04-delivery.md` Step 5), not the headline proof the user reviews. Include an error case here only when the milestone's demonstrable outcome depends on it.
 
-**Keep it to the headline proof.** A milestone test is the small set of assertions that prove its consumer-visible outcome — typically one to three. It does not enumerate every permutation, error code, or boundary; that granular coverage is the permanent best-practice tests rolled out per slice in Delivery (`workflows/04-delivery.md` Step 5), not the up-front suite the user reviews. Include an error case here only when the milestone's demonstrable outcome depends on it.
+**The proof's shapes come from the prose design.** Every request, response field, and name a proof references traces to `docs/bets/<bet-slug>/technical-design/03-api-design.md` (or a store in `04-data-design.md`) — the prose design carries the shapes at design fidelity, and the proof rests on them. A proof that invents a shape the design does not define is describing a contract that does not exist; the review blocks it.
 
-**Tests derive their shapes from the spec files.** Every request body, response assertion, and field name in a bet-progress test comes from `docs/bets/<bet-slug>/contracts/` (`openapi.yaml`, `asyncapi.yaml`, `schema.sql`) — load the spec and build the test's shapes from it, generating a client or validator where the project's toolchain supports it. A test that hand-rolls a shape the spec does not define is testing a contract that does not exist; the review blocks it.
-
-**Writing the tests:**
-
-Discover the project's test language and service names from the scaffold — from `docs/infrastructure.md` and the generated `docker-compose.yml`. Do not hardcode a language or service name.
-
-If `./dev new milestone <bet-slug> <milestone-slug>` exists in the project, run it to scaffold the stub at the correct path. If it does not exist, write the file directly. Either way the path and naming are identical:
-
-```
-tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>
-```
-
-where `<bet-slug>` is the bet directory name, `<milestone-slug>` is the kebab-case milestone name, `<N>` is the milestone number, and `<ext>` is the project's test extension.
-
-Tests describe the **target state** — write each test as if the feature already exists. Tests are red because the implementation does not exist yet; a placeholder that fails explicitly is correct. Consult `.groundwork/skills/groundwork-bet/templates/bet-progress-test.md` for the placeholder pattern and quality criteria.
+Write the milestone's `Proves` / `How we prove it` / `Test file` into its `index.md` (Step 5) — the test file path is named here but the stub is not written until Delivery.
 
 ## Step 4: Decompose milestones into slices
 
@@ -84,72 +67,33 @@ Each slice spec must contain:
 - **Surface** — `core` for a slice implementing capability-core behaviour, or the registry slug of the surface it wires (omit the field entirely when the project has no surface registry). The field drives delivery sequencing — core slices merge before the surface slices that consume them — and tells the reviewer which test discipline applies: contract proof for `core`, wiring-only for a surface.
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
-- **One-paragraph intro** — links the slice to its parent milestone and states what vertical capability it contributes
-- **Required Capabilities** — falsifiable behaviour statements, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md` (and its spec in `contracts/`). "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API contract" is.
-- **Test Cases table** — `Test | Location | Assertion` — with specific, falsifiable assertions that a reviewer can verify against the milestone's acceptance criteria
+- **Scope** — a one-paragraph intro linking the slice to its parent milestone and stating what vertical capability it contributes, plus **Required Capabilities**: falsifiable behaviour statements, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`. "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API design" is.
+- **Design** — where the slice lands in the design: the interface it implements, the data flow it realizes in `02-data-flows.md`, and (for a surface slice) the view it wires in `01-ui-design.md`.
+- **Proof of work** — the slice's prose proof (Step 5): what it proves and how, the handful of outcomes that show its capability is present.
 
-## Step 5: Author slice bet-progress tests
+## Step 5: Write the decomposition tree
 
-For each slice, write its proof test file. Slice tests are **informed by and bounded by** the parent milestone's tests — they prove the vertical capability that contributes to that milestone, not the full milestone outcome. Keep this to the handful of assertions that prove the slice's capability is present; the exhaustive edge-case, permutation, and unit coverage is added when the slice is built, as the permanent best-practice tests in Delivery (`workflows/04-delivery.md` Step 5).
+Write the reviewable artifact as a **browsable tree** at `docs/bets/<bet-slug>/decomposition/`, using the templates under `.groundwork/skills/groundwork-bet/templates/decomposition/` (the tool creates parent directories automatically):
 
-```
-tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>
-```
+| Path | Content | Template |
+|---|---|---|
+| `decomposition/meta.json` | Sidebar order + the "Decomposition" title. | `decomposition/meta.json` |
+| `decomposition/NN-<milestone-slug>/index.md` | One folder per milestone; `index.md` is its landing page — type, consumer, demonstrable goal, sequencing rationale, acceptance criteria, **Proof of work** (Step 3), and links to its slices. | `decomposition/milestone-index.md` |
+| `decomposition/NN-<milestone-slug>/NN-<slice-slug>.md` | One file per slice — header, **Scope** (intro + Required Capabilities), **Design**, **Proof of work** (Step 4 / Step 5). | `decomposition/slice.md` |
 
-where `<N>` is the slice number within the milestone, `<service>` is the owning service name, and `<slice-slug>` is the kebab-case slice name.
+The `NN-` numeric prefixes order the milestone folders and the slices within each, so the tree reads top to bottom on the docs site as the order of work. Discover the project's test language and service names from the scaffold (`docs/infrastructure.md` and the generated `docker-compose.yml`) so each `Test file:` path names the right extension and owning service — do not hardcode a language or service name. The path is named; the stub is generated at Delivery start.
 
-As in Step 3: discover language and service names from the scaffold; use `./dev new slice <bet-slug> <milestone-slug> <service> <slice-slug>` when available; write directly otherwise. All paths and names are identical either way.
+**The slice's Proof of work is the prose proof.** Write each `Proves` / `How we prove it` from the slice's target-state intent — what becomes true and the observable condition that shows it — never assertion code. A `core` slice proves contract behaviour; a surface slice proves wiring, rendering, and interaction only. This is the headline proof, not every assertion: the granular edge-case and permutation coverage is added when the slice is built in Delivery.
 
-## Step 6: Write `decomposition.md`
+Apply `groundwork-writer` when drafting the tree — declarative, assertive, zero-hedging.
 
-Write the human-readable, reviewable artifact to `docs/bets/<bet-slug>/decomposition.md` using the template at `.groundwork/skills/groundwork-bet/templates/decomposition.md`.
+## Step 6: Independent review
 
-The document contains:
-- **Test Plan header** — the two populations and their lifecycles (one short paragraph each)
-- **Milestone map** — for each milestone: type and demonstrable goal (with the capability milestone's consumer named; type omitted on projects without a registry), sequencing rationale, acceptance criteria, link to the milestone test file
-- **Per-milestone slice specs** — the six-part slice anatomy and Test Cases table for each slice, with links to the slice test files
-
-Apply `groundwork-writer` when drafting this document — declarative, assertive, zero-hedging.
-
-## Step 6.5: Write the decomposition manifest
-
-The prose document is for humans; delivery tracking needs the same structure machine-readably, so `./dev bet status` can render progress and a resumed session can find the active slice without re-deriving it.
-
-Write `.groundwork/bets/<bet-slug>/decomposition.json` mirroring the decomposition exactly:
-
-```json
-{
-  "bet": "<bet-slug>",
-  "created": "<YYYY-MM-DD>",
-  "approval_commit": null,
-  "milestones": [
-    { "id": "m1", "slug": "<milestone-slug>", "title": "<demonstrable goal>",
-      "test_file": "tests/bets/<bet-slug>/test_milestone_1_<milestone-slug>.<ext>",
-      "status": "pending",
-      "slices": [
-        { "id": "1.1", "slug": "<slice-slug>", "service": "<owner-service>",
-          "surface": "core",
-          "test_file": "tests/bets/<bet-slug>/test_slice_1_<service>_<slice-slug>.<ext>",
-          "status": "pending", "baseline_commit": null, "delivered_commit": null,
-          "files": [], "notes": null } ] } ]
-}
-```
-
-Every milestone and slice in `decomposition.md` appears here with the same slugs and test paths — the two files describe one decomposition, and Delivery updates only the manifest's status fields. `approval_commit` stays `null` until the user approves the suite (Transition, below); it then carries the SHA of the approval commit and becomes the baseline the delivery test-integrity reconciliation diffs against. Each slice's `surface` value (`"core"` or a registry slug) matches its spec's **Surface** field; omit the key entirely when the project has no surface registry — the addition is additive, and consumers like `./dev bet status` ignore fields they do not read.
-
-## Step 6.6: Render the test-review surface
-
-The user is about to stake the bet's delivery on these tests — implementing to green *is* done. A review that confirms files exist and fail tells the user nothing about whether the proofs are the right ones. The test-review surface puts each test's proof in front of the user in plain language with its chain of justification, so approval means "I read what these tests prove and it is what I want proven."
-
-Write `docs/bets/<bet-slug>/test-review.md` using the template at `.groundwork/skills/groundwork-bet/templates/test-review.md`. For each milestone and slice test, write **prose**: what the test proves about the product, why that is the right proof, the test file, and the contract operation or schema it traces to. Never paste assertion code into this surface — it is a human review, not a code listing. Faithfulness comes from writing each entry from the test's own target-state intent and walking it with the user at approval, not from quoting the placeholder strings inside red stubs. This surface covers the headline suite — one entry per milestone and slice test, not every assertion.
-
-## Step 7: Independent review
-
-The decomposition is the sequencing commitment this bet executes against. A milestone no consumer can observe, a slice that is horizontal, or a test that does not trace to the design compounds into every delivery decision. The review pass catches these before the plan hardens.
+The decomposition is the sequencing commitment this bet executes against. A milestone no consumer can observe, a slice that is horizontal, or a proof that does not trace to the design compounds into every delivery decision. The review pass catches these before the plan hardens.
 
 1. **Announce** the shift — the agent is moving from authoring into an independent review of the decomposition before presenting Proof of Work.
-2. **Invoke the review subagent** (Protocol 9) with `document_path: docs/bets/<bet-slug>/decomposition.md` and `document_type: decomposition`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
-3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the decomposition and the affected test files. Rewrite sections rather than annotating them. Run the review again. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach **PRESENT** (Protocol 8).
+2. **Assemble the tree for review.** The decomposition lives as a tree of files, so concatenate them into one document for the reviewer — a shell operation that consumes no output tokens regardless of size: `run_command("find docs/bets/<bet-slug>/decomposition -name '*.md' | sort | xargs cat > /tmp/<bet-slug>-decomposition.md")` (sorted so milestone and slice order is preserved). Then **invoke the review subagent** (Protocol 9) with `document_path: /tmp/<bet-slug>-decomposition.md` and `document_type: decomposition`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
+3. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the affected milestone `index.md` or slice file. Rewrite sections rather than annotating them. Re-assemble (`find docs/bets/<bet-slug>/decomposition -name '*.md' | sort | xargs cat > /tmp/<bet-slug>-decomposition.md`) and run the review again. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach **PRESENT** (Protocol 8). Clean up the assembled file once the review settles: `run_command("rm /tmp/<bet-slug>-decomposition.md")`.
 4. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface during the Proof of Work transition so the user can decide whether to act on them.
 
 The review verifies document-chain integrity — see the **Document Chain Integrity** section below for the exact checks the reviewer applies.
@@ -159,30 +103,27 @@ The review verifies document-chain integrity — see the **Document Chain Integr
 Before presenting Proof of Work, verify every item:
 
 - Every milestone names a demonstrable goal a reviewer can trace to `technical-design/`: a surface milestone's user-visible goal traces to its surface's subsection in `01-ui-design.md`; a capability milestone's contract state traces to `03-api-design.md` / `04-data-design.md` (and the data flows in `02-data-flows.md`), with its consumer named.
-- When the project has a surface registry: every milestone is typed (`capability` or `surface (<slug>)`), the bet's new capability opens with its capability milestone, and every slice carries a `surface` value (`core` or a registry slug) in both `decomposition.md` and `decomposition.json`. With no registry, none of this applies — untyped milestones, no surface fields.
-- Every milestone has a bet-progress test file at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>`.
-- No surface milestone test re-asserts a business rule the capability milestone proves at the contract — surface tests are bounded to wiring, rendering, and interaction.
+- When the project has a surface registry: every milestone is typed (`capability` or `surface (<slug>)`), the bet's new capability opens with its capability milestone, and every slice carries a `surface` value (`core` or a registry slug). With no registry, none of this applies — untyped milestones, no surface fields.
+- Every milestone has a **Proof of work** in its `index.md` — `Proves`, `How we prove it`, and a named `Test file:` path at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>`.
+- No surface milestone proof re-asserts a business rule the capability milestone proves at the contract — surface proofs are bounded to wiring, rendering, and interaction.
 - Every slice is vertical — it can be deployed and verified without any future slice existing.
 - Every slice has falsifiable Required Capabilities, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`.
-- Every slice has a bet-progress test file at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
-- Every bet-progress test is **red** — it fails because the implementation does not exist. A test that passes before any implementation is either testing nothing or testing existing code, which means it is not a bet-progress test.
-- Every request shape, response assertion, and field name in the tests traces to `docs/bets/<bet-slug>/contracts/` — no hand-rolled shapes the spec does not define.
-- `docs/bets/<bet-slug>/decomposition.md` is complete: milestone map, slice specs, and test file links all populated.
-- `.groundwork/bets/<bet-slug>/decomposition.json` mirrors the document — same milestones, slugs, and test paths.
-- `docs/bets/<bet-slug>/test-review.md` describes, in prose, what every milestone and slice test proves and why — one entry per test file, none quoting raw assertion code.
+- Every slice has a **Proof of work** and a named `Test file:` path at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
+- Every request shape, response field, and name a proof references traces to `technical-design/03-api-design.md` / `04-data-design.md` — no shapes the prose design does not define.
+- The `decomposition/` tree is complete: `meta.json`, every milestone `index.md`, and every slice file populated, with the slice links resolving.
 
 A partial decomposition is not Proof of Work. Do not present it as such.
 
 ## Document Chain Integrity
 
-The review subagent applies these checks. The agent authoring the decomposition should apply them during Step 7 as well — they catch drift before it reaches the reviewer.
+The review subagent applies these checks. The agent authoring the decomposition should apply them during Step 6 as well — they catch drift before it reaches the reviewer.
 
 | Document | Upstream check | Downstream check |
 |----------|---------------|-----------------|
 | Pitch | Solves the stated problem within appetite | Design covers the pitched solution |
 | Technical Design | Every surface element/flow traces to the pitch | Milestones can be derived from it |
 | Milestones | Each goal is consumer-visible value — at the contract for capability milestones, in the surface's medium for surface milestones — traceable to the design | Every slice belongs to exactly one milestone |
-| Slices | Required Capabilities trace to interfaces/stores in `technical-design/03-api-design.md` / `04-data-design.md` | Test cases trace to milestone acceptance criteria |
+| Slices | Required Capabilities trace to interfaces/stores in `technical-design/03-api-design.md` / `04-data-design.md` | Proof of work traces to milestone acceptance criteria |
 
 ## Quality Standard: What Good Milestones and Slices Look Like
 
@@ -198,111 +139,101 @@ A milestone is a demonstrable state the product reaches for a named consumer —
 3. **Integration** — Connect frontend to backend and end-to-end test
 ```
 
-**Deep (required standard):**
+**Deep (required standard) — a milestone `index.md`:**
 
 ```markdown
-## Milestones
-
-### Milestone 1: Notification lifecycle proven at the contract
+# Milestone 1: Notification lifecycle proven at the contract
 
 **Type:** capability
 **Consumer:** the `web-app` and `admin-cli` surfaces — Milestones 2 and 3 build on
 this contract.
 
-An operation lifecycle event posted to the notification service produces a queryable
-notification record, and subsequent events update its status in place — provable
-end-to-end against the running services with nothing but an HTTP client.
+**Demonstrable goal:** An operation lifecycle event posted to the notification service
+produces a queryable notification record, and subsequent events update its status in
+place — provable end-to-end against the running services with nothing but an HTTP client.
 
 **Sequencing rationale:** This contract is what every surface consumes. Proving it
 headless first makes Milestones 2 and 3 wiring exercises against a known-good core —
 a red surface test can only mean a surface problem.
 
 **Acceptance criteria:**
-- `POST /internal/events` with a valid operation lifecycle event returns `202`, and
+- [ ] `POST /internal/events` with a valid operation lifecycle event returns `202`, and
   `GET /api/notifications` returns the corresponding record within 2 seconds.
-- A `completed` event for the same operation updates the existing record's status in
+- [ ] A `completed` event for the same operation updates the existing record's status in
   place — no duplicate record.
 
-**Test file:** `tests/bets/notifications/test_milestone_1_notification_contract.py`
+## Proof of work
 
----
+**Proves:** A lifecycle event becomes a queryable notification, and a later event for the
+same operation updates that record rather than creating a second one.
 
-### Milestone 2: Notification feed on web-app
+**How we prove it:** Against the running services with an HTTP client only — POST a valid
+event, then GET the feed and see the record within 2 seconds; POST a `completed` event for
+the same operation and see the one record's status change in place, with no duplicate.
 
-**Type:** surface (`web-app`)
+**Test file:** `tests/bets/notifications/test_milestone_1_notification_contract.py` —
+generated red at Delivery start; traces to the `POST /internal/events` and
+`GET /api/notifications` interfaces in `03-api-design.md`.
 
-A web user sees their unread notifications in the feed, updating in real time as
-operations progress, without a page refresh.
-
-**Sequencing rationale:** Depends on Milestone 1's proven contract. This milestone
-asserts only the web wiring — websocket subscription, rendering, dismissal — and
-never re-proves the lifecycle rules Milestone 1 settled at the contract.
-
-**Acceptance criteria:**
-- Triggering an operation causes its notification to appear in the feed within
-  2 seconds, without a page refresh.
-
-**Test file:** `tests/bets/notifications/test_milestone_2_web_feed.py`
-
----
-
-### Milestone 3: Notification status on admin-cli
-
-**Type:** surface (`admin-cli`)
-
-An operator running `notifications list` sees the same records with status and age
-columns; `--failed` filters to failures and exits non-zero when any exist.
-
-**Sequencing rationale:** Depends only on Milestone 1 — the two surface milestones
-are independent of each other, and either could ship alone with the other deferred
-to the ledger.
-
-**Test file:** `tests/bets/notifications/test_milestone_3_cli_status.py`
+## Slices
+- [Slice 1.1 — notification-service: Operation event intake](./01-event-intake.md)
 ```
 
-**Slice example (deep):**
+The shallow version has horizontal milestones invisible to every consumer, no acceptance criteria, no sequencing rationale, and no proof. Its "Backend" milestone names a build activity, not a contract state anyone can exercise. The deep version opens with the capability milestone that proves the contract headless for named consumers; surface milestones follow, bounded to wiring in each surface's medium.
+
+**Deep (required standard) — a slice file:**
 
 ```markdown
-### Slice 1.1 — notification-service: Operation event intake
+# Slice 1.1 — notification-service: Operation event intake
 
 **Owner service:** notification-service
 **Surface:** core
 **Complexity:** M
 **Prerequisite:** none
 
-Wires the notification service to receive operation lifecycle events from the
-operations service and persist them as notification records. This is the
-notification-service's data foundation — every other slice depends on this record
-existing.
+## Scope
+
+Wires the notification service to receive operation lifecycle events from the operations
+service and persist them as notification records. This is the notification-service's data
+foundation — every other slice depends on this record existing.
 
 **Required Capabilities:**
-- `POST /internal/events` accepts an operation lifecycle event matching the
-  `OperationEvent` schema in `technical-design/03-api-design.md`; returns `202 Accepted`
-- A notification record is created in the `notifications` table with status, message,
-  and operation_id populated from the event payload
-- Duplicate events for the same operation_id + status are idempotent; a second
-  identical event produces no additional record
+- `POST /internal/events` accepts an operation lifecycle event matching the `OperationEvent`
+  shape in `03-api-design.md`; returns `202 Accepted`.
+- A notification record is created in the `notifications` table with status, message, and
+  operation_id populated from the event payload.
+- Duplicate events for the same operation_id + status are idempotent; a second identical
+  event produces no additional record.
 
-**Test Cases:**
-| Test | Location | Assertion |
-|------|----------|-----------|
-| Event intake creates record | `test_slice_1_notification_service_event_intake.py` | `POST /internal/events` with valid payload → 202; `SELECT * FROM notifications WHERE operation_id = ?` returns one row |
-| Duplicate event is idempotent | same | Second identical POST → 202; row count unchanged |
-| Invalid payload rejected | same | Missing required field → 422; no row created |
+## Design
+
+Implements `POST /internal/events` from `03-api-design.md`, realizing the intake flow in
+`02-data-flows.md`, and writes the `notifications` store defined in `04-data-design.md`.
+
+## Proof of work
+
+**Proves:** An operation event sent to the service becomes exactly one notification record,
+and a repeat of the same event changes nothing.
+
+**How we prove it:** POST a valid event and confirm `202`, then query the `notifications`
+table and see one matching row; POST the identical event again and confirm the row count is
+unchanged; POST an event missing a required field and confirm `422` with no row written.
+
+**Test file:** `tests/bets/notifications/test_slice_1_notification_service_event_intake.py` —
+generated red at Delivery start; traces to `POST /internal/events` and the `notifications`
+store.
 ```
 
-The shallow decomposition has horizontal milestones invisible to every consumer, no acceptance criteria, no sequencing rationale, and no falsifiable test cases. Its "Backend" milestone is not a capability milestone wearing the wrong name — it names a build activity, not a contract state anyone can exercise. The deep version opens with the capability milestone that proves the contract headless for named consumers, follows with surface milestones bounded to wiring in each surface's medium, and carries slice capabilities that trace directly to the technical design contract.
+The slice's Proof of work is the headline proof of its vertical capability — not every permutation. The exhaustive edge-case and error-matrix coverage lands in Delivery's permanent best-practice tests, written when the slice is built.
 
 ## Transition
 
-Present the milestone map and the red bet-progress suite together as Proof of Work:
+Present the decomposition tree as Proof of Work:
 
-- `docs/bets/<bet-slug>/decomposition.md` — the sequencing commitment
-- `docs/bets/<bet-slug>/test-review.md` — what each test proves, in plain language, with the chain of justification
-- `tests/bets/<bet-slug>/` — the runnable proof suite (all tests red)
+- `docs/bets/<bet-slug>/decomposition/` — the sequencing commitment and the prose proofs, browsable milestone by milestone, slice by slice.
 
-Walk through the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the test-review surface **test by test**: for each one, what it proves, where that traces in the design, and why it is the right proof. The surface is prose, but the scrutiny is assertion-grade — the user is approving the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the test, rewrite the affected test-review entry, and continue.
+Walk the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the **Proof of work** sections **proof by proof**: for each milestone and slice, what it proves, where that traces in the design, and why it is the right proof. The proof is prose, but the scrutiny is assertion-grade — the user is approving the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the prose and continue.
 
-On approval, **commit the suite**: stage the bet-progress tests under `tests/bets/<bet-slug>/` together with `docs/bets/<bet-slug>/test-review.md` and commit them in one commit (e.g. `bet(<bet-slug>): approve test suite`). Then record that commit's SHA as `approval_commit` in `.groundwork/bets/<bet-slug>/decomposition.json`. The commit is the user's signature on the suite — not a hash file, but the git baseline itself: from this point the approved tests, as described in `test-review.md`, are the bet's fixed definition of done, every test change is visible in the diff from `approval_commit` forward, and Delivery's Step 4 test-integrity reconciliation flags any change that did not route through the Amendment Protocol in `workflows/04-delivery.md`. (If the project is not under git, there is no baseline to anchor to — note that in the bet record; the reconciliation then falls back to checking that each live test still proves what its `test-review.md` entry describes.)
+On approval, **commit the decomposition tree and tag the baseline**: commit `docs/bets/<bet-slug>/decomposition/` together with the finalized `technical-design/` (e.g. `bet(<bet-slug>): approve decomposition`), then tag that commit `git tag bet/<bet-slug>/approved`. The tag is the user's signature on the prose: from this point the approved decomposition tree and technical design are the bet's fixed definition of done. The prose is frozen — every change to it from the tag forward is visible in `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/` and must route through the Amendment Protocol in `workflows/04-delivery.md`. The code (tests and implementation) is *built* during Delivery and is free to change; only the prose contract is sealed. (If the project is not under git, there is no tag to anchor to — note that in the bet record; the reconciliation then falls back to checking that each built test still proves what its slice's Proof-of-work prose describes.)
 
 ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`
