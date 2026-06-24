@@ -155,11 +155,12 @@ Each document type has a defined purpose. Write only what belongs in each.
 |---|---|---|
 | **Index** (`index.md`) | Entry point. Lists services, links to each. | `docs/` |
 | **Product Brief** | North star vision. Drives design system, architecture, and every downstream story. | `docs/product-brief.md` |
-| **Service Doc** | Tech stack, contracts, patterns for one service. | `docs/services/<service>.md` |
-| **Data Flow** | Cross-service event chains and operation sequences. | `docs/architecture.md` (its cross-service sections) |
-| **ADR** | Append-only record of a hard-to-reverse decision. | `docs/decisions/` |
-| **API Contract** | OpenAPI/AsyncAPI rendered from source. Never hand-written. | `docs/api/<service>.md` |
-| **Domain Entity** | One owned noun: fields, lifecycle states, owning service, emitted events. | `docs/domain/<entity>.md` |
+| **Service Doc** | Tech stack, contracts, patterns for one service. | `docs/architecture/services/<service>.md` |
+| **Data Flow** | Cross-service event chains and operation sequences. | `docs/architecture/index.md` (its cross-service sections) |
+| **ADR** | Append-only record of a hard-to-reverse decision. | `docs/architecture/decisions/` |
+| **API Contract** | OpenAPI/AsyncAPI rendered from source. Never hand-written. | `docs/architecture/api/<service>.md` |
+| **Domain Entity** | One owned noun: fields, lifecycle states, owning service, emitted events. | `docs/architecture/domain/<entity>.md` |
+| **Getting Started** | The fresh-clone developer on-ramp: setup walkthrough and `./dev` command reference. | `docs/getting-started/` (`index.md`, `setup.md`, `dev-cli-reference.md`) |
 
 ### Product Brief Quality Gates
 

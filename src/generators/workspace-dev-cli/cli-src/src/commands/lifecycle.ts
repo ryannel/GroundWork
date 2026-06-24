@@ -53,7 +53,7 @@ export async function start(ctx: Ctx): Promise<number> {
   if (infra.length === 0 && services.length === 0 && autostartRunners.length === 0) {
     r.warn('Nothing to start: no containerized services, native services, or runners are registered.');
     r.info('Wire this app into ./dev so `start` runs it: register a runner in .dev/dev.config.json');
-    r.info('(name + launch command), or add a project command under .dev/commands/. See docs/infrastructure.md.');
+    r.info('(name + launch command), or add a project command under .dev/commands/. See docs/architecture/infrastructure.md.');
     return 0;
   }
 

@@ -46,7 +46,7 @@ to and the source of the checklist you hand to MVP — its two rules (**no empty
 The scaffold phase routes here from Phase 1 when it maps a service or surface to a stack no
 generator can produce and the user chooses to build it properly (rather than reverse the
 architecture onto a supported stack, or hand-roll it with no support). You inherit the
-chosen stack from `docs/architecture.md` and `docs/surfaces.md`; do not re-litigate the
+chosen stack from `docs/architecture/index.md` and `docs/surfaces.md`; do not re-litigate the
 choice — the architecture made it. Your job is to honour it well.
 
 ## The forge pipeline
@@ -117,7 +117,7 @@ Day-2 baseline forbids. Wire it in:
   this project.
 - **Surface registry** — if the target is a surface, register it in `docs/surfaces.md` and
   `.groundwork/surfaces.json` with `scaffold: forged` and its `testMedium`; if it is a service,
-  record it in `docs/infrastructure.md` like any other managed unit.
+  record it in `docs/architecture/infrastructure.md` like any other managed unit.
 - **System tests** — give it a headless test medium the `system-test-runner` can drive
   (the harness from Stage 2), so it joins the system test loop rather than sitting outside it.
 
@@ -133,7 +133,7 @@ a `## Forged Stack Checklist` heading — the scaffold commit folds it into the 
 MVP scopes the to-be-built items into the first bets. This is how "the checklist becomes part of
 the MVP."
 
-Record the forged stack in `docs/infrastructure.md` (its run command, its debug entry point, its
+Record the forged stack in `docs/architecture/infrastructure.md` (its run command, its debug entry point, its
 test command) so the next developer runs it without asking, then return control to the scaffold
 phase to finish its mapping and commit.
 

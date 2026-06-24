@@ -369,35 +369,82 @@ export default async function (tree: Tree, options: DocsSiteGeneratorSchema) {
   };
 }
 
-/** The canonical top-level doc order for the sidebar (E1). `...` keeps any
- *  doc/folder not named here in its natural position after the named set, and
- *  `principles` is pushed last and collapsed so its large tree never dominates
- *  the rail. Lands at docs/meta.json — Fumadocs sidebar config, ignored by
- *  GitHub and agents, so the docs/ tree stays effectively content-pristine. */
+/** The canonical top-level doc order for the sidebar (E1). The rail reads as a
+ *  product-learning journey: the brief (what the system is) → the design system
+ *  (how it looks and behaves) → the nested architecture section (how it is
+ *  built) → ways of working → getting started (how to run it) → bets (delivery
+ *  work). `...` keeps any doc/folder not named here in its natural position
+ *  after the named set, and `principles` is pushed last and collapsed so its
+ *  large tree never dominates the rail. Lands at docs/meta.json — Fumadocs
+ *  sidebar config, ignored by GitHub and agents, so the docs/ tree stays
+ *  effectively content-pristine. */
 function seedDocsMeta(tree: Tree): void {
   const metaPath = 'docs/meta.json';
   if (tree.exists(metaPath)) return; // never clobber a project-tuned ordering
   // Fumadocs reads `pages` as the sidebar order. Explicit names come first in
   // the listed order; `...` expands to every remaining page/folder not named;
   // `principles` is named LAST (after `...`) so the large principles tree sinks
-  // to the bottom of the rail instead of leading it.
+  // to the bottom of the rail instead of leading it. `architecture` and
+  // `getting-started` are folders here — their own meta.json (below) orders
+  // their children.
   const meta = {
     pages: [
       'product-brief',
       'design-system',
       'architecture',
-      'infrastructure',
-      'domain',
-      'services',
-      'decisions',
-      'api',
       'ways-of-working',
+      'getting-started',
       'bets',
       '...',
       'principles',
     ],
   };
   tree.write(metaPath, JSON.stringify(meta, null, 2) + '\n');
+
+  // Order the nested architecture section: the overview (index, was the flat
+  // architecture.md) first, then infrastructure → domain → services → api →
+  // decisions, with `...` catching anything else. Seeded only when the folder
+  // exists and lacks its own meta — never write a meta.json into an empty folder
+  // (Fumadocs renders a content-less folder as a broken nav node and the build
+  // trips over it), and never clobber a project's own grouping. The architecture
+  // skill seeds this when it first creates the folder, so a fresh scaffold gets
+  // the order; this backfills it on regeneration over an older project.
+  const architectureMeta = 'docs/architecture/meta.json';
+  if (tree.exists('docs/architecture') && !tree.exists(architectureMeta)) {
+    tree.write(
+      architectureMeta,
+      JSON.stringify(
+        {
+          pages: [
+            'index',
+            'infrastructure',
+            'domain',
+            'services',
+            'api',
+            'decisions',
+            '...',
+          ],
+        },
+        null,
+        2,
+      ) + '\n',
+    );
+  }
+
+  // Order the getting-started on-ramp: the overview (index) first, then the
+  // setup walkthrough and the ./dev command reference. Same folder-must-exist
+  // guard as architecture above.
+  const gettingStartedMeta = 'docs/getting-started/meta.json';
+  if (tree.exists('docs/getting-started') && !tree.exists(gettingStartedMeta)) {
+    tree.write(
+      gettingStartedMeta,
+      JSON.stringify(
+        { pages: ['index', 'setup', 'dev-cli-reference', '...'] },
+        null,
+        2,
+      ) + '\n',
+    );
+  }
 
   // Order the principles subtree last + collapsed via its own meta.json. Seeded
   // only if absent so a project's own grouping is preserved.

@@ -2,11 +2,11 @@
 
 For each scaffolded service, create two files: a service document and an API stub. These give every developer a consistent entry point into each service from day one — before any product code exists.
 
-Create `docs/services/` and `docs/api/` if they do not exist.
+Create `docs/architecture/services/` and `docs/architecture/api/` if they do not exist.
 
 ## Service Document
 
-Write `docs/services/<service-name>.md` for each service:
+Write `docs/architecture/services/<service-name>.md` for each service:
 
 ```markdown
 # <service-name>
@@ -30,7 +30,7 @@ Write `docs/services/<service-name>.md` for each service:
 
 ## API
 
-[`docs/api/<service-name>.md`](../api/<service-name>.md)
+[`docs/architecture/api/<service-name>.md`](../api/<service-name>.md)
 
 ## Environment Variables
 
@@ -65,11 +65,11 @@ See `services/<service-name>/.env.example` for the full list.
 - Derive the unit test command from the language: `go test ./...` for Go, `uv run pytest` for Python, `pnpm test` for Next.js.
 - Do not invent variables, routes, or descriptions. If a value cannot be derived from existing files or the architecture document, leave its cell blank rather than fabricating a placeholder.
 
-**Drift frontmatter.** Open each `docs/services/<name>.md` and `docs/api/<name>.md` with YAML frontmatter so `groundwork-check` can detect drift automatically: `generation_mode: generated`, `source_of_truth:` (the canonical code paths for this service — its `services/<name>/` root and any contract files), and `last_reviewed:` (today's date). The `generated` mode routes `groundwork-check`'s recovery to re-running the generator; the brownfield extract phases use `extracted` instead. Both stamp the same three keys, so the check glob reads greenfield and brownfield docs identically.
+**Drift frontmatter.** Open each `docs/architecture/services/<name>.md` and `docs/architecture/api/<name>.md` with YAML frontmatter so `groundwork-check` can detect drift automatically: `generation_mode: generated`, `source_of_truth:` (the canonical code paths for this service — its `services/<name>/` root and any contract files), and `last_reviewed:` (today's date). The `generated` mode routes `groundwork-check`'s recovery to re-running the generator; the brownfield extract phases use `extracted` instead. Both stamp the same three keys, so the check glob reads greenfield and brownfield docs identically.
 
 ## API Stub
 
-Write `docs/api/<service-name>.md` for each service that exposes HTTP endpoints — Go microservices and Python microservices with `--rest`. Skip frontend apps and the system-test-runner.
+Write `docs/architecture/api/<service-name>.md` for each service that exposes HTTP endpoints — Go microservices and Python microservices with `--rest`. Skip frontend apps and the system-test-runner.
 
 ```markdown
 # <service-name> API

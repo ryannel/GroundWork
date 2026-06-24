@@ -59,7 +59,7 @@ Surface tests resolve their target through the surfaces fixture — the mapping 
 
 **Writing the tests:**
 
-Discover the project's test language and service names from the scaffold — from `docs/infrastructure.md` and the generated `docker-compose.yml`. Do not hardcode a language or service name.
+Discover the project's test language and service names from the scaffold — from `docs/architecture/infrastructure.md` and the generated `docker-compose.yml`. Do not hardcode a language or service name.
 
 If `./dev new milestone <bet-slug> <milestone-slug>` exists in the project, run it to scaffold the stub at the correct path. If it does not exist, write the file directly. Either way the path and naming are identical:
 
@@ -80,7 +80,7 @@ For each milestone, break it into **vertical slices** — the smallest units tha
 Never slice horizontally: "all schemas, then all APIs, then all UI" is three horizontal passes. Each slice must cross whatever service boundaries are needed to deliver a testable capability end-to-end.
 
 Each slice spec must contain:
-- **Owner service** — the primary service this slice lives in (from `docs/infrastructure.md`)
+- **Owner service** — the primary service this slice lives in (from `docs/architecture/infrastructure.md`)
 - **Surface** — `core` for a slice implementing capability-core behaviour, or the registry slug of the surface it wires (omit the field entirely when the project has no surface registry). The field drives delivery sequencing — core slices merge before the surface slices that consume them — and tells the reviewer which test discipline applies: contract proof for `core`, wiring-only for a surface.
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none

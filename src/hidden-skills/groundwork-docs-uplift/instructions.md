@@ -33,8 +33,8 @@ These are the properties a GroundWork doc site has. They are the checklist you a
 | T1 | **Branded theme** | An `app/brand.css` projects `brand-tokens.json` onto the site's theme variables; `app/layout.tsx` imports it and the brand font. An unbranded project (no `brand-tokens.json`) correctly stays on the stock theme — that is target, not a gap. |
 | T2 | **Reading typography** | A measure near 68ch, ~1.6 line-height, and an explicit heading scale — not the framework default body. |
 | T3 | **Rendered diagrams** | Fenced ` ```mermaid ` blocks render in the browser — a remark transform rewrites them to a `<Mermaid chart>` node, a `Mermaid` client component renders them, and no headless browser is needed at build. The same block renders natively on GitHub. |
-| T4 | **Ordered navigation** | A `docs/meta.json` orders the canonical doc set (product-brief → design-system → architecture → infrastructure → domain → services → decisions → api → ways-of-working → principles, with principles sunk last/collapsed). No imperative sidebar-ordering hack in the layout. |
-| T5 | **A landing page** | The site root is a brand-driven hero + section cards derived from the doc tree — not a bare redirect or an auto-generated link dump. |
+| T4 | **Ordered navigation** | A `docs/meta.json` orders the top level as a product-learning journey (product-brief → design-system → architecture → ways-of-working → getting-started → bets → … → principles, with principles sunk last/collapsed). Architecture is a nested folder ordered by `docs/architecture/meta.json` (index → infrastructure → domain → services → api → decisions), and getting-started by `docs/getting-started/meta.json` (index → setup → dev-cli-reference). No imperative sidebar-ordering hack in the layout. |
+| T5 | **A landing page** | The site root is a brand-driven hero, then two audience on-ramps — "get it running" → `docs/getting-started`, "understand the product" → `docs/product-brief` (each rendered only when its target exists) — over section cards derived from the doc tree. Not a bare redirect or an auto-generated link dump. |
 | T6 | **Clean content** | Published `docs/*.md` read as reference documentation: timeless-present register, `title` + `description` frontmatter, no leftover `## Summary for Downstream` section, a diagram where structure or flow is described. |
 
 ---
@@ -65,8 +65,8 @@ Refactor in place, item by item, to the target state — porting the generator's
 
 - **T1/T2** — add `app/brand.css` projecting `brand-tokens.json` onto the site's theme variables, and an `app/docs.css` carrying the measure / line-height / heading scale; wire both in the layout. Read the `docs-site` generator for the exact projection so the brand reads identically across surfaces.
 - **T3** — add a remark transform (` ```mermaid ` → `<Mermaid chart>`) to the MDX pipeline, the `mermaid` dependency, and a `Mermaid` client component wired into the docs page's MDX components map (avoid `rehype-mermaid`/Playwright).
-- **T4** — write `docs/meta.json` in the canonical order; remove any imperative sidebar-ordering code.
-- **T5** — replace a redirect/link-dump root with a brand-driven hero + section cards derived from the doc tree.
+- **T4** — write `docs/meta.json` in the canonical top-level order plus the nested `docs/architecture/meta.json` and `docs/getting-started/meta.json`; remove any imperative sidebar-ordering code. If the project still has flat architecture docs at the `docs/` root (`infrastructure.md`, `domain/`, `services/`, `api/`, `decisions/`), run the `gw-nest-architecture-docs` migration first — the order assumes the nested layout.
+- **T5** — replace a redirect/link-dump root with a brand-driven hero, the two audience on-ramps (existence-guarded), and section cards derived from the doc tree.
 
 Keep the unbranded fallback intact: a project with no `brand-tokens.json` stays on the stock theme.
 
@@ -76,7 +76,7 @@ Keep the unbranded fallback intact: a project with no `brand-tokens.json` stays 
 
 The site can be perfect and the docs still read like a report-out. Give the content a reader-first pass under `groundwork-writer`.
 
-1. **Strip setup-flow residue.** Any published `docs/*.md` (outside `docs/bets/`) carrying a leftover `## Summary for Downstream` section is running the retired contract. Graduate it exactly as the `gw-context-split` migration does: promote each still-binding Key Decision / Binding Constraint into a `docs/decisions/` ADR (or confirm it is already in the body), fold any live deferred/scope note into the body, then strip the section. Never delete a binding decision without first landing it in an ADR or the body.
+1. **Strip setup-flow residue.** Any published `docs/*.md` (outside `docs/bets/`) carrying a leftover `## Summary for Downstream` section is running the retired contract. Graduate it exactly as the `gw-context-split` migration does: promote each still-binding Key Decision / Binding Constraint into a `docs/architecture/decisions/` ADR (or confirm it is already in the body), fold any live deferred/scope note into the body, then strip the section. Never delete a binding decision without first landing it in an ADR or the body.
 2. **Flag report-out register.** Scan for the report-out tells (`we decided`, `is deferred`, `out of scope for now`, `for the MVP`). Rewrite the worst offenders in the timeless present with the system as subject. This is a pass, not a rewrite — prioritise the docs a reader hits first (product-brief, architecture).
 3. **Frontmatter + diagrams.** Ensure every doc has `title` + `description`; add a `mermaid` diagram where a doc describes a topology, a cross-service flow, or an entity lifecycle in prose alone.
 4. **Gate mutated docs.** Any canonical doc you materially rewrite goes through `groundwork-review` (Protocols 8–9) before commit, with the matching `document_type`.

@@ -30,27 +30,27 @@ DURABLE_DOCS = {
     "greenfield": [
         "docs/product-brief.md",
         "docs/design-system.md",
-        "docs/architecture.md",
+        "docs/architecture/index.md",
         "docs/surfaces.md",  # surface registry (architecture commit; written even for one surface)
-        "docs/infrastructure.md",
+        "docs/architecture/infrastructure.md",
     ],
     "brownfield": [
         "docs/product-brief.md",
         "docs/design-system.md",
-        "docs/architecture.md",
+        "docs/architecture/index.md",
         "docs/surfaces.md",  # surface registry (architecture-extract; ledger empty by design)
-        "docs/infrastructure.md",
+        "docs/architecture/infrastructure.md",
         "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
     ],
 }
 
 # Directory deliverables that must contain at least one file. Brownfield's
-# architecture-extract mints docs/domain/, and infra-adopt writes docs/api/ +
-# docs/services/ — these ARE the brownfield deliverables, so a checklist blind to
-# them would pass while missing the point.
+# architecture-extract mints docs/architecture/domain/, and infra-adopt writes
+# docs/architecture/api/ + docs/architecture/services/ — these ARE the brownfield
+# deliverables, so a checklist blind to them would pass while missing the point.
 DURABLE_DIRS = {
     "greenfield": [],
-    "brownfield": ["docs/api", "docs/domain", "docs/services"],
+    "brownfield": ["docs/architecture/api", "docs/architecture/domain", "docs/architecture/services"],
 }
 
 

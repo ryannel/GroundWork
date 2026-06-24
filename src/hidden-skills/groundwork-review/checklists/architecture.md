@@ -7,7 +7,7 @@ description: >
 
 # Architecture Checklist
 
-This checklist checks a draft `docs/architecture.md`. It answers one question: **could a
+This checklist checks a draft `docs/architecture/index.md`. It answers one question: **could a
 downstream engineer design services and contracts from this document without coming back to ask
 "why this technology?" or "what does this service actually own?"**
 

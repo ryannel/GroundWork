@@ -22,7 +22,7 @@ Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytes
 
 ### Step 2.5: Promote the contract specs
 
-The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
+The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/architecture/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
 
 ### Step 2.6: Visual verification gate
 
@@ -78,20 +78,20 @@ Summarise what was delivered. Walk through the user-facing changes, the new cont
 
 The architecture of the system has changed. Every upstream document that describes the changed surface must be updated to match — surgically, in place, without asking permission. This is the single most important step of the phase, and the one most likely to be skipped under deadline pressure.
 
-For each `docs/` artifact, scan the bet conversation and the delivered code for what now contradicts the document. Apply targeted updates. Report what changed. When the update to `docs/architecture.md` is structural — a new boundary, a changed data flow, a new service-level requirement — adopt the architect persona (`.groundwork/skills/groundwork-architect/SKILL.md`) so the refinement carries the same reasoning standard the document was built to.
+For each `docs/` artifact, scan the bet conversation and the delivered code for what now contradicts the document. Apply targeted updates. Report what changed. When the update to `docs/architecture/index.md` is structural — a new boundary, a changed data flow, a new service-level requirement — adopt the architect persona (`.groundwork/skills/groundwork-architect/SKILL.md`) so the refinement carries the same reasoning standard the document was built to.
 
 Documents to scan, in order:
 
-1. **`docs/architecture.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
+1. **`docs/architecture/index.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
 2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate. When the refinement is a design change — a new pattern or component variant, an interaction state, or an accessibility commitment — adopt the designer persona (`.groundwork/skills/groundwork-designer/SKILL.md`) so the update carries the same reasoning standard the design system was built to.
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog. When the refinement is a vision-level product change — a new user type, a reframed success criterion, a capability that shifted the product's scope — adopt the product persona (`.groundwork/skills/groundwork-product/SKILL.md`) so the update carries the same reasoning standard the brief was built to.
-4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
+4. **`docs/architecture/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
 5. **`docs/surfaces.md`** — when it exists: registry entries whose reality changed (a `planned` surface this bet activated, a changed core-access path or test medium), and confirm Step 2.7's ledger rows landed with their `.groundwork/surfaces.json` twin in lockstep. Skip when the project has no registry.
 6. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that added a service's OpenAPI contract may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`. On a registry project, re-assess D8 (surface parity discipline) against the ledger state Step 2.7 just wrote — a `planned` cell aging past three closed bets with no referencing pitch is what moves it off ✅. If this bet activated a second independently-deployed surface or changed a published contract, re-assess D9 (contract compatibility): the stance must stand under architecture's Binding Constraints and the contract-conformance tests must show no breaking drift.
 
-For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
+For each document updated, report the change in one line: "Updated `docs/architecture/index.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
 
-**Distinguish refinements from reversals (Protocol 2).** Most bet updates are refinements — new rows, new boundaries, additive detail. But if the bet *overturned* a prior Key Decision or Binding Constraint, or you are about to write a superseding ADR in Step 7, that update is a **reversal**, and the Reversal Protocol applies even in Continuous Bet mode (Protocols 1, 2, 4, 8, and 9 apply to the bet). For each reversal: reconcile the *full body* of the affected doc and every dependent doc it touches, write the superseding ADR (Step 7), and **re-invoke `groundwork-review` on each mutated doc** (Protocol 9), with the matching `document_type`. The re-gate is fail-closed and the revise cap applies (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` per doc. Because the reversal supersedes an ADR, also re-review **every** `docs/domain/*.md` unconditionally (`document_type: domain-entity`) — their `Owner:`/fields go stale silently since they carry no summary to flag the drift, and they are the dependents most often missed. A bet that mutates four setup docs is exactly where contradictory canonical docs creep in — the re-gate is the guard.
+**Distinguish refinements from reversals (Protocol 2).** Most bet updates are refinements — new rows, new boundaries, additive detail. But if the bet *overturned* a prior Key Decision or Binding Constraint, or you are about to write a superseding ADR in Step 7, that update is a **reversal**, and the Reversal Protocol applies even in Continuous Bet mode (Protocols 1, 2, 4, 8, and 9 apply to the bet). For each reversal: reconcile the *full body* of the affected doc and every dependent doc it touches, write the superseding ADR (Step 7), and **re-invoke `groundwork-review` on each mutated doc** (Protocol 9), with the matching `document_type`. The re-gate is fail-closed and the revise cap applies (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` per doc. Because the reversal supersedes an ADR, also re-review **every** `docs/architecture/domain/*.md` unconditionally (`document_type: domain-entity`) — their `Owner:`/fields go stale silently since they carry no summary to flag the drift, and they are the dependents most often missed. A bet that mutates four setup docs is exactly where contradictory canonical docs creep in — the re-gate is the guard.
 
 If a scan finds nothing to update, say so explicitly. Silence is ambiguous — the user cannot tell whether you scanned and found nothing or skipped the scan.
 
@@ -103,11 +103,11 @@ Remove any discovery-notes entries that were incorporated into the artifacts upd
 
 ### Step 7: Write ADRs for significant decisions
 
-Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/decisions/NNNN-<slug>.md` using the template at `.groundwork/skills/templates/adr.md`.
+Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/architecture/decisions/NNNN-<slug>.md` using the template at `.groundwork/skills/templates/adr.md`.
 
 Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR.
 
-Number sequentially: read the existing `docs/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/decisions/` directory if it does not exist.
+Number sequentially: read the existing `docs/architecture/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/architecture/decisions/` directory if it does not exist.
 
 ### Step 7.5: Run the bet retrospective
 
@@ -151,7 +151,7 @@ Bet-progress suite archived to tests/bets/_archive/notification-delivery/.
 
 Living Documents scan:
 
-- `docs/architecture.md` — added `notification-service` to the service map
+- `docs/architecture/index.md` — added `notification-service` to the service map
   (Phase 3 — Service Design). Added two rows to the Service-Level
   Requirements table: at-least-once delivery for outbound notifications,
   idempotent webhook handler on the receiving side. Tech stack updated to
@@ -162,7 +162,7 @@ Living Documents scan:
   state with focus-trap behaviour.
 - `docs/product-brief.md` — no changes; the bet implemented capabilities
   already described.
-- `docs/infrastructure.md` — added `notification-service` (port 4002,
+- `docs/architecture/infrastructure.md` — added `notification-service` (port 4002,
   health endpoint `GET /health`) to the services table. Added NATS to
   the infrastructure components table (port 4222, container
   `<app>-nats`). Updated `./dev start` verification footnote to include

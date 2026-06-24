@@ -16,7 +16,7 @@ The primary maintenance mechanism. Every methodology skill loads the Operating C
 
 Concretely, every commit step in every phase ends with a Living Documents scan: the agent reviews the just-completed conversation for anything that refines an upstream `docs/` artifact, applies the update directly, and reports the change in one line per affected document.
 
-This is the back-feed mechanism that prevents the documentation tree from going stale. A bet that adds a new service updates `docs/architecture.md` at Validation; an architecture conversation that surfaces a new user type updates `docs/product-brief.md` at commit. The user does not have to remember to keep documents in sync — the protocol does.
+This is the back-feed mechanism that prevents the documentation tree from going stale. A bet that adds a new service updates `docs/architecture/index.md` at Validation; an architecture conversation that surfaces a new user type updates `docs/product-brief.md` at commit. The user does not have to remember to keep documents in sync — the protocol does.
 
 ## `groundwork-update`
 

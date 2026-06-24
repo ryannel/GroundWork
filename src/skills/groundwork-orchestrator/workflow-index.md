@@ -14,8 +14,8 @@ Phases run in order; each commits its artifact, then the orchestrator routes to 
 |---|---|---|---|---|
 | 1 | Product Brief | `groundwork-product-brief` | `docs/product-brief.md` | `.groundwork/skills/groundwork-product-brief/instructions.md` |
 | 2 | Design System | `groundwork-design-system` | `docs/design-system.md` | `.groundwork/skills/groundwork-design-system/instructions.md` |
-| 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` | `.groundwork/skills/groundwork-architecture/instructions.md` |
-| 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` | `.groundwork/skills/groundwork-scaffold/instructions.md` |
+| 3 | Architecture | `groundwork-architecture` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture/instructions.md` |
+| 4 | Scaffolding | `groundwork-scaffold` | `docs/architecture/infrastructure.md` | `.groundwork/skills/groundwork-scaffold/instructions.md` |
 | 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` | `.groundwork/skills/groundwork-mvp/instructions.md` |
 
 ## Brownfield Setup (existing codebase)
@@ -27,8 +27,8 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 | 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) | `.groundwork/skills/groundwork-scan/instructions.md` |
 | 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` | `.groundwork/skills/groundwork-product-brief-extract/instructions.md` |
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
-| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
+| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
 
 ## Delivery Loop (all setup phases complete)
 

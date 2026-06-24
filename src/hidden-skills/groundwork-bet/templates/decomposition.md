@@ -38,7 +38,7 @@ This bet uses two populations of tests with distinct lifecycles:
 
 #### Slice 1.1: [Slice Name]
 
-**Owner service:** [service name from `docs/infrastructure.md`]
+**Owner service:** [service name from `docs/architecture/infrastructure.md`]
 
 **Surface:** core | [surface-slug from `docs/surfaces.md`]
 

@@ -37,7 +37,7 @@ tooling vintage produced the rest of the report.
 
 ## Step 1: Staleness baseline
 
-Find every code-coupled doc: the files under `docs/services/`, `docs/api/`, and `docs/domain/`, plus `docs/architecture.md`. From each doc's frontmatter take `last_reviewed`, `source_of_truth`, and `generation_mode`.
+Find every code-coupled doc: the files under `docs/architecture/services/`, `docs/architecture/api/`, and `docs/architecture/domain/`, plus `docs/architecture/index.md`. From each doc's frontmatter take `last_reviewed`, `source_of_truth`, and `generation_mode`.
 
 For each doc with both fields, run `git log --since="<last_reviewed>" --oneline -- <source_of_truth paths>`. Commits found → the doc is **STALE**, with the commit list as evidence. A doc missing the fields is **UNASSESSED** — report it as such; an unassessable doc that silently passes is the failure mode this skill exists to prevent.
 
@@ -57,7 +57,7 @@ Do not edit `docs/maturity.md` — you are read-only. Disagreements are findings
 
 ## Step 4: Doc-type judgement
 
-Apply the Doc-Type Behaviours defined in this skill's `SKILL.md`: principles and ways-of-working docs get a 12-month advisory instead of code-drift checks; domain entity docs are cross-checked against code definitions in both directions (advisory); ADRs are checked for sequential numbering and valid `status` fields (build failure on corruption); the surface registry and capability ledger are cross-checked against their prose twin, the test fixtures, and the bet history (twin drift and empty cells are build failures; stale `planned` intent and untested active surfaces are warnings; a missing registry is an advisory); `docs/services/` deep integration is deferred.
+Apply the Doc-Type Behaviours defined in this skill's `SKILL.md`: principles and ways-of-working docs get a 12-month advisory instead of code-drift checks; domain entity docs are cross-checked against code definitions in both directions (advisory); ADRs are checked for sequential numbering and valid `status` fields (build failure on corruption); the surface registry and capability ledger are cross-checked against their prose twin, the test fixtures, and the bet history (twin drift and empty cells are build failures; stale `planned` intent and untested active surfaces are warnings; a missing registry is an advisory); `docs/architecture/services/` deep integration is deferred.
 
 ## Step 5: Report
 

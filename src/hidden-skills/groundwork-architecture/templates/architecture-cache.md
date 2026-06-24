@@ -1,6 +1,6 @@
 # Architecture Cache
 
-> This file captures approved outputs from each phase of the Architecture design session. It is used to resume work and to compile the final `docs/architecture.md`. Do not edit manually.
+> This file captures approved outputs from each phase of the Architecture design session. It is used to resume work and to compile the final `docs/architecture/index.md`. Do not edit manually.
 
 ---
 

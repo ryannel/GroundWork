@@ -15,8 +15,8 @@ The product domain is incidental — GroundWork built it the same way it builds 
 | Artifact | Count / size |
 |---|---|
 | Canonical docs (`product-brief`, `design-system`, `architecture`, `infrastructure`) | 4, each led by a `## Summary for Downstream` |
-| Domain entity docs (`docs/domain/`) | 5 — world, playthrough, beat, character-profile, reader-profile |
-| Architectural decision records (`docs/decisions/`) | 9 |
+| Domain entity docs (`docs/architecture/domain/`) | 5 — world, playthrough, beat, character-profile, reader-profile |
+| Architectural decision records (`docs/architecture/decisions/`) | 9 |
 | Running services | 2 — a Next.js web app and a Python/FastAPI generation engine, booted under Docker Compose with health checks |
 | First bet | `docs/bets/core-story-loop/` pitch at `status: design` |
 

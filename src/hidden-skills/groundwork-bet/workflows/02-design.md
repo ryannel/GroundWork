@@ -23,10 +23,10 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: design`.
 
 ## Step 1.5: Reconcile domain entities
 
-Read `docs/domain/` if it exists. Identify whether this bet introduces any new domain entities or adds new lifecycle states to existing ones. This is the Living Documents protocol applied to `docs/domain/`.
+Read `docs/architecture/domain/` if it exists. Identify whether this bet introduces any new domain entities or adds new lifecycle states to existing ones. This is the Living Documents protocol applied to `docs/architecture/domain/`.
 
-- If the bet introduces a **new entity** (a noun a service will own that does not yet have a file in `docs/domain/`), create a stub at `docs/domain/<entity-name>.md` using the template at `.groundwork/skills/templates/domain-entity.md`. Fill in what the bet already implies — ownership, core fields, and lifecycle states as far as they are known. Stubs are explicitly incomplete.
-- If the bet adds **new lifecycle states** to an existing entity, update the relevant `docs/domain/<entity-name>.md` file in place.
+- If the bet introduces a **new entity** (a noun a service will own that does not yet have a file in `docs/architecture/domain/`), create a stub at `docs/architecture/domain/<entity-name>.md` using the template at `.groundwork/skills/templates/domain-entity.md`. Fill in what the bet already implies — ownership, core fields, and lifecycle states as far as they are known. Stubs are explicitly incomplete.
+- If the bet adds **new lifecycle states** to an existing entity, update the relevant `docs/architecture/domain/<entity-name>.md` file in place.
 
 Confirm any domain doc changes with the user before proceeding to Step 2. Skip this step entirely if the bet introduces no new entities or state transitions.
 
@@ -36,7 +36,7 @@ The Technical Design Document and the contract specs below are architecture work
 
 Route to its `references/` by what this bet touches: `core-and-boundaries.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-patterns.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
 
-The bet must fit inside the boundaries `docs/architecture.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
+The bet must fit inside the boundaries `docs/architecture/index.md` already committed. Where it cannot, the persona surfaces that explicitly — say the committed boundary is changing and why, and record it (`decision-records.md`); do not let the architecture drift one quiet bet at a time.
 
 If a design decision changes what the bet delivers to its users — cutting a capability to fit the appetite, or expanding scope the pitch did not commit — that is a value/scope call, not a structural one: defer it to the product persona (`.groundwork/skills/groundwork-product/SKILL.md`) rather than deciding it from the architecture seat. The architect owns feasibility; product owns whether the changed scope is still worth building.
 
@@ -77,7 +77,7 @@ The technical design covers the **entire bet** — not per-milestone. Write it b
 
 **The contract serves every in-scope surface and presumes none.** Designing the contract against all of its consumers at once is the cheapest moment to catch a web-shaped API a mobile client or CLI cannot use — a session assumption baked into a response, markup returned where data belongs, pagination sized to a viewport. Walk each surface's design against the contract before locking it. When only one surface is in scope, the latent agentic surface stands in as the second consumer: would a programmatic caller, with no UI and no session, find this contract complete? The review enforces this check.
 
-**Schema & Data Design (`04-data-design.md`):** For each table, collection, or store this bet introduces or changes, define key fields, any lifecycle state machines, and the modelling rationale for non-obvious choices. Reference `docs/domain/` rather than duplicating it — note the domain entity path and describe only what this bet adds or changes.
+**Schema & Data Design (`04-data-design.md`):** For each table, collection, or store this bet introduces or changes, define key fields, any lifecycle state machines, and the modelling rationale for non-obvious choices. Reference `docs/architecture/domain/` rather than duplicating it — note the domain entity path and describe only what this bet adds or changes.
 
 Write the section files into `docs/bets/<bet-slug>/technical-design/`. These files are a commitment — they should reflect the actual design decisions, not a placeholder.
 

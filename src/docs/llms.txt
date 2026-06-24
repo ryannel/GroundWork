@@ -63,10 +63,10 @@ setup runs. The other sections ship at install time.*
 - [Postgres](docs/principles/stack/postgres.md): Schema design, migrations, and query patterns.
 
 ## System
-- [Architecture](docs/architecture.md): Service topology and communication patterns.
-- [Infrastructure](docs/infrastructure.md): Boot order, ports, health checks, and run commands.
-- [Domain](docs/domain/): Entity definitions, lifecycle state machines, and invariants.
-- [Decisions](docs/decisions/): Architectural decision records.
+- [Architecture](docs/architecture/index.md): Service topology and communication patterns.
+- [Infrastructure](docs/architecture/infrastructure.md): Boot order, ports, health checks, and run commands.
+- [Domain](docs/architecture/domain/): Entity definitions, lifecycle state machines, and invariants.
+- [Decisions](docs/architecture/decisions/): Architectural decision records.
 
 ## Stack principles (added by generators)
 <!-- Stack-specific docs are appended here when a generator deploys them. -->

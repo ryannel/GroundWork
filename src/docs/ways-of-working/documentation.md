@@ -26,11 +26,11 @@ Every GroundWork project contains a defined set of documents. Each has a differe
 
 **`docs/principles/**` and `docs/ways-of-working/**`** — project-owned from the moment they are deployed. Edit freely to match your team's practices. These documents describe how your team works and what your team values. GroundWork seeds them; your team owns them.
 
-**`docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`** — owned by the product and architecture. Updated via the relevant GroundWork skill when significant new information surfaces. Do not edit these ad hoc. Changes go through the skill so that discovery notes, operating contract protocols, and downstream consistency checks are applied.
+**`docs/product-brief.md`, `docs/design-system.md`, `docs/architecture/index.md`** — owned by the product and architecture. Updated via the relevant GroundWork skill when significant new information surfaces. Do not edit these ad hoc. Changes go through the skill so that discovery notes, operating contract protocols, and downstream consistency checks are applied.
 
-**`docs/domain/<entity>.md`** — created by the architecture phase, extended by bet planning. Each bet that touches a domain entity updates its stub. Domain stubs are the contract between teams working on different components of the same entity.
+**`docs/architecture/domain/<entity>.md`** — created by the architecture phase, extended by bet planning. Each bet that touches a domain entity updates its stub. Domain stubs are the contract between teams working on different components of the same entity.
 
-**`docs/decisions/NNNN-<slug>.md`** — append-only. Never edited after acceptance. To revise a decision, write a new ADR that supersedes the old one. The superseded ADR's `status:` field is updated to reference the new one; its content is never changed.
+**`docs/architecture/decisions/NNNN-<slug>.md`** — append-only. Never edited after acceptance. To revise a decision, write a new ADR that supersedes the old one. The superseded ADR's `status:` field is updated to reference the new one; its content is never changed.
 
 **`docs/bets/<slug>/`** — immutable once a bet is committed. These are historical records. They document what was decided, why, and on what terms. Do not edit committed bet documents.
 
@@ -41,8 +41,8 @@ Every GroundWork project contains a defined set of documents. Each has a differe
 What it flags:
 
 - Docs that describe the system differently from the code — mismatched API signatures, schema fields, service names.
-- `docs/domain/` entities missing from the codebase, or codebase domain concepts with no corresponding stub.
-- `docs/decisions/` numbering gaps or invalid status values.
+- `docs/architecture/domain/` entities missing from the codebase, or codebase domain concepts with no corresponding stub.
+- `docs/architecture/decisions/` numbering gaps or invalid status values.
 
 What it does not flag:
 
@@ -54,7 +54,7 @@ When groundwork-check flags something: investigate, do not suppress. Fix the doc
 
 Docs are for humans and project state. Skills are how agents act on them.
 
-Skills read docs to understand the current system. Docs record what the skills have built. They are complementary, not redundant. A skill that writes a bet plan reads `docs/architecture.md` to understand service boundaries — that reading depends on the architecture doc being current. A doc that describes a domain entity accurately depends on the architecture skill having updated it after the last bet touched it.
+Skills read docs to understand the current system. Docs record what the skills have built. They are complementary, not redundant. A skill that writes a bet plan reads `docs/architecture/index.md` to understand service boundaries — that reading depends on the architecture doc being current. A doc that describes a domain entity accurately depends on the architecture skill having updated it after the last bet touched it.
 
 The Living Documents protocol is what keeps this relationship coherent. When it breaks — when a skill writes code that the docs do not reflect — groundwork-check surfaces the gap.
 

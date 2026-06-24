@@ -71,7 +71,7 @@ Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-
 
 **Detection.** Setup is complete but not yet graduated when all setup phases are done *and* `state.json` does not carry `setup_graduated: true`. (`.groundwork/context/` still holding files is the corroborating signal.) When that holds, do not route to `groundwork-bet` yet — run graduation first.
 
-**Run it.** Load `.groundwork/skills/operating-contract.md` and execute **Protocol 10 (Setup Graduation)** in order: (1) graduate every still-binding decision in `.groundwork/context/*.md` into a proper ADR under `docs/decisions/` if not already recorded; (2) run a Living Documents pass so the rest is reflected in `docs/`; (3) tear down `.groundwork/context/`, drain `.groundwork/cache/discovery-notes.md`, and clear any other setup residue. Load `groundwork-writer` for any ADR or doc edit. Protocol 10's fail-safe binds: never run step 3 if steps 1–2 could not complete — surface the blocker to the user instead.
+**Run it.** Load `.groundwork/skills/operating-contract.md` and execute **Protocol 10 (Setup Graduation)** in order: (1) graduate every still-binding decision in `.groundwork/context/*.md` into a proper ADR under `docs/architecture/decisions/` if not already recorded; (2) run a Living Documents pass so the rest is reflected in `docs/`; (3) tear down `.groundwork/context/`, drain `.groundwork/cache/discovery-notes.md`, and clear any other setup residue. Load `groundwork-writer` for any ADR or doc edit. Protocol 10's fail-safe binds: never run step 3 if steps 1–2 could not complete — surface the blocker to the user instead.
 
 **Record it.** On success, set `setup_graduated: true` in `state.json`, report what graduated (ADRs written, docs reconciled, store removed), then route to `groundwork-bet` for the first bet.
 
@@ -81,8 +81,8 @@ Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-
 |---|---|---|---|
 | 1 | Product Brief | `groundwork-product-brief` | `docs/product-brief.md` |
 | 2 | Design System | `groundwork-design-system` | `docs/design-system.md` |
-| 3 | Architecture | `groundwork-architecture` | `docs/architecture.md` |
-| 4 | Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
+| 3 | Architecture | `groundwork-architecture` | `docs/architecture/index.md` |
+| 4 | Scaffolding | `groundwork-scaffold` | `docs/architecture/infrastructure.md` |
 | 5 | MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
 
 ### Brownfield Setup Phases
@@ -94,8 +94,8 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 | 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) |
 | 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` |
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` |
-| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/infrastructure.md` + `docs/maturity.md` |
+| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` |
+| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` |
 
 When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
 

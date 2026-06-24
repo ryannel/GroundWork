@@ -35,7 +35,7 @@ Durable architectural guidance lives in `references/`. This skill decides what t
 ## Operating Contract
 
 1. Load reference docs from `references/` for the decision in front of you. Load the smallest set that explains it; add more only when the decision crosses into another concern.
-2. Treat the project's existing code, specs, and committed docs (`docs/architecture.md`, `docs/surfaces.md`, contract specs) as the source of truth for what has **already** been decided. Respect those boundaries; do not silently re-open a settled decision — name it if it must change.
+2. Treat the project's existing code, specs, and committed docs (`docs/architecture/index.md`, `docs/surfaces.md`, contract specs) as the source of truth for what has **already** been decided. Respect those boundaries; do not silently re-open a settled decision — name it if it must change.
 3. Carry your principles internally. Never make a recommendation conditional on the user's `docs/` folder existing — the references are the authority.
 4. Establish the deployment shape early (hosted vs embedded; the core/surface split). It determines contract format and most downstream structure.
 5. Advise the decision; defer the implementation. When the work turns to building inside a service, hand off to the engineer skill that owns that stack.

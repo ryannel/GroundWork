@@ -21,8 +21,8 @@ A greenfield setup runs six phases in sequence, each producing a canonical docum
 |---|---|---|
 | 1. Product Brief | `groundwork-product-brief` | `docs/product-brief.md` |
 | 2. Design System | `groundwork-design-system` | `docs/design-system.md` |
-| 3. Architecture | `groundwork-architecture` | `docs/architecture.md` |
-| 4. Scaffolding | `groundwork-scaffold` | `docs/infrastructure.md` |
+| 3. Architecture | `groundwork-architecture` | `docs/architecture/index.md` |
+| 4. Scaffolding | `groundwork-scaffold` | `docs/architecture/infrastructure.md` |
 | 5. MVP Planning | `groundwork-mvp` | `docs/bets/<slug>/pitch.md` |
 | 6. First Bet | `groundwork-bet` | First delivered feature; enters Delivery Loop afterwards |
 

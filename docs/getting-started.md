@@ -63,7 +63,7 @@ The scaffold phase maps the architecture to generator invocations and boots the 
 
 > **Facilitator:** "Scaffold's built and verified… Everything runs through `./dev` (start, migrate, test, and the bet workflow). Good to commit the infrastructure doc?"
 
-At this point the repo contains compiling services (here: a Next.js web app and a Python narrator service), a Docker Compose topology with health checks, generated system tests, and `docs/infrastructure.md` describing exactly what runs where.
+At this point the repo contains compiling services (here: a Next.js web app and a Python narrator service), a Docker Compose topology with health checks, generated system tests, and `docs/architecture/infrastructure.md` describing exactly what runs where.
 
 ## 7. MVP and the first bet
 
