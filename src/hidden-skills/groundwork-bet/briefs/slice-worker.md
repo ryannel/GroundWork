@@ -122,7 +122,7 @@ unrelated subsystems or reach into other slices' work.
 
 ### 4. Mechanical self-reconcile (first pass, not the gate)
 
-A green suite proves nothing if the frozen prose was quietly altered or the code was
+A green suite proves nothing if the sealed prose was quietly altered or the code was
 gamed to pass. Run two cheap checks and **report their result** — they are the
 worker's honest first pass, not the authoritative gate (the driver's independent
 review is that):

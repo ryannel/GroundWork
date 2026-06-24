@@ -6,7 +6,7 @@
 
 ## What bet-progress tests are
 
-Bet-progress tests are **temporary, black-box proof-of-work** materialized from the approved prose before any implementation exists. Each one renders the Proof-of-work prose of a milestone or slice — the proof the user already reviewed and approved in the decomposition tree — into a runnable red stub. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven. Running the suite is the bet's live progress board.
+Bet-progress tests are **temporary, black-box proof-of-work** materialized from the approved prose before any implementation exists. Each one renders the Proof-of-work prose of a milestone or slice — the proof the user already reviewed and approved in the decomposition tree — into a runnable red stub. At Delivery start the board is materialized for the whole **milestone ladder** plus the **first milestone's slices**; each later milestone's slice stubs are added when Delivery opens that milestone (its slices are authored then). So the board shows progress at milestone granularity — Milestone 1 going green while Milestones 2+ stay red — before the later rungs are sliced. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven. Running the suite is the bet's live progress board.
 
 A milestone's proof follows its type:
 
@@ -117,6 +117,7 @@ For an untyped milestone (no surface registry), comment both layers:
 A bet-progress test is good when:
 - It asserts a **falsifiable, consumer-visible outcome** — at the contract or in a surface's medium, never an internal state
 - It would fail if the feature shipped incomplete
+- For a **milestone headline**, it is **un-mockable** — it exercises the real dependency that makes the milestone meaningful (the live model, the real service, the actual store), so a stub, mock, or hardcoded return cannot turn it green. A milestone proof a double can satisfy proves plumbing, not the milestone (`workflows/03-decomposition.md`)
 - It would pass without any special knowledge of how the feature is implemented internally
 - It proves each business rule exactly once — at the contract; surface tests assert only wiring, rendering, and interaction
 - It is a **headline proof, not a permutation** — it proves the milestone's outcome or the slice's capability, not every input variant or error code
