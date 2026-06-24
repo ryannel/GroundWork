@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Ctx, CliError } from '../util/context';
-import { capture } from '../util/proc';
-import { ROOT, TESTS_DIR, DOCS_DIR, GROUNDWORK_BETS_DIR } from '../util/paths';
+import { capture, commandExists } from '../util/proc';
+import { ROOT, TESTS_DIR, DOCS_DIR } from '../util/paths';
 import { getAppServices } from '../util/services';
 import { isInteractive, selectPrompt, textPrompt } from '../util/prompt';
 import { Painter } from '../theme/color';
@@ -161,28 +161,67 @@ async function newSlice(ctx: Ctx): Promise<number> {
   return 0;
 }
 
+/** Move one bet subtree to its sibling `_archive/<slug>/`, preferring `git mv` so
+ *  history follows the move. `rel` is the path relative to ROOT (so git sees a
+ *  tracked rename); `src`/`dest` are the absolute twins for the non-git fallback. */
+function archiveMove(rel: string, src: string, dest: string, inGit: boolean): void {
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  const destRel = path.relative(ROOT, dest);
+  if (inGit) {
+    const moved = capture('git', ['-C', ROOT, 'mv', rel, destRel]);
+    if (moved.status !== 0) throw new CliError(`git mv failed: ${rel} → ${destRel}`, moved.stderr.trim());
+  } else {
+    fs.renameSync(src, dest);
+  }
+}
+
+/** Seed docs/bets/_archive/meta.json so the docs-site sidebar collapses the archive.
+ *  Never clobbers an existing one — the project may have hand-tuned it. */
+function ensureArchiveMeta(archiveDir: string): void {
+  const metaPath = path.join(archiveDir, 'meta.json');
+  if (fs.existsSync(metaPath)) return;
+  fs.mkdirSync(archiveDir, { recursive: true });
+  fs.writeFileSync(metaPath, JSON.stringify({ defaultOpen: false, pages: ['...'] }, null, 2) + '\n');
+}
+
 export async function archive(ctx: Ctx): Promise<number> {
   const { r } = ctx;
   if (ctx.args[0] !== 'bet') throw new CliError('Usage: ./dev archive bet <slug>');
   const slug = ctx.args[1];
   if (!slug) throw new CliError('Usage: ./dev archive bet <slug>');
-  const src = path.join(TESTS_DIR, 'bets', slug);
-  const dest = path.join(TESTS_DIR, 'bets', '_archive', slug);
-  if (!fs.existsSync(src)) throw new CliError(`Bet suite not found: tests/bets/${slug}`);
-  if (fs.existsSync(dest)) throw new CliError(`Archive already exists: tests/bets/_archive/${slug}`);
+  validateSlug(slug, 'bet slug');
+
+  const testsSrc = path.join(TESTS_DIR, 'bets', slug);
+  const testsDest = path.join(TESTS_DIR, 'bets', '_archive', slug);
+  const docsSrc = path.join(DOCS_DIR, 'bets', slug);
+  const docsDest = path.join(DOCS_DIR, 'bets', '_archive', slug);
+
+  if (!fs.existsSync(testsSrc) && !fs.existsSync(docsSrc)) {
+    throw new CliError(`Bet not found: ${slug}`, `Expected tests/bets/${slug}/ or docs/bets/${slug}/.`);
+  }
+  if (fs.existsSync(testsDest)) throw new CliError(`Archive already exists: tests/bets/_archive/${slug}`);
+  if (fs.existsSync(docsDest)) throw new CliError(`Archive already exists: docs/bets/_archive/${slug}`);
 
   r.logo('Archive Bet');
-  r.step(`Archiving tests/bets/${slug} → tests/bets/_archive/${slug}`);
-  fs.mkdirSync(path.join(TESTS_DIR, 'bets', '_archive'), { recursive: true });
-
   const inGit = capture('git', ['-C', ROOT, 'rev-parse', '--is-inside-work-tree']).status === 0;
-  if (inGit) {
-    const moved = capture('git', ['-C', ROOT, 'mv', `tests/bets/${slug}`, `tests/bets/_archive/${slug}`]);
-    if (moved.status !== 0) throw new CliError(`git mv failed for ${slug}`, moved.stderr.trim());
+
+  if (fs.existsSync(testsSrc)) {
+    r.step(`Archiving tests/bets/${slug} → tests/bets/_archive/${slug}`);
+    archiveMove(`tests/bets/${slug}`, testsSrc, testsDest, inGit);
+    r.success(`Archived suite to tests/bets/_archive/${slug}`);
   } else {
-    fs.renameSync(src, dest);
+    r.warn(`No suite at tests/bets/${slug} — skipping.`);
   }
-  r.success(`Archived to tests/bets/_archive/${slug}`);
+
+  if (fs.existsSync(docsSrc)) {
+    r.step(`Archiving docs/bets/${slug} → docs/bets/_archive/${slug}`);
+    archiveMove(`docs/bets/${slug}`, docsSrc, docsDest, inGit);
+    ensureArchiveMeta(path.join(DOCS_DIR, 'bets', '_archive'));
+    r.success(`Archived docs to docs/bets/_archive/${slug}`);
+  } else {
+    r.warn(`No docs at docs/bets/${slug} — skipping.`);
+  }
+
   r.info('Permanent best-practice tests remain in place and cover the feature going forward.');
   return 0;
 }
@@ -190,71 +229,91 @@ export async function archive(ctx: Ctx): Promise<number> {
 // ---------------------------------------------------------------------------
 // Bet progress board (`./dev bet status`)
 //
-// The durable, committed plan lives in .groundwork/bets/<slug>/decomposition.json,
-// written by the methodology skills. The approved suite is held to its definition
-// of done by the approval commit + the delivery review reconciliation, not by a
-// hash manifest — see groundwork-bet/workflows/{03-decomposition,04-delivery}.md.
+// There is no tracking manifest. The board is DERIVED by running the bet suite
+// (tests/bets/<slug>/) and reading per-test pass/fail keyed by the
+// test_milestone_<N>_… and test_slice_<N>_<service>_… file names. Tests are
+// materialized RED at Delivery start; a green row means the suite proves that
+// milestone/slice. Git is the record — see groundwork-bet/workflows/04-delivery.md.
 // ---------------------------------------------------------------------------
 
-interface Slice {
-  id: string;
+type BoardState = 'green' | 'red' | 'unknown';
+
+interface BoardRow {
+  kind: 'milestone' | 'slice';
+  file: string;
+  n: number;
+  /** Service column — slices only. */
+  service: string | null;
   slug: string;
-  service: string;
-  test_file: string;
-  status: 'pending' | 'in-progress' | 'delivered';
-  baseline_commit: string | null;
-  delivered_commit: string | null;
-  files: string[];
-  notes: string | null;
+  state: BoardState;
 }
 
-interface Milestone {
-  id: string;
-  slug: string;
-  title: string;
-  test_file: string;
-  status: 'pending' | 'delivered';
-  slices: Slice[];
+const MILESTONE_RE = /^test_milestone_(\d+)_(.+)\.[^.]+$/;
+// Slice slug is kebab-case (no underscores); the service segment may itself
+// contain underscores, so anchor the slug to the trailing kebab token.
+const SLICE_RE = /^test_slice_(\d+)_(.+)_([a-z0-9][a-z0-9-]*)\.[^.]+$/;
+
+/** Top-level test files in a bet suite dir, sorted, excluding caches. */
+function suiteTestFiles(betDir: string): string[] {
+  if (!fs.existsSync(betDir)) return [];
+  return fs
+    .readdirSync(betDir, { withFileTypes: true })
+    .filter((d) => d.isFile() && (MILESTONE_RE.test(d.name) || SLICE_RE.test(d.name)))
+    .map((d) => d.name)
+    .sort();
 }
 
-interface Decomposition {
-  bet: string;
-  created: string;
-  milestones: Milestone[];
-}
+/** Run the bet suite and map each test file to a green/red verdict. When the
+ *  suite cannot be run (no `uv`), every file reports `unknown`. A file that the
+ *  suite never produced a passing result for (collection error, unimplemented
+ *  stub, outright failure) is `red` — exactly the materialized-RED starting state. */
+function runSuiteVerdicts(slug: string): { ran: boolean; byFile: Map<string, BoardState> } {
+  const byFile = new Map<string, BoardState>();
+  if (!commandExists('uv')) return { ran: false, byFile };
 
-function betsConfigDir(slug: string): string {
-  return path.join(GROUNDWORK_BETS_DIR, slug);
-}
+  const res = capture('uv', ['run', 'pytest', `bets/${slug}/`, '-v', '--tb=no', '--color=no', '-p', 'no:cacheprovider'], {
+    cwd: TESTS_DIR,
+  });
 
-function decompositionPath(slug: string): string {
-  return path.join(betsConfigDir(slug), 'decomposition.json');
-}
-
-function readJson<T>(file: string, label: string): T | null {
-  if (!fs.existsSync(file)) return null;
-  try {
-    return JSON.parse(fs.readFileSync(file, 'utf8')) as T;
-  } catch {
-    throw new CliError(`Could not parse ${label}: ${path.relative(ROOT, file)}`, 'Fix or remove the malformed JSON file.');
+  // pytest -v emits one line per test: `bets/<slug>/<file>::<test> PASSED [ 12%]`.
+  const tally = new Map<string, { passed: number; failed: number }>();
+  const line = /(?:^|\/)(test_(?:milestone|slice)_\d+_[^/:]+\.[A-Za-z0-9]+)::\S+\s+(PASSED|FAILED|ERROR|XFAIL|XPASS|SKIPPED)/g;
+  for (const m of res.stdout.matchAll(line)) {
+    const file = m[1];
+    const outcome = m[2];
+    const t = tally.get(file) ?? { passed: 0, failed: 0 };
+    if (outcome === 'PASSED' || outcome === 'XFAIL') t.passed += 1;
+    else if (outcome === 'FAILED' || outcome === 'ERROR' || outcome === 'XPASS') t.failed += 1;
+    // SKIPPED contributes to neither — a skipped test proves nothing.
+    tally.set(file, t);
   }
+  for (const [file, t] of tally) {
+    byFile.set(file, t.failed > 0 ? 'red' : t.passed > 0 ? 'green' : 'red');
+  }
+  return { ran: true, byFile };
 }
 
-/** Recursive, sorted relative paths under tests/bets/<slug>/, excluding
- *  __pycache__ directories and compiled .pyc files. */
-function listSuiteFiles(betDir: string): string[] {
-  const out: string[] = [];
-  const walk = (dir: string, rel: string): void => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name === '__pycache__') continue;
-      const abs = path.join(dir, entry.name);
-      const relPath = rel ? `${rel}/${entry.name}` : entry.name;
-      if (entry.isDirectory()) walk(abs, relPath);
-      else if (!entry.name.endsWith('.pyc')) out.push(relPath);
+/** Build the full board: every materialized milestone/slice file, with its
+ *  derived verdict. Files with no recorded result default to red when the suite
+ *  ran, unknown when it could not. */
+function deriveBoard(slug: string): { ran: boolean; rows: BoardRow[] } {
+  const betDir = path.join(TESTS_DIR, 'bets', slug);
+  const files = suiteTestFiles(betDir);
+  const { ran, byFile } = files.length > 0 ? runSuiteVerdicts(slug) : { ran: false, byFile: new Map() };
+
+  const rows: BoardRow[] = files.map((file) => {
+    const verdict = byFile.get(file) ?? (ran ? 'red' : 'unknown');
+    const mm = MILESTONE_RE.exec(file);
+    if (mm) {
+      return { kind: 'milestone', file, n: Number(mm[1]), service: null, slug: mm[2], state: verdict };
     }
-  };
-  walk(betDir, '');
-  return out.sort();
+    const sm = SLICE_RE.exec(file);
+    return { kind: 'slice', file, n: Number(sm![1]), service: sm![2], slug: sm![3], state: verdict };
+  });
+
+  const order = { milestone: 0, slice: 1 } as const;
+  rows.sort((a, b) => order[a.kind] - order[b.kind] || a.n - b.n);
+  return { ran, rows };
 }
 
 export async function betCmd(ctx: Ctx): Promise<number> {
@@ -267,27 +326,15 @@ export async function betCmd(ctx: Ctx): Promise<number> {
   }
 }
 
-function sliceGlyph(p: Painter, status: string): string {
+function boardGlyph(p: Painter, state: BoardState): string {
   const u = p.caps.unicode;
-  if (status === 'delivered') return p.paint('success', u ? '●' : '*');
-  if (status === 'in-progress') return p.paint('warning', u ? '◐' : '~');
+  if (state === 'green') return p.paint('success', u ? '●' : '*');
+  if (state === 'red') return p.paint('error', u ? '✗' : 'x');
   return p.dim(u ? '○' : 'o');
 }
 
-function progressOf(decomp: Decomposition): { delivered: number; total: number; percent: number } {
-  const slices = (decomp.milestones ?? []).flatMap((m) => m.slices ?? []);
-  const delivered = slices.filter((s) => s.status === 'delivered').length;
-  const total = slices.length;
-  return { delivered, total, percent: total === 0 ? 0 : Math.round((delivered / total) * 100) };
-}
-
-function decompositionSlugs(): string[] {
-  if (!fs.existsSync(GROUNDWORK_BETS_DIR)) return [];
-  return fs
-    .readdirSync(GROUNDWORK_BETS_DIR, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name)
-    .sort();
+function stateLabel(state: BoardState): string {
+  return state === 'green' ? 'passing' : state === 'red' ? 'failing' : 'not run';
 }
 
 async function status(ctx: Ctx): Promise<number> {
@@ -299,68 +346,77 @@ async function status(ctx: Ctx): Promise<number> {
   if (!slug) return statusAll(ctx, json);
 
   validateSlug(slug, 'bet slug');
-  const decomp = readJson<Decomposition>(decompositionPath(slug), 'decomposition.json');
   const betDir = path.join(TESTS_DIR, 'bets', slug);
+  const files = suiteTestFiles(betDir);
 
-  if (!decomp && !fs.existsSync(betDir)) {
-    throw new CliError(
-      `No bet found: ${slug}`,
-      `Expected .groundwork/bets/${slug}/decomposition.json or tests/bets/${slug}/.`,
-    );
-  }
-
-  // Fallback: tests exist but the decomposition manifest is absent.
-  if (!decomp) {
-    const testFiles = listSuiteFiles(betDir).map((f) => `tests/bets/${slug}/${f}`);
+  // Pre-Delivery: the bet exists on paper but no suite has been materialized yet.
+  if (files.length === 0) {
     if (json) {
-      process.stdout.write(JSON.stringify({ bet: slug, decomposition: null, test_files: testFiles }, null, 2) + '\n');
+      process.stdout.write(JSON.stringify({ bet: slug, materialized: false, milestones: [], slices: [] }, null, 2) + '\n');
       return 0;
     }
     const ro = r.asStream(process.stdout);
     ro.logo(`Bet Board — ${slug}`);
-    ro.warn(`No decomposition manifest at .groundwork/bets/${slug}/decomposition.json — listing test files only.`);
-    ro.info('The methodology skills write decomposition.json during bet decomposition.');
-    ro.table('Test Files', testFiles.map((f) => [path.basename(f), '', ''] as [string, string, string]));
+    ro.info('No board yet — the bet suite is materialized RED at Delivery start.');
+    ro.info(`Once Delivery begins, ./dev bet status ${slug} renders red/green from the suite.`);
     return 0;
   }
 
-  const progress = progressOf(decomp);
+  const { ran, rows } = deriveBoard(slug);
+  const milestones = rows.filter((x) => x.kind === 'milestone');
+  const slices = rows.filter((x) => x.kind === 'slice');
+  const green = rows.filter((x) => x.state === 'green').length;
+
   if (json) {
-    process.stdout.write(JSON.stringify({ ...decomp, progress }, null, 2) + '\n');
+    process.stdout.write(
+      JSON.stringify(
+        {
+          bet: slug,
+          materialized: true,
+          ran,
+          milestones: milestones.map((m) => ({ n: m.n, slug: m.slug, file: m.file, state: m.state })),
+          slices: slices.map((s) => ({ n: s.n, service: s.service, slug: s.slug, file: s.file, state: s.state })),
+          summary: { green, total: rows.length },
+        },
+        null,
+        2,
+      ) + '\n',
+    );
     return 0;
   }
 
   const ro = r.asStream(process.stdout);
   ro.logo(`Bet Board — ${slug}`);
-  for (const m of decomp.milestones ?? []) {
-    ro.step(`${m.id} · ${m.title} — ${m.status}`);
-    // Pre-pad the visible text: the painted glyph carries ANSI escapes that would
-    // defeat the table's own padEnd and misalign the columns.
-    const rows = (m.slices ?? []).map(
-      (s) =>
-        [`${sliceGlyph(ro.painter, s.status)} ${`${s.id} ${s.slug}`.padEnd(26)}`, s.service, s.status] as [
-          string,
-          string,
-          string,
-        ],
-    );
-    ro.table('Slices', rows);
+  if (!ran) {
+    ro.warn('uv not found — cannot run the suite. Listing the materialized tests without a verdict.');
   }
-  ro.success(`Progress: ${progress.delivered}/${progress.total} slices delivered (${progress.percent}%)`);
+  // Pre-pad the visible text: the painted glyph carries ANSI escapes that would
+  // defeat the table's own padEnd and misalign the columns.
+  const mRows = milestones.map(
+    (m) => [`${boardGlyph(ro.painter, m.state)} ${`M${m.n} ${m.slug}`.padEnd(26)}`, '', stateLabel(m.state)] as [string, string, string],
+  );
+  const sRows = slices.map(
+    (s) =>
+      [`${boardGlyph(ro.painter, s.state)} ${`S${s.n} ${s.slug}`.padEnd(26)}`, s.service ?? '', stateLabel(s.state)] as [
+        string,
+        string,
+        string,
+      ],
+  );
+  ro.table('Milestones', mRows);
+  ro.table('Slices', sRows);
+  ro.success(`Board: ${green}/${rows.length} green (run ./dev test bet ${slug} for full output).`);
   return 0;
 }
 
 async function statusAll(ctx: Ctx, json: boolean): Promise<number> {
   const { r } = ctx;
-  const slugs = decompositionSlugs();
+  const slugs = existingBetSlugs();
   const summaries = slugs.map((slug) => {
-    const decomp = readJson<Decomposition>(decompositionPath(slug), 'decomposition.json');
-    return {
-      bet: slug,
-      created: decomp?.created ?? null,
-      decomposition: Boolean(decomp),
-      progress: decomp ? progressOf(decomp) : null,
-    };
+    const files = suiteTestFiles(path.join(TESTS_DIR, 'bets', slug));
+    if (files.length === 0) return { bet: slug, materialized: false, green: 0, total: 0 };
+    const { rows } = deriveBoard(slug);
+    return { bet: slug, materialized: true, green: rows.filter((x) => x.state === 'green').length, total: rows.length };
   });
 
   if (json) {
@@ -371,14 +427,14 @@ async function statusAll(ctx: Ctx, json: boolean): Promise<number> {
   const ro = r.asStream(process.stdout);
   ro.logo('Bet Board');
   if (summaries.length === 0) {
-    ro.info('No bets found under .groundwork/bets/.');
-    ro.info('The methodology skills write decomposition.json there during bet decomposition.');
+    ro.info('No bets found under tests/bets/.');
+    ro.info('Start one with ./dev new bet <slug>.');
     return 0;
   }
   for (const s of summaries) {
-    const line = s.progress
-      ? `${s.progress.delivered}/${s.progress.total} slices delivered (${s.progress.percent}%)`
-      : 'no decomposition.json';
+    const line = s.materialized
+      ? `${s.green}/${s.total} green`
+      : 'no suite yet — materialized at Delivery start';
     ro.cmd(s.bet, line);
   }
   ro.info('Run ./dev bet status <slug> for the full board.');

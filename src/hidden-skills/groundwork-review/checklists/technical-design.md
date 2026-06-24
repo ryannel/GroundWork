@@ -7,8 +7,8 @@ description: >
 
 # Technical Design Checklist
 
-This checklist checks a draft `docs/bets/<slug>/technical-design.md`. It answers one question:
-**could a developer implement from this document on the first pass — and could a milestone test
+This checklist checks a draft `docs/bets/<slug>/technical-design/` directory. It answers one question:
+**could a developer implement from this design on the first pass — and could a milestone proof
 pass or fail against it unambiguously?**
 
 Each item names a violation. Match it against the document text, the bet's pitch, and the
@@ -55,29 +55,23 @@ absence of surface ceremony.
 
 ## API Design
 
-- [ ] 🔴 **Missing spec files**: the bet touches a core boundary but `docs/bets/<slug>/contracts/`
-  carries no spec for it, or it changes persistent state with no `schema.sql` — a contract that
-  exists only as prose cannot generate a client, validate a response, or fail a drift check.
-- [ ] 🔴 **Spec format disagrees with the core's deployment**: the format does not match
-  `docs/surfaces.md` — a hosted HTTP boundary without `openapi.yaml` (events without
-  `asyncapi.yaml`, gRPC without `.proto`), or an embedded core whose contract is not a typed
-  public API definition in the project's language. When no registry exists, hosted HTTP is the
-  default and OpenAPI is expected.
-- [ ] 🔴 **Prose↔spec drift**: an endpoint, field, channel, or table appears in the prose sections
-  but not in the spec files, or vice versa — the two describe different contracts and Delivery
-  will implement one while Decomposition tests the other.
-- [ ] 🔴 **Vague shape**: a spec schema or prose entry says "returns the entity" or "accepts the
-  standard payload" instead of the full request and response shapes with field types — vague
-  shapes cannot drive correct implementation, and what is not here will not be in the
-  implementation.
-- [ ] 🔴 **No error cases**: an endpoint defines no error responses, or lists status codes
-  without caller guidance — the caller's recovery behaviour is part of the contract.
-- [ ] 🔴 **Contract shaped for one consumer**: a contract shape only one in-scope surface can
-  consume — it presumes web session state, returns markup where data belongs, paginates by
-  viewport, or encodes one surface's rendering concerns. The contract serves every in-scope
-  surface and presumes none; when only one surface is in scope, the latent agentic surface is
-  the second consumer — a programmatic caller with no UI and no session must find the contract
-  complete.
+- [ ] 🔴 **Vague shape**: a prose API entry in `03-api-design.md` says "returns the entity" or
+  "accepts the standard payload" instead of giving the full request and response shapes with
+  field types inline. The prose design is the bet's only contract — Delivery materializes proofs
+  and builds the implementation from these shapes, so what is not here will not be in the
+  implementation, and a proof cannot rest on a shape the design never spelled out.
+- [ ] 🔴 **State change without a shape**: a bet changes persistent state but the affected store
+  carries no field shapes in `04-data-design.md` — column names, types, and nullability. A
+  persisted effect a proof observes traces to this store; an undefined store cannot be
+  implemented or proven against.
+- [ ] 🔴 **No error cases**: an endpoint in the API design defines no error responses, or lists
+  status codes without caller guidance — the caller's recovery behaviour is part of the contract.
+- [ ] 🔴 **Contract shaped for one consumer**: an interface in the API design only one in-scope
+  surface can consume — it presumes web session state, returns markup where data belongs,
+  paginates by viewport, or encodes one surface's rendering concerns. The contract serves every
+  in-scope surface and presumes none; when only one surface is in scope, the latent agentic
+  surface is the second consumer — a programmatic caller with no UI and no session must find the
+  contract complete.
 - [ ] 🟡 **Untyped field**: a request or response field appears without a type, nullability, or
   allowed values where they matter (enums, cursors, identifiers).
 - [ ] 🟡 **Auth unstated**: a contract does not state its authentication requirement, on a

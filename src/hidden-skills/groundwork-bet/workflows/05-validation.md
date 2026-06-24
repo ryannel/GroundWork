@@ -1,6 +1,6 @@
 # Phase 5: Validation (Testing & Handoff)
 
-**Goal:** Verify the implementation, archive the bet-progress suite, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
+**Goal:** Verify the implementation, capture each touched service's served contract into the canonical `docs/api/` record, archive the whole bet, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
 
 A bet that ships without updating upstream docs leaves the next bet operating against a stale map. The Validation phase exists to close the loop — the test suite proves the implementation works, the Living Documents scan proves the rest of the system still describes reality.
 
@@ -16,20 +16,20 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: validation`.
 
 ### Step 2: Run the test suite
 
-Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing — and run the **test-integrity reconciliation once over the whole bet**: `git log <approval_commit>..HEAD -- tests/bets/<bet-slug>/` (the `approval_commit` is recorded in `decomposition.json`) shows only changes paired with an approved amendment, and every test still proves what its `docs/bets/<bet-slug>/test-review.md` entry describes. A suite that drifted from its approved record without a recorded amendment is not the suite the user approved — flag it and revert.
+Execute the full bet-progress test suite: `./dev test bet <bet-slug>` (or `pytest tests/bets/<bet-slug>/` directly). Every test must pass before advancing — and run the **prose-integrity reconciliation once over the whole bet**: `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/decomposition/ docs/bets/<bet-slug>/technical-design/` shows no change except approved amendments (the Amendment Protocol's commit trail), and every built test still proves what its slice's Proof-of-work prose describes. The frozen contract is the prose; the tests and implementation were built this phase and are supposed to have changed. A suite that drifted from the frozen prose without a recorded amendment is not what the user approved — flag it and revert.
 
-**Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — cross-service calls use clients derived from `docs/bets/<bet-slug>/contracts/`, and no endpoint, field, or table exists that the specs do not define. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
+**Contract verification:** Confirm that no manual schema definitions or rogue HTTP calls were introduced during Delivery — cross-service calls use clients derived from the canonical `docs/api/<service>/` contract, and no endpoint, field, or table exists that the prose design and the captured contract do not define. A bet that delivered against side-channel contracts has compromised the architecture's integrity; flag it and revert.
 
-### Step 2.5: Promote the contract specs
+### Step 2.5: Capture the canonical contract
 
-The bet's spec files were the design commitment; now that the implementation satisfies them, they become the canonical record of each service's API. For each service this bet touched, merge the relevant operations from `docs/bets/<bet-slug>/contracts/openapi.yaml` into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the bet defined channels. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet whose spec never promotes leaves the canonical record describing the system before this bet existed.
+The bet's API and data design were prose; the real machine-readable contract is what the running service serves. Now that the implementation satisfies the design, snapshot it. For each service this bet touched, capture the service's **served** OpenAPI — `GET /openapi.json` from the running service, or the framework's spec export (FastAPI and Huma generate it from the code) — into `docs/api/<service>/openapi.yaml` (creating it for a new service), and likewise `asyncapi.yaml` where the service serves events. It is captured from running code, never promoted from a bet spec — the prose design is the design commitment, the running service is the source of truth. The canonical per-service spec is what the generated contract-conformance tests and `groundwork-check` read — a bet that never captures leaves the canonical record describing the system before this bet existed.
 
 ### Step 2.6: Visual verification gate
 
 **Conditional — graphical surfaces only.** Skip this step entirely, and say so in one line, when the bet touched no `graphical-ui` surface: a backend, CLI, or agentic bet pays nothing. For a bet that delivered a graphical surface, confirm the visual ladder before the bet can reach `delivered`:
 
 1. **Tier 1 — the deterministic floor is green.** Step 2 already ran the suite; confirm `tests/system/test_render_smoke.py`, `test_a11y_smoke.py`, and `test_token_conformance.py` passed across the viewport × theme matrix. Render-smoke catches a blank/throwing/unstyled page; token-conformance asserts the specified atmosphere actually *landed* — the surface treatments render with their backdrop blur and multi-layer elevation rather than degrading to a flat default. A red layer is a real defect and blocks the bet — it is not a flaky test to wave through.
-2. **Tier 2 — spec-conformance inspection happened.** Confirm each graphical milestone recorded its per-screen spec-conformance verdict during delivery (the manifest notes from `04-delivery.md` Milestone close). That verdict is the designer-judged check: does the rendered surface match the written micro-polish spec, including the dimensions computation cannot assert — optical alignment, restraint, and whether the composition reads as considered. A milestone that closed with no verdict did not run the inspection — route it back.
+2. **Tier 2 — spec-conformance inspection happened.** Confirm each graphical milestone recorded its per-screen spec-conformance verdict during delivery (the `Visual:` line in the closing slice's delivery commit, from `04-delivery.md` Milestone close). That verdict is the designer-judged check: does the rendered surface match the written micro-polish spec, including the dimensions computation cannot assert — optical alignment, restraint, and whether the composition reads as considered. A milestone that closed with no verdict did not run the inspection — route it back.
 
 Report which tiers ran in one line, so the run/skip is auditable. There is no separate multimodal "is it as good as the references" grading pass: the craft bar is set as the concrete micro-polish spec at design time (a screenshot cannot see motion or state, and a vision grade of static frames is a weak signal), enforced deterministically by Tier 1 and by the designer's spec-conformance judgement in Tier 2.
 
@@ -64,11 +64,11 @@ States without payloads, `planned` cells pointing nowhere, nothing cross-posted 
 
 Plus, in the same change: the `planned` cell cross-posted under `## Bets` in discovery notes ("`notification-delivery/in-app-status` → `admin-cli`: operators need failure visibility; deferred from `notification-delivery`"), and `.groundwork/surfaces.json` gaining the matching capability entry with identical states and payloads. Every column decided, every decision findable.
 
-### Step 3: Archive the bet-progress suite
+### Step 3: Archive the whole bet
 
-Move `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available; otherwise `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`.
+Move the whole bet out of the active tree: `docs/bets/<bet-slug>/` → `docs/bets/_archive/<bet-slug>/` **and** `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available — it now moves both; otherwise `git mv docs/bets/<bet-slug> docs/bets/_archive/<bet-slug>` and `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`. The active docsite Bets section then shows only in-flight bets.
 
-The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet-progress suite served its purpose as proof-of-work scaffolding and is now archived.
+The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet's prose and its bet-progress suite served their purpose as the definition of done and the proof-of-work scaffolding; they are now archived as the bet's record.
 
 ### Step 4: Review with the user
 
@@ -87,7 +87,7 @@ Documents to scan, in order:
 3. **`docs/product-brief.md`** — new user types, refined success criteria, capabilities that turned out to be load-bearing in ways the brief did not capture. Vision-level refinements only; the brief is not a changelog. When the refinement is a vision-level product change — a new user type, a reframed success criterion, a capability that shifted the product's scope — adopt the product persona (`.groundwork/skills/groundwork-product/SKILL.md`) so the update carries the same reasoning standard the brief was built to.
 4. **`docs/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
 5. **`docs/surfaces.md`** — when it exists: registry entries whose reality changed (a `planned` surface this bet activated, a changed core-access path or test medium), and confirm Step 2.7's ledger rows landed with their `.groundwork/surfaces.json` twin in lockstep. Skip when the project has no registry.
-6. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that added a service's OpenAPI contract may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`. On a registry project, re-assess D8 (surface parity discipline) against the ledger state Step 2.7 just wrote — a `planned` cell aging past three closed bets with no referencing pitch is what moves it off ✅. If this bet activated a second independently-deployed surface or changed a published contract, re-assess D9 (contract compatibility): the stance must stand under architecture's Binding Constraints and the contract-conformance tests must show no breaking drift.
+6. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that captured a service's OpenAPI contract into `docs/api/` may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`. On a registry project, re-assess D8 (surface parity discipline) against the ledger state Step 2.7 just wrote — a `planned` cell aging past three closed bets with no referencing pitch is what moves it off ✅. If this bet activated a second independently-deployed surface or changed a published contract, re-assess D9 (contract compatibility): the stance must stand under architecture's Binding Constraints and the contract-conformance tests must show no breaking drift.
 
 For each document updated, report the change in one line: "Updated `docs/architecture.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
 
@@ -113,7 +113,7 @@ Number sequentially: read the existing `docs/decisions/` directory and use the n
 
 A bet that ships without extracting its lessons leaves the next bet to rediscover them at delivery prices. The retrospective is one facilitated pass over four mechanics — checklist items in a single conversation, not a ceremony — and its output is `docs/bets/<bet-slug>/retrospective.md` plus action items the next bet reads.
 
-1. **Mine the slice records.** Read every slice's `notes`, `files`, and review findings from `.groundwork/bets/<bet-slug>/decomposition.json` and any change proposals or amendments in the bet directory. Surface *patterns*, not anecdotes: a finding type that appeared in two or more slice reviews, a struggle that recurred, a contract that needed amending. One-off issues are noise; repeats are process signal.
+1. **Mine the slice records.** Read the bet's delivery commits — `git log` of the `bet(<bet-slug>): slice ...` commits, their changed files and their `Notes:` lines — plus any change proposals or amendments in the bet directory. Surface *patterns*, not anecdotes: a finding type that appeared in two or more slice reviews, a struggle that recurred, a proof that needed amending. One-off issues are noise; repeats are process signal.
 2. **Audit the previous bet's action items.** Read the previous bet's `retrospective.md` (if one exists). For each action item: done, in progress, or ignored — and if ignored, did it cost us this bet? An item that was ignored *and* costly escalates to a `docs/maturity.md` row so it stops depending on anyone's memory.
 3. **Detect significant discoveries.** Check whether this bet invalidated anything queued bets depend on: an architectural assumption broken, a dependency the next pitch does not account for, debt that changes the appetite math, user behaviour different from what the brief assumed. On detection, recommend re-pitching the affected bets before the next one starts — never start a bet on premises this one just disproved. Whether a discovery overturns a queued bet's premise — changed user behaviour, shifted appetite math, or resequenced priorities — is a product judgement; adopt the product persona (`.groundwork/skills/groundwork-product/SKILL.md`) when weighing a re-pitch.
 4. **Explore readiness.** Green is not live. Confirm with the user where the delivered work actually stands — deployed, accepted, observed in use — and carry anything unresolved forward as an explicit item rather than an assumption.
@@ -147,7 +147,8 @@ Validation complete.
 Test suite: 47/47 passing. Contract verification: all cross-service calls
 use the generated `notification_client`; no rogue HTTP found.
 
-Bet-progress suite archived to tests/bets/_archive/notification-delivery/.
+Whole bet archived: docs/bets/_archive/notification-delivery/ and
+tests/bets/_archive/notification-delivery/.
 
 Living Documents scan:
 

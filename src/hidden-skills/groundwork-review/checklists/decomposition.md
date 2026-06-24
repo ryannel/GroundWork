@@ -2,19 +2,19 @@
 name: decomposition-checklist
 description: >
   Type-specific failure modes for reviewing a bet's decomposition — the
-  milestone map, slice specs, and test plan the bet executes against.
+  milestone map, slice specs, and prose proofs the bet executes against.
 ---
 
 # Decomposition Checklist
 
-This checklist checks a draft `docs/bets/<slug>/decomposition.md`. It answers one question:
-**does every milestone name consumer-visible value — proven once at the contract, then per
-surface — every slice cut vertically, and every capability trace to the technical design with a
-falsifiable test?**
+This checklist checks a bet's decomposition tree under `docs/bets/<slug>/decomposition/`. It
+answers one question: **does every milestone name consumer-visible value — proven once at the
+contract, then per surface — every slice cut vertically, and every capability trace to the
+technical design with a falsifiable prose proof?**
 
-Each item names a violation. Match it against the document text and
-`docs/bets/<slug>/technical-design.md`. Bet documents carry no Downstream Context file and no
-summary section — do not flag the absence of either.
+Each item names a violation. Match it against the tree's milestone `index.md` and slice files and
+the design under `docs/bets/<slug>/technical-design/`. Bet documents carry no Downstream Context
+file and no summary section — do not flag the absence of either.
 
 ## Milestone Shape
 
@@ -52,9 +52,9 @@ no slice `Surface` field — and none of these items fire.
   the milestone is re-litigating what the capability milestone proves at the contract.
 - [ ] 🟡 **Consumer unnamed**: a capability milestone does not record who its consumer is — the
   in-scope surfaces that build on it, or the latent agentic surface for a headless delivery.
-- [ ] 🔴 **Slice surface missing or invalid**: a slice spec carries no `Surface` field, or its
-  value is neither `core` nor a registry slug, in `decomposition.md` or `decomposition.json` —
-  delivery cannot sequence core-before-surface, and the slice's test discipline is undeclared.
+- [ ] 🔴 **Slice surface missing or invalid**: a slice file carries no `Surface` field, or its
+  value is neither `core` nor a registry slug — delivery cannot sequence core-before-surface, and
+  the slice's test discipline is undeclared.
 
 ## Slice Verticality
 
@@ -64,71 +64,72 @@ no slice `Surface` field — and none of these items fire.
   slice existing — it fails the vertical-slice test and must be merged up or reframed.
 - [ ] 🟡 **Orphan slice or empty milestone**: a slice belongs to no milestone, or a milestone
   decomposes into no slices.
-- [ ] 🟡 **Anatomy incomplete**: a slice spec is missing one of its parts — Owner service,
+- [ ] 🟡 **Anatomy incomplete**: a slice file is missing one of its parts — Owner service,
   Surface (`core` or a registry slug; registry projects only), Complexity (S/M/L),
-  Prerequisite, one-paragraph intro, Required Capabilities, Test Cases table.
+  Prerequisite, Scope (one-paragraph intro plus Required Capabilities), Design, Proof of work.
 - [ ] 🟡 **Vague prerequisite**: a prerequisite does not name the exact prior merge gate (e.g.
   "Slice 1.2 merged") — "after the backend work" sequences nothing.
 
-## Capabilities and Tests
+## Capabilities and Proofs
 
 - [ ] 🔴 **Unfalsifiable capability**: a Required Capability cannot fail — "The endpoint exists"
   is not falsifiable; "POST `/api/sessions` returns 201 with a `session_id` field when given a
-  valid request body matching the API contract" is.
-- [ ] 🔴 **Capability without a contract anchor**: a Required Capability traces to no contract or
-  schema section in `technical-design.md` — the slice commits to behaviour the design never
-  specified.
-- [ ] 🔴 **Missing test file link**: a milestone or slice has no linked bet-progress test file at
-  `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` or
-  `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
-- [ ] 🟡 **Assertion-free test case**: a Test Cases table row lacks a specific, falsifiable
-  assertion — "verify it works" gives the reviewer nothing to check against the milestone's
-  acceptance criteria.
-- [ ] 🟡 **Test Plan header missing**: the document does not open with the Test Plan header
-  describing the two test populations and their lifecycles.
+  valid request body matching the API design" is.
+- [ ] 🔴 **Capability without a design anchor**: a Required Capability traces to no interface in
+  `technical-design/03-api-design.md` or store in `04-data-design.md` — the slice commits to
+  behaviour the design never specified.
+- [ ] 🔴 **Missing test file link**: a milestone `index.md` or slice file names no `Test file:`
+  path in its Proof of work at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>`
+  or `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`. The path is named at
+  decomposition; Delivery materializes the red stub from it.
+- [ ] 🟡 **Proof without an observable condition**: a Proof of work's `How we prove it` states no
+  specific, falsifiable observation — "verify it works" gives the reviewer nothing to check
+  against the milestone's acceptance criteria.
+- [ ] 🔴 **Decomposition tree incomplete**: the tree is missing a piece — `meta.json`, a milestone
+  `index.md`, or a slice file the milestone links — so the bet has no complete plan to execute
+  against.
 
-## Test Semantics
+## Proof Semantics
 
-Open the actual test files — these checks cannot be made from the decomposition document alone.
-A structurally perfect suite that asserts the wrong things sends Delivery to the wrong
-destination with a green light.
+Tests do not exist at decomposition — they are materialized red at Delivery start (Step 0.5)
+from this approved prose. So these checks read the **Proof of work** prose, not test code: a
+proof that describes the wrong thing sends Delivery to the wrong destination with a green light.
+The purely code-level failures are enforced at Delivery — Step 0.5 confirms each materialized
+stub is red for the feature's absence, and Step 4's honest-green reconciliation catches
+white-box assertions and gamed implementations — so here the review checks the prose.
 
-- [ ] 🔴 **Assertion does not match the capability**: a test's assertion proves something other
-  than the Required Capability it is linked to — the capability says 202-and-idempotent, the
-  test asserts 200-and-exists. Delivery will satisfy the test and miss the capability.
-- [ ] 🔴 **Shape not in the spec**: a test hand-rolls a request body, response field, or table
-  shape that `docs/bets/<slug>/contracts/` does not define — the test is asserting a contract
-  that does not exist.
-- [ ] 🔴 **Tautological test**: a test that cannot fail once any implementation exists — asserting
-  a response is received without asserting its content, or catching the failure it should
-  surface.
-- [ ] 🔴 **White-box assertion**: a bet-progress test imports application code, mocks internals,
-  or asserts module structure — these tests are black-box proof at the interface and API level
-  only.
-- [ ] 🔴 **Core logic re-proven at a surface**: a surface milestone or surface-slice test
-  re-asserts a business rule already proven by the capability milestone's contract tests —
-  prove-once is the principle that keeps surface count from multiplying the test pyramid;
-  surface tests assert wiring, rendering, and interaction only. (Registry projects only; an
-  untyped suite pairs interface and API layers per milestone as before.)
-- [ ] 🔴 **Red for the wrong reason**: a test fails on an import error, fixture error, or typo
-  rather than on the feature's absence — it will not flip green when the feature works.
+- [ ] 🔴 **Proof does not match the capability**: a Proof of work proves something other than the
+  Required Capability it rests on — the capability says 202-and-idempotent, the proof shows
+  200-and-exists. Delivery will satisfy the proof and miss the capability.
+- [ ] 🔴 **Shape not in the prose design**: a proof references a request body, response field, or
+  table shape that `technical-design/03-api-design.md` / `04-data-design.md` does not define — the
+  proof rests on a contract that does not exist.
+- [ ] 🔴 **Tautological proof**: a Proof of work that cannot fail once any implementation exists —
+  observing that a response is received without observing its content, or describing the failure
+  it should surface as the success it checks for.
+- [ ] 🔴 **Core logic re-proven at a surface**: a surface milestone's or surface slice's Proof of
+  work re-asserts a business rule the capability milestone already proves at the contract —
+  prove-once is the principle that keeps surface count from multiplying the test pyramid; surface
+  proofs cover wiring, rendering, and interaction only. (Registry projects only; an untyped
+  decomposition pairs interface and API layers per milestone as before.)
 - [ ] 🟡 **Headline error case missing**: a milestone whose demonstrable outcome depends on an
   error case (e.g. the dependency being unavailable) proves only the happy path. Exhaustive
   error-matrix coverage is not expected here — it lands in Delivery's permanent tests — but an
-  error the milestone's proof rests on belongs in the headline suite.
-- [ ] 🟡 **Test-review surface stale or incomplete**: `docs/bets/<slug>/test-review.md` is missing
-  an entry for a test in the suite, or describes a test that no longer exists or whose prose proof
-  no longer matches the test.
+  error the milestone's proof rests on belongs in the headline Proof of work.
+- [ ] 🟡 **Proof of work missing or stale**: a milestone `index.md` or slice file in
+  `decomposition/` lacks its Proof of work, or its proof no longer matches the design or the
+  Required Capability it rests on — the user would approve a definition of done that drifted from
+  what the bet builds.
 
 ## Chain Integrity
 
 The Document Chain Integrity table in the decomposition workflow defines the full chain; these
 are its decomposition-side checks.
 
-- [ ] 🔴 **Design not covered**: a contract, flow, or interface element in `technical-design.md`
+- [ ] 🔴 **Design not covered**: a contract, flow, or interface element in `technical-design/`
   maps to no milestone or slice and is not explicitly cut — the bet will end with designed
   behaviour nobody built.
-- [ ] 🔴 **Scope beyond the design**: a milestone or slice delivers behaviour
-  `technical-design.md` never specified — decomposition has silently grown the bet.
-- [ ] 🟡 **Test outside the acceptance criteria**: a slice's test cases assert behaviour that
+- [ ] 🔴 **Scope beyond the design**: a milestone or slice delivers behaviour the
+  `technical-design/` never specified — decomposition has silently grown the bet.
+- [ ] 🟡 **Proof outside the acceptance criteria**: a slice's Proof of work proves behaviour that
   traces to no milestone acceptance criterion — proof of work the milestone never asked for.

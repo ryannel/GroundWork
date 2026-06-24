@@ -91,6 +91,13 @@
       "title": "Graduate in-doc Summary for Downstream sections out of docs/",
       "kind": "agent",
       "summary": "The cross-phase Summary for Downstream contract moved out of published docs/ into a temporary .groundwork/context/ store torn down at setup completion. Projects predating the change carry a stale summary section atop each setup doc; graduate each summary's binding decisions into docs/decisions/ ADRs or the doc body, then strip the section, leaving docs/ as clean reference documentation."
+    },
+    {
+      "id": "gw-bet-prose-redesign",
+      "version": "0.10.0",
+      "title": "Retire the machine-readable bet artifacts for the prose model",
+      "kind": "cli",
+      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Largely advisory: prints the model change and names active bets to restructure by hand; mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json."
     }
   ]
 }

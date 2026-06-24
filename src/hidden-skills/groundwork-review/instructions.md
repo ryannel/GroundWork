@@ -121,7 +121,7 @@ product-brief → design-system → architecture → infrastructure → bet-pitc
 
 An invariant that asserts a guarantee an accepted ADR explicitly surrendered or weakened — claiming a pre-screen where the ADR records a monitor, immediate consistency where the ADR accepted eventual — is a 🔴 finding: it overstates what the system enforces. A domain event listed as published when the architecture provisions no message broker or event bus is a 🔴 finding for the same reason: it implies a mechanism that does not exist.
 
-For the given `document_type`, read every upstream document that exists. The foundational documents live at canonical paths: `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md`. The bet documents live under the bet slug: `docs/bets/<slug>/pitch.md` and `docs/bets/<slug>/technical-design.md`. When reviewing a bet document, infer `<slug>` from the document path — the draft path contains the slug as a directory component.
+For the given `document_type`, read every upstream document that exists. The foundational documents live at canonical paths: `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture.md`, `docs/infrastructure.md`. The bet documents live under the bet slug: `docs/bets/<slug>/pitch.md` and the technical-design directory `docs/bets/<slug>/technical-design/` (read every section file in it). When reviewing a bet document, infer `<slug>` from the document path — the draft path contains the slug as a directory component.
 
 **Read each upstream doc's body.** Published upstream docs are reference documentation with no summary section; the doc body is the contract. Check the document under review against the decisions and constraints the upstream body commits to.
 
