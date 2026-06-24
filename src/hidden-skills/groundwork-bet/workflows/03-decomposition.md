@@ -58,7 +58,7 @@ Write the milestone's `Proves` / `How we prove it` / `Test file` into its `index
 
 ## Step 4: Decompose milestones into slices
 
-Break the **first milestone** into **vertical slices** — the smallest units that are independently buildable, deployable, and verifiable. Author slices for the first rung only; the later milestones keep their headline proof but are *not* sliced yet. Each later milestone is sliced when its turn comes, at the prior milestone's postmortem in Delivery (`workflows/04-delivery.md`), so its slices are derived from what the milestones before it actually taught — not guessed now and defended later. The slicing discipline below is identical wherever it runs, whether now for the first milestone or on arrival for a later one.
+Break the **first milestone** into **vertical slices** — the smallest units that are independently buildable, deployable, and verifiable. Author slices for the first rung only; the later milestones keep their headline proof but are *not* sliced yet. Each later milestone is sliced when its turn comes, at the prior milestone's postmortem in Delivery (`workflows/04-delivery.md`), so its slices are derived from what the milestones before it actually taught. The slicing discipline below is identical wherever it runs, whether now for the first milestone or on arrival for a later one.
 
 **The vertical-slice test:** *Can this slice be deployed and verified without any future slice existing?* If yes, it is vertical. If it requires a downstream slice to be useful, it is too thin or horizontal — merge it up or reframe it as a capability of a larger slice.
 

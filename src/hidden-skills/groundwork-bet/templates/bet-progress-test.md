@@ -6,7 +6,7 @@
 
 ## What bet-progress tests are
 
-Bet-progress tests are **temporary, black-box proof-of-work** materialized from the approved prose before any implementation exists. Each one renders the Proof-of-work prose of a milestone or slice — the proof the user already reviewed and approved in the decomposition tree — into a runnable red stub. At Delivery start the board is materialized for the whole **milestone ladder** plus the **first milestone's slices**; each later milestone's slice stubs are added when Delivery opens that milestone (its slices are authored then). So the board shows progress at milestone granularity — Milestone 1 going green while Milestones 2+ stay red — before the later rungs are sliced. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven. Running the suite is the bet's live progress board.
+Bet-progress tests are **temporary, black-box proof-of-work** materialized from the approved prose before any implementation exists. Each one renders the Proof-of-work prose of a milestone or slice — the proof the user already reviewed and approved in the decomposition tree — into a runnable red stub. At Delivery start the board is materialized for the whole **milestone ladder** plus the **first milestone's slices**; each later milestone's slice stubs are added when Delivery opens that milestone (its slices are authored then). So the board shows progress at milestone granularity before the later rungs are sliced. They assert what the milestone's consumer would observe if the feature were complete. Red means the work is not done. Green means it is proven. Running the suite is the bet's live progress board.
 
 A milestone's proof follows its type:
 

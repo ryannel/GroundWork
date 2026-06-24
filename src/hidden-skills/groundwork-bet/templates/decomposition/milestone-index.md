@@ -28,12 +28,8 @@
 
 ## Slices
 
-*The first milestone is sliced now, at decomposition; every later milestone is sliced when Delivery opens it (`workflows/04-delivery.md`), from what the milestones before it taught.*
-
-**If this milestone is not yet opened**, leave the placeholder line:
+*The first milestone is sliced now, at decomposition; every later milestone is sliced when Delivery opens it (`workflows/04-delivery.md`), from what the milestones before it taught. Until a milestone is opened, leave the placeholder line below; once it is sliced, replace it with ordered links — each slice a vertical capability that moves this milestone forward.*
 
 > *Slices authored on arrival.*
-
-**Once sliced** (the first milestone now; later milestones on opening), replace it with ordered links — each slice a vertical capability that moves this milestone forward:
 
 - [Slice [N.1]: [Slice Name]](./NN-<slice-slug>.md)
