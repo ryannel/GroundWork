@@ -38,10 +38,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      # python-microservice cases shell out to `uv`; Next.js and docs-site
+      # cases shell out to `pnpm`. Go is preinstalled on the runner image.
       - run: npm ci
       - run: ./dev test compilation
 
@@ -49,6 +61,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The nextjs-app generator runs `pnpm install` at generation time to
+      # produce the pnpm-lock.yaml the frontend Dockerfile builds from. Without
+      # pnpm on PATH that install fails silently, no lockfile is written, and
+      # `docker compose up` fails the frozen-lockfile frontend build.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
