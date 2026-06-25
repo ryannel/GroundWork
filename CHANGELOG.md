@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed ("update groundwork" reliably routes through the orchestrator, 2026-06-25)
+
+The orchestrator is the front door for framework maintenance, but nothing told the agent so — a project agent that heard "update groundwork" had no signal connecting that intent to `groundwork-orchestrator`, so it would guess (probe npm, grep for a skill) instead of routing. The orchestrator's skill `description` now explicitly claims "update groundwork" / "upgrade groundwork" / "bring this project up to date" as triggers (the description is the only thing a skill-matcher reads), and the consumer `AGENTS.md` "Start here" names the orchestrator as the maintenance entry point too — "don't go hunting for a CLI command or a specific skill." The internal route to `groundwork-update` already existed; this closes the discovery gap that kept agents from reaching it.
+
+- [no-migration] Skill-description and instruction-doc text only; `AGENTS.md` and the orchestrator skill clean-replace on update. No CLI or project-artifact change.
+
 ### Changed (groundwork-update orchestrates the catch-up as a context-lean driver, 2026-06-25)
 
 `groundwork-update` no longer runs the whole catch-up inline. It is now a **driver**: the main session holds the thin spine — the upgrade brief, the Family Index, the cheap structural detection, the user pacing, the review gate, and the commits — and farms each unit of work (one brief item, or one reconcile family) to a disposable `reconcile-worker` sub-agent that reads the canonical and the project's instances *in its own context*, makes the change, and returns a short structured report, leaving its edits unstaged for the driver to review and commit. The transform reasoning dies with the worker's context, so the driver stays small enough to reason about the update as a whole. It reuses the bet-delivery driver/slice-worker pattern and the `fan_out` hint convention: with a sub-agent dispatch tool it farms out; without one it degrades to advancing each unit inline, one at a time (it must run everywhere). Units run serially in dependency order — no concurrency.

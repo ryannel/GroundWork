@@ -10,6 +10,11 @@ Run the **`groundwork-orchestrator`** skill. It reads project state and routes t
 step — greenfield discovery, brownfield scan, or the delivery (bet) loop. Everything in
 GroundWork flows from the orchestrator; you do not need to memorize the lifecycle.
 
+This is also the entry point for **maintenance**: when you want to "update GroundWork",
+"upgrade GroundWork", or bring this project up to date with the current framework, run the
+orchestrator and it routes to the update lane. Do not go hunting for a CLI command or a
+specific skill — the orchestrator is always the front door.
+
 ## Where things live
 
 - **Registered skills** (auto-loaded): `.agents/skills/` — the orchestrator, `groundwork-check`,

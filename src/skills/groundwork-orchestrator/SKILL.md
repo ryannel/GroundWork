@@ -1,6 +1,6 @@
 ---
 name: groundwork-orchestrator
-description: 'The GroundWork Orchestrator. Run this skill when the user wants to execute ANY GroundWork lifecycle task (what''s next, run a specific step). It owns all lifecycle knowledge, reads project state, and routes to the correct skill.'
+description: 'The GroundWork Orchestrator. Run this skill for ANY GroundWork lifecycle task (what''s next, run a specific step) AND for "update groundwork" / "upgrade groundwork" / "bring this project up to date with the framework" — it routes those to the framework-update lane. It owns all lifecycle knowledge, reads project state, and routes to the correct skill.'
 ---
 
 # GroundWork Orchestrator
