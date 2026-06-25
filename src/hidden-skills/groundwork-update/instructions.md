@@ -5,7 +5,7 @@ description: >
   structure, and docs site. Works the residual upgrade-brief items `npx groundwork-method
   update` compiles (merging framework improvements into edited docs, reconciling
   regenerated scaffold output), then reconciles every artifact family against the live
-  current canonical shape, advancing legacy structure forward. One family, one explained
+  current canonical shape, advancing legacy structure forward. One unit, one explained
   proposal, one commit. Route here for "upgrade groundwork", "bring this project up to
   date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Distinct from
   groundwork-doc-sync, which syncs project docs to the project's own code.
@@ -27,10 +27,22 @@ migrations. Two kinds of work remain, and both need eyes:
   canonical — already sitting in `.groundwork/skills/` after the CLI refresh — and advance
   the divergent ones forward.
 
-You execute both conversationally and leave the project as if it had been set up at the
-current version all along.
+## You are the driver
 
-Apply the `groundwork-writer` skill when modifying any document.
+You hold the **thin spine** — the brief, the Family Index, the detection, the user pacing,
+the review gate, and the commits — and you keep that context small so you can reason about
+the update as a whole. You **do not** read canonical templates and rewrite project files in
+your own context. Each unit of work — one brief item, or one family — is advanced by a fresh
+**`reconcile-worker` subagent** (`.groundwork/skills/groundwork-update/briefs/reconcile-worker.md`)
+you dispatch with a tight capsule; it reads the canonical and the project's instances, makes
+the change, and returns a short report, and its transform reasoning dies with its context.
+
+Running the whole catch-up inline piles every family's transform — the canonical, the
+instances, the diff judgement — into one window until you can no longer pace, gate, and
+commit well. Farming each unit to a disposable worker is what keeps you thin enough to do
+the work only the driver can do.
+
+You leave the project as if it had been set up at the current version all along.
 
 ---
 
@@ -39,11 +51,31 @@ Apply the `groundwork-writer` skill when modifying any document.
 The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1)
 governs this skill in **Maintenance** mode: Protocols 1 (Discovery Notes), 2 (Living
 Documents), and 4 (Pacing) apply, and Protocols 8 and 9 (Review Gate, Review Invocation)
-apply whenever a brief item or a reconcile advance mutates a canonical doc. There is no
-phase cache beyond the brief itself.
+apply whenever a brief item or a reconcile advance mutates a canonical doc — the driver runs
+that gate, never the worker that authored the change. There is no phase cache beyond the
+brief itself.
 
 Run **Phase A first** — it clears the brief the CLI staged — then **Phase B**, which
 reconciles what no brief can see. A run that finds no brief skips straight to Phase B.
+
+### The `fan_out` hint
+
+The orchestrator passes a `fan_out` hint when it invokes this skill: `parallel` when a
+sub-agent dispatch tool is available in this environment, `sequential` otherwise. Honour it
+rather than probing your own tool set — a runtime that misjudges its capabilities and calls
+a dispatch tool that does not exist breaks the run. If no hint reached you, default to
+`sequential`.
+
+- `parallel` — **dispatch** each unit to a `reconcile-worker` subagent, as above. This is
+  the context-lean path the driver is built for.
+- `sequential` — no dispatch tool exists, so advance each unit **inline, one at a time**:
+  do the worker's read-and-transform yourself for a single unit, gate and commit it, then
+  **purge that unit's detail from context** before the next. Slower and heavier, but still
+  bounded — never load the whole catch-up into one window at once.
+
+Either way the units run **serially, in the order below** — families overlap on files and
+carry ordering dependencies (graduate ADRs before nesting the architecture docs), so they
+are advanced one at a time, not concurrently.
 
 ---
 
@@ -53,69 +85,36 @@ Read `.groundwork/cache/upgrade-brief.json`. If it does not exist, there is no b
 work; go to Phase B.
 
 The brief carries `from` (the version this install was stamped at), `to` (the version it is
-being raised to), and `items[]`, each with a stable `id`, a `type`, a `status`, and
-pointers to payloads the CLI staged under `.groundwork/cache/upgrade/` — you never need the
-npm package itself.
+being raised to), and `items[]`, each with a stable `id`, a `type` (`tier2-merge`,
+`tier1-custom`, or `regenerate`), a `status`, and pointers to payloads the CLI staged under
+`.groundwork/cache/upgrade/` — the worker never needs the npm package itself.
 
-Open the session with the shape of the work: the version jump and a one-line list of
-pending items. Then walk the items **top to bottom** — the CLI ordered them. For each:
+Open the session with the shape of the work: the version jump and a one-line list of pending
+items. Then walk the items **top to bottom** — the CLI ordered them. For each, run the
+driver loop:
 
-1. **Verify it applies.** Every item type has a detect step (below). An item that is
-   already done or not applicable is checked off with a note, not performed.
-2. **Propose, then act.** Explain what will change and why in two or three sentences, show
-   the concrete diff or plan, and get the user's approval. Never batch approvals across
-   items.
-3. **Commit.** One item, one commit, referencing the item id —
-   `chore(groundwork): <what changed> (<id>)`. Nothing outside the item's scope goes into
-   its commit.
-4. **Record completion** (bookkeeping contract below) before moving on.
+1. **Propose.** Explain what this item will change and why in two or three sentences. Never
+   batch approvals across items.
+2. **Dispatch the worker.** Hand a `reconcile-worker` the item verbatim as the capsule —
+   `unit_kind: brief-item:<type>`, the staged `incoming`/`options`/`base_hash` pointers, and
+   the project path it touches. The worker produces the merged / ported / regenerated change
+   and returns its report. (Under `sequential`, do the worker's recipe inline — the item-type
+   recipes live in the worker brief's "the work" section; do not duplicate them here.)
+3. **Resolve what the worker flagged.** Any `COLLISIONS/AMBIGUITY` the report raises — a
+   passage where a user edit and a framework improvement collide, a customization that may be
+   obsolete, reconstructed generator options — is a **user** decision: surface it and let the
+   user pick before committing. A `BLOCKING CONCERN` stops the item; route it as the report
+   describes.
+4. **Gate.** For every doc named under `REVIEW-NEEDED`, run the review subagent (Protocol 9)
+   with the matching `document_type`. Proceed only on a parseable `VERDICT: PRESENT`; the gate
+   is fail-closed. On `REVISE`, apply the 🔴 findings and re-invoke, to the 3-revise cap.
+5. **Commit.** One item, one commit, referencing the item id —
+   `chore(groundwork): <what changed> (<id>)`. The worker left its changes unstaged; the
+   driver stages and commits them. Nothing outside the item's scope goes into its commit.
+6. **Record completion** (bookkeeping contract below) before moving on.
 
 Stop at any point the user asks; the brief survives across sessions and `update` re-runs
 merge into it without duplicating items.
-
-### Item types
-
-#### `tier2-merge`
-
-A framework-seeded doc the user edited, where the framework has since improved its copy.
-`path` is the user's file, `incoming` is the new package content (staged in the cache),
-`base_hash` is the manifest's record of what was originally deployed (null means unknown
-ancestry).
-
-Reason over both versions: what did the user change, and what did the framework improve?
-Produce a merge that **preserves the user's intent and adopts the framework's
-improvements** — never a mechanical overwrite in either direction, never conflict markers.
-When user edits and framework improvements collide on the same passage, show both and let
-the user pick. `AGENTS.md` deserves extra care: it routes every agent session, so a broken
-merge breaks the project's tooling.
-
-#### `tier1-custom`
-
-A framework-owned file (typically the `dev` launcher) the user customized, blocking the
-clean replace. Show what the customization does, show the `incoming` framework version, and
-either port the customization onto the new version or — if the customization is obsolete —
-adopt the framework file. The user decides.
-
-#### `regenerate`
-
-Generator output whose generator has moved since it was deployed. Re-run the recorded
-generator in a scratch workspace and reconcile:
-
-1. Create `.groundwork/cache/upgrade/regen/<artifact>/` with minimal Nx markers
-   (`package.json` `{"name":"regen"}`, empty `nx.json`) and copy
-   `.groundwork/config/brand-tokens.json` in if the generator themes from it.
-2. Run the generator there with the item's recorded `options`, via the project's
-   `.groundwork/config/generators.json` registration
-   (`npx nx g <generators.json-path>:<generator> …`). If `options` is null (adopted output,
-   unknown ancestry), reconstruct them from the artifact — e.g. `.dev/dev.config.json`
-   carries the app name and colors — and confirm with the user.
-3. Diff the regenerated files against the project, walking the provenance file list.
-   Propose framework-section changes; leave user-section changes alone (a docker-compose
-   service the user added is theirs; the generator's infra block is the framework's). An
-   empty diff is a clean check-off.
-
-This is also the mechanism the **generator-owned families** in Phase B advance through — a
-docs site or a Next.js token layer behind its generator is regenerated and reconciled here.
 
 ---
 
@@ -128,33 +127,36 @@ log to replay and none is needed: the framework now sitting in `.groundwork/skil
 the definition of the current shape, and it cannot drift, because it is the source. So you
 reconcile the project to it.
 
-For each family in the **Family Index** below:
+**Detect in the driver; advance in a worker.** For each family in the **Family Index** below:
 
-1. **Locate** the project's instances of the family.
-2. **Read the current canonical** — the owner named in the Owner column. That is the worked
-   example of the target shape; it is never restated here.
-3. **Detect divergence** by the legacy signal. A family whose instances already match
-   canonical is checked off untouched — and left no ledger entry, because the next run
-   re-derives the same answer from the artifacts themselves. Phase B is idempotent by
-   construction; detect-first *is* the bookkeeping.
-4. **Advance** divergent instances to the current shape using the approach noted, with the
-   canonical as your reference. Compare against the live canonical directly; reach for the
-   framework's own git history only to disambiguate a genuinely ambiguous transform.
-
-One family, one explained proposal, one commit (`chore(groundwork): advance <family> to
-current shape`). Any canonical doc an advance mutates passes the review gate (Protocols
-8–9) before that commit, with the matching `document_type`. Pause where an advance would
-imply a product decision the code does not already prove — a removal that might be
-temporary, a capability that might be an experiment — and surface it rather than assume it.
+1. **Detect cheaply, yourself.** The legacy signal is a structural check — `ls`/`grep`-level
+   (is there a flat `docs/architecture.md`? a `## Summary for Downstream` section? a
+   `pitch.md` without `status`? no `app/brand.css`?). This is cheap; keep it in the driver so
+   you only spin a worker for a family that has actually drifted. A family already matching
+   canonical is checked off untouched — and leaves no ledger entry, because the next run
+   re-derives the same answer from the artifacts. Detect-first *is* the bookkeeping.
+2. **Propose.** One family, one explained proposal. Pause where an advance would imply a
+   product decision the code does not prove — a removal that might be temporary, a capability
+   that might be an experiment — and surface it rather than assume it.
+3. **Dispatch the worker.** Hand a `reconcile-worker` the capsule: `unit_kind: family:<name>`,
+   the **Owner** column path(s) as the canonical to read, the project instance paths it found,
+   and the row's advance approach. The worker reads canonical + instances *in its own
+   context*, advances them, and returns its report. (Under `sequential`, do the advance inline
+   for this one family, then purge the detail.)
+4. **Resolve, gate, commit.** Resolve any `COLLISIONS/AMBIGUITY` with the user. Run the review
+   subagent (Protocol 9) on every `REVIEW-NEEDED` canonical doc with its `document_type`,
+   fail-closed, to the 3-revise cap. Then commit — one family, one commit
+   (`chore(groundwork): advance <family> to current shape`); the worker left its changes
+   unstaged.
 
 ### Family Index
 
 The artifact families that drift as the framework evolves. Each row is a *pointer to the
-owner* (the canonical shape — read it there, it is never duplicated here), the *legacy
-signal* that flags an old instance, and the *advance* that carries it forward. This index
-is ownership, not change history: it grows only when a genuinely new family appears, not on
-every change. When a structure changes again, its owning skill changes (as it must) and
-this pass picks the drift up for free.
+owner* (the canonical shape — the worker reads it there, it is never duplicated here), the
+*legacy signal* that flags an old instance, and the *advance* that carries it forward. This
+index is ownership, not change history: it grows only when a genuinely new family appears,
+not on every change. When a structure changes again, its owning skill changes (as it must)
+and this pass picks the drift up for free.
 
 | Family | Owner — current canonical | Legacy signal → advance |
 |---|---|---|
@@ -163,13 +165,13 @@ this pass picks the drift up for free.
 | **Doc contracts** | `.groundwork/skills/operating-contract.md` + the `groundwork-writer` skill | A published `docs/*.md` (outside `docs/bets/`) carrying a `## Summary for Downstream` section, or a code-coupled doc missing `last_reviewed` / `source_of_truth` frontmatter → graduate each still-binding Key Decision / Binding Constraint into a `docs/architecture/decisions/` ADR (or confirm it already lives in the body), strip the section, and stamp the drift-tracking frontmatter so `groundwork-check` can see the doc. |
 | **Naming** | The `groundwork-design-system` skill; the structural-design principle (`code-structure`); the published package name `groundwork-method` | `docs/ux-design.md` or a `hexagonal-architecture.md` present → rename to `docs/design-system.md` / `code-structure.md` and carry every live cross-reference forward; remove the orphaned old file. A project-owned script, CI step, or doc invoking `npx groundwork ` (trailing space + subcommand) → rewrite to `npx groundwork-method ` — flags and arguments unchanged, lockfiles and any unrelated tool that merely contains the word untouched. |
 | **Surfaces registry** | `.groundwork/skills/templates/surfaces.md` (its `version` field) + the `groundwork-surface-activation` skill | No `docs/surfaces.md` / `.groundwork/surfaces.json` on a multi-surface product → bootstrap the registry and capability ledger via `groundwork-surface-activation`. A runner-less `dev.config.json` whose surfaces/sidecars are invisible to `./dev` → register them as runners, without touching the db/jaeger compose. |
-| **Docs site** | The `docs-site` generator (`.groundwork/config/generators.json`) | A docs site behind the current generator — no `app/brand.css`, unordered nav, unrendered `mermaid`, a redirect instead of a landing page → for a generator-produced site, **regenerate** through Phase A's `regenerate` path with its recorded options; for a hand-built site, refactor in place to match the generator's output (brand projection, the mermaid remark transform, `docs/meta.json` ordering, the two-audience landing hero). Keep the unbranded fallback intact: a project with no `brand-tokens.json` stays on the stock theme. |
-| **Next.js token layer** | The Next.js app generator (`.groundwork/config/generators.json`) | A Next.js app with a hardcoded `globals.css` and no per-app `brand.css` / token-conformance gate → regenerate the token layer from `brand-tokens.json` via Phase A's `regenerate` path, reconcile any hand-edited `globals.css`, and add the conformance test. |
+| **Docs site** | The `docs-site` generator (`.groundwork/config/generators.json`) | A docs site behind the current generator — no `app/brand.css`, unordered nav, unrendered `mermaid`, a redirect instead of a landing page → for a generator-produced site, **regenerate** through the worker's `regenerate` recipe with its recorded options; for a hand-built site, refactor in place to match the generator's output (brand projection, the mermaid remark transform, `docs/meta.json` ordering, the two-audience landing hero). Keep the unbranded fallback intact: a project with no `brand-tokens.json` stays on the stock theme. |
+| **Next.js token layer** | The Next.js app generator (`.groundwork/config/generators.json`) | A Next.js app with a hardcoded `globals.css` and no per-app `brand.css` / token-conformance gate → regenerate the token layer from `brand-tokens.json` via the worker's `regenerate` recipe, reconcile any hand-edited `globals.css`, and add the conformance test. |
 
-Generator-owned families (**Docs site**, **Next.js token layer**) advance through Phase A's
-`regenerate` mechanism — the index names them so one framing covers every family, and does
-not duplicate the generator's reconcile steps. The prose families advance through this
-phase's reconcile.
+Generator-owned families (**Docs site**, **Next.js token layer**) advance through the
+worker's `regenerate` recipe — the index names them so one framing covers every family, and
+does not duplicate the generator's reconcile steps. The prose families advance through the
+worker's relocate / rename / graduate / restructure recipes.
 
 ---
 
@@ -177,16 +179,17 @@ phase's reconcile.
 
 This contract is what keeps `update`, `check`, and future sessions honest about brief-lane
 work. (Phase B needs none — detect-first re-derives a family's state from its artifacts
-every run.) After each brief item is committed (or checked off as done / n-a):
+every run.) The driver records it as part of each item's commit, reading the worker's `FILES`
+report for what landed. After each brief item is committed (or checked off as done / n-a):
 
 - **Brief:** set the item's `status` to `"done"` in `.groundwork/cache/upgrade-brief.json`.
 - **Manifest** (`tier2-merge` and `tier1-custom` items): in
   `.groundwork/config/manifest.json`, set the file's entry to the merged reality — `hash` =
-  SHA-256 of the file now on disk, `base` = SHA-256 of the `incoming` package content you
-  merged against, `version` = the brief's `to`. (Compute with `shasum -a 256 <file>`.) This
-  is what stops the same merge being queued forever.
+  SHA-256 of the file now on disk, `base` = SHA-256 of the `incoming` package content the
+  worker merged against, `version` = the brief's `to`. (Compute with `shasum -a 256 <file>`.)
+  This is what stops the same merge being queued forever.
 - **Manifest** (`regenerate` items): set `generated[<artifact>].version` to the brief's
-  `to`, and record the `options` you used if the entry had none.
+  `to`, and record the `options` used if the entry had none.
 
 Include the bookkeeping edits in the item's commit.
 

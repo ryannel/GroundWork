@@ -107,6 +107,8 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 - `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this).
 - `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
 
+When routing to `groundwork-update`, pass the same `fan_out` hint used for `groundwork-scan`: `parallel` when a sub-agent dispatch tool is available, `sequential` otherwise. `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so the driver's context stays lean; `sequential` tells it to advance each unit inline, one at a time. The skill branches on the hint rather than probing its own tool set.
+
 ### Custom Skills (user-registered)
 
 Read `.groundwork/config/config.toml` during state resolution. Each entry in its `[skills]` table maps an intent to an instruction file path; merge these into routing after the built-in tables — a built-in route wins any conflict. The file is user-owned: never write to it. When a configured path does not exist on disk, tell the user the route is broken instead of silently skipping it.
