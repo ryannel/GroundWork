@@ -127,6 +127,13 @@ following the row's advance approach. The common shapes:
   every live cross-reference forward. Leave historical records alone.
 - **Rename + carry refs** (e.g. `docs/ux-design.md` → `docs/design-system.md`): rename, carry
   every live cross-reference forward, remove the orphaned old file.
+- **Reference rewrite** (no file moves — only dangling references): rewrite a stale token in
+  place across project-owned docs, scripts, and CI — `npx groundwork ` → `npx groundwork-method `,
+  or the relocated hidden-skills prefix `.agents/groundwork/skills/` → `.groundwork/skills/`.
+  Touch only the changed token; leave the rest of each line intact. Stay off the user-owned
+  `config.toml`, lockfiles, archived/historical records, and any unrelated string that merely
+  contains the word. If a reference is genuinely ambiguous (it could name an unrelated thing),
+  record it under `COLLISIONS/AMBIGUITY` rather than rewriting blindly.
 - **Graduate + stamp** (doc-contracts): graduate each still-binding Key Decision / Binding
   Constraint out of a `## Summary for Downstream` section into a `docs/architecture/
   decisions/` ADR (or confirm it already lives in the body), strip the section, and stamp
