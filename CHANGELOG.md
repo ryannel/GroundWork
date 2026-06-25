@@ -8,13 +8,13 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-06-25
+
 ### Changed (the Naming family now reconciles the relocated hidden-skills path, 2026-06-25)
 
 A live update run surfaced a gap: the hidden methodology skills moved from `.agents/groundwork/skills/` to `.groundwork/skills/`, but `groundwork-update`'s Naming family only carried the `ux-design`/`hexagonal-architecture` renames and the `npx groundwork` → `npx groundwork-method` rewrite — nothing swept doc/script references to the old skills path. Stale references survived an update and were only caught when a review gate happened to read the doc that held one. The Naming family now lists `.agents/groundwork/skills/` → `.groundwork/skills/` as a legacy signal, and the reconcile-worker gains an explicit **reference rewrite** recipe covering both that path and the `npx` rename (touch only the changed token; leave the user-owned `config.toml`, lockfiles, and historical records alone).
 
 - [no-migration] Skill-text only; the `groundwork-update` skill clean-replaces on update. The reconcile it now performs runs against existing installs the next time `update groundwork` is invoked.
-
-## [0.10.0] - 2026-06-25
 
 ### Changed ("update groundwork" reliably routes through the orchestrator, 2026-06-25)
 
