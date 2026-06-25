@@ -8,6 +8,8 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-06-25
+
 ### Changed ("update groundwork" reliably routes through the orchestrator, 2026-06-25)
 
 The orchestrator is the front door for framework maintenance, but nothing told the agent so — a project agent that heard "update groundwork" had no signal connecting that intent to `groundwork-orchestrator`, so it would guess (probe npm, grep for a skill) instead of routing. The orchestrator's skill `description` now explicitly claims "update groundwork" / "upgrade groundwork" / "bring this project up to date" as triggers (the description is the only thing a skill-matcher reads), and the consumer `AGENTS.md` "Start here" names the orchestrator as the maintenance entry point too — "don't go hunting for a CLI command or a specific skill." The internal route to `groundwork-update` already existed; this closes the discovery gap that kept agents from reaching it.
