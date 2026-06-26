@@ -15,6 +15,8 @@
 
 ## Testing Philosophy
 
+The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks. It is the frontend idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)) — the backends run the honeycomb, the frontend runs the trophy, and both put the weight on integration rather than isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
+
 Tests in the Next.js application follow four rules:
 
 1. **Vitest + React Testing Library** for all component and hook tests
@@ -413,6 +415,29 @@ it('shows error message on server failure', async () => {
 
 ---
 
+## Trace Assertions
+
+The app ships OpenTelemetry through `instrumentation.ts`, so server-side work — route handlers and Server Actions — emits spans. Where a slice adds a server path whose trace a dashboard or SLO depends on, assert on it with an **in-memory span exporter** rather than trusting the instrumentation silently. This is server-side only; component and hook tests assert on rendered behaviour, not traces.
+
+```ts
+import { InMemorySpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+
+const exporter = new InMemorySpanExporter();
+const provider = new NodeTracerProvider({ spanProcessors: [new SimpleSpanProcessor(exporter)] });
+provider.register();
+
+// invoke the route handler / server action, then:
+const names = exporter.getFinishedSpans().map((s) => s.name);
+expect(names).toContain('POST /v1/meetings'); // the entry span exists, trace connected
+```
+
+Assert the spans that must exist and the attributes a query depends on; let the rest float — pinning the whole span tree couples the test to implementation.
+
+## Mutation Testing — the assertion-quality read-out
+
+Coverage tells you a line ran; it does not tell you an assertion checked it — a 100% covered `lib/utils.ts` can still assert nothing. **StrykerJS** is the read-out that proves the assertions bite: it mutates the code and confirms a test fails. Treat it as a **signal, never a gate**, and run it incrementally on changed code (`stryker run --incremental`, which diffs against the cached `reports/stryker-incremental.json` — there is no `--since` flag). Point it at the dense pure logic first (`lib/utils.ts`, schema validators, formatters); a surviving mutant there is the missing assertion to add. This is also the antidote to AI-generated component tests, whose oracle is lifted from the current markup and so cement bugs as expected.
+
 ## Test Commands
 
 | Command | Purpose |
@@ -431,3 +456,4 @@ When a bet slice's progress tests go green, the slice rolls out permanent covera
 - **Component tests (when state earned them).** Components the slice introduced with conditional rendering, optimistic updates, or error states get component-level tests; purely presentational markup does not.
 - **Accessibility coverage (when the slice added a surface).** A new screen or interactive flow extends the a11y smoke — axe scan clean and keyboard path exercised — because regressions here are invisible to every other test type.
 - **Server action / route tests (when the slice added them).** Server actions and route handlers the slice introduced get request-level tests with Zod schema failures exercised, not just the happy path.
+- **Critical-path trace assertions (when the slice added an instrumented server path).** A route handler or Server Action whose trace a dashboard or SLO depends on pins it with an in-memory-exporter test: the entry span exists and the trace stays connected. A missing span is a test failure, not an instrumentation TODO.

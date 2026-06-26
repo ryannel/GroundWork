@@ -22,6 +22,8 @@
 
 This maps onto the multi-surface verification contract: generation (snapshot, framework-side), compilation (`tsc` + lint), boot (the smoke). Business rules are **not** on this list — they are proven once at the capability core's contract; surface tests assert wiring and rendering only.
 
+These tiers are the Electron idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)): the renderer and main unit tests are the fat middle the canon's honeycomb puts the weight on, and the boot smoke is the thin top — a fat smoke is the fat-integration-suite antipattern wearing a desktop coat. When this file and the canon disagree, the canon wins and this file is the one to fix.
+
 `vitest.config.ts` defines the two unit projects with per-process environments. Test placement follows the process split: `src/main/**/*.test.ts` runs in Node, `src/renderer/**/*.test.tsx` runs in jsdom. A test that needs the wrong environment is in the wrong process.
 
 ## Unit: Node Project (Main Policy)
@@ -96,6 +98,10 @@ Boot minutes are this stack's expensive test currency. The smoke proves the app 
 - New IPC channels get unit tests (policy + renderer fake) by default; extend the smoke only when a channel's *wiring* is novel (new push mechanism, new window).
 - Feature behaviour belongs in renderer unit tests; business rules belong at the core's contract. A fat smoke is the fat-integration-suite antipattern wearing a desktop coat.
 
+## Mutation Testing — the assertion-quality read-out
+
+The main-process policy modules (`policy.ts` — URL allow-listing, sender validation, IPC guards) are dense security logic, exactly where a covered-but-unasserted line is a real risk. **StrykerJS** is the read-out that proves those tests bite: it mutates the rule and confirms a test fails. Treat it as a **signal, never a gate**, run it incrementally on changed code (`stryker run --incremental`), and point it at the pure policy modules first — a surviving mutant on a security rule is the missing assertion to add. The renderer's pure logic earns the same spot check; the Electron glue and the smoke do not (they prove wiring, not branches).
+
 ## Test Commands
 
 ```bash
@@ -105,3 +111,11 @@ npx nx run <app>:smoke       # build + Playwright _electron (display-guarded)
 npx nx run <app>:typecheck   # tsc, both process tsconfigs
 npx nx run <app>:lint        # eslint incl. process-boundary rules
 ```
+
+## Bet Slice Rollout — the permanent tests a slice owes
+
+When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery). The bet-progress tests prove the capability once and are archived; these stay. Test placement follows the process split, and surface tests assert wiring and rendering only — never a business rule the capability core already owns.
+
+- **Main policy unit tests (when the slice added privileged logic).** Every new security or policy decision the slice introduced gets a pure-module test in the `main` project, with the rejection cases exercised, not just the allow case — this is the densest risk surface in the stack.
+- **Renderer unit tests (when the slice added a component or state).** Components the slice introduced with conditional rendering, async pending states, or error handling get jsdom tests against the faked `window.api` bridge; the typed fake keeps the bridge contract honest.
+- **Smoke extension (only when wiring is novel).** A new IPC channel gets unit tests by default; extend the boot smoke only when the channel's *wiring* is genuinely new — a new push mechanism or window — never for feature behaviour. Trace assertions do not apply — an Electron app emits no OpenTelemetry traces, so there is no span surface to assert on.

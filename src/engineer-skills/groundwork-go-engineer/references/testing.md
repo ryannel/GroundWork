@@ -1,5 +1,9 @@
 # Testing
 
+## The Model: Honeycomb, Not Pyramid
+
+The default shape is the test honeycomb: a fat middle of sociable service-perimeter tests, a thin layer of solitary unit tests, a few end-to-end checks on top. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — and a mock-heavy suite passes while production breaks. This is the stack idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)); when this file and the canon disagree, the canon wins and this file is the one to fix.
+
 ## Testing Tiers
 
 ### Tier 1 — Service Perimeter Tests (Default)
@@ -120,6 +124,40 @@ Tests are risk-weighted assertions about production behaviour — not boxes tick
 5. **Risk-based depth.** Score modules with Impact × Complexity × Change-frequency before deciding test depth.
 6. **Tests are part of the change.** A PR without tests is incomplete.
 
+## Trace Assertions
+
+Observability is a test surface (principle 3): a critical-path request must emit an unbroken trace, and a missing span is a test failure, not an instrumentation TODO. The mechanism is an **in-memory span exporter** from the OTel SDK — no external tooling, and the durable approach now that the dedicated trace-test tools have gone dormant.
+
+```go
+import (
+    sdktrace "go.opentelemetry.io/otel/sdk/trace"
+    "go.opentelemetry.io/otel/sdk/trace/tracetest"
+)
+
+func TestCreateEntity_EmitsTrace(t *testing.T) {
+    exporter := tracetest.NewInMemoryExporter()
+    tp := sdktrace.NewTracerProvider(sdktrace.WithSyncer(exporter))
+    otel.SetTracerProvider(tp)
+    t.Cleanup(func() { _ = tp.Shutdown(context.Background()) })
+
+    // exercise the real handler (Tier 1 setup) ...
+
+    spans := exporter.GetSpans().Snapshots()
+    names := spanNames(spans)
+    require.Contains(t, names, "POST /entities") // the entry span exists
+    require.Contains(t, names, "db.insert")       // the work span exists
+    // assert the DB span is a descendant of the entry span — the trace is connected
+}
+```
+
+Assert what the contract promises — the spans that must exist on the journey, that the trace stays connected across hops, and the attributes a dashboard or SLO query depends on. Pinning the exact span tree and every attribute couples the test to implementation and trains the team to delete it.
+
+## Mutation Testing — the assertion-quality read-out
+
+A fat service-perimeter test drives many branches through one HTTP call and can *execute* them all while only asserting on the response body. Mutation testing is the one instrument that proves the suite checks what it runs: inject a fault, confirm a test fails, and a surviving mutant is a line you cover but do not check. Treat it as a **signal, never a gate** — run it on the high-risk modules the risk matrix flags and on changed code only.
+
+Go's mutation tooling is immature: `gremlins` is pre-1.0 and slow on large packages, and `go-mutesting` is effectively unmaintained. So here it stays a deliberate, hand-run spot check on a dense package under active change (`gremlins unleash ./internal/pricing`), not a CI expectation. Where it surfaces a surviving mutant on changed high-risk code, that is the missing assertion to add — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
+
 ## Anti-Patterns
 
 - **Mocking the database.** Test against a real schema.
@@ -136,4 +174,5 @@ When a bet slice's progress tests go green, the slice rolls out permanent covera
 - **Service perimeter test (always).** One Tier 1 test per capability the slice delivered, exercising the real handler against real Postgres — this is the honeycomb wall that survives refactors.
 - **Unit tests (when logic earned them).** Pure-function tests for branching business logic the slice introduced — state machines, pricing rules, parsers. CRUD plumbing does not earn unit tests; the perimeter test already covers it.
 - **Property-based tests (when invariants exist).** A slice that introduced an invariant — serialization round-trips, idempotent handlers, commutative merges — pins it with a property test (`testing/quick` or rapid), because example-based tests sample invariants instead of stating them.
+- **Critical-path trace assertions (when the slice added an observable path).** A slice that introduced a handler or background job whose trace a dashboard or SLO depends on pins it with an in-memory-exporter test: the entry and work spans exist and the trace stays connected. A missing span is a test failure, not an instrumentation TODO.
 - **Contract conformance (when the slice changed an API).** The served OpenAPI must match the promoted spec in `docs/architecture/api/<service>/openapi.yaml`; the generated system suite checks this — the slice's job is to keep the spec promotion current, not to hand-write the check.

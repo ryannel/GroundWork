@@ -25,6 +25,8 @@
 
 Pick the **cheapest tier that can carry the assertion**. If a widget test can prove it, an integration test that proves it is waste.
 
+This taxonomy is the Flutter idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)): widget tests are the fat middle that the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, and `integration_test` is the few-end-to-end top. When this file and the canon disagree, the canon wins and this file is the one to fix.
+
 ## The Prove-Once Rule
 
 Capability behaviour is proven once, headless, at the core's contract. The surface suite proves three things only:
@@ -124,6 +126,10 @@ Goldens guard **design-system-level components** (the token-projected theme made
 - **iOS is a local-only / device-farm lane (Firebase Test Lab, Codemagic), never a CI gate** — it needs macOS runners and hands, and putting it in the gate breaks the headless loop.
 - A runner without the Flutter SDK reports the tier **skipped-with-reason, never silently green**.
 
+## Assertion Quality — Mutation Testing and Its Absence
+
+The canon's assertion-quality read-out is mutation testing — inject a fault, confirm a test fails. Dart has **no production-grade mutation tool** (the existing packages are experimental and unmaintained), so that automated read-out is not available here. The discipline it enforces is carried by review instead: fakes over mocks (a stub-and-verify mock asserts the call, not the outcome), assert on semantics and visible text rather than widget types, and cover error and empty states — the failure modes mutation testing would otherwise catch. When a dense pure-Dart algorithm genuinely warrants it, a hand-run experimental tool is a spot check, never a gate.
+
 ## Test Commands
 
 | Command | Purpose |
@@ -133,3 +139,12 @@ Goldens guard **design-system-level components** (the token-projected theme made
 | `npx nx run <app>:test-integration` | integration_test against a device/emulator |
 | `flutter test test/home_view_test.dart` | single file |
 | `flutter test --name 'refresh'` | by test name |
+
+## Bet Slice Rollout — the permanent tests a slice owes
+
+When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery). The bet-progress tests prove the capability once and are archived; these stay. The Prove-Once Rule governs the whole rollout — surface tests prove wiring, rendering, and interaction; they never re-prove a business rule the capability core already owns.
+
+- **Widget tests (always).** The bulk of the slice's coverage: pump each View the slice delivered inside a `ProviderScope` with fake repositories, assert through semantics and visible text, and cover its error and empty states — not just the happy path.
+- **Unit tests (when logic earned them).** Pure-Dart tests for branching logic the slice introduced in a view model, mapper, or repository — through `ProviderContainer`, testing the real Notifier. Plumbing does not earn one; the widget test already covers it.
+- **Golden tests (when the slice touched a design-system component).** A new or changed token-projected component extends the alchemist goldens; screen-level goldens do not — they churn on every copy change.
+- **Integration / Patrol (only when the journey or the OS boundary is new).** A new critical journey earns one happy-path `integration_test`; a flow that newly leaves Flutter for the OS earns Patrol. Trace assertions do not apply — a Flutter client emits no OpenTelemetry traces, so there is no span surface to assert on.

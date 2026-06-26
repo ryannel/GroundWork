@@ -2,7 +2,7 @@
 title: Observability
 description: OpenTelemetry-first design, SLOs, error budgets, and trace-driven development.
 status: active
-last_reviewed: 2026-06-19
+last_reviewed: 2026-06-26
 ---
 # Observability
 
@@ -40,7 +40,7 @@ When building a new feature, we sketch the trace it should produce *before* we w
 
 ### 6. Assert on telemetry in tests
 
-System tests assert that traces are unbroken end-to-end — a missing span on a critical path is a test failure ([Testing](../foundations/testing.md)). This makes the instrumentation part of the contract rather than an optional decoration, so it cannot silently rot. The failure mode to avoid is over-asserting: a test that pins the exact span tree and every attribute is coupled to implementation detail and will break on every harmless refactor, training the team to delete the assertion rather than trust it. So assert on what the contract actually promises — the spans that must exist on the user journey, that the trace stays connected across service hops, and the attributes a dashboard or SLO query depends on — and let the rest float.
+System tests assert that traces are unbroken end-to-end — a missing span on a critical path is a test failure ([Testing](../foundations/testing.md)). This makes the instrumentation part of the contract rather than an optional decoration, so it cannot silently rot. The mechanism is an in-memory span exporter registered in the test process: exercise the system, then assert on the finished spans. It is a built-in of every OTel SDK and the durable approach now that the dedicated trace-test tools (Tracetest, Malabi) have gone dormant. The failure mode to avoid is over-asserting: a test that pins the exact span tree and every attribute is coupled to implementation detail and will break on every harmless refactor, training the team to delete the assertion rather than trust it. So assert on what the contract actually promises — the spans that must exist on the user journey, that the trace stays connected across service hops, and the attributes a dashboard or SLO query depends on — and let the rest float.
 
 ### 7. Logs are structured, sampled, and contextual
 

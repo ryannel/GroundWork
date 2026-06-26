@@ -17,7 +17,7 @@ a review of the matching reference so the distillation never drifts.
 | src/docs/principles/system-design/data-engineering.md | fd0df432fc96d51c52e6ad87bd0159fa7eac7840e669fbb4174a2b6a68ae331d | 2026-06-19 |
 | src/docs/principles/quality/reliability.md | 9c9788504e0963458667d2727c3fc2359776108be593a2efc6603f6470002252 | 2026-06-19 |
 | src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-06-19 |
-| src/docs/principles/quality/observability.md | d38ac0eb660fdcebf2532f5955f371e10ada7030c6eda58e360f40e1b82b439c | 2026-06-19 |
+| src/docs/principles/quality/observability.md | 8aa60e213ba03e989c93263153e3a1ac10b2336f6d0360c394f473660d565a0b | 2026-06-26 |
 | src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-19 |
 | src/docs/principles/quality/privacy.md | d84f6bed50169b40daeb2a0ec7082dbd12d91d3abfa304b169cb9eb3fab494fb | 2026-06-19 |
 | src/docs/principles/delivery/platform.md | 3cbf6c13298bf1c148278ae26acdbc2601a06615ff8d85cdb0de3b41c008c626 | 2026-06-19 |

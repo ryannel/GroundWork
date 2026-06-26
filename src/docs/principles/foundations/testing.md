@@ -2,13 +2,13 @@
 title: Testing
 description: Continuous Risk Assurance — testing the system, not the mock of the system.
 status: active
-last_reviewed: 2026-06-19
+last_reviewed: 2026-06-26
 ---
 # Testing
 
 ## TL;DR
 
-Tests are risk-weighted assertions about production behaviour — not boxes ticked for coverage. We favour high-fidelity service tests over solitary unit tests, run dependencies we own as real ephemeral containers rather than mocking them, contract-test the ones we don't, and treat observability signals as first-class assertions. The measure of a suite is whether its assertions actually catch faults — not its line-coverage number.
+Tests are risk-weighted assertions about production behaviour — not boxes ticked for coverage. We favour high-fidelity service tests over solitary unit tests, run dependencies we own as real ephemeral containers rather than mocking them, contract-test the ones we don't, and treat observability signals as first-class assertions. The measure of a suite is whether its assertions actually catch faults — not its line-coverage number. The invariant under all of it: a test that captures whatever the system currently does is worthless unless something *independent* of the implementation asserts that behaviour is correct. Independent oracles and reproducible failures are the spine; the distribution shape is a detail teams over-argue.
 
 ## Why this matters
 
@@ -20,7 +20,9 @@ This matters more, not less, as code generation gets cheaper. When an agent can 
 
 ### 1. Favour service tests over solitary unit tests
 
-The "sociable" service test is our foundational unit of validation. We test from the API entry point through to real, ephemeral database containers. In a service-oriented codebase the interesting bugs live at the boundaries — HTTP serialisation, SQL query correctness, transaction semantics, event emission — and those are exactly what solitary unit tests mock away. This is the *test honeycomb* shape popularised by Spotify's engineering teams: a fat middle of integrated service tests, a thin layer of solitary unit tests, and a few end-to-end checks on top — not the classic Mike Cohn pyramid that pushes most weight onto isolated units.
+Our default shape is the **test honeycomb**, popularised by Spotify's engineering teams: a fat middle of integrated, "sociable" service tests, a thin layer of solitary unit tests, and a few end-to-end checks on top — not the classic Mike Cohn pyramid that pushes most weight onto isolated units. We test from the API entry point through to real, ephemeral database containers, because in a service-oriented codebase the interesting bugs live at the boundaries — HTTP serialisation, SQL query correctness, transaction semantics, event emission — exactly what solitary unit tests mock away.
+
+The honeycomb is a stack-appropriate heuristic, not a law. No empirical study ranks the pyramid, honeycomb, and trophy by defect detection — they are practitioner shapes for different interaction surfaces (service-to-service for the honeycomb, component-interaction for Kent Dodds's frontend trophy), and the word "integration" means something far cheaper in one than the other. What the evidence does support is that test *quality* outweighs distribution: a suite of fast, reliable, expressive tests that fail only for useful reasons beats any ratio of tests that don't. So pick the shape that fits the stack — the honeycomb for our backends, the trophy for a frontend — and spend the saved argument on making each test bite.
 
 The honest tension: service tests buy fidelity at the cost of speed and diagnostic precision. A solitary unit test that fails names the broken function; a service test that fails tells you "the create-order flow is broken" and leaves you to find where. And a slow, flaky service layer is corrosive — teams that can't trust or tolerate it quietly retreat to mocking everything, which is the exact failure this principle exists to prevent. So fidelity is not a licence to be slow: keep service tests parallelisable, keep fixtures cheap, and treat suite latency as a first-class defect.
 
@@ -39,7 +41,9 @@ Decision rule: emulate the data and serialisation boundaries you own; contract-t
 
 ### 3. Observability is a test surface
 
-OpenTelemetry instrumentation is a design-time concern, not an afterthought. System tests assert that traces are unbroken end-to-end: a missing span, a lost TraceID, or a broken parent-child relationship is a test failure, not an instrumentation TODO. The boundary between "test" and "monitor" dissolves — both ask whether the system is behaving as we claim. The payoff is double-counted: the same instrumentation that proves correctness in CI is what lets you debug the incident in production.
+OpenTelemetry instrumentation is a design-time concern, not an afterthought — sketch the trace a feature should produce before writing the handler (the observability-driven development stance, [Observability](../quality/observability.md) principle 5). System tests then assert that traces are unbroken end-to-end: a missing span, a lost TraceID, or a broken parent-child relationship is a test failure, not an instrumentation TODO. The boundary between "test" and "monitor" dissolves — both ask whether the system is behaving as we claim. The payoff is double-counted: the same instrumentation that proves correctness in CI is what lets you debug the incident in production.
+
+The mechanism is an **in-memory span exporter**: register one in the test process, exercise the system, and assert on the finished spans — the DB span exists with the attributes a dashboard query depends on, the spans emit in the expected order, the TraceID propagates across a service hop. This is a built-in capability of every OTel SDK, and it is the durable approach now that the dedicated trace-based-testing tools (Tracetest, Malabi) have gone dormant. Assert on what the contract promises and let the rest float (the over-assertion trap is real — see [Observability](../quality/observability.md) principle 6). "Trace coverage" as a *metric* — a line-or-branch-coverage equivalent for spans — is still aspirational research, not a number to gate on; the proven practice is traces-as-assertions, not a coverage percentage.
 
 ### 4. Name tests by behaviour, not implementation
 
@@ -49,13 +53,21 @@ A test name must let an on-call engineer form a hypothesis from the failure log 
 
 Coverage percentages are meaningless without proof that the assertions catch real faults — a suite can execute every line and assert nothing. We score modules on Impact × Complexity × Change-frequency before deciding test depth: high-risk modules earn live system tests and chaos experiments; low-risk modules need only small tests and static analysis. Equal depth everywhere is wasted effort.
 
-The honest measure of whether assertions bite is **mutation testing** (PIT, Stryker, or equivalent): inject deliberate faults and confirm a test fails. A surviving mutant is a line you cover but do not actually check. Mutation testing is expensive — its naive cost is the suite run times the number of mutants — so don't run it across the whole tree. Run it on the high-risk modules the matrix flags, and on changed code in CI, where it doubles as a quality gate on new tests (the use Meta reported for its LLM-assisted mutation work in 2025). Use it as a periodic read-out of assertion quality, never as a blanket gate.
+The honest measure of whether assertions bite is **mutation testing** (PIT, Stryker, mutmut, or equivalent): inject deliberate faults and confirm a test fails. A surviving mutant is a line you cover but do not actually check. This is the honeycomb's natural complement: a fat sociable service test drives a huge number of branches through one HTTP call, and it is easy for it to *execute* them all while only asserting on the response body — mutation testing is the one instrument that proves the suite checks what it runs rather than merely exercising it. It correlates with real fault detection better than coverage does, though not once you control for suite size, so treat it as a quality read-out, not a bug-finding proxy.
+
+Mutation testing is expensive — its naive cost is the suite run times the number of mutants — so never run it across the whole tree and never make it a blanket gate. Run it on the high-risk modules the matrix flags and on changed code only, the model Google operates at scale: incremental, mutate-the-diff, surfaced in review. Tooling maturity is uneven and the guidance degrades gracefully with it — Stryker (JS/TS), PIT (JVM), and mutmut/cosmic-ray (Python) are production-grade; Go's options are pre-1.0 and slow, so there it stays a hand-run spot check, not an expectation. The same read-out is the antidote to AI-generated tests, whose oracles are derived from the current implementation and so cement existing bugs as expected behaviour: generate the test, mutate the code under it, and feed any surviving mutant back as the missing assertion — the assurance filter that turns a coverage-inflating suite into one that bites.
 
 ### 6. Tests are part of the change, not after it
 
 A feature PR without tests is incomplete, and we review the test with the same rigour as the code. Tests deferred to a "follow-up PR" compete with the next feature and usually lose, so the work isn't done until the verification ships with it. The exceptions are honest and narrow: a spike or throwaway prototype whose purpose is to be deleted does not need tests — but the moment it becomes the implementation, it does.
 
 This is a discipline about *what ships together*, not a mandate to write tests first. Test-first (TDD) is a powerful design tool — it forces you to use your own interface before committing to it — but it is a tool, not a law, and the "Is TDD Dead?" exchange between Kent Beck, Martin Fowler, and DHH named the real cost: dogmatic test-first can induce *design damage*, contorting code with needless indirection purely to make it mockable. Hold both signals. If a change resists testing, that usually means the design is wrong — fix the code. But if the *only* way to test it is to shatter a cohesive unit into layers of indirection nothing else needs, the test is making the demand, and the design was right. Write the test with the change; let it pressure the design; don't let it deform the design.
+
+### 7. Generate the inputs you can't enumerate
+
+Example-based tests check the cases you thought of; the bugs live in the cases you didn't. Where the input space is large and a property holds across all of it — a round-trip (`decode ∘ encode = id`), a parser that must never panic, a calculation with an algebraic invariant, a state machine whose transitions must preserve a constraint — assert the property and let the framework generate and shrink counterexamples (Hypothesis, fast-check, jqwik, rapid). This is the highest-leverage complement to the dense-logic unit tests of principle 1: one property covers an infinity of examples, and in practice most caught faults surface on a single generated input, so it earns its keep cheaply. The cost is authoring — a meaningful property needs domain insight and a generator — so reach for it where invariants are real, not everywhere.
+
+The same generator-driven idea spans two more surfaces. At the service boundary, **Schemathesis** derives a semantics-aware fuzzer straight from an OpenAPI/GraphQL spec and is the bridge between contract testing and property-based testing — it finds materially more defects than example-based API tests for the cost of pointing it at the schema. At the byte boundary, coverage-guided **fuzzing** (`go test -fuzz`, cargo-fuzz/libFuzzer) is first-class for parsers and decoders, and a failing input is saved as a permanent regression seed. For stateful or distributed cores where ordering and failure timing are the risk, deterministic simulation testing (Antithesis, FoundationDB/TigerBeetle-style seeded simulators) is the frontier worth knowing — every bug reproduces from `seed + commit` — but its setup cost is real, so treat it as a deliberate investment for the system's hardest core, not a default.
 
 ## How we apply this
 
@@ -79,4 +91,8 @@ This is a discipline about *what ships together*, not a mandate to write tests f
 - *Growing Object-Oriented Software, Guided by Tests*, Freeman & Pryce — the canonical treatment of outside-in service testing.
 - *xUnit Test Patterns*, Gerard Meszaros — the vocabulary we use for test doubles, fixtures, and strategies.
 - *Is TDD Dead?*, Beck, Fowler & Heinemeier Hansson — the conversation that maps the contested zone between test-first discipline and test-induced design damage.
-- "UnitTest" and "Testing Pyramid", Martin Fowler (martinfowler.com) — the sociable-vs-solitary distinction and the shape trade-offs.
+- "UnitTest", "TestPyramid", and "On the Diverse and Fantastical Shapes of Testing", Martin Fowler (martinfowler.com) — the sociable-vs-solitary distinction, the shape trade-offs, and Justin Searls's argument that the shape debate is a distraction from test quality.
+- "Testing of Microservices", Spotify Engineering — the honeycomb shape and the integrated-vs-integration-test distinction it rests on.
+- "Practical Mutation Testing at Scale: A View from Google" — the changed-code-only, surfaced-in-review model that makes mutation testing affordable.
+- "A Next Step Beyond Test-Driven Development", Honeycomb.io (Charity Majors) — observability-driven development and testing in production.
+- *Deriving Semantics-Aware Fuzzers from Web API Schemas* (Schemathesis, ICSE 2022) — the empirical case for spec-driven property fuzzing at the service boundary.
