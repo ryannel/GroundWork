@@ -35,11 +35,15 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 10
+      # NB: no `registry-url` — it makes setup-node write an .npmrc with
+      # `_authToken=${NODE_AUTH_TOKEN}`. With no token that empty credential
+      # shadows OIDC: npm tries it and 404s instead of trusted publishing.
+      # Omitting it leaves no auth configured, so npm uses OIDC. The default
+      # registry is already registry.npmjs.org.
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
       # Trusted publishing needs npm >= 11.5.1; Node 22's bundled npm is older.
       - run: npm install -g npm@latest
       - uses: actions/setup-python@v5
@@ -74,6 +78,6 @@ jobs:
       - name: Build + required gates
         run: ./dev ci
       # No token: npm detects the GitHub OIDC identity and exchanges it for a
-      # short-lived publish credential, then attaches provenance.
+      # short-lived publish credential. --provenance signs the build provenance.
       - name: Publish
-        run: npm publish
+        run: npm publish --provenance
