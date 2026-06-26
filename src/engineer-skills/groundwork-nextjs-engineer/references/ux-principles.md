@@ -150,55 +150,7 @@ Actions should reveal contextually — on hover, on selection, or on focus. Don'
 
 ## Accessibility
 
-Accessibility is not optional — it is a baseline requirement.
-
-### Contrast
-
-- Body text must meet **WCAG AA** (4.5:1 contrast ratio)
-- Large text (18px+ or 14px+ bold) must meet **3:1**
-- Interactive elements must meet **3:1** against their background
-- Test in both dark and light themes
-
-### Focus States
-
-- All interactive elements must have a visible focus indicator
-- Focus indicators must contrast with the background (not just browser default outline)
-- Tab order must follow visual layout order
-
-```css
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-```
-
-### Semantic HTML & ARIA
-
-- Use semantic elements: `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<header>`, `<footer>`
-- Icon-only buttons must have `aria-label`:
-  ```tsx
-  <button onClick={handleClose} aria-label="Close dialog">
-    <X size={20} />
-  </button>
-  ```
-- Use `role="alert"` for error messages that must be announced by screen readers
-- Never use `div` or `span` for clickable elements — use `button` or `a`
-
-### Colour Independence
-
-- Never communicate information through colour alone
-- Pair colour indicators with icons or text labels:
-  ```tsx
-  // Bad — colour-only status
-  <span className="text-success">●</span>
-  
-  // Good — colour + icon + text
-  <span className="text-success flex items-center gap-1">
-    <CheckCircle size={16} aria-hidden />
-    Completed
-  </span>
-  ```
+Accessibility is a merge gate, not optional polish — semantic HTML, keyboard reachability, WCAG AA contrast, and labelled forms are a baseline requirement on every surface. See `references/accessibility.md` for the full reference.
 
 ---
 
