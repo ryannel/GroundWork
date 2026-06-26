@@ -69,6 +69,8 @@ A reference doc that only the author can follow has failed its second reader. Ma
 - **Define terms on first use.** A domain noun or an acronym gets a one-clause definition the first time it appears.
 - **Intuition before precision.** Give the plain-language shape of an idea before the exact rule, schema, or constraint that pins it down.
 - **Concrete before abstract.** Lead a hard concept with a concrete instance, then generalise.
+- **Name the thing; let any label point, never replace.** A reader meets "the cancelled-video case," not "G8." Reserve enumerated labels for structure the reader already shares with you — a milestone or slice number locates a node in the decomposition tree. Never coin a label (G8, RC3, Band A) for a guarantee, an error case, or a task and then cite it by the label alone; the reader has not memorised your index. When a label genuinely aids cross-reference, attach it to the plain name on introduction and keep the name in every later mention.
+- **Describe the behaviour, then the mechanism that implements it.** A reader understands "a corrupt file fails for good; a worker crash leaves the file untouched to retry later" before they can place `.failed(deep)` versus `.coarse`. Lead with what the system does and why it matters; name the symbol, type, or field that realises it second, for the reader who is in the code.
 
 ### Format
 
@@ -266,6 +268,7 @@ The writing-style principles above cover most prose pitfalls. The patterns below
 
 - **Report-out register** — "we decided", "is deferred", "out of scope", "for the MVP". The doc narrates the conversation that produced it instead of describing the system. Rewrite in the timeless present with the system as subject; move the bookkeeping to the Downstream Context file.
 - **No orientation** — the doc opens mid-detail, with no paragraph telling a cold reader what this is or why it exists. The first reader who was never in the room is lost by the second heading.
+- **Opaque labels** — prose that leans on "G8", "RC3", or "Band A" with no name the reader can hold, or that describes a behaviour only by the symbol that implements it. A label points to a named thing; it never replaces it. See *Accessibility — earn the reader's understanding*.
 - **Compressed density** — a sentence stapling three to five ideas behind em-dashes, a bullet listing several behaviours, a numbered wall of paragraphs, or a table with rationale buried mid-cell. The reader decompresses before they understand. Give a unit per idea — see *Density — one idea per unit*.
 - **Prose where a diagram belongs** — a multi-service flow or an entity lifecycle described only in sentences. If it has structure, draw it (` ```mermaid `) and let the prose annotate.
 - **Passive docs** — no owner, no `last_reviewed` date. A document without a maintainer drifts undetected.
