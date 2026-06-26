@@ -38,7 +38,7 @@ same regardless of how the isolated execution is realised.
 ### Model
 
 The worker may run on a cheaper tier than the driver. Its correctness is not taken on
-trust: the driver gates every slice through an independent review (three isolated
+trust: the driver gates every slice through an independent review (four isolated
 lenses) before the slice closes. The worker's job is to implement honestly and report
 honestly, not to be the final judge of its own work.
 
@@ -71,6 +71,11 @@ The driver passes:
     rendering, and interaction instead of re-deriving core behaviour.
   - The named `Test file:` path(s) for this slice (already materialized red at
     Delivery start).
+  - The **stack's testing strategy** — the promoted engineer skill for the slice's
+    stack (`.agents/skills/groundwork-<stack>-engineer/references/testing.md`). Its
+    **Bet Slice Rollout** section defines the permanent best-practice tests this slice
+    owes; it is the authority the worker rolls out against in step 4 and the
+    coverage-auditor lens reviews against.
   - Any **slice-specific constraints** — a frozen signature not to change, a
     subsystem not to touch, a safety or content guardrail, the fixtures to prove on.
     These are hard constraints, not suggestions; a conflict between a constraint and
@@ -107,7 +112,7 @@ Note the baseline commit (`git rev-parse HEAD`) and return it in the report — 
 the slice's diff to the exact code state it was built against, and is the reference
 the driver's review and the integrity check read.
 
-### 3. Implement to green
+### 3. Implement to green (the headline proof)
 
 Run the slice's bet-progress tests (`tests/bets/<bet_slug>/test_slice_<n>_*`) — red,
 because the implementation does not exist. Implement until they pass, staying inside
@@ -134,7 +139,34 @@ quietly substitute a mock and move on — **stop and report it as a blocking con
 green and satisfy the API and data design. Stay within this slice. Do not refactor
 unrelated subsystems or reach into other slices' work.
 
-### 4. Mechanical self-reconcile (first pass, not the gate)
+### 4. Roll out the permanent best-practice tests
+
+The headline proof is green; now write the coverage that stays. The bet-progress
+tests prove the slice's capability once and are archived at bet close — the permanent
+best-practice tests are what guard the slice against regression for the life of the
+codebase, and they ship in *this* slice's diff so the review judges them alongside the
+implementation that they are meant to pin.
+
+What the slice owes is defined by the stack's testing strategy — the promoted engineer
+skill at `.agents/skills/groundwork-<stack>-engineer/references/testing.md`,
+specifically its **Bet Slice Rollout** section. Read it and roll out what this slice
+earns: the service-perimeter or interface test for each capability the slice
+delivered, unit tests for any genuinely complex logic it introduced, a property-based
+test for any invariant, a critical-path trace assertion where it added an observable
+path (a backend service that emits OpenTelemetry spans), and — for a `graphical-ui`
+slice — component render tests across the states the design system names (default,
+loading, empty, error, long-content) plus registering any new route in
+`tests/system/routes.json`. These live in the service repos and `tests/system/`, never
+in `tests/bets/`. Run them green before reporting.
+
+Match the depth to the slice's risk, not a fixed count — the strategy names which tier
+carries each assertion, and a sociable service test that executes a branch without
+asserting on it is a gap even when the suite is green. The independent coverage-auditor
+lens holds this suite against the same strategy, so an under-covered error case or a
+missing trace assertion surfaces in review: write the suite the strategy asks for, not
+the minimum that compiles.
+
+### 5. Mechanical self-reconcile (first pass, not the gate)
 
 A green suite proves nothing if the sealed prose was quietly altered or the code was
 gamed to pass. Run two cheap checks and **report their result** — they are the
@@ -153,12 +185,13 @@ review is that):
   worse than no suite* (`docs/principles/foundations/testing.md`). Flag any of these
   in the report rather than leaving them for the review to find.
 
-### 5. Do not commit
+### 6. Do not commit
 
-The worker implements to green and stops. It does **not** commit, roll out permanent
-best-practice tests, or close the slice — those are the driver's, after its
-independent review and triage. Leave the working tree with the slice's changes
-unstaged; return the report.
+The worker implements to green, rolls out the permanent tests, and stops. It does
+**not** stage, commit, or close the slice — those are the driver's, after its
+independent review and triage. Leave the working tree with all of the slice's changes
+unstaged — the implementation, the bet-progress tests turned green, and the permanent
+best-practice tests — and return the report.
 
 ---
 
@@ -172,6 +205,9 @@ triage, and close the slice:
 SLICE: <n> <slice-slug>  (service: <owner-service>, surface: <core|slug>)
 BASELINE: <git rev-parse HEAD at open>
 SUITE: green | red — <one line: which slice tests pass; if still red, why>
+COVERAGE: <the permanent best-practice tests rolled out, by kind — service/interface,
+  unit, property, trace; for graphical-ui, the component states covered. Note any the
+  strategy asks for that this slice does not owe, and why.>
 
 FILES:
 - added: <path>, ...

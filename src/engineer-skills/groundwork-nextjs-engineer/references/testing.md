@@ -450,7 +450,7 @@ Coverage tells you a line ran; it does not tell you an assertion checked it — 
 
 ## Bet Slice Rollout — the permanent tests a slice owes
 
-When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery step 5). The bet-progress tests prove the capability once and are archived; these stay.
+When a bet slice's progress tests go green, the slice-worker rolls out permanent coverage as part of the same slice, before the driver reviews it (bet workflow, Delivery). The bet-progress tests prove the capability once and are archived; these stay.
 
 - **Interface test (always).** One Playwright test per user-observable behaviour the slice delivered, using the page objects under `tests/system/pages/` — selectors live in the page object, assertions in the test.
 - **Component tests (when state earned them).** Components the slice introduced with conditional rendering, optimistic updates, or error states get component-level tests; purely presentational markup does not.

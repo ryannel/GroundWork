@@ -205,7 +205,7 @@ Use `mutmut` or `cosmic-ray`. A gotcha: `mutmut` 3 no longer mutates module-leve
 
 ## Bet Slice Rollout — the permanent tests a slice owes
 
-When a bet slice's progress tests go green, the slice rolls out permanent coverage before it closes (bet workflow, Delivery step 5). The bet-progress tests prove the capability once and are archived; these stay.
+When a bet slice's progress tests go green, the slice-worker rolls out permanent coverage as part of the same slice, before the driver reviews it (bet workflow, Delivery). The bet-progress tests prove the capability once and are archived; these stay.
 
 - **Service perimeter test (always).** One test per capability the slice delivered, through `httpx.AsyncClient` against the real app with a real database — the coverage that survives refactors.
 - **Unit tests (when logic earned them).** Pure-function tests for branching business logic the slice introduced — validation rules, transformations, state machines. Plumbing does not earn unit tests; the perimeter test already covers it.
