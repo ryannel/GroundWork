@@ -23,9 +23,57 @@ else
   fail() { echo "ERROR: $1"; exit 1; }
 fi
 
+# ── Shared harness setup ──────────────────────────────────────────────────────
+# One source of truth for the test toolchain so `./dev test ...`, `./dev ci`, and
+# the GitHub workflows all build and install identically — run it locally and you
+# have run the build.
+
+TEST_VENV="tests/scaffolds/venv"
+
+# uv creates the venv and installs the pinned tests/requirements.txt. uv is already
+# required for the Python scaffolds, so the harness has no separate pip dependency.
+ensure_test_env() {
+  if [ ! -x "$TEST_VENV/bin/pytest" ]; then
+    command -v uv >/dev/null 2>&1 || fail "uv is required (https://docs.astral.sh/uv/); brew install uv"
+    print_substep "Creating test venv (uv, pinned tests/requirements.txt)..."
+    uv venv "$TEST_VENV" >/dev/null
+    uv pip install --python "$TEST_VENV/bin/python" -r tests/requirements.txt >/dev/null
+  fi
+  # shellcheck disable=SC1091
+  source "$TEST_VENV/bin/activate"
+}
+
+# Install node deps from the lockfile (npm ci, matching CI) only when missing, then
+# build the generators + dev-cli bundle. In CI `npm ci` has already run, so this just
+# builds; locally it installs once then reuses node_modules.
+ensure_build() {
+  [ -d node_modules ] || { print_substep "Installing node deps (npm ci)..."; npm ci; }
+  npm run build
+}
+
 COMMAND=$1
 
 case "$COMMAND" in
+  ci)
+    # Single entry point that reproduces the GitHub PR build (the fast, blocking
+    # gates) end to end. `./dev ci` locally == the required CI jobs. The heavy
+    # real-stack boot lives in `./dev test scaffolds` / the integration workflow.
+    print_logo "CI"
+    print_step "Reproducing the required CI gates locally..."
+    ensure_build
+    ensure_test_env
+    print_step "[1/5] Skill conformance lint..."
+    python3 scripts/lint_skills.py
+    print_step "[2/5] Generation tests (structural, all combos)..."
+    pytest tests/scaffolds/test_generation*.py -q
+    print_step "[3/5] Contract tests (bundle freshness, adopt-merge, migration coverage)..."
+    pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -q
+    print_step "[4/5] CLI contract tests..."
+    pytest tests/cli/ -q
+    print_step "[5/5] Compilation tests (pairwise compile checks; needs go + uv + pnpm)..."
+    pytest tests/scaffolds/test_compilation.py -q
+    print_success "All required CI gates passed. (Run the full real-stack boot with: ./dev test scaffolds)"
+    ;;
   test|eval)
     SUBCMD=$2
     if [ "$SUBCMD" = "nx" ]; then
@@ -34,71 +82,32 @@ case "$COMMAND" in
       npx nx run-many -t test
     elif [ "$SUBCMD" = "generation" ]; then
       print_logo "Testing"
-      print_step "Building TypeScript generators..."
-      npm install --silent && npm run build
+      ensure_build
+      ensure_test_env
       print_step "Running Generation Tests (structural, all combos)..."
-      if [ ! -d "tests/scaffolds/venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv tests/scaffolds/venv
-          source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio allpairspy
-      else
-          source tests/scaffolds/venv/bin/activate
-      fi
       pytest tests/scaffolds/test_generation*.py -v -s
     elif [ "$SUBCMD" = "cli" ]; then
       print_logo "Testing"
+      ensure_test_env
       print_step "Running CLI contract tests (init/update/check, manifest, migrations, upgrade path)..."
-      if [ ! -d "tests/scaffolds/venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv tests/scaffolds/venv
-          source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio allpairspy
-      else
-          source tests/scaffolds/venv/bin/activate
-      fi
       pytest tests/cli/ -v
     elif [ "$SUBCMD" = "compilation" ]; then
       print_logo "Testing"
-      print_step "Building TypeScript generators..."
-      npm install --silent && npm run build
+      ensure_build
+      ensure_test_env
       print_step "Running Compilation Tests (pairwise, compile checks)..."
-      if [ ! -d "tests/scaffolds/venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv tests/scaffolds/venv
-          source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio allpairspy
-      else
-          source tests/scaffolds/venv/bin/activate
-      fi
       pytest tests/scaffolds/test_compilation.py -v -s
     elif [ "$SUBCMD" = "scaffolds" ]; then
       print_logo "Testing"
-      print_step "Building TypeScript generators..."
-      npm install --silent && npm run build
+      ensure_build
+      ensure_test_env
       print_step "Running Scaffold End-to-End Tests..."
-      if [ ! -d "tests/scaffolds/venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv tests/scaffolds/venv
-          source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio allpairspy
-      else
-          source tests/scaffolds/venv/bin/activate
-      fi
       pytest tests/scaffolds/test_scaffolds.py -v -s
     elif [ "$SUBCMD" = "contracts" ]; then
       print_logo "Testing"
-      print_step "Building generators + dev-cli bundle..."
-      npm install --silent && npm run build
+      ensure_build
+      ensure_test_env
       print_step "Running Contract Tests (fast: bundle freshness, adopt-merge idempotency, migration coverage)..."
-      if [ ! -d "tests/scaffolds/venv" ]; then
-          print_substep "Creating venv..."
-          python3 -m venv tests/scaffolds/venv
-          source tests/scaffolds/venv/bin/activate
-          pip install pytest httpx pytest-asyncio allpairspy
-      else
-          source tests/scaffolds/venv/bin/activate
-      fi
       pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -v -s
     elif [ "$SUBCMD" = "clean" ]; then
       print_logo "Cleaning"
@@ -451,6 +460,7 @@ EOF
     print_cmd "sandbox review" "Render the latest chat transcript + structural checklist into .sandboxes/<name>-review/"
 
     print_category "QUALITY & TESTING"
+    print_cmd "ci" "Reproduce the required CI build locally (lint + generation + contracts + cli + compilation)"
     print_cmd "test validate" "Manually probe a scaffold workspace (boots + health checks)"
     print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
     print_cmd "test contracts" "Run scaffold contract tests (fast: bundle freshness, adopt-merge idempotency)"

@@ -5,6 +5,9 @@
   "bin": {
     "groundwork": "./bin/groundwork.js"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "files": [
     "bin/",
     "lib/",

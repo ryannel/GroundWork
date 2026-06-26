@@ -1,0 +1,7 @@
+# Pinned Python toolchain for the GroundWork test harness (./dev test ..., ./dev ci).
+# uv installs these byte-identically locally and in CI so the harness can't drift.
+# Bump deliberately; keep local and CI on the same line.
+pytest==9.0.3
+httpx==0.28.1
+pytest-asyncio==1.3.0
+allpairspy==2.5.1

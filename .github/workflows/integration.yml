@@ -1,0 +1,66 @@
+name: Integration
+
+# Heavyweight real-stack lane: generates the scaffolds, boots the whole Docker
+# stack (Go + Python + Next.js + Postgres + Jaeger) and runs the booted system
+# tests. It is expensive and environment-heavy, so it does NOT block PRs — it runs
+# nightly and on demand. The fast, deterministic gates in ci.yml are the green
+# build that gates merges. Reproduce this lane locally with: ./dev test scaffolds
+#
+# Manual run:  gh workflow run integration.yml
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # nightly 06:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The nextjs-app generator runs `pnpm install` at generation time to
+      # produce the pnpm-lock.yaml the frontend Dockerfile builds from. Without
+      # pnpm on PATH that install fails silently, no lockfile is written, and
+      # `docker compose up` fails the frontend build.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'npm'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - run: npm ci
+      # GitHub ubuntu runners ship Docker; the dev stack boots directly.
+      - name: End-to-end scaffold + harness
+        env:
+          GROUNDWORK_REQUIRE_SERVICES: '1'
+          GROUNDWORK_REQUIRE_TRACES: '1'
+        run: ./dev test scaffolds
+
+  # OPTIONAL — requires LLM API keys; gated to manual/nightly, NOT required.
+  # Enable by adding the ANTHROPIC_API_KEY secret and uncommenting.
+  # eval:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with: { node-version-file: .nvmrc, cache: 'npm' }
+  #     - run: npm ci
+  #     - run: ./dev eval run
+  #       env:
+  #         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
