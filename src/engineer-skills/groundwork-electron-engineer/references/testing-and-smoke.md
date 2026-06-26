@@ -22,7 +22,7 @@
 
 This maps onto the multi-surface verification contract: generation (snapshot, framework-side), compilation (`tsc` + lint), boot (the smoke). Business rules are **not** on this list — they are proven once at the capability core's contract; surface tests assert wiring and rendering only.
 
-These tiers are the Electron idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)): the renderer and main unit tests are the fat middle the canon's honeycomb puts the weight on, and the boot smoke is the thin top — a fat smoke is the fat-integration-suite antipattern wearing a desktop coat. When this file and the canon disagree, the canon wins and this file is the one to fix.
+These tiers are the Electron idiom of the framework testing canon (`docs/principles/foundations/testing.md`): the renderer and main unit tests are the fat middle the canon's honeycomb puts the weight on, and the boot smoke is the thin top — a fat smoke is the fat-integration-suite antipattern wearing a desktop coat. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
 `vitest.config.ts` defines the two unit projects with per-process environments. Test placement follows the process split: `src/main/**/*.test.ts` runs in Node, `src/renderer/**/*.test.tsx` runs in jsdom. A test that needs the wrong environment is in the wrong process.
 

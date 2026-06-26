@@ -2,7 +2,7 @@
 
 ## The Model: Honeycomb, Not Pyramid
 
-The default shape is the test honeycomb: a fat middle of sociable service-perimeter tests, a thin layer of solitary unit tests, a few end-to-end checks on top. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — and a mock-heavy suite passes while production breaks. This is the stack idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)); when this file and the canon disagree, the canon wins and this file is the one to fix.
+The default shape is the test honeycomb: a fat middle of sociable service-perimeter tests, a thin layer of solitary unit tests, a few end-to-end checks on top. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — and a mock-heavy suite passes while production breaks. This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
 
 ## Testing Tiers
 

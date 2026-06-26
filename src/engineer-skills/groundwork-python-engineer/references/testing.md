@@ -6,7 +6,7 @@ Testcontainers spins up real Postgres/Pub/Sub in seconds. The confidence it prov
 
 **Service tests are the default.** Unit tests are reserved for genuinely complex logic. System tests are minimal.
 
-This is the stack idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)); when this file and the canon disagree, the canon wins and this file is the one to fix.
+This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
 
 ---
 

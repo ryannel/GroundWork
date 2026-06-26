@@ -25,7 +25,7 @@
 
 Pick the **cheapest tier that can carry the assertion**. If a widget test can prove it, an integration test that proves it is waste.
 
-This taxonomy is the Flutter idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)): widget tests are the fat middle that the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, and `integration_test` is the few-end-to-end top. When this file and the canon disagree, the canon wins and this file is the one to fix.
+This taxonomy is the Flutter idiom of the framework testing canon (`docs/principles/foundations/testing.md`): widget tests are the fat middle that the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, and `integration_test` is the few-end-to-end top. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
 ## The Prove-Once Rule
 

@@ -15,7 +15,7 @@
 
 ## Testing Philosophy
 
-The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks. It is the frontend idiom of the framework testing canon ([`docs/principles/foundations/testing.md`](../../../docs/principles/foundations/testing.md)) — the backends run the honeycomb, the frontend runs the trophy, and both put the weight on integration rather than isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
+The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks. It is the frontend idiom of the framework testing canon (`docs/principles/foundations/testing.md`) — the backends run the honeycomb, the frontend runs the trophy, and both put the weight on integration rather than isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
 Tests in the Next.js application follow four rules:
 
@@ -420,11 +420,14 @@ it('shows error message on server failure', async () => {
 The app ships OpenTelemetry through `instrumentation.ts`, so server-side work — route handlers and Server Actions — emits spans. Where a slice adds a server path whose trace a dashboard or SLO depends on, assert on it with an **in-memory span exporter** rather than trusting the instrumentation silently. This is server-side only; component and hook tests assert on rendered behaviour, not traces.
 
 ```ts
-import { InMemorySpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
+import {
+  BasicTracerProvider,
+  InMemorySpanExporter,
+  SimpleSpanProcessor,
+} from '@opentelemetry/sdk-trace-base';
 
 const exporter = new InMemorySpanExporter();
-const provider = new NodeTracerProvider({ spanProcessors: [new SimpleSpanProcessor(exporter)] });
+const provider = new BasicTracerProvider({ spanProcessors: [new SimpleSpanProcessor(exporter)] });
 provider.register();
 
 // invoke the route handler / server action, then:
