@@ -42,12 +42,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       # Trusted publishing needs npm >= 11.5.1; Node 22's bundled npm is older.
       - run: npm install -g npm@latest
-      - name: Debug publish prerequisites
-        run: |
-          echo "node: $(node -v)"
-          echo "npm:  $(npm -v)"
-          echo "OIDC request url present: ${ACTIONS_ID_TOKEN_REQUEST_URL:+yes}"
-          echo "OIDC request token present: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+yes}"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
