@@ -53,6 +53,11 @@ The driver passes:
   `docs/bets/<bet_slug>/decomposition/NN-<milestone>/NN-<slice>.md`. Read it in full
   first: its **Scope** (Required Capabilities), **Design** (where it lands), and
   **Proof of work** (what it must prove) are the worker's whole brief.
+- **Working directory & isolation** — the bet's worktree, already opened and
+  bootstrapped by the driver. Run every command from it. Leave all changes
+  **unstaged** — the driver reviews the working-tree diff and commits; the worker
+  never stages, commits, branches, or opens its own worktree (no `EnterWorktree`).
+  You build in the worktree handed to you; you do not manage isolation.
 - **Context capsule** — the small set of pointers that let the worker build without
   re-deriving the bet:
   - The **previous slice's delivery commit** — hash, message, and diff. The patterns
@@ -66,6 +71,15 @@ The driver passes:
     rendering, and interaction instead of re-deriving core behaviour.
   - The named `Test file:` path(s) for this slice (already materialized red at
     Delivery start).
+  - Any **slice-specific constraints** — a frozen signature not to change, a
+    subsystem not to touch, a safety or content guardrail, the fixtures to prove on.
+    These are hard constraints, not suggestions; a conflict between a constraint and
+    the proof is a blocking concern, not a judgement call.
+  - Any **prior spike or proven recipe** the driver hands over — a working
+    invocation, a validated config, a dependency already on disk. Reuse it rather
+    than re-deriving. If it sits in an ephemeral location (a job-temp or scratch
+    path), copy what you need into a durable path in the repo or the project cache
+    and depend on that — never on the ephemeral path at runtime.
 
 ---
 

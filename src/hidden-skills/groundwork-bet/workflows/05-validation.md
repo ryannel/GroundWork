@@ -1,6 +1,6 @@
 # Phase 5: Validation (Testing & Handoff)
 
-**Goal:** Verify the implementation, capture each touched service's served contract into the canonical `docs/architecture/api/` record, archive the whole bet, fold what the bet learned back into the upstream documents, and seed the next bet with any signals that surfaced during delivery.
+**Goal:** Verify the implementation, capture each touched service's served contract into the canonical `docs/architecture/api/` record, archive the whole bet, fold what the bet learned back into the upstream documents, integrate the validated bet to trunk, and seed the next bet with any signals that surfaced during delivery.
 
 A bet that ships without updating upstream docs leaves the next bet operating against a stale map. The Validation phase exists to close the loop — the test suite proves the implementation works, the Living Documents scan proves the rest of the system still describes reality.
 
@@ -123,6 +123,16 @@ Write `docs/bets/<bet-slug>/retrospective.md`: the patterns found, the follow-th
 ### Step 8: Mark the bet delivered
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`. On a registry project, Step 2.7's gate applies: do not write `delivered` while any ledger cell for this bet's capabilities is empty — fill the column or the bet does not close.
+
+### Step 8.5: Integrate the bet to trunk
+
+The bet has ridden its own branch (`bet/<bet-slug>`) in an isolated worktree since Delivery (`04-delivery.md`, "Git workflow: a branch per bet"). With the suite green, the canonical contracts captured, the bet archived, and the upstream docs reconciled, the branch now holds a complete, validated bet — and trunk is ready to receive it. Integrating is a single **user-gated** step: merging to a shared branch is the user's call, never the driver's alone (the same standard that gates any push to a remote).
+
+1. **Rebase onto current trunk.** `git fetch origin`, then rebase `bet/<bet-slug>` onto `origin/<trunk>` to absorb whatever landed during the bet. Re-run the project's full test suite (`./dev test` or `./dev ci`) once after the rebase — the permanent best-practice tests rolled out during Delivery, not the now-archived bet-progress suite — so trunk receives a green merge, not an assumed one.
+2. **Fast-forward merge to trunk** on the user's go-ahead, and push if the user is publishing to a remote. Trunk only ever receives a complete, validated bet, so nothing half-built lands and no feature flag is required to keep it releasable.
+3. **Tear down the isolation.** Remove the worktree (`git worktree remove <path>`, then `git worktree prune` — never `rm -rf`, which strands `.git/worktrees/` metadata) and delete the merged branch. The `bet/<bet-slug>/approved` tag stays — it is the bet's permanent seal in history.
+
+**By topology** (`04-delivery.md`, "Recording a cross-service slice"): a **monorepo** merges one branch. For **submodules**, fast-forward each affected submodule's branch and push it, then land the final superrepo gitlink-bump merge last. For a **polyrepo**, fast-forward each repository's branch in producer-before-consumer order (or gated on the contract check), the change-set manifest recording the set; there is no single merge.
 
 ### Step 9: Hand off
 
