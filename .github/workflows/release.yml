@@ -22,11 +22,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: false
       - run: npm ci
       - name: Verify tag matches package.json version
         run: |
@@ -43,12 +57,10 @@ jobs:
             echo "CHANGELOG.md has no entry for $TAG_VERSION" >&2
             exit 1
           }
-      - name: Build
-        run: npm run build
-      - name: Cheap test gates
-        run: |
-          ./dev test generation
-          ./dev test contracts
+      # Gate the publish on the same required build CI runs (and that you can run
+      # locally with `./dev ci`).
+      - name: Build + required gates
+        run: ./dev ci
       - name: Publish
         run: npm publish
         env:
