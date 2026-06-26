@@ -13,12 +13,22 @@ def fallback_circuit_breaker(e):
 
 class LLMClient:
     def __init__(self):
-        # base_url is optional — leave LLM_BASE_URL blank to use Anthropic's default endpoint.
-        self.client = anthropic.AsyncAnthropic(
-            api_key=settings.llm_api_key,
-            base_url=settings.llm_base_url or None,
-        )
+        # Defer building the provider client until the first generate_text call so
+        # the service boots and serves its non-LLM routes even when no API key is
+        # configured — the Anthropic client raises at construction on a missing key,
+        # which would otherwise 500 every route that depends on this service.
+        self._client: anthropic.AsyncAnthropic | None = None
         self.model = settings.llm_model
+
+    @property
+    def client(self) -> anthropic.AsyncAnthropic:
+        if self._client is None:
+            # base_url is optional — leave LLM_BASE_URL blank to use Anthropic's default endpoint.
+            self._client = anthropic.AsyncAnthropic(
+                api_key=settings.llm_api_key,
+                base_url=settings.llm_base_url or None,
+            )
+        return self._client
 
     @circuit(failure_threshold=5, recovery_timeout=30, fallback_function=fallback_circuit_breaker, expected_exception=TransientInferenceError)
     @retry(
