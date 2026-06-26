@@ -21,10 +21,11 @@ Python backend execution router for service repositories. Durable engineering gu
 ## Operating Contract
 
 1. Load reference docs from `references/` for architectural and implementation guidance. Treat the current repository's code, specs, and generated contracts as the source of truth for naming, structure, and behavior.
-2. Inspect the current repository before naming packages, commands, import paths, schemas, or generated files.
+2. Orient with the repo map and Serena before reading widely (see Required First Checks) — find the hubs, then navigate by symbol. Inspect the current repository before naming packages, commands, import paths, schemas, or generated files.
 3. Load the smallest reference set that explains the task. Add more context only when the task crosses a boundary.
 4. Preserve the service's dependency direction and public contracts. Code implements OpenAPI, database migrations, event schemas, and documented architecture — it does not invent them.
-5. Coordinate with adjacent skills when another skill owns the primary decision surface.
+5. Treat observability as part of the contract, not an afterthought: a critical path emits an unbroken trace, and a missing span is a defect. Route durable engineering policy to the canonical docs (`docs/principles/stack/python/`, and the cross-cutting canon under `docs/principles/quality/` and `docs/principles/foundations/`) rather than restating it in code comments or this skill.
+6. Coordinate with adjacent skills when another skill owns the primary decision surface.
 
 ---
 
@@ -40,6 +41,7 @@ Before non-trivial Python implementation or review work:
 
 | Check | Why |
 |---|---|
+| **Orient with the repo map + Serena** — refresh `npx groundwork-method repo-map`, read its `centrality` ranking to find the hubs, then navigate them with Serena (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) | A blind file crawl misses the structure the map already computed; symbol navigation and reference-aware edits beat grep-and-read. Fall back to ordinary reads only when these are unavailable |
 | Service package layout and nearby examples for the touched layer | Prevents inventing structure that already has a convention |
 | `pyproject.toml` for Python version and dependencies | Avoids version-specific advice that contradicts the project |
 | OpenAPI spec (if HTTP behavior changes) | HTTP contracts are generated — code must match the spec |
@@ -67,6 +69,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Resilience — timeouts, retries, circuit breakers, health probes | `resilience.md` |
 | Graceful shutdown, degradation, lifespan management | `resilience.md`, `async-patterns.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
+| Security, auth, secrets, input validation, supply chain, SSRF | `security.md` |
 | Tests, quality gates, coverage strategy, fixture design | `testing.md` |
 | Code documentation, docstrings, Pydantic Field docs | `documentation-mcp.md` |
 | Error handling, exception hierarchy, domain errors | `implementation-patterns.md` |

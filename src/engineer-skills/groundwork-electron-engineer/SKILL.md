@@ -41,7 +41,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 ## How to Use This Skill
 
-Match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
+**Orient first.** On any non-trivial task, refresh the repo map (`npx groundwork-method repo-map`), read its `centrality` ranking to find the hubs, and navigate them with Serena before reading widely (see Code intelligence above) — this is the first step, not optional; fall back to ordinary reads only when those tools are unavailable. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
@@ -51,6 +51,9 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 | Packaging & Updates | `references/packaging-and-updates.md` | Forge config, makers, fuses at package time, code signing, notarization, auto-update routes. |
 | Testing & Smoke | `references/testing-and-smoke.md` | The three test tiers, Playwright `_electron` patterns, xvfb CI, skip-with-reason guards. |
 | Theming & Tokens | `references/theming-and-tokens.md` | The generated brand.css, Tailwind token mapping, nativeTheme sync, dark mode on desktop. |
+| Performance & Reliability | `references/performance-and-reliability.md` | Main never blocks, renderer/bundle perf, IPC batching, long-lived-window memory, cold boot, gateway resilience. |
+| Observability | `references/observability.md` | Two-process crash reporting, structured logs across IPC, app/update telemetry, PII discipline. |
+| Documentation | `references/documentation.md` | The typed IPC contract as documentation, TSDoc on the bridge, process-boundary why-comments. |
 
 ## Shared with the web stack — deferrals
 
@@ -73,6 +76,8 @@ When the workspace has no web surface, the same canon is available as `docs/prin
 - **Release/packaging work** → Load `references/packaging-and-updates.md`. Fuses and signing live in the pipeline; signing material never enters the repo.
 - **Test work** → Load `references/testing-and-smoke.md`. Pick the cheapest tier that can carry the assertion; the smoke stays thin.
 - **Electron upgrade** → Load `references/security.md` (currency window). Treat a skipped support window as a security finding.
+- **Performance / responsiveness work** → Load `references/performance-and-reliability.md`. Main never blocks; SLOs and load shedding live in the core.
+- **Crash reporting / telemetry** → Load `references/observability.md`. Both processes report; distributed tracing lives at the services the app calls.
 
 ## Safety Gates
 

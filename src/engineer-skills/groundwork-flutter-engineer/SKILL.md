@@ -41,7 +41,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 ## How to Use This Skill
 
-Match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
+**Orient first.** On any non-trivial task, refresh the repo map (`npx groundwork-method repo-map`), read its `centrality` ranking to find the hubs, and navigate them with Serena before reading widely (see Code intelligence above) — this is the first step, not optional; fall back to ordinary reads only when those tools are unavailable. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
@@ -55,6 +55,10 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 | Platform Channels | `references/platform-channels.md` | Pigeon APIs, native modules, when to drop to Swift/Kotlin, SwiftPM wiring. |
 | Releases & Distribution | `references/releases-and-distribution.md` | Signing, CI/CD pipelines, versioning, forced upgrade, Shorebird code push. |
 | Accessibility | `references/accessibility.md` | Semantics, tap targets, dynamic type, contrast, a11y-driven testing. |
+| Security | `references/security.md` | Secure storage vs SharedPreferences, no secrets in the bundle, cert pinning, deep-link/intent validation, biometrics. |
+| Performance & Reliability | `references/performance-and-reliability.md` | Frame budget, rebuild discipline, list/image memory, isolates, retry/offline, graceful degradation. |
+| Observability | `references/observability.md` | Crash/error reporting, structured breadcrumbs, client performance traces, PII discipline. |
+| Documentation | `references/documentation.md` | Dartdoc on public API, naming-as-documentation, structure-as-documentation, why-comments. |
 
 ## Task Routing
 
@@ -66,6 +70,8 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 - **Test work** → Load `references/testing.md`. Pick the cheapest tier that can carry the assertion.
 - **Native capability work** → Load `references/platform-channels.md`. Check pub.dev for a maintained plugin before writing native code.
 - **Release/store work** → Load `references/releases-and-distribution.md`. Signing material never enters the repo.
+- **Security / secure-storage work** → Load `references/security.md`. The client is hostile territory; secrets and trust live server-side.
+- **Performance or offline/resilience work** → Load `references/performance-and-reliability.md`. SLOs and load shedding live in the core, not the client.
 
 ## Safety Gates
 

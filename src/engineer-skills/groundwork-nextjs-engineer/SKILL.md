@@ -41,7 +41,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 ## How to Use This Skill
 
-Match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
+**Orient first.** On any non-trivial task, refresh the repo map (`npx groundwork-method repo-map`), read its `centrality` ranking to find the hubs, and navigate them with Serena before reading widely (see Code intelligence above) — this is the first step, not optional; fall back to ordinary reads only when those tools are unavailable. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
@@ -55,6 +55,9 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 | Tailwind & Styling | `references/tailwind-and-styling.md` | Tailwind v4 mechanics, consuming projected tokens, theming, dark mode, responsive design. |
 | Visual Language | `references/visual-language.md` | Consuming the design system: colour/type/spacing/elevation/surface technique and the projected token + surface utilities. |
 | UX Principles | `references/ux-principles.md` | Interaction patterns, progressive disclosure, feedback, empty states. |
+| Accessibility | `references/accessibility.md` | Semantic HTML, ARIA discipline, keyboard/focus, WCAG AA contrast, accessible forms, `jest-axe`. |
+| Security | `references/security.md` | XSS, CSRF, auth/session, the `NEXT_PUBLIC` secret boundary, Server Action validation, CSP, SSRF on server fetches. |
+| Observability | `references/observability.md` | Server spans via `instrumentation.ts`, client Web Vitals/RUM, error reporting, PII discipline. |
 | Testing | `references/testing.md` | Component tests, integration tests, accessibility testing, test utilities. |
 | Performance & Deployment | `references/performance-and-deployment.md` | Bundle analysis, lazy loading, image optimization, build configuration. |
 | Documentation | `references/documentation.md` | Component documentation, Storybook patterns, inline docs. |
@@ -68,6 +71,8 @@ Match the user's task to the smallest relevant reference set. Most tasks touch o
 - **Form work** → Load `references/mutations-and-forms.md`. Verify Zod schema patterns.
 - **Styling/theming** → Load `references/tailwind-and-styling.md` and `references/visual-language.md`. Check design guide.
 - **Performance issues** → Load `references/performance-and-deployment.md`. Profile before optimizing.
+- **Security / auth / session work** → Load `references/security.md`. Check the server/client boundary and the `NEXT_PUBLIC` secret line.
+- **Instrumentation / telemetry** → Load `references/observability.md`. Distinguish server spans from client RUM.
 
 ## Safety Gates
 
