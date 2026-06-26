@@ -131,6 +131,30 @@ def test_preservation_user_content_survives(label, tmp_path):
     assert "tier2:docs/principles/index.md" in ids
 
 
+@pytest.mark.parametrize("label", ["pre-0.9", "0.9-pre-surfaces"])
+def test_preservation_authored_skill_survives_update(label, tmp_path, fresh_init):
+    """A skill authored beside the framework skills under .agents/skills/ — e.g. an
+    engineer skill the scaffold promoted, or a hand-written one — must survive an update
+    byte-identical. The update lane owns only its own skills, never the whole directory."""
+    project = seed(label, tmp_path)
+    authored = project / ".agents/skills/groundwork-swift-engineer"
+    (authored / "references").mkdir(parents=True)
+    (authored / "SKILL.md").write_text("# Swift engineer\nProject-authored, not framework canon.\n")
+    (authored / "references/testing.md").write_text("# Testing strategy\nThe delivery lane cites this.\n")
+    before = dir_bytes(authored)
+
+    proc = run_cli(["update"], project)
+    assert proc.returncode == 0, proc.stderr
+
+    assert authored.exists(), f"{label}: update deleted the authored skill"
+    assert dir_bytes(authored) == before, f"{label}: update mutated the authored skill"
+    # The framework skills still converge to the current package — owned cleanup still happens.
+    assert (
+        dir_bytes(project / ".agents/skills/groundwork-check")
+        == dir_bytes(fresh_init / ".agents/skills/groundwork-check")
+    ), f"{label}: framework skill failed to refresh alongside the preserved one"
+
+
 def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):
     project = seed("pre-0.9", tmp_path)
     assert not (project / ".groundwork/config/config.toml").exists()

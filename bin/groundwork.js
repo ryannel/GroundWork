@@ -740,27 +740,75 @@ function writeUpgradeBrief(p, items, stamped) {
   return brief.items.filter((i) => i.status === 'pending').length;
 }
 
-// Clean-copy the two skill trees. Removing first prevents deprecated skills from lingering.
-// Throws on copy failure — callers abort rather than report success over a partial install.
-function installSkillTrees(p) {
-  for (const [src, dest, label] of [
-    [p.sourceSkillsDir, p.targetSkillsDir, 'Registered skills'],
-    [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, 'Hidden methodology skills'],
-  ]) {
-    if (fs.existsSync(dest)) {
-      try {
-        fs.rmSync(dest, { recursive: true, force: true });
-      } catch (err) {
-        c.warn(`Failed to clean ${label.toLowerCase()} dir: ${err.message}`);
-      }
-    }
-    fs.mkdirSync(dest, { recursive: true });
+// Top-level skill names under .agents/skills/ that the framework owns, per the manifest:
+// the first path segment of every tier-1 .agents/skills/<name>/... entry. Used to prune
+// framework skills that a past version shipped but the current one dropped. Returns [] for
+// a null/empty manifest (older or adopted installs) — in that case only currently-shipped
+// names are pruned, which can leave a since-removed framework skill lingering once. That is
+// strictly safer than the alternative: deleting a project-authored skill we don't recognize.
+function frameworkSkillNamesFromManifest(manifest) {
+  const names = new Set();
+  const files = (manifest && manifest.files) || {};
+  for (const [rel, entry] of Object.entries(files)) {
+    if (!entry || entry.tier !== 1) continue;
+    const m = rel.replace(/\\/g, '/').match(/^\.agents\/skills\/([^/]+)\//);
+    if (m) names.add(m[1]);
+  }
+  return [...names];
+}
+
+// .agents/skills/ is a SHARED directory: framework skills sit beside engineer skills the
+// scaffold promotes (tracked in manifest.generated) and any project-authored skills. We must
+// remove ONLY framework-owned top-level entries — never the whole tree — so an update can't
+// delete an authored skill. Owned = names the framework ships in EITHER tree (registered
+// src/skills/ ∪ hidden src/hidden-skills/ — a hidden skill must never linger here after the
+// .groundwork/skills relocation) ∪ tier-1 skills the manifest remembers (to prune a registered
+// skill a past version shipped and this one dropped). Promoted engineer skills live in a
+// separate src/engineer-skills/ tree and match none of these, so they — and any project-authored
+// skill — are preserved. Throws on copy failure — callers abort over a partial install.
+function installRegisteredSkills(p) {
+  const dest = p.targetSkillsDir;
+  const shipped = fs.existsSync(p.sourceSkillsDir) ? fs.readdirSync(p.sourceSkillsDir) : [];
+  const hidden = fs.existsSync(p.sourceHiddenSkillsDir) ? fs.readdirSync(p.sourceHiddenSkillsDir) : [];
+  const owned = new Set([...shipped, ...hidden, ...frameworkSkillNamesFromManifest(readManifest(p))]);
+  fs.mkdirSync(dest, { recursive: true });
+  for (const name of owned) {
+    fs.rmSync(path.join(dest, name), { recursive: true, force: true });
+  }
+  if (shipped.length) {
     try {
-      execSync(`cp -R "${src}/"* "${dest}/"`);
+      execSync(`cp -R "${p.sourceSkillsDir}/"* "${dest}/"`);
     } catch (err) {
-      throw new Error(`Failed to install ${label.toLowerCase()}: ${err.message}`);
+      throw new Error(`Failed to install registered skills: ${err.message}`);
     }
   }
+}
+
+// The hidden methodology tree is exclusively framework-owned — nothing else is allowed to
+// live there — so a wholesale clean-replace is safe and prunes deprecated skills. Throws on
+// copy failure for the same reason as installRegisteredSkills.
+function installHiddenSkills(p) {
+  const dest = p.targetHiddenSkillsDir;
+  if (fs.existsSync(dest)) {
+    try {
+      fs.rmSync(dest, { recursive: true, force: true });
+    } catch (err) {
+      c.warn(`Failed to clean hidden methodology skills dir: ${err.message}`);
+    }
+  }
+  fs.mkdirSync(dest, { recursive: true });
+  try {
+    execSync(`cp -R "${p.sourceHiddenSkillsDir}/"* "${dest}/"`);
+  } catch (err) {
+    throw new Error(`Failed to install hidden methodology skills: ${err.message}`);
+  }
+}
+
+// Install both skill trees. The registered tree (.agents/skills/) is cleaned per-skill so
+// promoted engineer skills and project-authored skills survive; the hidden tree is clean-replaced.
+function installSkillTrees(p) {
+  installRegisteredSkills(p);
+  installHiddenSkills(p);
 }
 
 // generators.json ships with repo-relative factory/schema paths; resolve them against the
