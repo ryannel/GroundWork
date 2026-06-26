@@ -380,6 +380,19 @@ def test_07_run_booted_system_tests():
     """Run the discovery-based system suite against the live dev stack."""
     print("\n--- Running System Tests (Discovery, REQUIRE_* enabled) ---")
     env = {**os.environ, "GROUNDWORK_REQUIRE_SERVICES": "1", "GROUNDWORK_REQUIRE_TRACES": "1"}
+    # The frontend suite (a11y/render/visual) drives Chromium via Playwright. Install
+    # the browser into the tests venv so a fresh checkout / CI runner has it (locally
+    # it is usually already cached). Cross-platform, no sudo; browser caches to
+    # ~/.cache/ms-playwright and is reused by the pytest run below.
+    pw = subprocess.run(
+        ["uv", "run", "playwright", "install", "chromium"],
+        cwd=SANDBOX_DIR / "tests",
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    if pw.returncode != 0:
+        print(f"playwright install warning:\n{pw.stdout}\n{pw.stderr}")
     res = subprocess.run(
         ["uv", "run", "pytest", "system/", "-v", "-s"],
         cwd=SANDBOX_DIR / "tests",
