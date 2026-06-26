@@ -3,12 +3,18 @@
 # Release procedure (also in the contributor guide's Release Checklist):
 #   1. Move the Unreleased section of CHANGELOG.md under the new version heading.
 #   2. npm version <minor|patch> --no-git-tag-version, commit, then tag vX.Y.Z and push the tag.
-#   3. This workflow gates on the cheap test layers, then publishes.
+#   3. This workflow gates on the full `./dev ci` build, then publishes.
 #
 # The package publishes as `groundwork-method` (decision 2026-06-10: the bare name
 # `groundwork` is held by an unrelated package; the -method suffix matches the
-# category convention). The bin stays `groundwork`. Publishing requires the
-# NPM_TOKEN secret to be configured on the repository.
+# category convention). The bin stays `groundwork`.
+#
+# Auth is npm **trusted publishing** (OIDC) — no NPM_TOKEN secret. It requires a
+# trusted publisher to be configured for the package on npmjs.com (Settings →
+# Trusted Publisher): organisation `ryannel`, repository `GroundWork`, workflow
+# `release.yml`. OIDC also attaches build provenance automatically. Because npm
+# only lets you configure a trusted publisher once the package exists, the very
+# first publish had to be bootstrapped (see the Release Checklist).
 
 name: Release
 
@@ -16,6 +22,10 @@ on:
   push:
     tags:
       - 'v*'
+
+permissions:
+  contents: read
+  id-token: write   # required for npm trusted publishing (OIDC)
 
 jobs:
   release:
@@ -30,6 +40,8 @@ jobs:
           node-version-file: .nvmrc
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+      # Trusted publishing needs npm >= 11.5.1; Node 22's bundled npm is older.
+      - run: npm install -g npm@latest
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -61,7 +73,7 @@ jobs:
       # locally with `./dev ci`).
       - name: Build + required gates
         run: ./dev ci
+      # No token: npm detects the GitHub OIDC identity and exchanges it for a
+      # short-lived publish credential, then attaches provenance.
       - name: Publish
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
