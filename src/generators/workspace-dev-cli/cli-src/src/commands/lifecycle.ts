@@ -35,7 +35,10 @@ export async function start(ctx: Ctx): Promise<number> {
 
   if (docker) {
     r.startSpinner('Starting ALL services via Docker');
-    if (dockerComposeRun(['up', '-d']) !== 0) {
+    // --build so the running containers always reflect the current source. Without
+    // it `compose up` silently reuses a stale cached image, so code changes (and
+    // CI, which builds fresh on a clean runner) diverge from local runs.
+    if (dockerComposeRun(['up', '-d', '--build']) !== 0) {
       r.failSpinner('Failed to start services');
       throw new CliError('docker compose up failed', "Run './dev doctor' to verify Docker is running.");
     }
