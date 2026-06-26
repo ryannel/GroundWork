@@ -1,6 +1,6 @@
 # Engineer-Skill Alignment Pass — coverage, topic parity, and the canon→skill chain
 
-**Status:** PROPOSED 2026-06-26. Execution in progress on branch `bet/engineer-skill-alignment` — update this header per workstream as slices land.
+**Status:** EXECUTED 2026-06-26. All six workstreams landed. Gates green — contracts (sync-anchor + migration-coverage), generation (225, incl. stack-docs idempotency), cli (56), lint (skill conformance). The healed chain is proven by a negative test: perturbing `foundations/testing.md` now fails the sync gate for all five skills. **Remaining:** (1) WS-E is observational — confirm repo-map/Serena adoption in the next `./dev sandbox --simulate` run; (2) package version bump deferred to the release act; (3) future-simplification candidate — collapse the three-way duplication (canon / per-stack / skill reference), a separate plan.
 **Audience:** An engineer or agent executing this alignment pass across the five engineer skills.
 **Scope owner:** `src/engineer-skills/*` (the five engineer skills), the per-stack principle docs under `src/generators/*/docs/principles/stack/`, and the sync-anchor gate (`scripts/check_sync_anchors.py`).
 
