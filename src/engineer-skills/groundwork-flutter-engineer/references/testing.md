@@ -130,6 +130,14 @@ Goldens guard **design-system-level components** (the token-projected theme made
 
 The canon's assertion-quality read-out is mutation testing — inject a fault, confirm a test fails. Dart has **no production-grade mutation tool** (the existing packages are experimental and unmaintained), so that automated read-out is not available here. The discipline it enforces is carried by review instead: fakes over mocks (a stub-and-verify mock asserts the call, not the outcome), assert on semantics and visible text rather than widget types, and cover error and empty states — the failure modes mutation testing would otherwise catch. When a dense pure-Dart algorithm genuinely warrants it, a hand-run experimental tool is a spot check, never a gate.
 
+## Generate the Inputs You Can't Enumerate
+
+Example-based tests check the cases you thought of (canon principle 7). The generative surface on a Flutter client is narrow but real: a **dense, pure-Dart unit** with an invariant — a mapper round-trip (`fromJson ∘ toJson = id`), a date/currency formatter, a validator that must never throw — can state the property and let the framework generate counterexamples. `glados` is the Dart property-based option; it is niche, so reach for it only where a genuine invariant lives in pure logic, never for widget trees. The service-boundary generative tools the canon names — Schemathesis, coverage-guided fuzzing — do not apply to a client: the gateway's contract is fuzzed once at the capability core, and re-running it from the surface duplicates a proof that already exists (the Prove-Once Rule).
+
+## Naming Tests by Behaviour
+
+A test name must let an engineer form a hypothesis from the failure log alone. State the observable behaviour and the condition — `'placing an order shows the confirmation'`, not `'OrderView test'`. Names that describe what the user sees survive refactors and double as living documentation; names that describe the widget under test convey nothing the file tree doesn't.
+
 ## Test Commands
 
 | Command | Purpose |

@@ -27,6 +27,8 @@ The **honeycomb model** inverts the priority:
 
 This gives us a suite where a passing run is a meaningful signal. The bugs we care about — boundary mismatches, SQL correctness, serialisation errors, provider contract violations — are caught before they reach production.
 
+This is the Python idiom of the framework testing canon (`docs/principles/foundations/testing.md`); the canon is the parent principle and wins on any disagreement.
+
 ---
 
 ## The Three Tiers
@@ -253,6 +255,45 @@ async def test_streaming(client): ...
 ```
 
 A failing test name should give an on-call engineer enough information to form a hypothesis without opening the test file.
+
+---
+
+## Trace Assertions — observability is a test surface
+
+A critical-path request must emit an unbroken trace; a missing span is a test failure, not an instrumentation TODO. Register an OTel **`InMemorySpanExporter`** in the test process, exercise the endpoint, and assert on the finished spans — the entry span exists, the trace stays connected across the service hop, and the attributes a dashboard query depends on are present.
+
+```python
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanExporter
+
+@pytest.fixture
+def spans():
+    exporter = InMemorySpanExporter()
+    provider = TracerProvider()
+    provider.add_span_processor(SimpleSpanProcessor(exporter))
+    # install provider for the test, exercise the system, then:
+    return exporter
+
+async def test_transcribe_emits_connected_trace(client, spans):
+    await client.post("/transcribe", json={"audio_url": "gs://b/f.mp3"})
+    names = [s.name for s in spans.get_finished_spans()]
+    assert "POST /transcribe" in names
+```
+
+Assert the spans the contract promises and let the rest float — pinning the whole tree couples the test to implementation.
+
+---
+
+## Mutation Testing — the assertion-quality read-out
+
+A service test drives many branches through one HTTP call and can *execute* them all while only asserting on the response body. Mutation testing proves the suite checks what it runs: inject a fault, confirm a test fails; a surviving mutant is a covered-but-unchecked line. Python's tooling is production-grade — **`mutmut`** and **`cosmic-ray`** — but it is expensive, so it is a **signal, never a gate**: run it incrementally on the high-risk modules the risk matrix flags and on changed code only. A surviving mutant on changed high-risk code is the missing assertion to add — the same read-out catches AI-generated tests whose oracle was lifted from the implementation. (Note: `mutmut` 3 no longer mutates module-level code.)
+
+---
+
+## Generate the Inputs You Can't Enumerate
+
+Example-based tests check the cases you thought of; the bugs live in the cases you didn't. For pure logic with a real invariant — a round-trip (`decode ∘ encode = id`), a parser that must never raise, a domain calculation with an algebraic law — state the property and let **`Hypothesis`** generate and shrink counterexamples. One property covers an infinity of examples, and most caught faults surface on a single generated input. At the API boundary, **Schemathesis** derives a semantics-aware fuzzer straight from the OpenAPI schema and finds materially more defects than example-based API tests for the cost of pointing it at the spec. Reach for these where invariants are real; the authoring cost (a meaningful property needs a generator) is why they are not everywhere.
 
 ---
 

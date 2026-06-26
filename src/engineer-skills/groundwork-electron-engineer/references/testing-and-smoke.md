@@ -102,6 +102,14 @@ Boot minutes are this stack's expensive test currency. The smoke proves the app 
 
 The main-process policy modules (`policy.ts` — URL allow-listing, sender validation, IPC guards) are dense security logic, exactly where a covered-but-unasserted line is a real risk. **StrykerJS** is the read-out that proves those tests bite: it mutates the rule and confirms a test fails. Treat it as a **signal, never a gate**, run it incrementally on changed code (`stryker run --incremental`), and point it at the pure policy modules first — a surviving mutant on a security rule is the missing assertion to add. The renderer's pure logic earns the same spot check; the Electron glue and the smoke do not (they prove wiring, not branches).
 
+## Generate the Inputs You Can't Enumerate
+
+The same pure policy modules are the prime target for property-based testing (canon principle 7). A hand-written `it.each` list of malicious URLs checks the cases you thought of; an allow-list rule that ingests untrusted strings is exactly where the dangerous input is the one you didn't enumerate. Drive `isAllowedExternalUrl` and sender-validation guards with **`fast-check`** generators — arbitrary URLs, schemes, and host shapes — and assert the security invariant holds (`file:`/`javascript:`/credential-bearing URLs always rejected; only the allow-listed origins pass). One property closes a class of bypass the example list never reaches. The renderer's pure logic earns the same treatment; the Electron glue and the boot smoke do not — they prove wiring, not branches. Service-boundary tools (Schemathesis, coverage-guided fuzzing) belong at the capability core's contract, not the desktop shell.
+
+## Naming Tests by Behaviour
+
+A policy test name must state the rule and the condition from the failure log alone — `rejects file:// URLs` and `rejects credential-bearing hosts`, not `policy test 3`. The generated `it.each('rejects %s', ...)` shape already encodes this; keep it. Renderer component naming follows the web stack idiom (`groundwork-nextjs-engineer/references/testing.md`), unchanged.
+
 ## Test Commands
 
 ```bash

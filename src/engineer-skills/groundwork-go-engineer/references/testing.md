@@ -158,6 +158,27 @@ A fat service-perimeter test drives many branches through one HTTP call and can 
 
 Go's mutation tooling is immature: `gremlins` is pre-1.0 and slow on large packages, and `go-mutesting` is effectively unmaintained. So here it stays a deliberate, hand-run spot check on a dense package under active change (`gremlins unleash ./internal/pricing`), not a CI expectation. Where it surfaces a surviving mutant on changed high-risk code, that is the missing assertion to add — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
 
+## Generate the Inputs You Can't Enumerate
+
+Example-based tests check the cases you thought of; the bugs live in the cases you didn't (canon principle 7). Two generative surfaces apply in Go, both highest-leverage on the **dense, boundary-poor** logic that earns Tier 2 unit tests:
+
+- **Property-based tests** for code with an invariant that holds across a large input space — a round-trip (`Decode(Encode(x)) == x`), a parser that must never panic, a pricing calculation with an algebraic law, a state machine that must preserve a constraint. State the property and let the framework generate and shrink counterexamples. Reach for `pgregory.net/rapid` (modern, shrinks well) over stdlib `testing/quick`; one property covers an infinity of examples, and most caught faults surface on a single generated input.
+
+```go
+func TestEncodeDecode_RoundTrips(t *testing.T) {
+    rapid.Check(t, func(t *rapid.T) {
+        order := genOrder().Draw(t, "order") // a rapid generator for the domain type
+        got, err := Decode(Encode(order))
+        require.NoError(t, err)
+        require.Equal(t, order, got)
+    })
+}
+```
+
+- **Native fuzzing** (`go test -fuzz`) at the byte boundary — parsers, decoders, anything that ingests untrusted input. Coverage-guided, first-class in the toolchain since Go 1.18, and a failing input is saved under `testdata/fuzz/` as a permanent regression seed. Run a fuzz target in a bounded CI lane (`-fuzztime=30s`) on changed parsers, not unbounded on every PR.
+
+The cost is authoring — a meaningful property needs a real invariant and a generator — so reach for these where invariants are real, not everywhere. Where the input space is small or there is no invariant, a table-driven unit test is the right tool.
+
 ## Anti-Patterns
 
 - **Mocking the database.** Test against a real schema.

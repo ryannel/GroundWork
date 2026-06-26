@@ -8,7 +8,7 @@ last_reviewed: 2026-05-26
 
 ## TL;DR
 
-Service perimeter tests are our default: real Postgres via Testcontainers, real HTTP via `httptest`, no mocks inside the service boundary. Unit tests exist for isolated, complex logic only. The test pyramid does not apply to services that can spin up a real database in two seconds.
+Service perimeter tests are our default: real Postgres via Testcontainers, real HTTP via `httptest`, no mocks inside the service boundary. Unit tests exist for isolated, complex logic only. The default shape is the **test honeycomb** — a fat middle of sociable service tests, a thin solitary-unit layer, a few end-to-end checks — not the pyramid, which assumes a database in a test is expensive. This is the Go idiom of the framework testing canon (`docs/principles/foundations/testing.md`); the canon is the parent principle and wins on any disagreement.
 
 ## Why this matters
 
@@ -142,6 +142,22 @@ go test ./internal/meetings/...
 # verbose output for a single test
 go test -v -run TestCreateMeeting ./internal/meetings/...
 ```
+
+## Trace assertions — observability is a test surface
+
+A critical-path request must emit an unbroken trace; a missing span is a test failure, not an instrumentation TODO. The mechanism is the OTel SDK's **in-memory span exporter** — register one in the test process, exercise the handler, and assert on the finished spans (the entry span exists, the work span is its descendant, the attributes a dashboard query depends on are present). Use `go.opentelemetry.io/otel/sdk/trace/tracetest` (`NewInMemoryExporter`), no external tooling. Assert what the contract promises and let the rest float — pinning the whole span tree couples the test to implementation.
+
+## Mutation testing — the assertion-quality read-out
+
+A fat service-perimeter test drives many branches through one HTTP call and can *execute* them all while only asserting on the response body. Mutation testing is the instrument that proves the suite checks what it runs: inject a fault, confirm a test fails; a surviving mutant is a covered-but-unchecked line. It is a **signal, never a gate**. Go's tooling is immature (`gremlins` is pre-1.0 and slow; `go-mutesting` is unmaintained), so here it stays a hand-run spot check on a dense package under active change, not a CI expectation.
+
+## Generate the inputs you can't enumerate
+
+Example-based tests check the cases you thought of; the bugs live in the cases you didn't. For dense, boundary-poor logic with a real invariant — a round-trip, a parser that must never panic, a calculation with an algebraic law — state the property and let the framework generate and shrink counterexamples (`pgregory.net/rapid`, or stdlib `testing/quick`). At the byte boundary, native `go test -fuzz` is first-class for parsers and decoders, and a failing input is saved under `testdata/fuzz/` as a permanent regression seed. Reach for these where invariants are real, not everywhere.
+
+## Naming
+
+Name a test by behaviour, not implementation: `[Function] should [expected outcome] when [condition]`. `TestCreateItem_Success` conveys nothing the dashboard does not already show; a failing name should let an on-call engineer form a hypothesis without opening the file.
 
 ## Anti-patterns
 

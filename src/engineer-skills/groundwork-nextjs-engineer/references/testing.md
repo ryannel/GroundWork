@@ -441,6 +441,33 @@ Assert the spans that must exist and the attributes a query depends on; let the 
 
 Coverage tells you a line ran; it does not tell you an assertion checked it — a 100% covered `lib/utils.ts` can still assert nothing. **StrykerJS** is the read-out that proves the assertions bite: it mutates the code and confirms a test fails. Treat it as a **signal, never a gate**, and run it incrementally on changed code (`stryker run --incremental`, which diffs against the cached `reports/stryker-incremental.json` — there is no `--since` flag). Point it at the dense pure logic first (`lib/utils.ts`, schema validators, formatters); a surviving mutant there is the missing assertion to add. This is also the antidote to AI-generated component tests, whose oracle is lifted from the current markup and so cement bugs as expected.
 
+## Generate the Inputs You Can't Enumerate
+
+Example-based tests check the cases you thought of; the bugs live in the cases you didn't (canon principle 7). Two generative surfaces apply to a Next.js app:
+
+- **Property-based tests with `fast-check`** for the dense pure logic — formatters, `lib/utils.ts`, Zod-adjacent transforms, anything with an invariant (a round-trip, a sort that must stay stable, a parse that must never throw). State the property; fast-check generates and shrinks counterexamples. This is the highest-leverage complement to example-based unit tests: one property covers an infinity of inputs.
+
+```ts
+import fc from 'fast-check';
+
+it('formatDuration never throws and always ends in m', () => {
+  fc.assert(
+    fc.property(fc.nat({ max: 100_000 }), (minutes) => {
+      const out = formatDuration(minutes);
+      expect(out).toMatch(/m$/);
+    }),
+  );
+});
+```
+
+- **Schemathesis at the API boundary.** Route handlers backed by an OpenAPI schema are the bridge between contract testing and property fuzzing: point Schemathesis at the spec and it derives a semantics-aware fuzzer that finds materially more defects than example-based API tests for the cost of pointing it at the schema. Run it against the app's route handlers (`/api/*`) in a dedicated lane, not on every component PR.
+
+Reach for these where invariants are real. Presentational components have no invariant to state — test them with example-based RTL renders.
+
+## Naming Tests by Behaviour
+
+A test name must let an on-call engineer form a hypothesis from the failure log alone, without opening the file. State the behaviour and the condition — `should [expected outcome] when [condition]` — not the implementation. `renders correctly` and `works` say nothing the dashboard doesn't already show; `shows the retry button when the meetings request fails` does. The format serves the goal; a name that states behaviour and condition in another shape is fine.
+
 ## Test Commands
 
 | Command | Purpose |
