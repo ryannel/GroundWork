@@ -1,8 +1,9 @@
 name: CI
 
-# Fast, deterministic, blocking gates — the green "build". Every job just calls a
-# `./dev` target, so `./dev ci` locally reproduces this exact build. The heavy
-# real-stack boot lives in integration.yml (non-blocking), not here.
+# The build is a single command — `./dev ci` — run with the pinned toolchain.
+# CI runs exactly that, so running `./dev ci` locally reproduces the GitHub build
+# byte for byte (lint + generation + contracts + cli + compilation). The
+# heavyweight real-stack boot lives in integration.yml (nightly/manual), not here.
 
 on:
   pull_request:
@@ -14,31 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  generation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: 'npm'
-      - run: npm ci
-      - run: ./dev test generation
-
-  contracts:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: 'npm'
-      - run: npm ci
-      - run: ./dev lint skills
-      - run: ./dev test contracts
-      - run: ./dev test cli
-
-  compilation:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +33,10 @@ jobs:
         uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
-      # python-microservice cases shell out to `uv`; Next.js and docs-site
-      # cases shell out to `pnpm`. Go is preinstalled on the runner image.
-      - run: npm ci
-      - run: ./dev test compilation
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: false
+      # The whole required build, identical to local `./dev ci`.
+      # (Go + uv + pnpm back the compilation gate; Node + uv back the rest.)
+      - run: ./dev ci
