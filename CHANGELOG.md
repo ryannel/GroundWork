@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (`update` prints a scannable change summary instead of dumping the whole changelog, 2026-06-26)
+
+A version-jump `groundwork update` dumped every line of every changelog entry in the range verbatim — for a 0.9.0 → 0.10.0 jump that is a multi-screen wall of prose. Worse, the "Migration required" list matched *any* line containing the `[migration]` token, so a prose sentence that merely mentions the token in backticks ("Changelog `[migration]` lines now reference registry ids") leaked into the list as a stray, prefix-stripped bullet ("Changelog `` lines now reference registry ids"). The renderer (`bin/groundwork.js`) now prints one bullet per change — `Category — headline`, derived from each `### Category (headline, date)` section header — and surfaces only genuine `- [migration]` bullets, with the token prefix stripped and the registry id preserved. `update --full` restores the verbatim entry dump for anyone who wants it, and a footer points at `CHANGELOG.md` / `--full` for detail.
+
+- [no-migration] CLI output only; `bin/groundwork.js` is framework-owned and clean-replaces on update. No project artifact, migration, or behavior change — only what `update` prints.
+
 ## [0.10.0] - 2026-06-25
 
 ### Changed (the Naming family now reconciles the relocated hidden-skills path, 2026-06-25)

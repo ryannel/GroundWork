@@ -29,7 +29,7 @@ function printHelp() {
   \x1b[36minit\x1b[0m      Install GroundWork skills, config, and the Serena code-intelligence MCP server into the current project
   \x1b[36mupdate\x1b[0m    Bring the install up to this package version: skills, seeded docs, the ./dev bundle,
             and scripted migrations. Judgment-lane work lands in an upgrade brief for your agent.
-            \x1b[2m--dry-run prints the full plan without writing anything.\x1b[0m
+            \x1b[2m--dry-run prints the full plan without writing anything; --full shows complete changelog entries.\x1b[0m
   \x1b[36mcheck\x1b[0m     Report framework staleness (version gap, pending migrations) and documentation drift
   \x1b[36mrepo-map\x1b[0m  Build the deterministic code map (.groundwork/cache/repo-map.json): tree-sitter
             import edges + PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index
@@ -151,8 +151,40 @@ function parseChangelog() {
   return entries; // newest first, matching file order
 }
 
-// Prints the changelog entries in (fromVersion, toVersion], flagging [migration] lines.
-function printChangelogSlice(fromVersion, toVersion) {
+// Reduces a `### Category (headline, date)` section header to a scannable label.
+// Older bare `### Category` headers (and the `[no-migration]` backtick tag some
+// headers carry) degrade to just the category word.
+function changelogHeadline(header) {
+  const body = header
+    .slice(4)
+    .replace(/\s*`\[(?:no-)?migration\]`\s*$/i, '')
+    .trim();
+  const m = body.match(/^(\w+)\s*\(([\s\S]*)\)\s*$/);
+  if (!m) return { category: body.split(/\s+/)[0] || body, text: null };
+  const text = m[2].replace(/,\s*\d{4}-\d{2}-\d{2}\s*$/, '').trim();
+  return { category: m[1], text };
+}
+
+// Collects the genuine `- [migration]` bullets from a slice's lines. Matches only
+// bullet-leading tokens, not prose that mentions `[migration]` in passing (e.g. the
+// upgrade-path note that the token references registry ids) — that false match used
+// to leak a stray, prefix-stripped line into the "Migration required" list.
+function collectMigrations(entries) {
+  const out = [];
+  for (const e of entries) {
+    for (const line of e.lines) {
+      if (/^\s*-\s*\[migration\]/i.test(line)) {
+        out.push(line.trim().replace(/^-\s*\[migration\]\s*/i, ''));
+      }
+    }
+  }
+  return out;
+}
+
+// Prints the changelog entries in (fromVersion, toVersion]. By default it renders a
+// scannable one-line-per-change summary; `full` dumps the entry bodies verbatim.
+// Genuine [migration] bullets are always surfaced separately.
+function printChangelogSlice(fromVersion, toVersion, full = false) {
   const entries = parseChangelog().filter(
     (e) =>
       semverCompare(e.version, toVersion) <= 0 &&
@@ -161,22 +193,38 @@ function printChangelogSlice(fromVersion, toVersion) {
   if (entries.length === 0) return;
 
   console.log(`\x1b[1mWhat changed:\x1b[0m`);
-  const migrations = [];
-  for (const e of entries) {
-    console.log(`\n  \x1b[1m${e.version}\x1b[0m \x1b[2m(${e.date})\x1b[0m`);
-    for (const line of e.lines) {
-      if (!line.trim()) continue;
-      if (/\[migration\]/i.test(line)) migrations.push(line.trim());
-      if (line.startsWith('### ')) {
-        console.log(`    \x1b[1m${line.slice(4)}\x1b[0m`);
-      } else {
-        console.log(`    ${line}`);
+  if (full) {
+    for (const e of entries) {
+      console.log(`\n  \x1b[1m${e.version}\x1b[0m \x1b[2m(${e.date})\x1b[0m`);
+      for (const line of e.lines) {
+        if (!line.trim()) continue;
+        if (line.startsWith('### ')) console.log(`    \x1b[1m${line.slice(4)}\x1b[0m`);
+        else console.log(`    ${line}`);
       }
     }
+  } else {
+    for (const e of entries) {
+      const headlines = e.lines.filter((l) => l.startsWith('### ')).map(changelogHeadline);
+      const n = headlines.length;
+      console.log(
+        `\n  \x1b[1m${e.version}\x1b[0m \x1b[2m(${e.date}` +
+          (n ? ` · ${n} change${n === 1 ? '' : 's'}` : '') +
+          `)\x1b[0m`
+      );
+      for (const { category, text } of headlines) {
+        const label = text ? `\x1b[1m${category}\x1b[0m ${text}` : `\x1b[1m${category}\x1b[0m`;
+        console.log(`    \x1b[2m•\x1b[0m ${label}`);
+      }
+    }
+    console.log(
+      `\n  \x1b[2mFull detail in CHANGELOG.md — or re-run with \x1b[0m\x1b[36m--full\x1b[0m\x1b[2m for the complete entries.\x1b[0m`
+    );
   }
+
+  const migrations = collectMigrations(entries);
   if (migrations.length > 0) {
     console.log(`\n\x1b[33m\x1b[1m⚠ Migration required:\x1b[0m`);
-    for (const m of migrations) console.log(`  \x1b[33m${m.replace(/\[migration\]\s*/i, '')}\x1b[0m`);
+    for (const m of migrations) console.log(`  \x1b[33m- ${m}\x1b[0m`);
   }
   console.log('');
 }
@@ -1242,7 +1290,7 @@ function updateGroundWork(flags = {}) {
 
   // Migration notes: surface the changelog slice between the stamped and current versions.
   if (stamped === null || semverCompare(stamped, PKG.version) < 0) {
-    printChangelogSlice(stamped, PKG.version);
+    printChangelogSlice(stamped, PKG.version, !!flags.full);
   }
 
   // Self-heal agent wiring: ensure the canonical AGENTS.md exists and the recorded agents'
@@ -1576,7 +1624,10 @@ switch (command) {
     break;
   }
   case 'update':
-    updateGroundWork({ dryRun: process.argv.includes('--dry-run') });
+    updateGroundWork({
+      dryRun: process.argv.includes('--dry-run'),
+      full: process.argv.includes('--full'),
+    });
     break;
   case 'check':
     // `check --help` documents behavior (incl. exit codes) instead of running.

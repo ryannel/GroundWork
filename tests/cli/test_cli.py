@@ -143,8 +143,39 @@ def test_update_surfaces_migration_notes_on_version_jump(project):
     assert proc.returncode == 0, proc.stderr
     assert f"Updating 0.1.0 → {PKG_VERSION}" in proc.stdout
     assert "What changed:" in proc.stdout
+    # The summary is scannable: section-header headlines become one-line bullets...
+    assert "one update lane, reconciled to the current canonical" in proc.stdout
+    # ...and the verbatim entry bodies are NOT dumped (this sentence opens a body, not a header).
+    assert "A live update run surfaced a gap" not in proc.stdout
+    # Migration bullets list real `- [migration]` entries (with the prefix stripped),
+    # never prose that merely mentions the token in backticks.
+    assert "⚠ Migration required:" in proc.stdout
+    assert "(gw-bet-prose-redesign)" in proc.stdout
+    assert "[migration]" not in proc.stdout  # the bracket token itself never leaks into output
+    assert "Changelog `` lines now reference registry ids" not in proc.stdout
     # Re-stamped after update
     assert json.loads(state_path.read_text())["groundwork"]["version"] == PKG_VERSION
+
+
+def test_update_full_flag_dumps_complete_entries(project):
+    run_cli(["init"], project)
+    state_path = project / ".groundwork/config/state.json"
+    state = json.loads(state_path.read_text())
+    state["groundwork"]["version"] = "0.1.0"
+    state_path.write_text(json.dumps(state))
+    (project / ".agents/skills/groundwork-check/SKILL.md").write_text("stale")
+
+    summary = run_cli(["update"], project).stdout
+    # Reset and re-run with --full to compare verbosity.
+    state = json.loads(state_path.read_text())
+    state["groundwork"]["version"] = "0.1.0"
+    state_path.write_text(json.dumps(state))
+    (project / ".agents/skills/groundwork-check/SKILL.md").write_text("stale")
+    full = run_cli(["update", "--full"], project).stdout
+
+    assert full.count("\n") > summary.count("\n")
+    assert "for the complete entries" in summary
+    assert "for the complete entries" not in full
 
 
 def test_update_without_install_fails_cleanly(project):
