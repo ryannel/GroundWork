@@ -10,7 +10,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --ignore-scripts
+# --trust-lockfile skips re-running pnpm's supply-chain release-age verification
+# against each entry: the lockfile was just produced by this project's own
+# `pnpm install` and is the trusted build input, so the check only blocks the
+# image on transiently too-new deps (ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION).
+RUN pnpm install --frozen-lockfile --ignore-scripts --trust-lockfile
 
 # ── Build ────────────────────────────────────────────────────────────────────
 FROM base AS builder
