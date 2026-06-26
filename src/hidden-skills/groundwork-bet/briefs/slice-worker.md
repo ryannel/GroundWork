@@ -95,6 +95,19 @@ The driver passes:
 Most implementation failures are context failures — the agent that breaks an existing
 behaviour usually never read the file it was changing. Before writing any code:
 
+- **Orient through the repo map, then trace what you are about to touch.** Refresh the
+  deterministic map (`npx groundwork-method repo-map`, incremental) and read its
+  `centrality` ranking to find the hubs this slice lands among — real for graph-fidelity
+  stacks (Go/Python/TS/JS/Java/Dart); for a symbols-fidelity stack lean on its symbol
+  index and on Serena instead. Before you change any symbol other code depends on, run
+  live impact analysis with Serena (`find_referencing_symbols`) to see every caller that
+  breaks if its signature or shape changes — the missed-call-site class you would
+  otherwise lean on the compiler to catch late. Navigate with `get_symbols_overview` /
+  `find_symbol` and edit by symbol (`replace_symbol_body` / `rename`) where it fits. Full
+  workflow and the graceful-degradation contract are in
+  `.groundwork/skills/code-intelligence.md`; when the map or Serena is unavailable,
+  navigate with ordinary reads and project search and let the compiler and tests be the
+  backstop — the contract is identical, only the means differ.
 - **Read the previous slice's delivery commit** — its message and its diff.
 - **Read every existing file this slice modifies, in full.** For each, hold three
   things: what it does today, what this slice changes, and what must keep working. A

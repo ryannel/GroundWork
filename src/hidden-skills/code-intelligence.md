@@ -127,3 +127,9 @@ with ordinary file edits. No repo map for a language — not built in and not ye
 `unmapped` list): either enable it (above) or infer the missing structure from targeted reads
 (entry points, manifests, imports) in the same shape. The downstream contract is identical — only
 the means differ. Say so rather than implying structural coverage you did not have.
+
+In a **git worktree** (e.g. a bet under delivery): the map cache is per-working-tree, so build it
+in the worktree before relying on it (`npx groundwork-method repo-map`). Serena is registered with
+`--project .`, which resolves to the session root rather than the worktree path — treat its symbol
+tools as best-effort there and lean on the freshly-built map, falling back to ordinary reads under
+the same contract.
