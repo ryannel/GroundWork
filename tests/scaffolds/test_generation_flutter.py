@@ -161,6 +161,29 @@ def test_flutter_app_file_set(default_app):
         assert (app / rel).exists(), f"expected generated file missing: {rel}"
 
 
+def test_integration_test_covers_native_check_contract(default_app):
+    """The integration_test is the Flutter native UI check (NATIVE-CHECK-CONTRACT):
+    beyond boot+render it drives the named unreachable state on the real binary and
+    asserts a design-system token landed in the render."""
+    app_test = (
+        default_app / "services" / "mobile-app" / "integration_test" / "app_test.dart"
+    ).read_text()
+    # Named state: the unreachable path is driven and asserted to render, not crash.
+    assert "HealthStatus.unreachable()" in app_test, (
+        "integration_test must drive the unreachable state"
+    )
+    assert "Gateway unreachable" in app_test, (
+        "integration_test must assert the unreachable state renders"
+    )
+    assert "takeException(), isNull" in app_test, (
+        "integration_test must assert the unreachable path raised no exception"
+    )
+    # Token match: a projected design-system token is verified in the real render.
+    assert "StatusColors" in app_test, (
+        "integration_test must assert a design-system token landed in the render"
+    )
+
+
 def test_pubspec_is_a_valid_dart_package(default_app):
     pubspec = (default_app / "services" / "mobile-app" / "pubspec.yaml").read_text()
     # Dart package names are lower_snake_case — the kebab slug must be converted.

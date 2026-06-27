@@ -368,6 +368,19 @@ def test_smoke_spec_drives_playwright_electron(default_app):
     assert "app.close()" in spec, "smoke must close the app (leaked Electron wedges CI)"
 
 
+def test_smoke_spec_covers_native_check_contract(default_app):
+    """The _electron smoke is the Electron native UI check (NATIVE-CHECK-CONTRACT):
+    beyond boot+render it drives the named unreachable state on the real binary and
+    asserts the design-system tokens landed."""
+    spec = (_app_root(default_app) / "tests" / "smoke" / "app.spec.ts").read_text()
+    # Named state: the unreachable core is driven deterministically (bad base URL)
+    # and asserted to render as a state, not a crash.
+    assert "API_BASE_URL" in spec, "smoke must drive the unreachable state via a bad base URL"
+    assert "Workspace core unreachable" in spec, "smoke must assert the unreachable state renders"
+    # Token match: the design-system tokens are verified at computed-style level.
+    assert "--gw-primary" in spec, "smoke must assert a design-system token resolved"
+
+
 # ---------------------------------------------------------------------------
 # Workspace wiring — never docker-compose / npm workspaces
 # ---------------------------------------------------------------------------

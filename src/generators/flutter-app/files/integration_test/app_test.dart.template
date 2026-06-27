@@ -3,28 +3,62 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:<%= pubspecName %>/app.dart';
 import 'package:<%= pubspecName %>/data/repositories/status_repository.dart';
+import 'package:<%= pubspecName %>/domain/models/health_status.dart';
+import 'package:<%= pubspecName %>/ui/core/theme/app_theme.dart';
 
 import '../test/fakes/fake_status_repository.dart';
 
-/// Boot-tier smoke: the real app binary launches and renders home on a
-/// headless Android emulator — the CI-canonical loop. Keep this tier thin
-/// (happy paths only); emulator minutes are the most expensive test currency
-/// in this stack. The gateway is faked so the smoke proves boot + rendering,
-/// not network reachability (docs/principles/stack/flutter/testing.md).
+/// Native UI check (the Flutter side of NATIVE-CHECK-CONTRACT): the real app
+/// binary launches on a headless emulator and is driven through the contract
+/// dimensions — render, the named async states, and design-system token match.
+/// Navigation / no-dead-ends is exempt while the app is single-screen; a bet
+/// that adds screens extends this harness to drive between them and back.
+///
+/// Keep it thin — emulator minutes are the most expensive test currency in this
+/// stack. The repository is faked at the provider seam so each state is reached
+/// deterministically (you cannot summon a loading or unreachable state from a
+/// real backend on demand); the milestone's front-door proof is what drives the
+/// real gateway end to end (docs/principles/stack/flutter/testing.md).
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('the app boots to the home view', (tester) async {
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          statusRepositoryProvider.overrideWithValue(FakeStatusRepository()),
-        ],
+  Widget bootWith(StatusRepository repo) => ProviderScope(
+        overrides: [statusRepositoryProvider.overrideWithValue(repo)],
         child: const App(),
+      );
+
+  testWidgets('renders the reachable state on the design system',
+      (tester) async {
+    await tester.pumpWidget(bootWith(FakeStatusRepository()));
+    await tester.pumpAndSettle();
+
+    // Render: the home view reached its data state — not a blank or error frame.
+    expect(find.text('Wired to the workspace gateway'), findsOneWidget);
+
+    // Token match: the status icon resolves the projected design-system token
+    // (StatusColors.success), in whichever theme the platform launched — proof
+    // the design system landed in the real render rather than a flat default.
+    final icon = tester.widget<Icon>(find.byIcon(Icons.check_circle_outline));
+    expect(
+      icon.color,
+      anyOf(
+        buildLightTheme().extension<StatusColors>()!.success,
+        buildDarkTheme().extension<StatusColors>()!.success,
       ),
+    );
+  });
+
+  testWidgets('renders the unreachable state as a state, not a crash',
+      (tester) async {
+    await tester.pumpWidget(
+      bootWith(FakeStatusRepository(result: const HealthStatus.unreachable())),
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Wired to the workspace gateway'), findsOneWidget);
+    // Named state: the unreachable path renders its designed card with no
+    // uncaught exception — a working app that cannot reach the core still shows
+    // the user a state, never a blank or a red screen of death.
+    expect(find.text('Gateway unreachable'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

@@ -50,7 +50,9 @@ A small set of happy-path flows through the real app binary — launch, sign in 
 
 **Android is the CI gate; iOS is a local-only lane.** The headless Android emulator is cheap, scriptable, and agent-drivable; iOS simulators need macOS runners and routinely need hands — putting them in the gate trades the agent-closable loop for platform symmetry the wiring proof does not need. iOS-specific verification happens locally or on device farms (Firebase Test Lab, Codemagic) as an explicit, non-gating lane.
 
-Keep this tier thin. Every integration test is minutes of emulator time; if a widget test can carry the assertion, it does.
+This tier is the Flutter side of the **native UI check contract** (`src/generators/system-test-runner/NATIVE-CHECK-CONTRACT.md`) — the `system-test-runner` drives it as the surface's visual gate, so it carries the contract's dimensions on the *real binary*: it renders without a blank or crash frame, drives the **named async states** (the unreachable/error path renders its designed card, not a red screen), and confirms a **design-system token landed** in the render (the status icon resolves the projected `StatusColors` token, not a flat default). Navigation / no-dead-ends is exempt while the app is single-screen; a bet that adds screens drives between them and back here. Each state is reached by faking the repository at the provider seam — you cannot summon a loading or unreachable state from a real backend on demand — while the milestone's front-door bet-progress proof drives the real gateway end to end.
+
+Keep this tier thin. Every integration test is minutes of emulator time; if a widget test can carry the assertion, it does — the integration tier carries only what needs the real binary: render, the states, and token conformance.
 
 ### Patrol — only across the Flutter/OS boundary
 

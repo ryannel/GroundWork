@@ -8,7 +8,7 @@ last_reviewed: 2026-06-12
 
 ## TL;DR
 
-Three tiers: pure-Dart unit tests with fakes, widget tests as the bulk of coverage, and `integration_test` happy paths on a headless Android emulator as the CI-canonical loop. Patrol enters only when a flow crosses the Flutter/OS boundary. Goldens run via alchemist. Surface tests assert wiring, rendering, and interaction — they never re-prove business logic already proven at the core's contract.
+Three tiers: pure-Dart unit tests with fakes, widget tests as the bulk of coverage, and `integration_test` happy paths on a headless Android emulator as the CI-canonical loop. Patrol enters only when a flow crosses the Flutter/OS boundary. Goldens run via alchemist. Surface tests assert wiring, rendering, and interaction — they never re-prove business logic already proven at the core's contract. This is the Flutter idiom of the framework testing canon (`docs/principles/foundations/testing.md`) — widget tests are the honeycomb's fat middle, unit tests the thin solitary layer — and the canon wins on any disagreement.
 
 ## Why this matters
 
@@ -50,7 +50,9 @@ A small set of happy-path flows through the real app binary — launch, sign in 
 
 **Android is the CI gate; iOS is a local-only lane.** The headless Android emulator is cheap, scriptable, and agent-drivable; iOS simulators need macOS runners and routinely need hands — putting them in the gate trades the agent-closable loop for platform symmetry the wiring proof does not need. iOS-specific verification happens locally or on device farms (Firebase Test Lab, Codemagic) as an explicit, non-gating lane.
 
-Keep this tier thin. Every integration test is minutes of emulator time; if a widget test can carry the assertion, it does.
+This tier is the Flutter side of the **native UI check contract** (`src/generators/system-test-runner/NATIVE-CHECK-CONTRACT.md`) — the `system-test-runner` drives it as the surface's visual gate, so it carries the contract's dimensions on the *real binary*: it renders without a blank or crash frame, drives the **named async states** (the unreachable/error path renders its designed card, not a red screen), and confirms a **design-system token landed** in the render (the status icon resolves the projected `StatusColors` token, not a flat default). Navigation / no-dead-ends is exempt while the app is single-screen; a bet that adds screens drives between them and back here. Each state is reached by faking the repository at the provider seam — you cannot summon a loading or unreachable state from a real backend on demand — while the milestone's front-door bet-progress proof drives the real gateway end to end.
+
+Keep this tier thin. Every integration test is minutes of emulator time; if a widget test can carry the assertion, it does — the integration tier carries only what needs the real binary: render, the states, and token conformance.
 
 ### Patrol — only across the Flutter/OS boundary
 
@@ -59,6 +61,16 @@ Keep this tier thin. Every integration test is minutes of emulator time; if a wi
 ### Golden tests — alchemist
 
 Goldens guard design-system-level components (the token-projected theme made visible). Use **alchemist**, with its platform-test vs CI-test split — CI variants render text as blocks, killing the cross-platform font flakiness that made goldens a deletion candidate. `golden_toolkit` is discontinued — legacy; migrate, do not adopt. Golden scope is the component library, not full screens: screen-level goldens churn on every copy change and teach the team to rubber-stamp diffs.
+
+## Assertion-quality read-outs (and their stack limits)
+
+The canon's quality read-outs are stack-dependent, and a client is honest about which apply:
+
+- **Mutation testing** (the canon's read-out for whether assertions bite) has **no production-grade Dart tool** — the existing packages are experimental and unmaintained. The discipline it enforces is carried by review instead: fakes over mocks, assertions on semantics and visible text, and error/empty-state coverage. A hand-run experimental tool is a spot check on a dense pure-Dart algorithm, never a gate.
+- **Property-based testing** applies narrowly: a dense pure-Dart unit with a real invariant — a mapper round-trip, a formatter, a validator that must never throw — can state the property with `glados` (the niche Dart option). It does not apply to widget trees.
+- **Trace assertions and service-boundary fuzzing** (Schemathesis, coverage-guided fuzzing) are **N/A on the surface** — a Flutter client emits no OpenTelemetry spans, and the gateway's contract is fuzzed once at the capability core. Re-running either from the surface duplicates a proof that already exists.
+
+Name tests by observable behaviour, not the widget under test: `'renaming updates the profile header'`, not `'ProfileView test'`.
 
 ## Legacy
 

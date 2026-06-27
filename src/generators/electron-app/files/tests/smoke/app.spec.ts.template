@@ -4,27 +4,35 @@ import { expect, test } from '@playwright/test';
 import { _electron as electron } from 'playwright';
 import type { AppStatus, CoreHealth } from '../../src/shared/ipc';
 
-// Boot-tier smoke: the real built app launches, renders, and completes one
-// IPC round-trip. This is the agent-closable loop the stack was chosen for —
-// keep it thin (happy path only); rules are proven in the unit tiers and at
-// the capability core's contracts. Runs under xvfb on Linux CI via the smoke
-// target; tool/electron_exec.sh builds first and skips-with-reason when the
-// Electron binary or a display server is unavailable.
+// Native UI check (the Electron side of NATIVE-CHECK-CONTRACT): the real built
+// app launches and is driven through the contract dimensions — render, the
+// named async states, and design-system token match — on the real binary. This
+// is also the agent-closable boot loop the stack was chosen for. Keep it thin;
+// rules are proven in the unit tiers and at the capability core's contracts,
+// and the milestone's front-door bet-progress proof drives the real pipeline.
+// Navigation / no-dead-ends is exempt while the app is single-screen; a bet
+// that adds screens drives between them and back here. Runs under xvfb on Linux
+// CI via the smoke target; tool/electron_exec.sh builds first and skips-with-
+// reason when the Electron binary or a display server is unavailable.
 
 const MAIN_ENTRY = path.join(__dirname, '..', '..', 'out', 'main', 'index.js');
 
-test('boots, renders, and answers an IPC round-trip', async () => {
+function requireBuild(): void {
   if (!fs.existsSync(MAIN_ENTRY)) {
     throw new Error(
       'out/main/index.js not found — run the build first (the smoke target does: npx nx run <%= fileName %>:smoke)',
     );
   }
+}
+
+test('boots, renders on the design system, and answers an IPC round-trip', async () => {
+  requireBuild();
 
   const app = await electron.launch({ args: [MAIN_ENTRY] });
   try {
     const page = await app.firstWindow();
 
-    // The window booted and rendered app content.
+    // Render: the window booted and rendered app content.
     await expect(page).toHaveTitle('<%= name %>');
     await expect(page.getByRole('heading', { name: '<%= name %>' })).toBeVisible();
 
@@ -59,9 +67,66 @@ test('boots, renders, and answers an IPC round-trip', async () => {
       /^(light|dark)$/,
     );
 
+    // Token match: the design-system tokens resolved and landed in the render,
+    // rather than degrading to an unstyled default. The brand custom properties
+    // resolve on :root, and the heading paints with the projected primary token
+    // (text-primary → --color-primary → --gw-primary), not the browser default.
+    const tokens = await page.evaluate(() => {
+      // The renderer DOM globals live in the browser context; type them through
+      // a cast so the spec checks under the node tsconfig (no DOM lib), the same
+      // idiom the bridged-api evaluate above uses.
+      const dom = globalThis as unknown as {
+        getComputedStyle: (el: unknown) => {
+          getPropertyValue(prop: string): string;
+          color: string;
+        };
+        document: {
+          documentElement: unknown;
+          querySelector(sel: string): unknown;
+        };
+      };
+      const root = dom.getComputedStyle(dom.document.documentElement);
+      const heading = dom.document.querySelector('h1');
+      return {
+        primary: root.getPropertyValue('--gw-primary').trim(),
+        surface: root.getPropertyValue('--gw-surface').trim(),
+        headingColor: heading ? dom.getComputedStyle(heading).color : '',
+      };
+    });
+    expect(tokens.primary.length).toBeGreaterThan(0);
+    expect(tokens.surface.length).toBeGreaterThan(0);
+    expect(tokens.headingColor).not.toBe('');
+    expect(tokens.headingColor).not.toBe('rgb(0, 0, 0)');
+
     // Main-process assertion via the driver's main-process hook.
     const isPackaged = await app.evaluate(({ app: electronApp }) => electronApp.isPackaged);
     expect(isPackaged).toBe(false);
+  } finally {
+    await app.close();
+  }
+});
+
+test('renders the unreachable core as a state, not a crash', async () => {
+  requireBuild();
+
+  // Named state, driven deterministically on the real binary: point the
+  // core-access seam at an unreachable address so the probe fails. The app must
+  // still render and show the user a designed "unreachable" state — a working
+  // app that cannot reach the core never shows a blank window or a crash.
+  const app = await electron.launch({
+    args: [MAIN_ENTRY],
+    env: { ...process.env, API_BASE_URL: 'http://127.0.0.1:1' },
+  });
+  try {
+    const page = await app.firstWindow();
+
+    // The shell still booted and rendered — the failure is a state, not a crash.
+    await expect(page.getByRole('heading', { name: '<%= name %>' })).toBeVisible();
+
+    // The core probe resolves to unreachable, and the renderer shows its state.
+    await expect(page.getByTestId('core-status')).toHaveText(
+      /Workspace core unreachable/,
+    );
   } finally {
     await app.close();
   }

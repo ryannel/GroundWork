@@ -14,6 +14,8 @@ Electron is GroundWork's standard desktop surface. This set owns what the deskto
 
 [Surface Stack Selection](../../surface-stack-selection.md) picks Electron on the agent-closable-loop axis: Electron renders on bundled Chromium, so Playwright's `_electron` driver launches the real packaged app, drives its windows as ordinary `Page`s, and evaluates code in the main process — one deterministic engine on every OS, headless under Xvfb in CI. No other desktop option closes generate → boot → test → observe without a human in the loop. The renderer reusing the web stack and brand-token projection wholesale is the second axis win. Tauri is the recorded alternative when binary size and RAM dominate — its per-OS system webviews and WebDriver-only testing surrender the loop, so it is never the default.
 
+That `_electron` smoke (`tests/smoke/app.spec.ts`) is the Electron side of the **native UI check contract** (`src/generators/system-test-runner/NATIVE-CHECK-CONTRACT.md`): the `system-test-runner` drives it as the surface's visual gate, so it carries the contract's dimensions on the real binary — it renders without a blank or crash frame, drives the **named async state** (a deterministically unreachable core renders its designed state, not a crash), and confirms the **design-system tokens landed** (the brand custom properties resolve and the heading paints the projected primary token, not an unstyled default). Navigation / no-dead-ends is exempt while the app is single-screen; a bet that adds screens drives between them and back here. Keep it thin — the milestone's front-door bet-progress proof is what drives the real pipeline end to end.
+
 ## What this set owns
 
 | File | Owns |

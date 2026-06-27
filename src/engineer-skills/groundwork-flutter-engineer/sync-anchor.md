@@ -12,7 +12,7 @@ match.
 | src/generators/flutter-app/docs/principles/stack/flutter/architecture.md | ac10c2c87da358157973ebbfe07657491d68a248b946b00697fdc5e18f3af596 | 2026-06-12 |
 | src/generators/flutter-app/docs/principles/stack/flutter/state-management.md | a690a3476453cb8ed0af0d3f48566d8ba6a2d508ac1ef782fd27bbffd2268994 | 2026-06-12 |
 | src/generators/flutter-app/docs/principles/stack/flutter/widgets-and-composition.md | b45c55220f14a7886837c4d4159b33febceed772db32a7efb277e7dba00512e8 | 2026-06-12 |
-| src/generators/flutter-app/docs/principles/stack/flutter/testing.md | eaae727f710761c70555ad13dd6616ed8fb3b66afdae80aff5e673c0c8d71149 | 2026-06-26 |
+| src/generators/flutter-app/docs/principles/stack/flutter/testing.md | e337a0e1c4a6c5502f69745b0a4e0be35dd3303fbf11ed1f2f3688e93f16ed4f | 2026-06-27 |
 | src/generators/flutter-app/docs/principles/stack/flutter/platform-channels.md | 6b5a54dcb8b55433b7175cf715a6a3abf03c86c317f2037af6155a131691cfb2 | 2026-06-12 |
 | src/generators/flutter-app/docs/principles/stack/flutter/releases-and-distribution.md | 70ecdca2be6d8476359dbc2e72e3510157b49db0f5512cded76e0e3f19bed46f | 2026-06-12 |
 | src/docs/principles/foundations/testing.md | 205ac40d4c643e7b61cf1e4295df8a7b8b46dcd7c81b857aa8c642ea353f62ef | 2026-06-27 |
