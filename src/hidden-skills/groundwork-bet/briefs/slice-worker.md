@@ -181,22 +181,25 @@ the minimum that compiles.
 
 ### 5. Mechanical self-reconcile (first pass, not the gate)
 
-A green suite proves nothing if the sealed prose was quietly altered or the code was
+A green suite proves nothing if the approved prose was quietly altered or the code was
 gamed to pass. Run two cheap checks and **report their result** — they are the
 worker's honest first pass, not the authoritative gate (the driver's independent
 review is that):
 
-- **Prose integrity.** The approved contract — the decomposition tree and technical
-  design — is sealed at the `bet/<bet_slug>/approved` tag.
-  `git diff bet/<bet_slug>/approved.. -- docs/bets/<bet_slug>/decomposition/ docs/bets/<bet_slug>/technical-design/`
-  must show no change. The worker never edits that prose; if a proof looks wrong, that
+- **Prose integrity.** The approved contract is the decomposition tree and technical
+  design.
+  `git status --short -- docs/bets/<bet_slug>/decomposition/ docs/bets/<bet_slug>/technical-design/`
+  must show no change — the worker never edits that prose. If a proof looks wrong, that
   is a blocking concern, not an edit.
-- **Honest green.** The implementation must satisfy the proof for the right reason. A
-  return value hardcoded to the test's expected output, an input special-cased to the
-  fixture, a `if TEST_MODE`-style branch, or a mocked-out unit of real work is a
-  defect even though the suite is green — *a weak suite that generated code passes is
-  worse than no suite* (`docs/principles/foundations/testing.md`). Flag any of these
-  in the report rather than leaving them for the review to find.
+- **Honest green.** The implementation must satisfy the proof for the right reason,
+  against the real product. A return value hardcoded to the test's expected output, an
+  input special-cased to the fixture, a `if TEST_MODE`-style branch, a mocked-out unit
+  of real work, or a fixture standing in for a real pipeline stage that nothing else
+  produces is a defect even though the suite is green — *a weak suite that generated
+  code passes is worse than no suite* (`docs/principles/foundations/testing.md`). If a
+  fake the slice leans on has no real test behind it, or the proof runs against a test
+  target rather than the shipping build, flag it. Surface any of these in the report
+  rather than leaving them for the review to find.
 
 ### 6. Do not commit
 

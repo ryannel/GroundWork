@@ -121,7 +121,7 @@ Before drafting, verify all elements are present and specific (falsifiable signa
 
 ### Surface scope (both tracks — multi-surface registries only)
 
-When the registry holds two or more surfaces, the no-gos conversation includes surface scope: which registry surfaces does this bet deliver to, and for each surface it does not reach, is that a deferral (with intent) or an omission (with rationale)? Appetite is the natural frame — each additional surface costs a surface milestone, so reaching fewer surfaces is the same scope-cutting move as cutting a feature. The dispositions land in the pitch: in-scope slugs in the `surfaces:` frontmatter, the rest as surface no-gos. Validation writes the ledger from exactly these decisions, so a surface the conversation never decided becomes a cell the bet cannot close.
+When the registry holds two or more surfaces, the no-gos conversation includes surface scope: which registry surfaces does this bet deliver to, and for each surface it does not reach, is that a deferral (with intent) or an omission (with rationale)? Appetite is the natural frame — each additional surface costs the milestones to deliver the experience there, so reaching fewer surfaces is the same scope-cutting move as cutting a feature. The dispositions land in the pitch: in-scope slugs in the `surfaces:` frontmatter, the rest as surface no-gos. Validation writes the ledger from exactly these decisions, so a surface the conversation never decided becomes a cell the bet cannot close.
 
 ---
 

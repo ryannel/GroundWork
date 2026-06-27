@@ -1,6 +1,6 @@
 # Phase 2: Design Foundations (UI Design, Data Flows, API Design, Schema & Data Design)
 
-**Goal:** Produce the design contract this bet executes against — before any decomposition begins. The contract anchors everything downstream: surface milestone tests assert against the UI Design subsections; slice capabilities trace to the API Design and Schema & Data Design; the review loop verifies the chain is intact. Design that locks the contract before the UI is settled produces a contract shaped by guesswork about the experiences it must serve.
+**Goal:** Produce the design contract this bet executes against — before any decomposition begins. The contract anchors everything downstream: milestone front-door tests assert against the UI Design subsections; slice capabilities trace to the API Design and Schema & Data Design; the review loop verifies the chain is intact. Design that locks the contract before the UI is settled produces a contract shaped by guesswork about the experiences it must serve.
 
 ## Restrictions
 ⚠️ **CRITICAL CONSTRAINT:** You are FORBIDDEN from writing implementation code during this phase. You may only write design documentation, interface specifications, API contracts, and schemas.

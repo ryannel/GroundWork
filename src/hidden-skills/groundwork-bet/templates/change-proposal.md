@@ -35,4 +35,4 @@
 
 ## Routing
 
-[Minor: edits applied on approval, mutated docs re-reviewed, affected proofs amended through the Amendment Protocol (edit the slice/milestone prose, re-tag `bet/<slug>/approved`, then change the code), slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]
+[Minor: edits applied on approval, mutated docs re-reviewed, affected proofs amended through the Amendment Protocol (edit the slice/milestone prose, commit it beside the decomposition with a reason, then change the code), slice resumed. Structural: bet reverts to Design Foundations with this proposal as input; delivered slices that survive the change are listed here.]
