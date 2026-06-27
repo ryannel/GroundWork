@@ -81,6 +81,8 @@ Work through the following elements in sequence. Give each important question ro
 
   Reject vague signals ("users are happier") and abstract metrics ("engagement improves"). The signal must be specific enough that a no-answer is just as informative as a yes-answer.
 
+  Anchor the signal in what a named consumer can actually *do* on the real product — the front-door cases that, when they pass, mean the bet worked. "A user opens the panel and sees their operation appear and complete" is a front-door case; "the notification subsystem functions" is not. This is the same shape decomposition turns into each milestone's agreed test cases, so authoring it concretely here is what lets those cases trace back to the signal the user signed.
+
 - **Solution sketch:** Surface the high-level proposed approach, the alternatives considered and what makes this one the right choice, and the single biggest risk in the solution.
 
   Do not design the solution at this stage — that is Design Foundations. The sketch names the approach and its key assumption.
