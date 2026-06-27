@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-06-27
+
+### Fixed (the update report no longer reads as if it deletes authored skills, 2026-06-27)
+
+`groundwork update` computed its `.agents/skills/` diff against the package's shipped skills alone, so any skill authored beside the framework ones — a promoted engineer skill, a hand-written one — showed up as a red `-` removal line, reading as "your skill is being deleted." The install never touched those skills (it scopes its cleanup to framework-owned names), so the report contradicted the behavior, and the phantom removals also inflated the change total enough to suppress the calm "Already up to date" message on a run that changed nothing real. The report now reads ownership from the same set the installer uses (`ownedRegisteredSkillNames`): authored skills never appear in the diff, and a run whose only difference is an authored skill reports up-to-date.
+
+- [no-migration] Reporting-only change in the CLI; no project artifact shape, install behavior, or migration change. Authored skills were always preserved on disk — only the printed diff was wrong.
+
 ### Changed (a bet lands as working, usable software — proven at the front door, 2026-06-27)
 
 A live test run exposed a structural hole: a bet closed all-green — UI tests plus a full package suite — yet the shipped app could not do its core job, because every proof faked the real work (a scripted driver, a fake worker path, hand-written thumbnails, a pre-loaded fake library) and no test ever drove the real product on real data the way a user would. The method *told* it to build this way: decomposition split milestones into a "capability" kind proven headless behind a fake and a "surface" kind wired later, even allowing a bet to finish headless. This release resets the core so a bet cannot be called done unless the real product works, looks right, and is usable.
