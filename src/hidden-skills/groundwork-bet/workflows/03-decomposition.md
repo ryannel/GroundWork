@@ -2,7 +2,7 @@
 
 **Goal:** With the design locked, break the bet into the order of work and write — in prose — the proof each step must pass. Plan *just enough* to start building coherently: author the full **milestone ladder** — every rung's headline proof — but only the **first milestone's slices**. Each later milestone is sliced when its turn comes, in Delivery, re-derived from what the milestones before it actually taught — not guessed now and defended later. Agent-led, then reviewed: the agent proposes the breakdown and authors the proofs; the user reviews sequencing and the proofs. This phase produces **prose only** — the decomposition tree. No test code, no implementation code. The prose proofs are the contract; Delivery materializes them into a red suite and turns it green.
 
-This phase is where the bet becomes executable. Milestones define the demonstrable checkpoints — capability proofs at the contract, surface proofs in each surface's medium. Slices define the vertical units of work. Each milestone and each slice carries a **Proof of work** written in plain language: what it proves and how the suite will prove it. The milestone ladder is the bet's success signal made executable — each rung is a demonstrable state that must be **un-mockable** (a stub or double cannot satisfy it), and the rungs are ordered to retire the bet's biggest risk earliest. That prose is the definition of done the user approves — turning it green is Delivery's job, and the red board is generated from this approved prose at Delivery start (`workflows/04-delivery.md` Step 0).
+This phase is where the bet becomes executable. A **milestone** is a thin, user-visible step proven by driving the real product the way its consumer would — through the real front door, on the real pipeline. A **slice** is a vertical cut through one service, the unit of work that builds toward a milestone; slices run in sequence, each built on the one before. Each milestone and each slice carries a **Proof of work** written in plain language: what it proves and how the suite will prove it. The milestone ladder is the bet's success signal made executable — each rung is a state the consumer observes at their real surface, and the rungs are ordered to retire the bet's biggest risk earliest. That prose is the definition of done the user approves — turning it green is Delivery's job, and the red board is generated from this approved prose at Delivery start (`workflows/04-delivery.md` Step 0).
 
 ## Restrictions
 ⚠️ **CRITICAL CONSTRAINT:** This phase produces **prose only** — the decomposition tree. You are FORBIDDEN from writing implementation code, and equally from writing test code: both belong to Delivery. The Proof-of-work sections describe each proof in plain language; the runnable red stubs are generated from them at Delivery start. Nothing a compiler or interpreter would run is authored in this phase.
@@ -21,36 +21,25 @@ Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
 
 Read every file in `docs/bets/<bet-slug>/technical-design/` in full — `01-ui-design.md` for the UI design subsections, `02-data-flows.md` for the business logic and data flows, `03-api-design.md` for the interfaces and their shapes, and `04-data-design.md` for the schema and data model. From these, decompose the bet into milestones — then present the breakdown for review before writing a single proof.
 
-**What a milestone is:** a demonstrable state the product reaches, ordered so each one is independently shippable. Its consumer gets value from Milestone 1 even if Milestone 2 never ships. Milestones come in two types:
-
-- **Capability milestone** — proves core behaviour headless. Its demonstrable state is a contract exercised end-to-end against the running services (or the embedded core's public API): curl-able, scriptable, observable, with no surface running. This amends the user-visible rule honestly rather than bending it: a capability milestone is *consumer-visible at the contract*, and the decomposition records who that consumer is — the bet's in-scope surfaces, whose milestones build on it; or, when the bet delivers headless, the latent agentic surface (the programmatic caller the promoted contract serves).
-- **Surface milestone** — proves a named surface delivers the capability to its users. Its demonstrable state is asserted in that surface's medium and bounded to wiring, rendering, and interaction — the business behaviour beneath it was already proven at the contract.
-
-**Degrade rule:** a project with no `docs/surfaces.md` has a single implicit surface — skip milestone typing and the slice `surface` field entirely; milestones are user-visible states in the product's interface medium, exactly as before this distinction existed. A single-surface registry types its milestones (one capability milestone, then surface milestones for the lone surface) with no extra questions to the user — the typing falls out of the design, not a conversation.
+**What a milestone is:** a thin, user-visible step the product reaches — a state its consumer observes at their real surface, proven by driving the shipping build the way that consumer would. The consumer is whoever the step serves: a person at a screen, a developer calling an SDK, an operator reading a dashboard or trace, another system calling the API. A pure-API product has a front door like any other — its surface is the API and its consumer is the caller. The test of a milestone is simple: name who sees the outcome and what they see. If you cannot, it is not a milestone — it is horizontal scaffolding to fold into the milestone that consumes it, or an unknown to retire as a proof of concept in design.
 
 **Decomposition constraints the agent must hold:**
-- A bet introducing new capability **opens with its capability milestone**; surface milestones follow and depend on it. The contract proof comes first because every surface milestone consumes it.
-- A bet may legitimately **end at the capability milestone** with every surface milestone deferred — a headless delivery. The pitch's surface no-gos predicted this, and validation records the deferral in the capability ledger.
-- Order by integration value *and risk*: the first milestone is the thinnest end-to-end flow that proves the architecture works **through the bet's riskiest real path** — the un-mockable proof that retires the biggest unknown comes early, not last. Later milestones add richness to that proven foundation. Front-loading risk is the point of laddering: a bet that proves its plumbing for three milestones and only meets its hard dependency at the end has surfaced its risk too late to act on cheaply.
-- Each milestone is independently shippable — dependencies flow forward only.
-- Milestones are never horizontal. "Build all the schemas" is not a milestone; it is invisible to every consumer and produces no demonstrable state. A capability milestone is not horizontal — its contract is demonstrable end-to-end, just at the API rather than on a screen.
+- Order by integration value *and risk*: the first milestone is the thinnest user-visible flow that proves the architecture works **through the bet's riskiest real path** — the proof that retires the biggest unknown comes early, not last. Later milestones add richness to that proven foundation. Front-loading risk is the point of laddering: a bet that proves its plumbing for three milestones and only meets its hard dependency at the end has surfaced its risk too late to act on cheaply.
+- The **first user-visible milestone lands the design system in the running app** — the shell, the theme and tokens wired in, the base components, and the first real screen built on them. Every later screen is built on that foundation; "make it look right later" is the mistake this whole process exists to stop.
+- Dependencies flow forward only — each milestone builds on the proven state of the ones before it.
+- Milestones are never horizontal. "Build all the schemas" is not a milestone; it is invisible to every consumer and produces no observable state. Proving a backend contract end-to-end is real work, but it is a *slice* on the way to a front door, never a milestone that stops there.
+- The ladder must **sum to a complete, well-rounded experience** — each milestone works, looks right, and is genuinely good to use. A missing rung (the way back from a screen, the progress an operation needs, the information a view requires to be usable) is an incomplete plan, not a smaller scope. The dead-end navigation and the silent progress screen that a real bet shipped were each a *missing milestone* — a rung the ladder should have had.
 - 2–5 milestones is the healthy range. Fewer means the bet is probably not scoped in demonstrable increments. More means it is probably not a bet — it is a roadmap.
 
-Present the milestone list with the **sequencing rationale** for each: what architectural proof Milestone 1 provides, why Milestone 2 can only follow it, and so on. The review focuses on **ordering, typing, and whether each milestone names a demonstrable outcome for a named consumer** — not implementation detail. Revise the ordering until the user is satisfied before proceeding.
+Present the milestone list with the **sequencing rationale** for each: what proof Milestone 1 provides, why Milestone 2 can only follow it, and so on, and which consumer observes each. The review focuses on **ordering, whether each milestone names a real outcome a named consumer observes at their surface, and whether the ladder sums to a complete experience** — not implementation detail. Revise the ordering until the user is satisfied before proceeding.
 
 ## Step 3: Write each milestone's Proof of work (prose)
 
-For each approved milestone, write its **Proof of work** prose before moving to slices — the proof the user reviews and signs, in plain language, with no assertion code. A milestone's proof follows its type:
+For each approved milestone, write its **Proof of work** prose before moving to slices — the proof the user reviews and signs, in plain language, with no assertion code. A milestone's proof describes what its consumer observes when they drive the real product: the action they take at their surface, what they see in return, and the real data and pipeline behind it. Write it in the consumer's medium — `graphical-ui` what renders and how the user interacts, `cli` the command and its output, `agentic-protocol` the request and the response structure — so a reader understands exactly what becomes true for the consumer when the milestone lands.
 
-**Capability milestone proofs** describe what is exercised against the contract directly — end-to-end against the running services (or the embedded core's public API): the request made, the response and persisted effect observed, the error case the milestone's outcome rests on. No surface is in the loop. Write it so a reader understands exactly what becomes true at the contract.
+**Keep it to the headline proof.** A milestone's Proof of work is the small set of outcomes that prove its consumer-visible state — typically one to three. It does not enumerate every permutation, error code, or boundary; that granular coverage is the permanent best-practice tests the slice-worker rolls out per slice in Delivery (`workflows/04-delivery.md`, the Slice Loop), not the headline proof the user reviews. Include an error case here only when the milestone's demonstrable outcome depends on it. These headline cases are the milestone's **agreed front-door test cases** — the integrity anchor the user signs at planning; they live in the milestone's acceptance criteria and Proof of work.
 
-**Surface milestone proofs** describe what that surface's users observe, in that surface's medium — `graphical-ui` what renders and how the user interacts, `cli` the command and its output, `agentic-protocol` the request and the response structure. **A surface proof never re-proves core logic** — the capability milestone already proved every business rule at the contract, and re-asserting one at a surface multiplies the test pyramid by the surface count for nothing. Surface proofs cover wiring, rendering, and interaction.
-
-**Degrade rule:** with no surface registry, write each milestone's proof as the two familiar layers — an interface-level proof in the project's single medium plus an API-level proof that localizes failures — exactly as before milestone typing existed.
-
-**Keep it to the headline proof.** A milestone's Proof of work is the small set of outcomes that prove its consumer-visible state — typically one to three. It does not enumerate every permutation, error code, or boundary; that granular coverage is the permanent best-practice tests the slice-worker rolls out per slice in Delivery (`workflows/04-delivery.md`, the Slice Loop), not the headline proof the user reviews. Include an error case here only when the milestone's demonstrable outcome depends on it.
-
-**The headline proof must be un-mockable.** The milestone ladder is the success signal made executable, so each rung's proof must be falsifiable by *reality*, not satisfiable by a *double*. If a stub, a mock, or a hardcoded return could make the proof pass, it is not proving the milestone — it is proving plumbing, and plumbing is never a milestone's success signal. A capability milestone's proof exercises the real dependency that makes the capability meaningful (the live model, the real external service, the actual store) — not a placeholder standing in for it. You may not defer the bet's central risk to a stub across the *whole* ladder: the milestone that retires that risk must engage the real thing. (If a real dependency genuinely cannot be reached in the test environment, name that constraint here and route it as a `BLOCKING CONCERN` in Delivery — never quietly redefine the proof down to what a stub can pass.) This is the decomposition-time complement to Delivery's *honest green*: honest green stops a proof that *named* real work from being hollowed during implementation; this stops a proof from being *authored* hollow in the first place.
+**The headline proof drives the real product through the real front door.** Each rung's proof must be falsifiable by *reality*: the consumer's action runs the shipping build end to end, on the real pipeline, the way it actually travels — never a test harness driving a scripted stand-in for the work. A proof that a stub, a mock, or a hardcoded return could satisfy is proving plumbing, and plumbing is never a milestone's success signal. The dependency that makes the milestone meaningful runs for real — the live model, the real external service, the actual store — not a placeholder standing in for it. Seeded inputs are fine (handing the real pipeline a known fixture folder tests it on controlled data); replacing the pipeline with a script that emits the expected output is the violation. And **any fake a proof leans on needs a real test behind it**: if a test stands in a fixture for work a real stage should do, some other proof must exercise the real stage that produces it — a fixture nothing real ever generates is a green light wired to nothing. You may not defer the bet's central risk to a stub across the *whole* ladder: the milestone that retires that risk must engage the real thing. (If a real dependency genuinely cannot be reached in the test environment, name that constraint here and route it as a `BLOCKING CONCERN` in Delivery — never quietly redefine the proof down to what a stub can pass.) This is the decomposition-time complement to Delivery's *honest green*: honest green stops a proof that *named* real work from being hollowed during implementation; this stops a proof from being *authored* hollow in the first place.
 
 **The proof's shapes come from the prose design.** Every request, response field, and name a proof references traces to `docs/bets/<bet-slug>/technical-design/03-api-design.md` (or a store in `04-data-design.md`) — the prose design carries the shapes at design fidelity, and the proof rests on them. A proof that invents a shape the design does not define is describing a contract that does not exist; the review blocks it.
 
@@ -60,17 +49,18 @@ Write the milestone's `Proves` / `How we prove it` / `Test file` into its `index
 
 Break the **first milestone** into **vertical slices** — the smallest units that are independently buildable, deployable, and verifiable. Author slices for the first rung only; the later milestones keep their headline proof but are *not* sliced yet. Each later milestone is sliced when its turn comes, at the prior milestone's postmortem in Delivery (`workflows/04-delivery.md`), so its slices are derived from what the milestones before it actually taught. The slicing discipline below is identical wherever it runs, whether now for the first milestone or on arrival for a later one.
 
+**Slices build toward the front door, in sequence.** Lay the slices out so they compose coherently into the milestone — what each one solves for and how they stack — and order them so each builds on the proven state of the one before it. They are delivered in that order, integrating continuously, and the milestone's front-door proof is what the last of them closes. This is a plan to steer, not a sealed breakdown: hold what each slice must achieve and how they sum to the milestone, and adjust the how as each slice teaches you something.
+
 **The vertical-slice test:** *Can this slice be deployed and verified without any future slice existing?* If yes, it is vertical. If it requires a downstream slice to be useful, it is too thin or horizontal — merge it up or reframe it as a capability of a larger slice.
 
 Never slice horizontally: "all schemas, then all APIs, then all UI" is three horizontal passes. Each slice must cross whatever service boundaries are needed to deliver a testable capability end-to-end.
 
 Each slice spec must contain:
 - **Owner service** — the primary service this slice lives in (from `docs/architecture/infrastructure.md`)
-- **Surface** — `core` for a slice implementing capability-core behaviour, or the registry slug of the surface it wires (omit the field entirely when the project has no surface registry). The field drives delivery sequencing — core slices merge before the surface slices that consume them — and tells the reviewer which test discipline applies: contract proof for `core`, wiring-only for a surface.
 - **Complexity** — S / M / L
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
 - **Scope** — a one-paragraph intro linking the slice to its parent milestone and stating what vertical capability it contributes, plus **Required Capabilities**: falsifiable behaviour statements, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`. "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API design" is.
-- **Design** — where the slice lands in the design: the interface it implements, the data flow it realizes in `02-data-flows.md`, and (for a surface slice) the view it wires in `01-ui-design.md`.
+- **Design** — where the slice lands in the design: the interface it implements, the data flow it realizes in `02-data-flows.md`, and, when it builds a screen, the view it wires in `01-ui-design.md` and the pattern it implements in full.
 - **Proof of work** — the slice's prose proof (Step 5): what it proves and how, the handful of outcomes that show its capability is present.
 
 ## Step 5: Write the decomposition tree
@@ -80,14 +70,14 @@ Write the reviewable artifact as a **browsable tree** at `docs/bets/<bet-slug>/d
 | Path | Content | Template |
 |---|---|---|
 | `decomposition/meta.json` | Sidebar order + the "Decomposition" title. | `decomposition/meta.json` |
-| `decomposition/NN-<milestone-slug>/index.md` | One folder per milestone; `index.md` is its landing page — type, consumer, demonstrable goal, sequencing rationale, acceptance criteria, **Proof of work** (Step 3), and links to its slices. | `decomposition/milestone-index.md` |
+| `decomposition/NN-<milestone-slug>/index.md` | One folder per milestone; `index.md` is its landing page — consumer, demonstrable goal, sequencing rationale, acceptance criteria (the agreed front-door cases), **Proof of work** (Step 3), and links to its slices. | `decomposition/milestone-index.md` |
 | `decomposition/NN-<milestone-slug>/NN-<slice-slug>.md` | One file per slice — header, **Scope** (intro + Required Capabilities), **Design**, **Proof of work** (Step 4 / Step 5). | `decomposition/slice.md` |
 
 **The full ladder, the first rung sliced.** Write every milestone's `index.md` now — the complete ladder of headline proofs the user approves. Write slice files only for the **first milestone**. A later milestone's folder holds its `index.md` with the headline proof and its slice list deferred (the `milestone-index.md` template's *authored on arrival* affordance) until Delivery opens it; its slice files are written then. This is *plan just enough* on disk: the whole ladder is visible and reviewable, but only the rung you are about to climb is detailed.
 
 The `NN-` numeric prefixes order the milestone folders and the slices within each, so the tree reads top to bottom on the docs site as the order of work. Discover the project's test language and service names from the scaffold (`docs/architecture/infrastructure.md` and the generated `docker-compose.yml`) so each `Test file:` path names the right extension and owning service — do not hardcode a language or service name. The path is named; the stub is generated at Delivery start.
 
-**The slice's Proof of work is the prose proof.** Write each `Proves` / `How we prove it` from the slice's target-state intent — what becomes true and the observable condition that shows it — never assertion code. A `core` slice proves contract behaviour; a surface slice proves wiring, rendering, and interaction only. This is the headline proof, not every assertion: the granular edge-case and permutation coverage is added when the slice is built in Delivery.
+**The slice's Proof of work is the prose proof.** Write each `Proves` / `How we prove it` from the slice's target-state intent — what becomes true and the observable condition that shows it — never assertion code. A slice proves the behaviour at its service edge; when a slice builds a screen, it proves the screen renders and behaves through the pattern it implements in full. This is the headline proof, not every assertion: the granular edge-case and permutation coverage is added when the slice is built in Delivery.
 
 Apply `groundwork-writer` when drafting the tree — declarative, assertive, zero-hedging.
 
@@ -106,11 +96,11 @@ The review verifies document-chain integrity — see the **Document Chain Integr
 
 Before presenting Proof of Work, verify every item. This gate runs at initial decomposition over **the full ladder and the first milestone's slices**, and runs again — scoped to a single milestone's slices — each time Delivery opens a later milestone or introduces a new one (`workflows/04-delivery.md`):
 
-- Every milestone names a demonstrable goal a reviewer can trace to `technical-design/`: a surface milestone's user-visible goal traces to its surface's subsection in `01-ui-design.md`; a capability milestone's contract state traces to `03-api-design.md` / `04-data-design.md` (and the data flows in `02-data-flows.md`), with its consumer named.
-- Every milestone's headline Proof of work is **un-mockable** — falsifiable by the real dependency it names, not satisfiable by a stub, mock, or hardcoded return; the milestone that retires the bet's central risk engages the real thing.
-- When the project has a surface registry: every milestone is typed (`capability` or `surface (<slug>)`), the bet's new capability opens with its capability milestone, and every slice carries a `surface` value (`core` or a registry slug). With no registry, none of this applies — untyped milestones, no surface fields.
+- Every milestone names a real outcome a named consumer observes at their surface, traceable to `technical-design/`: the user-visible step traces to its surface's subsection in `01-ui-design.md`, and the data and interfaces beneath it to `02-data-flows.md` / `03-api-design.md` / `04-data-design.md`. Name who sees it and what they see, or it is not a milestone.
+- The first user-visible milestone lands the design system in the running app — shell, tokens, base components, and a real screen built on them — not a bare-bones screen with styling deferred.
+- The ladder sums to a complete, well-rounded experience: no missing rung (a way back from every screen, the progress and state information each view needs to be usable). A dead-end or a silent-progress screen is a missing milestone, caught here.
+- Every milestone's headline Proof of work **drives the real product through the real front door** — the consumer's action runs the shipping build on the real pipeline, falsifiable by reality, not satisfiable by a stub, mock, or hardcoded return; the milestone that retires the bet's central risk engages the real thing; and any fake the proof leans on has a real test behind it that exercises the real producer.
 - Every milestone has a **Proof of work** in its `index.md` — `Proves`, `How we prove it`, and a named `Test file:` path at `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>`.
-- No surface milestone proof re-asserts a business rule the capability milestone proves at the contract — surface proofs are bounded to wiring, rendering, and interaction.
 - Every **authored** slice (the first milestone's at initial decomposition; the opened or introduced milestone's on arrival) is vertical — it can be deployed and verified without any future slice existing.
 - Every authored slice has falsifiable Required Capabilities, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`.
 - Every authored slice has a **Proof of work** and a named `Test file:` path at `tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>`.
@@ -127,12 +117,12 @@ The review subagent applies these checks. The agent authoring the decomposition 
 |----------|---------------|-----------------|
 | Pitch | Solves the stated problem within appetite | Design covers the pitched solution |
 | Technical Design | Every surface element/flow traces to the pitch | Milestones can be derived from it |
-| Milestones | Each goal is consumer-visible value — at the contract for capability milestones, in the surface's medium for surface milestones — traceable to the design | Every slice belongs to exactly one milestone |
+| Milestones | Each goal is a real outcome a named consumer observes at their surface, traceable to the design | Every slice belongs to exactly one milestone |
 | Slices | Required Capabilities trace to interfaces/stores in `technical-design/03-api-design.md` / `04-data-design.md` | Proof of work traces to milestone acceptance criteria |
 
 ## Quality Standard: What Good Milestones and Slices Look Like
 
-A milestone is a demonstrable state the product reaches for a named consumer — at the contract for a capability milestone, in a surface's medium for a surface milestone — not a layer of the stack, not a phase of implementation. A slice is a vertical column through one component, not a horizontal pass. If neither description produces a name that means something to its consumer, the decomposition is wrong.
+A milestone is a thin user-visible step the product reaches for a named consumer — a state they observe at their real surface — not a layer of the stack, not a phase of implementation. A slice is a vertical column through one service that builds toward it, not a horizontal pass. If the milestone does not name a consumer and what they see, the decomposition is wrong.
 
 **Shallow (insufficient):**
 
@@ -147,44 +137,51 @@ A milestone is a demonstrable state the product reaches for a named consumer —
 **Deep (required standard) — a milestone `index.md`:**
 
 ```markdown
-# Milestone 1: Notification lifecycle proven at the contract
+# Milestone 1: A user sees their notifications update live in the web app
 
-**Type:** capability
-**Consumer:** the `web-app` and `admin-cli` surfaces — Milestones 2 and 3 build on
-this contract.
+**Consumer:** the person using the `web-app` — they open the notifications panel and watch
+it reflect real operations as they happen.
 
-**Demonstrable goal:** An operation lifecycle event posted to the notification service
-produces a queryable notification record, and subsequent events update its status in
-place — provable end-to-end against the running services with nothing but an HTTP client.
+**Demonstrable goal:** With the web app running on the real notification service, a user
+opens the notifications panel and sees a real operation appear as a notification, then sees
+its status change in place when the operation completes — on the real pipeline, in the
+shipped design system, with an empty state before anything arrives and a clear way back to
+where they came from.
 
-**Sequencing rationale:** This contract is what every surface consumes. Proving it
-headless first makes Milestones 2 and 3 wiring exercises against a known-good core —
-a red surface test can only mean a surface problem.
+**Sequencing rationale:** This is the thinnest user-visible flow that proves the whole path
+end to end — event intake, persistence, the read API, and the panel that renders it — on
+the design system that every later screen builds on. It retires the bet's riskiest unknown
+(does the live event path actually reach the screen) at Milestone 1, not last.
 
-**Acceptance criteria:**
-- [ ] `POST /internal/events` with a valid operation lifecycle event returns `202`, and
-  `GET /api/notifications` returns the corresponding record within 2 seconds.
-- [ ] A `completed` event for the same operation updates the existing record's status in
-  place — no duplicate record.
+**Acceptance criteria (agreed front-door cases):**
+- [ ] With the app open on the notifications panel and no notifications yet, the user sees
+  the empty state; when a real operation starts, its notification appears within 2 seconds.
+- [ ] When that operation completes, the same notification updates its status in place — the
+  user sees one entry change, not a duplicate appear.
+- [ ] The panel renders in the design system (tokens, components), and the user can close it
+  and return to where they were.
 
 ## Proof of work
 
-**Proves:** A lifecycle event becomes a queryable notification, and a later event for the
-same operation updates that record rather than creating a second one.
+**Proves:** A user driving the running web app sees a real operation surface as a live
+notification and update in place, on the design system, with its empty state and a way back.
 
-**How we prove it:** Against the running services with an HTTP client only — POST a valid
-event, then GET the feed and see the record within 2 seconds; POST a `completed` event for
-the same operation and see the one record's status change in place, with no duplicate.
+**How we prove it:** Drive the shipping web build against the real notification service —
+open the panel and see the empty state; trigger a real operation through the system and see
+its notification appear within 2 seconds; complete the operation and see the one entry's
+status change in place with no duplicate; confirm the panel renders the design-system
+components and that closing it returns to the prior view.
 
-**Test file:** `tests/bets/notifications/test_milestone_1_notification_contract.py` —
-generated red at Delivery start; traces to the `POST /internal/events` and
-`GET /api/notifications` interfaces in `03-api-design.md`.
+**Test file:** `tests/bets/notifications/test_milestone_1_notifications_panel_live.py` —
+generated red at Delivery start; drives the web surface in `01-ui-design.md` over the
+`POST /internal/events` and `GET /api/notifications` interfaces in `03-api-design.md`.
 
 ## Slices
 - [Slice 1.1 — notification-service: Operation event intake](./01-event-intake.md)
+- [Slice 1.2 — web-app: Live notifications panel on the design system](./02-notifications-panel.md)
 ```
 
-The shallow version has horizontal milestones invisible to every consumer, no acceptance criteria, no sequencing rationale, and no proof. Its "Backend" milestone names a build activity, not a contract state anyone can exercise. The deep version opens with the capability milestone that proves the contract headless for named consumers; surface milestones follow, bounded to wiring in each surface's medium.
+The shallow version has horizontal milestones invisible to every consumer, no acceptance criteria, no sequencing rationale, and no proof — "Backend" names a build activity, not a state anyone observes. The deep version is a thin user-visible step proven by driving the real product through the front door: the backend slice and the panel slice stack into one flow a user actually sees, on the design system, with its states and its way back.
 
 **Deep (required standard) — a slice file:**
 
@@ -192,7 +189,6 @@ The shallow version has horizontal milestones invisible to every consumer, no ac
 # Slice 1.1 — notification-service: Operation event intake
 
 **Owner service:** notification-service
-**Surface:** core
 **Complexity:** M
 **Prerequisite:** none
 
@@ -237,10 +233,10 @@ Present the decomposition tree as Proof of Work:
 
 - `docs/bets/<bet-slug>/decomposition/` — the sequencing commitment and the prose proofs, browsable milestone by milestone, slice by slice.
 
-Walk the milestone map first — ordering rationale, milestone types, demonstrable goals. Then walk the **Proof of work** sections **proof by proof**: for each milestone and slice, what it proves, where that traces in the design, and why it is the right proof. The proof is prose, but the scrutiny is assertion-grade — the user is approving the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the prose and continue.
+Walk the milestone map first — ordering rationale, who observes each milestone, demonstrable goals. Then walk the **Proof of work** sections **proof by proof**: for each milestone and slice, what it proves, where that traces in the design, and why it is the right proof. The proof is prose, but the scrutiny is assertion-grade — the user is approving the agreed front-door test cases that become the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the prose and continue.
 
-On approval, **commit the decomposition and tag the baseline**: commit `docs/bets/<bet-slug>/decomposition/` (the full milestone ladder plus the first milestone's slices) together with the finalized `technical-design/` (e.g. `bet(<bet-slug>): approve decomposition`), then tag that commit `git tag bet/<bet-slug>/approved`. The tag is the user's signature on the prose — but it is a **ratchet, not a one-time freeze**. What it seals at this point is the full ladder of headline proofs *and* the first milestone's slices. Each later milestone's slices are sealed when Delivery opens that milestone: the agent authors them, they pass this same gate (scoped to that milestone) and the Protocol 9 review, and on approval the tag **advances** to the commit that adds them (`git tag -f bet/<bet-slug>/approved`, message `bet(<bet-slug>): author milestone <N>`).
+On approval, **commit the decomposition as the recorded baseline**: commit `docs/bets/<bet-slug>/decomposition/` (the full milestone ladder plus the first milestone's slices) together with the finalized `technical-design/` (e.g. `bet(<bet-slug>): approve decomposition`). That commit is the user's signature on the agreed front-door cases — the integrity anchor the rest of the bet keeps honest.
 
-The ratchet has **two additive event types**: authoring an existing rung's slices, and **adding a new rung** when a postmortem reveals the ladder is missing a milestone (`bet(<bet-slug>): add milestone <N>` — the *ladder amendment* in `workflows/04-delivery.md`). Both advance the tag additively and never reopen a sealed proof. From any point forward, `git diff bet/<bet-slug>/approved.. -- docs/bets/<bet-slug>/` shows the prose changes since the current seal: a legitimate change is the additive authoring of the milestone just opened, or the additive headline of a milestone just added; any *modification* to an already-sealed headline or slice proof must instead route through the Amendment Protocol in `workflows/04-delivery.md`. The code (tests and implementation) is *built* during Delivery and is free to change; only the prose contract is sealed. (If the project is not under git, there is no tag to anchor to — note that in the bet record; the reconciliation then falls back to checking that each built test still proves what its slice's Proof-of-work prose describes.)
+The anchor leaves a trail, and the trail is lightweight. **Steering how slices break down is free and needs no record** — adjusting the path to a milestone as delivery teaches you is the plan working as intended. **Changing what a milestone proves** — editing or dropping an agreed front-door case — is an owner-approved move recorded beside the prose: amend the affected `index.md` or slice file and commit it with a message that says what changed and why (`bet(<bet-slug>): amend milestone <N> proof — <reason>`), so a later context (a resumed delivery, a validator) can see it. Authoring a later milestone's slices on arrival, and adding a new rung when a postmortem reveals the ladder is missing one, are the same kind of recorded, additive event. There is no seal to break and no ceremony to run — the record is the commit history of the decomposition tree, and Delivery's prose-integrity check reconciles each built test against the current approved prose it traces to. (This holds whether or not the project is under git: the standing rule is that every built test still proves what its slice's Proof-of-work prose describes, and a change to that prose is a recorded amendment, not a quiet edit.)
 
 ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`
