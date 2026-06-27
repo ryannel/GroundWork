@@ -65,10 +65,10 @@ The driver passes:
     `Notes:` line for the next slice are all there. Repeat its lessons, not its
     mistakes.
   - The **exact existing files this slice modifies**, to read in full.
-  - For a **surface** slice, the **capability milestone's green test file** — the
-    contract proof the slice wires onto. Its green assertions tell the worker exactly
-    what the core already guarantees, so the worker's work stays bounded to wiring,
-    rendering, and interaction instead of re-deriving core behaviour.
+  - When the slice **builds on a prior slice's proven contract**, that slice's **green
+    test file** — the proof it wires onto. Its green assertions tell the worker exactly
+    what the prior slice already guarantees, so the worker's work stays bounded to what
+    this slice adds instead of re-deriving behaviour already proven.
   - The named `Test file:` path(s) for this slice (already materialized red at
     Delivery start).
   - The **stack's testing strategy** — the promoted engineer skill for the slice's

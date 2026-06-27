@@ -1,34 +1,30 @@
 # Milestone [N]: [Milestone Name]
 
-*This is the landing page for one milestone in the decomposition tree. It renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/index.md`. It carries the milestone's demonstrable goal, its sequencing rationale, its acceptance criteria, and the prose proof of work — then links to its slices. The slice files sit beside it in the same folder.*
+*This is the landing page for one milestone in the decomposition tree. It renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/index.md`. It carries the milestone's demonstrable goal, its sequencing rationale, its acceptance criteria (the agreed front-door cases), and the prose proof of work — then links to its slices. The slice files sit beside it in the same folder.*
 
-*`Type:` and `Consumer:` apply only when the project carries a surface registry (`docs/surfaces.md`). With no registry, omit both — milestones are user-visible states in the product's single interface medium, exactly as before.*
+**Consumer:** [who observes this milestone's outcome at their real surface — a person at a screen, a developer calling an SDK, an operator reading a dashboard, another system calling the API. Name them and what they see. A pure-API product's consumer is the caller and its surface is the API.]
 
-**Type:** capability | surface ([surface-slug])
+**Demonstrable goal:** [the thin, user-visible state the product reaches when this milestone is complete — what the consumer observes when they drive the real product, in their surface's medium, on real data. For the first user-visible milestone, this includes the design system landing in the running app.]
 
-**Consumer:** [who exercises this contract — the bet's in-scope surfaces that build on it in later milestones, or the latent agentic surface for a headless delivery. Capability milestones only.]
+**Sequencing rationale:** [why this milestone sits where it does — what it proves through the bet's riskiest real path, why the milestones after it build on the state it reaches.]
 
-**Demonstrable goal:** [the state the product reaches when this milestone is complete. For a capability milestone: the contract behaviour provable end-to-end against the running services (or the embedded core's public API) — curl-able, scriptable, observable. For a surface milestone: what a user of this surface can observe or do, in that surface's medium, bounded to wiring, rendering, and interaction.]
-
-**Sequencing rationale:** [why this milestone sits where it does. A bet introducing new capability opens with its capability milestone, because every surface milestone consumes the contract it proves. A surface milestone states what it wires and never re-proves the rules the capability milestone settled.]
-
-**Acceptance criteria:**
-- [ ] [specific, falsifiable criterion — at the contract for a capability milestone, in the surface's medium for a surface milestone]
-- [ ] [specific, falsifiable criterion]
+**Acceptance criteria (agreed front-door cases):**
+- [ ] [specific, falsifiable case the consumer can carry out on the real product — the integrity anchor the user signs at planning]
+- [ ] [specific, falsifiable case]
 
 ## Proof of work
 
-*The prose proof the user reviews and approves. This is the milestone's definition of done in plain language — what becomes true about the product and how the suite proves it. No assertion code; the runnable stub is generated from this prose at Delivery start.*
+*The prose proof the user reviews and approves. This is the milestone's definition of done in plain language — what the consumer observes when they drive the real product, and how the suite proves it through the real front door. No assertion code; the runnable stub is generated from this prose at Delivery start.*
 
-**Proves:** [the consumer-visible outcome this milestone reaches, in one or two sentences. State what becomes true about the product, not how a test is written.]
+**Proves:** [the consumer-visible outcome this milestone reaches, in one or two sentences. State what the consumer observes on the real product, not how a test is written.]
 
-**How we prove it:** [the shape of the proof in prose — what the suite exercises end to end and the observable condition it passes on. A reader should understand the proof without seeing any code. For a capability milestone this hits the contract directly; for a surface milestone it asserts what that surface's users observe.]
+**How we prove it:** [the shape of the proof in prose — the consumer's action driving the shipping build end to end, on the real pipeline and real data, and the observable condition it passes on. A reader should understand the proof without seeing any code. Seeded inputs are fine; a scripted stand-in for the real work is not. Name any fake the proof leans on and the real test that proves the real producer behind it.]
 
-**Test file:** `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` — generated red at Delivery start; traces to [the interface in `technical-design/03-api-design.md` (or store in `04-data-design.md`) for a capability milestone, or the surface subsection in `01-ui-design.md` for a surface milestone].
+**Test file:** `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` — generated red at Delivery start; drives the consumer's surface in `01-ui-design.md` over the interfaces in `technical-design/03-api-design.md` (and stores in `04-data-design.md`) the outcome rests on.
 
 ## Slices
 
-*The first milestone is sliced now, at decomposition; every later milestone is sliced when Delivery opens it (`workflows/04-delivery.md`), from what the milestones before it taught. Until a milestone is opened, leave the placeholder line below; once it is sliced, replace it with ordered links — each slice a vertical capability that moves this milestone forward.*
+*The first milestone is sliced now, at decomposition; every later milestone is sliced when Delivery opens it (`workflows/04-delivery.md`), from what the milestones before it taught. Until a milestone is opened, leave the placeholder line below; once it is sliced, replace it with ordered links — each slice a vertical cut through one service that builds toward this milestone's front-door proof.*
 
 > *Slices authored on arrival.*
 

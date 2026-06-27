@@ -39,12 +39,21 @@ Verify the implementation does what the design says **and nothing more**, honest
 - **Nothing more.** An undeclared endpoint, a field beyond the design, a behaviour the
   slice was not asked for is scope creep — a finding even when it works. Scope that
   exceeds the design is risk the review did not sign off on.
-- **Honesty.** The implementation must satisfy its proof for the right reason. A return
-  value hardcoded to the test's expected output, an input special-cased to the fixture, a
-  `if TEST_MODE`-style branch, a real unit of work mocked out where the proof meant the
-  real thing, or an error case the design names but the code silently skips — each is a
-  finding even though the suite is green. A weak implementation a green suite passes is
-  worse than none.
+- **Honesty.** The implementation must satisfy its proof for the right reason, against the
+  real product. A return value hardcoded to the test's expected output, an input
+  special-cased to the fixture, a `if TEST_MODE`-style branch, a real unit of work mocked
+  out where the proof meant the real thing, or an error case the design names but the code
+  silently skips — each is a finding even though the suite is green. A weak implementation a
+  green suite passes is worse than none.
+- **A fake needs a real test behind it.** When the diff (or its test) leans on a fixture,
+  stub, or fake file for work a real stage should do, some test must exercise the real
+  producer. A fixture nothing real ever generates — a hand-written thumbnail no pipeline
+  stage produces, a seeded record no code path writes — is a green light wired to nothing,
+  and a finding (`docs/principles/foundations/testing.md`).
+- **Proven against the shipping build.** Where the slice contributes to a milestone's
+  front-door proof, the work it adds must live in the artifact the consumer actually
+  launches — the packaged app, the embedded worker — not only in a test target that runs
+  code the shipping build never includes.
 
 You judge against the design, not against general taste — a correctness bug with no
 design angle belongs to the blind reviewer, an unhandled edge to the tracer, a thin test

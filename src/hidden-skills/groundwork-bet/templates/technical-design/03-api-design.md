@@ -1,6 +1,6 @@
 ## API Design
 
-*The interfaces the bet introduces or changes — the headless contract surface, designed surface-neutral. The contract here serves every in-scope surface and presumes none; when only one surface is in scope, the latent agentic surface stands in as the second consumer: would a programmatic caller find this contract complete? The flows that exercise these interfaces live in `02-data-flows.md`; this file carries the interface design.*
+*The interfaces the bet introduces or changes — the contract beneath the surfaces, designed surface-neutral. The contract here serves every in-scope surface and presumes none; when only one surface is in scope, the latent agentic surface stands in as the second consumer: would a programmatic caller find this contract complete? The flows that exercise these interfaces live in `02-data-flows.md`; this file carries the interface design.*
 
 *Each entry is a design commitment, and it carries the shapes at design fidelity: the full request shape with field types, the full response shape with field types, the error cases with caller guidance, and the design rationale for non-obvious choices. The prose is the contract — Decomposition writes its prose proofs against these shapes, and Delivery implements against them and generates the real machine-readable contract (OpenAPI/AsyncAPI/proto) from the running code. A field, flow, or error case that is not specified here will not be correctly implemented or tested.*
 
