@@ -17,6 +17,8 @@
 
 The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks. It is the frontend idiom of the framework testing canon (`docs/principles/foundations/testing.md`) — the backends run the honeycomb, the frontend runs the trophy, and both put the weight on integration rather than isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
+Above the trophy sits the front-door proof: drive the real running app the way a user does, end to end against the real backend — Playwright against the running stack — because component and integration tests that each pass against an MSW-mocked network can still assemble into an app that does nothing on the real API. That is also the fake-needs-a-real-test rule: every MSW handler or fixture standing in for a real endpoint is a debt, and some real integration or e2e test against the actual network path must pay it. Seeded inputs are fine; what cannot stand is a mock with no real test behind it — that is a green light wired to nothing (`docs/principles/foundations/testing.md`).
+
 Tests in the Next.js application follow four rules:
 
 1. **Vitest + React Testing Library** for all component and hook tests

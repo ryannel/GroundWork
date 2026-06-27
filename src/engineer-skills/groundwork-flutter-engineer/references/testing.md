@@ -27,6 +27,8 @@ Pick the **cheapest tier that can carry the assertion**. If a widget test can pr
 
 This taxonomy is the Flutter idiom of the framework testing canon (`docs/principles/foundations/testing.md`): widget tests are the fat middle that the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, and `integration_test` is the few-end-to-end top. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
+Above all of these sits the front-door proof the canon now demands: an `integration_test` harness driving the real shipping app the way a user does — end to end against the real backend, not a fake gateway — because widget tests that each pass against fakes can still assemble into an app that does nothing on the real data path. And the fake-needs-a-real-test rule follows from it: a mock repository or fixture standing in for a real stage is a debt that some integration test of the real producer must pay. Seeded inputs are fine; faking the work in the middle with nothing real behind it is a green light wired to nothing. See `docs/principles/foundations/testing.md`.
+
 ## The Prove-Once Rule
 
 Capability behaviour is proven once, headless, at the core's contract. The surface suite proves three things only:

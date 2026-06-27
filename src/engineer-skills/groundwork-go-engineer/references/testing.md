@@ -4,6 +4,8 @@
 
 The default shape is the test honeycomb: a fat middle of sociable service-perimeter tests, a thin layer of solitary unit tests, a few end-to-end checks on top. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — and a mock-heavy suite passes while production breaks. This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
 
+Above the honeycomb sits one proof the tiers below cannot give you: drive the real running service through its real front door — the HTTP/gRPC API a consumer actually calls — end to end on the real pipeline. Service tests that each pass behind a stubbed or faked dependency can still assemble into a product that does nothing on the real path, because the seams between them were never wired. And every fake or fixture standing in for a real stage is a debt: some test must drive the real producer of that data, or the fixture is a green light wired to nothing (canon, `docs/principles/foundations/testing.md`). Seeding the inputs is fine; faking the work in the middle is the violation.
+
 ## Testing Tiers
 
 ### Tier 1 — Service Perimeter Tests (Default)

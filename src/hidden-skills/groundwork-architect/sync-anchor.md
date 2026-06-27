@@ -31,4 +31,4 @@ a review of the matching reference so the distillation never drifts.
 | src/docs/principles/system-design/surface-architecture.md | 724e2183433b0db8d54466deffc0be877d847cdb6b61f0da9060491907151b91 | 2026-06-19 |
 | src/docs/principles/system-design/identity-and-access.md | 18c99f755a37bec69de595a9784171c88639845c13c2f5a8497b55e40c3a5edf | 2026-06-19 |
 | src/docs/principles/system-design/durable-execution.md | e4faad5864bcbecb80c79983be6a941fee652f2f78b38701dd8bd2dda47c3ec3 | 2026-06-19 |
-| src/docs/principles/index.md | 768a6702488641666b785e1aaa694414b4544d97ee098488d447c3c59b20b096 | 2026-06-19 |
+| src/docs/principles/index.md | 86e957ef6437b4ef551a67cb66f1e30aef971716636181bce5f5996f701323c6 | 2026-06-27 |

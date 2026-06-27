@@ -691,8 +691,18 @@ def test_system_test_runner_two_surface_generation():
         render_smoke_path = sandbox / "tests" / "system" / "test_render_smoke.py"
         assert render_smoke_path.exists(), "render smoke missing despite a playwright surface"
         _py_compiles(render_smoke_path)
-        assert "def test_web_app_render_smoke" in render_smoke_path.read_text(), \
+        render_smoke_body = render_smoke_path.read_text()
+        assert "def test_web_app_render_smoke" in render_smoke_body, \
             "render smoke not generated per graphical surface"
+        # The dead-end navigation check ships in the render-smoke floor.
+        assert "dead-end screen" in render_smoke_body, \
+            "render smoke missing the no-dead-end navigation assertion"
+
+        # Known mediums (web + cli) are both runnable — no fail-closed placeholder.
+        import glob as _glob
+        leaked = _glob.glob(str(sandbox / "tests" / "system" / "*ui_check_missing*"))
+        assert not leaked, \
+            f"fail-closed placeholder leaked for a known, runnable medium: {leaked}"
         geometry_path = sandbox / "tests" / "system" / "test_layout_geometry.py"
         assert geometry_path.exists(), "geometry gate missing despite a playwright surface"
         _py_compiles(geometry_path)
@@ -713,11 +723,12 @@ def test_system_test_runner_two_surface_generation():
 
 
 def test_system_test_runner_manual_surface_registration():
-    """A surface whose medium has no generated fixture family (the
-    scaffold: manual bridge — e.g. a kiosk surface tested through bespoke
-    appium tooling) is registered in the `surfaces` fixture so tests can name
-    it, and nothing else is generated for it. (flutter-integration was the
-    example here until H3 gave it a fixture family.)"""
+    """A surface whose medium has no GroundWork-runnable check (e.g. a kiosk
+    surface on bespoke appium tooling) is registered in the `surfaces` fixture
+    so tests can name it, gets no auto fixture family — and, because it is a
+    surface nothing checks, gets a FAIL-CLOSED placeholder check rather than a
+    silent skip. The placeholder fails until a platform UI check is implemented
+    per NATIVE-CHECK-CONTRACT.md; that is the silent-no-op this closes."""
     import shutil
     sandbox = _make_runner_sandbox("manual_surface")
     specs = json.dumps([
@@ -748,6 +759,20 @@ def test_system_test_runner_manual_surface_registration():
         # No app-harness machinery without a flutter/electron surface.
         assert "_HARNESS_MEDIUMS" not in conftest, \
             "app-harness medium map leaked without a flutter/electron surface"
+
+        # --- Fail-closed: the unverified surface gets a failing placeholder,
+        #     never a silent skip. This is the Magpie-class fix. ---
+        placeholder = sandbox / "tests" / "system" / "test_kiosk_app_ui_check_missing.py"
+        assert placeholder.exists(), \
+            "no fail-closed placeholder for a surface with no runnable UI check"
+        _py_compiles(placeholder)
+        body = placeholder.read_text()
+        assert "pytest.fail(" in body, \
+            "placeholder must FAIL (not skip) so the gap is loud"
+        assert "def test_kiosk_app_ui_check_not_implemented" in body, \
+            "placeholder test function missing for kiosk-app"
+        assert "NATIVE-CHECK-CONTRACT.md" in body, \
+            "placeholder must point to the native-check contract"
 
         # --- The graphical surface is unaffected ---
         assert "def web_app_page(browser, surfaces):" in conftest, \

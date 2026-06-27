@@ -8,6 +8,8 @@ Testcontainers spins up real Postgres/Pub/Sub in seconds. The confidence it prov
 
 This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
 
+Above the honeycomb sits the front-door proof: drive the real running service through the front door a consumer actually calls — its HTTP API — end to end on the real pipeline. Service tests that each pass behind a `dependency_overrides` mock or a stubbed adapter can still assemble into a product that does nothing on the real path, so one proof exercises that path with nothing in the middle faked. This makes a rule on every fake: a stub or fixture standing in for a real stage — an LLM response, a downstream service, a producer's output — is a debt that some test of the real producer must pay. Seeding the input is fine; faking the work in the middle is the violation, and an unpaid debt is a green light wired to nothing.
+
 ---
 
 ## Tier 1 — Service Tests (Default)

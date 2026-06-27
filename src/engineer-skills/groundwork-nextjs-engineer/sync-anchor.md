@@ -8,7 +8,7 @@ commit. CI verifies the hashes match.
 | Principle file | SHA-256 | Last reviewed |
 |---|---|---|
 | src/generators/nextjs-app/docs/principles/stack/typescript/frontend.md | 98232d067ad03c08d6c1ca5f2caec30e7c3400da55c3afb7754482bc121d7554 | 2026-05-26 |
-| src/docs/principles/foundations/testing.md | 28c730866c75e0f550954a714fa03a434985c733cd5233c94bdda76ca45a890b | 2026-06-26 |
+| src/docs/principles/foundations/testing.md | 205ac40d4c643e7b61cf1e4295df8a7b8b46dcd7c81b857aa8c642ea353f62ef | 2026-06-27 |
 | src/docs/principles/quality/observability.md | 8aa60e213ba03e989c93263153e3a1ac10b2336f6d0360c394f473660d565a0b | 2026-06-26 |
 | src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-26 |
 | src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-06-26 |

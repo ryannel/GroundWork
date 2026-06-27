@@ -28,7 +28,7 @@ Durable architectural guidance lives in `references/`. This skill decides what t
   2. Contracts are the single source of truth — specs are authored, clients and tests derived.
   3. Reliability and security are designed in from the first boundary, never patched on.
   4. Core-and-edges structure: dependencies point inward toward a core that imports nothing concrete.
-  5. We test the system, not the mock of it — boundaries are chosen to be testable against real things.
+  5. We prove software by using the real thing the way its user does — boundaries are chosen so each is provable against real dependencies through the front door, not behind a mock.
   6. Decisions are recorded and governed — context, assumptions, and trade-offs, with an owner and a review trigger — so they can be re-evaluated when their assumptions break. The record is immutable; the decision is not.
   7. Agents are first-class consumers — every interface is designed to be machine-consumable.
 

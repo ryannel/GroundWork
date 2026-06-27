@@ -111,6 +111,22 @@ def _render_smoke(page: Page, surface_slug: str, base_url: str | None) -> None:
                     f"({metrics['nodes']} nodes, {metrics['text']} chars of text)"
                 )
 
+                # 6. Not a dead end. When the app has more than one route, every
+                #    screen offers a same-origin way onward or back, so a user is
+                #    never stranded (the "you can reach the library but never leave
+                #    it" class). Single-route apps are exempt.
+                if len(ROUTES) > 1:
+                    nav_links = page.evaluate(
+                        "() => Array.from(document.querySelectorAll('a[href]'))"
+                        ".filter(a => { const h = a.getAttribute('href') || '';"
+                        " return h.startsWith('/') || h.startsWith(location.origin);"
+                        " }).length"
+                    )
+                    assert nav_links > 0, (
+                        f"{ctx}: dead-end screen — no in-app navigation link to "
+                        f"leave this route"
+                    )
+
                 # On pass, persist the screenshot for Tiers 2-3 to read.
                 out = _VISUAL_DIR / surface_slug
                 out.mkdir(parents=True, exist_ok=True)
@@ -215,6 +231,20 @@ def _render_smoke(page: Page, surface_slug: str) -> None:
                     f"{ctx}: page rendered blank "
                     f"({metrics['nodes']} nodes, {metrics['text']} chars of text)"
                 )
+
+                # Not a dead end: a multi-route surface offers a same-origin way
+                # off every screen, so a user is never stranded.
+                if len(ROUTES) > 1:
+                    nav_links = page.evaluate(
+                        "() => Array.from(document.querySelectorAll('a[href]'))"
+                        ".filter(a => { const h = a.getAttribute('href') || '';"
+                        " return h.startsWith('/') || h.startsWith(location.origin);"
+                        " }).length"
+                    )
+                    assert nav_links > 0, (
+                        f"{ctx}: dead-end screen — no in-app navigation link to "
+                        f"leave this route"
+                    )
 
                 out = _VISUAL_DIR / surface_slug
                 out.mkdir(parents=True, exist_ok=True)

@@ -11,7 +11,7 @@ match.
 | src/generators/go-microservice/docs/principles/stack/go/index.md | 5404a872df986823ca05107485ec6e22952c25b39882e44ed82316c0044f0973 | 2026-06-19 |
 | src/generators/go-microservice/docs/principles/stack/go/concurrency.md | e63a90b46f85ad63f0e1535f105106b9f30bff58e0270e9dc8d4b8f91951e0ca | 2026-05-26 |
 | src/generators/go-microservice/docs/principles/stack/go/testing.md | fd3561fbcb1c79bbd219ff0e76b8958898b0159daacef41bcf59092613773064 | 2026-06-26 |
-| src/docs/principles/foundations/testing.md | 28c730866c75e0f550954a714fa03a434985c733cd5233c94bdda76ca45a890b | 2026-06-26 |
+| src/docs/principles/foundations/testing.md | 205ac40d4c643e7b61cf1e4295df8a7b8b46dcd7c81b857aa8c642ea353f62ef | 2026-06-27 |
 | src/docs/principles/quality/observability.md | 8aa60e213ba03e989c93263153e3a1ac10b2336f6d0360c394f473660d565a0b | 2026-06-26 |
 | src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-26 |
 | src/docs/principles/foundations/code-craft.md | 55aa79dffada43c86e546ead89b07578dddb6a9ec8a7dba15034e3628b3e9d38 | 2026-06-26 |
