@@ -148,11 +148,40 @@ def test_preservation_authored_skill_survives_update(label, tmp_path, fresh_init
 
     assert authored.exists(), f"{label}: update deleted the authored skill"
     assert dir_bytes(authored) == before, f"{label}: update mutated the authored skill"
+    # The report must not contradict the behavior: an authored skill the update preserves must
+    # never surface in the diff (the only place its name could appear is a removal line), or it
+    # reads as "your skill is being deleted" when it isn't.
+    assert "groundwork-swift-engineer" not in proc.stdout, (
+        f"{label}: report listed the preserved authored skill — output reads as a deletion"
+    )
     # The framework skills still converge to the current package — owned cleanup still happens.
     assert (
         dir_bytes(project / ".agents/skills/groundwork-check")
         == dir_bytes(fresh_init / ".agents/skills/groundwork-check")
     ), f"{label}: framework skill failed to refresh alongside the preserved one"
+
+
+def test_authored_skill_alone_reports_already_up_to_date(tmp_path):
+    """When an authored skill is the ONLY on-disk difference from the package, update has nothing
+    real to do: its files must not count toward the change total, so the run reports the calm
+    'Already up to date' message instead of a scary phantom-removal diff."""
+    project = tmp_path / "fresh"
+    project.mkdir()
+    assert run_cli(["init"], project).returncode == 0
+
+    authored = project / ".agents/skills/groundwork-swift-engineer"
+    (authored / "references").mkdir(parents=True)
+    (authored / "SKILL.md").write_text("# Swift engineer\nProject-authored, not framework canon.\n")
+    (authored / "references/testing.md").write_text("# Testing strategy\nThe delivery lane cites this.\n")
+    before = dir_bytes(authored)
+
+    proc = run_cli(["update"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert "Already up to date" in proc.stdout, (
+        f"phantom removals inflated the change total instead of reporting up-to-date:\n{proc.stdout}"
+    )
+    assert "groundwork-swift-engineer" not in proc.stdout
+    assert dir_bytes(authored) == before, "update touched the authored skill"
 
 
 def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):

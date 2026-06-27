@@ -757,20 +757,41 @@ function frameworkSkillNamesFromManifest(manifest) {
   return [...names];
 }
 
+// The top-level .agents/skills/ entries the framework owns — the ONLY ones an update may
+// remove. Owned = names the framework ships in EITHER tree (registered src/skills/ ∪ hidden
+// src/hidden-skills/ — a hidden skill must never linger here after the .groundwork/skills
+// relocation) ∪ tier-1 skills the manifest remembers (to prune a registered skill a past
+// version shipped and this one dropped). Promoted engineer skills (separate src/engineer-skills/
+// tree) and any project-authored skill match none of these, so they are preserved. Both the
+// installer and the update report read ownership from here, so the report can never claim a
+// removal the install won't perform. Pass the already-loaded manifest to avoid re-reading it.
+function ownedRegisteredSkillNames(p, manifest) {
+  const shipped = fs.existsSync(p.sourceSkillsDir) ? fs.readdirSync(p.sourceSkillsDir) : [];
+  const hidden = fs.existsSync(p.sourceHiddenSkillsDir) ? fs.readdirSync(p.sourceHiddenSkillsDir) : [];
+  const m = manifest === undefined ? readManifest(p) : manifest;
+  return new Set([...shipped, ...hidden, ...frameworkSkillNamesFromManifest(m)]);
+}
+
+// The registered-tree diff, scoped to what installRegisteredSkills actually does: removals are
+// limited to files under framework-owned skill names. An authored skill (e.g. groundwork-swift-
+// engineer) lives outside that set, so the install leaves it untouched — and the report must not
+// flag its files as removed, which would read as "your skill is being deleted" when it isn't.
+function diffRegisteredSkills(p, manifest) {
+  const diff = diffDirs(p.sourceSkillsDir, p.targetSkillsDir);
+  const owned = ownedRegisteredSkillNames(p, manifest);
+  diff.removed = diff.removed.filter((f) => owned.has(f.split(path.sep)[0]));
+  return diff;
+}
+
 // .agents/skills/ is a SHARED directory: framework skills sit beside engineer skills the
 // scaffold promotes (tracked in manifest.generated) and any project-authored skills. We must
 // remove ONLY framework-owned top-level entries — never the whole tree — so an update can't
-// delete an authored skill. Owned = names the framework ships in EITHER tree (registered
-// src/skills/ ∪ hidden src/hidden-skills/ — a hidden skill must never linger here after the
-// .groundwork/skills relocation) ∪ tier-1 skills the manifest remembers (to prune a registered
-// skill a past version shipped and this one dropped). Promoted engineer skills live in a
-// separate src/engineer-skills/ tree and match none of these, so they — and any project-authored
-// skill — are preserved. Throws on copy failure — callers abort over a partial install.
+// delete an authored skill (see ownedRegisteredSkillNames). Throws on copy failure — callers
+// abort over a partial install.
 function installRegisteredSkills(p) {
   const dest = p.targetSkillsDir;
   const shipped = fs.existsSync(p.sourceSkillsDir) ? fs.readdirSync(p.sourceSkillsDir) : [];
-  const hidden = fs.existsSync(p.sourceHiddenSkillsDir) ? fs.readdirSync(p.sourceHiddenSkillsDir) : [];
-  const owned = new Set([...shipped, ...hidden, ...frameworkSkillNamesFromManifest(readManifest(p))]);
+  const owned = ownedRegisteredSkillNames(p);
   fs.mkdirSync(dest, { recursive: true });
   for (const name of owned) {
     fs.rmSync(path.join(dest, name), { recursive: true, force: true });
@@ -1239,7 +1260,7 @@ function updateGroundWork(flags = {}) {
 
   // Classify everything before touching anything, so the summary (and --dry-run)
   // reflects exactly what a real run performs.
-  const skillsDiff = diffDirs(p.sourceSkillsDir, p.targetSkillsDir);
+  const skillsDiff = diffRegisteredSkills(p, manifest);
   const hiddenDiff = diffDirs(p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir);
 
   const generatorsConfig = buildGeneratorsConfig();
