@@ -8,7 +8,7 @@ last_reviewed: 2026-06-26
 
 ## TL;DR
 
-Tests are risk-weighted assertions about production behaviour — not boxes ticked for coverage. We favour high-fidelity service tests over solitary unit tests, run dependencies we own as real ephemeral containers rather than mocking them, contract-test the ones we don't, and treat observability signals as first-class assertions. The measure of a suite is whether its assertions actually catch faults — not its line-coverage number. The invariant under all of it: a test that captures whatever the system currently does is worthless unless something *independent* of the implementation asserts that behaviour is correct. Independent oracles and reproducible failures are the spine; the distribution shape is a detail teams over-argue.
+Tests are risk-weighted assertions about production behaviour — not boxes ticked for coverage. We favour high-fidelity service tests over solitary unit tests, run dependencies we own as real ephemeral containers rather than mocking them, contract-test the ones we don't, and treat observability signals as first-class assertions. Above the honeycomb sits one more level: a proof that drives the real shipping build through its front door on the real pipeline, because parts that each pass in isolation can still assemble into a product that does nothing — and a fake a test leans on needs a real test behind it. The measure of a suite is whether its assertions actually catch faults — not its line-coverage number. The invariant under all of it: a test that captures whatever the system currently does is worthless unless something *independent* of the implementation asserts that behaviour is correct. Independent oracles and reproducible failures are the spine; the distribution shape is a detail teams over-argue.
 
 ## Why this matters
 
@@ -69,6 +69,14 @@ Example-based tests check the cases you thought of; the bugs live in the cases y
 
 The same generator-driven idea spans two more surfaces. At the service boundary, **Schemathesis** derives a semantics-aware fuzzer straight from an OpenAPI/GraphQL spec and is the bridge between contract testing and property-based testing — it finds materially more defects than example-based API tests for the cost of pointing it at the schema. At the byte boundary, coverage-guided **fuzzing** (`go test -fuzz`, cargo-fuzz/libFuzzer) is first-class for parsers and decoders, and a failing input is saved as a permanent regression seed. For stateful or distributed cores where ordering and failure timing are the risk, deterministic simulation testing (Antithesis, FoundationDB/TigerBeetle-style seeded simulators) is the frontier worth knowing — every bug reproduces from `seed + commit` — but its setup cost is real, so treat it as a deliberate investment for the system's hardest core, not a default.
 
+### 8. Prove the whole product at the front door
+
+The honeycomb proves the parts. One level sits above it: a proof that drives the **real shipping build** — the packaged, embedded artifact a user actually launches — through its **real front door**, on the **real pipeline**, end to end, the way a user's action travels. A service test that proves an engine behind a harness and a UI test that drives screens against a scripted stand-in can both pass while the assembled product does nothing, because the wiring between them was nobody's test. The front-door proof is the one that fails when the real thing is unwired, and it is what "done" means for a feature a user touches.
+
+This is where **a fake needs a real test behind it** becomes load-bearing. Every stub, fixture, or seeded file a test leans on is a claim that something real produces that value, and the claim is honest only when another test exercises the real producer. A media library whose tests write fixture thumbnails passes green while the shipping grid renders blank — nothing in the suite ever generated a real thumbnail, so the fixture stood in for a stage that did not exist. Seeded inputs are not the violation: handing the real pipeline a known fixture folder tests the pipeline on controlled data. Replacing the pipeline with a script that emits the expected output is the violation. The line is whether the work in the middle runs for real.
+
+Non-functional outcomes a user feels — latency, throughput, memory headroom — are proven the same way. A number measured against an early prototype decays the moment the design that produced it changes; it has to be re-proven on the shipping path, not carried forward as a one-time measurement.
+
 ## How we apply this
 
 - [Observability](../quality/observability.md) — the OTel-first stance that makes traces-as-assertions possible.
@@ -82,6 +90,8 @@ The same generator-driven idea spans two more surfaces. At the service boundary,
 - **Snapshot tests as a default.** Snapshots are a brittle, noisy substitute for behavioural assertions, and "update snapshots" becomes a reflex that launders bugs into the baseline. Acceptable only when the artefact is genuinely opaque (a rendered email, a serialised response).
 - **Coverage-gated CI.** "95% line coverage required" is a metric gamed without reducing real risk. Use coverage as a read-out, mutation score as the quality signal, never line coverage as the gate.
 - **Shared staging environments as the integration test.** Staging has no hermetic guarantees, no reproducibility, no determinism. It is a deployment target, not a test bed.
+- **Proving the engine, shipping the product.** A headless proof that the core behaves behind a harness is a slice of confidence, not the product. Until a test drives the assembled, shipping build through the front door on the real pipeline, "it works" is unproven where a user stands.
+- **A fake with no real test behind it.** A fixture or stub that nothing real ever produces is a green light wired to nothing. Every fake is a debt; the real test that exercises the producer is how it gets paid.
 - **"It's hard to test, so we didn't."** That is a signal the code is badly designed. Fix the code.
 
 ## Further reading

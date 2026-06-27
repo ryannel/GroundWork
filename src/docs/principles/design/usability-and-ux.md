@@ -44,6 +44,14 @@ The cheapest error to recover from is the one that cannot occur, so we design er
 
 Users forage by scent: they choose links and buttons by the payoff each label predicts, so labels are descriptive and specific and match the content they lead to — never "click here," "learn more," or a bare "submit." Every screen answers the wayfinding questions — where am I, how did I get here, where can I go, how do I get back — through an active navigation state, a clear title, breadcrumbs in deep hierarchies, and consistent, persistent navigation. Disorientation is a silent driver of abandonment.
 
+### 8. Usable has a floor you can check and a ceiling you judge
+
+"Usable" splits into two halves that need different instruments. The **floor is checkable**: every screen is reachable and has a way back, so no flow dead-ends; every asynchronous view carries its full set of states — empty, loading, in-progress, error — not just the happy one a demo hits. These are verifiable, and their absence is a defect a review catches: a screen that works but shows no progress reads as frozen, and a grid with no empty state reads as broken on first run. The **ceiling is judged**: whether the screens cohere, whether the product is a pleasure to use, whether it feels considered. That judgment is made by eye, the way a designer reviews work, against the design system and the experience the product is reaching for. Hold the floor as a gate and the ceiling as a bar — clear the first, then keep raising the second.
+
+### 9. Solve UX problems with the patterns the best products use now, implemented fully
+
+For a recurring UX problem there is usually a current best-in-class solution the leading products have converged on — the removable filter pill with its clear affordance, the skeleton frame that holds layout while content loads, modern search and pagination. Reaching for these gives forward-leaning and familiar at once, because the leaders made them the standard. The discipline is to implement the pattern **completely**, every affordance it implies: a filter pill that shows but does not remove is a worse experience than no pill, because it promises an interaction it does not honour. Draw on what modern products already do and on the project's own design references, then turn the chosen pattern into a real component in the design system so the next screen inherits it rather than re-inventing a thinner version.
+
 ## How we apply this
 
 - [Interaction & Motion](interaction-and-motion.md) — the state, feedback, and perceived-performance decisions usability depends on.
@@ -59,6 +67,9 @@ Users forage by scent: they choose links and buttons by the payoff each label pr
 - **Confirmation-dialog overuse.** "Are you sure?" on routine reversible actions, training the reflexive click that defeats the dialog's purpose.
 - **Asking for the known.** Requiring data the system already has or could derive.
 - **Scentless labels.** "Click here" / "Learn more" / generic "Next" that predict nothing about their destination.
+- **Dead-end screens.** A view a user can reach but not leave, or a flow with no way back to where they came from.
+- **Happy-path-only states.** An async view that renders when data arrives but shows nothing while it loads, nothing when it is empty, and nothing when it fails — so working software looks frozen and a first run looks broken.
+- **The half-built pattern.** A recognised pattern shipped as a shell — a filter pill that does not remove, a skeleton that never resolves — promising an affordance it does not deliver.
 
 ## Further reading
 
