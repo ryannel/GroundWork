@@ -8,6 +8,8 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-06-28
+
 ### Added (the quick-bet lane — a middle delivery depth between patch and bet, 2026-06-28)
 
 Three delivery lanes now sit on one spine — **patch** (the floor: a fix or tweak), **quick bet** (new: one small new capability), **bet** (a substantial feature) — and the orchestrator's Work Intake triage sizes any build/change/fix request into a lane and routes it. The quick bet is a compressed track inside `groundwork-bet` (`workflows/00-quick.md`): it collapses discovery, design, and decomposition into one AI-driven, single-approval pass that produces a single milestone, earns an independent `groundwork-review` verdict, then hands that milestone to the existing delivery and validation machinery — which scope down for `track: quick` (no experience-auditor subagent or Tier-3 polish at milestone close, no cross-slice retrospective or per-decision ADRs) while keeping the Tier-1/Tier-2 UX floor and honest-green discipline in full. The patch lane gains calibrated rigor: an inline honest-green behaviour check always, plus the blind-reviewer lens for behaviour-shaped patches (not copy tweaks), and it now escalates a local contract change to a quick bet rather than straight to a full bet.
