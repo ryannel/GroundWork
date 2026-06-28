@@ -43,6 +43,8 @@ Each phase runs in its own workflow file because each demands a different mode. 
 
 The pitch's frontmatter `status` field tracks where the bet sits in the lifecycle. Status transitions on entry to each phase and is the routing signal that lets a fresh context pick up the bet at the right place.
 
+**The quick-bet track.** A `quick bet` is the middle of the three delivery lanes (patch · quick bet · bet). It is not a separate skill — it is a compressed track inside this lifecycle (`workflows/00-quick.md`) that collapses discovery, design, and decomposition into one AI-driven pass producing a **single milestone**, then hands that milestone to the same Delivery (`04-delivery.md`) and Validation (`05-validation.md`) tail a full bet uses. Its pitch carries `track: quick`; that marker tells Delivery and Validation to run at quick depth (one milestone is legal; the heaviest closure and validation steps scope down). The orchestrator's Work Intake triage decides patch-vs-quick-vs-bet and routes a quick bet here with the signal `lane: quick-bet`.
+
 ---
 
 ## Operating Contract
@@ -58,6 +60,16 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 Check `docs/bets/` for pitches (`<slug>/pitch.md`) and route on the pitch's `status` frontmatter.
 
 `docs/bets/` accumulates one pitch per bet, so several may exist. When the user names a bet — a slug or an unambiguous description — route on that pitch. Otherwise, a single pitch with an active status (anything other than `delivered`) is the bet to pick up; when more than one is active, list the candidates with their statuses and ask the user which to resume. Delivered pitches are the project's history, never resume candidates.
+
+**Lane entry — a new request the orchestrator already sized.** When the orchestrator's Work Intake routed here with the signal `lane: quick-bet`, this is a new quick bet with no pitch yet: open the quick-bet track directly, do not start full discovery.
+
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/00-quick.md`
+
+Without that signal, a new request starts at full discovery (the *No pitch* route below). Lane is chosen at intake; the `status`/`track` frontmatter below is for **resuming** a bet already on disk.
+
+- **`status: quick`** (with `track: quick`) — a quick bet is mid-authoring: its plan was not yet approved and sealed. Resume the quick-bet track.
+
+  ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/00-quick.md`
 
 - **`status: discovery`** — the pitch is committed but the bet has not entered Design Foundations. Read the pitch and proceed to Design Foundations.
 

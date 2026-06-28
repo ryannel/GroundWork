@@ -106,13 +106,15 @@ Remove any discovery-notes entries that were incorporated into the artifacts upd
 
 Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/architecture/decisions/NNNN-<slug>.md` using the template at `.groundwork/skills/templates/adr.md`.
 
-Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR.
+Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR. *(Quick-bet depth: a `track: quick` bet's local, non-structural change rarely clears this bar — skip unless it genuinely set a stance future work must not relitigate.)*
 
 Number sequentially: read the existing `docs/architecture/decisions/` directory and use the next available integer (zero-padded to four digits). Create the `docs/architecture/decisions/` directory if it does not exist.
 
 ### Step 7.5: Run the bet retrospective
 
 A bet that ships without extracting its lessons leaves the next bet to rediscover them at delivery prices. The retrospective is one facilitated pass over four mechanics — checklist items in a single conversation, not a ceremony — and its output is `docs/bets/<bet-slug>/retrospective.md` plus action items the next bet reads.
+
+**Quick-bet depth.** For `track: quick`, skip the formal retrospective: a single-milestone change has no cross-slice pattern to mine — the mining looks for a finding type recurring across *two or more* slice reviews, which a one-or-few-slice quick bet does not have. Fold any forward signal into discovery notes (Step 6) and any readiness caveat into the hand-off, and move on. Run the full pass below only when a multi-slice quick bet genuinely surfaced a recurring pattern worth recording.
 
 1. **Mine the slice records.** Read the bet's delivery commits — `git log` of the `bet(<bet-slug>): slice ...` commits, their changed files and their `Notes:` lines — plus any change proposals or amendments in the bet directory. Surface *patterns*, not anecdotes: a finding type that appeared in two or more slice reviews, a struggle that recurred, a proof that needed amending. One-off issues are noise; repeats are process signal.
 2. **Audit the previous bet's action items.** Read the previous bet's `retrospective.md` (if one exists). For each action item: done, in progress, or ignored — and if ignored, did it cost us this bet? An item that was ignored *and* costly escalates to a `docs/maturity.md` row so it stops depending on anyone's memory.
@@ -124,6 +126,8 @@ Write `docs/bets/<bet-slug>/retrospective.md`: the patterns found, the follow-th
 ### Step 8: Mark the bet delivered
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivered`. On a registry project, Step 2.7's gate applies: do not write `delivered` while any ledger cell for this bet's capabilities is empty — fill the column or the bet does not close.
+
+Remove the active-lane sentinel now the lane is closing — `rm -f .groundwork/cache/active-lane` — so the capture reminder hook resumes guarding direct edits outside any lane.
 
 ### Step 8.5: Integrate the bet to trunk
 

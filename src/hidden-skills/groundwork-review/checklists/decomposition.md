@@ -32,7 +32,10 @@ file and no summary section — do not flag the absence of either.
 - [ ] 🟡 **Milestone count outside 2–5**: one milestone suggests the bet is not scoped in
   user-visible increments; six or more suggests it is a roadmap, not a bet. Exception: a
   headless delivery legitimately carries a single capability milestone with every surface
-  milestone deferred — when the pitch's surface no-gos say so, do not flag it.
+  milestone deferred — when the pitch's surface no-gos say so, do not flag it. Exception: a
+  **quick bet** (`track: quick` in the pitch) is *defined* as a single milestone — never flag a
+  one-milestone count for it; two or more milestones is instead the signal it should have been a
+  full bet.
 
 ## Milestone and Slice Typing
 
