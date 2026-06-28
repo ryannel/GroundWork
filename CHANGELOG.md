@@ -8,6 +8,18 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (the quick-bet lane — a middle delivery depth between patch and bet, 2026-06-28)
+
+Three delivery lanes now sit on one spine — **patch** (the floor: a fix or tweak), **quick bet** (new: one small new capability), **bet** (a substantial feature) — and the orchestrator's Work Intake triage sizes any build/change/fix request into a lane and routes it. The quick bet is a compressed track inside `groundwork-bet` (`workflows/00-quick.md`): it collapses discovery, design, and decomposition into one AI-driven, single-approval pass that produces a single milestone, earns an independent `groundwork-review` verdict, then hands that milestone to the existing delivery and validation machinery — which scope down for `track: quick` (no experience-auditor subagent or Tier-3 polish at milestone close, no cross-slice retrospective or per-decision ADRs) while keeping the Tier-1/Tier-2 UX floor and honest-green discipline in full. The patch lane gains calibrated rigor: an inline honest-green behaviour check always, plus the blind-reviewer lens for behaviour-shaped patches (not copy tweaks), and it now escalates a local contract change to a quick bet rather than straight to a full bet.
+
+- [no-migration] Additive lane + skill-prose change; clean-copy carries the new track and the updated orchestrator/patch/bet/validation/review skills. Existing bets and patches are unaffected, and the `groundwork-update` Bets family now recognizes `track: quick` as a legitimate single-milestone shape.
+
+### Added (a capture reminder hook so build requests reach the process, 2026-06-28)
+
+A non-blocking Claude Code PreToolUse hook now ships with each install: when an `Edit`/`Write` happens outside any active GroundWork lane, it reminds the agent to route the change through the orchestrator (which sizes it patch / quick bet / bet). It never blocks the edit and stays silent inside an active lane, in a bet worktree, or on process artifacts — closing the leak where a mid-session "add a delete button" was implemented directly, bypassing the process. The orchestrator's skill description was broadened and an AGENTS.md clause folded in for fresh-session capture; the hook is the deterministic mid-session signal. Claude Code-specific — AGENTS.md-native agents (Cursor/Codex/Cline) keep soft capture.
+
+- [migration] Seeds the capture reminder hook (`.groundwork/hooks/capture-reminder.js` + a `.claude/settings.json` PreToolUse entry) into existing Claude Code installs; non-blocking and additive — an install with no `.claude` dir is skipped, and the entry is never duplicated (gw-seed-capture-hook).
+
 ## [0.11.0] - 2026-06-27
 
 ### Fixed (the update report no longer reads as if it deletes authored skills, 2026-06-27)
