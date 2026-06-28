@@ -16,6 +16,18 @@ The `groundwork-bet` skill orchestrates the loop. It activates either by detecti
 
 Each phase updates the pitch's `status` frontmatter as it activates (`discovery` → `design` → `decomposition` → `delivery` → `validation` → `delivered`), so the orchestrator and any contributor can see where the bet sits at any moment.
 
+## Three lanes: patch, quick bet, bet
+
+Not every change earns five phases. The Delivery Loop offers three lanes, sized by the work, and the orchestrator's Work Intake triage routes each request to the right one:
+
+| Lane | For | Shape |
+|---|---|---|
+| **patch** (`groundwork-patch`) | A fix, a copy tweak, a small change with no new capability and no contract change | No phases — read, test (with an honest-green check and a blind review for behaviour-shaped patches), log to the patch ledger |
+| **quick bet** (`workflows/00-quick.md`) | One small new capability — a single user-visible step, deliverable in one sitting, touching at most a local, non-structural contract delta | A compressed track: Discovery, Design, and Decomposition collapse into one AI-driven, single-approval pass that produces **one milestone**, earns an independent review verdict, then runs the same Delivery (Phase 4) and Validation (Phase 5) tail — scoped to quick depth |
+| **bet** (the five phases above) | A substantial feature: a ladder of user-visible milestones, or a structural / cross-service contract change | The full lifecycle |
+
+The quick bet is the middle depth, not a slimmer patch: it still touches every dimension a bet does (what and why, UX, the contract delta, the front-door proof) and still proves its milestone at the front door — it just holds them in one pass instead of five gated phases. Its pitch carries `track: quick`; that marker is how Delivery and Validation know to run at quick depth (one milestone is legal, and the heaviest closure and retrospective steps scope down) while keeping the deterministic floor, the visual UX check, and honest green intact. A quick bet that proves bigger than one sitting escalates to a full bet; one that needs no design at all demotes to a patch.
+
 ## The Two Test Populations
 
 The bet lifecycle produces two distinct populations of tests. Understanding both prevents the mistake of conflating or merging them.

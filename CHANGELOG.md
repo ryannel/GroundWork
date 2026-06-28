@@ -18,7 +18,7 @@ Three delivery lanes now sit on one spine — **patch** (the floor: a fix or twe
 
 A non-blocking Claude Code PreToolUse hook now ships with each install: when an `Edit`/`Write` happens outside any active GroundWork lane, it reminds the agent to route the change through the orchestrator (which sizes it patch / quick bet / bet). It never blocks the edit and stays silent inside an active lane, in a bet worktree, or on process artifacts — closing the leak where a mid-session "add a delete button" was implemented directly, bypassing the process. The orchestrator's skill description was broadened and an AGENTS.md clause folded in for fresh-session capture; the hook is the deterministic mid-session signal. Claude Code-specific — AGENTS.md-native agents (Cursor/Codex/Cline) keep soft capture.
 
-- [migration] Seeds the capture reminder hook (`.groundwork/hooks/capture-reminder.js` + a `.claude/settings.json` PreToolUse entry) into existing Claude Code installs; non-blocking and additive — an install with no `.claude` dir is skipped, and the entry is never duplicated (gw-seed-capture-hook).
+- [migration] Seeds the capture reminder hook into existing Claude Code installs (`.groundwork/hooks/capture-reminder.js` + a `.claude/settings.json` PreToolUse entry); non-blocking and additive — an install with no `.claude` dir is skipped, and the entry is never duplicated (gw-seed-capture-hook)
 
 ## [0.11.0] - 2026-06-27
 
