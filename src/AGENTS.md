@@ -10,6 +10,12 @@ Run the **`groundwork-orchestrator`** skill. It reads project state and routes t
 step — greenfield discovery, brownfield scan, or the delivery (bet) loop. Everything in
 GroundWork flows from the orchestrator; you do not need to memorize the lifecycle.
 
+**This includes any request to build, add, change, or fix something.** "Add a delete button",
+"fix the upload bug", "build the dashboard" — route it through the orchestrator first, not
+straight to code. It sizes the work into a patch, a quick bet, or a bet and runs the right lane.
+Implementing directly is the one thing that bypasses GroundWork — the process is how a change
+gets designed, proven, and recorded.
+
 This is also the entry point for **maintenance**: when you want to "update GroundWork",
 "upgrade GroundWork", or bring this project up to date with the current framework, run the
 orchestrator and it routes to the update lane. Do not go hunting for a CLI command or a

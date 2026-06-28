@@ -1,6 +1,6 @@
 ---
 name: groundwork-orchestrator
-description: 'The GroundWork Orchestrator. Run this skill for ANY GroundWork lifecycle task (what''s next, run a specific step) AND for "update groundwork" / "upgrade groundwork" / "bring this project up to date with the framework" — it routes those to the framework-update lane. It owns all lifecycle knowledge, reads project state, and routes to the correct skill.'
+description: 'The GroundWork Orchestrator. Run this skill for ANY GroundWork lifecycle task (what''s next, run a specific step), for "update groundwork" / "upgrade groundwork" / "bring this project up to date with the framework", AND — before writing any code — whenever the user asks to build, add, implement, change, or fix something in this project: it sizes the work into a patch, quick bet, or bet and runs the right lane. It owns all lifecycle knowledge, reads project state, and routes to the correct skill. Run it before implementing any code change.'
 ---
 
 # GroundWork Orchestrator
@@ -104,7 +104,7 @@ When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-
 - `groundwork-update` — the single call to bring the **project up to the current framework**: Phase A works the upgrade brief `npx groundwork-method update` compiles (doc merges, scaffold reconciliation), then Phase B reconciles each artifact family (bets, architecture docs, contracts, surfaces, docs-site) to the current canonical shape. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Not the same as `groundwork-doc-sync`, which keeps the project's own docs in sync with its own code.
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
-- `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement); available only after setup completes. Route here when the user asks for a small concrete change; route to `groundwork-bet` when the ask names a new capability, touches a contract, or arrives as the third patch in the same area (the patch ledger surfaces this).
+- `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement with no new capability and no contract change); available only after setup completes. The floor of the three delivery lanes — patch, quick bet, bet (see *User requests work* above). Route here for a small concrete change that passes the patch scope test; a small new capability or a local, non-structural contract change is a **quick bet** (`groundwork-bet`, quick-bet lane), and a capability spanning multiple milestones or a structural/cross-service contract change is a full **bet**. Three patches clustering in one area is a bet signal the patch ledger surfaces.
 - `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
 
 When routing to `groundwork-update`, pass the same `fan_out` hint used for `groundwork-scan`: `parallel` when a sub-agent dispatch tool is available, `sequential` otherwise. `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so the driver's context stays lean; `sequential` tells it to advance each unit inline, one at a time. The skill branches on the hint rather than probing its own tool set.
@@ -149,6 +149,26 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 ---
 
 ## Intent Handling
+
+### User requests work — build, add, change, or fix something
+
+The most common entry, and the one GroundWork exists to catch: the user asks to **build, add, implement, change, or fix** something — "add a button to delete an image", "fix the upload bug", "let's build the dashboard". This is a routing trigger, not a cue to start editing code. Size the work and route it; never implement directly from here.
+
+**Before setup completes**, a build request is the setup flow itself — route to the next setup phase (Mode Detection above), not a delivery lane. The three lanes below are available only in the Delivery Loop.
+
+**If a lane is already active, continue it.** A non-`delivered` bet or quick-bet (its pitch carries an active `status:`) is in flight — route to `groundwork-bet`, which resumes it; do not re-triage a request that is really the next slice of work already under way. (A patch is atomic and carries no open state, so there is nothing to resume.)
+
+**Otherwise size the request — the Work Intake triage.** Three signals, each resolved against a lane's own definition rather than re-judged here:
+
+1. Does it pass `groundwork-patch`'s scope test — one user-facing goal, no new capability, no API or schema change, not the third patch clustering in one area? → **patch**.
+2. Is it one small new capability — a single user-visible step, deliverable in one sitting, touching at most a local, non-structural contract delta? → **quick bet**.
+3. Does it span more than one demonstrable milestone, or change a contract structurally or across services? → **bet**.
+
+Resolve a tie or a borderline ask to the **lighter** lane and name the escalation trigger out loud — over-ceremony is the costlier error, and a quick bet promotes to a bet (or a patch to a quick bet) the moment reality proves it bigger. **Propose** the lane with a one-line rationale and let the user confirm or override (an override is recorded in the lane's own artifact). Then route:
+
+- **patch** → `groundwork-patch`.
+- **quick bet** → `groundwork-bet`, signalling the quick-bet lane (`lane: quick-bet`); its activation opens the quick-bet track (`workflows/00-quick.md`).
+- **bet** → `groundwork-bet` for full discovery.
 
 ### User requests a specific skill
 Match intent to a skill. Briefly introduce it, then load and execute the instruction file.

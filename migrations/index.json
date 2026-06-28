@@ -35,6 +35,13 @@
       "title": "Retire the machine-readable bet artifacts for the prose model",
       "kind": "cli",
       "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/architecture/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json; the groundwork-update skill's Bets family advances any in-flight bet's prose structure."
+    },
+    {
+      "id": "gw-seed-capture-hook",
+      "version": "0.12.0",
+      "title": "Seed the capture reminder hook into Claude Code installs",
+      "kind": "cli",
+      "summary": "init now seeds a non-blocking Claude Code PreToolUse hook (.groundwork/hooks/capture-reminder.js wired through .claude/settings.json) that prompts the agent to route a build/change/fix edited directly outside any GroundWork lane through the orchestrator (patch / quick bet / bet). This heals older installs. Claude Code-specific and additive: an install with no .claude dir is n/a, and only our PreToolUse entry is added, never duplicated."
     }
   ]
 }

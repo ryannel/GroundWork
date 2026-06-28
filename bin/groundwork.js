@@ -85,6 +85,7 @@ function getPaths() {
     sourceAgentsMd: path.join(__dirname, '..', 'src', 'AGENTS.md'),
     sourceDevBundle: path.join(__dirname, '..', 'src', 'generators', 'workspace-dev-cli', 'cli-src', 'dist', 'dev-bundle.js'),
     sourceDevLauncher: path.join(__dirname, '..', 'src', 'generators', 'workspace-dev-cli', 'files', 'dev.template'),
+    sourceCaptureHook: path.join(__dirname, '..', 'src', 'hooks', 'capture-reminder.js'),
   };
 }
 
@@ -1092,6 +1093,66 @@ function registerSerenaMcp(targetDir) {
   }
 }
 
+// ─── Capture reminder hook (quick-bet lane WS-A) ────────────────────────────
+// GroundWork's front door only works if a build/change/fix request actually
+// reaches the orchestrator. Soft instructions (AGENTS.md, the orchestrator
+// description) fire reliably only on a fresh session; mid-session a direct
+// imperative tends to get satisfied directly. This seeds a non-blocking Claude
+// Code PreToolUse hook that, on an Edit/Write outside any active GroundWork lane,
+// adds a one-line reminder to route the work through the orchestrator. It never
+// blocks the edit. Claude Code-specific — native agents (Cursor/Codex/Cline) do
+// not run it, so for them capture stays soft (a documented residual).
+
+const CAPTURE_HOOK_COMMAND = 'node "$CLAUDE_PROJECT_DIR/.groundwork/hooks/capture-reminder.js"';
+
+// Merge our PreToolUse entry into the project's .claude/settings.json without
+// disturbing other hooks. Idempotent: re-running detects our command and skips.
+// .claude resolves through the Claude Code dir symlink to .agents/, the shared
+// committed tree, so the hook applies to everyone on the project.
+function mergeCaptureHookSettings(settingsPath) {
+  let settings = {};
+  if (fs.existsSync(settingsPath)) {
+    try {
+      settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) || {};
+    } catch {
+      c.warn(`Could not parse ${path.basename(settingsPath)} — left it untouched; add the capture hook by hand.`);
+      return false;
+    }
+  }
+  if (!settings.hooks || typeof settings.hooks !== 'object') settings.hooks = {};
+  const pre = Array.isArray(settings.hooks.PreToolUse) ? settings.hooks.PreToolUse : [];
+  const already = pre.some(
+    (g) => Array.isArray(g && g.hooks) && g.hooks.some((h) => h && typeof h.command === 'string' && h.command.includes('capture-reminder'))
+  );
+  if (already) return false; // user keeps their config; we never duplicate
+  pre.push({ matcher: 'Edit|Write', hooks: [{ type: 'command', command: CAPTURE_HOOK_COMMAND }] });
+  settings.hooks.PreToolUse = pre;
+  fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+  fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
+  return true;
+}
+
+// Seed the hook script into .groundwork/hooks/ (always refreshed — framework-owned)
+// and wire it into .claude/settings.json. Only acts for a Claude Code install:
+// gated on the wired-agent set, falling back to the presence of a .claude dir so a
+// re-run/update still seeds it. Best-effort: any failure warns, never aborts.
+function seedCaptureHook(p, selectedKeys) {
+  const wantsClaude = (selectedKeys && selectedKeys.includes('claude-code')) || fs.existsSync(path.join(p.targetDir, '.claude'));
+  if (!wantsClaude) return;
+  if (!fs.existsSync(p.sourceCaptureHook)) return;
+  try {
+    const hookDir = path.join(p.targetDir, '.groundwork', 'hooks');
+    fs.mkdirSync(hookDir, { recursive: true });
+    const dest = path.join(hookDir, 'capture-reminder.js');
+    fs.copyFileSync(p.sourceCaptureHook, dest);
+    fs.chmodSync(dest, 0o755);
+    const added = mergeCaptureHookSettings(path.join(p.targetDir, '.claude', 'settings.json'));
+    if (added) c.ok(`Seeded the capture reminder hook (.claude/settings.json)`);
+  } catch (err) {
+    c.warn(`Could not seed the capture reminder hook: ${err.message}`);
+  }
+}
+
 // ─── init ───────────────────────────────────────────────────────────────────
 
 async function initGroundWork(options = {}) {
@@ -1197,6 +1258,7 @@ async function initGroundWork(options = {}) {
   persistAgents(p, selected);
 
   registerSerenaMcp(p.targetDir);
+  seedCaptureHook(p, selected);
 
   printWiringGuidance(selected);
 
@@ -1333,6 +1395,7 @@ function updateGroundWork(flags = {}) {
     }
     applyTier2(p, tier2);
     applyDevCli(p, devCli);
+    seedCaptureHook(p, readPersistedAgents(p) || []);
   } catch (err) {
     c.err(`Update failed while copying files: ${err.message}`);
     c.err(`Aborted — version stamp and manifest were not advanced. Re-run npx groundwork-method update after resolving.`);
