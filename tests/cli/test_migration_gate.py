@@ -70,6 +70,61 @@ console.log('ok');
     assert proc.stdout.strip() == "ok"
 
 
+# ── gw-seed-capture-hook: the seed path the frozen fixtures don't reach ──────
+# The pre-0.9 / 0.9 install fixtures carry no .claude dir, so they only exercise
+# the migration's n/a branch. This proves the actual seed round-trip on a
+# synthetic Claude Code install: detect → pending, run → seeds, detect → done,
+# and a second run stays idempotent.
+
+def test_seed_capture_hook_round_trip(tmp_path):
+    (tmp_path / ".groundwork").mkdir()
+    claude = tmp_path / ".claude"
+    claude.mkdir()
+    # A pre-existing unrelated hook must survive — the migration is additive.
+    (claude / "settings.json").write_text(json.dumps({
+        "hooks": {"PreToolUse": [
+            {"matcher": "Bash", "hooks": [{"type": "command", "command": "echo other"}]}
+        ]}
+    }))
+    script = """
+const path = require('path');
+const fs = require('fs');
+const mod = require(path.join(%r, 'gw-seed-capture-hook.js'));
+const ctx = { targetDir: %r, packageRoot: %r };
+if (mod.detect(ctx) !== 'pending') throw new Error('expected pending before run');
+mod.run(ctx);
+mod.run(ctx); // idempotent — must not duplicate
+if (mod.detect(ctx) !== 'done') throw new Error('expected done after run');
+const hook = path.join(%r, '.groundwork', 'hooks', 'capture-reminder.js');
+if (!fs.existsSync(hook)) throw new Error('hook script not seeded');
+const s = JSON.parse(fs.readFileSync(path.join(%r, '.claude', 'settings.json'), 'utf8'));
+const pre = s.hooks.PreToolUse;
+const ours = pre.filter(g => g.hooks.some(h => (h.command || '').includes('capture-reminder')));
+if (ours.length !== 1) throw new Error('expected exactly one capture-reminder entry, got ' + ours.length);
+if (!pre.some(g => g.hooks.some(h => (h.command || '') === 'echo other'))) {
+  throw new Error('pre-existing hook was clobbered');
+}
+console.log('ok');
+""" % (str(MIGRATIONS), str(tmp_path), str(REPO_ROOT), str(tmp_path), str(tmp_path))
+    proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.strip() == "ok"
+
+
+def test_seed_capture_hook_na_without_claude_dir(tmp_path):
+    """A native-only install (no .claude) is n/a — those agents can't run the hook."""
+    (tmp_path / ".groundwork").mkdir()
+    script = """
+const mod = require(require('path').join(%r, 'gw-seed-capture-hook.js'));
+const v = mod.detect({ targetDir: %r, packageRoot: %r });
+if (v !== 'n/a') throw new Error('expected n/a, got ' + v);
+console.log('ok');
+""" % (str(MIGRATIONS), str(tmp_path), str(REPO_ROOT))
+    proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.strip() == "ok"
+
+
 # ── B3: changelog ↔ registry cross-check ────────────────────────────────────
 
 MIGRATION_LINE = re.compile(r"\[migration\]", re.IGNORECASE)
