@@ -66,8 +66,10 @@ rather than probing your own tool set — a runtime that misjudges its capabilit
 a dispatch tool that does not exist breaks the run. If no hint reached you, default to
 `sequential`.
 
-- `parallel` — **dispatch** each unit to a `reconcile-worker` subagent, as above. This is
-  the context-lean path the driver is built for.
+- `parallel` — **dispatch** each unit to a `reconcile-worker` subagent, as above, at the
+  **`execution`** tier (Model Tiers, operating contract — a gated worker, not trusted; the
+  driver reviews every mutated doc at `frontier` before committing). This is the context-lean
+  path the driver is built for.
 - `sequential` — no dispatch tool exists, so advance each unit **inline, one at a time**:
   do the worker's read-and-transform yourself for a single unit, gate and commit it, then
   **purge that unit's detail from context** before the next. Slower and heavier, but still
@@ -95,7 +97,7 @@ driver loop:
 
 1. **Propose.** Explain what this item will change and why in two or three sentences. Never
    batch approvals across items.
-2. **Dispatch the worker.** Hand a `reconcile-worker` the item verbatim as the capsule —
+2. **Dispatch the worker** (at the `execution` tier). Hand a `reconcile-worker` the item verbatim as the capsule —
    `unit_kind: brief-item:<type>`, the staged `incoming`/`options`/`base_hash` pointers, and
    the project path it touches. The worker produces the merged / ported / regenerated change
    and returns its report. (Under `sequential`, do the worker's recipe inline — the item-type
@@ -138,7 +140,7 @@ reconcile the project to it.
 2. **Propose.** One family, one explained proposal. Pause where an advance would imply a
    product decision the code does not prove — a removal that might be temporary, a capability
    that might be an experiment — and surface it rather than assume it.
-3. **Dispatch the worker.** Hand a `reconcile-worker` the capsule: `unit_kind: family:<name>`,
+3. **Dispatch the worker** (at the `execution` tier). Hand a `reconcile-worker` the capsule: `unit_kind: family:<name>`,
    the **Owner** column path(s) as the canonical to read, the project instance paths it found,
    and the row's advance approach. The worker reads canonical + instances *in its own
    context*, advances them, and returns its report. (Under `sequential`, do the advance inline

@@ -4,6 +4,7 @@ description: >
   Walks every branch and boundary a slice diff introduces and reports only the
   unhandled paths. One of four independent review lenses the Delivery driver dispatches
   per slice (groundwork-bet/workflows/04-delivery.md, Step 2); only the report flows back.
+tier: frontier
 ---
 
 # Edge-Case Tracer

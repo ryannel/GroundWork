@@ -6,6 +6,8 @@
 
 **Complexity:** S / M / L
 
+**Model tier:** (omit for the `execution` default; set "frontier — <reason>" only when this slice is particularly challenging or vague, lifting its slice-worker's model for this slice)
+
 **Prerequisite:** (none, or "Slice [N.K] merged")
 
 ## Scope

@@ -7,6 +7,7 @@ description: >
   (groundwork-update/instructions.md) once per unit; the driver supplies the unit capsule,
   the worker reads the canonical and the project's instances, produces the proposed change,
   and only the report flows back — the transform reasoning stays in the worker's context.
+tier: execution
 ---
 
 # Reconcile Worker
@@ -38,8 +39,9 @@ regardless of how the isolated execution is realised.
 
 ### Model
 
-The worker may run on a cheaper tier than the driver. Its correctness is not taken on
-trust: the driver gates every mutated canonical doc through an independent review
+The worker runs at the **`execution`** tier (Model Tiers, operating contract) — a capable,
+cheaper class than the driver and the review. Its correctness is not taken on trust: the
+driver gates every mutated canonical doc through an independent `frontier` review
 (Protocol 9) before it commits the unit. The worker's job is to advance honestly and report
 honestly, not to be the final judge of its own work.
 

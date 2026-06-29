@@ -7,6 +7,7 @@ description: >
   the Delivery driver dispatches at milestone close and the Validation phase dispatches over
   the finished bet (groundwork-bet/workflows/04-delivery.md Milestone close;
   05-validation.md Step 2.6); only the report flows back.
+tier: frontier
 ---
 
 # Experience Auditor

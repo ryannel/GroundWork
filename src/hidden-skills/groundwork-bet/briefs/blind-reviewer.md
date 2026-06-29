@@ -4,6 +4,7 @@ description: >
   Reviews a slice diff for correctness bugs with no bet context, so familiarity cannot
   hide them. One of four independent review lenses the Delivery driver dispatches per
   slice (groundwork-bet/workflows/04-delivery.md, Step 2); only the report flows back.
+tier: frontier
 ---
 
 # Blind Reviewer

@@ -58,6 +58,7 @@ Never slice horizontally: "all schemas, then all APIs, then all UI" is three hor
 Each slice spec must contain:
 - **Owner service** — the primary service this slice lives in (from `docs/architecture/infrastructure.md`)
 - **Complexity** — S / M / L
+- **Model tier** *(optional)* — omit for the `execution` default; set `frontier` with a one-line reason only when the slice is *particularly challenging or vague* (the same risk signal that warrants a POC/spike). This lifts the slice-worker's model for this slice; Delivery reads it at dispatch (Model Tiers, operating contract). It is one-directional — a slice can ask for a higher tier, never a lower one.
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
 - **Scope** — a one-paragraph intro linking the slice to its parent milestone and stating what vertical capability it contributes, plus **Required Capabilities**: falsifiable behaviour statements, each tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`. "The endpoint exists" is not falsifiable. "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API design" is.
 - **Design** — where the slice lands in the design: the interface it implements, the data flow it realizes in `02-data-flows.md`, and, when it builds a screen, the view it wires in `01-ui-design.md` and the pattern it implements in full.

@@ -7,6 +7,7 @@ description: >
   slice file and a context capsule, the worker implements to green inside the locked
   design, and only the report flows back — the implementation reasoning stays in the
   worker's context.
+tier: execution
 ---
 
 # Slice Worker
@@ -37,10 +38,21 @@ same regardless of how the isolated execution is realised.
 
 ### Model
 
-The worker may run on a cheaper tier than the driver. Its correctness is not taken on
-trust: the driver gates every slice through an independent review (four isolated
-lenses) before the slice closes. The worker's job is to implement honestly and report
-honestly, not to be the final judge of its own work.
+The worker runs at the **`execution`** tier (Model Tiers, operating contract) — a
+capable, cheaper class than the driver and the review lenses. Its correctness is not
+taken on trust: the driver gates every slice through an independent review (four isolated
+`frontier` lenses) before the slice closes. The worker's job is to implement honestly and
+report honestly, not to be the final judge of its own work. A slice the decomposition
+flagged as *particularly challenging or vague* lifts this worker to `frontier` for that
+slice — the driver reads the flag from the slice file and dispatches accordingly.
+
+If you are battling a slice — going in circles, or tempted to force a green you cannot
+defend — **escalate to the frontier advisor for guidance and keep working**; do not grind
+a dishonest green. Where the host configures one (on Claude Code, an `advisor` model), you
+may consult it at decision points and on recurring errors. Escalating for reasoning is
+different from a `BLOCKING CONCERN`: the advisor helps you do the slice honestly, while a
+blocking concern says the slice cannot be done *as specified* and hands it back. Reach for
+whichever fits — neither is forcing the suite green.
 
 ---
 

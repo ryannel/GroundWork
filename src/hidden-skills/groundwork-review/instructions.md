@@ -5,6 +5,7 @@ description: >
   returns a structured verdict — PRESENT or REVISE — with critical and advisory
   findings. Calling skills invoke it once per mutated canonical doc with the
   document path and type; only the verdict and findings flow back.
+tier: frontier
 ---
 
 # GroundWork Review

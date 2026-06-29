@@ -358,6 +358,8 @@ Protocol 8 defines what the reviewer's verdict means; this protocol defines how 
 
 The reviewer runs as an independent subagent with a fresh context, dispatched through the host's subagent mechanism — the `Task` tool in Claude Code. The dispatch prompt loads the `groundwork-review` skill and passes `document_path` (the draft under review) and `document_type` (which checklist the reviewer applies). Only the verdict and findings return to the caller; the reviewer's deliberation stays in its own context, which keeps the calling conversation's window clean and the judgement independent of the author.
 
+`groundwork-review` is a review role, so it dispatches at the **`frontier`** tier — the same gate-must-be-strong reasoning that puts the delivery review lenses there (Model Tiers, below). The host model is chosen at dispatch to match that class.
+
 ### The verdict gates the commit
 
 The gate is fail-closed (Protocol 8): the phase presents the draft as reviewed, or commits it, only on a parseable `VERDICT: PRESENT`. On `VERDICT: REVISE`, apply the 🔴 findings to the draft and re-dispatch, subject to Protocol 8's revise cap.
@@ -374,6 +376,47 @@ In every one of these cases the phase MUST NOT proceed as if reviewed and MUST N
    - **An authorised self-review** — only with the user's explicit authorisation, run the review checks inline and label the output loudly as a self-review that does not satisfy the independent-review gate. This is Protocol 8's fallback rule as an operational procedure; it never counts as a passed gate.
 
 There is no third path: committing, presenting the draft as reviewed, or self-reviewing without authorisation defeats the gate.
+
+---
+
+## Model Tiers
+
+Every subagent GroundWork dispatches has a job whose reasoning demand is known in advance, so each role has a default **model tier**. The policy turns one long-standing belief into a default: *workers can run cheaply because the independent review is the gate* — which only holds if the gate itself runs strong. So planning and **all** review run at the top tier; gated execution runs a tier down.
+
+### The two tiers, by role
+
+| Tier | Dispatched for | Why |
+|---|---|---|
+| **`frontier`** | the delivery driver (recommended — see below), `groundwork-review`, and every delivery review lens (`blind-reviewer`, `edge-case-tracer`, `acceptance-auditor`, `coverage-auditor`, `experience-auditor`) | The hardest reasoning in the work, and the *gate*. Cheap execution is only safe when the review that catches it is strong, so the gate is never the weak link. |
+| **`execution`** | `slice-worker`, `reconcile-worker` | Implementation under a frontier gate. Correctness is not taken on trust — the review re-derives it — so the worker runs a capable, cheaper tier. |
+
+A third **`light`** tier (a fast, cheap model) is legal only for trivial, mechanical patch-lane fixes; `execution` is the default for all real implementation.
+
+### Tiers are model *classes*, not model names
+
+A tier names a **class of model by capability**, never a specific model id — ids churn, and the policy must hold across hosts and across releases. At dispatch the agent picks whatever concrete model its host actually offers that best fits the class:
+
+- **`frontier` — "Opus-class".** The host's strongest reasoning and judgement model. *Exemplars:* Claude Opus · a Gemini Pro/Ultra-class model · a GPT-5 / o-series reasoning-class model.
+- **`execution` — "Sonnet-class".** A strong, faster, cheaper workhorse used under a frontier gate. *Exemplars:* Claude Sonnet · a Gemini Flash-class model · a GPT-5-mini-class model.
+- **`light` — "Haiku-class".** A fast, cheap model for trivial mechanical work only.
+
+The exemplars are illustration, not a maintained mapping — there is no per-host table to keep current. Claude Code is the proven reference host; the policy is a host-agnostic abstraction other hosts realise with their own equivalents.
+
+### Per-slice lift — flagged at authoring
+
+The role tier is a default, overridable **upward, one slice at a time**. A slice that is *particularly challenging or vague* runs its worker at `frontier` instead of `execution`. That call is made **when the slice is authored** — Decomposition Step 4, or *Opening a milestone* in Delivery — where slice risk is already being judged (the same signal that triggers a POC/spike), and it is recorded as an optional flag in the slice file. Absence of the flag means the `execution` default. The override is **one-directional**: a slice may request a *higher* tier than its role default; nothing lowers a review lens below `frontier`.
+
+The authoring-time lift handles *foreseen* difficulty. Difficulty a worker *discovers mid-slice* is handled at runtime instead, so the worker never has to grind a Sonnet-class model toward a forced, dishonest green: an `execution`-tier worker that is battling a slice **escalates to a frontier model for guidance and keeps working** — it does not restart the slice or hand it back. On Claude Code this is the built-in **advisor** (`advisorModel` set to a `frontier`-class model — e.g. `opus`; subagents inherit it and a Sonnet worker may consult an Opus advisor at decision points and recurring errors). Other hosts realise the same principle however they can; a host with no escalation mechanism falls back to the worker's `BLOCKING CONCERN` hand-back and the always-present frontier review gate. This is what makes the cheaper tier safe in practice: the worker stays cheap by default but is never *alone* with a problem above its weight.
+
+### Runtime escalation is distinct from a blocking concern
+
+The advisor answers "I need stronger reasoning to do this honestly"; a `BLOCKING CONCERN` (slice-worker brief) answers "this cannot be honestly done *as specified*" — an approved proof that looks wrong, reality contradicting the design, an unreachable dependency. The first keeps the worker working with better guidance; the second hands the slice back to the driver for an Amendment or Change Navigation. Both coexist, and neither licenses a faked green.
+
+### Mechanism and degradation
+
+Each brief's frontmatter carries its role default (`tier: frontier` or `tier: execution`); the dispatching workflow chooses a host model matching that class — lifted per the slice flag — and passes it through the host's subagent mechanism (the `Task` tool's `model` in Claude Code). The **driver's own tier is a recommendation**, not framework-enforced: the driver runs in the user's session, so the workflow recommends a frontier model and the user pins it. Subagent tiers are framework defaults the driver applies.
+
+Where a host cannot set a per-subagent model (some harnesses pin one session model), the policy degrades to **running everything at `frontier`** — correct but pricier, never the reverse. The review is never silently downgraded; workers are framed as *may* run cheaper, so "cannot downgrade" is always safe.
 
 ---
 
