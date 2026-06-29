@@ -14,9 +14,9 @@ If entries exist, treat them as pre-discovered context — sequencing instincts,
 
 If the file does not exist or has no `## Bets` entries, skip this step.
 
-## Patch Ledger Check
+## Patch Cluster Check
 
-Read `docs/bets/patch-ledger.md` if it exists. Two or more patches in one area are a demand signal the user has already expressed in small pieces — surface the cluster as a candidate problem for this bet, citing the ledger rows. A bet that absorbs a patch cluster notes the rows in its pitch; the cluster is then settled and not re-raised.
+Mine recent patch commits from git: `git log --grep='Lane: patch'` since the most recent archived bet (the newest directory under `docs/bets/_archive/`), grouped by each commit's `Area:` trailer. Two or more patches in one area are a demand signal the user has already expressed in small pieces — surface the cluster as a candidate problem for this bet, citing the commit SHAs. A bet that absorbs a patch cluster notes those SHAs in its pitch; because the next window opens only after this bet closes, the cluster is then settled and not re-raised.
 
 ## Maturity Roadmap Check
 

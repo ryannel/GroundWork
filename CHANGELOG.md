@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (the patch lane derives clustering from git, not a hand-maintained ledger, 2026-06-29)
+
+The patch lane no longer maintains `docs/bets/patch-ledger.md`. Each patch now lands as a single Conventional Commit stamped with `Lane: patch` and `Area: <service-or-surface>` trailers (plus `Override: <reason>` when the user overrides the lane sizing). The clustering signal that escalates "the third patch in one area" to a bet — read by both the patch scope test and bet discovery — is now mined from git history (`git log --grep='Lane: patch'`, grouped by `Area:`, windowed since the most recent archived bet under `docs/bets/_archive/`) rather than from a sidecar file. This removes a manual append step from the pressure-valve lane and a duplicate source of truth that drifts when forgotten; git already carries every column the ledger held — date (commit date), files (`--name-only`), description (subject), and the test (same commit).
+
+- [no-migration] Skill-prose change only. `docs/bets/patch-ledger.md` is a generated project doc, not an installed framework file; an existing one becomes harmlessly orphaned (bet discovery simply stops reading it), and patches are stamped commits going forward.
+
 ## [0.12.0] - 2026-06-28
 
 ### Added (the quick-bet lane — a middle delivery depth between patch and bet, 2026-06-28)

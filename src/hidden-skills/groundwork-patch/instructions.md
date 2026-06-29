@@ -3,14 +3,15 @@ name: groundwork-patch
 description: >
   Delivers a bounded code change that does not warrant a bet — a bug fix, a copy
   tweak, a single small enhancement with one user-facing goal. Tests the change,
-  applies the Living Documents pass, and logs every patch to a ledger that bet
-  discovery reads, so accumulating patches in one area surface as a bet signal
-  instead of silent scope creep.
+  applies the Living Documents pass, and lands each patch as a single commit
+  stamped `Lane: patch` / `Area:` so bet discovery mines clusters from git
+  history — accumulating patches in one area surface as a bet signal instead of
+  silent scope creep.
 ---
 
 # groundwork-patch
 
-You are delivering a patch — one bounded code change with a single user-facing goal. The bet lifecycle exists because design-heavy work fails without locked contracts and pre-agreed proof; forcing a typo fix through five phases teaches users to bypass the framework entirely. The patch lane is the pressure valve: small work moves at small-work speed, while the ledger keeps it honest — every patch is recorded, and patches that cluster in one area are the signal that the area deserves a bet.
+You are delivering a patch — one bounded code change with a single user-facing goal. The bet lifecycle exists because design-heavy work fails without locked contracts and pre-agreed proof; forcing a typo fix through five phases teaches users to bypass the framework entirely. The patch lane is the pressure valve: small work moves at small-work speed, while git keeps it honest — every patch lands as one stamped commit, and patches that cluster in one area surface from that history as the signal that the area deserves a bet.
 
 Apply the `groundwork-writer` skill when producing any artifact this lane commits. The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill in Maintenance mode: Protocols 1, 2, and 4 apply; Protocols 8 and 9 apply when a patch's Living Documents pass mutates a canonical doc through a reversal.
 
@@ -22,9 +23,9 @@ A patch has **one user-facing goal**, touches no API contract or schema, and cha
 
 - The ask names a correction or small refinement to existing behaviour — not a new capability.
 - No endpoint, message channel, or table shape changes. A contract change needs a signing gate the patch lane does not have — but it is not automatically a full bet: a small, **local, non-structural** delta (one additive endpoint or field) is a **quick bet**, and a structural or cross-service contract change is a full **bet**.
-- `docs/bets/patch-ledger.md` does not already show two or more patches in the same area. Three clustering patches are a bet pitch wearing disguises — say so, and route the user to `groundwork-bet` with the ledger entries as discovery input.
+- Git history does not already show two or more patch commits in the same area. Run `git log --grep='Lane: patch'` (since the most recent archived bet under `docs/bets/_archive/`) and group by the `Area:` trailer: if this area already holds two, this is the third — a bet pitch wearing disguises. Say so, and route the user to `groundwork-bet` citing those commit SHAs as discovery input.
 
-When the ask fails the test, explain which line it crossed and hand off to the orchestrator, which sizes it into the right lane — a **quick bet** for one small new capability or a local contract delta, a full **bet** for anything larger. The user can override — record the override in the ledger entry so the retrospective sees it.
+When the ask fails the test, explain which line it crossed and hand off to the orchestrator, which sizes it into the right lane — a **quick bet** for one small new capability or a local contract delta, a full **bet** for anything larger. The user can override — record the override in the patch commit (an `Override: <reason>` trailer) so the retrospective sees it.
 
 ## Delivering the patch
 
@@ -35,8 +36,8 @@ Before touching code, write the active-lane sentinel — `printf '%s\n' 'patch' 
 3. **Run the relevant suite** (`./dev test`, or the touched service's tests) and confirm green, including the tests that existed before the patch.
 4. **Honest green, and a blind review for behaviour-shaped patches.** Even a patch earns the cheap half of delivery's rigor. First confirm **honest green** — the change satisfies its test for the right reason against the real code, not a hardcoded return, a test-only branch, or a fixture standing in for real work. (This is delivery's honest-green *behaviour* check; its prose-integrity half has no patch analog — a patch has no approved decomposition to reconcile against — so that half is omitted.) Then, when the patch is **behaviour-shaped** (it got a red-then-green test in step 2, not a pure copy or string tweak), dispatch the **blind-reviewer** lens (`.groundwork/skills/groundwork-bet/briefs/blind-reviewer.md`) as an isolated subagent over the diff (Protocol 9 mechanics) — it reads only the diff and catches the correctness bug familiarity hides. Triage its findings: fix an unambiguous bug before logging, drop noise. A pure copy or string tweak skips this — mandating a subagent on every typo fix would re-ceremonialize the lane this exists to keep light. If the host has no subagent mechanism, run the blind read inline and say so.
 5. **Apply the Living Documents pass** (Protocol 2). Most patches change nothing canonical; when one does — an infrastructure port, a documented behaviour — update the doc surgically. A reversal routes through the Reversal Protocol unchanged.
-6. **Log the patch.** Append one row to `docs/bets/patch-ledger.md` (create it with a one-line purpose header if absent): date, area (service or surface), one-line description, files touched, test added. The ledger is read by bet discovery and by the retrospective's pattern mining — an unlogged patch is invisible scope creep.
-7. **Report** what changed, the test that proves it, any doc updated, and the ledger entry — then remove the sentinel (`rm -f .groundwork/cache/active-lane`) so the capture hook resumes guarding direct edits.
+6. **Commit the patch.** Land the change as a single Conventional Commit carrying two trailers — `Lane: patch` and `Area: <service-or-surface>` — plus `Override: <reason>` when the user overrode the lane sizing. The commit *is* the log: its subject is the description, `git show --name-only` the files touched, the commit date the date, and the test rides in the same commit. Bet discovery and the retrospective's pattern mining read these from git history (`git log --grep='Lane: patch'`, grouped by `Area:`) — an unstamped patch is invisible scope creep.
+7. **Report** what changed, the test that proves it, any doc updated, and the stamped commit — then remove the sentinel (`rm -f .groundwork/cache/active-lane`) so the capture hook resumes guarding direct edits.
 
 ## The floor of three lanes
 
@@ -44,4 +45,4 @@ Patch is the floor of the three delivery lanes — **patch · quick bet · bet**
 
 ## What this lane never does
 
-Accumulate. The moment a "patch" grows a second goal, sprouts a contract change, or reveals that the area needs design, stop and route to the orchestrator with what you learned — a small new capability or a local contract delta is a quick bet, a larger change a full bet. The ledger entry for the abandoned patch records why it grew — that context seeds the next lane's discovery.
+Accumulate. The moment a "patch" grows a second goal, sprouts a contract change, or reveals that the area needs design, stop and route to the orchestrator with what you learned — a small new capability or a local contract delta is a quick bet, a larger change a full bet. An abandoned patch never lands a patch commit; carry what you learned about why it grew straight into the next lane's pitch via the orchestrator handoff — that context seeds the next lane's discovery.
