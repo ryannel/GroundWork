@@ -55,6 +55,18 @@ The brownfield scan (`groundwork-scan`), `groundwork-check`, and `groundwork-doc
 live impact analysis. The whole-repo map itself is built by the deterministic generator, not
 assembled from Serena queries — these tools read and reason over the code the map points them at.
 
+**Where `find_referencing_symbols` earns its keep — calibrate by the language, do not oversell it.**
+Its value is highest in **dynamically-typed** stacks (Python, JS, Ruby): there is no compiler to
+catch a caller you missed when a signature changes, so the LSP reference set is the only pre-runtime
+check short of tests — skipping it ships a runtime error. In **statically-typed** stacks (Swift, Go,
+Rust, Java) the compiler already catches the missed call site, so the reference pass is not a
+correctness gate but a navigation and early-signal win: it surfaces the blast radius *now* instead
+of after a build cycle, and it disambiguates a common identifier that text search cannot — a grep
+for a name like `caption` or `id` returns the property, the locals, the string literals, and the
+comments all mixed together, while the LSP returns exactly the references to *that* declaration. So
+reach for it freely on a shared or widely-used symbol; for a one-off, distinctively-named one a grep
+is already enough, and saying so is more honest than ritually invoking the tool.
+
 ## Editing (write) — Serena
 
 Edit by symbol so edits stay anchored to structure, not line numbers:
@@ -129,7 +141,13 @@ with ordinary file edits. No repo map for a language — not built in and not ye
 the means differ. Say so rather than implying structural coverage you did not have.
 
 In a **git worktree** (e.g. a bet under delivery): the map cache is per-working-tree, so build it
-in the worktree before relying on it (`npx groundwork-method repo-map`). Serena is registered with
-`--project .`, which resolves to the session root rather than the worktree path — treat its symbol
-tools as best-effort there and lean on the freshly-built map, falling back to ordinary reads under
-the same contract.
+in the worktree before relying on it (`npx groundwork-method repo-map`), and index Serena's symbol
+cache once (`serena project index` — seconds) so the symbol tools answer instead of returning cold.
+Serena is registered with `--project .`, which resolves to the directory the *session* is rooted in.
+A worktree-rooted session resolves it to the worktree correctly — but a fresh worktree's
+`.claude/settings.json` enables no MCP servers, so the tools never load until you enable them there
+(`enabledMcpjsonServers: ["serena"]`). A worker running as a Task subagent in the *root* session
+instead gets root-scoped symbols: accurate for committed code, stale for its own uncommitted edits —
+re-index touched files (`serena project index-file`) or read those locally. None of this is the same
+as Serena being *absent* (no `uv`, sandboxed, headless) — that is the genuine degraded case above,
+and worth distinguishing from a tool that is present but was never warmed.
