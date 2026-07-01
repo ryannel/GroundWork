@@ -30,9 +30,9 @@ graph TD
 ## Rabbit Holes & No-Gos
 *Two distinct lists. Rabbit holes protect the appetite from technical surprise; no-gos protect it from scope creep.*
 
-**Rabbit Holes** — the technical traps or unknowns that could silently eat the appetite. Name where the work could balloon, and the guard or spike that keeps it bounded. Skip only if the bet is genuinely low-risk technically — and say so if it is.
+**Rabbit Holes** — the technical traps or unknowns that could silently eat the appetite. Name where the work could balloon, and the guard or proof of concept that keeps it bounded — the proof of concept itself is run later, in Design (Step 1.92), not here. Skip only if the bet is genuinely low-risk technically — and say so if it is.
 
-- [ ] Risk: <what could balloon> — Guard: <the spike, cap, or decision that bounds it>
+- [ ] Risk: <what could balloon> — Guard: <the proof of concept, cap, or decision that bounds it>
 
 **No-Gos** — the things we are explicitly NOT doing, to prevent scope creep. Include natural extensions users would expect but are excluded — "users will expect X, but we are not doing X because…" — so reviewers do not raise them as gaps.
 

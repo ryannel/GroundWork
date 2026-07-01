@@ -120,7 +120,7 @@ A pitch that names features and lists milestones is a task list. The pitch must 
 
 The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both matter:
 
-- **Rabbit Holes** — the technical traps and unknowns that could silently eat the appetite. These are the parts where the work could balloon: the hard coherence problem, the latency budget that the safety check threatens, the prompt that grows unbounded, the retry path that risks double-writes. Each rabbit hole should name its guard or spike. A bet that carries obvious technical risk but lists *only* scope cuts has hidden its real danger — the review subagent flags a Rabbit Holes & No-Gos section with no genuine rabbit hole as a critical finding. Only a bet that is truly low-risk technically may say so and move on.
+- **Rabbit Holes** — the technical traps and unknowns that could silently eat the appetite. These are the parts where the work could balloon: the hard coherence problem, the latency budget that the safety check threatens, the prompt that grows unbounded, the retry path that risks double-writes. Each rabbit hole should name its guard or proof of concept. A bet that carries obvious technical risk but lists *only* scope cuts has hidden its real danger — the review subagent flags a Rabbit Holes & No-Gos section with no genuine rabbit hole as a critical finding. Only a bet that is truly low-risk technically may say so and move on.
 - **No-Gos** — the explicit scope cuts that keep the appetite honest, each naming the user expectation it defers.
 
 **Shallow (insufficient):**
@@ -170,7 +170,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 - [ ] Risk: Invitation delivery without email could balloon into building presence/real-time
   sync so collaborators "appear." Guard: shareable link only; no presence in this bet.
 - [ ] Risk: Permission model for shared projects can sprawl (roles, per-field ACLs). Guard:
-  two roles only — owner and collaborator — decided up front; spike anything beyond in week 1.
+  two roles only — owner and collaborator — decided up front; run a proof of concept on anything beyond in week 1.
 
 **No-Gos**
 

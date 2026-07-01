@@ -58,7 +58,7 @@ could silently consume the appetite.
   pitch has not surfaced where the appetite is actually at risk. A genuinely low-risk bet may
   state so explicitly instead; silence is the violation.
 - [ ] 🟡 **Rabbit hole without a guard**: a rabbit hole names a risk but pairs it with no guard
-  or spike — the trap is mapped but nothing prevents falling into it.
+  or proof of concept — the trap is mapped but nothing prevents falling into it.
 - [ ] 🟡 **No-Go without the deferred expectation**: a no-go names a cut without the user
   expectation it defers ("Analytics") — the standard is naming what users will expect and why
   the cut is safe for this bet.

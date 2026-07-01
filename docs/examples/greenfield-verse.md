@@ -48,8 +48,8 @@ The pitch below is unedited. The Rabbit Holes section is the part most planning 
 > - **Success Signal:** **≥60% of readers who start a story make at least 10 choices in their first session.** That depth is the real test — it says the loop is holding them and that choices feel worth making, rather than a novelty that wears off in three taps.
 >
 > **Rabbit Holes**
-> - [ ] Risk: **Coherence over 10+ beats.** As the playthrough and memory grow, the story can drift or contradict itself — the exact failure that makes choices feel meaningless. Guard: keep memory structured and sparse […]; run a 15-beat coherence spike on one world in the first two weeks before tuning the rest.
-> - [ ] Risk: **≤2s warm TTFT versus the safety gate.** The Haiku gate sits in the hot path; done naively it either blows the latency budget or, if rushed, leaks floor-violating content. Guard: budget the gate explicitly […]; spike gate latency early against the warm-path budget.
+> - [ ] Risk: **Coherence over 10+ beats.** As the playthrough and memory grow, the story can drift or contradict itself — the exact failure that makes choices feel meaningless. Guard: keep memory structured and sparse […]; run a 15-beat coherence proof of concept on one world in the first two weeks before tuning the rest.
+> - [ ] Risk: **≤2s warm TTFT versus the safety gate.** The Haiku gate sits in the hot path; done naively it either blows the latency budget or, if rushed, leaks floor-violating content. Guard: budget the gate explicitly […]; run a proof of concept on gate latency early against the warm-path budget.
 > - [ ] Risk: **Atomic commit while streaming.** Committing a beat as it streams risks partial writes or double-writes on reconnect/retry. Guard: commit on completion of a safety-cleared beat, made idempotent by `(playthrough_id, sequence)` […].
 >
 > **No-Gos**

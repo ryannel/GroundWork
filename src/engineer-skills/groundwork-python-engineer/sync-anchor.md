@@ -13,7 +13,7 @@ match.
 | src/generators/python-microservice/docs/principles/stack/python/testing.md | f15e62c83b659788f8b3e39f560779e892080d6bce73768be093d919f3e6946c | 2026-06-26 |
 | src/generators/python-microservice/docs/principles/stack/python/documentation.md | ac58228ba22435bf9bad2ea5bf924bdf9e3674e9967515d5c82aaf3b7825214d | 2026-05-26 |
 | src/generators/python-microservice/docs/principles/stack/python/mcp.md | 1e6deab0b45c7271e0038e9b3d51bc30cb2917488f608e847d566739ac6caeba | 2026-06-19 |
-| src/docs/principles/foundations/testing.md | 205ac40d4c643e7b61cf1e4295df8a7b8b46dcd7c81b857aa8c642ea353f62ef | 2026-06-27 |
+| src/docs/principles/foundations/testing.md | 4d7b9a8d05426ddd083c59ac6b9576937dfcaa3da086b8ce47edd0dd716e3656 | 2026-07-01 |
 | src/docs/principles/quality/observability.md | 8aa60e213ba03e989c93263153e3a1ac10b2336f6d0360c394f473660d565a0b | 2026-06-26 |
 | src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-26 |
 | src/docs/principles/quality/reliability.md | 9c9788504e0963458667d2727c3fc2359776108be593a2efc6603f6470002252 | 2026-06-26 |

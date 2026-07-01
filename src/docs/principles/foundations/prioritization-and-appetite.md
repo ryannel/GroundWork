@@ -57,7 +57,7 @@ Frameworks like RICE, weighted scoring, or opportunity scoring are useful for *s
 ## How we apply this
 
 - The opportunity a bet pursues comes from the [continuous-discovery](continuous-discovery.md) tree — prioritization chooses among its branches; appetite bounds the chosen one.
-- Stakes set how much [product risk](product-risks.md) work a bet earns: a high-stakes bet earns a discovery spike before its appetite is fixed, so we are not betting worth on an untested assumption — and `product-risks.md` §6 ("low stakes earn a lighter pass") is the same axis, governing discovery depth.
+- Stakes set how much [product risk](product-risks.md) work a bet earns: a high-stakes bet earns a discovery proof of concept before its appetite is fixed, so we are not betting worth on an untested assumption — and `product-risks.md` §6 ("low stakes earn a lighter pass") is the same axis, governing discovery depth.
 - Appetite and the bet are how [product engineering](product-engineering.md) schedules shaped work — this page is the portfolio view (choosing and sizing bets); product engineering is the per-bet view (shaping one piece of work well).
 
 ## Anti-patterns we reject

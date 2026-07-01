@@ -15,7 +15,7 @@ match.
 | src/generators/flutter-app/docs/principles/stack/flutter/testing.md | e337a0e1c4a6c5502f69745b0a4e0be35dd3303fbf11ed1f2f3688e93f16ed4f | 2026-06-27 |
 | src/generators/flutter-app/docs/principles/stack/flutter/platform-channels.md | 6b5a54dcb8b55433b7175cf715a6a3abf03c86c317f2037af6155a131691cfb2 | 2026-06-12 |
 | src/generators/flutter-app/docs/principles/stack/flutter/releases-and-distribution.md | 70ecdca2be6d8476359dbc2e72e3510157b49db0f5512cded76e0e3f19bed46f | 2026-06-12 |
-| src/docs/principles/foundations/testing.md | 205ac40d4c643e7b61cf1e4295df8a7b8b46dcd7c81b857aa8c642ea353f62ef | 2026-06-27 |
+| src/docs/principles/foundations/testing.md | 4d7b9a8d05426ddd083c59ac6b9576937dfcaa3da086b8ce47edd0dd716e3656 | 2026-07-01 |
 | src/docs/principles/quality/observability.md | 8aa60e213ba03e989c93263153e3a1ac10b2336f6d0360c394f473660d565a0b | 2026-06-26 |
 | src/docs/principles/quality/security.md | 61157d97677142737ec537954dc5aaad7a04012cc8a3dcc855e2d324287fdc64 | 2026-06-26 |
 | src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-06-26 |

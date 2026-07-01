@@ -85,7 +85,7 @@ Work through the following elements in sequence. Give each important question ro
 
 - **Solution sketch:** Surface the high-level proposed approach, the alternatives considered and what makes this one the right choice, and the single biggest risk in the solution.
 
-  Do not design the solution at this stage — that is Design Foundations. The sketch names the approach and its key assumption.
+  Do not design the solution at this stage — that is Design Foundations. The sketch names the approach and its key assumption. A risk that turns on a real unknown is retired later by a proof of concept run in Design (Step 1.92), not one scheduled or run here — discovery names the risk, Design proves it down.
 
 - **Appetite:** Establish how much solving the problem is worth, what scope fits inside that worth, and what scope must be cut to fit.
 

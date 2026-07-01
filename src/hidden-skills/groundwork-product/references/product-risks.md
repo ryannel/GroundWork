@@ -24,7 +24,7 @@ You own value and viability — both are judgements about whether the outcome is
 
 ## Discovery kills risk before delivery
 
-The purpose of discovery is not to produce a spec — it is to retire risk. Delivery begins only once the four risks are low enough that building is the cheapest remaining way to learn. Every assumption you can test with a conversation, a prototype, a spike, or a cost model is one you should *not* test by shipping. Discovery is the cheap place to be wrong; production is the expensive one.
+The purpose of discovery is not to produce a spec — it is to retire risk. Delivery begins only once the four risks are low enough that building is the cheapest remaining way to learn. Every assumption you can test with a conversation, a prototype, a proof of concept, or a cost model is one you should *not* test by shipping. Discovery is the cheap place to be wrong; production is the expensive one.
 
 ## Test the riskiest assumption first
 
@@ -36,7 +36,7 @@ Each risk is tested differently; the wrong instrument answers the wrong question
 
 - **Value** → user evidence: demand signals, interviews, a fake-door, a willingness-to-pay probe.
 - **Usability** → prototypes and observed sessions.
-- **Feasibility** → a spike, a proof of concept, an architecture review.
+- **Feasibility** → a proof of concept or an architecture review.
 - **Viability** → walk the decision past its constraints: cost model, security posture, legal boundary, support load.
 
 ## Scale the rigour to the stakes

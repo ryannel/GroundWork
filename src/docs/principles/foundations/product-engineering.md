@@ -32,7 +32,7 @@ No work enters a cycle without being *shaped*: the problem stated in user terms,
 
 Shaping is bounded on both sides. Too vague and the team inherits the unsolved problem; too concrete and it is waterfall wearing a friendlier name — a finished design handed down, with no room for the people building it to make the hundred small calls only visible from inside the code. Shape Up's altitude is deliberate: concrete enough to bound the work, abstract enough to leave the build to the builders.
 
-You can only shape what you understand. Decision rule: shape when you know the problem well enough to bound the solution; when you do not — novel domain, unproven technical approach — the move is a time-boxed spike to *buy* that understanding, not a confident shape built on guesses. AI has made a throwaway prototype cheap enough that "shape by building a spike and discarding it" is now often faster than shaping on paper.
+You can only shape what you understand. Decision rule: shape when you know the problem well enough to bound the solution; when you do not — novel domain, unproven technical approach — the move is a time-boxed proof of concept to *buy* that understanding, not a confident shape built on guesses. AI has made a throwaway prototype cheap enough that "shape by building a proof of concept and discarding it" is now often faster than shaping on paper.
 
 ### 3. Appetite, not estimate
 

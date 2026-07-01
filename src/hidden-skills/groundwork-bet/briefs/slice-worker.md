@@ -92,7 +92,7 @@ The driver passes:
     subsystem not to touch, a safety or content guardrail, the fixtures to prove on.
     These are hard constraints, not suggestions; a conflict between a constraint and
     the proof is a blocking concern, not a judgement call.
-  - Any **prior spike or proven recipe** the driver hands over — a working
+  - Any **prior proof of concept or proven recipe** the driver hands over — a working
     invocation, a validated config, a dependency already on disk. Reuse it rather
     than re-deriving. If it sits in an ephemeral location (a job-temp or scratch
     path), copy what you need into a durable path in the repo or the project cache

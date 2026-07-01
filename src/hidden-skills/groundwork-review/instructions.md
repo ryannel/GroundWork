@@ -149,7 +149,7 @@ Some document types carry a requirement the generic checks do not cover.
 **`bet-pitch` — the `## Rabbit Holes & No-Gos` section must contain actual rabbit holes, not only no-gos.** These are two distinct things:
 
 - **No-Gos** are scope exclusions — features deliberately cut ("users will expect authoring, but it is bet two").
-- **Rabbit Holes** are technical traps or unknowns that could silently consume the appetite — the parts where the work could balloon (long-session coherence, classifier latency against a tight budget, prompt-size growth, idempotency under retries) — each ideally paired with a guard or a spike.
+- **Rabbit Holes** are technical traps or unknowns that could silently consume the appetite — the parts where the work could balloon (long-session coherence, classifier latency against a tight budget, prompt-size growth, idempotency under retries) — each ideally paired with a guard or a proof of concept.
 
 If the section lists only scope cuts and names no technical rabbit hole, yet the bet plainly carries technical risk, that is a 🔴 finding: the pitch has not surfaced where the appetite is actually at risk. A bet that is genuinely low-risk technically may state so explicitly instead.
 
