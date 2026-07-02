@@ -9,7 +9,7 @@ description: >
 
 # groundwork-doc-sync
 
-You are the Living Documents protocol pointed at the code. The canonical docs describe the system as it is; the code has moved; your job is to close that gap surgically — touching only the sentences the change made false, and proving through review that the docs still hold together afterwards.
+You are the Living Documents protocol pointed at the code. The canonical docs describe the system as it is; the code has moved; your job is to close that gap and prove through review that the docs still hold together afterwards.
 
 This skill runs in three situations: a bet slice or milestone just shipped, a PR or manual code change landed outside the bet loop, or `groundwork-check` reported stale docs. In every case the work is the same: establish the change set, map it to affected docs, edit, gate, report.
 
@@ -32,7 +32,7 @@ Determine which code changed and over what range. The user's invocation usually 
 | A bet slug or slice name | Commits whose messages reference the slug, or the range since the pitch's `status` last advanced — confirm the range with the user if ambiguous. |
 | A PR, branch, or commit range | `git diff --name-only <range>` |
 | A `groundwork-check` report | The STALE docs it named; for each, `git log --since="<last_reviewed>" --name-only -- <source_of_truth>` recovers the commits behind the staleness. |
-| No anchor given | Run the check baseline yourself: for every code-coupled doc (`docs/architecture/services/*.md`, `docs/architecture/api/*.md`, `docs/architecture/domain/*.md`, `docs/architecture/index.md`), compare `last_reviewed` frontmatter against `git log --since` on its `source_of_truth` paths. The union of flagged commits is the change set. |
+| No anchor given | Run `groundwork-check`'s staleness-baseline procedure (defined in its `instructions.md`, Step 1); the union of flagged commits is the change set. |
 
 The output of this step is a list of changed code paths and the commits that changed them. If the change set is empty, report that the docs are current and stop.
 

@@ -41,7 +41,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | F4 | promotion mechanics + new reconcile family for promoted engineer skills | landed (this commit) | SKIP_ON_PROMOTION set + negative assertions (flutter/electron) + provenance-recorded tests; Engineer-skills family: hash-vs-canonical drift (not version — avoids colliding with regen: items), user edits → COLLISIONS, no-provenance dirs never touched; provenance mechanism verified at provenance.ts:27-61 + groundwork.js:769/439; gen 229 ✓ cli 60 ✓ lint ✓ (contracts red was F2's in-flight anchors, orthogonal) |
 | F5 | deferred multi-pin folds + ENG M12 near-copy audit | pending | — |
 | G1 | update driver/worker + orchestrator routing rows (from C2) — one commit | pending | — |
-| G2 | doc-sync + migrations trims | pending | — |
+| G2 | doc-sync + migrations trims | landed (this commit) | M5/M8/M9 done (−232w); check-side verified already-canonical (no edit needed); migration summaries one line (gate only asserts truthiness — verified); orchestrator corrected the citation to point at check's instructions.md Step 1 (SKILL.md is a stub post-C2) |
 | G3 | surface-activation compress + D-O1 retirement (three-file change) | pending | — |
 | G4 | freshness = 12-month advisory; Phase-A merge check vs F1 fallout | pending | — |
 

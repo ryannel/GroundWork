@@ -6,42 +6,42 @@
       "version": "0.10.0",
       "title": "Seed .groundwork/config/config.toml",
       "kind": "cli",
-      "summary": "Installs the user-owned config file on installs that predate it. init seeds it once; update never touched it, so older installs have none."
+      "summary": "Installs the user-owned config file on installs that predate it — init seeds it once, update never touched it."
     },
     {
       "id": "gw-register-serena-mcp",
       "version": "0.10.0",
       "title": "Register the Serena code-intelligence MCP server",
       "kind": "cli",
-      "summary": "Adds the Serena MCP server to .mcp.json and removes the retired depwire server. Idempotent; only the depwire entry is removed, other servers are untouched."
+      "summary": "Adds the Serena MCP server to .mcp.json and removes the retired depwire server; other servers are untouched."
     },
     {
       "id": "gw-relocate-hidden-skills",
       "version": "0.10.0",
       "title": "Remove the orphaned .agents/groundwork/skills/ tree",
       "kind": "cli",
-      "summary": "Hidden methodology skills moved to .groundwork/skills/ so no agent skill scanner can pick them up. update installs the new tree; this deletes the old .agents/groundwork/skills/ location. Promoted engineer skills under .agents/skills/ are untouched."
+      "summary": "Deletes the orphaned .agents/groundwork/skills/ tree now that hidden skills live at .groundwork/skills/."
     },
     {
       "id": "gw-drop-test-manifest",
       "version": "0.10.0",
       "title": "Remove orphaned bet test-manifest.json seal files",
       "kind": "cli",
-      "summary": "The SHA-256 test-manifest seal was removed (./dev bet sign is gone; ./dev test bet no longer verifies a manifest). The dev-bundle update drops the bet sign command; this deletes the now-inert .groundwork/bets/<slug>/test-manifest.json files. decomposition.json and other bet artifacts are untouched."
+      "summary": "Deletes now-inert .groundwork/bets/<slug>/test-manifest.json files now that ./dev bet sign is gone."
     },
     {
       "id": "gw-bet-prose-redesign",
       "version": "0.10.0",
       "title": "Retire the machine-readable bet artifacts for the prose model",
       "kind": "cli",
-      "summary": "The bet is now pure prose: decomposition.md became a docs/bets/<slug>/decomposition/ tree, decomposition.json is dropped (the suite + git are the record), docs/bets/<slug>/contracts/ is removed (the prose design carries shapes; the canonical contract is captured into docs/architecture/api/<service>/ from running code), and the approval baseline is the git tag bet/<slug>/approved. Mechanically removes obsolete decomposition.json/contracts/ from archived (delivered) bets and stray .groundwork/bets/<slug>/decomposition.json; the groundwork-update skill's Bets family advances any in-flight bet's prose structure."
+      "summary": "Removes obsolete decomposition.json/contracts/ from archived bets for the prose bet model; advises on in-flight bets."
     },
     {
       "id": "gw-seed-capture-hook",
       "version": "0.12.0",
       "title": "Seed the capture reminder hook into Claude Code installs",
       "kind": "cli",
-      "summary": "init now seeds a non-blocking Claude Code PreToolUse hook (.groundwork/hooks/capture-reminder.js wired through .claude/settings.json) that prompts the agent to route a build/change/fix edited directly outside any GroundWork lane through the orchestrator (patch / quick bet / bet). This heals older installs. Claude Code-specific and additive: an install with no .claude dir is n/a, and only our PreToolUse entry is added, never duplicated."
+      "summary": "Seeds the non-blocking Claude Code capture-reminder PreToolUse hook into older installs; n/a without a .claude dir."
     }
   ]
 }

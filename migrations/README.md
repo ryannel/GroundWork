@@ -52,9 +52,8 @@ install needs no catch-up.
 4. Add or extend a fixture under `tests/fixtures/installs/` that exercises the
    migration from the shape it migrates, and cover it in `tests/cli/`.
 
-If the change needs judgment rather than a deterministic file op, do **not** author a
-migration — add or extend a family in the `groundwork-update` skill's Family Index, where
-the reconcile pass will pick it up against the current canonical.
+If the change needs judgment, it belongs in the `groundwork-update` skill's Family Index
+instead — not here.
 
 `GROUNDWORK_MIGRATIONS_DIR` overrides the registry location — a test seam for
 exercising the runner with synthetic migrations.
