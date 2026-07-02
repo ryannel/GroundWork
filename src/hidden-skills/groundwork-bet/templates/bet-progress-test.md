@@ -50,7 +50,7 @@ Where `<N>` is the milestone number (1, 2, 3...), `<milestone-slug>` is the keba
 ```
 tests/bets/<bet-slug>/test_slice_<N>_<service>_<slice-slug>.<ext>
 ```
-Where `<N>` is the slice number within the milestone, `<service>` is the owning service name (from `docs/architecture/infrastructure.md`), and `<slice-slug>` is the kebab-case slice name.
+Where `<N>` is the slice's ordinal across the whole bet — not reset per milestone — assigned in authoring order (the shipped `./dev new slice` counts existing slice stubs in `tests/bets/<bet-slug>/` and assigns the next one); `<service>` is the owning service name (from `docs/architecture/infrastructure.md`), and `<slice-slug>` is the kebab-case slice name.
 
 **Archive path (Phase 5 — after delivery):**
 ```

@@ -22,7 +22,7 @@ import pytest
 #   api_client  — async httpx.AsyncClient with traceparent header
 #
 @pytest.mark.asyncio
-async def test_slice_@@N@@_@@SLUG@@(cluster, api_client):
+async def test_slice_@@N@@_@@SLUG_IDENT@@(cluster, api_client):
     """Assert the vertical capability for slice @@N@@ (@@SLUG@@) in @@SERVICE@@.
 
     This slice contributes to Milestone @@MILESTONE@@.

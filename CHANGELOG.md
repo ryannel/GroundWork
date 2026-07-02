@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (./dev new milestone|slice discovers the test language and generates valid Python, 2026-07-02)
+
+`./dev new slice`/`new milestone` hardcoded `.py` — the stub's extension now follows whichever test-stub template actually ships in `scripts/cli/templates/` (a future `slice-test.gotmpl` is picked up unprompted; `.py` stays the documented fallback), and the stub ordinal counts by prefix regardless of extension. Two generated-identifier defects fixed in the same pass: the milestone and slice templates interpolated the kebab-case slug straight into the Python `def` name (`def test_slice_1_record-event(` — a SyntaxError pytest hits at import), now substituted as snake_case identifiers while filenames keep the kebab slug `SLICE_RE` parses. Prose adopts the CLI's bet-global slice numbering (`<N>` is the slice's ordinal across the whole bet, not per milestone) in `00-quick.md` and the bet-progress guide.
+
+- [no-migration] CLI + generator-template change; the rebuilt dev bundle ships at scaffold/update, and regenerated projects pick up the fixed templates via the tier-3 reconcile. Existing stubs are project-owned test files — never rewritten.
+
 ### Added (self-routing sync anchors + a reference-link gate, 2026-07-02)
 
 Every sync anchor (3 personas + 5 engineer skills) gains a `Distilled into` column mapping each pinned principle to the reference file that distills it — the gate stops saying "review the skill" and starts saying "review this file". A new `reference-link` lint verifies every `references/<name>.md` mention across hidden and engineer skills resolves to a real file (own references first, then the named skill's, then the discipline personas'; `<stack>` placeholders verified against at least one real engineer skill) — the guard that makes reference renames mechanically safe. Two corpus "Related Reading" links that pointed at a nonexistent `../../decisions/` folder now point at the architecture-decisions doctrine page; the go-engineer and product anchors are re-stamped for exactly that link fix (distilled content unaffected).

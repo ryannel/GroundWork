@@ -4,6 +4,7 @@ no-opping (the "no empty capabilities" rule). Runs the committed bundle directly
 node against throwaway projects.
 """
 
+import ast
 import json
 import os
 import subprocess
@@ -114,6 +115,118 @@ def test_project_command_in_completion(tmp_path):
     )
     out = _dev(project, "completion", "bash").stdout
     assert "seed" in out, f"project verb missing from completion:\n{out}"
+
+
+SHIPPED_TEMPLATES_DIR = (
+    REPO_ROOT / "src" / "generators" / "workspace-dev-cli" / "files" / "scripts" / "cli" / "templates"
+)
+
+
+def _seed_bet_templates(project: Path, extra: dict[str, str] | None = None) -> None:
+    """Materialize `scripts/cli/templates/` the way the scaffold does: strip the
+    `.template` suffix off the shipped milestone/slice pytmpl sources. `extra` adds
+    further `{filename: content}` templates (e.g. a `.gotmpl` variant) to prove
+    `./dev new milestone|slice` discovers whichever template ships instead of
+    assuming `.py`."""
+    dest = project / "scripts" / "cli" / "templates"
+    dest.mkdir(parents=True)
+    for src in SHIPPED_TEMPLATES_DIR.glob("*.template"):
+        (dest / src.name.removesuffix(".template")).write_text(src.read_text())
+    for name, content in (extra or {}).items():
+        (dest / name).write_text(content)
+
+
+def test_new_milestone_and_slice_discover_extension_from_shipped_template(tmp_path):
+    """`./dev new milestone|slice` must not hardcode `.py` — it discovers the
+    extension from whichever test-stub template actually ships. Today only the
+    pytest harness's `.pytmpl` ships, so the discovered extension is still `.py`,
+    but it is *discovered*, not assumed: the multi-underscore service name here
+    also exercises `SLICE_RE`'s trailing-kebab-slug anchoring end to end via
+    `bet status --json`."""
+    _require_bundle()
+    project = _project(tmp_path, {"projectPrefix": "demo", "runners": []})
+    _seed_bet_templates(project)
+
+    bet = _dev(project, "new", "bet", "notifications")
+    assert bet.returncode == 0, f"new bet failed:\n{bet.stderr}"
+
+    milestone = _dev(project, "new", "milestone", "notifications", "event-intake")
+    assert milestone.returncode == 0, f"new milestone failed:\n{milestone.stderr}"
+    milestone_file = project / "tests" / "bets" / "notifications" / "test_milestone_1_event-intake.py"
+    assert milestone_file.exists(), f"expected {milestone_file}, got: {milestone.stdout}"
+    milestone_content = milestone_file.read_text()
+    assert "Milestone 1: event-intake" in milestone_content
+    # Kebab slug in the filename, snake identifier in the def — a hyphenated
+    # def name is a SyntaxError pytest hits at import time.
+    assert "async def test_milestone_1_event_intake_api(" in milestone_content
+    ast.parse(milestone_content)
+
+    slice_ = _dev(
+        project, "new", "slice", "notifications", "event-intake", "billing_service", "record-event"
+    )
+    assert slice_.returncode == 0, f"new slice failed:\n{slice_.stderr}"
+    slice_file = project / "tests" / "bets" / "notifications" / "test_slice_1_billing_service_record-event.py"
+    assert slice_file.exists(), f"expected {slice_file}, got: {slice_.stdout}"
+    content = slice_file.read_text()
+    assert "service: billing_service" in content
+    assert "async def test_slice_1_record_event(" in content
+    ast.parse(content)
+
+    # SLICE_RE anchors the slug to the trailing kebab token even though the
+    # service segment itself has underscores — confirm the board parses it back.
+    status = _dev(project, "bet", "status", "notifications", "--json")
+    assert status.returncode == 0, f"bet status failed:\n{status.stderr}"
+    board = json.loads(status.stdout)
+    assert board["slices"] == [
+        {"n": 1, "service": "billing_service", "slug": "record-event", "file": slice_file.name, "state": "red"}
+    ], board
+
+
+def test_new_slice_picks_up_a_non_python_template_when_one_ships(tmp_path):
+    """When a template ships in another language (e.g. a future Go harness's
+    `slice-test.gotmpl`), the CLI must follow it rather than always writing
+    `.py` — proving the extension is discovered from disk, not hardcoded."""
+    _require_bundle()
+    project = _project(tmp_path, {"projectPrefix": "demo", "runners": []})
+    _seed_bet_templates(
+        project,
+        extra={
+            "slice-test.gotmpl": "// slice @@N@@ @@SLUG@@ in @@SERVICE@@ for bet @@BET@@\n",
+        },
+    )
+
+    assert _dev(project, "new", "bet", "checkout").returncode == 0
+    assert (
+        _dev(project, "new", "milestone", "checkout", "cart").returncode == 0
+    )  # only .pytmpl ships for milestones -> stays .py
+
+    slice_ = _dev(project, "new", "slice", "checkout", "cart", "cart-service", "add-item")
+    assert slice_.returncode == 0, f"new slice failed:\n{slice_.stderr}"
+    go_file = project / "tests" / "bets" / "checkout" / "test_slice_1_cart-service_add-item.go"
+    py_file = project / "tests" / "bets" / "checkout" / "test_slice_1_cart-service_add-item.py"
+    assert go_file.exists(), f"expected discovered .go extension, got: {slice_.stdout}"
+    assert not py_file.exists(), "extension should follow the discovered template, not stay hardcoded to .py"
+    assert "add-item" in go_file.read_text()
+
+
+def test_slice_numbering_is_bet_global_not_per_milestone(tmp_path):
+    """`<N>` is the slice's ordinal across the whole bet (D11) — it keeps
+    incrementing across milestones rather than resetting at each one."""
+    _require_bundle()
+    project = _project(tmp_path, {"projectPrefix": "demo", "runners": []})
+    _seed_bet_templates(project)
+    assert _dev(project, "new", "bet", "onboarding").returncode == 0
+    assert _dev(project, "new", "milestone", "onboarding", "signup").returncode == 0
+    assert _dev(project, "new", "milestone", "onboarding", "verify").returncode == 0
+
+    first = _dev(project, "new", "slice", "onboarding", "signup", "auth", "create-account")
+    assert first.returncode == 0
+    second = _dev(project, "new", "slice", "onboarding", "verify", "auth", "send-code")
+    assert second.returncode == 0
+
+    bets_dir = project / "tests" / "bets" / "onboarding"
+    assert (bets_dir / "test_slice_1_auth_create-account.py").exists()
+    assert (bets_dir / "test_slice_2_auth_send-code.py").exists(), sorted(p.name for p in bets_dir.iterdir())
 
 
 def test_empty_start_degrades_loudly(tmp_path):

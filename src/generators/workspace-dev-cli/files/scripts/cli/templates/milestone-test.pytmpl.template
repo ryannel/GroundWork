@@ -20,7 +20,7 @@ import pytest
 #   cli              → subprocess.run / pexpect
 #   agentic-protocol → httpx to the protocol endpoint
 #
-# def test_milestone_@@N@@_@@MILESTONE@@_interface(cluster, page, frontend_base_url):
+# def test_milestone_@@N@@_@@MILESTONE_IDENT@@_interface(cluster, page, frontend_base_url):
 #     """Assert what the user observes at Milestone @@N@@."""
 #     page.goto(f"{frontend_base_url}/your-route")
 #     # assert page.locator("...").is_visible()
@@ -35,7 +35,7 @@ import pytest
 #   api_client  — async httpx.AsyncClient with traceparent header
 #
 @pytest.mark.asyncio
-async def test_milestone_@@N@@_@@MILESTONE@@_api(cluster, api_client):
+async def test_milestone_@@N@@_@@MILESTONE_IDENT@@_api(cluster, api_client):
     """Assert the API-level outcome for Milestone @@N@@: @@MILESTONE@@."""
     # TODO: replace with the real end-to-end HTTP assertion
     # resp = await api_client.get("http://localhost:<port>/api/v1/...")

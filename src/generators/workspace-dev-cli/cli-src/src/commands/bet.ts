@@ -47,11 +47,33 @@ function templatePath(name: string): string {
   return path.join(ROOT, 'scripts', 'cli', 'templates', name);
 }
 
+/** Discover a test-stub's template and extension from whichever template file
+ *  actually ships (`<name>.pytmpl`, or a future `<name>.gotmpl`/`.tstmpl`),
+ *  instead of hardcoding one. Bet-progress tests are a system-level black-box
+ *  suite run by the project's scaffolded test-runner, not by each service's own
+ *  language — `newSlice`'s `service` argument names who is exercised, not what
+ *  the stub is written in — so the stub's language follows the template the
+ *  runner shipped. Today only `system-test-runner`'s pytest harness ships one
+ *  (`.pytmpl`), so this always resolves to `.py`; it degrades to the same
+ *  `.pytmpl`/`.py` pair, documented rather than silently assumed, when no
+ *  template is found at all. See `groundwork-bet/templates/bet-progress-test.md`
+ *  for the `<ext>` convention this mirrors. */
+function testTemplate(name: string): { file: string; ext: string } {
+  const dir = path.join(ROOT, 'scripts', 'cli', 'templates');
+  const found = fs.existsSync(dir)
+    ? fs.readdirSync(dir).find((f) => f.startsWith(`${name}.`) && f.endsWith('tmpl'))
+    : undefined;
+  if (!found) return { file: `${name}.pytmpl`, ext: '.py' };
+  const lang = found.slice(name.length + 1, -'tmpl'.length);
+  return { file: found, ext: lang ? `.${lang}` : '.py' };
+}
+
+/** Count existing test stubs for `prefix` regardless of extension — the
+ *  language the stub is written in (see `testTemplate`) is orthogonal to the
+ *  bet-global ordinal counted here. */
 function nextIndex(betDir: string, prefix: string): number {
   if (!fs.existsSync(betDir)) return 1;
-  const count = fs
-    .readdirSync(betDir)
-    .filter((f) => f.startsWith(prefix) && f.endsWith('.py')).length;
+  const count = fs.readdirSync(betDir).filter((f) => f.startsWith(prefix)).length;
   return count + 1;
 }
 
@@ -111,12 +133,20 @@ async function newMilestone(ctx: Ctx): Promise<number> {
   if (!fs.existsSync(betDir)) throw new CliError(`Bet not found: tests/bets/${betSlug}`, `Run: ./dev new bet ${betSlug}`);
 
   const n = nextIndex(betDir, 'test_milestone_');
-  const template = fs.readFileSync(templatePath('milestone-test.pytmpl'), 'utf8');
-  const content = substitute(template, { BET: betSlug, MILESTONE: milestoneSlug, N: String(n) });
-  const file = path.join(betDir, `test_milestone_${n}_${milestoneSlug}.py`);
+  const { file: templateFile, ext } = testTemplate('milestone-test');
+  const template = fs.readFileSync(templatePath(templateFile), 'utf8');
+  const content = substitute(template, {
+    BET: betSlug,
+    MILESTONE: milestoneSlug,
+    // Slugs are kebab-case; identifiers derived from them must be snake_case
+    // or the generated def line is a Python SyntaxError.
+    MILESTONE_IDENT: milestoneSlug.replace(/-/g, '_'),
+    N: String(n),
+  });
+  const file = path.join(betDir, `test_milestone_${n}_${milestoneSlug}${ext}`);
   fs.writeFileSync(file, content);
   r.logo('New Milestone');
-  r.success(`Created tests/bets/${betSlug}/test_milestone_${n}_${milestoneSlug}.py (RED)`);
+  r.success(`Created tests/bets/${betSlug}/test_milestone_${n}_${milestoneSlug}${ext} (RED)`);
   r.info('Fill in the target-state assertions before starting Delivery.');
   return 0;
 }
@@ -145,18 +175,21 @@ async function newSlice(ctx: Ctx): Promise<number> {
   if (!fs.existsSync(betDir)) throw new CliError(`Bet not found: tests/bets/${betSlug}`, `Run: ./dev new bet ${betSlug}`);
 
   const n = nextIndex(betDir, 'test_slice_');
-  const template = fs.readFileSync(templatePath('slice-test.pytmpl'), 'utf8');
+  const { file: templateFile, ext } = testTemplate('slice-test');
+  const template = fs.readFileSync(templatePath(templateFile), 'utf8');
   const content = substitute(template, {
     BET: betSlug,
     MILESTONE: milestoneSlug,
     SERVICE: service,
     SLUG: sliceSlug,
+    // Kebab slug → snake identifier, or the generated def line is a SyntaxError.
+    SLUG_IDENT: sliceSlug.replace(/-/g, '_'),
     N: String(n),
   });
-  const file = path.join(betDir, `test_slice_${n}_${service}_${sliceSlug}.py`);
+  const file = path.join(betDir, `test_slice_${n}_${service}_${sliceSlug}${ext}`);
   fs.writeFileSync(file, content);
   r.logo('New Slice');
-  r.success(`Created tests/bets/${betSlug}/test_slice_${n}_${service}_${sliceSlug}.py (RED)`);
+  r.success(`Created tests/bets/${betSlug}/test_slice_${n}_${service}_${sliceSlug}${ext} (RED)`);
   r.info('Fill in the falsifiable capability assertions before starting Delivery.');
   return 0;
 }
