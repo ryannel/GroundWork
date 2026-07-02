@@ -6,7 +6,7 @@ All notable changes to GroundWork are documented here. The format follows
 existing installation are prefixed `[migration]` — `npx groundwork update` surfaces them
 automatically when it detects a version jump.
 
-## [Unreleased]
+## [0.13.0] - 2026-07-02
 
 ### Changed (documentation principles point at the ADR doctrine and match the enforced freshness window, 2026-07-02)
 
