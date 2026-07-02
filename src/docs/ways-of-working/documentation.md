@@ -2,7 +2,7 @@
 title: Documentation Protocol
 description: How GroundWork keeps documentation current — Living Documents, doc hierarchy, and groundwork-check.
 status: active
-last_reviewed: 2026-05-26
+last_reviewed: 2026-07-02
 ---
 
 # Documentation Protocol
@@ -62,8 +62,10 @@ The Living Documents protocol is what keeps this relationship coherent. When it 
 
 **When to write one**: Any decision a future engineer should not relitigate without a new ADR. Significance test: would someone joining six months from now need to know this to avoid repeating the decision? If yes, write an ADR.
 
-**How to write one**: Use the template at `.groundwork/skills/templates/adr.md`. Number sequentially with zero-padded four digits: 0001, 0002, 0003. The slug is a short hyphenated description of the decision.
+**How to write one**: Use the template at `.groundwork/skills/templates/adr.md`. Number sequentially with zero-padded four digits: 0001, 0002, 0003. The slug is a short hyphenated description of the decision. Store it at `docs/architecture/decisions/NNNN-<slug>.md`.
 
-**How to supersede**: Change `status:` to `superseded by [NNNN](NNNN-slug.md)` and add a note at the bottom explaining what changed and why. Never edit an ADR's content after acceptance. Supersede it instead.
+**How to supersede**: Change `status:` to `superseded by [NNNN](NNNN-slug.md)` and add a note at the bottom explaining what changed and why.
 
 **What goes in the decision record**: the context (what forced the decision), the decision itself, the consequences (what this enables and what it closes off). Do not document options that were not seriously considered — decision records are not design documents.
+
+The doctrine behind *when* a record may be amended in place versus must be superseded — and why the distinction matters — lives at [Architecture Decisions](../principles/system-design/architecture-decisions.md). Read it before touching an accepted record; this page covers mechanics only.

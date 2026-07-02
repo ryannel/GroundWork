@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (ways-of-working teaches the current delivery model, not one three overhauls old, 2026-07-02)
+
+The shipped `docs/ways-of-working/` still taught flag-gated internal milestones — the doctrine the front-door redesign retired — and described brownfield support as a roadmap item. Rewritten from current canon, quoting it: a milestone is a thin, user-visible step proven by driving the shipping build through its real front door; trunk only ever receives a complete, validated bet (no feature flag required); requests triage into three lanes (patch · quick bet · bet) with the orchestrator's exact sizing rules; brownfield is the implemented five-phase track it actually is. The Operating Contract section is a pointer at the real contract instead of a paraphrase. All 44 `llms.txt` descriptions re-scented to when-to-read phrasing. New stack-forge sync anchor pins `day-2-operational-baseline.md` (load-bearing but previously unpinned) — the gate now verifies 9 anchors.
+
+- [no-migration] Tier-2 content changes propagate via the refresh/merge path; the new anchor ships with the stack-forge skill via clean-copy.
+
 ### Changed (bet briefs cite the testing authority; templates are skeletons; the progress-test guide is a reference, 2026-07-02)
 
 The slice-worker and coverage-auditor briefs cite the engineer skills' `testing.md` **Bet Slice Rollout** section as the authority (its heading and obligation names are a published contract), keeping one-clause citations instead of re-enumerations. The technical-design templates are skeletons again (−40%): the authoring guidance and the API quality standard live in the design workflow that applies them. The bet-progress guide relocates from `templates/` to `groundwork-bet/references/bet-progress-tests.md` (it instructs, it isn't filled in) and is cut to the mechanics only it knows — fixtures, naming, `<N>` semantics, placeholders, screenshot paths; every referencing path swept, including the dev CLI's comment. "Reference apps" resolves to the `## Design References` record in `docs/design-system.md` at every remaining site — the artifact that actually exists.

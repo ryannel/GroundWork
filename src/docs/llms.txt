@@ -13,54 +13,54 @@ setup runs. The other sections ship at install time.*
 - [Maturity Roadmap](docs/maturity.md): The project's assessment against the GroundWork maturity model and the tracked roadmap of open gaps.
 
 ## How we work
-- [How we work](docs/ways-of-working/how-we-work.md): The two-mode lifecycle — setup and delivery loop.
-- [Units of work](docs/ways-of-working/units-of-work.md): Bets, milestones, and slices — the delivery vocabulary.
-- [Documentation protocol](docs/ways-of-working/documentation.md): Living documents, drift detection, and ADR conventions.
+- [How we work](docs/ways-of-working/how-we-work.md): The two-mode lifecycle, the three delivery lanes (patch, quick bet, bet), and what proving a milestone at the real front door actually requires.
+- [Units of work](docs/ways-of-working/units-of-work.md): What proves a milestone — the front-door definition, no feature flag — and what makes a slice vertical.
+- [Documentation protocol](docs/ways-of-working/documentation.md): How living-document updates work, what groundwork-check flags versus leaves alone, and ADR numbering mechanics (the amend-vs-supersede doctrine lives at Architecture Decisions).
 
 ## Engineering principles
-- [Manifesto](docs/principles/index.md): Core engineering beliefs that govern every decision.
-- [Code craft](docs/principles/foundations/code-craft.md): How we write and structure code.
-- [Documentation](docs/principles/foundations/documentation.md): What to document and how.
-- [Testing](docs/principles/foundations/testing.md): Test strategy and coverage philosophy.
-- [Product engineering](docs/principles/foundations/product-engineering.md): Shipping with user outcomes in mind.
-- [Continuous discovery](docs/principles/foundations/continuous-discovery.md): Discovery as a weekly habit — the opportunity-solution tree, problem space before solution.
-- [Product risks](docs/principles/foundations/product-risks.md): The four risks every bet must clear — value, usability, feasibility, viability — and killing the riskiest assumption first.
-- [Success metrics](docs/principles/foundations/success-metrics.md): Designing the measure — North Star and inputs, leading vs lagging, counter-metrics, signal before ship.
-- [Requirements & specs](docs/principles/foundations/requirements-and-specs.md): Evidence-grounded, testable specification — jobs-to-be-done, journeys, stable-ID requirements, Given/When/Then.
-- [Prioritization & appetite](docs/principles/foundations/prioritization-and-appetite.md): Choosing and sequencing across the portfolio — appetite over estimate, the bet as the unit, scoring frameworks in their place.
-- [Reliability](docs/principles/quality/reliability.md): Fault tolerance and failure modes.
-- [Observability](docs/principles/quality/observability.md): Logging, tracing, and alerting.
-- [Performance](docs/principles/quality/performance.md): Latency, throughput, and resource efficiency.
-- [Security](docs/principles/quality/security.md): Threat modelling and secure defaults.
-- [Privacy](docs/principles/quality/privacy.md): Data minimisation and consent.
-- [Accessibility](docs/principles/quality/accessibility.md): Inclusive design and WCAG compliance.
-- [The Day-2 Operational Baseline](docs/principles/delivery/day-2-operational-baseline.md): The stack-agnostic bar every project clears to be operable and debuggable on day two, plus the no-empty-capabilities and off-script-still-lands-well rules.
-- [Developer experience](docs/principles/delivery/devex.md): Fast feedback loops and ergonomic tooling.
-- [Progressive delivery](docs/principles/delivery/progressive-delivery.md): Feature flags and incremental rollout.
-- [Platform](docs/principles/delivery/platform.md): Internal platform and developer self-service.
-- [Cost engineering](docs/principles/delivery/cost-engineering.md): Cloud cost ownership and optimisation.
-- [How we structure code](docs/principles/system-design/code-structure.md): A pure core, swappable edges, and one obvious place for everything.
-- [API design](docs/principles/system-design/api-design.md): REST, gRPC, and contract-first design.
-- [Integration patterns](docs/principles/system-design/integration-patterns.md): Events, queues, and service communication.
-- [Real-time patterns](docs/principles/system-design/real-time.md): WebSocket, SSE, and streaming.
-- [Data engineering](docs/principles/system-design/data-engineering.md): Pipelines, schemas, and analytical patterns.
-- [Architecture decisions](docs/principles/system-design/architecture-decisions.md): ADRs as governed, re-evaluable records — assumptions, review triggers, supersession.
-- [Evolutionary architecture](docs/principles/system-design/evolutionary-architecture.md): Designing for change — fitness functions, architecture-as-code, strangler-fig modernization, advisory governance.
-- [Surface architecture](docs/principles/system-design/surface-architecture.md): Surfaces as adapters over the core — BFF seam, micro-frontends, render placement, design-system-as-contract.
-- [Identity & access](docs/principles/system-design/identity-and-access.md): Authn/authz as architecture — OIDC/OAuth2.1, SPIFFE workload identity, first-class agent identity, modelled authorization.
-- [Durable execution](docs/principles/system-design/durable-execution.md): Workflow-as-code — checkpointed long-running/multi-step processes, orchestration vs choreography, the substrate for durable agents.
-- [AI engineering](docs/principles/ai-native/ai-engineering.md): Prompts, evals, and model integration.
-- [Agent-native systems](docs/principles/ai-native/agent-native-systems.md): Designing for agentic workloads.
-- [Agentic systems](docs/principles/ai-native/agentic-systems.md): Agents as first-class actors — topology, MCP/A2A/AG-UI, memory, durable execution, guardrails, oversight.
-- [AI-native product](docs/principles/ai-native/ai-native-product.md): Product management for probabilistic systems — the continuous decision loop, evals as a product responsibility, dual success metrics, the three AI cost layers.
-- [Design foundations](docs/principles/design/design-foundations.md): The design discipline's core beliefs — taste as input, implemented specification as output, every interface state designed.
-- [Visual design](docs/principles/design/visual-design.md): Perceptual colour (OKLCH), typographic rigour, modelled light and depth, hierarchy by weight before size.
-- [Layout & space](docs/principles/design/layout-and-space.md): Spacing scale, grid, intrinsic and fluid layout, container queries, density, responsiveness.
-- [Interaction & motion](docs/principles/design/interaction-and-motion.md): Affordance and feedback, the full set of interface states, purposeful motion, perceived performance.
-- [Usability & UX](docs/principles/design/usability-and-ux.md): Heuristics and UX laws, cognitive load, forms, error prevention, navigation and scent.
-- [Design systems & tokens](docs/principles/design/design-systems-and-tokens.md): Token tiers and naming, theming, components as contracts, design-system governance.
-- [AI-native design](docs/principles/design/ai-native-design.md): Designing probabilistic and generative features — latency, confidence, failure, autonomy, chat-vs-GUI.
-- [Postgres](docs/principles/stack/postgres.md): Schema design, migrations, and query patterns.
+- [Manifesto](docs/principles/index.md): The nine beliefs every other page hangs off — start here; every other page is self-contained once you have this frame.
+- [Code craft](docs/principles/foundations/code-craft.md): Simplicity is the default; abstraction is a cost that must be earned — the discipline of deletion and no speculative flexibility.
+- [Documentation](docs/principles/foundations/documentation.md): Docs hold the knowledge, skills control the behaviour — Diátaxis structure, machine-readable exports, and freshness enforced wherever a human would drift.
+- [Testing](docs/principles/foundations/testing.md): Risk-weighted assurance — honeycomb service tests, real dependencies, an independent oracle, and the front-door proof — not coverage targets.
+- [Product engineering](docs/principles/foundations/product-engineering.md): Outcomes over outputs — shaped work, a fixed appetite over an estimate, and the refusal to let "shipped" replace "worked."
+- [Continuous discovery](docs/principles/foundations/continuous-discovery.md): Discovery as a continuous habit, not a one-time phase — the opportunity-solution tree and staying in contact with the people you build for.
+- [Product risks](docs/principles/foundations/product-risks.md): The four ways a bet fails — value, usability, feasibility, viability — and killing the riskiest assumption first, before delivery starts.
+- [Success metrics](docs/principles/foundations/success-metrics.md): Design the measure before you ship — North Star and counter-metric paired, so a "no" answer is as informative as a "yes."
+- [Requirements & specs](docs/principles/foundations/requirements-and-specs.md): Evidence-grounded, testable specs — jobs-to-be-done, stable IDs, and why a vague acceptance criterion gets silently filled by the model's own assumptions.
+- [Prioritization & appetite](docs/principles/foundations/prioritization-and-appetite.md): Sizing work on worth and stakes, not effort — why AI broke effort as a reliable planning axis and what replaced it.
+- [Reliability](docs/principles/quality/reliability.md): Error budgets, graceful degradation, and deliberate failure injection — reliability as a property designed in, not patched on after an incident.
+- [Observability](docs/principles/quality/observability.md): OpenTelemetry-first instrumentation and traces as first-class test assertions — what to fix when you can't see why a system is misbehaving.
+- [Performance](docs/principles/quality/performance.md): Latency as a budget spent deliberately across every hop, enforced in CI — tail latency and backpressure over "fast enough."
+- [Security](docs/principles/quality/security.md): Zero-trust defaults — untrusted services, hostile inputs, compromised secrets — and a system that stays standing when any one control fails.
+- [Privacy](docs/principles/quality/privacy.md): Privacy as a design input, decided before data is collected — some mistakes here (backups, warehouses, model training) can never be fully undone.
+- [Accessibility](docs/principles/quality/accessibility.md): WCAG 2.2 AA as a shipped baseline, not after-launch polish — and, since the EAA, a legal floor in major markets.
+- [The Day-2 Operational Baseline](docs/principles/delivery/day-2-operational-baseline.md): The stack-agnostic bar every project clears to be operable and debuggable on day two — what a forged (non-generator) stack must still earn.
+- [Developer experience](docs/principles/delivery/devex.md): The inner loop as the biggest lever on team output — the dev CLI as the golden path, DORA/DevEx as how you tell if the loop is healthy.
+- [Progressive delivery](docs/principles/delivery/progressive-delivery.md): Decoupling deploy from release — flags, canaries, and trunk-based development so shipping often doesn't mean shipping riskily.
+- [Platform](docs/principles/delivery/platform.md): The platform as a product with users, a backlog, and a quality bar — when paving a path helps and when self-service just relocates the pain.
+- [Cost engineering](docs/principles/delivery/cost-engineering.md): Cost as a non-functional requirement with a budget and a dashboard — made visible at the decision, not discovered in a quarterly bill.
+- [How we structure code](docs/principles/system-design/code-structure.md): A pure core, swappable edges, no leaked implementation details — the single highest-leverage structural choice, non-negotiable for new code.
+- [API design](docs/principles/system-design/api-design.md): Contract-first design — the API as the most durable commitment a service makes, shaped for the next ten versions and for agent consumers.
+- [Integration patterns](docs/principles/system-design/integration-patterns.md): Choosing sync vs async, the outbox pattern, and idempotency by the guarantee an integration actually needs — not by what felt easy.
+- [Real-time patterns](docs/principles/system-design/real-time.md): Real-time channels as long-lived contracts, not request/response — designed against the assumption the connection drops mid-flight.
+- [Data engineering](docs/principles/system-design/data-engineering.md): Data outlives the service that wrote it — event and table contracts shaped for consumers that don't exist yet.
+- [Architecture decisions](docs/principles/system-design/architecture-decisions.md): ADRs as governed, re-evaluable commitments — when to amend a record in place versus supersede it, and why the record is immutable but the decision is not.
+- [Evolutionary architecture](docs/principles/system-design/evolutionary-architecture.md): Fitness functions that make an architectural rule executable — because a rule that lives only in a wiki is already being broken somewhere.
+- [Surface architecture](docs/principles/system-design/surface-architecture.md): The BFF seam and why a surface is an adapter, never a place for business logic — read before adding a second surface.
+- [Identity & access](docs/principles/system-design/identity-and-access.md): Identity decided at the architecture stage — OIDC/OAuth2.1 for humans, SPIFFE workload identity for services, agents as first-class non-human identities.
+- [Durable execution](docs/principles/system-design/durable-execution.md): Workflow-as-code for a process that is multi-step, long-running, or must complete-or-compensate — when it earns its determinism contract over an outbox.
+- [AI engineering](docs/principles/ai-native/ai-engineering.md): Prompts as code, evals as tests, context as a design surface — making a probabilistic system behave predictably enough to ship.
+- [Agent-native systems](docs/principles/ai-native/agent-native-systems.md): Designing interfaces an agent can consume without a human translator — MCP, machine-readable docs, and an agent as an untrusted, retrying, context-limited caller.
+- [Agentic systems](docs/principles/ai-native/agentic-systems.md): An agent loop is a distributed system with a non-deterministic core — topology, context as the scarce resource, durability, and guardrails sized to the stakes.
+- [AI-native product](docs/principles/ai-native/ai-native-product.md): Product management for a probabilistic system — the outcome envelope, evals as a product responsibility, and the three AI cost layers standard prioritization misses.
+- [Design foundations](docs/principles/design/design-foundations.md): Taste as an input, an implemented specification as the output — a design that only lives in a comp hasn't done its job.
+- [Visual design](docs/principles/design/visual-design.md): Perceptual colour, typographic rigour, and modelled light — the craft details where an implemented design and a framework default actually diverge.
+- [Layout & space](docs/principles/design/layout-and-space.md): A tokenised spatial scale and container-driven responsiveness — why device-width breakpoints can't make a component reusable.
+- [Interaction & motion](docs/principles/design/interaction-and-motion.md): Every state a surface can be in — empty, loading, error, success — designed, not left to fall out of the code; motion that serves a function or is cut.
+- [Usability & UX](docs/principles/design/usability-and-ux.md): Heuristics and UX laws as decision-time tools — applied while a screen is being designed, not audited after a usability test finds the problem.
+- [Design systems & tokens](docs/principles/design/design-systems-and-tokens.md): The design system as a contract — tokens as wire format, components as typed interfaces — not a component library reproduced by hand.
+- [AI-native design](docs/principles/design/ai-native-design.md): Designing for a distribution of outputs, not a single answer — latency, confidence, and failure as first-class design materials.
+- [Postgres](docs/principles/stack/postgres.md): The default datastore absent a specific, written reason otherwise — schema, migrations, and pgvector as a production vector store.
 
 ## System
 - [Architecture](docs/architecture/index.md): Service topology and communication patterns.
