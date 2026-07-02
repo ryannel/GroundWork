@@ -12,6 +12,11 @@ import * as fs from 'fs';
  * in the individual generator.
  */
 
+// Repo-side CI bookkeeping that must never ship into a scaffolded project: it pins
+// src/generators/... and src/docs/... paths that do not exist outside this repo, so
+// in a user project it is at best noise, at worst a path an agent chases (ENG-7).
+const SKIP_ON_PROMOTION = new Set(['sync-anchor.md']);
+
 /**
  * Engineer skills are canon under src/engineer-skills/ and are never installed
  * at the GroundWork root. When a service is scaffolded they are promoted into
@@ -29,11 +34,13 @@ export function promoteEngineerSkill(tree: Tree, skillName: string) {
   function copyDir(src: string, dest: string) {
     const entries = fs.readdirSync(src, { withFileTypes: true });
     for (const entry of entries) {
-      const srcFile = path.join(src, entry.name);
-      const destFile = dest + '/' + entry.name;
       if (entry.isDirectory()) {
+        const srcFile = path.join(src, entry.name);
+        const destFile = dest + '/' + entry.name;
         copyDir(srcFile, destFile);
-      } else {
+      } else if (!SKIP_ON_PROMOTION.has(entry.name)) {
+        const srcFile = path.join(src, entry.name);
+        const destFile = dest + '/' + entry.name;
         tree.write(destFile, fs.readFileSync(srcFile));
       }
     }

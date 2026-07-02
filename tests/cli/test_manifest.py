@@ -124,3 +124,58 @@ def test_generator_provenance_survives_update(project):
     # A stale recorded version queues a regenerate item in the brief.
     brief = json.loads((project / ".groundwork/cache/upgrade-brief.json").read_text())
     assert any(i["id"] == "regen:workspace-dev-cli" for i in brief["items"])
+
+
+def test_promoted_engineer_skill_provenance_survives_update(project):
+    """A promoted engineer skill (`.agents/skills/groundwork-<stack>-engineer/`,
+    written by `promoteEngineerSkill` inside a service generator — see
+    scaffold-helpers.ts) is neither a shipped registered skill nor hidden-tree
+    canon, so `update`'s mechanical passes must leave it and its
+    `manifest.generated[...].files` provenance record untouched — that record is
+    what the groundwork-update Family Index's "Engineer skills" row reads to
+    detect drift in its Phase B reconcile pass (a judgment-lane advance the CLI
+    itself never performs)."""
+    skill = project / ".agents/skills/groundwork-go-engineer"
+    (skill / "references").mkdir(parents=True)
+    (skill / "SKILL.md").write_text("# Go engineer\nPromoted at scaffold time.\n")
+    (skill / "references/testing.md").write_text("# Testing\nStack idiom.\n")
+
+    def sha256(p: Path) -> str:
+        return hashlib.sha256(p.read_bytes()).hexdigest()
+
+    manifest_path = project / ".groundwork/config/manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["generated"]["go-microservice:demo-service"] = {
+        "generator": "go-microservice",
+        "version": "0.8.0",
+        "options": {"name": "demo-service"},
+        "files": {
+            "services/demo-service/go.mod": "0" * 64,  # stands in for the rest of the service
+            ".agents/skills/groundwork-go-engineer/SKILL.md": sha256(skill / "SKILL.md"),
+            ".agents/skills/groundwork-go-engineer/references/testing.md": sha256(skill / "references/testing.md"),
+        },
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2))
+    before = {p: p.read_bytes() for p in skill.rglob("*") if p.is_file()}
+    # Force a real update pass (not the no-op early return).
+    shutil.rmtree(project / ".groundwork/skills/groundwork-update")
+
+    proc = run_cli(["update"], project)
+    assert proc.returncode == 0, proc.stderr
+
+    after = {p: p.read_bytes() for p in skill.rglob("*") if p.is_file()}
+    assert after == before, "update mutated a promoted engineer skill the CLI does not own"
+    assert "groundwork-go-engineer" not in proc.stdout, (
+        "report listed the preserved promoted skill — output reads as a deletion"
+    )
+
+    generated = load_manifest(project)["generated"]["go-microservice:demo-service"]
+    assert generated["version"] == "0.8.0", "provenance version must survive for Phase B to detect drift"
+    skill_files = {
+        f: h for f, h in generated["files"].items()
+        if f.startswith(".agents/skills/groundwork-go-engineer/")
+    }
+    assert skill_files == {
+        ".agents/skills/groundwork-go-engineer/SKILL.md": sha256(skill / "SKILL.md"),
+        ".agents/skills/groundwork-go-engineer/references/testing.md": sha256(skill / "references/testing.md"),
+    }, "promoted-skill provenance hashes must survive update byte-identical"

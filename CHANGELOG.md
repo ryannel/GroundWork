@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (promoted engineer skills stop shipping repo bookkeeping — and finally track canon, 2026-07-02)
+
+`promoteEngineerSkill` no longer copies `sync-anchor.md` into scaffolded projects — it pins repo-side `src/` paths that don't exist in a user project (noise at best, a path an agent chases at worst). And the long-standing propagation gap closes: `groundwork update` preserved promoted engineer skills byte-identical forever, so no canon improvement ever reached an existing install. A new **Engineer skills** reconcile family reads the promotion provenance already recorded in `manifest.generated`, re-promotes untouched files from the installed package's canon (dropping stale sync-anchors), surfaces user-edited files as collisions instead of clobbering them, and never touches a skill directory with no provenance record — project-authored skills (e.g. a hand-built swift engineer) stay invisible to it by construction. Drift detection is hash-vs-canonical, not version, so it composes with (never re-runs) the generator-level `regen:` items.
+
+- [no-migration] The skip is generative-path only; existing installs advance via the new reconcile family, not a registry migration. Generation tests assert the anchor's absence and the provenance record; a new CLI test proves the legacy signal survives an update pass.
+
 ### Fixed (ways-of-working teaches the current delivery model, not one three overhauls old, 2026-07-02)
 
 The shipped `docs/ways-of-working/` still taught flag-gated internal milestones — the doctrine the front-door redesign retired — and described brownfield support as a roadmap item. Rewritten from current canon, quoting it: a milestone is a thin, user-visible step proven by driving the shipping build through its real front door; trunk only ever receives a complete, validated bet (no feature flag required); requests triage into three lanes (patch · quick bet · bet) with the orchestrator's exact sizing rules; brownfield is the implemented five-phase track it actually is. The Operating Contract section is a pointer at the real contract instead of a paraphrase. All 44 `llms.txt` descriptions re-scented to when-to-read phrasing. New stack-forge sync anchor pins `day-2-operational-baseline.md` (load-bearing but previously unpinned) — the gate now verifies 9 anchors.

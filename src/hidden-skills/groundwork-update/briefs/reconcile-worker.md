@@ -58,7 +58,7 @@ without re-deriving the whole framework:
     `incoming`, `base_hash`, `options`, `artifact`, … fields).
   - `family:<name>` — one row of the driver's Family Index (e.g. `family:architecture-docs`,
     `family:doc-contracts`, `family:bets`, `family:naming`, `family:surfaces-registry`,
-    `family:docs-site`, `family:nextjs-tokens`).
+    `family:docs-site`, `family:nextjs-tokens`, `family:engineer-skills`).
 - **Canonical owner path(s)** — the live current shape to read in full and treat as the
   worked example: the brief item's staged `incoming` payload, or the family's Owner column
   (a skill/template/generator under `.groundwork/skills/` or `.groundwork/config/`). The
@@ -147,6 +147,16 @@ following the row's advance approach. The common shapes:
   historical record, removing only stray obsolete files.
 - **Bootstrap / register** (surfaces): bootstrap the registry twins or register runners per
   the Owner skill, without touching db/jaeger compose.
+- **Re-promote from canon, honoring edits** (engineer skills): for each promoted skill dir,
+  read its recorded provenance (`manifest.json` `generated[<generator>[:<name>]].files`) and
+  compare every on-disk file's hash against both that recorded hash and the canonical file at
+  `src/engineer-skills/<skill>/` in the installed package (its root is the parent of any
+  `factory` path in `.groundwork/config/generators.json`). A file whose disk hash still matches
+  its recorded provenance is untouched since promotion — clean-replace it from canonical,
+  mirroring `promoteEngineerSkill`'s own shape (skip `sync-anchor.md`; delete one left by a
+  pre-M6 promotion). A file whose disk hash matches neither provenance nor canonical was edited
+  by the user — leave it in place and record it under `COLLISIONS/AMBIGUITY` instead of
+  overwriting it.
 
 **Scope discipline.** Make only the changes this unit's advance requires. Compare against the
 live canonical directly; reach for the framework's own git history only to disambiguate a

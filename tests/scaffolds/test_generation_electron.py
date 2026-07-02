@@ -254,10 +254,32 @@ def test_engineer_skill_promoted(default_app):
     """The electron engineer skill is auto-installed alongside the output."""
     skill = default_app / ".agents" / "skills" / "groundwork-electron-engineer"
     assert (skill / "SKILL.md").exists(), "engineer SKILL.md not promoted"
-    assert (skill / "sync-anchor.md").exists(), "engineer sync-anchor.md not promoted"
+    # sync-anchor.md is repo-side CI bookkeeping (pins src/generators/... and
+    # src/docs/... paths that don't exist in a user project); promotion must skip
+    # it (ENG-7 / M6).
+    assert not (skill / "sync-anchor.md").exists(), (
+        "engineer sync-anchor.md was promoted — it is a dev-repo-only CI pin, "
+        "not product content"
+    )
     references = skill / "references"
     assert references.is_dir() and any(references.iterdir()), (
         "engineer references/ not promoted"
+    )
+
+
+def test_engineer_skill_provenance_recorded(default_app):
+    """Every promoted-skill file lands in manifest.generated[<key>].files with its
+    hash — promoteEngineerSkill runs inside the electron-app generator before
+    recordGeneratorProvenance snapshots the tree (shared/provenance.ts). This is
+    the provenance record the groundwork-update Family Index (Engineer skills row)
+    reads to tell a framework-promoted skill apart from a project-authored one and
+    to detect drift against the current canonical."""
+    manifest = json.loads((default_app / ".groundwork" / "config" / "manifest.json").read_text())
+    gen = manifest["generated"]["electron-app:desktop-app"]
+    skill_files = [f for f in gen["files"] if f.startswith(".agents/skills/groundwork-electron-engineer/")]
+    assert skill_files, "no promoted engineer-skill files recorded in manifest.generated"
+    assert not any(f.endswith("sync-anchor.md") for f in skill_files), (
+        "sync-anchor.md must not appear in provenance either — it was never promoted"
     )
 
 

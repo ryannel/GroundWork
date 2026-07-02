@@ -38,7 +38,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | F1 | pin-free corpus batch (ways-of-working rewrite; zero re-stamps) | landed (this commit) | Canon fidelity PERSONALLY REVIEWED (PRIN FLAG(5)): milestone/lane/close semantics quoted from 03/00-quick/Work Intake/05 — all match landed canon incl. E5's fresh triage wording; orchestrator de-quoted the citations editorially (words identical). +329w vs plan's −459 estimate — fidelity over target, the old doc was WRONG not long. Zero existing re-stamps; NEW 9th anchor (stack-forge pins day-2 baseline); 44 llms.txt descriptions re-scented |
 | F2 | architect-batch corpus + persona reconciliation (one commit, ~9+1 pins) | pending | — |
 | F3 | engineer-skills rebuild + Operating Rules rename (all-or-nothing) | pending | — |
-| F4 | promotion mechanics + new reconcile family for promoted engineer skills | pending | — |
+| F4 | promotion mechanics + new reconcile family for promoted engineer skills | landed (this commit) | SKIP_ON_PROMOTION set + negative assertions (flutter/electron) + provenance-recorded tests; Engineer-skills family: hash-vs-canonical drift (not version — avoids colliding with regen: items), user edits → COLLISIONS, no-provenance dirs never touched; provenance mechanism verified at provenance.ts:27-61 + groundwork.js:769/439; gen 229 ✓ cli 60 ✓ lint ✓ (contracts red was F2's in-flight anchors, orthogonal) |
 | F5 | deferred multi-pin folds + ENG M12 near-copy audit | pending | — |
 | G1 | update driver/worker + orchestrator routing rows (from C2) — one commit | pending | — |
 | G2 | doc-sync + migrations trims | pending | — |
