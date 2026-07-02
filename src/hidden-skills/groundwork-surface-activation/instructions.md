@@ -5,9 +5,7 @@ description: >
   the CLI alongside an existing web app. Registers the surface, runs its type's
   design track when no section for that type exists, scaffolds the app (or records
   `scaffold: manual`), and triages every capability ledger row so divergence from
-  the existing surfaces is a decision on record, never silent drift. On a
-  pre-restructure product with GroundWork docs but no surface registry, it
-  bootstraps `docs/surfaces.md` first.
+  the existing surfaces is a decision on record, never silent drift.
 ---
 
 # groundwork-surface-activation
@@ -26,22 +24,9 @@ Apply the `groundwork-writer` skill when producing or modifying any document. De
 
 The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Read it before taking any other action. This is a **Maintenance** skill (see Lifecycle Modes): Protocols 1 (Discovery Notes), 2 (Living Documents), and 4 (Pacing) apply throughout; Protocols 8 and 9 (Review Gate, Review Invocation) fire when a Living Documents update is a reversal — establishing a contract-compatibility stance that overturns an architecture Key Decision is the case this skill is most likely to hit. There is no phase cache, no hand-off file, and no fresh-context recommendation — an activation starts and finishes inside one conversation. From `.groundwork/cache/` it reads only `discovery-notes.md`.
 
-Any working file — a bootstrap reconstruction awaiting the user's confirmation, a triage draft for a long ledger — lives at `.groundwork/cache/surface-activation-draft.md` and is deleted when the activation completes. Final artifacts go to `docs/` and `.groundwork/surfaces.json`, never to the cache.
+Any working file — a triage draft for a long ledger — lives at `.groundwork/cache/surface-activation-draft.md` and is deleted when the activation completes. Final artifacts go to `docs/` and `.groundwork/surfaces.json`, never to the cache.
 
----
-
-## Registry bootstrap — pre-restructure products only
-
-A product that adopted GroundWork before the surface model exists has canonical docs but no `docs/surfaces.md` — neither the architecture commit nor the brownfield extract wrote a registry for it, so without this bridge it never gains one. When `docs/surfaces.md` does not exist, bootstrap before anything else. When it exists, skip this section entirely — re-running the bootstrap on a registry project would overwrite decisions already on record.
-
-Reconstruct the registry from what the project already proves:
-
-- **`docs/architecture/index.md`** — read its body for the surface detail: it names the services, the surface apps among them, the access paths, and the core's deployment as decided. (This skill runs after setup, so there is no Downstream Context file to read first — the published doc body is the record.)
-- **`docs/architecture/infrastructure.md`** — the scaffold's record of what actually exists: the apps, ports, run commands, test mediums. Where the architecture and the infrastructure doc disagree, the infrastructure doc describes today and wins.
-
-Enter every current surface as `active`, with the fields the docs support: type, platform, core access, auth, scaffold (the generator that produced it, or `manual`), test medium, design-track reference into `docs/design-system.md`. Write the Capability Core section from the deployment as observed. Leave the Capability Ledger **empty — table headers, zero rows**. Reconstructing capability parity from a live product is expensive and fuzzy; an empty ledger is honest ("parity unknown until a bet touches it") where a synthesized one would be confidently wrong. Rows grow per-bet from here, written by bet validation.
-
-Present the reconstruction to the user before writing — the docs cannot reveal everything (the auth model a surface really uses, a half-abandoned app that should enter `dormant`), and a registry born wrong propagates wrong into every consumer. On confirmation, write `docs/surfaces.md` and `.groundwork/surfaces.json` together per the template contract. Then proceed to Step 1 for the new surface.
+Every product this skill runs against already has a registry — greenfield architecture and brownfield extract both write one at commit. If `docs/surfaces.md` or `.groundwork/surfaces.json` is genuinely missing (corrupted, deleted, hand-removed), that is not this skill's problem to solve inline: run `groundwork-update`'s Surfaces registry family to re-derive it, then come back to Step 1.
 
 ---
 
@@ -86,15 +71,13 @@ Pace the walk as proposals, not interrogation. Read the rows, propose dispositio
 
 Update both registry twins in the same change: the prose ledger gains the column, and every entry in `.groundwork/surfaces.json`'s `capabilities` array gains a cell keyed by the new slug — a missing cell key is the machine form of the illegal empty cell.
 
-On a bootstrap run the ledger has headers and zero rows, so the triage is complete by construction. Say so plainly; do not invent rows. The honest-unknown stance holds — rows arrive as bets touch capabilities.
-
 ## Step 5: Hand off
 
 `planned` cells are commitments, and commitments that live only in a table get rediscovered instead of delivered. Cross-post every `planned` cell as a bullet under `## Bets` in `.groundwork/cache/discovery-notes.md`, naming the capability key and the target surface — bet discovery reads that section, so each deferral becomes candidate scope for the next pitch instead of a memory. Ordinary bets deliver them; activation never starts delivery itself.
 
 Close out:
 
-1. **Report what the activation produced**: the registry entry (and the bootstrap, when it ran), the design section appended or found existing, the scaffold result (generator output, or the manual obligations recorded), the triage in numbers (rows walked, cells per state), the discovery-notes entries added, and every doc updated via Living Documents.
+1. **Report what the activation produced**: the registry entry, the design section appended or found existing, the scaffold result (generator output, or the manual obligations recorded), the triage in numbers (rows walked, cells per state), the discovery-notes entries added, and every doc updated via Living Documents.
 2. **Capture stray signals** under their headers in `.groundwork/cache/discovery-notes.md` (Protocol 1).
 3. **Delete** `.groundwork/cache/surface-activation-draft.md` if it was created.
 4. Hand off to the `groundwork-orchestrator` skill.
@@ -134,5 +117,4 @@ Plus, in the same change: two `## Bets` bullets in discovery notes naming each c
 The same depth standard applies to the other outputs:
 
 - **Registry entries** carry every field with a real value — an `active` surface with no test medium, or a design-track reference pointing at a section that does not exist, is an entry that will fail its first consumer.
-- **The bootstrap** names what each reconstructed field was read from (which architecture decision, which infrastructure row) so the user confirms evidence, not guesses.
 - **Manual-scaffold obligations** are concrete and checkable — the health endpoint's path, the `./dev` target, the fixture slug — not a sentence saying the surface should integrate eventually.

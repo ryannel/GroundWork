@@ -99,7 +99,7 @@ Report as warnings:
 
 Report as an advisory (not a build failure):
 
-- **No registry** — GroundWork docs exist but neither `docs/surfaces.md` nor `.groundwork/surfaces.json` does. This is a pre-restructure adoption, not drift. Point at `groundwork-surface-activation`, whose first move on such a product is to bootstrap the registry from `docs/architecture/index.md` and the existing scaffold.
+- **No registry** — GroundWork docs exist but neither `docs/surfaces.md` nor `.groundwork/surfaces.json` does. Every install writes the registry at setup commit, so a missing one is damage, not a pending adoption step. Route to the `groundwork-update` lane's Surfaces registry family to re-derive it.
 
 ### `docs/architecture/services/**`
 
@@ -111,6 +111,6 @@ Group findings by service, severity first:
 
 1. **Critical** — stale contract-bearing docs (API, schema, events), ADR corruption, surface-ledger corruption (twin drift, empty cells), maturity regressions, `closed` rows whose gap is back. These fail the build: end with a failing status.
 2. **Warnings** — other stale docs, domain cross-check mismatches, unassessed docs, stale `planned` ledger cells, untested active surfaces.
-3. **Advisory** — aging stable docs, `open` roadmap rows whose signal now passes, GroundWork docs with no surface registry (route: `groundwork-surface-activation` bootstraps it).
+3. **Advisory** — aging stable docs, `open` roadmap rows whose signal now passes, GroundWork docs with no surface registry (damage — route to the `groundwork-update` Surfaces registry family).
 
 For every finding name the recovery route: `generation_mode: generated` → re-run the generator that produced it; `extracted` or prose docs → run the `groundwork-doc-sync` skill; maturity disagreements → `groundwork-doc-sync` with this report as the change-set anchor. If nothing drifted, say exactly that — and state which steps ran (with or without Serena, with or without a maturity doc), so a clean report is auditable.

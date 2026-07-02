@@ -42,7 +42,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | F5 | deferred multi-pin folds + ENG M12 near-copy audit | pending | — |
 | G1 | update driver/worker + orchestrator routing rows (from C2) — one commit | landed (this commit) | One 6-step driver loop; Family Index = detection table w/ slug column (8 slugs match worker capsule both ways); isolation rationale driver-side only; all guards intact (backfill, quick-bet carve-out, engineer-skills row, FLAG(5) strings). −338w vs plan's −757 target: baseline drifted +260w of B1/F4 guarded content the plan predates — honest shortfall. update row trimmed; doc-sync row already lean; surface-activation row correctly deferred to G3's coupling |
 | G2 | doc-sync + migrations trims | landed (this commit) | M5/M8/M9 done (−232w); check-side verified already-canonical (no edit needed); migration summaries one line (gate only asserts truthiness — verified); orchestrator corrected the citation to point at check's instructions.md Step 1 (SKILL.md is a stub post-C2) |
-| G3 | surface-activation compress + D-O1 retirement (three-file change) | pending | — |
+| G3 | surface-activation compress + D-O1 retirement (three-file change) | landed (this commit) | D-O1 CLOSED: npm evidence (all published versions ≥0.10.0 post-date the surface model) + user census. Retirement = 3 planned files + 3 fallout sites the orchestrator swept into the same commit (worker recipe verb, check's 2 no-registry rows → damage-routed, surface.ts message + bundle). Surfaces family RE-SCOPED not retired (register arm is real detection); slug unchanged. −360w in surface-activation |
 | G4 | freshness = 12-month advisory; Phase-A merge check vs F1 fallout | pending | — |
 
 ## Staged couplings (cross-workstream obligations)

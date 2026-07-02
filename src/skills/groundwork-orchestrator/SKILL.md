@@ -103,7 +103,7 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 - `groundwork-patch` — bounded fix, no new capability, no contract change — the floor of the three lanes; sizing rules live in *User requests work*. Available only after setup completes.
-- `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
+- `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Available only after setup completes.
 
 When routing to `groundwork-scan` or `groundwork-update`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes each skill's need to probe its own tool set — a misprobe on a constrained runtime would break the run. For `groundwork-update`, `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so its context stays lean; `sequential` advances each unit inline, one at a time.
 

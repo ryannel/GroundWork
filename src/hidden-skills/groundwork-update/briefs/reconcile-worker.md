@@ -133,7 +133,7 @@ following the row's advance approach. The common shapes:
 - **Restructure** (bets): restructure an in-flight bet to the current prose shape, infer and
   stamp `status`, drop the dead machine-readable artifacts. Leave shipped/archived bets as
   historical record, removing only stray obsolete files.
-- **Bootstrap / register** (surfaces): bootstrap the registry twins or register runners per
+- **Register** (surfaces): register runners per
   the Owner skill, without touching db/jaeger compose.
 - **Re-promote from canon, honoring edits** (engineer skills): for each promoted skill dir,
   read its recorded provenance (`manifest.json` `generated[<generator>[:<name>]].files`) and

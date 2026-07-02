@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Removed (the surface-registry bootstrap — every install already has a registry, 2026-07-02)
+
+Surface-activation carried a full registry-reconstruction path for products installed before the surface model existed. Evidence closed the question: every published version (0.10.0 up) ships the surface model, and no pre-publish install remains — so the bootstrap's precondition cannot occur. Retired in one change across every surface that mentioned it: the skill's bootstrap section (replaced by a one-line fail-safe routing a genuinely damaged registry to the update lane's Surfaces family), the orchestrator's routing clause, the update family's bootstrap arm (the family survives, re-scoped to its real ongoing job — registering runner-less surfaces into `./dev`), the reconcile-worker recipe verb, groundwork-check's two no-registry rows (now damage, not adoption), and the dev CLI's message (bundle rebuilt).
+
+- [no-migration] Retirement of an unreachable path; the fail-safe covers corruption. Surfaces family slug unchanged.
+
 ### Changed (the architect batch: corpus doctrine single-homed, two references merged, calendar claims retired, 2026-07-02)
 
 One anchor-priced batch across the principles corpus and the architect/product personas. Corpus: resilience patterns, orchestration-vs-choreography, the lethal trifecta, AI economics, and appetite doctrine each get one home with pointers from their former restatement sites; vendor catalogs compress to decision rules (named tools stay as opinionated defaults); `progressive-delivery.md` states its boundary with the bet contract — the general technique ships dark behind a flag, GroundWork's milestone proof is the release gate so trunk needs no flag, and flags stay a team-optional tool inside that guarantee. Personas: `identity-and-access.md` retires into `security-and-trust.md` and `integration-patterns.md` + `durable-execution.md` merge into `integration-and-workflows.md` — the merge surfaced and fixed two live defects (an "exactly-once side effects" overclaim corrected to effectively-once, and a step-count orchestration rule corrected to the corpus's coupling/visibility rule); every adoption-seam filename swept in the same change, verified by the reference-link gate. Calendar claims de-dated on both corpus and reference sides. `decision-records.md` gains the amend-vs-supersede carve-out its corpus source already carried.

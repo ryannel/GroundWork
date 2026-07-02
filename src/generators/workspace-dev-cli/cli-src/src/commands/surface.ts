@@ -132,7 +132,7 @@ async function status(ctx: Ctx): Promise<number> {
       process.stdout.write(JSON.stringify({ present: false }, null, 2) + '\n');
       return 0;
     }
-    ro.info('No surface registry (.groundwork/surfaces.json) — the groundwork-surface-activation skill bootstraps it.');
+    ro.info('No surface registry (.groundwork/surfaces.json) — run the groundwork-update lane; its Surfaces registry family re-derives it.');
     return 0;
   }
 
