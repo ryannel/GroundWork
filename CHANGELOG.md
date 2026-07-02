@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (bet delivery reads as the driver's decision sequence, 2026-07-02)
+
+`04-delivery.md` rebuilt around the decisions its driver actually makes (−25%): the topology guidance is a three-row table, the Serena worktree caveat is a pointer at `code-intelligence.md`'s canonical Degraded-mode text, bet-close points at validation's Step 8.5 instead of restating it, tier restatements defer to the contract and the slice files, and the amendment format is stated once. Every heading inbound files reference is preserved; the milestone-close Tier 1–3 definitions and the postmortem judgment framing stay whole. `05-validation.md` confirms rather than restates (Tier-1 duplicate and persona triplication cut).
+
+- [no-migration] Skill-prose changes carried by the clean-copy reconcile.
+
 ### Changed (one pitch bar, one flag catalog, an honest stack-forge claim, 2026-07-02)
 
 The pitch canon has one home: `templates/pitch.md` was already the field-level standard, and both writers of `document_type: bet-pitch` now cite it — bet discovery's two near-identical tracks merge into one Pitch Elements walk with a stance-calibration line (restoring **Stakes** to the execution-focused path, which had silently dropped it), and MVP keeps only its first-bet deltas instead of a duplicated example and definitions. Scaffold-side right-sizing: the developer on-ramp spec lives in the phase that writes it; the generator capability/availability tables merge into one catalog (the orchestrator's pointer still resolves); the architecture commit phase stops restating what `templates/adr.md` and the registry contract already say; stack-forge claims its three real contract obligations instead of "binding" the whole contract; the llms.txt step is a visible numbered step. The stack-forge authoring mirror is reconciled with the rebuilt skill-writer standard (register boundaries, budget-by-load-tier, description-is-the-router, one-idea-per-unit, integrate-don't-append).
