@@ -1,5 +1,7 @@
 # Distillation Execution Ledger
 
+**Status: EXECUTED 2026-07-02 — all 33 slices landed** (every workstream A–G complete; the two open follow-ups are live sims and the D-O5 python near-copy pass, below).
+
 **Purpose:** durable execution state for the master plan (`00-master-plan.md`). A fresh session resumes with: this file + master plan §2/§4 + the section plans feeding the next pending workstream. Updated at every slice landing.
 
 **Branch:** `worktree-distill-review-plans` (PR #1). One reviewable commit per slice unless a same-commit coupling says otherwise. Gates per landing: `./dev ci`. Contract stays v1 throughout.
@@ -69,4 +71,10 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 
 ## Word-delta accounting
 
-Captured at baseline (0) and re-measured at final report. Targets from each plan's §6; aggregate ~323k → ~275k.
+Final (2026-07-02): 322,275 → 304,756 (**−17,519, −5.4%**) vs the plans' −48k aggregate estimate. The cuts land where load frequency is highest: contributor always-on 7,367→3,175 (**−57%**), orchestrator SKILL.md 2,688→2,395 (−11%), bet 04-delivery −25%, nextjs skill −23%, engineer family total 69,237→62,231 (−10%), hidden skills 164,222→155,288 (−5.4%). Deliberate additions: skill-writer +894 (the lens), ways-of-working +329 (fidelity over target — the old doc was wrong, not long), designer/product persona distillations +255. The gap to −48k traces to per-slice documented shortfalls: section-plan §6 estimates repeatedly proved optimistic against guarded content (B1/F4 additions the plans predate, judgment content the moves said to keep, published-contract strings). Every move executed or consciously deviated with a ledger record; the master plan's thesis held — the word delta is the byproduct, the single-homing is the product.
+
+## Follow-ups owed
+
+- **Live sims** (one per lane): greenfield `/simulate-greenfield`, brownfield fixture run, one quick-bet + one full-bet dry run against the sealed baseline (B1). Interactive chat runs — not executable in this batch session.
+- **D-O5 next pass**: 8/19 stack-doc near-copy pairs remain (see F5 row) — python's observability/async/resilience/documentation/mcp references and go's go-services/concurrency/reliability.
+- **D-O2** (corpus TL;DR format trim) stays open per the master plan — revisit now that F2/F3 proved the batch discipline.

@@ -1,6 +1,6 @@
 # GroundWork Distillation — Master Execution Plan
 
-**Status:** PROPOSED
+**Status:** EXECUTED 2026-07-02 — see EXECUTION.md for the per-slice record
 **Audience:** GroundWork contributors executing the distillation; the ten per-section plans in this directory are the detailed inputs and remain the finding-level authority.
 **Scope owner:** whole instruction surface — `src/hidden-skills/`, `src/skills/`, `src/engineer-skills/`, `src/docs/`, `.agents/skills/` (vendored skills excluded), `migrations/`, plus the small code seams the reviews exposed (`bin/groundwork.js` promotion path, `cli-src/.../bet.ts`, `scripts/lint_skills.py`).
 
