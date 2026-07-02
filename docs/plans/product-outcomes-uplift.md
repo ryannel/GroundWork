@@ -77,7 +77,7 @@ IDs are referenced by the workstreams below. Every finding was verified against 
 The baseline ships wired and on; conversation is reserved for what the baseline can't assume.
 
 **A1 — Shipped supply-chain and secret gates.**
-Wire a dependency-audit step into the scaffolded `./dev ci` for every generated stack — `govulncheck ./...` (Go), `pip-audit` via uv (Python), `pnpm audit --prod` (Next.js/Electron), `dart pub` advisories where the tooling allows — plus a secret scan (tool per open decision D2) over the diff range. Implemented in `src/generators/workspace-dev-cli/cli-src/` (rebuild the bundle) with per-stack detection following the existing compose-parsed discovery pattern; `groundwork-infra-adopt` offers the same additively for brownfield. Annotate changelog per the shipped-surface rules (tier-1 bundle → clean-replace; generator templates → provenance). *Accept:* fresh scaffold of each stack → `./dev ci` runs the audit and secret steps; a seeded known-vulnerable dep pin and a seeded fake credential each turn the build red.
+Wire a dependency-audit step into the scaffolded `./dev ci` for every generated stack — natives where they're smarter than lockfile matching: `govulncheck ./...` (Go — reachability analysis keeps the gate quiet), `pip-audit` via uv (Python), `pnpm audit --prod` (Next.js/Electron); `osv-scanner` on `pubspec.lock` for Flutter (Dart has no native audit command) and as the uniform lockfile fallback for forged stacks (Cargo, Swift PM). Secret scanning is `gitleaks` (settled, D2): version-pinned in the dev config, diff-range mode per CI run, `--baseline-path` lets `groundwork-infra-adopt` acknowledge existing history while gating everything after. Both binaries follow one install story — the CLI detects-and-instructs on a missing binary, never auto-downloads. Implemented in `src/generators/workspace-dev-cli/cli-src/` (rebuild the bundle) with per-stack detection following the existing compose-parsed discovery pattern; `groundwork-infra-adopt` offers the same additively for brownfield. Annotate changelog per the shipped-surface rules (tier-1 bundle → clean-replace; generator templates → provenance). *Accept:* fresh scaffold of each stack → `./dev ci` runs the audit and secret steps; a seeded known-vulnerable dep pin and a seeded fake credential each turn the build red.
 
 **A2 — Teach the lenses security-as-correctness.**
 Extend `briefs/blind-reviewer.md` and `briefs/edge-case-tracer.md` with the top security bug classes as first-class correctness findings: missing/wrong authorization (IDOR), injection (SQL/command/template), secrets in code or logs, SSRF on outbound fetches, unsafe deserialization, tenant-isolation breaks. No new subagent, no new gate — the lenses already read every diff at frontier tier. Amend `briefs/acceptance-auditor.md`: a security control that is stack-baseline practice (per the stack's engineer-skill security reference) is never "more than the design." *Accept:* brief text shipped; a seeded IDOR fixture diff is flagged by a lens dry-run; `./dev lint skills` green.
@@ -169,12 +169,19 @@ Gates on every slice: `./dev lint skills`, `./dev check sync-anchors`, `./dev te
 
 ---
 
-## 8. Open decisions (user)
+## 8. Decisions
+
+### Settled
+
+| # | Decision | Resolution |
+|---|---|---|
+| D2 | Scan tooling (A1) — settled 2026-07-02 | Secrets: **gitleaks** (MIT single static binary, diff-range mode, `--baseline-path` for brownfield adopt; trufflehog rejected as default — AGPL plus live credential verification is network-dependent and exercises found secrets; detect-secrets rejected — Python runtime not guaranteed on every stack). Dependency audit: **per-ecosystem natives** (`govulncheck` for reachability, `pip-audit`, `pnpm audit --prod`) with **osv-scanner** for Flutter and forged-stack lockfiles. Versions pinned in the dev config; detect-and-instruct install story, never auto-download. |
+
+### Open (user)
 
 | # | Decision | Options | Default proposal |
 |---|---|---|---|
 | D1 | Architecture residual-ask wording (A4) | fixed three-question set / per-product-type variants | fixed set — three questions, answers recorded even when "none"; variants invite skipping |
-| D2 | Secret-scan tool (A1) | gitleaks / trufflehog / detect-secrets | gitleaks — single binary, fast, diff-range mode fits `./dev ci` |
 | D3 | Node/TS backend skill scope (B4) | skill only / skill + Nx generator | skill only first; a generator is its own plan once the skill's doctrine settles |
 | D4 | golang-pro (B5) | drop / annotate | annotate — keeps the upstream reference value, removes the ambiguity |
 | D5 | D9 widening mechanics (C3) | maturity-model text only / plus a groundwork-check rule | text first; a check rule once a fixture proves the signal is mechanical |
