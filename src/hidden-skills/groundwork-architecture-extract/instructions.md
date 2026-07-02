@@ -113,7 +113,7 @@ The recovered architecture must convey the *reasoning* the system embodies, not 
 
 3. **Review.** Assemble: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > .groundwork/cache/architecture-extract-draft.md")`. Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/architecture-extract-draft.md` and `document_type: architecture`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
-4. **Revise loop.** On REVISE, apply all 🔴 Critical findings to the affected section file(s), re-assemble, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT. The cap is a hard stop, not a target to push past. If the reviewer keeps finding fresh contract↔body desyncs every pass, the fault is an unreconciled Downstream Context file (Protocol 5: author it last at commit, from the finished doc), not a draft that needs five reviews.
+4. **Revise loop.** On REVISE, apply all 🔴 findings to the affected section file(s), re-assemble, and re-review; Protocol 8's revise cap and hard-stop rule apply.
 
 5. **Present** section by section (not the whole doc in one message), then surface 🟡 Advisory findings. Clean up the assembled file: `run_command("rm .groundwork/cache/architecture-extract-draft.md")`. Proceed to commit only on explicit approval.
 
@@ -147,4 +147,4 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 11. Update discovery notes — remove `## Architecture` and `## Design Details` entries now captured.
 
-12. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/architecture/index.md` plus its Downstream Context file `.groundwork/context/architecture-extract.md` and the stamped `generation_mode`/`source_of_truth` frontmatter; only the scan writes a durable marker, because it leaves no `docs/` artifact.
+12. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator reconciles this phase's completion from its committed artifacts (its Brownfield Setup table is the source of truth).

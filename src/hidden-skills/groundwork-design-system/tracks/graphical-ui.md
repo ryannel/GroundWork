@@ -254,16 +254,11 @@ Update this type's Phase 5 entry in `.groundwork/cache/design-system-cache.md` t
 
 ### Independent Review (Pre-Walkthrough)
 
-The user is about to see this draft in Phase 5b. Before they do, the draft passes through an independent review — `groundwork-review` checks the draft for silent invention, dropped commitments from Phase 4, and contradictions against the upstream Product Brief that the user is unlikely to catch during a CSS-level walkthrough. The CSS-precise design system is the most downstream-load-bearing artifact in the flow; catching these failures here is cheaper than catching them after `docs/design-system.md` becomes the source of truth for architecture and delivery.
+The user is about to see this draft in Phase 5b. Before they do, the draft passes through an independent review — `groundwork-review` checks it for silent invention, dropped Phase 4 commitments, and contradictions against the upstream Product Brief that the user is unlikely to catch during a CSS-level walkthrough. The CSS-precise design system is the most downstream-load-bearing artifact in the flow; catching these failures here is cheaper than catching them after `docs/design-system.md` becomes the source of truth for architecture and delivery.
 
-1. **Announce** the shift — the agent is moving from translation into an independent review before presenting to the user.
-2. **Assemble the draft for review.** Run `run_command("cat .groundwork/cache/design-system-draft/*.md > .groundwork/cache/design-system-draft.md")` to concatenate the section files into a single document. This is a shell operation, not a model emission — it does not consume output tokens regardless of spec size.
-3. **Invoke the review subagent** (Protocol 9) with `document_path: .groundwork/cache/design-system-draft.md` and `document_type: design-system`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path — do not present the draft as reviewed.
-4. **Revise loop.** If the verdict is **REVISE**, apply every 🔴 Critical finding directly to the affected section file(s) under `.groundwork/cache/design-system-draft/` — rewrite only the files the finding implicates. After revisions, re-assemble with `cat` and run the review again. Repeat until the verdict is **PRESENT**. After 3 REVISE verdicts, apply the revise cap defined in Protocol 8.
-5. **Clean up the assembled file.** Once the verdict is PRESENT, run `run_command("rm .groundwork/cache/design-system-draft.md")`. The section files in the draft directory remain the source of truth for Phase 5b and Phase 6.
-6. **Carry advisory findings forward.** When the verdict is PRESENT, hold any 🟡 Advisory findings — they surface to the user during or after Phase 5b so the user can decide whether to act on them.
+Assemble the draft — a shell operation, not a model emission, so it costs no output tokens regardless of spec size: `run_command("cat .groundwork/cache/design-system-draft/*.md > .groundwork/cache/design-system-draft.md")`. Then dispatch `groundwork-review` per Protocol 9 with `document_path: .groundwork/cache/design-system-draft.md` and `document_type: design-system`. The gate is fail-closed and the revise cap is Protocol 8's, not restated here: on REVISE, apply every 🔴 Critical finding directly to the affected section file(s) under `.groundwork/cache/design-system-draft/` only, re-assemble with the same `cat` command, and re-dispatch until PRESENT. Once PRESENT, remove the assembled file (`rm .groundwork/cache/design-system-draft.md`; the section files remain the source of truth for Phase 5b and Phase 6) and carry any 🟡 Advisory findings forward into Phase 5b.
 
-Once the review verdict is PRESENT, proceed to Phase 5b.
+Proceed to Phase 5b only once the verdict is PRESENT.
 
 ### 5b: Guided Review (Collaborative)
 

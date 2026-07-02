@@ -49,9 +49,7 @@ Each phase runs from its own file. At the start of each phase, read that phase's
 
 ## Operating Contract
 
-Rushing to execution before the mapping is confirmed, skipping verification because the system "should" work, and treating the infrastructure document as a fill-in-the-blanks template are the failure modes this process is built to prevent.
-
-**Before proceeding, load and apply all protocols from `.groundwork/skills/operating-contract.md` (contract v1).** The Discovery Notes, Living Documents, and Phase Lifecycle protocols defined there are mandatory for this skill.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action — rushing to execution before the mapping is confirmed is the failure mode this phase is most exposed to.
 
 ---
 

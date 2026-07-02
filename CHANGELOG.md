@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (setup skills enact the contract's protocols instead of restating them, 2026-07-02)
+
+Every setup skill's commit tail, review invocation, and framing paragraph now carries only its own parameters and points at the protocol that owns the procedure: commit sequences cite Protocol 3.4 with the phase's genuinely local hazards kept verbatim (scaffold's reversal re-review, MVP's two terminal deviations); review invocations state trigger + `document_path` + `document_type` and defer verdict grammar, fail-closed, and the revise cap to Protocols 8/9 — including the ~260-word review block that was tripled across the design-system tracks; the extract skills' revise-cap and completion-signal restatements collapse against the contract's now-landed diagnostics. The review-gate lint is redesigned to match: five markers that still fail a skill dropping its review invocation (verified red/green), without demanding the retired verbatim block. −1,485 words of protocol restatement.
+
+- [no-migration] Skill-prose changes carried by the clean-copy reconcile; the lint change is dev-side.
+
 ### Changed (bet delivery reads as the driver's decision sequence, 2026-07-02)
 
 `04-delivery.md` rebuilt around the decisions its driver actually makes (−25%): the topology guidance is a three-row table, the Serena worktree caveat is a pointer at `code-intelligence.md`'s canonical Degraded-mode text, bet-close points at validation's Step 8.5 instead of restating it, tier restatements defer to the contract and the slice files, and the amendment format is stated once. Every heading inbound files reference is preserved; the milestone-close Tier 1–3 definitions and the postmortem judgment framing stay whole. `05-validation.md` confirms rather than restates (Tier-1 duplicate and persona triplication cut).

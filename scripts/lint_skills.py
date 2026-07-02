@@ -8,9 +8,15 @@ noticing after the third skill:
                         name equals the directory name.
   2. contract-ref     — every methodology skill names the operating contract WITH its
                         major version: `operating-contract.md` (contract v1).
-  3. review-gate      — every committing skill carries the fail-closed review-gate block
-                        (review subagent + document_type + VERDICT: PRESENT + fail-closed
-                        + Protocol 8).
+  3. review-gate      — every committing skill carries the fail-closed review-gate
+                        payload: a trigger (review subagent invocation), the two
+                        identifiers a caller owns (document_path + document_type),
+                        and a fail-closed pointer to Protocols 8 (revise cap /
+                        verdict) and 9 (dispatch mechanics). The dispatch and
+                        failure mechanics themselves live once in the operating
+                        contract and are deliberately NOT required here — a
+                        skill that restates them is not this check's concern;
+                        a skill that drops the invocation is.
   4. notes-headers    — every quoted discovery-notes section header is one of the five
                         canonical headers; the shared template carries exactly those five.
   5. routing          — the orchestrator Skill Paths table and the filesystem agree in
@@ -127,12 +133,26 @@ COMMITTING_FILES = [
     HIDDEN / "groundwork-scaffold" / "phases" / "05-draft-review.md",
 ]
 
+# The payload a caller owns per Protocol 9 ("calling skills state what they
+# pass and when in their phase the review fires; the dispatch mechanics and
+# the failure procedure live here and are never restated per skill"): a
+# trigger, the document identifier, and a pointer into the two protocols that
+# govern the verdict/cap (8) and the dispatch/fail-closed mechanics (9). This
+# does not require the full mechanics prose (verdict grammar, cap arithmetic,
+# failure-path enumeration) — those are exactly what a caller should NOT
+# restate. It does require every element of the payload, so a skill that
+# drops its review invocation entirely fails every marker below, not just
+# one. `document_type` is checked as the literal parameter name (every
+# invocation names it as a key); the path it reviews is sometimes passed as
+# a `document_path:` key and sometimes as a bare path ahead of
+# `document_type:` — both are legitimate Protocol 9 payload expressions, so
+# only the type key is required verbatim.
 REVIEW_GATE_MARKERS = {
     "review subagent invocation": re.compile(r"review subagent|groundwork-review", re.I),
     "document_type parameter": re.compile(r"document_type"),
-    "parseable PRESENT verdict": re.compile(r"VERDICT: PRESENT"),
-    "fail-closed language": re.compile(r"fail-closed", re.I),
-    "Protocol 8 reference": re.compile(r"Protocol 8"),
+    "fail-closed pointer": re.compile(r"fail-closed", re.I),
+    "Protocol 8 reference (verdict / revise cap)": re.compile(r"Protocol 8"),
+    "Protocol 9 reference (dispatch mechanics)": re.compile(r"Protocol 9"),
 }
 
 CANONICAL_HEADERS = {

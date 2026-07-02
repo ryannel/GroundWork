@@ -107,7 +107,7 @@ Mirror the greenfield brief's drafting exactly — the output contract is identi
 
 2. **Review.** Announce the review, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-extract-draft.md` and `document_type: product-brief`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
-3. **Revise loop.** On **REVISE**, apply all 🔴 Critical findings directly to the draft, rewrite the file, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT.
+3. **Revise loop.** On REVISE, apply all 🔴 findings directly to the draft (rewrite the file) and re-review; Protocol 8's revise cap and hard-stop rule apply.
 
 4. **Present.** On PRESENT, present the draft in full, then surface any 🟡 Advisory findings.
 
@@ -131,4 +131,4 @@ Execute **only** after explicit user approval. Follow the Phase Lifecycle commit
 6. Delete the phase cache: `.groundwork/cache/product-brief-extract-cache.md`.
 7. Apply the Living Documents protocol — refine any existing `docs/` artifact the conversation touched, and refresh the matching live Downstream Context file where the change touched a Key Decision, Binding Constraint, or Deferred Question.
 8. Update discovery notes — remove `## Product Brief` entries now captured in the brief or hand-off.
-9. Confirm completion, recommend a fresh context, and immediately load and execute the `groundwork-orchestrator` skill to route to the next phase. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/product-brief.md` plus its Downstream Context file `.groundwork/context/product-brief-extract.md`; only the scan writes a durable marker, because it leaves no `docs/` artifact.
+9. Confirm completion, recommend a fresh context, and immediately load and execute the `groundwork-orchestrator` skill to route to the next phase. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator reconciles this phase's completion from its committed artifacts (its Brownfield Setup table is the source of truth).

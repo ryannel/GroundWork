@@ -22,12 +22,4 @@ Execute **only** after the user has explicitly approved the complete draft in Ph
 
 8. **Clean up caches.** Remove the architecture phase's own caches and the previous phase's consumed hand-off: `run_command("rm -rf .groundwork/cache/architecture-draft .groundwork/cache/architecture-cache.md .groundwork/cache/handoff/design-system.md")`. The Cache Isolation rule (Protocol 7) requires the previous hand-off to be deleted once consumed.
 
-9. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact (e.g. `docs/product-brief.md`, `docs/design-system.md`). Apply surgical updates and refresh the affected Downstream Context files in `.groundwork/context/` (Protocol 5). Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2 — e.g. architecture overturns a design-system or brief commitment), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
-
-10. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove `## Architecture` entries incorporated into `docs/architecture/index.md` or the hand-off file.
-
-11. Confirm that the phase is complete.
-
-12. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-
-13. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+9. Then complete Protocol 3.4 steps 5–9: Living Documents (with the Reversal Protocol where an update reverses a prior Key Decision or Binding Constraint), the discovery-notes sweep for `## Architecture` entries, confirm, the fresh-context recommendation, and the orchestrator hand-off.

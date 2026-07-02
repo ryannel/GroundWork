@@ -29,9 +29,7 @@ Hold two things simultaneously: the reduction discipline (what can we cut?) and 
 
 ## Operating Contract
 
-Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
-
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates — conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action.
 
 ---
 
@@ -138,13 +136,11 @@ The pitch bar — a real problem, a falsifiable signal, appetite as worth, stake
 
 2. **Draft.** Write the pitch to `docs/bets/<slug>/pitch.md` using the confirmed slug and the pitch template at `.groundwork/skills/groundwork-bet/templates/pitch.md`. Set `status: design` in the frontmatter — discovery is complete and the bet enters Design Foundations next. When `docs/surfaces.md` exists, add `surfaces:` to the frontmatter — a YAML list of the surface slugs this bet delivers to, agreed in Phase 2, each spelled exactly as registered: the slug is the join key the capability ledger, test fixtures, and decomposition all use, so a near-miss spelling silently breaks every consumer. A project without a registry omits the key.
 
-3. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. Report the verdict and findings before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
+3. **Review.** Announce the shift into review, then dispatch `groundwork-review` per Protocol 9 with `document_path: docs/bets/<slug>/pitch.md` and `document_type: bet-pitch`. The gate is fail-closed and the revise cap is Protocol 8's, not restated here: on REVISE, apply every 🔴 Critical finding and re-dispatch until PRESENT.
 
-4. **Revise loop.** Apply all 🔴 Critical findings and re-run the review. The revise cap is a hard stop, not a target to push past: after 3 REVISE verdicts, stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT (Protocol 8).
+4. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
 
-5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
-
-6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. On a passing verdict and explicit approval, mark Phase 3 (Draft & Review) complete in `mvp-cache.md` and proceed to Phase 4.
+5. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. On a passing verdict and explicit approval, mark Phase 3 (Draft & Review) complete in `mvp-cache.md` and proceed to Phase 4.
 
 ---
 
@@ -158,7 +154,7 @@ MVP is the terminal Sequential Setup phase. Its successor — the `groundwork-be
 
 2. **Record the surface scope in the registry.** When `docs/surfaces.md` exists and holds more than one surface, set each surface outside the scope agreed in Phase 2 to the status that matches its state: `planned` for a surface with no code yet, `dormant` for one that is scaffolded but untouched by this bet. Update `docs/surfaces.md` and `.groundwork/surfaces.json` in the same edit — they are twins, projections of the same decision, and tooling reads the JSON, so a registry that disagrees with its twin is a `groundwork-check` finding. A single-surface registry needs no edit.
 
-3. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh the affected Downstream Context files in `.groundwork/context/` (Protocol 5). Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
+3. Apply the Living Documents protocol (Protocol 3.4 step 5) — reconcile via the Reversal Protocol where an update reverses a prior Key Decision or Binding Constraint (Protocol 2).
 
 4. **Update discovery notes — the durable channel into the bet.** Scan for out-of-phase signals not captured in real time, and record the scope reasoning the bet's Design and Decomposition phases will need: out-of-scope features the user accepted cutting, deferred decisions about monetisation or post-MVP scope, and user instincts about scope sequencing. Append these under the `## Bets` section of `.groundwork/cache/discovery-notes.md` — the bet phases read this file, so it is what makes the reasoning recoverable if the session ends and is resumed later. Remove entries that were fully incorporated into the committed pitch.
 

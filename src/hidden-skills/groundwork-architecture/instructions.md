@@ -33,9 +33,7 @@ Architecture is a multi-phase collaborative design session, not a questionnaire.
 
 ## Operating Contract
 
-Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
-
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates — conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action.
 
 ---
 

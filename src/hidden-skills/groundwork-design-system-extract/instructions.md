@@ -106,7 +106,7 @@ Capture out-of-phase signals under their headers in `.groundwork/cache/discovery
 
 3. **Review.** Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/design-system-extract-draft.md` and `document_type: design-system`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 
-4. **Revise loop.** On REVISE, apply all 🔴 Critical findings to the draft, rewrite the file, and re-review. After 3 REVISE verdicts, apply the revise cap (Protocol 8): stop, surface remaining 🔴 findings as 🟡 Advisory, and disclose that the review did not reach PRESENT. The cap is a hard stop, not a target to push past — a fourth and fifth pass that each fix "one small remaining critical" is exactly the runaway loop the cap exists to end. If the reviewer keeps finding fresh contract↔body desyncs every pass, the fault is an unreconciled Downstream Context file (Protocol 5: author it last, from the finished doc), not a draft that needs five reviews.
+4. **Revise loop.** On REVISE, apply all 🔴 findings to the draft (rewrite the file) and re-review; Protocol 8's revise cap and hard-stop rule apply.
 
 5. **Present.** On PRESENT, present the design system and the brand-tokens tier you will write, then surface 🟡 Advisory findings. Proceed to commit only on explicit approval.
 
@@ -128,4 +128,4 @@ Execute **only** after explicit user approval (Protocol 3.4):
 6. **Delete the consumed findings slice** `.groundwork/cache/scan/design-findings.md`. Delete the previous hand-off `.groundwork/cache/handoff/product-brief-extract.md` (now consumed) and the phase cache `.groundwork/cache/design-system-extract-cache.md`. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json`.
 7. Apply the Living Documents protocol — refine `docs/product-brief.md` if the conversation surfaced refinements; refresh the product-brief's live Downstream Context file where the change touched a Key Decision, Binding Constraint, or Deferred Question. Follow the Reversal Protocol if any update overturns a prior Key Decision.
 8. Update discovery notes — remove `## Design System` entries now captured.
-9. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator infers this phase's completion from `docs/design-system.md` plus its Downstream Context file `.groundwork/context/design-system-extract.md` and the companion `.groundwork/config/brand-tokens.json`; only the scan writes a durable marker, because it leaves no `docs/` artifact.
+9. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator reconciles this phase's completion from its committed artifacts (its Brownfield Setup table is the source of truth).

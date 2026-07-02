@@ -47,9 +47,7 @@ Product discovery is a multi-phase collaborative conversation, not a questionnai
 
 ## Operating Contract
 
-Standard assistant behaviour — covering too much ground per turn, rushing to draft before the conversation has earned its conclusions, and treating documents as static after committing them — undermines collaborative design. These are the failure modes this process is built to prevent.
-
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) defines how to manage conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action — the protocols there govern how this entire skill operates.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates — conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action.
 
 ---
 
@@ -134,17 +132,11 @@ When ready:
 
 1. **Draft.** Synthesize the discovery into the Product Brief structure defined in `.groundwork/skills/groundwork-product-brief/product-brief-template.md` — the canonical section list `groundwork-product-brief-extract` also drafts against, so a greenfield brief and a recovered one are indistinguishable in shape. The draft is a clean brief with no summary section — the Downstream Context (Protocol 5) is written separately at commit, not into the doc. Apply the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 
-2. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. Report the verdict and any findings explicitly before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
+2. **Review.** Announce the shift into review, then dispatch `groundwork-review` per Protocol 9 with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. The gate is fail-closed and the revise cap is Protocol 8's, not restated here: on REVISE, apply every 🔴 Critical finding directly to the draft (rewrite the document, not a list of suggestions), write the revision back to `.groundwork/cache/product-brief-draft.md`, and re-dispatch until PRESENT.
 
-3. **Revise loop.** If the verdict is **REVISE**:
-   - Apply all 🔴 Critical findings directly to the draft. Do not produce a list of suggestions — rewrite the document.
-   - Write the revised draft back to `.groundwork/cache/product-brief-draft.md`.
-   - Run the review again. Repeat until the verdict is **PRESENT**.
-   - **Cap.** After 3 REVISE verdicts, apply the revise cap defined in Protocol 8: stop revising, surface remaining 🔴 Critical findings as 🟡 Advisory, and disclose that the review did not reach PRESENT and how many critical findings remain.
+3. **Present.** Once the verdict is PRESENT, present the final draft in the chat. Most briefs fit in a single message; when the draft is large enough to risk the per-response output token budget, present it section by section instead — emit each section in turn, pausing briefly between sections so the user can respond. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
 
-4. **Present.** Once the verdict is PRESENT, present the final draft in the chat. Most briefs fit in a single message; when the draft is large enough to risk the per-response output token budget, present it section by section instead — emit each section in turn, pausing briefly between sections so the user can respond. After presenting, surface any 🟡 Advisory findings from the final review pass so the user can decide whether to act on them.
-
-5. Ask the user whether to save the brief as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard below — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 4 only on explicit approval.
+4. Ask the user whether to save the brief as-is or refine anything first. When the user wants to push a section deeper — or a section reads thin against the quality standard below — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it. Proceed to Phase 4 only on explicit approval.
 
 ### Quality Standard: What "Deep Enough" Looks Like
 
@@ -193,13 +185,9 @@ The same depth applies to every section:
 
 ## Phase 4: Commit
 
-Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol from the Operating Contract (Protocol 3.4) — the steps below are the inline expression of that protocol:
+Execute **only** after explicit user approval. Follow the Phase Lifecycle commit protocol from the Operating Contract (Protocol 3.4).
 
 1. **Write the Downstream Context file (Protocol 5).** Apply the `groundwork-writer` skill to write `.groundwork/context/product-brief.md` — the four-subsection contract per Protocol 5: Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. Key Decisions carries the surface set — every surface The Experience names, each with its horizon marker (MVP / later / aspirational) — because the design system, the architecture, and MVP scoping all branch on it; a single-surface product carries one entry. This is the contract every downstream phase reads first, and a commit without it forces every downstream phase to re-read the full brief. The published `docs/product-brief.md` stays a clean brief with no summary section.
 2. Promote the finalised brief to `docs/product-brief.md` by moving the file from `.groundwork/cache/product-brief-draft.md`. Use a move operation (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents, as the brief is large enough that re-emitting it through the model risks exhausting the output token budget.
 3. Write the hand-off file to `.groundwork/cache/handoff/product-brief.md`. Copy the template at `.groundwork/skills/templates/handoff.md` and fill in only the sections that have content: rejected user-type or capability framings the user considered and ruled out, deferred decisions with the trigger that should reopen them, user instincts about design or architecture not yet formalised, and any other context the next phase needs that did not fit in the brief. Omit empty sections entirely. This is the Hand-off Cache contract from Protocol 6.
-4. Apply the Living Documents protocol — scan the conversation for insights that refine any existing `docs/` artifact. Apply surgical updates and refresh the affected Downstream Context files in `.groundwork/context/` (Protocol 5). Report what changed. If an update **reverses** a prior Key Decision or Binding Constraint (Protocol 2), follow the Reversal Protocol: reconcile the full body of the affected doc, fix dependent docs, write the superseding ADR, and re-invoke `groundwork-review` on each mutated doc before committing.
-5. Update discovery notes — scan for out-of-phase signals not captured in real time. Remove entries incorporated into the brief or the hand-off file.
-6. Confirm that the phase is complete.
-7. Recommend a fresh context for the next phase — a clean context gives the next skill full working memory.
-8. Immediately load and execute the `groundwork-orchestrator` skill to show the user what's next. Do not ask the user to invoke it — hand off automatically.
+4. Then complete Protocol 3.4 steps 5–9: Living Documents (with the Reversal Protocol where it fires), the discovery-notes sweep, confirm, the fresh-context recommendation, and the orchestrator hand-off.
