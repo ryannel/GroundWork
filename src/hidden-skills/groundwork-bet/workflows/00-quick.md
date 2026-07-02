@@ -56,13 +56,7 @@ Discover the test language and service names from the scaffold (`docs/architectu
 
 ### 6. Review — earn the verdict before sealing
 
-The quick bet compresses the prose, not the gate. Assemble the decomposition tree and run the independent review (Protocol 9), exactly as a full decomposition does:
-
-```
-find docs/bets/<slug>/decomposition -name '*.md' | sort | xargs cat > /tmp/<slug>-decomposition.md
-```
-
-Invoke the review subagent with `document_path: /tmp/<slug>-decomposition.md` and `document_type: decomposition`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`. On `REVISE`, apply every 🔴 finding to the affected file, re-assemble, and re-run (hard cap of 3, per Protocol 8). This verdict is what clears the readiness gate's *Unreviewed artifact* 🔴 at delivery, and its document-chain-integrity checks are the authoring-time depth floor that stops a compressed contract from being authored shallow — every proof shape must trace to `03-api-design.md` / `04-data-design.md`. Clean up the assembled file when the review settles.
+The quick bet compresses the prose, not the gate. Run the independent review (Protocol 9) exactly as a full decomposition does: invoke the review subagent with `document_path: docs/bets/<slug>/decomposition/` (the directory itself) and `document_type: decomposition` — the reviewer walks the tree file by file and its `READ` manifest names what it covered. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` whose manifest skips no decomposition file. On `REVISE`, apply every 🔴 finding to the affected file and re-run on the same path (hard cap of 3, per Protocol 8). This verdict is what clears the readiness gate's *Unreviewed artifact* 🔴 at delivery, and its document-chain-integrity checks are the authoring-time depth floor that stops a compressed contract from being authored shallow — every proof shape must trace to `03-api-design.md` / `04-data-design.md`.
 
 ### 7. Approve, seal, and hand to delivery
 

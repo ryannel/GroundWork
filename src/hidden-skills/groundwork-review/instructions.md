@@ -29,10 +29,10 @@ The contract is environment-agnostic — input and output are the same regardles
 
 The calling skill passes two fields:
 
-- `document_path` — the draft to review. The path may point to a cache draft (e.g. `.groundwork/cache/product-brief-draft.md`) or a committed canonical doc.
+- `document_path` — the draft to review. The path may point to a cache draft (e.g. `.groundwork/cache/product-brief-draft.md`), a committed canonical doc, or a **directory** (a decomposition tree, a technical-design set).
 - `document_type` — one of: `product-brief`, `design-system`, `architecture`, `infrastructure`, `domain-entity`, `bet-pitch`, `technical-design`, `decomposition`, `maturity`. Used to locate upstream documents.
 
-Read the document at `document_path` before beginning any check.
+Read the document at `document_path` before beginning any check. When the path is a directory, walk it and read each file individually, in sorted order — never ask the caller for a concatenated blob. Per-file reading is what makes the read manifest honest: a file you did not open is `skipped` in the manifest, not silently absorbed into a blob you skimmed.
 
 ---
 
@@ -50,16 +50,21 @@ Checklist findings flow through the same output contract below: the item's 🔴/
 
 ## Output Contract
 
-Return exactly two blocks of structured output, in this order, and nothing else:
+Return exactly three blocks of structured output, in this order, and nothing else:
 
 ```
 VERDICT: PRESENT | REVISE
+
+READ: <files read in full> | skimmed: <files partially read, or none> | skipped: <files not opened, or none>
 
 FINDINGS:
 - 🔴 <finding 1>
 - 🔴 <finding 2>
 - 🟡 <advisory finding>
+- 🟡 3 further advisory findings withheld for length: <one-line topics>
 ```
+
+The `READ` line is one line — the manifest of what this review actually covered, so the caller can see a lazy PRESENT from a thorough one. Every file of the document under review and every upstream doc consulted appears in exactly one bucket; a non-empty `skipped` bucket on the document under review itself means the verdict does not cover those files, and the caller decides whether that is acceptable.
 
 If there are no findings, return `FINDINGS: none`. Do not write conversational text, do not summarise the document, do not explain your reasoning. The calling skill consumes only the verdict and findings — anything else is wasted output tokens.
 
@@ -153,4 +158,4 @@ Keep each finding to one or two short sentences. The calling skill is going to a
 
 ## Length Discipline
 
-The entire return payload — verdict + findings — should fit in ≤500 tokens. The skill loads roughly 200 lines into the subagent's context; the subagent reads a draft and a handful of upstream sections; the output is short. If the output is running long, you are explaining instead of finding — cut the explanation.
+The entire return payload — verdict + manifest + findings — should fit in ≤500 tokens. If the output is running long, you are explaining instead of finding — cut the explanation. When the findings themselves overflow the budget, **cap the list and disclose the cut**: keep every 🔴 (a withheld Critical is a broken gate), then as many 🟡 as fit, and close with one line counting the withheld advisories and naming their topics in a few words each. Silent truncation reads as a clean bill; a disclosed cut lets the caller re-invoke on the named topics.
