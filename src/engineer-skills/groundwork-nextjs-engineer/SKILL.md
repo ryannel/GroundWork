@@ -72,7 +72,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 - **Styling/theming** → Load `references/tailwind-and-styling.md` and `references/visual-language.md`. Check design guide.
 - **Performance issues** → Load `references/performance.md`. Profile before optimizing.
 - **Any App Router API call** → Check `references/version-corrections.md` first; training data is frequently stale on Next.js 15/16 signatures.
-- **Security / auth / session work** → Load `references/security.md`. Check the server/client boundary and the `NEXT_PUBLIC` secret line.
+- **Any user-input handling — a Server Action or Route Handler parsing a body, query, or upload; a redirect target or outbound fetch URL derived from input; auth/session work** → Load `references/security.md`. Check the server/client boundary and the `NEXT_PUBLIC` secret line.
 - **Instrumentation / telemetry** → Load `references/observability.md`. Distinguish server spans from client RUM.
 
 ## Safety Gates

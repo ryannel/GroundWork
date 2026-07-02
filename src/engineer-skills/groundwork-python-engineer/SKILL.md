@@ -70,7 +70,9 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Performance — latency budgets, load shedding, profiling | `resilience.md` |
 | Graceful shutdown, degradation, lifespan management | `resilience.md`, `async-patterns.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
-| Security, auth, secrets, input validation, supply chain, SSRF | `security.md` |
+| Any code that parses user-supplied input — request body, query, upload, webhook payload | `security.md` |
+| Outbound HTTP where the URL or host derives from user input (SSRF) | `security.md` |
+| Auth, secrets, supply chain | `security.md` |
 | Tests, quality gates, coverage strategy, fixture design | `testing.md` |
 | Code documentation, docstrings, Pydantic Field docs | `documentation-mcp.md` |
 | Error handling, exception hierarchy, domain errors | `implementation-patterns.md` |

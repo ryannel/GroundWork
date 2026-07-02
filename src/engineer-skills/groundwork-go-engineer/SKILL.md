@@ -66,9 +66,12 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Reliability — retries, timeouts, graceful shutdown, backpressure | `reliability-performance.md` |
 | Performance — latency budgets, load shedding, profiling | `reliability-performance.md` |
 | Events, Pub/Sub, WebSocket, async integration | `integration.md` |
+| Any write that also publishes — a DB mutation and an event/webhook/queue emission in one unit of work | `integration.md` |
 | Tests, quality gates, coverage strategy, flake triage | `testing.md` |
 | Code quality, naming, simplicity, deletion | `code-craft-security.md` |
-| Security, auth, secrets, input validation, supply chain | `code-craft-security.md` |
+| Any code that parses user-supplied input — request body, query, upload, webhook payload | `code-craft-security.md` |
+| Outbound HTTP where the URL or host derives from user input (SSRF) | `code-craft-security.md` |
+| Auth, secrets, supply chain | `code-craft-security.md` |
 | Doc comments, naming-as-documentation, godoc, comment-is-a-smell | `documentation.md` |
 
 ---

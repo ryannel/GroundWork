@@ -75,6 +75,7 @@ When the workspace has no web surface, the same canon is available as `docs/prin
 - **UI/visual work** → Load `references/theming-and-tokens.md`, then defer to the web stack's styling references. Check the generated token file before adding any colour.
 - **Release/packaging work** → Load `references/packaging-and-updates.md`. Fuses and signing live in the pipeline; signing material never enters the repo.
 - **Test work** → Load `references/testing-and-smoke.md`. Pick the cheapest tier that can carry the assertion; the smoke stays thin.
+- **External content or user-influenced URLs — `openExternal` targets, navigation, protocol handlers, files from disk** → Load `references/security.md`. The allowlists are the boundary; extending one is a security decision.
 - **Electron upgrade** → Load `references/security.md` (currency window). Treat a skipped support window as a security finding.
 - **Performance / responsiveness work** → Load `references/performance-and-reliability.md`. Main never blocks; SLOs and load shedding live in the core.
 - **Crash reporting / telemetry** → Load `references/observability.md`. Both processes report; distributed tracing lives at the services the app calls.
