@@ -21,7 +21,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | B1 | approved-tag writer + `Surface:` field + update backfill arm | landed (this commit) | Tag/Surface strings byte-match implementation-readiness.md (gate untouched; `registry slug` term aligned). Amendment Protocol re-points the tag. Bets-family backfill follows the row's legacy-signal→advance format. Changelog `[no-migration]` |
 | B2 | bet.ts language discovery (drop `.py` hardcode); `<N>` semantics; bundle rebuild | pending | — |
 | B3 | setup-chain writer/reader fixes (scaffold.md, ledgers, exclusions, ADR, infra-adopt) | landed (this commit) | context/scaffold.md writer+reader grep ✓; scan/complete zero live refs (frozen fixtures intentionally kept); exclusions.md pointer resolves, no code parses the old array; phase-03 pointer target exists; BROWN FLAG(2) confirmed+fixed in greenfield 07-commit too |
-| B4 | one-file shipped-contract repairs (7 items) | pending | — |
+| B4 | one-file shipped-contract repairs (7 items) | landed (this commit) — PRIN M2 corpus links SPLIT to B4b | 6/7 items landed with target-exists verification each. PRIN M2 (product-engineering + code-craft `../../decisions/` links) held back: edits trip go-engineer + product anchor pins, and A5 owns the anchor files — lands as B4b right after A5 with the 2 re-stamps in the same commit |
 | C1 | contract root pass — SAME COMMIT as E1 | pending | — |
 | C2 | orchestrator/check/persona/writer/review; workflow-index regen | pending | — |
 | C3 | template relocations + path sweep + contributor table (one commit) | pending | — |

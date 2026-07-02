@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (shipped-contract point repairs: mis-parented tokens, dead references, a missing Protocol 1 enactment, 2026-07-02)
+
+Six one-file repairs from the distillation review. The brand-tokens template's `platform` block is its own bullet instead of riding inside `references` (a consumer reading the template's shape now sees the real structure). groundwork-elicit points at Downstream Context files instead of the retired "Summary-for-Downstream" sections. Bet delivery's native-UI-check pointer names the real contract (`NATIVE-CHECK-CONTRACT.md`) instead of a plan area that shipped nowhere. The electron accessibility deferral resolves to the nextjs `references/accessibility.md` file that actually exists. The product persona hedges `docs/maturity.md` with "if present" (it reads brownfield projects that may not carry one). The update lane enacts Protocol 1 at close-out — stray signals from the catch-up conversation land in discovery notes instead of evaporating.
+
+- [no-migration] Skill-prose and template changes carried by the clean-copy reconcile; no schema or contract change.
+
 ### Fixed (setup chains: every writer has a reader, every pointer resolves, 2026-07-02)
 
 Eight small writer/reader defects across the setup lanes, found by the distillation review. `\.groundwork/context/scaffold.md` had a writer but no reader — MVP Planning now reads it (boot/test commands, env constraints) before scoping over a possibly-unverified scaffold. The scaffold and MVP resume ledgers gain their missing phase rows (Ingestion & Service Mapping renamed to match the phase table; Draft & Review and Commit now marked complete at their steps). The scaffold maturity draft cites only evidence it can point at (checks `.mcp.json` before claiming Serena; roadmap row if absent). Scan exclusions are single-sourced in `references/exclusions.md` (the state-file template and the fan-out brief now point instead of carrying a second drifting copy), and the redundant `scan/complete.md` terminal marker is retired — `state.json`'s `"scan"` entry is the one completion signal (eval descriptor repointed to a durable artifact). The extract and greenfield ADR steps defer their field lists to the governed `templates/adr.md` instead of restating (already-drifted) inline copies. Infra-adopt's service/API doc-shape pointer now names the real file (`groundwork-scaffold/phases/03-service-documentation-api-stubs.md`) instead of a template set that does not exist.

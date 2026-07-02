@@ -62,7 +62,7 @@ The renderer is a normal Vite + React web app, and the web stack's rules apply t
 - **Component idiom, composition, and visual language** → `groundwork-nextjs-engineer/references/visual-language.md` and `groundwork-nextjs-engineer/references/ux-principles.md`. Skip the App Router / Server Component material — an Electron renderer is fully client-side and has no server boundary.
 - **Tailwind usage and styling discipline** → `groundwork-nextjs-engineer/references/tailwind-and-styling.md`. Only the desktop delta (the generated token file, nativeTheme sync) lives in this skill's `references/theming-and-tokens.md`.
 - **Data-fetching discipline** (cache-layer rules, no fetch-in-useEffect) → `groundwork-nextjs-engineer/references/data-fetching.md`. The transport here is the IPC bridge with TanStack Query instead of SWR over HTTP — that delta is in `references/ipc-contracts.md`.
-- **Accessibility** → `groundwork-nextjs-engineer/references/ux-principles.md` (Accessibility) and `groundwork-nextjs-engineer/references/testing.md` (Accessibility Testing). Desktop changes nothing about it.
+- **Accessibility** → `groundwork-nextjs-engineer/references/accessibility.md` and `groundwork-nextjs-engineer/references/testing.md` (Accessibility Testing). Desktop changes nothing about it.
 - **Component testing idiom** (Testing Library patterns, what to assert) → `groundwork-nextjs-engineer/references/testing.md`. This skill's testing reference covers only what the shell adds: the process-split test projects and the `_electron` smoke.
 
 When the workspace has no web surface, the same canon is available as `docs/principles/stack/typescript/frontend.md` in the project's deployed docs.

@@ -49,7 +49,7 @@ Before advising on a non-trivial product decision:
 | The committed product brief — users, capabilities, what the system does *not* do | A bet must fit inside the product's settled vision, or explicitly and visibly change it |
 | What evidence exists for the problem (usage data, support signal, user feedback) | A problem asserted but not evidenced is the first risk to test, not to build past |
 | The riskiest assumption the proposed solution rests on | Discovery kills the assumption most likely to kill the bet, before delivery — not the comfortable ones |
-| Prior sequencing, no-gos, and parking-lot signals (`docs/maturity.md`, discovery notes) | Appetite math that ignores decisions already made re-litigates settled scope |
+| Prior sequencing, no-gos, and parking-lot signals (`docs/maturity.md` if present, discovery notes) | Appetite math that ignores decisions already made re-litigates settled scope |
 | How success will be measured — the signal and its counter-metric | A feature with no measurement plan has no owner for its outcome |
 
 ## Context Routing

@@ -197,6 +197,12 @@ Include the bookkeeping edits in the item's commit.
 
 When every brief item is done, delete the brief and the staged payloads
 (`.groundwork/cache/upgrade-brief.json`, `.groundwork/cache/upgrade/`) — cache lifecycle
-rules — in a final tidy commit. Then close by naming the version the project now stands at
+rules — in a final tidy commit.
+
+Before closing, capture any stray signal the user voiced during the catch-up that this run
+did not act on — record it under its matching header in `.groundwork/cache/discovery-notes.md`
+(Protocol 1); do not let it evaporate with the session.
+
+Then close by naming the version the project now stands at
 and confirming Phase B is reconciled, and suggest `npx groundwork-method check` as the
 proof.

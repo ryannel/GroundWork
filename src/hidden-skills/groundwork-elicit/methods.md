@@ -39,7 +39,7 @@ Techniques that attack the section to find where it breaks.
 |---|---|---|
 | Pre-mortem Analysis | Assumes the plan failed, narrates how, and works backwards into the section's blind spots. | Bet pitches, MVP scope, and rabbit-hole sections before appetite is committed. |
 | Failure Mode Analysis | Walks each component of the section asking how it fails and what catches it. | Data flows, service boundaries, and interface state coverage (error, empty, degraded). |
-| Assumption Audit | Lists every assumption under the section, rates each by confidence and impact, and stress-tests the weakest. | Summary-for-Downstream sections, binding constraints, and technical design foundations. |
+| Assumption Audit | Lists every assumption under the section, rates each by confidence and impact, and stress-tests the weakest. | Downstream Context files, binding constraints, and technical design foundations. |
 | Cascading Failure Simulation | Triggers one failure and traces its propagation through dependencies to expose hidden coupling. | Topology and communication-pattern sections claiming services are independent. |
 | Boundary & Edge Case Sweep | Systematically pushes inputs to extremes — zeros, nulls, maximums, malformed shapes — and records what the section says happens. | API contracts, data schemas, and any interface section specified only for the happy path. |
 
