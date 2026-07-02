@@ -122,6 +122,8 @@ Mark the service-adoption phase complete in the cache.
 
 **If execution tools are unavailable:** record verification as pending; `docs/architecture/infrastructure.md` must flag this explicitly rather than presenting ports and commands as verified.
 
+**Offer the audit gate (additive, one decision).** `./dev audit` now exists in the adopted CLI — dependency-vulnerability audit per service plus a gitleaks secret scan. An existing repo usually carries history a fresh scan would flag, so when the user accepts and gitleaks reports findings that predate the adoption, generate the acknowledgement baseline (`gitleaks git --report-path .dev/gitleaks-baseline.json --exit-code 0`, then commit the file) — the baseline acknowledges existing history while everything after it is gated. A finding that is a live credential is not baseline material: flag it for rotation in the gap ledger. If the user declines the audit, record that in the gap ledger too.
+
 Mark the verification phase complete (or pending) in the cache.
 
 ---
