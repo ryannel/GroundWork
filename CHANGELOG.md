@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (brownfield skills state each stance once, 2026-07-02)
+
+The brownfield lane's shared stances get one home each: the Adopt/Upgrade mode-detection framing lives in product-brief-extract (the track's first phase), with the later extracts keeping only their genuinely local rules (brand-tokens preservation, code-wins reconciliation); the frontmatter-exemption rationale is stated once and cited; repo-map mechanics defer to `code-intelligence.md`; the compose merge is stated as its invariant (merge structurally, never re-emit YAML through the model) instead of a pasted script; the interview triplets, draft-file table, and scan digest framing are tightened. The four signature stances — infer-first-interview-last, mint-nothing-without-rationale, empty-ledger-is-honest, additive-never-destructive — survive verbatim; the design-system-extract's type-section anchor rule is now an unmissable standalone line.
+
+- [no-migration] Skill-prose changes carried by the clean-copy reconcile.
+
 ### Changed (the operating contract sheds its restatements; bet doctrine lives in one home each, 2026-07-02)
 
 The contract root: Protocol 1 creates discovery notes from its template instead of restating the header list; Protocol 8's fail-closed rule is two sentences pointing at Protocol 9's procedure (the one home); the revise-cap gains the extract skills' hard-won diagnostic (repeated contract↔body desyncs usually mean an unreconciled Downstream Context file); Lifecycle Modes names the terminal-phase carve-outs (MVP and infra-adopt write no hand-off — there is no next phase to consume one). Model Tiers keeps the policy — two tiers, capability classes, never-downgrade — and sends the mechanics to the one skill that authors and dispatches slices: the per-slice lift lives beside Decomposition Step 4's Model tier field, the advisor/`BLOCKING CONCERN` escalation in the slice-worker brief. `tier:` semantics unchanged; the contract stays v1 with no protocol semantics changed.

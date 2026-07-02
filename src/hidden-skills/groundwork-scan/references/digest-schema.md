@@ -1,6 +1,6 @@
 # Partition Digest Schema
 
-Every partition — whether scanned by a sub-agent (parallel) or in a sequential batch — yields exactly one digest in this shape. The schema is identical across both execution paths on purpose: a consumer reading a digest cannot tell, and must not need to tell, which path produced it. That identical output contract is what lets the cheaper sequential path stand in for the parallel one wherever sub-agent fan-out is unavailable.
+Every partition — whether scanned by a sub-agent (parallel) or in a sequential batch — yields exactly one digest in this shape. The schema is identical across both execution paths on purpose: a consumer reading a digest cannot tell, and must not need to tell, which path produced it.
 
 **Every field is bounded.** Lists cap at ~12 items, each ≤20 words; strings cap at ~3 sentences. This bound is the lever that keeps the parent context lean at full fan-out and keeps each sequential batch's footprint small. A digest is the *interpreted* result of reading files — never raw file contents, never a file dump.
 

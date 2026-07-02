@@ -79,7 +79,7 @@ Write the classification into `scan-state.json`. The exclusion globs and the con
 
 Build an exact map of the codebase — module boundaries, import and call edges, the symbols each file exports, and where the contract files live — so the scan in Stage 3 reads the architectural hubs deeply and skims the leaves. A function called by twenty others is more valuable context than a private helper called once, and only a real dependency graph tells you which is which.
 
-**Preferred path — the deterministic generator.** Run `npx groundwork-method repo-map`. It parses the tracked source tree with tree-sitter, resolves import edges, ranks files by PageRank centrality, and writes `.groundwork/cache/repo-map.json` — module/partition boundaries, the import edges, a centrality ranking, the contract index, and a per-file symbol index. It maps Go, Python, TypeScript/JavaScript, Java, and Dart at full graph fidelity (real edges + centrality) and many more languages at symbols fidelity; check the `coverage` and `unmapped` fields to see what it captured (and what it did not). It runs without a network or an LSP, and is incremental: a parse cache keyed by content hash means every rerun reparses only changed files. This is the producer — deterministic, and free of the hallucinated edges an LLM invents.
+**Preferred path — the deterministic generator.** Run `npx groundwork-method repo-map`. It writes `.groundwork/cache/repo-map.json` — module/partition boundaries, the import edges, a centrality ranking, the contract index, and a per-file symbol index — deterministic, and free of the hallucinated edges an LLM invents. Check the `coverage` and `unmapped` fields to see what it captured (and what it did not). How it works and how to extend language coverage: `code-intelligence.md`.
 
 **Live navigation — Serena (when registered).** Serena complements the map rather than producing it: the generator gives you the whole-repo aggregate Serena cannot export, and Serena answers the precise per-symbol questions the map does not. Use `get_symbols_overview` and `find_referencing_symbols` while reading the centrality hubs deeply in Stage 3. Find it with a tool search for the code-intelligence or symbol capability before assuming it is absent.
 
@@ -105,7 +105,7 @@ Record the confirmed partitions and depth in `scan-state.json`. If the user volu
 
 ## Stage 3: Partition & Scan
 
-Each partition yields one **digest** — a structured, capped summary defined in `.groundwork/skills/groundwork-scan/references/digest-schema.md`. Load that schema now; both execution paths produce it identically, and that identity is what lets the evaluation-tested sequential path certify the output contract for the parallel path it cannot exercise. A digest is never raw file contents — it is the interpreted result of reading them.
+Each partition yields one **digest** — a structured, capped summary defined in `.groundwork/skills/groundwork-scan/references/digest-schema.md`. Load that schema now; both execution paths produce it identically — a consumer must not be able to tell which path produced a digest. A digest is never raw file contents — it is the interpreted result of reading them.
 
 Branch on the `fan_out` hint.
 
@@ -135,14 +135,14 @@ An oversized single partition is sub-partitioned or priority-sampled exactly as 
 
 ### Findings Layout (both paths)
 
-Route every digest's fields into these files under `.groundwork/cache/scan/`, each consumed by exactly one downstream phase (Protocol 7). Create them from the templates in `.groundwork/skills/groundwork-scan/templates/` on first write.
+Route every digest's fields into these files under `.groundwork/cache/scan/`, each consumed by exactly one downstream phase (Protocol 7). Create them from the templates in `.groundwork/skills/groundwork-scan/templates/` on first write — each template's own header set is the ground truth for what its file holds.
 
-| File | Holds | Consumer |
-|---|---|---|
-| `scan/overview.md` | Repo shape, per-part project type, partition map, scan depth, coverage and gaps | all three extracts (shared) |
-| `scan/product-findings.md` | README value proposition, user-facing capabilities, product surface, inferred users, licensing/monetisation signals | `groundwork-product-brief-extract` |
-| `scan/design-findings.md` | Interface surfaces (every one the repo carries, typed), design tokens, component library inventory, theme/Tailwind config, UI framework, interaction and accessibility signals | `groundwork-design-system-extract` |
-| `scan/architecture-findings.md` | Service/partition map with each partition's surface type, entry points, external contracts (OpenAPI/AsyncAPI/proto/routes), data models and migrations, persistence, internal and external dependencies, infra/deployment (compose, IaC, CI, env examples), notable patterns, risks and TODOs | `groundwork-architecture-extract` |
+| File | Consumer |
+|---|---|
+| `scan/overview.md` | all three extracts (shared) |
+| `scan/product-findings.md` | `groundwork-product-brief-extract` |
+| `scan/design-findings.md` | `groundwork-design-system-extract` |
+| `scan/architecture-findings.md` | `groundwork-architecture-extract` |
 
 The digest schema's field-to-file routing is defined alongside the schema in `references/digest-schema.md` — follow it exactly so each extract finds what it expects under its own header.
 

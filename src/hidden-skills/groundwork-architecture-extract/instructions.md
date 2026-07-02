@@ -48,7 +48,7 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 Check whether `docs/architecture/index.md` already exists.
 
 - **Absent** — standard **Extract** mode.
-- **Present but lacking an element this phase's commit produces** (for the architecture: its Downstream Context file at `.groundwork/context/architecture-extract.md`, or the `generation_mode`/`source_of_truth` frontmatter) — **Adopt/Upgrade** mode. Ingest the existing architecture as primary source, preserve its decisions and ADRs, and fill the missing contract sections and frontmatter rather than reconstructing from scratch. An architecture doc authored under another framework (a BMAD architecture document, a design RFC) is exactly this shape — bring it forward the same way, reconciling it against the code where they disagree (the code wins).
+- **Present but lacking an element this phase's commit produces** (for the architecture: its Downstream Context file at `.groundwork/context/architecture-extract.md`, or the `generation_mode`/`source_of_truth` frontmatter) — **Adopt/Upgrade** mode: ingest the existing architecture as primary source and bring it forward — the stance defined in the product-brief extract's Step 1 / the orchestrator's Adopt/Upgrade Mode. Reconcile it against the code where they disagree — the code wins.
 
 ### Step 2: Read Upstream Context (Protocol 3.2 order)
 
@@ -109,20 +109,7 @@ The recovered architecture must convey the *reasoning* the system embodies, not 
 
 1. **Load the template.** Read `.groundwork/skills/groundwork-architecture/architecture-template.md` for the canonical section structure. Do not invent a structure.
 
-2. **Draft as per-section files** under `.groundwork/cache/architecture-extract-draft/`, one `write_file` per section, so any later edit touches only the affected file and never exhausts the output budget on a rich architecture:
-
-   | File | Content |
-   |---|---|
-   | `00-header.md` | The document title and intro (no summary section — the cross-phase contract is written separately to the Downstream Context file at commit, Protocol 5) |
-   | `01-constraints-and-budgets.md` | Template section 1 |
-   | `02-top-level-topology.md` | Template section 2 (the recovered service map) |
-   | `03-key-capabilities.md` | Template section 3 (technology decisions with rationale and obligations) |
-   | `04-component-boundaries.md` | Template section 4 |
-   | `05-communication-patterns.md` | Template section 5 |
-   | `06-service-level-requirements.md` | Template section 6 (the SLR table — every obligation a service must honour) |
-   | `07-surfaces-and-capability-core.md` | Template section 7: the core's deployment as observed (hosted or embedded) with its consequence for contract format, and one line per observed surface — type, access path, auth. Detail lives in `docs/surfaces.md` (written at commit); this section carries the facts |
-
-   Each section's heading starts at H2 to concatenate cleanly. Apply `groundwork-writer`.
+2. **Draft as per-section files** under `.groundwork/cache/architecture-extract-draft/`, one file per template section, numeric prefix (`00-…` through `07-…`), one `write_file` per section, so any later edit touches only the affected file and never exhausts the output budget on a rich architecture. Two deltas from the template's section list: `00-header.md` carries no summary section — the cross-phase contract is written separately to the Downstream Context file at commit (Protocol 5); `07-surfaces-and-capability-core.md` carries the observed facts — the core's deployment (hosted or embedded), and per surface its type, access path, and auth — while full detail lives in `docs/surfaces.md`, written at commit. Each section's heading starts at H2 to concatenate cleanly. Apply `groundwork-writer`.
 
 3. **Review.** Assemble: `run_command("cat .groundwork/cache/architecture-extract-draft/*.md > .groundwork/cache/architecture-extract-draft.md")`. Invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/architecture-extract-draft.md` and `document_type: architecture`. Fail-closed gate (Protocol 8): proceed only on `VERDICT: PRESENT`.
 

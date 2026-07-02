@@ -45,7 +45,7 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 Check whether `docs/product-brief.md` already exists.
 
 - **Absent** — standard **Extract** mode. Recover the brief from scan findings and interview.
-- **Present but lacking an element this phase's commit produces** (for the brief: its Downstream Context file at `.groundwork/context/product-brief-extract.md`) — **Adopt/Upgrade** mode. The orchestrator routes here precisely so an existing doc is brought forward, not overwritten. Ingest the existing file as your primary source of truth, preserve the user's content and intent, and treat the work as filling the missing contract sections and raising it to the current standard rather than rediscovering the product. Run the same ingest, gap-interview, draft, and review stages — the existing doc simply pre-populates most of what you would otherwise infer. Documents authored under another framework are exactly this shape: a BMAD PRD or product brief, an RFC-style vision doc, a hand-written README manifesto all enter here — ingest them as the existing brief and bring them forward, never overwrite them.
+- **Present but lacking an element this phase's commit produces** (for the brief: its Downstream Context file at `.groundwork/context/product-brief-extract.md`) — **Adopt/Upgrade** mode. Ingest the existing file as primary source of truth, preserve the user's content and intent, and fill the missing contract sections rather than rediscovering the product — the same ingest, gap-interview, draft, and review stages, pre-populated instead of inferred. A doc authored under another framework (a BMAD PRD, an RFC-style vision doc, a README manifesto) enters here the same way: bring it forward, never overwrite it.
 
 ### Step 2: Cache Check
 
@@ -88,11 +88,10 @@ The gaps in the right column are the agenda for Stage 3. Everything in the left 
 
 ## Stage 3: Fill the Gaps (the interview)
 
-Confirm your inferences and fill the gaps in a single focused conversation, paced per Protocol 4. This is propose-first: present what you recovered and let the user correct it, rather than asking open questions whose answers are already in the code.
+Confirm your inferences and fill the gaps in a single focused conversation, paced per Protocol 4.
 
-- **Lead with the synthesis.** Show the user the product you read out of their codebase — purpose, users, capabilities, medium. This earns trust and surfaces misreadings fast.
+- **Lead with the synthesis, propose-first.** Show the user the product you read out of their codebase — purpose, users, capabilities, medium — and let them correct it rather than asking open questions whose answers are already in the code; re-asking what the code already answered erodes the trust the synthesis just built.
 - **Then pursue the gaps**, clustered by theme rather than fired one at a time. The problem and its sufferers; the mental model of each real user type; what success looks like; which absences are deliberate. These are the decisions code cannot encode — give the structural ones room to breathe (Protocol 4).
-- **Do not re-ask what the code already answered.** Re-asking signals you did not read their system, and erodes the trust the synthesis just built.
 
 Capture any out-of-phase signals (design instincts, architecture opinions, feature sequencing) under their headers in `.groundwork/cache/discovery-notes.md` (Protocol 1).
 
