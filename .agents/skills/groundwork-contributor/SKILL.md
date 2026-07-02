@@ -87,7 +87,7 @@ GroundWork splits what an agent's skill scanner can discover from GroundWork's p
 
 | Family | Skills | Template rule |
 |---|---|---|
-| Backend engineer | go-engineer, python-engineer | Copy the newest sibling in the same family |
+| Backend engineer | go-engineer, python-engineer, node-engineer | Copy the newest sibling in the same family |
 | Surface engineer | nextjs-, flutter-, electron-engineer | Copy the newest sibling in the same family |
 | Discipline persona | architect (feasibility), product (value + viability), designer (usability) | *Adopted within* a setup workflow and the bet lifecycle at decision points — never routed to on its own |
 

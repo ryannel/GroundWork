@@ -82,6 +82,7 @@ SKILLMD_SKILLS = [
 ENGINEER_SKILLS = [
     "groundwork-go-engineer",
     "groundwork-python-engineer",
+    "groundwork-node-engineer",
     "groundwork-nextjs-engineer",
     "groundwork-flutter-engineer",
     "groundwork-electron-engineer",
