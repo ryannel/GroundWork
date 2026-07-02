@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (the orchestration spine says everything once — and the templates directory holds only templates, 2026-07-02)
+
+The always-loaded orchestrator router restates less (−323 words; routing tests keep their teeth, rationale lives in the routed skills), groundwork-check's spec sits in its instructions instead of being duplicated across SKILL.md and body (SKILL.md is now a true stub), the persona and writer skills drop restatements their body sections already carry, and groundwork-review's Check 4 folds into the per-type checklists it duplicated — findings now cite checklist items by name. The two review gates name each other: decomposition review (proof quality at authoring) ↔ implementation-readiness (existence/currency at delivery start). Two contract files misfiled as templates relocate to real homes: `.groundwork/skills/templates/{surfaces,capability-ports}.md` → `.groundwork/skills/{surfaces,capability-ports}-contract.md`, with every referencing skill swept in the same change; the gap-ledger severity/recommendation value sets are now defined once in `maturity-model.md` and cited by the ledger template and maturity template instead of restated. `templates/` now holds only fill-in skeletons.
+
+- [no-migration] Skill-prose changes and a tier-1 relocation carried whole by the clean-copy reconcile — old installs' `.groundwork/skills/` tree is replaced on update, so the renamed contract files and every swept pointer arrive together. No protocol semantics changed; the operating contract stays v1.
+
 ### Fixed (./dev new milestone|slice discovers the test language and generates valid Python, 2026-07-02)
 
 `./dev new slice`/`new milestone` hardcoded `.py` — the stub's extension now follows whichever test-stub template actually ships in `scripts/cli/templates/` (a future `slice-test.gotmpl` is picked up unprompted; `.py` stays the documented fallback), and the stub ordinal counts by prefix regardless of extension. Two generated-identifier defects fixed in the same pass: the milestone and slice templates interpolated the kebab-case slug straight into the Python `def` name (`def test_slice_1_record-event(` — a SyntaxError pytest hits at import), now substituted as snake_case identifiers while filenames keep the kebab slug `SLICE_RE` parses. Prose adopts the CLI's bet-global slice numbering (`<N>` is the slice's ordinal across the whole bet, not per milestone) in `00-quick.md` and the bet-progress guide.

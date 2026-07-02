@@ -264,13 +264,8 @@ API specs, schemas, and event contracts have source-of-truth files. Render table
 
 ## Common Failure Modes
 
-The writing-style principles above cover most prose pitfalls. The patterns below are distinct operational failures specific to GroundWork documents.
+The writing-style principles above cover most prose pitfalls. The patterns below are distinct operational failures specific to GroundWork documents — phenomena the style sections don't already name.
 
-- **Report-out register** — "we decided", "is deferred", "out of scope", "for the MVP". The doc narrates the conversation that produced it instead of describing the system. Rewrite in the timeless present with the system as subject; move the bookkeeping to the Downstream Context file.
-- **No orientation** — the doc opens mid-detail, with no paragraph telling a cold reader what this is or why it exists. The first reader who was never in the room is lost by the second heading.
-- **Opaque labels** — prose that leans on "G8", "RC3", or "Band A" with no name the reader can hold, or that describes a behaviour only by the symbol that implements it. A label points to a named thing; it never replaces it. See *Accessibility — earn the reader's understanding*.
-- **Compressed density** — a sentence stapling three to five ideas behind em-dashes, a bullet listing several behaviours, a numbered wall of paragraphs, or a table with rationale buried mid-cell. The reader decompresses before they understand. Give a unit per idea — see *Density — one idea per unit*.
-- **Prose where a diagram belongs** — a multi-service flow or an entity lifecycle described only in sentences. If it has structure, draw it (` ```mermaid `) and let the prose annotate.
 - **Passive docs** — no owner, no `last_reviewed` date. A document without a maintainer drifts undetected.
 - **Missing llms.txt entry** — new doc exists but is invisible to agents.
 - **Missing `description` frontmatter** — the docs site renders an empty subtitle and agents lose the one-line filter.

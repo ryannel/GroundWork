@@ -103,11 +103,21 @@ An assessment row without evidence is an opinion. Cite the file, command output,
 
 ## The roadmap
 
-Gaps discovered anywhere — the brownfield gap ledger, a bet's validation, a `groundwork-check` run, an update run — become rows in the roadmap table of `docs/maturity.md`. Severity and recommendation reuse the gap-ledger tiers exactly (identifier drift between the ledger and the roadmap would orphan entries):
+Gaps discovered anywhere — the brownfield gap ledger, a bet's validation, a `groundwork-check` run, an update run — become rows in the roadmap table of `docs/maturity.md`. This is the single owner of the severity, recommendation, and status value sets below: the working gap ledger (`.groundwork/skills/templates/gap-ledger.md`) and the maturity template cite these definitions rather than restating them — write the values exactly as spelled, because downstream skills parse them verbatim and a drifted spelling orphans the row.
 
-- **Severity:** `blocks-delivery` | `standard-divergence` | `cosmetic`
-- **Recommendation:** `fix-now` | `defer` | `blocks-delivery`
-- **Status:** `open` | `in-bet (<slug>)` | `closed (<slug>)` | `accepted`
+**Severity** — exactly one of `blocks-delivery` | `standard-divergence` | `cosmetic`:
+
+- **`blocks-delivery`** — undermines GroundWork's ability to deliver and verify work. The bet loop cannot run well around it. Examples: a service exposes routes with no machine-readable contract (the contract-driven bet loop depends on OpenAPI/AsyncAPI); no system-test harness exists (progress and proof-of-work cannot be tracked across services).
+- **`standard-divergence`** — works, but off the pattern GroundWork's templates encode. Example: events cross services with no transactional outbox; a service has no health endpoint; config is hard-coded rather than externalised.
+- **`cosmetic`** — naming, doc structure, minor layout.
+
+**Recommendation** — exactly one of `fix-now` | `defer` | `blocks-delivery`:
+
+- **`fix-now`** — worth resolving before the first bet.
+- **`defer`** — real, but value lies elsewhere first.
+- **`blocks-delivery`** — must be the first bet, or close to it. It shares its spelling with the severity tier but is a distinct value in a distinct column.
+
+**Status:** `open` | `in-bet (<slug>)` | `closed (<slug>)` | `accepted`
 
 `accepted` is a first-class outcome: the user has decided, with the cost in front of them, that this gap stays. Record who accepted it and why in the row's notes. Skills do not re-propose `accepted` gaps unless the user reopens them or the gap's severity escalates.
 

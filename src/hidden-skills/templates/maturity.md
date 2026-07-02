@@ -27,7 +27,7 @@ This document tracks the project against the GroundWork maturity model — the n
 
 ## Roadmap
 
-One row per gap. Severity/recommendation reuse the gap-ledger tiers; status moves `open` → `in-bet (<slug>)` → `closed (<slug>)`, or to `accepted` when the user decides the gap stays.
+One row per gap. Severity/recommendation/status definitions: `.groundwork/skills/maturity-model.md`. Status moves `open` → `in-bet (<slug>)` → `closed (<slug>)`, or to `accepted` when the user decides the gap stays.
 
 | # | Gap | Dimension | Severity | Recommendation | Status | Evidence / Notes |
 |---|---|---|---|---|---|---|

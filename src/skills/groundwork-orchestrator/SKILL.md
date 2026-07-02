@@ -71,7 +71,7 @@ Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-
 
 **Detection.** Setup is complete but not yet graduated when all setup phases are done *and* `state.json` does not carry `setup_graduated: true`. (`.groundwork/context/` still holding files is the corroborating signal.) When that holds, do not route to `groundwork-bet` yet — run graduation first.
 
-**Run it.** Load `.groundwork/skills/operating-contract.md` and execute **Protocol 10 (Setup Graduation)** in order: (1) graduate every still-binding decision in `.groundwork/context/*.md` into a proper ADR under `docs/architecture/decisions/` if not already recorded; (2) run a Living Documents pass so the rest is reflected in `docs/`; (3) tear down `.groundwork/context/`, drain `.groundwork/cache/discovery-notes.md`, and clear any other setup residue. Load `groundwork-writer` for any ADR or doc edit. Protocol 10's fail-safe binds: never run step 3 if steps 1–2 could not complete — surface the blocker to the user instead.
+**Run it.** Load `.groundwork/skills/operating-contract.md` and execute Protocol 10 (Setup Graduation) in order; its fail-safe binds — never tear down if graduation could not complete.
 
 **Record it.** On success, set `setup_graduated: true` in `state.json`, report what graduated (ADRs written, docs reconciled, store removed), then route to `groundwork-bet` for the first bet.
 
@@ -97,17 +97,15 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` |
 | 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` |
 
-When routing to `groundwork-scan`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes the skill's need to probe its own tool set — a misprobe on a constrained runtime would break the scan.
-
 ### Anytime Skills
 - `groundwork-doc-sync` — surgical updates to **project documents** after code changes (maps a diff to the docs it makes stale; the project's docs kept in sync with the project's own code)
-- `groundwork-update` — the single call to bring the **project up to the current framework**: Phase A works the upgrade brief `npx groundwork-method update` compiles (doc merges, scaffold reconciliation), then Phase B reconciles each artifact family (bets, architecture docs, contracts, surfaces, docs-site) to the current canonical shape. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Not the same as `groundwork-doc-sync`, which keeps the project's own docs in sync with its own code.
+- `groundwork-update` — brings the **project up to the current framework**: Phase A works the upgrade brief, Phase B reconciles each artifact family to the current canonical shape. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists.
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
-- `groundwork-patch` — bounded code changes that do not warrant a bet (a bug fix, a copy tweak, one small enhancement with no new capability and no contract change); available only after setup completes. The floor of the three delivery lanes — patch, quick bet, bet (see *User requests work* above). Route here for a small concrete change that passes the patch scope test; a small new capability or a local, non-structural contract change is a **quick bet** (`groundwork-bet`, quick-bet lane), and a capability spanning multiple milestones or a structural/cross-service contract change is a full **bet**. Three patches clustering in one area is a bet signal the git-history cluster check surfaces.
+- `groundwork-patch` — bounded fix, no new capability, no contract change — the floor of the three lanes; sizing rules live in *User requests work*. Available only after setup completes.
 - `groundwork-surface-activation` — adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Also the route to bootstrap the surface registry on a pre-restructure product (GroundWork docs, no `docs/surfaces.md`). Available only after setup completes.
 
-When routing to `groundwork-update`, pass the same `fan_out` hint used for `groundwork-scan`: `parallel` when a sub-agent dispatch tool is available, `sequential` otherwise. `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so the driver's context stays lean; `sequential` tells it to advance each unit inline, one at a time. The skill branches on the hint rather than probing its own tool set.
+When routing to `groundwork-scan` or `groundwork-update`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes each skill's need to probe its own tool set — a misprobe on a constrained runtime would break the run. For `groundwork-update`, `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so its context stays lean; `sequential` advances each unit inline, one at a time.
 
 ### Custom Skills (user-registered)
 
@@ -142,9 +140,10 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-product` | `.groundwork/skills/groundwork-product/SKILL.md` |
 | `groundwork-designer` | `.groundwork/skills/groundwork-designer/SKILL.md` |
 
-> `groundwork-stack-forge` is not a lifecycle phase either — it is invoked *from within* the scaffold phase, when Phase 1 maps a service or surface to a stack no generator can produce and the user chooses to build it properly. It researches the stack, authors a self-contained engineer skill, builds a Day-2 seed wired into `./dev`, and hands its Day-2 checklist to MVP. Do not route to it on its own.
-
-> `groundwork-architect`, `groundwork-product`, and `groundwork-designer` are discipline-expert personas, not lifecycle phases. None is routed to on its own — each is adopted *within* a setup workflow and the bet lifecycle: the architect inside the architecture workflow and the bet design phase (whenever a structural trade-off is in play); the product persona inside the product-brief workflow and the bet discovery phase (whenever what to build and whether it is worth it is in play); the designer inside the design-system workflow and the bet design phase (whenever how it looks, feels, or behaves is in play), with a lighter touch in bet validation when the delivered UI is judged against its intent. Each carries its principles self-contained in its own `references/`.
+> `groundwork-stack-forge` — not a lifecycle route; adopted from within the scaffold phase when Phase 1 maps to a stack no generator can produce.
+> `groundwork-architect` — not a lifecycle route; adopted within the architecture workflow and the bet design phase.
+> `groundwork-product` — not a lifecycle route; adopted within the product-brief workflow and the bet discovery phase.
+> `groundwork-designer` — not a lifecycle route; adopted within the design-system workflow, the bet design phase, and (lighter touch) bet validation.
 
 ---
 

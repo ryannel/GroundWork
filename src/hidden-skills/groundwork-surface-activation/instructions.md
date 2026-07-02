@@ -16,7 +16,7 @@ Adding a surface to a live product is the moment silent divergence is born. Ever
 
 This skill makes the sync decision deliberate, once, recorded. Steps 1–3 — register, design, scaffold — are the per-surface increments of setup phases that already ran; the ledger triage (Step 4) is the skill's reason to exist: every existing capability row gets the new surface's column filled as `planned`, `omitted`, or `n/a`, and every future bet inherits those decisions instead of re-deciding them from memory.
 
-The registry and ledger contract lives at `.groundwork/skills/templates/surfaces.md`. Read it before touching either artifact — `docs/surfaces.md` and `.groundwork/surfaces.json` are projections of the same decisions, written together in every change this skill makes.
+The registry and ledger contract lives at `.groundwork/skills/surfaces-contract.md`. Read it before touching either artifact — `docs/surfaces.md` and `.groundwork/surfaces.json` are projections of the same decisions, written together in every change this skill makes.
 
 Apply the `groundwork-writer` skill when producing or modifying any document. Declarative, assertive, zero-hedging.
 

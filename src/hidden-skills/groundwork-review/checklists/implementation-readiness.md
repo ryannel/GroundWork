@@ -11,6 +11,8 @@ description: >
 
 Checked against the bet's committed artifacts immediately before the first slice is implemented. The one question this answers: **if delivery starts now, will it execute against complete, current, mutually consistent instructions — or improvise?** Any 🔴 item blocks delivery and routes back to the owning phase.
 
+**Two-gate split:** Proof-of-work *authorship* was already judged at review time by `checklists/decomposition.md` — this gate does not re-review it. It checks only that the same artifacts still exist, are current, and agree with each other now.
+
 ## The document chain
 
 - [ ] 🔴 **Missing link**: `docs/bets/<slug>/pitch.md`, the `technical-design/` directory, or the `decomposition/` tree does not exist — delivery has no executable plan.

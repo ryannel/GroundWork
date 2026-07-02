@@ -16,6 +16,11 @@ Each item names a violation. Match it against the tree's milestone `index.md` an
 the design under `docs/bets/<slug>/technical-design/`. Bet documents carry no Downstream Context
 file and no summary section — do not flag the absence of either.
 
+**Two-gate split:** Proof-of-work *authorship* — does the prose prove the right thing — is judged
+here, at this review. Whether that same prose still exists, is current, and is mutually
+consistent immediately before delivery starts is `checklists/implementation-readiness.md`'s job,
+not a re-review of authorship.
+
 ## Milestone Shape
 
 - [ ] 🔴 **Horizontal milestone**: a milestone names a layer of the stack ("Backend", "Build all

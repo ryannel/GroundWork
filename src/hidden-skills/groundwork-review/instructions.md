@@ -12,9 +12,7 @@ tier: frontier
 
 ## How This Skill Is Invoked
 
-This skill runs in an **isolated subagent context** — never in the calling skill's main conversation. The calling skill provides a document path and document type; this subagent reads the document, performs the review, and returns the verdict and findings only. The deliberation, the upstream-doc reads, and any intermediate reasoning stay in the subagent context and do not flow back to the caller.
-
-Running the review in-context, the way earlier versions of this skill operated, paid the cost of every review's intermediate reasoning forever — the verdict and findings are useful to the caller; the deliberation is not. Isolation is the contract.
+This skill runs in an **isolated subagent context** — never in the calling skill's main conversation. The calling skill provides a document path and document type; this subagent reads the document, performs the review, and returns the verdict and findings only. Deliberation stays here; only the verdict returns — isolation keeps the caller's context clean and the judgement independent.
 
 ### Invocation environments
 
@@ -40,7 +38,7 @@ Read the document at `document_path` before beginning any check.
 
 ## Type-Specific Checklist
 
-After reading the document, load `.groundwork/skills/groundwork-review/checklists/<document_type>.md` if it exists. The checklist names the failure modes specific to this document type; apply its items as the type-specific pass alongside Checks 1–4. When a checklist item is violated, cite it **by name** in the finding — e.g. `checklist: Label without a person — 'Role-Playing Groups' has no job-to-be-done` — not by restating the item's text.
+After reading the document, load `.groundwork/skills/groundwork-review/checklists/<document_type>.md` if it exists. The checklist names the failure modes specific to this document type; apply its items as the type-specific pass alongside Checks 1–3. When a checklist item is violated, cite it **by name** in the finding — e.g. `checklist: Label without a person — 'Role-Playing Groups' has no job-to-be-done` — not by restating the item's text.
 
 If the checklist file is missing, proceed with the generic checks alone — its absence is not an error.
 
@@ -72,11 +70,9 @@ The verdict rules:
 
 ---
 
-## Check 1: Conversation Fidelity
+## Check 1: Internal Coherence
 
-The subagent context does not see the calling skill's conversation. This check therefore narrows: instead of comparing the document to the conversation that produced it, compare it to the document's own internal coherence and to the upstream docs (Check 3).
-
-For checks that genuinely require the conversation, the calling skill is responsible for noting them when it invokes the review — pass any concern about fidelity as a hint inside the invocation prompt.
+This subagent cannot see the calling skill's conversation, so this check reads the document against itself and the upstream docs (Check 3) rather than against the conversation that produced it; the calling skill passes any conversation-fidelity concern as a hint inside the invocation prompt.
 
 For this check, answer:
 
@@ -116,11 +112,9 @@ The chain is:
 product-brief → design-system → architecture → infrastructure → bet-pitch → technical-design → decomposition
 ```
 
-**`maturity` resolves its upstream specially.** The maturity doc (`docs/maturity.md`) assesses the project against the model defined at `.groundwork/skills/maturity-model.md` — read that file first; it defines the dimensions (D1–D9), assessment states, and the allowed severity/recommendation/status values. Its upstream is the full canonical doc set: an assessment or roadmap row that contradicts a committed doc (claiming D3 ✅ while `docs/architecture/infrastructure.md` records no `./dev` surface, or naming a service `docs/architecture/index.md` does not have) is a 🔴 finding.
+**`maturity` resolves its upstream specially** — read `.groundwork/skills/maturity-model.md` first (it defines the dimensions, states, and allowed vocab), then check the draft against the full canonical doc set; a contradiction is a 🔴 finding (see `checklists/maturity.md` for the worked cases).
 
-**`domain-entity` resolves its upstream specially.** Domain entity docs (`docs/architecture/domain/<entity>.md`) are *generated from* architecture, so they sit below it rather than on the linear chain. Their upstream is **`docs/architecture/index.md` plus the accepted (non-superseded) ADRs under `docs/architecture/decisions/`** — skip any ADR whose `status` is `superseded`. The entity's `Owner:`, its fields, and any vendor or mechanism it names (auth provider, persistence model, data-isolation strategy) must agree with that current architecture and those ADRs. A domain doc that still names a superseded choice — e.g. `Owner: web (via Supabase Auth)` after an ADR moved auth to Clerk and persistence to another service — is a 🔴 finding: it describes a system no longer being built.
-
-An invariant that asserts a guarantee an accepted ADR explicitly surrendered or weakened — claiming a pre-screen where the ADR records a monitor, immediate consistency where the ADR accepted eventual — is a 🔴 finding: it overstates what the system enforces. A domain event listed as published when the architecture provisions no message broker or event bus is a 🔴 finding for the same reason: it implies a mechanism that does not exist.
+**`domain-entity` resolves its upstream specially** — its upstream is `docs/architecture/index.md` plus the accepted (non-superseded) ADRs under `docs/architecture/decisions/`, not the linear chain; a name, field, or invariant that disagrees with either is a 🔴 finding (see `checklists/domain-entity.md` for the worked cases).
 
 For the given `document_type`, read every upstream document that exists. The foundational documents live at canonical paths: `docs/product-brief.md`, `docs/design-system.md`, `docs/architecture/index.md`, `docs/architecture/infrastructure.md`. The bet documents live under the bet slug: `docs/bets/<slug>/pitch.md` and the technical-design directory `docs/bets/<slug>/technical-design/` (read every section file in it). When reviewing a bet document, infer `<slug>` from the document path — the draft path contains the slug as a directory component.
 
@@ -139,26 +133,6 @@ For each upstream:
 - Has any upstream commitment been silently dropped?
 
 Each contradiction, omission, or silent departure is a finding.
-
----
-
-## Check 4: Document-Type Specifics
-
-Some document types carry a requirement the generic checks do not cover.
-
-**`bet-pitch` — the `## Rabbit Holes & No-Gos` section must contain actual rabbit holes, not only no-gos.** These are two distinct things:
-
-- **No-Gos** are scope exclusions — features deliberately cut ("users will expect authoring, but it is bet two").
-- **Rabbit Holes** are technical traps or unknowns that could silently consume the appetite — the parts where the work could balloon (long-session coherence, classifier latency against a tight budget, prompt-size growth, idempotency under retries) — each ideally paired with a guard or a proof of concept.
-
-If the section lists only scope cuts and names no technical rabbit hole, yet the bet plainly carries technical risk, that is a 🔴 finding: the pitch has not surfaced where the appetite is actually at risk. A bet that is genuinely low-risk technically may state so explicitly instead.
-
-**`maturity` — rows must be complete and evidenced.** Check every row against the model's allowed values:
-
-- Each assessment row carries a state (✅/🟡/🔴, or `n/a` on the conditional dimensions D8–D9) **and** evidence — a state with no cited file, command output, or absence is a 🔴 finding.
-- Each roadmap row carries a dimension (D1–D9), a severity (`blocks-delivery`/`standard-divergence`/`cosmetic`), a recommendation (`fix-now`/`defer`/`blocks-delivery`), and a status (`open`/`in-bet (<slug>)`/`closed (<slug>)`/`accepted`). A missing or out-of-vocabulary value is a 🔴 finding — downstream skills parse these strings.
-- A row marked `closed` must name the closing bet slug; a row marked `accepted` must record who accepted it and why in its notes. Either absence is a 🔴 finding: an unattributed closure or acceptance cannot be audited later.
-- A 🟡 partial assessment that does not name exactly which part of the dimension fails is a 🔴 finding — "partially done" with no specifics steers no one.
 
 ---
 
