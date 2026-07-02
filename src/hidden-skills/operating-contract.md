@@ -358,7 +358,7 @@ Protocol 8 defines what the reviewer's verdict means; this protocol defines how 
 
 The reviewer runs as an independent subagent with a fresh context, dispatched through the host's subagent mechanism — the `Task` tool in Claude Code. The dispatch prompt loads the `groundwork-review` skill and passes `document_path` (the draft under review) and `document_type` (which checklist the reviewer applies). Only the verdict and findings return to the caller; the reviewer's deliberation stays in its own context, which keeps the calling conversation's window clean and the judgement independent of the author.
 
-`groundwork-review` is a review role, so it dispatches at the **`frontier`** tier — the same gate-must-be-strong reasoning that puts the delivery review lenses there (Model Tiers, below). Set the class's host model explicitly on the dispatch (Claude Code: `model: "opus"`), never left to inherit (Model Tiers — *Mechanism*).
+`groundwork-review` is a review role, so it dispatches at the **`frontier`** tier — the same gate-must-be-strong reasoning that puts the delivery review lenses there (Model Tiers, below). Set the class's host model explicitly on the dispatch, never left to inherit (Model Tiers — *Mechanism* carries the reference-host mapping).
 
 ### The verdict gates the commit
 
