@@ -18,7 +18,7 @@ description: >
 
 Python backend execution router for service repositories. Durable engineering guidance lives in `references/`; this skill decides what to load, how to route the task, what repository facts to verify, and which safety gates apply.
 
-## Operating Contract
+## Operating Rules
 
 1. Load reference docs from `references/` for architectural and implementation guidance. Treat the current repository's code, specs, and generated contracts as the source of truth for naming, structure, and behavior.
 2. Orient with the repo map and Serena before reading widely (see Required First Checks) — find the hubs, then navigate by symbol. Inspect the current repository before naming packages, commands, import paths, schemas, or generated files.
@@ -31,7 +31,7 @@ Python backend execution router for service repositories. Durable engineering gu
 
 ## Code intelligence (repo map + Serena)
 
-GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
+Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers the repo map (hub-finding by centrality) and Serena (LSP-backed symbol navigation and edits) in full, including degraded mode. Python has no compiler to catch a missed call site, so treat `find_referencing_symbols` as the pre-runtime correctness check — skipping it on a changed signature ships a runtime error.
 
 ---
 
@@ -41,7 +41,7 @@ Before non-trivial Python implementation or review work:
 
 | Check | Why |
 |---|---|
-| **Orient with the repo map + Serena** — refresh `npx groundwork-method repo-map`, read its `centrality` ranking to find the hubs, then navigate them with Serena (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) | A blind file crawl misses the structure the map already computed; symbol navigation and reference-aware edits beat grep-and-read. Fall back to ordinary reads only when these are unavailable |
+| **Orient first** — see Code intelligence above | A blind file crawl misses the structure the map already computed |
 | Service package layout and nearby examples for the touched layer | Prevents inventing structure that already has a convention |
 | `pyproject.toml` for Python version and dependencies | Avoids version-specific advice that contradicts the project |
 | OpenAPI spec (if HTTP behavior changes) | HTTP contracts are generated — code must match the spec |
@@ -67,6 +67,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | AI engineering, context design, agent architecture | `ml-systems-ai-engineering.md` |
 | MCP server, tool/resource design, agent interfaces | `documentation-mcp.md` |
 | Resilience — timeouts, retries, circuit breakers, health probes | `resilience.md` |
+| Performance — latency budgets, load shedding, profiling | `resilience.md` |
 | Graceful shutdown, degradation, lifespan management | `resilience.md`, `async-patterns.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
 | Security, auth, secrets, input validation, supply chain, SSRF | `security.md` |
@@ -80,18 +81,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 ## Skill Handoffs
 
-Use the smallest collaborating set. Keep the Python engineer as lead when the work is mainly Python implementation inside a service directory.
-
-| Condition | Hand off to |
-|---|---|
-| Endpoint shape, OpenAPI, error envelope, pagination, idempotency | API architect / API design skill |
-| Schema, migrations, indexes, query plans, vector search | Database / Postgres design skill |
-| Streaming, Pub/Sub, WebSockets, event schemas, fan-out | Real-time / event architecture skill |
-| Test strategy, CI quality gates, contract tests, flake reduction | Test architecture skill |
-| Deployment, Cloud Run, Docker, CI/CD, observability infra | Platform engineering skill |
-| Go backend coordination, inter-service contracts | Go engineer skill |
-
-If the collaborating skill does not exist in the project, handle the concern inline but flag it as outside this skill's primary scope.
+Keep the Python engineer as lead when the work is mainly Python implementation inside a service directory. The one real collaborator in a scaffolded project: Go backend coordination and inter-service contracts hand off to the Go engineer skill. For anything else a specialized skill would normally own — API design, database design, real-time architecture, test strategy, platform engineering — no such skill exists in a GroundWork project; handle the concern inline and flag it as outside this skill's primary scope.
 
 ---
 
@@ -168,9 +158,9 @@ If the collaborating skill does not exist in the project, handle the concern inl
 
 | Tier | What | Infrastructure |
 |---|---|---|
-| Service test (default) | HTTP → Service → Adapter | Testcontainers + `dependency_overrides` |
+| Service perimeter test (default) | HTTP → Service → Adapter | Testcontainers + `dependency_overrides` |
 | Unit test (reserved) | Complex domain logic | None |
-| System test (minimal) | Bootstrap + golden path | Full live stack |
+| System test (rare, explicit) | Bootstrap + golden path | Full live stack |
 
 ### Dependency Injection
 

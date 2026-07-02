@@ -27,8 +27,8 @@ that family's section order so a reader predicts the skill's internals.
 
 | Family | Use for | Section spine |
 |---|---|---|
-| **Backend** | services, daemons, CLIs, anything gated by specs and sibling components | Operating Contract → Required First Checks → Context Routing → Skill Handoffs → Execution Checklist → Safety Gates → Quick Reference → Output Expectations |
-| **Surface** | desktop, mobile, native UI, anything whose failure mode is plausible-but-wrong UI idiom | Operating Contract → Core Pillars → How to Use This Skill → Task Routing → Safety Gates → Hallucination Controls → Output Expectations → Antipatterns |
+| **Backend** | services, daemons, CLIs, anything gated by specs and sibling components | Operating Rules → Required First Checks → Context Routing → Skill Handoffs → Execution Checklist → Safety Gates → Quick Reference → Output Expectations |
+| **Surface** | desktop, mobile, native UI, anything whose failure mode is plausible-but-wrong UI idiom | Operating Rules → Core Pillars → How to Use This Skill → Task Routing → Safety Gates → Hallucination Controls → Output Expectations → Antipatterns |
 
 A native macOS AppKit app is **Surface**. A Rust HTTP service is **Backend**. A headless
 sync daemon is **Backend**. When a target straddles both (a desktop app with a real local

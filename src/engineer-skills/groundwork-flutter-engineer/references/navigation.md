@@ -1,17 +1,5 @@
 # Navigation
 
-## Table of Contents
-- [The Router Is go_router](#the-router-is-go_router)
-- [The Route Table](#the-route-table)
-- [Typed Routes](#typed-routes)
-- [Tab Scaffolds: StatefulShellRoute](#tab-scaffolds-statefulshellroute)
-- [Auth Guards: Centralized redirect](#auth-guards-centralized-redirect)
-- [The Route as State](#the-route-as-state)
-- [Deep Links](#deep-links)
-- [What Remains for Navigator 1.0](#what-remains-for-navigator-10)
-
----
-
 ## The Router Is go_router
 
 go_router (flutter.dev verified publisher, declared feature-complete — a stable platform piece) owns app-level navigation. The router lives in one module as a provider:

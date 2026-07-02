@@ -2,17 +2,11 @@
 
 ## The Model: Honeycomb, Not Pyramid
 
-Testcontainers spins up real Postgres/Pub/Sub in seconds. The confidence it provides is categorically different from any mock. Mock-heavy suites pass while production breaks.
-
-**Service tests are the default.** Unit tests are reserved for genuinely complex logic. System tests are minimal.
-
-This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
-
-Above the honeycomb sits the front-door proof: drive the real running service through the front door a consumer actually calls — its HTTP API — end to end on the real pipeline. Service tests that each pass behind a `dependency_overrides` mock or a stubbed adapter can still assemble into a product that does nothing on the real path, so one proof exercises that path with nothing in the middle faked. This makes a rule on every fake: a stub or fixture standing in for a real stage — an LLM response, a downstream service, a producer's output — is a debt that some test of the real producer must pay. Seeding the input is fine; faking the work in the middle is the violation, and an unpaid debt is a green light wired to nothing.
+Service tests are the default; unit tests are reserved for genuinely complex logic; system tests stay minimal — plus one front-door proof above the honeycomb that drives the real service through its real HTTP API on the real pipeline. This is the framework testing canon's model in full (`docs/principles/foundations/testing.md`, including the fake-needs-a-real-test rule); canon wins on disagreement, this file is the one to fix. Testcontainers spins up real Postgres/Pub/Sub in seconds — a confidence categorically different from any mock, and a mock-heavy suite passing while production breaks is the failure mode this buys out.
 
 ---
 
-## Tier 1 — Service Tests (Default)
+## Tier 1 — Service Perimeter Tests (Default)
 
 Drive the FastAPI app through HTTP using `httpx.AsyncClient` with `ASGITransport`. Infrastructure runs in containers. Non-containerisable providers (LLM APIs) are replaced at the FastAPI `dependency_overrides` boundary.
 
@@ -110,7 +104,7 @@ class TestDomainModel:
 
 ---
 
-## Tier 3 — System Tests (Minimal)
+## Tier 3 — System Tests (Rare, Explicit)
 
 **Bootstrap test** — verifies the DI container initialises:
 
@@ -165,7 +159,7 @@ uv run pytest tests/system                      # Bootstrap + golden path
 
 ## Trace Assertions
 
-Observability is a test surface: a critical-path request must emit an unbroken trace, and a missing span is a test failure, not an instrumentation TODO. The mechanism is an **in-memory span exporter** from the OTel SDK — no external tooling, and the durable approach now that the dedicated trace-test tools have gone dormant.
+Observability is a test surface (canon principle 3): a missing span is a test failure, not an instrumentation TODO. The mechanism is Python's OTel SDK **in-memory span exporter**:
 
 ```python
 from opentelemetry import trace
@@ -189,13 +183,11 @@ async def test_process_emits_trace(client, spans):
     # assert the work span is a descendant of the entry span — the trace is connected
 ```
 
-Assert what the contract promises — the spans that must exist on the journey, that the trace stays connected across hops, and the attributes a dashboard or SLO query depends on. Pinning the exact span tree and every attribute couples the test to implementation and trains the team to delete it.
+Assert what the contract promises, not the whole span tree (canon principle 3: pinning every attribute couples the test to implementation and trains the team to delete it).
 
 ## Mutation Testing — the assertion-quality read-out
 
-A fat service test drives many branches through one HTTP call and can *execute* them all while only asserting on the response body. Mutation testing is the one instrument that proves the suite checks what it runs: inject a fault, confirm a test fails, and a surviving mutant is a line you cover but do not check. Treat it as a **signal, never a gate** — run it on the high-risk modules the risk matrix flags and on changed code only.
-
-Use `mutmut` or `cosmic-ray`. A gotcha: `mutmut` 3 no longer mutates module-level code (only function bodies), so a module whose risk lives in top-level constants or table definitions needs `cosmic-ray` or `mutmut` 2. Scope a run to the dense package under change (`mutmut run --paths-to-mutate src/<pkg>/pricing`), read it as a read-out, and turn each surviving mutant on changed high-risk code into the missing assertion — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
+Mutation testing is the assertion-quality read-out (canon principle 5): a **signal, never a gate**, run on the high-risk modules the risk matrix flags and on changed code only. Use `mutmut` or `cosmic-ray`. A gotcha: `mutmut` 3 no longer mutates module-level code (only function bodies), so a module whose risk lives in top-level constants or table definitions needs `cosmic-ray` or `mutmut` 2. Scope a run to the dense package under change (`mutmut run --paths-to-mutate src/<pkg>/pricing`), read it as a read-out, and turn each surviving mutant on changed high-risk code into the missing assertion — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
 
 ## Anti-Patterns
 

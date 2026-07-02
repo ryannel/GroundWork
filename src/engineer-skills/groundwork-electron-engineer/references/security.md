@@ -1,19 +1,5 @@
 # Security
 
-## Table of Contents
-- [The Posture](#the-posture)
-- [The Hardened Quartet](#the-hardened-quartet)
-- [Permissions: Denied by Default](#permissions-denied-by-default)
-- [Navigation and window.open](#navigation-and-windowopen)
-- [shell.openExternal Allowlist](#shellopenexternal-allowlist)
-- [The Custom Protocol](#the-custom-protocol)
-- [Content-Security-Policy](#content-security-policy)
-- [Fuses](#fuses)
-- [The Currency Window](#the-currency-window)
-- [Security Review Checklist](#security-review-checklist)
-
----
-
 ## The Posture
 
 An Electron app is a browser with a privileged process attached: every web vulnerability becomes a local-machine vulnerability the moment a boundary control is loosened. The generated app ships with the full baseline **enforced in code** — `src/main/index.ts` (wiring), `src/main/policy.ts` (rules, pure and unit-tested), `forge.config.ts` (fuses). This reference explains each control so changes preserve it; the canonical statement is `docs/principles/stack/electron/security.md`.

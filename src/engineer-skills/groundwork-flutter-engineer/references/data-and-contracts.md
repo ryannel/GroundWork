@@ -1,17 +1,5 @@
 # Data and Contracts
 
-## Table of Contents
-- [The Seam](#the-seam)
-- [The Thin Client (Current Stance)](#the-thin-client-current-stance)
-- [When to Switch to Generated Clients](#when-to-switch-to-generated-clients)
-- [Repositories: Translation and Truth](#repositories-translation-and-truth)
-- [Error Mapping](#error-mapping)
-- [Configuration](#configuration)
-- [dio Conventions](#dio-conventions)
-- [Anti-patterns](#anti-patterns)
-
----
-
 ## The Seam
 
 The app reaches the capability core through exactly one seam:

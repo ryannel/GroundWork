@@ -22,6 +22,14 @@ The cheapest error is the one that cannot occur, so design errors out first with
 
 Users forage by scent, choosing links by the payoff each label predicts, so labels are specific and match their destination — never "click here," "learn more," or a bare "submit." Every screen answers the wayfinding questions (where am I, how did I get here, where can I go, how do I get back) through an active nav state, a clear title, breadcrumbs in deep hierarchies, and persistent navigation. Disorientation is a silent driver of abandonment.
 
+## The floor is checkable; the ceiling is judged
+
+Usable splits into two instruments. The floor is checkable — every screen reachable with a way back, no dead ends; every async view carries its full state set (empty, loading, in-progress, error), not just the happy path. Absence is a defect a review catches, the way a failing test is. The ceiling is judged: whether the screens cohere and the product is a pleasure to use, by eye, against the design system and `## Design References`. Clear the floor as a gate; keep raising the ceiling as a bar.
+
+## Use the current best-in-class pattern, implemented completely
+
+Most recurring UX problems have a best-in-class solution the leading products converged on — the removable filter pill, the loading skeleton, modern search and pagination. Reach for it: forward-leaning and familiar at once. Implement it **completely** — a filter pill that shows but does not remove is worse than no pill; it promises an affordance it does not honour. Promote the chosen pattern into the design system so the next screen inherits it.
+
 ## Antipatterns to catch
 
 - **Heuristics as an audit.** Reciting them after the fact instead of changing the design as it is made.
@@ -31,3 +39,5 @@ Users forage by scent, choosing links by the payoff each label predicts, so labe
 - **Confirmation-dialog overuse.** "Are you sure?" on routine reversible actions, training the reflexive click.
 - **Asking for the known.** Requiring data the system already has or could derive.
 - **Scentless labels.** "Click here" / "Next" predicting nothing about the destination.
+- **Dead-end screens.** A view a user can reach but not leave, or a flow with no way back.
+- **The half-built pattern.** A recognised pattern shipped as a shell — a filter pill that does not remove, a skeleton that never resolves.

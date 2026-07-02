@@ -1,18 +1,5 @@
 # Documentation
 
-## Table of Contents
-- [Hierarchy](#hierarchy)
-- [The Contract Type Is the Surface Documentation](#the-contract-type-is-the-surface-documentation)
-- [TSDoc on the Bridge Contract](#tsdoc-on-the-bridge-contract)
-- [The Process Boundary Documents Itself](#the-process-boundary-documents-itself)
-- [Why-Comments on Security Policy](#why-comments-on-security-policy)
-- [Inline Comments](#inline-comments)
-- [A Comment Is Often a Smell](#a-comment-is-often-a-smell)
-- [In-Code Markers](#in-code-markers)
-- [What NOT to Document](#what-not-to-document)
-
----
-
 A desktop shell has a documentation problem the web app does not: the same TypeScript runs in three processes at three privilege levels, and a reader must know which one a file belongs to before a single line makes sense. The architecture answers that in structure — the folder boundary, the shared contract, the typed bridge — so the documentation is mostly the code's shape, not prose around it.
 
 ## Hierarchy

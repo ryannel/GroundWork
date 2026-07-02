@@ -10,7 +10,7 @@ Go code is boring on purpose. It leans into the standard library, uses interface
 
 ### 2. A Pure Core, Swappable Edges
 
-Every service is a thin HTTP handler at the edge that extracts and validates inputs, an application service that orchestrates, domain types that hold rules, and interfaces (e.g. `Repository`) declared in the core package that consumes them, with technology-named implementations at the edge. Packages are nested under `internal/` — `internal/core/domain` and `internal/core/service` (the latter holds both the orchestration **and** the interfaces it calls), technology-named edge packages (`internal/postgres`, `internal/kafka`, `internal/pubsub`, `internal/httpclient`, `internal/websocket`, `internal/llm`), and `internal/entrypoints/api` (HTTP edge) — with composition roots in `cmd/`. Exported interfaces declared at the point of use, unexported or concrete edge types returned. `depguard` (in `.golangci.yml.template`) fails the build if `internal/core/...` imports an edge package.
+The full layout — zone table, edge-package list, the `depguard` gate — is `references/architecture.md`; this file's principles below are the Go idiom layered on top of that structure.
 
 ### 3. Errors Are Values with Context
 

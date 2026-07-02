@@ -1,19 +1,5 @@
 # Performance & Reliability
 
-## Table of Contents
-- [Where a Desktop App Spends Its Budget](#where-a-desktop-app-spends-its-budget)
-- [The Main Process Is Never Blocked](#the-main-process-is-never-blocked)
-- [Renderer Performance Is Web Performance](#renderer-performance-is-web-performance)
-- [IPC Efficiency](#ipc-efficiency)
-- [Memory Across Long-Lived Windows](#memory-across-long-lived-windows)
-- [Cold Boot](#cold-boot)
-- [Reliability of the IPC Layer](#reliability-of-the-ipc-layer)
-- [A Backend That Is Unreachable](#a-backend-that-is-unreachable)
-- [What Lives in the Core, Not Here](#what-lives-in-the-core-not-here)
-- [Anti-Patterns](#anti-patterns)
-
----
-
 ## Where a Desktop App Spends Its Budget
 
 Performance is a budget spent deliberately, allocated top-down and measured at the tail, not the average (`docs/principles/quality/performance.md`). A desktop shell spends it across three surfaces with different failure modes: the **main process**, where blocking work freezes every window at once; the **renderer**, which is a web app and pays the web's bundle and frame costs; and the **bridge** between them, where a chatty IPC pattern turns a cheap call into a per-frame tax. The process boundaries that contain these costs are the process-model's subject (`references/process-model.md`); this is the performance and reliability lens on them.

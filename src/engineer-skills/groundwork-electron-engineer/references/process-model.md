@@ -1,16 +1,5 @@
 # Process Model
 
-## Table of Contents
-- [The Three Processes](#the-three-processes)
-- [Main Is an Orchestrator](#main-is-an-orchestrator)
-- [The Enforced Folder Boundary](#the-enforced-folder-boundary)
-- [Per-Process Compiler Contexts](#per-process-compiler-contexts)
-- [utilityProcess for Heavy Work](#utilityprocess-for-heavy-work)
-- [Shared Code Crosses as Types Only](#shared-code-crosses-as-types-only)
-- [Adding a Window](#adding-a-window)
-
----
-
 ## The Three Processes
 
 | Process | Runs | May import | Job |

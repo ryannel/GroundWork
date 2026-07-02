@@ -1,17 +1,5 @@
 # Documentation
 
-## Table of Contents
-- [Hierarchy](#hierarchy)
-- [Dartdoc on Public API](#dartdoc-on-public-api)
-- [Names Are the Documentation](#names-are-the-documentation)
-- [Structure as Documentation](#structure-as-documentation)
-- [Inline Comments](#inline-comments)
-- [A Comment Is Often a Smell](#a-comment-is-often-a-smell)
-- [In-Code Markers](#in-code-markers)
-- [What NOT to Document](#what-not-to-document)
-
----
-
 Dart ships its documentation discipline in the toolchain: `dart doc` renders `///` comments to API pages, the formatter normalises them, and the `public_member_api_docs` lint flags missing ones on a public surface. The language — sound null safety, immutable widgets, `const` — is built so that well-shaped code carries most of its own meaning. Lean on that before reaching for prose.
 
 ## Hierarchy

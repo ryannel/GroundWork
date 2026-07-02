@@ -1,16 +1,5 @@
 # Releases and Distribution
 
-## Table of Contents
-- [Why This Is Architecture](#why-this-is-architecture)
-- [Signing](#signing)
-- [CI/CD Pipeline](#cicd-pipeline)
-- [Versioning](#versioning)
-- [Forced Upgrade: the Compatibility Floor](#forced-upgrade-the-compatibility-floor)
-- [Shorebird Code Push](#shorebird-code-push)
-- [Release Checklist](#release-checklist)
-
----
-
 ## Why This Is Architecture
 
 A mobile surface cannot be rolled back and cannot be force-refreshed: every version ever shipped is potentially still running, store review adds days of latency, and a signing mistake can permanently lock the listing. Treat release engineering as the half of the contract-compatibility story that lives outside the repo — and keep it CI-driven, because a human clicking through Xcode is a step the delivery loop stalls on.

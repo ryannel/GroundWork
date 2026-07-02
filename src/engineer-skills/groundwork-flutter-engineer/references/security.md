@@ -1,17 +1,5 @@
 # Security
 
-## Table of Contents
-- [The Posture](#the-posture)
-- [No Secrets in the Binary](#no-secrets-in-the-binary)
-- [Secure Storage for Tokens](#secure-storage-for-tokens)
-- [Transport and Certificate Pinning](#transport-and-certificate-pinning)
-- [Deep Link and Intent Validation](#deep-link-and-intent-validation)
-- [Biometric and Auth-Token Handling](#biometric-and-auth-token-handling)
-- [Obfuscation's Real Limits](#obfuscations-real-limits)
-- [Security Review Checklist](#security-review-checklist)
-
----
-
 ## The Posture
 
 A shipped mobile binary runs on a device the attacker owns. It can be pulled off the device, decompiled, patched, and run under a debugger or a proxy. So the client is **not** a trust boundary — it is hostile territory you are deploying into. Every security guarantee that matters is enforced server-side, behind the gateway (`references/data-and-contracts.md` → The Seam); the client's job is to handle credentials carefully and fail safe, not to keep secrets or enforce rules. This file is the Flutter idiom of the framework security canon (`docs/principles/quality/security.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.

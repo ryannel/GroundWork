@@ -1,17 +1,5 @@
 # IPC Contracts
 
-## Table of Contents
-- [The Seam Is a Contract](#the-seam-is-a-contract)
-- [Adding a Channel End-to-End](#adding-a-channel-end-to-end)
-- [Validation at the Trust Boundary](#validation-at-the-trust-boundary)
-- [Push Channels (Main → Renderer)](#push-channels-main--renderer)
-- [TanStack Query Over the Bridge](#tanstack-query-over-the-bridge)
-- [Core Access for a Hosted Capability Core](#core-access-for-a-hosted-capability-core)
-- [The electron-trpc Variant](#the-electron-trpc-variant)
-- [Anti-Patterns](#anti-patterns)
-
----
-
 ## The Seam Is a Contract
 
 The main↔renderer seam gets the same discipline the capability core enforces at its contracts. One module — `src/shared/ipc.ts` — declares every channel; both sides import it; a rename or payload change is a compile error in both processes.

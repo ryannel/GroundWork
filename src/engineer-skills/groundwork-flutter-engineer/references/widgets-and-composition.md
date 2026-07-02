@@ -1,16 +1,5 @@
 # Widgets and Composition
 
-## Table of Contents
-- [Composition Over Inheritance](#composition-over-inheritance)
-- [Extract Widgets, Not Helper Methods](#extract-widgets-not-helper-methods)
-- [const Discipline](#const-discipline)
-- [Build Purity](#build-purity)
-- [Keys](#keys)
-- [Layout Decisions](#layout-decisions)
-- [Review Checklist](#review-checklist)
-
----
-
 ## Composition Over Inheritance
 
 New UI composes existing widgets; it never subclasses a widget to alter behaviour. A `PrimaryButton` wraps and configures `FilledButton`; it does not extend it:

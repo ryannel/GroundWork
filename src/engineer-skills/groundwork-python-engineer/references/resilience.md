@@ -117,6 +117,12 @@ async def process_with_enrichment(self, input_uri: str) -> Result:
 
 Log every degraded response with structured context. Silent degradation is invisible in production.
 
+## Performance
+
+Latency is a top-down budget allocated from the edge, measured on the tail (p95/p99, never p50 — that is a marketing number), profiled before optimising (`python -m cProfile` or `py-spy` against a live process, not intuition). This is the framework performance canon's model (`docs/principles/quality/performance.md`); this file states only where Python's shape differs.
+
+Load shedding is the one piece with a concrete idiom here: the inbound concurrency limit is an `asyncio.Semaphore`-backed FastAPI middleware, already covered in `references/api-standards.md` — when the semaphore is exhausted, shed by returning `503` immediately rather than queuing unboundedly.
+
 ## Anti-Patterns
 
 - **No timeout on provider calls.** Hung connections hold indefinitely.

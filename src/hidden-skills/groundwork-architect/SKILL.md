@@ -32,7 +32,7 @@ Durable architectural guidance lives in `references/`. This skill decides what t
   6. Decisions are recorded and governed — context, assumptions, and trade-offs, with an owner and a review trigger — so they can be re-evaluated when their assumptions break. The record is immutable; the decision is not.
   7. Agents are first-class consumers — every interface is designed to be machine-consumable.
 
-## Operating Contract
+## Operating Rules
 
 1. Load reference docs from `references/` for the decision in front of you. Load the smallest set that explains it; add more only when the decision crosses into another concern.
 2. Treat the project's existing code, specs, and committed docs (`docs/architecture/index.md`, `docs/surfaces.md`, contract specs) as the source of truth for what has **already** been decided. Respect those boundaries; do not silently re-open a settled decision — name it if it must change.

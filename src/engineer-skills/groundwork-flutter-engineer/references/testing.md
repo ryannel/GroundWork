@@ -1,18 +1,5 @@
 # Testing
 
-## Table of Contents
-- [The Taxonomy](#the-taxonomy)
-- [The Prove-Once Rule](#the-prove-once-rule)
-- [Unit Tests](#unit-tests)
-- [Widget Tests](#widget-tests)
-- [Integration Tests](#integration-tests)
-- [Patrol — the OS Boundary Only](#patrol--the-os-boundary-only)
-- [Golden Tests](#golden-tests)
-- [CI Lanes](#ci-lanes)
-- [Test Commands](#test-commands)
-
----
-
 ## The Taxonomy
 
 | Tier | Scope | Runs on | Budget |
@@ -25,9 +12,7 @@
 
 Pick the **cheapest tier that can carry the assertion**. If a widget test can prove it, an integration test that proves it is waste.
 
-This taxonomy is the Flutter idiom of the framework testing canon (`docs/principles/foundations/testing.md`): widget tests are the fat middle that the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, and `integration_test` is the few-end-to-end top. When this file and the canon disagree, the canon wins and this file is the one to fix.
-
-Above all of these sits the front-door proof the canon now demands: an `integration_test` harness driving the real shipping app the way a user does — end to end against the real backend, not a fake gateway — because widget tests that each pass against fakes can still assemble into an app that does nothing on the real data path. And the fake-needs-a-real-test rule follows from it: a mock repository or fixture standing in for a real stage is a debt that some integration test of the real producer must pay. Seeded inputs are fine; faking the work in the middle with nothing real behind it is a green light wired to nothing. See `docs/principles/foundations/testing.md`.
+This taxonomy is the Flutter idiom of the framework testing canon (`docs/principles/foundations/testing.md`, including the fake-needs-a-real-test rule): widget tests are the fat middle the canon's honeycomb puts the weight on, unit tests are the thin solitary layer, `integration_test` is the few-end-to-end top, and above all of it sits the front-door proof — an `integration_test` harness driving the real shipping app against the real backend, not a fake gateway, because widget tests that each pass against fakes can still assemble into an app that does nothing on the real data path. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
 ## The Prove-Once Rule
 
@@ -134,11 +119,11 @@ The canon's assertion-quality read-out is mutation testing — inject a fault, c
 
 ## Generate the Inputs You Can't Enumerate
 
-Example-based tests check the cases you thought of (canon principle 7). The generative surface on a Flutter client is narrow but real: a **dense, pure-Dart unit** with an invariant — a mapper round-trip (`fromJson ∘ toJson = id`), a date/currency formatter, a validator that must never throw — can state the property and let the framework generate counterexamples. `glados` is the Dart property-based option; it is niche, so reach for it only where a genuine invariant lives in pure logic, never for widget trees. The service-boundary generative tools the canon names — Schemathesis, coverage-guided fuzzing — do not apply to a client: the gateway's contract is fuzzed once at the capability core, and re-running it from the surface duplicates a proof that already exists (the Prove-Once Rule).
+The bugs live in the cases you didn't enumerate (canon principle 7). The generative surface on a Flutter client is narrow but real: a **dense, pure-Dart unit** with an invariant — a mapper round-trip (`fromJson ∘ toJson = id`), a date/currency formatter, a validator that must never throw — can state the property and let the framework generate counterexamples. `glados` is the Dart property-based option; it is niche, so reach for it only where a genuine invariant lives in pure logic, never for widget trees. The service-boundary generative tools the canon names — Schemathesis, coverage-guided fuzzing — do not apply to a client: the gateway's contract is fuzzed once at the capability core, and re-running it from the surface duplicates a proof that already exists (the Prove-Once Rule).
 
 ## Naming Tests by Behaviour
 
-A test name must let an engineer form a hypothesis from the failure log alone. State the observable behaviour and the condition — `'placing an order shows the confirmation'`, not `'OrderView test'`. Names that describe what the user sees survive refactors and double as living documentation; names that describe the widget under test convey nothing the file tree doesn't.
+Canon principle 4: name by observable behaviour and condition, not implementation — `'placing an order shows the confirmation'`, not `'OrderView test'`. Names that describe what the user sees survive refactors; names that describe the widget under test convey nothing the file tree doesn't.
 
 ## Test Commands
 

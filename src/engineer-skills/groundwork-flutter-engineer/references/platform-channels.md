@@ -1,17 +1,5 @@
 # Platform Channels
 
-## Table of Contents
-- [The Decision Ladder](#the-decision-ladder)
-- [Check the Plugin Shelf First](#check-the-plugin-shelf-first)
-- [Pigeon: the Default for Structured APIs](#pigeon-the-default-for-structured-apis)
-- [Wrapping the Native Module](#wrapping-the-native-module)
-- [ffigen/jnigen: the Tracked Destination](#ffigenjnigen-the-tracked-destination)
-- [Raw MethodChannel](#raw-methodchannel)
-- [iOS Build Wiring](#ios-build-wiring)
-- [Testing the Boundary](#testing-the-boundary)
-
----
-
 ## The Decision Ladder
 
 When a capability is not reachable from Dart:

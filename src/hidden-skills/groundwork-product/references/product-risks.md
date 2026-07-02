@@ -7,7 +7,7 @@ Before committing to build, run the bet through four distinct ways it can fail. 
 - **Value** — will users choose to use or buy this? Does it solve a problem they actually feel? This is the risk most features die of, and the easiest to wave away with "of course they'll want it."
 - **Usability** — can users figure out how to use it well enough to get the value that is theoretically there?
 - **Feasibility** — can it be built with the time, skills, and technology available, and operated reliably?
-- **Viability** — does it work for the *business*? Cost, support load, legal, security, brand, and the commercial model all live here. A feature can be desirable, usable, and feasible and still be a mistake to ship.
+- **Viability** — does it work for the *business*? Cost, support load, legal, security, brand, and the commercial model all live here. A feature can be desirable, usable, and feasible and still be a mistake to ship. Ethics lives inside viability and is the one concern with no natural stakeholder — legal owns legal, finance owns cost; name "should we build it at all?" on purpose or it goes unowned.
 
 ## Ownership — who clears which risk
 

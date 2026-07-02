@@ -1,17 +1,5 @@
 # Theming and Design Tokens
 
-## Table of Contents
-- [The Projection Model](#the-projection-model)
-- [The Generated Palette Module](#the-generated-palette-module)
-- [Consuming the Theme](#consuming-the-theme)
-- [Theme Extensions for Semantic Roles](#theme-extensions-for-semantic-roles)
-- [Dark Mode](#dark-mode)
-- [Typography](#typography)
-- [Evolving the Brand](#evolving-the-brand)
-- [Material/Cupertino Freeze Note](#materialcupertino-freeze-note)
-
----
-
 ## The Projection Model
 
 The theme is **generated from the design system's brand tokens**, not authored in the app. The chain:

@@ -1,17 +1,5 @@
 # Architecture
 
-## Table of Contents
-- [The Layer Model](#the-layer-model)
-- [File Organization](#file-organization)
-- [Views and ViewModels](#views-and-viewmodels)
-- [Repositories and Services](#repositories-and-services)
-- [The Core-Access Seam](#the-core-access-seam)
-- [Domain Models and Immutability](#domain-models-and-immutability)
-- [When a Domain Layer Is Earned](#when-a-domain-layer-is-earned)
-- [Placement Checklist](#placement-checklist)
-
----
-
 ## The Layer Model
 
 This codebase follows the official Flutter architecture: a **UI layer** of MVVM features over a **data layer** of repositories and services. A Domain layer of use-cases exists only where it has earned its place. Dependency direction is strict and single-direction:

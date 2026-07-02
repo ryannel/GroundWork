@@ -17,7 +17,7 @@ description: >
 
 Go backend execution router for service repositories. Durable engineering guidance lives in `references/`; this skill decides what to load, how to route the task, what repository facts to verify, and which safety gates apply.
 
-## Operating Contract
+## Operating Rules
 
 1. Load reference docs from `references/` for architectural and implementation guidance. Treat the current repository's code, specs, and generated contracts as the source of truth for naming, structure, and behavior.
 2. Orient with the repo map and Serena before reading widely (see Required First Checks) — find the hubs, then navigate by symbol. Inspect the current repository before naming packages, commands, import paths, schemas, or generated files.
@@ -30,7 +30,7 @@ Go backend execution router for service repositories. Durable engineering guidan
 
 ## Code intelligence (repo map + Serena)
 
-GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
+Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers the repo map (hub-finding by centrality) and Serena (LSP-backed symbol navigation and edits) in full, including degraded mode. Go's compiler already catches a missed call site, so treat `find_referencing_symbols` as a blast-radius and navigation win, not a correctness gate.
 
 ---
 
@@ -40,7 +40,7 @@ Before non-trivial Go implementation or review work:
 
 | Check | Why |
 |---|---|
-| **Orient with the repo map + Serena** — refresh `npx groundwork-method repo-map`, read its `centrality` ranking to find the hubs, then navigate them with Serena (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) | A blind file crawl misses the structure the map already computed; symbol navigation and reference-aware edits beat grep-and-read. Fall back to ordinary reads only when these are unavailable |
+| **Orient first** — see Code intelligence above | A blind file crawl misses the structure the map already computed |
 | Service package layout and nearby examples for the touched layer | Prevents inventing structure that already has a convention |
 | `go.mod` for Go and dependency versions | Avoids version-specific advice that contradicts the project |
 | OpenAPI spec (if HTTP behavior changes) | HTTP contracts are generated — code must match the spec |
@@ -65,7 +65,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Observability — tracing, structured logging, metrics | `observability.md` |
 | Reliability — retries, timeouts, graceful shutdown, backpressure | `reliability-performance.md` |
 | Performance — latency budgets, load shedding, profiling | `reliability-performance.md` |
-| Events, Pub/Sub, WebSocket, async integration | `integration-realtime-data.md` |
+| Events, Pub/Sub, WebSocket, async integration | `integration.md` |
 | Tests, quality gates, coverage strategy, flake triage | `testing.md` |
 | Code quality, naming, simplicity, deletion | `code-craft-security.md` |
 | Security, auth, secrets, input validation, supply chain | `code-craft-security.md` |
@@ -75,17 +75,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 ## Skill Handoffs
 
-Use the smallest collaborating set. Keep the Go engineer as lead when the work is mainly Go implementation inside a service directory.
-
-| Condition | Hand off to |
-|---|---|
-| Endpoint shape, OpenAPI, error envelope, pagination, idempotency, SDK generation, webhooks, versioning | API architect / API design skill |
-| Schema, migrations, indexes, query plans, constraints, RLS, retention, vector/full-text search | Database / Postgres design skill |
-| Streaming, Pub/Sub, WebSockets, event schemas, replay, fan-out, idempotency, source-aware updates | Real-time / event architecture skill |
-| Test strategy, CI quality gates, contract tests, flake reduction, validation design | Test architecture skill |
-| Deployment, Cloud Run, Terraform, Docker, CI/CD, observability infrastructure, local dev tooling | Platform engineering skill |
-
-If the collaborating skill does not exist in the project, handle the concern inline but flag it as outside this skill's primary scope.
+Keep the Go engineer as lead when the work is mainly Go implementation inside a service directory. The one real collaborator in a scaffolded project: Python backend coordination and inter-service contracts hand off to the Python engineer skill. For anything else a specialized skill would normally own — API design, database design, real-time architecture, test strategy, platform engineering — no such skill exists in a GroundWork project; handle the concern inline and flag it as outside this skill's primary scope.
 
 ---
 

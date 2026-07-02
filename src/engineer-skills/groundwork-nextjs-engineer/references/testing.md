@@ -1,23 +1,8 @@
 # Testing
 
-## Table of Contents
-- [Testing Philosophy](#testing-philosophy)
-- [Vitest + React Testing Library](#vitest--react-testing-library)
-- [Network Mocking with MSW](#network-mocking-with-msw)
-- [Hook Testing](#hook-testing)
-- [Theme Coverage](#theme-coverage)
-- [Utility Coverage](#utility-coverage)
-- [Accessibility Testing](#accessibility-testing)
-- [Component Testing Patterns](#component-testing-patterns)
-- [Test Commands](#test-commands)
-
----
-
 ## Testing Philosophy
 
-The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks. It is the frontend idiom of the framework testing canon (`docs/principles/foundations/testing.md`) — the backends run the honeycomb, the frontend runs the trophy, and both put the weight on integration rather than isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
-
-Above the trophy sits the front-door proof: drive the real running app the way a user does, end to end against the real backend — Playwright against the running stack — because component and integration tests that each pass against an MSW-mocked network can still assemble into an app that does nothing on the real API. That is also the fake-needs-a-real-test rule: every MSW handler or fixture standing in for a real endpoint is a debt, and some real integration or e2e test against the actual network path must pay it. Seeded inputs are fine; what cannot stand is a mock with no real test behind it — that is a green light wired to nothing (`docs/principles/foundations/testing.md`).
+The frontend shape is the **testing trophy** (Kent Dodds): a thin static-analysis base, a few unit tests, a fat middle of integration tests that render real component trees against a mocked network, and a thin layer of end-to-end checks, plus the front-door proof above it — Playwright against the real running app and real backend. This is the frontend idiom of the framework testing canon (`docs/principles/foundations/testing.md`, including the fake-needs-a-real-test rule: every MSW handler standing in for a real endpoint is a debt some real e2e test must pay) — the backends run the honeycomb, the frontend runs the trophy, both put the weight on integration over isolated units. When this file and the canon disagree, the canon wins and this file is the one to fix.
 
 Tests in the Next.js application follow four rules:
 
@@ -419,7 +404,7 @@ it('shows error message on server failure', async () => {
 
 ## Trace Assertions
 
-The app ships OpenTelemetry through `instrumentation.ts`, so server-side work — route handlers and Server Actions — emits spans. Where a slice adds a server path whose trace a dashboard or SLO depends on, assert on it with an **in-memory span exporter** rather than trusting the instrumentation silently. This is server-side only; component and hook tests assert on rendered behaviour, not traces.
+Observability is a test surface (canon principle 3). The app ships OpenTelemetry through `instrumentation.ts`, so server-side work — route handlers and Server Actions — emits spans; assert on a new server path with an **in-memory span exporter** rather than trusting the instrumentation silently. Server-side only — component and hook tests assert on rendered behaviour, not traces.
 
 ```ts
 import {
@@ -437,15 +422,15 @@ const names = exporter.getFinishedSpans().map((s) => s.name);
 expect(names).toContain('POST /v1/meetings'); // the entry span exists, trace connected
 ```
 
-Assert the spans that must exist and the attributes a query depends on; let the rest float — pinning the whole span tree couples the test to implementation.
+Assert what the contract promises, not the whole span tree (canon principle 3: pinning couples the test to implementation).
 
 ## Mutation Testing — the assertion-quality read-out
 
-Coverage tells you a line ran; it does not tell you an assertion checked it — a 100% covered `lib/utils.ts` can still assert nothing. **StrykerJS** is the read-out that proves the assertions bite: it mutates the code and confirms a test fails. Treat it as a **signal, never a gate**, and run it incrementally on changed code (`stryker run --incremental`, which diffs against the cached `reports/stryker-incremental.json` — there is no `--since` flag). Point it at the dense pure logic first (`lib/utils.ts`, schema validators, formatters); a surviving mutant there is the missing assertion to add. This is also the antidote to AI-generated component tests, whose oracle is lifted from the current markup and so cement bugs as expected.
+Mutation testing is the assertion-quality read-out (canon principle 5): a **signal, never a gate**. Coverage tells you a line ran, not that an assertion checked it — a 100% covered `lib/utils.ts` can still assert nothing. **StrykerJS** mutates the code and confirms a test fails; run it incrementally on changed code (`stryker run --incremental`, which diffs against the cached `reports/stryker-incremental.json` — there is no `--since` flag). Point it at the dense pure logic first (`lib/utils.ts`, schema validators, formatters); a surviving mutant there is the missing assertion to add — the same read-out is the antidote to AI-generated component tests, whose oracle is lifted from the current markup.
 
 ## Generate the Inputs You Can't Enumerate
 
-Example-based tests check the cases you thought of; the bugs live in the cases you didn't (canon principle 7). Two generative surfaces apply to a Next.js app:
+The bugs live in the cases you didn't enumerate (canon principle 7). Two generative surfaces apply to a Next.js app:
 
 - **Property-based tests with `fast-check`** for the dense pure logic — formatters, `lib/utils.ts`, Zod-adjacent transforms, anything with an invariant (a round-trip, a sort that must stay stable, a parse that must never throw). State the property; fast-check generates and shrinks counterexamples. This is the highest-leverage complement to example-based unit tests: one property covers an infinity of inputs.
 
@@ -468,7 +453,7 @@ Reach for these where invariants are real. Presentational components have no inv
 
 ## Naming Tests by Behaviour
 
-A test name must let an on-call engineer form a hypothesis from the failure log alone, without opening the file. State the behaviour and the condition — `should [expected outcome] when [condition]` — not the implementation. `renders correctly` and `works` say nothing the dashboard doesn't already show; `shows the retry button when the meetings request fails` does. The format serves the goal; a name that states behaviour and condition in another shape is fine.
+Canon principle 4: name by behaviour and condition, not implementation. `renders correctly` and `works` say nothing the dashboard doesn't already show; `shows the retry button when the meetings request fails` does.
 
 ## Test Commands
 

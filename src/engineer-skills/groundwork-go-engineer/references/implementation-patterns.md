@@ -63,40 +63,9 @@ func (r *Repository) Get(ctx context.Context, id string) (*domain.Entity, error)
 }
 ```
 
-## 3. Dependency Injection
+## 3. Dependency Injection — Accept Interfaces, Return Structs
 
-### The Interface (Declared by the Core)
-
-The interface belongs in `internal/core/service` (package `service`), declared at the point of use and speaking Domain language:
-
-```go
-package service
-
-import "myservice/internal/core/domain"
-
-type EntityStore interface {
-	Get(ctx context.Context, id string) (*domain.Entity, error)
-}
-```
-
-### The Wiring (Composition Root)
-
-Constructor injection assembles pieces at startup without globals:
-
-```go
-// 1. Initialize the concrete edge implementation
-store := postgres.NewRepository(sqlDB)
-
-// 2. Inject into the Service (which only knows the service.EntityStore interface)
-entityService := service.NewEntityService(store)
-
-// 3. Inject the Service into the inbound HTTP route
-entrypoints.RegisterEntityRoutes(router, entityService)
-```
-
-## 4. Accept Interfaces, Return Structs
-
-This idiom is how the inward-dependency rule is written in Go. The core service declares the interface; it accepts that interface; the edge implementation returns a concrete struct that satisfies it.
+This idiom is how the inward-dependency rule is written in Go: the interface lives in `internal/core/service` (package `service`), declared at the point of use in Domain language; the core service accepts that interface; the edge implementation returns a concrete struct that satisfies it. The layout this sits inside — zones, edge packages, the `depguard` gate — is `references/architecture.md`.
 
 ```go
 // 1. The interface lives in the core, with the code that calls it
@@ -106,22 +75,29 @@ type Store interface {
 	Get(ctx context.Context, id string) (*domain.Entity, error)
 }
 
-// 2. The Service accepts the interface
-func NewService(store Store) *Service {
+func NewService(store Store) *Service {  // 2. the Service accepts the interface
 	return &Service{store: store}
 }
 
 // 3. The edge implementation returns the concrete struct
 package postgres
 
-type Repository struct { /* ... */ }
+type Repository struct{ db *sql.DB }
 
 func NewRepository(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }
 ```
 
-## 5. Goroutines and Context Loss
+Composition happens once, at startup, in `cmd/` — no runtime DI framework, no globals:
+
+```go
+store := postgres.NewRepository(sqlDB)               // 1. concrete edge implementation
+entityService := service.NewEntityService(store)     // 2. injected as the interface
+entrypoints.RegisterEntityRoutes(router, entityService) // 3. wired into the HTTP edge
+```
+
+## 4. Goroutines and Context Loss
 
 When spawning background tasks, use `context.WithoutCancel` (Go 1.21+) or extract/inject the trace so the background span remains a child of the request trace — even if the HTTP client disconnects early.
 
@@ -137,7 +113,7 @@ func (s *Service) ProcessAsync(ctx context.Context) {
 }
 ```
 
-## 6. Immutability in the Domain
+## 5. Immutability in the Domain
 
 When creating methods on Domain entities that calculate or evaluate state rather than modifying it, enforce immutability by exclusively using value receivers:
 

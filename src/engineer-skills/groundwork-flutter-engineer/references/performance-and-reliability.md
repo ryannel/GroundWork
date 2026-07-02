@@ -1,20 +1,5 @@
 # Performance & Reliability
 
-## Table of Contents
-- [Two Budgets a Client Spends](#two-budgets-a-client-spends)
-- [The Frame Budget](#the-frame-budget)
-- [List Virtualization](#list-virtualization)
-- [Image and Asset Memory](#image-and-asset-memory)
-- [Isolates for Heavy Compute](#isolates-for-heavy-compute)
-- [Startup Time](#startup-time)
-- [Resilience on the Typed Client](#resilience-on-the-typed-client)
-- [Optimistic UI and Offline](#optimistic-ui-and-offline)
-- [Graceful Degradation](#graceful-degradation)
-- [What Lives in the Core, Not Here](#what-lives-in-the-core-not-here)
-- [Anti-Patterns](#anti-patterns)
-
----
-
 ## Two Budgets a Client Spends
 
 Performance is a budget spent deliberately, not "fast enough" tuned afterward (`docs/principles/quality/performance.md`). A client spends two budgets. The **frame budget** is local: 16ms to produce a frame at 60Hz, 8ms at 120Hz, and a build that overruns it drops the frame the user feels as jank. The **round-trip budget** is remote: the time from a tap to a rendered result, most of which is the gateway call the app does not control. Allocate both top-down — decide the interaction's target before building it — and measure the tail, not the average: the one stutter in a scroll is the experience users remember (`docs/principles/quality/performance.md`).

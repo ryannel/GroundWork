@@ -1,16 +1,5 @@
 # Packaging & Updates
 
-## Table of Contents
-- [The Toolchain Split](#the-toolchain-split)
-- [Anatomy of forge.config.ts](#anatomy-of-forgeconfigts)
-- [Makers](#makers)
-- [Code Signing](#code-signing)
-- [Auto-Update Routes](#auto-update-routes)
-- [Update Discipline](#update-discipline)
-- [Version Hygiene](#version-hygiene)
-
----
-
 ## The Toolchain Split
 
 Two tools, one pipeline:

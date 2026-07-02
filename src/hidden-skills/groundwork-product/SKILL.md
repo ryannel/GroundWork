@@ -32,7 +32,7 @@ Durable product guidance lives in `references/`. This skill decides what to load
   6. Instrument before you ship — the success signal and its counter-metric are decided before the build, not after.
   7. Requirements are evidence-grounded and testable — jobs, journeys, stable-ID FRs, Given/When/Then acceptance criteria.
 
-## Operating Contract
+## Operating Rules
 
 1. Load reference docs from `references/` for the decision in front of you. Load the smallest set that explains it; add more only when the decision crosses into another concern.
 2. Treat the project's existing committed docs (`docs/product-brief.md`, prior pitches, `docs/maturity.md`) as the source of truth for what has **already** been decided about the product. Respect those boundaries; do not silently re-open a settled scope decision — name it if it must change.

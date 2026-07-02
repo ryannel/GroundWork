@@ -1,16 +1,5 @@
 # Accessibility
 
-## Table of Contents
-- [The Baseline](#the-baseline)
-- [Semantics](#semantics)
-- [Tap Targets](#tap-targets)
-- [Dynamic Type](#dynamic-type)
-- [Contrast](#contrast)
-- [Accessibility as the Test Seam](#accessibility-as-the-test-seam)
-- [Review Checklist](#review-checklist)
-
----
-
 ## The Baseline
 
 Accessibility is a merge gate, not a backlog item. The baseline for every feature: semantic labels on interactive widgets, 48dp tap targets, WCAG AA contrast (inherited from the token palette), and layouts that survive large text scales. An accessibility failure blocks the slice the way a failing test does.

@@ -35,7 +35,7 @@ Durable design guidance lives in `references/`. This skill decides what to load,
   6. Perception is the foundation — perceptual colour, typographic rigour, modelled light, motion with purpose.
   7. Hold the work to the named leaders, and invest in durable craft over visible fashion.
 
-## Operating Contract
+## Operating Rules
 
 1. Load reference docs from `references/` for the decision in front of you. Load the smallest set that explains it; add more only when the decision crosses into another concern.
 2. Treat the project's committed design artifacts and the running product as the source of truth for what has **already** been decided — `docs/design-system.md`, `.groundwork/config/brand-tokens.json`, `docs/surfaces.md`, and the actually rendered UI. Respect those decisions; do not silently re-open a settled design — name it if it must change.

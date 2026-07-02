@@ -2,9 +2,7 @@
 
 ## The Model: Honeycomb, Not Pyramid
 
-The default shape is the test honeycomb: a fat middle of sociable service-perimeter tests, a thin layer of solitary unit tests, a few end-to-end checks on top. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — and a mock-heavy suite passes while production breaks. This is the stack idiom of the framework testing canon (`docs/principles/foundations/testing.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.
-
-Above the honeycomb sits one proof the tiers below cannot give you: drive the real running service through its real front door — the HTTP/gRPC API a consumer actually calls — end to end on the real pipeline. Service tests that each pass behind a stubbed or faked dependency can still assemble into a product that does nothing on the real path, because the seams between them were never wired. And every fake or fixture standing in for a real stage is a debt: some test must drive the real producer of that data, or the fixture is a green light wired to nothing (canon, `docs/principles/foundations/testing.md`). Seeding the inputs is fine; faking the work in the middle is the violation.
+Fat middle of sociable service-perimeter tests, thin unit layer, few end-to-end checks on top, plus one front-door proof above it that drives the real service through its real HTTP/gRPC API on the real pipeline — the framework testing canon's model in full (`docs/principles/foundations/testing.md`, including the fake-needs-a-real-test rule); canon wins on disagreement, this file is the one to fix. Testcontainers starts real Postgres in seconds, so the old excuse for mocking the database is gone — a mock-heavy suite passing while production breaks is the one failure mode Go has no excuse for.
 
 ## Testing Tiers
 
@@ -115,20 +113,11 @@ Do not mock the database. Do not mock internal service or repository interfaces.
 
 ## Testing Foundations
 
-Tests are risk-weighted assertions about production behaviour — not boxes ticked for coverage.
-
-### Core Principles
-
-1. **Favour service tests over solitary unit tests.** Interesting bugs live at the boundaries — HTTP serialisation, SQL query correctness, event emission.
-2. **Emulate, don't mock.** If a dependency can run in a container, emulate it.
-3. **Observability is a test surface.** Assert that traces are unbroken end-to-end — a missing span is a test failure.
-4. **Name tests by behaviour.** `[Function] should [expected outcome] when [condition]`.
-5. **Risk-based depth.** Score modules with Impact × Complexity × Change-frequency before deciding test depth.
-6. **Tests are part of the change.** A PR without tests is incomplete.
+Tests are risk-weighted assertions about production behaviour, not boxes ticked for coverage — the full principle set (service-tests-over-units, real dependencies, observability-as-test-surface, behavioural naming, risk-based depth, tests-are-part-of-the-change) is `docs/principles/foundations/testing.md`; this file states only where Go's tooling and idiom diverge from the general case.
 
 ## Trace Assertions
 
-Observability is a test surface (principle 3): a critical-path request must emit an unbroken trace, and a missing span is a test failure, not an instrumentation TODO. The mechanism is an **in-memory span exporter** from the OTel SDK — no external tooling, and the durable approach now that the dedicated trace-test tools have gone dormant.
+Observability is a test surface (canon principle 3): a missing span is a test failure, not an instrumentation TODO. The mechanism is Go's OTel SDK **in-memory span exporter** (`tracetest.NewInMemoryExporter`):
 
 ```go
 import (
@@ -152,17 +141,15 @@ func TestCreateEntity_EmitsTrace(t *testing.T) {
 }
 ```
 
-Assert what the contract promises — the spans that must exist on the journey, that the trace stays connected across hops, and the attributes a dashboard or SLO query depends on. Pinning the exact span tree and every attribute couples the test to implementation and trains the team to delete it.
+Assert what the contract promises, not the whole span tree (canon principle 3: pinning every attribute couples the test to implementation and trains the team to delete it).
 
 ## Mutation Testing — the assertion-quality read-out
 
-A fat service-perimeter test drives many branches through one HTTP call and can *execute* them all while only asserting on the response body. Mutation testing is the one instrument that proves the suite checks what it runs: inject a fault, confirm a test fails, and a surviving mutant is a line you cover but do not check. Treat it as a **signal, never a gate** — run it on the high-risk modules the risk matrix flags and on changed code only.
-
-Go's mutation tooling is immature: `gremlins` is pre-1.0 and slow on large packages, and `go-mutesting` is effectively unmaintained. So here it stays a deliberate, hand-run spot check on a dense package under active change (`gremlins unleash ./internal/pricing`), not a CI expectation. Where it surfaces a surviving mutant on changed high-risk code, that is the missing assertion to add — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
+Mutation testing is the assertion-quality read-out (canon principle 5): a **signal, never a gate**, run on the high-risk modules the risk matrix flags and on changed code only. Go's tooling is immature — `gremlins` is pre-1.0 and slow on large packages, `go-mutesting` is effectively unmaintained — so here it stays a deliberate, hand-run spot check on a dense package under active change (`gremlins unleash ./internal/pricing`), not a CI expectation. A surviving mutant on changed high-risk code is the missing assertion to add — the same read-out catches AI-generated tests whose oracle was lifted from the implementation.
 
 ## Generate the Inputs You Can't Enumerate
 
-Example-based tests check the cases you thought of; the bugs live in the cases you didn't (canon principle 7). Two generative surfaces apply in Go, both highest-leverage on the **dense, boundary-poor** logic that earns Tier 2 unit tests:
+The bugs live in the cases you didn't enumerate (canon principle 7). Two generative surfaces apply in Go, both highest-leverage on the **dense, boundary-poor** logic that earns Tier 2 unit tests:
 
 - **Property-based tests** for code with an invariant that holds across a large input space — a round-trip (`Decode(Encode(x)) == x`), a parser that must never panic, a pricing calculation with an algebraic law, a state machine that must preserve a constraint. State the property and let the framework generate and shrink counterexamples. Reach for `pgregory.net/rapid` (modern, shrinks well) over stdlib `testing/quick`; one property covers an infinity of examples, and most caught faults surface on a single generated input.
 

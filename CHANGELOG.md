@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (engineer family: one home per concept, a real go security distillation, Operating Rules, 2026-07-02)
+
+The go security reference had been re-stamped against its pinned source without content — it now carries a real decision-time distillation (parameterized queries, secrets posture with the eliminate→shorten→rotate hierarchy, SSRF allowlists, supply-chain verification, non-leaking error envelopes), and `integration-realtime-data.md` becomes a concrete `integration.md` (outbox, idempotent consumer, webhook HMAC in Go) deferring the theory to the shipped corpus. All five testing spines defer their shared framing to `docs/principles/foundations/testing.md` by principle number, keeping stack tables, gotchas, and the Bet Slice Rollout obligations verbatim (the briefs cite those strings). Code-intelligence sections shrink to the pointer plus a by-language-property clause; go/python handoff tables collapse; TOCs drop; python's test-tier names align to go's and it gains the missing performance stub + pin. `## Operating Contract` → `## Operating Rules` family-wide (5 engineer + 3 persona skills, one commit) — the heading no longer collides with the real contract file. Product persona gains the ethics-ownership calibration; the designer's usability reference gains the floor-vs-ceiling and complete-pattern distillations its corpus source added in June.
+
+- [no-migration] Skill-prose changes ride promotion for new scaffolds and the new Engineer-skills reconcile family for existing installs; zero existing anchor hashes changed (one new python pin row).
+
 ### Removed (the surface-registry bootstrap — every install already has a registry, 2026-07-02)
 
 Surface-activation carried a full registry-reconstruction path for products installed before the surface model existed. Evidence closed the question: every published version (0.10.0 up) ships the surface model, and no pre-publish install remains — so the bootstrap's precondition cannot occur. Retired in one change across every surface that mentioned it: the skill's bootstrap section (replaced by a one-line fail-safe routing a genuinely damaged registry to the update lane's Surfaces family), the orchestrator's routing clause, the update family's bootstrap arm (the family survives, re-scoped to its real ongoing job — registering runner-less surfaces into `./dev`), the reconcile-worker recipe verb, groundwork-check's two no-registry rows (now damage, not adoption), and the dev CLI's message (bundle rebuilt).

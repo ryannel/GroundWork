@@ -8,7 +8,7 @@ Python ML services are services first. They meet the same bars for reliability, 
 One combination, applied everywhere. The Python ecosystem has a hundred alternatives — pick one and stick.
 
 ### 2. A Pure Core, Swappable Edges from the Outset
-Explicit `core/domain`, `core/ports.py`, `core/service`, `adapters/`, and `entrypoints/` packages under `src/<package>/` (src-layout), with the inward-dependency rule enforced by `import-linter` in CI. Model clients, storage, and the FastAPI router are all adapters. The core has no model-library imports.
+The full layout is `references/architecture.md`; for ML services the one addition is that model clients are adapters like any other — the core has no model-library imports, and swapping providers is an adapter change, not a core change.
 
 ### 3. Model Calls Are External Integrations
 Every model call is wrapped behind a port the core owns, implemented by an adapter with timeouts, retries with jitter, circuit breaking, and rate-limit respect. The core never knows which provider is behind the port. Swapping providers is an adapter change.

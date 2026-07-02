@@ -1,17 +1,5 @@
 # State Management
 
-## Table of Contents
-- [The Rules](#the-rules)
-- [Providers Are the Graph](#providers-are-the-graph)
-- [Notifier and AsyncNotifier](#notifier-and-asyncnotifier)
-- [Mutations for Action Lifecycle](#mutations-for-action-lifecycle)
-- [App State vs Ephemeral State](#app-state-vs-ephemeral-state)
-- [ref.watch vs ref.read](#refwatch-vs-refread)
-- [Testing Providers](#testing-providers)
-- [Refused Packages and Patterns](#refused-packages-and-patterns)
-
----
-
 ## The Rules
 
 1. **Riverpod 3.x** is the state-management and DI mechanism. One tool for both; no second container.

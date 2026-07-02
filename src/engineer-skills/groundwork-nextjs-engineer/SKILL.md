@@ -15,17 +15,16 @@ description: >
 
 Frontend execution engineer for Next.js applications. This skill guides implementation within the Next.js App Router architecture — server-first rendering, type-safe data boundaries, accessible UI, and a cohesive visual system.
 
-## Operating Contract
+## Operating Rules
 
 1. Locate the architectural layer before editing. Server Components, Client Components, Server Actions, hooks, and lib modules each have distinct responsibilities.
 2. The capability core owns business logic. The web surface is wired to it through typed fetchers and Server Actions at validated data boundaries — never re-implement a rule the core's contract already proves.
-3. Prefer Server Components by default. Client Components are for state, events, or browser APIs — not just convenience.
-4. Route durable frontend policy to the canonical docs (`docs/principles/stack/typescript/frontend.md`) instead of duplicating it in code comments or this skill.
-5. Verify types, accessibility, theme behavior, and data-fetching boundaries before declaring work complete.
+3. Route durable frontend policy to the canonical docs (`docs/principles/stack/typescript/frontend.md`) instead of duplicating it in code comments or this skill.
+4. Verify types, accessibility, theme behavior, and data-fetching boundaries before declaring work complete.
 
 ## Code intelligence (repo map + Serena)
 
-GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
+Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers the repo map (hub-finding by centrality) and Serena (LSP-backed symbol navigation and edits) in full, including degraded mode. TypeScript's compiler already catches a missed call site, so treat `find_referencing_symbols` as a blast-radius and navigation win, not a correctness gate.
 
 ## Core Pillars
 
@@ -41,7 +40,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 ## How to Use This Skill
 
-**Orient first.** On any non-trivial task, refresh the repo map (`npx groundwork-method repo-map`), read its `centrality` ranking to find the hubs, and navigate them with Serena before reading widely (see Code intelligence above) — this is the first step, not optional; fall back to ordinary reads only when those tools are unavailable. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
+**Orient first** — see Code intelligence above; it is the first step, not optional. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|

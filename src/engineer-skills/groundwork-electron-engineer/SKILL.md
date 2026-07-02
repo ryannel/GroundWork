@@ -16,7 +16,7 @@ description: >
 
 Desktop execution engineer for Electron applications. This skill guides implementation within the flagship-app architecture — a privileged main process that only orchestrates, fully sandboxed Node-free renderers behind a narrow typed bridge, security defaults that are baked rather than advisory, and a boot smoke driven by Playwright's `_electron` driver, the agent-closable loop this stack was chosen for.
 
-## Operating Contract
+## Operating Rules
 
 1. Locate the process before editing. Main, preload, renderer, and shared each have distinct responsibilities and their own compiler context; a change that blurs the boundary is wrong even when it works.
 2. The capability core owns business logic. The renderer is a thin surface adapter, and privileged core access belongs on main's side of the IPC seam — never re-implement a rule the core's contract already proves.
@@ -25,7 +25,7 @@ Desktop execution engineer for Electron applications. This skill guides implemen
 
 ## Code intelligence (repo map + Serena)
 
-GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-map` — tree-sitter import edges + PageRank centrality, cached to `.groundwork/cache/repo-map.json`) and the **Serena** MCP server (LSP-backed symbol navigation and editing), registered at init. Orient before reading widely: refresh the map, read its `centrality` ranking to find the hubs, then use Serena to navigate them (`get_symbols_overview` / `find_symbol` / `find_referencing_symbols`) and make reference-aware edits (`replace_symbol_body` / `rename`). Full workflow and the graceful-degradation contract live in `.groundwork/skills/code-intelligence.md`; fall back to ordinary reads and edits when they are unavailable.
+Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers the repo map (hub-finding by centrality) and Serena (LSP-backed symbol navigation and edits) in full, including degraded mode. TypeScript's compiler already catches a missed call site within one process's tsconfig, so treat `find_referencing_symbols` as a blast-radius and navigation win rather than a correctness gate — it earns its keep tracing a shared IPC type across the main/preload/renderer boundary, where compilation is siloed per process.
 
 ## Core Pillars
 
@@ -41,7 +41,7 @@ GroundWork gives you a deterministic **repo map** (`npx groundwork-method repo-m
 
 ## How to Use This Skill
 
-**Orient first.** On any non-trivial task, refresh the repo map (`npx groundwork-method repo-map`), read its `centrality` ranking to find the hubs, and navigate them with Serena before reading widely (see Code intelligence above) — this is the first step, not optional; fall back to ordinary reads only when those tools are unavailable. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
+**Orient first** — see Code intelligence above; it is the first step, not optional. Then match the user's task to the smallest relevant reference set. Most tasks touch one or two references.
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
