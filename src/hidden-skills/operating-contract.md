@@ -358,7 +358,7 @@ Protocol 8 defines what the reviewer's verdict means; this protocol defines how 
 
 The reviewer runs as an independent subagent with a fresh context, dispatched through the host's subagent mechanism — the `Task` tool in Claude Code. The dispatch prompt loads the `groundwork-review` skill and passes `document_path` (the draft under review) and `document_type` (which checklist the reviewer applies). Only the verdict and findings return to the caller; the reviewer's deliberation stays in its own context, which keeps the calling conversation's window clean and the judgement independent of the author.
 
-`groundwork-review` is a review role, so it dispatches at the **`frontier`** tier — the same gate-must-be-strong reasoning that puts the delivery review lenses there (Model Tiers, below). The host model is chosen at dispatch to match that class.
+`groundwork-review` is a review role, so it dispatches at the **`frontier`** tier — the same gate-must-be-strong reasoning that puts the delivery review lenses there (Model Tiers, below). Set the class's host model explicitly on the dispatch (Claude Code: `model: "opus"`), never left to inherit (Model Tiers — *Mechanism*).
 
 ### The verdict gates the commit
 
@@ -408,7 +408,7 @@ The role tier is a default, overridable **upward, one slice at a time**, never d
 
 ### Mechanism and degradation
 
-Each brief's frontmatter carries its role default (`tier: frontier` or `tier: execution`); the dispatching workflow chooses a host model matching that class — lifted per the slice flag — and passes it through the host's subagent mechanism (the `Task` tool's `model` in Claude Code). The **driver's own tier is a recommendation**, not framework-enforced: the driver runs in the user's session, so the workflow recommends a frontier model and the user pins it. Subagent tiers are framework defaults the driver applies.
+Each brief's frontmatter carries its role default (`tier: frontier` or `tier: execution`); the dispatching workflow chooses a host model matching that class — lifted per the slice flag — and passes it through the host's subagent mechanism (the `Task` tool's `model` in Claude Code). **Set the model explicitly on every dispatch; never rely on inheritance.** A dispatch that omits the model inherits the driver's session model, which silently runs an `execution`-tier worker at `frontier` — the policy defeated with nothing visibly failing. On the reference host the classes realise as `model: "opus"` for `frontier`, `model: "sonnet"` for `execution`, and `model: "haiku"` for `light`; other hosts pass their own class equivalents. The **driver's own tier is a recommendation**, not framework-enforced: the driver runs in the user's session, so the workflow recommends a frontier model and the user pins it. Subagent tiers are framework defaults the driver applies.
 
 Where a host cannot set a per-subagent model (some harnesses pin one session model), the policy degrades to **running everything at `frontier`** — correct but pricier, never the reverse. The review is never silently downgraded; workers are framed as *may* run cheaper, so "cannot downgrade" is always safe.
 

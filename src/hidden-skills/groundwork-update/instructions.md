@@ -52,8 +52,10 @@ you) — honour it rather than probing your own tool set, since a runtime that m
 capabilities and calls a dispatch tool that does not exist breaks the run.
 
 - `parallel` → dispatch each unit to a `reconcile-worker` subagent at the **`execution`**
-  tier (Model Tiers, operating contract — gated, not trusted; you review every mutated doc
-  at `frontier` before committing). This is the context-lean path the driver is built for.
+  tier, model set explicitly on the dispatch — Claude Code: `model: "sonnet"`; an omitted
+  model silently inherits the driver's model and defeats the tiering (Model Tiers, operating
+  contract — gated, not trusted; you review every mutated doc at `frontier` before
+  committing). This is the context-lean path the driver is built for.
 - `sequential` → no dispatch tool exists; advance each unit **inline, one at a time** — do
   the worker's read-and-transform yourself, gate and commit it, then purge that unit's
   detail from context before the next.
@@ -81,7 +83,8 @@ unit of work in either phase — one brief item, one family — runs the same lo
    approvals across units.
 2. **Dispatch or inline.** Under `parallel`, hand a `reconcile-worker` subagent the unit's
    capsule (`unit_kind`, the canonical + instance pointers, the advance approach) at the
-   `execution` tier; it reads the canonical and instances in its own context, makes the
+   `execution` tier, model set explicitly (Claude Code: `model: "sonnet"`), never left to
+   inherit; it reads the canonical and instances in its own context, makes the
    change, and returns a report. Under `sequential`, do the worker's read-and-transform
    yourself for this one unit — the recipes live in
    `.groundwork/skills/groundwork-update/briefs/reconcile-worker.md`'s "The work" section;

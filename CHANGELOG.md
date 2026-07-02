@@ -6,6 +6,14 @@ All notable changes to GroundWork are documented here. The format follows
 existing installation are prefixed `[migration]` — `npx groundwork update` surfaces them
 automatically when it detects a version jump.
 
+## [Unreleased]
+
+### Changed (model tiers set explicitly at every dispatch site, 2026-07-02)
+
+A live delivery run showed slice-workers running at `frontier` despite the `execution` tier policy: the dispatch sites named the tier but left the concrete mechanism one pointer-hop away in the operating contract, and a dispatch that omits the host's model parameter silently inherits the driver's session model — the policy defeated with nothing visibly failing. Every dispatch site now states the realization inline: set the tier's model explicitly on the dispatch (Claude Code: `model: "opus"` for `frontier`, `"sonnet"` for `execution`, `"haiku"` for `light`), never rely on inheritance. The slice-worker dispatch also names the tier in its one-line dispatch note ("dispatching slice-worker · execution → sonnet") so an omission is visible to the user watching the run. Touched: the operating contract's Model Tiers mechanism and Protocol 9 dispatch, delivery's slice-worker / review-lens / experience-auditor dispatches, the update driver's reconcile-worker dispatch, and the patch lane's blind-review dispatch.
+
+- [no-migration] Prose clarification of existing tier policy; contract stays v1. Rides the reconcile path for existing installs.
+
 ## [0.13.0] - 2026-07-02
 
 ### Changed (documentation principles point at the ADR doctrine and match the enforced freshness window, 2026-07-02)
