@@ -17,4 +17,4 @@ match.
 | src/docs/principles/foundations/code-craft.md | 4575548b540d86ecb44e255d81d7c0dbd638b209ea5a157119d5c887ecb292d7 | 2026-07-02 | references/code-craft-security.md |
 | src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-06-26 | references/reliability-performance.md |
 | src/docs/principles/quality/reliability.md | 9c9788504e0963458667d2727c3fc2359776108be593a2efc6603f6470002252 | 2026-06-26 | references/reliability-performance.md |
-| src/docs/principles/foundations/documentation.md | 8b576072eaf4970f1251b560781e3e755c864a7920faa599b2834c921cbb8734 | 2026-06-26 | references/documentation.md |
+| src/docs/principles/foundations/documentation.md | ed13b69b8a128dbc416b5f5108b5424bc1a3b755cf425c4fb4eaca5d591bc1da | 2026-07-02 | references/documentation.md |

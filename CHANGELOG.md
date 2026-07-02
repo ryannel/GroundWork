@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (documentation principles point at the ADR doctrine and match the enforced freshness window, 2026-07-02)
+
+`foundations/documentation.md` §8 defers the ADR doctrine to its single home (`architecture-decisions.md` owns amend-vs-supersede, assumptions, review triggers) instead of paraphrasing it, and the principles freshness row now says 12 months — the advisory window `groundwork-check` actually enforces — instead of a 6-month claim nothing implemented. Five engineer anchor pins re-stamped for exactly these edits; each pin's distilling reference was read and confirmed unaffected (they distill the doc-comment hierarchy, not ADR/freshness content).
+
+- [no-migration] Tier-2 content rides the refresh/merge path.
+
 ### Changed (the nextjs engineer skill is a decision-time reference set, not a framework tutorial, 2026-07-02)
 
 The nextjs references rebuilt in the flutter/electron genre: pin conventions, calibrate defaults, correct staleness — never restate the framework manual. A new `version-corrections.md` concentrates the training-data-is-stale corrections previously diluted across four files (async params/cookies, proxy.ts rename, 'use cache', navigation-throw handling, Tailwind v4, hydration causes); `performance-and-deployment.md` becomes `performance.md` with the deployment tutorial and duplicated Web-Vitals content gone; near-identical example bodies collapse to one per pattern. `ux-principles.md` goes values-free — motion values and the feature inventory belong to the project's design system; the reference keeps the engineer-side judgment rules and points at `docs/design-system.md`. Sandbox domain leakage purged (a generic order domain replaces the meeting-transcription examples). Table-of-contents blocks dropped across the reference set. Skill 24,077 → ~18,600 words (−23%); every electron deferral verified still resolving; the Bet Slice Rollout contract byte-identical.

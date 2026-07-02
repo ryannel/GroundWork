@@ -2,7 +2,7 @@
 title: Documentation
 description: Docs as an active product surface for humans and AI agents — canonical knowledge, machine-readable interfaces, automation-first governance, and drift control.
 status: active
-last_reviewed: 2026-06-19
+last_reviewed: 2026-07-02
 ---
 # Documentation
 
@@ -58,7 +58,7 @@ Generation covers the *facts*, not the *orientation*. A raw OpenAPI dump is accu
 
 ### 8. Decisions are append-only
 
-Hard-to-reverse decisions live in ADRs. Accepted ADRs are not edited to match current preference; they are superseded. Each ADR carries enough consequence and debt context for a future reader to understand why the decision existed, what it cost, and when to revisit it.
+Hard-to-reverse decisions live in ADRs; a record is immutable once accepted, and when the decision changes we supersede it rather than rewrite it. The full doctrine — the amend-vs-supersede line, assumptions, review triggers, governance — lives at [Architecture Decisions](../system-design/architecture-decisions.md).
 
 ### 9. Metadata interoperability matters
 
@@ -72,7 +72,7 @@ When code, docs, skills, specs, and design records disagree, we identify the sou
 
 | Surface | Review window | Freshness rule |
 |---|---:|---|
-| Principles | 6 months | Review when operating model or engineering policy changes. |
+| Principles | 12 months | Matches the `groundwork-check` advisory window; review sooner if operating model or engineering policy changes. |
 | Service handbooks | 3 months | Review when code structure, stack versions, commands, or service boundaries change. |
 | API and event reference | Every contract change | Generated from OpenAPI and AsyncAPI sources. |
 | Runbooks | 3 months | Review after incidents, operational changes, or ownership changes. |
