@@ -68,6 +68,7 @@ Read in this order, in a single parallel batch:
    - `.groundwork/context/product-brief.md` — Key Decisions about the product, Binding Constraints (ethical, compliance), Deferred Questions
    - `.groundwork/context/design-system.md` — non-functional requirements and interaction budgets
    - `.groundwork/context/architecture.md` — service map, technology choices, communication patterns
+   - `.groundwork/context/scaffold.md` — Key Decisions (boot/test commands) and Binding Constraints (env var requirements, manual verification gaps) MVP Planning must respect when scoping over a possibly-unverified scaffold
 2. **Surface registry** — `docs/surfaces.md`, when it exists: the registered surfaces with their statuses, and the capability core's deployment. Phase 2 scopes the first bet's surfaces against this registry. When the file is absent, the product has a single implicit surface and surface scoping reduces to nothing — proceed exactly as if this step did not exist.
 3. **Full body — lazy** — when a context file points to a decision that requires more context to scope around (e.g., "real-time delivery is in scope" without specifying the protocol), read the relevant section from the upstream `docs/*.md` body. Do not pre-load full bodies.
 
@@ -198,7 +199,7 @@ The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both 
 
 5. **Present.** Output the final pitch in full in the chat. Surface any 🟡 Advisory findings for the user to decide whether to act on.
 
-6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. Proceed to Phase 4 only on a passing verdict and explicit approval.
+6. Ask the user whether to save as-is or refine anything. If they choose to refine: identify with them which section changes and what the change is, rewrite the affected section in `docs/bets/<slug>/pitch.md`, then re-run the review per Protocol 9 — a revised pitch is a new draft, and the gate applies to it, not to the version that previously passed. On a passing verdict and explicit approval, mark Phase 3 (Draft & Review) complete in `mvp-cache.md` and proceed to Phase 4.
 
 ---
 

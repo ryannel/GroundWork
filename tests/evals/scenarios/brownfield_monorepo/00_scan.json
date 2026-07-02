@@ -3,5 +3,5 @@
   "skill_path": "src/hidden-skills/groundwork-scan/instructions.md",
   "turns": 30,
   "depends_on": "00_codebase",
-  "success_files": [".groundwork/cache/scan/complete.md"]
+  "success_files": [".groundwork/cache/scan/overview.md"]
 }

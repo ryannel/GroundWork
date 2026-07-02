@@ -114,7 +114,7 @@ Branch on the `fan_out` hint.
 Dispatch one scan sub-agent per partition, guided by the structural map so each agent knows its partition's hubs.
 
 - **Bound the fan-out at 8 concurrent sub-agents.** With more partitions than that, run in waves. With a single partition far larger than the rest (a file count or size well beyond its siblings), sub-partition it by sub-directory, or under Quick/Deep depth priority-sample it rather than reading every file. Sampling always includes the contract-bearing files (specs, migrations, config) and the high-centrality modules — rank by `repo-map.json`'s centrality when present; the budget falls on the leaves, never on the contracts. A concurrency cap alone does not bound one oversized partition; handle it explicitly.
-- Give each sub-agent its partition root, the exclusion globs, the scan depth, the partition's hub symbols from the structural map, and the digest schema — with the instruction to return the structured digest only, never file contents.
+- Give each sub-agent its partition root, the reference path to `exclusions.md` (the one exclusion source; never a copied list), the scan depth, the partition's hub symbols from the structural map, and the digest schema — with the instruction to return the structured digest only, never file contents.
 - **Assemble without reading files yourself.** As each digest returns, route its fields into the concern-split findings files (below) with `append_file`, update the partition's status and one-line summary in `scan-state.json`, and move on. You never open a source file in the parent context — the sub-agents read; you assemble. This is what keeps the parent lean at full fan-out.
 
 ### Stage 3b: Sequential Batch (`fan_out: sequential`)
@@ -159,6 +159,6 @@ Do not delete the findings. They are the durable hand-off the extract phases con
 ## Stage 5: Present & Hand Off
 
 1. Present a short summary to the user: the repo shape, the partitions scanned, what each findings slice captured, and any coverage gaps. This is orientation, not a document — keep it brief.
-2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. Then write `.groundwork/cache/scan/complete.md` containing a one-line completion note; this terminal marker is the signal that the scan finished — written only here, at the true end.
+2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. This is the one completion signal; nothing else marks the scan finished.
 3. Capture any out-of-phase signals from the conversation into `.groundwork/cache/discovery-notes.md` (Protocol 1).
 4. Immediately load and execute the `groundwork-orchestrator` skill to route to the first extract phase. Do not ask the user to invoke it — hand off automatically.

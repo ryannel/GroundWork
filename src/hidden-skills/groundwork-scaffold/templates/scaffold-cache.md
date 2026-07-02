@@ -6,7 +6,7 @@
 status: pending
 notes:
 
-## Service Mapping
+## Ingestion & Service Mapping
 status: pending
 notes:
 
@@ -19,5 +19,13 @@ status: pending
 notes:
 
 ## Infrastructure Verification
+status: pending
+notes:
+
+## Draft & Review
+status: pending
+notes:
+
+## Commit
 status: pending
 notes:

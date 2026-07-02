@@ -7,3 +7,6 @@ status: pending
 
 ## MVP Scope
 status: pending
+
+## Draft & Review
+status: pending

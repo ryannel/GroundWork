@@ -13,7 +13,7 @@ For each service in the proposal:
 - Determine the parameters from the architecture's capability decisions: authentication model, messaging integration, WebSocket requirement. Use the Generator Capability Mapping below to translate architectural language into specific flag values — architecture documents are written in vendor-neutral capability terms, and the generators are flag-driven, so an explicit translation table is the contract between the two.
 - Derive a service name that follows the architecture's naming conventions.
 
-Planning ends before execution begins because running generators from a partially-confirmed plan generates services that don't match the architecture — fixing generated code is harder than correcting a mapping. Once every service is confirmed, write the complete execution plan to `scaffold-cache.md` — every generator command in order with all parameters — and get final approval for the full plan before proceeding. Mark the Service Mapping phase complete in `scaffold-cache.md`.
+Planning ends before execution begins because running generators from a partially-confirmed plan generates services that don't match the architecture — fixing generated code is harder than correcting a mapping. Once every service is confirmed, write the complete execution plan to `scaffold-cache.md` — every generator command in order with all parameters — and get final approval for the full plan before proceeding. Mark the Ingestion & Service Mapping phase complete in `scaffold-cache.md`.
 
 Count the services in `docs/architecture/index.md`, count the confirmed mappings, and verify they match before closing Phase 1.
 

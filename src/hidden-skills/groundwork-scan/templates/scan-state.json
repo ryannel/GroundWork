@@ -7,7 +7,7 @@
     "repo_shape": null,
     "parts": []
   },
-  "exclusions": ["node_modules", ".git", "dist", "build", "coverage", "vendor", "target", ".next", "*.min.js", "*.map", "lockfiles"],
+  "exclusions": "see .groundwork/skills/groundwork-scan/references/exclusions.md",
   "partitions": [],
   "findings_files": [
     "scan/overview.md",

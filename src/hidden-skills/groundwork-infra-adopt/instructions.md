@@ -104,7 +104,7 @@ Mark the operational-layer phase complete in the cache.
 
 For each existing service, write `docs/architecture/services/<service-name>.md` and, where it exposes HTTP endpoints, `docs/architecture/api/<service-name>.md`. This is the inverse of greenfield scaffold's Phase 3: you populate these by **reading the real code**, never from generator flags (there were none).
 
-Create `docs/architecture/services/` and `docs/architecture/api/` if absent. Use the same document shape as greenfield scaffold's service and API templates, with these brownfield population rules:
+Create `docs/architecture/services/` and `docs/architecture/api/` if absent. Use the document shape defined in `.groundwork/skills/groundwork-scaffold/phases/03-service-documentation-api-stubs.md` (the Service Document and API Stub skeletons), with these brownfield population rules:
 
 - **Port** — from the adopted `docker-compose.yml` or the service's own config. Do not guess.
 - **Dependencies** — from `repo-map.json`'s dependency edges and the service's code: which services it calls and over what transport, which datastores and external providers it uses.

@@ -20,7 +20,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | A5 | reference-link lint; `Distilled into` column ×8 anchors; re-stamp convention | pending | — |
 | B1 | approved-tag writer + `Surface:` field + update backfill arm | landed (this commit) | Tag/Surface strings byte-match implementation-readiness.md (gate untouched; `registry slug` term aligned). Amendment Protocol re-points the tag. Bets-family backfill follows the row's legacy-signal→advance format. Changelog `[no-migration]` |
 | B2 | bet.ts language discovery (drop `.py` hardcode); `<N>` semantics; bundle rebuild | pending | — |
-| B3 | setup-chain writer/reader fixes (scaffold.md, ledgers, exclusions, ADR, infra-adopt) | pending | — |
+| B3 | setup-chain writer/reader fixes (scaffold.md, ledgers, exclusions, ADR, infra-adopt) | landed (this commit) | context/scaffold.md writer+reader grep ✓; scan/complete zero live refs (frozen fixtures intentionally kept); exclusions.md pointer resolves, no code parses the old array; phase-03 pointer target exists; BROWN FLAG(2) confirmed+fixed in greenfield 07-commit too |
 | B4 | one-file shipped-contract repairs (7 items) | pending | — |
 | C1 | contract root pass — SAME COMMIT as E1 | pending | — |
 | C2 | orchestrator/check/persona/writer/review; workflow-index regen | pending | — |
