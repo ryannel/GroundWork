@@ -141,3 +141,8 @@ are its decomposition-side checks.
   `technical-design/` never specified — decomposition has silently grown the bet.
 - [ ] 🟡 **Proof outside the acceptance criteria**: a slice's Proof of work proves behaviour that
   traces to no milestone acceptance criterion — proof of work the milestone never asked for.
+- [ ] 🔴 **Orphan NFR budget**: a user-felt budget stated in `docs/design-system.md` or the bet's
+  `technical-design/` (a latency ceiling, a start-up bound, a frame budget) whose path this bet
+  builds maps to no milestone proof line and no named fitness function — quote the budget that
+  has neither. A number nothing re-checks decays silently: the design workflow's POC step records
+  exactly this failure recurring.
