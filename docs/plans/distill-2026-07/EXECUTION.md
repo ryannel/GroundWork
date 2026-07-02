@@ -13,7 +13,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | Slice | What (short) | Status | Acceptance verified |
 |---|---|---|---|
 | 0 | Baseline CI + this ledger | landed (this commit) | `./dev ci` green on 280f227: lint, 227 gen, 14 contracts, 59 cli, 28 compile. Baseline words: hidden 164,222 · skills 4,932 · engineer 69,237 · docs 72,391 · skill-writer 2,408 · contributor 7,367 · scaffold-designer 1,486 · AGENTS 232 = 322,275 |
-| A1 | skill-writer rebuild (taxonomy, budget cluster, density, router-description, cross-file integrity, 6× FLAG(10) amendments) | pending | — |
+| A1 | skill-writer rebuild (taxonomy, budget cluster, density, router-description, cross-file integrity, 6× FLAG(10) amendments) | landed (this commit) | Reads as one integrated standard. All 3 relocated failure-mode kernels verified ALREADY PRESENT in owning shipped skills (design-system instructions:38; product-brief instructions:123,206; architecture phases 03/04/05) — deleted, no relocation. DEVIATION: 2,408→3,296 words vs plan ~2,650; overage = the six cross-section amendments unpriced in section 10's own §6 estimate; every addition passes the cutting test |
 | A2 | contributor split → core + references/{testing,releasing,cross-phase-contracts}; 6 drift fixes; writer-ref lint; D12 statement | pending | — |
 | A3 | scaffold-designer re-grounding (item count invariant) | landed (this commit) | item count 26→26 verified against pre-edit blob; 1,486→1,207 words; path fix verified against `scaffold-helpers.ts`; generators.json + changelog-gate steps added |
 | A4 | CLAUDE.md/AGENTS.md router completion | pending | — |
@@ -54,6 +54,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | F1 | G4 | ways-of-working heavily rewritten → G4 confirms groundwork-check Phase-A merge behaves on it. |
 | A1 | all | New lens applies: brief/engineer imperative register is CONFORMANT (D1); density rule owns bet instructions.md run-ons (E1's to fix). |
 | C1 | B1 | `implementation-readiness.md` 🔴 strings stay byte-stable; B1's tag/Surface strings must byte-match them. |
+| A1 | D4 | skill-writer gained taxonomy/budget/density rules → review the stack-forge runtime mirror (`groundwork-stack-forge/references/authoring-engineer-skills.md`) when D4 touches stack-forge. |
 
 ## Decisions imported at execution time
 
