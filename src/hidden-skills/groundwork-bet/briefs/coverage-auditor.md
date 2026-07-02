@@ -62,11 +62,11 @@ it, then judge the suite the worker rolled out against the strategy on two axes:
 - A `graphical-ui` slice has component render tests across the **named states** the design
   system defines (default, loading, empty, error, long-content) and registers any new
   route for the system gates.
-- **A fake the suite leans on has a real-producer test behind it.** When a test uses a
-  fixture or stub for work a real stage performs, the suite must also test the real stage
-  that produces it. A fixture with no real-producer test is uncovered work masquerading as
-  covered — the gap that ships a feature whose real pipeline was never exercised
-  (`docs/principles/foundations/testing.md`).
+- **A fake the suite leans on has a real-producer test behind it** — the coverage angle
+  on the honest-green tells canonical in `workflows/03-decomposition.md` Step 3. When a
+  test uses a fixture or stub for work a real stage performs, the suite must also test
+  the real stage that produces it; a fixture with no real-producer test is uncovered work
+  masquerading as covered.
 
 **Assertion quality — do the tests bite, or only execute?**
 

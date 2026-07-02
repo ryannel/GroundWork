@@ -27,7 +27,7 @@ During any GroundWork conversation, the user will mention things that belong to 
 During every turn, silently monitor for out-of-phase signals. When you hear one:
 
 1. Acknowledge it naturally within the conversation if appropriate, then steer back to the current topic.
-2. Append the signal as a new bullet under the appropriate section header in `.groundwork/cache/discovery-notes.md`. Use file editing tools — shell commands (echo, sed) corrupt markdown formatting. If the file does not exist, create it with all section headers listed below.
+2. Append the signal as a new bullet under the appropriate section header in `.groundwork/cache/discovery-notes.md`. Use file editing tools — shell commands (echo, sed) corrupt markdown formatting. If the file does not exist, create it from `.groundwork/skills/templates/discovery-notes.md` — the section headers below are its calibration, not a second creation source.
 3. Continue with the next discovery question in the same turn so the user's flow is not interrupted.
 
 ### Section Headers
@@ -109,8 +109,8 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, context, and review obligations are identical to their greenfield counterparts.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
-- Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6).
-- Each phase writes a Downstream Context file to `.groundwork/context/<phase>.md` on commit (Protocol 5); the published `docs/` artifact carries no `## Summary for Downstream` section.
+- Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6) — except the terminal phase of each track (`groundwork-mvp` for greenfield, `groundwork-infra-adopt` for brownfield), which writes none: there is no next setup phase left to consume one.
+- Each phase writes a Downstream Context file to `.groundwork/context/<phase>.md` on commit (Protocol 5); the published `docs/` artifact carries no `## Summary for Downstream` section. `groundwork-mvp` is the one exception — its successor runs in Continuous Bet mode and reads the pitch and discovery notes directly, so it writes none.
 - The setup→delivery transition runs Setup Graduation (Protocol 10): durable context graduates into `docs/`, then `.groundwork/context/` is torn down.
 - A fresh context is recommended between phases (Protocol 3.4.8).
 
@@ -338,13 +338,13 @@ Presenting a draft as reviewed, or committing it, is permitted only when the rev
 
 ### Fail closed when the review cannot run
 
-When a positive verdict cannot be obtained because the reviewer errored or returned nothing, the phase must not commit and must not state or imply that the review passed. Report to the user that the independent review failed to run, include the error, and pause. Each Sequential Setup phase already pauses for explicit user approval before committing (Protocol 3.4) — fold the failure into that pause rather than proceeding around it.
-
-The author reviewing its own draft is not a substitute. The reviewer runs in an isolated context precisely so the agent that wrote the draft does not judge it — running the checks inline destroys that guarantee and re-introduces the blind spots the gate exists to catch. An adversarial self-review is permitted only when the user explicitly authorises it as a fallback, and only when the output labels it loudly as a self-review that does not satisfy the independent-review gate. It never counts as a passed gate, silently or otherwise. Protocol 9 (Review Invocation) turns this rule into the operational procedure a phase follows when the reviewer cannot run.
+The gate blocks on anything short of a parseable `VERDICT: PRESENT` — a reviewer that errors, hangs, or never runs has reviewed nothing, and the phase must not commit or imply otherwise. Protocol 9's *When the review cannot run* is the operational procedure for this case, including the narrow terms under which an authorised self-review may stand in; it never counts as a passed gate.
 
 ### The revise cap
 
 A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: surface every remaining 🔴 Critical finding to the user as 🟡 Advisory, and state plainly that the review did not reach PRESENT and how many critical findings remain unresolved. The user weighs them before approving the commit. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
+
+A reviewer that keeps finding fresh contract↔body desyncs pass after pass is not asking for a sixth revision — the fault is usually an unreconciled Downstream Context file (Protocol 5: author it last, from the finished doc); reconcile that before revising the body again.
 
 Hitting the cap is a disclosed, user-visible outcome, not a silent downgrade. It differs from the fail-closed case above by when it fires: the cap fires after the review *ran* and could not be satisfied; fail-closed fires when the review *could not run at all*. Both block a silent pass, and both surface to the user.
 
@@ -402,15 +402,9 @@ A tier names a **class of model by capability**, never a specific model id — i
 
 The exemplars are illustration, not a maintained mapping — there is no per-host table to keep current. Claude Code is the proven reference host; the policy is a host-agnostic abstraction other hosts realise with their own equivalents.
 
-### Per-slice lift — flagged at authoring
+### Per-slice lift and runtime escalation
 
-The role tier is a default, overridable **upward, one slice at a time**. A slice that is *particularly challenging or vague* runs its worker at `frontier` instead of `execution`. That call is made **when the slice is authored** — Decomposition Step 4, or *Opening a milestone* in Delivery — where slice risk is already being judged (the same signal that triggers a POC), and it is recorded as an optional flag in the slice file. Absence of the flag means the `execution` default. The override is **one-directional**: a slice may request a *higher* tier than its role default; nothing lowers a review lens below `frontier`.
-
-The authoring-time lift handles *foreseen* difficulty. Difficulty a worker *discovers mid-slice* is handled at runtime instead, so the worker never has to grind a Sonnet-class model toward a forced, dishonest green: an `execution`-tier worker that is battling a slice **escalates to a frontier model for guidance and keeps working** — it does not restart the slice or hand it back. On Claude Code this is the built-in **advisor** (`advisorModel` set to a `frontier`-class model — e.g. `opus`; subagents inherit it and a Sonnet worker may consult an Opus advisor at decision points and recurring errors). Other hosts realise the same principle however they can; a host with no escalation mechanism falls back to the worker's `BLOCKING CONCERN` hand-back and the always-present frontier review gate. This is what makes the cheaper tier safe in practice: the worker stays cheap by default but is never *alone* with a problem above its weight.
-
-### Runtime escalation is distinct from a blocking concern
-
-The advisor answers "I need stronger reasoning to do this honestly"; a `BLOCKING CONCERN` (slice-worker brief) answers "this cannot be honestly done *as specified*" — an approved proof that looks wrong, reality contradicting the design, an unreachable dependency. The first keeps the worker working with better guidance; the second hands the slice back to the driver for an Amendment or Change Navigation. Both coexist, and neither licenses a faked green.
+The role tier is a default, overridable **upward, one slice at a time**, never down. Both the authoring-time lift (a slice flagged *particularly challenging or vague* runs its worker at `frontier` instead of `execution`) and the mid-slice escalation (a worker that hits trouble above its weight consults a frontier advisor instead of grinding toward a forced green — distinct from handing the slice back as a `BLOCKING CONCERN`) are canonical in `groundwork-bet`, the one skill that authors and dispatches slices: the lift beside Decomposition Step 4's Model tier field, the escalation in `briefs/slice-worker.md`. This is what makes the cheaper `execution` tier safe in practice — a slice above its worker's weight is never left there un-lifted or unaided.
 
 ### Mechanism and degradation
 

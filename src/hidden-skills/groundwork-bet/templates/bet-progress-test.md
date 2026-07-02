@@ -106,8 +106,7 @@ For a slice stub, name the capability at its service edge:
 A bet-progress test is good when:
 - It asserts a **falsifiable, consumer-visible outcome** — what the consumer observes at their front door, never an internal state
 - It would fail if the feature shipped incomplete
-- For a **milestone headline**, it **drives the real product through the real front door** — the consumer's action runs the shipping build on the real pipeline and real data, so a stub, mock, scripted driver, or hardcoded return cannot turn it green. A milestone proof a double can satisfy proves plumbing, not the milestone (`workflows/03-decomposition.md`). Seeded inputs are fine; faking the work in the middle is not
-- **Any fake it leans on has a real test behind it** — if the proof uses a fixture for work a real stage should do, another test exercises the real producer; a fixture nothing real ever generates is a green light wired to nothing (`docs/principles/foundations/testing.md`)
+- It satisfies the front-door and honest-green tells canonical in `workflows/03-decomposition.md` Step 3 — a milestone headline drives the real product through the real front door; any fake it leans on has a real test behind it
 - It would pass without any special knowledge of how the feature is implemented internally
 - It is a **headline proof, not a permutation** — it proves the milestone's outcome or the slice's capability, not every input variant or error code
 - A reviewer can read it and confirm it matches the milestone's acceptance criteria and Proof-of-work prose in its `decomposition/NN-<milestone-slug>/index.md`

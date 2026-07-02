@@ -18,7 +18,7 @@
 
 **Proves:** [the consumer-visible outcome this milestone reaches, in one or two sentences. State what the consumer observes on the real product, not how a test is written.]
 
-**How we prove it:** [the shape of the proof in prose — the consumer's action driving the shipping build end to end, on the real pipeline and real data, and the observable condition it passes on. A reader should understand the proof without seeing any code. Seeded inputs are fine; a scripted stand-in for the real work is not. Name any fake the proof leans on and the real test that proves the real producer behind it.]
+**How we prove it:** [the shape of the proof in prose — the consumer's action driving the shipping build end to end, on the real pipeline and real data, and the observable condition it passes on. A reader should understand the proof without seeing any code. Follows the front-door and honest-green tells in `workflows/03-decomposition.md` Step 3.]
 
 **Test file:** `tests/bets/<bet-slug>/test_milestone_<N>_<milestone-slug>.<ext>` — generated red at Delivery start; drives the consumer's surface in `01-ui-design.md` over the interfaces in `technical-design/03-api-design.md` (and stores in `04-data-design.md`) the outcome rests on.
 

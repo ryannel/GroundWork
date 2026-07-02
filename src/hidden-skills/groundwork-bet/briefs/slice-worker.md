@@ -52,7 +52,8 @@ a dishonest green. Where the host configures one (on Claude Code, an `advisor` m
 may consult it at decision points and on recurring errors. Escalating for reasoning is
 different from a `BLOCKING CONCERN`: the advisor helps you do the slice honestly, while a
 blocking concern says the slice cannot be done *as specified* and hands it back. Reach for
-whichever fits — neither is forcing the suite green.
+whichever fits — neither is forcing the suite green. This is what makes the `execution`
+tier safe in practice: cheap by default, never alone with a problem above its weight.
 
 ---
 
@@ -209,14 +210,11 @@ review is that):
   must show no change — the worker never edits that prose. If a proof looks wrong, that
   is a blocking concern, not an edit.
 - **Honest green.** The implementation must satisfy the proof for the right reason,
-  against the real product. A return value hardcoded to the test's expected output, an
-  input special-cased to the fixture, a `if TEST_MODE`-style branch, a mocked-out unit
-  of real work, or a fixture standing in for a real pipeline stage that nothing else
-  produces is a defect even though the suite is green — *a weak suite that generated
-  code passes is worse than no suite* (`docs/principles/foundations/testing.md`). If a
-  fake the slice leans on has no real test behind it, or the proof runs against a test
-  target rather than the shipping build, flag it. Surface any of these in the report
-  rather than leaving them for the review to find.
+  against the real product — the gaming tells are canonical in
+  `briefs/acceptance-auditor.md`'s Honesty check, the same check the driver runs at
+  Step 2 of `04-delivery.md`. If a fake the slice leans on has no real test behind it, or
+  the proof runs against a test target rather than the shipping build, flag it. Surface
+  any of these in the report rather than leaving them for the review to find.
 
 ### 6. Do not commit
 

@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (the operating contract sheds its restatements; bet doctrine lives in one home each, 2026-07-02)
+
+The contract root: Protocol 1 creates discovery notes from its template instead of restating the header list; Protocol 8's fail-closed rule is two sentences pointing at Protocol 9's procedure (the one home); the revise-cap gains the extract skills' hard-won diagnostic (repeated contract↔body desyncs usually mean an unreconciled Downstream Context file); Lifecycle Modes names the terminal-phase carve-outs (MVP and infra-adopt write no hand-off — there is no next phase to consume one). Model Tiers keeps the policy — two tiers, capability classes, never-downgrade — and sends the mechanics to the one skill that authors and dispatches slices: the per-slice lift lives beside Decomposition Step 4's Model tier field, the advisor/`BLOCKING CONCERN` escalation in the slice-worker brief. `tier:` semantics unchanged; the contract stays v1 with no protocol semantics changed.
+
+Bet-side: `instructions.md` is a router with "The three invariants" (front-door proof · honest green · recorded amendment), each naming its canonical home; the honest-green gaming tells are enumerated in exactly one place (the acceptance-auditor's Honesty check — `TEST_MODE` now greps to one file) with the six satellite restatements collapsed to pointers; delivery names `implementation-readiness.md` as its Step-0 counterpart of the decomposition review.
+
+- [no-migration] Skill-prose changes carried by the clean-copy reconcile; contract version and every protocol number unchanged.
+
 ### Changed (setup's shared contracts get one home each, 2026-07-02)
 
 Four identifiers every setup lane depends on were each stated at multiple fidelities; each now has one citable home with consumers pointing at it. The interface-type taxonomy (`graphical-ui | cli | agentic-protocol`) and its "who consumes the output" test live in greenfield design-system Step 2; the extract cites the same test. The `--surfaces` invocation contract (flag shape, per-medium reach rules) lives beside the surface registry contract in `surfaces-contract.md`; scaffold, infra-adopt, and surface-activation cite it and keep only their moment-specific deltas. The Product Brief section list lives in a new `product-brief-template.md` on the architecture-template pattern — greenfield discovery and brownfield extract now draft against the same text (retiring the extract's drifted paraphrase). The Design References record spec is owned by the graphical-ui track's Commit Contributions; the foundation phase triggers it and the extract recovers against it.
