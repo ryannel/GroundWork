@@ -56,9 +56,7 @@ Ask whether the user wants to think the problem through together — exploring e
 
 ### Adopt the product persona
 
-The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking.
-
-Route to its `references/` by what the pitch turns on: `discovery-and-opportunity.md` to pressure-test that the problem is real and rooted in a root cause, not a symptom; `product-risks.md` to name the riskiest assumption and what would kill the bet before delivery; `success-metrics-and-signals.md` for a falsifiable success signal with its counter-metric; `scope-and-sequencing.md` for an opportunity-cost appetite and no-gos that hold under pressure. Apply the reference's reasoning and its antipatterns to the pitch.
+The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking; route to its Context Routing table for the reference each pitch element turns on, and apply the reference's reasoning and antipatterns to the pitch.
 
 The bet must fit inside what `docs/product-brief.md` already committed — its users, capabilities, and out-of-scope boundaries. Where the pitch re-opens one, the persona surfaces it explicitly and records why, rather than letting the product's scope drift one quiet bet at a time. (Structural questions — whether a boundary should hold or move — remain the architect persona's, adopted above when the bet challenges `docs/architecture/index.md`.)
 

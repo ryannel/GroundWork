@@ -19,7 +19,7 @@ Apply the `groundwork-writer` skill when producing any artifact this lane commit
 
 ## Scope test — run this first
 
-A patch has **one user-facing goal**, touches no API contract or schema, and changes nothing a queued bet depends on. Before accepting the work, check each:
+A patch has **one user-facing goal** and touches no API contract or schema — this is patch's own membership test; the fuller sizing rule, including whether the change touches anything a queued bet depends on, is decided once at the orchestrator's Work Intake triage. Before accepting the work, check each:
 
 - The ask names a correction or small refinement to existing behaviour — not a new capability.
 - No endpoint, message channel, or table shape changes. A contract change needs a signing gate the patch lane does not have — but it is not automatically a full bet: a small, **local, non-structural** delta (one additive endpoint or field) is a **quick bet**, and a structural or cross-service contract change is a full **bet**.
@@ -38,10 +38,6 @@ Before touching code, write the active-lane sentinel — `printf '%s\n' 'patch' 
 5. **Apply the Living Documents pass** (Protocol 2). Most patches change nothing canonical; when one does — an infrastructure port, a documented behaviour — update the doc surgically. A reversal routes through the Reversal Protocol unchanged.
 6. **Commit the patch.** Land the change as a single Conventional Commit carrying two trailers — `Lane: patch` and `Area: <service-or-surface>` — plus `Override: <reason>` when the user overrode the lane sizing. The commit *is* the log: its subject is the description, `git show --name-only` the files touched, the commit date the date, and the test rides in the same commit. Bet discovery and the retrospective's pattern mining read these from git history (`git log --grep='Lane: patch'`, grouped by `Area:`) — an unstamped patch is invisible scope creep.
 7. **Report** what changed, the test that proves it, any doc updated, and the stamped commit — then remove the sentinel (`rm -f .groundwork/cache/active-lane`) so the capture hook resumes guarding direct edits.
-
-## The floor of three lanes
-
-Patch is the floor of the three delivery lanes — **patch · quick bet · bet** — and the orchestrator's Work Intake triage routes between them. A change that turns out to need no design at all **demotes here** from the quick-bet track, carrying its scope note; this is the symmetric arrival to the escalations above (a patch that sprouts a small new capability or a local contract change rises to a quick bet, one that needs a structural change or a milestone ladder rises to a full bet).
 
 ## What this lane never does
 

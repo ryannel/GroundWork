@@ -159,7 +159,7 @@ The most common entry, and the one GroundWork exists to catch: the user asks to 
 
 **Otherwise size the request — the Work Intake triage.** Three signals, each resolved against a lane's own definition rather than re-judged here:
 
-1. Does it pass `groundwork-patch`'s scope test — one user-facing goal, no new capability, no API or schema change, not the third patch clustering in one area? → **patch**.
+1. Does it pass `groundwork-patch`'s scope test — one user-facing goal, no new capability, no API or schema change, not the third patch clustering in one area — **and does it leave every queued bet's own premises and dependencies untouched?** A change that would invalidate an assumption a queued pitch already depends on is not a patch no matter how small it looks in isolation; route it as discovery input to that bet instead. → **patch**.
 2. Is it one small new capability — a single user-visible step, deliverable in one sitting, touching at most a local, non-structural contract delta? → **quick bet**.
 3. Does it span more than one demonstrable milestone, or change a contract structurally or across services? → **bet**.
 
