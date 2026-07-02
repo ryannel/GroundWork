@@ -43,7 +43,8 @@ There are no default providers, and therefore no default infrastructure: a datab
       "service": "drafting-service",
       "provider": "none",
       "footprint": "none",
-      "rationale": "Provider undecided — ship the interface as a bet, build the provider in the first delivery."
+      "rationale": "Provider undecided — ship the interface as a bet, build the provider in the first delivery.",
+      "since": "2026-07-02"
     }
   ]
 }
@@ -56,8 +57,9 @@ There are no default providers, and therefore no default infrastructure: a datab
 | `provider` | a provider in the capability's catalog, or `none` | the chosen provider |
 | `footprint` | `env` · `compose-service` · `runner` · `none` | the provider's operational cost; the scaffold materializes exactly this |
 | `rationale` | free text | why this provider — including "bare interface, to be built as a bet" for `none` |
+| `since` | ISO date, `none` providers only | when the bare interface was accepted — written when the port is recorded, so the maturity assessment can show how long the bet has waited |
 
-A `provider` of `none` always has `footprint: "none"`. An empty `ports` array is legal — a product with no technical capabilities.
+A `provider` of `none` always has `footprint: "none"` and carries `since` (readers tolerate its absence in files written before the field existed — treat that as age unknown). An empty `ports` array is legal — a product with no technical capabilities. While a `none` port is unbuilt, the maturity assessment lists it with its `since` age (scaffold Phase 5 seeds the row; later assessments carry it until a bet builds the provider).
 
 ---
 

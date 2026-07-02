@@ -134,7 +134,11 @@ stack and, for each item, record *satisfied by the seed*, *to be built by a bet*
 because…*. Write that list into the scaffold cache (`.groundwork/cache/scaffold-cache.md`) under
 a `## Forged Stack Checklist` heading — the scaffold commit folds it into the MVP hand-off, and
 MVP scopes the to-be-built items into the first bets. This is how "the checklist becomes part of
-the MVP."
+the MVP." The *to be built by a bet* items also outlive the hand-off: the scaffold's Phase 5
+maturity assessment lands each as a `docs/maturity.md` roadmap row against the dimension it
+blocks — when this forge runs post-setup and `docs/maturity.md` already exists, write those rows
+yourself before returning control — so an undischarged item ages at bet discovery instead of
+evaporating with the hand-off.
 
 Record the forged stack in `docs/architecture/infrastructure.md` (its run command, its debug entry point, its
 test command) so the next developer runs it without asking, then return control to the scaffold
