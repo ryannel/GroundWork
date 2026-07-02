@@ -61,7 +61,9 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Layer placement, new boundary, dependency direction | `architecture.md` |
 | FastAPI endpoint, route handler, inbound defenses | `architecture.md`, `api-standards.md` |
 | Idempotency, pagination, CORS, load shedding | `api-standards.md` |
-| Database schemas, migrations, test isolation, DB sessions | `database.md` |
+| Database schemas, migrations, test isolation, DB sessions, query/index evidence | `database.md` |
+| Events, Pub/Sub, webhooks, async integration | `integration.md` |
+| Any write that also publishes — a DB mutation and an event/webhook/queue emission in one unit of work | `integration.md` |
 | ML pipeline, inference, embedding, RAG, streaming | `ml-pipelines.md` |
 | ML systems architecture, model serving, evals, prompts | `ml-systems-ai-engineering.md` |
 | AI engineering, context design, agent architecture | `ml-systems-ai-engineering.md` |
