@@ -31,10 +31,13 @@ skill, infrastructure notes, the hand-off. Declarative, assertive, zero-hedging.
 
 ## Operating Contract
 
-**Load and apply all protocols from `.groundwork/skills/operating-contract.md`
-(contract v1).** This skill runs inside the scaffold phase, so the Phase Lifecycle, Living
-Documents, and Hand-off protocols bind it: what you forge is recorded in the canonical docs
-and carried to MVP, never left as undocumented local cleverness.
+This skill runs **inside** the scaffold phase: it owns no cache of its own, writes no
+hand-off, and gates no review of its own — those are scaffold's Phase Lifecycle obligations,
+already discharged around it. Its own obligations are three: record the Day-2 checklist
+under a `## Forged Stack Checklist` heading in `.groundwork/cache/scaffold-cache.md` — the
+identifier both scaffold's Phase 6 commit and MVP's Phase 1 read; apply the Living Documents
+protocol to anything it writes into the canonical docs; and apply `groundwork-writer` to
+every output document.
 
 The governing rule is the Day-2 baseline: read
 `docs/principles/delivery/day-2-operational-baseline.md` now. It is the bar the seed is held

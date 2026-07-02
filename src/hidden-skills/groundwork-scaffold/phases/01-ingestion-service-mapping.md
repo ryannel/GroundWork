@@ -31,32 +31,82 @@ Count the services in `docs/architecture/index.md`, count the confirmed mappings
 
 A capability whose provider the available generators cannot produce is the reversal path below, not a silent substitution. When no registry exists, the project predates it — derive capabilities from the architecture prose as before.
 
-**Generator Capability Mapping:**
+**Generator Capability Mapping.** Architecture documents are written in vendor-neutral capability terms; the generators are flag-driven. This is the one place to update when generator flags evolve — when a new flag ships, add a row under its generator; when one is removed, delete it.
 
-| Architectural decision | Generator + flag |
+**`go-microservice`** — Go API with PostgreSQL, optional auth and messaging.
+
+| Architectural decision | Flag |
 |---|---|
-| End-user authentication via Clerk | `nextjs-app --auth clerk`, `go-microservice --auth clerk` |
-| Service-to-service authentication | `go-microservice --auth service` |
+| End-user authentication via Clerk | `--auth clerk` |
+| Service-to-service authentication | `--auth service` |
 | No authentication required | `--auth none` (or omit `--auth`) |
 | Transactional outbox via Kafka | `--messaging kafka` |
 | Transactional outbox via GCP Pub/Sub | `--messaging gcp-pubsub` |
-| Lightweight pub/sub via Redis (Python only) | `python-microservice --messaging redis` |
 | WebSocket real-time delivery | `--websockets` |
-| Frontend → backend API proxy | `nextjs-app --apiProxy` |
-| Command-line application as the product (or a CLI surface for a service) | `cli-app --name <name>` (add `--repl` when the design system specified an interactive/REPL paradigm; add `--core` when the CLI fronts workspace services — e.g. its registry access path is http-direct — to scaffold the core-access seam and the `status` wiring-proof command; omit `--core` for a standalone tool) |
-| Mobile surface (registry `platform: mobile`) | `flutter-app --name <slug>` (never joins docker-compose; the Flutter SDK is a runtime prerequisite, not a generation one) |
-| Desktop surface (registry `platform: desktop`) | `electron-app --name <slug>` (never joins docker-compose; the Electron binary downloads at bootstrap, and the boot smoke needs a display — xvfb on Linux CI) |
-| LLM integration (Python service) | `python-microservice --llm --llmProvider <openai\|anthropic\|local\|none>` (default `openai`; `local` = self-hosted OpenAI-compatible endpoint) |
-| LLM as a bare interface / undecided provider (a bet) | `python-microservice --llm --llmProvider none` (interface + stub + strict-xfail contract test; no SDK, no infra) |
-| Add a capability to an already-scaffolded service | `add-capability --service <slug> --capability <c> --provider <p>` (Day-2 / inside a bet; `--provider none` for a bare interface) |
-| GPU inference on RunPod (Python service) | `python-microservice --runpod` |
-| PostgreSQL on a Python service | `python-microservice --postgres` |
-| REST surface on a Python service | `python-microservice --rest` |
-| Docker Compose test topology (surface registry present) | `system-test-runner --surfaces '<JSON array of {slug, medium, reach?} from .groundwork/surfaces.json>'` |
-| Docker Compose test topology (no registry — single interface type) | `system-test-runner --interfaceMedium <graphical-ui\|cli\|agentic-protocol>` |
-| Fumadocs documentation site | `docs-site --name <slug>` |
 
-This table is the one place to update when generator flags evolve. When a new flag ships, add a row here; when a flag is removed, delete the row. The mapping is the contract between architecture's vocabulary and scaffold's execution — keep it current.
+**`python-microservice`** — Python FastAPI service, optional PostgreSQL and messaging.
+
+| Architectural decision | Flag |
+|---|---|
+| REST surface | `--rest` |
+| PostgreSQL | `--postgres` |
+| Transactional outbox via Kafka | `--messaging kafka` |
+| Transactional outbox via GCP Pub/Sub | `--messaging gcp-pubsub` |
+| Lightweight pub/sub via Redis | `--messaging redis` |
+| WebSocket real-time delivery | `--websockets` |
+| LLM integration | `--llm --llmProvider <openai\|anthropic\|local>` (default `openai`; `local` = self-hosted OpenAI-compatible endpoint) |
+| LLM as a bare interface / undecided provider (a bet) | `--llm --llmProvider none` |
+| GPU inference on RunPod | `--runpod` |
+
+**`nextjs-app`** — Next.js frontend with App Router.
+
+| Architectural decision | Flag |
+|---|---|
+| End-user authentication via Clerk | `--auth clerk` |
+| No authentication required | `--auth none` (or omit `--auth`) |
+| Frontend → backend API proxy | `--apiProxy` |
+| WebSocket real-time delivery | `--websockets` |
+
+**`cli-app`** — Branded Node+TypeScript command-line application, themed from `brand-tokens.json`; standalone by default, or a frontend for workspace services with `--core`.
+
+| Architectural decision | Flag |
+|---|---|
+| Command-line application as the product, or a CLI surface for a service | `--name <name>` |
+| Interactive/REPL paradigm the design system specified | `--repl` |
+| CLI fronts workspace services (registry access path is http-direct) | `--core` (scaffolds the core-access seam and the `status` wiring-proof command; omit for a standalone tool) |
+
+**`flutter-app`** — Flutter mobile app (official MVVM architecture, Riverpod, go_router), themed from `brand-tokens.json`; pubspec-based, wires into Nx via run-commands targets, never joins docker-compose.
+
+| Architectural decision | Flag |
+|---|---|
+| Mobile surface (registry `platform: mobile`) | `--name <slug>` (`--org` sets the reverse-domain bundle-id prefix, default `com.example`) |
+
+**`electron-app`** — Electron desktop app (hardened main/preload/renderer split, typed IPC, React + Tailwind renderer), themed from `brand-tokens.json`; wires into Nx via run-commands targets, never joins docker-compose.
+
+| Architectural decision | Flag |
+|---|---|
+| Desktop surface (registry `platform: desktop`) | `--name <slug>` (`--org` sets the reverse-domain app-id prefix, default `com.example`; the Electron binary downloads at bootstrap, and the boot smoke needs a display — xvfb on Linux CI) |
+
+**`system-test-runner`** — Docker Compose test topology and system test suite.
+
+| Architectural decision | Flag |
+|---|---|
+| Docker Compose test topology (surface registry present) | `--surfaces '<JSON array of {slug, medium, reach?} from .groundwork/surfaces.json>'` |
+| Docker Compose test topology (no registry — single interface type) | `--interfaceMedium <graphical-ui\|cli\|agentic-protocol>` (deprecated single-surface alias, default `graphical-ui`) |
+
+**`docs-site`** — Fumadocs documentation site that serves the live `docs/` tree (product brief, architecture, bets) with H1-derived titles; registers as a native `./dev` runner (`pnpm dev`, not autostarted), never joins docker-compose.
+
+| Architectural decision | Flag |
+|---|---|
+| Fumadocs documentation site | `--name <slug>` |
+
+**`add-capability`** — adds a capability interface + provider implementation (or a bare `none` interface) to an already-scaffolded service; Day-2 / inside a bet.
+
+| Architectural decision | Flag |
+|---|---|
+| Add a capability to an already-scaffolded service | `--service <slug> --capability <c> --provider <p>` (`--stack` auto-detected) |
+
+`workspace-dev-cli` is handled in initialization and does not appear in service mapping.
 
 **When the generators cannot honour an architecture decision.** This is common and expected: the architecture may have chosen a vendor, language, or topology the available generators do not produce (e.g. a TypeScript backend when only Go/Python exist, a native macOS AppKit app, Supabase auth when only Clerk is wired). Surface the genuine trade-off to the user as a single decision (Protocol 4) with three honest options:
 
@@ -66,22 +116,10 @@ This table is the one place to update when generator flags evolve. When a new fl
 
 Take the user's call; never silently substitute a default the architecture did not choose.
 
-**LLM provider: scaffold the boilerplate, hand the integration to the bet.** When the architecture names an LLM provider, map it to `--llmProvider` (`openai`, `anthropic`, or `local` for a self-hosted OpenAI-compatible endpoint) so the generated LLM client targets the right SDK and a sensible default model from the start. When the provider is genuinely undecided or deferred, use `--llmProvider none`: the **bare interface** — the text-generation interface, a not-yet-implemented stub, and a strict-xfail contract test, with no SDK and no infrastructure. `none` is the honest scaffold of "hand the integration to the bet": the interface is the spec, the provider is the bet, and the xfail test flips red the moment it is implemented. Reach for it instead of picking a provider the product has not committed to. But be precise about what the generator delivers and what it does not. The `--llm` flag produces a *generic LLM client*: a single `generate_text` call behind the text-generation interface, with retries and a circuit breaker. It does **not** implement the provider-specific behaviour an architecture usually depends on — prompt caching a large shared context, streaming responses, structured outputs, a moderation/safety gate, or tool use. Those are **bet/MVP development work**, not scaffold output. Record them in the scaffold hand-off as work the first bet must build, and say so plainly when presenting the scaffold. Never describe the generated client as "provider-agnostic" or imply it already satisfies an architectural capability it only stubs — an honest "the LLM client is scaffolded; prompt caching and streaming are bet work" is worth more than a green checkmark that papers over the gap. If the architecture's provider is a real vendor the flag does not offer, that is the reversal path above, not a silent substitution to whatever the generator defaults to.
+**LLM provider: scaffold the boilerplate, hand the integration to the bet.** The `--llm` flag produces a generic LLM client, not a finished integration — be precise with the user about the boundary:
 
-**Generator availability:**
-
-| Generator | What it produces | Key parameters |
-|---|---|---|
-| `go-microservice` | Go API with PostgreSQL, optional auth and messaging | `--name`, `--auth` (none/service/clerk), `--messaging` (none/kafka/gcp-pubsub), `--websockets` |
-| `python-microservice` | Python FastAPI service, optional PostgreSQL and messaging | `--name`, `--rest`, `--postgres`, `--messaging` (none/redis/kafka/gcp-pubsub), `--websockets`, `--llm`, `--llmProvider` (openai/anthropic/local/none, default openai), `--runpod`, `--native` |
-| `nextjs-app` | Next.js frontend with App Router | `--name`, `--auth` (none/clerk), `--apiProxy`, `--websockets` |
-| `cli-app` | Branded Node+TypeScript command-line application, themed from `brand-tokens.json`; standalone by default, or a frontend for workspace services with `--core` | `--name`, `--repl` (scaffold the interactive REPL layer), `--core` (wire the workspace core-access seam + `status` wiring proof; `API_BASE_URL` overrides the gateway URL) |
-| `flutter-app` | Flutter mobile app (official MVVM architecture, Riverpod, go_router), themed from `brand-tokens.json`; pubspec-based — wires into Nx via run-commands targets, never joins docker-compose | `--name`, `--org` (reverse-domain bundle id prefix, default `com.example`) |
-| `electron-app` | Electron desktop app (hardened main/preload/renderer split, typed IPC, React + Tailwind renderer), themed from `brand-tokens.json`; wires into Nx via run-commands targets, never joins docker-compose | `--name`, `--org` (reverse-domain app id prefix, default `com.example`) |
-| `system-test-runner` | Docker Compose test topology and system test suite | `--surfaces` (JSON array of `{slug, medium, reach?}` from the surface registry), `--interfaceMedium` (deprecated single-surface alias: graphical-ui/cli/agentic-protocol, default: graphical-ui) |
-| `docs-site` | Fumadocs documentation site that serves the live `docs/` tree (product brief, architecture, bets) with H1-derived titles; registers as a native `./dev` runner (`pnpm dev`, not autostarted), never joins docker-compose | `--name` |
-| `add-capability` | Adds a capability interface + provider implementation (or a bare `none` interface) to an existing service | `--service`, `--capability` (default `llm`), `--provider` (capability default, or `none`), `--stack` (auto-detected) |
-
-`workspace-dev-cli` is handled in initialization and does not appear in service mapping.
+- **What it scaffolds:** a single `generate_text` call behind the text-generation interface, with retries and a circuit breaker, targeting the SDK `--llmProvider` names.
+- **What stays bet/MVP work:** prompt caching a large shared context, streaming responses, structured outputs, a moderation/safety gate, and tool use. Record these in the scaffold hand-off as work the first bet must build, and say so plainly when presenting the scaffold.
+- **Never describe the generated client as "provider-agnostic"** or imply it already satisfies an architectural capability it only stubs — an honest "the LLM client is scaffolded; prompt caching and streaming are bet work" is worth more than a green checkmark that papers over the gap. If the architecture's provider is a real vendor the flag does not offer, that is the reversal path above, not a silent substitution to whatever the generator defaults to.
 
 **Offer a documentation site (optional, default off).** Independent of the architecture's services, offer the user a browsable site for the project's own `docs/` — product brief, architecture, and the bets as they land. Present it once as a single optional decision (Protocol 4), **default to skipping it**, and frame it plainly: "a local site to browse your docs and bets; not part of the running product." If they accept, add `docs-site --name docs` to the execution plan — it registers as a native `./dev` runner and shows up in `infrastructure.md`'s footprint matrix like any other managed unit (Phase 5). If they decline, add nothing and say nothing further. The docs site is a developer affordance, never inferred from the architecture and never a service the architecture must justify.

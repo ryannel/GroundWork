@@ -218,37 +218,4 @@ Verified green on initial scaffold:
 - System integration tests: 7/7 passed.
 ```
 
----
-
-## The developer on-ramp: `docs/getting-started/`
-
-`infrastructure.md` describes the *shape* of the running system. The getting-started
-section answers a different question — **how does someone who just cloned the repo
-get it running?** — and it is the doc set the docs-site landing page routes a new
-developer to. Author three files under `docs/getting-started/`, each a clean
-published doc under `groundwork-writer`:
-
-- **`index.md`** — the on-ramp overview. Two short paragraphs: what this system is in
-  one line (lift from the product brief), and the two reading paths — set it up here,
-  or understand the product via `docs/product-brief.md`. Link to `setup.md` and
-  `dev-cli-reference.md`. Keep it to a screen; it is a signpost, not a tutorial.
-
-- **`setup.md`** — the fresh-clone walkthrough, in order, with the *actual* values this
-  scaffold produced: **prerequisites** (the runtimes and tools the stack needs —
-  Docker, the language runtimes per service, any CLI like `air`/`uv`/`pnpm` — with
-  versions), then `./dev doctor` to verify the environment, then **install
-  dependencies** (the real per-stack commands), then env configuration (the variables
-  `infrastructure.md` lists as required, and where they go), then `./dev start`, then
-  how to confirm health (`./dev status` / the health endpoints). This is the content
-  `infrastructure.md` never carried — write it from what Phase 4 verification actually
-  did, not from theory. If verification was pending, say so here too.
-
-- **`dev-cli-reference.md`** — the complete `./dev` command catalogue. **Derive it from
-  `./dev help`** (the CLI's registry is the single source of truth — never hand-list
-  commands from memory, or the doc drifts the moment a command is added): one section
-  per command group (Lifecycle, Quality, Bet Workflow, Meta), each command with its
-  summary and flags, plus the "Extending `./dev`" note on project-owned commands
-  (`.dev/commands/` and the `commands` block in `.dev/dev.config.json`).
-
-These are skill-authored, not templated, precisely so they carry this project's real
-prerequisites, install commands, and command set rather than a generic stand-in.
+The `docs/getting-started/` developer on-ramp — three skill-authored files answering "how does someone who just cloned the repo get it running?" — is authored in Phase 5, which carries the full spec (see `phases/05-draft-review.md`).

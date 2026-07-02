@@ -105,9 +105,7 @@ The scope proposal is a recommendation, not a decision. Items in the out-of-scop
 
 **Forged-stack Day-2 items.** When the hand-off carried a Forged Stack Checklist, treat its to-be-built items differently from product features. They are operational reality — error handling, a debugging loop, graceful teardown, observability in the stack's idiom — not compelling extras to cut. Scope the ones the success signal depends on into the first bet (the essential workflow cannot be demonstrated, or trusted, without them), and *sequence* the rest into early bets rather than dropping them silently. The reduction discipline still applies — but a Day-2 item moved out is tracked operational debt the product owes, not a deferral that may never come due.
 
-**Appetite.** Once scope is agreed, establish how much solving this is worth — judged by opportunity cost, not by how long it will take. Frame it as a constraint, not an estimate: the appetite caps the scope, not the other way around. State worth, not calendar time (AI made execution time an unstable proxy for it); reach for a time budget only when human-coordination time is the real constraint. If the agreed scope exceeds the ceiling, look for further cuts.
-
-**Stakes.** Establish what is at risk if the MVP is wrong — its blast radius (surface and users a mistake reaches), reversibility (one-way door vs. iterate-behind-a-flag), and review load (how much a human must hold to vouch for it). Stakes is the bet's size, not its effort, and it sets how much rigour the bet earns: a high-stakes MVP earns tighter review and a smaller validating increment even when it is quick to build.
+**Appetite and Stakes.** Once scope is agreed, size the bet on both axes to the bar `.groundwork/skills/groundwork-bet/templates/pitch.md` defines for every pitch — appetite as an opportunity-cost judgment that caps the scope agreed above, stakes as blast radius, reversibility, and review load. Neither is an effort estimate. The one call specific to a first bet: weigh appetite against what a failed signal costs the team in credibility and lost time, not only against the next bet's opportunity cost — there is no prior delivery cadence yet to amortise a miss against.
 
 Mark Phase 2 complete in `mvp-cache.md`.
 
@@ -115,74 +113,21 @@ Mark Phase 2 complete in `mvp-cache.md`.
 
 ## Quality Standard: What the Pitch Must Contain
 
-The pitch has exactly two sections: `## The Pitch` and `## Rabbit Holes & No-Gos`. **Do not add a `## Milestones` section.** Milestones are produced later by the Decomposition phase (phase 3 of the bet lifecycle), after the design is locked. A pitch that lists milestones has contaminated the discovery artifact with decomposition work — the review subagent will flag this as a critical finding.
+The pitch bar — a real problem, a falsifiable signal, appetite as worth, stakes as blast radius/reversibility/review load, and the Rabbit Holes/No-Gos distinction — is defined once, in full, in `.groundwork/skills/groundwork-bet/templates/pitch.md`; read it before drafting. The worked shallow/deep example lives in `groundwork-bet/workflows/01-discovery.md`. MVP's pitch differs from every later bet's pitch in three ways only:
 
-A pitch that names features and lists milestones is a task list. The pitch must capture the reasoning: the question the MVP answers, the signal that confirms it worked, and the explicit cuts that keep the scope honest.
+- **Exactly two sections, and never a third.** `## The Pitch` and `## Rabbit Holes & No-Gos` — **no `## Milestones` section.** Milestones are produced later by the Decomposition phase, after the design is locked; a pitch that lists them has contaminated the discovery artifact with decomposition work, and the review subagent flags it as a critical finding.
+- **The Problem is hypothesis-shaped.** State the question the MVP answers ("do people want this?", "can they use it?", "will they pay?") alongside the pain it solves — for a first bet the two are the same statement, because the MVP exists to test the hypothesis, not only to relieve the pain.
+- **The Success Signal traces to that hypothesis, not to a feature.** A no-answer must kill the assumption the whole MVP rests on, not just cast doubt on one feature within it.
 
-The `## Rabbit Holes & No-Gos` section carries **two distinct lists**, and both matter:
-
-- **Rabbit Holes** — the technical traps and unknowns that could silently eat the appetite. These are the parts where the work could balloon: the hard coherence problem, the latency budget that the safety check threatens, the prompt that grows unbounded, the retry path that risks double-writes. Each rabbit hole should name its guard or proof of concept. A bet that carries obvious technical risk but lists *only* scope cuts has hidden its real danger — the review subagent flags a Rabbit Holes & No-Gos section with no genuine rabbit hole as a critical finding. Only a bet that is truly low-risk technically may say so and move on.
-- **No-Gos** — the explicit scope cuts that keep the appetite honest, each naming the user expectation it defers.
-
-**Shallow (insufficient):**
+**MVP-flavoured delta** (against the deep example in `templates/pitch.md` / `01-discovery.md` — Appetite, Stakes, Rabbit Holes, and No-Gos follow the canonical bar unchanged):
 
 ```markdown
-# Bet: MVP
-
-## The Pitch
-
-- Problem: Users need a way to manage their projects.
-- Appetite: 3 weeks.
-- Solution: Build the core project management features.
-
-## Rabbit Holes & No-Gos
-
-- Analytics
-- Mobile
-```
-
-**Deep (required standard):**
-
-```markdown
-# Bet: MVP — Core Workflow
-
-## The Pitch
-
-- **Problem:** New users have no path from signup to meaningful engagement. The product's
-  core value — collaborative project tracking — is invisible until users have completed
-  setup, invited collaborators, and created their first project. Most abandon before
-  reaching this point.
-- **Appetite:** Worth the cycle — without a working signup-to-collaboration path there is
-  no product to test, so this earns the first full slice. Bounded to that path; analytics,
-  notifications, and advanced filtering are excluded.
-- **Stakes:** Moderate. Touches account creation and the first-run path, so a wrong call
-  shapes every user's first impression — but each step is reversible behind the onboarding
-  flow. Earns careful review of the signup and invite steps, lighter elsewhere.
-- **Solution:** Deliver the end-to-end signup, project creation, and collaborator invitation
-  flow. A user who completes this workflow has experienced the product's core value.
-- **Success Signal:** ≥60% of users who complete signup also send at least one collaborator
-  invitation within their first session. That rate tells us whether the core workflow is
-  discoverable and compelling enough to drive the product's collaborative value.
-
-## Rabbit Holes & No-Gos
-
-**Rabbit Holes**
-
-- [ ] Risk: Invitation delivery without email could balloon into building presence/real-time
-  sync so collaborators "appear." Guard: shareable link only; no presence in this bet.
-- [ ] Risk: Permission model for shared projects can sprawl (roles, per-field ACLs). Guard:
-  two roles only — owner and collaborator — decided up front; run a proof of concept on anything beyond in week 1.
-
-**No-Gos**
-
-- [ ] Analytics and reporting — users will expect a dashboard; excluded because it doesn't
-  test the core hypothesis that users complete the collaboration workflow.
-- [ ] Email notifications — users will expect email confirmation on invitation; excluded for
-  MVP; invitations are delivered via shareable link only.
-- [ ] Task assignment — users will expect to assign tasks to collaborators; excluded because
-  the MVP proves collaboration value through shared project access, not task workflow.
-- [ ] Mobile layout — users will expect the app to work on mobile; excluded because the
-  essential workflow is desktop-first for MVP and the design system defers mobile.
+- **Problem:** New users have no path from signup to meaningful engagement — the open
+  question is whether a guided signup-to-collaboration flow is what gets them there.
+- **Success Signal:** ≥60% of users who complete signup also send at least one
+  collaborator invitation within their first session. A miss here means the
+  hypothesis — that guided onboarding drives collaborative engagement — is wrong,
+  not just that this flow needs tuning.
 ```
 
 ---

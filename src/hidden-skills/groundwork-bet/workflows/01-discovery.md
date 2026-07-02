@@ -50,18 +50,13 @@ When the bet appears to challenge a boundary or capability decision `docs/archit
 1. Ensure a directory exists for this bet at `docs/bets/<bet-slug>/`. Create it if it doesn't exist.
 2. Read the `.groundwork/skills/groundwork-bet/templates/pitch.md` template.
 
-### Track Selection
+### Gauge the starting point
 
-Ask the user which discovery track fits their situation: thinking the problem through together — exploring the evidence, shaping the hypothesis, validating the approach before committing — or moving directly to capturing and executing an idea they already hold clearly.
-
-- **Track 1 (Product-driven):** The user wants to explore and validate. Go through the Product-driven steps below.
-- **Track 2 (Execution-focused):** The user has a clear idea. Go through the Execution-focused steps below.
-
-Both tracks produce the same Pitch artifact and require the same review before committing. The difference is the front-end process.
+Ask whether the user wants to think the problem through together — exploring evidence, shaping the hypothesis, validating the approach — or arrives with a clear idea they want captured and executed. Either way, walk through every element below in sequence; the difference is stance, not structure. When the user arrives with a formed idea, move through the elements as verification rather than exploration — confirm each is present and falsifiable instead of re-deriving it.
 
 ### Adopt the product persona
 
-The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, on whichever track.
+The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking.
 
 Route to its `references/` by what the pitch turns on: `discovery-and-opportunity.md` to pressure-test that the problem is real and rooted in a root cause, not a symptom; `product-risks.md` to name the riskiest assumption and what would kill the bet before delivery; `success-metrics-and-signals.md` for a falsifiable success signal with its counter-metric; `scope-and-sequencing.md` for an opportunity-cost appetite and no-gos that hold under pressure. Apply the reference's reasoning and its antipatterns to the pitch.
 
@@ -69,9 +64,9 @@ The bet must fit inside what `docs/product-brief.md` already committed — its u
 
 ---
 
-### Track 1: Product-driven
+### The Pitch Elements
 
-Work through the following elements in sequence. Give each important question room to breathe — do not group questions that carry real trade-offs or downstream consequences. Converge toward a proposal once you have enough signal.
+Work through the following elements in sequence. Give each important question room to breathe — do not group questions that carry real trade-offs or downstream consequences; a formed idea still earns a quick confirmation pass per element, not a skip. Converge toward a proposal once you have enough signal.
 
 - **Problem:** Establish what problem users are experiencing and what evidence — usage data, support tickets, user feedback — shows it is real and worth solving.
 
@@ -99,33 +94,17 @@ Work through the following elements in sequence. Give each important question ro
 
   Push past vague exclusions. "No mobile" is not a no-go; "No mobile push notifications — users expect these but they do not test the core in-app visibility hypothesis; separate bet" is.
 
-Once all elements are captured, draft the Pitch. Weave in the success signal verbatim — it must appear explicitly in the Pitch, not be implied. Then continue to **Review and Commit** below.
+Before drafting, verify every element is present and specific — a falsifiable signal, stakes sized by blast radius and reversibility rather than effort, no-gos with reasoning, and an appetite with a scope boundary — and fill any gap the conversation left open; a formed idea is not exempt from this check. Weave the success signal verbatim into the Pitch — it must appear explicitly, not be implied. Then continue to **Review and Commit** below.
 
 ---
 
-### Track 2: Execution-focused
-
-Capture the essential Pitch elements efficiently. The user knows what they want to build — your job is to ensure the Pitch is complete and internally consistent before it becomes the input to Design Foundations.
-
-- **Problem and solution:** What the user wants to build, and what user problem it solves.
-
-- **Success signal:** How they will know the bet delivered its intended value — a specific, measurable outcome.
-
-- **Appetite:** How long it should take, what is in scope within that time, and what is explicitly out.
-
-- **No-gos:** What is not being built — the natural extensions a user would expect that this bet explicitly excludes, with the reason each is excluded.
-
-Before drafting, verify all elements are present and specific (falsifiable signal, no-gos with reasoning, appetite with scope boundary). Surface any gaps and fill them. Then continue to **Review and Commit** below.
-
----
-
-### Surface scope (both tracks — multi-surface registries only)
+### Surface scope (multi-surface registries only)
 
 When the registry holds two or more surfaces, the no-gos conversation includes surface scope: which registry surfaces does this bet deliver to, and for each surface it does not reach, is that a deferral (with intent) or an omission (with rationale)? Appetite is the natural frame — each additional surface costs the milestones to deliver the experience there, so reaching fewer surfaces is the same scope-cutting move as cutting a feature. The dispositions land in the pitch: in-scope slugs in the `surfaces:` frontmatter, the rest as surface no-gos. Validation writes the ledger from exactly these decisions, so a surface the conversation never decided becomes a cell the bet cannot close.
 
 ---
 
-### Review and Commit (both tracks)
+### Review and Commit
 
 3. Write the drafted Pitch to `.groundwork/cache/bet-pitch-draft.md`. The pitch is not yet committed — the draft passes through an independent review before becoming `docs/bets/<bet-slug>/pitch.md`. The pitch becomes the input to every downstream design and decomposition conversation; a silently dropped capability or invented constraint poisons the entire delivery loop.
 

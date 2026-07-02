@@ -43,33 +43,46 @@ groundwork-<stack>-engineer/
 ```
 
 - **`SKILL.md`** carries the spine, kept tight — it routes to references, it does not inline
-  them. The frontmatter `description` must be *pushy*: it decides whether the agent loads
-  the skill at all, so name the stack and the trigger work explicitly.
+  them. Its body is paid once per task load, so it holds only what changes behaviour on most
+  tasks in this stack; a fact needed for one decision belongs in `references/` instead. Its
+  frontmatter `description` is the one part paid in *every* session — the only thing a router
+  sees before deciding whether to load the skill at all. Write it as the trigger phrases an
+  engineer would actually say, plus the boundary of what this skill is not for; never write it
+  as a summary of the body — the router never opens the file to check.
 - **`references/`** are written for that stack's decision points — its project layout, its
   error model, its concurrency/event model, its build/debug loop, its test harness, its
-  idiomatic libraries, its packaging. Each file is a lens an engineer reaches for mid-task,
-  not a tutorial.
+  idiomatic libraries, its packaging. Each file is a lens an engineer reaches for mid-task and
+  is paid once per lookup: front-load the identifier, keep entries parallel, never narrate —
+  it is a decision-time distillation, not a tutorial.
 - **No `sync-anchor.md`.** The shipped engineer skills pin GroundWork's in-repo principle
   files by hash; a forged skill lives in a user project with no such source to pin, so it is
   **self-contained** — its references stand on their own. Do not fabricate a sync-anchor.
 
 ## How it must read (the house style)
 
-These are the `skill-writer` rules. They are why the shipped skills work; hold to them.
+These are the `skill-writer` rules, distilled for a skill an engineer *consults mid-task* —
+not a conversation the engineer runs. That register matters: `SKILL.md` and `references/`
+are a tight, cold-read contract, not a facilitation script — state the call, explain it in one
+clause when the reason changes what the engineer does, and stop. Hold to these:
 
 - **Write intent, not scripts.** Never quote phrases for the agent to repeat. "Verify the
   build is green before opening a slice," not a canned sentence to print.
-- **Explain why each rule exists.** A constraint with its reason is adopted; one imposed is
-  worked around. "Keep view state out of the model layer — it makes the model untestable and
-  ties redraws to business logic," not "don't put state in the model."
+- **Explain why in one clause, not an essay.** A constraint with its reason is adopted; one
+  imposed is worked around — but the reason is a clause, not a paragraph. "Keep view state out
+  of the model layer — it makes the model untestable and ties redraws to business logic," not
+  "don't put state in the model," and not three sentences of justification either.
 - **No hedging.** Drop "should," "typically," "you might want to." State the call or cut it.
 - **Lead with the belief, not the rejection.** Say what the right idiom is and why, before
   what to avoid.
+- **One idea per unit.** A sentence, bullet, or table row carries one idea — the reader should
+  never have to decompress a dash-stapled run-on to find the actual rule.
 - **Calibrate with examples, not adjectives.** Show a shallow handling next to the deep one.
   Agents match examples; they cannot match "be idiomatic."
 - **Front-load the mental model.** Open the skill with the stack's shape — its core
   abstraction, its golden path — so every later rule lands against a frame.
-- **Expert peer stance.** The skill proposes and explains; it does not bark orders.
+- **Expert peer stance.** The skill proposes and explains; it does not bark orders. This
+  governs tone, not length — the explanation is still the one clause above, not a case built
+  for a reader who might push back, because there is no conversation here to push back in.
 
 ## Earn the skill before you trust it (the eval loop)
 
@@ -88,7 +101,9 @@ tested is a draft, not an expert. Before you accept a forged engineer skill, pro
    practitioner in this stack recognise it as right, not just compiling?).
 4. **Find the gaps and generalise.** Where the skill let the task drift shallow or off-idiom,
    fix the skill — but fix the *general* rule, not the specific case, since the skill runs on
-   tasks you did not test.
+   tasks you did not test. Integrate the fix into the section that already owns the concern;
+   do not append a new bullet or heading next to it. An appended fix is a queued fix, not a
+   finished one — the next reader cannot tell which of two adjacent passages is current.
 5. **Re-run and repeat** until the tasks come out senior-grade and the user agrees the skill
    reads like an expert. Then accept it.
 

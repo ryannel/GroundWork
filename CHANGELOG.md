@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (one pitch bar, one flag catalog, an honest stack-forge claim, 2026-07-02)
+
+The pitch canon has one home: `templates/pitch.md` was already the field-level standard, and both writers of `document_type: bet-pitch` now cite it — bet discovery's two near-identical tracks merge into one Pitch Elements walk with a stance-calibration line (restoring **Stakes** to the execution-focused path, which had silently dropped it), and MVP keeps only its first-bet deltas instead of a duplicated example and definitions. Scaffold-side right-sizing: the developer on-ramp spec lives in the phase that writes it; the generator capability/availability tables merge into one catalog (the orchestrator's pointer still resolves); the architecture commit phase stops restating what `templates/adr.md` and the registry contract already say; stack-forge claims its three real contract obligations instead of "binding" the whole contract; the llms.txt step is a visible numbered step. The stack-forge authoring mirror is reconciled with the rebuilt skill-writer standard (register boundaries, budget-by-load-tier, description-is-the-router, one-idea-per-unit, integrate-don't-append).
+
+- [no-migration] Skill-prose changes carried by the clean-copy reconcile.
+
 ### Changed (brownfield skills state each stance once, 2026-07-02)
 
 The brownfield lane's shared stances get one home each: the Adopt/Upgrade mode-detection framing lives in product-brief-extract (the track's first phase), with the later extracts keeping only their genuinely local rules (brand-tokens preservation, code-wins reconciliation); the frontmatter-exemption rationale is stated once and cited; repo-map mechanics defer to `code-intelligence.md`; the compose merge is stated as its invariant (merge structurally, never re-emit YAML through the model) instead of a pasted script; the interview triplets, draft-file table, and scan digest framing are tightened. The four signature stances — infer-first-interview-last, mint-nothing-without-rationale, empty-ledger-is-honest, additive-never-destructive — survive verbatim; the design-system-extract's type-section anchor rule is now an unmissable standalone line.
