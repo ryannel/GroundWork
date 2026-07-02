@@ -57,6 +57,7 @@ Never slice horizontally: "all schemas, then all APIs, then all UI" is three hor
 
 Each slice spec must contain:
 - **Owner service** — the primary service this slice lives in (from `docs/architecture/infrastructure.md`)
+- **Surface** — `core` or the registry slug the slice builds for (registry projects only; omit when the project carries no `docs/surfaces.md`). Core-before-surface sequencing and the validation ledger's landing column both read this value; the readiness gate blocks a slice whose value is missing or is neither `core` nor a registry slug.
 - **Complexity** — S / M / L
 - **Model tier** *(optional)* — omit for the `execution` default; set `frontier` with a one-line reason only when the slice is *particularly challenging or vague* (the same risk signal that warrants a POC). This lifts the slice-worker's model for this slice; Delivery reads it at dispatch (Model Tiers, operating contract). It is one-directional — a slice can ask for a higher tier, never a lower one.
 - **Prerequisite** — the exact prior merge gate (e.g. "Slice 1.2 merged"), or none
@@ -190,6 +191,7 @@ The shallow version has horizontal milestones invisible to every consumer, no ac
 # Slice 1.1 — notification-service: Operation event intake
 
 **Owner service:** notification-service
+**Surface:** core
 **Complexity:** M
 **Prerequisite:** none
 
@@ -236,7 +238,7 @@ Present the decomposition tree as Proof of Work:
 
 Walk the milestone map first — ordering rationale, who observes each milestone, demonstrable goals. Then walk the **Proof of work** sections **proof by proof**: for each milestone and slice, what it proves, where that traces in the design, and why it is the right proof. The proof is prose, but the scrutiny is assertion-grade — the user is approving the agreed front-door test cases that become the definition of done, so pace this walkthrough like the design decision it is (Protocol 4), not a confirmation formality. Where the user challenges a proof, fix the prose and continue.
 
-On approval, **commit the decomposition as the recorded baseline**: commit `docs/bets/<bet-slug>/decomposition/` (the full milestone ladder plus the first milestone's slices) together with the finalized `technical-design/` (e.g. `bet(<bet-slug>): approve decomposition`). That commit is the user's signature on the agreed front-door cases — the integrity anchor the rest of the bet keeps honest.
+On approval, **commit and seal the decomposition as the recorded baseline**: commit `docs/bets/<bet-slug>/decomposition/` (the full milestone ladder plus the first milestone's slices) together with the finalized `technical-design/` (e.g. `bet(<bet-slug>): approve decomposition`) — and, under git, tag that commit `bet/<bet-slug>/approved`. That commit and tag are the user's signature on the agreed front-door cases — the integrity anchor the rest of the bet keeps honest. The readiness gate (`groundwork-review/checklists/implementation-readiness.md`) blocks delivery without the tag; it is the sealed baseline that delivery's prose-integrity reconciliation holds the prose to.
 
 The anchor leaves a trail, and the trail is lightweight. **Steering how slices break down is free and needs no record** — adjusting the path to a milestone as delivery teaches you is the plan working as intended. **Changing what a milestone proves** — editing or dropping an agreed front-door case — is an owner-approved move recorded beside the prose: amend the affected `index.md` or slice file and commit it with a message that says what changed and why (`bet(<bet-slug>): amend milestone <N> proof — <reason>`), so a later context (a resumed delivery, a validator) can see it. Authoring a later milestone's slices on arrival, and adding a new rung when a postmortem reveals the ladder is missing one, are the same kind of recorded, additive event. There is no seal to break and no ceremony to run — the record is the commit history of the decomposition tree, and Delivery's prose-integrity check reconciles each built test against the current approved prose it traces to. (This holds whether or not the project is under git: the standing rule is that every built test still proves what its slice's Proof-of-work prose describes, and a change to that prose is a recorded amendment, not a quiet edit.)
 
