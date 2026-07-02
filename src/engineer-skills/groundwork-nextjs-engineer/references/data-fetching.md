@@ -1,18 +1,5 @@
 # Data Fetching
 
-## Table of Contents
-- [Decision Tree](#decision-tree)
-- [Server Component Fetching](#server-component-fetching)
-- [SWR Hook Pattern](#swr-hook-pattern)
-- [Hydration Seeding](#hydration-seeding)
-- [Avoiding Data Waterfalls](#avoiding-data-waterfalls)
-- [Optimistic UI](#optimistic-ui)
-- [Route Handlers](#route-handlers)
-- [Client Component Data Fetching](#client-component-data-fetching)
-- [The API Client Layer](#the-api-client-layer)
-
----
-
 ## Decision Tree
 
 ```
@@ -45,13 +32,13 @@ The rule: **never use `useEffect` for data fetching** in the Next.js application
 Server Components can fetch data directly — no API route, no SWR hook, no loading state. The data is available before the component renders.
 
 ```tsx
-// app/meetings/page.tsx
-import { getMeetings } from '@/lib/api';
-import { MeetingList } from '@/components/meetings';
+// app/orders/page.tsx
+import { getOrders } from '@/lib/api';
+import { OrderList } from '@/components/orders';
 
-export default async function MeetingsPage() {
-  const meetings = await getMeetings();
-  return <MeetingList meetings={meetings} />;
+export default async function OrdersPage() {
+  const orders = await getOrders();
+  return <OrderList orders={orders} />;
 }
 ```
 
@@ -68,73 +55,45 @@ This is the preferred approach for initial page data because:
 All SWR data-fetching hooks live in `hooks/`. Each hook depends only on the API Client (`lib/api.ts`) and Schemas (`lib/schemas/`).
 
 ```tsx
-// hooks/use-meetings.ts
+// hooks/use-orders.ts
 'use client';
 
 import useSWR from 'swr';
-import { getMeetings, getMeeting } from '@/lib/api';
-import type { Meeting, MeetingList } from '@/lib/schemas';
+import { getOrders, getOrder } from '@/lib/api';
+import type { Order, OrderList } from '@/lib/schemas';
 
-export function useMeetings() {
-  return useSWR<MeetingList>('/api/meetings', getMeetings);
+export function useOrders() {
+  return useSWR<OrderList>('/api/orders', getOrders);
 }
 
-export function useMeeting(id: string) {
-  return useSWR<Meeting>(
-    id ? `/api/meetings/${id}` : null,
-    () => getMeeting(id)
-  );
+export function useOrder(id: string) {
+  return useSWR<Order>(id ? `/api/orders/${id}` : null, () => getOrder(id));
 }
 ```
 
-### Usage in Client Components
-
 ```tsx
+// Usage in a Client Component
 'use client';
 
-import { useMeetings } from '@/hooks/use-meetings';
+import { useOrders } from '@/hooks/use-orders';
 
-export function MeetingDashboard() {
-  const { data, error, isLoading } = useMeetings();
+export function OrderDashboard() {
+  const { data, error, isLoading } = useOrders();
 
-  if (isLoading) return <MeetingListSkeleton />;
-  if (error) return <ErrorState message="Failed to load meetings" />;
+  if (isLoading) return <OrderListSkeleton />;
+  if (error) return <ErrorState message="Failed to load orders" />;
 
   return (
     <ul>
-      {data.data.map(meeting => (
-        <li key={meeting.id}>{meeting.title}</li>
+      {data.data.map(order => (
+        <li key={order.id}>{order.id}</li>
       ))}
     </ul>
   );
 }
 ```
 
-### SWR Configuration
-
-SWR is configured globally in the root layout or a provider component:
-
-```tsx
-// lib/contexts.tsx
-'use client';
-
-import { SWRConfig } from 'swr';
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <SWRConfig
-      value={{
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-        dedupingInterval: 2000,
-        errorRetryCount: 3,
-      }}
-    >
-      {children}
-    </SWRConfig>
-  );
-}
-```
+SWR is configured globally in the root layout or a provider component (`revalidateOnFocus`, `revalidateOnReconnect`, `dedupingInterval`, `errorRetryCount`) — set project-wide defaults there once, not per hook.
 
 ---
 
@@ -143,72 +102,47 @@ export function Providers({ children }: { children: React.ReactNode }) {
 Seed client-side SWR hooks by wrapping Server Components in `<SWRConfig value={{ fallback }}>`. This eliminates the flash of loading state on the client — the SWR hook immediately has data to render.
 
 ```tsx
-// app/meetings/page.tsx — Server Component
+// app/orders/page.tsx — Server Component
 import { SWRConfig } from 'swr';
-import { getMeetings } from '@/lib/api';
-import { MeetingDashboard } from '@/components/meetings';
+import { getOrders } from '@/lib/api';
+import { OrderDashboard } from '@/components/orders';
 
-export default async function MeetingsPage() {
-  // Fetch on the server
-  const meetings = await getMeetings();
+export default async function OrdersPage() {
+  const orders = await getOrders(); // fetched on the server
 
-  // Seed the SWR cache with server-fetched data
   return (
-    <SWRConfig value={{ fallback: { '/api/meetings': meetings } }}>
-      <MeetingDashboard />
+    <SWRConfig value={{ fallback: { '/api/orders': orders } }}>
+      <OrderDashboard />
     </SWRConfig>
   );
 }
 ```
 
-```tsx
-// components/meetings/meeting-dashboard.tsx — Client Component
-'use client';
-
-import { useMeetings } from '@/hooks/use-meetings';
-
-export function MeetingDashboard() {
-  // SWR immediately returns the seeded data — no loading flash
-  const { data, mutate } = useMeetings();
-
-  // data is available on first render because of the fallback
-  return <MeetingList meetings={data.data} />;
-}
-```
-
-The SWR cache key in the `fallback` object must exactly match the key used in the `useSWR` call. If the hook uses `/api/meetings`, the fallback key must be `/api/meetings`.
+The SWR cache key in the `fallback` object must exactly match the key used in the `useSWR` call — if the hook uses `/api/orders`, the fallback key must be `/api/orders`. A mismatch fails silently: the hook just refetches instead of using the seed.
 
 ---
 
 ## Avoiding Data Waterfalls
 
-Sequential fetches create waterfalls — each request waits for the previous one to complete. Three strategies prevent this.
+Sequential fetches create waterfalls — each request waits for the previous one to complete.
 
-### Strategy 1: Parallel Fetching with Promise.all
+### Parallel Fetching with Promise.all
 
-When a component needs multiple independent datasets, fetch them in parallel:
+When a component needs multiple independent datasets, fetch them in parallel rather than awaiting each in turn:
 
 ```tsx
-// Bad — sequential waterfalls
-async function DashboardPage() {
-  const meetings = await getMeetings();    // Wait...
-  const users = await getUsers();          // Then wait...
-  const analytics = await getAnalytics();  // Then wait...
-  return <Dashboard meetings={meetings} users={users} analytics={analytics} />;
-}
-
 // Good — parallel fetching
 async function DashboardPage() {
-  const [meetings, users, analytics] = await Promise.all([
-    getMeetings(),
+  const [orders, users, analytics] = await Promise.all([
+    getOrders(),
     getUsers(),
     getAnalytics(),
   ]);
-  return <Dashboard meetings={meetings} users={users} analytics={analytics} />;
+  return <Dashboard orders={orders} users={users} analytics={analytics} />;
 }
 ```
 
-### Strategy 2: Streaming with Suspense
+### Streaming with Suspense
 
 Let each section load independently. Fast sections render immediately; slow sections show a skeleton and stream in when ready.
 
@@ -218,8 +152,8 @@ import { Suspense } from 'react';
 async function DashboardPage() {
   return (
     <div>
-      <Suspense fallback={<MeetingsSkeleton />}>
-        <MeetingsSection />
+      <Suspense fallback={<OrdersSkeleton />}>
+        <OrdersSection />
       </Suspense>
       <Suspense fallback={<AnalyticsSkeleton />}>
         <AnalyticsSection />
@@ -228,45 +162,33 @@ async function DashboardPage() {
   );
 }
 
-// Each section fetches independently
-async function MeetingsSection() {
-  const meetings = await getMeetings();
-  return <MeetingList meetings={meetings} />;
-}
-
-async function AnalyticsSection() {
-  const analytics = await getAnalytics();
-  return <AnalyticsChart data={analytics} />;
+async function OrdersSection() {
+  const orders = await getOrders();
+  return <OrderList orders={orders} />;
 }
 ```
 
-### Strategy 3: Preload Pattern
+### Preload Pattern
 
-Start fetching early, then consume the result later when the data is needed:
+Start fetching early with `React.cache`, then consume the result later when the data is needed — the second call is deduplicated, not a second request:
 
 ```tsx
 import { cache } from 'react';
 
-// React.cache deduplicates — multiple calls with the same args return the same promise
-export const getMeeting = cache(async (id: string) => {
-  return await fetchMeetingFromApi(id);
-});
+export const getOrder = cache(async (id: string) => fetchOrderFromApi(id));
 
-export const preloadMeeting = (id: string) => {
-  void getMeeting(id);  // Fire and forget — starts the fetch
+export const preloadOrder = (id: string) => {
+  void getOrder(id); // fire and forget — starts the fetch
 };
 ```
 
 ```tsx
-export default async function MeetingPage({ params }: Props) {
+export default async function OrderPage({ params }: Props) {
   const { id } = await params;
-
-  preloadMeeting(id);   // Start fetching immediately
-
+  preloadOrder(id);              // start fetching immediately
   // ... other work ...
-
-  const meeting = await getMeeting(id);  // Data likely ready by now
-  return <MeetingDetail meeting={meeting} />;
+  const order = await getOrder(id); // data likely ready by now
+  return <OrderDetail order={order} />;
 }
 ```
 
@@ -279,55 +201,47 @@ When a user triggers an action, immediately update the local SWR cache using `mu
 ```tsx
 'use client';
 
-import { useMeetings } from '@/hooks/use-meetings';
-import { deleteMeetingAction } from '@/app/actions/meeting-actions';
+import { useOrders } from '@/hooks/use-orders';
+import { deleteOrderAction } from '@/app/actions/order-actions';
 import { useSWRConfig } from 'swr';
 
-export function MeetingCard({ meeting }: { meeting: Meeting }) {
+export function OrderCard({ order }: { order: Order }) {
   const { mutate } = useSWRConfig();
 
   async function handleDelete() {
     // 1. Optimistically remove from the UI
     mutate(
-      '/api/meetings',
-      (current: MeetingList | undefined) => {
-        if (!current) return current;
-        return {
-          ...current,
-          data: current.data.filter(m => m.id !== meeting.id),
-        };
-      },
-      { revalidate: false }  // Don't refetch yet
+      '/api/orders',
+      (current: OrderList | undefined) =>
+        current && { ...current, data: current.data.filter(o => o.id !== order.id) },
+      { revalidate: false }, // don't refetch yet
     );
 
     // 2. Perform the actual deletion
-    const result = await deleteMeetingAction(meeting.id);
+    const result = await deleteOrderAction(order.id);
 
     if (result.error) {
-      // 3. Revert on failure — refetch the real data
-      mutate('/api/meetings');
+      mutate('/api/orders'); // 3. revert on failure — refetch the real data
       toast.error(result.error);
     }
   }
 
   return (
     <article>
-      <h2>{meeting.title}</h2>
+      <h2>Order {order.id}</h2>
       <button onClick={handleDelete}>Delete</button>
     </article>
   );
 }
 ```
 
-This makes the UI feel instant. The user sees the meeting disappear immediately. If the server fails, the meeting reappears with an error toast.
+This makes the UI feel instant. The user sees the order disappear immediately; if the server fails, it reappears with an error toast.
 
 ---
 
 ## Route Handlers
 
-Route Handlers (`route.ts`) create API endpoints. Use them when you need an HTTP endpoint for external consumers — not for internal data fetching.
-
-### When to Use Route Handlers
+Route Handlers (`route.ts`) create API endpoints. Use them for external consumers — mobile clients, webhooks, third parties — never for internal page data or client reads, which have a cheaper path.
 
 | Use Case | Route Handler | Server Component | Server Action |
 |----------|:---:|:---:|:---:|
@@ -338,84 +252,31 @@ Route Handlers (`route.ts`) create API endpoints. Use them when you need an HTTP
 | Webhooks from external services | ✅ | | |
 | Cacheable GET endpoints | ✅ | | |
 
-### Basic Route Handler
-
-```tsx
-// app/api/meetings/route.ts
-import { NextRequest } from 'next/server';
-import { getMeetings } from '@/lib/api';
-
-export async function GET(request: NextRequest) {
-  const meetings = await getMeetings();
-  return Response.json(meetings);
-}
-```
-
-### Environment
-
-Route Handlers run in a server-only environment. They can use `async/await`, `cookies()`, `headers()`, and Node.js APIs. They **cannot** use React hooks, React DOM APIs, or browser APIs. Do not attempt to render React components inside a route handler.
-
-### Conflict Rule
-
-A `route.ts` and `page.tsx` cannot coexist in the same folder. Separate API routes from page routes:
-
-```
-app/
-├── meetings/
-│   └── page.tsx            # /meetings (page)
-└── api/
-    └── meetings/
-        └── route.ts        # /api/meetings (API)
-```
+A `route.ts` and `page.tsx` cannot coexist in the same folder — separate API routes from page routes under `app/api/`. Route Handlers run server-only: `async/await`, `cookies()`, `headers()`, and Node.js APIs are available; React hooks, React DOM APIs, and rendering React components are not.
 
 ---
 
 ## Client Component Data Fetching
 
-When a Client Component needs data, prefer passing it from a parent Server Component. Direct client-side fetching is the fallback.
-
-### Option 1: Pass from Server Component (Preferred)
+When a Client Component needs data, prefer passing it from a parent Server Component; an SWR hook is the fallback when data must refresh independently.
 
 ```tsx
-// Server Component — fetches data
+// Preferred — Server Component passes pre-fetched data
 async function Page() {
   const data = await fetchData();
   return <ClientComponent initialData={data} />;
 }
 
-// Client Component — receives pre-fetched data
+// Fallback — SWR hook when the data must refresh on its own
 'use client';
-function ClientComponent({ initialData }: { initialData: Data }) {
-  const [data, setData] = useState(initialData);
-  // Interactive logic using pre-loaded data
-}
-```
-
-### Option 2: SWR Hook (When Data Must Refresh)
-
-```tsx
-'use client';
-import { useMeetings } from '@/hooks/use-meetings';
-
-function MeetingDashboard() {
-  const { data, error, isLoading } = useMeetings();
+function OrderDashboard() {
+  const { data, error, isLoading } = useOrders();
   if (isLoading) return <Skeleton />;
-  return <MeetingList meetings={data.data} />;
+  return <OrderList orders={data.data} />;
 }
 ```
 
-### Never: useEffect + fetch
-
-```tsx
-// ❌ Forbidden in the Next.js application
-'use client';
-function MeetingDashboard() {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch('/api/meetings').then(r => r.json()).then(setData);
-  }, []);
-}
-```
+`useEffect` + `fetch` is forbidden in this codebase — every SWR hook already provides caching, deduplication, and revalidation that a hand-rolled effect would have to reinvent.
 
 ---
 
@@ -425,33 +286,20 @@ function MeetingDashboard() {
 
 ```tsx
 // lib/api.ts
-import { meetingSchema, meetingListSchema, type Meeting, type MeetingList } from '@/lib/schemas';
+import { orderSchema, orderListSchema, type Order, type OrderList } from '@/lib/schemas';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
 
-export async function getMeetings(): Promise<MeetingList> {
-  const res = await fetch(`${API_BASE}/v1/meetings`);
-  if (!res.ok) throw new Error(`Failed to fetch meetings: ${res.status}`);
-  const json = await res.json();
-  return meetingListSchema.parse(json);
+export async function getOrders(): Promise<OrderList> {
+  const res = await fetch(`${API_BASE}/v1/orders`);
+  if (!res.ok) throw new Error(`Failed to fetch orders: ${res.status}`);
+  return orderListSchema.parse(await res.json());
 }
 
-export async function getMeeting(id: string): Promise<Meeting> {
-  const res = await fetch(`${API_BASE}/v1/meetings/${id}`);
-  if (!res.ok) throw new Error(`Failed to fetch meeting: ${res.status}`);
-  const json = await res.json();
-  return meetingSchema.parse(json);
-}
-
-export async function createMeeting(data: CreateMeetingInput): Promise<Meeting> {
-  const res = await fetch(`${API_BASE}/v1/meetings`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error(`Failed to create meeting: ${res.status}`);
-  const json = await res.json();
-  return meetingSchema.parse(json);
+export async function getOrder(id: string): Promise<Order> {
+  const res = await fetch(`${API_BASE}/v1/orders/${id}`);
+  if (!res.ok) throw new Error(`Failed to fetch order: ${res.status}`);
+  return orderSchema.parse(await res.json());
 }
 ```
 

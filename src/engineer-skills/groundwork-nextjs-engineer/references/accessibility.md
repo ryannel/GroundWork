@@ -1,17 +1,5 @@
 # Accessibility
 
-## Table of Contents
-- [The Baseline](#the-baseline)
-- [Semantic HTML First, ARIA Last](#semantic-html-first-aria-last)
-- [Keyboard & Focus](#keyboard--focus)
-- [Contrast & Colour](#contrast--colour)
-- [Accessible Forms](#accessible-forms)
-- [Motion](#motion)
-- [Accessibility as the Test Seam](#accessibility-as-the-test-seam)
-- [Review Checklist](#review-checklist)
-
----
-
 ## The Baseline
 
 Accessibility is a merge gate, not a backlog item. The baseline for every surface: native semantic elements over `div` soup, every interactive element keyboard-reachable with a visible focus ring, WCAG AA contrast on text and UI boundaries, programmatic labels on every form field, and motion that honours `prefers-reduced-motion`. An accessibility failure blocks the slice the way a failing test does. The standard is WCAG 2.2 AA — see `docs/principles/quality/accessibility.md`.

@@ -1,37 +1,26 @@
 # Mutations & Forms
 
-## Table of Contents
-- [Server Actions for All Mutations](#server-actions-for-all-mutations)
-- [The Result Pattern](#the-result-pattern)
-- [Form Validation with react-hook-form](#form-validation-with-react-hook-form)
-- [Loading States](#loading-states)
-- [Revalidation After Mutation](#revalidation-after-mutation)
-- [Error Flow](#error-flow)
-- [Inline Editing Pattern](#inline-editing-pattern)
-
----
-
 ## Server Actions for All Mutations
 
 Every data mutation in the Next.js application flows through a Server Action. Client components never call `lib/api.ts` directly for writes — they invoke Server Actions, which run on the server and can safely access secrets, validate data, and revalidate caches.
 
 ```tsx
-// app/actions/meeting-actions.ts
+// app/actions/order-actions.ts
 'use server';
 
-import { createMeeting, updateMeeting, deleteMeeting } from '@/lib/api';
-import { createMeetingSchema, updateMeetingSchema } from '@/lib/schemas';
+import { createOrder } from '@/lib/api';
+import { createOrderSchema } from '@/lib/schemas';
 import { revalidatePath } from 'next/cache';
 import type { ActionResult } from '@/lib/schemas/common';
-import type { Meeting } from '@/lib/schemas';
+import type { Order } from '@/lib/schemas';
 
-export async function createMeetingAction(
+export async function createOrderAction(
   formData: FormData
-): Promise<ActionResult<Meeting>> {
-  const parsed = createMeetingSchema.safeParse({
-    title: formData.get('title'),
-    starts_at: formData.get('starts_at'),
-    duration_minutes: Number(formData.get('duration_minutes')),
+): Promise<ActionResult<Order>> {
+  const parsed = createOrderSchema.safeParse({
+    customer_id: formData.get('customer_id'),
+    quantity: Number(formData.get('quantity')),
+    note: formData.get('note'),
   });
 
   if (!parsed.success) {
@@ -39,76 +28,32 @@ export async function createMeetingAction(
   }
 
   try {
-    const meeting = await createMeeting(parsed.data);
-    revalidatePath('/meetings');
-    return { data: meeting, error: null };
+    const order = await createOrder(parsed.data);
+    revalidatePath('/orders');
+    return { data: order, error: null };
   } catch {
-    return { data: null, error: 'Failed to create meeting. Please try again.' };
-  }
-}
-
-export async function updateMeetingAction(
-  id: string,
-  formData: FormData
-): Promise<ActionResult<Meeting>> {
-  const parsed = updateMeetingSchema.safeParse({
-    title: formData.get('title'),
-    duration_minutes: Number(formData.get('duration_minutes')),
-  });
-
-  if (!parsed.success) {
-    return { data: null, error: parsed.error.issues[0].message };
-  }
-
-  try {
-    const meeting = await updateMeeting(id, parsed.data);
-    revalidatePath('/meetings');
-    revalidatePath(`/meetings/${id}`);
-    return { data: meeting, error: null };
-  } catch {
-    return { data: null, error: 'Failed to update meeting.' };
-  }
-}
-
-export async function deleteMeetingAction(
-  id: string
-): Promise<ActionResult<null>> {
-  try {
-    await deleteMeeting(id);
-    revalidatePath('/meetings');
-    return { data: null, error: null };
-  } catch {
-    return { data: null, error: 'Failed to delete meeting.' };
+    return { data: null, error: 'Failed to create order. Please try again.' };
   }
 }
 ```
+
+`updateOrderAction` and `deleteOrderAction` follow the identical shape — parse with the matching schema, mutate through `lib/api.ts`, `revalidatePath` the affected routes, return `ActionResult`. `references/security.md` shows the fuller version with authentication and authorization added at the same seam.
 
 ---
 
 ## The Result Pattern
 
-Every Server Action returns `ActionResult<T>`. This prevents unhandled exceptions from crashing the client. The caller always receives either data or an error string — never a throw.
+Every Server Action returns `ActionResult<T>` — a discriminated union the caller narrows on `result.error`, never a throw. The type definition and narrowing example live in `references/type-system.md` → The Result Pattern; this file only shows it in use.
 
 ```tsx
-// lib/schemas/common.ts
-export type ActionResult<T> =
-  | { data: T; error: null }
-  | { data: null; error: string };
-```
-
-This type is a discriminated union. The caller checks `result.error` to determine which branch they're in:
-
-```tsx
-const result = await createMeetingAction(formData);
+const result = await createOrderAction(formData);
 
 if (result.error) {
-  // TypeScript knows: result.data is null
-  showError(result.error);
+  showError(result.error);   // TypeScript knows result.data is null
   return;
 }
 
-// TypeScript knows: result.data is Meeting, result.error is null
-showSuccess(`Created: ${result.data.title}`);
+showSuccess(`Created order ${result.data.id}`); // TypeScript knows result.data is Order
 ```
 
 ---
@@ -118,80 +63,58 @@ showSuccess(`Created: ${result.data.title}`);
 All forms use `react-hook-form` paired with `@hookform/resolvers/zod` for client-side validation. The same Zod schema validates on both client (before submission) and server (in the Server Action).
 
 ```tsx
-// components/meetings/meeting-form.tsx
+// components/orders/order-form.tsx
 'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createMeetingSchema, type CreateMeetingInput } from '@/lib/schemas';
-import { createMeetingAction } from '@/app/actions/meeting-actions';
+import { createOrderSchema, type CreateOrderInput } from '@/lib/schemas';
+import { createOrderAction } from '@/app/actions/order-actions';
 import { useTransition } from 'react';
 
-export function MeetingForm() {
+export function OrderForm() {
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<CreateMeetingInput>({
-    resolver: zodResolver(createMeetingSchema),
-    defaultValues: {
-      title: '',
-      starts_at: '',
-      duration_minutes: 30,
-    },
+  const form = useForm<CreateOrderInput>({
+    resolver: zodResolver(createOrderSchema),
+    defaultValues: { customer_id: '', quantity: 1, note: '' },
   });
 
-  function onSubmit(values: CreateMeetingInput) {
+  function onSubmit(values: CreateOrderInput) {
     startTransition(async () => {
       const formData = new FormData();
-      formData.set('title', values.title);
-      formData.set('starts_at', values.starts_at);
-      formData.set('duration_minutes', String(values.duration_minutes));
+      formData.set('customer_id', values.customer_id);
+      formData.set('quantity', String(values.quantity));
+      formData.set('note', values.note);
 
-      const result = await createMeetingAction(formData);
+      const result = await createOrderAction(formData);
 
       if (result.error) {
         form.setError('root', { message: result.error });
         return;
       }
 
-      // Clear the form for the next entry (instant reset principle)
-      form.reset();
-      toast.success(`Created: ${result.data.title}`);
+      form.reset(); // clear the form for the next entry — instant reset principle
+      toast.success(`Created order ${result.data.id}`);
     });
   }
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          {...form.register('title')}
-          autoFocus // Focus immediately — speed principle
-        />
-        {form.formState.errors.title && (
-          <p className="text-destructive">
-            {form.formState.errors.title.message}
-          </p>
+        <label htmlFor="customer_id">Customer</label>
+        <input id="customer_id" {...form.register('customer_id')} autoFocus />
+        {form.formState.errors.customer_id && (
+          <p className="text-destructive">{form.formState.errors.customer_id.message}</p>
         )}
       </div>
 
-      <div>
-        <label htmlFor="duration">Duration (minutes)</label>
-        <input
-          id="duration"
-          type="number"
-          {...form.register('duration_minutes', { valueAsNumber: true })}
-        />
-      </div>
-
       {form.formState.errors.root && (
-        <p className="text-destructive">
-          {form.formState.errors.root.message}
-        </p>
+        <p className="text-destructive">{form.formState.errors.root.message}</p>
       )}
 
       <button type="submit" disabled={isPending}>
-        {isPending ? 'Creating…' : 'Create Meeting'}
+        {isPending ? 'Creating…' : 'Create Order'}
       </button>
     </form>
   );
@@ -201,70 +124,40 @@ export function MeetingForm() {
 ### Key Points
 
 - **Same schema, two validation sites** — Zod validates on the client (react-hook-form) for instant feedback, and again on the server (Server Action) for security.
-- **`form.setError('root', ...)`** — Server errors are surfaced through react-hook-form's error system, keeping error display consistent.
+- **`form.setError('root', ...)`** — Server errors surface through react-hook-form's error system, keeping error display consistent.
 - **`form.reset()` on success** — Instant reset lets users submit consecutive entries without reaching for the mouse.
-- **`autoFocus` on primary input** — The first field is active the moment the form appears.
+- **`autoFocus` on the primary input** — The first field is active the moment the form appears.
 
 ---
 
 ## Loading States
 
-### useTransition (Preferred for Non-Form Mutations)
-
-`useTransition` keeps the current UI responsive while the mutation runs. The `isPending` flag drives loading states.
+Two hooks cover mutation loading state; pick by whether the trigger is a `<form>` submit or something else.
 
 ```tsx
+// useTransition — non-form mutations (button clicks, toggles), or when the parent needs isPending
 'use client';
-
-import { useTransition } from 'react';
-import { deleteMeetingAction } from '@/app/actions/meeting-actions';
-
-export function DeleteButton({ meetingId }: { meetingId: string }) {
+export function DeleteButton({ orderId }: { orderId: string }) {
   const [isPending, startTransition] = useTransition();
-
   function handleDelete() {
     startTransition(async () => {
-      const result = await deleteMeetingAction(meetingId);
-      if (result.error) {
-        toast.error(result.error);
-      }
+      const result = await deleteOrderAction(orderId);
+      if (result.error) toast.error(result.error);
     });
   }
-
-  return (
-    <button onClick={handleDelete} disabled={isPending}>
-      {isPending ? 'Deleting…' : 'Delete'}
-    </button>
-  );
+  return <button onClick={handleDelete} disabled={isPending}>{isPending ? 'Deleting…' : 'Delete'}</button>;
 }
 ```
-
-### useFormStatus (For Form Buttons)
-
-`useFormStatus` reads the pending state of the nearest parent `<form>`. Use it for submit buttons that need to show loading state.
 
 ```tsx
+// useFormStatus — submit buttons inside a <form action={serverAction}>
 'use client';
-
 import { useFormStatus } from 'react-dom';
-
 export function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
-
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Saving…' : label}
-    </button>
-  );
+  return <button type="submit" disabled={pending}>{pending ? 'Saving…' : label}</button>;
 }
 ```
-
-### When to Use Which
-
-| Pattern | Use When |
-|---------|----------|
-| `useTransition` | Non-form mutations (button clicks, toggle switches), or when you need the `isPending` value in the parent component |
-| `useFormStatus` | Submit buttons inside a `<form>` that uses `action={serverAction}` |
 
 ---
 
@@ -273,18 +166,14 @@ export function SubmitButton({ label }: { label: string }) {
 After a successful mutation, revalidate affected routes so the UI reflects the change.
 
 ```tsx
-import { revalidatePath } from 'next/cache';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
-// Revalidate a specific path — re-renders the page
-revalidatePath('/meetings');
-revalidatePath(`/meetings/${id}`);
-
-// Revalidate by cache tag — invalidates all cached fetches with that tag
-revalidateTag('meetings');
+revalidatePath('/orders');           // page-level cache bust — re-renders the page
+revalidatePath(`/orders/${id}`);
+revalidateTag('orders');             // invalidates every cached fetch tagged 'orders'
 ```
 
-Use `revalidatePath` for page-level cache busting. Use `revalidateTag` when multiple routes share data from the same source.
+Use `revalidatePath` for page-level cache busting; use `revalidateTag` when multiple routes share data from the same source.
 
 ---
 
@@ -304,19 +193,7 @@ Errors in the Next.js application follow a layered defence strategy:
 └─ React Error Boundary (error.tsx) ─ catastrophic UI failure
 ```
 
-### Preserving User Input
-
-If a Server Action returns an error, the form must preserve what the user typed. The react-hook-form pattern handles this automatically — `form.setError` displays the error without clearing field values.
-
-```tsx
-// When the server returns an error, the form fields retain their values
-const result = await createMeetingAction(formData);
-if (result.error) {
-  form.setError('root', { message: result.error });
-  // Fields are NOT cleared — user can fix and resubmit
-  return;
-}
-```
+If a Server Action returns an error, the form must preserve what the user typed. The react-hook-form pattern handles this automatically — `form.setError` displays the error without clearing field values, so a failed submit never costs the user their input.
 
 ---
 
@@ -328,11 +205,11 @@ Treat content display and editing as the same action. Clicking a text element tu
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { updateMeetingAction } from '@/app/actions/meeting-actions';
+import { updateOrderAction } from '@/app/actions/order-actions';
 
-export function EditableTitle({ meeting }: { meeting: Meeting }) {
+export function EditableNote({ order }: { order: Order }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(meeting.title);
+  const [note, setNote] = useState(order.note);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -344,14 +221,14 @@ export function EditableTitle({ meeting }: { meeting: Meeting }) {
 
   async function handleBlur() {
     setIsEditing(false);
-    if (title === meeting.title) return;  // No change
+    if (note === order.note) return; // no change
 
     const formData = new FormData();
-    formData.set('title', title);
+    formData.set('note', note);
 
-    const result = await updateMeetingAction(meeting.id, formData);
+    const result = await updateOrderAction(order.id, formData);
     if (result.error) {
-      setTitle(meeting.title);  // Revert on failure
+      setNote(order.note); // revert on failure
       toast.error(result.error);
     }
   }
@@ -360,13 +237,13 @@ export function EditableTitle({ meeting }: { meeting: Meeting }) {
     return (
       <input
         ref={inputRef}
-        value={title}
-        onChange={e => setTitle(e.target.value)}
+        value={note}
+        onChange={e => setNote(e.target.value)}
         onBlur={handleBlur}
         onKeyDown={e => {
           if (e.key === 'Enter') e.currentTarget.blur();
           if (e.key === 'Escape') {
-            setTitle(meeting.title);
+            setNote(order.note);
             setIsEditing(false);
           }
         }}
@@ -375,15 +252,15 @@ export function EditableTitle({ meeting }: { meeting: Meeting }) {
   }
 
   return (
-    <h1
+    <p
       onClick={() => setIsEditing(true)}
       className="cursor-pointer hover:text-primary"
       role="button"
       tabIndex={0}
       onKeyDown={e => e.key === 'Enter' && setIsEditing(true)}
     >
-      {title}
-    </h1>
+      {note || 'Add a note'}
+    </p>
   );
 }
 ```
@@ -392,5 +269,5 @@ Key design decisions:
 - **Click to edit** — no separate "edit" button cluttering the UI
 - **Escape to cancel** — reverts to original value
 - **Enter or blur to save** — submits via Server Action
-- **Optimistic display** — shows new title immediately, reverts on failure
+- **Optimistic display** — shows the new value immediately, reverts on failure
 - **Keyboard accessible** — `tabIndex={0}` and `onKeyDown` for Enter

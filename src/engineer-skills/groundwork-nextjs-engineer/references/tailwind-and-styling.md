@@ -2,18 +2,6 @@
 
 This reference covers **how** to wire and consume the design system in Tailwind v4 — the mechanics, not the values. Colours, type, spacing, radii, elevation, blur, gradients, surfaces, and motion are per-app decisions projected from `.groundwork/config/brand-tokens.json` into `app/brand.css`; see `references/visual-language.md` for the projection chain. Never bake values into the skill or a component.
 
-## Table of Contents
-- [Tailwind v4 CSS-First Architecture](#tailwind-v4-css-first-architecture)
-- [globals.css and brand.css structure](#globalscss-and-brandcss-structure)
-- [PostCSS Pipeline](#postcss-pipeline)
-- [Dark Mode with @custom-variant](#dark-mode-with-custom-variant)
-- [Consuming tokens as Tailwind utilities](#consuming-tokens-as-tailwind-utilities)
-- [Animations with tw-animate-css](#animations-with-tw-animate-css)
-- [Theming and dual-theme verification](#theming-and-dual-theme-verification)
-- [Common Mistakes](#common-mistakes)
-
----
-
 ## Tailwind v4 CSS-First Architecture
 
 Tailwind v4 eliminates the JavaScript configuration file. All customisation happens in CSS via `@theme` blocks and CSS custom properties. There is no `tailwind.config.ts` in the Next.js application.

@@ -54,33 +54,33 @@ afterAll(() => server.close());
 ### Component Test Example
 
 ```tsx
-// components/meetings/__tests__/meeting-card.test.tsx
+// components/orders/__tests__/order-card.test.tsx
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MeetingCard } from '../meeting-card';
-import { mockMeeting } from '@/tests/fixtures/meetings';
+import { OrderCard } from '../order-card';
+import { mockOrder } from '@/tests/fixtures/orders';
 
-describe('MeetingCard', () => {
-  it('renders the meeting title and status', () => {
-    render(<MeetingCard meeting={mockMeeting()} />);
+describe('OrderCard', () => {
+  it('renders the order id and status', () => {
+    render(<OrderCard order={mockOrder()} />);
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Sprint Planning');
-    expect(screen.getByText('Scheduled')).toBeInTheDocument();
+    expect(screen.getByRole('heading')).toHaveTextContent(mockOrder().id);
+    expect(screen.getByText('Pending')).toBeInTheDocument();
   });
 
   it('calls onSelect when clicked', async () => {
     const user = userEvent.setup();
     const onSelect = vi.fn();
 
-    render(<MeetingCard meeting={mockMeeting()} onSelect={onSelect} />);
+    render(<OrderCard order={mockOrder()} onSelect={onSelect} />);
 
     await user.click(screen.getByRole('article'));
-    expect(onSelect).toHaveBeenCalledWith(mockMeeting().id);
+    expect(onSelect).toHaveBeenCalledWith(mockOrder().id);
   });
 
   it('shows delete button on hover', async () => {
     const user = userEvent.setup();
-    render(<MeetingCard meeting={mockMeeting()} />);
+    render(<OrderCard order={mockOrder()} />);
 
     // Action buttons hidden by default
     expect(screen.queryByRole('button', { name: /delete/i })).not.toBeVisible();
@@ -113,27 +113,27 @@ Never mock `fetch` directly. Use MSW to intercept network requests at the servic
 ```tsx
 // tests/mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
-import { mockMeeting, mockMeetingList } from '../fixtures/meetings';
+import { mockOrder, mockOrderList } from '../fixtures/orders';
 
 export const handlers = [
-  http.get('/v1/meetings', () => {
-    return HttpResponse.json(mockMeetingList());
+  http.get('/v1/orders', () => {
+    return HttpResponse.json(mockOrderList());
   }),
 
-  http.get('/v1/meetings/:id', ({ params }) => {
-    const meeting = mockMeeting({ id: params.id as string });
-    return HttpResponse.json(meeting);
+  http.get('/v1/orders/:id', ({ params }) => {
+    const order = mockOrder({ id: params.id as string });
+    return HttpResponse.json(order);
   }),
 
-  http.post('/v1/meetings', async ({ request }) => {
+  http.post('/v1/orders', async ({ request }) => {
     const body = await request.json();
     return HttpResponse.json(
-      mockMeeting({ title: body.title }),
+      mockOrder({ customer_id: body.customer_id }),
       { status: 201 }
     );
   }),
 
-  http.delete('/v1/meetings/:id', () => {
+  http.delete('/v1/orders/:id', () => {
     return new HttpResponse(null, { status: 204 });
   }),
 ];
@@ -156,7 +156,7 @@ import { http, HttpResponse } from 'msw';
 it('shows error state when API fails', async () => {
   // Override the default handler for this test only
   server.use(
-    http.get('/v1/meetings', () => {
+    http.get('/v1/orders', () => {
       return HttpResponse.json(
         { error: 'Internal server error' },
         { status: 500 }
@@ -164,7 +164,7 @@ it('shows error state when API fails', async () => {
     })
   );
 
-  render(<MeetingDashboard />);
+  render(<OrderDashboard />);
 
   expect(await screen.findByText(/couldn't load/i)).toBeInTheDocument();
   expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument();
@@ -178,10 +178,10 @@ it('shows error state when API fails', async () => {
 SWR data-fetching hooks are tested in isolation using `@testing-library/react-hooks` (now part of `@testing-library/react`).
 
 ```tsx
-// hooks/__tests__/use-meetings.test.tsx
+// hooks/__tests__/use-orders.test.tsx
 import { renderHook, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
-import { useMeetings } from '../use-meetings';
+import { useOrders } from '../use-orders';
 
 function wrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -191,9 +191,9 @@ function wrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
-describe('useMeetings', () => {
-  it('returns meeting data', async () => {
-    const { result } = renderHook(() => useMeetings(), { wrapper });
+describe('useOrders', () => {
+  it('returns order data', async () => {
+    const { result } = renderHook(() => useOrders(), { wrapper });
 
     // Initially loading
     expect(result.current.isLoading).toBe(true);
@@ -209,12 +209,12 @@ describe('useMeetings', () => {
 
   it('handles API errors', async () => {
     server.use(
-      http.get('/v1/meetings', () => {
+      http.get('/v1/orders', () => {
         return HttpResponse.json({ error: 'fail' }, { status: 500 });
       })
     );
 
-    const { result } = renderHook(() => useMeetings(), { wrapper });
+    const { result } = renderHook(() => useOrders(), { wrapper });
 
     await waitFor(() => {
       expect(result.current.error).toBeDefined();
@@ -238,7 +238,7 @@ Every component must be rendered and verified in both dark and light themes. Add
 The snapshot below is the deliberate exception to the no-snapshots-by-default rule: snapshots are reserved for genuinely opaque generated artefacts — here, the resolved theme-specific styles — never for ordinary component output.
 
 ```tsx
-describe('MeetingCard', () => {
+describe('OrderCard', () => {
   const themes = [
     { name: 'light', className: '' },
     { name: 'dark', className: 'dark' },
@@ -249,11 +249,11 @@ describe('MeetingCard', () => {
       it('renders correctly', () => {
         const { container } = render(
           <div className={className}>
-            <MeetingCard meeting={mockMeeting()} />
+            <OrderCard order={mockOrder()} />
           </div>
         );
 
-        expect(screen.getByRole('heading')).toHaveTextContent('Sprint Planning');
+        expect(screen.getByText('Pending')).toBeInTheDocument();
         // Snapshot captures theme-specific styles
         expect(container.firstChild).toMatchSnapshot();
       });
@@ -319,9 +319,9 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 expect.extend(toHaveNoViolations);
 
-describe('MeetingForm', () => {
+describe('OrderForm', () => {
   it('has no accessibility violations', async () => {
-    const { container } = render(<MeetingForm />);
+    const { container } = render(<OrderForm />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
@@ -347,27 +347,26 @@ Run axe tests on every component that renders interactive elements or requires a
 Create reusable fixtures for test data:
 
 ```tsx
-// tests/fixtures/meetings.ts
-import type { Meeting, MeetingList } from '@/lib/schemas';
+// tests/fixtures/orders.ts
+import type { Order, OrderList } from '@/lib/schemas';
 
-export function mockMeeting(overrides?: Partial<Meeting>): Meeting {
+export function mockOrder(overrides?: Partial<Order>): Order {
   return {
-    id: 'meeting-001',
-    title: 'Sprint Planning',
-    status: 'scheduled',
-    host_id: 'user-001',
-    starts_at: '2026-04-15T10:00:00Z',
-    duration_minutes: 30,
+    id: 'order-001',
+    status: 'pending',
+    customer_id: 'user-001',
+    quantity: 2,
+    note: null,
     created_at: '2026-04-10T08:00:00Z',
     updated_at: '2026-04-10T08:00:00Z',
     ...overrides,
   };
 }
 
-export function mockMeetingList(count = 3): MeetingList {
+export function mockOrderList(count = 3): OrderList {
   return {
     data: Array.from({ length: count }, (_, i) =>
-      mockMeeting({ id: `meeting-${String(i + 1).padStart(3, '0')}` })
+      mockOrder({ id: `order-${String(i + 1).padStart(3, '0')}` })
     ),
     pagination: { next_cursor: null, has_more: false },
   };
@@ -381,22 +380,22 @@ Server Actions cannot be called directly in test environments. Test the client-s
 ```tsx
 // Test that the form correctly handles the ActionResult
 it('shows error message on server failure', async () => {
-  vi.mock('@/app/actions/meeting-actions', () => ({
-    createMeetingAction: vi.fn().mockResolvedValue({
+  vi.mock('@/app/actions/order-actions', () => ({
+    createOrderAction: vi.fn().mockResolvedValue({
       data: null,
-      error: 'Title already exists',
+      error: 'Customer not found',
     }),
   }));
 
   const user = userEvent.setup();
-  render(<MeetingForm />);
+  render(<OrderForm />);
 
-  await user.type(screen.getByLabelText(/title/i), 'Existing Meeting');
+  await user.type(screen.getByLabelText(/customer/i), 'unknown-customer');
   await user.click(screen.getByRole('button', { name: /create/i }));
 
-  expect(await screen.findByText('Title already exists')).toBeInTheDocument();
+  expect(await screen.findByText('Customer not found')).toBeInTheDocument();
   // Input preserved — not cleared on error
-  expect(screen.getByLabelText(/title/i)).toHaveValue('Existing Meeting');
+  expect(screen.getByLabelText(/customer/i)).toHaveValue('unknown-customer');
 });
 ```
 
@@ -419,7 +418,7 @@ provider.register();
 
 // invoke the route handler / server action, then:
 const names = exporter.getFinishedSpans().map((s) => s.name);
-expect(names).toContain('POST /v1/meetings'); // the entry span exists, trace connected
+expect(names).toContain('POST /v1/orders'); // the entry span exists, trace connected
 ```
 
 Assert what the contract promises, not the whole span tree (canon principle 3: pinning couples the test to implementation).
@@ -453,7 +452,7 @@ Reach for these where invariants are real. Presentational components have no inv
 
 ## Naming Tests by Behaviour
 
-Canon principle 4: name by behaviour and condition, not implementation. `renders correctly` and `works` say nothing the dashboard doesn't already show; `shows the retry button when the meetings request fails` does.
+Canon principle 4: name by behaviour and condition, not implementation. `renders correctly` and `works` say nothing the dashboard doesn't already show; `shows the retry button when the orders request fails` does.
 
 ## Test Commands
 
@@ -462,7 +461,7 @@ Canon principle 4: name by behaviour and condition, not implementation. `renders
 | `pnpm test` | Run all tests |
 | `pnpm test -- --watch` | Watch mode |
 | `pnpm test -- --coverage` | Generate coverage report |
-| `pnpm test -- meeting-card` | Run tests matching pattern |
+| `pnpm test -- order-card` | Run tests matching pattern |
 | `pnpm test -- --reporter=verbose` | Verbose output |
 
 ## Bet Slice Rollout — the permanent tests a slice owes

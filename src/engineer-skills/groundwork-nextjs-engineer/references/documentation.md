@@ -1,19 +1,5 @@
 # Documentation
 
-## Table of Contents
-- [Philosophy: Structure Over Comments](#philosophy-structure-over-comments)
-- [Types and Zod as Documentation](#types-and-zod-as-documentation)
-- [What to Document](#what-to-document)
-- [What NOT to Document](#what-not-to-document)
-- [Component Documentation](#component-documentation)
-- [Server and Client Boundary Notes](#server-and-client-boundary-notes)
-- [Hook Documentation](#hook-documentation)
-- [Inline Comments](#inline-comments)
-- [In-Code Markers](#in-code-markers)
-- [Service README Template](#service-readme-template)
-
----
-
 ## Philosophy: Structure Over Comments
 
 Comments are promises that no compiler can verify. When code changes, TypeScript catches type errors and Vitest catches behavioral regressions — but stale TSDoc comments silently mislead. In a codebase where AI agents drive significant code velocity, comment drift is not hypothetical; it is the default outcome.
@@ -40,37 +26,37 @@ Well-typed interfaces make most prop/parameter documentation redundant:
 
 ```tsx
 // The interface IS the documentation — no TSDoc needed
-interface MeetingCardProps {
-  meeting: Meeting;
-  onSelect?: (meetingId: string) => void;
+interface OrderCardProps {
+  order: Order;
+  onSelect?: (orderId: string) => void;
   variant?: "standard" | "elevated" | "inset";
 }
 ```
 
-The types `Meeting`, `string`, and the union type `"standard" | "elevated" | "inset"` communicate everything a consumer needs to know. Adding comments like `/** The meeting to display */` is noise.
+The types `Order`, `string`, and the union type `"standard" | "elevated" | "inset"` communicate everything a consumer needs to know. Adding comments like `/** The order to display */` is noise.
 
 ### Zod `.describe()` as Documentation
 
 Zod `.describe()` is structural documentation that flows into validation errors and can be extracted by tooling. It cannot drift because it IS the code:
 
 ```tsx
-export const meetingSchema = z.object({
+export const orderSchema = z.object({
   id: z.string().uuid(),
-  title: z.string().min(1).max(200).describe("Human-readable meeting title"),
-  status: z.enum(["draft", "scheduled", "active", "completed"]),
-  scheduledAt: z.string().datetime().nullable(),
+  status: z.enum(["pending", "processing", "shipped", "delivered"]),
+  quantity: z.number().int().positive().describe("Number of units on this order"),
+  placedAt: z.string().datetime().nullable(),
 });
 ```
 
-**Rule:** Use `.describe()` only when the field name and type constraints don't tell the full story. `id: z.string().uuid()` is already self-documenting — `.describe("Meeting ID")` is pure noise.
+**Rule:** Use `.describe()` only when the field name and type constraints don't tell the full story. `id: z.string().uuid()` is already self-documenting — `.describe("Order ID")` is pure noise.
 
 ### When Types Are Enough
 
 ```tsx
 // NO TSDoc needed — the types tell the complete story
-function getMeeting(id: string): Promise<Meeting | null>
-function deleteMeeting(id: string): Promise<void>
-function listMeetings(filter?: MeetingFilter): Promise<Meeting[]>
+function getOrder(id: string): Promise<Order | null>
+function deleteOrder(id: string): Promise<void>
+function listOrders(filter?: OrderFilter): Promise<Order[]>
 ```
 
 ---
@@ -92,11 +78,11 @@ function listMeetings(filter?: MeetingFilter): Promise<Meeting[]>
 **Self-documenting components:**
 ```tsx
 // BAD — the name + props type says everything
-/** MeetingCard displays a card for a meeting */
-export function MeetingCard({ meeting }: MeetingCardProps) {
+/** OrderCard displays a card for an order */
+export function OrderCard({ order }: OrderCardProps) {
 
 // GOOD — skip it; the name IS the documentation
-export function MeetingCard({ meeting }: MeetingCardProps) {
+export function OrderCard({ order }: OrderCardProps) {
 ```
 
 **Obvious props:**
@@ -124,14 +110,14 @@ interface DialogProps {
 
 **Comment only non-obvious props:**
 ```tsx
-interface MeetingCardProps {
-  meeting: Meeting;
+interface OrderCardProps {
+  order: Order;
 
   /**
    * Memoize with `useCallback` to prevent re-renders
    * inside virtualized lists.
    */
-  onSelect?: (meetingId: string) => void;
+  onSelect?: (orderId: string) => void;
 
   variant?: "standard" | "elevated" | "inset";
 }
@@ -142,9 +128,9 @@ Here, `onSelect` has a non-obvious performance implication. The other props need
 **Thin page components:**
 ```tsx
 // SKIP — the delegation IS the documentation
-export default async function MeetingsPage() {
-  const meetings = await listMeetings();
-  return <MeetingList meetings={meetings} />;
+export default async function OrdersPage() {
+  const orders = await listOrders();
+  return <OrderList orders={orders} />;
 }
 ```
 
@@ -153,10 +139,10 @@ export default async function MeetingsPage() {
 **Zod fields where the name + constraints are clear:**
 ```tsx
 // BAD — .describe() adds nothing
-status: z.enum(["draft", "scheduled", "active", "completed"]).describe("Meeting status")
+status: z.enum(["pending", "processing", "shipped", "delivered"]).describe("Order status")
 
 // GOOD — skip .describe() when it would just restate the field name
-status: z.enum(["draft", "scheduled", "active", "completed"])
+status: z.enum(["pending", "processing", "shipped", "delivered"])
 ```
 
 **Tailwind utility classes** — the class names are the documentation.
@@ -169,17 +155,17 @@ TSDoc on components is justified **only** when the component has non-obvious beh
 
 ```tsx
 /**
- * Inline meeting editor with optimistic updates.
+ * Inline order note editor with optimistic updates.
  *
  * Submits via Server Action and optimistically updates the SWR cache.
  * Rolls back automatically on server error.
  */
 "use client";
 
-export function MeetingEditor({ meeting }: MeetingEditorProps) {
+export function OrderNoteEditor({ order }: OrderNoteEditorProps) {
 ```
 
-The optimistic update + rollback behavior is invisible in the props — it justifies documentation. A simple `MeetingCard` that just renders data does not.
+The optimistic update + rollback behavior is invisible in the props — it justifies documentation. A simple `OrderCard` that just renders data does not.
 
 ---
 
@@ -194,7 +180,7 @@ The default is React Server Component — no documentation needed. Document the 
  */
 "use client";
 
-export function MeetingSearch({ initialResults }: MeetingSearchProps) {
+export function OrderSearch({ initialResults }: OrderSearchProps) {
 ```
 
 **Skip** when `"use client"` is obviously needed (event handlers, form state):
@@ -203,7 +189,7 @@ export function MeetingSearch({ initialResults }: MeetingSearchProps) {
 // for onClick handlers and useState
 "use client";
 
-export function MeetingForm({ onSubmit }: MeetingFormProps) {
+export function OrderForm({ onSubmit }: OrderFormProps) {
 ```
 
 ---
@@ -214,12 +200,12 @@ Custom hooks are the one area where TSDoc is frequently justified — the cachin
 
 ```tsx
 /**
- * Fetches a meeting by ID with SWR caching.
+ * Fetches an order by ID with SWR caching.
  * Revalidates on focus and reconnect.
  * Seed with SWRConfig fallback to avoid loading flash.
  */
-export function useMeeting(meetingId: string) {
-  return useSWR<Meeting>(`/api/meetings/${meetingId}`, fetcher);
+export function useOrder(orderId: string) {
+  return useSWR<Order>(`/api/orders/${orderId}`, fetcher);
 }
 ```
 
@@ -238,20 +224,20 @@ export function useTheme() {
 Inline comments within components or functions explain **why**, never **what**:
 
 ```tsx
-export function MeetingList({ meetings }: MeetingListProps) {
+export function OrderList({ orders }: OrderListProps) {
   // Sort descending — server returns chronological, dashboard needs reverse.
   const sorted = useMemo(
-    () => [...meetings].sort((a, b) =>
-      new Date(b.scheduledAt).getTime() - new Date(a.scheduledAt).getTime()
+    () => [...orders].sort((a, b) =>
+      new Date(b.placedAt).getTime() - new Date(a.placedAt).getTime()
     ),
-    [meetings]
+    [orders]
   );
 
   return (
     // Fragment avoids extra div that breaks parent CSS grid layout.
     <>
-      {sorted.map((meeting) => (
-        <MeetingCard key={meeting.id} meeting={meeting} />
+      {sorted.map((order) => (
+        <OrderCard key={order.id} order={order} />
       ))}
     </>
   );
@@ -308,7 +294,7 @@ App: `http://localhost:3000`
 ## Configuration
 
 | Variable | Default | Description |
-|----------|---------|-------------|
+|----------|---------|--------------|
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8080` | Backend API |
 | `NEXT_PUBLIC_APP_ENV` | `development` | Environment |
 

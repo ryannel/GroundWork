@@ -44,6 +44,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
+| Version Corrections | `references/version-corrections.md` | Writing any Next.js API the model may know a stale shape for — async `params`/`searchParams`, `proxy.ts`, `'use cache'`, navigation-throw gotchas, hydration causes. Check this first on any App Router task. |
 | Architecture & Layers | `references/architecture.md` | Understanding the app's architectural layers, file organization, or module boundaries. |
 | Server Components | `references/server-components.md` | Deciding server vs client boundary, understanding RSC patterns, streaming. |
 | Data Fetching | `references/data-fetching.md` | Fetching data in server components, SWR patterns, cache invalidation. |
@@ -58,7 +59,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 | Security | `references/security.md` | XSS, CSRF, auth/session, the `NEXT_PUBLIC` secret boundary, Server Action validation, CSP, SSRF on server fetches. |
 | Observability | `references/observability.md` | Server spans via `instrumentation.ts`, client Web Vitals/RUM, error reporting, PII discipline. |
 | Testing | `references/testing.md` | Component tests, integration tests, accessibility testing, test utilities. |
-| Performance & Deployment | `references/performance-and-deployment.md` | Bundle analysis, lazy loading, image optimization, build configuration. |
+| Performance | `references/performance.md` | Image/font optimisation, bundling issues, third-party scripts, bundle analysis. |
 | Documentation | `references/documentation.md` | Component documentation, Storybook patterns, inline docs. |
 
 ## Task Routing
@@ -69,7 +70,8 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 - **Real-time UI** → Load `references/data-fetching.md` for streaming and revalidation patterns and `references/server-components.md` for the streaming boundary.
 - **Form work** → Load `references/mutations-and-forms.md`. Verify Zod schema patterns.
 - **Styling/theming** → Load `references/tailwind-and-styling.md` and `references/visual-language.md`. Check design guide.
-- **Performance issues** → Load `references/performance-and-deployment.md`. Profile before optimizing.
+- **Performance issues** → Load `references/performance.md`. Profile before optimizing.
+- **Any App Router API call** → Check `references/version-corrections.md` first; training data is frequently stale on Next.js 15/16 signatures.
 - **Security / auth / session work** → Load `references/security.md`. Check the server/client boundary and the `NEXT_PUBLIC` secret line.
 - **Instrumentation / telemetry** → Load `references/observability.md`. Distinguish server spans from client RUM.
 

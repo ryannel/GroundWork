@@ -1,18 +1,5 @@
 # Security
 
-## Table of Contents
-- [The Posture](#the-posture)
-- [XSS: Trust React's Escaping](#xss-trust-reacts-escaping)
-- [The Client Bundle Is Public](#the-client-bundle-is-public)
-- [Server Action Input Validation](#server-action-input-validation)
-- [Auth and Sessions: httpOnly Cookies](#auth-and-sessions-httponly-cookies)
-- [CSRF on Mutations](#csrf-on-mutations)
-- [SSRF on Server Fetches](#ssrf-on-server-fetches)
-- [Content-Security-Policy](#content-security-policy)
-- [Security Review Checklist](#security-review-checklist)
-
----
-
 ## The Posture
 
 A Next.js app runs in two places at once, and the boundary between them is the whole security model. Server Components, Server Actions, and route handlers run on a trusted server; everything else ships to a browser the user controls. Code, props, and environment values that cross into the client are public — assume an attacker reads the bundle and replays every request. This file is the Next.js idiom of the framework security canon (`docs/principles/quality/security.md`); when this file and the canon disagree, the canon wins and this file is the one to fix.

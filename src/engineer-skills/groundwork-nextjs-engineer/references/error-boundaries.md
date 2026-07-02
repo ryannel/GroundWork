@@ -1,18 +1,5 @@
 # Error Boundaries
 
-## Table of Contents
-- [Error Hierarchy](#error-hierarchy)
-- [error.tsx](#errortsx)
-- [global-error.tsx](#global-errortsx)
-- [not-found.tsx](#not-foundtsx)
-- [Auth Errors](#auth-errors)
-- [Navigation API Gotcha](#navigation-api-gotcha)
-- [Redirects](#redirects)
-- [Hydration Errors](#hydration-errors)
-- [Post-Response Work with after()](#post-response-work-with-after)
-
----
-
 ## Error Hierarchy
 
 Errors bubble up from the component that throws to the nearest error boundary. Place `error.tsx` at different levels to control the granularity of error recovery.
@@ -21,12 +8,12 @@ Errors bubble up from the component that throws to the nearest error boundary. P
 app/
 ├── error.tsx               # Catches errors from all children
 ├── global-error.tsx        # Catches errors in root layout
-├── meetings/
-│   ├── error.tsx           # Catches errors in /meetings/*
+├── orders/
+│   ├── error.tsx           # Catches errors in /orders/*
 │   └── [id]/
-│       ├── error.tsx       # Catches errors in /meetings/[id]
+│       ├── error.tsx       # Catches errors in /orders/[id]
 │       └── page.tsx
-└── layout.tsx              # Errors here go to global-error.tsx
+└── layout.tsx               # Errors here go to global-error.tsx
 ```
 
 An `error.tsx` boundary does **not** catch errors thrown in the `layout.tsx` of the same segment — those bubble up to the parent segment's error boundary or `global-error.tsx`.
@@ -35,232 +22,95 @@ An `error.tsx` boundary does **not** catch errors thrown in the `layout.tsx` of 
 
 ## error.tsx
 
-Catches runtime errors in a route segment and its children. Provides a `reset` function to retry rendering.
-
-`error.tsx` **must** be a Client Component.
+Catches runtime errors in a route segment and its children. Provides a `reset` function to retry rendering. `error.tsx` **must** be a Client Component.
 
 ```tsx
-// app/meetings/error.tsx
+// app/orders/error.tsx
 'use client';
 
-export default function MeetingsError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function OrdersError({
+  error, reset,
+}: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <div className="surface-glass p-6 text-center" role="alert">
       <h2 className="text-destructive">Something went wrong</h2>
-      <p className="text-muted-foreground mt-2">
-        Failed to load meetings. This has been logged.
-      </p>
-      <button
-        onClick={reset}
-        className="mt-4 px-4 py-2 bg-primary rounded"
-      >
-        Try again
-      </button>
+      <p className="text-muted-foreground mt-2">Failed to load orders. This has been logged.</p>
+      <button onClick={reset} className="mt-4 px-4 py-2 bg-primary rounded">Try again</button>
     </div>
   );
 }
 ```
 
-### Important
-
-- The `digest` property is a hash of the error that was thrown on the server. Use it for log correlation — never display it to users.
-- Sensitive error details (stack traces, internal messages) are stripped before reaching the client. Only generic messages should be shown to users.
+The `digest` property is a hash of the error thrown on the server — use it for log correlation, never display it to users. Sensitive error details (stack traces, internal messages) are stripped before reaching the client; only generic messages should be shown.
 
 ---
 
-## global-error.tsx
+## Other Boundary Files
 
-Catches errors thrown in the **root layout**. Because the root layout is replaced entirely when this renders, `global-error.tsx` must include its own `<html>` and `<body>` tags.
-
-```tsx
-// app/global-error.tsx
-'use client';
-
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  return (
-    <html>
-      <body>
-        <div style={{ padding: '2rem', textAlign: 'center' }}>
-          <h2>Something went wrong</h2>
-          <p>An unexpected error occurred. Please try refreshing the page.</p>
-          <button onClick={reset}>Try again</button>
-        </div>
-      </body>
-    </html>
-  );
-}
-```
-
-Note: `global-error.tsx` cannot use the app's CSS imports or layout — it replaces the entire document. Keep it self-contained with inline styles.
-
----
-
-## not-found.tsx
-
-Custom 404 UI for a route segment. Place at any level to customise the 404 experience for that section of the app.
+| File | Catches | Requirement |
+|------|---------|-------------|
+| `global-error.tsx` | Errors in the root layout | Must render its own `<html>`/`<body>` — the root layout is replaced entirely; keep it self-contained, no app CSS imports |
+| `not-found.tsx` | Explicit `notFound()` calls, unmatched routes | Place at any level to customise the 404 for that section |
+| `unauthorized.tsx` | Explicit `unauthorized()` calls (401) | — |
+| `forbidden.tsx` | Explicit `forbidden()` calls (403) | — |
 
 ```tsx
-// app/meetings/not-found.tsx
-import Link from 'next/link';
+import { notFound, forbidden, unauthorized } from 'next/navigation';
 
-export default function MeetingNotFound() {
-  return (
-    <div className="surface-glass p-8 text-center">
-      <h2 className="text-xl font-semibold">Meeting not found</h2>
-      <p className="text-muted-foreground mt-2">
-        This meeting may have been deleted or the link is incorrect.
-      </p>
-      <Link href="/meetings" className="mt-4 text-primary inline-block">
-        Back to meetings
-      </Link>
-    </div>
-  );
-}
-```
-
-### Triggering Not Found
-
-```tsx
-import { notFound } from 'next/navigation';
-
-export default async function MeetingPage({ params }: Props) {
+export default async function OrderPage({ params }: Props) {
   const { id } = await params;
-  const meeting = await getMeeting(id);
-
-  if (!meeting) {
-    notFound();  // Renders closest not-found.tsx
-  }
-
-  return <MeetingDetail meeting={meeting} />;
-}
-```
-
----
-
-## Auth Errors
-
-Trigger specific auth-related error pages:
-
-```tsx
-import { forbidden, unauthorized } from 'next/navigation';
-
-export default async function AdminPage() {
   const session = await getSession();
-
-  if (!session) {
-    unauthorized();  // Renders unauthorized.tsx (401)
-  }
-
-  if (!session.hasAdminAccess) {
-    forbidden();     // Renders forbidden.tsx (403)
-  }
-
-  return <AdminDashboard />;
+  if (!session) unauthorized();                      // renders unauthorized.tsx
+  if (!session.hasAdminAccess) forbidden();           // renders forbidden.tsx
+  const order = await getOrder(id);
+  if (!order) notFound();                             // renders closest not-found.tsx
+  return <OrderDetail order={order} />;
 }
 ```
 
-Create corresponding error pages:
-
-```tsx
-// app/forbidden.tsx
-export default function Forbidden() {
-  return (
-    <div className="surface-glass p-8 text-center">
-      <h2>Access Denied</h2>
-      <p className="text-muted-foreground">
-        You don't have permission to view this resource.
-      </p>
-    </div>
-  );
-}
-
-// app/unauthorized.tsx
-export default function Unauthorized() {
-  return (
-    <div className="surface-glass p-8 text-center">
-      <h2>Sign In Required</h2>
-      <p className="text-muted-foreground">
-        Please sign in to access this page.
-      </p>
-    </div>
-  );
-}
-```
+Each of these boundary components follows the same shape as `error.tsx` above — a `surface-glass` panel with a heading, an explanatory line, and (for `error.tsx`/`global-error.tsx`) a retry action.
 
 ---
 
 ## Navigation API Gotcha
 
-`redirect()`, `notFound()`, `forbidden()`, and `unauthorized()` work by throwing special internal errors. If you wrap them in a try-catch, the catch block intercepts the navigation error and the navigation silently fails.
+`redirect()`, `permanentRedirect()`, `notFound()`, `forbidden()`, and `unauthorized()` work by throwing special internal errors. A try/catch wrapping one of these intercepts the navigation error, and the navigation fails silently — see `references/version-corrections.md` for the one-line version of this gotcha.
 
 ```tsx
-// ❌ Bad — try-catch catches the navigation "error"
+// Bad — try/catch swallows the redirect() throw
 'use server';
-
-async function createMeeting(formData: FormData) {
+async function createOrder(formData: FormData) {
   try {
-    const meeting = await db.meeting.create({ ... });
-    redirect(`/meetings/${meeting.id}`);  // This throws!
+    const order = await db.order.create({ ... });
+    redirect(`/orders/${order.id}`); // this throws!
   } catch (error) {
-    // redirect() throw is caught here — navigation fails silently!
-    return { error: 'Failed to create meeting' };
+    return { error: 'Failed to create order' }; // redirect never happens
   }
 }
-```
 
-### Fix 1: Call Navigation Outside try-catch
-
-```tsx
-// ✅ Good — navigation API outside the try-catch
-async function createMeeting(formData: FormData) {
-  let meeting;
+// Fix 1 — call the navigation API outside the try/catch
+async function createOrder(formData: FormData) {
+  let order;
   try {
-    meeting = await db.meeting.create({ ... });
+    order = await db.order.create({ ... });
   } catch (error) {
-    return { error: 'Failed to create meeting' };
+    return { error: 'Failed to create order' };
   }
-  redirect(`/meetings/${meeting.id}`);  // Outside try-catch
+  redirect(`/orders/${order.id}`);
 }
-```
 
-### Fix 2: Re-throw with unstable_rethrow
-
-When the navigation must be inside the try-catch:
-
-```tsx
+// Fix 2 — re-throw with unstable_rethrow when the call must stay inside
 import { unstable_rethrow } from 'next/navigation';
-
-async function createMeeting(formData: FormData) {
+async function createOrder(formData: FormData) {
   try {
-    const meeting = await db.meeting.create({ ... });
-    redirect(`/meetings/${meeting.id}`);
+    const order = await db.order.create({ ... });
+    redirect(`/orders/${order.id}`);
   } catch (error) {
-    unstable_rethrow(error);  // Re-throws Next.js internal errors
-    return { error: 'Failed to create meeting' };
+    unstable_rethrow(error); // re-throws Next.js internal errors
+    return { error: 'Failed to create order' };
   }
 }
 ```
-
-### Affected Functions
-
-All of these throw internal errors — never wrap them in try-catch without `unstable_rethrow`:
-- `redirect()` — 307 temporary redirect
-- `permanentRedirect()` — 308 permanent redirect
-- `notFound()` — 404
-- `forbidden()` — 403
-- `unauthorized()` — 401
 
 ---
 
@@ -269,115 +119,41 @@ All of these throw internal errors — never wrap them in try-catch without `uns
 ```tsx
 import { redirect, permanentRedirect } from 'next/navigation';
 
-// 307 Temporary — use for most cases (auth redirects, feature gates)
-redirect('/new-path');
-
-// 308 Permanent — use for URL migrations (browsers cache this)
-permanentRedirect('/new-url');
+redirect('/new-path');            // 307 temporary — most cases (auth redirects, feature gates)
+permanentRedirect('/new-url');    // 308 permanent — URL migrations browsers should cache
 ```
-
-Use `redirect()` for dynamic routing decisions (auth, feature flags). Use `permanentRedirect()` only when the old URL is permanently retired and should be cached by browsers and search engines.
 
 ---
 
 ## Hydration Errors
 
-Hydration errors occur when the server-rendered HTML doesn't match the client-rendered HTML. React detects the mismatch and throws an error.
+Hydration errors occur when the server-rendered HTML doesn't match the client-rendered HTML — React detects the mismatch and throws. Causes and fixes:
 
-### Error Signs
+| Cause | Fix |
+|-------|-----|
+| Reading `window`/`localStorage` during render | Render on client only after mount (`useEffect` + `useState`) |
+| `Date`/timezone-dependent formatting | Same — defer to a client-only effect |
+| `Math.random()` or non-deterministic IDs | Use `useId()` for stable cross-render IDs |
+| Invalid HTML nesting (`<div>` in `<p>`, `<p>` in `<p>`) | Fix the markup — this is invalid HTML, not a Next.js issue |
+| Browser extensions / third-party scripts injecting DOM | Use `next/script` with `strategy="afterInteractive"`; if the error disappears in Incognito, an extension is the cause, not the app |
 
-- "Hydration failed because the initial UI does not match"
-- "Text content does not match server-rendered HTML"
-
-### Common Causes and Fixes
-
-#### Browser APIs
-
-```tsx
-// ❌ Bad — window doesn't exist on server
-<div>{window.innerWidth}</div>
-
-// ✅ Good — render on client only after mount
-'use client';
-import { useState, useEffect } from 'react';
-
-export function WindowWidth() {
-  const [width, setWidth] = useState<number>();
-  useEffect(() => setWidth(window.innerWidth), []);
-  return <div>{width ?? 'Loading…'}</div>;
-}
-```
-
-#### Date/Time Rendering
-
-Server and client may be in different timezones:
-
-```tsx
-// ❌ Bad — different timezone on server vs client
-<span>{new Date().toLocaleString()}</span>
-
-// ✅ Good — render on client only
-'use client';
-const [time, setTime] = useState<string>();
-useEffect(() => setTime(new Date().toLocaleString()), []);
-```
-
-#### Random Values and IDs
-
-```tsx
-// ❌ Bad — Math.random differs between server and client
-<div id={Math.random().toString()}>
-
-// ✅ Good — useId generates stable IDs across server/client
-import { useId } from 'react';
-
-function Input() {
-  const id = useId();
-  return <input id={id} />;
-}
-```
-
-#### Invalid HTML Nesting
-
-```tsx
-// ❌ Bad — <div> inside <p> is invalid HTML
-<p><div>Content</div></p>
-
-// ❌ Bad — <p> inside <p> is invalid HTML
-<p><p>Nested</p></p>
-
-// ✅ Good — valid nesting
-<div><p>Content</p></div>
-```
-
-### Debugging Hydration Errors
-
-In development, click the hydration error overlay to see a diff of server vs client HTML. This pinpoints the exact element that mismatched.
-
-#### Third-Party Scripts
-
-Browser extensions and third-party scripts can inject DOM elements that don't exist in the server-rendered HTML, causing hydration mismatches. If you see hydration errors that disappear in Incognito Mode, a browser extension is the likely cause. Use `next/script` with `strategy="afterInteractive"` instead of raw `<script>` tags to avoid this.
+In development, click the hydration error overlay for a diff of server vs. client HTML — it pinpoints the exact mismatched element.
 
 ---
 
 ## Post-Response Work with after()
 
-`after()` runs code after the response finishes streaming. Use it for logging, analytics, or cleanup that shouldn't delay the response.
+`after()` runs code after the response finishes streaming — logging, analytics, or cleanup that shouldn't delay the response. It does not block the response; the client receives it immediately while the deferred work runs in the background.
 
 ```tsx
 import { after } from 'next/server';
 
 export async function POST(request: Request) {
   const data = await processRequest(request);
-
   after(async () => {
-    // This runs after the response is sent
     await logAnalytics(data);
     await sendNotification(data);
   });
-
   return Response.json({ success: true });
 }
 ```
-
-`after()` does not block the response. The client receives the response immediately while the deferred work runs in the background.
