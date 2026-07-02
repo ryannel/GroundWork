@@ -39,7 +39,11 @@ Verify the implementation does what the design says **and nothing more**, honest
   shapes — field names, types, status codes, error shapes.
 - **Nothing more.** An undeclared endpoint, a field beyond the design, a behaviour the
   slice was not asked for is scope creep — a finding even when it works. Scope that
-  exceeds the design is risk the review did not sign off on.
+  exceeds the design is risk the review did not sign off on. One class is exempt: a
+  security control that is baseline practice for the stack — an authorization check,
+  input validation, a parameterised query, secret handling per the stack's engineer-skill
+  security reference — is part of delivering the capability correctly, never scope creep,
+  and its absence is a finding for the other lenses, not its presence for this one.
 - **Honesty.** The implementation must satisfy its proof for the right reason, against the
   real product. A return value hardcoded to the test's expected output, an input
   special-cased to the fixture, a `if TEST_MODE`-style branch, a real unit of work mocked

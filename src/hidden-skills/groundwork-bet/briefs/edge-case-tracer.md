@@ -48,6 +48,11 @@ does not account for:
   mutation, an assumption that an operation is atomic when it is not.
 - Boundaries — off-by-ones, an unbounded input, pagination that loses or duplicates the
   edge element, an overflow.
+- Hostile inputs — the unexpected input includes the adversarial one: an identifier that
+  belongs to another user or tenant, a filename that traverses paths, a redirect target
+  or fetch URL pointing at an internal address, a payload sized or nested to exhaust the
+  parser. Trace what the code does when the input is shaped by an attacker, not only
+  when it is missing or malformed.
 - Callers the diff did not update — when the diff changes a symbol's signature or shape,
   enumerate its references (Serena `find_referencing_symbols`, the capsule's caller list
   when the slice carried one, or the repo-map edges offline) and confirm each was updated
