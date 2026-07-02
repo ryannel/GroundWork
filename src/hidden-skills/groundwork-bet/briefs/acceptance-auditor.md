@@ -64,6 +64,20 @@ You judge against the design, not against general taste — a correctness bug wi
 design angle belongs to the blind reviewer, an unhandled edge to the tracer, a thin test
 suite to the coverage auditor. Stay on conformance and honesty.
 
+## Milestone scope — the close-out honesty audit
+
+At milestone close the driver dispatches this lens once more, at a different altitude.
+The inputs change: the milestone's **Proof-of-work prose** (its `index.md`) and the
+**assembled diff since the milestone opened** — every slice's committed change as one
+patch — plus the same prose API and data design. The question narrows to honesty at the
+milestone's own scope: re-derive the front-door judgment. Is the thing the milestone set
+out to prove real at the front door, or did a dependency the proof meant to exercise get
+faked, stubbed, or special-cased somewhere across the slices? Per-slice review cannot see
+intent erode across slices; this pass reads the sum. Do not re-litigate scope creep or
+per-slice conformance — those were judged per slice. Report either "the proof holds at
+the front door" in one line, or the specific place the proven thing is not real: the
+file, the slice commit, and the proof line it hollows.
+
 ## The report
 
 For each finding: a one-line title, the location (file and line), the specific Required
