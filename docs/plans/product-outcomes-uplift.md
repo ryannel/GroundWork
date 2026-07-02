@@ -1,6 +1,6 @@
 # Implementation Plan: Product Outcomes Uplift (Security by Default, Builder Parity, Sharper Gates)
 
-**Status:** PROPOSED 2026-07-02 — no slices executed. Sourced from a full-corpus skill review (all 235 canonical skill files: registered, hidden, engineer, dev-only meta) with each finding spot-verified against the tree.
+**Status:** EXECUTED 2026-07-02 — all 18 slices landed (A1–A5, B1–B5, C1–C3, D1–D4, E1+E2), one commit per slice, gates green per slice and full `./dev ci` before merge. Sourced from a full-corpus skill review (all 235 canonical skill files: registered, hidden, engineer, dev-only meta) with each finding spot-verified against the tree. Execution deltas: A1 ships as a new `./dev audit` command (the scaffolded CLI has no `ci` verb) and uses `npm audit` (the scaffolds are npm-based, not pnpm); C2's probe folds `./dev audit` into scaffold Phase 4. Live-sim debt owed per §7: A1 (seeded vuln + seeded credential turning a fresh scaffold red), A2/D1 (seeded IDOR fixture / silently-mocked dependency dry-runs), C2 (probe observed in a fresh scaffold run).
 **Audience:** An engineer or agent implementing this change. Each slice names its files and an acceptance check; judgment calls that remain are open decisions in §8.
 **Scope owner:** The engineer-skill family (`src/engineer-skills/`) and the `groundwork-bet` delivery briefs/checklists, with coupled changes to the scaffold generators' CI surface, `groundwork-architecture` Phase 2, `groundwork-review`, and the maturity model.
 
@@ -175,13 +175,12 @@ Gates on every slice: `./dev lint skills`, `./dev check sync-anchors`, `./dev te
 
 | # | Decision | Resolution |
 |---|---|---|
-| D2 | Scan tooling (A1) — settled 2026-07-02 | Secrets: **gitleaks** (MIT single static binary, diff-range mode, `--baseline-path` for brownfield adopt; trufflehog rejected as default — AGPL plus live credential verification is network-dependent and exercises found secrets; detect-secrets rejected — Python runtime not guaranteed on every stack). Dependency audit: **per-ecosystem natives** (`govulncheck` for reachability, `pip-audit`, `pnpm audit --prod`) with **osv-scanner** for Flutter and forged-stack lockfiles. Versions pinned in the dev config; detect-and-instruct install story, never auto-download. |
+| D2 | Scan tooling (A1) — settled 2026-07-02 | Secrets: **gitleaks** (MIT single static binary, diff-range mode, `--baseline-path` for brownfield adopt; trufflehog rejected as default — AGPL plus live credential verification is network-dependent and exercises found secrets; detect-secrets rejected — Python runtime not guaranteed on every stack). Dependency audit: **per-ecosystem natives** (`govulncheck` for reachability, `pip-audit`, `npm audit --omit=dev` — the scaffolds are npm-based, correcting this plan's pnpm assumption) with **osv-scanner** for Flutter and forged-stack lockfiles. Versions pinned in the dev bundle, overridable via the `audit` block in `.dev/dev.config.json`; detect-and-instruct install story, never auto-download. |
+| D1 | Architecture residual-ask wording (A4) — settled at execution 2026-07-02 | Fixed three-question set (regulated data classes, data residency, abuse exposure), answers recorded even when "none" — variants invite skipping. |
+| D3 | Node/TS backend skill scope (B4) — settled at execution 2026-07-02 | Skill only. A generator is its own plan once the skill's doctrine has survived real use; until then the skill serves forged and hand-built Node backends. |
+| D4 | golang-pro (B5) — settled at execution 2026-07-02 | Annotate — a top-of-file vendored-skill note names the conflicts and defers to go-engineer canon; upstream voice untouched, lock hash recomputed. |
+| D5 | D9 widening mechanics (C3) — settled at execution 2026-07-02 | Maturity-model text only. A `groundwork-check` rule waits until a fixture proves the declared-external-consumer signal is mechanically detectable. |
 
 ### Open (user)
 
-| # | Decision | Options | Default proposal |
-|---|---|---|---|
-| D1 | Architecture residual-ask wording (A4) | fixed three-question set / per-product-type variants | fixed set — three questions, answers recorded even when "none"; variants invite skipping |
-| D3 | Node/TS backend skill scope (B4) | skill only / skill + Nx generator | skill only first; a generator is its own plan once the skill's doctrine settles |
-| D4 | golang-pro (B5) | drop / annotate | annotate — keeps the upstream reference value, removes the ambiguity |
-| D5 | D9 widening mechanics (C3) | maturity-model text only / plus a groundwork-check rule | text first; a check rule once a fixture proves the signal is mechanical |
+None — the four open decisions settled on their default proposals at execution.
