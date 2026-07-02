@@ -24,4 +24,12 @@ These areas commonly surface constraints, but the conversation may reveal others
 
 - **Performance** — latency and throughput targets are typically captured in the Design System NFRs. Reference those directly. Only explore further here if they are absent or if the architecture introduces system paths the design phase did not account for.
 
+**The residual ask — non-skippable.** The scaffolded stack bakes in standard security practice; what it cannot assume is what this product uniquely handles, and a user who never volunteers it is never protected by it. Before closing the phase, ask three questions and record the answers — including "none" — in the constraints section and the phase's Downstream Context:
+
+1. Which regulated data classes does the product handle — health, payment, minors' data, PII beyond account basics?
+2. Are there data-residency obligations — jurisdictions whose data must not leave them?
+3. What is the abuse exposure — user-generated content, user-to-user messaging, payments?
+
+A recorded "none" is a decision later phases can lean on; an unasked question is a silent gap. Downstream, bets flag security work only where it departs from the baked-in baseline — a novel trust boundary, or the regulated data named here.
+
 When you have a clear picture of the constraints, summarise them and confirm with the user before moving to Phase 3.
