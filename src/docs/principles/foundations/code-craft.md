@@ -66,7 +66,7 @@ Commented-out code, `_unused` variables, orphan functions, legacy configuration 
 
 - [How We Structure Code](../system-design/code-structure.md) — the structural discipline that makes simplicity scalable.
 - [Testing](testing.md) — tests that exercise behaviour keep refactoring cheap.
-- [Decisions](../../decisions/) — the ADRs that capture the "why" our comments do not.
+- [Decisions](../system-design/architecture-decisions.md) — the ADRs that capture the "why" our comments do not.
 
 ## Anti-patterns we reject
 

@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (self-routing sync anchors + a reference-link gate, 2026-07-02)
+
+Every sync anchor (3 personas + 5 engineer skills) gains a `Distilled into` column mapping each pinned principle to the reference file that distills it — the gate stops saying "review the skill" and starts saying "review this file". A new `reference-link` lint verifies every `references/<name>.md` mention across hidden and engineer skills resolves to a real file (own references first, then the named skill's, then the discipline personas'; `<stack>` placeholders verified against at least one real engineer skill) — the guard that makes reference renames mechanically safe. Two corpus "Related Reading" links that pointed at a nonexistent `../../decisions/` folder now point at the architecture-decisions doctrine page; the go-engineer and product anchors are re-stamped for exactly that link fix (distilled content unaffected).
+
+- [no-migration] Anchor-table and corpus-link changes ride the promotion and tier-2 refresh paths; the lint is dev-side tooling.
+
 ### Fixed (shipped-contract point repairs: mis-parented tokens, dead references, a missing Protocol 1 enactment, 2026-07-02)
 
 Six one-file repairs from the distillation review. The brand-tokens template's `platform` block is its own bullet instead of riding inside `references` (a consumer reading the template's shape now sees the real structure). groundwork-elicit points at Downstream Context files instead of the retired "Summary-for-Downstream" sections. Bet delivery's native-UI-check pointer names the real contract (`NATIVE-CHECK-CONTRACT.md`) instead of a plan area that shipped nowhere. The electron accessibility deferral resolves to the nextjs `references/accessibility.md` file that actually exists. The product persona hedges `docs/maturity.md` with "if present" (it reads brownfield projects that may not carry one). The update lane enacts Protocol 1 at close-out — stray signals from the catch-up conversation land in discovery notes instead of evaporating.

@@ -69,7 +69,7 @@ This page is the spine of a wider product corpus — the discipline of moving ou
 
 - [Progressive Delivery](../delivery/progressive-delivery.md) — canaries and flags are the mechanism by which we measure outcomes safely.
 - [Observability](../quality/observability.md) — the signal layer that makes outcome-based engineering possible.
-- [Decisions](../../decisions/) — the record of shaping decisions that cost us real time.
+- [Decisions](../system-design/architecture-decisions.md) — the record of shaping decisions that cost us real time.
 
 ## Anti-patterns we reject
 

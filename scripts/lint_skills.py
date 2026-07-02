@@ -23,6 +23,12 @@ noticing after the third skill:
   9. writer-ref       — every document-producing hidden skill references
                         `groundwork-writer` somewhere in its tree (a dispatched brief
                         counts, not just the canonical instructions.md/SKILL.md).
+ 10. reference-link    — every `references/<name>.md` mention (backtick or markdown
+                        link, bare or path-qualified) inside a hidden or engineer
+                        skill resolves to a real file — first in that skill's own
+                        `references/`, then in the three discipline personas'
+                        `references/` (cross-skill pins); intra-reference relative
+                        links resolve within their own directory.
 
 Exit 0 when clean; exit 1 with named findings otherwise.
 """
@@ -368,6 +374,143 @@ def check_doc_pairs():
                      f"cites Protocol {n}, which the operating contract does not define")
 
 
+# Cross-skill pins: the three discipline personas' `references/` are the only
+# reference libraries other skills are meant to route into by filename (bet
+# workflows, groundwork-product-brief — PERSONA-11). A mention that misses a
+# skill's own references/ falls back to these before it counts as drift.
+PERSONA_REFERENCE_DIRS = [
+    HIDDEN / "groundwork-architect" / "references",
+    HIDDEN / "groundwork-product" / "references",
+    HIDDEN / "groundwork-designer" / "references",
+]
+
+# Bare `<name>.md` tokens that are never a `references/` pin — templates,
+# caches, canonical docs, and other skill files legitimately named without a
+# path prefix in prose. Documented here rather than silently skipped, per
+# skill-writer: an exemption is a decision, not an absence.
+REFERENCE_LINK_EXEMPT = {
+    "SKILL.md", "instructions.md", "sync-anchor.md", "README.md",
+    "CHANGELOG.md", "AGENTS.md", "workflow-index.md", "operating-contract.md",
+    "maturity-model.md", "decomposition.md", "pitch.md", "discovery-notes.md",
+    "scaffold-cache.md", "mvp-cache.md", "dev-cli-reference.md",
+    "code-intelligence.md", "repo-map-schema.md", "retrospective.md",
+    "milestone-index.md", "host-support.md", "hexagonal-architecture.md",
+    "graphical-ui.md", "exclusions.md", "cli.md", "bet-pitch-draft.md",
+    "agentic-protocol.md", "index.md", "setup.md", "infrastructure.md",
+    "product-findings.md", "design-findings.md", "architecture-findings.md",
+    # Generator-shipped contract doc, not a skill reference — lives at
+    # src/generators/system-test-runner/NATIVE-CHECK-CONTRACT.md.
+    "NATIVE-CHECK-CONTRACT.md",
+}
+
+# File-scoped exemptions: a bare `<name>.md` that is genuinely a
+# `references/` pin everywhere else, but names a project-owned doc (not a
+# skill reference) in this one spot — groundwork-update's migration table
+# talks about renaming `docs/architecture.md` -> `docs/architecture/index.md`
+# and `docs/ux-design.md`/`hexagonal-architecture.md` -> `code-structure.md`,
+# none of which are references/ pins.
+REFERENCE_LINK_EXEMPT_BY_FILE = {
+    HIDDEN / "groundwork-update" / "instructions.md": {"architecture.md", "code-structure.md"},
+}
+
+_CODE_FENCE_RE = re.compile(r"```.*?```", re.S)
+_BACKTICK_MD_RE = re.compile(r"`([A-Za-z][\w-]*\.md)`")
+_LINK_MD_RE = re.compile(r"\]\(([A-Za-z][\w-]*\.md)\)")
+# Path-qualified mentions: capture what precedes `references/<name>.md` too,
+# so a mention naming a specific *other* skill (`groundwork-nextjs-engineer/
+# references/testing.md`, e.g. electron deferring to the web stack) resolves
+# against that named skill, not just the mentioning skill's own directory.
+_PATH_MD_RE = re.compile(r"([\w./<>-]*)references/([A-Za-z][\w-]*\.md)")
+
+
+def _skill_roots():
+    roots = []
+    for d in sorted(HIDDEN.iterdir()):
+        if d.is_dir() and d.name != "templates":
+            roots.append(d)
+    for d in sorted(ENGINEER.iterdir()):
+        if d.is_dir():
+            roots.append(d)
+    return roots
+
+
+_ALL_SKILL_DIRS = {d.name: d for d in _skill_roots()}
+
+
+def _resolves(name: str, own_refs: Path) -> bool:
+    if (own_refs / name).exists():
+        return True
+    return any((d / name).exists() for d in PERSONA_REFERENCE_DIRS)
+
+
+def _resolves_path_qualified(prefix: str, name: str, own_refs: Path) -> bool:
+    """`references/<name>.md` mentions that carry a path prefix.
+
+    A `<stack>` placeholder (`groundwork-<stack>-engineer/references/...`) is
+    unresolvable by design — decomposition defers the concrete stack to
+    delivery time. It is not drift, so long as the filename it promises
+    exists in at least one real engineer skill's references/ (otherwise the
+    promise is broken everywhere, which *is* drift worth catching).
+    """
+    if "<stack>" in prefix:
+        return any((ENGINEER / d.name / "references" / name).exists()
+                    for d in ENGINEER.iterdir() if d.is_dir())
+    for skill_name, skill_dir in _ALL_SKILL_DIRS.items():
+        if skill_name in prefix:
+            if ((skill_dir / "references" / name).exists()
+                    or (skill_dir / "references" / "templates" / name).exists()):
+                return True
+    return _resolves(name, own_refs)
+
+
+def check_reference_links():
+    for skill_dir in _skill_roots():
+        own_refs = skill_dir / "references"
+        for path in sorted(skill_dir.rglob("*.md")):
+            if "templates" in path.relative_to(skill_dir).parts:
+                continue
+            text = _CODE_FENCE_RE.sub("", path.read_text(encoding="utf-8"))
+            in_refs_dir = path.parent == own_refs
+            file_exempt = REFERENCE_LINK_EXEMPT_BY_FILE.get(path, set())
+
+            bare_names: set[str] = set(_BACKTICK_MD_RE.findall(text))
+            path_qualified: set[tuple[str, str]] = set(_PATH_MD_RE.findall(text))
+
+            if in_refs_dir:
+                # Rule B: a relative markdown link inside references/ is a
+                # sibling pin — it must resolve in this same directory, no
+                # cross-skill fallback.
+                for m in _LINK_MD_RE.finditer(text):
+                    name = m.group(1)
+                    if name == path.name or name in file_exempt:
+                        continue
+                    if not (own_refs / name).exists():
+                        fail("reference-link", path,
+                             f"relative link to `{name}` does not resolve in "
+                             f"{own_refs.relative_to(ROOT)}")
+            else:
+                bare_names |= set(_LINK_MD_RE.findall(text))
+
+            for prefix, name in sorted(path_qualified):
+                if name in REFERENCE_LINK_EXEMPT or name in file_exempt:
+                    continue
+                if not _resolves_path_qualified(prefix, name, own_refs):
+                    fail("reference-link", path,
+                         f"`{prefix}references/{name}` does not resolve "
+                         "against the named skill, the mentioning skill's "
+                         "own references/, nor the discipline personas'")
+
+            path_qualified_names = {n for _, n in path_qualified}
+            for name in sorted(bare_names - path_qualified_names):
+                if name in REFERENCE_LINK_EXEMPT or name in file_exempt:
+                    continue
+                if not _resolves(name, own_refs):
+                    fail("reference-link", path,
+                         f"`{name}` does not resolve in "
+                         f"{own_refs.relative_to(ROOT)} nor the discipline "
+                         "personas' references/ (architect, product, designer)")
+
+
 def check_index_fresh():
     proc = subprocess.run(
         ["node", str(ROOT / "scripts" / "generate_workflow_index.js"), "--check"],
@@ -388,13 +531,14 @@ def main() -> int:
     check_doc_pairs()
     check_index_fresh()
     check_writer_ref()
+    check_reference_links()
 
     if findings:
         print(f"lint: {len(findings)} finding(s)\n")
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs.")
+    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links.")
     return 0
 
 
