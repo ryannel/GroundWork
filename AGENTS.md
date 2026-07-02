@@ -20,10 +20,12 @@ Other skills are loaded on demand by description. Match the task, then read the 
 | Go implementation work (services, handlers, concurrency, gRPC) | `src/engineer-skills/groundwork-go-engineer/` |
 | Python implementation work (services, FastAPI, async, ML pipelines) | `src/engineer-skills/groundwork-python-engineer/` |
 | Next.js / React / frontend work | `src/engineer-skills/groundwork-nextjs-engineer/` |
+| Flutter / mobile work | `src/engineer-skills/groundwork-flutter-engineer/` |
+| Electron / desktop work | `src/engineer-skills/groundwork-electron-engineer/` |
 
 ## Rules
 
 - `.agents/` is authoritative. If this file conflicts with a skill there, the skill wins.
-- The engineer skills (`groundwork-{go,python,nextjs,flutter,electron}-engineer`) are product deliverables: their canon lives in `src/engineer-skills/`, and scaffolds deliver them into generated projects per language. Read the canon directly for in-repo template work; do not copy them into `.agents/skills/`.
+- Engineer-skill canon lives in `src/engineer-skills/` — the contributor guide's Two-Layer Skill Architecture covers how it ships.
 - Do not duplicate skill content here. Update the skill instead.
 - `.agents/skills/` is dev-only and excluded from the npm package — never reference it as user-facing behavior.
