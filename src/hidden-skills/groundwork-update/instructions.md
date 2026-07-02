@@ -44,6 +44,20 @@ the work only the driver can do.
 
 You leave the project as if it had been set up at the current version all along.
 
+### The `fan_out` hint
+
+The orchestrator passes a `fan_out` hint (`parallel` when a sub-agent dispatch tool is
+available in this environment, `sequential` otherwise; default `sequential` if none reached
+you) — honour it rather than probing your own tool set, since a runtime that misjudges its
+capabilities and calls a dispatch tool that does not exist breaks the run.
+
+- `parallel` → dispatch each unit to a `reconcile-worker` subagent at the **`execution`**
+  tier (Model Tiers, operating contract — gated, not trusted; you review every mutated doc
+  at `frontier` before committing). This is the context-lean path the driver is built for.
+- `sequential` → no dispatch tool exists; advance each unit **inline, one at a time** — do
+  the worker's read-and-transform yourself, gate and commit it, then purge that unit's
+  detail from context before the next.
+
 ---
 
 ## Operating Contract
@@ -55,29 +69,41 @@ apply whenever a brief item or a reconcile advance mutates a canonical doc — t
 that gate, never the worker that authored the change. There is no phase cache beyond the
 brief itself.
 
+---
+
+## The driver loop
+
 Run **Phase A first** — it clears the brief the CLI staged — then **Phase B**, which
-reconciles what no brief can see. A run that finds no brief skips straight to Phase B.
+reconciles what no brief can see. A run that finds no brief skips straight to Phase B. Every
+unit of work in either phase — one brief item, one family — runs the same loop:
 
-### The `fan_out` hint
+1. **Propose.** One unit, one explained proposal in two or three sentences — never batch
+   approvals across units.
+2. **Dispatch or inline.** Under `parallel`, hand a `reconcile-worker` subagent the unit's
+   capsule (`unit_kind`, the canonical + instance pointers, the advance approach) at the
+   `execution` tier; it reads the canonical and instances in its own context, makes the
+   change, and returns a report. Under `sequential`, do the worker's read-and-transform
+   yourself for this one unit — the recipes live in
+   `.groundwork/skills/groundwork-update/briefs/reconcile-worker.md`'s "The work" section;
+   do not duplicate them here.
+3. **Resolve.** Any `COLLISIONS/AMBIGUITY` the report raises — a passage where a user edit
+   and a framework improvement collide, a customization that may be obsolete, reconstructed
+   generator options, an advance that implies a product decision the code does not prove —
+   is a **user** decision: surface it and let the user pick before committing. A `BLOCKING
+   CONCERN` stops the unit; route it as the report describes.
+4. **Gate.** For every doc named under `REVIEW-NEEDED`, run the review subagent (Protocol 9)
+   with the matching `document_type`. Proceed only on a parseable `VERDICT: PRESENT`; the
+   gate is fail-closed. On `REVISE`, apply the 🔴 findings and re-invoke, to the 3-revise cap.
+5. **Stage and commit.** The worker left its changes unstaged; the driver stages and commits
+   them — one unit, one commit: `chore(groundwork): <what changed> (<id>)` for a brief item,
+   `chore(groundwork): advance <family> to current shape` for a family. Nothing outside the
+   unit's scope goes into its commit.
+6. **Record** (Phase A only — Phase B's detect-first re-derives state every run, so there is
+   nothing to record). The Bookkeeping contract below.
 
-The orchestrator passes a `fan_out` hint when it invokes this skill: `parallel` when a
-sub-agent dispatch tool is available in this environment, `sequential` otherwise. Honour it
-rather than probing your own tool set — a runtime that misjudges its capabilities and calls
-a dispatch tool that does not exist breaks the run. If no hint reached you, default to
-`sequential`.
-
-- `parallel` — **dispatch** each unit to a `reconcile-worker` subagent, as above, at the
-  **`execution`** tier (Model Tiers, operating contract — a gated worker, not trusted; the
-  driver reviews every mutated doc at `frontier` before committing). This is the context-lean
-  path the driver is built for.
-- `sequential` — no dispatch tool exists, so advance each unit **inline, one at a time**:
-  do the worker's read-and-transform yourself for a single unit, gate and commit it, then
-  **purge that unit's detail from context** before the next. Slower and heavier, but still
-  bounded — never load the whole catch-up into one window at once.
-
-Either way the units run **serially, in the order below** — families overlap on files and
-carry ordering dependencies (graduate ADRs before nesting the architecture docs), so they
-are advanced one at a time, not concurrently.
+Units run **serially, in the order they appear** — families overlap on files and carry
+ordering dependencies (graduate ADRs before nesting the architecture docs), so they are
+advanced one at a time, not concurrently.
 
 ---
 
@@ -92,28 +118,9 @@ being raised to), and `items[]`, each with a stable `id`, a `type` (`tier2-merge
 `.groundwork/cache/upgrade/` — the worker never needs the npm package itself.
 
 Open the session with the shape of the work: the version jump and a one-line list of pending
-items. Then walk the items **top to bottom** — the CLI ordered them. For each, run the
-driver loop:
-
-1. **Propose.** Explain what this item will change and why in two or three sentences. Never
-   batch approvals across items.
-2. **Dispatch the worker** (at the `execution` tier). Hand a `reconcile-worker` the item verbatim as the capsule —
-   `unit_kind: brief-item:<type>`, the staged `incoming`/`options`/`base_hash` pointers, and
-   the project path it touches. The worker produces the merged / ported / regenerated change
-   and returns its report. (Under `sequential`, do the worker's recipe inline — the item-type
-   recipes live in the worker brief's "the work" section; do not duplicate them here.)
-3. **Resolve what the worker flagged.** Any `COLLISIONS/AMBIGUITY` the report raises — a
-   passage where a user edit and a framework improvement collide, a customization that may be
-   obsolete, reconstructed generator options — is a **user** decision: surface it and let the
-   user pick before committing. A `BLOCKING CONCERN` stops the item; route it as the report
-   describes.
-4. **Gate.** For every doc named under `REVIEW-NEEDED`, run the review subagent (Protocol 9)
-   with the matching `document_type`. Proceed only on a parseable `VERDICT: PRESENT`; the gate
-   is fail-closed. On `REVISE`, apply the 🔴 findings and re-invoke, to the 3-revise cap.
-5. **Commit.** One item, one commit, referencing the item id —
-   `chore(groundwork): <what changed> (<id>)`. The worker left its changes unstaged; the
-   driver stages and commits them. Nothing outside the item's scope goes into its commit.
-6. **Record completion** (bookkeeping contract below) before moving on.
+items. Then walk the items **top to bottom** — the CLI ordered them — running the driver
+loop above for each. The capsule is the item verbatim: `unit_kind: brief-item:<type>`, the
+staged `incoming`/`options`/`base_hash` pointers, and the project path it touches.
 
 Stop at any point the user asks; the brief survives across sessions and `update` re-runs
 merge into it without duplicating items.
@@ -137,44 +144,40 @@ reconcile the project to it.
    you only spin a worker for a family that has actually drifted. A family already matching
    canonical is checked off untouched — and leaves no ledger entry, because the next run
    re-derives the same answer from the artifacts. Detect-first *is* the bookkeeping.
-2. **Propose.** One family, one explained proposal. Pause where an advance would imply a
-   product decision the code does not prove — a removal that might be temporary, a capability
-   that might be an experiment — and surface it rather than assume it.
-3. **Dispatch the worker** (at the `execution` tier). Hand a `reconcile-worker` the capsule: `unit_kind: family:<name>`,
-   the **Owner** column path(s) as the canonical to read, the project instance paths it found,
-   and the row's advance approach. The worker reads canonical + instances *in its own
-   context*, advances them, and returns its report. (Under `sequential`, do the advance inline
-   for this one family, then purge the detail.)
-4. **Resolve, gate, commit.** Resolve any `COLLISIONS/AMBIGUITY` with the user. Run the review
-   subagent (Protocol 9) on every `REVIEW-NEEDED` canonical doc with its `document_type`,
-   fail-closed, to the 3-revise cap. Then commit — one family, one commit
-   (`chore(groundwork): advance <family> to current shape`); the worker left its changes
-   unstaged.
+2. **Pause, then run the driver loop above.** Pause where an advance would imply a product
+   decision the code does not prove — a removal that might be temporary, a capability that
+   might be an experiment — and surface it rather than assume it. Otherwise run the loop for
+   the family: the capsule is `unit_kind: family:<slug>`, the **Owner** column path(s) as
+   the canonical to read, the project instance paths you found, and the row's **Advance**
+   column as the approach.
 
 ### Family Index
 
-The artifact families that drift as the framework evolves. Each row is a *pointer to the
-owner* (the canonical shape — the worker reads it there, it is never duplicated here), the
-*legacy signal* that flags an old instance, and the *advance* that carries it forward. This
-index is ownership, not change history: it grows only when a genuinely new family appears,
-not on every change. When a structure changes again, its owning skill changes (as it must)
-and this pass picks the drift up for free.
+A **detection table**, not change history: each row names the family and its capsule slug,
+the canonical **Owner** the worker reads in full (never duplicated here), the **Legacy
+signal** that flags an old instance for the driver to detect cheaply, and the **Advance** —
+a recipe name from `.groundwork/skills/groundwork-update/briefs/reconcile-worker.md`'s
+"The work" section plus this family's own parameters. The recipe mechanics live solely in
+the worker; do not restate them here. The
+index grows only when a genuinely new family appears, not on every change — when a
+structure changes again, its owning skill changes (as it must) and this pass picks the
+drift up for free.
 
-| Family | Owner — current canonical | Legacy signal → advance |
-|---|---|---|
-| **Bets** | `.groundwork/skills/groundwork-bet/` workflows `00-quick.md` + `03-decomposition.md` + `04-delivery.md` and its templates | A bet under `docs/bets/<slug>/` carrying `decomposition.json`, `decomposition.md`, a `contracts/` dir, or a `test-manifest.json`; or a `pitch.md` missing `status` frontmatter → restructure to the prose `decomposition/` tree, infer and stamp `status`, drop the dead machine-readable artifacts (the suite + git are the record), take the approval baseline from the git tag `bet/<slug>/approved`. Restructure in-flight bets; leave shipped/archived ones as historical record, removing only stray obsolete files. **A `pitch.md` carrying `track: quick` is a legitimate quick bet, not a malformed bet** — its single-milestone `decomposition/` tree is correct by design; recognize the shape and leave it intact (never pad its ladder toward 2–5 milestones or restructure its one milestone away). **An in-flight bet (`status: delivery` or later) with an approved `decomposition/` tree but no `bet/<slug>/approved` git tag** predates the tag-writer fix in `03-decomposition.md`'s Transition — under git, back-fill it: find the decomposition-approval commit (`git log --oneline --grep='bet(<slug>): approve decomposition' --grep='bet(<slug>): approve quick bet' -- docs/bets/<slug>/decomposition/`) and tag that commit `bet/<slug>/approved`; if none is identifiable, tag `HEAD` and add a one-line `<!-- approval tag backfilled at HEAD by groundwork-update; decomposition-approval commit not identifiable -->` note to the bet's `pitch.md` so a later reader knows the baseline is approximate. |
-| **Architecture docs** | The nested `docs/architecture/` layout the `groundwork-architecture` skill builds + its `meta.json` ordering | Flat architecture docs at the `docs/` root (`docs/architecture.md`, `docs/infrastructure.md`, `docs/domain/`, `docs/services/`, `docs/api/`, `docs/decisions/`) → relocate under `docs/architecture/` (`architecture.md` → `index.md`), rewrite `docs/meta.json` and seed `docs/architecture/meta.json`, carry every live cross-reference forward. Leave historical records alone. |
-| **Doc contracts** | `.groundwork/skills/operating-contract.md` + the `groundwork-writer` skill | A published `docs/*.md` (outside `docs/bets/`) carrying a `## Summary for Downstream` section, or a code-coupled doc missing `last_reviewed` / `source_of_truth` frontmatter → graduate each still-binding Key Decision / Binding Constraint into a `docs/architecture/decisions/` ADR (or confirm it already lives in the body), strip the section, and stamp the drift-tracking frontmatter so `groundwork-check` can see the doc. |
-| **Naming** | The `groundwork-design-system` skill; the structural-design principle (`code-structure`); the published package name `groundwork-method`; the current install layout (hidden methodology skills live at `.groundwork/skills/`) | `docs/ux-design.md` or a `hexagonal-architecture.md` present → rename to `docs/design-system.md` / `code-structure.md` and carry every live cross-reference forward; remove the orphaned old file. A project-owned script, CI step, or doc invoking `npx groundwork ` (trailing space + subcommand) → rewrite to `npx groundwork-method ` — flags and arguments unchanged, lockfiles and any unrelated tool that merely contains the word untouched. A project-owned doc, script, or CI step referencing the relocated hidden-skills path `.agents/groundwork/skills/` → rewrite the prefix to `.groundwork/skills/`, the rest of the path unchanged — the move is real and these references dangle. Leave the user-owned `config.toml` (never written) and historical records alone. |
-| **Surfaces registry** | `.groundwork/skills/surfaces-contract.md` (its `version` field) + the `groundwork-surface-activation` skill | No `docs/surfaces.md` / `.groundwork/surfaces.json` on a multi-surface product → bootstrap the registry and capability ledger via `groundwork-surface-activation`. A runner-less `dev.config.json` whose surfaces/sidecars are invisible to `./dev` → register them as runners, without touching the db/jaeger compose. |
-| **Docs site** | The `docs-site` generator (`.groundwork/config/generators.json`) | A docs site behind the current generator — no `app/brand.css`, unordered nav, unrendered `mermaid`, a redirect instead of a landing page → for a generator-produced site, **regenerate** through the worker's `regenerate` recipe with its recorded options; for a hand-built site, refactor in place to match the generator's output (brand projection, the mermaid remark transform, `docs/meta.json` ordering, the two-audience landing hero). Keep the unbranded fallback intact: a project with no `brand-tokens.json` stays on the stock theme. |
-| **Next.js token layer** | The Next.js app generator (`.groundwork/config/generators.json`) | A Next.js app with a hardcoded `globals.css` and no per-app `brand.css` / token-conformance gate → regenerate the token layer from `brand-tokens.json` via the worker's `regenerate` recipe, reconcile any hand-edited `globals.css`, and add the conformance test. |
-| **Engineer skills** | `src/engineer-skills/<stack>-engineer/` in the installed package — resolve the package root from any generator's `factory` path in `.groundwork/config/generators.json` (already an absolute path into the installed package) | A promoted skill under `.agents/skills/groundwork-<stack>-engineer/` whose provenance is recorded in `manifest.json` `generated[<generator>[:<name>]].files` (the scaffold call that promoted it — `promoteEngineerSkill` runs inside the service generator before its provenance snapshot) but whose on-disk file hashes no longer match the canonical → clean-replace the promoted tree from canonical, dropping a stale `sync-anchor.md` a pre-M6 promotion left (current canon never ships it). A file whose disk hash matches neither its recorded provenance hash nor canonical is user-edited → leave it and surface the diff, never clobber. A skill directory with **no** `manifest.generated` entries at all is project-authored (e.g. `groundwork-swift-engineer`), not this family — never touched. |
+| Family (slug) | Owner — current canonical | Legacy signal | Advance |
+|---|---|---|---|
+| **Bets** (`bets`) | `.groundwork/skills/groundwork-bet/` workflows `00-quick.md` + `03-decomposition.md` + `04-delivery.md` and its templates | A bet under `docs/bets/<slug>/` carrying `decomposition.json`, `decomposition.md`, a `contracts/` dir, or a `test-manifest.json`; a `pitch.md` missing `status` frontmatter; or an in-flight bet (`status: delivery` or later) with an approved `decomposition/` tree but no `bet/<slug>/approved` git tag. | **Restructure** — in-flight bets only to the prose `decomposition/` tree (leave shipped/archived as historical record, removing only stray obsolete files). A `pitch.md` carrying `track: quick` is a legitimate quick bet, not a malformed one — its single-milestone `decomposition/` tree is correct by design; leave it intact, never pad or restructure it. Approval baseline = git tag `bet/<slug>/approved`; if it predates the tag-writer fix and is missing, back-fill it — find the decomposition-approval commit (`git log --oneline --grep='bet(<slug>): approve decomposition' --grep='bet(<slug>): approve quick bet' -- docs/bets/<slug>/decomposition/`) and tag that commit; if none is identifiable, tag `HEAD` and note the approximation in the bet's `pitch.md`. |
+| **Architecture docs** (`architecture-docs`) | The nested `docs/architecture/` layout the `groundwork-architecture` skill builds + its `meta.json` ordering | Flat architecture docs at the `docs/` root (`docs/architecture.md`, `docs/infrastructure.md`, `docs/domain/`, `docs/services/`, `docs/api/`, `docs/decisions/`). | **Relocate** — `architecture.md` → `index.md`; rewrite `docs/meta.json` and seed `docs/architecture/meta.json`. |
+| **Doc contracts** (`doc-contracts`) | `.groundwork/skills/operating-contract.md` + the `groundwork-writer` skill | A published `docs/*.md` (outside `docs/bets/`) carrying a `## Summary for Downstream` section, or a code-coupled doc missing `last_reviewed` / `source_of_truth` frontmatter. | **Graduate + stamp.** |
+| **Naming** (`naming`) | The `groundwork-design-system` skill; the structural-design principle (`code-structure`); the published package name `groundwork-method`; the current install layout (hidden methodology skills live at `.groundwork/skills/`) | Three independent signals: `docs/ux-design.md` or `hexagonal-architecture.md` present → **Rename + carry refs**. A project-owned script, CI step, or doc invoking `npx groundwork ` (trailing space + subcommand) → **Reference rewrite** (`npx groundwork-method `; flags/args unchanged). A project-owned doc, script, or CI step referencing `.agents/groundwork/skills/` → **Reference rewrite** (prefix only → `.groundwork/skills/`). | See Legacy signal — each maps to the named recipe. Leave the user-owned `config.toml` (never written) and historical records alone. |
+| **Surfaces registry** (`surfaces-registry`) | `.groundwork/skills/surfaces-contract.md` (its `version` field) + the `groundwork-surface-activation` skill | No `docs/surfaces.md` / `.groundwork/surfaces.json` on a multi-surface product; or a runner-less `dev.config.json` whose surfaces/sidecars are invisible to `./dev`. | **Bootstrap / register** — bootstrap the registry + capability ledger via `groundwork-surface-activation`, or register runners, without touching the db/jaeger compose. |
+| **Docs site** (`docs-site`) | The `docs-site` generator (`.groundwork/config/generators.json`) | A docs site behind the current generator — no `app/brand.css`, unordered nav, unrendered `mermaid`, a redirect instead of a landing page. | Generator-produced site: **regenerate** with the recorded options. Hand-built site: refactor in place to match the generator's output. Keep the unbranded fallback intact — no `brand-tokens.json` stays on the stock theme. |
+| **Next.js token layer** (`nextjs-tokens`) | The Next.js app generator (`.groundwork/config/generators.json`) | A Next.js app with a hardcoded `globals.css` and no per-app `brand.css` / token-conformance gate. | **Regenerate** the token layer from `brand-tokens.json`, reconcile any hand-edited `globals.css`, add the conformance test. |
+| **Engineer skills** (`engineer-skills`) | `src/engineer-skills/<stack>-engineer/` in the installed package — resolve the package root from any generator's `factory` path in `.groundwork/config/generators.json` | A promoted skill under `.agents/skills/groundwork-<stack>-engineer/` with provenance recorded in `manifest.json` `generated[<generator>[:<name>]].files` whose on-disk file hashes no longer match canonical. A directory with **no** `manifest.generated` entries at all is project-authored (e.g. `groundwork-swift-engineer`) — not this family, never touched. | **Re-promote from canon, honoring edits** — for files whose disk hash still matches recorded provenance, clean-replace from canonical (dropping a stale `sync-anchor.md` a pre-M6 promotion left). A file matching neither provenance nor canonical is user-edited — leave it, surface the diff, never clobber. |
 
 Generator-owned families (**Docs site**, **Next.js token layer**) advance through the
 worker's `regenerate` recipe — the index names them so one framing covers every family, and
 does not duplicate the generator's reconcile steps. The prose families advance through the
-worker's relocate / rename / graduate / restructure recipes.
+worker's relocate / rename / graduate / restructure / bootstrap / re-promote recipes.
 
 ---
 

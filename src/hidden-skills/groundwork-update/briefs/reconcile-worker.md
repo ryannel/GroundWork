@@ -14,36 +14,24 @@ tier: execution
 
 ## How This Brief Is Invoked
 
-This brief runs in an **isolated subagent context** — never in the groundwork-update
-driver's main conversation. The driver dispatches one worker per unit, hands it a tight
-capsule, and receives back only a short structured report. The canonical reads, the
-instance reads, the merge or relocation reasoning — all of it stays in the worker's context
-and dies with it when the worker returns.
+Dispatched once per unit by the groundwork-update driver, in an **isolated subagent
+context** — never in the driver's main conversation. Capsule in, report out: the canonical
+reads, the instance reads, the merge or relocation reasoning all stay in this context and
+die with it when the worker returns. (Why isolation matters: `groundwork-update/instructions.md`,
+"You are the driver" — that context budget is the driver's to spend, not this brief's to
+re-argue.)
 
-This isolation is the point. Running the whole catch-up inline piles every family's
-transform reasoning — the canonical templates, the project's instances, the diff judgement —
-into one window; the driver's context grows until it can no longer reason well about the
-update as a whole. Farming each unit to a disposable worker keeps the driver thin enough to
-hold the brief, the Family Index, the pacing, the review gate, and the commits — the work
-only it can do.
+### Invocation
 
-### Invocation environments
-
-| Environment | How the driver dispatches the worker |
-|---|---|
-| Claude Code | Via the `Task` tool with a general-purpose subagent. The prompt loads this file and supplies the capsule below. |
-| Other environments | Any mechanism that runs this brief in an isolated context with file-read, file-write, and shell tools, and returns the final text. |
-
-The contract is environment-agnostic — the capsule and the returned report are the same
-regardless of how the isolated execution is realised.
+Runs via the host's subagent dispatch mechanism (Protocol 9, operating contract) — the
+`Task` tool with a general-purpose subagent in Claude Code, or the environment-agnostic
+equivalent elsewhere with file-read, file-write, and shell tools. The prompt loads this
+file and supplies the capsule below; only the report (below) returns.
 
 ### Model
 
-The worker runs at the **`execution`** tier (Model Tiers, operating contract) — a capable,
-cheaper class than the driver and the review. Its correctness is not taken on trust: the
-driver gates every mutated canonical doc through an independent `frontier` review
-(Protocol 9) before it commits the unit. The worker's job is to advance honestly and report
-honestly, not to be the final judge of its own work.
+Runs at the **`execution`** tier (Model Tiers, operating contract) — gated at `frontier` by
+the driver, which reviews every mutated canonical doc (Protocol 9) before committing.
 
 ---
 

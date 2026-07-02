@@ -99,7 +99,7 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 
 ### Anytime Skills
 - `groundwork-doc-sync` — surgical updates to **project documents** after code changes (maps a diff to the docs it makes stale; the project's docs kept in sync with the project's own code)
-- `groundwork-update` — brings the **project up to the current framework**: Phase A works the upgrade brief, Phase B reconciles each artifact family to the current canonical shape. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists.
+- `groundwork-update` — brings the **project up to the current framework**: works the residual upgrade brief, then reconciles drifted artifact structure to current canonical, family by family. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists.
 - `groundwork-check` — staleness detection
 - `groundwork-elicit` — strengthens a weak draft section through structured elicitation, mid-phase while a draft is open
 - `groundwork-patch` — bounded fix, no new capability, no contract change — the floor of the three lanes; sizing rules live in *User requests work*. Available only after setup completes.
