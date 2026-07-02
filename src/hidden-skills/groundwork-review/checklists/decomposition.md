@@ -146,3 +146,8 @@ are its decomposition-side checks.
   builds maps to no milestone proof line and no named fitness function — quote the budget that
   has neither. A number nothing re-checks decays silently: the design workflow's POC step records
   exactly this failure recurring.
+- [ ] 🟡 **Signal without a source**: the pitch's success signal names no place its answer would
+  come from — an event, a metric, a support-queue count, or (fully valid for a product with no
+  users) "demonstrable at the front door." Advisory, never blocking: when the product emits
+  nothing that could answer the signal, a slice instruments it or the signal is rewritten
+  against a nearer source — never force instrumentation onto a user-less product.
