@@ -64,13 +64,7 @@ Two traps to name explicitly. **Vanity adoption** — logins, registered service
 
 ### 9. Name the substrate; buy the platform when it pays
 
-Infrastructure-as-code is a deliberate choice, not a default:
-
-- **Terraform** — largest market share, deepest HCP/Terraform Cloud integration, AI-assisted tooling; ships under the BSL 1.1 source-available licence (not OSI-approved).
-- **OpenTofu** — MPL 2.0, OSI-approved, CNCF-hosted, and now *genuinely diverging*: native state encryption and provider-defined functions that Terraform lacks. It is no longer a silent drop-in — encrypted OpenTofu state is unreadable by Terraform, so adopting those features is a committed choice. Roughly a tenth of IaC practitioners as of 2026, and climbing.
-- **Pulumi** — real general-purpose languages instead of HCL.
-
-Pick on licence-risk tolerance and lock-in, not vibes.
+Infrastructure-as-code is a deliberate choice, not a default: **Terraform** (the deepest ecosystem, source-available under the BSL 1.1 licence — not OSI-approved), **OpenTofu** (the OSI-approved, CNCF-hosted fork, now genuinely diverging in features — check compatibility before assuming it is a silent drop-in), **Pulumi** (real general-purpose languages instead of HCL). Pick on licence-risk tolerance and lock-in, not vibes.
 
 The platform itself is build-vs-buy, and a self-hosted developer portal is the sharpest case. "Free and open source" Backstage is not free: a production install means several dedicated engineers and ongoing operational cost to keep it alive and adopted. The crossover where building can pay off sits well into the low hundreds of engineers *and* requires genuinely unique needs the market does not serve. Below that, a managed portal (Port, Cortex, hosted Backstage, Spotify Portal) usually wins; buying trades customisation for lock-in to someone else's data model, which is a real cost when you outgrow it. Treat the decision as product strategy with an honest total cost of ownership, not a reflex.
 

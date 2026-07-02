@@ -27,7 +27,7 @@ Most teams discover cost too late — after a quarterly bill, when the decisions
 1. **Cost is a first-class metric.** Cost-per-call, cost-per-user, cost-per-feature, tracked alongside latency and error rate. A team that does not know what its features cost cannot reason about the trade-offs that matter.
 2. **Budgets are set and defended.** Every significant service runs inside a cost budget set at design time; exceeding it triggers the same response as any SLO breach.
 3. **Egress is expensive; plan for it.** Inter-region chatter, chatty logs, large frequent payloads add up. Place data where its consumers are; batch and compress where cheap.
-4. **AI spend runs through a gateway.** Every model call has a measured cost and a caching strategy, mediated by an **AI gateway** — a token-aware control plane between apps/agents and providers that does model routing, semantic caching, fallback, per-key budgets, audit, and guardrails. "Pass the whole context to the largest model" is how an AI feature becomes a cost incident ([performance-and-scale.md](performance-and-scale.md)).
+4. **AI spend runs through a gateway.** Every model call is mediated by an **AI gateway** — a token-aware control plane between apps/agents and providers — so routing, caching, and budget enforcement are a platform capability, not each team's own retrofit. The cost/routing doctrine itself is [ai-native-architecture.md](ai-native-architecture.md) #7.
 
 ## Substrate choices
 

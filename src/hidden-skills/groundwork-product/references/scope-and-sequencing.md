@@ -6,7 +6,7 @@ Prioritization is the portfolio decision: of all the things worth doing, which d
 
 Commit in **bets**: a shaped problem, an appetite (its worth), a stakes read (what is at risk if it goes wrong), a solution sketch, a success signal, and explicit no-gos. The bet is deliberately small and reversible so a wrong call costs one cycle, not a quarter — and so the team re-decides frequently with fresh information rather than locking a long plan. Between bets the team is free to change direction entirely; that optionality is the point. Big up-front roadmaps trade it away for a false sense of certainty.
 
-Size a bet on two axes, never on effort. **Worth** (the appetite) says how much to invest, judged by opportunity cost. **Stakes** — blast radius × reversibility × the human review the work demands — says how carefully, and earns the discovery and rigour. Effort and complexity are the deflated axis: AI compresses execution unpredictably, so "how hard to build" no longer tracks either worth or stakes.
+Size a bet on worth (appetite) and stakes, never effort — the sizing doctrine, including how stakes is set, is [shaping-and-appetite.md](shaping-and-appetite.md).
 
 ## Prioritise the opportunity, then bound the solution
 
@@ -30,6 +30,5 @@ Frameworks like RICE, weighted scoring, or opportunity scoring are useful for *s
 
 - **Backlog as autopilot.** A ranked list executed top-down with no fresh judgement about whether the top item is still the right bet.
 - **Scoring-formula governance.** Treating a RICE or weighted-score sort as the decision rather than an input.
-- **Estimate-driven sequencing.** Ordering by how long things take rather than what they are worth.
 - **Ignoring the parking lot.** Re-deciding sequencing the user already settled because prior instincts and parked ideas were not carried forward.
 - **The grand roadmap.** A long fixed plan that trades away the optionality the bet exists to preserve.

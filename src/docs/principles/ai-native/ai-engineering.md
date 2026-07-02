@@ -36,7 +36,7 @@ Decision rule: grade with code wherever the output is checkable — schema, exac
 
 The content of the context window — system prompt, few-shot examples, retrieved documents, tool outputs — is the single biggest lever on model behaviour. The goal is not the *most* relevant context; it is the smallest set of high-signal tokens that produces the behaviour you want. More tokens is not more help: as the window fills, recall degrades — *context rot*, a gradient rather than a cliff, rooted in the n² attention budget — so every token you add dilutes the ones that mattered.
 
-Design the context deliberately, measure its token budget, and prefer just-in-time retrieval — hand the model lightweight references (paths, IDs, queries) and let it pull the body through a tool when it needs it — over pre-loading everything you *might* need. For long-horizon work, compaction (summarize-and-restart, preserving decisions and open threads) and external note-taking keep the working set small. "Throw in everything relevant" is the anti-pattern that blows up the bill and *lowers* quality.
+"Throw in everything relevant" is the anti-pattern that blows up the bill and *lowers* quality — measure the token budget the way you would measure any other eval dimension. Managing that budget over a session's lifecycle — just-in-time retrieval, compaction, offloading — is architecture, covered in [Agentic Systems](agentic-systems.md) §3.
 
 ### 4. Retrieval matters more than the model
 
@@ -50,17 +50,11 @@ Decision rule: small or stable corpus that fits comfortably in context → load 
 
 Every model output that crosses into code is validated: shape, length, content, and expected enumerations. Parse failures are handled explicitly, never allowed to propagate. If you need a number, demand it in a structured schema; do not regex it out of prose.
 
-Validation is also a security boundary, not only a correctness one. Treat every model output — and every tool result the model reads — as untrusted input, because anything in the context window can carry an instruction. This is the *lethal trifecta* (Simon Willison, 2025): an agent that combines access to private data, exposure to untrusted content, and the ability to communicate externally can be steered by a poisoned document into exfiltrating secrets — and prompt injection has no reliable fix today. A model output flowing into business logic, a shell, or an HTTP call without validation is an injection vector waiting to fire.
-
-Decision rule: budget the trifecta. An agent acting without human review may hold at most two of {private data, untrusted input, external communication}; wanting all three means a human gate or a hard architectural break between the legs (Meta's "rule of two" framing).
+Validation is also a security boundary, not only a correctness one — every model output, and every tool result the model reads, is untrusted input, because anything in the context window can carry an instruction. Budget the trifecta: see [Security](../quality/security.md) §9.
 
 ### 6. Agents are distributed systems
 
-An agent loop — model plans, model takes action, agent observes, model re-plans — has all the problems of a distributed system: retries, idempotency, timeouts, failure isolation. We apply the same patterns ([Integration Patterns](../system-design/integration-patterns.md)): bounded retries, circuit breakers, auditable history. The hardest agent failures are system failures, not model failures.
-
-The live design argument is single-agent versus multi-agent. Anthropic reports a multi-agent research system beating a single agent substantially on its internal eval; Cognition argues that parallel sub-agents making independent decisions on a shared problem produce conflicting, incoherent output. Both are right about different shapes of work, and the variable that decides it is the *isolation boundary*: how much each sub-agent must know about what the others are doing.
-
-Decision rule: split into sub-agents only when the work fans out into independent, read-mostly tasks that each return a small summary (research, search, parallel analysis) — the win is a clean context window per task, not parallelism for its own sake. Keep it a single agent when steps depend on each other's decisions, because coordinating shared mutable state across agents is harder than the problem you started with. And price it in: agents burn multiples of a chat's tokens, multi-agent systems an order of magnitude more.
+An agent loop — model plans, model takes action, agent observes, model re-plans — has all the problems of a distributed system: retries, idempotency, timeouts, failure isolation. We apply the same patterns ([Integration Patterns](../system-design/integration-patterns.md)): bounded retries, circuit breakers, auditable history. The hardest agent failures are system failures, not model failures. The single-agent-versus-multi-agent topology decision, and how to price fan-out, is [Agentic Systems](agentic-systems.md) §1.
 
 ### 7. Cost is part of the evaluation
 
@@ -75,7 +69,9 @@ Decision rule: place the human gate by stakes × reversibility. Cheap, reversibl
 ## How we apply this
 
 - [Agent-Native Systems](agent-native-systems.md) — the flip side, making our interfaces consumable by agents.
+- [Agentic Systems](agentic-systems.md) — the agent-loop topology and context-lifecycle discipline this page assumes.
 - [Observability](../quality/observability.md) — the trace surface for model calls.
+- [Security](../quality/security.md) — the lethal-trifecta / Rule-of-Two budget that governs untrusted model output.
 - [Testing](../foundations/testing.md) — the broader testing discipline evals sit inside.
 
 ## Anti-patterns we reject

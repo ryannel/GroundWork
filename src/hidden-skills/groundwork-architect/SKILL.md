@@ -60,16 +60,14 @@ Load only the rows relevant to the decision. Reference files are in this skill's
 |---|---|
 | Service boundaries, what a service owns, dependency direction, layering | `core-and-boundaries.md` |
 | HTTP/RPC contract shape, versioning, pagination, error model, idempotency | `api-and-contracts.md` |
-| Sync vs async, outbox, webhooks, retries, circuit breakers, timeouts | `integration-patterns.md` |
+| Sync vs async, outbox, webhooks, retries, circuit breakers, timeouts, long-running/multi-step/compensating processes, workflow-as-code, orchestration vs choreography | `integration-and-workflows.md` |
 | WebSockets, streaming, backpressure, reconnection, sequencing | `realtime-and-async.md` |
 | Data ownership, event/table contracts, CQRS, event sourcing, retention | `data-architecture.md` |
 | SLOs, graceful degradation, blast-radius isolation, failure rehearsal | `reliability.md` |
 | Latency budgets, tail latency, caching, load shedding, scale shape | `performance-and-scale.md` |
 | Tracing, telemetry as contract, what to instrument at design time | `observability.md` |
-| Trust model, zero-trust, secrets, supply chain, AI/agent security, multi-tenancy, PII | `security-and-trust.md` |
-| Authn/authz model, OIDC, workload identity (SPIFFE), agent identity, delegation | `identity-and-access.md` |
+| Trust model, zero-trust, secrets, supply chain, authn/authz, workload & agent identity, multi-tenancy, PII | `security-and-trust.md` |
 | Surface↔core seam, BFF, micro-frontends, render placement, design-system-as-contract | `surface-architecture.md` |
-| Long-running/multi-step/compensating processes, workflow-as-code, orchestration vs choreography | `durable-execution.md` |
 | Deployment topology, CI/CD posture, feature-flag/canary strategy, cost shape | `platform-and-delivery.md` |
 | Agent-consumable interfaces, MCP surfaces, AI feature architecture, evals | `ai-native-architecture.md` |
 | Agent topology, multi-agent, memory, durable agents, guardrails, agent oversight | `agentic-systems.md` |

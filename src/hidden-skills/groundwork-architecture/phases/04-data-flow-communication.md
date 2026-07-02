@@ -6,7 +6,7 @@ This phase turns the service map from Phase 3 into a living system. Understandin
 
 API contracts and database schemas are not designed here. They belong to the Bet phase, where each feature is designed in detail. The architecture phase produces the skeleton those details will be built on.
 
-**Apply from the architect references:** `integration-patterns.md` (the sync-vs-async decision, outbox, retries, timeouts as budgets), `realtime-and-async.md` (any streaming/live path), `data-architecture.md` (data ownership, event/table contracts, retention), and `ai-native-architecture.md` (the model-provider decision and what it obligates). Load the reference for the pattern in play and embed its trade-off in the proposal.
+**Apply from the architect references:** `integration-and-workflows.md` (the sync-vs-async decision, outbox, retries, timeouts as budgets), `realtime-and-async.md` (any streaming/live path), `data-architecture.md` (data ownership, event/table contracts, retention), and `ai-native-architecture.md` (the model-provider decision and what it obligates). Load the reference for the pattern in play and embed its trade-off in the proposal.
 
 **How to run this conversation:**
 

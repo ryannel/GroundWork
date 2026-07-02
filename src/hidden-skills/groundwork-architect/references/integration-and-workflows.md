@@ -1,6 +1,8 @@
-# Integration Patterns
+# Integration & Workflows
 
 Services integrate through a small set of well-understood patterns. Pick the pattern based on the **guarantee the integration needs**, not on whatever felt easy. Most production incidents trace back to an integration that chose the wrong consistency model — a sync call where async belonged, an event without idempotency, a fire-and-forget webhook that dropped on retry. The cost of getting it wrong is paid every day, forever, as an intermittent stream of weirdness.
+
+For a process with many steps, a long runtime, or a must-complete-or-compensate guarantee, the same discipline scales up into **durable execution** — workflow-as-code on an engine that checkpoints every step, resuming exactly where it left off after a crash, deploy, or hours-long wait. It moves the reliability guarantee out of hand-written saga/outbox/retry glue and into the infrastructure, and it is the same primitive that makes long-running agents and human approvals safe.
 
 ## The decisions
 
@@ -23,12 +25,25 @@ Services integrate through a small set of well-understood patterns. Pick the pat
 
 When in doubt, async with an idempotent consumer is the more resilient default. Reserve sync for where the guarantee genuinely demands it.
 
-## Dead letters, jitter, and when workflow-as-code takes over
+## Dead letters, jitter, and webhooks in practice
 
 - **Dead-letter handling is a named primitive.** A consumer that exhausts its retries routes the message to a DLQ that *alerts and is worked*, never a silent bin — poison messages are expected, not exceptional.
 - **Backoff carries jitter.** Bounded exponential backoff **with jitter** is mandatory, not optional — synchronized retries without jitter are a retry storm (a self-inflicted DDoS).
-- **Orchestration vs choreography is a step-count call.** Choreography (services react to events) for simple 2–4-step flows; orchestration for 5+ steps, branching, or when you need visibility. And when a flow is genuinely long-running, multi-step, or compensating, reach for **durable execution** (workflow-as-code) instead of hand-assembling outbox + idempotency + retry + sweeper — see [durable-execution.md](durable-execution.md).
 - **Webhooks, current.** A stable event-id for idempotent dedup, a timestamp for a replay-window rejection, **rotating signing keys via JWKS** (not a long-lived shared HMAC secret), and a CloudEvents-shaped payload.
+
+## When workflow-as-code takes over
+
+Name durable execution at design time when a flow is **multi-step, long-running, or compensating** — the hand-rolled alternative (outbox + idempotency key + retry table + state column + a sweeper cron) is a fragile bespoke machine that fails in the gaps between its pieces. Don't reach for it where a single idempotent event handler suffices. A durable workflow and an event backbone are complementary, not rivals: the log decouples producers from consumers and is the source of truth for events; durable execution orchestrates stateful multi-step work on top of it.
+
+The engine provides resume-where-you-left-off and automatic retry; application code expresses the business steps, not the recovery machinery. What it guarantees is **effectively-once**, not exactly-once: activities run *at-least-once* — an engine can crash after a side effect completes but before its result is recorded, and on recovery it runs the step again. The engine makes the *workflow* converge to a single logical outcome; it does not make a non-idempotent `POST` safe on its own. That safety is a property the step author provides with idempotency keys — the same discipline as decision 3 above, one level up.
+
+**Choose the engine by operational shape.** Self-hosted replay engines (Temporal, Restate) for maximum power and flexibility, at the cost of operating the orchestrator. Managed state-machine orchestrators (AWS Step Functions and the equivalents) when the work is gluing managed services together on a single cloud. Embedded/library engines (DBOS, or a Postgres-backed queue plus checkpoint table) for teams already on Postgres who want no new infrastructure, with a real ceiling — every step is at least one write, so a hot workflow fanning out to thousands of children breaks first on Postgres contention. Choose by the operational burden you can carry: the architect names the pattern and the orchestration split, the engineer skill picks and wires the concrete engine.
+
+**Orchestration vs choreography is a deliberate decision — choose by coupling and the need for visibility, not by step count.** Choreography (services react to each other's events, no central coordinator) keeps services loosely coupled and scales naturally, at the cost that no single place knows the state of the whole process. Orchestration (a durable workflow drives the steps) buys central visibility and explicit compensation, at the cost of a coordinator the flow depends on. A concrete case: a two-step order-fulfillment flow that debits payment and reserves inventory, and must refund the payment if the reservation fails, wants orchestration for its compensation and cross-step timeout; a long chain of independent fire-and-forget reactions with no shared deadline or rollback does not, however many steps it has.
+
+**Steps are idempotent, and workflow control flow is deterministic.** Replay-based engines recover by re-executing the workflow function and replaying recorded results for steps already done — so the workflow's control flow must be deterministic (the same history always drives the same branches), while side effects themselves need only be idempotent, not deterministic. A workflow that branches on wall-clock time or unguarded randomness will not replay correctly.
+
+**The substrate for long-running agents.** A long-running agent — plan, act, observe, pause for a human, resume — is a durable workflow: its loop is checkpointed so it survives failure and resumes instead of repeating expensive tool calls, and a human approval is a **durable interrupt** that waits hours or days without holding a thread ([agentic-systems.md](agentic-systems.md)).
 
 ## Antipatterns to catch
 
@@ -37,3 +52,8 @@ When in doubt, async with an idempotent consumer is the more resilient default. 
 - **Commit-then-publish without the outbox** — guaranteed inconsistency the first time a process dies mid-step.
 - **Global retry policies** — "all HTTP calls retry 3× with 1s backoff" ignores the specific downstream's failure profile and the caller's budget.
 - **Dead-letter queues as silent logs** — a DLQ quietly accumulating means integration is failing quietly. Alert and act.
+- **Hand-rolled durability** — a retry table + state column + sweeper cron re-implementing an engine.
+- **Workflow-as-code for everything** — a heavyweight engine where one idempotent handler would do.
+- **Assuming exactly-once side effects** — trusting the platform to make a non-idempotent `POST` safe; only idempotent steps make the outcome effectively-once.
+- **Non-deterministic workflows** — branching on wall-clock time or unguarded randomness so replay diverges.
+- **Holding a thread for a human** — blocking on approval instead of a durable interrupt.

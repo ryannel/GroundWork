@@ -19,7 +19,7 @@ Decide the scaling model from the shape of the demand, not from defaults:
 - For indie/hobby contexts, whether cost can reach near-zero during inactivity (**scale-to-zero**) is a legitimate architectural requirement that shapes every infrastructure choice after it.
 - Fully managed services trade operational burden for higher spend and vendor dependency; self-managed trades convenience for control and cost.
 
-Autoscaling is designed, not enabled: aggressive scaling on a bursty workload multiplies cost without improving experience; conservative scaling on a steady workload wastes headroom. Tune each policy to the production load profile. The 2026 default is **event-driven** autoscaling (KEDA on queue depth / lag / custom signals, Karpenter for nodes) with genuine **scale-to-zero** — which is what closes the idle-cost gap to serverless. CPU-only HPA is the dated reflex.
+Autoscaling is designed, not enabled: aggressive scaling on a bursty workload multiplies cost without improving experience; conservative scaling on a steady workload wastes headroom. Tune each policy to the production load profile. Default to **event-driven** autoscaling (KEDA on queue depth / lag / custom signals, Karpenter for nodes) with genuine **scale-to-zero** — which is what closes the idle-cost gap to serverless. CPU-only HPA is the dated reflex.
 
 ## Compute placement is a design axis
 
@@ -30,7 +30,7 @@ Autoscaling is designed, not enabled: aggressive scaling on a bursty workload mu
 
 ## The AI-cost lever
 
-For a model-in-the-loop feature, latency and cost track **tokens, not requests** (output ≈4× input). The architectural levers: **model routing** (small model for the easy majority, frontier for the hard minority — often a 100×+ delta), **semantic caching** (large savings on repetitive prompts), and an **AI gateway** that enforces budgets, routing, and fallback ([platform-and-delivery.md](platform-and-delivery.md)). A latency budget that ignores token count is incomplete for an AI path.
+For a model-in-the-loop feature, latency and cost track **tokens, not requests** — a latency budget that ignores token count is incomplete for an AI path. The routing / semantic-caching / gateway levers that manage it are [ai-native-architecture.md](ai-native-architecture.md) #7.
 
 ## Antipatterns to catch
 

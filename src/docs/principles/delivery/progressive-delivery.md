@@ -68,6 +68,10 @@ One rollout model, one flag system, one canary pattern. Different services with 
 
 Feature flags use the vendor-neutral **OpenFeature** standard (a CNCF incubating project) so the management plane stays swappable behind a stable evaluation API. The progressive-delivery engine follows the GitOps tool and owns traffic weighting and automated canary analysis: **Argo Rollouts** in an ArgoCD shop, **Flagger** in a Flux shop. Both are CNCF projects and production-viable; the lean is Argo Rollouts when you want explicit, step-based control with approval gates between stages, and Flagger when you want hands-off, metric-driven promotion with minimal manifest change. Either way the rollout machinery is declarative and lives in the repository, not in a console someone clicks.
 
+### 10. The bet contract's front-door proof is a stronger gate than a flag
+
+This page teaches the general technique: ship dark behind a flag, then release deliberately. GroundWork's bet delivery contract asks for more than that — a milestone closes only once a slice has been proven by driving the real product through its real front door for a named consumer, so a trunk merge requires no feature flag to be safe; the proof *is* the release gate. Flags stay available as a team-optional tool *inside* that guarantee — reach for one for staged exposure, a kill switch, or cohort rollout — but the bet contract does not depend on them the way general progressive-delivery practice does.
+
 ## How we apply this
 
 - [DevEx](devex.md) — the inner loop that feeds into continuous delivery.

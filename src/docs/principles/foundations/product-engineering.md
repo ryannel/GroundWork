@@ -36,11 +36,9 @@ You can only shape what you understand. Decision rule: shape when you know the p
 
 ### 3. Appetite, not estimate
 
-We set an *appetite* — a statement of how much a problem is worth solving, judged by opportunity cost — and design a solution that fits inside it. If it cannot fit, we reduce scope or reject the work. This inverts the usual flow: an estimate starts with a fixed solution and ends with a number; an appetite starts with the number and ends with a solution. It forces "what is the best version of this we can deliver for what it is worth?" and it kills the tendency of work to expand to fill the time available.
+We set an *appetite* — a statement of how much a problem is worth solving, judged by opportunity cost and denominated in worth rather than effort — and design a solution that fits inside it. If it cannot fit, we reduce scope or reject the work. This inverts the usual flow: an estimate starts with a fixed solution and ends with a number; an appetite starts with the number and ends with a solution.
 
-We denominate appetite in worth, not effort, and not by default in calendar time. AI compresses execution unpredictably — sometimes a 19% *slowdown* on familiar code an expert already moves fast through, sometimes a large speedup on unfamiliar ground (per METR's 2025 trial) — so a fixed "two weeks" now anchors on the axis that just got cheap and noisy.
-
-Appetite does not abolish estimation everywhere, and pretending it does is its own failure. A partner-integration deadline, a compliance date, a contractual SLA — these demand a real estimate and a real date, and the appetite must respect them as constraints. Decision rule: appetite governs discretionary product bets, which is most of the portfolio; estimate where a hard external date or dependency exists, and feed that estimate in as a boundary. The error is mixing them up — estimating discretionary work, or setting a soft "appetite" for an obligation that has a date attached. How big a bet is, separately, is its *stakes* — what is at risk if we are wrong; see [prioritization-and-appetite](prioritization-and-appetite.md).
+Appetite does not abolish estimation everywhere: a partner-integration deadline, a compliance date, a contractual SLA demand a real estimate and a real date, and the appetite must respect them as a constraint. Decision rule: appetite governs discretionary product bets, which is most of the portfolio; estimate where a hard external date or dependency exists, and feed that estimate in as a boundary. The full appetite doctrine — worth as the denomination, why AI destabilized effort as a sizing proxy, and how *stakes* sizes a bet separately from worth — lives in [Prioritization & Appetite](prioritization-and-appetite.md).
 
 ### 4. Kill your darlings
 

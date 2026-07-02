@@ -12,7 +12,7 @@ We only collect what we need, keep it only as long as we need it, expose it only
 
 ## Why this matters
 
-A privacy failure is not a regulatory inconvenience — it is a direct breach of user trust. When a platform handles sensitive user data, remediation is punishingly expensive. Privacy has to be thought about at design time, because once the data exists in the wrong shape or the wrong place, it cannot easily be undone. Some of it — anything that has been backed up, copied to a warehouse, or trained into a model — cannot be undone at all without a deliberate plan made before collection.
+A privacy failure is not a regulatory inconvenience — it is a direct breach of user trust. When a product handles sensitive user data — whether it's a platform, a CLI, or a desktop app — remediation is punishingly expensive. Privacy has to be thought about at design time, because once the data exists in the wrong shape or the wrong place, it cannot easily be undone. Some of it — anything that has been backed up, copied to a warehouse, or trained into a model — cannot be undone at all without a deliberate plan made before collection.
 
 ## Our principles
 

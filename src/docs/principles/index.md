@@ -6,7 +6,7 @@ last_reviewed: 2026-06-19
 ---
 # Engineering Manifesto
 
-Software engineering is the discipline of managing complexity and optimising for change. A platform that processes high-volume asynchronous workloads and serves users in real time at scale must lean hard on a solid technical foundation, frictionless developer velocity, and a rigorous engineering culture.
+Software engineering is the discipline of managing complexity and optimising for change. A product a team ships and operates — whatever its shape, from a high-volume real-time platform to a CLI or a desktop app — must lean hard on a solid technical foundation, frictionless developer velocity, and a rigorous engineering culture.
 
 > [!IMPORTANT]
 > These principles are the shared vocabulary we use to decide what to build, how to build it, and what trade-offs we accept. Every page in this hub stands on its own and does not require context from any other document to be useful.

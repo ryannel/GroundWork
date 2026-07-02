@@ -10,7 +10,7 @@ When an AI agent is an actor in the system — planning, calling tools, acting o
 
 ## Interop — design to the protocol stack
 
-Reach the world through standards, not glue: **MCP** for tools/data, **A2A** for agent-to-agent delegation, **AG-UI** for the agent↔interface event stream. Designing to the protocols keeps agents, tools, and surfaces independently replaceable. A design that names only MCP is a year behind.
+Reach the world through standards, not glue: **MCP** for tools/data, **A2A** for agent-to-agent delegation, **AG-UI** for the agent↔interface event stream. Designing to the protocols keeps agents, tools, and surfaces independently replaceable. A design that names only MCP is incomplete.
 
 ## Context & memory — the scarce resource
 
@@ -19,7 +19,7 @@ Reach the world through standards, not glue: **MCP** for tools/data, **A2A** for
 
 ## Durability — long-running agents resume, not restart
 
-An agent that runs for minutes/hours will be interrupted. Build it on **durable execution** (Temporal / LangGraph checkpointer / event-sourced state) so it resumes from the last committed step without repeating side effects ([durable-execution.md](durable-execution.md)). Durability moves the reliability guarantee out of the prompt and into infrastructure, and is what makes human-pause and long tool calls safe.
+An agent that runs for minutes/hours will be interrupted. Build it on **durable execution** (Temporal / LangGraph checkpointer / event-sourced state) so it resumes from the last committed step without repeating side effects ([integration-and-workflows.md](integration-and-workflows.md)). Durability moves the reliability guarantee out of the prompt and into infrastructure, and is what makes human-pause and long tool calls safe.
 
 ## Guardrails — the input is adversarial
 
@@ -28,7 +28,7 @@ An agent that runs for minutes/hours will be interrupted. Build it on **durable 
 
 ## Authority & oversight — least agency, human gate sized to stakes
 
-Give the agent the minimum authority its task needs; the riskier the action, the tighter the leash. High-stakes actions pause at a **human approval gate** implemented as a durable interrupt that resumes on decision (not a blocking call); lower-stakes route by confidence. Distinguish human-*in*-the-loop (approve before acting) from human-*on*-the-loop (monitor/intervene). A loop with no termination condition and no oversight is an autonomous incident waiting to happen. Agent identity and pre-action tool authorization belong to [identity-and-access.md](identity-and-access.md).
+Give the agent the minimum authority its task needs; the riskier the action, the tighter the leash. High-stakes actions pause at a **human approval gate** implemented as a durable interrupt that resumes on decision (not a blocking call); lower-stakes route by confidence. Distinguish human-*in*-the-loop (approve before acting) from human-*on*-the-loop (monitor/intervene). A loop with no termination condition and no oversight is an autonomous incident waiting to happen. Agent identity and pre-action tool authorization belong to [security-and-trust.md](security-and-trust.md).
 
 ## Evals & traces — the reliability surface
 

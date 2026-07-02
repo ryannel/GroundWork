@@ -30,7 +30,7 @@ The contents of the context window are the single biggest lever on agent behavio
 
 ### 4. Memory is a designed, tiered system
 
-An agent's memory is architecture, not an afterthought: **working memory** (the live context), **long-term memory** (durable facts and preferences, retrieved on demand), and **vector memory** (semantic recall over past interactions and knowledge). Each tier has an explicit write policy, retention, and retrieval path — and that write policy is a **trust boundary**, not just a cache rule: anything an agent persists can be poisoned once and replayed forever, which is why OWASP's 2026 Agentic list names memory and context poisoning as a distinct risk. Persist only validated, client-safe facts; keep secrets and PII out of recallable tiers. Memory left implicit becomes either amnesia or unbounded context growth.
+An agent's memory is architecture, not an afterthought: **working memory** (the live context), **long-term memory** (durable facts and preferences, retrieved on demand), and **vector memory** (semantic recall over past interactions and knowledge). Each tier has an explicit write policy, retention, and retrieval path — and that write policy is a **trust boundary**, not just a cache rule: anything an agent persists can be poisoned once and replayed forever, which is why OWASP's Agentic list names memory and context poisoning as a distinct risk. Persist only validated, client-safe facts; keep secrets and PII out of recallable tiers. Memory left implicit becomes either amnesia or unbounded context growth.
 
 ### 5. Long-running agents are durable
 
@@ -38,7 +38,9 @@ An agent loop that runs for minutes or hours will be interrupted — a crash, a 
 
 ### 6. The input is adversarial; guardrails are architecture
 
-An agent mixes instructions and data in one channel, so **prompt injection** is a structural risk, not an edge case — and it arrives indirectly, through retrieved documents, tool outputs, and other agents (an injection in shared context propagates). There is no known complete fix: as of 2026 injection is mitigated in layers, not solved, so design for containment, not prevention. We validate at every trust boundary, constrain what each tool can do, mediate tool access and model traffic through a gateway control point, and treat a model output crossing into code or an action as untrusted until checked. The hard line: **no model-influenced instruction reaches an irreversible or high-privilege action without a deterministic, non-LLM check or a human gate in front of it** — an LLM cannot be the thing that decides whether to trust an LLM. Prompt injection has topped OWASP's LLM risks (LLM01) every year the list has existed, and the 2026 Agentic list extends the same logic to tool misuse and memory poisoning.
+An agent mixes instructions and data in one channel, so **prompt injection** is a structural risk, not an edge case — and it arrives indirectly, through retrieved documents, tool outputs, and other agents (an injection in shared context propagates). There is no known complete fix: injection today is mitigated in layers, not solved, so design for containment, not prevention. We validate at every trust boundary, constrain what each tool can do, mediate tool access and model traffic through a gateway control point, and treat a model output crossing into code or an action as untrusted until checked. Prompt injection has topped OWASP's LLM risks (LLM01) every year the list has existed, and OWASP's Agentic list extends the same logic to tool misuse and memory poisoning.
+
+The authority budget that decides where the human-or-deterministic gate sits — the lethal trifecta / Agents Rule of Two — is [Security](../quality/security.md) §9's call: an LLM cannot be the thing that decides whether to trust an LLM.
 
 ### 7. Least agency, with a human review point sized to the stakes
 
@@ -54,6 +56,7 @@ The capability core stays headless and deterministic where it can; the agent is 
 
 - [Agent-Native Systems](agent-native-systems.md) — designing the interfaces agents consume.
 - [AI Engineering](ai-engineering.md) — the prompt/eval/context discipline underneath.
+- [Security](../quality/security.md) — the lethal-trifecta / Rule-of-Two authority budget guardrails answer to.
 - [Integration Patterns](../system-design/integration-patterns.md) — the distributed-systems patterns an agent loop inherits.
 
 ## Anti-patterns we reject

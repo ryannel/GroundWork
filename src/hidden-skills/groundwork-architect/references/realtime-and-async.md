@@ -13,11 +13,10 @@ Real-time features are long-lived bidirectional contracts between client and ser
 7. **Observability is unbroken across the socket.** A trace that enters via HTTP, opens a socket, streams many events, and closes belongs to one trace. Propagate trace context into the socket and carry it on every event.
 8. **Client state is recoverable, not sacred.** Any client state that matters must be reconstructable from the server. Rejoining a session produces the same observable state — the server is the source of truth.
 
-## LLM streaming, collaboration, and what not to ship yet
+## LLM streaming and collaboration
 
-- **LLM streaming** is the canonical 2026 real-time pattern: **SSE for the token data-plane**, a WebSocket (or internal gRPC) for the **control-plane** (cancel, feedback injection). Its failure modes extend the ones above — slow first token, partial-response loss on a provider retry, backpressure stalls — so apply sequencing and backpressure to the token stream.
+- **LLM streaming** is the canonical real-time pattern for a model in the loop: **SSE for the token data-plane**, a WebSocket (or internal gRPC) for the **control-plane** (cancel, feedback injection). Its failure modes extend the ones above — slow first token, partial-response loss on a provider retry, backpressure stalls — so apply sequencing and backpressure to the token stream.
 - **Collaborative / offline-first → CRDTs.** For multi-user editing and local-first apps, **CRDTs** (Yjs the ecosystem default, Automerge for Git-like history) make the local copy the source of truth with background sync — the principled answer where "echo suppression + recoverable client state" was gesturing. Don't hand-roll last-write-wins where a CRDT is the right tool.
-- **WebTransport: prototype, don't ship.** QUIC/HTTP-3-based and promising for high-scale/low-latency, but with no Safari support in 2026 it is not production-ready — keep it to prototypes.
 
 ## Antipatterns to catch
 

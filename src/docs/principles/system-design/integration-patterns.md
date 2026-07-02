@@ -32,9 +32,9 @@ How the relay reads the outbox is a real choice, not a detail. A polling relay i
 
 Every message handler — webhook receiver, message broker worker, retry-on-failure task — is idempotent. It either carries its own de-duplication key or it operates on keys that make replay safe (an `UPSERT` on a natural key, a conditional update guarded by a version). "At-least-once delivery" is the only delivery guarantee we ever get, and idempotent handling is the only response that works.
 
-### 4. Retries have policies, not just defaults
+### 4. Retries have a shape — budgets and circuit breakers are Reliability's call
 
-Every retry policy has an explicit maximum, an explicit backoff curve *with jitter*, and an explicit dead-letter destination. "Retry forever with 1-second backoff" is not a policy — it is how a transient failure becomes a thundering herd, and backoff without jitter just re-synchronizes that herd on the next tick. Cap the aggregate, too: retries should consume only a small, bounded fraction of total traffic (a *retry budget*), or one slow dependency turns every caller into an amplifier. Retries that hit the dead-letter queue fire an alert; the queue is not a garbage bin.
+Every retry policy has an explicit maximum, an explicit backoff curve *with jitter*, and an explicit dead-letter destination that fires an alert, not a bin that quietly fills. How much retrying is allowed in aggregate, and whether a circuit breaker or a retry budget is the right backstop for overload, is the reliability discipline — see [Reliability](../quality/reliability.md) §4.
 
 ### 5. Webhooks follow the Standard Webhooks shape
 
@@ -42,27 +42,20 @@ Don't reinvent webhook security; follow the Standard Webhooks spec. Sign with HM
 
 ### 6. Timeouts are end-to-end budgets
 
-Every synchronous call has a timeout, and the timeout is allocated from a *budget* set by the outermost caller. A request with a 2-second budget at the edge does not get to spend 1.5 seconds on a single downstream call — that leaves no slack for retries, for the handler itself, or for the next downstream. Budgeting is a cooperative discipline; without it, tail latencies compound unpredictably ([Performance](../quality/performance.md)).
+Every synchronous call has a timeout allocated from the budget set by the outermost caller, never chosen locally — the allocation discipline is [Performance](../quality/performance.md) §1.
 
-### 7. Circuit breakers cut both ways — prefer retry budgets for overload
-
-The classic circuit breaker opens after a threshold of failures, fast-fails while open, and probes periodically for recovery. It earns its place against a *binary* dependency — one downstream, all-or-nothing — where fast-failing beats tying up threads on an inevitable timeout. But Marc Brooker's critique holds: a breaker is designed to turn partial failure into total failure, and in a sharded or cell-based system it cannot distinguish "the dependency is down" from "one partition is down," so it either degrades every caller or might as well not exist. A tripped breaker also slows recovery and complicates testing.
-
-Decision rule: for overload — the common case — cap retries with a token bucket or retry budget and shed load at the source, rather than swinging a global breaker. Reserve the breaker for genuinely all-or-nothing dependencies, and scope it per-partition, never across a whole sharded fleet.
-
-### 8. Every integration has a contract test
+### 7. Every integration has a contract test
 
 A test that exercises the real integration — the real signature verification, the real retry curve, the real idempotency behaviour — runs in CI against an emulator. "It works in the happy path" is not a test; an integration that has only happy-path coverage is an incident waiting for its trigger.
 
-### 9. Multi-step flows: choreography, orchestration, or durable execution
+### 8. Multi-step flows: choreography, orchestration, or durable execution
 
-Step count is a weak proxy; the real axis is who owns the end-to-end outcome. Choreography — each service reacts to events and emits its own — keeps services loosely coupled but makes the overall flow implicit: no single place shows what is supposed to happen or where it stalled, and that cost grows with every step and branch. Orchestration puts one coordinator in charge of the sequence and its compensations, buying visibility and explicit failure handling at the price of a central coupling point.
-
-Decision rule: choreography when the steps are genuinely independent reactions with no shared deadline or rollback; orchestration when there is a real business transaction — ordering, compensation, a timeout that spans steps. For anything long-running, multi-step, or compensating, reach for durable execution (workflow-as-code) rather than hand-assembling outbox + idempotency + retry + sweeper for the hundredth time ([Durable Execution](durable-execution.md)).
+Choreography — each service reacts to events and emits its own — keeps services loosely coupled but makes the overall flow implicit: no single place shows what is supposed to happen or where it stalled. Orchestration puts one coordinator in charge of the sequence and its compensations, buying visibility and explicit failure handling at the price of a central coupling point. The decision rule — choose by coupling and the need for visibility, not step count — and the durable-execution escalation for anything long-running or compensating live in one place: [Durable Execution](durable-execution.md) §5.
 
 ## How we apply this
 
-- [Reliability](../quality/reliability.md) — the broader system-level treatment of failure modes.
+- [Reliability](../quality/reliability.md) — the broader system-level treatment of failure modes, including retry budgets and circuit breakers.
+- [Performance](../quality/performance.md) — the latency-budget discipline timeouts are allocated from.
 - [Testing](../foundations/testing.md) — the contract-testing discipline.
 
 ## Anti-patterns we reject
