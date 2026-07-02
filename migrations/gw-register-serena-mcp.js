@@ -9,7 +9,7 @@ const path = require('path');
 
 const SERENA_MCP_SERVER = {
   command: 'uvx',
-  args: ['--from', 'serena-agent==1.5.3', 'serena', 'start-mcp-server', '--context', 'ide-assistant', '--project', '.'],
+  args: ['--from', 'serena-agent==1.5.3', 'serena', 'start-mcp-server', '--context', 'ide-assistant', '--project', '.', '--open-web-dashboard', 'false'],
 };
 
 module.exports = {

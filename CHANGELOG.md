@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (Serena MCP startup nag and browser dashboard popup, 2026-07-02)
+
+Two per-session irritations in every Claude Code install, both traced to Serena's registration. Claude Code asks to approve the project-scoped `.mcp.json` server on every startup because it saves the answer to `.claude/settings.local.json` — a write that fails through the `.claude → .agents` directory symlink, so the approval never sticks ("could not be saved … you will be asked again next startup"). `init` and `update` now approve the server for the whole project in the committed `.claude/settings.json` (`enabledMcpjsonServers: ["serena"]`), which every worktree inherits — the prompt never fires and the un-savable file is never needed. And the Serena entry now passes `--open-web-dashboard false`, so the user-level Serena config no longer opens a browser dashboard tab on every MCP launch; the dashboard stays up and manually reachable.
+
+- [migration] Older installs get the flag appended to a shipped-shape Serena entry and the approval merged into `.claude/settings.json`; user-customized entries, other approvals, and unparseable settings are left untouched (gw-serena-quiet-enable)
+
 ### Changed (model tiers set explicitly at every dispatch site, 2026-07-02)
 
 A live delivery run showed slice-workers running at `frontier` despite the `execution` tier policy: the dispatch sites named the tier but left the concrete mechanism one pointer-hop away in the operating contract, and a dispatch that omits the host's model parameter silently inherits the driver's session model — the policy defeated with nothing visibly failing. Every dispatch site now states the rule inline in the doctrine's own class vocabulary — set the tier's model explicitly on the dispatch (the host's Opus-class / Sonnet-class model), never rely on inheritance — and the one concrete reference-host mapping (`frontier`→`"opus"`, `execution`→`"sonnet"`, `light`→`"haiku"` on Claude Code) lives in a single place, the Model Tiers Mechanism paragraph, keeping the canon host-agnostic. The slice-worker dispatch also names its tier→model choice in its one-line dispatch note so an omission is visible to the user watching the run. Touched: the operating contract's Model Tiers mechanism and Protocol 9 dispatch, delivery's slice-worker / review-lens / experience-auditor dispatches, the update driver's reconcile-worker dispatch, and the patch lane's blind-review dispatch.

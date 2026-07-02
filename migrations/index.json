@@ -42,6 +42,13 @@
       "title": "Seed the capture reminder hook into Claude Code installs",
       "kind": "cli",
       "summary": "Seeds the non-blocking Claude Code capture-reminder PreToolUse hook into older installs; n/a without a .claude dir."
+    },
+    {
+      "id": "gw-serena-quiet-enable",
+      "version": "0.14.0",
+      "title": "Silence Serena's dashboard popup and pre-approve the MCP server",
+      "kind": "cli",
+      "summary": "Appends --open-web-dashboard false to the shipped-shape Serena entry and approves the server in .claude/settings.json (enabledMcpjsonServers) so Claude Code stops re-asking every startup; user-customized entries and unparseable settings are untouched."
     }
   ]
 }

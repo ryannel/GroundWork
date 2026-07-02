@@ -1064,10 +1064,12 @@ function printWiringGuidance(selectedKeys) {
 // use its symbolic editing. The registration is idempotent and additive — it never clobbers
 // other servers — and it removes any prior depwire entry so a re-init/upgrade swaps cleanly.
 // Every consumer degrades gracefully when Serena is absent (it needs `uv`), so this is a
-// force-multiplier, never a hard dependency.
+// force-multiplier, never a hard dependency. --open-web-dashboard false stops Serena's
+// browser tab popping on every MCP launch (the user-level serena_config.yml default);
+// the dashboard itself stays up and manually reachable.
 const SERENA_MCP_SERVER = {
   command: 'uvx',
-  args: ['--from', 'serena-agent==1.5.3', 'serena', 'start-mcp-server', '--context', 'ide-assistant', '--project', '.'],
+  args: ['--from', 'serena-agent==1.5.3', 'serena', 'start-mcp-server', '--context', 'ide-assistant', '--project', '.', '--open-web-dashboard', 'false'],
 };
 function registerSerenaMcp(targetDir) {
   const mcpPath = path.join(targetDir, '.mcp.json');
@@ -1090,6 +1092,44 @@ function registerSerenaMcp(targetDir) {
   } catch (err) {
     c.warn(`Could not register Serena MCP server: ${err.message}`);
     console.warn(`         GroundWork still works without it — the code map falls back to LLM inference.`);
+  }
+}
+
+// Approve the project-scoped Serena server in the committed .claude/settings.json.
+// Claude Code asks per-user whether to enable .mcp.json servers and saves the answer to
+// .claude/settings.local.json — a write that fails through the .claude → .agents dir
+// symlink, so the prompt returns every session ("could not be saved … you will be asked
+// again next startup"). Approving in the committed file sidesteps the prompt for everyone
+// on the project, and every worktree inherits it. Idempotent; other entries preserved.
+function mergeSerenaEnableSettings(settingsPath) {
+  let settings = {};
+  if (fs.existsSync(settingsPath)) {
+    try {
+      settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) || {};
+    } catch {
+      c.warn(`Could not parse ${path.basename(settingsPath)} — left it untouched; add "serena" to enabledMcpjsonServers by hand.`);
+      return false;
+    }
+  }
+  const enabled = Array.isArray(settings.enabledMcpjsonServers) ? settings.enabledMcpjsonServers : [];
+  if (enabled.includes('serena')) return false; // user keeps their config; we never duplicate
+  settings.enabledMcpjsonServers = [...enabled, 'serena'];
+  fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+  fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
+  return true;
+}
+
+// Only acts for a Claude Code install — enabledMcpjsonServers is a Claude Code settings
+// key, and native-only installs have no .claude dir to write into. Same gate as the
+// capture hook: the wired-agent set, falling back to the presence of a .claude dir.
+function enableSerenaMcp(p, selectedKeys) {
+  const wantsClaude = (selectedKeys && selectedKeys.includes('claude-code')) || fs.existsSync(path.join(p.targetDir, '.claude'));
+  if (!wantsClaude) return;
+  try {
+    const added = mergeSerenaEnableSettings(path.join(p.targetDir, '.claude', 'settings.json'));
+    if (added) c.ok(`Approved the Serena MCP server for Claude Code (.claude/settings.json)`);
+  } catch (err) {
+    c.warn(`Could not approve the Serena MCP server in settings: ${err.message}`);
   }
 }
 
@@ -1258,6 +1298,7 @@ async function initGroundWork(options = {}) {
   persistAgents(p, selected);
 
   registerSerenaMcp(p.targetDir);
+  enableSerenaMcp(p, selected);
   seedCaptureHook(p, selected);
 
   printWiringGuidance(selected);
@@ -1395,6 +1436,7 @@ function updateGroundWork(flags = {}) {
     }
     applyTier2(p, tier2);
     applyDevCli(p, devCli);
+    enableSerenaMcp(p, readPersistedAgents(p) || []);
     seedCaptureHook(p, readPersistedAgents(p) || []);
   } catch (err) {
     c.err(`Update failed while copying files: ${err.message}`);

@@ -200,6 +200,12 @@ def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):
     assert "gw-register-serena-mcp" in recorded
     mcp_servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
     assert "serena" in mcp_servers and "depwire" not in mcp_servers
+    # The quiet-enable heal: dashboard flag on the entry, approval in the committed
+    # settings so Claude Code stops re-asking (and re-failing to save) every startup.
+    assert "gw-serena-quiet-enable" in recorded
+    assert mcp_servers["serena"]["args"][-2:] == ["--open-web-dashboard", "false"]
+    settings = json.loads((project / ".claude/settings.json").read_text())
+    assert "serena" in settings["enabledMcpjsonServers"]
     # Agent migrations are retired: structural advancement is the groundwork-update
     # skill's reconcile pass (its Family Index), never a registry-driven brief item.
     # The brief, if written at all, carries only file-lane work (tier2/tier1/regenerate).
@@ -209,6 +215,31 @@ def test_pre09_fixture_gets_exactly_the_pending_cli_migrations(tmp_path):
         assert not any(i.startswith("gw-") for i in ids), (
             f"no migration-derived brief items expected post-retirement, got {ids}"
         )
+
+
+def test_quiet_enable_heals_an_already_registered_serena_install(tmp_path):
+    project = seed("pre-0.9", tmp_path)
+    # The 0.13-era shape: serena already registered (the register migration reads as done),
+    # but without the dashboard flag and with no approval in the committed settings.
+    (project / ".mcp.json").write_text(json.dumps({
+        "mcpServers": {
+            "serena": {
+                "command": "uvx",
+                "args": ["--from", "serena-agent==1.5.3", "serena", "start-mcp-server",
+                         "--context", "ide-assistant", "--project", "."],
+            },
+            "custom": {"command": "docker", "args": ["run", "my-mcp"]},
+        }
+    }))
+
+    proc = run_cli(["update"], project)
+    assert proc.returncode == 0, proc.stderr
+    servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
+    assert servers["serena"]["args"][-2:] == ["--open-web-dashboard", "false"]
+    # Additive: the neighbouring user server is untouched.
+    assert servers["custom"] == {"command": "docker", "args": ["run", "my-mcp"]}
+    settings = json.loads((project / ".claude/settings.json").read_text())
+    assert "serena" in settings["enabledMcpjsonServers"]
 
 
 @pytest.mark.parametrize("label", LABELS)

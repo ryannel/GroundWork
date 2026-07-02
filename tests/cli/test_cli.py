@@ -67,7 +67,27 @@ def test_init_installs_the_contract(project):
     assert state["groundwork"]["agents"] == ["claude-code"]
     mcp_servers = json.loads((project / ".mcp.json").read_text())["mcpServers"]
     assert "serena" in mcp_servers and "depwire" not in mcp_servers
+    # Quiet launch: no browser dashboard tab on MCP startup.
+    assert mcp_servers["serena"]["args"][-2:] == ["--open-web-dashboard", "false"]
+    # The server is approved in the committed settings — Claude Code never prompts, so it
+    # never needs the .claude/settings.local.json write that fails through the dir symlink.
+    settings = json.loads((project / ".claude/settings.json").read_text())
+    assert settings["enabledMcpjsonServers"] == ["serena"]
     assert (project / "llms.txt").exists()
+
+
+def test_reinit_preserves_other_mcp_approvals(project):
+    run_cli(["init"], project)
+    settings_path = project / ".agents/settings.json"
+    settings = json.loads(settings_path.read_text())
+    settings["enabledMcpjsonServers"] = ["other-server"]
+    settings_path.write_text(json.dumps(settings))
+
+    proc = run_cli(["init"], project)
+    assert proc.returncode == 0, proc.stderr
+    enabled = json.loads(settings_path.read_text())["enabledMcpjsonServers"]
+    # Additive and idempotent: serena is re-approved once, the user's entry survives.
+    assert enabled == ["other-server", "serena"]
 
 
 def test_init_agent_flag_wires_only_named_agents(project):

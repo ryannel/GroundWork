@@ -144,9 +144,10 @@ In a **git worktree** (e.g. a bet under delivery): the map cache is per-working-
 in the worktree before relying on it (`npx groundwork-method repo-map`), and index Serena's symbol
 cache once (`serena project index` — seconds) so the symbol tools answer instead of returning cold.
 Serena is registered with `--project .`, which resolves to the directory the *session* is rooted in.
-A worktree-rooted session resolves it to the worktree correctly — but a fresh worktree's
-`.claude/settings.json` enables no MCP servers, so the tools never load until you enable them there
-(`enabledMcpjsonServers: ["serena"]`). A worker running as a Task subagent in the *root* session
+A worktree-rooted session resolves it to the worktree correctly, and the committed
+`.claude/settings.json` already approves the server (`enabledMcpjsonServers: ["serena"]`), so the
+tools load without per-worktree setup — if they never appear, check that approval is still there
+before suspecting anything deeper. A worker running as a Task subagent in the *root* session
 instead gets root-scoped symbols: accurate for committed code, stale for its own uncommitted edits —
 re-index touched files (`serena project index-file`) or read those locally. None of this is the same
 as Serena being *absent* (no `uv`, sandboxed, headless) — that is the genuine degraded case above,
