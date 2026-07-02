@@ -15,7 +15,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | 0 | Baseline CI + this ledger | landed (this commit) | `./dev ci` green on 280f227: lint, 227 gen, 14 contracts, 59 cli, 28 compile. Baseline words: hidden 164,222 · skills 4,932 · engineer 69,237 · docs 72,391 · skill-writer 2,408 · contributor 7,367 · scaffold-designer 1,486 · AGENTS 232 = 322,275 |
 | A1 | skill-writer rebuild (taxonomy, budget cluster, density, router-description, cross-file integrity, 6× FLAG(10) amendments) | pending | — |
 | A2 | contributor split → core + references/{testing,releasing,cross-phase-contracts}; 6 drift fixes; writer-ref lint; D12 statement | pending | — |
-| A3 | scaffold-designer re-grounding (item count invariant) | pending | — |
+| A3 | scaffold-designer re-grounding (item count invariant) | landed (this commit) | item count 26→26 verified against pre-edit blob; 1,486→1,207 words; path fix verified against `scaffold-helpers.ts`; generators.json + changelog-gate steps added |
 | A4 | CLAUDE.md/AGENTS.md router completion | pending | — |
 | A5 | reference-link lint; `Distilled into` column ×8 anchors; re-stamp convention | pending | — |
 | B1 | approved-tag writer + `Surface:` field + update backfill arm | pending | — |

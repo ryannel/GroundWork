@@ -5,11 +5,11 @@ description: Use this skill whenever the user wants to design, architect, or bui
 
 # Scaffold Designer
 
-This skill governs the design of new scaffolding templates and generators in the GroundWork ecosystem. Its job is to make sure any new scaffold (a microservice, a library, a testing framework) meets the "Day 2" operational standards the existing generators set — the features below are what makes a generated service survivable in week two, not just bootable on day one.
+This skill governs the design of new scaffolding templates and generators in the GroundWork ecosystem. Its job is to make sure any new scaffold meets the "Day 2" operational standards the existing generators set — the features below are what makes a generated service survivable in week two, not just bootable on day one.
 
-> **These checklists are summaries, not canon.** Each item condenses policy whose source of truth is `src/docs/principles/` and the existing generators under `src/generators/`. When designing, verify an item against the current generator behavior before treating it as binding — and when a principle or generator changes, update the matching checklist item here in the same change. A checklist that drifts from the generators it describes is worse than none.
+> **These checklists are summaries, not canon.** Source of truth is `src/docs/principles/` and the generators under `src/generators/` — verify an item against current generator behavior before treating it as binding, and update the matching item here when a principle or generator changes. A checklist that drifts from the generators it describes is worse than none.
 >
-> **The stack-agnostic canon is [The Day-2 Operational Baseline](../../../src/docs/principles/delivery/day-2-operational-baseline.md).** It defines what *good* means independent of language or framework — config validation, typed errors, a debug entry point, observability, graceful shutdown, a pure core, a fast test, dev-CLI integration — plus the two rules every scaffold upholds: **no empty capabilities** and **off-script still lands well**. The Backend and Frontend lists below are that baseline elaborated into a specific stack's idiom. When a new stack has no generator, the forge skill (`groundwork-stack-forge`) holds it to the baseline directly; design any new generator to clear the baseline first and the stack-specific list second.
+> **The stack-agnostic canon is [The Day-2 Operational Baseline](../../../src/docs/principles/delivery/day-2-operational-baseline.md).** It defines what *good* means independent of language or framework, plus the two rules every scaffold upholds: **no empty capabilities** and **off-script still lands well**. The Backend and Frontend lists below are that baseline elaborated into a specific stack's idiom. When a new stack has no generator, the forge skill (`groundwork-stack-forge`) holds it to the baseline directly; design any new generator to clear the baseline first and the stack-specific list second.
 
 ## Design Workflow
 
@@ -17,24 +17,24 @@ When a user asks to design a new service scaffold or generator, work through the
 
 1. **Information Gathering**: Understand the core purpose of the new scaffold. What languages/frameworks does it use? Is it a backend service, a frontend app, or a testing utility?
 2. **Feature Mapping**: Cross-reference the requirements with the relevant **GroundWork Day-2 Feature Checklist** below. Use the **Backend** checklist for Go/Python microservices and the **Frontend** checklist for Next.js apps. Apply both when the scaffold is a full-stack BFF (Backend For Frontend).
-3. **Draft the Implementation Plan**: Create a detailed plan specifying how the generator will produce the template files, how it will manipulate existing workspace files (like `docker-compose.yml` or the per-project `project.json`), and how it satisfies the required features.
+3. **Draft the Implementation Plan**: Create a detailed plan specifying how the generator will produce the template files, how it will manipulate existing workspace files, and how it satisfies the required features.
 4. **User Review**: Always present the plan to the user for explicit approval before writing any generator code.
 
 ## GroundWork Day-2 Feature Checklist — Backend Services
 
 Every new backend service scaffold **MUST** support or explicitly opt-out of the following features. Use this checklist to validate the design of the scaffold:
 
-- [ ] **Clean Architecture Layers**: Does the scaffold explicitly separate the `domain` (entities, errors) and `service` (use-cases) layers to prevent business logic from leaking into entrypoints?
-- [ ] **Explicit Dependency Injection (Composition Root)**: Does the entrypoint (`main.go`) contain an explicit composition root (e.g., a `buildApp` function) that explicitly constructs Providers, injects them into Services, and passes those Services to the Router?
-- [ ] **Abstract Gateways**: Does the core domain rely exclusively on abstract ports (e.g., generic `Repository[T]`, `MessageQueue`, `OutboxRepository`), with concrete implementations explicitly asserting interface compliance?
-- [ ] **Declarative Schema Management**: If a relational database is used, is there a declarative target state (e.g., `db/schema.sql`) and an automated tool (like `pg-schema-diff`) to apply schema changes without manual up/down migrations?
+- [ ] **Clean Architecture Layers**: Does the scaffold separate `domain` and `service` layers so business logic can't leak into entrypoints?
+- [ ] **Explicit Dependency Injection (Composition Root)**: Does the entrypoint expose an explicit composition root wiring Providers → Services → Router?
+- [ ] **Abstract Gateways**: Does the core domain depend only on abstract ports, with concrete implementations asserting interface compliance?
+- [ ] **Declarative Schema Management**: If relational, is there a declarative target schema applied automatically instead of manual migrations?
 - [ ] **Outbound Resiliency**: Does the service wrap external calls with exponential backoff and circuit breakers?
-- [ ] **Inbound Defenses & Middlewares**: Are endpoints protected by bounded concurrency (load shedding), global request timeouts, OpenTelemetry (RED) traces, robust CORS configurations, and sliding window rate limiting?
-- [ ] **Idempotency**: Are mutating endpoints protected by an `Idempotency-Key` interceptor backed by persistent state (Redis/Postgres)?
-- [ ] **API Standards & Docs**: Are collections uniformly returned using standardized, generic cursor-based pagination? Is the API spec (OpenAPI/AsyncAPI) generated automatically from the code structure?
-- [ ] **Honeycomb-Style Integration Testing**: Does the template scaffold a true Honeycomb-style integration testing suite utilizing `testcontainers`? It MUST test the fully-wired composition root (`buildApp`), avoiding mocks, and verify actual database/infrastructure behavior to prove Day-1 correctness.
-- [ ] **Dynamic Backplanes**: If websockets or async messaging are utilized, does the service dynamically fall back to appropriate local/cloud brokers (e.g., Redis vs Postgres LISTEN/NOTIFY)?
-- [ ] **Graceful Shutdown**: Does the service trap SIGINT/SIGTERM, allowing in-flight requests to complete while severing long-lived connections (like websockets)?
+- [ ] **Inbound Defenses & Middlewares**: Are endpoints protected by load shedding, global timeouts, OTel RED traces, CORS, and rate limiting?
+- [ ] **Idempotency**: Are mutating endpoints protected by an idempotency-key interceptor backed by persistent state?
+- [ ] **API Standards & Docs**: Are collections returned with standardized cursor-based pagination, and is the API spec generated automatically?
+- [ ] **Honeycomb-Style Integration Testing**: Does the template scaffold a Honeycomb-style integration suite that tests the fully-wired composition root without mocks?
+- [ ] **Dynamic Backplanes**: Do websockets or async messaging fall back between local and cloud brokers dynamically?
+- [ ] **Graceful Shutdown**: Does the service trap SIGINT/SIGTERM, letting in-flight requests finish while severing long-lived connections?
 - [ ] **Config Validation**: Is configuration robustly parsed and validated from environment variables at startup?
 - [ ] **Centralized Error Handling**: Does the API router map domain-level errors to standard HTTP status codes uniformly?
 
@@ -42,25 +42,27 @@ Every new backend service scaffold **MUST** support or explicitly opt-out of the
 
 Every new frontend app scaffold **MUST** support or explicitly opt-out of the following features:
 
-- [ ] **Enforced Server/Client Boundary**: Is every component a React Server Component by default, with `"use client"` applied only at the narrowest possible interactivity leaf? Are there no bare `fetch()` calls inside Client Components?
-- [ ] **Strict Dependency Graph**: Does the scaffold enforce the inward-facing layer hierarchy — `app/` → `components/<domain>/` → `components/ui/` → `hooks/` → `lib/api/` → `lib/schemas/` — preventing upward or sideways imports?
-- [ ] **Dynamic Composition Root (Provider Tree)**: Does the root layout (`app/layout.tsx`) dynamically `import()` the correct provider stack based on the runtime environment, so auth, analytics, and feature-flag providers can be swapped without touching layout code?
-- [ ] **Isomorphic Data Gateway**: Is there a single `customFetch` / API client module that transparently calls the backend directly on the server and through the `/api/proxy` reverse proxy in the browser — so data hooks never need to know where they're running?
-- [ ] **Type-Safe API Boundaries**: Are all external data shapes validated with Zod schemas? Are API types generated (via Orval or equivalent) rather than hand-written, so they stay in sync with the OpenAPI spec automatically?
-- [ ] **OpenTelemetry Instrumentation**: Is there an `instrumentation.ts` bootstrapping the Node SDK with OTLP HTTP trace and metric exporters, auto-instrumentation, and SIGTERM graceful shutdown — so every server-side render and Route Handler is visible in Aspire/Cloud Trace?
-- [ ] **Full Error Boundary Stack**: Does the scaffold include `error.tsx` (route-level), `global-error.tsx` (root layout, with inline `<html>` fallback), and `not-found.tsx`? Does `global-error.tsx` avoid importing from the design system (which may be broken when it fires)?
-- [ ] **Server-Only Config Module**: Is runtime configuration (`API_URL`, service name, auth flags) centralised in a `lib/config.ts` marked `import "server-only"`, preventing secrets from leaking into the client bundle?
-- [ ] **Component Testing Harness**: Does the scaffold include Vitest + React Testing Library configured with `jsdom`, auto-cleanup, and the `@testing-library/jest-dom` matchers — so component tests can be written immediately without extra setup?
-- [ ] **Standalone Docker Build**: Does `next.config.mjs` set `output: 'standalone'` and does the `Dockerfile` use a multi-stage pnpm build with a non-root runner image — so the app can be deployed identically in Docker Compose and production?
-- [ ] **Runtime Config Discovery**: For apps with WebSocket or dynamic backend URLs, is the backend URL resolved at runtime via an `/api/config` Route Handler rather than a `NEXT_PUBLIC_` build-time variable — so the same build artefact works across environments?
-- [ ] **Health Check Endpoint**: Does the scaffold expose `GET /api/healthz` returning `{ status, timestamp }` for Docker health checks and load-balancer probes?
-- [ ] **Port Allocation in 40xx Range**: Is the app assigned a deterministic port from the `40xx` range by scanning `docker-compose.yml`, ensuring no collisions and stable port identity across regeneration?
+- [ ] **Enforced Server/Client Boundary**: Is every component a Server Component by default, with `"use client"` only at the narrowest leaf, and no bare `fetch()` calls?
+- [ ] **Strict Dependency Graph**: Does the scaffold enforce a one-directional import hierarchy, preventing upward or sideways imports?
+- [ ] **Dynamic Composition Root (Provider Tree)**: Does the root layout dynamically resolve the provider stack per environment, without editing layout code?
+- [ ] **Isomorphic Data Gateway**: Is there a single API client module that transparently handles server vs. browser calls?
+- [ ] **Type-Safe API Boundaries**: Are external data shapes validated with Zod, and are API types generated rather than hand-written?
+- [ ] **OpenTelemetry Instrumentation**: Is there an instrumentation bootstrap for OTel trace/metric export and graceful shutdown?
+- [ ] **Full Error Boundary Stack**: Does the scaffold include route-level, root (avoiding design-system imports), and not-found error boundaries?
+- [ ] **Server-Only Config Module**: Is configuration centralized in a server-only module, preventing secret leakage into the client bundle?
+- [ ] **Component Testing Harness**: Does the scaffold include a pre-configured component testing harness so tests can be written without extra setup?
+- [ ] **Standalone Docker Build**: Is the build a standalone, multi-stage, non-root Docker image that deploys identically in Compose and production?
+- [ ] **Runtime Config Discovery**: Is the backend URL resolved at runtime rather than baked in at build time, so one artifact works across environments?
+- [ ] **Health Check Endpoint**: Does the scaffold expose a health check endpoint for Docker and load-balancer probes?
+- [ ] **Port Allocation in 40xx Range**: Is the app assigned a deterministic port in the `40xx` range, scanned from `docker-compose.yml` to avoid collisions?
 
 ## Execution Guidelines
 
 - Do not simply write scripts. Think about the resulting developer experience for the engineers who will run the Nx generator.
-- Pay close attention to dynamic configuration. The scaffolds should generate code that discovers its environment (e.g., via environment variables) rather than hardcoding connections.
+- Generate code that discovers its environment (e.g., via environment variables) rather than hardcoding connections.
 - Ensure the scaffolding generator modifies relevant central orchestration files (like `docker-compose.yml`) so the new service instantly integrates into local system test loops.
-- **Generic defaults only**: never hardcode sandbox project names (e.g. a product name) as default values in generated `docker-compose.yml` environment blocks or template config files. Use the service's own name (`serviceNames.fileName` in TypeScript, `<%= fileName %>` in EJS templates) as the default where a project-specific value is needed (e.g., `DB_NAME`).
-- **Engineer skill promotion**: if the scaffold has a matching engineer skill in `src/hidden-skills/`, call `promoteEngineerSkill(tree, '<skill-name>')` at the end of the generator. This copies the skill from the hidden folder into the user project's `.agents/skills/` so engineers have it immediately available after scaffolding.
-- **Three-layer test coverage**: after adding or modifying a generator, update `tests/scaffolds/test_generation.py` with structural assertions for every new option combination. Run `./dev test generation` first to confirm they pass before writing compilation or e2e tests.
+- **Generic defaults only**: never hardcode sandbox project names as default values in generated `docker-compose.yml` environment blocks or template config files. Use the service's own name as the default where a project-specific value is needed (e.g., `DB_NAME`).
+- **Engineer skill promotion**: if the scaffold has a matching engineer skill in `src/engineer-skills/`, call `promoteEngineerSkill(tree, '<skill-name>')` (defined in `src/generators/shared/scaffold-helpers.ts`) at the end of the generator.
+- **Test coverage**: after adding or modifying a generator, update `tests/scaffolds/test_generation.py` with structural assertions for every new option combination, then work up through the harness's other layers in cheapest-first order — see the contributor guide's testing reference for the full layer table and commands.
+- **Register the generator**: add its entry to `generators.json` — an unregistered generator is invisible to `nx g` and to this skill's own catalog answer.
+- **Annotate the changelog**: a new generator is a shipped-surface change; add a CHANGELOG entry tagged `[no-migration]` or with a migration id, or the contracts gate will fail the PR.
