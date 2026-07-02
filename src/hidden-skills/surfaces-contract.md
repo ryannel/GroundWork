@@ -50,6 +50,18 @@ When a surface's status moves to `retired`, its ledger column freezes: existing 
 
 ---
 
+## `--surfaces` Invocation Contract
+
+Every generator or skill that invokes `system-test-runner` passes `--surfaces`: a JSON array of `{"slug", "medium", "reach"?}`, one entry per `active` surface in `.groundwork/surfaces.json`. `medium` is the surface's `testMedium`. `reach` is optional and medium-dependent:
+
+- `playwright` / `protocol-client` — a static base URL, or omit it to let the runner discover the docker-compose service named after the slug.
+- `subprocess-cli` — the launch command (a generated `cli-app` builds to `node services/<slug>/dist/cli.js`).
+- `flutter-integration` / `playwright-electron` — omit `reach` entirely; these surfaces discover their own test-harness command (`npx nx run <slug>:test-integration` / `:smoke`) once the app is scaffolded.
+
+This is the one statement of the flag's shape. Invokers (`groundwork-scaffold`, `groundwork-infra-adopt`, `groundwork-surface-activation`) cite this section and state only their own moment-specific delta — which surfaces to include, when to re-invoke, and what generator output (fixtures, etc.) results.
+
+---
+
 ## Example — two active surfaces plus a retired one
 
 ```markdown

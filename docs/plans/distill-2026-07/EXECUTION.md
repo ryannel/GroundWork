@@ -27,7 +27,7 @@ Status values: `pending` · `in-progress` · `landed <sha>` · `deviated <sha> (
 | C3 | template relocations + path sweep + contributor table (one commit) | landed (this commit, with C2) | surfaces/capability-ports → `*-contract.md` siblings of maturity-model; 4 referencing skills swept + check instructions (the SKILL.md text migrated into C2's file — the discovered coupling that merged these slices); gap-ledger vocab single-homed in maturity-model; templates/ = 6 true skeletons; shipping verified (recursive tree walk, no curated list) |
 | D1 | protocol-conformance collapse across setup skills | pending | — |
 | D2 | design-system `_foundation.md` — SAME COMMIT as surface-activation lazy path | pending | — |
-| D3 | single homes: interface-type taxonomy, `--surfaces`, product-brief shape, Design References | pending | — |
+| D3 | single homes: interface-type taxonomy, `--surfaces`, product-brief shape, Design References | landed (this commit) | D4: taxonomy home = design-system Step 2, extract cites same one-test wording. D5: `--surfaces` section in surfaces-contract.md, 3 invokers cite + keep deltas. M19: new product-brief-template.md, both writers cite (extract's drifted paraphrase retired). D6: graphical-ui Commit Contributions owns Design References spec. Lint green. FLAGGED for D1/later: review checklist product-brief.md carries stale "Experience without a medium" phrasing |
 | D4 | scaffold/MVP right-sizing (pitch routing lands with E2) | pending | — |
 | D5 | brownfield remainder (4 signature stances survive verbatim-strength) | pending | — |
 | E1 | bet doctrine single-homing — SAME COMMIT as C1 | pending | — |

@@ -132,7 +132,7 @@ Before transitioning to Phase 3, self-test: for each section of the Product Brie
 
 When ready:
 
-1. **Draft.** Synthesize the discovery into the Product Brief structure below. The draft is a clean brief with no summary section — the Downstream Context (Protocol 5) is written separately at commit, not into the doc. Apply the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
+1. **Draft.** Synthesize the discovery into the Product Brief structure defined in `.groundwork/skills/groundwork-product-brief/product-brief-template.md` — the canonical section list `groundwork-product-brief-extract` also drafts against, so a greenfield brief and a recovered one are indistinguishable in shape. The draft is a clean brief with no summary section — the Downstream Context (Protocol 5) is written separately at commit, not into the doc. Apply the `groundwork-writer` skill for tone and quality. Write the draft to `.groundwork/cache/product-brief-draft.md` immediately. Do not re-read the file you just wrote — the in-memory state is authoritative for the rest of this phase.
 
 2. **Review.** Announce that the review process is starting, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-draft.md` and `document_type: product-brief`. Report the verdict and any findings explicitly before proceeding. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
@@ -188,32 +188,6 @@ The same depth applies to every section:
 - **The Experience** is not a single paragraph. It should walk through the macro user journey — from entry to outcome — with enough texture that a designer reading it can picture the shape of the interaction.
 - **Domain Constraints** are not generic disclaimers. Each constraint should reflect a specific design decision the user made during discovery, grounded in the product's context.
 - **Success Indicators** are not vague sentiments. Each indicator should be specific enough that a designer or engineer could observe it in practice.
-
-### Product Brief Structure
-
-#### System Purpose
-A single, declarative paragraph: what the system is, who it serves, what it enables. No hedging, no marketing.
-
-#### The Problem
-What is broken or missing in the world? Ground it in the user's reality.
-
-#### Target Users
-Who uses this? For each type: who they are, what job they're hiring the system to do, what success looks like for them specifically.
-
-#### Capabilities
-The high-level things the system does, organised by theme. This is the full vision, not the MVP.
-
-#### The Experience
-How users move through the system at a macro level. Name the surfaces users meet the product through — each a deployed artifact: a web app, a mobile app, a command-line tool, an MCP server or API, a voice interface, a physical device — mark any not in the first build as later or aspirational, and describe each experience through its surface. Downstream phases design per interface type and architect, scaffold, and test per surface, so an experience that never names its surface leaves all of them guessing. A single-surface product names it once; the journey description carries the rest.
-
-#### Domain Constraints
-Hard rules. Things the system must or must never do. Ethical commitments. Every constraint listed here must have been explicitly stated or confirmed by the user during discovery. Do not infer constraints from context.
-
-#### Out of Scope
-What this system does not do. Permanent boundaries, not MVP deferrals.
-
-#### Success Indicators
-Concrete signals that the system is delivering value. Specific enough that a designer or engineer could observe them. No vague sentiments. Include the long-term vision if shared.
 
 ---
 

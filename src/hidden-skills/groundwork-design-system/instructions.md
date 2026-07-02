@@ -86,8 +86,6 @@ Design tracks run once per **interface type** in use, not per surface — a web 
 
 When the context file carries no surface set (a brief written before surfaces were enumerated), fall back to single-type detection: determine the product's primary interface type and treat it as an active set of one.
 
-The interface type describes what the end-user interacts with, not what the backend does. An AI-powered product with a visual frontend is `graphical-ui` regardless of backend complexity.
-
 | Type | Signals | Examples |
 |---|---|---|
 | `graphical-ui` | Web app, mobile app, desktop app, dashboard, any product whose target users are end-consumers interacting through a screen | SaaS products, consumer apps, interactive fiction, e-commerce storefronts, admin panels, data visualisation tools, AI-powered products with a visual frontend |
@@ -96,11 +94,7 @@ The interface type describes what the end-user interacts with, not what the back
 
 If `docs/product-brief.md` does not exist or cannot be read, ask the user what kind of interface their product has — visual app, command-line tool, or agent/protocol system, or a combination. Use their answer to determine the types. Do not proceed without a confirmed active set in `interface_types`.
 
-If the product brief describes end-consumers (players, readers, shoppers, viewers) as target users but uses backend or engine language, the product is `graphical-ui`. The `agentic-protocol` type applies only when the primary users are developers or other agents integrating via API.
-
-Disambiguate `cli` from `agentic-protocol` by **who consumes the output**: a human watching a terminal, or a program integrating via API. A product where a human sits at a terminal interacting with an embedded agent is `cli`, even when an LLM drives the experience underneath — the design problem is terminal rendering, streaming, and interaction. `agentic-protocol` is for the framework or protocol consumed via API with no human terminal surface. A coding assistant a developer runs in their shell routes to `cli`; the MCP server or agent framework it talks to routes to `agentic-protocol`.
-
-If the product brief contains explicit interface vocabulary (web app, CLI tool, agent framework), record the types. If the brief describes the system without naming any interaction surface, treat it as ambiguous and ask the user a single, direct question to determine which of the three types applies.
+**This is the section's one citable statement of the taxonomy — other skills (design-system-extract, brownfield findings) cite it rather than re-deriving it.** Every edge case in the table above resolves to one test: **who consumes the output** — a human at a screen or terminal, or a program integrating via API. The interface type describes what the end-user interacts with, not what the backend does: an AI-powered product with a visual frontend is `graphical-ui` regardless of backend complexity, and a product whose target users are end-consumers (players, readers, shoppers, viewers) but whose brief uses backend or engine language is still `graphical-ui`. A human sitting at a terminal interacting with an embedded agent is `cli`, even when an LLM drives the experience underneath — the design problem is terminal rendering, streaming, and interaction — so a coding assistant a developer runs in their shell routes to `cli`. `agentic-protocol` applies only when the consumer is a program or another agent integrating via API with no human terminal surface — the MCP server or agent framework that coding assistant talks to routes there instead. If the product brief contains explicit interface vocabulary (web app, CLI tool, agent framework), record the types directly from it; if it describes the system without naming any interaction surface, the case is genuinely ambiguous — ask the user a single, direct question to determine which of the three types applies.
 
 Write the active set to the `interface_types` field in `.groundwork/cache/design-system-cache.md`, and any deferred types to its `deferred_types` field.
 

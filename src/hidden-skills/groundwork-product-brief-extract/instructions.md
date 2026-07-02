@@ -104,7 +104,7 @@ If, while reconciling code against the user's account, you find the product dive
 
 Mirror the greenfield brief's drafting exactly — the output contract is identical.
 
-1. **Draft.** Synthesise the recovered context and the interview into the Product Brief Structure below — a clean published brief with no summary section. Apply the `groundwork-writer` skill. Write to `.groundwork/cache/product-brief-extract-draft.md`.
+1. **Draft.** Synthesise the recovered context and the interview into the Product Brief structure defined in `.groundwork/skills/groundwork-product-brief/product-brief-template.md` — the same canonical section list greenfield discovery drafts against, so the output is indistinguishable in shape. A clean published brief with no summary section. Apply the `groundwork-writer` skill. Write to `.groundwork/cache/product-brief-extract-draft.md`.
 
 2. **Review.** Announce the review, then invoke the review subagent (Protocol 9) with `document_path: .groundwork/cache/product-brief-extract-draft.md` and `document_type: product-brief`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`; a review that errors, hangs, or returns no verdict follows Protocol 9's failure path.
 
@@ -117,10 +117,6 @@ Mirror the greenfield brief's drafting exactly — the output contract is identi
 ### Quality Standard
 
 The recovered brief must read like a brief written by someone who understands the product — not a description of the code. "A FastAPI service with three routers" is code description. "A booking system that lets venue managers hold inventory across channels without double-selling" is a product brief. The depth bar matches the greenfield brief: each user type is a mental model, not a label; each capability conveys what it does for the user and why it matters; the experience walks the macro journey through the named medium. If the draft reads like the scan findings with formatting, no extraction work was done — the contribution is the translation from mechanism to meaning.
-
-### Product Brief Structure
-
-Identical to the greenfield brief: **System Purpose**, **The Problem**, **Target Users**, **Capabilities**, **The Experience** (name the medium), **Domain Constraints** (commitments the user confirmed, not inferred), **Out of Scope** (permanent boundaries), **Success Indicators** (concrete, observable).
 
 ---
 

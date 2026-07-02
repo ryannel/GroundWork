@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (setup's shared contracts get one home each, 2026-07-02)
+
+Four identifiers every setup lane depends on were each stated at multiple fidelities; each now has one citable home with consumers pointing at it. The interface-type taxonomy (`graphical-ui | cli | agentic-protocol`) and its "who consumes the output" test live in greenfield design-system Step 2; the extract cites the same test. The `--surfaces` invocation contract (flag shape, per-medium reach rules) lives beside the surface registry contract in `surfaces-contract.md`; scaffold, infra-adopt, and surface-activation cite it and keep only their moment-specific deltas. The Product Brief section list lives in a new `product-brief-template.md` on the architecture-template pattern — greenfield discovery and brownfield extract now draft against the same text (retiring the extract's drifted paraphrase). The Design References record spec is owned by the graphical-ui track's Commit Contributions; the foundation phase triggers it and the extract recovers against it.
+
+- [no-migration] Skill-prose changes + one new hidden-skill file, carried by the clean-copy reconcile.
+
 ### Changed (the orchestration spine says everything once — and the templates directory holds only templates, 2026-07-02)
 
 The always-loaded orchestrator router restates less (−323 words; routing tests keep their teeth, rationale lives in the routed skills), groundwork-check's spec sits in its instructions instead of being duplicated across SKILL.md and body (SKILL.md is now a true stub), the persona and writer skills drop restatements their body sections already carry, and groundwork-review's Check 4 folds into the per-type checklists it duplicated — findings now cite checklist items by name. The two review gates name each other: decomposition review (proof quality at authoring) ↔ implementation-readiness (existence/currency at delivery start). Two contract files misfiled as templates relocate to real homes: `.groundwork/skills/templates/{surfaces,capability-ports}.md` → `.groundwork/skills/{surfaces,capability-ports}-contract.md`, with every referencing skill swept in the same change; the gap-ledger severity/recommendation value sets are now defined once in `maturity-model.md` and cited by the ledger template and maturity template instead of restated. `templates/` now holds only fill-in skeletons.
