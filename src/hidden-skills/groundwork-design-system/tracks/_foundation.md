@@ -44,9 +44,11 @@ Once approved, write to the Phase 2 section of `.groundwork/cache/design-system-
 
 ## Phase 3: Structure (Per Type)
 
-Structure is the one foundation-stage conversation that cannot run at brand level: a screen product needs an app shell, a terminal product needs a command architecture, a protocol product needs a workspace topology. Each is the structural container every later decision for that type lives inside, and Phase 4's language conversation reacts to it.
+Structure is the one foundation-stage conversation that cannot run at brand level: a screen product needs an app shell, a terminal product needs a command architecture, a protocol product needs a workspace topology. Each is the structural container every later decision for that type lives inside — getting it wrong means reworking every downstream decision the type makes, getting it right means every one of them has a home — and Phase 4's language conversation reacts to it.
 
-For each active type, run its track's Phase 3 in full — the track owns the conversation. Record each type's approved structure in its own subsection under Phase 3 in `.groundwork/cache/design-system-cache.md`. When every active type's structure is approved, set the Phase 3 status to `done` and proceed to Phase 4.
+For each active type, in turn: define the structural skeleton using patterns from the Phase 2 inspiration library, exploring and proposing decisions across the track's decision dimensions (its Phase 3 section names them). Guide the conversation with leading-edge patterns for the type; propose the structure based on the inspiration library, then ask the user to react and refine. When a structural decision implies a backend or infrastructure capability, append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation — the architecture phase finds these notes and skips re-deriving what was already decided here; each track's Phase 3 section names its own capture examples.
+
+Once a type's structure is approved, write it to that type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set that subsection to `done`. When every active type's structure is approved, set the Phase 3 status to `done` and proceed to Phase 4.
 
 ---
 
@@ -89,7 +91,28 @@ Once confirmed, write the synthesis to the Phase 4 section of `.groundwork/cache
 
 ## Phase 5: Per-Type Translation & Review
 
-For each active type in turn, load its track's Phase 5 and execute it in full — translation (5a), independent review, and guided walkthrough (5b). The track is the single source of truth for its medium's translation mandate, quality standard, and cluster walkthrough. Track each type's walkthrough progress separately in `.groundwork/cache/design-system-cache.md`.
+For each active type in turn, run the machinery below and pull in its track's medium-specific content at each step — the file table, Base Token Resolution (where the track has one), the Translation Mandate, and the Quality Standard exemplars. This file is the single source of truth for how translation, review, and the walkthrough execute; each track is the single source of truth for its medium's translation and depth calibration. Track each type's walkthrough progress separately in `.groundwork/cache/design-system-cache.md`.
+
+### Standalone invocation (surface-activation)
+
+`groundwork-surface-activation` runs this Phase 5 directly, without the rest of this file, when a product gains a surface of a type it has never expressed before. In that invocation, the Phase 1–4 brand direction — which this section normally draws from the live cache — instead lives in the already-committed foundation sections of `docs/design-system.md`: read those in place of `.groundwork/cache/design-system-cache.md`'s Phase 1–4 fields. The commit at the end of the walkthrough is surface-activation's own append-the-section step, not this file's Phase 6. Every other mechanic below — the per-file draft directory, the Independent Review pass, the 5b walkthrough, and the Re-flow Protocol — runs exactly as written.
+
+### 5a: Translation (Agent-Driven, Autonomous)
+
+The user provided taste, instinct, and direction across Phases 1–4 (or, in a standalone invocation, the committed foundation). The agent now translates that into a rigorous, medium-specific specification — autonomously.
+
+**Output location**: `.groundwork/cache/design-system-draft/` — a directory of per-section files. Each file stays bounded in size, so any later change (review revise, 5b re-flow) touches only the affected files instead of regenerating the whole spec in a single turn. Regenerating the whole spec at once exhausts the per-response output token budget on rich specs; the per-section layout makes that failure structurally impossible. Writing to `docs/design-system.md` is prohibited until Phase 6 (Commit) — on initial generation that file does not exist; do not attempt to read it.
+
+**Write each section as a separate file.** Use one `write_file` call per section (the tool creates parent directories automatically); the active track's file table names the sections and their content. The numeric prefixes determine concatenation order at commit; each file is a self-contained markdown section, starting its top-level heading at H1 or H2 as appropriate so the files compose cleanly when concatenated.
+
+Apply the `groundwork-writer` skill to every file: declarative, assertive, free of hedging — a rigorous specification that simultaneously serves as implementation instructions for a developer or an AI tool.
+
+Before presenting the draft, run this self-check:
+1. **Does every section contain committed, implementable values?** If a section reads like a design brief, the translation is incomplete.
+2. **Does every section have multi-value depth?** A single property or a one-line rule is insufficient — each concept needs its full, concrete treatment (the active track's Quality Standard names what "full" means for this medium).
+3. **Would an implementer need to make any design decisions?** If yes, the spec is underspecified. Make the call — that is the agent's core contribution.
+
+Update this type's Phase 5 entry in `.groundwork/cache/design-system-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to the Independent Review pass.
 
 ### Draft Layout
 
@@ -102,6 +125,36 @@ All types share one draft directory, `.groundwork/cache/design-system-draft/`, c
 - `00-header.md` and `01-foundation.md` are written once, by the first type's 5a run. `00-header.md` carries the document title and intro as the track describes — no summary section; the Downstream Context (Protocol 5) is written separately to `.groundwork/context/design-system.md` at commit, not concatenated into the spec. `01-foundation.md` carries `# Part 1 — Foundation`: the product-wide constraints from Phase 1 and the brand language direction from Phase 4 in specification form — the shared reference every type section translates, and the anchor for cross-surface consistency.
 - Each type's section files take a decade prefix in run order (`10-`, `20-`, `30-`) with the type slug in the name — e.g. `10-graphical-ui-shell.md`, `20-cli-command-architecture.md` — replacing the track table's `02-`…`07-` prefixes; the section content per file is as the track's table defines, except that each type's envelope-specific constraints open its own section rather than sharing Part 1. The type's first file opens with the type's `#`-level section title, and the track's part headings demote one level beneath it so section boundaries stay unambiguous when the document is read as a whole.
 - The numeric prefixes keep `cat *.md` concatenation in order: header, foundation, then each type's section.
+
+The Independent Review pass between 5a and 5b — the fail-closed `groundwork-review` gate (Protocol 8/9) over the assembled draft — is owned by each track's own Phase 5 section, not restated here: the dispatch mechanics are identical across tracks, but the per-medium review risk they name is not, and the operating contract's review-gate conformance check reads the gate directly off each track file. Run whichever active track's Independent Review section says, in turn, before that type's 5b.
+
+### 5b: Guided Review (Collaborative)
+
+The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
+
+**Do not ask the user to approve the full spec.** Do not present a summary of highlights and ask "does this look right?" Instead, walk through the spec in the active track's three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the track's quality standard — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
+
+The cluster names each track uses are deliberately distinct from the Phase 4 language clusters (Identity / Feel / Craft) — Phase 4 grouped *aesthetic decisions* the user owns; this walkthrough covers *implementation specifics* the agent owns. Distinct names keep both schemes legible when both phases are referenced in the same conversation. Each track's Phase 5 names its own three clusters and states what each presents, teaches, and offers as alternatives.
+
+#### Re-flow Protocol
+
+When the user requests a change in any cluster:
+
+1. Acknowledge the change and confirm understanding.
+2. Assess downstream impact — state explicitly which section files are affected, including any downstream files whose tokens or rules reference the change.
+3. **Rewrite the affected section files.** Each section lives in its own file under `.groundwork/cache/design-system-draft/`. Use `write_file` to replace the implicated files in turn. Each `write_file` is bounded by the size of one section, never the whole spec.
+4. Summarise the re-flow: list every section file that changed and what specifically shifted.
+5. If a previously-approved cluster was affected substantively, re-present it before continuing.
+
+A design system is a web of interconnected decisions — changing one primitive ripples into whatever downstream section references it. Propagate the change into every section file it implicates — file-by-file, never as a single full-spec rewrite. Isolated edits that ignore downstream effects create internal contradictions that surface during implementation; the propagation is mandatory, the file-at-a-time mechanic is what makes it safe.
+
+#### Walkthrough Progress
+
+Track which clusters have been reviewed in `.groundwork/cache/design-system-cache.md` under the Phase 5 checklist. Mark each cluster as complete when the user approves it. This enables session resumption — if the conversation is interrupted, the agent sees which clusters have been reviewed and resumes from the next unchecked item.
+
+#### Completion Gate
+
+The walkthrough is complete when all three of the active track's clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to this flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
 
 When the last active type's walkthrough completes, proceed to Phase 6.
 

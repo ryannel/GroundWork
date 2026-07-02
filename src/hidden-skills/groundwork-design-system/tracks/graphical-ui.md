@@ -17,8 +17,8 @@ The default starting position is modern, high-end design. When the user has no s
 - Keyboard-first navigation with a global command palette (Cmd+K) as the primary navigation and search surface. Power users live in the keyboard; mouse-first design caps productivity.
 - Strict accessibility (WCAG 2.1 AA minimum), semantic HTML, and zero-mouse navigability. Accessibility is structural quality, not a compliance checkbox — products that work for screen readers work better for everyone.
 - Light and dark theme support with system-preference detection. Dual-theme is a baseline expectation, not a premium feature.
-- Hardware-accelerated animation only (`transform`, `opacity`, `filter`). Animating layout properties (width, height, top) triggers reflow and drops frames. Respect `prefers-reduced-motion`.
-- Perceptually uniform colour spaces (OKLCH). HEX and RGB produce unpredictable perceived brightness shifts across hue ranges — a blue and a yellow at the same HEX lightness value look wildly different to the human eye. OKLCH solves this by design.
+- Hardware-accelerated animation only (`transform`, `opacity`, `filter`), respecting `prefers-reduced-motion`. Animating layout properties (width, height, top) triggers reflow and drops frames.
+- Perceptually uniform colour spaces (OKLCH). HEX lightness is not perceptual — equal steps look unequal across hues; OKLCH solves this by design.
 - An 8-point spatial grid for all dimensions. Consistent spacing creates visual rhythm; arbitrary pixel values accumulate into visual noise.
 
 **Aesthetic bar** (examples of the premium standard the agent targets — adapt to the user's direction):
@@ -61,19 +61,15 @@ This type's Synthesis Gate expression fields:
 
 ## Phase 3: App Shell
 
-*Runs inside the foundation flow's Phase 3 step — once for this type.*
+*Runs inside the foundation flow's Phase 3 step — once for this type, per the shared skeleton it defines.*
 
-The app shell is the structural container everything else lives inside — navigation, layout, context preservation, and system-level states. Getting this wrong means reworking every screen. Getting it right means every subsequent design decision has a home.
+The app shell is the structural container everything else lives inside — navigation, layout, context preservation, and system-level states.
 
-Define the structural skeleton using the layout paradigms from the Phase 2 inspiration library. The agent should explore and propose decisions across: global navigation and search patterns, layout skeleton, context preservation (how sub-tasks work without losing the main context), notification and presence surfaces, empty and loading states, and onboarding and first-run experience.
+Decision dimensions: global navigation and search patterns, layout skeleton, context preservation (how sub-tasks work without losing the main context), notification and presence surfaces, empty and loading states, and onboarding and first-run experience.
 
 When the product's graphical-ui surfaces span beyond web, settle the skeleton per platform — a tab-and-stack scaffold on a phone and a multi-pane window on desktop are different structures, not renderings of one web shell. Phase 5's Platform Dimension section states how the platform set is read and which vocabulary each platform's translation uses.
 
-Guide the conversation with leading-edge structural trends. Propose the app shell based on the inspiration library, then ask the user to react and refine.
-
-When a shell decision implies a backend capability — notifications, search, session state, presence, real-time delivery — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the shell conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
-
-Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
+Capture examples for the Architecture discovery-notes bullet: notifications, search, session state, presence, real-time delivery.
 
 ---
 
@@ -115,11 +111,9 @@ Where desktop chrome needs token support — title-bar treatment, menu style, de
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
-The user provided taste, instinct, and direction across Phases 1–4. The agent now translates that into a rigorous, CSS-level engineering specification — autonomously.
+The agent translates the approved direction into a rigorous, CSS-level engineering specification. This track's file table (below) feeds the foundation flow's 5a mechanics — output location, one `write_file` per section, the self-check before presenting.
 
-**Output location**: `.groundwork/cache/design-system-draft/` — a directory of per-section files. Each file stays bounded in size, so any later change (review revise, 5b re-flow) touches only the affected files instead of regenerating the whole spec in a single turn. Regenerating the whole spec at once exhausts the per-response output token budget on rich specs; the per-section layout makes that failure structurally impossible. Writing to `docs/design-system.md` is prohibited until Phase 6 (Commit) — on initial generation that file does not exist; do not attempt to read it.
-
-**Write each section as a separate file.** Use one `write_file` call per section (the tool creates parent directories automatically):
+**This track's section files:**
 
 | File | Content |
 |---|---|
@@ -130,13 +124,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `04-interaction.md` | Part 3 Cluster 2 — surface depth & shadow stacks, motion & easing, interaction states |
 | `05-surface.md` | Part 3 Cluster 3 — scrollbars, toasts, error choreography, skeletons, borders, overflow, responsive grid, and any remaining engineering-craft sections from the target structure |
 
-The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 (`## Colour Architecture`) as appropriate so the files compose cleanly when concatenated.
-
-This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# Graphical UI`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
-
-Compile the full design system document using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive design system that the agent derives from the design language direction captured in Phase 4.
-
-Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive, and free of hedging. Structure it to read like a rigorous engineering specification that simultaneously serves as a powerful prompt for generative UI tools.
+Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 (`## Colour Architecture`) as appropriate so the files compose cleanly when concatenated. The foundation flow's Draft Layout rule governs how this table adapts when several types are active.
 
 #### Base Token Resolution
 
@@ -234,31 +222,33 @@ The difference between a useful design system and a shallow one is specificity. 
 
 The shallow version gives a developer three variables. The deep version gives them a complete elevation system with design rationale, multi-layer composition, theme variants, and usage rules. **Every section of the design system must hit this depth.**
 
-The same standard applies across the entire specification:
-- **Colour architecture**: Not just token names — full OKLCH values for both themes, semantic role definitions, alpha transparency rules, and the perceptual reasoning behind palette construction.
-- **Type scale**: Not just font sizes — both font families with specific weights, all named steps from display through micro, line-heights calibrated to the spatial grid, and responsive fluid clamp values.
-- **Spacing tokens**: Not just `--space-1` through `--space-8` — the grid base, how each step is derived, and which tokens apply at which level of the component hierarchy.
-- **Surface classes**: Not just background colours — named classes with full CSS (background, border, shadow, backdrop-filter where applicable), usage rules defining when each class applies, and both theme variants.
-- **Interaction states**: Not just hover colours — complete CSS for hover, active/press, focus-visible, disabled, and loading states including transforms, transitions, easing curves, and duration reasoning.
-- **Component anatomy**: Not just "buttons have rounded corners" — full CSS for every button variant (primary, secondary, ghost, destructive) and every input variant, with padding derived from the spacing system and radii following the concentric radii rule.
-
 #### Design System Target Structure
 
-The spec must cover all of the following. Missing sections are not acceptable:
+The spec must cover all of the following, each at the depth standard above. Missing sections are not acceptable.
 
 **Part 1 — Constraints**: Performance budgets, a11y baselines, platform targets, sync requirements, error tolerance.
 
 **Part 2 — Shell**: Navigation model, layout skeleton, empty/loading states, onboarding.
 
-**Part 3 — Design System** (each with exact CSS values at the depth standard above):
-Colour architecture (OKLCH, both themes) · Type scale (all steps) · Spacing tokens · Surface class hierarchy · Elevation & shadow stacks · Background & texture · Interaction states (hover, press, focus) · Button & input anatomy · Skeleton shimmer · Scrollbars · Text selection & rendering · Toasts & notifications · Transition choreography · Borders & dividers · Overflow & truncation · Empty states · Error choreography · Responsive grid
-
----
-
-Before presenting the draft, run this self-check:
-1. **Does every section contain committed, implementable CSS values?** If a section reads like a design brief ("use warm colours with generous whitespace"), the translation is incomplete.
-2. **Does every CSS block have multi-value depth?** Single-property definitions (just a background colour, just a border radius) are insufficient. Each design concept requires the full property set — background, border, shadow, padding, transition, and theme variant.
-3. **Would a developer implementing this need to make any design decisions?** If yes, the spec is underspecified. Make the call — that is the agent's core contribution.
+**Part 3 — Design System**:
+- **Colour architecture** (OKLCH, both themes) — not just token names: full OKLCH values for both themes, semantic role definitions, alpha transparency rules, and the perceptual reasoning behind palette construction.
+- **Type scale** (all steps) — not just font sizes: both font families with specific weights, all named steps from display through micro, line-heights calibrated to the spatial grid, and responsive fluid clamp values.
+- **Spacing tokens** — not just `--space-1` through `--space-8`: the grid base, how each step is derived, and which tokens apply at which level of the component hierarchy.
+- **Surface class hierarchy** — not just background colours: named classes with full CSS (background, border, shadow, backdrop-filter where applicable), usage rules defining when each class applies, and both theme variants.
+- **Elevation & shadow stacks** — the worked example above sets the depth bar.
+- **Background & texture**
+- **Interaction states** (hover, press, focus) — not just hover colours: complete CSS for hover, active/press, focus-visible, disabled, and loading states including transforms, transitions, easing curves, and duration reasoning.
+- **Button & input anatomy** — not just "buttons have rounded corners": full CSS for every button variant (primary, secondary, ghost, destructive) and every input variant, with padding derived from the spacing system and radii following the concentric radii rule.
+- **Skeleton shimmer**
+- **Scrollbars**
+- **Text selection & rendering**
+- **Toasts & notifications**
+- **Transition choreography**
+- **Borders & dividers**
+- **Overflow & truncation**
+- **Empty states**
+- **Error choreography**
+- **Responsive grid**
 
 Update this type's Phase 5 entry in `.groundwork/cache/design-system-cache.md` to `draft-complete`. **Do not present a summary and ask for blanket approval.** Proceed directly to the Independent Review pass.
 
@@ -277,13 +267,7 @@ Once the review verdict is PRESENT, proceed to Phase 5b.
 
 ### 5b: Guided Review (Collaborative)
 
-The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
-
-**Do not ask the user to approve the full spec.** Do not present a summary of highlights and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
-
 #### Cluster Walkthrough
-
-Present the spec in three clusters. The cluster names here are deliberately distinct from the Phase 4 language clusters (Identity / Feel / Craft) — Phase 4 grouped *aesthetic decisions* the user owns; Phase 5b walks through *implementation specifics* the agent owns. Distinct names keep both schemes legible when both phases are referenced in the same conversation.
 
 **Cluster 1: Foundation** — Colour tokens (both themes), the full type scale, and the spacing system.
 
@@ -297,25 +281,7 @@ These define how the product feels in the hand. The user cannot specify `cubic-b
 
 These are engineering craft — decisions the agent should own. Present the full set as a summary table: what was decided, in one line per topic. Call out any judgment calls the user might have an opinion on. Ask if anything feels wrong. Do not walk through each one individually unless the user flags a concern.
 
-#### Re-flow Protocol
-
-When the user requests a change in any cluster:
-
-1. Acknowledge the change and confirm understanding.
-2. Assess downstream impact — state explicitly which section files are affected, including any downstream files whose tokens or rules reference the change.
-3. **Rewrite the affected section files.** Each section lives in its own file under `.groundwork/cache/design-system-draft/`. Use `write_file` to replace the implicated files in turn — for example, a typography change rewrites `03-foundation.md`, and may ripple into `05-surface.md` if surface components reference the type scale. Each `write_file` is bounded by the size of one section, never the whole spec.
-4. Summarise the re-flow: list every section file that changed and what specifically shifted.
-5. If a previously-approved cluster was affected substantively, re-present it before continuing.
-
-A design system is a web of interconnected decisions. Changing typography affects spatial rhythm, which affects component anatomy, which affects motion timing. Propagate the change into every section file it implicates — file-by-file, never as a single full-spec rewrite. Isolated edits that ignore downstream effects create internal contradictions that surface during implementation; the propagation is mandatory, the file-at-a-time mechanic is what makes it safe.
-
-#### Walkthrough Progress
-
-Track which clusters have been reviewed in `.groundwork/cache/design-system-cache.md` under the Phase 5 checklist. Mark each cluster as complete when the user approves it. This enables session resumption — if the conversation is interrupted, the agent sees which clusters have been reviewed and resumes from the next unchecked item.
-
-#### Completion Gate
-
-The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
+The Re-flow Protocol, Walkthrough Progress tracking, and Completion Gate that govern this walkthrough are the foundation flow's Phase 5 machinery — this track's cluster content is what they operate on.
 
 ---
 

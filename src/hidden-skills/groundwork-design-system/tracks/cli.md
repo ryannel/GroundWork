@@ -104,11 +104,11 @@ When the paradigm is interactive or hybrid, also capture:
 
 ## Phase 3: Command Architecture
 
-*Runs inside the foundation flow's Phase 3 step — once for this type.*
+*Runs inside the foundation flow's Phase 3 step — once for this type, per the shared skeleton it defines.*
 
-The command architecture is the structural container everything else lives inside — the taxonomy, I/O topology, configuration surface, and discovery model. Getting this wrong means reworking every command. Getting it right means every subsequent design decision has a home.
+The command architecture is the structural container everything else lives inside — the taxonomy, I/O topology, configuration surface, and discovery model.
 
-Define the structural skeleton using patterns from the Phase 2 inspiration library. The agent should explore and propose decisions across: command taxonomy and hierarchy, flag and argument conventions, input/output topology (what goes to stdout vs stderr vs stdin), configuration surface and precedence, help and discovery model, shell integration, and progressive disclosure strategy.
+Decision dimensions: command taxonomy and hierarchy, flag and argument conventions, input/output topology (what goes to stdout vs stderr vs stdin), configuration surface and precedence, help and discovery model, shell integration, and progressive disclosure strategy.
 
 When the paradigm is interactive or hybrid, the skeleton also covers the session surface:
 - **Session model** — one-shot, a persistent REPL loop, or both. A hybrid must define how the same capability is reached one-shot *and* in-session.
@@ -116,11 +116,7 @@ When the paradigm is interactive or hybrid, the skeleton also covers the session
 - **Input modes** — single-line, multi-line editing, and multimodal entry (`@`-mentions, file paths, paste) where the product warrants.
 - **The dual-surface contract** — every capability reachable interactively must also be reachable scriptably, so the interactive layer never strands functionality the spine cannot reach. This is the architectural expression of the composable-floor rule.
 
-Guide the conversation with leading-edge CLI design patterns. Propose the architecture based on the inspiration library, then ask the user to react and refine.
-
-When a command-architecture decision implies a backend or infrastructure capability — authentication backend, telemetry sink, update channel, remote config service, credential storage — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
-
-Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
+Capture examples for the Architecture discovery-notes bullet: authentication backend, telemetry sink, update channel, remote config service, credential storage.
 
 ---
 
@@ -130,11 +126,9 @@ Once approved, write to this type's subsection under Phase 3 in `.groundwork/cac
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
-The user provided taste, instinct, and direction across Phases 1–4. The agent now translates that into a rigorous CLI design specification — autonomously.
+The agent translates the approved direction into a rigorous CLI design specification. This track's file table (below) feeds the foundation flow's 5a mechanics — output location, one `write_file` per section, the self-check before presenting.
 
-**Output location**: `.groundwork/cache/design-system-draft/` — a directory of per-section files. Each file stays bounded in size, so any later change (review revise, 5b re-flow) touches only the affected files instead of regenerating the whole spec in a single turn. Regenerating the whole spec at once exhausts the per-response output token budget on rich specs; the per-section layout makes that failure structurally impossible. Writing to `docs/design-system.md` is prohibited until Phase 6 (Commit) — on initial generation that file does not exist; do not attempt to read it.
-
-**Write each section as a separate file.** Use one `write_file` call per section (the tool creates parent directories automatically):
+**This track's section files:**
 
 | File | Content |
 |---|---|
@@ -152,13 +146,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `06-session-interaction.md` | REPL/session loop, slash-command grammar, streaming render budget, autocomplete behaviour, interrupt semantics |
 | `07-live-surface.md` | Live-render/TUI regions and their non-TTY fallback, session persistence and context-window management, in-terminal branding and splash |
 
-The numeric prefixes determine concatenation order at commit, and the commit/review `cat *.md` globs pick up `06`/`07` automatically with no change. Split into two files (rather than one) so the Phase 5b re-flow stays unambiguous: `06` is walked in the Interaction cluster, `07` in the Surface cluster, so each cluster maps to a single file. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated.
-
-This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# CLI`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames (the `06`/`07` session files take the next slots in this type's decade) with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
-
-Compile each section using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive CLI design system that the agent derives from the terminal language direction captured in Phase 4.
-
-Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive, and free of hedging. Structure it to read like a rigorous CLI specification that an implementer (human or agent) can follow to produce a polished, consistent tool.
+The commit/review `cat *.md` globs pick up `06`/`07` automatically with no change. Split into two files (rather than one) so the Phase 5b re-flow stays unambiguous: `06` is walked in the Interaction cluster, `07` in the Surface cluster, so each cluster maps to a single file. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated. In a multi-type session, `06`/`07` take the next slots in this type's decade (e.g. `16`/`17`) per the foundation flow's Draft Layout rule.
 
 #### The Translation Mandate
 
@@ -240,42 +228,35 @@ until then, render the thinking indicator (see below).
 
 The shallow version gives a developer two instructions and a dozen unanswered questions. The deep version commits to latency targets, flush cadence, a repaint ceiling, the non-TTY fallback, and interrupt behaviour — implementable without a single further design decision. **Interactive sections hit this depth too.**
 
-The same standard applies across the entire specification:
-- **Typographic hierarchy**: Not just "bold for headers" — exact weight/style/casing combinations for every content tier, with stacking rules defining which treatments can combine.
-- **Output structure templates**: Not just "show a table" — exact column alignment, header treatment, separator style, truncation rules, and concrete templates for success, list, detail, diff, JSON, and table outputs with both wide and narrow terminal variants.
-- **Progress patterns**: Not just "use spinners" — character sets, rotation speed, message format, completion treatment, stderr routing rules, and multi-step announcement format.
-- **Error anatomy**: Not just "show helpful errors" — exact error format template with severity, causal chain, recovery hint, exit code mapping, warning format, validation batching, and debug output toggle.
-- **Confirmation patterns**: Not just "confirm destructive actions" — prompt format, accepted responses, `--yes`/`--force` bypass, non-TTY fallback behaviour, selection prompt format, and text input validation.
-- **Help text anatomy**: Not just "include examples" — usage line format, description tone, subcommand grouping, flag alignment, example count and format, see-also links, and footer content.
-- **Responsive degradation**: Minimum supported width, degradation strategy, column priority rules, and width detection method.
-- **Composition rules**: `--json` schema contract, `--quiet` behaviour, `--verbose` behaviour, pipe detection rules, and Unix tool compatibility constraints.
-
-For interactive and hybrid paradigms, the same depth standard applies to the session surface:
-- **Streaming render budget**: Not just "stream the output" — time-to-first-byte target, token-flush cadence, repaint throttle (e.g. ~30fps), and the plain-line fallback when stdout is not a TTY.
-- **Slash-command grammar**: Not just "support slash commands" — the trigger, argument parsing, completion behaviour, namespacing, and error handling, specified as an EBNF-style grammar.
-- **Autocomplete behaviour**: Not just "add autocomplete" — trigger conditions, ranking, ghost-text vs. menu presentation, accept/dismiss keys, and a latency ceiling.
-- **Live-update regions**: Not just "use a TUI" — which screen regions repaint, alt-screen vs. inline rendering, and the dumb-terminal/non-TTY fallback for each region.
-- **Session lifecycle**: Not just "keep a session" — start, persist, resume, clear, and how context-window usage is tracked, surfaced, and compacted.
-- **Interrupt semantics**: Not just "handle Ctrl+C" — what Esc does vs. Ctrl+C, mid-stream cancellation behaviour, and the cleanup guarantee on each.
-
 #### Design System Target Structure
+
+The spec must cover all of the following, each at the depth standard above. Missing sections are not acceptable.
 
 **Part 1 — Constraints**: Startup budgets, composability contracts, platform targets, terminal capability requirements, configuration hierarchy.
 
 **Part 2 — Command Architecture**: Command taxonomy, I/O topology, configuration surface, help system, shell integration, progressive disclosure.
 
-**Part 3 — CLI Design System** (each at the depth standard above):
-Colour architecture (ANSI 256 + truecolor, NO_COLOR) · Typographic hierarchy · Output structure templates · Progress & loading patterns · Error anatomy · Confirmation & prompt patterns · Help text anatomy · Responsive degradation · Composition rules · Version & update communication
+**Part 3 — CLI Design System**:
+- **Colour architecture** (ANSI 256 + truecolor, NO_COLOR) — the worked example above sets the depth bar.
+- **Typographic hierarchy** — not just "bold for headers": exact weight/style/casing combinations for every content tier, with stacking rules defining which treatments can combine.
+- **Output structure templates** — not just "show a table": exact column alignment, header treatment, separator style, truncation rules, and concrete templates for success, list, detail, diff, JSON, and table outputs with both wide and narrow terminal variants.
+- **Progress & loading patterns** — not just "use spinners": character sets, rotation speed, message format, completion treatment, stderr routing rules, and multi-step announcement format.
+- **Error anatomy** — not just "show helpful errors": exact error format template with severity, causal chain, recovery hint, exit code mapping, warning format, validation batching, and debug output toggle.
+- **Confirmation & prompt patterns** — not just "confirm destructive actions": prompt format, accepted responses, `--yes`/`--force` bypass, non-TTY fallback behaviour, selection prompt format, and text input validation.
+- **Help text anatomy** — not just "include examples": usage line format, description tone, subcommand grouping, flag alignment, example count and format, see-also links, and footer content.
+- **Responsive degradation** — minimum supported width, degradation strategy, column priority rules, and width detection method.
+- **Composition rules** — `--json` schema contract, `--quiet` behaviour, `--verbose` behaviour, pipe detection rules, and Unix tool compatibility constraints.
+- **Version & update communication**
 
 **Part 4 — Session & Live Surface** (interactive and hybrid paradigms only, each at the depth standard above):
-Session/REPL loop · Slash-command grammar · Streaming render budget · Autocomplete behaviour · Interrupt semantics · Live-render/TUI regions and non-TTY fallback · Session persistence & context-window management · In-terminal branding & splash
-
----
-
-Before presenting the draft, run this self-check:
-1. **Does every section contain committed, implementable values?** If a section reads like a brief ("use a terse style with functional colour"), the translation is incomplete.
-2. **Does every specification include concrete templates or tables?** Prose descriptions without examples are insufficient.
-3. **Would a developer implementing this need to make any design decisions?** If yes, the spec is underspecified.
+- **Session/REPL loop**
+- **Slash-command grammar** — not just "support slash commands": the trigger, argument parsing, completion behaviour, namespacing, and error handling, specified as an EBNF-style grammar.
+- **Streaming render budget** — the worked example above sets the depth bar; not just "stream the output": time-to-first-byte target, token-flush cadence, repaint throttle (e.g. ~30fps), and the plain-line fallback when stdout is not a TTY.
+- **Autocomplete behaviour** — not just "add autocomplete": trigger conditions, ranking, ghost-text vs. menu presentation, accept/dismiss keys, and a latency ceiling.
+- **Live-render/TUI regions and non-TTY fallback** — not just "use a TUI": which screen regions repaint, alt-screen vs. inline rendering, and the dumb-terminal/non-TTY fallback for each region.
+- **Session persistence & context-window management** — not just "keep a session": start, persist, resume, clear, and how context-window usage is tracked, surfaced, and compacted.
+- **Interrupt semantics** — not just "handle Ctrl+C": what Esc does vs. Ctrl+C, mid-stream cancellation behaviour, and the cleanup guarantee on each.
+- **In-terminal branding & splash**
 
 ### Independent Review (Pre-Walkthrough)
 
@@ -292,13 +273,7 @@ Once the review verdict is PRESENT, proceed to Phase 5b.
 
 ### 5b: Guided Review (Collaborative)
 
-The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
-
-**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
-
 #### Cluster Walkthrough
-
-The cluster names here are deliberately distinct from the Phase 4 language clusters (Identity / Feel / Craft) — Phase 4 grouped *aesthetic decisions* the user owns; Phase 5b walks through *implementation specifics* the agent owns. Distinct names keep both schemes legible when both phases are referenced in the same conversation.
 
 **Cluster 1: Foundation** — Colour architecture (ANSI 256 + truecolor + NO_COLOR), typographic hierarchy, and output structure templates.
 
@@ -312,25 +287,7 @@ These define how the CLI behaves under load and under failure. Present the spinn
 
 These are engineering craft — decisions the agent should own. Present the full set as a summary table: what was decided, in one line per topic. Call out any judgment calls the user might have an opinion on. Ask if anything feels wrong. Do not walk through each one individually unless the user flags a concern.
 
-#### Re-flow Protocol
-
-When the user requests a change in any cluster:
-
-1. Acknowledge the change and confirm understanding.
-2. Assess downstream impact — state explicitly which section files are affected, including any downstream files whose rules reference the change.
-3. **Rewrite the affected section files.** Each section lives in its own file under `.groundwork/cache/design-system-draft/`. Use `write_file` to replace the implicated files in turn — for example, a change to the colour role table rewrites `03-foundation.md`, and may ripple into `04-interaction.md` if error formatting references the colour roles. Each `write_file` is bounded by the size of one section, never the whole spec.
-4. Summarise the re-flow: list every section file that changed and what specifically shifted.
-5. If a previously-approved cluster was affected substantively, re-present it before continuing.
-
-A CLI design system is a web of interconnected decisions. Changing the colour role table affects error formatting, which affects the help system. Propagate the change into every section file it implicates — file-by-file, never as a single full-spec rewrite. Isolated edits that ignore downstream effects create internal contradictions that surface during implementation; the propagation is mandatory, the file-at-a-time mechanic is what makes it safe.
-
-#### Walkthrough Progress
-
-Track which clusters have been reviewed in `.groundwork/cache/design-system-cache.md` under the Phase 5 checklist. Mark each cluster as complete when the user approves it.
-
-#### Completion Gate
-
-The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
+The Re-flow Protocol, Walkthrough Progress tracking, and Completion Gate that govern this walkthrough are the foundation flow's Phase 5 machinery — this track's cluster content is what they operate on.
 
 ---
 

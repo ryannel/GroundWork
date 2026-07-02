@@ -63,17 +63,13 @@ This type's Synthesis Gate expression fields:
 
 ## Phase 3: Workspace Topology
 
-*Runs inside the foundation flow's Phase 3 step — once for this type.*
+*Runs inside the foundation flow's Phase 3 step — once for this type, per the shared skeleton it defines.*
 
-The workspace topology is the structural container everything else lives inside — the filesystem architecture, state management, and discovery surfaces that agents and humans interact with. Getting this wrong means reworking every skill. Getting it right means every subsequent protocol decision has a home.
+The workspace topology is the structural container everything else lives inside — the filesystem architecture, state management, and discovery surfaces that agents and humans interact with.
 
-Define the structural skeleton using patterns from the Phase 2 inspiration library. The agent should explore and propose decisions across: filesystem architecture (where config, state, cache, and deliverables live), state management (format, schema, valid transitions), skill and tool discovery (manifests, directory conventions, routing tables), context injection strategy (global vs phase vs task layers), empty and boot states (first run, interrupted, stale), and progressive disclosure (how complexity scales as the project matures).
+Decision dimensions: filesystem architecture (where config, state, cache, and deliverables live), state management (format, schema, valid transitions), skill and tool discovery (manifests, directory conventions, routing tables), context injection strategy (global vs phase vs task layers), empty and boot states (first run, interrupted, stale), and progressive disclosure (how complexity scales as the project matures).
 
-Guide the conversation with leading-edge protocol patterns. Propose the topology based on the inspiration library, then ask the user to react and refine.
-
-When a topology decision implies a backend or infrastructure capability — state-store service, registry or routing backend, agent runtime, distribution channel, identity provider — append the implication as a bullet under `## Architecture` in `.groundwork/cache/discovery-notes.md` before continuing the conversation. The architecture phase finds these notes and skips re-deriving what was already decided here.
-
-Once approved, write to this type's subsection under Phase 3 in `.groundwork/cache/design-system-cache.md` and set it to `done`. Return to the foundation flow.
+Capture examples for the Architecture discovery-notes bullet: state-store service, registry or routing backend, agent runtime, distribution channel, identity provider.
 
 ---
 
@@ -83,11 +79,9 @@ Once approved, write to this type's subsection under Phase 3 in `.groundwork/cac
 
 ### 5a: Translation (Agent-Driven, Autonomous)
 
-The user provided taste, instinct, and direction across Phases 1–4. The agent now translates that into a rigorous protocol design specification — autonomously.
+The agent translates the approved direction into a rigorous protocol design specification. This track's file table (below) feeds the foundation flow's 5a mechanics — output location, one `write_file` per section, the self-check before presenting.
 
-**Output location**: `.groundwork/cache/design-system-draft/` — a directory of per-section files. Each file stays bounded in size, so any later change (review revise, 5b re-flow) touches only the affected files instead of regenerating the whole spec in a single turn. Regenerating the whole spec at once exhausts the per-response output token budget on rich specs; the per-section layout makes that failure structurally impossible. Writing to `docs/design-system.md` is prohibited until Phase 6 (Commit) — on initial generation that file does not exist; do not attempt to read it.
-
-**Write each section as a separate file.** Use one `write_file` call per section (the tool creates parent directories automatically):
+**This track's section files:**
 
 | File | Content |
 |---|---|
@@ -98,13 +92,7 @@ The user provided taste, instinct, and direction across Phases 1–4. The agent 
 | `04-interaction.md` | Part 3 Cluster 2 — interaction semantics, tone & posture specification |
 | `05-surface.md` | Part 3 Cluster 3 — skill & tool anatomy, error & recovery choreography, naming & taxonomy, versioning & evolution |
 
-The numeric prefixes determine concatenation order at commit. Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated.
-
-This table is the single-active-type layout; the foundation flow's Draft Layout rule governs how it adapts — the type section title (`# Agentic Protocol`) opening the first type-specific file, and, when several types are active, decade-prefixed type-slugged filenames with part headings demoted beneath the type title and `01-foundation.md` carrying the shared Part 1.
-
-Compile each section using the approved outputs stored in `.groundwork/cache/design-system-cache.md`. The document combines NFRs from Phase 1 with a comprehensive protocol design system that the agent derives from the interaction language direction captured in Phase 4.
-
-Apply the `groundwork-writer` skill to ensure the tone is declarative, assertive, and free of hedging. Structure it to read like a rigorous protocol specification that simultaneously serves as instruction material for any agent runtime.
+Each file is a self-contained markdown section — start its top-level heading at H1 (`# Part 1 — Constraints`) or H2 as appropriate so the files compose cleanly when concatenated. The foundation flow's Draft Layout rule governs how this table adapts when several types are active.
 
 #### The Translation Mandate
 
@@ -165,31 +153,24 @@ Severity Levels
 
 The shallow version gives a developer three bullets. The deep version gives them a complete error system with severity classifications, escalation rules, reconciliation algorithms, and message templates. **Every section of the protocol design system must hit this depth.**
 
-The same standard applies across the entire specification:
-- **State architecture**: Not just "use JSON" — exact schema with required fields, valid values, type constraints, transition rules, cold-start resolution algorithm, and reconciliation rules when filesystem and state disagree.
-- **Context hierarchy**: Not just "load context in layers" — exact files per layer, load order, context budget rules (max file reads, max tokens), and cache invalidation triggers.
-- **Document architecture**: Not just "use frontmatter" — required sections, heading hierarchy, metadata schema, cross-reference format, inverted pyramid rule, and machine-parsability constraints.
-- **Interaction semantics**: Not just "use status markers" — full status vocabulary table with symbols, exact meanings, and usage rules. Log level definitions. Colour semantics if terminal output is involved. Progress communication rules.
-- **Tone and posture specification**: Not just "be collaborative" — concrete persona brief, prohibited phrase list with required replacements, propose-vs-prompt ratio with triggers, and microcopy templates for confirmations, transitions, errors, and status.
-- **Skill and tool anatomy**: Not just "skills have phases" — standard skill interface, pre-flight checklist, action contract (idempotency, atomicity, rollback), handoff protocol, and post-action validation rules.
-- **Naming and taxonomy**: Not just "use kebab-case" — command naming convention, artifact naming convention, vocabulary boundary definitions with precise term meanings, and the naming self-test.
-- **Versioning and evolution**: Breaking change protocol, backward compatibility guarantees, and changelog format.
-
 #### Design System Target Structure
+
+The spec must cover all of the following, each at the depth standard above. Missing sections are not acceptable.
 
 **Part 1 — Constraints**: Context-loading budgets, verification requirements, authority boundaries, error resilience policies, interoperability guarantees.
 
 **Part 2 — Workspace Topology & Interaction Principles**: Filesystem architecture, state management, discovery surfaces, context injection strategy, communication posture.
 
-**Part 3 — Protocol Design System** (each at the depth standard above):
-State architecture · Context hierarchy · Document architecture · Interaction semantics · Tone & posture specification · Skill & tool anatomy · Error & recovery choreography · Naming & taxonomy · Versioning & evolution
-
----
-
-Before presenting the draft, run this self-check:
-1. **Does every section contain committed, implementable specifications?** If a section reads like a brief ("use a collaborative tone with clear errors"), the translation is incomplete.
-2. **Does every specification include concrete schemas, templates, or tables?** Prose descriptions without structured examples are insufficient.
-3. **Would a developer implementing this protocol need to make any design decisions?** If yes, the spec is underspecified.
+**Part 3 — Protocol Design System**:
+- **State architecture** — not just "use JSON": exact schema with required fields, valid values, type constraints, transition rules, cold-start resolution algorithm, and reconciliation rules when filesystem and state disagree.
+- **Context hierarchy** — not just "load context in layers": exact files per layer, load order, context budget rules (max file reads, max tokens), and cache invalidation triggers.
+- **Document architecture** — not just "use frontmatter": required sections, heading hierarchy, metadata schema, cross-reference format, inverted pyramid rule, and machine-parsability constraints.
+- **Interaction semantics** — not just "use status markers": full status vocabulary table with symbols, exact meanings, and usage rules; log level definitions; colour semantics if terminal output is involved; progress communication rules.
+- **Tone & posture specification** — not just "be collaborative": concrete persona brief, prohibited phrase list with required replacements, propose-vs-prompt ratio with triggers, and microcopy templates for confirmations, transitions, errors, and status.
+- **Skill & tool anatomy** — not just "skills have phases": standard skill interface, pre-flight checklist, action contract (idempotency, atomicity, rollback), handoff protocol, and post-action validation rules.
+- **Error & recovery choreography** — the worked example above sets the depth bar.
+- **Naming & taxonomy** — not just "use kebab-case": command naming convention, artifact naming convention, vocabulary boundary definitions with precise term meanings, and the naming self-test.
+- **Versioning & evolution** — breaking change protocol, backward compatibility guarantees, and changelog format.
 
 ### Independent Review (Pre-Walkthrough)
 
@@ -206,13 +187,7 @@ Once the review verdict is PRESENT, proceed to Phase 5b.
 
 ### 5b: Guided Review (Collaborative)
 
-The draft is a proposal. Present it to the user as one — explicitly frame it as what the agent built from their direction.
-
-**Do not ask the user to approve the full spec.** Do not present a summary and ask "does this look right?" Instead, walk through the spec in three focused clusters, each earning approval before advancing. When the user wants to push a section deeper — or a section reads thin against the quality standard above — load `.groundwork/skills/groundwork-elicit/instructions.md` and follow it.
-
 #### Cluster Walkthrough
-
-The cluster names here are deliberately distinct from the Phase 4 language clusters (Identity / Feel / Craft) — Phase 4 grouped *aesthetic decisions* the user owns; Phase 5b walks through *implementation specifics* the agent owns. Distinct names keep both schemes legible when both phases are referenced in the same conversation.
 
 **Cluster 1: Foundation** — State architecture, context hierarchy, and document architecture.
 
@@ -226,25 +201,7 @@ These define how the agent behaves turn to turn. Present the status vocabulary t
 
 These are engineering craft — decisions the agent should own. Present the full set as a summary table: what was decided, in one line per topic. Call out any judgment calls the user might have an opinion on. Ask if anything feels wrong. Do not walk through each one individually unless the user flags a concern.
 
-#### Re-flow Protocol
-
-When the user requests a change in any cluster:
-
-1. Acknowledge the change and confirm understanding.
-2. Assess downstream impact — state explicitly which section files are affected, including any downstream files whose rules reference the change.
-3. **Rewrite the affected section files.** Each section lives in its own file under `.groundwork/cache/design-system-draft/`. Use `write_file` to replace the implicated files in turn — for example, a change to the state schema rewrites `03-foundation.md`, and may ripple into `05-surface.md` if skill anatomy or error choreography references the state shape. Each `write_file` is bounded by the size of one section, never the whole spec.
-4. Summarise the re-flow: list every section file that changed and what specifically shifted.
-5. If a previously-approved cluster was affected substantively, re-present it before continuing.
-
-A protocol design system is a web of interconnected decisions. Changing the state schema affects skill anatomy, which affects error choreography. Propagate the change into every section file it implicates — file-by-file, never as a single full-spec rewrite. Isolated edits that ignore downstream effects create internal contradictions that surface during implementation; the propagation is mandatory, the file-at-a-time mechanic is what makes it safe.
-
-#### Walkthrough Progress
-
-Track which clusters have been reviewed in `.groundwork/cache/design-system-cache.md` under the Phase 5 checklist. Mark each cluster as complete when the user approves it.
-
-#### Completion Gate
-
-The walkthrough is complete when all three clusters have been presented and approved. Mark this type's walkthrough done in the cache, then return to the foundation flow — it proceeds to the next active type's translation, or to Phase 6 (Commit) when this is the last.
+The Re-flow Protocol, Walkthrough Progress tracking, and Completion Gate that govern this walkthrough are the foundation flow's Phase 5 machinery — this track's cluster content is what they operate on.
 
 ---
 

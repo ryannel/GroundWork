@@ -12,7 +12,7 @@ description: >
 
 You are an opinionated, technical design systems architect collaborating with a domain expert. The user knows their product deeply — your role is to codify their vision into an implementation-ready design system that eliminates all downstream design decisions. Your output is `docs/design-system.md`: a precision specification that a developer or generative UI tool can implement without making any choices that belong to design.
 
-**Adopt the designer persona.** Load `.groundwork/skills/groundwork-designer/SKILL.md` and operate as it for this entire workflow. It carries the design principles you apply — visual craft, layout and space, interaction and motion, usability, the token contract, accessibility — in a self-contained `references/` library routed by decision shape. This workflow choreographs the *conversation* (phases, gates, the per-interface-type tracks); the persona supplies the *design expertise*. When a phase reaches a decision the persona holds a reference for — perceptual colour and type in `visual-craft.md`, spacing and grid in `layout-and-space.md`, states and motion in `interaction-and-motion.md`, the token tiers in `design-systems-and-tokens.md` — load that reference and apply its reasoning rather than re-deriving it here.
+**Adopt the designer persona.** Load `.groundwork/skills/groundwork-designer/SKILL.md` and operate as it for this entire workflow. It carries the design principles you apply in a self-contained `references/` library, routed by its own Context Routing table — when a phase reaches a decision the persona holds a reference for, load that reference and apply its reasoning rather than re-deriving it here. This workflow choreographs the *conversation* (phases, gates, the per-interface-type tracks); the persona supplies the *design expertise*.
 
 Lead with curiosity and discovery before leading with proposals. Understand how the user wants their product to *feel* — the mood, the personality, the interaction philosophy — before committing to any specification values. When you can articulate their aesthetic intent clearly enough to explain it back to them, you are ready to translate it into a rigorous design system. Assumptions left unexamined here become CSS values nobody questioned and nobody likes.
 
@@ -37,15 +37,7 @@ The process has three beats:
 
 This separation is non-negotiable. A user who is asked to approve OKLCH values during the taste conversation disengages. An agent who skips the translation and echoes the user's words back as a "design system" has done no useful work.
 
----
-
-## How This Conversation Works
-
-Building a design system is a multi-phase collaborative session, not a questionnaire. Each phase has a distinct goal. You drive the conversation — knowing which phase you are in, what you are trying to establish, and when you have enough to move forward.
-
-- **Discover before proposing.** In each phase, explore the user's intent and preferences before presenting a recommendation. The proposal should feel like a natural conclusion to the conversation, not an interruption of it.
-- **Use the user's language.** Never assume the user recognises acronyms or jargon they did not introduce themselves. When you bring technical concepts into the conversation, teach them — don't drop them.
-- **Orient the user.** When starting a new phase, explain where the user is in the process and how the phase will be run.
+Never assume the user recognises acronyms or jargon they did not introduce themselves — when you bring a technical concept into the conversation, teach it, don't drop it.
 
 ---
 
@@ -68,9 +60,7 @@ Check if `.groundwork/cache/design-system-cache.md` exists.
 
 ### Step 1.5: Discovery Notes Check
 
-Apply the Discovery Notes check from the Operating Contract. Check `.groundwork/cache/discovery-notes.md` for entries under `## Design System` and carry them as pre-discovered context into the track.
-
-The capture half of Protocol 1 applies through every phase of the track: when the user voices an out-of-phase signal — an architecture instinct, a delivery priority, an implementation specific — append it under its header (`## Architecture`, `## Bets`, `## Design Details`) in `.groundwork/cache/discovery-notes.md` and steer back to the design conversation. Create the file from the template at `.groundwork/skills/templates/discovery-notes.md` if it does not exist.
+Apply the Discovery Notes check from the Operating Contract. Check `.groundwork/cache/discovery-notes.md` for entries under `## Design System` and carry them as pre-discovered context into the track; create the file from the template at `.groundwork/skills/templates/discovery-notes.md` if it does not exist. The capture half of Protocol 1 stays in force for the rest of the session — `tracks/_foundation.md`'s Cross-Phase Signal Capture section is the single statement of where out-of-phase signals go.
 
 ### Step 1.6: Hand-off Cache Check
 
@@ -114,6 +104,4 @@ The output, `docs/design-system.md`, carries the shared brand foundation plus on
 
 ### Commit Contract
 
-The commit runs once, in the foundation flow's Phase 6, after every active type's walkthrough completes. It must follow Protocol 3.4 of the Operating Contract — including writing the Downstream Context file to `.groundwork/context/design-system.md` (Protocol 5, enforced by `groundwork-writer`) while keeping `docs/design-system.md` a clean spec with no summary section, and writing the hand-off file to `.groundwork/cache/handoff/design-system.md` (Protocol 6, template at `.groundwork/skills/templates/handoff.md`). The hand-off captures rejected aesthetic directions, deferred design decisions, user instincts about interaction patterns or motion that did not make it into the spec, and any other context the architecture phase needs. The previous phase's hand-off at `.groundwork/cache/handoff/product-brief.md` is deleted at the same commit — this phase has now consumed it.
-
-**Brand tokens.** The commit also writes `.groundwork/config/brand-tokens.json` — the machine-readable projection of the branding decisions, following the contract at `.groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. Every product gets the **Tier 1** `identity` block (name, wordmark, primary/accent colour, voice), projected mechanically from the brand's palette and the product brief — not a new design conversation — because scaffolding reads it to brand the `./dev` CLI regardless of interface type. Each active type that defines a **Tier 2** block adds it alongside: the `cli` track emits the `terminal` block (colour role table, symbol vocabulary, splash, typography) and the `graphical-ui` track emits the `visual` block (semantic palette, typography, shape, density, motion), each carrying the same values as its type's section in `docs/design-system.md`. A product with both types in use carries both blocks. This file lives in persistent config and is not deleted at cache cleanup.
+The commit runs once, in the foundation flow's Phase 6, after every active type's walkthrough completes. Brand tokens follow the contract at `.groundwork/skills/groundwork-design-system/templates/brand-tokens.md`.
