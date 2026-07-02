@@ -108,24 +108,22 @@ The driver passes:
 Most implementation failures are context failures — the agent that breaks an existing
 behaviour usually never read the file it was changing. Before writing any code:
 
-- **Orient through the repo map, then trace what you are about to touch.** Refresh the
-  deterministic map (`npx groundwork-method repo-map`, incremental); for graph-fidelity
-  stacks (Go/Python/TS/JS/Java/Dart) read its `centrality` ranking to find the hubs this
-  slice lands among. A symbols-fidelity stack (Swift/Rust/Kotlin/C#/...) has no centrality
-  or edges — orient off module shape and Serena's symbol overview rather than pretending
-  the ranking exists. Before you change any symbol other code depends on, run live impact
-  analysis with Serena (`find_referencing_symbols`) to see every caller that breaks if its
-  signature or shape changes. What that pass earns depends on the language: in a
-  **dynamically-typed** stack (Python/JS/Ruby) there is no compiler to catch a missed call
-  site — it ships as a runtime error, so the pass is correctness-critical; in a
-  **statically-typed** stack the compiler is the backstop, so the pass is a navigation and
-  early-signal win — it surfaces the callers now instead of after a build cycle, and it
-  resolves a common identifier (a `caption`, an `id`) that text search drowns in. Navigate
-  with `get_symbols_overview` / `find_symbol` and edit by symbol (`replace_symbol_body` /
-  `rename`) where it fits. Full workflow and the graceful-degradation contract are in
-  `.groundwork/skills/code-intelligence.md`; when the map or Serena is genuinely
-  unavailable, navigate with ordinary reads and project search and let the compiler and
-  tests be the backstop — the contract is identical, only the means differ.
+- **Orient from the capsule — the driver already did the navigation.** It names the exact
+  files to read and every constraint the slice runs under; do not re-derive that with
+  broad searches. Reach beyond it only when you hit a genuine gap — a symbol the capsule
+  never mentions, module topology you need — and then use whatever answers fastest:
+  targeted reads, project search, the map's `module_graph`, or Serena's symbol tools
+  (`.groundwork/skills/code-intelligence.md` is the contract for all of them, including
+  what to do when a tool is absent). Tools are means, not steps.
+- **Work the caller list, when the capsule carries one.** A ripple slice — a rename or a
+  signature change to a symbol other code depends on — arrives with the driver's
+  reference analysis: every call site, annotated by module, produced against committed
+  code. That list is your checklist, not a suggestion: account for every entry, and
+  before reporting green, **compile every consumer module it names** — your test loop
+  builds only its own targets, and a caller in a module outside that loop (an app target,
+  a sibling service) is exactly the one "the compiler will catch it" misses. In a
+  dynamically-typed stack the list is more than navigation — there is no compiler to
+  catch a missed call site at all, so an unaccounted entry ships as a runtime error.
 - **Read the previous slice's delivery commit** — its message and its diff.
 - **Read every existing file this slice modifies, in full.** For each, hold three
   things: what it does today, what this slice changes, and what must keep working. A

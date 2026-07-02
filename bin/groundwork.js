@@ -31,10 +31,11 @@ function printHelp() {
             and scripted migrations. Judgment-lane work lands in an upgrade brief for your agent.
             \x1b[2m--dry-run prints the full plan without writing anything; --full shows complete changelog entries.\x1b[0m
   \x1b[36mcheck\x1b[0m     Report framework staleness (version gap, pending migrations) and documentation drift
-  \x1b[36mrepo-map\x1b[0m  Build the deterministic code map (.groundwork/cache/repo-map.json): tree-sitter
-            import edges + PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index
-            for many more languages; extensible per-project. Incremental — only changed files
-            reparse. \x1b[2m--check reports staleness without rebuilding.\x1b[0m
+  \x1b[36mrepo-map\x1b[0m  Build the deterministic code map (.groundwork/cache/repo-map.json): a manifest-derived
+            module graph (SwiftPM, Cargo, npm workspaces, .NET) + tree-sitter import edges with
+            PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index for many more
+            languages; extensible per-project. Incremental — only changed files reparse.
+            \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -1735,10 +1736,12 @@ async function repoMapCommand(argv) {
 
   const { map, cache, stats, diagnostics } = await engine.generate({ cwd: p.targetDir, cacheDir: p.targetCacheDir });
 
-  // A malformed project-local language config is the user's to fix — surface it.
+  // A malformed project-local language/manifest config is the user's to fix — surface it.
   for (const e of diagnostics.projectErrors || []) c.warn(`repo-map.languages.js: ${e}`);
+  for (const e of diagnostics.manifestErrors || []) c.warn(`module graph: ${e}`);
 
-  if (map.stats.files === 0) {
+  const mg = map.module_graph;
+  if (map.stats.files === 0 && !mg.modules.length) {
     c.warn(`No mappable source files found. Nothing to map.`);
     reportUnmapped(diagnostics.unmapped);
     return;
@@ -1751,10 +1754,34 @@ async function repoMapCommand(argv) {
   if (diagnostics.projectLanguages && diagnostics.projectLanguages.length) {
     c.dim(`  project languages: ${diagnostics.projectLanguages.join(', ')}`);
   }
+  if (mg.modules.length) {
+    const ecos = mg.sources.map((s) => s.ecosystem).join(', ');
+    c.dim(`  module graph: ${mg.modules.length} modules, ${mg.edges.length} edges (${ecos})`);
+  }
   if (map.centrality.length) {
     console.log(`\n\x1b[1mMost-referenced files (centrality):\x1b[0m`);
     for (const hub of map.centrality.slice(0, 5)) {
       console.log(`  ${hub.file} \x1b[2m(rank ${hub.rank}, ${hub.in} incoming)\x1b[0m`);
+    }
+  }
+  if (mg.module_centrality.length && mg.edges.length) {
+    console.log(`\n\x1b[1mModule hubs (manifest-declared dependencies):\x1b[0m`);
+    for (const hub of mg.module_centrality.slice(0, 5)) {
+      console.log(`  ${hub.module} \x1b[2m(rank ${hub.rank}, ${hub.in} incoming)\x1b[0m`);
+    }
+  }
+
+  // --mermaid: also render the module graph for humans/docs — the one map view,
+  // replacing per-project one-off graph tools.
+  if (argv.includes('--mermaid')) {
+    if (!mg.modules.length) {
+      c.warn(`--mermaid: no module graph to render (${mg.reason || 'no modules found'}).`);
+    } else {
+      const mmd = engine.renderModuleGraphMermaid(mg);
+      const out = path.join(p.targetCacheDir, 'module-graph.mmd');
+      fs.writeFileSync(out, mmd);
+      c.ok(`Wrote .groundwork/cache/module-graph.mmd`);
+      console.log('\n' + mmd);
     }
   }
   reportUnmapped(diagnostics.unmapped);

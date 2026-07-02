@@ -227,6 +227,173 @@ def test_unmapped_language_degrades_gracefully(project):
     assert "code-intelligence.md" in proc.stdout + proc.stderr
 
 
+SWIFT_MANIFEST = """// swift-tools-version:5.9
+import PackageDescription
+
+let package = Package(
+    name: "AppPackages",
+    products: [
+        .library(name: "AppKitchen", targets: ["Core", "Recipes"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/groue/GRDB.swift", from: "7.0.0"),
+    ],
+    targets: [
+        .target(name: "Core"),
+        .target(name: "Recipes", dependencies: ["Core",
+            .product(name: "GRDB", package: "grdb.swift")]),
+        .executableTarget(name: "Tool", dependencies: [.target(name: "Core")]),
+        .testTarget(name: "RecipesTests", dependencies: ["Recipes"]),
+    ]
+)
+"""
+
+
+def test_swiftpm_module_graph_from_manifest(project):
+    # The module graph is read from the SwiftPM manifest — real module edges for
+    # a symbols-fidelity language whose imports yield none, external products
+    # kept as nodes, and the hub target topping module centrality.
+    write(project, "Packages/Package.swift", SWIFT_MANIFEST)
+    write(project, "Packages/Sources/Core/Core.swift", "public struct Core {}\n")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    kinds = {m["name"]: m["kind"] for m in mg["modules"]}
+    assert kinds["Core"] == "target"
+    assert kinds["Tool"] == "executable"
+    assert kinds["RecipesTests"] == "test"
+    assert kinds["AppKitchen"] == "product"
+    assert kinds["GRDB"] == "external"
+
+    edge_pairs = {(e["from"], e["to"]) for e in mg["edges"]}
+    assert ("Recipes", "Core") in edge_pairs          # bare-string dependency
+    assert ("Tool", "Core") in edge_pairs             # .target(name:) dependency
+    assert ("Recipes", "GRDB") in edge_pairs          # .product(name:, package:)
+    assert ("RecipesTests", "Recipes") in edge_pairs
+    assert ("AppKitchen", "Core") in edge_pairs       # product → realizing target
+
+    assert mg["module_centrality"][0]["module"] == "Core"
+    assert mg["sources"] == [
+        {"ecosystem": "swiftpm", "manifests": ["Packages/Package.swift"], "method": "parsed"}
+    ]
+    assert "module graph: " in proc.stdout
+
+
+def test_cargo_workspace_module_graph(project):
+    # Cargo path dependencies are the internal crate topology; registry crates
+    # are external noise the module graph deliberately omits.
+    write(project, "Cargo.toml", '[workspace]\nmembers = ["crates/*"]\n')
+    write(project, "crates/util/Cargo.toml", '[package]\nname = "util"\nversion = "0.1.0"\n')
+    write(project, "crates/app/Cargo.toml",
+          '[package]\nname = "app"\nversion = "0.1.0"\n\n'
+          '[dependencies]\nutil = { path = "../util" }\nserde = "1"\n\n'
+          '[dependencies.tokio]\nversion = "1"\n')
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    assert {m["name"] for m in mg["modules"]} == {"util", "app"}
+    assert all(m["kind"] == "crate" for m in mg["modules"])
+    assert mg["edges"] == [{"from": "app", "to": "util"}]
+
+
+def test_npm_workspace_module_graph(project):
+    # Activates only on a declared workspace; member-to-member dependencies are
+    # the edges, the root package is not a module.
+    write(project, "package.json", '{ "name": "root", "workspaces": ["packages/*"] }')
+    write(project, "packages/lib/package.json", '{ "name": "@app/lib" }')
+    write(project, "packages/web/package.json",
+          '{ "name": "@app/web", "dependencies": { "@app/lib": "workspace:*", "react": "^19" } }')
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    assert {m["name"] for m in mg["modules"]} == {"@app/lib", "@app/web"}
+    assert mg["edges"] == [{"from": "@app/web", "to": "@app/lib"}]
+
+
+def test_dotnet_project_references(project):
+    write(project, "src/Lib/Lib.csproj", "<Project><ItemGroup></ItemGroup></Project>")
+    write(project, "src/Api/Api.csproj",
+          '<Project><ItemGroup>'
+          '<ProjectReference Include="..\\Lib\\Lib.csproj" />'
+          "</ItemGroup></Project>")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    assert {m["name"] for m in mg["modules"]} == {"Lib", "Api"}
+    assert mg["edges"] == [{"from": "Api", "to": "Lib"}]
+
+
+def test_module_graph_absent_with_reason(project):
+    # No recognized manifest → empty module graph with an honest reason, never a
+    # fabricated one and never a crash.
+    write(project, "src/a.ts", "export const a = 1;\n")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    assert mg["modules"] == [] and mg["edges"] == []
+    assert "no recognized build manifests" in mg["reason"]
+
+
+def test_mermaid_renders_module_graph(project):
+    write(project, "Packages/Package.swift", SWIFT_MANIFEST)
+    commit_all(project)
+
+    proc = run_cli(["repo-map", "--mermaid"], project)
+    assert proc.returncode == 0, proc.stderr
+
+    mmd = (project / ".groundwork/cache/module-graph.mmd").read_text()
+    assert mmd.startswith("graph LR")
+    assert "swiftpm_Recipes[Recipes]" in mmd
+    assert "swiftpm_GRDB{{GRDB}}" in mmd                       # external → hexagon
+    assert "swiftpm_Recipes --> swiftpm_Core" in mmd
+    assert "swiftpm_Recipes --> swiftpm_GRDB" in mmd
+
+
+def test_manifest_provider_extension_seam(project):
+    # A project maps a build system repo-map does not cover by committing a
+    # provider definition — same seam shape as repo-map.languages.js.
+    write(project, ".groundwork/config/repo-map.manifests.js", """
+module.exports = [{
+  id: 'make',
+  detect(files) { return files.filter((f) => f.endsWith('module.mk')); },
+  parse({ manifestPaths }) {
+    return {
+      modules: manifestPaths.map((p) => ({
+        name: p.split('/')[0], kind: 'component', ecosystem: 'make', path: p, language: 'c',
+      })),
+      edges: [{ from: 'app', to: 'base' }],
+    };
+  },
+}];
+""")
+    write(project, "app/module.mk", "obj := app.o\n")
+    write(project, "base/module.mk", "obj := base.o\n")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    mg = read_map(project)["module_graph"]
+
+    assert {m["name"] for m in mg["modules"]} == {"app", "base"}
+    assert mg["edges"] == [{"from": "app", "to": "base"}]
+    assert mg["sources"][0]["ecosystem"] == "make"
+
+
 def test_project_extension_seam_adds_language_and_edges(project):
     # A repo enables a language repo-map does not cover by committing a project
     # language definition — including a resolver that produces real edges.

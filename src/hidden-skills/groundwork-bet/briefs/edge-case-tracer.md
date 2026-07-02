@@ -29,8 +29,9 @@ The driver passes:
   followed to confirm whether it is genuinely handled there, rather than assumed. When
   the Serena MCP server is registered, follow those paths with it (`find_referencing_symbols`
   to enumerate callers, `find_symbol` to read the body you land in) rather than by guesswork;
-  `.groundwork/cache/repo-map.json` edges serve the same purpose offline, and ordinary
-  search is the fallback when neither exists.
+  offline, `.groundwork/cache/repo-map.json` serves the same purpose — file `edges` where the
+  language has them, `module_graph.edges` for the consuming modules where it does not — and
+  ordinary search is the fallback when neither exists.
 
 ## The work
 
@@ -48,9 +49,12 @@ does not account for:
 - Boundaries — off-by-ones, an unbounded input, pagination that loses or duplicates the
   edge element, an overflow.
 - Callers the diff did not update — when the diff changes a symbol's signature or shape,
-  enumerate its references (Serena `find_referencing_symbols`, or the repo-map edges
-  offline) and confirm each was updated in the same diff. A caller left on the old shape
-  is an unhandled path the compiler may not catch in a dynamically-typed stack.
+  enumerate its references (Serena `find_referencing_symbols`, the capsule's caller list
+  when the slice carried one, or the repo-map edges offline) and confirm each was updated
+  in the same diff. A caller left on the old shape is an unhandled path the compiler may
+  not catch in a dynamically-typed stack — and even in a compiled one, only for the
+  targets the slice's build actually compiled: check the map's `module_graph` for consumer
+  modules outside that loop.
 
 Report a path only when it is genuinely unhandled and reachable — trace it into existing
 code first. Do not report a case the code already covers, and do not report stylistic

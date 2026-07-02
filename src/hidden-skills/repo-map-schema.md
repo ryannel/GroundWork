@@ -13,7 +13,7 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
 
 ```jsonc
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "generator": "groundwork-method repo-map",
   "generator_version": "0.10.0",          // package version that wrote it
   "generated_at": "2026-06-19T...Z",      // wall-clock stamp (write time)
@@ -31,6 +31,20 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
     { "path": "services", "files": 64 },
     { "path": "web", "files": 40 }
   ],
+  "module_graph": {                        // manifest-derived module/target DAG (schema v2)
+    "modules": [                           // one per declared module; kind is provider vocabulary
+      { "name": "Core", "kind": "target", "ecosystem": "swiftpm", "path": "Packages", "language": "swift" },
+      { "name": "GRDB", "kind": "external", "ecosystem": "swiftpm", "path": null, "language": "swift" }
+    ],
+    "edges": [ { "from": "Recipes", "to": "Core" } ],   // declared module dependencies
+    "module_centrality": [                 // PageRank over module edges, desc — module hubs
+      { "module": "Core", "rank": 0.2152, "in": 11, "out": 0 }
+    ],
+    "sources": [                           // which manifests, parsed how — honesty marker
+      { "ecosystem": "swiftpm", "manifests": ["Packages/Package.swift"], "method": "parsed" }
+    ],
+    "reason": "..."                        // only when empty: why no module graph exists
+  },
   "centrality": [                          // every file, ranked by PageRank desc
     { "file": "services/auth/token.go", "rank": 0.0182, "in": 21, "out": 3 }
   ],
@@ -50,6 +64,16 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
 
 ## Field notes
 
+- **`module_graph`** is the manifest-derived layer: the module/target DAG read from build
+  manifests (built in: SwiftPM, Cargo, npm/pnpm workspaces, .NET project references; extensible
+  via `.groundwork/config/repo-map.manifests.js`, see `code-intelligence.md`). It is real for any
+  stack with a manifest — including symbols-fidelity languages whose imports contribute no file
+  edges — and is the field to read for consumer modules and module-level hubs. `method: "parsed"`
+  is an honesty marker: the graph is the manifest's literal declarations, not a resolved build, so
+  a manifest that computes its targets dynamically is read only as far as its literals. `kind` is
+  provider vocabulary (`target`/`test`/`executable`/`product`/`external` for SwiftPM, `crate`,
+  `package`, `project`). `repo-map --mermaid` renders this layer to
+  `.groundwork/cache/module-graph.mmd`.
 - **`centrality`** is the field the scan leans on: high-rank files are the hubs to read
   deeply; leaves are skimmed. Rank is weighted PageRank over the import graph (damping 0.85),
   so it captures transitive importance, not just raw in-degree.
@@ -75,16 +99,22 @@ Languages map at one of two fidelities, declared per language in `coverage`:
 - **`graph`** — import edges resolve to internal files, so `edges` and `centrality` are real.
   Built in for Go, Python, TypeScript/JavaScript (incl. TSX/JSX), Java, and Dart.
 - **`symbols`** — `symbols`, `external_dependencies`, and `modules` are populated, but the
-  language contributes no internal edges (no verified resolver). Built in for Rust, Kotlin,
-  C#, C/C++, Scala, Swift, PHP, Ruby, and Lua.
+  language contributes no internal *file* edges (no verified resolver). Built in for Rust, Kotlin,
+  C#, C/C++, Scala, Swift, PHP, Ruby, and Lua. These stacks still get module-level structure:
+  `module_graph` is fidelity-independent — the manifest declares the module DAG whether or not
+  imports resolve.
 
 Anything else a repo can enable at either fidelity via the project extension seam
 (`.groundwork/config/repo-map.languages.js`; see `code-intelligence.md`). Languages present but
 neither built in nor enabled appear in `unmapped` with a reason — they are not silently dropped.
 Where the map cannot cover a language at all, the scan falls back to LLM inference in the same shape.
 
-## Known limits (v1)
+## Known limits
 
-- Edges are import-level. `require()`/dynamic `import()` and call-graph edges are not yet
+- File `edges` are import-level. `require()`/dynamic `import()` and call-graph edges are not yet
   resolved; the symbol index is top-level definitions, not a full reference graph — that
   precision is Serena's live job, not the map's.
+- `module_graph` is declared topology, parsed from manifest text: no dependency resolution, no
+  build, no network. A dynamically-computed target list, a version condition, or a generated
+  manifest is read only as far as its literal declarations — which is why `sources[].method`
+  says `parsed` and why the graph never claims resolution fidelity it does not have.
