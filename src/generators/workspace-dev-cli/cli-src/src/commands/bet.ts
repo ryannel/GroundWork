@@ -56,7 +56,7 @@ function templatePath(name: string): string {
  *  runner shipped. Today only `system-test-runner`'s pytest harness ships one
  *  (`.pytmpl`), so this always resolves to `.py`; it degrades to the same
  *  `.pytmpl`/`.py` pair, documented rather than silently assumed, when no
- *  template is found at all. See `groundwork-bet/templates/bet-progress-test.md`
+ *  template is found at all. See `groundwork-bet/references/bet-progress-tests.md`
  *  for the `<ext>` convention this mirrors. */
 function testTemplate(name: string): { file: string; ext: string } {
   const dir = path.join(ROOT, 'scripts', 'cli', 'templates');

@@ -180,15 +180,12 @@ implementation that they are meant to pin.
 
 What the slice owes is defined by the stack's testing strategy — the promoted engineer
 skill at `.agents/skills/groundwork-<stack>-engineer/references/testing.md`,
-specifically its **Bet Slice Rollout** section. Read it and roll out what this slice
-earns: the service-perimeter or interface test for each capability the slice
-delivered, unit tests for any genuinely complex logic it introduced, a property-based
-test for any invariant, a critical-path trace assertion where it added an observable
-path (a backend service that emits OpenTelemetry spans), and — for a `graphical-ui`
-slice — component render tests across the states the design system names (default,
-loading, empty, error, long-content) plus registering any new route in
-`tests/system/routes.json`. These live in the service repos and `tests/system/`, never
-in `tests/bets/`. Run them green before reporting.
+specifically its **Bet Slice Rollout** section, the authority for what this slice earns:
+a perimeter/interface test per capability, a unit test only for genuinely complex logic,
+a property test where an invariant exists, a trace assertion on any observable path, and
+— for a `graphical-ui` slice — the named graphical states plus the `routes.json`
+registration. Read it and roll out what it names; these tests live in the service repos
+and `tests/system/`, never in `tests/bets/`. Run them green before reporting.
 
 Match the depth to the slice's risk, not a fixed count — the strategy names which tier
 carries each assertion, and a sociable service test that executes a branch without

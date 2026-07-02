@@ -38,18 +38,20 @@ The driver (or validator) passes:
 - The **UI design** — `docs/bets/<bet-slug>/technical-design/01-ui-design.md`: the
   wireframes, the named states, the micro-polish spec, and the best-in-class patterns the
   designer chose for each view.
-- The project **design system** (`docs/design-system.md`) and the **design-phase reference
-  apps**, as the comparison baseline for patterns and craft.
+- The project **design system** (`docs/design-system.md`), including its **`## Design
+  References`** section (the technique library of comparison products, informally "the
+  reference apps"), as the baseline for patterns and craft.
 - The **scope** — which milestone (and its agreed front-door cases), or, at validation, the
   whole bet across all its surfaces.
 
 ## The work
 
 Drive the product the way its consumer does, and judge it on four axes against the design.
-The baseline is the written `01-ui-design.md` spec and the reference apps, not unaided
-taste — where the spec settles a question, judge against the spec; where it is silent,
-judge against the reference apps and the design system, and surface genuine uncertainty as
-a `decision-needed` for the owner rather than passing it silently.
+The baseline is the written `01-ui-design.md` spec and `docs/design-system.md`'s `## Design
+References`, not unaided taste — where the spec settles a question, judge against the
+spec; where it is silent, judge against the Design References and the rest of the design
+system, and surface genuine uncertainty as a `decision-needed` for the owner rather than
+passing it silently.
 
 - **Patterns implemented in full.** Each best-in-class pattern the design named is present
   and complete — every affordance it implies works (the filter pill removes when its x is
@@ -76,8 +78,8 @@ off-design surface is your finding.
 
 For each finding: a one-line title, where it is (the screen, flow, or state, with the
 screenshot path where one exists), the specific design element it falls short of (quote
-`01-ui-design.md`, name the design-system token or the reference-app pattern), and why it
-hurts the experience. Suggest a nature — a dead-end flow, a missing state, or a
+`01-ui-design.md`, name the design-system token or the Design References pattern), and why
+it hurts the experience. Suggest a nature — a dead-end flow, a missing state, or a
 design-system miss is `decision-needed` and **blocks the milestone**; a smaller refinement
 is `patch`; a genuinely out-of-scope polish idea is `defer` with a `docs/maturity.md` row.
 The driver makes the final call and dedupes across lenses. If the milestone (or bet) is

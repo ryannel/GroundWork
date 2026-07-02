@@ -47,21 +47,17 @@ it, then judge the suite the worker rolled out against the strategy on two axes:
 
 **Completeness — is the coverage the strategy asks for actually present?**
 
-- The service-perimeter or interface test exists for each capability the slice delivered.
+Judge what the worker rolled out against the strategy's **Bet Slice Rollout** obligations —
+perimeter/interface, unit (genuinely complex logic only), property, trace assertion, and,
+for a `graphical-ui` slice, the named graphical states plus the `routes.json`
+registration — not a fixed list of your own:
+
 - Error and boundary cases are covered to the **rigour of the happy path** — the strategy
   treats a skipped error case as a gap, not an optional extra. A capability with three
   documented failure modes and a test for only the success path is under-covered.
-- Genuinely complex logic the slice introduced carries a unit test; plumbing does not need
-  one (the perimeter test covers it) — apply the strategy's own "what earns a unit test"
-  rule, do not demand tests the strategy says are waste.
-- An invariant the slice introduced is pinned by a property-based test where the strategy
-  calls for one.
-- A slice that added an **observable path** (a backend service emitting OpenTelemetry
-  spans) carries a critical-path trace assertion. A slice on a stack that emits no traces
-  (a Flutter or Electron client) owes none — the strategy says so; do not invent one.
-- A `graphical-ui` slice has component render tests across the **named states** the design
-  system defines (default, loading, empty, error, long-content) and registers any new
-  route for the system gates.
+- Apply the strategy's own rule for what earns each obligation (what earns a unit test,
+  what earns a trace assertion) — do not demand coverage the strategy itself says is waste
+  (plumbing, a stack that emits no traces).
 - **A fake the suite leans on has a real-producer test behind it** — the coverage angle
   on the honest-green tells canonical in `workflows/03-decomposition.md` Step 3. When a
   test uses a fixture or stub for work a real stage performs, the suite must also test

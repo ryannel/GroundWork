@@ -1,8 +1,6 @@
 ## Data Flows & Business Logic
 
-*How the bet actually works: how data moves through the system, the business logic that governs it, and the routing decisions along the way. The service topology this bet plays in lives in the pitch's Solution — this file does not redraw it; it details how data flows across it. This is the most valuable file in the directory for a reader who knows the product but not this bet — it is where timing, ordering, service boundaries, and failure handling become legible.*
-
-*Diagram-heavy by design. Every non-trivial flow carries a `sequenceDiagram` (these render on GitHub and the Fumadocs site) — prose alone cannot make ordering and cross-service timing legible. Skip trivial CRUD; a flow with no non-obvious timing, ordering, routing, or failure mode does not belong here.*
+*How data moves through the system, the business logic that governs it, and the routing decisions along the way — diagram-heavy, does not redraw the topology (the pitch's Solution owns that). Skip trivial CRUD; a flow with no non-obvious timing, ordering, routing, or failure mode does not belong here.*
 
 ---
 
