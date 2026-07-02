@@ -72,6 +72,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 - **Release/store work** → Load `references/releases-and-distribution.md`. Signing material never enters the repo.
 - **Credential or token storage, biometric auth, or any handling of user-supplied input** → Load `references/security.md`. The client is hostile territory; secrets and trust live server-side.
 - **Performance or offline/resilience work** → Load `references/performance-and-reliability.md`. SLOs and load shedding live in the core, not the client.
+- **AI/LLM feature work** → The model call belongs behind the backend's contract — the client never holds a provider key. The doctrine (prompts-as-code, evals-as-CI-tests, output validation, moderation gates) is `docs/principles/ai-native/ai-engineering.md`.
 
 ## Safety Gates
 

@@ -19,3 +19,5 @@ match.
 | src/docs/principles/quality/reliability.md | 9c9788504e0963458667d2727c3fc2359776108be593a2efc6603f6470002252 | 2026-06-26 | references/resilience.md |
 | src/docs/principles/quality/performance.md | 18b6d3391c57d97342068f9f1da732b24de4221489d0459bb6ad8900fac0a02e | 2026-07-02 | references/resilience.md |
 | src/docs/principles/foundations/documentation.md | ed13b69b8a128dbc416b5f5108b5424bc1a3b755cf425c4fb4eaca5d591bc1da | 2026-07-02 | references/documentation-mcp.md |
+| src/docs/principles/ai-native/ai-engineering.md | 497dd03b03ec00d6f18d3c5d843b8be1117d588eb28e24e96c3330b64a0a16cb | 2026-07-02 | references/ml-systems-ai-engineering.md |
+| src/docs/principles/ai-native/agent-native-systems.md | a59972f54655061a66e696b000fb484563f7e882a463d7d448fe848f6b1a6162 | 2026-07-02 | references/ml-systems-ai-engineering.md |

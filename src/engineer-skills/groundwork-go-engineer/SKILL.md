@@ -60,6 +60,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
 | Capability interface + provider (LLM etc.), generated adapter shape, bare-interface bet, `add-capability` | `capability-ports.md`, `architecture.md` |
+| LLM/AI feature — prompts, evals, output validation, moderation | `docs/principles/ai-native/ai-engineering.md` (canon); `capability-ports.md` for the provider port |
 | HTTP endpoint, handler, idempotency, CORS | `http-handlers.md`, `api-design.md` |
 | Database repository, SQL, declarative schema, test isolation | `postgres.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |

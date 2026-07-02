@@ -39,36 +39,6 @@ Unlike stateless API services, ML services load models into memory at startup an
 
 ---
 
-# AI Engineering
+# AI Engineering & Agent-Native Surfaces
 
-## Principles
-
-1. **Prompts are code.** Version-controlled, reviewed, tested, versioned. Shipped through PR review.
-2. **Evals are tests.** Scored comparisons in CI. Thresholds committed. Regressions block merge.
-3. **Context is the interface.** The context window is the biggest lever on model behaviour. Design it deliberately. Measure its token budget.
-4. **Retrieval matters more than the model.** Good retrieval + boring model > clever model + bad retrieval.
-5. **Model outputs are validated at the boundary.** Shape, length, content, expected enumerations. Parse failures handled explicitly.
-6. **Agents are distributed systems.** Bounded retries, circuit breakers, auditable history.
-7. **Cost is part of evaluation.** Quality, latency, _and_ cost.
-8. **Human oversight is designed in.** Review points for high-stakes outputs.
-
-## Anti-Patterns
-
-- "The model will figure it out." Over-stuffed context windows.
-- Skipping evals "this once." Agent loops without termination.
-- Deterministic reasoning on probabilistic output — use structured schemas.
-
----
-
-# Agent-Native Systems
-
-## Principles
-
-1. **Every interface has a machine-consumable spec.** OpenAPI, AsyncAPI, `llms.txt`, MCP schemas.
-2. **Specs include descriptions, examples, constraints.** An agent should use the interface without reading implementation.
-3. **MCP is the standard tool surface.** Typed, documented, error-reporting tools.
-4. **`llms.txt` ships alongside docs.** Plain-text channel for agent navigation.
-5. **Errors are structured, stable, actionable.** Agents branch on codes, not prose.
-6. **Idempotency enables retry.** Every write endpoint accepts an idempotency key.
-7. **Outputs are structured.** Schema-constrained generation over free-text-then-parse.
-8. **Documentation reviewed for agent consumption.** Would an agent reading through MCP understand what to do?
+The doctrine — prompts as code, evals as tests, context as the interface, retrieval before model, boundary validation, agents as distributed systems, cost in the evaluation, designed-in oversight, moderation gates on user-facing input — is canon: `docs/principles/ai-native/ai-engineering.md`. The rules for making this service's own interfaces consumable by agents (specs, MCP, structured errors, idempotent writes) are `docs/principles/ai-native/agent-native-systems.md`. This file adds only the Python service shape above; when it and the canon disagree, the canon wins and this file is the one to fix.

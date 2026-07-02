@@ -79,6 +79,7 @@ When the workspace has no web surface, the same canon is available as `docs/prin
 - **Electron upgrade** → Load `references/security.md` (currency window). Treat a skipped support window as a security finding.
 - **Performance / responsiveness work** → Load `references/performance-and-reliability.md`. Main never blocks; SLOs and load shedding live in the core.
 - **Crash reporting / telemetry** → Load `references/observability.md`. Both processes report; distributed tracing lives at the services the app calls.
+- **AI/LLM feature work** → The model call runs in the main process or the backend service, never the renderer, and provider keys stay out of the packaged bundle. The doctrine (prompts-as-code, evals-as-CI-tests, output validation, moderation gates) is `docs/principles/ai-native/ai-engineering.md`.
 
 ## Safety Gates
 

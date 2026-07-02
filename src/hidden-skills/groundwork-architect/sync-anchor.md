@@ -24,7 +24,7 @@ a review of the matching reference so the distillation never drifts.
 | src/docs/principles/delivery/progressive-delivery.md | 6180f4817ed48d16b14c6be25bd8c617646f459c38e4523121ba4f56e40f4779 | 2026-07-02 | references/platform-and-delivery.md |
 | src/docs/principles/delivery/cost-engineering.md | b2e29328e8f704c6d385173247b7d3ccaf205b71b240b54f14193b8372befe58 | 2026-06-19 | references/platform-and-delivery.md |
 | src/docs/principles/ai-native/agent-native-systems.md | a59972f54655061a66e696b000fb484563f7e882a463d7d448fe848f6b1a6162 | 2026-06-19 | references/ai-native-architecture.md |
-| src/docs/principles/ai-native/ai-engineering.md | c14be94362dbe8fb131654fcb5e2199d9e5655ad1063f45ec2944afeb948bdb7 | 2026-07-02 | references/ai-native-architecture.md, references/agentic-systems.md |
+| src/docs/principles/ai-native/ai-engineering.md | 497dd03b03ec00d6f18d3c5d843b8be1117d588eb28e24e96c3330b64a0a16cb | 2026-07-02 | references/ai-native-architecture.md, references/agentic-systems.md |
 | src/docs/principles/ai-native/agentic-systems.md | c6707c27f8390ab64d33aa92dbf699c79505050b33643e40af4d1681cf6baa21 | 2026-07-02 | references/agentic-systems.md, references/ai-native-architecture.md |
 | src/docs/principles/system-design/architecture-decisions.md | f02a30e5b490d2228ec1c06277e9e5967d40b9c3677e03c86a9b0683b119b874 | 2026-06-24 | references/decision-records.md |
 | src/docs/principles/system-design/evolutionary-architecture.md | 6b50d45c4c15b087160e37f1cc98934eb5ba1031319adae61aa838b930abd366 | 2026-06-19 | references/evolutionary-architecture.md |

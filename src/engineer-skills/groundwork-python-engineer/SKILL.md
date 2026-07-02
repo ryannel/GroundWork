@@ -66,7 +66,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 | Any write that also publishes — a DB mutation and an event/webhook/queue emission in one unit of work | `integration.md` |
 | ML pipeline, inference, embedding, RAG, streaming | `ml-pipelines.md` |
 | ML systems architecture, model serving, evals, prompts | `ml-systems-ai-engineering.md` |
-| AI engineering, context design, agent architecture | `ml-systems-ai-engineering.md` |
+| AI engineering, context design, agent architecture, moderation gates | `ml-systems-ai-engineering.md` (defers to `docs/principles/ai-native/ai-engineering.md`) |
 | MCP server, tool/resource design, agent interfaces | `documentation-mcp.md` |
 | Resilience — timeouts, retries, circuit breakers, health probes | `resilience.md` |
 | Performance — latency budgets, load shedding, profiling | `resilience.md` |

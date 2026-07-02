@@ -26,6 +26,7 @@ The gap between "works in the playground" and "works for every user, every day" 
 6. **Agents are distributed systems.** The full treatment — topology, durable execution, guardrails, oversight — is [agentic-systems.md](agentic-systems.md).
 7. **Cost is designed in, with mechanism — the canonical AI-economics home.** Evals track quality, latency, and cost together. Output tokens cost ~4× input; the levers are **model routing** (a small model for the easy 90%, the frontier model for the hard 10% — often a 100×+ cost delta), **semantic caching** (large savings on repetitive workloads), and an **AI gateway** that enforces per-key budgets, fallbacks, and routing. "Pass the whole context to the largest model" is how an AI feature becomes a cost incident. `performance-and-scale.md` and `platform-and-delivery.md` point here rather than restating it.
 8. **Human oversight is designed in.** For high-stakes outputs, design the review point deliberately — the reviewer gets a summary, and the review UX ships with the feature, not after.
+9. **User-facing input gets a moderation gate.** When user-supplied content reaches a model, or model output shaped by it reaches other users, moderation is part of the feature — strictness follows exposure (user-to-user reach, public output, minors). Deferring the gate is legitimate only when the deferral is recorded and tracked.
 
 ## Antipatterns to catch
 

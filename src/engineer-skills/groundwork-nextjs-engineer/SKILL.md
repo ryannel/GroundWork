@@ -74,6 +74,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 - **Any App Router API call** → Check `references/version-corrections.md` first; training data is frequently stale on Next.js 15/16 signatures.
 - **Any user-input handling — a Server Action or Route Handler parsing a body, query, or upload; a redirect target or outbound fetch URL derived from input; auth/session work** → Load `references/security.md`. Check the server/client boundary and the `NEXT_PUBLIC` secret line.
 - **Instrumentation / telemetry** → Load `references/observability.md`. Distinguish server spans from client RUM.
+- **AI/LLM feature work** → The model call runs in a Server Action or Route Handler — provider keys never cross the `NEXT_PUBLIC` line. The doctrine (prompts-as-code, evals-as-CI-tests, output validation, moderation gates) is `docs/principles/ai-native/ai-engineering.md`.
 
 ## Safety Gates
 
