@@ -20,6 +20,9 @@ noticing after the third skill:
   7. doc-pairs        — declared skill↔doc pairs agree: routed phases appear in the
                         lifecycle docs; every cited protocol number exists in the contract.
   8. index-fresh      — the generated workflow-index.md matches the routing tables.
+  9. writer-ref       — every document-producing hidden skill references
+                        `groundwork-writer` somewhere in its tree (a dispatched brief
+                        counts, not just the canonical instructions.md/SKILL.md).
 
 Exit 0 when clean; exit 1 with named findings otherwise.
 """
@@ -75,6 +78,23 @@ ENGINEER_SKILLS = [
 # groundwork-review is exempt by design: it is the isolated reviewer the
 # contract points at, not a phase operating under it.
 MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
+
+# Hidden skills that are exempt from the writer-ref check because they do not
+# themselves finalize a document, by design:
+#   - groundwork-scan     brownfield Phase 0 — writes cache findings, no docs artifact
+#   - groundwork-review   the isolated reviewer — produces verdicts, not documents
+#   - groundwork-persona  always-on conversational posture, not a workflow phase
+#   - groundwork-writer   is the standard itself
+WRITER_EXEMPT = {"groundwork-scan", "groundwork-review", "groundwork-persona", "groundwork-writer"}
+
+# Every hidden skill directory not explicitly exempt must reference
+# groundwork-writer somewhere in its tree — derived the same way as
+# MUST_REFERENCE_CONTRACT (a live directory scan, not a hand-maintained list),
+# so a new skill is covered automatically instead of needing a second registration.
+MUST_REFERENCE_WRITER = sorted(
+    d.name for d in HIDDEN.iterdir()
+    if d.is_dir() and d.name != "templates" and d.name not in WRITER_EXEMPT
+)
 
 # Files that commit or mutate canonical docs and therefore must carry the
 # fail-closed review gate. Bet workflow 04-delivery implements code, not
@@ -193,6 +213,17 @@ def check_review_gate():
         missing = [label for label, rx in REVIEW_GATE_MARKERS.items() if not rx.search(text)]
         if missing:
             fail("review-gate", path, f"review-gate block incomplete — missing: {', '.join(missing)}")
+
+
+def check_writer_ref():
+    pattern = re.compile(r"groundwork-writer")
+    for name in MUST_REFERENCE_WRITER:
+        skill_dir = HIDDEN / name
+        if not skill_dir.exists():
+            continue  # reported by routing/frontmatter checks
+        if not any(pattern.search(p.read_text(encoding="utf-8")) for p in skill_dir.rglob("*.md")):
+            fail("writer-ref", skill_dir,
+                 "document-producing skill has no groundwork-writer reference anywhere in its tree")
 
 
 def check_notes_headers():
@@ -356,13 +387,14 @@ def main() -> int:
     check_llms_links()
     check_doc_pairs()
     check_index_fresh()
+    check_writer_ref()
 
     if findings:
         print(f"lint: {len(findings)} finding(s)\n")
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index.")
+    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs.")
     return 0
 
 
