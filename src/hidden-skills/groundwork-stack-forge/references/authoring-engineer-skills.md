@@ -54,6 +54,12 @@ groundwork-<stack>-engineer/
   idiomatic libraries, its packaging. Each file is a lens an engineer reaches for mid-task and
   is paid once per lookup: front-load the identifier, keep entries parallel, never narrate —
   it is a decision-time distillation, not a tutorial.
+- **A version-corrections reference is required.** Every stack has shapes the model's
+  training data holds stale — renamed APIs, changed defaults, dead toolchains. Collect them in
+  one checklist file, `version-corrections.md` under the skill's references (what changed, why
+  it bites, the minimal fix, verified against the project's manifest), and route it as "check
+  first on any framework-version-sensitive task." Date-pinned claims live only there, so
+  staleness has one place to age and one file to fix.
 - **No `sync-anchor.md`.** The shipped engineer skills pin GroundWork's in-repo principle
   files by hash; a forged skill lives in a user project with no such source to pin, so it is
   **self-contained** — its references stand on their own. Do not fabricate a sync-anchor.
@@ -115,6 +121,8 @@ A forged engineer skill is done when:
   a reasonable summary."
 - It names the **plausible-but-wrong** idioms specific to this stack (the traps a strong
   general model falls into) and rules them out with reasons.
+- Its `version-corrections.md` catches the stale shapes a strong general model would write
+  today, and no date-pinned claim lives outside it.
 - Its references cover the Day-2 baseline in this stack's idiom — including the build/run/debug
   loop and the test harness, the two affordances a seed lives or dies by.
 - It is self-contained: nothing it needs lives only in your head or only in `docs/principles/`.

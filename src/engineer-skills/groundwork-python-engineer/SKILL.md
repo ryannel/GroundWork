@@ -56,6 +56,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 | Task shape | Reference to load |
 |---|---|
+| Any library-version-sensitive shape — Pydantic, SQLAlchemy, FastAPI lifecycle, packaging commands | `version-corrections.md` — check first; training data goes stale |
 | Any non-trivial service change | `architecture.md`, `implementation-patterns.md` |
 | Async, event loop, TaskGroup, lifespan, background tasks | `async-patterns.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |

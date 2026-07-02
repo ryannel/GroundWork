@@ -45,6 +45,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
+| Version Corrections | `references/version-corrections.md` | Writing any framework-version-sensitive shape — SDK/package defaults (SwiftPM, the Material split, Riverpod shapes). Check this first on build wiring, package adds, and upgrades. |
 | Architecture & Layers | `references/architecture.md` | Placing new code, understanding the MVVM/repository split, file organization, the core-access seam. |
 | State Management | `references/state-management.md` | Providers, Notifiers, Mutations, ephemeral vs app state, provider testing seams. |
 | Widgets & Composition | `references/widgets-and-composition.md` | Building or refactoring widgets, const discipline, build purity, keys, extraction. |

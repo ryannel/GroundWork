@@ -45,6 +45,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
+| Version Corrections | `references/version-corrections.md` | Writing any Electron-version-sensitive shape — the support window, fuse expectations, signing toolchain names. Check this first on upgrades and packaging/CI wiring. |
 | Process Model | `references/process-model.md` | Placing new code, main vs preload vs renderer vs shared, utilityProcess, the enforced folder boundary. |
 | IPC Contracts | `references/ipc-contracts.md` | Adding or changing channels, the bridge, validation at the seam, TanStack Query over IPC, push events. |
 | Security | `references/security.md` | BrowserWindow options, permissions, navigation, openExternal, CSP, the custom protocol, fuses, Electron upgrades. |
@@ -76,7 +77,7 @@ When the workspace has no web surface, the same canon is available as `docs/prin
 - **Release/packaging work** → Load `references/packaging-and-updates.md`. Fuses and signing live in the pipeline; signing material never enters the repo.
 - **Test work** → Load `references/testing-and-smoke.md`. Pick the cheapest tier that can carry the assertion; the smoke stays thin.
 - **External content or user-influenced URLs — `openExternal` targets, navigation, protocol handlers, files from disk** → Load `references/security.md`. The allowlists are the boundary; extending one is a security decision.
-- **Electron upgrade** → Load `references/security.md` (currency window). Treat a skipped support window as a security finding.
+- **Electron upgrade** → Load `references/version-corrections.md` (the currency window). Treat a skipped support window as a security finding.
 - **Performance / responsiveness work** → Load `references/performance-and-reliability.md`. Main never blocks; SLOs and load shedding live in the core.
 - **Crash reporting / telemetry** → Load `references/observability.md`. Both processes report; distributed tracing lives at the services the app calls.
 - **AI/LLM feature work** → The model call runs in the main process or the backend service, never the renderer, and provider keys stay out of the packaged bundle. The doctrine (prompts-as-code, evals-as-CI-tests, output validation, moderation gates) is `docs/principles/ai-native/ai-engineering.md`.

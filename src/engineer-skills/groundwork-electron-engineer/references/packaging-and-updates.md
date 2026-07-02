@@ -41,7 +41,7 @@ Cross-platform makers generally require their native OS — package per-OS in CI
 An unsigned build is a development artifact, never a release. Both platforms treat unsigned binaries as malware, because malware is what unsigned binaries usually are.
 
 - **macOS:** Developer ID certificate + hardened runtime + entitlements, then notarization via `notarytool` (Forge wraps `@electron/notarize` — configure `osxSign`/`osxNotarize` in `packagerConfig`). `altool` is dead. Credentials arrive from CI secrets, never the repo.
-- **Windows:** **Azure Artifact Signing** (renamed from Azure Trusted Signing; GA since Jan 2026) — cloud-HSM-backed, clears SmartScreen, runs from CI via signtool/jsign. USB-token OV/EV certificates cannot live in a pipeline; they are the legacy path. (Tooling note: post-rename CLI tools have needed `--prerelease` flags — verify current tool names when wiring CI.)
+- **Windows:** **Azure Artifact Signing** — cloud-HSM-backed, clears SmartScreen, runs from CI via signtool/jsign. USB-token OV/EV certificates cannot live in a pipeline; they are the legacy path. Naming and tooling currency (the product was recently renamed): `references/version-corrections.md`.
 
 Signing config is wired in `forge.config.ts` when release credentials exist; until then the scaffold's unsigned `package` output is explicitly a dev artifact.
 
@@ -62,7 +62,7 @@ Fixed rules, each one a classic self-inflicted outage when skipped:
 - Call `quitAndInstall()` only after the `update-downloaded` event.
 - One in-flight `checkForUpdates()` at a time; double-calls corrupt state.
 - `app.setAppUserModelId()` must match the Squirrel shortcut ID (the generated main sets it from the same `appId` as the bundle id) or Windows notifications detach.
-- Staying inside the 3-major Electron support window is an update-discipline item (`references/security.md` → The Currency Window) — the auto-updater is the mechanism that makes the 8-week cadence shippable.
+- Staying inside the Electron support window is an update-discipline item (`references/version-corrections.md` → The currency window) — the auto-updater is the mechanism that makes the release cadence shippable.
 
 ## Version Hygiene
 

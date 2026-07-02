@@ -55,6 +55,7 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 | Task shape | Reference to load |
 |---|---|
+| Any Go-version-sensitive shape — loop variables, build constraints, stdlib helpers, `math/rand` | `version-corrections.md` — check first; training data goes stale |
 | Any non-trivial service change | `architecture.md`, `implementation-patterns.md`, `go-services.md` |
 | Go idioms, context, interfaces, DI, errors, config validation | `go-services.md` |
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |

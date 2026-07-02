@@ -94,4 +94,4 @@ If a visual change cannot be expressed through tokens → palette → theme, tha
 
 ## Material/Cupertino Freeze Note
 
-Material and Cupertino are frozen in the core framework as of Flutter 3.44 and are moving to standalone `material_ui`/`cupertino_ui` packages with independent versioning. When those packages land in this app's pubspec, pin them deliberately and review the theme builder against their migration notes — expect the dependency shift; do not be surprised by it.
+Material and Cupertino are frozen in the core framework and moving to standalone packages — the version line and what to do when the packages land in this app's pubspec: `references/version-corrections.md`.
