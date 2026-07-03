@@ -77,7 +77,7 @@ Post-CVE-2025-55305, shipping without ASAR integrity is called out as a defect, 
 
 ## The Currency Window
 
-Only the latest **three** Electron majors receive security patches, and a new major ships every 8 weeks — Chromium CVEs land in the shipped app on Chromium's schedule, not the team's. An app more than three majors behind is running known-exploitable browser bugs. Treat the upgrade as scheduled work with dependency-CVE priority; verify the Playwright driver pairing in CI when bumping (driver/Electron launch regressions have happened — e.g. the 36.x launch failure fixed in 37).
+A stale Electron major is a security finding: only a narrow window of majors receives Chromium CVE patches. The window's numbers and the upgrade checklist live in `references/version-corrections.md` — treat the upgrade as scheduled work with dependency-CVE priority.
 
 ## Security Review Checklist
 

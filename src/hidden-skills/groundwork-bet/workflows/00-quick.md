@@ -56,13 +56,7 @@ Discover the test language and service names from the scaffold (`docs/architectu
 
 ### 6. Review — earn the verdict before sealing
 
-The quick bet compresses the prose, not the gate. Assemble the decomposition tree and run the independent review (Protocol 9), exactly as a full decomposition does:
-
-```
-find docs/bets/<slug>/decomposition -name '*.md' | sort | xargs cat > /tmp/<slug>-decomposition.md
-```
-
-Invoke the review subagent with `document_path: /tmp/<slug>-decomposition.md` and `document_type: decomposition`. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT`. On `REVISE`, apply every 🔴 finding to the affected file, re-assemble, and re-run (hard cap of 3, per Protocol 8). This verdict is what clears the readiness gate's *Unreviewed artifact* 🔴 at delivery, and its document-chain-integrity checks are the authoring-time depth floor that stops a compressed contract from being authored shallow — every proof shape must trace to `03-api-design.md` / `04-data-design.md`. Clean up the assembled file when the review settles.
+The quick bet compresses the prose, not the gate. Run the independent review (Protocol 9) exactly as a full decomposition does: invoke the review subagent with `document_path: docs/bets/<slug>/decomposition/` (the directory itself) and `document_type: decomposition` — the reviewer walks the tree file by file and its `READ` manifest names what it covered. The gate is fail-closed (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` whose manifest skips no decomposition file. On `REVISE`, apply every 🔴 finding to the affected file and re-run on the same path (hard cap of 3, per Protocol 8). This verdict is what clears the readiness gate's *Unreviewed artifact* 🔴 at delivery, and its document-chain-integrity checks are the authoring-time depth floor that stops a compressed contract from being authored shallow — every proof shape must trace to `03-api-design.md` / `04-data-design.md`.
 
 ### 7. Approve, seal, and hand to delivery
 
@@ -72,6 +66,6 @@ On approval:
 
 1. Flip the pitch frontmatter to `status: delivery`, `track: quick`.
 2. **Seal the baseline.** Commit the approved contract — `docs/bets/<slug>/decomposition/` together with the finalized `technical-design/` and `pitch.md` (`bet(<slug>): approve quick bet`) — and, under git, tag that commit `bet/<slug>/approved`. The readiness gate requires both the review verdict and the tag; the tag is the sealed baseline delivery's prose-integrity reconciliation holds the prose to.
-3. **Hand to the delivery machinery.** Route to `04-delivery.md` and run it unchanged. Delivery materializes the red board from this approved prose, drives the one milestone green through the slice-worker and the review lenses, and proves it at the front door. The `track: quick` markers tell delivery and validation to run at quick depth (one milestone is legal; the heaviest milestone-close and validation steps are scoped down) while keeping the UX floor and the honest-green discipline intact.
+3. **Hand to the delivery machinery.** Route to `04-delivery.md` and run it unchanged. Delivery materializes the red board from this approved prose, drives the one milestone green through the slice-worker and the review lenses, and proves it at the front door. The `track: quick` markers tell delivery and validation to run at quick depth (one milestone is legal; the Tier-3 polish sweep is scoped down, and the experience-auditor is skipped only when no UI surface is in scope — a user-visible change keeps the auditor) while keeping the UX floor and the honest-green discipline intact.
 
 ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/04-delivery.md`

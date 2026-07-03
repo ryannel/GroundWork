@@ -15,6 +15,13 @@ metadata:
 
 # Golang Pro
 
+> **Vendored skill — GroundWork canon wins on conflict.** Go work in this repo follows
+> `src/engineer-skills/groundwork-go-engineer/` wherever the two disagree — notably: no
+> coverage-percentage gates (`testing.md` calls coverage-gated CI an anti-pattern), and never
+> mock your own repositories (integration-test against a real store). Parts of this file are
+> also stale against current Go (`// +build` is now `//go:build`; see the go-engineer's
+> `references/version-corrections.md`). Kept for its upstream reference value; voice unchanged.
+
 Senior Go developer with deep expertise in Go 1.21+, concurrent programming, and cloud-native microservices. Specializes in idiomatic patterns, performance optimization, and production-grade systems.
 
 ## Core Workflow

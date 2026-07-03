@@ -28,6 +28,10 @@ Read `docs/maturity.md` if it exists (the maturity model behind it is defined in
 
 The roadmap is the steering mechanism, not a gate: a user who knowingly defers maturity work is exercising judgement, not failing a check.
 
+## What Did Reality Say?
+
+Read the most recent archived pitch's success signal (the newest directory under `docs/bets/_archive/`, its `pitch.md`) and ask the user once: did reality say anything about it? A number, an impression, "no idea," and "no users yet" are all recorded, acceptable answers — the last two cost one sentence and the conversation moves on. Whatever comes back is evidence at the table, not a grade: a signal that moved shapes what to bet next; a signal nobody could observe is a hint the next pitch's signal should name a nearer source. No scheduler, no outcome file, no follow-up machinery — the question exists only at this table, once per bet.
+
 ## Context Inputs
 
 Read the relevant `docs/` artifacts before opening the conversation:
@@ -75,6 +79,8 @@ Work through the following elements in sequence. Give each important question ro
   Reject vague signals ("users are happier") and abstract metrics ("engagement improves"). The signal must be specific enough that a no-answer is just as informative as a yes-answer.
 
   Anchor the signal in what a named consumer can actually *do* on the real product — the front-door cases that, when they pass, mean the bet worked. "A user opens the panel and sees their operation appear and complete" is a front-door case; "the notification subsystem functions" is not. This is the same shape decomposition turns into each milestone's agreed test cases, so authoring it concretely here is what lets those cases trace back to the signal the user signed.
+
+  Name where the signal's answer would come from, in one clause: an event, a metric, or a support-queue count for a product with users; "demonstrable at the front door" is a fully valid source for a greenfield product with no users. The source is what makes the next discovery's "did reality say anything?" question answerable — never force instrumentation onto a user-less product to satisfy it.
 
 - **Solution sketch:** Surface the high-level proposed approach, the alternatives considered and what makes this one the right choice, and the single biggest risk in the solution.
 

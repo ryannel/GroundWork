@@ -55,20 +55,25 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 | Task shape | Reference to load |
 |---|---|
+| Any Go-version-sensitive shape — loop variables, build constraints, stdlib helpers, `math/rand` | `version-corrections.md` — check first; training data goes stale |
 | Any non-trivial service change | `architecture.md`, `implementation-patterns.md`, `go-services.md` |
 | Go idioms, context, interfaces, DI, errors, config validation | `go-services.md` |
 | Concurrency, goroutine lifecycle, errgroup, context cancellation | `concurrency.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
 | Capability interface + provider (LLM etc.), generated adapter shape, bare-interface bet, `add-capability` | `capability-ports.md`, `architecture.md` |
+| LLM/AI feature — prompts, evals, output validation, moderation | `docs/principles/ai-native/ai-engineering.md` (canon); `capability-ports.md` for the provider port |
 | HTTP endpoint, handler, idempotency, CORS | `http-handlers.md`, `api-design.md` |
 | Database repository, SQL, declarative schema, test isolation | `postgres.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
 | Reliability — retries, timeouts, graceful shutdown, backpressure | `reliability-performance.md` |
 | Performance — latency budgets, load shedding, profiling | `reliability-performance.md` |
 | Events, Pub/Sub, WebSocket, async integration | `integration.md` |
+| Any write that also publishes — a DB mutation and an event/webhook/queue emission in one unit of work | `integration.md` |
 | Tests, quality gates, coverage strategy, flake triage | `testing.md` |
 | Code quality, naming, simplicity, deletion | `code-craft-security.md` |
-| Security, auth, secrets, input validation, supply chain | `code-craft-security.md` |
+| Any code that parses user-supplied input — request body, query, upload, webhook payload | `code-craft-security.md` |
+| Outbound HTTP where the URL or host derives from user input (SSRF) | `code-craft-security.md` |
+| Auth, secrets, supply chain | `code-craft-security.md` |
 | Doc comments, naming-as-documentation, godoc, comment-is-a-smell | `documentation.md` |
 
 ---

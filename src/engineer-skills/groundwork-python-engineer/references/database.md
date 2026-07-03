@@ -65,7 +65,15 @@ By default the SQLAlchemy `AsyncSession` already is a unit of work and a collect
 - When query variety grows, reach for a query object / specification — not more methods on the port or a leaked SQLAlchemy `Select`.
 - Integration-test the adapter against a real Postgres (Testcontainers); never mock the port or the database.
 
-## 5. Test Isolation
+## 5. Query Evidence
+
+Indexes and query changes are evidence-based, never speculative:
+
+- **`EXPLAIN ANALYZE` before any index change.** Run it on the real query with realistic data volume; the plan, not intuition, justifies the index. Include the read-out in the PR for non-trivial queries.
+- **`pg_stat_statements` and `pg_stat_user_indexes` decide what to keep.** A slow query earns attention when the statistics say it is hot; an index earns its write amplification when the statistics say it is used.
+- SQLAlchemy surface: `await session.execute(text("EXPLAIN ANALYZE ..."))` in a scratch session, or run the generated SQL directly — `print(stmt.compile(compile_kwargs={"literal_binds": True}))` shows what the ORM actually emits, which is the thing to profile.
+
+## 6. Test Isolation
 
 Never mock the database. Use Testcontainers for a real Postgres instance.
 Between tests, isolate state by truncating tables rather than recreating the schema, as truncation is significantly faster.
@@ -86,3 +94,4 @@ async def clear_database(db_session: AsyncSession):
 - **Leaking sessions.** Passing `AsyncSession` directly into the Domain or Service layer breaks the Dependency Inversion Principle.
 - **Manual migration scripts.** Writing manual `ALTER TABLE` statements causes drift. Use a declarative engine.
 - **Mocking the database.** Use Testcontainers. Mocks hide SQL syntax errors and constraint violations.
+- **Indexes "just in case."** Every index taxes writes; add one only when `EXPLAIN ANALYZE` or `pg_stat_statements` shows the query that needs it.

@@ -42,6 +42,13 @@ visible without bet context:
 - State and concurrency — a shared value mutated without synchronisation, an ordering
   assumption that does not hold, an iteration that mutates what it iterates.
 - Off-by-ones and boundaries visible in the arithmetic itself.
+- Security defects visible in the code as written — these are correctness bugs, not a
+  separate discipline: input concatenated into a query, command, or template (injection);
+  a secret literal in code or a credential written to a log; a request-supplied URL
+  fetched without restriction (SSRF); untrusted bytes deserialised into live objects; a
+  handler that reads or mutates a resource by a request-supplied identifier without
+  checking the caller is allowed to (missing authorization / IDOR); a query on
+  tenant-owned data with no tenant filter.
 
 You cannot judge whether the code matches the design — you cannot see the design. That
 is the acceptance auditor's lens; do not guess at intent to manufacture a finding. Report

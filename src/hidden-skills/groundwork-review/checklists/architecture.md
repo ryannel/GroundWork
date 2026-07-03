@@ -91,3 +91,7 @@ answer yes/no.
 - [ ] 🟡 **Constraint relaxed without record**: the document quietly weakens an upstream
   constraint (a residency rule applied to some data, a budget restated with a looser number)
   instead of honouring it or escalating it.
+- [ ] 🔴 **Residual ask unrecorded**: the constraints section carries no answer — not even
+  "none" — to the three residual questions (regulated data classes handled, data-residency
+  obligations, abuse exposure). The stack baseline covers standard security practice; these
+  are the constraints only the user can name, and an unasked question is a silent gap.

@@ -60,7 +60,7 @@ Repositories/view models consume the service; nothing above the data layer knows
 
 ## ffigen/jnigen: the Tracked Destination
 
-The ecosystem is mid-migration to channel-free codegen interop: `ffigen` (C/Obj-C/Swift; stable) and `jnigen` (Java/Kotlin via JNI; pre-1.0), on build hooks / native assets (default-enabled since Flutter 3.38). The stance:
+The ecosystem is mid-migration to channel-free codegen interop: `ffigen` and `jnigen` on build hooks / native assets (maturity status and version lines: `references/version-corrections.md`). The stance:
 
 - **Adopt where a dependency already ships it** — that is the dependency's choice.
 - **Pigeon remains the app-code default** until the jnigen path reaches 1.0.
@@ -72,7 +72,7 @@ Acceptable for exactly one shape: a single trivial call with no evolving surface
 
 ## iOS Build Wiring
 
-**Swift Package Manager is the iOS/macOS default as of Flutter 3.44.** New native modules and plugin dependencies use SwiftPM; CocoaPods is the legacy path kept only where a required dependency has not migrated. Do not add new Podfile-based wiring.
+**Swift Package Manager is the iOS/macOS default** (version line: `references/version-corrections.md`). New native modules and plugin dependencies use SwiftPM; CocoaPods is the legacy path kept only where a required dependency has not migrated. Do not add new Podfile-based wiring.
 
 ## Testing the Boundary
 

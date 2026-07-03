@@ -80,7 +80,7 @@ Stay the lead while the work is structural — boundaries, contracts, trade-offs
 
 | Condition | Hand off to |
 |---|---|
-| Implementing inside a Go / Python service | `groundwork-go-engineer` / `groundwork-python-engineer` |
+| Implementing inside a Go / Python / Node service | `groundwork-go-engineer` / `groundwork-python-engineer` / `groundwork-node-engineer` |
 | Building a Next.js / Flutter / Electron surface | `groundwork-nextjs-engineer` / `groundwork-flutter-engineer` / `groundwork-electron-engineer` |
 | Product framing — user value, scope, success criteria, sequencing | `groundwork-product` |
 | Design language, interaction, accessibility of a surface | `groundwork-designer` |

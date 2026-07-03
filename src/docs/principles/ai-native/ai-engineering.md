@@ -2,7 +2,7 @@
 title: AI Engineering
 description: Prompt engineering, evaluations, agent design, RAG, and context engineering.
 status: active
-last_reviewed: 2026-06-19
+last_reviewed: 2026-07-02
 ---
 # AI Engineering
 
@@ -65,6 +65,10 @@ A configuration that is 10% better but 5× more expensive is not obviously bette
 For high-stakes AI outputs — content a user will act on, actions taken on their behalf — design the review point deliberately. The reviewer gets a summary calibrated to the decision, not a wall of raw output; the review UX is built alongside the AI feature, not retrofitted.
 
 Decision rule: place the human gate by stakes × reversibility. Cheap, reversible actions can run unattended with logging; expensive or irreversible ones — sending money, deleting data, messaging the outside world — get a gate, and per the trifecta budget above that gate is mandatory once an agent touches private data and the outside world at once. "Let the model do it" without a review loop is a promise the model will eventually break.
+
+### 9. User-facing input gets a moderation gate
+
+When a product feeds user-supplied content to a model, or shows model output shaped by that content to other users, a moderation gate is part of the feature — screen the input (a provider moderation endpoint or a policy model) before the main model sees it, and hold generated content to the same bar before another user does. The gate's strictness follows exposure: a single-user tool summarising the user's own notes needs none; anything with user-to-user reach, public output, or minors in the audience needs it at launch. Deferring the gate is a legitimate scoping call only when the deferral is recorded and tracked — a silently absent moderation gate on a user-facing AI feature is a shipped defect, not a backlog item.
 
 ## How we apply this
 

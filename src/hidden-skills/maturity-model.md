@@ -79,10 +79,10 @@ The surface registry and capability ledger (`docs/surfaces.md` with its machine 
 
 ### D9. Contract compatibility
 
-Once two or more surfaces deploy independently — a web app ships continuously while a mobile fleet lags releases by months — published contracts outlive any single deploy. The architecture carries a versioning/compatibility stance as a Binding Constraint ("we never break a published contract field" is the common shape), and the contract drift gates honor it: the generated contract-conformance tests treat breaking drift from the captured specs as failure and additive drift as a stale-spec warning.
+Once a published contract outlives any single deploy, its changes stop being refactors. That happens two ways: two or more surfaces deploy independently — a web app ships continuously while a mobile fleet lags releases by months — or `docs/architecture/api/` declares an external consumer, a caller the team does not ship. Either way, the architecture carries a versioning/compatibility stance as a Binding Constraint ("we never break a published contract field" is the common shape), and the contract drift gates honor it: the generated contract-conformance tests treat breaking drift from the captured specs as failure and additive drift as a stale-spec warning.
 
-**Failure it prevents:** a contract change that is a refactor for the fastest-shipping surface becomes an incident for every fleet that has not shipped yet.
-**Signal:** the stance appears under Binding Constraints in `docs/architecture/index.md`; the contract-conformance system tests report no breaking drift against the captured specs in `docs/architecture/api/`. Below two independently deployed surfaces this dimension assesses `n/a` — it activates the moment the second one registers.
+**Failure it prevents:** a contract change that is a refactor for the fastest-shipping surface becomes an incident for every fleet — or every external caller — that has not shipped yet.
+**Signal:** the stance appears under Binding Constraints in `docs/architecture/index.md`; the contract-conformance system tests report no breaking drift against the captured specs in `docs/architecture/api/`. Below two independently deployed surfaces and with no declared external consumer this dimension assesses `n/a` — it activates the moment the second surface registers or an external consumer is declared.
 
 ---
 
@@ -95,7 +95,7 @@ Each dimension is assessed as one of three states — or recorded `n/a` when its
 | ✅ met | The signal holds now. |
 | 🟡 partial | Some of the dimension holds — name exactly which part does not. |
 | 🔴 absent | The dimension's signal fails outright. |
-| `n/a` | The dimension's precondition does not hold — D8 on a project with no surface registry, D9 below two independently deployed surfaces. Name the precondition in the evidence; the dimension re-enters assessment the moment it arrives. |
+| `n/a` | The dimension's precondition does not hold — D8 on a project with no surface registry, D9 below two independently deployed surfaces with no declared external consumer. Name the precondition in the evidence; the dimension re-enters assessment the moment it arrives. |
 
 `n/a` is reserved for the conditional dimensions (D8, D9). It records a precondition that does not hold, never a gap left unassessed.
 

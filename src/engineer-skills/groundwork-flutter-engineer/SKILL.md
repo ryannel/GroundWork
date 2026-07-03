@@ -45,6 +45,7 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
+| Version Corrections | `references/version-corrections.md` | Writing any framework-version-sensitive shape — SDK/package defaults (SwiftPM, the Material split, Riverpod shapes). Check this first on build wiring, package adds, and upgrades. |
 | Architecture & Layers | `references/architecture.md` | Placing new code, understanding the MVVM/repository split, file organization, the core-access seam. |
 | State Management | `references/state-management.md` | Providers, Notifiers, Mutations, ephemeral vs app state, provider testing seams. |
 | Widgets & Composition | `references/widgets-and-composition.md` | Building or refactoring widgets, const discipline, build purity, keys, extraction. |
@@ -66,12 +67,13 @@ Orient before reading widely: `.groundwork/skills/code-intelligence.md` covers t
 - **State or data-flow work** → Load `references/state-management.md`. Verify what is app state (provider) vs ephemeral (`setState`).
 - **UI/visual work** → Load `references/widgets-and-composition.md` and `references/theming-and-design-tokens.md`. Check the generated palette before adding any colour.
 - **API/contract work** → Load `references/data-and-contracts.md`. The client is the seam; repositories translate payloads to domain models.
-- **Routing/deep-link work** → Load `references/navigation.md`. Check the existing route table conventions first.
+- **Routing/deep-link work** → Load `references/navigation.md`. Check the existing route table conventions first. A deep link or external intent is untrusted input — load `references/security.md` for its validation rules.
 - **Test work** → Load `references/testing.md`. Pick the cheapest tier that can carry the assertion.
 - **Native capability work** → Load `references/platform-channels.md`. Check pub.dev for a maintained plugin before writing native code.
 - **Release/store work** → Load `references/releases-and-distribution.md`. Signing material never enters the repo.
-- **Security / secure-storage work** → Load `references/security.md`. The client is hostile territory; secrets and trust live server-side.
+- **Credential or token storage, biometric auth, or any handling of user-supplied input** → Load `references/security.md`. The client is hostile territory; secrets and trust live server-side.
 - **Performance or offline/resilience work** → Load `references/performance-and-reliability.md`. SLOs and load shedding live in the core, not the client.
+- **AI/LLM feature work** → The model call belongs behind the backend's contract — the client never holds a provider key. The doctrine (prompts-as-code, evals-as-CI-tests, output validation, moderation gates) is `docs/principles/ai-native/ai-engineering.md`.
 
 ## Safety Gates
 

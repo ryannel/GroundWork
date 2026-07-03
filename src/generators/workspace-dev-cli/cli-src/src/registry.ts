@@ -115,6 +115,12 @@ export const COMMANDS: CommandDef[] = [
     handler: quality.lint,
   },
   {
+    name: 'audit',
+    group: 'QUALITY',
+    summary: 'Dependency vulnerabilities + secret scan (fails on findings)',
+    handler: quality.audit,
+  },
+  {
     name: 'new',
     group: 'BET WORKFLOW',
     summary: 'Scaffold a bet / milestone / slice (red test stubs)',

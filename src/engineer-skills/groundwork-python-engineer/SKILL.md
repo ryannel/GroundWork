@@ -56,21 +56,26 @@ Load only the rows relevant to the current task. Reference files are in the skil
 
 | Task shape | Reference to load |
 |---|---|
+| Any library-version-sensitive shape — Pydantic, SQLAlchemy, FastAPI lifecycle, packaging commands | `version-corrections.md` — check first; training data goes stale |
 | Any non-trivial service change | `architecture.md`, `implementation-patterns.md` |
 | Async, event loop, TaskGroup, lifespan, background tasks | `async-patterns.md` |
 | Layer placement, new boundary, dependency direction | `architecture.md` |
 | FastAPI endpoint, route handler, inbound defenses | `architecture.md`, `api-standards.md` |
 | Idempotency, pagination, CORS, load shedding | `api-standards.md` |
-| Database schemas, migrations, test isolation, DB sessions | `database.md` |
+| Database schemas, migrations, test isolation, DB sessions, query/index evidence | `database.md` |
+| Events, Pub/Sub, webhooks, async integration | `integration.md` |
+| Any write that also publishes — a DB mutation and an event/webhook/queue emission in one unit of work | `integration.md` |
 | ML pipeline, inference, embedding, RAG, streaming | `ml-pipelines.md` |
 | ML systems architecture, model serving, evals, prompts | `ml-systems-ai-engineering.md` |
-| AI engineering, context design, agent architecture | `ml-systems-ai-engineering.md` |
+| AI engineering, context design, agent architecture, moderation gates | `ml-systems-ai-engineering.md` (defers to `docs/principles/ai-native/ai-engineering.md`) |
 | MCP server, tool/resource design, agent interfaces | `documentation-mcp.md` |
 | Resilience — timeouts, retries, circuit breakers, health probes | `resilience.md` |
 | Performance — latency budgets, load shedding, profiling | `resilience.md` |
 | Graceful shutdown, degradation, lifespan management | `resilience.md`, `async-patterns.md` |
 | Observability — tracing, structured logging, metrics | `observability.md` |
-| Security, auth, secrets, input validation, supply chain, SSRF | `security.md` |
+| Any code that parses user-supplied input — request body, query, upload, webhook payload | `security.md` |
+| Outbound HTTP where the URL or host derives from user input (SSRF) | `security.md` |
+| Auth, secrets, supply chain | `security.md` |
 | Tests, quality gates, coverage strategy, fixture design | `testing.md` |
 | Code documentation, docstrings, Pydantic Field docs | `documentation-mcp.md` |
 | Error handling, exception hierarchy, domain errors | `implementation-patterns.md` |

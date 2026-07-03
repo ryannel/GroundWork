@@ -34,6 +34,7 @@ The `./dev` CLI is an executable Node program in the root directory — a thin l
 - `./dev test integration`: Boot the dev stack, run system tests with FAIL-LOUD flags, then tear down. Requires Docker — flag before running.
 - `./dev test bet <slug>`: Run a bet-progress suite at `tests/bets/<slug>/` against the already-running stack.
 - `./dev test bet <slug> --integration`: Boot the dev stack, run the bet-progress suite, then tear down. Requires Docker — flag before running.
+- `./dev audit`: Dependency-vulnerability audit per service (govulncheck / npm audit / pip-audit / osv-scanner) plus a gitleaks secret scan over the repo. Exits non-zero on findings; a missing scanner binary is a loud skip with its pinned install line, never a silent pass. Safe to run non-interactively.
 
 ### Bet Workflow
 

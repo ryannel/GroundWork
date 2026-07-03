@@ -82,6 +82,7 @@ SKILLMD_SKILLS = [
 ENGINEER_SKILLS = [
     "groundwork-go-engineer",
     "groundwork-python-engineer",
+    "groundwork-node-engineer",
     "groundwork-nextjs-engineer",
     "groundwork-flutter-engineer",
     "groundwork-electron-engineer",
@@ -431,6 +432,10 @@ REFERENCE_LINK_EXEMPT = {
 # none of which are references/ pins.
 REFERENCE_LINK_EXEMPT_BY_FILE = {
     HIDDEN / "groundwork-update" / "instructions.md": {"architecture.md", "code-structure.md"},
+    # The forge's authoring standard requires every *forged* skill to ship a
+    # version-corrections.md — the mention describes that output file, not a
+    # pin into stack-forge's own references/.
+    HIDDEN / "groundwork-stack-forge" / "references" / "authoring-engineer-skills.md": {"version-corrections.md"},
 }
 
 _CODE_FENCE_RE = re.compile(r"```.*?```", re.S)
