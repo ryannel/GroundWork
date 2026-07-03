@@ -30,6 +30,10 @@ stamp the CLI writes into installed projects' `state.json`, and the operating co
 6. Commit, tag `vX.Y.Z`, push the tag. `.github/workflows/release.yml` verifies tag ↔
    package.json ↔ CHANGELOG agreement, runs `./dev ci`, and publishes.
 
+## Channels (the `latest` tag, and the deferred `next`)
+
+Every release publishes to the default `latest` dist-tag, so `npx groundwork-method` and the CLI's async update check both track it. A pre-release `next` channel is deliberately **not** cut today: at single-maintainer cadence the migrations registry plus the upgrade brief already give installs a safe lag path, so a second channel would add release surface without a consumer. If one is ever wanted, the mechanics are: publish the pre-release with `npm publish --tag next` (OIDC handles auth as for `latest`); pre-release versions carry a semver suffix (`0.15.0-rc.1`), which the CLI's `isNewerVersion` ignores by design, so a `next` build never nags a `latest` user; opt in with `npx groundwork-method@next`; and promote with `npm dist-tag add groundwork-method@0.15.0 latest`. Document the channel in this file and in `docs/host-support.md` before advertising it.
+
 ## Publishing (OIDC, no token)
 
 The package publishes as `groundwork-method` (the bare npm name `groundwork` is held by an

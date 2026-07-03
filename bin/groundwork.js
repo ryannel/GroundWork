@@ -5,6 +5,7 @@ const path = require('path');
 const crypto = require('crypto');
 const readline = require('readline');
 const { execSync, execFileSync } = require('child_process');
+const https = require('https');
 
 const command = process.argv[2];
 const PKG = require(path.join(__dirname, '..', 'package.json'));
@@ -41,6 +42,7 @@ function printHelp() {
 \x1b[1minit flags:\x1b[0m
   \x1b[36m--agent <name>\x1b[0m   Wire a specific agent (repeatable, comma-friendly); skips the prompt
   \x1b[36m--yes, -y\x1b[0m        Non-interactive: wire the auto-detected agents (or Claude Code)
+  \x1b[36m--set key=value\x1b[0m  Seed a config.toml default at install time (repeatable; e.g. defaults.stack=go)
   \x1b[2mSupported agents: claude-code, cursor, codex, opencode, cline\x1b[0m
 
 \x1b[1mExamples:\x1b[0m
@@ -1022,10 +1024,18 @@ function promptAgents(detected) {
   });
 }
 
-// Parse `--agent <key>` / `--agent=<key>` (repeatable, comma-friendly) and `--yes`/`-y`.
+// Parse `--agent <key>` / `--agent=<key>` (repeatable, comma-friendly), `--yes`/`-y`, and
+// `--set key=value` (repeatable — seeds config.toml at install time).
 function parseInitFlags(argv) {
   const requested = [];
+  const sets = [];
+  const badSets = [];
   let yes = false;
+  const addSet = (raw) => {
+    const eq = raw.indexOf('=');
+    if (eq <= 0) { badSets.push(raw); return; }
+    sets.push({ key: raw.slice(0, eq).trim(), value: raw.slice(eq + 1) });
+  };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--yes' || arg === '-y') {
@@ -1035,12 +1045,20 @@ function parseInitFlags(argv) {
       if (val && !val.startsWith('-')) { requested.push(...val.split(',')); i++; }
     } else if (arg.startsWith('--agent=') || arg.startsWith('--agents=')) {
       requested.push(...arg.slice(arg.indexOf('=') + 1).split(','));
+    } else if (arg === '--set') {
+      const val = argv[i + 1];
+      if (val !== undefined && !val.startsWith('--')) { addSet(val); i++; }
+      else badSets.push('--set (missing key=value)');
+    } else if (arg.startsWith('--set=')) {
+      addSet(arg.slice('--set='.length));
     }
   }
   const normalized = requested.map((s) => s.trim()).filter(Boolean);
   return {
     agents: normalized.filter((a) => AGENT_ADAPTERS[a]),
     invalid: normalized.filter((a) => !AGENT_ADAPTERS[a]),
+    sets,
+    badSets,
     yes,
   };
 }
@@ -1197,6 +1215,77 @@ function seedCaptureHook(p, selectedKeys) {
 
 // ─── init ───────────────────────────────────────────────────────────────────
 
+// The `--set key=value` allowlist is derived from the seed template itself: every scalar
+// assignment it shows (commented example or active) is a settable key, dotted by its section.
+// Deriving the allowlist from the template means it can never drift from what config.toml
+// actually supports.
+function settableConfigKeys(templateText) {
+  const allowed = new Map(); // "section.key" -> { section, key }
+  let section = '';
+  for (const raw of templateText.split('\n')) {
+    const line = raw.trim();
+    const sec = line.match(/^\[([^\]]+)\]$/);
+    if (sec) { section = sec[1]; continue; }
+    const kv = line.replace(/^#\s*/, '').match(/^([A-Za-z0-9_.\-"]+)\s*=/);
+    if (kv && section) {
+      const key = kv[1].replace(/"/g, '');
+      allowed.set(`${section}.${key}`, { section, key });
+    }
+  }
+  return allowed;
+}
+
+function renderTomlValue(v) {
+  if (v === 'true' || v === 'false') return v;
+  if (/^-?\d+(\.\d+)?$/.test(v)) return v;
+  return `"${v.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
+// Apply `--set` pairs to the seed template, returning the rewritten text or a list of
+// errors. A key must be in the template-derived allowlist; prototype-pollution tokens are
+// rejected outright. Returns { text, errors } — text is null when any set is invalid, so a
+// bad --set fails the whole seed rather than half-writing.
+function applyConfigSets(templateText, sets) {
+  const allowed = settableConfigKeys(templateText);
+  const errors = [];
+  const bySection = new Map(); // section -> Map(key -> "key = value")
+  for (const { key: dotted, value } of sets) {
+    if (/(^|\.)(__proto__|prototype|constructor)(\.|$)/.test(dotted)) {
+      errors.push(`unsafe key rejected: ${dotted}`);
+      continue;
+    }
+    const entry = allowed.get(dotted);
+    if (!entry) {
+      errors.push(`unknown config key: ${dotted}`);
+      continue;
+    }
+    if (!bySection.has(entry.section)) bySection.set(entry.section, new Map());
+    bySection.get(entry.section).set(entry.key, `${entry.key} = ${renderTomlValue(value)}`);
+  }
+  if (errors.length) return { text: null, errors };
+
+  let section = '';
+  const applied = new Set();
+  const out = templateText.split('\n').map((raw) => {
+    const t = raw.trim();
+    const sec = t.match(/^\[([^\]]+)\]$/);
+    if (sec) { section = sec[1]; return raw; }
+    const secMap = bySection.get(section);
+    if (!secMap) return raw;
+    const kv = t.replace(/^#\s*/, '').match(/^([A-Za-z0-9_.\-"]+)\s*=/);
+    if (kv) {
+      const key = kv[1].replace(/"/g, '');
+      const id = `${section}.${key}`;
+      if (secMap.has(key) && !applied.has(id)) {
+        applied.add(id);
+        return secMap.get(key);
+      }
+    }
+    return raw;
+  });
+  return { text: out.join('\n'), errors };
+}
+
 async function initGroundWork(options = {}) {
   const p = getPaths();
 
@@ -1246,15 +1335,31 @@ async function initGroundWork(options = {}) {
   }
 
   // Seed the user config once; it is user-owned and never overwritten afterwards.
+  // `--set key=value` writes into the config only at this seed moment — on an existing
+  // install the file is yours, so a --set there refuses rather than mutating it.
   const sourceConfigToml = path.join(p.sourceConfigDir, 'config.toml');
   const targetConfigToml = path.join(p.targetConfigDir, 'config.toml');
+  const sets = options.sets || [];
   if (fs.existsSync(sourceConfigToml) && !fs.existsSync(targetConfigToml)) {
     try {
-      fs.copyFileSync(sourceConfigToml, targetConfigToml);
-      c.ok(`Seeded user config (.groundwork/config/config.toml)`);
+      let text = fs.readFileSync(sourceConfigToml, 'utf8');
+      if (sets.length) {
+        const result = applyConfigSets(text, sets);
+        if (result.errors.length) {
+          c.err(`--set rejected: ${result.errors.join('; ')}`);
+          console.warn(`         Settable keys: ${[...settableConfigKeys(text).keys()].join(', ')}`);
+          process.exitCode = 1;
+          return;
+        }
+        text = result.text;
+      }
+      fs.writeFileSync(targetConfigToml, text);
+      c.ok(`Seeded user config (.groundwork/config/config.toml)${sets.length ? ` with ${sets.length} --set value(s)` : ''}`);
     } catch (err) {
       c.err(`Failed to seed user config: ${err.message}`);
     }
+  } else if (sets.length) {
+    c.warn(`Ignoring --set: .groundwork/config/config.toml already exists and is yours to edit — GroundWork never mutates it.`);
   }
 
   // Deploy documentation foundations + llms.txt + AGENTS.md (tier 2: copy when
@@ -1805,6 +1910,52 @@ function reportUnmapped(unmapped) {
   console.warn(`         see \x1b[36m.groundwork/skills/code-intelligence.md\x1b[0m (“Enable repo-map for your language”).`);
 }
 
+// ─── Update notice ───────────────────────────────────────────────────────────
+
+// True when `latest`'s x.y.z is greater than `current`'s (pre-release tags ignored —
+// the `latest` dist-tag is stable).
+function isNewerVersion(latest, current) {
+  const parse = (v) => String(v).split('-')[0].split('.').map((n) => parseInt(n, 10) || 0);
+  const a = parse(latest);
+  const b = parse(current);
+  for (let i = 0; i < 3; i++) {
+    if ((a[i] || 0) > (b[i] || 0)) return true;
+    if ((a[i] || 0) < (b[i] || 0)) return false;
+  }
+  return false;
+}
+
+// Non-blocking, best-effort "a newer version exists" line printed after the command's
+// own output. All errors are swallowed — an update check must never break a command or
+// hang an install. Suppressed on non-TTY, CI, GROUNDWORK_NO_UPDATE_CHECK, and `update`
+// (which already reports version state). Success commands drain the loop naturally, so
+// the in-flight request keeps the process alive just long enough to print, capped at 1500ms.
+function maybeCheckForUpdate(cmd) {
+  if (cmd === 'update') return;
+  if (!process.stdout.isTTY || process.env.CI || process.env.GROUNDWORK_NO_UPDATE_CHECK) return;
+  let req;
+  try {
+    req = https.get('https://registry.npmjs.org/groundwork-method/latest', { timeout: 1500 }, (res) => {
+      if (res.statusCode !== 200) { res.resume(); return; }
+      let body = '';
+      res.on('data', (d) => { body += d; });
+      res.on('end', () => {
+        try {
+          const latest = JSON.parse(body).version;
+          if (latest && isNewerVersion(latest, PKG.version)) {
+            // Print at exit so the notice lands after the command's output.
+            process.on('exit', () => {
+              console.error(`\x1b[2mA newer groundwork-method is available: ${PKG.version} → ${latest}. Run: npx groundwork-method@latest update\x1b[0m`);
+            });
+          }
+        } catch { /* swallow malformed responses */ }
+      });
+    });
+    req.on('timeout', () => req.destroy());
+    req.on('error', () => {});
+  } catch { /* swallow — never let the check throw */ }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -1812,12 +1963,17 @@ if (!command || command === 'help' || command === '--help' || command === '-h') 
   process.exit(0);
 }
 
+maybeCheckForUpdate(command);
+
 switch (command) {
   case 'init': {
     const flags = parseInitFlags(process.argv.slice(3));
     if (flags.invalid.length) {
       c.warn(`Unknown agent(s) ignored: ${flags.invalid.join(', ')}`);
       console.warn(`         Supported: ${AGENT_KEYS.join(', ')}`);
+    }
+    if (flags.badSets.length) {
+      c.warn(`Malformed --set ignored (expected key=value): ${flags.badSets.join(', ')}`);
     }
     initGroundWork(flags).catch((err) => {
       c.err(`init failed: ${err.message}`);

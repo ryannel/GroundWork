@@ -8,6 +8,18 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (packaging: async update check, init --set, channels doc, 2026-07-03)
+
+`groundwork` now prints a dim "a newer version is available" line after a command when npm's `latest` is ahead — a non-blocking 1500ms best-effort check, all errors swallowed, suppressed on non-TTY / `CI` / `GROUNDWORK_NO_UPDATE_CHECK` / the `update` command. `init --set key=value` (repeatable) seeds a `config.toml` default at install time only; the key allowlist is derived from the seed template, prototype-pollution tokens are rejected, and a `--set` against an existing (user-owned) config refuses rather than mutating it. The `next` dist-tag stays deferred; how one would be cut is documented in the releasing reference. Design: `docs/plans/groundwork-v2.md` (W0.3).
+
+- [no-migration] CLI-only behavior; nothing to reconcile in existing installs.
+
+### Added (skill-lint uplift: description budget, model-id ban, template links, 2026-07-03)
+
+`./dev lint skills` gains three hard rules and one warning: a registered-skill description budget with an intent-shape (no body-summary opener) check; a ban on concrete model ids in the skill trees (tiers name a capability class, not an id); a `templates/`+`briefs/` reference-resolution check; and a non-blocking word-budget warning per over-long skill file. All new rules pass clean on the current corpus. Design: `docs/plans/groundwork-v2.md` (W0.3).
+
+- [no-migration] Dev-time lint only; not shipped.
+
 ### Changed (host registry extracted to src/config/hosts.json, 2026-07-03)
 
 The `AGENT_ADAPTERS` map moves out of `bin/groundwork.js` into a data file, `src/config/hosts.json` (`key`, `label`, `detect[]`, `native`, `links[]`, `status`, `notes`); `detectAgents` / `wireAgents` / `promptAgents` / `parseInitFlags` are now data-driven. The schema carries only symlinks-to-canonical or `native: true` — no body-template or copy semantics, so the single-`AGENTS.md`-canon invariant stays structural. A contract test keeps the registry keys/status in sync with the `docs/host-support.md` matrix. Wiring is byte-identical; windsurf is deliberately not added yet (plan §10 open decision 4). Design: `docs/plans/groundwork-v2.md` (W0.2).

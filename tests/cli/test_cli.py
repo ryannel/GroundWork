@@ -8,6 +8,7 @@ Run via `./dev test cli` (or pytest tests/cli/ from the scaffolds venv).
 """
 
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -20,8 +21,10 @@ PKG_VERSION = json.loads((REPO_ROOT / "package.json").read_text())["version"]
 
 
 def run_cli(args, cwd):
+    # Suppress the async update-check so no network line ever bleeds into asserted output.
+    env = {**os.environ, "GROUNDWORK_NO_UPDATE_CHECK": "1"}
     return subprocess.run(
-        ["node", str(CLI), *args], cwd=cwd, capture_output=True, text=True
+        ["node", str(CLI), *args], cwd=cwd, capture_output=True, text=True, env=env
     )
 
 
@@ -101,6 +104,36 @@ def test_init_agent_flag_wires_only_named_agents(project):
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     assert state["groundwork"]["agents"] == ["cursor"]
     assert "natively" in proc.stdout
+
+
+def test_init_set_seeds_config_value(project):
+    # --set writes into config.toml only at seed time.
+    proc = run_cli(["init", "--yes", "--set", "defaults.stack=go"], project)
+    assert proc.returncode == 0, proc.stderr
+    cfg = (project / ".groundwork/config/config.toml").read_text()
+    assert 'stack = "go"' in cfg
+    assert "# stack" not in cfg.split("[defaults]")[1].split("\n")[1]  # the example line was activated
+
+
+def test_init_set_refuses_on_existing_install(project):
+    run_cli(["init", "--yes"], project)
+    proc = run_cli(["init", "--yes", "--set", "defaults.stack=python"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert "already exists" in proc.stdout or "already exists" in proc.stderr
+    # the seeded (commented) template is untouched — no active stack line was written
+    cfg = (project / ".groundwork/config/config.toml").read_text()
+    assert 'stack = "python"' not in cfg
+
+
+def test_init_set_rejects_unknown_and_unsafe_keys(project):
+    bogus = run_cli(["init", "--yes", "--set", "defaults.bogus=x"], project)
+    assert bogus.returncode == 1
+    assert "unknown config key" in bogus.stdout or "unknown config key" in bogus.stderr
+    # a rejected --set must not leave a half-written config behind
+    assert not (project / ".groundwork/config/config.toml").exists()
+    unsafe = run_cli(["init", "--yes", "--set", "__proto__.x=1"], project)
+    assert unsafe.returncode == 1
+    assert "unsafe key" in unsafe.stdout or "unsafe key" in unsafe.stderr
 
 
 def test_hosts_registry_stays_in_sync_with_support_doc():
