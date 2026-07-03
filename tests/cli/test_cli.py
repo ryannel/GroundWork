@@ -103,6 +103,28 @@ def test_init_agent_flag_wires_only_named_agents(project):
     assert "natively" in proc.stdout
 
 
+def test_hosts_registry_stays_in_sync_with_support_doc():
+    # The host registry (src/config/hosts.json) is the machine-readable source for the
+    # Support matrix in docs/host-support.md. Guard the drift both ways: every registry
+    # key must appear in the doc, every status must be a known tier, and a link'd host's
+    # links must be well-formed.
+    registry = json.loads((REPO_ROOT / "src/config/hosts.json").read_text())["hosts"]
+    doc = (REPO_ROOT / "docs/host-support.md").read_text()
+    valid_status = {"verified", "wired-untested", "manual"}
+    keys = [h["key"] for h in registry]
+    assert keys == list(dict.fromkeys(keys)), "duplicate host keys in registry"
+    for h in registry:
+        assert h["status"] in valid_status, f"{h['key']}: unknown status {h['status']!r}"
+        assert h["label"] in doc, f"{h['label']} is in the registry but not in docs/host-support.md"
+        if h.get("native"):
+            assert not h.get("links"), f"{h['key']}: native host must not carry links"
+        for link in h.get("links", []):
+            assert {"link", "target", "type"} <= set(link), f"{h['key']}: malformed link {link}"
+    # The support doc enumerates the supported keys inline — keep that list honest.
+    for key in keys:
+        assert key in doc, f"host key {key} is not documented in docs/host-support.md"
+
+
 def test_init_does_not_clobber_existing_real_claude_md(project):
     (project / "CLAUDE.md").write_text("# hand-written\n")
     proc = run_cli(["init", "--agent", "claude-code"], project)

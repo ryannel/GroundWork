@@ -1,0 +1,53 @@
+{
+  "_comment": "Host-agent registry for the groundwork CLI (bin/groundwork.js). CLI-internal data — read at install time to drive detect/wire/prompt/parseInitFlags; NOT seeded into user projects. Single-canon invariant: hosts either symlink to AGENTS.md/.agents/ or read them natively — no body-template or copy semantics live here. Keep status values in sync with the Support matrix in docs/host-support.md (verified | wired-untested | manual).",
+  "hosts": [
+    {
+      "key": "claude-code",
+      "label": "Claude Code",
+      "detect": [".claude", "CLAUDE.md"],
+      "native": false,
+      "links": [
+        { "link": ".claude", "target": ".agents", "type": "junction" },
+        { "link": "CLAUDE.md", "target": "AGENTS.md", "type": "file" }
+      ],
+      "status": "verified",
+      "notes": "Reference host — the simulation harness runs real Claude Code sessions against the installed skills. Gets symlinks to the canonical AGENTS.md + .agents/."
+    },
+    {
+      "key": "cursor",
+      "label": "Cursor",
+      "detect": [".cursor", ".cursorrules"],
+      "native": true,
+      "links": [],
+      "status": "wired-untested",
+      "notes": "Reads AGENTS.md + .agents/skills/ natively. Wired by name at install; no verified end-to-end run yet."
+    },
+    {
+      "key": "codex",
+      "label": "Codex",
+      "detect": [".codex"],
+      "native": true,
+      "links": [],
+      "status": "wired-untested",
+      "notes": "Reads AGENTS.md + .agents/skills/ natively. Wired by name at install; no verified end-to-end run yet."
+    },
+    {
+      "key": "opencode",
+      "label": "OpenCode",
+      "detect": [".opencode", "opencode.json"],
+      "native": true,
+      "links": [],
+      "status": "wired-untested",
+      "notes": "Reads AGENTS.md + .agents/skills/ natively. Wired by name at install; no verified end-to-end run yet."
+    },
+    {
+      "key": "cline",
+      "label": "Cline",
+      "detect": [".clinerules", ".cline"],
+      "native": true,
+      "links": [],
+      "status": "wired-untested",
+      "notes": "Reads AGENTS.md + .agents/skills/ natively. Wired by name at install; no verified end-to-end run yet."
+    }
+  ]
+}

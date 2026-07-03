@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (host registry extracted to src/config/hosts.json, 2026-07-03)
+
+The `AGENT_ADAPTERS` map moves out of `bin/groundwork.js` into a data file, `src/config/hosts.json` (`key`, `label`, `detect[]`, `native`, `links[]`, `status`, `notes`); `detectAgents` / `wireAgents` / `promptAgents` / `parseInitFlags` are now data-driven. The schema carries only symlinks-to-canonical or `native: true` — no body-template or copy semantics, so the single-`AGENTS.md`-canon invariant stays structural. A contract test keeps the registry keys/status in sync with the `docs/host-support.md` matrix. Wiring is byte-identical; windsurf is deliberately not added yet (plan §10 open decision 4). Design: `docs/plans/groundwork-v2.md` (W0.2).
+
+- [no-migration] The CLI is framework-owned and clean-replaced on update; `hosts.json` is CLI-internal and never seeded into projects.
+
 ### Changed (orchestrator guidance: one position-report procedure + intent-first dispatch, 2026-07-03)
 
 The "what's next" and "help" intents collapse into a single Guidance procedure — position report (setup phase N of M, or the delivery lane state from the pitch `status:`, `./dev bet status`, patch-cluster trailers, a pending upgrade brief, and open maturity rows) → exactly one recommended next action with the phrase that starts it → general questions answered from `docs/` + `llms.txt`, never memory. A new opening-message dispatch rule routes an unambiguous first message in the same turn and asks exactly one clarifying question only when the route is genuinely ambiguous. No third registered skill — the guidance lives in the orchestrator. Design: `docs/plans/groundwork-v2.md` (W0.1b, W0.1c).

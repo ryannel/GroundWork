@@ -857,18 +857,14 @@ function buildGeneratorsConfig() {
 //
 // `native: true` agents (Cursor, Codex, OpenCode, Cline) read AGENTS.md and .agents/skills/
 // directly — generating the canonical files is the entire wiring; they need no symlink.
-const AGENT_ADAPTERS = {
-  'claude-code': {
-    label: 'Claude Code',
-    detect: ['.claude', 'CLAUDE.md'],
-    dirLink: { link: '.claude', target: '.agents' },
-    fileLink: { link: 'CLAUDE.md', target: 'AGENTS.md' },
-  },
-  'cursor':   { label: 'Cursor',   detect: ['.cursor', '.cursorrules'], native: true },
-  'codex':    { label: 'Codex',    detect: ['.codex'], native: true },
-  'opencode': { label: 'OpenCode', detect: ['.opencode', 'opencode.json'], native: true },
-  'cline':    { label: 'Cline',    detect: ['.clinerules', '.cline'], native: true },
-};
+// The host registry is data, kept in src/config/hosts.json so detect/wire/prompt stay
+// data-driven and the matrix in docs/host-support.md has a single machine-readable source.
+// Each host either symlinks to the canonical files (`links[]`) or reads them natively —
+// there is deliberately no body-template or copy semantics in the schema.
+const AGENT_ADAPTERS = Object.fromEntries(
+  JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'config', 'hosts.json'), 'utf8'))
+    .hosts.map((h) => [h.key, h])
+);
 const AGENT_KEYS = Object.keys(AGENT_ADAPTERS);
 
 // Agents whose marker files/dirs already exist in the target — used to pre-select the prompt
@@ -930,10 +926,13 @@ function wireAgents(targetDir, selectedKeys) {
       native.push(a.label);
       continue;
     }
-    if (a.dirLink) linkOne(targetDir, a.dirLink.link, a.dirLink.target, 'junction');
-    // The file symlink only fires once the canonical AGENTS.md exists (init generates it first).
-    if (a.fileLink && fs.existsSync(path.join(targetDir, a.fileLink.target))) {
-      linkOne(targetDir, a.fileLink.link, a.fileLink.target);
+    for (const l of a.links || []) {
+      if (l.type === 'junction') {
+        linkOne(targetDir, l.link, l.target, 'junction');
+      } else if (fs.existsSync(path.join(targetDir, l.target))) {
+        // A file symlink only fires once its canonical target (AGENTS.md) exists (init generates it first).
+        linkOne(targetDir, l.link, l.target);
+      }
     }
   }
   if (native.length) {
@@ -986,6 +985,8 @@ function promptAgents(detected) {
     // restore a checkbox picker over `wiredKeys` here — this single yes/no only covers one.
     const only = wiredKeys[0];
     const a = AGENT_ADAPTERS[only];
+    const dirLink = (a.links || []).find((l) => l.type === 'junction');
+    const fileLink = (a.links || []).find((l) => l.type !== 'junction');
     const claudeDetected = detected.includes(only);
     const nativeDetected = AGENT_KEYS.some((k) => AGENT_ADAPTERS[k].native && detected.includes(k));
     // Default yes unless a native tool is the only thing we detected (then they're already set up).
@@ -996,11 +997,11 @@ function promptAgents(detected) {
     const nativeList = nativeLabels.length > 1
       ? `${nativeLabels.slice(0, -1).join(', ')}, and ${nativeLabels[nativeLabels.length - 1]}`
       : nativeLabels[0] || '';
-    console.log(`\n\x1b[1mGroundWork keeps all your project guidance in ${a.fileLink.target} and the ${a.dirLink.target}/ folder.\x1b[0m`);
+    console.log(`\n\x1b[1mGroundWork keeps all your project guidance in ${fileLink.target} and the ${dirLink.target}/ folder.\x1b[0m`);
     if (nativeList) {
       console.log(`  \x1b[32m✓\x1b[0m \x1b[2m${nativeList} read them automatically — nothing to set up.\x1b[0m`);
     }
-    console.log(`  \x1b[2m${a.label} looks for ${a.fileLink.link} / ${a.dirLink.link}/ instead, so it needs links to them.\x1b[0m`);
+    console.log(`  \x1b[2m${a.label} looks for ${fileLink.link} / ${dirLink.link}/ instead, so it needs links to them.\x1b[0m`);
 
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     const choices = defaultYes ? '\x1b[2m[Y/n]\x1b[0m' : '\x1b[2m[y/N]\x1b[0m';
