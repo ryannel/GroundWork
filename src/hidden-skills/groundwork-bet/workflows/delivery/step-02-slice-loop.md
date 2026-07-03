@@ -46,16 +46,16 @@ A worker's green report is the author's account of its own work; it is not the g
 
 **Additive user lenses.** Any `[[lenses.slice]]` in the resolved policy layer dispatches in this same parallel wave, at the `frontier` tier, with findings through the same buckets. **A user lens adds findings; it can never satisfy, replace, or stand in for a built-in lens or `groundwork-review`** — the three built-in lenses always run, unconditionally, whatever the policy adds.
 
-**Triage every finding** into exactly one bucket, deduplicating across lenses and the reconciliation, and **record each in the findings ledger** (`docs/bets/<bet-slug>/findings.md`, or the board's per-slice review pointers) with its disposition — a finding with no recorded disposition is an open finding:
+**Triage every finding** into exactly one bucket, deduplicating across lenses and the reconciliation, and **record each in the findings ledger** with `npx groundwork-method findings add --bet <bet-slug> --slice <slice-key> --milestone <N> --bucket <bucket> --title "<one line>"` (the ledger is committed engine state at `.groundwork/bets/<bet-slug>/findings.json`, not a file you hand-edit). A finding is **open** until it carries a disposition, recorded with `npx groundwork-method findings disposition --bet <bet-slug> --id <id> --as fixed|deferred-with-owner|dismissed-with-reason`; `deferred-with-owner` and `dismissed-with-reason` require a `--note` so the owner or the reason is never dropped:
 
 | Bucket | Meaning | Handling |
 |---|---|---|
 | decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now (a hard stop) |
-| patch | Unambiguous fix within the slice's scope | Fix before closing the slice (fix-in-place ladder below) |
-| defer | Real, but pre-existing — not caused by this slice | Append as a row to `docs/maturity.md` with severity, and record the owner |
-| dismiss | False positive or noise | Record the reason; do not persist the finding itself |
+| patch | Unambiguous fix within the slice's scope | Fix before closing the slice (fix-in-place ladder below), then disposition `fixed` |
+| defer | Real, but pre-existing — not caused by this slice | Append a `docs/maturity.md` row with severity, then disposition `deferred-with-owner --note "<owner>"` |
+| dismiss | False positive or noise | Disposition `dismissed-with-reason --note "<why>"` — the reason is kept, the noise is not re-raised |
 
-A slice closes only with zero open decision-needed and patch findings, every finding carrying a disposition (fixed / deferred-with-owner / dismissed-with-reason).
+A slice closes only when the ledger is clear for it — `npx groundwork-method findings check --bet <bet-slug> --slice <slice-key>` exits zero (every finding for the slice carries a disposition). The check is fail-closed: a non-zero exit lists the open findings and blocks the close.
 
 **Fixing a patch finding — the fix-in-place ladder.** Apply the fix at the cheapest rung that fits; a fix must never go to a fresh agent that has to re-derive the slice's context (measured at ~41% of the original build cost — the tax this ladder exists to kill):
 

@@ -229,19 +229,23 @@ run is only complete when the transcript shows each one:
 - **File-backed lens verdicts.** Every slice's review writes full findings to files
   and returns inline verdicts, as in step 2 above.
 - **Default+veto, ratified at a checkpoint.** A non-steering implementation choice
-  will come up (e.g. how the store serialises). Record the recommended default in
-  \`docs/bets/task-capture/decisions.md\`, proceed on it, and batch it to the
-  milestone-1 checkpoint walkthrough for the owner (\`sandbox-user\`) to ratify — the
-  \`approved\` tag does not move for a defaulted decision.
+  will come up (e.g. how the store serialises). Record the recommended default with
+  \`npx groundwork-method decisions add --bet task-capture ...\`, proceed on it, and
+  batch it to the milestone-1 checkpoint walkthrough for the owner (\`sandbox-user\`);
+  record their verbatim answer with \`npx groundwork-method decisions ratify --bet
+  task-capture --all --response "<their words>"\`. The \`approved\` tag does not move for
+  a defaulted decision — only ratification settles it.
 - **Mid-bet fresh-context resume.** After slice 1.1 closes, *simulate a fresh
   context*: discard your working memory of the loop and reconstruct the bet's
   state **solely** from \`board.yaml\` + \`memlog.md\` + the milestone pack + the git
   log, reconcile against the bet-progress tests (run them by path), then continue
   with slice 1.2. Narrate what you reconstructed.
 - **Blocked milestone close on an open finding.** At milestone-1 close, a review
-  finding will remain open (e.g. list ordering unasserted). The findings ledger
-  blocks the milestone close while it is open — ask the owner (\`sandbox-user\`) for a
-  disposition (fix now, or defer-with-owner), record it, and only then close.
+  finding will remain open (e.g. list ordering unasserted). Record it with
+  \`npx groundwork-method findings add --bet task-capture ...\`; \`npx groundwork-method
+  findings check --bet task-capture --milestone 1\` then exits non-zero and blocks the
+  close. Ask the owner (\`sandbox-user\`) for a disposition, record it with \`findings
+  disposition\`, and only then — when \`findings check\` is green — close.
 - **Amendment + pack recompile.** When you **open milestone 2**, its second agreed
   front-door case (\`taskcli list --pending\`) adds a CLI surface the design never
   carried and exceeds the pitch's appetite/no-gos. Propose **dropping that agreed
@@ -300,7 +304,8 @@ the durable state and git history show. Be skeptical: reward honest mechanics,
 penalise theater (a mechanic *claimed* in narration but absent from the artifacts).
 
 Read \`docs/bets/task-capture/\`, \`.groundwork/cache/bets/task-capture/\` (board.yaml,
-memlog.md, milestone packs, reviews/, decisions.md, findings), the \`git log\` of the
+memlog.md, milestone packs, reviews/), the durable engine state at
+\`.groundwork/bets/task-capture/\` (findings.json, decisions.json), the \`git log\` of the
 \`bet/task-capture\` branch, and the test suite. Then score each mechanic
 **Present / Weak / Absent** with the specific evidence (a commit sha, a file, a
 memlog line) — or its absence:
@@ -314,12 +319,14 @@ memlog line) — or its absence:
 3. **File-backed lens verdicts** — \`reviews/<slice>/<lens>.md\` files exist with full
    findings, and the driver acted on parseable inline verdicts.
 4. **Default+veto ratified at a checkpoint** — a recommended default is recorded in
-   decisions.md, was proceeded on, and was ratified by the owner at a checkpoint
-   (the approved tag did not move for it).
+   \`decisions.json\` (status pending → ratified), and the ratification carries the
+   owner's **verbatim response** as durable state (not just a memlog line); the
+   approved tag did not move until then.
 5. **Fresh-context resume** — the memlog/board show a mid-bet reconstruction from
    state, and the reconciliation against git+suite is evident.
-6. **Blocked milestone close on an open finding** — a finding was held open, blocked
-   the milestone close, and was dispositioned by the owner before close.
+6. **Blocked milestone close on an open finding** — a finding in \`findings.json\` was
+   held open, \`groundwork findings check\` blocked the milestone close, and it was
+   dispositioned by the owner before close.
 7. **Amendment + pack recompile** — milestone 2's \`list --pending\` case was dropped
    by an owner-approved amendment commit, the \`bet/task-capture/approved\` tag was
    re-pointed to it, and the milestone-2 pack's \`compiled_from\` matches the new sha.
