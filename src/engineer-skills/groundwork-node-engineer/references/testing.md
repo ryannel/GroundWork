@@ -75,6 +75,16 @@ test("create order works", ...)                             // bad
 
 Observability is a test surface: a missing span on a critical path is a test failure, not an instrumentation TODO. Register an `InMemorySpanExporter` (`@opentelemetry/sdk-trace-base`) in the test process, exercise the endpoint, and assert the entry span and the work spans exist and stay connected. Assert what the contract promises — the spans a dashboard or SLO depends on — not the whole span tree; pinning every attribute couples the test to implementation and trains the team to delete it.
 
+## Bet Slice Rollout — the permanent tests a slice owes
+
+When a bet slice's progress tests go green, the slice-worker rolls out permanent coverage as part of the same slice, before the driver reviews it (bet workflow, Delivery). The bet-progress tests prove the capability once and are archived; these stay.
+
+- **Service perimeter test (always).** One Tier 1 test per capability the slice delivered, exercising the real Fastify route through `buildApp` against real Postgres (Testcontainers) — the honeycomb wall that survives refactors.
+- **Unit tests (when logic earned them).** Pure-function tests for branching business logic the slice introduced — state machines, pricing rules, parsers, zod refinements. CRUD plumbing does not earn unit tests; the perimeter test already covers it.
+- **Critical-path trace assertions (when the slice added an observable path).** A slice that introduced a route or worker whose trace a dashboard or SLO depends on pins it with an `InMemorySpanExporter` test: the entry and work spans exist and the trace stays connected. A missing span is a test failure, not an instrumentation TODO.
+- **Contract conformance (when the slice changed an API).** The served OpenAPI must match the promoted spec in `docs/architecture/api/<service>/openapi.yaml`; the generated system suite checks this — the slice's job is to keep the spec promotion current, not to hand-write the check.
+- **Error and boundary cases at happy-path rigour.** Every error branch and boundary the slice introduced (empty input, a failing dependency, a zod-rejected body, an idempotency replay) gets an assertion, not just the success path.
+
 ## Anti-Patterns
 
 - **Mocking your own repositories.** Asserts against your SQL-writing skill, not database behaviour. Testcontainers.

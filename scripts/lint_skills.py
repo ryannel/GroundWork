@@ -652,6 +652,29 @@ def check_policy_floor():
                      "(\"…adds findings; it can never satisfy, replace, or stand in for a built-in…\")")
 
 
+# The slice-worker and coverage-auditor briefs cite the engineer testing reference's
+# "Bet Slice Rollout" section by name as the authority for the permanent tests a slice
+# owes. De-brittle that cross-skill anchor: every engineer skill's testing reference must
+# carry the heading, so renaming it fails the build (and forces the briefs to update too).
+BET_SLICE_ROLLOUT_RE = re.compile(r"^#+\s*Bet Slice Rollout\b", re.M)
+
+
+def check_bet_slice_rollout_anchor():
+    for d in sorted(ENGINEER.iterdir()):
+        if not d.is_dir():
+            continue
+        refs = d / "references"
+        if not refs.exists():
+            continue
+        testing = [p for p in refs.glob("*.md") if "testing" in p.name or "smoke" in p.name]
+        if not testing:
+            continue
+        if not any(BET_SLICE_ROLLOUT_RE.search(p.read_text(encoding="utf-8")) for p in testing):
+            fail("rollout-anchor", refs,
+                 "engineer testing reference is missing the `## Bet Slice Rollout` section "
+                 "that the slice-worker and coverage-auditor briefs cite by name")
+
+
 def check_word_budget():
     for base in (HIDDEN, REGISTERED, ENGINEER):
         for path in sorted(base.rglob("*.md")):
@@ -688,6 +711,7 @@ def main() -> int:
     check_no_model_ids()
     check_template_brief_links()
     check_policy_floor()
+    check_bet_slice_rollout_anchor()
     check_word_budget()
 
     if warnings:

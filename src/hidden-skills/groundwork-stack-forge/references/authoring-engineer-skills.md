@@ -54,12 +54,10 @@ groundwork-<stack>-engineer/
   idiomatic libraries, its packaging. Each file is a lens an engineer reaches for mid-task and
   is paid once per lookup: front-load the identifier, keep entries parallel, never narrate —
   it is a decision-time distillation, not a tutorial.
-- **A version-corrections reference is required.** Every stack has shapes the model's
-  training data holds stale — renamed APIs, changed defaults, dead toolchains. Collect them in
-  one checklist file, `version-corrections.md` under the skill's references (what changed, why
-  it bites, the minimal fix, verified against the project's manifest), and route it as "check
-  first on any framework-version-sensitive task." Date-pinned claims live only there, so
-  staleness has one place to age and one file to fix.
+- **Required sections — the contract a forged skill must satisfy.** A forged engineer skill is consumed by the delivery briefs, which cite parts of it by name; ship these or the citations dangle:
+  - **A version-corrections reference.** Every stack has shapes the model's training data holds stale — renamed APIs, changed defaults, dead toolchains. Collect them in one checklist file, `version-corrections.md` under the skill's references (what changed, why it bites, the minimal fix, verified against the project's manifest), routed as "check first on any framework-version-sensitive task." Date-pinned claims live only there, so staleness has one place to age and one file to fix.
+  - **A testing reference with a `## Bet Slice Rollout` section.** The slice-worker and coverage-auditor briefs cite that heading by name as the authority for the permanent tests a slice owes — name the section exactly, and list the permanent-test obligations for the stack (unit for complex logic, error/boundary at happy-path rigour, a trace assertion on an observable path, named states for a UI slice).
+  - **A Context-Routing section** in `SKILL.md` mapping a change's shape to the reference(s) to load, so the delivery driver can resolve the right references for a slice worker's milestone pack without the worker guessing.
 - **No `sync-anchor.md`.** The shipped engineer skills pin GroundWork's in-repo principle
   files by hash; a forged skill lives in a user project with no such source to pin, so it is
   **self-contained** — its references stand on their own. Do not fabricate a sync-anchor.

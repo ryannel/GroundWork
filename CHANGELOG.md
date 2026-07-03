@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (pointer + builder hygiene, 2026-07-03)
+
+De-brittled the cross-skill `Bet Slice Rollout` citation: a new lint rule requires every engineer skill's testing reference to carry the `## Bet Slice Rollout` heading the slice-worker and coverage-auditor briefs cite by name (a rename now fails the build) — which surfaced and fixed a missing section in `groundwork-node-engineer`. `groundwork-stack-forge`'s authoring reference now states an explicit required-sections contract for forged engineer skills (version-corrections, a testing reference with a Bet Slice Rollout section, a Context-Routing section). The engineer default-row `references/core.md` distillation is tracked as a follow-up. Design: `docs/plans/groundwork-v2.md` (W1.10).
+
+- [no-migration] Dev-time lint + skill prose; skills clean-copy on update.
+
 ### Added (additive policy layer: policy.toml + policy.user.toml, 2026-07-03)
 
 A two-file additive customization layer: `.groundwork/config/policy.toml` (team, committed) + `policy.user.toml` (personal, gitignored). It lets a team add rigor and context — never remove the floor: `[facts]` (org facts injected into state resolution, dispatched capsules/packs, and setup facilitators), `[lenses]` (additive review lenses dispatched alongside the built-ins — they add findings, they can never satisfy or replace a built-in lens or `groundwork-review`), `[checklists]` (additive 🟡 items per review document_type), and `[phases]` (instruction hooks at phase init/commit). Merge is deliberately trivial — scalars: user wins; arrays: concatenate, team first. A vendored TOML-subset parser keeps the CLI dependency-free; `npx groundwork-method policy` prints the resolved merge as JSON, and `groundwork check` validates both files (parse errors, broken `file:` refs, missing lens briefs, unknown keys). Artifact-path overrides are rejected for v1 (they would generate identifier drift against the cross-phase contracts). Design: `docs/plans/groundwork-v2.md` (W1.9).
