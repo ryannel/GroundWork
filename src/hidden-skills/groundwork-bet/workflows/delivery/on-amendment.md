@@ -1,0 +1,13 @@
+# Delivery: Amendment Protocol
+
+Loaded only when triggered — a slice-worker's `BLOCKING CONCERN`, a `decision-needed` review finding, or the milestone postmortem finds an approved proof wrong.
+
+## Amendment Protocol — when an approved proof is wrong
+
+An approved proof can still be wrong: its Proof-of-work prose can describe a shape the design never defined, encode a misread capability, or demand an outcome no implementation can reach. Approval does not make the prose right — it makes changing it a decision the user takes, not a convenience the worker or driver reaches for. This protocol fires from three places: a slice-worker's `BLOCKING CONCERN`, a `decision-needed` review finding, or the milestone postmortem.
+
+1. **Stop work on the affected slice or milestone.** Do not edit the prose, and do not implement toward a proof you believe is wrong.
+2. **State the case:** what the proof says, what you believe it should say, and whether the error is in the proof alone or the technical design behind it.
+3. **Route by depth.** A wrong proof against a correct design is a proof amendment: on the user's explicit approval, edit the slice's (or milestone's) Proof-of-work prose and **commit it beside the decomposition with a reason** (`bet(<bet-slug>): amend milestone <N> proof — <reason>`), then change the built test and code to match. **Re-point the `bet/<bet-slug>/approved` tag at this amendment commit** — the tag names the current sealed baseline, and the readiness gate and the prose-integrity reconciliation both read it as *the* baseline, not the original approval commit. That recorded amendment commit and the re-pointed tag are the trail the reconciliation reads. Editing an *unopened* milestone's headline proof is the cheapest amendment of all — correct the ladder rung, commit, and re-point the tag the same way; because its slices were never authored, nothing downstream unwinds. A wrong API/data design is deeper — follow Change Navigation (`on-change-navigation.md`).
+4. **Recompile the milestone context pack.** Re-pointing the approved tag makes the current pack stale by construction (`compiled_from` no longer equals the tag sha). Recompile it from the amended design before dispatching another slice, so no worker reads a pack that points at superseded prose.
+5. **Record the amendment** in the slice's delivery commit `Notes:` (and in the postmortem record when it surfaced there) so Validation's retrospective sees how the contract moved after approval.

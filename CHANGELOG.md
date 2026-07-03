@@ -8,6 +8,102 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-07-03
+
+### Changed (internal — delivery-phase simulation harness, 2026-07-03)
+
+Built the instrument the Wave-1 exit gate needed: `./dev sandbox <name> --delivery` seeds a sealed `task-capture` bet ready at Delivery Step 0 (readiness-gate-shaped doc chain, `taskcli` stubs that fail red for the feature's absence, the `bet/task-capture/approved` tag) with deliberate seams for every delivery mechanic, plus a `/simulate-delivery` kickoff that drives the loop against a simulated owner and a delivery-specific `/judge`. A frontier driver ran it end-to-end and an independent fresh-context judge scored all six mechanics PRESENT (verdict: FAITHFUL). Dev-only test infrastructure — not shipped in the npm package. Design: `docs/plans/groundwork-v2.md` (§9.7).
+
+- [no-migration] Dev-time test harness under `scripts/`, `tests/`, and `dev`; not part of the installed skill tree.
+
+### Changed (pointer + builder hygiene, 2026-07-03)
+
+De-brittled the cross-skill `Bet Slice Rollout` citation: a new lint rule requires every engineer skill's testing reference to carry the `## Bet Slice Rollout` heading the slice-worker and coverage-auditor briefs cite by name (a rename now fails the build) — which surfaced and fixed a missing section in `groundwork-node-engineer`. `groundwork-stack-forge`'s authoring reference now states an explicit required-sections contract for forged engineer skills (version-corrections, a testing reference with a Bet Slice Rollout section, a Context-Routing section). The engineer default-row `references/core.md` distillation is tracked as a follow-up. Design: `docs/plans/groundwork-v2.md` (W1.10).
+
+- [no-migration] Dev-time lint + skill prose; skills clean-copy on update.
+
+### Added (additive policy layer: policy.toml + policy.user.toml, 2026-07-03)
+
+A two-file additive customization layer: `.groundwork/config/policy.toml` (team, committed) + `policy.user.toml` (personal, gitignored). It lets a team add rigor and context — never remove the floor: `[facts]` (org facts injected into state resolution, dispatched capsules/packs, and setup facilitators), `[lenses]` (additive review lenses dispatched alongside the built-ins — they add findings, they can never satisfy or replace a built-in lens or `groundwork-review`), `[checklists]` (additive 🟡 items per review document_type), and `[phases]` (instruction hooks at phase init/commit). Merge is deliberately trivial — scalars: user wins; arrays: concatenate, team first. A vendored TOML-subset parser keeps the CLI dependency-free; `npx groundwork-method policy` prints the resolved merge as JSON, and `groundwork check` validates both files (parse errors, broken `file:` refs, missing lens briefs, unknown keys). Artifact-path overrides are rejected for v1 (they would generate identifier drift against the cross-phase contracts). Design: `docs/plans/groundwork-v2.md` (W1.9).
+
+- [migration] Seeds `.groundwork/config/policy.toml` and gitignores `policy.user.toml` on installs that predate the layer; purely additive (gw-seed-policy-toml)
+
+### Changed (stakes-scaled validation + experience-audit dedup, 2026-07-03)
+
+Bet-close validation finally reads the pitch's per-bet **Stakes** field (blast radius, reversibility, review load) to set how much of the end-to-end judgment the owner walks with the auditor — a one-way-door bet earns a heavier walk, an iterate-behind-a-flag change a lighter one. This is the per-bet shaping the owner already authors and nothing yet read; it is **not the rejected project-level stakes axis** and conditions nothing in the floor — the deterministic tiers, per-slice lenses, honesty audit, front-door proofs, and experience gate run in full regardless. The whole-bet experience audit now **dedups the re-drive**: seams in full, and a whole milestone only when it took commits after its own close-time audit. Design: `docs/plans/groundwork-v2.md` (W1.8).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
+### Changed (attestation theater removed, 2026-07-03)
+
+The always-run confirmation walks that never tripped are cut to mechanical, conditional checks. Prose integrity is one git-pathspec check against the approved tag (a clean output is the whole pass); honest-green's consumer-compile runs only on ripple slices and its shipping-build check only on front-door slices — where each can actually bite. Protocol 9 doc re-reviews at milestone open are **reserved**: the mechanical Decomposition Gate (recorded item-by-item in the commit body) is the review of record, and P9 dispatches only for a new contract or surface, a post-amendment rung, or a first decomposition — the observed P9 re-reviews found zero critical findings over ground the gate had just covered. Design: `docs/plans/groundwork-v2.md` (W1.7).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
+### Added (owner decisions: default+veto + checkpoint walkthrough, 2026-07-03)
+
+Delivery runs without input by default and stops deliberately. A destructive, scope-changing, or proof-weakening decision is a hard stop; every other decision takes its recommended default (recorded in `docs/bets/<slug>/decisions.md`), proceeds, and batches to the next checkpoint for ratification — the approved tag moves only on ratification, provisional amendments ride a single `[provisional]` commit. **Design-altitude guard:** anything that changes what the owner authored at a design altitude — UI, data flows, API, schema — is an amendment and a hard stop, never a defaulted decision. A new `briefs/checkpoint-walkthrough.md` (frontier, read-only, not a gate) opens each milestone pause and the bet-close review: the change organized by concern, 2–5 blast-radius spots tagged `[auth]/[schema]/[contract]/[data]/[infra]`, suggested front-door observations, the pending decisions queue for ratification, and touched deferred/maturity rows — maintaining the owner's system comprehension as delivery evolves it. Design: `docs/plans/groundwork-v2.md` (W1.6).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
+### Changed (review policy: adversarial fleet, findings ledger, file-backed lens output, 2026-07-03)
+
+The per-slice review drops to **three** independent lenses (blind reviewer, edge-case tracer, coverage auditor default-on); the acceptance auditor is **retired per-slice** (17 runs / 2 catches / 4 false-negatives) and reborn as a **per-milestone honesty audit** — test-mirrors, dead shims, generated-file edits, dropped spec marks, deleted guards — dispatched once at close, its verdict feeding postmortem Q1. The edge-case tracer gains design anchors and a state-machine / lifecycle reachability checklist seeded from the escaped bug classes. Every lens now writes full findings to `.groundwork/cache/bets/<slug>/reviews/<key>/<lens>.md` and **returns exactly** a parseable `VERDICT:` line, ≤5 bucket-tagged findings, and a `FULL:` path — Protocol 8 gates on the verdict in the returned text, so a lens returning only a path is not a pass (fail-closed, stated in every brief). A **findings ledger** gives every finding a disposition (fixed / deferred-with-owner / dismissed-with-reason), and **milestone close blocks while any finding is open**. Design: `docs/plans/groundwork-v2.md` (W1.4).
+
+### Added (fix-in-place ladder, 2026-07-03)
+
+A patch finding is fixed at the cheapest rung that holds the slice's context — driver inline → continuation to the original worker → minimal-capsule fix worker with a strict scope rule — never a fresh agent that re-derives context (the ~41% re-derivation tax this ladder kills). Encoded in `step-02-slice-loop.md` and `briefs/slice-worker.md`. Design: `docs/plans/groundwork-v2.md` (W1.5).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
+### Added (milestone context pack, 2026-07-03)
+
+Delivery gains a per-milestone context pack (`templates/milestone-context.md` → `.groundwork/cache/bets/<slug>/milestone-<NN>-context.md`), distilled at milestone open and refreshed at slice close. It carries **pointers and learnings, never contract text** — design-section pointers, engineer Context-Routing rows, prior-slice `Notes`, postmortem gists, proven recipes, testing obligations, worktree environment facts — so a fresh worker inherits context without re-reading upstream docs and without a second copy of any API/schema/data shape. Staleness is mechanical (`compiled_from` ≠ approved-tag sha), checked at milestone open and after any amendment. The dispatch capsule shrinks to the pack pointer plus slice-specifics; ripple caller lists stay per-slice (never precompiled). Design: `docs/plans/groundwork-v2.md` (W1.3).
+
+- [no-migration] Cache-tier; skills clean-copy on update.
+
+### Added (delivery working state: board.yaml + memlog + `./dev bet log`, 2026-07-03)
+
+Delivery gains a gitignored per-bet working state under `.groundwork/cache/bets/<bet-slug>/`: `board.yaml` (schema v1 — the step-router pointer + a slice status map derived from the decomposition tree, carrying zero proof text) and `memlog.md` (append-only resume index). Neither ever gates — git and the suite are the record, the working state reconciles against them, and on divergence git/suite wins; absent or corrupt, it self-heals from the git log (no migration). A new `./dev bet log <slug> -- "<line>"` appends a timestamped memlog line (documented `printf >>` fallback); `./dev archive bet` now also removes the working-state cache. The cache is gitignored via a seeded `.groundwork/cache/.gitignore`. New Protocol 7 row in the operating contract (additive; contract stays v1). Design: `docs/plans/groundwork-v2.md` (W1.2).
+
+- [no-migration] Cache-tier working state; in-flight bets self-heal from git, and the cache `.gitignore` seeds on the next init/update.
+
+### Changed (delivery workflow: step-file spine, 2026-07-03)
+
+`groundwork-bet`'s 6.6k-word `workflows/04-delivery.md` splits into a thin spine (driver model, restrictions, git workflow, a state→step router) plus per-step files under `workflows/delivery/`: `step-01-readiness.md`, `step-02-slice-loop.md`, `step-03-milestone-close.md`, `step-04-postmortem.md`, and the trigger-loaded `on-amendment.md`, `on-change-navigation.md`, `topologies.md`. The reader loads one step fully, executes it, and follows its transition line — cutting delivery-entry instruction load and making resume cheap. Every gate sentence from the old file survives in exactly one step file. Design: `docs/plans/groundwork-v2.md` (W1.1).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
+### Added (packaging: async update check, init --set, channels doc, 2026-07-03)
+
+`groundwork` now prints a dim "a newer version is available" line after a command when npm's `latest` is ahead — a non-blocking 1500ms best-effort check, all errors swallowed, suppressed on non-TTY / `CI` / `GROUNDWORK_NO_UPDATE_CHECK` / the `update` command. `init --set key=value` (repeatable) seeds a `config.toml` default at install time only; the key allowlist is derived from the seed template, prototype-pollution tokens are rejected, and a `--set` against an existing (user-owned) config refuses rather than mutating it. The `next` dist-tag stays deferred; how one would be cut is documented in the releasing reference. Design: `docs/plans/groundwork-v2.md` (W0.3).
+
+- [no-migration] CLI-only behavior; nothing to reconcile in existing installs.
+
+### Added (skill-lint uplift: description budget, model-id ban, template links, 2026-07-03)
+
+`./dev lint skills` gains three hard rules and one warning: a registered-skill description budget with an intent-shape (no body-summary opener) check; a ban on concrete model ids in the skill trees (tiers name a capability class, not an id); a `templates/`+`briefs/` reference-resolution check; and a non-blocking word-budget warning per over-long skill file. All new rules pass clean on the current corpus. Design: `docs/plans/groundwork-v2.md` (W0.3).
+
+- [no-migration] Dev-time lint only; not shipped.
+
+### Changed (host registry extracted to src/config/hosts.json, 2026-07-03)
+
+The `AGENT_ADAPTERS` map moves out of `bin/groundwork.js` into a data file, `src/config/hosts.json` (`key`, `label`, `detect[]`, `native`, `links[]`, `status`, `notes`); `detectAgents` / `wireAgents` / `promptAgents` / `parseInitFlags` are now data-driven. The schema carries only symlinks-to-canonical or `native: true` — no body-template or copy semantics, so the single-`AGENTS.md`-canon invariant stays structural. A contract test keeps the registry keys/status in sync with the `docs/host-support.md` matrix. Wiring is byte-identical; windsurf is deliberately not added yet (plan §10 open decision 4). Design: `docs/plans/groundwork-v2.md` (W0.2).
+
+- [no-migration] The CLI is framework-owned and clean-replaced on update; `hosts.json` is CLI-internal and never seeded into projects.
+
+### Changed (orchestrator guidance: one position-report procedure + intent-first dispatch, 2026-07-03)
+
+The "what's next" and "help" intents collapse into a single Guidance procedure — position report (setup phase N of M, or the delivery lane state from the pitch `status:`, `./dev bet status`, patch-cluster trailers, a pending upgrade brief, and open maturity rows) → exactly one recommended next action with the phrase that starts it → general questions answered from `docs/` + `llms.txt`, never memory. A new opening-message dispatch rule routes an unambiguous first message in the same turn and asks exactly one clarifying question only when the route is genuinely ambiguous. No third registered skill — the guidance lives in the orchestrator. Design: `docs/plans/groundwork-v2.md` (W0.1b, W0.1c).
+
+- [no-migration] Registered-skill trees are clean-copied on update.
+
+### Added (workflow index: delivery lanes + general-questions row, 2026-07-03)
+
+The generated `workflow-index.md` now carries a Delivery-Loop lanes table (patch / quick bet / bet, each with its scope-test one-liner and route) and a General-questions pointer row (`docs/` + `llms.txt` as the answer corpus). Both are derived from the orchestrator's own Work Intake triage and routing bullets, so the index cannot drift from the actual sizing logic. Design: `docs/plans/groundwork-v2.md` (W0.1a).
+
+- [no-migration] Registered-skill trees are clean-copied on update; the generated index rides along.
+
 ### Added (new backend stack: groundwork-node-engineer + client Day-2 checklists, 2026-07-02)
 
 The backend engineer family gains its third member: `groundwork-node-engineer` — Node 22 / TypeScript strict / native ESM, Fastify with zod at every boundary, Drizzle target-state schema with diff-derived migrations, pino + OTel observability deferring to canon, Vitest + Testcontainers honeycomb testing, and dependency-cruiser as the dependency-direction fitness function. Eleven decision-time references including the required staleness firewall, the family's outbox / idempotent-consumer / raw-body-HMAC integration shape, and a sync anchor pinning the six cross-cutting canon files. Skill only — no generator yet (decision D3): it serves forged and hand-built Node backends today and is the doctrine a future `node-microservice` generator will promote. The dev-only `scaffold-designer` also gains Mobile (Flutter) and Desktop (Electron) Day-2 checklists, completing its Backend/Frontend pair. Design: `docs/plans/product-outcomes-uplift.md` (B4).

@@ -73,6 +73,13 @@ The driver passes:
   You build in the worktree handed to you; you do not manage isolation.
 - **Context capsule** — the small set of pointers that let the worker build without
   re-deriving the bet:
+  - The **milestone context pack** — `.groundwork/cache/bets/<bet_slug>/milestone-<NN>-context.md`.
+    Read it first: it points at the technical-design sections this milestone touches,
+    names the engineer Context-Routing rows to load (including the stack's testing
+    strategy), and carries the prior-slice `Notes` learnings, proven recipes and their
+    durable paths, testing obligations, and worktree environment facts. The pack holds
+    **pointers and learnings, never contract shapes** — read the pointed-at design for
+    API/data/schema, never a paraphrase.
   - The **previous slice's delivery commit** — hash, message, and diff. The patterns
     it established, the review findings it ate, the approaches that worked, and its
     `Notes:` line for the next slice are all there. Repeat its lessons, not its
@@ -206,8 +213,8 @@ review is that):
   is a blocking concern, not an edit.
 - **Honest green.** The implementation must satisfy the proof for the right reason,
   against the real product — the gaming tells are canonical in
-  `briefs/acceptance-auditor.md`'s Honesty check, the same check the driver runs at
-  Step 2 of `04-delivery.md`. If a fake the slice leans on has no real test behind it, or
+  `briefs/acceptance-auditor.md` (the milestone honesty audit), the same tells the driver runs at
+  the Slice Loop review (`workflows/delivery/step-02-slice-loop.md`). If a fake the slice leans on has no real test behind it, or
   the proof runs against a test target rather than the shipping build, flag it. Surface
   any of these in the report rather than leaving them for the review to find.
 
@@ -218,6 +225,11 @@ The worker implements to green, rolls out the permanent tests, and stops. It doe
 independent review and triage. Leave the working tree with all of the slice's changes
 unstaged — the implementation, the bet-progress tests turned green, and the permanent
 best-practice tests — and return the report.
+
+If the driver continues you with a review finding to fix (the fix-in-place ladder — you
+still hold this slice's context, so you are cheaper than a fresh worker), fix exactly what
+the finding names and nothing beyond it, leave the change unstaged, and return an updated
+report. Do not refactor adjacent code or widen scope the finding did not raise.
 
 ---
 

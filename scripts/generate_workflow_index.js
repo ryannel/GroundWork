@@ -82,6 +82,40 @@ const deliveryRow = table(section('### Mode Detection'), 'Mode Detection')
 if (!deliveryRow) fail('Mode Detection table has no "setup phases complete" row');
 const deliverySkill = strip(deliveryRow[2]);
 
+// Delivery-loop lanes are parsed from the Work Intake triage bullets so the index
+// cannot drift from the orchestrator's actual sizing logic. Each numbered bullet ends
+// in a routing arrow followed by a bold lane name; the scope test is the question text
+// up to its first "?" (the explanatory prose after it is not the test).
+const lanes = section('### User requests work — build, add, change, or fix something')
+  .split('\n')
+  .filter((l) => /^\d+\.\s/.test(l.trim()))
+  .map((l) => {
+    const line = l.trim();
+    const arrow = line.lastIndexOf('→');
+    if (arrow === -1) fail(`triage bullet has no routing arrow: "${line}"`);
+    const laneMatch = line.slice(arrow).match(/\*\*(.+?)\*\*/);
+    if (!laneMatch) fail(`triage bullet has no bold lane after its arrow: "${line}"`);
+    let scope = line.slice(0, arrow).replace(/^\d+\.\s*/, '');
+    const q = scope.indexOf('?');
+    if (q !== -1) scope = scope.slice(0, q + 1);
+    scope = scope.replace(/\*\*/g, '').replace(/`/g, '').replace(/\s+/g, ' ').trim();
+    return { lane: laneMatch[1], scope };
+  });
+if (lanes.length < 3) fail('Work Intake triage has fewer than 3 lane bullets');
+
+// Each lane's route target is stated once in the routing bullets that follow the triage
+// (e.g. "- **patch** → `groundwork-patch`."). Parse them so the index shows where each
+// lane actually goes rather than assuming the delivery skill.
+const laneRoutes = {};
+for (const l of section('### User requests work — build, add, change, or fix something').split('\n')) {
+  const m = l.trim().match(/^-\s*\*\*(.+?)\*\*\s*→\s*`([^`]+)`/);
+  if (m) laneRoutes[m[1]] = m[2];
+}
+for (const r of lanes) {
+  r.route = laneRoutes[r.lane];
+  if (!r.route) fail(`triage lane "${r.lane}" has no routing bullet naming its skill`);
+}
+
 // ── Emit ─────────────────────────────────────────────────────────────────────
 
 const out = `<!-- GENERATED FILE — do not edit by hand.
@@ -113,6 +147,20 @@ ${brownfield.map((r) => `| ${r.order} | ${r.phase} | \`${r.skill}\` | ${r.signal
 | Skill | What it runs | Instructions |
 |---|---|---|
 | \`${deliverySkill}\` | The five-phase bet workflow: discovery → design foundations → decomposition → delivery → validation | \`${instructionPath(deliverySkill)}\` |
+
+Every build/change/fix request is sized into one of three lanes at intake (the Work Intake triage). Resolve a borderline ask to the lighter lane and name the escalation trigger.
+
+| Lane | Scope test | Route |
+|---|---|---|
+${lanes.map((r) => `| **${r.lane}** | ${r.scope} | \`${r.route}\` |`).join('\n')}
+
+## General questions (not a route)
+
+Questions about the framework — what a phase produces, why the method works this way, what a term means — are answered from the shipped corpus, never from memory.
+
+| Ask | Answer corpus |
+|---|---|
+| "How does X work?", "why bets?", "what is a surface?" | \`docs/\` (framework docs seeded into the project) + \`llms.txt\` (the machine-readable map) |
 
 ## Anytime
 

@@ -238,6 +238,8 @@ case "$COMMAND" in
         --force) FORCE=1 ;;
         --no-build) NOBUILD=1 ;;
         --brownfield) FLOW_PATH="brownfield" ;;
+        # Seed a sealed bet ready for the Delivery phase (implies --simulate).
+        --delivery) FLOW_PATH="delivery"; SIMULATE=1 ;;
         --simulate) SIMULATE=1 ;;
         --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
         --from) print_error "Use --from=<label> (no space)."; exit 1 ;;
@@ -254,12 +256,17 @@ case "$COMMAND" in
     # Default the sandbox dir name and suite to the flow path when unset.
     [ -n "$NAME" ] || NAME="$FLOW_PATH"
     if [ -z "$SUITE" ]; then
-      if [ "$FLOW_PATH" = "brownfield" ]; then SUITE="brownfield_monorepo"; else SUITE="storytelling_engine"; fi
+      case "$FLOW_PATH" in
+        brownfield) SUITE="brownfield_monorepo" ;;
+        delivery)   SUITE="delivery_task_capture" ;;
+        *)          SUITE="storytelling_engine" ;;
+      esac
     fi
 
     REPO_ROOT="$PWD"
     SANDBOX_DIR="$REPO_ROOT/.sandboxes/$NAME"
     BROWNFIELD_FIXTURE="$REPO_ROOT/tests/evals/fixtures/brownfield_monorepo/00_codebase"
+    DELIVERY_FIXTURE="$REPO_ROOT/tests/evals/scenarios/delivery_task_capture/fixture"
 
     print_logo "Sandbox"
     print_step "Target: .sandboxes/$NAME"
@@ -329,6 +336,14 @@ case "$COMMAND" in
         print_step "Seeding existing codebase from synthetic fixture (brownfield baseline)..."
         cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
       fi
+    elif [ "$FLOW_PATH" = "delivery" ]; then
+      # Delivery: lay down a project mid-flow — a sealed, approved bet ready for the
+      # Delivery phase. The fixture carries the pitch, technical design, decomposition
+      # tree, and unimplemented `taskcli` stubs; the approval tag is created after init
+      # so readiness's sealed-baseline gate is satisfiable.
+      [ -d "$DELIVERY_FIXTURE" ] || fail "Delivery fixture missing: $DELIVERY_FIXTURE"
+      print_step "Seeding sealed 'task-capture' bet from the delivery fixture..."
+      cp -R "$DELIVERY_FIXTURE/." "$SANDBOX_DIR/"
     else
       # Greenfield: a realistic Nx-style project root so the scaffold skill is happy.
       printf '{"name": "%s"}\n' "$NAME" > "$SANDBOX_DIR/package.json"
@@ -338,10 +353,15 @@ case "$COMMAND" in
     # This sandbox is nested inside the GroundWork repo. Without a local boundary,
     # a chat opened here could inherit the repo's CLAUDE.md / contributor skill and
     # think it is building the framework. Assert the user-project context explicitly.
+    case "$FLOW_PATH" in
+      brownfield) SANDBOX_DESC="adopting GroundWork onto an existing codebase" ;;
+      delivery)   SANDBOX_DESC="delivering a sealed, approved bet through the Delivery phase" ;;
+      *)          SANDBOX_DESC="building a brand-new product with GroundWork" ;;
+    esac
     cat > "$SANDBOX_DIR/CLAUDE.md" <<EOF
 # Project context
 
-This is a GroundWork **$FLOW_PATH user project** — a sandbox for $([ "$FLOW_PATH" = brownfield ] && echo "adopting GroundWork onto an existing codebase" || echo "building a brand-new product with GroundWork"). It is NOT the GroundWork framework source repository.
+This is a GroundWork **$FLOW_PATH user project** — a sandbox for $SANDBOX_DESC. It is NOT the GroundWork framework source repository.
 
 - You are the GroundWork facilitator working in a user project here.
 - Ignore any guidance loaded from a parent repository (e.g. a contributor or
@@ -363,6 +383,19 @@ EOF
 
     print_step "Running 'groundwork init' in sandbox..."
     (cd "$SANDBOX_DIR" && node "$REPO_ROOT/bin/groundwork.js" init)
+
+    # Delivery: seal the bet. One baseline commit carrying the approved pitch,
+    # technical design, decomposition tree, and the taskcli stubs, tagged
+    # `bet/task-capture/approved` — the sealed baseline the readiness gate and the
+    # prose-integrity reconciliation hold delivery to. The gitignored `.groundwork/cache/`
+    # (board, memlog, packs) is intentionally absent — delivery creates it at Step 0.
+    if [ "$FLOW_PATH" = "delivery" ]; then
+      print_substep "Sealing the 'task-capture' bet (baseline commit + approved tag)..."
+      git -C "$SANDBOX_DIR" add -A
+      git -C "$SANDBOX_DIR" -c user.email=sim@groundwork.dev -c user.name=sim \
+        commit -q -m "bet(task-capture): approve decomposition"
+      git -C "$SANDBOX_DIR" tag "bet/task-capture/approved"
+    fi
 
     # --- Resume from a captured checkpoint (docs/ + .groundwork/ from a green run) ---
     if [ -n "$FROM" ]; then

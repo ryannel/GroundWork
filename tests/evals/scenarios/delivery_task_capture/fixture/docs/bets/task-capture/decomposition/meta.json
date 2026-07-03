@@ -1,0 +1,9 @@
+{
+  "title": "Decomposition — Task Capture",
+  "pages": [
+    "01-capture-and-list/index.md",
+    "01-capture-and-list/01-add-task.md",
+    "01-capture-and-list/02-list-tasks.md",
+    "02-complete-a-task/index.md"
+  ]
+}

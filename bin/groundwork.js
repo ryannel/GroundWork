@@ -5,6 +5,7 @@ const path = require('path');
 const crypto = require('crypto');
 const readline = require('readline');
 const { execSync, execFileSync } = require('child_process');
+const https = require('https');
 
 const command = process.argv[2];
 const PKG = require(path.join(__dirname, '..', 'package.json'));
@@ -36,11 +37,13 @@ function printHelp() {
             PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index for many more
             languages; extensible per-project. Incremental — only changed files reparse.
             \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
+  \x1b[36mpolicy\x1b[0m    Print the resolved additive policy layer (policy.toml + policy.user.toml) as JSON
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
   \x1b[36m--agent <name>\x1b[0m   Wire a specific agent (repeatable, comma-friendly); skips the prompt
   \x1b[36m--yes, -y\x1b[0m        Non-interactive: wire the auto-detected agents (or Claude Code)
+  \x1b[36m--set key=value\x1b[0m  Seed a config.toml default at install time (repeatable; e.g. defaults.stack=go)
   \x1b[2mSupported agents: claude-code, cursor, codex, opencode, cline\x1b[0m
 
 \x1b[1mExamples:\x1b[0m
@@ -857,18 +860,14 @@ function buildGeneratorsConfig() {
 //
 // `native: true` agents (Cursor, Codex, OpenCode, Cline) read AGENTS.md and .agents/skills/
 // directly — generating the canonical files is the entire wiring; they need no symlink.
-const AGENT_ADAPTERS = {
-  'claude-code': {
-    label: 'Claude Code',
-    detect: ['.claude', 'CLAUDE.md'],
-    dirLink: { link: '.claude', target: '.agents' },
-    fileLink: { link: 'CLAUDE.md', target: 'AGENTS.md' },
-  },
-  'cursor':   { label: 'Cursor',   detect: ['.cursor', '.cursorrules'], native: true },
-  'codex':    { label: 'Codex',    detect: ['.codex'], native: true },
-  'opencode': { label: 'OpenCode', detect: ['.opencode', 'opencode.json'], native: true },
-  'cline':    { label: 'Cline',    detect: ['.clinerules', '.cline'], native: true },
-};
+// The host registry is data, kept in src/config/hosts.json so detect/wire/prompt stay
+// data-driven and the matrix in docs/host-support.md has a single machine-readable source.
+// Each host either symlinks to the canonical files (`links[]`) or reads them natively —
+// there is deliberately no body-template or copy semantics in the schema.
+const AGENT_ADAPTERS = Object.fromEntries(
+  JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'config', 'hosts.json'), 'utf8'))
+    .hosts.map((h) => [h.key, h])
+);
 const AGENT_KEYS = Object.keys(AGENT_ADAPTERS);
 
 // Agents whose marker files/dirs already exist in the target — used to pre-select the prompt
@@ -930,10 +929,13 @@ function wireAgents(targetDir, selectedKeys) {
       native.push(a.label);
       continue;
     }
-    if (a.dirLink) linkOne(targetDir, a.dirLink.link, a.dirLink.target, 'junction');
-    // The file symlink only fires once the canonical AGENTS.md exists (init generates it first).
-    if (a.fileLink && fs.existsSync(path.join(targetDir, a.fileLink.target))) {
-      linkOne(targetDir, a.fileLink.link, a.fileLink.target);
+    for (const l of a.links || []) {
+      if (l.type === 'junction') {
+        linkOne(targetDir, l.link, l.target, 'junction');
+      } else if (fs.existsSync(path.join(targetDir, l.target))) {
+        // A file symlink only fires once its canonical target (AGENTS.md) exists (init generates it first).
+        linkOne(targetDir, l.link, l.target);
+      }
     }
   }
   if (native.length) {
@@ -986,6 +988,8 @@ function promptAgents(detected) {
     // restore a checkbox picker over `wiredKeys` here — this single yes/no only covers one.
     const only = wiredKeys[0];
     const a = AGENT_ADAPTERS[only];
+    const dirLink = (a.links || []).find((l) => l.type === 'junction');
+    const fileLink = (a.links || []).find((l) => l.type !== 'junction');
     const claudeDetected = detected.includes(only);
     const nativeDetected = AGENT_KEYS.some((k) => AGENT_ADAPTERS[k].native && detected.includes(k));
     // Default yes unless a native tool is the only thing we detected (then they're already set up).
@@ -996,11 +1000,11 @@ function promptAgents(detected) {
     const nativeList = nativeLabels.length > 1
       ? `${nativeLabels.slice(0, -1).join(', ')}, and ${nativeLabels[nativeLabels.length - 1]}`
       : nativeLabels[0] || '';
-    console.log(`\n\x1b[1mGroundWork keeps all your project guidance in ${a.fileLink.target} and the ${a.dirLink.target}/ folder.\x1b[0m`);
+    console.log(`\n\x1b[1mGroundWork keeps all your project guidance in ${fileLink.target} and the ${dirLink.target}/ folder.\x1b[0m`);
     if (nativeList) {
       console.log(`  \x1b[32m✓\x1b[0m \x1b[2m${nativeList} read them automatically — nothing to set up.\x1b[0m`);
     }
-    console.log(`  \x1b[2m${a.label} looks for ${a.fileLink.link} / ${a.dirLink.link}/ instead, so it needs links to them.\x1b[0m`);
+    console.log(`  \x1b[2m${a.label} looks for ${fileLink.link} / ${dirLink.link}/ instead, so it needs links to them.\x1b[0m`);
 
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     const choices = defaultYes ? '\x1b[2m[Y/n]\x1b[0m' : '\x1b[2m[y/N]\x1b[0m';
@@ -1021,10 +1025,18 @@ function promptAgents(detected) {
   });
 }
 
-// Parse `--agent <key>` / `--agent=<key>` (repeatable, comma-friendly) and `--yes`/`-y`.
+// Parse `--agent <key>` / `--agent=<key>` (repeatable, comma-friendly), `--yes`/`-y`, and
+// `--set key=value` (repeatable — seeds config.toml at install time).
 function parseInitFlags(argv) {
   const requested = [];
+  const sets = [];
+  const badSets = [];
   let yes = false;
+  const addSet = (raw) => {
+    const eq = raw.indexOf('=');
+    if (eq <= 0) { badSets.push(raw); return; }
+    sets.push({ key: raw.slice(0, eq).trim(), value: raw.slice(eq + 1) });
+  };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--yes' || arg === '-y') {
@@ -1034,12 +1046,20 @@ function parseInitFlags(argv) {
       if (val && !val.startsWith('-')) { requested.push(...val.split(',')); i++; }
     } else if (arg.startsWith('--agent=') || arg.startsWith('--agents=')) {
       requested.push(...arg.slice(arg.indexOf('=') + 1).split(','));
+    } else if (arg === '--set') {
+      const val = argv[i + 1];
+      if (val !== undefined && !val.startsWith('--')) { addSet(val); i++; }
+      else badSets.push('--set (missing key=value)');
+    } else if (arg.startsWith('--set=')) {
+      addSet(arg.slice('--set='.length));
     }
   }
   const normalized = requested.map((s) => s.trim()).filter(Boolean);
   return {
     agents: normalized.filter((a) => AGENT_ADAPTERS[a]),
     invalid: normalized.filter((a) => !AGENT_ADAPTERS[a]),
+    sets,
+    badSets,
     yes,
   };
 }
@@ -1196,6 +1216,192 @@ function seedCaptureHook(p, selectedKeys) {
 
 // ─── init ───────────────────────────────────────────────────────────────────
 
+// The `--set key=value` allowlist is derived from the seed template itself: every scalar
+// assignment it shows (commented example or active) is a settable key, dotted by its section.
+// Deriving the allowlist from the template means it can never drift from what config.toml
+// actually supports.
+function settableConfigKeys(templateText) {
+  const allowed = new Map(); // "section.key" -> { section, key }
+  let section = '';
+  for (const raw of templateText.split('\n')) {
+    const line = raw.trim();
+    const sec = line.match(/^\[([^\]]+)\]$/);
+    if (sec) { section = sec[1]; continue; }
+    const kv = line.replace(/^#\s*/, '').match(/^([A-Za-z0-9_.\-"]+)\s*=/);
+    if (kv && section) {
+      const key = kv[1].replace(/"/g, '');
+      allowed.set(`${section}.${key}`, { section, key });
+    }
+  }
+  return allowed;
+}
+
+function renderTomlValue(v) {
+  if (v === 'true' || v === 'false') return v;
+  if (/^-?\d+(\.\d+)?$/.test(v)) return v;
+  return `"${v.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
+// Apply `--set` pairs to the seed template, returning the rewritten text or a list of
+// errors. A key must be in the template-derived allowlist; prototype-pollution tokens are
+// rejected outright. Returns { text, errors } — text is null when any set is invalid, so a
+// bad --set fails the whole seed rather than half-writing.
+function applyConfigSets(templateText, sets) {
+  const allowed = settableConfigKeys(templateText);
+  const errors = [];
+  const bySection = new Map(); // section -> Map(key -> "key = value")
+  for (const { key: dotted, value } of sets) {
+    if (/(^|\.)(__proto__|prototype|constructor)(\.|$)/.test(dotted)) {
+      errors.push(`unsafe key rejected: ${dotted}`);
+      continue;
+    }
+    const entry = allowed.get(dotted);
+    if (!entry) {
+      errors.push(`unknown config key: ${dotted}`);
+      continue;
+    }
+    if (!bySection.has(entry.section)) bySection.set(entry.section, new Map());
+    bySection.get(entry.section).set(entry.key, `${entry.key} = ${renderTomlValue(value)}`);
+  }
+  if (errors.length) return { text: null, errors };
+
+  let section = '';
+  const applied = new Set();
+  const out = templateText.split('\n').map((raw) => {
+    const t = raw.trim();
+    const sec = t.match(/^\[([^\]]+)\]$/);
+    if (sec) { section = sec[1]; return raw; }
+    const secMap = bySection.get(section);
+    if (!secMap) return raw;
+    const kv = t.replace(/^#\s*/, '').match(/^([A-Za-z0-9_.\-"]+)\s*=/);
+    if (kv) {
+      const key = kv[1].replace(/"/g, '');
+      const id = `${section}.${key}`;
+      if (secMap.has(key) && !applied.has(id)) {
+        applied.add(id);
+        return secMap.get(key);
+      }
+    }
+    return raw;
+  });
+  return { text: out.join('\n'), errors };
+}
+
+// ── Policy layer (vendored TOML subset) ──────────────────────────────────────
+// A deliberately small TOML reader for the additive policy files (decision §10.1:
+// vendor the parser so the dependency-free CLI can validate and resolve policy).
+// It handles the declared v1 surface only: `[table]` and `[[array.of.tables]]`
+// headers with dotted names, `key = "string" | number | true/false`, and
+// `key = ["multi", "line", "arrays"]`. Anything outside that surface throws — a
+// parse error the user sees from `groundwork check`.
+function parsePolicyToml(text) {
+  const root = {};
+  const descend = (parts) => parts.reduce((o, k) => (o[k] = o[k] || {}), root);
+  const parseScalar = (raw) => {
+    const s = raw.trim();
+    if (/^".*"$/.test(s)) return s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(s)) return Number(s);
+    throw new Error(`unsupported value: ${s}`);
+  };
+  const parseArray = (body) =>
+    body.split(',').map((x) => x.trim()).filter((x) => x.length).map(parseScalar);
+
+  let cur = root;
+  const lines = text.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i].trim();
+    if (!line || line.startsWith('#')) continue;   // blank or full-comment line
+    // Strip an inline comment only when the line carries no quoted string — a value
+    // may legitimately contain a '#' inside quotes.
+    if (!line.includes('"') && line.includes('#')) line = line.slice(0, line.indexOf('#')).trim();
+    if (!line) continue;
+    let m;
+    if ((m = line.match(/^\[\[(.+)\]\]$/))) {
+      const parts = m[1].split('.').map((s) => s.trim());
+      const key = parts.pop();
+      const parent = descend(parts);
+      parent[key] = parent[key] || [];
+      const obj = {};
+      parent[key].push(obj);
+      cur = obj;
+    } else if ((m = line.match(/^\[(.+)\]$/))) {
+      cur = descend(m[1].split('.').map((s) => s.trim()));
+    } else if ((m = line.match(/^([A-Za-z0-9_"-]+)\s*=\s*(.*)$/))) {
+      const key = m[1].replace(/"/g, '');
+      let val = m[2].trim();
+      if (val.startsWith('[')) {
+        // Arrays may span lines — accumulate until the closing bracket.
+        while (!val.includes(']') && i + 1 < lines.length) {
+          i += 1;
+          let nxt = lines[i].trim();
+          if (nxt.startsWith('#')) continue;   // comment line inside the array
+          if (!nxt.includes('"') && nxt.includes('#')) nxt = nxt.slice(0, nxt.indexOf('#')).trim();
+          val += ' ' + nxt;
+        }
+        cur[key] = parseArray(val.slice(val.indexOf('[') + 1, val.lastIndexOf(']')));
+      } else {
+        cur[key] = parseScalar(val);
+      }
+    } else {
+      throw new Error(`unparseable policy line: ${line}`);
+    }
+  }
+  return root;
+}
+
+// Merge team then user policy: scalars — user wins; arrays — concatenate, team first.
+function mergePolicy(team, user) {
+  const out = {};
+  const keys = new Set([...Object.keys(team || {}), ...Object.keys(user || {})]);
+  for (const k of keys) {
+    const t = team ? team[k] : undefined;
+    const u = user ? user[k] : undefined;
+    if (Array.isArray(t) || Array.isArray(u)) out[k] = [...(t || []), ...(u || [])];
+    else if (t && typeof t === 'object' && u && typeof u === 'object') out[k] = mergePolicy(t, u);
+    else out[k] = u !== undefined ? u : t;
+  }
+  return out;
+}
+
+function resolvePolicy(targetConfigDir) {
+  const read = (name) => {
+    const f = path.join(targetConfigDir, name);
+    return fs.existsSync(f) ? parsePolicyToml(fs.readFileSync(f, 'utf8')) : {};
+  };
+  return mergePolicy(read('policy.toml'), read('policy.user.toml'));
+}
+
+// Validate both policy files: parse errors, broken `file:` refs, missing lens brief
+// paths, and unknown top-level keys named. Returns a list of problem strings.
+function validatePolicy(targetDir, targetConfigDir) {
+  const problems = [];
+  const known = new Set(['facts', 'lenses', 'checklists', 'phases']);
+  for (const name of ['policy.toml', 'policy.user.toml']) {
+    const f = path.join(targetConfigDir, name);
+    if (!fs.existsSync(f)) continue;
+    let parsed;
+    try { parsed = parsePolicyToml(fs.readFileSync(f, 'utf8')); }
+    catch (err) { problems.push(`${name}: parse error — ${err.message}`); continue; }
+    for (const key of Object.keys(parsed)) {
+      if (!known.has(key)) problems.push(`${name}: unknown key [${key}] (known: ${[...known].join(', ')})`);
+    }
+    for (const item of (parsed.facts && parsed.facts.items) || []) {
+      if (typeof item === 'string' && item.startsWith('file:')) {
+        const rel = item.slice('file:'.length);
+        if (!fs.existsSync(path.join(targetDir, rel))) problems.push(`${name}: [facts] file: ref does not resolve — ${rel}`);
+      }
+    }
+    for (const lens of (parsed.lenses && parsed.lenses.slice) || []) {
+      if (!lens.brief || !fs.existsSync(path.join(targetDir, lens.brief))) {
+        problems.push(`${name}: [[lenses.slice]] "${lens.name || '?'}" brief path missing — ${lens.brief || '(none)'}`);
+      }
+    }
+  }
+  return problems;
+}
+
 async function initGroundWork(options = {}) {
   const p = getPaths();
 
@@ -1210,6 +1416,18 @@ async function initGroundWork(options = {}) {
 
   for (const dir of [p.targetSkillsDir, p.targetHiddenSkillsDir, p.targetConfigDir, p.targetCacheDir]) {
     fs.mkdirSync(dir, { recursive: true });
+  }
+
+  // The cache is transient by design — repo-map, drafts, hand-offs, and the per-bet
+  // working state (board.yaml, memlog, packs) never belong in git. Seed a .gitignore that
+  // ignores everything under it but itself, so the rule ships and self-heals.
+  const cacheIgnore = path.join(p.targetCacheDir, '.gitignore');
+  if (!fs.existsSync(cacheIgnore)) {
+    try {
+      fs.writeFileSync(cacheIgnore, '# GroundWork cache is transient — never commit it.\n*\n!.gitignore\n');
+    } catch (err) {
+      c.warn(`Could not seed .groundwork/cache/.gitignore: ${err.message}`);
+    }
   }
 
   try {
@@ -1245,14 +1463,51 @@ async function initGroundWork(options = {}) {
   }
 
   // Seed the user config once; it is user-owned and never overwritten afterwards.
+  // `--set key=value` writes into the config only at this seed moment — on an existing
+  // install the file is yours, so a --set there refuses rather than mutating it.
   const sourceConfigToml = path.join(p.sourceConfigDir, 'config.toml');
   const targetConfigToml = path.join(p.targetConfigDir, 'config.toml');
+  const sets = options.sets || [];
   if (fs.existsSync(sourceConfigToml) && !fs.existsSync(targetConfigToml)) {
     try {
-      fs.copyFileSync(sourceConfigToml, targetConfigToml);
-      c.ok(`Seeded user config (.groundwork/config/config.toml)`);
+      let text = fs.readFileSync(sourceConfigToml, 'utf8');
+      if (sets.length) {
+        const result = applyConfigSets(text, sets);
+        if (result.errors.length) {
+          c.err(`--set rejected: ${result.errors.join('; ')}`);
+          console.warn(`         Settable keys: ${[...settableConfigKeys(text).keys()].join(', ')}`);
+          process.exitCode = 1;
+          return;
+        }
+        text = result.text;
+      }
+      fs.writeFileSync(targetConfigToml, text);
+      c.ok(`Seeded user config (.groundwork/config/config.toml)${sets.length ? ` with ${sets.length} --set value(s)` : ''}`);
     } catch (err) {
       c.err(`Failed to seed user config: ${err.message}`);
+    }
+  } else if (sets.length) {
+    c.warn(`Ignoring --set: .groundwork/config/config.toml already exists and is yours to edit — GroundWork never mutates it.`);
+  }
+
+  // Seed the additive team policy once (user-owned thereafter, never overwritten), and
+  // gitignore the personal policy.user.toml so it stays local.
+  const sourcePolicy = path.join(p.sourceConfigDir, 'policy.toml');
+  const targetPolicy = path.join(p.targetConfigDir, 'policy.toml');
+  if (fs.existsSync(sourcePolicy) && !fs.existsSync(targetPolicy)) {
+    try {
+      fs.copyFileSync(sourcePolicy, targetPolicy);
+      c.ok(`Seeded team policy (.groundwork/config/policy.toml)`);
+    } catch (err) {
+      c.err(`Failed to seed policy: ${err.message}`);
+    }
+  }
+  const configIgnore = path.join(p.targetConfigDir, '.gitignore');
+  if (!fs.existsSync(configIgnore)) {
+    try {
+      fs.writeFileSync(configIgnore, '# Personal, machine-local policy overrides — never committed.\npolicy.user.toml\n');
+    } catch (err) {
+      c.warn(`Could not seed .groundwork/config/.gitignore: ${err.message}`);
     }
   }
 
@@ -1579,6 +1834,15 @@ function checkGroundWork() {
   const frameworkStale = reportFrameworkStatus(p);
   if (frameworkStale) process.exitCode = 1;
 
+  // Validate the additive policy layer (parse errors, broken file: refs, missing lens
+  // briefs, unknown keys) — a broken policy file silently drops the rigor it was meant to add.
+  const policyProblems = validatePolicy(p.targetDir, p.targetConfigDir);
+  if (policyProblems.length) {
+    c.err(`Policy layer has ${policyProblems.length} problem(s):`);
+    for (const prob of policyProblems) console.warn(`         • ${prob}`);
+    process.exitCode = 1;
+  }
+
   // Drift detection compares last_reviewed against git history — without a repo,
   // every per-doc `git log` would fail with a cryptic error.
   try {
@@ -1804,6 +2068,52 @@ function reportUnmapped(unmapped) {
   console.warn(`         see \x1b[36m.groundwork/skills/code-intelligence.md\x1b[0m (“Enable repo-map for your language”).`);
 }
 
+// ─── Update notice ───────────────────────────────────────────────────────────
+
+// True when `latest`'s x.y.z is greater than `current`'s (pre-release tags ignored —
+// the `latest` dist-tag is stable).
+function isNewerVersion(latest, current) {
+  const parse = (v) => String(v).split('-')[0].split('.').map((n) => parseInt(n, 10) || 0);
+  const a = parse(latest);
+  const b = parse(current);
+  for (let i = 0; i < 3; i++) {
+    if ((a[i] || 0) > (b[i] || 0)) return true;
+    if ((a[i] || 0) < (b[i] || 0)) return false;
+  }
+  return false;
+}
+
+// Non-blocking, best-effort "a newer version exists" line printed after the command's
+// own output. All errors are swallowed — an update check must never break a command or
+// hang an install. Suppressed on non-TTY, CI, GROUNDWORK_NO_UPDATE_CHECK, and `update`
+// (which already reports version state). Success commands drain the loop naturally, so
+// the in-flight request keeps the process alive just long enough to print, capped at 1500ms.
+function maybeCheckForUpdate(cmd) {
+  if (cmd === 'update') return;
+  if (!process.stdout.isTTY || process.env.CI || process.env.GROUNDWORK_NO_UPDATE_CHECK) return;
+  let req;
+  try {
+    req = https.get('https://registry.npmjs.org/groundwork-method/latest', { timeout: 1500 }, (res) => {
+      if (res.statusCode !== 200) { res.resume(); return; }
+      let body = '';
+      res.on('data', (d) => { body += d; });
+      res.on('end', () => {
+        try {
+          const latest = JSON.parse(body).version;
+          if (latest && isNewerVersion(latest, PKG.version)) {
+            // Print at exit so the notice lands after the command's output.
+            process.on('exit', () => {
+              console.error(`\x1b[2mA newer groundwork-method is available: ${PKG.version} → ${latest}. Run: npx groundwork-method@latest update\x1b[0m`);
+            });
+          }
+        } catch { /* swallow malformed responses */ }
+      });
+    });
+    req.on('timeout', () => req.destroy());
+    req.on('error', () => {});
+  } catch { /* swallow — never let the check throw */ }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -1811,12 +2121,17 @@ if (!command || command === 'help' || command === '--help' || command === '-h') 
   process.exit(0);
 }
 
+maybeCheckForUpdate(command);
+
 switch (command) {
   case 'init': {
     const flags = parseInitFlags(process.argv.slice(3));
     if (flags.invalid.length) {
       c.warn(`Unknown agent(s) ignored: ${flags.invalid.join(', ')}`);
       console.warn(`         Supported: ${AGENT_KEYS.join(', ')}`);
+    }
+    if (flags.badSets.length) {
+      c.warn(`Malformed --set ignored (expected key=value): ${flags.badSets.join(', ')}`);
     }
     initGroundWork(flags).catch((err) => {
       c.err(`init failed: ${err.message}`);
@@ -1848,6 +2163,17 @@ switch (command) {
       process.exit(1);
     });
     break;
+  case 'policy': {
+    // Print the resolved team+user policy merge as JSON.
+    const p = getPaths();
+    try {
+      process.stdout.write(JSON.stringify(resolvePolicy(p.targetConfigDir), null, 2) + '\n');
+    } catch (err) {
+      c.err(`policy: ${err.message}`);
+      process.exitCode = 1;
+    }
+    break;
+  }
   default:
     console.log(`Unknown command: ${command}`);
     printHelp();

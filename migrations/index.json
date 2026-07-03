@@ -49,6 +49,13 @@
       "title": "Silence Serena's dashboard popup and pre-approve the MCP server",
       "kind": "cli",
       "summary": "Appends --open-web-dashboard false to the shipped-shape Serena entry and approves the server in .claude/settings.json (enabledMcpjsonServers) so Claude Code stops re-asking every startup; user-customized entries and unparseable settings are untouched."
+    },
+    {
+      "id": "gw-seed-policy-toml",
+      "version": "0.14.0",
+      "title": "Seed the additive team policy file",
+      "kind": "cli",
+      "summary": "Installs .groundwork/config/policy.toml (the additive policy layer) on installs that predate it and gitignores the personal policy.user.toml; purely additive — an absent file behaves identically."
     }
   ]
 }

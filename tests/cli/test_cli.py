@@ -8,6 +8,7 @@ Run via `./dev test cli` (or pytest tests/cli/ from the scaffolds venv).
 """
 
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -20,8 +21,10 @@ PKG_VERSION = json.loads((REPO_ROOT / "package.json").read_text())["version"]
 
 
 def run_cli(args, cwd):
+    # Suppress the async update-check so no network line ever bleeds into asserted output.
+    env = {**os.environ, "GROUNDWORK_NO_UPDATE_CHECK": "1"}
     return subprocess.run(
-        ["node", str(CLI), *args], cwd=cwd, capture_output=True, text=True
+        ["node", str(CLI), *args], cwd=cwd, capture_output=True, text=True, env=env
     )
 
 
@@ -101,6 +104,96 @@ def test_init_agent_flag_wires_only_named_agents(project):
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     assert state["groundwork"]["agents"] == ["cursor"]
     assert "natively" in proc.stdout
+
+
+def test_init_set_seeds_config_value(project):
+    # --set writes into config.toml only at seed time.
+    proc = run_cli(["init", "--yes", "--set", "defaults.stack=go"], project)
+    assert proc.returncode == 0, proc.stderr
+    cfg = (project / ".groundwork/config/config.toml").read_text()
+    assert 'stack = "go"' in cfg
+    assert "# stack" not in cfg.split("[defaults]")[1].split("\n")[1]  # the example line was activated
+
+
+def test_init_set_refuses_on_existing_install(project):
+    run_cli(["init", "--yes"], project)
+    proc = run_cli(["init", "--yes", "--set", "defaults.stack=python"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert "already exists" in proc.stdout or "already exists" in proc.stderr
+    # the seeded (commented) template is untouched — no active stack line was written
+    cfg = (project / ".groundwork/config/config.toml").read_text()
+    assert 'stack = "python"' not in cfg
+
+
+def test_init_set_rejects_unknown_and_unsafe_keys(project):
+    bogus = run_cli(["init", "--yes", "--set", "defaults.bogus=x"], project)
+    assert bogus.returncode == 1
+    assert "unknown config key" in bogus.stdout or "unknown config key" in bogus.stderr
+    # a rejected --set must not leave a half-written config behind
+    assert not (project / ".groundwork/config/config.toml").exists()
+    unsafe = run_cli(["init", "--yes", "--set", "__proto__.x=1"], project)
+    assert unsafe.returncode == 1
+    assert "unsafe key" in unsafe.stdout or "unsafe key" in unsafe.stderr
+
+
+def test_policy_resolves_and_merges(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text(
+        '[facts]\nitems = ["team A", "team B"]\n[checklists]\narchitecture = ["Name the region."]\n'
+    )
+    (cfg / "policy.user.toml").write_text('[facts]\nitems = ["personal C"]\n')
+    proc = run_cli(["policy"], project)
+    assert proc.returncode == 0, proc.stderr
+    resolved = json.loads(proc.stdout)
+    # arrays concatenate, team first
+    assert resolved["facts"]["items"] == ["team A", "team B", "personal C"]
+    assert resolved["checklists"]["architecture"] == ["Name the region."]
+
+
+def test_check_flags_broken_policy(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text(
+        '[facts]\nitems = ["file:docs/does-not-exist.md"]\n'
+        '[[lenses.slice]]\nname = "sec"\nbrief = ".agents/custom/missing.md"\n'
+    )
+    proc = run_cli(["check"], project)
+    assert proc.returncode == 1
+    out = proc.stdout + proc.stderr
+    assert "does-not-exist.md" in out
+    assert "missing.md" in out
+
+
+def test_check_rejects_unknown_policy_key(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text('[artifacts]\narchitecture = "docs/other.md"\n')
+    proc = run_cli(["check"], project)
+    assert proc.returncode == 1
+    assert "unknown key" in (proc.stdout + proc.stderr)
+
+
+def test_hosts_registry_stays_in_sync_with_support_doc():
+    # The host registry (src/config/hosts.json) is the machine-readable source for the
+    # Support matrix in docs/host-support.md. Guard the drift both ways: every registry
+    # key must appear in the doc, every status must be a known tier, and a link'd host's
+    # links must be well-formed.
+    registry = json.loads((REPO_ROOT / "src/config/hosts.json").read_text())["hosts"]
+    doc = (REPO_ROOT / "docs/host-support.md").read_text()
+    valid_status = {"verified", "wired-untested", "manual"}
+    keys = [h["key"] for h in registry]
+    assert keys == list(dict.fromkeys(keys)), "duplicate host keys in registry"
+    for h in registry:
+        assert h["status"] in valid_status, f"{h['key']}: unknown status {h['status']!r}"
+        assert h["label"] in doc, f"{h['label']} is in the registry but not in docs/host-support.md"
+        if h.get("native"):
+            assert not h.get("links"), f"{h['key']}: native host must not carry links"
+        for link in h.get("links", []):
+            assert {"link", "target", "type"} <= set(link), f"{h['key']}: malformed link {link}"
+    # The support doc enumerates the supported keys inline — keep that list honest.
+    for key in keys:
+        assert key in doc, f"host key {key} is not documented in docs/host-support.md"
 
 
 def test_init_does_not_clobber_existing_real_claude_md(project):

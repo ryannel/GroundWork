@@ -215,3 +215,32 @@ def test_shipped_surface_changes_require_a_migration_or_annotation():
         "[no-migration] annotation. Old installs will be left behind — see the "
         "contributor guide: Shipping a Change That Touches Installed Projects."
     )
+
+
+# ── gw-seed-policy-toml round trip ──────────────────────────────────────────
+# The frozen install fixtures predate the policy layer, so they exercise the
+# migration's pending → run path on upgrade. This proves the seed round-trip
+# directly: detect → pending, run → seeds policy.toml + gitignores the user file,
+# detect → done, and a second run stays idempotent.
+
+def test_seed_policy_toml_round_trip(tmp_path):
+    (tmp_path / ".groundwork" / "config").mkdir(parents=True)
+    script = """
+const path = require('path');
+const fs = require('fs');
+const mod = require(path.join(%r, 'gw-seed-policy-toml.js'));
+const target = %r, pkg = %r;
+if (mod.detect({ targetDir: target }) !== 'pending') throw new Error('expected pending');
+mod.run({ targetDir: target, packageRoot: pkg });
+if (mod.detect({ targetDir: target }) !== 'done') throw new Error('expected done after run');
+const policy = path.join(target, '.groundwork', 'config', 'policy.toml');
+const ignore = path.join(target, '.groundwork', 'config', '.gitignore');
+if (!fs.existsSync(policy)) throw new Error('policy.toml not seeded');
+if (!fs.readFileSync(ignore, 'utf8').includes('policy.user.toml')) throw new Error('user file not gitignored');
+mod.run({ targetDir: target, packageRoot: pkg });  // idempotent
+if (fs.readFileSync(ignore, 'utf8').split('policy.user.toml').length !== 2) throw new Error('gitignore duplicated');
+console.log('ok');
+""" % (str(MIGRATIONS), str(tmp_path), str(REPO_ROOT))
+    proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.strip() == "ok"

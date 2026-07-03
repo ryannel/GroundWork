@@ -1,0 +1,32 @@
+---
+milestone: NN
+compiled_from: <sha the bet/<bet-slug>/approved tag points at>
+source_paths:
+  - docs/bets/<bet-slug>/technical-design/<files this milestone touches>
+  - docs/bets/<bet-slug>/decomposition/milestone-NN/index.md
+---
+
+# Milestone NN — context pack
+
+Distilled once when this milestone opens (at readiness for milestone 1), refreshed at each slice close. Written to `.groundwork/cache/bets/<bet-slug>/milestone-NN-context.md`. It carries **pointers and learnings, never contract text** — the driver hands a slice-worker this pack's path plus the slice file, and the worker reads the pointed-at design for the shapes. A pack that restates an API shape, a schema, or a data flow is a second copy of the contract and is wrong; delete the restatement and point instead.
+
+**Staleness is mechanical.** The pack is stale exactly when its `compiled_from` frontmatter does not equal the sha the `bet/<bet-slug>/approved` tag currently points at. Amendments re-point that tag, so this comparison catches every design change. Check it at milestone open and after any amendment; when stale, recompile the pack before dispatching another slice.
+
+## Pointers (where the worker reads the contract — never the contract itself)
+
+- **Technical-design files + section anchors** this milestone's slices touch — the exact `technical-design/0N-*.md` files and the sections within them, by heading. Point; do not paraphrase.
+- **This milestone's `decomposition/milestone-NN/index.md`** — the headline proof and the slice list.
+- **Stack(s) + the engineer Context-Routing rows** the driver resolved for the worker — the `.agents/skills/groundwork-<stack>-engineer/` references a slice in this milestone should load (an execution-tier worker should not have to guess which). Name the stack per slice when a milestone spans more than one.
+
+## Learnings (what delivery has taught, so the worker inherits it)
+
+- **Prior slices' `Notes:` chain** — the one- or two-line lessons carried on each closed slice's commit, digested.
+- **Postmortem gists and findings-ledger entries** from milestones already closed, plus any **verified facts** established (a real dependency proven reachable, a boundary confirmed).
+- **Proven recipes / PoCs and their durable paths** — reuse rather than re-prove; name the durable path, and note that nothing may depend on an ephemeral one at runtime.
+- **Testing obligations and path rules** — the permanent tests this milestone's slices owe and where they live.
+- **Worktree environment facts** — ports, the scratch database, fixtures, and any bootstrap quirks a worker running in this worktree needs.
+
+## Explicitly not in this pack
+
+- **Ripple caller lists.** Caller lists go stale per commit, so ripple analysis stays per-slice, run by the driver against committed code at dispatch (`../workflows/delivery/step-02-slice-loop.md`, §1) — never precompiled here.
+- **Any API shape, schema, data flow, or proof text.** Those live in the design and decomposition prose the pointers name; the pack points, it never copies.
