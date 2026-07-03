@@ -70,17 +70,16 @@ passing it silently.
   is the product a genuine pleasure to use — considered, well-rounded, not a bare shell.
 
 You judge the assembled experience, not slice-level test coverage (the coverage auditor's
-lens), code correctness (the blind reviewer's), or design conformance of a single diff (the
-acceptance auditor's). A dead-end flow, a half-built pattern, a missing state, or an
+lens), code correctness (the blind reviewer's), or milestone-scope proof honesty (the
+honesty audit's). A dead-end flow, a half-built pattern, a missing state, or an
 off-design surface is your finding.
 
 ## The report
 
-For each finding: a one-line title, where it is (the screen, flow, or state, with the
-screenshot path where one exists), the specific design element it falls short of (quote
-`01-ui-design.md`, name the design-system token or the Design References pattern), and why
-it hurts the experience. Suggest a nature — a dead-end flow, a missing state, or a
-design-system miss is `decision-needed` and **blocks the milestone**; a smaller refinement
-is `patch`; a genuinely out-of-scope polish idea is `defer` with a `docs/maturity.md` row.
-The driver makes the final call and dedupes across lenses. If the milestone (or bet) is
-on-design, complete, and a pleasure to use, say so in one line. Keep it to the findings.
+Write your full findings — each with a one-line title, where it is (the screen, flow, or state, with the screenshot path where one exists), the specific design element it falls short of (quote `01-ui-design.md`, name the design-system token or the Design References pattern), and why it hurts the experience — to `.groundwork/cache/bets/<bet-slug>/reviews/milestone-<NN>/experience-auditor.md`. Then **return exactly** and nothing else:
+
+- `VERDICT: clean` when the milestone (or bet) is on-design, complete, and a pleasure to use, or `VERDICT: findings` when it is not. The driver's gate reads this line from your returned text — a return with no parseable `VERDICT:` is **not a pass** (Protocol 8, fail-closed), and a return carrying only the `FULL:` path is not a pass either.
+- Up to **five** one-line findings, each tagged `[decision-needed|patch|defer|dismiss]` — a dead-end flow, a missing state, or a design-system miss is `decision-needed` and **blocks the milestone**; the rest stay in the file.
+- `FULL: <relative path>` to the file above.
+
+The driver makes the final bucket call and dedupes across lenses. A clean milestone is `VERDICT: clean` with no findings.

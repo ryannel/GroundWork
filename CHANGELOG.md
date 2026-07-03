@@ -8,6 +8,16 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (review policy: adversarial fleet, findings ledger, file-backed lens output, 2026-07-03)
+
+The per-slice review drops to **three** independent lenses (blind reviewer, edge-case tracer, coverage auditor default-on); the acceptance auditor is **retired per-slice** (17 runs / 2 catches / 4 false-negatives) and reborn as a **per-milestone honesty audit** — test-mirrors, dead shims, generated-file edits, dropped spec marks, deleted guards — dispatched once at close, its verdict feeding postmortem Q1. The edge-case tracer gains design anchors and a state-machine / lifecycle reachability checklist seeded from the escaped bug classes. Every lens now writes full findings to `.groundwork/cache/bets/<slug>/reviews/<key>/<lens>.md` and **returns exactly** a parseable `VERDICT:` line, ≤5 bucket-tagged findings, and a `FULL:` path — Protocol 8 gates on the verdict in the returned text, so a lens returning only a path is not a pass (fail-closed, stated in every brief). A **findings ledger** gives every finding a disposition (fixed / deferred-with-owner / dismissed-with-reason), and **milestone close blocks while any finding is open**. Design: `docs/plans/groundwork-v2.md` (W1.4).
+
+### Added (fix-in-place ladder, 2026-07-03)
+
+A patch finding is fixed at the cheapest rung that holds the slice's context — driver inline → continuation to the original worker → minimal-capsule fix worker with a strict scope rule — never a fresh agent that re-derives context (the ~41% re-derivation tax this ladder kills). Encoded in `step-02-slice-loop.md` and `briefs/slice-worker.md`. Design: `docs/plans/groundwork-v2.md` (W1.5).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
 ### Added (milestone context pack, 2026-07-03)
 
 Delivery gains a per-milestone context pack (`templates/milestone-context.md` → `.groundwork/cache/bets/<slug>/milestone-<NN>-context.md`), distilled at milestone open and refreshed at slice close. It carries **pointers and learnings, never contract text** — design-section pointers, engineer Context-Routing rows, prior-slice `Notes`, postmortem gists, proven recipes, testing obligations, worktree environment facts — so a fresh worker inherits context without re-reading upstream docs and without a second copy of any API/schema/data shape. Staleness is mechanical (`compiled_from` ≠ approved-tag sha), checked at milestone open and after any amendment. The dispatch capsule shrinks to the pack pointer plus slice-specifics; ripple caller lists stay per-slice (never precompiled). Design: `docs/plans/groundwork-v2.md` (W1.3).

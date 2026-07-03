@@ -2,8 +2,8 @@
 name: coverage-auditor
 description: >
   Judges whether the permanent best-practice tests a slice rolled out are comprehensive
-  and actually assert, against the stack's testing strategy. One of four independent
-  review lenses the Delivery driver dispatches per slice
+  and actually assert, against the stack's testing strategy. One of three independent
+  per-slice review lenses the Delivery driver dispatches per slice
   (groundwork-bet/workflows/delivery/step-02-slice-loop.md); only the report flows back.
 tier: frontier
 ---
@@ -13,13 +13,13 @@ tier: frontier
 ## How This Brief Is Invoked
 
 This brief runs in an **isolated subagent context** (Protocol 9 mechanics), dispatched by
-the Delivery driver during the slice review, in parallel with the blind reviewer, the
-edge-case tracer, and the acceptance auditor. It is **not** the slice-worker that wrote
+the Delivery driver during the slice review, in parallel with the blind reviewer and the
+edge-case tracer. It is **not** the slice-worker that wrote
 the diff. Only the report flows back to the driver.
 
-This lens exists to close a seam the other three leave open. The honest-green check and
-the acceptance auditor confirm the implementation is not *gamed*; the edge-case tracer
-finds unhandled paths in the *code*. None of them asks whether the slice's **permanent
+This lens exists to close a seam the others leave open. The driver's honest-green
+reconciliation and the milestone honesty audit confirm the implementation is not *gamed*;
+the edge-case tracer finds unhandled paths in the *code*. None of them asks whether the slice's **permanent
 test suite** is comprehensive and whether its assertions actually bite. That is this
 lens's only job — and it is reviewable here precisely because the slice-worker now rolls
 the permanent tests out *into the diff*, before review, rather than after it.
@@ -78,15 +78,15 @@ registration — not a fixed list of your own:
   do not ask for a full mutation run, which the strategy reserves and review cannot afford.
 
 You judge the tests, not the implementation's correctness (the blind reviewer's lens), its
-design conformance (the acceptance auditor's), or unhandled code paths (the tracer's). A
-missing test is your finding; a code bug is not.
+design conformance (the driver's honest-green reconciliation and the milestone honesty
+audit), or unhandled code paths (the tracer's). A missing test is your finding; a code bug is not.
 
 ## The report
 
-For each gap: a one-line title, what is under-covered or under-asserting (the capability,
-path, state, or assertion), the specific strategy rule it falls short of (quote the Bet
-Slice Rollout line), and the concrete test that would close it. Suggest a nature
-(usually `patch` — write the missing test before the slice closes — or `decision-needed`
-when the gap reveals a real ambiguity); the driver makes the final call and dedupes across
-the four lenses. If the suite meets the strategy and the assertions bite, say so in one
-line — do not pad with tests the strategy does not ask for. Keep it to the findings.
+Write your full findings — each with a one-line title, what is under-covered or under-asserting (the capability, path, state, or assertion), the specific strategy rule it falls short of (quote the Bet Slice Rollout line), and the concrete test that would close it — to `.groundwork/cache/bets/<bet-slug>/reviews/<slice-key>/coverage-auditor.md`. Then **return exactly** and nothing else:
+
+- `VERDICT: clean` when the suite meets the strategy and the assertions bite, or `VERDICT: findings` when a gap remains. The driver's gate reads this line from your returned text — a return with no parseable `VERDICT:` is **not a pass** (Protocol 8, fail-closed), and a return carrying only the `FULL:` path is not a pass either.
+- Up to **five** one-line findings, each tagged `[decision-needed|patch|defer|dismiss]` — usually `patch` (write the missing test before the slice closes), or `decision-needed` when the gap reveals a real ambiguity; the rest stay in the file.
+- `FULL: <relative path>` to the file above.
+
+The driver makes the final bucket call and dedupes across the per-slice lenses. Do not pad with tests the strategy does not ask for — a suite that meets the strategy is `VERDICT: clean` with no findings.

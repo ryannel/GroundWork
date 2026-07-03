@@ -213,7 +213,7 @@ review is that):
   is a blocking concern, not an edit.
 - **Honest green.** The implementation must satisfy the proof for the right reason,
   against the real product — the gaming tells are canonical in
-  `briefs/acceptance-auditor.md`'s Honesty check, the same check the driver runs at
+  `briefs/acceptance-auditor.md` (the milestone honesty audit), the same tells the driver runs at
   the Slice Loop review (`workflows/delivery/step-02-slice-loop.md`). If a fake the slice leans on has no real test behind it, or
   the proof runs against a test target rather than the shipping build, flag it. Surface
   any of these in the report rather than leaving them for the review to find.
@@ -225,6 +225,11 @@ The worker implements to green, rolls out the permanent tests, and stops. It doe
 independent review and triage. Leave the working tree with all of the slice's changes
 unstaged — the implementation, the bet-progress tests turned green, and the permanent
 best-practice tests — and return the report.
+
+If the driver continues you with a review finding to fix (the fix-in-place ladder — you
+still hold this slice's context, so you are cheaper than a fresh worker), fix exactly what
+the finding names and nothing beyond it, leave the change unstaged, and return an updated
+report. Do not refactor adjacent code or widen scope the finding did not raise.
 
 ---
 
