@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (attestation theater removed, 2026-07-03)
+
+The always-run confirmation walks that never tripped are cut to mechanical, conditional checks. Prose integrity is one git-pathspec check against the approved tag (a clean output is the whole pass); honest-green's consumer-compile runs only on ripple slices and its shipping-build check only on front-door slices — where each can actually bite. Protocol 9 doc re-reviews at milestone open are **reserved**: the mechanical Decomposition Gate (recorded item-by-item in the commit body) is the review of record, and P9 dispatches only for a new contract or surface, a post-amendment rung, or a first decomposition — the observed P9 re-reviews found zero critical findings over ground the gate had just covered. Design: `docs/plans/groundwork-v2.md` (W1.7).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
 ### Added (owner decisions: default+veto + checkpoint walkthrough, 2026-07-03)
 
 Delivery runs without input by default and stops deliberately. A destructive, scope-changing, or proof-weakening decision is a hard stop; every other decision takes its recommended default (recorded in `docs/bets/<slug>/decisions.md`), proceeds, and batches to the next checkpoint for ratification — the approved tag moves only on ratification, provisional amendments ride a single `[provisional]` commit. **Design-altitude guard:** anything that changes what the owner authored at a design altitude — UI, data flows, API, schema — is an amendment and a hard stop, never a defaulted decision. A new `briefs/checkpoint-walkthrough.md` (frontier, read-only, not a gate) opens each milestone pause and the bet-close review: the change organized by concern, 2–5 blast-radius spots tagged `[auth]/[schema]/[contract]/[data]/[infra]`, suggested front-door observations, the pending decisions queue for ratification, and touched deferred/maturity rows — maintaining the owner's system comprehension as delivery evolves it. Design: `docs/plans/groundwork-v2.md` (W1.6).
