@@ -1,0 +1,44 @@
+# GroundWork policy — the team's additive layer.
+#
+# This file is ADDITIVE ONLY: it lets your team add rigor and context on top of
+# GroundWork's built-in floor. It can never remove, replace, or weaken a built-in
+# gate, lens, or review — user lenses ADD findings; they never satisfy a built-in.
+#
+# Two files merge, in this order (later wins for scalars; arrays concatenate,
+# team first):
+#   .groundwork/config/policy.toml       — this file, committed, team-wide
+#   .groundwork/config/policy.user.toml  — personal, gitignored
+#
+# `npx groundwork-method policy` prints the resolved merge as JSON.
+# `npx groundwork-method check` validates both files (parse errors, broken file:
+# refs, missing lens briefs, unknown keys).
+# All sections are optional — an empty file behaves exactly like no file.
+
+# ── Persistent org facts (additive context) ──────────────────────────────────
+# Facts injected into orchestrator state resolution, every dispatched capsule/pack,
+# and setup facilitators. A plain string is a literal fact; `file:<path>` points at
+# a doc whose contents are the fact.
+# [facts]
+# items = [
+#   "All services log in structured JSON per our org standard.",
+#   "file:docs/org/security-baseline.md",
+# ]
+
+# ── Additive review lenses ────────────────────────────────────────────────────
+# Extra review lenses dispatched in the same parallel wave as the built-ins, at the
+# frontier tier, with findings through the same buckets. A user lens ADDS findings;
+# it can never satisfy, replace, or stand in for a built-in lens or groundwork-review.
+# Keep the brief outside .groundwork/skills/ (that tree is replaced on update).
+# [[lenses.slice]]
+# name  = "security-review"
+# brief = ".agents/custom/lenses/security-review.md"
+
+# ── Additive checklist items ──────────────────────────────────────────────────
+# Extra items appended to a groundwork-review document_type's checklist (🟡 by default).
+# [checklists]
+# architecture = ["Every service names its data-residency region."]
+
+# ── Phase instruction hooks ───────────────────────────────────────────────────
+# Instruction files (not shell) prepended or appended at a skill's phase init / commit.
+# [phases.groundwork-product-brief]
+# prepend = [".agents/custom/hooks/brand-guardrails.md"]

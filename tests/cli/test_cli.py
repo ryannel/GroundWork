@@ -136,6 +136,44 @@ def test_init_set_rejects_unknown_and_unsafe_keys(project):
     assert "unsafe key" in unsafe.stdout or "unsafe key" in unsafe.stderr
 
 
+def test_policy_resolves_and_merges(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text(
+        '[facts]\nitems = ["team A", "team B"]\n[checklists]\narchitecture = ["Name the region."]\n'
+    )
+    (cfg / "policy.user.toml").write_text('[facts]\nitems = ["personal C"]\n')
+    proc = run_cli(["policy"], project)
+    assert proc.returncode == 0, proc.stderr
+    resolved = json.loads(proc.stdout)
+    # arrays concatenate, team first
+    assert resolved["facts"]["items"] == ["team A", "team B", "personal C"]
+    assert resolved["checklists"]["architecture"] == ["Name the region."]
+
+
+def test_check_flags_broken_policy(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text(
+        '[facts]\nitems = ["file:docs/does-not-exist.md"]\n'
+        '[[lenses.slice]]\nname = "sec"\nbrief = ".agents/custom/missing.md"\n'
+    )
+    proc = run_cli(["check"], project)
+    assert proc.returncode == 1
+    out = proc.stdout + proc.stderr
+    assert "does-not-exist.md" in out
+    assert "missing.md" in out
+
+
+def test_check_rejects_unknown_policy_key(project):
+    cfg = project / ".groundwork/config"
+    cfg.mkdir(parents=True)
+    (cfg / "policy.toml").write_text('[artifacts]\narchitecture = "docs/other.md"\n')
+    proc = run_cli(["check"], project)
+    assert proc.returncode == 1
+    assert "unknown key" in (proc.stdout + proc.stderr)
+
+
 def test_hosts_registry_stays_in_sync_with_support_doc():
     # The host registry (src/config/hosts.json) is the machine-readable source for the
     # Support matrix in docs/host-support.md. Guard the drift both ways: every registry

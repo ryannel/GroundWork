@@ -37,6 +37,7 @@ function printHelp() {
             PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index for many more
             languages; extensible per-project. Incremental — only changed files reparse.
             \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
+  \x1b[36mpolicy\x1b[0m    Print the resolved additive policy layer (policy.toml + policy.user.toml) as JSON
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -1286,6 +1287,121 @@ function applyConfigSets(templateText, sets) {
   return { text: out.join('\n'), errors };
 }
 
+// ── Policy layer (vendored TOML subset) ──────────────────────────────────────
+// A deliberately small TOML reader for the additive policy files (decision §10.1:
+// vendor the parser so the dependency-free CLI can validate and resolve policy).
+// It handles the declared v1 surface only: `[table]` and `[[array.of.tables]]`
+// headers with dotted names, `key = "string" | number | true/false`, and
+// `key = ["multi", "line", "arrays"]`. Anything outside that surface throws — a
+// parse error the user sees from `groundwork check`.
+function parsePolicyToml(text) {
+  const root = {};
+  const descend = (parts) => parts.reduce((o, k) => (o[k] = o[k] || {}), root);
+  const parseScalar = (raw) => {
+    const s = raw.trim();
+    if (/^".*"$/.test(s)) return s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(s)) return Number(s);
+    throw new Error(`unsupported value: ${s}`);
+  };
+  const parseArray = (body) =>
+    body.split(',').map((x) => x.trim()).filter((x) => x.length).map(parseScalar);
+
+  let cur = root;
+  const lines = text.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i].trim();
+    if (!line || line.startsWith('#')) continue;   // blank or full-comment line
+    // Strip an inline comment only when the line carries no quoted string — a value
+    // may legitimately contain a '#' inside quotes.
+    if (!line.includes('"') && line.includes('#')) line = line.slice(0, line.indexOf('#')).trim();
+    if (!line) continue;
+    let m;
+    if ((m = line.match(/^\[\[(.+)\]\]$/))) {
+      const parts = m[1].split('.').map((s) => s.trim());
+      const key = parts.pop();
+      const parent = descend(parts);
+      parent[key] = parent[key] || [];
+      const obj = {};
+      parent[key].push(obj);
+      cur = obj;
+    } else if ((m = line.match(/^\[(.+)\]$/))) {
+      cur = descend(m[1].split('.').map((s) => s.trim()));
+    } else if ((m = line.match(/^([A-Za-z0-9_"-]+)\s*=\s*(.*)$/))) {
+      const key = m[1].replace(/"/g, '');
+      let val = m[2].trim();
+      if (val.startsWith('[')) {
+        // Arrays may span lines — accumulate until the closing bracket.
+        while (!val.includes(']') && i + 1 < lines.length) {
+          i += 1;
+          let nxt = lines[i].trim();
+          if (nxt.startsWith('#')) continue;   // comment line inside the array
+          if (!nxt.includes('"') && nxt.includes('#')) nxt = nxt.slice(0, nxt.indexOf('#')).trim();
+          val += ' ' + nxt;
+        }
+        cur[key] = parseArray(val.slice(val.indexOf('[') + 1, val.lastIndexOf(']')));
+      } else {
+        cur[key] = parseScalar(val);
+      }
+    } else {
+      throw new Error(`unparseable policy line: ${line}`);
+    }
+  }
+  return root;
+}
+
+// Merge team then user policy: scalars — user wins; arrays — concatenate, team first.
+function mergePolicy(team, user) {
+  const out = {};
+  const keys = new Set([...Object.keys(team || {}), ...Object.keys(user || {})]);
+  for (const k of keys) {
+    const t = team ? team[k] : undefined;
+    const u = user ? user[k] : undefined;
+    if (Array.isArray(t) || Array.isArray(u)) out[k] = [...(t || []), ...(u || [])];
+    else if (t && typeof t === 'object' && u && typeof u === 'object') out[k] = mergePolicy(t, u);
+    else out[k] = u !== undefined ? u : t;
+  }
+  return out;
+}
+
+function resolvePolicy(targetConfigDir) {
+  const read = (name) => {
+    const f = path.join(targetConfigDir, name);
+    return fs.existsSync(f) ? parsePolicyToml(fs.readFileSync(f, 'utf8')) : {};
+  };
+  return mergePolicy(read('policy.toml'), read('policy.user.toml'));
+}
+
+// Validate both policy files: parse errors, broken `file:` refs, missing lens brief
+// paths, and unknown top-level keys named. Returns a list of problem strings.
+function validatePolicy(targetDir, targetConfigDir) {
+  const problems = [];
+  const known = new Set(['facts', 'lenses', 'checklists', 'phases']);
+  for (const name of ['policy.toml', 'policy.user.toml']) {
+    const f = path.join(targetConfigDir, name);
+    if (!fs.existsSync(f)) continue;
+    let parsed;
+    try { parsed = parsePolicyToml(fs.readFileSync(f, 'utf8')); }
+    catch (err) { problems.push(`${name}: parse error — ${err.message}`); continue; }
+    for (const key of Object.keys(parsed)) {
+      if (!known.has(key)) problems.push(`${name}: unknown key [${key}] (known: ${[...known].join(', ')})`);
+    }
+    for (const item of (parsed.facts && parsed.facts.items) || []) {
+      if (typeof item === 'string' && item.startsWith('file:')) {
+        const rel = item.slice('file:'.length);
+        if (!fs.existsSync(path.join(targetDir, rel))) problems.push(`${name}: [facts] file: ref does not resolve — ${rel}`);
+      }
+    }
+    for (const lens of (parsed.lenses && parsed.lenses.slice) || []) {
+      if (!lens.brief || !fs.existsSync(path.join(targetDir, lens.brief))) {
+        problems.push(`${name}: [[lenses.slice]] "${lens.name || '?'}" brief path missing — ${lens.brief || '(none)'}`);
+      }
+    }
+  }
+  return problems;
+}
+
 async function initGroundWork(options = {}) {
   const p = getPaths();
 
@@ -1372,6 +1488,27 @@ async function initGroundWork(options = {}) {
     }
   } else if (sets.length) {
     c.warn(`Ignoring --set: .groundwork/config/config.toml already exists and is yours to edit — GroundWork never mutates it.`);
+  }
+
+  // Seed the additive team policy once (user-owned thereafter, never overwritten), and
+  // gitignore the personal policy.user.toml so it stays local.
+  const sourcePolicy = path.join(p.sourceConfigDir, 'policy.toml');
+  const targetPolicy = path.join(p.targetConfigDir, 'policy.toml');
+  if (fs.existsSync(sourcePolicy) && !fs.existsSync(targetPolicy)) {
+    try {
+      fs.copyFileSync(sourcePolicy, targetPolicy);
+      c.ok(`Seeded team policy (.groundwork/config/policy.toml)`);
+    } catch (err) {
+      c.err(`Failed to seed policy: ${err.message}`);
+    }
+  }
+  const configIgnore = path.join(p.targetConfigDir, '.gitignore');
+  if (!fs.existsSync(configIgnore)) {
+    try {
+      fs.writeFileSync(configIgnore, '# Personal, machine-local policy overrides — never committed.\npolicy.user.toml\n');
+    } catch (err) {
+      c.warn(`Could not seed .groundwork/config/.gitignore: ${err.message}`);
+    }
   }
 
   // Deploy documentation foundations + llms.txt + AGENTS.md (tier 2: copy when
@@ -1697,6 +1834,15 @@ function checkGroundWork() {
   const frameworkStale = reportFrameworkStatus(p);
   if (frameworkStale) process.exitCode = 1;
 
+  // Validate the additive policy layer (parse errors, broken file: refs, missing lens
+  // briefs, unknown keys) — a broken policy file silently drops the rigor it was meant to add.
+  const policyProblems = validatePolicy(p.targetDir, p.targetConfigDir);
+  if (policyProblems.length) {
+    c.err(`Policy layer has ${policyProblems.length} problem(s):`);
+    for (const prob of policyProblems) console.warn(`         • ${prob}`);
+    process.exitCode = 1;
+  }
+
   // Drift detection compares last_reviewed against git history — without a repo,
   // every per-doc `git log` would fail with a cryptic error.
   try {
@@ -2017,6 +2163,17 @@ switch (command) {
       process.exit(1);
     });
     break;
+  case 'policy': {
+    // Print the resolved team+user policy merge as JSON.
+    const p = getPaths();
+    try {
+      process.stdout.write(JSON.stringify(resolvePolicy(p.targetConfigDir), null, 2) + '\n');
+    } catch (err) {
+      c.err(`policy: ${err.message}`);
+      process.exitCode = 1;
+    }
+    break;
+  }
   default:
     console.log(`Unknown command: ${command}`);
     printHelp();

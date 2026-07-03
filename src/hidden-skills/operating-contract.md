@@ -181,6 +181,8 @@ Skills must name their upstream chain explicitly — which prior phases the hand
 
 Work through the phase's stages as defined in its instructions. Update the cache file as each stage completes.
 
+**Additive policy hooks.** When the resolved policy layer (`.groundwork/config/policy.toml` + `policy.user.toml`) carries a `[phases.<this-skill>]` entry, run its `prepend` instruction files at phase init and its `append` files at the commit step — they are **instruction files, not shell**, and they only add context or steps, never remove a stage or gate. The layer's `[facts]` are likewise carried into the facilitation context at phase init, so an org fact reaches the conversation. This is additive-only: a hook can deepen a phase, never skip one.
+
 Do not mark a phase complete until the user explicitly confirms — premature completion commits artifacts the user may not endorse.
 
 ### 4. Commit

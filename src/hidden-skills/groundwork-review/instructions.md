@@ -42,6 +42,8 @@ After reading the document, load `.groundwork/skills/groundwork-review/checklist
 
 If the checklist file is missing, proceed with the generic checks alone — its absence is not an error.
 
+**Additive policy checklist items.** When the resolved policy layer's `[checklists]` carries items for this `document_type`, append them to the type-specific pass (🟡 by default) and cite each by its policy text. These are **additive only**: a policy item adds a check the team wants, and can never satisfy, replace, or stand in for a built-in checklist item or any of Checks 1–3 — the floor holds whatever the policy adds.
+
 One checklist deliberately sits outside the `document_type` enum: `checklists/implementation-readiness.md` is the delivery workflow's inline gate, applied directly by the bet skill before the first slice — it never routes through this review and must not be added as a `document_type`.
 
 Checklist findings flow through the same output contract below: the item's 🔴/🟡 marking sets the finding's severity, the verdict rules apply unchanged, and the length discipline holds — cite item names, not item text.

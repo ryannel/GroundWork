@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (additive policy layer: policy.toml + policy.user.toml, 2026-07-03)
+
+A two-file additive customization layer: `.groundwork/config/policy.toml` (team, committed) + `policy.user.toml` (personal, gitignored). It lets a team add rigor and context — never remove the floor: `[facts]` (org facts injected into state resolution, dispatched capsules/packs, and setup facilitators), `[lenses]` (additive review lenses dispatched alongside the built-ins — they add findings, they can never satisfy or replace a built-in lens or `groundwork-review`), `[checklists]` (additive 🟡 items per review document_type), and `[phases]` (instruction hooks at phase init/commit). Merge is deliberately trivial — scalars: user wins; arrays: concatenate, team first. A vendored TOML-subset parser keeps the CLI dependency-free; `npx groundwork-method policy` prints the resolved merge as JSON, and `groundwork check` validates both files (parse errors, broken `file:` refs, missing lens briefs, unknown keys). Artifact-path overrides are rejected for v1 (they would generate identifier drift against the cross-phase contracts). Design: `docs/plans/groundwork-v2.md` (W1.9).
+
+- [migration] Seeds `.groundwork/config/policy.toml` and gitignores `policy.user.toml` on installs that predate the layer; purely additive (gw-seed-policy-toml)
+
 ### Changed (stakes-scaled validation + experience-audit dedup, 2026-07-03)
 
 Bet-close validation finally reads the pitch's per-bet **Stakes** field (blast radius, reversibility, review load) to set how much of the end-to-end judgment the owner walks with the auditor — a one-way-door bet earns a heavier walk, an iterate-behind-a-flag change a lighter one. This is the per-bet shaping the owner already authors and nothing yet read; it is **not the rejected project-level stakes axis** and conditions nothing in the floor — the deterministic tiers, per-slice lenses, honesty audit, front-door proofs, and experience gate run in full regardless. The whole-bet experience audit now **dedups the re-drive**: seams in full, and a whole milestone only when it took commits after its own close-time audit. Design: `docs/plans/groundwork-v2.md` (W1.8).

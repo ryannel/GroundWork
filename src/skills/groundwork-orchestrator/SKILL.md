@@ -107,6 +107,10 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 
 When routing to `groundwork-scan` or `groundwork-update`, pass a `fan_out` hint: `parallel` when a sub-agent dispatch tool is available in this environment, `sequential` otherwise. This removes each skill's need to probe its own tool set — a misprobe on a constrained runtime would break the run. For `groundwork-update`, `parallel` lets its driver farm each brief item and reconcile family to a disposable sub-agent so its context stays lean; `sequential` advances each unit inline, one at a time.
 
+### The additive policy layer
+
+Resolve the team + personal policy during state resolution: `npx groundwork-method policy` prints the merged `.groundwork/config/policy.toml` + `policy.user.toml` as JSON (scalars — user wins; arrays — concatenate, team first). It is **additive only** — it adds rigor and context, and can never remove or weaken a built-in gate, lens, or review. Carry its resolved `[facts]` into your State Resolution context and append them to the **constraints slot of every capsule, pack, and setup facilitator you dispatch**, so an org fact ("all services log structured JSON", a `file:` pointer to a baseline doc) reaches the worker verbatim. The other sections are enacted where they apply: `[lenses]` in the review wave, `[checklists]` in `groundwork-review`, `[phases]` at phase init (Protocol 3). A broken policy file is a `groundwork check` failure, not a silent drop.
+
 ### Custom Skills (user-registered)
 
 Read `.groundwork/config/config.toml` during state resolution. Each entry in its `[skills]` table maps an intent to an instruction file path; merge these into routing after the built-in tables — a built-in route wins any conflict. The file is user-owned: never write to it. When a configured path does not exist on disk, tell the user the route is broken instead of silently skipping it.

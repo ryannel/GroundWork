@@ -633,6 +633,25 @@ def check_template_brief_links():
                          f"`{kind}/{name}` names no template/brief that exists in any skill tree")
 
 
+# The additive-policy floor: any place that enumerates user review lenses for dispatch
+# must carry the floor sentence — a user lens adds findings, never replaces a built-in.
+# The whole contract of the layer is "additive only", so this sentence is load-bearing.
+POLICY_LENS_MENTION_RE = re.compile(r"lenses\.slice")
+POLICY_FLOOR_RE = re.compile(r"satisfy, replace, or stand in for a built-in", re.I)
+
+
+def check_policy_floor():
+    for base in (HIDDEN, REGISTERED, ENGINEER):
+        for path in sorted(base.rglob("*.md")):
+            if "templates" in path.parts:
+                continue
+            text = path.read_text(encoding="utf-8")
+            if POLICY_LENS_MENTION_RE.search(text) and not POLICY_FLOOR_RE.search(text):
+                fail("policy-floor", path,
+                     "enumerates user review lenses but omits the additive-floor sentence "
+                     "(\"…adds findings; it can never satisfy, replace, or stand in for a built-in…\")")
+
+
 def check_word_budget():
     for base in (HIDDEN, REGISTERED, ENGINEER):
         for path in sorted(base.rglob("*.md")):
@@ -668,6 +687,7 @@ def main() -> int:
     check_registered_descriptions()
     check_no_model_ids()
     check_template_brief_links()
+    check_policy_floor()
     check_word_budget()
 
     if warnings:
