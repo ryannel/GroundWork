@@ -8,6 +8,26 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (engine wave — mechanical gates: `gate` + `seal verify`, 2026-07-03)
+
+Two more Wave-2 engine verbs move the structural, fail-closed half of the delivery
+checklists from agent-walked prose into computation (dependency-free; logic in
+`lib/bet-gate/`). `groundwork gate readiness|decomposition --bet <slug>` checks what a
+tool can settle — the document chain exists, `meta.json` pages and every slice link
+resolve, each milestone and slice names a Proof of work and a `Test file:`, the pitch
+is at `status: delivery`, and the `bet/<slug>/approved` tag is present — exiting
+non-zero and naming each failed check; the authorship items (horizontal milestones,
+unfalsifiable capabilities, shape-not-in-design) stay with `groundwork-review` /
+Protocol 9, which a gate would only rubber-stamp. `groundwork seal verify --bet <slug>`
+is the prose-integrity walk as one git-pathspec diff: the sealed decomposition +
+technical-design prose still matches the approved tag (amendments re-point the tag, so
+a ratified change reads as sealed), exiting 1 on undeclared drift and 2 when it cannot
+run (no tag / no git). The delivery prose shrinks in the same change — the readiness
+gate, the milestone-open Decomposition Gate, and the per-slice + whole-bet
+prose-integrity checks now invoke the verbs. Design: `docs/plans/groundwork-v2.md` (§4).
+
+- [no-migration] New verbs; the hidden-skill tree clean-copies on update.
+
 ### Added (engine wave — findings & decisions verbs, 2026-07-03)
 
 The first two Wave-2 engine verbs move facts from prose the driver kept by hand into
