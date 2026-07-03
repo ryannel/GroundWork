@@ -8,6 +8,14 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-07-03
+
+### Changed (internal — delivery-phase simulation harness, 2026-07-03)
+
+Built the instrument the Wave-1 exit gate needed: `./dev sandbox <name> --delivery` seeds a sealed `task-capture` bet ready at Delivery Step 0 (readiness-gate-shaped doc chain, `taskcli` stubs that fail red for the feature's absence, the `bet/task-capture/approved` tag) with deliberate seams for every delivery mechanic, plus a `/simulate-delivery` kickoff that drives the loop against a simulated owner and a delivery-specific `/judge`. A frontier driver ran it end-to-end and an independent fresh-context judge scored all six mechanics PRESENT (verdict: FAITHFUL). Dev-only test infrastructure — not shipped in the npm package. Design: `docs/plans/groundwork-v2.md` (§9.7).
+
+- [no-migration] Dev-time test harness under `scripts/`, `tests/`, and `dev`; not part of the installed skill tree.
+
 ### Changed (pointer + builder hygiene, 2026-07-03)
 
 De-brittled the cross-skill `Bet Slice Rollout` citation: a new lint rule requires every engineer skill's testing reference to carry the `## Bet Slice Rollout` heading the slice-worker and coverage-auditor briefs cite by name (a rename now fails the build) — which surfaced and fixed a missing section in `groundwork-node-engineer`. `groundwork-stack-forge`'s authoring reference now states an explicit required-sections contract for forged engineer skills (version-corrections, a testing reference with a Bet Slice Rollout section, a Context-Routing section). The engineer default-row `references/core.md` distillation is tracked as a follow-up. Design: `docs/plans/groundwork-v2.md` (W1.10).
