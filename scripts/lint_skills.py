@@ -35,6 +35,14 @@ noticing after the third skill:
                         `references/`, then in the three discipline personas'
                         `references/` (cross-skill pins); intra-reference relative
                         links resolve within their own directory.
+ 11. description-budget — a registered skill's description stays within the per-session
+                        character budget and reads as a router, not a body summary.
+ 12. model-id          — no concrete model id is pinned in a skill tree (tiers name a
+                        capability class; ids go stale on release).
+ 13. template-link     — every `templates/<name>` and `briefs/<name>` mention resolves
+                        to a real file in some skill tree (own, sibling, or shared).
+
+Plus a non-blocking word-budget warning per over-long skill file.
 
 Exit 0 when clean; exit 1 with named findings otherwise.
 """
@@ -52,10 +60,15 @@ REGISTERED = ROOT / "src" / "skills"
 ENGINEER = ROOT / "src" / "engineer-skills"
 
 findings: list[str] = []
+warnings: list[str] = []
 
 
 def fail(check: str, path, msg: str) -> None:
     findings.append(f"[{check}] {Path(path).relative_to(ROOT)}: {msg}")
+
+
+def warn(check: str, path, msg: str) -> None:
+    warnings.append(f"[{check}] {Path(path).relative_to(ROOT)}: {msg}")
 
 
 # Skills that are routed methodology phases (canonical file: instructions.md).
@@ -536,6 +549,93 @@ def check_reference_links():
                          "personas' references/ (architect, product, designer)")
 
 
+# ── W0.3 packaging-polish rules ───────────────────────────────────────────────
+
+# A registered skill's description is paid for in every session, so it is budgeted
+# tightly and must read as a router (trigger phrases + boundary), never a body summary.
+REGISTERED_DESCRIPTION_BUDGET = 700  # characters, whitespace-collapsed
+# Openers that betray a body summary rather than a router (skill-writer: "Never write
+# it as a summary of the body").
+SUMMARY_OPENER_RE = re.compile(r"^(This skill|This is|Governs |Describes |A skill (that|for)|Handles )", re.I)
+
+# Concrete model ids belong only in the Model-Tier exemplars; a skill that pins one
+# goes stale on the next release. Tiers name a capability class, not an id.
+CONCRETE_MODEL_ID_RE = re.compile(r"\bclaude-(?:opus|sonnet|haiku|instant)-[\w.]*\d|\bclaude-\d", re.I)
+
+# A single skill file above this many words is a tier smell — content that should move
+# down a tier and leave a pointer. A warning, not a failure: judgment, not a gate.
+WORD_BUDGET_WARN = 5000
+
+_TEMPLATE_BRIEF_RE = re.compile(r"(templates|briefs)/([A-Za-z][\w./-]*\.md)")
+
+
+def check_registered_descriptions():
+    for d in sorted(REGISTERED.iterdir()):
+        if not d.is_dir():
+            continue
+        skill = d / "SKILL.md"
+        fm = parse_frontmatter(skill) if skill.exists() else None
+        if not fm:
+            continue  # reported by frontmatter check
+        desc = " ".join(fm.get("description", "").lstrip(">").split())
+        if len(desc) > REGISTERED_DESCRIPTION_BUDGET:
+            fail("description-budget", skill,
+                 f"registered-skill description is {len(desc)} chars (budget {REGISTERED_DESCRIPTION_BUDGET}) — "
+                 "tighten to trigger phrases + boundary")
+        if SUMMARY_OPENER_RE.match(desc):
+            fail("description-budget", skill,
+                 "description opens as a body summary — write it as the router (what the user says to trigger it, and the boundary)")
+
+
+def check_no_model_ids():
+    # Scan the shipped skill trees; the Model-Tier exemplars live in docs/ and config,
+    # which are outside these roots by design.
+    for base in (HIDDEN, REGISTERED, ENGINEER):
+        for path in sorted(base.rglob("*.md")):
+            for m in CONCRETE_MODEL_ID_RE.findall(path.read_text(encoding="utf-8")):
+                fail("model-id", path,
+                     f"pins a concrete model id — tiers name a capability class, not an id (found near {m!r})")
+                break
+
+
+def _template_brief_index():
+    existing: set[str] = set()
+    roots = [d for d in HIDDEN.iterdir() if d.is_dir() and d.name != "templates"]
+    roots += [d for d in ENGINEER.iterdir() if d.is_dir()]
+    roots.append(HIDDEN)  # the shared discovery-notes templates dir
+    for sd in roots:
+        for kind in ("templates", "briefs"):
+            base = sd / kind
+            if base.exists():
+                for f in base.rglob("*.md"):
+                    existing.add(f"{kind}/{f.relative_to(base).as_posix()}")
+    return existing
+
+
+def check_template_brief_links():
+    existing = _template_brief_index()
+    for skill_dir in _skill_roots():
+        for path in sorted(skill_dir.rglob("*.md")):
+            if "templates" in path.relative_to(skill_dir).parts:
+                continue
+            text = _CODE_FENCE_RE.sub("", path.read_text(encoding="utf-8"))
+            for kind, name in _TEMPLATE_BRIEF_RE.findall(text):
+                if f"{kind}/{name}" not in existing:
+                    fail("template-link", path,
+                         f"`{kind}/{name}` names no template/brief that exists in any skill tree")
+
+
+def check_word_budget():
+    for base in (HIDDEN, REGISTERED, ENGINEER):
+        for path in sorted(base.rglob("*.md")):
+            if "templates" in path.parts:
+                continue
+            words = len(path.read_text(encoding="utf-8").split())
+            if words > WORD_BUDGET_WARN:
+                warn("word-budget", path,
+                     f"{words} words (> {WORD_BUDGET_WARN}) — consider moving detail down a tier with a pointer")
+
+
 def check_index_fresh():
     proc = subprocess.run(
         ["node", str(ROOT / "scripts" / "generate_workflow_index.js"), "--check"],
@@ -557,13 +657,23 @@ def main() -> int:
     check_index_fresh()
     check_writer_ref()
     check_reference_links()
+    check_registered_descriptions()
+    check_no_model_ids()
+    check_template_brief_links()
+    check_word_budget()
+
+    if warnings:
+        print(f"lint: {len(warnings)} warning(s) (non-blocking)")
+        for w in warnings:
+            print(f"  ⚠ {w}")
+        print()
 
     if findings:
         print(f"lint: {len(findings)} finding(s)\n")
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links.")
+    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links, descriptions, model ids, template links.")
     return 0
 
 
