@@ -206,6 +206,8 @@ Tooling: `npx groundwork-method policy` prints the resolved merge as JSON; `grou
 
 ## 4. Wave 2 — The engine: facts move from prose to code
 
+**Status:** started 2026-07-03. `groundwork findings` + `groundwork decisions` landed first (the recommended pair, §10 open-6) — durable state under `.groundwork/bets/<slug>/`, logic in `lib/bet-state/`, delivery prose shrunk to invoke them, and the exit-gate finding (persist the human-in-the-loop exchange) closed by `decisions ratify`'s verbatim-response record. Remaining verbs below.
+
 Incremental and non-breaking: new CLI verbs in `bin/groundwork.js` + `lib/` (dependency-free), each replacing a prose ritual, each a small PR, **skills shrinking in the same PR as each verb lands**:
 
 | Verb | Replaces | Notes |
