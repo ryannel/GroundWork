@@ -4,7 +4,7 @@ description: >
   Judges whether the permanent best-practice tests a slice rolled out are comprehensive
   and actually assert, against the stack's testing strategy. One of four independent
   review lenses the Delivery driver dispatches per slice
-  (groundwork-bet/workflows/04-delivery.md, Step 2); only the report flows back.
+  (groundwork-bet/workflows/delivery/step-02-slice-loop.md); only the report flows back.
 tier: frontier
 ---
 

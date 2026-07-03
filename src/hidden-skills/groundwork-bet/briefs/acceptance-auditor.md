@@ -3,7 +3,7 @@ name: acceptance-auditor
 description: >
   Verifies a slice diff does what the design says and nothing more, and does it
   honestly. One of four independent review lenses the Delivery driver dispatches per
-  slice (groundwork-bet/workflows/04-delivery.md, Step 2); only the report flows back.
+  slice (groundwork-bet/workflows/delivery/step-02-slice-loop.md); only the report flows back.
 tier: frontier
 ---
 

@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (delivery workflow: step-file spine, 2026-07-03)
+
+`groundwork-bet`'s 6.6k-word `workflows/04-delivery.md` splits into a thin spine (driver model, restrictions, git workflow, a state→step router) plus per-step files under `workflows/delivery/`: `step-01-readiness.md`, `step-02-slice-loop.md`, `step-03-milestone-close.md`, `step-04-postmortem.md`, and the trigger-loaded `on-amendment.md`, `on-change-navigation.md`, `topologies.md`. The reader loads one step fully, executes it, and follows its transition line — cutting delivery-entry instruction load and making resume cheap. Every gate sentence from the old file survives in exactly one step file. Design: `docs/plans/groundwork-v2.md` (W1.1).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
 ### Added (packaging: async update check, init --set, channels doc, 2026-07-03)
 
 `groundwork` now prints a dim "a newer version is available" line after a command when npm's `latest` is ahead — a non-blocking 1500ms best-effort check, all errors swallowed, suppressed on non-TTY / `CI` / `GROUNDWORK_NO_UPDATE_CHECK` / the `update` command. `init --set key=value` (repeatable) seeds a `config.toml` default at install time only; the key allowlist is derived from the seed template, prototype-pollution tokens are rejected, and a `--set` against an existing (user-owned) config refuses rather than mutating it. The `next` dist-tag stays deferred; how one would be cut is documented in the releasing reference. Design: `docs/plans/groundwork-v2.md` (W0.3).

@@ -96,5 +96,5 @@ For a slice stub, name the capability at its service edge:
 
 - Falsifiable and consumer-visible, per the target-state principle above — never an internal state, and it would pass with no special knowledge of the internal implementation.
 - Satisfies the front-door and honest-green tells canonical in `workflows/03-decomposition.md` Step 3.
-- A **headline proof, not a permutation** — one to three assertions per milestone or slice. An edge case, a permutation, or an error variant belongs in the slice's permanent best-practice tests (`workflows/04-delivery.md`, the Slice Loop), not here.
+- A **headline proof, not a permutation** — one to three assertions per milestone or slice. An edge case, a permutation, or an error variant belongs in the slice's permanent best-practice tests (`workflows/delivery/step-02-slice-loop.md`, the Slice Loop), not here.
 - A reviewer can read it and confirm it matches the milestone's acceptance criteria and Proof-of-work prose in `decomposition/NN-<milestone-slug>/index.md`.

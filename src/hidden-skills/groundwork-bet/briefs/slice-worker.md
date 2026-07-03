@@ -207,7 +207,7 @@ review is that):
 - **Honest green.** The implementation must satisfy the proof for the right reason,
   against the real product — the gaming tells are canonical in
   `briefs/acceptance-auditor.md`'s Honesty check, the same check the driver runs at
-  Step 2 of `04-delivery.md`. If a fake the slice leans on has no real test behind it, or
+  the Slice Loop review (`workflows/delivery/step-02-slice-loop.md`). If a fake the slice leans on has no real test behind it, or
   the proof runs against a test target rather than the shipping build, flag it. Surface
   any of these in the report rather than leaving them for the review to find.
 

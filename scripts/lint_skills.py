@@ -435,6 +435,12 @@ REFERENCE_LINK_EXEMPT = {
     # Generator-shipped contract doc, not a skill reference — lives at
     # src/generators/system-test-runner/NATIVE-CHECK-CONTRACT.md.
     "NATIVE-CHECK-CONTRACT.md",
+    # Delivery step-file spine (groundwork-bet/workflows/delivery/): sibling step and
+    # on-trigger files routed by the spine, not references/ pins. The numeric-leading
+    # workflow files (00-quick.md, 04-delivery.md, ...) are skipped by the regex already;
+    # these letter-leading ones need the allowlist.
+    "step-01-readiness.md", "step-02-slice-loop.md", "step-03-milestone-close.md",
+    "step-04-postmortem.md", "on-amendment.md", "on-change-navigation.md", "topologies.md",
 }
 
 # File-scoped exemptions: a bare `<name>.md` that is genuinely a

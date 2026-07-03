@@ -5,7 +5,7 @@ description: >
   on-design and a genuine pleasure to use — best-in-class patterns implemented in full, no
   dead-end flows, every state present, design-system match. A milestone-level review lens
   the Delivery driver dispatches at milestone close and the Validation phase dispatches over
-  the finished bet (groundwork-bet/workflows/04-delivery.md Milestone close;
+  the finished bet (groundwork-bet/workflows/delivery/step-03-milestone-close.md;
   05-validation.md Step 2.6); only the report flows back.
 tier: frontier
 ---

@@ -81,7 +81,7 @@ is already enough, and saying so is more honest than ritually invoking the tool.
 **Run reference analysis where the code is committed.** LSP symbols are accurate for committed
 code and stale against uncommitted edits — so the reference pass on a rename or signature change
 belongs with whoever plans the change against clean state (in bet delivery, the driver at
-capsule-assembly time — `04-delivery.md`'s ripple rule), whose caller list the implementer then
+capsule-assembly time — `04-delivery.md`'s Slice Loop ripple rule, `workflows/delivery/step-02-slice-loop.md`), whose caller list the implementer then
 works from. An implementer mid-edit asking Serena about the symbol it is currently rewriting gets
 yesterday's answer; the compiler and the caller list are the live truth at that point. Pair the
 caller list with the map's `module_graph`: the compiler only checks the targets your loop actually
@@ -174,7 +174,7 @@ the means differ. Say so rather than implying structural coverage you did not ha
 In a **git worktree** (e.g. a bet under delivery): the map cache is per-working-tree, so build it
 in the worktree before relying on it (`npx groundwork-method repo-map`). Serena's index is warmed
 at first need (`serena project index` — seconds), not as ritual — in delivery that need is the
-ripple rule at capsule assembly (`04-delivery.md`), which runs in the *root* session where symbols
+ripple rule at capsule assembly (`workflows/delivery/step-02-slice-loop.md`), which runs in the *root* session where symbols
 are accurate because the code under analysis is committed. Serena is registered with `--project .`,
 which resolves to the directory the *session* is rooted in: a worktree-rooted session scopes it to
 the worktree correctly, and the committed `.claude/settings.json` already approves the server
