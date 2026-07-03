@@ -38,6 +38,10 @@ function printHelp() {
             languages; extensible per-project. Incremental — only changed files reparse.
             \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
   \x1b[36mpolicy\x1b[0m    Print the resolved additive policy layer (policy.toml + policy.user.toml) as JSON
+  \x1b[36mfindings\x1b[0m  Per-bet findings ledger (.groundwork/bets/<slug>/findings.json): add | disposition | check | list.
+            \x1b[2mcheck exits non-zero on any open finding — the mechanical milestone-close gate.\x1b[0m
+  \x1b[36mdecisions\x1b[0m Per-bet default+veto queue (.groundwork/bets/<slug>/decisions.json): add | pending | ratify | list.
+            \x1b[2mratify records the owner's verbatim response as durable state; the approved tag moves only here.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2114,6 +2118,154 @@ function maybeCheckForUpdate(cmd) {
   } catch { /* swallow — never let the check throw */ }
 }
 
+// ─── Engine state verbs: findings & decisions ───────────────────────────────
+// Durable per-bet state (`.groundwork/bets/<slug>/`) the delivery workflow used
+// to ask the driver to keep by hand. Logic lives in lib/bet-state; these handlers
+// parse flags, orchestrate IO, and print. CI-safe: `findings check` exits non-zero
+// on any open finding, the mechanical form of the milestone-close gate.
+
+// Minimal flag parser: `--k v`, `--k=v`, and bare `--flag` (=> true). Positionals
+// (the subcommand) collect in `_`. No external dependency.
+function parseFlags(args) {
+  const out = { _: [] };
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a.startsWith('--')) {
+      const eq = a.indexOf('=');
+      if (eq !== -1) {
+        out[a.slice(2, eq)] = a.slice(eq + 1);
+      } else {
+        const key = a.slice(2);
+        const next = args[i + 1];
+        if (next !== undefined && !next.startsWith('--')) { out[key] = next; i++; }
+        else out[key] = true;
+      }
+    } else {
+      out._.push(a);
+    }
+  }
+  return out;
+}
+
+function loadBetState() {
+  return require(path.join(__dirname, '..', 'lib', 'bet-state'));
+}
+
+function findingsCommand(argv) {
+  const bs = loadBetState();
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  const p = getPaths();
+  const slug = f.bet;
+  const asJson = !!f.json;
+  const requireBet = () => { if (!slug) { c.err(`findings ${sub}: --bet <slug> is required`); process.exit(1); } };
+
+  switch (sub) {
+    case 'add': {
+      requireBet();
+      try {
+        const finding = bs.addFinding(p.targetDir, slug, {
+          slice: f.slice, milestone: f.milestone, lens: f.lens,
+          bucket: f.bucket, title: f.title, location: f.location,
+        });
+        if (asJson) process.stdout.write(JSON.stringify(finding, null, 2) + '\n');
+        else c.ok(`Recorded finding ${finding.id} (${finding.bucket}, open): ${finding.title}`);
+      } catch (err) { c.err(`findings add: ${err.message}`); process.exit(1); }
+      break;
+    }
+    case 'disposition': {
+      requireBet();
+      try {
+        const finding = bs.dispositionFinding(p.targetDir, slug, { id: f.id, as: f.as, note: f.note });
+        if (asJson) process.stdout.write(JSON.stringify(finding, null, 2) + '\n');
+        else c.ok(`Closed finding ${finding.id} — ${finding.disposition}${finding.note ? `: ${finding.note}` : ''}`);
+      } catch (err) { c.err(`findings disposition: ${err.message}`); process.exit(1); }
+      break;
+    }
+    case 'check': {
+      requireBet();
+      const open = bs.openFindings(p.targetDir, slug, { milestone: f.milestone, slice: f.slice });
+      if (asJson) process.stdout.write(JSON.stringify({ open: open.length, findings: open }, null, 2) + '\n');
+      if (open.length) {
+        if (!asJson) {
+          c.err(`${open.length} open finding(s) — cannot close:`);
+          for (const it of open) console.error(`    ○ ${it.id} [${it.bucket}] ${it.title}`);
+        }
+        process.exit(1);
+      }
+      if (!asJson) c.ok('No open findings — clear to close.');
+      break;
+    }
+    case 'list': {
+      requireBet();
+      const items = bs.listFindings(p.targetDir, slug, { status: f.status, milestone: f.milestone, slice: f.slice });
+      if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
+      if (!items.length) { c.dim('(no findings)'); break; }
+      for (const it of items) {
+        console.log(`  ${it.status === 'open' ? '○' : '●'} ${it.id} [${it.bucket}] ${it.title}${it.disposition ? ` → ${it.disposition}` : ''}`);
+      }
+      break;
+    }
+    default:
+      c.err(`findings: unknown subcommand '${sub || ''}' — use add | disposition | check | list`);
+      process.exit(1);
+  }
+}
+
+function decisionsCommand(argv) {
+  const bs = loadBetState();
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  const p = getPaths();
+  const slug = f.bet;
+  const asJson = !!f.json;
+  const requireBet = () => { if (!slug) { c.err(`decisions ${sub}: --bet <slug> is required`); process.exit(1); } };
+
+  switch (sub) {
+    case 'add': {
+      requireBet();
+      try {
+        const d = bs.addDecision(p.targetDir, slug, {
+          milestone: f.milestone, question: f.question, default: f.default, rationale: f.rationale,
+        });
+        if (asJson) process.stdout.write(JSON.stringify(d, null, 2) + '\n');
+        else c.ok(`Recorded decision ${d.id} (pending): ${d.question} → default: ${d.default}`);
+      } catch (err) { c.err(`decisions add: ${err.message}`); process.exit(1); }
+      break;
+    }
+    case 'pending': {
+      requireBet();
+      const items = bs.pendingDecisions(p.targetDir, slug);
+      if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
+      if (!items.length) { c.dim('(no pending decisions)'); break; }
+      for (const d of items) console.log(`  ▸ ${d.id}: ${d.question}\n      default: ${d.default}\n      why:     ${d.rationale}`);
+      break;
+    }
+    case 'ratify': {
+      requireBet();
+      try {
+        const done = bs.ratifyDecisions(p.targetDir, slug, {
+          id: f.id, all: !!f.all, response: f.response, outcome: f.as, at: f.at,
+        });
+        if (asJson) process.stdout.write(JSON.stringify(done, null, 2) + '\n');
+        else c.ok(`${done.length} decision(s) ${done[0].status} — "${done[0].ratification.response}"`);
+      } catch (err) { c.err(`decisions ratify: ${err.message}`); process.exit(1); }
+      break;
+    }
+    case 'list': {
+      requireBet();
+      const items = bs.listDecisions(p.targetDir, slug, { status: f.status });
+      if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
+      if (!items.length) { c.dim('(no decisions)'); break; }
+      for (const d of items) console.log(`  ${d.status === 'pending' ? '▸' : '✓'} ${d.id} [${d.status}] ${d.question}`);
+      break;
+    }
+    default:
+      c.err(`decisions: unknown subcommand '${sub || ''}' — use add | pending | ratify | list`);
+      process.exit(1);
+  }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2162,6 +2314,14 @@ switch (command) {
       c.err(`repo-map failed: ${err.message}`);
       process.exit(1);
     });
+    break;
+  case 'findings':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    findingsCommand(process.argv.slice(3));
+    break;
+  case 'decisions':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    decisionsCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.

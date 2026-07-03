@@ -8,6 +8,25 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (engine wave — findings & decisions verbs, 2026-07-03)
+
+The first two Wave-2 engine verbs move facts from prose the driver kept by hand into
+deterministic, committed state under `.groundwork/bets/<slug>/` (dependency-free;
+logic in `lib/bet-state/`). `groundwork findings add|disposition|check|list` is the
+findings ledger (`findings.json`): `check` exits non-zero while any finding is open —
+the mechanical, fail-closed form of the milestone-close gate, so it is CI-safe and
+cannot be rubber-stamped; `deferred-with-owner` and `dismissed-with-reason`
+dispositions require a `--note` so the owner or the reason is never dropped.
+`groundwork decisions add|pending|ratify|list` is the default+veto queue
+(`decisions.json`): `ratify` records the owner's **verbatim response** as durable
+state and is the only thing that lets the approved tag move — closing the exit-gate
+finding that the human-in-the-loop exchange lived only in a memlog line. The delivery
+workflow's prose shrinks in the same change to invoke the verbs instead of
+maintaining `docs/bets/<slug>/findings.md` / `decisions.md` by hand. Design:
+`docs/plans/groundwork-v2.md` (§4).
+
+- [no-migration] New verbs create state on demand; the hidden-skill tree clean-copies on update.
+
 ## [0.14.0] - 2026-07-03
 
 ### Changed (internal — delivery-phase simulation harness, 2026-07-03)
