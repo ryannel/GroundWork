@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (stakes-scaled validation + experience-audit dedup, 2026-07-03)
+
+Bet-close validation finally reads the pitch's per-bet **Stakes** field (blast radius, reversibility, review load) to set how much of the end-to-end judgment the owner walks with the auditor — a one-way-door bet earns a heavier walk, an iterate-behind-a-flag change a lighter one. This is the per-bet shaping the owner already authors and nothing yet read; it is **not the rejected project-level stakes axis** and conditions nothing in the floor — the deterministic tiers, per-slice lenses, honesty audit, front-door proofs, and experience gate run in full regardless. The whole-bet experience audit now **dedups the re-drive**: seams in full, and a whole milestone only when it took commits after its own close-time audit. Design: `docs/plans/groundwork-v2.md` (W1.8).
+
+- [no-migration] Hidden-skill trees are clean-copied on update.
+
 ### Changed (attestation theater removed, 2026-07-03)
 
 The always-run confirmation walks that never tripped are cut to mechanical, conditional checks. Prose integrity is one git-pathspec check against the approved tag (a clean output is the whole pass); honest-green's consumer-compile runs only on ripple slices and its shipping-build check only on front-door slices — where each can actually bite. Protocol 9 doc re-reviews at milestone open are **reserved**: the mechanical Decomposition Gate (recorded item-by-item in the commit body) is the review of record, and P9 dispatches only for a new contract or surface, a post-amendment rung, or a first decomposition — the observed P9 re-reviews found zero critical findings over ground the gate had just covered. Design: `docs/plans/groundwork-v2.md` (W1.7).
