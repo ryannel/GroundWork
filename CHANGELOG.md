@@ -158,6 +158,11 @@ maintaining `docs/bets/<slug>/findings.md` / `decisions.md` by hand. Design:
 `docs/plans/groundwork-v2.md` (§4).
 
 - [no-migration] New verbs create state on demand; the hidden-skill tree clean-copies on update.
+### Changed (engineer default-row audit — W1.10 follow-up discharged, 2026-07-03)
+
+Ran the deferred audit of every engineer skill's default routing row — the one that fires for "any non-trivial <stack> change" — against the >~3k-word threshold that would justify a distilled `references/core.md`. The JIT-router diet that shipped in 0.14.0 already holds every default load well under it: go 1701 words (`architecture.md` + `implementation-patterns.md` + `go-services.md`), node 1178 (`architecture.md` + `node-services.md`), python 1062 (`architecture.md` + `implementation-patterns.md`). The three surface skills (nextjs, flutter, electron) route purely by task shape and carry no always-on default row at all; even their heaviest compound task load stays under 3k (nextjs data-fetch + mutations 2410, electron new-window process-model + security 1718, flutter new-feature architecture 993). No `core.md` was created for any of the six — one would duplicate content the task-specific rows still route to, adding a second source of truth for no context saving. The follow-up is closed. Audit table: `docs/plans/groundwork-v2.md` (W1.10).
+
+- [no-migration] Audit only; no skill, reference, or shipped-surface change.
 
 ## [0.14.0] - 2026-07-03
 
@@ -169,7 +174,7 @@ Built the instrument the Wave-1 exit gate needed: `./dev sandbox <name> --delive
 
 ### Changed (pointer + builder hygiene, 2026-07-03)
 
-De-brittled the cross-skill `Bet Slice Rollout` citation: a new lint rule requires every engineer skill's testing reference to carry the `## Bet Slice Rollout` heading the slice-worker and coverage-auditor briefs cite by name (a rename now fails the build) — which surfaced and fixed a missing section in `groundwork-node-engineer`. `groundwork-stack-forge`'s authoring reference now states an explicit required-sections contract for forged engineer skills (version-corrections, a testing reference with a Bet Slice Rollout section, a Context-Routing section). The engineer default-row `references/core.md` distillation is tracked as a follow-up. Design: `docs/plans/groundwork-v2.md` (W1.10).
+De-brittled the cross-skill `Bet Slice Rollout` citation: a new lint rule requires every engineer skill's testing reference to carry the `## Bet Slice Rollout` heading the slice-worker and coverage-auditor briefs cite by name (a rename now fails the build) — which surfaced and fixed a missing section in `groundwork-node-engineer`. `groundwork-stack-forge`'s authoring reference now states an explicit required-sections contract for forged engineer skills (version-corrections, a testing reference with a Bet Slice Rollout section, a Context-Routing section). The engineer default-row `references/core.md` distillation was handled as a follow-up audit (discharged under [Unreleased]). Design: `docs/plans/groundwork-v2.md` (W1.10).
 
 - [no-migration] Dev-time lint + skill prose; skills clean-copy on update.
 

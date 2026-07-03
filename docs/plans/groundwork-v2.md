@@ -200,6 +200,19 @@ Tooling: `npx groundwork-method policy` prints the resolved merge as JSON; `grou
 
 **W1.10 — Pointer + builder hygiene**: de-brittle §Bet-Slice-Rollout-style anchor citations; required-sections contract in stack-forge for generated engineer skills; engineer default-row audit — where a skill's "any non-trivial change" routing row front-loads >~3k words of references, distill a `references/core.md` (the JIT-router diet itself already shipped; this trims the default row).
 
+**W1.10 default-row audit — outcome (2026-07-03, follow-up discharged):** the audit ran; no skill's default row crosses the >~3k threshold, so no `core.md` was created. The JIT-router diet that shipped in 0.14.0 already holds every default load well under it, and a `core.md` would have to duplicate content the task-specific rows still route to (`architecture.md`, `*-services.md`, `implementation-patterns.md`) — a second source of truth for no context saving. Default-load word counts (`wc -w`):
+
+| Skill | Default row (fires for "any non-trivial change") | References loaded | Words | Decision |
+|---|---|---|---|---|
+| go | Any non-trivial service change | `architecture.md` + `implementation-patterns.md` + `go-services.md` | 526 + 544 + 631 = **1701** | Already lean → skip |
+| node | Any non-trivial service change | `architecture.md` + `node-services.md` | 530 + 648 = **1178** | Already lean → skip |
+| python | Any non-trivial service change | `architecture.md` + `implementation-patterns.md` | 498 + 564 = **1062** | Already lean → skip |
+| nextjs | *(no always-on default row — routing is task-scoped)* | heaviest compound: `data-fetching.md` + `mutations-and-forms.md` | 1355 + 1055 = **2410** | No default row → skip |
+| electron | *(no always-on default row — routing is task-scoped)* | heaviest compound: `process-model.md` + `security.md` (new window) | 816 + 902 = **1718** | No default row → skip |
+| flutter | *(no always-on default row — routing is task-scoped)* | heaviest single: `architecture.md` (new feature) | **993** | No default row → skip |
+
+The three surface skills (nextjs, flutter, electron) route purely by task shape and carry no "any non-trivial change" row at all; even their heaviest compound task load stays under 3k. No shipped change — audit only.
+
 **Wave-1 exit gate:** a `./dev sandbox --simulate` delivery run on a frontier model exercising: spine→step routing; a mid-bet fresh-context resume from board + memlog + pack; one triggered amendment (tag re-point + pack recompile); file-backed lens returns with inline verdicts; one default+veto decision batched and ratified at a checkpoint walkthrough; a blocked milestone close on an open ledger finding. This also discharges the simulation still owed by `docs/plans/bet-delivery-orchestration.md`.
 
 ---
