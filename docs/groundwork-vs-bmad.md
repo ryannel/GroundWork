@@ -1,7 +1,7 @@
 ---
 owner: "@RNEL"
 audience: "Humans, AI Agents"
-last_reviewed: "2026-06-12"
+last_reviewed: "2026-07-03"
 ---
 
 # GroundWork and BMAD
@@ -10,13 +10,15 @@ GroundWork and BMAD solve the same problem — disciplined AI-driven development
 
 > **Correction (2026-06-10):** an earlier revision of this document claimed BMAD is a "process framework" whose output "stops at documents." That was a research error — the analyzed v6.6 clone carries a full implementation phase (`src/bmm-skills/4-implementation/`: sprint planning, story creation, dev-story, code review, correct-course, retrospectives). The comparison throughout this document reflects the corrected reading, and the delivery-loop mechanics worth adopting are folded into [the contract-grade delivery plan](plans/contract-grade-delivery.md).
 
+> **Update (2026-07-03):** a second-pass study of BMAD v6.9 — combined with a forensic analysis of ~118 GroundWork agent transcripts — produced [the GroundWork V2 plan](plans/groundwork-v2.md). It adopts BMAD's context bookkeeping (step-file loading, machine state, context packs, memlog, subagent output discipline), its guidance and customization surfaces (reshaped as an additive policy layer that can never lower the rigor floor), and its packaging polish — and goes past BMAD with a deterministic fact engine and runtime verification of the running product. The standalone verdict below is unchanged.
+
 **Verdict: GroundWork should remain standalone.** The full reasoning is in [Standalone or extension](#standalone-or-extension), but the short version: the half of GroundWork that BMAD's extension system could host is the half that is least differentiated, and the two frameworks disagree at the methodological core — agile stories versus contract-first bets. What GroundWork should take from BMAD is its operational maturity (release engineering, customization without forking, shipped quality checklists, a help surface — the spine of [the quality uplift plan](plans/bmad-quality-uplift.md)) and the strongest mechanics of its delivery loop (machine-tracked story status, per-story context capsules, triage-based review, retrospective follow-through — adopted in [the contract-grade delivery plan](plans/contract-grade-delivery.md)).
 
 ---
 
 ## What BMAD is
 
-BMAD (Breakthrough Method for Agile AI-Driven Development) is an open-source framework — 43K+ GitHub stars, MIT licensed, v6.8 as of May 2026 — that models software development as an agile team of named AI personas: Mary the analyst, John the PM, Winston the architect, Sally the UX designer, Amelia the developer, Paige the tech writer. Work flows through four phases (Analysis → Planning → Solutioning → Implementation), each producing a versioned artifact: brief, PRD, architecture, epics and stories, code, tests. The reference clone analyzed for this document (v6.6; kept outside this repo) carries 42 skills, 38 templates, 12 quality checklists, and 89 step files. The v6.6→v6.8 delta is a web-bundle release packager plus fixes — nothing that changes this comparison.
+BMAD (Breakthrough Method for Agile AI-Driven Development) is an open-source framework — 43K+ GitHub stars, MIT licensed, v6.8 as of May 2026 — that models software development as an agile team of named AI personas: Mary the analyst, John the PM, Winston the architect, Sally the UX designer, Amelia the developer, Paige the tech writer. Work flows through four phases (Analysis → Planning → Solutioning → Implementation), each producing a versioned artifact: brief, PRD, architecture, epics and stories, code, tests. The reference clone analyzed for this document (kept outside this repo) was originally read at v6.6 (42 skills, 38 templates, 12 quality checklists, 89 step files) and re-pulled at v6.9 on 2026-07-03. The v6.6→v6.9 delta is substantial: a universal skills architecture (agents and workflows are all SKILL.md-based skills now, with step-file just-in-time loading and append-only memlogs), a rolled-out three-layer TOML customization surface with a guided `bmad-customize` authoring skill, `bmad-dev-auto` (an unattended one-iteration dev loop driven by a spec status state machine), `bmad-checkpoint-preview` (a concern-ordered human review walkthrough), a matured party mode, and marketplace-plugin module resolution in the installer. None of it changes the structural comparison below; the mechanic-by-mechanic adoption verdicts for v6.9 are carried in [the GroundWork V2 plan](plans/groundwork-v2.md).
 
 Its operational machinery is its real strength. A three-tier TOML customization hierarchy (base → team → personal) lets users reshape any agent or workflow without forking. A module system (BMM core, test architect, game dev, creative, builder) plus third-party expansion packs extend it into new domains. An interactive installer remembers answers, supports CI, and upgrades cleanly across frequent releases. Web bundles deploy subsets to ChatGPT and Gemini. Every workflow is indexed in a help system that tells the user where they are and what comes next.
 
