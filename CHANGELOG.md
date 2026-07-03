@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (orchestrator guidance: one position-report procedure + intent-first dispatch, 2026-07-03)
+
+The "what's next" and "help" intents collapse into a single Guidance procedure — position report (setup phase N of M, or the delivery lane state from the pitch `status:`, `./dev bet status`, patch-cluster trailers, a pending upgrade brief, and open maturity rows) → exactly one recommended next action with the phrase that starts it → general questions answered from `docs/` + `llms.txt`, never memory. A new opening-message dispatch rule routes an unambiguous first message in the same turn and asks exactly one clarifying question only when the route is genuinely ambiguous. No third registered skill — the guidance lives in the orchestrator. Design: `docs/plans/groundwork-v2.md` (W0.1b, W0.1c).
+
+- [no-migration] Registered-skill trees are clean-copied on update.
+
 ### Added (workflow index: delivery lanes + general-questions row, 2026-07-03)
 
 The generated `workflow-index.md` now carries a Delivery-Loop lanes table (patch / quick bet / bet, each with its scope-test one-liner and route) and a General-questions pointer row (`docs/` + `llms.txt` as the answer corpus). Both are derived from the orchestrator's own Work Intake triage and routing bullets, so the index cannot drift from the actual sizing logic. Design: `docs/plans/groundwork-v2.md` (W0.1a).

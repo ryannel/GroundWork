@@ -149,6 +149,10 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 
 ## Intent Handling
 
+### Opening-message dispatch
+
+When a session's opening message maps unambiguously to one lane or skill — a concrete build/fix ask, a named phase, "update groundwork" — skip the introduction and route in the same turn; the act of routing is the reply. Introduce yourself only when the route is genuinely ambiguous, and then ask exactly one clarifying question rather than laying out options.
+
 ### User requests work — build, add, change, or fix something
 
 The most common entry, and the one GroundWork exists to catch: the user asks to **build, add, implement, change, or fix** something — "add a button to delete an image", "fix the upload bug", "let's build the dashboard". This is a routing trigger, not a cue to start editing code. Size the work and route it; never implement directly from here.
@@ -172,13 +176,13 @@ Resolve a tie or a borderline ask to the **lighter** lane and name the escalatio
 ### User requests a specific skill
 Match intent to a skill. Briefly introduce it, then load and execute the instruction file.
 
-### User asks "what's next?"
-1. Identify the first incomplete phase for the current mode.
-2. Briefly introduce it — one sentence.
-3. Load and execute immediately.
+### User asks for guidance — "what's next", "help", "where are we"
 
-### User asks for help
-Read `.agents/skills/groundwork-orchestrator/workflow-index.md` — the generated map of every lifecycle route. Answer with: what GroundWork is (one paragraph), which mode and phase this project is in (from state resolution), what the next step produces, and the index table for the current mode so the user can see the whole road. Do not paste all four tables — the current mode's table plus the Anytime table is the useful subset.
+One procedure serves every orientation ask; state resolution has already run, so the state is in hand.
+
+1. **Position report.** In setup mode, name the mode and the current phase as "phase N of M", each completed phase's artifact checked off and the incomplete ones listed. In the Delivery Loop, report the active lane from the in-flight pitch's `status:` and `./dev bet status`, plus the pending signals state resolution already surfaced — patch-cluster trailers building toward a quick bet, an unconsumed `.groundwork/cache/upgrade-brief.json`, open rows in `docs/maturity.md`.
+2. **One recommended next action.** Name the single highest-value next step and give the user the exact phrase that starts it — one action, never a menu. `.agents/skills/groundwork-orchestrator/workflow-index.md` (the generated route map, same directory) is the reference for what each route produces; read the current mode's table from it when the user wants the whole road, but never paste all four tables.
+3. **General questions** — "how does X work", "why bets", "what is a surface" — are answered from `docs/` and `llms.txt`, never from memory; the index's General-questions row names that corpus.
 
 ### User asks what GroundWork can scaffold
 A capability question — "can we scaffold a docs site?", "what can GroundWork generate?", "is there a Go service generator?" — is answered from the **shipped generator catalog**, never from memory and never by entering the scaffold flow to find out.
