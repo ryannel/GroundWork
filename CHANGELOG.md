@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (milestone context pack, 2026-07-03)
+
+Delivery gains a per-milestone context pack (`templates/milestone-context.md` → `.groundwork/cache/bets/<slug>/milestone-<NN>-context.md`), distilled at milestone open and refreshed at slice close. It carries **pointers and learnings, never contract text** — design-section pointers, engineer Context-Routing rows, prior-slice `Notes`, postmortem gists, proven recipes, testing obligations, worktree environment facts — so a fresh worker inherits context without re-reading upstream docs and without a second copy of any API/schema/data shape. Staleness is mechanical (`compiled_from` ≠ approved-tag sha), checked at milestone open and after any amendment. The dispatch capsule shrinks to the pack pointer plus slice-specifics; ripple caller lists stay per-slice (never precompiled). Design: `docs/plans/groundwork-v2.md` (W1.3).
+
+- [no-migration] Cache-tier; skills clean-copy on update.
+
 ### Added (delivery working state: board.yaml + memlog + `./dev bet log`, 2026-07-03)
 
 Delivery gains a gitignored per-bet working state under `.groundwork/cache/bets/<bet-slug>/`: `board.yaml` (schema v1 — the step-router pointer + a slice status map derived from the decomposition tree, carrying zero proof text) and `memlog.md` (append-only resume index). Neither ever gates — git and the suite are the record, the working state reconciles against them, and on divergence git/suite wins; absent or corrupt, it self-heals from the git log (no migration). A new `./dev bet log <slug> -- "<line>"` appends a timestamped memlog line (documented `printf >>` fallback); `./dev archive bet` now also removes the working-state cache. The cache is gitignored via a seeded `.groundwork/cache/.gitignore`. New Protocol 7 row in the operating contract (additive; contract stays v1). Design: `docs/plans/groundwork-v2.md` (W1.2).

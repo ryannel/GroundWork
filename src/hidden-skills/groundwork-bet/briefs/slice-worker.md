@@ -73,6 +73,13 @@ The driver passes:
   You build in the worktree handed to you; you do not manage isolation.
 - **Context capsule** — the small set of pointers that let the worker build without
   re-deriving the bet:
+  - The **milestone context pack** — `.groundwork/cache/bets/<bet_slug>/milestone-<NN>-context.md`.
+    Read it first: it points at the technical-design sections this milestone touches,
+    names the engineer Context-Routing rows to load (including the stack's testing
+    strategy), and carries the prior-slice `Notes` learnings, proven recipes and their
+    durable paths, testing obligations, and worktree environment facts. The pack holds
+    **pointers and learnings, never contract shapes** — read the pointed-at design for
+    API/data/schema, never a paraphrase.
   - The **previous slice's delivery commit** — hash, message, and diff. The patterns
     it established, the review findings it ate, the approaches that worked, and its
     `Notes:` line for the next slice are all there. Repeat its lessons, not its

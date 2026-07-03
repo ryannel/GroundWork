@@ -28,6 +28,7 @@ For milestone 1 there is nothing to open — roll straight into the Slice Loop. 
 2. **Review them** — run the Decomposition Gate scoped to this milestone, then the Protocol 9 decomposition review on the new slice files (fail-closed, exactly as Decomposition Step 6). Revise to a clean verdict.
 3. **Record the authored slices** — on the user's approval, commit the new slice files (`bet(<bet-slug>): author milestone <N>`). This is additive authoring — it adds this rung's slices and changes no existing proof.
 4. **Materialize this milestone's slice stubs** (`step-01-readiness.md` Step 0.5's procedure, scoped to the new slices) and commit the extended red board before the Slice Loop opens its first slice.
+5. **Compile this milestone's context pack** — `.groundwork/cache/bets/<bet-slug>/milestone-<NN>-context.md` from `../../templates/milestone-context.md`, stamped `compiled_from` = the approved-tag sha, folding in the closed milestones' postmortem gists and findings-ledger entries as learnings. The Slice Loop points each worker at this pack instead of paraphrasing the design.
 
 If opening the milestone reveals the *headline proof itself* is now wrong — not just its slices — route it through the Amendment Protocol (`on-amendment.md`) or Change Navigation (`on-change-navigation.md`).
 
