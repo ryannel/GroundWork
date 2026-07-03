@@ -35,6 +35,8 @@ Every phase in this lifecycle enacts one of three invariants. Phases apply and c
 2. **Honest green.** The suite passes for the right reason, against the real product — a gamed implementation is a defect even on a green board, and any fake it leans on needs a real test behind it, exercising the real producer. Canonical as the proof requirement at authoring time: `workflows/03-decomposition.md` Step 3. Canonical as the gaming tells checked at review time: `briefs/acceptance-auditor.md`'s Honesty check, applied unchanged at `workflows/delivery/step-02-slice-loop.md`, Review.
 3. **Recorded amendment.** Steering how slices break down is free. Changing *what a milestone or slice proves* is an owner-approved commit beside the prose, with a reason — never a silent edit. Canonical throughout Delivery: the Amendment Protocol (`workflows/delivery/on-amendment.md`) and Change Navigation (`workflows/delivery/on-change-navigation.md`).
 
+**Owner steering: default+veto, with a design-altitude guard.** Delivery runs without input by default. A decision that is destructive, scope-changing, or proof-weakening is a hard stop; every other decision takes its recommended default (recorded in `docs/bets/<bet-slug>/decisions.md`), proceeds, and batches to the next checkpoint for ratification — the approved tag moves only on ratification. The guard: anything that changes what the owner authored at a design altitude — UI, data flows, API, schema — is an amendment and a hard stop, never a defaulted decision. Canonical in the delivery spine (`workflows/04-delivery.md`, *Owner decisions*).
+
 ---
 
 ## Lifecycle Overview

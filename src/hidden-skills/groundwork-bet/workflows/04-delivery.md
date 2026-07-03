@@ -69,6 +69,14 @@ The `step` field is the step-router pointer (the spine's router reads it); it ho
 
 **`memlog.md`** — append-only, one timestamped line per event: a slice closed (sha + Notes gist), an amendment (sha + reason — the commit and re-pointed tag stay canonical; the line is an index entry), a postmortem gist, the mode choice or its re-confirmation, a blocked/unblocked, a change proposal filed. A deep bet runs ~60–100 lines — the resume read that replaces replaying `git log -p` and the postmortem prose. Append with `./dev bet log <bet-slug> -- "<line>"` (documented fallback where the CLI is unavailable: `printf '%s\n' "- <ts> — <line>" >> .groundwork/cache/bets/<bet-slug>/memlog.md`).
 
+## Owner decisions: stop-worthiness and default+veto
+
+Most decisions delivery raises are not worth stopping the loop for. The test, in the owner's words: *is it worth stopping delivery to ask this now, or could it wait?*
+
+**Hard stop — pause and ask now — only for a decision that is destructive, scope-changing, or proof-weakening.** Everything else takes the **default+veto** path: record the recommended default and its one-line rationale in `docs/bets/<bet-slug>/decisions.md`, proceed on it, and batch it to the next natural pause (a milestone postmortem, the validation prelude) for ratification. A defaulted decision that needs a commit rides a single `[provisional]` amendment; **the `bet/<bet-slug>/approved` tag moves only on the owner's ratification**, never on a provisional default. This converts the class of stalls where a whole session blocks on one binary question into minutes.
+
+**Design-altitude guard.** Default+veto applies to non-steering decisions only. Anything that would change what the owner authored at a design altitude — UI, data flows, API, schema, i.e. the locked technical design — is an amendment and therefore a hard stop, never a defaulted decision. And the checkpoint walkthrough's job is to *maintain* the owner's system comprehension as delivery evolves it; it complements the design walk, it never substitutes for authorship.
+
 ## The Milestone Loop
 
 Work through the milestone ladder in order. For each milestone: if its slices are not yet authored (every milestone after the first), **open it** — author and record its slices (`delivery/step-04-postmortem.md`, *Opening a milestone*) — then drive its slices to green (the Slice Loop), close the milestone, and run the milestone postmortem before moving on. The first milestone's slices were authored and approved at decomposition, so it opens straight into the Slice Loop.
