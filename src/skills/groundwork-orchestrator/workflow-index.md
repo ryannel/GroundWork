@@ -36,6 +36,22 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 |---|---|---|
 | `groundwork-bet` | The five-phase bet workflow: discovery → design foundations → decomposition → delivery → validation | `.groundwork/skills/groundwork-bet/instructions.md` |
 
+Every build/change/fix request is sized into one of three lanes at intake (the Work Intake triage). Resolve a borderline ask to the lighter lane and name the escalation trigger.
+
+| Lane | Scope test | Route |
+|---|---|---|
+| **patch** | Does it pass groundwork-patch's scope test — one user-facing goal, no new capability, no API or schema change, not the third patch clustering in one area — and does it leave every queued bet's own premises and dependencies untouched? | `groundwork-patch` |
+| **quick bet** | Is it one small new capability — a single user-visible step, deliverable in one sitting, touching at most a local, non-structural contract delta? | `groundwork-bet` |
+| **bet** | Does it span more than one demonstrable milestone, or change a contract structurally or across services? | `groundwork-bet` |
+
+## General questions (not a route)
+
+Questions about the framework — what a phase produces, why the method works this way, what a term means — are answered from the shipped corpus, never from memory.
+
+| Ask | Answer corpus |
+|---|---|
+| "How does X work?", "why bets?", "what is a surface?" | `docs/` (framework docs seeded into the project) + `llms.txt` (the machine-readable map) |
+
 ## Anytime
 
 Available in any mode, on demand.

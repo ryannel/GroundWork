@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (workflow index: delivery lanes + general-questions row, 2026-07-03)
+
+The generated `workflow-index.md` now carries a Delivery-Loop lanes table (patch / quick bet / bet, each with its scope-test one-liner and route) and a General-questions pointer row (`docs/` + `llms.txt` as the answer corpus). Both are derived from the orchestrator's own Work Intake triage and routing bullets, so the index cannot drift from the actual sizing logic. Design: `docs/plans/groundwork-v2.md` (W0.1a).
+
+- [no-migration] Registered-skill trees are clean-copied on update; the generated index rides along.
+
 ### Added (new backend stack: groundwork-node-engineer + client Day-2 checklists, 2026-07-02)
 
 The backend engineer family gains its third member: `groundwork-node-engineer` — Node 22 / TypeScript strict / native ESM, Fastify with zod at every boundary, Drizzle target-state schema with diff-derived migrations, pino + OTel observability deferring to canon, Vitest + Testcontainers honeycomb testing, and dependency-cruiser as the dependency-direction fitness function. Eleven decision-time references including the required staleness firewall, the family's outbox / idempotent-consumer / raw-body-HMAC integration shape, and a sync anchor pinning the six cross-cutting canon files. Skill only — no generator yet (decision D3): it serves forged and hand-built Node backends today and is the doctrine a future `node-microservice` generator will promote. The dev-only `scaffold-designer` also gains Mobile (Flutter) and Desktop (Electron) Day-2 checklists, completing its Backend/Frontend pair. Design: `docs/plans/product-outcomes-uplift.md` (B4).
