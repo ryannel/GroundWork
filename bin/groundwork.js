@@ -1302,6 +1302,18 @@ async function initGroundWork(options = {}) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
+  // The cache is transient by design — repo-map, drafts, hand-offs, and the per-bet
+  // working state (board.yaml, memlog, packs) never belong in git. Seed a .gitignore that
+  // ignores everything under it but itself, so the rule ships and self-heals.
+  const cacheIgnore = path.join(p.targetCacheDir, '.gitignore');
+  if (!fs.existsSync(cacheIgnore)) {
+    try {
+      fs.writeFileSync(cacheIgnore, '# GroundWork cache is transient — never commit it.\n*\n!.gitignore\n');
+    } catch (err) {
+      c.warn(`Could not seed .groundwork/cache/.gitignore: ${err.message}`);
+    }
+  }
+
   try {
     installSkillTrees(p);
   } catch (err) {

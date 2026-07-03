@@ -441,6 +441,8 @@ REFERENCE_LINK_EXEMPT = {
     # these letter-leading ones need the allowlist.
     "step-01-readiness.md", "step-02-slice-loop.md", "step-03-milestone-close.md",
     "step-04-postmortem.md", "on-amendment.md", "on-change-navigation.md", "topologies.md",
+    # Per-bet working-state cache files (.groundwork/cache/bets/<slug>/), not references/ pins.
+    "memlog.md",
 }
 
 # File-scoped exemptions: a bare `<name>.md` that is genuinely a

@@ -56,6 +56,8 @@ Apply `patch` fixes yourself when small and bounded, or re-dispatch a worker for
 
 Commit the slice — that commit **is** the record, and the driver writes it (the worker left the changes unstaged). Use a structured message: a `bet(<bet-slug>): slice <N.M> <slice-slug>` subject, a body listing every file added, modified, or deleted, and a `Notes:` line — one or two sentences the next slice should know (a pattern established, a deviation and why, a struggle worth not repeating; carry the worker's `NOTES:` forward). An empty `Notes:` on a slice that fought us is a record that lies. The slice flips green on the board the moment its tests pass. Then push the branch (`git push`) — backup, not integration (Git workflow in the spine); skip only on a project with no remote.
 
+Update the working state (`../04-delivery.md`, *Working state* — it never gates): rewrite `board.yaml` to mark this slice `done` with its commit sha and advance `step`, and append one memlog line (`./dev bet log <bet-slug> -- "slice <N.M> closed (<sha>): <Notes gist>"`). Carry any amendment through to the memlog too.
+
 **In slice-by-slice mode, pause here** — show the user the closed slice (what it proved, what the review found, the commit) and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
 
 ---

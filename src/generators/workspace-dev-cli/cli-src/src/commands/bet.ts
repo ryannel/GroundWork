@@ -255,6 +255,14 @@ export async function archive(ctx: Ctx): Promise<number> {
     r.warn(`No docs at docs/bets/${slug} — skipping.`);
   }
 
+  // The bet's working-state cache (board.yaml, memlog, packs, reviews, reports) is
+  // disposable — its record lives in git and the archived prose. Remove it on archive.
+  const cacheDir = betCacheDir(slug);
+  if (fs.existsSync(cacheDir)) {
+    fs.rmSync(cacheDir, { recursive: true, force: true });
+    r.success(`Removed working-state cache .groundwork/cache/bets/${slug}`);
+  }
+
   r.info('Permanent best-practice tests remain in place and cover the feature going forward.');
   return 0;
 }
@@ -349,13 +357,43 @@ function deriveBoard(slug: string): { ran: boolean; rows: BoardRow[] } {
   return { ran, rows };
 }
 
+/** The per-bet working-state cache dir (`.groundwork/cache/bets/<slug>/`): board.yaml,
+ *  memlog.md, milestone packs, reviews/, reports/. Gitignored, driver-written, never a
+ *  gate — git + the suite remain the record. */
+function betCacheDir(slug: string): string {
+  return path.join(ROOT, '.groundwork', 'cache', 'bets', slug);
+}
+
+// Append one timestamped line to the bet's memlog (`./dev bet log <slug> -- "<line>"`).
+// The memlog is an append-only resume index — the git commit and re-pointed tag stay
+// canonical; a line here is a pointer to them, never a source of truth. Documented
+// fallback when the CLI is unavailable: `printf '%s\n' "- <ts> — <line>" >> <memlog>`.
+async function logCmd(ctx: Ctx): Promise<number> {
+  const rest = ctx.args.slice(1); // drop the 'log' noun
+  const dash = rest.indexOf('--');
+  const slug = (dash === -1 ? rest : rest.slice(0, dash)).find((a) => !a.startsWith('-'));
+  const message = (dash === -1 ? rest.slice(1) : rest.slice(dash + 1)).join(' ').trim();
+  if (!slug || !message) {
+    throw new CliError('Usage: ./dev bet log <slug> -- "<line>"');
+  }
+  validateSlug(slug, 'bet');
+  const dir = betCacheDir(slug);
+  fs.mkdirSync(dir, { recursive: true });
+  const memlog = path.join(dir, 'memlog.md');
+  const ts = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+  fs.appendFileSync(memlog, `- ${ts} — ${message}\n`);
+  return 0;
+}
+
 export async function betCmd(ctx: Ctx): Promise<number> {
   const noun = ctx.args.filter((a) => !a.startsWith('-'))[0];
   switch (noun ?? 'status') {
     case 'status':
       return status(ctx);
+    case 'log':
+      return logCmd(ctx);
     default:
-      throw new CliError('Usage: ./dev bet status [<slug>] [--json]');
+      throw new CliError('Usage: ./dev bet status [<slug>] [--json]  |  ./dev bet log <slug> -- "<line>"');
   }
 }
 

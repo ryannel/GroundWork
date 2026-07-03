@@ -8,6 +8,12 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (delivery working state: board.yaml + memlog + `./dev bet log`, 2026-07-03)
+
+Delivery gains a gitignored per-bet working state under `.groundwork/cache/bets/<bet-slug>/`: `board.yaml` (schema v1 — the step-router pointer + a slice status map derived from the decomposition tree, carrying zero proof text) and `memlog.md` (append-only resume index). Neither ever gates — git and the suite are the record, the working state reconciles against them, and on divergence git/suite wins; absent or corrupt, it self-heals from the git log (no migration). A new `./dev bet log <slug> -- "<line>"` appends a timestamped memlog line (documented `printf >>` fallback); `./dev archive bet` now also removes the working-state cache. The cache is gitignored via a seeded `.groundwork/cache/.gitignore`. New Protocol 7 row in the operating contract (additive; contract stays v1). Design: `docs/plans/groundwork-v2.md` (W1.2).
+
+- [no-migration] Cache-tier working state; in-flight bets self-heal from git, and the cache `.gitignore` seeds on the next init/update.
+
 ### Changed (delivery workflow: step-file spine, 2026-07-03)
 
 `groundwork-bet`'s 6.6k-word `workflows/04-delivery.md` splits into a thin spine (driver model, restrictions, git workflow, a state→step router) plus per-step files under `workflows/delivery/`: `step-01-readiness.md`, `step-02-slice-loop.md`, `step-03-milestone-close.md`, `step-04-postmortem.md`, and the trigger-loaded `on-amendment.md`, `on-change-navigation.md`, `topologies.md`. The reader loads one step fully, executes it, and follows its transition line — cutting delivery-entry instruction load and making resume cheap. Every gate sentence from the old file survives in exactly one step file. Design: `docs/plans/groundwork-v2.md` (W1.1).

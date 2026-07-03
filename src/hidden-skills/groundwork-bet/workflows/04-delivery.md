@@ -42,6 +42,33 @@ Slices are sequential by construction — each reads the previous slice's delive
 
 When a slice spans more than one service, how it records depends on the project's repository topology — the monorepo the scaffold produces needs no delta; submodule and polyrepo layouts are covered in `delivery/topologies.md`, loaded only off-monorepo.
 
+## Working state: the board and the memlog
+
+Delivery keeps a small per-bet working state under `.groundwork/cache/bets/<bet-slug>/` — gitignored, driver-written, created at Step 0 and removed when the bet is archived. **It never gates.** Git and the suite are the record; the board and memlog are a resume convenience that reconciles *against* them, and on any divergence tests and git win. Absent or corrupt, the working state costs nothing — today's resume path (read `./dev bet status` and the delivery git log) *is* the bootstrap path, so an in-flight bet self-heals with no migration.
+
+**`board.yaml` (schema v1)** — the driver's map of the bet, rewritten whole and atomically after every transition (never patched in place):
+
+```yaml
+bet: <bet-slug>
+track: full | quick            # the lane (quick bets carry track: quick)
+mode: slice | milestone | whole-bet   # the Step 0.7 granularity choice, persisted
+step: step-01-readiness | step-02-slice-loop | step-03-milestone-close | step-04-postmortem
+approved: bet/<bet-slug>/approved@<sha>   # the sealed baseline the tag points at
+updated: <iso-8601>
+milestones:
+  - n: 1
+    slices:
+      - key: 1.1-<service>-<slug>   # derives from the decomposition tree path — a stable id
+        status: pending | in-progress | review | patching | done | blocked
+        commit: <sha>               # the delivery commit once closed
+        tier: execution | frontier
+        review-pointer: reviews/<slice-key>/   # where the lens files landed
+```
+
+The `step` field is the step-router pointer (the spine's router reads it); it holds zero proof text, zero capabilities, and zero API shapes — anything of that kind belongs in the decomposition prose, not here. Slice `key`s derive from the decomposition tree paths so postmortems, amendments, and memlog lines all reference the same stable identifiers.
+
+**`memlog.md`** — append-only, one timestamped line per event: a slice closed (sha + Notes gist), an amendment (sha + reason — the commit and re-pointed tag stay canonical; the line is an index entry), a postmortem gist, the mode choice or its re-confirmation, a blocked/unblocked, a change proposal filed. A deep bet runs ~60–100 lines — the resume read that replaces replaying `git log -p` and the postmortem prose. Append with `./dev bet log <bet-slug> -- "<line>"` (documented fallback where the CLI is unavailable: `printf '%s\n' "- <ts> — <line>" >> .groundwork/cache/bets/<bet-slug>/memlog.md`).
+
 ## The Milestone Loop
 
 Work through the milestone ladder in order. For each milestone: if its slices are not yet authored (every milestone after the first), **open it** — author and record its slices (`delivery/step-04-postmortem.md`, *Opening a milestone*) — then drive its slices to green (the Slice Loop), close the milestone, and run the milestone postmortem before moving on. The first milestone's slices were authored and approved at decomposition, so it opens straight into the Slice Loop.
@@ -50,9 +77,9 @@ Slices run in sequence, each built on the proven state of the one before it — 
 
 ### The step router
 
-Each step is a separate file under `delivery/`. **Read one step file fully, execute it, and load the next only at that file's transition line** — never load two steps at once. A fresh context resumes by reading the board (`./dev bet status`) and the git log of delivery commits, not a manifest: the first red slice is where to pick up; a milestone whose headline stub is red but with no slice files yet is the next one to open.
+Each step is a separate file under `delivery/`. **Read one step file fully, execute it, and load the next only at that file's transition line** — never load two steps at once. The `board.yaml: step` field is the pointer to the current step; the table below maps it to a file. A fresh context resumes by reading `board.yaml` and `memlog.md`, then **reconciling against `./dev bet status` and the git log of delivery commits** — the board is a convenience, tests and git are the truth, so on any divergence the git/suite state wins and the board is rewritten to match. With no board (or a corrupt one), resume the old way: the first red slice is where to pick up, and a milestone whose headline stub is red but with no slice files yet is the next one to open.
 
-| When the state is | Load |
+| When `board.yaml: step` (or the reconciled state) is | Load |
 |---|---|
 | Entering delivery — readiness not yet passed, red board not yet materialized, mode not yet chosen | `delivery/step-01-readiness.md` (Steps 0 / 0.5 / 0.7) |
 | A milestone is open with red slices to drive | `delivery/step-02-slice-loop.md` |

@@ -10,6 +10,8 @@ The gate is fail-closed: any 🔴 item blocks delivery. Report each failed item 
 
 When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and inform the user you are entering Developer Mode. Write the active-lane sentinel — `printf '%s\n' '<bet-slug>' > .groundwork/cache/active-lane` — so the capture reminder hook stays silent while this lane drives edits; Validation removes it at bet close.
 
+**Initialize the working state** (`../04-delivery.md`, *Working state*). Write `.groundwork/cache/bets/<bet-slug>/board.yaml` from the approved decomposition — the bet, the track, `approved: bet/<bet-slug>/approved@<sha>`, the full milestone ladder with the first milestone's slices `pending`, and `step: step-01-readiness` — and open the memlog with a first line (`./dev bet log <bet-slug> -- "delivery opened"`). The board is a convenience that reconciles against git and the suite; it never gates.
+
 **Quick-bet depth.** When the pitch carries `track: quick`, this is a quick bet — a single-milestone delivery (see `../00-quick.md`). It runs the *same* slice loop, review lenses, and honest-green discipline as any bet; what scopes down is the milestone-close ceremony built for assembled multi-screen milestones: the Tier-3 polish pass always, and the experience-auditor only when the quick bet touches **no UI surface** — any user-visible change keeps the auditor, because the floor is inspection, not polish. Noted at *Milestone close* (`step-03-milestone-close.md`). The deterministic floor and the visual spec check (Tiers 1–2) hold in full — a quick bet that ships UI still cannot ship broken or off-spec.
 
 ## Step 0.5: Materialize the red board
@@ -41,7 +43,7 @@ Delivery can run at three cadences. The cadence sets where you pause for the use
 
 Recommend the user pin a **`frontier`**-tier model for this driver session (Model Tiers, operating contract) — subagent tiers are the dispatch defaults applied in the Slice Loop (`step-02-slice-loop.md`, §1, §2). Also recommend a **`frontier`**-class **advisor** (Claude Code: `/advisor opus` or `advisorModel`) so an `execution`-tier worker can escalate mid-slice instead of grinding toward a forced green (Model Tiers — *Runtime escalation*).
 
-State the chosen mode back in one line, then begin the milestone loop. The choice is a session preference — on a fresh-context resume, re-confirm the mode before continuing; it is one cheap question.
+State the chosen mode back in one line, record it in `board.yaml` (`mode:`) and a memlog line, then begin the milestone loop. The choice is a session preference — on a fresh-context resume, re-confirm the mode before continuing; it is one cheap question.
 
 ---
 

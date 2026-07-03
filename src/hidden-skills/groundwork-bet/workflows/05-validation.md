@@ -67,7 +67,7 @@ Plus, in the same change: the `planned` cell cross-posted under `## Bets` in dis
 
 ### Step 3: Archive the whole bet
 
-Move the whole bet out of the active tree: `docs/bets/<bet-slug>/` → `docs/bets/_archive/<bet-slug>/` **and** `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available — it now moves both; otherwise `git mv docs/bets/<bet-slug> docs/bets/_archive/<bet-slug>` and `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`. The active docsite Bets section then shows only in-flight bets.
+Move the whole bet out of the active tree: `docs/bets/<bet-slug>/` → `docs/bets/_archive/<bet-slug>/` **and** `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available — it now moves both **and removes the bet's gitignored working-state cache** (`.groundwork/cache/bets/<bet-slug>/` — board, memlog, packs, reviews); otherwise `git mv docs/bets/<bet-slug> docs/bets/_archive/<bet-slug>`, `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`, and `rm -rf .groundwork/cache/bets/<bet-slug>` by hand. The active docsite Bets section then shows only in-flight bets.
 
 The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet's prose and its bet-progress suite served their purpose as the definition of done and the proof-of-work scaffolding; they are now archived as the bet's record.
 

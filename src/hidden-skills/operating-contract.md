@@ -306,6 +306,7 @@ A phase reads from a strict, minimal set of cache locations. Reading from anywhe
 | `scan-state.json`, `scan/overview.md` | The brownfield scan baseline — shared classification and partition map | Init and execute, **brownfield extract and adopt phases only** |
 | `repo-map.json` | The deterministic code map (build/refresh: `npx groundwork-method repo-map`). Durable past setup — `groundwork-infra-adopt` preserves it at cleanup as a first-class artifact. How to leverage it with Serena: `.groundwork/skills/code-intelligence.md` | Brownfield extract and adopt phases during setup; `groundwork-check`, `groundwork-doc-sync`, and the bet loop thereafter, for impact analysis |
 | `scan/<own-slice>.md` | The brownfield findings slice this phase consumes (`product-findings.md`, `design-findings.md`, or `architecture-findings.md`) | Init and execute, **the one owning extract phase only** |
+| `bets/<bet-slug>/` | The delivery driver's per-bet working state — `board.yaml` (the step-router pointer + slice status map), `memlog.md` (append-only resume index), milestone context packs, `reviews/`, `reports/`. Driver-written only, and **never a gate**: git and the suite are the record, the working state reconciles against them, and on divergence git/suite wins. Absent or corrupt, it self-heals from the git log. Created at Delivery Step 0, removed at bet archive | The bet loop's Delivery and Validation phases only |
 
 ### What a phase must not read from `.groundwork/cache/`
 
