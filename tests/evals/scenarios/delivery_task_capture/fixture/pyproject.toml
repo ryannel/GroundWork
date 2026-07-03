@@ -1,0 +1,12 @@
+[project]
+name = "taskcli"
+version = "0.0.0"
+description = "A tiny command-line task manager (GroundWork delivery-sim fixture)."
+requires-python = ">=3.9"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

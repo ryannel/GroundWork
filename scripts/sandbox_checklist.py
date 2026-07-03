@@ -42,6 +42,14 @@ DURABLE_DOCS = {
         "docs/architecture/infrastructure.md",
         "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
     ],
+    # The delivery path starts from a sealed bet and drives Phase 4 only, so its
+    # durable contract is the sealed plan plus what delivery produces: the
+    # materialized bet-progress tests and the owner-decision record.
+    "delivery": [
+        "docs/bets/task-capture/pitch.md",
+        "docs/bets/task-capture/technical-design/03-api-design.md",
+        "docs/bets/task-capture/decomposition/meta.json",
+    ],
 }
 
 # Directory deliverables that must contain at least one file. Brownfield's
@@ -51,6 +59,8 @@ DURABLE_DOCS = {
 DURABLE_DIRS = {
     "greenfield": [],
     "brownfield": ["docs/architecture/api", "docs/architecture/domain", "docs/architecture/services"],
+    # A completed delivery leaves the materialized red→green bet-progress tests.
+    "delivery": ["tests/bets/task-capture"],
 }
 
 
