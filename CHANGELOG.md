@@ -8,6 +8,30 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (user legibility — live docsite + host-native review, Wave 3, 2026-07-04)
+
+- Docs site: a pre-render sync script (`scripts/sync-live-bets.js`, wired as
+  `predev`/`prebuild`) materializes in-flight worktree and branch-only bets into a
+  gitignored `docs/bets/_live/<slug>/` inside the already-watched docs tree, badged
+  by branch and freshness (live / as of last commit) — full regenerate on every
+  boot, demoting or dropping a bet whose worktree or branch vanished without error
+  (including a manually-deleted worktree dir), CRLF-safe frontmatter badging that
+  preserves an author-written description, and a named warning on slug collisions.
+  The generated service gains a README naming the one boot command (`pnpm dev`),
+  and milestone close names it when the milestone's deliverable is a doc.
+  `[no-migration]` — covered by the existing docs-site Family Index row:
+  regeneration with recorded options carries the capability to existing installs.
+- Operating contract: **Protocol 12 (Draft Presentation)** — approval-gated
+  artifacts (pitch, technical design, decomposition, architecture draft, quick
+  plan) present at their canonical path first, run the sign-off through the host's
+  native plan-review surface where the session offers one (inline comments
+  applied, re-flowed for cohesion, re-gated where the change touches what the
+  independent review approved), keep the chat walkthrough as the teaching layer,
+  and fall back to today's section-by-section chat flow unchanged. Facilitation
+  flows (product brief, design system) are explicitly exempt. All five approval
+  sites enact it. `[no-migration]` — Tier-1 skill content, clean-replaced on
+  update.
+
 ### Added (user legibility — the rendered snapshot, Wave 2, 2026-07-04)
 
 - `groundwork status [--bet <slug>] [--json] [--write [path]]` — the checkpoint
