@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/sync-live-bets.js",
     "dev": "next dev",
+    "prebuild": "node scripts/sync-live-bets.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "fumadocs-mdx"
+    "postinstall": "fumadocs-mdx",
+    "sync-live-bets": "node scripts/sync-live-bets.js"
   },
   "dependencies": {
     "fumadocs-core": "14.7.7",
