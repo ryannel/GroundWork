@@ -3,18 +3,20 @@
 *One vertical slice of a milestone. Renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/NN-<slice-slug>.md`. It states the slice's scope, ties it to the design, and carries the prose proof of work the user approves. The slice is a vertical cut through one service — it can be deployed and verified without any future slice existing — and it builds on the proven state of the slice before it.*
 
 **Owner service:** [service name from `docs/architecture/infrastructure.md`]
+*Which part of the system this slice changes.*
 
 **Surface:** [`core` or the registry slug this slice builds for — registry projects only; omit this field when the project carries no `docs/surfaces.md`]
 
 **Complexity:** S / M / L
 
 **Model tier:** (omit for the `execution` default; set "frontier — <reason>" only when this slice is particularly challenging or vague, lifting its slice-worker's model for this slice)
+*How capable a model builds this slice — left at the default unless the work is unusually hard to get right.*
 
 **Prerequisite:** (none, or "Slice [N.K] merged")
 
 ## Scope
 
-[One paragraph linking this slice to its milestone — what vertical capability it contributes and how that capability moves the milestone toward its front-door proof.]
+[One paragraph linking this slice to its milestone — what vertical capability it contributes and how that capability moves the milestone toward its proof at the app's real entry point.]
 
 **Required Capabilities:**
 - [Falsifiable capability statement tracing to an interface in `technical-design/03-api-design.md` or a store in `technical-design/04-data-design.md`. "The endpoint exists" is not falsifiable; "POST `/api/sessions` returns 201 with a `session_id` field when given a valid request body matching the API design" is.]
