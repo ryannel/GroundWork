@@ -8,6 +8,27 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (user legibility — the owner-language boundary, Wave 1, 2026-07-04)
+
+- The operating contract gains **Protocol 11 (Boundary Translation)** and the **checkpoint
+  snapshot** contract (`docs/plans/user-legibility.md` Wave 1): engine vocabulary — wire
+  formats, verdict labels, tier names, coined IDs — is never spoken to the user as-is;
+  every pause point across the bet lifecycle opens with a tiered "you are here" snapshot
+  (full program → bet → milestone at milestone boundaries, resumes, and hard stops; bet
+  section only at slice pauses), and milestone close names what the user can now do plus
+  the exact `./dev` command that shows it. Report points across the delivery tree,
+  quick lane, validation, patch close, and orchestrator were rewritten to state intent
+  in owner language; both resume paths reload `groundwork-persona`; milestone names must
+  be product outcomes and slice IDs `N.M` only; the bet branch/worktree now opens at
+  pitch promotion (design and decomposition carry preconditions; delivery's clause is
+  the legacy catch-up). Undefined coinages ("escape catalog", "ratchet", the seal
+  contradiction) resolved; user-signed templates gain reader-facing glosses and rename
+  "front-door cases" to "proven at the app's real entry point" (engine prose keeps the
+  shorthand). Dev-side: `lint_skills.py` gains `check_report_point_language` (fails on
+  reintroduced engine terms inside prescribed user-facing lines) and the delivery-sim
+  judge gains a legibility dimension. Skill changes are Tier-1 clean-replace.
+  `[no-migration]`
+
 ### Added (runtime verification — token-conformance scan, 2026-07-04)
 
 - `groundwork tokens scan --bet <slug> [--json]` — the mechanical half of the W3.4 design-integrity ratchet: flags raw color/font/spacing/motion literals in UI source files (.tsx/.jsx/.css/.scss/.swift/.dart/.vue/.svelte) changed since `bet/<slug>/approved` that bypass the project's design-token set. Token-set discovery is best-effort (tailwind config, `*token*`/`*theme*` files under src/ or lib/, CSS custom-property sheets) and never invented — with no token source the result carries `token_set: null` and findings soften to tokenization leads. Allowlists pure white/black, `transparent`, `0px`, `1px`, zero durations. Exits 0 clean / 1 findings / 2 cannot run (no tag / not a git repo). Logic in `lib/bet-tokens/`; the slice-loop review wave invokes it for UI-touching slices (leads default to the `patch` bucket when a token set exists), and milestone close notes the per-slice cadence — the designer-persona screenshot review remains the judgment half. [no-migration]
