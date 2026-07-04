@@ -8,6 +8,24 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (runtime verification — the escape classes get owners in prose, 2026-07-04)
+
+Wave 3 opens with the prose halves of the escape-class gates (`docs/plans/groundwork-v2.md` §5).
+The experience-auditor brief gains the **affordance floor** (W3.6): every temporal control
+shows position, every modal has a visible dismiss, every long-running job signals completion,
+every model-supported capability has a reachable control. Bet-progress-test canon gains the
+**realistic-content-scale rule** for UI slices (W3.2): proofs exercise oversized-image /
+fully-populated / longest-string fixtures and assert geometry (in-bounds, hittable), not
+presence. The implementation-readiness checklist gains a **Runtime verification** section
+(W3.1/W3.5): a UI-surface bet whose front door cannot be driven from a test job is 🔴 blocked
+(an infrastructure defect routed to scaffold, never a standing caveat), and a media/model
+proof specified against synthetic stand-ins is 🔴 blocked (real files, real model output).
+The scaffold verification phase gains step 4c: **prove each surface's driver drives** — one
+real interaction per active surface, with an unsolved headless wall landing as a
+`blocks-delivery` maturity row.
+
+- [no-migration] Prose-only; hidden-skill trees clean-copy on update.
+
 ## [0.15.0] - 2026-07-04
 
 ### Added (engine wave — the composed bet-state view: `state`, 2026-07-04)

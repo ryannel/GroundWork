@@ -42,6 +42,11 @@ Tests do not exist at this gate — Delivery materializes the red board from thi
 - [ ] 🟡 **Proof-of-work prose stale**: a milestone `index.md` or slice file's Proof of work describes a shape, an interface, or an outcome the current `technical-design/` no longer carries — the sealed prose drifted from the design, so the user approved something other than what delivery will build against.
 - [ ] 🟡 **Testing strategy unresolved**: a slice's stack does not resolve to a promoted engineer-skill testing strategy (`.agents/skills/groundwork-<stack>-engineer/references/testing.md`) — the slice-worker has no authority to roll the permanent best-practice tests out against, and the coverage-auditor lens no baseline to hold them to. Scaffolded services always carry one; a hand-added or non-standard service may not. Name the gap so delivery rolls out coverage deliberately rather than improvising it.
 
+## Runtime verification
+
+- [ ] 🔴 **Front door undriveable**: the bet delivers to a UI surface whose front-door proofs cannot actually drive the running app from a test job (no per-surface driver, an unsolved headless wall, missing automation trust/provisioning) — "green ≠ observed in use" would be this bet's standing caveat, which is exactly the condition that shipped every bug in the escape catalog. This is a blocking infrastructure defect routed to the scaffold/setup phase, never a deferral note. A bet on a surface whose driver already exists passes without ceremony.
+- [ ] 🔴 **Proof runs on synthetic stand-ins**: a front-door proof for a media or model feature is specified against fabricated fixtures where only real files and real model output expose the failure class (zero-byte media, absurd estimates, junk model output) — the proof must name the real data it runs on, or the readiness gate is approving a proof that cannot catch what it exists to catch.
+
 ## Currency
 
 - [ ] 🔴 **Open contradiction in discovery notes**: an entry under `## Design Details` or `## Bets` in `.groundwork/cache/discovery-notes.md` contradicts the committed design or decomposition — a captured signal was never reconciled, and delivery would build against the stale half.

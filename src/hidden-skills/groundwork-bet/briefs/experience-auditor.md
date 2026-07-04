@@ -68,6 +68,12 @@ passing it silently.
 - **Design-system match and the joy bar.** The surfaces render in the design system (tokens,
   components, the specified atmosphere) and cohere across the milestone; and, stepping back,
   is the product a genuine pleasure to use — considered, well-rounded, not a bare shell.
+- **The affordance floor** (from the escape catalog — four owner-reported bugs were missing
+  affordances the intent clearly implied): every temporal control shows its position (a
+  scrubber with no position indicator is a finding); every modal and overlay has a visible
+  dismiss; every long-running job signals its completion, not just its progress; and every
+  capability the underlying model or API supports has a reachable control — a supported
+  action with no way to invoke it is a finding, not a future feature.
 
 You judge the assembled experience, not slice-level test coverage (the coverage auditor's
 lens), code correctness (the blind reviewer's), or milestone-scope proof honesty (the
