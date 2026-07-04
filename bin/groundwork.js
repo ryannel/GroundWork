@@ -55,6 +55,12 @@ function printHelp() {
             interactive bindings whose handler body is empty or TODO-only, plus handler-shaped
             functions with no reachable caller (best-effort). Leads for the review wave, not verdicts.
             \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
+  \x1b[36mmutate\x1b[0m    --bet <slug> --slice <test-file> -- <test command...>: the deletion test, mechanized —
+            revert the slice's source changes to bet/<slug>/approved (tests stay at HEAD), run the
+            test command, demand red. Green-after-deletion = the tests do not bite (exit 1).
+            \x1b[2mRefuses to run on a dirty working tree (exit 2) — never stashes or destroys uncommitted
+            work; every reverted file is restored to HEAD unconditionally. --since <sha> scopes the
+            revert to one slice's commit range; --timeout <s> (default 120); --json for machines.\x1b[0m
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
             refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
@@ -2484,6 +2490,81 @@ function wiringCommand(argv) {
   process.exit(1);
 }
 
+// ─── Mutate: the deletion test, mechanized ──────────────────────────────────
+// Reverts the slice's SOURCE changes to the sealed baseline (its tests stay at
+// HEAD), runs the slice's test command, and demands red — a suite that stays
+// green with the implementation deleted does not bite, the exact failure class
+// the coverage lens hunts by hand. Logic lives in lib/bet-mutate.
+// SAFETY: refuses to run (exit 2) on a working tree with uncommitted tracked
+// changes — it never stashes or destroys user work — and restores every
+// reverted file to HEAD unconditionally, on crash paths included.
+// Exit codes: 0 the tests bite (or nothing to revert), 1 green-after-deletion,
+// 2 cannot run (no git repo / no baseline / dirty tree / unspawnable command).
+
+function mutateCommand(argv) {
+  // Everything after `--` is the test command, verbatim — split before the
+  // flag parser ever sees it.
+  const sep = argv.indexOf('--');
+  const flagArgs = sep === -1 ? argv : argv.slice(0, sep);
+  const testCommand = sep === -1 ? [] : argv.slice(sep + 1);
+  const f = parseFlags(flagArgs);
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  if (!f.bet || f.bet === true) { c.err('mutate: --bet <slug> is required'); process.exit(1); }
+  if (!f.slice || f.slice === true) { c.err('mutate: --slice <test-file-path> is required — the slice test file, kept at HEAD'); process.exit(1); }
+  if (!testCommand.length) {
+    c.err('mutate: no test command — pass it after `--` (e.g. mutate --bet b --slice tests/x.py -- pytest tests/x.py)');
+    process.exit(1);
+  }
+  const timeoutS = f.timeout === undefined ? 120 : Number(f.timeout);
+  if (!Number.isFinite(timeoutS) || timeoutS <= 0) { c.err('mutate: --timeout expects a positive number of seconds'); process.exit(1); }
+
+  const bm = require(path.join(__dirname, '..', 'lib', 'bet-mutate'));
+  let r;
+  try {
+    r = bm.run(p.targetDir, {
+      slug: f.bet,
+      since: typeof f.since === 'string' ? f.since : undefined,
+      sliceFile: f.slice,
+      command: testCommand,
+      timeoutMs: timeoutS * 1000,
+    });
+  } catch (err) {
+    c.err(`mutate: ${err.message}`);
+    process.exit(2); // cannot-run — must never masquerade as a verdict
+  }
+
+  if (asJson) {
+    process.stdout.write(JSON.stringify({
+      bite: r.bite,
+      reverted_files: r.reverted_files,
+      test_exit: r.test_exit,
+      no_source_changes: r.no_source_changes,
+      baseline: r.baseline,
+      timed_out: r.timed_out,
+    }, null, 2) + '\n');
+  }
+  if (r.no_source_changes) {
+    if (!asJson) c.ok(`nothing to revert — no source changes between ${r.baseline} and HEAD (tests, docs/, .groundwork/ excluded); the deletion test has nothing to say here.`);
+    process.exit(0);
+  }
+  if (r.bite) {
+    if (!asJson) {
+      const how = r.timed_out ? `timed out after ${timeoutS}s` : `exit ${r.test_exit}`;
+      c.ok(`the tests bite — red (${how}) with ${r.reverted_files.length} source file(s) reverted to ${r.baseline}; everything restored to HEAD.`);
+    }
+    process.exit(0);
+  }
+  if (!asJson) {
+    c.err('green with the implementation deleted — these tests do not bite.');
+    console.error(`    Reverted ${r.reverted_files.length} source file(s) to ${r.baseline}, kept the tests at HEAD, and the test command still passed:`);
+    for (const file of r.reverted_files) console.error(`    ○ ${file}`);
+    console.error(`    A suite that cannot tell the implementation is gone proves nothing — record it: groundwork findings add --bet ${f.bet} --slice <key> --bucket patch --title "tests do not bite"`);
+  }
+  process.exit(1);
+}
+
 // ─── Engine state verbs: pack ───────────────────────────────────────────────
 // The milestone context pack the delivery driver used to distil by hand (W1.3).
 // Logic lives in lib/bet-pack — pointers and learnings, never contract text;
@@ -2655,6 +2736,16 @@ switch (command) {
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     wiringCommand(process.argv.slice(3));
     break;
+  case 'mutate': {
+    // `--help` counts only before the `--` separator — the test command after
+    // it is verbatim and may legitimately contain a --help of its own.
+    const argv = process.argv.slice(3);
+    const sep = argv.indexOf('--');
+    const head = sep === -1 ? argv : argv.slice(0, sep);
+    if (head.includes('--help') || head.includes('-h')) { printHelp(); process.exit(0); }
+    mutateCommand(argv);
+    break;
+  }
   case 'pack':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     packCommand(process.argv.slice(3));

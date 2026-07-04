@@ -77,6 +77,15 @@ registration — not a fixed list of your own:
   concrete evidence of a weak assertion. Recommend the spot-check on the named function;
   do not ask for a full mutation run, which the strategy reserves and review cannot afford.
 
+The bluntest form of this question — would the suite even notice the implementation
+vanishing? — is mechanical, and the driver may hand you its result:
+`npx groundwork-method mutate --bet <slug> --slice <test-file> -- <command>` reverts the
+slice's source to the sealed baseline, keeps its tests at HEAD, and runs the test command.
+**Green after deletion is a hard finding** (`patch` at minimum) — the suite cannot tell
+the implementation is gone, and no reading of its assertions rehabilitates it; never
+soften it to advice. The verb settles only whether the suite bites at all; what the tests
+*assert* — the completeness and oracle judgments above — remains yours.
+
 You judge the tests, not the implementation's correctness (the blind reviewer's lens), its
 design conformance (the driver's honest-green reconciliation and the milestone honesty
 audit), or unhandled code paths (the tracer's). A missing test is your finding; a code bug is not.
