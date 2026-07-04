@@ -5,7 +5,7 @@ description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
   the downstream context store, setup graduation, hand-off cache, cache isolation,
-  the review gate, review invocation, and boundary translation.
+  the review gate, review invocation, boundary translation, and draft presentation.
 ---
 
 # GroundWork Operating Contract
@@ -479,3 +479,33 @@ Two tiers, never both:
 **Milestone close adds one more line:** what the user can now do, in product terms, and the exact command that shows it — the scaffold's `./dev` runbook is the source. A milestone closes without this line only when there is truly nothing new to run.
 
 Render the snapshot with `npx groundwork-method status` (`--bet <slug>` for the bet and milestone sections; `--write` also refreshes the bet's docsite status page in the same call) and paste it with the one sentence of meaning. Where the command is unavailable, compose the same shape by hand from `./dev bet status` and the decomposition's demonstrable-goal lines. Either way `board.yaml` is never a source — the snapshot must survive the board's absence — and zero engine vocabulary outside Protocol 11's shared set appears anywhere in the snapshot.
+
+---
+
+## Protocol 12: Draft Presentation
+
+A chat dump is a contract handed over to sign: the user cannot annotate it, cannot diff a revision against what changed, and reads it once as it scrolls past before the conversation moves on. A document at a stable path, opened through a native review surface, is how a real approval works — the reviewer marks the document itself, and the marks are what the next revision responds to. This protocol governs how every **approval-gated artifact** — bet pitch, technical design, decomposition, architecture draft, quick-bet plan — is presented for the user's sign-off.
+
+This is a different boundary from Protocols 8 and 9. Those gate the artifact against the *independent reviewer* before it is presented at all — a parseable `VERDICT: PRESENT`, dispatch mechanics, the revise cap. This protocol governs what happens next: how the already-gated draft is presented to the *user*, and how the user's own feedback loops back in. A draft can pass Protocol 8's gate and still be handed over badly; this protocol is what fixes that half.
+
+### The artifact is at its canonical path first
+
+The bet branch and worktree open at pitch promotion, so the draft already lives on the bet branch, at its canonical `docs/` path, visible on the docsite — it does not need a special home to be reviewable. Tell the user the path and where it renders. A draft that only exists in the chat transcript has no canonical home to point at, and the rest of this protocol has nothing to attach to.
+
+### The host's native review surface runs the approval pass, where one exists
+
+Detect what the session actually offers; never assume a capability the host has not shown. On a host with a plan-file review flow — Claude Code's reference realization: write the draft as the reviewable plan document and hand it over — the approval pass runs there: the user comments inline on the document itself, not in the chat stream. Absence of the capability is not an error; it is the signal to fall through to the next point.
+
+Inline comments are user feedback on a draft, and the corpus already knows how to handle that: apply each comment, then re-flow the surrounding sections for cohesion rather than patching in isolation, per the artifacts-are-proposals rule — a draft with one section answering a comment and its neighbors still reflecting the old shape reads as contradictory to the next reader. Re-run the Protocol 8/9 gates where the resulting change touches what the independent review already approved, then re-present through the same surface. This is the whole of the comment-resolution loop; no separate procedure exists elsewhere for it.
+
+### The chat walkthrough teaches; it does not deliver
+
+The proof-by-proof decomposition walk and the section-by-section design walk stay exactly as they are — they build the user's comprehension of a draft neither of them could get from reading alone, and transcripts show them working when they run. What changes is narrower than it sounds: the walkthrough stops being the *only* way to read the document. A user who wants to reread a paragraph now has a stable page to return to instead of a scrollback search.
+
+### Fallback is today's behaviour, unchanged
+
+Where no native review surface exists, presentation is exactly what it has always been: section by section in chat, approval given in conversation. Nothing about this protocol degrades that path — it is the floor, not a deprecated case.
+
+### The facilitation boundary
+
+Setup *facilitation* flows — the product brief, the design system — do not enact this protocol. There, the cluster conversation is the product: the value is in the earned back-and-forth, not in a document the conversation merely produces, and handing that conversation to a review surface would flatten it into exactly the artifact-as-contract this protocol exists to avoid elsewhere. This protocol governs artifacts that are *approved*, not conversations that *are* the deliverable.

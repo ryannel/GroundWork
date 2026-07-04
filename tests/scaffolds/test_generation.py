@@ -254,6 +254,30 @@ def test_docs_site_generation():
         assert pkg.get("scripts", {}).get("postinstall") == "fumadocs-mdx", (
             "package.json must run `fumadocs-mdx` on postinstall to generate @/.source types"
         )
+
+        # --- user-legibility C1: the live-bets sync script exists and is wired
+        # in as a pre-render step (D-S6) ---
+        sync_script = svc / "scripts" / "sync-live-bets.js"
+        assert sync_script.exists(), "scripts/sync-live-bets.js missing (C1 pre-render sync)"
+        scripts = pkg.get("scripts", {})
+        assert scripts.get("predev") == "node scripts/sync-live-bets.js", (
+            "package.json must run the sync script before `next dev` (predev)"
+        )
+        assert scripts.get("prebuild") == "node scripts/sync-live-bets.js", (
+            "package.json must run the sync script before `next build` (prebuild)"
+        )
+        # Self-contained: Node built-ins only, no dependency on groundwork-method
+        # package internals (it ships standalone into user projects).
+        sync_src = sync_script.read_text()
+        assert "require('fs')" in sync_src and "require('path')" in sync_src
+        assert "require('../../" not in sync_src, "sync script must not reach into the package internals"
+
+        # docs/bets/.gitignore (workspace root, not the service dir) scopes out
+        # the materialized _live/ folder only — real bets and _archive/ stay
+        # tracked as before.
+        bets_gitignore = SANDBOX_DIR / "docs" / "bets" / ".gitignore"
+        assert bets_gitignore.exists(), "docs/bets/.gitignore missing (must ignore _live/)"
+        assert "_live/" in bets_gitignore.read_text()
     finally:
         _cleanup(svc_name)
 

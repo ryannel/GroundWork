@@ -334,6 +334,25 @@ export default async function (tree: Tree, options: DocsSiteGeneratorSchema) {
   // it once — never clobber a meta.json the project has since hand-tuned.
   seedDocsMeta(tree);
 
+  // Gitignore docs/bets/_live/ — the folder scripts/sync-live-bets.js
+  // materializes in-flight worktree/branch-only bets into (user-legibility C1,
+  // D-S6). The docs-site generator does not own the workspace-root .gitignore
+  // (no generator here does; other GroundWork seed points scope their own
+  // .gitignore instead — .groundwork/cache/.gitignore,
+  // .groundwork/config/.gitignore in bin/groundwork.js), so this follows the
+  // same pattern: a .gitignore scoped to docs/bets/ itself, ignoring only
+  // `_live/` — everything else in docs/bets/ (real bets, _archive/) stays
+  // tracked as before. Only seeded once; never clobbers a project's own edits.
+  const betsGitignorePath = 'docs/bets/.gitignore';
+  if (!tree.exists(betsGitignorePath)) {
+    tree.write(
+      betsGitignorePath,
+      '# Materialized by the docs site\'s scripts/sync-live-bets.js — regenerated\n' +
+        '# whole on every `pnpm dev` / `pnpm build`. Never hand-edited, never committed.\n' +
+        '_live/\n',
+    );
+  }
+
   // Register with `./dev` as a native runner so start/stop/status/logs manage it
   // like any other surface (electron/flutter/cli do the same). Not autostarted —
   // a docs site is a developer affordance, not part of the boot topology; it is

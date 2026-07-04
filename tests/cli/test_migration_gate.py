@@ -175,7 +175,7 @@ SHIPPED_SURFACE = [
     "src/docs/",
     "src/config/",
     "src/AGENTS.md",
-    "src/generators/*/files/",
+    "src/generators/*/files/**",
     "src/generators/workspace-dev-cli/cli-src/src/",
 ]
 
