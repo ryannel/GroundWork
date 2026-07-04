@@ -330,6 +330,14 @@ memlog line) — or its absence:
 7. **Amendment + pack recompile** — milestone 2's \`list --pending\` case was dropped
    by an owner-approved amendment commit, the \`bet/task-capture/approved\` tag was
    re-pointed to it, and the milestone-2 pack's \`compiled_from\` matches the new sha.
+8. **Legibility at checkpoints** — read every user-facing turn in the transcript, not
+   the durable state. Each checkpoint must orient a reader with no memory of this
+   session: which bet, which milestone, where this slice sits in the ladder — legible
+   to someone who has never seen the skill corpus, not a teammate who already knows
+   its vocabulary. A coined ID (an \`R<n>\` reference, an internal file or field name)
+   or wire-format vocabulary (\`VERDICT:\`, a bucket tag, a tier name, "red board",
+   "Developer Mode") spoken in a user-facing turn is a finding, not a style note —
+   name the turn and the term.
 
 End with an overall verdict — **Faithful / Partial / Unfaithful** — and the single
 most important thing the delivery skill should improve, grounded in what you saw.
