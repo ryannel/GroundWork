@@ -30,6 +30,9 @@ The driver passes:
 - The milestone's **Proof-of-work prose** (its `index.md`).
 - The **assembled diff since the milestone opened** — every slice's committed change as one patch.
 - The prose **API and data design** — `technical-design/03-api-design.md` and `04-data-design.md`.
+- The **honesty-scan output** — `npx groundwork-method honesty scan --bet <bet-slug>`, run by the
+  driver before this dispatch. The scan's findings are leads, not verdicts: confirm, refute, or
+  deepen each one, and spend your judgment on what the scan cannot compute.
 
 ## The work
 

@@ -47,6 +47,10 @@ function printHelp() {
             \x1b[2mcheck exits non-zero on any open finding — the mechanical milestone-close gate.\x1b[0m
   \x1b[36mdecisions\x1b[0m Per-bet default+veto queue (.groundwork/bets/<slug>/decisions.json): add | pending | ratify | list.
             \x1b[2mratify records the owner's verbatim response as durable state; the approved tag moves only here.\x1b[0m
+  \x1b[36mhonesty\x1b[0m   scan --bet <slug>: the computable half of the milestone honesty audit, diffed against
+            bet/<slug>/approved — deleted/thinned test guards, hand-edits inside generated files,
+            zero-caller exports (best-effort). Findings are leads for the audit agent, not verdicts.
+            \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2360,6 +2364,60 @@ function sealCommand(argv) {
   }
 }
 
+// ─── Honesty scan: the computable half of the milestone honesty audit ───────
+// Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for what git +
+// grep can establish without judgment: deleted/thinned guards, hand-edits inside
+// generated files, best-effort zero-caller exports. Logic lives in
+// lib/bet-honesty; findings are LEADS for the audit agent, never verdicts.
+// Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag / not a git repo).
+
+const HONESTY_CHECK_ORDER = ['deleted-guard', 'generated-edit', 'zero-caller'];
+
+function honestyCommand(argv) {
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  if (sub !== 'scan') {
+    c.err(`honesty: unknown subcommand '${sub || ''}' — use scan`);
+    process.exit(1);
+  }
+  if (!f.bet) {
+    c.err('honesty scan: --bet <slug> is required');
+    process.exit(1);
+  }
+  const bh = require(path.join(__dirname, '..', 'lib', 'bet-honesty'));
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  let result;
+  try {
+    result = bh.scan(p.targetDir, f.bet);
+  } catch (err) {
+    c.err(`honesty scan: ${err.message}`);
+    process.exit(2); // cannot-run — distinct from "ran and found leads"
+  }
+
+  const tag = bh.approvedTag(f.bet);
+  if (asJson) {
+    process.stdout.write(JSON.stringify(result, null, 2) + '\n');
+    process.exit(result.clean ? 0 : 1);
+  }
+  if (result.clean) {
+    c.ok(`No computable honesty leads since ${tag}. The audit agent still judges what the scan can't.`);
+    return;
+  }
+  c.err(`${result.findings.length} honesty lead(s) since ${tag}:`);
+  for (const check of HONESTY_CHECK_ORDER) {
+    const group = result.findings.filter((it) => it.check === check);
+    if (!group.length) continue;
+    console.error(`\n  ${check} (${group.length}):`);
+    for (const it of group) {
+      console.error(`    ○ ${it.file}${it.symbol ? ` :: ${it.symbol}` : ''} — ${it.detail}`);
+    }
+  }
+  console.error(`\n  These are leads for the honesty audit, not verdicts — the audit agent judges; record real ones via \`groundwork findings add\`.`);
+  process.exit(1);
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2424,6 +2482,10 @@ switch (command) {
   case 'decisions':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     decisionsCommand(process.argv.slice(3));
+    break;
+  case 'honesty':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    honestyCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.
