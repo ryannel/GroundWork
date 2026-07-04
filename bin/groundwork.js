@@ -54,6 +54,9 @@ function printHelp() {
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
             refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
+  \x1b[36mstate\x1b[0m     --bet <slug>: the composed bet-state view — seal, findings, decisions, pack freshness,
+            board pointer, in one document. \x1b[2m--check exits 1 on seal drift, open findings, or a stale
+            pack (the aggregate gate); the board and pitch status report but never gate. --json for machines.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2475,6 +2478,50 @@ function packCommand(argv) {
   }
 }
 
+// ─── The composed bet-state view: state ──────────────────────────────────────
+// One document composing every engine fact about a bet (seal, findings,
+// decisions, pack freshness, board pointer) — the Wave-2 capstone, v1: read
+// view + aggregate gate. Logic in lib/bet-state/compose. `--check` exits 1 on
+// seal drift, open findings, or a stale pack; the board and pitch status
+// report but never gate (the Wave-1 contract).
+
+function stateCommand(argv) {
+  const { composeState } = require(path.join(__dirname, '..', 'lib', 'bet-state', 'compose'));
+  const f = parseFlags(argv);
+  const p = getPaths();
+  const slug = f.bet;
+  const asJson = !!f.json;
+  if (!slug) { c.err('state: --bet <slug> is required'); process.exit(1); }
+
+  const doc = composeState(p.targetDir, slug);
+  if (!doc.approved) {
+    c.err(`state: tag bet/${slug}/approved not found — the bet is not sealed (or this is not a git repo).`);
+    process.exit(2);
+  }
+  if (asJson) process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
+
+  if (f.check) {
+    if (!doc.clean) {
+      if (!asJson) {
+        c.err(`state --check: bet '${slug}' is not clean:`);
+        if (doc.gates.seal_drift) console.error(`    ✖ seal drift (${doc.seal.drifted.length} file(s)) — run: groundwork seal verify --bet ${slug}`);
+        if (doc.gates.open_findings) console.error(`    ✖ ${doc.gates.open_findings} open finding(s) — run: groundwork findings check --bet ${slug}`);
+        if (doc.gates.stale_packs) console.error(`    ✖ ${doc.gates.stale_packs} stale pack(s) — run: groundwork pack refresh --bet ${slug} --milestone <N>`);
+      }
+      process.exit(1);
+    }
+    if (!asJson) c.ok(`state --check: bet '${slug}' is clean — seal intact, no open findings, packs fresh.`);
+    return;
+  }
+
+  if (!asJson) {
+    c.ok(`bet '${slug}' @ ${doc.approved.sha.slice(0, 7)} (pitch: ${doc.pitch_status || '?'}${doc.board.present ? `, step: ${doc.board.step}` : ''})`);
+    console.log(`    seal: ${doc.seal.status} · findings: ${doc.findings.open} open / ${doc.findings.closed} closed · decisions: ${doc.decisions.pending} pending / ${doc.decisions.ratified} ratified · packs: ${doc.packs.map((pk) => `m${pk.milestone}=${pk.status}`).join(' ') || '(none)'}`);
+    for (const it of doc.findings.open_items) console.log(`    ○ ${it.id} [${it.bucket}] ${it.title}`);
+    for (const it of doc.decisions.pending_items) console.log(`    ▸ ${it.id} pending: ${it.question}`);
+  }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2547,6 +2594,10 @@ switch (command) {
   case 'pack':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     packCommand(process.argv.slice(3));
+    break;
+  case 'state':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    stateCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.

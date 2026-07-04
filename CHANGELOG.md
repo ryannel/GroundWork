@@ -8,6 +8,23 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (engine wave — the composed bet-state view: `state`, 2026-07-04)
+
+`groundwork state --bet <slug> [--json] [--check]` — the Wave-2 capstone, v1. One
+document composes every engine fact about a bet: the sealed baseline (approved tag +
+sha), seal integrity, the findings ledger (open items), the decisions queue (pending
+items), per-milestone pack freshness, and the cache-tier board pointer. A fresh
+context resumes from one read instead of five files; `--check` is the aggregate
+fail-closed gate (exit 1 on seal drift, open findings, or a stale pack) wired into
+milestone close and the validation prelude. The board and pitch status report but
+never gate, and pending decisions batch to checkpoints without blocking — the Wave-1
+contracts hold. v1 is the composed read view + aggregate gate; the full projection
+flip (board.yaml / status frontmatter becoming generated views of this document) is
+the recorded follow-on in the plan. Logic in `lib/bet-state/compose.js`. Design:
+`docs/plans/groundwork-v2.md` (§4).
+
+- [no-migration] Read-only composition over existing engine state; hidden-skill tree clean-copies on update.
+
 ### Added (engine wave — repo-map --conventions, 2026-07-03)
 
 `npx groundwork-method repo-map --conventions` — the deterministic project-conventions

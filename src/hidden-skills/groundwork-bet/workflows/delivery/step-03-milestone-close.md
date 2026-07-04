@@ -18,6 +18,8 @@ A milestone is done when its **agreed front-door test cases pass against the rea
 
 **Findings-ledger closure gates the close.** Run `npx groundwork-method findings check --bet <bet-slug> --milestone <N>`: it exits non-zero, and lists them, while any finding from this milestone's slices or these milestone-scope passes is still open — without a disposition (fixed, deferred-with-owner, or dismissed-with-reason). **The milestone cannot close on a non-zero check** — a review that raised findings whose fix cycle never ran is exactly the evaporation this fail-closed gate exists to stop. A coherence or experience defect is fixed in this same delivery phase, where it is cheapest; a finding genuinely deferred is dispositioned `deferred-with-owner` and logged with its owner as a discovery note or a `docs/maturity.md` row, never silently dropped. There is no "done for function now, polish later" split.
 
+**One aggregate check seals the close.** `npx groundwork-method state --bet <bet-slug> --check` composes the mechanical gates — seal integrity, open findings, pack freshness — into one fail-closed exit; run it last, after the audit's findings are dispositioned. A clean check is the milestone's engine-side close condition (the front-door proof above remains the product-side one).
+
 ---
 
 ➡️ Milestone proven at the front door. Run the postmortem before opening the next rung: `step-04-postmortem.md`.
