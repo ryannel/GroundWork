@@ -51,6 +51,10 @@ function printHelp() {
             bet/<slug>/approved — deleted/thinned test guards, hand-edits inside generated files,
             zero-caller exports (best-effort). Findings are leads for the audit agent, not verdicts.
             \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
+  \x1b[36mwiring\x1b[0m    scan --bet <slug>: built-but-never-wired controls, diffed against bet/<slug>/approved —
+            interactive bindings whose handler body is empty or TODO-only, plus handler-shaped
+            functions with no reachable caller (best-effort). Leads for the review wave, not verdicts.
+            \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
             refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
@@ -2424,6 +2428,62 @@ function honestyCommand(argv) {
   process.exit(1);
 }
 
+// ─── Wiring scan: built-but-never-wired controls (escape class d) ───────────
+// Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for
+// interactive elements that exist in code but can't be reached in use:
+// empty/TODO-only handler bodies on known framework shapes, and handler-shaped
+// functions with no reachable caller (best-effort). Logic lives in
+// lib/bet-wiring (sharing lib/bet-honesty's git plumbing); findings are LEADS
+// for the review wave, never verdicts.
+// Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag / not a git repo).
+
+const WIRING_CHECK_ORDER = ['empty-action', 'unreachable-handler'];
+
+function wiringCommand(argv) {
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  if (sub !== 'scan') {
+    c.err(`wiring: unknown subcommand '${sub || ''}' — use scan`);
+    process.exit(1);
+  }
+  if (!f.bet) {
+    c.err('wiring scan: --bet <slug> is required');
+    process.exit(1);
+  }
+  const bw = require(path.join(__dirname, '..', 'lib', 'bet-wiring'));
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  let result;
+  try {
+    result = bw.scan(p.targetDir, f.bet);
+  } catch (err) {
+    c.err(`wiring scan: ${err.message}`);
+    process.exit(2); // cannot-run — distinct from "ran and found leads"
+  }
+
+  const tag = bw.approvedTag(f.bet);
+  if (asJson) {
+    process.stdout.write(JSON.stringify(result, null, 2) + '\n');
+    process.exit(result.clean ? 0 : 1);
+  }
+  if (result.clean) {
+    c.ok(`No wiring leads since ${tag}. The scan only sees shapes it recognizes — the review lenses still judge reachability.`);
+    return;
+  }
+  c.err(`${result.findings.length} wiring lead(s) since ${tag}:`);
+  for (const check of WIRING_CHECK_ORDER) {
+    const group = result.findings.filter((it) => it.check === check);
+    if (!group.length) continue;
+    console.error(`\n  ${check} (${group.length}):`);
+    for (const it of group) {
+      console.error(`    ○ ${it.file}${it.symbol ? ` :: ${it.symbol}` : ''} — ${it.detail}`);
+    }
+  }
+  console.error(`\n  These are leads for review, not verdicts — record real ones via \`groundwork findings add\`.`);
+  process.exit(1);
+}
+
 // ─── Engine state verbs: pack ───────────────────────────────────────────────
 // The milestone context pack the delivery driver used to distil by hand (W1.3).
 // Logic lives in lib/bet-pack — pointers and learnings, never contract text;
@@ -2590,6 +2650,10 @@ switch (command) {
   case 'honesty':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     honestyCommand(process.argv.slice(3));
+    break;
+  case 'wiring':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    wiringCommand(process.argv.slice(3));
     break;
   case 'pack':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
