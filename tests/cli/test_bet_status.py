@@ -287,12 +287,13 @@ def test_unknown_bet_flag_exits_nonzero(tmp_path):
 
 # ─── Milestone ladder states derived from suite + git ────────────────────────
 
-def test_milestone_ladder_shows_done_and_in_progress_states(tmp_path):
+def test_milestone_ladder_shows_done_and_not_started_states(tmp_path):
     # Milestone 1's test is genuinely green (closed); milestone 2's is
-    # genuinely red (materialized, not yet implemented) — this pins the
-    # state regardless of whether the local environment can run the suite
-    # (pytest-capable: real pass/fail; otherwise: the git-history fallback,
-    # where milestone 1 also gets a second, closing commit to trip 'done').
+    # genuinely red (materialized, not yet implemented) AND has no slices
+    # authored — an unopened rung, which reads as not started rather than in
+    # progress. Pinned regardless of whether the local environment can run
+    # the suite (pytest-capable: real pass/fail; otherwise: the git-history
+    # fallback, where milestone 1's second, closing commit trips 'done').
     init_repo(tmp_path)
     bet_dir = write_pitch(tmp_path, "widget-import", "Bring your own widgets into the library.")
     write_milestone(bet_dir, 1, "first-image", "see one image appear", "widget-import")
@@ -312,7 +313,23 @@ def test_milestone_ladder_shows_done_and_in_progress_states(tmp_path):
     doc = json.loads(proc.stdout)
     states = {m["n"]: m["state"] for m in doc["bet"]["milestones"]}
     assert states[1] == "done"
-    assert states[2] == "in-progress"
+    assert states[2] == "not-started"
+
+
+def test_bet_slug_with_path_traversal_is_rejected(tmp_path):
+    # A slug is a path segment under docs/bets/ — anything shaped like a
+    # traversal must be refused before it reaches a path join (the same guard
+    # the ./dev bundle's archive applies), for both read and --write paths.
+    init_repo(tmp_path)
+    outside = tmp_path / "docs" / "outside-secret"
+    outside.mkdir(parents=True)
+    (outside / "pitch.md").write_text("---\nstatus: delivery\n---\n# Bet: outside\n")
+    commit_all(tmp_path, "init")
+    for extra in ([], ["--write"]):
+        proc = gw(["status", "--bet", "../outside-secret", *extra], tmp_path)
+        assert proc.returncode == 2
+        assert "invalid bet slug" in (proc.stderr + proc.stdout)
+    assert not (outside / "status.md").exists()
 
 
 # ─── Milestone section: in-progress slice carries the model tier column ─────

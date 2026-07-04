@@ -2691,6 +2691,13 @@ function statusCommand(argv) {
   const p = getPaths();
   const asJson = !!f.json;
 
+  // A slug is a path segment under docs/bets/ — reject anything that could
+  // traverse out of it (same guard the ./dev bundle's archive applies).
+  if (f.bet && !/^[a-z0-9][a-z0-9-]*$/.test(String(f.bet))) {
+    c.err(`status: invalid bet slug "${f.bet}" — lowercase letters, digits, and hyphens only`);
+    process.exit(2);
+  }
+
   let doc;
   try {
     doc = composeStatus(p.targetDir, f.bet || null);
