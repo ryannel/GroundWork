@@ -37,6 +37,27 @@ repo). Findings are leads for the honesty-audit agent, never verdicts. Logic in
 now invoke the scan and scope the agent to what the scan can't compute.
 
 - [no-migration] New verb; hidden-skill tree clean-copies on update.
+### Added (engine wave — pack verb, 2026-07-03)
+
+`groundwork pack build|refresh|check --bet <slug> --milestone <N>` mechanizes the
+milestone context pack the delivery driver distilled by hand (W1.3; logic in
+`lib/bet-pack/`, dependency-free). `build` writes
+`.groundwork/cache/bets/<slug>/milestone-<NN>-context.md` — pointers harvested from
+the milestone's decomposition (technical-design files its slices name, the milestone
+index, each slice + its `Test file:` path) and pointer-style learnings from durable
+state (findings ledger, ratified decisions, report paths, memlog tail), stamped
+`compiled_from` = the sha `bet/<slug>/approved` points at. **The pack carries
+pointers and learnings, never contract text** — the generator emits paths only, by
+construction. The `<!-- driver-notes:start/end -->` block is the driver's judgment
+surface (Context-Routing rows, worktree facts) and survives every rebuild verbatim.
+Staleness is mechanical: amendments re-point the approved tag, so `refresh` is a
+no-op when `compiled_from` matches and a recompile when it doesn't; `check` is the
+CI-safe probe (exit 1 = stale/missing, exit 2 = no tag / not a repo, `--json`
+payload). The delivery prose (readiness, slice loop, milestone open, amendment
+protocol) shrinks in the same change to invoke the verb instead of hand-distilling
+the pack. Design: `docs/plans/groundwork-v2.md` (§4).
+
+- [no-migration] New verb writes cache-tier state on demand; the hidden-skill tree clean-copies on update.
 
 ### Added (engine wave — mechanical gates: `gate` + `seal verify`, 2026-07-03)
 

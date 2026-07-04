@@ -51,6 +51,9 @@ function printHelp() {
             bet/<slug>/approved — deleted/thinned test guards, hand-edits inside generated files,
             zero-caller exports (best-effort). Findings are leads for the audit agent, not verdicts.
             \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
+  \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
+            \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
+            refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2418,6 +2421,60 @@ function honestyCommand(argv) {
   process.exit(1);
 }
 
+// ─── Engine state verbs: pack ───────────────────────────────────────────────
+// The milestone context pack the delivery driver used to distil by hand (W1.3).
+// Logic lives in lib/bet-pack — pointers and learnings, never contract text;
+// staleness is compiled_from ≠ the approved-tag sha. These handlers parse flags
+// and print. CI-safe: `pack check` exits 1 on a stale or missing pack.
+
+function packCommand(argv) {
+  const bp = require(path.join(__dirname, '..', 'lib', 'bet-pack'));
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  const p = getPaths();
+  const slug = f.bet;
+  const milestone = f.milestone;
+  const asJson = !!f.json;
+
+  if (!['build', 'refresh', 'check'].includes(sub || '')) {
+    c.err(`pack: unknown subcommand '${sub || ''}' — use build | refresh | check`);
+    process.exit(1);
+  }
+  if (!slug) { c.err(`pack ${sub}: --bet <slug> is required`); process.exit(1); }
+  if (milestone == null || milestone === true) { c.err(`pack ${sub}: --milestone <N> is required`); process.exit(1); }
+
+  try {
+    switch (sub) {
+      case 'build': {
+        const r = bp.buildPack(p.targetDir, slug, milestone);
+        if (asJson) process.stdout.write(JSON.stringify(r, null, 2) + '\n');
+        else c.ok(`Wrote ${r.file} (compiled_from ${r.compiled_from.slice(0, 7)}) — fill the driver-notes block.`);
+        break;
+      }
+      case 'refresh': {
+        const r = bp.refreshPack(p.targetDir, slug, milestone);
+        if (asJson) process.stdout.write(JSON.stringify(r, null, 2) + '\n');
+        else if (r.status === 'fresh') c.ok(`fresh — ${r.file} already compiled from ${r.compiled_from.slice(0, 7)}; nothing written.`);
+        else c.ok(`Recompiled ${r.file} (was ${r.was}) from ${r.compiled_from.slice(0, 7)} — driver notes preserved.`);
+        break;
+      }
+      case 'check': {
+        const r = bp.checkPack(p.targetDir, slug, milestone);
+        if (asJson) process.stdout.write(JSON.stringify(r, null, 2) + '\n');
+        if (r.status !== 'fresh') {
+          if (!asJson) c.err(`pack is ${r.status} — compiled_from ${r.compiled_from || '(none)'} vs tag ${r.tag_sha}; run: groundwork pack refresh --bet ${slug} --milestone ${milestone}`);
+          process.exit(1);
+        }
+        if (!asJson) c.ok(`fresh — compiled_from matches bet/${slug}/approved (${r.tag_sha.slice(0, 7)}).`);
+        break;
+      }
+    }
+  } catch (err) {
+    c.err(`pack ${sub}: ${err.message}`);
+    process.exit(err.exitCode || 1);
+  }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2486,6 +2543,10 @@ switch (command) {
   case 'honesty':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     honestyCommand(process.argv.slice(3));
+    break;
+  case 'pack':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    packCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.
