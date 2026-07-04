@@ -8,6 +8,8 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-07-04
+
 ### Added (engine wave — the composed bet-state view: `state`, 2026-07-04)
 
 `groundwork state --bet <slug> [--json] [--check]` — the Wave-2 capstone, v1. One
