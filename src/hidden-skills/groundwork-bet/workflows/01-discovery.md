@@ -120,6 +120,8 @@ When the registry holds two or more surfaces, the no-gos conversation includes s
 
 5. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
 
+   **This promotion is also where the bet's branch and worktree open.** Every artifact from here forward — this pitch, the technical design, the decomposition — is authored on `bet/<bet-slug>`, in its own worktree, not on trunk: the bet's evolution is visible in one place from day one (the docsite's in-flight view reads the bet branch), and Delivery no longer discovers its isolation late. Open them now, following the branch/worktree mechanics in `04-delivery.md`'s Git workflow section — the canonical home for those mechanics, not restated here. Write `pitch.md` inside that worktree.
+
 6. Ensure the `pitch.md` frontmatter contains `status: discovery` — and, when the project has a surface registry, `surfaces:` listing the registry slugs this bet delivers to. Every registry surface outside that list appears under the No-Gos as a surface no-go, marked deferred or omitted. When no registry exists, the frontmatter carries no `surfaces:` key at all.
 
 7. If the bet absorbed or became a maturity-roadmap gap, update the affected rows in `docs/maturity.md` to `in-bet (<bet-slug>)` and append a line to its `## History` section.

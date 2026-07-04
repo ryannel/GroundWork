@@ -17,6 +17,10 @@ If entries exist, treat them as pre-discovered context — implementation decisi
 
 If the file does not exist or has no `## Design Details` entries, skip this step.
 
+## Precondition: on the bet branch
+
+You are on the bet's branch, `bet/<bet-slug>`, in its worktree — opened at pitch promotion (`01-discovery.md`). If not, reconcile before authoring: open them now per `04-delivery.md`'s Git workflow section.
+
 ## Step 1: Update pitch status
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: design`.

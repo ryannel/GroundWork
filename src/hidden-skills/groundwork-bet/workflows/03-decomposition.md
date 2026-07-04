@@ -13,6 +13,10 @@ This workflow operates under the protocols defined in `.groundwork/skills/operat
 
 Protocol 1 applies throughout: milestone and slice discussions surface signals that belong elsewhere — future-bet instincts (`## Bets`), implementation details worth preserving (`## Design Details`). Capture them in `.groundwork/cache/discovery-notes.md` as they occur, then steer back to sequencing.
 
+## Precondition: on the bet branch
+
+You are on the bet's branch, `bet/<bet-slug>`, in its worktree — opened at pitch promotion (`01-discovery.md`). If not, reconcile before authoring: open them now per `04-delivery.md`'s Git workflow section.
+
 ## Step 1: Update pitch status
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: decomposition`.
