@@ -134,6 +134,15 @@ function currentBranch() {
 // In flight, other worktrees: read each worktree's docs/bets/<slug>/ directly off
 // disk. Skips the current checkout's own worktree entry and any slug already
 // covered (dedup).
+//
+// `git worktree list --porcelain` keeps listing a worktree whose directory was
+// removed by hand (e.g. `rm -rf`, not `git worktree remove`) until something
+// prunes it. Left unchecked, that stale entry would mark the branch "covered"
+// while contributing zero bets (its dir reads empty) — the bet vanishes
+// instead of demoting to branch-only. So a listed worktree whose path no
+// longer exists on disk does NOT cover its branch; the branch-only fallback
+// then materializes it. This is read-only toward the repo's worktree state —
+// no `git worktree prune` is run here.
 function collectWorktreeBets(skipSlugs) {
   const out = git(['worktree', 'list', '--porcelain']);
   if (out == null) return { bets: [], coveredBranches: new Set() };
@@ -146,6 +155,7 @@ function collectWorktreeBets(skipSlugs) {
     if (!wtMatch) continue;
     const wtPath = wtMatch[1].trim();
     if (path.resolve(wtPath) === path.resolve(REPO_ROOT)) continue; // current checkout
+    if (!fs.existsSync(wtPath)) continue; // dangling worktree entry — does not cover its branch
     const branch = branchMatch ? branchMatch[1].trim() : null;
     if (branch) coveredBranches.add(branch);
     const betsDir = path.join(wtPath, 'docs', 'bets');
@@ -219,29 +229,62 @@ function badgeLine(bet) {
   return `In flight — branch \`${bet.branch}\`, ${bet.freshness}.`;
 }
 
+// Frontmatter opener, tolerating both LF (`---\n`) and CRLF (`---\r\n`) pitch
+// files — a CRLF pitch must not fall into the no-frontmatter branch below and
+// get a second frontmatter block prepended (that would produce a malformed
+// doc with two `---` fences).
+const FRONTMATTER_OPEN = /^---\r?\n/;
+
 // Inject/refresh the description frontmatter on a materialized pitch.md without
 // disturbing the rest of the document (frontmatter is optional per
 // source.config.ts, so both "no frontmatter yet" and "already has one" are
-// handled).
+// handled). Preserves the author's own `description:` value rather than
+// clobbering it — the badge line is prepended to it in the same value, so nothing
+// authored is lost and the badge still renders as the leading text.
 function applyBadgeFrontmatter(pitchPath, bet) {
   const text = readFileSafe(pitchPath);
   if (text == null) return;
   const badge = badgeLine(bet);
-  if (text.startsWith('---\n')) {
-    const end = text.indexOf('\n---', 4);
-    if (end !== -1) {
-      const front = text.slice(4, end);
-      const rest = text.slice(end + 4);
-      const hasDescription = /(^|\n)description:/.test(front);
-      const newFront = hasDescription
-        ? front.replace(/(^|\n)description:.*/, `$1description: ${JSON.stringify(badge)}`)
-        : `${front}\ndescription: ${JSON.stringify(badge)}`;
-      fs.writeFileSync(pitchPath, `---\n${newFront}\n---${rest}`);
+  const openMatch = FRONTMATTER_OPEN.exec(text);
+  if (openMatch) {
+    const nl = openMatch[0].includes('\r\n') ? '\r\n' : '\n';
+    const openLen = openMatch[0].length;
+    const closeRe = new RegExp(`\\r?\\n---(?:\\r?\\n|$)`);
+    const closeMatch = closeRe.exec(text.slice(openLen));
+    if (closeMatch) {
+      const end = openLen + closeMatch.index;
+      const front = text.slice(openLen, end);
+      const rest = text.slice(end + closeMatch[0].length);
+      const descRe = /(^|\r?\n)description:(.*)/;
+      const descMatch = descRe.exec(front);
+      const newFront = descMatch
+        ? front.replace(
+            descRe,
+            (m, lead, value) =>
+              `${lead}description: ${JSON.stringify(`${badge} ${parseFrontmatterScalar(value)}`)}`,
+          )
+        : `${front}${nl}description: ${JSON.stringify(badge)}`;
+      fs.writeFileSync(pitchPath, `---${nl}${newFront}${nl}---${nl}${rest}`);
       return;
     }
   }
   // No frontmatter block yet — add one carrying only the badge.
   fs.writeFileSync(pitchPath, `---\ndescription: ${JSON.stringify(badge)}\n---\n\n${text}`);
+}
+
+// The existing description value on the frontmatter line, unquoted if it was a
+// JSON-quoted string (the shape this script itself writes), otherwise trimmed
+// as-is (plain scalar authors commonly write, e.g. `description: some text`).
+function parseFrontmatterScalar(raw) {
+  const value = raw.trim();
+  if (value.startsWith('"')) {
+    try {
+      return JSON.parse(value);
+    } catch {
+      // fall through to raw value on malformed JSON
+    }
+  }
+  return value;
 }
 
 // ─── sync = full regenerate of docs/bets/_live/ ────────────────────────────
@@ -266,9 +309,35 @@ function sync() {
   const knownSlugs = new Set([...skip, ...worktreeBets.map((b) => b.slug)]);
   const branchOnlyBets = collectBranchOnlyBets(coveredBranches, knownSlugs);
 
-  const allLive = [...worktreeBets, ...branchOnlyBets];
-  if (allLive.length === 0) {
+  const allLiveRaw = [...worktreeBets, ...branchOnlyBets];
+  if (allLiveRaw.length === 0) {
     return { wrote: 0, reason: 'no in-flight worktree or branch-only bets' };
+  }
+
+  // Slug collision: two sources (e.g. two worktrees, or a worktree and an
+  // unrelated branch) carrying the same slug would otherwise silently
+  // last-write-wins each other in _live/<slug> with no trace (the later
+  // source's materialize() overwrites the earlier one's files on disk).
+  // Precedence stays exactly as before — the later source in enumeration
+  // order wins — but the loss is now visible, and the dropped entry is
+  // removed here too so meta.json doesn't list a source whose files lost.
+  const lastBySlug = new Map();
+  for (const bet of allLiveRaw) lastBySlug.set(bet.slug, bet);
+  const warnedSlugs = new Set();
+  const allLive = [];
+  for (const bet of allLiveRaw) {
+    const winner = lastBySlug.get(bet.slug);
+    if (bet !== winner) {
+      if (!warnedSlugs.has(bet.slug)) {
+        warnedSlugs.add(bet.slug);
+        console.warn(
+          `[sync-live-bets] slug collision on "${bet.slug}": branch \`${bet.branch}\` and ` +
+            `branch \`${winner.branch}\` both materialize to docs/bets/_live/${bet.slug}/ — keeping \`${winner.branch}\`.`,
+        );
+      }
+      continue;
+    }
+    allLive.push(bet);
   }
 
   fs.mkdirSync(LIVE_DIR, { recursive: true });
