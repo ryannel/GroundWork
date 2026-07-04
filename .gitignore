@@ -111,3 +111,7 @@ tests/evals/runs/
 !tests/evals/fixtures/brownfield_monorepo/00_codebase/services/
 !tests/evals/fixtures/brownfield_monorepo/00_codebase/services/**
 !tests/evals/fixtures/brownfield_monorepo/00_codebase/docker-compose.yml
+
+# Bare (no trailing slash) also catches a symlink named node_modules — a tracked
+# abs-path symlink slipped in twice this way (743b439, 2baa5db).
+node_modules
