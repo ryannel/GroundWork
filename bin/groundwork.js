@@ -72,6 +72,10 @@ function printHelp() {
   \x1b[36mstate\x1b[0m     --bet <slug>: the composed bet-state view — seal, findings, decisions, pack freshness,
             board pointer, in one document. \x1b[2m--check exits 1 on seal drift, open findings, or a stale
             pack (the aggregate gate); the board and pitch status report but never gate. --json for machines.\x1b[0m
+  \x1b[36mstatus\x1b[0m    [--bet <slug>]: the ready-to-paste checkpoint snapshot — program (delivered, in flight,
+            queued, patches), the bet's goal and milestone ladder, and the current milestone's slices.
+            \x1b[2mRenders from committed truth only (suite + git + pitch frontmatter + decomposition prose);
+            never reads board.yaml. --bet is optional when exactly one bet is in flight. --json for machines.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2668,6 +2672,39 @@ function stateCommand(argv) {
   }
 }
 
+// ─── The checkpoint snapshot: status ─────────────────────────────────────────
+// The ready-to-paste "you are here" markdown Protocol 11 (operating-contract.md,
+// "The checkpoint snapshot") specifies: Program -> Bet -> Milestone, rendered
+// from committed truth only (suite + git + pitch frontmatter + decomposition
+// prose). board.yaml is never read. Logic in lib/bet-status.
+
+function statusCommand(argv) {
+  const { composeStatus, renderMarkdown } = require(path.join(__dirname, '..', 'lib', 'bet-status'));
+  const f = parseFlags(argv);
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  let doc;
+  try {
+    doc = composeStatus(p.targetDir, f.bet || null);
+  } catch (err) {
+    c.err(`status: ${err.message}`);
+    process.exit(2);
+  }
+
+  if (f.bet && !doc.bet) {
+    if (asJson) process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
+    else c.err(`status: no pitch found at docs/bets/${f.bet}/pitch.md`);
+    process.exit(2);
+  }
+
+  if (asJson) {
+    process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
+    return;
+  }
+  process.stdout.write(renderMarkdown(doc));
+}
+
 // ─── Token-conformance scan: the mechanical half of the design ratchet ──────
 // Flags raw color/font/spacing/motion literals in UI source files changed since
 // the sealed baseline (`bet/<slug>/approved`) that bypass the project's
@@ -2827,6 +2864,10 @@ switch (command) {
   case 'state':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     stateCommand(process.argv.slice(3));
+    break;
+  case 'status':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    statusCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.
