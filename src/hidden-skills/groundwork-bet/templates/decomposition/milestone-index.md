@@ -1,6 +1,6 @@
-# Milestone [N]: [Milestone Name]
+# Milestone [N]: [the product outcome in the user's words — "Browse and search the library", never a coined codename]
 
-*This is the landing page for one milestone in the decomposition tree. It renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/index.md`. It carries the milestone's demonstrable goal, its sequencing rationale, its acceptance criteria (proven at the app's real entry point), and the prose proof of work — then links to its slices. The slice files sit beside it in the same folder.*
+*This is the landing page for one milestone in the decomposition tree. It renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/index.md`. It carries the milestone's demonstrable goal, its sequencing rationale, its acceptance criteria (proven at the app's real entry point), and the prose proof of work — then links to its slices. The slice files sit beside it in the same folder. The milestone name is the identifier the user tracks across the whole delivery — name the outcome, not the mechanism, or the name becomes something to decode instead of something to follow.*
 
 **Consumer:** [who observes this milestone's outcome at their real surface — a person at a screen, a developer calling an SDK, an operator reading a dashboard, another system calling the API. Name them and what they see. A pure-API product's consumer is the caller and its surface is the API.]
 

@@ -1,6 +1,6 @@
 # Slice [N.M] — [service]: [Slice Name]
 
-*One vertical slice of a milestone. Renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/NN-<slice-slug>.md`. It states the slice's scope, ties it to the design, and carries the prose proof of work the user approves. The slice is a vertical cut through one service — it can be deployed and verified without any future slice existing — and it builds on the proven state of the slice before it.*
+*One vertical slice of a milestone. Renders to `docs/bets/<bet-slug>/decomposition/NN-<milestone-slug>/NN-<slice-slug>.md`. It states the slice's scope, ties it to the design, and carries the prose proof of work the user approves. The slice is a vertical cut through one service — it can be deployed and verified without any future slice existing — and it builds on the proven state of the slice before it. `[N.M]` is milestone number, slice number — no letter bands, no other scheme — because a second numbering space collides with the milestone numbers it sits beside.*
 
 **Owner service:** [service name from `docs/architecture/infrastructure.md`]
 *Which part of the system this slice changes.*
