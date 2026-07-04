@@ -8,6 +8,22 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (runtime verification — mutate: the deletion test, 2026-07-04)
+
+- `groundwork mutate --bet <slug> --slice <test-file> -- <test command...>`: the deletion
+  test, mechanized (V2 plan §5, W3.7). Reverts the slice's source changes to the sealed
+  baseline (`bet/<slug>/approved`, or `--since <sha>` to scope one slice's commit range)
+  while keeping its tests at HEAD, runs the slice's test command, and demands red. Exit 0
+  = the tests bite (or nothing to revert; `--json` marks `no_source_changes`); exit 1 =
+  green with the implementation deleted — these tests do not bite (the coverage lens
+  treats this as a hard `patch` finding); exit 2 = cannot run. SAFETY: refuses to run on
+  a working tree with uncommitted tracked changes — never stashes or destroys user work —
+  and restores every reverted file to HEAD unconditionally, crash paths included.
+  `--timeout <s>` (default 120), `--json` → `{bite, reverted_files, test_exit,
+  no_source_changes, baseline, timed_out}`. Logic in `lib/bet-mutate/`; contract tests in
+  `tests/cli/test_bet_mutate.py`. The coverage-auditor brief and the slice-loop review
+  stage now invoke the verb. [no-migration]
+
 ### Added (runtime verification — wiring scan, 2026-07-04)
 
 - `groundwork wiring scan --bet <slug> [--json]` — the computable half of the built-but-never-wired audit (GroundWork V2 plan §5, W3.3, escape class d). Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for interactive elements that exist in code but can't be reached in use: interactive bindings whose handler body is empty or contains only TODO/FIXME (JSX/React props, `addEventListener`, SwiftUI `Button`/`.onTapGesture`, Flutter named callbacks), and handler-shaped functions (`handleX`/`onX`/`_onTapX`) with zero references in tracked non-test source beyond their own definition (word-grep, capped at 20, labelled `[best-effort]`). Findings are leads for the review wave, never verdicts; unrecognized file types skip silently. Exits 0 clean / 1 leads / 2 cannot run. Logic in `lib/bet-wiring/`, sharing `lib/bet-honesty`'s sealed-baseline git plumbing (extracted to `lib/bet-honesty/git.js`). The slice-loop review wave runs it alongside the lenses for any slice touching a UI surface, fail-closed: an unwired control is a `patch` finding, not a note. `[no-migration]`
