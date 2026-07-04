@@ -1,0 +1,25 @@
+# <%= name %>
+
+The workspace's docs site (Fumadocs), scaffolded by GroundWork. It compiles the
+repo-root `docs/` tree and is the front door for reading it rendered — brief,
+design system, architecture, ways of working, and bets — rather than as raw
+markdown.
+
+## Boot it
+
+```bash
+pnpm dev
+```
+
+This is the one documented command. `./dev status` / `./dev logs <%= fileName %>` /
+`./dev stop` manage it like any other registered runner (it is a native
+surface, not autostarted — `./dev start` does not launch it on its own; run
+`pnpm dev` here to bring it up).
+
+## Live bets
+
+Every boot (`predev`/`prebuild`) runs `scripts/sync-live-bets.js`, which
+materializes in-flight bets from other worktrees and branch-only bets (not
+just what is committed on this branch) into the gitignored `docs/bets/_live/`
+folder, badged accordingly. To pick up a bet opened after the server started,
+restart it (or re-run `pnpm sync-live-bets`).
