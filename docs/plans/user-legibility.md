@@ -1,7 +1,7 @@
 # Implementation Plan: User Legibility (Owner-Language Boundary, Rendered Orientation, Live Docsite, Host-Native Review)
 
-**Status:** PROPOSED 2026-07-04. Sourced from three research streams run to conclusion: (1) a communication audit of 71 magpie session transcripts (7,574 main-chain assistant messages) cataloguing jargon, checkpoint shapes, and every documented moment of user confusion; (2) a full jargon-origin and status-report-shape audit of the shipped skill corpus (`src/hidden-skills/`, `src/skills/`, `src/engineer-skills/`), with file:line for every coinage and every prescribed user-facing line; (3) a machinery map of progress state, the docsite pipeline, and draft-presentation instructions. Three steering decisions are already settled by the owner (§6).
-**Audience:** An engineer or agent implementing this change. Each slice names its files and an acceptance check; judgment calls that remain are open decisions in §6.
+**Status:** PROPOSED 2026-07-04 — all decisions settled same day (§6 carries no open items); ready for Wave 1 execution. Sourced from three research streams run to conclusion: (1) a communication audit of 71 magpie session transcripts (7,574 main-chain assistant messages) cataloguing jargon, checkpoint shapes, and every documented moment of user confusion; (2) a full jargon-origin and status-report-shape audit of the shipped skill corpus (`src/hidden-skills/`, `src/skills/`, `src/engineer-skills/`), with file:line for every coinage and every prescribed user-facing line; (3) a machinery map of progress state, the docsite pipeline, and draft-presentation instructions.
+**Audience:** An engineer or agent implementing this change. Each slice names its files and an acceptance check; every judgment call is settled in §6.
 **Scope owner:** The user-facing boundary of the whole framework — `groundwork-persona`, `operating-contract.md`, the `groundwork-bet` delivery loop and briefs, the orchestrator, `bin/groundwork.js` (status rendering), and the `docs-site` generator.
 
 ---
@@ -85,7 +85,7 @@ Rewrite each counter-instruction found by the audit so the prescribed user-facin
 *Accept:* grep of prescribed-say lines (every "inform the user", "state", "report", "present" instruction) finds no engine vocabulary outside the shared set; `./dev lint skills` clean.
 
 **A3 — Term hygiene at the source.**
-- "Front door" keeps its internal precision but every *user-facing carrier* teaches it or drops it: `templates/decomposition/milestone-index.md` renames the heading to "Acceptance criteria — proven at the app's real entry point" (or defines the term in its italic preamble; open decision D-O3).
+- "Front door" is renamed in every *user-facing carrier* and kept unchanged in engine prose (D-S7): `templates/decomposition/milestone-index.md` renames the heading to "Acceptance criteria — proven at the app's real entry point"; checkpoint-walkthrough output says "things to try in the app"; the 28 files of engine prose keep the term as agent shorthand.
 - Remove or define residues: "ratchet" (2 uses — replace with the sentence it abbreviates), "escape catalog" (define once where the catalog actually lives, or point to what replaced it; 4 call sites), reconcile the `03-decomposition.md:244/:246` seal contradiction into one statement.
 - `templates/decomposition/slice.md`: "Owner service" and "Model tier" fields gain the one-line reader-facing gloss the template's italics pattern already uses.
 *Files:* `templates/decomposition/*.md`, `groundwork-review/checklists/implementation-readiness.md`, `groundwork-scaffold/phases/04-infrastructure-verification.md`, `references/bet-progress-tests.md`, `briefs/experience-auditor.md`, `workflows/03-decomposition.md`.
@@ -100,9 +100,10 @@ Rewrite each counter-instruction found by the audit so the prescribed user-facin
 
 **A5 — Guardrails so it cannot silently regress.**
 - `skill-writer/SKILL.md` gains a writing principle: *report-point prescriptions are written in owner language* — when a skill file prescribes a user-facing line, that line must itself pass the boundary rule, because agents repeat prescribed lines verbatim (the same mechanism behind "write intent, not scripts").
-- The delivery-simulation judge rubric (the `./dev sandbox --delivery` exit gate built in V2 Wave 0/1) gains a legibility dimension: checkpoints must orient (bet → milestone → slice position) and must be readable by someone who has never seen the skill corpus; coined IDs and wire-format vocabulary in user-facing turns are findings.
-*Files:* `.agents/skills/skill-writer/SKILL.md`; the sim judge rubric under `tests/evals/` (locate the Wave-1 exit-gate rubric and extend it — do not fork a second rubric).
-*Accept:* a sim run's judge report scores the legibility dimension; skill-writer principle lands with the same-commit review of this plan's own prose (it must pass its own bar).
+- A tripwire lint (D-S9): `scripts/lint_skills.py` gains `check_report_point_language` — a narrow denylist of engine terms (Developer Mode, red board, honest green, wire-format tokens, tier names, `R<n>`-style coinages) scanned only inside prescribed user-facing lines (instructions containing "inform the user", "state", "report", "present", and quoted say-formats), following the existing `check_no_model_ids` pattern (`lint_skills.py:598`). Narrow by design: it catches reintroduction of the audited set, not all possible jargon.
+- The delivery-simulation judge rubric (the `./dev sandbox --delivery` exit gate built in V2 Wave 0/1) gains a legibility dimension — the semantic gate the lint cannot be: checkpoints must orient (bet → milestone → slice position) and must be readable by someone who has never seen the skill corpus; coined IDs and wire-format vocabulary in user-facing turns are findings.
+*Files:* `.agents/skills/skill-writer/SKILL.md`; `scripts/lint_skills.py`; the sim judge rubric under `tests/evals/` (locate the Wave-1 exit-gate rubric and extend it — do not fork a second rubric).
+*Accept:* `./dev lint skills` fails on a seeded regression (a step file re-adding "entering Developer Mode" in a prescribed line); a sim run's judge report scores the legibility dimension; skill-writer principle lands with the same-commit review of this plan's own prose (it must pass its own bar).
 
 ---
 
@@ -112,7 +113,7 @@ The engine already knows where everything stands; nobody ever renders it. A dete
 
 **B1 — The snapshot renderer.**
 `npx groundwork-method status [--bet <slug>] [--json]` emits a ready-to-paste markdown snapshot beside the existing composed `state` command, reusing the board derivation `./dev bet status --json` already performs:
-- **Program section** — one row per bet: delivered (from `docs/bets/_archive/`), in flight (pitch `status:` per active bet dir, across branches — see C1's enumeration), queued (from `discovery-notes.md ## Bets`), plus patches since the last bet close (`git log --grep='Lane: patch'` grouped by `Area:`) and quick bets inline, so mid-program insertions stay visible. Each row: plain-language payload (the pitch's one-line goal), not just a slug.
+- **Program section** — one row per bet: delivered (from `docs/bets/_archive/`), in flight (pitch `status:` per active bet dir, across branches — see C1's enumeration), queued (from `discovery-notes.md ## Bets`), plus patches since the last bet close (`git log --grep='Lane: patch'` grouped by `Area:`) and quick bets inline, so mid-program insertions stay visible. Each row: plain-language payload (the pitch's one-line goal), not just a slug. The program is fully derived — no new state file (D-S5) — and the `## Bets` section's bullet **order becomes the stated queue order**: `01-discovery.md` and `05-validation.md` (the section's writers) and this renderer (its reader) all name the contract in the same change, per the identifier-drift rule; reordering the queue is reordering bullets.
 - **Bet section** — the bet's goal in one sentence (from the pitch), then the milestone ladder as a checklist using each milestone's **demonstrable-goal text** (already authored in `decomposition/milestone-<N>/index.md`), never codes: ✅ done / ▶ in progress / ○ not started, states from the derived board.
 - **Milestone section** — the current milestone's slices with states and, for the in-progress slice, the model tier as a column (absorbing the A2 dispatch-note accountability).
 Renders from committed truth (suite + git + pitch frontmatter + decomposition prose); `board.yaml` stays the driver's convenience and is not read (the board never gates, and the snapshot must survive its absence).
@@ -120,7 +121,7 @@ Renders from committed truth (suite + git + pitch frontmatter + decomposition pr
 *Accept:* `tests/cli` covers: multi-bet program, queued-only, patches interleaved, no-board delivery-in-progress, archived bets; output contains zero engine vocabulary outside the shared set.
 
 **B2 — The checkpoint contract.**
-Every pause and report point opens with the rendered snapshot plus one sentence of meaning in owner language, and closes with what happens next. The points: readiness pass, slice close (slice-by-slice mode), milestone close, postmortem walkthrough, amendment, change navigation, session resume, and **before any hard-stop question** — a user who is asked to rule on something is first shown where they are ruling. Milestone close additionally states, in product terms, what the user can now do **and the exact command to see it** (the scaffold's `./dev` runbook is the source), killing the F12 class. The instruction is written with its why: the snapshot is cheap for the agent and is the difference between a user who can decide and one who has to ask "where are we?" first.
+Every pause and report point opens with the rendered snapshot plus one sentence of meaning in owner language, and closes with what happens next. The cadence is tiered (D-S8): the **full** program → bet → milestone snapshot at milestone boundaries, postmortems, session resumes, and **before any hard-stop question** — a user who is asked to rule on something is first shown where they are ruling; the **bet section only** (milestone ladder position + slice states) at slice-by-slice pauses, which arrive minutes apart — a full program table there becomes wallpaper the user learns to skip. Milestone close additionally states, in product terms, what the user can now do **and the exact command to see it** (the scaffold's `./dev` runbook is the source), killing the F12 class. The instruction is written with its why: the snapshot is cheap for the agent and is the difference between a user who can decide and one who has to ask "where are we?" first.
 *Files:* `workflows/delivery/step-01…04.md`, `on-amendment.md`, `on-change-navigation.md`, `workflows/00-quick.md`, `05-validation.md` (Steps 4 and 9), `groundwork-patch/instructions.md` (close report), `groundwork-bet/instructions.md` (resume), orchestrator position report (`SKILL.md:185-189` upgrades from prose recipe to snapshot-first).
 *Accept:* every named point instructs snapshot-first; delivery sim judge (A5) confirms checkpoints orient in a live run.
 
@@ -143,8 +144,8 @@ Settled steer: aggregate everything into one site — active worktrees *and* bra
 The docsite renders bets from all three sources, badged by state:
 - **Delivered** — `docs/bets/_archive/` in the checkout the site runs from (main).
 - **In flight, worktree** — enumerate `git worktree list --porcelain`, read each worktree's `docs/bets/<slug>/` directly (live files, file-watch picks up edits as the agent works).
-- **In flight, branch-only** — enumerate `git for-each-ref 'refs/heads/bet/*'` minus branches already covered by a worktree; materialize `git show <branch>:docs/bets/<slug>/...` into a build cache the content pipeline reads, refreshed on an interval or on `git` ref change.
-Each in-flight bet badges with its branch and freshness (worktree = live; branch-only = as of last commit). Implementation shape — a pre-render sync script the Next dev server watches vs. route-time loading — is an open decision (D-O2) for the executing engineer; the acceptance bar is behavioural.
+- **In flight, branch-only** — enumerate `git for-each-ref 'refs/heads/bet/*'` minus branches already covered by a worktree; materialize `git show <branch>:docs/bets/<slug>/...` on ref change.
+Each in-flight bet badges with its branch and freshness (worktree = live; branch-only = as of last commit). Mechanism (D-S6): a **pre-render sync script** materializes worktree and branch content into a gitignored `docs/bets/_live/<slug>/` folder *inside* the tree `defineDocs({ dir: '../../docs' })` already watches — the stock fumadocs-mdx pipeline picks it up with zero content-pipeline changes; badging and sidebar grouping ride generated frontmatter and a `_live/meta.json`. No second collection, no route-time git reads (fumadocs' compile-time content model fights dynamic sources).
 *Files:* `src/generators/docs-site/` (generator + `files/source.config.ts` + a sync module); provenance/regeneration story per the shipping rules — the generator change needs a reconcile family or migration entry so existing installs' docsites gain the capability on `update`.
 *Accept:* a repo with one archived bet, one worktree bet, and one branch-only bet shows all three, correctly badged; deleting the worktree demotes the bet to branch-only rendering without error; changelog line carries the migration/`[no-migration]` annotation.
 
@@ -189,9 +190,9 @@ Inline comments are user feedback on a draft, which the corpus already knows how
 
 ---
 
-## 6. Decisions
+## 6. Decisions — all settled
 
-### Settled (owner, 2026-07-04)
+Owner decisions D-S1–D-S4 settled at proposal; D-S5–D-S9 closed out the same day (D-S5/S7/S8 by the owner, D-S6/S9 by verification against the code). No open items remain.
 
 | ID | Decision |
 |---|---|
@@ -199,16 +200,11 @@ Inline comments are user feedback on a draft, which the corpus already knows how
 | D-S2 | The progress snapshot is **CLI-rendered** (deterministic engine output the agent pastes and glosses), not instruction-composed — with an instruction-composed interim (B3) so Wave 1 ships the behaviour. |
 | D-S3 | Approval artifacts use **host review tooling where available** (Claude Code plan-file review / inline comments), degrading to the chat walkthrough. |
 | D-S4 | Engine vocabulary is untouched **inside** the engine — briefs, wire formats, gates keep their language; translation happens only at the user boundary and in user-read artifacts. |
-
-### Open (resolve during execution)
-
-| ID | Question | Leaning |
-|---|---|---|
-| D-O1 | Does the program view stay fully derived (pitch statuses + archive + trailers + discovery notes), or does a persisted program file earn its keep once bets are queued and reordered deliberately? | Derive first; add state only when a sim shows derivation losing information the user cares about (e.g. intended ordering of queued bets). |
-| D-O2 | C1 mechanism: pre-render sync script (materialize branch content into a cache dir the content pipeline reads) vs. route-time git reads. | Sync script — Fumadocs' compile-time content model fights route-time sources; a watcher-friendly cache dir keeps the pipeline stock. |
-| D-O3 | "Front door" in user-approved templates: rename the label or define it in place? | Rename in templates (owner language), keep the term internally — the audit shows it is load-bearing in 28 files of engine prose. |
-| D-O4 | A2/A5 enforcement: is a mechanical lint over prescribed-say lines feasible (denylist of engine terms inside quoted user-facing lines), or is the sim judge the only reliable gate? | Attempt a narrow lint rule (report-point sections only, small denylist) as a tripwire; the sim judge remains the real gate. |
-| D-O5 | Snapshot at *every* checkpoint vs. abbreviating in slice-by-slice mode where checkpoints are minutes apart? | Full program+bet snapshot at milestone boundaries and resumes; bet-section-only at slice pauses. Decide with sim evidence. |
+| D-S5 | The program view is **fully derived** — no persisted program file. The `discovery-notes.md ## Bets` bullet order becomes the stated queue order, named by its writers (`01-discovery.md`, `05-validation.md`) and its reader (the B1 renderer) in the same change. Revisit only if a live run shows derivation losing intent the user cares about. |
+| D-S6 | C1 mechanism is a **pre-render sync script** materializing into a gitignored `docs/bets/_live/<slug>/` inside the already-watched `docs/` tree — stock fumadocs-mdx pipeline, no second collection, no route-time git. Verified against `source.config.ts` (single compile-time `defineDocs` collection, file-watching dev server). |
+| D-S7 | "Front door" is **renamed in user-facing text** (templates, walkthrough output, spoken lines) and kept unchanged in engine prose, where it is load-bearing shorthand across 28 files. |
+| D-S8 | Snapshot cadence is **tiered**: full program → bet → milestone view at milestone boundaries, postmortems, resumes, and before any hard-stop question; bet section only at slice-by-slice pauses. |
+| D-S9 | Enforcement is **lint tripwire + sim judge**: `check_report_point_language` in `scripts/lint_skills.py` (feasible — follows the existing `check_no_model_ids` denylist pattern at `:598`) catches reintroduction of the audited jargon set in prescribed user-facing lines; the delivery-sim judge's legibility dimension remains the semantic gate. |
 
 ---
 
