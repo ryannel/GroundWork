@@ -8,6 +8,22 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (engine wave — repo-map --conventions, 2026-07-03)
+
+`npx groundwork-method repo-map --conventions` — the deterministic project-conventions
+digest (the computable half of a project-context document, per the plan's rejection of an
+LLM-distilled prose constitution): runtimes pinned by root manifests (package.json
+`engines`/`type`, `requires-python`, go directive, Rust edition), test/build/lint commands
+the config declares (npm scripts, `./dev` verbs, Makefile targets, pytest config), the top
+hub files/modules by the map's own PageRank, and observed layout + test-naming patterns.
+Embeds as `conventions` in `.groundwork/cache/repo-map.json` and renders compactly to
+`.groundwork/cache/conventions.md` for milestone context packs. Computed, never inferred —
+two runs over the same tree are byte-identical; freshness rides repo-map's existing
+per-worktree staleness check. (`lib/repo-map/conventions.js`; documented in
+`code-intelligence.md` + `repo-map-schema.md`.)
+
+- [no-migration] New optional flag; cache artifacts only.
+
 ### Added (engine wave — mechanical gates: `gate` + `seal verify`, 2026-07-03)
 
 Two more Wave-2 engine verbs move the structural, fail-closed half of the delivery

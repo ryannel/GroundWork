@@ -116,6 +116,14 @@ Use these for precise, reference-aware changes; use ordinary file edits for non-
 - `contracts` — detected API/spec files (OpenAPI, proto, GraphQL).
 - `unmapped` — languages present in the repo but **not** mapped (and why). A non-empty list
   means the map is partial; enable those languages (below) or fall back to targeted reads.
+- `conventions` — present when built with `--conventions`: the deterministic
+  project-conventions digest — runtimes pinned by root manifests (engines/`type`,
+  `requires-python`, go directive, Rust edition), test/build/lint commands the config declares
+  (npm scripts, `./dev` verbs, Makefile targets, pytest config), the top hub files/modules by
+  the map's own ranking, and observed layout + test-naming patterns. Also rendered compactly to
+  `.groundwork/cache/conventions.md` — the file milestone context packs point at. Computed,
+  never inferred: two runs over the same tree are byte-identical, and freshness rides the map's
+  own staleness check — no separate refresh to remember.
 - `generated_at_commit` — the freshness anchor; `repo-map --check` compares it against HEAD.
 
 ## Enable repo-map for your language

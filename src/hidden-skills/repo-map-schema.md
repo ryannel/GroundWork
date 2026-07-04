@@ -56,6 +56,10 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
   },
   "contracts": [ "api/openapi.yaml", "rpc/user.proto" ],   // detected contract/spec files
   "external_dependencies": [ "fmt", "react", "github.com/x/y" ],  // distinct external imports
+  "conventions": {                         // only when built with --conventions: deterministic
+    "runtimes": {}, "commands": {},        //   conventions digest (runtimes, declared commands,
+    "hubs": {}, "layout": {}               //   hubs, layout) — see code-intelligence.md; also
+  },                                       //   rendered to .groundwork/cache/conventions.md
   "unmapped": [                            // languages present but NOT mapped (+ why)
     { "language": "Elixir", "files": 14, "reason": "no built-in queries yet" }
   ]
