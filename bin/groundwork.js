@@ -2677,9 +2677,16 @@ function stateCommand(argv) {
 // "The checkpoint snapshot") specifies: Program -> Bet -> Milestone, rendered
 // from committed truth only (suite + git + pitch frontmatter + decomposition
 // prose). board.yaml is never read. Logic in lib/bet-status.
+//
+// `--write [path]` (C2) additionally persists the same full-tier render to disk
+// — docs/bets/<slug>/status.md by default when --bet resolves, or an explicit
+// path override — regenerated WHOLE on every call (never appended/patched), so
+// the docsite always shows a page as fresh as the last checkpoint. `--write`
+// with no value and no resolvable bet has no sensible default and errors.
 
 function statusCommand(argv) {
-  const { composeStatus, renderMarkdown } = require(path.join(__dirname, '..', 'lib', 'bet-status'));
+  const bs = require(path.join(__dirname, '..', 'lib', 'bet-status'));
+  const { composeStatus, renderMarkdown } = bs;
   const f = parseFlags(argv);
   const p = getPaths();
   const asJson = !!f.json;
@@ -2698,10 +2705,26 @@ function statusCommand(argv) {
     process.exit(2);
   }
 
+  if (f.write !== undefined) {
+    let writePath;
+    if (typeof f.write === 'string') {
+      writePath = path.isAbsolute(f.write) ? f.write : path.join(p.targetDir, f.write);
+    } else if (doc.resolvedSlug) {
+      writePath = bs.defaultWritePath(p.targetDir, doc.resolvedSlug);
+    } else {
+      c.err('status --write: no path given and no bet resolved to default to — pass --write <path> or --bet <slug>');
+      process.exit(1);
+    }
+    bs.writeStatusPage(writePath, doc);
+    if (!asJson) c.ok(`status: wrote ${path.relative(p.targetDir, writePath) || writePath}`);
+  }
+
   if (asJson) {
     process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
     return;
   }
+  // The same invocation both refreshes the written page and hands back the
+  // paste-ready snapshot — one command serves both the file and the chat.
   process.stdout.write(renderMarkdown(doc));
 }
 

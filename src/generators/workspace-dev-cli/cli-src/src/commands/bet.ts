@@ -247,6 +247,12 @@ export async function archive(ctx: Ctx): Promise<number> {
   }
 
   if (fs.existsSync(docsSrc)) {
+    // The per-bet status page (`groundwork status --write`, user-legibility C2) is
+    // regenerated whole at every checkpoint and superseded by the retrospective the
+    // moment the bet archives — drop it here, before the move, so the archived copy
+    // never carries a stale, un-regenerable snapshot.
+    const statusMdPath = path.join(docsSrc, 'status.md');
+    if (fs.existsSync(statusMdPath)) fs.rmSync(statusMdPath);
     r.step(`Archiving docs/bets/${slug} → docs/bets/_archive/${slug}`);
     archiveMove(`docs/bets/${slug}`, docsSrc, docsDest, inGit);
     ensureArchiveMeta(path.join(DOCS_DIR, 'bets', '_archive'));
