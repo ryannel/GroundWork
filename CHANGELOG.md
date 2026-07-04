@@ -8,6 +8,25 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (user legibility — the rendered snapshot, Wave 2, 2026-07-04)
+
+- `groundwork status [--bet <slug>] [--json] [--write [path]]` — the checkpoint
+  snapshot, rendered instead of recalled (`docs/plans/user-legibility.md` Wave 2).
+  Emits the ready-to-paste program → bet → milestone markdown in the operating
+  contract's checkpoint-snapshot shape, derived from committed truth only: pitch
+  frontmatter, decomposition demonstrable-goal prose, the bet suite (pytest when
+  available, bounded at 120s, with a git-history fallback and slice-derived
+  milestone states), worktree/branch enumeration for bets on other branches,
+  `Lane: patch` trailer mining, and the `## Bets` queue in written order —
+  `board.yaml` is never read. `--write` regenerates `docs/bets/<slug>/status.md`
+  whole for the docsite (generated-at line + do-not-hand-edit marker); `./dev
+  archive bet` deletes the page (the retrospective supersedes it). The operating
+  contract and orchestrator now render the snapshot via the verb, composing by
+  hand only where the CLI is unavailable; slice close and the postmortem
+  checkpoint refresh the page. 28 contract tests in `tests/cli/test_bet_status.py`,
+  including an output-language denylist and a board-cannot-influence-output test.
+  `[no-migration]`
+
 ### Changed (user legibility — the owner-language boundary, Wave 1, 2026-07-04)
 
 - The operating contract gains **Protocol 11 (Boundary Translation)** and the **checkpoint
