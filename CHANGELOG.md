@@ -8,6 +8,10 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (runtime verification — wiring scan, 2026-07-04)
+
+- `groundwork wiring scan --bet <slug> [--json]` — the computable half of the built-but-never-wired audit (GroundWork V2 plan §5, W3.3, escape class d). Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for interactive elements that exist in code but can't be reached in use: interactive bindings whose handler body is empty or contains only TODO/FIXME (JSX/React props, `addEventListener`, SwiftUI `Button`/`.onTapGesture`, Flutter named callbacks), and handler-shaped functions (`handleX`/`onX`/`_onTapX`) with zero references in tracked non-test source beyond their own definition (word-grep, capped at 20, labelled `[best-effort]`). Findings are leads for the review wave, never verdicts; unrecognized file types skip silently. Exits 0 clean / 1 leads / 2 cannot run. Logic in `lib/bet-wiring/`, sharing `lib/bet-honesty`'s sealed-baseline git plumbing (extracted to `lib/bet-honesty/git.js`). The slice-loop review wave runs it alongside the lenses for any slice touching a UI surface, fail-closed: an unwired control is a `patch` finding, not a note. `[no-migration]`
+
 ### Changed (runtime verification — the escape classes get owners in prose, 2026-07-04)
 
 Wave 3 opens with the prose halves of the escape-class gates (`docs/plans/groundwork-v2.md` §5).

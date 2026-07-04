@@ -54,7 +54,7 @@ does not account for:
   or fetch URL pointing at an internal address, a payload sized or nested to exhaust the
   parser. Trace what the code does when the input is shaped by an attacker, not only
   when it is missing or malformed.
-- State-machine and lifecycle reachability — walk the states and transitions the design names against the diff: a screen or state that was reachable before but no longer has a path back to it (a populated view that strands the user with no return), a control wired but never reachable, a collapsed panel that will not reopen, a lifecycle step (init → load → populated → teardown) the diff skips. These recur as *green-but-unreachable* bugs no presence check catches; trace the path a real user takes, not the isolated component.
+- State-machine and lifecycle reachability — walk the states and transitions the design names against the diff: a screen or state that was reachable before but no longer has a path back to it (a populated view that strands the user with no return), a control wired but never reachable, a collapsed panel that will not reopen, a lifecycle step (init → load → populated → teardown) the diff skips. These recur as *green-but-unreachable* bugs no presence check catches; trace the path a real user takes, not the isolated component. (The driver's `wiring scan` already flags the mechanical class — empty handler bodies, zero-caller handlers — so spend this walk on the paths a grep cannot see.)
 - Callers the diff did not update — when the diff changes a symbol's signature or shape,
   enumerate its references (Serena `find_referencing_symbols`, the capsule's caller list
   when the slice carried one, or the repo-map edges offline) and confirm each was updated
