@@ -5,7 +5,7 @@ description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
   the downstream context store, setup graduation, hand-off cache, cache isolation,
-  the review gate, and review invocation.
+  the review gate, review invocation, and boundary translation.
 ---
 
 # GroundWork Operating Contract
@@ -345,7 +345,7 @@ The gate blocks on anything short of a parseable `VERDICT: PRESENT` — a review
 
 ### The revise cap
 
-A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: surface every remaining 🔴 Critical finding to the user as 🟡 Advisory, and state plainly that the review did not reach PRESENT and how many critical findings remain unresolved. The user weighs them before approving the commit. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
+A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: internally, every remaining 🔴 Critical finding is reclassified 🟡 Advisory — the cap has been hit, not cleared. Tell the user, in plain terms, that the independent review ran three times and still has unresolved concerns, name what those concerns are, and let them decide whether to proceed. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
 
 A reviewer that keeps finding fresh contract↔body desyncs pass after pass is not asking for a sixth revision — the fault is usually an unreconciled Downstream Context file (Protocol 5: author it last, from the finished doc); reconcile that before revising the body again.
 
@@ -438,3 +438,44 @@ By the end of the flow, everything durable lives in `docs/` as proper technical 
 ### Fail-safe
 
 Graduation never deletes before it has graduated. If step 1 or 2 cannot complete — an ADR cannot be written, a doc reconciliation is ambiguous — stop and surface it to the user; do not run step 3. A torn-down store whose decisions never reached `docs/` is unrecoverable.
+
+---
+
+## Protocol 11: Boundary Translation
+
+A user who has lost the thread cannot make the decisions the process exists to put to them. Every user-facing sentence is written for someone following the *product* being built, not the process building it — so this protocol governs what crosses the line from the agent's working vocabulary into a reply the user reads.
+
+### The shared vocabulary
+
+Bet, milestone, slice, pitch, appetite, and milestone/slice numbers are structure the user was taught and approved during discovery and decomposition. Speak these plainly — they are the user's own map, not jargon.
+
+### Everything else translates at the boundary
+
+Engine mechanics, wire formats, verdict and severity labels, tier and model names, protocol numbers, coined IDs, and internal file names are never spoken to the user as-is. Say the behaviour, not the mechanism: the independent review found problems worth fixing before this locks in, not `VERDICT: REVISE`. This is a translation, not a deletion — the engine vocabulary that gates and skills depend on stays exactly as precise inside the engine (Protocols 8 and 9 keep their wire formats, verdict strings, and dispatch mechanics untouched); only the sentence spoken across the boundary changes.
+
+### Subagent reports are raw material
+
+A subagent's report — a review's `VERDICT:` and findings, a slice-worker's `SLICE:`/`COVERAGE:`/`SELF-RECONCILE:` block — is written for the gate that parses it, not for the user who never sees it. The driver reads the wire format and speaks its meaning; it never relays the block verbatim. The wire format itself is untouched by this: the gate still parses exactly what Protocol 8 and 9 specify.
+
+### An identifier earns its mention by locating something the user can open
+
+Every identifier spoken to the user must locate something they can open — a milestone in the decomposition, a file in the docsite, a commit. An ID that only locates a line in the agent's own bookkeeping is bookkeeping: it stays in the agent's working state and is never spoken.
+
+### The checkpoint snapshot
+
+A user asked to decide something, or resuming after time away, first needs to see where they stand — Protocol 11 governs the sentence, this governs what the sentence orients against. Every pause and report point opens with the snapshot below plus one sentence of meaning in owner language, and closes with what happens next; the snapshot is cheap to produce and is the difference between a user who can decide and one who has to ask "where are we?" first. Callers name which tier fires at their point and when — this is the one place the shape itself is defined.
+
+Two tiers, never both:
+
+- **Full** — program, then the bet, then the milestone. Fires at milestone boundaries, postmortems, session resumes, and before any hard-stop question, because a user asked to rule on something is shown where they are ruling before they are asked to rule.
+- **Bet-section only** — the milestone ladder position and slice states, no program table. Fires at slice-by-slice pauses, which arrive minutes apart; a full program table there becomes wallpaper the user learns to skip.
+
+**Bet section** (both tiers): the bet's goal in one sentence, from the pitch. Then the milestone ladder as a checklist, one line per milestone, using each milestone's demonstrable-goal text already authored in `decomposition/milestone-<N>/index.md` — never a coined code or slug. State done / in progress / not started for each.
+
+**Milestone section** (both tiers): the current milestone's slices, each by its plain name, with the same three states.
+
+**Program section** (full tier only): every bet in plain-language payloads, never slugs alone — delivered (from `docs/bets/_archive/`), in flight (the active bet dirs' pitches), queued (`discovery-notes.md`'s `## Bets` bullets, in their written order). Interleave patches and quick bets where they fall chronologically rather than listing them separately.
+
+**Milestone close adds one more line:** what the user can now do, in product terms, and the exact command that shows it — the scaffold's `./dev` runbook is the source. A milestone closes without this line only when there is truly nothing new to run.
+
+Compose the snapshot from `./dev bet status` and the decomposition's demonstrable-goal lines until the rendered `status` command (a future engine capability) replaces the composition step; the shape does not change when it does. `board.yaml` is never a source — the snapshot must survive the board's absence. Zero engine vocabulary outside Protocol 11's shared set anywhere in the snapshot.

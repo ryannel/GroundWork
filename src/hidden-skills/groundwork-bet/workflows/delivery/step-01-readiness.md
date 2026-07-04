@@ -8,7 +8,7 @@ Before any slice work, verify the bet is actually executable. First run `npx gro
 
 The gate is fail-closed: any 🔴 item — mechanical or judged — blocks delivery. Report each failed item by name, route back to the owning phase (a missing interface design → Design Foundations; an unapproved decomposition tree → Decomposition; an unreconciled discovery note → resolve it now), and do not begin implementation until it passes. 🟡 items are surfaced to the user with your read on whether they touch this bet; the user decides.
 
-When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and inform the user you are entering Developer Mode. Write the active-lane sentinel — `printf '%s\n' '<bet-slug>' > .groundwork/cache/active-lane` — so the capture reminder hook stays silent while this lane drives edits; Validation removes it at bet close.
+When every 🔴 item passes, state so in one line, update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: delivery`, and open with the **full** checkpoint snapshot (operating contract) — entering delivery is a session start, so show the program → bet → milestone picture before anything else. Follow it with what this transition means, in the terms Protocol 11 governs: the design is locked and approved, so from here the work is building it — fewer questions land on the user, decisions arrive batched, and pauses come only at the granularity they choose in Step 0.7. Write the active-lane sentinel — `printf '%s\n' '<bet-slug>' > .groundwork/cache/active-lane` — so the capture reminder hook stays silent while this lane drives edits; Validation removes it at bet close.
 
 **Initialize the working state** (`../04-delivery.md`, *Working state*). Write `.groundwork/cache/bets/<bet-slug>/board.yaml` from the approved decomposition — the bet, the track, `approved: bet/<bet-slug>/approved@<sha>`, the full milestone ladder with the first milestone's slices `pending`, and `step: step-01-readiness` — and open the memlog with a first line (`./dev bet log <bet-slug> -- "delivery opened"`). The board is a convenience that reconciles against git and the suite; it never gates.
 
@@ -45,7 +45,7 @@ Delivery can run at three cadences. The cadence sets where you pause for the use
 
 Recommend the user pin a **`frontier`**-tier model for this driver session (Model Tiers, operating contract) — subagent tiers are the dispatch defaults applied in the Slice Loop (`step-02-slice-loop.md`, §1, §2). Also recommend a **`frontier`**-class **advisor** (Claude Code: `/advisor opus` or `advisorModel`) so an `execution`-tier worker can escalate mid-slice instead of grinding toward a forced green (Model Tiers — *Runtime escalation*).
 
-State the chosen mode back in one line, record it in `board.yaml` (`mode:`) and a memlog line, then begin the milestone loop. The choice is a session preference — on a fresh-context resume, re-confirm the mode before continuing; it is one cheap question.
+Offer the choice and state the chosen mode back in one line — plain language, per Protocol 11 above — record it in `board.yaml` (`mode:`) and a memlog line, then begin the milestone loop. The choice is a session preference — on a fresh-context resume, re-confirm the mode before continuing; it is one cheap question.
 
 ---
 

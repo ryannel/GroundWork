@@ -10,7 +10,7 @@ This workflow operates under the protocols defined in `.groundwork/skills/operat
 
 Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Bets`.
 
-If entries exist, treat them as pre-discovered context — sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items carrying stable IDs (`<bet-slug>-R<n>`) from the previous bet's validation. Some entries are `planned` capability-ledger cells cross-posted by a previous bet's validation — capabilities already committed to reach a named surface. These are discovery input: when one touches the problem the user brings, surface it as candidate scope for this bet rather than letting the commitment age in the parking lot. Carry all of it into the pitch conversation; an action item the new bet absorbs is cited in the pitch by its ID so the next retrospective's follow-through audit can close it. Re-asking signals the user has already given erodes trust in the process.
+If entries exist, treat them as pre-discovered context — the bullets' order is the stated queue order (the checkpoint snapshot's program section reads it as such, and reordering the queue is reordering bullets): sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items from the previous bet's validation (each carrying a stable ID, `<bet-slug>-R<n>`, for the mechanical follow-through audit). Some entries are `planned` capability-ledger cells cross-posted by a previous bet's validation — capabilities already committed to reach a named surface. These are discovery input: when one touches the problem the user brings, surface it as candidate scope for this bet rather than letting the commitment age in the parking lot. Carry all of it into the pitch conversation in its plain name — talk about the action item, not its ID. When an action item is absorbed, its ID travels with it into the pitch's frontmatter or links only, so the next retrospective's follow-through audit can close it mechanically; the pitch body itself never quotes the ID. Re-asking signals the user has already given erodes trust in the process.
 
 If the file does not exist or has no `## Bets` entries, skip this step.
 
@@ -43,7 +43,7 @@ Read the relevant `docs/` artifacts before opening the conversation:
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.
 
-When the bet appears to challenge a boundary or capability decision `docs/architecture/index.md` committed, adopt the architect persona (`.groundwork/skills/groundwork-architect/SKILL.md`) to weigh whether the boundary should hold or move — surface the tension here rather than discovering it mid-design.
+When the bet appears to challenge a boundary or capability decision `docs/architecture/index.md` committed, adopt the architect persona (`.groundwork/skills/groundwork-architect/SKILL.md`) for that judgment call only, to weigh whether the boundary should hold or move. Surface the tension here rather than discovering it mid-design.
 
 **Surface scope degrades with the registry.** When `docs/surfaces.md` does not exist, the project has a single implicit surface: skip every surface-scope step in this workflow — the pitch carries no `surfaces:` frontmatter, the No-Gos carry no surface no-gos, and the conversation gains no surface questions. When the registry holds exactly one surface, scope is settled by inspection: write that one slug into `surfaces:` and ask nothing — there is no scope to choose.
 
@@ -60,7 +60,7 @@ Ask whether the user wants to think the problem through together — exploring e
 
 ### Adopt the product persona
 
-The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking; route to its Context Routing table for the reference each pitch element turns on, and apply the reference's reasoning and antipatterns to the pitch.
+The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking — its judgment governs the pitch, `groundwork-persona` still holds the chat posture and the owner-language boundary; route to its Context Routing table for the reference each pitch element turns on, and apply the reference's reasoning and antipatterns to the pitch.
 
 The bet must fit inside what `docs/product-brief.md` already committed — its users, capabilities, and out-of-scope boundaries. Where the pitch re-opens one, the persona surfaces it explicitly and records why, rather than letting the product's scope drift one quiet bet at a time. (Structural questions — whether a boundary should hold or move — remain the architect persona's, adopted above when the bet challenges `docs/architecture/index.md`.)
 
@@ -119,6 +119,8 @@ When the registry holds two or more surfaces, the no-gos conversation includes s
    4. **Carry advisory findings forward.** When the verdict is PRESENT, surface any 🟡 Advisory findings to the user along with the reviewed pitch so they can decide whether to act on them.
 
 5. Present the reviewed pitch to the user. On explicit approval, promote `.groundwork/cache/bet-pitch-draft.md` to `docs/bets/<bet-slug>/pitch.md` by moving the file (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents.
+
+   **This promotion is also where the bet's branch and worktree open.** Every artifact from here forward — this pitch, the technical design, the decomposition — is authored on `bet/<bet-slug>`, in its own worktree, not on trunk: the bet's evolution is visible in one place from day one (the docsite's in-flight view reads the bet branch), and Delivery no longer discovers its isolation late. Open them now, following the branch/worktree mechanics in `04-delivery.md`'s Git workflow section — the canonical home for those mechanics, not restated here. Write `pitch.md` inside that worktree.
 
 6. Ensure the `pitch.md` frontmatter contains `status: discovery` — and, when the project has a surface registry, `surfaces:` listing the registry slugs this bet delivers to. Every registry surface outside that list appears under the No-Gos as a surface no-go, marked deferred or omitted. When no registry exists, the frontmatter carries no `surfaces:` key at all.
 

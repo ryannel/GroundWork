@@ -17,6 +17,10 @@ If entries exist, treat them as pre-discovered context — implementation decisi
 
 If the file does not exist or has no `## Design Details` entries, skip this step.
 
+## Precondition: on the bet branch
+
+You are on the bet's branch, `bet/<bet-slug>`, in its worktree — opened at pitch promotion (`01-discovery.md`). If not, reconcile before authoring: open them now per `04-delivery.md`'s Git workflow section.
+
 ## Step 1: Update pitch status
 
 Update `docs/bets/<bet-slug>/pitch.md` frontmatter to `status: design`.
@@ -32,7 +36,7 @@ Confirm any domain doc changes with the user before proceeding to Step 2. Skip t
 
 ## Step 1.9: Adopt the architect persona
 
-The Technical Design Document below is architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the headless core of this phase: the Data Flows & Business Logic, API Design, and Schema & Data Design. The UI Design subsection is the designer's — see Step 1.95.
+The Technical Design Document below is architecture work — service boundaries, contract shapes, data flows, consistency models — done at bet scope. Load `.groundwork/skills/groundwork-architect/SKILL.md` and design as that persona for the headless core of this phase: the Data Flows & Business Logic, API Design, and Schema & Data Design — the persona's judgment, not the chat posture the conversation is held in, which stays `groundwork-persona`'s. The UI Design subsection is the designer's — see Step 1.95.
 
 Route to its `references/` by what this bet touches: `core-and-boundaries.md` if it adds or moves a boundary; `api-and-contracts.md` and `integration-and-workflows.md` for the API contracts and sync/async choices; `realtime-and-async.md` for any live path; `data-architecture.md` and `security-and-trust.md` for the schema, ownership, and trust decisions; `ai-native-architecture.md` for a model-in-the-loop feature. Apply the reference's reasoning and its antipatterns to the design.
 
@@ -52,7 +56,7 @@ One rule the design must honour, because it is the rule a real bet broke: **a PO
 
 ## Step 1.95: Adopt the designer persona for UI Design
 
-The **UI Design** section of the Technical Design Document (Step 2) is design discipline — how each surface looks, the wireframe and states it must cover, and the interaction and visual intent that the contract then serves. For that section, load `.groundwork/skills/groundwork-designer/SKILL.md` and design as that persona; return to the architect for the headless core. The designer owns usability and craft, the architect owns feasibility — and UI Design is drafted first precisely because the contract must serve the experience.
+The **UI Design** section of the Technical Design Document (Step 2) is design discipline — how each surface looks, the wireframe and states it must cover, and the interaction and visual intent that the contract then serves. For that section, load `.groundwork/skills/groundwork-designer/SKILL.md` and design as that persona — its judgment governs the craft, not the voice the conversation is held in; return to the architect for the headless core. The designer owns usability and craft, the architect owns feasibility — and UI Design is drafted first precisely because the contract must serve the experience.
 
 Route to the designer's Context Routing table for the reference each surface decision turns on. Specify the per-surface visual intent concretely enough that a milestone test can judge the rendered result against it, and use the design system in `docs/design-system.md` rather than inventing a parallel one.
 

@@ -41,6 +41,11 @@ noticing after the third skill:
                         capability class; ids go stale on release).
  13. template-link     — every `templates/<name>` and `briefs/<name>` mention resolves
                         to a real file in some skill tree (own, sibling, or shared).
+ 14. report-point-lang  — a narrow denylist of engine terms (Developer Mode, red board,
+                        honest green, wire-format tokens, tier names, R<n>-style
+                        coinages) scanned only inside prescribed user-facing lines —
+                        catches reintroduction of the user-legibility audit's jargon set
+                        at report points, not general jargon (D-S9).
 
 Plus a non-blocking word-budget warning per over-long skill file.
 
@@ -606,6 +611,72 @@ def check_no_model_ids():
                 break
 
 
+# ── report-point language tripwire (D-S9, user-legibility plan §2 A5) ────────
+#
+# A narrow denylist of the AUDITED jargon set, scanned only inside prescribed
+# user-facing lines. This is not a general jargon scanner — tier names and
+# wire-format tokens appear legitimately in engine prose everywhere; they only
+# violate INSIDE a sentence the instruction directs the agent to speak to the
+# user. Precision over recall: a false positive on engine prose makes this
+# lint hated, so the trigger-phrase scoping below is deliberately narrow.
+
+# Instruction verbs that direct speech to the user, per the plan's list.
+REPORT_POINT_TRIGGER_RE = re.compile(
+    r"(?:inform|tell|state|report|present|show|say)(?:s|ed|ing)?\s+"
+    r"(?:to\s+)?the\s+user",
+    re.I,
+)
+
+# The audited jargon set — Developer Mode, red board, honest green, the wire-format
+# tokens, R<n>-style coinages, and tier names spoken as user-facing words. Tier names
+# are deliberately narrow-scoped: they are legitimate everywhere except inside a
+# prescribed user-facing line, which is exactly the window this check inspects.
+REPORT_POINT_DENYLIST_RE = re.compile(
+    r"\bDeveloper Mode\b"
+    r"|\bred board\b"
+    r"|\bhonest[- ]green\b"
+    r"|\bVERDICT:"
+    r"|\bREVIEW_UNAVAILABLE\b"
+    r"|\bBLOCKING CONCERN\b"
+    r"|\bSELF-RECONCILE\b"
+    r"|\bCOVERAGE:"
+    r"|\bfrontier\b|\bexecution\b(?=.{0,30}\btier\b)|\blight\b(?=.{0,30}\btier\b)"
+    r"|\btier\s+(?:frontier|execution|light)\b"
+    r"|\b[A-Za-z][\w-]*-R\d+\b"
+    r"|\bR\d+\b",
+    re.I,
+)
+
+
+def _sentence_window(text: str, start: int) -> str:
+    """The sentence containing a trigger phrase: back to the prior sentence
+    end, forward to the next — or the whole line when no sentence boundary is
+    found nearby (a bullet or table cell often has none)."""
+    line_start = text.rfind("\n", 0, start) + 1
+    line_end = text.find("\n", start)
+    if line_end == -1:
+        line_end = len(text)
+    # Prefer sentence-level scoping within the line when a clear boundary exists.
+    prior_stop = text.rfind(". ", line_start, start)
+    seg_start = prior_stop + 2 if prior_stop != -1 else line_start
+    next_stop = text.find(". ", start, line_end)
+    seg_end = next_stop + 1 if next_stop != -1 else line_end
+    return text[seg_start:seg_end]
+
+
+def check_report_point_language():
+    for base in (HIDDEN, REGISTERED, ENGINEER):
+        for path in sorted(base.rglob("*.md")):
+            text = _CODE_FENCE_RE.sub("", path.read_text(encoding="utf-8"))
+            for trig in REPORT_POINT_TRIGGER_RE.finditer(text):
+                window = _sentence_window(text, trig.start())
+                m = REPORT_POINT_DENYLIST_RE.search(window)
+                if m:
+                    fail("report-point-language", path,
+                         f"prescribed user-facing line uses engine vocabulary {m.group(0)!r} — "
+                         f"say the meaning, not the mechanism: {window.strip()!r}")
+
+
 def _template_brief_index():
     existing: set[str] = set()
     roots = [d for d in HIDDEN.iterdir() if d.is_dir() and d.name != "templates"]
@@ -712,6 +783,7 @@ def main() -> int:
     check_template_brief_links()
     check_policy_floor()
     check_bet_slice_rollout_anchor()
+    check_report_point_language()
     check_word_budget()
 
     if warnings:
@@ -725,7 +797,7 @@ def main() -> int:
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links, descriptions, model ids, template links.")
+    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links, descriptions, model ids, template links, report-point language.")
     return 0
 
 

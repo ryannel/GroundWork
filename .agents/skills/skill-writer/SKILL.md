@@ -108,6 +108,15 @@ Never put quoted or italicised phrases in skill files that the agent is expected
 
 The agent knows how to ask a question. Your job is to specify the intent, not the words.
 
+### Report-point prescriptions are written in owner language
+
+When an instruction directs the agent to speak to the user — inform, state, report, present — the prescribed line itself must be owner language: what the user can now do, what changed, what needs their decision. Never the engine's internal vocabulary for it. This is *write intent, not scripts*'s boundary-language corollary — agents repeat a prescribed line verbatim, so a prescribed line written in engine terms ships the jargon to the user every time the step runs, not just once.
+
+- ❌ `Report to the user: "the ingest pipeline is green and the reconciler cleared with zero drift findings."`
+- ✅ `Report to the user what changed for them: their data is now searchable, and nothing needs their attention.`
+
+A skill that prescribes what to say must prescribe it in the words the user already owns — never a term this repo coined for its own bookkeeping.
+
 ### Explain why each phase or step exists
 
 An agent that understands the purpose of a phase makes better judgment calls within it than one following a checklist. Explain what each phase is trying to establish and why that matters for what follows — not just what to do.

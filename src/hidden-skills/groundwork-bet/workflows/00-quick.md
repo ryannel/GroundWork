@@ -60,7 +60,7 @@ The quick bet compresses the prose, not the gate. Run the independent review (Pr
 
 ### 7. Approve, seal, and hand to delivery
 
-Walk the user through the plan in one pass — the outcome and its UX, the local contract delta, and the front-door proof — and get their approval. This is the quick bet's **single gate**; after it, delivery runs to a green milestone on its own (hard stops still pause).
+Open with the **full** checkpoint snapshot (operating contract) — this is the quick bet's one hard-stop gate, proportionate to a single-milestone bet: program and bet collapse to one line each, since there is no ladder and no queue position beyond this bet. Then walk the user through the plan in one pass — the outcome and its UX, the local contract delta, and the front-door proof — and get their approval. This is the quick bet's **single gate**; after it, delivery runs to a green milestone on its own (hard stops still pause, each opening with the same snapshot).
 
 On approval:
 

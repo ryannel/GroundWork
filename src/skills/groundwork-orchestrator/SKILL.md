@@ -37,9 +37,9 @@ Write `state.json` back whenever it changes.
 
 **An unconsumed upgrade brief outranks routine routing.** When
 `.groundwork/cache/upgrade-brief.json` exists with pending items, the framework left
-work for a working session — surface it in your first reply (one line: "N framework
-update items are pending — say 'update groundwork' when you want to run them") and
-route to `groundwork-update` when the user agrees. Do not block other work on it.
+work for a working session — surface it in your first reply, in one line: how many
+framework update items are waiting and that saying "update groundwork" runs them.
+Route to `groundwork-update` when the user agrees. Do not block other work on it.
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
@@ -184,7 +184,7 @@ Match intent to a skill. Briefly introduce it, then load and execute the instruc
 
 One procedure serves every orientation ask; state resolution has already run, so the state is in hand.
 
-1. **Position report.** In setup mode, name the mode and the current phase as "phase N of M", each completed phase's artifact checked off and the incomplete ones listed. In the Delivery Loop, report the active lane from the in-flight pitch's `status:` and `./dev bet status`, plus the pending signals state resolution already surfaced — patch-cluster trailers building toward a quick bet, an unconsumed `.groundwork/cache/upgrade-brief.json`, open rows in `docs/maturity.md`.
+1. **Position report, snapshot-first.** In setup mode, name the mode and the current phase as "phase N of M", each completed phase's artifact checked off and the incomplete ones listed. In the Delivery Loop, this is exactly the moment the **full** checkpoint snapshot (operating contract) exists for — "where are we?" is the question it answers, so open the report with it rather than recalling the position from memory. Compose it from the in-flight pitch's `status:` and `./dev bet status`, then add the pending signals state resolution already surfaced — patch-cluster trailers building toward a quick bet, an unconsumed `.groundwork/cache/upgrade-brief.json`, open rows in `docs/maturity.md`.
 2. **One recommended next action.** Name the single highest-value next step and give the user the exact phrase that starts it — one action, never a menu. `.agents/skills/groundwork-orchestrator/workflow-index.md` (the generated route map, same directory) is the reference for what each route produces; read the current mode's table from it when the user wants the whole road, but never paste all four tables.
 3. **General questions** — "how does X work", "why bets", "what is a surface" — are answered from `docs/` and `llms.txt`, never from memory; the index's General-questions row names that corpus.
 

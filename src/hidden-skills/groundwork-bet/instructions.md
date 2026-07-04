@@ -101,4 +101,4 @@ Without that signal, a new request starts at full discovery (the *No pitch* rout
 
   ➡️ Read and follow: `.groundwork/skills/groundwork-bet/workflows/01-discovery.md`
 
-If activating in a fresh context against an existing pitch, briefly summarise the pitch's scope so the user can confirm the right bet was picked up before proceeding.
+If activating in a fresh context against an existing pitch, load `.groundwork/skills/groundwork-persona/instructions.md` alongside the routed workflow — a resumed session has no other reason to reload it, and the chat posture it sets does not survive on its own — then open with the **full** checkpoint snapshot (operating contract; a session resume is exactly the moment a rendered artifact beats recall) so the user can confirm the right bet was picked up before proceeding.
