@@ -5,7 +5,7 @@ description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
   the downstream context store, setup graduation, hand-off cache, cache isolation,
-  the review gate, and review invocation.
+  the review gate, review invocation, and boundary translation.
 ---
 
 # GroundWork Operating Contract
@@ -438,3 +438,25 @@ By the end of the flow, everything durable lives in `docs/` as proper technical 
 ### Fail-safe
 
 Graduation never deletes before it has graduated. If step 1 or 2 cannot complete — an ADR cannot be written, a doc reconciliation is ambiguous — stop and surface it to the user; do not run step 3. A torn-down store whose decisions never reached `docs/` is unrecoverable.
+
+---
+
+## Protocol 11: Boundary Translation
+
+A user who has lost the thread cannot make the decisions the process exists to put to them. Every user-facing sentence is written for someone following the *product* being built, not the process building it — so this protocol governs what crosses the line from the agent's working vocabulary into a reply the user reads.
+
+### The shared vocabulary
+
+Bet, milestone, slice, pitch, appetite, and milestone/slice numbers are structure the user was taught and approved during discovery and decomposition. Speak these plainly — they are the user's own map, not jargon.
+
+### Everything else translates at the boundary
+
+Engine mechanics, wire formats, verdict and severity labels, tier and model names, protocol numbers, coined IDs, and internal file names are never spoken to the user as-is. Say the behaviour, not the mechanism: the independent review found problems worth fixing before this locks in, not `VERDICT: REVISE`. This is a translation, not a deletion — the engine vocabulary that gates and skills depend on stays exactly as precise inside the engine (Protocols 8 and 9 keep their wire formats, verdict strings, and dispatch mechanics untouched); only the sentence spoken across the boundary changes.
+
+### Subagent reports are raw material
+
+A subagent's report — a review's `VERDICT:` and findings, a slice-worker's `SLICE:`/`COVERAGE:`/`SELF-RECONCILE:` block — is written for the gate that parses it, not for the user who never sees it. The driver reads the wire format and speaks its meaning; it never relays the block verbatim. The wire format itself is untouched by this: the gate still parses exactly what Protocol 8 and 9 specify.
+
+### An identifier earns its mention by locating something the user can open
+
+Every identifier spoken to the user must locate something they can open — a milestone in the decomposition, a file in the docsite, a commit. An ID that only locates a line in the agent's own bookkeeping is bookkeeping: it stays in the agent's working state and is never spoken.
