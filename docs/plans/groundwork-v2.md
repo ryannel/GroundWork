@@ -206,7 +206,7 @@ Tooling: `npx groundwork-method policy` prints the resolved merge as JSON; `grou
 
 ## 4. Wave 2 — The engine: facts move from prose to code
 
-**Status:** started 2026-07-03. `groundwork findings` + `groundwork decisions` landed first (the recommended pair, §10 open-6) — durable state under `.groundwork/bets/<slug>/`, logic in `lib/bet-state/`, delivery prose shrunk to invoke them, and the exit-gate finding (persist the human-in-the-loop exchange) closed by `decisions ratify`'s verbatim-response record. Remaining verbs below.
+**Status:** started 2026-07-03. Landed so far: `groundwork findings` + `groundwork decisions` (the recommended pair, §10 open-6) — durable state under `.groundwork/bets/<slug>/`, logic in `lib/bet-state/`, exit-gate finding closed by `decisions ratify`'s verbatim record; then `groundwork gate readiness|decomposition` + `groundwork seal verify` — the mechanical, fail-closed half of the readiness/decomposition checklists and the prose-integrity walk, logic in `lib/bet-gate/`. Each shipped with its delivery prose shrunk to invoke it. Remaining verbs below.
 
 Incremental and non-breaking: new CLI verbs in `bin/groundwork.js` + `lib/` (dependency-free), each replacing a prose ritual, each a small PR, **skills shrinking in the same PR as each verb lands**:
 

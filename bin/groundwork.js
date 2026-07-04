@@ -38,6 +38,10 @@ function printHelp() {
             languages; extensible per-project. Incremental — only changed files reparse.
             \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
   \x1b[36mpolicy\x1b[0m    Print the resolved additive policy layer (policy.toml + policy.user.toml) as JSON
+  \x1b[36mgate\x1b[0m      Mechanical delivery gates (fail-closed): gate readiness | gate decomposition --bet <slug>.
+            \x1b[2mfiles exist, slice links + meta pages resolve, Proof-of-work + Test file named, approved tag present.\x1b[0m
+  \x1b[36mseal\x1b[0m      seal verify --bet <slug>: the sealed prose (decomposition + technical-design) still matches
+            the bet/<slug>/approved tag. Non-zero on undeclared drift — the mechanical prose-integrity check.
   \x1b[36mfindings\x1b[0m  Per-bet findings ledger (.groundwork/bets/<slug>/findings.json): add | disposition | check | list.
             \x1b[2mcheck exits non-zero on any open finding — the mechanical milestone-close gate.\x1b[0m
   \x1b[36mdecisions\x1b[0m Per-bet default+veto queue (.groundwork/bets/<slug>/decisions.json): add | pending | ratify | list.
@@ -2266,6 +2270,76 @@ function decisionsCommand(argv) {
   }
 }
 
+// ─── Mechanical gates: gate (readiness/decomposition) & seal verify ──────────
+// The structural, fail-closed half of the delivery checklists the driver walked
+// by hand. Logic in lib/bet-gate. Exit 0 = pass, 1 = a check failed, 2 = the
+// gate could not run (seal: no tag / no git repo).
+
+function loadBetGate() {
+  return require(path.join(__dirname, '..', 'lib', 'bet-gate'));
+}
+
+function gateCommand(argv) {
+  const bg = loadBetGate();
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  const p = getPaths();
+  const slug = f.bet;
+  const asJson = !!f.json;
+  if (!slug) { c.err(`gate ${sub || ''}: --bet <slug> is required`); process.exit(1); }
+
+  let checks;
+  if (sub === 'readiness') checks = bg.readinessChecks(p.targetDir, slug);
+  else if (sub === 'decomposition') checks = bg.decompositionChecks(p.targetDir, slug, { milestone: f.milestone });
+  else { c.err(`gate: unknown subcommand '${sub || ''}' — use readiness | decomposition`); process.exit(1); }
+
+  const failed = checks.filter((ch) => !ch.ok);
+  if (asJson) {
+    process.stdout.write(JSON.stringify({ gate: sub, ok: failed.length === 0, failed: failed.length, checks }, null, 2) + '\n');
+  }
+  if (failed.length) {
+    if (!asJson) {
+      c.err(`gate ${sub}: ${failed.length} check(s) failed:`);
+      for (const ch of failed) console.error(`    ✖ ${ch.name} — ${ch.detail}`);
+    }
+    process.exit(1);
+  }
+  if (!asJson) c.ok(`gate ${sub}: all ${checks.length} mechanical checks pass.`);
+}
+
+function sealCommand(argv) {
+  const bg = loadBetGate();
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  const p = getPaths();
+  const slug = f.bet;
+  const asJson = !!f.json;
+  if (sub !== 'verify') { c.err(`seal: unknown subcommand '${sub || ''}' — use verify`); process.exit(1); }
+  if (!slug) { c.err('seal verify: --bet <slug> is required'); process.exit(1); }
+
+  const res = bg.sealVerify(p.targetDir, slug);
+  if (asJson) process.stdout.write(JSON.stringify(res, null, 2) + '\n');
+  switch (res.status) {
+    case 'no-git':
+      if (!asJson) c.warn('seal verify: not a git repo — prose integrity falls back to the bet record.');
+      process.exit(2);
+      break;
+    case 'no-tag':
+      if (!asJson) c.err(`seal verify: tag ${res.tag} does not exist — the bet is not sealed.`);
+      process.exit(2);
+      break;
+    case 'drift':
+      if (!asJson) {
+        c.err(`seal verify: sealed prose drifted from ${res.tag} without a recorded amendment:`);
+        for (const file of res.drifted) console.error(`    ✖ ${file}`);
+      }
+      process.exit(1);
+      break;
+    default:
+      if (!asJson) c.ok(`seal verify: prose matches ${res.tag} — sealed.`);
+  }
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2314,6 +2388,14 @@ switch (command) {
       c.err(`repo-map failed: ${err.message}`);
       process.exit(1);
     });
+    break;
+  case 'gate':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    gateCommand(process.argv.slice(3));
+    break;
+  case 'seal':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    sealCommand(process.argv.slice(3));
     break;
   case 'findings':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
