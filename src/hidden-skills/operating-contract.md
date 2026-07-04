@@ -460,3 +460,22 @@ A subagent's report — a review's `VERDICT:` and findings, a slice-worker's `SL
 ### An identifier earns its mention by locating something the user can open
 
 Every identifier spoken to the user must locate something they can open — a milestone in the decomposition, a file in the docsite, a commit. An ID that only locates a line in the agent's own bookkeeping is bookkeeping: it stays in the agent's working state and is never spoken.
+
+### The checkpoint snapshot
+
+A user asked to decide something, or resuming after time away, first needs to see where they stand — Protocol 11 governs the sentence, this governs what the sentence orients against. Every pause and report point opens with the snapshot below plus one sentence of meaning in owner language, and closes with what happens next; the snapshot is cheap to produce and is the difference between a user who can decide and one who has to ask "where are we?" first. Callers name which tier fires at their point and when — this is the one place the shape itself is defined.
+
+Two tiers, never both:
+
+- **Full** — program, then the bet, then the milestone. Fires at milestone boundaries, postmortems, session resumes, and before any hard-stop question, because a user asked to rule on something is shown where they are ruling before they are asked to rule.
+- **Bet-section only** — the milestone ladder position and slice states, no program table. Fires at slice-by-slice pauses, which arrive minutes apart; a full program table there becomes wallpaper the user learns to skip.
+
+**Bet section** (both tiers): the bet's goal in one sentence, from the pitch. Then the milestone ladder as a checklist, one line per milestone, using each milestone's demonstrable-goal text already authored in `decomposition/milestone-<N>/index.md` — never a coined code or slug. State done / in progress / not started for each.
+
+**Milestone section** (both tiers): the current milestone's slices, each by its plain name, with the same three states.
+
+**Program section** (full tier only): every bet in plain-language payloads, never slugs alone — delivered (from `docs/bets/_archive/`), in flight (the active bet dirs' pitches), queued (`discovery-notes.md`'s `## Bets` bullets, in their written order). Interleave patches and quick bets where they fall chronologically rather than listing them separately.
+
+**Milestone close adds one more line:** what the user can now do, in product terms, and the exact command that shows it — the scaffold's `./dev` runbook is the source. A milestone closes without this line only when there is truly nothing new to run.
+
+Compose the snapshot from `./dev bet status` and the decomposition's demonstrable-goal lines until the rendered `status` command (a future engine capability) replaces the composition step; the shape does not change when it does. `board.yaml` is never a source — the snapshot must survive the board's absence. Zero engine vocabulary outside Protocol 11's shared set anywhere in the snapshot.

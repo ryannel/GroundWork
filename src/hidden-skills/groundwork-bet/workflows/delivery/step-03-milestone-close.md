@@ -22,4 +22,4 @@ A milestone is done when its **agreed front-door test cases pass against the rea
 
 ---
 
-➡️ Milestone proven at the front door. Run the postmortem before opening the next rung — its report to the user is where this milestone's proof gets spoken, per Protocol 11 (operating contract): `step-04-postmortem.md`.
+➡️ Milestone proven at the front door. Run the postmortem before opening the next rung — its report to the user opens with the **full** checkpoint snapshot (operating contract; a milestone boundary always shows the whole program → bet → milestone picture) and states, in product terms, what the user can now do and the exact `./dev` command that shows it — green reported with no way to see it is not a finished report. The proof itself is spoken per Protocol 11: `step-04-postmortem.md`.

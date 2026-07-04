@@ -75,7 +75,7 @@ The permanent best-practice tests rolled out during Delivery (in service repos a
 
 ### Step 4: Review with the user — they drive the real product
 
-**Open with the checkpoint walkthrough (whole-bet scope).** Before the owner drives the product, dispatch the checkpoint walkthrough (`briefs/checkpoint-walkthrough.md`, `frontier` tier, read-only — not a gate) over the **whole bet's** accumulated change: the change organized by concern, the highest-blast-radius spots tagged `[auth]/[schema]/[contract]/[data]/[infra]`, suggested front-door observations for the drive below, any default+veto decisions still pending ratification (`npx groundwork-method decisions pending --bet <bet-slug>`), and the deferred/maturity rows the bet touched. It keeps the owner's system comprehension current for the product they are about to own in production — it complements the design walk, never substitutes for it.
+**Open with the full checkpoint snapshot, then the checkpoint walkthrough (whole-bet scope).** Validation is a session the owner returns to for a ruling, so open with the **full** checkpoint snapshot (operating contract) before anything else. Then, before the owner drives the product, dispatch the checkpoint walkthrough (`briefs/checkpoint-walkthrough.md`, `frontier` tier, read-only — not a gate) over the **whole bet's** accumulated change: the change organized by concern, the highest-blast-radius spots tagged `[auth]/[schema]/[contract]/[data]/[infra]`, suggested front-door observations for the drive below, any default+veto decisions still pending ratification (`npx groundwork-method decisions pending --bet <bet-slug>`), and the deferred/maturity rows the bet touched. It keeps the owner's system comprehension current for the product they are about to own in production — it complements the design walk, never substitutes for it.
 
 The bet's success signal is the owner using the real shipping product the way its consumer will — running the agreed front-door cases against the build that actually ships, on real data. A green suite and a clean experience judgment are the evidence; the owner driving it is the confirmation. Walk them to the shipping build (not a test target), have them carry out the milestones' headline cases, and watch what happens on the real surface. Then summarise what was delivered — the user-facing changes, the new contracts, and any constraints the implementation revealed. Capture the user's reactions — corrections, requests for follow-up bets, anything that surprised them, or anything that did not feel right in their hands — they all belong in the next step's scan, and a "this isn't usable the way I expected" here is a finding, not a closing pleasantry.
 
@@ -102,7 +102,7 @@ If a scan finds nothing to update, say so explicitly. Silence is ambiguous — t
 
 ### Step 6: Update discovery notes
 
-Scan the bet conversation for signals that belong to a future bet — sequencing instincts ("we should do notifications next"), parking-lot ideas ("the search experience needs its own bet"), constraints the user surfaced about subsequent work. Append these as bullets under `## Bets` in `.groundwork/cache/discovery-notes.md` so the next bet's Discovery phase finds them.
+Scan the bet conversation for signals that belong to a future bet — sequencing instincts ("we should do notifications next"), parking-lot ideas ("the search experience needs its own bet"), constraints the user surfaced about subsequent work. Append these as bullets under `## Bets` in `.groundwork/cache/discovery-notes.md` so the next bet's Discovery phase finds them. The section's bullet order is the stated queue order — the checkpoint snapshot's program section reads it as such — so place each bullet where it belongs in the sequence, not just at the end.
 
 Remove any discovery-notes entries that were incorporated into the artifacts updated in Step 5. A signal that has been promoted into a permanent document does not belong in the parking lot.
 
@@ -145,7 +145,7 @@ The bet has ridden its own branch (`bet/<bet-slug>`) in an isolated worktree sin
 
 ### Step 9: Hand off
 
-Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
+Open with the **full** checkpoint snapshot (operating contract) — this bet has just moved from in flight to delivered, so the program row itself changed and the user sees that before anything else. Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
 
 ## Quality Standard: What "Deep Enough" Looks Like
 

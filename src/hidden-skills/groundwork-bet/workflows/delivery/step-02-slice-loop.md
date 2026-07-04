@@ -53,7 +53,7 @@ For a slice that touches a UI surface, also run the mechanical companion alongsi
 
 | Bucket | Meaning | Handling |
 |---|---|---|
-| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now (a hard stop), the choice framed per Protocol 11 (operating contract) |
+| decision-needed | A real choice the design does not settle | Blocks the slice — open with the **full** checkpoint snapshot (operating contract), then put the choice to the user now (a hard stop), framed per Protocol 11 |
 | patch | Unambiguous fix within the slice's scope | Fix before closing the slice (fix-in-place ladder below), then disposition `fixed` |
 | defer | Real, but pre-existing — not caused by this slice | Append a `docs/maturity.md` row with severity, then disposition `deferred-with-owner --note "<owner>"` |
 | dismiss | False positive or noise | Disposition `dismissed-with-reason --note "<why>"` — the reason is kept, the noise is not re-raised |
@@ -74,7 +74,7 @@ Commit the slice — that commit **is** the record, and the driver writes it (th
 
 Update the working state (`../04-delivery.md`, *Working state* — it never gates): rewrite `board.yaml` to mark this slice `done` with its commit sha and advance `step`, append one memlog line (`./dev bet log <bet-slug> -- "slice <N.M> closed (<sha>): <Notes gist>"`), mirror the worker's ~20-line report to `.groundwork/cache/bets/<bet-slug>/reports/<slice-key>.md` (so the postmortem and validation re-read it without holding it live), and rebuild this milestone's context pack so the next worker inherits the slice's learnings (`npx groundwork-method pack build --bet <bet-slug> --milestone <NN>` re-harvests the ledger, reports, and memlog; put the slice's `Notes` gist in the driver-notes block if it is judgment the harvest cannot carry). Carry any amendment through to the memlog too.
 
-**In slice-by-slice mode, pause here** — show the user the closed slice (what it proved, what the review found, the commit), spoken per Protocol 11 (operating contract), and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
+**In slice-by-slice mode, pause here** — open with the **bet-section** checkpoint snapshot (operating contract; these pauses arrive minutes apart, so the ladder position and slice states are enough, no program table), then show the user the closed slice (what it proved, what the review found, the commit), spoken per Protocol 11, and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
 
 ---
 
