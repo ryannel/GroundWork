@@ -60,7 +60,7 @@ The quick bet compresses the prose, not the gate. Run the independent review (Pr
 
 ### 7. Approve, seal, and hand to delivery
 
-Open with the **full** checkpoint snapshot (operating contract) — this is the quick bet's one hard-stop gate, proportionate to a single-milestone bet: program and bet collapse to one line each, since there is no ladder and no queue position beyond this bet. Then walk the user through the plan in one pass — the outcome and its UX, the local contract delta, and the front-door proof — and get their approval. This is the quick bet's **single gate**; after it, delivery runs to a green milestone on its own (hard stops still pause, each opening with the same snapshot).
+Open with the **full** checkpoint snapshot (operating contract) — this is the quick bet's one hard-stop gate, proportionate to a single-milestone bet: program and bet collapse to one line each, since there is no ladder and no queue position beyond this bet. This single gate is where Protocol 12 (`operating-contract.md`) fires: the host's native review surface, where one exists, carries the sign-off on the plan at its canonical path under `docs/bets/<slug>/`. Then walk the user through the plan in one pass — the outcome and its UX, the local contract delta, and the front-door proof — as the teaching layer alongside that surface, and get their approval. A comment left on the plan is applied, re-flowed across pitch, design, and decomposition for cohesion, and re-gated against Protocol 8/9 before re-presenting — Protocol 12's comment-resolution loop. This is the quick bet's **single gate**; once past it, delivery runs to a green milestone on its own (hard stops still pause, each opening with the same snapshot).
 
 On approval:
 
