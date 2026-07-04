@@ -8,6 +8,10 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (runtime verification — token-conformance scan, 2026-07-04)
+
+- `groundwork tokens scan --bet <slug> [--json]` — the mechanical half of the W3.4 design-integrity ratchet: flags raw color/font/spacing/motion literals in UI source files (.tsx/.jsx/.css/.scss/.swift/.dart/.vue/.svelte) changed since `bet/<slug>/approved` that bypass the project's design-token set. Token-set discovery is best-effort (tailwind config, `*token*`/`*theme*` files under src/ or lib/, CSS custom-property sheets) and never invented — with no token source the result carries `token_set: null` and findings soften to tokenization leads. Allowlists pure white/black, `transparent`, `0px`, `1px`, zero durations. Exits 0 clean / 1 findings / 2 cannot run (no tag / not a git repo). Logic in `lib/bet-tokens/`; the slice-loop review wave invokes it for UI-touching slices (leads default to the `patch` bucket when a token set exists), and milestone close notes the per-slice cadence — the designer-persona screenshot review remains the judgment half. [no-migration]
+
 ### Added (runtime verification — mutate: the deletion test, 2026-07-04)
 
 - `groundwork mutate --bet <slug> --slice <test-file> -- <test command...>`: the deletion

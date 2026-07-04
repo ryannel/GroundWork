@@ -61,6 +61,11 @@ function printHelp() {
             \x1b[2mRefuses to run on a dirty working tree (exit 2) — never stashes or destroys uncommitted
             work; every reverted file is restored to HEAD unconditionally. --since <sha> scopes the
             revert to one slice's commit range; --timeout <s> (default 120); --json for machines.\x1b[0m
+  \x1b[36mtokens\x1b[0m    scan --bet <slug>: mechanical token-conformance scan over UI source files changed since
+            bet/<slug>/approved — raw color/font/spacing/motion literals that bypass the project's
+            design-token set (tailwind config, token/theme files, CSS custom properties). Findings
+            are leads for slice review, not verdicts.
+            \x1b[2mExits 0 clean / 1 findings / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
             refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
@@ -2663,6 +2668,71 @@ function stateCommand(argv) {
   }
 }
 
+// ─── Token-conformance scan: the mechanical half of the design ratchet ──────
+// Flags raw color/font/spacing/motion literals in UI source files changed since
+// the sealed baseline (`bet/<slug>/approved`) that bypass the project's
+// design-token set. Logic lives in lib/bet-tokens; findings are LEADS for slice
+// review, never verdicts. Exit codes: 0 clean, 1 findings, 2 cannot run.
+
+const TOKENS_KIND_ORDER = ['color', 'font', 'spacing', 'motion'];
+const TOKENS_PRINT_CAP = 50;
+
+function tokensCommand(argv) {
+  const f = parseFlags(argv);
+  const sub = f._[0];
+  if (sub !== 'scan') {
+    c.err(`tokens: unknown subcommand '${sub || ''}' — use scan`);
+    process.exit(1);
+  }
+  if (!f.bet) {
+    c.err('tokens scan: --bet <slug> is required');
+    process.exit(1);
+  }
+  const bt = require(path.join(__dirname, '..', 'lib', 'bet-tokens'));
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  let result;
+  try {
+    result = bt.scan(p.targetDir, f.bet);
+  } catch (err) {
+    c.err(`tokens scan: ${err.message}`);
+    process.exit(2); // cannot-run — distinct from "ran and found literals"
+  }
+
+  const tag = bt.approvedTag(f.bet);
+  if (asJson) {
+    process.stdout.write(JSON.stringify(result, null, 2) + '\n');
+    process.exit(result.clean ? 0 : 1);
+  }
+  if (result.clean) {
+    c.ok(`No raw design literals in UI files changed since ${tag}.${result.token_set ? ` Token set: ${result.token_set}.` : ''}`);
+    return;
+  }
+  c.err(`${result.findings.length} raw design literal(s) in UI files changed since ${tag}:`);
+  let printed = 0;
+  for (const kind of TOKENS_KIND_ORDER) {
+    if (printed >= TOKENS_PRINT_CAP) break;
+    const group = result.findings.filter((it) => it.kind === kind);
+    if (!group.length) continue;
+    console.error(`\n  ${kind} (${group.length}):`);
+    for (const it of group) {
+      if (printed >= TOKENS_PRINT_CAP) break;
+      console.error(`    ○ ${it.file}:${it.line} — ${it.literal} — ${it.detail}`);
+      printed++;
+    }
+  }
+  if (result.findings.length > printed) {
+    console.error(`\n  … +${result.findings.length - printed} more (use --json for the full list).`);
+  }
+  if (result.token_set) {
+    console.error(`\n  These are leads for slice review, not verdicts — a token set exists (${result.token_set}); record real ones via \`groundwork findings add\` (default bucket: patch).`);
+  } else {
+    console.error(`\n  No token set detected — treat these as tokenization leads, not conformance failures; record real ones via \`groundwork findings add\`.`);
+  }
+  process.exit(1);
+}
+
 // ─── Dispatch ───────────────────────────────────────────────────────────────
 
 if (!command || command === 'help' || command === '--help' || command === '-h') {
@@ -2735,6 +2805,10 @@ switch (command) {
   case 'wiring':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     wiringCommand(process.argv.slice(3));
+    break;
+  case 'tokens':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    tokensCommand(process.argv.slice(3));
     break;
   case 'mutate': {
     // `--help` counts only before the `--` separator — the test command after
