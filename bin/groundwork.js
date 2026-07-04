@@ -36,7 +36,8 @@ function printHelp() {
             module graph (SwiftPM, Cargo, npm workspaces, .NET) + tree-sitter import edges with
             PageRank centrality (Go, Python, TS/JS, Java) plus a symbol index for many more
             languages; extensible per-project. Incremental — only changed files reparse.
-            \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph.\x1b[0m
+            \x1b[2m--check reports staleness without rebuilding; --mermaid also renders the module graph;\x1b[0m
+            \x1b[2m--conventions also emits the deterministic project-conventions digest (conventions.md).\x1b[0m
   \x1b[36mpolicy\x1b[0m    Print the resolved additive policy layer (policy.toml + policy.user.toml) as JSON
   \x1b[36mgate\x1b[0m      Mechanical delivery gates (fail-closed): gate readiness | gate decomposition --bet <slug>.
             \x1b[2mfiles exist, slice links + meta pages resolve, Proof-of-work + Test file named, approved tag present.\x1b[0m
@@ -2015,14 +2016,24 @@ async function repoMapCommand(argv) {
   const mg = map.module_graph;
   if (map.stats.files === 0 && !mg.modules.length) {
     c.warn(`No mappable source files found. Nothing to map.`);
+    // --conventions still delivers: manifests/config conventions exist without
+    // mappable source (hubs simply stay empty).
+    if (argv.includes('--conventions')) writeConventions(p, engine, map);
     reportUnmapped(diagnostics.unmapped);
     return;
+  }
+  // --conventions rides the same build: the digest embeds in repo-map.json (so
+  // staleness is repo-map's existing per-worktree refresh, no separate machinery)
+  // and also lands as .groundwork/cache/conventions.md for packs and humans.
+  if (argv.includes('--conventions')) {
+    map.conventions = engine.buildConventions({ cwd: p.targetDir, map });
   }
   engine.write({ cacheDir: p.targetCacheDir, map, cache });
 
   const langList = Object.entries(map.stats.languages).map(([l, n]) => `${l}:${n}`).join(' ');
   c.ok(`Wrote .groundwork/cache/repo-map.json — ${map.stats.files} files, ${map.stats.edges} edges (${langList})`);
   c.dim(`  ${stats.parsed} parsed, ${stats.cached} reused from cache`);
+  if (map.conventions) writeConventions(p, engine, map);
   if (diagnostics.projectLanguages && diagnostics.projectLanguages.length) {
     c.dim(`  project languages: ${diagnostics.projectLanguages.join(', ')}`);
   }
@@ -2058,6 +2069,15 @@ async function repoMapCommand(argv) {
   }
   reportUnmapped(diagnostics.unmapped);
   console.log('');
+}
+
+// Write the human/pack-facing conventions digest (computing it first when the
+// map build was skipped) — deterministic by contract, so no timestamp is added.
+function writeConventions(p, engine, map) {
+  const digest = map.conventions || engine.buildConventions({ cwd: p.targetDir, map });
+  fs.mkdirSync(p.targetCacheDir, { recursive: true });
+  fs.writeFileSync(path.join(p.targetCacheDir, 'conventions.md'), engine.renderConventionsMarkdown(digest));
+  c.ok(`Wrote .groundwork/cache/conventions.md — ${engine.summarizeConventions(digest)}`);
 }
 
 // Nudge: name the languages present in the repo but not mapped, and point at the
