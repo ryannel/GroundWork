@@ -345,7 +345,7 @@ The gate blocks on anything short of a parseable `VERDICT: PRESENT` — a review
 
 ### The revise cap
 
-A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: surface every remaining 🔴 Critical finding to the user as 🟡 Advisory, and state plainly that the review did not reach PRESENT and how many critical findings remain unresolved. The user weighs them before approving the commit. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
+A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: internally, every remaining 🔴 Critical finding is reclassified 🟡 Advisory — the cap has been hit, not cleared. Tell the user, in plain terms, that the independent review ran three times and still has unresolved concerns, name what those concerns are, and let them decide whether to proceed. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
 
 A reviewer that keeps finding fresh contract↔body desyncs pass after pass is not asking for a sixth revision — the fault is usually an unreconciled Downstream Context file (Protocol 5: author it last, from the finished doc); reconcile that before revising the body again.
 

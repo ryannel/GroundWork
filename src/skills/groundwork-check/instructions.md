@@ -26,7 +26,8 @@ framework section (`npx groundwork-method check`) covers this deterministically;
 its reading when you run instead of it:
 
 - Compare `groundwork.version` in `.groundwork/config/state.json` against the installed
-  package version. A gap means the mechanical lane is owed: report it with the route
+  package version. A gap means the installed framework files are older than the package —
+  state plainly that they are out of date and what to run to bring them current:
   `npx groundwork-method update` (never attempt the refresh yourself — the CLI owns it).
 - `.groundwork/cache/upgrade-brief.json` with pending items means judgment-lane work is
   waiting: report the pending count with the route `groundwork-update`.

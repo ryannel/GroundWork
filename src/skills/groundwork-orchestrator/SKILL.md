@@ -37,9 +37,9 @@ Write `state.json` back whenever it changes.
 
 **An unconsumed upgrade brief outranks routine routing.** When
 `.groundwork/cache/upgrade-brief.json` exists with pending items, the framework left
-work for a working session — surface it in your first reply (one line: "N framework
-update items are pending — say 'update groundwork' when you want to run them") and
-route to `groundwork-update` when the user agrees. Do not block other work on it.
+work for a working session — surface it in your first reply, in one line: how many
+framework update items are waiting and that saying "update groundwork" runs them.
+Route to `groundwork-update` when the user agrees. Do not block other work on it.
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
