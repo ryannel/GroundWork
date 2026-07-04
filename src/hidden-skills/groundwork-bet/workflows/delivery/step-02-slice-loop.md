@@ -8,7 +8,7 @@ For each slice in the milestone, in order:
 
 ### 1. Dispatch the slice-worker
 
-Assemble the context capsule and dispatch a fresh slice-worker subagent (Protocol 9 mechanics — an isolated subagent loading `.groundwork/skills/groundwork-bet/briefs/slice-worker.md`) at the **`execution`** tier — or `frontier` if the slice's **Model tier** flags it (Model Tiers, operating contract). Set the tier's model explicitly on the dispatch — the host's Sonnet-class model, or its Opus-class model when lifted (Model Tiers — *Mechanism* carries the reference-host mapping); an omitted model silently inherits this driver session's `frontier` model and defeats the tiering. Tell the user in one plain sentence what is being built (the slice, by its plain name) and who is building it — the tier-accountability detail this note used to carry moves to the rendered snapshot, where it is a column, not a sentence. The capsule is **pointers and slice-specifics, not a paraphrase of the brief** — the worker reads the brief for its process; restating that here only bloats the capsule and drifts when the brief changes. Pass:
+Assemble the context capsule and dispatch a fresh slice-worker subagent (Protocol 9 mechanics — an isolated subagent loading `.groundwork/skills/groundwork-bet/briefs/slice-worker.md`) at the **`execution`** tier — or `frontier` if the slice's **Model tier** flags it (Model Tiers, operating contract). Set the tier's model explicitly on the dispatch — the host's Sonnet-class model, or its Opus-class model when lifted (Model Tiers — *Mechanism* carries the reference-host mapping); an omitted model silently inherits this driver session's `frontier` model and defeats the tiering. Tell the user in one plain sentence what is being built (the slice, by its plain name) and who is building it, per Protocol 11 (operating contract) — the tier-accountability detail this note used to carry moves to the rendered snapshot, where it is a column, not a sentence. The capsule is **pointers and slice-specifics, not a paraphrase of the brief** — the worker reads the brief for its process; restating that here only bloats the capsule and drifts when the brief changes. Pass:
 
 - The **milestone context pack** path (`.groundwork/cache/bets/<bet-slug>/milestone-<NN>-context.md`) — the worker reads it for the design pointers this milestone touches, the engineer Context-Routing rows (which stack references to load, including the testing strategy and permanent-tests obligation), the prior-slice `Notes` learnings, proven recipes and their durable paths, and the worktree environment facts. Pass the path, not its contents; run `npx groundwork-method pack refresh --bet <bet-slug> --milestone <NN>` first — a no-op when fresh, a recompile when stale (`compiled_from` ≠ the approved-tag sha).
 - `bet_slug` and the slice's `slice_file` path.
@@ -53,7 +53,7 @@ For a slice that touches a UI surface, also run the mechanical companion alongsi
 
 | Bucket | Meaning | Handling |
 |---|---|---|
-| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now (a hard stop) |
+| decision-needed | A real choice the design does not settle | Blocks the slice — put it to the user now (a hard stop), the choice framed per Protocol 11 (operating contract) |
 | patch | Unambiguous fix within the slice's scope | Fix before closing the slice (fix-in-place ladder below), then disposition `fixed` |
 | defer | Real, but pre-existing — not caused by this slice | Append a `docs/maturity.md` row with severity, then disposition `deferred-with-owner --note "<owner>"` |
 | dismiss | False positive or noise | Disposition `dismissed-with-reason --note "<why>"` — the reason is kept, the noise is not re-raised |
@@ -74,7 +74,7 @@ Commit the slice — that commit **is** the record, and the driver writes it (th
 
 Update the working state (`../04-delivery.md`, *Working state* — it never gates): rewrite `board.yaml` to mark this slice `done` with its commit sha and advance `step`, append one memlog line (`./dev bet log <bet-slug> -- "slice <N.M> closed (<sha>): <Notes gist>"`), mirror the worker's ~20-line report to `.groundwork/cache/bets/<bet-slug>/reports/<slice-key>.md` (so the postmortem and validation re-read it without holding it live), and rebuild this milestone's context pack so the next worker inherits the slice's learnings (`npx groundwork-method pack build --bet <bet-slug> --milestone <NN>` re-harvests the ledger, reports, and memlog; put the slice's `Notes` gist in the driver-notes block if it is judgment the harvest cannot carry). Carry any amendment through to the memlog too.
 
-**In slice-by-slice mode, pause here** — show the user the closed slice (what it proved, what the review found, the commit) and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
+**In slice-by-slice mode, pause here** — show the user the closed slice (what it proved, what the review found, the commit), spoken per Protocol 11 (operating contract), and confirm before dispatching the next worker. In milestone and whole-bet modes, continue to the next slice without pausing.
 
 ---
 
