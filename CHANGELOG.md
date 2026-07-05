@@ -8,6 +8,8 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-07-05
+
 ### Changed (migration gate — per-surface annotation scoping, 2026-07-05)
 
 - The migration-coverage gate (`./dev test contracts`) now requires changelog
