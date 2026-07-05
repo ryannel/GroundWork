@@ -196,11 +196,12 @@ function parseChangelog() {
 
 // Reduces a `### Category (headline, date)` section header to a scannable label.
 // Older bare `### Category` headers (and the `[no-migration]` backtick tag some
-// headers carry) degrade to just the category word.
+// headers carry, optionally scoped to a surface group — `[no-migration: dev-cli]`)
+// degrade to just the category word.
 function changelogHeadline(header) {
   const body = header
     .slice(4)
-    .replace(/\s*`\[(?:no-)?migration\]`\s*$/i, '')
+    .replace(/\s*`\[(?:no-)?migration(?::[^\]]*)?\]`\s*$/i, '')
     .trim();
   const m = body.match(/^(\w+)\s*\(([\s\S]*)\)\s*$/);
   if (!m) return { category: body.split(/\s+/)[0] || body, text: null };
@@ -211,13 +212,15 @@ function changelogHeadline(header) {
 // Collects the genuine `- [migration]` bullets from a slice's lines. Matches only
 // bullet-leading tokens, not prose that mentions `[migration]` in passing (e.g. the
 // upgrade-path note that the token references registry ids) — that false match used
-// to leak a stray, prefix-stripped line into the "Migration required" list.
+// to leak a stray, prefix-stripped line into the "Migration required" list. The
+// token may carry a repo-internal surface-group scope (`[migration: dev-cli]`);
+// it means nothing to users, so the strip swallows it.
 function collectMigrations(entries) {
   const out = [];
   for (const e of entries) {
     for (const line of e.lines) {
-      if (/^\s*-\s*\[migration\]/i.test(line)) {
-        out.push(line.trim().replace(/^-\s*\[migration\]\s*/i, ''));
+      if (/^\s*-\s*\[migration(?::[^\]]*)?\]/i.test(line)) {
+        out.push(line.trim().replace(/^-\s*\[migration(?::[^\]]*)?\]\s*/i, ''));
       }
     }
   }

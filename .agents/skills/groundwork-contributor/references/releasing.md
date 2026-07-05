@@ -15,7 +15,10 @@ stamp the CLI writes into installed projects' `state.json`, and the operating co
    detects a version jump. Keep each `[migration]` entry on a single line ending with its
    registry id in parens (see "Shipping a Change That Touches Installed Projects" in
    `SKILL.md`); purely additive changes that old installs don't need carry `[no-migration]`
-   instead.
+   instead. Annotations for shipped-surface changes carry their surface-group scope
+   (`[no-migration: dev-cli]`, `[migration: docs] … (gw-id)`) — the migration-coverage gate
+   matches each changed group against its own scoped line, and the update CLI strips the
+   scope when surfacing migration bullets.
 2. Bump `package.json` (`npm version <minor|patch> --no-git-tag-version`). Bump the operating
    contract's `version` frontmatter only if a protocol changed incompatibly, and add a
    `[migration]` changelog entry when you do.

@@ -8,6 +8,22 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (migration gate — per-surface annotation scoping, 2026-07-05)
+
+- The migration-coverage gate (`./dev test contracts`) now requires changelog
+  annotations to be scoped to the shipped-surface group they cover: each group
+  changed since the last release — docs, config, agents-md, dev-cli, or
+  generator:name — needs its own no-migration or migration line naming that group
+  under Unreleased, e.g. the dev-cli and generator:docs-site annotations in the
+  Wave 2/3 entries below. A bare annotation no longer green-lights unrelated
+  changes (one entry's annotation used to satisfy the gate for every
+  shipped-surface change section-wide); it stays valid prose for changes outside
+  the shipped surface. One line may scope several groups, comma-separated. The
+  update CLI strips the scope token when surfacing migration bullets. Convention
+  in the contributor guide's "Shipping a Change That Touches Installed Projects".
+  [no-migration] Dev-time gate plus CLI changelog rendering; the CLI is
+  framework-owned and clean-replaced on update.
+
 ### Added (user legibility — live docsite + host-native review, Wave 3, 2026-07-04)
 
 - Docs site: a pre-render sync script (`scripts/sync-live-bets.js`, wired as
@@ -19,8 +35,9 @@ automatically when it detects a version jump.
   preserves an author-written description, and a named warning on slug collisions.
   The generated service gains a README naming the one boot command (`pnpm dev`),
   and milestone close names it when the milestone's deliverable is a doc.
-  `[no-migration]` — covered by the existing docs-site Family Index row:
-  regeneration with recorded options carries the capability to existing installs.
+  `[no-migration: generator:docs-site]` — covered by the existing docs-site Family
+  Index row: regeneration with recorded options carries the capability to existing
+  installs.
 - Operating contract: **Protocol 12 (Draft Presentation)** — approval-gated
   artifacts (pitch, technical design, decomposition, architecture draft, quick
   plan) present at their canonical path first, run the sign-off through the host's
@@ -49,7 +66,7 @@ automatically when it detects a version jump.
   hand only where the CLI is unavailable; slice close and the postmortem
   checkpoint refresh the page. 28 contract tests in `tests/cli/test_bet_status.py`,
   including an output-language denylist and a board-cannot-influence-output test.
-  `[no-migration]`
+  `[no-migration: dev-cli]`
 
 ### Changed (user legibility — the owner-language boundary, Wave 1, 2026-07-04)
 

@@ -224,23 +224,31 @@ needs one of:
 - **A `cli` migration** (`migrations/<id>.js`) when the carry-forward is mechanical: a
   file to seed, a key to add, a JSON shape to bump, a dead artifact to delete. Runs inside
   `update`. Register it in `migrations/index.json` and reference its id from the changelog
-  line — `[migration] … (gw-your-id)`.
+  line — `[migration: <surface group>] … (gw-your-id)`.
 - **A reconcile family** in the `groundwork-update` skill's Family Index when the
   carry-forward needs judgment: a doc rename, a new required section, a structural
   relocation, a registry bootstrap. Do **not** author a per-change migration — add or
   extend a family (owner → legacy signal → advance), and the skill's Phase B reconcile
   advances legacy instances against the current canonical. Annotate the changelog line
-  `[no-migration]` (the reconcile is not a registry migration).
-- **A plain `[no-migration]` annotation** on the changelog line when the change is additive
-  and old installs genuinely need nothing (new generator, new optional doc). Tier-2 content
-  changes never qualify — the refresh/merge path is how they propagate, but they still
-  need the changelog line.
+  `[no-migration: <surface group>]` (the reconcile is not a registry migration).
+- **A `[no-migration: <surface group>]` annotation** on the changelog line when the change
+  is additive and old installs genuinely need nothing (new generator, new optional doc).
+  Tier-2 content changes never qualify — the refresh/merge path is how they propagate, but
+  they still need the changelog line.
+
+**Annotation scoping.** The annotation names the shipped-surface group(s) the change
+touches — `docs` (`src/docs/`), `config` (`src/config/`), `agents-md` (`src/AGENTS.md`),
+`dev-cli` (`cli-src/src/`), or `generator:<name>` (`src/generators/<name>/files/`). One
+line may scope several groups (`[no-migration: docs, dev-cli]`). A bare `[no-migration]`
+is still the right annotation for changes outside the shipped surface (dev-time tooling,
+skill prose), but it covers no surface group — the gate matches each changed group against
+the scopes, so change B never passes on the back of change A's annotation.
 
 For a `cli` migration, start from `migrations/_template/cli-migration.js`; the format and
 rules live in `migrations/README.md`. Prove it against a fixture under
 `tests/fixtures/installs/`. The migration-coverage gate in `./dev test contracts` fails
-when a shipped-surface change has neither a registry entry nor a `[no-migration]`
-annotation, and the changelog↔registry cross-check fails when either side of an id
+when any changed surface group lacks a changelog line scoped to it (registry entry or
+`[no-migration]`), and the changelog↔registry cross-check fails when either side of an id
 reference is missing.
 
 ---

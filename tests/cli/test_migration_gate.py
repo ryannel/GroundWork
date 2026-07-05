@@ -127,7 +127,10 @@ console.log('ok');
 
 # ── B3: changelog ↔ registry cross-check ────────────────────────────────────
 
-MIGRATION_LINE = re.compile(r"\[migration\]", re.IGNORECASE)
+# Both annotations may carry a surface-group scope (see G1): `[migration: dev-cli]`,
+# `[no-migration: generator:docs-site]`.
+MIGRATION_LINE = re.compile(r"\[migration(?::[^\]]*)?\]", re.IGNORECASE)
+NO_MIGRATION_LINE = re.compile(r"\[no-migration(?::[^\]]*)?\]", re.IGNORECASE)
 MIGRATION_ID_SUFFIX = re.compile(r"\((gw-[a-z0-9-]+)\)\s*$")
 
 # The registry ships at 0.10.0; [migration] lines in sections released before it
@@ -151,7 +154,7 @@ def _post_registry_changelog():
 def test_every_migration_line_names_a_registry_entry():
     ids = {e["id"] for e in registry_entries()}
     for line in _post_registry_changelog():
-        if not MIGRATION_LINE.search(line) or "[no-migration]" in line:
+        if not MIGRATION_LINE.search(line) or NO_MIGRATION_LINE.search(line):
             continue
         # Only the prose convention applies to entries, not the preamble explaining it.
         if not line.lstrip().startswith("-"):
@@ -169,8 +172,8 @@ def test_every_registry_entry_has_a_changelog_line():
 # ── G1: the migration-coverage gate ─────────────────────────────────────────
 
 # The shipped surface: changes here reach installed projects and need a migration
-# entry at the unreleased version or a [no-migration] changelog annotation.
-# Skills are exempt — clean-copy carries them.
+# entry or a [no-migration] annotation on a changelog line scoped to the surface
+# group the change touches. Skills are exempt — clean-copy carries them.
 SHIPPED_SURFACE = [
     "src/docs/",
     "src/config/",
@@ -178,6 +181,54 @@ SHIPPED_SURFACE = [
     "src/generators/*/files/**",
     "src/generators/workspace-dev-cli/cli-src/src/",
 ]
+
+# Annotation scoping. A bare [no-migration] anywhere in [Unreleased] used to
+# satisfy the gate for every shipped-surface change at once — change B passed on
+# the back of change A's annotation (the Wave 3 docs-site change rode Wave 1/2
+# entries before its own line existed). Each changed file now maps to a surface
+# group, and only an annotation naming that group covers it:
+#     `[no-migration: dev-cli]`
+#     `- [migration: docs] … (gw-id)`
+#     `[no-migration: generator:docs-site, dev-cli]`   (one line, several groups)
+# Bare annotations stay valid prose on lines for changes outside the shipped
+# surface; they cover no group.
+
+DEV_CLI_SRC = "src/generators/workspace-dev-cli/cli-src/src/"
+GENERATOR_FILES = re.compile(r"src/generators/([^/]+)/files/")
+
+
+def surface_group(path):
+    """Map a changed shipped-surface path to the scope token that must cover it."""
+    if path.startswith("src/docs/"):
+        return "docs"
+    if path.startswith("src/config/"):
+        return "config"
+    if path == "src/AGENTS.md":
+        return "agents-md"
+    if path.startswith(DEV_CLI_SRC):
+        return "dev-cli"
+    m = GENERATOR_FILES.match(path)
+    if m:
+        return f"generator:{m.group(1)}"
+    # A SHIPPED_SURFACE pathspec with no group mapping is gate drift — fail closed.
+    return f"unmapped:{path}"
+
+
+ANNOTATION_SCOPE = re.compile(r"\[(?:no-)?migration:\s*([^\]]+)\]", re.IGNORECASE)
+
+
+def annotated_groups(changelog_text):
+    scopes = set()
+    for m in ANNOTATION_SCOPE.finditer(changelog_text):
+        scopes.update(token.strip() for token in m.group(1).split(","))
+    return scopes
+
+
+def unannotated_groups(changed_paths, unreleased_text):
+    """The surface groups changed_paths touch that unreleased_text never scopes."""
+    covered = annotated_groups(unreleased_text)
+    groups = {surface_group(p) for p in changed_paths}
+    return sorted(g for g in groups if g.startswith("unmapped:") or g not in covered)
 
 
 def last_release_tag():
@@ -203,18 +254,74 @@ def test_shipped_surface_changes_require_a_migration_or_annotation():
         return
 
     tag_version = tag.lstrip("v")
-    def newer(v):
-        return [int(x) for x in v.split(".")] > [int(x) for x in tag_version.split(".")]
-
-    has_new_migration = any(newer(e["version"]) for e in registry_entries())
-    has_annotation = "[no-migration]" in CHANGELOG.split(f"## [{tag_version}]")[0]
-    assert has_new_migration or has_annotation, (
-        "The shipped surface changed since "
-        f"{tag} ({len(changed)} file(s), e.g. {changed[:3]}) but migrations/index.json "
-        "has no entry at an unreleased version and the changelog carries no "
-        "[no-migration] annotation. Old installs will be left behind — see the "
-        "contributor guide: Shipping a Change That Touches Installed Projects."
+    unreleased = CHANGELOG.split(f"## [{tag_version}]")[0]
+    missing = unannotated_groups(changed, unreleased)
+    examples = {g: [p for p in changed if surface_group(p) == g][:2] for g in missing}
+    assert not missing, (
+        f"The shipped surface changed since {tag} but these surface groups have no "
+        f"scoped changelog annotation in [Unreleased]: {examples}. Each changed group "
+        "needs its own line — `[no-migration: <group>]`, or `[migration: <group>] … "
+        "(gw-id)` with a registry entry; one line may scope several groups. A bare "
+        f"[no-migration] covers nothing. Scopes found: "
+        f"{sorted(annotated_groups(unreleased)) or 'none'}. Old installs will be left "
+        "behind — see the contributor guide: Shipping a Change That Touches Installed "
+        "Projects."
     )
+
+
+# The scoping fixtures: prove an annotation for change A cannot green-light an
+# unannotated change B, against synthetic diffs and Unreleased sections.
+
+def test_annotation_for_one_group_does_not_cover_another():
+    changed = [
+        "src/generators/docs-site/files/scripts/sync-live-bets.js",
+        "src/generators/workspace-dev-cli/cli-src/src/commands/bet.ts",
+    ]
+    unreleased = (
+        "## [Unreleased]\n\n### Added\n"
+        "- Docs site: the live window. `[no-migration: generator:docs-site]`\n"
+    )
+    assert unannotated_groups(changed, unreleased) == ["dev-cli"]
+
+
+def test_bare_annotation_covers_no_group():
+    changed = ["src/generators/docs-site/files/scripts/sync-live-bets.js"]
+    unreleased = (
+        "## [Unreleased]\n\n### Changed\n"
+        "- Dev-time harness cleanup. [no-migration]\n"
+    )
+    assert unannotated_groups(changed, unreleased) == ["generator:docs-site"]
+
+
+def test_scoped_annotations_cover_their_groups():
+    changed = [
+        "src/docs/principles/foundations.md",
+        "src/config/config.toml",
+        "src/AGENTS.md",
+    ]
+    # One line may carry several groups; [migration: …] lines count too.
+    unreleased = (
+        "## [Unreleased]\n\n### Changed\n"
+        "- Reseeded docs and config. `[no-migration: docs, config]`\n"
+    )
+    assert unannotated_groups(changed, unreleased) == ["agents-md"]
+    unreleased += "- [migration: agents-md] AGENTS.md shape bump (gw-agents-md-bump)\n"
+    assert unannotated_groups(changed, unreleased) == []
+
+
+def test_generator_file_groups_are_per_generator():
+    assert surface_group("src/generators/docs-site/files/package.json") == "generator:docs-site"
+    assert surface_group("src/generators/go-service/files/main.go.template") == "generator:go-service"
+    assert surface_group("src/generators/workspace-dev-cli/files/dev") == "generator:workspace-dev-cli"
+    assert surface_group("src/generators/workspace-dev-cli/cli-src/src/commands/bet.ts") == "dev-cli"
+
+
+def test_unmapped_shipped_surface_path_fails_closed():
+    # If SHIPPED_SURFACE grows a pathspec without a surface_group mapping, the
+    # gate must fail — even against an annotation that names the fallback token.
+    changed = ["src/seeds/new-surface.md"]
+    unreleased = "## [Unreleased]\n- x. `[no-migration: unmapped:src/seeds/new-surface.md]`\n"
+    assert unannotated_groups(changed, unreleased) == ["unmapped:src/seeds/new-surface.md"]
 
 
 # ── gw-seed-policy-toml round trip ──────────────────────────────────────────
