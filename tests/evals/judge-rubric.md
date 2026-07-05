@@ -53,8 +53,17 @@ that. Judge **quality and coherence**:
 
 ## Output
 
-Present, in the conversation (do not write a file):
-
 1. A one-line **verdict** per document: `strong` / `acceptable` / `weak`, with a reason.
 2. The **single most important problem** across all the docs, with a fix.
 3. Anything the simulated user said that the documents failed to capture.
+
+## Durable output (required)
+
+Run reference: $ARGUMENTS
+
+Write the complete verdict — all three parts above — to the file
+**`.simrun/verdict.md`** in this project (create the `.simrun/` directory if it
+does not exist). Start the file with a `run:` line quoting the run reference above
+(or `run: unattributed` if it is empty). Then present the same verdict in the
+conversation. The file is the durable record — a verdict that lives only in this
+chat evaporates.

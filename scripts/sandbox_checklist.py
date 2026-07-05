@@ -14,7 +14,12 @@ It does NOT check `.groundwork/cache/*` (deleted on commit — checking it repor
 false failures in a full-flow run) and does NOT check frontmatter (GroundWork doc
 templates carry none). Stdlib only — no venv, mirrors render_transcript.py.
 
-Usage: python3 scripts/sandbox_checklist.py <sandbox_path> [out_file.md]
+Usage: python3 scripts/sandbox_checklist.py <sandbox_path> [out_file.md] [--until <phase>]
+
+--until bounds the contract for a bounded run (`./dev sim run --until=...`):
+artifacts owned by phases past the bound are reported as `out of bound`, not
+missing, so a clean bounded run reads green instead of failing the full-path
+contract.
 """
 
 import json
@@ -22,46 +27,68 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Canonical durable artifacts per path. These are the GroundWork delivery contract,
-# not a per-suite detail, so they're defined here rather than read from scenarios.
-# Verified against the paths the skills actually write (greenfield methodology
-# skills; brownfield *-extract / infra-adopt skills).
-DURABLE_DOCS = {
+# Canonical durable artifacts per path, as an ORDERED phase contract. This is
+# the single source of truth for what a flow must leave behind — the GroundWork
+# delivery contract, not a per-suite detail, so it's defined here rather than
+# read from scenarios. Doc/dir paths are verified against what the skills
+# actually write; the phase attribution is the flow's commit order (a bounded
+# check only ever cuts on a phase boundary, so the cumulative prefix is what
+# must be exact).
+# Each entry: (phase_key, [expected docs], [expected non-empty dirs]).
+PHASES = {
     "greenfield": [
-        "docs/product-brief.md",
-        "docs/design-system.md",
-        "docs/architecture/index.md",
-        "docs/surfaces.md",  # surface registry (architecture commit; written even for one surface)
-        "docs/architecture/infrastructure.md",
+        ("product-brief", ["docs/product-brief.md"], []),
+        ("design-system", ["docs/design-system.md"], []),
+        ("architecture", [
+            "docs/architecture/index.md",
+            "docs/surfaces.md",  # surface registry (architecture commit; written even for one surface)
+            "docs/architecture/infrastructure.md",
+        ], []),
+        ("scaffold", [], []),   # scaffold's durable output is code, checked by the scaffold harness
+        ("mvp", [], []),        # MVP planning writes bets/, counted separately below
+        ("bet", [], []),
     ],
     "brownfield": [
-        "docs/product-brief.md",
-        "docs/design-system.md",
-        "docs/architecture/index.md",
-        "docs/surfaces.md",  # surface registry (architecture-extract; ledger empty by design)
-        "docs/architecture/infrastructure.md",
-        "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
+        ("scan", [], []),  # scan output is cache-only by design (deleted on commit)
+        ("product-brief-extract", ["docs/product-brief.md"], []),
+        ("design-system-extract", ["docs/design-system.md"], []),
+        ("architecture-extract", [
+            "docs/architecture/index.md",
+            "docs/surfaces.md",  # surface registry (architecture-extract; ledger empty by design)
+            "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
+        ], ["docs/architecture/domain"]),
+        ("infra-adopt", [
+            "docs/architecture/infrastructure.md",
+        ], ["docs/architecture/api", "docs/architecture/services"]),
+        ("bet", [], []),
     ],
     # The delivery path starts from a sealed bet and drives Phase 4 only, so its
     # durable contract is the sealed plan plus what delivery produces: the
-    # materialized bet-progress tests and the owner-decision record.
+    # materialized red→green bet-progress tests and the owner-decision record.
     "delivery": [
-        "docs/bets/task-capture/pitch.md",
-        "docs/bets/task-capture/technical-design/03-api-design.md",
-        "docs/bets/task-capture/decomposition/meta.json",
+        ("delivery", [
+            "docs/bets/task-capture/pitch.md",
+            "docs/bets/task-capture/technical-design/03-api-design.md",
+            "docs/bets/task-capture/decomposition/meta.json",
+        ], ["tests/bets/task-capture"]),
     ],
 }
 
-# Directory deliverables that must contain at least one file. Brownfield's
-# architecture-extract mints docs/architecture/domain/, and infra-adopt writes
-# docs/architecture/api/ + docs/architecture/services/ — these ARE the brownfield
-# deliverables, so a checklist blind to them would pass while missing the point.
-DURABLE_DIRS = {
-    "greenfield": [],
-    "brownfield": ["docs/architecture/api", "docs/architecture/domain", "docs/architecture/services"],
-    # A completed delivery leaves the materialized red→green bet-progress tests.
-    "delivery": ["tests/bets/task-capture"],
-}
+
+def normalize_phase(s: str) -> str:
+    return "-".join("".join(c if c.isalnum() else " " for c in s.lower()).split())
+
+
+def resolve_until(flow_path: str, until: str) -> int:
+    """Return the index of the bounding phase, or exit with the valid names."""
+    phases = PHASES.get(flow_path, PHASES["greenfield"])
+    want = normalize_phase(until)
+    for i, (key, _, _) in enumerate(phases):
+        if key == want or want in key or key in want:
+            return i
+    names = ", ".join(k for k, _, _ in phases)
+    print(f"✖ --until '{until}' matches no {flow_path} phase. Valid: {names}")
+    sys.exit(2)
 
 
 def detect_path(sandbox: Path) -> tuple[str, str]:
@@ -133,23 +160,32 @@ def git_summary(sandbox: Path) -> tuple[int, list[str]]:
     return count, docs
 
 
-MARK = {"ok": "✔", "weak": "▵", "empty": "✖", "missing": "✖"}
+MARK = {"ok": "✔", "weak": "▵", "empty": "✖", "missing": "✖", "out-of-bound": "·"}
 
 
-def build_report(sandbox: Path) -> tuple[str, dict]:
+def build_report(sandbox: Path, until: str | None = None) -> tuple[str, dict]:
     flow_path, suite = detect_path(sandbox)
-    expected = DURABLE_DOCS.get(flow_path, DURABLE_DOCS["greenfield"])
+    phases = PHASES.get(flow_path, PHASES["greenfield"])
+    until_idx = resolve_until(flow_path, until) if until else len(phases) - 1
 
-    doc_rows = [(rel, *check_doc(sandbox, rel)) for rel in expected]
-
-    expected_dirs = DURABLE_DIRS.get(flow_path, [])
-    dir_rows = []
-    for rel in expected_dirs:
-        d = sandbox / rel
-        files = [f for f in d.rglob("*") if f.is_file()] if d.is_dir() else []
-        status = "ok" if files else "missing"
-        detail = f"{len(files)} file(s)" if files else "directory absent or empty"
-        dir_rows.append((rel, status, detail))
+    doc_rows, dir_rows = [], []
+    for i, (_, docs, dirs) in enumerate(phases):
+        in_bound = i <= until_idx
+        for rel in docs:
+            if in_bound:
+                doc_rows.append((rel, *check_doc(sandbox, rel)))
+            else:
+                doc_rows.append((rel, "out-of-bound", "past the run's bound"))
+        for rel in dirs:
+            if not in_bound:
+                dir_rows.append((rel, "out-of-bound", "past the run's bound"))
+                continue
+            d = sandbox / rel
+            files = [f for f in d.rglob("*") if f.is_file()] if d.is_dir() else []
+            status = "ok" if files else "missing"
+            detail = f"{len(files)} file(s)" if files else "directory absent or empty"
+            dir_rows.append((rel, status, detail))
+    expected = [r for r in doc_rows if r[1] != "out-of-bound"]
 
     bets = sorted((sandbox / "docs" / "bets").glob("*")) if (sandbox / "docs" / "bets").is_dir() else []
     state = read_state(sandbox)
@@ -158,8 +194,9 @@ def build_report(sandbox: Path) -> tuple[str, dict]:
     present = sum(1 for _, st, _ in doc_rows if st == "ok")
     stats = {"present": present, "expected": len(expected), "commits": commits}
 
+    bound_note = f" · bounded: through {phases[until_idx][0]}" if until else ""
     out = [
-        f"# Structural checklist — {flow_path} (suite: {suite})",
+        f"# Structural checklist — {flow_path} (suite: {suite}){bound_note}",
         "",
         "Non-gating mechanical check of durable artifacts. Read the transcript and "
         "run `/judge` for quality.",
@@ -200,17 +237,26 @@ def build_report(sandbox: Path) -> tuple[str, dict]:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: sandbox_checklist.py <sandbox_path> [out_file.md]")
+    argv = sys.argv[1:]
+    until = None
+    if "--until" in argv:
+        i = argv.index("--until")
+        if i + 1 >= len(argv):
+            print("✖ --until requires a phase name")
+            sys.exit(2)
+        until = argv[i + 1]
+        del argv[i:i + 2]
+    if not argv:
+        print("Usage: sandbox_checklist.py <sandbox_path> [out_file.md] [--until <phase>]")
         sys.exit(2)
-    sandbox = Path(sys.argv[1]).resolve()
+    sandbox = Path(argv[0]).resolve()
     if not sandbox.is_dir():
         print(f"✖ No sandbox at {sandbox}")
         sys.exit(2)
 
-    report, stats = build_report(sandbox)
-    if len(sys.argv) > 2:
-        out_file = Path(sys.argv[2]).resolve()
+    report, stats = build_report(sandbox, until)
+    if len(argv) > 1:
+        out_file = Path(argv[1]).resolve()
         out_file.parent.mkdir(parents=True, exist_ok=True)
         out_file.write_text(report)
         print(f"  ✔ checklist → {out_file}")

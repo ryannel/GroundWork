@@ -58,7 +58,12 @@ def latest_session(proj_dir: Path, session_id: str | None) -> Path:
     if session_id:
         f = proj_dir / f"{session_id}.jsonl"
         if not f.exists():
-            print(f"✖ Session {session_id} not found in {proj_dir}")
+            # A session that entered a worktree re-homes its transcript to the
+            # worktree's project slug — search all project dirs by session id.
+            hits = list(PROJECTS_ROOT.glob(f"*/{session_id}.jsonl"))
+            if hits:
+                return hits[0]
+            print(f"✖ Session {session_id} not found in {proj_dir} (or any project dir)")
             sys.exit(1)
         return f
     sessions = sorted(proj_dir.glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
@@ -219,9 +224,58 @@ def render_subagent(jsonl: Path, meta: dict) -> str:
     return "\n".join(out)
 
 
+def render_tail(rows: list, n: int) -> None:
+    """Print the last n conversational turns legibly — the `sim follow` digest
+    view. Text turns only (facilitator narration, persona exchanges, real-human
+    overrides); tool plumbing is skipped."""
+    turns = []
+    for r in rows:
+        if r.get("isSidechain"):
+            continue
+        rtype = r.get("type")
+        content = r.get("message", {}).get("content", "")
+        if rtype == "assistant":
+            blocks = content if isinstance(content, list) else [{"type": "text", "text": content}]
+            for b in blocks:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "text" and b.get("text", "").strip():
+                    turns.append(("assistant", b["text"].strip()))
+                elif b.get("type") == "tool_use" and b.get("name") in ("Agent", "Task") \
+                        and (b.get("input") or {}).get("subagent_type") == "sandbox-user":
+                    turns.append(("→ sandbox-user", (b["input"].get("prompt") or "").strip()))
+        elif rtype == "user":
+            txt = text_of(content).strip()
+            if txt:
+                turns.append(("user", txt))
+    for role, txt in turns[-n:]:
+        print(f"  [{role}] {trunc(txt, 400)}")
+        print()
+
+
 def main():
+    argv = sys.argv[1:]
+    tail_n = 0
+    if "--tail" in argv:
+        i = argv.index("--tail")
+        argv.pop(i)
+        tail_n = 6
+        if i < len(argv) and argv[i].isdigit():
+            tail_n = int(argv.pop(i))
+    if tail_n:
+        if len(argv) < 1:
+            print("Usage: render_transcript.py <sandbox_path> --tail [N] [session_id]")
+            sys.exit(1)
+        sandbox = Path(argv[0]).resolve()
+        session_id = argv[1] if len(argv) > 1 else None
+        proj_dir = find_project_dir(sandbox)
+        session = latest_session(proj_dir, session_id)
+        render_tail(load(session), tail_n)
+        return
+
     if len(sys.argv) < 3:
         print("Usage: render_transcript.py <sandbox_path> <out_dir> [session_id]")
+        print("       render_transcript.py <sandbox_path> --tail [N] [session_id]")
         sys.exit(1)
     sandbox = Path(sys.argv[1]).resolve()
     out_dir = Path(sys.argv[2]).resolve()

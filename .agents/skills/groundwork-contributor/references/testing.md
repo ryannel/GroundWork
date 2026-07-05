@@ -9,107 +9,145 @@ scaffold-harness layer table this file expands on.
 
 ## Flow Testing — the Simulation Harness
 
-Flow testing (the greenfield and brownfield methodology paths) is **not** a
-programmatic agent driver. There is no SDK loop. A flow test is a **real Claude
-Code session against the real installed skills** — so it exercises genuine skill
-loading, orchestrator routing, subagent dispatch, and the Serena MCP server, none
-of which a hand-rolled loop can reproduce faithfully. The session is launched
-either by a human at a terminal or autonomously via `--run` (below) — both run
-the identical session; `--run` just detaches it.
+Flow testing (the greenfield, brownfield, and delivery methodology paths) is
+**not** a programmatic agent driver. There is no SDK loop. A flow test is a
+**real Claude Code session against the real installed skills** — so it exercises
+genuine skill loading, orchestrator routing, subagent dispatch, and the Serena
+MCP server, none of which a hand-rolled loop can reproduce faithfully. The
+session is launched detached by `./dev sim run`, or by a human at a keyboard
+(`--attended`); both run the identical session.
 
 > The old `conversational_eval.py` harness (a raw Anthropic Messages loop with two
 > Haiku agents) has been removed. It re-implemented the agent loop and could only
 > exercise the sequential, LLM-only path — a green run there did not prove the
 > skill worked in the product. Simulation replaces it.
 
-### How it works
+### The driver loop
 
-`./dev sandbox --simulate` scaffolds a sandbox and seeds three artifacts into it
-(via `scripts/seed_simulation.js`), then a human opens a Claude Code session in
-that folder and runs the kickoff command:
+Four commands take an empty state to a graded verdict. Any agent (from a chat
+session) or human can drive it; nothing in the loop needs manual wiring.
+
+```bash
+./dev sim run pilot --until="Product Brief"   # provision + seed + launch, detached
+./dev sim follow pilot                        # block until done; digest + conversation tail
+./dev sim assess pilot                        # transcript + checklist + judge verdict + findings scaffold
+$EDITOR .sandboxes/pilot-review/findings.md   # grade: cite evidence, generalize fixes, disposition each
+```
+
+Rules that keep the loop honest:
+
+- **Model tiers.** `sim run` defaults to sonnet — right for harness shakeouts and
+  bounded runs. Pin opus (`--model=opus`) for a run you intend to judge: a weaker
+  model grinds the review loop harder and muddies whether a defect is a skill
+  weakness or a model weakness. `sim judge` defaults to opus for the same reason.
+- **Bound first runs.** `--until=<phase>` stops the run after that phase's output
+  is committed, and `sim assess` checks the bounded contract (later artifacts
+  report `out of bound`, not missing). Never send an unattended session into the
+  scaffold phase blind.
+- **Quota.** Sessions bill to the machine's Claude subscription, so runs draw
+  from its usage limits. Check limit pressure before a full opus flow; prefer
+  bounded sonnet runs for routine coverage.
+- **Billing invariant.** Sessions launch via `claude --bg` with a scrubbed
+  environment (`claude_clean` in `scripts/sim/_common.sh`), so a run triggered
+  from inside another Claude Code session still authenticates with the machine's
+  subscription OAuth. `claude -p` is banned in the harness — headless print mode
+  mis-bills subscription runs as API usage (claude-code issue #43333) — and
+  `scripts/check_sim_invariants.sh` fails `./dev ci` if it reappears.
+
+The verbs around the loop: `sim status <name>` (recorded runs + live sessions,
+`--json` for polling), `sim list` (latest run per sandbox), `sim stop <name>`,
+`sim judge <name>` (fresh-context verdict by itself), `sim suites` (every
+scenario with last-run info), `sim checkpoint` (below). `./dev sim` prints the
+full surface.
+
+### What a run leaves behind
+
+Every launch writes a record to `<sandbox>/.simrun/runs.jsonl` (run id, path,
+suite, model, bound, session id, outcome) — the durable link between a sandbox
+and its sessions after the live `claude agents` registry forgets them. Run
+history survives re-provisioning.
+
+Background sessions isolate their edits in a git worktree
+(`<sandbox>/.agents/worktrees/`, branch `worktree-<session>`) — Claude Code
+policy, so a detached session can't clobber a shared checkout. The harness
+absorbs the isolation: `sim follow` and `sim assess` merge the session branch
+back into the sandbox root and harvest untracked outputs (the judge's verdict),
+so the sandbox root stays the single source of truth. Provisioning
+baseline-commits the fully seeded sandbox for the same reason — the isolated
+checkout contains only committed state, so an uncommitted skill or config file
+would be invisible to the session that needs it.
+
+`sim assess` produces the complete review bundle at `.sandboxes/<name>-review/`:
+
+| File | What it is |
+|---|---|
+| `conversation.md` + `subagents/` | The rendered transcript and each persona side-thread |
+| `checklist.md` | Structural check of durable artifacts, bound-aware for `--until` runs |
+| `verdict.md` | The fresh-context judge's verdict, harvested from `.simrun/verdict.md` |
+| `findings.md` | The grading scaffold — the driver's judgment work, and the only manual step |
+
+Grading closes the loop: every finding cites evidence (a transcript turn, a
+checklist row, a verdict line), names the owning skill, and carries a
+**generalized** fix — the Sandbox Problem rule in `SKILL.md` applies to every
+entry. A finding with no disposition (fixed / filed / accepted-because) is
+unfinished business. Quality verdicts are non-gating by design; only the
+structural checklist is mechanical.
+
+### How the harness is put together
+
+Provisioning (`./dev sandbox`, called by `sim run`) creates the sandbox, runs
+`groundwork init`, and seeds three artifacts via `scripts/seed_simulation.js`:
 
 | Artifact | Path | Role |
 |---|---|---|
-| **Persona subagent** | `.claude/agents/sandbox-user.md` | The simulated human client. Persona text is lifted verbatim from the suite's `suite.json`, so the dry-run and any future probe share one source of truth. |
-| **Kickoff command** | `.claude/commands/simulate-<path>.md` | The facilitator's operating loop. Walks the full path, delegating every user-facing turn to `sandbox-user` instead of pausing for the real human. |
-| **Judge command** | `.claude/commands/judge.md` | A non-gating quality rubric, run in a **fresh** session (see Assessment). |
+| **Persona subagent** | `.claude/agents/sandbox-user.md` | The simulated human client. Persona text comes verbatim from the suite's `suite.json` — attended and autonomous runs share one source of truth. |
+| **Kickoff command** | `.claude/commands/simulate-<path>.md` | The facilitator's operating loop. Walks the path, delegating every user-facing turn to `sandbox-user`. Its `$ARGUMENTS` slot receives run directives (`--until` bounds). |
+| **Judge command** | `.claude/commands/judge.md` | The non-gating quality rubric. Requires the verdict be written to `.simrun/verdict.md` — a verdict that lives only in a chat evaporates. |
+
+The seeder is a thin renderer: all session-facing text lives in
+`tests/evals/templates/` (persona, both kickoffs, the delivery judge) and
+`tests/evals/judge-rubric.md` (the setup judge). Edit the template, never the
+seeder — template text is diffable and reviewable; string blobs in a script are
+neither.
 
 The session runs the real skills and writes real `docs/*.md` + `.groundwork`
 state, committing when the persona approves a draft. The simulation is the
 **instrument**, not the thing under test — when a skill behaves poorly, the
 operating loop runs it faithfully so the weakness shows in the transcript.
 
-### Running a simulation
+### Attended runs
 
-```bash
-./dev sandbox --simulate                      # greenfield, default suite (storytelling_engine)
-./dev sandbox --simulate=b2b_saas             # greenfield, a specific suite/persona
-./dev sandbox --brownfield --simulate         # brownfield from the synthetic fixture (offline)
-./dev sandbox --repo=owner/repo --simulate    # brownfield from a real GitHub repo (cached clone)
-./dev sandbox myrun --simulate                # custom sandbox dir name (.sandboxes/myrun)
-```
+`./dev sim run <name> --attended` provisions and seeds without launching; open a
+chat from the sandbox folder and run `/simulate-<path>` yourself. The real human
+observes and may interject — any real-human message is an override, not the
+persona. Attended runs assess identically (`sim assess` falls back to the latest
+transcript when no run record exists).
 
-Then open a new Claude Code chat **from the sandbox folder** and run
-`/simulate-greenfield` (or `/simulate-brownfield`). The real human observes and
-may interject; any real-human message is treated as an override, not the persona.
-
-### Autonomous runs (`--run`)
-
-```bash
-./dev sandbox --run                                    # scaffold + seed + launch, one command
-./dev sandbox myrun --run --model=sonnet --until="Product Brief"
-./dev sandbox status myrun                             # background sessions under the sandbox (JSON)
-./dev sandbox judge myrun                              # fresh-context /judge as a background session
-```
-
-`--run` (implies `--simulate`) launches the kickoff in a **background Claude Code
-session** (`claude --bg`) opened from the sandbox folder — the same real session a
-human would run, just detached, so an agent (or a script) can trigger a flow test
-and follow up on it without a human at the keyboard. Follow a run with
-`./dev sandbox status <name>` or `claude logs <id>`; stop one with `claude stop <id>`.
-
-- `--until=<phase>` bounds the run: it is passed into the kickoff command as a run
-  directive ("stop after the <phase> phase output is committed and approved").
-  Bound the first run of any new flow — don't send an unattended session into the
-  scaffold phase blind.
-- `--model=<m>` defaults to `sonnet` for harness shakeouts; pin `opus` for a run
-  you intend to assess (same rule as the model-pinning note above).
-
-**Billing invariant.** Background sessions authenticate with the machine's
-subscription OAuth login, like any interactive session. The launcher
-(`claude_clean` in `./dev`) scrubs `ANTHROPIC_*` / `CLAUDE*` vars from the child
-environment so a run triggered from inside another Claude Code session doesn't
-inherit that session's plumbing — or an API key that would silently switch billing
-to per-token. `claude -p` is deliberately **not** used anywhere in this harness:
-headless print mode currently mis-bills subscription-authenticated runs as API
-usage (upstream claude-code issue #43333).
+### The three paths
 
 - **Greenfield** inits into an empty repo (with a throwaway Nx-style root so the
   scaffold skill is happy). Sequence: Product Brief → Design System → Architecture
   → Scaffold → MVP → first Bet.
-- **Brownfield** seeds an existing codebase, **commits it as the adoption baseline
+- **Brownfield** (`--path=brownfield`, or `--repo=owner/repo[@ref]` for a real
+  codebase) seeds an existing codebase, **commits it as the adoption baseline
   before GroundWork touches anything** (infra-adopt diffs against
   `baseline.source_commit`), then inits. A brownfield repo is deliberately not an
   Nx workspace — infra-adopt bootstraps `nx.json` itself. Sequence: Scan → Product
   Brief Extract → Design System Extract → Architecture Extract → Infra Adoption →
   first Bet.
+- **Delivery** (`--path=delivery`) seeds a project mid-flow with a sealed,
+  approved bet and drives Phase 4 only — the delivery engine's mechanics are the
+  thing under test, and its judge scores each mechanic Present/Weak/Absent.
 
 The brownfield codebase comes from one of two sources:
 
 | Source | Flag | What it is |
 |---|---|---|
-| **Synthetic fixture** (default) | `--brownfield` | `tests/evals/fixtures/brownfield_monorepo/00_codebase` — a tiny two-service repo. Offline, deterministic, fast. Proves the flow runs; too small to stress the scan phase. |
-| **Real GitHub repo** | `--repo=owner/repo[@ref]` | Any repo, cloned **once** into a gitignored cache at `.sandboxes/.cache/repos/<slug>` (recursing submodules) and reused across runs — `--refresh` re-pulls, `./dev test clean` clears it. The first clone of a large monorepo is slow (~1 min); subsequent runs reuse the cache in seconds. Requires `gh` auth (works for private repos + private submodules). Not reproducible for anyone without repo access → they fall back to the fixture. `@ref` pins the umbrella commit (and, via gitlinks, its submodules) for determinism. |
+| **Synthetic fixture** (default) | `--path=brownfield` | `tests/evals/fixtures/brownfield_monorepo/00_codebase` — a tiny two-service repo. Offline, deterministic, fast. Proves the flow runs; too small to stress the scan phase. |
+| **Real GitHub repo** | `--repo=owner/repo[@ref]` | Any repo, cloned **once** into a gitignored cache at `.sandboxes/.cache/repos/<slug>` (recursing submodules) and reused across runs — `--refresh` re-pulls, `./dev test clean` clears it. Requires `gh` auth. Not reproducible for anyone without repo access → they fall back to the fixture. `@ref` pins the umbrella commit for determinism. |
 
-> A real multi-service monorepo (4 services, ~1600 files) scanned by a live Opus
-> session across scan + four extract phases is a long, expensive run — reserve it
-> for deliberate deep runs, not casual iteration.
-
-> **Pin the model before a review run.** Set Opus (`/model`) before kicking off a flow
-> you intend to assess — a Sonnet run grinds the review loop harder (weaker first drafts →
-> more revise cycles) and muddies whether a defect is a skill weakness or a model weakness.
-> `render_transcript.py` records the model that actually ran in the review header, so check
-> it there before drawing conclusions from a transcript.
+> A real multi-service monorepo scanned by a live opus session across scan + four
+> extract phases is a long, expensive run — reserve it for deliberate deep runs.
 
 Every sandbox carries a `CLAUDE.md` boundary file asserting it is a user project,
 not the framework repo — without it, a chat opened in the nested sandbox would
@@ -117,61 +155,58 @@ inherit this repo's contributor skill and think it is building GroundWork. (When
 seeding from a real repo, this boundary file replaces any `CLAUDE.md` the source
 carried.)
 
-### Personas — the coverage knob
+### Personas and the coverage matrix
 
 Personas live in `tests/evals/scenarios/<suite>/suite.json` (`user_persona` +
-`user_goal`). The simulated user is the test's input oracle: a bland
-"looks great, commit it" persona makes a test that always passes. The current
-suites are **cooperative** by design while the harness is shaken out; adversarial
-variants (ambiguous, contradictory, terse) are the lever for deeper coverage and
-are added as additional suites.
+`user_goal`) — `./dev sim suites` lists them all with last-run info. The
+simulated user is the test's input oracle: a bland "looks great, commit it"
+persona makes a test that always passes. Pick suites by the failure class you
+are hunting:
 
-### Assessment
+| Failure class | Suites | Cadence |
+|---|---|---|
+| Baseline mechanics (does the flow run at all) | `storytelling_engine`, `b2b_saas`, `developer_cli`, `headless_api`, `ai_agent_tool` | Bounded sonnet run after any skill-corpus change to that path |
+| Ambiguity handling (vague, underspecified answers) | `adversarial_ambiguous` | Bounded runs against the discovery phases |
+| Requirement reversal (user contradicts earlier answers) | `adversarial_reversal` | Bounded runs against discovery + design phases |
+| Scope discipline (user keeps adding wants) | `adversarial_scope_creep` | Bounded runs against Product Brief / MVP planning |
+| Terse input (minimal answers, no elaboration) | `adversarial_terse` | Bounded runs against discovery phases |
+| Brownfield grounding (docs must trace to real code) | `brownfield_monorepo`, `--repo=` deep runs | Full run before a release |
+| Delivery mechanics (the eight judged mechanics) | `delivery_task_capture` | Full run before a release |
+| Multi-surface routing | `multi_surface`, `forge_native_desktop` | When surface routing changes |
+| Upgrade path | `upgrade` | When the update lane changes |
 
-There is no automated pass/fail — the verdict is a human reading two surfaces:
-
-```bash
-./dev sandbox review <name>      # → .sandboxes/<name>-review/
-```
-
-1. **`conversation.md`** — the rendered transcript (`scripts/render_transcript.py`).
-2. **`checklist.md`** — a structural checklist (`scripts/sandbox_checklist.py`):
-   a non-gating mechanical check of **durable** artifacts only — canonical
-   `docs/*.md` present/non-empty/titled, `state.json` `project_type` + completed
-   phases, and git commits. It deliberately ignores `.groundwork/cache/*` (deleted
-   on commit — checking it reports false failures in a full-flow run) and
-   frontmatter (GroundWork doc templates carry none).
-
-For a **quality** verdict, open a *fresh* Claude Code chat in the sandbox and run
-`/judge`. A fresh context is a genuine critic; a judge sharing the context that
-wrote the docs would only rubber-stamp its own work. The judge is non-gating —
-it tells you whether the output is good and where it is weak.
+A full opus run of a setup path before each release, plus bounded sonnet runs of
+the classes a change touches, is the working cadence until scheduled sweeps earn
+their quota (plan `autonomous-sim-harness.md`, open decision O-1).
 
 ### Checkpoints — resume mid-flow
 
 A full flow is expensive to re-run when you only want to debug one phase.
 Checkpoints snapshot a successful run's durable workspace (`docs/` +
 `.groundwork/`, never `.agents/` — skills are always re-installed fresh) so a new
-sandbox can be seeded to resume from that point:
+sandbox can resume from that point:
 
 ```bash
-./dev sandbox checkpoint capture <name> --as <label>   # snapshot a green run
-./dev sandbox checkpoint list                           # list captured checkpoints
-./dev sandbox <newname> --from=<label> --simulate       # resume from a checkpoint
+./dev sim checkpoint capture <name> --as <label>   # snapshot a green run
+./dev sim checkpoint list                          # list, with staleness flags
+./dev sim run <newname> --from=<label> --until=... # resume from a checkpoint
 ```
 
-Checkpoints are a **cache of the last green run**, not a frozen golden — when a
-phase's output format changes, re-harvest the downstream checkpoints from a fresh
-green run.
+Checkpoints are a **cache of the last green run**, not a frozen golden. Each
+capture stamps `meta.json` with the skill-corpus commit it was harvested under;
+`list` flags a checkpoint **STALE** when the corpus (`src/skills`,
+`src/hidden-skills`, `src/docs`, `src/config`) has moved since — re-harvest it
+from a fresh green run before trusting a resume.
 
-### Suites and fixtures
+### Suites, fixtures, templates
 
 | Path | Contents |
 |---|---|
-| `tests/evals/scenarios/<suite>/suite.json` | Persona + goal (the single source of truth, read by `seed_simulation.js`). |
-| `tests/evals/scenarios/<suite>/NN_*.json` | Per-phase descriptors (skill path, durable `success_files`) — a phase-list hint. |
+| `tests/evals/scenarios/<suite>/suite.json` | Persona + goal — the single source of truth, read by `seed_simulation.js`. |
+| `tests/evals/templates/` | Session-facing text: persona, kickoff-setup, kickoff-delivery, judge-delivery, findings scaffold. |
+| `tests/evals/judge-rubric.md` | The setup-path judge rubric ({{flowPath}} + per-path blocks, rendered by the seeder). |
 | `tests/evals/fixtures/brownfield_monorepo/00_codebase` | The existing codebase the brownfield path adopts. |
-| `tests/evals/fixtures/<suite>/<phase>/` | Pre-baked per-phase workspaces (legacy seeds). |
+| `tests/evals/scenarios/delivery_task_capture/fixture/` | The sealed-bet workspace the delivery path starts from. |
 
 > Note: `tests/evals/validate_scaffold.py` is **not** part of the flow harness —
 > it is a scaffold boot-prober (a sibling of the scaffold tests). Run it via

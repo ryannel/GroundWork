@@ -1,6 +1,6 @@
 # Implementation Plan: The Autonomous Simulation Harness (Runtime CI for the Methodology)
 
-**Status:** PROPOSED 2026-07-05 — nothing executed. Foundation already landed separately: `./dev sandbox --run` background driver + `status`/`judge` verbs + billing invariant (`4e46b78`).
+**Status:** EXECUTED 2026-07-05 (WS-A–D, same day) — the `./dev sim` verb family, run records, assessment pipeline, templates-to-files, coverage plumbing, driver-first docs, and the invariant lint are all live; the doctored-session smoke run proved the full loop (`sim run → follow → assess` → complete bundle) with zero manual wiring. **WS-E (proving runs) remains** — quota-gated past 2026-07-07. Execution surfaced one design fact the plan missed, now built in: background sessions enforce worktree isolation for edits, so provisioning baseline-commits the seeded sandbox and the harness absorbs each session's `worktree-*` branch back into the sandbox root (`absorb_worktrees`, `scripts/sim/_common.sh`); session transcripts re-home to the worktree's project slug mid-run, so transcript lookup falls back to a global session-id search. Foundation landed separately in `4e46b78`.
 **Audience:** An engineer or agent implementing this change, and any future agent *driving* simulations — WS-D makes the harness legible to them.
 **Scope owner:** `./dev` + `scripts/` (sim harness, dev-only), `tests/evals/` (scenarios, templates, rubrics), `.agents/skills/groundwork-contributor/` (SKILL.md + `references/testing.md`). Nothing here ships in the npm package.
 

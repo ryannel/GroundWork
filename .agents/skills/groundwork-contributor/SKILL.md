@@ -156,11 +156,12 @@ The scaffold harness runs in layers — cheapest first, to fail fast:
 | **Compilation** | `test_compilation.py` | Pairwise combos actually compile (`go build`, `pnpm tsc`, `uv sync`). | Minutes |
 | **End-to-End** | `test_scaffolds.py` | Full DX loop: generate, boot Docker, health-check services, run inner system tests. | Slow (Docker) |
 
-Run them in order: `./dev test generation`, `contracts`, `compilation`, `scaffolds`. Before
-running or debugging a **simulation** (the greenfield/brownfield flow tests — real Claude
-Code sessions, launched by a human or autonomously via `./dev sandbox --run`), read
-`references/testing.md` — it also has the scaffold harness's fuller mechanics, personas,
-checkpoints, and suite/fixture layout.
+Run them in order: `./dev test generation`, `contracts`, `compilation`, `scaffolds`. The
+**simulation harness** (`./dev sim`) is the fifth layer — real Claude Code sessions that
+prove the methodology itself, driven end to end as `sim run → sim follow → sim assess →
+grade findings.md`. Before driving or debugging one, read `references/testing.md` — the
+driver loop, run records, the coverage matrix, checkpoints, and the suite/fixture layout
+live there, alongside the scaffold harness's fuller mechanics.
 
 ---
 
@@ -170,11 +171,14 @@ The repo ships a `./dev` bash script at the root for local development tasks. Ru
 
 | Command | Description |
 |---|---|
-| `./dev sandbox [name] [--brownfield\|--repo=owner/repo[@ref]] [--simulate[=suite]] [--from=<label>] [--refresh]` | Scaffold a simulation sandbox — `references/testing.md` |
-| `./dev sandbox <name> --run [--model=<m>] [--until=<phase>]` | Scaffold AND launch the simulation in a background Claude session — `references/testing.md` |
-| `./dev sandbox status <name>` / `judge <name>` | List a sandbox's background sessions (JSON) / launch a fresh-context background `/judge` |
-| `./dev sandbox review <name>` | Render transcript + structural checklist into `.sandboxes/<name>-review/` |
-| `./dev sandbox checkpoint capture <name> --as <label>` / `list` | Snapshot a green run to resume from later |
+| `./dev sim run <name> [--path=…] [--suite=…] [--model=<m>] [--until=<phase>] [--attended]` | Provision + launch a flow simulation in a detached background session — `references/testing.md` |
+| `./dev sim follow <name>` | Block until the session finishes; print a digest (phases, commits, conversation tail) |
+| `./dev sim assess <name>` | Produce the review bundle: transcript + bound-aware checklist + judge verdict + findings scaffold |
+| `./dev sim status <name>` / `list` / `stop <name>` | Recorded runs + live sessions (`--json`) / latest run per sandbox / stop a session |
+| `./dev sim judge <name>` / `suites` | Fresh-context `/judge` session by itself / scenario suites with last-run info |
+| `./dev sim checkpoint capture <name> --as <label>` / `list` | Snapshot a green run (corpus-stamped); `list` flags stale checkpoints |
+| `./dev sandbox [name] [--brownfield\|--repo=owner/repo[@ref]] [--simulate[=suite]] [--from=<label>] [--refresh]` | Provision a sandbox by itself (called by `sim run`) — `references/testing.md` |
+| `./dev sandbox review <name>` | Mechanical-only review (transcript + checklist); `sim assess` supersedes it for sim runs |
 | `./dev ci` | Reproduce the required CI build locally — run before every release, `references/releasing.md` |
 | `./dev test nx` | Run Nx workspace unit tests |
 | `./dev test generation` | Generator structural tests (fast, all combinations) |
