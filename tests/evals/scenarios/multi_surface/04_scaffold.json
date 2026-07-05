@@ -1,7 +1,0 @@
-{
-  "skill_name": "groundwork-scaffold",
-  "skill_path": "src/hidden-skills/groundwork-scaffold/instructions.md",
-  "turns": 30,
-  "depends_on": "03_architecture",
-  "success_files": ["docs/infrastructure.md", "docker-compose.yml", "dev"]
-}

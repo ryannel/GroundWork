@@ -1,7 +1,0 @@
-{
-  "skill_name": "groundwork-design-system",
-  "skill_path": "src/hidden-skills/groundwork-design-system/instructions.md",
-  "turns": 15,
-  "depends_on": "01_product_brief",
-  "user_goal": "Answer the assistant's questions with short, natural, human responses and go with the flow. This is an MCP server — when asked what type of interface it has, answer 'agentic-protocol'. Do not ask questions back unless necessary. When the agent presents a draft document for review, respond: 'Looks great, please commit it.'"
-}

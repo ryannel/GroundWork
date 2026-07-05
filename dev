@@ -54,6 +54,37 @@ ensure_build() {
 COMMAND=$1
 
 case "$COMMAND" in
+  sim)
+    # The simulation lifecycle — flow testing driven end to end from one place
+    # (or from a chat session). Each verb is a standalone script under
+    # scripts/sim/; ./dev only routes. See the contributor skill's
+    # references/testing.md for the driver loop.
+    SUBCMD=$2
+    case "$SUBCMD" in
+      run|follow|status|list|stop|judge|assess|suites|checkpoint)
+        exec bash "scripts/sim/$SUBCMD.sh" "${@:3}"
+        ;;
+      *)
+        print_logo "Simulation"
+        echo -e "  Flow-testing lifecycle: trigger → follow → assess → grade"
+        echo ""
+        echo -e "  ${BOLD}USAGE${NC}"
+        echo -e "  ${DIM}$ ${MAGENTA}./dev${NC} ${CYAN}sim${NC} <verb> [name] [flags]"
+        print_category "THE DRIVER LOOP"
+        print_cmd "run" "Provision + seed + launch a sim in a background session (--path, --suite, --model, --until, --attended, --reuse)"
+        print_cmd "follow" "Block until the session finishes; print a digest (--timeout, --stall)"
+        print_cmd "assess" "Produce the full review bundle: transcript + checklist + judge verdict + findings scaffold"
+        print_category "AROUND IT"
+        print_cmd "status" "Recorded runs + live sessions for a sandbox (--json)"
+        print_cmd "list" "Latest recorded run per sandbox"
+        print_cmd "stop" "Stop the latest recorded session (--judge for the judge's)"
+        print_cmd "judge" "Launch a fresh-context /judge session by itself (--model)"
+        print_cmd "suites" "List scenario suites with persona + last-run info"
+        print_cmd "checkpoint" "capture <name> --as <label> | list — with staleness flags"
+        echo ""
+        ;;
+    esac
+    ;;
   ci)
     # Single entry point that reproduces the GitHub PR build (the fast, blocking
     # gates) end to end. `./dev ci` locally == the required CI jobs. The heavy
@@ -62,8 +93,9 @@ case "$COMMAND" in
     print_step "Reproducing the required CI gates locally..."
     ensure_build
     ensure_test_env
-    print_step "[1/5] Skill conformance lint..."
+    print_step "[1/5] Skill conformance lint + sim invariants..."
     python3 scripts/lint_skills.py
+    bash scripts/check_sim_invariants.sh
     print_step "[2/5] Generation tests (structural, all combos)..."
     pytest tests/scaffolds/test_generation*.py -q
     print_step "[3/5] Contract tests (bundle freshness, adopt-merge, migration coverage)..."
@@ -170,54 +202,15 @@ case "$COMMAND" in
       exit 0
     fi
 
-    # `./dev sandbox checkpoint <capture|list>` — manage phase snapshots harvested
-    # from a successful simulation run. A checkpoint is the durable workspace
-    # (docs/ + .groundwork/, NEVER .agents/) at a point in the flow, so a fresh
-    # sandbox can be seeded to resume mid-flow with `./dev sandbox <name> --from <label>`.
-    # Checkpoints are a cache of the last green run — stale them when a phase's
-    # output format changes.
+    # Relocated verbs — the sim lifecycle lives under `./dev sim` now. Old
+    # spellings keep working for one cycle, with a pointer.
+    if [ "$2" = "status" ] || [ "$2" = "judge" ]; then
+      print_info "(moved: use ./dev sim $2 — forwarding)"
+      exec bash "scripts/sim/$2.sh" "${@:3}"
+    fi
     if [ "$2" = "checkpoint" ]; then
-      CKPT_DIR="$PWD/.sandboxes/checkpoints"
-      CK_ACTION="$3"
-      if [ "$CK_ACTION" = "list" ]; then
-        print_logo "Checkpoints"
-        if [ -d "$CKPT_DIR" ] && [ -n "$(ls -A "$CKPT_DIR" 2>/dev/null)" ]; then
-          for c in "$CKPT_DIR"/*/; do
-            [ -d "$c" ] || continue
-            print_info "$(basename "$c")"
-          done
-        else
-          print_info "(no checkpoints captured yet)"
-        fi
-        exit 0
-      elif [ "$CK_ACTION" = "capture" ]; then
-        CK_NAME="greenfield"
-        CK_LABEL=""
-        shift 3
-        while [ $# -gt 0 ]; do
-          case "$1" in
-            --as) CK_LABEL="$2"; shift 2 ;;
-            --as=*) CK_LABEL="${1#*=}"; shift ;;
-            -*) print_error "Unknown flag: $1"; exit 1 ;;
-            *) CK_NAME="$1"; shift ;;
-          esac
-        done
-        SRC="$PWD/.sandboxes/$CK_NAME"
-        [ -d "$SRC" ] || fail "No sandbox at .sandboxes/$CK_NAME to capture."
-        [ -n "$CK_LABEL" ] || fail "Provide a label: ./dev sandbox checkpoint capture $CK_NAME --as <label>"
-        DEST="$CKPT_DIR/$CK_LABEL"
-        print_logo "Checkpoint"
-        print_step "Capturing .sandboxes/$CK_NAME → checkpoints/$CK_LABEL (docs/ + .groundwork/)"
-        rm -rf "$DEST"
-        mkdir -p "$DEST"
-        [ -d "$SRC/docs" ] && cp -R "$SRC/docs" "$DEST/docs"
-        [ -d "$SRC/.groundwork" ] && cp -R "$SRC/.groundwork" "$DEST/.groundwork"
-        print_success "Checkpoint saved: checkpoints/$CK_LABEL"
-        print_info "Resume from it with: ./dev sandbox <name> --from $CK_LABEL"
-        exit 0
-      else
-        fail "Usage: ./dev sandbox checkpoint <capture [name] --as <label> | list>"
-      fi
+      print_info "(moved: use ./dev sim checkpoint — forwarding)"
+      exec bash "scripts/sim/checkpoint.sh" "${@:3}"
     fi
 
     # Create a standalone GroundWork project sandbox seeded with the same
@@ -228,6 +221,9 @@ case "$COMMAND" in
     FORCE=0
     NOBUILD=0
     SIMULATE=0
+    RUN=0
+    RUN_MODEL="sonnet"
+    UNTIL=""
     FLOW_PATH="greenfield"
     SUITE=""
     FROM=""
@@ -242,6 +238,11 @@ case "$COMMAND" in
         --delivery) FLOW_PATH="delivery"; SIMULATE=1 ;;
         --simulate) SIMULATE=1 ;;
         --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
+        # Deprecated spelling — `./dev sim run` owns launch now. Collected here
+        # so the whole invocation can be forwarded after parsing.
+        --run) RUN=1; SIMULATE=1 ;;
+        --model=*) RUN_MODEL="${arg#*=}" ;;
+        --until=*) UNTIL="${arg#*=}" ;;
         --from) print_error "Use --from=<label> (no space)."; exit 1 ;;
         --from=*) FROM="${arg#*=}" ;;
         # Seed the brownfield baseline from a real GitHub repo (any repo). It is
@@ -253,6 +254,22 @@ case "$COMMAND" in
         *) NAME="$arg" ;;
       esac
     done
+    # Deprecated `--run` spelling: forward the whole invocation to `sim run`,
+    # which provisions (by calling back into this verb without --run) and launches.
+    if [ "$RUN" -eq 1 ]; then
+      print_info "(moved: use ./dev sim run — forwarding)"
+      FWD=()
+      [ -n "$NAME" ] && FWD+=("$NAME")
+      FWD+=("--path=$FLOW_PATH")
+      [ -n "$SUITE" ] && FWD+=("--suite=$SUITE")
+      [ -n "$REPO" ] && FWD+=("--repo=$REPO")
+      [ -n "$FROM" ] && FWD+=("--from=$FROM")
+      [ -n "$UNTIL" ] && FWD+=("--until=$UNTIL")
+      [ "$NOBUILD" -eq 1 ] && FWD+=(--no-build)
+      FWD+=("--model=$RUN_MODEL")
+      exec bash scripts/sim/run.sh "${FWD[@]}"
+    fi
+
     # Default the sandbox dir name and suite to the flow path when unset.
     [ -n "$NAME" ] || NAME="$FLOW_PATH"
     if [ -z "$SUITE" ]; then
@@ -438,11 +455,24 @@ EOF
       node "$REPO_ROOT/scripts/seed_simulation.js" "$SUITE" "$SANDBOX_DIR" "$FLOW_PATH"
     fi
 
+    # Baseline-commit the fully provisioned sandbox. Background sessions isolate
+    # their edits in a git worktree checked out from HEAD, so everything a session
+    # reads mid-flow (installed skills, .groundwork config, doc seeds, fixture
+    # source) must be committed or the isolated checkout is missing it. Run
+    # records (.simrun/) stay out of git — harness state, not flow output.
+    grep -qxF '.simrun/' "$SANDBOX_DIR/.gitignore" 2>/dev/null || echo '.simrun/' >> "$SANDBOX_DIR/.gitignore"
+    if [ -n "$(git -C "$SANDBOX_DIR" status --porcelain)" ]; then
+      print_substep "Committing provisioned baseline..."
+      git -C "$SANDBOX_DIR" add -A
+      git -C "$SANDBOX_DIR" -c user.email=sim@groundwork.dev -c user.name=sim \
+        commit -q -m "chore: sandbox baseline (provisioned)"
+    fi
+
     print_success "Sandbox ready at $SANDBOX_DIR"
     if [ "$SIMULATE" -eq 1 ]; then
       print_info "Start a new chat from that folder and run /simulate-$FLOW_PATH to dry-run the flow against the simulated user."
-      print_info "After it runs: ./dev sandbox review $NAME   (transcript + structural checklist)"
-      print_info "For a quality verdict, open a fresh chat there and run /judge."
+      print_info "Or drive it autonomously: ./dev sim run $NAME --reuse"
+      print_info "After it runs: ./dev sim assess $NAME   (transcript + checklist + judge + findings)"
     else
       print_info "Start a new chat from that folder and ask GroundWork to begin a new project."
     fi
@@ -489,8 +519,13 @@ EOF
     print_cmd "sandbox --brownfield" "Seed the synthetic existing-codebase fixture + baseline commit instead of an empty repo"
     print_cmd "sandbox --repo=owner/repo[@ref]" "Brownfield from a real GitHub repo (cloned once into a gitignored cache; --refresh to re-pull)"
     print_cmd "sandbox --from=<label>" "Resume mid-flow by seeding docs/ + .groundwork/ from a captured checkpoint"
-    print_cmd "sandbox checkpoint" "capture <name> --as <label> | list — snapshot a green run to resume from later"
     print_cmd "sandbox review" "Render the latest chat transcript + structural checklist into .sandboxes/<name>-review/"
+
+    print_category "SIMULATION (the driver loop — see ./dev sim)"
+    print_cmd "sim run" "Provision + launch a flow sim in a background session (--path, --suite, --model, --until)"
+    print_cmd "sim follow" "Block until the session finishes; print a digest"
+    print_cmd "sim assess" "Full review bundle: transcript + checklist + judge verdict + findings scaffold"
+    print_cmd "sim ..." "status · list · stop · judge · suites · checkpoint"
 
     print_category "QUALITY & TESTING"
     print_cmd "ci" "Reproduce the required CI build locally (lint + generation + contracts + cli + compilation)"

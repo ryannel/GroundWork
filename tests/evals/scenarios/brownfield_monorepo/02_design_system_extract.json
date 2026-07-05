@@ -1,7 +1,0 @@
-{
-  "skill_name": "groundwork-design-system-extract",
-  "skill_path": "src/hidden-skills/groundwork-design-system-extract/instructions.md",
-  "turns": 25,
-  "depends_on": "01_product_brief_extract",
-  "success_files": ["docs/design-system.md", ".groundwork/config/brand-tokens.json"]
-}

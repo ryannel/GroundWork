@@ -1,7 +1,0 @@
-{
-  "skill_name": "groundwork-architecture",
-  "skill_path": "src/hidden-skills/groundwork-architecture/instructions.md",
-  "turns": 20,
-  "depends_on": "02_design_system",
-  "success_files": ["docs/architecture.md"]
-}

@@ -1,8 +1,0 @@
-{
-  "skill_name": "groundwork-design-system",
-  "skill_path": "src/hidden-skills/groundwork-design-system/instructions.md",
-  "turns": 30,
-  "depends_on": "01_product_brief",
-  "success_files": ["docs/design-system.md", ".groundwork/config/brand-tokens.json"],
-  "user_goal": "Answer the assistant's questions with short, natural, human responses. You have design expectations for both of your MVP surfaces and volunteer them when the conversation reaches the relevant surface type: the web dispatch console should feel calm and information-dense — coordinators stare at it all day, so muted colours, generous tables, no decoration; the CLI should be terse and scriptable — plain output by default, clear failure messages, exit codes your engineers can build automation on. The technician mobile app is later — if asked, say its design can wait until the mobile team starts. Provide constructive input when asked and go with the flow. When the agent presents a draft document for review, respond: 'Looks great, please commit it.' Once the design system is committed, respond with 'End of Task' exactly once, then stop responding entirely. If the assistant seems confused, say 'Let's continue where we left off.'"
-}
