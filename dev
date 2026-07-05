@@ -51,6 +51,24 @@ ensure_build() {
   npm run build
 }
 
+# Launch the `claude` CLI with a scrubbed environment. When ./dev itself runs
+# inside a Claude Code session (an agent driving a simulation from chat), the
+# child would inherit that session's plumbing — ANTHROPIC_BASE_URL, CLAUDE_CODE_*
+# session vars, or a stray ANTHROPIC_API_KEY that would silently switch billing
+# from the subscription to API tokens. Scrubbing makes a child launched from chat
+# identical to one launched from a plain terminal: it authenticates with the
+# machine's own subscription OAuth login. CLAUDE_CONFIG_DIR is kept — it points
+# at the user's config home, not at a session.
+claude_clean() {
+  local unset_flags=()
+  local v
+  while IFS= read -r v; do
+    [ "$v" = "CLAUDE_CONFIG_DIR" ] && continue
+    unset_flags+=(-u "$v")
+  done < <(env | grep -oE '^(ANTHROPIC|CLAUDE)[A-Za-z0-9_]*' | sort -u)
+  env "${unset_flags[@]}" claude "$@"
+}
+
 COMMAND=$1
 
 case "$COMMAND" in
@@ -170,6 +188,44 @@ case "$COMMAND" in
       exit 0
     fi
 
+    # `./dev sandbox status [name]` — list the background Claude sessions running
+    # under a sandbox (launched by `--run` or `judge`). JSON output so an agent
+    # driving the simulation from chat can poll it programmatically.
+    if [ "$2" = "status" ]; then
+      SNAME="${3:-greenfield}"
+      SANDBOX_DIR="$PWD/.sandboxes/$SNAME"
+      [ -d "$SANDBOX_DIR" ] || fail "No sandbox at .sandboxes/$SNAME."
+      command -v claude >/dev/null 2>&1 || fail "claude CLI not found."
+      print_logo "Sandbox Status"
+      print_step "Background sessions under .sandboxes/$SNAME:"
+      claude_clean agents --json --all --cwd "$SANDBOX_DIR"
+      exit 0
+    fi
+
+    # `./dev sandbox judge <name> [--model=<m>]` — launch a FRESH background
+    # session that runs /judge in the sandbox. Fresh context is the point: a judge
+    # sharing the context that wrote the docs would rubber-stamp its own work.
+    if [ "$2" = "judge" ]; then
+      JNAME="greenfield"
+      JMODEL="opus"
+      shift 2
+      while [ $# -gt 0 ]; do
+        case "$1" in
+          --model=*) JMODEL="${1#*=}"; shift ;;
+          -*) print_error "Unknown flag: $1"; exit 1 ;;
+          *) JNAME="$1"; shift ;;
+        esac
+      done
+      SANDBOX_DIR="$PWD/.sandboxes/$JNAME"
+      [ -f "$SANDBOX_DIR/.claude/commands/judge.md" ] || fail "No judge command in .sandboxes/$JNAME — create the sandbox with --simulate (or --run)."
+      command -v claude >/dev/null 2>&1 || fail "claude CLI not found."
+      print_logo "Sandbox Judge"
+      print_step "Launching fresh background judge session (model: $JMODEL)..."
+      (cd "$SANDBOX_DIR" && claude_clean --bg -n "judge-$JNAME" --model "$JMODEL" --permission-mode bypassPermissions "/judge")
+      print_info "Follow it with: ./dev sandbox status $JNAME"
+      exit 0
+    fi
+
     # `./dev sandbox checkpoint <capture|list>` — manage phase snapshots harvested
     # from a successful simulation run. A checkpoint is the durable workspace
     # (docs/ + .groundwork/, NEVER .agents/) at a point in the flow, so a fresh
@@ -228,6 +284,9 @@ case "$COMMAND" in
     FORCE=0
     NOBUILD=0
     SIMULATE=0
+    RUN=0
+    RUN_MODEL="sonnet"
+    UNTIL=""
     FLOW_PATH="greenfield"
     SUITE=""
     FROM=""
@@ -242,6 +301,13 @@ case "$COMMAND" in
         --delivery) FLOW_PATH="delivery"; SIMULATE=1 ;;
         --simulate) SIMULATE=1 ;;
         --simulate=*) SIMULATE=1; SUITE="${arg#*=}" ;;
+        # Launch the simulation in a background Claude session after scaffolding
+        # (implies --simulate). Billing note: background sessions use the machine's
+        # subscription OAuth login; `claude -p` is deliberately NOT used here (it
+        # currently bills headless runs as API usage).
+        --run) RUN=1; SIMULATE=1 ;;
+        --model=*) RUN_MODEL="${arg#*=}" ;;
+        --until=*) UNTIL="${arg#*=}" ;;
         --from) print_error "Use --from=<label> (no space)."; exit 1 ;;
         --from=*) FROM="${arg#*=}" ;;
         # Seed the brownfield baseline from a real GitHub repo (any repo). It is
@@ -439,8 +505,26 @@ EOF
     fi
 
     print_success "Sandbox ready at $SANDBOX_DIR"
-    if [ "$SIMULATE" -eq 1 ]; then
+
+    # --- Autonomous run: launch the simulation in a background Claude session ---
+    # The session is a REAL Claude Code session opened from the sandbox folder —
+    # real skill discovery, orchestrator routing, and persona-subagent dispatch —
+    # just launched detached instead of by a human at a terminal.
+    if [ "$RUN" -eq 1 ]; then
+      command -v claude >/dev/null 2>&1 || fail "claude CLI required for --run."
+      KICKOFF="/simulate-$FLOW_PATH"
+      if [ -n "$UNTIL" ]; then
+        KICKOFF="$KICKOFF Bounded run: stop after the $UNTIL phase output is committed and approved — do not start the next phase."
+      fi
+      print_step "Launching background simulation session (model: $RUN_MODEL)..."
+      (cd "$SANDBOX_DIR" && claude_clean --bg -n "sim-$NAME" --model "$RUN_MODEL" --permission-mode bypassPermissions "$KICKOFF")
+      print_success "Background session launched."
+      print_info "Follow it:   ./dev sandbox status $NAME"
+      print_info "Assess it:   ./dev sandbox review $NAME    (after it finishes)"
+      print_info "Judge it:    ./dev sandbox judge $NAME     (fresh-context verdict)"
+    elif [ "$SIMULATE" -eq 1 ]; then
       print_info "Start a new chat from that folder and run /simulate-$FLOW_PATH to dry-run the flow against the simulated user."
+      print_info "Or launch it autonomously: ./dev sandbox $NAME --run --force"
       print_info "After it runs: ./dev sandbox review $NAME   (transcript + structural checklist)"
       print_info "For a quality verdict, open a fresh chat there and run /judge."
     else
@@ -489,6 +573,9 @@ EOF
     print_cmd "sandbox --brownfield" "Seed the synthetic existing-codebase fixture + baseline commit instead of an empty repo"
     print_cmd "sandbox --repo=owner/repo[@ref]" "Brownfield from a real GitHub repo (cloned once into a gitignored cache; --refresh to re-pull)"
     print_cmd "sandbox --from=<label>" "Resume mid-flow by seeding docs/ + .groundwork/ from a captured checkpoint"
+    print_cmd "sandbox --run" "...scaffold AND launch the simulation in a background Claude session (--model=<m>, --until=<phase>)"
+    print_cmd "sandbox status" "List the background sessions running under a sandbox (JSON)"
+    print_cmd "sandbox judge" "Launch a fresh-context background /judge session for a finished run"
     print_cmd "sandbox checkpoint" "capture <name> --as <label> | list — snapshot a green run to resume from later"
     print_cmd "sandbox review" "Render the latest chat transcript + structural checklist into .sandboxes/<name>-review/"
 

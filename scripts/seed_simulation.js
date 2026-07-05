@@ -161,6 +161,15 @@ ${cfg.startState}
 5. Stop when the first Bet is scoped/committed, or when the simulated user says
    "End of Task".
 
+## Run directives
+
+$ARGUMENTS
+
+If the directives above are empty, run the full sequence. A directive that bounds
+the run (e.g. "stop after the Product Brief phase output is committed") overrides
+the stop condition in step 5 — finish the named phase, commit its output, then end
+the session cleanly instead of starting the next phase.
+
 ## Notes
 
 - I (the real human) am observing and may interject. If I send a message, treat
@@ -259,6 +268,14 @@ run is only complete when the transcript shows each one:
 
 Stop when the whole bet is green — both milestones closed and postmortem'd, the
 delivery reaches the validation hand-off — or when \`sandbox-user\` says "End of Task".
+
+## Run directives
+
+$ARGUMENTS
+
+If the directives above are empty, run to the full stop condition. A directive that
+bounds the run (e.g. "stop after milestone 1 closes") overrides it — reach the named
+point, commit the durable state, then end the session cleanly.
 
 ## Notes
 

@@ -157,9 +157,10 @@ The scaffold harness runs in layers — cheapest first, to fail fast:
 | **End-to-End** | `test_scaffolds.py` | Full DX loop: generate, boot Docker, health-check services, run inner system tests. | Slow (Docker) |
 
 Run them in order: `./dev test generation`, `contracts`, `compilation`, `scaffolds`. Before
-running or debugging a **simulation** (the greenfield/brownfield flow tests, run by a human
-against real Claude Code sessions), read `references/testing.md` — it also has the scaffold
-harness's fuller mechanics, personas, checkpoints, and suite/fixture layout.
+running or debugging a **simulation** (the greenfield/brownfield flow tests — real Claude
+Code sessions, launched by a human or autonomously via `./dev sandbox --run`), read
+`references/testing.md` — it also has the scaffold harness's fuller mechanics, personas,
+checkpoints, and suite/fixture layout.
 
 ---
 
@@ -170,6 +171,8 @@ The repo ships a `./dev` bash script at the root for local development tasks. Ru
 | Command | Description |
 |---|---|
 | `./dev sandbox [name] [--brownfield\|--repo=owner/repo[@ref]] [--simulate[=suite]] [--from=<label>] [--refresh]` | Scaffold a simulation sandbox — `references/testing.md` |
+| `./dev sandbox <name> --run [--model=<m>] [--until=<phase>]` | Scaffold AND launch the simulation in a background Claude session — `references/testing.md` |
+| `./dev sandbox status <name>` / `judge <name>` | List a sandbox's background sessions (JSON) / launch a fresh-context background `/judge` |
 | `./dev sandbox review <name>` | Render transcript + structural checklist into `.sandboxes/<name>-review/` |
 | `./dev sandbox checkpoint capture <name> --as <label>` / `list` | Snapshot a green run to resume from later |
 | `./dev ci` | Reproduce the required CI build locally — run before every release, `references/releasing.md` |

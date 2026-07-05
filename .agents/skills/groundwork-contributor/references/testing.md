@@ -11,9 +11,11 @@ scaffold-harness layer table this file expands on.
 
 Flow testing (the greenfield and brownfield methodology paths) is **not** a
 programmatic agent driver. There is no SDK loop. A flow test is a **real Claude
-Code session, run by a human, against the real installed skills** — so it
-exercises genuine skill loading, orchestrator routing, subagent dispatch, and the
-Serena MCP server, none of which a hand-rolled loop can reproduce faithfully.
+Code session against the real installed skills** — so it exercises genuine skill
+loading, orchestrator routing, subagent dispatch, and the Serena MCP server, none
+of which a hand-rolled loop can reproduce faithfully. The session is launched
+either by a human at a terminal or autonomously via `--run` (below) — both run
+the identical session; `--run` just detaches it.
 
 > The old `conversational_eval.py` harness (a raw Anthropic Messages loop with two
 > Haiku agents) has been removed. It re-implemented the agent loop and could only
@@ -50,6 +52,37 @@ operating loop runs it faithfully so the weakness shows in the transcript.
 Then open a new Claude Code chat **from the sandbox folder** and run
 `/simulate-greenfield` (or `/simulate-brownfield`). The real human observes and
 may interject; any real-human message is treated as an override, not the persona.
+
+### Autonomous runs (`--run`)
+
+```bash
+./dev sandbox --run                                    # scaffold + seed + launch, one command
+./dev sandbox myrun --run --model=sonnet --until="Product Brief"
+./dev sandbox status myrun                             # background sessions under the sandbox (JSON)
+./dev sandbox judge myrun                              # fresh-context /judge as a background session
+```
+
+`--run` (implies `--simulate`) launches the kickoff in a **background Claude Code
+session** (`claude --bg`) opened from the sandbox folder — the same real session a
+human would run, just detached, so an agent (or a script) can trigger a flow test
+and follow up on it without a human at the keyboard. Follow a run with
+`./dev sandbox status <name>` or `claude logs <id>`; stop one with `claude stop <id>`.
+
+- `--until=<phase>` bounds the run: it is passed into the kickoff command as a run
+  directive ("stop after the <phase> phase output is committed and approved").
+  Bound the first run of any new flow — don't send an unattended session into the
+  scaffold phase blind.
+- `--model=<m>` defaults to `sonnet` for harness shakeouts; pin `opus` for a run
+  you intend to assess (same rule as the model-pinning note above).
+
+**Billing invariant.** Background sessions authenticate with the machine's
+subscription OAuth login, like any interactive session. The launcher
+(`claude_clean` in `./dev`) scrubs `ANTHROPIC_*` / `CLAUDE*` vars from the child
+environment so a run triggered from inside another Claude Code session doesn't
+inherit that session's plumbing — or an API key that would silently switch billing
+to per-token. `claude -p` is deliberately **not** used anywhere in this harness:
+headless print mode currently mis-bills subscription-authenticated runs as API
+usage (upstream claude-code issue #43333).
 
 - **Greenfield** inits into an empty repo (with a throwaway Nx-style root so the
   scaffold skill is happy). Sequence: Product Brief → Design System → Architecture
