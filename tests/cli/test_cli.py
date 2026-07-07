@@ -346,6 +346,75 @@ def test_check_exit_codes(project):
     assert current.returncode == 0
 
 
+def test_check_discovers_nested_architecture_layout(project):
+    # Canonical layout: docs/architecture/{services,api,domain}/ (subdirs included)
+    # + index.md + infrastructure.md. Discovery once scanned only the legacy flat
+    # docs/{services,api,domain}/ and reported "No drift-tracked docs found" here.
+    run_cli(["init"], project)
+    arch = project / "docs/architecture"
+    (arch / "services").mkdir(parents=True)
+    (arch / "api/core").mkdir(parents=True)
+    (project / "services/widget").mkdir(parents=True)
+    (project / "services/widget/main.go").write_text("package main")
+    fm = (
+        "---\ntitle: {title}\ngeneration_mode: extracted\n"
+        "source_of_truth: services/widget/\nlast_reviewed: 2020-01-01\n---\n# doc\n"
+    )
+    docs = [
+        arch / "services/widget.md",
+        arch / "api/core/widget-api.md",
+        arch / "index.md",
+        arch / "infrastructure.md",
+    ]
+    for doc in docs:
+        doc.write_text(fm.format(title=doc.stem))
+    git(["add", "-A"], project)
+    git(["commit", "-qm", "seed"], project)
+
+    stale = run_cli(["check"], project)
+    assert stale.returncode == 1
+    assert "No drift-tracked docs found" not in stale.stdout + stale.stderr
+    assert "Checked 4 drift-tracked doc(s)" in stale.stdout
+    assert "4 stale" in stale.stdout
+
+    for doc in docs:
+        doc.write_text(doc.read_text().replace("2020-01-01", "2099-01-01"))
+    current = run_cli(["check"], project)
+    assert current.returncode == 0
+    assert "Checked 4 drift-tracked doc(s)" in current.stdout
+
+
+def test_check_parses_block_list_source_of_truth(project):
+    # Stamped docs carry source_of_truth as a YAML block list; the frontmatter
+    # reader once returned '' for that form, misfiling every stamped doc as
+    # "unassessed (missing last_reviewed or source_of_truth)".
+    run_cli(["init"], project)
+    arch = project / "docs/architecture"
+    (arch / "services").mkdir(parents=True)
+    (project / "services/widget").mkdir(parents=True)
+    (project / "services/widget/main.go").write_text("package main")
+    (project / "contracts").mkdir()
+    (project / "contracts/widget.proto").write_text("syntax = \"proto3\";")
+    (arch / "services/widget.md").write_text(
+        "---\ntitle: widget\ngeneration_mode: extracted\n"
+        "source_of_truth:\n  - services/widget/\n  - contracts/widget.proto\n"
+        "last_reviewed: 2020-01-01\n---\n# widget\n"
+    )
+    git(["add", "-A"], project)
+    git(["commit", "-qm", "seed"], project)
+
+    stale = run_cli(["check"], project)
+    assert stale.returncode == 1
+    assert "0 unassessed" in stale.stdout
+    assert "1 stale" in stale.stdout
+
+    doc = arch / "services/widget.md"
+    doc.write_text(doc.read_text().replace("2020-01-01", "2099-01-01"))
+    current = run_cli(["check"], project)
+    assert current.returncode == 0
+    assert "1 current" in current.stdout
+
+
 def test_check_warns_on_version_mismatch(project):
     run_cli(["init"], project)
     (project / "docs").mkdir(exist_ok=True)
