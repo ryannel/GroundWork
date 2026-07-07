@@ -17,6 +17,15 @@ import * as fs from 'fs';
 // in a user project it is at best noise, at worst a path an agent chases (ENG-7).
 const SKIP_ON_PROMOTION = new Set(['sync-anchor.md']);
 
+// OS/editor junk that must never ship into a scaffolded project. Mirrors the
+// isJunkFile predicate in bin/groundwork.js — the deploy paths there filter the
+// same names; kept in sync by hand (the CLI is a standalone dependency-free file).
+const JUNK_FILE_NAMES = new Set(['.DS_Store', 'Thumbs.db', 'desktop.ini']);
+
+function isJunkFile(name: string): boolean {
+  return JUNK_FILE_NAMES.has(name) || name.endsWith('~');
+}
+
 /**
  * Engineer skills are canon under src/engineer-skills/ and are never installed
  * at the GroundWork root. When a service is scaffolded they are promoted into
@@ -34,6 +43,7 @@ export function promoteEngineerSkill(tree: Tree, skillName: string) {
   function copyDir(src: string, dest: string) {
     const entries = fs.readdirSync(src, { withFileTypes: true });
     for (const entry of entries) {
+      if (isJunkFile(entry.name)) continue;
       if (entry.isDirectory()) {
         const srcFile = path.join(src, entry.name);
         const destFile = dest + '/' + entry.name;
@@ -131,6 +141,7 @@ export function deployStackDocs(tree: Tree, docsRoot: string) {
 
   function walk(src: string, relPath: string) {
     for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+      if (isJunkFile(entry.name)) continue;
       const srcPath = path.join(src, entry.name);
       const destPath = relPath ? `${relPath}/${entry.name}` : entry.name;
       if (entry.isDirectory()) {

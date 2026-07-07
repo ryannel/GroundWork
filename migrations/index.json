@@ -56,6 +56,13 @@
       "title": "Seed the additive team policy file",
       "kind": "cli",
       "summary": "Installs .groundwork/config/policy.toml (the additive policy layer) on installs that predate it and gitignores the personal policy.user.toml; purely additive — an absent file behaves identically."
+    },
+    {
+      "id": "gw-scrub-junk-files",
+      "version": "0.17.0",
+      "title": "Remove OS junk files an older deploy path copied in",
+      "kind": "cli",
+      "summary": "Deletes .DS_Store/Thumbs.db/desktop.ini under docs/ and both skill trees — junk an older deploy could copy from an npm-linked dev checkout and record as framework-owned; the deploy path now filters it at the source."
     }
   ]
 }
