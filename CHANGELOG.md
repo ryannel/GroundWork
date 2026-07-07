@@ -22,9 +22,7 @@ automatically when it detects a version jump.
   entries fall away on the next manifest rebuild. The CLI is framework-owned
   and clean-replaced on update; the scrub of already-deployed junk is the
   migration below.
-- [migration] Remove `.DS_Store`/`Thumbs.db`/`desktop.ini` that an older deploy
-  left under `docs/`, `.agents/skills/`, or `.groundwork/skills/`
-  (gw-scrub-junk-files)
+- [migration] Remove `.DS_Store`/`Thumbs.db`/`desktop.ini` that an older deploy left under `docs/`, `.agents/skills/`, or `.groundwork/skills/` (gw-scrub-junk-files)
 
 ## [0.16.0] - 2026-07-05
 
