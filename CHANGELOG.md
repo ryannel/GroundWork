@@ -24,6 +24,22 @@ automatically when it detects a version jump.
   [no-migration] The CLI is framework-owned and clean-replaced on update; the
   aligned skill prose (groundwork-check, product-brief-extract) clean-copies.
 
+### Fixed (junk-file deploy filter, 2026-07-07)
+
+- The init/update deploy path no longer copies OS/editor junk (`.DS_Store`,
+  `Thumbs.db`, `desktop.ini`, `*~`) into consumer projects or records it in the
+  install manifest. Previously an install from an npm-linked dev checkout could
+  deploy macOS `.DS_Store` files into `docs/` and both skill trees as
+  framework-owned manifest entries. The file walker behind deploy specs, the
+  manifest record/scan, and the update diff report now filter junk names; the
+  raw skill-tree copies are swept after install (editor backups `*~` are
+  filtered on deploy but never deleted from user-owned trees); the generator
+  promotion and stack-docs paths apply the same filter. Stale junk manifest
+  entries fall away on the next manifest rebuild. The CLI is framework-owned
+  and clean-replaced on update; the scrub of already-deployed junk is the
+  migration below.
+- [migration] Remove `.DS_Store`/`Thumbs.db`/`desktop.ini` that an older deploy left under `docs/`, `.agents/skills/`, or `.groundwork/skills/` (gw-scrub-junk-files)
+
 ## [0.16.0] - 2026-07-05
 
 ### Changed (migration gate — per-surface annotation scoping, 2026-07-05)

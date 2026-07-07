@@ -275,11 +275,37 @@ function printChangelogSlice(fromVersion, toVersion, full = false) {
   console.log('');
 }
 
+// OS/editor junk that must never deploy into a project or enter the manifest.
+// The name set is unambiguous and safe to DELETE anywhere; `*~` (editor backups)
+// is only safe to FILTER on walks — a user's `notes.md~` in a shared tree must
+// never be deleted, so removeJunkFiles takes a conservative mode.
+const JUNK_FILE_NAMES = new Set(['.DS_Store', 'Thumbs.db', 'desktop.ini']);
+
+function isJunkFile(name) {
+  return JUNK_FILE_NAMES.has(name) || name.endsWith('~');
+}
+
+// Scrub junk after a raw `cp -R` (which copies everything in the source tree,
+// npm-linked dev checkouts included). conservative=true restricts deletion to
+// the unambiguous names — use it on trees that also hold user-authored files.
+function removeJunkFiles(dir, { conservative = false } = {}) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      removeJunkFiles(full, { conservative });
+    } else if (conservative ? JUNK_FILE_NAMES.has(entry.name) : isJunkFile(entry.name)) {
+      fs.rmSync(full, { force: true });
+    }
+  }
+}
+
 function walkFiles(dir, base) {
   // Returns relative file paths under dir, sorted for stable diff output.
   const out = [];
   if (!fs.existsSync(dir)) return out;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (isJunkFile(entry.name)) continue;
     const rel = base ? path.join(base, entry.name) : entry.name;
     if (entry.isDirectory()) {
       out.push(...walkFiles(path.join(dir, entry.name), rel));
@@ -812,8 +838,10 @@ function frameworkSkillNamesFromManifest(manifest) {
 // installer and the update report read ownership from here, so the report can never claim a
 // removal the install won't perform. Pass the already-loaded manifest to avoid re-reading it.
 function ownedRegisteredSkillNames(p, manifest) {
-  const shipped = fs.existsSync(p.sourceSkillsDir) ? fs.readdirSync(p.sourceSkillsDir) : [];
-  const hidden = fs.existsSync(p.sourceHiddenSkillsDir) ? fs.readdirSync(p.sourceHiddenSkillsDir) : [];
+  // Junk filtered so a stray src/skills/.DS_Store never counts as an owned skill name.
+  const list = (dir) => (fs.existsSync(dir) ? fs.readdirSync(dir).filter((n) => !isJunkFile(n)) : []);
+  const shipped = list(p.sourceSkillsDir);
+  const hidden = list(p.sourceHiddenSkillsDir);
   const m = manifest === undefined ? readManifest(p) : manifest;
   return new Set([...shipped, ...hidden, ...frameworkSkillNamesFromManifest(m)]);
 }
@@ -849,6 +877,9 @@ function installRegisteredSkills(p) {
       throw new Error(`Failed to install registered skills: ${err.message}`);
     }
   }
+  // The shell copy takes everything, junk included; the tree is shared with
+  // user-authored skills, so only the unambiguous names are swept.
+  removeJunkFiles(dest, { conservative: true });
 }
 
 // The hidden methodology tree is exclusively framework-owned — nothing else is allowed to
@@ -869,6 +900,8 @@ function installHiddenSkills(p) {
   } catch (err) {
     throw new Error(`Failed to install hidden methodology skills: ${err.message}`);
   }
+  // Exclusively framework-owned tree — the full junk predicate applies.
+  removeJunkFiles(dest);
 }
 
 // Install both skill trees. The registered tree (.agents/skills/) is cleaned per-skill so

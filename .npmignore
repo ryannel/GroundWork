@@ -1,3 +1,12 @@
 .agents/
 tests/
 .sandboxes/
+
+# OS/editor junk — belt-and-suspenders only: package.json's `files` allowlist and
+# npm pack's built-in excludes already keep these out of the tarball, and npm-link
+# (the vector that actually leaked .DS_Store) honors no ignore file at all — the
+# deploy-path filters in bin/groundwork.js are the real fix.
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
