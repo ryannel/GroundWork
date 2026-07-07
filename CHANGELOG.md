@@ -8,6 +8,22 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (check drift-doc discovery, 2026-07-07)
+
+- `groundwork check` now discovers drift-tracked docs in the canonical nested
+  layout — `docs/architecture/{services,api,domain}/` recursively (nested
+  subdirectories included), plus `docs/architecture/index.md` and
+  `docs/architecture/infrastructure.md`. It previously scanned only the legacy
+  flat `docs/{services,api,domain}/` + `docs/architecture.md` layout (kept as a
+  fallback for un-migrated projects), so projects on the current canonical got
+  "No drift-tracked docs found" and zero drift coverage.
+- The CLI's frontmatter reader now accepts `source_of_truth` as a YAML block
+  list — the form stamped docs actually carry — alongside the scalar
+  comma/semicolon form. Block-list docs were previously misfiled as
+  "unassessed (missing last_reviewed or source_of_truth)".
+  [no-migration] The CLI is framework-owned and clean-replaced on update; the
+  aligned skill prose (groundwork-check, product-brief-extract) clean-copies.
+
 ## [0.16.0] - 2026-07-05
 
 ### Changed (migration gate — per-surface annotation scoping, 2026-07-05)

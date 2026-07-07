@@ -40,7 +40,7 @@ tooling vintage produced the rest of the report.
 
 ## Step 1: Staleness baseline
 
-Find every code-coupled doc: the files under `docs/architecture/services/`, `docs/architecture/api/`, and `docs/architecture/domain/`, plus `docs/architecture/index.md`. From each doc's frontmatter take `last_reviewed`, `source_of_truth`, and `generation_mode`.
+Find every code-coupled doc: the files under `docs/architecture/services/`, `docs/architecture/api/`, and `docs/architecture/domain/` (including nested subdirectories), plus `docs/architecture/index.md` and `docs/architecture/infrastructure.md`. From each doc's frontmatter take `last_reviewed`, `source_of_truth`, and `generation_mode`.
 
 For each doc with both fields, run `git log --since="<last_reviewed>" --oneline -- <source_of_truth paths>`. Commits found → the doc is **STALE**, with the commit list as evidence. A doc missing the fields is **UNASSESSED** — report it as such; an unassessable doc that silently passes is the failure mode this skill exists to prevent.
 

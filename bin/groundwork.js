@@ -1796,14 +1796,26 @@ function updateGroundWork(flags = {}) {
 // ─── check ──────────────────────────────────────────────────────────────────
 
 function parseFrontmatter(content) {
-  // Minimal YAML frontmatter reader: flat `key: value` pairs between --- fences.
+  // Minimal YAML frontmatter reader: flat `key: value` pairs between --- fences,
+  // plus block lists (`key:` followed by `- item` lines) → arrays.
   if (!content.startsWith('---')) return null;
   const end = content.indexOf('\n---', 3);
   if (end === -1) return null;
   const fm = {};
-  for (const line of content.slice(3, end).split('\n')) {
-    const m = line.match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
-    if (m) fm[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
+  const lines = content.slice(3, end).split('\n');
+  const unquote = (s) => s.trim().replace(/^["']|["']$/g, '');
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (!m) continue;
+    if (m[2].trim() === '') {
+      const items = [];
+      while (i + 1 < lines.length && /^\s+-\s+\S/.test(lines[i + 1])) {
+        items.push(unquote(lines[++i].replace(/^\s+-\s+/, '')));
+      }
+      fm[m[1]] = items.length ? items : '';
+    } else {
+      fm[m[1]] = unquote(m[2]);
+    }
   }
   return fm;
 }
@@ -1905,19 +1917,36 @@ function checkGroundWork() {
   }
 
   // The drift-tracked set: code-coupled docs that carry source_of_truth frontmatter.
-  const candidates = [];
-  for (const sub of ['services', 'api', 'domain']) {
-    const dir = path.join(docsDir, sub);
-    if (!fs.existsSync(dir)) continue;
-    for (const f of fs.readdirSync(dir)) {
-      if (f.endsWith('.md')) candidates.push(path.join(dir, f));
+  // Canonical layout is nested under docs/architecture/; the flat docs/{services,api,domain}/
+  // + docs/architecture.md scan stays as a fallback for un-migrated projects.
+  const collectMd = (dir) => {
+    if (!fs.existsSync(dir)) return [];
+    const found = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) found.push(...collectMd(full));
+      else if (entry.name.endsWith('.md')) found.push(full);
     }
+    return found;
+  };
+  const candidates = [];
+  const archDir = path.join(docsDir, 'architecture');
+  for (const sub of ['services', 'api', 'domain']) {
+    candidates.push(...collectMd(path.join(archDir, sub)));
+    candidates.push(...collectMd(path.join(docsDir, sub)));
   }
-  const archDoc = path.join(docsDir, 'architecture.md');
-  if (fs.existsSync(archDoc)) candidates.push(archDoc);
+  // Named docs, not directories: docs/architecture/decisions/ (ADRs, no source_of_truth)
+  // stays out of the drift-tracked set by design.
+  for (const named of [
+    path.join(archDir, 'index.md'),
+    path.join(archDir, 'infrastructure.md'),
+    path.join(docsDir, 'architecture.md'),
+  ]) {
+    if (fs.existsSync(named)) candidates.push(named);
+  }
 
   if (candidates.length === 0) {
-    c.warn(`No drift-tracked docs found (docs/architecture/services/, docs/architecture/api/, docs/architecture/domain/, docs/architecture/index.md).`);
+    c.warn(`No drift-tracked docs found (docs/architecture/services/, docs/architecture/api/, docs/architecture/domain/, docs/architecture/index.md, docs/architecture/infrastructure.md).`);
     console.log(`  Nothing to check yet — docs gain drift tracking once scaffold or brownfield adoption stamps them.\n`);
     return;
   }
@@ -1933,7 +1962,15 @@ function checkGroundWork() {
       unassessed.push({ rel, reason: !fm ? 'no frontmatter' : 'missing last_reviewed or source_of_truth' });
       continue;
     }
-    const sources = fm.source_of_truth.split(/[;,]/).map((s) => s.trim()).filter(Boolean);
+    // source_of_truth is a YAML block list in stamped docs; scalar comma/semicolon lists remain valid.
+    const sources = (Array.isArray(fm.source_of_truth)
+      ? fm.source_of_truth
+      : fm.source_of_truth.split(/[;,]/)
+    ).map((s) => s.trim()).filter(Boolean);
+    if (sources.length === 0) {
+      unassessed.push({ rel, reason: 'empty source_of_truth' });
+      continue;
+    }
     let commits;
     try {
       commits = execFileSync(
