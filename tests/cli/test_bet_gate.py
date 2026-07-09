@@ -104,6 +104,41 @@ def test_gate_decomposition_fails_on_missing_proof(tmp_path):
     assert p.returncode == 1 and "Proof of work" in p.stderr
 
 
+def test_gate_decomposition_passes_when_page_is_a_directory(tmp_path):
+    # meta.json may list a milestone as a bare directory (renders NN-slug/index.md),
+    # not only as a flat <slug>/index.md path — both must resolve.
+    bet = seal_bet(tmp_path, git_init=False)
+    (bet / "decomposition" / "meta.json").write_text(
+        '{"title":"D","pages":["01-capture","01-capture/01-add.md"]}'
+    )
+    assert gw(["gate", "decomposition", "--bet", "b"], tmp_path).returncode == 0
+
+
+def test_gate_decomposition_fails_on_dangling_meta_page(tmp_path):
+    bet = seal_bet(tmp_path, git_init=False)
+    (bet / "decomposition" / "meta.json").write_text(
+        '{"title":"D","pages":["01-capture/index.md","99-ghost/index.md"]}'
+    )
+    p = gw(["gate", "decomposition", "--bet", "b"], tmp_path)
+    assert p.returncode == 1 and "pages resolve" in p.stderr
+
+
+def test_gate_decomposition_passes_with_non_js_test_root(tmp_path):
+    # A Swift project names its Test file outside tests/bets/ (e.g. a Packages/Tests
+    # root). The gate must accept any path that names a real test file.
+    swift_proof = (
+        "## Proof of work\n\n**Proves:** it works.\n\n"
+        "**Test file:** `Packages/Tests/BetProgress/ImportReviewFidelityTests.swift`\n"
+    )
+    bet = seal_bet(tmp_path, git_init=False)
+    m = bet / "decomposition" / "01-capture"
+    (m / "index.md").write_text(
+        "# Milestone 1: Capture\n\n" + swift_proof + "\n## Slices\n\n- [Slice 1.1](./01-add.md)\n"
+    )
+    (m / "01-add.md").write_text("# Slice 1.1 — add\n\n" + swift_proof)
+    assert gw(["gate", "decomposition", "--bet", "b"], tmp_path).returncode == 0
+
+
 def test_gate_decomposition_allows_later_milestone_unsliced(tmp_path):
     # A second milestone with only an index.md (sliced on arrival) must NOT fail.
     bet = seal_bet(tmp_path, git_init=False)
