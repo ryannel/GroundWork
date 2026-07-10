@@ -476,20 +476,24 @@ function seedDocsMeta(tree: Tree): void {
   }
 
   // Within the Bets section, sink the `_archive` folder (delivered bets) to the
-  // bottom of the rail so active, in-flight bets read first. `...` expands to
-  // every active bet (sorted), then `_archive` is named LAST. The archive folder
-  // itself is COLLAPSED via its own docs/bets/_archive/meta.json (defaultOpen:
-  // false), written by the dev CLI's `archive` command at delivery time — not
-  // here. (Fumadocs has no leading-underscore hide convention, so `_archive`
-  // stays visible-but-closed, which is the desired collapse.) The scaffold seeds
-  // no docs/bets/ (bets are authored during the lifecycle), so this is normally a
-  // no-op at scaffold time; guarded by tree.exists so it only lands when the bets
-  // tree is present, and never clobbers a project-tuned ordering.
+  // bottom of the rail so active, in-flight bets read first, and pin `_live`
+  // (the in-flight mirror `scripts/sync-live-bets.js` materializes) to the top —
+  // review-throughput plan C3b's convention, matched here for consistency.
+  // `...` expands to every active/authored bet (sorted) in between. The archive
+  // folder itself is COLLAPSED via its own docs/bets/_archive/meta.json
+  // (defaultOpen: false), written by the dev CLI's `archive` command at delivery
+  // time — not here. (Fumadocs has no leading-underscore hide convention, so
+  // `_archive`/`_live` stay visible-but-named, not hidden.) The scaffold seeds no
+  // docs/bets/ (bets are authored during the lifecycle), so this is normally a
+  // no-op at scaffold time — in practice the sync script (which runs at every
+  // docsite boot and owns `_live/`) is this file's usual creator; guarded by
+  // tree.exists so it only lands when the bets tree is already present, and
+  // never clobbers a project-tuned ordering.
   const betsMeta = 'docs/bets/meta.json';
   if (!tree.exists(betsMeta) && tree.exists('docs/bets')) {
     tree.write(
       betsMeta,
-      JSON.stringify({ pages: ['...', '_archive'] }, null, 2) + '\n',
+      JSON.stringify({ pages: ['_live', '...', '_archive'] }, null, 2) + '\n',
     );
   }
 }

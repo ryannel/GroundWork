@@ -39,6 +39,13 @@ export class Renderer {
     return this.painter.caps.unicode ? t.unicode : t.ascii;
   }
 
+  /** Public access to the themed symbol vocabulary (success/error/warning/...),
+   *  for callers that compose their own inline glyphs (e.g. a status/state
+   *  column) rather than writing a whole line via success()/warn()/etc. */
+  symbol(name: SymbolName): string {
+    return this.sym(name);
+  }
+
   private write(line: string): void {
     this.out.write(line + '\n');
   }
@@ -98,14 +105,18 @@ export class Renderer {
     this.write('');
   }
 
-  /** A simple three-column table for status output. */
-  table(title: string, rows: Array<[string, string, string]>): void {
+  /** A simple three-column table for status output. An optional 4th column
+   *  (e.g. a URL, or a pre-styled state glyph) renders unpadded at the row's
+   *  tail — callers style it themselves (via `painter`/`symbol()`) since a
+   *  fixed pad here would count invisible ANSI codes as width. */
+  table(title: string, rows: Array<[string, string, string, string?]>): void {
     this.write(`${PAD}${this.painter.dim('╭─')} ${this.painter.bold(title)}`);
     if (rows.length === 0) {
       this.write(`${PAD}${this.painter.dim('│')}  ${this.painter.dim('(none)')}`);
     }
-    for (const [a, b, c] of rows) {
-      this.write(`${PAD}${this.painter.dim('│')}  ${a.padEnd(28)} ${b.padEnd(16)} ${this.painter.dim(c)}`);
+    for (const [a, b, c, d] of rows) {
+      const tail = d ? ` ${d}` : '';
+      this.write(`${PAD}${this.painter.dim('│')}  ${a.padEnd(28)} ${b.padEnd(16)} ${this.painter.dim(c)}${tail}`);
     }
     this.write(`${PAD}${this.painter.dim('╰' + '─'.repeat(40))}`);
   }

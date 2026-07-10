@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Ctx, CliError } from '../util/context';
-import { run, commandExists } from '../util/proc';
+import { run, capture, commandExists } from '../util/proc';
 import { getAppServices, serviceDir, detectType } from '../util/services';
 import { ROOT, SERVICES_DIR, TESTS_DIR, CONFIG_PATH, DEV_DIR } from '../util/paths';
 import { start, migrate, stop } from './lifecycle';
+import * as suiteCache from '../util/suite-cache';
 
 function hasSystemTests(): boolean {
   return fs.existsSync(path.join(TESTS_DIR, 'system'));
@@ -71,7 +72,18 @@ export async function test(ctx: Ctx): Promise<number> {
 
     r.logo(`Running Bet Tests — ${slug}`);
     r.step(`Running bet-progress suite: bets/${slug}/`);
-    const code = run('uv', ['run', 'pytest', `bets/${slug}/`], { cwd: TESTS_DIR });
+    // C5 — this is a path that actually runs the suite, so it writes the
+    // last-run cache `./dev bet status` reads. `-v` (added here) is what
+    // gives the shared parser (util/suite-cache.ts) per-test PASSED/FAILED
+    // lines to tally; tracebacks stay on (no --tb=no) so a failure is still
+    // debuggable. Captured rather than streamed so the same run can be
+    // parsed for the cache — the full transcript (tracebacks included) is
+    // still written to the real stdout/stderr once the suite finishes.
+    const res = capture('uv', ['run', 'pytest', `bets/${slug}/`, '-v'], { cwd: TESTS_DIR });
+    process.stdout.write(res.stdout);
+    process.stderr.write(res.stderr);
+    suiteCache.recordRun(slug, res.stdout);
+    const code = res.status;
     if (code === 0) r.success(`Bet tests passed: ${slug}`);
     return code;
   }

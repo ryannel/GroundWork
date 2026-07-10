@@ -6,14 +6,18 @@
 // recorded options).
 //
 // user-legibility plan, Wave 3, slice C1 — "the docsite becomes the live window".
+// review-throughput plan, Wave 3a, slices C2/C3 — the window stays live for the
+// whole session (--watch) and gains a program-level "In flight" dashboard.
 //
 // Materializes in-flight bets (worktrees + branch-only bet branches) into
 // `docs/bets/_live/<slug>/` — a gitignored folder INSIDE the tree
 // `source.config.ts`'s `defineDocs({ dir: '../../docs' })` already watches, so the
 // stock fumadocs-mdx pipeline picks the content up with zero pipeline changes
-// (D-S6). No second collection, no route-time git reads: this script runs once
-// before the dev/build server starts (a "pre-render sync"), and its output is
-// ordinary files on disk by the time Next/fumadocs compiles.
+// (D-S6). Plain `node scripts/sync-live-bets.js` is a single full regenerate
+// (unchanged since C1 — still what `predev`/`prebuild` run). `--watch` (C2a)
+// additionally re-runs that same regenerate on an interval, but only when a
+// cheap fingerprint says something actually changed — see computeFingerprint().
+// `scripts/dev.js` (C2b) is what actually runs `--watch` alongside `next dev`.
 //
 // Sources (mirrors lib/bet-status/index.js's enumeration — NOT imported, because
 // this file ships standalone into user projects and must not depend on the
@@ -25,6 +29,11 @@
 //   - Branch-only bets:    `git for-each-ref refs/heads/bet/*` minus branches
 //                          already covered by a worktree or this checkout,
 //                          materialized via `git show <branch>:docs/bets/<slug>/...`.
+//   - Checkout-resident:   (C3, dashboard-only, never materialized) any
+//                          docs/bets/<slug>/ in THIS checkout whose pitch isn't
+//                          `delivered` — where a quick bet lives its whole
+//                          authoring lane, since it opens no branch until
+//                          delivery.
 //
 // Every run is a FULL REGENERATE of docs/bets/_live/: the folder is deleted and
 // rebuilt from scratch, so a bet whose worktree disappeared demotes to
@@ -47,6 +56,12 @@ const SERVICE_DIR = path.resolve(__dirname, '..');
 const REPO_ROOT = path.resolve(SERVICE_DIR, '..', '..');
 const DOCS_DIR = path.join(REPO_ROOT, 'docs');
 const LIVE_DIR = path.join(DOCS_DIR, 'bets', '_live');
+
+// Pitch frontmatter opener, tolerating both LF (`---\n`) and CRLF (`---\r\n`)
+// files. Shared by the badge-injection pass below and parsePitchStatus.
+const FRONTMATTER_OPEN = /^---\r?\n/;
+
+const DEFAULT_WATCH_INTERVAL_MS = 15000;
 
 // ─── git helpers (fail-soft: missing git / not-a-repo degrades to no bets) ──
 
@@ -97,6 +112,15 @@ function listDirSafe(dir) {
   }
 }
 
+function readJsonSafe(text) {
+  if (text == null) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
 // Pull the pitch's one-line goal (Solution, falling back to Problem) and title,
 // for the badge line — mirrors lib/bet-status/index.js parsePitchText, kept
 // deliberately small here (this script has no dependency on that module).
@@ -111,6 +135,22 @@ function parsePitchGoal(text) {
     (titleMatch && titleMatch[1].trim()) ||
     null
   );
+}
+
+// The pitch frontmatter `status:` value, or null when absent/unparseable — used
+// by the checkout-resident dashboard source (C3) to exclude delivered bets.
+// CRLF-safe (reuses FRONTMATTER_OPEN, the same opener the badge injector below
+// tolerates).
+function parsePitchStatus(text) {
+  if (text == null) return null;
+  const openMatch = FRONTMATTER_OPEN.exec(text);
+  if (!openMatch) return null;
+  const openLen = openMatch[0].length;
+  const closeMatch = /\r?\n---(?:\r?\n|$)/.exec(text.slice(openLen));
+  if (!closeMatch) return null;
+  const front = text.slice(openLen, openLen + closeMatch.index);
+  const m = /(^|\r?\n)status:\s*(\S+)/.exec(front);
+  return m ? m[2] : null;
 }
 
 // ─── enumeration (mirrors lib/bet-status/index.js — not imported) ──────────
@@ -131,34 +171,39 @@ function currentBranch() {
   return git(['rev-parse', '--abbrev-ref', 'HEAD']);
 }
 
-// In flight, other worktrees: read each worktree's docs/bets/<slug>/ directly off
-// disk. Skips the current checkout's own worktree entry and any slug already
-// covered (dedup).
+// Every OTHER worktree that still exists on disk — shared by collectWorktreeBets
+// and the --watch fingerprint (C2a), so both walk exactly the same set.
 //
 // `git worktree list --porcelain` keeps listing a worktree whose directory was
 // removed by hand (e.g. `rm -rf`, not `git worktree remove`) until something
-// prunes it. Left unchecked, that stale entry would mark the branch "covered"
-// while contributing zero bets (its dir reads empty) — the bet vanishes
-// instead of demoting to branch-only. So a listed worktree whose path no
-// longer exists on disk does NOT cover its branch; the branch-only fallback
-// then materializes it. This is read-only toward the repo's worktree state —
-// no `git worktree prune` is run here.
-function collectWorktreeBets(skipSlugs) {
+// prunes it. A listed-but-missing worktree does NOT cover its branch (its
+// bets would otherwise vanish instead of demoting to branch-only) — read-only
+// toward the repo's worktree state, no `git worktree prune` is run here.
+function listWorktrees() {
   const out = git(['worktree', 'list', '--porcelain']);
-  if (out == null) return { bets: [], coveredBranches: new Set() };
-  const bets = [];
-  const coveredBranches = new Set();
-  const blocks = out.split(/\n\n+/);
-  for (const block of blocks) {
+  if (out == null) return [];
+  const result = [];
+  for (const block of out.split(/\n\n+/)) {
     const wtMatch = /^worktree\s+(.+)$/m.exec(block);
-    const branchMatch = /^branch\s+refs\/heads\/(.+)$/m.exec(block);
     if (!wtMatch) continue;
     const wtPath = wtMatch[1].trim();
     if (path.resolve(wtPath) === path.resolve(REPO_ROOT)) continue; // current checkout
     if (!fs.existsSync(wtPath)) continue; // dangling worktree entry — does not cover its branch
-    const branch = branchMatch ? branchMatch[1].trim() : null;
-    if (branch) coveredBranches.add(branch);
-    const betsDir = path.join(wtPath, 'docs', 'bets');
+    const branchMatch = /^branch\s+refs\/heads\/(.+)$/m.exec(block);
+    result.push({ path: wtPath, branch: branchMatch ? branchMatch[1].trim() : null });
+  }
+  return result;
+}
+
+// In flight, other worktrees: read each worktree's docs/bets/<slug>/ directly off
+// disk. Skips the current checkout's own worktree entry and any slug already
+// covered (dedup).
+function collectWorktreeBets(skipSlugs) {
+  const bets = [];
+  const coveredBranches = new Set();
+  for (const wt of listWorktrees()) {
+    if (wt.branch) coveredBranches.add(wt.branch);
+    const betsDir = path.join(wt.path, 'docs', 'bets');
     for (const e of listDirSafe(betsDir)) {
       if (!e.isDirectory() || e.name === '_archive' || e.name === '_live') continue;
       if (skipSlugs.has(e.name)) continue;
@@ -167,9 +212,10 @@ function collectWorktreeBets(skipSlugs) {
       if (pitchText == null) continue; // not a real bet dir without a pitch
       bets.push({
         slug: e.name,
-        branch: branch || '(detached worktree)',
+        branch: wt.branch || '(detached worktree)',
         freshness: 'live',
         sourceDir: path.join(betsDir, e.name),
+        root: wt.path, // waitingOnYouFor (C3): .groundwork/bets/<slug>/*.json lives here
         goal: parsePitchGoal(pitchText) || e.name,
       });
     }
@@ -215,6 +261,35 @@ function collectBranchOnlyBets(coveredBranches, skipSlugs) {
   return bets;
 }
 
+// Checkout-resident bets (C3, dashboard-only): any docs/bets/<slug>/ in THIS
+// checkout, outside _archive/_live, whose pitch status is not `delivered` —
+// where a quick bet lives its whole authoring lane (it opens no branch until
+// delivery, so it never shows up as a worktree or branch-only bet above).
+// Already inside the watched tree — nothing is materialized into _live/ for
+// these (checkoutSlugs already keeps the worktree/branch-only enumeration from
+// duplicating them); the dashboard (writeDashboard) just lists them alongside
+// the materialized bets.
+function collectCheckoutResidentBets() {
+  const dir = path.join(DOCS_DIR, 'bets');
+  const out = [];
+  for (const e of listDirSafe(dir)) {
+    if (!e.isDirectory() || e.name === '_archive' || e.name === '_live') continue;
+    const betDir = path.join(dir, e.name);
+    const pitchText = readFileSafe(path.join(betDir, 'pitch.md'));
+    if (pitchText == null) continue; // not a real bet dir without a pitch
+    if (parsePitchStatus(pitchText) === 'delivered') continue; // delivered bets live in _archive/
+    out.push({
+      slug: e.name,
+      branch: null,
+      freshness: 'live',
+      root: REPO_ROOT, // waitingOnYouFor (C3): .groundwork/bets/<slug>/*.json lives here
+      dir: betDir,
+      goal: parsePitchGoal(pitchText) || e.name,
+    });
+  }
+  return out;
+}
+
 // ─── frontmatter / badge shape ──────────────────────────────────────────────
 //
 // source.config.ts's schema accepts title (optional, falls back to the first
@@ -228,12 +303,6 @@ function collectBranchOnlyBets(coveredBranches, skipSlugs) {
 function badgeLine(bet) {
   return `In flight — branch \`${bet.branch}\`, ${bet.freshness}.`;
 }
-
-// Frontmatter opener, tolerating both LF (`---\n`) and CRLF (`---\r\n`) pitch
-// files — a CRLF pitch must not fall into the no-frontmatter branch below and
-// get a second frontmatter block prepended (that would produce a malformed
-// doc with two `---` fences).
-const FRONTMATTER_OPEN = /^---\r?\n/;
 
 // Inject/refresh the description frontmatter on a materialized pitch.md without
 // disturbing the rest of the document (frontmatter is optional per
@@ -287,6 +356,134 @@ function parseFrontmatterScalar(raw) {
   return value;
 }
 
+// ─── C3: "waiting on you" (per-row decisions/findings counts) ─────────────
+
+function jsonArrayCount(text, key, matchStatus) {
+  const doc = readJsonSafe(text);
+  if (!doc || !Array.isArray(doc[key])) return { found: false, count: 0 };
+  return { found: true, count: doc[key].filter((item) => item && item.status === matchStatus).length };
+}
+
+// "N decisions pending · M findings open" for one dashboard row — read from
+// wherever that bet's own content came from: on-disk `.groundwork/bets/<slug>/
+// {decisions,findings}.json` for a worktree or this checkout (`bet.root`),
+// `git show <branch>:...` for a branch-only bet. Fails soft to "—" only when
+// NEITHER file is readable at all (nothing ever recorded, or the source is
+// unreachable) — a bet with at least one readable file gets real counts,
+// treating the other file's plain absence as legitimately zero (the engine's
+// own convention: lib/bet-state's readDoc treats an absent file as an empty
+// ledger, not an error).
+function waitingOnYouFor(bet) {
+  let decisionsText;
+  let findingsText;
+  if (bet.root) {
+    decisionsText = readFileSafe(path.join(bet.root, '.groundwork', 'bets', bet.slug, 'decisions.json'));
+    findingsText = readFileSafe(path.join(bet.root, '.groundwork', 'bets', bet.slug, 'findings.json'));
+  } else if (bet.branch) {
+    decisionsText = showAtRef(bet.branch, `.groundwork/bets/${bet.slug}/decisions.json`);
+    findingsText = showAtRef(bet.branch, `.groundwork/bets/${bet.slug}/findings.json`);
+  }
+  const decisions = jsonArrayCount(decisionsText, 'decisions', 'pending');
+  const findings = jsonArrayCount(findingsText, 'findings', 'open');
+  if (!decisions.found && !findings.found) return '—';
+  const p = decisions.count;
+  const f = findings.count;
+  return `${p} decision${p === 1 ? '' : 's'} pending · ${f} finding${f === 1 ? '' : 's'} open`;
+}
+
+// ─── C3: the "In flight" dashboard (docs/bets/_live/index.md) ─────────────
+
+function escapeCell(value) {
+  return String(value).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+}
+
+// pitch always linked (a bet without one never gets this far); status/proofs
+// only when they actually exist at that path — "only-existing links" (C3
+// acceptance).
+function existingLinks(linkBase, filesDir) {
+  const links = [`[pitch](${linkBase}/pitch)`];
+  if (fs.existsSync(path.join(filesDir, 'status.md'))) links.push(`[status](${linkBase}/status)`);
+  if (fs.existsSync(path.join(filesDir, 'proofs.md'))) links.push(`[proofs](${linkBase}/proofs)`);
+  return links.join(' · ');
+}
+
+function dashboardRow(bet, { branchLabel, linkBase, filesDir }) {
+  const goal = escapeCell(bet.goal || bet.slug);
+  const links = existingLinks(linkBase, filesDir);
+  const waiting = waitingOnYouFor(bet);
+  return `| ${goal} | ${branchLabel} | ${bet.freshness} | ${links} | ${waiting} |`;
+}
+
+// One generated landing page listing every bet currently underway, from the
+// materialized set (`allLive` — worktree + branch-only, already
+// collision-resolved) plus this checkout's own live bet dirs (checkout-resident
+// bets link their normal, non-_live paths — they were never copied). Rewritten
+// whole on every sync, exactly like meta.json below — never hand-edited. Absent
+// entirely when there is nothing in flight anywhere (C3 acceptance).
+function writeDashboard(allLive, checkoutResidentBets) {
+  const rows = [];
+  for (const bet of allLive) {
+    rows.push(
+      dashboardRow(bet, {
+        branchLabel: `\`${bet.branch}\``,
+        linkBase: `/docs/bets/_live/${bet.slug}`,
+        filesDir: path.join(LIVE_DIR, bet.slug),
+      }),
+    );
+  }
+  for (const bet of checkoutResidentBets) {
+    rows.push(
+      dashboardRow(bet, {
+        branchLabel: 'this checkout',
+        linkBase: `/docs/bets/${bet.slug}`,
+        filesDir: bet.dir,
+      }),
+    );
+  }
+  if (rows.length === 0) return;
+
+  const description = 'Every bet underway right now, from worktrees, branch-only bets, and this checkout\'s own in-progress bets.';
+  const lines = [
+    '---',
+    `description: ${JSON.stringify(description)}`,
+    '---',
+    '',
+    '# In flight',
+    '',
+    'Generated on every sync — never hand-edited. One row per bet currently underway.',
+    '',
+    '| Goal | Branch | Freshness | Links | Waiting on you |',
+    '|---|---|---|---|---|',
+    ...rows,
+    '',
+    '_In-flight patches (small trunk commits) show up in the program snapshot ' +
+      '(`groundwork status`), not here._',
+    '',
+    '_Delivered bets move to [the archive](/docs/bets/_archive) when they close._',
+  ];
+  fs.writeFileSync(path.join(LIVE_DIR, 'index.md'), lines.join('\n') + '\n');
+}
+
+// ─── C3b: seed docs/bets/meta.json (sidebar order, `_live` first) ─────────
+//
+// The generator's own seedDocsMeta (scaffold-time) writes this file too, but
+// only when docs/bets/ already exists at scaffold time — normally a no-op,
+// since bets are authored during the lifecycle, long after scaffold. This sync
+// runs at every boot and owns `_live/`, so in practice it is this file's
+// natural (and usual) creator. Never clobbers an existing meta.json, hand-tuned
+// or otherwise — migrations/gw-live-first-bets-meta.js is the heal path for an
+// install that already has one without `_live`.
+function seedBetsMeta() {
+  const betsDir = path.join(DOCS_DIR, 'bets');
+  const metaPath = path.join(betsDir, 'meta.json');
+  if (!fs.existsSync(betsDir) || fs.existsSync(metaPath)) return;
+  try {
+    fs.writeFileSync(metaPath, JSON.stringify({ pages: ['_live', '...', '_archive'] }, null, 2) + '\n');
+  } catch {
+    // fail-soft — a sidebar-ordering nicety, never worth failing the sync over
+  }
+}
+
 // ─── sync = full regenerate of docs/bets/_live/ ────────────────────────────
 
 function sync() {
@@ -294,6 +491,8 @@ function sync() {
   if (git(['rev-parse', '--git-dir']) == null) {
     return { wrote: 0, reason: 'not a git repository' };
   }
+
+  seedBetsMeta();
 
   // Full regenerate: delete and rebuild, so a vanished worktree/branch leaves
   // no stale content — the only stale-content risk otherwise (D-S6 acceptance:
@@ -308,10 +507,11 @@ function sync() {
 
   const knownSlugs = new Set([...skip, ...worktreeBets.map((b) => b.slug)]);
   const branchOnlyBets = collectBranchOnlyBets(coveredBranches, knownSlugs);
+  const checkoutResidentBets = collectCheckoutResidentBets();
 
   const allLiveRaw = [...worktreeBets, ...branchOnlyBets];
-  if (allLiveRaw.length === 0) {
-    return { wrote: 0, reason: 'no in-flight worktree or branch-only bets' };
+  if (allLiveRaw.length === 0 && checkoutResidentBets.length === 0) {
+    return { wrote: 0, reason: 'no in-flight bets' };
   }
 
   // Slug collision: two sources (e.g. two worktrees, or a worktree and an
@@ -319,12 +519,15 @@ function sync() {
   // last-write-wins each other in _live/<slug> with no trace (the later
   // source's materialize() overwrites the earlier one's files on disk).
   // Precedence stays exactly as before — the later source in enumeration
-  // order wins — but the loss is now visible, and the dropped entry is
-  // removed here too so meta.json doesn't list a source whose files lost.
+  // order wins — but the loss is now visible: a console.warn as before, AND
+  // (C2d) a `collisions` entry in meta.json so the mirror banner can flag the
+  // affected page. The dropped entry is removed here too so meta.json doesn't
+  // list a source whose files lost.
   const lastBySlug = new Map();
   for (const bet of allLiveRaw) lastBySlug.set(bet.slug, bet);
   const warnedSlugs = new Set();
   const allLive = [];
+  const collisions = [];
   for (const bet of allLiveRaw) {
     const winner = lastBySlug.get(bet.slug);
     if (bet !== winner) {
@@ -335,6 +538,7 @@ function sync() {
             `branch \`${winner.branch}\` both materialize to docs/bets/_live/${bet.slug}/ — keeping \`${winner.branch}\`.`,
         );
       }
+      collisions.push({ slug: bet.slug, kept: winner.branch, dropped: bet.branch });
       continue;
     }
     allLive.push(bet);
@@ -365,23 +569,129 @@ function sync() {
   // declarative-meta convention docs/bets/meta.json and generator.ts's
   // seedDocsMeta already use — read by a project's own docs/bets/meta.json if
   // it chooses to reference `_live` in its `pages` ordering (not required: the
-  // stock `...` expansion already surfaces it as a normal subfolder).
+  // stock `...` expansion already surfaces it as a normal subfolder). `mirror
+  // banner (C2c) reads generatedAt/bets/collisions from here.
   const meta = {
     generatedAt: new Date().toISOString(),
     bets: metaEntries,
+    collisions,
   };
   fs.writeFileSync(path.join(LIVE_DIR, 'meta.json'), JSON.stringify(meta, null, 2) + '\n');
 
-  return { wrote: allLive.length, reason: null };
+  // C3: the program-level "In flight" dashboard — materialized bets plus this
+  // checkout's own live (non-materialized) bet dirs.
+  writeDashboard(allLive, checkoutResidentBets);
+
+  return {
+    wrote: allLive.length,
+    reason: allLive.length
+      ? null
+      : 'no in-flight worktree or branch-only bets — dashboard lists checkout-resident bet(s) only',
+  };
+}
+
+// ─── C2a: --watch fingerprint ───────────────────────────────────────────────
+//
+// Cheap enough to run every tick without doing the sync's own git-show/
+// materialize work: a max-mtime walk of each worktree's docs/bets/ subtree
+// (content edits) joined with `git for-each-ref` over every bet branch (branch
+// advances — a bet branch amended/pushed to without a worktree open). Exported
+// so tests can assert it flips on exactly those two triggers and stays stable
+// otherwise.
+
+function maxMtimeMsUnder(dir) {
+  let max = 0;
+  let entries;
+  try {
+    entries = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return max;
+  }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      max = Math.max(max, maxMtimeMsUnder(full));
+    } else {
+      try {
+        max = Math.max(max, fs.statSync(full).mtimeMs);
+      } catch {
+        // unreadable file — ignore, don't let one bad stat sink the fingerprint
+      }
+    }
+  }
+  return max;
+}
+
+function computeFingerprint() {
+  let worktreePart;
+  try {
+    worktreePart = listWorktrees()
+      .map((wt) => `${wt.path}:${maxMtimeMsUnder(path.join(wt.path, 'docs', 'bets'))}`)
+      .sort()
+      .join('\n');
+  } catch {
+    worktreePart = '';
+  }
+  const branchPart = git(['for-each-ref', 'refs/heads/bet/*', '--format=%(refname)%(objectname)']) || '';
+  return `${worktreePart}\n${branchPart}`;
+}
+
+// ─── C2a: --watch loop ──────────────────────────────────────────────────────
+//
+// Re-runs sync() on an interval, but ONLY when the fingerprint changed since
+// the last tick — no fumadocs recompile churn on no-ops. The baseline
+// fingerprint is captured immediately (no sync at watch start: predev already
+// ran a fresh one-shot sync moments earlier). Interval is overridable via
+// SYNC_LIVE_BETS_INTERVAL_MS — a test seam; production default 15s. Never
+// throws out of a tick: an exception during fingerprinting or sync is logged
+// and the loop continues, so a transient git hiccup never takes the watcher
+// down (dev.js, C2b, only reacts to the process exiting, not to tick errors).
+function watch() {
+  const intervalMs = Number(process.env.SYNC_LIVE_BETS_INTERVAL_MS) || DEFAULT_WATCH_INTERVAL_MS;
+  let lastFingerprint;
+  try {
+    lastFingerprint = computeFingerprint();
+  } catch {
+    lastFingerprint = null;
+  }
+  console.log(`[sync-live-bets] watching for changes every ${intervalMs}ms`);
+
+  const tick = () => {
+    let fp;
+    try {
+      fp = computeFingerprint();
+    } catch (err) {
+      console.error(`[sync-live-bets] watch: fingerprint check failed, will retry (${err && err.message})`);
+      return;
+    }
+    if (fp === lastFingerprint) return;
+    lastFingerprint = fp;
+    try {
+      const result = sync();
+      console.log(
+        result.wrote > 0
+          ? `[sync-live-bets] watch: re-synced, ${result.wrote} in-flight bet(s)`
+          : `[sync-live-bets] watch: re-synced (${result.reason})`,
+      );
+    } catch (err) {
+      console.error(`[sync-live-bets] watch: sync failed, will retry next tick (${err && err.message})`);
+    }
+  };
+
+  setInterval(tick, intervalMs);
 }
 
 if (require.main === module) {
-  const result = sync();
-  if (result.wrote > 0) {
-    console.log(`[sync-live-bets] materialized ${result.wrote} in-flight bet(s) into docs/bets/_live/`);
+  if (process.argv.includes('--watch')) {
+    watch();
   } else {
-    console.log(`[sync-live-bets] nothing to sync (${result.reason})`);
+    const result = sync();
+    if (result.wrote > 0) {
+      console.log(`[sync-live-bets] materialized ${result.wrote} in-flight bet(s) into docs/bets/_live/`);
+    } else {
+      console.log(`[sync-live-bets] nothing to sync (${result.reason})`);
+    }
   }
 }
 
-module.exports = { sync, LIVE_DIR };
+module.exports = { sync, LIVE_DIR, computeFingerprint };

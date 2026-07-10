@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { Ctx } from './util/context';
 import * as lifecycle from './commands/lifecycle';
+import * as docs from './commands/docs';
 import * as quality from './commands/quality';
 import { doctor } from './commands/doctor';
 import * as bet from './commands/bet';
@@ -91,6 +92,12 @@ export const COMMANDS: CommandDef[] = [
     handler: lifecycle.clean,
   },
   {
+    name: 'docs',
+    group: 'LIFECYCLE',
+    summary: 'Open the project docs site — boots or refreshes it and prints the URL',
+    handler: docs.docs,
+  },
+  {
     name: 'doctor',
     group: 'QUALITY',
     summary: 'Verify the local environment',
@@ -139,7 +146,10 @@ export const COMMANDS: CommandDef[] = [
     group: 'BET WORKFLOW',
     summary: 'Bet progress board (status [<slug>]) · memlog (log <slug> -- "<line>")',
     nouns: ['status', 'log'],
-    flags: [{ name: '--json', desc: 'Emit machine-readable JSON (status)' }],
+    flags: [
+      { name: '--json', desc: 'Emit machine-readable JSON (status)' },
+      { name: '--run', desc: 'Force a fresh suite run, bypassing the cached verdicts (status)' },
+    ],
     handler: bet.betCmd,
   },
   {

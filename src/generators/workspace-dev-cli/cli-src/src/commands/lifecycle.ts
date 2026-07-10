@@ -25,7 +25,35 @@ import {
 } from '../util/services';
 import { ensureDirs, logFile, PID_DIR, LOG_DIR, ROOT } from '../util/paths';
 import { Runner } from '../util/runners';
+import { findDocsRunner } from '../util/docs-runner';
+import { renderBetPanel, betPanelJson } from './bet-panel';
+import { Renderer } from '../theme/render';
 import * as path from 'path';
+
+/** Boot a single declared runner: spawn detached from its cwd/env, write its
+ *  pid, and verify it didn't exit immediately. This is the spawn/pid/log path
+ *  shared by `start()`'s Phase C (autostart runners) and `./dev docs`'s
+ *  on-demand boot (C1) — one code path, so the two never drift. Returns the
+ *  pid once verified alive, or null if it died immediately (an error card has
+ *  already been rendered, matching start()'s prior inline behavior). */
+export async function bootRunner(r: Renderer, runner: Runner): Promise<number | null> {
+  ensureDirs();
+  r.startSpinner(`Booting ${runner.name}`);
+  const fd = fs.openSync(logFile(runner.name), 'a');
+  const env = runner.env ? { ...process.env, ...runner.env } : process.env;
+  const cwd = runner.cwd ? path.join(ROOT, runner.cwd) : ROOT;
+  const pid = spawnBackground(runner.cmd, fd, { cwd, env });
+  fs.closeSync(fd);
+  writePid(runner.name, pid);
+  await sleep(500);
+  if (readPid(runner.name) !== null && !isRunning(runner.name)) {
+    r.failSpinner(`${runner.name} failed to start`);
+    r.errorCard(`${runner.name} exited immediately`, `Check .dev/logs/${runner.name}.log for the cause.`);
+    return null;
+  }
+  r.stopSpinner(`${runner.name} started natively (PID ${pid})`);
+  return pid;
+}
 
 export async function start(ctx: Ctx): Promise<number> {
   const { r } = ctx;
@@ -101,20 +129,7 @@ export async function start(ctx: Ctx): Promise<number> {
       r.substep(`${runner.name} is already running`);
       continue;
     }
-    r.startSpinner(`Booting ${runner.name}`);
-    const fd = fs.openSync(logFile(runner.name), 'a');
-    const env = runner.env ? { ...process.env, ...runner.env } : process.env;
-    const cwd = runner.cwd ? path.join(ROOT, runner.cwd) : ROOT;
-    const pid = spawnBackground(runner.cmd, fd, { cwd, env });
-    fs.closeSync(fd);
-    writePid(runner.name, pid);
-    await sleep(500);
-    if (readPid(runner.name) !== null && !isRunning(runner.name)) {
-      r.failSpinner(`${runner.name} failed to start`);
-      r.errorCard(`${runner.name} exited immediately`, `Check .dev/logs/${runner.name}.log for the cause.`);
-    } else {
-      r.stopSpinner(`${runner.name} started natively (PID ${pid})`);
-    }
+    await bootRunner(r, runner);
   }
 
   const parts: string[] = [];
@@ -445,6 +460,19 @@ function collectStatus(runners: Runner[]): StatusJson {
   return { docker, native };
 }
 
+/** A runner's URL cell (C1b — URL truth in status): a port-carrying runner
+ *  that's running renders its live URL; the docs runner specifically, when
+ *  not running, renders the boot hint instead of a dead link. Every other
+ *  stopped/port-carrying runner renders no URL — there's no general boot verb
+ *  for it yet, so a URL there would be a promise the CLI can't keep. */
+function runnerUrlCell(r: Ctx['r'], runner: Runner, running: boolean, isDocsRunner: boolean): string | undefined {
+  const port = runner.env?.PORT;
+  if (!port) return undefined;
+  if (running) return r.painter.paint('accent', `http://localhost:${port}`);
+  if (isDocsRunner) return r.painter.paint('accent', './dev docs');
+  return undefined;
+}
+
 function renderStatusTables(r: Ctx['r'], data: StatusJson, runners: Runner[]): void {
   r.table(
     'Docker Containers',
@@ -453,18 +481,26 @@ function renderStatusTables(r: Ctx['r'], data: StatusJson, runners: Runner[]): v
       return [d.service, d.status, ports] as [string, string, string];
     }),
   );
-  const nativeRows: Array<[string, string, string]> = [];
+  const docsRunner = findDocsRunner(runners);
+  const runnerByName = new Map(runners.map((rn) => [rn.name, rn]));
+  const nativeRows: Array<[string, string, string, string?]> = [];
   const running = new Set(data.native.map((n) => n.service));
-  for (const n of data.native) nativeRows.push([n.service, `PID ${n.pid}`, 'native']);
+  for (const n of data.native) {
+    const runner = runnerByName.get(n.service);
+    const url = runner ? runnerUrlCell(r, runner, true, docsRunner?.name === runner.name) : undefined;
+    nativeRows.push([n.service, `PID ${n.pid}`, 'native', url]);
+  }
   for (const svc of getAppServices()) {
     if (!running.has(svc) && isDead(svc)) nativeRows.push([svc, 'dead', 'native']);
   }
   for (const runner of runners) {
     if (running.has(runner.name)) continue;
     const label = runner.kind ?? 'runner';
-    if (isDead(runner.name)) nativeRows.push([runner.name, 'dead', label]);
-    else if (runner.autostart === false) nativeRows.push([runner.name, 'not started', label]);
-    else nativeRows.push([runner.name, 'stopped', label]);
+    const isDocs = docsRunner?.name === runner.name;
+    const url = runnerUrlCell(r, runner, false, isDocs);
+    if (isDead(runner.name)) nativeRows.push([runner.name, 'dead', label, url]);
+    else if (runner.autostart === false) nativeRows.push([runner.name, 'not started', label, url]);
+    else nativeRows.push([runner.name, 'stopped', label, url]);
   }
   r.table('Native Processes', nativeRows);
 }
@@ -487,7 +523,12 @@ export async function status(ctx: Ctx): Promise<number> {
       pid: isRunning(rn.name) ? readPid(rn.name) : null,
       autostart: rn.autostart !== false,
     }));
-    process.stdout.write(JSON.stringify({ ...data, runners }, null, 2) + '\n');
+    // Additive `bet` key (E5) — present only when the active-lane sentinel
+    // names a bet and its board parses cleanly; every prior key is untouched.
+    const bet = betPanelJson();
+    const payload: Record<string, unknown> = { ...data, runners };
+    if (bet) payload.bet = bet;
+    process.stdout.write(JSON.stringify(payload, null, 2) + '\n');
     return 0;
   }
 
@@ -504,6 +545,7 @@ export async function status(ctx: Ctx): Promise<number> {
   const ro = r.asStream(process.stdout);
   ro.logo('Local Status');
   renderStatusTables(ro, collectStatus(ctx.runners), ctx.runners);
+  renderBetPanel(ro);
   return 0;
 }
 
@@ -536,6 +578,7 @@ async function watchStatus(ctx: Ctx): Promise<number> {
       out.write('\x1b[2J\x1b[H'); // clear + home
       r.logo('Live Status');
       renderStatusTables(r, collectStatus(ctx.runners), ctx.runners);
+      renderBetPanel(r);
       out.write(`\n  ${r.painter.dim('Refreshing every 2s — press q or Ctrl+C to exit')}\n`);
       // Poll the stop flag finely so the keypress feels responsive.
       for (let i = 0; i < 20 && !stop; i += 1) await sleep(100);

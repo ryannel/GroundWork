@@ -62,22 +62,24 @@ States without payloads, `planned` cells pointing nowhere, nothing cross-posted 
 ```markdown
 | Capability | web-app | admin-cli | mcp-server |
 |---|---|---|---|
-| `notification-delivery/in-app-status` | delivered (`notification-delivery`) | planned (discovery-notes — operators asked for failure visibility during the Step 4 review) | omitted — agents query operation status directly via the contract; a push feed duplicates it |
+| `notification-delivery/in-app-status` | delivered (`notification-delivery`) | planned (discovery-notes — operators asked for failure visibility during the Step 3 review) | omitted — agents query operation status directly via the contract; a push feed duplicates it |
 ```
 
 Plus, in the same change: the `planned` cell cross-posted under `## Bets` in discovery notes ("`notification-delivery/in-app-status` → `admin-cli`: operators need failure visibility; deferred from `notification-delivery`"), and `.groundwork/surfaces.json` gaining the matching capability entry with identical states and payloads. Every column decided, every decision findable.
 
-### Step 3: Archive the whole bet
-
-Move the whole bet out of the active tree: `docs/bets/<bet-slug>/` → `docs/bets/_archive/<bet-slug>/` **and** `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available — it now deletes the bet's status page (`docs/bets/<bet-slug>/status.md`, if `groundwork status --write` produced one — the retrospective supersedes it, so it does not survive into the archive), moves both trees, **and removes the bet's gitignored working-state cache** (`.groundwork/cache/bets/<bet-slug>/` — board, memlog, packs, reviews); otherwise `rm -f docs/bets/<bet-slug>/status.md`, `git mv docs/bets/<bet-slug> docs/bets/_archive/<bet-slug>`, `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`, and `rm -rf .groundwork/cache/bets/<bet-slug>` by hand. The active docsite Bets section then shows only in-flight bets.
-
-The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet's prose and its bet-progress suite served their purpose as the definition of done and the proof-of-work scaffolding; they are now archived as the bet's record.
-
-### Step 4: Review with the user — they drive the real product
+### Step 3: Review with the user — they drive the real product
 
 **Open with the full checkpoint snapshot, then the checkpoint walkthrough (whole-bet scope).** Validation is a session the owner returns to for a ruling, so open with the **full** checkpoint snapshot (operating contract) before anything else. Then, before the owner drives the product, dispatch the checkpoint walkthrough (`briefs/checkpoint-walkthrough.md`, `frontier` tier, read-only — not a gate) over the **whole bet's** accumulated change: the change organized by concern, the highest-blast-radius spots tagged `[auth]/[schema]/[contract]/[data]/[infra]`, suggested front-door observations for the drive below, any default+veto decisions still pending ratification (`npx groundwork-method decisions pending --bet <bet-slug>`), and the deferred/maturity rows the bet touched. It keeps the owner's system comprehension current for the product they are about to own in production — it complements the design walk, never substitutes for it.
 
-The bet's success signal is the owner using the real shipping product the way its consumer will — running the agreed front-door cases against the build that actually ships, on real data. A green suite and a clean experience judgment are the evidence; the owner driving it is the confirmation. Walk them to the shipping build (not a test target), have them carry out the milestones' headline cases, and watch what happens on the real surface. Then summarise what was delivered — the user-facing changes, the new contracts, and any constraints the implementation revealed. Capture the user's reactions — corrections, requests for follow-up bets, anything that surprised them, or anything that did not feel right in their hands — they all belong in the next step's scan, and a "this isn't usable the way I expected" here is a finding, not a closing pleasantry.
+The bet's success signal is the owner using the real shipping product the way its consumer will — running the agreed front-door cases against the build that actually ships, on real data. The drive runs now, while the bet's decomposition tree is still in the active docs: render the final proof board — `npx groundwork-method proofs --bet <bet-slug> --write` — and it is the checklist: every agreed case green with its evidence attached, walked in order against the shipping build (not a test target). The board is never marked up by hand — it stays derived; the confirmations below are the record. (Where the verb is unavailable, the acceptance criteria in each milestone's `index.md` are the same list, walked from the tree.) A green suite and a clean experience judgment are the evidence; the owner driving it is the confirmation. Collect that confirmation in one batched pass per Protocol 13 where the host offers it (chat walkthrough fallback), and record it as engine state rather than a checkbox nobody ticks: `npx groundwork-method decisions add --bet <bet-slug> --question "<the case, verbatim>" --default "confirmed"` immediately followed by `decisions ratify --bet <bet-slug> --id <id> --response "<the owner's verbatim reaction>"` per driven case, or one batch entry when the whole drive goes cleanly — the driver does this bookkeeping, the owner only drives.
+
+Then summarise what was delivered — the user-facing changes, the new contracts, and any constraints the implementation revealed. Capture the user's reactions — corrections, requests for follow-up bets, anything that surprised them, or anything that did not feel right in their hands — they all belong in Step 5's Living Documents scan, and a "this isn't usable the way I expected" here is a finding, not a closing pleasantry.
+
+### Step 4: Archive the whole bet
+
+With the drive complete and the owner's confirmations recorded, move the whole bet out of the active tree: `docs/bets/<bet-slug>/` → `docs/bets/_archive/<bet-slug>/` **and** `tests/bets/<bet-slug>/` → `tests/bets/_archive/<bet-slug>/`. Run `./dev archive bet <bet-slug>` if the CLI is available — it now deletes the bet's status page (`docs/bets/<bet-slug>/status.md`, if `groundwork status --write` produced one — the retrospective supersedes it, so it does not survive into the archive), moves both trees, **and removes the bet's gitignored working-state cache** (`.groundwork/cache/bets/<bet-slug>/` — board, memlog, packs, reviews); otherwise `rm -f docs/bets/<bet-slug>/status.md`, `git mv docs/bets/<bet-slug> docs/bets/_archive/<bet-slug>`, `git mv tests/bets/<bet-slug> tests/bets/_archive/<bet-slug>`, and `rm -rf .groundwork/cache/bets/<bet-slug>` by hand. The active docsite Bets section then shows only in-flight bets.
+
+The permanent best-practice tests rolled out during Delivery (in service repos and `tests/system/`) remain in place — they are the ongoing coverage for this feature going forward. The bet's prose and its bet-progress suite served their purpose as the definition of done and the proof-of-work scaffolding; they are now archived as the bet's record.
 
 ### Step 5: Apply the Living Documents protocol
 
@@ -94,11 +96,11 @@ Documents to scan, in order:
 5. **`docs/surfaces.md`** — when it exists: registry entries whose reality changed (a `planned` surface this bet activated, a changed core-access path or test medium), and confirm Step 2.7's ledger rows landed with their `.groundwork/surfaces.json` twin in lockstep. Skip when the project has no registry.
 6. **`docs/maturity.md`** — the maturity roadmap. Mark every row this bet closed as `closed (<bet-slug>)`, re-assess the dimensions the bet touched (a bet that captured a service's OpenAPI contract into `docs/architecture/api/` may move D2 from 🟡 to ✅ — cite the new evidence), open new rows for gaps the bet revealed or introduced (a new service shipped without a contract is a new `standard-divergence` row), and append one line to `## History`. Re-stamp `last_reviewed`. On a registry project, re-assess D8 (surface parity discipline) against the ledger state Step 2.7 just wrote — a `planned` cell aging past three closed bets with no referencing pitch is what moves it off ✅. If this bet activated a second independently-deployed surface or changed a published contract, re-assess D9 (contract compatibility): the stance must stand under architecture's Binding Constraints and the contract-conformance tests must show no breaking drift.
 
-For each document updated, report the change in one line: "Updated `docs/architecture/index.md` — added `notification-service` to service map and SLR row for at-least-once delivery."
+Report the scan exceptions-first: one line per document that changed — name, what changed, why — closed by a single aggregate line naming everything else scanned and left alone: "Scanned, unchanged: `docs/product-brief.md`, `docs/design-system.md`." Naming every scanned document, changed or not, is what keeps the report distinguishable from a skipped scan.
 
 **Distinguish refinements from reversals (Protocol 2).** Most bet updates are refinements — new rows, new boundaries, additive detail. But if the bet *overturned* a prior Key Decision or Binding Constraint, or you are about to write a superseding ADR in Step 7, that update is a **reversal**, and the Reversal Protocol applies even in Continuous Bet mode (Protocols 1, 2, 4, 8, and 9 apply to the bet). For each reversal: reconcile the *full body* of the affected doc and every dependent doc it touches, write the superseding ADR (Step 7), and **re-invoke `groundwork-review` on each mutated doc** (Protocol 9), with the matching `document_type`. The re-gate is fail-closed and the revise cap applies (Protocol 8): proceed only on a parseable `VERDICT: PRESENT` per doc. Because the reversal supersedes an ADR, also re-review **every** `docs/architecture/domain/*.md` unconditionally (`document_type: domain-entity`) — their `Owner:`/fields go stale silently since they carry no summary to flag the drift, and they are the dependents most often missed. A bet that mutates four setup docs is exactly where contradictory canonical docs creep in — the re-gate is the guard.
 
-If a scan finds nothing to update, say so explicitly. Silence is ambiguous — the user cannot tell whether you scanned and found nothing or skipped the scan.
+A scan that changes nothing renders as one aggregate line naming all six documents — never silence.
 
 ### Step 6: Update discovery notes
 
@@ -108,7 +110,7 @@ Remove any discovery-notes entries that were incorporated into the artifacts upd
 
 ### Step 7: Write ADRs for significant decisions
 
-Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — write an ADR to `docs/architecture/decisions/NNNN-<slug>.md` using the template at `.groundwork/skills/templates/adr.md`.
+Review the technical decisions made during this bet. If any decision was significant enough to warrant a permanent record — a stance future bets should not relitigate without a new ADR — record it via `npx groundwork-method decisions add --bet <bet-slug> --question "Write ADR: <slug>?" --default "write it"` and write the ADR to `docs/architecture/decisions/NNNN-<slug>.md` using the template at `.groundwork/skills/templates/adr.md`. Every recorded entry batch-ratifies at Step 9's hand-off, so no ADR ships sight-unseen without a checkpoint mention.
 
 Significance test: would a new engineer joining the project six months from now need to know this decision to avoid revisiting it? If yes, record it. If no, skip. Not every bet produces an ADR. *(Quick-bet depth: a `track: quick` bet's local, non-structural change rarely clears this bar — skip unless it genuinely set a stance future work must not relitigate.)*
 
@@ -145,11 +147,11 @@ The bet has ridden its own branch (`bet/<bet-slug>`) in an isolated worktree sin
 
 ### Step 9: Hand off
 
-Open with the **full** checkpoint snapshot (operating contract) — this bet has just moved from in flight to delivered, so the program row itself changed and the user sees that before anything else. Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
+Open with the **full** checkpoint snapshot (operating contract) — this bet has just moved from in flight to delivered, so the program row itself changed and the user sees that before anything else. Batch-ratify any ADR pre-notices recorded in Step 7 in one pass (`npx groundwork-method decisions ratify --bet <bet-slug> --all --response "<the owner's verbatim reaction>"`, or per-ADR if the owner's reactions differ) — the last stop before nothing further asks about them. Confirm the bet is complete. Summarise what was delivered, what was updated upstream, and what was parked for the next bet. Recommend a fresh context for the next bet — the rich delivery context has been compressed into doc updates and discovery notes, so the next bet does not need it.
 
 ## Quality Standard: What "Deep Enough" Looks Like
 
-The handoff fails when the Living Documents scan is a checkbox instead of a surgical update. A handoff that says "no changes needed" without naming what was scanned is indistinguishable from a handoff that skipped the scan entirely. The standard is concrete: state what you read, name what changed, and quote the change.
+The handoff fails when the Living Documents scan is a checkbox instead of a surgical update. A handoff that says "no changes needed" without naming what was scanned is indistinguishable from a handoff that skipped the scan entirely. The standard is exceptions-first: name every changed document with what changed and why, collapse the rest into one aggregate line, and point at the commit and the retrospective for the full quoted diff rather than pasting it into the report.
 
 **Shallow output (insufficient):**
 
@@ -161,57 +163,36 @@ the docs.
 **Deep output (required standard):**
 
 ```
-Validation complete.
+Validation complete. Tests: 47/47 passing. Contract check: clean, no rogue HTTP.
 
-Test suite: 47/47 passing. Contract verification: all cross-service calls
-use the generated `notification_client`; no rogue HTTP found.
-
-Whole bet archived: docs/bets/_archive/notification-delivery/ and
-tests/bets/_archive/notification-delivery/.
+Whole bet archived: docs/bets/_archive/notification-delivery/.
 
 Living Documents scan:
-
-- `docs/architecture/index.md` — added `notification-service` to the service map
-  (Phase 3 — Service Design). Added two rows to the Service-Level
-  Requirements table: at-least-once delivery for outbound notifications,
-  idempotent webhook handler on the receiving side. Tech stack updated to
-  reference NATS JetStream as the chosen async transport with the same
-  reasoning attached to existing entries.
-- `docs/design-system.md` — added `Toast` component variant for delivery-status
-  notifications. Updated interaction states to include the dismissable
-  state with focus-trap behaviour.
-- `docs/product-brief.md` — no changes; the bet implemented capabilities
-  already described.
-- `docs/architecture/infrastructure.md` — added `notification-service` (port 4002,
-  health endpoint `GET /health`) to the services table. Added NATS to
-  the infrastructure components table (port 4222, container
-  `<app>-nats`). Updated `./dev start` verification footnote to include
-  notification flow.
+- `docs/architecture/index.md` — added `notification-service` to the service
+  map and two Service-Level Requirements rows (commit `a1b2c3d`).
+- `docs/design-system.md` — added the `Toast` component variant (commit
+  `e4f5a6b`).
 - `docs/surfaces.md` — ledger row `notification-delivery/in-app-status`
-  written: web-app delivered (`notification-delivery`), admin-cli planned
-  (cross-posted to discovery notes), mcp-server omitted (agents query
-  operation status via the contract). `.groundwork/surfaces.json` updated
-  in the same change; no empty cells.
+  written, no empty cells (commit `c7d8e9f`).
+- Scanned, unchanged: `docs/product-brief.md`,
+  `docs/architecture/infrastructure.md`, `docs/maturity.md`.
 
-Discovery notes:
-
-- Removed two `## Design Details` entries that were incorporated into the
-  notification service's contract.
-- Appended one `## Bets` entry: "Search experience parked — the user
-  raised it three times during this bet, and the architecture's search
-  capability is currently unmapped. Next bet candidate."
+Discovery notes: two entries incorporated and removed; one appended (search
+experience, parked — see retrospective).
 
 Bet status: delivered.
 ```
 
-The shallow version tells the user nothing. The deep version proves the scan happened, names what changed and why, and surfaces the discovery-note delta so the next bet starts with a clear inheritance.
+The shallow version tells the user nothing. The deep version proves the scan happened, names what changed and why, and accounts for every unchanged document in one line instead of silence.
 
-The same standard applies across every scan target:
-- **Architecture updates** must name the section, the change, and the reasoning — not just "added a service."
-- **Design System updates** must name the component or pattern that changed and whether existing patterns are affected.
-- **Brief updates** must justify the vision-level change against what the user actually said during delivery.
-- **Infrastructure updates** must include the concrete observable changes — ports, commands, health endpoints — not a summary.
-- **Ledger updates** must carry every cell's state with its payload and name where each `planned` deferral was cross-posted — a state without its payload is a decision without its record.
+The same standard applies across every scan target — name what changed in the exception line, not a summary:
+- **Architecture updates** — the section, the change, and the reasoning, not just "added a service."
+- **Design System updates** — the component or pattern that changed and whether existing patterns are affected.
+- **Brief updates** — the vision-level change, justified against what the user actually said during delivery.
+- **Infrastructure updates** — the concrete observable changes: ports, commands, health endpoints.
+- **Ledger updates** — every cell's state with its payload, and where each `planned` deferral was cross-posted.
+
+Quoted detail — the full diff, the complete reasoning — lives in the per-doc commit and, when it recurs as a pattern, the retrospective; the exception line names the change, not its full text.
 
 ## Congratulations
 

@@ -14,8 +14,8 @@ tier: frontier
 ## How This Brief Is Invoked
 
 This brief runs in an **isolated subagent context** (Protocol 9 mechanics), dispatched by
-the Delivery driver at a checkpoint pause — a milestone postmortem, the validation Step 4
-prelude, or (inline, lightweight) a quick-bet close. It is **read-only** and it is **not a
+the Delivery driver at a checkpoint pause — a milestone postmortem, the validation Step 3
+prelude (the owner's drive of the real product), or (inline, lightweight) a quick-bet close. It is **read-only** and it is **not a
 gate and not a review lens**: the gates beside it (the three per-slice lenses, the
 milestone honesty audit, the experience auditor, the deterministic tiers) are unchanged.
 Its job is to keep the owner's understanding of the system current as delivery evolves it,
@@ -35,6 +35,8 @@ The driver passes:
 - The **pending decisions queue** — every default+veto decision still awaiting ratification, from `npx groundwork-method decisions pending --bet <bet-slug>` (committed engine state at `.groundwork/bets/<bet-slug>/decisions.json`).
 - The **open deferred / maturity rows** this change touches (`docs/maturity.md`, discovery notes).
 - The **technical design** and the milestone's front-door proof, for orienting the change against what the owner authored.
+- The **dismissed-with-reason findings** since the last checkpoint, for the APPENDIX only — read-only context, not this brief's to adjudicate.
+- The **verification roll-up** the driver assembled from the mirrored slice reports (`step-03-milestone-close.md`), for the APPENDIX only — carried through, not built here.
 
 ## The work
 
@@ -43,9 +45,15 @@ Produce a walkthrough — not a review — with five parts:
 1. **The change, organized by concern, not file order.** Group the accumulated change by what it does for the product (a capability added, a flow wired, a store introduced), so the owner reads it the way they designed it, not the way git recorded it.
 2. **The 2–5 highest-blast-radius spots**, each named in a plain phrase ("touches sign-in", "changes the database shape", "touches an external contract", "touches infrastructure") with one line on why it carries blast radius — where a mistake would cost the most, so the owner's attention lands there first. Keep the internal tag (`[auth]` / `[schema]` / `[contract]` / `[data]` / `[infra]`) as a trailing suffix only if the walkthrough needs a stable key to reference the same spot later.
 3. **2–5 suggested manual observations**, phrased as things to try in the app, in the owner's own words — the concrete things to do while driving the running product at the milestone close (open this screen, run this input, watch this happen). This is a script for the owner's own drive at the app's real entry point that the close already mandates, not a substitute for it.
-4. **The pending decisions queue, presented for ratification** — each defaulted decision (from `decisions pending`), the recommendation taken, and its one-line rationale, so the owner ratifies or vetoes the batch with the change in view. The walkthrough only *presents* it; the driver records the owner's verbatim response with `decisions ratify` back in the postmortem step.
+4. **The pending decisions queue, presented for ratification** — each defaulted decision (from `decisions pending`), the recommendation taken, and its one-line rationale, so the owner ratifies or vetoes the batch with the change in view. The walkthrough only *presents* it; the driver runs the ratification as one batched ruling per Protocol 13 (operating contract) — ratify-all or veto specific items — and records the owner's verbatim response with `decisions ratify` back in the postmortem step.
 5. **The open deferred / maturity rows this change touches** — what was parked, so the owner sees the running debt as well as the delivered work.
 
 ## The report
 
-Return the walkthrough itself — the five parts above, tight. Any finding you surface in passing (a bug, a design-system miss) is not yours to adjudicate: hand it to the driver tagged with a suggested bucket `[decision-needed|patch|defer|dismiss]`, and the driver triages it through the existing review buckets. Do not re-run the gates; do not invent findings to look thorough.
+Return two labeled blocks, not one continuous walkthrough.
+
+**HEADLINE** — hard cap ~15 lines: one sentence of what this milestone now lets the owner do (drawn from the front-door proof), the 2–5 things-to-try drive bullets (part 3), and the pending-decisions queue (part 4). This is the block the postmortem pause is built around — every line in it earns its place against the cap.
+
+**APPENDIX** — the five parts above in full, plus the dismissed-with-reason findings since the last checkpoint, plus the per-slice verification roll-up handed in as an input. This is the durable, skippable record: the driver mirrors it whole to `.groundwork/cache/bets/<bet-slug>/reviews/milestone-<NN>-walkthrough.md`, the same pattern the mirrored slice reports already use, so nothing the HEADLINE's cap cut is actually lost.
+
+Any finding you surface in passing (a bug, a design-system miss) is not yours to adjudicate: hand it to the driver tagged with a suggested bucket `[decision-needed|patch|defer|dismiss]`, and the driver triages it through the existing review buckets. Do not re-run the gates; do not invent findings to look thorough.

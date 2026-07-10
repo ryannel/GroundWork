@@ -6,21 +6,24 @@
 
 This workflow operates under the protocols defined in `.groundwork/skills/operating-contract.md` (contract v1; Continuous Bet mode: Protocols 1, 2, 4, 8, and 9 apply). Read it before taking any other action.
 
-## Discovery Notes Check
+## Signals on the Table
 
-Check if `.groundwork/cache/discovery-notes.md` exists and has entries under `## Bets`.
+Four sources feed this phase, and all four are read every time, whether or not they turn up anything: discovery notes, patch clusters, the maturity roadmap, and the previous bet's reality signal. Read them before opening the conversation (the detection rules for each are below), then present what they turned up as one compact screener — only the categories with something to show, in this order — and move straight into the user's problem. Do not walk each category as its own turn.
 
-If entries exist, treat them as pre-discovered context — the bullets' order is the stated queue order (the checkpoint snapshot's program section reads it as such, and reordering the queue is reordering bullets): sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items from the previous bet's validation (each carrying a stable ID, `<bet-slug>-R<n>`, for the mechanical follow-through audit). Some entries are `planned` capability-ledger cells cross-posted by a previous bet's validation — capabilities already committed to reach a named surface. These are discovery input: when one touches the problem the user brings, surface it as candidate scope for this bet rather than letting the commitment age in the parking lot. Carry all of it into the pitch conversation in its plain name — talk about the action item, not its ID. When an action item is absorbed, its ID travels with it into the pitch's frontmatter or links only, so the next retrospective's follow-through audit can close it mechanically; the pitch body itself never quotes the ID. Re-asking signals the user has already given erodes trust in the process.
+- **Queued:** `<N>` bullets under `## Bets` in discovery notes, naming the top few.
+- **Patch clusters:** `<area>` — `<N>` patches since the last archived bet, citing SHAs.
+- **Maturity:** `<N>` open `fix-now`/`blocks-delivery` rows, named.
+- **Reality:** did `<the previous bet's success signal>` show anything? (always last, when a prior archived bet exists.)
 
-If the file does not exist or has no `## Bets` entries, skip this step.
+A category with nothing to show is omitted, not reported empty. Four omitted categories collapse to no screener — open straight on the user's problem.
 
-## Patch Cluster Check
+### Detection rules
 
-Mine recent patch commits from git: `git log --grep='Lane: patch'` since the most recent archived bet (the newest directory under `docs/bets/_archive/`), grouped by each commit's `Area:` trailer. Two or more patches in one area are a demand signal the user has already expressed in small pieces — surface the cluster as a candidate problem for this bet, citing the commit SHAs. A bet that absorbs a patch cluster notes those SHAs in its pitch; because the next window opens only after this bet closes, the cluster is then settled and not re-raised.
+**Discovery notes.** Check `.groundwork/cache/discovery-notes.md` for entries under `## Bets`. When present, they are pre-discovered context — the bullets' order is the stated queue order (the checkpoint snapshot's program section reads it as such, and reordering the queue is reordering bullets): sequencing instincts, scope opinions, or feature priorities the user surfaced during earlier phases, and retrospective action items from the previous bet's validation (each carrying a stable ID, `<bet-slug>-R<n>`, for the mechanical follow-through audit). Some entries are `planned` capability-ledger cells cross-posted by a previous bet's validation — capabilities already committed to reach a named surface. These are discovery input: when one touches the problem the user brings, surface it as candidate scope for this bet rather than letting the commitment age in the parking lot. Carry all of it into the pitch conversation in its plain name — talk about the action item, not its ID. When an action item is absorbed, its ID travels with it into the pitch's frontmatter or links only, so the next retrospective's follow-through audit can close it mechanically; the pitch body itself never quotes the ID. Re-asking signals the user has already given erodes trust in the process.
 
-## Maturity Roadmap Check
+**Patch clusters.** Mine recent patch commits from git: `git log --grep='Lane: patch'` since the most recent archived bet (the newest directory under `docs/bets/_archive/`), grouped by each commit's `Area:` trailer. Two or more patches in one area are a demand signal the user has already expressed in small pieces. A bet that absorbs a patch cluster notes those SHAs in its pitch; because the next window opens only after this bet closes, the cluster is then settled and not re-raised.
 
-Read `docs/maturity.md` if it exists (the maturity model behind it is defined in `.groundwork/skills/maturity-model.md`). Roadmap rows with status `open` and recommendation `fix-now` or `blocks-delivery` are candidate work for this bet — the system's own distance from the state where delivery runs well.
+**Maturity roadmap.** Read `docs/maturity.md` if it exists (the maturity model behind it is defined in `.groundwork/skills/maturity-model.md`). Roadmap rows with status `open` and recommendation `fix-now` or `blocks-delivery` are candidate work for this bet — the system's own distance from the state where delivery runs well.
 
 - When the user's chosen problem **is** an open gap, connect them explicitly: cite the row in the pitch's problem statement and mark the row `in-bet (<slug>)` at commit.
 - When a `blocks-delivery` gap is open and the user proposes unrelated work, surface the trade-off once, concretely — what the gap costs *during this bet* (a missing system-test harness means delivery cannot prove its slices; a missing contract means design hand-derives the API surface) and what closing it buys every bet after. Propose absorbing it into the appetite or making it the bet. The user decides. If they decline, the row stays `open` — or moves to `accepted` if they say the gap is permanent — and is not raised again within this bet.
@@ -28,9 +31,7 @@ Read `docs/maturity.md` if it exists (the maturity model behind it is defined in
 
 The roadmap is the steering mechanism, not a gate: a user who knowingly defers maturity work is exercising judgement, not failing a check.
 
-## What Did Reality Say?
-
-Read the most recent archived pitch's success signal (the newest directory under `docs/bets/_archive/`, its `pitch.md`) and ask the user once: did reality say anything about it? A number, an impression, "no idea," and "no users yet" are all recorded, acceptable answers — the last two cost one sentence and the conversation moves on. Whatever comes back is evidence at the table, not a grade: a signal that moved shapes what to bet next; a signal nobody could observe is a hint the next pitch's signal should name a nearer source. No scheduler, no outcome file, no follow-up machinery — the question exists only at this table, once per bet.
+**Reality signal.** Read the most recent archived pitch's success signal (the newest directory under `docs/bets/_archive/`, its `pitch.md`) — the screener's last line is the question. A number, an impression, "no idea," and "no users yet" are all recorded, acceptable answers — the last two cost one sentence and the conversation moves on. Whatever comes back is evidence at the table, not a grade: a signal that moved shapes what to bet next; a signal nobody could observe is a hint the next pitch's signal should name a nearer source. No scheduler, no outcome file, no follow-up machinery — the question exists only at this table, once per bet.
 
 ## Context Inputs
 

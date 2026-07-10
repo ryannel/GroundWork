@@ -5,7 +5,8 @@ description: >
   Shared behavioral protocols every GroundWork methodology skill loads and enacts:
   discovery notes, living documents, lifecycle modes, phase lifecycle, pacing,
   the downstream context store, setup graduation, hand-off cache, cache isolation,
-  the review gate, review invocation, boundary translation, and draft presentation.
+  the review gate, review invocation, boundary translation, draft presentation,
+  and structured rulings.
 ---
 
 # GroundWork Operating Contract
@@ -93,6 +94,7 @@ When a change is a reversal, before you commit:
 4. **Re-gate: re-invoke `groundwork-review` on every mutated canonical doc.** This is the safety net the reversal exists to trip. For each doc you changed, run the review with the matching `document_type` (a mutated `docs/architecture/domain/<entity>.md` uses `document_type: domain-entity`). Apply 🔴 findings and re-review until `PRESENT`.
    - **Domain docs are re-reviewed unconditionally on a structural reversal.** When the reversal supersedes an accepted ADR or changes an architecture `### Key Decision` / `### Binding Constraint`, re-review **every** `docs/architecture/domain/*.md` (`document_type: domain-entity`), not only the ones you remembered to edit. Domain stubs carry no summary, so nothing flags them when they drift — and "the facilitator forgot the domain docs were dependents" is the exact failure this protocol exists to prevent. The set is small and the re-review is cheap; do not gate it on your own judgement of which entities the reversal touched.
    - **Cap and fail-closed handling:** the revise cap and the rule for a reviewer that cannot run are defined once in Protocol 8 (Review Gate), and the dispatch and failure procedure once in Protocol 9 (Review Invocation); both apply here unchanged — a re-gate that errors blocks the commit exactly as a drafting-phase review does.
+   - **Batch the ruling across a multi-document pass:** when a single re-gate pass covers multiple documents, collect every cap-hit and decision-needed outcome from the whole pass and present them as one ruling with per-item vetoes (Protocol 13); failures that share a root cause are one item, not N. A review that could not run is exempt from this batch shape — it may be reported in the same consolidated pause, but each cannot-run item, or root-cause group, carries Protocol 9's two-path choice exactly as Protocol 9 states it: retry the dispatch, or an explicitly authorised self-review. Neither has a default, and silence never proceeds one; an unvetoed batch line never implies a third path.
 
 **Accepted residual:** a *refinement* that introduces a minor body-only inconsistency while the live Downstream Context (if any) stays accurate is not re-gated — downstream setup phases read the Downstream Context first (Protocol 3.2.2, Protocol 5), so the drift is low-impact and is caught later by `groundwork-check`. Reversals are gated because they corrupt the cross-phase contract and the dependent docs; refinements are not, to keep the common case cheap.
 
@@ -205,7 +207,7 @@ When the user gives explicit final approval:
 
 The goal of pacing is to manage the user's cognitive load. Complex, structural decisions — the ones that shape the product, constrain the design space, or have downstream consequences — deserve focused attention. Rushing through them in a compound question produces shallow answers that collapse under implementation pressure.
 
-Give important questions room to breathe. When a decision has real trade-offs or downstream consequences, present it on its own, explore it fully, and resolve it before moving on. When several questions are straightforward or closely related, grouping them keeps the conversation moving without overwhelming the user.
+Give important questions room to breathe. When a decision has real trade-offs or downstream consequences, present it on its own, explore it fully, and resolve it before moving on. When several questions are straightforward or closely related, grouping them keeps the conversation moving without overwhelming the user. Three or more bounded rulings of the same shape — ratify/veto, proceed/hold, named either/or — batch through Protocol 13 instead of turn-by-turn.
 
 Converge toward proposals. Once you have enough signal to form a recommendation, propose it and let the user react — continued interrogation past the point of sufficient information wastes the user's time and energy. The conversation should feel like it's building toward something, not circling.
 
@@ -345,7 +347,7 @@ The gate blocks on anything short of a parseable `VERDICT: PRESENT` — a review
 
 ### The revise cap
 
-A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: internally, every remaining 🔴 Critical finding is reclassified 🟡 Advisory — the cap has been hit, not cleared. Tell the user, in plain terms, that the independent review ran three times and still has unresolved concerns, name what those concerns are, and let them decide whether to proceed. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
+A reviewer that keeps returning `REVISE` on a draft the agent cannot improve further would loop forever. After 3 REVISE verdicts on a single document, stop revising and treat that pass as the stopping point: internally, every remaining 🔴 Critical finding is reclassified 🟡 Advisory — the cap has been hit, not cleared. Tell the user, in plain terms, that the independent review ran three times and still has unresolved concerns, name what those concerns are, and let them decide whether to proceed. Anchor each unresolved concern to the artifact at its canonical path — the file and section the user can open, per Protocol 11's identifier rule — and put the proceed/hold ruling as one bounded question covering every concern at once (Protocol 13), never one question per concern. This cap applies at every review checkpoint, so the escape hatch behaves identically everywhere.
 
 A reviewer that keeps finding fresh contract↔body desyncs pass after pass is not asking for a sixth revision — the fault is usually an unreconciled Downstream Context file (Protocol 5: author it last, from the finished doc); reconcile that before revising the body again.
 
@@ -484,7 +486,7 @@ Render the snapshot with `npx groundwork-method status` (`--bet <slug>` for the 
 
 ## Protocol 12: Draft Presentation
 
-A chat dump is a contract handed over to sign: the user cannot annotate it, cannot diff a revision against what changed, and reads it once as it scrolls past before the conversation moves on. A document at a stable path, opened through a native review surface, is how a real approval works — the reviewer marks the document itself, and the marks are what the next revision responds to. This protocol governs how every **approval-gated artifact** — bet pitch, technical design, decomposition, architecture draft, quick-bet plan — is presented for the user's sign-off.
+A chat dump is a contract handed over to sign: the user cannot annotate it, cannot diff a revision against what changed, and reads it once as it scrolls past before the conversation moves on. A document at a stable path, opened through a native review surface, is how a real approval works — the reviewer marks the document itself, and the marks are what the next revision responds to. This protocol governs how every **approval-gated document at a canonical path** — bet pitch, technical design, decomposition, architecture draft, quick-bet plan, change proposal, proof amendment — is presented for the user's sign-off.
 
 This is a different boundary from Protocols 8 and 9. Those gate the artifact against the *independent reviewer* before it is presented at all — a parseable `VERDICT: PRESENT`, dispatch mechanics, the revise cap. This protocol governs what happens next: how the already-gated draft is presented to the *user*, and how the user's own feedback loops back in. A draft can pass Protocol 8's gate and still be handed over badly; this protocol is what fixes that half.
 
@@ -498,6 +500,10 @@ Detect what the session actually offers; never assume a capability the host has 
 
 Inline comments are user feedback on a draft, and the corpus already knows how to handle that: apply each comment, then re-flow the surrounding sections for cohesion rather than patching in isolation, per the artifacts-are-proposals rule — a draft with one section answering a comment and its neighbors still reflecting the old shape reads as contradictory to the next reader. Re-run the Protocol 8/9 gates where the resulting change touches what the independent review already approved, then re-present through the same surface. This is the whole of the comment-resolution loop; no separate procedure exists elsewhere for it.
 
+### Re-presentation leads with the delta
+
+This protocol's opening names "cannot diff a revision against what changed" as chat's core failure — re-presenting the whole document again does not close it. Whenever a document the user has already seen is re-presented — after comment resolution, a re-flow, an elicit apply, or a REVISE cycle — the presentation opens with what changed since the version they last saw. Derive the change from git: working tree against the artifact's last commit during drafting, or the bet's approved tag once the artifact is approved. State it as a changed-sections list in owner language. On a host whose file-editing tools render diffs — Claude Code's reference realization — apply the revision through those tools so each change renders natively. In the chat fallback, present only the changed sections as before/after; never re-paste the full document, and never ask for a full re-read.
+
 ### The chat walkthrough teaches; it does not deliver
 
 The proof-by-proof decomposition walk and the section-by-section design walk stay exactly as they are — they build the user's comprehension of a draft neither of them could get from reading alone, and transcripts show them working when they run. What changes is narrower than it sounds: the walkthrough stops being the *only* way to read the document. A user who wants to reread a paragraph now has a stable page to return to instead of a scrollback search.
@@ -509,3 +515,29 @@ Where no native review surface exists, presentation is exactly what it has alway
 ### The facilitation boundary
 
 Setup *facilitation* flows — the product brief, the design system — do not enact this protocol. There, the cluster conversation is the product: the value is in the earned back-and-forth, not in a document the conversation merely produces, and handing that conversation to a review surface would flatten it into exactly the artifact-as-contract this protocol exists to avoid elsewhere. This protocol governs artifacts that are *approved*, not conversations that *are* the deliverable.
+
+### Name the medium
+
+The three surfaces are complements, not alternatives, and the user should never have to work out which one fits — the hand-off tells them. Every approval hand-off routes the three acts in one line: **read and explore** on the docsite (rendered diagrams, the browsable tree, the live status page); **mark** on the host's review surface (inline comments on the draft at its canonical path, applied and re-presented as a delta); **decide** in the conversation (rulings, structured where bounded — Protocol 13). The first hand-off in a project teaches this map in two or three sentences; every later hand-off compresses it to one line — orientation is taught once, not re-taught into wallpaper.
+
+---
+
+## Protocol 13: Structured Rulings
+
+A ruling asked one at a time when it did not need to be is the same shape of question answered N times instead of once. Where the host offers a way to put a bounded choice as options rather than free text, using it turns a scrolling back-and-forth into one decisive prompt. This protocol governs how a bounded ruling is presented, and how independent rulings of the same shape batch together instead of running turn-by-turn.
+
+### What counts as bounded
+
+A ruling is bounded when the answer is a choice among named options: ratify or veto a queue, proceed or hold, an either/or between named alternatives. A ruling that needs open judgment — weighing trade-offs the options do not already name — is not bounded; it keeps its own turn under Protocol 4.
+
+### Present through the host's structured question tool, where one exists
+
+Detect the capability; never assume it. On a host that offers a structured question tool — Claude Code's reference realization: `AskUserQuestion` — present the bounded ruling through it: the named options, the recommended default first, each option phrased per Protocol 11's boundary translation. The option text the user selects becomes their verbatim response wherever a record demands one — a ratification, a `decisions ratify --response`. Absence of the capability is not an error: chat prose stating the same options and default is the floor, and is exactly as valid a ruling as the structured form.
+
+### Batch three or more of the same shape
+
+Three or more independent rulings of the same shape — a queue of items each needing ratify/veto, a set of either/or choices sharing the same structure — present as one batch: one structured prompt covering every item, or, in the chat fallback, one compact table with the recommended default marked per row. The user edits the exceptions rather than answering item by item. A heterogeneous mix, or a single genuinely open judgment call, keeps its own turn — Protocol 4's pacing rule stands for that case; this protocol only narrows it for the bounded, homogeneous one. Facilitation conversations are out of scope entirely — Protocol 12's facilitation boundary applies, and a cluster conversation is never a ruling queue.
+
+### The ruling queue is authoritative
+
+The conversation's ruling queue at a pause is authoritative for what awaits the user. Every durable rendering of pending work — a status page, a dashboard — carries its as-of timestamp and links back to the conversation for the ruling; it never competes with the conversation as the place the ruling actually happens.

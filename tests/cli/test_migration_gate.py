@@ -351,3 +351,64 @@ console.log('ok');
     proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
     assert proc.returncode == 0, proc.stderr
     assert proc.stdout.strip() == "ok"
+
+
+# ── gw-live-first-bets-meta round trip ──────────────────────────────────────
+# Proved against the committed 0.16-docsite-pre-live-meta fixture (the shape it
+# migrates from — a registered docs-site service plus a docs/bets/meta.json
+# whose `pages` predates `_live`): detect → pending, run → `_live` inserted
+# FIRST with the rest of the ordering untouched, detect → done, and a second
+# run is byte-idempotent. Then the three skip paths on mutations of the same
+# copy: a hand-tuned meta already naming `_live` anywhere is done (never
+# reordered), an absent meta is n/a (the sync script owns creation), and a
+# project without a docs-site service is n/a.
+
+def test_live_first_bets_meta_round_trip(tmp_path):
+    import shutil
+    fixture = REPO_ROOT / "tests" / "fixtures" / "installs" / "0.16-docsite-pre-live-meta"
+    project = tmp_path / "proj"
+    shutil.copytree(fixture, project, symlinks=True)
+    script = """
+const path = require('path');
+const fs = require('fs');
+const mod = require(path.join(%r, 'gw-live-first-bets-meta.js'));
+const target = %r, pkg = %r;
+const metaPath = path.join(target, 'docs', 'bets', 'meta.json');
+const ctx = { targetDir: target, packageRoot: pkg };
+
+// pending → run inserts _live FIRST, keeps the rest of the ordering
+if (mod.detect(ctx) !== 'pending') throw new Error('expected pending on the fixture shape');
+mod.run(ctx);
+const pages = JSON.parse(fs.readFileSync(metaPath, 'utf8')).pages;
+if (JSON.stringify(pages) !== JSON.stringify(['_live', '...', '_archive'])) {
+  throw new Error('expected _live inserted first, got ' + JSON.stringify(pages));
+}
+if (mod.detect(ctx) !== 'done') throw new Error('expected done after run');
+
+// second run is byte-idempotent
+const before = fs.readFileSync(metaPath, 'utf8');
+mod.run(ctx);
+if (fs.readFileSync(metaPath, 'utf8') !== before) throw new Error('second run rewrote meta.json');
+
+// hand-tuned meta already naming _live (even not first) is done — never reordered
+const handTuned = JSON.stringify({ pages: ['intro', '_live', '...', '_archive'] }, null, 2) + '\\n';
+fs.writeFileSync(metaPath, handTuned);
+if (mod.detect(ctx) !== 'done') throw new Error('hand-tuned meta naming _live must be done');
+mod.run(ctx);
+if (fs.readFileSync(metaPath, 'utf8') !== handTuned) throw new Error('hand-tuned meta was rewritten');
+
+// absent meta is n/a — creation belongs to the sync script, never this migration
+fs.rmSync(metaPath);
+if (mod.detect(ctx) !== 'n/a') throw new Error('absent meta must be n/a');
+mod.run(ctx); // must not create it
+if (fs.existsSync(metaPath)) throw new Error('run created an absent meta.json');
+
+// no docs-site service registered → n/a even with a pre-_live meta present
+fs.writeFileSync(metaPath, JSON.stringify({ pages: ['...', '_archive'] }, null, 2) + '\\n');
+fs.rmSync(path.join(target, '.dev'), { recursive: true, force: true });
+if (mod.detect(ctx) !== 'n/a') throw new Error('no docs-site service must be n/a');
+console.log('ok');
+""" % (str(MIGRATIONS), str(project), str(REPO_ROOT))
+    proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.strip() == "ok"

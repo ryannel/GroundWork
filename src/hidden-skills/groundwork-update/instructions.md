@@ -5,9 +5,10 @@ description: >
   structure, and docs site. Works the residual upgrade-brief items `npx groundwork-method
   update` compiles (merging framework improvements into edited docs, reconciling
   regenerated scaffold output), then reconciles every artifact family against the live
-  current canonical shape, advancing legacy structure forward. One unit, one explained
-  proposal, one commit. Route here for "upgrade groundwork", "bring this project up to
-  date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Distinct from
+  current canonical shape, advancing legacy structure forward. One scope-preview plan, one
+  go/veto pass, then one unit, one commit. Route here for "upgrade groundwork", "bring this
+  project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. Distinct
+  from
   groundwork-doc-sync, which syncs project docs to the project's own code.
 ---
 
@@ -66,21 +67,34 @@ capabilities and calls a dispatch tool that does not exist breaks the run.
 
 The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1)
 governs this skill in **Maintenance** mode: Protocols 1 (Discovery Notes), 2 (Living
-Documents), and 4 (Pacing) apply, and Protocols 8 and 9 (Review Gate, Review Invocation)
-apply whenever a brief item or a reconcile advance mutates a canonical doc — the driver runs
-that gate, never the worker that authored the change. There is no phase cache beyond the
-brief itself.
+Documents), 4 (Pacing), and 13 (Structured Rulings) apply, and Protocols 8 and 9 (Review Gate,
+Review Invocation) apply whenever a brief item or a reconcile advance mutates a canonical doc
+— the driver runs that gate, never the worker that authored the change. There is no phase
+cache beyond the brief itself.
 
 ---
 
 ## The driver loop
 
-Run **Phase A first** — it clears the brief the CLI staged — then **Phase B**, which
-reconciles what no brief can see. A run that finds no brief skips straight to Phase B. Every
-unit of work in either phase — one brief item, one family — runs the same loop:
+A per-unit proposal charges the user a fresh parse cost for every chore-level item and never
+shows the size of the whole ride until it ends. This driver plans once instead: before
+touching anything, read `.groundwork/cache/upgrade-brief.json` for Phase A's items — its
+absence means no brief-lane work, only Phase B — and run Phase B's cheap per-family detection
+(Family Index below) against every family. Neither read dispatches a worker or writes
+anything; they only populate one scope-preview table covering every unit in the run — id,
+family or brief-item id, a one-line action, and whether a user decision is likely (a
+COLLISIONS/AMBIGUITY-prone item, a family whose Advance recipe pauses on a product judgment).
+Take one go/veto pass over the whole table, structured per Protocol 13 where the host offers
+it, chat table otherwise — a veto drops that row, everything else proceeds.
 
-1. **Propose.** One unit, one explained proposal in two or three sentences — never batch
-   approvals across units.
+Then run **Phase A** — it clears the brief the CLI staged — followed by **Phase B**, which
+reconciles what no brief can see. A run whose brief was empty skips straight to Phase B, and
+its scope-preview table carries only Phase B rows. Every unit of work in either phase — one
+brief item, one family — runs the same loop, referencing its table row instead of
+re-explaining the unit:
+
+1. **Reference the row.** Name the unit from its scope-preview table row — no fresh proposal;
+   the go/veto pass already cleared it.
 2. **Dispatch or inline.** Under `parallel`, hand a `reconcile-worker` subagent the unit's
    capsule (`unit_kind`, the canonical + instance pointers, the advance approach) at the
    `execution` tier, model set explicitly (the host's Sonnet-class model), never left to
@@ -106,24 +120,24 @@ unit of work in either phase — one brief item, one family — runs the same lo
 
 Units run **serially, in the order they appear** — families overlap on files and carry
 ordering dependencies (graduate ADRs before nesting the architecture docs), so they are
-advanced one at a time, not concurrently.
+advanced one at a time, not concurrently. The go/veto pass ruled on scope, not on what a unit
+turns up once it runs — Resolve (step 3) and Gate (step 4) above are still what pause the run
+mid-flight, on a `COLLISIONS/AMBIGUITY`, a `BLOCKING CONCERN`, or a REVISE-cap hit.
 
 ---
 
 ## Phase A — Work the brief (framework files)
 
-Read `.groundwork/cache/upgrade-brief.json`. If it does not exist, there is no brief-lane
-work; go to Phase B.
+The brief (read at Plan time, above) carries `from` (the version this install was stamped
+at), `to` (the version it is being raised to), and `items[]`, each with a stable `id`, a
+`type` (`tier2-merge`, `tier1-custom`, or `regenerate`), a `status`, and pointers to payloads
+the CLI staged under `.groundwork/cache/upgrade/` — the worker never needs the npm package
+itself. Its items are what seed the scope-preview table's brief rows.
 
-The brief carries `from` (the version this install was stamped at), `to` (the version it is
-being raised to), and `items[]`, each with a stable `id`, a `type` (`tier2-merge`,
-`tier1-custom`, or `regenerate`), a `status`, and pointers to payloads the CLI staged under
-`.groundwork/cache/upgrade/` — the worker never needs the npm package itself.
-
-Open the session with the shape of the work: the version jump and a one-line list of pending
-items. Then walk the items **top to bottom** — the CLI ordered them — running the driver
-loop above for each. The capsule is the item verbatim: `unit_kind: brief-item:<type>`, the
-staged `incoming`/`options`/`base_hash` pointers, and the project path it touches.
+Once the go/veto pass has run, walk the items **top to bottom** — the CLI ordered them —
+running the driver loop above for each, referencing its table row. The capsule is the item
+verbatim: `unit_kind: brief-item:<type>`, the staged `incoming`/`options`/`base_hash`
+pointers, and the project path it touches.
 
 Stop at any point the user asks; the brief survives across sessions and `update` re-runs
 merge into it without duplicating items.
@@ -139,20 +153,22 @@ log to replay and none is needed: the framework now sitting in `.groundwork/skil
 the definition of the current shape, and it cannot drift, because it is the source. So you
 reconcile the project to it.
 
-**Detect in the driver; advance in a worker.** For each family in the **Family Index** below:
+**Detect in the driver at Plan time; advance in a worker during execution.** Each family in
+the **Family Index** below was checked once, before the scope-preview table was built:
 
 1. **Detect cheaply, yourself.** The legacy signal is a structural check — `ls`/`grep`-level
    (is there a flat `docs/architecture.md`? a `## Summary for Downstream` section? a
    `pitch.md` without `status`? no `app/brand.css`?). This is cheap; keep it in the driver so
    you only spin a worker for a family that has actually drifted. A family already matching
    canonical is checked off untouched — and leaves no ledger entry, because the next run
-   re-derives the same answer from the artifacts. Detect-first *is* the bookkeeping.
-2. **Pause, then run the driver loop above.** Pause where an advance would imply a product
-   decision the code does not prove — a removal that might be temporary, a capability that
-   might be an experiment — and surface it rather than assume it. Otherwise run the loop for
-   the family: the capsule is `unit_kind: family:<slug>`, the **Owner** column path(s) as
-   the canonical to read, the project instance paths you found, and the row's **Advance**
-   column as the approach.
+   re-derives the same answer from the artifacts. Detect-first *is* the bookkeeping, and its
+   result is what seeds the scope-preview table's family rows.
+2. **After the go/veto pass, run the driver loop above** for every family the table scoped
+   in. Pause where an advance would imply a product decision the code does not prove — a
+   removal that might be temporary, a capability that might be an experiment — and surface it
+   rather than assume it. Otherwise run the loop for the family: the capsule is
+   `unit_kind: family:<slug>`, the **Owner** column path(s) as the canonical to read, the
+   project instance paths you found, and the row's **Advance** column as the approach.
 
 ### Family Index
 

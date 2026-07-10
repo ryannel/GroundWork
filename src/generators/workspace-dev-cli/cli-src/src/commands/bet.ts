@@ -6,6 +6,7 @@ import { ROOT, TESTS_DIR, DOCS_DIR } from '../util/paths';
 import { getAppServices } from '../util/services';
 import { isInteractive, selectPrompt, textPrompt } from '../util/prompt';
 import { Painter } from '../theme/color';
+import * as suiteCache from '../util/suite-cache';
 
 const SLUG_RE = /^([a-z][a-z0-9-]*[a-z0-9]|[a-z0-9])$/;
 const SLUG_HINT = 'Use lowercase kebab-case: letters, digits, and single hyphens, no leading/trailing hyphen.';
@@ -238,6 +239,18 @@ export async function archive(ctx: Ctx): Promise<number> {
   r.logo('Archive Bet');
   const inGit = capture('git', ['-C', ROOT, 'rev-parse', '--is-inside-work-tree']).status === 0;
 
+  // C6 — derive the final board BEFORE anything moves: both the suite
+  // (tests/bets/<slug>/) and the C5 cache it may read from are about to be
+  // relocated or removed, and the delivery record below composes from this
+  // one snapshot. A derivation failure never blocks the archive — it just
+  // leaves the record's board section unrecorded.
+  let finalBoardRows: BoardRow[] = [];
+  try {
+    finalBoardRows = deriveBoard(slug).rows;
+  } catch {
+    finalBoardRows = [];
+  }
+
   if (fs.existsSync(testsSrc)) {
     r.step(`Archiving tests/bets/${slug} → tests/bets/_archive/${slug}`);
     archiveMove(`tests/bets/${slug}`, testsSrc, testsDest, inGit);
@@ -253,6 +266,16 @@ export async function archive(ctx: Ctx): Promise<number> {
     // never carries a stale, un-regenerable snapshot.
     const statusMdPath = path.join(docsSrc, 'status.md');
     if (fs.existsSync(statusMdPath)) fs.rmSync(statusMdPath);
+    // B5 — the proofs board (`groundwork proofs --write`) is superseded the
+    // same way: the retrospective and the delivery record below replace it.
+    const proofsMdPath = path.join(docsSrc, 'proofs.md');
+    if (fs.existsSync(proofsMdPath)) fs.rmSync(proofsMdPath);
+
+    // C6 — the delivery record: written whole, right here (after the
+    // status/proofs deletions, before the move), so git mv carries it into
+    // _archive/<slug>/ along with everything else.
+    writeDeliveryRecord(docsSrc, slug, finalBoardRows);
+
     r.step(`Archiving docs/bets/${slug} → docs/bets/_archive/${slug}`);
     archiveMove(`docs/bets/${slug}`, docsSrc, docsDest, inGit);
     ensureArchiveMeta(path.join(DOCS_DIR, 'bets', '_archive'));
@@ -271,6 +294,195 @@ export async function archive(ctx: Ctx): Promise<number> {
 
   r.info('Permanent best-practice tests remain in place and cover the feature going forward.');
   return 0;
+}
+
+// ---------------------------------------------------------------------------
+// C6 — the delivery record (`docs/bets/<slug>/delivery-record.md`)
+//
+// The bet's trail, written once at archive: the final board, the owner's
+// rulings (the decisions ledger, verbatim ratification responses), findings
+// counts, and the memlog appendix. Composed straight from committed/cache
+// state the archive step is about to relocate or remove — never a second
+// source of truth, never regenerated after this. Every section is fail-soft:
+// a missing or malformed source renders "(not recorded)" and never blocks
+// the archive (the try/catch in `writeDeliveryRecord` is the last line of
+// defense on top of each reader already degrading to `[]`/`null`).
+// ---------------------------------------------------------------------------
+
+interface DecisionRecord {
+  id: string;
+  question: string;
+  default: string;
+  status: 'pending' | 'ratified' | 'vetoed' | string;
+  ratification: { response: string } | null;
+}
+
+interface FindingRecord {
+  bucket: string;
+  disposition: string | null;
+}
+
+/** The durable, COMMITTED bet-state ledgers `lib/bet-state` maintains at
+ *  `.groundwork/bets/<slug>/{decisions,findings}.json` (schema `{ ..., <key>:
+ *  [...] }`). Read-only here — the scaffolded dev-CLI does not depend on the
+ *  groundwork-method engine's `lib/`, so this duplicates just enough of the
+ *  shape to render the record. Missing, unreadable, or malformed is `[]`,
+ *  never a throw. */
+function readLedger<T>(slug: string, file: string, key: string): T[] {
+  try {
+    const raw = fs.readFileSync(path.join(ROOT, '.groundwork', 'bets', slug, file), 'utf8');
+    const doc = JSON.parse(raw) as Record<string, unknown>;
+    const items = doc[key];
+    return Array.isArray(items) ? (items as T[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function readDecisions(slug: string): DecisionRecord[] {
+  return readLedger<DecisionRecord>(slug, 'decisions.json', 'decisions');
+}
+
+function readFindings(slug: string): FindingRecord[] {
+  return readLedger<FindingRecord>(slug, 'findings.json', 'findings');
+}
+
+/** The memlog (`.groundwork/cache/bets/<slug>/memlog.md`) copied whole as the
+ *  record's delivery-log appendix — read here, before the archive step
+ *  removes the cache dir it lives in. */
+function readMemlogWhole(slug: string): string | null {
+  try {
+    const text = fs.readFileSync(path.join(betCacheDir(slug), 'memlog.md'), 'utf8').trim();
+    return text || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Owner-language translation of the findings taxonomy — the same vocabulary
+ *  the status page's "Waiting on you" section speaks (lib/bet-status/index.js
+ *  FINDING_BUCKET_PLAIN), so the record never surfaces the raw engine bucket
+ *  token. */
+const FINDING_BUCKET_PLAIN: Record<string, string> = {
+  'decision-needed': 'needed a ruling',
+  patch: 'was fixed inline',
+  defer: 'was parked with an owner',
+  dismiss: 'was flagged to drop',
+};
+
+const FINDING_DISPOSITION_PLAIN: Record<string, string> = {
+  fixed: 'fixed',
+  'deferred-with-owner': 'deferred, owner named',
+  'dismissed-with-reason': 'dismissed, reason recorded',
+};
+
+/** "How it proved out" — the final board as a markdown checklist, reusing the
+ *  same passing/failing/not-run vocabulary the terminal board renders
+ *  (`stateLabel`) rather than any internal token. */
+function renderBoardChecklist(rows: BoardRow[]): string[] {
+  if (rows.length === 0) return ['(not recorded)'];
+  return rows.map((row) => {
+    const checked = row.state === 'green' ? 'x' : ' ';
+    const label =
+      row.kind === 'milestone' ? `M${row.n} ${row.slug}` : `S${row.n} ${row.slug}${row.service ? ` (${row.service})` : ''}`;
+    return `- [${checked}] ${label} — ${stateLabel(row.state)}`;
+  });
+}
+
+/** "Your rulings" — every decisions.json entry: the question, the default,
+ *  status, and the owner's verbatim ratification response (or a plain note
+ *  when a decision never got ratified before the bet archived). */
+function renderDecisionsSection(decisions: DecisionRecord[]): string[] {
+  if (decisions.length === 0) return ['(not recorded)'];
+  const lines: string[] = [];
+  for (const d of decisions) {
+    lines.push(`- **${d.question}**`);
+    lines.push(`  - Default: ${d.default}`);
+    lines.push(`  - Status: ${d.status}`);
+    lines.push(`  - Owner's response: ${d.ratification?.response || '(not yet ratified)'}`);
+    lines.push('');
+  }
+  if (lines[lines.length - 1] === '') lines.pop();
+  return lines;
+}
+
+/** "Findings" — counts by bucket and by disposition, owner-language. */
+function renderFindingsSection(findings: FindingRecord[]): string[] {
+  if (findings.length === 0) return ['(not recorded)'];
+
+  const bucketOrder = ['decision-needed', 'patch', 'defer', 'dismiss'];
+  const byBucket = new Map<string, number>();
+  for (const f of findings) byBucket.set(f.bucket, (byBucket.get(f.bucket) ?? 0) + 1);
+  const bucketParts = bucketOrder.filter((b) => byBucket.has(b)).map((b) => `${byBucket.get(b)} ${FINDING_BUCKET_PLAIN[b] ?? b}`);
+
+  const dispositionOrder = ['fixed', 'deferred-with-owner', 'dismissed-with-reason'];
+  const byDisposition = new Map<string, number>();
+  let stillOpen = 0;
+  for (const f of findings) {
+    if (f.disposition) byDisposition.set(f.disposition, (byDisposition.get(f.disposition) ?? 0) + 1);
+    else stillOpen += 1;
+  }
+  const dispositionParts = dispositionOrder
+    .filter((d) => byDisposition.has(d))
+    .map((d) => `${byDisposition.get(d)} ${FINDING_DISPOSITION_PLAIN[d] ?? d}`);
+  if (stillOpen > 0) dispositionParts.push(`${stillOpen} still open`);
+
+  return [
+    `- ${findings.length} finding${findings.length === 1 ? '' : 's'} raised — ${bucketParts.join(' · ') || 'none bucketed'}.`,
+    `- Disposition: ${dispositionParts.join(' · ') || 'none recorded'}.`,
+  ];
+}
+
+/** Compose the whole record: GENERATED-marker header, H1, generated-at line,
+ *  then the four sections in order. Owner language throughout — no wire
+ *  tokens or tier names reach this page, mirroring the denylist discipline
+ *  the other generated bet pages (status.md, proofs.md) already hold to. */
+function composeDeliveryRecord(slug: string, boardRows: BoardRow[]): string {
+  const generatedAt = new Date().toISOString();
+  const decisions = readDecisions(slug);
+  const findings = readFindings(slug);
+  const memlog = readMemlogWhole(slug);
+
+  const lines: string[] = [
+    '<!-- GENERATED by `./dev archive bet` at delivery close — a point-in-time record,',
+    '     never regenerated after this. -->',
+    '',
+    `# Delivery record: ${slug}`,
+    '',
+    `_Generated at ${generatedAt}._`,
+    '',
+    '## How it proved out',
+    '',
+    ...renderBoardChecklist(boardRows),
+    '',
+    '## Your rulings',
+    '',
+    ...renderDecisionsSection(decisions),
+    '',
+    '## Findings',
+    '',
+    ...renderFindingsSection(findings),
+    '',
+    '## Delivery log',
+    '',
+    memlog ?? '(not recorded)',
+    '',
+  ];
+  return lines.join('\n') + '\n';
+}
+
+/** Write the delivery record beside the bet's other docs, before the docs
+ *  tree moves, so `git mv` carries it into `_archive/<slug>/` with everything
+ *  else. Never throws — a composition failure degrades to a minimal stub
+ *  page rather than blocking the archive. */
+function writeDeliveryRecord(docsSrc: string, slug: string, boardRows: BoardRow[]): void {
+  let content: string;
+  try {
+    content = composeDeliveryRecord(slug, boardRows);
+  } catch {
+    content = `# Delivery record: ${slug}\n\n(not recorded)\n`;
+  }
+  fs.writeFileSync(path.join(docsSrc, 'delivery-record.md'), content);
 }
 
 // ---------------------------------------------------------------------------
@@ -310,43 +522,59 @@ function suiteTestFiles(betDir: string): string[] {
     .sort();
 }
 
-/** Run the bet suite and map each test file to a green/red verdict. When the
- *  suite cannot be run (no `uv`), every file reports `unknown`. A file that the
- *  suite never produced a passing result for (collection error, unimplemented
- *  stub, outright failure) is `red` — exactly the materialized-RED starting state. */
-function runSuiteVerdicts(slug: string): { ran: boolean; byFile: Map<string, BoardState> } {
-  const byFile = new Map<string, BoardState>();
-  if (!commandExists('uv')) return { ran: false, byFile };
+/** A verdict came from the C5 last-run cache rather than a fresh suite spawn —
+ *  carries the cached run's timestamp so the caller can render the honesty
+ *  ("test states from the last run, <age> ago") line. `null` means this
+ *  derivation actually ran the suite (or could not run it at all). */
+interface VerdictSource {
+  cached: true;
+  ranAt: string;
+}
+
+/** Run the bet suite (or reuse the C5 last-run cache) and map each test file
+ *  to a green/red verdict. `opts.run` (the `--run` escape hatch) bypasses the
+ *  cache unconditionally. When neither the cache nor `uv` is available, every
+ *  file reports `unknown`. A file the suite never produced a passing result
+ *  for (collection error, unimplemented stub, outright failure) is `red` —
+ *  exactly the materialized-RED starting state. A fresh real run persists what
+ *  it just paid for, so the next call (from this command or `./dev test bet`)
+ *  can render instantly instead of re-spawning pytest. */
+function computeSuiteVerdicts(
+  slug: string,
+  opts: { run?: boolean } = {},
+): { ran: boolean; byFile: Map<string, BoardState>; verdictSource: VerdictSource | null } {
+  if (!opts.run) {
+    const head = suiteCache.gitHead();
+    const cache = suiteCache.readCache(slug);
+    if (suiteCache.isCacheValid(slug, cache, head)) {
+      const byFile = new Map<string, BoardState>();
+      for (const [file, v] of Object.entries(cache!.byFile)) byFile.set(file, v);
+      return { ran: true, byFile, verdictSource: { cached: true, ranAt: cache!.ranAt } };
+    }
+  }
+
+  if (!commandExists('uv')) return { ran: false, byFile: new Map(), verdictSource: null };
 
   const res = capture('uv', ['run', 'pytest', `bets/${slug}/`, '-v', '--tb=no', '--color=no', '-p', 'no:cacheprovider'], {
     cwd: TESTS_DIR,
   });
-
-  // pytest -v emits one line per test: `bets/<slug>/<file>::<test> PASSED [ 12%]`.
-  const tally = new Map<string, { passed: number; failed: number }>();
-  const line = /(?:^|\/)(test_(?:milestone|slice)_\d+_[^/:]+\.[A-Za-z0-9]+)::\S+\s+(PASSED|FAILED|ERROR|XFAIL|XPASS|SKIPPED)/g;
-  for (const m of res.stdout.matchAll(line)) {
-    const file = m[1];
-    const outcome = m[2];
-    const t = tally.get(file) ?? { passed: 0, failed: 0 };
-    if (outcome === 'PASSED' || outcome === 'XFAIL') t.passed += 1;
-    else if (outcome === 'FAILED' || outcome === 'ERROR' || outcome === 'XPASS') t.failed += 1;
-    // SKIPPED contributes to neither — a skipped test proves nothing.
-    tally.set(file, t);
-  }
-  for (const [file, t] of tally) {
-    byFile.set(file, t.failed > 0 ? 'red' : t.passed > 0 ? 'green' : 'red');
-  }
-  return { ran: true, byFile };
+  const parsed = suiteCache.recordRun(slug, res.stdout);
+  const byFile = new Map<string, BoardState>();
+  for (const [file, v] of parsed) byFile.set(file, v);
+  return { ran: true, byFile, verdictSource: null };
 }
 
 /** Build the full board: every materialized milestone/slice file, with its
  *  derived verdict. Files with no recorded result default to red when the suite
  *  ran, unknown when it could not. */
-function deriveBoard(slug: string): { ran: boolean; rows: BoardRow[] } {
+function deriveBoard(
+  slug: string,
+  opts: { run?: boolean } = {},
+): { ran: boolean; rows: BoardRow[]; verdictSource: VerdictSource | null } {
   const betDir = path.join(TESTS_DIR, 'bets', slug);
   const files = suiteTestFiles(betDir);
-  const { ran, byFile } = files.length > 0 ? runSuiteVerdicts(slug) : { ran: false, byFile: new Map() };
+  const { ran, byFile, verdictSource } =
+    files.length > 0 ? computeSuiteVerdicts(slug, opts) : { ran: false, byFile: new Map<string, BoardState>(), verdictSource: null };
 
   const rows: BoardRow[] = files.map((file) => {
     const verdict = byFile.get(file) ?? (ran ? 'red' : 'unknown');
@@ -360,7 +588,7 @@ function deriveBoard(slug: string): { ran: boolean; rows: BoardRow[] } {
 
   const order = { milestone: 0, slice: 1 } as const;
   rows.sort((a, b) => order[a.kind] - order[b.kind] || a.n - b.n);
-  return { ran, rows };
+  return { ran, rows, verdictSource };
 }
 
 /** The per-bet working-state cache dir (`.groundwork/cache/bets/<slug>/`): board.yaml,
@@ -399,7 +627,7 @@ export async function betCmd(ctx: Ctx): Promise<number> {
     case 'log':
       return logCmd(ctx);
     default:
-      throw new CliError('Usage: ./dev bet status [<slug>] [--json]  |  ./dev bet log <slug> -- "<line>"');
+      throw new CliError('Usage: ./dev bet status [<slug>] [--json] [--run]  |  ./dev bet log <slug> -- "<line>"');
   }
 }
 
@@ -417,10 +645,13 @@ function stateLabel(state: BoardState): string {
 async function status(ctx: Ctx): Promise<number> {
   const { r } = ctx;
   const json = ctx.json || ctx.args.includes('--json');
+  // C5 — the last-run verdict cache's escape hatch: force a real suite spawn,
+  // bypassing (and refreshing) whatever is cached.
+  const forceRun = ctx.args.includes('--run');
   const positional = ctx.args.filter((a) => !a.startsWith('-'));
   const slug = positional[1];
 
-  if (!slug) return statusAll(ctx, json);
+  if (!slug) return statusAll(ctx, json, forceRun);
 
   validateSlug(slug, 'bet slug');
   const betDir = path.join(TESTS_DIR, 'bets', slug);
@@ -439,7 +670,7 @@ async function status(ctx: Ctx): Promise<number> {
     return 0;
   }
 
-  const { ran, rows } = deriveBoard(slug);
+  const { ran, rows, verdictSource } = deriveBoard(slug, { run: forceRun });
   const milestones = rows.filter((x) => x.kind === 'milestone');
   const slices = rows.filter((x) => x.kind === 'slice');
   const green = rows.filter((x) => x.state === 'green').length;
@@ -467,6 +698,12 @@ async function status(ctx: Ctx): Promise<number> {
   if (!ran) {
     ro.warn('uv not found — cannot run the suite. Listing the materialized tests without a verdict.');
   }
+  // C5 — honesty line: when the board rendered from the cache rather than a
+  // fresh suite spawn, say so and name the escape hatch.
+  if (verdictSource) {
+    const age = suiteCache.formatAge(verdictSource.ranAt, Date.now()) ?? 'recently';
+    ro.info(`Test states from the last run, ${age} — ./dev bet status ${slug} --run re-runs the suite.`);
+  }
   // Pre-pad the visible text: the painted glyph carries ANSI escapes that would
   // defeat the table's own padEnd and misalign the columns.
   const mRows = milestones.map(
@@ -486,13 +723,13 @@ async function status(ctx: Ctx): Promise<number> {
   return 0;
 }
 
-async function statusAll(ctx: Ctx, json: boolean): Promise<number> {
+async function statusAll(ctx: Ctx, json: boolean, forceRun = false): Promise<number> {
   const { r } = ctx;
   const slugs = existingBetSlugs();
   const summaries = slugs.map((slug) => {
     const files = suiteTestFiles(path.join(TESTS_DIR, 'bets', slug));
     if (files.length === 0) return { bet: slug, materialized: false, green: 0, total: 0 };
-    const { rows } = deriveBoard(slug);
+    const { rows } = deriveBoard(slug, { run: forceRun });
     return { bet: slug, materialized: true, green: rows.filter((x) => x.state === 'green').length, total: rows.length };
   });
 

@@ -81,6 +81,8 @@ When the implementation does not exist yet, a test stub must be **explicitly red
 - Go: `t.Fatal("bet-progress test not yet implemented — <describe target state>")`
 - TypeScript: `throw new Error("bet-progress test not yet implemented — <describe target state>")`
 
+A milestone stub materializes **both proof layers active** — the interface layer (what the consumer observes at their surface) and the API layer (what the running service returns), each its own failing test. Never comment a layer back out to reach green: a green board proves only what stays live in it, and `groundwork honesty scan` flags a milestone file whose interface proof is commented out or whose test declarations are gone entirely. For `cli` and `agentic-protocol` tracks the API layer already is the front door the consumer drives, so the two layers collapse into one active front-door test — keep the API layer's shape, drop the interface layer, and record the collapse in a one-line comment; never delete it silently.
+
 Comment the stub with what it will eventually assert, so the Delivery agent knows exactly what to implement. For a milestone stub, name the consumer's front-door outcome:
 ```
 # Front door (<consumer> via <surface>): [what the consumer observes when they drive the real product — the action, what they see, on real data]

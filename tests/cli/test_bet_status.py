@@ -537,3 +537,28 @@ def test_write_json_mode_still_writes_file_and_prints_json(tmp_path):
     assert proc.returncode == 0, proc.stderr
     json.loads(proc.stdout)
     assert (tmp_path / "docs" / "bets" / "widget-import" / "status.md").exists()
+
+
+# ─── verdictSource (C5): additive, null until a cache is actually used ──────
+# Full coverage of the last-run cache lives in tests/cli/test_status_delta.py
+# — this just pins that the new JSON field exists and stays null on the very
+# first composition against a fresh tmp_path (no cache could possibly exist
+# before this one call starts, regardless of whether the environment can run
+# the suite for real or falls back to the git-history heuristic — either way
+# this specific call has nothing to have cached yet), so --json consumers
+# reading only the keys they know about see unchanged behavior. A second call
+# is deliberately NOT made here: whether it would hit a cache depends on
+# whether this environment's `python3` can actually run pytest, which
+# test_status_delta.py controls explicitly via a curated PATH.
+
+def test_verdict_source_is_null_on_the_first_ever_composition(tmp_path):
+    init_repo(tmp_path)
+    bet_dir = write_pitch(tmp_path, "widget-import", "Bring your own widgets into the library.")
+    write_milestone(bet_dir, 1, "first-image", "see one image appear", "widget-import")
+    commit_test_file(tmp_path, "widget-import", "test_milestone_1_first-image.py")
+    commit_all(tmp_path, "seed")
+
+    proc = gw(["status", "--bet", "widget-import", "--json"], tmp_path)
+    assert proc.returncode == 0, proc.stderr
+    doc = json.loads(proc.stdout)
+    assert doc["verdictSource"] is None

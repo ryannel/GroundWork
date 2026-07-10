@@ -255,6 +255,12 @@ FILES:
 NOTES: <one or two sentences for the next slice — a pattern established, a deviation
 taken and why, a struggle worth not repeating>
 
+RISKS: <residual risks and every skipped verification tier — a test kind the stack's
+  testing strategy names that this slice did not roll out, and why; a real dependency
+  the proof leaned on but could not fully exercise; anything the review should weigh
+  before closing the slice. "none" is a legal value; nothing residual lives outside
+  this field.>
+
 SELF-RECONCILE:
 - prose-integrity: clean | <what diff appeared>
 - honest-green: clean | <any hardcode / special-case / mock-of-real-work, named>

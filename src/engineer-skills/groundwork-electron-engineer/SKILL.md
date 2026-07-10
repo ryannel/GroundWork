@@ -104,11 +104,11 @@ Before presenting Electron guidance as factual:
 
 ## Output Expectations
 
-- Changes name the process each touched file runs in and why the code belongs there.
-- IPC changes show all four pieces: contract type, validated handler, bridge method, renderer consumption.
-- Shell changes state their security impact explicitly, even when it is "none".
-- Verification steps name the specific Nx targets (`typecheck`, `lint`, `test`, `smoke`) with the skipped-with-reason caveat where the binary or display is absent.
-- Recommendations distinguish project conventions from general Electron practice.
+The report is exceptions and evidence, not a retelling. Never restate the brief, the design, or narrate file by file.
+
+- `Changed:` files touched and the behavior delta, 1–3 lines.
+- `Verified:` the exact commands and verification tiers run: the specific Nx targets (`typecheck`, `lint`, `test`, `smoke`).
+- `RISKS:` mandatory; "none" is a legal value. Every residual risk and every skipped verification tier lives here, nowhere else — and a change touching the shell or an IPC boundary states its security impact here explicitly, even when it is "none".
 
 ## Antipatterns
 

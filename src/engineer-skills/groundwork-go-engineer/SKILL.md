@@ -91,7 +91,7 @@ Keep the Go engineer as lead when the work is mainly Go implementation inside a 
 3. **State important inferences** when guidance comes from general Go knowledge rather than project-specific docs or code.
 4. **Implement within existing conventions** — do not create new layer boundaries without evidence from docs or existing code.
 5. **Run targeted tests/checks** when feasible. If not feasible, explain the blocker and name the exact command to run later.
-6. **Summarize** references consulted, files changed, verification performed, and residual risks.
+6. **Report** per Output Expectations — `Changed:` / `Verified:` / `RISKS:`.
 
 ---
 
@@ -162,8 +162,8 @@ Caches responses by key + user ID. For tests, implement an in-memory repository 
 
 ## Output Expectations
 
-- Name the references or source files that informed non-obvious decisions.
-- Separate verified repository facts from recommendations based on general Go knowledge.
-- Provide concrete verification commands and results.
-- For code reviews: findings first, ordered by severity, with file references and missing-test risks.
-- For implementation work: changed files, behavior, tests, and follow-up risks.
+The report is exceptions and evidence, not a retelling. Never restate the brief, the design, or narrate file by file.
+
+- `Changed:` files touched and the behavior delta, 1–3 lines.
+- `Verified:` the exact commands and verification tiers run.
+- `RISKS:` mandatory; "none" is a legal value. Every residual risk and every skipped verification tier lives here, nowhere else.

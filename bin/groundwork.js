@@ -44,12 +44,15 @@ function printHelp() {
   \x1b[36mseal\x1b[0m      seal verify --bet <slug>: the sealed prose (decomposition + technical-design) still matches
             the bet/<slug>/approved tag. Non-zero on undeclared drift — the mechanical prose-integrity check.
   \x1b[36mfindings\x1b[0m  Per-bet findings ledger (.groundwork/bets/<slug>/findings.json): add | disposition | check | list.
-            \x1b[2mcheck exits non-zero on any open finding — the mechanical milestone-close gate.\x1b[0m
+            \x1b[2mcheck exits non-zero on any open finding — the mechanical milestone-close gate.
+            list --since <iso> scopes to items created or closed at-or-after the stamp; invalid ISO exits 2.\x1b[0m
   \x1b[36mdecisions\x1b[0m Per-bet default+veto queue (.groundwork/bets/<slug>/decisions.json): add | pending | ratify | list.
-            \x1b[2mratify records the owner's verbatim response as durable state; the approved tag moves only here.\x1b[0m
-  \x1b[36mhonesty\x1b[0m   scan --bet <slug>: the computable half of the milestone honesty audit, diffed against
-            bet/<slug>/approved — deleted/thinned test guards, hand-edits inside generated files,
-            zero-caller exports (best-effort). Findings are leads for the audit agent, not verdicts.
+            \x1b[2mratify records the owner's verbatim response as durable state; the approved tag moves only here.
+            list --since <iso> scopes to items created or ratified at-or-after the stamp; invalid ISO exits 2.\x1b[0m
+  \x1b[36mhonesty\x1b[0m   scan --bet <slug>: the computable half of the milestone honesty audit — deleted/thinned test
+            guards, hand-edits inside generated files, and zero-caller exports (best-effort), each
+            diffed against bet/<slug>/approved; plus a milestone stub at HEAD whose interface proof
+            is commented out or empty. Findings are leads for the audit agent, not verdicts.
             \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mwiring\x1b[0m    scan --bet <slug>: built-but-never-wired controls, diffed against bet/<slug>/approved —
             interactive bindings whose handler body is empty or TODO-only, plus handler-shaped
@@ -75,7 +78,17 @@ function printHelp() {
   \x1b[36mstatus\x1b[0m    [--bet <slug>]: the ready-to-paste checkpoint snapshot — program (delivered, in flight,
             queued, patches), the bet's goal and milestone ladder, and the current milestone's slices.
             \x1b[2mRenders from committed truth only (suite + git + pitch frontmatter + decomposition prose);
-            never reads board.yaml. --bet is optional when exactly one bet is in flight. --json for machines.\x1b[0m
+            never reads board.yaml. --bet is optional when exactly one bet is in flight. --json for machines.
+            --write [path] also writes docs/bets/<slug>/status.md; --with-proofs (with --bet --write) also
+            writes proofs.md from the same derivation. Test states cache per-HEAD; --run forces a fresh
+            suite spawn. An unchanged Program/ladder collapses on chat re-render; --full forces the full render.\x1b[0m
+  \x1b[36mproofs\x1b[0m    --bet <slug>: the proofs-at-a-glance board — one row per agreed front-door case from the
+            decomposition tree (milestone, consumer, the case verbatim, its test path, derived state,
+            visual evidence), plus each milestone's Proves headline and a "What keeps this honest"
+            footer (findings, honesty/wiring/tokens leads, the deletion-test record).
+            \x1b[2mDerived from milestone index.md prose + committed truth only, never a signed manifest.
+            With git unavailable, rows render "(state unknown)" rather than guess. --write renders
+            docs/bets/<slug>/proofs.md; --json for machines.\x1b[0m
   \x1b[36mhelp\x1b[0m      Show this message
 
 \x1b[1minit flags:\x1b[0m
@@ -2324,12 +2337,14 @@ function findingsCommand(argv) {
     }
     case 'list': {
       requireBet();
-      const items = bs.listFindings(p.targetDir, slug, { status: f.status, milestone: f.milestone, slice: f.slice });
-      if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
-      if (!items.length) { c.dim('(no findings)'); break; }
-      for (const it of items) {
-        console.log(`  ${it.status === 'open' ? '○' : '●'} ${it.id} [${it.bucket}] ${it.title}${it.disposition ? ` → ${it.disposition}` : ''}`);
-      }
+      try {
+        const items = bs.listFindings(p.targetDir, slug, { status: f.status, milestone: f.milestone, slice: f.slice, since: f.since });
+        if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
+        if (!items.length) { c.dim('(no findings)'); break; }
+        for (const it of items) {
+          console.log(`  ${it.status === 'open' ? '○' : '●'} ${it.id} [${it.bucket}] ${it.title}${it.disposition ? ` → ${it.disposition}` : ''}`);
+        }
+      } catch (err) { c.err(`findings list: ${err.message}`); process.exit(2); }
       break;
     }
     default:
@@ -2380,10 +2395,12 @@ function decisionsCommand(argv) {
     }
     case 'list': {
       requireBet();
-      const items = bs.listDecisions(p.targetDir, slug, { status: f.status });
-      if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
-      if (!items.length) { c.dim('(no decisions)'); break; }
-      for (const d of items) console.log(`  ${d.status === 'pending' ? '▸' : '✓'} ${d.id} [${d.status}] ${d.question}`);
+      try {
+        const items = bs.listDecisions(p.targetDir, slug, { status: f.status, since: f.since });
+        if (asJson) { process.stdout.write(JSON.stringify(items, null, 2) + '\n'); break; }
+        if (!items.length) { c.dim('(no decisions)'); break; }
+        for (const d of items) console.log(`  ${d.status === 'pending' ? '▸' : '✓'} ${d.id} [${d.status}] ${d.question}`);
+      } catch (err) { c.err(`decisions list: ${err.message}`); process.exit(2); }
       break;
     }
     default:
@@ -2463,13 +2480,15 @@ function sealCommand(argv) {
 }
 
 // ─── Honesty scan: the computable half of the milestone honesty audit ───────
-// Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for what git +
-// grep can establish without judgment: deleted/thinned guards, hand-edits inside
-// generated files, best-effort zero-caller exports. Logic lives in
-// lib/bet-honesty; findings are LEADS for the audit agent, never verdicts.
-// Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag / not a git repo).
+// What git + grep can establish without judgment: deleted/thinned guards,
+// hand-edits inside generated files, and best-effort zero-caller exports —
+// each diffed against the sealed baseline (`bet/<slug>/approved`) — plus a
+// milestone stub at HEAD whose interface proof is commented out or empty.
+// Logic lives in lib/bet-honesty; findings are LEADS for the audit agent,
+// never verdicts. Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag /
+// not a git repo).
 
-const HONESTY_CHECK_ORDER = ['deleted-guard', 'generated-edit', 'zero-caller'];
+const HONESTY_CHECK_ORDER = ['deleted-guard', 'generated-edit', 'zero-caller', 'commented-proof'];
 
 function honestyCommand(argv) {
   const f = parseFlags(argv);
@@ -2756,13 +2775,24 @@ function stateCommand(argv) {
 // path override — regenerated WHOLE on every call (never appended/patched), so
 // the docsite always shows a page as fresh as the last checkpoint. `--write`
 // with no value and no resolvable bet has no sensible default and errors.
+//
+// `--run` (C5) bypasses the last-run verdict cache and forces a real suite
+// spawn, refreshing the cache. `--with-proofs` (C5, valid only alongside
+// --bet and --write) additionally writes proofs.md from the SAME derivation
+// this composition already paid for — the pair spawns the suite at most once.
+// `--full` (E2) forces the uncompressed chat render; without it, an unchanged
+// Program section (or Bet ladder) collapses against the last chat render.
 
 function statusCommand(argv) {
   const bs = require(path.join(__dirname, '..', 'lib', 'bet-status'));
-  const { composeStatus, renderMarkdown } = bs;
+  const derive = require(path.join(__dirname, '..', 'lib', 'bet-status', 'derive'));
+  const { composeStatus } = bs;
   const f = parseFlags(argv);
   const p = getPaths();
   const asJson = !!f.json;
+  const forceRun = !!f.run;
+  const forceFull = !!f.full;
+  const withProofs = !!f['with-proofs'];
 
   // A slug is a path segment under docs/bets/ — reject anything that could
   // traverse out of it (same guard the ./dev bundle's archive applies).
@@ -2771,9 +2801,22 @@ function statusCommand(argv) {
     process.exit(2);
   }
 
+  if (withProofs && (!f.bet || f.write === undefined)) {
+    c.err('status --with-proofs: requires both --bet <slug> and --write');
+    process.exit(1);
+  }
+
+  // --with-proofs: derive the board ONCE here, ahead of composeStatus, and
+  // hand the same rows to composeProofs below — this is what keeps the pair
+  // to a single suite spawn instead of one per page.
+  let precomputedBoard = null;
+  if (withProofs) {
+    precomputedBoard = derive.deriveBoardWithMeta(p.targetDir, f.bet, { run: forceRun });
+  }
+
   let doc;
   try {
-    doc = composeStatus(p.targetDir, f.bet || null);
+    doc = composeStatus(p.targetDir, f.bet || null, { run: forceRun, precomputedBoard: precomputedBoard || undefined });
   } catch (err) {
     c.err(`status: ${err.message}`);
     process.exit(2);
@@ -2785,6 +2828,11 @@ function statusCommand(argv) {
     process.exit(2);
   }
 
+  // E2 — read the previous chat-render snapshot before it is overwritten,
+  // then persist the one just composed. Unconditional (every output mode),
+  // per "after composeStatus(), persist".
+  const prevSnapshot = bs.updateSnapshotCache(doc, p.targetDir);
+
   if (f.write !== undefined) {
     let writePath;
     if (typeof f.write === 'string') {
@@ -2795,16 +2843,85 @@ function statusCommand(argv) {
       c.err('status --write: no path given and no bet resolved to default to — pass --write <path> or --bet <slug>');
       process.exit(1);
     }
-    bs.writeStatusPage(writePath, doc);
+    bs.writeStatusPage(writePath, doc, p.targetDir);
     if (!asJson) c.ok(`status: wrote ${path.relative(p.targetDir, writePath) || writePath}`);
+
+    if (withProofs) {
+      const bp = require(path.join(__dirname, '..', 'lib', 'bet-proofs'));
+      const proofsDoc = bp.composeProofs(p.targetDir, doc.resolvedSlug, {
+        board: precomputedBoard ? precomputedBoard.rows : undefined,
+      });
+      const proofsPath = bp.defaultWritePath(p.targetDir, doc.resolvedSlug);
+      bp.writeProofsPage(proofsPath, proofsDoc);
+      if (!asJson) c.ok(`status: wrote ${path.relative(p.targetDir, proofsPath) || proofsPath}`);
+    }
   }
 
   if (asJson) {
     process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
     return;
   }
-  // The same invocation both refreshes the written page and hands back the
-  // paste-ready snapshot — one command serves both the file and the chat.
+  // The same invocation both refreshes the written page(s) and hands back the
+  // paste-ready snapshot — one command serves both the file(s) and the chat.
+  // Compressed by default (E2); --full forces the uncompressed render this
+  // always produced before E2 existed.
+  process.stdout.write(bs.renderChatMarkdownFromPrev(doc, prevSnapshot, null, forceFull));
+}
+
+// ─── Proofs board: one row per agreed front-door case ───────────────────────
+// `groundwork proofs --bet <slug> [--json] [--write]` — Wave 2 WS-B slice B1.
+// Mirrors statusCommand's shape: same slug guard, same --write default-path/
+// explicit-path split, same "print JSON or the paste-ready markdown" split.
+
+function proofsCommand(argv) {
+  const bp = require(path.join(__dirname, '..', 'lib', 'bet-proofs'));
+  const { composeProofs, renderMarkdown } = bp;
+  const f = parseFlags(argv);
+  const p = getPaths();
+  const asJson = !!f.json;
+
+  if (!f.bet) {
+    c.err('proofs: --bet <slug> is required');
+    process.exit(1);
+  }
+  // Same traversal guard status applies: a slug is a path segment under
+  // docs/bets/, never anything that could escape it.
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(String(f.bet))) {
+    c.err(`proofs: invalid bet slug "${f.bet}" — lowercase letters, digits, and hyphens only`);
+    process.exit(2);
+  }
+
+  let doc;
+  try {
+    doc = composeProofs(p.targetDir, f.bet);
+  } catch (err) {
+    c.err(`proofs: ${err.message}`);
+    process.exit(2);
+  }
+
+  if (!doc.found) {
+    if (asJson) process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
+    else c.err(`proofs: no pitch found at docs/bets/${f.bet}/pitch.md`);
+    process.exit(2);
+  }
+
+  if (f.write !== undefined) {
+    let writePath;
+    if (typeof f.write === 'string') {
+      writePath = path.isAbsolute(f.write) ? f.write : path.join(p.targetDir, f.write);
+    } else {
+      writePath = bp.defaultWritePath(p.targetDir, doc.slug);
+    }
+    bp.writeProofsPage(writePath, doc);
+    if (!asJson) c.ok(`proofs: wrote ${path.relative(p.targetDir, writePath) || writePath}`);
+  }
+
+  if (asJson) {
+    process.stdout.write(JSON.stringify(doc, null, 2) + '\n');
+    return;
+  }
+  // Same dual-purpose invocation as `status`: refreshes the written page (if
+  // --write was passed) and hands back the paste-ready board either way.
   process.stdout.write(renderMarkdown(doc));
 }
 
@@ -2971,6 +3088,10 @@ switch (command) {
   case 'status':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     statusCommand(process.argv.slice(3));
+    break;
+  case 'proofs':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    proofsCommand(process.argv.slice(3));
     break;
   case 'policy': {
     // Print the resolved team+user policy merge as JSON.
