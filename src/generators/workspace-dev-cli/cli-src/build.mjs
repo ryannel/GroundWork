@@ -15,16 +15,17 @@ import * as fs from 'fs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 // Embed the package version so the deployed bundle knows its vintage (./dev --version,
-// doctor's framework-alignment check). NOTE: this makes the committed bundle
+// doctor's framework-alignment check). NOTE: this makes the built bundle
 // version-dependent — rebuild it after every `npm version` bump (the bundle-freshness
 // contract test fails the release gates if you forget).
 const PKG_VERSION = JSON.parse(
   fs.readFileSync(path.join(here, '..', '..', '..', '..', 'package.json'), 'utf8'),
 ).version;
 
-// Default writes the committed bundle. Tests set DEV_CLI_OUTFILE to a temp path to
-// build a fresh bundle without mutating the working tree, then diff it against the
-// committed one (the freshness contract) — sharing this one esbuild config.
+// Default writes the shipped bundle (gitignored; published via the package `files`
+// allowlist). Tests set DEV_CLI_OUTFILE to a temp path to build a fresh bundle without
+// touching dist/, then diff it against the shipped one (the freshness contract) —
+// sharing this one esbuild config.
 const outfile = process.env.DEV_CLI_OUTFILE || path.join(here, 'dist', 'dev-bundle.js');
 
 await build({

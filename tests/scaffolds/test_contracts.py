@@ -3,9 +3,10 @@
 Deterministic checks (no LLM) for generator contracts that the existing layers
 do not cover:
 
-  1. **Bundle freshness** — the committed `./dev` bundle that ships into generated
-     projects must equal a fresh build of its source. A stale bundle silently ships
-     stale behavior, because the generator copies the committed file verbatim.
+  1. **Bundle freshness** — the locally built `./dev` bundle (gitignored; shipped
+     to npm via the `files` allowlist, rebuilt by `prepublishOnly`) must equal a
+     fresh build of its source. A stale local build silently ships stale behavior,
+     because the generator copies the built file verbatim.
 
   2. **Adopt-merge idempotency** — running the brownfield docker-compose adopt/merge
      a second time on an already-adopted compose must be a no-op. Re-running the
@@ -25,19 +26,19 @@ import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
 CLI_SRC = REPO_ROOT / "src" / "generators" / "workspace-dev-cli" / "cli-src"
-COMMITTED_BUNDLE = CLI_SRC / "dist" / "dev-bundle.js"
+SHIPPED_BUNDLE = CLI_SRC / "dist" / "dev-bundle.js"
 
 
 def test_dev_bundle_is_fresh(tmp_path):
-    """The committed dev-bundle.js equals a fresh esbuild of cli-src/src.
+    """The built dev-bundle.js equals a fresh esbuild of cli-src/src.
 
     Catches the 'edited cli-src but forgot to rebuild' regression the contributor
-    guide warns about — the committed bundle is what ships.
+    guide warns about — the built bundle is what ships to npm.
     """
     if not (REPO_ROOT / "node_modules" / "esbuild").exists():
         pytest.skip("esbuild not installed; run npm install")
-    if not COMMITTED_BUNDLE.exists():
-        pytest.fail(f"committed bundle missing: {COMMITTED_BUNDLE} — run npm run build:dev-cli")
+    if not SHIPPED_BUNDLE.exists():
+        pytest.fail(f"bundle not built: {SHIPPED_BUNDLE} — run npm run build:dev-cli")
 
     fresh = tmp_path / "dev-bundle.fresh.js"
     proc = subprocess.run(
@@ -50,11 +51,11 @@ def test_dev_bundle_is_fresh(tmp_path):
     assert proc.returncode == 0, f"fresh build failed: {proc.stderr[-400:]}"
     assert fresh.exists(), "fresh build produced no output"
 
-    committed_bytes = COMMITTED_BUNDLE.read_bytes()
+    built_bytes = SHIPPED_BUNDLE.read_bytes()
     fresh_bytes = fresh.read_bytes()
-    assert committed_bytes == fresh_bytes, (
-        "Committed dev-bundle.js is STALE — it differs from a fresh build of cli-src/.\n"
-        "Rebuild and commit it: `npm run build:dev-cli`."
+    assert built_bytes == fresh_bytes, (
+        "dev-bundle.js is STALE — it differs from a fresh build of cli-src/.\n"
+        "Rebuild it: `npm run build:dev-cli`."
     )
 
 

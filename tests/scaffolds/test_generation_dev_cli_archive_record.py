@@ -21,13 +21,13 @@ throughput plan's Wave 3 slices B5, C5, and C6.
   memlog appendix. Every section is fail-soft: a missing/malformed source
   renders "(not recorded)" and never blocks the archive.
 
-Runs the COMMITTED dev-cli bundle (dist/dev-bundle.js) with node against
+Runs the locally built dev-cli bundle (dist/dev-bundle.js) with node against
 synthetic fixtures — the same self-contained style as
 tests/scaffolds/test_generation_dev_cli_docs_and_bet_panel.py, and the same
 PATH-curation/stub-runner technique tests/cli/test_status_delta.py uses to
 pin down the groundwork-method engine's half of this same cache.
 
-NOTE: this file exercises source newer than the currently-committed
+NOTE: this file exercises source newer than the last-built
 dist/dev-bundle.js (the new suite-cache.ts util, and the bet.ts/quality.ts/
 registry.ts changes that use it). It will fail until that bundle is
 rebuilt (`npm run build:dev-cli`) — this mirrors test_contracts.py's own
@@ -44,14 +44,14 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
-COMMITTED_BUNDLE = (
+SHIPPED_BUNDLE = (
     REPO_ROOT / "src" / "generators" / "workspace-dev-cli" / "cli-src" / "dist" / "dev-bundle.js"
 )
 
 
 def _require_bundle():
-    if not COMMITTED_BUNDLE.exists():
-        pytest.fail(f"committed bundle missing: {COMMITTED_BUNDLE} — run npm run build:dev-cli")
+    if not SHIPPED_BUNDLE.exists():
+        pytest.fail(f"bundle not built: {SHIPPED_BUNDLE} — run npm run build:dev-cli")
 
 
 def _dev(
@@ -61,7 +61,7 @@ def _dev(
     extra_env: dict | None = None,
     extra_path: str | None = None,
 ) -> subprocess.CompletedProcess:
-    """Run the committed dev bundle with node, pinned at `project` via
+    """Run the built dev bundle with node, pinned at `project` via
     DEV_ROOT. `extra_path` replaces PATH wholesale (curated bin dirs, below)
     so a test can prove exactly what did or didn't run."""
     env = {**os.environ, "DEV_ROOT": str(project)}
@@ -70,7 +70,7 @@ def _dev(
     if extra_env:
         env.update(extra_env)
     return subprocess.run(
-        ["node", str(COMMITTED_BUNDLE), *args],
+        ["node", str(SHIPPED_BUNDLE), *args],
         cwd=str(project),
         capture_output=True,
         text=True,

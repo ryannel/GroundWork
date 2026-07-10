@@ -23,8 +23,9 @@ stamp the CLI writes into installed projects' `state.json`, and the operating co
    contract's `version` frontmatter only if a protocol changed incompatibly, and add a
    `[migration]` changelog entry when you do.
 3. Rebuild the dev bundle: `npm run build:dev-cli`. The bundle embeds the package version
-   (`./dev --version`), so every version bump changes it — a stale committed bundle fails
-   the freshness contract test.
+   (`./dev --version`), so every version bump changes it — a stale local bundle fails
+   the freshness contract test. (The bundle is gitignored; `prepublishOnly` rebuilds it
+   at publish time, so this rebuild is about keeping your local/CI checks green.)
 4. Verify every new `migrations/index.json` entry is exercised by a fixture under
    `tests/fixtures/installs/` (add the pre-change shape if no existing fixture covers it).
 5. Reproduce the build locally: `./dev ci` (the same command CI and release run — lint +

@@ -281,8 +281,10 @@ copying and user messaging — methodology and intelligence belong in skills, no
 ### Updating the scaffolded `./dev` CLI
 It's a TypeScript program under `src/generators/workspace-dev-cli/cli-src/`, bundled by
 esbuild into `cli-src/dist/dev-bundle.js`, which the `workspace-dev-cli` generator copies
-in verbatim. **After editing anything in `cli-src/`, rebuild the bundle** —
-`npm run build:dev-cli` — or the committed (and shipped) bundle goes stale.
+in verbatim. The bundle is gitignored — a local build artifact, not committed; it ships
+to npm via the package `files` allowlist, and `prepublishOnly` rebuilds it at publish
+time. **After editing anything in `cli-src/`, rebuild the bundle** —
+`npm run build:dev-cli` — or your local (and CI) bundle goes stale.
 
 ### The two writer skills
 

@@ -8,7 +8,7 @@ Named `test_generation_*` (matching test_generation_docsite_live_sync.py's
 precedent) so it rides the existing fast Generation tier in `./dev ci` step 2
 (`pytest tests/scaffolds/test_generation*.py`) without needing new CI wiring.
 
-Runs the COMMITTED dev-cli bundle (dist/dev-bundle.js) with node against
+Runs the locally built dev-cli bundle (dist/dev-bundle.js) with node against
 synthetic `.dev/dev.config.json` fixtures — the same style as
 tests/scaffolds/test_contracts.py and test_dev_cli_extensions.py, self-
 contained here rather than imported so this file has no cross-file coupling.
@@ -18,7 +18,7 @@ server, since `./dev docs`'s boot/probe/refresh machinery only cares that
 
 NOTE: these tests exercise cli-src/src/commands/docs.ts, bet-panel.ts, and the
 lifecycle.ts/registry.ts changes that ship them — i.e. code newer than the
-currently-committed dist/dev-bundle.js. They will fail until that bundle is
+last-built dist/dev-bundle.js. They will fail until that bundle is
 rebuilt (`npm run build:dev-cli`) to pick the new source up; this mirrors
 test_contracts.py's own `_require_bundle()` gate.
 
@@ -36,22 +36,22 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
-COMMITTED_BUNDLE = (
+SHIPPED_BUNDLE = (
     REPO_ROOT / "src" / "generators" / "workspace-dev-cli" / "cli-src" / "dist" / "dev-bundle.js"
 )
 
 
 def _require_bundle():
-    if not COMMITTED_BUNDLE.exists():
-        pytest.fail(f"committed bundle missing: {COMMITTED_BUNDLE} — run npm run build:dev-cli")
+    if not SHIPPED_BUNDLE.exists():
+        pytest.fail(f"bundle not built: {SHIPPED_BUNDLE} — run npm run build:dev-cli")
 
 
 def _dev(project: Path, *args: str, timeout: int = 15) -> subprocess.CompletedProcess:
-    """Run the committed dev bundle with node, pinned at `project` via DEV_ROOT."""
+    """Run the built dev bundle with node, pinned at `project` via DEV_ROOT."""
     import os
 
     return subprocess.run(
-        ["node", str(COMMITTED_BUNDLE), *args],
+        ["node", str(SHIPPED_BUNDLE), *args],
         cwd=str(project),
         capture_output=True,
         text=True,

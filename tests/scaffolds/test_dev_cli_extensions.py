@@ -1,7 +1,7 @@
 """Composable `./dev` — project-owned commands extend the CLI without touching the
 bundle (the customization seam), and an empty workspace degrades loudly instead of
-no-opping (the "no empty capabilities" rule). Runs the committed bundle directly with
-node against throwaway projects.
+no-opping (the "no empty capabilities" rule). Runs the locally built bundle directly
+with node against throwaway projects.
 """
 
 import ast
@@ -13,16 +13,16 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
-COMMITTED_BUNDLE = (
+SHIPPED_BUNDLE = (
     REPO_ROOT / "src" / "generators" / "workspace-dev-cli" / "cli-src" / "dist" / "dev-bundle.js"
 )
 
 
 def _dev(project: Path, *args: str, cwd: Path | None = None) -> subprocess.CompletedProcess:
-    """Run the committed dev bundle with node. DEV_ROOT pins the project; cwd controls
+    """Run the built dev bundle with node. DEV_ROOT pins the project; cwd controls
     where Docker/service discovery looks (default: the project itself)."""
     return subprocess.run(
-        ["node", str(COMMITTED_BUNDLE), *args],
+        ["node", str(SHIPPED_BUNDLE), *args],
         cwd=str(cwd or project),
         capture_output=True,
         text=True,
@@ -44,8 +44,8 @@ def _project(tmp_path: Path, config: dict, commands_dir: dict[str, dict] | None 
 
 
 def _require_bundle():
-    if not COMMITTED_BUNDLE.exists():
-        pytest.fail(f"committed bundle missing: {COMMITTED_BUNDLE} — run npm run build:dev-cli")
+    if not SHIPPED_BUNDLE.exists():
+        pytest.fail(f"bundle not built: {SHIPPED_BUNDLE} — run npm run build:dev-cli")
 
 
 def test_project_command_from_config_is_discovered_and_runs(tmp_path):
