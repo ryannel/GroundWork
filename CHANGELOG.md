@@ -8,6 +8,30 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (review-throughput engine: proof board + actionable status, 2026-07-10)
+
+- New `groundwork proofs --bet <slug> [--json|--write]` — the proofs-at-a-glance
+  board: one row per agreed front-door case (milestone, consumer, the case
+  verbatim, its test path), gaining derived red/green state, the milestone's
+  visual-review verdicts, on-disk screenshot paths, and a "What keeps this
+  honest" footer (findings by disposition, honesty/wiring/tokens lead counts
+  per-HEAD-cached, deletion-test runs with explicit never-ran semantics).
+  `--write` renders `docs/bets/<slug>/proofs.md` whole, generated-marker
+  discipline, never hand-edited.
+- The written status page (`status --bet --write`) gains a "Waiting on you"
+  section — pending decisions, open findings in plain language, a seal-drift
+  line — as-of-stamped, omitted when empty; chat snapshot output unchanged.
+- `status` gains `--run` (force a fresh suite), `--full` (uncompressed), and
+  `--with-proofs` (write status + proofs from one derivation); suite verdicts
+  are cached per HEAD (`.groundwork/cache/bets/<slug>/last-run.json`,
+  conservative: HEAD + test-file mtimes, always age-labelled), making
+  checkpoint refreshes near-instant; chat snapshots compress re-served
+  unchanged sections to one-line summaries with `(was …)` markers on change.
+- `findings list` / `decisions list` gain `--since <iso>`; the program snapshot
+  names the queued section as the user's editable backlog.
+  [no-migration] Engine-only (`bin/` + `lib/`, ships in the npm package); no
+  shipped-surface group touched; new pages are generated per-bet artifacts.
+
 ### Fixed (check drift-doc discovery, 2026-07-07)
 
 - `groundwork check` now discovers drift-tracked docs in the canonical nested
