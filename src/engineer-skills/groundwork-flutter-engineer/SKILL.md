@@ -96,11 +96,11 @@ Before presenting Flutter guidance as factual:
 
 ## Output Expectations
 
-- Feature changes name the layer each file belongs to and why.
-- UI changes reference the theme roles or extensions used, or justify an explicit deviation.
-- New features include accessibility considerations (semantic labels, tap targets, dynamic type behaviour).
-- Verification steps include the specific Nx targets or `flutter` commands to run, with the skipped-with-reason caveat when the SDK is absent.
-- Recommendations distinguish project conventions from general Flutter practice.
+The report is exceptions and evidence, not a retelling. Never restate the brief, the design, or narrate file by file.
+
+- `Changed:` files touched and the behavior delta, 1–3 lines.
+- `Verified:` the exact commands and verification tiers run: the specific Nx targets or `flutter` commands.
+- `RISKS:` mandatory; "none" is a legal value. Every residual risk and every skipped verification tier lives here, nowhere else.
 
 ## Antipatterns
 

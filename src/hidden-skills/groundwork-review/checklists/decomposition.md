@@ -41,6 +41,8 @@ not a re-review of authorship.
   **quick bet** (`track: quick` in the pitch) is *defined* as a single milestone — never flag a
   one-milestone count for it; two or more milestones is instead the signal it should have been a
   full bet.
+- [ ] 🟡 **Ladder not diagrammed**: `decomposition/index.md` is missing or carries no mermaid
+  ladder — the sequencing review has no picture to judge the milestone order from.
 
 ## Milestone and Slice Typing
 

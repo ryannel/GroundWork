@@ -104,4 +104,4 @@ The output, `docs/design-system.md`, carries the shared brand foundation plus on
 
 ### Commit Contract
 
-The commit runs once, in the foundation flow's Phase 6, after every active type's walkthrough completes. Brand tokens follow the contract at `.groundwork/skills/groundwork-design-system/templates/brand-tokens.md`.
+The commit runs once, in the foundation flow's Phase 6, after every active type's walkthrough completes. Brand tokens follow the contract at `.groundwork/skills/groundwork-design-system/templates/brand-tokens.md`. When a `graphical-ui` type is active, Phase 6 presents a rendered token sheet before that approval is final — the operative instruction lives in `tracks/_foundation.md`'s Phase 6.

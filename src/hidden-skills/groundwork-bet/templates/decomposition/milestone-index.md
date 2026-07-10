@@ -9,8 +9,8 @@
 **Sequencing rationale:** [why this milestone sits where it does — what it proves through the bet's riskiest real path, why the milestones after it build on the state it reaches.]
 
 **Acceptance criteria — proven at the app's real entry point:**
-- [ ] [specific, falsifiable case the consumer can carry out on the real product — the integrity anchor the user signs at planning]
-- [ ] [specific, falsifiable case]
+- [specific, falsifiable case the consumer can carry out on the real product — the integrity anchor the user signs at planning]
+- [specific, falsifiable case]
 
 ## Proof of work
 

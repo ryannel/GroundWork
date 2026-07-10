@@ -96,11 +96,11 @@ Before presenting frontend guidance as factual:
 
 ## Output Expectations
 
-- Component changes include the server/client boundary decision and its justification.
-- UI changes reference specific design tokens or explain why a custom value is needed.
-- New features include accessibility considerations (keyboard nav, ARIA, screen reader behavior).
-- Verification steps include specific test commands and visual checks to perform.
-- Recommendations distinguish between project conventions and general React/Next.js practices.
+The report is exceptions and evidence, not a retelling. Never restate the brief, the design, or narrate file by file.
+
+- `Changed:` files touched and the behavior delta, 1–3 lines.
+- `Verified:` the exact commands and verification tiers run, including visual checks for UI changes.
+- `RISKS:` mandatory; "none" is a legal value. Every residual risk and every skipped verification tier lives here, nowhere else.
 
 ## Antipatterns
 
