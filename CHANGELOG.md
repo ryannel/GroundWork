@@ -29,9 +29,9 @@ automatically when it detects a version jump.
   delivery log) into the archive and removes the generated status/proofs pages.
   The milestone test stub now ships its user-observable interface proof as an
   active red test, and `groundwork honesty scan` flags commented-out interface
-  proofs. [no-migration: dev-cli] The dev bundle is framework-owned and
-  refreshed on update; generator-produced test templates regenerate with
-  recorded options.
+  proofs. [no-migration: dev-cli, generator:workspace-dev-cli] The dev bundle
+  is framework-owned and refreshed on update; generator-produced test templates
+  regenerate with recorded options.
 
 ### Added (review-throughput engine: proof board + actionable status, 2026-07-10)
 
