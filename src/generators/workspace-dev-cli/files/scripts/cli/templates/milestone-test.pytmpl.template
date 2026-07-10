@@ -4,9 +4,19 @@ Bet: @@BET@@
 This test is RED by design. It defines the target state for Milestone @@N@@.
 Run './dev test bet @@BET@@' to see it fail; it will pass when Delivery is complete.
 
-Two complementary proof layers — fill in both before starting Delivery:
+Two complementary proof layers — both ship ACTIVE and RED. Fill in the real
+assertions for each before starting Delivery; a layer commented back out to
+force green is a hollowed proof, not a passing one — the honesty scan flags it.
   Layer 1 — Interface: what the user observes in the product's interface
   Layer 2 — API:       what the running service returns end-to-end over HTTP
+
+For `cli`/`agentic-protocol` tracks the API layer already IS the front door the
+consumer drives — there is no separate interface to observe. Collapse the two
+into one active front-door test (keep Layer 2's shape, delete Layer 1) and
+record the collapse here in one line, e.g.:
+  # Layers collapsed: @@MILESTONE_IDENT@@'s cli track drives its front door
+  # over this API test — no separate interface layer.
+Never delete Layer 1 silently and leave no trace of the decision.
 """
 
 import pytest
@@ -15,16 +25,19 @@ import pytest
 # ---------------------------------------------------------------------------
 # Layer 1: Interface-level proof
 # ---------------------------------------------------------------------------
-# Use the fixture that matches your project's interface track (docs/design-system.md):
-#   graphical-ui     → page   (pytest-playwright browser fixture)
-#   cli              → subprocess.run / pexpect
-#   agentic-protocol → httpx to the protocol endpoint
-#
-# def test_milestone_@@N@@_@@MILESTONE_IDENT@@_interface(cluster, page, frontend_base_url):
-#     """Assert what the user observes at Milestone @@N@@."""
-#     page.goto(f"{frontend_base_url}/your-route")
-#     # assert page.locator("...").is_visible()
-#     pytest.fail("bet-progress test not yet implemented — describe the user-visible target state here")
+def test_milestone_@@N@@_@@MILESTONE_IDENT@@_interface(cluster):
+    """Assert what the user observes at Milestone @@N@@: @@MILESTONE@@."""
+    # Use the fixture that matches your project's interface track (docs/design-system.md):
+    #   graphical-ui     → add `page, frontend_base_url` params (pytest-playwright browser fixture)
+    #                       page.goto(f"{frontend_base_url}/your-route")
+    #                       assert page.locator("...").is_visible()
+    #   cli              → subprocess.run / pexpect against the built binary
+    #   agentic-protocol → add the `api_client` param, httpx to the protocol endpoint
+    pytest.fail(
+        "bet-progress test not yet implemented — "
+        "assert what the user observes at their surface for milestone @@N@@: "
+        "<one line from the milestone's Proof of work>"
+    )
 
 
 # ---------------------------------------------------------------------------

@@ -169,6 +169,84 @@ def test_referenced_export_is_not_a_lead(tmp_path):
     scan(tmp_path, check_returncode=0)
 
 
+# ─── commented-proof (milestone stub read at HEAD, not diffed against the tag) ─
+# The stub is materialized after the tag is cut (Delivery Step 0.5), so a stub
+# born hollow never shows up in a tag diff — this check reads tests/bets/<slug>/
+# test_milestone_*.<ext> at HEAD directly, every run.
+
+def write_milestone_file(tmp_path, name, body):
+    (tmp_path / "tests" / "bets" / "b" / name).write_text(body)
+
+
+def test_commented_out_interface_test_is_a_lead(tmp_path):
+    seal_bet(tmp_path)
+    write_milestone_file(
+        tmp_path,
+        "test_milestone_1_thing.py",
+        "import pytest\n\n\n"
+        "# def test_milestone_1_thing_interface(cluster):\n"
+        '#     """Assert what the user observes."""\n'
+        '#     pytest.fail("bet-progress test not yet implemented — interface")\n\n\n'
+        "@pytest.mark.asyncio\n"
+        "async def test_milestone_1_thing_api(cluster, api_client):\n"
+        '    """Assert the API outcome."""\n'
+        '    pytest.fail("bet-progress test not yet implemented — api")\n',
+    )
+    commit_all(tmp_path, "materialize milestone stub, interface commented out")
+    proc, payload = scan_json(tmp_path)
+    assert proc.returncode == 1 and payload["clean"] is False
+    (f,) = [x for x in payload["findings"] if x["check"] == "commented-proof"]
+    assert f["file"] == "tests/bets/b/test_milestone_1_thing.py"
+    assert "interface proof is commented out" in f["detail"]
+    assert "less than what was approved" in f["detail"]
+
+
+def test_active_interface_test_is_not_a_lead(tmp_path):
+    seal_bet(tmp_path)
+    write_milestone_file(
+        tmp_path,
+        "test_milestone_1_thing.py",
+        "import pytest\n\n\n"
+        "def test_milestone_1_thing_interface(cluster):\n"
+        '    """Assert what the user observes."""\n'
+        '    pytest.fail("bet-progress test not yet implemented — interface")\n\n\n'
+        "@pytest.mark.asyncio\n"
+        "async def test_milestone_1_thing_api(cluster, api_client):\n"
+        '    """Assert the API outcome."""\n'
+        '    pytest.fail("bet-progress test not yet implemented — api")\n',
+    )
+    commit_all(tmp_path, "materialize milestone stub, both layers active")
+    scan(tmp_path, check_returncode=0)
+
+
+def test_zero_declaration_milestone_file_is_a_lead(tmp_path):
+    seal_bet(tmp_path)
+    write_milestone_file(
+        tmp_path,
+        "test_milestone_1_thing.py",
+        '"""Bet-progress test — Milestone 1: thing (both layers stripped)."""\n\nimport pytest\n',
+    )
+    commit_all(tmp_path, "materialize milestone stub, no declarations left")
+    proc, payload = scan_json(tmp_path)
+    assert proc.returncode == 1
+    (f,) = [x for x in payload["findings"] if x["check"] == "commented-proof"]
+    assert f["file"] == "tests/bets/b/test_milestone_1_thing.py"
+    assert "no active test declaration" in f["detail"]
+
+
+def test_non_milestone_test_file_is_never_scanned_for_commented_proof(tmp_path):
+    """Only test_milestone_*.<ext> is in scope — a slice stub commented out the
+    same way is a different proof surface and stays out of this check."""
+    seal_bet(tmp_path)
+    write_milestone_file(
+        tmp_path,
+        "test_slice_3_svc_other.py",
+        "import pytest\n\n\n# def test_slice_3_other_interface(cluster):\n#     pytest.fail('x')\n",
+    )
+    commit_all(tmp_path, "add commented-out slice stub")
+    scan(tmp_path, check_returncode=0)
+
+
 # ─── output contract ─────────────────────────────────────────────────────────
 
 def test_json_shape_and_human_footer(tmp_path):

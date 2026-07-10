@@ -49,9 +49,10 @@ function printHelp() {
   \x1b[36mdecisions\x1b[0m Per-bet default+veto queue (.groundwork/bets/<slug>/decisions.json): add | pending | ratify | list.
             \x1b[2mratify records the owner's verbatim response as durable state; the approved tag moves only here.
             list --since <iso> scopes to items created or ratified at-or-after the stamp; invalid ISO exits 2.\x1b[0m
-  \x1b[36mhonesty\x1b[0m   scan --bet <slug>: the computable half of the milestone honesty audit, diffed against
-            bet/<slug>/approved — deleted/thinned test guards, hand-edits inside generated files,
-            zero-caller exports (best-effort). Findings are leads for the audit agent, not verdicts.
+  \x1b[36mhonesty\x1b[0m   scan --bet <slug>: the computable half of the milestone honesty audit — deleted/thinned test
+            guards, hand-edits inside generated files, and zero-caller exports (best-effort), each
+            diffed against bet/<slug>/approved; plus a milestone stub at HEAD whose interface proof
+            is commented out or empty. Findings are leads for the audit agent, not verdicts.
             \x1b[2mExits 0 clean / 1 leads / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mwiring\x1b[0m    scan --bet <slug>: built-but-never-wired controls, diffed against bet/<slug>/approved —
             interactive bindings whose handler body is empty or TODO-only, plus handler-shaped
@@ -2479,13 +2480,15 @@ function sealCommand(argv) {
 }
 
 // ─── Honesty scan: the computable half of the milestone honesty audit ───────
-// Diffs HEAD against the sealed baseline (`bet/<slug>/approved`) for what git +
-// grep can establish without judgment: deleted/thinned guards, hand-edits inside
-// generated files, best-effort zero-caller exports. Logic lives in
-// lib/bet-honesty; findings are LEADS for the audit agent, never verdicts.
-// Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag / not a git repo).
+// What git + grep can establish without judgment: deleted/thinned guards,
+// hand-edits inside generated files, and best-effort zero-caller exports —
+// each diffed against the sealed baseline (`bet/<slug>/approved`) — plus a
+// milestone stub at HEAD whose interface proof is commented out or empty.
+// Logic lives in lib/bet-honesty; findings are LEADS for the audit agent,
+// never verdicts. Exit codes: 0 clean, 1 leads found, 2 cannot run (no tag /
+// not a git repo).
 
-const HONESTY_CHECK_ORDER = ['deleted-guard', 'generated-edit', 'zero-caller'];
+const HONESTY_CHECK_ORDER = ['deleted-guard', 'generated-edit', 'zero-caller', 'commented-proof'];
 
 function honestyCommand(argv) {
   const f = parseFlags(argv);

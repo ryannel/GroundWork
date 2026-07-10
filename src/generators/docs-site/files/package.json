@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/sync-live-bets.js",
-    "dev": "next dev",
+    "dev": "node scripts/dev.js",
     "prebuild": "node scripts/sync-live-bets.js",
     "build": "next build",
     "start": "next start",

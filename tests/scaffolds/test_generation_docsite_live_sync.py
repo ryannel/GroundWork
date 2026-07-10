@@ -2,12 +2,19 @@
 Layer 1 — Generation Correctness Tests: docs-site live-bets sync script
 
 user-legibility plan, Wave 3, slice C1 — "the docsite becomes the live window".
+review-throughput plan, Wave 3a, slices C2/C3 — the window stays live (--watch
+fingerprint + loop, mirror-banner plumbing, collision visibility) and gains the
+program-level "In flight" dashboard (docs/bets/_live/index.md) plus the
+`_live`-first docs/bets/meta.json seed.
 
 This is a FUNCTIONAL test of the generated sync script itself
 (src/generators/docs-site/files/scripts/sync-live-bets.js), not a structural
 generator test (that half lives in test_generation.py's
 test_docs_site_generation: the script exists, is wired as predev/prebuild, and
-docs/bets/.gitignore is seeded).
+docs/bets/.gitignore is seeded). The C2 structural additions that have no
+sync-script behavior of their own (the page.tsx banner branch, the dev.js
+wrapper, the package.json `dev` script) are asserted against the generator's
+template files directly at the end of this file.
 
 Runs the actual script (`node scripts/sync-live-bets.js`) against a synthetic
 git repo built from scratch — no dependency on the groundwork-method package
@@ -22,7 +29,20 @@ ships into a generated project. Proves the plan's C1 acceptance:
     sync, without error;
   - a fully-vanished source's stale _live/ content does not survive a
     re-sync (full regenerate discipline, mirroring lib/bet-status's
-    write-whole approach).
+    write-whole approach);
+
+and the C2/C3 acceptance:
+
+  - the --watch fingerprint flips on a worktree docs/bets edit and on a bet
+    branch advance, and is stable otherwise;
+  - a bounded --watch run (short SYNC_LIVE_BETS_INTERVAL_MS) picks up a
+    worktree pitch edit without a restart;
+  - a forced slug collision is recorded in _live/meta.json `collisions`;
+  - the dashboard lists all three sources (worktree, branch-only, checkout-
+    resident quick bet) with correct cells, only-existing links, and per-source
+    "waiting on you" counts; no in-flight work → no index.md;
+  - an absent docs/bets/meta.json is created with `_live` first; an existing
+    one is never touched.
 
 No Nx, no fumadocs, no Next.js involved — this exercises exactly the script's
 own git-plumbing and file-materialization logic, which is unaffected by whether
@@ -31,8 +51,10 @@ tier: no compilation, no boot.
 """
 
 import json
+import os
 import shutil
 import subprocess
+import time
 from pathlib import Path
 
 import pytest
@@ -427,6 +449,19 @@ def test_slug_collision_warns_naming_both_sources(repo_with_service):
     collide_entries = [b for b in meta["bets"] if b["slug"] == "collide"]
     assert len(collide_entries) == 1, "meta.json must not list a dropped collision source"
 
+    # C2d: the collision is recorded in meta.json so the mirror banner can flag
+    # the affected page — one entry naming the kept and dropped sources, the
+    # kept one matching the branch whose files actually won on disk.
+    collisions = meta.get("collisions")
+    assert collisions is not None, "meta.json must carry a `collisions` list"
+    assert len(collisions) == 1, f"expected exactly one recorded collision, got {collisions}"
+    entry = collisions[0]
+    assert entry["slug"] == "collide"
+    assert {entry["kept"], entry["dropped"]} == {"bet/collide-a", "bet/collide-b"}
+    assert entry["kept"] == collide_entries[0]["branch"], (
+        "the recorded winner must match the source meta.json lists for the slug"
+    )
+
     shutil.rmtree(wt_a, ignore_errors=True)
     shutil.rmtree(wt_b, ignore_errors=True)
 
@@ -462,3 +497,368 @@ def test_deleted_worktree_and_branch_removes_stale_live_content(repo_with_servic
         "a bet with no remaining source (no worktree, no branch) must not "
         "survive in _live/ after a re-sync"
     )
+
+
+# ---------------------------------------------------------------------------
+# C2a: --watch fingerprint — flips on worktree edit / branch advance, stable
+# otherwise
+# ---------------------------------------------------------------------------
+
+
+def _fingerprint(service_dir: Path) -> str:
+    """The exported computeFingerprint(), exactly as the watch loop calls it."""
+    r = _run(
+        [
+            "node",
+            "-e",
+            "const m=require('./scripts/sync-live-bets.js');"
+            "process.stdout.write(m.computeFingerprint());",
+        ],
+        cwd=service_dir,
+    )
+    return r.stdout
+
+
+def _make_worktree_bet(root: Path, slug: str, solution: str) -> Path:
+    """A committed worktree bet on branch bet/<slug>; returns the worktree path."""
+    _git(["branch", f"bet/{slug}"], cwd=root)
+    wt_path = root.parent / f"{slug}-wt"
+    _git(["worktree", "add", str(wt_path), f"bet/{slug}"], cwd=root)
+    _write_pitch(wt_path / "docs" / "bets" / slug / "pitch.md", slug.title(), solution)
+    _git(["add", "-A"], cwd=wt_path)
+    _git(["commit", "-q", "-m", f"wip: {slug}"], cwd=wt_path)
+    return wt_path
+
+
+def test_fingerprint_flips_on_worktree_edit_and_branch_advance(repo_with_service):
+    root, service_dir = repo_with_service
+    wt_path = _make_worktree_bet(root, "fp-thing", "Fingerprint the thing.")
+    try:
+        # Stable: repeated computation with nothing changed is byte-identical,
+        # and a full sync (which writes only the CURRENT checkout's _live/)
+        # does not disturb it either — no self-triggering loop.
+        fp1 = _fingerprint(service_dir)
+        assert fp1 == _fingerprint(service_dir), "fingerprint must be stable with no changes"
+        _sync(service_dir)
+        assert _fingerprint(service_dir) == fp1, "the sync's own writes must not flip the fingerprint"
+
+        # A worktree docs/bets file touch flips it (mtime bumped explicitly so
+        # this never depends on filesystem timestamp granularity).
+        pitch = wt_path / "docs" / "bets" / "fp-thing" / "pitch.md"
+        future = time.time() + 10
+        os.utime(pitch, (future, future))
+        fp2 = _fingerprint(service_dir)
+        assert fp2 != fp1, "a worktree docs/bets edit must flip the fingerprint"
+        assert fp2 == _fingerprint(service_dir), "stable again after the edit"
+
+        # A new bet branch flips it …
+        _git(["branch", "bet/fp-new-ref"], cwd=root)
+        fp3 = _fingerprint(service_dir)
+        assert fp3 != fp2, "a new bet/* ref must flip the fingerprint"
+
+        # … and so does an existing bet branch advancing to a new commit.
+        (root / "README.md").write_text("advanced\n")
+        _git(["add", "-A"], cwd=root)
+        _git(["commit", "-q", "-m", "advance"], cwd=root)
+        _git(["branch", "-f", "bet/fp-new-ref", "HEAD"], cwd=root)
+        fp4 = _fingerprint(service_dir)
+        assert fp4 != fp3, "a bet branch advancing must flip the fingerprint"
+    finally:
+        shutil.rmtree(wt_path, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# C2a: bounded --watch run — a worktree pitch edit lands without a restart
+# ---------------------------------------------------------------------------
+
+
+def test_watch_picks_up_worktree_pitch_edit_without_restart(repo_with_service):
+    root, service_dir = repo_with_service
+    wt_path = _make_worktree_bet(root, "watch-me", "Original solution.")
+
+    # predev semantics: one-shot sync first, so the watcher starts warm.
+    _sync(service_dir)
+    live_pitch = _live_dir(root) / "watch-me" / "pitch.md"
+    assert "Original solution." in live_pitch.read_text()
+
+    env = dict(os.environ, SYNC_LIVE_BETS_INTERVAL_MS="150")
+    proc = subprocess.Popen(
+        ["node", "scripts/sync-live-bets.js", "--watch"],
+        cwd=service_dir,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    try:
+        # The watcher captures its baseline fingerprint BEFORE printing this
+        # line, so an edit made after it is guaranteed to be a change.
+        opening = proc.stdout.readline()
+        assert "watching" in opening, f"unexpected watcher opening line: {opening!r}"
+
+        _write_pitch(
+            wt_path / "docs" / "bets" / "watch-me" / "pitch.md",
+            "Watch Me",
+            "Edited while the watcher ran.",
+        )
+        # Explicit future mtime — never rely on timestamp granularity.
+        future = time.time() + 10
+        os.utime(wt_path / "docs" / "bets" / "watch-me" / "pitch.md", (future, future))
+
+        deadline = time.time() + 20  # a couple of 150ms ticks, with slack for CI
+        while time.time() < deadline:
+            try:
+                if "Edited while the watcher ran." in live_pitch.read_text():
+                    break
+            except FileNotFoundError:
+                pass  # mid-regenerate — the full-rebuild window
+            time.sleep(0.2)
+        else:
+            pytest.fail("the watcher never re-synced the worktree pitch edit")
+
+        assert proc.poll() is None, "the watcher process must still be running (never crashes)"
+    finally:
+        proc.terminate()
+        proc.wait(timeout=10)
+        shutil.rmtree(wt_path, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# C3: the "In flight" dashboard — three sources, correct cells, existing links
+# ---------------------------------------------------------------------------
+
+
+def _write_state_json(path: Path, key: str, statuses: list):
+    """A minimal lib/bet-state-shaped ledger ({key: [{status}, …]})."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps({"schema": 1, key: [{"id": f"X{i}", "status": s} for i, s in enumerate(statuses)]})
+        + "\n"
+    )
+
+
+def test_dashboard_lists_all_three_sources(repo_with_service):
+    root, service_dir = repo_with_service
+
+    # Source 1 — worktree bet, with a status.md (so its status link exists but
+    # proofs does not) and on-disk engine state: 1 pending + 1 ratified
+    # decision, 2 open + 1 closed findings.
+    wt_path = _make_worktree_bet(root, "worktree-thing", "Build the worktree thing.")
+    (wt_path / "docs" / "bets" / "worktree-thing" / "status.md").write_text("# Status\n\nred.\n")
+    _write_state_json(
+        wt_path / ".groundwork" / "bets" / "worktree-thing" / "decisions.json",
+        "decisions",
+        ["pending", "ratified"],
+    )
+    _write_state_json(
+        wt_path / ".groundwork" / "bets" / "worktree-thing" / "findings.json",
+        "findings",
+        ["open", "open", "closed"],
+    )
+
+    # Source 2 — branch-only bet with pending decisions COMMITTED on the branch
+    # (2 pending, 1 open finding), then the worktree removed so only the ref
+    # remains.
+    tmp_checkout = root.parent / "tmp-branch-checkout"
+    _git(["worktree", "add", str(tmp_checkout), "-b", "bet/branch-only-thing"], cwd=root)
+    _write_pitch(
+        tmp_checkout / "docs" / "bets" / "branch-only-thing" / "pitch.md",
+        "Branch Only Thing",
+        "Ship the branch-only thing.",
+    )
+    _write_state_json(
+        tmp_checkout / ".groundwork" / "bets" / "branch-only-thing" / "decisions.json",
+        "decisions",
+        ["pending", "pending"],
+    )
+    _write_state_json(
+        tmp_checkout / ".groundwork" / "bets" / "branch-only-thing" / "findings.json",
+        "findings",
+        ["open"],
+    )
+    _git(["add", "-A"], cwd=tmp_checkout)
+    _git(["commit", "-q", "-m", "wip: branch-only thing"], cwd=tmp_checkout)
+    _git(["worktree", "remove", "--force", str(tmp_checkout)], cwd=root)
+
+    # Source 3 — checkout-resident quick bet: a live bet dir in THIS checkout
+    # (uncommitted is fine — it is read off disk), no branch, no engine state.
+    _write_pitch(
+        root / "docs" / "bets" / "quick-thing" / "pitch.md",
+        "Quick Thing",
+        "Ship the quick thing.",
+        status="quick",
+    )
+
+    result = _sync(service_dir)
+    assert result.returncode == 0, result.stderr
+
+    live = _live_dir(root)
+    index = live / "index.md"
+    assert index.exists(), "the dashboard must be written when work is in flight"
+    text = index.read_text()
+
+    rows = [l for l in text.splitlines() if l.startswith("| ") and not l.startswith("| Goal") ]
+    rows = [r for r in rows if not set(r) <= {"|", "-", " "}]  # drop the separator row
+    assert len(rows) == 3, f"expected three dashboard rows, got:\n{text}"
+
+    by_goal = {}
+    for r in rows:
+        cells = [c.strip() for c in r.strip().strip("|").split("|")]
+        by_goal[cells[0]] = cells  # goal | branch | freshness | links | waiting
+
+    # Worktree row: live, its branch, pitch + status links (no proofs), counts
+    # read from the worktree's own disk state.
+    wt_row = by_goal["Build the worktree thing."]
+    assert wt_row[1] == "`bet/worktree-thing`"
+    assert wt_row[2] == "live"
+    assert "[pitch](/docs/bets/_live/worktree-thing/pitch)" in wt_row[3]
+    assert "[status](/docs/bets/_live/worktree-thing/status)" in wt_row[3]
+    assert "proofs" not in wt_row[3], "a proofs link must not render when proofs.md is absent"
+    assert wt_row[4] == "1 decision pending · 2 findings open"
+
+    # Branch-only row: as of last commit, pitch link only, counts via git show.
+    bo_row = by_goal["Ship the branch-only thing."]
+    assert bo_row[1] == "`bet/branch-only-thing`"
+    assert bo_row[2] == "as of last commit"
+    assert "[pitch](/docs/bets/_live/branch-only-thing/pitch)" in bo_row[3]
+    assert "status" not in bo_row[3] and "proofs" not in bo_row[3]
+    assert bo_row[4] == "2 decisions pending · 1 finding open"
+
+    # Checkout-resident quick bet: "this checkout", links to its normal
+    # non-_live page, no ledgers on disk → the "—" fail-soft cell — and it is
+    # NOT materialized into _live/ (it already lives in the watched tree).
+    q_row = by_goal["Ship the quick thing."]
+    assert q_row[1] == "this checkout"
+    assert q_row[2] == "live"
+    assert "[pitch](/docs/bets/quick-thing/pitch)" in q_row[3]
+    assert "_live/quick-thing" not in q_row[3]
+    assert q_row[4] == "—"
+    assert not (live / "quick-thing").exists(), (
+        "a checkout-resident bet is listed on the dashboard but never materialized"
+    )
+
+    # Footer: patches point at the program snapshot; delivered bets at the archive.
+    assert "program snapshot" in text
+    assert "_archive" in text
+
+    shutil.rmtree(wt_path, ignore_errors=True)
+
+
+def test_checkout_resident_only_still_gets_a_dashboard(repo_with_service):
+    """A quick bet with no branch and no worktree is still work underway — the
+    dashboard must exist for it alone, with nothing materialized."""
+    root, service_dir = repo_with_service
+    _write_pitch(
+        root / "docs" / "bets" / "solo-quick" / "pitch.md",
+        "Solo Quick",
+        "Ship the solo quick thing.",
+        status="quick",
+    )
+    result = _sync(service_dir)
+    assert result.returncode == 0, result.stderr
+    index = _live_dir(root) / "index.md"
+    assert index.exists()
+    text = index.read_text()
+    assert "Ship the solo quick thing." in text
+    assert "this checkout" in text
+    assert not (_live_dir(root) / "solo-quick").exists()
+
+
+def test_delivered_checkout_bet_is_not_a_dashboard_row(repo_with_service):
+    """A checkout bet dir whose pitch is `status: delivered` is closed work —
+    it must produce neither a dashboard row nor a dashboard at all when it is
+    the only candidate."""
+    root, service_dir = repo_with_service
+    _write_pitch(
+        root / "docs" / "bets" / "done-thing" / "pitch.md",
+        "Done Thing",
+        "Already delivered.",
+        status="delivered",
+    )
+    result = _sync(service_dir)
+    assert result.returncode == 0, result.stderr
+    assert not (_live_dir(root) / "index.md").exists(), (
+        "a delivered checkout bet must not summon the dashboard"
+    )
+
+
+def test_no_inflight_work_writes_no_dashboard(repo_with_service):
+    """Explicit C3 acceptance: no live bets AND no checkout-resident bets →
+    no index.md (the archived bet alone does not count)."""
+    root, service_dir = repo_with_service
+    result = _sync(service_dir)
+    assert result.returncode == 0
+    assert not (_live_dir(root) / "index.md").exists()
+
+
+# ---------------------------------------------------------------------------
+# C3b: docs/bets/meta.json seeding — created `_live`-first, never clobbered
+# ---------------------------------------------------------------------------
+
+
+def test_sync_seeds_bets_meta_live_first_when_absent(repo_with_service):
+    root, service_dir = repo_with_service
+    meta_path = root / "docs" / "bets" / "meta.json"
+    assert not meta_path.exists()
+    result = _sync(service_dir)
+    assert result.returncode == 0
+    assert meta_path.exists(), "sync must seed docs/bets/meta.json when absent"
+    assert json.loads(meta_path.read_text()) == {"pages": ["_live", "...", "_archive"]}
+
+
+def test_sync_never_clobbers_an_existing_bets_meta(repo_with_service):
+    root, service_dir = repo_with_service
+    meta_path = root / "docs" / "bets" / "meta.json"
+    hand_tuned = '{\n  "pages": ["intro", "...", "_archive"]\n}\n'
+    meta_path.write_text(hand_tuned)
+    result = _sync(service_dir)
+    assert result.returncode == 0
+    assert meta_path.read_text() == hand_tuned, (
+        "an existing docs/bets/meta.json must survive the sync byte-identical"
+    )
+
+
+# ---------------------------------------------------------------------------
+# C2b/C2c structural: dev.js wrapper, package.json wiring, page.tsx banner
+# ---------------------------------------------------------------------------
+
+GENERATOR_FILES = REPO_ROOT / "src" / "generators" / "docs-site" / "files"
+
+
+def test_package_json_dev_script_runs_the_wrapper():
+    pkg = json.loads((GENERATOR_FILES / "package.json").read_text())
+    scripts = pkg["scripts"]
+    assert scripts["dev"] == "node scripts/dev.js", "dev must run the watcher+next wrapper"
+    # predev stays a one-shot sync so the first render is fresh before the
+    # watcher's first tick; the build pair is untouched.
+    assert scripts["predev"] == "node scripts/sync-live-bets.js"
+    assert scripts["prebuild"] == "node scripts/sync-live-bets.js"
+    assert scripts["build"] == "next build"
+
+
+def test_dev_js_spawns_watcher_and_next_and_couples_their_lifetimes():
+    dev_js = (GENERATOR_FILES / "scripts" / "dev.js").read_text()
+    assert "sync-live-bets.js" in dev_js and "--watch" in dev_js, "dev.js must spawn the watcher"
+    assert "'next'" in dev_js and "'dev'" in dev_js, "dev.js must spawn next dev"
+    assert "stdio: 'inherit'" in dev_js
+    # Either process exiting stops the other — no orphaned watcher.
+    assert dev_js.count("on('exit'") >= 2
+    # Dependency-free: Node built-ins only.
+    assert "require('child_process')" in dev_js
+    for banned in ("require('fumadocs", "require('next"):
+        assert banned not in dev_js
+
+
+def test_page_tsx_carries_the_live_mirror_banner_fail_soft():
+    src = (GENERATOR_FILES / "app" / "docs" / "__slug__" / "page.tsx").read_text()
+    # The banner branch exists, scoped to pages under docs/bets/_live/.
+    assert "In-flight mirror" in src
+    assert "'_live'" in src and "'bets'" in src
+    assert "never reach the bet branch" in src
+    # Fail-soft meta read: the fs read + JSON.parse is inside try/catch that
+    # resolves to null (no banner), so `next build` with _live absent survives.
+    assert "readLiveMeta" in src
+    read_fn = src.split("function readLiveMeta")[1].split("\n}")[0]
+    assert "try {" in read_fn and "catch" in read_fn and "return null" in read_fn
+    # C2d: the collision warning line renders off meta.json's collisions.
+    assert "collisions" in src

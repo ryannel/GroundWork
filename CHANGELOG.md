@@ -8,6 +8,31 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (review-throughput surfaces: live docsite hub + dev-CLI, 2026-07-10)
+
+- The docsite becomes the standing review hub: `sync-live-bets.js --watch` keeps
+  the in-flight mirror current while the server runs (fingerprint-gated, no
+  recompile churn); `_live` pages carry a mirror banner (synced-when, branch,
+  freshness, comments-here-are-discarded) and slug-collision warnings; the sync
+  writes an "In flight" dashboard (`docs/bets/_live/index.md`) covering worktree,
+  branch-only, and checkout-resident bets (quick bets included) with
+  waiting-on-you counts, and seeds `docs/bets/meta.json` `_live`-first when
+  absent. [migration: generator:docs-site] Existing installs' bets meta gains
+  `_live` via `gw-live-first-bets-meta`; the docsite service files regenerate on
+  update (Family: docs-site). (gw-live-first-bets-meta)
+- New `./dev docs` — boots or refreshes the docs site and prints the URL only
+  after the port answers; `./dev status` shows runner URLs and a read-only bet
+  board panel (from the active lane's working state, fail-silent) in both
+  one-shot and `--watch` modes. `./dev bet status` reuses the engine's last-run
+  verdict cache (age-labelled, `--run` re-runs); `./dev archive bet` writes a
+  delivery record (final board, the owner's verbatim rulings, findings summary,
+  delivery log) into the archive and removes the generated status/proofs pages.
+  The milestone test stub now ships its user-observable interface proof as an
+  active red test, and `groundwork honesty scan` flags commented-out interface
+  proofs. [no-migration: dev-cli] The dev bundle is framework-owned and
+  refreshed on update; generator-produced test templates regenerate with
+  recorded options.
+
 ### Added (review-throughput engine: proof board + actionable status, 2026-07-10)
 
 - New `groundwork proofs --bet <slug> [--json|--write]` — the proofs-at-a-glance

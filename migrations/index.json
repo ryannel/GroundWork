@@ -63,6 +63,13 @@
       "title": "Remove OS junk files an older deploy path copied in",
       "kind": "cli",
       "summary": "Deletes .DS_Store/Thumbs.db/desktop.ini under docs/ and both skill trees — junk an older deploy could copy from an npm-linked dev checkout and record as framework-owned; the deploy path now filters it at the source."
+    },
+    {
+      "id": "gw-live-first-bets-meta",
+      "version": "0.17.0",
+      "title": "Sort `_live` first in docs/bets/meta.json",
+      "kind": "cli",
+      "summary": "Inserts `_live` at the front of an existing docs/bets/meta.json's `pages` on projects with a docs-site service, so the in-flight mirror sorts first in the Bets rail; absent metas are left for sync-live-bets.js to create correctly."
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "projectPrefix": "acme",
+  "runners": [
+    {
+      "name": "docs",
+      "kind": "surface",
+      "cmd": "pnpm dev",
+      "cwd": "services/docs",
+      "env": { "PORT": "4100" },
+      "autostart": false
+    }
+  ]
+}
