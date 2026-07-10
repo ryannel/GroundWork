@@ -18,7 +18,7 @@ This is a utility, not a phase. It runs inside another skill's lifecycle while t
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Protocol 4 (Pacing) shapes the execution — one technique, run with full attention, beats three run shallowly. Protocol 7 (Cache Isolation) bounds the writes: this skill mutates only the file the invoking phase is actively drafting in, never a committed `docs/` artifact and never another phase's state.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs this skill. Protocol 4 (Pacing) shapes the execution — one technique, run with full attention, beats three run shallowly. Protocol 7 (Cache Isolation) bounds the writes: this skill mutates only the file the invoking phase is actively drafting in, never a committed `docs/` artifact and never another phase's state. Protocol 13 (Structured Rulings) shapes how a technique's parallel forks are presented — batched, not turn-by-turn.
 
 ---
 
@@ -47,15 +47,17 @@ Propose the one technique you judge best-fit, with a one-line reason tying it to
 
 ### 3. Execute
 
-Run the technique conversationally. The method's pattern in the table is a flexible guide, not a script — adapt its depth to the section's stakes. The user is the domain expert; you bring the structure and the pressure. Where the technique convenes perspectives or adversaries, play them distinctly and let the user weigh in between turns. Pace per Protocol 4: this is a focused, single-topic exploration, not a sweep.
+Run the technique conversationally. The method's pattern in the table is a flexible guide, not a script — adapt its depth to the section's stakes. The user is the domain expert; you bring the structure and the pressure. Where the technique convenes perspectives or adversaries, play them distinctly and let the user weigh in between turns. Where it resolves into three or more parallel independent forks — a stakeholder lens rotation's per-stakeholder verdicts, a pre-mortem's accept/reject list — present them as one batch per Protocol 13 instead. Pace per Protocol 4: this is a focused, single-topic exploration, not a sweep.
 
-### 4. Show Before/After
+### 4. Rewrite and Show
 
-Rewrite the section to absorb what the technique surfaced, applying the `groundwork-writer` skill to the rewritten text — declarative, assertive, zero-hedging. Present it as a diff-style before/after: the original section, then the strengthened version, with a one-line note on what changed and why. The user judges the delta, not a description of it.
+Rewrite the section to absorb what the technique surfaced, applying the `groundwork-writer` skill to the rewritten text — declarative, assertive, zero-hedging. Hold the original section text before touching anything — it is what discard restores.
+
+Where the host offers file-editing tools, write the strengthened section straight into the file the invoking phase is drafting in — the phase's draft under `.groundwork/cache/` for Sequential Setup phases, the bet document under `docs/bets/` for Continuous Bet phases (Protocol 7; bet docs are that mode's working drafts) — so the host's own diff view carries the change, and add a one-line note on what changed and why. The user judges the rendered diff, not a description of it. Where no diff-rendering tools exist, present the original and the strengthened section as a diff-style before/after in the conversation instead, with the same one-line note — the floor this step falls back to.
 
 ### 5. Apply or Discard
 
-Ask whether to apply or discard. On **apply**, write the strengthened section into the file the invoking phase is drafting in — the phase's draft under `.groundwork/cache/` for Sequential Setup phases, the bet document under `docs/bets/` for Continuous Bet phases (Protocol 7; bet docs are that mode's working drafts). On **discard**, drop it without residue. Either way, offer one more round — same section, different technique, or a different section — and exit when the user is done.
+Ask whether to apply or discard. On **apply**: where the change already landed in the file, nothing further to write; on the before/after floor, write the strengthened section into the file now. On **discard**: restore the held original section text into the file — setup drafts under `.groundwork/cache/` are never git-tracked, so restoration comes from the held text, not a git operation, and the same mechanism covers bet documents too. Either way, offer one more round — same section, different technique, or a different section — and exit when the user is done.
 
 ---
 
