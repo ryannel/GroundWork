@@ -8,6 +8,21 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Fixed (check no longer flags promoted/authored skills as framework drift, 2026-07-15)
+
+- `groundwork check` warned "N framework-owned file(s) differ from the package
+  (edits here are lost on update)" on healthy installs: it counted every
+  `.agents/skills/` file the package doesn't ship as drift, but that tree is
+  shared — generator-promoted engineer skills and project-authored skills
+  legitimately live there, and `update` preserves them (a real project showed
+  22 false hits with zero actual edits). The check now uses the same
+  ownership-scoped diff the update path uses, so only genuine divergence warns:
+  edited framework files, stray files inside framework-owned skill dirs, extras
+  in the exclusively-owned `.groundwork/skills/` tree, and — newly detected —
+  deleted framework files (previously reported as "current"; update restores
+  them, listed as `missing — restored on update`).
+  [no-migration] The CLI is framework-owned and ships via the package.
+
 ### Added (review-throughput surfaces: live docsite hub + dev-CLI, 2026-07-10)
 
 - The docsite becomes the standing review hub: `sync-live-bets.js --watch` keeps
