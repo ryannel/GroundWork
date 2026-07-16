@@ -1881,15 +1881,19 @@ function reportFrameworkStatus(p) {
     stale = true;
     c.warn(`This install trails the framework — run \x1b[36mnpx groundwork-method update\x1b[0m.`);
   } else {
-    // Same version: any divergence from the package is a user edit to framework-owned
-    // files, which clean-replace will revert — name it instead of surprising them.
+    // Same version: report exactly the divergences update would revert — edited
+    // framework files (changed), deleted ones (added — update restores them), and
+    // extras the clean-replace deletes (removed). The registered tree is SHARED with
+    // promoted engineer skills and project-authored skills, so its removals must be
+    // ownership-scoped (diffRegisteredSkills) — update preserves unowned skills, and
+    // flagging them here would claim edits are lost when they aren't.
     const mismatched = [];
-    for (const [src, dest, prefix] of [
-      [p.sourceSkillsDir, p.targetSkillsDir, '.agents/skills'],
-      [p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir, '.groundwork/skills'],
+    for (const [d, prefix] of [
+      [diffRegisteredSkills(p), '.agents/skills'],
+      [diffDirs(p.sourceHiddenSkillsDir, p.targetHiddenSkillsDir), '.groundwork/skills'],
     ]) {
-      const d = diffDirs(src, dest);
       for (const f of [...d.changed, ...d.removed]) mismatched.push(path.join(prefix, f));
+      for (const f of d.added) mismatched.push(`${path.join(prefix, f)} \x1b[2m(missing — restored on update)\x1b[0m`);
     }
     if (mismatched.length) {
       stale = true;

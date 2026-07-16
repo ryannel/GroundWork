@@ -427,3 +427,63 @@ def test_check_warns_on_version_mismatch(project):
     out = proc.stdout + proc.stderr
     assert "0.1.0" in out
     assert "update" in out
+
+
+def seed_current_install(project):
+    # init + one current drift-tracked doc, committed — a baseline where check exits 0.
+    run_cli(["init"], project)
+    docs = project / "docs"
+    (docs / "api").mkdir(parents=True, exist_ok=True)
+    (project / "services/widget").mkdir(parents=True)
+    (project / "services/widget/main.go").write_text("package main")
+    (docs / "api/widget.md").write_text(
+        "---\ntitle: widget API\ngeneration_mode: extracted\n"
+        "source_of_truth: services/widget/\nlast_reviewed: 2099-01-01\n---\n# widget\n"
+    )
+    git(["add", "-A"], project)
+    git(["commit", "-qm", "seed"], project)
+
+
+def test_check_ignores_promoted_and_authored_skills(project):
+    # .agents/skills/ is SHARED: promoted engineer skills and project-authored skills
+    # legitimately live beside framework skills, and update preserves them. check once
+    # counted every dest-only file as framework drift, warning "N framework-owned
+    # file(s) differ … lost on update" on healthy installs (22 files on a real project).
+    seed_current_install(project)
+
+    promoted = project / ".agents/skills/groundwork-nextjs-engineer"
+    (promoted / "references").mkdir(parents=True)
+    (promoted / "SKILL.md").write_text("---\nname: groundwork-nextjs-engineer\n---\n")
+    (promoted / "references/canon.md").write_text("# canon\n")
+    authored = project / ".agents/skills/my-team-research"
+    authored.mkdir(parents=True)
+    (authored / "SKILL.md").write_text("---\nname: my-team-research\n---\n")
+
+    proc = run_cli(["check"], project)
+    out = proc.stdout + proc.stderr
+    assert "framework-owned file(s) differ" not in out
+    assert "Install is current with the framework." in proc.stdout
+    assert proc.returncode == 0
+
+
+def test_check_still_flags_real_framework_drift(project):
+    # The divergences update genuinely reverts, one per category: an edited framework
+    # file, a stray file inside an owned skill dir (per-skill clean-replace deletes it),
+    # an extra in the exclusively-owned hidden tree (whole-tree clean-replace deletes
+    # it), and a deleted framework file (update restores it).
+    seed_current_install(project)
+
+    (project / ".agents/skills/groundwork-check/SKILL.md").write_text("edited")
+    (project / ".agents/skills/groundwork-orchestrator/notes.md").write_text("mine")
+    (project / ".groundwork/skills/extra.md").write_text("mine")
+    (project / ".groundwork/skills/groundwork-bet/instructions.md").unlink()
+
+    proc = run_cli(["check"], project)
+    out = proc.stdout + proc.stderr
+    assert proc.returncode == 1
+    assert "4 framework-owned file(s) differ" in out
+    assert ".agents/skills/groundwork-check/SKILL.md" in out
+    assert ".agents/skills/groundwork-orchestrator/notes.md" in out
+    assert ".groundwork/skills/extra.md" in out
+    assert ".groundwork/skills/groundwork-bet/instructions.md" in out
+    assert "missing — restored on update" in out
