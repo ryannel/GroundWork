@@ -100,8 +100,8 @@ Answer six questions, each with the paths that prove the answer and an honest co
 1. **How does work get defined and decided?** Work-unit or planning documents, their lifecycle and status vocabulary, appetite or estimate conventions.
 2. **How is progress proven?** Test suites bound to work units, gating conventions (skip markers, expected-failure patterns), reporters, CI wiring.
 3. **What process automation does the team own?** Scaffolder CLIs or scripts and their verbs, template trees, sync pipelines.
-4. **How are agents and humans guided in?** Routing files (`AGENTS.md`, `CLAUDE.md`, and kin), skill or rules trees, handbooks — and whatever pipeline maintains them.
-5. **Where does canonical knowledge live?** Doc roots, published sites, submodules — and which tree is the source of truth. Stage 4 carries this location into `overview.md` for the extract phases.
+4. **How are agents and humans guided in?** Routing files (`AGENTS.md` and kin), skill or rules trees, handbooks — and whatever pipeline maintains them.
+5. **Where does canonical knowledge live?** Doc roots, published sites, submodules — and which tree is the source of truth. Stage 4 carries this location into `scan/overview.md` for the extract phases.
 6. **What is in flight right now?** Active work units, how each one's progress is actually computed — stored state, or derived from tests and docs — and where its next boundary falls.
 
 Write the findings to `.groundwork/cache/scan/methodology-findings.md` from the template at `.groundwork/skills/groundwork-scan/templates/methodology-findings.md`, and close with a **verdict**: `incumbent` when the repo has its own *system* for defining, scaffolding, proving, and delivering work — machinery a GroundWork install would duplicate or collide with; `none` otherwise. The verdict is that collision judgment, not a checklist score. Scattered practices without a system are `none`: a hand-authored doc or an ad-hoc script is carried forward by the extract phases' Adopt/Upgrade mode and needs no convergence phase.
