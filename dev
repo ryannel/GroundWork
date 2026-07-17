@@ -349,9 +349,17 @@ case "$COMMAND" in
         print_substep "Seeding sandbox baseline from cache (stripping VCS metadata)..."
         rsync -a --exclude='.git' "$CACHE_DIR"/ "$SANDBOX_DIR"/
       else
-        [ -d "$BROWNFIELD_FIXTURE" ] || fail "Brownfield fixture missing: $BROWNFIELD_FIXTURE"
-        print_step "Seeding existing codebase from synthetic fixture (brownfield baseline)..."
-        cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
+        # A suite that ships its own fixture (tests/evals/scenarios/<suite>/fixture)
+        # seeds from it; everything else shares the synthetic monorepo fixture.
+        SUITE_FIXTURE="$REPO_ROOT/tests/evals/scenarios/$SUITE/fixture"
+        if [ -d "$SUITE_FIXTURE" ]; then
+          print_step "Seeding existing codebase from the $SUITE suite fixture (brownfield baseline)..."
+          cp -R "$SUITE_FIXTURE/." "$SANDBOX_DIR/"
+        else
+          [ -d "$BROWNFIELD_FIXTURE" ] || fail "Brownfield fixture missing: $BROWNFIELD_FIXTURE"
+          print_step "Seeding existing codebase from synthetic fixture (brownfield baseline)..."
+          cp -R "$BROWNFIELD_FIXTURE/." "$SANDBOX_DIR/"
+        fi
       fi
     elif [ "$FLOW_PATH" = "delivery" ]; then
       # Delivery: lay down a project mid-flow — a sealed, approved bet ready for the

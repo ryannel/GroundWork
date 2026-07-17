@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Stockroom work-unit CLI — hand-rolled scaffolder for the team's delivery system.
+set -euo pipefail
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+usage() {
+  cat <<'EOF'
+Stockroom dev CLI
+
+  ./dev new unit <slug>      Scaffold a work unit: workdocs/<slug>/{brief,plan}.md
+                             + tests/workunits/<slug>/ stage-test stubs
+  ./dev new stage <unit> <n> Add stage n to a unit's plan + a skip-gated stage test
+  ./dev archive unit <slug>  Move a delivered unit to workdocs/shipped/<slug>
+                             and its tests to tests/workunits/_shipped/<slug>
+  ./dev test unit <slug>     Run a unit's stage tests (skips = stages not reached)
+  ./dev sync skills          Re-copy team skills from scripts/skill-src into .agents/skills
+  ./dev help                 This message
+EOF
+}
+
+cmd="${1:-help}"
+case "$cmd" in
+  new)
+    kind="${2:?usage: ./dev new unit <slug>}"
+    slug="${3:?missing slug}"
+    case "$kind" in
+      unit)
+        mkdir -p "$ROOT_DIR/workdocs/$slug" "$ROOT_DIR/tests/workunits/$slug"
+        printf '# %s\n\n**Status**: Shaping\n\n## Problem\n\n## Appetite\n' "$slug" > "$ROOT_DIR/workdocs/$slug/brief.md"
+        printf '# %s — plan\n\n## Stages\n' "$slug" > "$ROOT_DIR/workdocs/$slug/plan.md"
+        echo "scaffolded workdocs/$slug + tests/workunits/$slug"
+        ;;
+      stage)
+        n="${4:?usage: ./dev new stage <unit> <n>}"
+        f="$ROOT_DIR/tests/workunits/$slug/test_stage_$(printf '%02d' "$n")_todo.py"
+        printf 'import pytest\n\npytestmark = pytest.mark.skip(reason="Stage %s not reached")\n\n\ndef test_stage_%s_todo():\n    raise NotImplementedError\n' "$n" "$n" > "$f"
+        echo "added $f"
+        ;;
+      *) usage; exit 1 ;;
+    esac
+    ;;
+  archive)
+    slug="${3:?usage: ./dev archive unit <slug>}"
+    mkdir -p "$ROOT_DIR/workdocs/shipped" "$ROOT_DIR/tests/workunits/_shipped"
+    mv "$ROOT_DIR/workdocs/$slug" "$ROOT_DIR/workdocs/shipped/$slug"
+    [ -d "$ROOT_DIR/tests/workunits/$slug" ] && mv "$ROOT_DIR/tests/workunits/$slug" "$ROOT_DIR/tests/workunits/_shipped/$slug"
+    echo "archived $slug"
+    ;;
+  test)
+    slug="${3:?usage: ./dev test unit <slug>}"
+    exec python3 -m pytest "$ROOT_DIR/tests/workunits/$slug" -v
+    ;;
+  sync)
+    exec bash "$ROOT_DIR/scripts/sync-skills.sh"
+    ;;
+  help|*) usage ;;
+esac

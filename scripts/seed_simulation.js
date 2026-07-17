@@ -52,7 +52,8 @@ if (!fs.existsSync(suiteJsonPath)) {
   process.exit(1);
 }
 
-const { user_persona, user_goal } = JSON.parse(fs.readFileSync(suiteJsonPath, 'utf8'));
+const suiteSpec = JSON.parse(fs.readFileSync(suiteJsonPath, 'utf8'));
+const { user_persona, user_goal } = suiteSpec;
 if (!user_persona || !user_goal) {
   console.error(`✖ suite.json for "${suite}" is missing user_persona or user_goal.`);
   process.exit(1);
@@ -101,7 +102,14 @@ const PATHS = {
       'sealed; enter delivery and drive the sealed plan.',
   },
 };
-const cfg = PATHS[flowPath];
+// A suite may override its path's default framing — a suite-owned brownfield
+// fixture (a methodology twin, say) describes its own starting repo and route.
+const cfg = {
+  ...PATHS[flowPath],
+  ...(suiteSpec.start_state ? { startState: suiteSpec.start_state } : {}),
+  ...(suiteSpec.sequence ? { sequence: suiteSpec.sequence } : {}),
+  ...(suiteSpec.mode_note ? { modeNote: suiteSpec.mode_note } : {}),
+};
 
 // --- Rendering --------------------------------------------------------------
 function stripTemplateComment(text) {
