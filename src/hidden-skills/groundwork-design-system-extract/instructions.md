@@ -36,9 +36,9 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 
 ### Step 1: Mode Detection — Extract or Adopt/Upgrade
 
-Check whether `docs/design-system.md` already exists.
+Check whether `docs/design-system.md` already exists — and when it does not, whether the canon location `scan/overview.md` records holds a design-system equivalent, which enters Adopt/Upgrade as primary source with the output still landing at `docs/design-system.md`.
 
-- **Absent** — standard **Extract** mode.
+- **Absent** (no equivalent at the recorded canon location either) — standard **Extract** mode.
 - **Present but lacking an element this phase's commit produces** (for the design system: its Downstream Context file at `.groundwork/context/design-system-extract.md`, or the companion `.groundwork/config/brand-tokens.json`) — **Adopt/Upgrade** mode: ingest the existing file as primary source and bring it forward — the stance defined in the product-brief extract's Step 1 / the orchestrator's Adopt/Upgrade Mode. An existing `brand-tokens.json` that validates against the contract is preserved as-is — emit one only when it is absent or the confirmed type set changes the Tier-2 blocks it must carry.
 
 ### Step 2: Read Upstream Context

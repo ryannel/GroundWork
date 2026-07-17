@@ -45,7 +45,7 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 Check whether `docs/product-brief.md` already exists.
 
 - **Absent** — standard **Extract** mode. Recover the brief from scan findings and interview.
-- **Present but lacking an element this phase's commit produces** (for the brief: its Downstream Context file at `.groundwork/context/product-brief-extract.md`) — **Adopt/Upgrade** mode. Ingest the existing file as primary source of truth, preserve the user's content and intent, and fill the missing contract sections rather than rediscovering the product — the same ingest, gap-interview, draft, and review stages, pre-populated instead of inferred. A doc authored under another framework (a BMAD PRD, an RFC-style vision doc, a README manifesto) enters here the same way: bring it forward, never overwrite it.
+- **Present but lacking an element this phase's commit produces** (for the brief: its Downstream Context file at `.groundwork/context/product-brief-extract.md`) — **Adopt/Upgrade** mode. Ingest the existing file as primary source of truth, preserve the user's content and intent, and fill the missing contract sections rather than rediscovering the product — the same ingest, gap-interview, draft, and review stages, pre-populated instead of inferred. A doc authored under another framework (a BMAD PRD, an RFC-style vision doc, a README manifesto) enters here the same way: bring it forward, never overwrite it. So does canon kept somewhere else entirely — when `docs/product-brief.md` is absent but `scan/overview.md` records the project's canonical docs living in another directory, a docs-site tree, or a submodule, the product doc found there **is** the existing doc: Adopt/Upgrade with it as primary source, with the brief still landing at `docs/product-brief.md`.
 
 ### Step 2: Cache Check
 
@@ -66,7 +66,7 @@ Read, in order:
 1. **`.groundwork/cache/scan/product-findings.md`** — the scan's distilled product signals: value proposition, user-facing capabilities, product surface, inferred users, monetisation.
 2. **`.groundwork/cache/scan/overview.md`** — repo shape and the interaction medium(s), which fixes the product's surface.
 3. **The project's own documents** — `README`, `package.json`/`pyproject.toml` description fields, any `docs/` the project already shipped. These carry the team's own framing in their own words.
-4. In Adopt/Upgrade mode, the existing `docs/product-brief.md` — your primary source.
+4. In Adopt/Upgrade mode, the existing doc — `docs/product-brief.md`, or its equivalent at the canon location `scan/overview.md` records — your primary source.
 
 Arrive at Stage 2 able to describe what the system does, its medium, its apparent users, and its boundaries — entirely from evidence.
 
