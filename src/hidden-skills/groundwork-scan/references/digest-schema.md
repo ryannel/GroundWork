@@ -29,6 +29,7 @@ Every partition — whether scanned by a sub-agent (parallel) or in a sequential
   "inferred_users": ["admin vs member roles in auth middleware", "onboarding copy addresses ops teams"],
   "licensing_signals": ["LICENSE (MIT)", "billing integration", "plan tiers in config"],
   "interface_type": "graphical-ui | cli | agentic-protocol | none",
+  "ways_of_working": ["process machinery living inside this partition: work-unit docs, progress-test conventions, scaffolder scripts, agent guidance"],
   "risks_todos": ["TODO: replace polling with webhooks", "v1 client deprecated", "no OpenAPI spec for public routes"],
   "evidence_paths": ["file paths backing the claims above"]
 }
@@ -54,12 +55,15 @@ Route each field into the findings file its downstream consumer reads. A field c
 | `communication` | `scan/architecture-findings.md` → Communication Patterns |
 | `infra_deployment` | `scan/architecture-findings.md` → Infrastructure & Deployment |
 | `notable_patterns` | `scan/architecture-findings.md` → Notable Patterns |
+| `ways_of_working` | `scan/methodology-findings.md` → the matching dimension header |
 | `risks_todos` | `scan/architecture-findings.md` → Risks & TODOs |
 | `project_type`, repo shape | `scan/overview.md` → Parts, Partition Map |
 
 `infra_deployment` is a distinct field, not a kind of contract — docker-compose, IaC, CI, and env examples have a guaranteed home so they are never lost between the contract and dependency slots.
 
 The audience- and surface-facing fields read from predictable places. `inferred_users` is who the partition appears built for — the auth model (roles, permission tiers, tenancy), user-facing copy, and the shape of admin versus consumer routes; record it as inference, never as fact. `licensing_signals` comes from LICENSE files, package-manifest license metadata, and anything monetisation-shaped: billing integrations, plan tiers, paywall gates. `theme_framework` names the UI framework and styling approach — Tailwind, CSS-in-JS, CSS modules, a terminal rendering library — plus dark-mode handling; `design_tokens` holds the token sources themselves, `theme_framework` holds how the surface is styled. `interaction_a11y` records the interaction and accessibility posture visible in components: ARIA usage, focus and keyboard handling, motion and reduced-motion conventions, i18n setup. A backend partition legitimately leaves most of these empty — an empty field is itself a finding, and the extract phases interview for what no partition surfaced.
+
+`ways_of_working` catches process machinery that lives *inside* a partition — a service-local test convention, a package-local scaffolder, a partition-scoped contributor guide. Repo-level machinery is inventoried by Stage 1.6 before partitioning, so most partitions legitimately leave this field empty; an entry here is appended under the matching dimension header in `scan/methodology-findings.md`.
 
 When `external_contracts` is empty for a partition that exposes routes, record the absence in `risks_todos` as a missing-contract gap. The architecture extract phase promotes it to a blocks-delivery entry in the gap ledger — the contract-driven bet loop depends on machine-readable contracts.
 

@@ -2,9 +2,10 @@
 name: groundwork-scan
 description: >
   Reads an existing codebase as Phase 0 of the brownfield track — classify the
-  repo, build a deterministic structural map, scan partition by partition — and
-  writes a scan baseline to `.groundwork/cache/` that the extract phases distil
-  into canonical docs. Produces structured findings, no `docs/` artifact.
+  repo, build a deterministic structural map, inventory the incumbent way of
+  working, scan partition by partition — and writes a scan baseline to
+  `.groundwork/cache/` that the extract phases distil into canonical docs.
+  Produces structured findings, no `docs/` artifact.
 ---
 
 # groundwork-scan
@@ -19,10 +20,11 @@ The discipline that makes this work is **read structure deterministically, inter
 
 ## How This Works
 
-The scan moves through five stages: classify the repo, build a deterministic structural map, confirm scope with the user, scan partition by partition, then finalise and hand off. Each stage narrows what the next must read.
+The scan moves through six stages: classify the repo, build a deterministic structural map, inventory the way of working, confirm scope with the user, scan partition by partition, then finalise and hand off. Each stage narrows what the next must read.
 
 - **Classification before reading.** Knowing the repo shape and per-part technology tells you which files carry contracts and which are noise, before you open a single source file.
 - **The structural map does the heavy lifting.** An exact dependency and symbol graph tells you where the architectural hubs are, so you read those deeply and skim the leaves — instead of reading everything at uniform depth and exhausting context.
+- **The code is not the whole system.** A repo can carry its own delivery methodology — work-unit docs, progress tests, scaffolder scripts, agent routing. The ways-of-working inventory records it so setup builds on that system instead of beside it.
 - **Write and purge.** Findings go to disk the moment a partition is scanned, and only a one-line summary stays in working context. This is what lets the scan cover a large repository without overflowing — and what lets it resume after an interruption.
 
 Your single point of contact with the user is a short scope-confirmation in Stage 2. Everything else is autonomous.
@@ -64,11 +66,11 @@ Before classifying, establish what is already known. Read `.groundwork/cache/dis
 
 ## Stage 1: Classify
 
-Determine the repository's shape and the technology of each part **without reading source files**. Read only the signals that reveal structure cheaply: the directory tree (depth-limited), package manifests (`package.json`, `go.mod`, `pyproject.toml`, `Cargo.toml`, and the like), lockfiles (to confirm a stack, not to read), `docker-compose*`, IaC roots, and the top-level `README`.
+Determine the repository's shape and the technology of each part **without reading source files**. Read only the signals that reveal structure cheaply: the directory tree (depth-limited), package manifests (`package.json`, `go.mod`, `pyproject.toml`, `Cargo.toml`, and the like), lockfiles (to confirm a stack, not to read), `docker-compose*`, `.gitmodules`, IaC roots, and the top-level `README`.
 
 Establish:
 
-- **Repo shape** — a single service, a multi-part repo (a client and a server), or a monorepo of many packages and services.
+- **Repo shape** — a single service, a multi-part repo (a client and a server), or a monorepo of many packages and services — and whether any parts are git submodules (`.gitmodules` names them; each is a separate repository whose checked-out working tree is scanned in place).
 - **Per-part project type** — language and framework for each part, matched from its key files (a `package.json` with `next.config.*` is a Next.js app; a `go.mod` with a `cmd/` directory is a Go service).
 
 Write the classification into `scan-state.json`. The exclusion globs and the contract-bearing file priorities you will apply are defined in `.groundwork/skills/groundwork-scan/references/exclusions.md` — load it now; it governs every read that follows.
@@ -89,15 +91,33 @@ Build an exact map of the codebase — module boundaries, import and call edges,
 
 ---
 
+## Stage 1.6: Ways-of-Working Inventory (autonomous)
+
+The repo may already run its own delivery methodology — its own system for defining, scaffolding, proving, and shipping work. GroundWork installed beside such a system leaves the project with two parallel ways of working, so setup must know the system is there before any phase writes canon. Inventory how the team actually works the same way the structural map inventoried how the code is shaped: evidence first, no format assumptions. Incumbent methodologies come in unbounded forms — you are describing this one, never matching it against a catalogue.
+
+Answer six questions, each with the paths that prove the answer and an honest confidence note:
+
+1. **How does work get defined and decided?** Work-unit or planning documents, their lifecycle and status vocabulary, appetite or estimate conventions.
+2. **How is progress proven?** Test suites bound to work units, gating conventions (skip markers, expected-failure patterns), reporters, CI wiring.
+3. **What process automation does the team own?** Scaffolder CLIs or scripts and their verbs, template trees, sync pipelines.
+4. **How are agents and humans guided in?** Routing files (`AGENTS.md`, `CLAUDE.md`, and kin), skill or rules trees, handbooks — and whatever pipeline maintains them.
+5. **Where does canonical knowledge live?** Doc roots, published sites, submodules — and which tree is the source of truth. Stage 4 carries this location into `overview.md` for the extract phases.
+6. **What is in flight right now?** Active work units, how each one's progress is actually computed — stored state, or derived from tests and docs — and where its next boundary falls.
+
+Write the findings to `.groundwork/cache/scan/methodology-findings.md` from the template at `.groundwork/skills/groundwork-scan/templates/methodology-findings.md`, and close with a **verdict**: `incumbent` when the repo has its own *system* for defining, scaffolding, proving, and delivering work — machinery a GroundWork install would duplicate or collide with; `none` otherwise. The verdict is that collision judgment, not a checklist score. Scattered practices without a system are `none`: a hand-authored doc or an ad-hoc script is carried forward by the extract phases' Adopt/Upgrade mode and needs no convergence phase.
+
+---
+
 ## Stage 2: Confirm Scope (the one interview point)
 
-The scan is otherwise autonomous. Confirm exactly two things with the user, paced per Protocol 4 — keep this tight, you are confirming inferences, not interrogating:
+The scan is otherwise autonomous. Confirm two things with the user — three when the ways-of-working verdict is `incumbent` — paced per Protocol 4; keep this tight, you are confirming inferences, not interrogating:
 
 1. **Partition boundaries.** Present the parts you detected and how you intend to partition the scan. The rule is one partition per service or package; a single-service repo partitions per top-level source area instead, and an oversized partition is sub-partitioned in Stage 3. Let the user correct a boundary you read wrong; they know the repo.
 2. **Scan depth.** Offer the three depths and recommend one based on repo size and the user's intent:
    - **Quick** — manifests, configs, the README, and contract/route files only; no deep source reading. Right for a first orientation or a very large repo.
    - **Deep** — quick plus every file in the critical directories the project type designates. The default for most repos.
    - **Exhaustive** — every code file except the exclusions. Right when the extract phases must miss nothing.
+3. **The way of working you found** — only when Stage 1.6's verdict is `incumbent`. Describe their system back to them in their own vocabulary — how they define work, prove it, and ship it — and let them correct the reading; they run it, you inferred it. Then tell them what the verdict means for setup: the docs phases will build on what they already have rather than beside it, and setup ends with a phase that merges the two ways of working into one, with every change to their existing system needing their approval first.
 
 Record the confirmed partitions and depth in `scan-state.json`. If the user volunteers product, design, or architecture opinions here, capture them under the matching header in `.groundwork/cache/discovery-notes.md` (Protocol 1) and steer back — they belong to the extract phases, not the scan.
 
@@ -143,6 +163,7 @@ Route every digest's fields into these files under `.groundwork/cache/scan/`, ea
 | `scan/product-findings.md` | `groundwork-product-brief-extract` |
 | `scan/design-findings.md` | `groundwork-design-system-extract` |
 | `scan/architecture-findings.md` | `groundwork-architecture-extract` |
+| `scan/methodology-findings.md` | `groundwork-methodology-adopt` (written by Stage 1.6; partition digests append via `ways_of_working`) |
 
 The digest schema's field-to-file routing is defined alongside the schema in `references/digest-schema.md` — follow it exactly so each extract finds what it expects under its own header.
 
@@ -150,15 +171,15 @@ The digest schema's field-to-file routing is defined alongside the schema in `re
 
 ## Stage 4: Finalise
 
-Both paths converge here. Verify every partition in `scan-state.json` is `complete`. Write `scan/overview.md`: the repo shape, the partition map, and — this matters — an honest **coverage and gaps** note recording what was read fully versus sampled at the chosen depth. A downstream phase that knows a directory was only sampled can ask the user about it; one that assumes full coverage cannot. Silent truncation reads as completeness it did not earn. Set `status: complete` in `scan-state.json`.
+Both paths converge here. Verify every partition in `scan-state.json` is `complete`. Write `scan/overview.md`: the repo shape, the partition map, the canonical-docs location Stage 1.6 established (where the project's own canon lives — the extract phases ingest existing docs from there), and — this matters — an honest **coverage and gaps** note recording what was read fully versus sampled at the chosen depth. A downstream phase that knows a directory was only sampled can ask the user about it; one that assumes full coverage cannot. Silent truncation reads as completeness it did not earn. Set `status: complete` in `scan-state.json`.
 
-Do not delete the findings. They are the durable hand-off the extract phases consume; `groundwork-infra-adopt` deletes the shared scan cache at the end of setup.
+Do not delete the findings. They are the durable hand-off the extract phases consume; `groundwork-infra-adopt` deletes the shared scan cache at the end of setup, preserving `scan/methodology-findings.md` when a convergence phase follows — `groundwork-methodology-adopt` deletes that file at its own commit.
 
 ---
 
 ## Stage 5: Present & Hand Off
 
 1. Present a short summary to the user: the repo shape, the partitions scanned, what each findings slice captured, and any coverage gaps. This is orientation, not a document — keep it brief.
-2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. This is the one completion signal; nothing else marks the scan finished.
+2. **Record completion.** Add `"scan"` to the `completed` array in `.groundwork/config/state.json` — this is the durable marker the orchestrator reads, since the scan leaves no `docs/` artifact to reconcile against. This is the one completion signal; nothing else marks the scan finished. In the same write, record Stage 1.6's verdict as `methodology: "incumbent"` or `"none"` — the orchestrator routes the convergence phase from this field, and only the scan writes it.
 3. Capture any out-of-phase signals from the conversation into `.groundwork/cache/discovery-notes.md` (Protocol 1).
 4. Immediately load and execute the `groundwork-orchestrator` skill to route to the first extract phase. Do not ask the user to invoke it — hand off automatically.

@@ -17,6 +17,10 @@
 
 <!-- One line per partition: id — one-sentence purpose -->
 
+## Canonical Docs Location
+
+<!-- Where the project's own canonical docs live: root docs/, another directory, a docs-site tree, a submodule, or none. The extract phases ingest existing canon from here (Adopt/Upgrade mode). -->
+
 ## Scan Depth
 
 <!-- quick | deep | exhaustive -->
