@@ -41,13 +41,13 @@ work for a working session — surface it in your first reply, in one line: how 
 framework update items are waiting and that saying "update groundwork" runs them.
 Route to `groundwork-update` when the user agrees. Do not block other work on it.
 
-**The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
+**The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion. The `methodology` field and the `methodology-adopt` marker are durable the same way: the scan alone writes `methodology` (`"incumbent"` or `"none"`), `groundwork-methodology-adopt` alone writes its completion marker, and neither is reconciled from files.
 
 **Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — its Downstream Context file at `.groundwork/context/<phase>.md` (present until Setup Graduation tears the store down), plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead. (Once `setup_graduated: true`, the store is gone by design — completion is settled and this check no longer gates setup.)
 
 ### Adopt/Upgrade Mode
 
-A brownfield repo may already hold docs — a hand-authored README-style brief, an ad-hoc architecture file, or canonical docs written against an older GroundWork standard. These must be brought forward, not overwritten, so existing projects come along when the framework improves. When an artifact exists but fails the contract check above, route to the phase's extract skill and signal Adopt/Upgrade mode. The skill ingests the existing doc as its primary source, fills the missing contract sections, re-stamps frontmatter, gates through review, and commits — preserving the user's content while raising it to the current standard.
+A brownfield repo may already hold docs — a hand-authored README-style brief, an ad-hoc architecture file, or canonical docs written against an older GroundWork standard. These must be brought forward, not overwritten, so existing projects come along when the framework improves. Nor must they live at the canonical paths: a repo may keep its canon in another directory, a docs-site tree, or a submodule — `scan/overview.md` records where, and the extract ingests from there while its output still lands at the canonical path. When an artifact exists but fails the contract check above, route to the phase's extract skill and signal Adopt/Upgrade mode. The skill ingests the existing doc as its primary source, fills the missing contract sections, re-stamps frontmatter, gates through review, and commits — preserving the user's content while raising it to the current standard.
 
 ---
 
@@ -87,7 +87,7 @@ Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-
 
 ### Brownfield Setup Phases
 
-The brownfield track reverse-engineers the same canonical artifacts from an existing codebase, then bolts on the missing GroundWork operational layer without regenerating the app. It converges to the same end-state as greenfield and enters the same Delivery Loop. There is no MVP phase — `groundwork-bet` cold-starts its own discovery, informed by the gap ledger that infra adoption commits.
+The brownfield track reverse-engineers the same canonical artifacts from an existing codebase, then bolts on the missing GroundWork operational layer without regenerating the app. It converges to the same end-state as greenfield and enters the same Delivery Loop. There is no MVP phase — `groundwork-bet` cold-starts its own discovery, informed by the gap ledger that infra adoption commits. A repo already running its own delivery methodology (the scan records `methodology: "incumbent"`) gets one more phase — Methodology Convergence — so setup ends with one way of working, not two.
 
 | Order | Phase | Skill | Completion signal |
 |---|---|---|---|
@@ -96,6 +96,7 @@ The brownfield track reverse-engineers the same canonical artifacts from an exis
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` |
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` |
 | 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` |
+| 5 | Methodology Convergence | `groundwork-methodology-adopt` | `methodology-adopt` marker in `state.completed` (durable) — phase exists only when `methodology: "incumbent"` |
 
 ### Anytime Skills
 - `groundwork-doc-sync` — surgical updates to **project documents** after code changes (maps a diff to the docs it makes stale; the project's docs kept in sync with the project's own code)
@@ -130,6 +131,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-design-system-extract` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
 | `groundwork-architecture-extract` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
 | `groundwork-infra-adopt` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| `groundwork-methodology-adopt` | `.groundwork/skills/groundwork-methodology-adopt/instructions.md` |
 | `groundwork-bet` | `.groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-doc-sync` | `.groundwork/skills/groundwork-doc-sync/instructions.md` |
 | `groundwork-update` | `.groundwork/skills/groundwork-update/instructions.md` |
@@ -164,6 +166,8 @@ The most common entry, and the one GroundWork exists to catch: the user asks to 
 **Before setup completes**, a build request is the setup flow itself — route to the next setup phase (Mode Detection above), not a delivery lane. The three lanes below are available only in the Delivery Loop.
 
 **If a lane is already active, continue it.** A non-`delivered` bet or quick-bet (its pitch carries an active `status:`) is in flight — route to `groundwork-bet`, which resumes it; do not re-triage a request that is really the next slice of work already under way. (A patch is atomic and carries no open state, so there is nothing to resume.)
+
+**An incumbent lane counts too.** While `state.json` records `methodology: "incumbent"` without the `methodology-adopt` marker, work belonging to one of the incumbent system's in-flight units continues in that system — never route it into GroundWork lanes; the convergence phase dispositions it at a boundary. After convergence, a unit the owner chose to finish natively is an open row in `docs/maturity.md` and continues natively until it closes.
 
 **Otherwise size the request — the Work Intake triage.** Three signals, each resolved against a lane's own definition rather than re-judged here:
 

@@ -88,6 +88,7 @@ METHODOLOGY = [
     "groundwork-design-system-extract",
     "groundwork-architecture-extract",
     "groundwork-infra-adopt",
+    "groundwork-methodology-adopt",
     "groundwork-bet",
     "groundwork-doc-sync",
     "groundwork-review",

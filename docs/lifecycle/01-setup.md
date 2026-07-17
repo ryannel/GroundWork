@@ -23,15 +23,18 @@ When the repository already holds an application, setup inverts: the code is the
 
 | Phase | Skill | Output | What it establishes |
 |---|---|---|---|
-| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Code map (via Serena when present), concern-split findings for the extract phases |
+| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Code map (via Serena when present), concern-split findings for the extract phases, and a ways-of-working inventory — whether the repo already runs its own delivery methodology, recorded as `methodology` in state |
 | 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
 | 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
 | 3 | `groundwork-architecture-extract` | `docs/architecture/index.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |
 | 4 | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
+| 5 | `groundwork-methodology-adopt` | Convergence ADR + maturity rows (phase exists only when the scan recorded an incumbent methodology) | One way of working: the incumbent system's elements converted, retired, or deliberately kept under an owner-sanctioned convergence map, executed at work-unit boundaries so in-flight work is never fractured |
 
 There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
 
-Existing docs are never blind-overwritten. A repo that already carries a brief or architecture doc routes through **Adopt/Upgrade mode**: the extract skill ingests the existing document as its primary source, fills the missing contract sections, and raises it to the current standard while preserving the user's content.
+Existing docs are never blind-overwritten. A repo that already carries a brief or architecture doc routes through **Adopt/Upgrade mode**: the extract skill ingests the existing document as its primary source, fills the missing contract sections, and raises it to the current standard while preserving the user's content. The existing docs need not live at the canonical paths — canon kept in another directory, a docs-site tree, or a submodule is recorded by the scan and ingested from there, with the output still landing at the canonical path.
+
+A repo that hand-built its own bet-like delivery system — work-unit docs, progress tests, a scaffolder CLI, its own agent routing — is a **methodology twin**, and installing GroundWork beside that system would leave two parallel ways of working. The scan's inventory detects it, the extract phases build on its canon rather than beside it, and the conditional convergence phase ends setup with one way of working: every incumbent element gets an owner-ruled disposition (corresponds, converts, retires, or deliberately keeps), in-flight incumbent work finishes natively or freezes at a boundary — never fractured mid-unit — and nothing changes before the owner sanctions the plan in one structured pass.
 
 ## Why the order
 
