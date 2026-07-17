@@ -1,6 +1,6 @@
 # Implementation Plan: Methodology-Twin Brownfield Adoption (Convergence, not a Parallel Stack)
 
-**Status:** EXECUTING 2026-07-17 — authored alongside the implementation; all slices land on this branch. Update this line in the commit that completes the last workstream.
+**Status:** EXECUTED 2026-07-17 — all workstreams A–J landed on this branch, `./dev ci` green. Owed: the two driver-gated live proofs (§11) — a `methodology_twin` sim run and the acceptance run on the motivating local repo, each finding M1–M6 observed closed there.
 **Audience:** An engineer or agent implementing or extending the brownfield convergence track. Each workstream names its files and acceptance check.
 **Scope owner:** `groundwork-scan`, `groundwork-orchestrator`, the three extract skills, the new `groundwork-methodology-adopt` hidden skill, `bin/groundwork.js`, `lib/repo-map/`, and the sim harness — with coupled changes to `groundwork-infra-adopt`, `scripts/lint_skills.py`, and the lifecycle docs.
 

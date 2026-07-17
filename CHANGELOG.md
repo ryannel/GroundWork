@@ -8,6 +8,34 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (methodology-twin brownfield adoption: convergence, not a parallel stack, 2026-07-17)
+
+- The brownfield track now converges a repo that already runs its own delivery
+  methodology instead of installing a second one beside it. The scan gains a
+  ways-of-working inventory (Stage 1.6: six evidence-first exploration
+  dimensions, no format catalogue) writing `scan/methodology-findings.md` and a
+  durable `methodology` verdict in state; the orchestrator routes a conditional
+  Phase 5 — Methodology Convergence (`groundwork-methodology-adopt`) — and its
+  Work Intake keeps in-flight incumbent work in its native system until the
+  convergence dispositions it at a boundary; the extract skills ingest existing
+  canon from wherever it lives (another directory, a docs-site tree, a
+  submodule — recorded in `scan/overview.md`) rather than deriving a parallel
+  root canon. The new hidden skill holds the only owner-sanctioned authority to
+  convert or retire incumbent methodology artifacts: one go/veto ruling pass
+  over a disposition map (corresponds/converts/retires/keeps + freeze-or-finish
+  per in-flight unit), driver/worker execution one-unit-one-commit at work-unit
+  boundaries, and a proven one-way-of-working end state recorded as an ADR plus
+  maturity rows. [no-migration] Skills ship by clean-copy; no shipped surface
+  group changes shape.
+- `init`, `check`, and `repo-map` gain submodule awareness: `.gitmodules` is
+  parsed directly (uninitialized clones included), init prints the
+  superproject-root topology notice and records `topology.submodules` in
+  `state.json` (the config seed is untouched), check surfaces submodule count
+  and uninitialized-submodule advisories, and `repo-map.json` enumerates
+  `submodules` with the contents-not-indexed caveat documented in the schema
+  contract. [no-migration] `bin/` and `lib/` ship with the package; the state
+  field is written lazily at init and absent-means-unknown on old installs.
+
 ### Fixed (check no longer flags promoted/authored skills as framework drift, 2026-07-15)
 
 - `groundwork check` warned "N framework-owned file(s) differ from the package
