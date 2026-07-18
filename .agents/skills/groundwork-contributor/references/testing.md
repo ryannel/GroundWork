@@ -171,6 +171,7 @@ are hunting:
 | Scope discipline (user keeps adding wants) | `adversarial_scope_creep` | Bounded runs against Product Brief / MVP planning |
 | Terse input (minimal answers, no elaboration) | `adversarial_terse` | Bounded runs against discovery phases |
 | Brownfield grounding (docs must trace to real code) | `brownfield_monorepo`, `--repo=` deep runs | Full run before a release |
+| Methodology-twin convergence (one way of working at the end; incumbent canon ingested, in-flight work unfractured) | `methodology_twin` (suite-owned fixture) | Bounded runs when the scan/convergence corpus changes; full run before a release |
 | Delivery mechanics (the eight judged mechanics) | `delivery_task_capture` | Full run before a release |
 | Multi-surface routing | `multi_surface`, `forge_native_desktop` | When surface routing changes |
 | Upgrade path | `upgrade` | When the update lane changes |

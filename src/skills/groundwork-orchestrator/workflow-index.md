@@ -29,6 +29,7 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 | 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
 | 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| 5 | Methodology Convergence | `groundwork-methodology-adopt` | `methodology-adopt` marker in `state.completed` (durable) — phase exists only when `methodology: "incumbent"` | `.groundwork/skills/groundwork-methodology-adopt/instructions.md` |
 
 ## Delivery Loop (all setup phases complete)
 

@@ -45,9 +45,9 @@ The shared operating contract at `.groundwork/skills/operating-contract.md` (con
 
 ### Step 1: Mode Detection — Extract or Adopt/Upgrade
 
-Check whether `docs/architecture/index.md` already exists.
+Check whether `docs/architecture/index.md` already exists — and when it does not, whether the canon location `scan/overview.md` records holds an architecture equivalent, which enters Adopt/Upgrade as primary source with the output still landing under `docs/architecture/`.
 
-- **Absent** — standard **Extract** mode.
+- **Absent** (no equivalent at the recorded canon location either) — standard **Extract** mode.
 - **Present but lacking an element this phase's commit produces** (for the architecture: its Downstream Context file at `.groundwork/context/architecture-extract.md`, or the `generation_mode`/`source_of_truth` frontmatter) — **Adopt/Upgrade** mode: ingest the existing architecture as primary source and bring it forward — the stance defined in the product-brief extract's Step 1 / the orchestrator's Adopt/Upgrade Mode. Reconcile it against the code where they disagree — the code wins.
 
 ### Step 2: Read Upstream Context (Protocol 3.2 order)

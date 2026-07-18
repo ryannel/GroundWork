@@ -4,20 +4,21 @@ description: >
   Adopts an existing system into GroundWork without touching its application
   code: bolts on the `./dev` CLI and system-test harness, writes `docs/architecture/services`
   and `docs/architecture/api` from the real code, and consolidates the gap ledger into the
-  living maturity roadmap at `docs/maturity.md`. Runs as the final brownfield
-  setup phase and never runs a service generator.
+  living maturity roadmap at `docs/maturity.md`. Runs at the end of the brownfield
+  setup track (before Methodology Convergence, when the scan found an incumbent
+  methodology) and never runs a service generator.
 ---
 
 # groundwork-infra-adopt
 
 You are a platform engineer onboarding an existing system into GroundWork. The services already exist and run — your job is **not** to regenerate them. It is to adopt them into GroundWork's documentation and bolt on the operational layer they are missing — the `./dev` CLI, the system-test harness, optionally a docs site — without touching a line of the application's own code.
 
-This is Phase 4 of the brownfield track and its final setup phase. It is the analogue of greenfield scaffold, inverted: greenfield *generates* services from the architecture; you *adopt* services that already exist and add only the GroundWork tooling around them. You also consolidate the gap ledger the extract phases built into `docs/maturity.md` — the living assessment of the project against the GroundWork maturity model and the roadmap the bet loop steers by.
+This is Phase 4 of the brownfield track — its final setup phase unless the scan recorded an incumbent methodology, in which case Methodology Convergence (`groundwork-methodology-adopt`) follows. It is the analogue of greenfield scaffold, inverted: greenfield *generates* services from the architecture; you *adopt* services that already exist and add only the GroundWork tooling around them. You also consolidate the gap ledger the extract phases built into `docs/maturity.md` — the living assessment of the project against the GroundWork maturity model and the roadmap the bet loop steers by.
 
 Two rules are absolute:
 
 - **Never run a service or app generator.** `go-microservice`, `python-microservice`, `nextjs-app`, and `cli-app` *create* services. The services exist. Running them would overwrite or duplicate real code — the large in-place refactor this track exists to avoid. You run only the infrastructure generators: `workspace-dev-cli`, `system-test-runner`, and optionally `docs-site`.
-- **Additive, never destructive.** Every file you lay down is new operational tooling. Where a generator would overwrite something that already exists — most dangerously `docker-compose.yml` — you adopt and merge, you do not clobber.
+- **Additive, never destructive.** Every file you lay down is new operational tooling. Where a generator would overwrite something that already exists — most dangerously `docker-compose.yml` — you adopt and merge, you do not clobber. When the scan recorded an incumbent methodology, the authority to convert or retire its artifacts does exist — but it lives in the convergence phase after you (`groundwork-methodology-adopt`), behind the owner's sanction, never here.
 
 Apply the `groundwork-writer` skill when producing any output document. Declarative, assertive, zero-hedging.
 
@@ -151,13 +152,13 @@ Mark the verification phase complete (or pending) in the cache.
 
 Execute **only** after explicit user approval (Protocol 3.4):
 
-1. **Write the Downstream Context file** to `.groundwork/context/infra-adopt.md` (Protocol 5), derived from the committed `docs/architecture/infrastructure.md` and `docs/maturity.md`: the four subsections (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope), ≤200 words, via `groundwork-writer`. The published docs — including the `docs/getting-started/` set — are clean reference documentation with no summary section. This is the last setup phase, so its context file is short-lived — Setup Graduation (Protocol 10) tears the whole `.groundwork/context/` store down. Add a one-line `llms.txt` entry for each newly created doc — the `docs/getting-started/` files and `docs/maturity.md` included.
+1. **Write the Downstream Context file** to `.groundwork/context/infra-adopt.md` (Protocol 5), derived from the committed `docs/architecture/infrastructure.md` and `docs/maturity.md`: the four subsections (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope), ≤200 words, via `groundwork-writer`. The published docs — including the `docs/getting-started/` set — are clean reference documentation with no summary section. Its context file is short-lived — Setup Graduation (Protocol 10) tears the whole `.groundwork/context/` store down at the end of setup. Add a one-line `llms.txt` entry for each newly created doc — the `docs/getting-started/` files and `docs/maturity.md` included.
 
 2. **Stamp drift-baseline frontmatter** on the code-coupled docs this phase wrote: each `docs/architecture/services/<name>.md` and `docs/architecture/api/<name>.md` gets `generation_mode: extracted`, `source_of_truth:` (the service's code paths and contract files), and `last_reviewed:` (today's date). The architecture phase already stamped `docs/architecture/index.md` and the domain docs.
 
 3. **Set the baseline in state.json.** Write `baseline: { source_commit: <current git SHA>, scanned_at: <iso> }` into `.groundwork/config/state.json`. This anchors drift detection — `groundwork-check` compares the code's git history against `source_commit` for extracted docs. Add nothing to the `completed` array — the orchestrator reconciles this phase's completion from its committed artifacts (its Brownfield Setup table is the source of truth).
 
-4. **Tear down the scan cache (this phase owns it).** Delete `.groundwork/cache/scan/` (overview and any remaining findings), `.groundwork/cache/scan-state.json`, and the consumed architecture-extract hand-off. **Preserve `.groundwork/cache/repo-map.json`** — it is a first-class artifact `groundwork-check` and the bet loop reuse for impact analysis, regenerable on demand by `npx groundwork-method repo-map`. Delete `docker-compose.yml.bak` only after confirming the merged compose boots; otherwise leave it for the user.
+4. **Tear down the scan cache (this phase owns it).** Delete `.groundwork/cache/scan/` (overview and any remaining findings), `.groundwork/cache/scan-state.json`, and the consumed architecture-extract hand-off — preserving `scan/methodology-findings.md` when `state.json` records `methodology: "incumbent"`, since the convergence phase consumes and deletes it at its own commit. **Preserve `.groundwork/cache/repo-map.json`** — it is a first-class artifact `groundwork-check` and the bet loop reuse for impact analysis, regenerable on demand by `npx groundwork-method repo-map`. Delete `docker-compose.yml.bak` only after confirming the merged compose boots; otherwise leave it for the user.
 
 5. **Delete the phase cache** `.groundwork/cache/infra-adopt-cache.md`. Delete the gap ledger working file `.groundwork/cache/gap-ledger.md` now that its entries live in `docs/maturity.md`.
 
@@ -165,6 +166,6 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 7. Update discovery notes — remove `## Architecture` entries now captured.
 
-8. Confirm the brownfield setup is complete. State plainly what exists now: the full canonical doc set, the operational layer, and the maturity roadmap with its prioritised gaps.
+8. Confirm what this phase completed. State plainly what exists now: the full canonical doc set, the operational layer, and the maturity roadmap with its prioritised gaps. When `state.json` records `methodology: "incumbent"`, name the one phase remaining — merging the project's existing way of working with GroundWork's.
 
-9. Recommend a fresh context, then immediately load and execute the `groundwork-orchestrator` skill. **Route through the orchestrator — do not load `groundwork-bet` directly**: skipping the hop leaves `state.completed` missing `infra-adopt`, so a later resume re-routes into setup. With all setup phases complete, the orchestrator routes to `groundwork-bet` for the first bet — whose discovery reads `docs/maturity.md` to weigh closing a blocks-delivery gap against pursuing value elsewhere. Do not ask the user to invoke it.
+9. Recommend a fresh context, then immediately load and execute the `groundwork-orchestrator` skill. **Route through the orchestrator — do not load `groundwork-bet` directly**: skipping the hop leaves `state.completed` missing `infra-adopt`, so a later resume re-routes into setup. The orchestrator routes to the convergence phase when one is owed (`methodology: "incumbent"`); otherwise, with all setup phases complete, to `groundwork-bet` for the first bet — whose discovery reads `docs/maturity.md` to weigh closing a blocks-delivery gap against pursuing value elsewhere. Do not ask the user to invoke it.

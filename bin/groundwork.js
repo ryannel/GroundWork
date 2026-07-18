@@ -150,6 +150,54 @@ function isSelfCopy(p) {
   return path.resolve(p.targetDir) === path.resolve(__dirname, '..');
 }
 
+// ─── Submodule topology ─────────────────────────────────────────────────────
+// GroundWork installs at the superproject root; submodule working trees are
+// separate git repositories the install never writes into. Parsed from
+// .gitmodules directly — no git binary needed, and an uninitialized clone
+// (gitlinks without content) still reports its topology.
+
+function detectSubmodules(targetDir) {
+  const file = path.join(targetDir, '.gitmodules');
+  if (!fs.existsSync(file)) return [];
+  const submodules = [];
+  let current = null;
+  for (const raw of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
+    const line = raw.trim();
+    const section = line.match(/^\[submodule\s+"(.+)"\]$/);
+    if (section) {
+      current = { name: section[1], path: null, url: null };
+      submodules.push(current);
+      continue;
+    }
+    if (!current) continue;
+    const kv = line.match(/^(path|url)\s*=\s*(.+)$/);
+    if (kv) current[kv[1]] = kv[2].trim();
+  }
+  return submodules
+    .filter((s) => s.path)
+    .map((s) => {
+      let initialized = false;
+      try {
+        initialized = fs.readdirSync(path.join(targetDir, s.path)).length > 0;
+      } catch {}
+      return { name: s.name, path: s.path, url: s.url, initialized };
+    });
+}
+
+function recordTopology(p, submodules) {
+  const statePath = path.join(p.targetConfigDir, 'state.json');
+  try {
+    let state = {};
+    if (fs.existsSync(statePath)) {
+      state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    }
+    state.topology = { submodules: submodules.map((s) => s.path) };
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+  } catch (err) {
+    c.warn(`Could not record submodule topology in state.json: ${err.message}`);
+  }
+}
+
 // ─── Version stamp (decision D4) ────────────────────────────────────────────
 // state.json's top-level `version` is the state-schema version; the framework
 // version that wrote the install lives under `groundwork.version`.
@@ -1549,6 +1597,14 @@ async function initGroundWork(options = {}) {
     }
   }
 
+  const submodules = detectSubmodules(p.targetDir);
+  if (submodules.length) {
+    recordTopology(p, submodules);
+    c.info(`Detected ${submodules.length} git submodule(s) — GroundWork installs at this superproject root.`);
+    console.log(`       Submodule working trees are separate repositories: nothing is installed into them,`);
+    console.log(`       the scan reads them in place, and bet delivery handles the gitlink topology.`);
+  }
+
   // Seed the user config once; it is user-owned and never overwritten afterwards.
   // `--set key=value` writes into the config only at this seed moment — on an existing
   // install the file is yours, so a --set there refuses rather than mutating it.
@@ -1959,6 +2015,17 @@ function checkGroundWork() {
 
   // Code-map freshness — advisory, never fails the build (Serena/LLM fallbacks exist).
   reportRepoMapStatus(p);
+
+  // Submodule topology — advisory: the scan reads submodule trees in place and
+  // delivery handles gitlinks, but an uninitialized submodule is invisible to both.
+  const checkSubmodules = detectSubmodules(p.targetDir);
+  if (checkSubmodules.length) {
+    const uninit = checkSubmodules.filter((s) => !s.initialized);
+    c.info(`Repo has ${checkSubmodules.length} git submodule(s); repo-map enumerates them, contents are read in place.`);
+    if (uninit.length) {
+      c.warn(`${uninit.length} submodule(s) not initialized (${uninit.map((s) => s.path).join(', ')}) — run git submodule update --init to make them scannable.`);
+    }
+  }
 
   if (!fs.existsSync(docsDir)) {
     c.err(`No docs/ directory found in ${p.targetDir} — nothing to check.`);
