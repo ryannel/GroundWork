@@ -75,11 +75,22 @@ These are the acceptance criteria for everything in this set.
 14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for decisions that genuinely need a human and cannot wait.
 15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
 
+## Core principle: effective use of attention
+
+Attention is the scarcest human resource. The framework asks for yours in few moments — intent, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
+
+- **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed plus a link; the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
+- **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked: the right branch, a hand-started server, the right page.
+- **Priced.** The dial records how far work runs before it may pause for you. Checkpoints never block. Acceptance batches to moments you choose. A genuine stop is a short mechanical list ([loop.md](loop.md)); everything else records a decision you can veto later and keeps moving.
+- **Measured.** Every lane declares how many human decisions it should cost, and the Map reports actuals against that budget — the same way token spend is recorded per dispatch.
+
+Plain writing (content rules, below) serves the same principle: text that must be read twice spends attention twice.
+
 ## Core principle: effective use of context
 
-Context is the scarcest machine resource, the way attention is the scarcest human one. Two disciplines, both enforced.
+Context is the scarcest machine resource, the way attention is the scarcest human one — the same economy for the other reader. Two disciplines, both enforced.
 
-**In conversation.** Two rules work together. Anything worth keeping — plans, decisions, findings, status — lives on a committed page, because chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all. But a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it. A checkpoint message is three lines of what changed plus a link to the full page; the link is for the human to click when they want more, and no agent is expected to follow it. Reports lead with exceptions. Review arrives as two-minute capsules. The always-on instruction set is capped at about 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
+**In conversation.** Two rules work together. Anything worth keeping — plans, decisions, findings, status — lives on a committed page, because chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all. But a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it. The always-on instruction set is capped at about 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
 
 **In execution.** The loop is an orchestrator-worker economy:
 
