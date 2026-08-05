@@ -59,6 +59,6 @@ The three scans and the deletion test:
 
 Visual rows: render smoke, a11y, token conformance, plus the affordance-floor checklist for UI review — the minimum interactions every shipped surface must support (reachable controls, sane hit targets, selection, a way back).
 
-The one-page worker contract: hand off changes unstaged for the driver to inspect, return a parseable report, escalate blocking concerns instead of guessing, and never satisfy with a mock anything the sealed proof names as real. Dispatch tiers follow the core context principle: frontier drives and reviews, execution workers build, tier explicit on every dispatch.
+The one-page worker contract: arrive briefed — the dispatch carries the extract the work needs, and a worker missing orientation escalates instead of hunting for it; hand off changes unstaged for the driver to inspect; return a parseable report; escalate blocking concerns instead of guessing; and never satisfy with a mock anything the sealed proof names as real. Dispatch tiers follow the core context principle: frontier drives and reviews, execution workers build, tier explicit on every dispatch, spend and role recorded per dispatch.
 
 Every battery run writes its outcome to the journal ([loop.md](loop.md)) — which rows ran and each row's result — automatically, at the moment it runs. A check with no journal lines is a check that never ran, and that is now a visible fact instead of a forensic discovery.

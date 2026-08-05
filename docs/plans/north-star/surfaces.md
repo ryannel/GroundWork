@@ -28,7 +28,7 @@ Where everything stands: portfolio → program → bet → milestone → slice, 
 
 Delivered work keeps its rendered view forever. Completed bets are exactly what you survey later. Each lane declares its decision budget — the number of human decisions work in that lane is expected to cost — and the Map reports actuals against it. Acceptance debt renders loudly. So does teaching debt: the count of decisions made for you that no teach-back has walked you through ([loop.md](loop.md)). So do the two bypass signals: unlaned work (commits with no lane trailer) and repeat-waived checks (a check overridden again and again is a broken check nobody has fixed).
 
-The tower also renders a method-health page, read from the journals ([loop.md](loop.md)) across every registered project: per-mechanism catch and fire counts, waiver repeats, escalation rates, decision-budget actuals. The question this whole spec needed forensics to answer — which parts earn their keep — becomes a page.
+The tower also renders a method-health page, read from the journals ([loop.md](loop.md)) across every registered project: per-mechanism catch and fire counts, waiver repeats, escalation rates, decision-budget actuals, and token spend by role — the priciest parts of the loop are a sorted column, not a forensic project. The question this whole spec needed forensics to answer — which parts earn their keep — becomes a page.
 
 ## Dev mode — the method watches itself
 

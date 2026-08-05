@@ -102,7 +102,7 @@ Context is the scarcest machine resource, the way attention is the scarcest huma
 - Workers escalate instead of guessing. A worker that hits a decision it cannot settle stops and raises a blocking concern to the driver. This is in the worker's contract because cheap models measurably fail at judging their own limits; a stuck worker that pushes on produces a dishonest green.
 - Tiers are named capability classes, not model names, so the policy survives model churn. Every dispatch states its tier; leaving it off is an error. If a named tier is unavailable, substitute a stronger model, never a weaker one.
 - State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers, and a fresh window resumes from them. Compaction is treated as lossy.
-- Token spend is recorded per dispatch, so the tier policy is tuned with measured numbers.
+- Token spend is recorded per dispatch, along with the dispatch's role — worker build, adversary, capsule writer, and kin — so cost rolls up by mechanism as well as by tier. Which parts of the loop eat the quota is a query against the journal, not a guess.
 
 ## Core principle: catches point upstream
 
@@ -132,7 +132,7 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 - About five style imperatives live in the always-on set.
 - Authored docs get a plain-language edit from a fresh-context agent before commit.
 - A jargon lint — a maintained blocklist of house terms — runs on committed docs and on rendered capsules and status pages.
-- Capsules are written by a fresh-context subagent, because runtime text is where a style-contaminated author does the most damage.
+- Capsules are written by a fresh-context subagent, because runtime text is where a style-contaminated author does the most damage. Fresh context is not a license to forage: the writer is handed the facts it renders — the diff, the proof plan, the findings — copied in like any dispatch. Fresh means no accumulated register, not re-deriving the work.
 
 ## Governance
 
