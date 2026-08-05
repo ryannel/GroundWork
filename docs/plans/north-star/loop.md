@@ -26,18 +26,22 @@ Triage puts each piece of work in one of three lanes. When two lanes could both 
 | Lane | Design depth | Seals | Verification |
 |---|---|---|---|
 | Patch | None | None — checks only | Battery. The commit's trailers feed a patch ledger; a cluster of patches in one area is the signal that the area deserves a bet |
-| Standard | Intent paragraph | Intent, acceptance | Battery + adversary + drive artifact |
-| Complex | Full design walk: UI → flows → API → schema | Design-walk seal, acceptance | Everything above + design docs merge into the Record |
+| Standard | Intent paragraph, including the proof cases | Intent, acceptance | Battery + adversary + drive artifact |
+| Complex | Full design walk: UI → flows → API → schema → proof plan | Design-walk seal, acceptance | Everything above + design docs merge into the Record |
+
+Work that bypasses the lanes still shows: a commit landing with no lane trailer renders on the Map as unlaned work. The bypass is recorded because bypasses happened — one 11 MB session delivered seven bet-labeled commits almost entirely outside the machinery, invisibly.
 
 ## The design walk
 
 The walk reviews pictures before prose: sequencing and flows are argued as diagrams. The agent proposes options with a recommendation instead of asking open-ended questions. Each consequential decision gets its own turn instead of arriving in a bundle. What's already ruled gets a one-line recap; full detail is spent only on what's new.
 
+On the complex lane the walk ends with the proof plan ([proof.md](proof.md)): the cases, fixture axes, and real-versus-faked choices that will prove the work. Arguing what would prove the design is part of arguing the design, and the human seals both together. This is the upstream half of the defense against the mining's dominant defect class — tests green while behavior was wrong.
+
 Per-discipline conventions (system design, data flows, DB schema, API schema, UI/UX) each state the artifact shape, the walk, and where the seal lands. They are identical across bets and programs. These conventions, plus the loop's philosophy, live in a short ways-of-working section of the shipped docs. That section is kept because the philosophy must be taught to the agent; no check can convey it.
 
 ## Writes
 
-Every ruling writes to the decisions ledger. Every bounce writes its reason to the findings ledger. Every finding records what caught it — which review, which check, which human. (Today's ledger has exactly that field, and across 114 recorded findings it was never filled in once; the mining that found this is in [evidence.md](evidence.md).)
+Every ruling writes to the decisions ledger. Every bounce writes its reason to the findings ledger. Every finding records what caught it — which review, which check, which human — and a defect-class tag. (Today's ledger has exactly the catcher field, and across 114 recorded findings it was never filled in once; the mining that found this is in [evidence.md](evidence.md).) The class tag feeds the learning loop: a class that recurs triggers a change to the process that generates it — a rule, a check, a template, or a walk — not another layer of catching.
 
 A seal is a git tag, and the amendment protocol is the only way it moves: stop, show before and after, move the tag only on the owner's explicit words, record the amendment. Every seal records the battery version it was granted under.
 
@@ -48,10 +52,10 @@ Nothing that proves or attributes work is deleted at archive time. The old proce
 The loop today costs a 3-milestone bet roughly 35–45 subagent dispatches, six bookkeeping writes per slice, and 10–15 waiting-on-you moments. The revised pipeline keeps what makes it safe and cuts what doesn't. The cost history is in [evidence.md](evidence.md).
 
 **Per slice:**
-1. The frontier driver assembles the worker's task brief. When a slice exists to update the callers of a changed contract or signature, the driver computes the caller list from committed code and puts it in the brief, so the worker works a full list instead of grepping and hoping.
+1. The frontier driver assembles the worker's task brief, which carries the slice's proof plan — the sealed statement of which cases prove this capability and what runs real. When a slice exists to update the callers of a changed contract or signature, the driver computes the caller list from committed code and puts it in the brief, so the worker works a full list instead of grepping and hoping.
 2. A fresh execution-tier worker implements to green and hands its changes off unstaged, for the driver to inspect before anything commits. Blocking-concern escalations are counted; that count tunes the tier policy.
 3. The battery runs: seal verify (the work still matches what was sealed), the three scans (honesty, wiring, tokens — [proof.md](proof.md)), and the deletion test. Test coverage is proven by the deletion test, not judged from a reviewer's read.
-4. **One** fresh-context adversary reviews the diff, blind, for correctness. Today's loop dispatches three review agents per slice — a blind reviewer, an edge-case tracer, and a coverage auditor, together called the lenses. This collapses to one because coverage judgment went mechanical in step 3, and edge-case plus honesty judgment moved to milestone close, where the assembled diff gives them more to bite on.
+4. **One** fresh-context adversary reviews the diff, blind, for correctness — and reviews the tests against the sealed proof plan, not against the implementation's own claims. Today's loop dispatches three review agents per slice — a blind reviewer, an edge-case tracer, and a coverage auditor, together called the lenses. This collapses to one because coverage judgment went mechanical in step 3, and edge-case plus honesty judgment moved to milestone close, where the assembled diff gives them more to bite on.
 5. Findings land in the findings ledger, each in one of four buckets — decision-needed (a real choice the design does not settle; blocks), fix-now, defer (real but pre-existing), dismiss (with the reason kept) — and each stamped with what caught it. A slice cannot close over an open finding. Fixes run in the worker's existing context where possible: re-deriving context in a fresh window measured about 41% of the original build cost, so fixing in place is the default and a fresh dispatch is the escalation.
 6. The slice commits with its trailers, and a backup push to the bet branch runs so no work is ever only local. Total bookkeeping: the commit and two ledger entries. Today's loop also writes a board file, a memory log, and hand-refreshed status and proofs pages every slice — six writes. Those pages are now derived by the Map from the commits and ledgers.
 7. A fresh-context subagent writes the capsule. The slice enters the Queue unless a prior seal covers it.
@@ -60,12 +64,12 @@ The loop today costs a 3-milestone bet roughly 35–45 subagent dispatches, six 
 - Battery rows: the visual smoke set (render, a11y, token conformance) and a red-for-the-right-reason check on the next milestone's test stubs — each stub must fail because its capability is missing, not for an incidental reason. This is a check now because stubs have shipped with their key assertions commented out: red-looking, proving nothing.
 - Three frontier reads, no more: a screenshot review against the design system, which also carries the polish verdict (today's separate polish stage folds in here); the milestone-sum adversary — the honesty audit with its tell catalog plus edge-case judgment over the assembled diff ([proof.md](proof.md)); and an experience audit of the running product.
 - The postmortem answers four questions, written to the ledger, one line each unless there is a real finding: did the milestone honestly prove its intent at the front door; what did building it teach that the remaining plan does not know; were plan changes routed through amendments rather than made silently; what must the next milestone or validation remember. No narrator subagent is dispatched to present this — the Map's milestone page carries it. Nothing blocks unless the dial says so.
-- The next milestone is sliced before close, from what delivery taught.
+- The next milestone is sliced before close, from what delivery taught. Slicing is checked in both directions: every slice's proof traces to the sealed design, and everything the design names as user-facing lands in some slice's proof or a recorded deferral. The second direction exists because it failed once — a sealed, spec'd Undo pattern belonged to no slice, every slice was individually correct, and the gap surfaced only at the whole-bet gate.
 
 **Per bet close:**
 - Battery rows, not ceremony steps: full suite, whole-bet seal verify, contract verification, capture of the served API spec into the Record, every capability-ledger cell filled, the visual smoke set.
 - Acceptance: you drive the agreed front-door cases and the drive artifact is recorded. Batching follows the dial, with acceptance debt rendered on the Map.
-- The retrospective mines the ledgers mechanically — recurring findings, escalation counts, the previous bet's action items — and checks the sealed program ladder for later bets this delivery has invalidated. That check exists because it has happened: a sibling bet shipped and voided a sealed milestone's whole premise mid-bet. It is a Map signal now, not a question someone must remember to ask.
+- The retrospective mines the ledgers mechanically — recurring defect classes and the upstream changes they demand, escalation counts, the previous bet's action items — and checks the sealed program ladder for later bets this delivery has invalidated. That check exists because it has happened: a sibling bet shipped and voided a sealed milestone's whole premise mid-bet. It is a Map signal now, not a question someone must remember to ask.
 - Archive, merge on your go-ahead, teardown. Archival keeps the proofs, the findings, and the review outputs.
 
 Target arithmetic for the same 3-milestone, 8-slice bet: frontier dispatches drop from about 35 to about 20 (one per slice, three per milestone, three doc reviews). Slice bookkeeping drops from six writes to two. Waiting-on-you moments drop from 10–15 to the seals plus whatever pauses the dial chooses.

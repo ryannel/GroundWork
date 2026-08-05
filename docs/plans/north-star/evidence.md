@@ -97,6 +97,28 @@ Defects that got past the process and were found later, from the ledgers that ex
 
 The record now attributes: specific mechanisms have named, quoted catches, and specific mechanisms have none. What it still cannot prove is the counterfactual — no control run exists without the framework, so nobody can say the same products would not have shipped with less process. Cost is documented by the framework's own plans (the review-fatigue finding; the 344k-word upkeep). By the survey's causal standard nobody in the industry has proof either: METR's randomized trial — the field's only controlled measurement — found a 19% slowdown while developers believed they were 20% faster, then abandoned its own replication because developers now refuse to work without AI (§5.1). Held to the practitioner standard, this method has more internal evidence than most of what the survey covers — and after this mining, better-attributed evidence than before.
 
+### Tracing the catches to their generators
+
+Ours. A catch count is not only a win for the catcher — it is a defect count for whatever keeps producing the defect. This table takes each defect class the mining surfaced and names the process that generated it and the upstream fix now in the spec. The class tags on findings ([loop.md](loop.md)) turn this from a one-time analysis into a standing loop.
+
+| What was caught, downstream | What generated it | The upstream fix |
+|---|---|---|
+| 12+ suites green while behavior was wrong (the lenses' catches) | One context wrote both the code and the tests judging it, and seeded fixtures with the one shape its own logic handled | The proof plan: cases and fixture axes authored before implementation, sealed by the human on the complex lane; the adversary reviews tests against the plan ([proof.md](proof.md)) |
+| A gate passed content the site's own loader then rejected, twice | The gate reimplemented the loader's rules in parallel, and parallel definitions of "valid" drift | Checkers import the consumer's real code path |
+| UI suites shipped compiling-but-never-run; a build reported success after a hand-edit dropped the tests from the target; 5 of 7 failed when finally run | Green was inferred from building, and execution was never evidenced | Run-evidence rows: new tests appear by name in the run log; a zero-test run is red |
+| A regression shipped under green CI | CI enumerated test suites by hand and ran one of three | Suites discovered by pattern; discovered reconciled against ran |
+| A spec'd Undo pattern absent from the whole bet, caught only at the final gate | The design named it but no slice owned it, and traceability ran only slice→design | Decomposition traceability runs both directions: design-named user-facing elements must land in a slice or a recorded deferral |
+| Attribution field empty 114 times; ratifications never recorded | The fields were optional, and the record was a separate step after the action | Required at write time; the action is the record — the tag only moves through the ratify step |
+| The deletion-test verb: zero logged runs, while manual deletion probes caught real gaps twice | The check was an optional verb someone had to remember to invoke | The battery runs every row; a row that did not run is red |
+| A doc-freshness check: 106 runs, zero catches, three docs permanently unassessable | Docs could be born without parseable anchors, and "unassessed" was only a warning | The doc lint runs at birth; an unassessable doc is red |
+| A code-map verb invoked 73 times with no artifact on disk | A producer with no consumer, reporting success without its output | Producers name their consumers; a claimed artifact that is absent fails |
+| Six false-red gate checks overridden every bet for weeks | Overriding was frictionless and nothing counted the overrides | Waivers are sealed and counted; a repeat-waived check is flagged for repair or deletion |
+| 11 MB of real delivery in one session, two CLI invocations | The ceremony cost more than the bypass, and the bypass left no trace | The patch lane is checks-only cheap, and unlaned commits render on the Map |
+| Editorial findings still shipping unfixed three versions later | Content review produced findings with no disposition loop | All findings — code or content — enter the ledger and carry a disposition |
+| ~95 opaque sentences in this spec, passed by a plain-language edit | The author knew the referents; a style editor cannot see a missing referent | The cold-reader eval is flag-then-expand: the reader flags what it cannot ground, the author expands ([record.md](record.md)) |
+
+Two generators were already treated this way in the first draft, which is what suggested the pattern generalizes: chat instructions decaying (→ run mode as recorded state) and proofs authored hollow (→ the front-door proof rules). The rest of the table applies the same move everywhere the mining showed a repeat offender.
+
 ## The documentation gap, measured
 
 Wordloop's docs are largely hand-written. Magpie's were produced by GroundWork. The comparison defines the Record's standard:

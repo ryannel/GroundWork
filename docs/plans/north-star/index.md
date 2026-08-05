@@ -26,6 +26,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
 - **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
+- **Proof plan** — the sealed statement of what will prove a piece of work: the cases, the fixture axes that must vary, and what runs real versus faked. Written before the implementation.
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
@@ -49,7 +50,7 @@ We mined the delivery records and session transcripts of those projects for this
 
 The same mining showed which parts never earned their keep, on the framework's own evidence: a per-slice honesty audit that rubber-stamped and was demoted, a re-review step that found zero critical findings and was turned off, a deletion-test verb with no logged runs, a doc-freshness check that ran 106 times in one project and never caught anything. And attribution has a real limit we hit while mining: the archive step deletes the raw review files at bet close, and the findings ledger's "what caught this" field was never filled in once — the framework destroyed much of its own fine-grained evidence. The rebuild fixes that: every finding records what caught it, and review evidence survives archival.
 
-Cost is documented by the framework's own plans: the review-fatigue finding, and the upkeep of 344k words of shipped instruction prose. So the verdict is not "the method failed." It is: keep what demonstrably catches, shed what demonstrably doesn't, and stop destroying the evidence that tells them apart.
+Cost is documented by the framework's own plans: the review-fatigue finding, and the upkeep of 344k words of shipped instruction prose. So the verdict is not "the method failed." It is: keep what demonstrably catches, shed what demonstrably doesn't, stop destroying the evidence that tells them apart — and treat what the catchers keep catching as the pointer to what must change upstream.
 
 ## Goals
 
@@ -69,6 +70,7 @@ These are the acceptance criteria for everything in this set.
 12. Everything reads plainly: docs, capsules, chat, and status that a tired human gets on the first pass.
 13. Effective use of context: lean windows, tiered models, distilled hand-offs. The loop is economical by design.
 14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for decisions that genuinely need a human and cannot wait.
+15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
 
 ## Core principle: effective use of context
 
@@ -85,6 +87,14 @@ Context is the scarcest machine resource, the way attention is the scarcest huma
 - Tiers are named capability classes, not model names, so the policy survives model churn. Every dispatch states its tier; leaving it off is an error. If a named tier is unavailable, substitute a stronger model, never a weaker one.
 - State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers, and a fresh window resumes from them. Compaction is treated as lossy.
 - Token spend is recorded per dispatch, so the tier policy is tuned with measured numbers.
+
+## Core principle: catches point upstream
+
+A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more.
+
+The mining made this concrete. Review caught over a dozen "tests green, behavior wrong" bugs — which proves the review works, and also proves the process that authors tests kept producing suites blind to the behavior they claimed to prove. Catching more is the wrong lesson. The right lesson is to change how tests are born so there is less to catch.
+
+So every guard in this spec has two halves. The downstream half catches: the adversary, the scans, the gates. The upstream half prevents: the proof plan that shapes tests before they are written ([proof.md](proof.md)), the checker that shares its consumer's real code path, the field that is required at write time instead of hoped for later. And the halves are connected by a loop: every finding in the ledger carries a defect-class tag, and a class that recurs triggers a change to whatever generates it — a rule, a check, a template, or a walk — never just another layer of catching. [evidence.md](evidence.md) traces each defect class the mining found to its generator and names the upstream fix.
 
 ## Content rules
 

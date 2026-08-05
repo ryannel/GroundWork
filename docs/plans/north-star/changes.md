@@ -13,6 +13,11 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Run modes as recorded state**, the mechanical stopping rule, and non-blocking checkpoints.
 - **The Queue and the Map** with computed ranking, per-lane decision budgets, and acceptance-debt rendering.
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
+- **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
+- **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
+- **Defect-class tags on findings**, and the recurrence trigger: a class that recurs changes its upstream generator, not just its catcher.
+- **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
+- **The bypass signals on the Map**: unlaned commits and repeat-waived checks.
 - **Fresh-context capsule generation**; render-time style linting.
 - **Escalation telemetry** (worker blocking-concern counts feeding tier policy) and per-dispatch token recording.
 - **The red-for-the-right-reason stub check.**
@@ -96,6 +101,8 @@ Deliberately not decided here. The execution plan must specify:
 - The checkpoint host hook implementation (hook type, what it reads).
 - Per-lane dial defaults and the sensitive-paths escalation list format.
 - The finding-attribution field's vocabulary (which catchers can be named) and the archival layout that preserves review outputs.
+- The proof plan's format (fields, length, where it lives per lane) and how its seal composes with the design-walk seal.
+- The defect-class vocabulary (seeded from the mining's classes) and the recurrence threshold that triggers an upstream change.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
