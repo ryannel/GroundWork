@@ -116,6 +116,7 @@ Ours. A catch count is not only a win for the catcher — it is a defect count f
 | 11 MB of real delivery in one session, two CLI invocations | The ceremony cost more than the bypass, and the bypass left no trace | The patch lane is checks-only cheap, and unlaned commits render on the Map |
 | Editorial findings still shipping unfixed three versions later | Content review produced findings with no disposition loop | All findings — code or content — enter the ledger and carry a disposition |
 | ~95 opaque sentences in this spec, passed by a plain-language edit | The author knew the referents; a style editor cannot see a missing referent | The cold-reader eval is flag-then-expand: the reader flags what it cannot ground, the author expands ([record.md](record.md)) |
+| The planning record invisible across projects and branches (owner-reported, 2026-08-05) | Rendering was coupled to the current checkout and a hand-started per-project server, and surfacing was left to agent discipline | The Map reads git, not the checkout; one always-on tower serves every project; the checkpoint and session-start hooks push the position ([surfaces.md](surfaces.md)) |
 
 Two generators were already treated this way in the first draft, which is what suggested the pattern generalizes: chat instructions decaying (→ run mode as recorded state) and proofs authored hollow (→ the front-door proof rules). The rest of the table applies the same move everywhere the mining showed a repeat offender.
 

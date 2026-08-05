@@ -11,7 +11,10 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The cold-reader doc eval.**
 - **The program artifact** and the program-level design walk.
 - **Run modes as recorded state**, the mechanical stopping rule, and non-blocking checkpoints.
-- **The Queue and the Map** with computed ranking, per-lane decision budgets, and acceptance-debt rendering.
+- **The Queue and the Map**, cross-project, with computed ranking, per-lane decision budgets, and acceptance-debt rendering.
+- **The project registry** (`~/.groundwork/registry.json`, written by `init` and `update`).
+- **The tower**: one always-on, read-only local service for all registered projects — reads state from git refs and worktrees without any checkout, serves the Queue, the Map, and each repo's committed docs at one stable address; health and restart via the CLI.
+- **The session-start position snapshot hook** and `groundwork where` (the CLI rendering of the same data).
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
 - **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
@@ -103,6 +106,9 @@ Deliberately not decided here. The execution plan must specify:
 - The finding-attribution field's vocabulary (which catchers can be named) and the archival layout that preserves review outputs.
 - The proof plan's format (fields, length, where it lives per lane) and how its seal composes with the design-walk seal.
 - The defect-class vocabulary (seeded from the mining's classes) and the recurrence threshold that triggers an upstream change.
+- The tower's address and daemon lifecycle (launch mechanism, health surface, restart path — macOS first) and the registry's handling of moved or deleted repos.
+- Cross-project Queue ranking: how project priority weighs against lane, age, and coverage.
+- Whether the ambient layer ships (menubar count, native notifications) — optional; decide at execution.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest

@@ -14,7 +14,7 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 ## Brownfield
 
-**Day one — what needs no sockets.** The honesty and wiring scans, deletion tests, the dependency audit, the Queue, and a ratchet baseline snapshot install immediately. The next change made in that repo already cannot cheat at those.
+**Day one — what needs no sockets.** The honesty and wiring scans, deletion tests, the dependency audit, the Queue, and a ratchet baseline snapshot install immediately, and the install registers the project with the tower ([surfaces.md](surfaces.md)) so it appears in the portfolio view from the first minute. The next change made in that repo already cannot cheat at those.
 
 **The adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup.
 

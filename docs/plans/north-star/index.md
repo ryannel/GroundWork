@@ -14,7 +14,7 @@ How to read it: this file carries the vision, the goals, and the rules. One file
 2. [The Standards](standards.md) — the conventions we adopt, stated as imperatives, enforced by checks.
 3. [The Loop](loop.md) — programs, bets, and slices, with ceremony priced by risk.
 4. [The Proof](proof.md) — a verification battery agents cannot argue with or edit.
-5. [The Queue and the Map](surfaces.md) — the only two review surfaces: what needs you now, and where everything stands.
+5. [The Queue and the Map](surfaces.md) — the only two review surfaces: what needs you now, and where everything stands, across every project.
 6. [Two doors](doors.md) — greenfield and brownfield entry into the same system.
 
 ## The words this set uses
@@ -30,6 +30,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
+- **The tower** — the one always-on local service that serves the Queue and the Map for every registered project, reading state from git rather than from any checkout.
 - **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness.
 
 ## What GroundWork will be
@@ -62,7 +63,7 @@ These are the acceptance criteria for everything in this set.
 4. Brownfield: wrap existing systems in a better way of working.
 5. Uniform, high-quality code across sessions; existing code pulled toward the same style.
 6. Proof of work: agents cannot cheat.
-7. Easy review at both altitudes: what needs me now, and where the whole program stands — including planned and unstarted work.
+7. Easy review at both altitudes and across every project: what needs me now, and where the whole program stands — including planned and unstarted work — with zero setup: no server to start, no branch to be on, no page to hunt for.
 8. Right-sized ceremony: light by default, heavy only where stakes demand it.
 9. Durable memory: decisions, findings, and state live in git, never in a chat window.
 10. Human ownership: everything that shipped was accepted by you, and everything complex was designed with you.
@@ -142,6 +143,7 @@ The first three are mechanical. The other four are discipline made visible: the 
 - Extracted brownfield docs can be confidently wrong. Citations and freshness checks are the defense.
 - Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
 - The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
+- The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and committed markdown remains the no-daemon fallback.
 
 ## Out of scope
 
