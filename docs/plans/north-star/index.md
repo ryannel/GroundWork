@@ -146,6 +146,7 @@ The first three are mechanical. The other four are discipline made visible: the 
 - Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
 - The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
 - The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and committed markdown remains the no-daemon fallback.
+- Dev mode can recreate the upkeep treadmill — 384 commits of framework work came from self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word cap and the sunset regime bind method changes the same as ever.
 
 ## Out of scope
 

@@ -30,6 +30,14 @@ Delivered work keeps its rendered view forever. Completed bets are exactly what 
 
 The tower also renders a method-health page, read from the journals ([loop.md](loop.md)) across every registered project: per-mechanism catch and fire counts, waiver repeats, escalation rates, decision-budget actuals. The question this whole spec needed forensics to answer — which parts earn their keep — becomes a page.
 
+## Dev mode — the method watches itself
+
+For maintainers of the method only: a flag in the registry, off by default. Consumer projects never see it. It exists because method defects kept surfacing inside consumer projects and reaching the framework repo only by forensics — magpie's own notes documented a gate's false-reds for weeks before anyone fixed the gate.
+
+- **Observations are journal events, nothing heavier.** The mechanical triggers cost zero because the journal already records them: a repeat-waived check, a defect class recurring against a framework-owned generator, a battery row that never fires, an escalation resolved as "the skill prose was wrong." The one judgment trigger: when the driver had to *work around* the method, it writes a one-line method-friction event, class-tagged. There is no meta-review dispatch and no per-slice critique of the framework — delivery gains one optional line, nothing else.
+- **The tower routes, because the method is a registered project like any other.** Method-classed signals from every project cluster on the method-health page into the **method queue**, deduplicated by class and mechanism — ten occurrences are one cluster with a count, not ten items.
+- **Formalization is an issue, never a PR.** A cluster files as one GitHub issue in the framework repo, carrying its evidence: the journal lines, the project and session ids, the counts. Maintainer-triggered by default — the evidence names project paths and sessions, so a human sees what ships before it ships — with threshold auto-file as an opt-in. An existing issue is updated, never re-filed. Method changes themselves run through the method's own loop in the framework repo, with their own proof plans and adversary; dev mode supplies evidence, it does not write changes. Host conveniences (suggested-task chips in the framework workspace) are adapters over the method queue, never the record.
+
 ## Surfacing
 
 The position comes to you; you never go get it.

@@ -30,6 +30,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Drive artifacts** and **waivers**.
 - **The checkpoint host hook** (three-line delta plus deep link, emitted mechanically).
 - **The adoption seal flow** for brownfield.
+- **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
 
 ## What stays
 
@@ -127,6 +128,7 @@ Deliberately not decided here. The execution plan must specify:
 - The journal's event schema, its file layout, and the debug switch's exact scope.
 - The update engine's ownership-manifest format and the Queue shape of update proposals.
 - The always-on kernel's contents — the ~500 words themselves.
+- Dev mode's clustering thresholds, its issue template, and the auto-file opt-in.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
