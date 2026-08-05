@@ -28,6 +28,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
 - **Proof plan** — the sealed statement of what will prove a piece of work: the cases, the fixture axes that must vary, and what runs real versus faked. Written before the implementation.
 - **The board** — a bet's live view of its sealed proofs, each red or green from the battery's last run. Derived from the one permanent test suite, not a separate copy of it.
+- **The journal** — the append-only record the CLI writes automatically as it acts: check outcomes, dispatches, seals, waivers, one line per event. How the method learns from real work without anyone keeping notes.
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
@@ -106,7 +107,7 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 
 **One sunset regime.** Every shipped rule, check, template, and forcer is marked `architectural` or `dated`.
 - `architectural`: survives model generations (externalized state, hostile verification, review as the constraint). Justified once, in writing.
-- `dated`: works around a current model weakness. Carries a review-by date, six months maximum. At the date: re-justify with evidence or delete.
+- `dated`: works around a current model weakness. Carries a review-by date, six months maximum. At the date: re-justify with evidence or delete — and the evidence is the journal's counts: how often the rule's check fired, caught, or got waived since the last review.
 - The re-test happens in real work. After a model-generation bump, the next real project runs with one designated forcer switched off. If the output stays deep without it, the forcer dies; if the output thins, the forcer earned six more months. The small simulation rig — a test harness that replays delivery scenarios against the framework — is the fallback instrument when no real project is at hand.
 
 **Budgets.** Shipped instruction prose is capped: target 20–35k words total, from 344k today, with the always-on set about 500 words. The cap is CI-checked. Product documentation has no word cap — its bound is freshness, not size.

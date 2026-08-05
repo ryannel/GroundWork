@@ -16,6 +16,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The tower**: one always-on, read-only local service for all registered projects — reads state from git refs and worktrees without any checkout, serves the Queue, the Map, and each repo's committed docs at one stable address; health and restart via the CLI.
 - **The session-start position snapshot hook** and `groundwork where` (the CLI rendering of the same data).
 - **The board derivation**: the bet/slice test marker in the derivation contract, and the expected-state reconciliation — plan position against test state, red for the right reason on unreached rungs, green on claimed-done slices.
+- **The journal**: one machine-written line per operational event — battery rows and outcomes, dispatches with tier/tokens/escalation, seals, waivers, dial changes, triages, archives — committed with the work it describes, session-id stamped. The tower's method-health page reads it. A debug switch widens lines to full check output; off by default, free when off.
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
 - **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
@@ -112,6 +113,7 @@ Deliberately not decided here. The execution plan must specify:
 - Cross-project Queue ranking: how project priority weighs against lane, age, and coverage.
 - Whether the ambient layer ships (menubar count, native notifications) — optional; decide at execution.
 - The test-marker syntax per stack (naming convention vs annotations) and the just-this-bet filter recipes.
+- The journal's event schema, its file layout, and the debug switch's exact scope.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
