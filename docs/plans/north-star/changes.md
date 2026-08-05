@@ -24,7 +24,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
 - **The bypass signals on the Map**: unlaned commits and repeat-waived checks.
 - **Fresh-context capsule generation**; render-time style linting.
-- **Escalation telemetry** (worker blocking-concern counts feeding tier policy) and per-dispatch token recording.
+- **The known-gaps view**: open deferred findings rendered per project on the Map, with patch clustering able to promote a cluster into a bet.
 - **The red-for-the-right-reason stub check.**
 - **The cross-bet invalidation signal** against the sealed program ladder.
 - **Drive artifacts** and **waivers**.
@@ -41,7 +41,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - Patch-trailer mining: patches carry trailers, and a ledger clusters them to show which areas keep needing fixes.
 - The design-doc shape and the per-discipline design conventions.
 - Doc freshness, citations, and the reversal rule.
-- The docs site as the Map's home. Of today's several hand-refreshed render surfaces (status pages, proofs pages, board files), two survive: the docs site and the in-chat three-line delta. The rest are derived.
+- Of today's several render surfaces (docsite, status pages, proofs pages, board files), two survive: the tower and the in-chat three-line delta. The rest are derived or absorbed — the docs-site generator itself is deleted below.
 - The universal adoption sheets and stack seeds, with ratchets and blessed modules.
 - Setup output contracts and depth gates, `dated` ([doors.md](doors.md)).
 - The ways-of-working pages: the loop's philosophy, the design conventions, and a one-page register of rules born from real incidents — the worker hand-off rules, the never-mock-what-the-proof-names rule, the commented-out-assertion check and their kin — each `dated` so every scar rule must periodically re-justify itself.
@@ -53,9 +53,9 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - The per-slice backup push.
 - The simulation rig, kept small.
 - `add-capability` (mid-life manifest additions).
-- The update path (`groundwork-method update`), permanently.
+- The update engine, permanently — the migration registry slimmed to a version cursor, ownership manifest, and idempotent steps (see Migration and updates below).
 - The boundary-linter configs the generators already carry — depguard for Go, import-linter for Python, ESLint boundary rules for the TypeScript stacks — transcribed into the stack seeds.
-- The manifest-derived module graph (a 30 KB file recording which modules depend on which).
+- The manifest-derived module graph (a 30 KB file recording which modules depend on which) — `dated`, with its retention test named: its one consumer is the ripple caller list, and if the journal shows no ripple slice consuming a caller list by the review date, the graph goes too.
 
 ## What gets deleted
 
@@ -72,13 +72,24 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Setup conversation scripts and hand-off ceremony.**
 - **Most of the 45k-word bet lifecycle prose.**
 - **The sim harness's scenario backlog** — the debt of unwritten simulation scenarios it carries as TODOs. The rig survives small; the obligation to write them all does not.
-- **repo-map's 28 MB grammar layer** — repo-map is the CLI's code-intelligence index; 82% of the npm package is tree-sitter grammars serving that one verb. The module graph covers the load-bearing use at 30 KB.
+- **repo-map, the whole verb** — the CLI's code-intelligence index, whose 28 MB of tree-sitter grammars is 82% of the npm package. The record shows it invoked 73 times in one project without its artifact ever appearing on disk. The module graph covers the one load-bearing use at 30 KB, and it is `dated` (keep list above).
+- **The docs-site generator** — the tower renders every repo's committed docs, so the per-project docs site leaves the spine ([doors.md](doors.md)). A public product docs site, where a product wants one, is product work owned by the product.
 - **The 10 Nx generators**, after the battery passes against at least one generator-built repo ([doors.md](doors.md)).
 - **The separate bet-progress suite** — the per-bet copy of the tests, authored all-red and deleted at archive. Proofs are born in their permanent home instead; the board becomes a derived view; only proofs marked retire-at-close are ever deleted ([proof.md](proof.md)).
 
-## Migration
+## Migration and updates
 
-The migration registry is not deleted. The rebuild ships as migrations: one final release on the old registry carries every install across the rebuild boundary, and the three live installs — magpie, staycurrent, and this repo's own — move through it. After that the registry retires and the update path continues in the new shape, permanently: the sunset regime guarantees churn, so the propagation path is load-bearing forever. Every seal records the battery version it was granted under, so installs can always say which checks vouched for what.
+The rebuild ships as migrations: one final release on the old registry carries every install across the rebuild boundary, and the three live installs — magpie, staycurrent, and this repo's own — move through it.
+
+After the boundary, updates are permanent, because the sunset regime guarantees churn. The update engine is the old registry slimmed down: a version cursor in project state, an ownership manifest, and idempotent steps. (An earlier draft said the registry "retires" — wrong, and this section replaces it.) Every update classifies its changes by blast radius:
+
+- **Package-internal** (CLI, battery, skills): a plain package update. Seals record the battery version they were granted under, so a behavior change is visible and old seals keep their meaning.
+- **Framework-owned project files** (CI stanzas, hook configs, the dev CLI adapter): reconciled automatically, ownership-scoped — the update never touches files the project authored. This rule is written in blood: the old update lane deleted app-authored skills twice before ownership scoping fixed it.
+- **Project-owned artifacts the framework only seeded** (standards sheets, templates in use): never auto-edited. The update proposes — a Queue entry with a capsule, accepted or bounced like any other change. Updates ride the system instead of running beside it.
+
+**New checks arrive as ratchets.** When an update adds a check, existing violations are baselined and may only decrease — the same mechanism as brownfield adoption. A release that turns projects red teaches people not to update.
+
+The journal records every update event. Every seal records the battery version it was granted under, so installs can always say which checks vouched for what.
 
 ## Size targets
 
@@ -114,6 +125,8 @@ Deliberately not decided here. The execution plan must specify:
 - Whether the ambient layer ships (menubar count, native notifications) — optional; decide at execution.
 - The test-marker syntax per stack (naming convention vs annotations) and the just-this-bet filter recipes.
 - The journal's event schema, its file layout, and the debug switch's exact scope.
+- The update engine's ownership-manifest format and the Queue shape of update proposals.
+- The always-on kernel's contents — the ~500 words themselves.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
