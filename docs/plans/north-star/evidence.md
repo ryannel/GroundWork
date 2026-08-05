@@ -153,6 +153,7 @@ Ours, not the survey's:
 - Answering "is this program complete?" took five forensic steps. `status` reported "23 delivered · 0 in flight · 97 queued" — true and useless. An unstarted bet left no trace anywhere. Archiving a bet deleted its rendered status page. (Programs first-class, the Map.)
 - The framework's own review-throughput plan opens: "The bottleneck is human fatigue during review."
 - The findings-attribution and evidence-destruction measurements from the mining above (0 of 114 lens fields; review files deleted at archive for 21 of 23 bets) are the basis for the finding-attribution rule and durable archival.
+- The method's own test harness today: `./dev sim` (run, follow, assess, judge, checkpoint, and kin, under `scripts/sim/`) launches each sim as a background Claude Code session in an isolated worktree. Headless print mode (`claude -p`) is banned in the harness and lint-enforced, because it mis-bills subscription runs as API usage (claude-code issue #43333). That constraint is why the rebuilt rig runs from inside a session on subagents ([proof.md](proof.md)).
 
 ## What the adversarial reviews changed
 

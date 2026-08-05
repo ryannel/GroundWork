@@ -32,6 +32,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The teach-back**: the walk-up brief at acceptance, the return offer in the session-start snapshot, and the journal's taught-decisions line with its Map count ([loop.md](loop.md)).
 - **The adoption seal flow** for brownfield.
 - **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
+- **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
 
 ## What stays
 
@@ -53,7 +54,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - The proofs board — the generated page listing each sealed proof and its status — read row by row at acceptance, as the seal ceremony.
 - The ripple-slice caller list: when a slice updates callers of a changed contract, the driver computes the list from committed code.
 - The per-slice backup push.
-- The simulation rig, kept small.
+- The simulation rig, kept small — rebuilt on the in-session subagent transport, under the cost ladder that spends model calls last ([proof.md](proof.md)).
 - `add-capability` (mid-life manifest additions).
 - The update engine, permanently — the migration registry slimmed to a version cursor, ownership manifest, and idempotent steps (see Migration and updates below).
 - The boundary-linter configs the generators already carry — depguard for Go, import-linter for Python, ESLint boundary rules for the TypeScript stacks — transcribed into the stack seeds.
@@ -131,6 +132,7 @@ Deliberately not decided here. The execution plan must specify:
 - The always-on kernel's contents — the ~500 words themselves.
 - Dev mode's clustering thresholds, its issue template, and the auto-file opt-in.
 - The teach-back's return trigger (how much landed work or elapsed time counts as "away") and how a taught decision is marked covered.
+- The method rig's scenario rubrics, fixture-repo shapes, per-scenario cost budgets, and the smoke/full/deep trigger list.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest

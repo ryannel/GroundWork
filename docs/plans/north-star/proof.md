@@ -62,3 +62,32 @@ Visual rows: render smoke, a11y, token conformance, plus the affordance-floor ch
 The one-page worker contract: arrive briefed — the dispatch carries the extract the work needs, and a worker missing orientation escalates instead of hunting for it; hand off changes unstaged for the driver to inspect; return a parseable report; escalate blocking concerns instead of guessing; and never satisfy with a mock anything the sealed proof names as real. Dispatch tiers follow the core context principle: frontier drives and reviews, execution workers build, tier explicit on every dispatch, spend and role recorded per dispatch.
 
 Every battery run writes its outcome to the journal ([loop.md](loop.md)) — which rows ran and each row's result — automatically, at the moment it runs. A check with no journal lines is a check that never ran, and that is now a visible fact instead of a forensic discovery.
+
+## Proving the method
+
+The battery proves products. This section is about proving GroundWork itself: the prose, the checks, and the surfaces. The instruments sit on a cost ladder, and the rule is to reach for the cheapest one that can answer the question. Model calls are spent last.
+
+**Rung 0 — code proves code.** Parsers, the board derivation, the journal writer, the tower's rendering, every CLI verb: ordinary code with ordinary tests, zero tokens. A model call is never spent proving what a unit test can prove.
+
+**Rung 1 — real work.** The journal and dev mode measure every mechanism in production for free: catch and fire counts, waiver repeats, spend by role ([surfaces.md](surfaces.md)). The sunset regime's re-tests run in real projects first ([index.md](index.md)). A sim is never scheduled to answer a question the journal will answer anyway.
+
+**Rung 2 — judge-only replays.** One frontier dispatch, no generation: a fresh judge reads a real past bet's archive — or a planted fixture — against a rubric and returns a verdict with quoted evidence. The archived bets are test fixtures we already own. Most method regressions are checked this way: assessment without simulation.
+
+**Rung 3 — live sims.** The expensive instrument, kept for the one question nothing cheaper answers: does the prose actually steer an agent end to end. The harness is a Claude Code session: it seeds a fixture repo in a worktree, spawns the scenario as subagents, and dispatches the judge. A cast of three, under the same tier policy as delivery:
+
+- The **runner**, execution tier, plays the delivering agent.
+- The **scripted owner** plays the human: a canned decision script wherever answers are predetermined, a model only where the scenario needs improvisation.
+- The **judge**, frontier tier, fresh context, scores against a rubric and quotes its evidence.
+
+The transport note is `dated`: the fan-out is in-session subagents because headless print mode is unavailable on subscription quota ([evidence.md](evidence.md)). The rig's interface — scenario in, artifacts and verdict out — does not care what the host calls its agents next year.
+
+**The scenario shelf.** Five flows and an adversarial set:
+
+- **Greenfield door**: intent conversation → toolchain proposal → adversary review → birth seal → manifest build-out.
+- **Brownfield door**: day-one install on a fixture legacy repo → adoption seal → ratchet baseline → first slice through the adapter.
+- **Slice**: one slice through the full pipeline — brief, worker, battery, adversary, capsule.
+- **Bet**: pitch → design walk → decomposition → acceptance → archive, with the scripted owner sealing.
+- **Program**: a ladder of two tiny bets with the dial at `program` — did it run unattended, stop only for the mechanical list, and catch a planted cross-bet invalidation.
+- **Escape replays**: fixtures seeded with the mined cheat catalog — commented-out assertions, hollow capabilities, mocks where the proof names real — proving the catchers still catch. When a defect class recurs in real work, its replay joins the shelf: catches point upstream, applied to the method itself.
+
+**The quota rules.** Fixtures are the smallest faithful ones — a sim bet is two milestones of two slices; the flow is what is proven, never the scale. Three run tiers with named triggers: smoke (the slice scenario; cheap; every release), full (the doors and the bet; pre-release, or when the prose a scenario exercises changed), deep (the program and the replays; per model generation, or on drift evidence). And the rig journals its own dispatches with role `sim`, so the harness's spend sits in the same sorted column as everything else and every scenario carries a cost budget it must justify.
