@@ -92,7 +92,7 @@ Plain writing (content rules, below) serves the same principle: text that must b
 
 Context is the scarcest machine resource, the way attention is the scarcest human one — the same economy for the other reader. Two disciplines, both enforced.
 
-**In conversation.** Two rules work together. Anything worth keeping — plans, decisions, findings, status — lives on a committed page, because chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all. But a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it. The always-on instruction set is capped at about 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
+**In conversation.** Two rules work together. Anything worth keeping — plans, decisions, findings, status — lives on a committed page, because chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all. But a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it. The always-on instruction set stays near 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
 
 **In execution.** The loop is an orchestrator-worker economy:
 
@@ -123,7 +123,7 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 - `dated`: works around a current model weakness. Carries a review-by date, six months maximum. At the date: re-justify with evidence or delete — and the evidence is the journal's counts: how often the rule's check fired, caught, or got waived since the last review.
 - The re-test happens in real work. After a model-generation bump, the next real project runs with one designated forcer switched off. If the output stays deep without it, the forcer dies; if the output thins, the forcer earned six more months. The small simulation rig — a test harness that replays delivery scenarios against the framework — is the fallback instrument when no real project is at hand.
 
-**Budgets.** Shipped instruction prose is capped: target 20–35k words total, from 344k today, with the always-on set about 500 words. The cap is CI-checked. Product documentation has no word cap — its bound is freshness, not size.
+**Budgets.** The goal is the smallest corpus that gives up nothing real. Words are a cost — but so are cuts that remove working guidance, and hitting a number is never a reason to cut. We believe the right size is somewhere near 20–35k words of shipped instruction prose, down from 344k today, with the always-on set near 500. Those figures are aspirations that set the direction, not limits that gate a change; the honest instrument for shrinking the corpus is the sunset regime above, which deletes by evidence, rule by rule. What is enforced is visibility: CI counts the words on every change and publishes the total and its trend, so growth is always a deliberate act with a stated reason — never an accident, and never a wall. Product documentation has no word target at all; its bound is freshness, not size.
 
 **Plain writing.** Models copy the register of what they read. That is our working hypothesis for why style rules kept losing to our own dense corpus — twice in one session, writing degraded right after ingesting dense material. It is observed, not proven, and the fixes are cheap either way:
 
@@ -138,15 +138,15 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 
 With one user, gates that user administers cannot be hard guarantees. They are tripwires: they make growth deliberate and visible instead of silent. Seven:
 
-1. The instruction-word cap. Mechanical, CI-checked.
+1. The instruction-word count, published by CI with its trend on every change. The tripwire is silent growth: words added without a stated reason.
 2. The sunset regime. Mechanical: an expired `dated` item fails CI until re-justified or deleted.
-3. The always-on ceiling. Mechanical, CI-checked.
+3. The always-on set's size, published the same way. These are the most expensive words in the system — paid in every session.
 4. Quarterly host-absorption review: if the host platform (Claude Code or its successors) ships a capability we built, ours is deleted. A checklist on a calendar; honestly not CI-checkable.
 5. Rules become checks. A rule that cannot become a check must earn its place in the ways-of-working pages, in writing.
 6. Publish only numbers the tool itself measured. Never productivity claims.
 7. Shipped prose passes its own plain-language checks.
 
-The first three are mechanical. The other four are discipline made visible: the tripwire fires in public, but a person still has to not step over it.
+Only the sunset regime is a hard CI fail — and what it demands is evidence, not a word count. The two counts are published, never enforced. The rest are discipline made visible: the tripwire fires in public, but a person still has to not step over it.
 
 ## Risks
 
@@ -159,7 +159,7 @@ The first three are mechanical. The other four are discipline made visible: the 
 - Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
 - The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
 - The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and committed markdown remains the no-daemon fallback.
-- Dev mode can recreate the upkeep treadmill — 384 commits of framework work came from self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word cap and the sunset regime bind method changes the same as ever.
+- Dev mode can recreate the upkeep treadmill — 384 commits of framework work came from self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word budget and the sunset regime bind method changes the same as ever.
 
 ## Out of scope
 

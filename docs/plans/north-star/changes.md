@@ -95,14 +95,14 @@ The journal records every update event. Every seal records the battery version i
 
 ## Size targets
 
-Targets, not measurements. Current-state numbers (344k words and the rest) are measured and listed in [evidence.md](evidence.md).
+Targets, not measurements — and aspirations, not gates: the goal is the smallest size that gives up nothing real, and nothing is cut just to hit a number ([index.md](index.md)). Current-state numbers (344k words and the rest) are measured and listed in [evidence.md](evidence.md).
 
-- Core method prose: at most 10k words, with the always-on set about 500.
+- Core method prose: about 10k words, with the always-on set about 500.
 - Universal adoptions plus optional per-stack seed sheets: 2–4k words each.
 - Total shipped instruction prose: about 20–35k words, roughly a 90% cut.
 - About 10–12 top-level CLI verbs (the nine anti-cheat verbs consolidate under `verify`).
 - Package a few MB, from 34 MB.
-- A project's own standards live in the project, not the package. Product documentation is capped by freshness, not words.
+- A project's own standards live in the project, not the package. Product documentation is bound by freshness, not words.
 - Per-bet targets: about 20 frontier dispatches for a 3-milestone bet (from ~35), two slice writes (from six), human moments equal to the seals plus the dial's chosen rungs (from 10–15).
 
 ## Open items for the execution plan
