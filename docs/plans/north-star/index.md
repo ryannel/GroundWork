@@ -32,6 +32,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
+- **Teach-back** — the driver teaching the owner in chat what changed while they were away: new capabilities, decisions made by default, complexity added and why. Drawn from the record; never a retelling of it.
 - **The tower** — the one always-on local service that serves the Queue and the Map for every registered project, reading state from git rather than from any checkout.
 - **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness.
 
@@ -74,6 +75,7 @@ These are the acceptance criteria for everything in this set.
 13. Effective use of context: lean windows, tiered models, distilled hand-offs. The loop is economical by design.
 14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for decisions that genuinely need a human and cannot wait.
 15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
+16. The owner stays taught: what was built while you were away, what was decided for you, and where complexity was added and why reach you in chat, paced to your return — the docs hold it, the teach-back delivers it.
 
 ## Core principle: effective use of attention
 

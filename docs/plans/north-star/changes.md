@@ -29,6 +29,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The cross-bet invalidation signal** against the sealed program ladder.
 - **Drive artifacts** and **waivers**.
 - **The checkpoint host hook** (three-line delta plus deep link, emitted mechanically).
+- **The teach-back**: the walk-up brief at acceptance, the return offer in the session-start snapshot, and the journal's taught-decisions line with its Map count ([loop.md](loop.md)).
 - **The adoption seal flow** for brownfield.
 - **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
 
@@ -64,7 +65,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The 4 personas as personas** — architect, designer, product, writer: skills that scripted a role's voice and conversation. The designer's visual judgment survives as the milestone screenshot read and visual battery rows. The architect's ADR discipline survives in the Record. The scripted conversations die.
 - **The 7 review-lens briefs**, except the contracts they carry (the worker contract, the tell catalog, the affordance floor). The value was fresh context, not the briefing prose.
 - **The three-lens-per-slice review** — today every slice is reviewed by three separate agents: a blind reviewer, an edge-case tracer, and a coverage auditor. One blind adversary per slice remains; coverage judgment goes mechanical (the deletion test); edge-case and honesty judgment move to milestone close.
-- **The checkpoint-walkthrough subagent** — a narrator dispatched at each milestone to present status. The Map's milestone page carries the narrative now.
+- **The checkpoint-walkthrough subagent** — a narrator dispatched at each milestone to present status. The Map's milestone page carries the narrative now. The teach-back ([loop.md](loop.md)) is not this coming back: the narrator retold status on a schedule; the teach-back addresses the owner at their own moments and carries only deltas.
 - **The six-writes-per-slice bookkeeping** — every slice today also updates a progress board, a memory log, and hand-refreshed status and proofs pages. The Map derives those pages from the commits and ledgers.
 - **The separate polish stage** — merged into the designer's screenshot read at milestone close.
 - **Bet-close validation as a ceremony list** — its steps become battery rows ([loop.md](loop.md)).
@@ -129,6 +130,7 @@ Deliberately not decided here. The execution plan must specify:
 - The update engine's ownership-manifest format and the Queue shape of update proposals.
 - The always-on kernel's contents — the ~500 words themselves.
 - Dev mode's clustering thresholds, its issue template, and the auto-file opt-in.
+- The teach-back's return trigger (how much landed work or elapsed time counts as "away") and how a taught decision is marked covered.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest

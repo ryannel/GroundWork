@@ -47,7 +47,7 @@ A seal is a git tag, and the amendment protocol is the only way it moves: stop, 
 
 Nothing that proves or attributes work is deleted at archive time. The old process deleted the raw per-slice review files when a bet closed, which destroyed most of its own attribution evidence — that is why "which parts earn their keep" took forensics to answer.
 
-**The journal.** Alongside the ledgers, the CLI keeps an append-only journal: one machine-readable line per operational event, written automatically at the moment the CLI acts. The events: a battery run and each row's outcome; a dispatch with its tier, token count, and whether it escalated; a seal granted or moved; a waiver; a dial change; a lane triage; an archive; and, in dev mode, a method-friction note ([surfaces.md](surfaces.md)). No human or agent ever writes it — anything that needs remembering doesn't get recorded, and 0-of-114 proved it. Lines cost bytes, ride the commits they describe, and stamp the session id, so any journal entry can be traced back to its full transcript when depth is needed. This is what turns answered-by-forensics into answered-by-query: auditing the method for this spec took four subagents mining 400 MB of transcripts, because check outcomes existed only as terminal output. The journal is also where the spec's promised numbers actually come from — the sunset regime's re-justifications, the dial's default raises, the repeat-waiver flags, and governance's tool-measured numbers all read from it. A debug switch widens journal lines to full check output and worker-report summaries; it is off by default and costs nothing when off. The host's own session transcripts remain the deep archive of last resort.
+**The journal.** Alongside the ledgers, the CLI keeps an append-only journal: one machine-readable line per operational event, written automatically at the moment the CLI acts. The events: a battery run and each row's outcome; a dispatch with its tier, token count, and whether it escalated; a seal granted or moved; a waiver; a dial change; a lane triage; an archive; a teach-back and the decisions it covered; and, in dev mode, a method-friction note ([surfaces.md](surfaces.md)). No human or agent ever writes it — anything that needs remembering doesn't get recorded, and 0-of-114 proved it. Lines cost bytes, ride the commits they describe, and stamp the session id, so any journal entry can be traced back to its full transcript when depth is needed. This is what turns answered-by-forensics into answered-by-query: auditing the method for this spec took four subagents mining 400 MB of transcripts, because check outcomes existed only as terminal output. The journal is also where the spec's promised numbers actually come from — the sunset regime's re-justifications, the dial's default raises, the repeat-waiver flags, and governance's tool-measured numbers all read from it. A debug switch widens journal lines to full check output and worker-report summaries; it is off by default and costs nothing when off. The host's own session transcripts remain the deep archive of last resort.
 
 ## The delivery pipeline
 
@@ -87,3 +87,22 @@ A lined-up bet or program runs to completion without stopping just to show someo
 - **Checkpoints are non-blocking.** Milestone close still runs the full battery, writes the postmortem, updates the Map, and emits the three-line delta with a deep link. It does not wait. Your ratification of the recorded default decisions batches to the next genuine stop or to bet close.
 - **Acceptance seals batch.** Your drive of the product queues; the run continues; the Map renders the acceptance debt loudly. The one exception: work that depends on a contract change you have not yet accepted is a genuine stop.
 - **Context economics during the run.** Milestone boundaries are hand-off points, not compaction points: a fresh frontier driver resumes from the ledgers. Execution-tier workers deliver the slices. Frontier review batches per milestone.
+
+## The teach-back
+
+The dial lets whole bets land while you are away, and the attention principle keeps every message short. Together they create a new debt: the product can move faster than your understanding of it. That debt matters because your judgment is the one thing the loop treats as irreplaceable, and judgment runs on understanding — a design walk with an owner who no longer knows the system is a worse walk. The teach-back is how understanding catches up. It is not an interruption to be minimized; it is what the saved attention is for.
+
+**When.** It rides moments you are already spending, and it never blocks. At acceptance: before you drive the front door, a walk-up brief — what was built, why, what to try. At return: when work landed since you last looked, the session-start snapshot ends by offering it. On demand: "teach me what changed," any time.
+
+**What.** Four things, exceptions-first, nothing else:
+
+- New capabilities at the front door: what the product does now that it did not before.
+- The decisions made for you — the recorded defaults you can still veto — taught first, because a veto you never heard about is not a veto.
+- Where complexity was added, and the argument that it was worth it.
+- New concepts and seams you will meet as vocabulary in the next design walk.
+
+A patch-sized delta has nothing to teach, so its teach-back is empty. The teach-back scales with the delta, not the lane.
+
+**How.** In chat, by the driver, as a conversation: you ask, it answers. Everything taught is drawn from the record with its sources named — the same copy-in rule every message follows ([index.md](index.md)). The docs stay the home; the teach-back is delivery and pacing. And it is not the deleted checkpoint narrator coming back ([changes.md](changes.md)): the narrator retold status on a schedule to nobody in particular; a teach-back never retells — it carries only the delta that changes what you know or what you would decide.
+
+**Two loops it feeds.** You are a live run of the cold-reader eval: a question you ask that the docs cannot answer is a doc finding, filed like any other ([record.md](record.md)). And teaching debt is visible: the journal records each teach-back and the decisions it covered, so the Map can count the decisions made for you that nothing has walked you through yet ([surfaces.md](surfaces.md)).
