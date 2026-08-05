@@ -1,42 +1,79 @@
 # What changes
 
-The complete build, keep, and delete lists, the migration path, and what the execution plan must still decide.
+The complete build, keep, and delete lists, the migration path, and what the execution plan must still decide. Where an item names old machinery, a one-line description rides with it — the reader should never need the old corpus to judge a deletion.
 
 ## What gets built (new)
 
-- **The battery** as a shipped component behind one `verify` surface. New construction: the existing harness is unshipped pytest that works by invoking the generators. Only its assertions' intent is reusable.
+- **The battery** as a shipped component behind one `verify` command. This is new construction: today's test harness is unshipped pytest that tests the generators inside this repo — users never get it. What carries over is what those tests assert, not their code.
 - **Topology profiles and the capability manifest**, with per-profile universal probes (server, desktop, CLI, mobile).
 - **Ratchet infrastructure**: diff-scoped lint plus per-rule-per-module violation baselines.
 - **The doc lint and the citation-overlap mechanic**; machine-validated `source_of_truth`; staleness as battery rows.
 - **The cold-reader doc eval.**
 - **The program artifact** and the program-level design walk.
 - **Run modes as recorded state**, the mechanical stopping rule, and non-blocking checkpoints.
-- **The Queue and the Map** with computed ranking, moment budgets, and acceptance-debt rendering.
+- **The Queue and the Map** with computed ranking, per-lane decision budgets, and acceptance-debt rendering.
+- **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **Fresh-context capsule generation**; render-time style linting.
 - **Escalation telemetry** (worker blocking-concern counts feeding tier policy) and per-dispatch token recording.
 - **The red-for-the-right-reason stub check.**
 - **The cross-bet invalidation signal** against the sealed program ladder.
 - **Drive artifacts** and **waivers**.
-- **The checkpoint host hook** (delta plus deep link, mechanical).
+- **The checkpoint host hook** (three-line delta plus deep link, emitted mechanically).
 - **The adoption seal flow** for brownfield.
 
 ## What stays
 
-The 9 verification verbs, consolidated under `verify` · the approved tag with its amendment protocol · the derivation contract (templates plus trailer, naming, and choreography rules) · lanes with ties lighter, plus the lane audit · programs and bets as sealed artifacts · patch-trailer mining · the design-doc shape and per-discipline conventions · doc freshness, citations, and the reversal rule · the docs site as the Map's home · the universal adoption sheets and stack seeds, with ratchets and blessed modules · setup output contracts and depth gates (`dated`) · the ways-of-working layer: loop philosophy, design conventions, and the one-page known-escapes register carrying the nine incident-born rules, each `dated` · the worker contract and the tier rule · the fix-in-place ladder · whole-ladder red materialization · the ripple-slice caller list · the per-slice backup push · the proofs-board row-by-row sign-off as the seal ceremony · the sim rig, kept small · `add-capability` · the update lane, permanently · the four existing boundary-linter configs, transcribed into stack seeds · the 30 KB manifest-derived module graph.
+- The 9 verification verbs, consolidated under `verify`.
+- The approved tag with its amendment protocol.
+- The derivation contract: the templates, trailers, naming, and sequence rules that make agent output parseable ([surfaces.md](surfaces.md)).
+- Lanes with ties resolving lighter, plus the post-hoc lane audit.
+- Programs and bets as sealed artifacts.
+- Patch-trailer mining: patches carry trailers, and a ledger clusters them to show which areas keep needing fixes.
+- The design-doc shape and the per-discipline design conventions.
+- Doc freshness, citations, and the reversal rule.
+- The docs site as the Map's home. Of today's several hand-refreshed render surfaces (status pages, proofs pages, board files), two survive: the docs site and the in-chat three-line delta. The rest are derived.
+- The universal adoption sheets and stack seeds, with ratchets and blessed modules.
+- Setup output contracts and depth gates, `dated` ([doors.md](doors.md)).
+- The ways-of-working pages: the loop's philosophy, the design conventions, and a one-page register of rules born from real incidents — the worker hand-off rules, the never-mock-what-the-proof-names rule, the commented-out-assertion check and their kin — each `dated` so every scar rule must periodically re-justify itself.
+- The worker contract and the tier rule ([proof.md](proof.md), [index.md](index.md)).
+- Fix-in-place as the default fix path, with a fresh dispatch as the escalation (measured: re-deriving context costs ~41% of the original build).
+- Whole-ladder red materialization: every milestone's headline test written and committed failing up front, so the plan's proofs exist before any implementation. Delivery transcripts show this actually practiced — committed red boards, stubs going green one by one.
+- The proofs board — the generated page listing each sealed proof and its status — read row by row at acceptance, as the seal ceremony.
+- The ripple-slice caller list: when a slice updates callers of a changed contract, the driver computes the list from committed code.
+- The per-slice backup push.
+- The simulation rig, kept small.
+- `add-capability` (mid-life manifest additions).
+- The update path (`groundwork-method update`), permanently.
+- The boundary-linter configs the generators already carry — depguard for Go, import-linter for Python, ESLint boundary rules for the TypeScript stacks — transcribed into the stack seeds.
+- The manifest-derived module graph (a 30 KB file recording which modules depend on which).
 
 ## What gets deleted
 
-The 13-protocol operating contract as choreography — each protocol becomes a check, a line in the ways-of-working layer, or nothing · the 4 personas as personas — the designer's visual-judgment role survives in the visual rows, the architect's ADR convention in the Record · the review briefs, except their carried contracts (worker contract, tell catalog, affordance floor) · the three-lens-per-slice review battery — one blind adversary per slice; edge-case and honesty judgment move to milestone sum; coverage goes mechanical via the deletion test · the checkpoint-walkthrough subagent — the Map's milestone page carries the narrative · per-slice board, memlog, and hand-refreshed status and proofs writes — the Map derives them · the separate polish stage — merged into the designer's read · bet-close validation as a ceremony list — its steps become battery rows · the explanatory ~75% of the engineer skills · the principles corpus as essays — its adoptions survive as the sheets · setup conversation scripts and hand-off ceremony · most of the 45k-word bet lifecycle prose · the sim harness's scenario debt · repo-map's 28 MB grammar layer · the 10 Nx generators, after the battery gate passes · the render-surface sprawl — two survive.
+- **The 13-protocol operating contract as choreography.** Today: a 543-line mandatory-reading contract of numbered protocols scripting how sessions behave — checkpoint formats, decision batching, translation rules for the owner's chat. Each protocol becomes a check, a line in the ways-of-working pages, or nothing.
+- **The 4 personas as personas** — architect, designer, product, writer: skills that scripted a role's voice and conversation. The designer's visual judgment survives as the milestone screenshot read and visual battery rows. The architect's ADR discipline survives in the Record. The scripted conversations die.
+- **The 7 review-lens briefs**, except the contracts they carry (the worker contract, the tell catalog, the affordance floor). The value was fresh context, not the briefing prose.
+- **The three-lens-per-slice review** — today every slice is reviewed by three separate agents: a blind reviewer, an edge-case tracer, and a coverage auditor. One blind adversary per slice remains; coverage judgment goes mechanical (the deletion test); edge-case and honesty judgment move to milestone close.
+- **The checkpoint-walkthrough subagent** — a narrator dispatched at each milestone to present status. The Map's milestone page carries the narrative now.
+- **The six-writes-per-slice bookkeeping** — every slice today also updates a progress board, a memory log, and hand-refreshed status and proofs pages. The Map derives those pages from the commits and ledgers.
+- **The separate polish stage** — merged into the designer's screenshot read at milestone close.
+- **Bet-close validation as a ceremony list** — its steps become battery rows ([loop.md](loop.md)).
+- **The explanatory ~75% of the engineer skills** — the idiom tutorials and worked examples. The project-shape content becomes the stack seeds.
+- **The principles corpus as essays** — 36 documents teaching why. The adoptions survive as the one-page sheets ([standards.md](standards.md)).
+- **Setup conversation scripts and hand-off ceremony.**
+- **Most of the 45k-word bet lifecycle prose.**
+- **The sim harness's scenario backlog** — the debt of unwritten simulation scenarios it carries as TODOs. The rig survives small; the obligation to write them all does not.
+- **repo-map's 28 MB grammar layer** — repo-map is the CLI's code-intelligence index; 82% of the npm package is tree-sitter grammars serving that one verb. The module graph covers the load-bearing use at 30 KB.
+- **The 10 Nx generators**, after the battery passes against at least one generator-built repo ([doors.md](doors.md)).
 
 ## Migration
 
-The registry is not deleted. The rebuild ships as migrations: the registry carries the boundary release that moves the three installed products across, then retires. The update lane is permanent. The sunset regime guarantees churn, so the propagation path is load-bearing forever. Every seal records the battery version it was granted under, so installs can always say which checks vouched for what.
+The migration registry is not deleted. The rebuild ships as migrations: one final release on the old registry carries every install across the rebuild boundary, and the three live installs — magpie, staycurrent, and this repo's own — move through it. After that the registry retires and the update path continues in the new shape, permanently: the sunset regime guarantees churn, so the propagation path is load-bearing forever. Every seal records the battery version it was granted under, so installs can always say which checks vouched for what.
 
 ## Size targets
 
 Targets, not measurements. Current-state numbers (344k words and the rest) are measured and listed in [evidence.md](evidence.md).
 
-- Core method prose: at most 10k words, with the always-on kernel about 500.
+- Core method prose: at most 10k words, with the always-on set about 500.
 - Universal adoptions plus optional per-stack seed sheets: 2–4k words each.
 - Total shipped instruction prose: about 20–35k words, roughly a 90% cut.
 - About 10–12 top-level CLI verbs (the nine anti-cheat verbs consolidate under `verify`).
@@ -50,16 +87,17 @@ Deliberately not decided here. The execution plan must specify:
 
 - The capsule format (fields, length cap, where it lives in the commit or ledger).
 - The Queue ranking weights and the critical-paths list format.
-- Moment-budget numbers per lane.
+- The per-lane decision-budget numbers.
 - The battery version format and where seals record it.
 - The brownfield adapter's socket-mapping mechanics and its cost per repo.
-- The citation syntax (paths vs symbols, glob rules) and the diagram-presence lint's doc-type scope.
+- The citation syntax (paths vs symbols, glob rules) and which doc types the diagram-presence lint covers.
 - The cold-reader eval rubric and sample rate.
 - The waiver record shape and expiry handling.
 - The checkpoint host hook implementation (hook type, what it reads).
 - Per-lane dial defaults and the sensitive-paths escalation list format.
+- The finding-attribution field's vocabulary (which catchers can be named) and the archival layout that preserves review outputs.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
 
-This set is the decision artifact. On ratification: the execution plan is authored in house format (workstreams, slices, acceptance checks), starting from the open items above and the calibration tests named in each part. Nothing is deleted, migrated, or released before that plan exists and is approved.
+This set is the decision artifact. On ratification: the execution plan is authored in the repo's standard plan format (workstreams, slices, acceptance checks), starting from the open items above and the calibration tests named in each part. Nothing is deleted, migrated, or released before that plan exists and is approved.

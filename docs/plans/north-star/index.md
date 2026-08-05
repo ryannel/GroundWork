@@ -1,8 +1,8 @@
 # GroundWork north star
 
-**Status:** PROPOSED. Nothing here is executed. This set is the decision artifact. A house-format execution plan follows only if this is ratified.
+**Status:** PROPOSED. Nothing here is executed. This set is the decision artifact. If it is ratified, an execution plan follows in the repo's standard plan format.
 **Audience:** The owner, and any agent executing the rebuild later.
-**Scope owner:** The whole framework.
+**Scope:** The whole framework.
 
 ## What this set is
 
@@ -12,20 +12,44 @@ How to read it: this file carries the vision, the goals, and the rules. One file
 
 1. [The Record](record.md) — living documentation with typed truth anchors and freshness checks.
 2. [The Standards](standards.md) — the conventions we adopt, stated as imperatives, enforced by checks.
-3. [The Loop](loop.md) — programs, bets, and slices, with ceremony priced by risk and two human seals.
+3. [The Loop](loop.md) — programs, bets, and slices, with ceremony priced by risk.
 4. [The Proof](proof.md) — a verification battery agents cannot argue with or edit.
 5. [The Queue and the Map](surfaces.md) — the only two review surfaces: what needs you now, and where everything stands.
 6. [Two doors](doors.md) — greenfield and brownfield entry into the same system.
 
+## The words this set uses
+
+Each part defines its own machinery in full. These one-line meanings are here so every file reads on first pass:
+
+- **Slice** — the atomic unit of work: one coherent change plus its proof. **Bet** — a goal reached through milestones, each milestone delivered as slices. **Program** — a goal reached through an ordered ladder of bets.
+- **Lane** — the ceremony tier a piece of work is triaged into: patch, standard, or complex.
+- **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
+- **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
+- **Adversary** — a review agent that shares no context with the agent that wrote the work.
+- **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
+- **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
+- **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
+- **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness.
+
 ## What GroundWork will be
 
-GroundWork lets one human direct serious software. The human's judgment goes only where it is irreplaceable: intent, design of complex things, and acceptance. Everything else is either mechanical or verified.
+GroundWork lets one human direct serious software. The human's judgment goes only where it is irreplaceable: saying what to build, shaping the design of complex work, and accepting the result. Every other step is either a mechanical check or agent work that a separate verifier proves. Nothing ships on an agent's own word.
 
 ## The track record this builds on
 
-The method has proven itself. Real products shipped through it, across four repos and at least three stacks. Programs of bets were delivered end to end. The proof discipline caught real defects and named them in an escape catalog. The framework noticed its own bottlenecks and wrote plans against them. Its documentation discipline produced review metadata nothing else in the field has.
+The method has shipped real products. Magpie, a native macOS app in Swift, was built through it: 23 bets taken from pitch to archive, plus a program of four bets run deep. Staycurrent, a TypeScript content platform, delivered a 4-milestone, 15-slice bet through it and is mid-flight on a second. The framework repo builds itself with its own process. (Wordloop, the family's fourth repo, predates the method and was largely hand-built — which is exactly what makes it a useful comparison case in [record.md](record.md).)
 
-Two things are not proven, and this spec is honest about both. Attribution: the bundle shipped good products, but we cannot tell which parts did the work. Cost: the fatigue findings and the 344k-word upkeep are documented by the framework's own plans. So the verdict is not "the method failed." It is: keep what makes it safe, find out what carries the load, and shed the rest. Detail and numbers: [evidence.md](evidence.md).
+We mined the delivery records and session transcripts of those projects for this spec, and the record attributes real catches to specific parts — quotes and counts in [evidence.md](evidence.md):
+
+- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger so the loss looked reconciled, and a schema hole that magpie's own mechanical gate missed twice.
+- The milestone-level checks caught a class per-slice review structurally cannot see: a missing Undo pattern every slice was individually correct about, a capability that turned out hollow at the front door.
+- The mechanical checks earned fewer but real catches — `seal verify` flagged approval tags never re-pointed after amendments — and the findings ledger genuinely blocked slices from closing over open defects.
+- The human, driving the real app during validation, found live bugs no agent had caught. That is the strongest argument for keeping the human's drive as a required proof.
+- The biggest failure predates the machinery: magpie's first bet went "green" across six milestones while the product did not actually work on real data. The front-door proof discipline exists because of that bet.
+
+The same mining showed which parts never earned their keep, on the framework's own evidence: a per-slice honesty audit that rubber-stamped and was demoted, a re-review step that found zero critical findings and was turned off, a deletion-test verb with no logged runs, a doc-freshness check that ran 106 times in one project and never caught anything. And attribution has a real limit we hit while mining: the archive step deletes the raw review files at bet close, and the findings ledger's "what caught this" field was never filled in once — the framework destroyed much of its own fine-grained evidence. The rebuild fixes that: every finding records what caught it, and review evidence survives archival.
+
+Cost is documented by the framework's own plans: the review-fatigue finding, and the upkeep of 344k words of shipped instruction prose. So the verdict is not "the method failed." It is: keep what demonstrably catches, shed what demonstrably doesn't, and stop destroying the evidence that tells them apart.
 
 ## Goals
 
@@ -33,15 +57,15 @@ These are the acceptance criteria for everything in this set.
 
 1. Real, useful documentation for humans and agents, kept current as the system evolves.
 2. Human time goes to design, where leverage is high and complexity deserves it.
-3. Greenfield: describe intent, get a high level of product for little input, without sacrificing the outcome.
+3. Greenfield: describe intent and get a working product for little input, without sacrificing quality.
 4. Brownfield: wrap existing systems in a better way of working.
 5. Uniform, high-quality code across sessions; existing code pulled toward the same style.
 6. Proof of work: agents cannot cheat.
 7. Easy review at both altitudes: what needs me now, and where the whole program stands — including planned and unstarted work.
 8. Right-sized ceremony: light by default, heavy only where stakes demand it.
 9. Durable memory: decisions, findings, and state live in git, never in a chat window.
-10. Human ownership: you drove everything that shipped; you designed everything complex.
-11. Autonomy scales with verification: the leash length comes from probe coverage of the touched area, not from the task label.
+10. Human ownership: everything that shipped was accepted by you, and everything complex was designed with you.
+11. Autonomy scales with verification: how long work runs unattended is set by how well probes cover the touched area, not by the task's label.
 12. Everything reads plainly: docs, capsules, chat, and status that a tired human gets on the first pass.
 13. Effective use of context: lean windows, tiered models, distilled hand-offs. The loop is economical by design.
 14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for decisions that genuinely need a human and cannot wait.
@@ -50,65 +74,65 @@ These are the acceptance criteria for everything in this set.
 
 Context is the scarcest machine resource, the way attention is the scarcest human one. Two disciplines, both enforced.
 
-**In conversation.** Chat never carries what a page can hold. Checkpoints are a three-line delta plus a deep link. Reports are exceptions-first. Review arrives as two-minute capsules. The always-on kernel is capped at about 500 words. Everything else loads on demand. These are checks and budgets, not habits.
+**In conversation.** Chat carries pointers, not payloads: anything a page can hold lives on a page, and chat links to it. A checkpoint message is three lines of what changed plus a link to the full page. Reports lead with exceptions. Review arrives as two-minute capsules. The always-on instruction set is capped at about 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
 
 **In execution.** The loop is an orchestrator-worker economy:
 
-- One frontier driver (today: the Opus/Fable class) owns the full picture. It plans, triages, dispatches, and never implements.
-- Execution workers (today: the Sonnet class) do the building in fresh, disposable windows. Each receives a pointer capsule, not a transcript. Each returns a distilled report, not its context.
-- Review and gates run at frontier. Judgment is where the higher model pays for itself.
-- Workers escalate. They never self-assess alone. Cheap models cannot reliably judge their own limits, so the blocking-concern channel is contract, not courtesy.
-- Tiers are capability classes, not model names. The tier is explicit on every dispatch. An omitted tier is an error. Degradation is upward-only.
-- State lives in files and git, not in long windows. A window nearing its limit hands off through the ledgers. Compaction is treated as lossy.
+- One frontier-class driver (today: the Opus/Fable tier) owns the full picture. It plans, triages, dispatches, and never implements.
+- Execution-class workers (today: the Sonnet tier) do the building in fresh, disposable windows. Each receives a short task brief with pointers to the files and contracts it needs, not the conversation so far. Each returns a distilled report, not its context.
+- Review and gates run at the frontier tier. Judgment is where the higher model pays for itself.
+- Workers escalate instead of guessing. A worker that hits a decision it cannot settle stops and raises a blocking concern to the driver. This is in the worker's contract because cheap models measurably fail at judging their own limits; a stuck worker that pushes on produces a dishonest green.
+- Tiers are named capability classes, not model names, so the policy survives model churn. Every dispatch states its tier; leaving it off is an error. If a named tier is unavailable, substitute a stronger model, never a weaker one.
+- State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers, and a fresh window resumes from them. Compaction is treated as lossy.
 - Token spend is recorded per dispatch, so the tier policy is tuned with measured numbers.
 
 ## Content rules
 
-**The editorial rule.** Never teach what agents already know and will only get better at. State the conventions we have adopted and the shape they take in this project. Nudge modern; never lecture. Don't teach how to write good code. Teach how to write code in this project.
+**The editorial rule.** Never teach what agents already know and will only get better at. State the conventions we have adopted and the shape they take in this project. Nudge toward modern choices; never lecture. Don't teach how to write good code. Teach how to write code in this project.
 
-Three content classes follow: knowledge (cut it); adoptions and their shapes (keep them); depth-forcers, where agents still collapse without structure (keep them, with a date).
+Three content classes follow: general knowledge (cut it); our adoptions and their project shapes (keep them); and depth-forcers (keep them, with an expiry date). A depth-forcer is a template or gate that pushes an agent to go deep where today's models otherwise produce thin, surface-level artifacts — the failure that originally grew this framework's biggest files.
 
 **One sunset regime.** Every shipped rule, check, template, and forcer is marked `architectural` or `dated`.
 - `architectural`: survives model generations (externalized state, hostile verification, review as the constraint). Justified once, in writing.
 - `dated`: works around a current model weakness. Carries a review-by date, six months maximum. At the date: re-justify with evidence or delete.
-- The re-test happens in real work. After a model-generation bump, the next real project runs with one designated forcer off. The depth gate's verdict is the evidence. The small sim rig is the fallback instrument.
+- The re-test happens in real work. After a model-generation bump, the next real project runs with one designated forcer switched off. If the output stays deep without it, the forcer dies; if the output thins, the forcer earned six more months. The small simulation rig — a test harness that replays delivery scenarios against the framework — is the fallback instrument when no real project is at hand.
 
-**Budgets.** Shipped instruction prose is capped: target 20–35k words total, from 344k today, with the always-on kernel about 500 words. The cap is CI-checked. Product documentation has no word cap. It is capped by freshness instead.
+**Budgets.** Shipped instruction prose is capped: target 20–35k words total, from 344k today, with the always-on set about 500 words. The cap is CI-checked. Product documentation has no word cap — its bound is freshness, not size.
 
-**Plain writing.** Register mirroring means models copy the style of what they read. It is our working hypothesis for why style guides keep failing. It is observed, not proven, and the fixes are cheap either way:
+**Plain writing.** Models copy the register of what they read. That is our working hypothesis for why style rules kept losing to our own dense corpus — twice in one session, writing degraded right after ingesting dense material. It is observed, not proven, and the fixes are cheap either way:
 
-- The corpus cut removes the main source.
+- The corpus cut removes the densest thing agents here read: the framework's own prose.
 - Shipped prose is itself the exemplar, so it must be plain.
-- About five style imperatives live in the kernel.
-- Authored docs get a fresh-context plain edit before commit.
-- The jargon lint, a maintained blocklist, runs on committed docs and on rendered capsules and status.
-- Capsules are written by a fresh-context subagent.
+- About five style imperatives live in the always-on set.
+- Authored docs get a plain-language edit from a fresh-context agent before commit.
+- A jargon lint — a maintained blocklist of house terms — runs on committed docs and on rendered capsules and status pages.
+- Capsules are written by a fresh-context subagent, because runtime text is where a style-contaminated author does the most damage.
 
 ## Governance
 
-At one user, self-administered gates cannot be guarantees. They are tripwires that make growth deliberate and visible. Seven:
+With one user, gates that user administers cannot be hard guarantees. They are tripwires: they make growth deliberate and visible instead of silent. Seven:
 
-1. The instruction-word cap. CI-checked.
-2. The sunset regime.
-3. The always-on ceiling. Checked.
-4. Quarterly host-absorption review: if the host platform ships a capability we built, ours is deleted. A checklist; honestly not CI-checkable.
-5. Rules become checks. A rule that cannot become a check must earn its place in the small manual.
-6. Publish only tool-measured numbers. Never productivity claims.
+1. The instruction-word cap. Mechanical, CI-checked.
+2. The sunset regime. Mechanical: an expired `dated` item fails CI until re-justified or deleted.
+3. The always-on ceiling. Mechanical, CI-checked.
+4. Quarterly host-absorption review: if the host platform (Claude Code or its successors) ships a capability we built, ours is deleted. A checklist on a calendar; honestly not CI-checkable.
+5. Rules become checks. A rule that cannot become a check must earn its place in the ways-of-working pages, in writing.
+6. Publish only numbers the tool itself measured. Never productivity claims.
 7. Shipped prose passes its own plain-language checks.
 
-Three are mechanical. Four are discipline made visible.
+The first three are mechanical. The other four are discipline made visible: the tripwire fires in public, but a person still has to not step over it.
 
 ## Risks
 
-- Checks harden in place like prose did. The sunset regime binds checks, and waivers give wrong checks a legitimate exit.
-- The person who administers the tripwires can step over them. They make that visible, which is all they can do.
-- Rubber-stamping: drive artifacts harden acceptance, and the adversary hardens birth seals. Both are mitigations, not cures.
-- The battery is new construction and a hard precondition. Pressure to shed the generators must not front-run it.
-- Over-broad or stale citations can game the citation mechanic. Doc approval reviews the citation set, and the lint enforces per-step coverage.
-- Extracted brownfield docs can be confidently wrong. Citations and freshness are the defense.
-- Model-built scaffolds trade determinism for currency. Topology profiles and behavior probes keep the trade honest.
-- The Queue can silt. Queue age and moment-budget overruns render loudly.
+- Checks can harden in place the way the prose did — kept long after their reason expired. The sunset regime binds checks too, and waivers give a wrong check a legitimate exit.
+- The person who administers the tripwires can step over them. Tripwires make that visible; they cannot make it impossible.
+- Rubber-stamping: nothing can force real attention at a seal. Requiring a recorded drive of the product raises the floor for acceptance, and the adversary review raises it for design seals. Mitigations, not cures.
+- The battery is new construction, and it gates the deletion of the generators. Pressure to delete early must not outrun the thing that makes deletion safe.
+- Over-broad or stale citations can game the doc-freshness mechanic. Doc approval reviews the citation set, and the lint enforces one citation per diagram step.
+- Extracted brownfield docs can be confidently wrong. Citations and freshness checks are the defense.
+- Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
+- The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
 
 ## Out of scope
 
-No code changes, no deletions, no migrations, no release. This set is the proposal. If it is ratified, the next artifact is the execution plan: house format, workstreams, acceptance checks. [changes.md](changes.md) lists what that plan must decide.
+No code changes, no deletions, no migrations, no release. This set is the proposal. If it is ratified, the next artifact is the execution plan: workstreams, slices, acceptance checks. [changes.md](changes.md) lists what that plan must decide.

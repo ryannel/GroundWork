@@ -6,7 +6,7 @@ Plans are authored and sealed: programs, ladders, intents. State is derived from
 
 ## The derivation contract
 
-The Map and Queue are parsers. What they parse is a kept, explicit contract of about two pages plus templates: decomposition field shapes, commit trailers (`Lane:`, `Tests:`, `Visual:`, `Notes:`), test naming, red-then-green choreography, and the tag ceremony. Every kept parser names its write contract. Read and write ship together. Keeping a parser while deleting the prose that makes agents produce what it parses is how surfaces go dead.
+The Map and Queue are parsers. What they parse is a kept, explicit contract of about two pages plus templates: the field shapes of a bet's planning files (the per-milestone and per-slice files that name each proof), commit trailers (`Lane:`, `Tests:`, `Visual:`, `Notes:`), test naming, the write-the-failing-test-first sequence, and the seal-tag ceremony. Every kept parser names its write contract. Read and write ship together. Keeping a parser while deleting the prose that makes agents produce what it parses is how surfaces go dead.
 
 ## The Queue
 
@@ -16,7 +16,7 @@ What needs you now. Ranking is computed from lane, diff size, probe coverage of 
 
 Where everything stands: program → bet → milestone → slice, with drill-down at each level. Every parallel worktree and branch sits on one page, with position and last-activity age, so stalled lines are loud. Unstarted work is visible because the sealed program artifact names it.
 
-Delivered work keeps its rendered view forever. Completed bets are exactly what you survey later. Each lane declares an expected human-decision count, and the Map reports actuals against it. Acceptance debt renders loudly.
+Delivered work keeps its rendered view forever. Completed bets are exactly what you survey later. Each lane declares its decision budget — the number of human decisions work in that lane is expected to cost — and the Map reports actuals against it. Acceptance debt renders loudly.
 
 ## Surfacing
 
