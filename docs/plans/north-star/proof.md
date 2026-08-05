@@ -22,6 +22,18 @@ The review that catches a bad test is the last line of defense. These rules act 
 - **A checker exercises its consumer's real code path.** Staycurrent's gate passed content that the site's own loader then rejected — twice — because the gate reimplemented the loader's rules in parallel, and parallel implementations drift. The fix (the gate now imports the loader's schema path) becomes the rule: a checker imports the real parser, schema, or loader it guards. A hand-rolled second definition of "valid" is itself a defect.
 - **Execution is evidenced, never inferred.** Test suites have shipped compiling-but-never-run; a build reported success while a hand-edited project file silently dropped the tests from the target; CI ran one of three suites for weeks. So the battery records run evidence: which suites ran, how many tests executed, and that every test a slice adds appears by name in the run log. A run that executes zero tests is red. Suites are discovered by pattern, never enumerated by hand, and the battery reconciles discovered against ran.
 
+## One suite — the board is a view
+
+The red-then-green board stays; the separate suite it lived in goes. Today a bet gets a dedicated progress suite, authored all-red up front and deleted at archive, while the permanent tests live elsewhere — two copies of every proof. The record shows what that split cost ([evidence.md](evidence.md)): regression guards written into the disposable copy died with it, and "mirror this into a permanent target" had to be re-learned bet after bet; the permanent copy was chronically the weaker one — the coverage lens's most recurring finding; stale red stubs outlived their bets; and agents could not tell which of two near-identical tests was the real one.
+
+The replacement:
+
+- **Tests are born once, in their permanent home.** Authored at decomposition, committed red, exactly as today — but they are the long-lived tests from their first commit. Nothing is deleted at close, and there is nothing to mirror.
+- **Membership is a marker, not a location.** Every headline proof carries its bet and slice in its name or metadata — one more field in the derivation contract. Running just a bet's tests is a filter, which every stack's test runner supports. And every test permanently records which bet created it.
+- **The board is derived.** The sealed proof plan lists the proofs and which rung each belongs to; the battery's last run says which are red and green. The tower joins the two into the bet's board page, stamped with the run it came from. It freezes at archive like every delivered view.
+- **Expected state comes from plan position, never from edits.** A proof on an unreached rung must be red, for the right reason. A proof on a claimed-done slice must be green. Green on an unreached rung is flagged — ahead of plan or hollow, both worth a look. Nobody flips expectation markers; the only way to move the board is to deliver. Bets run on their own branches, so mainline CI never sees mid-bet red.
+- **Deliberate exceptions are recorded.** A proof that genuinely should not outlive its bet — a one-time migration behavior, say — is marked retire-at-close in the proof plan. Deletion is a decision, never the default fate of a test.
+
 ## The adversary
 
 Fresh-context review with zero shared context with the author, at two altitudes doing two different jobs.

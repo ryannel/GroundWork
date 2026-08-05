@@ -27,6 +27,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
 - **Proof plan** — the sealed statement of what will prove a piece of work: the cases, the fixture axes that must vary, and what runs real versus faked. Written before the implementation.
+- **The board** — a bet's live view of its sealed proofs, each red or green from the battery's last run. Derived from the one permanent test suite, not a separate copy of it.
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.

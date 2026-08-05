@@ -15,6 +15,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The project registry** (`~/.groundwork/registry.json`, written by `init` and `update`).
 - **The tower**: one always-on, read-only local service for all registered projects — reads state from git refs and worktrees without any checkout, serves the Queue, the Map, and each repo's committed docs at one stable address; health and restart via the CLI.
 - **The session-start position snapshot hook** and `groundwork where` (the CLI rendering of the same data).
+- **The board derivation**: the bet/slice test marker in the derivation contract, and the expected-state reconciliation — plan position against test state, red for the right reason on unreached rungs, green on claimed-done slices.
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
 - **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
@@ -45,7 +46,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - The ways-of-working pages: the loop's philosophy, the design conventions, and a one-page register of rules born from real incidents — the worker hand-off rules, the never-mock-what-the-proof-names rule, the commented-out-assertion check and their kin — each `dated` so every scar rule must periodically re-justify itself.
 - The worker contract and the tier rule ([proof.md](proof.md), [index.md](index.md)).
 - Fix-in-place as the default fix path, with a fresh dispatch as the escalation (measured: re-deriving context costs ~41% of the original build).
-- Whole-ladder red materialization: every milestone's headline test written and committed failing up front, so the plan's proofs exist before any implementation. Delivery transcripts show this actually practiced — committed red boards, stubs going green one by one.
+- Whole-ladder red materialization: every milestone's headline test written and committed failing up front, so the plan's proofs exist before any implementation. Delivery transcripts show this actually practiced — committed red boards, stubs going green one by one. The ritual stays; its container changes: proofs are now born in the permanent suite, and the board becomes a derived view ([proof.md](proof.md)).
 - The proofs board — the generated page listing each sealed proof and its status — read row by row at acceptance, as the seal ceremony.
 - The ripple-slice caller list: when a slice updates callers of a changed contract, the driver computes the list from committed code.
 - The per-slice backup push.
@@ -72,6 +73,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The sim harness's scenario backlog** — the debt of unwritten simulation scenarios it carries as TODOs. The rig survives small; the obligation to write them all does not.
 - **repo-map's 28 MB grammar layer** — repo-map is the CLI's code-intelligence index; 82% of the npm package is tree-sitter grammars serving that one verb. The module graph covers the load-bearing use at 30 KB.
 - **The 10 Nx generators**, after the battery passes against at least one generator-built repo ([doors.md](doors.md)).
+- **The separate bet-progress suite** — the per-bet copy of the tests, authored all-red and deleted at archive. Proofs are born in their permanent home instead; the board becomes a derived view; only proofs marked retire-at-close are ever deleted ([proof.md](proof.md)).
 
 ## Migration
 
@@ -109,6 +111,7 @@ Deliberately not decided here. The execution plan must specify:
 - The tower's address and daemon lifecycle (launch mechanism, health surface, restart path — macOS first) and the registry's handling of moved or deleted repos.
 - Cross-project Queue ranking: how project priority weighs against lane, age, and coverage.
 - Whether the ambient layer ships (menubar count, native notifications) — optional; decide at execution.
+- The test-marker syntax per stack (naming convention vs annotations) and the just-this-bet filter recipes.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
