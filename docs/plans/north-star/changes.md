@@ -34,7 +34,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The teach-back**: the walk-up brief at acceptance, the return offer in the session-start snapshot, and the journal's taught-decisions line with its Map count ([loop.md](loop.md)).
 - **The adoption seal flow** for brownfield.
 - **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
-- **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
+- **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, the blind-author cheat, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
 
 ## What stays
 
