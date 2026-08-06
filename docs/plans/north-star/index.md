@@ -26,6 +26,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
 - **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
+- **Blind test author** — on the complex lane, the agent that writes a slice's accepting tests after the build: given the sealed design, the proof plan, and the code's public interface, never its bodies. **Test auditor** — the milestone-close pass that assumes the tests hide something and writes what is missing.
 - **Proof plan** — the sealed statement of what will prove a piece of work: the cases, the fixture axes that must vary, and what runs real versus faked. Written before the implementation.
 - **The board** — a bet's live view of its sealed proofs, each red or green from the battery's last run. Derived from the one permanent test suite, not a separate copy of it.
 - **The journal** — the append-only record the CLI writes automatically as it acts: check outcomes, dispatches, seals, waivers, one line per event. How the method learns from real work without anyone keeping notes.
