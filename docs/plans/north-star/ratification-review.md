@@ -6,6 +6,8 @@
 
 **Status tags.** `confirmed` — the driver verified the quotes and the logic against the text. `corroborated` — two or more independent reviewers converged on it blind. `plausible` — credible, not independently verified; owner judgment.
 
+**Disposition (2026-08-06).** The owner directed a full fold-in, with one ruling that reshaped cluster A: tokens are the scarce resource, not dispatches — small dispatches are fine, total token consumption is the budget — and one addition: the framework must not bind to a single vendor (host portability, OpenAI-compatible hosts at minimum). Folded in four commits: `91aefb5` (A + F: token economics, honesty reframes), `ed15797` (B: contradictions), `bdd974b` (C + D: evidence-layer git reality, security floor), `1d25731` (E + G: operational life, the boundary, the host adapter contract). Security defaults, the flake/release/backward-move machinery, and the single-owner scope statement were driver calls under that mandate — flagged in chat as veto points.
+
 ---
 
 ## A. The economics are stale and unit-switched
