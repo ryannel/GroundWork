@@ -135,6 +135,14 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 - A jargon lint — a maintained blocklist of house terms — runs on committed docs and on rendered capsules and status pages.
 - Capsules are written by a fresh-context subagent, because runtime text is where a style-contaminated author does the most damage. Fresh context is not a license to forage: the writer is handed the facts it renders — the diff, the proof plan, the findings — copied in like any dispatch. Fresh means no accumulated register, not re-deriving the work.
 
+## The boundary
+
+Three scope decisions, stated so they are decisions rather than accidents:
+
+- **One human, this generation.** The framework is built for a single owner: seals are the owner's word, the Queue is one person's queue, and no second seat exists. A handoff is a re-seal — a successor reads the Record, drives the front doors, and re-seals what they now own. Multi-human operation is out of scope until real demand argues otherwise.
+- **Host-portable by construction, Claude Code first.** The method's substance lives in host-neutral substrate — git, markdown, the CLI, the journal, the tower. What the framework asks of an agent host is a short adapter contract: inject a snapshot at session start, emit at checkpoints, dispatch a fresh-context agent with a brief and return its report, and name a run id for journal stamping. Claude Code is the reference adapter and ships first. The contract exists so other hosts — OpenAI-compatible agents at the very least — are an adapter, not a rewrite: instruction files emit per host convention (CLAUDE.md, AGENTS.md), tier names are capability classes mapped to whatever models the host runs, and a host missing a capability degrades visibly — no hooks means CLI-parity surfacing, and the journal shows the gap — never silently.
+- **macOS first, not macOS only.** The tower and hooks land on macOS first; Linux follows; Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
+
 ## Governance
 
 With one user, gates that user administers cannot be hard guarantees. They are tripwires: they make growth deliberate and visible instead of silent. Seven:

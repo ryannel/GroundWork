@@ -31,6 +31,8 @@ Triage puts each piece of work in one of three lanes. When two lanes could both 
 
 Work that bypasses the lanes still shows: a commit landing with no lane trailer renders on the Map as unlaned work. The bypass is recorded because bypasses happened — one 11 MB session delivered seven bet-labeled commits almost entirely outside the machinery, invisibly.
 
+Two intake rules keep the world's changes from jamming the loop. A red dependency-audit row auto-files intake: routine bumps to the patch lane, breaking upgrades promoted toward a bet. And a row that turned red because the world changed — a new CVE, a deprecation — renders as environment-red, distinct from you-broke-it red, so it never blocks unrelated slices.
+
 ## The design walk
 
 The walk reviews pictures before prose: sequencing and flows are argued as diagrams. The agent proposes options with a recommendation instead of asking open-ended questions. Each consequential decision gets its own turn instead of arriving in a bundle. What's already ruled gets a one-line recap; full detail is spent only on what's new.
@@ -72,6 +74,7 @@ The loop today costs a 3-milestone bet roughly 35–45 subagent dispatches, six 
 **Per bet close:**
 - Battery rows, not ceremony steps: full suite, whole-bet seal verify, contract verification, capture of the served API spec into the Record, every capability-ledger cell filled, the visual smoke set.
 - Acceptance: you drive the agreed front-door cases and the drive artifact is recorded. Batching follows the dial, with acceptance debt rendered on the Map.
+- Release: the close stamps a product version, derives a user-facing changelog from the capsules, and — where the topology deploys — runs the deploy smoke row against the real target ([proof.md](proof.md)). Staged exposure, where a product needs it, lives at the deploy layer (channels, percentages), not as code-level feature flags; in-code gating is a product design decision, not framework machinery.
 - The retrospective mines the ledgers mechanically — recurring defect classes and the upstream changes they demand, escalation counts, the previous bet's action items — and checks the sealed program ladder for later bets this delivery has invalidated. That check exists because it has happened: a sibling bet shipped and voided a sealed milestone's whole premise mid-bet. It is a Map signal now, not a question someone must remember to ask.
 - Archive, merge on your go-ahead, teardown. Archival keeps the proofs, the findings, and the review outputs — and deletes no tests, because there is no separate bet suite to delete ([proof.md](proof.md)); only proofs the plan marked retire-at-close go.
 
@@ -110,3 +113,11 @@ A patch-sized delta has nothing to teach, so its teach-back is empty. The teach-
 **Two loops it feeds.** You are a live run of the cold-reader eval: a question you ask that the docs cannot answer is a doc finding, filed like any other ([record.md](record.md)). And teaching debt is visible: the journal records each teach-back and the decisions it covered, so the Map can count the decisions made for you that nothing has walked you through yet ([surfaces.md](surfaces.md)).
 
 The teach-back is `dated` like every other mechanism, and it carries a falsifiable check: sampled design walks record whether their opening questions were already-covered material. A teach-back that leaves the next walk cold is not working, however many decisions it marked covered.
+
+## Operating what shipped
+
+The loop above covers building. The review found the spec near-silent on what comes after, so three operational moments get machinery of their own:
+
+- **The break-glass patch.** A production incident cannot wait for a full battery. One command ships a patch on the probes of its touched paths alone, records itself loudly — a journal event and a Map banner — and auto-files the skipped checks as an open finding that blocks the next normal slice, so the debt is paid within a slice instead of forgotten. The post-incident finding enters the ledger with class and catcher like any escape.
+- **Production signals reach the Queue.** The observability the standards ship is read, not just emitted: alerts and user reports enter Work Intake like any other capture, so a 2am page and a bug email land in the same triage as planned work instead of a side channel nothing renders.
+- **Backward moves are first-class.** *Withdrawn*: an abort verb closes a half-delivered bet — the board freezes in a withdrawn state, the branch tip is tagged so its evidence survives teardown, open findings are dispositioned or re-homed, and the program ladder is amended. *Reverted*: un-shipping a capability cascades — its proofs retire by recorded decision, `remove-capability` drops the manifest row, the reversal rule re-reviews dependent docs, and the Map annotates the bet's view rather than pretending it never shipped. Both exist because the record shows both happening — a milestone formally withdrawn, escapes reverted — with no machinery to receive them.

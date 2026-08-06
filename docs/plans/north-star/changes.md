@@ -35,6 +35,8 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The adoption seal flow** for brownfield.
 - **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
 - **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, the blind-author cheat, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
+- **The host adapter contract** ([index.md](index.md)): surfacing, dispatch, and run-id capabilities per host; Claude Code as the reference adapter; instruction files emitted per host convention; visible degradation for missing capabilities.
+- **Operating what shipped** ([loop.md](loop.md)): the break-glass patch, production-signal intake, the withdraw verb, `remove-capability`, the release step with per-topology deploy probes, and the flake policy with its quarantine state ([proof.md](proof.md)).
 
 ## What stays
 
@@ -138,6 +140,9 @@ Deliberately not decided here. The execution plan must specify:
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
 - The UI-driver toolchain per topology (web, desktop, mobile) for the paired front-door cases.
 - The auditor's source-citation format — how a test names the design section, plan case, or invariant its expected outcome came from.
+- The host adapter contract's exact capability list, and the first non-Claude adapter's target host.
+- The per-stack battery adapter (marker filtering, run-log parsing, interface extraction) as a named extension point with a conformance checklist.
+- The break-glass command's exact scope, the withdraw verb's cascade, and the flake policy's rerun and quarantine thresholds.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
