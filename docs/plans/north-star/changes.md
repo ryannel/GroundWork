@@ -26,7 +26,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
 - **The bypass signals on the Map**: unlaned commits and repeat-waived checks.
 - **Fresh-context capsule generation**; render-time style linting.
-- **The known-gaps view**: open deferred findings rendered per project on the Map, with patch clustering able to promote a cluster into a bet.
+- **The known-gaps view**: deferred findings rendered per project on the Map until closed or promoted, with patch clustering able to promote a cluster into a bet.
 - **The red-for-the-right-reason stub check.**
 - **The cross-bet invalidation signal** against the sealed program ladder.
 - **Drive artifacts** and **waivers**.
@@ -60,7 +60,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - `add-capability` (mid-life manifest additions).
 - The update engine, permanently — the migration registry slimmed to a version cursor, ownership manifest, and idempotent steps (see Migration and updates below).
 - The boundary-linter configs the generators already carry — depguard for Go, import-linter for Python, ESLint boundary rules for the TypeScript stacks — transcribed into the stack seeds.
-- The manifest-derived module graph (a 30 KB file recording which modules depend on which) — `dated`, with its retention test named: its one consumer is the ripple caller list, and if the journal shows no ripple slice consuming a caller list by the review date, the graph goes too.
+- The manifest-derived module graph (a 30 KB file recording which modules depend on which) — `dated`, with its retention test named: its consumers are the ripple caller list and the doc-staleness reach check ([record.md](record.md)); if the journal shows neither consuming it by the review date, the graph goes too.
 
 ## What gets deleted
 

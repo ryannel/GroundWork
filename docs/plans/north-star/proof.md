@@ -35,7 +35,7 @@ The red-then-green board stays; the separate suite it lived in goes. Today a bet
 
 The replacement:
 
-- **Tests are born once, in their permanent home.** Authored at decomposition, committed red, exactly as today — but they are the long-lived tests from their first commit. Nothing is deleted at close, and there is nothing to mirror.
+- **Tests are born once, in their permanent home.** Headline proofs are authored at decomposition and committed red, exactly as today; slice suites join them at their lane's authoring moment — the implementer first on the standard lane, the blind author after handoff on the complex lane. All are the long-lived tests from their first commit. Nothing is deleted at close, and there is nothing to mirror.
 - **Membership is a marker, not a location.** Every headline proof carries its bet and slice in its name or metadata — one more field in the derivation contract. Running just a bet's tests is a filter, which every stack's test runner supports. And every test permanently records which bet created it.
 - **The board is derived.** The sealed proof plan lists the proofs and which rung each belongs to; the battery's last run says which are red and green. The tower joins the two into the bet's board page, stamped with the run it came from. It freezes at archive like every delivered view.
 - **Expected state comes from plan position, never from edits.** A proof on an unreached rung must be red, for the right reason. A proof on a claimed-done slice must be green. Green on an unreached rung is flagged — ahead of plan or hollow, both worth a look. Nobody flips expectation markers; the only way to move the board is to deliver. Bets run on their own branches, so mainline CI never sees mid-bet red.

@@ -20,7 +20,7 @@ Why this shape: the old model required being on the right branch, hand-starting 
 
 ## The Queue
 
-What needs you now — across every project. The tower's Queue is the portfolio view: every item waiting on you from every registered repo, ranked. Ranking is computed from lane, diff size, probe coverage of touched paths, age, and a small human-sealed critical-paths list. Never an agent-asserted risk score. Each entry is a two-minute capsule with three outcomes: accept, bounce with a reason, escalate. Bounce reasons persist in the findings ledger and feed the standards.
+What needs you now — across every project. The tower's Queue is the portfolio view: every item waiting on you from every registered repo, ranked. Ranking is computed from lane, diff size, probe coverage of touched paths, age, and a small human-sealed critical-paths list. Never an agent-asserted risk score. Each entry is a two-minute capsule with three outcomes: accept, bounce with a reason, escalate. The tower only renders the Queue; the outcomes are enacted by the CLI — accept, bounce, and escalate are verbs that write the ledgers and move the tags, and each page links its verb. Bounce reasons persist in the findings ledger and feed the standards.
 
 ## The Map
 
@@ -42,7 +42,7 @@ For maintainers of the method only: a flag in the registry, off by default. Cons
 
 The position comes to you; you never go get it.
 
-- **The checkpoint hook** emits a three-line delta and a deep link to the exact page. Mechanical, not an instruction competing for kernel space. Links always resolve because the tower is always up; if the daemon is down, the same pages exist as committed markdown, so the fallback is a file path, never a dead end.
+- **The checkpoint hook** emits a three-line delta and a deep link to the exact page. Mechanical, not an instruction competing for kernel space. Links always resolve because the tower is always up; if the daemon is down, `groundwork where` renders the same derivation in any terminal, and the planning files and ledgers remain readable in the repo — the fallback is the CLI, never a dead end.
 - **The session-start hook**: opening a session in any registered repo injects a two-line position snapshot — which bet, which milestone, what is in flight in which worktree, what waits on you. When work landed since you last looked, the snapshot ends by offering the teach-back ([loop.md](loop.md)). Injected by the host hook, not by agent goodwill: chat instructions decay; hooks do not.
 - **CLI parity**: `groundwork where` prints the portfolio in any terminal, and inside a repo prints the position snapshot. Same derivation, third rendering.
 - Committed pages stamp their commit. In-flight pages stamp "working tree as of <time>."

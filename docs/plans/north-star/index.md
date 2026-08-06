@@ -47,7 +47,7 @@ The method has shipped real products. Magpie, a native macOS app in Swift, was b
 
 We mined the delivery records and session transcripts of those projects for this spec, and the record attributes real catches to specific parts — quotes and counts in [evidence.md](evidence.md):
 
-- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger so the loss looked reconciled, and a schema hole that magpie's own mechanical gate missed twice.
+- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger so the loss looked reconciled, and a schema hole that staycurrent's own mechanical gate missed twice.
 - The milestone-level checks caught a class per-slice review structurally cannot see: a missing Undo pattern every slice was individually correct about, a capability that turned out hollow at the front door.
 - The mechanical checks earned fewer but real catches — `seal verify` flagged approval tags never re-pointed after amendments — and the findings ledger genuinely blocked slices from closing over open defects.
 - The human, driving the real app during validation, found live bugs no agent had caught. That is the strongest argument for keeping the human's drive as a required proof.
@@ -160,7 +160,7 @@ Only the sunset regime is a hard CI fail — and what it demands is evidence, no
 - Extracted brownfield docs can be confidently wrong. Citations and freshness checks are the defense.
 - Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
 - The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
-- The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and committed markdown remains the no-daemon fallback.
+- The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and `groundwork where` plus the committed planning files remain the no-daemon fallback.
 - Dev mode can recreate the upkeep treadmill — 384 commits of framework work came from self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word budget and the sunset regime bind method changes the same as ever.
 
 ## Out of scope
