@@ -20,6 +20,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
 - **The blind test author and the test auditor** ([proof.md](proof.md)): complex-lane accepting suites written after handoff from the sealed design and the mechanically extracted public interface — never the code bodies; and a milestone-close audit that assumes the tests hide something and extends the suite with what they fail to prove.
+- **Paired front-door proofs** ([proof.md](proof.md)): every user-facing case carries a UI-driver twin that asserts what the user sees; the board's headline row is the UI result, and milestone close drives the headline cases through the UI.
 - **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
 - **Defect-class tags on findings**, and the recurrence trigger: a class that recurs changes its upstream generator, not just its catcher.
 - **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
@@ -135,6 +136,7 @@ Deliberately not decided here. The execution plan must specify:
 - The teach-back's return trigger (how much landed work or elapsed time counts as "away") and how a taught decision is marked covered.
 - The method rig's scenario rubrics, fixture-repo shapes, per-scenario cost budgets, and the smoke/full/deep trigger list.
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
+- The UI-driver toolchain per topology (web, desktop, mobile) for the paired front-door cases.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest

@@ -6,6 +6,8 @@ The battery is the shipped set of checks behind one `verify` command.
 
 The capability manifest declares a topology profile: server, desktop, CLI, or mobile. Each profile names its universal probes. Server: compose boot, HTTP health, round trip, migration apply. Desktop: launch-to-window, relaunch-after-crash, UI-driver smoke. CLI: install, run, exit codes and output. Mobile: build, boot in the simulator, one smoke flow. A capability with no runnable probe on its platform gets a fail-closed placeholder, never silence.
 
+**A capability with a user interface is proven at that interface.** A recurring failure class in real use: the API works, the UI over it is broken — and every headless row is green while the user cannot use the feature. So every user-facing case in a proof plan is paired. One headless case at the API or unit level: fast, rock solid, the thing that makes failures cheap to find. And one UI-driver case that walks the same case through the real interface — clicking what the user clicks, asserting what the user sees on screen, never the API response underneath. The UI case is the headline: the board row for a user-facing proof shows the UI result, with the headless twin behind it. Green underneath a broken screen is not done, and the board cannot say it is.
+
 ## Integrity over the checker's lifetime
 
 - Universal checks run from the installed package, never the working tree. `verify` confirms the package hash against the lockfile.

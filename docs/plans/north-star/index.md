@@ -35,7 +35,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
 - **Teach-back** — the driver teaching the owner in chat what changed while they were away: new capabilities, decisions made by default, complexity added and why. Drawn from the record; never a retelling of it.
 - **The tower** — the one always-on local service that serves the Queue and the Map for every registered project, reading state from git rather than from any checkout.
-- **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness.
+- **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness. For a product with a UI, the front door is the UI: an API green under a broken screen is not done.
 
 ## What GroundWork will be
 
