@@ -137,6 +137,7 @@ Deliberately not decided here. The execution plan must specify:
 - The method rig's scenario rubrics, fixture-repo shapes, per-scenario cost budgets, and the smoke/full/deep trigger list.
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
 - The UI-driver toolchain per topology (web, desktop, mobile) for the paired front-door cases.
+- The auditor's source-citation format — how a test names the design section, plan case, or invariant its expected outcome came from.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest
