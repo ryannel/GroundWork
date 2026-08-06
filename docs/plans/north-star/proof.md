@@ -13,6 +13,7 @@ The capability manifest declares a topology profile: server, desktop, CLI, or mo
 - Universal checks run from the installed package, never the working tree. `verify` confirms the package hash against the lockfile.
 - Project probes run at their sealed git revision. A probe diff re-opens the seal and re-runs the adversary. Probe *intent* is sealed at intent. Probe *code* is sealed at first green, because a probe cannot be deletion-tested before its capability exists.
 - Deletion tests apply to probes and ratchet linters, not just product tests.
+- The evidence is protected from the party it audits: the CLI hash-chains journal lines, seal tags are signed with a key the agents cannot read, and `verify` checks chain continuity. "Append-only" is a control here, not a convention — the agents being audited have full write access to the repo that holds the record.
 
 ## Proofs are authored, not just checked
 

@@ -14,9 +14,9 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 ## Brownfield
 
-**Day one — what needs no sockets.** The honesty and wiring scans, deletion tests, the dependency audit, the Queue, and a ratchet baseline snapshot install immediately, and the install registers the project with the tower ([surfaces.md](surfaces.md)) so it appears in the portfolio view from the first minute. The next change made in that repo already cannot cheat at those.
+**Day one — what needs no sockets.** The honesty and wiring scans, the dependency audit, the Queue, and a ratchet baseline snapshot (universal rules only — per-project rules baseline later, at the adoption seal) install immediately, and the install registers the project with the tower ([surfaces.md](surfaces.md)) so it appears in the portfolio view from the first minute. The next change made in that repo already cannot cheat at those. Deletion tests join as soon as the `test` socket is mapped — they execute the suite, so they cannot be day-one.
 
-**The adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup.
+**The adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup. Mapping is a human approval, not a discovery: repo-defined commands are untrusted until the human confirms each mapping, and the dependency audit runs before the first repo command does.
 
 **The adoption seal.** Standards genesis without a birth: the agent extracts the conventions the code actually follows and proposes them as the initial standards. An adversary reviews. The human seals. The blessed module is nominated at the same moment: the cleanest existing instance of each pattern, not an aspiration.
 
@@ -28,7 +28,7 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 Unattended eligibility is computed from probe coverage of the touched area, not from the task label. Unattended runs require:
 
-- A stated permission model for what the agent may touch.
+- An enforced permission model, not a stated one — prose loses, which is this spec's own doctrine. A path allowlist, pinned push remotes, a scoped credential, and no new remotes, present as host configuration that `verify` checks before granting unattended eligibility.
 - Dependency-provenance checks on proposed toolchains: the typosquat defense for packages proposed fresh at birth.
 - Secrets scanning.
 - The standing rule that extraction and archaeology propose, never execute.
