@@ -27,6 +27,6 @@ Written at the birth seal (greenfield) or adoption seal (brownfield) from the se
 
 - **The blessed module.** Each pattern has a canonical example inside the project: real code that ages with the product. It carries its own freshness date, because agents copy the blessed module when they build new code — a rotted example spreads its rot into everything copied from it.
 - **Ratchets.** Lint is diff-scoped: new and changed lines must be clean. Legacy violations are counted per rule per module and may only decrease. This is how an existing codebase converges on the style without a big-bang rewrite.
-- **The cleanup pass.** A fresh-context pass strips narration comments and simplifies structure on the standard and complex lanes. Not on patches — ceremony stays out of the lightest lane.
+- **The cleanup pass.** A fresh-context pass (execution tier) strips narration comments and simplifies structure on the standard and complex lanes. Not on patches — ceremony stays out of the lightest lane.
 - **Bounce feedback.** A repeated review-rejection reason earns an imperative or a check — growth with a stated reason, exactly what the word budget asks ([index.md](index.md)). This way steering grows from observed failures instead of anticipation. The battery publishes each sheet's size the way CI publishes the corpus total: counted, never gating.
 - Ratchet linter code gets the same adversary review and deletion tests as probes ([proof.md](proof.md)) — a linter that never fires is as suspect as a test that never fails.

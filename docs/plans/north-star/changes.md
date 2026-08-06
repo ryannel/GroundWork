@@ -106,7 +106,7 @@ Targets, not measurements — and aspirations, not gates: the goal is the smalle
 - About 10–12 top-level CLI verbs (the nine anti-cheat verbs consolidate under `verify`).
 - Package a few MB, from 34 MB.
 - A project's own standards live in the project, not the package. Product documentation is bound by freshness, not words.
-- Per-bet targets: about 20 frontier dispatches for a 3-milestone bet (from ~35), two slice writes (from six), human moments equal to the seals plus the dial's chosen rungs (from 10–15).
+- Per-bet targets: token cost per delivered slice, published from the journal as a trend — no dispatch-count target, because tokens are the scarce resource and dispatches are not. Two slice writes (from six). Pauses equal to the seals plus the dial's chosen rungs; decisions measured against each lane's decision budget.
 
 ## Open items for the execution plan
 
