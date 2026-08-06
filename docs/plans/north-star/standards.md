@@ -11,7 +11,7 @@ The current principles corpus (36 docs, about 73k words, seven families) is dist
 - **Observability**: trace-first. Spans ship with the first feature, not later. Health, logs, and metrics as a day-2 baseline present from day one.
 - **API**: contract-first at the seams. Specs captured from running code, never promoted from design drafts. One uniform error shape.
 - **Design**: token-driven UI. No raw color, font, or spacing literals. The token scan enforces this. Design system before screens.
-- **Quality**: the security, privacy, accessibility, and performance baselines as rows in the capability manifest ([doors.md](doors.md)), so they are probed like any other capability. The rows: dependency audit, secrets scan, a11y smoke, and a performance budget — a timing assertion on the headline front-door cases, ratcheted so it may only hold or improve. The budget exists because the founding failure included a 5–10× slowdown shipping green; privacy's row is the fixture-provenance rule ([proof.md](proof.md)).
+- **Quality**: the security, privacy, accessibility, and performance baselines as rows in the capability manifest ([doors.md](doors.md)), so they are probed like any other capability. The rows: dependency audit, secrets scan, a11y smoke, and a performance budget — a timing assertion on the headline front-door cases, ratcheted so it may only hold or improve. The budget exists because the method's founding failure — magpie's first bet ([index.md](index.md)) — included a 5–10× slowdown that shipped green. Privacy's row is the fixture-provenance rule ([proof.md](proof.md)).
 - **Delivery**: progressive delivery and the day-2 operational baseline as scaffold outcomes, not aspirations.
 
 ## Per-project standards — owned by each project
