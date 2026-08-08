@@ -5,7 +5,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 ## What gets built (new)
 
 - **The battery** as a shipped component behind one `verify` command. This is new construction: today's test harness is unshipped pytest that tests the generators inside this repo — users never get it. What carries over is what those tests assert, not their code.
-- **Topology profiles and the capability manifest**, with per-profile universal probes (server, desktop, CLI, mobile).
+- **Topology profiles and the capability manifest**, with per-profile universal probes ([proof.md](proof.md)).
 - **Ratchet infrastructure**: diff-scoped lint plus per-rule-per-module violation baselines.
 - **The doc lint and the citation-overlap mechanic**; machine-validated `source_of_truth`; staleness as battery rows.
 - **The cold-reader doc eval.**
@@ -16,7 +16,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The tower**: one always-on, read-only local service for all registered projects — reads state from git refs and worktrees without any checkout, serves the Queue, the Map, and each repo's committed docs at one stable address; health and restart via the CLI.
 - **The session-start position snapshot hook** and `groundwork where` (the CLI rendering of the same data).
 - **The board derivation**: the bet/slice test marker in the derivation contract, and the expected-state reconciliation — plan position against test state, red for the right reason on unreached rungs, green on claimed-done slices.
-- **The journal**: one machine-written line per operational event — battery rows and outcomes, dispatches with role/tier/tokens/escalation, seals, waivers, dial changes, triages, archives — committed with the work it describes, session-id stamped. The tower's method-health page reads it. A debug switch widens lines to full check output; off by default, free when off.
+- **The journal**: one machine-written line per operational event — battery rows and outcomes, dispatches with role/tier/tokens/escalation, seals, waivers, dial changes, triages, archives — kept in a per-repo journal ref pushed with the work, session-id stamped ([loop.md](loop.md)). The tower's method-health page reads it. A debug switch widens lines to full check output; off by default, free when off.
 - **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
 - **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
 - **The blind test author and the test auditor** ([proof.md](proof.md)): complex-lane accepting suites written after handoff from the sealed design and the mechanically extracted public interface — never the code bodies; and a milestone-close audit that assumes the tests hide something and extends the suite with what they fail to prove.
@@ -24,7 +24,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
 - **Defect-class tags on findings**, and the recurrence trigger: a class that recurs changes its upstream generator, not just its catcher.
 - **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
-- **The bypass signals on the Map**: unlaned commits and repeat-waived checks.
+- **The bypass signals on the Map**: unlaned commits, mis-laned commits, and repeat-waived checks.
 - **Fresh-context capsule generation**; render-time style linting.
 - **The known-gaps view**: deferred findings rendered per project on the Map until closed or promoted, with patch clustering able to promote a cluster into a bet.
 - **The red-for-the-right-reason stub check.**
@@ -71,7 +71,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The 7 review-lens briefs**, except the contracts they carry (the worker contract, the tell catalog, the affordance floor). The value was fresh context, not the briefing prose.
 - **The three-lens-per-slice review** — today every slice is reviewed by three separate agents: a blind reviewer, an edge-case tracer, and a coverage auditor. One blind adversary per slice remains; coverage judgment goes mechanical (the deletion test); edge-case and honesty judgment move to milestone close.
 - **The checkpoint-walkthrough subagent** — a narrator dispatched at each milestone to present status. The Map's milestone page carries the narrative now. The teach-back ([loop.md](loop.md)) is not this coming back: the narrator retold status on a schedule; the teach-back addresses the owner at their own moments and carries only deltas.
-- **The six-writes-per-slice bookkeeping** — every slice today also updates a progress board, a memory log, and hand-refreshed status and proofs pages. The Map derives those pages from the commits and ledgers.
+- **The six-writes-per-slice bookkeeping** ([loop.md](loop.md)) — the Map derives those pages from the commits and ledgers.
 - **The separate polish stage** — merged into the designer's screenshot read at milestone close.
 - **Bet-close validation as a ceremony list** — its steps become battery rows ([loop.md](loop.md)).
 - **The explanatory ~75% of the engineer skills** — the idiom tutorials and worked examples. The project-shape content becomes the stack seeds.
@@ -88,7 +88,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 
 The rebuild ships as migrations: one final release on the old registry carries every install across the rebuild boundary, and the three live installs — magpie, staycurrent, and this repo's own — move through it.
 
-After the boundary, updates are permanent, because the sunset regime guarantees churn. The update engine is the old registry slimmed down: a version cursor in project state, an ownership manifest, and idempotent steps. (An earlier draft said the registry "retires" — wrong, and this section replaces it.) Every update classifies its changes by blast radius:
+After the boundary, updates are permanent, because the sunset regime guarantees churn. The update engine is the old registry slimmed down: a version cursor in project state, an ownership manifest, and idempotent steps. Every update classifies its changes by blast radius:
 
 - **Package-internal** (CLI, battery, skills): a plain package update. Seals record the battery version they were granted under, so a behavior change is visible and old seals keep their meaning.
 - **Framework-owned project files**: reconciled automatically, ownership-scoped — the update never touches files the project authored (written in blood: the old update lane deleted app-authored skills twice). Executable surfaces are the exception: hook configs and CI stanzas — code that runs at session start or with CI credentials — are never auto-written; they arrive as Queue proposals like project-owned artifacts. And the update engine verifies the package's signed provenance before reconciling anything, because auto-writing into every registered repo is exactly the blast radius a compromised release would want.
@@ -96,7 +96,7 @@ After the boundary, updates are permanent, because the sunset regime guarantees 
 
 **New checks arrive as ratchets.** When an update adds a check, existing violations are baselined and may only decrease — the same mechanism as brownfield adoption. Changed checks get the same treatment: the update re-runs the battery against claimed-done proofs, and rows newly red under a stricter check are baselined or filed as Queue proposals, never flipped red on a live board mid-run. A release that turns projects red teaches people not to update.
 
-The journal records every update event. Every seal records the battery version it was granted under, so installs can always say which checks vouched for what.
+The journal records every update event.
 
 ## Size targets
 
@@ -143,6 +143,11 @@ Deliberately not decided here. The execution plan must specify:
 - The host adapter contract's exact capability list, and the first non-Claude adapter's target host.
 - The per-stack battery adapter (marker filtering, run-log parsing, interface extraction) as a named extension point with a conformance checklist.
 - The break-glass command's exact scope, the withdraw verb's cascade, and the flake policy's rerun and quarantine thresholds.
+- One trend publisher, two sources: a CI file-set counter (corpus, kernel, sheets) and a journal aggregator (spend share, wall-clock, token cost, decision actuals) — built once, not seven times.
+- One check-health signal (a thresholded, journal-derived rate) instantiated for repeat-waivers, flake rate, and hook silence; the remedies stay distinct.
+- One staleness checker (time or commits since a recorded date, over a named scope) parameterized for docs, dated rules, and the blessed module.
+- Whether the critical-paths list and the sensitive-paths list are one sealed list with two effects (lane floor, rung cap) or genuinely two.
+- One seal mechanism parameterized by kind (design, acceptance, birth, adoption) — shared plumbing even where the names differ.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
 
 ## Delivering the rest

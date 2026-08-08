@@ -16,7 +16,7 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 **Day one — what needs no sockets.** The honesty and wiring scans, the dependency audit, the Queue, and a ratchet baseline snapshot install immediately, and the install registers the project with the tower ([surfaces.md](surfaces.md)) so it appears in the portfolio view from the first minute. The day-one baseline covers universal rules only; per-project rules are baselined later, at the adoption seal. The next change made in that repo already cannot cheat at those. Deletion tests join as soon as the `test` socket is mapped — they execute the suite, so they cannot be day-one.
 
-**The adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup. Mapping is a human approval, not a discovery: repo-defined commands are untrusted until the human confirms each mapping, and the dependency audit runs before the first repo command does.
+**The repo adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup. Mapping is a human approval, not a discovery: repo-defined commands are untrusted until the human confirms each mapping, and the dependency audit runs before the first repo command does.
 
 **The adoption seal.** Standards genesis without a birth: the agent extracts the conventions the code actually follows and proposes them as the initial standards. An adversary reviews. The human seals. The blessed module is nominated at the same moment: the cleanest existing instance of each pattern, not an aspiration.
 
@@ -26,7 +26,7 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 ## Autonomy and the security floor — both doors
 
-Unattended eligibility is computed from probe coverage of the touched area, not from the task label. Unattended runs require:
+Unattended eligibility follows the dial's coverage cap ([loop.md](loop.md)): probe coverage of the touched area, not the task label. Unattended runs require:
 
 - An enforced permission model, not a stated one — a rule that lives only in prose gets ignored, which this spec itself teaches. A path allowlist, pinned push remotes, a scoped credential, and a ban on new remotes — all set as host configuration, which `verify` checks before granting unattended eligibility.
 - Dependency-provenance checks on proposed toolchains: the typosquat defense for packages proposed fresh at birth.

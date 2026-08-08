@@ -25,21 +25,31 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Lane** — the ceremony tier a piece of work is triaged into: patch, standard, or complex.
 - **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
 - **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
+- **Driver** — the frontier-class agent that plans, dispatches, and reviews; it never implements. **Worker** — an execution-class agent dispatched with a brief to build one slice.
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
-- **Blind test author** — on the complex lane, the agent that writes a slice's accepting tests after the build: given the sealed design, the proof plan, and the code's public interface, never its bodies. **Test auditor** — the milestone-close pass that assumes the tests hide something and writes what is missing.
+- **The blind author** — on the complex lane, the agent that writes a slice's accepting tests after the build: given the sealed design, the proof plan, and the code's public interface, never its bodies. **Test auditor** — the milestone-close pass that assumes the tests hide something and writes what is missing.
 - **Proof plan** — the sealed statement of what will prove a piece of work: the cases, the fixture axes that must vary, and what runs real versus faked. Written before the implementation.
 - **The board** — a bet's live view of its sealed proofs, each red or green from the battery's last run. Derived from the one permanent test suite, not a separate copy of it.
 - **The journal** — the append-only record the CLI writes automatically as it acts: check outcomes, dispatches, seals, waivers, one line per event. How the method learns from real work without anyone keeping notes.
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
-- **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are.
+- **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are. The patch ledger is a lighter third, mined from patch commit trailers to show which areas keep needing fixes.
 - **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
 - **Teach-back** — the driver teaching the owner in chat what changed while they were away: new capabilities, decisions made by default, complexity added and why. Drawn from the record; never a retelling of it.
+- **The Queue** — everything waiting on the human, across every project, ranked. **The Map** — where everything stands: portfolio, program, bet, milestone, slice.
 - **The tower** — the one always-on local service that serves the Queue and the Map for every registered project, reading state from git rather than from any checkout.
 - **Front door** — the product's real entry point, used the way a user uses it. A front-door proof drives the shipping build, not a test harness. For a product with a UI, the front door is the UI: an API green under a broken screen is not done.
 
 ## What GroundWork will be
 
 GroundWork lets one human direct serious software. The human's judgment goes only where it is irreplaceable: saying what to build, shaping the design of complex work, and accepting the result. Every other step is either a mechanical check or agent work that a separate verifier proves. Nothing ships on an agent's own word.
+
+## The boundary
+
+Three scope decisions, stated so they are decisions rather than accidents:
+
+- **One human, this generation.** The framework is built for a single owner: seals are the owner's word, the Queue is one person's queue, and no second seat exists. A handoff is a re-seal — a successor reads the Record, drives the front doors, and re-seals what they now own. Multi-human operation is out of scope until real demand argues otherwise.
+- **Host-portable by construction, Claude Code first.** The method's substance lives in host-neutral substrate — git, markdown, the CLI, the journal, the tower. What the framework asks of an agent host is a short adapter contract: inject a snapshot at session start, emit the delta at checkpoints, dispatch a fresh-context agent with a brief and return its report, and name a run id for journal stamping. Claude Code is the reference adapter and ships first. The contract exists so another host — OpenAI-compatible agents at the very least — is an adapter, not a rewrite. Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs. A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
+- **macOS first, not macOS only.** The tower and hooks land on macOS first; Linux follows; Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
 
 ## The track record this builds on
 
@@ -83,7 +93,7 @@ These are the acceptance criteria for everything in this set.
 Attention is the scarcest human resource. The framework asks for yours in few moments — intent, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
 
 - **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed plus a link; the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
-- **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked: the right branch, a hand-started server, the right page.
+- **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked ([surfaces.md](surfaces.md)).
 - **Priced.** The dial records how far work runs before it may pause for you. Checkpoints never block. Acceptance batches to moments you choose. A genuine stop is a short mechanical list ([loop.md](loop.md)); everything else records a decision you can veto later and keeps moving.
 - **Measured.** Every lane declares how many human decisions it should cost, and the Map reports actuals against that budget — the same way token spend is recorded per dispatch.
 
@@ -109,7 +119,7 @@ Context is the scarcest machine resource, the way attention is the scarcest huma
 
 A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more.
 
-The mining made this concrete. Review caught over a dozen "tests green, behavior wrong" bugs — which proves the review works, and also proves the process that authors tests kept producing suites blind to the behavior they claimed to prove. Catching more is the wrong lesson. The right lesson is to change how tests are born so there is less to catch.
+The mining made this concrete. The dozen-plus "green but wrong" catches prove the review works — and also prove that the process authoring tests kept producing suites blind to the behavior they claimed to prove. Catching more is the wrong lesson. The right lesson is to change how tests are born so there is less to catch.
 
 So every guard in this spec has two halves. The downstream half catches: the adversary, the scans, the gates. The upstream half prevents: the proof plan that shapes tests before they are written ([proof.md](proof.md)), the checker that shares its consumer's real code path, the field that is required at write time instead of hoped for later. And the halves are connected by a loop: every finding in the ledger carries a defect-class tag, and a class that recurs triggers a change to whatever generates it — a rule, a check, a template, or a walk — never just another layer of catching. [evidence.md](evidence.md) traces each defect class the mining found to its generator and names the upstream fix.
 
@@ -126,7 +136,7 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 
 **Budgets.** The goal is the smallest corpus that gives up nothing real. Words are a cost — but so are cuts that remove working guidance, and hitting a number is never a reason to cut. We believe the right size is somewhere near 20–35k words of shipped instruction prose, down from 344k today, with the always-on set near 500. Those figures are aspirations that set the direction, not limits that gate a change; the honest instrument for shrinking the corpus is the sunset regime above, which deletes by evidence, rule by rule. What is enforced is visibility: CI counts the words on every change and publishes the total and its trend, so growth is always a deliberate act with a stated reason — never an accident, and never a wall. Product documentation has no word target at all; its bound is freshness, not size.
 
-**Plain writing.** Models copy the register of what they read. That is our working hypothesis for why style rules kept losing to our own dense corpus — twice in one session, writing degraded right after ingesting dense material. It is observed, not proven, and the fixes are cheap either way:
+**Plain writing.** Models copy the register of what they read — a working hypothesis, not a proven fact, but the evidence is close to home: writing degraded repeatedly right after ingesting dense material, and style rules kept losing to our own dense corpus. The fixes are cheap either way:
 
 - The corpus cut removes the densest thing agents here read: the framework's own prose.
 - Shipped prose is itself the exemplar, so it must be plain.
@@ -135,17 +145,9 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 - A jargon lint — a maintained blocklist of house terms — runs on committed docs and on rendered capsules and status pages.
 - Capsules are written by a fresh-context subagent, because runtime text is where a style-contaminated author does the most damage. Fresh context is not a license to forage: the writer is handed the facts it renders — the diff, the proof plan, the findings — copied in like any dispatch. Fresh means no accumulated register, not re-deriving the work.
 
-## The boundary
-
-Three scope decisions, stated so they are decisions rather than accidents:
-
-- **One human, this generation.** The framework is built for a single owner: seals are the owner's word, the Queue is one person's queue, and no second seat exists. A handoff is a re-seal — a successor reads the Record, drives the front doors, and re-seals what they now own. Multi-human operation is out of scope until real demand argues otherwise.
-- **Host-portable by construction, Claude Code first.** The method's substance lives in host-neutral substrate — git, markdown, the CLI, the journal, the tower. What the framework asks of an agent host is a short adapter contract: inject a snapshot at session start, emit the delta at checkpoints, dispatch a fresh-context agent with a brief and return its report, and name a run id for journal stamping. Claude Code is the reference adapter and ships first. The contract exists so another host — OpenAI-compatible agents at the very least — is an adapter, not a rewrite. Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs. A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
-- **macOS first, not macOS only.** The tower and hooks land on macOS first; Linux follows; Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
-
 ## Governance
 
-With one user, gates that user administers cannot be hard guarantees. They are tripwires: they make growth deliberate and visible instead of silent. Seven:
+With one user, gates that user administers cannot be hard guarantees. They are tripwires: they make growth deliberate and visible instead of silent. Eight:
 
 1. The instruction-word count, published by CI with its trend on every change. The tripwire is silent growth: words added without a stated reason.
 2. The sunset regime. Mechanical: an expired `dated` item fails CI until re-justified or deleted.
@@ -169,7 +171,7 @@ Only the sunset regime is a hard CI fail — and what it demands is evidence, no
 - Model-built scaffolds trade deterministic sameness for up-to-date choices. Topology probes keep the trade honest: whatever the model chose, the product must boot, serve, and pass its rows.
 - The Queue can fill with work nobody acts on. Queue age and per-lane decision-count overruns render loudly on the Map.
 - The tower is a daemon, and a dead daemon hides everything it exists to surface. Its health is one CLI command away, the session-start hook says when it cannot reach the tower, and `groundwork where` plus the committed planning files remain the no-daemon fallback.
-- Dev mode can recreate the upkeep treadmill — 384 commits of framework work came from self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word budget and the sunset regime bind method changes the same as ever.
+- Dev mode can recreate the upkeep treadmill (governance tripwire 8): self-observation with no brakes. The method queue makes improvement cheap to see, never mandatory to do; the word budget and the sunset regime bind method changes the same as ever.
 
 ## Out of scope
 
