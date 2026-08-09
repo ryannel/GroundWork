@@ -57,13 +57,13 @@ The method has shipped real products. Magpie, a native macOS app in Swift, was b
 
 We mined the delivery records and session transcripts of those projects for this spec, and the record attributes real catches to specific parts — quotes and counts in [evidence.md](evidence.md):
 
-- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger so the loss looked reconciled, and a schema hole that staycurrent's own mechanical gate missed twice.
-- The milestone-level checks caught a class per-slice review structurally cannot see: a missing Undo pattern every slice was individually correct about, a capability that turned out hollow at the front door.
+- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger, so the loss looked reconciled.
+- The milestone-level checks caught a class per-slice review structurally cannot see: a missing Undo pattern every slice was individually correct about.
 - The mechanical checks earned fewer but real catches — `seal verify` flagged approval tags never re-pointed after amendments — and the findings ledger genuinely blocked slices from closing over open defects.
 - The human, driving the real app during validation, found live bugs no agent had caught. That is the strongest argument for keeping the human's drive as a required proof.
 - The biggest failure predates the machinery: magpie's first bet went "green" across six milestones while the product did not actually work on real data. The front-door proof discipline exists because of that bet.
 
-The same mining showed which parts never earned their keep, on the framework's own evidence: a per-slice honesty audit that rubber-stamped and was demoted, a re-review step that found zero critical findings and was turned off, a deletion-test verb with no logged runs, a doc-freshness check that ran 106 times in one project and never caught anything. And attribution has a real limit we hit while mining: the archive step deletes the raw review files at bet close, and the findings ledger's "what caught this" field was never filled in once — the framework destroyed much of its own fine-grained evidence. The rebuild fixes that: every finding records what caught it, and review evidence survives archival.
+The same mining showed which parts never earned their keep: an honesty audit that rubber-stamped, a re-review step that found zero critical findings, a deletion-test verb with no logged runs, a doc-freshness check that ran 106 times and caught nothing. It also hit a real limit — the archive step deleted the raw review files at bet close, and the ledger's "what caught this" field was never filled in once, so the framework destroyed much of its own fine-grained evidence. The rebuild fixes both: every finding records what caught it, and review evidence survives archival.
 
 Cost is documented by the framework's own plans: the review-fatigue finding, and the upkeep of 344k words of shipped instruction prose. So the verdict is not "the method failed." It is: keep what demonstrably catches, shed what demonstrably doesn't, stop destroying the evidence that tells them apart — and treat what the catchers keep catching as the pointer to what must change upstream.
 
@@ -88,7 +88,11 @@ These are the acceptance criteria for everything in this set.
 15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
 16. The owner stays taught: what was built while you were away, what was decided for you, and where complexity was added and why reach you in chat, paced to your return — the docs hold it, the teach-back delivers it.
 
-## Core principle: effective use of attention
+## Core principles
+
+Three, each elaborating goals above: how the human's attention is spent, how the machine's context is spent, and what a catch obliges us to change.
+
+### Effective use of attention
 
 Attention is the scarcest human resource. The framework asks for yours in few moments — intent, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
 
@@ -99,7 +103,7 @@ Attention is the scarcest human resource. The framework asks for yours in few mo
 
 Plain writing (content rules, below) serves the same principle: text that must be read twice spends attention twice.
 
-## Core principle: effective use of context
+### Effective use of context
 
 Context is the scarcest machine resource, the way attention is the scarcest human one — the same economy for the other reader. Two disciplines, both enforced.
 
@@ -115,7 +119,7 @@ Context is the scarcest machine resource, the way attention is the scarcest huma
 - State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers, and a fresh window resumes from them. Compaction is treated as lossy.
 - Token spend is recorded per dispatch, along with the dispatch's role — worker build, adversary, capsule writer, and kin — so cost rolls up by mechanism as well as by tier. Which parts of the loop eat the quota is a query against the journal, not a guess.
 
-## Core principle: catches point upstream
+### Catches point upstream
 
 A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more.
 

@@ -4,39 +4,53 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 
 ## What gets built (new)
 
+### Documentation and the Record
+
+- **The doc lint and the citation-overlap mechanic**; machine-validated `source_of_truth`; staleness as battery rows.
+- **The cold-reader doc eval.**
+
+### The delivery loop
+
+- **The program artifact** and the program-level design walk.
+- **Run modes as recorded state**, the mechanical stopping rule, and non-blocking checkpoints.
+- **The journal**: one machine-written line per operational event — battery rows and outcomes, dispatches with role/tier/tokens/escalation, seals, waivers, dial changes, triages, archives — kept in a per-repo journal ref pushed with the work, session-id stamped ([loop.md](loop.md)). The tower's method-health page reads it. A debug switch widens lines to full check output; off by default, free when off.
+- **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
+- **Defect-class tags on findings**, and the recurrence trigger: a class that recurs changes its upstream generator, not just its catcher.
+- **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
+- **Fresh-context capsule generation**; render-time style linting.
+- **The cross-bet invalidation signal** against the sealed program ladder.
+- **The teach-back**: the walk-up brief at acceptance, the return offer in the session-start snapshot, and the journal's taught-decisions line with its Map count ([loop.md](loop.md)).
+- **Operating what shipped** ([loop.md](loop.md)): the break-glass patch, production-signal intake, the withdraw verb, `remove-capability`, the release step with per-topology deploy probes, and the flake policy with its quarantine state ([proof.md](proof.md)).
+
+### The verification battery
+
 - **The battery** as a shipped component behind one `verify` command. This is new construction: today's test harness is unshipped pytest that tests the generators inside this repo — users never get it. What carries over is what those tests assert, not their code.
 - **Topology profiles and the capability manifest**, with per-profile universal probes ([proof.md](proof.md)).
 - **Ratchet infrastructure**: diff-scoped lint plus per-rule-per-module violation baselines.
-- **The doc lint and the citation-overlap mechanic**; machine-validated `source_of_truth`; staleness as battery rows.
-- **The cold-reader doc eval.**
-- **The program artifact** and the program-level design walk.
-- **Run modes as recorded state**, the mechanical stopping rule, and non-blocking checkpoints.
+- **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
+- **The blind author and the test auditor** ([proof.md](proof.md)): complex-lane accepting suites written after handoff from the sealed design and the mechanically extracted public interface — never the code bodies; and a milestone-close audit that assumes the tests hide something and extends the suite with what they fail to prove.
+- **Paired front-door proofs** ([proof.md](proof.md)): every user-facing case carries a UI-driver twin that asserts what the user sees; the board's headline row is the UI result, and milestone close drives the headline cases through the UI.
+- **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
+- **The red-for-the-right-reason stub check.**
+- **Drive artifacts** and **waivers**.
+
+### Cross-project surfaces
+
 - **The Queue and the Map**, cross-project, with computed ranking, per-lane decision budgets, and acceptance-debt rendering.
 - **The project registry** (`~/.groundwork/registry.json`, written by `init` and `update`).
 - **The tower**: one always-on, read-only local service for all registered projects — reads state from git refs and worktrees without any checkout, serves the Queue, the Map, and each repo's committed docs at one stable address; health and restart via the CLI.
 - **The session-start position snapshot hook** and `groundwork where` (the CLI rendering of the same data).
 - **The board derivation**: the bet/slice test marker in the derivation contract, and the expected-state reconciliation — plan position against test state, red for the right reason on unreached rungs, green on claimed-done slices.
-- **The journal**: one machine-written line per operational event — battery rows and outcomes, dispatches with role/tier/tokens/escalation, seals, waivers, dial changes, triages, archives — kept in a per-repo journal ref pushed with the work, session-id stamped ([loop.md](loop.md)). The tower's method-health page reads it. A debug switch widens lines to full check output; off by default, free when off.
-- **Finding attribution and durable evidence**: every finding records what caught it, and review outputs survive archival. Both exist because the old process had the field and never filled it, and deleted the review files at bet close ([evidence.md](evidence.md)).
-- **The proof plan** as a per-slice artifact — the cases, fixture axes, and real-versus-faked choices, authored before implementation and sealed with the design on the complex lane ([proof.md](proof.md)).
-- **The blind test author and the test auditor** ([proof.md](proof.md)): complex-lane accepting suites written after handoff from the sealed design and the mechanically extracted public interface — never the code bodies; and a milestone-close audit that assumes the tests hide something and extends the suite with what they fail to prove.
-- **Paired front-door proofs** ([proof.md](proof.md)): every user-facing case carries a UI-driver twin that asserts what the user sees; the board's headline row is the UI result, and milestone close drives the headline cases through the UI.
-- **Evidence-of-execution rows**: suites discovered by pattern and reconciled against suites run; a slice's new tests must appear by name in the run log; a run that executes zero tests is red.
-- **Defect-class tags on findings**, and the recurrence trigger: a class that recurs changes its upstream generator, not just its catcher.
-- **Two-direction decomposition traceability**: every slice proof traces to the sealed design, and everything the design names as user-facing traces to a slice or a recorded deferral.
 - **The bypass signals on the Map**: unlaned commits, mis-laned commits, and repeat-waived checks.
-- **Fresh-context capsule generation**; render-time style linting.
 - **The known-gaps view**: deferred findings rendered per project on the Map until closed or promoted, with patch clustering able to promote a cluster into a bet.
-- **The red-for-the-right-reason stub check.**
-- **The cross-bet invalidation signal** against the sealed program ladder.
-- **Drive artifacts** and **waivers**.
 - **The checkpoint host hook** (three-line delta plus deep link, emitted mechanically).
-- **The teach-back**: the walk-up brief at acceptance, the return offer in the session-start snapshot, and the journal's taught-decisions line with its Map count ([loop.md](loop.md)).
+
+### The doors, the host, and the method's own loop
+
 - **The adoption seal flow** for brownfield.
 - **Dev mode** (a maintainer flag, off by default): the method-friction journal event, cross-project routing of method-classed signals into the tower's method queue, and the issue-filing adapter — one evidence-carrying issue per cluster, maintainer-triggered by default. Dev mode proposes; method changes run through the method's own loop ([surfaces.md](surfaces.md)).
 - **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, the blind-author cheat, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
 - **The host adapter contract** ([index.md](index.md)): surfacing, dispatch, and run-id capabilities per host; Claude Code as the reference adapter; instruction files emitted per host convention; visible degradation for missing capabilities.
-- **Operating what shipped** ([loop.md](loop.md)): the break-glass patch, production-signal intake, the withdraw verb, `remove-capability`, the release step with per-topology deploy probes, and the flake policy with its quarantine state ([proof.md](proof.md)).
 
 ## What stays
 
