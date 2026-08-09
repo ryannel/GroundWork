@@ -1,6 +1,6 @@
 # Execution plan: building the north star
 
-**Status:** DRAFT. The delivery approach below is settled with the owner. The ladder in §6 is provisional and firms up when the spec is ratified.
+**Status:** DRAFT. The delivery approach is settled with the owner. The ladder is written and complete on coverage; slices are cut at the start of each bet.
 **Audience:** The owner, and any agent delivering the rebuild.
 **Scope:** How the rebuild gets built — the repo it happens in, the harness that runs it, and how work is proved. What gets built is [the spec](north-star/index.md); this plan does not restate it.
 **Reads with:** [changes.md](north-star/changes.md) holds the build, keep, and delete lists, and the open items this plan must eventually settle.
