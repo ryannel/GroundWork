@@ -74,24 +74,14 @@ Three rules set the order.
 2. **The meter early.** The journal arrives near the front, so every bet after it is measured as it runs — token cost by role, wall-clock, what fired and what caught. The spec's claims about economy get tested from the start instead of asserted at the end.
 3. **The rig before the behavioral work.** Anything proved by rubric needs the simulation rig to exist. So: deterministic core, then the rig, then the parts of the spec that are prose and judgment.
 
-## 6. The ladder (provisional)
+## 6. The ladder
 
-Firms up at ratification. Each bet needs a falsifiable done condition before it starts; the sketches below are not yet that.
-
-| # | Bet | Done when |
-|---|---|---|
-| 0 | The floor | New repo, CI green on an empty suite, working agreement written, port list landed and register-reviewed |
-| 1 | The journal and the CLI skeleton | Events are written by the CLI at the moment it acts, in a per-repo journal ref; spend by role queryable |
-| 2 | The battery core | Scans, deletion test, and run evidence ship behind one `verify`; a suite that cannot fail is red |
-| 3 | The derivation contract and the board | Plan position reconciles against test state; the board renders from one permanent suite |
-| 4 | The simulation rig | Rungs 0 to 2 run; a rubric proves it can fail against a known-bad archive transcript |
-| 5+ | Surfaces, doors, the corpus | Pending ratification |
+Twelve bets, each with a done condition that can be attempted and watched fail, and every one of the spec's 108 commitments assigned to exactly one of them. It lives in [north-star-ladder.md](north-star-ladder.md).
 
 ## 7. What this plan must still settle
 
 - The new repo's name, and whether the new package takes the current npm name at a major version or a new one.
 - The cutover test: the exact moment the new framework delivers its own bet without the harness.
 - Which existing repo is the first real consumer of the new framework, and when.
-- The working agreement's contents — the page itself, written before bet 0 closes.
-- Per-bet done conditions for the whole ladder, and the acceptance checks under each slice.
-- Everything in [changes.md](north-star/changes.md)'s open-items list, each assigned to the bet that decides it.
+- Slices under each bet, cut at the start of that bet rather than now.
+- How large this is. Nobody has sized it, and the ladder is the first artifact that makes sizing possible.
