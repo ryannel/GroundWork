@@ -22,7 +22,9 @@ Chat is not on that list. A decision that matters tomorrow goes in a file today,
 
 The old GroundWork repo is not a reference. Do not read it, copy from it, or install its package. This rebuild exists to replace its prose. Reading it changes how you write.
 
-Everything worth keeping from it was extracted once, into `docs/carried-over.md`. Read that instead.
+Everything worth keeping from it was extracted into `docs/carried-over.md`. Read that instead.
+
+The rule is about prose, because prose is what changes your register. Mechanical facts — a file path, a lint config, a CI workflow — carry no register and may be extracted when a bet needs them. But never by you, mid-slice. Extraction is always its own dispatch, with one job, reviewed before it lands. If you think you need something from the old repo, that is a finding, not a detour.
 
 ## A slice
 
@@ -54,7 +56,7 @@ Every finding goes in the ledger. A slice cannot close over an open finding.
 
 ## Committing
 
-One slice per commit. Bets run on their own branch. Push after every slice, so no work is only on one machine.
+One slice per commit. Bets run on their own branch. Push after every slice, so no work is only on one machine. Push tags too — a seal that exists on one machine only is not a seal.
 
 Each commit message ends with trailers that say what it was:
 
