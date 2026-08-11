@@ -1,6 +1,6 @@
 # Working agreement
 
-*Draft. Everything above the line is stripped when bet 0's reset commit installs this as the repo's always-on instruction file. It is the exemplar: every other page in the rebuild is written to match its register, so it must stay plain and short.*
+*Draft. Everything above the line is stripped when the reset commit — part of ratification, before any bet — installs this as the repo's always-on instruction file. It is the exemplar: every other page in the rebuild is written to match its register, so it must stay plain and short.*
 
 ---
 

@@ -22,13 +22,15 @@ Each item carries an ID — `B0`–`B33` for build, `K0`–`K22` for keep, `D0`�
 
 ## 1. The ladder
 
+The ladder starts on an already-blank repo. The reset commit — tag `legacy-final`, cut the `legacy` branch, blank main down to the spec, the working agreement, this ladder, and the execution plan — is part of ratification itself, not of any bet. The [execution plan](north-star-execution.md) has the sequence.
+
 ### Bet 0 — The floor
 
-The clean slate, made real. No framework code.
+First work on the blank repo. No framework code.
 
-**Done when:** the reset commit is on main — one ordinary commit that removes everything old and keeps the spec, the working agreement, this ladder, and the execution plan — with `legacy-final` tagged and the `legacy` branch cut just behind it, and legacy's Node CI pinned to that branch. Main's CI fails the build on a failing Go test, shown by writing one that fails and then removing it. `docs/carried-over.md` was produced by the port-pass dispatch and reviewed for register in a separate session, with both commits visible in history. The settled decisions — Go, one repo, the reset — are recorded in `docs/decisions.md`.
+**Done when:** main's CI fails the build on a failing Go test, shown by writing one that fails and then removing it. Legacy's Node CI is pinned to the `legacy` branch and green there. `docs/carried-over.md` was produced by the port-pass dispatch and reviewed for register in a separate session, with both commits visible in history. The settled decisions — Go, one repo, the reset — are recorded in `docs/decisions.md`.
 
-**Lands:** the reset commit, the legacy tag and branch, CI on both lines, the test runner, the working agreement, the port list, this ladder.
+**Lands:** CI on both lines, the test runner, the port list, the first ledger entries.
 
 ### Bet 1 — The CLI and the journal
 
