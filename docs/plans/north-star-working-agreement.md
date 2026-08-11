@@ -42,7 +42,7 @@ A bare pointer is only right when you cannot predict what the worker needs. Then
 
 ## Tests first, and red
 
-Write the test before the code, and commit it failing. A test written afterwards tends to assert whatever the code already does. Tests live beside the code they prove, and `./dev test` runs them.
+Write the test before the code, and commit it failing. A test written afterwards tends to assert whatever the code already does. Tests live beside the code they prove, as Go does by default, and `go test ./...` runs them.
 
 Most of this rebuild is ordinary code and gets ordinary tests. Judgment work — whether prose steers an agent, whether a walk reads well — is proved differently, in three layers: observable events first, then a rubric proven to catch real failures, then a human seal. `docs/execution-plan.md` has the detail.
 

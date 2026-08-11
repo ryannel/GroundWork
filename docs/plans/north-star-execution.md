@@ -3,6 +3,7 @@
 **Status:** DRAFT. The delivery approach is settled with the owner. The ladder is written and complete on coverage; slices are cut at the start of each bet.
 **Audience:** The owner, and any agent delivering the rebuild.
 **Scope:** How the rebuild gets built — the repo it happens in, the harness that runs it, and how work is proved. What gets built is [the spec](north-star/index.md); this plan does not restate it.
+**Settled 2026-08-08:** the new repo takes the name `groundwork` and the current one is renamed `groundwork-legacy`; the new repo is public from the first commit; the toolchain is Go, shipping a single binary.
 **Reads with:** [changes.md](north-star/changes.md) holds the build, keep, and delete lists, and the open items this plan must eventually settle.
 
 ---
@@ -39,7 +40,11 @@ Two things need no porting at all. The magpie and staycurrent archives stay wher
 
 ## 3. The harness
 
-**The repo is Node and TypeScript**, unless the owner rules otherwise on day one. Nothing in the spec states this, because every toolchain reference in it is about products the framework serves rather than the framework itself. The evidence points one way: the old repo is Node, the CLI keeps the `groundwork` name, and this plan's own open question about the npm package presupposes npm. It is recorded in `docs/decisions.md` at bet 0 so it is a decision rather than a drift.
+**The repo is Go, shipping a single binary** (owner decision, 2026-08-08). Nothing in the spec stated a toolchain, because every toolchain reference in it is about products the framework serves rather than the framework itself.
+
+Go rather than Node, against the grain of the old repo, for three reasons. The tower is an always-on daemon, and a single binary starts at login with no runtime to manage. A consumer repo gets the framework without needing Node installed, which matters for a Swift project like magpie. And cross-compilation makes "macOS first" a scheduling choice rather than a technical one.
+
+Two costs, both real. Distribution stops being npm, so the boundary release has to hand three live installs from a package to a binary. And where the framework must read a project's source — the blind author's interface extraction, test-marker filtering — Go cannot call each stack's own tooling in process and must shell out to it. That is probably the right shape anyway: the old repo deleted 28 MB of parser grammars for not earning their keep.
 
 The rebuild is delivered by a small harness written by hand for this job. Everything in it is new prose written in plain style. It is deliberately minimal, and it is temporary.
 
@@ -88,7 +93,7 @@ Seventeen bets, each with a falsifiable done condition. Every one of the spec's 
 
 ## 7. What this plan must still settle
 
-- The new repo's name and host, and whether the new package takes the current npm name at a major version or a new one. This is a five-minute decision, and nothing can be pushed until it is made.
+- How the binary is distributed and installed: `go install`, GitHub releases, a package manager, or several. Bet 15 needs an answer before the boundary release; nothing earlier does.
 - Which existing repo is the first real consumer of the new framework, and when.
 - Slices under each bet, cut at the start of that bet rather than now.
 - How large this is. Nobody has sized it, and the ladder is the first artifact that makes sizing possible.

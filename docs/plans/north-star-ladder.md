@@ -148,7 +148,7 @@ Moving what exists onto the new thing. **This is the fallback resting point** (�
 
 **Done when:** an update reconciles framework-owned files and touches nothing project-authored, proved against three collision shapes — the same filename, a framework file the project renamed, and a project file inside a framework-reserved directory. Hooks and CI stanzas arrive as proposals, never auto-written. Magpie and staycurrent cross the boundary release, verify green, and a diff review confirms no project-authored content changed.
 
-**Lands:** the update engine, blast-radius classes, ratchet arrival for new and changed checks, signed provenance, the boundary release.
+**Lands:** the update engine, blast-radius classes, ratchet arrival for new and changed checks, signed provenance, the boundary release, and the handoff from npm package to installed binary.
 
 ### Bet 16 — Retirement and cutover
 
