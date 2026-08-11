@@ -52,6 +52,10 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The method rig rebuilt on subagents** ([proof.md](proof.md)): the scenario shelf (two doors, slice/bet/program, the blind-author cheat, escape replays), judge-only replays over the real bet archives, the scripted owner, and sim dispatches journaled with role `sim`. Today's `./dev sim` harness carries over; its background-session transport becomes in-session subagent fan-out.
 - **The host adapter contract** ([index.md](index.md)): surfacing, dispatch, and run-id capabilities per host; Claude Code as the reference adapter; instruction files emitted per host convention; visible degradation for missing capabilities.
 
+### Opt-in exposure
+
+- **The flag lane** ([loop.md](loop.md), [proof.md](proof.md)): the committed flag registry, the flag scan, Map rendering of live flags with age and exposure state, and flag-flip journal events. Activates when a project declares a flag backend; a flagless project never sees any of it.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.
@@ -163,6 +167,7 @@ Deliberately not decided here. The execution plan must specify:
 - Whether the critical-paths list and the sensitive-paths list are one sealed list with two effects (lane floor, rung cap) or genuinely two.
 - One seal mechanism parameterized by kind (design, acceptance, birth, adoption) — shared plumbing even where the names differ.
 - Execution sequencing: which parts land first, and which existing repos are the proving grounds (the Record calibration names wordloop and magpie; continuous delivery names magpie).
+- The flag registry's format, the scan's detection mechanics per backend, and the seeded backend choices per stack — all opt-in, none present in a flagless project.
 
 ## Delivering the rest
 

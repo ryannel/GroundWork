@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 108 things: 33 to build, 23 to keep, 17 to delete, and 35 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
+The spec commits to 110 things: 34 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
 
-Each item carries an ID — `B0`–`B32` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O34` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
+Each item carries an ID — `B0`–`B33` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
 
 **Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined in [index.md](north-star/index.md)'s vocabulary section. Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
 
@@ -140,7 +140,7 @@ The life of software after the merge.
 
 **Done when:** a break-glass patch ships on its touched-path probes, and the specific check it skipped fails on the specific gap it left when the next normal slice runs. A half-delivered bet withdraws with its board frozen and its evidence readable after teardown. A release stamps a version, derives a changelog, and passes a deploy probe against the same target already serving bet 11's front-door proof.
 
-**Lands:** the break-glass path, production-signal intake, withdraw and revert, the release step, dependency intake.
+**Lands:** the break-glass path, production-signal intake, withdraw and revert, the release step, dependency intake, and the opt-in flag lane — registry, scan, Map rendering, flip events.
 
 ### Bet 15 — Updates and migration
 
@@ -162,7 +162,7 @@ The old thing goes; the new thing stands on its own.
 
 ## 2. Coverage
 
-### Build (33)
+### Build (34)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -199,6 +199,7 @@ The old thing goes; the new thing stands on its own.
 | B30 | Dev mode | 16 |
 | B31 | The method rig rebuilt on subagents | 5 |
 | B32 | The host adapter contract | 10 |
+| B33 | The flag lane, opt-in | 14 |
 
 ### Keep (23)
 
@@ -252,7 +253,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 | D15 | The 10 Nx generators | 16 | Gated: the battery must pass generator-built output |
 | D16 | The separate bet-progress suite | 3 | The board becomes a derived view |
 
-### Open questions (35)
+### Open questions (36)
 
 | ID | Question | Bet |
 |---|---|---|
@@ -291,6 +292,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 | O32 | Critical-paths and sensitive-paths: one list or two | 4 |
 | O33 | One seal mechanism parameterized by kind | 3 |
 | O34 | Execution sequencing and proving grounds | 0 |
+| O35 | Flag registry format, scan mechanics, seeded backends | 14 |
 
 ---
 
@@ -304,7 +306,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 
 **Three bets gate what follows.** Bet 2 protects everything built after it. Bet 5 is the only instrument that can prove bets 7 through 14. Bet 16 cannot start until the battery passes generator-built output.
 
-**Nothing is unassigned.** 108 of 108 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
+**Nothing is unassigned.** 110 of 110 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
 
 ---
 

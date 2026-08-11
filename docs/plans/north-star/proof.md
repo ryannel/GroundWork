@@ -65,11 +65,12 @@ The honesty half of the split is measured: per-slice honesty auditing rubber-sta
 
 ## Also in the battery
 
-The three scans, the deletion test, and the flake policy:
+The scans, the deletion test, and the flake policy:
 
 - **Honesty scan** — tests that assert nothing, assertions commented out or skipped, proofs quietly redefined down to what a stub can pass.
 - **Wiring scan** — controls built but never wired: empty or TODO-only handlers, functions no caller reaches.
 - **Token scan** — raw color, font, and spacing literals that bypass the design tokens.
+- **Flag scan** (opt-in: it runs only where a project has declared a flag backend) — every flag in code appears in the committed flag registry, with its purpose, default state, review-by date, and removal criteria written at creation. An unregistered flag is red, like an unlaned commit. A flag past its review date is red, like an expired `dated` rule — flag debt is the harden-in-place disease, and it gets the same cure. Proofs run with the flag on; turning a flag off must leave every existing proof green. A flagless project never sees this scan.
 - **The deletion test** (`mutate`) — remove or damage the implementation; the tests must go red. A suite the deletion test cannot make fail proves nothing.
 - **The flake policy** — nondeterminism is a certainty at any real suite size, so the board cannot pretend red and green are the only states. A failing row reruns once. If the two runs disagree, the CLI writes a flake event to the journal and the proof enters quarantine: shown loudly as quarantined on the board — never silently green, never falsely red. While a UI case flakes, its headless twin stands as interim evidence. A quarantined proof is repaired or retired within its milestone, and flake rate is a check-health metric beside repeat-waivers. Unattended runs treat a flake as quarantine-and-continue, not a stop: one nondeterministic test must not halt a night's work.
 

@@ -12,7 +12,7 @@ The current principles corpus (36 docs, about 73k words, seven families) is dist
 - **API**: contract-first at the seams. Specs captured from running code, never promoted from design drafts. One uniform error shape.
 - **Design**: token-driven UI. No raw color, font, or spacing literals. The token scan enforces this ([proof.md](proof.md)). Design system before screens.
 - **Quality**: the security, privacy, accessibility, and performance baselines as rows in the capability manifest, so they are probed like any other capability ([proof.md](proof.md)). The rows: dependency audit, secrets scan, a11y smoke, and a performance budget — a timing assertion on the headline front-door cases, ratcheted so it may only hold or improve. The budget exists because the method's founding failure — magpie's first bet — included a 5–10× slowdown that shipped green ([evidence.md](evidence.md)). Privacy's row is the fixture-provenance rule ([proof.md](proof.md)).
-- **Delivery**: progressive delivery and the day-2 operational baseline as scaffold outcomes, not aspirations.
+- **Delivery**: progressive delivery and the day-2 operational baseline as scaffold outcomes, not aspirations. Feature flags are opt-in: a project that uses them declares its backend here and registers each flag ([proof.md](proof.md)); a project that does not never sees the machinery.
 
 ## Per-project standards — owned by each project
 
