@@ -1,6 +1,6 @@
 # Working agreement
 
-*Draft. Everything above the line is stripped when this is copied into the new repo at bet 0, where it becomes the always-on instruction file. It is the exemplar: every other page in the rebuild is written to match its register, so it must stay plain and short.*
+*Draft. Everything above the line is stripped when bet 0's reset commit installs this as the repo's always-on instruction file. It is the exemplar: every other page in the rebuild is written to match its register, so it must stay plain and short.*
 
 ---
 
@@ -13,18 +13,18 @@ Five files, all in git:
 - `docs/spec/` — what to build.
 - `docs/ladder.md` — what to build next, and what done means for it.
 - `docs/execution-plan.md` — how we deliver, including how judgment work is proved.
-- `docs/carried-over.md` — what was worth keeping from the old repo.
+- `docs/carried-over.md` — what was worth keeping from the legacy branch.
 - `docs/findings.md` and `docs/decisions.md` — the ledgers, below.
 
 Chat is not on that list. A decision that matters tomorrow goes in a file today, or it is gone.
 
-## Never open the old repo
+## Never look behind the legacy tag
 
-The old GroundWork repo is not a reference. Do not read it, copy from it, or install its package. This rebuild exists to replace its prose. Reading it changes how you write.
+The old GroundWork lives in this same repo — behind the `legacy-final` tag and on the `legacy` branch. It is not a reference. Do not read it, check it out, or install its package. This rebuild exists to replace its prose. Reading it changes how you write.
 
 Everything worth keeping from it was extracted into `docs/carried-over.md`. Read that instead.
 
-The rule is about prose, because prose is what changes your register. Mechanical facts — a file path, a lint config, a CI workflow — carry no register and may be extracted when a bet needs them. But never by you, mid-slice. Extraction is always its own dispatch, with one job, reviewed before it lands. If you think you need something from the old repo, that is a finding, not a detour.
+The rule is about prose, because prose is what changes your register. Mechanical facts — a file path, a lint config, a CI workflow — carry no register and may be extracted when a bet needs them. But never by you, mid-slice. Extraction is always its own dispatch, with one job, reviewed before it lands. If you think you need something from behind the tag, that is a finding, not a detour.
 
 ## A slice
 

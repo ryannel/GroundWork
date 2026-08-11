@@ -14,7 +14,7 @@ Each item carries an ID — `B0`–`B33` for build, `K0`–`K22` for keep, `D0`�
 
 **Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined in [index.md](north-star/index.md)'s vocabulary section. Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
 
-**Deletions work differently in a new repo.** Most of the delete list happens by not porting. An item earns a bet only when something must actively happen: a replacement lands first, or a gate passes before the old thing goes.
+**Deletions work differently on a clean slate.** Most of the delete list happens by not porting. An item earns a bet only when something must actively happen: a replacement lands first, or a gate passes before the old thing goes.
 
 **Done conditions are meant to be attempted and watched fail.** "The battery works" is not one. "Point it at a repo it was never tuned against, and it correctly calls the hollow suite red" is. Several conditions require a fixture *held out* from the thing's own tuning, because a checker calibrated on two cases and then proved against those same two cases has proved nothing.
 
@@ -24,11 +24,11 @@ Each item carries an ID — `B0`–`B33` for build, `K0`–`K22` for keep, `D0`�
 
 ### Bet 0 — The floor
 
-A repo that can hold work. No framework code.
+The clean slate, made real. No framework code.
 
-**Done when:** CI fails the build on a failing test, shown by writing one that fails and then removing it. `docs/carried-over.md` was produced by the port-pass dispatch and reviewed for register in a separate session, with both commits visible in history. The toolchain, repo host, and CI provider are recorded in `docs/decisions.md`.
+**Done when:** the reset commit is on main — one ordinary commit that removes everything old and keeps the spec, the working agreement, this ladder, and the execution plan — with `legacy-final` tagged and the `legacy` branch cut just behind it, and legacy's Node CI pinned to that branch. Main's CI fails the build on a failing Go test, shown by writing one that fails and then removing it. `docs/carried-over.md` was produced by the port-pass dispatch and reviewed for register in a separate session, with both commits visible in history. The settled decisions — Go, one repo, the reset — are recorded in `docs/decisions.md`.
 
-**Lands:** the repo, CI, the test runner, the working agreement, the port list, this ladder.
+**Lands:** the reset commit, the legacy tag and branch, CI on both lines, the test runner, the working agreement, the port list, this ladder.
 
 ### Bet 1 — The CLI and the journal
 

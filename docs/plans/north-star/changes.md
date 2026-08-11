@@ -171,6 +171,6 @@ Deliberately not decided here. The execution plan must specify:
 
 ## Delivering the rest
 
-This set is the decision artifact. The execution plan lives in [north-star-execution.md](../north-star-execution.md); its delivery approach is settled and its ladder firms up at ratification. One decision from it matters here: the rebuild is built in a new repo, not refactored in place, and it carries no part of the old corpus. That does not change the migration above, which was always about consumer installs.
+This set is the decision artifact. The execution plan lives in [north-star-execution.md](../north-star-execution.md); its delivery approach is settled and its ladder firms up at ratification. One decision from it matters here: the rebuild starts from one reset commit on this repo's main — the old world preserved behind the `legacy-final` tag and maintained on the `legacy` branch until cutover — and it carries no part of the old corpus. That does not change the migration above, which was always about consumer installs.
 
 Nothing is deleted, migrated, or released before that plan's ladder exists and is approved.
