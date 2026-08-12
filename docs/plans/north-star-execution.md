@@ -93,7 +93,7 @@ Three rules set the order.
 
 ## 6. The ladder
 
-Seventeen bets, each with a falsifiable done condition. Every one of the spec's 110 commitments is assigned to exactly one of them, checked by script. It lives in [north-star-ladder.md](north-star-ladder.md).
+Seventeen bets, each with a falsifiable done condition. Every one of the spec's 113 commitments is assigned to exactly one of them, checked by script. It lives in [north-star-ladder.md](north-star-ladder.md).
 
 ## 7. What this plan must still settle
 

@@ -56,6 +56,12 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 
 - **The flag lane** ([loop.md](loop.md), [proof.md](proof.md)): the committed flag registry, the flag scan, Map rendering of live flags with age and exposure state, and flag-flip journal events. Activates when a project declares a flag backend; a flagless project never sees any of it.
 
+### Unattended runs
+
+- **The launch gate** ([loop.md](loop.md)): a run at dial `bet` or above may not start until a fresh-context forecast of the decisions the work will force comes back clean — every item answered by the plan, ruled at launch, or delegated on the record — and the ground is ready: battery green where the run starts, the services and credentials its probes need present, the permission model from [doors.md](doors.md) in place.
+- **Standing rulings** ([loop.md](loop.md)): every answer the owner gives is recorded where the driver must look before escalating. An escalation an existing ruling already covers is a journaled driver defect, and a recurring escalation class promotes into project policy the way bounce reasons feed the standards sheets.
+- **Park-and-resume** ([loop.md](loop.md)): at dial `program`, a stop scoped to one bet parks that bet while independent work continues. The run truly stops only when nothing unblocked remains, or the ladder itself needs amending.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.

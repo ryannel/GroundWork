@@ -84,7 +84,7 @@ These are the acceptance criteria for everything in this set.
 11. Autonomy scales with verification: how long work runs unattended is set by how well probes cover the touched area, not by the task's label.
 12. Everything reads plainly: docs, capsules, chat, and status that a tired human gets on the first pass.
 13. Effective use of context: lean windows, tiered models, distilled hand-offs. The loop is economical by design.
-14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for decisions that genuinely need a human and cannot wait.
+14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for moments that genuinely need a human — and never for one it could not have named at launch.
 15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
 16. The owner stays taught: what was built while you were away, what was decided for you, and where complexity was added and why reach you in chat, paced to your return — the docs hold it, the teach-back delivers it.
 
