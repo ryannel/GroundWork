@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 113 things: 37 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
+The spec commits to 115 things: 39 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
 
-Each item carries an ID — `B0`–`B36` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
+Each item carries an ID — `B0`–`B38` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
 
 **Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined in [index.md](north-star/index.md)'s vocabulary section. Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
 
@@ -76,9 +76,9 @@ The instrument that proves the parts of the spec that are judgment, not logic.
 
 Documentation that is mechanically checked rather than hoped about.
 
-**Done when:** the doc checks are calibrated on wordloop and magpie, then pass unchanged on a third repo's docs held out from that tuning. A doc whose anchors do not parse reports unassessed rather than green. Magpie's docs are brought green.
+**Done when:** the doc checks are calibrated on wordloop and magpie, then pass unchanged on a third repo's docs held out from that tuning. A doc whose anchors do not parse reports unassessed rather than green. Magpie's docs are brought green. The divergence row goes red on a fixture where two slices solved the same-shaped problem two ways, and stays green on a consistent pair it was not tuned against.
 
-**Lands:** the doc lint, the citation-overlap mechanic, staleness rows, the cold-reader eval, the reversal rule, ratchets, the module graph.
+**Lands:** the doc lint, the citation-overlap mechanic, staleness rows, the cold-reader eval, the reversal rule, ratchets, the divergence row, the module graph.
 
 ### Bet 7 — The corpus
 
@@ -100,9 +100,9 @@ The slice-review loop, usable on its own at dial `slice`.
 
 Work that runs without company, and an owner who stays caught up.
 
-**Done when:** a bet runs at dial `bet` to completion unattended. Every pause matches an item on the stopping rule and is journaled with its reason; a run that ends with no journaled stop and no completed work fails. A flake quarantines and the run continues. The launch gate refuses a plan seeded with an unanswered decision, and admits it once the decision is ruled. A two-bet program runs at dial `program` with a blocking concern seeded into the first bet: the run parks that bet, delivers the second, and stops only when nothing unblocked remains, every park journaled. A scripted question whose answer already sits in the ledger is answered from the record, and the would-be repeat is journaled as a driver defect. The teach-back covers every decision the run recorded, and the next design walk's opening questions are checked against what it covered.
+**Done when:** a bet runs at dial `bet` to completion unattended. Every pause matches an item on the stopping rule and is journaled with its reason; a run that ends with no journaled stop and no completed work fails. A flake quarantines and the run continues. The launch gate refuses a plan seeded with an unanswered decision, and admits it once the decision is ruled. A two-bet program runs at dial `program` with a blocking concern seeded into the first bet: the run parks that bet, delivers the second, and stops only when nothing unblocked remains, every park journaled. A scripted question whose answer already sits in the ledger is answered from the record, and the would-be repeat is journaled as a driver defect. A wrong default seeded into a run is caught by its canary before a third slice consumes it. The run's ledger holds no below-the-line entries — pattern and naming calls left no paperwork. The teach-back covers every decision the run recorded, and the next design walk's opening questions are checked against what it covered.
 
-**Lands:** run modes as recorded state, the dial above `slice` including `program`, the stopping rule, the launch gate, standing rulings, park-and-resume, non-blocking checkpoints, the teach-back.
+**Lands:** run modes as recorded state, the dial above `slice` including `program`, the stopping rule, the launch gate, standing rulings, the decision discipline, park-and-resume, non-blocking checkpoints, the teach-back.
 
 ### Bet 10 — The portfolio
 
@@ -164,7 +164,7 @@ The old thing goes; the new thing stands on its own.
 
 ## 2. Coverage
 
-### Build (37)
+### Build (39)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -205,6 +205,8 @@ The old thing goes; the new thing stands on its own.
 | B34 | The launch gate | 9 |
 | B35 | Standing rulings | 9 |
 | B36 | Park-and-resume | 9 |
+| B37 | The decision discipline | 9 |
+| B38 | The divergence row | 6 |
 
 ### Keep (23)
 
@@ -311,7 +313,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 
 **Three bets gate what follows.** Bet 2 protects everything built after it. Bet 5 is the only instrument that can prove bets 7 through 14. Bet 16 cannot start until the battery passes generator-built output.
 
-**Nothing is unassigned.** 113 of 113 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
+**Nothing is unassigned.** 115 of 115 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
 
 ---
 

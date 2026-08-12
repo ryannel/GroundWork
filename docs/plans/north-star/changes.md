@@ -61,6 +61,8 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The launch gate** ([loop.md](loop.md)): a run at dial `bet` or above may not start until a fresh-context forecast of the decisions the work will force comes back clean — every item answered by the plan, ruled at launch, or delegated on the record — and the ground is ready: battery green where the run starts, the services and credentials its probes need present, the permission model from [doors.md](doors.md) in place.
 - **Standing rulings** ([loop.md](loop.md)): every answer the owner gives is recorded where the driver must look before escalating. An escalation an existing ruling already covers is a journaled driver defect, and a recurring escalation class promotes into project policy the way bounce reasons feed the standards sheets.
 - **Park-and-resume** ([loop.md](loop.md)): at dial `program`, a stop scoped to one bet parks that bet while independent work continues. The run truly stops only when nothing unblocked remains, or the ladder itself needs amending.
+- **The decision discipline** ([loop.md](loop.md)): the significance line — public interface, schema, cross-bet reach, critical paths, and user-visible behavior no ruling names — with below-the-line calls unrecorded, standing rulings copied into worker briefs, the canary on new rulings, batched intent seals inside a sealed bet, and debt throttling the dial.
+- **The divergence row** ([proof.md](proof.md)): same-shaped solutions fingerprinted across slices; red on divergence, never on taste; a recurring divergence class deletes the decision into a check, generator, or standards line.
 
 ## What stays
 
