@@ -46,6 +46,10 @@ noticing after the third skill:
                         coinages) scanned only inside prescribed user-facing lines —
                         catches reintroduction of the user-legibility audit's jargon set
                         at report points, not general jargon (D-S9).
+ 15. progress-header    — every setup-phase skill (the ten Sequential Setup phases,
+                        scan included) enacts the operating contract's Setup Progress
+                        Header — the one-line phase-N-of-M orientation
+                        (doc-canon-and-onboarding-diet plan, A3).
 
 Plus a non-blocking word-budget warning per over-long skill file.
 
@@ -109,6 +113,22 @@ ENGINEER_SKILLS = [
 # groundwork-review is exempt by design: it is the isolated reviewer the
 # contract points at, not a phase operating under it.
 MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
+
+# The ten setup-phase skills (both tracks; scan opts in via its carve-out) that
+# must enact the Setup Progress Header defined in the contract's Sequential
+# Setup section.
+SETUP_PHASE_SKILLS = [
+    "groundwork-product-brief",
+    "groundwork-design-system",
+    "groundwork-architecture",
+    "groundwork-scaffold",
+    "groundwork-mvp",
+    "groundwork-scan",
+    "groundwork-product-brief-extract",
+    "groundwork-design-system-extract",
+    "groundwork-architecture-extract",
+    "groundwork-infra-adopt",
+]
 
 # Hidden skills that are exempt from the writer-ref check because they do not
 # themselves finalize a document, by design:
@@ -247,6 +267,20 @@ def check_contract_ref():
             continue  # reported by frontmatter check
         if not pattern.search(path.read_text(encoding="utf-8")):
             fail("contract-ref", path, "no versioned operating-contract reference — expected `operating-contract.md` (contract v1)")
+
+
+def check_progress_header():
+    # Naming the contract is not conformance — each setup-phase skill must
+    # itself reference the Setup Progress Header so the enactment survives a
+    # skill rewrite (shared-contract non-conformance is invisible until the
+    # cross-skill flow is exercised).
+    for name in SETUP_PHASE_SKILLS:
+        path = HIDDEN / name / "instructions.md"
+        if not path.exists():
+            continue  # reported by frontmatter check
+        if "Setup Progress Header" not in path.read_text(encoding="utf-8"):
+            fail("progress-header", path,
+                 "setup-phase skill does not reference the Setup Progress Header (operating contract, Sequential Setup)")
 
 
 def check_review_gate():
@@ -770,6 +804,7 @@ def check_index_fresh():
 def main() -> int:
     check_frontmatter()
     check_contract_ref()
+    check_progress_header()
     check_review_gate()
     check_notes_headers()
     check_routing()
@@ -797,7 +832,7 @@ def main() -> int:
         for f in findings:
             print(f"  ✖ {f}")
         return 1
-    print("lint: skills conform — frontmatter, contract refs, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links, descriptions, model ids, template links, report-point language.")
+    print("lint: skills conform — frontmatter, contract refs, progress headers, review gates, notes headers, routing, llms links, doc pairs, workflow index, writer refs, reference links, descriptions, model ids, template links, report-point language.")
     return 0
 
 

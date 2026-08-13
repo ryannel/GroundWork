@@ -34,7 +34,7 @@ The brief is the root of the brownfield document tree, exactly as in greenfield:
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, Downstream Context, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase: it follows the full cache, hand-off, Downstream Context, review, and pacing protocols. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/product-findings.md`, `scan/overview.md`, and `scan-state.json`, and no other phase's cache. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
 
 ---
 

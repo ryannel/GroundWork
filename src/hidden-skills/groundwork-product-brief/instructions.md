@@ -47,7 +47,7 @@ Product discovery is a multi-phase collaborative conversation, not a questionnai
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates — conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates — conversational pacing, discovery notes, living documents, and phase lifecycles. Read it before taking any other action. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
 
 ---
 

@@ -130,7 +130,7 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and a
 - **No review gate** (Protocol 8) — there is no canonical doc to gate. The review gate fires on each downstream extract when it commits its `docs/` artifact.
 - **Findings persist past commit, not deleted at commit** (inverting Protocol 3.4.3) — the findings are the durable input the extract phases consume. `groundwork-infra-adopt`, the last setup phase that reads the baseline, deletes the shared scan cache at its commit.
 
-Scan completion is tracked as a durable `scan` marker in `state.json`, not inferred from a `docs/` artifact, because the scan cache is purged before setup ends. Protocols 1 and 4 still apply: the scan captures out-of-phase signals into `discovery-notes.md` and paces its one scope-confirmation interview.
+Scan completion is tracked as a durable `scan` marker in `state.json`, not inferred from a `docs/` artifact, because the scan cache is purged before setup ends. Protocols 1 and 4 and the Setup Progress Header still apply: the scan captures out-of-phase signals into `discovery-notes.md`, paces its one scope-confirmation interview, and keeps the user oriented across its partition batches.
 
 ### Continuous Bet
 

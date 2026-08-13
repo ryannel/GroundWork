@@ -31,7 +31,7 @@ Your single point of contact with the user is a short scope-confirmation in Stag
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Downstream Context file and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) still apply.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. The scan is a Sequential Setup *preparation* phase with three deliberate carve-outs defined in the contract's **Brownfield Scan** section: it writes no `docs/` artifact (so no Downstream Context file and no hand-off file), it runs no review gate, and its findings persist past its own completion rather than being deleted at commit. Protocols 1 (Discovery Notes) and 4 (Pacing) and the Setup Progress Header still apply — open the phase, and precede the scope confirmation, with the one-line header.
 
 ---
 
@@ -94,10 +94,10 @@ Build an exact map of the codebase — module boundaries, import and call edges,
 The scan is otherwise autonomous. Confirm exactly two things with the user, paced per Protocol 4 — keep this tight, you are confirming inferences, not interrogating:
 
 1. **Partition boundaries.** Present the parts you detected and how you intend to partition the scan. The rule is one partition per service or package; a single-service repo partitions per top-level source area instead, and an oversized partition is sub-partitioned in Stage 3. Let the user correct a boundary you read wrong; they know the repo.
-2. **Scan depth.** Offer the three depths and recommend one based on repo size and the user's intent:
-   - **Quick** — manifests, configs, the README, and contract/route files only; no deep source reading. Right for a first orientation or a very large repo.
-   - **Deep** — quick plus every file in the critical directories the project type designates. The default for most repos.
-   - **Exhaustive** — every code file except the exclusions. Right when the extract phases must miss nothing.
+2. **Scan depth.** Offer the three depths and recommend one based on repo size and the user's intent, framing each with honest time expectations so the choice is theirs to make:
+   - **Quick** — manifests, configs, the README, and contract/route files only; no deep source reading. Minutes. Right for a first orientation or a very large repo.
+   - **Deep** — quick plus every file in the critical directories the project type designates. Tens of minutes on a mid-size repo, scaling with the partition count. The default for most repos.
+   - **Exhaustive** — every code file except the exclusions. The long option — expect hours on anything sizable. Right when the extract phases must miss nothing.
 
 Record the confirmed partitions and depth in `scan-state.json`. If the user volunteers product, design, or architecture opinions here, capture them under the matching header in `.groundwork/cache/discovery-notes.md` (Protocol 1) and steer back — they belong to the extract phases, not the scan.
 
@@ -119,7 +119,7 @@ Dispatch one scan sub-agent per partition, guided by the structural map so each 
 
 ### Stage 3b: Sequential Batch (`fan_out: sequential`)
 
-Scan one partition per batch, resumable across turns. The atomic unit is one partition, so crossing a turn boundary mid-scan is always safe — the next turn reads `scan-state.json` and continues from the first `pending` partition.
+Scan one partition per batch, resumable across turns. The atomic unit is one partition, so crossing a turn boundary mid-scan is always safe — the next turn reads `scan-state.json` and continues from the first `pending` partition. Whenever a batch surfaces at a turn boundary, open with where the scan stands in the user's terms — areas read versus remaining — before continuing; a long autonomous stretch with no position line is how the user loses the map.
 
 For each pending partition:
 

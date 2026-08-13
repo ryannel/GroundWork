@@ -49,7 +49,7 @@ Each phase runs from its own file. At the start of each phase, read that phase's
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action — rushing to execution before the mapping is confirmed is the failure mode this phase is most exposed to.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action — rushing to execution before the mapping is confirmed is the failure mode this phase is most exposed to. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
 
 ---
 

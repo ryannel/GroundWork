@@ -36,7 +36,7 @@ Apply the `groundwork-writer` skill when producing any output document. Declarat
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream Downstream Context files.
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase, and the last setup phase that reads the scan baseline — it owns the teardown of the shared scan cache at commit. Under the Protocol 7 brownfield exception it may read `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the architecture-extract hand-off and the upstream Downstream Context files. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
 
 ---
 
