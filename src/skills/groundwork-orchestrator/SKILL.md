@@ -67,6 +67,8 @@ The tables in this section are the source for the generated `workflow-index.md` 
 
 A phase is *settled* when it is complete or carries a `phase_states` entry (see State Resolution). Setup finishing with deferred phases is a legitimate end-state, not a shortcut — the deferred work stays visible and routable (Deferred Phases, below).
 
+**You supply the position line.** A phase skill cannot know where it sits in the track — only your tables hold that. When routing into any setup phase, open with the Setup Progress Header's position half in the user's terms — phase N of M for this track, and what remains after it; the phase's own skill carries the rest of the header (what this phase asks of the user).
+
 **Gate:** on the *first* transition into the Delivery Loop — all phases settled but `state.json` lacks `setup_graduated: true` — run **Setup Graduation** (below) before routing to `groundwork-bet`.
 
 ### Setup Graduation (the setup→delivery handoff)
@@ -176,7 +178,9 @@ When a session's opening message maps unambiguously to one lane or skill — a c
 
 The most common entry, and the one GroundWork exists to catch: the user asks to **build, add, implement, change, or fix** something — "add a button to delete an image", "fix the upload bug", "let's build the dashboard". This is a routing trigger, not a cue to start editing code. Size the work and route it; never implement directly from here.
 
-**Before setup completes**, size the request first — the user's ask outranks the setup sequence. A request that passes `groundwork-patch`'s scope test routes to the patch lane in **provisional mode**: the user ships the fix now, and setup later absorbs the doc debt the patch recorded. Anything larger becomes the setup flow — but never route there silently. First, in the user's terms: confirm the ask was heard and will be the first piece of work once its lane opens; lay out the remaining setup phases and what each asks of them, with honest effort framing; then let them choose — proceed with setup now, defer the deferrable phases (Deferred Phases above), or record the ask (Protocol 1, `## Bets`) and pick the moment. Route on their answer. The quick-bet and bet lanes stay Delivery Loop only — they build on contracts setup has not yet established.
+**Before setup completes**, size the request first — the user's ask outranks the setup sequence. A request that passes `groundwork-patch`'s scope test routes to the patch lane in **provisional mode**: the user ships the fix now, and setup later absorbs the doc debt the patch recorded. Anything larger becomes the setup flow. The quick-bet and bet lanes stay Delivery Loop only — they build on contracts setup has not yet established.
+
+**Entering the setup track never happens silently** — whether entry is immediate (the ask was larger than a patch) or the moment after a provisional patch ships and the user turns to setup. Before routing to the first phase, in the user's terms: confirm any outstanding ask was heard and will be the first piece of work once its lane opens; lay out the remaining setup phases and what each asks of them, with honest effort framing; name which phases can be deferred (Deferred Phases above); then let them choose — proceed with setup now, defer the deferrable phases, or record the ask (Protocol 1, `## Bets`) and pick the moment. Route on their answer. A consent question alone ("want me to start the scan?") is not this hand-off — the road and the choices are what make the consent informed.
 
 **If a lane is already active, continue it.** A non-`delivered` bet or quick-bet (its pitch carries an active `status:`) is in flight — route to `groundwork-bet`, which resumes it; do not re-triage a request that is really the next slice of work already under way. (A patch is atomic and carries no open state, so there is nothing to resume.)
 
