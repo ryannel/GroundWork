@@ -1,5 +1,6 @@
 {
-  "version": 2,
+  "version": 3,
   "project_type": null,
-  "completed": []
+  "completed": [],
+  "phase_states": {}
 }

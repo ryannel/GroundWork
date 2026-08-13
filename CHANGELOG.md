@@ -8,6 +8,31 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (first-contact unlock + phase deferral semantics, 2026-08-13)
+
+- [migration: config] Seed the `phase_states` register into `state.json` and advance the state schema to version 3 (gw-phase-state-register)
+- A setup phase can now be `deferred` (user chose later), `collapsed`
+  (micro-variant ran), or `na` (recorded reason) instead of only
+  done-or-blocking. The orchestrator's reconciliation treats register entries
+  as authoritative, Mode Detection routes on unsettled phases only, and the
+  Setup Graduation predicate accepts settled-or-deferred. Deferred phases are
+  routable on demand after graduation (they skip the Downstream Context and
+  hand-off files — the store is gone — but keep their review gate);
+  `groundwork-infra-adopt` preserves the scan cache while any extract stays
+  deferred, and the last deferred extract to commit owns its teardown.
+- [no-migration] The patch lane opens before setup completes, in provisional
+  mode: patch-scope requests ship in session one with repo-map-based impact
+  reads, a doc-debt discovery note replacing the Living Documents pass, and
+  unchanged commit trailers. Larger pre-setup build requests now get a
+  first-contact hand-off — acknowledge the ask, lay out the remaining setup
+  road with honest effort framing, offer proceed / defer / record — instead of
+  silent routing into the scan. Setup phases open with a one-line progress
+  header (phase N of M, what this phase asks, what remains); the scan's depth
+  options carry duration framing and its sequential batches report partition
+  progress at turn boundaries. `./dev lint skills` enforces the header
+  reference across all ten setup-phase skills. Design:
+  `docs/plans/doc-canon-and-onboarding-diet.md` (WS-A, WS-B).
+
 ### Fixed (check no longer flags promoted/authored skills as framework drift, 2026-07-15)
 
 - `groundwork check` warned "N framework-owned file(s) differ from the package

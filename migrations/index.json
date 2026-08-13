@@ -70,6 +70,13 @@
       "title": "Sort `_live` first in docs/bets/meta.json",
       "kind": "cli",
       "summary": "Inserts `_live` at the front of an existing docs/bets/meta.json's `pages` on projects with a docs-site service, so the in-flight mirror sorts first in the Bets rail; absent metas are left for sync-live-bets.js to create correctly."
+    },
+    {
+      "id": "gw-phase-state-register",
+      "version": "0.17.0",
+      "title": "Add the phase_states register to state.json",
+      "kind": "cli",
+      "summary": "Seeds `phase_states: {}` into .groundwork/config/state.json and advances the state schema to version 3 — the register that records a setup phase as deferred, collapsed, or not-applicable, read by the orchestrator's routing and the Setup Graduation predicate."
     }
   ]
 }
