@@ -52,7 +52,7 @@ if (!fs.existsSync(suiteJsonPath)) {
   process.exit(1);
 }
 
-const { user_persona, user_goal } = JSON.parse(fs.readFileSync(suiteJsonPath, 'utf8'));
+const { user_persona, user_goal, first_contact } = JSON.parse(fs.readFileSync(suiteJsonPath, 'utf8'));
 if (!user_persona || !user_goal) {
   console.error(`✖ suite.json for "${suite}" is missing user_persona or user_goal.`);
   process.exit(1);
@@ -108,6 +108,14 @@ function stripTemplateComment(text) {
   return text.replace(/^<!--[\s\S]*?-->\s*/, '');
 }
 
+// {{#flag}}…{{/flag}} blocks: body kept (markers stripped) when the flag is
+// truthy, block removed entirely otherwise — the judge rubric's per-path
+// mechanism, shared by kickoff-setup for suite-driven step variants.
+function renderConditionalBlocks(text, flags) {
+  return text.replace(/\{\{#([a-zA-Z]+)\}\}([\s\S]*?)\{\{\/\1\}\}/g,
+    (_, key, body) => (flags[key] ? body : ''));
+}
+
 function substitute(text, vars) {
   let out = text;
   for (const [key, value] of Object.entries(vars)) {
@@ -145,13 +153,22 @@ const personaAgent = renderTemplate('persona.md', {
   flowPath, suite, userPersona: user_persona, userGoal: user_goal,
 });
 
-const kickoffCommand = flowPath === 'delivery'
-  ? renderTemplate('kickoff-delivery.md', {
-      suite, startState: cfg.startState, modeNote: cfg.modeNote,
-    })
-  : renderTemplate('kickoff-setup.md', {
-      flowPath, suite, startState: cfg.startState, sequence: cfg.sequence, modeNote: cfg.modeNote,
-    });
+let kickoffCommand;
+if (flowPath === 'delivery') {
+  kickoffCommand = renderTemplate('kickoff-delivery.md', {
+    suite, startState: cfg.startState, modeNote: cfg.modeNote,
+  });
+} else {
+  const raw = stripTemplateComment(
+    fs.readFileSync(path.join(templatesDir, 'kickoff-setup.md'), 'utf8'));
+  const flagged = renderConditionalBlocks(raw, {
+    default: !first_contact,
+    firstContact: !!first_contact,
+  });
+  kickoffCommand = substitute(flagged, {
+    flowPath, suite, startState: cfg.startState, sequence: cfg.sequence, modeNote: cfg.modeNote,
+  });
+}
 
 let judgeCommand;
 if (flowPath === 'delivery') {

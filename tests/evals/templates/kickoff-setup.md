@@ -2,6 +2,10 @@
   Template for the setup-path (greenfield/brownfield) kickoff command, rendered
   by scripts/seed_simulation.js into <sandbox>/.claude/commands/simulate-<path>.md.
   Placeholders: {{flowPath}}, {{suite}}, {{startState}}, {{sequence}}, {{modeNote}}.
+  Conditional blocks ({{#default}}/{{#firstContact}}): step 1 renders the default
+  orchestrator invocation, or — when the suite sets `first_contact: true` — the
+  opening-ask variant that lets the persona's first message drive routing (the
+  first-contact probes need routing to be the thing under test, not a given).
   $ARGUMENTS is NOT a placeholder — Claude Code substitutes it at invocation
   time with whatever follows the slash command (e.g. a bounded-run directive
   from `./dev sim run --until=...`).
@@ -20,8 +24,13 @@ user-facing turn to the `sandbox-user` subagent.
 
 ## Operating loop
 
-1. Invoke the `groundwork-orchestrator` skill to determine project state and the
-   next phase. {{modeNote}}
+1. {{#default}}Invoke the `groundwork-orchestrator` skill to determine project state and the
+   next phase. {{modeNote}}{{/default}}{{#firstContact}}Spawn the `sandbox-user` subagent FIRST and ask what they need today; deliver
+   their opening message to the `groundwork-orchestrator` skill as the user's ask,
+   exactly as a real session would open. Follow the orchestrator's routing from
+   there — do not name a phase, start the setup sequence, or pre-empt the sizing
+   decision yourself. Whether the ask becomes a lane, a hand-off conversation, or
+   the setup flow is exactly what this run probes.{{/firstContact}}
 2. Proceed through the full {{flowPath}} sequence, letting the orchestrator route
    and loading each hidden skill as directed:
    {{sequence}}
