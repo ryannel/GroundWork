@@ -72,13 +72,16 @@ Read `.groundwork/cache/discovery-notes.md` if it exists — a user who began el
 
 ## Stage 1: Classify
 
-Determine the repository's shape and the technology of each part **without reading source files**. Read only the signals that reveal structure cheaply: the directory tree (depth-limited), package manifests (`package.json`, `go.mod`, `pyproject.toml`, `Cargo.toml`, and the like), lockfiles (to confirm a stack, not to read), `docker-compose*`, IaC roots, and the top-level `README`.
+Determine the repository's shape and the technology of each part **without reading source files**. Read only the signals that reveal structure cheaply: the directory tree (depth-limited), package manifests (`package.json`, `go.mod`, `pyproject.toml`, `Cargo.toml`, and the like), lockfiles (to confirm a stack, not to read), `docker-compose*`, `.gitmodules`, IaC roots, and the top-level `README`.
 
 Establish:
 
-- **Repo shape** — a single service, a multi-part repo (a client and a server), or a monorepo of many packages and services.
+- **Repo shape** — a single service, a multi-part repo (a client and a server), or a monorepo of many packages and services — and whether any parts are git submodules (`.gitmodules` names them, and `repo-map.json`'s `submodules` array enumerates them; each is a separate repository whose checked-out working tree is read in place, never indexed by the map).
 - **Per-part project type** — language and framework for each part, matched from its key files (a `package.json` with `next.config.*` is a Next.js app; a `go.mod` with a `cmd/` directory is a Go service).
 - **Candidate surfaces** — which parts are things a consumer interacts with, and of what interface type: `graphical-ui` (an end-user at a screen), `cli` (a human watching a terminal), `agentic-protocol` (another program or agent over an API). A part that only serves other parts is not a surface; it is capability core.
+- **An incumbent methodology, if one is here** — whether the repo already runs its own way of working: skill directories the framework did not ship (`.agents/skills/`, `.cursor/rules/`, and kin), agent instruction files (`AGENTS.md`, `CLAUDE.md`), a work-unit doc tree outside `docs/`, a hand-built scaffolder script, a work-unit-bound test convention. Record the judgment in `scan-state.json` as `"methodology": "incumbent"` when the repo carries such a *system* — machinery a GroundWork install would duplicate or collide with — and `"none"` otherwise. Scattered practice is not a system: a lone contributor guide or an ad-hoc script is `"none"`.
+
+This is a cheap signal, not an inventory. You are answering *is there one*, in the same breath as the other classification questions and from the same depth-limited look; **what** it is gets inventoried later by `groundwork-methodology-adopt`, the phase that acts on it, at the moment it runs. Do not read into the incumbent system here.
 
 Write the classification into `scan-state.json`. The exclusion globs and the contract-bearing file priorities you will apply are defined in `.groundwork/skills/groundwork-scan/references/exclusions.md` — load it now; it governs every read that follows.
 
@@ -146,13 +149,15 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 2. **Settle the product-brief extract phase.** Write `"product-brief-extract": { "state": "collapsed", "note": "orientation page drafted at scan-lite from manifests, README, and the repo map; full extract available on demand" }` into `phase_states` in `.groundwork/config/state.json`. The micro-variant of that phase has now run, and the register is what tells the orchestrator so — without it the track would route back into the full extract over a document that already exists.
 
-3. **Record scan completion.** Add `"scan"` to the `completed` array in `state.json`. This is the durable marker the orchestrator reads, and the one signal that marks the scan finished.
+3. **Register the methodology-convergence phase when the signal fired.** When Stage 1 recorded `"methodology": "incumbent"`, write `"methodology-adopt": { "state": "deferred", "note": "<one line: what fired the signal, with the paths>" }` into `phase_states` in `.groundwork/config/state.json`. That entry is the whole hand-off — the register is durable, the scan cache is not, and the phase regenerates its own inventory when it runs. When the signal did not fire, **write no entry at all**: an absent key is how the register says the phase does not apply to this repo. Then tell the user, in one line at the Stage 4 hand-off, that the project appears to run its own way of working and that merging the two into one is available whenever they want it.
 
-4. **Append what the page could not ground.** Where a section rests on the user's word alone or stayed thin, append a row to `.groundwork/cache/gap-ledger.md` (create from `.groundwork/skills/templates/gap-ledger.md` if absent): dimension D1 documented truth, severity `standard-divergence`, recommendation `defer`, evidence naming the section. Infra adoption consolidates these into `docs/maturity.md`, so the thin spot becomes a visible, schedulable row instead of a silent hole.
+4. **Record scan completion.** Add `"scan"` to the `completed` array in `state.json`. This is the durable marker the orchestrator reads, and the one signal that marks the scan finished.
 
-5. **Clean up.** Delete nothing under `.groundwork/cache/scan/` — those findings, when a deep scan wrote them, are the extract phases' input. Preserve `repo-map.json` and `scan-state.json`. Update discovery notes: remove `## Product Brief` entries now captured in the page.
+5. **Append what the page could not ground.** Where a section rests on the user's word alone or stayed thin, append a row to `.groundwork/cache/gap-ledger.md` (create from `.groundwork/skills/templates/gap-ledger.md` if absent): dimension D1 documented truth, severity `standard-divergence`, recommendation `defer`, evidence naming the section. Infra adoption consolidates these into `docs/maturity.md`, so the thin spot becomes a visible, schedulable row instead of a silent hole.
 
-6. **Hand off.** Tell the user what they can now do — the project has a page that says what it is and who it is for, and the next phase gives them a one-command way to run and test it. Then immediately load and execute the `groundwork-orchestrator` skill to route on. Do not ask the user to invoke it.
+6. **Clean up.** Delete nothing under `.groundwork/cache/scan/` — those findings, when a deep scan wrote them, are the extract phases' input. Preserve `repo-map.json` and `scan-state.json`. Update discovery notes: remove `## Product Brief` entries now captured in the page.
+
+7. **Hand off.** Tell the user what they can now do — the project has a page that says what it is and who it is for, and the next phase gives them a one-command way to run and test it. Then immediately load and execute the `groundwork-orchestrator` skill to route on. Do not ask the user to invoke it.
 
 ---
 
@@ -200,6 +205,7 @@ Route every digest's fields into these files under `.groundwork/cache/scan/`, ea
 | `scan/product-findings.md` | `groundwork-product-brief-extract` |
 | `scan/design-findings.md` | `groundwork-design-system-extract` |
 | `scan/architecture-findings.md` | `groundwork-architecture-extract` |
+| `scan/methodology-findings.md` | `groundwork-methodology-adopt` — written only when `scan-state.json` records `"methodology": "incumbent"` and a digest's `ways_of_working` field has something to route |
 
 The digest schema's field-to-file routing is defined alongside the schema in `references/digest-schema.md` — follow it exactly so each extract finds what it expects under its own header.
 

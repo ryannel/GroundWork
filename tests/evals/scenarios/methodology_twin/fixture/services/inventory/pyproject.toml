@@ -1,0 +1,6 @@
+[project]
+name = "stockroom-inventory"
+version = "0.3.0"
+description = "Inventory counts with an offline capture queue"
+requires-python = ">=3.11"
+dependencies = []

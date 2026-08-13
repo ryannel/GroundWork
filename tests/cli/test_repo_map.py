@@ -426,3 +426,37 @@ module.exports = [{
     # GroundWork's own machinery is never mapped as app source.
     assert ".groundwork/config/repo-map.languages.js" not in m["symbols"]
     assert "project languages: widget" in proc.stdout
+
+
+def test_enumerates_submodules_without_indexing_contents(project, tmp_path):
+    # A real gitlink: the child repo's files must never leak into the map, and
+    # the enumeration keeps that absence visible instead of silent.
+    child = tmp_path / "child"
+    child.mkdir()
+    git(["init", "-q"], child)
+    (child / "inner.ts").write_text("export const inner = 1\n")
+    git(["add", "-A"], child)
+    git(["commit", "-qm", "seed"], child)
+    git(["-c", "protocol.file.allow=always", "submodule", "add", str(child), "vendor/child"], project)
+
+    write(project, "src/app.ts", "export const app = 1\n")
+    commit_all(project)
+
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    m = read_map(project)
+
+    (entry,) = m["submodules"]
+    assert entry["path"] == "vendor/child"
+    assert entry["url"]
+    assert entry["initialized"] is True
+    assert not any(f["file"].startswith("vendor/child/") for f in m["centrality"])
+    assert not any(k.startswith("vendor/child/") for k in m["symbols"])
+
+
+def test_submodules_empty_without_gitmodules(project):
+    write(project, "src/app.ts", "export const app = 1\n")
+    commit_all(project)
+    proc = run_cli(["repo-map"], project)
+    assert proc.returncode == 0, proc.stderr
+    assert read_map(project)["submodules"] == []

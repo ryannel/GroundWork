@@ -17,6 +17,10 @@
 
 <!-- One line per partition: id — one-sentence purpose -->
 
+## Canonical Docs Location
+
+<!-- Where the project's own canonical docs live: root docs/, another directory, a docs-site tree, a submodule, or none. Read by groundwork-methodology-adopt as the Canonical Knowledge dimension — a canon home outside docs/ is a disposition row, not a detail. -->
+
 ## Scan Depth
 
 <!-- quick | deep | exhaustive -->

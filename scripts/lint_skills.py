@@ -93,6 +93,7 @@ METHODOLOGY = [
     "groundwork-architecture-extract",
     "groundwork-ops-adopt",
     "groundwork-infra-adopt",
+    "groundwork-methodology-adopt",
     "groundwork-bet",
     "groundwork-doc-sync",
     "groundwork-review",
@@ -116,7 +117,10 @@ ENGINEER_SKILLS = [
 MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
 
 # The setup-phase skills (both tracks) that must enact the Setup Progress
-# Header defined in the contract's Sequential Setup section.
+# Header defined in the contract's Sequential Setup section. Deferred phases
+# are in scope too — a phase that runs on demand still opens with the header,
+# which is why the two document extracts are listed and why
+# groundwork-methodology-adopt is listed beside them.
 SETUP_PHASE_SKILLS = [
     "groundwork-product-brief",
     "groundwork-design-system",
@@ -129,6 +133,7 @@ SETUP_PHASE_SKILLS = [
     "groundwork-design-system-extract",
     "groundwork-architecture-extract",
     "groundwork-infra-adopt",
+    "groundwork-methodology-adopt",
 ]
 
 # Hidden skills that are exempt from the writer-ref check because they do not
@@ -471,7 +476,9 @@ PERSONA_REFERENCE_DIRS = [
 # skill-writer: an exemption is a decision, not an absence.
 REFERENCE_LINK_EXEMPT = {
     "SKILL.md", "instructions.md", "sync-anchor.md", "README.md",
-    "CHANGELOG.md", "AGENTS.md", "workflow-index.md", "operating-contract.md",
+    # AGENTS.md / CLAUDE.md are host agent-instruction files a skill names as
+    # a thing in the user's repo, never a pin into a references/ library.
+    "CHANGELOG.md", "AGENTS.md", "CLAUDE.md", "workflow-index.md", "operating-contract.md",
     "maturity-model.md", "decomposition.md", "pitch.md", "discovery-notes.md",
     "scaffold-cache.md", "mvp-cache.md", "dev-cli-reference.md",
     "code-intelligence.md", "repo-map-schema.md", "retrospective.md",

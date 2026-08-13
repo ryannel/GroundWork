@@ -50,6 +50,8 @@ def test_init_installs_the_contract(project):
     assert (project / ".agents/skills/groundwork-orchestrator/workflow-index.md").exists()
     assert (project / ".groundwork/skills/operating-contract.md").exists()
     assert (project / ".groundwork/skills/groundwork-bet/instructions.md").exists()
+    assert (project / ".groundwork/skills/groundwork-methodology-adopt/instructions.md").exists()
+    assert (project / ".groundwork/skills/groundwork-scan/templates/methodology-findings.md").exists()
     # Hidden skills no longer live under .agents/ — nothing an agent scanner can reach.
     assert not (project / ".agents/groundwork").exists()
     # Engineer skills are not installed at the root; they promote into scaffolds only.
@@ -58,6 +60,8 @@ def test_init_installs_the_contract(project):
     state = json.loads((project / ".groundwork/config/state.json").read_text())
     assert state["groundwork"]["version"] == PKG_VERSION
     assert state["completed"] == []
+    # No submodules in this scratch repo → no topology record (absent = single-repo).
+    assert "topology" not in state
     assert (project / ".groundwork/config/config.toml").exists()
     assert (project / ".groundwork/config/generators.json").exists()
     assert (project / ".groundwork/cache").is_dir()

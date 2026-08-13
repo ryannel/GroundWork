@@ -1,0 +1,3 @@
+[submodule "site"]
+	path = content/site
+	url = https://example.invalid/stockroom-site.git

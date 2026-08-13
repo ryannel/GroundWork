@@ -56,6 +56,9 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
   },
   "contracts": [ "api/openapi.yaml", "rpc/user.proto" ],   // detected contract/spec files
   "external_dependencies": [ "fmt", "react", "github.com/x/y" ],  // distinct external imports
+  "submodules": [                          // .gitmodules entries — contents NOT indexed
+    { "path": "services/docs", "url": "https://…", "initialized": true }
+  ],
   "conventions": {                         // only when built with --conventions: deterministic
     "runtimes": {}, "commands": {},        //   conventions digest (runtimes, declared commands,
     "hubs": {}, "layout": {}               //   hubs, layout) — see code-intelligence.md; also
@@ -88,6 +91,11 @@ Serena's job (see `code-intelligence.md`); this map is the bird's-eye view Seren
   third-party). They are recorded but excluded from centrality.
 - **`generated_at_commit`** is the freshness anchor. `npx groundwork-method repo-map --check`
   and `groundwork-check` compare it against HEAD's changed source files to report staleness.
+- **`submodules`** enumerates `.gitmodules` entries so submodule topology is visible, with
+  `initialized` marking whether the working tree has content. Submodule **contents are not
+  indexed** — file discovery (`git ls-files`) does not descend into gitlinks, so nothing under a
+  submodule path appears in `edges`, `centrality`, or `symbols`. Consumers read submodule working
+  trees in place: the scan reads them directly, and Serena indexes whatever is checked out on disk.
 
 ## Maintenance
 

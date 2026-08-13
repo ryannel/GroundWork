@@ -8,6 +8,21 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (PR #30 reconciled: methodology-twin convergence ported to the new track, 2026-08-13)
+
+- [no-migration] PR #30's orthogonal assets land adapted to the resequenced
+  brownfield track, superseding the PR (closed, branch superseded): the
+  `groundwork-methodology-adopt` skill becomes an **on-demand deferred phase** —
+  scan-lite's classify detects an incumbent agent methodology as one cheap
+  signal and registers the phase `deferred`; the skill regenerates its own
+  ways-of-working inventory at invocation (nothing written to the shared scan
+  cache) and declines honestly when nothing incumbent exists. Submodule
+  guardrails ship in init/check/repo-map (`topology.submodules`, advisory
+  reporting, contents-not-indexed caveat); the `methodology_twin` sim suite and
+  fixture port with suite-owned start-state overrides; the digest schema gains
+  `ways_of_working` in the Deep Scan collateral. The PR's edits to the old
+  five-phase track are dropped as superseded by WS-E.
+
 ### Changed (brownfield track resequenced: pay the user early, read the code late, 2026-08-13)
 
 - [no-migration: docs] The default brownfield track is now **scan-lite → ops

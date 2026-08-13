@@ -8,6 +8,7 @@
     "parts": []
   },
   "core_deployment": null,
+  "methodology": null,
   "surfaces": [],
   "exclusions": "see .groundwork/skills/groundwork-scan/references/exclusions.md",
   "partitions": [],
@@ -15,7 +16,8 @@
     "scan/overview.md",
     "scan/product-findings.md",
     "scan/design-findings.md",
-    "scan/architecture-findings.md"
+    "scan/architecture-findings.md",
+    "scan/methodology-findings.md"
   ],
   "resume_pointer": null
 }
