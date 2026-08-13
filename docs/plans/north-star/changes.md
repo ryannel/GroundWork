@@ -64,6 +64,11 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The decision discipline** ([loop.md](loop.md)). The significance line is five things: public interface, schema, cross-bet reach, critical paths, and user-visible behavior that no ruling names. Below the line, calls go unrecorded. Standing rulings are copied into worker briefs. New rulings get a canary. Debt throttles the dial.
 - **The divergence row** ([proof.md](proof.md)). Same-shaped solutions are fingerprinted across slices. The row turns red on divergence, never on taste. When a divergence class keeps recurring, the decision is removed — turned into a check, a generator, or a standards line.
 
+### The design walkthroughs
+
+- **The journey layer** ([loop.md](loop.md), [proof.md](proof.md)): the sealed journey map — every capability on a named journey from a real entry point, amended by every bet that adds UI; the reachability row; and UI proofs that start at the entry point and never deep-link.
+- **Business logic as a walk discipline** ([loop.md](loop.md)): rules, invariants, and state transitions get their own design step, after data flows and before API and schema.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.

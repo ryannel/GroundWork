@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 115 things: 39 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
+The spec commits to 117 things: 41 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
 
-Each item carries an ID — `B0`–`B38` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
+Each item carries an ID — `B0`–`B40` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
 
 **Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined in [index.md](north-star/index.md)'s vocabulary section. Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
 
@@ -86,7 +86,7 @@ The claim the whole spec rests on: a small body of prose does the work of a larg
 
 **Done when:** the word target is written into this bet's brief before any corpus is written. An agent given only the kernel and what it loads on demand correctly delivers three slices of different shapes in the rig, scored by a rubric authored before the corpus existed. The published count sits inside the pre-stated target.
 
-**Lands:** the kernel, the adoption sheets and stack seeds, ways-of-working, design conventions, the worker contract and tier rule, the boundary-linter configs.
+**Lands:** the kernel, the adoption sheets and stack seeds, ways-of-working, design conventions including business logic and the journey-first walk order, the worker contract and tier rule, the boundary-linter configs.
 
 ### Bet 8 — Review at human pace
 
@@ -116,9 +116,9 @@ One address for everything, and a seam for a second host.
 
 User-facing work proven where the user stands.
 
-**Done when:** a user-facing capability is proven by a UI-driver case asserting what the user sees. Break the screen deliberately: the UI case fails while its headless twin still passes. The board's headline row shows the UI result.
+**Done when:** a user-facing capability is proven by a UI-driver case asserting what the user sees. Break the screen deliberately: the UI case fails while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, linked from nowhere: the reachability row turns red, and the screen's UI proof fails because no navigation path reaches it from the entry point.
 
-**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the board's UI headline row, release probes for deploying topologies.
+**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the board's UI headline row, release probes for deploying topologies.
 
 ### Bet 12 — The greenfield door
 
@@ -164,7 +164,7 @@ The old thing goes; the new thing stands on its own.
 
 ## 2. Coverage
 
-### Build (39)
+### Build (41)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -207,6 +207,8 @@ The old thing goes; the new thing stands on its own.
 | B36 | Park-and-resume | 9 |
 | B37 | The decision discipline | 9 |
 | B38 | The divergence row | 6 |
+| B39 | The journey layer | 11 |
+| B40 | Business logic as a walk discipline | 7 |
 
 ### Keep (23)
 
@@ -313,7 +315,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 
 **Three bets gate what follows.** Bet 2 protects everything built after it. Bet 5 is the only instrument that can prove bets 7 through 14. Bet 16 cannot start until the battery passes generator-built output.
 
-**Nothing is unassigned.** 115 of 115 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
+**Nothing is unassigned.** 117 of 117 items have exactly one bet, checked by script against [changes.md](north-star/changes.md).
 
 ---
 
