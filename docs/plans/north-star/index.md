@@ -94,11 +94,11 @@ Three, each elaborating goals above: how the human's attention is spent, how the
 
 ### Effective use of attention
 
-Attention is the scarcest human resource. The framework asks for yours in few moments — the pitch, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
+Attention is the scarcest human resource. The framework asks for your attention at a few moments — the pitch, complex design, acceptance, and the genuine stops in between. It treats each of these asks as a cost. Four rules:
 
 - **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed plus a link; the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
 - **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked ([surfaces.md](surfaces.md)).
-- **Priced.** The dial records how far work runs before it may pause for you. Checkpoints never block. Acceptance batches to moments you choose. A genuine stop is a short mechanical list ([loop.md](loop.md)); everything else records a decision you can veto later and keeps moving — reversibility decides which is which.
+- **Priced.** The dial records how far work runs before it may pause for you. Checkpoints never block. Acceptance batches to moments you choose. A genuine stop is a short mechanical list ([loop.md](loop.md)). Everything else records a decision you can veto later and keeps moving. Reversibility decides which kind applies.
 - **Measured.** Every lane declares how many human decisions it should cost, and the Map reports actuals against that budget — the same way token spend is recorded per dispatch.
 
 Plain writing (content rules, below) serves the same principle: text that must be read twice spends attention twice.
