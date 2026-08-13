@@ -30,7 +30,7 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 | 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
 | 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
 
-## Delivery Loop (all setup phases complete)
+## Delivery Loop (all setup phases settled — complete, collapsed, na, or deferred)
 
 | Skill | What it runs | Instructions |
 |---|---|---|
@@ -62,5 +62,5 @@ Available in any mode, on demand.
 | `groundwork-update` | brings the **project up to the current framework**: works the residual upgrade brief, then reconciles drifted artifact structure to current canonical, family by family. Route here for "update groundwork", "upgrade groundwork", "bring this project up to date", or whenever `.groundwork/cache/upgrade-brief.json` exists. | `.groundwork/skills/groundwork-update/instructions.md` |
 | `groundwork-check` | staleness detection | `.agents/skills/groundwork-check/SKILL.md` |
 | `groundwork-elicit` | strengthens a weak draft section through structured elicitation, mid-phase while a draft is open | `.groundwork/skills/groundwork-elicit/instructions.md` |
-| `groundwork-patch` | bounded fix, no new capability, no contract change — the floor of the three lanes; sizing rules live in *User requests work*. Available only after setup completes. | `.groundwork/skills/groundwork-patch/instructions.md` |
+| `groundwork-patch` | bounded fix, no new capability, no contract change — the floor of the three lanes; sizing rules live in *User requests work*. Available in the Delivery Loop, and before setup completes in **provisional mode** (its instructions carry the reduced-context rules). | `.groundwork/skills/groundwork-patch/instructions.md` |
 | `groundwork-surface-activation` | adds a surface to a live product (a mobile app, a CLI, a new client for an existing product): registers it, runs its type's design track if missing, scaffolds or records `scaffold: manual`, and triages the new capability-ledger column. Available only after setup completes. | `.groundwork/skills/groundwork-surface-activation/instructions.md` |

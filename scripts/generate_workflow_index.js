@@ -78,8 +78,8 @@ const anytime = section('### Anytime Skills')
   });
 
 const deliveryRow = table(section('### Mode Detection'), 'Mode Detection')
-  .find(([state]) => /setup phases complete/i.test(state));
-if (!deliveryRow) fail('Mode Detection table has no "setup phases complete" row');
+  .find(([state]) => /setup phases (complete|settled)/i.test(state));
+if (!deliveryRow) fail('Mode Detection table has no "setup phases complete/settled" row');
 const deliverySkill = strip(deliveryRow[2]);
 
 // Delivery-loop lanes are parsed from the Work Intake triage bullets so the index
@@ -142,7 +142,7 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 |---|---|---|---|---|
 ${brownfield.map((r) => `| ${r.order} | ${r.phase} | \`${r.skill}\` | ${r.signal} | \`${r.path}\` |`).join('\n')}
 
-## Delivery Loop (all setup phases complete)
+## Delivery Loop (all setup phases settled — complete, collapsed, na, or deferred)
 
 | Skill | What it runs | Instructions |
 |---|---|---|

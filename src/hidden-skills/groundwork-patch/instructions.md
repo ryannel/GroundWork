@@ -27,6 +27,16 @@ A patch has **one user-facing goal** and touches no API contract or schema — t
 
 When the ask fails the test, explain which line it crossed and hand off to the orchestrator, which sizes it into the right lane — a **quick bet** for one small new capability or a local contract delta, a full **bet** for anything larger. The user can override — record the override in the patch commit (an `Override: <reason>` trailer) so the retrospective sees it.
 
+## Provisional mode (before setup completes)
+
+The orchestrator routes patch-scope work here before the canonical doc set exists, so a new install's first bug fix ships in its first session instead of queueing behind setup. The lane runs unchanged except where a step reads what setup has not yet produced:
+
+- **Orient from code, not canon.** Run `npx groundwork-method repo-map` for impact when no map exists yet; treat absent canonical docs as absent, never as missing context to reconstruct.
+- **The Living Documents pass becomes a debt note.** With no canonical doc to update, record what this patch changed that setup will need to capture — one bullet under the matching header in `.groundwork/cache/discovery-notes.md` (Protocol 1) — so the extract phases absorb it instead of re-discovering it.
+- **The commit is stamped identically.** `Lane: patch` / `Area:` trailers as in step 6 — the cluster gate and bet discovery must see provisional patches too, and the cluster count carries over when setup completes.
+
+The scope test, the test-with-the-change, honest green, and the blind review bind unchanged — provisional mode changes what the lane reads, never what it proves.
+
 ## Delivering the patch
 
 Before touching code, write the active-lane sentinel — `printf '%s\n' 'patch' > .groundwork/cache/active-lane` — so the capture reminder hook stays silent while this lane drives the edit; clear it in the final step.
