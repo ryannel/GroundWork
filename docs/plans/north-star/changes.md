@@ -69,6 +69,10 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - **The journey layer** ([loop.md](loop.md), [proof.md](proof.md)): the sealed journey map — every capability on a named journey from a real entry point, amended by every bet that adds UI; the reachability row; and UI proofs that start at the entry point and never deep-link.
 - **Business logic as a walk discipline** ([loop.md](loop.md)): rules, invariants, and state transitions get their own design step, after data flows and before API and schema.
 
+### Program autonomy
+
+- **The program autonomy contract** ([loop.md](loop.md)): at dial `program`, the walk triages every bet into self-designing or appointment, producing the appointment list; it seeds the standing rulings; the launch gate reruns at each bet boundary; and a parked bet's walk artifacts are drafted before the owner arrives.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.
