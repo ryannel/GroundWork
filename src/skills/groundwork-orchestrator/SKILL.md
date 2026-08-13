@@ -43,6 +43,8 @@ Route to `groundwork-update` when the user agrees. Do not block other work on it
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
+**The phase-state register is authoritative.** `state.json`'s `phase_states` maps a setup phase to `deferred` (the user chose to run it later), `collapsed` (its micro-variant ran, recording what it emitted), or `na` (with the recorded reason). Never add or remove register entries during reconciliation — only the user's explicit choice at a routing point, or the phase's own skill, writes them. A phase is **settled** when it is complete (artifact + contract check) or carries any register entry; Mode Detection routes on unsettled phases only, and a `deferred` phase re-enters through Deferred Phases (below). When a deferred phase's skill commits its artifact, it removes the register entry in the same step — reconciliation then sees the artifact like any completed phase.
+
 **Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — its Downstream Context file at `.groundwork/context/<phase>.md` (present until Setup Graduation tears the store down), plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead. (Once `setup_graduated: true`, the store is gone by design — completion is settled and this check no longer gates setup.)
 
 ### Adopt/Upgrade Mode
@@ -59,21 +61,34 @@ The tables in this section are the source for the generated `workflow-index.md` 
 
 | State | Mode | Route to |
 |---|---|---|
-| Greenfield, setup incomplete | **Greenfield Setup** | Next greenfield phase skill (see table below) |
-| Brownfield, setup incomplete | **Brownfield Setup** | Next brownfield phase skill (see table below) |
-| All setup phases complete | **Delivery Loop** | `groundwork-bet` |
+| Greenfield, any phase unsettled | **Greenfield Setup** | Next unsettled greenfield phase skill (see table below) |
+| Brownfield, any phase unsettled | **Brownfield Setup** | Next unsettled brownfield phase skill (see table below) |
+| All setup phases settled | **Delivery Loop** | `groundwork-bet` |
 
-**Gate:** on the *first* transition into the Delivery Loop — setup complete but `state.json` lacks `setup_graduated: true` — run **Setup Graduation** (below) before routing to `groundwork-bet`.
+A phase is *settled* when it is complete or carries a `phase_states` entry (see State Resolution). Setup finishing with deferred phases is a legitimate end-state, not a shortcut — the deferred work stays visible and routable (Deferred Phases, below).
+
+**Gate:** on the *first* transition into the Delivery Loop — all phases settled but `state.json` lacks `setup_graduated: true` — run **Setup Graduation** (below) before routing to `groundwork-bet`.
 
 ### Setup Graduation (the setup→delivery handoff)
 
 Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-contract Protocol 5). It is scaffolding, and the orchestrator dismantles it at the moment setup completes — once, before the first bet — so delivery starts against `docs/` as the single source of truth.
 
-**Detection.** Setup is complete but not yet graduated when all setup phases are done *and* `state.json` does not carry `setup_graduated: true`. (`.groundwork/context/` still holding files is the corroborating signal.) When that holds, do not route to `groundwork-bet` yet — run graduation first.
+**Detection.** Setup is complete but not yet graduated when every setup phase is settled — complete, `collapsed`, `na`, or `deferred` by the user's explicit choice — *and* `state.json` does not carry `setup_graduated: true`. (`.groundwork/context/` still holding files is the corroborating signal.) When that holds, do not route to `groundwork-bet` yet — run graduation first. Graduating with deferred phases is normal; Protocol 10's teardown spares the inputs preserved for them.
 
 **Run it.** Load `.groundwork/skills/operating-contract.md` and execute Protocol 10 (Setup Graduation) in order; its fail-safe binds — never tear down if graduation could not complete.
 
-**Record it.** On success, set `setup_graduated: true` in `state.json`, report what graduated (ADRs written, docs reconciled, store removed), then route to `groundwork-bet` for the first bet.
+**Record it.** On success, set `setup_graduated: true` in `state.json`, report what graduated (ADRs written, docs reconciled, store removed) and name any phases still deferred with the phrase that resumes each, then route to `groundwork-bet` for the first bet.
+
+### Deferred Phases (re-entry)
+
+The user defers a phase at an orchestrator routing point — record the choice in `phase_states` at that moment, never inferring it from silence. From then on the entry is a standing route, not a dead end. Route to the phase's skill on either trigger:
+
+- **Work needs the artifact.** A lane step reads a canonical doc the deferred phase owns — the bet design step needs `docs/design-system.md`, discovery cites the brief — route to the deferred phase before that step proceeds, telling the user why in their terms: the postponed piece of setup is now the next step of the work they asked for.
+- **The user asks.** A request to run the phase, or to finish setup, routes directly.
+
+**Not every phase can wait.** A phase is deferrable only when nothing left in the default track consumes its output. Today that is `groundwork-product-brief-extract` and `groundwork-design-system-extract` (infra-adopt tolerates absent brand tokens — the operational layer ships unbranded until the phase runs). `groundwork-scan` feeds every extract, `groundwork-architecture-extract` writes the surface registry the ops harness scaffolds from, and each track's terminal phase closes it — decline a deferral ask on these with that reason and capture the ask instead (Protocol 1). Greenfield phases are sequential producers for the phases after them: not deferrable.
+
+A deferred phase invoked after Setup Graduation runs to the same standard as in setup — same interview, same review gate, same commit — with the post-graduation carve-outs the operating contract's Sequential Setup section defines (no Downstream Context file, no hand-off file). The brownfield extracts consume the preserved scan findings under `.groundwork/cache/scan/`; the last deferred extract to commit deletes the shared scan cache — the teardown `groundwork-infra-adopt` skipped on their behalf.
 
 ### Greenfield Setup Phases
 

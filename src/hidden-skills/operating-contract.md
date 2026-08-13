@@ -116,6 +116,10 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and a
 - The setup→delivery transition runs Setup Graduation (Protocol 10): durable context graduates into `docs/`, then `.groundwork/context/` is torn down.
 - A fresh context is recommended between phases (Protocol 3.4.8).
 
+**Setup Progress Header.** Setup is long enough that the user loses the map. Open every phase — and precede every question that blocks on the user — with one orienting line in the user's own terms: where they are in the track (phase N of M), what this phase needs from them, and roughly what remains after it. Effort framing stays honest — ranges, never precise promises. One sentence; the delivery loop's checkpoint snapshot (Protocol 11) is a different instrument and does not replace this.
+
+**Deferred phases.** The user may defer a phase at the orchestrator's routing points; the choice lives in `state.json`'s `phase_states` register, and the orchestrator owns re-entry routing (its Deferred Phases section). A deferred phase that runs after Setup Graduation keeps every obligation above except two that no longer have a consumer: it writes no Downstream Context file and no hand-off file — the store is torn down and no setup phase follows. Its review gate (Protocol 8) binds unchanged.
+
 ### Brownfield Scan (carve-out)
 
 **Skill:** `groundwork-scan`
@@ -425,13 +429,13 @@ The Downstream Context store (Protocol 5) is setup scaffolding. Left standing af
 
 ### When it fires
 
-Once, at the **setup→delivery transition** — after the last Sequential Setup phase commits (greenfield: `groundwork-scaffold`/`groundwork-mvp`; brownfield: `groundwork-infra-adopt`) and before the first bet. The **orchestrator** owns the trigger: on detecting that all setup phases are complete, it runs Graduation before routing into the Delivery Loop. It is not a methodology phase and writes no phase cache — it is a reconcile-and-teardown pass over artifacts the setup phases already produced.
+Once, at the **setup→delivery transition** — after the last Sequential Setup phase commits (greenfield: `groundwork-scaffold`/`groundwork-mvp`; brownfield: `groundwork-infra-adopt`) and before the first bet. The **orchestrator** owns the trigger: on detecting that every setup phase is settled — complete, or carrying a `deferred`/`collapsed`/`na` entry in `state.json`'s `phase_states` — it runs Graduation before routing into the Delivery Loop. It is not a methodology phase and writes no phase cache — it is a reconcile-and-teardown pass over artifacts the setup phases already produced.
 
 ### The three steps
 
 1. **Graduate binding decisions into ADRs.** Walk every `.groundwork/context/*.md` file. Each Key Decision or Binding Constraint that still constrains future work and is not already captured in `docs/architecture/decisions/` becomes a proper ADR there (the architect's decision-record convention). A decision already recorded in an ADR or fully stated in a canonical doc body needs no new ADR — graduate, do not duplicate.
 2. **Reconcile the rest into the docs.** Run a Living Documents pass (Protocol 2) so any remaining durable context — a constraint, a deferred question now answerable, a scope boundary — is reflected in the proper `docs/` technical documentation. After this step, `docs/` is the complete durable record; the context store holds nothing the docs do not.
-3. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit.
+3. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit — except when an extract phase is deferred: the preserved `.groundwork/cache/scan/` findings are a deferred phase's inputs, not residue. Leave them; the last deferred extract to commit owns their deletion.
 
 ### The invariant
 
