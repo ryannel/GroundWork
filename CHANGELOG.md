@@ -8,6 +8,19 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (doc shape advances carried by the update lane, 2026-08-13)
+
+- [no-migration: docs] Two new reconcile families advance legacy installs to the
+  reshaped canonical docs: `product-brief-shape` (distil the retired eight-section
+  brief to the orientation shape; capability prose lands in a durable
+  `docs/product-brief-capabilities.md` sidecar, never silently deleted) and
+  `design-system-shape` (seed the `Commitments` / `## Pattern Index` anchors into
+  whichever legitimate shape the install holds, deleting nothing; detects a
+  pre-rename `docs/ux-design.md` and runs after the Naming family so the rename
+  never strands an anchor-less doc). Legacy fixture added under
+  `tests/fixtures/installs/0.17-pre-doc-shape-advance/`. Design:
+  `docs/plans/doc-canon-and-onboarding-diet.md` (WS-F).
+
 ### Added (first-contact unlock + phase deferral semantics, 2026-08-13)
 
 - [migration: config] Seed the `phase_states` register into `state.json` and advance the state schema to version 3 (gw-phase-state-register)

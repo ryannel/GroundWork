@@ -45,8 +45,9 @@ without re-deriving the whole framework:
     item from `.groundwork/cache/upgrade-brief.json`, passed verbatim (its `path`,
     `incoming`, `base_hash`, `options`, `artifact`, … fields).
   - `family:<name>` — one row of the driver's Family Index (e.g. `family:architecture-docs`,
-    `family:doc-contracts`, `family:bets`, `family:naming`, `family:surfaces-registry`,
-    `family:docs-site`, `family:nextjs-tokens`, `family:engineer-skills`).
+    `family:doc-contracts`, `family:bets`, `family:naming`, `family:product-brief-shape`,
+    `family:design-system-shape`, `family:surfaces-registry`, `family:docs-site`,
+    `family:nextjs-tokens`, `family:engineer-skills`).
 - **Canonical owner path(s)** — the live current shape to read in full and treat as the
   worked example: the brief item's staged `incoming` payload, or the family's Owner column
   (a skill/template/generator under `.groundwork/skills/` or `.groundwork/config/`). The
@@ -133,6 +134,60 @@ following the row's advance approach. The common shapes:
 - **Restructure** (bets): restructure an in-flight bet to the current prose shape, infer and
   stamp `status`, drop the dead machine-readable artifacts. Leave shipped/archived bets as
   historical record, removing only stray obsolete files.
+- **Distil to shape** (product-brief-shape): the brief becomes the Owner's four-section
+  orientation and boundary record. This is a reconcile, not a section rename — read the whole
+  brief first, place every retired section's content, and only then drop the retired headings.
+  No sentence of the user's prose leaves this unit without a home or a line in the report.
+  - `Non-goals & Hard Rules` absorbs every `Out of Scope` and `Domain Constraints` entry
+    **verbatim**. The product persona's scope-fit check and the bet-pitch out-of-scope gate
+    judge pitches against these entries, so a reworded boundary is a moved boundary.
+  - `Purpose & Problem` merges `System Purpose` and `The Problem` into one declarative
+    paragraph, closed by the one or two strongest `Success Indicators` — the observable ones.
+    List the indicators you did not carry under `COLLISIONS/AMBIGUITY`; the user rules on
+    them, not you.
+  - `Audience` distils each `Target Users` entry to two lines: who they are, and the job they
+    hire the system to do. The per-persona success narratives leave the brief.
+  - `Surfaces` takes the deployed artifacts named in `The Experience`, one line each with its
+    interface type, marked MVP / later / aspirational. When `docs/surfaces.md` exists it is
+    the canonical surface record and this list is its historical seed — read it to spell the
+    surfaces the same way; do not edit the registry from the brief.
+  - `Capabilities`, and the journey prose in `The Experience` that no surface line carries,
+    have no section in the new shape. Write them to `docs/product-brief-capabilities.md`
+    (create it; open it with one line stating it holds prose carried out of the brief at a
+    shape advance and is awaiting triage). Where `docs/surfaces.md` exists, that ledger is
+    where this content belongs — draft the capability rows the prose implies and report them
+    under `COLLISIONS/AMBIGUITY` rather than writing them: a ledger cell is a product decision
+    with a required payload per surface (`.groundwork/skills/surfaces-contract.md`), and prose
+    written before the registry existed does not settle it. The driver ratifies the rows with
+    the user and writes them; the sidecar is what guarantees nothing is lost if they do not.
+
+- **Seed anchors, keep content** (design-system-shape): add the two named anchors; remove no
+  design content. Two document shapes are current — a full prescriptive spec and a decision
+  record over existing code — and the project's own shape is the target. Converting one into
+  the other is out of scope and destroys work the code depends on.
+  - **`Commitments`.** The non-functional envelope — performance budgets, accessibility
+    floors, tolerance policies, headless/CI constraints — must sit under a heading spelled
+    exactly `Commitments`. Bet discovery, the bet-pitch constraint gate, and decomposition's
+    budget gate cite it by that name. Where one section already owns the envelope under a
+    retired title (`Part 1 — Constraints`, `Constraints`, `Non-Functional Requirements`),
+    retitle that heading in place and leave its body untouched, keeping its level. Where the
+    envelope is scattered, open a `Commitments` section ahead of the first interface-type
+    section, move the envelope statements into it, leave everything else in its original
+    section, and report the gather under `COLLISIONS/AMBIGUITY`. A `Commitments` heading over
+    an empty body is a broken gate — if the doc states no envelope at all, say so under
+    `BLOCKING CONCERN` and let the driver route the user to the design phase.
+  - **`## Pattern Index`.** Append a `## Pattern Index` section at the end of the document: the
+    heading, one line stating what it is (the components and patterns this project settles on,
+    each entry naming its role and where it lives in code), then one entry per component the
+    document already names *and* locates in code. A document that names no code paths gets the
+    heading and the intro line as a stub — the bet design step's add-the-pattern rule and the
+    experience auditor's baseline both anchor here, so the section exists from this advance on.
+  - **Type-section titles.** `docs/surfaces.md` `design track` fields resolve into this
+    document by section title — `Graphical UI`, `CLI`, `Agentic Protocol`, spelled exactly.
+    Where a registry entry points at a title this document does not carry, add the title to
+    the section that covers that surface rather than rewriting the registry. Retitle nothing
+    a registry entry already resolves to.
+
 - **Register** (surfaces): register runners per
   the Owner skill, without touching db/jaeger compose.
 - **Re-promote from canon, honoring edits** (engineer skills): for each promoted skill dir,
