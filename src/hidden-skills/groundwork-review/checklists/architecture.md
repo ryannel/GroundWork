@@ -22,6 +22,15 @@ answer yes/no.
 - [ ] 🔴 **Service count disagrees with the service list**: a "N services" claim that does not
   match the number of services actually named, e.g. counting an `infrastructure`/Terraform
   partition as a service. State the count and the named set consistently.
+- [ ] 🟡 **Hand-kept section restates generated inventory**: a section of `index.md` reproduces
+  what `docs/architecture/generated/` owns — a service or module inventory table, a list of where
+  contract files sit. The two records drift apart and the reader cannot tell which is current.
+  Keep the ruling and the intent; drop the listing. Advisory, because a partial restatement in
+  service of a decision (naming the one service a constraint binds) is legitimate.
+- [ ] 🔴 **Generated file hand-edited**: a file under `docs/architecture/generated/` — the
+  service, module, and contract views — carries prose no generator would emit. The next
+  `npx groundwork-method generate-views` run overwrites the file, so the edit is silently
+  discarded — move whatever it asserts into the hand-kept section of `index.md` that owns it.
 
 ## Technology Decisions
 

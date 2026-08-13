@@ -8,6 +8,21 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Added (architecture index: rulings + generated inventory views, 2026-08-13)
+
+- [no-migration] `npx groundwork-method generate-views` writes derived inventory
+  views to `docs/architecture/generated/` (`services.md`, `modules.md`,
+  `contracts.md`) from repo-map + docker-compose + the captured
+  `docs/architecture/api/` record — stamped `generated_at_commit`, first line
+  declaring hand edits are discarded, honest about unmapped languages and absent
+  sources. The architecture template partitions hand-kept rulings (topology and
+  communication patterns stay authored — they encode design intent) from
+  generated inventory; Setup Graduation activates the views (Protocol 10 step 3);
+  doc-sync and bet validation trigger regeneration instead of prose-editing them;
+  `groundwork check` reports view staleness advisorily. Additive: old installs
+  gain the verb and need nothing. 11 new cli tests. Design:
+  `docs/plans/doc-canon-and-onboarding-diet.md` (WS-D).
+
 ### Added (doc shape advances carried by the update lane, 2026-08-13)
 
 - [no-migration: docs] Two new reconcile families advance legacy installs to the

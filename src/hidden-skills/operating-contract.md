@@ -431,11 +431,12 @@ The Downstream Context store (Protocol 5) is setup scaffolding. Left standing af
 
 Once, at the **setup→delivery transition** — after the last Sequential Setup phase commits (greenfield: `groundwork-scaffold`/`groundwork-mvp`; brownfield: `groundwork-infra-adopt`) and before the first bet. The **orchestrator** owns the trigger: on detecting that every setup phase is settled — complete, or carrying a `deferred`/`collapsed`/`na` entry in `state.json`'s `phase_states` — it runs Graduation before routing into the Delivery Loop. It is not a methodology phase and writes no phase cache — it is a reconcile-and-teardown pass over artifacts the setup phases already produced.
 
-### The three steps
+### The four steps
 
 1. **Graduate binding decisions into ADRs.** Walk every `.groundwork/context/*.md` file. Each Key Decision or Binding Constraint that still constrains future work and is not already captured in `docs/architecture/decisions/` becomes a proper ADR there (the architect's decision-record convention). A decision already recorded in an ADR or fully stated in a canonical doc body needs no new ADR — graduate, do not duplicate.
 2. **Reconcile the rest into the docs.** Run a Living Documents pass (Protocol 2) so any remaining durable context — a constraint, a deferred question now answerable, a scope boundary — is reflected in the proper `docs/` technical documentation. After this step, `docs/` is the complete durable record; the context store holds nothing the docs do not.
-3. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit — except when an extract phase is deferred: the preserved `.groundwork/cache/scan/` findings are a deferred phase's inputs, not residue. Leave them; the last deferred extract to commit owns their deletion.
+3. **Activate the generated architecture views.** Run `npx groundwork-method generate-views` once. It writes the service, module, and contract inventory into `docs/architecture/generated/` from the code that now exists — setup could not, because greenfield has no code until scaffold runs. Delivery starts against fresh views, and the bet loop keeps them fresh from there.
+4. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit — except when an extract phase is deferred: the preserved `.groundwork/cache/scan/` findings are a deferred phase's inputs, not residue. Leave them; the last deferred extract to commit owns their deletion.
 
 ### The invariant
 
@@ -443,7 +444,7 @@ By the end of the flow, everything durable lives in `docs/` as proper technical 
 
 ### Fail-safe
 
-Graduation never deletes before it has graduated. If step 1 or 2 cannot complete — an ADR cannot be written, a doc reconciliation is ambiguous — stop and surface it to the user; do not run step 3. A torn-down store whose decisions never reached `docs/` is unrecoverable.
+Graduation never deletes before it has graduated. If step 1 or 2 cannot complete — an ADR cannot be written, a doc reconciliation is ambiguous — stop and surface it to the user; do not run step 4. A torn-down store whose decisions never reached `docs/` is unrecoverable.
 
 ---
 

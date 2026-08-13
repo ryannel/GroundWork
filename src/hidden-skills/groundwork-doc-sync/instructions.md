@@ -53,7 +53,7 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 | Endpoint added, removed, or reshaped | `docs/architecture/api/<service>.md`; `docs/architecture/services/<service>.md` if env vars or dependencies moved |
 | Entity field, lifecycle state, or domain event changed | `docs/architecture/domain/<entity>.md` — and `docs/architecture/index.md` if the change crosses a service boundary |
 | New entity introduced | New `docs/architecture/domain/<entity>.md` from `.groundwork/skills/templates/domain-entity.md` |
-| Service added, removed, or rewired | `docs/architecture/index.md` topology and boundaries, `docs/architecture/infrastructure.md` service table |
+| Service added, removed, or rewired | `docs/architecture/index.md` topology and boundaries — the hand-kept intent: what the service owns, why the wiring moved — plus the `docs/architecture/infrastructure.md` service table. Then re-run `npx groundwork-method generate-views`: it rewrites the inventory under `docs/architecture/generated/`, which is never edited as prose |
 | Port, boot command, or test command changed | `docs/architecture/infrastructure.md` |
 | A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
 | User-visible capability added or removed | `docs/surfaces.md` capability ledger (with its `.groundwork/surfaces.json` twin); `docs/product-brief.md` only when the change moves a boundary or adds an audience/surface |

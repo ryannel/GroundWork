@@ -89,7 +89,7 @@ For each `docs/` artifact, scan the bet conversation and the delivered code for 
 
 Documents to scan, in order:
 
-1. **`docs/architecture/index.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target.
+1. **`docs/architecture/index.md`** — new services, new boundaries, refined data flows, new technology choices, new service-level requirements. The Service-Level Requirements table is the most common update target. When the bet added or removed a service or a contract, re-run `npx groundwork-method generate-views` in the same pass — the inventory under `docs/architecture/generated/` is regenerated, never hand-edited, so what you write here is only the intent behind the change.
 2. **`docs/design-system.md`** — new design patterns, new component variants, new interaction states, refined accessibility commitments. Update only when the bet introduced something the design system did not anticipate.
 3. **`docs/product-brief.md`** — vision-level moves only: a changed problem statement, a new audience, a new surface, a boundary that moved (a Non-goals & Hard Rules entry added or removed is a reversal — Protocol 2 governs it). Capability-level changes never land here — delivered capability state lives in `docs/surfaces.md`'s ledger (item 5). The brief is the slowest-drifting document in the project; most bets scan it and leave it alone.
 4. **`docs/architecture/infrastructure.md`** — new services in the local topology, new ports, new health endpoints, new commands. The infrastructure document must continue to describe a system that actually runs.
