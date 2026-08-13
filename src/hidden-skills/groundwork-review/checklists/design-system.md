@@ -7,6 +7,20 @@ description: >
 
 # Design System Checklist
 
+**Two legitimate shapes.** A greenfield design system is a *prescriptive specification* —
+no code exists yet, so the spec is the canon and the Translation Depth items below bind
+every section in full. A brownfield-recovered design system is a *decision record over
+existing code* — foundation, `## Commitments`, per-type vocabulary sections, and a
+`## Pattern Index` pointing at code: there the depth items bind the foundation values and
+the Commitments, while component-by-component specification is deliberately absent — the
+code is the canon. Judge the draft against the shape its writer declares; flagging a lean
+recovered doc for missing component specs (or a greenfield spec for carrying them) is a
+shape error, not a finding.
+
+- [ ] 🔴 **Code re-specified**: a recovered (brownfield) draft restates component-by-component
+  what the codebase already defines — a prose mirror of code starts stale the day it is
+  written; the Pattern Index entry pointing at the code is the correct form.
+
 This checklist checks a draft `docs/design-system.md`. It answers one question: **could a
 developer or generative UI tool implement this specification without making a single design
 decision of their own?**
@@ -60,9 +74,13 @@ contract for multi-type products, never duplication or contradiction findings in
 
 ## Constraints
 
-- [ ] 🔴 **Constraints section without numbers**: performance budgets, accessibility baselines,
-  or platform targets are named but carry no measurable value ("the app must be fast",
-  "accessible to all users").
+- [ ] 🔴 **Commitments without numbers**: in the `## Commitments` section (the envelope the
+  bet gates cite by name), performance budgets, accessibility baselines, or platform targets
+  are named but carry no measurable value ("the app must be fast", "accessible to all users").
+- [ ] 🔴 **Commitments heading missing**: the envelope exists but not under a `## Commitments`
+  heading (or `# Commitments` in the single-type layout) — bet discovery, the bet-pitch
+  constraint gate, and decomposition's budget gate resolve it by that exact word; a renamed
+  section silently disarms three gates.
 - [ ] 🔴 **Accessibility floor unverifiable**: an accessibility commitment with no testable
   criterion — no contrast ratio, no keyboard path, no equivalent for the track's medium.
 - [ ] 🟡 **Rationale-free opinionated default**: a non-obvious technical default (colour space,

@@ -100,7 +100,7 @@ Load and execute `.groundwork/skills/groundwork-design-system/tracks/_foundation
 
 Read the foundation file and the active tracks, then execute from the foundation's Phase 1 (or the appropriate resume point if resuming). DO NOT retain these initialization instructions in context once the foundation is loaded. The foundation file is the single source of truth for the session spine; each track is the single source of truth for its type's design content.
 
-The output, `docs/design-system.md`, carries the shared brand foundation plus one titled section per active type (`# Graphical UI`, `# CLI`, `# Agentic Protocol`) — the section `docs/surfaces.md` design-track references resolve to. A deferred type gets its section later: `groundwork-surface-activation` runs that type's track lazily against the existing foundation, without re-running the brand conversation.
+The output, `docs/design-system.md`, carries the shared brand foundation (with the `## Commitments` envelope the bet gates cite by name), one titled section per active type (`# Graphical UI`, `# CLI`, `# Agentic Protocol`) — the section `docs/surfaces.md` design-track references resolve to — and closes with the seeded `## Pattern Index` the bet loop accumulates into. A deferred type gets its section later: `groundwork-surface-activation` runs that type's track lazily against the existing foundation, without re-running the brand conversation.
 
 ### Commit Contract
 

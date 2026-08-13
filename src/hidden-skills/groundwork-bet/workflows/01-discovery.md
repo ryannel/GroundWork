@@ -39,7 +39,7 @@ Read the relevant `docs/` artifacts before opening the conversation:
 
 - `docs/product-brief.md` — what the system is, who it serves, what it does not do.
 - `docs/architecture/index.md` — service boundaries and capability decisions the bet must respect.
-- `docs/design-system.md` — the design system and NFRs the bet must implement against.
+- `docs/design-system.md` — the brand foundation, the `## Commitments` envelope (budgets, floors, tolerance policies) the bet must implement against, and the `## Pattern Index` of what already exists in code.
 - `docs/surfaces.md` — the surface registry and capability ledger, when the project has one. The bet's surface scope is chosen against this real registry, not from memory: which surfaces the capability reaches in this bet, which are deferred or omitted. The ledger's `planned` cells are commitments earlier bets already made — a `planned` cell this bet could deliver is candidate scope.
 
 Arrive at the conversation already knowing what the system is and what the bet must fit inside. A discovery conversation that asks the user to re-explain the product is a discovery conversation that wastes the time it was meant to use.

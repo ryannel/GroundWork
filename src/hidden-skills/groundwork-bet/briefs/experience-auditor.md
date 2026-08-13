@@ -40,7 +40,9 @@ The driver (or validator) passes:
   designer chose for each view.
 - The project **design system** (`docs/design-system.md`), including its **`## Design
   References`** section (the technique library of comparison products, informally "the
-  reference apps"), as the baseline for patterns and craft.
+  reference apps") and its **`## Pattern Index`** (the settled components by name, each
+  pointing at its home in code — read the pointed-at code when judging whether a screen
+  reuses the settled pattern or reinvents it), as the baseline for patterns and craft.
 - The **scope** — which milestone (and its agreed front-door cases), or, at validation, the
   whole bet across all its surfaces.
 

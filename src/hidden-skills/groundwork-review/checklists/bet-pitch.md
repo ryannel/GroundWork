@@ -91,6 +91,7 @@ no surface no-gos.
   that boundary — or re-builds a capability `docs/surfaces.md`'s ledger shows already delivered,
   without naming what changes.
 - [ ] 🔴 **Constraint breach**: the pitched solution violates a binding constraint from
-  `docs/architecture/index.md` or `docs/design-system.md` — a budget, a data rule, a platform commitment.
+  `docs/architecture/index.md` or the `## Commitments` section of `docs/design-system.md` — a
+  budget, an accessibility floor, a data rule, a platform commitment.
 - [ ] 🟡 **Unacknowledged dependency**: the pitch assumes a capability (a service, an
   integration, a data source) that no upstream doc records as existing or planned.
