@@ -2,7 +2,7 @@
 
 ## One data model, two views, honest sources
 
-Plans are authored and sealed: programs, ladders, intents. State is derived from git: commits, tags, trailers, test naming. The Map renders both and labels which is which. Nothing self-reported enters either view. An agent's assertion of done is not state. A green probe is.
+Plans are authored and sealed: programs, ladders, designs. State is derived from git: commits, tags, trailers, test naming. The Map renders both and labels which is which. Nothing self-reported enters either view. An agent's assertion of done is not state. A green probe is.
 
 **State is read from git, never from the checkout.** Plans and state live across branches, worktrees, and the archive, so the renderer reads git refs directly — committed files on any branch, tags, trailers — without needing any branch checked out. Whatever you happen to be on, the whole picture is available. Working-tree content appears only as "in flight as of <time>" annotations, labeled as such. Pages also stamp their sync horizon — how far the local clones sit behind or ahead of their remotes — so a laptop's tower never quietly presents local-only truth as the whole picture.
 

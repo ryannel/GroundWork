@@ -94,7 +94,7 @@ Three, each elaborating goals above: how the human's attention is spent, how the
 
 ### Effective use of attention
 
-Attention is the scarcest human resource. The framework asks for yours in few moments — intent, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
+Attention is the scarcest human resource. The framework asks for yours in few moments — the pitch, complex design, acceptance, and the genuine stops between — and treats each ask as spend. Four rules:
 
 - **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed plus a link; the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
 - **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked ([surfaces.md](surfaces.md)).
