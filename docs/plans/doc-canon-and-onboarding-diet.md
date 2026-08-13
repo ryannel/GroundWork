@@ -194,6 +194,8 @@ Every slice above lands with its `[migration: …]` / `[no-migration: <surface g
 | D-O4 | Deferred-extract inputs: regenerate scoped inputs at invocation vs preserve the scan cache indefinitely? | Regenerate (E4) — no stale-cache class, consistent with pull-based direction |
 | ~~D-O5~~ | **RULED 2026-08-13: execute on main now** — WS-C started same day; the v2 ladder absorbs the findings either way | — |
 | D-O6 | Do generated views render on the docs site as pages or stay repo-only? | Repo-only first; docs-site rendering is a follow-up once D2 stabilizes |
+| D-O7 | (from the PR #30 reconciliation, `a21f186`) Should the pull-based extracts enter Adopt/Upgrade against canon held outside `docs/` (the `## Canonical Docs Location` signal only `groundwork-methodology-adopt` reads today)? | Decide before v2 fixes the extract contract; today the extracts branch only on the canonical path |
+| D-O8 | (same source) Should a deferred `methodology-adopt` get a `docs/maturity.md` row? It owns no canonical doc, so infra-adopt's deferred-phase row rule skips it — the deferred convergence is invisible between graduation and its collision trigger | Give it a row keyed on the register note; cheap and honest |
 
 ---
 
