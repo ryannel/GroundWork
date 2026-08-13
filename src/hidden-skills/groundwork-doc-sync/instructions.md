@@ -56,7 +56,7 @@ Build the update plan in three passes. Each pass catches drift the previous one 
 | Service added, removed, or rewired | `docs/architecture/index.md` topology and boundaries, `docs/architecture/infrastructure.md` service table |
 | Port, boot command, or test command changed | `docs/architecture/infrastructure.md` |
 | A committed decision visibly replaced (vendor swapped, persistence model changed) | New ADR from `.groundwork/skills/templates/adr.md` superseding the old one — this is a **reversal**, see Step 3 |
-| User-visible capability added or removed | `docs/product-brief.md` capabilities |
+| User-visible capability added or removed | `docs/surfaces.md` capability ledger (with its `.groundwork/surfaces.json` twin); `docs/product-brief.md` only when the change moves a boundary or adds an audience/surface |
 | Design tokens or visual system changed | `docs/design-system.md` and `.groundwork/config/brand-tokens.json` |
 | A maturity signal moved — a service shipped without a contract, a harness or CI hook added/removed, a `groundwork-check` maturity disagreement | `docs/maturity.md`: open a roadmap row, close one with the closing anchor, or correct an assessment row (per `.groundwork/skills/maturity-model.md`) |
 

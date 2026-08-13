@@ -31,7 +31,7 @@ Everything downstream depends on the Product Brief:
 | **Architecture** | System boundaries, capabilities, and domain constraints — so the architect can choose the right services, data models, and contracts. |
 | **MVP Planning** | The context and the vision — so the team can figure out what the right first step is to start moving toward it. |
 
-The brief does **not** specify how every feature works. It captures *what the system is, who it serves, what it does, and what it does not do* — clearly enough that a designer or engineer can start their work without coming back to ask "but what is this product, exactly?"
+The brief does **not** specify how every feature works — and it is not where the discovery's richness lands. The committed `docs/product-brief.md` is a half-page orientation and boundary record (the template below defines it); the depth this conversation produces reaches downstream phases through the Downstream Context file and the hand-off cache, which is why the discovery must still go deep even though the document stays lean. A designer or engineer opening the project cold reads the brief to learn what this product is, for whom, and what it will never do; the phases read the context files for everything else.
 
 ---
 
@@ -140,9 +140,9 @@ When ready:
 
 ### Quality Standard: What "Deep Enough" Looks Like
 
-The draft must give every downstream phase enough context to do its job without coming back to ask clarifying questions. A product brief that reads like marketing copy or a feature list has failed — it needs to convey the *thinking* behind the product, not just the bullet points.
+The depth bar below governs the **discovery and its carriers** — the Downstream Context file and the hand-off — not the committed brief's length. The brief itself distills each area to its template shape (a user type becomes two lines; the capability inventory does not appear at all); what must be deep is the understanding behind the distillation, because the hand-off carries it forward and a thin understanding produces a wrong distillation. A brief that reads like marketing copy has failed; so has a hand-off that gives the design phase a label where it needs a mental model.
 
-**Shallow output (insufficient):**
+**Shallow understanding (insufficient):**
 ```markdown
 #### Target Users
 
@@ -152,7 +152,7 @@ The draft must give every downstream phase enough context to do its job without 
 - Success looks like: Deep immersion and a sense of agency.
 ```
 
-**Deep output (required standard):**
+**Deep understanding (required standard — this is what the hand-off carries; the brief's Audience section distills it to two lines):**
 ```markdown
 #### Target Users
 
@@ -173,13 +173,13 @@ The draft must give every downstream phase enough context to do its job without 
   difficult choices feel consequential.
 ```
 
-The shallow version gives a designer a label. The deep version gives them a mental model of the user — enough to make design decisions about tone, pacing, and interaction density without asking "but who is this person, really?"
+The shallow version gives a designer a label. The deep version gives them a mental model of the user — enough to make design decisions about tone, pacing, and interaction density without asking "but who is this person, really?" That mental model travels in the hand-off; the brief's Audience line points at it.
 
-The same depth applies to every section:
-- **Capabilities** are not feature lists. Each capability should convey what it does for the user, why it matters to the product's vision, and how it connects to other capabilities.
-- **The Experience** is not a single paragraph. It should walk through the macro user journey — from entry to outcome — with enough texture that a designer reading it can picture the shape of the interaction.
-- **Domain Constraints** are not generic disclaimers. Each constraint should reflect a specific design decision the user made during discovery, grounded in the product's context.
-- **Success Indicators** are not vague sentiments. Each indicator should be specific enough that a designer or engineer could observe it in practice.
+The same depth applies to every discovery area, and each area has its carrier:
+- **Capabilities** are not feature lists — each conveys what it does for the user, why it matters to the vision, and how it connects to the others. The full inventory travels in the hand-off (the architecture phase maps services from it); the brief carries none of it. Once delivery begins, delivered capability state lives in `docs/surfaces.md`'s ledger.
+- **The Experience** walks the macro journey — entry to outcome, with texture — in the hand-off; the brief's Surfaces section carries only the surface list itself.
+- **Non-goals & Hard Rules** are not generic disclaimers. Each entry reflects a decision the user explicitly made, grounded in the product's context — and these DO land in the brief in full, because the scope gates read them there.
+- **Success signals** are observable in practice, never sentiments — the one or two strongest close the brief's Purpose & Problem paragraph.
 
 ---
 
@@ -189,5 +189,5 @@ Execute **only** after explicit user approval. Follow the Phase Lifecycle commit
 
 1. **Write the Downstream Context file (Protocol 5).** Apply the `groundwork-writer` skill to write `.groundwork/context/product-brief.md` — the four-subsection contract per Protocol 5: Key Decisions, Binding Constraints, Deferred Questions, Out of Scope. Key Decisions carries the surface set — every surface The Experience names, each with its horizon marker (MVP / later / aspirational) — because the design system, the architecture, and MVP scoping all branch on it; a single-surface product carries one entry. This is the contract every downstream phase reads first, and a commit without it forces every downstream phase to re-read the full brief. The published `docs/product-brief.md` stays a clean brief with no summary section.
 2. Promote the finalised brief to `docs/product-brief.md` by moving the file from `.groundwork/cache/product-brief-draft.md`. Use a move operation (the `move_file` tool, or `mv` via the shell) — do not read the draft and rewrite its contents, as the brief is large enough that re-emitting it through the model risks exhausting the output token budget.
-3. Write the hand-off file to `.groundwork/cache/handoff/product-brief.md`. Copy the template at `.groundwork/skills/templates/handoff.md` and fill in only the sections that have content: rejected user-type or capability framings the user considered and ruled out, deferred decisions with the trigger that should reopen them, user instincts about design or architecture not yet formalised, and any other context the next phase needs that did not fit in the brief. Omit empty sections entirely. This is the Hand-off Cache contract from Protocol 6.
+3. Write the hand-off file to `.groundwork/cache/handoff/product-brief.md`. Copy the template at `.groundwork/skills/templates/handoff.md`. Under the lean brief shape this file is **load-bearing, not overflow** — it is where the discovery's depth travels: the full capability inventory (what each does for the user, why it matters, how they connect — the architecture phase maps services from this), the macro experience journey per surface, and each user type's mental model (the Quality Standard's deep form). Then the classic overflow: rejected framings the user ruled out, deferred decisions with their reopening trigger, unformalised design or architecture instincts. Omit empty sections entirely. This is the Hand-off Cache contract from Protocol 6.
 4. Then complete Protocol 3.4 steps 5–9: Living Documents (with the Reversal Protocol where it fires), the discovery-notes sweep, confirm, the fresh-context recommendation, and the orchestrator hand-off.

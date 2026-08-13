@@ -86,8 +86,10 @@ no surface no-gos.
 
 ## Upstream Contract
 
-- [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something `docs/product-brief.md`
-  permanently excludes, with no recorded decision reversing that boundary.
+- [ ] 🔴 **Out-of-scope resurrection**: the pitch builds something the Non-goals & Hard Rules
+  section of `docs/product-brief.md` permanently excludes, with no recorded decision reversing
+  that boundary — or re-builds a capability `docs/surfaces.md`'s ledger shows already delivered,
+  without naming what changes.
 - [ ] 🔴 **Constraint breach**: the pitched solution violates a binding constraint from
   `docs/architecture/index.md` or `docs/design-system.md` — a budget, a data rule, a platform commitment.
 - [ ] 🟡 **Unacknowledged dependency**: the pitch assumes a capability (a service, an

@@ -37,7 +37,7 @@ The discovery notes file uses these five sections. Every skill that writes or re
 
 | Section | What goes here |
 |---|---|
-| `## Product Brief` | Vision-level signals surfaced during later phases — new user types, missing capabilities, refined success criteria. Captured for in-flight batched application to `docs/product-brief.md`. |
+| `## Product Brief` | Vision-level signals surfaced during later phases — a new audience, a moved boundary, a changed problem framing, a new surface. Captured for in-flight batched application to `docs/product-brief.md`. Capability ideas are not vision-level — they go to `## Bets` (future work) or, once delivered, live in `docs/surfaces.md`'s ledger. |
 | `## Design System` | Anything about **what the user sees or does** — interaction patterns, search/browse/navigation flows, aesthetic instincts, look-and-feel preferences — surfaced outside the Design System phase. The bright line vs `## Design Details`: if the signal describes the user-facing experience it goes here, even when it names a concrete mechanism (e.g. "faceted pills alongside conversational search", "more-like-this pivots"). |
 | `## Architecture` | Infrastructure preferences, scaling instincts, technology opinions surfaced outside the architecture phase. |
 | `## Design Details` | **Internal mechanisms the user never sees directly** — async flows, callback patterns, job lifecycles, data ownership decisions, contract format choices, resiliency patterns — from capability and boundary conversations. Feeds the Bet's Design Foundations phase when producing API contracts and data schema. Not for user-facing interaction patterns; those go to `## Design System`. |

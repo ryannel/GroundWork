@@ -63,7 +63,7 @@ Ask whether the user wants to think the problem through together — exploring e
 
 The Pitch is product work — the problem worth solving, the falsifiable hypothesis, the appetite, and the explicit no-gos — done at bet scope. Load `.groundwork/skills/groundwork-product/SKILL.md` and shape the pitch as that persona, whichever stance the conversation is taking — its judgment governs the pitch, `groundwork-persona` still holds the chat posture and the owner-language boundary; route to its Context Routing table for the reference each pitch element turns on, and apply the reference's reasoning and antipatterns to the pitch.
 
-The bet must fit inside what `docs/product-brief.md` already committed — its users, capabilities, and out-of-scope boundaries. Where the pitch re-opens one, the persona surfaces it explicitly and records why, rather than letting the product's scope drift one quiet bet at a time. (Structural questions — whether a boundary should hold or move — remain the architect persona's, adopted above when the bet challenges `docs/architecture/index.md`.)
+The bet must fit inside the boundaries `docs/product-brief.md` committed — its Audience and its Non-goals & Hard Rules — and squares against the delivered-capability record in `docs/surfaces.md`'s ledger (what already exists that this pitch duplicates, extends, or contradicts). Where the pitch re-opens a boundary, the persona surfaces it explicitly and records why, rather than letting the product's scope drift one quiet bet at a time. (Structural questions — whether a boundary should hold or move — remain the architect persona's, adopted above when the bet challenges `docs/architecture/index.md`.)
 
 ---
 

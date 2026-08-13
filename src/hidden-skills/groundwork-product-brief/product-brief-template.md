@@ -1,27 +1,23 @@
 # Product Brief Structure
 
-The canonical section list for `docs/product-brief.md` — the shape both greenfield discovery (`groundwork-product-brief`) and brownfield recovery (`groundwork-product-brief-extract`) draft against, so the two writers produce indistinguishable documents. Do not invent a custom structure or drop a section; skip a section's content only when it is genuinely irrelevant to the product, never the heading.
+The canonical section list for `docs/product-brief.md` — the shape both greenfield discovery (`groundwork-product-brief`) and brownfield recovery (`groundwork-product-brief-extract`) draft against, so the two writers produce indistinguishable documents.
 
-#### System Purpose
-A single, declarative paragraph: what the system is, who it serves, what it enables. No hedging, no marketing.
+The brief is a **half-page orientation and boundary record, not a specification**. It answers, for any human or agent opening the project cold: what problem this system solves, for whom, through what surfaces, and what it will never do. The discovery conversation still runs at full depth — its richness reaches downstream phases through the Downstream Context file and the hand-off cache (Protocols 5 and 6), and delivered capability state lives in `docs/surfaces.md`'s capability ledger, not here. This document holds only what a gate consumes or a newcomer needs, which is why it is the slowest-drifting file in the project: it changes when the product's purpose, audience, or boundaries move, and at no other time.
 
-#### The Problem
-What is broken or missing in the world? Ground it in the user's reality.
+Do not invent a custom structure or drop a section; skip a section's content only when it is genuinely irrelevant to the product, never the heading.
 
-#### Target Users
-Who uses this? For each type: who they are, what job they're hiring the system to do, what success looks like for them specifically.
+#### Purpose & Problem
 
-#### Capabilities
-The high-level things the system does, organised by theme. This is the full vision, not the MVP.
+One declarative paragraph: what the system is, who it serves, and what it enables — grounded in what is broken or missing in the world that this system exists to fix. No hedging, no marketing. Close the paragraph with the one or two concrete signals that would show the system is delivering its value — observable in practice, not sentiments.
 
-#### The Experience
-How users move through the system at a macro level. Name the surfaces users meet the product through — each a deployed artifact: a web app, a mobile app, a command-line tool, an MCP server or API, a voice interface, a physical device — mark any not in the first build as later or aspirational, and describe each experience through its surface. Downstream phases design per interface type and architect, scaffold, and test per surface, so an experience that never names its surface leaves all of them guessing. A single-surface product names it once; the journey description carries the rest.
+#### Audience
 
-#### Domain Constraints
-Hard rules. Things the system must or must never do. Ethical commitments. Every constraint listed here must have been explicitly stated or confirmed by the user — during discovery, or during the extract interview — never inferred from context.
+Each user type in at most two lines: who they are, and the job they hire the system to do. The deep persona work — success narratives, emotional texture, the mental model a designer works from — happens in the discovery conversation and reaches downstream phases through the Downstream Context file and hand-off, not this document.
 
-#### Out of Scope
-What this system does not do. Permanent boundaries, not MVP deferrals.
+#### Surfaces
 
-#### Success Indicators
-Concrete signals that the system is delivering value. Specific enough that a designer or engineer could observe them. No vague sentiments. Include the long-term vision if shared.
+The deployed artifacts users meet the product through — a web app, a mobile app, a command-line tool, an MCP server or API, a voice interface, a physical device — one line each with its interface type, marked MVP / later / aspirational. Downstream phases design per interface type and architect, scaffold, and test per surface, so a surface never named here leaves all of them guessing. Once the architecture phase writes `docs/surfaces.md`, that registry is the canonical surface record and this list is its historical seed.
+
+#### Non-goals & Hard Rules
+
+The boundary record the scope gates read. Two kinds of entry: what this system deliberately does **not** do (permanent boundaries, not MVP deferrals), and the hard rules it must never break — ethical commitments, compliance lines, domain absolutes. Every entry was explicitly stated or confirmed by the user — during discovery or the extract interview — never inferred. The product persona's scope-fit check and the bet-pitch review's out-of-scope gate judge pitches against this section: write each entry concretely enough that a reviewer can tell when a pitch crosses it.
