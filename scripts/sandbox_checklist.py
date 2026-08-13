@@ -49,17 +49,20 @@ PHASES = {
         ("bet", [], []),
     ],
     "brownfield": [
-        ("scan", [], []),  # scan output is cache-only by design (deleted on commit)
-        ("product-brief-extract", ["docs/product-brief.md"], []),
-        ("design-system-extract", ["docs/design-system.md"], []),
+        # The default track (doc-canon-and-onboarding-diet WS-E): scan-lite commits the
+        # orientation page; ops adoption authors the surface registry; the two document
+        # extracts are deferred/collapsed by default and expect nothing in a default run.
+        ("scan", ["docs/product-brief.md"], []),
+        ("ops-adoption", ["docs/surfaces.md"], []),
         ("architecture-extract", [
             "docs/architecture/index.md",
-            "docs/surfaces.md",  # surface registry (architecture-extract; ledger empty by design)
-            "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
         ], ["docs/architecture/domain"]),
-        ("infra-adopt", [
+        ("service-docs-maturity", [
             "docs/architecture/infrastructure.md",
+            "docs/maturity.md",  # maturity roadmap (consolidated gap ledger)
         ], ["docs/architecture/api", "docs/architecture/services"]),
+        ("product-brief-extract", [], []),   # on-demand deep path; scan-lite settles it collapsed
+        ("design-system-extract", [], []),   # deferred by default; collapses on headless repos
         ("bet", [], []),
     ],
     # The delivery path starts from a sealed bet and drives Phase 4 only, so its
