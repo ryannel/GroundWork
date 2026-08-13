@@ -1,6 +1,6 @@
 # Surface Registry & Capability Ledger Contract
 
-`docs/surfaces.md` is the canonical record of a product's surfaces and the capability core they adapt. The prose document is the human source of truth; `.groundwork/surfaces.json` is its machine-readable twin, kept in lockstep by the same commits (the contract-grade rule: every reviewed artifact has a machine-checkable twin). The architecture commit writes both at greenfield setup; `groundwork-architecture-extract` writes both at brownfield adoption; `groundwork-surface-activation` and bet validation maintain them for the life of the product.
+`docs/surfaces.md` is the canonical record of a product's surfaces and the capability core they adapt. The prose document is the human source of truth; `.groundwork/surfaces.json` is its machine-readable twin, kept in lockstep by the same commits (the contract-grade rule: every reviewed artifact has a machine-checkable twin). The architecture commit writes both at greenfield setup; `groundwork-ops-adopt` writes both at brownfield adoption, from the surface list the scan confirmed with the user, and `groundwork-architecture-extract` enriches them later with the access paths and auth models only a read of the code reveals; `groundwork-surface-activation` and bet validation maintain them for the life of the product.
 
 **The model:** a product is one **capability core** — the domain logic, data, and contracts, always designed and validated headless — plus zero or more **surfaces**, the deployed artifacts consumers interact with (a web app, a CLI binary, a mobile app, an MCP server). Surfaces are adapters over the core. The registry names the surfaces; the **capability ledger** records which capabilities reached which surfaces, so divergence between surfaces is a decision on record, never a silent drift.
 
@@ -58,7 +58,7 @@ Every generator or skill that invokes `system-test-runner` passes `--surfaces`: 
 - `subprocess-cli` — the launch command (a generated `cli-app` builds to `node services/<slug>/dist/cli.js`).
 - `flutter-integration` / `playwright-electron` — omit `reach` entirely; these surfaces discover their own test-harness command (`npx nx run <slug>:test-integration` / `:smoke`) once the app is scaffolded.
 
-This is the one statement of the flag's shape. Invokers (`groundwork-scaffold`, `groundwork-infra-adopt`, `groundwork-surface-activation`) cite this section and state only their own moment-specific delta — which surfaces to include, when to re-invoke, and what generator output (fixtures, etc.) results.
+This is the one statement of the flag's shape. Invokers (`groundwork-scaffold`, `groundwork-ops-adopt`, `groundwork-surface-activation`) cite this section and state only their own moment-specific delta — which surfaces to include, when to re-invoke, and what generator output (fixtures, etc.) results.
 
 ---
 
@@ -216,4 +216,4 @@ Written and updated in the same commit as `docs/surfaces.md` — the two never d
 - `capabilities[].cells` carries one entry per registry surface (including retired ones — frozen history or auto-`n/a` per the retired-column rule). A missing cell key is the machine form of the illegal empty cell.
 - Cell payloads: `delivered` requires `bet`; `planned` requires `ref` (a bet slug or `discovery-notes` pointer); `omitted` requires `rationale`; `n/a` carries no payload.
 - **Versioned contract.** `version` bumps only when the shape changes. Consumers ignore unknown fields. Keep changes additive.
-- **One writer per moment, many readers.** Architecture (or architecture-extract) creates it; bet validation appends capability rows; surface activation appends surface entries and triages columns. `./dev surface status` and `groundwork-check` only read.
+- **One writer per moment, many readers.** Architecture creates it at greenfield setup and ops adoption creates it at brownfield adoption; architecture-extract enriches the brownfield one; bet validation appends capability rows; surface activation appends surface entries and triages columns. `./dev surface status` and `groundwork-check` only read.

@@ -19,17 +19,18 @@ Phases run in order. Each phase commits its document to disk, applies the Living
 
 ## The Brownfield Path
 
-When the repository already holds an application, setup inverts: the code is the source of truth and the documents are reverse-engineered from it. The user is interviewed only for what code cannot reveal — the why, the who, and what success looks like.
+When the repository already holds an application, setup inverts: the code is the source of truth and the documents are reverse-engineered from it. The user is interviewed only for what code cannot reveal — the why, the who, and what success looks like. The track is ordered to pay the user early: something readable in session one, something runnable in session two.
 
 | Phase | Skill | Output | What it establishes |
 |---|---|---|---|
-| 0 | `groundwork-scan` | Scan baseline in `.groundwork/cache/` | Code map (via Serena when present), concern-split findings for the extract phases |
-| 1 | `groundwork-product-brief-extract` | `docs/product-brief.md` | The product vision the code embodies, gaps filled by a short interview |
-| 2 | `groundwork-design-system-extract` | `docs/design-system.md` + brand tokens | The design language recovered from the actual UI |
-| 3 | `groundwork-architecture-extract` | `docs/architecture/index.md` + `docs/surfaces.md` + domain docs + ADRs | The real service boundaries, contracts, and decisions in force; every interface surface the scan found, registered as `active` (the capability ledger starts empty by design — parity stays unknown until a bet touches it) |
-| 4 | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | The operational layer (`./dev`, system tests) bolted on additively — no application code touched |
+| 0 | `groundwork-scan` | `docs/product-brief.md` + code map in `.groundwork/cache/` | The repo classified, a deterministic code map, the surface list confirmed with the user, and an orientation page drafted from manifests, README, and that map. A whole-repo digest read is an opt-in, not the default. |
+| 1 | `groundwork-ops-adopt` | `./dev` + system-test harness + `docs/surfaces.md` | The operational layer bolted on additively — no application code touched — and the surface registry every design track, bet, and test fixture resolves against (the capability ledger starts empty by design; parity stays unknown until a bet touches it) |
+| 2 | `groundwork-architecture-extract` | `docs/architecture/index.md` + domain docs + ADRs | The real service boundaries, budgets, and service-level requirements in force; ADRs only where the user supplies the rationale |
+| 3 | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | Service and API docs read from the real code, the developer on-ramp, and the gap ledger consolidated into the maturity roadmap |
 
-There is no MVP phase: the product already exists. Throughout the extract phases, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; infra adoption consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
+**Two phases sit outside the default track.** `groundwork-product-brief-extract` recovers the brief at full depth — the scan already committed its orientation shape, so the full extract runs when someone needs more. `groundwork-design-system-extract` recovers the design language; the operational layer ships unbranded until it runs, and a headless repo collapses it instead. Both stay routable for the life of the project: the orchestrator routes into one when the user asks, or when a bet's discovery or design step first needs its document.
+
+There is no MVP phase: the product already exists. Throughout the track, every divergence from GroundWork's target state is recorded in a gap ledger with a severity and recommendation; the terminal phase consolidates it into `docs/maturity.md` — a living assessment of the project against the GroundWork maturity model, plus the roadmap of open gaps. Onboarding debt becomes prioritised, schedulable work rather than a lecture: every bet's discovery reads the roadmap and proposes pulling gaps in, every bet's validation closes the rows it resolved, and the user always decides between maturity work and product value.
 
 Existing docs are never blind-overwritten. A repo that already carries a brief or architecture doc routes through **Adopt/Upgrade mode**: the extract skill ingests the existing document as its primary source, fills the missing contract sections, and raises it to the current standard while preserving the user's content.
 

@@ -4,7 +4,7 @@ GroundWork operates in two modes: a one-time **Setup** that establishes the proj
 
 The lifecycle is documented across three files:
 
-1. **[01. Setup](./01-setup.md)** — The one-time pipeline that takes a project from idea (greenfield) or existing codebase (brownfield) to its first bet. Covers both paths: greenfield's facilitated discovery through Product Brief, Design System, Architecture, Scaffolding, and MVP Planning; and brownfield's Scan and extract phases through Infra Adoption. Architecture commits the surface registry (`docs/surfaces.md`) alongside the architecture document.
+1. **[01. Setup](./01-setup.md)** — The one-time pipeline that takes a project from idea (greenfield) or existing codebase (brownfield) to its first bet. Covers both paths: greenfield's facilitated discovery through Product Brief, Design System, Architecture, Scaffolding, and MVP Planning; and brownfield's Scan, Ops Adoption, and Architecture Extract through the terminal service-docs-and-maturity phase. Greenfield architecture commits the surface registry (`docs/surfaces.md`) alongside the architecture document; on brownfield, ops adoption writes it and the architecture extract enriches it.
 
 2. **[02. The Delivery Loop](./02-delivery-loop.md)** — The repeating five-phase Bet workflow (Discovery → Design Foundations → Decomposition → Delivery → Validation) that drives all feature work after the MVP ships. Each bet declares its surface scope, types its milestones capability-vs-surface, and fills the capability ledger at Validation.
 

@@ -11,7 +11,7 @@ description: >
 
 You are a design systems archaeologist. The product already has a visual or interaction language encoded in its code — Tailwind config, CSS variables, theme files, a component library, terminal rendering. Your job is to recover that language into `docs/design-system.md` and `.groundwork/config/brand-tokens.json`, the same artifacts greenfield design-system facilitation produces, then interview the user only for the *intent* behind the values the code already shows.
 
-This is Phase 2 of the brownfield track. The scan phase left you a design findings slice. You distil the concrete design decisions already in the code, fill the aesthetic-intent gaps in a short conversation, and commit. The output is indistinguishable from a greenfield design system.
+This is the brownfield design phase, and it runs on demand rather than in the default track. You distil the concrete design decisions already in the code, fill the aesthetic-intent gaps in a short conversation, and commit. The output is indistinguishable from a greenfield design system.
 
 The principle is **infer first, interview last**. Code reveals the palette, the type scale, the spacing system, the component inventory — the *what*. Code cannot reveal whether those choices were deliberate or accreted, what feeling they are meant to produce, or which inconsistencies are intentional variation versus drift. Recover the values; interview the intent.
 
@@ -21,14 +21,17 @@ Apply the `groundwork-writer` skill when producing the output document. Declarat
 
 ## Why This Step Matters
 
-- **Architecture Extract** reads the design system's Downstream Context file for non-functional requirements — performance budgets, accessibility floors, interaction latency targets — that shape the services it reverse-engineers.
-- **Infra Adoption** reads `.groundwork/config/brand-tokens.json` to brand the `./dev` CLI it scaffolds. This file **must** exist after this phase, or the operational layer the next phase bolts on is unbranded.
+- **Architecture Extract** reads the non-functional requirements this phase records — performance budgets, accessibility floors, interaction latency targets — as binding constraints on the services it reverse-engineers. It reads them from this phase's Downstream Context file when the phase ran before it, and from the committed document's Commitments section otherwise.
+- **The bet loop** reads the pattern index and the Commitments envelope at every design step, and two of its review gates cite them by name. A bet on a designed surface is the trigger that most often pulls this phase out of deferral.
+- **Ops Adoption** reads `.groundwork/config/brand-tokens.json` to brand the `./dev` CLI. It runs before this phase on the default track and tolerates the file's absence — the tooling ships with Tier-1 defaults and is re-branded whenever this phase commits.
 
 ---
 
 ## Operating Contract
 
-The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/design-findings.md`, `scan/overview.md`, and `scan-state.json`, plus the product-brief's Downstream Context file (`.groundwork/context/product-brief-extract.md`) and the product-brief-extract hand-off. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
+The shared operating contract at `.groundwork/skills/operating-contract.md` (contract v1) governs how this skill operates. Read it before taking any other action. This is a Sequential Setup phase. It consumes the scan baseline under the Protocol 7 brownfield exception — it may read `scan/design-findings.md`, `scan/overview.md`, `scan-state.json`, and `repo-map.json`, plus the product-brief's Downstream Context file (`.groundwork/context/product-brief-extract.md`) and the product-brief-extract hand-off. Open the phase — and precede every question that blocks on the user — with the Setup Progress Header (operating contract, Sequential Setup).
+
+This phase is deferred by default: the brownfield track ships its operational layer unbranded rather than making every repo pay for a design conversation up front. You run when the user asks, or when a bet's design step first needs `docs/design-system.md` — so the scan findings and the upstream context files this skill was written around are usually absent. Stages 1 and 2 branch on that.
 
 ---
 
@@ -45,6 +48,8 @@ Check whether `docs/design-system.md` already exists.
 
 Read in the Protocol 3.2 order: the product-brief-extract hand-off (`.groundwork/cache/handoff/product-brief-extract.md`) in full; then the product-brief's Downstream Context file `.groundwork/context/product-brief-extract.md`; then `.groundwork/cache/discovery-notes.md` entries under `## Design System`.
 
+When neither the hand-off nor the context file exists — the default track never ran the full brief extract, and Setup Graduation tears the store down — read the committed `docs/product-brief.md` directly for the audience and surfaces. It is the durable record those files were projections of.
+
 ### Step 3: Cache Check
 
 Create `.groundwork/cache/design-system-extract-cache.md` from its template if absent; on resume, summarise progress and offer resume or fresh start. Record the determined `interface_types` set in this cache.
@@ -53,7 +58,7 @@ Create `.groundwork/cache/design-system-extract-cache.md` from its template if a
 
 ## Stage 1: Determine Interface Types
 
-The interface type describes what the end-user interacts with, not what the backend does. A repo can carry more than one surface — a web app and an admin CLI are two surfaces of one product — and each surface's type owns its own design treatment. The scan recorded every surface it found under `## Interface Surfaces` in `scan/design-findings.md`; confirm each against the taxonomy:
+The interface type describes what the end-user interacts with, not what the backend does. A repo can carry more than one surface — a web app and an admin CLI are two surfaces of one product — and each surface's type owns its own design treatment. Take the surface set from `docs/surfaces.md` — the registry the ops-adoption phase wrote from the user's own confirmation, and the canonical record once it exists. Fall back to `## Interface Surfaces` in `scan/design-findings.md` only when no registry exists. Confirm each against the taxonomy:
 
 | Type | The consumer | Examples |
 |---|---|---|
@@ -63,13 +68,23 @@ The interface type describes what the end-user interacts with, not what the back
 
 Disambiguation rule and edge cases (AI-powered frontends, embedded-agent terminals, explicit-vocabulary briefs): `groundwork-design-system/instructions.md` Step 2 — the same one test, **who consumes the output**, decides every case here too. Record the confirmed **type set** in the phase cache — it determines which type sections the recovered design system carries and which Tier-2 brand-tokens blocks are emitted. A repo with one surface confirms one type, and the rest of the phase runs exactly as it always has.
 
-**Collapsed variant — no designed surface.** When the confirmed type set contains neither `graphical-ui` nor `cli`, the full phase would interview for aesthetics nothing renders. Collapse it: confirm the type set with the user in one line, then run Stages 2–5 at micro scale — the draft is Foundation-lite (voice and naming conventions, one short section), `## Commitments` in full (the envelope matters most for headless products — recover from config, confirm the rest), and the `Agentic Protocol` vocabulary section when that type is confirmed; brand tokens are Tier 1 only, `appName` from the manifest and the rest defaulted (infra adoption brands the `./dev` CLI from it and tolerates defaults — re-brand later if a designed surface ever arrives via `groundwork-surface-activation`). The review gate still fires — a small doc reviews cheaply. At commit, record the collapse in `state.json`'s register — `"design-system-extract": { "state": "collapsed", "note": "<what was emitted>" }` — so the variant is legible to routing, upgrades, and anyone later expecting full type sections.
+**Collapsed variant — no designed surface.** When the confirmed type set contains neither `graphical-ui` nor `cli`, the full phase would interview for aesthetics nothing renders. Collapse it: confirm the type set with the user in one line, then run Stages 2–5 at micro scale — the draft is Foundation-lite (voice and naming conventions, one short section), `## Commitments` in full (the envelope matters most for headless products — recover from config, confirm the rest), and the `Agentic Protocol` vocabulary section when that type is confirmed; brand tokens are Tier 1 only, `appName` from the manifest and the rest defaulted (the `./dev` CLI is branded from it and tolerates defaults — re-brand later if a designed surface ever arrives via `groundwork-surface-activation`). The review gate still fires — a small doc reviews cheaply. At commit, record the collapse in `state.json`'s register — `"design-system-extract": { "state": "collapsed", "note": "<what was emitted>" }` — so the variant is legible to routing, upgrades, and anyone later expecting full type sections.
 
 ---
 
 ## Stage 2: Ingest & Synthesise
 
 Read `scan/design-findings.md` and, where the findings cite specific config or theme files, read those files directly for exact values. Build a provisional design system and mark each area as recovered confidently or gapped.
+
+### When no findings slice exists — regenerate your own inputs
+
+The default brownfield track never runs the whole-repo digest pass, so this slice is usually absent. Generate the equivalent yourself, scoped to the surfaces you just confirmed.
+
+Read `.groundwork/cache/repo-map.json` and take the confirmed surfaces' roots as your partitions. Within each, read only what encodes design: the theme and token config (`tailwind.config.*`, `globals.css`, theme files, terminal-rendering setup), the component directory's index and its most-referenced components by centrality, the a11y and bundle rules in lint and build config. Read nothing outside those roots — the capability core encodes no design language. The digest schema at `.groundwork/skills/groundwork-scan/references/digest-schema.md` is your read discipline: its `design_tokens`, `ui_components`, `theme_framework`, and `interaction_a11y` fields name exactly what you are looking for.
+
+Keep the output in working context. **Write nothing to `.groundwork/cache/scan/`** — that tree belongs to the digest pass, and a partial slice written there would be read by another phase as a complete one.
+
+**The honest cost note:** deferring this phase moved the read cost here; it did not remove it. The saving is that only the surface partitions get read, and only when a design system is actually needed.
 
 | Recoverable from code (recover concrete values) | Code cannot reveal (must interview) |
 |---|---|
@@ -127,10 +142,12 @@ Execute **only** after explicit user approval (Protocol 3.4):
 
 1. Promote the design system to `docs/design-system.md` with a move operation (do not re-emit the body through the model). Stamp no drift frontmatter — same exemption as the brief (see product-brief-extract Stage 5 step 1 / `groundwork-check`'s code-coupled scope).
 2. **Write the Downstream Context file** to `.groundwork/context/design-system-extract.md` (Protocol 5), derived from the committed design system: the four subsections (Key Decisions, Binding Constraints, Deferred Questions, Out of Scope), ≤200 words, via `groundwork-writer`. Architecture Extract reads this file for the design system's binding non-functional budgets; the published doc carries no summary section.
-3. **Promote brand tokens.** Move `.groundwork/cache/brand-tokens-draft.json` to `.groundwork/config/brand-tokens.json` (when Adopt/Upgrade preserved an existing valid file, there is no draft — leave the existing file untouched). Verify it validates against the contract and carries the Tier-2 blocks the confirmed type set requires. This file is persistent config — it is never deleted at cache cleanup, and infra adoption depends on it.
+3. **Promote brand tokens.** Move `.groundwork/cache/brand-tokens-draft.json` to `.groundwork/config/brand-tokens.json` (when Adopt/Upgrade preserved an existing valid file, there is no draft — leave the existing file untouched). Verify it validates against the contract and carries the Tier-2 blocks the confirmed type set requires. This file is persistent config — it is never deleted at cache cleanup. When the `./dev` CLI already exists and was branded from defaults, tell the user it now has a brand to adopt and that re-running `workspace-dev-cli` picks it up.
 4. **Append design gaps to the ledger** at `.groundwork/cache/gap-ledger.md` (create from `.groundwork/skills/templates/gap-ledger.md` if absent): design divergences from standard this phase uniquely saw.
 5. Write the hand-off to `.groundwork/cache/handoff/design-system-extract.md` from the shared template: rejected design directions, deferred decisions, user instincts about interaction not captured in the spec. Omit empty sections (Protocol 6).
-6. **Delete the consumed findings slice** `.groundwork/cache/scan/design-findings.md`. Delete the previous hand-off `.groundwork/cache/handoff/product-brief-extract.md` (now consumed) and the phase cache `.groundwork/cache/design-system-extract-cache.md`. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json`.
+6. **Delete what this phase consumed**, where it existed: the findings slice `.groundwork/cache/scan/design-findings.md`, the previous hand-off `.groundwork/cache/handoff/product-brief-extract.md`, and the phase cache `.groundwork/cache/design-system-extract-cache.md`. Leave `scan/overview.md`, `scan-state.json`, and `repo-map.json` — unless this phase runs after Setup Graduation and was the last deferred phase reading a preserved scan cache, in which case delete `.groundwork/cache/scan/` and `scan-state.json` too: the teardown `groundwork-infra-adopt` skipped on its behalf. Preserve `repo-map.json` always.
 7. Apply the Living Documents protocol — refine `docs/product-brief.md` if the conversation surfaced refinements; refresh the product-brief's live Downstream Context file where the change touched a Key Decision, Binding Constraint, or Deferred Question. Follow the Reversal Protocol if any update overturns a prior Key Decision.
 8. Update discovery notes — remove `## Design System` entries now captured.
-9. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it. Record nothing in `state.json` — the orchestrator reconciles this phase's completion from its committed artifacts (its Brownfield Setup table is the source of truth).
+9. **Clear the register entry.** When `state.json`'s `phase_states` carries a `deferred` entry for `design-system-extract`, remove it in this same step — the artifact now stands, and a stale entry keeps a finished phase looking unsettled. The collapsed variant is the exception: it writes its own `collapsed` entry (Stage 1) instead.
+
+10. Confirm completion, recommend a fresh context, and immediately load and execute `groundwork-orchestrator`. Do not ask the user to invoke it — it routes on, whether that is the next setup phase or back to the work that needed this design system. Record nothing else in `state.json`: the orchestrator reconciles this phase's completion from its committed artifacts.

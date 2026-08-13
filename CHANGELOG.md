@@ -8,6 +8,23 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (brownfield track resequenced: pay the user early, read the code late, 2026-08-13)
+
+- [no-migration: docs] The default brownfield track is now **scan-lite → ops
+  adoption → architecture extract → service docs & maturity**. Scan-lite ends
+  its first session with an orientation page committed at `docs/product-brief.md`
+  (review-gated — the scan's no-review carve-out died), a deterministic code map,
+  and a user-confirmed surface list; the whole-repo digest scan is an explicit
+  opt-in, and the two document extracts leave the default track (the brief
+  settles as `collapsed` via the orientation page; design-system defers by the
+  user's choice at the setup-entry hand-off, with each extract regenerating its
+  own scoped inputs on demand). A new `groundwork-ops-adopt` phase lays down the
+  `./dev` CLI, compose merge, and test harness right after the scan and now
+  authors the surface registry (architecture-extract enriches it). Register
+  entries outrank file-driven reconciliation. Lifecycle docs updated; existing
+  mid-setup installs reconcile onto the new table (their completed phases carry
+  over; the ops phase runs next).
+
 ### Added (architecture index: rulings + generated inventory views, 2026-08-13)
 
 - [no-migration] `npx groundwork-method generate-views` writes derived inventory

@@ -106,9 +106,9 @@ GroundWork operates in two distinct lifecycle modes. Skills must know which mode
 
 ### Sequential Setup
 
-**Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`, `groundwork-product-brief-extract`, `groundwork-design-system-extract`, `groundwork-architecture-extract`, `groundwork-infra-adopt`
+**Skills:** `groundwork-product-brief`, `groundwork-design-system`, `groundwork-architecture`, `groundwork-scaffold`, `groundwork-mvp`, `groundwork-scan`, `groundwork-ops-adopt`, `groundwork-product-brief-extract`, `groundwork-design-system-extract`, `groundwork-architecture-extract`, `groundwork-infra-adopt`
 
-All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and adopt skills are Sequential Setup phases that reverse-engineer their artifacts from an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, context, and review obligations are identical to their greenfield counterparts.
+All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield scan, ops, extract, and adopt skills are Sequential Setup phases that recover or bolt on their artifacts against an existing codebase rather than building them through greenfield discovery — the lifecycle, cache, hand-off, context, and review obligations are identical to their greenfield counterparts. `groundwork-scan` keeps two narrow carve-outs, defined in **Brownfield Scan** below.
 
 - Each phase writes a cache file in `.groundwork/cache/` at init and deletes it on commit.
 - Each phase writes a hand-off file to `.groundwork/cache/handoff/<phase>.md` on commit (Protocol 6) — except the terminal phase of each track (`groundwork-mvp` for greenfield, `groundwork-infra-adopt` for brownfield), which writes none: there is no next setup phase left to consume one.
@@ -124,13 +124,13 @@ All protocols apply: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The brownfield extract and a
 
 **Skill:** `groundwork-scan`
 
-`groundwork-scan` is the Phase 0 preparation step of the brownfield track. It reads an existing codebase and writes a **scan baseline** — a resumable progress file and concern-split findings — into `.groundwork/cache/`, which the brownfield extract phases distil into canonical docs. It produces no `docs/` artifact, so three Sequential Setup obligations do not apply to it:
+`groundwork-scan` opens the brownfield track. It classifies the repo, builds the deterministic code map, confirms the partitions and surfaces with the user, and commits the project's orientation page to `docs/product-brief.md`. It is a full Sequential Setup phase — including the review gate, which fires on that page like any other canonical doc. Two obligations are carved out, and one is added:
 
-- **No Downstream Context file and no hand-off file** (Protocols 5 and 6) — it writes no `docs/` artifact and no `handoff/<phase>.md`. Its structured findings files *are* the hand-off, and they fan out to three readers rather than a single next phase.
-- **No review gate** (Protocol 8) — there is no canonical doc to gate. The review gate fires on each downstream extract when it commits its `docs/` artifact.
-- **Findings persist past commit, not deleted at commit** (inverting Protocol 3.4.3) — the findings are the durable input the extract phases consume. `groundwork-infra-adopt`, the last setup phase that reads the baseline, deletes the shared scan cache at its commit.
+- **No Downstream Context file and no hand-off file** (Protocols 5 and 6). What the scan hands downstream is machine-readable and read directly by every consumer: `.groundwork/cache/scan-state.json` (the classification, the confirmed surfaces, the core deployment) and `.groundwork/cache/repo-map.json`. A 200-word prose ledger would be a second, lossier copy of files the next phases already open.
+- **A deep scan's findings persist past commit** (inverting Protocol 3.4.3) — the concern-split findings under `.groundwork/cache/scan/` are the durable input the extract phases consume when the user opted into the whole-repo digest pass. `groundwork-infra-adopt`, the terminal setup phase, deletes them at its commit. The default pass writes no such tree, so there is usually nothing to persist.
+- **Added: the scan settles the product-brief extract.** Committing the orientation page is that phase's micro-variant, so the scan writes `"product-brief-extract": { "state": "collapsed", … }` into `state.json`'s `phase_states` at its own commit — the same pattern the design-system extract's collapsed variant follows.
 
-Scan completion is tracked as a durable `scan` marker in `state.json`, not inferred from a `docs/` artifact, because the scan cache is purged before setup ends. Protocols 1 and 4 and the Setup Progress Header still apply: the scan captures out-of-phase signals into `discovery-notes.md`, paces its one scope-confirmation interview, and keeps the user oriented across its partition batches.
+Scan completion is tracked as a durable `scan` marker in `state.json` rather than inferred from a `docs/` artifact, because `docs/product-brief.md` is the product-brief phase's signal, not the scan's. Protocols 1 and 4 and the Setup Progress Header apply unchanged.
 
 ### Continuous Bet
 
@@ -436,7 +436,7 @@ Once, at the **setup→delivery transition** — after the last Sequential Setup
 1. **Graduate binding decisions into ADRs.** Walk every `.groundwork/context/*.md` file. Each Key Decision or Binding Constraint that still constrains future work and is not already captured in `docs/architecture/decisions/` becomes a proper ADR there (the architect's decision-record convention). A decision already recorded in an ADR or fully stated in a canonical doc body needs no new ADR — graduate, do not duplicate.
 2. **Reconcile the rest into the docs.** Run a Living Documents pass (Protocol 2) so any remaining durable context — a constraint, a deferred question now answerable, a scope boundary — is reflected in the proper `docs/` technical documentation. After this step, `docs/` is the complete durable record; the context store holds nothing the docs do not.
 3. **Activate the generated architecture views.** Run `npx groundwork-method generate-views` once. It writes the service, module, and contract inventory into `docs/architecture/generated/` from the code that now exists — setup could not, because greenfield has no code until scaffold runs. Delivery starts against fresh views, and the bet loop keeps them fresh from there.
-4. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit — except when an extract phase is deferred: the preserved `.groundwork/cache/scan/` findings are a deferred phase's inputs, not residue. Leave them; the last deferred extract to commit owns their deletion.
+4. **Tear down the setup residue.** Delete `.groundwork/context/` in full. Drain `.groundwork/cache/discovery-notes.md` of any remaining entries (apply or discard each, then remove the file). Remove any other setup-only residue — stray hand-off files, phase caches that did not clean up. The brownfield scan cache is already removed by `groundwork-infra-adopt` at its own commit, and under the default track there was never one to remove. The single exception: a deep scan's findings preserved for a deferred extract are that phase's inputs, not residue — leave them, and the last deferred extract to commit owns their deletion.
 
 ### The invariant
 

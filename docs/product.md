@@ -23,7 +23,7 @@ Setup adapts to what it finds:
 | Path | When | Flow |
 |---|---|---|
 | **Greenfield** | Empty repository | Product Brief → Design System → Architecture → Scaffold → MVP Planning → first Bet |
-| **Brownfield** | Existing codebase | Scan → Product Brief Extract → Design System Extract → Architecture Extract → Infra Adoption → first Bet |
+| **Brownfield** | Existing codebase | Scan → Ops Adoption → Architecture Extract → Service Docs & Maturity → first Bet (the product-brief and design-system extracts run on demand) |
 
 Greenfield builds the canonical documents through facilitated conversation, then scaffolds the designed system with Nx generators. Brownfield reverse-engineers the same documents from the code itself — the user is interviewed only for what code cannot reveal (the why, the who, the success measure) — then additively bolts on the operational layer without regenerating the application. Both paths converge to the same end-state and enter the same Delivery Loop.
 

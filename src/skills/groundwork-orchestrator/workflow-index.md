@@ -24,11 +24,10 @@ The same canonical docs, reverse-engineered from the code. No MVP phase — the 
 
 | Order | Phase | Skill | Completion signal | Instructions |
 |---|---|---|---|---|
-| 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) | `.groundwork/skills/groundwork-scan/instructions.md` |
-| 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` | `.groundwork/skills/groundwork-product-brief-extract/instructions.md` |
-| 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
-| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
+| 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) + `docs/product-brief.md` | `.groundwork/skills/groundwork-scan/instructions.md` |
+| 1 | Ops Adoption | `groundwork-ops-adopt` | `docs/surfaces.md` + `.groundwork/surfaces.json` | `.groundwork/skills/groundwork-ops-adopt/instructions.md` |
+| 2 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
+| 3 | Service Docs & Maturity | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
 
 ## Delivery Loop (all setup phases settled — complete, collapsed, na, or deferred)
 

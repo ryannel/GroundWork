@@ -91,6 +91,7 @@ METHODOLOGY = [
     "groundwork-product-brief-extract",
     "groundwork-design-system-extract",
     "groundwork-architecture-extract",
+    "groundwork-ops-adopt",
     "groundwork-infra-adopt",
     "groundwork-bet",
     "groundwork-doc-sync",
@@ -114,9 +115,8 @@ ENGINEER_SKILLS = [
 # contract points at, not a phase operating under it.
 MUST_REFERENCE_CONTRACT = [s for s in METHODOLOGY if s != "groundwork-review"]
 
-# The ten setup-phase skills (both tracks; scan opts in via its carve-out) that
-# must enact the Setup Progress Header defined in the contract's Sequential
-# Setup section.
+# The setup-phase skills (both tracks) that must enact the Setup Progress
+# Header defined in the contract's Sequential Setup section.
 SETUP_PHASE_SKILLS = [
     "groundwork-product-brief",
     "groundwork-design-system",
@@ -124,6 +124,7 @@ SETUP_PHASE_SKILLS = [
     "groundwork-scaffold",
     "groundwork-mvp",
     "groundwork-scan",
+    "groundwork-ops-adopt",
     "groundwork-product-brief-extract",
     "groundwork-design-system-extract",
     "groundwork-architecture-extract",
@@ -132,11 +133,12 @@ SETUP_PHASE_SKILLS = [
 
 # Hidden skills that are exempt from the writer-ref check because they do not
 # themselves finalize a document, by design:
-#   - groundwork-scan     brownfield Phase 0 — writes cache findings, no docs artifact
 #   - groundwork-review   the isolated reviewer — produces verdicts, not documents
 #   - groundwork-persona  always-on conversational posture, not a workflow phase
 #   - groundwork-writer   is the standard itself
-WRITER_EXEMPT = {"groundwork-scan", "groundwork-review", "groundwork-persona", "groundwork-writer"}
+# groundwork-scan is NOT exempt any more: scan-lite drafts and commits the
+# orientation shape of docs/product-brief.md (doc-canon-and-onboarding-diet, E1).
+WRITER_EXEMPT = {"groundwork-review", "groundwork-persona", "groundwork-writer"}
 
 # Every hidden skill directory not explicitly exempt must reference
 # groundwork-writer somewhere in its tree — derived the same way as
@@ -156,10 +158,16 @@ MUST_REFERENCE_WRITER = sorted(
 # it loads, not in the coordinator.
 # groundwork-architecture and groundwork-scaffold are split into per-phase
 # files — the gate lives in their draft/review phase file, not in instructions.md.
+# groundwork-ops-adopt is exempt: the only docs it commits are the surface
+# registry twins, and docs/surfaces.md has no review checklist type anywhere in
+# the framework (greenfield architecture writes it un-gated too). It is gated by
+# present-and-approve against surfaces-contract.md, like the getting-started set.
+# groundwork-scan is NOT exempt any more — scan-lite commits
+# docs/product-brief.md and gates it as document_type: product-brief.
 COMMITTING_FILES = [
     HIDDEN / s / "instructions.md"
     for s in METHODOLOGY
-    if s not in ("groundwork-review", "groundwork-scan", "groundwork-bet",
+    if s not in ("groundwork-review", "groundwork-bet", "groundwork-ops-adopt",
                  "groundwork-design-system", "groundwork-architecture", "groundwork-scaffold")
 ] + [
     HIDDEN / "groundwork-bet" / "workflows" / w

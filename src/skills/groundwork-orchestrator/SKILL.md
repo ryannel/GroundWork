@@ -43,9 +43,11 @@ Route to `groundwork-update` when the user agrees. Do not block other work on it
 
 **The `scan` marker is durable.** The scan phase produces no `docs/` artifact and its cache is purged before setup ends, so it cannot be reconciled by file existence. Treat `scan` in `state.completed` as authoritative — never add or remove it during reconciliation. Only `groundwork-scan` writes this marker, at its own completion.
 
-**The phase-state register is authoritative.** `state.json`'s `phase_states` maps a setup phase name to an entry of exactly this shape — `{ "state": "deferred" | "collapsed" | "na", "note": "<one line: why; for collapsed, what was emitted>" }`. The `state` key is the contract: writers and readers use it exactly, because a drifted key silently reads as no entry. `deferred` means the user chose to run the phase later; `collapsed` means its micro-variant ran; `na` means it does not apply, with the reason in the note. Never add or remove register entries during reconciliation — only the user's explicit choice at a routing point, or the phase's own skill, writes them. A phase is **settled** when it is complete (artifact + contract check) or carries any register entry; Mode Detection routes on unsettled phases only, and a `deferred` phase re-enters through Deferred Phases (below). When a deferred phase's skill commits its artifact, it removes the register entry in the same step — reconciliation then sees the artifact like any completed phase.
+**The phase-state register is authoritative.** `state.json`'s `phase_states` maps a setup phase name to an entry of exactly this shape — `{ "state": "deferred" | "collapsed" | "na", "note": "<one line: why; for collapsed, what was emitted>" }`. The `state` key is the contract: writers and readers use it exactly, because a drifted key silently reads as no entry. `deferred` means the user chose to run the phase later; `collapsed` means its micro-variant ran; `na` means it does not apply, with the reason in the note. Only the user's explicit choice at a routing point, or the phase's own skill, writes an entry.
 
-**Brownfield completion is a contract check, not an existence check.** A brownfield phase counts as complete only when its artifact exists **and carries the current GroundWork contract** — its Downstream Context file at `.groundwork/context/<phase>.md` (present until Setup Graduation tears the store down), plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead. (Once `setup_graduated: true`, the store is gone by design — completion is settled and this check no longer gates setup.)
+**A phase carrying a register entry is settled, and the register outranks the files.** Skip such a phase in reconciliation and in the contract check below — the entry is the record, and re-deriving its state from disk is what would undo it. This is load-bearing on the brownfield track: scan-lite commits `docs/product-brief.md` and records `product-brief-extract` as `collapsed`, so a file-driven check would see a brief with no Downstream Context file and route back into the full extract over a document that already exists. Mode Detection routes on unsettled phases only; a `deferred` phase re-enters through Deferred Phases (below). When a deferred or collapsed phase's skill later commits the full artifact, it removes the entry in the same step — reconciliation then sees the artifact like any completed phase.
+
+**Brownfield completion is a contract check, not an existence check.** For a phase with no register entry, its artifact counts only when it **carries the current GroundWork contract** — its Downstream Context file at `.groundwork/context/<phase>.md` (present until Setup Graduation tears the store down), plus `.groundwork/config/brand-tokens.json` for the design-system phase and `generation_mode` / `source_of_truth` frontmatter for code-coupled docs. A doc that exists but lacks the contract is either hand-authored or written against an older framework standard; do not mark its phase complete. Route to that phase's extract skill in **Adopt/Upgrade mode** (below) instead. (Once `setup_graduated: true`, the store is gone by design — completion is settled and this check no longer gates setup.)
 
 ### Adopt/Upgrade Mode
 
@@ -83,14 +85,29 @@ Setup builds a temporary cross-phase store at `.groundwork/context/` (operating-
 
 ### Deferred Phases (re-entry)
 
-The user defers a phase at an orchestrator routing point — record the choice in `phase_states` at that moment, never inferring it from silence. From then on the entry is a standing route, not a dead end. Route to the phase's skill on either trigger:
+Two brownfield phases sit outside the default track by design. They keep their skills, their standards, and their review gates; what changes is that nothing in the track waits for them.
+
+| Phase | Skill | Completion signal | Default register state |
+|---|---|---|---|
+| Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` at full depth | `collapsed` — scan-lite committed the orientation shape of this file and recorded the entry itself. The full extract is the deeper pass, run when someone needs it. |
+| Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` | `deferred` — ops adoption ships the tooling unbranded and tolerates absent brand tokens. A headless repo collapses this phase instead (the skill's own variant). |
+
+Record the design-system deferral at the setup-entry hand-off, on the user's answer — never from silence. A user who wants the full document set up front runs that phase after ops adoption, where its brand tokens can re-brand the `./dev` CLI and its type sections give the registry's `design track` fields something to resolve to.
+
+Any phase the user defers at an orchestrator routing point is recorded in `phase_states` at that moment. From then on the entry is a standing route, not a dead end. Route to the phase's skill on either trigger:
 
 - **Work needs the artifact.** A lane step reads a canonical doc the deferred phase owns — the bet design step needs `docs/design-system.md`, discovery cites the brief — route to the deferred phase before that step proceeds, telling the user why in their terms: the postponed piece of setup is now the next step of the work they asked for.
 - **The user asks.** A request to run the phase, or to finish setup, routes directly.
 
-**Not every phase can wait.** A phase is deferrable only when nothing left in the default track consumes its output. Today that is `groundwork-product-brief-extract` and `groundwork-design-system-extract` (infra-adopt tolerates absent brand tokens — the operational layer ships unbranded until the phase runs). `groundwork-scan` feeds every extract, `groundwork-architecture-extract` writes the surface registry the ops harness scaffolds from, and each track's terminal phase closes it — decline a deferral ask on these with that reason and capture the ask instead (Protocol 1). Greenfield phases are sequential producers for the phases after them: not deferrable.
+**Not every phase can wait.** A phase is deferrable only when nothing left in the default track consumes its output. On the brownfield track that is exactly the two document extracts — `groundwork-product-brief-extract` and `groundwork-design-system-extract` — and both are out of the default track already (below). The other three are not, each for its own reason:
 
-A deferred phase invoked after Setup Graduation runs to the same standard as in setup — same interview, same review gate, same commit — with the post-graduation carve-outs the operating contract's Sequential Setup section defines (no Downstream Context file, no hand-off file). The brownfield extracts consume the preserved scan findings under `.groundwork/cache/scan/`; the last deferred extract to commit deletes the shared scan cache — the teardown `groundwork-infra-adopt` skipped on their behalf.
+- `groundwork-scan` opens the track. Every phase after it reads its code map and its confirmed surface list, and it commits the orientation page.
+- `groundwork-ops-adopt` writes the surface registry and provisions the test harness. Surface slugs are the join key for design tracks, bet frontmatter, decomposition slices, and test fixtures; without the registry those references resolve to nothing.
+- `groundwork-architecture-extract` writes the boundary rulings, budgets, and service-level requirements in `docs/architecture/index.md`. It no longer creates the surface registry — ops adoption does that now — but it remains non-deferrable because it is the only place those rulings exist: every bet's design step is judged against them, and the terminal phase documents services and scores maturity against them.
+
+Decline a deferral ask on these with that reason and capture the ask instead (Protocol 1). Each track's terminal phase closes it and cannot wait. Greenfield phases are sequential producers for the phases after them: not deferrable.
+
+A deferred phase invoked after Setup Graduation runs to the same standard as in setup — same interview, same review gate, same commit — with the post-graduation carve-outs the operating contract's Sequential Setup section defines (no Downstream Context file, no hand-off file). It regenerates its own scoped inputs at invocation rather than depending on a scan cache; where the user opted into a deep scan and its findings were preserved, it reads those instead, and the last deferred extract to commit deletes them — the teardown `groundwork-infra-adopt` skipped on their behalf.
 
 ### Greenfield Setup Phases
 
@@ -104,15 +121,18 @@ A deferred phase invoked after Setup Graduation runs to the same standard as in 
 
 ### Brownfield Setup Phases
 
-The brownfield track reverse-engineers the same canonical artifacts from an existing codebase, then bolts on the missing GroundWork operational layer without regenerating the app. It converges to the same end-state as greenfield and enters the same Delivery Loop. There is no MVP phase — `groundwork-bet` cold-starts its own discovery, informed by the gap ledger that infra adoption commits.
+The brownfield track pays the user early and reads the code late. The scan makes the repo legible and hands back a page describing it; ops adoption makes it runnable and testable with one command; the architecture extract records the rulings delivery is judged against; the terminal phase documents the services and turns every gap into a roadmap. There is no MVP phase — `groundwork-bet` cold-starts its own discovery, informed by that roadmap.
 
 | Order | Phase | Skill | Completion signal |
 |---|---|---|---|
-| 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) |
-| 1 | Product Brief Extract | `groundwork-product-brief-extract` | `docs/product-brief.md` |
-| 2 | Design System Extract | `groundwork-design-system-extract` | `docs/design-system.md` + `.groundwork/config/brand-tokens.json` |
-| 3 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` |
-| 4 | Infra Adoption | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` |
+| 0 | Codebase Scan | `groundwork-scan` | `scan` marker in `state.completed` (durable — see Reconciliation) + `docs/product-brief.md` |
+| 1 | Ops Adoption | `groundwork-ops-adopt` | `docs/surfaces.md` + `.groundwork/surfaces.json` |
+| 2 | Architecture Extract | `groundwork-architecture-extract` | `docs/architecture/index.md` |
+| 3 | Service Docs & Maturity | `groundwork-infra-adopt` | `docs/architecture/infrastructure.md` + `docs/maturity.md` |
+
+Ops adoption's headline output is the `./dev` launcher and a working test harness, but neither is its completion signal: the phase skips `workspace-dev-cli` when a `./dev` already exists, so its presence proves nothing about whether the phase ran. The surface registry twins do — the phase always writes them, they reconcile by file existence like every other row, and they are what the phases after it read.
+
+The two document extracts are not in this table. They sit outside the default track, deferred or collapsed by default and routable for the life of the project — Deferred Phases (above) holds their register states and their triggers.
 
 ### Anytime Skills
 - `groundwork-doc-sync` — surgical updates to **project documents** after code changes (maps a diff to the docs it makes stale; the project's docs kept in sync with the project's own code)
@@ -146,6 +166,7 @@ Read `.groundwork/config/config.toml` during state resolution. Each entry in its
 | `groundwork-product-brief-extract` | `.groundwork/skills/groundwork-product-brief-extract/instructions.md` |
 | `groundwork-design-system-extract` | `.groundwork/skills/groundwork-design-system-extract/instructions.md` |
 | `groundwork-architecture-extract` | `.groundwork/skills/groundwork-architecture-extract/instructions.md` |
+| `groundwork-ops-adopt` | `.groundwork/skills/groundwork-ops-adopt/instructions.md` |
 | `groundwork-infra-adopt` | `.groundwork/skills/groundwork-infra-adopt/instructions.md` |
 | `groundwork-bet` | `.groundwork/skills/groundwork-bet/instructions.md` |
 | `groundwork-doc-sync` | `.groundwork/skills/groundwork-doc-sync/instructions.md` |
@@ -180,7 +201,7 @@ The most common entry, and the one GroundWork exists to catch: the user asks to 
 
 **Before setup completes**, size the request first — the user's ask outranks the setup sequence. A request that passes `groundwork-patch`'s scope test routes to the patch lane in **provisional mode**: the user ships the fix now, and setup later absorbs the doc debt the patch recorded. Anything larger becomes the setup flow. The quick-bet and bet lanes stay Delivery Loop only — they build on contracts setup has not yet established.
 
-**Entering the setup track never happens silently** — whether entry is immediate (the ask was larger than a patch) or the moment after a provisional patch ships and the user turns to setup. Before routing to the first phase, in the user's terms: confirm any outstanding ask was heard and will be the first piece of work once its lane opens; lay out the remaining setup phases and what each asks of them, with honest effort framing; name which phases can be deferred (Deferred Phases above); then let them choose — proceed with setup now, defer the deferrable phases, or record the ask (Protocol 1, `## Bets`) and pick the moment. Route on their answer. A consent question alone ("want me to start the scan?") is not this hand-off — the road and the choices are what make the consent informed.
+**Entering the setup track never happens silently** — whether entry is immediate (the ask was larger than a patch) or the moment after a provisional patch ships and the user turns to setup. Before routing to the first phase, in the user's terms: confirm any outstanding ask was heard and will be the first piece of work once its lane opens; lay out the phases of the Brownfield Setup table and what each asks of them, with honest effort framing; name the two document phases the default track leaves for later and what running them now would add; then let them choose — proceed with the default track, add a deferred phase back in, or record the ask (Protocol 1, `## Bets`) and pick the moment. Record their answer in `phase_states` and route on it. A consent question alone ("want me to start the scan?") is not this hand-off — the road and the choices are what make the consent informed.
 
 **If a lane is already active, continue it.** A non-`delivered` bet or quick-bet (its pitch carries an active `status:`) is in flight — route to `groundwork-bet`, which resumes it; do not re-triage a request that is really the next slice of work already under way. (A patch is atomic and carries no open state, so there is nothing to resume.)
 
