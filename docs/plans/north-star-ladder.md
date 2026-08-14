@@ -8,155 +8,165 @@
 
 ## How to read this
 
-The spec commits to 118 things: 42 to build, 23 to keep, 17 to delete, and 36 questions it deferred. §2 assigns every one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do, and the tables make that visible before anyone starts.
+The spec commits to 118 things: 42 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
 
-Each item carries an ID — `B0`–`B41` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
+Each item has an ID: `B0`–`B41` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
 
-**Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
+**Terms.** The bets use the spec's own words — kernel, dial, lane, seal, socket, blessed module, front door, and more. They're defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are new to you. Magpie and staycurrent are existing products built with the old framework. Wordloop is a fourth repo that predates it. All three show up as test fixtures.
 
-**Deletions work differently on a clean slate.** Most of the delete list happens by not porting. An item earns a bet only when something must actively happen: a replacement lands first, or a gate passes before the old thing goes.
+**Deletions work differently on a clean slate.** Most items on the delete list are handled simply by not porting them over. An item gets its own bet only when something must actively happen — a replacement has to land first, or a gate has to pass before the old thing goes.
 
-**Done conditions are meant to be attempted and watched fail.** "The battery works" is not one. "Point it at a repo it was never tuned against, and it correctly calls the hollow suite red" is. Several conditions require a fixture *held out* from the thing's own tuning, because a checker calibrated on two cases and then proved against those same two cases has proved nothing.
+**Done conditions should be tried and watched — including watched fail.** "The battery works" is not a real done condition. "Point it at a repo it was never tuned against, and it correctly calls the hollow suite red" is. Several conditions need a fixture *held out* from the thing's own tuning. A checker tuned on two cases and then tested against those same two cases has proved nothing.
 
 ---
 
 ## 1. The ladder
 
-The ladder starts on an already-blank repo. The reset commit — tag `legacy-final`, cut the `legacy` branch, blank main down to the spec, the working agreement, this ladder, and the execution plan — is part of ratification itself, not of any bet. The [execution plan](north-star-execution.md) has the sequence.
+The ladder starts on an already-blank repo. The reset commit does several things at once: tag `legacy-final`, cut the `legacy` branch, and blank main down to the spec, the working agreement, this ladder, and the execution plan. That commit is part of ratification itself — it belongs to no bet. The [execution plan](north-star-execution.md) has the sequence.
 
 ### Bet 0 — The floor
 
-First work on the blank repo. No framework code.
+The first commits on the blank repo, before any framework code.
 
-**Done when:** main's CI fails the build on a failing Go test, shown by writing one that fails and then removing it. Legacy's Node CI is pinned to the `legacy` branch and green there. `docs/carried-over.md` was produced by the port-pass dispatch and reviewed for register in a separate session, with both commits visible in history. The settled decisions — Go, one repo, the reset — are recorded in `docs/decisions.md`.
+**Done when:** main's CI fails the build when a Go test fails. Prove it by writing a failing test, watching CI fail, then removing the test. Legacy's Node CI stays pinned to the `legacy` branch, and stays green there. The port-pass dispatch produces `docs/carried-over.md`. A separate session reviews it for register. Both commits are visible in history. `docs/decisions.md` records the settled decisions: Go, one repo, the reset.
 
 **Lands:** CI on both lines, the test runner, the port list, the first ledger entries.
 
 ### Bet 1 — The CLI and the journal
 
-The meter. Everything after this is measured while it is built.
+Builds the journal and CLI that measure every bet as it's built.
 
-**Done when:** three structurally different verbs each write a journal line to the journal ref, carrying role, tier, tokens, duration, and session id. Spend by role is queried from the ref rather than a fixture, and one token figure is cross-checked against the host's own reported usage. Two branches that both wrote lines merge with both surviving. Every finding in the ledger records what caught it.
+**Done when:** three structurally different verbs each write a journal line to the journal ref. Each line carries role, tier, tokens, duration, and session id. Spend by role is queried from the ref itself, not from a fixture. One token figure is cross-checked against the host's own reported usage. Two branches that both wrote journal lines can merge, and both lines survive. Every finding in the ledger records what caught it.
 
 **Lands:** the journal, the ledgers with attribution and class tags, the CLI skeleton, git discipline.
 
 ### Bet 2 — The battery
 
-The anti-cheat floor, so everything built after it is protected by it.
+Builds the battery — the anti-cheat checks that protect every bet built afterward.
 
-**Done when:** `verify` correctly classifies two repos it was not tuned against — red where the tests survive the implementation being deleted, red where a suite compiles but never runs, red where assertions are vacuous, green where the work is honest. It runs clean against this repo's own history with no false red. A wrong check can be waived, and the waiver is recorded and counted. A flaky row quarantines instead of blocking.
+**Done when:** `verify` correctly classifies two repos it was never tuned against. It calls a suite red when tests survive the implementation being deleted. It calls a suite red when tests compile but never run. It calls a suite red when assertions are vacuous. It calls honest work green. Run against this repo's own history, it produces no false reds. A wrong check can be waived; the waiver gets recorded and counted. A flaky row quarantines instead of blocking the run.
 
 **Lands:** the battery behind one `verify`, the three scans, the deletion test, run evidence, topology profiles and the capability manifest, waivers and drive artifacts, the flake policy.
 
 ### Bet 3 — Planning and the board
 
-A goal becomes proofs that cannot be edited into looking done.
+Builds the planning system that turns a goal into proofs nobody can fake by editing.
 
-**Done when:** a two-milestone bet decomposes to a board that is red for the right reason, and the stub check catches three stub styles it was not tuned against — commented assertion, always-true assertion, empty body. Three slices land in sequence, each turning exactly its own row green from the test run, with no file edited to move the board.
+**Done when:** a two-milestone bet decomposes into a board that starts red — red for the right reason. The stub check catches three stub styles it was never tuned against: a commented-out assertion, an always-true assertion, and an empty body. Three slices land in sequence. Each one turns exactly its own row green, driven by the test run. No file gets edited just to move the board.
 
 **Lands:** program and bet artifacts, the derivation contract, proof plans, board derivation, test markers, two-direction traceability, seals and the amendment protocol.
 
 ### Bet 4 — The project board
 
-The planning record for the repo you are in stops being invisible.
+Builds the project board, so the planning record for the repo you're in is visible instead of hidden.
 
-**Done when:** the Map's rendered position matches a position computed by hand from the repo's git log, checked with the daemon running and again after a new commit lands. Stop the daemon and `groundwork where` gives the same answer from the same derivation, not a cached copy. A session opened here receives its position without being asked.
+**Done when:** the Map's rendered position matches a position computed by hand from the repo's git log. Check this with the daemon running, then again after a new commit lands. Stop the daemon: `groundwork where` still gives the same answer, computed fresh, not from a cache. A session opened in this repo receives its position without asking for it.
 
 **Lands:** the tower serving one repo, the Map and board pages, the Queue, known gaps, committed-doc rendering, the checkpoint and session-start hooks.
 
 ### Bet 5 — The method rig
 
-The instrument that proves the parts of the spec that are judgment, not logic.
+Builds the method rig — the tool that tests the parts of the spec that call for judgment, not logic.
 
-**Done when:** the slice scenario runs end to end and passes three times in five. A rubric returns red against a known-bad transcript held out from its own authoring, not only the ones it was calibrated on. Scenarios for machinery that does not exist yet are committed red, and the shelf reports which are waiting on which bet.
+**Done when:** the slice scenario runs end to end and passes three times out of five. A rubric returns red against a known-bad transcript that was held out from its own authoring — not just the transcripts it was calibrated on. Scenarios for machinery that doesn't exist yet are committed red. The shelf reports which scenarios are waiting on which bet.
 
 **Lands:** the rig on subagent transport, the scenario shelf, judge-only replays over the real archives, the scripted owner, calibration fixtures.
 
 ### Bet 6 — The Record
 
-Documentation that is mechanically checked rather than hoped about.
+Builds checks that verify documentation mechanically, instead of just hoping it's right.
 
-**Done when:** the doc checks are calibrated on wordloop and magpie, then pass unchanged on a third repo's docs held out from that tuning. A doc whose anchors do not parse reports unassessed rather than green. Magpie's docs are brought green. The divergence row goes red on a fixture where two slices solved the same-shaped problem two ways, and stays green on a consistent pair it was not tuned against.
+**Done when:** the doc checks are calibrated on wordloop and magpie. Then they pass, unchanged, on a third repo's docs — one held out from that tuning. A doc whose anchors don't parse reports as unassessed, not as green. Magpie's docs are brought to green. The divergence row goes red on a fixture where two slices solved the same-shaped problem two different ways. It stays green on a consistent pair it was never tuned against.
 
 **Lands:** the doc lint, the citation-overlap mechanic, staleness rows, the cold-reader eval, the reversal rule, ratchets, the divergence row, the module graph.
 
 ### Bet 7 — The corpus
 
-The claim the whole spec rests on: a small body of prose does the work of a large one.
+Tests the spec's central claim: a small body of prose can do the work of a much larger one.
 
-**Done when:** the word target is written into this bet's brief before any corpus is written. An agent given only the kernel and what it loads on demand correctly delivers three slices of different shapes in the rig, scored by a rubric authored before the corpus existed. The published count sits inside the pre-stated target.
+**Done when:** the word target is written into this bet's brief before any corpus text is written. An agent given only the kernel — plus what it loads on demand — correctly delivers three differently shaped slices in the rig. A rubric written before the corpus existed does the scoring. The published word count lands inside the pre-stated target.
 
 **Lands:** the kernel, the adoption sheets and stack seeds, ways-of-working, design conventions including business logic and the journey-first walk order, the worker contract and tier rule, the boundary-linter configs.
 
 ### Bet 8 — Review at human pace
 
-The slice-review loop, usable on its own at dial `slice`.
+Builds the slice-review loop. It works on its own at dial `slice`.
 
-**Done when:** a reviewer correctly answers fixed comprehension questions about a slice using only its capsule. On the complex lane, the accepting suite's author has no implementation in its transcript and no implementation-derived specifics in its brief — no names, no line numbers, no algorithm choices beyond what the design states. Bet 5's blind-author cheat scenario goes green.
+**Done when:** a reviewer correctly answers fixed comprehension questions about a slice, using only its capsule. On the complex lane, the person who writes the accepting suite never sees the implementation. Their transcript has no implementation in it. Their brief has no implementation-derived specifics — no names, no line numbers, no algorithm choices beyond what the design already states. Bet 5's blind-author cheat scenario goes green.
 
 **Lands:** lanes and the lane audit, capsules, the adversary, the blind author and the test auditor, fix-in-place, the ripple caller list, patch-trailer mining, the bypass signals.
 
 ### Bet 9 — Autonomy and the dial
 
-Work that runs without company, and an owner who stays caught up.
+Builds unattended runs, and keeps the owner caught up on what happened.
 
-**Done when:** a bet runs at dial `bet` to completion unattended. Every pause matches an item on the stopping rule and is journaled with its reason; a run that ends with no journaled stop and no completed work fails. A flake quarantines and the run continues. The launch gate refuses a plan seeded with an unanswered decision, and admits it once the decision is ruled. A two-bet program runs at dial `program` with a blocking concern seeded into the first bet: the run parks that bet, delivers the second, and stops only when nothing unblocked remains, every park journaled. The program's launch forecast names its appointments before the run starts, and a parked bet's walk artifacts exist before the owner arrives. A scripted question whose answer already sits in the ledger is answered from the record, and the would-be repeat is journaled as a driver defect. A wrong default seeded into a run is caught by its canary before a third slice consumes it. The run's ledger holds no below-the-line entries — pattern and naming calls left no paperwork. The teach-back covers every decision the run recorded, and the next design walk's opening questions are checked against what it covered.
+**Done when:**
+- A bet runs at dial `bet` to completion, unattended.
+- Every pause matches an item on the stopping rule and gets journaled with its reason. A run that ends with no journaled stop and no completed work fails.
+- A flake quarantines, and the run continues.
+- The launch gate refuses a plan seeded with an unanswered decision. It admits the plan once the decision is ruled.
+- A two-bet program runs at dial `program` with a blocking concern seeded into the first bet. The run parks that bet, delivers the second, and stops only when nothing unblocked remains. Every park gets journaled.
+- The program's launch forecast names its appointments before the run starts. A parked bet's walk artifacts exist before the owner arrives.
+- A scripted question whose answer already sits in the ledger gets answered from the record. The would-be repeat gets journaled as a driver defect.
+- A wrong default seeded into a run is caught by its canary before a third slice consumes it.
+- The run's ledger holds no below-the-line entries — pattern and naming calls leave no paperwork.
+- The teach-back covers every decision the run recorded. The next design walk's opening questions are checked against what it covered.
 
 **Lands:** run modes as recorded state, the dial above `slice` including `program`, the stopping rule, the launch gate, standing rulings, the decision discipline, park-and-resume, non-blocking checkpoints, the teach-back.
 
 ### Bet 10 — The portfolio
 
-One address for everything, and a seam for a second host.
+Builds one address for everything, plus a seam that lets a second host plug in later.
 
-**Done when:** two registered projects render correct positions from one address, each checked against a hand-computed expectation. A moved repo renders flagged rather than breaking the view. The host adapter contract is written, and a second host's adapter is stubbed against it showing which capabilities degrade and how.
+**Done when:** two registered projects render correct positions from one address. Each position is checked against a hand-computed expectation. A moved repo renders flagged, instead of breaking the view. The host adapter contract gets written. A second host's adapter is stubbed against that contract, showing which capabilities degrade and how.
 
 **Lands:** the registry, cross-project Queue ranking, the portfolio Map, the host adapter contract.
 
 ### Bet 11 — Front-door proofs
 
-User-facing work proven where the user stands.
+Proves user-facing work from where the user actually stands — inside the UI.
 
-**Done when:** a user-facing capability is proven by a UI-driver case asserting what the user sees. Break the screen deliberately: the UI case fails while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, linked from nowhere: the reachability row turns red, and the screen's UI proof fails because no navigation path reaches it from the entry point.
+**Done when:** a user-facing capability is proven by a UI-driver case that asserts what the user actually sees. Break the screen on purpose: the UI case fails, while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, but linked from nowhere. The reachability row turns red. The screen's UI proof fails too, because no navigation path reaches it from the entry point.
 
 **Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the board's UI headline row, release probes for deploying topologies.
 
 ### Bet 12 — The greenfield door
 
-Describe intent, get a working product.
+Turns a description of intent into a working product.
 
-**Done when:** one intent conversation takes a product carrying at least one real design ambiguity to its first green capability, with the human sealing once. The ambiguity is settled by a recorded decision, not by template matching.
+**Done when:** one intent conversation carries a product — one with at least one real design ambiguity — to its first green capability. The human seals once. The ambiguity gets settled by a recorded decision, not by template matching.
 
 **Lands:** the intent artifacts with output contracts and depth gates, the birth seal, manifest build-out.
 
 ### Bet 13 — The brownfield door
 
-Wrap an existing system without a rewrite.
+Wraps an existing system without rewriting it.
 
-**Done when:** installing into a real multi-language repo the framework has never seen runs the day-one checks, maps its sockets under human approval, and reaches an adoption seal with a nominated blessed module. At least one socket is left unmapped and renders as a red row rather than passing quietly.
+**Done when:** install into a real multi-language repo the framework has never seen. It runs the day-one checks, maps its sockets under human approval, and reaches an adoption seal with a nominated blessed module. At least one socket is left unmapped on purpose. It renders as a red row — it doesn't pass quietly.
 
 **Lands:** day-one checks, the repo adapter, the adoption seal, incremental manifest and doc extraction, `add-capability`.
 
 ### Bet 14 — Operating what shipped
 
-The life of software after the merge.
+Covers what happens to software after it merges — patches, releases, and production.
 
-**Done when:** a break-glass patch ships on its touched-path probes, and the specific check it skipped fails on the specific gap it left when the next normal slice runs. A half-delivered bet withdraws with its board frozen and its evidence readable after teardown. A release stamps a version, derives a changelog, and passes a deploy probe against the same target already serving bet 11's front-door proof.
+**Done when:** a break-glass patch ships on its touched-path probes. When the next normal slice runs, the specific check the patch skipped fails on the specific gap the patch left behind. A half-delivered bet withdraws: its board freezes, and its evidence stays readable after teardown. A release stamps a version, derives a changelog, and passes a deploy probe — against the same target already serving bet 11's front-door proof.
 
 **Lands:** the break-glass path, production-signal intake, withdraw and revert, the release step, dependency intake, and the opt-in flag lane — registry, scan, Map rendering, flip events.
 
 ### Bet 15 — Updates and migration
 
-Moving what exists onto the new thing. **This is the fallback resting point** (§4).
+Moves what already exists onto the new framework. **This is the fallback resting point** (§4).
 
-**Done when:** an update reconciles framework-owned files and touches nothing project-authored, proved against three collision shapes — the same filename, a framework file the project renamed, and a project file inside a framework-reserved directory. Hooks and CI stanzas arrive as proposals, never auto-written. Magpie and staycurrent cross the boundary release, verify green, and a diff review confirms no project-authored content changed.
+**Done when:** an update reconciles framework-owned files and touches nothing project-authored. Prove this against three collision shapes: the same filename, a framework file the project renamed, and a project file inside a framework-reserved directory. Hooks and CI stanzas arrive as proposals — never auto-written. Magpie and staycurrent cross the boundary release and verify green. A diff review confirms no project-authored content changed.
 
 **Lands:** the update engine, blast-radius classes, ratchet arrival for new and changed checks, signed provenance, the boundary release, and the handoff from npm package to installed binary.
 
 ### Bet 16 — Retirement and cutover
 
-The old thing goes; the new thing stands on its own.
+Retires the old framework. The new one stands on its own.
 
-**Done when:** the battery passes against a repo built by at least three of the retired generators used together, and the generators are deleted. The bet after this one is delivered by the new framework with the hand-rolled harness removed, and it includes at least one rubric-scored proof rather than only deterministic tests.
+**Done when:** the battery passes against a repo built by at least three of the retired generators, used together. Then the generators are deleted. The bet after this one is delivered by the new framework, with the hand-rolled harness removed. It includes at least one rubric-scored proof, not only deterministic tests.
 
 **Lands:** generator retirement, dev mode, the harness's removal, the cutover.
 
@@ -308,11 +318,11 @@ The bet named is where the replacement lands, or where a gate passes first.
 
 ## 3. What the tables show
 
-**Seventeen bets, not twelve.** A first draft had twelve. Six reviews found that five of them each held two independently useful capabilities, which by the spec's own definition makes them programs rather than bets: a bet should be usable when it lands. The battery split from the UI-driver proofs, the project board from the portfolio, the Record from the corpus, review from autonomy, and greenfield from brownfield. Smaller bets deliver value earlier and fail more cheaply.
+**Seventeen bets, not twelve.** A first draft had twelve. Six reviews found that five of those bets each held two independently useful capabilities. By the spec's own definition, that makes them programs, not bets — a bet should be usable the moment it lands. So five bets each split in two: the battery split from the UI-driver proofs, the project board from the portfolio, the Record from the corpus, review from autonomy, and greenfield from brownfield. Smaller bets deliver value earlier, and fail more cheaply.
 
-**The kernel now has its own bet.** In the first draft it was one row inside a twenty-item bet, sharing a close-out gate with doc tooling. It is the spec's central claim, so it gets bet 7 to itself, proved by a rubric written before the corpus exists and a target fixed before the writing starts. Both guards exist because the same team setting the target after the fact proves nothing.
+**The kernel now has its own bet.** In the first draft, the kernel was one row inside a twenty-item bet, sharing a close-out gate with doc tooling. It's the spec's central claim, so now it gets bet 7 to itself. It's proved by a rubric written before the corpus exists, against a target fixed before the writing starts. Both guards matter for the same reason: a team that sets its own target after the fact proves nothing.
 
-**Row counts still mislead, in both directions.** Bet 14 has two rows and holds five separable mechanisms. Bet 15 has two rows and holds a real migration of three live installs. Bet 11's single pairing row hides three different UI-automation stacks. Bets 0 and 5 are the honest counts. Judge by what must be built, not by row height.
+**Row counts still mislead, in both directions.** Bet 14 has two rows but holds five separable mechanisms. Bet 15 has two rows but holds a real migration of three live installs. Bet 11's single pairing row hides three different UI-automation stacks. Bets 0 and 5 are the honest counts — their row height matches their real size. Judge each bet by what must be built, not by how many rows it has.
 
 **Three bets gate what follows.** Bet 2 protects everything built after it. Bet 5 is the only instrument that can prove bets 7 through 14. Bet 16 cannot start until the battery passes generator-built output.
 
@@ -325,11 +335,11 @@ The bet named is where the replacement lands, or where a gate passes first.
 - **Only the next bet is designed in full.** The rest stay at this depth until they are next.
 - **A bet cannot close over an open question it owns.** §2 is its checklist.
 - **Slices are cut at the start of each bet, not now.**
-- **A failed done condition produces a decision, never a silent retry.** After a genuine attempt, the bet stops and takes one of three shapes: redesign, descope with a stated new target, or fork the ladder. Bet 7 is the one most likely to need this, because it tests the spec's founding claim.
+- **A failed done condition produces a decision, never a silent retry.** After a genuine attempt, the bet stops. It takes one of three shapes: redesign, descope with a stated new target, or fork the ladder. Bet 7 is the most likely to need this — it tests the spec's founding claim.
 - **The amendment protocol applies to any landed bet, not only the current one.** Reopening a sealed bet re-runs the cross-bet invalidation check against every bet built after it.
-- **The harness is counted like the corpus.** CI publishes the word count of the working agreement, this ladder, and the execution plan. Growth without a stated reason is a finding, the same rule the corpus lives under.
-- **Real product work outranks the rebuild.** When both want the same quota window, the product wins and the day is logged as rebuild-idle rather than quietly absorbed.
-- **Bet 15 is the fallback resting point.** If the ladder stops before bet 16, the three live installs are already migrated and verified. Bet 16 retires the old generators and makes the framework self-hosting, which matters for tidiness, not for whether real projects are served.
-- **The rig's shelf fills as the ladder advances.** Scenarios for machinery not yet built are committed red at bet 5 and go green in the bet that builds them.
+- **The harness is counted like the corpus.** CI publishes the word count of the working agreement, this ladder, and the execution plan. Growth without a stated reason is a finding — the same rule the corpus lives under.
+- **Real product work outranks the rebuild.** When both want the same quota window, the product wins. The day gets logged as rebuild-idle, not quietly absorbed.
+- **Bet 15 is the fallback resting point.** If the ladder stops before bet 16, the three live installs are already migrated and verified. Bet 16 retires the old generators and makes the framework self-hosting. That matters for tidiness — not for whether real projects are served.
+- **The rig's shelf fills as the ladder advances.** Scenarios for machinery not yet built are committed red at bet 5. Each one goes green in the bet that builds it.
 - **Re-check the ladder at every bet close.** A delivered bet can invalidate a later one.
 - **The harness shrinks as the ladder advances.** When a bet lands the real version of something the harness fakes, delete the fake in the same bet.
