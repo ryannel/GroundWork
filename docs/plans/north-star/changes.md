@@ -162,11 +162,11 @@ When an item names old machinery, we describe it in one line. You should never n
   - The canvas (Claude Design on the reference host) is seeded from the repo: tokens and built components go up, finished page designs come back as mockup images in the bet's design docs.
   - Built components push back at bet close, so the canvas never holds truth the repo lacks.
   - A design doc's embedded images must be read by anyone consuming the doc.
-  - Canvas sync is an optional host capability; without it the same mockups render locally from the same tokens.
+  - Canvas sync lives in the CLI, so any host that runs the CLI gets it; the reference host's built-in sync is the interim path. Without sync the owner exports designs into the repo by hand; without the canvas the same mockups render locally from the same tokens.
 - **The design system born on the canvas** ([doors.md](doors.md), [loop.md](loop.md)).
   - At greenfield birth, taste is explored on the canvas — type, color, and components rendered live — and the owner seals a look they saw, never token strings on faith.
   - The sealed system is pulled down and materialized as tokens and real components in code. That pull makes the repo the origin; the repo-originates rule applies from that moment on.
-  - Without canvas sync, the same seal is granted on locally rendered sheets.
+  - Without sync the owner exports from the canvas by hand; without the canvas the seal is granted on locally rendered sheets.
 
 ## What stays
 
@@ -301,7 +301,7 @@ These are deliberately left open. The execution plan has to nail them down:
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
 - The UI-driver toolchain per topology — web, desktop, mobile — for the paired front-door cases.
 - The auditor's source-citation format — how a test names the design section, plan case, or invariant its expected outcome came from.
-- The host adapter contract's exact capability list — including canvas sync — and the first non-Claude adapter's target host.
+- The host adapter contract's exact capability list, and the first non-Claude adapter's target host. With it: whether canvas sync can run as a CLI verb outside the reference host — the canvas API's auth and stability are unproven there.
 - The per-stack battery adapter — marker filtering, run-log parsing, interface extraction — as a named extension point, with a conformance checklist.
 - The break-glass command's exact scope, the withdraw verb's cascade, and the flake policy's rerun and quarantine thresholds.
 - One trend publisher, with two sources: a CI file-set counter (corpus, kernel, sheets) and a journal aggregator (spend share, wall-clock, token cost, decision actuals). Build it once, not seven times.

@@ -97,7 +97,7 @@ The one exception is birth. The design system itself starts on the canvas — ta
 
 A design doc that embeds images is not read until its images are read. Workers, reviewers, and the milestone-close design judgment look at the mockups themselves, not just the prose around them.
 
-Canvas sync is an optional host capability ([index.md](index.md)). Without it, the agent renders the same mockups locally from the same tokens, and the walk is unchanged. The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
+The canvas is the owner's tool, not the harness's: it runs in a browser on the owner's own subscription, whatever agent host drives the work. Sync lives in the CLI ([index.md](index.md)), so any host that can run the CLI gets it; the reference host's built-in sync is the interim path. Degradation is graceful. With no sync, the owner exports finished designs into the repo and the agent consumes them the same way. With no canvas at all, the agent renders the same mockups locally from the same tokens, and the walk is unchanged. The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
 
 **For system design, the walkthrough is the data flow.** It also happens in order:
 
