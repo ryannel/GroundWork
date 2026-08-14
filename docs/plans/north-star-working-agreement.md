@@ -24,7 +24,11 @@ The old GroundWork lives in this same repo, behind the `legacy-final` tag and on
 
 Everything worth keeping from the old repo is already in `docs/carried-over.md`. Read that file instead.
 
-This rule is about prose, because prose is what changes your register — your writing tone and style. Mechanical facts do not carry that risk: a file path, a lint config, a CI workflow. A bet may pull one of those out when it needs it, but never mid-slice, and never by the agent doing the slice. Pulling something out is always its own dispatch: one job, reviewed before it lands. If you think you need something from behind the tag, write a finding instead of going to get it.
+This rule is about prose, because prose is what changes your register — your writing tone and style. Mechanical facts do not carry that risk: a file path, a lint config, a CI workflow.
+
+A bet may pull one of those out when it needs it. But never mid-slice, and never by the agent doing the slice. Pulling something out is always its own dispatch: one job, reviewed before it lands.
+
+If you think you need something from behind the tag, write a finding instead of going to get it.
 
 ## A slice
 
@@ -44,7 +48,15 @@ Sometimes you cannot predict what the worker will need. Only then is a bare poin
 
 Write the test before you write the code. Commit the test while it still fails. A test written after the code tends to just assert whatever the code already does. Tests live beside the code they prove — this is Go's default layout — and `go test ./...` runs them.
 
-Most of this rebuild is ordinary code, and ordinary code gets ordinary tests. Judgment work is different: whether a piece of prose steers an agent well, whether a walk — the step-by-step design review a change goes through before it is built — reads well. That kind of work is proved in three layers instead: first observable events, then a rubric — a scored checklist — proven to catch real failures, then a human seal — a person's sign-off, recorded as a tag. `docs/execution-plan.md` has the detail.
+Most of this rebuild is ordinary code, and ordinary code gets ordinary tests.
+
+Judgment work is different — whether a piece of prose steers an agent well, or whether a walk reads well. (A walk is the step-by-step design review a change goes through before it is built.) That kind of work is proved in three layers:
+
+1. Observable events.
+2. A rubric — a scored checklist — proven to catch real failures.
+3. A human seal: a person's sign-off, recorded as a tag.
+
+`docs/execution-plan.md` has the detail.
 
 Never delete or weaken a test to make a slice pass. If a test is wrong, say so in `findings.md`, and fix the test as its own separate change.
 
