@@ -76,6 +76,12 @@ launch_bg() { # <sandbox_dir> <kind sim|judge> <session_name> <model> <until> <p
   local out
   out="$(cd "$dir" && claude_clean --bg -n "$name" --model "$model" --permission-mode bypassPermissions "$prompt")"
   echo "$out"
+  # Machine sleep kills a detached session mid-response (observed 2026-08-13).
+  # Hold the machine awake for the typical sim window; -t caps the hold so an
+  # early finish costs at most the window, and repeated launches just overlap.
+  if command -v caffeinate >/dev/null 2>&1; then
+    nohup caffeinate -dims -t "${SIM_CAFFEINATE_SECS:-3600}" >/dev/null 2>&1 &
+  fi
   LAUNCHED_SHORT_ID="$(echo "$out" | sed -n 's/^backgrounded · \([a-z0-9]*\).*/\1/p' | head -1)"
   # Enrich with the full session id from the live registry (best-effort).
   local session_id=""

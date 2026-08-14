@@ -27,6 +27,17 @@ SID="$($RECORDS latest "$DIR" --kind "$KIND" --field session_id)"
 OUTCOME="$($RECORDS latest "$DIR" --kind "$KIND" --field outcome)"
 
 print_logo "Sim Follow"
+# A stall stamp is a claim, not a terminal state: a long silent turn trips the
+# watchdog, the session recovers, and the sticky record would short-circuit
+# every later follow. Trust the live session over the record.
+if [ "$OUTCOME" = "stalled" ]; then
+  LIVE_STATE="$(session_state "$DIR" "$SHORT" 2>/dev/null || true)"
+  if [ "$LIVE_STATE" = "working" ]; then
+    print_info "Record says stalled but session $SHORT is working — resuming the wait."
+    $RECORDS set-outcome "$DIR" "$RUN_ID" running
+    OUTCOME="running"
+  fi
+fi
 if [ "$OUTCOME" != "running" ]; then
   print_info "Run $RUN_ID already finished (outcome: $OUTCOME) — printing the digest."
 else

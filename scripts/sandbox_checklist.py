@@ -63,6 +63,7 @@ PHASES = {
         ], ["docs/architecture/api", "docs/architecture/services"]),
         ("product-brief-extract", [], []),   # on-demand deep path; scan-lite settles it collapsed
         ("design-system-extract", [], []),   # deferred by default; collapses on headless repos
+        ("methodology-adoption", [], []),    # on-demand convergence; durable marker, no fixed docs/ artifact
         ("bet", [], []),
     ],
     # The delivery path starts from a sealed bet and drives Phase 4 only, so its
