@@ -151,7 +151,7 @@ The always-on instruction set stays near 500 words; everything else loads when t
 
 ### Findings must fix the process, not just the defect
 
-A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more.
+A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more. Elsewhere in this set, that rule is called **catches point upstream**.
 
 The mining made this concrete. The dozen-plus "green but wrong" catches prove the review works — and also prove that the process authoring tests kept producing suites blind to the behavior they claimed to prove. Catching more is the wrong lesson. The right lesson is to change how tests are born so there is less to catch.
 
