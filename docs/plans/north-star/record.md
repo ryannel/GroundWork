@@ -1,6 +1,10 @@
 # Part 1: The Record
 
-Documentation is a product deliverable. Two real projects prove the gap from opposite sides. Wordloop is a platform that predates GroundWork; its docs were written by hand, and they teach: why first, a diagram as the spine, steps with real payloads. But no machine can check them, because their `source_of_truth` field is free prose. Magpie is a macOS app built through GroundWork; its docs can be checked — real path lists, review dates — but they do not teach: no diagrams, no flow docs, no why. And nothing actually runs the check: magpie's central architecture doc sits 61 commits behind the very paths its frontmatter names as its sources.
+Documentation is a product deliverable. Two real projects show the gap, from opposite sides.
+
+Wordloop is a platform that predates GroundWork. Its docs were written by hand. They teach well: they start with why, use a diagram as the spine, and walk through steps with real payloads. But no machine can check them. Their `source_of_truth` field is free prose.
+
+Magpie is a macOS app built through GroundWork. Its docs can be checked — they have real path lists and review dates. But they do not teach: no diagrams, no flow docs, no why. And nothing actually runs the check. Magpie's central architecture doc sits 61 commits behind the very paths its frontmatter names as its sources.
 
 The full comparison is in [evidence.md](evidence.md). The Record requires both halves and enforces both.
 
@@ -8,12 +12,12 @@ The full comparison is in [evidence.md](evidence.md). The Record requires both h
 
 Every authored doc meets two standards:
 
-- **Content**: opens with why (the problem and the options weighed), carries a diagram as its spine, walks the steps with real payloads, and reads plainly enough that a cold reader learns the system from it.
-- **Anchor**: machine-validated frontmatter with `source_of_truth` as a list of path globs (free text fails lint), `last_reviewed`, and per-step code citations.
+- **Content**: The doc opens with why — the problem and the options weighed. It carries a diagram as its spine. It walks the steps with real payloads. It reads plainly enough that a cold reader can learn the system from it.
+- **Anchor**: The frontmatter is machine-validated. `source_of_truth` is a list of path globs — free text fails the lint. The frontmatter also carries `last_reviewed` and per-step code citations.
 
 ## Doc types and truth anchors
 
-`source_of_truth` becomes a required, machine-validated field. A doc whose anchors cannot be parsed reports as UNASSESSED, loudly.
+`source_of_truth` becomes a required, machine-validated field. If a doc's anchors cannot be parsed, it reports as UNASSESSED — loudly.
 
 | Type | Examples | Truth anchor | Check |
 |---|---|---|---|
@@ -21,34 +25,64 @@ Every authored doc meets two standards:
 | Authored seam doc | Dataflow docs, integration flows | A small named path set + per-step code citations | Git log since `last_reviewed` over the paths, plus citation overlap |
 | Judgment doc | ADRs, standards, ways-of-working | None, or calendar | ADRs: append-only, sequential, status-valid. Others: 12-month review advisory |
 
-**Why the truth anchor is never "the whole codebase."** Anchoring a doc to everything would make every commit stale-flag every doc, which is noise nobody acts on. The anchors target the seams instead:
-- Generated references are the seams: the API spec is captured from the running service, the schema from the migrations. Fully mechanical, and the strongest class.
-- Authored docs anchor to a small, named path set plus citations. The path set is the services and modules the flow crosses. Every step in a dataflow diagram cites the file or symbol that implements it. The citation lint enforces one citation per diagram step. The path set is reviewed when the doc is first approved. Too broad is rejected as noise; too narrow fails the lint.
+**Why the truth anchor is never the whole codebase.** If a doc were anchored to the whole codebase, every commit would flag it as stale. Nobody acts on that kind of noise. So the anchors target the seams instead:
+
+- Generated references are the seams themselves. The API spec is captured from the running service. The schema comes from the migrations. This class is fully mechanical, and the strongest of the three.
+- Authored docs anchor to a small, named path set, plus citations. The path set covers the services and modules the flow crosses. Every step in a dataflow diagram cites the file or symbol that implements it. The citation lint enforces one citation per diagram step. The path set is reviewed when the doc is first approved. Too broad, and it's rejected as noise. Too narrow, and it fails the lint.
 
 ## How docs get built
 
 Three birth moments, each with an enforced shape. No other source.
 
-- **Generated references** are produced by the system: API and event specs captured from running code, schema from migrations. Born at bet validation, regenerated by any slice that touches the service.
-- **Authored seam docs are born in the design walk ([loop.md](loop.md)).** The dataflow doc the human argued with and sealed on the complex lane *is* the doc. It merges into the Record at bet close. Its template enforces the wordloop standard: a table weighing the alternatives and why one won, a sequence diagram, a step-by-step walk showing the actual request and response payloads, and one code citation per step. The diagram is required and linted for presence. A seam doc without a picture fails.
+- **Generated references** are produced by the system. API and event specs are captured from running code. Schema comes from migrations. They are born at bet validation, and regenerated by any slice that touches the service.
+- **Authored seam docs are born in the design walk** ([loop.md](loop.md)).
+  - The dataflow doc the human argued with and sealed on the complex lane *is* the doc. It merges into the Record at bet close.
+  - Its template enforces the wordloop standard: a table weighing the alternatives and why one won, a sequence diagram, a step-by-step walk with real request and response payloads, and one code citation per step.
+  - The diagram is required and linted for presence. A seam doc without a picture fails.
 - **Brownfield docs** are extracted incrementally as code is touched. Same template. Citations required.
 
 ## How docs stay current
 
 Doc updates ride inside the slice, never in a backlog.
 
-- **The citation-overlap mechanic.** When a slice's diff intersects a doc's citations or source paths, two things happen: the doc is injected into the slice's context, and a doc-update obligation attaches to the slice. The slice is not done until the doc is updated or the obligation is explicitly waived as "no behavior change". That is a recorded waiver, not a silence. One mechanic covers both directions: docs stay current, and sessions discover the doc that governs their diff.
-- **Staleness is a red row.** The freshness check runs in the battery. A stale doc is a red row on the Map, never a silent date field. Magpie's current drift ([evidence.md](evidence.md)) becomes impossible. It would be loudly red.
-- **The reversal rule.** When a structural decision is reversed, every dependent doc is re-reviewed, no exceptions. This is the drift class a date stamp cannot catch.
+- **The citation-overlap mechanic.**
+  - When a slice's diff intersects a doc's citations or source paths, two things happen: the doc is injected into the slice's context, and a doc-update obligation attaches to the slice.
+  - The slice is not done until the doc is updated, or the obligation is explicitly waived as "no behavior change." That waiver is recorded — it is never silent.
+  - One mechanic covers both directions: docs stay current, and sessions discover the doc that governs their diff.
+- **Staleness shows up as a red row.** The freshness check runs in the battery. A stale doc is a red row on the Map — never a silent date field. Under this rule, magpie's current drift ([evidence.md](evidence.md)) becomes impossible. It would be loudly red instead.
+- **The reversal rule.** When a structural decision is reversed, every dependent doc is re-reviewed. No exceptions. This is the drift class a date stamp cannot catch.
 - Doc obligations count against the lane's decision budget ([surfaces.md](surfaces.md)), so their cost is visible instead of deferred.
 
-## Known limits, stated
+## Known limits
 
-Path filters miss drift that arrives indirectly — a type a doc describes moves in a file outside the doc's path set. Two tools extend the reach when present: the module graph (a small file derived from the project manifests, recording which modules depend on which) and the Serena code-intelligence server (which can list every reference to a changed symbol). Without them, the staleness report states plainly that only the path-set check ran. Freshness is not correctness: a re-stamped wrong doc passes the date check. Correctness has two moments: review at doc approval, and the reversal rule.
+Path filters miss drift that arrives indirectly. For example, a type a doc describes might move to a file outside the doc's path set.
+
+Two tools extend the reach, when they are present:
+
+- The module graph — a small file derived from the project manifests, recording which modules depend on which.
+- The Serena code-intelligence server — it can list every reference to a changed symbol.
+
+Without them, the staleness report says plainly that only the path-set check ran.
+
+Freshness is not the same as correctness. A re-stamped wrong doc still passes the date check. Correctness has two moments instead: review at doc approval, and the reversal rule.
 
 ## How we test it — four layers
 
-1. **Doc lint** (every commit, mechanical): frontmatter parses, anchors resolve to real paths, flow docs contain a diagram, every diagram step carries a citation, citations resolve, jargon blocklist passes.
-2. **Staleness rows** (every verify run): git log since `last_reviewed` over the anchors. Stale docs go red where you look.
-3. **Cold-reader eval** (at doc approval, then sampled): a fresh-context agent that has never read the codebase reads only the doc, then answers questions about the flow, such as where to look for a named failure and what a step's payload carries. If a cold reader cannot learn the system from the doc, the doc fails. The eval's shape is flag-then-expand: the reader lists every sentence it cannot ground; the author, who knows the referents, expands them in place. A style edit cannot do this job — an editor who doesn't know the missing referent can only smooth the words around the hole. (Proven on this spec itself: a cold read flagged ~95 sentences a plain-language edit had already passed.) The teach-back ([loop.md](loop.md)) is a live run of this eval: when the owner asks a question the docs cannot answer, that is a doc finding, filed like any other.
-4. **Calibration against the two known cases**: the checks are tuned until wordloop's data-flow doc passes content and fails anchors, and magpie's docs pass anchors and fail content. That is the definition of the standard encoded correctly. Tuning and acceptance are then separated. The standard must also pass on docs it was not tuned against — staycurrent's, and one external repo's — because fitting the two training cases proves memorization, not a standard. And before flag-then-expand gates any approval, the cold reader is scored on those held-out docs: how many of its flagged sentences are real problems. Then magpie's docs are brought to green. That is the first live proof of the brownfield doc-uplift path, and the acceptance test for this whole part.
+1. **Doc lint** — runs on every commit, fully mechanical. It checks that:
+   - frontmatter parses
+   - anchors resolve to real paths
+   - flow docs contain a diagram
+   - every diagram step carries a citation
+   - citations resolve
+   - the jargon blocklist passes
+2. **Staleness rows** — runs on every verify run. It checks the git log since `last_reviewed` over the anchors. Stale docs go red, right where you look.
+3. **Cold-reader eval** — runs at doc approval, then sampled later.
+   - A fresh-context agent that has never read the codebase reads only the doc. It then answers questions about the flow — for example, where to look for a named failure, or what a step's payload carries. If a cold reader cannot learn the system from the doc, the doc fails.
+   - The eval works by flag-then-expand: the reader lists every sentence it cannot ground. The author, who knows the referents, expands them in place. A style edit cannot do this job — an editor who doesn't know the missing referent can only smooth the words around the hole.
+   - This was proven on this spec itself: a cold read flagged about 95 sentences that a plain-language edit had already passed.
+   - The teach-back ([loop.md](loop.md)) is a live run of this eval. When the owner asks a question the docs cannot answer, that is a doc finding, filed like any other.
+4. **Calibration against the two known cases**
+   - The checks are tuned until wordloop's data-flow doc passes content and fails anchors, and magpie's docs pass anchors and fail content. That is the definition of the standard encoded correctly.
+   - Tuning and acceptance are then kept separate. The standard must also pass on docs it was not tuned against — staycurrent's, and one external repo's. Fitting only the two training cases would prove memorization, not a standard.
+   - Before flag-then-expand gates any approval, the cold reader is scored on those held-out docs: how many of its flagged sentences are real problems.
+   - Then magpie's docs are brought to green. That is the first live proof of the brownfield doc-uplift path, and the acceptance test for this whole part.

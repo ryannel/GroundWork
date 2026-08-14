@@ -6,9 +6,13 @@
 
 ## What this set is
 
-A specification for what GroundWork becomes. It is grounded in the 2026 research survey (`docs/research/ai-developer-workflows-2026-07.md`) and in what this framework's own use has proven and disproven. The supporting numbers, sources, and history live in [evidence.md](evidence.md). The build, keep, and delete lists live in [changes.md](changes.md).
+This is a specification for what GroundWork becomes.
 
-How to read it: this file carries the vision, the goals, and the rules. One file per part carries the mechanics:
+It rests on two things: the 2026 research survey (`docs/research/ai-developer-workflows-2026-07.md`), and what this framework's own use has proven and disproven.
+
+The supporting numbers, sources, and history live in [evidence.md](evidence.md). The build, keep, and delete lists live in [changes.md](changes.md).
+
+This file carries the vision, the goals, and the rules. Six other files carry the mechanics, one per part:
 
 1. [The Record](record.md) — living documentation with typed truth anchors and freshness checks.
 2. [The Standards](standards.md) — the conventions we adopt, stated as imperatives, enforced by checks.
@@ -21,10 +25,10 @@ How to read it: this file carries the vision, the goals, and the rules. One file
 
 Each part defines its own machinery in full. These one-line meanings are here so every file reads on first pass:
 
-- **Slice** — the atomic unit of work: one coherent change plus its proof. **Bet** — a goal reached through milestones, each milestone delivered as slices. **Program** — a goal reached through an ordered ladder of bets.
-- **Lane** — the ceremony tier a piece of work is triaged into: patch, standard, or complex.
-- **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
-- **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product. A **row** is one line item in the battery or the capability manifest — it is red or green.
+- **Slice** — the smallest unit of work: one coherent change, plus its proof. **Bet** — a goal reached through milestones, each delivered as slices. **Program** — a goal reached through an ordered ladder of bets.
+- **Lane** — how much ceremony a piece of work gets: patch, standard, or complex.
+- **Seal** — a human sign-off, recorded as a git tag. Different moments get different seals: design, acceptance, birth (greenfield), adoption (brownfield).
+- **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one check in it that drives the real product. A **row** is one line item in the battery or the capability manifest — red or green.
 - **The kernel** — the always-on instruction set, the words loaded into every session. Target: about 500. The most expensive words in the system, because every session pays for them.
 - **Socket** — one of the named commands every project exposes through the dev CLI (`test`, `run`, `lint`, and kin), whatever tooling runs underneath. The battery reaches every product through them.
 - **Blessed module** — the canonical example of a pattern inside a project: real code that ages with the product, which agents copy when they build new code.
@@ -46,13 +50,21 @@ Each part defines its own machinery in full. These one-line meanings are here so
 
 GroundWork lets one human direct serious software. The human's judgment goes only where it is irreplaceable: saying what to build, shaping the design of complex work, and accepting the result. Every other step is either a mechanical check or agent work that a separate verifier proves. Nothing ships on an agent's own word.
 
-## The boundary
+## Scope decisions
 
 Three scope decisions, stated so they are decisions rather than accidents:
 
-- **Trusted humans, like pull requests.** The framework does not police who acts. Any trusted person can seal, review, or accept — the way any maintainer could merge or deploy a teammate's work, and simply doesn't without reason. Convention carries that, not machinery. Attribution comes free from the substrate: git already records who made every commit and every tag. The registry and the tower are per-person on purpose — your tower shows the projects you have open, which is a lens, not a gap. Bets carry an author and a driver, stamped from git identity, so a view can filter to one person's work. What is not built is coordination machinery — claiming, assignment, cross-person notification — until real team demand argues for it. Succession is the same trust moving: a successor reads the Record and drives the front doors before they start sealing.
-- **Host-portable by construction, Claude Code first.** The method's substance lives in host-neutral substrate — git, markdown, the CLI, the journal, the tower. What the framework asks of an agent host is a short adapter contract: inject a snapshot at session start, emit the delta at checkpoints, dispatch a fresh-context agent with a brief and return its report, and name a run id for journal stamping. Claude Code is the reference adapter and ships first. The contract exists so another host — OpenAI-compatible agents at the very least — is an adapter, not a rewrite. Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs. A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
-- **macOS first, not macOS only.** The tower and hooks land on macOS first; Linux follows; Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
+- **Trusted humans, like pull requests.** The framework does not police who acts. Any trusted person can seal, review, or accept work — the way any maintainer could merge or deploy a teammate's work, and simply doesn't without good reason. Convention carries that, not machinery.
+  - Attribution comes free from git: it already records who made every commit and every tag.
+  - The registry and the tower are per-person on purpose. Your tower shows the projects you have open — that's a lens, not a gap. Bets carry an author and a driver, stamped from git identity, so a view can filter to one person's work.
+  - What is not built: coordination machinery — claiming, assignment, cross-person notification — until real team demand argues for it.
+  - Succession is the same trust moving: a successor reads the Record and drives the front doors before they start sealing.
+- **Built to work with any agent host, Claude Code first.** The method's substance lives in host-neutral substrate — git, markdown, the CLI, the journal, the tower.
+  - What the framework asks of an agent host is a short adapter contract: inject a snapshot at session start, emit the delta at checkpoints, dispatch a fresh-context agent with a brief and return its report, and name a run id for journal stamping.
+  - Claude Code is the reference adapter and ships first. The contract exists so another host — OpenAI-compatible agents at the very least — is an adapter, not a rewrite.
+  - Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs.
+  - A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
+- **macOS first, not macOS only.** The tower and hooks land on macOS first. Linux follows. Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
 
 ## The track record this builds on
 
@@ -60,15 +72,19 @@ The method has shipped real products. Magpie, a native macOS app in Swift, was b
 
 We mined the delivery records and session transcripts of those projects for this spec, and the record attributes real catches to specific parts — quotes and counts in [evidence.md](evidence.md):
 
-- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently — including data corruption that re-stamped its own ledger, so the loss looked reconciled.
-- The milestone-level checks caught a class per-slice review structurally cannot see: a missing Undo pattern every slice was individually correct about.
-- The mechanical checks earned fewer but real catches — `seal verify` flagged approval tags never re-pointed after amendments — and the findings ledger genuinely blocked slices from closing over open defects.
+- The per-slice review agents caught over a dozen "tests green, behavior wrong" bugs that would have shipped silently. One example: data corruption that re-stamped its own ledger, so the loss looked reconciled.
+- The milestone-level checks caught a defect class that per-slice review cannot see by design: a missing Undo pattern, where every slice was individually correct.
+- The mechanical checks earned fewer catches, but real ones. `seal verify` flagged approval tags that were never re-pointed after amendments, and the findings ledger genuinely blocked slices from closing while defects were open.
 - The human, driving the real app during validation, found live bugs no agent had caught. That is the strongest argument for keeping the human's drive as a required proof.
 - The biggest failure predates the machinery: magpie's first bet went "green" across six milestones while the product did not actually work on real data. The front-door proof discipline exists because of that bet.
 
-The same mining showed which parts never earned their keep: an honesty audit that rubber-stamped, a re-review step that found zero critical findings, a deletion-test verb with no logged runs, a doc-freshness check that ran 106 times and caught nothing. It also hit a real limit — the archive step deleted the raw review files at bet close, and the ledger's "what caught this" field was never filled in once, so the framework destroyed much of its own fine-grained evidence. The rebuild fixes both: every finding records what caught it, and review evidence survives archival.
+The same mining showed which parts never earned their keep: an honesty audit that rubber-stamped everything, a re-review step that found zero critical findings, a deletion-test verb with no logged runs, and a doc-freshness check that ran 106 times and caught nothing.
 
-Cost is documented by the framework's own plans: the review-fatigue finding, and the upkeep of 344k words of shipped instruction prose. So the verdict is not "the method failed." It is: keep what demonstrably catches, shed what demonstrably doesn't, stop destroying the evidence that tells them apart — and treat what the catchers keep catching as the pointer to what must change upstream.
+It also hit a real limit. The archive step deleted the raw review files at bet close. The ledger's "what caught this" field was never filled in, not once. So the framework destroyed much of its own fine-grained evidence. The rebuild fixes both: every finding now records what caught it, and review evidence survives archival.
+
+Cost is documented too, in the framework's own plans: the review-fatigue finding, and the upkeep burden of 344k words of shipped instruction prose.
+
+So the verdict is not "the method failed." It is this: keep what demonstrably catches, shed what demonstrably doesn't, and stop destroying the evidence that tells them apart. What the catchers keep catching is the pointer to what must change upstream.
 
 ## Goals
 
@@ -78,57 +94,66 @@ These are the acceptance criteria for everything in this set.
 2. Human time goes to design, where leverage is high and complexity deserves it.
 3. Greenfield: describe intent and get a working product for little input, without sacrificing quality.
 4. Brownfield: wrap existing systems in a better way of working.
-5. Uniform, high-quality code across sessions; existing code pulled toward the same style.
+5. Uniform, high-quality code across sessions. Existing code gets pulled toward the same style.
 6. Proof of work: agents cannot cheat.
-7. Easy review at both altitudes and across every project: what needs me now, and where the whole program stands — including planned and unstarted work — with zero setup: no server to start, no branch to be on, no page to hunt for.
+7. Easy review, at two levels, across every project: what needs me now, and where the whole program stands — including planned and unstarted work. Zero setup: no server to start, no branch to be on, no page to hunt for.
 8. Right-sized ceremony: light by default, heavy only where stakes demand it.
 9. Durable memory: decisions, findings, and state live in git, never in a chat window.
-10. Human ownership: everything that shipped was accepted by you, and everything complex was designed with you.
-11. Autonomy scales with verification: how long work runs unattended is set by how well probes cover the touched area, not by the task's label.
+10. Human ownership: everything that shipped was accepted by you. Everything complex was designed with you.
+11. Autonomy scales with verification. How long work runs unattended is set by how well probes cover the touched area, not by the task's label.
 12. Everything reads plainly: docs, capsules, chat, and status that a tired human gets on the first pass.
 13. Effective use of context: lean windows, tiered models, distilled hand-offs. The loop is economical by design.
-14. Continuous delivery: a lined-up bet or program runs to completion unattended, stopping only for moments that genuinely need a human — and never for one it could not have named at launch.
+14. Continuous delivery. A lined-up bet or program runs to completion unattended, stopping only for moments that genuinely need a human — and never for one it could not have named at launch.
 15. The loop learns: a defect class that recurs changes the upstream process that produces it, not only the check that catches it.
-16. The owner stays taught: what was built while you were away, what was decided for you, and where complexity was added and why reach you in chat, paced to your return — the docs hold it, the teach-back delivers it.
+16. The owner stays taught. What was built while you were away, what was decided for you, and where complexity was added and why — all of it reaches you in chat, paced to your return. The docs hold it; the teach-back delivers it.
 
 ## Core principles
 
-Three, each elaborating goals above: how the human's attention is spent, how the machine's context is spent, and what a catch obliges us to change.
+Three principles, each elaborating goals above: how the human's attention is spent, how the machine's context is spent, and what a catch obliges us to change.
 
 ### Effective use of attention
 
 Attention is the scarcest human resource. The framework asks for your attention at a few moments — the pitch, complex design, acceptance, and the genuine stops in between. It treats each of these asks as a cost. Four rules:
 
-- **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed plus a link; the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
+- **Prepared.** A slice arrives as a capsule you can judge in two minutes. A checkpoint is three lines of what changed, plus a link — the link is for when you want more, never homework. Reports lead with exceptions. The writer does the reading work, so your attention goes to the judgment itself.
 - **Brought to you.** The Queue carries everything waiting on you, across every project, ranked. The Map shows where everything stands. The hooks put your position in front of you at session start and at every checkpoint. If you have to go hunting for the state of your own work, the framework has failed this principle — and that failure is exactly how the old model worked ([surfaces.md](surfaces.md)).
 - **Priced.** The dial records how far work runs before it may pause for you. Checkpoints never block. Acceptance batches to moments you choose. A genuine stop is a short mechanical list ([loop.md](loop.md)). Everything else records a decision you can veto later and keeps moving. Reversibility decides which kind applies.
-- **Measured.** Every lane declares how many human decisions it should cost, and the Map reports actuals against that budget — the same way token spend is recorded per dispatch.
+- **Measured.** Every lane declares how many human decisions it should cost. The Map reports actuals against that budget, the same way token spend is recorded per dispatch.
 
 Plain writing (content rules, below) serves the same principle: text that must be read twice spends attention twice.
 
 ### Effective use of context
 
-Context is the scarcest machine resource, the way attention is the scarcest human one — the same economy for the other reader. Two disciplines, both enforced.
+Context is the scarcest machine resource — the same economy as attention, just for the machine instead of the human. Two disciplines, both enforced.
 
-**In conversation.** Two rules work together. Anything worth keeping — plans, decisions, findings, status — lives on a committed page, because chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all. But a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it. The always-on instruction set stays near 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
+**In conversation.** Two rules work together.
+
+First: anything worth keeping — plans, decisions, findings, status — lives on a committed page. Chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all.
+
+Second: a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it.
+
+The always-on instruction set stays near 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
 
 **In execution.** The loop is an orchestrator-worker economy:
 
 - One frontier-class driver (today: the Opus/Fable tier) owns the full picture. It plans, triages, dispatches, and never implements.
-- Execution-class workers (today: the Sonnet tier) do the building in fresh, disposable windows. Each receives a short task brief holding what the slice needs — the cases to prove, the paths it will touch, the rules that apply — copied in by the driver, with sources named. Not the conversation so far, and not a list of pages to go read. Each returns a distilled report, not its context.
+- Execution-class workers (today: the Sonnet tier) do the building, in fresh, disposable windows. Each gets a short task brief holding what the slice needs — the cases to prove, the paths it will touch, the rules that apply — copied in by the driver, with sources named. Not the conversation so far, and not a list of pages to go read. Each returns a distilled report, not its context.
 - Review and gates run at the frontier tier. Judgment is where the higher model pays for itself.
-- Workers escalate instead of guessing. A worker that hits a decision it cannot settle stops and raises a blocking concern to the driver. This is in the worker's contract because cheap models measurably fail at judging their own limits; a stuck worker that pushes on produces a dishonest green. That same weakness cuts both ways: a worker may fail to escalate and never say so, and its own report will not show it. So the adversary tags every finding the worker should have raised, and that count — not the raw escalation count — tunes the tier policy.
+- Workers escalate instead of guessing. A worker that hits a decision it cannot settle stops and raises a blocking concern to the driver. This is in the worker's contract because cheap models measurably fail at judging their own limits; a stuck worker that pushes on produces a dishonest green.
+- That same weakness cuts both ways: a worker may fail to escalate and never say so, and its own report will not show it. So the adversary tags every finding the worker should have raised, and that count — not the raw escalation count — tunes the tier policy.
 - Tiers are named capability classes, not model names, so the policy survives model churn. Every dispatch states its tier; leaving it off is an error. If a named tier is unavailable, substitute a stronger model, never a weaker one.
-- State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers, and a fresh window resumes from them. Compaction is treated as lossy.
+- State lives in files and git, not in long windows. A window nearing its limit writes its state to the ledgers. A fresh window resumes from them. Compaction is treated as lossy.
 - Token spend is recorded per dispatch, along with the dispatch's role — worker build, adversary, capsule writer, and kin — so cost rolls up by mechanism as well as by tier. Which parts of the loop eat the quota is a query against the journal, not a guess.
 
-### Catches point upstream
+### Findings must fix the process, not just the defect
 
 A defect caught downstream is two findings, not one: the defect, and the upstream process that produced it. The second is worth more.
 
 The mining made this concrete. The dozen-plus "green but wrong" catches prove the review works — and also prove that the process authoring tests kept producing suites blind to the behavior they claimed to prove. Catching more is the wrong lesson. The right lesson is to change how tests are born so there is less to catch.
 
-So every guard in this spec has two halves. The downstream half catches: the adversary, the scans, the gates. The upstream half prevents: the proof plan that shapes tests before they are written ([proof.md](proof.md)), the checker that shares its consumer's real code path, the field that is required at write time instead of hoped for later. And the halves are connected by a loop: every finding in the ledger carries a defect-class tag, and a class that recurs triggers a change to whatever generates it — a rule, a check, a template, or a walk — never just another layer of catching. [evidence.md](evidence.md) traces each defect class the mining found to its generator and names the upstream fix.
+So every guard in this spec has two halves. The downstream half catches: the adversary, the scans, the gates. The upstream half prevents: the proof plan that shapes tests before they are written ([proof.md](proof.md)), the checker that shares its consumer's real code path, the field that is required at write time instead of hoped for later.
+
+The two halves are connected by a loop: every finding in the ledger carries a defect-class tag, and a class that recurs triggers a change to whatever generates it — a rule, a check, a template, or a walk — never just another layer of catching. [evidence.md](evidence.md) traces each defect class the mining found to its generator and names the upstream fix.
 
 ## Content rules
 
@@ -137,11 +162,19 @@ So every guard in this spec has two halves. The downstream half catches: the adv
 Three content classes follow: general knowledge (cut it); our adoptions and their project shapes (keep them); and depth-forcers (keep them, with an expiry date). A depth-forcer is a template or gate that pushes an agent to go deep where today's models otherwise produce thin, surface-level artifacts — the failure that originally grew this framework's biggest files.
 
 **One sunset regime.** Every shipped rule, check, template, and forcer is marked `architectural` or `dated`.
+
 - `architectural`: survives model generations (externalized state, hostile verification, review as the constraint). Justified once, in writing.
-- `dated`: works around a current model weakness. Carries a review-by date, six months maximum. At the date: re-justify with evidence or delete. The evidence differs by kind, because a preventive rule's success is invisible in fire counts — a forcer that always works never fires, the same trap as a linter that never fires. Detective checks are judged on the journal's counts: fired, caught, waived. Preventive rules are judged two ways: whether the defect class they prevent recurs (read from the findings ledger's class tags), and by the switch-off experiment below. That experiment is scarce, so review dates are tiered: items the journal can answer renew on their counts; the switch-off queue is kept for the few it cannot.
+- `dated`: works around a current model weakness. It carries a review-by date, six months maximum. At that date, it is re-justified with evidence, or deleted. The evidence differs by kind, because a preventive rule's success is invisible in fire counts — a forcer that always works never fires, the same trap as a linter that never fires.
+  - Detective checks are judged on the journal's counts: fired, caught, waived.
+  - Preventive rules are judged two ways: whether the defect class they prevent recurs (read from the findings ledger's class tags), and by the switch-off experiment below.
+  - That experiment is scarce, so review dates are tiered: items the journal can answer renew on their counts; the switch-off queue is kept for the few it cannot.
 - The re-test happens in real work. After a model-generation bump, the next real project runs with one designated forcer switched off. If the output stays deep without it, the forcer dies; if the output thins, the forcer earned six more months. The small simulation rig — a test harness that replays delivery scenarios against the framework — is the fallback instrument when no real project is at hand.
 
-**Budgets.** The goal is the smallest corpus that gives up nothing real. Words are a cost — but so are cuts that remove working guidance, and hitting a number is never a reason to cut. We believe the right size is somewhere near 20–35k words of shipped instruction prose, down from 344k today, with the always-on set near 500. Those figures are aspirations that set the direction, not limits that gate a change; the honest instrument for shrinking the corpus is the sunset regime above, which deletes by evidence, rule by rule. What is enforced is visibility: CI counts the words on every change and publishes the total and its trend, so growth is always a deliberate act with a stated reason — never an accident, and never a wall. Product documentation has no word target at all; its bound is freshness, not size.
+**Budgets.** The goal is the smallest corpus that gives up nothing real. Words are a cost — but so are cuts that remove working guidance, and hitting a number is never a reason to cut.
+
+We believe the right size is somewhere near 20–35k words of shipped instruction prose, down from 344k today, with the always-on set near 500. Those figures are aspirations that set the direction, not limits that gate a change; the honest instrument for shrinking the corpus is the sunset regime above, which deletes by evidence, rule by rule.
+
+What is enforced is visibility: CI counts the words on every change and publishes the total and its trend, so growth is always a deliberate act with a stated reason — never an accident, and never a wall. Product documentation has no word target at all; its bound is freshness, not size.
 
 **Plain writing.** Models copy the register — the voice and density — of what they read. That is a working hypothesis, not a proven fact, but the evidence is close to home: writing degraded repeatedly right after ingesting dense material, and style rules kept losing to our own dense corpus. The fixes are cheap either way:
 
@@ -159,13 +192,13 @@ With one user, gates that user administers cannot be hard guarantees. They are t
 1. The instruction-word count, published by CI with its trend on every change. The tripwire is silent growth: words added without a stated reason.
 2. The sunset regime. Mechanical: an expired `dated` item fails CI until re-justified or deleted.
 3. The always-on set's size, published the same way. These are the most expensive words in the system — paid in every session.
-4. Quarterly host-absorption review: if the host platform (Claude Code or its successors) ships a capability we built, ours is deleted. A checklist on a calendar; honestly not CI-checkable.
+4. Quarterly host-absorption review: if the host platform (Claude Code or its successors) ships a capability we built, ours is deleted. A checklist on a calendar — honestly, not CI-checkable.
 5. Rules become checks. A rule that cannot become a check must earn its place in the ways-of-working pages, in writing.
 6. Publish only numbers the tool itself measured. Never productivity claims.
 7. Shipped prose passes its own plain-language checks.
 8. The upkeep share. The journal publishes framework-maintenance spend as a share of total spend. A rising trend means the upkeep treadmill is back — the 384 commits of framework-only work, this time in code instead of prose.
 
-Only the sunset regime is a hard CI fail — and what it demands is evidence, not a word count. Three counts are published, never enforced. The rest are discipline made visible: the tripwire fires in public, but a person still has to not step over it.
+Only the sunset regime is a hard CI fail — and what it demands is evidence, not a word count. Three counts are published, never enforced. The rest are discipline made visible: the tripwire fires in public, but a person still has to choose not to step over it.
 
 ## Risks
 

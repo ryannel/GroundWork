@@ -4,31 +4,73 @@ Greenfield and brownfield enter the same system. Both end in the same place: a p
 
 ## Greenfield
 
-**Intent.** One or two conversations produce four artifacts: the brief (problem, users, the falsifiable success signal), the architecture sketch (topology, stacks, boundaries), the capability manifest (what the product must do, each row with its probe), and the standards sheet born from the sealed toolchain choices. Each artifact has an output contract — the sections it must fill — and a depth gate — a review that bounces a thin artifact back until it is real. Both are `dated`: they exist because unforced agents produce thin artifacts, and they die the day models stop doing that. Conversation choreography is gone. The artifact shapes stay.
+**Intent.** One or two conversations produce four artifacts:
 
-**The birth seal.** The agent proposes the current best toolchain and patterns. A fresh-context adversary reviews the proposal. The researcher must not grade its own research. Then the human seals: toolchain, standards, manifest, and probe intents, in one sitting.
+- the brief (the problem, the users, the falsifiable success signal)
+- the architecture sketch (topology, stacks, boundaries)
+- the capability manifest (what the product must do, with a probe for each row)
+- the standards sheet, born from the sealed toolchain choices
 
-**The build.** Models build capability by capability against the manifest, through the same slice loop as feature work. Green-probed rows bulk-accept under the birth seal. Only red rows and the decisions the agent flags as needing a human reach you. Progress renders on the Map. First feature the same day.
+Each artifact has an output contract: the sections it must fill. Each artifact also has a depth gate: a review that sends a thin artifact back until it is real.
 
-**What stays deterministic.** The spine only: dev CLI and CI wiring. (The docs site leaves the spine — the tower renders every repo's committed docs, and a public product docs site, where a product wants one, is product work.) No golden reference repos. No per-stack templates. What is pinned: the outcomes (the battery's probes must pass) and the sealed choices (held by ratchets). What floats: how the model builds it — which stays as current as the model itself, instead of aging in a template. The battery reaches every product the same way, through the dev CLI's standard sockets: the named commands every project exposes (`test`, `run`, `lint`, and kin), whatever tooling runs underneath. A stack that keeps failing its probes earns more pinned constraints, with a maintained starter repo as the last resort. The 10 generators retire only after the battery passes against at least one existing generator-built repo.
+Both the output contract and the depth gate are `dated`. They exist because unforced agents produce thin artifacts. They will die the day models stop doing that.
+
+Conversation choreography is gone. The artifact shapes stay.
+
+**The birth seal.** The agent proposes the current best toolchain and patterns. A fresh-context adversary reviews the proposal — the researcher must not grade its own research. Then the human seals it all in one sitting: toolchain, standards, manifest, and probe intents.
+
+**The build.** Models build capability by capability against the manifest, through the same slice loop as feature work. Green-probed rows bulk-accept under the birth seal. Only red rows and the decisions the agent flags as needing a human reach you. Progress renders on the Map. The first feature lands the same day.
+
+**What stays deterministic.** Only the spine: the dev CLI and the CI wiring.
+
+The docs site leaves the spine. The tower renders every repo's committed docs. A public product docs site, where a product wants one, is product work — not part of the spine.
+
+There are no golden reference repos and no per-stack templates.
+
+What is pinned: the outcomes (the battery's probes must pass) and the sealed choices (held by ratchets). What floats: how the model builds it. That stays as current as the model itself, instead of aging inside a template.
+
+The battery reaches every product the same way: through the dev CLI's standard sockets. These are the named commands every project exposes — `test`, `run`, `lint`, and kin — whatever tooling runs underneath them.
+
+A stack that keeps failing its probes earns more pinned constraints. A maintained starter repo is the last resort.
+
+The 10 generators retire only after the battery passes against at least one existing generator-built repo.
 
 ## Brownfield
 
-**Day one — what needs no sockets.** The honesty and wiring scans, the dependency audit, the Queue, and a ratchet baseline snapshot install immediately, and the install registers the project with the tower ([surfaces.md](surfaces.md)) so it appears in the portfolio view from the first minute. The day-one baseline covers universal rules only; per-project rules are baselined later, at the adoption seal. The next change made in that repo already cannot cheat at those. Deletion tests join as soon as the `test` socket is mapped — they execute the suite, so they cannot be day-one.
+**Day one — what needs no sockets.** These install immediately: the honesty and wiring scans, the dependency audit, the Queue, and a ratchet baseline snapshot.
 
-**The repo adapter.** The dev CLI installs as an adapter: its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today. An unmapped socket is a visible red row, not a silent pass. Each probe starts running as soon as the socket it needs is mapped — coverage grows command by command instead of waiting for a full setup. Mapping is a human approval, not a discovery: repo-defined commands are untrusted until the human confirms each mapping, and the dependency audit runs before the first repo command does.
+The install also registers the project with the tower ([surfaces.md](surfaces.md)). That makes it appear in the portfolio view from the first minute.
 
-**The adoption seal.** Standards genesis without a birth: the agent extracts the conventions the code actually follows and proposes them as the initial standards. An adversary reviews. The human seals. The blessed module is nominated at the same moment: the cleanest existing instance of each pattern, not an aspiration.
+The day-one baseline covers universal rules only. Per-project rules are baselined later, at the adoption seal. Even so, the next change made in that repo already cannot cheat on the universal rules.
 
-**The manifest, extracted incrementally.** A brownfield system arrives with capabilities nobody enumerated, so the capability manifest is built the way the docs are: every bet that touches an area adds that area's rows and probes. Probe-coverage autonomy grows with it — early on, little is probe-covered and the dial stays low. That is honest, not a flaw.
+Deletion tests join as soon as the `test` socket is mapped. They have to execute the suite, so they cannot start on day one.
 
-**Docs.** Extracted incrementally as the system is touched, in the standard shape, citations required. Never a big-bang re-documentation project. One safety rule: extraction reads the repo's existing code, comments, and docs, and that content is untrusted input — it can contain text that tries to steer an agent. So extraction only proposes; a human approves before anything executes or lands.
+**The repo adapter.** The dev CLI installs as an adapter. Its sockets map to the repo's existing commands. For example, `test` wraps whatever runs tests today.
+
+An unmapped socket shows as a visible red row. It never silently passes.
+
+Each probe starts running as soon as the socket it needs is mapped. Coverage grows command by command, instead of waiting for a full setup.
+
+Mapping is a human approval, not a discovery. Repo-defined commands are untrusted until a human confirms each mapping. The dependency audit runs before the first repo command does.
+
+**The adoption seal.** This is standards genesis without a birth. The agent extracts the conventions the code actually follows and proposes them as the initial standards. An adversary reviews them. The human seals them.
+
+At the same moment, the blessed module is nominated: the cleanest existing instance of each pattern — not an aspiration.
+
+**The manifest, extracted incrementally.** A brownfield system arrives with capabilities nobody wrote down. So the capability manifest is built the same way the docs are: every bet that touches an area adds that area's rows and probes.
+
+Probe-coverage autonomy grows along with it. Early on, little is probe-covered, so the dial stays low. That is honest, not a flaw.
+
+**Docs.** Docs are extracted incrementally, as the system is touched, in the standard shape, with citations required. This is never a big-bang re-documentation project.
+
+One safety rule applies: extraction reads the repo's existing code, comments, and docs, and that content is untrusted input. It can contain text that tries to steer an agent. So extraction only proposes — a human approves before anything executes or lands.
 
 ## Autonomy and the security floor — both doors
 
-Unattended eligibility follows the dial's coverage cap ([loop.md](loop.md)): probe coverage of the touched area, not the task label. Unattended runs require:
+Unattended eligibility follows the dial's coverage cap ([loop.md](loop.md)). What matters is probe coverage of the touched area, not the task label. Unattended runs require:
 
-- An enforced permission model, not a stated one — a rule that lives only in prose gets ignored, which this spec itself teaches. A path allowlist, pinned push remotes, a scoped credential, and a ban on new remotes — all set as host configuration, which `verify` checks before granting unattended eligibility.
+- An enforced permission model, not a stated one. A rule that lives only in prose gets ignored — this spec itself teaches that lesson.
+- The model is a path allowlist, pinned push remotes, a scoped credential, and a ban on new remotes. All of this is set as host configuration. `verify` checks it before granting unattended eligibility.
 - Dependency-provenance checks on proposed toolchains: the typosquat defense for packages proposed fresh at birth.
 - Secrets scanning.
 - The standing rule that extraction and archaeology propose, never execute.
