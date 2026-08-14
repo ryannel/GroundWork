@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 119 things: 43 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
+The spec commits to 120 things: 44 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
 
-Each item has an ID: `B0`–`B42` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
+Each item has an ID: `B0`–`B43` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
 
 **Terms.** The bets use the spec's own words — kernel, dial, lane, seal, socket, blessed module, front door, and more. They're defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are new to you. Magpie and staycurrent are existing products built with the old framework. Wordloop is a fourth repo that predates it. All three show up as test fixtures.
 
@@ -134,9 +134,9 @@ Proves user-facing work from where the user actually stands — inside the UI.
 
 Turns a description of intent into a working product.
 
-**Done when:** one intent conversation carries a product — one with at least one real design ambiguity — to its first green capability. The human seals once. The ambiguity gets settled by a recorded decision, not by template matching.
+**Done when:** one intent conversation carries a product — one with at least one real design ambiguity — to its first green capability. The human seals once. The ambiguity gets settled by a recorded decision, not by template matching. If the product has a UI, its design system is sealed from rendered treatment — on the canvas, or from locally rendered sheets — before the first screen, and the first screen passes the token scan against the materialized tokens.
 
-**Lands:** the intent artifacts with output contracts and depth gates, the birth seal, manifest build-out.
+**Lands:** the intent artifacts with output contracts and depth gates, the birth seal, the design system born on the canvas, manifest build-out.
 
 ### Bet 13 — The brownfield door
 
@@ -174,7 +174,7 @@ Retires the old framework. The new one stands on its own.
 
 ## 2. Coverage
 
-### Build (43)
+### Build (44)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -221,6 +221,7 @@ Retires the old framework. The new one stands on its own.
 | B40 | Business logic as a walk discipline | 7 |
 | B41 | The program autonomy contract | 9 |
 | B42 | The design canvas lane | 11 |
+| B43 | The design system born on the canvas | 12 |
 
 ### Keep (23)
 

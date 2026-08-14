@@ -163,6 +163,10 @@ When an item names old machinery, we describe it in one line. You should never n
   - Built components push back at bet close, so the canvas never holds truth the repo lacks.
   - A design doc's embedded images must be read by anyone consuming the doc.
   - Canvas sync is an optional host capability; without it the same mockups render locally from the same tokens.
+- **The design system born on the canvas** ([doors.md](doors.md), [loop.md](loop.md)).
+  - At greenfield birth, taste is explored on the canvas — type, color, and components rendered live — and the owner seals a look they saw, never token strings on faith.
+  - The sealed system is pulled down and materialized as tokens and real components in code. That pull makes the repo the origin; the repo-originates rule applies from that moment on.
+  - Without canvas sync, the same seal is granted on locally rendered sheets.
 
 ## What stays
 

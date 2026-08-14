@@ -93,6 +93,8 @@ This order exists because its absence is a recorded failure class: working scree
 
 The direction matters. The repo originates; the canvas consumes. A design that lives only in a tool and gets reproduced by eye is the decorative-system failure — it drifts the moment it ships. So built components push back to the canvas at bet close, and the canvas never holds truth the repo lacks.
 
+The one exception is birth. The design system itself starts on the canvas — taste is explored and sealed rendered, then materialized as tokens and components in code ([doors.md](doors.md)). The pull that materializes it is what makes the repo the origin. The failure the rule guards against is by-eye reproduction and slow drift, not where taste was first explored.
+
 A design doc that embeds images is not read until its images are read. Workers, reviewers, and the milestone-close design judgment look at the mockups themselves, not just the prose around them.
 
 Canvas sync is an optional host capability ([index.md](index.md)). Without it, the agent renders the same mockups locally from the same tokens, and the walk is unchanged. The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
