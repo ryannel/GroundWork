@@ -22,20 +22,22 @@ function pageUrls(): Set<string> {
   return new Set(source.getPages().map((p) => p.url.toLowerCase()));
 }
 
-/** True when any doc exists at exactly `url` or nested beneath it — lets an
- *  on-ramp target either a leaf doc (product-brief) or a section (getting-started)
- *  without 404ing on a fresh scaffold where the setup skills have not yet authored
- *  the doc. */
-function hasRoute(urls: Set<string>, url: string): boolean {
+/** The route a link should actually use for `url`: `url` itself when a page
+ *  exists there exactly, otherwise the first nested page found beneath it
+ *  (original casing), otherwise `null`. A folder can hold only leaf docs and no
+ *  index page of its own — linking to the bare folder 404s on the catch-all
+ *  route, which renders a synthesized index only for the empty `/docs` slug,
+ *  nothing deeper — so every on-ramp and section card must resolve through
+ *  this before it is used as an href. */
+function resolvedRoute(urls: Set<string>, url: string): string | null {
   const target = url.toLowerCase();
-  for (const u of urls) {
-    if (u === target || u.startsWith(target + '/')) return true;
-  }
-  return false;
+  if (urls.has(target)) return url;
+  const nested = source.getPages().find((p) => p.url.toLowerCase().startsWith(target + '/'));
+  return nested ? nested.url : null;
 }
 
 /** The two audience on-ramps, in reading order — a fresh-clone developer first,
- *  a product reader second. Only the ones whose target doc actually exists are
+ *  a product reader second. Only the ones whose target doc actually resolves are
  *  rendered, so the hero degrades gracefully before setup authors the docs. */
 function onramps(
   urls: Set<string>,
@@ -51,32 +53,58 @@ function onramps(
       blurb: 'What the system is, who it serves, and what it does and does not do.',
       url: '/docs/product-brief',
     },
-  ].filter((r) => hasRoute(urls, r.url));
+  ]
+    .map((r) => ({ ...r, resolved: resolvedRoute(urls, r.url) }))
+    .filter((r): r is typeof r & { resolved: string } => r.resolved !== null)
+    .map(({ resolved, ...r }) => ({ ...r, url: resolved }));
 }
 
 /** The top-level sections present under /docs, derived from the page list, plus
- *  the count of pages each one carries. Top-level docs fall under "Overview". */
-function sections(): { slug: string; title: string; url: string; count: number }[] {
+ *  the count of pages each one carries. Top-level docs fall under "Overview" —
+ *  except a section's own index page (e.g. `/docs/architecture`), which counts
+ *  toward that section rather than Overview, so the card total matches the
+ *  section's real file count. A section's own `/docs/<slug>` route existing is
+ *  checked against the full site's page list (`urls`), never against this
+ *  group's own members. A section without that route (e.g. a folder of leaf
+ *  docs with no index.md) 404s there, so the card falls back to the section's
+ *  first resolvable page instead. "Overview" is exempt from the check — `/docs`
+ *  always resolves via the catch-all route's synthesized index, even when no
+ *  top-level `index.md` exists. */
+function sections(
+  urls: Set<string>,
+): { slug: string; title: string; url: string; count: number }[] {
+  const pages = source.getPages().map((page) => ({
+    page,
+    segments: page.url.replace(/^\/docs\/?/, '').split('/').filter(Boolean),
+  }));
+  const folderSections = new Set(
+    pages.filter(({ segments }) => segments.length > 1).map(({ segments }) => segments[0]),
+  );
   const groups = new Map<string, { count: number; firstUrl: string }>();
-  for (const page of source.getPages()) {
-    const segments = page.url.replace(/^\/docs\/?/, '').split('/').filter(Boolean);
-    const section = segments.length > 1 ? segments[0] : 'overview';
+  for (const { page, segments } of pages) {
+    const section =
+      segments.length > 1 || folderSections.has(segments[0]) ? segments[0] : 'overview';
     const g = groups.get(section);
     if (g) g.count += 1;
     else groups.set(section, { count: 1, firstUrl: page.url });
   }
-  return [...groups.entries()].map(([slug, g]) => ({
-    slug,
-    title: slug === 'overview' ? 'Overview' : label(slug),
-    url: slug === 'overview' ? '/docs' : `/docs/${slug}`,
-    count: g.count,
-  }));
+  return [...groups.entries()].map(([slug, g]) => {
+    if (slug === 'overview') {
+      return { slug, title: 'Overview', url: '/docs', count: g.count };
+    }
+    return {
+      slug,
+      title: label(slug),
+      url: resolvedRoute(urls, `/docs/${slug}`) ?? g.firstUrl,
+      count: g.count,
+    };
+  });
 }
 
 export default function HomePage() {
   const urls = pageUrls();
   const ramps = onramps(urls);
-  const cards = sections();
+  const cards = sections(urls);
   return (
     <main className="flex flex-1 flex-col items-center px-4 py-16">
       <section className="w-full max-w-3xl text-center">

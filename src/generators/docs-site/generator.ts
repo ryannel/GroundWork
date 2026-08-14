@@ -129,6 +129,33 @@ function colorToHslChannels(value: string | null): string | null {
   return `${H} ${S}% ${Lp}%`;
 }
 
+/** Parse an `H S% L%` channel triplet into numeric channels, or null if
+ *  malformed. */
+function parseHslChannels(triplet: string | null): { h: number; s: number; l: number } | null {
+  if (!triplet) return null;
+  const m = triplet.trim().match(/^([\d.]+)\s+([\d.]+)%\s+([\d.]+)%$/);
+  if (!m) return null;
+  return { h: parseFloat(m[1]), s: parseFloat(m[2]), l: parseFloat(m[3]) };
+}
+
+/** A tone `stepPct` lightness points closer to 50% than `triplet` — the
+ *  interactive (hover/active) tone for a surface, always distinguishable from
+ *  it regardless of whether the surface itself is a light or dark theme
+ *  colour. `--fd-card`/`--fd-popover` sit on `surfaceAlt`; `--fd-accent` etc.
+ *  must read as a further, visually distinct step on top of that surface, not
+ *  collide with it — extrapolating surfaceAlt further in the surface→surfaceAlt
+ *  direction can clamp at the 0/100 ceiling when surfaceAlt is already near an
+ *  extreme (observed: a near-white light surfaceAlt has almost no headroom
+ *  left to go lighter), so this steps toward the midtone instead, which always
+ *  has room. Falls back to `triplet` unchanged if it fails to parse. */
+function towardMidtone(triplet: string | null, stepPct: number): string | null {
+  const c = parseHslChannels(triplet);
+  if (!c) return triplet;
+  const direction = c.l >= 50 ? -1 : 1;
+  const l = Math.max(0, Math.min(100, c.l + direction * stepPct));
+  return `${c.h} ${Math.round(c.s)}% ${Math.round(l)}%`;
+}
+
 /** Resolve a palette role's light/dark to HSL channel triplets. */
 function paletteChannels(
   v: ResolvedVisual,
@@ -202,15 +229,32 @@ function renderDocsBrandCss(inp: DocsBrandInputs): string {
   const primary = paletteChannels(v, 'primary');
   const border = paletteChannels(v, 'border');
 
-  // Which --fd-* slot each palette role drives. Foregrounds-on-colour
+  // The interactive tone (hover/active fill) for a --fd-card/--fd-popover
+  // surface — a step in from surfaceAlt, not surfaceAlt itself, so hovering an
+  // item inside a card stays visible against the card's own background.
+  const HOVER_STEP_PCT = 6;
+  const hoverOnCard = {
+    light: towardMidtone(surfaceAlt.light, HOVER_STEP_PCT),
+    dark: towardMidtone(surfaceAlt.dark, HOVER_STEP_PCT),
+  };
+
+  // Which --fd-* slot each palette role drives. `--fd-card`/`--fd-popover` take
+  // surfaceAlt, not surface — they are elevated surfaces that must read as a
+  // distinct layer above `--fd-background`; mapping them to the same `surface`
+  // role as the page background collapses that elevation (cards become
+  // indistinguishable from the page they sit on). `--fd-secondary`/`--fd-muted`/
+  // `--fd-accent` take the derived hoverOnCard tone, not surfaceAlt directly —
+  // Fumadocs paints these as hover/active fills on top of card/popover surfaces
+  // (sidebar items, dropdowns, search results), so they must stay a visible
+  // step apart from the card they sit on, not equal to it. Foregrounds-on-colour
   // (primary-foreground) keep the Fumadocs default for contrast safety.
   const lightMap: [string, string | null][] = [
     ['--fd-background', surface.light],
-    ['--fd-card', surface.light],
-    ['--fd-popover', surface.light],
-    ['--fd-secondary', surfaceAlt.light],
-    ['--fd-muted', surfaceAlt.light],
-    ['--fd-accent', surfaceAlt.light],
+    ['--fd-card', surfaceAlt.light],
+    ['--fd-popover', surfaceAlt.light],
+    ['--fd-secondary', hoverOnCard.light],
+    ['--fd-muted', hoverOnCard.light],
+    ['--fd-accent', hoverOnCard.light],
     ['--fd-foreground', text.light],
     ['--fd-card-foreground', text.light],
     ['--fd-popover-foreground', text.light],
@@ -222,11 +266,11 @@ function renderDocsBrandCss(inp: DocsBrandInputs): string {
   ];
   const darkMap: [string, string | null][] = [
     ['--fd-background', surface.dark],
-    ['--fd-card', surface.dark],
-    ['--fd-popover', surface.dark],
-    ['--fd-secondary', surfaceAlt.dark],
-    ['--fd-muted', surfaceAlt.dark],
-    ['--fd-accent', surfaceAlt.dark],
+    ['--fd-card', surfaceAlt.dark],
+    ['--fd-popover', surfaceAlt.dark],
+    ['--fd-secondary', hoverOnCard.dark],
+    ['--fd-muted', hoverOnCard.dark],
+    ['--fd-accent', hoverOnCard.dark],
     ['--fd-foreground', text.dark],
     ['--fd-card-foreground', text.dark],
     ['--fd-popover-foreground', text.dark],
