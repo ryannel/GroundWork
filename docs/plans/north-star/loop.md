@@ -174,7 +174,7 @@ The loop today costs a 3-milestone bet roughly 35–45 subagent dispatches, six 
 
 3. On the complex lane, the blind author (execution tier) writes the accepting suite ([proof.md](proof.md)). Its inputs are: the driver-scoped design extract for this slice, the proof plan, and the public interface of the handed-off code — names, signatures, endpoints, extracted mechanically. It never sees the code bodies, and never sees the implementer's tests.
 
-   The scans and seal verify run while the author writes. The new suite runs once it lands. Failures triage through the driver under the laundering rule in [proof.md](proof.md).
+   The scans and seal verify run while the author writes. The new suite runs once it lands. Failures triage through the driver under the laundering rule — the driver restates each failure against the design and the plan, so the blind author never sees the code it is blind to ([proof.md](proof.md)).
 
 4. The battery runs: seal verify (confirms the work still matches what was sealed), the three scans (honesty, wiring, tokens — [proof.md](proof.md)), and the deletion test. Test coverage is proven by the deletion test, not judged from a reviewer's read.
 
@@ -283,7 +283,11 @@ The promise is zero *unscheduled* stops, not zero stops. Every moment that will 
 
   Above the line, the call is recorded as a default the owner can later veto, and the run continues.
 
-  Two things widen the line beyond code topology. First, behavior a user will see sits above the line no matter how small the diff — a default, a message, an edge case the design never named. A product decision often dresses up as a pattern choice; it still gets decided, but always on the record, never silently. Second, the line is live: what makes a deferred call cheap is how little depends on it so far. If later slices start building on a below-the-line shape, it is promoted and recorded right then, not at the postmortem.
+  Two things widen the line beyond code topology.
+
+  First: behavior a user will see sits above the line no matter how small the diff — a default, a message, an edge case the design never named. A product decision often dresses up as a pattern choice. It still gets decided, but always on the record, never silently.
+
+  Second: the line moves as work proceeds. What makes a deferred call cheap is how little depends on it so far. If later slices start building on a below-the-line shape, it is promoted and recorded right then, not at the postmortem.
 
   One heuristic sits on top of the mechanics: a call the driver would not volunteer to explain is rendered loud, whatever its category.
 

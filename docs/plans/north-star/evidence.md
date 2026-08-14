@@ -125,7 +125,13 @@ Defects that got past the process and were found later, from the ledgers that ex
 
 ### What this does and does not prove
 
-The record now attributes: some mechanisms have named, quoted catches; others have none. What it still cannot prove is the counterfactual. No control run exists without the framework, so nobody can say the same products would not have shipped with less process. Cost is documented by the framework's own plans — the review-fatigue finding, the 344k-word upkeep. By the survey's causal standard, nobody in the industry has proof either. METR's randomized trial — the field's only controlled measurement — found a 19% slowdown, while developers believed they were 20% faster. It then abandoned its own replication, because developers now refuse to work without AI (§5.1). Held to the practitioner standard, this method has more internal evidence than most of what the survey covers. And after this mining, it has better-attributed evidence than before.
+The record now attributes: some mechanisms have named, quoted catches, others have none.
+
+What it still cannot prove is the counterfactual. No control run exists without the framework. So nobody can say the same products would not have shipped with less process. Cost is documented by the framework's own plans — the review-fatigue finding, the 344k-word upkeep.
+
+By the survey's causal standard, nobody in the industry has proof either. METR's randomized trial is the field's only controlled measurement. It found a 19% slowdown, while developers believed they were 20% faster. METR then abandoned its own replication, because developers now refuse to work without AI (§5.1).
+
+Held to the practitioner standard, this method has more internal evidence than most of what the survey covers. And after this mining, it has better-attributed evidence than before.
 
 ## Tracing the catches to their generators
 

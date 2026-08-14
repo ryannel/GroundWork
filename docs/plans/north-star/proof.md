@@ -125,7 +125,7 @@ The replacement:
 
 ## The adversary
 
-Fresh-context review with zero shared context with the author, at two altitudes doing two different jobs.
+Fresh-context review with zero shared context with the author. It runs at two levels, doing two different jobs.
 
 - **Per slice**: blind correctness review of the diff.
 - **Per milestone sum**: the honesty audit, edge-case judgment over the assembled diff, and the test audit — the suite-extending pass defined above.
