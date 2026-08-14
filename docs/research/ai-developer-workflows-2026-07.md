@@ -10,6 +10,8 @@ A survey of how practitioners and engineering organisations actually plan, execu
 
 This document is deliberately neutral. It makes no argument for or against any particular methodology, including GroundWork's. Its purpose is to establish what the evidence supports before any conclusions are drawn from it.
 
+The conclusions GroundWork draws from it live separately, in [groundwork-implications-2026-08.md](groundwork-implications-2026-08.md).
+
 ---
 
 ## The short version
