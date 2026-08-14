@@ -80,7 +80,7 @@ Both design tracks start with a walkthrough, and the walkthrough is argued first
 **For UI/UX, the walkthrough is the user journey.** It happens in order:
 
 1. The journey map comes first. Every capability sits on a named journey that starts at a real entry point.
-2. Then each page on the journey is designed.
+2. Then each page on the journey is designed. A page design is a rendered mockup — a picture of the page, drawn from the real tokens — not an ASCII sketch.
 3. Then each page gets its information architecture — what lives on it, what it links to, and which current best-practice pattern it uses, implemented fully.
 
 Placement is a design decision made at this step: new work must say where it lives on the map, next to what, and how it's reached.
@@ -88,6 +88,14 @@ Placement is a design decision made at this step: new work must say where it liv
 The map itself is a living, sealed artifact. It merges into the Record at bet close, and every later bet that adds UI amends it.
 
 This order exists because its absence is a recorded failure class: working screens nobody could reach, journeys that dead-ended, capabilities scattered across the app.
+
+**The design canvas.** Page design can run in a visual canvas — Claude Design on the reference host. The agent seeds a design project from the repo: the tokens and the built component library go up, so everything drawn on the canvas is drawn from the real system. The owner shapes pages there, with the agent alongside. Then the agent pulls the finished designs back into the bet's design docs as mockup images. The pulled mockup is what the owner seals.
+
+The direction matters. The repo originates; the canvas consumes. A design that lives only in a tool and gets reproduced by eye is the decorative-system failure — it drifts the moment it ships. So built components push back to the canvas at bet close, and the canvas never holds truth the repo lacks.
+
+A design doc that embeds images is not read until its images are read. Workers, reviewers, and the milestone-close design judgment look at the mockups themselves, not just the prose around them.
+
+Canvas sync is an optional host capability ([index.md](index.md)). Without it, the agent renders the same mockups locally from the same tokens, and the walk is unchanged. The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
 
 **For system design, the walkthrough is the data flow.** It also happens in order:
 

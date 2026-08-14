@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 118 things: 42 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
+The spec commits to 119 things: 43 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
 
-Each item has an ID: `B0`–`B41` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
+Each item has an ID: `B0`–`B42` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
 
 **Terms.** The bets use the spec's own words — kernel, dial, lane, seal, socket, blessed module, front door, and more. They're defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are new to you. Magpie and staycurrent are existing products built with the old framework. Wordloop is a fourth repo that predates it. All three show up as test fixtures.
 
@@ -126,9 +126,9 @@ Builds one address for everything, plus a seam that lets a second host plug in l
 
 Proves user-facing work from where the user actually stands — inside the UI.
 
-**Done when:** a user-facing capability is proven by a UI-driver case that asserts what the user actually sees. Break the screen on purpose: the UI case fails, while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, but linked from nowhere. The reachability row turns red. The screen's UI proof fails too, because no navigation path reaches it from the entry point.
+**Done when:** a user-facing capability is proven by a UI-driver case that asserts what the user actually sees. Break the screen on purpose: the UI case fails, while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, but linked from nowhere. The reachability row turns red. The screen's UI proof fails too, because no navigation path reaches it from the entry point. The capability's page was sealed as a rendered mockup — pulled from the design canvas, or rendered locally on a host without canvas sync — and the UI review judged the shipped screen against that mockup.
 
-**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the board's UI headline row, release probes for deploying topologies.
+**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the design canvas lane, the board's UI headline row, release probes for deploying topologies.
 
 ### Bet 12 — The greenfield door
 
@@ -174,7 +174,7 @@ Retires the old framework. The new one stands on its own.
 
 ## 2. Coverage
 
-### Build (42)
+### Build (43)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -220,6 +220,7 @@ Retires the old framework. The new one stands on its own.
 | B39 | The journey layer | 11 |
 | B40 | Business logic as a walk discipline | 7 |
 | B41 | The program autonomy contract | 9 |
+| B42 | The design canvas lane | 11 |
 
 ### Keep (23)
 

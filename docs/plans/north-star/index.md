@@ -64,6 +64,7 @@ Three scope decisions, stated so they are decisions rather than accidents:
   - Claude Code is the reference adapter and ships first. The contract exists so another host — OpenAI-compatible agents at the very least — is an adapter, not a rewrite.
   - Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs.
   - A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
+  - Canvas sync — pushing the design system to a visual design canvas and pulling page mockups back ([loop.md](loop.md)) — is an optional capability, not part of the core contract. A host without it renders the mockups locally from the same tokens.
 - **macOS first, not macOS only.** The tower and hooks land on macOS first. Linux follows. Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
 
 ## The track record this builds on

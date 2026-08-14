@@ -153,6 +153,17 @@ When an item names old machinery, we describe it in one line. You should never n
   - The launch gate reruns at each bet boundary.
   - A parked bet's walk artifacts are drafted before the owner arrives.
 
+### The design canvas
+
+(This extends the design walkthroughs above; it sits last so existing IDs stay stable.)
+
+- **The design canvas lane** ([loop.md](loop.md), [index.md](index.md)).
+  - Page designs are rendered mockups, sealed as pictures. ASCII wireframes are gone.
+  - The canvas (Claude Design on the reference host) is seeded from the repo: tokens and built components go up, finished page designs come back as mockup images in the bet's design docs.
+  - Built components push back at bet close, so the canvas never holds truth the repo lacks.
+  - A design doc's embedded images must be read by anyone consuming the doc.
+  - Canvas sync is an optional host capability; without it the same mockups render locally from the same tokens.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.
@@ -286,7 +297,7 @@ These are deliberately left open. The execution plan has to nail them down:
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
 - The UI-driver toolchain per topology — web, desktop, mobile — for the paired front-door cases.
 - The auditor's source-citation format — how a test names the design section, plan case, or invariant its expected outcome came from.
-- The host adapter contract's exact capability list, and the first non-Claude adapter's target host.
+- The host adapter contract's exact capability list — including canvas sync — and the first non-Claude adapter's target host.
 - The per-stack battery adapter — marker filtering, run-log parsing, interface extraction — as a named extension point, with a conformance checklist.
 - The break-glass command's exact scope, the withdraw verb's cascade, and the flake policy's rerun and quarantine thresholds.
 - One trend publisher, with two sources: a CI file-set counter (corpus, kernel, sheets) and a journal aggregator (spend share, wall-clock, token cost, decision actuals). Build it once, not seven times.

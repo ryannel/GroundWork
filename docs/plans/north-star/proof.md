@@ -188,7 +188,7 @@ Battery wall-clock time is published as a trend, like the word count, because th
 
 Journal segments archive as they age. Nothing is lost, but nothing is carried hot forever.
 
-Visual rows: render smoke, a11y, and token conformance, plus the affordance-floor checklist for UI review — the minimum interactions every shipped surface must support (reachable controls, sane hit targets, selection, a way back).
+Visual rows: render smoke, a11y, and token conformance, plus the affordance-floor checklist for UI review — the minimum interactions every shipped surface must support (reachable controls, sane hit targets, selection, a way back). UI review also judges the built screen against the sealed page mockup ([loop.md](loop.md)) — the design was signed as a picture, so the shipped screen is compared to that picture, not to prose.
 
 The one-page worker contract:
 
