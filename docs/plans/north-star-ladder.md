@@ -12,7 +12,7 @@ The spec commits to 118 things: 42 to build, 23 to keep, 17 to delete, and 36 qu
 
 Each item carries an ID — `B0`–`B41` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. The IDs are positions in [changes.md](north-star/changes.md)'s lists, so the coverage check is a script, not an eye.
 
-**Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined in [index.md](north-star/index.md)'s vocabulary section. Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
+**Terms.** The bets use the spec's vocabulary — kernel, dial, lane, seal, socket, blessed module, front door. All are defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are unfamiliar. Magpie and staycurrent are two existing products built with the old framework; wordloop is a fourth repo that predates it. All three appear as test fixtures.
 
 **Deletions work differently on a clean slate.** Most of the delete list happens by not porting. An item earns a bet only when something must actively happen: a replacement lands first, or a gate passes before the old thing goes.
 

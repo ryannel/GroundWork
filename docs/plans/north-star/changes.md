@@ -86,7 +86,7 @@ The complete build, keep, and delete lists, the migration path, and what the exe
 - Of today's several render surfaces (docsite, status pages, proofs pages, board files), two survive: the tower and the in-chat three-line delta. The rest are derived or absorbed — the docs-site generator itself is deleted below.
 - The universal adoption sheets and stack seeds, with ratchets and blessed modules.
 - Setup output contracts and depth gates, `dated` ([doors.md](doors.md)).
-- The ways-of-working pages: the loop's philosophy, the design conventions, and a one-page register of rules born from real incidents — the worker hand-off rules, the never-mock-what-the-proof-names rule, the commented-out-assertion check and their kin — each `dated` so every scar rule must periodically re-justify itself.
+- The ways-of-working pages: the loop's philosophy, the design conventions, and a one-page list of rules born from real incidents — the worker hand-off rules, the never-mock-what-the-proof-names rule, the commented-out-assertion check and their kin — each `dated` so every scar rule must periodically re-justify itself.
 - The worker contract and the tier rule ([proof.md](proof.md), [index.md](index.md)).
 - Fix-in-place as the default fix path, with a fresh dispatch as the escalation (measured: re-deriving context costs ~41% of the original build).
 - Whole-ladder red materialization: every milestone's headline test written and committed failing up front, so the plan's proofs exist before any implementation. Delivery transcripts show this actually practiced — committed red boards, stubs going green one by one. The ritual stays; its container changes: proofs are now born in the permanent suite, and the board becomes a derived view ([proof.md](proof.md)).

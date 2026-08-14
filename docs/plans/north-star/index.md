@@ -24,7 +24,10 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **Slice** — the atomic unit of work: one coherent change plus its proof. **Bet** — a goal reached through milestones, each milestone delivered as slices. **Program** — a goal reached through an ordered ladder of bets.
 - **Lane** — the ceremony tier a piece of work is triaged into: patch, standard, or complex.
 - **Seal** — a human sign-off, recorded as a git tag. Different moments have different seals: design, acceptance, birth (greenfield), adoption (brownfield).
-- **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product.
+- **Battery** — the shipped set of mechanical checks, run by one `verify` command. A **probe** is one runnable check in it that drives the real product. A **row** is one line item in the battery or the capability manifest — it is red or green.
+- **The kernel** — the always-on instruction set, the words loaded into every session. Target: about 500. The most expensive words in the system, because every session pays for them.
+- **Socket** — one of the named commands every project exposes through the dev CLI (`test`, `run`, `lint`, and kin), whatever tooling runs underneath. The battery reaches every product through them.
+- **Blessed module** — the canonical example of a pattern inside a project: real code that ages with the product, which agents copy when they build new code.
 - **Driver** — the frontier-class agent that plans, dispatches, and reviews; it never implements. **Worker** — an execution-class agent dispatched with a brief to build one slice.
 - **Adversary** — a review agent that shares no context with the agent that wrote the work.
 - **The blind author** — on the complex lane, the agent that writes a slice's accepting tests after the build: given the sealed design, the proof plan, and the code's public interface, never its bodies. **Test auditor** — the milestone-close pass that assumes the tests hide something and writes what is missing.
@@ -33,7 +36,7 @@ Each part defines its own machinery in full. These one-line meanings are here so
 - **The journal** — the append-only record the CLI writes automatically as it acts: check outcomes, dispatches, seals, waivers, one line per event. How the method learns from real work without anyone keeping notes.
 - **Capsule** — the short note a reviewer reads before judging a slice: what changed, why, risk, how it was verified.
 - **The ledgers** — the committed files that hold findings (defects raised) and decisions (rulings made). Chat is never the system of record; these are. The patch ledger is a lighter third, mined from patch commit trailers to show which areas keep needing fixes.
-- **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program.
+- **The dial** — the recorded setting for how far work runs before pausing for a human: slice, milestone, bet, or program. Those four settings are its **rungs**.
 - **Teach-back** — the driver teaching the owner in chat what changed while they were away: new capabilities, decisions made by default, complexity added and why. Drawn from the record; never a retelling of it.
 - **The Queue** — everything waiting on the human, across every project, ranked. **The Map** — where everything stands: portfolio, program, bet, milestone, slice.
 - **The tower** — the one always-on local service that serves the Queue and the Map for every registered project, reading state from git rather than from any checkout.
@@ -140,7 +143,7 @@ Three content classes follow: general knowledge (cut it); our adoptions and thei
 
 **Budgets.** The goal is the smallest corpus that gives up nothing real. Words are a cost — but so are cuts that remove working guidance, and hitting a number is never a reason to cut. We believe the right size is somewhere near 20–35k words of shipped instruction prose, down from 344k today, with the always-on set near 500. Those figures are aspirations that set the direction, not limits that gate a change; the honest instrument for shrinking the corpus is the sunset regime above, which deletes by evidence, rule by rule. What is enforced is visibility: CI counts the words on every change and publishes the total and its trend, so growth is always a deliberate act with a stated reason — never an accident, and never a wall. Product documentation has no word target at all; its bound is freshness, not size.
 
-**Plain writing.** Models copy the register of what they read — a working hypothesis, not a proven fact, but the evidence is close to home: writing degraded repeatedly right after ingesting dense material, and style rules kept losing to our own dense corpus. The fixes are cheap either way:
+**Plain writing.** Models copy the register — the voice and density — of what they read. That is a working hypothesis, not a proven fact, but the evidence is close to home: writing degraded repeatedly right after ingesting dense material, and style rules kept losing to our own dense corpus. The fixes are cheap either way:
 
 - The corpus cut removes the densest thing agents here read: the framework's own prose.
 - Shipped prose is itself the exemplar, so it must be plain.
