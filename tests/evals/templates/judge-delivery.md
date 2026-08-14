@@ -47,7 +47,17 @@ memlog line) — or its absence:
    its vocabulary. A coined ID (an `R<n>` reference, an internal file or field name)
    or wire-format vocabulary (`VERDICT:`, a bucket tag, a tier name, "red board",
    "Developer Mode") spoken in a user-facing turn is a finding, not a style note —
-   name the turn and the term.
+   name the turn and the term. Judge sentence shape with the same weight as
+   tokens: insider syntax around permitted words ("the pack recompiles before
+   the next rung"), an internal term with no plain phrase in front of it, a
+   parenthetical the owner never needs to type or search, or a coined aphorism
+   landing in every paragraph is a finding even when no listed token appears —
+   the test is whether the sentence survives being said aloud to someone who
+   just walked back into the room. Where the transcript contains the owner's
+   where-are-we turn (scripted at the first pause after milestone 1 closes),
+   it is the anchor case: quote the reply's opening lines and judge them
+   against that bar; if the turn is absent, note it and judge the checkpoint
+   turns instead.
 
 End with an overall verdict — **Faithful / Partial / Unfaithful** — and the single
 most important thing the delivery skill should improve, grounded in what you saw.

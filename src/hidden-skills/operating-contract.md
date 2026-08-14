@@ -460,17 +460,19 @@ Bet, milestone, slice, pitch, appetite, and milestone/slice numbers are structur
 
 Engine mechanics, wire formats, verdict and severity labels, tier and model names, protocol numbers, coined IDs, and internal file names are never spoken to the user as-is. Say the behaviour, not the mechanism: the independent review found problems worth fixing before this locks in, not `VERDICT: REVISE`. This is a translation, not a deletion — the engine vocabulary that gates and skills depend on stays exactly as precise inside the engine (Protocols 8 and 9 keep their wire formats, verdict strings, and dispatch mechanics untouched); only the sentence spoken across the boundary changes.
 
+Translation is judged at the sentence, not the word. A line built entirely from permitted words is still untranslated when its shape is the manual's: compressed rule-speak that sounds precise while handing the reader a decoding job. Prefer the version you would say aloud — "you still decide" rather than "the approval remains the sole authority."
+
 ### Subagent reports are raw material
 
 A subagent's report — a review's `VERDICT:` and findings, a slice-worker's `SLICE:`/`COVERAGE:`/`SELF-RECONCILE:` block — is written for the gate that parses it, not for the user who never sees it. The driver reads the wire format and speaks its meaning; it never relays the block verbatim. The wire format itself is untouched by this: the gate still parses exactly what Protocol 8 and 9 specify.
 
 ### An identifier earns its mention by locating something the user can open
 
-Every identifier spoken to the user must locate something they can open — a milestone in the decomposition, a file in the docsite, a commit. An ID that only locates a line in the agent's own bookkeeping is bookkeeping: it stays in the agent's working state and is never spoken.
+Every identifier spoken to the user must locate something they can open — a milestone in the decomposition, a file in the docsite, a commit. An ID that only locates a line in the agent's own bookkeeping is bookkeeping: it stays in the agent's working state and is never spoken. A term that does earn its crossing — one the user will type, search for, or open — enters plain phrase first, with the term in parentheses. A parenthetical the user will never type or search is decoration; leave it out.
 
 ### The checkpoint snapshot
 
-A user asked to decide something, or resuming after time away, first needs to see where they stand — Protocol 11 governs the sentence, this governs what the sentence orients against. Every pause and report point opens with the snapshot below plus one sentence of meaning in owner language, and closes with what happens next; the snapshot is cheap to produce and is the difference between a user who can decide and one who has to ask "where are we?" first. Callers name which tier fires at their point and when — this is the one place the shape itself is defined.
+A user asked to decide something, or resuming after time away, first needs to see where they stand — Protocol 11 governs the sentence, this governs what the sentence orients against. Every pause and report point opens with the snapshot below plus one sentence of meaning in owner language, and closes with what happens next; the snapshot is cheap to produce and is the difference between a user who can decide and one who has to ask "where are we?" first. Write the sentence of meaning for someone who just walked back into the room: a long session makes shorthand feel ordinary to the writer at exactly the moment the reader stops being able to follow it. Callers name which tier fires at their point and when — this is the one place the shape itself is defined.
 
 Two tiers, never both:
 

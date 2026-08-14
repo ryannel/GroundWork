@@ -11,7 +11,7 @@ This workflow operates under the protocols defined in `.groundwork/skills/operat
 Four sources feed this phase, and all four are read every time, whether or not they turn up anything: discovery notes, patch clusters, the maturity roadmap, and the previous bet's reality signal. Read them before opening the conversation (the detection rules for each are below), then present what they turned up as one compact screener — only the categories with something to show, in this order — and move straight into the user's problem. Do not walk each category as its own turn.
 
 - **Queued:** `<N>` bullets under `## Bets` in discovery notes, naming the top few.
-- **Patch clusters:** `<area>` — `<N>` patches since the last archived bet, citing SHAs.
+- **Repeated fixes in one area:** `<N>` small fixes (patches) in `<area>` since the last bet closed, citing SHAs.
 - **Maturity:** `<N>` open `fix-now`/`blocks-delivery` rows, named.
 - **Reality:** did `<the previous bet's success signal>` show anything? (always last, when a prior archived bet exists.)
 

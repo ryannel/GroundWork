@@ -8,6 +8,18 @@ automatically when it detects a version jump.
 
 ## [Unreleased]
 
+### Changed (chat written for the returning reader, 2026-08-13)
+
+- [no-migration] The cold-reader legibility work stranded on a deleted July
+  branch (`ee79fed`) is ported onto the current corpus: the persona's
+  Keep-the-Reader guidance names the session-drift causes (vocabulary
+  acclimatization, register mirroring, maxim density); Protocol 11 judges
+  translation at the sentence rather than the word, routes earned terms through
+  plain-phrase-first parentheticals, and writes the checkpoint snapshot's
+  sentence of meaning for someone who just walked back into the room; three
+  prescribing report points speak owner language; the delivery judge scores
+  sentence shape against a scripted returning-user turn.
+
 ### Added (PR #30 reconciled: methodology-twin convergence ported to the new track, 2026-08-13)
 
 - [no-migration] PR #30's orthogonal assets land adapted to the resequenced
