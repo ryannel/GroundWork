@@ -81,7 +81,7 @@ When an item names old machinery, we describe it in one line. You should never n
 - **The session-start position snapshot hook**, and `groundwork where` — the CLI command that renders the same data.
 - **The board derivation.**
   - The bet/slice test marker, part of the derivation contract.
-  - Expected-state reconciliation: plan position is checked against test state — red for the right reason on rungs not yet reached, green on slices claimed done.
+  - Expected-state reconciliation: plan position is checked against test state — red for the right reason on milestones not yet reached, green on slices claimed done.
 - **The bypass signals on the Map.**
   - Unlaned commits.
   - Mis-laned commits.

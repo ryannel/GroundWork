@@ -44,7 +44,7 @@ Sometimes you cannot predict what the worker will need. Only then is a bare poin
 
 Write the test before you write the code. Commit the test while it still fails. A test written after the code tends to just assert whatever the code already does. Tests live beside the code they prove — this is Go's default layout — and `go test ./...` runs them.
 
-Most of this rebuild is ordinary code, and ordinary code gets ordinary tests. Judgment work is different: whether a piece of prose steers an agent well, whether a walk — a step-by-step read-through of a user journey — reads well. That kind of work is proved in three layers instead: first observable events, then a rubric — a scored checklist — proven to catch real failures, then a human seal — a person's sign-off, recorded as a tag. `docs/execution-plan.md` has the detail.
+Most of this rebuild is ordinary code, and ordinary code gets ordinary tests. Judgment work is different: whether a piece of prose steers an agent well, whether a walk — the step-by-step design review a change goes through before it is built — reads well. That kind of work is proved in three layers instead: first observable events, then a rubric — a scored checklist — proven to catch real failures, then a human seal — a person's sign-off, recorded as a tag. `docs/execution-plan.md` has the detail.
 
 Never delete or weaken a test to make a slice pass. If a test is wrong, say so in `findings.md`, and fix the test as its own separate change.
 
@@ -56,7 +56,7 @@ Every finding goes in the ledger. A slice cannot close while a finding on it is 
 
 ## Committing
 
-One commit per slice. Each bet runs on its own branch. Push after every slice, so no work exists on only one machine. Push tags too, not just commits. A tag is a seal — proof that something has been verified — and a seal on only one machine is not yet proof of anything.
+One commit per slice. Each bet runs on its own branch. Push after every slice, so no work exists on only one machine. Push tags too, not just commits. Some of those tags are seals — a person's sign-off, recorded as a tag — and a seal that exists on only one machine is not yet proof of anything.
 
 Each commit message ends with trailers: structured lines that state what the commit was.
 

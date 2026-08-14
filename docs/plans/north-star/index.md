@@ -130,7 +130,11 @@ Context is the scarcest machine resource — the same economy as attention, just
 
 First: anything worth keeping — plans, decisions, findings, status — lives on a committed page. Chat is a bad home for it: the transcript is re-sent on every turn, gets cut down at compaction, and a later session cannot see it at all.
 
-Second: a message still carries the part the reader needs, copied straight in, and says which page it came from. A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them — which costs more context than the paragraph itself, and the transcript ends up saying "see the page" where the actual instruction should be. A link on its own is fine only when the writer cannot know what the reader will need; then it carries one line saying what is behind it, so the reader can decide whether to open it.
+Second: a message still carries the part the reader needs, copied straight in, and says which page it came from.
+
+A bare link is not a message. It sends the reader off to load a whole page, written for everyone, to find the one paragraph that applies to them. That costs more context than the paragraph itself. Worse, the transcript then says "see the page" where the actual instruction should be.
+
+A link on its own is fine only when the writer cannot know what the reader will need. Even then it carries one line saying what is behind it, so the reader can decide whether to open it.
 
 The always-on instruction set stays near 500 words; everything else loads when the task needs it. These are checks and budgets, not habits.
 
