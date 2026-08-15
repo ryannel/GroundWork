@@ -198,7 +198,7 @@ The one-page worker contract:
 - Escalate blocking concerns instead of guessing.
 - Never satisfy with a mock anything the sealed proof names as real.
 
-Dispatch tiers follow the core context principle: frontier drives and reviews, execution workers build. Tier is explicit on every dispatch, and spend and role are recorded per dispatch.
+Dispatch tiers follow the core context principle: frontier drives and reviews, execution workers build. Tier is explicit on every dispatch, and spend and role are recorded per dispatch. Overrides go upward only — a hard slice lifts its worker to frontier, a battling worker consults the advisor ([loop.md](loop.md)) — and nothing ever silently runs the review cheaper.
 
 Every battery run writes its outcome to the journal ([loop.md](loop.md)) automatically, at the moment it runs — which rows ran, and each row's result. A check with no journal lines is a check that never ran. That is now a visible fact, not a forensic discovery.
 

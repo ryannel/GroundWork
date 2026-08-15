@@ -168,6 +168,14 @@ When an item names old machinery, we describe it in one line. You should never n
   - The sealed system is pulled down and materialized as tokens and real components in code. That pull makes the repo the origin; the repo-originates rule applies from that moment on.
   - Without sync the owner exports from the canvas by hand; without the canvas the seal is granted on locally rendered sheets.
 
+### The tier ladder
+
+- **The tier ladder** ([loop.md](loop.md), [index.md](index.md), [proof.md](proof.md)).
+  - Tier overrides go upward only, one slice at a time: a slice flagged hard or vague at design time runs its worker at frontier from the start.
+  - The advisor middle rung: a battling worker consults a frontier-class model at a decision point or on a recurring error and keeps working — distinct from the blocking concern that hands the slice back. Forcing a green is never a rung.
+  - The advisor is an optional host capability; without it the worker escalates to the frontier driver.
+  - Advisor consultations are journaled alongside blocking concerns; both counts tune the tier policy.
+
 ## What stays
 
 - The 9 verification verbs, consolidated under `verify`.

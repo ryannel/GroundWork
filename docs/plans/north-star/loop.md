@@ -137,7 +137,7 @@ Alongside the ledgers, the CLI keeps an append-only journal. It is one machine-r
 
 The events it logs:
 - a battery run and each row's outcome
-- a dispatch, with its role, tier, token count, wall-clock duration, and whether it escalated
+- a dispatch, with its role, tier, token count, wall-clock duration, and whether it escalated or consulted the advisor
 - a seal granted or moved
 - a waiver
 - a dial change
@@ -180,7 +180,9 @@ The loop today costs a 3-milestone bet roughly 35–45 subagent dispatches, six 
 
    On the standard lane, this worker writes the slice's tests too, red first. On the complex lane, whatever tests it writes are just scaffolding — the accepting suite comes next, from an author it never meets.
 
-   Blocking-concern escalations are counted; that count tunes the tier policy.
+   The worker's tier is a default with a ladder above it, and every rung goes up — never down. At design time, a slice flagged hard or vague runs its worker at the frontier tier from the start. Mid-slice, the worker has a middle rung before handing back: the advisor — a frontier-class model it consults at a decision point or on a recurring error, then keeps working. Consulting is for "I'm battling this"; a blocking concern is for "this can't be done as specified." Grinding toward a forced green is the one move that is never on the ladder. The advisor is an optional host capability ([index.md](index.md)); without one, the worker escalates to the driver, which is frontier-class itself.
+
+   Blocking-concern escalations and advisor consultations are counted; those counts tune the tier policy.
 
 3. On the complex lane, the blind author (execution tier) writes the accepting suite ([proof.md](proof.md)). Its inputs are: the driver-scoped design extract for this slice, the proof plan, and the public interface of the handed-off code — names, signatures, endpoints, extracted mechanically. It never sees the code bodies, and never sees the implementer's tests.
 

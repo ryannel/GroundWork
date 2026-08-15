@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 120 things: 44 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
+The spec commits to 121 things: 45 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
 
-Each item has an ID: `B0`–`B43` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
+Each item has an ID: `B0`–`B44` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
 
 **Terms.** The bets use the spec's own words — kernel, dial, lane, seal, socket, blessed module, front door, and more. They're defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are new to you. Magpie and staycurrent are existing products built with the old framework. Wordloop is a fourth repo that predates it. All three show up as test fixtures.
 
@@ -92,9 +92,9 @@ Tests the spec's central claim: a small body of prose can do the work of a much 
 
 Builds the slice-review loop. It works on its own at dial `slice`.
 
-**Done when:** a reviewer correctly answers fixed comprehension questions about a slice, using only its capsule. On the complex lane, the person who writes the accepting suite never sees the implementation. Their transcript has no implementation in it. Their brief has no implementation-derived specifics — no names, no line numbers, no algorithm choices beyond what the design already states. Bet 5's blind-author cheat scenario goes green.
+**Done when:** a reviewer correctly answers fixed comprehension questions about a slice, using only its capsule. On the complex lane, the person who writes the accepting suite never sees the implementation. Their transcript has no implementation in it. Their brief has no implementation-derived specifics — no names, no line numbers, no algorithm choices beyond what the design already states. Bet 5's blind-author cheat scenario goes green. A worker driven above its weight in the rig consults the advisor or raises a blocking concern instead of forcing a green, and the consultation appears in the journal.
 
-**Lands:** lanes and the lane audit, capsules, the adversary, the blind author and the test auditor, fix-in-place, the ripple caller list, patch-trailer mining, the bypass signals.
+**Lands:** lanes and the lane audit, capsules, the adversary, the blind author and the test auditor, the tier ladder, fix-in-place, the ripple caller list, patch-trailer mining, the bypass signals.
 
 ### Bet 9 — Autonomy and the dial
 
@@ -174,7 +174,7 @@ Retires the old framework. The new one stands on its own.
 
 ## 2. Coverage
 
-### Build (44)
+### Build (45)
 
 | ID | Item | Bet |
 |---|---|---|
@@ -222,6 +222,7 @@ Retires the old framework. The new one stands on its own.
 | B41 | The program autonomy contract | 9 |
 | B42 | The design canvas lane | 11 |
 | B43 | The design system born on the canvas | 12 |
+| B44 | The tier ladder | 8 |
 
 ### Keep (23)
 

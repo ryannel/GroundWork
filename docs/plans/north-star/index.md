@@ -65,6 +65,7 @@ Three scope decisions, stated so they are decisions rather than accidents:
   - Instruction files are written in each host's convention (CLAUDE.md, AGENTS.md). Tier names are capability classes mapped to whatever models the host runs.
   - A host missing a capability degrades visibly, never silently: with no hooks, position arrives through the CLI instead, and the journal shows the gap.
   - Canvas sync — pushing the design system to a visual design canvas and pulling page mockups back ([loop.md](loop.md)) — lives in the CLI, not the host contract: any host that can run the CLI gets it. The reference host's built-in sync is the interim path. The canvas itself is the owner's browser tool, independent of the agent host; without sync the owner exports designs into the repo by hand, and without the canvas the mockups render locally from the same tokens.
+  - The advisor — a stronger model a worker consults mid-task and keeps working ([loop.md](loop.md)) — is likewise optional. A host without it loses the middle rung, not the safety: the worker escalates to the frontier-class driver instead.
 - **macOS first, not macOS only.** The tower and hooks land on macOS first. Linux follows. Windows waits until someone real needs it. Until then, other platforms run the CLI-parity fallback, and the spec says so out loud instead of hiding it in an open item.
 
 ## The track record this builds on
