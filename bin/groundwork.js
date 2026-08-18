@@ -76,9 +76,9 @@ function printHelp() {
             are leads for slice review, not verdicts.
             \x1b[2mExits 0 clean / 1 findings / 2 no tag or not a git repo; --json for machine output.\x1b[0m
   \x1b[36mdesign\x1b[0m    Render the design sheet from .groundwork/config/brand-tokens.json: build | check | open.
-            build writes a self-contained .groundwork/cache/visual/token-sheet.html the owner opens
-            and critiques, plus a card bundle for an optional design-canvas push; check asserts every
-            value in the sheet is traceable to the token file, not a literal someone typed.
+            build writes a self-contained .groundwork/cache/visual/token-sheet.html to show the owner
+            (who reacts in conversation), plus a card bundle for an optional design-canvas push; check
+            asserts every value in the sheet is traceable to the token file, not a literal someone typed.
             \x1b[2m--bet <slug> scopes page mockups to one bet. Exits 0 clean / 1 untraceable values.\x1b[0m
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
@@ -3340,10 +3340,9 @@ function designCommand(argv) {
   c.ok(`design sheet built — ${r.cards} cards (${groups || 'none'})`);
   c.dim(`    sheet    ${r.sheet}`);
   c.dim(`    bundle   ${r.bundle}`);
-  c.dim(`    critique ${r.critique}${r.critiqueSeeded ? ' (seeded)' : ' (kept — existing notes preserved)'}`);
   if (r.warning) c.warn(r.warning);
   console.log('');
-  c.info('Open the sheet and look at it before approving anything it shows.');
+  c.info('Show this to the owner and let them react in conversation — inline if this host can render a local file, otherwise hand over the path.');
   process.exit(0);
 }
 

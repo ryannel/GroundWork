@@ -13,8 +13,8 @@ These tests are the "way to fail" that was missing. Load-bearing behaviors:
     can never quietly read as an approved design decision;
   * a missing or malformed token file still renders a sheet, and says so — a
     page that fails to open teaches the owner nothing;
-  * the critique file is seeded once and never overwritten, so a rebuild after
-    a token change cannot eat notes the owner already wrote;
+  * no critique file is produced and every card id is legible on the page —
+    the owner reacts in conversation, naming the card they mean;
   * the bundle carries `@dsCard` on line 1 of every card plus a manifest, which
     is the shape an optional design-canvas push consumes unchanged.
 
@@ -33,7 +33,6 @@ CLI = REPO_ROOT / "bin" / "groundwork.js"
 VISUAL_DIR = Path(".groundwork") / "cache" / "visual"
 SHEET = VISUAL_DIR / "token-sheet.html"
 BUNDLE = VISUAL_DIR / "design-sheet"
-CRITIQUE = VISUAL_DIR / "critique.md"
 
 TOKENS = {
     "schema": "groundwork.brand-tokens",
@@ -231,31 +230,30 @@ def test_a_single_malformed_token_degrades_only_its_own_slot(tmp_path):
     assert v["radius-base"] == "10px"                     # neutral, not "wide-ish"
 
 
-# ── the critique loop ────────────────────────────────────────────────────────
+# ── feedback happens in the conversation, not in a file ─────────────────────
 
-def test_critique_is_seeded_with_a_heading_per_card(tmp_path):
+def test_no_critique_file_is_produced(tmp_path):
+    """The owner reacts in chat; the agent is already there.
+
+    A file would add a round trip to the case that matters, and duplicate the
+    decisions queue in the case where feedback has to outlive the session.
+    """
     root = seed(tmp_path)
     gw(["design", "build"], root, check_returncode=0)
-    text = (root / CRITIQUE).read_text()
+    assert not (root / VISUAL_DIR / "critique.md").exists()
+    result = json.loads(gw(["design", "build", "--json"], root, check_returncode=0).stdout)
+    assert "critique" not in result
+
+
+def test_every_card_id_is_visible_on_the_page(tmp_path):
+    """The owner names a card when they react, so every id has to be readable
+    on the page itself — that is what replaces a keyed critique file."""
+    root = seed(tmp_path)
+    gw(["design", "build"], root, check_returncode=0)
+    html = (root / SHEET).read_text()
     manifest = json.loads((root / BUNDLE / "_ds_manifest.json").read_text())
     for card in manifest:
-        assert f"## {card['id']}" in text, f"no critique heading for {card['id']}"
-
-
-def test_rebuild_never_overwrites_the_owners_notes(tmp_path):
-    root = seed(tmp_path)
-    gw(["design", "build"], root, check_returncode=0)
-    marker = "- the primary reads too cold against the surface"
-    path = root / CRITIQUE
-    path.write_text(path.read_text() + "\n" + marker + "\n")
-
-    mutated = json.loads(json.dumps(TOKENS))
-    mutated["visual"]["palette"]["primary"]["light"] = "oklch(55% 0.25 350)"
-    (root / ".groundwork" / "config" / "brand-tokens.json").write_text(json.dumps(mutated, indent=2))
-    proc = gw(["design", "build"], root, check_returncode=0)
-
-    assert marker in path.read_text(), "a rebuild ate the owner's critique"
-    assert "kept" in proc.stdout
+        assert f"<code>{card['id']}</code>" in html, f"id not shown for {card['id']}"
 
 
 # ── the bundle shape (what an optional canvas push consumes) ─────────────────

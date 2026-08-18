@@ -182,7 +182,11 @@ Follow the Phase Lifecycle commit protocol from the Operating Contract:
 
    Then run `groundwork design check` and report anything it names. A variable that traces to no token is a neutral fallback filling a slot the design system does not define, and the user must not approve it as though it were their decision — either the token file gains that value or the sheet stops implying one.
 
-   Tell the user to open the sheet and confirm before continuing, so what they approve is the rendered treatment, not oklch strings. Hold the draft directory until they confirm — a requested adjustment re-enters the Re-flow Protocol instead of reopening a phase whose caches are already gone. When no active type carries a `visual` block, the verb reports `identity-only` and there is nothing to present: skip the step (a `cli`/`agentic-protocol`-only product has nothing to render).
+   Present it the way Protocol 12 presents any artifact at a canonical path: the sheet is a real file, so show it through the host's native surface where the session offers one — render it inline — and hand over the path where it does not. Never assume a capability the host has not shown.
+
+   Then have the conversation. The user reacts in chat, naming a card by the id printed beside it; there is no file for them to write in, because you are already here and a reaction that must outlive the session is a decision, not a note. Every reaction resolves to an edit of the `visual` block: make it, re-run `groundwork design build`, and show the sheet again so they see the change rather than being told about it. Iterate until they confirm — what they approve is the rendered treatment, not oklch strings.
+
+   Hold the draft directory until they confirm — a requested adjustment re-enters the Re-flow Protocol instead of reopening a phase whose caches are already gone. When no active type carries a `visual` block, the verb reports `identity-only` and there is nothing to present: skip the step (a `cli`/`agentic-protocol`-only product has nothing to render).
 
 5. **Write the hand-off file.** Copy `.groundwork/skills/templates/handoff.md` to `.groundwork/cache/handoff/design-system.md` and fill in only the sections that have content: rejected directions, deferred design decisions, and user instincts not yet committed — each active track's Commit Contributions section lists what its medium typically leaves behind — plus any other context the architecture phase needs. Omit empty sections.
 
