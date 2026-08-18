@@ -153,20 +153,21 @@ When an item names old machinery, we describe it in one line. You should never n
   - The launch gate reruns at each bet boundary.
   - A parked bet's walk artifacts are drafted before the owner arrives.
 
-### The design canvas
+### The design sheet
 
 (This extends the design walkthroughs above; it sits last so existing IDs stay stable.)
 
-- **The design canvas lane** ([loop.md](loop.md), [index.md](index.md)).
-  - Page designs are rendered mockups, sealed as pictures. ASCII wireframes are gone.
-  - The canvas (Claude Design on the reference host) is seeded from the repo: tokens and built components go up, finished page designs come back as mockup images in the bet's design docs.
-  - Built components push back at bet close, so the canvas never holds truth the repo lacks.
+- **The design sheet lane** ([loop.md](loop.md), [index.md](index.md)).
+  - Page designs are rendered mockups, sealed as pictures. The ASCII wireframe stops being the layout source of truth (D17).
+  - The sheet is generated from the repo's own tokens and components, never hand-authored, so what the owner approves and what the app compiles are the same values.
+  - The owner opens the sheet in a browser and critiques it; the critique comes back as a file the agent reads.
+  - The sealed mockup is captured and committed beside the bet's design doc, and UI review judges the shipped screen against that picture.
   - A design doc's embedded images must be read by anyone consuming the doc.
-  - Canvas sync lives in the CLI, so any host that runs the CLI gets it; the reference host's built-in sync is the interim path. Without sync the owner exports designs into the repo by hand; without the canvas the same mockups render locally from the same tokens.
-- **The design system born on the canvas** ([doors.md](doors.md), [loop.md](loop.md)).
-  - At greenfield birth, taste is explored on the canvas — type, color, and components rendered live — and the owner seals a look they saw, never token strings on faith.
-  - The sealed system is pulled down and materialized as tokens and real components in code. That pull makes the repo the origin; the repo-originates rule applies from that moment on.
-  - Without sync the owner exports from the canvas by hand; without the canvas the seal is granted on locally rendered sheets.
+  - The renderer is a CLI verb over repo files and a headless browser, so any host that runs the CLI gets it; where no browser resolves, the seal degrades to HTML the owner opens by hand.
+  - A hosted design canvas is an optional accelerator on hosts that offer one: the built component library can be pushed up to a design-system project for a gallery to browse. The push is one-way, needs the host's own tooling and login, has no read-back, cannot carry page designs, and anchors no gate.
+- **The design system sealed rendered** ([doors.md](doors.md), [loop.md](loop.md)).
+  - At greenfield birth, taste is explored against a sheet generated from the tokens as they are written — type, color, elevation, and motion rendered — and the owner seals a look they saw, never token strings on faith.
+  - The sheet is a projection of the token file, so the seal binds the exact values the app will compile. No by-eye reproduction step exists to drift.
 
 ### The tier ladder
 
@@ -244,6 +245,7 @@ When an item names old machinery, we describe it in one line. You should never n
   - Proofs are born in their permanent home instead.
   - The board becomes a derived view.
   - Only proofs marked retire-at-close are ever deleted ([proof.md](proof.md)).
+- **The ASCII wireframe as the layout source of truth.** Today the template calls it "the source of truth even when a real mockup also exists," and a mockup "may supplement the ASCII but never replaces it." That precedence inverts: the rendered mockup is what gets sealed ([loop.md](loop.md)). The character grid may still be sketched while thinking, but it is no longer what anyone signs.
 
 ## Migration and updates
 
@@ -309,7 +311,7 @@ These are deliberately left open. The execution plan has to nail them down:
 - The blind author's interface-extraction mechanics per stack, the fix-loop visibility rules, and how scaffolding tests are curated into or out of the suite.
 - The UI-driver toolchain per topology — web, desktop, mobile — for the paired front-door cases.
 - The auditor's source-citation format — how a test names the design section, plan case, or invariant its expected outcome came from.
-- The host adapter contract's exact capability list, and the first non-Claude adapter's target host. With it: whether canvas sync can run as a CLI verb outside the reference host — the canvas API's auth and stability are unproven there.
+- The host adapter contract's exact capability list, and the first non-Claude adapter's target host. (Not open: whether canvas sync can be a CLI verb. It cannot — the push needs the host's own tooling and the owner's own login, so it stays an optional accelerator and the portable path is the locally rendered sheet.)
 - The per-stack battery adapter — marker filtering, run-log parsing, interface extraction — as a named extension point, with a conformance checklist.
 - The break-glass command's exact scope, the withdraw verb's cascade, and the flake policy's rerun and quarantine thresholds.
 - One trend publisher, with two sources: a CI file-set counter (corpus, kernel, sheets) and a journal aggregator (spend share, wall-clock, token cost, decision actuals). Build it once, not seven times.

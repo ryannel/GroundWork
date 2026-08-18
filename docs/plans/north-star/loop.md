@@ -89,15 +89,17 @@ The map itself is a living, sealed artifact. It merges into the Record at bet cl
 
 This order exists because its absence is a recorded failure class: working screens nobody could reach, journeys that dead-ended, capabilities scattered across the app.
 
-**The design canvas.** Page design can run in a visual canvas — Claude Design on the reference host. The agent seeds a design project from the repo: the tokens and the built component library go up, so everything drawn on the canvas is drawn from the real system. The owner shapes pages there, with the agent alongside. Then the agent pulls the finished designs back into the bet's design docs as mockup images. The pulled mockup is what the owner seals.
+**The design sheet.** Page designs are rendered before they are sealed. The agent generates a self-contained sheet from the repo's own tokens and components — a page the owner opens in a browser and critiques. The critique comes back as a file the agent reads. What the owner seals is a picture: the rendered mockup, captured and committed beside the design doc.
 
-The direction matters. The repo originates; the canvas consumes. A design that lives only in a tool and gets reproduced by eye is the decorative-system failure — it drifts the moment it ships. So built components push back to the canvas at bet close, and the canvas never holds truth the repo lacks.
+The direction matters. The repo originates; every rendering is drawn from the tokens and components the repo already holds. A design that lives only in a tool and gets reproduced by eye is the decorative-system failure — it drifts the moment it ships. The sheet cannot drift, because it is generated from the same token file the app compiles: change a token and the sheet moves with the app, or the change is a bug in one of them.
 
-The one exception is birth. The design system itself starts on the canvas — taste is explored and sealed rendered, then materialized as tokens and components in code ([doors.md](doors.md)). The pull that materializes it is what makes the repo the origin. The failure the rule guards against is by-eye reproduction and slow drift, not where taste was first explored.
+This is host-portable by construction. The renderer is a CLI verb over repo files and a headless browser ([index.md](index.md)), so any host that can run the CLI gets it. Where no browser resolves, the sheet is still HTML the owner opens by hand and the seal degrades to the markup rather than a picture.
+
+**A design canvas is an optional accelerator, not the path.** Where a host offers one — Claude Design on the reference host — the built component library can be pushed up to a design-system project, giving the owner a hosted gallery to browse and share. That push is one-way and design-system-shaped. The canvas has no read-back: nothing done there returns to the repo on its own, page designs cannot be pushed into it at all, and no gate is ever anchored on it. A host without a canvas loses a gallery and nothing else.
 
 A design doc that embeds images is not read until its images are read. Workers, reviewers, and the milestone-close design judgment look at the mockups themselves, not just the prose around them.
 
-The canvas is the owner's tool, not the harness's: it runs in a browser on the owner's own subscription, whatever agent host drives the work. Sync lives in the CLI ([index.md](index.md)), so any host that can run the CLI gets it; the reference host's built-in sync is the interim path. Degradation is graceful. With no sync, the owner exports finished designs into the repo and the agent consumes them the same way. With no canvas at all, the agent renders the same mockups locally from the same tokens, and the walk is unchanged. The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
+The mockup replaced the old ASCII wireframe because signing a design nobody rendered is a recorded failure: designs were approved from character grids and token strings, and the first rendered look arrived after delivery.
 
 **For system design, the walkthrough is the data flow.** It also happens in order:
 

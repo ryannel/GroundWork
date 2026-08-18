@@ -8,9 +8,9 @@
 
 ## How to read this
 
-The spec commits to 121 things: 45 to build, 23 to keep, 17 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
+The spec commits to 122 things: 45 to build, 23 to keep, 18 to delete, and 36 open questions. §2 assigns each one to exactly one bet. That is the point of this document. A commitment with no bet is work nobody has agreed to do. The tables make that visible before anyone starts.
 
-Each item has an ID: `B0`–`B44` for build, `K0`–`K22` for keep, `D0`–`D16` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
+Each item has an ID: `B0`–`B44` for build, `K0`–`K22` for keep, `D0`–`D17` for delete, `O0`–`O35` for open. Each ID marks a position in [changes.md](north-star/changes.md)'s lists. That means the coverage check can run as a script — nobody has to check it by eye.
 
 **Terms.** The bets use the spec's own words — kernel, dial, lane, seal, socket, blessed module, front door, and more. They're defined under "The words this set uses" in [index.md](north-star/index.md). Read that first if any are new to you. Magpie and staycurrent are existing products built with the old framework. Wordloop is a fourth repo that predates it. All three show up as test fixtures.
 
@@ -126,17 +126,17 @@ Builds one address for everything, plus a seam that lets a second host plug in l
 
 Proves user-facing work from where the user actually stands — inside the UI.
 
-**Done when:** a user-facing capability is proven by a UI-driver case that asserts what the user actually sees. Break the screen on purpose: the UI case fails, while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, but linked from nowhere. The reachability row turns red. The screen's UI proof fails too, because no navigation path reaches it from the entry point. The capability's page was sealed as a rendered mockup — pulled from the design canvas, or rendered locally on a host without canvas sync — and the UI review judged the shipped screen against that mockup.
+**Done when:** a user-facing capability is proven by a UI-driver case that asserts what the user actually sees. Break the screen on purpose: the UI case fails, while its headless twin still passes. The board's headline row shows the UI result. Seed an orphan screen — built, routed, but linked from nowhere. The reachability row turns red. The screen's UI proof fails too, because no navigation path reaches it from the entry point. The capability's page was sealed as a rendered mockup, generated from the repo's own tokens and components, and the UI review judged the shipped screen against that picture. Change a token and rebuild: the sheet moves with the app, proving the mockup is wired rather than painted.
 
-**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the design canvas lane, the board's UI headline row, release probes for deploying topologies.
+**Lands:** the UI-driver toolchains per topology, the headless-plus-UI pairing rule, the walk-from-entry rule, the reachability row, the journey map, the design sheet lane, the board's UI headline row, release probes for deploying topologies.
 
 ### Bet 12 — The greenfield door
 
 Turns a description of intent into a working product.
 
-**Done when:** one intent conversation carries a product — one with at least one real design ambiguity — to its first green capability. The human seals once. The ambiguity gets settled by a recorded decision, not by template matching. If the product has a UI, its design system is sealed from rendered treatment — on the canvas, or from locally rendered sheets — before the first screen, and the first screen passes the token scan against the materialized tokens.
+**Done when:** one intent conversation carries a product — one with at least one real design ambiguity — to its first green capability. The human seals once. The ambiguity gets settled by a recorded decision, not by template matching. If the product has a UI, its design system is sealed from rendered treatment — a sheet generated from the tokens as they are written — before the first screen, and the first screen passes the token scan against those same tokens.
 
-**Lands:** the intent artifacts with output contracts and depth gates, the birth seal, the design system born on the canvas, manifest build-out.
+**Lands:** the intent artifacts with output contracts and depth gates, the birth seal, the design system sealed rendered, manifest build-out.
 
 ### Bet 13 — The brownfield door
 
@@ -220,8 +220,8 @@ Retires the old framework. The new one stands on its own.
 | B39 | The journey layer | 11 |
 | B40 | Business logic as a walk discipline | 7 |
 | B41 | The program autonomy contract | 9 |
-| B42 | The design canvas lane | 11 |
-| B43 | The design system born on the canvas | 12 |
+| B42 | The design sheet lane | 11 |
+| B43 | The design system sealed rendered | 12 |
 | B44 | The tier ladder | 8 |
 
 ### Keep (23)
@@ -275,6 +275,7 @@ The bet named is where the replacement lands, or where a gate passes first.
 | D14 | The docs-site generator | 4 | The tower renders committed docs |
 | D15 | The 10 Nx generators | 16 | Gated: the battery must pass generator-built output |
 | D16 | The separate bet-progress suite | 3 | The board becomes a derived view |
+| D17 | The ASCII wireframe as layout source of truth | 11 | The sealed mockup is the picture that gets signed |
 
 ### Open questions (36)
 
