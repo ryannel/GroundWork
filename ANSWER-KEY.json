@@ -1,0 +1,36 @@
+{
+  "repo": "ts-repo",
+  "runCommand": "node --test \"test/*.test.ts\"",
+  "capabilities": [
+    {
+      "path": "src/money.ts",
+      "verdict": "honest",
+      "shape": "-",
+      "note": "Tests pin exact minor-unit values, rejection cases and a round-trip; blanking money.ts fails 7 tests."
+    },
+    {
+      "path": "src/dateRange.ts",
+      "verdict": "honest",
+      "shape": "-",
+      "note": "Tests pin day counts, the leap day, ordering and both ends of contains; blanking dateRange.ts fails 7 tests."
+    },
+    {
+      "path": "src/categorize.ts",
+      "verdict": "hollow",
+      "shape": "deletion-survivor",
+      "note": "Tests only check typeof is string, that two calls agree, that nothing throws and that categories() is an array, so returning '' and [] still passes."
+    },
+    {
+      "path": "src/summary.ts",
+      "verdict": "hollow",
+      "shape": "never-run",
+      "note": "Its tests live in src/summary.spec.ts, which matches neither the recorded test/*.test.ts glob nor node's own default discovery patterns; run directly they are strong and 4 of 5 fail on a blanked summary.ts."
+    },
+    {
+      "path": "src/receiptId.ts",
+      "verdict": "hollow",
+      "shape": "vacuous",
+      "note": "Assertions are on string literals, assert.ok(true), a typeof check, one commented-out assert and one skipped test, plus an async test that awaits without asserting, so blanking receiptId.ts still passes."
+    }
+  ]
+}
