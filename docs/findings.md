@@ -51,3 +51,11 @@ What it is: the first draft of docs/carried-over.md had 21 register defects. The
 What caught it: the register review the execution plan requires, run in a separate session.
 
 What happened: the port worker fixed the list and dropped two rules it could not evidence. The re-read cleared it after two one-line fixes. The file gained a glossary section the original brief did not name; the driver confirmed the addition.
+
+## F7 — 2026-08-22 — The journal writer's first build had three real defects
+
+What it is: the blind review of Bet 1 slice 1 found 20 items. Three were real defects in the writer: seq reset to 1 when the CLI ran from a subdirectory, an identical line could vanish while the CLI reported success, and concurrent writes dropped events with no retry. Two more were test-suite holes proven by mutation: the compare-and-swap and the session sanitizer were claimed but not tested — the suite stayed green with either removed.
+
+What caught it: the slice's blind review, which ran mutation checks instead of reading for style.
+
+What happened: all mandatory fixes were applied before the slice landed. Two low nits were skipped on driver ruling. The full review is archived at docs/evidence/bet-1/slice-1/blind-review.md.

@@ -154,3 +154,9 @@ The findings backfill — adding Caught by and Class lines to F1–F6 — is a o
 The token cross-check includes one human step: the driver transcribes the host's reported figure. That is accepted for this bet.
 
 Why this cut: the writer lands first because every later slice reads what it wrote. Verification of the ref's content (spend, merge, cross-check) follows the verbs that fill it. The findings check is last because it gates CI and needs the backfill.
+
+## D12 — 2026-08-22 — tokens_source defaults to "unset"
+
+A dispatch line's `tokens_source` says where its token figures came from. The CLI's default was `host-report`, which records a provenance claim the caller never made. That defeats the field. The default is now `unset`.
+
+Why: a provenance field that lies by default is worse than none. The slice 1 blind review caught this.
