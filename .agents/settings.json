@@ -1,6 +1,0 @@
-{
-  "worktree": {
-    "bgIsolation": "worktree",
-    "baseRef": "fresh"
-  }
-}
