@@ -41,3 +41,11 @@ What it is: the F4 entry was first committed to the local `legacy` branch. The d
 What caught it: the commit output named the wrong branch.
 
 What happened: the unpushed commit was reset away, and the entry was recommitted on the bet branch.
+
+## F6 — 2026-08-22 — The port list needed two rounds of register review
+
+What it is: the first draft of docs/carried-over.md had 21 register defects. The worst: evidence lines that were bare commit hashes no worker is allowed to look up, one circular evidence line, and about ten private terms used with no definition.
+
+What caught it: the register review the execution plan requires, run in a separate session.
+
+What happened: the port worker fixed the list and dropped two rules it could not evidence. The re-read cleared it after two one-line fixes. The file gained a glossary section the original brief did not name; the driver confirmed the addition.
