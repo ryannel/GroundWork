@@ -855,3 +855,789 @@ func TestWriteDispatchOutsideARepo(t *testing.T) {
 		t.Errorf("WriteDispatch returned %v, want ErrNotARepo", err)
 	}
 }
+
+// sampleDial returns a dial with every field set to a known value.
+func sampleDial() Dial {
+	return Dial{
+		To:     "bet",
+		Scope:  "bet-1",
+		Reason: "the plan is ready",
+	}
+}
+
+// sampleSeal returns a seal with every field set to a known value.
+func sampleSeal() Seal {
+	return Seal{
+		Kind:   "acceptance",
+		Tag:    "seal-1",
+		Action: "granted",
+	}
+}
+
+// tagAnnotated makes an annotated tag on HEAD. An annotated tag is its own
+// object, so the tag's own id is not the commit's id.
+func tagAnnotated(t *testing.T, dir, name string) {
+	t.Helper()
+
+	runGit(t, dir, "-c", "user.name=Test Person", "-c", "user.email=test@example.com",
+		"tag", "-a", name, "-m", "a seal")
+}
+
+// tagLightweight makes a lightweight tag on HEAD. It is a ref straight to the
+// commit, with no tag object at all.
+func tagLightweight(t *testing.T, dir, name string) {
+	t.Helper()
+
+	runGit(t, dir, "tag", name)
+}
+
+func TestWriteDialWritesEveryField(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	head := runGit(t, dir, "rev-parse", "HEAD")
+
+	path, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("WriteDial returned an error: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+
+	wantNumber(t, event, "v", 1)
+	wantString(t, event, "kind", "dial")
+	wantString(t, event, "session", "s-alpha")
+	wantNumber(t, event, "seq", 1)
+	wantString(t, event, "commit", head)
+	wantString(t, event, "branch", "main")
+
+	wantString(t, event, "from", "slice")
+	wantString(t, event, "to", "bet")
+	wantString(t, event, "scope", "bet-1")
+	wantString(t, event, "reason", "the plan is ready")
+
+	wantKeys := []string{
+		"v", "ts", "kind", "session", "seq", "commit", "branch",
+		"from", "to", "scope", "reason",
+	}
+	if len(event) != len(wantKeys) {
+		t.Errorf("the event has keys %v, want exactly %v", keysOf(event), wantKeys)
+	}
+	for _, key := range wantKeys {
+		if _, found := event[key]; !found {
+			t.Errorf("the event is missing field %q", key)
+		}
+	}
+}
+
+func TestWriteDialTakesFromFromTheRef(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	first := sampleDial()
+	first.To = "milestone"
+	firstPath, err := WriteDial(dir, first)
+	if err != nil {
+		t.Fatalf("the first dial returned an error: %v", err)
+	}
+
+	second := sampleDial()
+	second.To = "bet"
+	secondPath, err := WriteDial(dir, second)
+	if err != nil {
+		t.Fatalf("the second dial returned an error: %v", err)
+	}
+
+	third := sampleDial()
+	third.To = "program"
+	thirdPath, err := WriteDial(dir, third)
+	if err != nil {
+		t.Fatalf("the third dial returned an error: %v", err)
+	}
+
+	wantString(t, decodeEvent(t, dir, firstPath), "from", "slice")
+	wantString(t, decodeEvent(t, dir, secondPath), "from", "milestone")
+	wantString(t, decodeEvent(t, dir, thirdPath), "from", "bet")
+}
+
+func TestWriteDialKeepsScopesApart(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	here := sampleDial()
+	here.Scope = "bet-1"
+	here.To = "program"
+	if _, err := WriteDial(dir, here); err != nil {
+		t.Fatalf("the dial on bet-1 returned an error: %v", err)
+	}
+
+	elsewhere := sampleDial()
+	elsewhere.Scope = "bet-2"
+	elsewhere.To = "milestone"
+	elsewherePath, err := WriteDial(dir, elsewhere)
+	if err != nil {
+		t.Fatalf("the dial on bet-2 returned an error: %v", err)
+	}
+
+	// bet-2 has no dial of its own yet, so it starts at the floor. The dial
+	// on bet-1 must not reach it.
+	wantString(t, decodeEvent(t, dir, elsewherePath), "from", "slice")
+
+	back := sampleDial()
+	back.Scope = "bet-1"
+	back.To = "slice"
+	backPath, err := WriteDial(dir, back)
+	if err != nil {
+		t.Fatalf("the second dial on bet-1 returned an error: %v", err)
+	}
+	wantString(t, decodeEvent(t, dir, backPath), "from", "program")
+}
+
+func TestWriteDialChainsAcrossSessions(t *testing.T) {
+	dir := newRepo(t)
+
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+	first := sampleDial()
+	first.To = "milestone"
+	if _, err := WriteDial(dir, first); err != nil {
+		t.Fatalf("the dial in the first session returned an error: %v", err)
+	}
+
+	t.Setenv("GROUNDWORK_SESSION", "s-beta")
+	second := sampleDial()
+	second.To = "program"
+	path, err := WriteDial(dir, second)
+	if err != nil {
+		t.Fatalf("the dial in the second session returned an error: %v", err)
+	}
+
+	// The dial belongs to the scope, not to the session that moved it.
+	wantString(t, decodeEvent(t, dir, path), "from", "milestone")
+}
+
+func TestWriteDialStartsAtTheFloor(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	// A journal with dispatches in it, but no dial, still starts at the floor.
+	if _, err := WriteDispatch(dir, sampleDispatch()); err != nil {
+		t.Fatalf("the dispatch returned an error: %v", err)
+	}
+
+	path, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("WriteDial returned an error: %v", err)
+	}
+
+	wantString(t, decodeEvent(t, dir, path), "from", "slice")
+}
+
+func TestWriteDialAcceptsEveryRung(t *testing.T) {
+	for _, rung := range []string{"slice", "milestone", "bet", "program"} {
+		dir := newRepo(t)
+		t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+		d := sampleDial()
+		d.To = rung
+
+		path, err := WriteDial(dir, d)
+		if err != nil {
+			t.Fatalf("WriteDial rejected the rung %q: %v", rung, err)
+		}
+		wantString(t, decodeEvent(t, dir, path), "to", rung)
+	}
+}
+
+// badDials are the dials the journal must refuse.
+var badDials = []struct {
+	name string
+	bad  func(d *Dial)
+}{
+	{"unknown rung", func(d *Dial) { d.To = "everything" }},
+	{"empty rung", func(d *Dial) { d.To = "" }},
+	{"rung in the wrong case", func(d *Dial) { d.To = "Bet" }},
+	{"empty scope", func(d *Dial) { d.Scope = "" }},
+	{"empty reason", func(d *Dial) { d.Reason = "" }},
+	{"scope over the limit", func(d *Dial) { d.Scope = strings.Repeat("x", maxTextBytes+1) }},
+	{"reason over the limit", func(d *Dial) { d.Reason = strings.Repeat("x", maxTextBytes+1) }},
+}
+
+func TestWriteDialRejectsABadDial(t *testing.T) {
+	for _, c := range badDials {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+			d := sampleDial()
+			c.bad(&d)
+
+			path, err := WriteDial(dir, d)
+			if err == nil {
+				t.Fatalf("WriteDial accepted %s and wrote %q", c.name, path)
+			}
+			if path != "" {
+				t.Errorf("WriteDial returned path %q on failure, want an empty string", path)
+			}
+			if refExists(t, dir) {
+				t.Errorf("WriteDial made the journal ref for a rejected event")
+			}
+		})
+	}
+}
+
+func TestWriteDialLeavesAFullJournalAloneWhenItRejects(t *testing.T) {
+	for _, c := range badDials {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+			if _, err := WriteDial(dir, sampleDial()); err != nil {
+				t.Fatalf("the first dial returned an error: %v", err)
+			}
+			tip := runGit(t, dir, "rev-parse", Ref)
+
+			d := sampleDial()
+			c.bad(&d)
+
+			if _, err := WriteDial(dir, d); err == nil {
+				t.Fatalf("WriteDial accepted %s", c.name)
+			}
+
+			if got := runGit(t, dir, "rev-parse", Ref); got != tip {
+				t.Errorf("the journal ref moved from %s to %s", tip, got)
+			}
+			if paths := journalPaths(t, dir); len(paths) != 1 {
+				t.Errorf("the journal holds %d events, want 1: %v", len(paths), paths)
+			}
+		})
+	}
+}
+
+func TestWriteDialAcceptsTextAtTheLimit(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	d := sampleDial()
+	d.Scope = strings.Repeat("x", maxTextBytes)
+	d.Reason = strings.Repeat("y", maxTextBytes)
+
+	path, err := WriteDial(dir, d)
+	if err != nil {
+		t.Fatalf("WriteDial rejected text at the limit: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+	wantString(t, event, "scope", d.Scope)
+	wantString(t, event, "reason", d.Reason)
+}
+
+func TestWriteSealWritesEveryField(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	head := runGit(t, dir, "rev-parse", "HEAD")
+	tagAnnotated(t, dir, "seal-1")
+
+	path, err := WriteSeal(dir, sampleSeal())
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+
+	wantNumber(t, event, "v", 1)
+	wantString(t, event, "kind", "seal")
+	wantString(t, event, "session", "s-alpha")
+	wantNumber(t, event, "seq", 1)
+	wantString(t, event, "commit", head)
+	wantString(t, event, "branch", "main")
+
+	wantString(t, event, "seal_kind", "acceptance")
+	wantString(t, event, "tag", "seal-1")
+	wantString(t, event, "target", head)
+	wantString(t, event, "action", "granted")
+
+	wantKeys := []string{
+		"v", "ts", "kind", "session", "seq", "commit", "branch",
+		"seal_kind", "tag", "target", "action",
+	}
+	if len(event) != len(wantKeys) {
+		t.Errorf("the event has keys %v, want exactly %v", keysOf(event), wantKeys)
+	}
+	for _, key := range wantKeys {
+		if _, found := event[key]; !found {
+			t.Errorf("the event is missing field %q", key)
+		}
+	}
+}
+
+func TestWriteSealPeelsAnAnnotatedTag(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	head := runGit(t, dir, "rev-parse", "HEAD")
+	tagAnnotated(t, dir, "seal-1")
+
+	object := runGit(t, dir, "rev-parse", "seal-1")
+	if object == head {
+		t.Fatalf("the test needs an annotated tag, whose own id is not the commit's")
+	}
+
+	path, err := WriteSeal(dir, sampleSeal())
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+	wantString(t, event, "target", head)
+	if got := event["target"]; got == object {
+		t.Errorf("the target is the tag object %v, want the commit it points at", got)
+	}
+}
+
+func TestWriteSealResolvesALightweightTag(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	head := runGit(t, dir, "rev-parse", "HEAD")
+	tagLightweight(t, dir, "seal-1")
+
+	path, err := WriteSeal(dir, sampleSeal())
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+
+	wantString(t, decodeEvent(t, dir, path), "target", head)
+}
+
+func TestWriteSealFollowsTheTagToItsOwnCommit(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	first := runGit(t, dir, "rev-parse", "HEAD")
+	tagAnnotated(t, dir, "seal-1")
+
+	// Move on. The seal must still name the commit the tag holds, not HEAD.
+	writeFile(t, filepath.Join(dir, "README.md"), "more\n")
+	runGit(t, dir, "add", "README.md")
+	runGit(t, dir, "commit", "-m", "second")
+	second := runGit(t, dir, "rev-parse", "HEAD")
+
+	path, err := WriteSeal(dir, sampleSeal())
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+	wantString(t, event, "target", first)
+	wantString(t, event, "commit", second)
+}
+
+func TestWriteSealOnAMissingTag(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	path, err := WriteSeal(dir, sampleSeal())
+	if err == nil {
+		t.Fatalf("WriteSeal accepted a missing tag and wrote %q", path)
+	}
+	if path != "" {
+		t.Errorf("WriteSeal returned path %q on failure, want an empty string", path)
+	}
+	if !strings.Contains(err.Error(), "seal-1") {
+		t.Errorf("the error is %q, want it to name the tag", err)
+	}
+	if refExists(t, dir) {
+		t.Errorf("WriteSeal made the journal ref for a missing tag")
+	}
+}
+
+func TestWriteSealDoesNotTakeABranchForATag(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	// A branch named like the seal is not a tag. The seal must not take it.
+	runGit(t, dir, "branch", "seal-1")
+
+	if _, err := WriteSeal(dir, sampleSeal()); err == nil {
+		t.Fatalf("WriteSeal took a branch for a tag")
+	}
+	if paths := journalPaths(t, dir); len(paths) != 0 {
+		t.Errorf("WriteSeal wrote %v for a missing tag", paths)
+	}
+}
+
+func TestWriteSealLeavesAFullJournalAloneOnAMissingTag(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	tagAnnotated(t, dir, "seal-1")
+	if _, err := WriteSeal(dir, sampleSeal()); err != nil {
+		t.Fatalf("the first seal returned an error: %v", err)
+	}
+	tip := runGit(t, dir, "rev-parse", Ref)
+
+	s := sampleSeal()
+	s.Tag = "seal-2"
+	if _, err := WriteSeal(dir, s); err == nil {
+		t.Fatalf("WriteSeal accepted a missing tag")
+	}
+
+	if got := runGit(t, dir, "rev-parse", Ref); got != tip {
+		t.Errorf("the journal ref moved from %s to %s", tip, got)
+	}
+	if paths := journalPaths(t, dir); len(paths) != 1 {
+		t.Errorf("the journal holds %d events, want 1: %v", len(paths), paths)
+	}
+}
+
+func TestWriteSealRecordsARevoke(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	tagAnnotated(t, dir, "seal-1")
+
+	s := sampleSeal()
+	s.Action = "revoked"
+
+	path, err := WriteSeal(dir, s)
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+	wantString(t, decodeEvent(t, dir, path), "action", "revoked")
+}
+
+// badSeals are the seals the journal must refuse.
+var badSeals = []struct {
+	name string
+	bad  func(s *Seal)
+}{
+	{"unknown action", func(s *Seal) { s.Action = "moved" }},
+	{"empty action", func(s *Seal) { s.Action = "" }},
+	{"empty kind", func(s *Seal) { s.Kind = "" }},
+	{"empty tag", func(s *Seal) { s.Tag = "" }},
+	{"kind over the limit", func(s *Seal) { s.Kind = strings.Repeat("x", maxTextBytes+1) }},
+	{"tag over the limit", func(s *Seal) { s.Tag = strings.Repeat("x", maxTextBytes+1) }},
+}
+
+func TestWriteSealRejectsABadSeal(t *testing.T) {
+	for _, c := range badSeals {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+			tagAnnotated(t, dir, "seal-1")
+
+			s := sampleSeal()
+			c.bad(&s)
+
+			path, err := WriteSeal(dir, s)
+			if err == nil {
+				t.Fatalf("WriteSeal accepted %s and wrote %q", c.name, path)
+			}
+			if path != "" {
+				t.Errorf("WriteSeal returned path %q on failure, want an empty string", path)
+			}
+			if refExists(t, dir) {
+				t.Errorf("WriteSeal made the journal ref for a rejected event")
+			}
+		})
+	}
+}
+
+func TestWriteSealAcceptsAKindAtTheLimit(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	tagAnnotated(t, dir, "seal-1")
+
+	s := sampleSeal()
+	s.Kind = strings.Repeat("x", maxTextBytes)
+
+	path, err := WriteSeal(dir, s)
+	if err != nil {
+		t.Fatalf("WriteSeal rejected a kind at the limit: %v", err)
+	}
+	wantString(t, decodeEvent(t, dir, path), "seal_kind", s.Kind)
+}
+
+func TestSeqCountsEveryKindOfEvent(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	tagAnnotated(t, dir, "seal-1")
+
+	var paths []string
+
+	first, err := WriteDispatch(dir, sampleDispatch())
+	if err != nil {
+		t.Fatalf("the dispatch returned an error: %v", err)
+	}
+	paths = append(paths, first)
+
+	second, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("the dial returned an error: %v", err)
+	}
+	paths = append(paths, second)
+
+	third, err := WriteSeal(dir, sampleSeal())
+	if err != nil {
+		t.Fatalf("the seal returned an error: %v", err)
+	}
+	paths = append(paths, third)
+
+	fourth := sampleDispatch()
+	fourth.Outcome = "retry"
+	last, err := WriteDispatch(dir, fourth)
+	if err != nil {
+		t.Fatalf("the second dispatch returned an error: %v", err)
+	}
+	paths = append(paths, last)
+
+	for i, path := range paths {
+		if got := seqOf(t, dir, path); got != i+1 {
+			t.Errorf("event %d has seq %d, want %d", i, got, i+1)
+		}
+	}
+
+	if stored := journalPaths(t, dir); len(stored) != len(paths) {
+		t.Errorf("the journal holds %d events, want %d: %v", len(stored), len(paths), stored)
+	}
+}
+
+func TestWriteDialOutsideARepo(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	if _, err := WriteDial(dir, sampleDial()); !errors.Is(err, ErrNotARepo) {
+		t.Errorf("WriteDial returned %v, want ErrNotARepo", err)
+	}
+}
+
+func TestWriteSealOutsideARepo(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	if _, err := WriteSeal(dir, sampleSeal()); !errors.Is(err, ErrNotARepo) {
+		t.Errorf("WriteSeal returned %v, want ErrNotARepo", err)
+	}
+}
+
+func TestWriteDialKeepsEveryConcurrentWriteInOneChain(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	// Every writer dials the same scope. A writer that loses the race must
+	// read from again against the winner's line, not keep the one it read
+	// before. So the lines have to come out as one unbroken chain.
+	writers := Rungs()
+
+	paths := make([]string, len(writers))
+	errs := make([]error, len(writers))
+
+	var wg sync.WaitGroup
+	for i, rung := range writers {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+
+			d := sampleDial()
+			d.To = rung
+			paths[i], errs[i] = WriteDial(dir, d)
+		}()
+	}
+	wg.Wait()
+
+	for i, err := range errs {
+		if err != nil {
+			t.Fatalf("writer %d returned an error: %v", i, err)
+		}
+	}
+
+	stored := journalPaths(t, dir)
+	if len(stored) != len(writers) {
+		t.Fatalf("the journal holds %d events, want %d: %v", len(stored), len(writers), stored)
+	}
+
+	// Read the lines back in the order they were written.
+	bySeq := make(map[int]map[string]any, len(stored))
+	for _, path := range stored {
+		event := decodeEvent(t, dir, path)
+
+		seq := seqOf(t, dir, path)
+		if _, taken := bySeq[seq]; taken {
+			t.Fatalf("two events share seq %d", seq)
+		}
+		bySeq[seq] = event
+	}
+
+	from := "slice"
+	for seq := 1; seq <= len(writers); seq++ {
+		event, found := bySeq[seq]
+		if !found {
+			t.Fatalf("no event has seq %d", seq)
+		}
+
+		wantString(t, event, "from", from)
+
+		to, ok := event["to"].(string)
+		if !ok {
+			t.Fatalf("the event at seq %d has no to", seq)
+		}
+		from = to
+	}
+}
+
+// plant stores one line in the journal by hand. A test uses it to set a ts, a
+// seq or a kind together that the writer itself would never produce.
+func plant(t *testing.T, dir, session, line string) {
+	t.Helper()
+
+	raw := []byte(line + "\n")
+	sum := sha256.Sum256(raw)
+	path := "events/" + session + "/" + hex.EncodeToString(sum[:]) + ".json"
+
+	tip, err := resolve(dir, Ref)
+	if err != nil {
+		t.Fatalf("could not read the journal ref: %v", err)
+	}
+	if err := store(dir, tip, path, raw, "journal: planted"); err != nil {
+		t.Fatalf("could not plant a line: %v", err)
+	}
+}
+
+func TestWriteDialOrdersByTSAcrossSeconds(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	// Two dials on one scope, five minutes apart. The later one carries the
+	// lower seq, because seq counts within a session and these are two.
+	plant(t, dir, "s-early", `{"v":1,"ts":"2026-08-22T14:00:00Z","kind":"dial","session":"s-early","seq":9,"commit":"","branch":"main","from":"slice","to":"milestone","scope":"bet-1","reason":"early"}`)
+	plant(t, dir, "s-late", `{"v":1,"ts":"2026-08-22T14:05:00Z","kind":"dial","session":"s-late","seq":1,"commit":"","branch":"main","from":"milestone","to":"program","scope":"bet-1","reason":"late"}`)
+
+	path, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("WriteDial returned an error: %v", err)
+	}
+
+	// The clock decides, so the dial leaves the rung the late line set.
+	wantString(t, decodeEvent(t, dir, path), "from", "program")
+}
+
+func TestWriteDialOrdersByTSAcrossSessions(t *testing.T) {
+	dir := newRepo(t)
+
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+	first := sampleDial()
+	first.To = "milestone"
+	if _, err := WriteDial(dir, first); err != nil {
+		t.Fatalf("the first dial returned an error: %v", err)
+	}
+
+	second := sampleDial()
+	second.To = "program"
+	if _, err := WriteDial(dir, second); err != nil {
+		t.Fatalf("the second dial returned an error: %v", err)
+	}
+
+	// A third dial, written last, from a session with a lower count.
+	t.Setenv("GROUNDWORK_SESSION", "s-beta")
+	third := sampleDial()
+	third.To = "bet"
+	thirdPath, err := WriteDial(dir, third)
+	if err != nil {
+		t.Fatalf("the third dial returned an error: %v", err)
+	}
+	if got := seqOf(t, dir, thirdPath); got != 1 {
+		t.Fatalf("the third dial has seq %d, want 1: the test needs the lower seq to be the later line", got)
+	}
+
+	t.Setenv("GROUNDWORK_SESSION", "s-gamma")
+	path, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("the fourth dial returned an error: %v", err)
+	}
+
+	wantString(t, decodeEvent(t, dir, path), "from", "bet")
+}
+
+func TestWriteDialReadsDialLinesOnly(t *testing.T) {
+	dir := newRepo(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	// Later bets add kinds of their own, and a kind may well carry a scope.
+	// Only a dial line moves the dial. The ts here is far ahead, so this line
+	// would win on order if the kind were not checked.
+	plant(t, dir, "s-other", `{"v":1,"ts":"2099-01-01T00:00:00Z","kind":"lane","session":"s-other","seq":1,"commit":"","branch":"main","scope":"bet-1","to":"program"}`)
+
+	path, err := WriteDial(dir, sampleDial())
+	if err != nil {
+		t.Fatalf("WriteDial returned an error: %v", err)
+	}
+
+	wantString(t, decodeEvent(t, dir, path), "from", "slice")
+}
+
+// newRepoWithHistory makes a repo with two commits and an annotated tag v1 on
+// the second. It returns the repo and both commits, oldest first.
+func newRepoWithHistory(t *testing.T) (string, string, string) {
+	t.Helper()
+
+	dir := newRepo(t)
+	first := runGit(t, dir, "rev-parse", "HEAD")
+
+	writeFile(t, filepath.Join(dir, "README.md"), "more\n")
+	runGit(t, dir, "add", "README.md")
+	runGit(t, dir, "commit", "-m", "second")
+	second := runGit(t, dir, "rev-parse", "HEAD")
+
+	tagAnnotated(t, dir, "v1")
+
+	return dir, first, second
+}
+
+func TestWriteSealRefusesRevisionSyntaxInATagName(t *testing.T) {
+	// Each of these resolves to a real commit that no tag points at. Taking
+	// them would seal the parent of v1 while the line claims v1.
+	for _, tag := range []string{"v1~1", "v1^", "v1^{commit}"} {
+		t.Run(tag, func(t *testing.T) {
+			dir, _, _ := newRepoWithHistory(t)
+			t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+			s := sampleSeal()
+			s.Tag = tag
+
+			path, err := WriteSeal(dir, s)
+			if err == nil {
+				t.Fatalf("WriteSeal took %q for a tag and wrote %q", tag, path)
+			}
+			if path != "" {
+				t.Errorf("WriteSeal returned path %q on failure, want an empty string", path)
+			}
+			if refExists(t, dir) {
+				t.Errorf("WriteSeal made the journal ref for a name that is not a tag")
+			}
+		})
+	}
+}
+
+func TestWriteSealTakesAPlainTagName(t *testing.T) {
+	dir, first, second := newRepoWithHistory(t)
+	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
+
+	s := sampleSeal()
+	s.Tag = "v1"
+
+	path, err := WriteSeal(dir, s)
+	if err != nil {
+		t.Fatalf("WriteSeal returned an error: %v", err)
+	}
+
+	event := decodeEvent(t, dir, path)
+	wantString(t, event, "tag", "v1")
+	wantString(t, event, "target", second)
+	if got := event["target"]; got == first {
+		t.Errorf("the target is the parent commit %v, want the commit the tag holds", got)
+	}
+}
