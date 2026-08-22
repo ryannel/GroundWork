@@ -172,3 +172,15 @@ The dial chain is repo-global and branch-blind. A scope's rung belongs to the wo
 Timestamps are RFC3339 with nanoseconds. Ordering is ts, then seq within a session. A true same-instant tie across sessions falls to tree order — the session id that sorts first. The chain is best-effort under clock skew, and says so.
 
 Why: the blind review proved second-granularity timestamps let an alphabetically earlier session win a from-chain race. Nanoseconds shrink the tie to practical impossibility; the residual rule makes the outcome stated instead of accidental.
+
+## D14 — 2026-08-22 — Slice 3 rulings: what the spend query does with what it reads
+
+Four rulings for the spend query, all from its blind review.
+
+A line of an unknown kind is skipped, not an error. Later bets add kinds, and an old binary must keep counting what it understands.
+
+A line the query cannot parse fails the whole report, loudly, naming the object. A spend figure that silently omitted part of the record would be worse than no figure.
+
+Rows sort by total tokens descending, ties broken by key, alphabetically. The summary row is labelled (total) and an empty key renders (none) — parentheses sit outside the session charset, so neither can collide with real data.
+
+Exit codes split by where a bad value is caught: a bad --by is a usage error, exit 2, caught in the CLI; a bad --role reaches the writer and is a write error, exit 1. The split is stated here so it reads as chosen, not accidental.

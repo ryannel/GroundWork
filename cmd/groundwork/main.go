@@ -8,12 +8,15 @@
 package main
 
 import (
+	"bytes"
 	"errors"
 	"flag"
 	"fmt"
 	"io"
 	"os"
+	"slices"
 	"strings"
+	"text/tabwriter"
 
 	"github.com/ryannel/groundwork/internal/journal"
 )
@@ -37,6 +40,7 @@ subcommands:
   dispatch   record one dispatch of an agent
   dial       record a move of the autonomy dial
   seal       record a seal granted or revoked
+  spend      report token and time spend, grouped by role, tier or session
 `
 
 func main() {
@@ -75,6 +79,8 @@ func runJournal(args []string, out, errOut io.Writer) int {
 		return runJournalDial(args[1:], out, errOut)
 	case "seal":
 		return runJournalSeal(args[1:], out, errOut)
+	case "spend":
+		return runJournalSpend(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork journal: unknown subcommand %q\n\n", args[0])
 		fmt.Fprint(errOut, journalUsage)
@@ -277,4 +283,92 @@ func runJournalSeal(args []string, out, errOut io.Writer) int {
 	})
 
 	return report(out, errOut, name, path, err)
+}
+
+// runJournalSpend reports token and time spend, grouped by the chosen key.
+// It reads the journal ref. It never writes to it.
+func runJournalSpend(args []string, out, errOut io.Writer) int {
+	const name = "groundwork journal spend"
+
+	flags := flag.NewFlagSet(name, flag.ContinueOnError)
+	flags.SetOutput(errOut)
+
+	by := flags.String("by", "", "how to group the spend: "+strings.Join(journal.SpendKeys(), ", "))
+
+	if err := flags.Parse(args); err != nil {
+		return exitUsage
+	}
+	if spareArgument(errOut, flags, name) {
+		return exitUsage
+	}
+
+	var wrong []string
+	if !slices.Contains(journal.SpendKeys(), *by) {
+		wrong = append(wrong, fmt.Sprintf("--by must be one of: %s", strings.Join(journal.SpendKeys(), ", ")))
+	}
+	if len(wrong) > 0 {
+		return sayWrong(errOut, flags, name, wrong)
+	}
+
+	rows, hasRef, err := journal.Spend(".", *by)
+	if err != nil {
+		if errors.Is(err, journal.ErrNotARepo) {
+			fmt.Fprintln(errOut, name+": not in a git repository")
+			return exitFailed
+		}
+		fmt.Fprintln(errOut, name+":", err)
+		return exitFailed
+	}
+
+	// Two different, both honest, kinds of nothing. A repo that never wrote
+	// to the journal has spent nothing. A journal that only holds dial or
+	// seal lines has dispatches to report, and there are none — that is not
+	// the same claim, so it gets its own words.
+	if !hasRef {
+		fmt.Fprintln(out, "the journal is empty")
+		return exitOK
+	}
+	if len(rows) == 0 {
+		fmt.Fprintln(out, "the journal holds no dispatch lines")
+		return exitOK
+	}
+
+	fmt.Fprint(out, spendTable(*by, rows))
+
+	return exitOK
+}
+
+// spendTotalLabel marks the summary row spendTable appends. Parentheses fall
+// outside the session charset checkSession enforces, so a session actually
+// named "TOTAL" cannot be mistaken for the row spendTable computes.
+const spendTotalLabel = "(total)"
+
+// spendTable renders spend rows as a plain aligned text table: a header
+// row, one row per group in the order given, and a total row. by names the
+// group column, and is shown as its header.
+//
+// Rows come in already sorted; spendTable only renders and sums them.
+func spendTable(by string, rows []journal.SpendRow) string {
+	var buf bytes.Buffer
+	w := tabwriter.NewWriter(&buf, 0, 4, 2, ' ', 0)
+
+	fmt.Fprintf(w, "%s\tDISPATCHES\tTOKENS_IN\tTOKENS_OUT\tTOKENS_TOTAL\tDURATION_MS\n", strings.ToUpper(by))
+
+	var dispatches, tokensIn, tokensOut, tokensTotal, durationMS int64
+	for _, r := range rows {
+		fmt.Fprintf(w, "%s\t%d\t%d\t%d\t%d\t%d\n",
+			r.Key, r.Dispatches, r.TokensIn, r.TokensOut, r.TokensTotal, r.DurationMS)
+
+		dispatches += r.Dispatches
+		tokensIn += r.TokensIn
+		tokensOut += r.TokensOut
+		tokensTotal += r.TokensTotal
+		durationMS += r.DurationMS
+	}
+
+	fmt.Fprintf(w, "%s\t%d\t%d\t%d\t%d\t%d\n", spendTotalLabel, dispatches, tokensIn, tokensOut, tokensTotal, durationMS)
+
+	w.Flush()
+
+	return buf.String()
 }

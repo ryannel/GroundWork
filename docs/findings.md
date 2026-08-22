@@ -67,3 +67,11 @@ What it is: a tag name carrying revision syntax could seal a commit the named ta
 What caught it: the slice's blind review, through the built CLI in scratch repos.
 
 What happened: both fixed before the slice landed, with pinning tests. The vocabulary and ordering rulings the review demanded are D13. The full review is archived at docs/evidence/bet-1/slice-2/blind-review.md.
+
+## F9 — 2026-08-22 — The spend query pinned a false statement about the record
+
+What it is: a journal holding dial and seal lines but no dispatches printed "the journal is empty", and a test asserted that false message. Also: no spend test planted a line the package's own writer had not written, so the query's tolerance of foreign lines was argued, not shown.
+
+What caught it: the slice's blind review — nine mutations and four scratch repos through the built binary.
+
+What happened: the message split, the planted-line tests, and four rulings (D14) landed before the slice closed. The archive is docs/evidence/bet-1/slice-3/blind-review.md.
