@@ -12,6 +12,7 @@ import (
 
 	"github.com/ryannel/groundwork/internal/battery"
 	"github.com/ryannel/groundwork/internal/journal"
+	"github.com/ryannel/groundwork/internal/manifest"
 )
 
 // writeLock puts a lock file at the root of the repo at dir.
@@ -22,6 +23,36 @@ func writeLock(t *testing.T, dir, version, digest string) {
 	path := filepath.Join(dir, battery.LockFile)
 	if err := os.WriteFile(path, []byte(line), 0o600); err != nil {
 		t.Fatalf("could not write %s: %v", path, err)
+	}
+}
+
+// writeManifest puts a manifest at the root of the repo at dir, with the one
+// suite its one capability names. A green verify run needs every shipped row
+// green, and the manifest row reads this file.
+func writeManifest(t *testing.T, dir string) {
+	t.Helper()
+
+	path := filepath.Join(dir, manifest.File)
+	if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
+		t.Fatalf("could not make %s: %v", filepath.Dir(path), err)
+	}
+
+	const content = `{
+  "schema": 1,
+  "surfaces": [{"name": "cli", "profile": "cli", "stack": "go", "root": "."}],
+  "capabilities": [{"name": "adding", "surface": "cli", "proof": ["alpha"]}]
+}`
+	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
+		t.Fatalf("could not write %s: %v", path, err)
+	}
+
+	suite := filepath.Join(dir, "alpha")
+	if err := os.MkdirAll(suite, 0o750); err != nil {
+		t.Fatalf("could not make %s: %v", suite, err)
+	}
+	test := "package alpha\n\nimport \"testing\"\n\nfunc TestAddsUp(t *testing.T) {}\n"
+	if err := os.WriteFile(filepath.Join(suite, "alpha_test.go"), []byte(test), 0o600); err != nil {
+		t.Fatalf("could not write the fixture suite: %v", err)
 	}
 }
 
@@ -67,6 +98,7 @@ func batteryLines(t *testing.T, dir, kind string) []map[string]any {
 func TestVerifyGreenExitsZero(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
+	writeManifest(t, dir)
 
 	code, out, errOut := call(t, "verify")
 	if code != exitOK {
@@ -83,7 +115,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "1 row") {
+	if !strings.Contains(out, "2 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -94,13 +126,14 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
+	writeManifest(t, dir)
 
 	code, out, errOut := call(t, "verify")
 	if code != exitOK {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "1 row: green 1, red 0, waived 0, quarantined 0, unrunnable 0"
+	const want = "2 rows: green 2, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -115,14 +148,15 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "1 row: green 0, red 1, waived 0, quarantined 0, unrunnable 0"
+	const want = "2 rows: green 0, red 2, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
 }
 
-// One row reads "1 row"; anything else reads "N rows". The battery ships one
-// row today, so the plural is proved on the renderer directly.
+// One row reads "1 row"; anything else reads "N rows". The shipped battery
+// never holds one row today, so the singular is proved on the renderer
+// directly.
 func TestSummaryCountsAndPluralisesRows(t *testing.T) {
 	cases := []struct {
 		name string
@@ -204,6 +238,7 @@ func TestVerifyRedWithNoLockFileExitsOne(t *testing.T) {
 func TestVerifyWritesTheJournal(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
+	writeManifest(t, dir)
 	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
 
 	code, out, errOut := call(t, "verify")
@@ -217,8 +252,9 @@ func TestVerifyWritesTheJournal(t *testing.T) {
 	if len(runs) != 1 {
 		t.Fatalf("the journal holds %d battery lines, want 1", len(runs))
 	}
-	if len(rows) != 1 {
-		t.Fatalf("the journal holds %d battery-row lines, want 1", len(rows))
+	if len(rows) != len(battery.Default().Rows()) {
+		t.Fatalf("the journal holds %d battery-row lines, want one per shipped row (%d)",
+			len(rows), len(battery.Default().Rows()))
 	}
 
 	runID, ok := runs[0]["run"].(string)
@@ -231,11 +267,29 @@ func TestVerifyWritesTheJournal(t *testing.T) {
 	if !strings.Contains(out, runID) {
 		t.Errorf("the output does not print the run id it journaled: %s", out)
 	}
-	if rows[0]["row"] != "version" {
-		t.Errorf("the row line names row %v, want version", rows[0]["row"])
+	// The journal is read back by blob, which does not hand the lines back in
+	// the order they were written, so the rows are judged as a set.
+	journaled := map[string]any{}
+	for _, line := range rows {
+		id, ok := line["row"].(string)
+		if !ok {
+			t.Fatalf("a row line carries no row id: %v", line)
+		}
+		if _, twice := journaled[id]; twice {
+			t.Errorf("the row %s was journaled twice", id)
+		}
+		journaled[id] = line["outcome"]
 	}
-	if rows[0]["outcome"] != "green" {
-		t.Errorf("the row line says %v, want green", rows[0]["outcome"])
+
+	for _, row := range battery.Default().Rows() {
+		outcome, ok := journaled[row.ID]
+		if !ok {
+			t.Errorf("the row %s wrote no journal line, so nothing says it ran", row.ID)
+			continue
+		}
+		if outcome != "green" {
+			t.Errorf("the %s row line says %v, want green", row.ID, outcome)
+		}
 	}
 }
 
@@ -321,7 +375,7 @@ func TestVerifyListShowsEveryRow(t *testing.T) {
 		t.Fatalf("verify --list exited %d, want %d: %s%s", code, exitOK, out, errOut)
 	}
 
-	for _, want := range []string{"version", "blocking", "KIND", "SEVERITY"} {
+	for _, want := range []string{"version", "manifest", "blocking", "KIND", "SEVERITY"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("the listing does not carry %q: %s", want, out)
 		}

@@ -786,7 +786,7 @@ func TestVersionRowIsGreenWhenTheLockMatches(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", versionOnlyDigest)
 
-	res, err := Run(dir, Default())
+	res, err := Run(dir, versionOnly())
 	if err != nil {
 		t.Fatalf("the run failed: %v", err)
 	}
@@ -808,7 +808,7 @@ func TestVersionRowIsRedOnDrift(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", "r0000000")
 
-	res, err := Run(dir, Default())
+	res, err := Run(dir, versionOnly())
 	if err != nil {
 		t.Fatalf("the run failed: %v", err)
 	}
@@ -834,7 +834,7 @@ func TestDriftIsJournaledLikeAnyOtherRedRow(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", "r0000000")
 
-	res, err := Run(dir, Default())
+	res, err := Run(dir, versionOnly())
 	if err != nil {
 		t.Fatalf("the run failed: %v", err)
 	}
@@ -857,7 +857,7 @@ func TestDriftIsJournaledLikeAnyOtherRedRow(t *testing.T) {
 func TestVersionRowIsRedWhenTheLockCannotBeRead(t *testing.T) {
 	dir := newRepo(t)
 
-	res, err := Run(dir, Default())
+	res, err := Run(dir, versionOnly())
 	if err != nil {
 		t.Fatalf("the run failed: %v", err)
 	}
@@ -922,19 +922,46 @@ func TestTheJournalAcceptsEveryOutcomeTheBatteryReports(t *testing.T) {
 	}
 }
 
-func TestDefaultHoldsTheVersionRow(t *testing.T) {
+func TestDefaultHoldsTheVersionRowFirst(t *testing.T) {
 	rows := Default().Rows()
-	if len(rows) != 1 {
-		t.Fatalf("the default battery holds %d rows, want 1", len(rows))
+	if len(rows) == 0 {
+		t.Fatal("the default battery holds no rows")
 	}
 
 	row := rows[0]
 	if row.ID != "version" || row.Kind != "version" || row.Severity != Blocking {
-		t.Fatalf("the one row is %q/%q/%q, want version/version/blocking", row.ID, row.Kind, row.Severity)
+		t.Fatalf("the first row is %q/%q/%q, want version/version/blocking", row.ID, row.Kind, row.Severity)
 	}
-	if Default().Digest() != versionOnlyDigest {
-		t.Fatalf("the default battery's digest is %q, want %q", Default().Digest(), versionOnlyDigest)
+	if versionOnly().Digest() != versionOnlyDigest {
+		t.Fatalf("the version row alone digests to %q, want %q", versionOnly().Digest(), versionOnlyDigest)
 	}
+}
+
+// Every row the default battery ships is one this package registered on
+// purpose: a row list nobody pinned is a version that moves by accident.
+func TestDefaultHoldsExactlyTheShippedRows(t *testing.T) {
+	var got []string
+	for _, row := range Default().Rows() {
+		got = append(got, row.ID+"/"+row.Kind+"/"+row.Severity)
+	}
+
+	want := []string{
+		"version/version/blocking",
+		"manifest/manifest/blocking",
+	}
+	if !slices.Equal(got, want) {
+		t.Fatalf("the default battery holds %v, want %v", got, want)
+	}
+}
+
+// versionOnly is a registry holding the version row and nothing else. The
+// version row's own tests run it, so they judge that row rather than every row
+// the battery has since gained.
+func versionOnly() *Registry {
+	reg := NewRegistry()
+	reg.Register(versionRow())
+
+	return reg
 }
 
 // Two calls must not hand back the same registry, or one caller's extra row
@@ -943,7 +970,7 @@ func TestDefaultIsFreshEachTime(t *testing.T) {
 	first := Default()
 	first.Register(fixed("a", "honesty", Blocking, Green))
 
-	if len(Default().Rows()) != 1 {
+	if len(first.Rows()) != len(Default().Rows())+1 {
 		t.Fatal("registering a row on one Default() registry changed the next one")
 	}
 }

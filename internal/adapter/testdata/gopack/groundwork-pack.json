@@ -1,0 +1,19 @@
+{
+  "stack": "go",
+  "suites": [
+    {"id": "alpha", "tests": ["TestAddsUp", "TestAddsUpWrong", "TestCounterAdds", "TestTable"]},
+    {"id": "beta", "tests": ["TestGreets"]}
+  ],
+  "outcomes": [
+    {"suite": "alpha", "test": "TestAddsUp", "outcome": "pass"},
+    {"suite": "alpha", "test": "TestAddsUpWrong", "outcome": "fail"},
+    {"suite": "alpha", "test": "TestCounterAdds", "outcome": "pass"},
+    {"suite": "alpha", "test": "TestTable", "outcome": "pass"},
+    {"suite": "beta", "test": "TestGreets", "outcome": "pass"}
+  ],
+  "mutants": {
+    "file": "alpha/alpha.go",
+    "targets": ["(Counter).Add", "AddsUp", "Name"],
+    "kills": {"target": "AddsUp", "suite": "alpha", "test": "TestAddsUp"}
+  }
+}
