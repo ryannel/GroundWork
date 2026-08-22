@@ -25,13 +25,13 @@ const (
 const nodeAdapterScript = "testdata/adapters/node.mjs"
 
 func TestGoAdapterPassesConformance(t *testing.T) {
-	Conformance(t, NewGo(), goPack)
+	conformance(t, NewGo(), goPack)
 }
 
 func TestNodeAdapterPassesConformance(t *testing.T) {
 	needNode(t)
 
-	Conformance(t, newNodeAdapter(t), nodePack)
+	conformance(t, newNodeAdapter(t), nodePack)
 }
 
 // TestConformanceCatchesALyingAdapter is the point of the suite. An adapter
@@ -79,7 +79,7 @@ func TestConformanceReporterSeesEveryProblem(t *testing.T) {
 	liar := &lying{under: NewGo(), dropSuite: true, allPass: true}
 
 	rec := &recorder{}
-	Conformance(rec, liar, goPack)
+	conformance(rec, liar, goPack)
 
 	if len(rec.errors) != len(Check(liar, goPack)) {
 		t.Fatalf("Conformance reported %d problems, Check found %d",
@@ -427,7 +427,7 @@ func TestGoAdapterMutantsRefuseAPathOutsideTheProject(t *testing.T) {
 func TestExecTimeoutKills(t *testing.T) {
 	needNode(t)
 
-	a := script(t, "sleep.mjs", Timeout(250*time.Millisecond))
+	a := script(t, "sleep.mjs", withTimeout(250*time.Millisecond))
 
 	start := time.Now()
 	_, err := a.Discover(context.Background(), nodePack)
@@ -449,7 +449,7 @@ func TestExecTimeoutKills(t *testing.T) {
 func TestExecOutputCapKills(t *testing.T) {
 	needNode(t)
 
-	a := script(t, "flood.mjs", Cap(64*1024), Timeout(20*time.Second))
+	a := script(t, "flood.mjs", withCap(64*1024), withTimeout(20*time.Second))
 
 	_, err := a.Discover(context.Background(), nodePack)
 	if err == nil {
@@ -468,7 +468,7 @@ func TestExecOutputCapKills(t *testing.T) {
 func TestExecNeverReportsAPartialTally(t *testing.T) {
 	needNode(t)
 
-	a := script(t, "partial.mjs", Timeout(500*time.Millisecond))
+	a := script(t, "partial.mjs", withTimeout(500*time.Millisecond))
 
 	log, err := a.Run(context.Background(), nodePack)
 	if err == nil {
@@ -507,7 +507,7 @@ func TestExecRefusesHostileStdout(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			a := script(t, c.script, Cap(256*1024), Timeout(20*time.Second))
+			a := script(t, c.script, withCap(256*1024), withTimeout(20*time.Second))
 
 			_, err := a.Discover(context.Background(), nodePack)
 			if err == nil {
@@ -538,7 +538,7 @@ func TestExecRefusesARunThatProvesNothing(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			a := script(t, c.script, Timeout(20*time.Second))
+			a := script(t, c.script, withTimeout(20*time.Second))
 
 			log, err := a.Run(context.Background(), nodePack)
 			if err == nil {
@@ -562,7 +562,7 @@ func TestExecRefusesARunThatProvesNothing(t *testing.T) {
 func TestExecCollapsesSubtests(t *testing.T) {
 	needNode(t)
 
-	log, err := script(t, "subtests.mjs", Timeout(20*time.Second)).Run(context.Background(), nodePack)
+	log, err := script(t, "subtests.mjs", withTimeout(20*time.Second)).Run(context.Background(), nodePack)
 	if err != nil {
 		t.Fatalf("Run failed: %v", err)
 	}
@@ -588,7 +588,7 @@ func TestExecKillsTheWholeProcessGroup(t *testing.T) {
 	dir := t.TempDir()
 	marker := filepath.Join(dir, "groundwork-forked-child")
 
-	if _, err := script(t, "forker.mjs", Timeout(500*time.Millisecond)).
+	if _, err := script(t, "forker.mjs", withTimeout(500*time.Millisecond)).
 		Discover(context.Background(), dir); err == nil {
 		t.Fatal("the forking adapter passed")
 	}
@@ -635,7 +635,7 @@ func TestExecRefusesAnEmptyCommand(t *testing.T) {
 func TestExecPassesTheCallAndTheProject(t *testing.T) {
 	needNode(t)
 
-	a := script(t, "echo-argv.mjs", Timeout(20*time.Second))
+	a := script(t, "echo-argv.mjs", withTimeout(20*time.Second))
 
 	suites, err := a.Discover(context.Background(), nodePack)
 	if err != nil {
@@ -854,7 +854,7 @@ func newNodeAdapter(t *testing.T) *Exec {
 		t.Fatalf("could not resolve the node adapter: %v", err)
 	}
 
-	return NewExec("node", []string{"node", path}, Timeout(60*time.Second))
+	return NewExec("node", []string{"node", path}, withTimeout(60*time.Second))
 }
 
 // copyPack copies a fixture pack into a temp dir, so a test may mutate it.

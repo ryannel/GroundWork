@@ -70,13 +70,13 @@ type T interface {
 	Errorf(format string, args ...any)
 }
 
-// Conformance runs the conformance suite for one adapter against one fixture
+// conformance runs the conformance suite for one adapter against one fixture
 // pack, reporting every problem it finds.
 //
 // D25: every adapter passes one conformance suite against a shipped fixture
 // pack. Both shipped adapters run this, and so does any adapter a project
 // writes.
-func Conformance(t T, a Adapter, dir string) {
+func conformance(t T, a Adapter, dir string) {
 	t.Helper()
 
 	for _, problem := range Check(a, dir) {
@@ -87,7 +87,7 @@ func Conformance(t T, a Adapter, dir string) {
 // Check runs the conformance suite and returns what was wrong, in the order it
 // was found. An empty list is a pass.
 //
-// It is separate from Conformance so that the suite can be proved: a lying
+// It is separate from conformance so that the suite can be proved: a lying
 // adapter must fail conformance, and the test that proves it needs the
 // problems as values rather than as failures of its own.
 func Check(a Adapter, dir string) []string {

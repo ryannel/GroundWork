@@ -65,11 +65,6 @@ const GoStack = "go"
 // profiles is the spec's closed list of topology profiles (proof.md).
 var profiles = []string{"server", "web", "desktop", "cli", "mobile", "library"}
 
-// Profiles returns the topology profiles a surface may declare.
-func Profiles() []string {
-	return slices.Clone(profiles)
-}
-
 // Manifest is one project's capability manifest.
 type Manifest struct {
 	Schema       int               `json:"schema"`

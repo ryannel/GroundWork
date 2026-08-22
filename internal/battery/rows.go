@@ -4,10 +4,12 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// Two rows today. version is the drift check D23 asks for: CI fails when the
+// Five rows today. version is the drift check D23 asks for: CI fails when the
 // digest moves without a declared bump. manifest is the capability manifest
 // check: the project declared what it does, and something the stack's adapter
-// can see has to prove each one.
+// can see has to prove each one. Then the three scans proof.md names — honesty,
+// wiring and token — which read the project's own source rather than running
+// it, and catch three of the six ways agents fake done.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -18,6 +20,9 @@ func Default() *Registry {
 	reg := NewRegistry()
 	reg.Register(versionRow())
 	reg.Register(manifestRow())
+	reg.Register(honestyRow())
+	reg.Register(wiringRow())
+	reg.Register(tokenRow())
 
 	return reg
 }

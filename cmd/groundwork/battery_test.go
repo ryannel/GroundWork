@@ -50,7 +50,9 @@ func writeManifest(t *testing.T, dir string) {
 	if err := os.MkdirAll(suite, 0o750); err != nil {
 		t.Fatalf("could not make %s: %v", suite, err)
 	}
-	test := "package alpha\n\nimport \"testing\"\n\nfunc TestAddsUp(t *testing.T) {}\n"
+	// The test asserts something. The honesty row reads this fixture, and a
+	// test that cannot fail is exactly what it turns red on.
+	test := "package alpha\n\nimport \"testing\"\n\nfunc TestAddsUp(t *testing.T) {\n\tif 1+1 != 2 {\n\t\tt.Fatal(\"arithmetic broke\")\n\t}\n}\n"
 	if err := os.WriteFile(filepath.Join(suite, "alpha_test.go"), []byte(test), 0o600); err != nil {
 		t.Fatalf("could not write the fixture suite: %v", err)
 	}
@@ -115,7 +117,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "2 rows") {
+	if !strings.Contains(out, "5 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -133,7 +135,7 @@ func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "2 rows: green 2, red 0, waived 0, quarantined 0, unrunnable 0"
+	const want = "5 rows: green 5, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -148,7 +150,9 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "2 rows: green 0, red 2, waived 0, quarantined 0, unrunnable 0"
+	// The three scans cannot run without a manifest, and unrunnable is how
+	// they say so: counted and printed, never a silent skip and never green.
+	const want = "5 rows: green 0, red 2, waived 0, quarantined 0, unrunnable 3"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}

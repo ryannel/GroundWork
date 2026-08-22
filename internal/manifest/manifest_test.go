@@ -79,7 +79,7 @@ func TestSurfaceFindsADeclaredSurface(t *testing.T) {
 
 func TestProfilesAreTheSpecsSix(t *testing.T) {
 	want := []string{"server", "web", "desktop", "cli", "mobile", "library"}
-	if got := Profiles(); !slices.Equal(got, want) {
+	if got := profiles; !slices.Equal(got, want) {
 		t.Errorf("the profile list reads %v, want %v", got, want)
 	}
 }
