@@ -310,3 +310,15 @@ The flake mechanism ships with provisional numbers — rerun once, quarantine on
 The hash-chained journal and signed seals that proof.md requires join bet 3, with the seal machinery. See F13 — no bet owned them until this ruling.
 
 Why this cut: the floor first, the seam second, then the rows that stand on both, and grading last so nothing grades itself.
+
+## D27 — 2026-08-22 — Durability pushes: nothing lives only in the cloud container
+
+The session runs in an ephemeral container, so the owner ruled: push as we go. Three mechanisms, on top of the per-slice push the working agreement already demands.
+
+The held-out fixture repos push to their own branches, holdout-go-fieldkit and holdout-ts-tallysheet. Their answer-key tags cannot push (host-limit, F12's rule), so the key commits ride in the branch history and the evidence file records the tag targets.
+
+In-flight worker output snapshots to the wip-snapshot branch through plumbing — a commit built from a temp index, never touching the working tree or the real index. The snapshot is not a slice commit and never merges; it is overwritten per slice and deleted at bet close.
+
+The journal mirror re-pushes with the work, per D20.
+
+Why: the review-then-land discipline stays — a slice still lands only after its blind review — but between handoff and landing, the work now also exists on origin.
