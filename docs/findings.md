@@ -59,3 +59,11 @@ What it is: the blind review of Bet 1 slice 1 found 20 items. Three were real de
 What caught it: the slice's blind review, which ran mutation checks instead of reading for style.
 
 What happened: all mandatory fixes were applied before the slice landed. Two low nits were skipped on driver ruling. The full review is archived at docs/evidence/bet-1/slice-1/blind-review.md.
+
+## F8 — 2026-08-22 — The dial and seal verbs had two real defects at review
+
+What it is: a tag name carrying revision syntax could seal a commit the named tag does not hold — `v1~1` sealed the parent of v1. And the dial's from-chain broke on same-second writes from two sessions, falling back to alphabetical session order. Two mutation-proven test holes let the second defect through.
+
+What caught it: the slice's blind review, through the built CLI in scratch repos.
+
+What happened: both fixed before the slice landed, with pinning tests. The vocabulary and ordering rulings the review demanded are D13. The full review is archived at docs/evidence/bet-1/slice-2/blind-review.md.

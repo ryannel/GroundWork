@@ -47,11 +47,14 @@ const maxTextBytes = 200
 // sessionBytes is how many random bytes a generated session id carries.
 const sessionBytes = 16
 
+// floorRung is the rung a scope sits at before anything dials it.
+const floorRung = "slice"
+
 // ErrNotARepo says the directory is not inside a git repository.
 var ErrNotARepo = errors.New("not in a git repository")
 
 // errRefMoved says another writer moved the journal ref mid-write.
-// It is not returned to callers. WriteDispatch retries instead.
+// It is not returned to callers. A write retries instead.
 var errRefMoved = errors.New("the journal ref moved during the write")
 
 // roles is the closed vocabulary for the role field.
@@ -61,6 +64,36 @@ var roles = []string{
 
 // tiers is the closed vocabulary for the tier field.
 var tiers = []string{"frontier", "execution"}
+
+// rungs is the closed vocabulary for the dial. The spec names four rungs:
+// "They are `slice`, `milestone`, `bet`, and `program`."
+var rungs = []string{"slice", "milestone", "bet", "program"}
+
+// sealActions is the closed vocabulary for a seal's action.
+var sealActions = []string{"granted", "revoked"}
+
+// Each closed vocabulary has one accessor. A caller shows the list from here
+// rather than keeping a copy of it, so there is only one place to change.
+
+// Roles returns the roles a dispatch event accepts.
+func Roles() []string {
+	return slices.Clone(roles)
+}
+
+// Tiers returns the model tiers a dispatch event accepts.
+func Tiers() []string {
+	return slices.Clone(tiers)
+}
+
+// Rungs returns the rungs the dial accepts, in order from the most watchful.
+func Rungs() []string {
+	return slices.Clone(rungs)
+}
+
+// SealActions returns the actions a seal event accepts.
+func SealActions() []string {
+	return slices.Clone(sealActions)
+}
 
 // Dispatch is one dispatch of an agent, as the caller reports it.
 // The journal fills in the rest of the event itself.
@@ -74,6 +107,27 @@ type Dispatch struct {
 	Outcome      string
 }
 
+// Dial is one move of the autonomy dial, as the caller reports it.
+//
+// There is no From field on purpose. Where the dial moved from is read back
+// from the journal, so the caller cannot claim a rung the record disagrees
+// with.
+type Dial struct {
+	To     string
+	Scope  string
+	Reason string
+}
+
+// Seal is one seal granted or revoked, as the caller reports it.
+//
+// There is no target field on purpose. The commit is read from the tag, so
+// the record cannot name a commit the tag does not hold.
+type Seal struct {
+	Kind   string
+	Tag    string
+	Action string
+}
+
 // tokens holds the token counts for one dispatch.
 type tokens struct {
 	In    int `json:"in"`
@@ -81,9 +135,9 @@ type tokens struct {
 	Total int `json:"total"`
 }
 
-// event is one journal line. The envelope comes first, then the fields the
-// kind adds. The order of the fields here is the order on the line.
-type event struct {
+// envelope is the part of a line every kind carries. It comes first on the
+// line, in the order the fields are declared here.
+type envelope struct {
 	V             int    `json:"v"`
 	TS            string `json:"ts"`
 	Kind          string `json:"kind"`
@@ -92,6 +146,11 @@ type event struct {
 	Seq           int    `json:"seq"`
 	Commit        string `json:"commit"`
 	Branch        string `json:"branch"`
+}
+
+// dispatchEvent is one dispatch line.
+type dispatchEvent struct {
+	envelope
 
 	Role         string `json:"role"`
 	Tier         string `json:"tier"`
@@ -100,6 +159,34 @@ type event struct {
 	DurationMS   int    `json:"duration_ms"`
 	Outcome      string `json:"outcome"`
 }
+
+// dialEvent is one dial line.
+type dialEvent struct {
+	envelope
+
+	From   string `json:"from"`
+	To     string `json:"to"`
+	Scope  string `json:"scope"`
+	Reason string `json:"reason"`
+}
+
+// sealEvent is one seal line.
+type sealEvent struct {
+	envelope
+
+	SealKind string `json:"seal_kind"`
+	Tag      string `json:"tag"`
+	Target   string `json:"target"`
+	Action   string `json:"action"`
+}
+
+// build makes the line for one kind of event, around an envelope the write
+// path has already filled in.
+//
+// It gets the tip the write will build on, so a kind that reads the journal
+// back sees exactly what its own line will be added to. It runs once per
+// attempt. An error from it stops the write, and nothing is stored.
+type build func(dir, tip string, env envelope) (any, error)
 
 // WriteDispatch records one dispatch event in the journal of the repo at
 // repoDir. repoDir may be any directory inside the repo. It returns the path
@@ -111,6 +198,88 @@ func WriteDispatch(repoDir string, d Dispatch) (string, error) {
 		return "", err
 	}
 
+	return write(repoDir, "dispatch", func(dir, tip string, env envelope) (any, error) {
+		return dispatchEvent{
+			envelope:     env,
+			Role:         d.Role,
+			Tier:         d.Tier,
+			Tokens:       tokens{In: d.TokensIn, Out: d.TokensOut, Total: d.TokensIn + d.TokensOut},
+			TokensSource: d.TokensSource,
+			DurationMS:   d.DurationMS,
+			Outcome:      d.Outcome,
+		}, nil
+	})
+}
+
+// WriteDial records one move of the autonomy dial in the journal of the repo
+// at repoDir. It returns the path the event was stored at.
+//
+// The line's from field is read from the journal, not from the caller. It is
+// the rung the scope was left at by its own newest dial line, or the floor if
+// the journal holds no dial for that scope.
+//
+// It writes nothing when it rejects the dial.
+func WriteDial(repoDir string, d Dial) (string, error) {
+	if err := checkDial(d); err != nil {
+		return "", err
+	}
+
+	return write(repoDir, "dial", func(dir, tip string, env envelope) (any, error) {
+		from, err := rungOf(dir, tip, d.Scope)
+		if err != nil {
+			return nil, err
+		}
+
+		return dialEvent{
+			envelope: env,
+			From:     from,
+			To:       d.To,
+			Scope:    d.Scope,
+			Reason:   d.Reason,
+		}, nil
+	})
+}
+
+// WriteSeal records one seal granted or revoked in the journal of the repo at
+// repoDir. It returns the path the event was stored at.
+//
+// The line's target field is read from the tag, not from the caller. A tag
+// the repo does not hold is an error, and nothing is written.
+func WriteSeal(repoDir string, s Seal) (string, error) {
+	if err := checkSeal(s); err != nil {
+		return "", err
+	}
+
+	// The tag is read before the write path starts, because the tag does not
+	// depend on the journal's tip and a retry must not look it up again.
+	// So this checks the repo ahead of write, which checks it again. Outside
+	// a repo the caller hears ErrNotARepo rather than git's words about a
+	// missing tag. One spare git call buys that.
+	if err := checkRepo(repoDir); err != nil {
+		return "", err
+	}
+
+	target, err := tagCommit(repoDir, s.Tag)
+	if err != nil {
+		return "", err
+	}
+
+	return write(repoDir, "seal", func(dir, tip string, env envelope) (any, error) {
+		return sealEvent{
+			envelope: env,
+			SealKind: s.Kind,
+			Tag:      s.Tag,
+			Target:   target,
+			Action:   s.Action,
+		}, nil
+	})
+}
+
+// write is the one path every kind of event goes through. It fills in the
+// envelope, hashes the line, and stores it under the writing session.
+//
+// It writes nothing when anything along the way says no.
+func write(repoDir, kind string, b build) (string, error) {
 	session, generated, err := sessionID()
 	if err != nil {
 		return "", err
@@ -150,23 +319,24 @@ func WriteDispatch(repoDir string, d Dispatch) (string, error) {
 			return "", err
 		}
 
-		e := event{
-			V:            version,
-			TS:           time.Now().UTC().Format(time.RFC3339),
-			Kind:         "dispatch",
-			Session:      session,
-			Seq:          seq,
-			Commit:       commit,
-			Branch:       branch,
-			Role:         d.Role,
-			Tier:         d.Tier,
-			Tokens:       tokens{In: d.TokensIn, Out: d.TokensOut, Total: d.TokensIn + d.TokensOut},
-			TokensSource: d.TokensSource,
-			DurationMS:   d.DurationMS,
-			Outcome:      d.Outcome,
+		// Nanoseconds, because two events a millisecond apart must still
+		// order. RFC3339 allows the fraction, so this is the format D8 ruled.
+		env := envelope{
+			V:       version,
+			TS:      time.Now().UTC().Format(time.RFC3339Nano),
+			Kind:    kind,
+			Session: session,
+			Seq:     seq,
+			Commit:  commit,
+			Branch:  branch,
 		}
 		if generated {
-			e.SessionSource = "generated"
+			env.SessionSource = "generated"
+		}
+
+		e, err := b(repoDir, tip, env)
+		if err != nil {
+			return "", err
 		}
 
 		line, err := json.Marshal(e)
@@ -178,7 +348,7 @@ func WriteDispatch(repoDir string, d Dispatch) (string, error) {
 		sum := sha256.Sum256(line)
 		path := "events/" + session + "/" + hex.EncodeToString(sum[:]) + ".json"
 
-		message := fmt.Sprintf("journal: %s %s %d", e.Kind, session, seq)
+		message := fmt.Sprintf("journal: %s %s %d", kind, session, seq)
 
 		err = store(repoDir, tip, path, line, message)
 		if err == nil {
@@ -208,6 +378,30 @@ func checkDispatch(d Dispatch) error {
 	return checkText("tokens_source", d.TokensSource)
 }
 
+// checkDial rejects a dial the journal will not record.
+func checkDial(d Dial) error {
+	if !slices.Contains(rungs, d.To) {
+		return fmt.Errorf("rung %q is not one of: %s", d.To, strings.Join(rungs, ", "))
+	}
+	if err := checkFilled("scope", d.Scope); err != nil {
+		return err
+	}
+
+	return checkFilled("reason", d.Reason)
+}
+
+// checkSeal rejects a seal the journal will not record.
+func checkSeal(s Seal) error {
+	if !slices.Contains(sealActions, s.Action) {
+		return fmt.Errorf("action %q is not one of: %s", s.Action, strings.Join(sealActions, ", "))
+	}
+	if err := checkFilled("seal_kind", s.Kind); err != nil {
+		return err
+	}
+
+	return checkFilled("tag", s.Tag)
+}
+
 // checkText rejects a free text field that is too long to record.
 func checkText(name, value string) error {
 	if len(value) > maxTextBytes {
@@ -215,6 +409,16 @@ func checkText(name, value string) error {
 	}
 
 	return nil
+}
+
+// checkFilled rejects a free text field that is empty or too long to record.
+// A field the reader needs is worth nothing empty.
+func checkFilled(name, value string) error {
+	if value == "" {
+		return fmt.Errorf("%s is empty", name)
+	}
+
+	return checkText(name, value)
 }
 
 // sessionID returns the session id for this event. It also reports whether
@@ -326,55 +530,144 @@ func treeOIDs(out string) ([]string, error) {
 // each write reads every earlier event of the same session. A long session
 // will want an index.
 func highestSeq(dir string, oids []string) (int, error) {
-	stdin := []byte(strings.Join(oids, "\n") + "\n")
-
-	out, err := gitOut(dir, nil, stdin, "cat-file", "--batch")
-	if err != nil {
-		return 0, err
-	}
-
-	return scanBatch(out)
-}
-
-// scanBatch reads the output of git cat-file --batch and returns the highest
-// seq in it. Each object comes as "<oid> <type> <size>\n", then its bytes,
-// then one more newline.
-func scanBatch(out string) (int, error) {
 	highest := 0
 
-	for len(out) > 0 {
-		header, rest, found := strings.Cut(out, "\n")
-		if !found {
-			return 0, fmt.Errorf("git cat-file gave the header %q, with no newline", header)
-		}
-
-		fields := strings.Fields(header)
-		if len(fields) != 3 {
-			return 0, fmt.Errorf("git cat-file gave the header %q", header)
-		}
-
-		size, err := strconv.Atoi(fields[2])
-		if err != nil {
-			return 0, fmt.Errorf("git cat-file gave the size %q for object %s", fields[2], fields[0])
-		}
-		if len(rest) < size+1 {
-			return 0, fmt.Errorf("git cat-file cut object %s short", fields[0])
-		}
-
+	err := eachObject(dir, oids, func(oid string, data []byte) error {
 		var e struct {
 			Seq int `json:"seq"`
 		}
-		if err := json.Unmarshal([]byte(rest[:size]), &e); err != nil {
-			return 0, fmt.Errorf("journal object %s is not valid JSON: %w", fields[0], err)
+		if err := json.Unmarshal(data, &e); err != nil {
+			return fmt.Errorf("journal object %s is not valid JSON: %w", oid, err)
 		}
 		if e.Seq > highest {
 			highest = e.Seq
 		}
 
-		out = rest[size+1:]
+		return nil
+	})
+	if err != nil {
+		return 0, err
 	}
 
 	return highest, nil
+}
+
+// rungOf returns the rung a scope sits at now, read from the journal itself.
+//
+// That is the to of the newest dial line carrying the same scope. Newest is
+// decided by ts. A scope the journal holds no dial for sits at the floor.
+//
+// Seq only breaks a tie on ts, and it only means anything inside one session:
+// two sessions number their own events, so seq 2 in one says nothing about
+// seq 5 in another. Ordering is the clock's job here.
+//
+// This costs more than highestSeq: it reads every event in the journal, not
+// just one session's. A journal large enough to feel that wants an index.
+func rungOf(dir, tip, scope string) (string, error) {
+	if tip == "" {
+		return floorRung, nil
+	}
+
+	// Every session's events, not just this one's: a scope keeps its rung
+	// across the sessions that work on it.
+	out, err := gitOut(dir, nil, nil,
+		"ls-tree", "-r", "-z", "--full-tree", tip, "--", "events/")
+	if err != nil {
+		return "", err
+	}
+
+	oids, err := treeOIDs(out)
+	if err != nil {
+		return "", err
+	}
+	if len(oids) == 0 {
+		return floorRung, nil
+	}
+
+	rung := floorRung
+	var newest time.Time
+	newestSeq := 0
+
+	// Two lines can still tie on ts and seq: two sessions writing in the same
+	// nanosecond. The first one the tree gives wins, and the tree is sorted
+	// by path, so that is the lowest-sorting session id. It is stable but
+	// arbitrary. Clocks that disagree land here too, and this is the best a
+	// timestamp can do about that.
+	err = eachObject(dir, oids, func(oid string, data []byte) error {
+		var e struct {
+			Kind  string `json:"kind"`
+			TS    string `json:"ts"`
+			Seq   int    `json:"seq"`
+			To    string `json:"to"`
+			Scope string `json:"scope"`
+		}
+		if err := json.Unmarshal(data, &e); err != nil {
+			return fmt.Errorf("journal object %s is not valid JSON: %w", oid, err)
+		}
+		if e.Kind != "dial" || e.Scope != scope {
+			return nil
+		}
+
+		ts, err := time.Parse(time.RFC3339, e.TS)
+		if err != nil {
+			return fmt.Errorf("journal object %s has the ts %q, which is not RFC3339", oid, e.TS)
+		}
+		if ts.After(newest) || (ts.Equal(newest) && e.Seq > newestSeq) {
+			newest, newestSeq, rung = ts, e.Seq, e.To
+		}
+
+		return nil
+	})
+	if err != nil {
+		return "", err
+	}
+
+	return rung, nil
+}
+
+// eachObject reads the given git objects in one call and hands each one's
+// bytes to fn, along with its object id.
+func eachObject(dir string, oids []string, fn func(oid string, data []byte) error) error {
+	stdin := []byte(strings.Join(oids, "\n") + "\n")
+
+	out, err := gitOut(dir, nil, stdin, "cat-file", "--batch")
+	if err != nil {
+		return err
+	}
+
+	return scanBatch(out, fn)
+}
+
+// scanBatch reads the output of git cat-file --batch. Each object comes as
+// "<oid> <type> <size>\n", then its bytes, then one more newline.
+func scanBatch(out string, fn func(oid string, data []byte) error) error {
+	for len(out) > 0 {
+		header, rest, found := strings.Cut(out, "\n")
+		if !found {
+			return fmt.Errorf("git cat-file gave the header %q, with no newline", header)
+		}
+
+		fields := strings.Fields(header)
+		if len(fields) != 3 {
+			return fmt.Errorf("git cat-file gave the header %q", header)
+		}
+
+		size, err := strconv.Atoi(fields[2])
+		if err != nil {
+			return fmt.Errorf("git cat-file gave the size %q for object %s", fields[2], fields[0])
+		}
+		if len(rest) < size+1 {
+			return fmt.Errorf("git cat-file cut object %s short", fields[0])
+		}
+
+		if err := fn(fields[0], []byte(rest[:size])); err != nil {
+			return err
+		}
+
+		out = rest[size+1:]
+	}
+
+	return nil
 }
 
 // store adds one line to the journal ref as a blob at path.

@@ -93,6 +93,34 @@ func headCommit(dir string) (string, error) {
 	return resolve(dir, "HEAD^{commit}")
 }
 
+// tagCommit returns the commit a tag points at. An annotated tag is peeled
+// down to its commit; a lightweight tag names the commit already.
+//
+// It looks only under refs/tags/, so a branch of the same name is never taken
+// for a tag, and a name starting with a dash is never read as an option.
+func tagCommit(dir, tag string) (string, error) {
+	// The name must be a ref that exists, exactly as written. rev-parse alone
+	// would not do: it reads revision syntax, so "v1~1" would resolve to the
+	// parent of v1 and the seal would name a commit no tag holds. show-ref
+	// --verify takes the name literally and knows nothing of ~ or ^.
+	if _, err := gitLine(dir, "show-ref", "--verify", "--quiet", "--", "refs/tags/"+tag); err != nil {
+		if missing(err) {
+			return "", fmt.Errorf("this repo has no tag named %q", tag)
+		}
+		return "", err
+	}
+
+	commit, err := resolve(dir, "refs/tags/"+tag+"^{commit}")
+	if err != nil {
+		return "", err
+	}
+	if commit == "" {
+		return "", fmt.Errorf("the tag %q does not point at a commit", tag)
+	}
+
+	return commit, nil
+}
+
 // branchName returns the name of the branch HEAD is on.
 // It returns an empty string when HEAD is detached.
 func branchName(dir string) (string, error) {

@@ -160,3 +160,15 @@ Why this cut: the writer lands first because every later slice reads what it wro
 A dispatch line's `tokens_source` says where its token figures came from. The CLI's default was `host-report`, which records a provenance claim the caller never made. That defeats the field. The default is now `unset`.
 
 Why: a provenance field that lies by default is worse than none. The slice 1 blind review caught this.
+
+## D13 — 2026-08-22 — Slice 2 rulings: rungs, seal actions, dial-chain scope, timestamps
+
+Four rulings from building the dial and seal verbs.
+
+The rung vocabulary is closed: slice, milestone, bet, program — the spec's own four, floor slice. The seal action vocabulary is closed: granted, revoked. The spec also names a seal being moved; until the amendment protocol lands in a later bet, a move is recorded as two lines — revoked, then granted.
+
+The dial chain is repo-global and branch-blind. A scope's rung belongs to the work, not to a branch or a session, so the chain reads the whole ref. Consequence, accepted: after journals merge, replaying the chain can disagree with recorded from values. The merge slice must say this where it lands.
+
+Timestamps are RFC3339 with nanoseconds. Ordering is ts, then seq within a session. A true same-instant tie across sessions falls to tree order — the session id that sorts first. The chain is best-effort under clock skew, and says so.
+
+Why: the blind review proved second-granularity timestamps let an alphabetically earlier session win a from-chain race. Nanoseconds shrink the tie to practical impossibility; the residual rule makes the outcome stated instead of accidental.
