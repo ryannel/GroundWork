@@ -75,3 +75,11 @@ What it is: a journal holding dial and seal lines but no dispatches printed "the
 What caught it: the slice's blind review — nine mutations and four scratch repos through the built binary.
 
 What happened: the message split, the planted-line tests, and four rulings (D14) landed before the slice closed. The archive is docs/evidence/bet-1/slice-3/blind-review.md.
+
+## F10 — 2026-08-22 — The merge trusted a fetched ref it had no reason to trust
+
+What it is: a hostile or corrupted journal commit could make the merge silently drop a local session's lines (a file where this side has a directory) or rewrite a line in place (a forged blob at an existing path) — while reporting success. And the merge's compare-and-swap, like the writer's before it (F7), was claimed but not proven: the force-update mutation left the suite green.
+
+What caught it: the slice's blind review, building hostile commits with plumbing and driving them through the real API.
+
+What happened: the merge now refuses any union in which a local entry does not survive unchanged, with the path named (D15). The concurrency race became a committed test. The unrun-proof recurrence this completes is ruled on in D16. Archive: docs/evidence/bet-1/slice-4/blind-review.md.

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -45,6 +46,33 @@ func gitLine(dir string, args ...string) (string, error) {
 	}
 
 	return strings.TrimSpace(out), nil
+}
+
+// inTempIndex builds a git tree in an index of its own and returns the tree.
+//
+// fill runs the git commands that put the entries in place. It is handed the
+// environment that points git at the temporary index, and must pass that on to
+// every call it makes. The repo's own index and working tree are never
+// touched, so this is safe to run at any moment.
+func inTempIndex(dir string, fill func(env []string) error) (string, error) {
+	indexDir, err := os.MkdirTemp("", "groundwork-index-")
+	if err != nil {
+		return "", fmt.Errorf("make a temporary index: %w", err)
+	}
+	defer os.RemoveAll(indexDir)
+
+	env := []string{"GIT_INDEX_FILE=" + filepath.Join(indexDir, "index")}
+
+	if err := fill(env); err != nil {
+		return "", err
+	}
+
+	tree, err := gitOut(dir, env, nil, "write-tree")
+	if err != nil {
+		return "", err
+	}
+
+	return strings.TrimSpace(tree), nil
 }
 
 // missing reports whether a git command failed only because the thing it was

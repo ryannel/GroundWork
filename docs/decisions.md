@@ -184,3 +184,21 @@ A line the query cannot parse fails the whole report, loudly, naming the object.
 Rows sort by total tokens descending, ties broken by key, alphabetically. The summary row is labelled (total) and an empty key renders (none) — parentheses sit outside the session charset, so neither can collide with real data.
 
 Exit codes split by where a bad value is caught: a bad --by is a usage error, exit 2, caught in the CLI; a bad --role reaches the writer and is a write error, exit 1. The split is stated here so it reads as chosen, not accidental.
+
+## D15 — 2026-08-22 — Slice 4 rulings: what a merge may bring in
+
+Three rulings for the merge verb.
+
+A merge must never lose or rewrite a local line. The union is checked after it is built: every local entry must survive unchanged, or the merge is refused with the offending path named. Content addressing makes honest collisions impossible; the check is for a fetched ref that lies.
+
+The union carries the other side's whole tree, not just events/. A later bet that adds a path under the ref gets it carried across merges. The counts in the output sentence count events only. The journal ref shares the repo's trust domain — fetch it only from clones of this project, the same rule the code itself lives under.
+
+merge takes a positional argument where other subcommands take flags. A merge has exactly one operand and it is not optional; a flag would dress it as one.
+
+## D16 — 2026-08-22 — The unrun-proof class tripped its threshold: builders now run their own mutations
+
+D10 set the rule: three findings of one class inside one bet forces an upstream change. Bet 1 has seven unrun-proof findings — properties claimed in code or comments that no test pinned, proven by reviewers' mutations in every slice so far (F7, F8, F9, and slice 4's review).
+
+The upstream change: every build brief now requires the builder to run the mutation for each property it claims — break the guard, watch the named test fail, restore it — and to report which mutation proved which claim before handoff. The reviewer still hunts; the builder no longer hands over unproven claims.
+
+Why this fix: the defects were never in the code — every mutated implementation was correct. The generator of the defect was the handoff itself, which let "verified" mean "written". This names the class, per D10.

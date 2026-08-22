@@ -17,7 +17,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"slices"
 	"strconv"
 	"strings"
@@ -275,6 +274,53 @@ func WriteSeal(repoDir string, s Seal) (string, error) {
 	})
 }
 
+// retryOnRace runs one attempt at moving the journal ref, again and again
+// until it wins the race. An attempt that reports errRefMoved lost to another
+// writer, so it is thrown away and a fresh one is built on the tip that won.
+// Any other error stops the work at once.
+//
+// Both the write path and the merge path go through here, so there is one
+// retry policy in the package rather than one per verb.
+func retryOnRace[T any](attempt func() (T, error)) (T, error) {
+	var zero T
+	var lost error
+
+	for n := range attempts {
+		if n > 0 {
+			// Wait a moment, so racing writers do not all retry together.
+			time.Sleep(time.Duration(n) * 5 * time.Millisecond)
+		}
+
+		got, err := attempt()
+		if err == nil {
+			return got, nil
+		}
+		if !errors.Is(err, errRefMoved) {
+			return zero, err
+		}
+		lost = err
+	}
+
+	return zero, fmt.Errorf("gave up after %d attempts: %w", attempts, lost)
+}
+
+// moveRef points the journal ref at commit, but only while the ref still holds
+// old. An empty old means the ref must not exist yet.
+//
+// A refusal comes back wrapped in errRefMoved, which is what makes retryOnRace
+// try again. Two races land here: another writer moved the ref, or another
+// writer holds its lock this instant. Both mean this attempt lost, so both are
+// worth retrying. A real fault — a broken repo, no permission — fails the same
+// way every time, and the caller reports git's own words once the retries run
+// out.
+func moveRef(dir, commit, old string) error {
+	if _, err := gitOut(dir, nil, nil, "update-ref", Ref, commit, old); err != nil {
+		return fmt.Errorf("%w: %w", errRefMoved, err)
+	}
+
+	return nil
+}
+
 // write is the one path every kind of event goes through. It fills in the
 // envelope, hashes the line, and stores it under the writing session.
 //
@@ -301,14 +347,7 @@ func write(repoDir, kind string, b build) (string, error) {
 	// Another writer may move the ref between the read and the write. When
 	// that happens this attempt is thrown away and a fresh one is built, so
 	// the new event is numbered after theirs instead of over it.
-	var lost error
-
-	for attempt := 0; attempt < attempts; attempt++ {
-		if attempt > 0 {
-			// Wait a moment, so racing writers do not all retry together.
-			time.Sleep(time.Duration(attempt) * 5 * time.Millisecond)
-		}
-
+	return retryOnRace(func() (string, error) {
 		tip, err := resolve(repoDir, Ref)
 		if err != nil {
 			return "", err
@@ -350,17 +389,12 @@ func write(repoDir, kind string, b build) (string, error) {
 
 		message := fmt.Sprintf("journal: %s %s %d", kind, session, seq)
 
-		err = store(repoDir, tip, path, line, message)
-		if err == nil {
-			return path, nil
-		}
-		if !errors.Is(err, errRefMoved) {
+		if err := store(repoDir, tip, path, line, message); err != nil {
 			return "", err
 		}
-		lost = err
-	}
 
-	return "", fmt.Errorf("gave up after %d attempts: %w", attempts, lost)
+		return path, nil
+	})
 }
 
 // checkDispatch rejects a dispatch the journal will not record.
@@ -694,32 +728,23 @@ func store(dir, tip, path string, line []byte, message string) error {
 	}
 	blob = strings.TrimSpace(blob)
 
-	indexDir, err := os.MkdirTemp("", "groundwork-journal-")
-	if err != nil {
-		return fmt.Errorf("make a temporary index: %w", err)
-	}
-	defer os.RemoveAll(indexDir)
-
-	env := []string{"GIT_INDEX_FILE=" + filepath.Join(indexDir, "index")}
-
-	if tip != "" {
-		if _, err := gitOut(dir, env, nil, "read-tree", tip); err != nil {
-			return err
+	tree, err := inTempIndex(dir, func(env []string) error {
+		if tip != "" {
+			if _, err := gitOut(dir, env, nil, "read-tree", tip); err != nil {
+				return err
+			}
 		}
-	}
 
-	// The path in --cacheinfo is read from the root of the repo, not from
-	// the current directory, so this works from anywhere in the repo.
-	cacheinfo := fmt.Sprintf("100644,%s,%s", blob, path)
-	if _, err := gitOut(dir, env, nil, "update-index", "--add", "--cacheinfo", cacheinfo); err != nil {
+		// The path in --cacheinfo is read from the root of the repo, not from
+		// the current directory, so this works from anywhere in the repo.
+		cacheinfo := fmt.Sprintf("100644,%s,%s", blob, path)
+		_, err := gitOut(dir, env, nil, "update-index", "--add", "--cacheinfo", cacheinfo)
+
 		return err
-	}
-
-	tree, err := gitOut(dir, env, nil, "write-tree")
+	})
 	if err != nil {
 		return err
 	}
-	tree = strings.TrimSpace(tree)
 
 	args := []string{"commit-tree", tree}
 	if tip != "" {
@@ -733,18 +758,7 @@ func store(dir, tip, path string, line []byte, message string) error {
 	}
 	commit = strings.TrimSpace(commit)
 
-	// The last argument is the value the ref must still hold. An empty
-	// string means the ref must not exist yet.
-	if _, err := gitOut(dir, nil, nil, "update-ref", Ref, commit, tip); err != nil {
-		// Two races land here: another writer moved the ref, or another
-		// writer holds its lock this instant. Both mean this attempt lost,
-		// so both are worth retrying. A real fault — a broken repo, no
-		// permission — fails the same way every time, and the caller
-		// reports git's own words once the retries run out.
-		return fmt.Errorf("%w: %w", errRefMoved, err)
-	}
-
-	return nil
+	return moveRef(dir, commit, tip)
 }
 
 // inTree reports whether a tree-ish already holds a path.

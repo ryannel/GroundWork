@@ -41,6 +41,7 @@ subcommands:
   dial       record a move of the autonomy dial
   seal       record a seal granted or revoked
   spend      report token and time spend, grouped by role, tier or session
+  merge      merge another journal commit into this repo's journal
 `
 
 func main() {
@@ -81,6 +82,8 @@ func runJournal(args []string, out, errOut io.Writer) int {
 		return runJournalSeal(args[1:], out, errOut)
 	case "spend":
 		return runJournalSpend(args[1:], out, errOut)
+	case "merge":
+		return runJournalMerge(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork journal: unknown subcommand %q\n\n", args[0])
 		fmt.Fprint(errOut, journalUsage)
@@ -111,7 +114,8 @@ func emptyFlags(flags ...given) []string {
 	return wrong
 }
 
-// spareArgument reports a leftover argument. No journal subcommand takes one.
+// spareArgument reports a leftover argument. Only merge takes one, and it
+// checks its own.
 func spareArgument(errOut io.Writer, flags *flag.FlagSet, name string) bool {
 	if flags.NArg() == 0 {
 		return false
@@ -371,4 +375,68 @@ func spendTable(by string, rows []journal.SpendRow) string {
 	w.Flush()
 
 	return buf.String()
+}
+
+// runJournalMerge merges another journal commit into this repo's journal.
+//
+// It takes one argument rather than a flag, because the thing being merged is
+// the whole point of the verb. The usual argument is a ref fetched from
+// another clone.
+func runJournalMerge(args []string, out, errOut io.Writer) int {
+	const name = "groundwork journal merge"
+
+	flags := flag.NewFlagSet(name, flag.ContinueOnError)
+	flags.SetOutput(errOut)
+	flags.Usage = func() {
+		fmt.Fprintf(errOut, "usage: %s <commit-ish>\n", name)
+	}
+
+	if err := flags.Parse(args); err != nil {
+		return exitUsage
+	}
+	if flags.NArg() != 1 {
+		return sayWrong(errOut, flags, name, []string{"merge takes one commit, and nothing else"})
+	}
+
+	res, err := journal.Merge(".", flags.Arg(0))
+	if err != nil {
+		if errors.Is(err, journal.ErrNotARepo) {
+			fmt.Fprintln(errOut, name+": not in a git repository")
+			return exitFailed
+		}
+		fmt.Fprintln(errOut, name+":", err)
+		return exitFailed
+	}
+
+	fmt.Fprintln(out, mergeSentence(res))
+
+	return exitOK
+}
+
+// mergeSentence says what a merge did, with the counts that let a reader check
+// it against the ref.
+func mergeSentence(res journal.MergeResult) string {
+	switch res.Outcome {
+	case journal.AlreadyMerged:
+		return "already merged: the journal already holds that commit"
+	case journal.FastForwarded:
+		return fmt.Sprintf("fast-forwarded: %s in total", countedLines(res.Total))
+	case journal.Merged:
+		return fmt.Sprintf("merged: %s from this journal, %s from the other, %s in total",
+			countedLines(res.Local), countedLines(res.Other), countedLines(res.Total))
+	default:
+		// Every outcome the journal can report is named above. A new one
+		// means this switch was not updated with it, and printing a vague
+		// sentence would hide that. So it stops here instead.
+		panic(fmt.Sprintf("groundwork: the merge reported the outcome %q, which this build cannot say", res.Outcome))
+	}
+}
+
+// countedLines renders a count of journal lines, singular for one.
+func countedLines(n int) string {
+	if n == 1 {
+		return "1 line"
+	}
+
+	return fmt.Sprintf("%d lines", n)
 }
