@@ -68,7 +68,7 @@ var tokenExtensions = []string{
 var rawHex = regexp.MustCompile(`(?i)#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3})\b`)
 
 func checkToken(c Context) Result {
-	s, bad, ok := openScan("token", c)
+	s, bad, ok := openScan("token scan", c)
 	if !ok {
 		return bad
 	}

@@ -77,7 +77,7 @@ func wiringRow() Row {
 }
 
 func checkWiring(c Context) Result {
-	s, bad, ok := openScan("wiring", c)
+	s, bad, ok := openScan("wiring scan", c)
 	if !ok {
 		return bad
 	}

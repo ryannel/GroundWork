@@ -31,6 +31,29 @@ import (
 // battery's unrunnable outcome, and it never carries results.
 var ErrUnrunnable = errors.New("the adapter could not be run")
 
+// ErrNoTests is the one refusal a caller has to tell apart from the rest: the
+// runner finished and reported no test at all.
+//
+// Both shapes refuse an empty run log, because an empty green log is the defect
+// the battery exists to catch. But refusing it is not the same as failing to
+// run. A build that broke, a command that would not start, a run that was
+// killed — none of those say what executed, so nothing can be concluded from
+// them. A clean run of nothing says exactly one thing, and proof.md's B18 rules
+// what: a run that executes zero tests is red.
+//
+// It is written as the clause both shapes finish their sentence with, and both
+// wrap ErrUnrunnable beside it: a caller that only asks whether the seam failed
+// still gets the same answer it always did.
+var ErrNoTests = errors.New("reported no tests at all, and an empty run log is not a pass")
+
+// RunGuardEnv is set in a test run's own environment, so that a project whose
+// suite calls the battery cannot start a battery inside the battery.
+//
+// The seam sets it on the child; the row that runs the suite reads it and
+// reports unrunnable rather than recursing. One spelling, named here, because
+// the two halves live in different packages.
+const RunGuardEnv = "GROUNDWORK_BATTERY"
+
 // Outcome is how one test came out.
 type Outcome string
 

@@ -199,8 +199,7 @@ func (e *Exec) Run(ctx context.Context, dir string) (RunLog, error) {
 	// defect the battery exists to catch.
 	log.Tests = collapse(log.Tests)
 	if len(log.Tests) == 0 {
-		return RunLog{}, fmt.Errorf("%w: %s reported no tests at all, and an empty run log is not a pass",
-			ErrUnrunnable, e.name)
+		return RunLog{}, fmt.Errorf("%w: %s %w", ErrUnrunnable, e.name, ErrNoTests)
 	}
 
 	return log, nil

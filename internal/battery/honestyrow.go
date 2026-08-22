@@ -71,7 +71,7 @@ func honestyRow() Row {
 }
 
 func checkHonesty(c Context) Result {
-	s, bad, ok := openScan("honesty", c)
+	s, bad, ok := openScan("honesty scan", c)
 	if !ok {
 		return bad
 	}

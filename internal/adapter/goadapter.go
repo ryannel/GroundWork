@@ -15,6 +15,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 	"time"
@@ -58,6 +59,11 @@ var skipDirs = []string{"testdata", "vendor", "node_modules"}
 // So this reads files rather than asking go list. A project that does not
 // compile still discovers, and the battery can say "these suites exist and
 // none of them ran".
+//
+// It walks only what the run will reach. A directory carrying its own go.mod is
+// another module, and go test ./... stops at that line; a directory whose name
+// starts with _ or . is one the go tool ignores outright. Discovering into
+// either would list tests no run of this project can ever report.
 func (*Go) Discover(ctx context.Context, dir string) ([]Suite, error) {
 	root, err := filepath.Abs(dir)
 	if err != nil {
@@ -78,7 +84,14 @@ func (*Go) Discover(ctx context.Context, dir string) ([]Suite, error) {
 				return nil
 			}
 			name := d.Name()
-			if strings.HasPrefix(name, ".") || slices.Contains(skipDirs, name) {
+			if strings.HasPrefix(name, ".") || strings.HasPrefix(name, "_") || slices.Contains(skipDirs, name) {
+				return filepath.SkipDir
+			}
+			// A directory holding its own go.mod is another module. go test
+			// ./... never crosses that line, so discovery must not either: every
+			// test in a nested tools/ or examples/ module would be discovered,
+			// never run, and reported as a suite nothing executes.
+			if _, err := os.Stat(filepath.Join(p, "go.mod")); err == nil {
 				return filepath.SkipDir
 			}
 
@@ -246,6 +259,12 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 	cmd := exec.CommandContext(ctx, "go", "test", "-json", "-count=1", "./...")
 	cmd.Dir = dir
 
+	// The child is told it is already inside a battery run. A project whose own
+	// suite calls groundwork verify would otherwise run the battery inside the
+	// battery, forever; this repo is such a project, and so is any project that
+	// checks its own gate.
+	cmd.Env = append(os.Environ(), RunGuardEnv+"=1")
+
 	var out, errOut bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &errOut
@@ -262,6 +281,11 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 	// path and quoted back with the package that failed.
 	said := map[string]*strings.Builder{}
 	var buildFailed []string
+
+	// started holds the tests that reported starting and have not reported an
+	// end. A test binary that died mid-suite leaves its names here.
+	started := map[string]bool{}
+	var crash, running string
 
 	dec := json.NewDecoder(bytes.NewReader(out.Bytes()))
 	for {
@@ -288,7 +312,24 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 			buildFailed = append(buildFailed, ev.ImportPath)
 			continue
 		}
+		if ev.Action == "output" {
+			// The runtime's own words for a binary that died. They are the only
+			// place the JSON stream tells a crash from a failure: a panicking
+			// test still reports fail, and the tests behind it report nothing at
+			// all.
+			if line := crashLine(ev.Output); line != "" && crash == "" {
+				crash = line
+			}
+			if running == "" && runningGoroutine.MatchString(ev.Output) {
+				running = ev.Output
+			}
+			continue
+		}
 		if ev.Test == "" {
+			continue
+		}
+		if ev.Action == "run" {
+			started[TestID(suiteOf(module, ev.Package), ev.Test)] = true
 			continue
 		}
 
@@ -298,6 +339,7 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 		}
 
 		suite := suiteOf(module, ev.Package)
+		delete(started, TestID(suite, ev.Test))
 		log.Tests = append(log.Tests, TestRun{
 			ID:       TestID(suite, ev.Test),
 			Suite:    suite,
@@ -310,6 +352,22 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 	if len(buildFailed) > 0 {
 		return RunLog{}, buildFailure(buildFailed, said, errOut.String())
 	}
+
+	// A run that did not finish is unrunnable, never a partial log. The tests
+	// behind the crash never ran, and handing them back as absent would make
+	// the battery report them as tests nobody ever wrote a runner for. That is
+	// a false red manufactured out of a stack trace.
+	if err := ctx.Err(); err != nil {
+		return RunLog{}, fmt.Errorf("%w: go test was stopped: %v", ErrUnrunnable, err)
+	}
+	if crash != "" && running != "" {
+		return RunLog{}, fmt.Errorf("%w: go test crashed: %s", ErrUnrunnable, quoted(crash))
+	}
+	if len(started) > 0 {
+		return RunLog{}, fmt.Errorf("%w: go test left %s unfinished: %s",
+			ErrUnrunnable, plural(len(started), "test", "tests"), firstFew(started))
+	}
+
 	if runErr != nil && len(log.Tests) == 0 {
 		return RunLog{}, fmt.Errorf("%w: go test ran no tests and failed: %v: %s",
 			ErrUnrunnable, runErr, tail(out.String()+errOut.String()))
@@ -321,8 +379,12 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 	// An empty run log is not a pass. A suite that ran nothing is the defect
 	// the battery exists to catch, and reporting it as a clean run of no tests
 	// is how that defect stays invisible.
+	//
+	// This one refusal carries ErrNoTests rather than a plain unrunnable,
+	// because go test finished and said nothing ran. A caller has to be able to
+	// tell that from a build that broke.
 	if len(log.Tests) == 0 {
-		return RunLog{}, fmt.Errorf("%w: go test reported no tests at all in %s", ErrUnrunnable, dir)
+		return RunLog{}, fmt.Errorf("%w: go test in %s %w", ErrUnrunnable, dir, ErrNoTests)
 	}
 
 	return log, nil
@@ -392,6 +454,68 @@ func modulePath(dir string) (string, error) {
 	}
 
 	return "", fmt.Errorf("%w: the go.mod in %s declares no module path", ErrUnrunnable, dir)
+}
+
+// crashMarkers begin the runtime's report of a binary that died: an
+// unrecovered panic, or a fatal runtime error such as a deadlock or a
+// concurrent map write. go test's own timeout writes the first of them too.
+var crashMarkers = []string{"panic: ", "fatal error: "}
+
+// runningGoroutine matches the header of the stack dump a crash prints. It is
+// required alongside a marker before a run is called crashed: a test is free to
+// print the word panic, and none of them print a goroutine dump.
+var runningGoroutine = regexp.MustCompile(`^goroutine \d+ \[running\]:`)
+
+// crashLine returns one output line if it opens a crash report.
+func crashLine(output string) string {
+	line := strings.TrimRight(output, "\n")
+	for _, marker := range crashMarkers {
+		if strings.HasPrefix(line, marker) {
+			return line
+		}
+	}
+
+	return ""
+}
+
+// quoted shortens another tool's line so it cannot fill the caller's own
+// message. A row's evidence is capped, and a stack trace would take the row's
+// words with it.
+func quoted(line string) string {
+	const most = 60
+
+	line = strings.Join(strings.Fields(line), " ")
+	if len(line) <= most {
+		return line
+	}
+
+	return line[:most-3] + "..."
+}
+
+// plural renders a count with its noun, singular for one.
+func plural(n int, one, many string) string {
+	if n == 1 {
+		return "1 " + one
+	}
+
+	return fmt.Sprintf("%d %s", n, many)
+}
+
+// firstFew names a few of the tests left unfinished, in one order every run
+// agrees on.
+func firstFew(ids map[string]bool) string {
+	names := make([]string, 0, len(ids))
+	for id := range ids {
+		names = append(names, id)
+	}
+	slices.Sort(names)
+
+	const most = 3
+	if len(names) <= most {
+		return strings.Join(names, ", ")
+	}
+
+	return fmt.Sprintf("%s and %d more", strings.Join(names[:most], ", "), len(names)-most)
 }
 
 // tail keeps the end of a tool's output, which is where its complaint is.

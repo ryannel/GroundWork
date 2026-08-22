@@ -53,12 +53,17 @@ type scanned struct {
 // must not print as four separate defects — but it must not print as green
 // either, so unrunnable is the honest answer: this row could not reach the
 // thing it checks.
-func openScan(row string, c Context) (scanned, Result, bool) {
+//
+// name is how the row calls itself in its own evidence, noun and all — "honesty
+// scan", "run-evidence row". The row-shaped machinery below is not only the
+// scans' any more, and a row that runs the project calling itself a scan would
+// be telling the reader the wrong thing about what it just did.
+func openScan(name string, c Context) (scanned, Result, bool) {
 	m, err := manifest.Load(c.RepoDir)
 	if err != nil {
 		return scanned{}, Result{
 			Outcome:  Unrunnable,
-			Evidence: fmt.Sprintf("the %s scan does not know what to read: %v", row, err),
+			Evidence: fmt.Sprintf("the %s does not know what to read: %v", name, err),
 		}, false
 	}
 
@@ -66,7 +71,7 @@ func openScan(row string, c Context) (scanned, Result, bool) {
 	if err != nil {
 		return scanned{}, Result{
 			Outcome:  Unrunnable,
-			Evidence: fmt.Sprintf("the %s scan could not find the repository: %v", row, err),
+			Evidence: fmt.Sprintf("the %s could not find the repository: %v", name, err),
 		}, false
 	}
 
@@ -249,9 +254,14 @@ func isGenerated(src []byte) bool {
 	return false
 }
 
-// hit is one thing a scan found, named so a reader can act on it without
-// asking anything else: the file from the repo root, the line, what it is
-// about, and what is wrong with it.
+// hit is one thing a row found, named so a reader can act on it without
+// asking anything else: where it is, what it is about, and what is wrong with
+// it.
+//
+// The three scans put a file and a line in it, because their hits are places in
+// source. A row whose hit is not a place in a file — the id of a test that
+// never ran, the name of a surface — leaves the line at zero and writes what it
+// found in file.
 type hit struct {
 	file    string
 	line    int
@@ -261,11 +271,15 @@ type hit struct {
 
 // String renders one hit for a line of evidence.
 func (h hit) String() string {
+	where := h.file
+	if h.line > 0 {
+		where = fmt.Sprintf("%s:%d", h.file, h.line)
+	}
 	if h.subject == "" {
-		return fmt.Sprintf("%s:%d %s", h.file, h.line, h.shape)
+		return where + " " + h.shape
 	}
 
-	return fmt.Sprintf("%s:%d %s %s", h.file, h.line, h.subject, h.shape)
+	return where + " " + h.subject + " " + h.shape
 }
 
 // hitEvidence renders a red row's evidence: what the scan found, then as many
