@@ -140,3 +140,14 @@ What happened: the journal now backs up to the branch groundwork-journal, which 
 
 Caught by: driver — the failed push during the live cross-check
 Class: host-limit — a host proxy limitation, the same as F1
+
+## F13 — 2026-08-22 — The spec requires a hash-chained journal that no bet builds
+
+What it is: proof.md requires a hash-chained journal, signed seal tags, and verify checking chain continuity. No build item carries it, no bet owns it, and bet 1 shipped the journal without a chain.
+
+What caught it: the bet 2 design read, checking the spec against the ladder's coverage.
+
+What happened: open — the chain work joins bet 3 with the seal machinery, by driver ruling in D26. The coverage gap itself is the finding: a ratified requirement had no owner, and the coverage check counted commitments, not requirements.
+
+Caught by: worker — the bet 2 design dispatch, reading proof.md against the ladder
+Class: coverage-gap

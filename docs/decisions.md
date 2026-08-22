@@ -260,3 +260,53 @@ The bet owned three open questions; all are ruled: O17 in D8, O10 in D9, O12 in 
 The ladder was re-checked at close. Nothing this bet delivered invalidates a later bet. The journal ref backs up to the groundwork-journal branch (D20) until the host allows the real ref.
 
 The bet's own record: twelve findings, one bounce, two defect classes over threshold with their upstream rulings (D16, D18), and one vocabulary addition forced by the counter's first live run (D21).
+
+## D23 — 2026-08-22 — Ruling on O3: the battery version
+
+A version is a declared MAJOR.MINOR plus a digest of the canonical row list, like `1.0+r3f9c1ab`. Major moves when a row is added, removed, or made stricter. Minor moves for everything else. The digest is the first 7 hex of sha256 over that same row list.
+
+`groundwork verify version` prints the pair. A committed lock file holds it. CI fails when the digest moves without a declared bump.
+
+Seals record the version twice: as trailers on the annotated tag, and as fields on the journal seal line (battery, battery_run). A later bet's seal-verify checks the two agree.
+
+Why: a hand-typed version drifts from what the rows do; the digest catches drift while the declared half stays readable.
+
+## D24 — 2026-08-22 — Ruling on O7: waivers
+
+A waiver is one committed file per waiver under .groundwork/waivers/, plus journal lines on grant and on use. One file per waiver so branches merge cleanly — D8's reason, reused. A waiver must land in its own commit touching only waiver files, never buried in a feature diff. Expiry is required, at most 30 days out; an expired waiver is ignored and the row goes red naming it. A waiver never turns a row green — waived is its own outcome, printed loudly. Three waivers of one row in a bet, or five across the repo, file a finding — D10's numbers reused.
+
+Authority this bet: the committed file with git attribution and the journal lines. The seal machinery of a later bet hardens it.
+
+Why: a waiver is a claim that a check is wrong, and claims belong in the record — one file, one commit, one expiry, all countable. A waiver that could hide in a feature diff or outlive its excuse would become the quiet green D10 exists to catch.
+
+## D25 — 2026-08-22 — Ruling on O27: the per-stack adapter
+
+One named seam, two shapes. Go runs in-process, through go/ast and go test -json. Every other stack runs out of process: a command declared in the capability manifest, printing one JSON object on stdout under a versioned schema. The seam carries three calls this bet: discover, run, mutants. Every adapter passes one conformance suite against a shipped fixture pack. An unmapped stack is a fail-closed red row, never a skip. Out-of-process adapters get a timeout and an output cap; a killed run reports unrunnable, never a partial tally.
+
+Why: the framework shells out to each stack's own tooling — the execution plan settled that — and a stack the battery cannot read must never pass in silence.
+
+## D26 — 2026-08-22 — Bet 2 designed: the slice cut and small rulings
+
+Seven slices:
+
+1. The verify verb, the row model, the run record, and the battery and battery-row journal kinds.
+2. Topology profiles, the capability manifest, and the adapter seam with its conformance suite.
+3. The three scans — honesty, wiring, token.
+4. Evidence-of-execution rows.
+5. The deletion test, run in a throwaway worktree.
+6. Waivers, drive artifacts, and the flake policy.
+7. The held-out run and this repo's history. Grading only — no tuning.
+
+Small rulings from the design read:
+
+K0 is read as the seam under one verify verb. The nine rows land across their owning bets. The verb list, reversible: honesty, wiring, token, divergence, reachability, flag, mutate, seal-verify, run-evidence.
+
+The held-out set is two purpose-authored repos, one Go and one TypeScript. A separate dispatch that never sees the battery code builds them. Their answer keys are sealed before slice 1 and recorded in docs/evidence/bet-2/holdout.md. A run burns the repo — later tuning bumps the major version and needs a fresh one. magpie and staycurrent are reachable and serve the no-false-reds direction only.
+
+A mutant that fails to compile is inconclusive, never a catch.
+
+The flake mechanism ships with provisional numbers — rerun once, quarantine on disagreement. Bet 14's O28 rules the real thresholds.
+
+The hash-chained journal and signed seals that proof.md requires join bet 3, with the seal machinery. See F13 — no bet owned them until this ruling.
+
+Why this cut: the floor first, the seam second, then the rows that stand on both, and grading last so nothing grades itself.
