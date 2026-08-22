@@ -52,7 +52,7 @@ The `tier` field reads as a capability summary: `1` means identity only; `2` mea
 - `shape` — `{ radiusBase, character }`. `radiusBase` is the base corner radius (e.g. `"8px"`); `character` is a one-line descriptor of the shape language (e.g. `"soft, concentric nesting"`).
 - `density` — a one-line spacing/density descriptor carrying the grid base (e.g. `"comfortable, 8pt grid"`).
 - `motion` — `{ easeStandard, durationBaseMs, personality }`. `easeStandard` is the standard easing curve (`"cubic-bezier(0.2, 0, 0, 1)"`), `durationBaseMs` the base duration, `personality` a one-word register (`"snappy"`, `"weighted"`, `"restrained"`). Optionally carries `interactions` — a map of context (`hover`, `press`, `enter`, `exit`, `stagger`) → `{ durationMs, ease, transform }`, the per-context motion profiles a surface spec references so feedback timing is a token rather than an ad-hoc value invented per component.
-- `elevation` — optional; a map of level name → an ordered array of shadow layers, each `{ y, blur, spread?, color }` (CSS length plus an OKLCH/`#rrggbb` colour, alpha tapering as the layer widens). The machine form of the design system's depth model: a level is a *stack* — several layers reading as one modelled shadow — not a single drop shadow. Name levels by role (`low`, `mid`, `high`) or by the product's own vocabulary. The geometry serves both themes; carry theme-specific tinting in the layer colour where the design system calls for it.
+- `elevation` — optional; a map of level name → either an ordered array of shadow layers, or `{ "light": […], "dark": […] }` when the two themes need different stacks. Each layer is `{ y, blur, spread?, color }` (CSS length plus an OKLCH/`#rrggbb` colour, alpha tapering as the layer widens). The machine form of the design system's depth model: a level is a *stack* — several layers reading as one modelled shadow — not a single drop shadow. Name levels by role (`low`, `mid`, `high`) or by the product's own vocabulary. **Prefer the per-theme shape for any product with a dark theme.** A shadow is a lighting model, not a geometry: the black-at-4% stack that reads as depth on a white surface is invisible on a dark one, so a single array shipped to both themes means dark mode has no elevation at all. Dark stacks want higher alpha (roughly 0.2–0.3 against 0.03–0.06) and often a longer blur. A per-theme object may carry just one side; the other keeps the neutral default.
 - `blur` — optional; a map of level name → CSS length (e.g. `"subtle": "8px"`, `"standard": "12px"`, `"heavy": "20px"`), the backdrop-blur radii the surface treatments draw on.
 - `gradients` — optional; a map of name → a CSS gradient string (the mesh/aurora recipe, e.g. a layered `radial-gradient`), or `{ light, dark }` when the recipe differs by theme. The machine form of the design system's ambient-texture decisions.
 - `surface` — optional; a map of named surface treatment → a composition of the tokens above: `{ blur?, tint?, border?, elevation?, gradient?, noise? }`, where `blur`/`elevation`/`gradient` name an entry in those maps (or carry a literal value) and `tint`/`border` are CSS colours with alpha. This is the per-app surface vocabulary — the glass/elevated/hero treatments a product composes once and reuses — and it is the home for surface recipes that must never be baked into an engineer skill. A generator projects each treatment into one utility class.
@@ -117,12 +117,18 @@ A web app, a mobile app, and a desktop shell plus an admin CLI: the graphical-ui
       }
     },
     "elevation": {
-      "low":  [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" } ],
-      "mid":  [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" },
-                { "y": "4px", "blur": "8px", "color": "oklch(0% 0 0 / 0.04)" } ],
-      "high": [ { "y": "1px",  "blur": "2px",  "color": "oklch(0% 0 0 / 0.06)" },
-                { "y": "4px",  "blur": "8px",  "color": "oklch(0% 0 0 / 0.04)" },
-                { "y": "12px", "blur": "24px", "color": "oklch(0% 0 0 / 0.03)" } ]
+      "low":  { "light": [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" } ],
+                "dark":  [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.32)" } ] },
+      "mid":  { "light": [ { "y": "1px", "blur": "2px", "color": "oklch(0% 0 0 / 0.06)" },
+                           { "y": "4px", "blur": "8px", "color": "oklch(0% 0 0 / 0.04)" } ],
+                "dark":  [ { "y": "1px", "blur": "3px",  "color": "oklch(0% 0 0 / 0.34)" },
+                           { "y": "4px", "blur": "12px", "color": "oklch(0% 0 0 / 0.26)" } ] },
+      "high": { "light": [ { "y": "1px",  "blur": "2px",  "color": "oklch(0% 0 0 / 0.06)" },
+                           { "y": "4px",  "blur": "8px",  "color": "oklch(0% 0 0 / 0.04)" },
+                           { "y": "12px", "blur": "24px", "color": "oklch(0% 0 0 / 0.03)" } ],
+                "dark":  [ { "y": "1px",  "blur": "3px",  "color": "oklch(0% 0 0 / 0.36)" },
+                           { "y": "6px",  "blur": "16px", "color": "oklch(0% 0 0 / 0.28)" },
+                           { "y": "16px", "blur": "36px", "color": "oklch(0% 0 0 / 0.22)" } ] }
     },
     "blur": { "subtle": "8px", "standard": "12px", "heavy": "20px" },
     "gradients": {

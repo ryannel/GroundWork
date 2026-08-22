@@ -9,6 +9,10 @@ These tests are the "way to fail" that was missing. Load-bearing behaviors:
     moves that role in tokens.css and the rendered page, and nothing else.
     This is the test that proves the page is wired; without it a sheet full of
     plausible hand-written colours would pass every other check here;
+  * elevation resolves per theme where the token set says so, and a flat layer
+    array still serves both — before that shape existed, supplying your own
+    elevation was strictly worse than supplying none, because the neutral is
+    per-theme and a flat array overwrote both halves with the light value;
   * `check` exits 1 on any value that traces to no token, so a neutral fallback
     can never quietly read as an approved design decision;
   * a missing or malformed token file still renders a sheet, and says so — a
@@ -60,7 +64,12 @@ TOKENS = {
             "interactions": {"hover": {"durationMs": 150, "ease": "cubic-bezier(0.2, 0, 0, 1)"}},
         },
         "elevation": {
-            "low": [{"y": "1px", "blur": "1px", "color": "oklch(0% 0 0 / 0.04)"}],
+            # per-theme: a shadow is a lighting model, so dark needs its own stack
+            "low": {
+                "light": [{"y": "1px", "blur": "1px", "color": "oklch(0% 0 0 / 0.04)"}],
+                "dark": [{"y": "1px", "blur": "3px", "color": "oklch(0% 0 0 / 0.32)"}],
+            },
+            # flat array: one geometry serving both themes, still supported
             "mid": [{"y": "2px", "blur": "4px", "color": "oklch(0% 0 0 / 0.05)"}],
             "high": [{"y": "4px", "blur": "6px", "color": "oklch(0% 0 0 / 0.06)"}],
         },
@@ -150,6 +159,60 @@ def test_dark_value_differs_from_light_in_the_sheet(tmp_path):
     assert "oklch(52% 0.16 235)" in light_block
     assert "oklch(70% 0.13 235)" in dark_block
     assert v  # parsed something
+
+
+# ── elevation is a lighting model, not a geometry ───────────────────────────
+
+def test_per_theme_elevation_resolves_to_different_shadows(tmp_path):
+    """The dark stack must survive into the dark block.
+
+    This is the bug the sheet caught: black at 4% alpha reads as depth on white
+    and as nothing on a dark surface, so a token set that cannot say "dark is
+    different" has no dark elevation at all.
+    """
+    root = seed(tmp_path)
+    gw(["design", "build"], root, check_returncode=0)
+    light_block, dark_block = (root / BUNDLE / "tokens.css").read_text().split('[data-theme="dark"]')
+
+    assert "--shadow-low: 0 1px 1px oklch(0% 0 0 / 0.04);" in light_block
+    assert "--shadow-low: 0 1px 3px oklch(0% 0 0 / 0.32);" in dark_block
+
+    light_low = re.search(r"--shadow-low: ([^;]+);", light_block).group(1)
+    dark_low = re.search(r"--shadow-low: ([^;]+);", dark_block).group(1)
+    assert light_low != dark_low, "dark elevation collapsed onto the light stack"
+
+
+def test_flat_elevation_array_still_serves_both_themes(tmp_path):
+    """Back-compat: the original shape is one geometry for both themes."""
+    root = seed(tmp_path)
+    gw(["design", "build"], root, check_returncode=0)
+    light_block, dark_block = (root / BUNDLE / "tokens.css").read_text().split('[data-theme="dark"]')
+    light_mid = re.search(r"--shadow-mid: ([^;]+);", light_block).group(1)
+    dark_mid = re.search(r"--shadow-mid: ([^;]+);", dark_block).group(1)
+    assert light_mid == dark_mid == "0 2px 4px oklch(0% 0 0 / 0.05)"
+
+
+def test_partial_per_theme_elevation_keeps_the_neutral_for_the_other_half(tmp_path):
+    """`{light: [...]}` must degrade to a working dark, not to no dark at all."""
+    partial = json.loads(json.dumps(TOKENS))
+    partial["visual"]["elevation"] = {
+        "low": {"light": [{"y": "1px", "blur": "1px", "color": "oklch(0% 0 0 / 0.04)"}]}
+    }
+    root = seed(tmp_path, partial)
+    gw(["design", "build"], root, check_returncode=0)
+    light_block, dark_block = (root / BUNDLE / "tokens.css").read_text().split('[data-theme="dark"]')
+    assert "--shadow-low: 0 1px 1px oklch(0% 0 0 / 0.04);" in light_block
+    dark_low = re.search(r"--shadow-low: ([^;]+);", dark_block).group(1)
+    assert "0.3" in dark_low, f"expected the neutral dark stack, got {dark_low}"
+
+
+def test_malformed_elevation_layer_drops_only_that_level(tmp_path):
+    broken = json.loads(json.dumps(TOKENS))
+    broken["visual"]["elevation"]["mid"] = [{"y": "wide", "blur": "4px", "color": "nope"}]
+    root = seed(tmp_path, broken)
+    gw(["design", "build"], root, check_returncode=0)
+    text = (root / BUNDLE / "tokens.css").read_text()
+    assert "0 1px 1px oklch(0% 0 0 / 0.04)" in text, "low must survive a broken mid"
 
 
 # ── check: honest green ──────────────────────────────────────────────────────

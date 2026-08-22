@@ -121,6 +121,35 @@ export function composeShadow(layers: unknown): string | null {
   return parts.join(', ');
 }
 
+/** Resolve one elevation level into a per-theme pair. Two accepted shapes:
+ *
+ *    [ { y, blur, color }, … ]            one geometry, both themes
+ *    { light: [ … ], dark: [ … ] }        per-theme stacks
+ *
+ *  The per-theme shape exists because a shadow is a lighting model, not a
+ *  geometry. Black at 4% alpha reads as depth on a white surface and as nothing
+ *  at all on a dark one. Before this shape existed, supplying your own elevation
+ *  was strictly WORSE than supplying none: `NEUTRAL_SHADOW` is per-theme, and a
+ *  flat array overwrote both halves with the light-tuned value, so every custom
+ *  token set silently lost its dark elevation.
+ *
+ *  A partial per-theme object keeps the neutral for the half it omits, so
+ *  `{ light: [...] }` degrades to a themed light and a working dark rather than
+ *  to a dark with no elevation at all. */
+export function resolveElevationLevel(raw: unknown, neutral: LD): LD | null {
+  if (Array.isArray(raw)) {
+    const composed = composeShadow(raw);
+    return composed ? { light: composed, dark: composed } : null;
+  }
+  if (raw && typeof raw === 'object') {
+    const light = composeShadow((raw as any).light);
+    const dark = composeShadow((raw as any).dark);
+    if (!light && !dark) return null;
+    return { light: light || neutral.light, dark: dark || neutral.dark };
+  }
+  return null;
+}
+
 export const NEUTRAL_BLUR = { subtle: '8px', standard: '12px', heavy: '20px' };
 export const NEUTRAL_SHADOW: Record<'low' | 'mid' | 'high', LD> = {
   low: {
@@ -241,10 +270,10 @@ export function resolveVisual(tree: Tree): ResolvedVisual {
     if (b) resolved.blur[lvl] = b;
   }
 
-  // Elevation stacks → box-shadow strings (one geometry serves both themes).
+  // Elevation stacks → box-shadow strings, per theme where the token set says so.
   for (const lvl of ['low', 'mid', 'high'] as const) {
-    const composed = composeShadow(visual.elevation?.[lvl]);
-    if (composed) resolved.shadow[lvl] = { light: composed, dark: composed };
+    const pair = resolveElevationLevel(visual.elevation?.[lvl], NEUTRAL_SHADOW[lvl]);
+    if (pair) resolved.shadow[lvl] = pair;
   }
 
   // Surface treatments: tint/border per named treatment.

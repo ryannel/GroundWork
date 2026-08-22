@@ -13,7 +13,10 @@ copy of it, and the distinction matters when reviewing a mismatch:
   because the owner has to recognise what they are approving. Divergence here
   is the design.
 - **The validation FLOOR is meant to match.** `validColor`, `validLen`,
-  `safeCss` and `composeShadow` decide what counts as a usable token at all. If
+  `safeCss`, `composeShadow` and `resolveElevationLevel` decide what counts as a
+  usable token at all — including which SHAPES a token may take, which is why
+  `resolveElevationLevel` belongs here: it is what accepts `{light, dark}`
+  elevation alongside a flat layer array. If
   the generator tightens or loosens one, the sheet must move with it — otherwise
   the sheet shows the owner a value the app will reject, or rejects one the app
   will happily compile. That is a lie in whichever direction it runs.
@@ -25,4 +28,4 @@ CommonJS with zero dependencies for that reason, like every other `lib/` module.
 
 | Source file | SHA-256 | Last reviewed | Mirrored into |
 |---|---|---|---|
-| src/generators/shared/brand-tokens.ts | fd6a4f6bf987a7161817ae6d986a257b8df03994e920fabfed2a3733912f10a1 | 2026-08-18 | lib/design-bundle/resolve.js (validation floor: validColor, validLen, safeCss, composeShadow) |
+| src/generators/shared/brand-tokens.ts | 3e80d8aa1315c62efa7186384ea6f93a460c464bb92adebd764e6c49388b3f41 | 2026-08-18 | lib/design-bundle/resolve.js (validation floor: validColor, validLen, safeCss, composeShadow, resolveElevationLevel) |
