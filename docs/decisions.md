@@ -53,3 +53,11 @@ On the `legacy` branch, ci.yml's push filter moves from `[main]` to `[legacy]`. 
 Scheduled runs of integration.yml stop on legacy, because GitHub runs schedules only from the default branch. Manual dispatch still works.
 
 Why: legacy must keep building on its own line without firing on main, which no longer holds its code.
+
+## D7 — 2026-08-22 — Bet 0 closes
+
+All four done conditions were checked against evidence. CI failed the on-purpose red test (run 222) and went green on its removal. Legacy's CI ran green on the legacy branch (run 220). The port list landed after register review. The ledgers hold the settled decisions.
+
+One deviation from the ladder's wording, on purpose: the ladder expected the port list and its review to be two commits. Here the review ran before anything landed, so the list is one commit and F6 is the review's record. Stricter, not looser.
+
+Why closing is right: a bet closes when its done conditions hold and no open question it owns remains. O34 was ruled in D4.
