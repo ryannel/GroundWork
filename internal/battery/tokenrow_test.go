@@ -1,0 +1,319 @@
+package battery
+
+import (
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
+	"testing"
+	"unicode/utf8"
+)
+
+// The token scan looks for raw design-token literals: colours written into a
+// source file instead of taken from the project's tokens.
+//
+// It does not apply to every profile. A cli or library surface has no design
+// tokens to bypass, and proof.md's rule is that a check with nothing to run is
+// declared, never silently skipped.
+
+// plainCSS holds no raw colour. Every fixture that proves a file is skipped
+// carries it too: an applicable surface with nothing left to read reports
+// unrunnable, and that would hide what the case is about.
+const plainCSS = ".brand { color: var(--brand-red); }\n"
+
+func TestTokenRowIsInTheDefaultBattery(t *testing.T) {
+	registered(t, "token", "token")
+}
+
+// TestTokenRowSaysNotApplicableByDeclaration pins the sentence. A row that
+// went green with no words would be indistinguishable from a row that ran.
+func TestTokenRowSaysNotApplicableByDeclaration(t *testing.T) {
+	cases := []struct {
+		profile string
+	}{
+		{"cli"},
+		{"library"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.profile, func(t *testing.T) {
+			dir := newRepo(t)
+			writeManifest(t, dir, strings.Replace(goCLISurface, `"profile": "cli"`, `"profile": "`+c.profile+`"`, 1))
+			writeSource(t, dir, "alpha/alpha.go", "package alpha\n\nconst brand = \"#ff0000\"\n")
+
+			res := runRow(t, dir, "token")
+			if res.Outcome != Green {
+				t.Fatalf("the %s profile came out %s: %s", c.profile, res.Outcome, res.Evidence)
+			}
+			mustContain(t, res.Evidence, "not applicable to profile "+c.profile+", by declaration")
+		})
+	}
+}
+
+// On a profile the scan does apply to, a raw hex colour is red, in all three
+// lengths the design names.
+func TestTokenRowIsRedOnARawHexColour(t *testing.T) {
+	cases := []struct {
+		name    string
+		content string
+		literal string
+	}{
+		{"three digits", ".brand { color: #f00; }\n", "#f00"},
+		{"six digits", ".brand { color: #ff0000; }\n", "#ff0000"},
+		{"eight digits", ".brand { color: #ff0000cc; }\n", "#ff0000cc"},
+		{"upper case", ".brand { color: #FF0000; }\n", "#FF0000"},
+		{"after a colon", ".brand { color: #a1b2c3; }\n", "#a1b2c3"},
+		{"after an equals sign", "export const brand = '#a1b2c3';\n", "#a1b2c3"},
+		{"inside a style attribute", "<div style=\"color:#a1b2c3\">hi</div>\n", "#a1b2c3"},
+		{"in a shorthand value", ".brand { border: 1px solid #fff; }\n", "#fff"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			writeManifest(t, dir, webSurface)
+			writeSource(t, dir, "src/app.css", c.content)
+
+			res := runRow(t, dir, "token")
+			if res.Outcome != Red {
+				t.Fatalf("%s came out %s: %s", c.name, res.Outcome, res.Evidence)
+			}
+			mustContain(t, res.Evidence, "src/app.css:1", c.literal)
+		})
+	}
+}
+
+// What is not a colour is left alone. A false red here is the whole risk of
+// this row, and hex-shaped text that is not a colour is everywhere: issue
+// numbers, fragment links, checksums.
+func TestTokenRowLeavesNonColoursAlone(t *testing.T) {
+	cases := []struct {
+		name    string
+		content string
+	}{
+		{"a fragment link", "<a href=\"#section\">go</a>\n"},
+		{"four hex digits", ".brand { content: \"#abcd\"; }\n"},
+		{"nine hex digits", ".brand { content: \"#abcdef123\"; }\n"},
+		{"a colour from a token", plainCSS},
+		{"an issue number in a comment", "// see issue #404\nexport const brand = tokens.red;\n"},
+		{"an issue number in a value", "export const issue = '#404';\n"},
+		{"a hex constant in a block comment", "/*\n * the header reads #deadbeef\n */\nexport const brand = tokens.red;\n"},
+		{"a colour written into prose", "the brand colour used to be #ff0000\n"},
+		{"a commented-out rule", "/* .brand { color: #ff0000; } */\n" + plainCSS},
+		{"a colour recalled in a line comment", "// the old value was color: #ff0000\n" + plainCSS},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			writeManifest(t, dir, webSurface)
+			writeSource(t, dir, "src/app.css", c.content)
+
+			res := runRow(t, dir, "token")
+			if res.Outcome != Green {
+				t.Fatalf("%s came out %s: %s", c.name, res.Outcome, res.Evidence)
+			}
+		})
+	}
+}
+
+// A token-definition file is where the colours are meant to live, so it is
+// exempt. The rule is the file name, which is the simplest thing a project
+// can hold to.
+func TestTokenRowExemptsATokenDefinitionFile(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+	writeSource(t, dir, "src/tokens.css", ":root { --brand-red: #ff0000; }\n")
+	writeSource(t, dir, "src/app.css", plainCSS)
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Green {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+}
+
+// Test files are not the shipped surface, so a colour in a fixture is not a
+// bypassed token.
+func TestTokenRowSkipsTestFiles(t *testing.T) {
+	cases := []struct {
+		name string
+		path string
+	}{
+		{"a spec file", "src/app.test.js"},
+		{"a test directory", "test/colours.js"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			writeManifest(t, dir, webSurface)
+			writeSource(t, dir, c.path, "export const red = '#ff0000';\n")
+			writeSource(t, dir, "src/app.css", plainCSS)
+
+			res := runRow(t, dir, "token")
+			if res.Outcome != Green {
+				t.Fatalf("%s came out %s: %s", c.name, res.Outcome, res.Evidence)
+			}
+		})
+	}
+}
+
+func TestTokenRowSkipsAGeneratedFile(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+	writeSource(t, dir, "src/theme.css", "/* Code generated by a generator. DO NOT EDIT. */\n.brand { color: #ff0000; }\n")
+	writeSource(t, dir, "src/app.css", plainCSS)
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Green {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, "generated")
+}
+
+// One red row, whatever the count, with as many hits as fit named whole.
+func TestTokenRowReportsManyHitsAsOneRowWithACappedList(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+
+	var file strings.Builder
+	for i := range 5 {
+		file.WriteString(".brand" + strconv.Itoa(i) + " { color: #ff000" + strconv.Itoa(i) + "; }\n")
+	}
+	writeSource(t, dir, "src/app.css", file.String())
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Red {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustFit(t, res.Evidence, "5", "#ff0000", "more")
+	if strings.Contains(res.Evidence, "#ff0004") {
+		t.Errorf("the evidence lists every hit rather than the first few: %s", res.Evidence)
+	}
+}
+
+// A minified file is one line holding everything, and its hits still carry a
+// file and a line.
+func TestTokenRowReadsAMinifiedFile(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+	writeSource(t, dir, "src/app.min.css",
+		".a{color:#ff0000}.b{color:#00ff00}.c{margin:0}\n")
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Red {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, "src/app.min.css:1", "#ff0000")
+}
+
+// Bytes that are not UTF-8 must not stop the scan or reach the record. The
+// evidence is a journal line, and a journal line is text.
+func TestTokenRowReadsAFileOfBadBytes(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+	writeBytes(t, dir, "src/app.css", []byte(".brand { content: \"\xff\xfe\"; color: #ff0000; }\n"))
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Red {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, "src/app.css:1", "#ff0000")
+	if !utf8.ValidString(res.Evidence) {
+		t.Errorf("the evidence carries bytes that are not text: %q", res.Evidence)
+	}
+}
+
+// A symlink is never followed out of the surface.
+func TestTokenRowDoesNotFollowASymlink(t *testing.T) {
+	outside := t.TempDir()
+	target := filepath.Join(outside, "outside.css")
+	writeFile(t, target, ".brand { color: #ff0000; }\n")
+
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+	writeSource(t, dir, "src/app.css", ".brand { color: var(--brand-red); }\n")
+
+	link := filepath.Join(dir, "src", "linked.css")
+	if err := os.Symlink(target, link); err != nil {
+		t.Skipf("this machine cannot make symlinks: %v", err)
+	}
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Green {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, "symlink", "no raw hex colour")
+}
+
+// An applicable surface holding no file this scan reads has not been checked.
+// D17: a verifier may never pass on nothing, and green would say it had.
+func TestTokenRowIsUnrunnableWhenItReadNoFile(t *testing.T) {
+	cases := []struct {
+		name string
+		path string
+	}{
+		{"nothing at all", ""},
+		{"only files it does not read", "src/README.md"},
+		{"only token definition files", "src/tokens.css"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			dir := newRepo(t)
+			writeManifest(t, dir, webSurface)
+			if c.path != "" {
+				writeSource(t, dir, c.path, ":root { --brand-red: #ff0000; }\n")
+			}
+
+			res := runRow(t, dir, "token")
+			if res.Outcome != Unrunnable {
+				t.Fatalf("%s came out %s: %s", c.name, res.Outcome, res.Evidence)
+			}
+			mustContain(t, res.Evidence, "checked nothing")
+		})
+	}
+}
+
+// A hit whose own path is longer than a line of evidence falls back to a count
+// and the file it starts in. A line the journal cut would end mid-path.
+func TestTokenRowFallsBackToACountOnALongPath(t *testing.T) {
+	dir := newRepo(t)
+	writeManifest(t, dir, webSurface)
+
+	deep := "src"
+	for range 6 {
+		deep += "/a-directory-with-a-very-long-name-indeed"
+	}
+	writeSource(t, dir, deep+"/app.css", ".brand { color: #ff0000; }\n")
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Red {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustFit(t, res.Evidence, "1 raw colour")
+	if strings.HasSuffix(res.Evidence, "...") {
+		t.Errorf("the evidence was cut rather than shortened: %s", res.Evidence)
+	}
+}
+
+func TestTokenRowIsUnrunnableWithNoManifest(t *testing.T) {
+	dir := newRepo(t)
+
+	res := runRow(t, dir, "token")
+	if res.Outcome != Unrunnable {
+		t.Fatalf("the row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, ".groundwork/manifest.json")
+}
+
+// TestTokenRowIsGreenOnThisRepo runs the row against the repo it ships in.
+// This repo is one cli surface, so the row must say exactly that it does not
+// apply here.
+func TestTokenRowIsGreenOnThisRepo(t *testing.T) {
+	res := runRow(t, ".", "token")
+	if res.Outcome != Green {
+		t.Fatalf("this repo's own token row came out %s: %s", res.Outcome, res.Evidence)
+	}
+	mustContain(t, res.Evidence, "not applicable to profile cli, by declaration")
+}
