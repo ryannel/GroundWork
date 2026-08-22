@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/ryannel/groundwork/internal/adapter"
 	"github.com/ryannel/groundwork/internal/battery"
 	"github.com/ryannel/groundwork/internal/journal"
 	"github.com/ryannel/groundwork/internal/manifest"
@@ -44,6 +45,14 @@ func writeManifest(t *testing.T, dir string) {
 }`
 	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
 		t.Fatalf("could not write %s: %v", path, err)
+	}
+
+	// The fixture is a real module. The run-evidence row runs the suite rather
+	// than reading it, so a directory of Go files with no go.mod is a surface
+	// it cannot run at all.
+	mod := "module groundwork.test/fixture\n\ngo 1.24\n"
+	if err := os.WriteFile(filepath.Join(dir, "go.mod"), []byte(mod), 0o600); err != nil {
+		t.Fatalf("could not write the fixture go.mod: %v", err)
 	}
 
 	suite := filepath.Join(dir, "alpha")
@@ -114,10 +123,20 @@ func batteryLines(t *testing.T, dir, kind string) []map[string]any {
 	return picked
 }
 
+// wantsARealRun clears the recursion guard the seam sets on every suite it
+// starts. A test that asserts on a whole green battery has to be the one doing
+// the running: under the guard, the row that runs the suite reports unrunnable
+// instead, which is the right answer everywhere except here.
+func wantsARealRun(t *testing.T) {
+	t.Helper()
+	t.Setenv(adapter.RunGuardEnv, "")
+}
+
 func TestVerifyGreenExitsZero(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
 	writeManifest(t, dir)
+	wantsARealRun(t)
 
 	code, out, errOut := call(t, "verify")
 	if code != exitOK {
@@ -134,7 +153,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "5 rows") {
+	if !strings.Contains(out, "6 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -146,13 +165,14 @@ func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
 	writeManifest(t, dir)
+	wantsARealRun(t)
 
 	code, out, errOut := call(t, "verify")
 	if code != exitOK {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "5 rows: green 5, red 0, waived 0, quarantined 0, unrunnable 0"
+	const want = "6 rows: green 6, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -167,9 +187,10 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	// The three scans cannot run without a manifest, and unrunnable is how
-	// they say so: counted and printed, never a silent skip and never green.
-	const want = "5 rows: green 0, red 2, waived 0, quarantined 0, unrunnable 3"
+	// The three scans and the run-evidence row cannot run without a manifest,
+	// and unrunnable is how they say so: counted and printed, never a silent
+	// skip and never green.
+	const want = "6 rows: green 0, red 2, waived 0, quarantined 0, unrunnable 4"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -260,6 +281,7 @@ func TestVerifyWritesTheJournal(t *testing.T) {
 	dir := newRepo(t)
 	writeLock(t, dir, "0.1", trueDigest())
 	writeManifest(t, dir)
+	wantsARealRun(t)
 	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
 
 	code, out, errOut := call(t, "verify")

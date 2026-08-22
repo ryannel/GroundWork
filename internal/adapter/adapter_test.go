@@ -208,6 +208,79 @@ func TestGoAdapterRunRefusesAnEmptyRunLog(t *testing.T) {
 	if !errors.Is(err, ErrUnrunnable) {
 		t.Errorf("an empty run log reported %v, which is not unrunnable", err)
 	}
+	// The caller has to tell a clean run of nothing from a run that broke: one
+	// is red and the other is unrunnable. Only this sentinel says which.
+	if !errors.Is(err, ErrNoTests) {
+		t.Errorf("an empty run log reported %v, which does not carry ErrNoTests", err)
+	}
+}
+
+// A run that did not finish is unrunnable, never a partial log. The tests
+// behind a crash never ran, and handing them back as absent would make the
+// battery report a stack trace as a pile of tests nobody wired up.
+func TestGoAdapterRunRefusesARunThatDiedMidSuite(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, filepath.Join(dir, "go.mod"), "module groundwork.test/crash\n\ngo 1.24\n")
+	writeFile(t, filepath.Join(dir, "alpha_test.go"),
+		"package crash\n\nimport \"testing\"\n\n"+
+			"func TestFirst(t *testing.T) {}\n\n"+
+			"func TestPanics(t *testing.T) {\n\tpanic(\"boom\")\n}\n\n"+
+			"func TestThird(t *testing.T) {}\n")
+
+	log, err := NewGo().Run(context.Background(), dir)
+	if err == nil {
+		t.Fatalf("a crashed run came back as a run log of %d tests", len(log.Tests))
+	}
+	if !errors.Is(err, ErrUnrunnable) {
+		t.Errorf("a crashed run reported %v, which is not unrunnable", err)
+	}
+	if errors.Is(err, ErrNoTests) {
+		t.Errorf("a crashed run reported %v, which reads as a clean run of nothing", err)
+	}
+	if !strings.Contains(err.Error(), "boom") {
+		t.Errorf("the error %q does not say what killed the run", err)
+	}
+	if len(log.Tests) != 0 {
+		t.Errorf("a refused run handed back %d tests", len(log.Tests))
+	}
+}
+
+// A run this tool stopped is unrunnable for the same reason: nothing it printed
+// before the stop says what the rest of the suite would have done.
+func TestGoAdapterRunRefusesACancelledRun(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	log, err := NewGo().Run(ctx, goPack)
+	if err == nil {
+		t.Fatalf("a cancelled run came back as a run log of %d tests", len(log.Tests))
+	}
+	if !errors.Is(err, ErrUnrunnable) {
+		t.Errorf("a cancelled run reported %v, which is not unrunnable", err)
+	}
+	if len(log.Tests) != 0 {
+		t.Errorf("a refused run handed back %d tests", len(log.Tests))
+	}
+}
+
+// The seam tells every suite it starts that it is already inside a battery run.
+// Without it, a project whose own tests call the battery runs the battery
+// inside the battery, forever.
+func TestGoAdapterRunGuardsAgainstRunningInsideItself(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, filepath.Join(dir, "go.mod"), "module groundwork.test/guard\n\ngo 1.24\n")
+	writeFile(t, filepath.Join(dir, "guard_test.go"),
+		"package guard\n\nimport (\n\t\"os\"\n\t\"testing\"\n)\n\n"+
+			"func TestSeesTheGuard(t *testing.T) {\n"+
+			"\tif os.Getenv(\""+"GROUNDWORK_BATTERY"+"\") == \"\" {\n\t\tt.Fatal(\"the run was not marked as a battery run\")\n\t}\n}\n")
+
+	log, err := NewGo().Run(context.Background(), dir)
+	if err != nil {
+		t.Fatalf("the guarded run failed: %v", err)
+	}
+	if len(log.Tests) != 1 || log.Tests[0].Outcome != Pass {
+		t.Fatalf("the suite came back as %+v, want one passing test", log.Tests)
+	}
 }
 
 // TestGoAdapterRunCollapsesSubtests is D30's folding rule: one top-level Test
@@ -531,9 +604,14 @@ func TestExecRefusesARunThatProvesNothing(t *testing.T) {
 		name   string
 		script string
 		says   string
+
+		// empty says whether this refusal is a run that executed nothing, as
+		// opposed to a run the seam could not believe. The first is red and the
+		// second is unrunnable, and only the sentinel tells them apart.
+		empty bool
 	}{
-		{"a run log with no tests in it", "notests.mjs", "no tests at all"},
-		{"a result with no suite or name", "nameless.mjs", "no suite or no test name"},
+		{"a run log with no tests in it", "notests.mjs", "no tests at all", true},
+		{"a result with no suite or name", "nameless.mjs", "no suite or no test name", false},
 	}
 
 	for _, c := range cases {
@@ -546,6 +624,11 @@ func TestExecRefusesARunThatProvesNothing(t *testing.T) {
 			}
 			if !errors.Is(err, ErrUnrunnable) {
 				t.Errorf("%s reported %v, which is not unrunnable", c.name, err)
+			}
+			// A clean run of nothing is red and a broken run is unrunnable, so
+			// the sentinel that tells them apart is pinned on this side too.
+			if errors.Is(err, ErrNoTests) != c.empty {
+				t.Errorf("%s reported %v, and ErrNoTests should be %v", c.name, err, c.empty)
 			}
 			if !strings.Contains(err.Error(), c.says) {
 				t.Errorf("the error %q does not say %q", err, c.says)
