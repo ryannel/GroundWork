@@ -248,3 +248,15 @@ Adding F12 put three findings in `other`: F1, F5, F12. D10 says heavy use of oth
 The class `host-limit` joins the vocabulary: a defect caused by a host capability gap, worked around rather than fixed. F1 and F12 re-class to it. F5 stays other, with its reason.
 
 Why a class and not a decision heading for other: a heading would satisfy the counter while leaving other as a bucket that hides a real pattern. The pattern has a name now, and the counter watches it.
+
+## D22 — 2026-08-22 — Bet 1 closes
+
+All six done conditions were checked against evidence.
+
+Three structurally different verbs write journal lines: dispatch from arguments, dial from the ref's own prior state, seal from git objects. Every line carries role, tier, tokens, duration and session id. Spend is queried from the ref alone — no fixture exists anywhere in its tests. The cross-check ran on three real dispatches and matched the host to the token (D19). Two real clones merged and both lines survived, with a hostile ref refused. Every finding records what caught it, and CI gates on it.
+
+The bet owned three open questions; all are ruled: O17 in D8, O10 in D9, O12 in D10.
+
+The ladder was re-checked at close. Nothing this bet delivered invalidates a later bet. The journal ref backs up to the groundwork-journal branch (D20) until the host allows the real ref.
+
+The bet's own record: twelve findings, one bounce, two defect classes over threshold with their upstream rulings (D16, D18), and one vocabulary addition forced by the counter's first live run (D21).
