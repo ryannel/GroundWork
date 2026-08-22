@@ -162,11 +162,21 @@ func counted(n int, one, many string) string {
 // names renders a list of names for a line of evidence, cut short so one long
 // list cannot push the rest of the line off the journal's cap.
 func names(all []string) string {
+	return listed(all, ", ")
+}
+
+// listed renders the first few entries of a list, joined by sep, and says how
+// many it left out.
+//
+// The journal caps a line of evidence. A row that named a hundred things would
+// have the cap decide which ones the record keeps, mid-word; naming three and
+// counting the rest keeps that choice here, where it can be read.
+func listed(all []string, sep string) string {
 	const most = 3
 
 	if len(all) <= most {
-		return strings.Join(all, ", ")
+		return strings.Join(all, sep)
 	}
 
-	return fmt.Sprintf("%s and %d more", strings.Join(all[:most], ", "), len(all)-most)
+	return fmt.Sprintf("%s and %d more", strings.Join(all[:most], sep), len(all)-most)
 }

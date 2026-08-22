@@ -102,16 +102,6 @@ var kinds = []string{
 	"flag", "mutate", "seal-verify", "run-evidence",
 }
 
-// Kinds returns the kinds a row may carry.
-func Kinds() []string {
-	return slices.Clone(kinds)
-}
-
-// Severities returns the severities a row may carry.
-func Severities() []string {
-	return slices.Clone(severities)
-}
-
 // maxRowIDBytes caps a row id. Row ids go on journal lines and into output
 // tables, and they are written by hand in this repo's own source.
 const maxRowIDBytes = 40
@@ -144,10 +134,11 @@ type Row struct {
 	// they stay to one spelling.
 	ID string
 
-	// Kind is one of Kinds. It says what family of check this is.
+	// Kind is one of the kinds this package holds. It says what family of
+	// check this is.
 	Kind string
 
-	// Severity is one of Severities.
+	// Severity is one of the severities this package holds.
 	Severity string
 
 	// Check does the work.

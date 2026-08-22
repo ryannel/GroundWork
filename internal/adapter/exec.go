@@ -78,13 +78,13 @@ type Exec struct {
 // D25 asks for; tests turn them down to prove they bite.
 type Option func(*Exec)
 
-// Timeout sets how long the command gets.
-func Timeout(d time.Duration) Option {
+// withTimeout sets how long the command gets.
+func withTimeout(d time.Duration) Option {
 	return func(e *Exec) { e.timeout = d }
 }
 
-// Cap sets how much the command may print on stdout.
-func Cap(n int) Option {
+// withCap sets how much the command may print on stdout.
+func withCap(n int) Option {
 	return func(e *Exec) { e.cap = n }
 }
 

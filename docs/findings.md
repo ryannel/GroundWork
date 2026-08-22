@@ -185,3 +185,14 @@ What happened: fixed as its own change, per the working agreement's rule for wro
 
 Caught by: worker — the slice 2 rework, tripping over the pinned counts
 Class: unrun-proof — the test proved the ledger's shape at one moment, not the property it claimed
+
+## F17 — 2026-08-22 — The battery's first catch: seven dead exports in its own repo
+
+What it is: the wiring scan's first run over this repo found seven exported functions no non-test file references — vocabulary accessors and a conformance helper shipped as speculative API across the earlier slices. Two were referenced by nothing at all.
+
+What caught it: the battery — the wiring row, on its first real target. The first finding of the rebuild caught by machinery instead of a review.
+
+What happened: the code was fixed, never the scan. Four functions deleted, three unexported. The slice 3 review checked the cleanup independently and confirmed all seven safe — and named an eighth the scan missed: adapter.Check is just as test-only, surviving on a name shared with another package. The scan's count is a floor, not the truth.
+
+Caught by: battery — the wiring row's first run on this repo
+Class: coverage-gap — API shipped ahead of any consumer

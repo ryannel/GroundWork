@@ -362,3 +362,15 @@ Three coverage gaps stand in the ledger: a ratified requirement no bet owned (F1
 The change: every bet's design dispatch now carries a standing duty — read the bet's spec sections for requirements no slice carries, and for vocabulary no ruling pins, before the slice cut is ratified. What the read finds becomes rulings or findings at design time, not bounces at review time. The bet 2 design already did half of this and caught F13; the duty makes it every bet's floor.
 
 Why: all three gaps share one generator — the spec says more than the ladder's coverage counts, and a slice met the silence first. Reading for silence at design time is cheaper than bouncing on it at review time.
+
+## D32 — 2026-08-22 — Slice 3 rulings: what the scans judge, and what they leave alone
+
+The three scans made defaults worth writing down, and the bounce sharpened four of them.
+
+The wiring scan sweeps references from the module root, and its candidates come from the declared surfaces. A caller anywhere in the repo wires a function up. The scan matches names, not types, skips methods and package main, and errs green on doubt — a recursive dead function reads as wired, and a linkname'd caller may be invisible. Its claim is calibrated to that.
+
+The honesty scan errs green whenever the test's own handle escapes its sight: cross-file helpers, assertion libraries, harnesses holding the t. Any Error() call counting as an assertion is an accepted and stated false-negative this bet. A panic or a Must call is a failure path — a test that can panic can fail. An unconditional skip anywhere at the top level is a skip.
+
+The token scan reads hex colours only, in value positions — an issue number in a comment is not a colour. Named and functional colours are out of scope with fonts and spacing, and the green sentence says exactly what was scanned. Zero readable files on an applicable surface is unrunnable, never green — D17's rule.
+
+Shared: cli and library are tokenless by declaration; a filename containing token is exempt; generated files are skipped aloud; a found red outlives a later surface's unrunnable; evidence names whole hits within the journal cap or falls back to a count.

@@ -484,7 +484,7 @@ func TestCheckNamesACatcherOutsideTheVocabulary(t *testing.T) {
 }
 
 func TestCheckAcceptsEveryCatcherInTheVocabulary(t *testing.T) {
-	for i, catcher := range Catchers() {
+	for i, catcher := range catchers {
 		l := Parse(ledger(entry("F"+string(rune('1'+i)), "One",
 			"Caught by: "+catcher+" — a real detail", "Class: register")))
 
