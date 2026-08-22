@@ -10,6 +10,8 @@ What caught it: the push failure during ratification.
 
 What happened: open. The owner will push the tag from their own machine.
 
+Resolved 2026-08-22: the owner pushed the tag. Verified on origin, pointing at 275a2a7.
+
 ## F2 — 2026-08-22 — Stale counts in the ladder at ratification
 
 What it is: the ladder's table of items to delete was headed "(17)" over 18 rows. Its coverage line said "118 of 118 items" after amendments had raised the total to 122.

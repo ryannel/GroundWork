@@ -61,3 +61,96 @@ All four done conditions were checked against evidence. CI failed the on-purpose
 One deviation from the ladder's wording, on purpose: the ladder expected the port list and its review to be two commits. Here the review ran before anything landed, so the list is one commit and F6 is the review's record. Stricter, not looser.
 
 Why closing is right: a bet closes when its done conditions hold and no open question it owns remains. O34 was ruled in D4.
+
+## D8 — 2026-08-22 — Ruling on O17: the journal's event schema
+
+One event is one JSON object on one line. Each line is its own blob. It lives in the ref `refs/groundwork/journal`, at path `events/<session-id>/<sha256-of-the-line>.json`.
+
+Why: appending to one shared file conflicts on every parallel branch. One path per line, named by content, lets two journals merge as a tree union. Nothing needs resolving. Replays land on the same path.
+
+Order comes from the `ts` field, not the tree. Writes go through git plumbing. A journal write never touches the working tree.
+
+Every line carries an envelope: `v`, `ts` (RFC3339 UTC), `kind`, `session`, `seq`, `commit` (HEAD at write time, may be empty), `branch`.
+
+This bet has three kinds:
+
+- `dispatch` — adds role, tier, tokens in/out/total, tokens_source, duration_ms, outcome.
+- `dial` — adds from, to, scope, reason.
+- `seal` — adds seal_kind, tag, target, action.
+
+Here is one example line, for `dispatch`:
+
+```
+{"v":1,"ts":"2026-08-22T14:03:11Z","kind":"dispatch","session":"s-4f2a","seq":7,"commit":"a1b2c3d","branch":"claude/v2-clean-slate-tkuacl","role":"worker","tier":"execution","tokens":{"in":18422,"out":3110,"total":21532},"tokens_source":"host-report","duration_ms":184000,"outcome":"delivered"}
+```
+
+Two vocabularies are closed. A write outside them is rejected at write time, not warned.
+
+Role: driver, worker, adversary, blind-author, capsule-writer, advisor, sim.
+
+Tier: frontier, execution.
+
+The session id comes from `GROUNDWORK_SESSION`. If that is unset, the tool generates one, and the line says so.
+
+Later bets add kinds. The envelope does not change.
+
+## D9 — 2026-08-22 — Ruling on O10: finding attribution and archival layout
+
+The catcher vocabulary is closed: blind-review, battery, ci, driver, worker, owner-in-review, owner-in-use.
+
+Every finding also carries a free detail line. That line names the specific review or check. The field is required at write time. The tool refuses an entry without it.
+
+Why: the old world had this field optional. It was filled 0 times in 114 findings. An optional field is a field nobody fills.
+
+Review outputs commit under `docs/evidence/<bet>/<slice>/`. They are never deleted.
+
+This is ruled now. Slice 6 enforces it. The archive step itself belongs to later bets.
+
+## D10 — 2026-08-22 — Ruling on O12: defect classes and the recurrence threshold
+
+Nine classes, seeded from the evidence mining:
+
+- green-but-wrong
+- parallel-definition
+- unrun-proof
+- coverage-gap
+- front-door-hollow
+- record-not-written
+- friction-waived
+- register
+- other
+
+`other` needs a one-line reason. Heavy use of `other` is a sign to add a class.
+
+Threshold: three findings of one class inside one bet, or five across two bets, forces an upstream change. That change is a rule, a check, a template, or a walk step. It gets recorded here, named from the class.
+
+Why: in the mining, the dominant class appeared three times before anyone named it. Two is coincidence.
+
+The count is mechanical. CI fails while a class is over threshold with no linked decision.
+
+## D11 — 2026-08-22 — Bet 1 designed: the slice cut and small rulings
+
+Bet 1 runs on the host-fixed branch, like bet 0. See D5.
+
+Six slices:
+
+1. The CLI skeleton and the dispatch writer.
+2. The dial and seal verbs, plus vocabulary rejection.
+3. The spend query, read from the ref alone.
+4. The journal merge verb. Two branches, both lines survive.
+5. The token cross-check against the host's reported usage.
+6. Attribution and class tags on the findings ledger, checked in CI.
+
+Small rulings from the design read:
+
+Recurrence counting parses `docs/findings.md`, not the ref. The ref gains a finding kind in a later bet.
+
+A journal line's `commit` field is HEAD at write time. It may be empty.
+
+"Git discipline" in the ladder's Lands line means the per-slice backup push. That push carries the journal ref.
+
+The findings backfill — adding Caught by and Class lines to F1–F6 — is a one-time format upgrade. It touches no entry's prose. Append-only is not violated.
+
+The token cross-check includes one human step: the driver transcribes the host's reported figure. That is accepted for this bet.
+
+Why this cut: the writer lands first because every later slice reads what it wrote. Verification of the ref's content (spend, merge, cross-check) follows the verbs that fill it. The findings check is last because it gates CI and needs the backfill.
