@@ -38,7 +38,16 @@ const (
 const usage = `usage: groundwork <verb> [flags]
 
 verbs:
-  journal   record an event in the journal
+  journal    record an event in the journal
+  findings   check the findings ledger
+`
+
+const findingsUsage = `usage: groundwork findings <subcommand>
+
+subcommands:
+  check   check that every finding records what caught it, and what class it is
+  recur   count the findings of each class, and check that a class at or over
+          the threshold has a decision named from it
 `
 
 const journalUsage = `usage: groundwork journal <subcommand> [flags]
@@ -67,6 +76,8 @@ func run(args []string, out, errOut io.Writer) int {
 	switch args[0] {
 	case "journal":
 		return runJournal(args[1:], out, errOut)
+	case "findings":
+		return runFindings(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork: unknown verb %q\n\n", args[0])
 		fmt.Fprint(errOut, usage)

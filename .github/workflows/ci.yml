@@ -17,7 +17,7 @@ jobs:
         with:
           go-version-file: go.mod
 
-      # These three steps gate: if one fails, the build fails.
+      # These four steps gate: if one fails, the build fails.
       - name: Check formatting
         run: |
           unformatted=$(gofmt -l .)
@@ -32,6 +32,15 @@ jobs:
 
       - name: Test
         run: go test ./...
+
+      # The ledger checks run after the tests, on the ledgers this repo
+      # actually holds. check proves every finding records what caught it and
+      # what class it is. recur proves no class has reached the recurrence
+      # threshold without a decision naming it.
+      - name: Check the findings ledger
+        run: |
+          go run ./cmd/groundwork findings check
+          go run ./cmd/groundwork findings recur
 
       # This step publishes the harness word count. It never gates.
       - name: Publish word count

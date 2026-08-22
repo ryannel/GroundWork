@@ -214,3 +214,37 @@ A seq holding more than one journal line is ambiguous — whether or not the sid
 The other slice-5 calls, recorded: a missing sidecar exits 2 and never passes. A wrong-session sidecar fails — it is the wrong file. Journal lines the sidecar does not claim are unchecked and never fail. The sidecar lives uncommitted at .groundwork/host-usage/<session>.json.
 
 Why: the verb exists to catch a wrong figure. Every path that lets it say ok without having compared real numbers — an empty claim set, a wrapped subtraction, a silently collapsed collision — is the verb lying about its one job.
+
+## D18 — 2026-08-22 — The green-but-wrong class tripped its threshold: adversarial inputs join the builder's duty
+
+The slice-6 backfill classified the ledger, and green-but-wrong stands at six findings: F4, F7, F8, F9, F10, F11. Every one is a tool reporting success while the record it produced was wrong. D10's threshold forces an upstream change named from the class.
+
+The change: any brief for code that reads input it did not write — a fetched ref, a tag name, a sidecar file, extreme numbers — now names an adversarial-input duty. The builder probes hostile shapes before handoff, the way D16 makes it run mutations: forged content, revision syntax, wrapped arithmetic, absent and empty and duplicate fields. The reviewer still hunts; the builder no longer hands over a verb that has only met honest input.
+
+Also ruled here: an entry records one Class line per defect class it genuinely holds, and each entry-class pair counts once — F7 through F11 each carry green-but-wrong and unrun-proof, because each bundled a real defect with a mutation-proven test hole. The recurrence counter's first version counts classes across the whole ledger, threshold three, and demands a decision heading named from the class — a whole-file match would be vacuous, since D10's own body lists every class name. Bet-scoped counting per D10's exact wording arrives when enough bets exist to scope over; this simplification is recorded so it reads as chosen. Known weakness, accepted: a class named by a common word — other, register — could be answered by an unrelated heading. If that ever happens it is a finding.
+
+## D19 — 2026-08-22 — The real cross-check ran, and the numbers matched
+
+The done condition asks for one token figure cross-checked against the host's own reported usage. Three real dispatches from building this bet were journaled in session bet-1-driver and checked against the host's reports:
+
+- seq 1, slice 4's builder: journal 125819, host 125819 — ok.
+- seq 2, slice 5's builder: journal 184619, host 184619 — ok.
+- seq 3, slice 5's rework: journal 276425, host 276425 — ok.
+
+checked 3, ok 3. The host reports one undifferentiated figure per dispatch, so each line records it as tokens out with in 0, and tokens_source says so. Why that shape: the writer enforces total = in + out, and a provenance field that states the unknown beats a split invented to look complete.
+
+## D20 — 2026-08-22 — The journal backs up to a branch until the host allows the real ref
+
+The host's git proxy accepts pushes only to branches. The journal lives at refs/groundwork/journal, so the per-slice backup push D11 requires cannot carry it directly. See F12.
+
+The mechanism: the journal's tip also pushes to the branch groundwork-journal. Any clone restores the real ref with one command: git update-ref refs/groundwork/journal origin/groundwork-journal. The branch is a mirror, not a second journal — the ref stays the one the tools read and write.
+
+Why: a journal on one machine is not a record. The mirror costs one push and no code.
+
+## D21 — 2026-08-22 — The other class reached its threshold, and the answer is a new class: host-limit
+
+Adding F12 put three findings in `other`: F1, F5, F12. D10 says heavy use of other is a sign to add a class, and the threshold rule demands an upstream answer. Two of the three share a real cause: the session host's git proxy allows pushes only to branches. That is not a code defect and not a one-off — it is a capability gap in the ground the work stands on, and it will recur wherever a host constrains the tools.
+
+The class `host-limit` joins the vocabulary: a defect caused by a host capability gap, worked around rather than fixed. F1 and F12 re-class to it. F5 stays other, with its reason.
+
+Why a class and not a decision heading for other: a heading would satisfy the counter while leaving other as a bucket that hides a real pattern. The pattern has a name now, and the counter watches it.
