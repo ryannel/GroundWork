@@ -1,0 +1,13 @@
+{
+  "name": "tallysheet",
+  "version": "0.3.0",
+  "description": "Helpers behind a small expense tracker",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.ts\""
+  }
+}
