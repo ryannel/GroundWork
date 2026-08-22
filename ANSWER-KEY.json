@@ -1,0 +1,42 @@
+{
+  "repo": "go-repo",
+  "runCommand": "go test ./...",
+  "capabilities": [
+    {
+      "path": "slug",
+      "verdict": "honest",
+      "shape": "-",
+      "note": "Table tests pin exact output for Make and Truncate; blanking slug.go turns the package red."
+    },
+    {
+      "path": "wrap",
+      "verdict": "honest",
+      "shape": "-",
+      "note": "Table tests pin the wrapped lines and the width invariant; blanking wrap.go turns the package red."
+    },
+    {
+      "path": "csvline",
+      "verdict": "honest",
+      "shape": "-",
+      "note": "Table tests pin quoted fields, doubled quotes and field counts; blanking csvline.go turns the package red."
+    },
+    {
+      "path": "quantity",
+      "verdict": "hollow",
+      "shape": "deletion-survivor",
+      "note": "Tests only check err == nil, call stability and a non-negative value, so Parse returning Quantity{}, nil still passes."
+    },
+    {
+      "path": "titlecase",
+      "verdict": "hollow",
+      "shape": "never-run",
+      "note": "TestMain exits 0 unless FIELDKIT_NAME_CORPUS is set, so the real table tests never execute under go test ./... (they do pass, and do catch a blanked Of, when the gate is opened)."
+    },
+    {
+      "path": "checksum",
+      "verdict": "hollow",
+      "shape": "vacuous",
+      "note": "Assertions are a value compared with itself, two t.Logf-only tests, one commented-out t.Error and one t.Skip, so blanking checksum.go still passes."
+    }
+  ]
+}
