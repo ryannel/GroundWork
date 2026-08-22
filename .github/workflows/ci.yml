@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "claude/**"
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      # These three steps gate: if one fails, the build fails.
+      - name: Check formatting
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "These files need gofmt:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./...
+
+      # This step publishes the harness word count. It never gates.
+      - name: Publish word count
+        if: always()
+        continue-on-error: true
+        run: |
+          {
+            echo "## Harness word count"
+            echo
+            go run ./cmd/wordcount CLAUDE.md docs/ladder.md docs/execution-plan.md
+          } >> "$GITHUB_STEP_SUMMARY"
