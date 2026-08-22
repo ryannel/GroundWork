@@ -25,3 +25,19 @@ What it is: the blind review of slice 0.1 found 16 defects. These were dense sen
 What caught it: the slice's blind review.
 
 What happened: 14 fixed before the slice landed. 2 overridden by the driver, because the review brief omitted facts the build brief carried: a named workflow file, and the exact branch pattern.
+
+## F4 — 2026-08-22 — Two defects in the legacy CI pin, caught in review
+
+What it is: the pin's first draft left a bare `pull_request` trigger, so legacy's CI would still run on pull requests that target main. And legacy's release job strips a bare `v` from the tag name, so a `legacy-v*` tag would never match the package version and no release could publish.
+
+What caught it: the slice's blind review. The reviewer flagged the second one as a suspicion; checking the job body confirmed it.
+
+What happened: both fixed in the pin commit before it was pushed (f078a83).
+
+## F5 — 2026-08-22 — A ledger commit landed on the wrong branch
+
+What it is: the F4 entry was first committed to the local `legacy` branch. The driver's shell was still in the worktree that held legacy checked out.
+
+What caught it: the commit output named the wrong branch.
+
+What happened: the unpushed commit was reset away, and the entry was recommitted on the bet branch.
