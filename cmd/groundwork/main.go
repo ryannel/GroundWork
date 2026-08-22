@@ -2,7 +2,7 @@
 //
 // It runs one verb per invocation: groundwork <verb> [flags]. It exits 0 when
 // the work is done, 1 when the work failed, and 2 when the command line was
-// wrong.
+// wrong or the host-usage sidecar is missing.
 //
 // main stays thin. The work lives in the internal packages.
 package main
@@ -15,6 +15,7 @@ import (
 	"io"
 	"os"
 	"slices"
+	"strconv"
 	"strings"
 	"text/tabwriter"
 
@@ -26,6 +27,12 @@ const (
 	exitOK     = 0
 	exitFailed = 1
 	exitUsage  = 2
+
+	// exitSidecarMissing shares exitUsage's number. A missing host-usage
+	// sidecar is not a command-line mistake, but the tool's exit-code
+	// promise already spends 2 on "something is missing before the work
+	// could even start", and a missing sidecar is exactly that.
+	exitSidecarMissing = 2
 )
 
 const usage = `usage: groundwork <verb> [flags]
@@ -37,11 +44,12 @@ verbs:
 const journalUsage = `usage: groundwork journal <subcommand> [flags]
 
 subcommands:
-  dispatch   record one dispatch of an agent
-  dial       record a move of the autonomy dial
-  seal       record a seal granted or revoked
-  spend      report token and time spend, grouped by role, tier or session
-  merge      merge another journal commit into this repo's journal
+  dispatch        record one dispatch of an agent
+  dial            record a move of the autonomy dial
+  seal            record a seal granted or revoked
+  spend           report token and time spend, grouped by role, tier or session
+  merge           merge another journal commit into this repo's journal
+  verify-tokens   cross-check a session's dispatch tokens against the host's own report
 `
 
 func main() {
@@ -84,6 +92,8 @@ func runJournal(args []string, out, errOut io.Writer) int {
 		return runJournalSpend(args[1:], out, errOut)
 	case "merge":
 		return runJournalMerge(args[1:], out, errOut)
+	case "verify-tokens":
+		return runJournalVerifyTokens(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork journal: unknown subcommand %q\n\n", args[0])
 		fmt.Fprint(errOut, journalUsage)
@@ -439,4 +449,108 @@ func countedLines(n int) string {
 	}
 
 	return fmt.Sprintf("%d lines", n)
+}
+
+// runJournalVerifyTokens cross-checks one session's dispatch tokens against
+// the host's own out-of-band report, read from the uncommitted sidecar at
+// .groundwork/host-usage/<session>.json.
+//
+// It never writes to the journal. A mismatch, an ambiguous seq, or a
+// dispatch the host claims but the journal never recorded all fail the run.
+// A missing sidecar fails it too, at exitSidecarMissing: a missing sidecar
+// must never pass as if there were nothing to check.
+func runJournalVerifyTokens(args []string, out, errOut io.Writer) int {
+	const name = "groundwork journal verify-tokens"
+
+	flags := flag.NewFlagSet(name, flag.ContinueOnError)
+	flags.SetOutput(errOut)
+
+	session := flags.String("session", "", "the session id to check")
+	tolerance := flags.Int64("tolerance", 0, "how many tokens a figure may differ by and still count as ok")
+
+	if err := flags.Parse(args); err != nil {
+		return exitUsage
+	}
+	if spareArgument(errOut, flags, name) {
+		return exitUsage
+	}
+
+	var wrong []string
+	if *session == "" {
+		wrong = append(wrong, "--session needs a value")
+	}
+	if *tolerance < 0 {
+		wrong = append(wrong, "--tolerance needs a number of zero or more")
+	}
+	if len(wrong) > 0 {
+		return sayWrong(errOut, flags, name, wrong)
+	}
+
+	result, err := journal.VerifyTokens(".", *session, *tolerance)
+	if err != nil {
+		if errors.Is(err, journal.ErrSidecarMissing) {
+			fmt.Fprintln(errOut, name+":", err)
+			return exitSidecarMissing
+		}
+		if errors.Is(err, journal.ErrNotARepo) {
+			fmt.Fprintln(errOut, name+": not in a git repository")
+			return exitFailed
+		}
+		fmt.Fprintln(errOut, name+":", err)
+		return exitFailed
+	}
+
+	// Ambiguous gets its own bucket, apart from mismatched: an ambiguous seq
+	// means the journal disagrees with itself, not that it disagrees with
+	// the host. Folding it into mismatched would blur two different kinds
+	// of wrong into one count.
+	ok, mismatched, ambiguous, neverJournaled := 0, 0, 0, 0
+	for _, row := range result.Rows {
+		fmt.Fprintln(out, verifyLine(row))
+
+		switch row.Status {
+		case journal.VerifyOK:
+			ok++
+		case journal.VerifyNeverJournaled:
+			neverJournaled++
+		case journal.VerifyAmbiguous:
+			ambiguous++
+		default:
+			mismatched++
+		}
+	}
+	fmt.Fprintf(out, "checked %d, ok %d, mismatched %d, ambiguous %d, never-journaled %d, unchecked %d\n",
+		len(result.Rows), ok, mismatched, ambiguous, neverJournaled, result.Unchecked)
+
+	if mismatched > 0 || ambiguous > 0 || neverJournaled > 0 {
+		return exitFailed
+	}
+
+	return exitOK
+}
+
+// verifyLine renders one seq's cross-check as one line of output: its seq,
+// the journal's own figure or figures (or "-" when the journal has no line
+// at that seq at all), the host's figure (or "-" when the sidecar never
+// claimed this seq — an unclaimed collision still gets a row, but has no
+// host figure to show), and the status. An ambiguous seq prints every
+// figure the journal holds for it, comma separated, rather than picking one
+// to show.
+func verifyLine(row journal.VerifyRow) string {
+	journalFigure := "-"
+	if len(row.JournalTokens) > 0 {
+		figures := make([]string, len(row.JournalTokens))
+		for i, t := range row.JournalTokens {
+			figures[i] = strconv.FormatInt(t, 10)
+		}
+		journalFigure = strings.Join(figures, ",")
+	}
+
+	hostFigure := "-"
+	if row.HostClaimed {
+		hostFigure = strconv.FormatInt(row.HostTokens, 10)
+	}
+
+	return fmt.Sprintf("seq=%d journal=%s host=%s %s",
+		row.Seq, journalFigure, hostFigure, row.Status)
 }

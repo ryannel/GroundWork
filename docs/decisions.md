@@ -202,3 +202,15 @@ D10 set the rule: three findings of one class inside one bet forces an upstream 
 The upstream change: every build brief now requires the builder to run the mutation for each property it claims — break the guard, watch the named test fail, restore it — and to report which mutation proved which claim before handoff. The reviewer still hunts; the builder no longer hands over unproven claims.
 
 Why this fix: the defects were never in the code — every mutated implementation was correct. The generator of the defect was the handoff itself, which let "verified" mean "written". This names the class, per D10.
+
+## D17 — 2026-08-22 — Slice 5 rulings: a verifier may never pass on nothing
+
+Rulings for the token cross-check, from its review's bounce.
+
+A verification that checked nothing is a failure, not a pass. checked 0 never exits 0. A sidecar without a dispatches key is malformed. A sidecar with an empty list fails, saying the sidecar claims no dispatches.
+
+A seq holding more than one journal line is ambiguous — whether or not the sidecar claims that seq. The real shape: two clones shared a session id, both wrote seq 1, and the merge rightly kept both. The verifier prints every figure, calls the row ambiguous, and fails. It never picks a winner by blob order, and it never passes a session whose journal disagrees with itself. Ambiguous rows get their own count in the summary.
+
+The other slice-5 calls, recorded: a missing sidecar exits 2 and never passes. A wrong-session sidecar fails — it is the wrong file. Journal lines the sidecar does not claim are unchecked and never fail. The sidecar lives uncommitted at .groundwork/host-usage/<session>.json.
+
+Why: the verb exists to catch a wrong figure. Every path that lets it say ok without having compared real numbers — an empty claim set, a wrapped subtraction, a silently collapsed collision — is the verb lying about its one job.

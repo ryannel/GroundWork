@@ -121,6 +121,12 @@ func headCommit(dir string) (string, error) {
 	return resolve(dir, "HEAD^{commit}")
 }
 
+// repoRoot returns the absolute path to the root of the repo dir sits in,
+// regardless of how deep inside it dir is.
+func repoRoot(dir string) (string, error) {
+	return gitLine(dir, "rev-parse", "--show-toplevel")
+}
+
 // tagCommit returns the commit a tag points at. An annotated tag is peeled
 // down to its commit; a lightweight tag names the commit already.
 //
