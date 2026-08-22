@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "surfaces": [
+    {"name": "cli", "profile": "cli", "stack": "go", "root": "."}
+  ],
+  "capabilities": [
+    {"name": "journal", "surface": "cli", "proof": ["internal/journal"]},
+    {"name": "battery", "surface": "cli", "proof": ["internal/battery"]},
+    {"name": "capability-manifest", "surface": "cli", "proof": ["internal/manifest"]},
+    {"name": "stack-adapters", "surface": "cli", "proof": ["internal/adapter"]},
+    {"name": "findings-ledger", "surface": "cli", "proof": ["internal/findings"]},
+    {"name": "word-budget", "surface": "cli", "proof": ["internal/words"]},
+    {"name": "verbs", "surface": "cli", "proof": ["cmd/groundwork"]}
+  ]
+}

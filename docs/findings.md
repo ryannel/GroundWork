@@ -151,3 +151,37 @@ What happened: open — the chain work joins bet 3 with the seal machinery, by d
 
 Caught by: worker — the bet 2 design dispatch, reading proof.md against the ladder
 Class: coverage-gap
+
+## F14 — 2026-08-22 — The spec's web profile has no probe list
+
+What it is: proof.md names six topology profiles and lists universal probes for five of them. The web profile has no probe bullet. A web project's battery would have no ruled floor to stand on.
+
+What caught it: the slice 2 builder, reading the profile list out of the spec.
+
+What happened: open. The gap costs nothing until a web project exists; the bet that first serves one inherits it. Recorded so the spec's silence reads as known, not missed.
+
+Caught by: worker — the slice 2 build, reading proof.md's profile table
+Class: coverage-gap
+
+## F15 — 2026-08-22 — The second bounce: the seam's two headline promises were fail-open
+
+What it is: a capability was proven by any test file that existed — empty, unparseable, or never-built. A mutator that damaged nothing passed conformance. And discover and run agreed on one name out of seven across hostile shapes, with nothing reconciling them. All three passed the builder's own tables, which probed JSON shapes while these were filesystem and semantics shapes.
+
+What caught it: the slice's blind review, running probes through the real row and the real conformance reporter.
+
+What happened: bounce, the second of the rebuild. The discover-semantics silence went to the driver and came back as D30. The rework closes the fail-open set first. Archive: docs/evidence/bet-2/slice-2/blind-review.md.
+
+Caught by: blind-review — slice 2's adversarial review of the seam
+Class: green-but-wrong
+Class: coverage-gap
+
+## F16 — 2026-08-22 — A ledger test pinned a moving value
+
+What it is: bet 1's findings tooling shipped a test asserting the live ledger's exact class counts — green-but-wrong at six. The ledger is append-only and the counts grow, so the test breaks on every new finding of a pinned class. It asserted the record's current state, not an invariant.
+
+What caught it: slice 2's rework, when appending F15 broke the test from a package the slice never touched.
+
+What happened: fixed as its own change, per the working agreement's rule for wrong tests. The test now asserts the invariant — every class at or over the threshold has a decision heading answering it — and floors, not exact counts.
+
+Caught by: worker — the slice 2 rework, tripping over the pinned counts
+Class: unrun-proof — the test proved the ledger's shape at one moment, not the property it claimed

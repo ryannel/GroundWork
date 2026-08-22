@@ -330,3 +330,35 @@ Four vocabularies the slice fixed, recorded: the row kind list is D26's nine ver
 Two deferrals, named so bet 3 is reminded: the seal line's battery and battery_run fields (D23's second recording place) land with the seal machinery. And the lock file stays read from the working tree — CI is the enforcement point for committed, and a HEAD-blob read is revisited with the same machinery.
 
 Why: a vocabulary nobody wrote down is a vocabulary two slices will spell two ways, and a deferral nobody wrote down is F13's class again.
+
+## D29 — 2026-08-22 — Slice 2 rulings: the manifest's home, and the version goes major
+
+The capability manifest lives at .groundwork/manifest.json, committed. The spec names the manifest but not its path. Choosing the GroundWork home directory keeps project-authored framework files in one place, beside D24's waivers. The .gitignore narrows to .groundwork/host-usage/ only, and a test fails if the manifest is ever ignored again.
+
+The battery version moved to 1.0, not 0.2. The manifest row is a new row, and D23 says a new row moves the major. The brief said minor; D23 wins — the ledger outranks a brief.
+
+The manifest row joins the closed kind vocabulary as its own kind. Filing it under wiring would misname it in every table and journal line.
+
+The node adapter ships inside testdata for now. When an install step exists, it wants a real home; that bet inherits the note.
+
+## D30 — 2026-08-22 — Ruling: what discovered means, and what a test is
+
+The slice 2 bounce forced the question the spec is silent on. Three rulings.
+
+Discover lists what reads as a test: every Test function with the testing.T signature in any _test.go file under the surface — including tests a build tag excludes and tests a TestMain gate filters out. TestMain itself is never a test; it takes testing.M and is a harness. Benchmarks and examples are not tests this bet.
+
+Why: the never-run scan exists to catch code that looks like a test to a reader and never executes. If discover listed only what go test would run, discovered would always equal ran, and the scan could catch nothing. Discover reads the source the way a reader does; run reports what the runner did.
+
+A subtest belongs to its parent. Run results collapse t.Run entries into the parent test, and one top-level Test function is one test. Why: discover cannot see dynamic subtest names statically, so the parent is the only unit both sides can name.
+
+The reconciliation contract this fixes for slice 4: discovered minus ran is the never-run set, red. Ran minus discovered is a discover defect, also red — the adapter lied or the parser missed a shape. Conformance requires the two sets to agree on the fixture packs after collapsing, and the packs must carry the hostile shapes: a TestMain gate, a benchmark, a t.Run table.
+
+The out-of-process run refuses an empty run log, the same direction as the Go path: an empty green log is the defect the battery exists to catch.
+
+## D31 — 2026-08-22 — The coverage-gap class tripped its threshold: every bet design now runs a coverage read
+
+Three coverage gaps stand in the ledger: a ratified requirement no bet owned (F13), a spec profile with no probe list (F14), and a semantics silence that bounced a slice (F15). D10's threshold demands an upstream change named from the class.
+
+The change: every bet's design dispatch now carries a standing duty — read the bet's spec sections for requirements no slice carries, and for vocabulary no ruling pins, before the slice cut is ratified. What the read finds becomes rulings or findings at design time, not bounces at review time. The bet 2 design already did half of this and caught F13; the duty makes it every bet's floor.
+
+Why: all three gaps share one generator — the spec says more than the ladder's coverage counts, and a slice met the silence first. Reading for silence at design time is cheaper than bouncing on it at review time.
