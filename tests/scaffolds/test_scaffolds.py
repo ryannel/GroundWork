@@ -9,7 +9,9 @@ from pathlib import Path
 
 # Paths
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
-SANDBOX_DIR = REPO_ROOT / ".sandboxes" / "scaffolds" / "testloop"
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
+SANDBOX_DIR = sandbox_root("testloop")
 GENERATORS_JSON = REPO_ROOT / "generators.json"
 
 @pytest.fixture(scope="session", autouse=True)
@@ -428,7 +430,7 @@ def test_09_runner_lifecycle_without_docker():
     kills it and clears its pid file. Runs in its own container-less workspace so
     it neither needs nor starts any of the shared sandbox's services."""
     import json
-    runner_sb = REPO_ROOT / ".sandboxes" / "scaffolds" / "runner-boot"
+    runner_sb = sandbox_root("runner-boot")
     if runner_sb.exists():
         shutil.rmtree(runner_sb)
     runner_sb.mkdir(parents=True)
@@ -492,7 +494,7 @@ def test_10_docs_site_runner_serves_docs():
     if shutil.which("pnpm") is None:
         pytest.skip("pnpm not available")
 
-    sb = REPO_ROOT / ".sandboxes" / "scaffolds" / "docs-runner-boot"
+    sb = sandbox_root("docs-runner-boot")
     if sb.exists():
         shutil.rmtree(sb)
     (sb / "docs" / "bets" / "dark-mode").mkdir(parents=True)

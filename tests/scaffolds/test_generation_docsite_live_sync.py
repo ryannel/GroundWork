@@ -60,10 +60,20 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
+
+# These tests create real git worktrees in this repository, so they must not
+# interleave with each other across workers — concurrent `git worktree add`
+# contends on the index lock and fails in ways that read like flakes.
+# One group keeps them all on a single worker while the rest of the suite
+# still distributes per test.
+pytestmark = pytest.mark.xdist_group("git-worktree")
+
 SYNC_SCRIPT = (
     REPO_ROOT / "src" / "generators" / "docs-site" / "files" / "scripts" / "sync-live-bets.js"
 )
-SANDBOX_BASE = REPO_ROOT / ".sandboxes" / "scaffolds" / "generation-docsite-live-sync"
+SANDBOX_BASE = sandbox_root("generation-docsite-live-sync")
 
 
 def _run(cmd, cwd, check=True):

@@ -75,6 +75,11 @@ function printHelp() {
             design-token set (tailwind config, token/theme files, CSS custom properties). Findings
             are leads for slice review, not verdicts.
             \x1b[2mExits 0 clean / 1 findings / 2 no tag or not a git repo; --json for machine output.\x1b[0m
+  \x1b[36mdesign\x1b[0m    Render the design sheet from .groundwork/config/brand-tokens.json: build | check | open.
+            build writes a self-contained .groundwork/cache/visual/token-sheet.html to show the owner
+            (who reacts in conversation), plus a card bundle for an optional design-canvas push; check
+            asserts every value in the sheet is traceable to the token file, not a literal someone typed.
+            \x1b[2m--bet <slug> scopes page mockups to one bet. Exits 0 clean / 1 untraceable values.\x1b[0m
   \x1b[36mpack\x1b[0m      Milestone context pack (.groundwork/cache/bets/<slug>/milestone-<NN>-context.md): build | refresh | check.
             \x1b[2mPointers and learnings, never contract text. Stale = compiled_from ≠ the approved-tag sha;
             refresh regenerates (preserving the driver-notes block), check is the CI-safe probe (exit 1 = stale/missing).\x1b[0m
@@ -3282,6 +3287,65 @@ function proofsCommand(argv) {
 const TOKENS_KIND_ORDER = ['color', 'font', 'spacing', 'motion'];
 const TOKENS_PRINT_CAP = 50;
 
+function designCommand(argv) {
+  const f = parseFlags(argv);
+  const sub = f._[0] || 'build';
+  if (!['build', 'check', 'open'].includes(sub)) {
+    c.err(`design: unknown subcommand '${sub}' — use build, check or open`);
+    process.exit(1);
+  }
+  const d = require(path.join(__dirname, '..', 'lib', 'design-bundle'));
+  const p = getPaths();
+
+  if (sub === 'check') {
+    const r = d.check({ cwd: p.targetDir });
+    if (f.json) {
+      console.log(JSON.stringify(r, null, 2));
+      process.exit(r.ok ? 0 : 1);
+    }
+    c.info(`token source: ${r.source} — ${r.variables} variables projected`);
+    if (r.ok) {
+      c.ok('every value in the sheet traces to brand-tokens.json');
+      process.exit(0);
+    }
+    // A literal that traces to nothing is the drift the sheet exists to prevent:
+    // it would render as though it were approved and answer to no token.
+    c.err(`${r.untraceable.length} value(s) in the sheet trace to no token:`);
+    for (const u of r.untraceable.slice(0, 20)) c.dim(`    --${u.name}: ${u.value}   (${u.atom})`);
+    process.exit(1);
+  }
+
+  if (sub === 'open') {
+    const sheet = path.join(p.targetDir, d.SHEET_FILE);
+    if (!fs.existsSync(sheet)) {
+      c.err(`no sheet at ${d.SHEET_FILE} — run \`groundwork design build\` first`);
+      process.exit(1);
+    }
+    console.log(sheet);
+    process.exit(0);
+  }
+
+  let r;
+  try {
+    r = d.build({ cwd: p.targetDir, slug: f.bet || null });
+  } catch (err) {
+    c.err(`design build: ${err.message}`);
+    process.exit(2);
+  }
+  if (f.json) {
+    console.log(JSON.stringify(r, null, 2));
+    process.exit(0);
+  }
+  const groups = Object.entries(r.counts).map(([g, n]) => `${n} ${g.toLowerCase()}`).join(', ');
+  c.ok(`design sheet built — ${r.cards} cards (${groups || 'none'})`);
+  c.dim(`    sheet    ${r.sheet}`);
+  c.dim(`    bundle   ${r.bundle}`);
+  if (r.warning) c.warn(r.warning);
+  console.log('');
+  c.info('Show this to the owner and let them react in conversation — inline if this host can render a local file, otherwise hand over the path.');
+  process.exit(0);
+}
+
 function tokensCommand(argv) {
   const f = parseFlags(argv);
   const sub = f._[0];
@@ -3424,6 +3488,10 @@ switch (command) {
   case 'tokens':
     if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
     tokensCommand(process.argv.slice(3));
+    break;
+  case 'design':
+    if (process.argv.includes('--help') || process.argv.includes('-h')) { printHelp(); process.exit(0); }
+    designCommand(process.argv.slice(3));
     break;
   case 'mutate': {
     // `--help` counts only before the `--` separator — the test command after

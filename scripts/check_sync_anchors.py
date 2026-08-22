@@ -16,7 +16,16 @@ REPO_ROOT = Path(__file__).parent.parent
 # Discipline personas keep their anchors under hidden-skills/; engineer skills
 # are canon under engineer-skills/ (promoted into scaffolds, never installed at
 # the root). Both carry sync-anchor.md, so both trees are scanned.
-ANCHOR_GLOBS = ("src/hidden-skills/*/sync-anchor.md", "src/engineer-skills/*/sync-anchor.md")
+#
+# lib/ is scanned for the same reason with a different shape: a CLI module that
+# deliberately re-implements logic living in a generator (rather than importing
+# across the dist/ boundary) pins the source it mirrors, so an edit there forces
+# a review here instead of drifting silently.
+ANCHOR_GLOBS = (
+    "src/hidden-skills/*/sync-anchor.md",
+    "src/engineer-skills/*/sync-anchor.md",
+    "lib/*/sync-anchor.md",
+)
 TABLE_ROW = re.compile(r"^\|\s*([^|]+?)\s*\|\s*([a-f0-9]{64})\s*\|")
 
 

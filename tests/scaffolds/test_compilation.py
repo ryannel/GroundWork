@@ -22,8 +22,10 @@ from pathlib import Path
 from allpairspy import AllPairs
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
 GENERATORS_JSON = REPO_ROOT / "generators.json"
-SANDBOX_DIR = REPO_ROOT / ".sandboxes" / "scaffolds" / "compilation"
+SANDBOX_DIR = sandbox_root("compilation")
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -332,7 +334,7 @@ def test_docs_site_compiles():
 # Both must resolve without running `playwright install` — browser binaries install
 # on demand at ./dev test bet <slug> --integration time, never during uv sync.
 
-_SYSTEM_TEST_RUNNER_COMP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "system-test-runner-comp"
+_SYSTEM_TEST_RUNNER_COMP_SANDBOX = sandbox_root("system-test-runner-comp")
 
 
 def _scaffold_workspace_comp(sandbox: Path, generator: str, **params) -> subprocess.CompletedProcess:
