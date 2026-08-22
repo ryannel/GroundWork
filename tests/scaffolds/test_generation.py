@@ -22,8 +22,10 @@ import pytest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
 GENERATORS_JSON = REPO_ROOT / "generators.json"
-SANDBOX_DIR = REPO_ROOT / ".sandboxes" / "scaffolds" / "generation"
+SANDBOX_DIR = sandbox_root("generation")
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -448,7 +450,7 @@ def test_python_microservice_llm_provider(provider, expect_import, expect_model,
 # Stack docs deployment
 # ---------------------------------------------------------------------------
 
-_STACK_DOCS_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "stack-docs"
+_STACK_DOCS_SANDBOX = sandbox_root("stack-docs")
 
 
 @pytest.fixture(scope="module", autouse=False)
@@ -496,7 +498,7 @@ def test_python_stack_docs_deployed(stack_docs_workspace):
     assert (docs_root / "mcp.md").exists(), "Python stack docs mcp.md not deployed"
 
 
-_ELEVATION_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "brand-elevation"
+_ELEVATION_SANDBOX = sandbox_root("brand-elevation")
 
 
 @pytest.fixture()
@@ -589,7 +591,7 @@ def test_stack_docs_idempotency(stack_docs_workspace):
 # System Test Runner — 3 interfaceMedium variants
 # ---------------------------------------------------------------------------
 
-_SYSTEM_TEST_RUNNER_SANDBOX_BASE = REPO_ROOT / ".sandboxes" / "scaffolds" / "system-test-runner"
+_SYSTEM_TEST_RUNNER_SANDBOX_BASE = sandbox_root("system-test-runner")
 
 _INTERFACE_MEDIA = ["graphical-ui", "cli", "agentic-protocol"]
 _INTERFACE_MEDIA_IDS = _INTERFACE_MEDIA
@@ -966,7 +968,7 @@ def test_system_test_runner_app_harness_surface_generation():
 # Workspace Dev CLI — bet workflow files
 # ---------------------------------------------------------------------------
 
-_WORKSPACE_DEV_CLI_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "workspace-dev-cli-bet"
+_WORKSPACE_DEV_CLI_SANDBOX = sandbox_root("workspace-dev-cli-bet")
 
 
 @pytest.fixture(scope="module", autouse=False)
@@ -1104,7 +1106,7 @@ def test_workspace_dev_cli_rerun_preserves_compose_topology(workspace_dev_cli_be
 # Infrastructure is opt-in — db/jaeger are injected on demand, not seeded
 # ---------------------------------------------------------------------------
 
-_INFRA_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "infra-on-demand"
+_INFRA_SANDBOX = sandbox_root("infra-on-demand")
 
 
 def _fresh_workspace_sandbox(sandbox: Path):
@@ -1245,7 +1247,7 @@ def test_docs_site_registers_surface_runner_and_no_compose_service():
 # Composable capability ports & providers (plan WS-F)
 # ---------------------------------------------------------------------------
 
-_CAP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "capabilities"
+_CAP_SANDBOX = sandbox_root("capabilities")
 
 
 def test_python_llm_none_ships_raw_gateway_as_a_bet():
@@ -1475,7 +1477,7 @@ def test_add_capability_llm_localai_injects_compose_service_footprint():
 # CLI App — branded product CLI generator
 # ---------------------------------------------------------------------------
 
-_CLI_APP_SANDBOX = REPO_ROOT / ".sandboxes" / "scaffolds" / "cli-app"
+_CLI_APP_SANDBOX = sandbox_root("cli-app")
 
 _BRAND_TOKENS_FIXTURE = """{
   "schema": "groundwork.brand-tokens", "version": 1, "tier": 2,

@@ -26,8 +26,10 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
 GENERATORS_JSON = REPO_ROOT / "generators.json"
-SANDBOX_DIR = REPO_ROOT / ".sandboxes" / "scaffolds" / "brownfield"
+SANDBOX_DIR = sandbox_root("brownfield")
 
 
 def _seed_existing_repo(root: Path):

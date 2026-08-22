@@ -30,6 +30,14 @@ fi
 
 TEST_VENV="tests/scaffolds/venv"
 
+# Every pytest lane runs under xdist. `loadgroup` (not plain `load`) is required:
+# the docsite-live-sync tests create real git worktrees in this repo and are
+# pinned to one worker with `@pytest.mark.xdist_group`, because concurrent
+# `git worktree add` contends on the index lock and fails like a flake.
+#
+# Override to debug an ordering-dependent failure:  PYTEST_PARALLEL="" ./dev ci
+PYTEST_PARALLEL="${PYTEST_PARALLEL--n auto --dist loadgroup}"
+
 # uv creates the venv and installs the pinned tests/requirements.txt. uv is already
 # required for the Python scaffolds, so the harness has no separate pip dependency.
 ensure_test_env() {
@@ -37,6 +45,12 @@ ensure_test_env() {
     command -v uv >/dev/null 2>&1 || fail "uv is required (https://docs.astral.sh/uv/); brew install uv"
     print_substep "Creating test venv (uv, pinned tests/requirements.txt)..."
     uv venv "$TEST_VENV" >/dev/null
+    uv pip install --python "$TEST_VENV/bin/python" -r tests/requirements.txt >/dev/null
+  fi
+  # A venv created before xdist was pinned would otherwise fail every lane with
+  # "unrecognized arguments: -n". Cheap to check, and it self-heals.
+  if [ -n "$PYTEST_PARALLEL" ] && [ ! -e "$TEST_VENV/lib"/python*/site-packages/xdist ]; then
+    print_substep "Syncing test venv (pinned tests/requirements.txt)..."
     uv pip install --python "$TEST_VENV/bin/python" -r tests/requirements.txt >/dev/null
   fi
   # shellcheck disable=SC1091
@@ -85,25 +99,51 @@ case "$COMMAND" in
         ;;
     esac
     ;;
+  check)
+    # The gate you run CONSTANTLY, while working. Everything here is pure
+    # Python/Node with no toolchain installs and no generator subprocesses, so it
+    # finishes in seconds. It is deliberately NOT the full CI gate — it is the
+    # one that is cheap enough that there is no excuse to skip it.
+    #
+    # What it does not cover: the generation matrix and the compile lane. Run
+    # `./dev ci` before pushing for those.
+    print_logo "Check"
+    ensure_test_env
+    print_step "[1/3] Skill lint, sim invariants, sync anchors..."
+    python3 scripts/lint_skills.py
+    bash scripts/check_sim_invariants.sh
+    python3 scripts/check_sync_anchors.py
+    print_step "[2/3] Contract tests (bundle freshness, adopt-merge, migration coverage)..."
+    pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -q $PYTEST_PARALLEL
+    print_step "[3/3] CLI contract tests..."
+    pytest tests/cli/ -q $PYTEST_PARALLEL
+    print_success "Fast gate passed. Before pushing, run: ./dev ci"
+    ;;
   ci)
     # Single entry point that reproduces the GitHub PR build (the fast, blocking
     # gates) end to end. `./dev ci` locally == the required CI jobs. The heavy
     # real-stack boot lives in `./dev test scaffolds` / the integration workflow.
+    #
+    # Every lane runs under pytest-xdist. The suites were serial by accident, not
+    # by design: each already scaffolds into its own uniquely-named directory, and
+    # the only true shared state was the session fixture that wiped one shared
+    # sandbox root — which tests/scaffolds/conftest.py now keys per worker.
     print_logo "CI"
     print_step "Reproducing the required CI gates locally..."
     ensure_build
     ensure_test_env
-    print_step "[1/5] Skill conformance lint + sim invariants..."
+    print_step "[1/5] Skill conformance lint + sim invariants + sync anchors..."
     python3 scripts/lint_skills.py
     bash scripts/check_sim_invariants.sh
+    python3 scripts/check_sync_anchors.py
     print_step "[2/5] Generation tests (structural, all combos)..."
-    pytest tests/scaffolds/test_generation*.py -q
+    pytest tests/scaffolds/test_generation*.py -q $PYTEST_PARALLEL
     print_step "[3/5] Contract tests (bundle freshness, adopt-merge, migration coverage)..."
-    pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -q
+    pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -q $PYTEST_PARALLEL
     print_step "[4/5] CLI contract tests..."
-    pytest tests/cli/ -q
+    pytest tests/cli/ -q $PYTEST_PARALLEL
     print_step "[5/5] Compilation tests (pairwise compile checks; needs go + uv + pnpm)..."
-    pytest tests/scaffolds/test_compilation.py -q
+    pytest tests/scaffolds/test_compilation.py -q $PYTEST_PARALLEL
     print_success "All required CI gates passed. (Run the full real-stack boot with: ./dev test scaffolds)"
     ;;
   test|eval)
@@ -112,17 +152,37 @@ case "$COMMAND" in
       print_logo "Testing"
       print_step "Running Nx tests..."
       npx nx run-many -t test
+    # ── CI job entry points ──────────────────────────────────────────────
+    # One per parallel GitHub job (.github/workflows/ci.yml). Together they are
+    # exactly the lanes `./dev ci` runs; split so the runner does them at once
+    # and each job installs only the toolchain its lane needs.
+    elif [ "$SUBCMD" = "cli-ci" ]; then
+      print_logo "CI · CLI + contracts"
+      ensure_build
+      ensure_test_env
+      pytest tests/scaffolds/test_contracts.py tests/scaffolds/test_brownfield_adopt.py tests/scaffolds/test_skill_sync.py tests/cli/test_migration_gate.py -q $PYTEST_PARALLEL
+      pytest tests/cli/ -q $PYTEST_PARALLEL
+    elif [ "$SUBCMD" = "generation-ci" ]; then
+      print_logo "CI · Generation matrix"
+      ensure_build
+      ensure_test_env
+      pytest tests/scaffolds/test_generation*.py -q $PYTEST_PARALLEL
+    elif [ "$SUBCMD" = "compilation-ci" ]; then
+      print_logo "CI · Compile lane"
+      ensure_build
+      ensure_test_env
+      pytest tests/scaffolds/test_compilation.py -q $PYTEST_PARALLEL
     elif [ "$SUBCMD" = "generation" ]; then
       print_logo "Testing"
       ensure_build
       ensure_test_env
       print_step "Running Generation Tests (structural, all combos)..."
-      pytest tests/scaffolds/test_generation*.py -v -s
+      pytest tests/scaffolds/test_generation*.py -v -s $PYTEST_PARALLEL
     elif [ "$SUBCMD" = "cli" ]; then
       print_logo "Testing"
       ensure_test_env
       print_step "Running CLI contract tests (init/update/check, manifest, migrations, upgrade path)..."
-      pytest tests/cli/ -v
+      pytest tests/cli/ -v $PYTEST_PARALLEL
     elif [ "$SUBCMD" = "compilation" ]; then
       print_logo "Testing"
       ensure_build
@@ -536,7 +596,8 @@ EOF
     print_cmd "sim ..." "status · list · stop · judge · suites · checkpoint"
 
     print_category "QUALITY & TESTING"
-    print_cmd "ci" "Reproduce the required CI build locally (lint + generation + contracts + cli + compilation)"
+    print_cmd "check" "Fast gate — lint + anchors + contracts + cli, parallel (~15s). Run this constantly."
+    print_cmd "ci" "Full required CI build locally (adds the generation matrix + compile lane). Run before pushing."
     print_cmd "test validate" "Manually probe a scaffold workspace (boots + health checks)"
     print_cmd "test generation" "Run generator structural tests (fast, all combinations)"
     print_cmd "test contracts" "Run scaffold contract tests (fast: bundle freshness, adopt-merge idempotency)"

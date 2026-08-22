@@ -26,8 +26,10 @@ import pytest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+from conftest import sandbox_root  # noqa: E402  (path helper; see conftest docstring)
 GENERATORS_JSON = REPO_ROOT / "generators.json"
-SANDBOX_BASE = REPO_ROOT / ".sandboxes" / "scaffolds" / "generation-flutter"
+SANDBOX_BASE = sandbox_root("generation-flutter")
 
 BRAND_TOKENS_TWO_BLOCK = {
     "schema": "groundwork.brand-tokens",
