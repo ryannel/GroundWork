@@ -17,6 +17,14 @@ jobs:
         with:
           go-version-file: go.mod
 
+      # The adapter seam's out-of-process half is proven against a node --test
+      # fixture pack. Without node those tests skip, and a skipped check reads
+      # as a green one — so CI installs node and the tests fail loudly there
+      # if it is ever missing.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       # These four steps gate: if one fails, the build fails.
       - name: Check formatting
         run: |

@@ -84,13 +84,20 @@ var severities = []string{Blocking, Advisory}
 
 // kinds is the closed vocabulary for a row's kind. It is D26's verb list —
 // honesty, wiring, token, divergence, reachability, flag, mutate, seal-verify,
-// run-evidence — plus version, the one row this bet's first slice ships.
+// run-evidence — plus version and manifest, the two rows this bet's first two
+// slices ship.
+//
+// manifest joins the list here rather than borrowing one of the nine. The
+// capability manifest row is not any of those verbs, and filing it under the
+// nearest one would misname it in every table and every journal line it ever
+// writes. D28 recorded this list as closed, so widening it is a decision, and
+// this comment is the note the driver rules on.
 //
 // The rows themselves land across several bets. Naming their kinds now costs
 // nothing and catches a typo at registration, where a typo would otherwise
 // ride into the digest and out to the lock file.
 var kinds = []string{
-	"version",
+	"version", "manifest",
 	"honesty", "wiring", "token", "divergence", "reachability",
 	"flag", "mutate", "seal-verify", "run-evidence",
 }

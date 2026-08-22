@@ -4,16 +4,20 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// It holds one row today: version, the drift check. That row is not a
-// placeholder. D23 asks CI to fail when the digest moves without a declared
-// bump, and this is the check that does it — so the verb has one honest row
-// from the day it ships, and never a run of nothing.
+// Two rows today. version is the drift check D23 asks for: CI fails when the
+// digest moves without a declared bump. manifest is the capability manifest
+// check: the project declared what it does, and something the stack's adapter
+// can see has to prove each one.
+//
+// Order is registration order, and it is the order the digest is computed in,
+// so a row joins the end of this list rather than the middle of it.
 //
 // Each call builds a fresh registry. A caller that registers an extra row for
 // its own purposes must not change what the next caller runs.
 func Default() *Registry {
 	reg := NewRegistry()
 	reg.Register(versionRow())
+	reg.Register(manifestRow())
 
 	return reg
 }
