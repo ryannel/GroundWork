@@ -39,9 +39,13 @@ const attempts = 10
 // maxSessionBytes caps a session id. It becomes a directory name.
 const maxSessionBytes = 128
 
-// maxTextBytes caps the free text fields of an event. A runaway string
+// MaxTextBytes caps the free text fields of an event. A runaway string
 // should not bloat the ref, and a line should stay readable.
-const maxTextBytes = 200
+//
+// It is exported because a caller that builds its own free text — a battery
+// row's evidence, say — has to cut it to fit before it offers it here. A
+// second copy of the number in that caller would be one to drift.
+const MaxTextBytes = 200
 
 // sessionBytes is how many random bytes a generated session id carries.
 const sessionBytes = 16
@@ -438,8 +442,8 @@ func checkSeal(s Seal) error {
 
 // checkText rejects a free text field that is too long to record.
 func checkText(name, value string) error {
-	if len(value) > maxTextBytes {
-		return fmt.Errorf("%s is %d bytes, over the limit of %d", name, len(value), maxTextBytes)
+	if len(value) > MaxTextBytes {
+		return fmt.Errorf("%s is %d bytes, over the limit of %d", name, len(value), MaxTextBytes)
 	}
 
 	return nil

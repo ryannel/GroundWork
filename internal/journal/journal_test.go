@@ -342,9 +342,9 @@ var badDispatches = []struct {
 	{"role in the wrong case", func(d *Dispatch) { d.Role = "Worker" }},
 	{"unknown tier", func(d *Dispatch) { d.Tier = "middle" }},
 	{"empty tier", func(d *Dispatch) { d.Tier = "" }},
-	{"outcome over the limit", func(d *Dispatch) { d.Outcome = strings.Repeat("x", maxTextBytes+1) }},
+	{"outcome over the limit", func(d *Dispatch) { d.Outcome = strings.Repeat("x", MaxTextBytes+1) }},
 	{"tokens source over the limit", func(d *Dispatch) {
-		d.TokensSource = strings.Repeat("x", maxTextBytes+1)
+		d.TokensSource = strings.Repeat("x", MaxTextBytes+1)
 	}},
 }
 
@@ -404,8 +404,8 @@ func TestWriteDispatchAcceptsTextAtTheLimit(t *testing.T) {
 	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
 
 	d := sampleDispatch()
-	d.Outcome = strings.Repeat("x", maxTextBytes)
-	d.TokensSource = strings.Repeat("y", maxTextBytes)
+	d.Outcome = strings.Repeat("x", MaxTextBytes)
+	d.TokensSource = strings.Repeat("y", MaxTextBytes)
 
 	path, err := WriteDispatch(dir, d)
 	if err != nil {
@@ -1058,8 +1058,8 @@ var badDials = []struct {
 	{"rung in the wrong case", func(d *Dial) { d.To = "Bet" }},
 	{"empty scope", func(d *Dial) { d.Scope = "" }},
 	{"empty reason", func(d *Dial) { d.Reason = "" }},
-	{"scope over the limit", func(d *Dial) { d.Scope = strings.Repeat("x", maxTextBytes+1) }},
-	{"reason over the limit", func(d *Dial) { d.Reason = strings.Repeat("x", maxTextBytes+1) }},
+	{"scope over the limit", func(d *Dial) { d.Scope = strings.Repeat("x", MaxTextBytes+1) }},
+	{"reason over the limit", func(d *Dial) { d.Reason = strings.Repeat("x", MaxTextBytes+1) }},
 }
 
 func TestWriteDialRejectsABadDial(t *testing.T) {
@@ -1118,8 +1118,8 @@ func TestWriteDialAcceptsTextAtTheLimit(t *testing.T) {
 	t.Setenv("GROUNDWORK_SESSION", "s-alpha")
 
 	d := sampleDial()
-	d.Scope = strings.Repeat("x", maxTextBytes)
-	d.Reason = strings.Repeat("y", maxTextBytes)
+	d.Scope = strings.Repeat("x", MaxTextBytes)
+	d.Reason = strings.Repeat("y", MaxTextBytes)
 
 	path, err := WriteDial(dir, d)
 	if err != nil {
@@ -1316,8 +1316,8 @@ var badSeals = []struct {
 	{"empty action", func(s *Seal) { s.Action = "" }},
 	{"empty kind", func(s *Seal) { s.Kind = "" }},
 	{"empty tag", func(s *Seal) { s.Tag = "" }},
-	{"kind over the limit", func(s *Seal) { s.Kind = strings.Repeat("x", maxTextBytes+1) }},
-	{"tag over the limit", func(s *Seal) { s.Tag = strings.Repeat("x", maxTextBytes+1) }},
+	{"kind over the limit", func(s *Seal) { s.Kind = strings.Repeat("x", MaxTextBytes+1) }},
+	{"tag over the limit", func(s *Seal) { s.Tag = strings.Repeat("x", MaxTextBytes+1) }},
 }
 
 func TestWriteSealRejectsABadSeal(t *testing.T) {
@@ -1352,7 +1352,7 @@ func TestWriteSealAcceptsAKindAtTheLimit(t *testing.T) {
 	tagAnnotated(t, dir, "seal-1")
 
 	s := sampleSeal()
-	s.Kind = strings.Repeat("x", maxTextBytes)
+	s.Kind = strings.Repeat("x", MaxTextBytes)
 
 	path, err := WriteSeal(dir, s)
 	if err != nil {

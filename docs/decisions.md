@@ -322,3 +322,11 @@ In-flight worker output snapshots to the wip-snapshot branch through plumbing �
 The journal mirror re-pushes with the work, per D20.
 
 Why: the review-then-land discipline stays — a slice still lands only after its blind review — but between handoff and landing, the work now also exists on origin.
+
+## D28 — 2026-08-22 — Slice 1 rulings: the battery's small vocabularies, and what waits for bet 3
+
+Four vocabularies the slice fixed, recorded: the row kind list is D26's nine verbs plus version, closed. Severity is blocking or advisory, closed — both exist, only blocking is used, and giving advisory a weaker meaning later is a major version bump. Row ids use lowercase, digits and dash only — they are printed, typed into waivers, and hashed, so one spelling per row. The digest preimage writes each field on its own line; the closed vocabularies are what keep a newline out of it.
+
+Two deferrals, named so bet 3 is reminded: the seal line's battery and battery_run fields (D23's second recording place) land with the seal machinery. And the lock file stays read from the working tree — CI is the enforcement point for committed, and a HEAD-blob read is revisited with the same machinery.
+
+Why: a vocabulary nobody wrote down is a vocabulary two slices will spell two ways, and a deferral nobody wrote down is F13's class again.

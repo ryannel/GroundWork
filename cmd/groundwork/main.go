@@ -39,7 +39,22 @@ const usage = `usage: groundwork <verb> [flags]
 
 verbs:
   journal    record an event in the journal
+  verify     run the battery
   findings   check the findings ledger
+`
+
+const verifyUsage = `usage: groundwork verify [--list]
+       groundwork verify version
+
+verify runs every row of the battery, in order, and records the run in the
+journal. It exits 1 if any row is red.
+
+subcommands:
+  version   print the battery version: the declared MAJOR.MINOR from the lock
+            file, and the digest the rows themselves compute
+
+flags:
+  --list    list the rows with their kind and severity, and run nothing
 `
 
 const findingsUsage = `usage: groundwork findings <subcommand>
@@ -76,6 +91,8 @@ func run(args []string, out, errOut io.Writer) int {
 	switch args[0] {
 	case "journal":
 		return runJournal(args[1:], out, errOut)
+	case "verify":
+		return runVerify(args[1:], out, errOut)
 	case "findings":
 		return runFindings(args[1:], out, errOut)
 	default:

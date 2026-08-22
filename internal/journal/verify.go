@@ -141,7 +141,7 @@ func VerifyTokens(repoDir, session string, tolerance int64) (VerifyResult, error
 		return VerifyResult{}, err
 	}
 
-	root, err := repoRoot(repoDir)
+	root, err := RepoRoot(repoDir)
 	if err != nil {
 		return VerifyResult{}, err
 	}

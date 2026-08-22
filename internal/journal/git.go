@@ -121,10 +121,27 @@ func headCommit(dir string) (string, error) {
 	return resolve(dir, "HEAD^{commit}")
 }
 
-// repoRoot returns the absolute path to the root of the repo dir sits in,
+// RepoRoot returns the absolute path to the root of the repo dir sits in,
 // regardless of how deep inside it dir is.
-func repoRoot(dir string) (string, error) {
-	return gitLine(dir, "rev-parse", "--show-toplevel")
+//
+// It is exported for the packages that already depend on this one and need a
+// file at the repo root — the battery's lock file, say. They get this one
+// rather than each shelling out to git themselves.
+//
+// Outside a repository it returns ErrNotARepo, the same as every other entry
+// point here, so a caller says "not in a git repository" in its own words
+// instead of passing on git's.
+func RepoRoot(dir string) (string, error) {
+	out, err := gitLine(dir, "rev-parse", "--show-toplevel")
+	if err != nil {
+		var exit *exec.ExitError
+		if errors.As(err, &exit) {
+			return "", ErrNotARepo
+		}
+		return "", err
+	}
+
+	return out, nil
 }
 
 // tagCommit returns the commit a tag points at. An annotated tag is peeled
