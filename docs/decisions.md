@@ -438,3 +438,23 @@ Five answers to the slice's open questions.
 4. The battery version does not move. The digest is over row identity — id, kind, severity — and no row changed. Waived and quarantined becoming reachable is the run honouring its own vocabulary, not a row made less strict.
 
 5. The loud block repeats the waived row's line on purpose. D24 says printed loudly; twice is loud.
+
+## D38 — 2026-08-23 — Slice 6 bounce rulings: the waiver's authority is its last commit
+
+Seven rulings from the slice 6 review.
+
+1. The own-commit rule binds to the commit whose content governs: the most recent commit that changed the waiver file, not the commit that created it. That commit must touch only waiver files. A rewrite inside a feature diff then voids the waiver, whatever the file's birth looked like. A rewrite in its own waiver-only commit is a re-grant, allowed by D24's letter; bet 3's counter counts grants from the file's history, not from the journal alone.
+
+2. Every printed line the battery journals must fit the cap by construction — the quarantined line joins the waived line in having its bound proven by arithmetic in a committed test. This is the third time this class has fired (D33, D36); the rule is now general: no new printed line lands without its bound test.
+
+3. D37.1 stands: ci.yml fetches full history, in this slice.
+
+4. A waiver's reason and file name are checked like row ids: printable characters only, no control characters, refused at grant and refused at verify naming the file. Committed content is attacker-controlled content.
+
+5. The loud block gets a heading and a blank line separating it from the table, so its lines cannot read as table rows.
+
+6. An unreadable or non-waiver file in the waivers directory no longer blanks the run. The battery runs, the table and the journal render, the file is named loudly in the block, and the run exits 1. Fail-closed means the defect is unmissable, not that the report disappears.
+
+7. An ignored waiver is named in the loud block and the journal, never on the row's own evidence line. D24's "red naming it" is satisfied by the block beside the table; D36's exactly-sized lines are not spent on it.
+
+Why: a waiver is the one mechanism that turns red into not-red, so its authority chain has to be airtight. The review broke it with an ordinary feature commit — the exact shape D24 was written to forbid.

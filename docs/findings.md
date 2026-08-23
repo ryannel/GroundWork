@@ -265,3 +265,15 @@ What happened: both accepted as residue by driver ruling, recorded here so they 
 
 Caught by: blind-review — slice 5's closure check
 Class: other — accepted residue, no live path to a wrong outcome
+
+## F24 — 2026-08-23 — The fifth bounce: a waiver rewritten in a feature diff still stood
+
+What it is: the own-commit check asked git for the commit that added the waiver file, but the content that governs is HEAD's. Any later feature commit could rewrite the row, the reason and the expiry, and the waiver stood — renewable forever, exactly the buried-in-a-feature-diff shape D24 forbids. Beside it: a quarantined row's evidence could overflow the journal cap and kill the whole run the quarantine outcome exists to protect; a control character in a committed reason forged rows in the printed table; and the ci.yml ruling from D37 was not applied because it was ruled after the builder's handoff.
+
+What caught it: the slice's blind review, which attacked the waiver machinery as a privilege system — and proved with a mutation that the stricter rule passes every existing test, so no test distinguished the two.
+
+What happened: bounce, the fifth of the rebuild. The rulings are D38: the waiver's authority is its last commit; every journaled line proves its bound by arithmetic — now a general rule; reasons and file names are charset-checked like row ids. The fix round follows.
+
+Caught by: blind-review — slice 6's review of the waiver forensics
+Class: green-but-wrong
+Class: unrun-proof
