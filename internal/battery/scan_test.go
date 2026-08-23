@@ -2,6 +2,7 @@ package battery
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -21,6 +22,15 @@ const goCLISurface = `{
   "schema": 1,
   "surfaces": [{"name": "cli", "profile": "cli", "stack": "go", "root": "."}],
   "capabilities": [{"name": "adding", "surface": "cli", "proof": ["alpha"]}]
+}`
+
+// goLibrarySurface is a manifest for one Go surface on the library profile.
+// It is the shape the held-out go-fieldkit declared: a repo whose callers live
+// in other people's repos.
+const goLibrarySurface = `{
+  "schema": 1,
+  "surfaces": [{"name": "kit", "profile": "library", "stack": "go", "root": "."}],
+  "capabilities": [{"name": "adding", "surface": "kit", "proof": ["alpha"]}]
 }`
 
 // webSurface is a manifest for one web surface, which is a profile the token
@@ -84,6 +94,21 @@ func writeSource(t *testing.T, dir, rel, content string) string {
 	return path
 }
 
+// makeFIFO puts a named pipe where a file would go. It is the plainest file a
+// scan must turn away without reading: not a symlink, not unreadable, just not
+// a regular file. mkfifo is shelled out to rather than called, so a machine
+// without it skips the case instead of failing to build.
+func makeFIFO(t *testing.T, path string) {
+	t.Helper()
+
+	if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
+		t.Fatalf("could not make %s: %v", filepath.Dir(path), err)
+	}
+	if err := exec.Command("mkfifo", path).Run(); err != nil {
+		t.Skipf("this machine cannot make a named pipe: %v", err)
+	}
+}
+
 // writeBytes writes one file of raw bytes, which the UTF-8 cases need.
 func writeBytes(t *testing.T, dir, rel string, content []byte) {
 	t.Helper()
@@ -138,6 +163,72 @@ func TestScanEvidenceNeverCarriesAMachinePath(t *testing.T) {
 			t.Errorf("the %s row's evidence carries this machine's own path: %s", id, res.Evidence)
 		}
 		mustFit(t, res.Evidence)
+	}
+}
+
+// The tail must never starve the evidence. A hit names a file, a line and a
+// function somebody has to go and look at; a clause of the tail explains the
+// scan. So the clause gives way first.
+//
+// The arithmetic is the reviewer's: a prefix of 51 bytes, one hit of 70, and a
+// tail of 82 come to 203, three over the journal's cap of 200. Before the fix
+// the whole line was thrown away for a nameless "the first is in <file>", and
+// the tail went with it — 80 bytes of budget left unspent.
+func TestHitEvidenceDropsAClauseBeforeItDropsAName(t *testing.T) {
+	one := hit{file: "slug/slug.go", line: 5, subject: "Truncate", shape: "is exported and nothing in the module names it"}
+	prefix := "the wiring scan found 1 function nothing wires up: "
+	clauses := []string{libraryDeclared, "1 symlink was not followed"}
+
+	// The case only proves what it claims if the arithmetic is the reviewer's.
+	if got := len(prefix); got != 51 {
+		t.Fatalf("the prefix is %d bytes, and this case is written for 51", got)
+	}
+	if got := len(one.String()); got != 70 {
+		t.Fatalf("the hit renders to %d bytes, and this case is written for 70", got)
+	}
+	if got := len(tailOf(clauses)); got != 82 {
+		t.Fatalf("the tail is %d bytes, and this case is written for 82", got)
+	}
+
+	got := hitEvidence(prefix, []hit{one}, clauses)
+
+	// The whole hit, shape and all — not a fragment of it. Dropping the front
+	// clause buys 54 bytes, which is more than the three the line was over.
+	mustFit(t, got, one.String())
+	if !strings.Contains(got, clauses[len(clauses)-1]) {
+		t.Errorf("the scan's own notes vanished while %d bytes were still free: %s",
+			journal.MaxTextBytes-len(got), got)
+	}
+	if strings.Contains(got, clauses[0]) {
+		t.Errorf("the droppable clause was kept and something else gave way: %s", got)
+	}
+}
+
+// When not one whole hit fits, what is left of the budget still goes on what a
+// reader can act on: the name, the line, and the row's own notes. A nameless
+// line spends nothing.
+func TestHitEvidenceSpendsItsBudgetWhenNoWholeHitFits(t *testing.T) {
+	one := hit{
+		file:    "internal/somewhere/deep/wiringrow.go",
+		line:    2140,
+		subject: "CheckTheWiringOfEverything",
+		shape:   "is exported and no file outside the tests names it, which is a great many words indeed",
+	}
+	prefix := "the wiring scan found 1 exported function nothing wires up: "
+	clauses := []string{"1 file was not read"}
+
+	// The case only proves what it claims if no whole hit can fit, tail or no
+	// tail, and the ladder's top rung can.
+	if len(prefix)+len(one.String()) <= journal.MaxTextBytes {
+		t.Fatalf("one whole hit fits in %d bytes, so this case never reaches the fallback",
+			len(prefix)+len(one.String()))
+	}
+
+	got := hitEvidence(prefix, []hit{one}, clauses)
+
+	mustFit(t, got, one.subject, "2140", clauses[0])
+	if len(got) < journal.MaxTextBytes/2 {
+		t.Errorf("the line spent %d of %d bytes: %s", len(got), journal.MaxTextBytes, got)
 	}
 }
 

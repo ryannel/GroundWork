@@ -3,6 +3,7 @@ package findings
 import (
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -586,6 +587,31 @@ func TestCheckNamesAClassOutsideTheVocabulary(t *testing.T) {
 	}
 	if !strings.Contains(problems[0].Text, "green-but-wrong") {
 		t.Errorf("the problem says %q, want it to list the classes that are allowed", problems[0].Text)
+	}
+}
+
+// Classes hands out the defect vocabulary. Every test that used it read it in
+// a loop, so deleting it emptied the loop and left the package's 51 tests
+// green (F29). The list itself has to be asserted.
+func TestClassesIsTheVocabularyAndHandsOutACopy(t *testing.T) {
+	got := Classes()
+
+	// The mutant this test exists to kill returns nil, and the copy check below
+	// would abort the whole binary on it rather than fail one test.
+	if len(got) == 0 {
+		t.Fatal("Classes returned no defect class at all")
+	}
+
+	for _, want := range []string{"green-but-wrong", "coverage-gap", "host-limit", otherClass} {
+		if !slices.Contains(got, want) {
+			t.Errorf("Classes returned %v, which does not hold %q", got, want)
+		}
+	}
+
+	// A caller that edits what it was handed must not edit the vocabulary.
+	got[0] = "edited"
+	if again := Classes(); slices.Contains(again, "edited") {
+		t.Errorf("a caller edited the class vocabulary through the slice Classes returned: %v", again)
 	}
 }
 
