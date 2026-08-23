@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T21:34:24.919016281Z","kind":"battery-row","session":"holdout2-self","seq":5,"commit":"b8552ccd4de57de813b7ebb42feec37964606542","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T213424Z-06bf","row":"token","outcome":"green","evidence":"the token scan is not applicable to profile cli, by declaration","duration_ms":3}
