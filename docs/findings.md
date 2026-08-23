@@ -345,3 +345,14 @@ What happened: recorded against the later bet that ships node-surface scans — 
 
 Caught by: blind-review — the 5.0 grading dispatch
 Class: coverage-gap
+
+## F31 — 2026-08-23 — The wip-snapshot branch cannot be deleted from this session
+
+What it is: D27 says the wip-snapshot branch is deleted at bet close. The host's git proxy refuses branch deletion with a 403, the same limitation that blocked tag pushes (F1, F12). The branch sits on origin holding the last slice 8 handoff, which is now merged history.
+
+What caught it: the driver, running the bet 2 close-out mechanics.
+
+What happened: open. The owner can delete it from their own machine with one push. It holds nothing unmerged, so the cost is clutter, not risk.
+
+Caught by: driver — the refused deletion at bet close
+Class: host-limit
