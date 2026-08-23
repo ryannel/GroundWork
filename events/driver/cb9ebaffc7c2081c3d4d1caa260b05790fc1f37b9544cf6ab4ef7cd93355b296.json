@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T17:30:28.414447254Z","kind":"battery-row","session":"driver","seq":13,"commit":"2ebef425c1ec7d7dd9d63e9e5d641decd0e50649","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T173026Z-a1a5","row":"token","outcome":"green","evidence":"the token scan is not applicable to profile cli, by declaration","duration_ms":3}
