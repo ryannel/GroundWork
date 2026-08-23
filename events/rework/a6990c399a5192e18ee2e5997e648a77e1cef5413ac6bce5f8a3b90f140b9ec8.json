@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T09:24:25.526920585Z","kind":"battery","session":"rework","seq":46,"commit":"651fc99d366312bc9952438c2197245bbb023e5e","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T091937Z-924a","battery":"4.0+rb7b57ef","counts":{"green":7,"quarantined":0,"red":0,"unrunnable":0,"waived":0},"duration_ms":288441}
