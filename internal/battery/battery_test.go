@@ -979,3 +979,17 @@ func TestDefaultIsFreshEachTime(t *testing.T) {
 		t.Fatal("registering a row on one Default() registry changed the next one")
 	}
 }
+
+// tryGit runs one git command and hands back its output and whether it
+// worked. Some fixtures need a command that is meant to fail — a merge that
+// conflicts on purpose — and runGit fails the test on those.
+func tryGit(dir string, args ...string) (string, error) {
+	cmd := exec.Command("git", append([]string{"-C", dir}, args...)...)
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+	err := cmd.Run()
+
+	return out.String(), err
+}

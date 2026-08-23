@@ -14,6 +14,10 @@
 // Only red fails a run. Waived, quarantined and unrunnable are counted and
 // printed, and they never turn a run red. A run of zero rows is an error, not
 // a pass: D17 rules that a verifier may never pass on nothing.
+//
+// Two things stand between a check's red and the run's red. A committed waiver
+// turns that row waived, never green (waiver.go). Without one, the row is run
+// a second time, and two runs that disagree leave it quarantined (flake.go).
 package battery
 
 import (
@@ -43,7 +47,7 @@ const (
 
 	// Waived: a waiver stands over this row, so its verdict does not count.
 	// A waiver never makes a row green; waived is its own outcome, printed
-	// loudly. D24 rules the waiver machinery, which a later bet builds.
+	// loudly. D24 rules the waiver machinery, and waiver.go builds it.
 	Waived Outcome = "waived"
 
 	// Quarantined: the row disagreed with itself across reruns, so it is
@@ -249,12 +253,39 @@ type RunResult struct {
 	// zero.
 	Counts map[Outcome]int
 
+	// Waivers is what the run did with each waiver file it found, in the order
+	// it found them. Every file is here, including the ones that waived
+	// nothing: a waiver the run threw away is a thing the reader has to see.
+	Waivers []WaiverNote
+
 	DurationMS int
 }
 
-// Red reports whether the run failed. Only a red row fails a run.
+// Red reports whether any row came out red. Only a red row fails a run on the
+// strength of the rows alone.
 func (r RunResult) Red() bool {
 	return r.Counts[Red] > 0
+}
+
+// Failed reports whether the run failed: a red row, or a file in the waiver
+// directory that is not a waiver.
+//
+// The second half is D38 ruling 6. A file nobody can read as a waiver does not
+// blank the report: every row runs, and the table renders. It does fail the
+// run, though. A waiver directory the tool cannot read is a hole in the one
+// mechanism that turns red into not-red.
+func (r RunResult) Failed() bool {
+	if r.Red() {
+		return true
+	}
+
+	for _, note := range r.Waivers {
+		if note.Status == WaiverUnreadable {
+			return true
+		}
+	}
+
+	return false
 }
 
 // Run executes every row of reg against the repo at repoDir and records the
@@ -289,6 +320,16 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 		declared = lock.Version
 	}
 
+	// The waivers are read before any row runs, because a row's red may be
+	// waived the moment it happens. A file in that directory that is not a
+	// waiver does not stop the run: every row still runs and the report still
+	// renders, and the file fails the run through Failed (D38 ruling 6). The
+	// error here is a waiver directory the tool cannot list at all.
+	waivers, err := loadWaivers(repoDir, reg, time.Now())
+	if err != nil {
+		return RunResult{}, err
+	}
+
 	res := RunResult{
 		ID:      id,
 		Version: VersionString(declared, digest),
@@ -299,43 +340,27 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 		res.Counts[outcome] = 0
 	}
 
+	if err := journalIgnoredWaivers(repoDir, id, waivers); err != nil {
+		return RunResult{}, err
+	}
+
 	start := time.Now()
 
 	for _, row := range reg.Rows() {
-		rowStart := time.Now()
-		got := row.Check(Context{RepoDir: repoDir, Digest: digest})
-		elapsed := int(time.Since(rowStart).Milliseconds())
-
-		if !slices.Contains(Outcomes(), got.Outcome) {
-			return RunResult{}, fmt.Errorf("the row %q reported the outcome %q, which is not one of: %s",
-				row.ID, got.Outcome, strings.Join(journal.BatteryOutcomes(), ", "))
-		}
-		// The check is on the evidence as it will be recorded, not as the row
-		// handed it over: a line of nothing but bytes that are not text is a
-		// row with nothing to show, however many bytes it is.
-		evidence := cut(got.Evidence)
-		if evidence == "" {
-			return RunResult{}, fmt.Errorf("the row %q reported %s with no evidence for it",
-				row.ID, got.Outcome)
+		result, err := runOne(repoDir, id, row, Context{RepoDir: repoDir, Digest: digest}, &waivers)
+		if err != nil {
+			return RunResult{}, err
 		}
 
-		result := RowResult{
-			ID:         row.ID,
-			Kind:       row.Kind,
-			Severity:   row.Severity,
-			Outcome:    got.Outcome,
-			Evidence:   evidence,
-			DurationMS: elapsed,
-		}
 		res.Rows = append(res.Rows, result)
-		res.Counts[got.Outcome]++
+		res.Counts[result.Outcome]++
 
-		_, err := journal.WriteBatteryRow(repoDir, journal.BatteryRow{
+		_, err = journal.WriteBatteryRow(repoDir, journal.BatteryRow{
 			RunID:      id,
-			RowID:      row.ID,
-			Outcome:    string(got.Outcome),
-			Evidence:   evidence,
-			DurationMS: elapsed,
+			RowID:      result.ID,
+			Outcome:    string(result.Outcome),
+			Evidence:   result.Evidence,
+			DurationMS: result.DurationMS,
 		})
 		if err != nil {
 			return RunResult{}, fmt.Errorf("could not journal the row %q: %w", row.ID, err)
@@ -343,6 +368,10 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 	}
 
 	res.DurationMS = int(time.Since(start).Milliseconds())
+
+	// The notes are taken after the rows have run, because a run only learns
+	// which waivers it used by using them.
+	res.Waivers = waivers.notes
 
 	counts := map[string]int{}
 	for outcome, n := range res.Counts {
@@ -392,17 +421,28 @@ func newRunID() (string, error) {
 // a cut line reading as the whole one. A row that had more to say is better
 // recorded short than not at all.
 func cut(evidence string) string {
+	return cutTo(evidence, journal.MaxTextBytes)
+}
+
+// cutTo is cut to a smaller size than the journal's own cap. A line built from
+// a fixed part and somebody else's words gives the words what is left, so the
+// fixed part — which is the verdict — can never be the half that is lost.
+func cutTo(evidence string, most int) string {
 	evidence = strings.ToValidUTF8(evidence, "")
 
-	if len(evidence) <= journal.MaxTextBytes {
+	if len(evidence) <= most {
 		return evidence
 	}
 
 	const mark = "..."
 
+	if most <= len(mark) {
+		return ""
+	}
+
 	// Only a partial rune can be invalid here, so this backs off at most three
 	// bytes.
-	kept := evidence[:journal.MaxTextBytes-len(mark)]
+	kept := evidence[:most-len(mark)]
 	for len(kept) > 0 && !utf8.ValidString(kept) {
 		kept = kept[:len(kept)-1]
 	}

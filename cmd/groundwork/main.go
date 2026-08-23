@@ -40,6 +40,8 @@ const usage = `usage: groundwork <verb> [flags]
 verbs:
   journal    record an event in the journal
   verify     run the battery
+  waive      waive a row of the battery, with a reason and an expiry
+  drove      record that you drove the product yourself
   findings   check the findings ledger
 `
 
@@ -93,6 +95,10 @@ func run(args []string, out, errOut io.Writer) int {
 		return runJournal(args[1:], out, errOut)
 	case "verify":
 		return runVerify(args[1:], out, errOut)
+	case "waive":
+		return runWaive(args[1:], out, errOut)
+	case "drove":
+		return runDrove(args[1:], out, errOut)
 	case "findings":
 		return runFindings(args[1:], out, errOut)
 	default:

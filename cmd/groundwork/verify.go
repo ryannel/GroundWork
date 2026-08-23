@@ -57,9 +57,10 @@ func runVerify(args []string, out, errOut io.Writer) int {
 
 	fmt.Fprintf(out, "run %s\nbattery %s\n", res.ID, res.Version)
 	fmt.Fprint(out, resultTable(res))
+	fmt.Fprint(out, notes(res))
 	fmt.Fprintln(out, summary(res))
 
-	if res.Red() {
+	if res.Failed() {
 		return exitFailed
 	}
 
@@ -146,6 +147,61 @@ func resultTable(res battery.RunResult) string {
 	w.Flush()
 
 	return buf.String()
+}
+
+// loudHeading introduces the loud block. It is a sentence, not a column
+// header, so no reader mistakes what follows for more of the table.
+const loudHeading = "what a person has to look at:"
+
+// notes renders the loud block: every row that gave no verdict, and every
+// waiver that did not waive anything.
+//
+// D24 asks that a waiver be printed loudly, and the spec asks the same of a
+// quarantined row. A wide table is not loud: a reader scans it for red. So
+// these are said again underneath it, in words, with the reason and the expiry
+// a person needs to judge whether the waiver should still be there.
+//
+// The block is set apart from the table by a blank line, a heading, and an
+// indent on every line (D38 ruling 5). Without those three a line of the block
+// reads as one more row of the table above it, which is exactly what a forged
+// waiver was made to look like.
+//
+// A run where every row gave a verdict and no waiver stands prints nothing
+// here at all.
+func notes(res battery.RunResult) string {
+	var buf bytes.Buffer
+	w := tabwriter.NewWriter(&buf, 0, 4, 2, ' ', 0)
+
+	wrote := false
+	for _, row := range res.Rows {
+		if row.Outcome != battery.Waived && row.Outcome != battery.Quarantined {
+			continue
+		}
+
+		fmt.Fprintf(w, "  %s\t%s\t%s\n", row.Outcome, row.ID, row.Evidence)
+		wrote = true
+	}
+
+	// A used waiver is already the waived row's own line above. The other
+	// three kinds are not on the table at all: an ignored waiver waived
+	// nothing, an unused one is waiting for a row that was not red, and an
+	// unreadable file is not a waiver.
+	for _, note := range res.Waivers {
+		if note.Status == battery.WaiverUsed {
+			continue
+		}
+
+		fmt.Fprintf(w, "  waiver %s\t%s\t%s\n", note.Status, note.File, note.Why)
+		wrote = true
+	}
+
+	if !wrote {
+		return ""
+	}
+
+	w.Flush()
+
+	return "\n" + loudHeading + "\n" + buf.String()
 }
 
 // summary says how many rows ran and how they came out.

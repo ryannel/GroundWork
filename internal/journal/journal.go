@@ -330,6 +330,8 @@ func moveRef(dir, commit, old string) error {
 //
 // It writes nothing when anything along the way says no.
 func write(repoDir, kind string, b build) (string, error) {
+	checkKind(kind)
+
 	session, generated, err := sessionID()
 	if err != nil {
 		return "", err

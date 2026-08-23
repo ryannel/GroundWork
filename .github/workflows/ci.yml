@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # D37.1: a waiver's authority is its commit, and a shallow clone
+          # hides that commit — so every waiver would be ignored exactly where
+          # the gate runs.
+          fetch-depth: 0
 
       - uses: actions/setup-go@v5
         with:
