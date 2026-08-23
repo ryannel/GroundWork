@@ -277,3 +277,15 @@ What happened: bounce, the fifth of the rebuild. The rulings are D38: the waiver
 Caught by: blind-review — slice 6's review of the waiver forensics
 Class: green-but-wrong
 Class: unrun-proof
+
+## F25 — 2026-08-23 — A second builder died silently, and the handoff rule did not hold
+
+What it is: the slice 6 fix-round builder's session died after finishing the code but before reporting. The as-you-go handoff rule existed because the slice 5 builder died the same way — but the handoff file was last touched an hour before the work stopped, so the round's record was the code alone. The driver noticed by the file's timestamp, five hours later.
+
+What caught it: the driver, checking the handoff's timestamp against the tree's.
+
+What happened: the driver verified the round directly — full suite, vet, format, verify on this repo all green, all four HIGH fixes present in code — and the closure check now stands as the round's independent record. The rule gains teeth going forward: a fix-round dispatch names the handoff update as part of each finding's closure, not a courtesy at the end.
+
+Caught by: driver — the stale handoff timestamp
+Class: record-not-written
+Class: host-limit — sessions die without notice; the record must not depend on their last breath
