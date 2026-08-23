@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T21:40:01.900154711Z","kind":"battery","session":"holdout2-self","seq":8,"commit":"b8552ccd4de57de813b7ebb42feec37964606542","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T213424Z-06bf","battery":"5.0+rb7b57ef","counts":{"green":7,"quarantined":0,"red":0,"unrunnable":0,"waived":0},"duration_ms":337200}
