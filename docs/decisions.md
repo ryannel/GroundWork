@@ -498,15 +498,3 @@ D41 said the wiring row reads the profile. Building it needed three smaller call
 3. A directory declared under two surfaces, one of them a library, is judged as a library. That is this row's standing posture — precision over recall, every doubt resolved green — and the library declaration is the one saying the callers may live where this scan cannot look.
 
 Why: all three are inside the ruling, not beside it. Each is written into the row's own comment so the next reader meets it there rather than here.
-
-## D42 — 2026-08-23 — Three small calls inside the wiring fix, recorded
-
-From the slice 8 build, each also written at the code site.
-
-1. init functions are never wiring candidates — the runtime calls them, so no caller can prove or disprove them.
-
-2. On a library profile, the exported-named-by-nothing check sweeps test files too, and the sweep is complete or the row refuses: a test file it cannot read makes the row unrunnable naming the file, never a red built on a partial sweep.
-
-3. A surface declared under two profiles resolves library-wins for the wiring rule — the looser reading, because a false red is the costlier error, and the stricter profiles keep their own rule on their own surfaces.
-
-Why recorded: D8's lesson — a call made inside a slice and written nowhere is a call two slices will make two ways.
