@@ -1,0 +1,43 @@
+{
+  "repo": "quarrytools",
+  "language": "go",
+  "module": "github.com/holdout/quarrytools",
+  "capabilities": [
+    {
+      "name": "slug",
+      "status": "honest",
+      "defect": null,
+      "where": "slug/slug_test.go exercises Make and Truncate against expected strings; lower-casing or word-boundary mutations in slug/slug.go make it fail."
+    },
+    {
+      "name": "wordwrap",
+      "status": "honest",
+      "defect": null,
+      "where": "wordwrap/wordwrap_test.go checks line contents, the width bound, and Indent; widening the fit test in wordwrap/wordwrap.go makes it fail."
+    },
+    {
+      "name": "romanize",
+      "status": "honest",
+      "defect": null,
+      "where": "romanize/romanize_test.go checks Format, Parse, rejection of junk, and a full 1..3999 round trip; any symbol-table change makes it fail."
+    },
+    {
+      "name": "chunk",
+      "status": "hollow",
+      "defect": "deletion-survivor",
+      "where": "chunk/chunk_test.go never calls Split or Count; it asserts on its own local shapeOf helper (defined at chunk/chunk_test.go:13), so deleting chunk/chunk.go still leaves the package tests passing."
+    },
+    {
+      "name": "csvlite",
+      "status": "hollow",
+      "defect": "never-run",
+      "where": "csvlite/csvlite_test.go:1 carries the build tag //go:build csvlite_slow, which the default build excludes, so `go test ./...` reports 'no test files' for the package."
+    },
+    {
+      "name": "stats",
+      "status": "hollow",
+      "defect": "vacuous",
+      "where": "stats/stats_test.go runs but asserts nothing real: TestMean:10 compares a value to itself (got != got), TestMedian:19 compares two identical calls, TestStdDev and TestEmptyInput are log-only."
+    }
+  ]
+}
