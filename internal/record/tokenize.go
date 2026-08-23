@@ -5,8 +5,30 @@ package record
 //
 // Fields are separated by spaces. A field wrapped in double quotes may hold
 // spaces, and the quotes are not part of the field.
-//
-// The splitting itself is slice s_tokenize, which has not landed yet.
 func Fields(line string) []string {
-	return nil
+	var out []string
+	var cur []rune
+	inQuote := false
+	open := false
+
+	for _, r := range line {
+		switch {
+		case r == '"':
+			inQuote = !inQuote
+			open = true
+		case r == ' ' && !inQuote:
+			if open {
+				out = append(out, string(cur))
+				cur = cur[:0]
+				open = false
+			}
+		default:
+			cur = append(cur, r)
+			open = true
+		}
+	}
+	if open {
+		out = append(out, string(cur))
+	}
+	return out
 }
