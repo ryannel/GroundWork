@@ -402,3 +402,15 @@ D25 is untouched. The run-evidence reconciliation still refuses a partial log fr
 The cost note rides here too: verify on this repo is 241 seconds, the mutate row the larger half. Recorded so the price is chosen. The trend publication proof.md asks for is a later bet's work.
 
 Why: on this repo two of ten sampled mutants blow the test binary up during registration. Calling that "did not finish" was honest but backwards — a suite that explodes over a deleted function did not fail to notice it. And bet 14 will put thresholds on inconclusive rates, so an inconclusive class holding real kills would poison those numbers.
+
+## D35 — 2026-08-23 — Slice 5 re-review rulings: the copy refuses a borrowed git record, and a timeout is never a crash
+
+Two rulings from the second review round.
+
+1. A project whose .git is a file — a linked worktree, a submodule — is refused by the mutate row: unrunnable, naming the shape. That file points at a git directory outside the project, so a copy that carries it is not a copy; a test running on mutated code could write the developer's real history through it. D33's faithful-copy ruling means a self-contained record or none. Materialising a self-contained record for these shapes can come later if a real project needs it.
+
+2. go test's own timeout panic is a clock death, never a crash. D34's kill requires the suite to have noticed the mutant; "panic: test timed out" is the clock noticing the suite. The classification must name that marker explicitly, whatever set the timeout — the project's flags, GOFLAGS, or go test's default — because the row's own per-mutant clock cannot be assumed to fire first.
+
+And a restatement, because a fix half-read it: D33's numbers-never-cut rule binds the whole accounting. If the full line cannot fit the journal cap, words give way — shorter class names, a shorter verdict — never the counts. A line that still had to cut a count is a defect in the line's design, not an allowed fallback.
+
+Why: both new defects came from the previous round's fixes. The copy became faithful enough to carry an escape, and the crash class became generous enough to swallow a hang. A fix that widens a door gets the same review the door got.

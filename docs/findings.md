@@ -230,3 +230,15 @@ What happened: the file is written, recording the branch tips at sealing (93801c
 
 Caught by: driver — the slice 7 preparation read
 Class: record-not-written
+
+## F21 — 2026-08-23 — The fourth bounce: the rework's own fixes opened three new doors
+
+What it is: the slice 5 rework closed every original finding, and its newest code held three defects of its own. The faithful copy carried a linked worktree's .git file verbatim, pointing the throwaway copy at the developer's real object store — mutated code could commit onto their branch. The new go list call inherited the parent's PWD, so a repo entered through a symlink lost every package and the row printed "nothing to delete" about a project full of exported functions. And the crash-kill class read go test's timeout panic as a kill, so a mutant that wedged the suite forever counted as caught.
+
+What caught it: the slice's blind re-review, aimed at the rework's newest code — the go list integration, the D34 boundary, and what carrying .git might open.
+
+What happened: bounce, the second on this slice and the fourth of the rebuild. The driver's rulings are D35: a .git file is refused as unrunnable, a timeout panic is a clock death never a crash, and the numbers-never-cut rule binds the whole accounting. The fix round follows.
+
+Caught by: blind-review — slice 5's re-review of the rework
+Class: green-but-wrong
+Class: unrun-proof
