@@ -183,12 +183,33 @@ func (n scanNotes) items() []string {
 // String renders the notes as a tail for a line of evidence, empty when there
 // is nothing to say.
 func (n scanNotes) String() string {
+	return tailOf(n.clauses())
+}
+
+// clauses renders the notes as one clause of a row's tail, or none at all.
+func (n scanNotes) clauses() []string {
 	said := n.items()
 	if len(said) == 0 {
+		return nil
+	}
+
+	return []string{strings.Join(said, "; ")}
+}
+
+// tailOf renders a row's trailing clauses for a line of evidence: nothing at
+// all when there are none, and each clause after a semicolon otherwise.
+//
+// A clause is one whole statement the row adds about itself — what it declared,
+// what it could not reach, what it declined to read. They stay a list rather
+// than a string because a red line has to be able to give one up to make room
+// for the name of a hit, and a joined string cannot be taken apart again
+// without cutting a sentence in half.
+func tailOf(clauses []string) string {
+	if len(clauses) == 0 {
 		return ""
 	}
 
-	return "; " + strings.Join(said, "; ")
+	return "; " + strings.Join(clauses, "; ")
 }
 
 // fileState says what a scan is allowed to do with one file.
@@ -209,17 +230,26 @@ const (
 
 // openFile reads one file a scan wants, applying the rules every scan shares.
 //
-// It returns the bytes and what the scan may do with them. A file it turns
-// away is never an error: it is a fact, counted in the notes, that the row
-// prints in its evidence.
-func openFile(path string, d fs.DirEntry, notes *scanNotes) ([]byte, fileState) {
+// It returns the bytes, what the scan may do with them, and — for a file it
+// turned away — why. A file it turns away is never an error: it is a fact,
+// counted in the notes, that the row prints in its evidence.
+//
+// The reason is there for the row whose verdict rests on the file having been
+// read. Most rows judge each file on its own and only need the count; the
+// wiring row on a library profile needs to name the file it could not sweep.
+func openFile(path string, d fs.DirEntry, notes *scanNotes) ([]byte, fileState, string) {
 	if d.Type()&fs.ModeSymlink != 0 {
 		notes.symlinks++
 
-		return nil, fileSkipped
+		return nil, fileSkipped, "is a symlink, which no scan follows"
 	}
 	if !d.Type().IsRegular() {
-		return nil, fileSkipped
+		// Counted as unread, not left silent. A named pipe or a device where a
+		// source file should be is rare, but a scan that passed over one
+		// without saying so would be checking less than the reader believes.
+		notes.unreadable++
+
+		return nil, fileSkipped, "is not a regular file"
 	}
 
 	src, err := os.ReadFile(path)
@@ -229,15 +259,15 @@ func openFile(path string, d fs.DirEntry, notes *scanNotes) ([]byte, fileState) 
 		// still shows up in the evidence rather than vanishing.
 		notes.unreadable++
 
-		return nil, fileSkipped
+		return nil, fileSkipped, "could not be read"
 	}
 	if isGenerated(src) {
 		notes.generated++
 
-		return src, fileGenerated
+		return src, fileGenerated, ""
 	}
 
-	return src, fileRead
+	return src, fileRead, ""
 }
 
 // generatedHeadLines is how far into a file the generated marker is looked
@@ -295,30 +325,79 @@ func (h hit) String() string {
 }
 
 // hitEvidence renders a red row's evidence: what the scan found, then as many
-// hits as fit whole, then how many it left out.
+// hits as fit whole, then how many it left out, then what the row has to add
+// about itself.
 //
 // The journal's cap is respected here rather than left to the journal's own
 // trimming. A line the journal cut would end mid-word, halfway through a file
 // name, and a reader cannot act on half a path. So the row decides what to
 // drop and says how much it dropped, and the line that reaches the record is
-// made of whole hits.
-func hitEvidence(prefix string, all []hit, tail string) string {
-	for shown := len(all); shown > 0; shown-- {
-		line := prefix + hitsOf(all, shown) + tail
-		if len(line) <= journal.MaxTextBytes {
-			return line
+// made of whole pieces.
+//
+// What a reader can act on outranks what the row says about itself. A hit names
+// a file, a line and a thing somebody has to go and look at; a clause of the
+// tail explains the scan. So the tail gives way first, one whole clause at a
+// time from the front — which is why a row orders its clauses with the most
+// droppable first and the count of what it declined to read last. A clause is
+// only dropped when there are no bytes left for it.
+func hitEvidence(prefix string, all []hit, clauses []string) string {
+	for drop := 0; drop <= len(clauses); drop++ {
+		for shown := len(all); shown > 0; shown-- {
+			line := prefix + hitsOf(all, shown) + tailOf(clauses[drop:])
+			if len(line) <= journal.MaxTextBytes {
+				return line
+			}
 		}
 	}
 
-	// Not even one hit fits, which means one path is longer than a line of
-	// evidence. The count and the file it starts in survive; the alternative is
-	// a line the journal cuts mid-path, and half a path is worse than none.
-	short := prefix + "the first is in " + all[0].file
-	if len(short) <= journal.MaxTextBytes {
-		return short
+	// Not even one whole hit fits, which means one hit is longer than a line of
+	// evidence. What is left of the budget still goes on what a reader can act
+	// on: the name of the first hit and where it sits, as much of it as fits.
+	// The alternative is a line the journal cuts mid-path, and half a path is
+	// worse than none.
+	ladder := firstOf(all[0])
+	for _, first := range ladder {
+		for drop := 0; drop <= len(clauses); drop++ {
+			line := prefix + first + tailOf(clauses[drop:])
+			if len(line) <= journal.MaxTextBytes {
+				return line
+			}
+		}
 	}
 
-	return prefix + "the first is in " + filepath.Base(all[0].file)
+	// The prefix alone has filled the line, which takes a count no row will
+	// reach. Trimming is all that is left.
+	return cutTo(prefix+ladder[len(ladder)-1], journal.MaxTextBytes)
+}
+
+// firstOf is the ladder a red climbs down when not one whole hit fits on a
+// line: the first hit named and placed, then placed by its file's own name,
+// then the place alone. What is wrong with it goes first, because a reader
+// holding the name and the line can see that much for themselves.
+func firstOf(h hit) []string {
+	place := func(file string) string {
+		if h.line > 0 {
+			return fmt.Sprintf("%s:%d", file, h.line)
+		}
+
+		return file
+	}
+
+	var said []string
+	base := filepath.Base(h.file)
+
+	if h.subject != "" {
+		said = append(said, "the first is "+h.subject+" at "+place(h.file))
+		if base != h.file {
+			said = append(said, "the first is "+h.subject+" at "+place(base))
+		}
+	}
+	said = append(said, "the first is in "+h.file)
+	if base != h.file {
+		said = append(said, "the first is in "+base)
+	}
+
+	return said
 }
 
 // hitsOf renders the first few hits, in the order they were found, and says

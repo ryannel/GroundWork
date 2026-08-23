@@ -165,12 +165,14 @@ func checkRunEvidence(c Context, budget time.Duration) Result {
 		ghosts = append(ghosts, named(ev.ghosts, "ran and was never discovered")...)
 	}
 
-	tail := ""
+	// Ordered most droppable first: a red line gives up a clause of its tail
+	// before it gives up the name of a hit, and it gives up the front one.
+	var clauses []string
 	if len(noted) > 0 {
-		tail += "; " + listed(noted, "; ")
+		clauses = append(clauses, listed(noted, "; "))
 	}
 	if len(blocked) > 0 {
-		tail += "; " + listed(blocked, "; ")
+		clauses = append(clauses, listed(blocked, "; "))
 	}
 
 	found := slices.Concat(empty, neverRun, ghosts)
@@ -179,7 +181,7 @@ func checkRunEvidence(c Context, budget time.Duration) Result {
 	case len(found) > 0:
 		return Result{
 			Outcome:  Red,
-			Evidence: hitEvidence(redPrefix(len(empty), len(neverRun), len(ghosts)), found, tail),
+			Evidence: hitEvidence(redPrefix(len(empty), len(neverRun), len(ghosts)), found, clauses),
 		}
 
 	case len(blocked) > 0:
@@ -198,7 +200,7 @@ func checkRunEvidence(c Context, budget time.Duration) Result {
 			Evidence: cut(fmt.Sprintf("the run-evidence row reconciled %s in %s on %s, and the run log names every one%s",
 				counted(discovered, "discovered test", "discovered tests"),
 				counted(suites, "suite", "suites"),
-				counted(judged, "surface", "surfaces"), tail)),
+				counted(judged, "surface", "surfaces"), tailOf(clauses))),
 		}
 	}
 }

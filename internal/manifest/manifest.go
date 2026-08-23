@@ -62,8 +62,25 @@ const maxNameBytes = 64
 // command.
 const GoStack = "go"
 
-// profiles is the spec's closed list of topology profiles (proof.md).
-var profiles = []string{"server", "web", "desktop", "cli", "mobile", "library"}
+// The spec's closed list of topology profiles (proof.md), one name each.
+//
+// They are named here because this is the file that reads a manifest, and it is
+// the only place a profile's spelling should live. A tool that wrote the word
+// out again for itself would be a second definition of the same vocabulary,
+// free to drift from this one without anything noticing.
+const (
+	ServerProfile  = "server"
+	WebProfile     = "web"
+	DesktopProfile = "desktop"
+	CLIProfile     = "cli"
+	MobileProfile  = "mobile"
+	LibraryProfile = "library"
+)
+
+// profiles is the closed list itself, in the order the spec writes it.
+var profiles = []string{
+	ServerProfile, WebProfile, DesktopProfile, CLIProfile, MobileProfile, LibraryProfile,
+}
 
 // Manifest is one project's capability manifest.
 type Manifest struct {

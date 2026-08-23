@@ -8,6 +8,8 @@ import (
 	"regexp"
 	"slices"
 	"strings"
+
+	"github.com/ryannel/groundwork/internal/manifest"
 )
 
 // The token scan looks for raw style literals: a colour written into a source
@@ -45,8 +47,9 @@ func tokenRow() Row {
 }
 
 // tokenlessProfiles are the profiles the token scan does not apply to. Neither
-// ships a rendered interface, so neither has design tokens to bypass.
-var tokenlessProfiles = []string{"cli", "library"}
+// ships a rendered interface, so neither has design tokens to bypass. The names
+// come from the manifest package, which owns the vocabulary.
+var tokenlessProfiles = []string{manifest.CLIProfile, manifest.LibraryProfile}
 
 // tokenExtensions are the files a design token can be written into. The list
 // is what the shipped stacks use to describe a surface, and it is deliberately
@@ -107,7 +110,7 @@ func checkToken(c Context) Result {
 				return nil
 			}
 
-			src, state := openFile(path, d, &notes)
+			src, state, _ := openFile(path, d, &notes)
 			if state != fileRead {
 				return nil
 			}
@@ -125,14 +128,17 @@ func checkToken(c Context) Result {
 		}
 	}
 
-	tail := ""
+	// Ordered most droppable first: a red line gives up a clause of its tail
+	// before it gives up the name of a hit, and it gives up the front one.
+	var clauses []string
 	if len(declared) > 0 {
-		tail += "; " + strings.Join(declared, "; ")
+		clauses = append(clauses, strings.Join(declared, "; "))
 	}
 	if len(blocked) > 0 {
-		tail += "; " + listed(blocked, "; ")
+		clauses = append(clauses, listed(blocked, "; "))
 	}
-	tail += notes.String()
+	clauses = append(clauses, notes.clauses()...)
+	tail := tailOf(clauses)
 
 	switch {
 	case len(hits) > 0:
@@ -141,7 +147,7 @@ func checkToken(c Context) Result {
 			Evidence: hitEvidence(
 				fmt.Sprintf("the token scan found %s written into source: ",
 					counted(len(hits), "raw colour", "raw colours")),
-				hits, tail),
+				hits, clauses),
 		}
 
 	case len(blocked) > 0:

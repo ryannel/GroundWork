@@ -65,6 +65,38 @@ import (
 // Neither shape appears in this repo, and both would show up as a red naming a
 // function the reader knows is live — which is the moment to widen the rule or
 // waive it, not to guess now.
+//
+// One profile is judged by a different rule, and the manifest is what says so
+// (D41). A library's callers live in other people's repos, so an exported
+// function with no caller in this one proves nothing — it is the product. On
+// the held-out go-fieldkit the rule above flagged 8 of 11 exported functions,
+// including the public API of every capability that repo's sealed key calls
+// honest (F27). So the row reads the profile, the way the token row beside it
+// already does, and on a library it keeps only the teeth that stay honest:
+//
+//   - An exported function is dead when nothing in the module names it at all,
+//     tests included. A test naming it is not proof of a consumer, but it is
+//     proof somebody meant it to exist.
+//   - An unexported function is dead on the rule above: no non-test file names
+//     it. Nothing outside this repo can reach an unexported function, so its
+//     absence from every shipped file is the whole story.
+//   - init is never a candidate. The runtime calls it and no file names it.
+//
+// A directory declared under two surfaces, one of them a library, is judged as
+// a library. That is this row's standing posture — every doubt is resolved
+// green — and the library declaration is the one that says the callers may be
+// somewhere this scan cannot look.
+//
+// The deferral this leaves, named rather than found later: proving a library's
+// exports for real needs a consumer that is not this repo. The spec's library
+// profile says the front door is a consumer example, and the consumer-fixture
+// round trip arrives with that machinery (D41).
+
+// libraryDeclared is what the row says out loud when it read the library
+// profile, whose name it takes from the manifest package. A rule that changed
+// in silence would leave a reader unable to tell a scan that stood its ground
+// from one that gave way.
+const libraryDeclared = "on profile library an export needs no in-repo caller"
 
 // wiringRow is the dead-code scan.
 func wiringRow() Row {
@@ -83,8 +115,9 @@ func checkWiring(c Context) Result {
 	}
 
 	var (
-		judged  []string
-		blocked []string
+		judged    []string
+		libraries []string
+		blocked   []string
 	)
 	for _, surface := range s.m.Surfaces {
 		if surface.Stack != manifest.GoStack {
@@ -94,6 +127,9 @@ func checkWiring(c Context) Result {
 			continue
 		}
 		judged = append(judged, s.dir(surface))
+		if surface.Profile == manifest.LibraryProfile {
+			libraries = append(libraries, s.dir(surface))
+		}
 	}
 
 	if len(judged) == 0 {
@@ -105,15 +141,21 @@ func checkWiring(c Context) Result {
 	}
 
 	var (
-		candidates []hit
+		candidates []candidate
 		notes      scanNotes
 		files      int
 	)
-	referenced := map[string]bool{}
 
-	// One walk, from the repo root: every non-test Go file in the module is
-	// swept for the names it uses, and only the files inside a declared surface
-	// offer candidates.
+	// Two reference sets. shipped is what the non-test files name, and it is
+	// what every profile but library is judged on. tested is what the test
+	// files name, and it is only filled when a library surface was declared —
+	// a repo with none is swept exactly as it was before this rule existed.
+	shipped := map[string]bool{}
+	tested := map[string]bool{}
+
+	// One walk, from the repo root: every Go file in the module the row reads
+	// is swept for the names it uses, and only the files inside a declared
+	// surface offer candidates.
 	err := filepath.WalkDir(s.root, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
@@ -125,14 +167,34 @@ func checkWiring(c Context) Result {
 
 			return nil
 		}
-		if !strings.HasSuffix(d.Name(), ".go") || strings.HasSuffix(d.Name(), "_test.go") {
+		if !strings.HasSuffix(d.Name(), ".go") {
+			return nil
+		}
+		// Once a library is declared, every test file in the module is part of
+		// the sweep, not only the ones inside a surface: a name is a name
+		// wherever it is written. So a test file anywhere the walk reaches can
+		// leave the row unrunnable. testdata stays out, because skipDir keeps
+		// the walk out of it.
+		test := strings.HasSuffix(d.Name(), "_test.go")
+		if test && len(libraries) == 0 {
 			return nil
 		}
 
 		// A generated file is read for its references and judged for nothing.
 		// Everything else openFile turns away stays turned away.
-		src, state := openFile(path, d, &notes)
+		src, state, why := openFile(path, d, &notes)
 		if state == fileSkipped {
+			// D42.2's completeness rule, and it is about the sweep rather than
+			// about the parser. On a library the test files decide whether an
+			// export is dead, so a test file left unread for any reason — a
+			// symlink, a named pipe, a permission — leaves the same hole a file
+			// that will not parse leaves, and the row must not deliver a
+			// verdict through it. Every other profile never reads a test file
+			// at all, so this cannot reach one.
+			if test {
+				return fmt.Errorf("%s %s", s.rel(path), why)
+			}
+
 			return nil
 		}
 
@@ -143,25 +205,37 @@ func checkWiring(c Context) Result {
 
 			return fmt.Errorf("%s:%d does not parse: %s", s.rel(path), line, words)
 		}
+
+		if test {
+			// A library's exports are judged on what its tests name too, so a
+			// test file is swept for references and judged for nothing. It is
+			// not counted as source: a repo holding only tests has still had
+			// nothing judged, and D17 says so.
+			collectReferences(file, tested)
+
+			return nil
+		}
 		files++
 
-		collectReferences(file, referenced)
+		collectReferences(file, shipped)
 		if state == fileGenerated || file.Name.Name == "main" || !inside(judged, path) {
 			return nil
 		}
 
+		library := inside(libraries, path)
 		rel := s.rel(path)
 		for _, decl := range file.Decls {
 			fn, ok := decl.(*ast.FuncDecl)
-			if !ok || fn.Recv != nil || !fn.Name.IsExported() {
+			if !ok || fn.Recv != nil {
 				continue
 			}
-			candidates = append(candidates, hit{
-				file:    rel,
-				line:    fset.Position(fn.Pos()).Line,
-				subject: fn.Name.Name,
-				shape:   "is exported and no file outside the tests names it",
-			})
+			found, ok := candidateOf(fn, library)
+			if !ok {
+				continue
+			}
+			found.file = rel
+			found.line = fset.Position(fn.Pos()).Line
+			candidates = append(candidates, found)
 		}
 
 		return nil
@@ -174,53 +248,188 @@ func checkWiring(c Context) Result {
 		}
 	}
 
-	var dead []hit
-	for _, candidate := range candidates {
-		if !referenced[candidate.subject] {
-			dead = append(dead, candidate)
+	var dead []candidate
+	for _, c := range candidates {
+		if shipped[c.subject] || (c.tested && tested[c.subject]) {
+			continue
 		}
+		dead = append(dead, c)
 	}
 
-	tail := notes.String()
+	// The tail, ordered most droppable first. A red line gives up a clause
+	// before it gives up the name of a hit, and it gives up the front one.
+	var rest []string
 	if len(blocked) > 0 {
-		tail = "; " + listed(blocked, "; ") + tail
+		rest = append(rest, listed(blocked, "; "))
+	}
+	rest = append(rest, notes.clauses()...)
+
+	// declaring puts the library declaration in front of the rest. It may only
+	// go on a line whose every function was judged by that rule: the judgment
+	// is per surface, so a cli surface's export must never ride under a clause
+	// saying an export needs no in-repo caller.
+	declaring := func(declare bool) []string {
+		if !declare {
+			return rest
+		}
+
+		return append([]string{libraryDeclared}, rest...)
 	}
 
 	switch {
 	case len(dead) > 0:
+		said := spokenOf(dead)
+
 		return Result{
 			Outcome: Red,
 			Evidence: hitEvidence(
 				fmt.Sprintf("the wiring scan found %s nothing wires up: ",
-					counted(len(dead), "exported function", "exported functions")),
-				dead, tail),
+					counted(len(dead), said.one, said.many)),
+				hitsIn(dead), declaring(said.declare)),
 		}
 
 	case files == 0:
-		// D17: a verifier may never pass on nothing.
+		// D17: a verifier may never pass on nothing. No function was judged, so
+		// there is nothing for the library declaration to explain.
 		return Result{
-			Outcome:  Unrunnable,
-			Evidence: "the wiring scan read no Go source in the module, so it checked nothing" + tail,
+			Outcome: Unrunnable,
+			Evidence: "the wiring scan read no Go source in the module, so it checked nothing" +
+				tailOf(declaring(false)),
 		}
 
 	case len(candidates) == 0:
 		// Green with nothing behind it says so. A row that read a tree holding
-		// no exported function has judged nothing, and the evidence has to
+		// no function it judges has judged nothing, and the evidence has to
 		// admit that rather than look like a pass.
+		//
+		// There is no candidate to read the wording off here, so what the scan
+		// went looking for decides it: a declared library puts unexported
+		// functions in the search too.
+		found := "no exported function outside package main"
+		if len(libraries) > 0 {
+			found = "no function it could judge"
+		}
+
 		return Result{
 			Outcome: Green,
-			Evidence: fmt.Sprintf("the wiring scan read %s and found no exported function outside package main, so nothing could be unwired%s",
-				counted(files, "file", "files"), tail),
+			Evidence: fmt.Sprintf("the wiring scan read %s and found %s, so nothing could be unwired%s",
+				counted(files, "file", "files"), found, tailOf(declaring(len(libraries) > 0))),
 		}
 
 	default:
+		said := spokenOf(candidates)
+
 		return Result{
 			Outcome: Green,
-			Evidence: fmt.Sprintf("the wiring scan read %s in %s, and a non-test file names every one%s",
-				counted(len(candidates), "exported function", "exported functions"),
-				counted(files, "file", "files"), tail),
+			Evidence: fmt.Sprintf("the wiring scan read %s in %s, and %s%s",
+				counted(len(candidates), said.one, said.many),
+				counted(files, "file", "files"), said.named, tailOf(declaring(said.declare))),
 		}
 	}
+}
+
+// candidate is one function the row may call dead, the reference set that
+// decides it, and what the row may say about it.
+type candidate struct {
+	hit
+
+	// tested says a test naming this function counts as wiring. Only a
+	// library's exports are judged that way: an exported function is what a
+	// library ships, and its callers are in repos this scan cannot read.
+	tested bool
+
+	// exported and library are what the surface's own rule made of this
+	// function. They are carried rather than worked out again at the end,
+	// because by then a hit no longer knows which surface it came from.
+	exported bool
+	library  bool
+}
+
+// hitsIn takes the hits out of a set of candidates, which is what a line of
+// evidence is rendered from.
+func hitsIn(all []candidate) []hit {
+	found := make([]hit, 0, len(all))
+	for _, c := range all {
+		found = append(found, c.hit)
+	}
+
+	return found
+}
+
+// spoken is how the row talks about one set of functions it judged.
+//
+// The judgment is per surface, so the sentence has to be too. A repo that
+// declares a library beside a cli surface has its functions judged by two
+// different rules, and one blanket clause over both would tell the reader
+// something untrue about half of them.
+type spoken struct {
+	one, many string
+
+	// named is what the line claims was true of every one of them. A library's
+	// export needs no caller in this repo, so once one is in the set the weaker
+	// sentence is the only honest one.
+	named string
+
+	// declare says the library declaration may ride on this line. It may only
+	// when every function the line is about was judged by that rule.
+	declare bool
+}
+
+// spokenOf works out how to talk about one set of candidates.
+func spokenOf(all []candidate) spoken {
+	said := spoken{
+		one:     "exported function",
+		many:    "exported functions",
+		named:   "a non-test file names every one",
+		declare: len(all) > 0,
+	}
+
+	for _, c := range all {
+		if !c.exported {
+			said.one, said.many = "function", "functions"
+		}
+		if c.library {
+			said.named = "every one is named"
+		} else {
+			said.declare = false
+		}
+	}
+
+	return said
+}
+
+// candidateOf reads one function declaration into a candidate, or says the row
+// does not judge it.
+func candidateOf(fn *ast.FuncDecl, library bool) (candidate, bool) {
+	// The runtime calls init, and no file names it, so an init nothing
+	// mentions is not dead code — it is every init ever written.
+	if fn.Name.Name == "init" {
+		return candidate{}, false
+	}
+
+	exported := fn.Name.IsExported()
+	found := candidate{
+		hit:      hit{subject: fn.Name.Name},
+		exported: exported,
+		library:  library,
+	}
+
+	switch {
+	case !library && !exported:
+		return candidate{}, false
+
+	case !library:
+		found.shape = "is exported and no file outside the tests names it"
+
+	case exported:
+		found.shape = "is exported and nothing in the module names it"
+		found.tested = true
+
+	default:
+		found.shape = "is unexported and no file outside the tests names it"
+	}
+
+	return found, true
 }
 
 // inside reports whether a file sits under one of the directories a scan

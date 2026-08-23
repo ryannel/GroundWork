@@ -117,10 +117,13 @@ func checkHonesty(c Context) Result {
 	// A red found on one surface outranks a surface the scan could not open.
 	// The red is a defect somebody has to fix; the unreadable surface rides in
 	// the same line of evidence so neither is lost.
-	tail := notes.String()
+	// Ordered most droppable first: a red line gives up a clause of its tail
+	// before it gives up the name of a hit, and it gives up the front one.
+	var clauses []string
 	if len(blocked) > 0 {
-		tail = "; " + listed(blocked, "; ") + tail
+		clauses = append(clauses, listed(blocked, "; "))
 	}
+	clauses = append(clauses, notes.clauses()...)
 
 	switch {
 	case len(hits) > 0:
@@ -129,7 +132,7 @@ func checkHonesty(c Context) Result {
 			Evidence: hitEvidence(
 				fmt.Sprintf("the honesty scan found %s that cannot fail: ",
 					counted(len(hits), "test", "tests")),
-				hits, tail),
+				hits, clauses),
 		}
 
 	case len(blocked) > 0:
@@ -187,7 +190,7 @@ func readSuite(s scanned, dir string, tests []string) (int, []hit, scanNotes) {
 		}
 
 		path := filepath.Join(dir, entry.Name())
-		src, state := openFile(path, entry, &notes)
+		src, state, _ := openFile(path, entry, &notes)
 		if state != fileRead {
 			continue
 		}

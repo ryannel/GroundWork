@@ -409,7 +409,7 @@ func targetsOf(ctx context.Context, s scanned, surface manifest.Surface, seam mu
 
 				continue
 			}
-			if _, state := openFile(p, fs.FileInfoToDirEntry(info), &t.notes); state != fileRead {
+			if _, state, _ := openFile(p, fs.FileInfoToDirEntry(info), &t.notes); state != fileRead {
 				continue
 			}
 
