@@ -334,14 +334,3 @@ What happened: fixed in the same slice, because the bump that exposed them is th
 
 Caught by: battery — the deletion test on this repo, after the version bump rotated its sample
 Class: unrun-proof — three functions whose suites passed without them
-
-## F29 — 2026-08-23 — The battery's third catch: the rotated sample found three survivors
-
-What it is: moving the battery to 5.0 rotated the deletion test's sample, by design, and the new sample drew three real survivors from this repo: an adapter accessor, the findings class list, and the journal's diff reader. The sharp one was findings.Classes — its only test read it in a loop, so an empty list passed on nothing, the same shape D17 exists to kill.
-
-What caught it: the battery — the mutate row at 5.0, on the sample the version bump rotated in.
-
-What happened: one pinning test per function, each proven by blanking the function and watching the test die. No existing test was changed. The gaps were fixed, never the scan — the third time this repo's own machinery caught its own code.
-
-Caught by: battery — the mutate row's rotated sample at 5.0
-Class: unrun-proof
