@@ -458,3 +458,15 @@ Seven rulings from the slice 6 review.
 7. An ignored waiver is named in the loud block and the journal, never on the row's own evidence line. D24's "red naming it" is satisfied by the block beside the table; D36's exactly-sized lines are not spent on it.
 
 Why: a waiver is the one mechanism that turns red into not-red, so its authority chain has to be airtight. The review broke it with an ordinary feature commit — the exact shape D24 was written to forbid.
+
+## D39 — 2026-08-23 — The record-not-written class tripped its threshold: records get a mechanical check
+
+Three findings share the class: stale counts at ratification (F2), the holdout record that a ruling required and nobody wrote (F20), and a handoff that stopped moving while the work went on (F25). The common cause is the same one the spec names: a record that relies on someone remembering does not get written.
+
+The upgrade, in two parts.
+
+1. Now: the driver's landing checklist is mechanical. Before a slice lands, the driver verifies in one pass that the evidence directory exists, the ledger entries for the round are appended, and the handoff file's timestamp postdates the round's last code change. A dispatch that ends a round names the record it must have moved.
+
+2. Bet 3: the record machinery makes the check a verb. The seal work already reads the journal and the tree; a `record` check that fails loudly when a required record is missing or stale joins it, so the checklist stops being the driver's memory — which is the defect this class keeps finding.
+
+Why: findings recur caught this trip in CI the moment F25 landed. The cure for records that depend on remembering is machinery that does not.
