@@ -16,8 +16,15 @@ var ErrShortLine = errors.New("record: line has fewer than three fields")
 //
 // The first field is the kind, the second is the host, and the rest join
 // with single spaces to make the message.
-//
-// Building the record is slice s_record_parse, which has not landed yet.
 func Parse(line string) (Record, error) {
-	return Record{}, nil
+	f := Fields(line)
+	if len(f) < 3 {
+		return Record{}, ErrShortLine
+	}
+
+	msg := f[2]
+	for _, extra := range f[3:] {
+		msg += " " + extra
+	}
+	return Record{Kind: f[0], Host: f[1], Msg: msg}, nil
 }
