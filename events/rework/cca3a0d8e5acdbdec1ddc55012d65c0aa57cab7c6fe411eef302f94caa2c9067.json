@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T07:20:16.242581861Z","kind":"battery-row","session":"rework","seq":33,"commit":"24850cb04c06af4a2e321661402ada86bfc50ef7","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T072016Z-0036","row":"honesty","outcome":"green","evidence":"the honesty scan read 464 tests in 7 suites, and every one can fail","duration_ms":31}
