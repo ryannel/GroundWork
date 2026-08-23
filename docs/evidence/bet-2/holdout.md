@@ -143,4 +143,151 @@ The keys sit at each root as the final commit, touching only ANSWER-KEY.json. Th
 
 ## The second grading record
 
-Written by the 5.0 grading dispatch. Empty until then.
+Written by the 5.0 grading dispatch, after the runs were recorded. The run record is `/tmp/holdout2-run/RUNS.md`. The keys were read only here.
+
+### What was graded
+
+- Battery: `5.0+rb7b57ef`, built from GroundWork `b8552ccd4de57de813b7ebb42feec37964606542`.
+- quarrytools: key commit `58faa0e`, run at its parent `8dc6b9b`, plus the adoption commit `6521be1`. A Go library, six packages, fifteen exported functions, no unexported ones.
+- stonecrop: key commit `c7f18c6`, run at its parent `104a304`, plus the adoption commit `52b81ca`. A node library, five helpers, twenty-six tests.
+- GroundWork itself, at `b8552cc`, for the no-false-reds direction.
+
+Each holdout ran twice, back to back. Both pairs came out identical apart from the run id.
+
+Where the printed evidence was cut short, I rebuilt the missing part rather than guess. Three rebuilds, all in a scratch directory of my own:
+
+1. All fifteen quarrytools mutants, made by hand and run one at a time.
+2. The sample the run actually drew, recomputed from the row's own rule — the target hashed with the version, sorted, first ten.
+3. The honesty row run against four scratch copies of quarrytools, each holding one stats test.
+
+I also ran one counterfactual on stonecrop, described under the adapter question below.
+
+Nothing in either holdout repo was changed. Nothing under /home/user/GroundWork was changed by me except this file.
+
+### quarrytools: planted defect against verify's answer
+
+| Capability | Key | What verify said | Grade |
+| --- | --- | --- | --- |
+| slug | honest | No row named it. Neither of its two mutants was in the sample. | Right, but untested by the mutate row. |
+| wordwrap | honest | The mutate row killed `Lines` and `Indent`. It also named `wordwrap.Wrap` as a survivor, behind the truncation. | The survivor is real — see the audit. Not a false red. |
+| romanize | honest | No row named it. Neither of its two mutants was in the sample. | Right, but untested by the mutate row. |
+| chunk | hollow, deletion-survivor | mutate red: "chunk/chunk.go:5 Split survived, and the 2 tests of chunk stayed green". wiring red: "chunk/chunk.go:24 Count is exported and nothing in the module names it". | Full catch, twice over, by two different rows. |
+| csvlite | hollow, never-run | run-evidence red: "5 tests that never ran: csvlite/TestFormatLine never ran; csvlite/TestHeader never ran; csvlite/TestParseLine never ran and 2 more". mutate red: `ParseLine` survived "and no test covers csvlite". | Full catch, twice over. The count is exact: csvlite holds five tests. |
+| stats | hollow, vacuous | honesty red: "3 tests that cannot fail: stats/stats_test.go:7 TestMean only asserts under a condition that compares a value to itself and 2 more". mutate: `Mean` survived. | Full catch. Three of the key's four tests named. |
+
+Three of three hollow capabilities were caught, each with evidence a reader can act on.
+
+The mutation sweep, rebuilt by hand. Fifteen targets, one blanked at a time, that package's tests run:
+
+| Package | Killed | Survived | Would not compile |
+| --- | --- | --- | --- |
+| slug | Truncate | — | Make |
+| wordwrap | Lines, Indent | Wrap | — |
+| romanize | Format, Parse | — | — |
+| chunk | — | Split, Count | — |
+| csvlite | — | ParseLine, FormatLine, Header | — |
+| stats | — | Mean | Median, StdDev |
+
+Five killed, seven survived, three would not compile. The run sampled ten of the fifteen. I recomputed the sample from the row's own rule and it is: Median, Indent, Lines, FormatLine, Split, Header, Mean, Wrap, ParseLine, StdDev. Against my sweep that is killed 2, survived 6, inconclusive 2 — exactly the line the run printed. Every one of the six survivors is real.
+
+### stonecrop: planted defect against verify's answer
+
+| Capability | Key | What verify said | Grade |
+| --- | --- | --- | --- |
+| titleCase | honest | No row named it. run-evidence reconciled its 5 tests. | Right. |
+| query | honest | No row named it. run-evidence reconciled its 8 tests. | Right. |
+| movingAverage | hollow, deletion-survivor | Nothing. The mutate row is unrunnable on a node surface. | Missed. Expected loss, already named in F28. |
+| backoff | hollow, never-run | Nothing. The adapter found the suite, ran it, and every test passed. | Missed. Adoption artifact — see below. |
+| bytes | hollow, vacuous | Nothing. The honesty row is unrunnable on a node surface. | Missed. Expected loss, already named in F28. |
+
+None of the three hollow capabilities was flagged. The run exited 0. A repo holding three planted hollow capabilities passed clean.
+
+### The false-red audit
+
+Every red the five runs printed, and whether the key or the repo backs it.
+
+| Red | Backed? | Verdict |
+| --- | --- | --- |
+| quarrytools honesty | Yes. All three named tests sit in stats, which the key calls vacuous. Each was confirmed on its own. | True red. |
+| quarrytools wiring | Yes. See below. | True red. |
+| quarrytools run-evidence | Yes. The key calls csvlite never-run. The five named tests are csvlite's five tests. | True red. |
+| quarrytools mutate | Yes. All six survivors were re-made by hand and all six survive. | True red. |
+| stonecrop | No reds. Exit 0, 4 green, 3 unrunnable. | No false red, and no catch either. |
+| GroundWork itself | No reds. Exit 0, 7 rows green, 337 seconds, working tree clean before and after. | Clean. |
+
+**There is no false red in this set.** That is the change from 4.0.
+
+**The wiring red, read closely.** The row named one function: `chunk.Count`. Under D41 a library's export is dead only when nothing in the module names it at all, tests included. I checked every Go file in the repo. The name `Count` appears twice, and both are inside `chunk/chunk.go`: its own declaration on line 24, and a doc comment on line 23. The scan reads comments only for `//go:linkname` and `//export`, so neither counts. Nothing else in the module names it. The key backs the shape: it says `chunk/chunk_test.go` never calls `Split` or `Count`. So the red is true, and it is the exact shape D41 kept teeth for — an export nothing at all names, including no test.
+
+The row is doing better than the plain statement suggests. `Count` is documented in the README as part of what chunk offers. It is a real, intended export with no test and no caller, and the row is the only place a reader would learn that.
+
+The row also missed `chunk.Split`, which has the same defect. `Split` reads as wired because `strings.Split` appears in wordwrap. That is the row's own written rule — names are matched, not types — and it is precision bought with recall. It is a recall miss, not a false red.
+
+**The wordwrap.Wrap survivor.** This one needs saying plainly, because it is a red touching a capability the key calls honest. Blanking `Wrap` to `return ""` leaves wordwrap's suite green. I confirmed it by hand. The only test that touches `Wrap` is `TestWrapWidthRespected`, and it asserts an upper bound: no line over twelve characters. An empty string passes that. So the row's statement is true and the hole is real. The key's author planted nothing here and did not notice it. The battery found a genuine weakness the key does not describe. It is not a false red, and a reviewer acting on it would strengthen the test rather than waive the row.
+
+That survivor was hidden behind "and 5 more". Nobody reading stdout would have seen it.
+
+### The adapter question: backoff
+
+The key calls backoff never-run: its tests sit in `test/backoff.spec.js`, and `package.json`'s test script globs `test/*.test.js`, which does not match. So `npm test` never runs those five tests.
+
+The adopter's adapter matched both `.test.` and `.spec.` files. So the suite was discovered, run, and passed. The manifest row went green and the run-evidence row reconciled twenty-six tests.
+
+I ran the counterfactual. I copied the scratch checkout, narrowed the adapter's one regex to `/\.test\.(m|c)?js$/` — the project's own glob — and ran verify again. It said:
+
+```
+manifest      red         .groundwork/manifest.json declares 1 capability no suite proves: backoff
+run-evidence  green       the run-evidence row reconciled 21 discovered tests in 4 suites on 1 surface, and the run log names every one
+7 rows: green 3, red 1, waived 0, quarantined 0, unrunnable 3
+```
+
+Exit 1. So the signal existed and the adoption erased it.
+
+**Adoption artifact.** The adapter is the adopter's file, and its glob is the adopter's choice. A wider glob than the project's own turned a never-run capability into a passing one.
+
+Behind that sits a battery gap. No row in this battery reads `package.json` at all — I checked, there is no reference to it anywhere in the tool. Discovery on a node surface is whatever the adapter says it is. So the battery has no row this bet that could catch "a suite the project's own test command never runs" on a node surface. The 4.0 record said the same thing about an orphan spec file, and F28 carries it. This set is the second holdout to hit it.
+
+Two things follow, and they are different. The catch was available and was lost to adoption. The catch was also fragile: it only ever existed because the adopter declared backoff as a capability. Had the adapter been narrow and the manifest silent about backoff, the repo would have printed no red either way.
+
+### The unrunnable rows
+
+Three on stonecrop, and all three sentences are honest. Each names what the scan reads, names the surface, and says why it cannot read it. None claims the surface passed.
+
+- honesty: "the honesty scan reads Go test source, and the surface "lib" is written in node, which this scan cannot read yet" — honest and clear.
+- wiring: "the wiring scan reads Go source, and the surface "lib" is written in node, which this scan cannot read yet" — honest and clear.
+- mutate: "the deletion test found no target it could judge; the surface "lib" is node, and a mutation run there lands with that stack's adapter" — honest, and the same indirect ending the 4.0 grading flagged. It still does not tell a reader that node mutation arrives in a later bet.
+
+What they cost, on this set: movingAverage's deletion survivor and bytes's vacuous assertions both went uncaught. Both are expected losses this bet.
+
+There is a new cost that 4.0 did not have to name. Unrunnable does not fail a run. On ts-tallysheet a red elsewhere carried the exit code to 1. On stonecrop nothing was red, so three unrunnable rows and four green ones exited 0. A reader who sees only the exit code learns nothing about the three rows that could not look.
+
+### Two things worth recording
+
+Neither is a false red. Both repeat something the 4.0 grading found.
+
+1. **The honesty row missed the same shape again.** The key names four bad tests in stats. The row named three: `TestMean`, `TestStdDev`, `TestEmptyInput`. I confirmed each on its own copy. The one it missed is `TestMedian`, which calls `Median(sample)` twice and compares the two results. The self-comparison check ignores a comparison where either side holds a call, on purpose and in writing, to avoid a false red. That is the same rule and the same miss as go-fieldkit's `TestValidIsConsistent` at 4.0. Two holdouts in a row have planted it.
+
+2. **The truncated names hid the most surprising finding.** The mutate line named two survivors and said "and 5 more". Those five are the other four survivors plus a note reading "1 file was left out of this build" — csvlite's build-tagged test file, which the Go build reports as ignored. Both facts are worth a reader's time. The `wordwrap.Wrap` survivor is the one nobody would have predicted, and the ignored-file note is a second, independent hint at the csvlite plant. Neither reached stdout, and neither exists anywhere else. `verify` still needs a way to print full evidence.
+
+### The ladder's done-when, clause by clause
+
+Judged on this set at `5.0+rb7b57ef`. The 4.0 grading above stands as history.
+
+| Clause | Verdict | Evidence |
+| --- | --- | --- |
+| "verify correctly classifies two repos it was never tuned against" | Partly met | quarrytools: three of three hollow capabilities caught, exit 1, no false red. stonecrop: none of three caught, exit 0 — a repo with three planted hollows passed clean. |
+| "It calls a suite red when tests survive the implementation being deleted." | Met, on Go surfaces | chunk caught: `Split` survived and chunk's two tests stayed green. All six named survivors verified by hand. Unrunnable on node, so movingAverage went uncaught. |
+| "It calls a suite red when tests compile but never run." | Met on Go, not met on node | csvlite caught: run-evidence red naming five tests, the exact five. backoff missed: the adopter's adapter ran the suite the project's own script never runs, and no row reads that script. |
+| "It calls a suite red when assertions are vacuous." | Met, on Go surfaces | stats caught: honesty red naming three of the key's four tests. Unrunnable on node, so bytes went uncaught. |
+| "It calls honest work green." | Met | No false red on either repo. The wiring row, now profile-aware, named one export the key backs and left every honest package's public API alone. One true red touches a key-honest capability — `wordwrap.Wrap` really does survive deletion — and that is a real hole, not an invention. |
+| "Run against this repo's own history, it produces no false reds." | Met, at `b8552cc` | 7 rows green, exit 0, 337 seconds, working tree clean before and after. The run covers HEAD, not a walk of every commit. |
+| "A wrong check can be waived; the waiver gets recorded and counted." | Proven in slice 6 | Not contradicted here. Every one of the five runs printed "waived 0". |
+| "A flaky row quarantines instead of blocking the run." | Proven in slice 6 | Not contradicted here. Every run printed "quarantined 0", and both holdout pairs were byte-identical apart from the run id. No flake surfaced to test it. |
+
+### In a minute
+
+The D41 fix holds. On a Go library it had never seen, the wiring row fired once, on `chunk.Count` — an export the README documents, no test names, and no caller reaches. The key backs it. That is the shape D41 kept teeth for, and it is the row working as designed. Across five runs and every red they printed, there is no false red in this set. At 4.0 the wiring row called eight of eleven public functions dead; at 5.0 it called one, and that one was right.
+
+The Go side is the strongest result the battery has produced. All three planted hollow capabilities were caught, two of them by two rows each, and every survivor and every named test checks out against the repo. The battery also found a hole the key's author did not plant: deleting `wordwrap.Wrap` leaves an honest suite green, because its only test asserts an upper bound an empty string satisfies. Both of the recall limits from 4.0 came back — the honesty row again ignored a comparison of two call results, and the truncated evidence again hid the finding a reader most needed.
+
+The node side is where the bet's condition fails now. stonecrop exited 0 with three hollow capabilities inside it. Two are expected losses behind unrunnable rows, and F28 already carries them. The third is not: backoff's tests are never run by the project's own script, the manifest row would have said so, and the adopter's adapter matched a wider glob and ran them anyway. I confirmed that by narrowing the glob and re-running — the row goes red and names backoff. No row in the battery reads `package.json`, so nothing else could have caught it. The done-when's held-out clause is still not met as written, but the reason has moved: at 4.0 it was a false red, and at 5.0 it is a node surface that cannot be judged and an exit code that says nothing about it.

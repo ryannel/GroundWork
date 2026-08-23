@@ -498,3 +498,13 @@ D41 said the wiring row reads the profile. Building it needed three smaller call
 3. A directory declared under two surfaces, one of them a library, is judged as a library. That is this row's standing posture — precision over recall, every doubt resolved green — and the library declaration is the one saying the callers may live where this scan cannot look.
 
 Why: all three are inside the ruling, not beside it. Each is written into the row's own comment so the next reader meets it there rather than here.
+
+## D43 — 2026-08-23 — Bet 2 closes
+
+The audit, clause by clause, stands in docs/evidence/bet-2/holdout.md: both gradings, both directions, nothing papered over. The judgment this entry records:
+
+Every done-when clause is met on the surfaces the bet's ruled scope covers. The deletion test, the never-run reconciliation, the vacuous-assertion scan, honest-work-green, no-false-reds on this repo, waivers, and the flake policy all held on the second held-out set at 5.0 — with zero false reds on a library profile the battery had never seen, against eight at 4.0. The clause that reads partly met does so entirely on node surfaces, whose scans and mutation D25 and D26 placed in later bets before slice 1 ran; the losses there are named in F28 and F30, and F30 binds the later adapter bet to pin discovery to the project's own test command.
+
+The bet's ledger: eight slices, five bounces, three review rounds at the deepest, thirteen findings (F18–F30), eleven rulings (D33–D43), three catches by the battery on its own repo, two sealed held-out sets — the first burned by its own catch, which is the mechanism working. The branch merges to main by PR 34; the wip-snapshot branch is deleted at close per D27; the next bet restarts the branch from main.
+
+Why closing is right: the ladder's letter on node surfaces cannot be met by a bet that was ruled not to build node scanning, and pretending otherwise would either block the ladder on scope nobody ruled into this bet or invite quiet re-scoping. The record says exactly what is proven, on what, and what is owed.

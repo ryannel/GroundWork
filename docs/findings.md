@@ -334,3 +334,14 @@ What happened: fixed in the same slice, because the bump that exposed them is th
 
 Caught by: battery — the deletion test on this repo, after the version bump rotated its sample
 Class: unrun-proof — three functions whose suites passed without them
+
+## F30 — 2026-08-23 — An adoption choice erased the one node-side catch
+
+What it is: stonecrop's never-run plant — a suite the project's own test command never matches — was caught by the manifest row only under an adapter that discovers exactly what the project's test command runs. The runner's adapter matched a wider glob, ran the orphan suite, and the catch vanished: exit 0 over three hollow capabilities. No battery row reads the project's own test command, so nothing could notice the difference. The grader proved both directions: narrow the glob and the manifest row goes red naming backoff.
+
+What caught it: the 5.0 grading, auditing the adapter question the runner had flagged.
+
+What happened: recorded against the later bet that ships node-surface scans — the adapter conformance there must pin discovery to the project's own test command, so an adopter cannot widen away a never-run signal. The Go side of the same grading was clean: no false reds, all plants caught, one unplanted real hole found.
+
+Caught by: blind-review — the 5.0 grading dispatch
+Class: coverage-gap
