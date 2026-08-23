@@ -301,3 +301,25 @@ What happened: the driver ruled D40 — a merge never governs a waiver, extendin
 Caught by: blind-review — slice 6's closure check
 Class: green-but-wrong
 Class: unrun-proof
+
+## F27 — 2026-08-23 — The holdout's catch: the wiring row calls a library's public API dead
+
+What it is: the wiring row's rule — an exported function no non-test file names is unwired — is wrong for a library, whose callers live in other repos. On the held-out go-fieldkit it flagged 8 of 11 exported functions, including the public API of all three capabilities the key calls honest. The one false red of the grading, and the bet's done condition says there must be none. The row never reads the manifest's profile; the token row beside it does, and stands down by name on the same declaration.
+
+What caught it: the held-out grading — a repo shape the battery had never faced. This repo is a cli surface whose exports all have in-repo callers, so the row could never fail here.
+
+What happened: ruled in D41 — the wiring row learns profiles, and the fix is tuning after a graded run, so the battery version moves major and the 4.0 grading stands as recorded on a burned holdout. The fix lands as its own slice.
+
+Caught by: battery — the held-out grading run, the mechanism built to catch exactly this
+Class: coverage-gap — a rule shipped without ever confronting the profile it misjudges
+
+## F28 — 2026-08-23 — Named losses on the node surface, so the record carries them
+
+What it is: two planted defects went uncaught on ts-tallysheet: a deletion survivor and a vacuous suite, both behind rows that are unrunnable on a node surface this bet. And the one catch there leans on the adopter: had summary not been declared, three hollow capabilities would have passed unseen — no row this bet finds an orphan spec file on a node surface. The unrunnable sentences themselves graded honest.
+
+What caught it: the held-out grading, naming what the unrunnable rows cost.
+
+What happened: recorded as expected losses. The node-surface scans and mutation land with the adapter seam's later bets; this entry is the marker that the gap is known, not missed — F13's lesson.
+
+Caught by: blind-review — the grading dispatch's audit of the unrunnable rows
+Class: coverage-gap

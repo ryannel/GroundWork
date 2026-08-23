@@ -476,3 +476,13 @@ Why: findings recur caught this trip in CI the moment F25 landed. The cure for r
 The closure check re-opened the hijack through a merge: the diff reader shows nothing for a merge commit, so a waiver rewritten inside one stood, row swapped and expiry renewed. The ruling extends D37.3 from introduction to governance: a merge is not a granting act, and a waiver whose governing commit — the last commit that changed it — is a merge is ignored, naming the merge. Two branches that re-grant the same waiver and conflict resolve the conflict, then re-grant in a commit of their own on the merged branch. That friction is the cost of an authority chain with one link shape.
 
 Why: the alternative was teaching the diff reader merge semantics — more code on the exact surface an attacker probes, to bless a case a one-line re-grant makes unnecessary. Fail-closed and simple beats clever here.
+
+## D41 — 2026-08-23 — The wiring row learns profiles, and the battery pays the holdout's price
+
+Two rulings from the held-out grading.
+
+1. The wiring row reads the manifest's profile, the way the token row already does. On a library profile, an exported function is the product — its callers live in other repos, and their absence proves nothing. The row keeps its teeth where they are honest: an unexported function nothing reaches, and an exported function that nothing at all names, tests included. The spec's own library profile says the front door is a consumer example; the consumer-fixture round trip that proves exports for real arrives with that machinery, and this entry names the deferral.
+
+2. The fix is tuning after a graded run, so D26's price is paid in full: the battery version moves major, to 5.0, and both holdout repos are burned. The 4.0 grading stands as recorded — it is the record of the catch. Any future claim against the done-when's held-out clause needs freshly authored holdouts at the new version.
+
+Why: the holdout existed to find the rule this repo's shape could never break. It did, on its first run. Fixing the rule and pretending the same repos still count as unseen would turn the sealed-key discipline into theatre.
