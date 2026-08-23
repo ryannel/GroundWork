@@ -486,3 +486,27 @@ Two rulings from the held-out grading.
 2. The fix is tuning after a graded run, so D26's price is paid in full: the battery version moves major, to 5.0, and both holdout repos are burned. The 4.0 grading stands as recorded — it is the record of the catch. Any future claim against the done-when's held-out clause needs freshly authored holdouts at the new version.
 
 Why: the holdout existed to find the rule this repo's shape could never break. It did, on its first run. Fixing the rule and pretending the same repos still count as unseen would turn the sealed-key discipline into theatre.
+
+## D42 — 2026-08-23 — Slice 8 rulings: the three small calls inside D41
+
+D41 said the wiring row reads the profile. Building it needed three smaller calls, taken here rather than asked.
+
+1. `init` is never a candidate. The runtime calls it and no file names it, so an init nothing mentions is every init ever written, not dead code. The rule only bites now, because a library is the first profile whose unexported functions are judged.
+
+2. Test files are swept for references only when a library surface is declared. A library's exports are judged on what its tests name, so the sweep has to reach them. A repo with no library surface is swept exactly as before, and its evidence is byte-identical. The completeness rule follows: on a library, a test file that will not parse leaves the row unrunnable, because an export could otherwise look dead when the only file naming it went unread.
+
+3. A directory declared under two surfaces, one of them a library, is judged as a library. That is this row's standing posture — precision over recall, every doubt resolved green — and the library declaration is the one saying the callers may live where this scan cannot look.
+
+Why: all three are inside the ruling, not beside it. Each is written into the row's own comment so the next reader meets it there rather than here.
+
+## D42 — 2026-08-23 — Three small calls inside the wiring fix, recorded
+
+From the slice 8 build, each also written at the code site.
+
+1. init functions are never wiring candidates — the runtime calls them, so no caller can prove or disprove them.
+
+2. On a library profile, the exported-named-by-nothing check sweeps test files too, and the sweep is complete or the row refuses: a test file it cannot read makes the row unrunnable naming the file, never a red built on a partial sweep.
+
+3. A surface declared under two profiles resolves library-wins for the wiring rule — the looser reading, because a false red is the costlier error, and the stricter profiles keep their own rule on their own surfaces.
+
+Why recorded: D8's lesson — a call made inside a slice and written nowhere is a call two slices will make two ways.

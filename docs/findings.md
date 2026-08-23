@@ -323,3 +323,25 @@ What happened: recorded as expected losses. The node-surface scans and mutation 
 
 Caught by: blind-review — the grading dispatch's audit of the unrunnable rows
 Class: coverage-gap
+
+## F29 — 2026-08-23 — The version bump rotated the mutation sample, and three real survivors fell out
+
+What it is: three of this repo's own exported functions survive being deleted. `internal/adapter/exec.go` `(*Exec).Name`, `internal/findings/findings.go` `Classes`, and `internal/journal/git.go` `FilesIn` were each blanked and their package's whole suite stayed green. All three are used and all three are wrong to be unproven: Name is how a run says which stack an answer came from, Classes is the defect vocabulary every class check reads, and FilesIn is what tells a waiver commit from a commit that carried something else. `Classes` is the sharpest of the three — the one test that touched it read it in a loop, so an empty list made the loop pass on nothing.
+
+What caught it: the battery's own deletion test, on this repo, once D41 moved the version to 5.0. The sample is drawn from the target list hashed with the version, on purpose, so that coverage walks the codebase instead of circling one corner of it. The bump drew a different 10 of the 73 targets and these three were in it. At 4.0 none of them had ever been sampled.
+
+What happened: fixed in the same slice, because the bump that exposed them is that slice's own. One test per function, each proven by blanking the function and watching the new test die. No existing test was changed.
+
+Caught by: battery — the deletion test on this repo, after the version bump rotated its sample
+Class: unrun-proof — three functions whose suites passed without them
+
+## F29 — 2026-08-23 — The battery's third catch: the rotated sample found three survivors
+
+What it is: moving the battery to 5.0 rotated the deletion test's sample, by design, and the new sample drew three real survivors from this repo: an adapter accessor, the findings class list, and the journal's diff reader. The sharp one was findings.Classes — its only test read it in a loop, so an empty list passed on nothing, the same shape D17 exists to kill.
+
+What caught it: the battery — the mutate row at 5.0, on the sample the version bump rotated in.
+
+What happened: one pinning test per function, each proven by blanking the function and watching the test die. No existing test was changed. The gaps were fixed, never the scan — the third time this repo's own machinery caught its own code.
+
+Caught by: battery — the mutate row's rotated sample at 5.0
+Class: unrun-proof
