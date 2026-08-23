@@ -392,3 +392,13 @@ The slice 5 blind review bounced the deletion test. These rulings resolve what i
 6. Every error path renders its reason the way the scans do: paths relative to the repo, length capped, before the journal sees it.
 
 Why: the row's job is telling the truth about other suites. A row that misclassifies its own failure modes — the build's exclusions, its own clock, its own copy — cannot be trusted on anyone else's.
+
+## D34 — 2026-08-23 — A mutant that crashes the suite is a kill
+
+The mutate row asks one question: did the suite notice the mutant. A package whose baseline run is clean, and whose run crashes with the mutant applied, has noticed. D32 already rules a panic a failure path. So a crash under mutation counts as a kill, and the line says how many kills were crashes.
+
+D25 is untouched. The run-evidence reconciliation still refuses a partial log from a crashed run — that row must tally every test, and a crash makes the tally a lie. The mutate row's question is narrower, and the crash itself is the answer.
+
+The cost note rides here too: verify on this repo is 241 seconds, the mutate row the larger half. Recorded so the price is chosen. The trend publication proof.md asks for is a later bet's work.
+
+Why: on this repo two of ten sampled mutants blow the test binary up during registration. Calling that "did not finish" was honest but backwards — a suite that explodes over a deleted function did not fail to notice it. And bet 14 will put thresholds on inconclusive rates, so an inconclusive class holding real kills would poison those numbers.
