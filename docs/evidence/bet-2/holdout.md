@@ -131,3 +131,16 @@ Two smaller things. The deletion test cannot judge a function that is its packag
 
 The bet's done condition is not met as written: there is one false red, and honest work was called red by it. Everything else in the clause list holds.
 
+
+## The second held-out set, for the 5.0 grading
+
+D41 burned the first set: fixing the wiring row after its graded run was tuning, so any new claim against the done-when's held-out clause needs fresh repos. These are they, authored 2026-08-23 by a fresh dispatch that read nothing under this repository and pushed through git alone.
+
+- `holdout2-go-quarrytools` — a Go library, six packages. Tip at sealing: 58faa0e.
+- `holdout2-ts-stonecrop` — a zero-dependency node library, five helpers. Tip at sealing: c7f18c6.
+
+The keys sit at each root as the final commit, touching only ANSWER-KEY.json. The same rules bind: no battery builder and no driver reads them; only the grading dispatch, after the runs are recorded; a graded run burns the repo.
+
+## The second grading record
+
+Written by the 5.0 grading dispatch. Empty until then.
