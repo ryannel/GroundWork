@@ -242,3 +242,15 @@ What happened: bounce, the second on this slice and the fourth of the rebuild. T
 Caught by: blind-review — slice 5's re-review of the rework
 Class: green-but-wrong
 Class: unrun-proof
+
+## F22 — 2026-08-23 — The third round on slice 5: the ladder's last rung, and two guards proven hollow
+
+What it is: the verification review confirmed all three second-round escapes closed, and found the round's own headline claim short. The evidence ladder's last rung can exceed the journal cap on legal inputs — a long declared version with a grading-sized sample — after which a count is cut, the one thing D35 forbids. The two could-not-write guards each passed the other's only test, and removing one turns an unwritable mutant into a false-red survivor. And the borrowed-record guard refuses a .git file anywhere in the tree, so a self-contained project keeping a linked-worktree fixture under testdata goes permanently unrunnable on a false sentence.
+
+What caught it: the slice's verification review — the third round, which computed the line's bound from the code's own wordings instead of trusting the handoff's measured 194 bytes.
+
+What happened: bounce, narrower than the last. The rulings are D36: the last rung provably fits by collapsing classes, and the guard refuses only where a .git file can govern a run. The fix round follows. A pre-existing residue is also on record now: the crash marker is prefix-matched, so a passing suite that prints the timeout panic's words can be misread — older than this slice, noted for a later bet.
+
+Caught by: blind-review — slice 5's verification round
+Class: green-but-wrong
+Class: unrun-proof

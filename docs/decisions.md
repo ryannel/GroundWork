@@ -414,3 +414,13 @@ Two rulings from the second review round.
 And a restatement, because a fix half-read it: D33's numbers-never-cut rule binds the whole accounting. If the full line cannot fit the journal cap, words give way — shorter class names, a shorter verdict — never the counts. A line that still had to cut a count is a defect in the line's design, not an allowed fallback.
 
 Why: both new defects came from the previous round's fixes. The copy became faithful enough to carry an escape, and the crash class became generous enough to swallow a hang. A fix that widens a door gets the same review the door got.
+
+## D36 — 2026-08-23 — Slice 5 third-round rulings: the last rung always fits, and the git guard minds its own business
+
+Two rulings from the verification round.
+
+1. The evidence line's ladder must end on a rung that provably fits the journal cap on any legal input. That rung may collapse the inconclusive classes into one counted total — sampled equals killed plus survived plus inconclusive plus not judged still reconciles — and may drop the version. The full split belongs to rungs that fit. The bound is proven by arithmetic over the widest legal fields, in a committed test, not measured off one fixture.
+
+2. The borrowed-record guard refuses a non-directory .git only where it can govern a run: at the surface root, or at an ancestor of a package the build names. A test runs with its package directory as its working directory, and git resolves its record walking upward — a .git file on no such path cannot capture a run. A linked-worktree fixture under testdata is the project's own business, and refusing it was a false statement about a self-contained project.
+
+Why: both rules are the same lesson as D33's. The row's own record must hold under the row's own arithmetic, and a guard that reaches past what it protects becomes the false red it was built to prevent.
