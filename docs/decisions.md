@@ -424,3 +424,17 @@ Two rulings from the verification round.
 2. The borrowed-record guard refuses a non-directory .git only where it can govern a run: at the surface root, or at an ancestor of a package the build names. A test runs with its package directory as its working directory, and git resolves its record walking upward — a .git file on no such path cannot capture a run. A linked-worktree fixture under testdata is the project's own business, and refusing it was a false statement about a self-contained project.
 
 Why: both rules are the same lesson as D33's. The row's own record must hold under the row's own arithmetic, and a guard that reaches past what it protects becomes the false red it was built to prevent.
+
+## D37 — 2026-08-23 — Slice 6 rulings: waivers must work where they are enforced
+
+Five answers to the slice's open questions.
+
+1. CI fetches full history. A waiver's authority is its introducing commit, and a shallow clone hides that commit, so every waiver would be ignored exactly where the gate runs. The one-line change to ci.yml lands with this slice, by this ruling. A mechanism that silently no-ops at its enforcement point is the quiet green D10 exists to catch.
+
+2. The waiver counter — three of one row in a bet, five across the repo file a finding — is a named deferral to bet 3. It reads the journal, and bet 3 owns the journal's chain and the seal machinery. Named here so it is not F13's shape again.
+
+3. A waiver introduced by a merge commit is ignored, and that is correct. D24 says a waiver lands in its own commit touching only waiver files; a merge is not a granting act. Fail-closed stands.
+
+4. The battery version does not move. The digest is over row identity — id, kind, severity — and no row changed. Waived and quarantined becoming reachable is the run honouring its own vocabulary, not a row made less strict.
+
+5. The loud block repeats the waived row's line on purpose. D24 says printed loudly; twice is loud.
