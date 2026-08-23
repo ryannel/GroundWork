@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"slices"
@@ -64,6 +65,74 @@ const stderrCap = 8 << 10
 // waitDelay is how long the runner waits for a killed process's pipes to close
 // before it tears them down itself.
 const waitDelay = 2 * time.Second
+
+// bounded wires a command so that this tool can always take it away.
+//
+// Three things, and each covers a different escape. The command runs in a
+// process group of its own, so killing it kills whatever it started. Cancelling
+// kills that whole group rather than the one process, because a runner that
+// killed only its child would leave the grandchild holding the machine. And the
+// wait delay ends the wait for output: a process that escaped the group still
+// owns the write end of the pipe, and without a delay the runner would sit on
+// it for as long as that process lives.
+func bounded(cmd *exec.Cmd) {
+	inOwnGroup(cmd)
+	cmd.Cancel = func() error { return killGroup(cmd) }
+	cmd.WaitDelay = waitDelay
+}
+
+// childEnv is the environment every child of this tool runs in: this process's
+// own, with two things settled.
+//
+// PWD is pinned to the directory the child starts in, and any PWD this process
+// inherited is dropped rather than left beside it. The two must agree. The go
+// tool prefers $PWD whenever it names the same directory it is in, and a plain
+// cd through a symlink leaves $PWD naming the link — so a child that inherited
+// it answers in paths from a tree the caller never asked about. What the caller
+// then measures from the project root climbs out of it, and the tool concludes
+// the project holds nothing.
+//
+// And the child is told it is already inside a battery run. A project whose own
+// suite calls groundwork verify would otherwise run the battery inside the
+// battery, forever; this repo is such a project, and so is any project that
+// checks its own gate.
+func childEnv(dir string, extra ...string) []string {
+	own := os.Environ()
+	env := make([]string, 0, len(own)+2+len(extra))
+
+	for _, kv := range own {
+		if strings.HasPrefix(kv, pwdEnv+"=") {
+			continue
+		}
+		env = append(env, kv)
+	}
+
+	if abs, err := filepath.Abs(dir); err == nil {
+		env = append(env, pwdEnv+"="+abs)
+	}
+	env = append(env, RunGuardEnv+"=1")
+
+	return append(env, extra...)
+}
+
+// pwdEnv is the directory a shell tells its children they are in. It is not
+// always the directory they are in.
+const pwdEnv = "PWD"
+
+// child returns a command wired the way every child of this tool is: pointed at
+// one directory, told the same directory in its environment, put in a process
+// group of its own, and cancellable without leaving anything behind.
+//
+// One place, because three callers needed the same four lines and the one that
+// forgot a line was the one that went wrong.
+func child(ctx context.Context, dir, name string, args ...string) *exec.Cmd {
+	cmd := exec.CommandContext(ctx, name, args...)
+	cmd.Dir = dir
+	cmd.Env = childEnv(dir)
+	bounded(cmd)
+
+	return cmd
+}
 
 // Exec is the out-of-process adapter: one declared command, spoken to over the
 // protocol above.
@@ -262,15 +331,18 @@ func (e *Exec) call(parent context.Context, dir, verb string, args ...string) (r
 	argv := append(slices.Clone(e.command[1:]), verb, project)
 	argv = append(argv, args...)
 
-	cmd := exec.CommandContext(ctx, e.command[0], argv...)
-	cmd.Dir = project
-
-	// The command runs in its own process group, and cancelling kills the
-	// group. An adapter that spawned a test runner of its own would otherwise
-	// survive its parent, holding the machine and the output pipe after the
-	// battery had given up on it.
-	inOwnGroup(cmd)
-	cmd.Cancel = func() error { return killGroup(cmd) }
+	// An adapter that spawned a test runner of its own would otherwise survive
+	// its parent, holding the machine and the output pipe after the battery had
+	// given up on it.
+	//
+	// This path used to leave the child's environment alone. It now gets what
+	// every child of this tool gets, and that is two changes worth naming: PWD
+	// is pinned to the project, and the battery guard is set. The guard is new
+	// here. An out-of-process adapter runs the project's own suite, so a project
+	// whose suite calls groundwork verify could recurse through this path
+	// exactly as it could through the Go one — the guard was missing rather
+	// than deliberately absent.
+	cmd := child(ctx, project, e.command[0], argv...)
 
 	// The cap is enforced as the bytes arrive, and hitting it kills the
 	// command. Buffering a runaway stream to the end and complaining afterwards
@@ -279,7 +351,6 @@ func (e *Exec) call(parent context.Context, dir, verb string, args ...string) (r
 	errOut := &capped{limit: stderrCap}
 	cmd.Stdout = out
 	cmd.Stderr = errOut
-	cmd.WaitDelay = waitDelay
 
 	runErr := cmd.Run()
 

@@ -254,3 +254,14 @@ What happened: bounce, narrower than the last. The rulings are D36: the last run
 Caught by: blind-review — slice 5's verification round
 Class: green-but-wrong
 Class: unrun-proof
+
+## F23 — 2026-08-23 — Two residues accepted at slice 5's close
+
+What it is: the closure check left two small gaps standing. The could-not-read guard is still shielded by its write-side sibling — its lone consequence needs a file to vanish from a directory only the row touches, inside the throwaway copy. And the name-fitting helper under-counts names in shapes no real tally can produce: the trigger needs a trailing name of eight bytes or fewer, and the shortest real name is nineteen.
+
+What caught it: the closure check on the slice's third review round.
+
+What happened: both accepted as residue by driver ruling, recorded here so they are known rather than found again. Either becomes real work the day its trigger becomes reachable.
+
+Caught by: blind-review — slice 5's closure check
+Class: other — accepted residue, no live path to a wrong outcome

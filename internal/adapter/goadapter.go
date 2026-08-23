@@ -12,7 +12,6 @@ import (
 	"io"
 	"io/fs"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -164,6 +163,103 @@ func suiteID(root, dir string) string {
 	return filepath.ToSlash(rel)
 }
 
+// goListPackage is one package as go list -json describes it.
+type goListPackage struct {
+	Dir            string
+	ImportPath     string
+	GoFiles        []string
+	CgoFiles       []string
+	IgnoredGoFiles []string
+}
+
+// Packages asks the go toolchain which packages the build compiles under dir,
+// and which source files it compiles into each.
+//
+// This is the build's own answer, and the deletion test needs no other. A file
+// the build leaves out compiles nowhere, so no test can notice its deletion; a
+// row that offered it as a target would report a survivor it invented. Discovery
+// reads files instead, and for its own stated reason: a test that never runs is
+// the thing it exists to catch. The two questions are different, so they are
+// asked differently.
+//
+// It is asked with -e, so one directory that does not build cannot hide every
+// other one. A package listed with a broken file still holds targets, and what
+// its own tests do about them is the row's business rather than this call's.
+func (*Go) Packages(ctx context.Context, dir string) ([]Package, error) {
+	root, err := filepath.Abs(dir)
+	if err != nil {
+		return nil, fmt.Errorf("%w: %w", ErrUnrunnable, err)
+	}
+
+	cmd := child(ctx, root, "go", "list", "-e",
+		"-json=Dir,ImportPath,GoFiles,CgoFiles,IgnoredGoFiles", "./...")
+
+	var out, errOut bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &errOut
+
+	runErr := cmd.Run()
+
+	if err := ctx.Err(); err != nil {
+		return nil, fmt.Errorf("%w: go list was stopped: %v", ErrUnrunnable, err)
+	}
+	if runErr != nil && out.Len() == 0 {
+		return nil, fmt.Errorf("%w: go list named no package in %s: %v: %s",
+			ErrUnrunnable, dir, runErr, tail(errOut.String()))
+	}
+
+	return packagesFrom(root, out.Bytes())
+}
+
+// packagesFrom reads what go list printed.
+//
+// It is split out because the go tool's output is input, and D18 says input
+// gets checked rather than trusted. A package named outside the directory this
+// call asked about belongs to somebody else's tree, and a mutation run writes
+// files — so that one is dropped here, where a test can hand this function the
+// shape without having to talk a real go tool into printing it.
+func packagesFrom(root string, raw []byte) ([]Package, error) {
+	var pkgs []Package
+
+	dec := json.NewDecoder(bytes.NewReader(raw))
+	for {
+		var listed goListPackage
+		if err := dec.Decode(&listed); err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			return nil, fmt.Errorf("%w: go list printed a line that is not a package: %w",
+				ErrUnrunnable, err)
+		}
+		if listed.Dir == "" {
+			continue
+		}
+
+		id := suiteID(root, listed.Dir)
+		if !insideRoot(id) {
+			continue
+		}
+
+		pkg := Package{ID: id, Ignored: len(listed.IgnoredGoFiles)}
+		for _, name := range slices.Concat(listed.GoFiles, listed.CgoFiles) {
+			pkg.Files = append(pkg.Files, path.Join(id, name))
+		}
+		slices.Sort(pkg.Files)
+
+		pkgs = append(pkgs, pkg)
+	}
+	slices.SortFunc(pkgs, func(a, b Package) int { return strings.Compare(a.ID, b.ID) })
+
+	return pkgs, nil
+}
+
+// insideRoot reports whether a package id names somewhere inside the directory
+// it was measured from.
+func insideRoot(id string) bool {
+	return id != ".." && !strings.HasPrefix(id, "../") && !filepath.IsAbs(id)
+}
+
 // testingName returns the name a file imports testing under, and whether it
 // imports it at all. Almost always it is testing; an aliased import is rare
 // and cheap to honour.
@@ -250,20 +346,47 @@ type goTestEvent struct {
 // that does not build is an error, because a build failure that came back as
 // an empty green run log is exactly the "suite compiled but never ran" defect
 // the battery exists to catch.
-func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
+func (g *Go) Run(ctx context.Context, dir string) (RunLog, error) {
+	return g.run(ctx, dir, "./...")
+}
+
+// RunPackage runs the tests of one package under dir, named the way discovery
+// names a suite: a directory inside the project, with forward slashes, and "."
+// for the project's own root package.
+//
+// The deletion test needs it. It applies one mutant at a time and asks whether
+// the tests covering that package notice, so running the whole project per
+// mutant would cost the whole suite times the number of mutants — the cost
+// that makes a battery something people bypass.
+//
+// It runs the one package, never what sits under it. The mutant damaged one
+// package's code, and a run that swept the subtree would judge that mutant by
+// suites that never touch it.
+func (g *Go) RunPackage(ctx context.Context, dir, suite string) (RunLog, error) {
+	rel, err := insideProject(suite)
+	if err != nil {
+		return RunLog{}, err
+	}
+
+	pattern := "./" + rel
+	if rel == "." {
+		pattern = "."
+	}
+
+	return g.run(ctx, dir, pattern)
+}
+
+// run is the one go test invocation both shapes above are made of.
+func (*Go) run(ctx context.Context, dir, pattern string) (RunLog, error) {
 	module, err := modulePath(dir)
 	if err != nil {
 		return RunLog{}, err
 	}
 
-	cmd := exec.CommandContext(ctx, "go", "test", "-json", "-count=1", "./...")
-	cmd.Dir = dir
-
-	// The child is told it is already inside a battery run. A project whose own
-	// suite calls groundwork verify would otherwise run the battery inside the
-	// battery, forever; this repo is such a project, and so is any project that
-	// checks its own gate.
-	cmd.Env = append(os.Environ(), RunGuardEnv+"=1")
+	// go test starts a test binary, and killing only go test would leave that
+	// binary running with the machine to itself. That is exactly the shape a
+	// mutant produces when it turns a loop into one that never ends.
+	cmd := child(ctx, dir, "go", "test", "-json", "-count=1", pattern)
 
 	var out, errOut bytes.Buffer
 	cmd.Stdout = &out
@@ -361,6 +484,14 @@ func (*Go) Run(ctx context.Context, dir string) (RunLog, error) {
 		return RunLog{}, fmt.Errorf("%w: go test was stopped: %v", ErrUnrunnable, err)
 	}
 	if crash != "" && running != "" {
+		// D35: go test's own clock writes a panic and a goroutine dump, exactly
+		// like a panicking test. It is the clock noticing the suite rather than
+		// the suite noticing anything, so it is named apart here — at the one
+		// place that can still see the runner's own words.
+		if strings.HasPrefix(crash, testTimeoutPanic) {
+			return RunLog{}, fmt.Errorf("%w: %w: %s", ErrUnrunnable, ErrTimedOut, quoted(crash))
+		}
+
 		return RunLog{}, fmt.Errorf("%w: go test crashed: %s", ErrUnrunnable, quoted(crash))
 	}
 	if len(started) > 0 {
@@ -410,8 +541,11 @@ func buildFailure(failed []string, said map[string]*strings.Builder, stderr stri
 		words = append(words, "the build said nothing about why")
 	}
 
-	return fmt.Errorf("%w: %s did not build: %s",
-		ErrUnrunnable, strings.Join(failed, ", "), tail(strings.Join(words, "; ")))
+	// ErrBuildFailed rides beside ErrUnrunnable so the deletion test can tell a
+	// mutant that never compiled from a run that broke some other way. D26
+	// calls the first one inconclusive, and only that one.
+	return fmt.Errorf("%w: %s %w: %s",
+		ErrUnrunnable, strings.Join(failed, ", "), ErrBuildFailed, tail(strings.Join(words, "; ")))
 }
 
 // goOutcome maps a go test action to an outcome, and says whether the action
@@ -458,8 +592,26 @@ func modulePath(dir string) (string, error) {
 
 // crashMarkers begin the runtime's report of a binary that died: an
 // unrecovered panic, or a fatal runtime error such as a deadlock or a
-// concurrent map write. go test's own timeout writes the first of them too.
+// concurrent map write. go test's own timeout writes the first of them too,
+// which is why ErrTimedOut is picked out of it by name.
+//
+// Known limitation, recorded as F22 for a later bet: a marker is matched on the
+// line's prefix, so a passing suite that prints one of these words at the start
+// of a line of its own output reads as a crash. The goroutine-dump header is
+// required alongside it, which makes that unlikely rather than impossible. The
+// fix is to read go test's own per-test framing rather than its raw output, and
+// that is a change to the seam's parser, not to this list.
 var crashMarkers = []string{"panic: ", "fatal error: "}
+
+// testTimeoutPanic opens the report go test writes when its own clock gives up
+// on a suite: "panic: test timed out after 10m0s".
+//
+// It is one marker rather than a family. go test writes this one line for its
+// own timeout, whether the clock came from -timeout, from GOFLAGS, or from the
+// default, and it writes no fatal-error form of it. A test binary killed from
+// outside prints nothing at all, which is why the seam's own clocks are tracked
+// separately from this.
+const testTimeoutPanic = "panic: test timed out"
 
 // runningGoroutine matches the header of the stack dump a crash prints. It is
 // required alongside a marker before a run is called crashed: a test is free to

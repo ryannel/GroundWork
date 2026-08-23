@@ -107,7 +107,12 @@ const maxReasonBytes = 70
 // nothing there — the same reason ReadLock keeps only the reason off a file
 // error rather than the path os put in front of it.
 func (s scanned) reason(err error) string {
-	said := err.Error()
+	return s.said(err.Error())
+}
+
+// said is reason for words that did not come back as an error. A panic's own
+// message is one, and it is read on the same far-away machine.
+func (s scanned) said(said string) string {
 	said = strings.ReplaceAll(said, s.root+string(filepath.Separator), "")
 	said = strings.ReplaceAll(said, s.root, ".")
 	said = strings.Join(strings.Fields(said), " ")
@@ -159,9 +164,8 @@ func (n *scanNotes) add(other scanNotes) {
 	n.unreadable += other.unreadable
 }
 
-// String renders the notes as a tail for a line of evidence, empty when there
-// is nothing to say.
-func (n scanNotes) String() string {
+// items renders the notes as one entry per thing the scan declined to read.
+func (n scanNotes) items() []string {
 	var said []string
 	if n.generated > 0 {
 		said = append(said, fmt.Sprintf("%s skipped", counted(n.generated, "generated file was", "generated files were")))
@@ -172,6 +176,14 @@ func (n scanNotes) String() string {
 	if n.unreadable > 0 {
 		said = append(said, fmt.Sprintf("%s not read", counted(n.unreadable, "file was", "files were")))
 	}
+
+	return said
+}
+
+// String renders the notes as a tail for a line of evidence, empty when there
+// is nothing to say.
+func (n scanNotes) String() string {
+	said := n.items()
 	if len(said) == 0 {
 		return ""
 	}

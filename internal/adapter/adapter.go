@@ -46,6 +46,34 @@ var ErrUnrunnable = errors.New("the adapter could not be run")
 // still gets the same answer it always did.
 var ErrNoTests = errors.New("reported no tests at all, and an empty run log is not a pass")
 
+// ErrBuildFailed marks the one failure a caller has to tell from a run that
+// broke for any other reason: the code did not compile.
+//
+// The deletion test is why. D26 rules that a mutant which fails to compile is
+// inconclusive, never a catch — the suite was never given the chance to notice
+// anything. A mutation run that read a build failure as a suite doing its job
+// would count its own damage as proof.
+//
+// It is wrapped beside ErrUnrunnable, so a caller that only asks whether the
+// seam failed still gets the same answer it always did.
+var ErrBuildFailed = errors.New("did not build")
+
+// ErrTimedOut marks a run the test runner's own clock stopped.
+//
+// It reads as a crash on the wire — go test writes "panic: test timed out" and
+// a goroutine dump, the same shape a panicking test produces — and it is not
+// one. The code did not fail; nobody waited for it. D35 rules the difference,
+// because the deletion test counts a crash under mutation as the suite noticing
+// and must never count a hang as one.
+//
+// Whatever set the clock is beside the point: the project's own flags, GOFLAGS,
+// or go test's ten-minute default. A caller cannot assume its own clock fires
+// first, so the marker is named here rather than inferred from a timing.
+//
+// It is wrapped beside ErrUnrunnable, so a caller that only asks whether the
+// seam failed still gets the same answer it always did.
+var ErrTimedOut = errors.New("was stopped by the test runner's own clock")
+
 // RunGuardEnv is set in a test run's own environment, so that a project whose
 // suite calls the battery cannot start a battery inside the battery.
 //
@@ -114,6 +142,24 @@ type Mutant struct {
 	Symbol  string
 	Line    int
 	Content string
+}
+
+// Package is one package the build compiles, and the source files it compiles
+// into it.
+//
+// It is the build's own answer, not a walk of the directory. Only a file the
+// build compiles can hold a target the tests could notice being deleted, so the
+// deletion test asks for this rather than reading the tree itself.
+//
+// ID names the package the way discovery names a suite: a directory inside the
+// project, with forward slashes, and "." for the project's own root. Files are
+// named from the project root the same way. Ignored counts the source files the
+// build leaves out here — another platform's, or one behind a tag this build
+// does not set — so that a skip is never silent.
+type Package struct {
+	ID      string
+	Files   []string
+	Ignored int
 }
 
 // Adapter is the seam. Three calls, both shapes.
