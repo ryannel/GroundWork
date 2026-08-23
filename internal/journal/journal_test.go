@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -1639,5 +1640,42 @@ func TestWriteSealTakesAPlainTagName(t *testing.T) {
 	wantString(t, event, "target", second)
 	if got := event["target"]; got == first {
 		t.Errorf("the target is the parent commit %v, want the commit the tag holds", got)
+	}
+}
+
+// The closed vocabularies, each named from the ledger rather than from the
+// code beside them. D12 fixes roles and tiers; D13 fixes rungs and seal
+// actions. Every accessor hands back a copy, so a caller cannot edit the
+// vocabulary through it.
+//
+// The deletion test caught the gap these fill: Rungs had one caller in this
+// suite, a concurrency test that used it only to decide how many writers to
+// start, so blanking it left the suite green over a vocabulary that was gone.
+func TestTheClosedVocabulariesAreWhatTheLedgerNames(t *testing.T) {
+	for _, v := range []struct {
+		name string
+		read func() []string
+		want []string
+	}{
+		{
+			"roles",
+			Roles,
+			[]string{"driver", "worker", "adversary", "blind-author", "capsule-writer", "advisor", "sim"},
+		},
+		{"tiers", Tiers, []string{"frontier", "execution"}},
+		{"rungs", Rungs, []string{"slice", "milestone", "bet", "program"}},
+		{"seal actions", SealActions, []string{"granted", "revoked"}},
+	} {
+		t.Run(v.name, func(t *testing.T) {
+			got := v.read()
+			if !slices.Equal(got, v.want) {
+				t.Fatalf("the %s vocabulary is %v, want %v", v.name, got, v.want)
+			}
+
+			v.read()[0] = "tampered"
+			if v.read()[0] != v.want[0] {
+				t.Fatalf("a caller changed the %s vocabulary through the accessor", v.name)
+			}
+		})
 	}
 }
