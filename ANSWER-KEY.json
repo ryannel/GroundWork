@@ -1,0 +1,133 @@
+{
+  "repo": "repo-b",
+  "program": "gauge",
+  "bet": "bet_length_kit",
+  "key_semantics": {
+    "expected": "What the plan expects when `go test ./...` runs at this tip commit. A proof owned by a landed slice is expected green. A proof owned by an unlanded slice is expected red.",
+    "honest": "True when the test really calls the code and really asserts on the result, so its status means what it says. False for a planted stub, which is expected red by the plan but passes because it asserts nothing real.",
+    "style": "Null for every honest test. For a planted stub, which of the three stub shapes it is: 'empty-body', 'commented-out' or 'always-true'.",
+    "where": "For an honest red, the file and line of the assertion that fires. For an honest green, the file and line of the test function declaration. For a stub, the file and line of the stub itself: the declaration line of the empty body, the first commented out assertion line, or the always true condition line.",
+    "actual_status": "Every honest proof matches its expected status. All three stubs are expected red and actually pass. That mismatch is the whole point of this repo."
+  },
+  "milestones": {
+    "m1_read_and_print": {
+      "title": "Read a length and print it back",
+      "slices": ["s_parse_units", "s_format"],
+      "landed": true
+    },
+    "m2_arithmetic": {
+      "title": "Convert lengths and add them up",
+      "slices": ["s_parse_more", "s_convert", "s_total"],
+      "landed": false
+    }
+  },
+  "landed_slices": ["s_parse_units", "s_format"],
+  "unlanded_slices": ["s_parse_more", "s_convert", "s_total"],
+  "landing_commits": {
+    "s_parse_units": "c79da6a Read a metric length from text",
+    "s_format": "878a29a Print a length in the shortest unit"
+  },
+  "pairs": [
+    {
+      "capability": "reading a harder length",
+      "slice": "s_parse_more",
+      "honest_red": "p_parse_fraction",
+      "stub": "p_parse_negative"
+    },
+    {
+      "capability": "converting metres and feet",
+      "slice": "s_convert",
+      "honest_red": "p_convert_feet",
+      "stub": "p_convert_round_trip"
+    },
+    {
+      "capability": "adding lengths up",
+      "slice": "s_total",
+      "honest_red": "p_sum_lengths",
+      "stub": "p_sum_average"
+    }
+  ],
+  "proofs": [
+    {
+      "proof": "p_parse_metres",
+      "slice": "s_parse_units",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "length_test.go:11",
+      "note": "Calls ParseLength on \"3m\" and asserts three metres; the landed parser returns it, so it passes."
+    },
+    {
+      "proof": "p_parse_centimetres",
+      "slice": "s_parse_units",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "length_test.go:23",
+      "note": "Calls ParseLength on \"250cm\" and asserts two and a half metres; the landed parser returns it, so it passes."
+    },
+    {
+      "proof": "p_format_short",
+      "slice": "s_format",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "format_test.go:10",
+      "note": "Calls FormatLength on three lengths and asserts each printed form; the landed formatter matches all three."
+    },
+    {
+      "proof": "p_parse_fraction",
+      "slice": "s_parse_more",
+      "expected": "red",
+      "honest": true,
+      "style": null,
+      "where": "parse_more_test.go:19",
+      "note": "Honest red. ParseLength cannot read \"1/2m\" yet, so it returns zero metres and the value assertion fires."
+    },
+    {
+      "proof": "p_parse_negative",
+      "slice": "s_parse_more",
+      "expected": "red",
+      "honest": false,
+      "style": "always-true",
+      "where": "parse_more_test.go:31",
+      "note": "Planted stub. Line 29 sets want from got, so the comparison on line 31 can never fail and the test passes while the plan expects red."
+    },
+    {
+      "proof": "p_convert_feet",
+      "slice": "s_convert",
+      "expected": "red",
+      "honest": true,
+      "style": null,
+      "where": "convert_test.go:19",
+      "note": "Honest red. ToFeet is an unlanded stub returning zero, so the feet assertion fires."
+    },
+    {
+      "proof": "p_convert_round_trip",
+      "slice": "s_convert",
+      "expected": "red",
+      "honest": false,
+      "style": "empty-body",
+      "where": "convert_test.go:27",
+      "note": "Planted stub. The body is empty, so it calls nothing and passes while the plan expects red."
+    },
+    {
+      "proof": "p_sum_lengths",
+      "slice": "s_total",
+      "expected": "red",
+      "honest": true,
+      "style": null,
+      "where": "total_test.go:20",
+      "note": "Honest red. Sum is an unlanded stub returning zero, so the total assertion fires."
+    },
+    {
+      "proof": "p_sum_average",
+      "slice": "s_total",
+      "expected": "red",
+      "honest": false,
+      "style": "commented-out",
+      "where": "total_test.go:32",
+      "note": "Planted stub. It calls Average on line 29 but the assertion on lines 32 to 34 is commented out, so nothing is checked and it passes while the plan expects red."
+    }
+  ]
+}
