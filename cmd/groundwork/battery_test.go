@@ -491,3 +491,236 @@ func TestUsageNamesVerify(t *testing.T) {
 		t.Fatalf("the usage does not name verify: %s", errOut)
 	}
 }
+
+// A row that gave no verdict is never left to a reader's eye on a wide table.
+// The loud block says it again, in words, under the table.
+func TestTheLoudBlockNamesEveryRowWithoutAVerdict(t *testing.T) {
+	res := battery.RunResult{
+		Counts: map[battery.Outcome]int{},
+		Rows: []battery.RowResult{
+			{ID: "honesty", Outcome: battery.Green, Evidence: "all sound"},
+			{ID: "wiring", Outcome: battery.Waived, Evidence: "waived by wiring-1.json until 2026-09-05: wrong check"},
+			{ID: "token", Outcome: battery.Quarantined, Evidence: "red then green across two runs"},
+		},
+		Waivers: []battery.WaiverNote{
+			{File: ".groundwork/waivers/wiring-1.json", Row: "wiring", Status: battery.WaiverUsed, Why: "it stands"},
+			{File: ".groundwork/waivers/old.json", Row: "mutate", Status: battery.WaiverIgnored, Why: "it expired on 2026-08-01"},
+			{File: ".groundwork/waivers/spare.json", Row: "honesty", Status: battery.WaiverUnused, Why: "the row did not go red"},
+		},
+	}
+
+	got := notes(res)
+
+	// D38 ruling 5: a blank line and a heading, so nothing in the block can be
+	// read as another row of the table above it.
+	if !strings.HasPrefix(got, "\n") {
+		t.Errorf("the loud block does not start with a blank line:\n%q", got)
+	}
+	if !strings.Contains(got, loudHeading) {
+		t.Errorf("the loud block has no heading:\n%s", got)
+	}
+	for _, line := range strings.Split(strings.Trim(got, "\n"), "\n") {
+		if line == "" || line == loudHeading {
+			continue
+		}
+		if !strings.HasPrefix(line, "  ") {
+			t.Errorf("the loud block line %q is not indented, so it reads as a table row", line)
+		}
+	}
+
+	for _, want := range []string{
+		"waived", "wiring", "waived by wiring-1.json until 2026-09-05: wrong check",
+		"quarantined", "token", "red then green across two runs",
+		"ignored", ".groundwork/waivers/old.json", "it expired on 2026-08-01",
+		"unused", ".groundwork/waivers/spare.json", "the row did not go red",
+	} {
+		if !strings.Contains(got, want) {
+			t.Errorf("the loud block does not hold %q:\n%s", want, got)
+		}
+	}
+
+	// A green row with nothing standing over it has nothing to say twice.
+	if strings.Contains(got, "all sound") {
+		t.Errorf("the loud block repeats a green row:\n%s", got)
+	}
+	// A waiver that did its job is already the row's own line.
+	if strings.Contains(got, "wiring-1.json\tit stands") {
+		t.Errorf("the loud block repeats a used waiver:\n%s", got)
+	}
+}
+
+// A run where everything gave a verdict and nothing was waived prints no loud
+// block at all.
+func TestTheLoudBlockIsEmptyWhenThereIsNothingToSay(t *testing.T) {
+	res := battery.RunResult{
+		Counts: map[battery.Outcome]int{},
+		Rows: []battery.RowResult{
+			{ID: "honesty", Outcome: battery.Green, Evidence: "all sound"},
+			{ID: "wiring", Outcome: battery.Red, Evidence: "one function no caller reaches"},
+			{ID: "token", Outcome: battery.Unrunnable, Evidence: "the adapter is not installed"},
+		},
+	}
+
+	if got := notes(res); got != "" {
+		t.Fatalf("the loud block is %q, want nothing", got)
+	}
+}
+
+// The whole slice, end to end: a real waiver, committed on its own, turns a
+// real red row waived in a real run, and the run says so where a person reads
+// it.
+func TestVerifyPrintsAWaivedRowLoudly(t *testing.T) {
+	dir := newRepo(t)
+	writeLock(t, dir, "0.1", "r0000000")
+
+	code, out, errOut := call(t, "waive", "version",
+		"--reason", "the digest moved on purpose", "--expires", day(5))
+	if code != exitOK {
+		t.Fatalf("the waive exited %d. stderr: %s", code, errOut)
+	}
+	path := strings.Fields(out)[0]
+	runGit(t, dir, "add", path)
+	runGit(t, dir, "commit", "-m", "waive the version row")
+
+	_, out, errOut = call(t, "verify")
+
+	rows := tableRows(out)
+	found := false
+	for _, row := range rows {
+		if len(row) >= 2 && row[0] == "version" {
+			found = true
+			if row[1] != "waived" {
+				t.Errorf("the version row reads %q, want waived. output: %s%s", row[1], out, errOut)
+			}
+		}
+	}
+	if !found {
+		t.Fatalf("the output holds no version row: %s%s", out, errOut)
+	}
+
+	if !strings.Contains(out, filepath.Base(path)) {
+		t.Errorf("the output does not name the waiver file: %s", out)
+	}
+	if !strings.Contains(out, "waived 1") {
+		t.Errorf("the summary does not count the waived row: %s", out)
+	}
+
+	// The loud block says it again under the table, the other way round: the
+	// outcome first, then the row. That shape is what tells the two apart.
+	loud := false
+	for _, row := range rows {
+		if len(row) >= 2 && row[0] == "waived" && row[1] == "version" {
+			loud = true
+		}
+	}
+	if !loud {
+		t.Errorf("the waived row is only on the table, and never said loudly: %s", out)
+	}
+}
+
+// D38 ruling 6, through the verb: a file in the waiver directory that is not a
+// waiver leaves the report standing. The table renders, every row is there,
+// the file is named, and the run exits 1.
+func TestVerifyNamesAFileThatIsNotAWaiverAndStillReports(t *testing.T) {
+	dir := newRepo(t)
+	writeLock(t, dir, "0.1", trueDigest())
+
+	path := filepath.Join(dir, battery.WaiverDir)
+	if err := os.MkdirAll(path, 0o750); err != nil {
+		t.Fatalf("could not make the waiver directory: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(path, "notes.txt"), []byte("what I waived\n"), 0o600); err != nil {
+		t.Fatalf("could not write the stray file: %v", err)
+	}
+	runGit(t, dir, "add", battery.WaiverDir)
+	runGit(t, dir, "commit", "-m", "a stray file among the waivers")
+
+	code, out, errOut := call(t, "verify")
+	if code != exitFailed {
+		t.Fatalf("verify exited %d, want %d: %s%s", code, exitFailed, out, errOut)
+	}
+
+	rows := tableRows(out)
+	found := map[string]bool{}
+	for _, row := range rows {
+		if len(row) >= 2 {
+			found[row[0]] = true
+		}
+	}
+	for _, row := range battery.Default().Rows() {
+		if !found[row.ID] {
+			t.Errorf("the table has no %s row: %s", row.ID, out)
+		}
+	}
+	if !strings.Contains(out, "notes.txt") {
+		t.Errorf("the output does not name the stray file: %s", out)
+	}
+}
+
+// A stray file left to hold the directory open is a stray file. It is named
+// and it fails the run, and the report still renders.
+func TestVerifyStillPrintsItsTableWithAStrayGitkeep(t *testing.T) {
+	dir := newRepo(t)
+	writeLock(t, dir, "0.1", trueDigest())
+
+	path := filepath.Join(dir, battery.WaiverDir)
+	if err := os.MkdirAll(path, 0o750); err != nil {
+		t.Fatalf("could not make the waiver directory: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(path, ".gitkeep"), nil, 0o600); err != nil {
+		t.Fatalf("could not write the stray file: %v", err)
+	}
+	runGit(t, dir, "add", "-f", battery.WaiverDir)
+	runGit(t, dir, "commit", "-m", "hold the waiver directory open")
+
+	code, out, errOut := call(t, "verify")
+	if code != exitFailed {
+		t.Fatalf("verify exited %d, want %d: %s%s", code, exitFailed, out, errOut)
+	}
+	if !strings.Contains(out, "ROW") || !strings.Contains(out, "version") {
+		t.Errorf("the table did not render: %s", out)
+	}
+	if !strings.Contains(out, ".gitkeep") {
+		t.Errorf("the output does not name the stray file: %s", out)
+	}
+}
+
+// The verb's own half of D38 ruling 6: the exit code comes from the whole
+// report, not from the rows alone. Here the only row that went red is properly
+// waived, so nothing is red, and the stray file is the only reason to fail.
+func TestVerifyFailsOnAStrayFileWithNothingRed(t *testing.T) {
+	dir := newRepo(t)
+	writeLock(t, dir, "0.1", "r0000000")
+
+	// Both rows that would otherwise be red, waived: the version row because
+	// the lock file is wrong, and the manifest row because this fixture has no
+	// manifest. One waiver-only commit carries them both.
+	for _, row := range []string{"version", "manifest"} {
+		code, out, errOut := call(t, "waive", row,
+			"--reason", "waived so that nothing here is red", "--expires", day(5))
+		if code != exitOK {
+			t.Fatalf("the waive of %s exited %d. stderr: %s", row, code, errOut)
+		}
+		runGit(t, dir, "add", strings.Fields(out)[0])
+	}
+	runGit(t, dir, "commit", "-m", "waive the two red rows")
+
+	keep := filepath.Join(dir, battery.WaiverDir, ".gitkeep")
+	if err := os.WriteFile(keep, nil, 0o600); err != nil {
+		t.Fatalf("could not write the stray file: %v", err)
+	}
+	runGit(t, dir, "add", "-f", keep)
+	runGit(t, dir, "commit", "-m", "hold the waiver directory open")
+
+	code, out, errOut := call(t, "verify")
+	if !strings.Contains(out, "red 0") {
+		t.Fatalf("the fixture has a red row, so it cannot prove what fails the verb: %s%s", out, errOut)
+	}
+	if code != exitFailed {
+		t.Fatalf("verify exited %d, want %d with a file that is not a waiver: %s%s",
+			code, exitFailed, out, errOut)
+	}
+	if !strings.Contains(out, ".gitkeep") {
+		t.Errorf("the output does not name the stray file: %s", out)
+	}
+}
