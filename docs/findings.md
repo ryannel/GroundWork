@@ -356,3 +356,25 @@ What happened: open. The owner can delete it from their own machine with one pus
 
 Caught by: driver — the refused deletion at bet close
 Class: host-limit
+
+## F32 — 2026-08-23 — A ratified requirement with no owner, again: verify from the installed package
+
+What it is: proof.md requires universal checks to run from the installed package, never the working tree, with verify confirming the package hash against the lockfile. No commitment row carries it, so no bet owns it — F13's shape, found the same way, because the coverage count counts commitments, not requirements.
+
+What caught it: the bet 3 design's coverage read, the standing duty D31 created.
+
+What happened: assigned by D44 to bet 15, which hands three live installs from a package to an installed binary — the first bet where the requirement has something real to bind.
+
+Caught by: worker — the bet 3 design dispatch, reading proof.md against the ladder
+Class: coverage-gap
+
+## F33 — 2026-08-23 — Three named deferrals from the bet 3 design
+
+What it is: three spec requirements bet 3 can only half-carry, named so the halves do not read as wholes. A probe diff turns seal-verify red in bet 3, but re-running the adversary needs the adversary — bet 8. The archive step's frozen board and capsule index need capsules and an archive verb no lands line names — assigned to bet 8 beside the capsules. And test markers on non-Go stacks land with each stack's adapter bet, R9 covering Go alone.
+
+What caught it: the bet 3 design's coverage read.
+
+What happened: recorded, each with its owner. F28 and F30 are the model: a known gap with a name is a boundary; a silent one is F13.
+
+Caught by: worker — the bet 3 design dispatch
+Class: coverage-gap

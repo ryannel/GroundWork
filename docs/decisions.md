@@ -508,3 +508,13 @@ Every done-when clause is met on the surfaces the bet's ruled scope covers. The 
 The bet's ledger: eight slices, five bounces, three review rounds at the deepest, thirteen findings (F18–F30), eleven rulings (D33–D43), three catches by the battery on its own repo, two sealed held-out sets — the first burned by its own catch, which is the mechanism working. The branch merges to main by PR 34; the wip-snapshot branch is deleted at close per D27; the next bet restarts the branch from main.
 
 Why closing is right: the ladder's letter on node surfaces cannot be met by a bet that was ruled not to build node scanning, and pretending otherwise would either block the ladder on scope nobody ruled into this bet or invite quiet re-scoping. The record says exactly what is proven, on what, and what is owed.
+
+## D44 — 2026-08-23 — Bet 3 designed: eight slices, seventeen rulings
+
+The design stands at docs/evidence/bet-3/design.md, ratified as written: the eight-slice cut, and rulings R1 through R17 adopted verbatim. The load-bearing ones, restated in a line each: plans are three markdown files with frontmatter the machine reads and prose it never does; one seal mechanism, four kinds, an annotated tag naming paths and blob hashes; the CLI verifies signatures and never holds a key — unsigned is loud, non-blocking, and the flip to blocking waits for an owner key and a major bump; seal tags mirror to a branch because the proxy refuses tag pushes; the journal chain is per session, envelope v2, and D8's no-change sentence is amended — v1 lines read as an unchained prefix, never as forgery; the board is a derivation that writes nothing, landed-ness read from a Slice: trailer; proof markers live in Go test names; the stub check reuses the honesty scan's own judgment; each row-adding slice bumps the major, walking 5.0 toward 12.0.
+
+The three open items, settled: unsigned seals stay non-blocking this bet, with the flip named. Two authored fixture repos, not one — bet 2's discipline earned its cost twice. And this repo plans bet 3 in its own new format, as dogfood beside the held-out proof.
+
+The design's gaps are filed as F32 and F33. The held-out fixtures are authored and sealed before slice 1 lands, with docs/evidence/bet-3/holdout.md written at the same moment — F20's rule.
+
+Why this cut: a thing is built before the thing that grades it, and the grade runs last against fixtures nobody building the checks ever saw.
