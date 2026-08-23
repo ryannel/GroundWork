@@ -196,3 +196,26 @@ What happened: the code was fixed, never the scan. Four functions deleted, three
 
 Caught by: battery — the wiring row's first run on this repo
 Class: coverage-gap — API shipped ahead of any consumer
+
+## F18 — 2026-08-23 — The battery's second catch: three journal vocabularies with no proof behind them
+
+What it is: blanking journal.Rungs to a nil return left the whole suite green. Its one caller was a concurrency test that used it only to size a writer pool. Roles, Tiers and SealActions had no assertion anywhere. The closed vocabularies D12 and D13 ruled were unproven.
+
+What caught it: the battery — the mutate row's first run during the slice 5 build, before the slice landed.
+
+What happened: a pinning test in internal/journal now asserts each vocabulary from the ledger's own lists, and proves every accessor hands back a copy. The test gap was fixed, never the scan.
+
+Caught by: battery — the mutate row, during the slice 5 build
+Class: unrun-proof
+
+## F19 — 2026-08-23 — The third bounce: the deletion test misclassified its own failure modes
+
+What it is: the mutate row called a file the build excludes a surviving mutant — a false red on ordinary layouts, including one this repo uses. It went green after its budget died mid-sample, blaming the project's suite for its own clock. Its headline isolation claim had no test that could fail — removing the isolation left the suite green, as did five other mutations of the new adapter code. And its throwaway copy dropped the project's git record, so two of this repo's own packages were excluded as "tests do not pass unmutated" when their tests pass fine.
+
+What caught it: the slice's blind review. The builder's session had died before handoff, so no D16 or D18 tables existed; the review ran the full sweep itself — nineteen mutations, twelve fixture repos, instrumented runs through the real row.
+
+What happened: bounce. The driver's rulings are D33: targets come from the build, the sample reconciles as printed numbers, budget death is unrunnable, the copy is faithful, isolation is proven by a test that fails without it. The rework follows.
+
+Caught by: blind-review — slice 5's independent sweep
+Class: green-but-wrong
+Class: unrun-proof

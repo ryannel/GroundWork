@@ -374,3 +374,21 @@ The honesty scan errs green whenever the test's own handle escapes its sight: cr
 The token scan reads hex colours only, in value positions — an issue number in a comment is not a colour. Named and functional colours are out of scope with fonts and spacing, and the green sentence says exactly what was scanned. Zero readable files on an applicable surface is unrunnable, never green — D17's rule.
 
 Shared: cli and library are tokenless by declaration; a filename containing token is exempt; generated files are skipped aloud; a found red outlives a later surface's unrunnable; evidence names whole hits within the journal cap or falls back to a count.
+
+## D33 — 2026-08-23 — Slice 5 bounce rulings: what a mutation target is, and what a run owes the record
+
+The slice 5 blind review bounced the deletion test. These rulings resolve what it raised.
+
+1. Targets come from the build, never from a directory walk. The go toolchain's own package list names the files a surface compiles, and only those files hold targets. A file the build excludes — a build tag, a platform suffix, a `_`-prefixed or ignored directory — is not a target. This is D30's rule again: two walkers in one repo must never disagree about what a package is.
+
+2. The printed line must reconcile the sample as numbers: sampled equals killed plus survivors plus each inconclusive class plus not judged. Numbers are never cut from the line; names are cut first, falling back to counts. A run that exhausts its budget mid-sample is unrunnable, naming how far it got — never green, and never a red that blames the project. "Its own tests do not run" may describe only the project's suite, never the row's own clock.
+
+3. Green requires zero survivors, at least one kill, and every sampled mutant accounted for. Inconclusive classes stay non-blocking — D26 holds — but they are always counted and printed. Thresholds on inconclusive rates wait for bet 14, beside the flake numbers.
+
+4. The throwaway copy is faithful. It carries the project's git record, as a copy. A package whose tests ask git about the project must behave in the copy as it does in the project. On this repo the row must be able to judge internal/battery and internal/manifest.
+
+5. Isolation is proven by a test that fails when isolation is removed — observed during the run, not read from the tree afterwards. And every mechanism added to internal/adapter is tested in internal/adapter, tests first.
+
+6. Every error path renders its reason the way the scans do: paths relative to the repo, length capped, before the journal sees it.
+
+Why: the row's job is telling the truth about other suites. A row that misclassifies its own failure modes — the build's exclusions, its own clock, its own copy — cannot be trusted on anyone else's.
