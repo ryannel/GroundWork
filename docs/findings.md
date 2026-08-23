@@ -289,3 +289,15 @@ What happened: the driver verified the round directly — full suite, vet, forma
 Caught by: driver — the stale handoff timestamp
 Class: record-not-written
 Class: host-limit — sessions die without notice; the record must not depend on their last breath
+
+## F26 — 2026-08-23 — The hijack came back through a merge
+
+What it is: the slice 6 fix bound a waiver's authority to its last commit, and the closure check broke it again — the diff reader prints nothing for a merge commit, so a waiver rewritten inside an evil merge stood with its row swapped and its expiry renewed. The mutation that would fix the reader survived the whole suite, the same shape as the round before. Beside it: the new no-abort promise for unreadable waiver files had no test that could fail alone, and one comment still described the behaviour the round reversed.
+
+What caught it: the slice's closure check, probing the new rule's edges rather than re-running the old probes.
+
+What happened: the driver ruled D40 — a merge never governs a waiver, extending D37.3 from introduction to governance. The final fix round follows.
+
+Caught by: blind-review — slice 6's closure check
+Class: green-but-wrong
+Class: unrun-proof

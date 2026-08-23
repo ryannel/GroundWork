@@ -470,3 +470,9 @@ The upgrade, in two parts.
 2. Bet 3: the record machinery makes the check a verb. The seal work already reads the journal and the tree; a `record` check that fails loudly when a required record is missing or stale joins it, so the checklist stops being the driver's memory — which is the defect this class keeps finding.
 
 Why: findings recur caught this trip in CI the moment F25 landed. The cure for records that depend on remembering is machinery that does not.
+
+## D40 — 2026-08-23 — A merge never governs a waiver
+
+The closure check re-opened the hijack through a merge: the diff reader shows nothing for a merge commit, so a waiver rewritten inside one stood, row swapped and expiry renewed. The ruling extends D37.3 from introduction to governance: a merge is not a granting act, and a waiver whose governing commit — the last commit that changed it — is a merge is ignored, naming the merge. Two branches that re-grant the same waiver and conflict resolve the conflict, then re-grant in a commit of their own on the merged branch. That friction is the cost of an authority chain with one link shape.
+
+Why: the alternative was teaching the diff reader merge semantics — more code on the exact surface an attacker probes, to bless a case a one-line re-grant makes unnecessary. Fail-closed and simple beats clever here.
