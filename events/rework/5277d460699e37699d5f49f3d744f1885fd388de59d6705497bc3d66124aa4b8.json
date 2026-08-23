@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-23T09:19:37.226350838Z","kind":"battery-row","session":"rework","seq":42,"commit":"651fc99d366312bc9952438c2197245bbb023e5e","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260823T091937Z-924a","row":"wiring","outcome":"green","evidence":"the wiring scan read 41 exported functions in 30 files, and a non-test file names every one","duration_ms":10}
