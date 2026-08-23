@@ -1,0 +1,38 @@
+{
+  "repo": "stonecrop",
+  "language": "javascript",
+  "package": "stonecrop",
+  "testScript": "node --test \"test/*.test.js\"",
+  "capabilities": [
+    {
+      "name": "titleCase",
+      "status": "honest",
+      "defect": null,
+      "where": "test/title-case.test.js asserts exact output for ordinary words, small joining words, edge words, and whitespace; any change to src/titleCase.js makes it fail."
+    },
+    {
+      "name": "query",
+      "status": "honest",
+      "defect": null,
+      "where": "test/query.test.js asserts exact parse and format results including escapes, repeated keys, and a round trip; any change to src/query.js makes it fail."
+    },
+    {
+      "name": "movingAverage",
+      "status": "hollow",
+      "defect": "deletion-survivor",
+      "where": "test/moving-average.test.js imports nothing from src; it asserts on its own local windowMean helper (test/moving-average.test.js:8), so deleting src/movingAverage.js leaves the suite passing."
+    },
+    {
+      "name": "backoff",
+      "status": "hollow",
+      "defect": "never-run",
+      "where": "the tests live in test/backoff.spec.js, which the test script glob \"test/*.test.js\" in package.json:14 does not match, so npm test never runs them."
+    },
+    {
+      "name": "bytes",
+      "status": "hollow",
+      "defect": "vacuous",
+      "where": "test/bytes.test.js runs but asserts nothing real: line 8 compares a value to itself, line 12 compares two identical calls, line 23 is assert.ok(true), and the third test only logs."
+    }
+  ]
+}
