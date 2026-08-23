@@ -1,0 +1,88 @@
+{
+  "repo": "repo-a",
+  "program": "sift",
+  "bet": "bet_summary_core",
+  "key_semantics": {
+    "expected": "The status the proof actually has when `go test ./...` runs at this tip commit. 'green' means the test passes, 'red' means it fails.",
+    "honest": "True when the test really calls the code and really asserts on the result, so its status means what it says. False for a planted stub.",
+    "style": "Null for every honest test. Repo A plants no stubs, so every entry here is null.",
+    "where": "For a red proof, the file and line of the assertion that fires first. For a green proof, the file and line of the test function declaration.",
+    "plan_expectation_note": "Where the plan's expectation and the actual status differ, the note says so. See the wrinkle."
+  },
+  "milestones": {
+    "m1_read_records": {
+      "title": "Turn input lines into records",
+      "slices": ["s_tokenize", "s_record_parse"],
+      "landed": true
+    },
+    "m2_summarise": {
+      "title": "Count records and print the summary",
+      "slices": ["s_aggregate", "s_render"],
+      "landed": false
+    }
+  },
+  "landed_slices": ["s_tokenize", "s_record_parse"],
+  "unlanded_slices": ["s_aggregate", "s_render"],
+  "landing_commits": {
+    "s_tokenize": "9bfa992 Split a line into fields, honouring quotes",
+    "s_record_parse": "2d812e1 Build a record from a line's fields"
+  },
+  "wrinkle": "p_render_empty is a genuine green sitting under the unlanded slice s_render. The empty case of Table was written ahead of plan in commit e8350b9 so cmd/sift could print something sane. The plan expects s_render's proofs to be red; this one is green, honestly, because the work ran ahead of the plan.",
+  "wrinkle_secondary": "p_record_parse is one proof standing for two user facing items, i_named_record and i_short_line_error. Any check that assumes one proof means one item will miscount the landed slice s_record_parse.",
+  "proofs": [
+    {
+      "proof": "p_tokenize_basic",
+      "slice": "s_tokenize",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "internal/record/tokenize_test.go:10",
+      "note": "Calls Fields on a plain line and asserts every field; the landed splitter returns them, so it passes."
+    },
+    {
+      "proof": "p_tokenize_quoted",
+      "slice": "s_tokenize",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "internal/record/tokenize_test.go:26",
+      "note": "Calls Fields on a line with a quoted field and asserts the spaces survive inside it."
+    },
+    {
+      "proof": "p_record_parse",
+      "slice": "s_record_parse",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "internal/record/record_test.go:13",
+      "note": "Asserts the kind, host and message of a good line and the ErrShortLine of a short line, so it covers two items at once."
+    },
+    {
+      "proof": "p_aggregate_counts",
+      "slice": "s_aggregate",
+      "expected": "red",
+      "honest": true,
+      "style": null,
+      "where": "internal/report/aggregate_test.go:24",
+      "note": "Counts is an unlanded stub returning an empty map, so the kind count assertion fires; the plan expects this red."
+    },
+    {
+      "proof": "p_render_table",
+      "slice": "s_render",
+      "expected": "red",
+      "honest": true,
+      "style": null,
+      "where": "internal/report/render_test.go:19",
+      "note": "Table returns the empty string for a populated map, so the rendered output assertion fires; the plan expects this red."
+    },
+    {
+      "proof": "p_render_empty",
+      "slice": "s_render",
+      "expected": "green",
+      "honest": true,
+      "style": null,
+      "where": "internal/report/render_test.go:24",
+      "note": "The wrinkle. The plan expects red because s_render has not landed, but the empty case really works, so this test really passes."
+    }
+  ]
+}
