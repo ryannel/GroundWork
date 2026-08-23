@@ -49,11 +49,6 @@ var classes = []string{
 	"other",
 }
 
-// Catchers returns the catchers a finding may name.
-func Catchers() []string {
-	return slices.Clone(catchers)
-}
-
 // Classes returns the defect classes a finding may carry.
 func Classes() []string {
 	return slices.Clone(classes)

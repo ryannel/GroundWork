@@ -12,10 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # D37.1: a waiver's authority is its commit, and a shallow clone
+          # hides that commit — so every waiver would be ignored exactly where
+          # the gate runs.
+          fetch-depth: 0
 
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+
+      # The adapter seam's out-of-process half is proven against a node --test
+      # fixture pack. Without node those tests skip, and a skipped check reads
+      # as a green one — so CI installs node and the tests fail loudly there
+      # if it is ever missing.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
       # These four steps gate: if one fails, the build fails.
       - name: Check formatting
@@ -41,6 +54,12 @@ jobs:
         run: |
           go run ./cmd/groundwork findings check
           go run ./cmd/groundwork findings recur
+
+      # D23's gate: the battery version fails here when the rows have moved
+      # without anyone bumping the declared half. It reads the lock file and
+      # writes nothing.
+      - name: Check the battery version
+        run: go run ./cmd/groundwork verify version
 
       # This step publishes the harness word count. It never gates.
       - name: Publish word count

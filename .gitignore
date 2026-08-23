@@ -1,2 +1,4 @@
-# The host-usage sidecar is the driver's own working file: D17 rules it uncommitted.
-.groundwork/
+# The host-usage sidecar is the driver's own working file: D17 rules it
+# uncommitted. Everything else under .groundwork/ is committed — the capability
+# manifest and, from D24, the waivers.
+.groundwork/host-usage/

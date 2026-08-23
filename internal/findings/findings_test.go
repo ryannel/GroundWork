@@ -3,6 +3,7 @@ package findings
 import (
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -484,7 +485,7 @@ func TestCheckNamesACatcherOutsideTheVocabulary(t *testing.T) {
 }
 
 func TestCheckAcceptsEveryCatcherInTheVocabulary(t *testing.T) {
-	for i, catcher := range Catchers() {
+	for i, catcher := range catchers {
 		l := Parse(ledger(entry("F"+string(rune('1'+i)), "One",
 			"Caught by: "+catcher+" — a real detail", "Class: register")))
 
@@ -586,6 +587,31 @@ func TestCheckNamesAClassOutsideTheVocabulary(t *testing.T) {
 	}
 	if !strings.Contains(problems[0].Text, "green-but-wrong") {
 		t.Errorf("the problem says %q, want it to list the classes that are allowed", problems[0].Text)
+	}
+}
+
+// Classes hands out the defect vocabulary. Every test that used it read it in
+// a loop, so deleting it emptied the loop and left the package's 51 tests
+// green (F29). The list itself has to be asserted.
+func TestClassesIsTheVocabularyAndHandsOutACopy(t *testing.T) {
+	got := Classes()
+
+	// The mutant this test exists to kill returns nil, and the copy check below
+	// would abort the whole binary on it rather than fail one test.
+	if len(got) == 0 {
+		t.Fatal("Classes returned no defect class at all")
+	}
+
+	for _, want := range []string{"green-but-wrong", "coverage-gap", "host-limit", otherClass} {
+		if !slices.Contains(got, want) {
+			t.Errorf("Classes returned %v, which does not hold %q", got, want)
+		}
+	}
+
+	// A caller that edits what it was handed must not edit the vocabulary.
+	got[0] = "edited"
+	if again := Classes(); slices.Contains(again, "edited") {
+		t.Errorf("a caller edited the class vocabulary through the slice Classes returned: %v", again)
 	}
 }
 
@@ -1060,7 +1086,10 @@ func TestRecurPassesOnTheRealLedger(t *testing.T) {
 
 // The two classes the ledger's own history put over the threshold, pinned so
 // a later edit cannot quietly drop one out of the counts.
-func TestRealLedgerCountsTheTwoAnsweredClasses(t *testing.T) {
+// The ledger is append-only, so its counts grow. This test asserts floors and
+// the invariant — a class over the threshold has a decision heading answering
+// it — never exact counts. Exact counts pinned a moving value once: F16.
+func TestRealLedgerHoldsTheAnsweredClasses(t *testing.T) {
 	path, err := LedgerPath(".")
 	if err != nil {
 		t.Fatalf("LedgerPath returned an error: %v", err)
@@ -1070,17 +1099,15 @@ func TestRealLedgerCountsTheTwoAnsweredClasses(t *testing.T) {
 		t.Fatalf("ParseFile returned an error: %v", err)
 	}
 
-	want := map[string]int{"green-but-wrong": 6, "unrun-proof": 5}
+	floors := map[string]int{"green-but-wrong": 6, "unrun-proof": 5, "coverage-gap": 3}
 	got := map[string]int{}
 	for _, c := range Count(l) {
-		if _, ok := want[c.Class]; ok {
-			got[c.Class] = c.Count
-		}
+		got[c.Class] = c.Count
 	}
 
-	for class, n := range want {
-		if got[class] != n {
-			t.Errorf("%s holds %d findings of class %s, want %d", path, got[class], class, n)
+	for class, floor := range floors {
+		if got[class] < floor {
+			t.Errorf("%s holds %d findings of class %s, want at least %d — entries do not leave an append-only ledger", path, got[class], class, floor)
 		}
 	}
 }

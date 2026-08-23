@@ -1,0 +1,19 @@
+{
+  "stack": "node",
+  "suites": [
+    {"id": "test/alpha.test.mjs", "tests": ["adds up", "adds up wrong", "is named"]},
+    {"id": "test/beta.test.mjs", "tests": ["greets", "greets a table"]}
+  ],
+  "outcomes": [
+    {"suite": "test/alpha.test.mjs", "test": "adds up", "outcome": "pass"},
+    {"suite": "test/alpha.test.mjs", "test": "adds up wrong", "outcome": "fail"},
+    {"suite": "test/alpha.test.mjs", "test": "is named", "outcome": "pass"},
+    {"suite": "test/beta.test.mjs", "test": "greets", "outcome": "pass"},
+    {"suite": "test/beta.test.mjs", "test": "greets a table", "outcome": "pass"}
+  ],
+  "mutants": {
+    "file": "src/alpha.mjs",
+    "targets": ["addsUp", "name"],
+    "kills": {"target": "addsUp", "suite": "test/alpha.test.mjs", "test": "adds up"}
+  }
+}
