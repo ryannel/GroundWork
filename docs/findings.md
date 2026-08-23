@@ -219,3 +219,14 @@ What happened: bounce. The driver's rulings are D33: targets come from the build
 Caught by: blind-review — slice 5's independent sweep
 Class: green-but-wrong
 Class: unrun-proof
+
+## F20 — 2026-08-23 — The holdout record was never written
+
+What it is: D26 says the held-out answer keys are sealed before slice 1 and recorded in docs/evidence/bet-2/holdout.md. The keys were sealed — both branches carry their answer-key commit — but the file did not exist. The record lived only in the ledger's ruling and the branch history.
+
+What caught it: the driver's slice 7 preparation, checking the holdout assets against D26.
+
+What happened: the file is written, recording the branch tips at sealing (93801c2 and 8d1790f), the sealing rules, and an empty grading section for slice 7 to fill. No answer key was read to write it.
+
+Caught by: driver — the slice 7 preparation read
+Class: record-not-written
