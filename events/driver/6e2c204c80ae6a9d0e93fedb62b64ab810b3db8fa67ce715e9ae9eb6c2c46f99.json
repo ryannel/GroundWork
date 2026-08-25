@@ -1,0 +1,1 @@
+{"v":1,"ts":"2026-08-25T19:40:51.022699632Z","kind":"battery-row","session":"driver","seq":33,"commit":"5d9335d47b50ed72522ff4dc61eed148c06c56cf","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260825T192938Z-0627","row":"plan","outcome":"green","evidence":"docs/plan holds 1 program, 1 bet and 8 slices, and every id and reference in them resolves","duration_ms":2}
