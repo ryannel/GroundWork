@@ -378,3 +378,14 @@ What happened: recorded, each with its owner. F28 and F30 are the model: a known
 
 Caught by: worker — the bet 3 design dispatch
 Class: coverage-gap
+
+## F34 — 2026-08-24 — The battery's fifth catch: ParentsOf survived in its own package
+
+What it is: the 6.0 sample drew journal.ParentsOf and it survived blanking — its package's 142 tests stayed green. The function is what tells a merge commit from an ordinary one, and the waiver machinery's merge refusal stands on its answer. The tests that prove that refusal live in the battery package, and the deletion test is package-scoped on purpose, so they did not count.
+
+What caught it: the battery — the mutate row on this repo, on the sample the 6.0 bump rotated in.
+
+What happened: a pinning test in internal/journal now asserts the three shapes a repo can put in front of ParentsOf — a root commit has none, an ordinary commit has one, a merge has both in order — proven by blanking the function and watching the test die alone. The gap was fixed, never the scan, the same as F18 and F29.
+
+Caught by: battery — the mutate row's rotated sample at 6.0
+Class: unrun-proof
