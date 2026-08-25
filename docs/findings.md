@@ -499,3 +499,14 @@ What happened: open. Folded into the second fix round beside F43.
 
 Caught by: blind-review — the slice 1 closure check
 Class: unrun-proof
+
+## F45 — 2026-08-25 — The counter's program-file half had no pin of its own
+
+What it is: removing walkProgram's own increment left every suite green, because every fixture with a program.md also held a bet or slice file doing the counting. The uncounted shape is the first state of every new plan — a program.md alone, no bets cut yet. Without the increment, that real, readable plan reads as nothing to parse: F43 inverted. The behavior was correct; only the pin was missing.
+
+What caught it: the round-2 closure check, probing the F43 fix it had asked for.
+
+What happened: fixed at landing by the driver, as the closure specified: one test, TestAProgramFileAloneIsAPlanNotNothing, proven by blanking the increment and watching it die alone with the closure's exact line. The register nit in planrow.go's comment was fixed in the same pass.
+
+Caught by: blind-review — the slice 1 round-2 closure
+Class: unrun-proof

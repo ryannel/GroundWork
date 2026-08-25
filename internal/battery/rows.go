@@ -4,7 +4,7 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// Seven rows today. version is the drift check D23 asks for: CI fails when the
+// Eight rows today. version is the drift check D23 asks for: CI fails when the
 // digest moves without a declared bump. manifest is the capability manifest
 // check: the project declared what it does, and something the stack's adapter
 // can see has to prove each one. Then the three scans proof.md names — honesty,
@@ -15,6 +15,9 @@ import "fmt"
 // execution is evidenced and never inferred. mutate is the deletion test: it
 // blanks one exported function at a time in a throwaway copy of the project and
 // calls the suite red when the tests survive the implementation being deleted.
+// plan is the first row of the planning bet: it reads the plan a repo commits
+// and calls it red when a file will not parse, an id repeats, or a reference
+// reaches nothing.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -30,6 +33,7 @@ func Default() *Registry {
 	reg.Register(tokenRow())
 	reg.Register(runEvidenceRow())
 	reg.Register(mutateRow())
+	reg.Register(planRow())
 
 	return reg
 }
