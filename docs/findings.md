@@ -510,3 +510,25 @@ What happened: fixed at landing by the driver, as the closure specified: one tes
 
 Caught by: blind-review — the slice 1 round-2 closure
 Class: unrun-proof
+
+## F46 — 2026-08-26 — The row test seam samples against the wrong version
+
+What it is: runRow in the battery's own tests builds a Context with no Digest. The mutate row hashes its sample against the battery version, both halves, so a row run through runRow picks a different ten mutants than a real verify run does. The builder paid one five-minute run against the wrong sample to find this.
+
+What caught it: the slice 2 builder, instrumenting the mutate row to find a survivor.
+
+What happened: open. It is the mutate row's own test seam, and the fix belongs in its own change, not smuggled into a journal slice.
+
+Caught by: worker — the slice 2 build
+Class: parallel-definition
+
+## F47 — 2026-08-26 — The battery's sixth catch: two more survivors at the 7.0 rotation
+
+What it is: the 7.0 bump rotated the deletion test's sample onto two functions whose suites passed without them — the Go adapter's Name, and the journal's ChangedFiles, sitting beside the two functions F29 caught the same way.
+
+What caught it: the battery — the mutate row's rotated sample at 7.0, exactly as the bet 3 design's risk list predicted.
+
+What happened: both fixed in the slice, the F29/F34 way — one test per function, each proven by blanking the function and watching its test die alone. The scan was never touched.
+
+Caught by: battery — the mutate row's rotated sample at 7.0
+Class: unrun-proof

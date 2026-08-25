@@ -544,3 +544,19 @@ Why: this build runs in a cloud session that can be reclaimed. A landed slice si
 The owner's instruction, recorded so it outlives the chat: once the method is fully in place, start sub-agent test runs in pairs — one agent interviewing, one being interviewed — at sonnet class to start. These are live trials of the method on real agents, beside the fixture-based proof the ladder already carries.
 
 Why record it now: the machinery these runs exercise arrives over several bets, and an instruction that lives only in conversation is gone by then. The driver schedules the first pair when the method's core — plans, journal, seals, board — is landed and proven.
+
+## D48 — 2026-08-26 — Slice 2 rulings: the chain's edges, taken as built
+
+Nine calls the chain slice needed, made by the builder and ratified here. The load-bearing ones:
+
+1. A v1 line at a seq above a chained line is a break. The unchained prefix is a prefix. Once a session's chain begins, a line that drops out of it is the cheapest forgery there is — nothing has to hash. R7's never-call-v1-forged holds for the prefix; it does not license a downgrade afterwards.
+2. A journal line that is not JSON is a break, not an error. An error would leave the row unrunnable, and unrunnable never fails a run — F43's shape exactly: one corrupted line would silence the whole check.
+3. A repo with no journal ref is green; a ref that exists and holds no event is unrunnable. Both halves follow the plan row's precedent and D17.
+4. Every error out of CheckChain makes the row unrunnable, including a repo the walker cannot open. This diverges from the plan row, which goes red when RepoRoot fails. The divergence is accepted and named; if a third row meets the same edge, rule the posture once for all rows.
+5. prev is written even when empty, so every v2 line carries the field and a chained first line is never shaped like a v1 line.
+6. A line is grouped by the session it names, not the directory it sits in. Moving a blob between session directories changes nothing about what the line says.
+7. Past a gap or a repeated seq, the walk names that seq and stops checking that session's prevs — the missing link is the one fact the reader acts on.
+8. When two clones share a highest seq, the writer points the next line at the lower hash, so both clones land in the same place.
+9. The chain row registers last, so inside a battery run it reads the lines the earlier rows just wrote.
+
+Why ratify rather than re-cut: each call sits inside R7's frame, each is written into the code's own comments, and the review gets them all as claims to attack.
