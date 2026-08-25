@@ -345,3 +345,168 @@ What happened: recorded against the later bet that ships node-surface scans — 
 
 Caught by: blind-review — the 5.0 grading dispatch
 Class: coverage-gap
+
+## F31 — 2026-08-23 — The wip-snapshot branch cannot be deleted from this session
+
+What it is: D27 says the wip-snapshot branch is deleted at bet close. The host's git proxy refuses branch deletion with a 403, the same limitation that blocked tag pushes (F1, F12). The branch sits on origin holding the last slice 8 handoff, which is now merged history.
+
+What caught it: the driver, running the bet 2 close-out mechanics.
+
+What happened: open. The owner can delete it from their own machine with one push. It holds nothing unmerged, so the cost is clutter, not risk.
+
+Caught by: driver — the refused deletion at bet close
+Class: host-limit
+
+## F32 — 2026-08-23 — A ratified requirement with no owner, again: verify from the installed package
+
+What it is: proof.md requires universal checks to run from the installed package, never the working tree, with verify confirming the package hash against the lockfile. No commitment row carries it, so no bet owns it — F13's shape, found the same way, because the coverage count counts commitments, not requirements.
+
+What caught it: the bet 3 design's coverage read, the standing duty D31 created.
+
+What happened: assigned by D44 to bet 15, which hands three live installs from a package to an installed binary — the first bet where the requirement has something real to bind.
+
+Caught by: worker — the bet 3 design dispatch, reading proof.md against the ladder
+Class: coverage-gap
+
+## F33 — 2026-08-23 — Three named deferrals from the bet 3 design
+
+What it is: three spec requirements bet 3 can only half-carry, named so the halves do not read as wholes. A probe diff turns seal-verify red in bet 3, but re-running the adversary needs the adversary — bet 8. The archive step's frozen board and capsule index need capsules and an archive verb no lands line names — assigned to bet 8 beside the capsules. And test markers on non-Go stacks land with each stack's adapter bet, R9 covering Go alone.
+
+What caught it: the bet 3 design's coverage read.
+
+What happened: recorded, each with its owner. F28 and F30 are the model: a known gap with a name is a boundary; a silent one is F13.
+
+Caught by: worker — the bet 3 design dispatch
+Class: coverage-gap
+
+## F34 — 2026-08-24 — The battery's fifth catch: ParentsOf survived in its own package
+
+What it is: the 6.0 sample drew journal.ParentsOf and it survived blanking — its package's 142 tests stayed green. The function is what tells a merge commit from an ordinary one, and the waiver machinery's merge refusal stands on its answer. The tests that prove that refusal live in the battery package, and the deletion test is package-scoped on purpose, so they did not count.
+
+What caught it: the battery — the mutate row on this repo, on the sample the 6.0 bump rotated in.
+
+What happened: a pinning test in internal/journal now asserts the three shapes a repo can put in front of ParentsOf — a root commit has none, an ordinary commit has one, a merge has both in order — proven by blanking the function and watching the test die alone. The gap was fixed, never the scan, the same as F18 and F29.
+
+Caught by: battery — the mutate row's rotated sample at 6.0
+Class: unrun-proof
+
+## F35 — 2026-08-25 — The count-cut class fires a fourth time: the plan row's red line
+
+What it is: the plan row's red evidence puts the problem count last — "<first problem> (and N more problems)" — and the row clips evidence at 200 bytes from the front. A long first problem eats the count. The reader fixes one problem and meets the next one cold. D33 ruled that words give way, never counts. A second cause sits beside it: resolver messages interpolate caller-supplied paths up to 300 bytes unclipped, while every other value in the package is clipped at 60 runes. Neither the red line nor the green line has the bound test D38.2 requires.
+
+What caught it: the blind review of bet-3 slice 1, with a reproduced probe — a 245-byte path plus a second broken reference, and the count gone at 200 bytes.
+
+What happened: open. The fix round moves the count to safety, clips interpolated paths, and binds both printed lines.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: other — an evidence line designed so the count is what truncation eats
+
+## F36 — 2026-08-25 — Three unclaimed corners in the plan id space
+
+What it is: the parser enforces slice→bet agreement but not bet→program, so a bet file can name a program it does not sit under and be adopted by another program's ladder. Proof markers are checked as prefixes and never claimed as ids, so two proofs can share one test name — and one test result must map to one proof for the board to derive. Ladder entries are declarations of bet ids but sit outside the unique-id space, so a ladder can name one bet twice, two ladders can claim the same bet, and a milestone can wear a ladder entry's id.
+
+What caught it: the blind review of bet-3 slice 1, each shape reproduced loading clean.
+
+What happened: open. The fix round closes all three symmetrically with the checks that already exist.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: coverage-gap
+
+## F37 — 2026-08-25 — A slice's rulings never reached the ledger, and one invented a field
+
+What it is: slice 1 made at least eight rulings the design does not carry — six parser caps, the top-level tree rule, the flat id space, the error policy, the optional-field set — and none reached docs/decisions.md. One ruling invented a machine-read field, touches_data, that R2's closed field list does not name and that can only ever disagree with the data block beside it. The builder died at the usage limit before any record could be written, and the driver's completion pass covered code, not record.
+
+What caught it: the blind review of bet-3 slice 1, reading the diff against R2 and against CLAUDE.md's record rule.
+
+What happened: D45 records the rulings and removes the invented field. The class already has a ruling — D39's landing checklist — and this entry is that checklist earning another line: the record check must cover rulings embedded in code, not just evidence files.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: record-not-written
+
+## F38 — 2026-08-25 — The derivation contract claims completeness and is not complete
+
+What it is: docs/derivation-contract.md says "The rules, all of them:" and then names none of the six size and depth caps the parser enforces, nor the rule that docs/plan itself holds only directories. R17 makes this page the one place a parsed shape is written down, so a gap here is a gap in the contract itself.
+
+What caught it: the blind review of bet-3 slice 1, grepping the page for every cap.
+
+What happened: open. The fix round writes the caps and the top-level rule into the page.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: record-not-written
+
+## F39 — 2026-08-25 — A plan directory with no parseable unit went red where D17 says unrunnable
+
+What it is: the ratified design says a docs/plan that exists but holds no parseable unit is unrunnable. The built row says red for a docs/plan holding only a README, and red for a program directory with no program.md; only a byte-empty docs/plan gets unrunnable. The divergence is unrecorded and the contract page does not mention it.
+
+What caught it: the blind review of bet-3 slice 1, end-to-end through the built binary.
+
+What happened: D45.2 rules it — no program directory means unrunnable, naming what the directory holds; a stray file beside a real program is red. The fix round aligns the row.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: other — a built verdict diverging from a ratified ruling, unrecorded
+
+## F40 — 2026-08-25 — Assertions weaker than they read: three rules survive removal
+
+What it is: the 64 KiB file cap can be blanked and the plan suite stays green — the hostile case asserts only "bytes", which the scalar cap's message satisfies first. The .md-suffix rule and the file-where-directories-belong rule survive removal the same way: their cases assert only that the error names the file, and nearly any downstream failure does. The contract-agreement test passes 18 of 40 field names on a bare substring match, so gutting the field tables goes uncaught for common words like id, title, and program.
+
+What caught it: the blind review of bet-3 slice 1, by removing each rule and watching the suite.
+
+What happened: open. The fix round pins each rule so removing it kills a test — the same cure as F18, F29 and F34.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: unrun-proof
+
+## F41 — 2026-08-25 — Every from: anchor in the dogfood is dangling
+
+What it is: all 24 from: references in docs/plan/rebuild/bet_3/ point at anchors like #r1 and #slice-1, and none resolve against design.md's real heading slugs. The shape check passes on purpose — anchor resolution is slice 6's trace row — but by slice 6 the design will be sealed under R3, and fixing a dangling anchor then costs the amendment protocol.
+
+What caught it: the blind review of bet-3 slice 1, computing every slug.
+
+What happened: open. The fix round repoints every anchor at a real slug now, while the design is unsealed. D45.4 rules that design.md is not edited to fit the anchors.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: coverage-gap
+
+## F42 — 2026-08-25 — Two smalls: dead code below the scans' floor, and a two-hash anchor
+
+What it is: atLeastOneLine in internal/plan/bind.go is called by nothing, and being unexported it sits below both the deletion test and the wiring row. And from: accepts docs/design.md#one#two, cutting at the first hash and silently keeping the rest.
+
+What caught it: the blind review of bet-3 slice 1.
+
+What happened: open. The fix round deletes the function and refuses the second hash.
+
+Caught by: blind-review — the slice 1 dispatch
+Class: coverage-gap
+
+## F43 — 2026-08-25 — The unrunnable counter counts the wrong thing, and deleting one file silences the row
+
+What it is: the F39 fix counts program.md files to decide unrunnable. A docs/plan holding a complete, parseable bet and slice — but no program.md — reports unrunnable, and unrunnable never fails a run. The closure check proved it with two repos identical but for that one file: with it, the row is red on a real misstatement; without it, the misstatement stops being reported. D45.2's own sentence is the test it fails: that directory offers files to parse, and they misstate. A missing program.md above a real bet is itself a misstatement, so the counter must count plan files met, not program.md alone.
+
+What caught it: the closure check on the slice 1 fix round, probing the fix it had asked for.
+
+What happened: open. The second fix round makes the counter count what D45.2 means.
+
+Caught by: blind-review — the slice 1 closure check
+Class: coverage-gap
+
+## F44 — 2026-08-25 — Two smalls from closure: an unpinned clip, and the page silent on what may be left out
+
+What it is: resolveSlice clips the proof's from path exactly as resolveBet clips the design path five lines away, but only the design half has a test that dies when the clip is removed — D38.2's bound is unproven on the other half. And the contract page, now complete on caps and rules, still never says which fields are optional: facing, records, premises and deferred may all be left out, and a writer cannot learn that from the page the dogfood itself relies on.
+
+What caught it: the closure check on the slice 1 fix round.
+
+What happened: open. Folded into the second fix round beside F43.
+
+Caught by: blind-review — the slice 1 closure check
+Class: unrun-proof
+
+## F45 — 2026-08-25 — The counter's program-file half had no pin of its own
+
+What it is: removing walkProgram's own increment left every suite green, because every fixture with a program.md also held a bet or slice file doing the counting. The uncounted shape is the first state of every new plan — a program.md alone, no bets cut yet. Without the increment, that real, readable plan reads as nothing to parse: F43 inverted. The behavior was correct; only the pin was missing.
+
+What caught it: the round-2 closure check, probing the F43 fix it had asked for.
+
+What happened: fixed at landing by the driver, as the closure specified: one test, TestAProgramFileAloneIsAPlanNotNothing, proven by blanking the increment and watching it die alone with the closure's exact line. The register nit in planrow.go's comment was fixed in the same pass.
+
+Caught by: blind-review — the slice 1 round-2 closure
+Class: unrun-proof

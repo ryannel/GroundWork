@@ -508,3 +508,39 @@ Every done-when clause is met on the surfaces the bet's ruled scope covers. The 
 The bet's ledger: eight slices, five bounces, three review rounds at the deepest, thirteen findings (F18–F30), eleven rulings (D33–D43), three catches by the battery on its own repo, two sealed held-out sets — the first burned by its own catch, which is the mechanism working. The branch merges to main by PR 34; the wip-snapshot branch is deleted at close per D27; the next bet restarts the branch from main.
 
 Why closing is right: the ladder's letter on node surfaces cannot be met by a bet that was ruled not to build node scanning, and pretending otherwise would either block the ladder on scope nobody ruled into this bet or invite quiet re-scoping. The record says exactly what is proven, on what, and what is owed.
+
+## D44 — 2026-08-23 — Bet 3 designed: eight slices, seventeen rulings
+
+The design stands at docs/evidence/bet-3/design.md, ratified as written: the eight-slice cut, and rulings R1 through R17 adopted verbatim. The load-bearing ones, restated in a line each: plans are three markdown files with frontmatter the machine reads and prose it never does; one seal mechanism, four kinds, an annotated tag naming paths and blob hashes; the CLI verifies signatures and never holds a key — unsigned is loud, non-blocking, and the flip to blocking waits for an owner key and a major bump; seal tags mirror to a branch because the proxy refuses tag pushes; the journal chain is per session, envelope v2, and D8's no-change sentence is amended — v1 lines read as an unchained prefix, never as forgery; the board is a derivation that writes nothing, landed-ness read from a Slice: trailer; proof markers live in Go test names; the stub check reuses the honesty scan's own judgment; each row-adding slice bumps the major, walking 5.0 toward 12.0.
+
+The three open items, settled: unsigned seals stay non-blocking this bet, with the flip named. Two authored fixture repos, not one — bet 2's discipline earned its cost twice. And this repo plans bet 3 in its own new format, as dogfood beside the held-out proof.
+
+The design's gaps are filed as F32 and F33. The held-out fixtures are authored and sealed before slice 1 lands, with docs/evidence/bet-3/holdout.md written at the same moment — F20's rule.
+
+Why this cut: a thing is built before the thing that grades it, and the grade runs last against fixtures nobody building the checks ever saw.
+
+## D45 — 2026-08-25 — Slice 1 review rulings: the field goes, D17 stands, the caps are ratified, the anchors move
+
+Four rulings from the slice 1 blind review, taken by the driver.
+
+1. touches_data is removed. R2's field list is closed — "these are the entries proof.md names, and nothing else" — and the data block's own presence already says what the boolean says. A field that can only ever agree with or contradict the thing beside it is a field that exists to be wrong. The block's presence is the declaration.
+
+2. D17 stands as ratified: a docs/plan with no program directory is unrunnable, and its evidence names what the directory holds instead. A stray file beside a real program is red — there is a plan, and it is misshapen. Only a docs/plan that offers nothing to parse has nothing to misstate.
+
+3. The parser's caps are ratified as built and belong on the contract page: 64 KiB per file, 1000 bytes per scalar, 64 bytes per id, 300 bytes per path, 40 bytes per key, depth 3. So are the flat repo-wide id space and the one-directory-level tree rule. The review is right that these were rulings the moment they were written; this entry is where they live, and the contract page must carry every one (F38).
+
+4. The dogfood's from: anchors move to design.md's real heading slugs. The design file is not edited to fit the anchors — it is ratified, and reshaping its headings to rescue references would be the tail wagging the dog. References conform to the thing they reference.
+
+Why now: the design is unsealed until slice 3's machinery lands, so every one of these is a cheap edit today and an amendment protocol tomorrow.
+
+## D46 — 2026-08-25 — Main tracks landed slices
+
+The owner's instruction: merge the bet branch to main as slices land, not once at bet close. Bet 2 merged in one piece at close; from here, main moves with each landed slice.
+
+Why: this build runs in a cloud session that can be reclaimed. A landed slice sitting only on a feature branch is one host failure from being work in flight again. Main is where finished work is safest, so finished work goes there as it finishes. The bet still runs on its branch and review still gates every slice — the only change is how often the branch's landed prefix reaches main.
+
+## D47 — 2026-08-25 — Paired interview runs, once the method stands
+
+The owner's instruction, recorded so it outlives the chat: once the method is fully in place, start sub-agent test runs in pairs — one agent interviewing, one being interviewed — at sonnet class to start. These are live trials of the method on real agents, beside the fixture-based proof the ladder already carries.
+
+Why record it now: the machinery these runs exercise arrives over several bets, and an instruction that lives only in conversation is gone by then. The driver schedules the first pair when the method's core — plans, journal, seals, board — is landed and proven.
