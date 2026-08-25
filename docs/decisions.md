@@ -532,3 +532,9 @@ Four rulings from the slice 1 blind review, taken by the driver.
 4. The dogfood's from: anchors move to design.md's real heading slugs. The design file is not edited to fit the anchors — it is ratified, and reshaping its headings to rescue references would be the tail wagging the dog. References conform to the thing they reference.
 
 Why now: the design is unsealed until slice 3's machinery lands, so every one of these is a cheap edit today and an amendment protocol tomorrow.
+
+## D46 — 2026-08-25 — Main tracks landed slices
+
+The owner's instruction: merge the bet branch to main as slices land, not once at bet close. Bet 2 merged in one piece at close; from here, main moves with each landed slice.
+
+Why: this build runs in a cloud session that can be reclaimed. A landed slice sitting only on a feature branch is one host failure from being work in flight again. Main is where finished work is safest, so finished work goes there as it finishes. The bet still runs on its branch and review still gates every slice — the only change is how often the branch's landed prefix reaches main.
