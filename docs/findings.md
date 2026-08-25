@@ -477,3 +477,25 @@ What happened: open. The fix round deletes the function and refuses the second h
 
 Caught by: blind-review — the slice 1 dispatch
 Class: coverage-gap
+
+## F43 — 2026-08-25 — The unrunnable counter counts the wrong thing, and deleting one file silences the row
+
+What it is: the F39 fix counts program.md files to decide unrunnable. A docs/plan holding a complete, parseable bet and slice — but no program.md — reports unrunnable, and unrunnable never fails a run. The closure check proved it with two repos identical but for that one file: with it, the row is red on a real misstatement; without it, the misstatement stops being reported. D45.2's own sentence is the test it fails: that directory offers files to parse, and they misstate. A missing program.md above a real bet is itself a misstatement, so the counter must count plan files met, not program.md alone.
+
+What caught it: the closure check on the slice 1 fix round, probing the fix it had asked for.
+
+What happened: open. The second fix round makes the counter count what D45.2 means.
+
+Caught by: blind-review — the slice 1 closure check
+Class: coverage-gap
+
+## F44 — 2026-08-25 — Two smalls from closure: an unpinned clip, and the page silent on what may be left out
+
+What it is: resolveSlice clips the proof's from path exactly as resolveBet clips the design path five lines away, but only the design half has a test that dies when the clip is removed — D38.2's bound is unproven on the other half. And the contract page, now complete on caps and rules, still never says which fields are optional: facing, records, premises and deferred may all be left out, and a writer cannot learn that from the page the dogfood itself relies on.
+
+What caught it: the closure check on the slice 1 fix round.
+
+What happened: open. Folded into the second fix round beside F43.
+
+Caught by: blind-review — the slice 1 closure check
+Class: unrun-proof
