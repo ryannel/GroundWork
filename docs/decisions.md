@@ -538,3 +538,9 @@ Why now: the design is unsealed until slice 3's machinery lands, so every one of
 The owner's instruction: merge the bet branch to main as slices land, not once at bet close. Bet 2 merged in one piece at close; from here, main moves with each landed slice.
 
 Why: this build runs in a cloud session that can be reclaimed. A landed slice sitting only on a feature branch is one host failure from being work in flight again. Main is where finished work is safest, so finished work goes there as it finishes. The bet still runs on its branch and review still gates every slice — the only change is how often the branch's landed prefix reaches main.
+
+## D47 — 2026-08-25 — Paired interview runs, once the method stands
+
+The owner's instruction, recorded so it outlives the chat: once the method is fully in place, start sub-agent test runs in pairs — one agent interviewing, one being interviewed — at sonnet class to start. These are live trials of the method on real agents, beside the fixture-based proof the ladder already carries.
+
+Why record it now: the machinery these runs exercise arrives over several bets, and an instruction that lives only in conversation is gone by then. The driver schedules the first pair when the method's core — plans, journal, seals, board — is landed and proven.
