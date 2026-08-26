@@ -44,6 +44,7 @@ verbs:
   drove      record that you drove the product yourself
   findings   check the findings ledger
   seal       grant, verify, restore or amend a seal
+  board      render the board the plan, git and the test run derive
 `
 
 const verifyUsage = `usage: groundwork verify [--list]
@@ -104,6 +105,8 @@ func run(args []string, out, errOut io.Writer) int {
 		return runFindings(args[1:], out, errOut)
 	case "seal":
 		return runSeal(args[1:], out, errOut)
+	case "board":
+		return runBoard(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork: unknown verb %q\n\n", args[0])
 		fmt.Fprint(errOut, usage)

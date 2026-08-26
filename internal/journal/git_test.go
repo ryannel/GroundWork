@@ -136,3 +136,37 @@ func TestParentsOfCountsWhatTheCommitHas(t *testing.T) {
 		})
 	}
 }
+
+// Shallow is what tells a clone that holds all of its history from one that
+// holds part of it. Two callers stand on the answer and read it opposite ways:
+// the waiver counter refuses to count on a history it cannot see, and the board
+// names a short history beside the landed set it read from one.
+//
+// Its own package never proved it, so blanking it left the journal's 188 tests
+// green — the 9.0 rotation of the deletion test, the same catch as F29, F34 and
+// F47, fixed the same way.
+func TestShallowTellsAWholeCloneFromAShallowOne(t *testing.T) {
+	dir := newRepo(t)
+	writeFile(t, filepath.Join(dir, "a.txt"), "a\n")
+	runGit(t, dir, "add", "a.txt")
+	runGit(t, dir, "commit", "-m", "second")
+
+	whole, err := Shallow(dir)
+	if err != nil {
+		t.Fatalf("Shallow failed on a whole history: %v", err)
+	}
+	if whole {
+		t.Error("a clone holding all of its history read as shallow")
+	}
+
+	clone := filepath.Join(t.TempDir(), "shallow")
+	runGit(t, t.TempDir(), "clone", "-q", "--depth", "1", "file://"+dir, clone)
+
+	part, err := Shallow(clone)
+	if err != nil {
+		t.Fatalf("Shallow failed on a shallow clone: %v", err)
+	}
+	if !part {
+		t.Error("a clone holding one commit of two read as whole")
+	}
+}

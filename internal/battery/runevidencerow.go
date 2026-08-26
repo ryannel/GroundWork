@@ -227,7 +227,7 @@ type surfaceEvidence struct {
 // caller reports it rather than concluding anything from it. Every path that
 // leaves the row without both sets of names comes back this way.
 func readSurface(ctx context.Context, s scanned, surface manifest.Surface) (surfaceEvidence, string) {
-	a, err := adapterFor(s.m, surface)
+	a, err := adapter.For(s.m, surface)
 	if err != nil {
 		return surfaceEvidence{}, fmt.Sprintf("the surface %q has no adapter: %s", surface.Name, s.reason(err))
 	}

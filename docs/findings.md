@@ -896,3 +896,25 @@ What happened: closed in the slice 4 micro-round, at its cause. The widest-line 
 
 Caught by: worker — the slice 4 fix round
 Class: coverage-gap
+
+## F81 — 2026-08-26 — The class's fourth entry: a bound the fix itself added, proved by nothing
+
+What it is: the fix round's new multi-suite line rode a three-name cap that nothing drove — blanking it survived the whole unfiltered suite, and the widest-line search's twice axis stopped at four, below the widths that matter. The fourth entry in the class F54, F61 and F79 already hold, and the second in this one slice: a widest-line test measuring a shape instead of searching for one, this time on the very line a fix introduced. The comment bounding the constant carried the same habit one layer down — its note arithmetic measured an ordinary rune where the widest reason carries a twelve-byte escape.
+
+What caught it: the closure re-check's own blanking sweep, and the final re-check's audit of the corrected arithmetic.
+
+What happened: fixed in the micro-round — the axis reaches two hundred, the blanked cap dies at the reviewer's exact probe — and the comment's numbers corrected at landing. The final re-check then proved the boundary sampling exact by running the full thirty-two-million-tuple space: same widest, no count lost anywhere.
+
+Caught by: blind-review — the slice 4 closure re-check
+Class: unrun-proof
+
+## F82 — 2026-08-26 — Two smalls from the closure re-check
+
+What it is: a verdict-cell guard whose only exit was a test failure could not be driven through its caller, so blanking it survived — a prose-rewritten cell on a not-red row would read as no by luck. And the two-count head lost its singular, printing "1 trailers misstated" with the searched test pinning the bad spelling in place.
+
+What caught it: the closure re-check's sweep of the fix diff.
+
+What happened: fixed in the micro-round — the guard split into a drivable reader plus its wrapper, ten rejects driven including the by-luck shapes; the count went back through counted, and the bound was re-measured at the plural where it is widest.
+
+Caught by: blind-review — the slice 4 closure re-check
+Class: unrun-proof

@@ -163,7 +163,7 @@ func (b *binder) id(key string) string {
 	if raw == "" {
 		return ""
 	}
-	if err := checkID(raw); err != nil {
+	if err := CheckID(raw); err != nil {
 		b.fail(b.n.fields[key].line, "the field %q holds the id %q, which %s", key, clip(raw), err)
 
 		return ""
@@ -252,7 +252,7 @@ func (b *binder) each(key string, required bool, check func(string) error) []str
 
 // ids reads a list of ids.
 func (b *binder) ids(key string, required bool) []string {
-	return b.each(key, required, checkID)
+	return b.each(key, required, CheckID)
 }
 
 // paths reads a list of paths, each written from the repo root.
@@ -311,13 +311,18 @@ func holds(all []string, name string) bool {
 	return false
 }
 
-// checkID holds an id to R1's rule: lowercase letters, digits and underscore.
+// CheckID holds an id to R1's rule: lowercase letters, digits and underscore.
+//
+// It is exported because the board reads slice ids off commit trailers, and an
+// id has to mean one thing whether it was written in a plan file or in a commit
+// message (D54 ruling 1). The error says what is wrong with the id and nothing
+// about where it came from, so each caller can say that in its own words.
 //
 // The charset is not the row ids' charset (D28), and that is deliberate. A row
 // id uses dashes; a proof id has to sit inside a Go test name, so it uses
 // underscores. Neither charset admits the other's separator, so the two can
 // never be read as one spelling of the same thing.
-func checkID(id string) error {
+func CheckID(id string) error {
 	if id == "" {
 		return fmt.Errorf("is empty")
 	}

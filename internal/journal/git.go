@@ -229,6 +229,142 @@ func FilesIn(dir, commit string) ([]string, error) {
 	return splitNUL(out), nil
 }
 
+// TrailerCommit is one commit of the repo's own history: its id, how many
+// parents it has, and the values git's own trailer parser found on it for one
+// trailer key.
+//
+// The parent count rather than the parents themselves, because the one question
+// a reader of trailers asks about a commit's parents is whether it is a merge.
+type TrailerCommit struct {
+	ID      string
+	Parents int
+	Values  []string
+}
+
+// Trailers returns every commit reachable from HEAD, newest first, with the
+// values git found for the trailer key on each of them.
+//
+// git's own trailer parser does the reading. A scan of a commit body written
+// here would be a second definition of what a trailer is, and it would drift
+// from the one git, its hooks and every other tool already agree on.
+//
+// The framing is git's too. Each record ends with a NUL and each value is
+// unfolded onto one line, so nothing in a commit message can end a value or a
+// record — and a record whose head is not a commit id is refused rather than
+// read, which is the one shape a message could reach in with.
+func Trailers(dir, key string) ([]TrailerCommit, error) {
+	if err := checkRepo(dir); err != nil {
+		return nil, err
+	}
+	if err := checkTrailerKey(key); err != nil {
+		return nil, err
+	}
+
+	head, err := headCommit(dir)
+	if err != nil {
+		return nil, err
+	}
+	if head == "" {
+		// A repo with no commit has no history to read, which is an answer and
+		// not a failure.
+		return nil, nil
+	}
+
+	format := "--format=%H %P%n%(trailers:key=" + key + ",valueonly,unfold)%x00"
+
+	out, err := gitOut(dir, nil, nil, "log", format, "HEAD")
+	if err != nil {
+		return nil, err
+	}
+
+	return parseTrailerLog(out)
+}
+
+// checkTrailerKey rejects a key that is not a trailer token.
+//
+// The key is written into git's own format string, so a key holding a comma or
+// a parenthesis would change which atom git renders rather than which trailer
+// it looks for.
+func checkTrailerKey(key string) error {
+	if key == "" {
+		return errors.New("a trailer key is empty")
+	}
+
+	for _, r := range key {
+		switch {
+		case r >= 'a' && r <= 'z':
+		case r >= 'A' && r <= 'Z':
+		case r >= '0' && r <= '9':
+		case r == '-':
+		default:
+			return fmt.Errorf("the trailer key %q holds %q, which is not a letter, a digit or a dash",
+				short(key), r)
+		}
+	}
+
+	return nil
+}
+
+// parseTrailerLog reads the records Trailers asks git for.
+//
+// One record per commit: the commit id, a space, its parents, a newline, then
+// one line per trailer value, then a NUL. A value can be empty — a trailer with
+// nothing after its colon names nothing, and losing it would let the plainest
+// misstatement pass unseen — so the values are counted off the framing rather
+// than by dropping blank lines.
+func parseTrailerLog(out string) ([]TrailerCommit, error) {
+	var commits []TrailerCommit
+
+	for _, record := range strings.Split(out, "\x00") {
+		// git log writes a newline after each record, which lands at the front
+		// of the next one.
+		record = strings.TrimPrefix(record, "\n")
+		if record == "" {
+			continue
+		}
+
+		head, rest, found := strings.Cut(record, "\n")
+		if !found {
+			return nil, fmt.Errorf("git log printed the record %q, which holds no line", short(record))
+		}
+
+		fields := strings.Fields(head)
+		if len(fields) == 0 || !isObjectID(fields[0]) {
+			return nil, fmt.Errorf("git log printed the record head %q, which does not open with a commit id",
+				short(head))
+		}
+
+		commit := TrailerCommit{ID: fields[0], Parents: len(fields) - 1}
+		if rest != "" {
+			values := strings.Split(rest, "\n")
+			commit.Values = values[:len(values)-1]
+		}
+
+		commits = append(commits, commit)
+	}
+
+	return commits, nil
+}
+
+// isObjectID reports whether a word is a whole git object id, in either of the
+// two lengths git hashes with.
+func isObjectID(word string) bool {
+	if len(word) != 40 && len(word) != 64 {
+		return false
+	}
+
+	for _, r := range word {
+		switch {
+		case r >= '0' && r <= '9':
+		case r >= 'a' && r <= 'f':
+		default:
+			return false
+		}
+	}
+
+	return true
+}
+
 // Shallow reports whether this clone holds only part of its history. A caller
 // that could not find a commit says so differently when the history is not all
 // here.

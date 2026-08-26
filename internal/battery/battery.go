@@ -97,7 +97,9 @@ var severities = []string{Blocking, Advisory}
 // writes. D28 recorded this list as closed, so widening it is a decision, and
 // this comment is the note the driver rules on. plan joins on the same footing,
 // under the bet 3 design's R16, and chain joins under that design's R7: the
-// journal's own continuity is not any of the nine verbs either.
+// journal's own continuity is not any of the nine verbs either, and board joins
+// under R8: a derivation reconciling a plan against a test run is not one of
+// them at all.
 //
 // The rows themselves land across several bets. Naming their kinds now costs
 // nothing and catches a typo at registration, where a typo would otherwise
@@ -106,7 +108,7 @@ var kinds = []string{
 	"version", "manifest",
 	"honesty", "wiring", "token", "divergence", "reachability",
 	"flag", "mutate", "seal-verify", "run-evidence",
-	"plan", "chain",
+	"plan", "chain", "board",
 }
 
 // maxRowIDBytes caps a row id. Row ids go on journal lines and into output

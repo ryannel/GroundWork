@@ -360,7 +360,7 @@ func seamFor(s scanned, surface manifest.Surface) (mutationSeam, string) {
 			surface.Name, surface.Stack)
 	}
 
-	a, err := adapterFor(s.m, surface)
+	a, err := adapter.For(s.m, surface)
 	if err != nil {
 		return mutationSeam{}, fmt.Sprintf("the surface %q has no adapter: %s", surface.Name, s.reason(err))
 	}
