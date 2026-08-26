@@ -1,4 +1,6 @@
 # The host-usage sidecar is the driver's own working file: D17 rules it
 # uncommitted. Everything else under .groundwork/ is committed — the capability
-# manifest and, from D24, the waivers.
+# manifest, the waivers from D24, and the allowed-signers file from R4 — that
+# one has to be committed so a fresh clone can verify a seal with no keyring
+# setup.
 .groundwork/host-usage/

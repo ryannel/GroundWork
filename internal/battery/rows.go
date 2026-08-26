@@ -4,7 +4,7 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// Nine rows today. version is the drift check D23 asks for: CI fails when the
+// Ten rows today. version is the drift check D23 asks for: CI fails when the
 // digest moves without a declared bump. manifest is the capability manifest
 // check: the project declared what it does, and something the stack's adapter
 // can see has to prove each one. Then the three scans proof.md names — honesty,
@@ -19,7 +19,9 @@ import "fmt"
 // and calls it red when a file will not parse, an id repeats, or a reference
 // reaches nothing. chain walks the journal itself: every line carries the hash
 // of the line before it in its own session, and the row calls it red when one of
-// those is missing or does not match.
+// those is missing or does not match. seal-verify recomputes every path a seal
+// covers and calls it red when one moved: R3 makes "does the work still match
+// what was sealed" a hash comparison rather than a reading.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -37,6 +39,7 @@ func Default() *Registry {
 	reg.Register(mutateRow())
 	reg.Register(planRow())
 	reg.Register(chainRow())
+	reg.Register(sealRow())
 
 	return reg
 }

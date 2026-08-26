@@ -634,3 +634,9 @@ The rulings, standing from here:
 2. A change that adds a machine-read field is not done until the page and its pin both carry it — the landing checklist (D39) gains that line, and the driver checks it at every landing alongside the evidence directory.
 
 Why now: the class reached three through two review rounds in one slice — the drift happens at fix time, when attention is on the code and the page is yesterday's problem.
+
+## D55 — 2026-08-26 — The landing gate pairs verify with the test suite
+
+Until F70's row exists, a green battery does not prove the tests pass — the run-evidence row reconciles which tests ran, not how they ended. So the driver's landing checklist gains a line: no slice lands on verify alone; go test ./... runs green beside it, on the same tree. The line comes out when the row that asks the suite's own question lands.
+
+Why: the slice 3 second fix round watched verify stay green over a red package. The gap is assigned (F70); this is the manual bridge until it closes.

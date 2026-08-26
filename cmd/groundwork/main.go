@@ -43,6 +43,7 @@ verbs:
   waive      waive a row of the battery, with a reason and an expiry
   drove      record that you drove the product yourself
   findings   check the findings ledger
+  seal       grant, verify, restore or amend a seal
 `
 
 const verifyUsage = `usage: groundwork verify [--list]
@@ -101,6 +102,8 @@ func run(args []string, out, errOut io.Writer) int {
 		return runDrove(args[1:], out, errOut)
 	case "findings":
 		return runFindings(args[1:], out, errOut)
+	case "seal":
+		return runSeal(args[1:], out, errOut)
 	default:
 		fmt.Fprintf(errOut, "groundwork: unknown verb %q\n\n", args[0])
 		fmt.Fprint(errOut, usage)

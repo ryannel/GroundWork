@@ -22,6 +22,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
+	"unicode/utf8"
 )
 
 // Ref is the git ref that holds the journal.
@@ -131,10 +133,37 @@ type Dial struct {
 //
 // There is no target field on purpose. The commit is read from the tag, so
 // the record cannot name a commit the tag does not hold.
+//
+// Battery and BatteryRun are D23's second recording place: the version pair the
+// seal was granted under, recorded here as well as on the tag, so that seal
+// verify can check the two agree. D28 deferred them to the slice that builds
+// the seal machinery, and this is that slice.
+//
+// They are a pair. Both or neither: a version with no run behind it, or a run
+// with no version, cannot be cross-checked against anything. A caller that has
+// neither — the low-level journal seal verb — writes a line without them, and
+// the fields are left off rather than written empty.
+//
+// Reason is why the seal moved. R6 refuses an amendment without one, and a
+// reason that is only printed is not on the record — so it is recorded here,
+// the way a dial line already records why the dial moved. Both lines an
+// amendment writes carry it, revoked and granted alike, because both are that
+// one move. A first grant moves nothing and leaves the field off.
+//
+// Signature and Signer are the same ruling applied to R6's other half: the
+// record states who signed. Signature is the state the tag was in when the line
+// was written. Signer is who git named, and it is empty unless the signature
+// verified — a signer with no verified signature behind it names somebody for
+// something nobody checked, so it is refused.
 type Seal struct {
-	Kind   string
-	Tag    string
-	Action string
+	Kind       string
+	Tag        string
+	Action     string
+	Battery    string
+	BatteryRun string
+	Reason     string
+	Signature  string
+	Signer     string
 }
 
 // tokens holds the token counts for one dispatch.
@@ -190,10 +219,15 @@ type dialEvent struct {
 type sealEvent struct {
 	envelope
 
-	SealKind string `json:"seal_kind"`
-	Tag      string `json:"tag"`
-	Target   string `json:"target"`
-	Action   string `json:"action"`
+	SealKind   string `json:"seal_kind"`
+	Tag        string `json:"tag"`
+	Target     string `json:"target"`
+	Action     string `json:"action"`
+	Battery    string `json:"battery,omitempty"`
+	BatteryRun string `json:"battery_run,omitempty"`
+	Reason     string `json:"reason,omitempty"`
+	Signature  string `json:"signature,omitempty"`
+	Signer     string `json:"signer,omitempty"`
 }
 
 // build makes the line for one kind of event, around an envelope the write
@@ -282,11 +316,16 @@ func WriteSeal(repoDir string, s Seal) (string, error) {
 
 	return write(repoDir, "seal", func(dir, tip string, env envelope) (any, error) {
 		return sealEvent{
-			envelope: env,
-			SealKind: s.Kind,
-			Tag:      s.Tag,
-			Target:   target,
-			Action:   s.Action,
+			envelope:   env,
+			SealKind:   s.Kind,
+			Tag:        s.Tag,
+			Target:     target,
+			Action:     s.Action,
+			Battery:    s.Battery,
+			BatteryRun: s.BatteryRun,
+			Reason:     s.Reason,
+			Signature:  s.Signature,
+			Signer:     s.Signer,
 		}, nil
 	})
 }
@@ -452,8 +491,84 @@ func checkSeal(s Seal) error {
 	if err := checkFilled("seal_kind", s.Kind); err != nil {
 		return err
 	}
+	if err := checkFilled("tag", s.Tag); err != nil {
+		return err
+	}
 
-	return checkFilled("tag", s.Tag)
+	if err := checkText("reason", s.Reason); err != nil {
+		return err
+	}
+	if err := checkText("signature", s.Signature); err != nil {
+		return err
+	}
+	if err := checkText("signer", s.Signer); err != nil {
+		return err
+	}
+	if s.Signer != "" && s.Signature == "" {
+		return fmt.Errorf("signer is %q and no signature state was given, and a signer stands on one",
+			short(s.Signer))
+	}
+
+	return checkBatteryPair(s.Battery, s.BatteryRun)
+}
+
+// checkBatteryPair rejects half a battery pair on a seal line.
+//
+// Neither is the shape of a line the low-level verb writes: it has no run to
+// name, so it names none. Both is the shape a grant writes. One of the two is
+// neither, and it would record a version nobody can trace to a run, or a run
+// nobody can trace to a version.
+func checkBatteryPair(battery, run string) error {
+	if (battery == "") != (run == "") {
+		return fmt.Errorf("battery is %q and battery_run is %q, and a seal line carries both or neither",
+			short(battery), short(run))
+	}
+	if battery == "" {
+		return nil
+	}
+
+	if err := checkText("battery", battery); err != nil {
+		return err
+	}
+
+	return checkText("battery_run", run)
+}
+
+// short renders a value safe and short enough for an error message to carry
+// whole.
+//
+// Safe first: everything it cuts was written by somebody else, and a newline in
+// one would draw a line of its own wherever the error is printed. That is D38
+// ruling 4, and F66 found this the one clip here that skipped it.
+func short(value string) string {
+	const most = 40
+
+	value = printableText(value)
+	if len(value) <= most {
+		return value
+	}
+
+	// Only a partial rune can be invalid here, so this backs off at most three
+	// bytes.
+	kept := value[:most]
+	for len(kept) > 0 && !utf8.ValidString(kept) {
+		kept = kept[:len(kept)-1]
+	}
+
+	return kept + "..."
+}
+
+// printableText turns every character that is not printable into a space.
+//
+// A space rather than nothing, so two words never run together into a third.
+func printableText(text string) string {
+	return strings.Map(func(r rune) rune {
+		if unicode.IsPrint(r) {
+			return r
+		}
+
+		return ' '
+	}, strings.ToValidUTF8(text, ""))
 }
 
 // checkText rejects a free text field that is too long to record.

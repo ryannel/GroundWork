@@ -785,3 +785,15 @@ What happened: recorded and assigned. The row that owns this belongs beside run-
 
 Caught by: worker — the slice 3 second fix round
 Class: coverage-gap
+
+## F71 — 2026-08-26 — The final re-check's two smalls, fixed at landing
+
+What it is: the rollback's old-value guarantee was tested on the mirror half and not the tag half — dropping the old value from the tag delete killed nothing. And one sentence in signerFrom's doc still needed a second reading after the fix round's split.
+
+What caught it: the final re-check's own ten-mutation sweep — eight killed, this survivor, and one honest can-never-fail (the defensive read ordering no test can distinguish).
+
+What happened: fixed at landing by the driver. The tag half has its twin test, proven by dropping the old value and watching it die alone; the sentence is three short ones.
+
+Caught by: blind-review — the slice 3 final re-check
+Class: unrun-proof
+
