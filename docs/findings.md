@@ -774,3 +774,14 @@ What happened: open. Folded into the second fix round.
 
 Caught by: blind-review — the slice 3 closure re-check
 Class: parallel-definition
+
+## F70 — 2026-08-26 — The battery went green over a failing test suite
+
+What it is: with a test red in internal/findings, groundwork verify still reported ten rows green. The mutate row never sampled that package's functions, and the run-evidence row reconciles which tests ran against which were discovered — not whether they passed. No row asks the one question a contributor would: does the suite pass?
+
+What caught it: the slice 3 second fix round, when the ledger-threshold test went red under its feet and verify stayed green.
+
+What happened: recorded and assigned. The row that owns this belongs beside run-evidence, and the bet 3 close-out decides whether it lands in this bet's remaining slices or is named as a deferral with an owner, F13's rule. The findings ledger's own check caught the actual red here, which is why the gap surfaced at all.
+
+Caught by: worker — the slice 3 second fix round
+Class: coverage-gap

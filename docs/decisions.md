@@ -612,3 +612,25 @@ Nine rulings from the slice 3 review, taken by the driver.
 9. The smalls, ruled: a grant needs a green run that checked something — zero green rows is a refusal; the seal verb refuses a tag that is not a seal tag by name; the cross-check reads the newest seal line of either action, so a newer revoked is never out-answered by an older grant; short() joins the printable pattern; amend prints the paths that differ, clipped, not their counts; the stale journal comment is fixed.
 
 Why these directions: every one falls out of a ruling already made — D51.1's states kept apart, D51.3's record-not-print, D45.4's references-conform, F54's class, D49.2's printable. The review found the places the rulings were not yet obeyed.
+
+## D53 — 2026-08-26 — The front-door-hollow class tripped its threshold: proofs walk the default path
+
+Three findings share the shape: a mechanism whose front door opens onto nothing. The default-mode journal chained nothing because every test set the session variable (F48). A junk file turned off the mirror for everyone (F59). The atomic grant's failure path left a wreck that traveled (F67).
+
+The rulings, standing from here:
+
+1. A slice's headline proof exercises the path the DEFAULT configuration takes. A proof that sets a variable, plants a file, or shims a branch the shipped tool never walks is proving a different tool. The reviewer checks this by asking of each headline proof: which branch did this walk, and is that the shipped one? The R4 proof's branch pin from this slice is the model.
+2. An operation that writes more than one thing proves its failure paths leave no partial state — each write's failure gets a fixture, and the assertion is that NOTHING remains, not that an error was printed. The slice 3 grant probes are the model.
+
+Why a rule and not three fixes: all three findings were built green and reviewed red. The class survives fixes because it lives in what the proofs never ask.
+
+## D54 — 2026-08-26 — The parallel-definition class tripped its threshold: one truth, one place, structure-read pins
+
+Three findings share the shape: two statements of one truth, drifting. The row test seam samples against a different version than a real run (F46). One path rule stated three ways (F64). The contract page missing the fields the code just gained (F69).
+
+The rulings, standing from here:
+
+1. Where a truth must appear in two places — a parser and its contract page, a row and its test seam — one place is declared the source and the other carries a pin that reads the source's STRUCTURE, not its words. The slice 3 fix's table-reading contract pin is the model: it survived a prose mention and failed a gutted cell, which is the right way round.
+2. A change that adds a machine-read field is not done until the page and its pin both carry it — the landing checklist (D39) gains that line, and the driver checks it at every landing alongside the evidence directory.
+
+Why now: the class reached three through two review rounds in one slice — the drift happens at fix time, when attention is on the code and the page is yesterday's problem.
