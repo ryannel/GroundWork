@@ -682,3 +682,17 @@ Why ratify: ruling 1 is the significant one, and it holds because the reconcilia
 D58.1 carried two supporting sentences that are not so, found by the review and recorded in F86. The ledger is append-only, so the correction lives here, beside the ruling a reader will meet: the ladder's three styles are AMONG the five shapes the honesty scan names, not exactly them; and the sealed-fixture claim holds only as far as the open descriptions show — one holdout's wrinkle is noted only in its key, which nobody building could read. D58.1's direction stands unchanged.
 
 One more small ruling from the closure: while any surface has gone unrun, a landed slice missing its proof passes the stub row — the row cannot tell that absence from the surface's — and the contract page now states that cost beside the rule instead of leaving it implied. The clause naming the unrun surface is what keeps the state visible.
+
+## D60 — 2026-08-26 — Slice 6 rulings: the trace row's edges, taken as built
+
+Seven calls from the traceability slice, made by the builder and ratified by the driver.
+
+1. Unsealed is loud, never blocking, and flips with R4's flip. The anchor resolving is the red; whether a seal covers the file is a state, named in the head and per hit. That is what keeps this repo's verify honest over three bets of unsealed history.
+2. A mark is loud, never red, and does not clear — R13 says marks, and nothing yet lets a bet answer one. The clearing verb is named as F91's gap.
+3. R13's journal line is the row's own battery-row line, which names the marked bets. A second line would be a second record of one fact.
+4. An item both claimed and deferred is claimed twice. R12's or is exclusive: two records of one item's fate is exactly the two-ways-of-reading shape the plan reader refuses everywhere else.
+5. Design files are read from the working tree until R15's slice moves committed reads onto their own ground.
+6. The builder does not grant the design seal. A seal is a sign-off, and the builder granting the seal its own row reads is the self-graded shape this repo avoids. The driver grants it after the slice lands, from the landed tree, which is what a sign-off is.
+7. Unsealed things are named as hits, not folded into a clause — each is one file or one artifact a reader may need to chase.
+
+Why ratify: six follows the review discipline itself — the one who built a thing never blesses it — and the rest sit inside R12 and R13 with their costs named.

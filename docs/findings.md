@@ -1006,3 +1006,36 @@ What happened: all nine fixed in the fix round, the plan-file record line first 
 
 Caught by: blind-review — the slice 5 dispatch
 Class: coverage-gap
+
+## F91 — 2026-08-26 — A mark never clears
+
+What it is: once the record holds an amendment, every bet whose premises name that artifact is marked, forever. Nothing lets a bet answer the mark — re-examine the premise, re-affirm, and clear. R13 gives the signal and no verb takes the answer. Loud, honest, and permanent is still a ratchet.
+
+What caught it: the slice 6 builder, pricing its own ruling.
+
+What happened: recorded. The answering verb belongs to the bet-close machinery the ladder already places later; the bet 3 close-out names its owner.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
+
+## F92 — 2026-08-26 — The sealed half of R12 is a state, not yet a check, on this repo
+
+What it is: R12 says anchors resolve inside a sealed design file, and this repo's design carries no seal — so the row's sealed half reads (unsealed) on every line, a state it names but cannot enforce. The builder rightly refused to grant the seal itself (D60.6).
+
+What caught it: the slice 6 builder, reading its own verify line.
+
+What happened: the driver grants the unsigned design seal after the slice lands, from the landed tree — the sign-off made by the one who reviewed, not the one who built. Unsigned stays non-blocking per R4 until the owner's key exists.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
+
+## F93 — 2026-08-26 — Three smalls from the trace build
+
+What it is: a proof's from: path is not held to its bet's design: list, so a proof can cite a file its bet never declared as design. A journal line nobody can parse leaves the row unrunnable even when no bet declares premises — the safe direction, but wider than it needs to be. And a setext heading makes no anchor here, so a design file styled that way has no resolvable anchors — named in the contract page rather than silently.
+
+What caught it: the slice 6 builder, walking its own edges.
+
+What happened: recorded. The from-versus-design check is one rule the next slice in this package can add; the others stand as named boundaries.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
