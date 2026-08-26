@@ -571,3 +571,15 @@ Four rulings from the slice 2 review, taken by the driver.
 4. The message smalls: a not-JSON break names the position it broke at, never a borrowed seq; a gap message never names a seq that is present; a line with no session field is a break, not a group.
 
 Why 1 is in scope for this slice: the chain row's headline claim depends on it, and a row that overclaims in the default mode is F48's finding, not a deferrable nicety.
+
+## D50 — 2026-08-26 — Slice 2 fix-round rulings, and the closure's two fixes
+
+Five calls from the fix round, ratified, and the closure's two regressions fixed by the driver.
+
+1. The unrunnable branch keeps cut, not printable. D49.2 covers values a line takes off a journal line; git's own words about a ref it could not walk are not one, and no test can reach a control character in them — an unprovable rule is what F50 names. The reviewer's caveat is recorded with it: the branch is safe because treeEntries and scanBatch quote with %q, and that dependency is named in the code.
+2. cut came off the green and red lines. Both are bounded by arithmetic, so the cut was dead code a mutation could remove unnoticed — m17 did exactly that. The bound is the guarantee, which is why F54's fix matters: the bound must measure the widest branch.
+3. MaxWhyBytes is enforced in breakAt, not asserted about a list of strings. A cap held by construction stays true when someone writes a longer reason.
+4. The error branch is reached by pointing the ref at a blob — the plainest shape git allows, nothing that behaves differently as root.
+5. A line rewritten in place is two breaks: the path no longer fits the content, and the next line's prev no longer fits either. The count leads, so the reader sees two and acts on the first.
+
+The closure's two regressions — the first-line-deletion panic (F53) and the narrow bound (F54) — were fixed at closure by the driver as one-line changes with their tests, each proven by blanking. The register trim on the row's comments landed in the same pass.

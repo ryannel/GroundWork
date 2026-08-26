@@ -587,3 +587,36 @@ What happened: open. The fix round tightens each message and makes the missing-s
 
 Caught by: blind-review — the slice 2 dispatch
 Class: coverage-gap
+
+## F53 — 2026-08-26 — The fix round turned the plainest deletion into a crash
+
+What it is: the fix round removed the i > 0 guard from the duplicate-seq check, so a session whose first line was deleted — the walk opening at seq 2 — indexed one before the start and panicked. The battery has no recover around row checks, so the whole verify process died: no red, no unrunnable, no journal line. The pre-fix code handled the case correctly. It survived because no test deleted a first line, and none of this repo's 183 sessions starts above seq 1 — latent, not absent.
+
+What caught it: the round-2 closure check, probe P, through the real library and the real row.
+
+What happened: fixed at closure by the driver — the guard restored, and a test that deletes a session's first line, proven by blanking the guard and watching the reviewer's exact panic come back.
+
+Caught by: blind-review — the slice 2 closure check
+Class: green-but-wrong
+
+## F54 — 2026-08-26 — The widest-line proof measured the narrower branch
+
+What it is: the new arithmetic bound test handed its break a seq below one, and the renderer prints no seq for those — so the "widest" fixture skipped the seq and measured 165 bytes against a real worst case of 192. The bound held, with 8 bytes of true slack where the test believed 35. With cut gone, that test is the only thing between a growing cap and a failed journal write.
+
+What caught it: the round-2 closure check, probe Q, by computing both widths.
+
+What happened: fixed at closure by the driver — one word, the seq moved to its widest legal value, so the test now measures the branch that prints everything.
+
+Caught by: blind-review — the slice 2 closure check
+Class: unrun-proof
+
+## F55 — 2026-08-26 — A blanking table that cannot tell three answers apart
+
+What it is: a blanked rule can kill a test, survive, or fail to build — and a harness that folds the third into either of the first two reports false confidence in both directions. Three of the fix round's seventeen patches did not compile on the first pass and briefly read as survivors. The reviewer hit the same class from the other side: a mutation that lowered a floor to a value that can never fail looked like a clean run and proved nothing.
+
+What caught it: the fix round's own table, and the closure check naming the class.
+
+What happened: recorded as a rule for reading blanking tables — did-not-build and can-never-fail are non-answers, and a sweep counts only mutations that ran and could have failed. The fix round's harness already prints the build failure instead of folding it.
+
+Caught by: worker — the slice 2 fix round, with the closure check naming the class
+Class: other — a proof harness whose failure mode reads as proof
