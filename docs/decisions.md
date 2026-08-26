@@ -544,3 +544,42 @@ Why: this build runs in a cloud session that can be reclaimed. A landed slice si
 The owner's instruction, recorded so it outlives the chat: once the method is fully in place, start sub-agent test runs in pairs — one agent interviewing, one being interviewed — at sonnet class to start. These are live trials of the method on real agents, beside the fixture-based proof the ladder already carries.
 
 Why record it now: the machinery these runs exercise arrives over several bets, and an instruction that lives only in conversation is gone by then. The driver schedules the first pair when the method's core — plans, journal, seals, board — is landed and proven.
+
+## D48 — 2026-08-26 — Slice 2 rulings: the chain's edges, taken as built
+
+Nine calls the chain slice needed, made by the builder and ratified here. The load-bearing ones:
+
+1. A v1 line at a seq above a chained line is a break. The unchained prefix is a prefix. Once a session's chain begins, a line that drops out of it is the cheapest forgery there is — nothing has to hash. R7's never-call-v1-forged holds for the prefix; it does not license a downgrade afterwards.
+2. A journal line that is not JSON is a break, not an error. An error would leave the row unrunnable, and unrunnable never fails a run — F43's shape exactly: one corrupted line would silence the whole check.
+3. A repo with no journal ref is green; a ref that exists and holds no event is unrunnable. Both halves follow the plan row's precedent and D17.
+4. Every error out of CheckChain makes the row unrunnable, including a repo the walker cannot open. This diverges from the plan row, which goes red when RepoRoot fails. The divergence is accepted and named; if a third row meets the same edge, rule the posture once for all rows.
+5. prev is written even when empty, so every v2 line carries the field and a chained first line is never shaped like a v1 line.
+6. A line is grouped by the session it names, not the directory it sits in. Moving a blob between session directories changes nothing about what the line says.
+7. Past a gap or a repeated seq, the walk names that seq and stops checking that session's prevs — the missing link is the one fact the reader acts on.
+8. When two clones share a highest seq, the writer points the next line at the lower hash, so both clones land in the same place.
+9. The chain row registers last, so inside a battery run it reads the lines the earlier rows just wrote.
+
+Why ratify rather than re-cut: each call sits inside R7's frame, each is written into the code's own comments, and the review gets them all as claims to attack.
+
+## D49 — 2026-08-26 — The session is the run
+
+Four rulings from the slice 2 review, taken by the driver.
+
+1. When GROUNDWORK_SESSION is unset, the tool generates one session id per process, not per write. A run is a session. That is what D8's model always meant, and it is what makes the chain cover the default mode: a deleted line inside a run becomes a gap, and R7's promise holds without anyone setting a variable. Two concurrent runs still get distinct ids, so the merge's independence stands. What stays uncovered: deleting a whole one-line session, which no per-session chain can see — that is R4's ground, with the tip-rewrite case beside it.
+2. Every value a battery evidence line takes from a journal line goes through printable before it goes through a clip. A forger controls the line's fields; the table must not be theirs to draw. This is D38 ruling 4 applied where it was missed.
+3. The chain walk compares each line's computed hash to the path it sits at, and a mismatch is a break. The check is free and closes the rewrite-in-place probe. What it cannot close: a tip rewritten and refiled, and a whole session invented in the v1 shape. Both are named here as accepted until the seal lands, and the evidence now counts wholly unchained sessions so a reader can watch that number instead of trusting it.
+4. The message smalls: a not-JSON break names the position it broke at, never a borrowed seq; a gap message never names a seq that is present; a line with no session field is a break, not a group.
+
+Why 1 is in scope for this slice: the chain row's headline claim depends on it, and a row that overclaims in the default mode is F48's finding, not a deferrable nicety.
+
+## D50 — 2026-08-26 — Slice 2 fix-round rulings, and the closure's two fixes
+
+Five calls from the fix round, ratified, and the closure's two regressions fixed by the driver.
+
+1. The unrunnable branch keeps cut, not printable. D49.2 covers values a line takes off a journal line; git's own words about a ref it could not walk are not one, and no test can reach a control character in them — an unprovable rule is what F50 names. The reviewer's caveat is recorded with it: the branch is safe because treeEntries and scanBatch quote with %q, and that dependency is named in the code.
+2. cut came off the green and red lines. Both are bounded by arithmetic, so the cut was dead code a mutation could remove unnoticed — m17 did exactly that. The bound is the guarantee, which is why F54's fix matters: the bound must measure the widest branch.
+3. MaxWhyBytes is enforced in breakAt, not asserted about a list of strings. A cap held by construction stays true when someone writes a longer reason.
+4. The error branch is reached by pointing the ref at a blob — the plainest shape git allows, nothing that behaves differently as root.
+5. A line rewritten in place is two breaks: the path no longer fits the content, and the next line's prev no longer fits either. The count leads, so the reader sees two and acts on the first.
+
+The closure's two regressions — the first-line-deletion panic (F53) and the narrow bound (F54) — were fixed at closure by the driver as one-line changes with their tests, each proven by blanking. The register trim on the row's comments landed in the same pass.

@@ -4,7 +4,7 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// Eight rows today. version is the drift check D23 asks for: CI fails when the
+// Nine rows today. version is the drift check D23 asks for: CI fails when the
 // digest moves without a declared bump. manifest is the capability manifest
 // check: the project declared what it does, and something the stack's adapter
 // can see has to prove each one. Then the three scans proof.md names — honesty,
@@ -17,7 +17,9 @@ import "fmt"
 // calls the suite red when the tests survive the implementation being deleted.
 // plan is the first row of the planning bet: it reads the plan a repo commits
 // and calls it red when a file will not parse, an id repeats, or a reference
-// reaches nothing.
+// reaches nothing. chain walks the journal itself: every line carries the hash
+// of the line before it in its own session, and the row calls it red when one of
+// those is missing or does not match.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -34,6 +36,7 @@ func Default() *Registry {
 	reg.Register(runEvidenceRow())
 	reg.Register(mutateRow())
 	reg.Register(planRow())
+	reg.Register(chainRow())
 
 	return reg
 }

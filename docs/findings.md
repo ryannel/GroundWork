@@ -510,3 +510,124 @@ What happened: fixed at landing by the driver, as the closure specified: one tes
 
 Caught by: blind-review — the slice 1 round-2 closure
 Class: unrun-proof
+
+## F46 — 2026-08-26 — The row test seam samples against the wrong version
+
+What it is: runRow in the battery's own tests builds a Context with no Digest. The mutate row hashes its sample against the battery version, both halves, so a row run through runRow picks a different ten mutants than a real verify run does. The builder paid one five-minute run against the wrong sample to find this.
+
+What caught it: the slice 2 builder, instrumenting the mutate row to find a survivor.
+
+What happened: open. It is the mutate row's own test seam, and the fix belongs in its own change, not smuggled into a journal slice.
+
+Caught by: worker — the slice 2 build
+Class: parallel-definition
+
+## F47 — 2026-08-26 — The battery's sixth catch: two more survivors at the 7.0 rotation
+
+What it is: the 7.0 bump rotated the deletion test's sample onto two functions whose suites passed without them — the Go adapter's Name, and the journal's ChangedFiles, sitting beside the two functions F29 caught the same way.
+
+What caught it: the battery — the mutate row's rotated sample at 7.0, exactly as the bet 3 design's risk list predicted.
+
+What happened: both fixed in the slice, the F29/F34 way — one test per function, each proven by blanking the function and watching its test die alone. The scan was never touched.
+
+Caught by: battery — the mutate row's rotated sample at 7.0
+Class: unrun-proof
+
+## F48 — 2026-08-26 — In the default mode, the chain covers nothing
+
+What it is: with GROUNDWORK_SESSION unset — the tool's default — sessionID generates a fresh id per write, so every journal line lands in its own one-line session, seq 1, empty prev. There is nothing to chain and nothing to check. The reviewer ran a full verify on a copy: ten lines, ten sessions. Then it deleted a line from the ref and the chain row stayed green — the exact deletion R7 promises to make evident. Every chain test in the slice sets the variable first, so nothing exercised the default. The green line compounds it: "every chain holds" over 191 one-line chains reads as coverage where there is none.
+
+What caught it: the blind review of bet-3 slice 2, probe J, through the slice's own verify.
+
+What happened: D49.1 rules the session run-scoped. The fix round carries it.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: front-door-hollow
+
+## F49 — 2026-08-26 — A forged journal line can print a row of its own
+
+What it is: clipSession clips length only and never calls printable, the function D38 ruling 4 added for exactly this. The session name on a read line is forger-controlled through git plumbing, and a name carrying a newline and tabs draws a forged row in the verify table — the reviewer rendered a fake "seal green" row from one planted line.
+
+What caught it: the blind review of bet-3 slice 2, probe D2, rendered through the real table shape.
+
+What happened: open. The fix is one call and one test in the waiver precedent's shape.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: green-but-wrong
+
+## F50 — 2026-08-26 — Three rules stated as fact, proven by nothing
+
+What it is: three probes survived the whole suite. Flipping the doubled-seq tie-break (D48 ruling 8, "both clones land in the same place") changed nothing. Turning the error branch red (D48 ruling 4, the named divergence) changed nothing — no test reaches that branch. Removing the red line's cut changed nothing — the fit assertion can never fire while the cut it tests is present, F35's class again, and D38's arithmetic-bound shape already landed on the waiver line as the precedent.
+
+What caught it: the blind review of bet-3 slice 2, mutations m05, m15, m17, each re-confirmed serially.
+
+What happened: open. Three tests, one of which the reviewer wrote and left ready.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: unrun-proof
+
+## F51 — 2026-08-26 — Two ways past the chain the ruling never named
+
+What it is: a line rewritten in place — left at its old path, which is the sha256 of the line, as the code's own comment says — stays green, though comparing path to content is free. And a whole session invented in the v1 shape is green: three freely authored lines, no hashing at all, indistinguishable in the aggregate unchained count from a genuine prefix. D48 ruling 1 closed the mid-session downgrade; the whole-session forgery is cheaper and was still open.
+
+What caught it: the blind review of bet-3 slice 2, probes A, B and G.
+
+What happened: D49 rules both — the path check goes in; the invented-session limit is named and accepted until the seal work. The tip-rewrite case is inherent to a hash chain and R4's signature is its only answer, as R7 already says of forward rewriting.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: coverage-gap
+
+## F52 — 2026-08-26 — Three smalls in the break messages
+
+What it is: a not-JSON break borrows seq 0, a seq no line has. A planted line at seq 0 makes the gap message name a seq that is present. A line with no session field groups under the empty string and reads green.
+
+What caught it: the blind review of bet-3 slice 2, probes E, I and F.
+
+What happened: open. The fix round tightens each message and makes the missing-session line a break.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: coverage-gap
+
+## F53 — 2026-08-26 — The fix round turned the plainest deletion into a crash
+
+What it is: the fix round removed the i > 0 guard from the duplicate-seq check, so a session whose first line was deleted — the walk opening at seq 2 — indexed one before the start and panicked. The battery has no recover around row checks, so the whole verify process died: no red, no unrunnable, no journal line. The pre-fix code handled the case correctly. It survived because no test deleted a first line, and none of this repo's 183 sessions starts above seq 1 — latent, not absent.
+
+What caught it: the round-2 closure check, probe P, through the real library and the real row.
+
+What happened: fixed at closure by the driver — the guard restored, and a test that deletes a session's first line, proven by blanking the guard and watching the reviewer's exact panic come back.
+
+Caught by: blind-review — the slice 2 closure check
+Class: green-but-wrong
+
+## F54 — 2026-08-26 — The widest-line proof measured the narrower branch
+
+What it is: the new arithmetic bound test handed its break a seq below one, and the renderer prints no seq for those — so the "widest" fixture skipped the seq and measured 165 bytes against a real worst case of 192. The bound held, with 8 bytes of true slack where the test believed 35. With cut gone, that test is the only thing between a growing cap and a failed journal write.
+
+What caught it: the round-2 closure check, probe Q, by computing both widths.
+
+What happened: fixed at closure by the driver — one word, the seq moved to its widest legal value, so the test now measures the branch that prints everything.
+
+Caught by: blind-review — the slice 2 closure check
+Class: unrun-proof
+
+## F55 — 2026-08-26 — A blanking table that cannot tell three answers apart
+
+What it is: a blanked rule can kill a test, survive, or fail to build — and a harness that folds the third into either of the first two reports false confidence in both directions. Three of the fix round's seventeen patches did not compile on the first pass and briefly read as survivors. The reviewer hit the same class from the other side: a mutation that lowered a floor to a value that can never fail looked like a clean run and proved nothing.
+
+What caught it: the fix round's own table, and the closure check naming the class.
+
+What happened: recorded as a rule for reading blanking tables — did-not-build and can-never-fail are non-answers, and a sweep counts only mutations that ran and could have failed. The fix round's harness already prints the build failure instead of folding it.
+
+Caught by: worker — the slice 2 fix round, with the closure check naming the class
+Class: other — a proof harness whose failure mode reads as proof
+
+## F56 — 2026-08-26 — Two smalls from the final re-check, fixed at landing
+
+What it is: D50.1 claimed the %q dependency was named in the code, and it was not — the ruling was true everywhere except the one place it pointed at. And the first-line-deletion guard's only test lived one package up from the guard, so blanking it left the journal package green on its own.
+
+What caught it: the final re-check on slice 2, which verified the ruling's claim instead of trusting it.
+
+What happened: fixed at landing by the driver. The unrunnable branch's comment now names the %q dependency, making D50.1 true. A journal-package test deletes a session's first line beside the guard it pins, proven by blanking the guard and watching it die in its own package.
+
+Caught by: blind-review — the slice 2 final re-check
+Class: record-not-written
