@@ -19,7 +19,7 @@ func TestWriteDriveWritesEveryField(t *testing.T) {
 
 	event := decodeEvent(t, dir, path)
 
-	wantNumber(t, event, "v", 1)
+	wantNumber(t, event, "v", 2)
 	wantString(t, event, "kind", "drive")
 	wantString(t, event, "session", "s-alpha")
 	wantNumber(t, event, "seq", 1)

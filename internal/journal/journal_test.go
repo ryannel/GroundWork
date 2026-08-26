@@ -186,7 +186,7 @@ func TestWriteDispatchWritesEveryField(t *testing.T) {
 
 	event := decodeEvent(t, dir, path)
 
-	wantNumber(t, event, "v", 1)
+	wantNumber(t, event, "v", 2)
 	wantString(t, event, "kind", "dispatch")
 	wantString(t, event, "session", "s-alpha")
 	wantNumber(t, event, "seq", 1)
@@ -230,7 +230,7 @@ func TestWriteDispatchWritesEveryField(t *testing.T) {
 	}
 
 	wantKeys := []string{
-		"v", "ts", "kind", "session", "seq", "commit", "branch",
+		"v", "ts", "kind", "session", "seq", "prev", "commit", "branch",
 		"role", "tier", "tokens", "tokens_source", "duration_ms", "outcome",
 	}
 	if len(event) != len(wantKeys) {
@@ -624,7 +624,13 @@ func TestWriteDispatchGeneratesASessionWhenTheEnvironmentIsSilent(t *testing.T) 
 	}
 }
 
-func TestWriteDispatchGeneratesADifferentSessionEachTime(t *testing.T) {
+// D49 ruling 1: a run is a session. With the environment silent, every write of
+// one process lands in one session, numbered and chained like any other.
+//
+// This test used to say the opposite — a fresh id per write — and F48 is what
+// that cost: every line alone in a session of its own, nothing to chain, and a
+// row that read a deleted line as no deletion at all.
+func TestWritesShareOneGeneratedSessionForTheWholeProcess(t *testing.T) {
 	dir := newRepo(t)
 	clearSession(t)
 
@@ -637,10 +643,36 @@ func TestWriteDispatchGeneratesADifferentSessionEachTime(t *testing.T) {
 		t.Fatalf("the second write returned an error: %v", err)
 	}
 
-	first := decodeEvent(t, dir, firstPath)["session"]
-	second := decodeEvent(t, dir, secondPath)["session"]
+	first := decodeEvent(t, dir, firstPath)
+	second := decodeEvent(t, dir, secondPath)
+
+	if first["session"] != second["session"] {
+		t.Fatalf("two writes of one process went to %v and %v, want one session",
+			first["session"], second["session"])
+	}
+	wantNumber(t, first, "seq", 1)
+	wantNumber(t, second, "seq", 2)
+
+	sum := sha256.Sum256(readEvent(t, dir, firstPath))
+	wantString(t, second, "prev", hex.EncodeToString(sum[:]))
+}
+
+// The other half of D49 ruling 1: two runs are two processes, and they still
+// get two ids, which is what keeps two clones' sessions independent across a
+// merge. A test cannot start a second process cheaply, so it asks the generator
+// twice — once is what each process does.
+func TestAGeneratedSessionIsFreshEveryTimeItIsMade(t *testing.T) {
+	first, err := newSessionID()
+	if err != nil {
+		t.Fatalf("the first generated id failed: %v", err)
+	}
+	second, err := newSessionID()
+	if err != nil {
+		t.Fatalf("the second generated id failed: %v", err)
+	}
+
 	if first == second {
-		t.Errorf("two generated sessions are both %v, want different ones", first)
+		t.Fatalf("two generated ids are both %q, and two runs must never share one", first)
 	}
 }
 
@@ -905,7 +937,7 @@ func TestWriteDialWritesEveryField(t *testing.T) {
 
 	event := decodeEvent(t, dir, path)
 
-	wantNumber(t, event, "v", 1)
+	wantNumber(t, event, "v", 2)
 	wantString(t, event, "kind", "dial")
 	wantString(t, event, "session", "s-alpha")
 	wantNumber(t, event, "seq", 1)
@@ -918,7 +950,7 @@ func TestWriteDialWritesEveryField(t *testing.T) {
 	wantString(t, event, "reason", "the plan is ready")
 
 	wantKeys := []string{
-		"v", "ts", "kind", "session", "seq", "commit", "branch",
+		"v", "ts", "kind", "session", "seq", "prev", "commit", "branch",
 		"from", "to", "scope", "reason",
 	}
 	if len(event) != len(wantKeys) {
@@ -1146,7 +1178,7 @@ func TestWriteSealWritesEveryField(t *testing.T) {
 
 	event := decodeEvent(t, dir, path)
 
-	wantNumber(t, event, "v", 1)
+	wantNumber(t, event, "v", 2)
 	wantString(t, event, "kind", "seal")
 	wantString(t, event, "session", "s-alpha")
 	wantNumber(t, event, "seq", 1)
@@ -1159,7 +1191,7 @@ func TestWriteSealWritesEveryField(t *testing.T) {
 	wantString(t, event, "action", "granted")
 
 	wantKeys := []string{
-		"v", "ts", "kind", "session", "seq", "commit", "branch",
+		"v", "ts", "kind", "session", "seq", "prev", "commit", "branch",
 		"seal_kind", "tag", "target", "action",
 	}
 	if len(event) != len(wantKeys) {

@@ -153,7 +153,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "8 rows") {
+	if !strings.Contains(out, "9 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -172,7 +172,7 @@ func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "8 rows: green 8, red 0, waived 0, quarantined 0, unrunnable 0"
+	const want = "9 rows: green 9, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -189,9 +189,11 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 
 	// The three scans, the run-evidence row and the deletion test cannot run
 	// without a manifest, and unrunnable is how they say so: counted and
-	// printed, never a silent skip and never green. The plan row is the one
-	// green: a repo with no docs/plan has no plan to misstate.
-	const want = "8 rows: green 1, red 2, waived 0, quarantined 0, unrunnable 5"
+	// printed, never a silent skip and never green. Two rows are green. The plan
+	// row, because a repo with no docs/plan has no plan to misstate. The chain
+	// row, because the run journals each row as it finishes, so by the time the
+	// chain row runs the ref holds this run's own lines — and they are chained.
+	const want = "9 rows: green 2, red 2, waived 0, quarantined 0, unrunnable 5"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
