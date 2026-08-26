@@ -512,11 +512,15 @@ func (*Go) run(ctx context.Context, dir, packages string, extra ...string) (RunL
 			return RunLog{}, fmt.Errorf("%w: %w: %s", ErrUnrunnable, ErrTimedOut, quoted(crash))
 		}
 
-		return RunLog{}, fmt.Errorf("%w: go test crashed: %s", ErrUnrunnable, quoted(crash))
+		return RunLog{}, fmt.Errorf("%w: go test %w: %s", ErrUnrunnable, ErrCrashed, quoted(crash))
 	}
 	if len(started) > 0 {
-		return RunLog{}, fmt.Errorf("%w: go test left %s unfinished: %s",
-			ErrUnrunnable, plural(len(started), "test", "tests"), firstFew(started))
+		// A binary that walked out — os.Exit in a test, a signal — writes no
+		// crash report at all. What it leaves behind is a test that reported
+		// starting and never reported ending, and that is the same fact as a
+		// crash: the run stopped before its tests finished.
+		return RunLog{}, fmt.Errorf("%w: go test %w, leaving %s behind: %s",
+			ErrUnrunnable, ErrCrashed, plural(len(started), "test", "tests"), firstFew(started))
 	}
 
 	if runErr != nil && len(log.Tests) == 0 {

@@ -99,7 +99,11 @@ var severities = []string{Blocking, Advisory}
 // under the bet 3 design's R16, and chain joins under that design's R7: the
 // journal's own continuity is not any of the nine verbs either, and board joins
 // under R8: a derivation reconciling a plan against a test run is not one of
-// them at all.
+// them at all. stub joins under R10, and it is not the honesty scan's kind: the
+// honesty scan reads source and asks whether a test could ever fail, and the
+// stub check reads a board and asks whether a red is red for the right reason.
+// Filing the second under the first would misname it in every table and every
+// journal line it ever writes.
 //
 // The rows themselves land across several bets. Naming their kinds now costs
 // nothing and catches a typo at registration, where a typo would otherwise
@@ -108,7 +112,7 @@ var kinds = []string{
 	"version", "manifest",
 	"honesty", "wiring", "token", "divergence", "reachability",
 	"flag", "mutate", "seal-verify", "run-evidence",
-	"plan", "chain", "board",
+	"plan", "chain", "board", "stub",
 }
 
 // maxRowIDBytes caps a row id. Row ids go on journal lines and into output

@@ -113,9 +113,7 @@ func (s scanned) reason(err error) string {
 // said is reason for words that did not come back as an error. A panic's own
 // message is one, and it is read on the same far-away machine.
 func (s scanned) said(said string) string {
-	said = strings.ReplaceAll(said, s.root+string(filepath.Separator), "")
-	said = strings.ReplaceAll(said, s.root, ".")
-	said = strings.Join(strings.Fields(said), " ")
+	said = s.tidy(said)
 
 	if len(said) <= maxReasonBytes {
 		return said
@@ -127,6 +125,21 @@ func (s scanned) said(said string) string {
 	}
 
 	return kept + "..."
+}
+
+// tidy is said without the cap: the machine's own directories taken out and the
+// whitespace collapsed, so one message reads the same wherever it is printed.
+//
+// It is split out for the caller that wants the end of a message rather than the
+// start. A compiler puts the package path first and the thing to fix last, so a
+// row quoting one has to be able to cap it from the other end — and doing that
+// after said had already cut the front would quote the middle of the message and
+// nothing else.
+func (s scanned) tidy(said string) string {
+	said = strings.ReplaceAll(said, s.root+string(filepath.Separator), "")
+	said = strings.ReplaceAll(said, s.root, ".")
+
+	return strings.Join(strings.Fields(said), " ")
 }
 
 // skipDirs are the directories no scan walks into. testdata is Go's own

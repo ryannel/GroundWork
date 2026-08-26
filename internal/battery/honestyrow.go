@@ -70,23 +70,54 @@ func honestyRow() Row {
 	}
 }
 
-func checkHonesty(c Context) Result {
-	s, bad, ok := openScan("honesty scan", c)
-	if !ok {
-		return bad
-	}
+// judged is one thing a scan read: what it is called, where it sits, and what is
+// wrong with it. shape is empty when nothing is.
+//
+// A name is a test's name. An entry with no name is a finding about the file
+// itself — a test file nobody can parse — and it carries its shape the same way,
+// so one ordered list holds everything a suite's own directory gave up and a row
+// prints it in the order it was found.
+//
+// It is the reading itself, kept apart from what a row does with it. The honesty
+// row turns every non-empty shape into a hit; the stub check asks after one
+// named test and prints the scan's words inside a sentence of its own. One
+// reading, two readers (D54 ruling 1).
+type judged struct {
+	name  string
+	file  string
+	line  int
+	shape string
+}
 
-	var (
-		hits    []hit
-		notes   scanNotes
-		blocked []string
-		tests   int
-		suites  int
-	)
+// sourceRead is one whole reading of a project's test source.
+type sourceRead struct {
+	// found is everything the scan judged, in the order it was found.
+	found []judged
+
+	// tests is how many of those entries are tests. A file that would not parse
+	// is in found and is not a test anybody read.
+	tests int
+
+	// blocked names a surface the scan could not read, and why.
+	blocked []string
+
+	notes  scanNotes
+	suites int
+}
+
+// readTests reads the test source of every surface the manifest declares and
+// judges every test discovery names in it.
+//
+// What counts as a test is discovery's answer, through the adapter, under D30.
+// What counts as vacuous is vacuousShape's answer, below. Neither is decided
+// twice, and R10 says the stub check calls this rather than carrying a second
+// definition of vacuous.
+func readTests(s scanned) sourceRead {
+	var read sourceRead
 
 	for _, surface := range s.m.Surfaces {
 		if surface.Stack != manifest.GoStack {
-			blocked = append(blocked,
+			read.blocked = append(read.blocked,
 				fmt.Sprintf("the surface %q is written in %s, which this scan cannot read yet",
 					surface.Name, surface.Stack))
 			continue
@@ -100,18 +131,40 @@ func checkHonesty(c Context) Result {
 			// already found. A hit somewhere else is still a hit, and a row
 			// that swallowed it to report the unreadable surface would lose a
 			// real defect to a second problem.
-			blocked = append(blocked,
+			read.blocked = append(read.blocked,
 				fmt.Sprintf("the surface %q could not be read: %s", surface.Name, s.reason(err)))
 			continue
 		}
 
 		for _, suite := range found {
-			suites++
-			read, suiteHits, suiteNotes := readSuite(s, filepath.Join(s.dir(surface), filepath.FromSlash(suite.ID)), suite.Tests)
-			tests += read
-			hits = append(hits, suiteHits...)
-			notes.add(suiteNotes)
+			read.suites++
+			entries, count, notes := readSuite(s,
+				filepath.Join(s.dir(surface), filepath.FromSlash(suite.ID)), suite.Tests)
+			read.found = append(read.found, entries...)
+			read.tests += count
+			read.notes.add(notes)
 		}
+	}
+
+	return read
+}
+
+func checkHonesty(c Context) Result {
+	s, bad, ok := openScan("honesty scan", c)
+	if !ok {
+		return bad
+	}
+
+	read := readTests(s)
+	notes := read.notes
+	blocked, tests, suites := read.blocked, read.tests, read.suites
+
+	var hits []hit
+	for _, one := range read.found {
+		if one.shape == "" {
+			continue
+		}
+		hits = append(hits, hit{file: one.file, line: one.line, subject: one.name, shape: one.shape})
 	}
 
 	// A red found on one surface outranks a surface the scan could not open.
@@ -161,14 +214,15 @@ func checkHonesty(c Context) Result {
 }
 
 // readSuite scans one suite's directory and judges the tests discovery named
-// in it.
+// in it. It returns what it judged, in the order it was found, and how many of
+// those entries are tests.
 //
 // Only the files of that one directory are read, never its subdirectories: a
 // Go suite is a package, and a package is one directory. Discovery walked the
 // tree already, so a nested package arrives here as its own suite.
-func readSuite(s scanned, dir string, tests []string) (int, []hit, scanNotes) {
+func readSuite(s scanned, dir string, tests []string) ([]judged, int, scanNotes) {
 	var (
-		hits  []hit
+		found []judged
 		notes scanNotes
 		read  int
 	)
@@ -176,7 +230,7 @@ func readSuite(s scanned, dir string, tests []string) (int, []hit, scanNotes) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
 		notes.unreadable++
-		return 0, nil, notes
+		return nil, 0, notes
 	}
 
 	wanted := map[string]bool{}
@@ -204,7 +258,7 @@ func readSuite(s scanned, dir string, tests []string) (int, []hit, scanNotes) {
 			// look like an absent one — the same direction discovery takes with
 			// a suite that holds no test.
 			line, words := parseProblem(err)
-			hits = append(hits, hit{file: rel, line: line, shape: "does not parse: " + words})
+			found = append(found, judged{file: rel, line: line, shape: "does not parse: " + words})
 			continue
 		}
 
@@ -215,18 +269,16 @@ func readSuite(s scanned, dir string, tests []string) (int, []hit, scanNotes) {
 			}
 			read++
 
-			if shape := vacuousShape(file, fn, src, fset); shape != "" {
-				hits = append(hits, hit{
-					file:    rel,
-					line:    fset.Position(fn.Pos()).Line,
-					subject: fn.Name.Name,
-					shape:   shape,
-				})
-			}
+			found = append(found, judged{
+				name:  fn.Name.Name,
+				file:  rel,
+				line:  fset.Position(fn.Pos()).Line,
+				shape: vacuousShape(file, fn, src, fset),
+			})
 		}
 	}
 
-	return read, hits, notes
+	return found, read, notes
 }
 
 // parseProblem returns the line a parse error points at and the parser's own

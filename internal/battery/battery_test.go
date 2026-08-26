@@ -957,6 +957,7 @@ func TestDefaultHoldsExactlyTheShippedRows(t *testing.T) {
 		"chain/chain/blocking",
 		"seal-verify/seal-verify/blocking",
 		"board/board/blocking",
+		"stub/stub/blocking",
 	}
 	if !slices.Equal(got, want) {
 		t.Fatalf("the default battery holds %v, want %v", got, want)

@@ -379,7 +379,40 @@ The two ways expected and actual disagree are not the same thing:
 
 Green ahead of plan is the ordinary state of every slice between the moment its test goes green and the moment its commit lands, and of every repo whose history predates this trailer. It is counted, named and shown — never silently accepted, and never red, because a red there would fire on every honest slice in progress.
 
-### 3.4 What the tools do with this
+### 3.4 Red for the right reason
+
+Expected red is not the whole answer. A proof the plan expects red has to be red for a reason, and the reason has to be an assertion that judged something and said no.
+
+The `stub` row reads the same board the `board` row derives, judges the proofs that board expects red, and asks of each what became of it.
+
+| What the run said about a proof expected red | What it is | Is it red |
+|---|---|---|
+| It failed at an assertion | Red for the right reason | no |
+| It failed, and its test cannot fail | A red that proves nothing | yes |
+| It passed, and its test cannot fail | A stub: the test was never able to fail | yes |
+| It passed, and its test can fail | Green ahead of plan | no |
+| It was skipped | A test that did not run | yes |
+| No test of it ran, every surface ran, and its slice has landed | A slice that landed without its proof | yes |
+| No test of it ran, and its slice has not landed | Work the plan has not reached | no |
+| No test of it ran, and a surface did not run | A proof the run never reached | no |
+
+"Its test cannot fail" is the honesty scan's own judgment, not a second one. The scan reads the test's source and names five shapes: a body that asserts nothing, an assertion commented out, a test that only logs, an assertion under a condition that compares a value to itself, and a test that skips itself unconditionally. The three stub styles the ladder names — an empty body, a commented-out assertion, an always-true assertion — are among those five, and the row prints the scan's words whole.
+
+What the scan cannot follow reads as a test that can fail: a helper in another file, an assertion library, a handle passed to something it cannot see. That is the scan's own stance, precision over recall, and it is where this row's reach ends. So the row's own line says what the scan found and never that a repo holds no stub.
+
+Those are the four states section 3.3 closes the run's vocabulary to. A fifth, added to the board without a ruling behind it, is named rather than read as one of the four: what this row cannot read never passes in silence.
+
+Green ahead of plan stays what section 3.3 makes it: counted, never red. A test that can fail and passes anyway is the plan lagging the work, and a row that reddened on it would fire on every honest slice in progress. The proofs themselves are named on the board row's line, which is the row whose subject they are.
+
+A surface that did not build, or whose test binary died before it finished, turns the row red with the surface named. A proof that cannot compile proves nothing, and one whose runner died never reached anybody's assertion. Both are reported for a whole run rather than for one test, because the stack loses its log when the build breaks or the binary dies, so the surface is what the row can honestly name.
+
+A broken surface never stops the row reading the rest. The stubs on every surface that did run are still counted and still named beside it, and a surface that broke for a reason the row cannot name rides as a clause and reddens nothing. While any surface has gone unrun, a proof with no result is never blamed for it: the missing result may be the surface. The cost is stated plainly: a slice that landed without its proof passes this row while any surface is unreachable, because the row cannot tell that absence from the surface's. The clause naming the unrun surface is what keeps the state visible.
+
+A repo with no `docs/plan` directory is green: it expects no proof red, so there is none to judge. A plan whose every milestone has landed is green for the same reason — and whether those proofs are green is the board row's question. That answer comes before the surfaces, because expected state comes from plan position and nothing a run did can move it.
+
+Everything the row could not reach is unrunnable, on the board row's own rule: a red built out of missing data is not a red.
+
+### 3.5 What the tools do with this
 
 `groundwork board` renders the board, stamped with the run it came from: when the run happened, what it cost, how many results it read, and the commit the landed set was read at. It writes nothing.
 
@@ -390,3 +423,5 @@ A repo with no `docs/plan` directory is green. A board is derived from a plan, a
 Everything the row could not reach is unrunnable, never green and never red: a plan that will not read, a plan naming no proof at all, a manifest it cannot load, a history git would not give it, and a surface whose own run broke. That last one matters most: a run that broke says nothing about what passed, so every proof would read as never run, and a red built out of missing data is not a red. A surface written in a stack no adapter maps is one of those: D25's fail-closed red for an unmapped stack is the manifest row's, and one cause draws one red.
 
 A shallow clone is not unrunnable. It is read, and the board says the history was short. History a clone cannot see can only leave a slice unlanded, which moves a proof toward expected red — the flagged direction, never a silent pass over a regression.
+
+`groundwork verify` also runs a `stub` row, beside the board row and off the same derivation. It is red when a proof the plan expects red is not red for the right reason, and when a surface did not build or died before its tests finished. Its line opens with the counts too, and it says what the honesty scan found rather than what is true of the repo — the scan is written to miss rather than to guess, and a line claiming more than that would be claiming the scan's blind spots as clean ground.

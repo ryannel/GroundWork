@@ -589,6 +589,29 @@ func TestVerifyCountsUnverifiedApartFromUnsigned(t *testing.T) {
 	}
 }
 
+// R4's rule, over the whole signature vocabulary: only a good signature by a
+// listed key is a person's sign-off, and nothing else in this tool may read as
+// one.
+//
+// It is asked of the rule directly, because the state it turns on cannot be
+// produced here. This container has no ssh-keygen — git's signing program is a
+// shim that signs and cannot verify — so no test in this package can make a
+// verified tag, and every case above walks a state that is not authority. A rule
+// proved only on its false side is a rule that would still read false with its
+// body deleted, which is what the deletion test found at 10.0.
+//
+// The vocabulary is walked whole rather than sampled, so a fifth state added
+// without a ruling behind it shows up here as a failure.
+func TestOnlyAVerifiedSignatureIsHumanAuthority(t *testing.T) {
+	for _, state := range []Signature{Verified, Unsigned, Unverified, "", "VERIFIED", "yes"} {
+		want := state == Verified
+
+		if got := (Result{Signature: state}).Authority(); got != want {
+			t.Errorf("a %q signature reads as authority=%v, want %v", state, got, want)
+		}
+	}
+}
+
 // F66 and D52.9: an amendment writes revoked and then granted. One that dies
 // between the two leaves revoked as the newest word on that tag, and the
 // cross-check has to read it — an older grant must never out-answer a newer
