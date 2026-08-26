@@ -892,7 +892,7 @@ What it is: the mutate row's line on this repo now reads "1 blocked; internal/ba
 
 What caught it: the slice 4 fix round, reading its own verify tail.
 
-What happened: recorded before slice 7 triples the row count. The candidates the fix names: a longer per-mutant clock for a package whose suite is slow, or splitting the battery's suite so a mutant's judgment does not pay for every row's tests. The bet 3 close-out owns the call if no slice picks it up first.
+What happened: closed in the slice 4 micro-round, at its cause. The widest-line search was the whole 75-second cost; sampling the monotone count space at its boundary — 134 tuples where the cross product was 1.7 million — put the package suite back under the clock, and the mutate row's line reads killed and counted again, with no blocked clause.
 
 Caught by: worker — the slice 4 fix round
 Class: coverage-gap
