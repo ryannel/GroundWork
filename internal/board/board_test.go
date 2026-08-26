@@ -1,6 +1,7 @@
 package board
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -409,5 +410,16 @@ func TestTheRowsFollowThePlansOwnOrder(t *testing.T) {
 	want := []string{"p_one", "p_two", "p_three"}
 	if strings.Join(got, ",") != strings.Join(want, ",") {
 		t.Errorf("the rows came out %v, want %v", got, want)
+	}
+}
+
+// The four states a run may report are a closed vocabulary, so the list is
+// written out here rather than computed. A fifth arrives with a ruling behind
+// it or it arrives as a failure — the shape the journal's own kind list uses.
+func TestTheActualVocabularyIsPinned(t *testing.T) {
+	want := []Actual{"passed", "failed", "skipped", "never ran"}
+
+	if !slices.Equal(Actuals(), want) {
+		t.Fatalf("the run's vocabulary is %v, want %v", Actuals(), want)
 	}
 }

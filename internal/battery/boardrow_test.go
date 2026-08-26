@@ -703,7 +703,7 @@ func TestTheBoardRowLineIsWidestSomewhereInTheCountSpace(t *testing.T) {
 
 	widest, at := 0, ""
 
-	for _, counts := range countTuples() {
+	for _, counts := range countTuples(6) {
 		for _, shallow := range []bool{false, true} {
 			for _, hits := range shapes {
 				for _, clauses := range tails {
@@ -750,29 +750,34 @@ func TestTheBoardRowLineIsWidestSomewhereInTheCountSpace(t *testing.T) {
 	}
 }
 
-// countTuples is the boundary of the count space: every axis walked through the
-// values that change how it is spelled or how wide it prints, with every other
-// axis pinned at each extreme, plus the two tuples where every axis agrees.
+// countTuples is the boundary of a count space of the given width: every axis
+// walked through the values that change how it is spelled or how wide it prints,
+// with every other axis pinned at each extreme, plus the two tuples where every
+// axis agrees.
 //
-// The line's width is monotone in each count, so this holds the widest the full
+// A line's width is monotone in each count, so this holds the widest the full
 // cross product would have found while building a few hundred tuples instead of
 // a million.
-func countTuples() [][6]int {
+//
+// It takes the width because two rows search two count spaces, and a second copy
+// of this sampling would be a second argument for why the sampling is enough
+// (D54 ruling 1).
+func countTuples(axes int) [][]int {
 	const most = 1<<62 - 1
 
 	interesting := []int{0, 1, 2, 9, 10, 99, 100, 999, 1000, 1 << 20, most}
 
-	var tuples [][6]int
+	var tuples [][]int
 	for _, pinned := range []int{0, most} {
-		var all [6]int
+		all := make([]int, axes)
 		for i := range all {
 			all[i] = pinned
 		}
-		tuples = append(tuples, all)
+		tuples = append(tuples, slices.Clone(all))
 
 		for axis := range all {
 			for _, value := range interesting {
-				one := all
+				one := slices.Clone(all)
 				one[axis] = value
 				tuples = append(tuples, one)
 			}

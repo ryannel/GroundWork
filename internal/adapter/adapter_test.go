@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"slices"
 	"strconv"
 	"strings"
@@ -274,8 +275,57 @@ func TestGoAdapterRunRefusesARunThatDiedMidSuite(t *testing.T) {
 	if errors.Is(err, ErrTimedOut) {
 		t.Errorf("a crashed run reported %v, which reads as a run that ran out of time", err)
 	}
+	// The stub check has to tell a run that died from one that broke some other
+	// way: R10 makes the first a red with the reason named and the second missing
+	// data. Only this sentinel says which.
+	if !errors.Is(err, ErrCrashed) {
+		t.Errorf("a crashed run reported %v, which does not carry ErrCrashed", err)
+	}
 	if !strings.Contains(err.Error(), "boom") {
 		t.Errorf("the error %q does not say what killed the run", err)
+	}
+	if len(log.Tests) != 0 {
+		t.Errorf("a refused run handed back %d tests", len(log.Tests))
+	}
+}
+
+// A test binary that walks out writes no crash report at all. What it leaves
+// behind is a test that reported starting and never reported ending, and that is
+// the same fact as a crash: the run stopped before its tests finished. It has to
+// carry the same marker, or a caller would read one of the two as a run that
+// broke for a reason nobody named.
+func TestGoAdapterRunRefusesARunWhoseBinaryWalkedOut(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("this case kills the test binary with a signal, which this machine does not have")
+	}
+
+	// A signal rather than os.Exit, because the testing package catches os.Exit
+	// and turns it back into a panic — which is the crash path, not this one.
+	dir := t.TempDir()
+	writeFile(t, filepath.Join(dir, "go.mod"), "module groundwork.test/exits\n\ngo 1.24\n")
+	writeFile(t, filepath.Join(dir, "alpha_test.go"),
+		"package exits\n\nimport (\n\t\"os\"\n\t\"syscall\"\n\t\"testing\"\n)\n\n"+
+			"func TestFirst(t *testing.T) {}\n\n"+
+			"func TestWalksOut(t *testing.T) {\n"+
+			"\tif err := syscall.Kill(os.Getpid(), syscall.SIGKILL); err != nil {\n"+
+			"\t\tt.Fatalf(\"could not stop the binary: %v\", err)\n\t}\n}\n\n"+
+			"func TestThird(t *testing.T) {}\n")
+
+	log, err := NewGo().Run(context.Background(), dir)
+	if err == nil {
+		t.Fatalf("a binary that walked out came back as a run log of %d tests", len(log.Tests))
+	}
+	if !errors.Is(err, ErrUnrunnable) {
+		t.Errorf("a binary that walked out reported %v, which is not unrunnable", err)
+	}
+	if !errors.Is(err, ErrCrashed) {
+		t.Errorf("a binary that walked out reported %v, which does not carry ErrCrashed", err)
+	}
+	if errors.Is(err, ErrNoTests) {
+		t.Errorf("a binary that walked out reported %v, which reads as a clean run of nothing", err)
+	}
+	if !strings.Contains(err.Error(), "TestWalksOut") {
+		t.Errorf("the error %q does not name the test the run stopped in", err)
 	}
 	if len(log.Tests) != 0 {
 		t.Errorf("a refused run handed back %d tests", len(log.Tests))
