@@ -797,3 +797,25 @@ What happened: fixed at landing by the driver. The tag half has its twin test, p
 Caught by: blind-review — the slice 3 final re-check
 Class: unrun-proof
 
+
+## F72 — 2026-08-26 — Three copies of printable
+
+What it is: journal, seal and battery each carry their own printable. The board slice exported the journal's and used it, but the other two stand — D54's class with three entries of one function.
+
+What caught it: the slice 4 builder, moving seams under D54.1.
+
+What happened: recorded for a later slice to collapse into one, rather than a fourth appearing. Out of a board slice's scope to chase.
+
+Caught by: worker — the slice 4 build
+Class: parallel-definition
+
+## F73 — 2026-08-26 — The board row narrows F70 and does not close it
+
+What it is: the board row now asks whether the proof tests pass — a proof expected green that fails is red. It asks nothing about the rest of the suite, and nothing about a proof whose milestone has not landed. F70's gap — no row asks whether the whole suite passes — stands narrowed.
+
+What caught it: the slice 4 builder, checking its row against F70's claim.
+
+What happened: recorded. D55's manual pairing stands, and the bet 3 close-out decides F70's owner knowing the board covers the proof tests alone.
+
+Caught by: worker — the slice 4 build
+Class: coverage-gap
