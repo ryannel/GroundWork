@@ -20,6 +20,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -27,7 +28,12 @@ import (
 const Ref = "refs/groundwork/journal"
 
 // version is the envelope version of every event this package writes.
-const version = 1
+//
+// It moved from 1 to 2 when the chain landed: a v2 line carries prev, and a v1
+// line does not. Every reader here takes both, because this repo's own ref holds
+// v1 lines from three bets and a reader that took only v2 would read that record
+// as nothing at all. chain.go says what the two versions mean to the chain.
+const version = 2
 
 // sessionEnv names the environment variable that carries the session id.
 const sessionEnv = "GROUNDWORK_SESSION"
@@ -140,6 +146,12 @@ type tokens struct {
 
 // envelope is the part of a line every kind carries. It comes first on the
 // line, in the order the fields are declared here.
+//
+// Prev is the sha256 of the line before this one in the same session. It sits
+// beside Seq because the two say the same thing from different ends: Seq orders
+// the session's lines, and Prev ties each one to the line it followed. The first
+// line of a session has nothing to point at, so its Prev is empty. It is written
+// even when empty, so a v2 line always carries the field.
 type envelope struct {
 	V             int    `json:"v"`
 	TS            string `json:"ts"`
@@ -147,6 +159,7 @@ type envelope struct {
 	Session       string `json:"session"`
 	SessionSource string `json:"session_source,omitempty"`
 	Seq           int    `json:"seq"`
+	Prev          string `json:"prev"`
 	Commit        string `json:"commit"`
 	Branch        string `json:"branch"`
 }
@@ -359,7 +372,7 @@ func write(repoDir, kind string, b build) (string, error) {
 			return "", err
 		}
 
-		seq, err := nextSeq(repoDir, tip, session)
+		seq, prev, err := sessionTip(repoDir, tip, session)
 		if err != nil {
 			return "", err
 		}
@@ -372,6 +385,7 @@ func write(repoDir, kind string, b build) (string, error) {
 			Kind:    kind,
 			Session: session,
 			Seq:     seq,
+			Prev:    prev,
 			Commit:  commit,
 			Branch:  branch,
 		}
@@ -471,12 +485,38 @@ func sessionID() (string, bool, error) {
 		return id, false, nil
 	}
 
-	raw := make([]byte, sessionBytes)
-	if _, err := rand.Read(raw); err != nil {
-		return "", false, fmt.Errorf("generate a session id: %w", err)
+	id, err := generatedSession()
+	if err != nil {
+		return "", false, err
 	}
 
-	return "gen-" + hex.EncodeToString(raw), true, nil
+	return id, true, nil
+}
+
+// generatedSession is the id this process writes under when the environment
+// names none. It is made once, on the first write that needs it.
+//
+// D49 ruling 1: a run is a session. One id per process is what makes the chain
+// cover the default mode — a line deleted from a run leaves a gap somebody can
+// see, without anyone having set a variable. An id per write left every line
+// alone in a session of its own, with nothing to chain and nothing to check,
+// which is F48.
+//
+// Two runs are two processes, so they still get two ids, and the merge's
+// independence stands on that.
+var generatedSession = sync.OnceValues(newSessionID)
+
+// newSessionID makes one fresh generated session id.
+//
+// It is separate from generatedSession so a test can ask it twice: this is what
+// says a second process gets a different id, without a test having to start one.
+func newSessionID() (string, error) {
+	raw := make([]byte, sessionBytes)
+	if _, err := rand.Read(raw); err != nil {
+		return "", fmt.Errorf("generate a session id: %w", err)
+	}
+
+	return "gen-" + hex.EncodeToString(raw), nil
 }
 
 // checkSession rejects a session id that would make an unsafe or unwieldy
@@ -506,11 +546,16 @@ func checkSession(id string) error {
 	return nil
 }
 
-// nextSeq returns the sequence number for the next event of a session.
-// It is one more than the highest number the journal already holds for it.
-func nextSeq(dir, tip, session string) (int, error) {
+// sessionTip returns what the next line of a session needs to know about the
+// lines already there: its own seq, and the hash of the line it follows.
+//
+// The seq is one more than the highest the journal holds for that session. The
+// hash is that highest line's own sha256, which is what the new line carries as
+// its prev. A session the journal holds nothing for starts at seq 1 with nothing
+// to point at.
+func sessionTip(dir, tip, session string) (int, string, error) {
 	if tip == "" {
-		return 1, nil
+		return 1, "", nil
 	}
 
 	// --full-tree keeps the path meaning the same from any directory in the
@@ -519,58 +564,80 @@ func nextSeq(dir, tip, session string) (int, error) {
 	out, err := gitOut(dir, nil, nil,
 		"ls-tree", "-r", "-z", "--full-tree", tip, "--", "events/"+session+"/")
 	if err != nil {
-		return 0, err
+		return 0, "", err
 	}
 
 	oids, err := treeOIDs(out)
 	if err != nil {
-		return 0, err
+		return 0, "", err
 	}
 	if len(oids) == 0 {
-		return 1, nil
+		return 1, "", nil
 	}
 
-	highest, err := highestSeq(dir, oids)
+	highest, hash, err := highestLine(dir, oids)
 	if err != nil {
-		return 0, err
+		return 0, "", err
 	}
 
-	return highest + 1, nil
+	return highest + 1, hash, nil
 }
 
-// treeOIDs pulls the object ids out of the output of git ls-tree -z.
-// Each entry reads "<mode> <type> <oid>\t<path>".
+// treeOIDs pulls the object ids out of the output of git ls-tree -z, for the
+// readers that need the bytes and not where they sit.
 func treeOIDs(out string) ([]string, error) {
-	var oids []string
+	_, oids, err := treeEntries(out)
+
+	return oids, err
+}
+
+// treeEntries pulls the paths and the object ids out of the output of
+// git ls-tree -z. Each entry reads "<mode> <type> <oid>\t<path>".
+//
+// The two lists line up: the nth path is stored at the nth object id. -z is what
+// makes that safe, because git neither quotes nor splits a path under it.
+func treeEntries(out string) ([]string, []string, error) {
+	var paths, oids []string
 
 	for _, entry := range strings.Split(out, "\x00") {
 		if entry == "" {
 			continue
 		}
 
-		head, _, found := strings.Cut(entry, "\t")
+		head, path, found := strings.Cut(entry, "\t")
 		if !found {
-			return nil, fmt.Errorf("git ls-tree gave the entry %q", entry)
+			return nil, nil, fmt.Errorf("git ls-tree gave the entry %q", entry)
 		}
 
 		fields := strings.Fields(head)
 		if len(fields) != 3 {
-			return nil, fmt.Errorf("git ls-tree gave the entry %q", entry)
+			return nil, nil, fmt.Errorf("git ls-tree gave the entry %q", entry)
 		}
 
+		paths = append(paths, path)
 		oids = append(oids, fields[2])
 	}
 
-	return oids, nil
+	return paths, oids, nil
 }
 
-// highestSeq reads the given blobs and returns the highest seq they hold.
+// highestLine reads the given blobs and returns the highest seq they hold,
+// along with the sha256 of the line that carries it.
+//
+// The hash is taken from the blob's own bytes rather than read off its path, so
+// what the next line points at is what the line actually says.
+//
+// Two lines can share the highest seq — two clones that shared one session id,
+// later merged. The chain is already broken there, and the chain row names it.
+// This still has to pick one, so it picks the lower hash: whichever clone writes
+// next, the new line lands in the same place.
 //
 // It takes one git call however many blobs there are. The bytes still grow:
 // each write reads every earlier event of the same session. A long session
 // will want an index.
-func highestSeq(dir string, oids []string) (int, error) {
+func highestLine(dir string, oids []string) (int, string, error) {
 	highest := 0
+	hash := ""
 
 	err := eachObject(dir, oids, func(oid string, data []byte) error {
 		var e struct {
@@ -579,17 +646,21 @@ func highestSeq(dir string, oids []string) (int, error) {
 		if err := json.Unmarshal(data, &e); err != nil {
 			return fmt.Errorf("journal object %s is not valid JSON: %w", oid, err)
 		}
-		if e.Seq > highest {
-			highest = e.Seq
+
+		sum := sha256.Sum256(data)
+		this := hex.EncodeToString(sum[:])
+
+		if e.Seq > highest || (e.Seq == highest && hash != "" && this < hash) {
+			highest, hash = e.Seq, this
 		}
 
 		return nil
 	})
 	if err != nil {
-		return 0, err
+		return 0, "", err
 	}
 
-	return highest, nil
+	return highest, hash, nil
 }
 
 // rungOf returns the rung a scope sits at now, read from the journal itself.

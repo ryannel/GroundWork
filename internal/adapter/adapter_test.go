@@ -30,6 +30,19 @@ func TestGoAdapterPassesConformance(t *testing.T) {
 	conformance(t, NewGo(), goPack)
 }
 
+// The adapter's name is the stack it speaks for, and it is the word a capability
+// manifest writes in a surface's stack field. The battery picks an adapter by
+// that word and prints it in the reasons it gives, so an adapter that forgot its
+// own name would be the adapter for nothing.
+//
+// This package never asked it. The deletion test found the gap when the battery
+// moved to 7.0: blanking Name left all 47 tests here green (F29's shape).
+func TestTheGoAdapterNamesItsStack(t *testing.T) {
+	if got := NewGo().Name(); got != "go" {
+		t.Fatalf("the Go adapter calls itself %q, and a manifest names that stack \"go\"", got)
+	}
+}
+
 func TestNodeAdapterPassesConformance(t *testing.T) {
 	needNode(t)
 

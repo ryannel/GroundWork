@@ -620,3 +620,14 @@ What happened: recorded as a rule for reading blanking tables — did-not-build 
 
 Caught by: worker — the slice 2 fix round, with the closure check naming the class
 Class: other — a proof harness whose failure mode reads as proof
+
+## F56 — 2026-08-26 — Two smalls from the final re-check, fixed at landing
+
+What it is: D50.1 claimed the %q dependency was named in the code, and it was not — the ruling was true everywhere except the one place it pointed at. And the first-line-deletion guard's only test lived one package up from the guard, so blanking it left the journal package green on its own.
+
+What caught it: the final re-check on slice 2, which verified the ruling's claim instead of trusting it.
+
+What happened: fixed at landing by the driver. The unrunnable branch's comment now names the %q dependency, making D50.1 true. A journal-package test deletes a session's first line beside the guard it pins, proven by blanking the guard and watching it die in its own package.
+
+Caught by: blind-review — the slice 2 final re-check
+Class: record-not-written
