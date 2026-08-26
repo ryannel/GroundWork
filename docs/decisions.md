@@ -583,3 +583,16 @@ Five calls from the fix round, ratified, and the closure's two regressions fixed
 5. A line rewritten in place is two breaks: the path no longer fits the content, and the next line's prev no longer fits either. The count leads, so the reader sees two and acts on the first.
 
 The closure's two regressions — the first-line-deletion panic (F53) and the narrow bound (F54) — were fixed at closure by the driver as one-line changes with their tests, each proven by blanking. The register trim on the row's comments landed in the same pass.
+
+## D51 — 2026-08-26 — Slice 3 rulings: the seal's edges, taken as built
+
+Six calls from the seal slice, made by the builder and ratified by the driver.
+
+1. Four signature states, not R4's three. A tag carrying a signature that does not check out is unverified, kept apart from unsigned — a forged signature block must never read exactly like no signature at all. Only verified is authority. Missing is red. Unsigned and unverified are both loud, neither blocks this bet, and R4's named flip lands on both together.
+2. A seal is granted on a green battery run, read from the journal. No --battery flag: the grant reads the newest battery line, refuses when there is none, refuses when that run held a red row. A version the caller typed is a claim about a run that may never have happened.
+3. The seal line gains reason, omitempty. R6 refuses an amendment without a reason, and a reason that is only printed is not on the record.
+4. A covered path is written plainly: letters, digits, dot, underscore, slash, dash; no empty, dot or dot-dot segment; 300 bytes. Tighter than git on purpose — the path goes back to git as a pathspec, and a leading colon, a glob or a leading dash would turn one path into a different question.
+5. A repo with no seal tag is green, the plan row's D45 precedent: no subject, nothing to misstate, and the line never claims a seal was checked.
+6. A restore never overwrites. A name a different object stands at is reported as mismatched and left alone; a mirrored file whose name is not a seal tag's is refused. The branch is a mirror, and a restore that clobbered a local tag would quietly make the mirror the record.
+
+Why ratify: each sits inside R3 through R6, each is in the code's own comments, and the review meets them as claims to attack.

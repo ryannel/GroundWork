@@ -631,3 +631,25 @@ What happened: fixed at landing by the driver. The unrunnable branch's comment n
 
 Caught by: blind-review — the slice 2 final re-check
 Class: record-not-written
+
+## F57 — 2026-08-26 — No SSH signature can be made or checked in this container
+
+What it is: the container has no ssh-keygen, and git's SSH signature path needs it on both ends. No SSH-signed tag can be created here and none can be verified here. The slice plan asked the byte-for-byte restore proof to sign with a throwaway key generated in the test; it cannot.
+
+What caught it: the slice 3 builder, building the restore proof.
+
+What happened: worked around, not papered over. The proof plants a real tag object carrying a signature block — a tag's id is the hash of its own bytes, so the round trip proves what a signature needs. A machine with no verifier reports unverified in its own words, never verified: the failure direction is the safe one. The named consequence: the Verified branch of checkSignature has no test this repo can run, the same limit R4 records from the other end. The owner's machine, which has keys, is where that branch first runs for real.
+
+Caught by: worker — the slice 3 build
+Class: host-limit
+
+## F58 — 2026-08-26 — A slice that asks too much of one sitting
+
+What it is: slice 3 landed about 5,100 new lines in one review sitting — a package, four verbs, a battery row, a contract section, and the journal widening. The working agreement says a slice is small enough for a reviewer to judge in one sitting, and this one strains it. It was built whole because the pieces lean on each other, but it could have been cut: the tag and its parse; the verbs and the mirror; the row.
+
+What caught it: the builder, raising its own slice against the agreement.
+
+What happened: the driver rules for the next designs — a verb family this size is cut at those seams, and the bet design says so at design time, not at build time. This slice proceeds whole because re-cutting it now would re-review the same lines three times.
+
+Caught by: worker — the slice 3 build
+Class: other — a scope call surfaced by the agent it burdened
