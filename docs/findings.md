@@ -741,3 +741,36 @@ What happened: open. Folded into the fix round.
 
 Caught by: blind-review — the slice 3 dispatch
 Class: coverage-gap
+
+## F67 — 2026-08-26 — The wreck moved from the tag to the mirror
+
+What it is: the atomic grant rolls back one of its three writes. A journal failure after the mirror succeeded takes the tag down and leaves the mirror blob, and the grant then says "no seal was granted" — false: the next restore, in any clone, produces the seal and verify calls it sound. F59's wreck travels on the branch instead of standing locally, and D52.2's "tag, mirror, journal, or none" is not met. Beside it, two smaller holes: undoTag deletes with no old value, so a concurrent writer's tag can be clobbered by the rollback; and a process killed between the tag and the mirror leaves the same wreck with nothing to roll back — unfixable without cross-ref transactions, and unnamed in the code.
+
+What caught it: the closure re-check, answering the driver's own question about the atomic design.
+
+What happened: open. The second fix round captures the mirror tip before writing and resets it on failure with the old value passed, gives undoTag its old value, and names the crash window beside D52.2.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: front-door-hollow
+
+## F68 — 2026-08-26 — A revoked seal verifies green
+
+What it is: the cross-check reads the newest seal line of either action but only compares battery pairs, and a revoked line carries the same pair. A seal whose record says revoked — the dying-amend shape, reproduced with a planted ref lock — verifies with zero problems. The state D52.9 set out to make visible is still invisible.
+
+What caught it: the closure re-check, reopening its own small.
+
+What happened: open. One line: a newest seal line whose action is not granted is a problem.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: green-but-wrong
+
+## F69 — 2026-08-26 — The fix for the record gap opened a record gap, and three smalls
+
+What it is: F65's fix put signature and signer on the seal line, and the contract page never gained them — its table still says three fields, its reason row is stale, and the pin's want list was not extended, so nothing catches the drift. F64's class, reintroduced by the fix for F65. The smalls beside it: the HEAD-not-worktree proof cannot tell HEAD from the index (a staged signers file survives the suite — one git add closes it); the writer-strict mirror guard runs in grant and not in amend, against its own comment; one sentence in signerFrom's doc needs a second reading.
+
+What caught it: the closure re-check's sweep of the fix diff, with its own 30-mutation pass — 28 killed, one genuine survivor, one honest can-never-fail.
+
+What happened: open. Folded into the second fix round.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: parallel-definition
