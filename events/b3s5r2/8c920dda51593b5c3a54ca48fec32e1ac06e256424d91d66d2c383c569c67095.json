@@ -1,0 +1,1 @@
+{"v":2,"ts":"2026-08-26T18:37:56.742823113Z","kind":"battery-row","session":"b3s5r2","seq":1,"prev":"","commit":"65f6af4d490ae823df36cd73011cd23f096d7055","branch":"claude/v2-clean-slate-tkuacl","run":"run-20260826T183756Z-3b28","row":"version","outcome":"green","evidence":".groundwork-battery.json declares 10.0+r0a7f797, and the rows compute the same digest","duration_ms":1}
