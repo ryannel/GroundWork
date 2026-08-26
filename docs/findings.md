@@ -653,3 +653,91 @@ What happened: the driver rules for the next designs — a verb family this size
 
 Caught by: worker — the slice 3 build
 Class: other — a scope call surfaced by the agent it burdened
+
+## F59 — 2026-08-26 — One junk file on the mirror turns off restore, and the wreck it leaves verifies green
+
+What it is: the mirror walker errors out for the whole tree when any single file under tags/ is not a seal tag name, and it backs both restore and the grant's mirroring. One scribbled file on groundwork-seals — the one branch R5 makes pushable on purpose — stops every tag from being restored and every future grant from mirroring. The neighbouring index reader already takes the opposite policy for the same class, with a comment saying why. Worse: the grant that fails at the mirror step leaves its tag standing, and that half-made seal verifies green with nothing anywhere showing the wreck.
+
+What caught it: the blind review of bet-3 slice 3, through the built binary.
+
+What happened: open. The fix skips and reports the bad file the way the index reader does, and the half-made seal question goes to the fix round with D52.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: front-door-hollow
+
+## F60 — 2026-08-26 — The signature states blur exactly where D51.1 said they must not
+
+What it is: three defects in one cluster. Verify counts every not-verified seal as unsigned, so a forged signature block prints as "1 unsigned" — the exact blur D51.1 forbids, in the summary line and the row's clause both. The unverified note has one vague sentence for three situations, and the branch every run of this repo takes is the one reading "did not verify against .groundwork/allowed-signers" — which sounds like a checked-and-bad answer when nothing here could check at all. And the signer is parsed from GPG status output that git's SSH path never produces, so on the owner's machine a verified amendment would record an empty signer and fall through to the wrong note.
+
+What caught it: the blind review, with a forged-block probe and a shimmed verifier.
+
+What happened: open. D52 rules the fix directions.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: green-but-wrong
+
+## F61 — 2026-08-26 — The widest-line proof measured the wrong branch again
+
+What it is: F54's defect, one slice later. The seal row's widest-line test feeds huge counts into every field, and huge counts are exactly what make the unsigned clause drop off — so it measures 174 bytes where the true widest red line is 200, with zero slack. And the row's comment claims the unsigned clause is on every line, which is false above a thousand seals: the loud clause R4 asks for goes silently conditional at scale.
+
+What caught it: the blind review, by searching the count space for the true maximum.
+
+What happened: open. D52 rules the clause guaranteed by arithmetic, not best-effort. Two entries now stand in this class; the next widest-line test starts from the search, not the guess.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: unrun-proof
+
+## F62 — 2026-08-26 — F57 is wrong about signing: this host can sign, and cannot verify
+
+What it is: F57 said no SSH signature can be made here. False: the host's git config carries gpg.format=ssh and a signing shim, and git tag -s succeeds, producing a real SSH signature block. What remains true: verification fails — the shim only signs — and the shim's public key is unreadable (a zero-byte file), so no allowed-signers entry can be built for it. The Verified branch still has no runnable test here and the failure direction is still safe. The record was wrong about the mechanism, right about the consequence.
+
+What caught it: the blind review, by making a signed tag.
+
+What happened: recorded — this entry corrects F57, which stands as the record of what the builder believed. The ledger is append-only; corrections are new entries.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: record-not-written
+
+## F63 — 2026-08-26 — Restore and proof gaps: a lying name, a dead guard, two unproven rules
+
+What it is: four related gaps. Restore rebuilds a tag under a file name its own bytes do not declare, reporting "restored" for a lie verify then has to catch. The missing-index guard can never fire — cat-file exits 128 where the check wants 1 — so a mirror with tags but no index fails the whole restore with a raw git error. Blanking the index-versus-bytes check kills nothing: D51.6's index half has no test. And the R4 headline proof walks the no-signers branch — this repo commits a signers file, so the proof exercises the branch this repo never takes, and blanking the no-signers branch kills nothing. Beside them, two can-never-fail shapes: a comment claiming git reflows what git does not, and a dead condition after a loop that already guarantees it.
+
+What caught it: the blind review's own 37-mutation sweep — 31 killed, 2 survived, 2 can-never-fail — against the builder's 48-of-48 table.
+
+What happened: open. The fix round closes each with its test or its honest comment.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: unrun-proof
+
+## F64 — 2026-08-26 — One path rule stated three ways
+
+What it is: the covered-path charset allows a leading underscore; the contract page says a path starts with a letter, digit or dot; the error message says a third thing, and says it in a sentence that needs a second reading. The page also never gives the Battery-Run shape the parser enforces, and its list of red causes omits the name-versus-message check. The slice-1 rule — page and parser agree in both directions — broken three ways in the section this slice added.
+
+What caught it: the blind review, through the built binary with a leading-underscore path.
+
+What happened: open. D52 rules the direction: the code tightens to the page.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: parallel-definition
+
+## F65 — 2026-08-26 — Who signed is printed, never recorded, and the signers file is read from the wrong place
+
+What it is: D51.3 put the amendment reason on the journal line because a reason only printed is not on the record. The amended tag's signature state and signer get exactly the treatment that ruling forbids: one terminal line, then gone. R6 says the record states who signed. And verification reads the signers file from the working tree where R4 says committed — an agent can swap the file on disk without a commit, and nothing warns.
+
+What caught it: the blind review, reading R6 and R4 against the code.
+
+What happened: open. D52 rules both.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: record-not-written
+
+## F66 — 2026-08-26 — Seven smalls from the seal review
+
+What it is: a battery run with every count at zero grants a seal, and a run that checked nothing is not a green run. The seal verb reads any annotated tag, quoting a release tag's text back through seal machinery. A revoked seal still answers the cross-check from its older granted line if an amend dies between its two writes. short() is the one clip in the slice that skips printable. Amend prints counts where R6 asks for the before and the after. A journal comment says grants carry no reason while the amend's granted line carries one. Two comments and one error message run long enough to need a second reading.
+
+What caught it: the blind review.
+
+What happened: open. Folded into the fix round.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: coverage-gap

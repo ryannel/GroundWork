@@ -596,3 +596,19 @@ Six calls from the seal slice, made by the builder and ratified by the driver.
 6. A restore never overwrites. A name a different object stands at is reported as mismatched and left alone; a mirrored file whose name is not a seal tag's is refused. The branch is a mirror, and a restore that clobbered a local tag would quietly make the mirror the record.
 
 Why ratify: each sits inside R3 through R6, each is in the code's own comments, and the review meets them as claims to attack.
+
+## D52 — 2026-08-26 — Slice 3 review rulings
+
+Nine rulings from the slice 3 review, taken by the driver.
+
+1. The mirror walker skips and reports a bad file, the index reader's own policy. One scribbled file on a pushable branch must never stop the other tags — a restore that stops because a listing was scribbled on is a way to stop one. The name check stays where it bites: no ref is ever written for a name that is not a seal tag's.
+2. A grant that cannot mirror removes its own tag and fails whole. A seal that exists only where it was made is not half a seal, it is a standing wreck that verifies green — so the grant is atomic: tag, mirror, journal, or none of them.
+3. Unverified and unsigned are counted and printed apart, everywhere — summary, row clause, journal. The Report field named Unsigned is renamed so the trap goes with it.
+4. The unsigned-and-unverified clause is guaranteed by arithmetic on every line the row prints, and the widest-line test measures the true widest, found by search over the count space, not by feeding maxima into every field. F61 is the second entry in this class; a widest-line test that was not searched is not a proof.
+5. The unverified note says which of its three situations the reader is in — no verifier on this machine, a key nobody listed, a bad signature — read from what git actually said. The signer on the SSH path is parsed from git's SSH verify output, with the host limit named in the code: this container cannot run that branch, and F62 records where it first runs for real.
+6. Restore compares the tag header inside the bytes to the file name before writing any ref. The deeper limit is named in the contract page rather than fixed: a well-formed seal invented on the mirror restores and verifies, because only R4's signature can bind a seal to its author, and that flip is already deferred. The mirror must never quietly become the record; until signatures land, the page says so.
+7. The covered-path rule is stated once: the code tightens to the contract page — a path opens with a letter, a digit or a dot. The page gains the Battery-Run shape and the name-versus-message red. The error message is rewritten to be read once.
+8. The journal's seal line records the signature state and the signer, omitempty, D51.3's own logic applied to R6's who-signed. And verification reads the signers file from HEAD, not the working tree — R4 says committed, and a file an agent can swap without a commit is not committed.
+9. The smalls, ruled: a grant needs a green run that checked something — zero green rows is a refusal; the seal verb refuses a tag that is not a seal tag by name; the cross-check reads the newest seal line of either action, so a newer revoked is never out-answered by an older grant; short() joins the printable pattern; amend prints the paths that differ, clipped, not their counts; the stale journal comment is fixed.
+
+Why these directions: every one falls out of a ruling already made — D51.1's states kept apart, D51.3's record-not-print, D45.4's references-conform, F54's class, D49.2's printable. The review found the places the rulings were not yet obeyed.
