@@ -885,3 +885,14 @@ What happened: open. Folded into the fix round, with D57 ruling the reason outra
 
 Caught by: blind-review — the slice 4 dispatch
 Class: coverage-gap
+
+## F80 — 2026-08-26 — The battery package is drifting out of the deletion test's reach
+
+What it is: the mutate row's line on this repo now reads "1 blocked; internal/battery holds 1 target and its own tests do not finish in time". That package's suite is 200 seconds, the per-mutant clock runs out before judging, and most of this bet's code lives exactly there. The row is honest — blocked is named, never counted as killed — but honest blindness is still blindness, and each remaining slice adds rows to the package the deletion test can no longer judge.
+
+What caught it: the slice 4 fix round, reading its own verify tail.
+
+What happened: recorded before slice 7 triples the row count. The candidates the fix names: a longer per-mutant clock for a package whose suite is slow, or splitting the battery's suite so a mutant's judgment does not pay for every row's tests. The bet 3 close-out owns the call if no slice picks it up first.
+
+Caught by: worker — the slice 4 fix round
+Class: coverage-gap
