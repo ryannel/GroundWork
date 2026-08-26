@@ -1,0 +1,15 @@
+# The keys that may sign a GroundWork seal, in git's SSH allowed-signers format:
+#
+#   <principal> namespaces="git" <keytype> <public key>
+#
+# One line per key. Nothing is listed yet, and that is the honest state of this
+# environment: the agents run inside the container, and any key the container
+# can use, they can read. A key here that they could reach would be a control
+# in name only.
+#
+# So the tool never holds or creates a signing key. It only verifies, against
+# this file. Every seal it grants is unsigned, and every line it prints about
+# one says so.
+#
+# When the owner's key is added here, unsigned stops being loud and starts being
+# blocking, and that flip is a major battery bump. R4 names the deferral.

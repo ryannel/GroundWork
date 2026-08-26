@@ -631,3 +631,169 @@ What happened: fixed at landing by the driver. The unrunnable branch's comment n
 
 Caught by: blind-review — the slice 2 final re-check
 Class: record-not-written
+
+## F57 — 2026-08-26 — No SSH signature can be made or checked in this container
+
+What it is: the container has no ssh-keygen, and git's SSH signature path needs it on both ends. No SSH-signed tag can be created here and none can be verified here. The slice plan asked the byte-for-byte restore proof to sign with a throwaway key generated in the test; it cannot.
+
+What caught it: the slice 3 builder, building the restore proof.
+
+What happened: worked around, not papered over. The proof plants a real tag object carrying a signature block — a tag's id is the hash of its own bytes, so the round trip proves what a signature needs. A machine with no verifier reports unverified in its own words, never verified: the failure direction is the safe one. The named consequence: the Verified branch of checkSignature has no test this repo can run, the same limit R4 records from the other end. The owner's machine, which has keys, is where that branch first runs for real.
+
+Caught by: worker — the slice 3 build
+Class: host-limit
+
+## F58 — 2026-08-26 — A slice that asks too much of one sitting
+
+What it is: slice 3 landed about 5,100 new lines in one review sitting — a package, four verbs, a battery row, a contract section, and the journal widening. The working agreement says a slice is small enough for a reviewer to judge in one sitting, and this one strains it. It was built whole because the pieces lean on each other, but it could have been cut: the tag and its parse; the verbs and the mirror; the row.
+
+What caught it: the builder, raising its own slice against the agreement.
+
+What happened: the driver rules for the next designs — a verb family this size is cut at those seams, and the bet design says so at design time, not at build time. This slice proceeds whole because re-cutting it now would re-review the same lines three times.
+
+Caught by: worker — the slice 3 build
+Class: other — a scope call surfaced by the agent it burdened
+
+## F59 — 2026-08-26 — One junk file on the mirror turns off restore, and the wreck it leaves verifies green
+
+What it is: the mirror walker errors out for the whole tree when any single file under tags/ is not a seal tag name, and it backs both restore and the grant's mirroring. One scribbled file on groundwork-seals — the one branch R5 makes pushable on purpose — stops every tag from being restored and every future grant from mirroring. The neighbouring index reader already takes the opposite policy for the same class, with a comment saying why. Worse: the grant that fails at the mirror step leaves its tag standing, and that half-made seal verifies green with nothing anywhere showing the wreck.
+
+What caught it: the blind review of bet-3 slice 3, through the built binary.
+
+What happened: open. The fix skips and reports the bad file the way the index reader does, and the half-made seal question goes to the fix round with D52.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: front-door-hollow
+
+## F60 — 2026-08-26 — The signature states blur exactly where D51.1 said they must not
+
+What it is: three defects in one cluster. Verify counts every not-verified seal as unsigned, so a forged signature block prints as "1 unsigned" — the exact blur D51.1 forbids, in the summary line and the row's clause both. The unverified note has one vague sentence for three situations, and the branch every run of this repo takes is the one reading "did not verify against .groundwork/allowed-signers" — which sounds like a checked-and-bad answer when nothing here could check at all. And the signer is parsed from GPG status output that git's SSH path never produces, so on the owner's machine a verified amendment would record an empty signer and fall through to the wrong note.
+
+What caught it: the blind review, with a forged-block probe and a shimmed verifier.
+
+What happened: open. D52 rules the fix directions.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: green-but-wrong
+
+## F61 — 2026-08-26 — The widest-line proof measured the wrong branch again
+
+What it is: F54's defect, one slice later. The seal row's widest-line test feeds huge counts into every field, and huge counts are exactly what make the unsigned clause drop off — so it measures 174 bytes where the true widest red line is 200, with zero slack. And the row's comment claims the unsigned clause is on every line, which is false above a thousand seals: the loud clause R4 asks for goes silently conditional at scale.
+
+What caught it: the blind review, by searching the count space for the true maximum.
+
+What happened: open. D52 rules the clause guaranteed by arithmetic, not best-effort. Two entries now stand in this class; the next widest-line test starts from the search, not the guess.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: unrun-proof
+
+## F62 — 2026-08-26 — F57 is wrong about signing: this host can sign, and cannot verify
+
+What it is: F57 said no SSH signature can be made here. False: the host's git config carries gpg.format=ssh and a signing shim, and git tag -s succeeds, producing a real SSH signature block. What remains true: verification fails — the shim only signs — and the shim's public key is unreadable (a zero-byte file), so no allowed-signers entry can be built for it. The Verified branch still has no runnable test here and the failure direction is still safe. The record was wrong about the mechanism, right about the consequence.
+
+What caught it: the blind review, by making a signed tag.
+
+What happened: recorded — this entry corrects F57, which stands as the record of what the builder believed. The ledger is append-only; corrections are new entries.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: record-not-written
+
+## F63 — 2026-08-26 — Restore and proof gaps: a lying name, a dead guard, two unproven rules
+
+What it is: four related gaps. Restore rebuilds a tag under a file name its own bytes do not declare, reporting "restored" for a lie verify then has to catch. The missing-index guard can never fire — cat-file exits 128 where the check wants 1 — so a mirror with tags but no index fails the whole restore with a raw git error. Blanking the index-versus-bytes check kills nothing: D51.6's index half has no test. And the R4 headline proof walks the no-signers branch — this repo commits a signers file, so the proof exercises the branch this repo never takes, and blanking the no-signers branch kills nothing. Beside them, two can-never-fail shapes: a comment claiming git reflows what git does not, and a dead condition after a loop that already guarantees it.
+
+What caught it: the blind review's own 37-mutation sweep — 31 killed, 2 survived, 2 can-never-fail — against the builder's 48-of-48 table.
+
+What happened: open. The fix round closes each with its test or its honest comment.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: unrun-proof
+
+## F64 — 2026-08-26 — One path rule stated three ways
+
+What it is: the covered-path charset allows a leading underscore; the contract page says a path starts with a letter, digit or dot; the error message says a third thing, and says it in a sentence that needs a second reading. The page also never gives the Battery-Run shape the parser enforces, and its list of red causes omits the name-versus-message check. The slice-1 rule — page and parser agree in both directions — broken three ways in the section this slice added.
+
+What caught it: the blind review, through the built binary with a leading-underscore path.
+
+What happened: open. D52 rules the direction: the code tightens to the page.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: parallel-definition
+
+## F65 — 2026-08-26 — Who signed is printed, never recorded, and the signers file is read from the wrong place
+
+What it is: D51.3 put the amendment reason on the journal line because a reason only printed is not on the record. The amended tag's signature state and signer get exactly the treatment that ruling forbids: one terminal line, then gone. R6 says the record states who signed. And verification reads the signers file from the working tree where R4 says committed — an agent can swap the file on disk without a commit, and nothing warns.
+
+What caught it: the blind review, reading R6 and R4 against the code.
+
+What happened: open. D52 rules both.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: record-not-written
+
+## F66 — 2026-08-26 — Seven smalls from the seal review
+
+What it is: a battery run with every count at zero grants a seal, and a run that checked nothing is not a green run. The seal verb reads any annotated tag, quoting a release tag's text back through seal machinery. A revoked seal still answers the cross-check from its older granted line if an amend dies between its two writes. short() is the one clip in the slice that skips printable. Amend prints counts where R6 asks for the before and the after. A journal comment says grants carry no reason while the amend's granted line carries one. Two comments and one error message run long enough to need a second reading.
+
+What caught it: the blind review.
+
+What happened: open. Folded into the fix round.
+
+Caught by: blind-review — the slice 3 dispatch
+Class: coverage-gap
+
+## F67 — 2026-08-26 — The wreck moved from the tag to the mirror
+
+What it is: the atomic grant rolls back one of its three writes. A journal failure after the mirror succeeded takes the tag down and leaves the mirror blob, and the grant then says "no seal was granted" — false: the next restore, in any clone, produces the seal and verify calls it sound. F59's wreck travels on the branch instead of standing locally, and D52.2's "tag, mirror, journal, or none" is not met. Beside it, two smaller holes: undoTag deletes with no old value, so a concurrent writer's tag can be clobbered by the rollback; and a process killed between the tag and the mirror leaves the same wreck with nothing to roll back — unfixable without cross-ref transactions, and unnamed in the code.
+
+What caught it: the closure re-check, answering the driver's own question about the atomic design.
+
+What happened: open. The second fix round captures the mirror tip before writing and resets it on failure with the old value passed, gives undoTag its old value, and names the crash window beside D52.2.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: front-door-hollow
+
+## F68 — 2026-08-26 — A revoked seal verifies green
+
+What it is: the cross-check reads the newest seal line of either action but only compares battery pairs, and a revoked line carries the same pair. A seal whose record says revoked — the dying-amend shape, reproduced with a planted ref lock — verifies with zero problems. The state D52.9 set out to make visible is still invisible.
+
+What caught it: the closure re-check, reopening its own small.
+
+What happened: open. One line: a newest seal line whose action is not granted is a problem.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: green-but-wrong
+
+## F69 — 2026-08-26 — The fix for the record gap opened a record gap, and three smalls
+
+What it is: F65's fix put signature and signer on the seal line, and the contract page never gained them — its table still says three fields, its reason row is stale, and the pin's want list was not extended, so nothing catches the drift. F64's class, reintroduced by the fix for F65. The smalls beside it: the HEAD-not-worktree proof cannot tell HEAD from the index (a staged signers file survives the suite — one git add closes it); the writer-strict mirror guard runs in grant and not in amend, against its own comment; one sentence in signerFrom's doc needs a second reading.
+
+What caught it: the closure re-check's sweep of the fix diff, with its own 30-mutation pass — 28 killed, one genuine survivor, one honest can-never-fail.
+
+What happened: open. Folded into the second fix round.
+
+Caught by: blind-review — the slice 3 closure re-check
+Class: parallel-definition
+
+## F70 — 2026-08-26 — The battery went green over a failing test suite
+
+What it is: with a test red in internal/findings, groundwork verify still reported ten rows green. The mutate row never sampled that package's functions, and the run-evidence row reconciles which tests ran against which were discovered — not whether they passed. No row asks the one question a contributor would: does the suite pass?
+
+What caught it: the slice 3 second fix round, when the ledger-threshold test went red under its feet and verify stayed green.
+
+What happened: recorded and assigned. The row that owns this belongs beside run-evidence, and the bet 3 close-out decides whether it lands in this bet's remaining slices or is named as a deferral with an owner, F13's rule. The findings ledger's own check caught the actual red here, which is why the gap surfaced at all.
+
+Caught by: worker — the slice 3 second fix round
+Class: coverage-gap
+
+## F71 — 2026-08-26 — The final re-check's two smalls, fixed at landing
+
+What it is: the rollback's old-value guarantee was tested on the mirror half and not the tag half — dropping the old value from the tag delete killed nothing. And one sentence in signerFrom's doc still needed a second reading after the fix round's split.
+
+What caught it: the final re-check's own ten-mutation sweep — eight killed, this survivor, and one honest can-never-fail (the defensive read ordering no test can distinguish).
+
+What happened: fixed at landing by the driver. The tag half has its twin test, proven by dropping the old value and watching it die alone; the sentence is three short ones.
+
+Caught by: blind-review — the slice 3 final re-check
+Class: unrun-proof
+

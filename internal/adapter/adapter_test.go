@@ -43,6 +43,22 @@ func TestTheGoAdapterNamesItsStack(t *testing.T) {
 	}
 }
 
+// NewGo is the only way this package hands out its adapter, and every caller
+// takes what it returns on trust.
+//
+// This package never asked whether it returned anything. The deletion test
+// found the gap when the battery moved to 8.0: blanking NewGo makes it return a
+// nil *Go, and all 48 tests here stayed green. Nothing here dereferences the
+// adapter — Name has a pointer receiver that never touches its receiver, and
+// conformance calls methods that behave the same on nil — so a nil adapter
+// answered every question as happily as a real one. F29's shape, and F34's and
+// F47's: the pin goes in the survivor's own package.
+func TestNewGoHandsBackAnAdapter(t *testing.T) {
+	if NewGo() == nil {
+		t.Fatal("NewGo returned no adapter, and every caller of it takes one on trust")
+	}
+}
+
 func TestNodeAdapterPassesConformance(t *testing.T) {
 	needNode(t)
 

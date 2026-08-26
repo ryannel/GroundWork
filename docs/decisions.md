@@ -583,3 +583,60 @@ Five calls from the fix round, ratified, and the closure's two regressions fixed
 5. A line rewritten in place is two breaks: the path no longer fits the content, and the next line's prev no longer fits either. The count leads, so the reader sees two and acts on the first.
 
 The closure's two regressions — the first-line-deletion panic (F53) and the narrow bound (F54) — were fixed at closure by the driver as one-line changes with their tests, each proven by blanking. The register trim on the row's comments landed in the same pass.
+
+## D51 — 2026-08-26 — Slice 3 rulings: the seal's edges, taken as built
+
+Six calls from the seal slice, made by the builder and ratified by the driver.
+
+1. Four signature states, not R4's three. A tag carrying a signature that does not check out is unverified, kept apart from unsigned — a forged signature block must never read exactly like no signature at all. Only verified is authority. Missing is red. Unsigned and unverified are both loud, neither blocks this bet, and R4's named flip lands on both together.
+2. A seal is granted on a green battery run, read from the journal. No --battery flag: the grant reads the newest battery line, refuses when there is none, refuses when that run held a red row. A version the caller typed is a claim about a run that may never have happened.
+3. The seal line gains reason, omitempty. R6 refuses an amendment without a reason, and a reason that is only printed is not on the record.
+4. A covered path is written plainly: letters, digits, dot, underscore, slash, dash; no empty, dot or dot-dot segment; 300 bytes. Tighter than git on purpose — the path goes back to git as a pathspec, and a leading colon, a glob or a leading dash would turn one path into a different question.
+5. A repo with no seal tag is green, the plan row's D45 precedent: no subject, nothing to misstate, and the line never claims a seal was checked.
+6. A restore never overwrites. A name a different object stands at is reported as mismatched and left alone; a mirrored file whose name is not a seal tag's is refused. The branch is a mirror, and a restore that clobbered a local tag would quietly make the mirror the record.
+
+Why ratify: each sits inside R3 through R6, each is in the code's own comments, and the review meets them as claims to attack.
+
+## D52 — 2026-08-26 — Slice 3 review rulings
+
+Nine rulings from the slice 3 review, taken by the driver.
+
+1. The mirror walker skips and reports a bad file, the index reader's own policy. One scribbled file on a pushable branch must never stop the other tags — a restore that stops because a listing was scribbled on is a way to stop one. The name check stays where it bites: no ref is ever written for a name that is not a seal tag's.
+2. A grant that cannot mirror removes its own tag and fails whole. A seal that exists only where it was made is not half a seal, it is a standing wreck that verifies green — so the grant is atomic: tag, mirror, journal, or none of them.
+3. Unverified and unsigned are counted and printed apart, everywhere — summary, row clause, journal. The Report field named Unsigned is renamed so the trap goes with it.
+4. The unsigned-and-unverified clause is guaranteed by arithmetic on every line the row prints, and the widest-line test measures the true widest, found by search over the count space, not by feeding maxima into every field. F61 is the second entry in this class; a widest-line test that was not searched is not a proof.
+5. The unverified note says which of its three situations the reader is in — no verifier on this machine, a key nobody listed, a bad signature — read from what git actually said. The signer on the SSH path is parsed from git's SSH verify output, with the host limit named in the code: this container cannot run that branch, and F62 records where it first runs for real.
+6. Restore compares the tag header inside the bytes to the file name before writing any ref. The deeper limit is named in the contract page rather than fixed: a well-formed seal invented on the mirror restores and verifies, because only R4's signature can bind a seal to its author, and that flip is already deferred. The mirror must never quietly become the record; until signatures land, the page says so.
+7. The covered-path rule is stated once: the code tightens to the contract page — a path opens with a letter, a digit or a dot. The page gains the Battery-Run shape and the name-versus-message red. The error message is rewritten to be read once.
+8. The journal's seal line records the signature state and the signer, omitempty, D51.3's own logic applied to R6's who-signed. And verification reads the signers file from HEAD, not the working tree — R4 says committed, and a file an agent can swap without a commit is not committed.
+9. The smalls, ruled: a grant needs a green run that checked something — zero green rows is a refusal; the seal verb refuses a tag that is not a seal tag by name; the cross-check reads the newest seal line of either action, so a newer revoked is never out-answered by an older grant; short() joins the printable pattern; amend prints the paths that differ, clipped, not their counts; the stale journal comment is fixed.
+
+Why these directions: every one falls out of a ruling already made — D51.1's states kept apart, D51.3's record-not-print, D45.4's references-conform, F54's class, D49.2's printable. The review found the places the rulings were not yet obeyed.
+
+## D53 — 2026-08-26 — The front-door-hollow class tripped its threshold: proofs walk the default path
+
+Three findings share the shape: a mechanism whose front door opens onto nothing. The default-mode journal chained nothing because every test set the session variable (F48). A junk file turned off the mirror for everyone (F59). The atomic grant's failure path left a wreck that traveled (F67).
+
+The rulings, standing from here:
+
+1. A slice's headline proof exercises the path the DEFAULT configuration takes. A proof that sets a variable, plants a file, or shims a branch the shipped tool never walks is proving a different tool. The reviewer checks this by asking of each headline proof: which branch did this walk, and is that the shipped one? The R4 proof's branch pin from this slice is the model.
+2. An operation that writes more than one thing proves its failure paths leave no partial state — each write's failure gets a fixture, and the assertion is that NOTHING remains, not that an error was printed. The slice 3 grant probes are the model.
+
+Why a rule and not three fixes: all three findings were built green and reviewed red. The class survives fixes because it lives in what the proofs never ask.
+
+## D54 — 2026-08-26 — The parallel-definition class tripped its threshold: one truth, one place, structure-read pins
+
+Three findings share the shape: two statements of one truth, drifting. The row test seam samples against a different version than a real run (F46). One path rule stated three ways (F64). The contract page missing the fields the code just gained (F69).
+
+The rulings, standing from here:
+
+1. Where a truth must appear in two places — a parser and its contract page, a row and its test seam — one place is declared the source and the other carries a pin that reads the source's STRUCTURE, not its words. The slice 3 fix's table-reading contract pin is the model: it survived a prose mention and failed a gutted cell, which is the right way round.
+2. A change that adds a machine-read field is not done until the page and its pin both carry it — the landing checklist (D39) gains that line, and the driver checks it at every landing alongside the evidence directory.
+
+Why now: the class reached three through two review rounds in one slice — the drift happens at fix time, when attention is on the code and the page is yesterday's problem.
+
+## D55 — 2026-08-26 — The landing gate pairs verify with the test suite
+
+Until F70's row exists, a green battery does not prove the tests pass — the run-evidence row reconciles which tests ran, not how they ended. So the driver's landing checklist gains a line: no slice lands on verify alone; go test ./... runs green beside it, on the same tree. The line comes out when the row that asks the suite's own question lands.
+
+Why: the slice 3 second fix round watched verify stay green over a red package. The gap is assigned (F70); this is the manual bridge until it closes.

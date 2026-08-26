@@ -1,6 +1,6 @@
 # The derivation contract
 
-**Status:** live. Section 1 lands with bet 3 slice 1.
+**Status:** live. Section 1 lands with bet 3 slice 1, section 2 with slice 3.
 **Audience:** anyone writing a file the tools read, and anyone changing a tool that reads one.
 **Scope:** the shapes GroundWork parses, and what it does with each one.
 
@@ -183,3 +183,113 @@ The row's red line opens with the count of the problems found, and then the firs
 A repo with no `docs/plan` directory is green: it states no plan, so it can misstate none. A `docs/plan` directory that is there and holds no `program.md` is unrunnable, not green — a check that passes on nothing is not a check — and the line names what the directory held instead.
 
 Nothing in this section says whether work is done. Landed-ness is read from git, and red-or-green is read from the test run. Both arrive in later slices of bet 3.
+
+---
+
+## 2. The seal tag
+
+A seal is an annotated git tag. Its name is `seal/<kind>/<subject-id>`.
+
+The kind is one of four, and the list is closed: `design`, `acceptance`, `birth`, `adoption`. The subject id is an id, spelled the way section 1.2 spells one: lowercase letters, digits and underscores, at most 64 bytes.
+
+A lightweight tag under `seal/` is not a seal. A seal says what it covers, and only an annotated tag has a message to say it in.
+
+### 2.1 The message
+
+The message is exactly this shape, and nothing else parses:
+
+```
+seal: design b3s3
+
+covers:
+  1122334455667788990011223344556677889900 docs/plan/rebuild/bet_3/b3s3.md
+  8f3a1c00d4e5b6a7980112233445566778899aab docs/spec/proof.md
+
+Battery: 8.0+rb43026c
+Battery-Run: run-20260826T120000Z-abcd
+```
+
+The rules, all of them:
+
+- The first line is `seal:`, one space, the kind, one space, the subject id. Nothing after the subject.
+- The second line is blank.
+- The third line is `covers:`.
+- Then one covered line per path: two spaces, the path's blob hash at the sealed commit, one space, the path from the repo root. At least one.
+- The covered lines are sorted by path, and no path appears twice. The order is part of the bytes, and the bytes are the tag's object id — so two grants over the same set produce one tag.
+- Then a blank line.
+- Then two trailers, in this order: `Battery:` and `Battery-Run:`. Nothing after them.
+
+A blob hash is forty lowercase hex digits.
+
+`Battery:` carries the version pair D23 fixes: a declared MAJOR.MINOR, a plus, and the seven-hex digest with its leading `r` — `8.0+rb43026c`. `Battery-Run:` carries the run id of the battery run the seal was granted on, which is `run-<8 digits>T<6 digits>Z-<4 hex>` — `run-20260826T120000Z-abcd`.
+
+A covered path is written plainly: letters, digits, dots, dashes, underscores and slashes, starting with a letter, a digit or a dot. No segment may be empty, `.` or `..`. That is tighter than what git will store, on purpose — the path is handed straight back to git as a pathspec, and a leading colon, a glob or a leading dash would turn one path into a different question.
+
+And the caps, all of them:
+
+- A whole message: 65536 bytes.
+- One covered path: 300 bytes.
+- A subject id: 64 bytes.
+
+Composition is a longer covers list, never a second tag. On the complex lane the design seal covers the design docs and the slice proof plans together, in one tag.
+
+### 2.2 The signature
+
+A signature is checked against a committed allowed-signers file at `.groundwork/allowed-signers`, in git's SSH allowed-signers format. It is committed so a fresh clone can verify with no keyring setup.
+
+A seal has four states, and only the first is a person's authority:
+
+| State | What it is |
+|---|---|
+| verified | A good signature by a key the allowed-signers file lists. |
+| unsigned | The tag carries no signature. |
+| unverified | The tag carries a signature, and it did not check out. |
+| missing | There is no such tag. |
+
+Missing is red. Unsigned and unverified are printed loudly and never count as human authority. In bet 3 they are loud and not blocking: there is no key in this environment that the agents cannot read, so a blocking rule would either put the key inside their reach or stop every run. When the owner's key signs seals, unsigned becomes blocking, and that flip is a major battery bump.
+
+The tool never holds or creates a signing key. It only verifies. Every seal it grants is unsigned, and every line it prints about one says so.
+
+### 2.3 The mirror
+
+The host's git proxy refuses pushes outside `refs/heads`, so a seal tag cannot travel as a tag. Each tag's raw object bytes are mirrored on the branch `groundwork-seals`:
+
+```
+tags/seal/design/b3s3          the tag object's own bytes
+prior/seal/design/b3s3/<oid>   a tag an amendment replaced
+index.txt                      one line of "<oid> <tag>" per mirrored tag
+```
+
+One file per tag under `tags/`, one file per replaced tag under `prior/`, and one listing at `index.txt`.
+
+`groundwork seal restore` hands the bytes under `tags/` back to `git hash-object -t tag -w` and points the ref at what comes out. A tag object's id is the hash of its own bytes, so the same id comes back and an owner's signature survives the round trip byte for byte.
+
+A name already taken by a different object is never overwritten, and a file whose bytes name a different tag than the file it sits under is refused. A file under `tags/` that is not a seal tag's name is skipped and reported: the branch is pushable on purpose, so one scribbled file must never stop the other tags from coming back.
+
+The branch is a mirror, not a second record. The tag stays the thing the tools read.
+
+One limit is recorded here rather than fixed. Anyone who can push to the branch can invent a whole seal on it — a well-formed tag object under a well-formed name — and a restore will rehydrate it and `seal verify` will call it sound. Nothing in the mechanism can tell an invented seal from a real one, because only a signature by a key outside the agents' reach can bind a seal to its author, and that is the flip R4 already defers. Until then the mirror is watched, not trusted: what it holds is visible in git, and a seal nobody signed is no one's authority wherever it came from.
+
+### 2.4 The journal's seal line
+
+A seal line carries `seal_kind`, `tag`, `target` and `action` (D8), and five more fields this section adds:
+
+| Field | Shape | What it is |
+|---|---|---|
+| `battery` | text | The version pair the seal was granted under. Written with `battery_run` or not at all. |
+| `battery_run` | text | The run id that pair came from. Written with `battery` or not at all. |
+| `reason` | text | Why the seal moved. Both lines an amendment writes carry it, revoked and granted alike. A first grant moves nothing and leaves it off. |
+| `signature` | text | What state the tag's signature was in when the line was written: one of the four in 2.2. |
+| `signer` | text | Who git named. Written only when the signature verified, and never without `signature` beside it. |
+
+`signature` and `signer` are R6's other half — the record states who signed — recorded rather than printed, which is the same reason `reason` is here.
+
+`battery` and `battery_run` are D23's second recording place, and D28 deferred them to this slice. They are read from the journal's own newest battery run, never from the caller, so a seal cannot name a version that never ran. That run has to be green: a seal is a claim that the work stands.
+
+### 2.5 What the tools do with this
+
+`groundwork seal grant` writes the tag, the mirror blob and the journal line. `groundwork seal amend` prints the before and the after, refuses without a reason, moves the tag, files the tag it replaced under `prior/`, and writes two journal lines — revoked, then granted, per D13. `groundwork seal restore` rehydrates the tags. `groundwork seal verify` checks them.
+
+`groundwork verify` runs a `seal-verify` row. It recomputes each covered path's blob hash at HEAD. It is red when a covered path moved or went missing, when a tag under `seal/` does not read as a seal, when a tag's name disagrees with the kind and subject in its own message, or when a tag's battery trailers disagree with its own seal line.
+
+A repo with no seal tag is green: it states no seal, so it can misstate none. The line says only that, and never claims a seal was checked.
