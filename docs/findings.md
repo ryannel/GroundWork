@@ -969,7 +969,7 @@ What it is: the green sentence reads "none of them is a stub, a skip or a red th
 
 What caught it: the blind review, with the seven plants and a reading of the proof's own loop.
 
-What happened: open. The fix round makes the line say what was checked — the scan's finding, not the world's state — and splits the proof case so each style's reason is pinned.
+What happened: fixed in the fix round — the line says who looked and what they found, seven scan-escaping plants pinned under the honest sentence, and each style's reason asserted by name. Closure-checked.
 
 Caught by: blind-review — the slice 5 dispatch
 Class: green-but-wrong
@@ -980,7 +980,7 @@ What it is: five blanking survivors inside the slice's own code, each surviving 
 
 What caught it: the blind review's 27-rule sweep against the builder's 21.
 
-What happened: open. Each gets its test or its honest comment in the fix round.
+What happened: fixed in the fix round — each survivor now dies to a named test, the can-never-fail shape carries its honest comment, and the closure's independent 33-rule sweep reached the same two declared survivors. Closure-checked.
 
 Caught by: blind-review — the slice 5 dispatch
 Class: unrun-proof
@@ -991,7 +991,7 @@ What it is: the row answers broken surfaces before reading any test source, and 
 
 What caught it: the blind review, on a two-surface fixture.
 
-What happened: open. The fix round adopts the honesty row's pattern.
+What happened: fixed in the fix round — the broken surface rides as a hit and a clause, every surface that ran is judged, and counts lead again. The deliberate cost of the every-surface-ran guard is stated on the page per D59. Closure-checked.
 
 Caught by: blind-review — the slice 5 dispatch
 Class: green-but-wrong
@@ -1002,7 +1002,7 @@ What it is: the slice appends the contract page while its plan file declares no 
 
 What caught it: the blind review of bet-3 slice 5.
 
-What happened: open. Folded into the fix round, the plan-file record line first.
+What happened: all nine fixed in the fix round, the plan-file record line first and the vocabulary walk beside it. Closure-checked.
 
 Caught by: blind-review — the slice 5 dispatch
 Class: coverage-gap

@@ -58,6 +58,22 @@ var ErrNoTests = errors.New("reported no tests at all, and an empty run log is n
 // seam failed still gets the same answer it always did.
 var ErrBuildFailed = errors.New("did not build")
 
+// ErrCrashed marks a run whose test binary stopped before its tests finished:
+// an unrecovered panic, a fatal runtime error, or a process that walked out on
+// its own.
+//
+// The stub check is why. R10 rules that a proof its plan expects red has to fail
+// at a real assertion, and that one dying before the assertion fails the row
+// with the reason named. A caller matching the adapter's own sentences to find
+// that out would be a second statement of what a crash is, so the marker is
+// named here beside the other two.
+//
+// It is not ErrTimedOut. A clock that fired is nobody waiting; a binary that
+// died is the code stopping. D35 keeps those apart, and both are wrapped beside
+// ErrUnrunnable so a caller that only asks whether the seam failed still gets
+// the same answer it always did.
+var ErrCrashed = errors.New("crashed before its tests finished")
+
 // ErrTimedOut marks a run the test runner's own clock stopped.
 //
 // It reads as a crash on the wire — go test writes "panic: test timed out" and

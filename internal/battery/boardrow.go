@@ -64,51 +64,85 @@ func boardRow() Row {
 	}
 }
 
-func checkBoard(c Context) Result {
+// derivation is one row's own words for the board it derives.
+//
+// Two rows derive the same board from the same three inputs, and each has to
+// speak for itself: the board row reconciles expected against actual, and the
+// stub check judges the reds. So the work is written once and the sentences that
+// name the row are handed in. A second copy of the work would be two rows able
+// to disagree about one repo (D54 ruling 1).
+//
+// Each row runs the proofs itself, so a verify sees two runs of them. That is
+// the honest cost of a battery whose rows hold no shared state: a row handed
+// another row's answer is a row that proved nothing of its own.
+type derivation struct {
+	// name is how the row calls itself in its own evidence, noun and all.
+	name string
+
+	// noPlan is the row's whole sentence for a repo that states no plan, and
+	// noProof its whole sentence for a plan naming no proof at all.
+	noPlan  string
+	noProof string
+}
+
+// derived is what one derivation came back with: the board, the surfaces the run
+// could not reach, the plan it was derived from, and the scan that read the
+// repo.
+type derived struct {
+	// name is the row's own noun for itself, carried so that a helper writing
+	// evidence about this derivation says which row is speaking without a second
+	// copy of the word.
+	name string
+
+	board   board.Board
+	blocked []board.Blocked
+	set     plan.Set
+	scan    scanned
+}
+
+// derive reads the plan, runs the proofs it names, and joins the three inputs
+// into one board — or hands back the result the row reports instead.
+//
+// A surface the run could not reach is returned rather than concluded from. What
+// a row does about one is the row's own ruling: the board row cannot reconcile
+// what never ran, and the stub check has R10's list to answer from.
+func (d derivation) derive(c Context) (derived, Result, bool) {
 	root, err := journal.RepoRoot(c.RepoDir)
 	if err != nil {
-		return Result{Outcome: Unrunnable, Evidence: cut(err.Error())}
+		return derived{}, Result{Outcome: Unrunnable, Evidence: cut(err.Error())}, false
 	}
 
 	set, err := plan.Load(root)
 	switch {
 	case errors.Is(err, plan.ErrNoPlanDir):
-		return Result{
-			Outcome: Green,
-			Evidence: fmt.Sprintf(
-				"there is no %s directory, so this repo derives no board and can misstate none", plan.Dir),
-		}
+		return derived{}, Result{Outcome: Green, Evidence: cut(d.noPlan)}, false
 	case errors.Is(err, plan.ErrNoUnits):
-		return Result{Outcome: Unrunnable, Evidence: cut(err.Error())}
+		return derived{}, Result{Outcome: Unrunnable, Evidence: cut(err.Error())}, false
 	case err != nil:
 		// The plan row is the one that judges a plan, and it goes red on this
 		// same file. Two rows red for one fault is two reds for one fix.
-		return Result{
+		return derived{}, Result{
 			Outcome:  Unrunnable,
-			Evidence: cut("the board row has no plan to derive from: " + err.Error()),
-		}
+			Evidence: cut("the " + d.name + " has no plan to derive from: " + err.Error()),
+		}, false
 	}
 
 	pattern := board.Pattern(set)
 	if pattern == "" {
-		return Result{
-			Outcome: Unrunnable,
-			Evidence: fmt.Sprintf(
-				"%s names no proof, so there is no board to derive and nothing to run", plan.Dir),
-		}
+		return derived{}, Result{Outcome: Unrunnable, Evidence: cut(d.noProof)}, false
 	}
 
-	s, bad, ok := openScan("board row", c)
+	s, bad, ok := openScan(d.name, c)
 	if !ok {
-		return bad
+		return derived{}, bad, false
 	}
 
 	history, err := board.ReadHistory(root)
 	if err != nil {
-		return Result{
+		return derived{}, Result{
 			Outcome:  Unrunnable,
-			Evidence: cut("the board row could not read this repo's own history: " + s.reason(err)),
-		}
+			Evidence: cut("the " + d.name + " could not read this repo's own history: " + s.reason(err)),
+		}, false
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), board.Budget)
@@ -117,22 +151,54 @@ func checkBoard(c Context) Result {
 	run, blocked, err := board.RunProofs(ctx, root, s.m, pattern)
 	switch {
 	case errors.Is(err, board.ErrInsideARun):
-		return Result{
+		return derived{}, Result{
 			Outcome: Unrunnable,
-			Evidence: "the board row is already running inside a battery run, " +
+			Evidence: "the " + d.name + " is already running inside a battery run, " +
 				"so it did not start the proofs a second time",
-		}
+		}, false
 	case err != nil:
-		return Result{
+		return derived{}, Result{
 			Outcome:  Unrunnable,
-			Evidence: cut("the board row could not run the proofs: " + s.reason(err)),
-		}
+			Evidence: cut("the " + d.name + " could not run the proofs: " + s.reason(err)),
+		}, false
 	}
 
-	if len(blocked) > 0 {
+	got := board.Derive(set, history, run)
+	if len(got.Rows) == 0 {
+		// The plan named proofs and none of them reached a milestone, so there
+		// was nothing to reconcile. A verifier may never pass on nothing (D17),
+		// and the plan reader refuses the shapes that get here, so this is the
+		// guard rather than a case anybody meets.
+		return derived{}, Result{
+			Outcome: Unrunnable,
+			Evidence: fmt.Sprintf(
+				"%s names proofs and the board placed none of them on a milestone", plan.Dir),
+		}, false
+	}
+
+	return derived{name: d.name, board: got, blocked: blocked, set: set, scan: s}, Result{}, true
+}
+
+// boardDerivation is the board row's own words for the board it derives.
+var boardDerivation = derivation{
+	name: "board row",
+	noPlan: fmt.Sprintf(
+		"there is no %s directory, so this repo derives no board and can misstate none", plan.Dir),
+	noProof: fmt.Sprintf(
+		"%s names no proof, so there is no board to derive and nothing to run", plan.Dir),
+}
+
+func checkBoard(c Context) Result {
+	d, bad, ok := boardDerivation.derive(c)
+	if !ok {
+		return bad
+	}
+
+	if len(d.blocked) > 0 {
 		var why []string
-		for _, one := range blocked {
-			why = append(why, fmt.Sprintf("the surface %q could not be run: %s", one.Surface, s.reason(one.Err)))
+		for _, one := range d.blocked {
+			why = append(why, fmt.Sprintf("the surface %q could not be run: %s",
+				one.Surface, d.scan.reason(one.Err)))
 		}
 
 		return Result{
@@ -142,20 +208,7 @@ func checkBoard(c Context) Result {
 		}
 	}
 
-	derived := board.Derive(set, history, run)
-	if len(derived.Rows) == 0 {
-		// The plan named proofs and none of them reached a milestone, so there
-		// was nothing to reconcile. A verifier may never pass on nothing (D17),
-		// and the plan reader refuses the shapes that get here, so this is the
-		// guard rather than a case anybody meets.
-		return Result{
-			Outcome: Unrunnable,
-			Evidence: fmt.Sprintf(
-				"%s names proofs and the board placed none of them on a milestone", plan.Dir),
-		}
-	}
-
-	return boardVerdict(derived)
+	return boardVerdict(d.board)
 }
 
 // boardVerdict turns one derived board into the row's outcome and its one line.

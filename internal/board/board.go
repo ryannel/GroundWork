@@ -62,6 +62,18 @@ const (
 	NeverRan Actual = "never ran"
 )
 
+// Actuals returns every state a run may report about a proof, in the order this
+// package writes them.
+//
+// It is exported because the stub check judges each of them and must be able to
+// say it judged all of them. A list written out there instead would be a second
+// statement of this vocabulary, and a fifth state added here would reach the
+// stub check as the default branch of a switch — silently read as one of the
+// four (D54 ruling 1).
+func Actuals() []Actual {
+	return []Actual{Passed, Failed, Skipped, NeverRan}
+}
+
 // Flag is how a proof's expected and actual states sit together.
 type Flag string
 

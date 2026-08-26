@@ -676,3 +676,9 @@ Three calls from the stub slice, made by the builder and ratified by the driver.
 3. Build failures, crashes and timeouts arrive per surface, not per test, so they draw their own red line naming the surface; anything else a surface broke on stays unrunnable.
 
 Why ratify: ruling 1 is the significant one, and it holds because the reconciliation preserves what B19 actually buys — the planted stub styles all fail the row — while refusing the false red D56.1 already ruled against. The sealed graders will test exactly this in slice 8.
+
+## D59 — 2026-08-26 — Two sentences of D58 corrected, and the guard's cost stated
+
+D58.1 carried two supporting sentences that are not so, found by the review and recorded in F86. The ledger is append-only, so the correction lives here, beside the ruling a reader will meet: the ladder's three styles are AMONG the five shapes the honesty scan names, not exactly them; and the sealed-fixture claim holds only as far as the open descriptions show — one holdout's wrinkle is noted only in its key, which nobody building could read. D58.1's direction stands unchanged.
+
+One more small ruling from the closure: while any surface has gone unrun, a landed slice missing its proof passes the stub row — the row cannot tell that absence from the surface's — and the contract page now states that cost beside the rule instead of leaving it implied. The clause naming the unrun surface is what keeps the state visible.
