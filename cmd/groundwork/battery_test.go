@@ -153,7 +153,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "10 rows") {
+	if !strings.Contains(out, "11 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -172,7 +172,7 @@ func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "10 rows: green 10, red 0, waived 0, quarantined 0, unrunnable 0"
+	const want = "11 rows: green 11, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -189,13 +189,21 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 
 	// The three scans, the run-evidence row and the deletion test cannot run
 	// without a manifest, and unrunnable is how they say so: counted and
-	// printed, never a silent skip and never green. Three rows are green. The
-	// plan row, because a repo with no docs/plan has no plan to misstate. The
-	// chain row, because the run journals each row as it finishes, so by the
-	// time the chain row runs the ref holds this run's own lines — and they are
-	// chained. The seal-verify row, because a repo with no seal tag has sealed
-	// nothing, so nothing it sealed can have moved.
-	const want = "10 rows: green 3, red 2, waived 0, quarantined 0, unrunnable 5"
+	// printed, never a silent skip and never green. That is five. Two rows are
+	// red: the version row, because the lock file declares a digest the rows do
+	// not compute, and the manifest row, because a repo with no manifest
+	// declares nothing and D25 fails closed.
+	//
+	// The other four are green. The plan row, because a repo with no docs/plan
+	// has no plan to misstate. The board row, because a board is derived from a
+	// plan and there is none, so it derives nothing and claims nothing — and it
+	// answers that before it ever looks for a manifest, which is why it is green
+	// here rather than unrunnable beside the scans. The chain row, because the
+	// run journals each row as it finishes, so by the time the chain row runs
+	// the ref holds this run's own lines — and they are chained. The seal-verify
+	// row, because a repo with no seal tag has sealed nothing, so nothing it
+	// sealed can have moved.
+	const want = "11 rows: green 4, red 2, waived 0, quarantined 0, unrunnable 5"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
