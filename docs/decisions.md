@@ -653,3 +653,16 @@ Six calls from the board slice, made by the builder and ratified by the driver.
 6. Six seams moved so one truth has one source (D54.1): the adapter chooser, the outcome ranking, git's own trailer parser, the journal's printable, the id check, and the marker prefix — each exported from the package that owns it instead of copied.
 
 One harness lesson rides with this entry: a blanking sweep's -run filter must include the proof markers, because a proof is named for what it proves, not for the row it proves it about. The builder's first filter hid all three headline proofs, and the four-way table (F55) is what surfaced it.
+
+## D57 — 2026-08-26 — Slice 4 review rulings
+
+Six rulings from the board review, taken by the driver.
+
+1. The head carries two counts, misstated apart from unread — D52.3 applied where the review found it missing. A count that cannot tell a red cause from a benign one is one count too few.
+2. The row's clauses ride every branch, and the render shows what Run.Twice knows. A signal that hides exactly when the board looks clean is aimed the wrong way.
+3. The contract pin drives the verdict cells. A pin that passes a lying table guards the table's shape and not its content.
+4. When two commits claim one slice, the oldest claim is the landing and every newer claim is a stray, named. History lands things once; what comes after is commentary. The page's "second commit" means the later one, and the code and pin now say so.
+5. On an unmapped stack the manifest row owns the red; the board row stays unrunnable so one cause draws one red. The seam's doc names that split instead of claiming a red its caller does not make.
+6. In a hit's give-way ladder, the reason outranks the value. A reader can fetch a value from the commit the line names; the reason is the line's own contribution.
+
+Why these directions: every one applies a ruling already made — D52.3, D54.1, F61's head discipline, D45's one-cause-one-red posture — to the places this review found them not yet obeyed.

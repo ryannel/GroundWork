@@ -819,3 +819,69 @@ What happened: recorded. D55's manual pairing stands, and the bet 3 close-out de
 
 Caught by: worker — the slice 4 build
 Class: coverage-gap
+
+## F74 — 2026-08-26 — Holds() is half proved, and the table said forty for forty
+
+What it is: blanking the Wrong half of the board's Holds() leaves the whole suite green, unfiltered. The consequence is the verb's exit code: a misstated trailer prints red in the render and exits 0, so the verb and the row disagree about one board — the thing the function's own comment says it exists to prevent. The builder's blanking table claimed forty killed of forty; this survivor falsifies the claim. The verb's tests drive green boards, behind proofs, and missing plans, never a misstated trailer.
+
+What caught it: the blind review of bet-3 slice 4, with its own full-suite blanking run.
+
+What happened: open. One cmd-level case driving the verb on a bad trailer and asserting the exit.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: unrun-proof
+
+## F75 — 2026-08-26 — Two states under one count, in the one part of the line that survives
+
+What it is: the row's head counts misstated trailers and harmless merge trailers as one number, "N trailers not read". The render prints them under two different words, but the head is the only part guaranteed to survive, and it cannot tell a red cause from a benign one. D52.3 ruled this exact shape for unverified and unsigned: counted and printed apart, everywhere.
+
+What caught it: the blind review, with three boards whose heads read identically.
+
+What happened: open. Two counts in the head.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: other — one count for two states, where D52.3 rules them apart
+
+## F76 — 2026-08-26 — The multi-suite clause hides exactly when it matters most
+
+What it is: the row's no-hits branch drops its clauses, so "N tests reported by more than one suite" is shown when something else is already wrong and hidden when the board looks clean — which is when a folded double answer misleads most. The run-evidence row's green branch keeps its clauses for exactly this reason, and this is the only row that drops them. Run.Twice also never reaches the render, against its own doc.
+
+What caught it: the blind review, diffing the two branches' output.
+
+What happened: open. The clauses ride the no-hits branch too, and the render gains the line.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: coverage-gap
+
+## F77 — 2026-08-26 — The contract pin fails a gutted table and passes a lying one
+
+What it is: the section-3 pin matches only each row's first cell, so flipping the verdict columns — merge trailers land, doubled trailers land, red and green swapped — leaves the suite green. The verdict cell is the whole content of the ruling table. D54.1's model pin survives a prose mention and fails a gutted cell; this one has half of that, missing the half that carries the ruling.
+
+What caught it: the blind review, flipping four verdicts on the page.
+
+What happened: open. The pin reads the verdict cell and drives it.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: unrun-proof
+
+## F78 — 2026-08-26 — The stray claim lands and the real landing is called the stray
+
+What it is: claims arrive newest-first, so when two commits claim one slice, the newest claim is credited with the landing and the older, genuine landing commit is named as the duplicate. A reader chasing the stray is sent to the real commit. The contract page says the second commit is named, and in commit order the second is the newer one — page and code disagree, and no test pins which commit is named.
+
+What caught it: the blind review, with a three-commit fixture.
+
+What happened: open. D57 rules the direction: the oldest claim lands, newer claims are the strays named, and the pin asserts the commit id.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: other — a true verdict pointing its reader at the wrong commit
+
+## F79 — 2026-08-26 — Eight lows from the board review
+
+What it is: the page says the board runs the plan's markers and no others, silent on the fallback branch that runs every proof-named test. The adapter seam's doc claims a fail-closed red one of its two callers does not make, unnamed who owns that red. The render's widest-line test feeds maxima instead of searching, and the pattern cap has no boundary case. The verb's writes-nothing test reads git status where the row's proof hashes the tree. A single wrong trailer at the page's own maximum width drops its reason and keeps its value. Two branches are unpinned — an unreachable default whose comment claims it matters, and the empty-plan-directory path. Section 3 is hard-wrapped where sections 1 and 2 are not.
+
+What caught it: the blind review of bet-3 slice 4.
+
+What happened: open. Folded into the fix round, with D57 ruling the reason outranks the value and the seam doc naming its red's owner.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: coverage-gap
