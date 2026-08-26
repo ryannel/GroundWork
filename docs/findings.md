@@ -951,3 +951,58 @@ What happened: pinned in the owning package with a test that builds the verified
 
 Caught by: battery — the mutate row's rotated sample at 10.0
 Class: unrun-proof
+
+## F86 — 2026-08-26 — The record overstated twice: F83's size, and D58.1's support
+
+What it is: F83 framed the stub check's blind spot as one missing comparison shape. The real boundary is the honesty scan's documented escape set — a cross-file helper, an assertion library, a fake recorder — one line of indirection into a no-op helper defeats the whole check, and D58.1 promoted those known false negatives into the stub row's entire red/not-red boundary. And D58.1 itself states two things that are not so: the scan names five shapes, not three; and the sealed-fixture claim is checkable only for one of the two holdouts — the other's open record says its wrinkle is noted only in the key, which nobody building could read. F62's lesson again: ledger entries written from the report, not the diff.
+
+What caught it: the blind review of bet-3 slice 5, planting seven scan-escaping stubs and reading the holdout descriptions.
+
+What happened: this entry corrects both. F83's class stands; its size is the escape set, and widening the scan remains the one-place-or-not-at-all rule. D58.1's direction stands — the reviewer judged the reconciliation itself sound, all three ladder styles verified failing through the binary — with its support corrected to: the ladder's three styles are among the five shapes the scan names, and the fixtures grade the same as far as the open descriptions show.
+
+Caught by: blind-review — the slice 5 dispatch
+Class: record-not-written
+
+## F87 — 2026-08-26 — The evidence line claims what the row never checked
+
+What it is: the green sentence reads "none of them is a stub, a skip or a red that proves nothing" — an unqualified claim decided by a precision-over-recall scan that seven planted stubs walked past. The contract page hedges correctly; the line a reader actually sees does not. Beside it, the headline proof's three-styles case is a tautology for two of the three styles: an always-true "more" escape means only the count is asserted, and the distinct reasons the row genuinely prints go unchecked.
+
+What caught it: the blind review, with the seven plants and a reading of the proof's own loop.
+
+What happened: open. The fix round makes the line say what was checked — the scan's finding, not the world's state — and splits the proof case so each style's reason is pinned.
+
+Caught by: blind-review — the slice 5 dispatch
+Class: green-but-wrong
+
+## F88 — 2026-08-26 — Five rules in the new row proved by nothing, one of them load-bearing
+
+What it is: five blanking survivors inside the slice's own code, each surviving the whole battery suite. The load-bearing one: the duplicate-name guard in cannotFail — blank it and an honest test in one suite masks a same-named stub in another, turning a caught red into a clean green. Beside it: the no-hits clause drop that F76 already named, re-committed under a comment citing F76; the blocked clause that is the only signal the row could not judge some proofs; the broke-some-other-way clause; and a first-wins comment describing folding the code does not do. A sixth survivor is pre-existing adapter code from an earlier bet, now on the record here rather than only in a report.
+
+What caught it: the blind review's 27-rule sweep against the builder's 21.
+
+What happened: open. Each gets its test or its honest comment in the fix round.
+
+Caught by: blind-review — the slice 5 dispatch
+Class: unrun-proof
+
+## F89 — 2026-08-26 — A broken surface swallows every stub on every other surface
+
+What it is: the row answers broken surfaces before reading any test source, and that branch returns without judging a proof — a planted stub on the healthy surface gets no count and no name, and D33's counts-lead rule is silently suspended. The gate still closes red, so nothing false passes, but the defect the row exists to name is invisible behind the noise. The honesty row already does this right: it keeps the hit and rides the unreadable surface as a clause.
+
+What caught it: the blind review, on a two-surface fixture.
+
+What happened: open. The fix round adopts the honesty row's pattern.
+
+Caught by: blind-review — the slice 5 dispatch
+Class: green-but-wrong
+
+## F90 — 2026-08-26 — Nine smalls from the stub review
+
+What it is: the slice appends the contract page while its plan file declares no record, so slice 7's record row would never check the obligation. Section 3.5 sits after its chapter's closer, says three where its own list holds four, and its pin leaves the middle column unguarded. judgeRed's default answers green for any state the vocabulary might gain, unwalked. The no-test sentence is false for a test outside every declared surface. One red arm is unreachable and searched anyway. A hard-coded name ignores the field that carries it. The timeout red is unreachable under default clocks and undocumented. Two sentences carry a track-record claim nothing establishes.
+
+What caught it: the blind review of bet-3 slice 5.
+
+What happened: open. Folded into the fix round, the plan-file record line first.
+
+Caught by: blind-review — the slice 5 dispatch
+Class: coverage-gap
