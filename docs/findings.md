@@ -918,3 +918,36 @@ What happened: fixed in the micro-round — the guard split into a drivable read
 
 Caught by: blind-review — the slice 4 closure re-check
 Class: unrun-proof
+
+## F83 — 2026-08-26 — The stub check sees only the stubs the honesty scan sees
+
+What it is: D58.1's reconciliation judges a passing expected-red proof by the honesty scan's vacuous-shape list, so a stub the scan cannot see passes. A constant condition is as vacuous as a self-comparison, and the scan's selfComparison could learn it. The three ladder styles are covered; the boundary is the scan's, and it is named rather than papered over.
+
+What caught it: the slice 5 builder, pricing its own ruling.
+
+What happened: recorded. Widening the scan's shapes is its own slice — a second definition of vacuous inside the stub row is the class this ledger already names, so the growth happens in the one place or not at all.
+
+Caught by: worker — the slice 5 build
+Class: coverage-gap
+
+## F84 — 2026-08-26 — The record lags the work by three slices, permanently
+
+What it is: twelve of the sixteen ahead-of-plan proofs on this repo's board belong to b3s1 through b3s3, whose commits predate the Slice trailer and cannot be amended. The board and the stub row read them as unlanded forever. The count is honest and visible — that is what the ahead flag is for — but the number never goes to zero on this repo, and a reader must know why.
+
+What caught it: the slice 5 builder, reading this repo's own line.
+
+What happened: recorded as permanent and named. The bet close-out says it once in the close-out record so no future reader chases a wreck that is only history.
+
+Caught by: worker — the slice 5 build
+Class: host-limit
+
+## F85 — 2026-08-26 — The battery's seventh catch: authority proved only on its false side
+
+What it is: the 10.0 rotation drew the seal package's Authority and it survived blanking — every test proved unsigned and unverified are not authority, and none proved verified is. The reason is F57/F62's limit: no test here can make a verified tag, so the true side never ran.
+
+What caught it: the battery — the mutate row's rotated sample at 10.0.
+
+What happened: pinned in the owning package with a test that builds the verified state directly, checked against a blanked copy — the F29 pattern, seventh entry.
+
+Caught by: battery — the mutate row's rotated sample at 10.0
+Class: unrun-proof

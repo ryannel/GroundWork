@@ -666,3 +666,13 @@ Six rulings from the board review, taken by the driver.
 6. In a hit's give-way ladder, the reason outranks the value. A reader can fetch a value from the commit the line names; the reason is the line's own contribution.
 
 Why these directions: every one applies a ruling already made — D52.3, D54.1, F61's head discipline, D45's one-cause-one-red posture — to the places this review found them not yet obeyed.
+
+## D58 — 2026-08-26 — Slice 5 rulings: the stub check's edges, and R10 reconciled
+
+Three calls from the stub slice, made by the builder and ratified by the driver.
+
+1. R10's two paragraphs contradict each other on any repo whose work runs ahead of its plan: green ahead of plan is flagged never red, and a passing expected-red proof fails the row. Every mid-bet repo holds both at once, this one included. The reconciliation reads paragraph one as the rule for honest work ahead of its plan, and paragraph two through the paragraph that follows it: a passing expected-red proof is red WHEN the honesty scan says its test cannot fail, in the scan's own words. The three ladder styles are exactly the three shapes the scan names. The cost is named as F83, and both sealed fixture descriptions grade the same under this rule as under the strict one.
+2. A proof whose test does not exist is counted, and red only when its own slice has landed — a slice that landed without writing its proof claimed work it never did, and no other row sees that. A plan naming future slices' proofs before they exist is a plan doing its job.
+3. Build failures, crashes and timeouts arrive per surface, not per test, so they draw their own red line naming the surface; anything else a surface broke on stays unrunnable.
+
+Why ratify: ruling 1 is the significant one, and it holds because the reconciliation preserves what B19 actually buys — the planted stub styles all fail the row — while refusing the false red D56.1 already ruled against. The sealed graders will test exactly this in slice 8.
