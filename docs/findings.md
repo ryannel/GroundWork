@@ -826,7 +826,7 @@ What it is: blanking the Wrong half of the board's Holds() leaves the whole suit
 
 What caught it: the blind review of bet-3 slice 4, with its own full-suite blanking run.
 
-What happened: open. One cmd-level case driving the verb on a bad trailer and asserting the exit.
+What happened: fixed in the fix round — the cmd case drives the reviewer's own probe and pins the exit, and both halves of Holds() now die under blanking against the unfiltered suite. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: unrun-proof
@@ -837,7 +837,7 @@ What it is: the row's head counts misstated trailers and harmless merge trailers
 
 What caught it: the blind review, with three boards whose heads read identically.
 
-What happened: open. Two counts in the head.
+What happened: fixed in the fix round — two counts in the head, the arithmetic re-proven at the cap, the searched test varying both. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: other — one count for two states, where D52.3 rules them apart
@@ -848,7 +848,7 @@ What it is: the row's no-hits branch drops its clauses, so "N tests reported by 
 
 What caught it: the blind review, diffing the two branches' output.
 
-What happened: open. The clauses ride the no-hits branch too, and the render gains the line.
+What happened: fixed in the fix round — the clauses ride every branch and the render says what Twice knows, proven on a real two-package fixture. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: coverage-gap
@@ -859,7 +859,7 @@ What it is: the section-3 pin matches only each row's first cell, so flipping th
 
 What caught it: the blind review, flipping four verdicts on the page.
 
-What happened: open. The pin reads the verdict cell and drives it.
+What happened: fixed in the fix round — the pin cuts rows into cells and drives the verdict cells; all four flips die. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: unrun-proof
@@ -870,7 +870,7 @@ What it is: claims arrive newest-first, so when two commits claim one slice, the
 
 What caught it: the blind review, with a three-commit fixture.
 
-What happened: open. D57 rules the direction: the oldest claim lands, newer claims are the strays named, and the pin asserts the commit id.
+What happened: fixed in the fix round per D57.4 — the oldest claim lands, the later commit is named, pinned three ways through real git. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: other — a true verdict pointing its reader at the wrong commit
@@ -881,7 +881,7 @@ What it is: the page says the board runs the plan's markers and no others, silen
 
 What caught it: the blind review of bet-3 slice 4.
 
-What happened: open. Folded into the fix round, with D57 ruling the reason outranks the value and the seam doc naming its red's owner.
+What happened: all eight fixed in the fix round per D57.5 and 6, each with its pin or its honest comment. Closure-checked.
 
 Caught by: blind-review — the slice 4 dispatch
 Class: coverage-gap
