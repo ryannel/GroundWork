@@ -560,3 +560,14 @@ Nine calls the chain slice needed, made by the builder and ratified here. The lo
 9. The chain row registers last, so inside a battery run it reads the lines the earlier rows just wrote.
 
 Why ratify rather than re-cut: each call sits inside R7's frame, each is written into the code's own comments, and the review gets them all as claims to attack.
+
+## D49 — 2026-08-26 — The session is the run
+
+Four rulings from the slice 2 review, taken by the driver.
+
+1. When GROUNDWORK_SESSION is unset, the tool generates one session id per process, not per write. A run is a session. That is what D8's model always meant, and it is what makes the chain cover the default mode: a deleted line inside a run becomes a gap, and R7's promise holds without anyone setting a variable. Two concurrent runs still get distinct ids, so the merge's independence stands. What stays uncovered: deleting a whole one-line session, which no per-session chain can see — that is R4's ground, with the tip-rewrite case beside it.
+2. Every value a battery evidence line takes from a journal line goes through printable before it goes through a clip. A forger controls the line's fields; the table must not be theirs to draw. This is D38 ruling 4 applied where it was missed.
+3. The chain walk compares each line's computed hash to the path it sits at, and a mismatch is a break. The check is free and closes the rewrite-in-place probe. What it cannot close: a tip rewritten and refiled, and a whole session invented in the v1 shape. Both are named here as accepted until the seal lands, and the evidence now counts wholly unchained sessions so a reader can watch that number instead of trusting it.
+4. The message smalls: a not-JSON break names the position it broke at, never a borrowed seq; a gap message never names a seq that is present; a line with no session field is a break, not a group.
+
+Why 1 is in scope for this slice: the chain row's headline claim depends on it, and a row that overclaims in the default mode is F48's finding, not a deferrable nicety.

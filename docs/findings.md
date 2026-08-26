@@ -532,3 +532,58 @@ What happened: both fixed in the slice, the F29/F34 way — one test per functio
 
 Caught by: battery — the mutate row's rotated sample at 7.0
 Class: unrun-proof
+
+## F48 — 2026-08-26 — In the default mode, the chain covers nothing
+
+What it is: with GROUNDWORK_SESSION unset — the tool's default — sessionID generates a fresh id per write, so every journal line lands in its own one-line session, seq 1, empty prev. There is nothing to chain and nothing to check. The reviewer ran a full verify on a copy: ten lines, ten sessions. Then it deleted a line from the ref and the chain row stayed green — the exact deletion R7 promises to make evident. Every chain test in the slice sets the variable first, so nothing exercised the default. The green line compounds it: "every chain holds" over 191 one-line chains reads as coverage where there is none.
+
+What caught it: the blind review of bet-3 slice 2, probe J, through the slice's own verify.
+
+What happened: D49.1 rules the session run-scoped. The fix round carries it.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: front-door-hollow
+
+## F49 — 2026-08-26 — A forged journal line can print a row of its own
+
+What it is: clipSession clips length only and never calls printable, the function D38 ruling 4 added for exactly this. The session name on a read line is forger-controlled through git plumbing, and a name carrying a newline and tabs draws a forged row in the verify table — the reviewer rendered a fake "seal green" row from one planted line.
+
+What caught it: the blind review of bet-3 slice 2, probe D2, rendered through the real table shape.
+
+What happened: open. The fix is one call and one test in the waiver precedent's shape.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: green-but-wrong
+
+## F50 — 2026-08-26 — Three rules stated as fact, proven by nothing
+
+What it is: three probes survived the whole suite. Flipping the doubled-seq tie-break (D48 ruling 8, "both clones land in the same place") changed nothing. Turning the error branch red (D48 ruling 4, the named divergence) changed nothing — no test reaches that branch. Removing the red line's cut changed nothing — the fit assertion can never fire while the cut it tests is present, F35's class again, and D38's arithmetic-bound shape already landed on the waiver line as the precedent.
+
+What caught it: the blind review of bet-3 slice 2, mutations m05, m15, m17, each re-confirmed serially.
+
+What happened: open. Three tests, one of which the reviewer wrote and left ready.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: unrun-proof
+
+## F51 — 2026-08-26 — Two ways past the chain the ruling never named
+
+What it is: a line rewritten in place — left at its old path, which is the sha256 of the line, as the code's own comment says — stays green, though comparing path to content is free. And a whole session invented in the v1 shape is green: three freely authored lines, no hashing at all, indistinguishable in the aggregate unchained count from a genuine prefix. D48 ruling 1 closed the mid-session downgrade; the whole-session forgery is cheaper and was still open.
+
+What caught it: the blind review of bet-3 slice 2, probes A, B and G.
+
+What happened: D49 rules both — the path check goes in; the invented-session limit is named and accepted until the seal work. The tip-rewrite case is inherent to a hash chain and R4's signature is its only answer, as R7 already says of forward rewriting.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: coverage-gap
+
+## F52 — 2026-08-26 — Three smalls in the break messages
+
+What it is: a not-JSON break borrows seq 0, a seq no line has. A planted line at seq 0 makes the gap message name a seq that is present. A line with no session field groups under the empty string and reads green.
+
+What caught it: the blind review of bet-3 slice 2, probes E, I and F.
+
+What happened: open. The fix round tightens each message and makes the missing-session line a break.
+
+Caught by: blind-review — the slice 2 dispatch
+Class: coverage-gap
