@@ -1039,3 +1039,47 @@ What happened: recorded. The from-versus-design check is one rule the next slice
 
 Caught by: worker — the slice 6 build
 Class: coverage-gap
+
+## F94 — 2026-08-27 — An uncapped read lets one file kill the whole battery
+
+What it is: the trace row reads design files with no size cap, where every other reader in this repo caps. A 400-megabyte committed design file — or a committed symlink to /dev/zero — takes down the entire verify process: no summary, no journal line, nothing. The comment claiming the plan reader's path check protects the read is false: a committed symlink points wherever it likes, and the row's verdict can be driven by a file nobody reviewed. Nothing leaks — file contents never reach the evidence — but a battery one file can kill is F53's class at the process level.
+
+What caught it: the blind review of bet-3 slice 6, with a reproduced out-of-memory kill.
+
+What happened: open. The fix caps the read and corrects the comment.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: green-but-wrong
+
+## F95 — 2026-08-27 — The record says clauses and sealed docs; the code and the ruling say neither
+
+What it is: the contract page's section 4.4 says the clauses name which unsealed things and how many — and the row passes nil clauses, by design, per D60.7 ratified in the same commit. And the slice's own plan file still claims "the sealed plan and the sealed design docs, read as committed" where D60.5 rules working-tree reads and F92 records the design unsealed. Two records contradicting the code and the rulings they shipped beside.
+
+What caught it: the blind review, reading the page against the code.
+
+What happened: open. The fix round makes the page match D60.7 and the plan file match D60.5.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: record-not-written
+
+## F96 — 2026-08-27 — Two ratified words silently re-read
+
+What it is: R13 says an amendment marks every later bet, and the code marks every bet in the repo, across programs, with no time input. R12 says a facing id is claimed by exactly one slice's proof, and the code reads the slice's facing list. Both readings are likely right — a citing bet is later than the seal it cites by construction, and no per-proof facing field exists — but nobody ruled them, and the page restates R13 without its word.
+
+What caught it: the blind review, holding the code to the ruling's words.
+
+What happened: D61 rules both readings. The page carries them.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: record-not-written
+
+## F97 — 2026-08-27 — A useless duplicate line, and six lows
+
+What it is: a slice listing one facing id twice is a trace red naming one slice twice — a line that tells the reader nothing — and the state is missing from the verdict table that reads as complete. Beside it: the red rule is written twice and the page's proof goes through the copy the row does not use; the table's middle column is a gut cell; the slug rule diverges from a real renderer on a heading holding a link; the premise-id charset rests on two rules that agree by luck, unpinned; one red subtest skips the plan-row check its siblings make; and two sentences drift past the register.
+
+What caught it: the blind review of bet-3 slice 6.
+
+What happened: open. D61 rules the duplicate a plan-reader refusal, and the rest fold into the fix round.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: coverage-gap

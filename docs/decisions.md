@@ -696,3 +696,13 @@ Seven calls from the traceability slice, made by the builder and ratified by the
 7. Unsealed things are named as hits, not folded into a clause — each is one file or one artifact a reader may need to chase.
 
 Why ratify: six follows the review discipline itself — the one who built a thing never blesses it — and the rest sit inside R12 and R13 with their costs named.
+
+## D61 — 2026-08-27 — The two readings ruled, and the duplicate refused
+
+Three rulings from the slice 6 review.
+
+1. R13's later is satisfied by construction, and the mark falls on every bet whose premises name the artifact — closed bets included, across programs. A premise is a sealed artifact, so any bet citing it came after it; and a closed bet standing on a premise that moved is exactly what the signal exists to surface. Permanent marking of long-closed bets is F91's ratchet, already named, with its answering verb already assigned.
+2. R12's one slice's proof reads as the slice: the slice's facing list is the claiming unit, because a proof carries no facing field and the slice is the unit that lands. The page says so in those words.
+3. A facing id repeated in one slice's list is the plan reader's refusal, at load, like every other doubled declaration — never a trace red naming one slice twice. The verdict table stays complete because the state stops being reachable.
+
+Why: the first two make the code's readings the recorded ones, with the reasoning that makes each safe. The third puts a two-ways-of-reading defect where all its siblings already live.
