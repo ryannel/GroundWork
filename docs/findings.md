@@ -797,3 +797,124 @@ What happened: fixed at landing by the driver. The tag half has its twin test, p
 Caught by: blind-review — the slice 3 final re-check
 Class: unrun-proof
 
+
+## F72 — 2026-08-26 — Three copies of printable
+
+What it is: journal, seal and battery each carry their own printable. The board slice exported the journal's and used it, but the other two stand — D54's class with three entries of one function.
+
+What caught it: the slice 4 builder, moving seams under D54.1.
+
+What happened: recorded for a later slice to collapse into one, rather than a fourth appearing. Out of a board slice's scope to chase.
+
+Caught by: worker — the slice 4 build
+Class: parallel-definition
+
+## F73 — 2026-08-26 — The board row narrows F70 and does not close it
+
+What it is: the board row now asks whether the proof tests pass — a proof expected green that fails is red. It asks nothing about the rest of the suite, and nothing about a proof whose milestone has not landed. F70's gap — no row asks whether the whole suite passes — stands narrowed.
+
+What caught it: the slice 4 builder, checking its row against F70's claim.
+
+What happened: recorded. D55's manual pairing stands, and the bet 3 close-out decides F70's owner knowing the board covers the proof tests alone.
+
+Caught by: worker — the slice 4 build
+Class: coverage-gap
+
+## F74 — 2026-08-26 — Holds() is half proved, and the table said forty for forty
+
+What it is: blanking the Wrong half of the board's Holds() leaves the whole suite green, unfiltered. The consequence is the verb's exit code: a misstated trailer prints red in the render and exits 0, so the verb and the row disagree about one board — the thing the function's own comment says it exists to prevent. The builder's blanking table claimed forty killed of forty; this survivor falsifies the claim. The verb's tests drive green boards, behind proofs, and missing plans, never a misstated trailer.
+
+What caught it: the blind review of bet-3 slice 4, with its own full-suite blanking run.
+
+What happened: fixed in the fix round — the cmd case drives the reviewer's own probe and pins the exit, and both halves of Holds() now die under blanking against the unfiltered suite. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: unrun-proof
+
+## F75 — 2026-08-26 — Two states under one count, in the one part of the line that survives
+
+What it is: the row's head counts misstated trailers and harmless merge trailers as one number, "N trailers not read". The render prints them under two different words, but the head is the only part guaranteed to survive, and it cannot tell a red cause from a benign one. D52.3 ruled this exact shape for unverified and unsigned: counted and printed apart, everywhere.
+
+What caught it: the blind review, with three boards whose heads read identically.
+
+What happened: fixed in the fix round — two counts in the head, the arithmetic re-proven at the cap, the searched test varying both. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: other — one count for two states, where D52.3 rules them apart
+
+## F76 — 2026-08-26 — The multi-suite clause hides exactly when it matters most
+
+What it is: the row's no-hits branch drops its clauses, so "N tests reported by more than one suite" is shown when something else is already wrong and hidden when the board looks clean — which is when a folded double answer misleads most. The run-evidence row's green branch keeps its clauses for exactly this reason, and this is the only row that drops them. Run.Twice also never reaches the render, against its own doc.
+
+What caught it: the blind review, diffing the two branches' output.
+
+What happened: fixed in the fix round — the clauses ride every branch and the render says what Twice knows, proven on a real two-package fixture. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: coverage-gap
+
+## F77 — 2026-08-26 — The contract pin fails a gutted table and passes a lying one
+
+What it is: the section-3 pin matches only each row's first cell, so flipping the verdict columns — merge trailers land, doubled trailers land, red and green swapped — leaves the suite green. The verdict cell is the whole content of the ruling table. D54.1's model pin survives a prose mention and fails a gutted cell; this one has half of that, missing the half that carries the ruling.
+
+What caught it: the blind review, flipping four verdicts on the page.
+
+What happened: fixed in the fix round — the pin cuts rows into cells and drives the verdict cells; all four flips die. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: unrun-proof
+
+## F78 — 2026-08-26 — The stray claim lands and the real landing is called the stray
+
+What it is: claims arrive newest-first, so when two commits claim one slice, the newest claim is credited with the landing and the older, genuine landing commit is named as the duplicate. A reader chasing the stray is sent to the real commit. The contract page says the second commit is named, and in commit order the second is the newer one — page and code disagree, and no test pins which commit is named.
+
+What caught it: the blind review, with a three-commit fixture.
+
+What happened: fixed in the fix round per D57.4 — the oldest claim lands, the later commit is named, pinned three ways through real git. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: other — a true verdict pointing its reader at the wrong commit
+
+## F79 — 2026-08-26 — Eight lows from the board review
+
+What it is: the page says the board runs the plan's markers and no others, silent on the fallback branch that runs every proof-named test. The adapter seam's doc claims a fail-closed red one of its two callers does not make, unnamed who owns that red. The render's widest-line test feeds maxima instead of searching, and the pattern cap has no boundary case. The verb's writes-nothing test reads git status where the row's proof hashes the tree. A single wrong trailer at the page's own maximum width drops its reason and keeps its value. Two branches are unpinned — an unreachable default whose comment claims it matters, and the empty-plan-directory path. Section 3 is hard-wrapped where sections 1 and 2 are not.
+
+What caught it: the blind review of bet-3 slice 4.
+
+What happened: all eight fixed in the fix round per D57.5 and 6, each with its pin or its honest comment. Closure-checked.
+
+Caught by: blind-review — the slice 4 dispatch
+Class: coverage-gap
+
+## F80 — 2026-08-26 — The battery package is drifting out of the deletion test's reach
+
+What it is: the mutate row's line on this repo now reads "1 blocked; internal/battery holds 1 target and its own tests do not finish in time". That package's suite is 200 seconds, the per-mutant clock runs out before judging, and most of this bet's code lives exactly there. The row is honest — blocked is named, never counted as killed — but honest blindness is still blindness, and each remaining slice adds rows to the package the deletion test can no longer judge.
+
+What caught it: the slice 4 fix round, reading its own verify tail.
+
+What happened: closed in the slice 4 micro-round, at its cause. The widest-line search was the whole 75-second cost; sampling the monotone count space at its boundary — 134 tuples where the cross product was 1.7 million — put the package suite back under the clock, and the mutate row's line reads killed and counted again, with no blocked clause.
+
+Caught by: worker — the slice 4 fix round
+Class: coverage-gap
+
+## F81 — 2026-08-26 — The class's fourth entry: a bound the fix itself added, proved by nothing
+
+What it is: the fix round's new multi-suite line rode a three-name cap that nothing drove — blanking it survived the whole unfiltered suite, and the widest-line search's twice axis stopped at four, below the widths that matter. The fourth entry in the class F54, F61 and F79 already hold, and the second in this one slice: a widest-line test measuring a shape instead of searching for one, this time on the very line a fix introduced. The comment bounding the constant carried the same habit one layer down — its note arithmetic measured an ordinary rune where the widest reason carries a twelve-byte escape.
+
+What caught it: the closure re-check's own blanking sweep, and the final re-check's audit of the corrected arithmetic.
+
+What happened: fixed in the micro-round — the axis reaches two hundred, the blanked cap dies at the reviewer's exact probe — and the comment's numbers corrected at landing. The final re-check then proved the boundary sampling exact by running the full thirty-two-million-tuple space: same widest, no count lost anywhere.
+
+Caught by: blind-review — the slice 4 closure re-check
+Class: unrun-proof
+
+## F82 — 2026-08-26 — Two smalls from the closure re-check
+
+What it is: a verdict-cell guard whose only exit was a test failure could not be driven through its caller, so blanking it survived — a prose-rewritten cell on a not-red row would read as no by luck. And the two-count head lost its singular, printing "1 trailers misstated" with the searched test pinning the bad spelling in place.
+
+What caught it: the closure re-check's sweep of the fix diff.
+
+What happened: fixed in the micro-round — the guard split into a drivable reader plus its wrapper, ten rejects driven including the by-luck shapes; the count went back through counted, and the bound was re-measured at the plural where it is widest.
+
+Caught by: blind-review — the slice 4 closure re-check
+Class: unrun-proof

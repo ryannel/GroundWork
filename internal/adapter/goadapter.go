@@ -350,6 +350,22 @@ func (g *Go) Run(ctx context.Context, dir string) (RunLog, error) {
 	return g.run(ctx, dir, "./...")
 }
 
+// RunMatching runs the tests whose names match pattern, and normalizes what it
+// prints. pattern is go test's own -run regexp.
+//
+// The board needs it. A proof's membership is its test's name (R9), so the
+// board can ask for exactly the tests the plan declares instead of running a
+// whole suite to learn about a handful of them. That is what the marker is for:
+// -run filters names, and nothing else's result can then reach the board.
+//
+// It is the Go path only. Another stack answers this through its own adapter,
+// with its own marker convention, in the bet that ships it; a stack that does
+// not answer it is run whole and filtered afterwards, which is slower and just
+// as true.
+func (g *Go) RunMatching(ctx context.Context, dir, pattern string) (RunLog, error) {
+	return g.run(ctx, dir, "./...", "-run", pattern)
+}
+
 // RunPackage runs the tests of one package under dir, named the way discovery
 // names a suite: a directory inside the project, with forward slashes, and "."
 // for the project's own root package.
@@ -368,16 +384,16 @@ func (g *Go) RunPackage(ctx context.Context, dir, suite string) (RunLog, error) 
 		return RunLog{}, err
 	}
 
-	pattern := "./" + rel
+	packages := "./" + rel
 	if rel == "." {
-		pattern = "."
+		packages = "."
 	}
 
-	return g.run(ctx, dir, pattern)
+	return g.run(ctx, dir, packages)
 }
 
 // run is the one go test invocation both shapes above are made of.
-func (*Go) run(ctx context.Context, dir, pattern string) (RunLog, error) {
+func (*Go) run(ctx context.Context, dir, packages string, extra ...string) (RunLog, error) {
 	module, err := modulePath(dir)
 	if err != nil {
 		return RunLog{}, err
@@ -386,7 +402,11 @@ func (*Go) run(ctx context.Context, dir, pattern string) (RunLog, error) {
 	// go test starts a test binary, and killing only go test would leave that
 	// binary running with the machine to itself. That is exactly the shape a
 	// mutant produces when it turns a loop into one that never ends.
-	cmd := child(ctx, dir, "go", "test", "-json", "-count=1", pattern)
+	args := []string{"test", "-json", "-count=1"}
+	args = append(args, extra...)
+	args = append(args, packages)
+
+	cmd := child(ctx, dir, "go", args...)
 
 	var out, errOut bytes.Buffer
 	cmd.Stdout = &out

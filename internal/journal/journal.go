@@ -543,7 +543,7 @@ func checkBatteryPair(battery, run string) error {
 func short(value string) string {
 	const most = 40
 
-	value = printableText(value)
+	value = Printable(value)
 	if len(value) <= most {
 		return value
 	}
@@ -558,10 +558,15 @@ func short(value string) string {
 	return kept + "..."
 }
 
-// printableText turns every character that is not printable into a space.
+// Printable turns every character that is not printable into a space.
 //
 // A space rather than nothing, so two words never run together into a third.
-func printableText(text string) string {
+//
+// It is exported for the same reason RepoRoot is: the packages that already
+// depend on this one print values taken off a commit, a tag or a plan file, and
+// one statement of what is safe to put on a line is what keeps them agreeing
+// (D54 ruling 1).
+func Printable(text string) string {
 	return strings.Map(func(r rune) rune {
 		if unicode.IsPrint(r) {
 			return r

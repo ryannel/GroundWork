@@ -4,7 +4,7 @@ import "fmt"
 
 // Default returns the battery the verify verb runs.
 //
-// Ten rows today. version is the drift check D23 asks for: CI fails when the
+// Eleven rows today. version is the drift check D23 asks for: CI fails when the
 // digest moves without a declared bump. manifest is the capability manifest
 // check: the project declared what it does, and something the stack's adapter
 // can see has to prove each one. Then the three scans proof.md names — honesty,
@@ -21,7 +21,11 @@ import "fmt"
 // of the line before it in its own session, and the row calls it red when one of
 // those is missing or does not match. seal-verify recomputes every path a seal
 // covers and calls it red when one moved: R3 makes "does the work still match
-// what was sealed" a hash comparison rather than a reading.
+// what was sealed" a hash comparison rather than a reading. board derives the
+// proofs board from the plan, from git's Slice trailers and from a run of the
+// proofs themselves, and calls it red when a proof its plan expects green is
+// not — never the other way round, because a proof green ahead of its plan is
+// the plan lagging the work and it is flagged rather than blamed.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -40,6 +44,7 @@ func Default() *Registry {
 	reg.Register(planRow())
 	reg.Register(chainRow())
 	reg.Register(sealRow())
+	reg.Register(boardRow())
 
 	return reg
 }

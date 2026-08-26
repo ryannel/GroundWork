@@ -57,7 +57,7 @@ func checkManifest(c Context) Result {
 	// capability pointed at a Go package proves nothing about the web.
 	discovered := map[string]map[string]int{}
 	for _, surface := range m.Surfaces {
-		a, err := adapterFor(m, surface)
+		a, err := adapter.For(m, surface)
 		if err != nil {
 			return Result{Outcome: Red, Evidence: err.Error()}
 		}
@@ -130,24 +130,6 @@ func proven(capability manifest.Capability, suites map[string]int) bool {
 	}
 
 	return false
-}
-
-// adapterFor returns the adapter for one surface's stack.
-//
-// D25: Go runs in process, every other stack runs the command the manifest
-// declares, and a stack with no command is a red row rather than a skip.
-func adapterFor(m manifest.Manifest, surface manifest.Surface) (adapter.Adapter, error) {
-	if surface.Stack == manifest.GoStack {
-		return adapter.NewGo(), nil
-	}
-
-	runner, ok := m.Adapters[surface.Stack]
-	if !ok {
-		return nil, fmt.Errorf("the surface %q is written in %s, and %s declares no adapter for it",
-			surface.Name, surface.Stack, manifest.File)
-	}
-
-	return adapter.NewExec(surface.Stack, runner.Command), nil
 }
 
 // counted renders a count with its noun, singular for one.

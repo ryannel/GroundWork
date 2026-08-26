@@ -215,9 +215,7 @@ func collapse(tests []TestRun) []TestRun {
 			continue
 		}
 
-		if rank(tr.Outcome) > rank(got.Outcome) {
-			got.Outcome = tr.Outcome
-		}
+		got.Outcome = Worse(got.Outcome, tr.Outcome)
 		// The parent's own duration already covers its subtests, so the
 		// longest is the run rather than the sum of double-counted parts.
 		got.Duration = max(got.Duration, tr.Duration)
@@ -231,6 +229,20 @@ func collapse(tests []TestRun) []TestRun {
 	slices.SortFunc(out, func(a, b TestRun) int { return strings.Compare(a.ID, b.ID) })
 
 	return out
+}
+
+// Worse returns the outcome of two that matters more.
+//
+// A test that failed outlives one that passed, and a test that ran outlives one
+// that was skipped. It is one rule with two readers: a parent whose subtest
+// failed has failed, and a proof two suites disagree about has failed. Two
+// statements of it would drift, so there is one (D54 ruling 1).
+func Worse(a, b Outcome) Outcome {
+	if rank(b) > rank(a) {
+		return b
+	}
+
+	return a
 }
 
 // rank orders outcomes by how much they matter to a folded result.

@@ -306,10 +306,14 @@ func (b *binder) data() *Data {
 	}
 }
 
-// markerPrefix is what a proof's test name opens with, per R9. The proof id is
+// MarkerPrefix is what a proof's test name opens with, per R9. The proof id is
 // spelled inside the test name, so the plan file and the test carry one
 // spelling of it and go test -run can filter on it.
-const markerPrefix = "TestProof_"
+//
+// It is exported because the board builds the -run pattern that selects the
+// proofs, and a second spelling of the prefix there would be a second rule
+// about what a marker is (D54 ruling 1).
+const MarkerPrefix = "TestProof_"
 
 // checkMarker holds a proof's test name to R9.
 func (b *binder) checkMarker(id, marker string) {
@@ -317,7 +321,7 @@ func (b *binder) checkMarker(id, marker string) {
 		return
 	}
 
-	want := markerPrefix + id + "_"
+	want := MarkerPrefix + id + "_"
 	if !strings.HasPrefix(marker, want) || len(marker) == len(want) {
 		b.fail(b.n.fields["marker"].line,
 			"the proof %s has the marker %q, and a marker is %s followed by readable words", id, clip(marker), want)

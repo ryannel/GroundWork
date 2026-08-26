@@ -640,3 +640,29 @@ Why now: the class reached three through two review rounds in one slice — the 
 Until F70's row exists, a green battery does not prove the tests pass — the run-evidence row reconciles which tests ran, not how they ended. So the driver's landing checklist gains a line: no slice lands on verify alone; go test ./... runs green beside it, on the same tree. The line comes out when the row that asks the suite's own question lands.
 
 Why: the slice 3 second fix round watched verify stay green over a red package. The gap is assigned (F70); this is the manual bridge until it closes.
+
+## D56 — 2026-08-26 — Slice 4 rulings: the board's edges, taken as built
+
+Six calls from the board slice, made by the builder and ratified by the driver.
+
+1. "Flagged, not silently accepted" means named and counted everywhere the board is shown, and never red. Expected-red-actually-green is the plan lagging the work — the state of every honest slice between its test going green and its commit landing, and of every repo whose history predates the trailer. Expected-green-actually-not-green is work regressing, and that is red. The ahead count lives in the head where no cut reaches it (F61's lesson), each ahead proof is named, and the render carries a flag column.
+2. The board runs the proofs its plan names through a -run filter built from the markers, never the whole suite twice. That is what R9's marker is for. The filter is quoted, and a plan too large for a command line falls back to the marker prefix. Filtering rides an optional seam beside RunPackage, not a change to the adapter contract.
+3. A shallow clone is named on the board row, never unrunnable — the opposite of R14's waiver-counter rule, and rightly: the counter's miss is unsafe (unseen grants read as zero), the board's miss is safe (unseen landings push toward expected red, the flagged direction). This host's own clones are all shallow, so the other rule would mean the row never runs anywhere.
+4. Merges never govern landed-ness — D38 and D40's precedent applied to trailers. A Slice: trailer on a merge is counted, named, and not read. A slice claimed twice is landed with the second commit named. Four shapes are red: a doubled trailer, an empty value, a value outside the charset, a value naming no declared slice — misstatements in the one input landed-ness is read from.
+5. The render's stamp is what a reader needs to ask whether the board is still true — start time, cost, results read, the commit the landed set was read at, and whether the history was short — never a second run-id vocabulary. Inside verify the row's line is journalled under the battery's own run id.
+6. Six seams moved so one truth has one source (D54.1): the adapter chooser, the outcome ranking, git's own trailer parser, the journal's printable, the id check, and the marker prefix — each exported from the package that owns it instead of copied.
+
+One harness lesson rides with this entry: a blanking sweep's -run filter must include the proof markers, because a proof is named for what it proves, not for the row it proves it about. The builder's first filter hid all three headline proofs, and the four-way table (F55) is what surfaced it.
+
+## D57 — 2026-08-26 — Slice 4 review rulings
+
+Six rulings from the board review, taken by the driver.
+
+1. The head carries two counts, misstated apart from unread — D52.3 applied where the review found it missing. A count that cannot tell a red cause from a benign one is one count too few.
+2. The row's clauses ride every branch, and the render shows what Run.Twice knows. A signal that hides exactly when the board looks clean is aimed the wrong way.
+3. The contract pin drives the verdict cells. A pin that passes a lying table guards the table's shape and not its content.
+4. When two commits claim one slice, the oldest claim is the landing and every newer claim is a stray, named. History lands things once; what comes after is commentary. The page's "second commit" means the later one, and the code and pin now say so.
+5. On an unmapped stack the manifest row owns the red; the board row stays unrunnable so one cause draws one red. The seam's doc names that split instead of claiming a red its caller does not make.
+6. In a hit's give-way ladder, the reason outranks the value. A reader can fetch a value from the commit the line names; the reason is the line's own contribution.
+
+Why these directions: every one applies a ruling already made — D52.3, D54.1, F61's head discipline, D45's one-cause-one-red posture — to the places this review found them not yet obeyed.

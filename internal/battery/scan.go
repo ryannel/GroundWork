@@ -372,8 +372,19 @@ func hitEvidence(prefix string, all []hit, clauses []string) string {
 
 // firstOf is the ladder a red climbs down when not one whole hit fits on a
 // line: the first hit named and placed, then placed by its file's own name,
-// then the place alone. What is wrong with it goes first, because a reader
-// holding the name and the line can see that much for themselves.
+// then the place alone.
+//
+// For a hit that is a place in a file, what is wrong with it gives way first,
+// because a reader holding the name and the line can go and see that much for
+// themselves.
+//
+// A hit that is not a place in a file has no path for anybody to open, and it
+// climbs a different first rung. D57 ruling 6: there the reason outranks the
+// value. What the row concluded is the line's own contribution, and the value
+// it concluded it about can be fetched from the commit the line already names.
+// Only a hit that carries both a subject and no line takes that rung — a hit
+// with neither has nothing but its value, and giving that up would leave the
+// line saying nothing at all.
 func firstOf(h hit) []string {
 	place := func(file string) string {
 		if h.line > 0 {
@@ -386,6 +397,9 @@ func firstOf(h hit) []string {
 	var said []string
 	base := filepath.Base(h.file)
 
+	if h.line == 0 && h.subject != "" && h.shape != "" {
+		said = append(said, "the first "+h.subject+" "+h.shape)
+	}
 	if h.subject != "" {
 		said = append(said, "the first is "+h.subject+" at "+place(h.file))
 		if base != h.file {
