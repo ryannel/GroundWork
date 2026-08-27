@@ -793,3 +793,19 @@ Three rulings from the closure re-check, per F137, F133 and F136.
 3. Appends keep numeric order. F131 stands where it sits — the ledger is append-only — and F136 marks the trip for counting readers. From now on a writer checks the tail number before filing.
 
 Why: the first ruling is the working agreement holding the driver's own prose to the standard it holds code. A why that claims more than its evidence measured is F62's class wearing a ruling's clothes.
+
+## D69 — 2026-08-27 — The bet 3 done-when audit: three clauses met, two not, and the bet stays open
+
+The audit, clause by clause, against the grading and its supplement.
+
+1. "A two-milestone bet decomposes into a board that starts red — red for the right reason." Met. At the earliest board-able commit every proof reads expected red, on both fixtures, for the plan's own reason. F124's landed-too-early fault sits under this clause and is named, not hidden.
+2. "The stub check catches three stub styles it was never tuned against." Not met. Two of three were caught. The always-true style walked past as work ahead of plan. F119 names the fault. D66.2 ruled it a catch still owed, not a citation.
+3. "Three slices land in sequence." Met. The supplement walked both histories and watched the landings arrive in order.
+4. "Each one turns exactly its own row green, driven by the test run." Cannot be met as built. The contract makes the milestone the unit, so a landed slice reads ahead of plan until its milestone completes — F125. The ladder and the contract disagree, and the fix slice's walk decides which one is the truth.
+5. "No file gets edited just to move the board." Held, as conduct — D68.2.
+
+The ruling: bet 3 does not close at 12.0. D41 is the precedent, followed in full. The fixes are tuning after a graded run, so the major moves once, to 13.0, in one fix slice. Both holdout3 fixtures are burned and stay burned. Freshly authored fixtures are sealed before the fix slice grades again. The re-grade is blind, runner and grader apart, the way slice 8 ran. The close audit then re-runs against the new grading.
+
+One honest note for the record: closing now with the losses named was considered, because D43 closed bet 2 with a clause partly met. It does not apply. Bet 2's unmet part sat on surfaces ruled out of the bet before slice 1. F119 and F125 sit inside bet 3's own named scope, and the ladder names the stub styles one by one.
+
+Why: the ladder's worth is that its conditions can be shown false. This one was, twice. A close that shrugged at that would make the grading a show, not a check. The grading has now caught real faults, two bets running.
