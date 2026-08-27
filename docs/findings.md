@@ -1138,3 +1138,14 @@ What happened: fixed in the slice with the waiver authority's own test: a parent
 
 Caught by: worker — the slice 7 build
 Class: unrun-proof
+
+## F103 — 2026-08-27 — The register is drifting, fastest where nobody checks
+
+What it is: measured across eras, code comments have crept from a mean of 14.7 words per sentence in bet 0 to 21.3 in bet 3's latest slice. The ledgers are worse: this file's second half runs a mean of 24.7 against 22.5 in its first, and the decisions file moved from 14.5 to 20.6. The cause is structural. Each review checks register against the latest landed baseline, so every slice's drift becomes the next slice's normal. And the driver's ledger prose has no reviewer at all — the blind reviews read the builders' diffs, never these entries — so the record itself densifies, and every agent reads the record. That is the exact mechanism that grew the old corpus.
+
+What caught it: the owner, asking whether the writing is still corrupted, and the measurement that answered.
+
+What happened: D63 rules the cure. Short entries from here on: this one included.
+
+Caught by: owner-in-review — the owner's direct question
+Class: register

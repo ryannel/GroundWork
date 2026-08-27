@@ -722,3 +722,13 @@ Nine calls from the record slice, made by the builder and ratified by the driver
 9. The counter counts the waiver files present now; a deleted waiver takes its grants with it, named as a limit for the seal machinery's later hardening.
 
 Why ratify: five is the one with reasoning worth keeping — the same missing history is unsafe for one row and safe for two others, and the difference is whether the miss corrupts a count or leaves a thing unjudged.
+
+## D63 — 2026-08-27 — The register baseline is pinned, and the ledgers get a reader
+
+Three rules from F103.
+
+1. The register baseline is bet 0's, not the latest landed code. A reviewer checks new prose against a mean near 15 words per sentence, and drift from there is drift, even when the file next door already drifted.
+2. The driver's ledger entries get the fresh-reader pass the agreement always required. Before a ledger commit, a fresh agent reads the new entries for register alone. The driver writes after reading dense reports, which is exactly when the agreement says the check is needed.
+3. The words machinery earns a mechanical home for this — a landing-checklist line now, a candidate row when a later bet touches the battery. The measurement that caught F103 runs at every landing until then.
+
+Why: the old corpus grew through the record, not the code. The record is the one place drift compounds fastest, because everything reads it.
