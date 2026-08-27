@@ -1,0 +1,21 @@
+object 0a29858b4d13eb68fe11710d32b75b364c6b5889
+type commit
+tag seal/design/bet_3
+tagger groundwork <groundwork@localhost> 1787795546 +0000
+
+seal: design bet_3
+
+covers:
+  3433373e324b9ee35a24f65a8ec1728e7bde2418 docs/evidence/bet-3/design.md
+  a1beaa25e9ace7508134510ecc9a922872269d87 docs/plan/rebuild/bet_3/b3s1.md
+  a34a61f5dfe992cf1b46d6d14be1970edf3e35b5 docs/plan/rebuild/bet_3/b3s2.md
+  4b0020ef130304b708347ebd1722023d904452de docs/plan/rebuild/bet_3/b3s3.md
+  fccab658023b49c8fc6b7f8e5d3e99a32497f67a docs/plan/rebuild/bet_3/b3s4.md
+  b97d065c8b105cc70e4e4f87b7f1e381a2e6f9cc docs/plan/rebuild/bet_3/b3s5.md
+  fa0f0613b23a94bf01119c176e328872feede41e docs/plan/rebuild/bet_3/b3s6.md
+  ceeffb015f4286b4cda5449eeca97817a4becedb docs/plan/rebuild/bet_3/b3s7.md
+  4f52d7f97813b9e52742137eb189a7244e33e8c1 docs/plan/rebuild/bet_3/b3s8.md
+  ff4a2ae7bb272232eb696ce5f135e42a12907136 docs/plan/rebuild/bet_3/bet.md
+
+Battery: 11.0+rffb3f30
+Battery-Run: run-20260827T012010Z-49ca
