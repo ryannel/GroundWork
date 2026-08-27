@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "surfaces": [
+    {"name": "lib", "profile": "library", "stack": "go", "root": "."}
+  ],
+  "capabilities": [
+    {"name": "length-kit", "surface": "lib", "proof": ["."]}
+  ]
+}

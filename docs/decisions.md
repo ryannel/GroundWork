@@ -760,3 +760,36 @@ Five rulings from the slice 7 closure.
 5. A close has no override, by design. Waivers excuse a red row's finding; an unrunnable scope row means the close cannot run, and a close that cannot run does not happen. The missing escape is the ceremony holding its own door.
 
 Why: one and two are the same idea — operations that decide nothing never count as decisions — stated for the two shapes the review found.
+
+## D66 — 2026-08-27 — Three rulings from the held-out grading
+
+The grading filed F119 through F122 and asked for three rulings. All three are taken here. None changes code now. A graded run burns its fixtures. Each fix below lands at the next battery major, with fresh fixtures, per D41.
+
+1. On F120, which same-trailer commit lands a slice. D57.4 stands as written until the fix slice. Its why — history lands things once — was reasoned against stray later claims, and never faced a tests-first fixture. Both sealed fixtures chose the same convention on their own, so the collision is the rule's to resolve, not the writers'. The direction is decided at the fix slice's walk, with both burned fixtures' evidence in front of it. Until then, writers in this repo put the Slice trailer on the landing commit alone. That convention is what has kept this repo's own boards true, and it is recorded here so it stops being luck.
+2. On F119, whether a documented scan limit answers a ladder-named stub style. It does not. The ladder names the always-true style by name, so the stub row owes a catch, not a citation. D58.1 made the scan's escape set the row's whole boundary. The fix slice must close this escape. It must not open a second definition of vacuous — D54's rule holds.
+3. On F122, the mutate row mid-bet. A cost to record, not a gap to patch. The row goes unrunnable rather than wrong, which is the safe direction D62.5 named: unjudged, never misjudged. A mid-bet posture for mutation is a candidate for the bet that next touches the battery, and it wants a walk before it wants code.
+
+Why one entry: the three fixes share one price. They cluster into one future slice at the next major, and the fresh fixtures it needs can be authored once for all three.
+
+## D67 — 2026-08-27 — Rulings from the slice 8 fix round, and one correction
+
+Six rulings, taken by the driver after the blind review and the fix round.
+
+1. A supplemental grading after the keys open is honest when it decides nothing. A board run at a fixed commit with fixed plan files is deterministic — same binary, same plans, no judgment anywhere. So the two clauses F123 names were graded late, not lost, and the record says which runs came after the keys.
+2. F124's more serious shape is noted. The board goes falsely red, with exit 1, on the exact history the working agreement demands. D66.1's deferral stands — the direction is still decided at the fix slice, now with af14585 and 863e12f in front of it.
+3. D66.1 is corrected, per F132. The convention is not "the landing commit alone". It is: no Slice trailer rides a commit before the landing. The red commit carries none, so the oldest claim is the landing. Later commits carry it for D62.1's staleness read, and the board names each one out loud.
+4. The catcher rule going forward: a finding out of a held-out grading says battery. The grading is the battery's own proving mechanism, and the runner and grader are its parts. F119 through F122 stand as filed; F130 records why they disagree.
+5. Translation fixes end when the first graded output is seen. A parse pre-check before the graded run is allowed, and the record names it. Anything after is tuning, at D41's price.
+6. The seal stays where it is. R6 holds: an agent never moves a seal, and the builder's refusal was right. The owner decides whether to amend seal/design/bet_3 to add the owed record. This round's report puts that choice to the owner. Until then the run record is pinned by the strengthened proof test alone, and F131 holds the door open.
+
+Why: the first ruling is the one with reasoning to keep. Blindness protects judgment. Determinism is the absence of judgment. So the seal on the keys stops mattering exactly where the machine stops choosing.
+
+## D68 — 2026-08-27 — D67.1 narrowed, the fifth sentence placed, and an ordering rule
+
+Three rulings from the closure re-check, per F137, F133 and F136.
+
+1. D67.1 claimed too much and is narrowed. The runs decide nothing — that part stands, and the re-check reproduced six walk lines character for character. The supplement's readings are another thing: they are grades, made after the keys opened. Each one is honest because it re-derives from the printed output, not because it is mechanical. Two facts the record had not named are named now. Both keys list landing commits per slice. That fact is what F124 turns on, and the grader knew it before walking. F124 survives because the board contradicts its own failing proofs on the page. And determinism was measured only at the two tips. At the walk commits it is inferred from construction: the walk set was fixed, oldest first, before the first command ran.
+2. The done-when's fifth sentence is a conduct rule, not a clause. The grading graded four clauses and ran under the fifth. No file was edited to move a board, and translation fixes ended at the first graded output. F133's fix records this in both pages; this ruling makes it the reading.
+3. Appends keep numeric order. F131 stands where it sits — the ledger is append-only — and F136 marks the trip for counting readers. From now on a writer checks the tail number before filing.
+
+Why: the first ruling is the working agreement holding the driver's own prose to the standard it holds code. A why that claims more than its evidence measured is F62's class wearing a ruling's clothes.

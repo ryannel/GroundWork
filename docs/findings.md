@@ -1314,3 +1314,222 @@ What happened: recovered and re-verified. The standing rule: a probe on an uncom
 
 Caught by: driver — the pin that failed on the page it guards
 Class: other — a driver process slip, caught by the machinery it was testing
+
+## F119 — 2026-08-27 — The holdout's catch: the always-true stub walked past the stub row as work ahead of plan
+
+What it is: gauge planted three stub styles beside honest twins. The stub row caught two. `p_parse_negative` sets `want := got` one line above `if got != want`, and the honesty scan's self-comparison rule compares the two sides as they were written. `got != got` fires; `got != want` does not. So the stub reads as a test that can fail, passes anyway, and the board calls it `ahead of plan`. The key names it a planted stub at parse_more_test.go:31. The ladder names all three styles, so a documented limit does not stand in for a catch here. D58.1 made the scan's escape set the stub row's whole red boundary, which is why one line of aliasing is enough.
+
+What caught it: the held-out grading — the sealed key held against the stub row's own line, `3 red at an assertion, 2 not, 1 ahead of plan`.
+
+What happened: open. The fault is in the checks, not in the translation: no plan file could have made this stub visible. A fix is tuning after a graded run, so D41's price applies — the battery major moves and both fixtures are burned.
+
+Caught by: battery — the held-out grading run, the mechanism built to catch exactly this
+Class: coverage-gap
+
+## F120 — 2026-08-27 — The board points at the commit before the work, and calls the real landing a stray
+
+What it is: both fixtures write two commits per landed slice — a red-proof commit, then the commit that turns it green — and both carry the same `Slice:` trailer. D57.4 credits the oldest claim, so the board read the red-proof commit as the landing and printed the real landing under "what a person has to look at". Both keys name the later commit: 9bfa992 and 2d812e1 on sift, c79da6a and 878a29a on gauge. Both intent pages say the same in prose, unread by either board. Four sound commits flagged, and four landing pointers aimed one commit early. This repo's own working agreement produces that very shape: commit the test while it still fails, then land the work.
+
+What caught it: the held-out grading — two fixtures authored by somebody who had never read the contract, both choosing the same convention on their own.
+
+What happened: open. Checks-side, not translation: landedness is read from trailers and no plan file touches it. A ruling is owed on which same-trailer commit lands a slice. D64 upheld the oldest reading against F107, and neither had a tests-first fixture in front of it.
+
+Caught by: battery — the held-out grading run, on both sealed fixtures at once
+Class: green-but-wrong
+
+## F121 — 2026-08-27 — The wiring red's own tail clause reads as an exemption from the red
+
+What it is: gauge's wiring row went red on `ToMetres`, and the red is right. On a library D41 keeps the row's teeth for an export nothing names at all, tests included, and the only test that would have named `ToMetres` is the planted empty body. But the line ends `on profile library an export needs no in-repo caller`, placed after the hit. The clause is there to say which rule was applied. Read in order, it says the hit does not count. The blind runner read it that way and listed the row as suspect. A second true signal of a planted stub arrived looking like a bug in the check.
+
+What caught it: the blind runner, reading the row's line with no key in front of it.
+
+What happened: open. The red stands. The sentence needs the clause before the hit, or wording no reader can take as a stand-down.
+
+Caught by: worker — the blind runner's suspect list, upheld against the key
+Class: other — a correct red whose own tail clause reads as an exemption from it
+
+## F122 — 2026-08-27 — The mutate row has nothing to say about a repo mid-bet
+
+What it is: mutation needs a package whose tests pass unmutated. A part-landed bet has red proofs, so every package holding unlanded work is blocked. On gauge, one package at the module root, all six targets were blocked and the row went unrunnable. On sift the row went green having judged the landed package alone: `killed 2, 2 blocked`. So the row speaks about the finished half and stays silent on the half being built — which is the state this tool exists to serve. It cost nothing on these fixtures, because neither key hides a defect mutation would have found. The gap is named here so it is known rather than missed — F13's lesson, in F28's shape.
+
+What caught it: the held-out grading's audit of the rows that did not run.
+
+What happened: open. Recorded as this grading's named loss. A row that cannot run on a mid-bet repo wants a ruling before it wants a fix.
+
+Caught by: blind-review — the slice 8 grading dispatch's audit of the unrunnable rows
+Class: coverage-gap
+
+## F123 — 2026-08-27 — The grading asked two of bet 3's four questions and never said which two it skipped
+
+What it is: `docs/ladder.md` sets bet 3's done-when in four clauses. The graded runs exercised two of them: decomposition, and the three stub styles. They never exercised "the board starts red for the right reason". They never exercised "three slices land in sequence, each one turning exactly its own row green". Both fixtures carry the earlier commits those two clauses need. Each graded run sat at one mid-bet commit, so nobody ran there. `docs/evidence/bet-3/holdout.md` then claimed a complete grade and named no gap. Both fixtures are burned, so the loss looked permanent.
+
+What caught it: the slice 8 blind review, counting the grading record's answers against the ladder's four clauses.
+
+What happened: recovered, not lost. A `board` run at a fixed commit over fixed plan files is a pure reading. It derives from the plan, from git and from a test run, and none of the three reads a key. So opening the keys cannot change what a board prints, and a later run is worth the same as an earlier one. Both fixtures were re-materialized by the recipe already recorded, with the same binary and the same authored plan files, and walked commit by commit. The determinism claim was checked first: both graded boards reproduced line for line. The runs are in `docs/evidence/bet-3/slice-8/runs.md` under "The supplemental runs", and the grades in `holdout.md` under "The supplement". The walk answered both clauses and turned up F124's false red. The forward rule: a grading record names every clause it did not ask.
+
+Caught by: blind-review — the slice 8 review
+Class: coverage-gap
+
+## F124 — 2026-08-27 — The board reads a slice landed before its work, and goes falsely red on tests-first history
+
+What it is: F120 named a stray pointer under "what a person has to look at" and classed it green-but-wrong. The supplemental walk shows a graver shape. At every red-proof commit `LANDED` reads yes for a slice with nothing implemented: sift at `035d288` and `af14585`, gauge at `ee669c1` and `863e12f`. `EXPECTED` follows it wrong. At sift `af14585` milestone 1 reads fully landed, so all three of its proofs turn `EXPECTED green`. `p_record_parse` then fails, because it is the red proof that commit just added. The board prints `behind its plan`, counts `1 behind`, and exits 1. gauge does the same at `863e12f` on `p_format_short`. So the worst case is a false red with a non-zero exit, not a mis-aimed pointer. It fires on a repo doing what this repo's own working agreement demands: commit the test while it fails, then land the work. D66.1 was ruled on the understated version.
+
+What caught it: the slice 8 blind review, which re-ran `board` at the commits the graded runs skipped.
+
+What happened: open. This is F120's fault seen whole, so one ruling covers both, and that ruling now needs the real worst case in front of it. D66.1 stands until the fix slice. The fix lands at the next battery major with freshly authored fixtures, per D41. Evidence: the verbatim boards at `035d288`, `af14585`, `ee669c1` and `863e12f` in `docs/evidence/bet-3/slice-8/runs.md`.
+
+Caught by: blind-review — the slice 8 review
+Class: other — a false red with a non-zero exit, on the history the working agreement demands
+
+## F125 — 2026-08-27 — The ladder makes the slice the unit and the contract makes the milestone the unit
+
+What it is: `docs/ladder.md` says three slices land in sequence and each turns exactly its own row green. `docs/derivation-contract.md` section 3.3 says expected state comes from the milestone, not the slice, and gives its reason. Both cannot hold. The supplemental walk shows the cost. sift at `9bfa992` lands `s_tokenize` and both its proofs pass. Both still read `EXPECTED red`, and both are flagged `ahead of plan`. Those rows turn green one commit later, when the milestone's last slice claims a landing. gauge at `c79da6a` behaves the same way. So no board built to the contract can meet the ladder's clause. Slice 8 was the moment this was due to surface, and the grading did not notice. A second mismatch sits beside it, also unrecorded: `docs/plan/rebuild/bet_3/b3s8.md` declares its first fixture as "a two-milestone bet whose three slices land in sequence". Neither sealed repo is that. sift has four slices and lands two. gauge has five and lands two.
+
+What caught it: the slice 8 blind review, reading the ladder's clause against the contract's rule.
+
+What happened: open. Nothing is changed here, and neither page is edited. Which unit is right is a ruling, not a fix, and it belongs to the bet-3 close-out audit. That audit has both burned fixtures' walks to read.
+
+Caught by: blind-review — the slice 8 review
+Class: parallel-definition
+
+## F126 — 2026-08-27 — The grading's score line counts a fault its own ledger entry does not name
+
+What it is: the grading record's one-line score reads "one miss, one false red". Nothing went falsely red at either graded tip. F120, the entry that line points at, is classed green-but-wrong. It describes a green row carrying a wrong hit. Meanwhile the one red a reader would argue about — wiring on gauge, which sends `verify` to exit 1 — was weighed against the key and cleared into prose. F121 files only its wording. So the headline counts a fault the ledger does not hold, and leaves out the one that is contestable. A reader who reads the score line alone gets the wrong shape of the grade.
+
+What caught it: the slice 8 blind review, counting the score line against the four entries it summarises.
+
+What happened: fixed by appending. Nothing is struck, because a record is a record. A correction sentence now follows the score line, and the supplement carries the honest count: one miss and one wrong hit on a green row at the tips. The real false red is at the commits the graded runs skipped, and F124 files it.
+
+Caught by: blind-review — the slice 8 review
+Class: other — a headline that counts a fault its own ledger entry does not name
+
+## F127 — 2026-08-27 — A facing item no proof asserts is invisible to every row
+
+What it is: R12 says each facing id is claimed by exactly one slice's proof. `internal/trace/trace.go:10` implements "claimed by exactly one of its slices". Nothing anywhere links a facing item to a proof. So a slice can claim an item that none of its proofs asserts, and no row can see it. The trace row counts ids per slice, so it reports zero unclaimed and is right by its own rule. D61.2 ruled the slice-as-unit reading deliberately: a proof carries no facing field, and the slice is the unit that lands. This hole is that ruling's residue, not a slip. It cost nothing on either fixture. The grading said sift's shared proof was a wrinkle that did not bite, which is true, and missed that this hole is the reason.
+
+What caught it: the slice 8 blind review, reading the sift key's second wrinkle against what the trace row can see.
+
+What happened: open. Recorded as a named loss awaiting a ruling — F122's shape. Closing it means giving a proof its own facing link, which changes the plan shape. It wants a walk before it wants code.
+
+Caught by: blind-review — the slice 8 review
+Class: coverage-gap
+
+## F128 — 2026-08-27 — The proof of the grading run proved only that prose exists
+
+What it is: `TestProof_b3s8_grading_the_sealed_fixtures_are_run_once` checked one anchor, one heading, the absence of a placeholder, twenty words, and two repo names. It never opened `runs.md`. So it could not see whether a run happened, whether it happened once, or at which battery version. Its own marker claims the sealed fixtures are run once. `runs.md` was also missing from `b3s8.md`'s `records:` list, so no record row and no test pinned it. A later edit could gut the whole run record and every check would stay green.
+
+What caught it: the slice 8 blind review, reading the test against the sentence its marker makes.
+
+What happened: half fixed in this round, by adding checks and removing none. The test now opens `runs.md` and requires four things: both fixture names, the battery version `12.0+ra48a79a`, fenced verbatim output for at least the four graded runs, and the supplemental section's heading. Each new assertion was probed in memory: the load-bearing text was blanked in a copy held in memory, the test failed on that copy, and the file was swapped back from memory. No git command touched an uncommitted file — F118's rule.
+
+The other half is blocked, and F131 records it. Adding `runs.md` to `b3s8.md`'s `records:` list would let the record row pin the page too. `b3s8.md` sits under `seal/design/bet_3`, so the edit reddens the seal-verify row. Moving that seal is the owner's call under R6, not a builder's, so the line is not added here.
+
+Caught by: blind-review — the slice 8 review
+Class: front-door-hollow
+
+## F131 — 2026-08-27 — A slice cannot gain a record after its design is sealed
+
+What it is: F128's fix wants `docs/evidence/bet-3/slice-8/runs.md` in `b3s8.md`'s `records:` list, so the record row pins the run record. `b3s8.md` is covered by `seal/design/bet_3`. Adding the line changes the blob, and `seal-verify` goes red on a moved artifact. That red is correct: the seal is doing its job. But it means a slice's record set is frozen at design sealing, and a record found to be worth pinning later cannot be pinned without moving a seal. R6 says a seal moves only on the owner's explicit words, and an agent typing a reason is not the owner speaking. So a builder cannot close this on its own.
+
+What caught it: the battery, at this slice's landing — `TestSealRowIsGreenOnThisRepo` went red the moment the line was added.
+
+What happened: open, and the line is not added. Two ways out, both the driver's: amend `seal/design/bet_3` through `groundwork seal amend`, recording who signed it; or rule that a records list may grow after sealing and give the seal a way to say so. Until then the run record is pinned by the proof test alone, which is what F128's fix landed.
+
+Caught by: battery — the seal-verify row, on this repo's own landing
+Class: other — a correct seal red standing between a finding and its fix
+
+## F129 — 2026-08-27 — The grading record's singleness sentence drops the parse pre-check
+
+What it is: the record says "no fixture was run a second time". `runs.md` discloses a throwaway program that called `plan.Load` and `manifest.Load` on both fixtures before the graded runs. It printed only whether they read, and it changed nothing. But the plan row's green was pre-tested with the battery's own loader, and the flat sentence drops that. No rule was written for what to do had a plan failed to parse after a graded run.
+
+What caught it: the slice 8 blind review, reading the grading record against `runs.md`'s own disclosure.
+
+What happened: fixed by appending. The sentence now names the pre-check and points at `runs.md`. The missing rule is written beside it: a parse failure found after a graded run's judgments would be tuning, so translation fixes end when the first graded output is seen.
+
+Caught by: blind-review — the slice 8 review
+Class: record-not-written
+
+## F130 — 2026-08-27 — One source, three catcher names
+
+What it is: F119 and F120 say `Caught by: battery`. F121 says `worker`. F122 says `blind-review`. All four came out of the same pair: the blind runner, and the grading dispatch that read the keys. Each line is defensible on its own. Together they make the ledger hard to count by source, which is the one thing that field exists for.
+
+What caught it: the slice 8 blind review, reading the four attribution lines side by side.
+
+What happened: open, and no entry is changed. The ledger is append-only, so the four lines stand. The forward rule is the driver's and goes in a decision. This entry records the inconsistency, so a later count knows why the four disagree.
+
+Caught by: blind-review — the slice 8 review
+Class: other — four entries from one source, filed under three catcher names
+
+## F132 — 2026-08-27 — D66.1's convention sentence would break the record row's own read
+
+What it is: D66.1 says writers in this repo put the Slice trailer "on the landing commit alone". Practice says otherwise: twelve commits after landings already carry trailers, and the fix rounds keep adding them. D62.1 needs them. The slice's last code commit is the newest commit that carries its trailer. That is how the record row sees staleness. The convention that has kept the boards true is narrower: the trailer never rides a commit before the landing. The red tests-first commit carries no Slice line, so the oldest claim is the true landing. Commits after the landing carry it too. The board names them as strays, out loud. The record row reads them.
+
+What caught it: the driver, reading the fix-round builder's verify note — thirteen unread-trailer lines on a board the driver had just called clean by convention.
+
+What happened: corrected in D67. The wrong sentence stands in D66, named there by this entry — the ledger is append-only. F62's class, on the driver's side again.
+
+Caught by: driver — the fix-round verify output read against the driver's own ruling
+Class: other — a ruled convention that practice and a ratified reading both contradict
+
+## F133 — 2026-08-27 — The grading counted four clauses and never placed the fifth
+
+What it is: bet 3's done-when in `docs/ladder.md` runs to five sentences. The grading record and its supplement call it four clauses and grade four. The fifth sentence — "No file gets edited just to move the board" — is named nowhere on either page. A reader cannot tell whether it was skipped or covered.
+
+What caught it: the slice 8 closure re-check, counting the done-when's sentences against the grading's own count.
+
+What happened: fixed by appending. `holdout.md` gains a section, "The done-when's fifth sentence". It says the fifth sentence is a rule about conduct, not a fifth clause about a board, and that the whole exercise ran under it. The conduct is named: no file was edited to move a row, translation fixes ended at the first graded output, and the supplement changed no input. One sentence in `runs.md` mirrors the placement, beside where that page counts four questions.
+
+One more thing this entry records. F130's forward link runs one way. D67.4 names F130; F130 names no decision. A reader coming from the ledger cannot reach the ruling.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: record-not-written
+
+## F134 — 2026-08-27 — The supplemental walk was pinned by its heading alone
+
+What it is: `TestProof_b3s8_grading_the_sealed_fixtures_are_run_once` required the string `## The supplemental runs` in `runs.md`, and nothing under it. The captured-block count it did check was `gradedRuns = 4`, read over the whole page, which now holds seventeen. So thirteen captures could go and four would still be counted from the graded sections above. This is F128's hole, one section over.
+
+What caught it: the slice 8 closure re-check, by probe. It deleted the entire supplemental walk body — all thirteen run captures, F123's recovery and F124's evidence — kept only the heading, and the test stayed green.
+
+What happened: fixed by adding checks and removing none. The test now reads the supplement's own section body, not the page, and requires two more things: at least thirteen captured run blocks under the heading, and both false-red commits `af14585` and `863e12f` named there. Each new assertion was probed in memory. Python held the original and its sha256, wrote the mutation, ran the focused test, restored from memory, and checked the hash back. No git command touched an uncommitted file — F118's rule.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: front-door-hollow
+
+## F135 — 2026-08-27 — The record's honesty argument rested on a false sentence
+
+What it is: `runs.md` said "Only documentation has changed on this branch since `fa65ea1`." That was false. `internal/battery/holdoutgrading_test.go` changed too, in the first fix round. The sentence carries weight: it is how the page argues the supplemental runs used the same binary as the graded runs. The conclusion survives, because `go build` ignores `_test.go` files. The sentence did not.
+
+What caught it: the slice 8 closure re-check, reading the claim against the branch's own diff.
+
+What happened: fixed in place. The sentence now says what changed — documentation and one `_test.go` file — and why the binary is still the same one: the build ignores those files, and the binary reports the same version and digest.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: record-not-written
+
+## F136 — 2026-08-27 — F131 sits out of numeric order in this ledger
+
+What it is: F131 was appended between F128 and F129. The first fix round wrote it beside the finding it blocks, which reads well. But the ledger is otherwise in numeric order, and a reader counting entries will reach F129 after F131 and think one is missing.
+
+What caught it: the slice 8 closure re-check, reading the ledger top to bottom.
+
+What happened: record-only. Nothing moved. The ledger is append-only, so F131 stays where it was written, and this entry is the note that says why the count jumps. The forward rule is the driver's: either entries go at the end always, or an out-of-order append carries a line saying so.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: other — an append that broke the ledger's numeric order without touching any entry
+
+## F137 — 2026-08-27 — D67.1 claims more than its evidence measured
+
+What it is: D67.1 rules that a supplemental grading after the keys open is honest when it decides nothing. Three parts of that overstate.
+
+First, "it decides nothing" is too strong. The runs decide nothing — a board at a fixed commit over fixed plans is a pure reading. The supplement's readings are not runs. They are grades, made after the keys were open. They are re-derivable from printed output, which is the real reason they hold, and the ruling does not say that.
+
+Second, both answer keys list `landing_commits` per slice. That is the exact fact F124 turns on. The record never names the overlap, so it never says why reading the keys did not tell the grader where to look.
+
+Third, the determinism check ran at the two tips only. Walk-commit determinism is inferred from how a board is built, not measured. The ruling presents it as covering the walk.
+
+What caught it: the slice 8 closure re-check, reading D67.1 against what the record actually shows was run.
+
+What happened: record-only here. The decision stands as written, because the ledger and `decisions.md` are append-only. The correction is the driver's, in the next decision.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: other — a ruling whose why claims more than its evidence measured
