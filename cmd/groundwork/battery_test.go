@@ -16,15 +16,29 @@ import (
 	"github.com/ryannel/groundwork/internal/manifest"
 )
 
-// writeLock puts a lock file at the root of the repo at dir.
+// writeLock puts a lock file at the root of the repo at dir and commits it.
+//
+// The commit is not decoration. R15 moves the version row onto the HEAD blob,
+// so an uncommitted lock file declares no version anybody can be held to — a
+// fixture that only wrote one would be testing the drift and not the row.
 func writeLock(t *testing.T, dir, version, digest string) {
 	t.Helper()
 
 	line := fmt.Sprintf("{\"version\":%q,\"digest\":%q}\n", version, digest)
-	path := filepath.Join(dir, battery.LockFile)
-	if err := os.WriteFile(path, []byte(line), 0o600); err != nil {
+	commitFile(t, dir, battery.LockFile, line, "declare the battery version")
+}
+
+// commitFile writes one file at the root of the repo at dir and commits it.
+func commitFile(t *testing.T, dir, name, content, message string) {
+	t.Helper()
+
+	path := filepath.Join(dir, name)
+	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
 		t.Fatalf("could not write %s: %v", path, err)
 	}
+
+	runGit(t, dir, "add", "--", name)
+	runGit(t, dir, "commit", "-m", message)
 }
 
 // writeManifest puts a manifest at the root of the repo at dir, with the one
@@ -153,7 +167,7 @@ func TestVerifyGreenExitsZero(t *testing.T) {
 		t.Errorf("the output does not carry a run id: %s", out)
 	}
 	// D17: a run that checked nothing must never look like this one.
-	if !strings.Contains(out, "13 rows") {
+	if !strings.Contains(out, "16 rows") {
 		t.Errorf("the output does not say how many rows ran: %s", out)
 	}
 }
@@ -172,7 +186,11 @@ func TestVerifyPrintsTheWholeSummary(t *testing.T) {
 		t.Fatalf("verify exited %d: %s%s", code, out, errOut)
 	}
 
-	const want = "13 rows: green 13, red 0, waived 0, quarantined 0, unrunnable 0"
+	// The three rows this slice adds are green on this fixture: it states no
+	// plan, so it declares no record; it waives nothing, and its history is all
+	// here, so the counter reads a real zero rather than a hole; and no commit
+	// of it names a slice at all, so nothing swallowed a trailer.
+	const want = "16 rows: green 16, red 0, waived 0, quarantined 0, unrunnable 0"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -206,8 +224,12 @@ func TestVerifyRedPrintsTheWholeSummary(t *testing.T) {
 	// the run journals each row as it finishes, so by the time the chain row runs
 	// the ref holds this run's own lines — and they are chained. The seal-verify
 	// row, because a repo with no seal tag has sealed nothing, so nothing it
-	// sealed can have moved.
-	const want = "13 rows: green 6, red 2, waived 0, quarantined 0, unrunnable 5"
+	// sealed can have moved. The record row, on the plan row's rule again: a
+	// repo that states no plan declares no record and can owe none. The waiver
+	// counter, because this clone is whole and holds no waiver file, which is a
+	// real zero rather than a history nobody can see. And the history row,
+	// because no commit here names a slice, so none of them swallowed a trailer.
+	const want = "16 rows: green 9, red 2, waived 0, quarantined 0, unrunnable 5"
 	if !strings.Contains(out, want+"\n") {
 		t.Fatalf("the summary line is not %q:\n%s", want, out)
 	}
@@ -410,10 +432,10 @@ func TestVerifyVersionFailsOnABrokenLockFile(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			dir := newRepo(t)
 			if c.content != "" {
-				path := filepath.Join(dir, battery.LockFile)
-				if err := os.WriteFile(path, []byte(c.content), 0o600); err != nil {
-					t.Fatalf("could not write %s: %v", path, err)
-				}
+				// Committed, broken and all: R15 reads the lock from HEAD, and a
+				// file nobody committed would fail on that instead of on the
+				// shape this case is about.
+				commitFile(t, dir, battery.LockFile, c.content, "a lock file nobody can read")
 			}
 
 			code, out, errOut := call(t, "verify", "version")
