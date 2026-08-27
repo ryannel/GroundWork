@@ -1314,3 +1314,47 @@ What happened: recovered and re-verified. The standing rule: a probe on an uncom
 
 Caught by: driver — the pin that failed on the page it guards
 Class: other — a driver process slip, caught by the machinery it was testing
+
+## F119 — 2026-08-27 — The holdout's catch: the always-true stub walked past the stub row as work ahead of plan
+
+What it is: gauge planted three stub styles beside honest twins. The stub row caught two. `p_parse_negative` sets `want := got` one line above `if got != want`, and the honesty scan's self-comparison rule compares the two sides as they were written. `got != got` fires; `got != want` does not. So the stub reads as a test that can fail, passes anyway, and the board calls it `ahead of plan`. The key names it a planted stub at parse_more_test.go:31. The ladder names all three styles, so a documented limit does not stand in for a catch here. D58.1 made the scan's escape set the stub row's whole red boundary, which is why one line of aliasing is enough.
+
+What caught it: the held-out grading — the sealed key held against the stub row's own line, `3 red at an assertion, 2 not, 1 ahead of plan`.
+
+What happened: open. The fault is in the checks, not in the translation: no plan file could have made this stub visible. A fix is tuning after a graded run, so D41's price applies — the battery major moves and both fixtures are burned.
+
+Caught by: battery — the held-out grading run, the mechanism built to catch exactly this
+Class: coverage-gap
+
+## F120 — 2026-08-27 — The board points at the commit before the work, and calls the real landing a stray
+
+What it is: both fixtures write two commits per landed slice — a red-proof commit, then the commit that turns it green — and both carry the same `Slice:` trailer. D57.4 credits the oldest claim, so the board read the red-proof commit as the landing and printed the real landing under "what a person has to look at". Both keys name the later commit: 9bfa992 and 2d812e1 on sift, c79da6a and 878a29a on gauge. Both intent pages say the same in prose, unread by either board. Four sound commits flagged, and four landing pointers aimed one commit early. This repo's own working agreement produces that very shape: commit the test while it still fails, then land the work.
+
+What caught it: the held-out grading — two fixtures authored by somebody who had never read the contract, both choosing the same convention on their own.
+
+What happened: open. Checks-side, not translation: landedness is read from trailers and no plan file touches it. A ruling is owed on which same-trailer commit lands a slice. D64 upheld the oldest reading against F107, and neither had a tests-first fixture in front of it.
+
+Caught by: battery — the held-out grading run, on both sealed fixtures at once
+Class: green-but-wrong
+
+## F121 — 2026-08-27 — The wiring red's own tail clause reads as an exemption from the red
+
+What it is: gauge's wiring row went red on `ToMetres`, and the red is right. On a library D41 keeps the row's teeth for an export nothing names at all, tests included, and the only test that would have named `ToMetres` is the planted empty body. But the line ends `on profile library an export needs no in-repo caller`, placed after the hit. The clause is there to say which rule was applied. Read in order, it says the hit does not count. The blind runner read it that way and listed the row as suspect. A second true signal of a planted stub arrived looking like a bug in the check.
+
+What caught it: the blind runner, reading the row's line with no key in front of it.
+
+What happened: open. The red stands. The sentence needs the clause before the hit, or wording no reader can take as a stand-down.
+
+Caught by: worker — the blind runner's suspect list, upheld against the key
+Class: other — a correct red whose own tail clause reads as an exemption from it
+
+## F122 — 2026-08-27 — The mutate row has nothing to say about a repo mid-bet
+
+What it is: mutation needs a package whose tests pass unmutated. A part-landed bet has red proofs, so every package holding unlanded work is blocked. On gauge, one package at the module root, all six targets were blocked and the row went unrunnable. On sift the row went green having judged the landed package alone: `killed 2, 2 blocked`. So the row speaks about the finished half and stays silent on the half being built — which is the state this tool exists to serve. It cost nothing on these fixtures, because neither key hides a defect mutation would have found. The gap is named here so it is known rather than missed — F13's lesson, in F28's shape.
+
+What caught it: the held-out grading's audit of the rows that did not run.
+
+What happened: open. Recorded as this grading's named loss. A row that cannot run on a mid-bet repo wants a ruling before it wants a fix.
+
+Caught by: blind-review — the slice 8 grading dispatch's audit of the unrunnable rows
+Class: coverage-gap
