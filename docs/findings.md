@@ -1083,3 +1083,14 @@ What happened: open. D61 rules the duplicate a plan-reader refusal, and the rest
 
 Caught by: blind-review — the slice 6 dispatch
 Class: coverage-gap
+
+## F98 — 2026-08-27 — The symlink refusal guards the last element, and the record claims the path
+
+What it is: the fix's Lstat refuses a symlink only at the final path element. A committed symlink at an intermediate directory is followed, and the row resolved an anchor in a file outside the repo, green. The other gates hold through it — size and regular-file still bite — so it is an escape, not a crash, and nothing leaks. What gates is the record: the new comment and the page both say a symlink is refused rather than followed, a narrower version of the exact false claim F94 recorded. Beside it, the same round re-entered F95's class: the page states the 256 KiB cap and nothing holds the number to the code — while the plan parser's caps have had exactly that pin since slice 1 — and the cap's boundary and the code-span divergence in link stripping are undriven or unnamed.
+
+What caught it: the closure re-check, walking the fix with an intermediate symlink and mutating the page's new prose.
+
+What happened: open. The micro-round resolves the full path and checks containment, pins the cap number to the page, drives the boundary, and names code spans.
+
+Caught by: blind-review — the slice 6 closure re-check
+Class: green-but-wrong
