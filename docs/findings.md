@@ -1555,3 +1555,14 @@ What happened: open. The comment gains the stronger sentence in b3s9, which open
 
 Caught by: worker — the b3s9 walk
 Class: record-not-written
+
+## F140 — 2026-08-27 — The driver committed a ledger entry before its register pass was applied
+
+What it is: D70's fresh-reader pass proposed eight splits. The apply script died on a misquoted sentence, after fixing findings.md and before fixing decisions.md. The driver's commit command was chained after the script and ran anyway. D70 landed unfixed, and the splits were applied in a second commit that edited a committed entry. The append-only rule met the fresh-reader rule, and the collision was the driver's chaining.
+
+What caught it: the driver, reading the script's own assertion error above the commit line.
+
+What happened: recorded. The splits changed wording, never substance, and both commits say what they did. The rule forward: apply a register pass and verify it before the commit command runs, never chained behind it.
+
+Caught by: driver — the apply script's assertion error, read after the chained commit ran
+Class: other — a process chain that let a commit outrun its own check
