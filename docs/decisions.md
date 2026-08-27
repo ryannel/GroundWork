@@ -783,3 +783,13 @@ Six rulings, taken by the driver after the blind review and the fix round.
 6. The seal stays where it is. R6 holds: an agent never moves a seal, and the builder's refusal was right. The owner decides whether to amend seal/design/bet_3 to add the owed record. This round's report puts that choice to the owner. Until then the run record is pinned by the strengthened proof test alone, and F131 holds the door open.
 
 Why: the first ruling is the one with reasoning to keep. Blindness protects judgment. Determinism is the absence of judgment. So the seal on the keys stops mattering exactly where the machine stops choosing.
+
+## D68 — 2026-08-27 — D67.1 narrowed, the fifth sentence placed, and an ordering rule
+
+Three rulings from the closure re-check, per F137, F133 and F136.
+
+1. D67.1 claimed too much and is narrowed. The runs decide nothing — that part stands, and the re-check reproduced six walk lines character for character. The supplement's readings are another thing: they are grades, made after the keys opened. Each one is honest because it re-derives from the printed output, not because it is mechanical. Two facts the record had not named are named now. Both keys list landing commits per slice. That fact is what F124 turns on, and the grader knew it before walking. F124 survives because the board contradicts its own failing proofs on the page. And determinism was measured only at the two tips. At the walk commits it is inferred from construction: the walk set was fixed, oldest first, before the first command ran.
+2. The done-when's fifth sentence is a conduct rule, not a clause. The grading graded four clauses and ran under the fifth. No file was edited to move a board, and translation fixes ended at the first graded output. F133's fix records this in both pages; this ruling makes it the reading.
+3. Appends keep numeric order. F131 stands where it sits — the ledger is append-only — and F136 marks the trip for counting readers. From now on a writer checks the tail number before filing.
+
+Why: the first ruling is the working agreement holding the driver's own prose to the standard it holds code. A why that claims more than its evidence measured is F62's class wearing a ruling's clothes.
