@@ -697,6 +697,14 @@ func TestProof_b3s1_references_resolve_or_the_reader_names_them(t *testing.T) {
 			slicePath, "  - demo_f1", "  - demo_f9", "demo_f9",
 		},
 		{
+			// D61 ruling 3: a doubled declaration is refused here, where every
+			// other doubled declaration is refused. Read further on, one slice
+			// claiming one item twice is a traceability red naming one slice
+			// twice, which tells a reader nothing.
+			"a slice claiming one facing id twice",
+			slicePath, "  - demo_f1", "  - demo_f1\n  - demo_f1", "demo_f1",
+		},
+		{
 			"a proof from a design file that is not there",
 			slicePath, "from: docs/design.md#one", "from: docs/gone.md#one", "docs/gone.md",
 		},
