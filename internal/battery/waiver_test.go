@@ -1266,3 +1266,56 @@ func TestAnUnreadableFileFailsARunWithNothingRed(t *testing.T) {
 		t.Fatal("a run holding a file that is not a waiver passed")
 	}
 }
+
+// D54 ruling 1, and D64's low: the record row and the waiver authority ask one
+// question about a commit at the edge of a shallow clone, through atTheEdge.
+// This holds the two callers to the one answer on one fixture.
+func TestTheEdgeOfAShallowCloneIsOneRuleForBothReaders(t *testing.T) {
+	cases := []struct {
+		name    string
+		parents int
+		shallow bool
+		want    bool
+	}{
+		{"the graft of a shallow clone", 0, true, true},
+		{"a repository's own first commit", 0, false, false},
+		{"an ordinary commit in a shallow clone", 1, true, false},
+		{"an ordinary commit", 1, false, false},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := atTheEdge(c.parents, c.shallow); got != c.want {
+				t.Fatalf("atTheEdge said %v, want %v", got, c.want)
+			}
+		})
+	}
+}
+
+// And through both rows on one repo: a depth-one clone's graft is untrustworthy
+// to the waiver authority and to the record row alike.
+func TestBothReadersRefuseTheSameGraftCommit(t *testing.T) {
+	dir := recordRepo(t, recordPath)
+	writeSource(t, dir, recordPath, "# The record\n")
+	commitAll(t, dir, "the plan and the record")
+	grant(t, dir, "honesty-20260801-aaaa.json", "honesty", "demo_bet")
+	writeSource(t, dir, "alpha/alpha.go", "package alpha\n")
+	land(t, dir, "demo_s1")
+
+	clone := shallowClone(t, dir)
+
+	record := runRow(t, clone, "record")
+	mustFit(t, record.Evidence, "the edge of this shallow clone")
+
+	set, err := loadWaivers(clone, Default(), time.Now())
+	if err != nil {
+		t.Fatalf("the waivers did not read: %v", err)
+	}
+	if len(set.notes) != 1 {
+		t.Fatalf("the clone holds %d waiver notes, want 1", len(set.notes))
+	}
+	if !strings.Contains(set.notes[0].Why, "edge of this clone") {
+		t.Fatalf("the waiver authority said %q, and the record row read the same commit as the edge",
+			set.notes[0].Why)
+	}
+}

@@ -47,7 +47,7 @@ verbs:
   board      render the board the plan, git and the test run derive
 `
 
-const verifyUsage = `usage: groundwork verify [--list]
+const verifyUsage = `usage: groundwork verify [--list] [--close]
        groundwork verify version
 
 verify runs every row of the battery, in order, and records the run in the
@@ -59,6 +59,8 @@ subcommands:
 
 flags:
   --list    list the rows with their kind and severity, and run nothing
+  --close   run the bet-close scope: every row, and a refusal unless each of
+            seal-verify, board, trace and record came back green or waived
 `
 
 const findingsUsage = `usage: groundwork findings <subcommand>

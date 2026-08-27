@@ -48,6 +48,17 @@ type Battery struct {
 	// "not measured" rather than as none.
 	Counts map[string]int
 
+	// Scope is the rows a bet close ran, when this run was one. An ordinary
+	// run leaves it empty. It rides on the run's own line rather than on a
+	// line of its own, because a close is a property of a run and not a second
+	// event that happened beside it.
+	Scope []string
+
+	// Met says every scope row came back green or waived. It is only read when
+	// Scope is there: a line recording a close that says nothing about whether
+	// the close held is a record of the ceremony and not of its answer.
+	Met bool
+
 	DurationMS int
 }
 
@@ -78,6 +89,8 @@ type batteryEvent struct {
 	Run        string         `json:"run"`
 	Battery    string         `json:"battery"`
 	Counts     map[string]int `json:"counts"`
+	Scope      []string       `json:"scope,omitempty"`
+	Met        bool           `json:"close_met,omitempty"`
 	DurationMS int            `json:"duration_ms"`
 }
 
@@ -104,6 +117,7 @@ func WriteBattery(repoDir string, b Battery) (string, error) {
 	// The map is copied, so a caller that keeps writing to its own map after
 	// the call cannot change what a retry marshals.
 	counts := maps(b.Counts)
+	scope := slices.Clone(b.Scope)
 
 	return write(repoDir, "battery", func(dir, tip string, env envelope) (any, error) {
 		return batteryEvent{
@@ -111,6 +125,8 @@ func WriteBattery(repoDir string, b Battery) (string, error) {
 			Run:        b.RunID,
 			Battery:    b.Version,
 			Counts:     counts,
+			Scope:      scope,
+			Met:        b.Met,
 			DurationMS: b.DurationMS,
 		}, nil
 	})
@@ -147,6 +163,14 @@ func checkBattery(b Battery) error {
 	}
 	if err := checkDuration(b.DurationMS); err != nil {
 		return err
+	}
+	for _, row := range b.Scope {
+		if err := checkFilled("scope", row); err != nil {
+			return err
+		}
+	}
+	if b.Met && len(b.Scope) == 0 {
+		return fmt.Errorf("a run says its close was met and names no close scope")
 	}
 
 	return checkCounts(b.Counts)

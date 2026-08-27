@@ -38,6 +38,9 @@ func newEmptyRepo(t *testing.T) string {
 	runGit(t, dir, "init", "-b", "main")
 	runGit(t, dir, "config", "user.name", "Test Person")
 	runGit(t, dir, "config", "user.email", "test@example.com")
+	// D64 ruling 9: a fixture has nothing to sign, and the host's signing shim
+	// dies under load, which reads as a proof that failed (F104).
+	runGit(t, dir, "config", "commit.gpgsign", "false")
 
 	return dir
 }

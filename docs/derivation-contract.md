@@ -1,12 +1,12 @@
 # The derivation contract
 
-**Status:** live. Section 1 lands with bet 3 slice 1, section 2 with slice 3, section 3 with slice 4, section 4 with slice 6.
+**Status:** live. Section 1 lands with bet 3 slice 1, section 2 with slice 3, section 3 with slice 4, section 4 with slice 6, section 5 with slice 7.
 **Audience:** anyone writing a file the tools read, and anyone changing a tool that reads one.
 **Scope:** the shapes GroundWork parses, and what it does with each one.
 
 This page is the one place a parsed shape is written down. If a tool reads a file, a commit trailer, or a tag, the shape it reads is here. Every parser's test names the section it implements, so the page and the code ship in one commit.
 
-Later slices append their own sections: history shape. Later bets append theirs.
+Later bets append their own sections.
 
 ---
 
@@ -529,3 +529,157 @@ A mark is loud and never red for a different reason: a bet has no way to answer 
 A repo with no `docs/plan` directory is green. There is nothing to trace in either direction, so nothing can have been misstated, and the line claims no more than that.
 
 Everything the row could not reach is unrunnable: a plan that will not read, a plan naming no proof, no facing item and no premise, and a git that would not answer. A plan that will not read is the `plan` row's red, and two rows red for one fault is two reds for one fix.
+
+---
+
+## 5. Records, grants counted, and the shape of the history
+
+Section 1 says what a slice plan declares. This section says what the records it declares are held to, how a waived row is counted, what a squash leaves behind, and what a bet close runs.
+
+**Records.** A slice plan declares `records`, a list of paths it owes. Each one has to be there, and none may be older than the work it describes.
+
+**Grants counted.** A row waived too often stays red until a finding names it. The count comes from each waiver file's own git history.
+
+**History shape.** A bet closes on a merge commit, never a squash, because a squash erases every `Slice` trailer the board reads.
+
+**The close scope.** `verify --close` runs the rows a bet close runs. It is a list the tool checks, not a page of steps somebody works through.
+
+### 5.1 What a record is, and when it is stale
+
+A record is one path in a slice plan's `records` list. It is named from the repo root, in the shape section 1 gives a path.
+
+Only declared records are judged. A row that invented obligations would be red about work nobody promised, and a red nobody agreed to is how a row ends up permanently waived.
+
+Only landed slices are judged. A slice has landed when a commit reachable from HEAD carries its `Slice` trailer, which is section 3's rule. A slice that has not landed owes nothing yet. Its record is work in progress, and it is counted so that "0 missing" is never read as a claim about it.
+
+Two words in "older than the work it describes" are fixed here.
+
+The **slice's landing commit** is the oldest commit carrying that slice's `Slice` trailer, per D57 ruling 4: history lands a thing once, and what comes after is commentary. The claim is read through the `board` row's own machinery: the same four validity shapes, merges unread, strays named. So the two rows cannot disagree about one commit.
+
+**Predates** is ancestry, not clock time. A record's last commit predates the slice's when it is an ancestor of it. Commit dates are writable and they run backwards on any history somebody rebased, so a comparison of dates would rest on a number anybody can choose. A commit is reachable from itself, so a record written in the slice's own commit does not predate it — which is how every slice of this bet has landed.
+
+A record's own last commit is the most recent commit that changed it. D38 reads a waiver file the same way: what a file holds now is what its most recent commit put there.
+
+The **never-committed** count is exactly that: a path git holds no commit for. A record edited since it landed is not counted there and is not red. Its committed copy is still current, and the count would mislead if it read as "every record's content is committed".
+
+A slice this row found no claim for is not judged, and its records are not read at all. In a whole clone that means the slice has not landed, and the count reads **waiting**. In a shallow one the tool cannot tell that from a landing past the edge, so the count reads **unseen** and claims the weaker thing (D64 ruling 2). The row's green covers the records it read and no others.
+
+A declared path may be declared once. A slice naming one record twice is refused when the plan loads, beside every other doubled declaration.
+
+### 5.2 How a grant is counted
+
+A grant is one commit that changed one waiver file. The waiver's shape is D24's, and the directory is `.groundwork/waivers`.
+
+A rewrite in a commit of its own is a re-grant, and it is another grant for this count. Three re-grants of one file is a row three people in a row decided to keep waived, and that is the thing the count is for.
+
+A merge is not a granting act. It is counted, named, and never read as a grant — the same rule the waiver authority already applies to the same directory.
+
+The bet a grant landed in is the `Bet` trailer on its commit. It is held to the four validity shapes the board holds a `Slice` trailer to, against the bets the plan declares. A grant whose attribution fails any of them pools into one **unattributed bucket**, and that bucket shares the per-bet limit (D64 ruling 5). A misstated attribution can only ever tighten a threshold, never buy room inside one: three grants under three invented bet names are three grants in one bucket.
+
+A repo with no plan declares no bet, so every attribution there pools. That is the same rule, not an exception to it.
+
+The read follows renames. A waiver moved with `git mv` is the same waiver, and a count that restarted at the rename would let a rename buy a fresh threshold. Only a rename joins two names. git also reports a copy, where a new file was made out of an old one that is still there. Folding those together would count one waiver's grants against another that merely looks like it.
+
+**A pure rename is not a grant.** It changes nothing about the waiver, so it is counted and named and never read as one (D65 ruling 2). Two honest grants plus a tidy-up move are two grants. A move that also edited the file carries a lower similarity score and is a re-grant like any other rewrite.
+
+**A waiver's history starts at the commit that made it.** A path reused after a deletion is a new file, and a dead file's grants die with it (D65 ruling 1). Otherwise a new waiver could arrive at an old path already over a limit, red on a row that never had those grants. The boundary is the newest commit that added the file, rather than the one that first gave the path a file.
+
+Two thresholds, from D37 ruling 2 and D24: 3 grants of one row inside one bet, or 5 grants of one row across the repo. At or over either, that row stays red **until a finding names it**.
+
+A finding names a row when an entry title in `docs/findings.md` carries the phrase `<id> row` (D64 ruling 4). The title, because a title is short and somebody chose every word in it. The phrase, because nine of the sixteen row ids are ordinary English words. A bare-word match cleared the `record` row's threshold with an entry about a spend query, so the threshold could never bite. The phrase is matched at word edges, by the same rule that decides whether a decision is named from a defect class.
+
+A repo with no findings ledger names nothing. That is the safe direction: an over-waived row stays red rather than being cleared by a file nobody wrote.
+
+One limit, named rather than left implied. The count is over the waiver files the directory holds now, because R14 counts each waiver file's own git history. A waiver deleted after it expired takes its grants out of the count with it.
+
+### 5.3 What a squash leaves behind
+
+git writes a squashed merge as one single-parent commit whose message quotes every message it swallowed, indented. The `Slice` lines are still in that message, and git's own trailer parser returns none of them, because a trailer is read from the last paragraph of a message and a quoted block is not it.
+
+So the readable fingerprint is a gap: a commit whose message quotes more `Slice` lines than git's trailer parser reads on it. A `Slice` line is the key, a colon, then the value, with any leading whitespace trimmed — git indents everything it quotes.
+
+A quoted line counts only inside a **cluster**: 2 or more trailer-shaped lines next to each other (D64 ruling 7). That is the shape a squash quotes, because it quotes a whole trailer block. A lone `Slice:` line in a paragraph of prose is somebody writing about a slice. This repo's own ledger commits write exactly that. Reading it as a squash was a red nothing could ever clear.
+
+The check is wider than squashes by one step, on purpose. A commit that buried a whole trailer block under a later paragraph has the same fault. The board cannot read it, so the slice it names is not landed as far as anything here can tell.
+
+**One flavour is invisible. This is the limit, not a gap somebody will close.** A squash whose message drops the quoted trailers leaves no evidence at all. A GitHub squash-merge with a cleaned title is that shape. Nothing tells it from an ordinary commit, and R4's seals are the eventual answer. Until then this check catches the squash that quotes, and misses the squash that does not.
+
+A message longer than 65536 bytes is read only in part, and the row counts how many it read that way rather than judging the half it saw.
+
+A merge's message is not read at all. A merge that quotes its branch's messages is a merge doing its job, and reading it would be red on every repo that has `merge.log` set.
+
+### 5.4 The close scope
+
+`verify --close` runs the bet-close scope. Two halves.
+
+The **full suite** is every row this battery holds. Per-slice scoping of the suites a row runs is a thing the spec asks for and nothing has built. So every row already runs at every verify, and a close is no exception.
+
+The **close-scope list** is the rows that carry a bet-level question: `seal-verify`, `board`, `trace`, `record`. A close fails unless every one of them came back green or waived (D64 ruling 1). A row that went red, could not run, or never ran at all fails it. A close is a claim that what a close checks ran and held. Asking only whether the rows were registered reported a close over three unrunnable rows. Waived counts, because a waiver is a person's committed claim and D24 rules what that is worth. Later bets add their rows to the same list.
+
+A close records its scope on the run's own line in the journal. A close is a property of a run, not a second event beside it.
+
+The project's own test suite is not in this scope. A green battery does not prove the tests pass: the `run-evidence` row reconciles which tests ran, not how they ended. D55 makes running `go test` beside verify a line on the driver's landing checklist, until the row that asks the suite's own question lands. Naming it here would be this scope claiming a check nobody built.
+
+### 5.5 What the tools do with this
+
+`groundwork verify` runs a `record` row.
+
+| What the record row read | What it is | Is it red |
+|---|---|---|
+| A declared record in the tree, newer than the slice's commit | Current | no |
+| A declared record written in the slice's own commit | Current | no |
+| A declared record that is not a file in the tree | A record nobody wrote | yes |
+| A declared record no commit in a whole clone holds | A record nobody committed | yes |
+| A declared record edited since it landed | Its committed copy is current | no |
+| A declared record whose last commit the slice's commit comes after | Older than the work it describes | yes |
+| A declared record of a slice that has not landed | Not owed yet | no |
+| A declared record of a slice whose landing is past the shallow edge | Unseen, and not judged | no |
+| A declared record dated to the edge of a shallow clone | Unjudged rather than believed | no |
+| A slice that declares no record | Nothing to owe | no |
+
+It runs a `waiver-count` row.
+
+| What the waiver counter read | What it is | Is it red |
+|---|---|---|
+| Two grants of a row in one bet, four across the repo | Under both limits | no |
+| Three grants of one row inside one bet | At the bet's limit, and no finding names it | yes |
+| Five grants of one row across the repo | At the repo's limit, and no finding names it | yes |
+| Three grants of one row whose title carries the phrase | At a limit, and answered | no |
+| Three grants of one row a title names by bare word | At a limit, and unanswered | yes |
+| Three grants under three bet names nobody declared | Three in the unattributed bucket | yes |
+| Two grants of one row, then a tidy-up git mv | A move decides nothing | no |
+| A new waiver at a dead waiver's path | A new file, with no inherited grants | no |
+| A merge that changed a waiver file | Not a granting act | no |
+| A file in the waiver directory that is not a waiver | Naming no row, so nobody's grant | no |
+| A repo that waives nothing, whole history present | A real zero | no |
+
+And it runs a `history` row.
+
+| What the history row read | What it is | Is it red |
+|---|---|---|
+| A bet closed on a merge commit | Every trailer still readable | no |
+| A bet closed on a squash | Trailers the board can no longer read | yes |
+| A merge commit quoting its branch's messages | A merge doing its job | no |
+| A lone quoted Slice line in a paragraph of prose | Somebody writing about a slice | no |
+| A squash whose message kept no quoted trailers | Invisible, and named as the limit | no |
+| A history naming no slice at all | Nothing to erase | no |
+
+Each row's line opens with its counts, because the line is cut from the end (D33), and every count is in the head where no cut reaches it.
+
+The `record` row's counts are the records read, then how many are missing, never committed, stale and unjudged, then how many slices are waiting or unseen. The three reds are apart because they are three different fixes.
+
+The `waiver-count` row's counts are the waiver files read, how many were not waivers, the grants counted, the merges it did not read, the rows at a threshold, and the grants misstated. Each row at a threshold says on its own line whether a finding answers it. The rows no finding answers lead the line (D64 ruling 8).
+
+The `history` row's counts are the commits read, the merges it did not read, the commits that swallowed a trailer, and the messages it read only in part.
+
+**Three rows meet a shallow clone and answer differently. This is where that is written down.**
+
+The `waiver-count` row is **unrunnable** on one, and never counts zero. Its verdict is a threshold over a count of every grant. A history it cannot all see makes that count wrong rather than narrow, and wrong toward the pass, because grants nobody can see read as zero. The line says so and says what to do about it.
+
+The `record` and `history` rows **name the short history and keep judging**. That is the `board` row's posture, ruled in D56 ruling 3, for the `board` row's reason: what they cannot see leaves things unjudged rather than misjudged.
+
+One case had to be closed before that was true of the `record` row. git dates every file in a shallow clone whether or not it can. At the edge the whole tree hangs off one grafted commit, so git reads that commit as having added every file. A record dated to the graft therefore has a real last commit out of reach, and believing the graft would call a record older than its work current. So a record dated to a parentless commit inside a shallow clone is left unjudged and counted. It is the same fact the waiver authority names about the same edge, and one function answers it for both.
+
+The `history` row needs no such case. Every commit a clone holds carries its own real message and its own real trailers.
+
+Everything else a row could not reach is unrunnable: a plan that will not read, a git that would not answer, a repo with no commit at all. A plan that will not read is the `plan` row's red, and two rows red for one fault is two reds for one fix.

@@ -69,6 +69,7 @@ func TestTrailersCountsAMergeCommitsParents(t *testing.T) {
 func TestTrailersOnARepoWithNoCommits(t *testing.T) {
 	dir := t.TempDir()
 	runGit(t, dir, "init", "-b", "main")
+	runGit(t, dir, "config", "commit.gpgsign", "false")
 
 	got, err := Trailers(dir, "Slice")
 	if err != nil {

@@ -459,6 +459,7 @@ func TestTheRowKindVocabularyIsPinned(t *testing.T) {
 		"honesty", "wiring", "token", "divergence", "reachability",
 		"flag", "mutate", "seal-verify", "run-evidence",
 		"plan", "chain", "board", "stub", "trace",
+		"record", "waiver-count", "history",
 	}
 
 	if !slices.Equal(kinds, want) {

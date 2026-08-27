@@ -349,6 +349,16 @@ func resolveSlice(root string, slice Slice, betAt map[string]*Bet) []string {
 		claimed[id] = true
 	}
 
+	// And a slice owes a record once. It is the same doubled declaration, and a
+	// row that judged one path twice would count one fault as two.
+	owed := map[string]bool{}
+	for _, path := range slice.Records {
+		if owed[path] {
+			problems = append(problems, fmt.Sprintf("%s declares the record %s twice", slice.Path, path))
+		}
+		owed[path] = true
+	}
+
 	return problems
 }
 
