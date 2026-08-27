@@ -732,3 +732,19 @@ Three rules from F103.
 3. The words machinery earns a mechanical home for this — a landing-checklist line now, a candidate row when a later bet touches the battery. The measurement that caught F103 runs at every landing until then.
 
 Why: the old corpus grew through the record, not the code. The record is the one place drift compounds fastest, because everything reads it.
+
+## D64 — 2026-08-27 — Slice 7 review rulings, and two ledger corrections
+
+Nine rulings from the slice 7 review.
+
+1. A close fails unless every scope row came back green or waived, and the refusal is driven through the flag itself. A close that skipped what a close checks is the missing ceremony step, whatever the exit code says.
+2. The record row counts a slice whose landing this clone cannot see apart from one that has not landed — an unseen state, in the head — and the page says which is which. The shallow-edge guard gains the one-commit-deeper fixture that keeps it narrow.
+3. D62.1 is corrected: the oldest claim is a slice's landing, per D57.4, and the citation of D56.4 was the driver writing from the report — F62's class, now on the driver's side of the ledger. The record row reads claims through the board's own machinery, validity checks included, so the rule exists once.
+4. A finding clears a waiver threshold only when its title carries the phrase "<id> row". A bare English word that happens to be a row id clears nothing.
+5. A misstated bet attribution never weakens a threshold: grants whose Bet trailers fail the board's four validity shapes pool into one unattributed bucket that shares the per-bet limit, and the line names them. The waiver history read follows renames.
+6. The mutate row seeds from the HEAD lock like every other reader. And D60.5's promise is corrected: R15's text covers the lock file alone; moving design reads onto committed ground is assigned to a later bet, recorded here rather than silently narrowed.
+7. The history row counts a quoted Slice line only inside a cluster of trailer-shaped lines, the shape a real squash quotes and a prose paste does not. The flavour that discards its quoted trailers entirely is named on the page as the limit it is — a squash that leaves no evidence is indistinguishable from an ordinary commit, and R4's seals are the eventual answer.
+8. Red hits lead every line; cleared hits follow. The row a reader must act on is never inside "and N more" while a cleared one is named.
+9. Every fixture repo maker sets commit.gpgsign=false. The host's signing shim was half the battery clock and the whole of F100's false red channel, and a fixture has nothing to sign.
+
+Why: three of these correct the record itself — the reviewer caught the driver's ledger twice in one round, which is the blind-review discipline doing to the driver exactly what it does to builders.

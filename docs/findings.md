@@ -1149,3 +1149,102 @@ What happened: D63 rules the cure. Short entries from here on: this one included
 
 Caught by: owner-in-review — the owner's direct question
 Class: register
+
+## F104 — 2026-08-27 — F100 solved: the host's signing shim was failing fixtures under load
+
+What it is: every fixture commit inherits the host's global commit.gpgsign=true and its signing shim, and under load the shim dies with too many open files. A fixture that cannot commit becomes a proof that failed in the run, the board reads that as work regressing, and the flake machinery cannot fire because both attempts meet the same broken host. The reviewer reproduced the board red on four of four verify runs and traced the exact error. Disabling signing in the fixtures removes the channel and cuts the battery suite from 138 to 80 seconds — the shim was almost half the clock.
+
+What caught it: the slice 7 blind review, running the board's filter by hand until the failure text surfaced.
+
+What happened: closes F100's hunt. The fix round sets commit.gpgsign=false in every fixture repo maker, both packages.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: green-but-wrong
+
+## F105 — 2026-08-27 — A close that reports done when what a close checks never ran
+
+What it is: verify --close asks whether the scope rows are registered, never whether they ran. Three of the four rows a close exists for came back unrunnable and the tool printed the scope heading and exited zero. The refusal that does exist can never fire on the shipped tool and is not wired through the flag — deleting the call passes the whole suite. D53.1's front-door-hollow class, on the ceremony verb itself.
+
+What caught it: the slice 7 blind review, with an unrunnable-scope fixture and the unwired mutation.
+
+What happened: open. D64 rules the fix: a close fails unless every scope row is green or waived, driven through the flag.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: front-door-hollow
+
+## F106 — 2026-08-27 — The record row's shallow miss is a silent pass, and its guard can be widened unseen
+
+What it is: a slice whose landing commit is past the shallow edge reads as unlanded, so its records are never judged and the row is green — with a missing record, on this repo, now. The page says the opposite in the sentence carrying D62.5's reasoning. And the shallow-edge exemption can be widened to every commit and nothing dies: the guard that keeps unjudged narrow has no fixture one commit deeper.
+
+What caught it: the slice 7 blind review, with a depth-one clone and the widening mutation.
+
+What happened: open. D64 rules the unseen-landing state counted apart in the head, the page corrected, and the depth-three fixture that pins the guard.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: green-but-wrong
+
+## F107 — 2026-08-27 — The record row reversed a ruling, and the ledger cited the wrong precedent
+
+What it is: the record row credits the newest claim as a slice's landing. D57.4 ruled the oldest claim lands and the board says so in its own comment — crediting the newest names the real landing as the stray. D62.1 ratified the newest reading citing D56.4, which is about merges, not claim order: the driver wrote the entry from the report and the review caught it, F62's class on the driver's own side. The record row also skips the four trailer validity checks the board applies to the same input.
+
+What caught it: the slice 7 blind review, holding the two rows' readings of one fact against each other.
+
+What happened: D64 corrects D62.1 in place of the append-only ledger: the oldest claim lands, and the record row reads claims through the board's own machinery so one rule exists once.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: record-not-written
+
+## F108 — 2026-08-27 — The finding-clears gate is open for every row named by an ordinary word
+
+What it is: a waiver threshold clears when a finding title holds the row id as a whole word — and nine of sixteen row ids are ordinary English words already present in this repo's ledger titles for unrelated reasons. Three grants of record in one bet read green against the real ledger, cleared by an entry about the spend query. The threshold cannot bite for those rows, ever.
+
+What caught it: the slice 7 blind review, running the real matcher over the real titles.
+
+What happened: open. D64 rules the naming structured: the phrase "<id> row" clears, a bare word never does.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: green-but-wrong
+
+## F109 — 2026-08-27 — The counter's attribution rests on unvalidated trailers, and a rename resets the count
+
+What it is: the bet a grant is attributed to is checked against nothing — invented bet names and doubled Bet trailers both dodge the per-bet threshold. And git mv on a waiver file resets its grant count to one while the waiver stays in force, a shape D62.9 did not name because a rename is not a deletion.
+
+What caught it: the slice 7 blind review, with invented-bet and rename probes.
+
+What happened: open. D64 rules the direction: a misstated attribution never weakens a threshold, and the history read follows renames.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: coverage-gap
+
+## F110 — 2026-08-27 — Two read-source moves left unfinished, one of them promised
+
+What it is: the mutate row still seeds its sample from the working-tree lock, so one run prints two battery versions and the deletion sample rotates on a bump nobody committed. And D60.5 promised design files would move to committed reads with R15's slice — this slice — and only the lock moved, with nothing recording the narrowing.
+
+What caught it: the slice 7 blind review, with a two-version run and a read of D60.5 against the diff.
+
+What happened: open. D64 moves the mutate seed to HEAD and corrects D60.5's promise: R15 covers the lock; committed design reads are assigned to a later bet.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: coverage-gap
+
+## F111 — 2026-08-27 — The history row's three: a false red on quoted prose, a missed squash flavour, a buried lead
+
+What it is: a commit quoting a Slice line in ordinary prose — the shape this repo's own ledger commits write — reads as a squash, permanently, naming the quoted slice rather than the commit's own. A squash whose message discarded the quoted trailers entirely is invisible, while the page claims the check is complete. And the counter's red line leads with a cleared row while the row a reader must act on hides inside "and 1 more".
+
+What caught it: the slice 7 blind review, probing the gap-read's edges.
+
+What happened: open. D64 rules the cluster read, the page's honest limit, and reds-first ordering.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: green-but-wrong
+
+## F112 — 2026-08-27 — The new prose drifted past the baseline pinned the same day, and eight lows
+
+What it is: the slice's new files run 19.2 mean words per sentence against D63's bet-0 baseline near 15, with the shallow-postures paragraph written out five times. The lows: a false comment on BlobAt, doubled record paths accepted, an edited-after-landing record reading green with a count that means something else, a close leaving no journal trace, an unpinned Lstat, a copied rule claiming to be shared, an uncapped Messages read, and a proud sentence printed exactly where D62.9's blind spot lives.
+
+What caught it: the slice 7 blind review, measuring against D63 within hours of its landing.
+
+What happened: open. Folded into the fix round, the dedup and the trim first.
+
+Caught by: blind-review — the slice 7 dispatch
+Class: register
