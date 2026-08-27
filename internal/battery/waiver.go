@@ -437,6 +437,10 @@ type waiverJudge struct {
 	tracked map[string]bool
 	changed map[string]string
 	today   time.Time
+
+	// shallow says this clone holds only part of its history, which is what
+	// makes a parentless commit untrustworthy.
+	shallow bool
 }
 
 // newWaiverJudge asks git its two questions about the whole directory at once,
@@ -462,6 +466,11 @@ func newWaiverJudge(root string, reg *Registry, now time.Time) (waiverJudge, err
 	}
 
 	j.changed, err = journal.ChangedFiles(root, WaiverDir)
+	if err != nil {
+		return waiverJudge{}, err
+	}
+
+	j.shallow, err = journal.Shallow(root)
 	if err != nil {
 		return waiverJudge{}, err
 	}
@@ -551,16 +560,13 @@ func (j waiverJudge) refuseOnItsHistory(e waiverEntry, last time.Time) (string, 
 		return "", err
 	}
 
-	// A commit with no parents is either this repo's first commit or the edge
-	// of a shallow clone. At the edge the whole tree hangs off one grafted
-	// commit, so its diff is not what anybody committed, and blaming the
-	// waiver for touching every file in the repo would be a false statement.
-	if len(parents) == 0 {
-		why, err := j.sayNoHistory(fmt.Sprintf(
-			"the commit that governs it, %s, sits at the edge of this clone", commit[:7]))
-		if err != nil || why != "" {
-			return why, err
-		}
+	// At the edge the whole tree hangs off one grafted commit, so its diff is
+	// not what anybody committed, and blaming the waiver for touching every file
+	// in the repo would be a false statement.
+	if atTheEdge(len(parents), j.shallow) {
+		return fmt.Sprintf(
+			"the commit that governs it, %s, sits at the edge of this clone, which is shallow: fetch the full history to judge this waiver",
+			commit[:7]), nil
 	}
 
 	// D40: a merge is not a granting act, so a merge never governs a waiver.
@@ -595,6 +601,22 @@ func (j waiverJudge) refuseOnItsHistory(e waiverEntry, last time.Time) (string, 
 	}
 
 	return "", nil
+}
+
+// atTheEdge reports whether a commit sits at the edge of a shallow clone.
+//
+// A commit with no parents is either a repository's own first commit or the
+// graft a shallow clone hangs its whole tree off. Only the second is a commit
+// nobody wrote: git reads it as having added every file, so anything taken from
+// its diff or its dates is made out of missing data.
+//
+// So the test is those two facts together, and it is one function because two
+// rows ask it. The waiver authority asks whether the commit that governs a
+// waiver can be trusted; the record row asks whether a record's date can be.
+// Two copies would be two answers about one commit (D54 ruling 1), and a test
+// holds the two callers to this one.
+func atTheEdge(parents int, shallow bool) bool {
+	return shallow && parents == 0
 }
 
 // sayNoHistory turns a missing piece of history into a sentence, saying so

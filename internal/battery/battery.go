@@ -106,7 +106,11 @@ var severities = []string{Blocking, Advisory}
 // journal line it ever writes. trace joins under R12 and R13, and it is not the
 // plan row's kind either: the plan row asks whether a plan holds together on its
 // own terms, and the trace row asks whether it reaches the design it came from
-// and covers everything that design names.
+// and covers everything that design names. record, waiver-count and history
+// join under R14, and none of them is one of the nine either: record asks
+// whether the artifacts a plan promised are there and current, waiver-count
+// asks how often a row has been waived, and history asks what shape this repo's
+// own commits are in.
 //
 // The rows themselves land across several bets. Naming their kinds now costs
 // nothing and catches a typo at registration, where a typo would otherwise
@@ -116,6 +120,7 @@ var kinds = []string{
 	"honesty", "wiring", "token", "divergence", "reachability",
 	"flag", "mutate", "seal-verify", "run-evidence",
 	"plan", "chain", "board", "stub", "trace",
+	"record", "waiver-count", "history",
 }
 
 // maxRowIDBytes caps a row id. Row ids go on journal lines and into output
@@ -270,6 +275,14 @@ type RunResult struct {
 	// nothing: a waiver the run threw away is a thing the reader has to see.
 	Waivers []WaiverNote
 
+	// Scope is the close scope this run ran, when it was a bet close. An
+	// ordinary run leaves it empty.
+	Scope []string
+
+	// Met says every scope row came back green or waived. It is read only
+	// beside Scope.
+	Met bool
+
 	DurationMS int
 }
 
@@ -312,6 +325,19 @@ func (r RunResult) Failed() bool {
 // run. A journal that cannot be written fails the run: a check with no journal
 // lines is a check that never ran, and a run nobody can find is not evidence.
 func Run(repoDir string, reg *Registry) (RunResult, error) {
+	return run(repoDir, reg, nil)
+}
+
+// RunClose is Run, recording the run as a bet close.
+//
+// The close scope goes on the run's own line in the journal, because a close is
+// a property of a run and not a second event beside it. One implementation, two
+// entry points, so the two cannot drift.
+func RunClose(repoDir string, reg *Registry) (RunResult, error) {
+	return run(repoDir, reg, CloseScope())
+}
+
+func run(repoDir string, reg *Registry, scope []string) (RunResult, error) {
 	if reg.Len() == 0 {
 		return RunResult{}, fmt.Errorf("the battery has no rows to run, and a run of no rows is not a pass")
 	}
@@ -327,8 +353,12 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 	// version row's job, and that row reads the lock file itself: a check
 	// handed its own answer is not a check. A lock file this cannot read
 	// leaves the label saying so, and the row turns red on the same file.
+	//
+	// It is HEAD's copy, per R15, because that is the version anybody can be
+	// held to. A run labelled with a bump nobody committed would put a number
+	// on the record that no reader could find again.
 	declared := unknownVersion
-	if lock, err := ReadLock(repoDir); err == nil {
+	if lock, err := ReadLockAtHead(repoDir); err == nil {
 		declared = lock.Version
 	}
 
@@ -346,6 +376,7 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 		ID:      id,
 		Version: VersionString(declared, digest),
 		Digest:  digest,
+		Scope:   scope,
 		Counts:  map[Outcome]int{},
 	}
 	for _, outcome := range Outcomes() {
@@ -385,6 +416,10 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 	// which waivers it used by using them.
 	res.Waivers = waivers.notes
 
+	// And whether a close held, which is the same question the verb asks before
+	// it refuses. One rule, asked once (D54 ruling 1).
+	res.Met = len(res.Scope) > 0 && len(UnmetAtClose(res)) == 0
+
 	counts := map[string]int{}
 	for outcome, n := range res.Counts {
 		counts[string(outcome)] = n
@@ -394,6 +429,8 @@ func Run(repoDir string, reg *Registry) (RunResult, error) {
 		RunID:      id,
 		Version:    res.Version,
 		Counts:     counts,
+		Scope:      res.Scope,
+		Met:        res.Met,
 		DurationMS: res.DurationMS,
 	})
 	if err != nil {

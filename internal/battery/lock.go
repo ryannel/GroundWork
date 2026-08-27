@@ -76,6 +76,40 @@ func ReadLock(dir string) (Lock, error) {
 		return Lock{}, fmt.Errorf("could not read the lock file %s: %w", LockFile, reasonOnly(err))
 	}
 
+	return parseLock(raw)
+}
+
+// ReadLockAtHead reads and checks the lock file as HEAD holds it.
+//
+// R15 puts the version row on this read, the same read a covered path gets: an
+// uncommitted battery version is not one anybody can be held to. CI is
+// unaffected, because CI already reads committed content.
+//
+// It is the same parser as the working tree's read, so the two can never
+// disagree about what a lock file is (D54 ruling 1). What they can disagree
+// about is what this repo declares, and that disagreement is the version row's
+// own red.
+func ReadLockAtHead(dir string) (Lock, error) {
+	root, err := journal.RepoRoot(dir)
+	if err != nil {
+		return Lock{}, err
+	}
+
+	raw, err := journal.BlobAt(root, "HEAD", LockFile)
+	if errors.Is(err, journal.ErrNoBlob) {
+		return Lock{}, fmt.Errorf(
+			"nothing commits the lock file %s, and an uncommitted battery version is not one anybody can be held to",
+			LockFile)
+	}
+	if err != nil {
+		return Lock{}, fmt.Errorf("could not read the committed lock file %s: %w", LockFile, err)
+	}
+
+	return parseLock(raw)
+}
+
+// parseLock reads the bytes of a lock file into its two fields.
+func parseLock(raw []byte) (Lock, error) {
 	// Unknown fields are refused. The schema is two fields and it is fixed, so
 	// an unrecognised key is a typo — and a typo that was ignored would leave
 	// the real field empty and the reader looking at a file that seems right.

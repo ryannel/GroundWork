@@ -19,6 +19,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/ryannel/groundwork/internal/battery"
 	"github.com/ryannel/groundwork/internal/journal"
 )
 
@@ -47,7 +48,11 @@ verbs:
   board      render the board the plan, git and the test run derive
 `
 
-const verifyUsage = `usage: groundwork verify [--list]
+// verifyUsage reads the close scope from the battery rather than writing it
+// out, so the help text and the refusal can never name different rows. R14 says
+// later bets add their rows to that scope, and a hand-written list would go
+// stale the first time one did (F117).
+var verifyUsage = fmt.Sprintf(`usage: groundwork verify [--list] [--close]
        groundwork verify version
 
 verify runs every row of the battery, in order, and records the run in the
@@ -59,7 +64,9 @@ subcommands:
 
 flags:
   --list    list the rows with their kind and severity, and run nothing
-`
+  --close   run the bet-close scope: every row, and a refusal unless each of
+            %s came back green or waived
+`, strings.Join(battery.CloseScope(), ", "))
 
 const findingsUsage = `usage: groundwork findings <subcommand>
 

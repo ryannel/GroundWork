@@ -150,7 +150,13 @@ type Board struct {
 func Derive(set plan.Set, h History, r Run) Board {
 	b := Board{Commits: h.Commits, Shallow: h.Shallow, Head: h.Head, Run: r}
 
-	landed := b.readClaims(set, h)
+	read := Landings(set, h)
+	b.Unread, b.Wrong = read.Unread, read.Wrong
+
+	landed := map[string]bool{}
+	for id := range read.At {
+		landed[id] = true
+	}
 
 	b.Landed = make([]string, 0, len(landed))
 	for id := range landed {
@@ -197,12 +203,29 @@ func Derive(set plan.Set, h History, r Run) Board {
 	return b
 }
 
-// readClaims judges every Slice trailer git found and returns the slices that
-// landed.
+// Landing is what this repo's own history says about which slices landed.
+//
+// It is exported because two rows ask the same question of the same trailers.
+// The board asks which slices landed; the record row asks which commit landed
+// one, so it can judge whether a record predates it. A second reading would be
+// two rows able to disagree about one commit (D54 ruling 1), and the review
+// that forced this found them disagreeing already.
+type Landing struct {
+	// At maps a slice id to the commit that landed it.
+	At map[string]string
+
+	// Unread is a trailer the board declined to read, and Wrong one that
+	// misstates landed-ness. They are the Board fields of the same names.
+	Unread []Note
+	Wrong  []Note
+}
+
+// Landings judges every Slice trailer git found and says which commit landed
+// each slice.
 //
 // A trailer is read once, in one place, so that a claim can never be counted by
 // one reader and refused by another.
-func (b *Board) readClaims(set plan.Set, h History) map[string]bool {
+func Landings(set plan.Set, h History) Landing {
 	known := map[string]bool{}
 	for _, s := range set.Slices {
 		known[s.ID] = true
@@ -213,7 +236,7 @@ func (b *Board) readClaims(set plan.Set, h History) map[string]bool {
 		}
 	}
 
-	landed := map[string]bool{}
+	read := Landing{At: map[string]string{}}
 
 	// Oldest first, because history lands a thing once and what comes after is
 	// commentary (D57 ruling 4). git hands the claims back newest first, so the
@@ -221,36 +244,84 @@ func (b *Board) readClaims(set plan.Set, h History) map[string]bool {
 	// landing commit as the stray and send whoever chased it to the wrong
 	// commit.
 	for _, claim := range slices.Backward(h.Claims) {
-		bad := plan.CheckID(claim.Value)
-
-		switch {
-		case claim.Merge:
+		if claim.Merge {
 			// D38 and D40: merges never govern. One slice is one commit, and a
 			// merge is not that commit. It misstates nothing about the id space,
 			// so it is named and not read rather than refused.
-			b.Unread = append(b.Unread, note(claim, "sits on a merge commit, and one slice is one commit"))
+			read.Unread = append(read.Unread, note(claim, "sits on a merge commit, and one slice is one commit"))
 
-		case !claim.Alone:
-			b.Wrong = append(b.Wrong, note(claim, "is one of several on its commit, and one slice is one commit"))
+			continue
+		}
 
-		case claim.Value == "":
-			b.Wrong = append(b.Wrong, note(claim, "has nothing after its colon, so it names no slice"))
+		switch shape, why := JudgeValue(claim.Value, claim.Alone, known); shape {
+		case ShapeDoubled:
+			read.Wrong = append(read.Wrong, note(claim, "is one of several on its commit, and one slice is one commit"))
 
-		case bad != nil:
-			b.Wrong = append(b.Wrong, note(claim, "is not an id: it "+bad.Error()))
+		case ShapeEmpty:
+			read.Wrong = append(read.Wrong, note(claim, "has nothing after its colon, so it names no slice"))
 
-		case !known[claim.Value]:
-			b.Wrong = append(b.Wrong, note(claim, "names no slice this plan declares"))
+		case ShapeNotAnID:
+			read.Wrong = append(read.Wrong, note(claim, "is not an id: it "+why))
 
-		case landed[claim.Value]:
-			b.Unread = append(b.Unread, note(claim, "names a slice an earlier commit already landed"))
+		case ShapeUnknown:
+			read.Wrong = append(read.Wrong, note(claim, "names no slice this plan declares"))
 
 		default:
-			landed[claim.Value] = true
+			if _, already := read.At[claim.Value]; already {
+				read.Unread = append(read.Unread, note(claim, "names a slice an earlier commit already landed"))
+
+				continue
+			}
+
+			read.At[claim.Value] = claim.Commit
 		}
 	}
 
-	return landed
+	return read
+}
+
+// Shape is what is wrong with a trailer value that names an id.
+type Shape int
+
+// The four shapes a trailer value can be wrong in, and the one it can be right
+// in. They are D56 ruling 4's list, and they are here rather than in each
+// caller because a second copy would let two rows judge one commit differently.
+const (
+	// ShapeSound: the value names one declared id.
+	ShapeSound Shape = iota
+
+	// ShapeDoubled: the value is one of several on its commit.
+	ShapeDoubled
+
+	// ShapeEmpty: the value has nothing after its colon.
+	ShapeEmpty
+
+	// ShapeNotAnID: the value is outside the id charset.
+	ShapeNotAnID
+
+	// ShapeUnknown: the value names nothing the plan declares.
+	ShapeUnknown
+)
+
+// JudgeValue reports which shape a trailer value has. The second result is the
+// id reader's own words, and it is empty for every shape but ShapeNotAnID.
+//
+// Each caller writes its own sentence, because a Slice trailer and a Bet
+// trailer name different things. What is shared is which four shapes are wrong
+// and in what order, which is the part two readers must not disagree about.
+func JudgeValue(value string, alone bool, known map[string]bool) (Shape, string) {
+	switch bad := plan.CheckID(value); {
+	case !alone:
+		return ShapeDoubled, ""
+	case value == "":
+		return ShapeEmpty, ""
+	case bad != nil:
+		return ShapeNotAnID, bad.Error()
+	case !known[value]:
+		return ShapeUnknown, ""
+	default:
+		return ShapeSound, ""
+	}
 }
 
 // note renders one refused or unread trailer, safe to print.

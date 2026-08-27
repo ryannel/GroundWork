@@ -539,7 +539,7 @@ func decidedOn(decisions, class string) bool {
 		if !strings.HasPrefix(line, "## ") {
 			continue
 		}
-		if names(line, class) {
+		if Names(line, class) {
 			return true
 		}
 	}
@@ -547,21 +547,27 @@ func decidedOn(decisions, class string) bool {
 	return false
 }
 
-// names reports whether text names a class.
+// Names reports whether text names a word.
 //
 // The match stops at word edges. Class names like "register" and "other" are
 // ordinary English words, and a bare substring match would let any prose at
 // all count as a ruling on them. A hyphen counts as part of a word, so
 // "register" does not match inside "registers-late".
-func names(text, class string) bool {
+//
+// It is exported because a second reader asks the same question about the same
+// ledger: the battery's waiver counter holds an over-waived row red until a
+// finding names it, and a row id is an ordinary word in exactly the way a class
+// name is. Two spellings of "names it" would be two rules about one ledger
+// (D54 ruling 1).
+func Names(text, word string) bool {
 	for at := 0; ; {
-		i := strings.Index(text[at:], class)
+		i := strings.Index(text[at:], word)
 		if i < 0 {
 			return false
 		}
 
 		start := at + i
-		end := start + len(class)
+		end := start + len(word)
 
 		if !wordChar(before(text, start)) && !wordChar(after(text, end)) {
 			return true

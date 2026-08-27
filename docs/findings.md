@@ -1255,7 +1255,7 @@ What it is: a new waiver at a path a deleted waiver once occupied inherits the d
 
 What caught it: the slice 7 closure re-check, probing the fix round's rename-following.
 
-What happened: open. D65 rules the incarnation boundary and the rename's non-grant.
+What happened: fixed in the micro-round — the walk stops at the file's birth, a copy is a birth, a pure rename decides nothing, all proven through real repos and blanking. Final re-check closed it.
 
 Caught by: blind-review — the slice 7 closure re-check
 Class: green-but-wrong
@@ -1266,7 +1266,7 @@ What it is: the counter's evidence line is nondeterministic — twelve runs of o
 
 What caught it: the slice 7 closure re-check, running one binary twelve times.
 
-What happened: open. Ties break toward the named bet, and reds lead every line — the rule already written, obeyed everywhere.
+What happened: fixed in the micro-round — twelve runs print one line twice over, and the record row leads with its reds. Final re-check closed it.
 
 Caught by: blind-review — the slice 7 closure re-check
 Class: green-but-wrong
@@ -1277,7 +1277,7 @@ What it is: two adjacent trailer-shaped lines in prose still read as a squash �
 
 What caught it: the slice 7 closure re-check.
 
-What happened: open. Folded into the micro-round.
+What happened: fixed in the micro-round — the cluster reads only declared trailer keys, structure-pinned to the working agreement and the page, and the six smalls landed with their pins. Final re-check closed it, upholding the quoted-block red as a statement about readability, never intent.
 
 Caught by: blind-review — the slice 7 closure re-check
 Class: coverage-gap
@@ -1299,7 +1299,18 @@ What it is: the contract page's section 5 says a cut message is counted rather t
 
 What caught it: the slice 7 final re-check, holding each sentence to the line the code prints.
 
-What happened: open. The last round fixes the sentences, pins each to the thing it describes, and ties the help text to the scope function.
+What happened: fixed in the last round — each sentence pinned to the line it describes, the writer's warning on the page, the help text built from the scope function. Verified at landing through all twenty-four pins.
 
 Caught by: blind-review — the slice 7 final re-check
 Class: parallel-definition
+
+## F118 — 2026-08-27 — The driver reverted an uncommitted page with git restore
+
+What it is: verifying a sentence pin, the driver blanked one word in the contract page and then ran git restore to put it back — which restored HEAD's version, destroying every uncommitted section-5 edit from four rounds of slice 7. The damage was one file, caught within a minute by the very pin being verified, and recovered without retyping: the builder diffed a committed scratch copy against the wreck, proved sections 1 through 4 identical, copied the round-3 page in, and re-applied round 4's three sentences. All twenty-four pin tests then passed.
+
+What caught it: the driver, reading a FAIL where a pass belonged — the pin caught its own page going missing.
+
+What happened: recovered and re-verified. The standing rule: a probe on an uncommitted file swaps in memory and swaps back; git never touches a file the index does not hold.
+
+Caught by: driver — the pin that failed on the page it guards
+Class: other — a driver process slip, caught by the machinery it was testing
