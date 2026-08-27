@@ -1470,3 +1470,66 @@ What happened: corrected in D67. The wrong sentence stands in D66, named there b
 
 Caught by: driver — the fix-round verify output read against the driver's own ruling
 Class: other — a ruled convention that practice and a ratified reading both contradict
+
+## F133 — 2026-08-27 — The grading counted four clauses and never placed the fifth
+
+What it is: bet 3's done-when in `docs/ladder.md` runs to five sentences. The grading record and its supplement call it four clauses and grade four. The fifth sentence — "No file gets edited just to move the board" — is named nowhere on either page. A reader cannot tell whether it was skipped or covered.
+
+What caught it: the slice 8 closure re-check, counting the done-when's sentences against the grading's own count.
+
+What happened: fixed by appending. `holdout.md` gains a section, "The done-when's fifth sentence". It says the fifth sentence is a rule about conduct, not a fifth clause about a board, and that the whole exercise ran under it. The conduct is named: no file was edited to move a row, translation fixes ended at the first graded output, and the supplement changed no input. One sentence in `runs.md` mirrors the placement, beside where that page counts four questions.
+
+One more thing this entry records. F130's forward link runs one way. D67.4 names F130; F130 names no decision. A reader coming from the ledger cannot reach the ruling.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: record-not-written
+
+## F134 — 2026-08-27 — The supplemental walk was pinned by its heading alone
+
+What it is: `TestProof_b3s8_grading_the_sealed_fixtures_are_run_once` required the string `## The supplemental runs` in `runs.md`, and nothing under it. The captured-block count it did check was `gradedRuns = 4`, read over the whole page, which now holds seventeen. So thirteen captures could go and four would still be counted from the graded sections above. This is F128's hole, one section over.
+
+What caught it: the slice 8 closure re-check, by probe. It deleted the entire supplemental walk body — all thirteen run captures, F123's recovery and F124's evidence — kept only the heading, and the test stayed green.
+
+What happened: fixed by adding checks and removing none. The test now reads the supplement's own section body, not the page, and requires two more things: at least thirteen captured run blocks under the heading, and both false-red commits `af14585` and `863e12f` named there. Each new assertion was probed in memory. Python held the original and its sha256, wrote the mutation, ran the focused test, restored from memory, and checked the hash back. No git command touched an uncommitted file — F118's rule.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: front-door-hollow
+
+## F135 — 2026-08-27 — The record's honesty argument rested on a false sentence
+
+What it is: `runs.md` said "Only documentation has changed on this branch since `fa65ea1`." That was false. `internal/battery/holdoutgrading_test.go` changed too, in the first fix round. The sentence carries weight: it is how the page argues the supplemental runs used the same binary as the graded runs. The conclusion survives, because `go build` ignores `_test.go` files. The sentence did not.
+
+What caught it: the slice 8 closure re-check, reading the claim against the branch's own diff.
+
+What happened: fixed in place. The sentence now says what changed — documentation and one `_test.go` file — and why the binary is still the same one: the build ignores those files, and the binary reports the same version and digest.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: record-not-written
+
+## F136 — 2026-08-27 — F131 sits out of numeric order in this ledger
+
+What it is: F131 was appended between F128 and F129. The first fix round wrote it beside the finding it blocks, which reads well. But the ledger is otherwise in numeric order, and a reader counting entries will reach F129 after F131 and think one is missing.
+
+What caught it: the slice 8 closure re-check, reading the ledger top to bottom.
+
+What happened: record-only. Nothing moved. The ledger is append-only, so F131 stays where it was written, and this entry is the note that says why the count jumps. The forward rule is the driver's: either entries go at the end always, or an out-of-order append carries a line saying so.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: other — an append that broke the ledger's numeric order without touching any entry
+
+## F137 — 2026-08-27 — D67.1 claims more than its evidence measured
+
+What it is: D67.1 rules that a supplemental grading after the keys open is honest when it decides nothing. Three parts of that overstate.
+
+First, "it decides nothing" is too strong. The runs decide nothing — a board at a fixed commit over fixed plans is a pure reading. The supplement's readings are not runs. They are grades, made after the keys were open. They are re-derivable from printed output, which is the real reason they hold, and the ruling does not say that.
+
+Second, both answer keys list `landing_commits` per slice. That is the exact fact F124 turns on. The record never names the overlap, so it never says why reading the keys did not tell the grader where to look.
+
+Third, the determinism check ran at the two tips only. Walk-commit determinism is inferred from how a board is built, not measured. The ruling presents it as covering the walk.
+
+What caught it: the slice 8 closure re-check, reading D67.1 against what the record actually shows was run.
+
+What happened: record-only here. The decision stands as written, because the ledger and `decisions.md` are append-only. The correction is the driver's, in the next decision.
+
+Caught by: blind-review — the slice 8 closure re-check
+Class: other — a ruling whose why claims more than its evidence measured

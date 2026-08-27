@@ -928,6 +928,11 @@ questions and left two unasked. Both fixtures carry the earlier commits those
 two questions need. Nobody ran there. This section runs there, and the grading
 supplement in `docs/evidence/bet-3/holdout.md` grades what came back.
 
+Bet 3's done-when runs to five sentences, not four. Four ask something of a
+board, and those are the four questions. The fifth — "No file gets edited just
+to move the board" — is a rule about conduct, and every run on this page ran
+under it. `holdout.md` places it, under "The done-when's fifth sentence".
+
 ### Why these runs are honest
 
 A `board` run at a fixed commit, over fixed plan files, is a pure reading. It
@@ -939,8 +944,11 @@ the same as a run before.
 Four things are unchanged from the graded runs.
 
 - The binary. Built from the same source, and it reports the same version and
-  digest: `12.0+ra48a79a`. Only documentation has changed on this branch since
-  `fa65ea1`.
+  digest: `12.0+ra48a79a`. Since `fa65ea1` this branch has changed only
+  documentation and one `_test.go` file, `internal/battery/holdoutgrading_test.go`.
+  `go build` ignores `_test.go` files, so no compiled byte moved. The binary
+  reports the same version either way. F135 files the flat sentence that
+  stood here before.
 - The plan files. Taken from `docs/evidence/bet-3/slice-8/plans/`, which is the
   authored translation as committed, untouched since.
 - The manifest and the battery lock, from the same place.

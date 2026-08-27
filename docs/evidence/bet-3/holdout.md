@@ -213,6 +213,30 @@ bets with milestone 1 landed, which is the shape the clause needed, but the
 count in the brief matches neither. That went unrecorded at grading. It is part
 of F125.
 
+### The done-when's fifth sentence
+
+The closure re-check found a gap in the counting. Bet 3's done-when in
+`docs/ladder.md` runs to five sentences. This grading and the supplement graded
+four of them, and called those four the clauses. The fifth was never placed:
+"No file gets edited just to move the board."
+
+It is placed here. The fifth sentence is not a fifth clause about a board. It
+is a rule about how the work is done, and the whole exercise ran under it. It
+was met by conduct, and the conduct is on the record:
+
+- No file in either fixture was edited to move a row. The plan files, the
+  manifest and the battery lock went in as one adoption commit, before any
+  board was read. Nothing was touched after.
+- Translation fixes stopped at the first graded output. The rule is written in
+  the grading record above, where F129 put it. `runs.md` says the same under
+  "Translation notes": no call was made after seeing a run.
+- The supplement changed no input. Same binary, same authored plan files, same
+  manifest and lock, fixtures re-materialized by the recorded recipe. The one
+  determinism check was run before the walk, not after.
+
+So the done-when has five sentences, four graded as clauses, and one met by
+conduct across all of them. F133 files the counting gap.
+
 ### What the supplement does not change
 
 The graded verdicts stand. F119, F120, F121 and F122 stand as filed. Nothing

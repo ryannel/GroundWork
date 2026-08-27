@@ -45,7 +45,16 @@ const (
 	// The four graded runs: board and verify, on each of the two fixtures.
 	// Fewer captured blocks than that means a run went unrecorded.
 	gradedRuns = 4
+
+	// The walk the supplement rests on: thirteen commits, each with its board
+	// captured. F134 — the heading alone used to be the whole pin, so the walk
+	// under it could be deleted and every check stayed green.
+	supplementRuns = 13
 )
+
+// The two commits where the walk found a false red. F124 turns on them, so the
+// supplement that reports it has to still name them.
+var falseRedCommits = []string{"af14585", "863e12f"}
 
 // The two sealed repos. A grading that names neither graded nothing.
 var sealedRepos = []string{"holdout3-go-sift", "holdout3-go-gauge"}
@@ -146,5 +155,25 @@ func TestProof_b3s8_grading_the_sealed_fixtures_are_run_once(t *testing.T) {
 	if !strings.Contains(runs, supplementHeading) {
 		t.Errorf("%s holds no section %q, so the two clauses F123 names went unasked",
 			runsPageAt, supplementHeading)
+	}
+
+	// F134: the heading was the whole pin. The walk under it is the evidence,
+	// so the walk is pinned too. Everything below reads the section body, not
+	// the page, or a deleted walk would still be counted from elsewhere.
+	supplement, found := sectionAfter(runs, supplementHeading)
+	if !found {
+		return
+	}
+
+	if blocks := strings.Count(supplement, verbatimFence); blocks < supplementRuns {
+		t.Errorf("%s holds %d captured runs under %q, and the walk is %d commits",
+			runsPageAt, blocks, supplementHeading, supplementRuns)
+	}
+
+	for _, commit := range falseRedCommits {
+		if !strings.Contains(supplement, commit) {
+			t.Errorf("%s never names %s under %q, so the false red F124 turns on is unrecorded",
+				runsPageAt, commit, supplementHeading)
+		}
 	}
 }
