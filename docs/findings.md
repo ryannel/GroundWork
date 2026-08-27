@@ -1046,7 +1046,7 @@ What it is: the trace row reads design files with no size cap, where every other
 
 What caught it: the blind review of bet-3 slice 6, with a reproduced out-of-memory kill.
 
-What happened: open. The fix caps the read and corrects the comment.
+What happened: fixed across the fix rounds — the read is capped at the manifest's 256 KiB, symlinks are refused at every element by resolving both sides and checking containment, and each refusal is a named verdict with the battery alive. Closure-checked twice.
 
 Caught by: blind-review — the slice 6 dispatch
 Class: green-but-wrong
@@ -1057,7 +1057,7 @@ What it is: the contract page's section 4.4 says the clauses name which unsealed
 
 What caught it: the blind review, reading the page against the code.
 
-What happened: open. The fix round makes the page match D60.7 and the plan file match D60.5.
+What happened: fixed in the fix round — the page says named-not-counted with the arithmetic reason, and the plan file says what is true. Closure-checked.
 
 Caught by: blind-review — the slice 6 dispatch
 Class: record-not-written
@@ -1068,7 +1068,7 @@ What it is: R13 says an amendment marks every later bet, and the code marks ever
 
 What caught it: the blind review, holding the code to the ruling's words.
 
-What happened: D61 rules both readings. The page carries them.
+What happened: D61 rules both readings, the page carries them, and two new table rows drive the cross-program and first-bet marks. Closure-checked.
 
 Caught by: blind-review — the slice 6 dispatch
 Class: record-not-written
@@ -1079,7 +1079,7 @@ What it is: a slice listing one facing id twice is a trace red naming one slice 
 
 What caught it: the blind review of bet-3 slice 6.
 
-What happened: open. D61 rules the duplicate a plan-reader refusal, and the rest fold into the fix round.
+What happened: fixed — the plan reader refuses the doubled claim at load beside its siblings, the verdict is one spelling driven through all 64 report shapes, the link-in-heading slug matches the renderer, and the rest landed with their pins. Closure-checked.
 
 Caught by: blind-review — the slice 6 dispatch
 Class: coverage-gap
@@ -1090,7 +1090,18 @@ What it is: the fix's Lstat refuses a symlink only at the final path element. A 
 
 What caught it: the closure re-check, walking the fix with an intermediate symlink and mutating the page's new prose.
 
-What happened: open. The micro-round resolves the full path and checks containment, pins the cap number to the page, drives the boundary, and names code spans.
+What happened: fixed in the micro-round — both sides resolved, containment checked, the cap pinned to the page, the boundary driven, code spans named. The final re-check closed all four, and its one low is F99, fixed at landing.
 
 Caught by: blind-review — the slice 6 closure re-check
 Class: green-but-wrong
+
+## F99 — 2026-08-27 — The containment rule's distinction was undriven, fixed at landing
+
+What it is: replacing the Rel-based containment with a naive prefix check passed the whole suite, and under that mutant the sibling-directory escape — a directory whose name extends the root's — came back for real. The shipped code was right; nothing defended it against a future simplification.
+
+What caught it: the final re-check on slice 6, planting the mutant and building the escape.
+
+What happened: fixed at landing by the driver — one case, a design file behind a symlink into a sibling named root-evil, proven by swapping in the reviewer's exact mutant and watching the case die alone.
+
+Caught by: blind-review — the slice 6 final re-check
+Class: unrun-proof

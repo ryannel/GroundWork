@@ -103,7 +103,10 @@ var severities = []string{Blocking, Advisory}
 // honesty scan reads source and asks whether a test could ever fail, and the
 // stub check reads a board and asks whether a red is red for the right reason.
 // Filing the second under the first would misname it in every table and every
-// journal line it ever writes.
+// journal line it ever writes. trace joins under R12 and R13, and it is not the
+// plan row's kind either: the plan row asks whether a plan holds together on its
+// own terms, and the trace row asks whether it reaches the design it came from
+// and covers everything that design names.
 //
 // The rows themselves land across several bets. Naming their kinds now costs
 // nothing and catches a typo at registration, where a typo would otherwise
@@ -112,7 +115,7 @@ var kinds = []string{
 	"version", "manifest",
 	"honesty", "wiring", "token", "divergence", "reachability",
 	"flag", "mutate", "seal-verify", "run-evidence",
-	"plan", "chain", "board", "stub",
+	"plan", "chain", "board", "stub", "trace",
 }
 
 // maxRowIDBytes caps a row id. Row ids go on journal lines and into output
