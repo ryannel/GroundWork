@@ -1292,3 +1292,14 @@ What happened: recorded. The first cost shrinks when clones deepen or the traile
 
 Caught by: blind-review — the slice 7 closure re-check
 Class: other — ruled costs, recorded where a reader will look
+
+## F117 — 2026-08-27 — Three page sentences describe the previous version, and the help text hardcodes the scope
+
+What it is: the contract page's section 5 says a cut message is counted rather than judged, never names the trailer key set D65.4 turned load-bearing, and lists the counter's counts as the head no longer prints them — three unpinned sentences, drifted in one round, in the one place a parsed shape is written down. The page also owes the writer a warning: reproducing a whole trailer block in a commit message reads as a squash, permanently. And the close verb's help text writes the scope by hand, pinned to nothing, while R14 says later bets extend that scope.
+
+What caught it: the slice 7 final re-check, holding each sentence to the line the code prints.
+
+What happened: open. The last round fixes the sentences, pins each to the thing it describes, and ties the help text to the scope function.
+
+Caught by: blind-review — the slice 7 final re-check
+Class: parallel-definition
