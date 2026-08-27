@@ -29,7 +29,11 @@ import "fmt"
 // that same board and judges the reds: a proof the plan expects red has to fail
 // at a real assertion, and one that passes with a test that cannot fail, that
 // skips, that will not build or that dies before its assertion is red with the
-// reason named.
+// reason named. trace reads the plan in both directions: every proof's design
+// anchor has to resolve, and every facing item a bet declares has to be claimed
+// by exactly one of its slices or deferred with a reason — and beside those it
+// reads the record for the artifacts a bet stands on, naming every bet whose
+// premises point at one the record says was amended or withdrawn.
 //
 // Order is registration order, and it is the order the digest is computed in,
 // so a row joins the end of this list rather than the middle of it.
@@ -50,6 +54,7 @@ func Default() *Registry {
 	reg.Register(sealRow())
 	reg.Register(boardRow())
 	reg.Register(stubRow())
+	reg.Register(traceRow())
 
 	return reg
 }

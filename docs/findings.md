@@ -1006,3 +1006,102 @@ What happened: all nine fixed in the fix round, the plan-file record line first 
 
 Caught by: blind-review — the slice 5 dispatch
 Class: coverage-gap
+
+## F91 — 2026-08-26 — A mark never clears
+
+What it is: once the record holds an amendment, every bet whose premises name that artifact is marked, forever. Nothing lets a bet answer the mark — re-examine the premise, re-affirm, and clear. R13 gives the signal and no verb takes the answer. Loud, honest, and permanent is still a ratchet.
+
+What caught it: the slice 6 builder, pricing its own ruling.
+
+What happened: recorded. The answering verb belongs to the bet-close machinery the ladder already places later; the bet 3 close-out names its owner.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
+
+## F92 — 2026-08-26 — The sealed half of R12 is a state, not yet a check, on this repo
+
+What it is: R12 says anchors resolve inside a sealed design file, and this repo's design carries no seal — so the row's sealed half reads (unsealed) on every line, a state it names but cannot enforce. The builder rightly refused to grant the seal itself (D60.6).
+
+What caught it: the slice 6 builder, reading its own verify line.
+
+What happened: the driver grants the unsigned design seal after the slice lands, from the landed tree — the sign-off made by the one who reviewed, not the one who built. Unsigned stays non-blocking per R4 until the owner's key exists.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
+
+## F93 — 2026-08-26 — Three smalls from the trace build
+
+What it is: a proof's from: path is not held to its bet's design: list, so a proof can cite a file its bet never declared as design. A journal line nobody can parse leaves the row unrunnable even when no bet declares premises — the safe direction, but wider than it needs to be. And a setext heading makes no anchor here, so a design file styled that way has no resolvable anchors — named in the contract page rather than silently.
+
+What caught it: the slice 6 builder, walking its own edges.
+
+What happened: recorded. The from-versus-design check is one rule the next slice in this package can add; the others stand as named boundaries.
+
+Caught by: worker — the slice 6 build
+Class: coverage-gap
+
+## F94 — 2026-08-27 — An uncapped read lets one file kill the whole battery
+
+What it is: the trace row reads design files with no size cap, where every other reader in this repo caps. A 400-megabyte committed design file — or a committed symlink to /dev/zero — takes down the entire verify process: no summary, no journal line, nothing. The comment claiming the plan reader's path check protects the read is false: a committed symlink points wherever it likes, and the row's verdict can be driven by a file nobody reviewed. Nothing leaks — file contents never reach the evidence — but a battery one file can kill is F53's class at the process level.
+
+What caught it: the blind review of bet-3 slice 6, with a reproduced out-of-memory kill.
+
+What happened: fixed across the fix rounds — the read is capped at the manifest's 256 KiB, symlinks are refused at every element by resolving both sides and checking containment, and each refusal is a named verdict with the battery alive. Closure-checked twice.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: green-but-wrong
+
+## F95 — 2026-08-27 — The record says clauses and sealed docs; the code and the ruling say neither
+
+What it is: the contract page's section 4.4 says the clauses name which unsealed things and how many — and the row passes nil clauses, by design, per D60.7 ratified in the same commit. And the slice's own plan file still claims "the sealed plan and the sealed design docs, read as committed" where D60.5 rules working-tree reads and F92 records the design unsealed. Two records contradicting the code and the rulings they shipped beside.
+
+What caught it: the blind review, reading the page against the code.
+
+What happened: fixed in the fix round — the page says named-not-counted with the arithmetic reason, and the plan file says what is true. Closure-checked.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: record-not-written
+
+## F96 — 2026-08-27 — Two ratified words silently re-read
+
+What it is: R13 says an amendment marks every later bet, and the code marks every bet in the repo, across programs, with no time input. R12 says a facing id is claimed by exactly one slice's proof, and the code reads the slice's facing list. Both readings are likely right — a citing bet is later than the seal it cites by construction, and no per-proof facing field exists — but nobody ruled them, and the page restates R13 without its word.
+
+What caught it: the blind review, holding the code to the ruling's words.
+
+What happened: D61 rules both readings, the page carries them, and two new table rows drive the cross-program and first-bet marks. Closure-checked.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: record-not-written
+
+## F97 — 2026-08-27 — A useless duplicate line, and six lows
+
+What it is: a slice listing one facing id twice is a trace red naming one slice twice — a line that tells the reader nothing — and the state is missing from the verdict table that reads as complete. Beside it: the red rule is written twice and the page's proof goes through the copy the row does not use; the table's middle column is a gut cell; the slug rule diverges from a real renderer on a heading holding a link; the premise-id charset rests on two rules that agree by luck, unpinned; one red subtest skips the plan-row check its siblings make; and two sentences drift past the register.
+
+What caught it: the blind review of bet-3 slice 6.
+
+What happened: fixed — the plan reader refuses the doubled claim at load beside its siblings, the verdict is one spelling driven through all 64 report shapes, the link-in-heading slug matches the renderer, and the rest landed with their pins. Closure-checked.
+
+Caught by: blind-review — the slice 6 dispatch
+Class: coverage-gap
+
+## F98 — 2026-08-27 — The symlink refusal guards the last element, and the record claims the path
+
+What it is: the fix's Lstat refuses a symlink only at the final path element. A committed symlink at an intermediate directory is followed, and the row resolved an anchor in a file outside the repo, green. The other gates hold through it — size and regular-file still bite — so it is an escape, not a crash, and nothing leaks. What gates is the record: the new comment and the page both say a symlink is refused rather than followed, a narrower version of the exact false claim F94 recorded. Beside it, the same round re-entered F95's class: the page states the 256 KiB cap and nothing holds the number to the code — while the plan parser's caps have had exactly that pin since slice 1 — and the cap's boundary and the code-span divergence in link stripping are undriven or unnamed.
+
+What caught it: the closure re-check, walking the fix with an intermediate symlink and mutating the page's new prose.
+
+What happened: fixed in the micro-round — both sides resolved, containment checked, the cap pinned to the page, the boundary driven, code spans named. The final re-check closed all four, and its one low is F99, fixed at landing.
+
+Caught by: blind-review — the slice 6 closure re-check
+Class: green-but-wrong
+
+## F99 — 2026-08-27 — The containment rule's distinction was undriven, fixed at landing
+
+What it is: replacing the Rel-based containment with a naive prefix check passed the whole suite, and under that mutant the sibling-directory escape — a directory whose name extends the root's — came back for real. The shipped code was right; nothing defended it against a future simplification.
+
+What caught it: the final re-check on slice 6, planting the mutant and building the escape.
+
+What happened: fixed at landing by the driver — one case, a design file behind a symlink into a sibling named root-evil, proven by swapping in the reviewer's exact mutant and watching the case die alone.
+
+Caught by: blind-review — the slice 6 final re-check
+Class: unrun-proof

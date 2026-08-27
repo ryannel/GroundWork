@@ -391,3 +391,36 @@ func plantOnMirror(t *testing.T, dir string, add map[string]string) {
 		t.Fatalf("could not point the mirror at the planted commit: %v", err)
 	}
 }
+
+// SubjectOf is TagName's inverse, and it reads only a name TagName could have
+// made. A caller that took the subject off any other ref name would be reading a
+// second rule about what a seal tag is called, and the two would drift the first
+// time a kind or a charset moved.
+func TestSubjectOfReadsASealTagAndRefusesEverythingElse(t *testing.T) {
+	for _, kind := range Kinds() {
+		tag, err := TagName(kind, "b3_design")
+		if err != nil {
+			t.Fatalf("the tag name for %s did not build: %v", kind, err)
+		}
+
+		got, ok := SubjectOf(tag)
+		if !ok || got != "b3_design" {
+			t.Errorf("SubjectOf(%q) is %q, %v; want b3_design, true", tag, got, ok)
+		}
+	}
+
+	for _, bad := range []string{
+		"",
+		"v1.0",
+		"refs/heads/main",
+		"seal/design",
+		"seal/design/",
+		"seal/nope/b3_design",
+		"seal/design/Not-An-Id",
+		"seal/design/b3_design/extra",
+	} {
+		if got, ok := SubjectOf(bad); ok {
+			t.Errorf("SubjectOf(%q) read the subject %q, and that name is not a seal tag's", bad, got)
+		}
+	}
+}

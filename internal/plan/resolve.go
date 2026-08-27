@@ -330,11 +330,23 @@ func resolveSlice(root string, slice Slice, betAt map[string]*Bet) []string {
 	for _, item := range bet.Facing {
 		facing[item.ID] = true
 	}
+
+	// A slice claims an item once. Claiming it twice is a doubled declaration,
+	// and every other doubled declaration is refused here — a bet listing one
+	// slice twice, a program listing one bet twice. D61 ruling 3 puts this one
+	// beside them: read further on, one slice claiming one item twice is a
+	// traceability red that names one slice twice and tells a reader nothing.
+	claimed := map[string]bool{}
 	for _, id := range slice.Facing {
-		if !facing[id] {
+		switch {
+		case claimed[id]:
+			problems = append(problems, fmt.Sprintf("%s claims the facing item %s twice", slice.Path, id))
+		case !facing[id]:
 			problems = append(problems, fmt.Sprintf("%s claims the facing item %s, and %s does not declare it",
 				slice.Path, id, bet.Path))
 		}
+
+		claimed[id] = true
 	}
 
 	return problems

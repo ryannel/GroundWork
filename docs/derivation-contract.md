@@ -1,6 +1,6 @@
 # The derivation contract
 
-**Status:** live. Section 1 lands with bet 3 slice 1, section 2 with slice 3, section 3 with slice 4.
+**Status:** live. Section 1 lands with bet 3 slice 1, section 2 with slice 3, section 3 with slice 4, section 4 with slice 6.
 **Audience:** anyone writing a file the tools read, and anyone changing a tool that reads one.
 **Scope:** the shapes GroundWork parses, and what it does with each one.
 
@@ -425,3 +425,107 @@ Everything the row could not reach is unrunnable, never green and never red: a p
 A shallow clone is not unrunnable. It is read, and the board says the history was short. History a clone cannot see can only leave a slice unlanded, which moves a proof toward expected red — the flagged direction, never a silent pass over a regression.
 
 `groundwork verify` also runs a `stub` row, beside the board row and off the same derivation. It is red when a proof the plan expects red is not red for the right reason, and when a surface did not build or died before its tests finished. Its line opens with the counts too, and it says what the honesty scan found rather than what is true of the repo — the scan is written to miss rather than to guess, and a line claiming more than that would be claiming the scan's blind spots as clean ground.
+
+---
+
+## 4. Two-direction traceability and premises
+
+Section 1 says what a plan file holds. This section says what the plan has to reach: the design it came from, and every user-visible thing that design names.
+
+Two directions, and a signal beside them.
+
+**Backward.** Every proof carries `from: <design-path>#<anchor>`. The path and the shape are section 1's; the anchor is this section's. It has to name a heading somebody wrote in that file.
+
+**Forward.** Every id in a bet's `facing` list is claimed by exactly one of that bet's slices, or listed under `deferred` with a reason.
+
+**Premises.** A bet's `premises` are the ids of sealed artifacts it stands on. Amending or withdrawing one of those marks every bet whose premises name it.
+
+### 4.1 What an anchor is
+
+An anchor is the heading slug a markdown renderer makes, which is what somebody clicking a heading link in a browser gets. The rule, applied to the heading's text:
+
+- Lowercase it.
+- Drop everything that is not a letter, a digit, a dash or an underscore.
+- Turn each space into a dash.
+
+Nothing is collapsed. An em dash between two spaces leaves two dashes behind, because the dash it sits between is dropped and the two spaces are not.
+
+| Heading | Anchor |
+|---|---|
+| `## R1 — The first ruling (B7)` | `r1--the-first-ruling-b7` |
+| ``### 1.1 `program.md` `` | `11-programmd` |
+
+A link in a heading contributes its words and not its target: `[Two-direction traceability](../spec/loop.md)` slugs as `two-direction-traceability`, because a renderer builds the anchor from the text it shows.
+
+Inline links only, and the two limits are worth naming. A reference-style link and an image are not read, so a heading holding one makes an anchor this cannot resolve. And the stripping runs inside a code span too, where a renderer would leave the brackets alone: a heading reading ``## The `[a](b)` form`` slugs as `the-a-form` here and `the-ab-form` on GitHub. Both are narrow, and both fail the same way — an anchor nobody can resolve, named on the row's line — which is the direction to be wrong in.
+
+The second heading of one name takes a `-1`, the third a `-2`, and so on.
+
+A heading is an ATX heading: one to six `#`s, then a space. A `#` inside a fenced code block is somebody showing markdown, and it makes no anchor. An underlined heading — text with `===` or `---` beneath it — is not read. A design file that uses one has anchors this cannot resolve, and the honest answer is to write the heading with `#`s.
+
+The design file is read as it sits in the working tree, the same read the plan reader gives the plan it is being held against. R15 moves committed-content reads onto the seal machinery in a later slice, and half of that here would leave one row reading two repos at once.
+
+Three things are refused before a byte is read, and each is a dangling anchor with its reason named:
+
+- A file over 262144 bytes, which is 256 KiB. A design doc is prose, and prose that long is a mistake or an attack; an uncapped read is one committed file away from taking the whole battery down. The cap is on the read, not on the size the file claims, because a stat can be out of date the moment it returns.
+- A file that is a symlink. The plan reader keeps the written path inside the repo, and a committed symlink sitting at such a path still points wherever it likes.
+- A file whose resolved path leaves the repo: it `resolves outside this repo`, in the row's own words. Refusing the last element is not enough — a symlink at any directory along the way walks the read out just as surely — so the whole path is resolved and held inside the resolved root.
+- Anything that is not a regular file. A read of a named pipe never returns.
+
+### 4.2 What a claim is
+
+A slice claims a facing id by naming it in its own `facing` list. The claim is for the bet whose directory the slice sits in. A slice elsewhere naming the same id is a reference the `plan` row already refuses, and it is not read as a claim here.
+
+R12 says a facing id is claimed by exactly one slice's proof. The slice's facing list is the claiming unit, because a proof carries no facing field and the slice is the unit that lands (D61 ruling 2).
+
+A slice that lists one facing id twice is refused by the `plan` row, at load, like every other doubled declaration. It never reaches this row.
+
+A deferral is a claim too: it is the bet saying it does not deliver the item in this bet. So an id both claimed by a slice and listed under `deferred` is two answers to one question, and it reads as claimed twice.
+
+### 4.3 What the record says about an artifact
+
+An artifact a `premises` entry names is a seal subject: the `<subject-id>` half of a `seal/<kind>/<subject-id>` tag, spelled the way section 2 spells one.
+
+What the journal's seal lines say about that tag is what the row reads:
+
+- A `revoked` line with a `granted` line after it is an amendment. The artifact moved.
+- A `revoked` line with nothing granted after it is a withdrawal. That is where a dying amendment lands too.
+- No `revoked` line at all is a seal that stands.
+- No seal of that subject at all is the unsealed state.
+
+R13 says an amendment marks every later bet whose premises name the artifact. The mark falls on every bet whose premises name it — closed bets included, and across programs (D61 ruling 1). Later is satisfied by construction: a premise is a sealed artifact, so a bet citing one came after it. And a closed bet standing on a premise that moved is exactly what the signal exists to surface.
+
+A mark does not clear. The record holds the amendment, so a bet that stood on the moved artifact keeps its mark until somebody rules on what clears one. Re-reading a bet against an artifact that moved under it is a person's work, and this bet builds no mechanism for a bet to answer.
+
+### 4.4 What the tools do with this
+
+`groundwork verify` runs a `trace` row.
+
+| What the row read | What it is | Is it red |
+|---|---|---|
+| The anchor names a heading in the file | Traced | no |
+| The anchor names no heading in the file | A proof pointing at nothing | yes |
+| The design file could not be read | An anchor nobody could resolve | yes |
+| No seal covers the design file | Unsealed, and loud | no |
+| A facing id one slice claims | Claimed once | no |
+| A facing id no slice claims and no deferral records | Unclaimed and unrecorded | yes |
+| A facing id two slices claim | Claimed twice | yes |
+| A facing id one slice claims and the bet defers | Two answers to one question | yes |
+| A facing id the bet defers with a reason | Recorded | no |
+| A premise whose artifact the record says was amended | A bet standing on moved ground | no |
+| A premise whose artifact the record says was withdrawn | A bet standing on moved ground | no |
+| A premise in one program naming an artifact sealed under another | A bet standing on moved ground | no |
+| A premise of the first bet on a ladder whose artifact moved | A bet standing on moved ground | no |
+| A premise no seal names | Unsealed, and loud | no |
+
+The row's line opens with the counts, because the line is cut from the end (D33): how many proofs and how many dangling anchors, how many facing ids and how many unclaimed and how many claimed twice, and how many bets are marked. Then the things it found, named one by one.
+
+Nothing being sealed is loud and never blocking, which is R4's ground. There is no key in this environment the agents cannot read, so a rule that blocked on a missing seal would either put the key inside their reach or stop every run. The head carries `(unsealed)` whenever a design file the row read carries no seal, or a premise names an artifact no seal names, and each unsealed thing is named beside the row's other findings. It is named rather than counted: a count of them would have to sit in the head to be worth anything, and the head is already full at its widest. The head says that something is unsealed; the names say which.
+
+When the owner's key signs seals, that flips with R4's own flip, and the flip is a major battery bump.
+
+A mark is loud and never red for a different reason: a bet has no way to answer one, and a red nobody can clear is friction, which is how a row ends up permanently waived.
+
+A repo with no `docs/plan` directory is green. There is nothing to trace in either direction, so nothing can have been misstated, and the line claims no more than that.
+
+Everything the row could not reach is unrunnable: a plan that will not read, a plan naming no proof, no facing item and no premise, and a git that would not answer. A plan that will not read is the `plan` row's red, and two rows red for one fault is two reds for one fix.

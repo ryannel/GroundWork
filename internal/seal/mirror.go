@@ -446,6 +446,24 @@ func CheckTagName(tag string) error {
 	return checkTagName(tag)
 }
 
+// SubjectOf returns the subject id a seal tag names, and whether the name is a
+// seal tag's at all.
+//
+// It is the inverse of TagName, and it lives here so that there is one rule
+// about what a seal tag is called (D54 ruling 1). A caller that cut the name
+// apart itself would be a second spelling of that rule, and the two would drift
+// the first time a kind or a charset moved.
+func SubjectOf(tag string) (string, bool) {
+	if err := checkTagName(tag); err != nil {
+		return "", false
+	}
+
+	rest, _ := strings.CutPrefix(tag, tagPrefix)
+	_, subject, _ := strings.Cut(rest, "/")
+
+	return subject, true
+}
+
 // checkTagName rejects a name that is not a seal tag's.
 //
 // A mirrored file's name becomes a ref name on restore. Reading it as a seal
