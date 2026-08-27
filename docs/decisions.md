@@ -809,3 +809,20 @@ The ruling: bet 3 does not close at 12.0. D41 is the precedent, followed in full
 One honest note for the record: closing now with the losses named was considered, because D43 closed bet 2 with a clause partly met. It does not apply. Bet 2's unmet part sat on surfaces ruled out of the bet before slice 1. F119 and F125 sit inside bet 3's own named scope, and the ladder names the stub styles one by one.
 
 Why: the ladder's worth is that its conditions can be shown false. This one was, twice. A close that shrugged at that would make the grading a show, not a check. The grading has now caught real faults, two bets running.
+
+## D70 — 2026-08-27 — The b3s9 walk ratified: eight rulings
+
+The walk's record stands in docs/evidence/bet-3/b3s9-walk.md. The driver ratifies all eight, as proposed.
+
+1. The landing rule. The oldest claim stands — D57.4 unchanged. The contract states the writing convention: no Slice trailer rides a commit before the landing. The board gains a fourth flag, "landing not proven". It fires only when a proof its plan expects green is not green and HEAD is that slice's own landing commit. It is counted apart, named as a note, and never red. The walk's own finding is recorded with it: no trailer-ordering rule fixes F124, because at a red-proof commit the oldest and newest claim are the same commit. F120 and F124 are one fault at two commits and two different fixes. The cost is named: commits between a red commit and its landing still read falsely behind.
+2. The stub catch. A one-hop bare-identifier alias trace inside the honesty scan's self-comparison judgment. Symmetric, straight-line only, dropped by any intervening write or escape. No sixth shape name, so D54 holds. Named limits: two hops, arithmetic identities, selector aliases, helper-returned copies, two literals.
+3. Ladder versus contract. The contract is truth and the milestone is the unit, because sealed R10 says so. The ladder's bet 3 clause is corrected under this ruling, and the corrected clause is stricter: no board goes red on a repo that commits its tests first. The correction follows a failed grade and says so where a reader meets it.
+4. The wiring sentence. The constant is reworded to state the rule that condemned the hit: on profile library an export is dead only when nothing at all names it. Position unchanged — the line has no byte budget for an undroppable clause.
+5. F122's posture. The mutate row's unrunnable on a mid-bet repo is the right answer and stays. A legibility clause counting blocked targets is a candidate for the next battery bet. No code in b3s9.
+6. F127's posture. The claiming unit stays the slice, per D61.2. The hole is named as a limit on the contract page. Closing it changes the plan's shape and wants its own bet.
+7. The fresh fixtures. Two holdout4 repos as the walk specifies. The authoring brief may name the repo shapes and the ladder's three public stub styles. It never names the rules the checks apply, and never any phrase from this walk.
+8. The amendment set. Three plan-file changes, spoken by the owner or not at all: bet.md lists b3s9, b3s8.md gains its owed record, b3s9.md joins the covered set. F131's forward lesson rides here: a slice declares its records when its plan is written, because a records list freezes at sealing.
+
+Also assigned: F138's one-line render fix and F139's comment fix join b3s9, which opens both files anyway.
+
+Why: the walk did what a walk is for. It split a fault the ledger had fused — F120 and F124 wanted different fixes, and the deferred ruling would have fixed one and shipped the other.

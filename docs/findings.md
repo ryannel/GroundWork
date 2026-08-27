@@ -1533,3 +1533,25 @@ What happened: record-only here. The decision stands as written, because the led
 
 Caught by: blind-review — the slice 8 closure re-check
 Class: other — a ruling whose why claims more than its evidence measured
+
+## F138 — 2026-08-27 — The board's git line counts every commit while its words say trailers
+
+What it is: the board prints "read from Slice trailers on N commits". N is the whole history's commit count, not the count of commits carrying trailers. On sift at 035d288 it printed 2 commits over a history where one commit carried a trailer. A reader takes the words and the number to be about the same thing, and they are not.
+
+What caught it: the b3s9 walk, checking the walk tables line by line while designing the landing gate.
+
+What happened: open. The fix is one line's wording in the render, and it joins b3s9's board edits, which open that file anyway.
+
+Caught by: worker — the b3s9 walk
+Class: other — a count line that names a different number than its words
+
+## F139 — 2026-08-27 — History.Head's comment understates what the field holds
+
+What it is: the comment on History.Head reads "the commit the claims were read at". The field holds the true HEAD. The trailer read walks git log over the whole history. The first commit is HEAD, whether or not it carries a trailer. The b3s9 landing gate depends on exactly that. A later reader trusting the comment could narrow the field to the newest trailer-carrying commit and silently break the gate.
+
+What caught it: the b3s9 walk, tracing where the gate's HEAD comparison gets its value.
+
+What happened: open. The comment gains the stronger sentence in b3s9, which opens the board package anyway.
+
+Caught by: worker — the b3s9 walk
+Class: record-not-written
