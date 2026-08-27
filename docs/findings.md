@@ -1105,3 +1105,36 @@ What happened: fixed at landing by the driver — one case, a design file behind
 
 Caught by: blind-review — the slice 6 final re-check
 Class: unrun-proof
+
+## F100 — 2026-08-27 — A board red that did not reproduce, and the flake machinery could not see
+
+What it is: the first verify on a fresh copy printed the board red — ten behind, naming a proof as failed in the run — and the second run on the same copy with the same binary printed it green, as did every direct run of the proofs. A false red in the board's proof run, from before this slice's rows existed. The flake machinery rerecords a red that disagrees on rerun, but both attempts inside that one run agreed, so it never fired.
+
+What caught it: the slice 7 builder, running its final verify twice.
+
+What happened: recorded against the board row, open. The next board round owns the hunt: something in the row's filtered proof run can fail proofs that pass everywhere else, and one non-reproducing sighting is exactly the shape that needs a trap, not a shrug.
+
+Caught by: worker — the slice 7 build
+Class: green-but-wrong
+
+## F101 — 2026-08-27 — A pin asserted yesterday's world, and the world moved
+
+What it is: the seal row's this-repo test asserted the repo holds no seal tag, and the driver's design-seal grant made that false the same day. The pin broke for every build after the grant. F87's lesson in a test: a pin on a world-state nobody controls breaks the moment the world legitimately moves.
+
+What caught it: the slice 7 builder, finding the test red before touching anything.
+
+What happened: fixed in the slice — the test asks git for the fact and holds the row to whichever green is honest. The fix rides with the slice.
+
+Caught by: worker — the slice 7 build
+Class: green-but-wrong
+
+## F102 — 2026-08-27 — Git dates every file in a shallow clone, wrong at the edge
+
+What it is: at a shallow clone's edge the whole tree hangs off one grafted commit, so a record dated there reads as current when it is stale. The builder's rewritten blanking harness — after its own first version filled only two cells of F55's table and reported false kills — exposed this along with two other real gaps.
+
+What caught it: the slice 7 builder's own four-way sweep, once the harness checked its clean-tree baseline per rule.
+
+What happened: fixed in the slice with the waiver authority's own test: a parentless commit inside a shallow clone reads as unjudged, and the row comment and page claim only what the code keeps.
+
+Caught by: worker — the slice 7 build
+Class: unrun-proof

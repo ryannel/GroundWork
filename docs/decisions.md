@@ -706,3 +706,19 @@ Three rulings from the slice 6 review.
 3. A facing id repeated in one slice's list is the plan reader's refusal, at load, like every other doubled declaration — never a trace red naming one slice twice. The verdict table stays complete because the state stops being reachable.
 
 Why: the first two make the code's readings the recorded ones, with the reasoning that makes each safe. The third puts a two-ways-of-reading defect where all its siblings already live.
+
+## D62 — 2026-08-27 — Slice 7 rulings: the close-out rows' edges, taken as built
+
+Nine calls from the record slice, made by the builder and ratified by the driver.
+
+1. A slice's last code commit is the newest commit carrying its Slice trailer, merges not read — D56.4's precedent.
+2. Predates is ancestry, never clock time, and a record landed in the slice's own commit is not stale.
+3. Landed slices only owe records; an unlanded slice is counted as waiting.
+4. A squash is read from the gap between the Slice lines a message quotes and the ones git's trailer parser reads — measured, not guessed.
+5. Two shallow postures, both right: the waiver counter is unrunnable unconditionally, because a partial history makes its threshold count wrong toward the pass; record and history name the short history and keep judging, because their misses leave things unjudged, never misjudged. This extends D56.3's safe-direction reasoning by one step, and each row's comment carries its half.
+6. A finding names a row when an entry title in the findings ledger holds the row id as a whole word, read through the findings package — one rule, not two.
+7. The close scope is a checked list: verify --close refuses a battery missing seal-verify, board, trace or record. The suite stays D55's manual line until F70's row exists, and the code and page say so.
+8. The lock is read twice — working tree and HEAD blob — and the difference is the drift. An uncommitted bump reads as red, which is R15's honest answer, and this slice's own build showed it.
+9. The counter counts the waiver files present now; a deleted waiver takes its grants with it, named as a limit for the seal machinery's later hardening.
+
+Why ratify: five is the one with reasoning worth keeping — the same missing history is unsafe for one row and safe for two others, and the difference is whether the miss corrupts a count or leaves a thing unjudged.
