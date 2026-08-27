@@ -335,6 +335,9 @@ func newRepo(t *testing.T) string {
 		{"init", "-b", "main"},
 		{"config", "user.name", "Test Person"},
 		{"config", "user.email", "test@example.com"},
+		// D64 ruling 9: a fixture has nothing to sign, and the host's signing
+		// shim dies under load, which reads as a proof that failed (F104).
+		{"config", "commit.gpgsign", "false"},
 	} {
 		cmd := exec.Command("git", append([]string{"-C", dir}, args...)...)
 		if out, err := cmd.CombinedOutput(); err != nil {

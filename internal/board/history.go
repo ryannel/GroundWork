@@ -1,6 +1,8 @@
 package board
 
 import (
+	"slices"
+
 	"github.com/ryannel/groundwork/internal/journal"
 )
 
@@ -8,6 +10,20 @@ import (
 // is what makes landed-ness readable from git, and it is what keeps expected
 // state out of the plan file (R8).
 const TrailerKey = "Slice"
+
+// trailerKeys is every key this repo's own commits write as a trailer: the two
+// the working agreement fixes, and this one.
+//
+// It lives here because this is where a trailer key is spelled. A reader that
+// has to tell a quoted trailer block from a paragraph of prose asks this rather
+// than keeping a list of its own, and a test holds the list to the pages that
+// declare it (D65 ruling 4).
+var trailerKeys = []string{"Bet", TrailerKey, "Tests"}
+
+// TrailerKeys returns the keys this repo's own commits write as trailers.
+func TrailerKeys() []string {
+	return slices.Clone(trailerKeys)
+}
 
 // Claim is one Slice trailer, as git found it. Nothing here is judged yet: the
 // derivation does the judging, in one place, so a claim can never be counted by

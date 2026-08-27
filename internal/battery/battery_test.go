@@ -25,6 +25,9 @@ func newRepo(t *testing.T) string {
 		{"init", "-b", "main"},
 		{"config", "user.name", "Test Person"},
 		{"config", "user.email", "test@example.com"},
+		// D64 ruling 9: a fixture has nothing to sign, and the host's signing
+		// shim dies under load, which reads as a proof that failed (F104).
+		{"config", "commit.gpgsign", "false"},
 	} {
 		runGit(t, dir, args...)
 	}
@@ -59,7 +62,11 @@ func writeFile(t *testing.T, path, content string) {
 	}
 }
 
-// writeLock puts a lock file at the root of the repo at dir.
+// writeLock puts a lock file at the root of the repo at dir, without
+// committing it. A fixture that wants a version the version row will stand
+// behind wants commitLock instead: R15 reads the declared version from the
+// HEAD blob, because an uncommitted one is not a version anybody can be held
+// to.
 func writeLock(t *testing.T, dir, version, digest string) {
 	t.Helper()
 
@@ -784,7 +791,7 @@ func TestRunFailsWhenItCannotJournal(t *testing.T) {
 
 func TestVersionRowIsGreenWhenTheLockMatches(t *testing.T) {
 	dir := newRepo(t)
-	writeLock(t, dir, "0.1", versionOnlyDigest)
+	commitLock(t, dir, "0.1", versionOnlyDigest)
 
 	res, err := Run(dir, versionOnly())
 	if err != nil {
@@ -806,7 +813,7 @@ func TestVersionRowIsGreenWhenTheLockMatches(t *testing.T) {
 
 func TestVersionRowIsRedOnDrift(t *testing.T) {
 	dir := newRepo(t)
-	writeLock(t, dir, "0.1", "r0000000")
+	commitLock(t, dir, "0.1", "r0000000")
 
 	res, err := Run(dir, versionOnly())
 	if err != nil {
@@ -959,6 +966,9 @@ func TestDefaultHoldsExactlyTheShippedRows(t *testing.T) {
 		"board/board/blocking",
 		"stub/stub/blocking",
 		"trace/trace/blocking",
+		"record/record/blocking",
+		"waiver-count/waiver-count/blocking",
+		"history/history/blocking",
 	}
 	if !slices.Equal(got, want) {
 		t.Fatalf("the default battery holds %v, want %v", got, want)

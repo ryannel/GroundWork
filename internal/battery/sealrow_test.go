@@ -286,17 +286,39 @@ func TestSealRowEvidenceNeverCarriesAMachinePath(t *testing.T) {
 	}
 }
 
-// The row runs against the repo it ships in. This repo has granted no seal yet:
-// there is no key outside the agents' reach to sign one with, which is R4's
-// whole reason. So the green here is the honest one — nothing sealed, nothing
-// that can have moved — and it must not read as though a seal was checked.
+// The row runs against the repo it ships in, and this repo's seal state moves:
+// it held no seal at all for three bets, and the driver granted the bet 3
+// design seal after slice 6 landed (D60 ruling 6). So the test reads git for
+// the fact rather than assuming one, and holds the row to whichever green is
+// the honest one.
+//
+// Nothing sealed is green because nothing sealed can have moved, and the line
+// has to say so rather than reading as though a seal was checked. A seal that
+// stands is green because every hash it covers still matches, and the line has
+// to say how many seals it read — a green that named no number would be the
+// same sentence either way.
 func TestSealRowIsGreenOnThisRepo(t *testing.T) {
 	res := runRow(t, ".", "seal-verify")
 	if res.Outcome != Green {
 		t.Fatalf("this repo's own seal-verify row came out %s: %s", res.Outcome, res.Evidence)
 	}
-	if !strings.Contains(res.Evidence, "no seal") {
-		t.Errorf("the row said %q, and this repo holds no seal tag", res.Evidence)
+
+	tags := runGit(t, ".", "tag", "--list", "seal/*")
+	if strings.TrimSpace(tags) == "" {
+		if !strings.Contains(res.Evidence, "no seal") {
+			t.Errorf("the row said %q, and this repo holds no seal tag", res.Evidence)
+		}
+
+		return
+	}
+
+	sealed := len(strings.Split(strings.TrimSpace(tags), "\n"))
+	if !strings.Contains(res.Evidence, fmt.Sprintf("%d seal", sealed)) {
+		t.Errorf("the row said %q, and this repo holds %d seal tags", res.Evidence, sealed)
+	}
+	if !strings.Contains(res.Evidence, "still matches") {
+		t.Errorf("the row said %q, and a green over a seal that stands says every hash still matches",
+			res.Evidence)
 	}
 }
 

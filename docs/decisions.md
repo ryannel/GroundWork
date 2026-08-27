@@ -706,3 +706,57 @@ Three rulings from the slice 6 review.
 3. A facing id repeated in one slice's list is the plan reader's refusal, at load, like every other doubled declaration — never a trace red naming one slice twice. The verdict table stays complete because the state stops being reachable.
 
 Why: the first two make the code's readings the recorded ones, with the reasoning that makes each safe. The third puts a two-ways-of-reading defect where all its siblings already live.
+
+## D62 — 2026-08-27 — Slice 7 rulings: the close-out rows' edges, taken as built
+
+Nine calls from the record slice, made by the builder and ratified by the driver.
+
+1. A slice's last code commit is the newest commit carrying its Slice trailer, merges not read — D56.4's precedent.
+2. Predates is ancestry, never clock time, and a record landed in the slice's own commit is not stale.
+3. Landed slices only owe records; an unlanded slice is counted as waiting.
+4. A squash is read from the gap between the Slice lines a message quotes and the ones git's trailer parser reads — measured, not guessed.
+5. Two shallow postures, both right: the waiver counter is unrunnable unconditionally, because a partial history makes its threshold count wrong toward the pass; record and history name the short history and keep judging, because their misses leave things unjudged, never misjudged. This extends D56.3's safe-direction reasoning by one step, and each row's comment carries its half.
+6. A finding names a row when an entry title in the findings ledger holds the row id as a whole word, read through the findings package — one rule, not two.
+7. The close scope is a checked list: verify --close refuses a battery missing seal-verify, board, trace or record. The suite stays D55's manual line until F70's row exists, and the code and page say so.
+8. The lock is read twice — working tree and HEAD blob — and the difference is the drift. An uncommitted bump reads as red, which is R15's honest answer, and this slice's own build showed it.
+9. The counter counts the waiver files present now; a deleted waiver takes its grants with it, named as a limit for the seal machinery's later hardening.
+
+Why ratify: five is the one with reasoning worth keeping — the same missing history is unsafe for one row and safe for two others, and the difference is whether the miss corrupts a count or leaves a thing unjudged.
+
+## D63 — 2026-08-27 — The register baseline is pinned, and the ledgers get a reader
+
+Three rules from F103.
+
+1. The register baseline is bet 0's, not the latest landed code. A reviewer checks new prose against a mean near 15 words per sentence, and drift from there is drift, even when the file next door already drifted.
+2. The driver's ledger entries get the fresh-reader pass the agreement always required. Before a ledger commit, a fresh agent reads the new entries for register alone. The driver writes after reading dense reports, which is exactly when the agreement says the check is needed.
+3. The words machinery earns a mechanical home for this — a landing-checklist line now, a candidate row when a later bet touches the battery. The measurement that caught F103 runs at every landing until then.
+
+Why: the old corpus grew through the record, not the code. The record is the one place drift compounds fastest, because everything reads it.
+
+## D64 — 2026-08-27 — Slice 7 review rulings, and two ledger corrections
+
+Nine rulings from the slice 7 review.
+
+1. A close fails unless every scope row came back green or waived, and the refusal is driven through the flag itself. A close that skipped what a close checks is the missing ceremony step, whatever the exit code says.
+2. The record row counts a slice whose landing this clone cannot see apart from one that has not landed — an unseen state, in the head — and the page says which is which. The shallow-edge guard gains the one-commit-deeper fixture that keeps it narrow.
+3. D62.1 is corrected: the oldest claim is a slice's landing, per D57.4, and the citation of D56.4 was the driver writing from the report — F62's class, now on the driver's side of the ledger. The record row reads claims through the board's own machinery, validity checks included, so the rule exists once.
+4. A finding clears a waiver threshold only when its title carries the phrase "<id> row". A bare English word that happens to be a row id clears nothing.
+5. A misstated bet attribution never weakens a threshold: grants whose Bet trailers fail the board's four validity shapes pool into one unattributed bucket that shares the per-bet limit, and the line names them. The waiver history read follows renames.
+6. The mutate row seeds from the HEAD lock like every other reader. And D60.5's promise is corrected: R15's text covers the lock file alone; moving design reads onto committed ground is assigned to a later bet, recorded here rather than silently narrowed.
+7. The history row counts a quoted Slice line only inside a cluster of trailer-shaped lines, the shape a real squash quotes and a prose paste does not. The flavour that discards its quoted trailers entirely is named on the page as the limit it is — a squash that leaves no evidence is indistinguishable from an ordinary commit, and R4's seals are the eventual answer.
+8. Red hits lead every line; cleared hits follow. The row a reader must act on is never inside "and N more" while a cleared one is named.
+9. Every fixture repo maker sets commit.gpgsign=false. The host's signing shim was half the battery clock and the whole of F100's false red channel, and a fixture has nothing to sign.
+
+Why: three of these correct the record itself — the reviewer caught the driver's ledger twice in one round, which is the blind-review discipline doing to the driver exactly what it does to builders.
+
+## D65 — 2026-08-27 — The counter's identity rules, and the close's missing escape ruled absent
+
+Five rulings from the slice 7 closure.
+
+1. A waiver file's grant history starts at the commit that created its current incarnation. A path reused after a deletion is a new file, and a dead file's grants die with it.
+2. A pure rename is counted and named, never read as a grant — the merge rule's shape, applied to the other operation that decides nothing.
+3. Ties in a line's worst-first ordering break toward the named bet, so one repo prints one line. And reds lead every line, every row — D64.8 said it once; this says it is not per-row advice.
+4. The squash cluster read counts only lines whose keys this repo writes as trailers. A prose label is not a trailer key, and a permanent red on honest history is the worst false positive this battery can make.
+5. A close has no override, by design. Waivers excuse a red row's finding; an unrunnable scope row means the close cannot run, and a close that cannot run does not happen. The missing escape is the ceremony holding its own door.
+
+Why: one and two are the same idea — operations that decide nothing never count as decisions — stated for the two shapes the review found.

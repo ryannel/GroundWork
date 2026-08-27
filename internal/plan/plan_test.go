@@ -705,6 +705,12 @@ func TestProof_b3s1_references_resolve_or_the_reader_names_them(t *testing.T) {
 			slicePath, "  - demo_f1", "  - demo_f1\n  - demo_f1", "demo_f1",
 		},
 		{
+			"a slice declaring one record twice",
+			slicePath, "  - docs/derivation-contract.md",
+			"  - docs/derivation-contract.md\n  - docs/derivation-contract.md",
+			"declares the record docs/derivation-contract.md twice",
+		},
+		{
 			"a proof from a design file that is not there",
 			slicePath, "from: docs/design.md#one", "from: docs/gone.md#one", "docs/gone.md",
 		},

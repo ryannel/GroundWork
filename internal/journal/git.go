@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strings"
 )
 
@@ -253,6 +254,27 @@ type TrailerCommit struct {
 // record — and a record whose head is not a commit id is refused rather than
 // read, which is the one shape a message could reach in with.
 func Trailers(dir, key string) ([]TrailerCommit, error) {
+	return TrailersFor(dir, key)
+}
+
+// TrailersFor is Trailers narrowed to the commits that changed any of some
+// paths. No path narrows nothing, which is what Trailers passes.
+//
+// One implementation, two entry points, because two readers of a trailer would
+// be two definitions of what a trailer is (D54 ruling 1). The waiver counter
+// wants the commits that touched one waiver file and the bet each of them
+// landed in, and that is one question for git rather than a whole history
+// filtered here.
+//
+// git's own history simplification applies to the path. A merge that matches
+// one of its parents is not listed against a path, which is the same answer
+// LastChanged gives about the same file — so a caller counting grants and a
+// caller finding the governing commit read one history, not two.
+//
+// Renames are followed by naming every path, not by git's --follow: --follow
+// drops merges, and a caller that has to count merges apart cannot lose them.
+// PathsOf is where a file's own names come from.
+func TrailersFor(dir, key string, paths ...string) ([]TrailerCommit, error) {
 	if err := checkRepo(dir); err != nil {
 		return nil, err
 	}
@@ -272,12 +294,306 @@ func Trailers(dir, key string) ([]TrailerCommit, error) {
 
 	format := "--format=%H %P%n%(trailers:key=" + key + ",valueonly,unfold)%x00"
 
-	out, err := gitOut(dir, nil, nil, "log", format, "HEAD")
+	// An empty path is dropped rather than passed on: git reads one as a
+	// pathspec that matches nothing and refuses the whole read.
+	//
+	// A list that was all empty is refused outright. Narrowing to nothing and
+	// reading everything are opposite answers, and the caller asked for the
+	// first — reading the whole history there would inflate every count taken
+	// off it (D65's list of smalls).
+	args := []string{"log", format, "HEAD"}
+	if len(paths) > 0 {
+		named := slices.DeleteFunc(slices.Clone(paths), func(p string) bool { return p == "" })
+		if len(named) == 0 {
+			return nil, errors.New("every path given to narrow this read is empty, and no path is not the same as every path")
+		}
+
+		args = append(args, "--")
+		args = append(args, named...)
+	}
+
+	out, err := gitOut(dir, nil, nil, args...)
 	if err != nil {
 		return nil, err
 	}
 
 	return parseTrailerLog(out)
+}
+
+// FileChange is what one commit did to one file: git's own status letter, with
+// the similarity score it carries on a rename or a copy.
+type FileChange struct {
+	Commit string
+	Status string
+}
+
+// FileHistory returns the names one file has had and what each commit did to
+// it, newest first.
+//
+// git's own rename detection does the reading, through --follow. Only a rename
+// record joins two names. git also reports a copy, where a new file was made
+// out of an old one that is still there, and folding those together would count
+// one file's history as another's.
+//
+// Merges are not here. git does not diff a merge by default, so a caller that
+// has to see one reads the ordinary log beside this. The names are framed with
+// NUL, so a path holding a newline cannot split into two.
+func FileHistory(dir, path string) ([]string, []FileChange, error) {
+	if err := checkRepo(dir); err != nil {
+		return nil, nil, err
+	}
+
+	out, err := gitOut(dir, nil, nil,
+		"log", "--follow", "--name-status", "-z", "--format=%x01%H", "HEAD", "--", path)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	renamed, changes, err := readFileLog(out, path)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// git walks newest first, so the chain is followed from the name the caller
+	// gave back through each rename that made it.
+	paths := []string{path}
+	for at := path; ; {
+		was, moved := renamed[at]
+		if !moved || slices.Contains(paths, was) {
+			break
+		}
+
+		paths = append(paths, was)
+		at = was
+	}
+
+	return paths, changes, nil
+}
+
+// readFileLog reads a --name-status -z log into the renames it holds and what
+// each commit did to the file the caller asked about.
+//
+// Every record is read, not only the interesting ones, because a status is what
+// says how many paths follow it: a rename and a copy carry two, everything else
+// carries one. Miscounting one record would misread every record after it.
+func readFileLog(out, path string) (map[string]string, []FileChange, error) {
+	renamed := map[string]string{}
+
+	var changes []FileChange
+
+	for _, commit := range strings.Split(out, "\x01") {
+		fields := splitNUL(commit)
+		if len(fields) == 0 {
+			continue
+		}
+
+		// The head of a record is the commit id, on its own line before the
+		// statuses. A commit that changed nothing under the path is not listed
+		// at all, so a record with only a head is one git framed and left empty.
+		id := strings.TrimSpace(fields[0])
+		if !isObjectID(id) {
+			return nil, nil, fmt.Errorf("git log printed the record head %q, which is not a commit id", short(id))
+		}
+
+		for i := 1; i < len(fields); {
+			status := strings.TrimSpace(fields[i])
+			if status == "" {
+				i++
+
+				continue
+			}
+
+			// A rename and a copy carry two paths; everything else carries one.
+			paths := 1
+			if status[0] == 'R' || status[0] == 'C' {
+				paths = 2
+			}
+			if i+paths > len(fields)-1 {
+				return nil, nil, fmt.Errorf("git log printed the status %q with %d paths after it, want %d",
+					short(status), len(fields)-1-i, paths)
+			}
+
+			if status[0] == 'R' {
+				renamed[fields[i+paths]] = fields[i+1]
+			}
+
+			changes = append(changes, FileChange{Commit: id, Status: status})
+			i += paths + 1
+		}
+	}
+
+	return renamed, changes, nil
+}
+
+// MaxMessageBytes caps one commit message. A message past it comes back cut,
+// with Cut set, so a caller never reads part of a message as the whole of one.
+//
+// 64 KiB. A squash of a hundred commits quoting every message it swallowed runs
+// to a few tens of kilobytes, so the cap holds every real one with room. A
+// message past it is a paste or an attack, not something a person wrote. The
+// whole log is still one read, and its size is bounded by this repo's own
+// history. What the cap stops is one commit dominating it.
+const MaxMessageBytes = 64 << 10
+
+// MessageCommit is one commit of the repo's own history with its whole message:
+// its id, how many parents it has, and the message body exactly as git holds it.
+type MessageCommit struct {
+	ID      string
+	Parents int
+	Body    string
+
+	// Cut says the message was longer than MaxMessageBytes, so Body holds only
+	// its first part. A caller that judges a message has to know it read one.
+	Cut bool
+}
+
+// Messages returns every commit reachable from HEAD, newest first, with the
+// whole of each one's message.
+//
+// It exists so a caller can ask whether git's trailer parser read everything a
+// message said. A squash is exactly that gap: git writes the squashed commit as
+// one commit quoting every message it swallowed, so the trailer text is still
+// in the message and the parser returns none of it.
+//
+// The order is Trailers' order, so the two can be joined by commit id without
+// either being sorted. The framing is git's NUL, so nothing anybody writes in a
+// message can end a record — a body opening with something shaped like a record
+// head is body text and stays body text.
+func Messages(dir string) ([]MessageCommit, error) {
+	if err := checkRepo(dir); err != nil {
+		return nil, err
+	}
+
+	head, err := headCommit(dir)
+	if err != nil {
+		return nil, err
+	}
+	if head == "" {
+		return nil, nil
+	}
+
+	out, err := gitOut(dir, nil, nil, "log", "--format=%H %P%n%B%x00", "HEAD")
+	if err != nil {
+		return nil, err
+	}
+
+	return parseMessageLog(out)
+}
+
+// parseMessageLog reads the records Messages asks git for: the commit id, a
+// space, its parents, a newline, then the whole message, then a NUL.
+func parseMessageLog(out string) ([]MessageCommit, error) {
+	var commits []MessageCommit
+
+	for _, record := range strings.Split(out, "\x00") {
+		// git log writes a newline after each record, which lands at the front
+		// of the next one.
+		record = strings.TrimPrefix(record, "\n")
+		if record == "" {
+			continue
+		}
+
+		head, body, found := strings.Cut(record, "\n")
+		if !found {
+			return nil, fmt.Errorf("git log printed the record %q, which holds no line", short(record))
+		}
+
+		fields := strings.Fields(head)
+		if len(fields) == 0 || !isObjectID(fields[0]) {
+			return nil, fmt.Errorf("git log printed the record head %q, which does not open with a commit id",
+				short(head))
+		}
+
+		cut := len(body) > MaxMessageBytes
+		if cut {
+			body = body[:MaxMessageBytes]
+		}
+
+		commits = append(commits, MessageCommit{
+			ID:      fields[0],
+			Parents: len(fields) - 1,
+			Body:    body,
+			Cut:     cut,
+		})
+	}
+
+	return commits, nil
+}
+
+// IsAncestor reports whether one commit is reachable from another. It is what
+// "predates" means in git.
+//
+// Commit dates are writable and they run backwards on any history somebody
+// rebased or set a date on by hand, so a check that compared them would be
+// resting on a number anybody can choose. Reachability is the thing git itself
+// means by before, and a commit is reachable from itself — so a record written
+// in the same commit as the code it describes does not predate it.
+func IsAncestor(dir, older, newer string) (bool, error) {
+	_, err := gitLine(dir, "merge-base", "--is-ancestor", older, newer)
+	if err != nil {
+		if missing(err) {
+			return false, nil
+		}
+
+		return false, err
+	}
+
+	return true, nil
+}
+
+// ErrNoBlob says the revision holds nothing at that path: the path is not in
+// the tree, or there is no commit to read a tree from at all. Both mean the
+// same thing to a caller — nothing is committed there — so both say it in one
+// word.
+var ErrNoBlob = errors.New("nothing is committed at that path")
+
+// BlobAt returns the committed content of one path at one revision.
+//
+// R15 puts the battery lock file on this read: an uncommitted version is not a
+// version anybody can be held to.
+//
+// The revision is resolved to a commit first, and the path is then read as
+// <commit>:<path>. Everything after that colon is a path to git, so revision
+// syntax written into a path reaches nothing, and the whole argument opens with
+// a hex commit id, so it can never be read as an option.
+func BlobAt(dir, rev, path string) ([]byte, error) {
+	if err := checkRepo(dir); err != nil {
+		return nil, err
+	}
+
+	commit, err := resolve(dir, rev+"^{commit}")
+	if err != nil {
+		return nil, err
+	}
+	if commit == "" {
+		return nil, ErrNoBlob
+	}
+
+	// resolve rather than cat-file, because a path the tree does not hold is a
+	// fatal error to cat-file and an ordinary empty answer to rev-parse. The
+	// object is then read by its own id, so the name is resolved once.
+	object, err := resolve(dir, commit+":"+path)
+	if err != nil {
+		return nil, err
+	}
+	if object == "" {
+		return nil, ErrNoBlob
+	}
+
+	kind, err := gitLine(dir, "cat-file", "-t", object)
+	if err != nil {
+		return nil, err
+	}
+	if kind != "blob" {
+		return nil, fmt.Errorf("%s holds a %s at %s, not a file", rev, kind, short(path))
+	}
+
+	out, err := gitOut(dir, nil, nil, "cat-file", "blob", object)
+	if err != nil {
+		return nil, err
+	}
+
+	return []byte(out), nil
 }
 
 // checkTrailerKey rejects a key that is not a trailer token.

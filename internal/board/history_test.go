@@ -35,6 +35,9 @@ func newRepo(t *testing.T) string {
 		{"init", "-b", "main"},
 		{"config", "user.name", "Test Person"},
 		{"config", "user.email", "test@example.com"},
+		// D64 ruling 9: a fixture has nothing to sign, and the host's signing
+		// shim dies under load, which reads as a proof that failed (F104).
+		{"config", "commit.gpgsign", "false"},
 	} {
 		git(t, dir, args...)
 	}
@@ -178,6 +181,9 @@ func TestReadHistoryOnARepoWithNoCommits(t *testing.T) {
 		{"init", "-b", "main"},
 		{"config", "user.name", "Test Person"},
 		{"config", "user.email", "test@example.com"},
+		// D64 ruling 9: a fixture has nothing to sign, and the host's signing
+		// shim dies under load, which reads as a proof that failed (F104).
+		{"config", "commit.gpgsign", "false"},
 	} {
 		git(t, dir, args...)
 	}
@@ -197,4 +203,74 @@ func TestReadHistoryOutsideARepo(t *testing.T) {
 	if _, err := ReadHistory(t.TempDir()); err == nil {
 		t.Fatal("reading the history outside a repo did not fail")
 	}
+}
+
+// D65 ruling 4: the keys this repo writes as trailers are a list, and it is the
+// list the pages declare. A reader that tells a quoted trailer block from prose
+// stands on it, so a key added here without a page saying so is a key nobody
+// agreed to.
+//
+// The pin reads the structure, not the words: the working agreement's own
+// commit-message block, and the derivation contract's section on this trailer.
+func TestTheTrailerKeysAreTheOnesThePagesDeclare(t *testing.T) {
+	agreement := readRepoFile(t, "CLAUDE.md")
+
+	// The fenced block under "Committing" is where the agreement fixes the
+	// trailers a commit message ends with.
+	block := between(t, agreement, "```\nBet:", "```")
+
+	declared := map[string]bool{TrailerKey: true}
+	for _, line := range strings.Split(block, "\n") {
+		if key, _, found := strings.Cut(strings.TrimSpace(line), ":"); found && key != "" {
+			declared[key] = true
+		}
+	}
+
+	for _, key := range TrailerKeys() {
+		if !declared[key] {
+			t.Errorf("TrailerKeys holds %q, and no page declares it", key)
+		}
+		delete(declared, key)
+	}
+	for key := range declared {
+		t.Errorf("the pages declare the trailer %q, and TrailerKeys does not hold it", key)
+	}
+
+	// And the contract page spells this package's own key, so a reader of the
+	// page and a reader of the code look for the same word.
+	page := readRepoFile(t, "docs/derivation-contract.md")
+	if !strings.Contains(page, "`"+TrailerKey+"` trailer") {
+		t.Errorf("the derivation contract never writes the %q trailer this package reads", TrailerKey)
+	}
+}
+
+// readRepoFile reads one file from the repo root.
+func readRepoFile(t *testing.T, name string) string {
+	t.Helper()
+
+	raw, err := os.ReadFile(filepath.Join("..", "..", filepath.FromSlash(name)))
+	if err != nil {
+		t.Fatalf("%s did not read: %v", name, err)
+	}
+
+	return string(raw)
+}
+
+// between returns the text of the first block opening with start and closing
+// with end.
+func between(t *testing.T, text, start, end string) string {
+	t.Helper()
+
+	at := strings.Index(text, start)
+	if at < 0 {
+		t.Fatalf("no block opens with %q", start)
+	}
+
+	rest := text[at+len("```\n"):]
+	stop := strings.Index(rest, end)
+	if stop < 0 {
+		t.Fatalf("the block opening with %q never closes", start)
+	}
+
+	return rest[:stop]
 }

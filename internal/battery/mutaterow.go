@@ -504,9 +504,13 @@ func forSurface(picked []target, surface string) []target {
 // mutateVersion is what the sample is hashed against: the battery version, both
 // halves. The declared half moves when a person bumps it, and the digest moves
 // when the rows do, so either kind of change rotates the sample.
+//
+// The declared half comes from HEAD, like every other reader of the lock file
+// under R15. Reading the working tree made one run print two versions, and
+// rotated the sample on a bump nobody had committed (D64 ruling 6).
 func mutateVersion(c Context) string {
 	declared := unknownVersion
-	if lock, err := ReadLock(c.RepoDir); err == nil {
+	if lock, err := ReadLockAtHead(c.RepoDir); err == nil {
 		declared = lock.Version
 	}
 	if c.Digest == "" {

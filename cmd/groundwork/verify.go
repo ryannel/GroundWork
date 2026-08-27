@@ -16,13 +16,14 @@ import (
 // runVerify handles the verify verb.
 //
 // The verb runs the battery. Its one subcommand, version, prints the battery
-// version instead of running anything, and its one flag, --list, prints the
-// rows instead of running them.
+// version instead of running anything. Its two flags say what to do with the
+// run the verb would otherwise make: --list prints the rows instead of running
+// them, and --close runs the bet-close scope.
 //
 // A subcommand rather than a flag for version because it does a different job
 // from a run: it reads the lock file and prints, and it never touches the
-// journal. --list stays a flag because it answers a question about the run
-// the verb would otherwise do.
+// journal. The flags stay flags because both answer a question about the run
+// itself.
 func runVerify(args []string, out, errOut io.Writer) int {
 	if len(args) > 0 && args[0] == "version" {
 		return runVerifyVersion(args[1:], out, errOut)
@@ -35,11 +36,20 @@ func runVerify(args []string, out, errOut io.Writer) int {
 	flags.Usage = func() { fmt.Fprint(errOut, verifyUsage) }
 
 	list := flags.Bool("list", false, "list the rows and run nothing")
+	closing := flags.Bool("close", false, "run the bet-close scope")
 
 	if err := flags.Parse(args); err != nil {
 		return exitUsage
 	}
 	if spareArgument(errOut, flags, name) {
+		return exitUsage
+	}
+	if *list && *closing {
+		// One asks to run the close scope and the other asks to run nothing.
+		// Picking one of them silently would answer a question nobody asked.
+		fmt.Fprintln(errOut, name+": --list and --close ask for opposite things")
+		fmt.Fprint(errOut, verifyUsage)
+
 		return exitUsage
 	}
 
@@ -50,15 +60,31 @@ func runVerify(args []string, out, errOut io.Writer) int {
 		return exitOK
 	}
 
-	res, err := battery.Run(".", reg)
+	run := battery.Run
+	if *closing {
+		run = battery.RunClose
+	}
+
+	res, err := run(".", reg)
 	if err != nil {
 		return sayFailed(errOut, name, err)
 	}
 
 	fmt.Fprintf(out, "run %s\nbattery %s\n", res.ID, res.Version)
+
+	// After the run's own two lines and before the table, because it says what
+	// this run was rather than what it found.
+	if *closing {
+		fmt.Fprintln(out, closeHeading+" "+strings.Join(battery.CloseScope(), ", "))
+	}
+
 	fmt.Fprint(out, resultTable(res))
 	fmt.Fprint(out, notes(res))
 	fmt.Fprintln(out, summary(res))
+
+	if *closing && refuseClose(errOut, name, res) {
+		return exitFailed
+	}
 
 	if res.Failed() {
 		return exitFailed
@@ -73,6 +99,16 @@ func runVerify(args []string, out, errOut io.Writer) int {
 // It fails when the two disagree. The verb is called verify, and a verify
 // subcommand that printed a drifted pair as though it were fine would be
 // reporting the drift as news rather than as a fault.
+//
+// The declared half comes from the HEAD blob, the same read the version row
+// gets under R15. Two verbs reading one file from two places would be two
+// answers about this battery's version. The committed lock file exists so there
+// is one.
+//
+// A working tree that declares something else is said, and it fails too. An
+// uncommitted bump is not a version anybody can be held to. Printing the
+// committed one in silence would leave whoever just edited the file looking at
+// a number they did not write.
 func runVerifyVersion(args []string, out, errOut io.Writer) int {
 	const name = "groundwork verify version"
 
@@ -89,9 +125,17 @@ func runVerifyVersion(args []string, out, errOut io.Writer) int {
 
 	digest := battery.Default().Digest()
 
-	lock, err := battery.ReadLock(".")
+	lock, err := battery.ReadLockAtHead(".")
 	if err != nil {
 		return sayFailed(errOut, name, err)
+	}
+
+	if tree, err := battery.ReadLock("."); err != nil || tree != lock {
+		fmt.Fprintf(errOut, "%s: HEAD declares %s, and the working tree's %s does not agree: %s\n",
+			name, battery.VersionString(lock.Version, lock.Digest), battery.LockFile,
+			treeSays(tree, err))
+
+		return exitFailed
 	}
 
 	if lock.Digest != digest {
@@ -103,6 +147,47 @@ func runVerifyVersion(args []string, out, errOut io.Writer) int {
 	fmt.Fprintln(out, battery.VersionString(lock.Version, digest))
 
 	return exitOK
+}
+
+// treeSays is what the working tree's copy of the lock file says, for the line
+// that reports it disagreeing with HEAD.
+func treeSays(tree battery.Lock, err error) string {
+	if err != nil {
+		return "it does not read: " + err.Error()
+	}
+
+	return "it declares " + battery.VersionString(tree.Version, tree.Digest)
+}
+
+// closeHeading opens the line that says a run was a bet close, and names the
+// rows the close scope requires beyond the full suite.
+//
+// D7's ceremony list becomes this: a scope the tool runs and checks, rather
+// than a page of steps somebody works through. R14 sets the scope, and later
+// bets add their rows to the same list.
+const closeHeading = "close scope, beside the full suite:"
+
+// refuseClose reports whether this run may be reported as a bet close, and says
+// why when it may not.
+//
+// The question is what the scope rows came back as, not whether they exist
+// (D64 ruling 1). A close is a claim that what a close checks ran and held.
+// The version that asked only about registration reported a close over three
+// unrunnable rows, and exited zero.
+//
+// It runs after the table, so a reader sees every row before the refusal. And
+// it takes the result rather than reading one, so the refusal can be driven
+// with a run that really did come back unrunnable.
+func refuseClose(errOut io.Writer, name string, res battery.RunResult) bool {
+	unmet := battery.UnmetAtClose(res)
+	if len(unmet) == 0 {
+		return false
+	}
+
+	fmt.Fprintf(errOut, "%s: a bet close runs %s, and this run did not: %s\n",
+		name, strings.Join(battery.CloseScope(), ", "), strings.Join(unmet, "; "))
+
+	return true
 }
 
 // sayFailed reports why the verb could not finish, and returns its exit code.
