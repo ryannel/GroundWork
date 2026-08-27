@@ -1358,3 +1358,104 @@ What happened: open. Recorded as this grading's named loss. A row that cannot ru
 
 Caught by: blind-review — the slice 8 grading dispatch's audit of the unrunnable rows
 Class: coverage-gap
+
+## F123 — 2026-08-27 — The grading asked two of bet 3's four questions and never said which two it skipped
+
+What it is: `docs/ladder.md` sets bet 3's done-when in four clauses. The graded runs exercised two of them: decomposition, and the three stub styles. They never exercised "the board starts red for the right reason". They never exercised "three slices land in sequence, each one turning exactly its own row green". Both fixtures carry the earlier commits those two clauses need. Each graded run sat at one mid-bet commit, so nobody ran there. `docs/evidence/bet-3/holdout.md` then claimed a complete grade and named no gap. Both fixtures are burned, so the loss looked permanent.
+
+What caught it: the slice 8 blind review, counting the grading record's answers against the ladder's four clauses.
+
+What happened: recovered, not lost. A `board` run at a fixed commit over fixed plan files is a pure reading. It derives from the plan, from git and from a test run, and none of the three reads a key. So opening the keys cannot change what a board prints, and a later run is worth the same as an earlier one. Both fixtures were re-materialized by the recipe already recorded, with the same binary and the same authored plan files, and walked commit by commit. The determinism claim was checked first: both graded boards reproduced line for line. The runs are in `docs/evidence/bet-3/slice-8/runs.md` under "The supplemental runs", and the grades in `holdout.md` under "The supplement". The walk answered both clauses and turned up F124's false red. The forward rule: a grading record names every clause it did not ask.
+
+Caught by: blind-review — the slice 8 review
+Class: coverage-gap
+
+## F124 — 2026-08-27 — The board reads a slice landed before its work, and goes falsely red on tests-first history
+
+What it is: F120 named a stray pointer under "what a person has to look at" and classed it green-but-wrong. The supplemental walk shows a graver shape. At every red-proof commit `LANDED` reads yes for a slice with nothing implemented: sift at `035d288` and `af14585`, gauge at `ee669c1` and `863e12f`. `EXPECTED` follows it wrong. At sift `af14585` milestone 1 reads fully landed, so all three of its proofs turn `EXPECTED green`. `p_record_parse` then fails, because it is the red proof that commit just added. The board prints `behind its plan`, counts `1 behind`, and exits 1. gauge does the same at `863e12f` on `p_format_short`. So the worst case is a false red with a non-zero exit, not a mis-aimed pointer. It fires on a repo doing what this repo's own working agreement demands: commit the test while it fails, then land the work. D66.1 was ruled on the understated version.
+
+What caught it: the slice 8 blind review, which re-ran `board` at the commits the graded runs skipped.
+
+What happened: open. This is F120's fault seen whole, so one ruling covers both, and that ruling now needs the real worst case in front of it. D66.1 stands until the fix slice. The fix lands at the next battery major with freshly authored fixtures, per D41. Evidence: the verbatim boards at `035d288`, `af14585`, `ee669c1` and `863e12f` in `docs/evidence/bet-3/slice-8/runs.md`.
+
+Caught by: blind-review — the slice 8 review
+Class: other — a false red with a non-zero exit, on the history the working agreement demands
+
+## F125 — 2026-08-27 — The ladder makes the slice the unit and the contract makes the milestone the unit
+
+What it is: `docs/ladder.md` says three slices land in sequence and each turns exactly its own row green. `docs/derivation-contract.md` section 3.3 says expected state comes from the milestone, not the slice, and gives its reason. Both cannot hold. The supplemental walk shows the cost. sift at `9bfa992` lands `s_tokenize` and both its proofs pass. Both still read `EXPECTED red`, and both are flagged `ahead of plan`. Those rows turn green one commit later, when the milestone's last slice claims a landing. gauge at `c79da6a` behaves the same way. So no board built to the contract can meet the ladder's clause. Slice 8 was the moment this was due to surface, and the grading did not notice. A second mismatch sits beside it, also unrecorded: `docs/plan/rebuild/bet_3/b3s8.md` declares its first fixture as "a two-milestone bet whose three slices land in sequence". Neither sealed repo is that. sift has four slices and lands two. gauge has five and lands two.
+
+What caught it: the slice 8 blind review, reading the ladder's clause against the contract's rule.
+
+What happened: open. Nothing is changed here, and neither page is edited. Which unit is right is a ruling, not a fix, and it belongs to the bet-3 close-out audit. That audit has both burned fixtures' walks to read.
+
+Caught by: blind-review — the slice 8 review
+Class: parallel-definition
+
+## F126 — 2026-08-27 — The grading's score line counts a fault its own ledger entry does not name
+
+What it is: the grading record's one-line score reads "one miss, one false red". Nothing went falsely red at either graded tip. F120, the entry that line points at, is classed green-but-wrong. It describes a green row carrying a wrong hit. Meanwhile the one red a reader would argue about — wiring on gauge, which sends `verify` to exit 1 — was weighed against the key and cleared into prose. F121 files only its wording. So the headline counts a fault the ledger does not hold, and leaves out the one that is contestable. A reader who reads the score line alone gets the wrong shape of the grade.
+
+What caught it: the slice 8 blind review, counting the score line against the four entries it summarises.
+
+What happened: fixed by appending. Nothing is struck, because a record is a record. A correction sentence now follows the score line, and the supplement carries the honest count: one miss and one wrong hit on a green row at the tips. The real false red is at the commits the graded runs skipped, and F124 files it.
+
+Caught by: blind-review — the slice 8 review
+Class: other — a headline that counts a fault its own ledger entry does not name
+
+## F127 — 2026-08-27 — A facing item no proof asserts is invisible to every row
+
+What it is: R12 says each facing id is claimed by exactly one slice's proof. `internal/trace/trace.go:10` implements "claimed by exactly one of its slices". Nothing anywhere links a facing item to a proof. So a slice can claim an item that none of its proofs asserts, and no row can see it. The trace row counts ids per slice, so it reports zero unclaimed and is right by its own rule. D61.2 ruled the slice-as-unit reading deliberately: a proof carries no facing field, and the slice is the unit that lands. This hole is that ruling's residue, not a slip. It cost nothing on either fixture. The grading said sift's shared proof was a wrinkle that did not bite, which is true, and missed that this hole is the reason.
+
+What caught it: the slice 8 blind review, reading the sift key's second wrinkle against what the trace row can see.
+
+What happened: open. Recorded as a named loss awaiting a ruling — F122's shape. Closing it means giving a proof its own facing link, which changes the plan shape. It wants a walk before it wants code.
+
+Caught by: blind-review — the slice 8 review
+Class: coverage-gap
+
+## F128 — 2026-08-27 — The proof of the grading run proved only that prose exists
+
+What it is: `TestProof_b3s8_grading_the_sealed_fixtures_are_run_once` checked one anchor, one heading, the absence of a placeholder, twenty words, and two repo names. It never opened `runs.md`. So it could not see whether a run happened, whether it happened once, or at which battery version. Its own marker claims the sealed fixtures are run once. `runs.md` was also missing from `b3s8.md`'s `records:` list, so no record row and no test pinned it. A later edit could gut the whole run record and every check would stay green.
+
+What caught it: the slice 8 blind review, reading the test against the sentence its marker makes.
+
+What happened: half fixed in this round, by adding checks and removing none. The test now opens `runs.md` and requires four things: both fixture names, the battery version `12.0+ra48a79a`, fenced verbatim output for at least the four graded runs, and the supplemental section's heading. Each new assertion was probed in memory: the load-bearing text was blanked in a copy held in memory, the test failed on that copy, and the file was swapped back from memory. No git command touched an uncommitted file — F118's rule.
+
+The other half is blocked, and F131 records it. Adding `runs.md` to `b3s8.md`'s `records:` list would let the record row pin the page too. `b3s8.md` sits under `seal/design/bet_3`, so the edit reddens the seal-verify row. Moving that seal is the owner's call under R6, not a builder's, so the line is not added here.
+
+Caught by: blind-review — the slice 8 review
+Class: front-door-hollow
+
+## F131 — 2026-08-27 — A slice cannot gain a record after its design is sealed
+
+What it is: F128's fix wants `docs/evidence/bet-3/slice-8/runs.md` in `b3s8.md`'s `records:` list, so the record row pins the run record. `b3s8.md` is covered by `seal/design/bet_3`. Adding the line changes the blob, and `seal-verify` goes red on a moved artifact. That red is correct: the seal is doing its job. But it means a slice's record set is frozen at design sealing, and a record found to be worth pinning later cannot be pinned without moving a seal. R6 says a seal moves only on the owner's explicit words, and an agent typing a reason is not the owner speaking. So a builder cannot close this on its own.
+
+What caught it: the battery, at this slice's landing — `TestSealRowIsGreenOnThisRepo` went red the moment the line was added.
+
+What happened: open, and the line is not added. Two ways out, both the driver's: amend `seal/design/bet_3` through `groundwork seal amend`, recording who signed it; or rule that a records list may grow after sealing and give the seal a way to say so. Until then the run record is pinned by the proof test alone, which is what F128's fix landed.
+
+Caught by: battery — the seal-verify row, on this repo's own landing
+Class: other — a correct seal red standing between a finding and its fix
+
+## F129 — 2026-08-27 — The grading record's singleness sentence drops the parse pre-check
+
+What it is: the record says "no fixture was run a second time". `runs.md` discloses a throwaway program that called `plan.Load` and `manifest.Load` on both fixtures before the graded runs. It printed only whether they read, and it changed nothing. But the plan row's green was pre-tested with the battery's own loader, and the flat sentence drops that. No rule was written for what to do had a plan failed to parse after a graded run.
+
+What caught it: the slice 8 blind review, reading the grading record against `runs.md`'s own disclosure.
+
+What happened: fixed by appending. The sentence now names the pre-check and points at `runs.md`. The missing rule is written beside it: a parse failure found after a graded run's judgments would be tuning, so translation fixes end when the first graded output is seen.
+
+Caught by: blind-review — the slice 8 review
+Class: record-not-written
+
+## F130 — 2026-08-27 — One source, three catcher names
+
+What it is: F119 and F120 say `Caught by: battery`. F121 says `worker`. F122 says `blind-review`. All four came out of the same pair: the blind runner, and the grading dispatch that read the keys. Each line is defensible on its own. Together they make the ledger hard to count by source, which is the one thing that field exists for.
+
+What caught it: the slice 8 blind review, reading the four attribution lines side by side.
+
+What happened: open, and no entry is changed. The ledger is append-only, so the four lines stand. The forward rule is the driver's and goes in a decision. This entry records the inconsistency, so a later count knows why the four disagree.
+
+Caught by: blind-review — the slice 8 review
+Class: other — four entries from one source, filed under three catcher names

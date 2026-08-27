@@ -918,3 +918,475 @@ opens the keys and reads this page beside them.
 
 The proof `TestProof_b3s8_grading_the_sealed_fixtures_are_run_once` stays red
 until that grading is written.
+
+---
+
+## The supplemental runs
+
+The slice 8 review found that the graded runs asked two of bet 3's four
+questions and left two unasked. Both fixtures carry the earlier commits those
+two questions need. Nobody ran there. This section runs there, and the grading
+supplement in `docs/evidence/bet-3/holdout.md` grades what came back.
+
+### Why these runs are honest
+
+A `board` run at a fixed commit, over fixed plan files, is a pure reading. It
+derives from the plan, from git and from a test run. None of those three reads
+an answer key, and none of them reads this page. So knowing the keys cannot
+change what a board prints. That is what makes a run after the keys opened worth
+the same as a run before.
+
+Four things are unchanged from the graded runs.
+
+- The binary. Built from the same source, and it reports the same version and
+  digest: `12.0+ra48a79a`. Only documentation has changed on this branch since
+  `fa65ea1`.
+- The plan files. Taken from `docs/evidence/bet-3/slice-8/plans/`, which is the
+  authored translation as committed, untouched since.
+- The manifest and the battery lock, from the same place.
+- The fixtures. Re-materialized by the same recipe, from the same two branches.
+
+Nothing here is a judgment call. No file was tuned, and no output was read
+before deciding what to run. The whole walk was fixed before the first command:
+every commit in each fixture's history, oldest first.
+
+The one check that proves the claim is below, under "The reproduction check".
+
+### When they happened
+
+2026-08-27, after the keys were opened and after the slice 8 blind review. This
+page's earlier sections were written before the keys opened. This one was not,
+and it says so here rather than reading as though it were.
+
+The fixtures stay burned. These runs add no tuning, so they cost nothing under
+D41. What they recover is a question that was already paid for and never asked.
+
+### How each fixture was re-materialized
+
+Exactly as recorded above, from the branches already fetched:
+
+```
+git clone --branch holdout3-go-sift  --single-branch /home/user/GroundWork <scratch>/sift
+git clone --branch holdout3-go-gauge --single-branch /home/user/GroundWork <scratch>/gauge
+
+# in each clone, at once:
+git reset --hard HEAD^
+git config commit.gpgsign false
+git remote remove origin
+```
+
+Both landed where the first run landed: sift at `e8350b9`, gauge at `8fc8572`.
+`ANSWER-KEY.json` is absent from both working trees, and each clone holds one
+ref, its own branch.
+
+The adoption files were staged outside each clone, in a kit directory:
+
+```
+<scratch>/kit-<fixture>/docs/plan/<program>/...      # from docs/evidence/bet-3/slice-8/plans/
+<scratch>/kit-<fixture>/.groundwork/manifest.json
+<scratch>/kit-<fixture>/.groundwork-battery.json     # {"version":"12.0","digest":"ra48a79a"}
+```
+
+### The reproduction check
+
+Before walking, the graded run was reproduced. The kit was copied in and
+committed as the same adoption commit, and `board` was run at the tip's parent:
+
+```
+cp -r <scratch>/kit-sift/. .
+git add -A
+git commit -m "Adopt groundwork: the plan files, the capability manifest and the battery lock ..."
+groundwork board
+```
+
+Both boards came back line for line the same as the graded runs. Two things
+differ, and neither is a reading: the adoption commit's own hash, and the `run:`
+line's clock. sift printed the same six rows, the same counts, and the same two
+`unread trailer` lines. gauge printed the same nine rows, the same three
+`ahead of plan` flags, and the same two `unread trailer` lines. Both exited 0.
+
+That is the determinism claim, checked rather than asserted.
+
+### How the walk was done
+
+The walk needs the fixture's code at an old commit, with the plan files still
+present. Git's history has to be the fixture's own, so the plan files cannot
+ride along in a commit. They were kept untracked instead:
+
+```
+git checkout --detach <commit>
+git clean -fdq
+cp -r <scratch>/kit-<fixture>/. .
+groundwork board
+```
+
+`git checkout` moved the tracked tree. `git clean` dropped the previous
+iteration's untracked kit. The copy put it back. So at every commit the board
+read the same plan files, and read git's history as that commit's own.
+
+No git command was pointed at an uncommitted file. The kit lives outside both
+clones, and every copy runs one way, from the kit into the tree.
+
+One consequence is worth naming. During the walk the kit is untracked, so it
+adds no commit. Each walk line therefore counts one commit fewer than the
+graded run at the same point, which committed the same files as an adoption
+commit. Nothing else in the board depends on it.
+
+The commit lists came from `git log --reverse`, and every commit was run:
+
+```
+sift:  dda99b0 035d288 9bfa992 af14585 2d812e1 f0b0422 e8350b9
+gauge: e19b22c ee669c1 c79da6a 863e12f 878a29a 8fc8572
+```
+
+### The walk on sift
+
+#### sift at `dda99b0` — Start the sift program
+
+Exit 1. Stdout was empty.
+
+Stderr, verbatim:
+
+```
+groundwork board: the surface "cli" could not be run: the adapter could not be run: go test ran no tests and failed: exit status 1: go: warning: "./..." matched no packages
+no packages to test
+```
+
+#### sift at `035d288` — Add the red proofs for the field splitter
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   1 slice landed, read from Slice trailers on 2 commits at 035d288ff5ec16e84a9423709d138cb1d8d772c8
+run:   2 tests in 200ms at 2026-08-27T11:28:47Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL     FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    red       failed     on plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   red       failed     on plan
+m1_read_records  s_record_parse  no      p_record_parse      red       never ran  on plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       never ran  on plan
+m2_summarise     s_render        no      p_render_table      red       never ran  on plan
+m2_summarise     s_render        no      p_render_empty      red       never ran  on plan
+
+6 proofs: 6 on plan, 0 ahead of plan, 0 behind
+```
+
+Stderr was empty.
+
+#### sift at `9bfa992` — Split a line into fields, honouring quotes
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   1 slice landed, read from Slice trailers on 3 commits at 9bfa992951a2b3ab12779d002d1eaccd1db7093e
+run:   2 tests in 200ms at 2026-08-27T11:28:47Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL     FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    red       passed     ahead of plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   red       passed     ahead of plan
+m1_read_records  s_record_parse  no      p_record_parse      red       never ran  on plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       never ran  on plan
+m2_summarise     s_render        no      p_render_table      red       never ran  on plan
+m2_summarise     s_render        no      p_render_empty      red       never ran  on plan
+
+6 proofs: 4 on plan, 2 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_tokenize  9bfa992951a2b3ab12779d002d1eaccd1db7093e  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### sift at `af14585` — Add the red proof for record parsing
+
+Exit 1. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 4 commits at af14585eb2800a45f7f62c7adfc539fc8dbf2e27
+run:   3 tests in 200ms at 2026-08-27T11:28:48Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL     FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    green     passed     on plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   green     passed     on plan
+m1_read_records  s_record_parse  yes     p_record_parse      green     failed     behind its plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       never ran  on plan
+m2_summarise     s_render        no      p_render_table      red       never ran  on plan
+m2_summarise     s_render        no      p_render_empty      red       never ran  on plan
+
+6 proofs: 5 on plan, 0 ahead of plan, 1 behind
+
+what a person has to look at:
+  unread trailer  s_tokenize  9bfa992951a2b3ab12779d002d1eaccd1db7093e  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### sift at `2d812e1` — Build a record from a line's fields
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 5 commits at 2d812e1b6d989df9ff93ca6cfed316475d77cb1b
+run:   3 tests in 200ms at 2026-08-27T11:28:48Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL     FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    green     passed     on plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   green     passed     on plan
+m1_read_records  s_record_parse  yes     p_record_parse      green     passed     on plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       never ran  on plan
+m2_summarise     s_render        no      p_render_table      red       never ran  on plan
+m2_summarise     s_render        no      p_render_empty      red       never ran  on plan
+
+6 proofs: 6 on plan, 0 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_tokenize      9bfa992951a2b3ab12779d002d1eaccd1db7093e  names a slice an earlier commit already landed
+  unread trailer  s_record_parse  2d812e1b6d989df9ff93ca6cfed316475d77cb1b  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### sift at `f0b0422` — Add the milestone 2 proofs ahead of their slices
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 6 commits at f0b04225d22f9f53abc526d39c16131d34ec1f83
+run:   6 tests in 200ms at 2026-08-27T11:28:48Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL  FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    green     passed  on plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   green     passed  on plan
+m1_read_records  s_record_parse  yes     p_record_parse      green     passed  on plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       failed  on plan
+m2_summarise     s_render        no      p_render_table      red       failed  on plan
+m2_summarise     s_render        no      p_render_empty      red       failed  on plan
+
+6 proofs: 6 on plan, 0 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_tokenize      9bfa992951a2b3ab12779d002d1eaccd1db7093e  names a slice an earlier commit already landed
+  unread trailer  s_record_parse  2d812e1b6d989df9ff93ca6cfed316475d77cb1b  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### sift at `e8350b9` — Wire the command and print the empty report
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 6 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 7 commits at e8350b92d7d5467836021fbf959f1ca6ce51d509
+run:   6 tests in 200ms at 2026-08-27T11:28:48Z
+
+MILESTONE        SLICE           LANDED  PROOF               EXPECTED  ACTUAL  FLAG
+m1_read_records  s_tokenize      yes     p_tokenize_basic    green     passed  on plan
+m1_read_records  s_tokenize      yes     p_tokenize_quoted   green     passed  on plan
+m1_read_records  s_record_parse  yes     p_record_parse      green     passed  on plan
+m2_summarise     s_aggregate     no      p_aggregate_counts  red       failed  on plan
+m2_summarise     s_render        no      p_render_table      red       failed  on plan
+m2_summarise     s_render        no      p_render_empty      red       passed  ahead of plan
+
+6 proofs: 5 on plan, 1 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_tokenize      9bfa992951a2b3ab12779d002d1eaccd1db7093e  names a slice an earlier commit already landed
+  unread trailer  s_record_parse  2d812e1b6d989df9ff93ca6cfed316475d77cb1b  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+### The walk on gauge
+
+#### gauge at `e19b22c` — Start the gauge program
+
+Exit 1. Stdout was empty.
+
+Stderr, verbatim:
+
+```
+groundwork board: the surface "lib" could not be run: the adapter could not be run: go test ran no tests and failed: exit status 1: go: warning: "./..." matched no packages
+no packages to test
+```
+
+#### gauge at `ee669c1` — Add the red proofs for unit parsing
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 9 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   1 slice landed, read from Slice trailers on 2 commits at ee669c1b204df1d8719b220cdc931201881b15a8
+run:   2 tests in 200ms at 2026-08-27T11:29:22Z
+
+MILESTONE          SLICE          LANDED  PROOF                 EXPECTED  ACTUAL     FLAG
+m1_read_and_print  s_parse_units  yes     p_parse_metres        red       failed     on plan
+m1_read_and_print  s_parse_units  yes     p_parse_centimetres   red       failed     on plan
+m1_read_and_print  s_format       no      p_format_short        red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_fraction      red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_negative      red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_feet        red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_round_trip  red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_lengths         red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_average         red       never ran  on plan
+
+9 proofs: 9 on plan, 0 ahead of plan, 0 behind
+```
+
+Stderr was empty.
+
+#### gauge at `c79da6a` — Read a metric length from text
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 9 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   1 slice landed, read from Slice trailers on 3 commits at c79da6a4f4a15bba57fefc885a95fb0eff40c4df
+run:   2 tests in 200ms at 2026-08-27T11:29:23Z
+
+MILESTONE          SLICE          LANDED  PROOF                 EXPECTED  ACTUAL     FLAG
+m1_read_and_print  s_parse_units  yes     p_parse_metres        red       passed     ahead of plan
+m1_read_and_print  s_parse_units  yes     p_parse_centimetres   red       passed     ahead of plan
+m1_read_and_print  s_format       no      p_format_short        red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_fraction      red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_negative      red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_feet        red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_round_trip  red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_lengths         red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_average         red       never ran  on plan
+
+9 proofs: 7 on plan, 2 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_parse_units  c79da6a4f4a15bba57fefc885a95fb0eff40c4df  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### gauge at `863e12f` — Add the red proof for the short format
+
+Exit 1. Stdout, verbatim:
+
+```
+board: 9 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 4 commits at 863e12f1b9beac0521d64056701ef622636ee201
+run:   3 tests in 200ms at 2026-08-27T11:29:23Z
+
+MILESTONE          SLICE          LANDED  PROOF                 EXPECTED  ACTUAL     FLAG
+m1_read_and_print  s_parse_units  yes     p_parse_metres        green     passed     on plan
+m1_read_and_print  s_parse_units  yes     p_parse_centimetres   green     passed     on plan
+m1_read_and_print  s_format       yes     p_format_short        green     failed     behind its plan
+m2_arithmetic      s_parse_more   no      p_parse_fraction      red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_negative      red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_feet        red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_round_trip  red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_lengths         red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_average         red       never ran  on plan
+
+9 proofs: 8 on plan, 0 ahead of plan, 1 behind
+
+what a person has to look at:
+  unread trailer  s_parse_units  c79da6a4f4a15bba57fefc885a95fb0eff40c4df  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### gauge at `878a29a` — Print a length in the shortest unit
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 9 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 5 commits at 878a29ab20f4afc47fbd6dfb1c89bdb22884f7f8
+run:   3 tests in 200ms at 2026-08-27T11:29:23Z
+
+MILESTONE          SLICE          LANDED  PROOF                 EXPECTED  ACTUAL     FLAG
+m1_read_and_print  s_parse_units  yes     p_parse_metres        green     passed     on plan
+m1_read_and_print  s_parse_units  yes     p_parse_centimetres   green     passed     on plan
+m1_read_and_print  s_format       yes     p_format_short        green     passed     on plan
+m2_arithmetic      s_parse_more   no      p_parse_fraction      red       never ran  on plan
+m2_arithmetic      s_parse_more   no      p_parse_negative      red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_feet        red       never ran  on plan
+m2_arithmetic      s_convert      no      p_convert_round_trip  red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_lengths         red       never ran  on plan
+m2_arithmetic      s_total        no      p_sum_average         red       never ran  on plan
+
+9 proofs: 9 on plan, 0 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_parse_units  c79da6a4f4a15bba57fefc885a95fb0eff40c4df  names a slice an earlier commit already landed
+  unread trailer  s_format       878a29ab20f4afc47fbd6dfb1c89bdb22884f7f8  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+#### gauge at `8fc8572` — Add the milestone 2 proofs ahead of their slices
+
+Exit 0. Stdout, verbatim:
+
+```
+board: 9 proofs on 2 milestones, derived from the plan, from git, and from the test run
+git:   2 slices landed, read from Slice trailers on 6 commits at 8fc8572fb64e38af10c04930e88dfedd5c8d3d22
+run:   9 tests in 200ms at 2026-08-27T11:29:23Z
+
+MILESTONE          SLICE          LANDED  PROOF                 EXPECTED  ACTUAL  FLAG
+m1_read_and_print  s_parse_units  yes     p_parse_metres        green     passed  on plan
+m1_read_and_print  s_parse_units  yes     p_parse_centimetres   green     passed  on plan
+m1_read_and_print  s_format       yes     p_format_short        green     passed  on plan
+m2_arithmetic      s_parse_more   no      p_parse_fraction      red       failed  on plan
+m2_arithmetic      s_parse_more   no      p_parse_negative      red       passed  ahead of plan
+m2_arithmetic      s_convert      no      p_convert_feet        red       failed  on plan
+m2_arithmetic      s_convert      no      p_convert_round_trip  red       passed  ahead of plan
+m2_arithmetic      s_total        no      p_sum_lengths         red       failed  on plan
+m2_arithmetic      s_total        no      p_sum_average         red       passed  ahead of plan
+
+9 proofs: 6 on plan, 3 ahead of plan, 0 behind
+
+what a person has to look at:
+  unread trailer  s_parse_units  c79da6a4f4a15bba57fefc885a95fb0eff40c4df  names a slice an earlier commit already landed
+  unread trailer  s_format       878a29ab20f4afc47fbd6dfb1c89bdb22884f7f8  names a slice an earlier commit already landed
+```
+
+Stderr was empty.
+
+### What the walk showed
+
+Five things, all of them readings of the output above rather than grades. The
+grades are in `docs/evidence/bet-3/holdout.md`.
+
+1. **At the first commit the board cannot run.** Both fixtures start with a plan
+   and no test package. `go test ./...` matches nothing, the adapter fails, and
+   `board` exits 1 with an error on stderr and an empty stdout. That is honest —
+   it says it could not run rather than printing a board — but it means the
+   first commit of a repo answers nothing.
+
+2. **At the first red-proof commit the board reads red for the right reason.**
+   sift at `035d288`: all six proofs `EXPECTED red`, two `failed`, four
+   `never ran`, every row `on plan`, exit 0. gauge at `ee669c1`: all nine
+   `EXPECTED red`, same shape. The expectation comes from plan position, and
+   every milestone still holds an unlanded slice. That is the right reason.
+
+3. **`LANDED` is wrong at every red-proof commit.** At `035d288` the board says
+   `s_tokenize LANDED yes` while both of that slice's proofs fail and nothing is
+   implemented. Same at `af14585` for `s_record_parse`, at `ee669c1` for
+   `s_parse_units`, and at `863e12f` for `s_format`. The red-proof commit
+   carries the `Slice:` trailer, and D57.4 credits the oldest claim.
+
+4. **The board goes falsely behind plan, and exits 1.** At `af14585` sift's
+   milestone 1 reads fully landed, so all three of its proofs turn
+   `EXPECTED green`. `p_record_parse` fails, because it is the red proof just
+   committed. The board prints `behind its plan` and exits 1. gauge does the
+   same at `863e12f` on `p_format_short`. A repo following this repo's own
+   tests-first rule reads as regressing at every red-proof commit.
+
+5. **A slice landing does not turn its own row green.** sift at `9bfa992` lands
+   `s_tokenize`, both its proofs pass, and both read `EXPECTED red` and
+   `ahead of plan`. gauge at `c79da6a` does the same for `s_parse_units`. The
+   rows turn green one commit later, when the milestone's last slice lands. The
+   contract makes the milestone the unit, and the board follows it.
+

@@ -18,12 +18,33 @@ const (
 	holdoutPageAt = "docs/evidence/bet-3/holdout.md"
 	designPageAt  = "docs/evidence/bet-3/design.md"
 
+	// The runner's record. The grading page says what the runs meant; this
+	// page is what the runs said. A grading with no run record behind it is
+	// prose, so this proof reads both.
+	runsPageAt = "docs/evidence/bet-3/slice-8/runs.md"
+
 	// The section slice 8 fills, and the line standing in it until then.
 	gradingHeading     = "## The grading record"
 	gradingPlaceholder = "Written by the slice 8 grading dispatch. Empty until then."
 
 	// The heading this proof's from: anchor names.
 	holdoutAnchor = "### R11 — Held-out fixtures for bet 3"
+
+	// The battery that ran the fixtures. A run record that does not say which
+	// version spoke cannot be held to anything later.
+	runBattery = "12.0+ra48a79a"
+
+	// The heading the supplemental walk lives under. The graded runs asked two
+	// of bet 3's four done-when clauses; the walk asked the other two. F123.
+	supplementHeading = "## The supplemental runs"
+
+	// What a captured run looks like on the page: a fence opened straight
+	// after the word verbatim. Prose about a run does not match this.
+	verbatimFence = "verbatim:\n\n```\n"
+
+	// The four graded runs: board and verify, on each of the two fixtures.
+	// Fewer captured blocks than that means a run went unrecorded.
+	gradedRuns = 4
 )
 
 // The two sealed repos. A grading that names neither graded nothing.
@@ -98,5 +119,32 @@ func TestProof_b3s8_grading_the_sealed_fixtures_are_run_once(t *testing.T) {
 		if !strings.Contains(body, repo) {
 			t.Errorf("the grading record never names %s", repo)
 		}
+	}
+
+	// The grading page alone cannot show that a run happened. F128: this proof
+	// used to read prose and call it a run. The run record is the other half,
+	// so it is read here too.
+	runs := repoPage(t, runsPageAt)
+
+	for _, repo := range sealedRepos {
+		if !strings.Contains(runs, repo) {
+			t.Errorf("%s never names %s, so it records no run on that fixture",
+				runsPageAt, repo)
+		}
+	}
+
+	if !strings.Contains(runs, runBattery) {
+		t.Errorf("%s never names the battery %s, so no run on it is pinned to a version",
+			runsPageAt, runBattery)
+	}
+
+	if blocks := strings.Count(runs, verbatimFence); blocks < gradedRuns {
+		t.Errorf("%s holds %d captured run blocks, and the graded runs alone are %d",
+			runsPageAt, blocks, gradedRuns)
+	}
+
+	if !strings.Contains(runs, supplementHeading) {
+		t.Errorf("%s holds no section %q, so the two clauses F123 names went unasked",
+			runsPageAt, supplementHeading)
 	}
 }
