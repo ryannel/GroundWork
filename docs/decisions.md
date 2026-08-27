@@ -760,3 +760,13 @@ Five rulings from the slice 7 closure.
 5. A close has no override, by design. Waivers excuse a red row's finding; an unrunnable scope row means the close cannot run, and a close that cannot run does not happen. The missing escape is the ceremony holding its own door.
 
 Why: one and two are the same idea — operations that decide nothing never count as decisions — stated for the two shapes the review found.
+
+## D66 — 2026-08-27 — Three rulings from the held-out grading
+
+The grading filed F119 through F122 and asked for three rulings. All three are taken here. None changes code now. A graded run burns its fixtures. Each fix below lands at the next battery major, with fresh fixtures, per D41.
+
+1. On F120, which same-trailer commit lands a slice. D57.4 stands as written until the fix slice. Its why — history lands things once — was reasoned against stray later claims, and never faced a tests-first fixture. Both sealed fixtures chose the same convention on their own, so the collision is the rule's to resolve, not the writers'. The direction is decided at the fix slice's walk, with both burned fixtures' evidence in front of it. Until then, writers in this repo put the Slice trailer on the landing commit alone. That convention is what has kept this repo's own boards true, and it is recorded here so it stops being luck.
+2. On F119, whether a documented scan limit answers a ladder-named stub style. It does not. The ladder names the always-true style by name, so the stub row owes a catch, not a citation. D58.1 made the scan's escape set the row's whole boundary. The fix slice must close this escape. It must not open a second definition of vacuous — D54's rule holds.
+3. On F122, the mutate row mid-bet. A cost to record, not a gap to patch. The row goes unrunnable rather than wrong, which is the safe direction D62.5 named: unjudged, never misjudged. A mid-bet posture for mutation is a candidate for the bet that next touches the battery, and it wants a walk before it wants code.
+
+Why one entry: the three fixes share one price. They cluster into one future slice at the next major, and the fresh fixtures it needs can be authored once for all three.
