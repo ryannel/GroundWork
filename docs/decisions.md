@@ -770,3 +770,16 @@ The grading filed F119 through F122 and asked for three rulings. All three are t
 3. On F122, the mutate row mid-bet. A cost to record, not a gap to patch. The row goes unrunnable rather than wrong, which is the safe direction D62.5 named: unjudged, never misjudged. A mid-bet posture for mutation is a candidate for the bet that next touches the battery, and it wants a walk before it wants code.
 
 Why one entry: the three fixes share one price. They cluster into one future slice at the next major, and the fresh fixtures it needs can be authored once for all three.
+
+## D67 — 2026-08-27 — Rulings from the slice 8 fix round, and one correction
+
+Six rulings, taken by the driver after the blind review and the fix round.
+
+1. A supplemental grading after the keys open is honest when it decides nothing. A board run at a fixed commit with fixed plan files is deterministic — same binary, same plans, no judgment anywhere. So the two clauses F123 names were graded late, not lost, and the record says which runs came after the keys.
+2. F124's more serious shape is noted. The board goes falsely red, with exit 1, on the exact history the working agreement demands. D66.1's deferral stands — the direction is still decided at the fix slice, now with af14585 and 863e12f in front of it.
+3. D66.1 is corrected, per F132. The convention is not "the landing commit alone". It is: no Slice trailer rides a commit before the landing. The red commit carries none, so the oldest claim is the landing. Later commits carry it for D62.1's staleness read, and the board names each one out loud.
+4. The catcher rule going forward: a finding out of a held-out grading says battery. The grading is the battery's own proving mechanism, and the runner and grader are its parts. F119 through F122 stand as filed; F130 records why they disagree.
+5. Translation fixes end when the first graded output is seen. A parse pre-check before the graded run is allowed, and the record names it. Anything after is tuning, at D41's price.
+6. The seal stays where it is. R6 holds: an agent never moves a seal, and the builder's refusal was right. The owner decides whether to amend seal/design/bet_3 to add the owed record. This round's report puts that choice to the owner. Until then the run record is pinned by the strengthened proof test alone, and F131 holds the door open.
+
+Why: the first ruling is the one with reasoning to keep. Blindness protects judgment. Determinism is the absence of judgment. So the seal on the keys stops mattering exactly where the machine stops choosing.

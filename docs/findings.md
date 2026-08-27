@@ -1459,3 +1459,14 @@ What happened: open, and no entry is changed. The ledger is append-only, so the 
 
 Caught by: blind-review — the slice 8 review
 Class: other — four entries from one source, filed under three catcher names
+
+## F132 — 2026-08-27 — D66.1's convention sentence would break the record row's own read
+
+What it is: D66.1 says writers in this repo put the Slice trailer "on the landing commit alone". Practice says otherwise: twelve commits after landings already carry trailers, and the fix rounds keep adding them. D62.1 needs them. The slice's last code commit is the newest commit that carries its trailer. That is how the record row sees staleness. The convention that has kept the boards true is narrower: the trailer never rides a commit before the landing. The red tests-first commit carries no Slice line, so the oldest claim is the true landing. Commits after the landing carry it too. The board names them as strays, out loud. The record row reads them.
+
+What caught it: the driver, reading the fix-round builder's verify note — thirteen unread-trailer lines on a board the driver had just called clean by convention.
+
+What happened: corrected in D67. The wrong sentence stands in D66, named there by this entry — the ledger is append-only. F62's class, on the driver's side again.
+
+Caught by: driver — the fix-round verify output read against the driver's own ruling
+Class: other — a ruled convention that practice and a ratified reading both contradict
