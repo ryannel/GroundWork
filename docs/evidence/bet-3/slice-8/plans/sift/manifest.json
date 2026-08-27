@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "surfaces": [
+    {"name": "cli", "profile": "cli", "stack": "go", "root": "."}
+  ],
+  "capabilities": [
+    {"name": "record-reading", "surface": "cli", "proof": ["internal/record"]},
+    {"name": "summary-report", "surface": "cli", "proof": ["internal/report"]}
+  ]
+}
