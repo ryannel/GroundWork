@@ -1248,3 +1248,47 @@ What happened: open. Folded into the fix round, the dedup and the trim first.
 
 Caught by: blind-review — the slice 7 dispatch
 Class: register
+
+## F113 — 2026-08-27 — A waiver file's identity is its path, and paths get reused
+
+What it is: a new waiver at a path a deleted waiver once occupied inherits the dead file's grants — four grants attributed to a row and bet that never had them, red on the wrong row. And a pure git mv counts as a grant: two honest grants plus one tidy-up rename trips the threshold, though nobody decided anything. The page's cell for that case does not drive what its words claim.
+
+What caught it: the slice 7 closure re-check, probing the fix round's rename-following.
+
+What happened: open. D65 rules the incarnation boundary and the rename's non-grant.
+
+Caught by: blind-review — the slice 7 closure re-check
+Class: green-but-wrong
+
+## F114 — 2026-08-27 — One repo, two diagnoses, and a lead buried again
+
+What it is: the counter's evidence line is nondeterministic — twelve runs of one repo printed two different worst rows, ten one way, two the other, on a tie the code claims it orders. And the record row buries its lead exactly the way D64.8 just fixed in the counter: a red line naming an unjudged record while the stale one that made it red hides in "and 2 more".
+
+What caught it: the slice 7 closure re-check, running one binary twelve times.
+
+What happened: open. Ties break toward the named bet, and reds lead every line — the rule already written, obeyed everywhere.
+
+Caught by: blind-review — the slice 7 closure re-check
+Class: green-but-wrong
+
+## F115 — 2026-08-27 — The cluster read still reds honest prose, and six smalls
+
+What it is: two adjacent trailer-shaped lines in prose still read as a squash — and any word-colon line counts as trailer-shaped, so a bare label above a sentence starting Slice: forms a cluster and prints the sentence as a trailer value, permanently red on immutable history. The cheap tightening: keys this repo actually writes. The smalls: the close usage text still describes the hollow check; the gpgsign shape pin is evadable by an init spelling or a second maker in a blessed file; a page sentence says counted where the code judges; the head-byte constants certify themselves against nothing; the close's journal line does not say whether the close was met; an all-empty path list means read-everything in the direction that inflates.
+
+What caught it: the slice 7 closure re-check.
+
+What happened: open. Folded into the micro-round.
+
+Caught by: blind-review — the slice 7 closure re-check
+Class: coverage-gap
+
+## F116 — 2026-08-27 — Four costs stated out loud
+
+What it is: the ruled and accepted costs the closure named, recorded so no reader meets them cold. A shallow clone reads green over records it cannot judge — on this repo, three of seven record-declaring slices at every run, for as long as every clone here is shallow. A git rm plus a rewritten file at a new name restarts a grant count — narrower than the rename it replaced, a real rewrite instead of a bare mv. A repo whose plan declares no bets pools every grant into one bucket sharing the per-bet limit — stricter than the page's headline suggests for adopters without plans. And a close has no override: an unrunnable scope row cannot be waived, which D65 rules is the ceremony holding, not a gap — a close that cannot run is a close that does not happen.
+
+What caught it: the slice 7 closure re-check, pricing what it closed.
+
+What happened: recorded. The first cost shrinks when clones deepen or the trailer corpus grows past the edge; the rest stand as designed.
+
+Caught by: blind-review — the slice 7 closure re-check
+Class: other — ruled costs, recorded where a reader will look

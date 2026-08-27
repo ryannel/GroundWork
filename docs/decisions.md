@@ -748,3 +748,15 @@ Nine rulings from the slice 7 review.
 9. Every fixture repo maker sets commit.gpgsign=false. The host's signing shim was half the battery clock and the whole of F100's false red channel, and a fixture has nothing to sign.
 
 Why: three of these correct the record itself — the reviewer caught the driver's ledger twice in one round, which is the blind-review discipline doing to the driver exactly what it does to builders.
+
+## D65 — 2026-08-27 — The counter's identity rules, and the close's missing escape ruled absent
+
+Five rulings from the slice 7 closure.
+
+1. A waiver file's grant history starts at the commit that created its current incarnation. A path reused after a deletion is a new file, and a dead file's grants die with it.
+2. A pure rename is counted and named, never read as a grant — the merge rule's shape, applied to the other operation that decides nothing.
+3. Ties in a line's worst-first ordering break toward the named bet, so one repo prints one line. And reds lead every line, every row — D64.8 said it once; this says it is not per-row advice.
+4. The squash cluster read counts only lines whose keys this repo writes as trailers. A prose label is not a trailer key, and a permanent red on honest history is the worst false positive this battery can make.
+5. A close has no override, by design. Waivers excuse a red row's finding; an unrunnable scope row means the close cannot run, and a close that cannot run does not happen. The missing escape is the ceremony holding its own door.
+
+Why: one and two are the same idea — operations that decide nothing never count as decisions — stated for the two shapes the review found.
