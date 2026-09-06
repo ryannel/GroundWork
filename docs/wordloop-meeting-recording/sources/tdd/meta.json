@@ -1,0 +1,13 @@
+{
+  "title": "Technical Design Doc",
+  "defaultOpen": true,
+  "pages": [
+    "index",
+    "ui-design",
+    "data-flow",
+    "schemas",
+    "domain-slices",
+    "milestones",
+    "contracts"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "c-wl-core",
+  "productId": "p-wordloop",
+  "name": "Core",
+  "description": "The API and recording coordinator. Owns durable meeting data, user mutations, and orchestration.",
+  "order": 1,
+  "kind": "service",
+  "repo": "services/wordloop-core",
+  "dependsOn": [
+    "c-wl-db",
+    "c-wl-gcs",
+    "c-wl-ml"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "c-wl-app",
+  "productId": "p-wordloop",
+  "name": "App",
+  "description": "The Wordloop web application. Owns meeting capture, notes, tasks, and review in the browser.",
+  "order": 0,
+  "kind": "service",
+  "repo": "services/wordloop-app",
+  "dependsOn": [
+    "c-wl-core"
+  ]
+}

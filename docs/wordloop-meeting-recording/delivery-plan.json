@@ -1,0 +1,456 @@
+{
+  "milestones": [
+    {
+      "id": "01",
+      "title": "01 Upload Finalizes Meeting",
+      "goal": "A user uploads a recorded meeting and receives a finalized transcript, headline, summary, topics, talking points, and tasks without using live recording.",
+      "why": "Upload finalization is the smallest shared proof of the meeting rebuild path. It establishes the canonical post-processing pipeline before live recording, recovery, notes, speakers, playback, or hardening depend on it.",
+      "included": "- User creates or selects a meeting and uploads one supported audio file.\n- The uploaded source audio is persisted so the meeting can be rebuilt deterministically.\n- The uploaded audio is transcribed into a final transcript.\n- A final meeting headline, summary, topics, talking points, and extracted tasks are generated.\n- The meeting finalization state is visible so the user can tell whether processing is pending, failed, or complete.",
+      "excluded": "- Live microphone capture or streaming transcript.\n- Local browser durability, reconnect recovery, or background recording behaviour.\n- User notes, live talking points, live task reconciliation, speaker assignment, synced playback, or recording hardening.\n- Editing generated artifacts after finalization.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | DB schema, all REST endpoints, WebSocket events, and Pub/Sub outbox | `./dev new slice meeting-recording 01-upload-finalizes-meeting core upload-finalizes-meeting` | L | None |\n| 2 | ML | Pub/Sub consumer, AssemblyAI batch transcription, OpenAI synthesis, and Core write-backs | `./dev new slice meeting-recording 01-upload-finalizes-meeting ml upload-finalizes-meeting` | M | Slice 1 merged + `./dev gen all` |\n| 3 | App | Upload entry point, processing states, meeting list, meeting detail CRUD, finalized artifacts | `./dev new slice meeting-recording 01-upload-finalizes-meeting app upload-finalizes-meeting` | M | Slice 1 merged + `./dev gen all` |",
+      "acceptance": [
+        {
+          "text": "User uploads an audio file to a meeting from the app.",
+          "checked": false
+        },
+        {
+          "text": "The meeting shows a processing state while upload transcription and synthesis run.",
+          "checked": false
+        },
+        {
+          "text": "The final transcript is visible after processing completes.",
+          "checked": false
+        },
+        {
+          "text": "Headline, summary, topics, talking points, and tasks are visible on the finalized meeting.",
+          "checked": false
+        },
+        {
+          "text": "Refreshing the page preserves the finalized artifacts and processing state.",
+          "checked": false
+        },
+        {
+          "text": "Upload finalization failure leaves a visible failed state with enough diagnostic context for retry or support.",
+          "checked": false
+        },
+        {
+          "text": "No live recording capability is required to complete this milestone.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx"
+    },
+    {
+      "id": "02",
+      "title": "02 Reusable Task Components",
+      "goal": "A single set of reusable task components powers full create, read, update, delete, and search on both the /tasks listing page and the meeting detail page, with consistent behaviour across surfaces.",
+      "why": "Milestone 01 proves the finalization pipeline that produces tasks from uploaded audio. Before live recording layers draft tasks and reconciliation logic on top, the task surface itself must be consistent and fully functional. Building shared components now means every later milestone that touches tasks — live task capture, reconciliation, and review — inherits a stable, tested foundation rather than forking behaviour across surfaces.",
+      "included": "- A shared task component library used by both the `/tasks` page and the meeting detail tasks section.\n- Full task CRUD on both surfaces: create, edit, toggle status (pending/completed), and delete with confirmation.\n- Task search and filtering: text search across task content, filter by status (all/pending/completed), filter by assignment (all/my tasks/allocated).\n- Meeting-scoped task views: the meeting detail page shows tasks scoped to that meeting with the same CRUD and filtering capabilities as the global tasks page.\n- Sub-task display: sub-task summary (total/completed count) on parent tasks, with expandable sub-task list.\n- Assignee management: a shared assignee picker component for assigning tasks to people.\n- Due date management: a shared due date picker with contextual formatting (overdue, today, tomorrow, upcoming).\n- Consistent empty, loading, and error states across both surfaces.\n- Task metadata display: assignee avatar, due date badge, meeting link badge, and source indicator (user/system).",
+      "excluded": "- Live task extraction from streaming transcript or AI-generated draft tasks during recording.\n- Task reconciliation logic between user-owned and system-generated tasks.\n- Speaker-aware task assignment suggestions.\n- Sub-task CRUD (display only; full sub-task management is out of scope).\n- Task export, external integrations, or notification triggers.\n- Drag-and-drop reordering or kanban-style views.",
+      "slices": "App-only milestone. Core and ML have no new work.\n\n| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | App | Shared TaskList, TaskItem, TaskForm, TaskSearch components; full CRUD and filtering on `/tasks` page and meeting detail | `./dev new slice meeting-recording 02-reusable-task-components app task-components` | M | Milestone 01 merged |",
+      "acceptance": [
+        {
+          "text": "The `/tasks` page and meeting detail tasks section render tasks using the same shared components.",
+          "checked": false
+        },
+        {
+          "text": "User can create a task from both the `/tasks` page and the meeting detail page.",
+          "checked": false
+        },
+        {
+          "text": "User can edit a task inline or via dialog from both surfaces.",
+          "checked": false
+        },
+        {
+          "text": "User can toggle task status between pending and completed from both surfaces.",
+          "checked": false
+        },
+        {
+          "text": "User can delete a task with confirmation from both surfaces.",
+          "checked": false
+        },
+        {
+          "text": "User can search tasks by content text.",
+          "checked": false
+        },
+        {
+          "text": "User can filter tasks by status and assignment category.",
+          "checked": false
+        },
+        {
+          "text": "Meeting detail shows only tasks scoped to that meeting.",
+          "checked": false
+        },
+        {
+          "text": "Task metadata (assignee, due date, meeting link, sub-task count) displays consistently across surfaces.",
+          "checked": false
+        },
+        {
+          "text": "Loading, empty, and error states are consistent between both surfaces.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx"
+    },
+    {
+      "id": "03",
+      "title": "03 Reusable Note Components",
+      "goal": "A single set of reusable note components powers full create, read, update, delete, search, and context linking across the /notes listing page, meeting detail notes section, and people detail notes tab, with consistent behaviour across surfaces.",
+      "why": "Notes are the first user-authored artifact that spans multiple surfaces — global listing, meeting context, and people context. Before live recording introduces autosaved meeting notes and the finalization pipeline must preserve them, the note surface itself must be consistent and fully functional. Shared components now mean the later live notes milestone inherits a stable editor, persistence model, and display rather than forking behaviour across surfaces.",
+      "included": "- A shared note component library used by the `/notes` page, meeting detail notes section, and people detail notes tab.\n- Full note CRUD on all three surfaces: create with rich text editor, edit inline or via composer, and delete with confirmation.\n- Note search: text search across note content and tags.\n- Tag management: add, remove, and filter by tags with the shared tag picker.\n- Context linking: link notes to a person or meeting via the shared context link picker, with the correct context pre-filled when creating from a meeting or person page.\n- Meeting-scoped note views: the meeting detail page shows notes linked to that meeting with full CRUD capability.\n- Person-scoped note views: the people detail page shows notes linked to that person with full CRUD capability.\n- Rich text editing: the shared composer and editor support markdown shortcuts, formatting toolbar, and preview.\n- Note card display: consistent card rendering with extracted title, excerpt, tags, context badge, and timestamp across all surfaces.\n- Consistent empty, loading, and error states across all three surfaces.",
+      "excluded": "- Collaborative or shared notes between users.\n- Autosave during live recording (addressed in the live notes milestone).\n- Using notes as ML prompt context for synthesis.\n- Note export, external sync, or notification triggers.\n- Note versioning or revision history.\n- Attachment support (images, files) within notes.",
+      "slices": "App-only milestone. Core and ML have no new work.\n\n| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | App | Shared NoteList, NoteCard, NoteComposer, NoteSearch, TagPicker, ContextLinkPicker components; full CRUD across `/notes`, meeting detail, and people detail | `./dev new slice meeting-recording 03-reusable-note-components app note-components` | M | Milestone 01 merged |",
+      "acceptance": [
+        {
+          "text": "The `/notes` page, meeting detail notes section, and people detail notes tab render notes using the same shared components.",
+          "checked": false
+        },
+        {
+          "text": "User can create a note from all three surfaces.",
+          "checked": false
+        },
+        {
+          "text": "Creating a note from the meeting detail page pre-links it to that meeting.",
+          "checked": false
+        },
+        {
+          "text": "Creating a note from the people detail page pre-links it to that person.",
+          "checked": false
+        },
+        {
+          "text": "User can edit a note from all three surfaces using the shared composer or editor.",
+          "checked": false
+        },
+        {
+          "text": "User can delete a note with confirmation from all three surfaces.",
+          "checked": false
+        },
+        {
+          "text": "User can search notes by content text and tags.",
+          "checked": false
+        },
+        {
+          "text": "User can filter notes by tag.",
+          "checked": false
+        },
+        {
+          "text": "Meeting detail shows only notes linked to that meeting.",
+          "checked": false
+        },
+        {
+          "text": "People detail shows only notes linked to that person.",
+          "checked": false
+        },
+        {
+          "text": "Note cards display title, excerpt, tags, context badge, and timestamp consistently.",
+          "checked": false
+        },
+        {
+          "text": "Loading, empty, and error states are consistent across all three surfaces.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx"
+    },
+    {
+      "id": "04",
+      "title": "04 Live Transcript To Final Rebuild",
+      "goal": "A user records live audio, sees a live transcript during the meeting, and stops recording to rebuild the same final artifacts through the finalization path proven by Milestone 01.",
+      "why": "Live recording should not create a separate finalization model. After upload proves the rebuild path, live recording can focus on capture and streaming while stop hands the recorded audio into the same final transcript and synthesis pipeline.",
+      "included": "- Start and stop a live recording session from the meeting UI.\n- Stream live audio from the browser to the backend processing path.\n- Stream live transcript segments back to the user while recording continues.\n- Persist the recorded audio source for final rebuild after stop.\n- On stop, invoke the same finalization path proven in Milestone 01.\n- Replace draft live transcript output with the final transcript and final meeting artifacts.",
+      "excluded": "- Offline-first OPFS durability, reconnect gap recovery, or degraded health surfaces beyond basic live failure states.\n- Private notes, live talking points, live tasks, speaker labelling, playback review, or hardening policies.\n- Divergent live-only final synthesis behaviour.\n- Pause/resume or multi-device recording control.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | WebSocket recording commands, ML session orchestration, GCS audio segment storage, finalization handoff to the M01 pipeline | `./dev new slice meeting-recording 04-live-transcript-to-final-rebuild core live-recording-session` | L | Milestone 01 merged |\n| 2 | ML | AssemblyAI streaming session, live `TranscriptSegmentProducedEvent` output, drain on stop, final batch rebuild via M01 pipeline | `./dev new slice meeting-recording 04-live-transcript-to-final-rebuild ml streaming-transcription` | M | Slice 1 merged + `./dev gen all` |\n| 3 | App | \"Start Recording\" entry point (from New Meeting dropdown), live transcript panel, stop button, stop-to-finalization transition state | `./dev new slice meeting-recording 04-live-transcript-to-final-rebuild app live-recording-ui` | M | Slice 1 merged + `./dev gen all` |",
+      "acceptance": [
+        {
+          "text": "User starts a live recording session and sees recording state in the app.",
+          "checked": true
+        },
+        {
+          "text": "Live transcript text appears while audio is being captured.",
+          "checked": true
+        },
+        {
+          "text": "User stops recording and the meeting enters finalization.",
+          "checked": true
+        },
+        {
+          "text": "Stop reuses the same finalization path proven by uploaded audio in Milestone 01.",
+          "checked": true
+        },
+        {
+          "text": "Draft live transcript output is replaced by the final transcript when rebuild completes.",
+          "checked": true
+        },
+        {
+          "text": "Final headline, summary, topics, talking points, and tasks match the final rebuild output.",
+          "checked": true
+        },
+        {
+          "text": "A failed live stream or final rebuild leaves a visible recoverable state.",
+          "checked": true
+        }
+      ],
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx"
+    },
+    {
+      "id": "05",
+      "title": "05 Live Audio Durability Recovery",
+      "goal": "A live recording remains durable across normal connectivity interruptions, with recoverable audio gaps and clear health or degraded states for the user.",
+      "why": "Once live recording feeds the final rebuild path, the next risk is losing source audio before finalization. Durability and recovery must be proven before layering notes, insights, tasks, speakers, and playback on top of the recording session.",
+      "included": "- Buffer live audio locally using the agreed browser durability mechanism.\n- Upload durable audio chunks to object storage as recording progresses.\n- Recover upload gaps after reconnect when local durable chunks are still available.\n- Show healthy, reconnecting, degraded, and failed recording states.\n- Preserve enough source audio for final rebuild after transient network failures.",
+      "excluded": "- Private notes or generated live insights.\n- Speaker assignment, playback review, or final artifact editing.\n- Full hardening matrix for long sessions, no-audio detection, auto-stop, multi-tab guard, or browser capability gates.\n- Cross-device continuation of the same recording.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | Binary audio frame receipt, 2 s GCS segment storage, `highest_contiguous_sequence` tracking, gap detection, `POST /meetings/{id}/recording/chunks` for OPFS gap upload, `AudioStoredProgressEvent` | `./dev new slice meeting-recording 05-live-audio-durability-recovery core audio-durability` | L | Milestone 04 merged |\n| 2 | App | OPFS shadow buffer worker, `MediaRecorder` → OPFS → WebSocket send pipeline, `bufferedAmount` backpressure, gap upload on reconnect/stop, `RecordingHealthEvent` banner states | `./dev new slice meeting-recording 05-live-audio-durability-recovery app recording-durability-ui` | L | Slice 1 merged |\n| 3 | ML | Gap-tolerant audio input handling; tolerant behaviour when received sequences are non-contiguous | `./dev new slice meeting-recording 05-live-audio-durability-recovery ml transcription-recovery` | S | Milestone 04 merged |",
+      "acceptance": [
+        {
+          "text": "Live recording persists audio chunks while recording is active.",
+          "checked": false
+        },
+        {
+          "text": "Uploaded chunks are tracked durably in object storage.",
+          "checked": false
+        },
+        {
+          "text": "Temporary network loss shows a reconnecting or degraded state instead of silently losing audio.",
+          "checked": false
+        },
+        {
+          "text": "Reconnect uploads locally buffered gaps when available.",
+          "checked": false
+        },
+        {
+          "text": "Final rebuild includes recovered audio after a transient interruption.",
+          "checked": false
+        },
+        {
+          "text": "Unrecoverable gaps are visible to the user and reflected in diagnostics.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx"
+    },
+    {
+      "id": "06",
+      "title": "06 Live Notes",
+      "goal": "A user can write private notes during a live recording, have them autosaved, and keep them attached to the meeting after finalization.",
+      "why": "Durable live audio establishes that the recording session can survive instability. Notes are the first user-authored artifact layered onto the session and must prove autosave and preservation before generated live insights or task reconciliation add more mutable state.",
+      "included": "- Show a private notes surface during live recording.\n- Autosave note edits while the recording is active.\n- Preserve notes across refresh and finalization.\n- Keep notes separate from generated transcript and synthesis output.\n- Display notes in the finalized meeting review surface.",
+      "excluded": "- Collaborative notes, shared visibility controls, or rich-text editing.\n- Generated talking points, task extraction, or speaker assignment.\n- Using notes as ML prompt context for final synthesis.\n- Export or external sync of notes.",
+      "slices": "No ML slice for this milestone.\n\n| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `PATCH /meetings/{id}` notes field update; debounced write semantics; `EntityChangedEvent { entity: \"meeting\" }` broadcast | `./dev new slice meeting-recording 06-live-notes core live-notes` | S | Milestone 03 merged (shared note components) |\n| 2 | App | Notes textarea autosave in the recording view (debounced `PATCH`); restore on refresh; display in finalized meeting detail via M03 shared note components | `./dev new slice meeting-recording 06-live-notes app live-notes-editor` | S | Slice 1 merged |",
+      "acceptance": [
+        {
+          "text": "User can create and edit private notes while recording is active.",
+          "checked": false
+        },
+        {
+          "text": "Notes autosave without requiring a manual save action.",
+          "checked": false
+        },
+        {
+          "text": "Refreshing during recording restores the latest saved note content.",
+          "checked": false
+        },
+        {
+          "text": "Stopping and finalizing the meeting preserves the notes unchanged.",
+          "checked": false
+        },
+        {
+          "text": "Final generated artifacts do not overwrite user-authored notes.",
+          "checked": false
+        },
+        {
+          "text": "Note save failure is visible and does not corrupt existing saved content.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/06-live-notes/index.mdx"
+    },
+    {
+      "id": "07",
+      "title": "07 Live Talking Points",
+      "goal": "A user sees draft talking points during a live meeting, then receives final talking points from the final rebuild after recording stops.",
+      "why": "After the recording, finalization, durability, and user notes surfaces are stable, the system can safely add generated live insight previews without confusing them with final rebuilt artifacts.",
+      "included": "- Generate draft talking points from the live transcript while recording continues.\n- Label live talking points as draft or provisional.\n- Update draft talking points as more transcript context arrives.\n- On finalization, replace draft talking points with final talking points from the rebuild path.\n- Preserve private notes separately from generated talking points.",
+      "excluded": "- User task extraction or reconciliation.\n- Speaker labelling, audio playback, or review-time transcript sync.\n- Manual editing or pinning of talking points.\n- Treating live draft talking points as final meeting output.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `POST /meetings/{id}/talking-points` ML write-back; `TalkingPointEvent` broadcast; `PUT /meetings/{id}/synthesis` final replacement; `SynthesisUpdatedEvent` broadcast | `./dev new slice meeting-recording 07-live-talking-points core live-talking-points` | S | Milestone 04 merged |\n| 2 | ML | Batched insight pipeline producing `TalkingPointProducedEvent` every N transcript segments; final talking points in post-meeting synthesis | `./dev new slice meeting-recording 07-live-talking-points ml live-talking-points` | M | Slice 1 merged + `./dev gen all` |\n| 3 | App | Draft talking points panel in the recording view; provisional label; replace with final on `SynthesisUpdatedEvent` | `./dev new slice meeting-recording 07-live-talking-points app live-talking-points-ui` | S | Slice 1 merged |",
+      "acceptance": [
+        {
+          "text": "Draft talking points appear while a live transcript is streaming.",
+          "checked": false
+        },
+        {
+          "text": "Draft talking points are visibly marked as provisional.",
+          "checked": false
+        },
+        {
+          "text": "Draft talking points update as additional transcript context arrives.",
+          "checked": false
+        },
+        {
+          "text": "Stopping the recording triggers final rebuild through the shared finalization path.",
+          "checked": false
+        },
+        {
+          "text": "Final talking points replace draft talking points after rebuild completes.",
+          "checked": false
+        },
+        {
+          "text": "Private notes remain unchanged when talking points are generated or replaced.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/07-live-talking-points/index.mdx"
+    },
+    {
+      "id": "08",
+      "title": "08 Live Tasks And Reconciliation",
+      "goal": "A user can work with live extracted tasks during a meeting, create or edit tasks manually, and have final task reconciliation preserve user-owned edits after rebuild.",
+      "why": "Tasks introduce generated state that users can modify. They belong after live insights because reconciliation rules must distinguish draft machine output from user-owned task changes before final artifacts replace provisional ones.",
+      "included": "- Extract draft tasks from the live transcript during recording.\n- Allow user task create, update, complete, and delete actions during the meeting.\n- Track whether task fields are generated or user-owned.\n- Reconcile final rebuilt tasks with live draft tasks and user edits after stop.\n- Preserve user-created tasks and user-owned edits through finalization.",
+      "excluded": "- Speaker-aware assignment suggestions.\n- External task export or integration with third-party systems.\n- Complex dependency graphs, recurring tasks, or subtasks.\n- Audio playback and click-to-seek review flows.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `source` field ownership tracking (`user` / `system`); `PUT /meetings/{id}/tasks/system` reconciliation semantics (preserve `source: user`, replace unedited `source: system`); `TaskEvent` broadcast during live session | `./dev new slice meeting-recording 08-live-tasks-and-reconciliation core task-reconciliation` | M | Milestone 04 merged |\n| 2 | ML | `TaskProducedEvent` emission from the same batched insight pipeline as talking points; final task candidates in `PUT /meetings/{id}/tasks/system` write-back | `./dev new slice meeting-recording 08-live-tasks-and-reconciliation ml live-task-extraction` | S | Slice 1 merged + `./dev gen all` |\n| 3 | App | Live task list in recording view (via M02 shared components); reconciliation result visible on finalization; wires M02 library to the live session | `./dev new slice meeting-recording 08-live-tasks-and-reconciliation app live-task-ui` | S | Slices 1 + 2 merged; Milestone 02 merged |",
+      "acceptance": [
+        {
+          "text": "Draft tasks appear while a live transcript is streaming.",
+          "checked": false
+        },
+        {
+          "text": "User can create, edit, complete, and delete tasks during recording.",
+          "checked": false
+        },
+        {
+          "text": "User-owned task fields are tracked separately from generated task fields.",
+          "checked": false
+        },
+        {
+          "text": "Final rebuild reconciles generated task candidates with live draft tasks.",
+          "checked": false
+        },
+        {
+          "text": "User-created tasks survive final reconciliation.",
+          "checked": false
+        },
+        {
+          "text": "User edits are not overwritten by final generated task output.",
+          "checked": false
+        },
+        {
+          "text": "Deleted user-owned tasks do not reappear from final reconciliation without an explicit conflict state.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx"
+    },
+    {
+      "id": "09",
+      "title": "09 Speaker Labelling",
+      "goal": "A user can assign transcript speaker labels to people, create missing people, and keep those assignments when the final transcript replaces provisional transcript output.",
+      "why": "Speaker labels depend on transcript identity and final replacement semantics. They come after task reconciliation because both require user-owned metadata to survive regenerated ML output without being overwritten.",
+      "included": "- Show speaker labels on transcript turns or segments.\n- Assign an existing person to a speaker label.\n- Create a new person from the speaker assignment flow.\n- Persist speaker-to-person assignments on the meeting.\n- Preserve assignments when the final transcript replaces provisional live transcript output.",
+      "excluded": "- Automatic speaker identity recognition across meetings.\n- Speaker-aware task assignment or summary rewriting.\n- Contact enrichment, avatars, or organization directory sync.\n- Audio playback review and synced transcript highlighting.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `POST /meetings/{id}/speaker-labels`; person lookup / create; `speaker_label → person_id` mapping persisted to `transcript_segments`; mapping survives `PUT /transcriptions/{id}/segments` replacement; `SpeakerStateUpdatedEvent` to ML during live session | `./dev new slice meeting-recording 09-speaker-labelling core speaker-assignment` | M | Milestone 04 merged |\n| 2 | App | Speaker label display on transcript segments; inline assignment dropdown (existing person or create new); assignment optimistically applied; unassigned labels visually distinct | `./dev new slice meeting-recording 09-speaker-labelling app speaker-labelling-ui` | M | Slice 1 merged |\n| 3 | ML | `speaker_label` field populated on `TranscriptSegmentProducedEvent` from AssemblyAI diarization; `SegmentFeaturesProducedEvent` for voice embeddings | `./dev new slice meeting-recording 09-speaker-labelling ml speaker-diarization` | S | Milestone 04 merged |",
+      "acceptance": [
+        {
+          "text": "Transcript output displays distinct speaker labels.",
+          "checked": false
+        },
+        {
+          "text": "User can assign an existing person to a speaker label.",
+          "checked": false
+        },
+        {
+          "text": "User can create a person from the speaker labelling flow.",
+          "checked": false
+        },
+        {
+          "text": "Speaker assignments persist after refresh.",
+          "checked": false
+        },
+        {
+          "text": "Stopping and finalizing the recording replaces provisional transcript output without dropping assigned people.",
+          "checked": false
+        },
+        {
+          "text": "Unassigned speaker labels remain clearly visible for later review.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx"
+    },
+    {
+      "id": "10",
+      "title": "10 Audio Playback And Review",
+      "goal": "A user can review a finalized meeting with tabs, play the stored audio through a signed URL, see transcript highlighting synced to playback, and click transcript text to seek.",
+      "why": "Playback relies on durable source audio, final transcript timestamps, and stable review artifacts. It follows speaker labelling so review can include the finalized transcript metadata users need to inspect.",
+      "included": "- Final review tabs for transcript, summary, talking points, tasks, notes, and playback-related review.\n- Serve playable meeting audio through a time-limited signed URL.\n- An audio player on the finalized meeting review screen.\n- Highlight transcript content according to current playback time.\n- Click transcript content to seek the audio player.",
+      "excluded": "- Download/export of audio or transcript.\n- Editing transcript text from the playback review UI.\n- Advanced waveform visualization or variable playback analytics.\n- Recording hardening policies such as auto-stop, no-audio detection, and multi-tab guard.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `GET /meetings/{id}/audio-url` returning a time-limited GCS signed URL; `mime_type` and `duration_ms` in response | `./dev new slice meeting-recording 10-audio-playback-and-review core audio-url` | S | Milestone 05 merged (composed `audio.webm` exists) |\n| 2 | ML | `start_ms` / `end_ms` timestamps on every final transcript segment from batch AssemblyAI output | `./dev new slice meeting-recording 10-audio-playback-and-review ml timestamped-transcript` | S | Milestone 04 merged |\n| 3 | App | Audio player component wired to signed URL; active segment highlight synced to `currentTime`; click-to-seek on transcript rows | `./dev new slice meeting-recording 10-audio-playback-and-review app audio-playback-ui` | M | Slices 1 + 2 merged |",
+      "acceptance": [
+        {
+          "text": "Finalized meeting review shows the expected review tabs.",
+          "checked": false
+        },
+        {
+          "text": "Audio playback loads through a signed URL rather than exposing raw storage access.",
+          "checked": false
+        },
+        {
+          "text": "User can play, pause, and seek the meeting audio.",
+          "checked": false
+        },
+        {
+          "text": "Transcript highlighting follows the current playback time.",
+          "checked": false
+        },
+        {
+          "text": "Clicking transcript content seeks the audio player to the matching time.",
+          "checked": false
+        },
+        {
+          "text": "Expired or unavailable signed URLs produce a visible recoverable playback error.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx"
+    },
+    {
+      "id": "11",
+      "title": "11 Recording Hardening",
+      "goal": "A live recording behaves predictably under real-world browser and session constraints, with clear guards, automatic stops, capability gates, and diagnostics.",
+      "why": "The core user value is proven before hardening so edge-case policy can be tested against complete recording, finalization, notes, insights, tasks, speakers, and playback behaviour rather than a partial flow.",
+      "included": "- Validate long recording session behaviour against the agreed duration target.\n- Handle background tab behaviour with visible user guidance and diagnostics.\n- Detect no-audio input and warn or stop according to policy.\n- Auto-stop recordings when hard limits are reached.\n- Prevent conflicting multi-tab recording control for the same user and meeting.\n- Gate unsupported Safari or OPFS capability combinations with clear fallback messaging.\n- Capture diagnostics for recording health, recovery, and failure investigation.",
+      "excluded": "- New user-visible meeting artifacts beyond the recording and review flow.\n- Mobile-native recording support.\n- Cross-device recording handoff.\n- Enterprise compliance workflows or retention policy automation.",
+      "slices": "| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |\n|---|---|---|---|---|---|\n| 1 | Core | `max_duration_seconds` enforcement; `RecordingDurationWarningEvent` and auto-stop; session lock preventing a second active recording per user; `recording_event_history` diagnostics table | `./dev new slice meeting-recording 11-recording-hardening core recording-limits` | M | Milestone 05 merged |\n| 2 | ML | `no_audio_detected` health signal; unusable-audio detection emitted as `RecordingHealthEvent` domain signal | `./dev new slice meeting-recording 11-recording-hardening ml recording-health-signals` | S | Milestone 04 merged |\n| 3 | App | `MediaRecorder` / OPFS capability gate before recording starts; multi-tab guard (disable Start if another tab has an active session via `has_active_recording` filter); no-audio warning banner; auto-stop countdown overlay | `./dev new slice meeting-recording 11-recording-hardening app recording-hardening-ui` | M | Slices 1 + 2 merged |",
+      "acceptance": [
+        {
+          "text": "Long sessions remain stable through the agreed recording duration target or stop with a clear limit state.",
+          "checked": false
+        },
+        {
+          "text": "Background tab behaviour is visible and does not silently corrupt recording state.",
+          "checked": false
+        },
+        {
+          "text": "No-audio input produces a warning or auto-stop according to policy.",
+          "checked": false
+        },
+        {
+          "text": "Recording auto-stops when hard duration or health limits are reached.",
+          "checked": false
+        },
+        {
+          "text": "A second tab cannot start or control a conflicting recording for the same meeting.",
+          "checked": false
+        },
+        {
+          "text": "Unsupported Safari or OPFS capability combinations are gated before recording starts.",
+          "checked": false
+        },
+        {
+          "text": "Diagnostics identify recording health, reconnects, degradation, and stop reasons.",
+          "checked": false
+        }
+      ],
+      "source": "tdd/milestones/11-recording-hardening/index.mdx"
+    }
+  ]
+}

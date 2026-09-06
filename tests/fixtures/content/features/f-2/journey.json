@@ -1,0 +1,130 @@
+{
+  "steps": [
+    {
+      "id": "j1",
+      "actor": "Shopper",
+      "action": "Adds an item before choosing a delivery region",
+      "surface": "Storefront · cart drawer",
+      "note": "The cart service adds the item, checks the delivery region, then saves and returns the cart with tax pending.",
+      "result": "The cart returns with taxStatus: \"pending\". The drawer shows “calculated at checkout”; the subtotal excludes tax.",
+      "design": "m-cart",
+      "flow": [
+        "sdk",
+        "cart",
+        "region",
+        "placeholder",
+        "cartdb"
+      ],
+      "flowEdges": [
+        "e-sdk-cart",
+        "e-cart-region",
+        "e-region-placeholder",
+        "e-placeholder-db"
+      ],
+      "contracts": [
+        "api-add-line"
+      ]
+    },
+    {
+      "id": "j2",
+      "actor": "Shopper",
+      "action": "Sets a delivery region",
+      "surface": "Cart page · delivery estimate",
+      "note": "The cart requests a tax quote, saves the returned amounts and rule IDs, then responds to the storefront. Cached rates avoid a rules lookup.",
+      "result": "Each cart line shows its tax and rule ID. The total includes tax and taxStatus is \"quoted\".",
+      "branch": "Region complete → quote tax. Incomplete → keep tax pending.",
+      "design": "m-cart",
+      "flow": [
+        "sdk",
+        "cart",
+        "region",
+        "quote",
+        "cache",
+        "rules",
+        "db",
+        "cartdb"
+      ],
+      "flowEdges": [
+        "e-sdk-cart",
+        "e-cart-region",
+        "e-cart-db",
+        "e-region-quote",
+        "e-quote-cache",
+        "e-quote-rules",
+        "e-rules-db"
+      ],
+      "contracts": [
+        "api-deliver-to",
+        "api-quote"
+      ]
+    },
+    {
+      "id": "j4",
+      "actor": "Shopper",
+      "action": "Opens the tax breakdown",
+      "surface": "Cart page · totals",
+      "note": "The storefront reads the saved cart. This action does not change the cart or recalculate tax.",
+      "result": "The shopper sees the saved tax amount, rate and rule ID for each line.",
+      "design": "m-cart",
+      "flow": [
+        "sdk",
+        "cart",
+        "cartdb"
+      ],
+      "flowEdges": [
+        "e-sdk-cart",
+        "e-cart-read"
+      ],
+      "contracts": [
+        "api-get-cart"
+      ]
+    },
+    {
+      "id": "j5",
+      "actor": "Shopper",
+      "action": "Confirms a different checkout address",
+      "surface": "Checkout · address step",
+      "note": "Example: the destination changes from DE to FR. The same quote-and-save path runs before checkout continues.",
+      "result": "The cart returns with tax for the new address. Checkout shows the total change before the shopper confirms the order.",
+      "flow": [
+        "sdk",
+        "cart",
+        "region",
+        "quote",
+        "cache",
+        "rules",
+        "db",
+        "cartdb"
+      ],
+      "flowEdges": [
+        "e-sdk-cart",
+        "e-cart-region",
+        "e-cart-db",
+        "e-region-quote",
+        "e-quote-cache",
+        "e-quote-rules",
+        "e-rules-db"
+      ],
+      "contracts": [
+        "api-deliver-to",
+        "api-quote"
+      ]
+    },
+    {
+      "id": "j6",
+      "actor": "Finance",
+      "action": "Publishes a tax rule",
+      "surface": "Rules console",
+      "note": "Validate and save a new rule version first, then publish an event to invalidate affected cached rates.",
+      "result": "The console confirms the saved rule. Cache invalidation follows asynchronously; future quotes use the version effective at quote time. Existing orders keep their original rule IDs.",
+      "design": "m-console",
+      "flow": [
+        "console",
+        "publish",
+        "invalidate",
+        "cache",
+        "db"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "f-13",
+  "productId": "p-cli",
+  "title": "Shell completions",
+  "stage": "idea",
+  "touches": [
+    "c-cli"
+  ],
+  "updatedAt": "2026-09-04T13:27:22.686Z",
+  "ownerId": "ryan-nel"
+}

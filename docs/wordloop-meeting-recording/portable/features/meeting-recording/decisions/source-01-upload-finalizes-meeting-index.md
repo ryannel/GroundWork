@@ -1,0 +1,54 @@
+# Frozen source: 01-upload-finalizes-meeting/index.mdx
+
+---
+title: "01 Upload Finalizes Meeting"
+description: "Uploaded audio produces the first complete finalized meeting artifact set."
+audience: engineers
+owner: product-platform
+status: active
+source_of_truth: meeting-recording bet
+---
+# 01 Upload Finalizes Meeting
+
+## Goal
+
+A user uploads a recorded meeting and receives a finalized transcript, headline, summary, topics, talking points, and tasks without using live recording.
+
+## Why This Comes Now
+
+Upload finalization is the smallest shared proof of the meeting rebuild path. It establishes the canonical post-processing pipeline before live recording, recovery, notes, speakers, playback, or hardening depend on it.
+
+## Included Scope
+
+- User creates or selects a meeting and uploads one supported audio file.
+- The uploaded source audio is persisted so the meeting can be rebuilt deterministically.
+- The uploaded audio is transcribed into a final transcript.
+- A final meeting headline, summary, topics, talking points, and extracted tasks are generated.
+- The meeting finalization state is visible so the user can tell whether processing is pending, failed, or complete.
+
+## Not Included
+
+- Live microphone capture or streaming transcript.
+- Local browser durability, reconnect recovery, or background recording behaviour.
+- User notes, live talking points, live task reconciliation, speaker assignment, synced playback, or recording hardening.
+- Editing generated artifacts after finalization.
+
+## Domain Slices
+
+| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |
+|---|---|---|---|---|---|
+| 1 | Core | DB schema, all REST endpoints, WebSocket events, and Pub/Sub outbox | `./dev new slice meeting-recording 01-upload-finalizes-meeting core upload-finalizes-meeting` | L | None |
+| 2 | ML | Pub/Sub consumer, AssemblyAI batch transcription, OpenAI synthesis, and Core write-backs | `./dev new slice meeting-recording 01-upload-finalizes-meeting ml upload-finalizes-meeting` | M | Slice 1 merged + `./dev gen all` |
+| 3 | App | Upload entry point, processing states, meeting list, meeting detail CRUD, finalized artifacts | `./dev new slice meeting-recording 01-upload-finalizes-meeting app upload-finalizes-meeting` | M | Slice 1 merged + `./dev gen all` |
+
+## Acceptance
+
+These criteria map to `tests/bets/meeting-recording/test_milestone_01_upload_finalizes_meeting.py`. Run via `./dev test bet meeting-recording`.
+
+- [ ] User uploads an audio file to a meeting from the app.
+- [ ] The meeting shows a processing state while upload transcription and synthesis run.
+- [ ] The final transcript is visible after processing completes.
+- [ ] Headline, summary, topics, talking points, and tasks are visible on the finalized meeting.
+- [ ] Refreshing the page preserves the finalized artifacts and processing state.
+- [ ] Upload finalization failure leaves a visible failed state with enough diagnostic context for retry or support.
+- [ ] No live recording capability is required to complete this milestone.

@@ -1,0 +1,472 @@
+{
+  "contracts": [
+    {
+      "id": "api-add-line",
+      "name": "Add cart item",
+      "change": "updated",
+      "from": "c-sdk",
+      "to": "c-cart-svc",
+      "method": "POST",
+      "path": "/v1/carts/{id}/lines",
+      "request": "{ productId: \"p_shirt\", quantity: 1 }",
+      "response": "Cart (as GET /v1/carts/{id})",
+      "responseSchema": {
+        "before": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "deliverTo",
+            "type": "object | null",
+            "fields": [
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number"
+              },
+              {
+                "name": "taxRate",
+                "type": "number | null"
+              }
+            ]
+          },
+          {
+            "name": "totals",
+            "type": "object",
+            "fields": [
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "flatTaxRate",
+                "type": "number"
+              },
+              {
+                "name": "tax",
+                "type": "number | null"
+              },
+              {
+                "name": "taxStatus",
+                "type": "\"quoted\" | \"pending\""
+              },
+              {
+                "name": "gross",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "after": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "deliverTo",
+            "type": "object | null",
+            "fields": [
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null",
+                "note": "Now nullable while the delivery region is unknown."
+              },
+              {
+                "name": "taxRate",
+                "type": "number | null"
+              },
+              {
+                "name": "taxRuleId",
+                "type": "string | null"
+              }
+            ]
+          },
+          {
+            "name": "totals",
+            "type": "object",
+            "fields": [
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null"
+              },
+              {
+                "name": "taxStatus",
+                "type": "\"quoted\" | \"pending\""
+              },
+              {
+                "name": "gross",
+                "type": "integer"
+              }
+            ]
+          }
+        ]
+      },
+      "note": "Existing endpoint with the updated Cart response. Saves the added line and tax state before returning the cart to the storefront."
+    },
+    {
+      "id": "api-quote",
+      "name": "Quote tax for cart lines",
+      "change": "added",
+      "from": "c-cart-svc",
+      "to": "c-pricing-api",
+      "method": "POST",
+      "path": "/v2/tax/quote",
+      "request": "{\n  region: { country: \"DE\", subdivision?: \"BY\", postal?: \"80331\" },\n  merchantId: \"m_123\",\n  lines: [{ lineId: \"l1\", categoryId: \"apparel\", net: 4200, currency: \"EUR\" }]\n}",
+      "response": "{\n  lines: [{ lineId: \"l1\", tax: 798, rate: 0.19, ruleId: \"r_de_std_v7\" }],\n  total: 798,\n  explain: \"DE standard rate 19% (apparel)\"\n}",
+      "responseSchema": {
+        "after": [
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "lineId",
+                "type": "string"
+              },
+              {
+                "name": "tax",
+                "type": "integer"
+              },
+              {
+                "name": "rate",
+                "type": "number"
+              },
+              {
+                "name": "ruleId",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "total",
+            "type": "integer"
+          },
+          {
+            "name": "explain",
+            "type": "string"
+          }
+        ]
+      },
+      "note": "Idempotent. 40ms budget. Returns 422 if any line has an unknown category."
+    },
+    {
+      "id": "api-get-cart",
+      "name": "Get cart",
+      "change": "updated",
+      "from": "c-sdk",
+      "to": "c-cart-svc",
+      "method": "GET",
+      "path": "/v1/carts/{id}",
+      "changes": [
+        "Add `lines[].taxRuleId` for explainable tax",
+        "Allow `lines[].tax` to be null while the delivery region is unknown",
+        "Remove the obsolete `totals.flatTaxRate` field"
+      ],
+      "responseSchema": {
+        "before": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "deliverTo",
+            "type": "object | null",
+            "fields": [
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number"
+              },
+              {
+                "name": "taxRate",
+                "type": "number | null"
+              }
+            ]
+          },
+          {
+            "name": "totals",
+            "type": "object",
+            "fields": [
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "flatTaxRate",
+                "type": "number"
+              },
+              {
+                "name": "tax",
+                "type": "number | null"
+              },
+              {
+                "name": "taxStatus",
+                "type": "\"quoted\" | \"pending\""
+              },
+              {
+                "name": "gross",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "after": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "deliverTo",
+            "type": "object | null",
+            "fields": [
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null",
+                "note": "Now nullable while the delivery region is unknown."
+              },
+              {
+                "name": "taxRate",
+                "type": "number | null"
+              },
+              {
+                "name": "taxRuleId",
+                "type": "string | null"
+              }
+            ]
+          },
+          {
+            "name": "totals",
+            "type": "object",
+            "fields": [
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null"
+              },
+              {
+                "name": "taxStatus",
+                "type": "\"quoted\" | \"pending\""
+              },
+              {
+                "name": "gross",
+                "type": "integer"
+              }
+            ]
+          }
+        ]
+      },
+      "response": "{\n  id: \"crt_9\",\n  deliverTo: { country: \"DE\" } | null,\n  lines: [{ id: \"l1\", net: 4200, tax: 798 | null, taxRate: 0.19 | null, taxRuleId: \"r_de_std_v7\" | null }],\n  totals: { net: 4200, tax: 798 | null, taxStatus: \"quoted\" | \"pending\", gross: 4998 }\n}",
+      "note": "Migration required: clients must handle pending tax and stop reading totals.flatTaxRate before this contract is released."
+    },
+    {
+      "id": "api-deliver-to",
+      "name": "Set delivery region",
+      "change": "added",
+      "from": "c-sdk",
+      "to": "c-cart-svc",
+      "method": "PUT",
+      "path": "/v1/carts/{id}/deliver-to",
+      "request": "{ country: \"DE\", subdivision?: \"BY\", postal?: \"80331\" }",
+      "response": "Cart (as GET /v1/carts/{id})",
+      "responseSchema": {
+        "after": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "deliverTo",
+            "type": "object | null",
+            "fields": [
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "lines",
+            "type": "array",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null",
+                "note": "Now nullable while the delivery region is unknown."
+              },
+              {
+                "name": "taxRate",
+                "type": "number | null"
+              },
+              {
+                "name": "taxRuleId",
+                "type": "string | null"
+              }
+            ]
+          },
+          {
+            "name": "totals",
+            "type": "object",
+            "fields": [
+              {
+                "name": "net",
+                "type": "integer"
+              },
+              {
+                "name": "tax",
+                "type": "number | null"
+              },
+              {
+                "name": "taxStatus",
+                "type": "\"quoted\" | \"pending\""
+              },
+              {
+                "name": "gross",
+                "type": "integer"
+              }
+            ]
+          }
+        ]
+      },
+      "note": "Triggers a synchronous recompute. 409 if the cart is locked by checkout."
+    },
+    {
+      "id": "api-flat-rate",
+      "name": "Flat tax rate lookup",
+      "change": "removed",
+      "from": "c-cart-svc",
+      "to": "c-pricing-api",
+      "method": "GET",
+      "path": "/v1/tax/rate?storefront=",
+      "responseSchema": {
+        "before": [
+          {
+            "name": "rate",
+            "type": "number"
+          }
+        ]
+      },
+      "note": "Replaced by the quote endpoint. Remove once no storefront calls it for 7 days."
+    },
+    {
+      "id": "api-publish-rule",
+      "name": "Publish rule",
+      "change": "added",
+      "from": "c-rules",
+      "to": "c-rules",
+      "method": "POST",
+      "path": "/v1/rules/tax",
+      "request": "{ region: \"DE\", categoryId?: \"apparel\", merchantId?: \"m_1\", rate: 0.19, effectiveAt: \"2026-09-05T00:00:00Z\" }",
+      "response": "{ id: \"r_de_std_v8\", supersedes: \"r_de_std_v7\" }",
+      "responseSchema": {
+        "after": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "supersedes",
+            "type": "string | null"
+          }
+        ]
+      },
+      "note": "Finance console only. Validates the region and refuses effectiveAt in the past."
+    },
+    {
+      "id": "api-rule-published",
+      "name": "Rule published",
+      "change": "added",
+      "from": "c-rules",
+      "to": "c-pricing-api",
+      "method": "EVENT",
+      "path": "pricing.tax-rule.published",
+      "request": "{ ruleId: \"r_de_std_v8\", replaces: \"r_de_std_v7\", region: \"DE\", effectiveAt: \"2026-09-05T00:00:00Z\" }",
+      "note": "Consumer invalidates every cache entry whose region prefix matches."
+    }
+  ]
+}

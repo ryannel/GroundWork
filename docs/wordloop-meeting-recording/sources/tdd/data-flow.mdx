@@ -1,0 +1,780 @@
+---
+title: "Data Flow"
+description: "Meeting Recording — system context, per-flow sequence diagrams, and boundary inventory."
+audience: engineers
+owner: product-platform
+last_reviewed: 2026-05-01
+review_frequency: P1M
+status: active
+source_of_truth: active bet design and implementation
+review_basis: git-history-bootstrap
+---
+import { Mermaid } from '@/components/Mermaid'
+
+{/* LLM-Context: TL;DR:
+Data flow for the Meeting Recording bet.
+20 flows across 3 sections:
+— Part 1 (Live Session): Start Recording (incl. concurrent session guard),
+  Live Audio→Transcription (always-on OPFS shadow buffer + chunk sequencing),
+  Live Insights Pipeline (3a batched talking points + tasks via single LLM structured
+  output with existing task list for LLM-native deduplication,
+  3c progressive speaker ID with lock-on), Degraded Mode (5 failure domains
+  incl. GCS failure), Audio Gap Recovery, Audio Silence Detection,
+  Duration Warning & Auto-Stop, Server-Side Inactivity Timeout (5 min default),
+  Background Tab Audio Continuity (Web Workers).
+— Part 2 (User Mutations): Notes Auto-Save,
+  User Creates Task, Task Mutations (full CRUD), User Labels Speaker,
+  Create New Person During Speaker Labelling.
+— Part 3 (Session End & Post-Meeting): Stop Recording (state-machine driven: capture stop →
+  drain ML → collect OPFS gaps → compose GCS → publish TranscriptionJob),
+  Batched Gap Upload (range-based, 50 chunks per multipart request),
+  Post-Meeting Processing, Soft-Deleted Meeting Handling (204 on write-back),
+  Transcription Processing Lifecycle, Audio Playback (signed URL + readiness).
+Each arrow = contract boundary. All contracts formalised on the Contracts page.
+*/}
+
+# Data Flow
+
+This document sits between [UI Design](ui-design) (which defines what the user sees) and [Contracts](contracts) (which formalise the API shapes). For each screen and interaction, it draws what calls what: which service initiates, which responds, what data crosses each boundary. Read each arrow two ways: it is a **contract boundary** (what shape the data takes) and a **sequencing constraint** (downstream cannot build until the upstream contract is published).
+
+## System Context
+
+<Mermaid chart={`graph TB
+    USER["👤 User"] --> APP["wordloop-app<br/>(Next.js)"]
+    APP -- "REST (mutations)" --> CORE["wordloop-core<br/>(Go)"]
+    APP -. "WebSocket<br/>(events + audio)" .-> CORE
+    CORE --> DB[(Postgres)]
+    CORE --> GCS[("☁️ Cloud Storage<br/>(audio files)")]
+    CORE -. "WebSocket<br/>(audio + segments)" .-> ML["wordloop-ml<br/>(Python)"]
+    ML -. "WebSocket<br/>(segments + insights)" .-> CORE
+    ML --> AAI["🎙️ AssemblyAI<br/>(transcription)"]
+    ML --> LLM["🤖 OpenAI<br/>(insights)"]
+    CORE -. "Pub/Sub<br/>(async jobs)" .-> ML`} />
+
+---
+
+## Part 1: Live Session
+
+Flows that run automatically during an active recording session — audio capture, ML insights, and system resilience.
+
+### Flow 1: Start Recording
+
+The user opens the **New Meeting ▾** dropdown and selects **Start Live Recording**. After the browser grants microphone access, the app creates a meeting and initiates the recording session across all three services.
+
+**Pre-conditions:** The client checks for an active recording session before enabling the button. If one exists, "Start Live Recording" is disabled with a tooltip. Core enforces this server-side — if `StartRecordingCommand` arrives while a session is already running, it responds with `RecordingErrorEvent (session_conflict)`. If the browser denies microphone access, the app shows a blocking modal with a link to browser audio settings — no data flow occurs.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+    participant GCS
+    participant ML
+    participant AAI as AssemblyAI
+
+    App->>Core: Create meeting (live recording)
+    Core->>DB: INSERT meeting
+    Core-->>App: 201 Meeting
+    Note over App: UI shows new meeting
+
+    App->>Core: WS: StartRecordingCommand
+    Core->>ML: POST /meetings/{id}/live-session (speaker states + voice profiles pushed)
+    ML->>ML: Reconstruct speaker_label → state map from pushed data
+    ML->>AAI: Open real-time transcription session
+    ML-->>Core: 201 (websocket_url)
+    Core->>ML: Open ML WebSocket (StreamStartEvent with speaker states)
+    ML-->>Core: StreamReadyEvent
+    Core-->>App: WS: RecordingStartedEvent
+    Note over App: Banner transitions to "● Recording 00:00"`} />
+
+### Flow 2: Live Audio → Transcription (Lowest Latency Path)
+
+Audio flows from the browser microphone through Core and ML to AssemblyAI. Transcript segments return via the **ML WebSocket** — the same long-lived connection Core uses to send audio. Audio chunks flow upstream as binary frames, segments and insights flow downstream as CloudEvents text frames.
+
+**OPFS shadow buffer:** Every audio chunk is simultaneously written to an always-on shadow buffer maintained by a dedicated Web Worker using the Origin Private File System (OPFS) `createSyncAccessHandle()` API. Each chunk carries a monotonically incrementing sequence number assigned in the browser. This buffer runs unconditionally — it captures audio regardless of Core or GCS connectivity. It is cleared only after Core confirms all chunks are safely in GCS (see Flow 16 and Flow 9).
+
+**Aggregated GCS writes:** Browser audio is still sequenced at the 100ms frame level for low-latency ML forwarding, but Core does not create one GCS object per 100ms frame. Core aggregates contiguous frames into storage segments (default target: 2 seconds, tunable 1-5 seconds) and stores each segment as a separate GCS object keyed by sequence range: `meetings/{id}/segments/{start_seq:08d}-{end_seq:08d}.webm`. The segment manifest records the frame sequences, byte counts, CRC32C checksums, object generation, and time offsets contained in each object. This preserves gap recovery by frame sequence while reducing object count, compose operations, lifecycle cleanup, and diagnostic noise. At session end, Core composes storage segments into the final `audio.webm` (see Flow 9).
+
+Core streams segments directly to the client via WebSocket for minimum latency, and persists them to the database asynchronously in the background. The app distinguishes **interim** segments from **final** segments and replaces them in-place when the final version arrives — no layout shift.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Worker as OPFS Worker
+    participant Core
+    participant DB
+    participant GCS
+    participant ML
+    participant AAI as AssemblyAI
+
+    loop Every ~100ms audio chunk
+        App->>App: Assign sequence number (monotonic)
+        App-->>Worker: Chunk + seq (async postMessage)
+        Note over Worker: Write to OPFS shadow buffer (always-on)
+        App->>Core: WS: Binary audio frame (chunk + seq)
+        par Store as GCS segment
+            Core->>Core: Append frame to current storage segment
+            Core->>GCS: PUT segment object when target duration/size reached
+        and Forward to ML
+            Core->>ML: Audio chunk (via ML WebSocket binary frame)
+            ML->>AAI: Forward audio chunk
+        end
+    end
+
+    Note over AAI: Transcription produced
+
+    AAI-->>ML: Transcript segment (interim or final)
+    ML-->>Core: WS: TranscriptSegmentProducedEvent
+
+    par Lowest latency: stream to client
+        Core-->>App: WS: TranscriptSegmentEvent
+        Note over App: Render segment immediately
+    and Persist asynchronously
+        Core->>Core: Enqueue async DB write
+        Core->>DB: INSERT transcript_segment (background)
+    end`} />
+
+### Flow 3: Live Insights Pipeline
+
+Talking points and tasks are extracted by the same LLM query, batched together as a single structured output call. This avoids redundant token spending — the transcript context is loaded once into the prompt cache and both extraction tasks run against it. All insights stream back through the ML WebSocket as CloudEvents text frames, following the dual-write pattern: Core fans out to the browser via WebSocket for latency, and persists to DB asynchronously for durability.
+
+**Context management:** ML maintains a rolling transcript buffer in memory, appending each finalised segment as it arrives. The full buffer is included in the LLM prompt as cached context. The prompt is always ordered as: `[system instructions] [schema] [anchor segments] [recent window] [latest segment]`. When the context budget is exceeded, segments are dropped from the **oldest non-anchored position** — the boundary between the anchor and the recent window — never from the front. Removing from the front would change the content immediately after the static cached prefix, invalidating every transcript token in the cache. Because the anchor only ever grows, the cached region (`[system] + [schema] + [anchor]`) expands over the course of the meeting and is never invalidated by trimming.
+
+#### Flow 3a: Live Talking Points & Tasks (Batched — Per Finalised Segment)
+
+On every finalised transcript segment, ML sends the full rolling transcript buffer to the LLM requesting both the latest talking point and any new tasks in a single structured output call. The LLM returns both in one response. Talking points update immediately, and tasks are extracted opportunistically from the same call.
+
+**LLM-native task deduplication:** The current list of extracted tasks is appended to the dynamic suffix of each prompt. The LLM is instructed to return only tasks that are genuinely new — not already represented in the existing list. This delegates deduplication to the model, which handles paraphrase and semantic overlap naturally without a separate post-processing step.
+
+The prompt is structured for OpenAI prompt caching: `[system instructions] [output schema] [anchor segments]` forms the stable cached prefix that grows as the session progresses. `[recent window] [latest segment] [existing system task list]` is the dynamic suffix appended on each call. Placing only system-generated tasks in the dynamic suffix (not user-created tasks and not the cached prefix) keeps the cache hit rate high and avoids making ML depend on every user task mutation. Some overlap with user-created tasks is acceptable in v1; post-meeting task reconciliation removes duplicate or stale system tasks from the final transcript.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+    participant ML
+    participant LLM as OpenAI
+
+    Note over ML: Final segment received
+    ML->>ML: Append segment to rolling transcript buffer
+
+    ML->>LLM: Structured output query (cached prefix + transcript buffer + existing tasks)
+    LLM-->>ML: Structured response — talking point and new tasks only
+
+    opt Talking point returned
+        ML-->>Core: WS: TalkingPointProducedEvent (draft)
+        par Stream to client
+            Core-->>App: WS: EntityChanged (talking_point)
+            Note over App: SWR revalidates, shows draft talking point
+        and Persist asynchronously
+            Core->>Core: Enqueue async DB write
+            Core->>DB: UPSERT talking_point (draft)
+        end
+    end
+
+    opt New tasks detected
+        loop For each new task
+            ML-->>Core: WS: TaskProducedEvent (system-generated)
+            par Stream to client
+                Core-->>App: WS: EntityChanged (task)
+                Note over App: SWR revalidates, shows new task
+            and Persist asynchronously
+                Core->>Core: Enqueue async DB write
+                Core->>DB: INSERT task (background)
+            end
+        end
+    end`} />
+
+#### Flow 3b: Live Speaker Identification (Per Diarised Speaker)
+
+AssemblyAI's transcript segments arrive pre-diarised — each segment carries a `speaker_label` (e.g. `speaker_1`, `speaker_2`). ML's job is to resolve each `speaker_label` to a known Person by matching voice embeddings against enrolled profiles.
+
+**Every segment gets a voice embedding.** Regardless of whether the speaker has been identified, ML extracts a voice embedding from the segment's audio and stores it on the segment. This happens unconditionally — embeddings are required for post-meeting RAG and future retrieval, not only for speaker matching.
+
+**Matching strategy:** Speaker matching runs separately, gated on the per-session map `speaker_label → { status, person_id?, attempts }`. This map lives in ML's memory for the hot path but is mirrored to a `meeting_speaker_states` table in Postgres on meaningful transitions. On session start — and on reconnect after a pod restart — Core pushes the current speaker states and voice profiles to ML via `StreamStartEvent`, so ML reconstructs its in-memory map without needing a pull endpoint.
+
+| State | Behaviour | Persisted? |
+|-------|-----------|------------|
+| `unmatched` | Compare this segment's embedding against all enrolled voice profiles. If confidence exceeds the match threshold → transition to `matched`. Otherwise, increment `attempts` and retry on the next segment from this speaker. | Attempts tracked in-memory only — an unmatched speaker restarting at 0 on recovery is acceptable. |
+| `matched` | The speaker label is locked to a person. All future segments from this speaker are tagged immediately — no further voice comparison needed. | Yes — persisted to `meeting_speaker_states` (status + person reference) on transition. |
+| `exhausted` | After N failed attempts (configurable, e.g. 5 segments), stop comparing for this speaker. The raw `speaker_label` is preserved. The user can manually resolve it via Flow 7 (speaker labelling). | Yes — persisted to `meeting_speaker_states` on transition. |
+| `manual` | Set by Flow 7 when the user labels a speaker. Takes precedence over voice matching — ML will not attempt to match this speaker regardless of voice similarity. | Yes — written synchronously by Core (Flows 7/8) so it is immediately visible on any subsequent pod recovery. |
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant ML
+    participant Core
+    participant DB
+
+    Note over ML: Segment received (speaker_label: speaker_1)
+
+    ML->>ML: Extract voice embedding from segment audio
+    ML-->>Core: WS: SegmentFeaturesProducedEvent (segment reference + embedding)
+    Core->>DB: UPDATE transcript_segment (voice embedding)
+
+    alt speaker_1 already matched
+        ML-->>Core: WS: TranscriptSegmentProducedEvent (person resolved)
+        Core->>DB: UPDATE transcript_segment (person)
+        Core-->>Core: WS: EntityChanged (transcript_segment)
+    else speaker_1 unmatched (attempts < max)
+        ML->>ML: Compare embedding against in-session voice profiles (pushed by Core)
+
+        alt Confident match (score > threshold)
+            ML->>ML: Lock speaker_1 → person (session cache)
+            ML-->>Core: WS: SpeakerMatchProducedEvent (speaker label resolved to person)
+            Core->>DB: UPDATE transcript_segments (person, by speaker label)
+            Core->>DB: UPSERT meeting_speaker_states (matched, async)
+            Core-->>Core: WS: EntityChanged (transcript_segment)
+            Note over Core: All past + future segments for speaker_1 show person name
+        else No confident match
+            ML->>ML: Increment attempts for speaker_1
+            Note over ML: Keep raw speaker_label, retry on next segment
+        end
+    else speaker_1 exhausted (attempts >= max)
+        ML-->>Core: WS: SpeakerExhaustedEvent
+        Core->>DB: UPSERT meeting_speaker_states (exhausted, async)
+        Note over ML: Skip comparison — speaker unknown, raw label preserved
+    end`} />
+
+---
+
+## Part 2: User Mutations
+
+Flows initiated by the user during or after a recording session. All follow the **Optimistic Mutation with Echo-Suppressed Streaming** pattern: the client updates local state immediately, sends the mutation via REST, and suppresses the returning WebSocket echo.
+
+### Flow 4: Notes Auto-Save
+
+The **Private Notes** scratchpad is the primary surface of the live recording view — it occupies the left column. Notes auto-save continuously with no explicit save button. The app debounces keystrokes and patches the meeting's notes field.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+
+    Note over App: User types in notes scratchpad
+    App->>App: Debounce (500ms since last keystroke)
+    App->>Core: Save notes (echo-suppressed)
+    Core->>DB: UPDATE meeting (notes)
+    Core-->>App: 200
+    Core-->>App: WS: EntityChanged (meeting)
+    Note over App: Echo suppressed (sourceClientId matches)<br/>Notes remain editable post-session`} />
+
+### Flow 5: User Creates Task
+
+The user's task is written via REST (not the streaming path) since it's a user-initiated mutation. Tasks have a description (required), assignee (optional), and due date (optional).
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+
+    App->>App: Optimistic: add task to local state
+    App->>Core: Create task (idempotent, echo-suppressed)
+    Core->>DB: INSERT task
+    Core-->>App: 201 Task
+    Note over App: Replace optimistic with server entity
+    Core-->>App: WS: EntityChanged (task)
+    Note over App: Echo suppressed (sourceClientId matches)`} />
+
+### Flow 6: Task Mutations (Full CRUD)
+
+Flow 5 covers task creation. The UI design specifies a full set of task mutations: edit, delete, toggle completion, nest under other tasks, assign a person, and set a due date. Editing a system-generated task converts it to user-owned.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+
+    Note over App: === Update Task (edit, assign, due date, toggle completion) ===
+    App->>App: Optimistic: update task in local state
+    App->>Core: Update task (echo-suppressed)
+    Note over Core: System-generated task edited by user → promoted to user-owned
+    Core->>DB: UPDATE task
+    Core-->>App: 200 Task
+    Core-->>App: WS: EntityChanged (task)
+    Note over App: Echo suppressed
+
+    Note over App: === Delete Task ===
+    App->>App: Optimistic: remove task from local state
+    App->>Core: Delete task (echo-suppressed)
+    Core->>DB: DELETE task (cascades to sub-tasks)
+    Core-->>App: 204
+    Core-->>App: WS: EntityChanged (task, deleted)
+    Note over App: Echo suppressed
+
+    Note over App: === Create Sub-Task (nesting) ===
+    App->>App: Optimistic: add sub-task under parent
+    App->>Core: Create sub-task (idempotent, echo-suppressed)
+    Core->>DB: INSERT sub_task
+    Core-->>App: 201 SubTask
+    Core-->>App: WS: EntityChanged (task)
+    Note over App: Echo suppressed`} />
+
+### Flow 7: User Labels Speaker as Person
+
+When a user identifies "Speaker A" as a known Person (by clicking the speaker label on any transcript segment), the system reassigns all segments from that speaker and records the mapping in `meeting_speaker_states` as a manual override so that ML respects it immediately on any pod recovery. Voice profile enrichment from the session's embeddings happens during post-meeting processing, not here.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+
+    App->>Core: Assign speaker to person (meeting-scoped)
+    Core->>DB: UPDATE transcript_segments (person, by speaker label)
+    Core->>DB: UPSERT meeting_speaker_states (manual, with person reference)
+    Core-->>App: 200
+    Core-->>App: WS: EntityChanged (transcript_segment)
+    Note over App: All segments now show person name`} />
+
+### Flow 8: Create New Person During Speaker Labelling
+
+Flow 7 assumes the person already exists. The UI design says the user can "reassign to a known person or **add a new one**." When creating a new person, the UI handles this as two sequential operations: first create the person, then assign them to the speaker label using the same endpoint as Flow 7. The speaker-labels endpoint always receives an existing person reference — it has no knowledge of whether that person was just created or long-established. Voice profile enrichment happens during post-meeting processing.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+
+    Note over App: User clicks speaker label → selects "Add new person"
+
+    Note over App: Step 1 — Create the person
+    App->>Core: Create person
+    Core->>DB: INSERT person
+    Core-->>App: 201 Person
+    Core-->>App: WS: EntityChanged (person, created)
+
+    Note over App: Step 2 — Assign to speaker label (same as Flow 7)
+    App->>Core: Assign speaker to person (same as Flow 7)
+    Core->>DB: UPDATE transcript_segments (person, by speaker label)
+    Core->>DB: UPSERT meeting_speaker_states (manual, with person reference)
+    Core-->>App: 200
+    Core-->>App: WS: EntityChanged (transcript_segment)
+    Note over App: All segments show new person name`} />
+
+---
+
+## Part 3: Session End & Post-Meeting
+
+Flows triggered when a recording stops (user-initiated or auto) and the subsequent background processing that upgrades all artefacts to final quality.
+
+### Flow 9: Stop Recording
+
+The user presses **Stop Recording** (or the system auto-stops at the duration limit). The stop sequence is driven by a persisted state machine: `active → stopping → draining_ml → awaiting_gap_upload → composing_audio → post_processing → completed|failed`. Capture stops first, then ML drains final live segments, then Core collects any remaining OPFS gaps, then Core composes the final audio file, then Core triggers post-meeting processing. Each transition is written to `recording_event_history` and important transitions publish through the outbox so Core can recover if it crashes mid-stop.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant DB
+    participant GCS
+    participant ML
+    participant AAI as AssemblyAI
+
+    App->>Core: WS: StopRecordingCommand
+    Core->>DB: Transition recording active → stopping
+    Core->>DB: Write stop coordinator row + outbox event
+
+    Note over Core: Phase 1 — Drain ML
+    Core->>ML: WS: DrainCommand
+    ML->>AAI: Close transcription session (drain final segments)
+    AAI-->>ML: Final transcript segments
+    ML->>Core: WS: Final TranscriptSegmentProducedEvents
+    ML->>Core: WS: StreamDrainedEvent
+    Core->>DB: INSERT final segments
+    Core-->>App: WS: EntityChanged (transcript_segment)
+
+    Note over Core: Phase 2 — Notify client and collect OPFS gaps
+    Core-->>App: WS: RecordingStoppedEvent (capture stopped, gap plan)
+    Note over App: UI transitions to Meeting Summary (Overview tab)
+    Note over App: Background: compare gap ranges with OPFS buffer
+
+    opt OPFS contains chunks not yet in GCS
+        App->>Core: Upload gap chunks from OPFS (batched by range, resumable)
+        Core->>GCS: Store/merge gap chunks into segment objects
+        Core-->>App: 200 (remaining gap ranges)
+    end
+
+    Note over Core: Phase 3 — Compose final audio
+    Core->>DB: Persist composition manifest (audio_version, ranges, object generations)
+    Core->>GCS: GCS Compose segment objects → audio.webm
+    Note over Core: Hierarchical compose — groups of ≤32 per GCS operation
+    Core-->>App: WS: AudioComposedEvent (audio_version)
+
+    Note over Core: Phase 4 — Trigger post-meeting processing
+    Core->>Core: Publish TranscriptionJob via outbox (reconcile system tasks)
+    Note over Core: Same job shape as file upload, with live task reconciliation`} />
+
+### Flow 10: Duration Warning & Auto-Stop
+
+A configurable maximum recording duration (default: 4 hours) is enforced server-side. Core sends a warning at T-10 minutes and auto-stops at the limit. The auto-stop triggers the same post-meeting pipeline as a user-initiated stop.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant Core
+    participant App
+    participant GCS
+    participant PubSub
+
+    Note over Core: Recording timer reaches (max - 10 min)
+    Core-->>App: WS: RecordingDurationWarningEvent (remaining time)
+    Note over App: Non-blocking banner: "Recording will automatically stop in 10 minutes."
+
+    Note over Core: Recording timer reaches max duration
+    Note over Core: Same 4-phase stop sequence as Flow 9
+    Core->>ML: WS: DrainCommand
+    Note over Core: Phase 1: Drain → Phase 2: OPFS gaps → Phase 3: Compose → Phase 4: TranscriptionJob
+    Core-->>App: WS: RecordingStoppedEvent (duration limit, last_received_seq)
+    Note over App: UI transitions to Meeting Summary (Overview tab)`} />
+
+### Flow 11: Post-Meeting Processing (Automatic, via Pub/Sub)
+
+Post-meeting processing runs automatically via the shared `TranscriptionJob` Pub/Sub worker. For live recordings, the job regenerates system tasks from the final transcript, replaces only unedited system-generated tasks from the live session, and preserves all user-created or user-edited tasks. This brings tasks in line with transcript and synthesis: live output is useful immediately, but the final transcript is the source for final artefacts.
+
+The worker:
+1. Batch-transcribes the full audio from GCS (higher accuracy)
+2. Replaces transcript segments with the improved results
+3. Generates headline, summary, topics, and finalises talking points
+4. Reconciles tasks from the final transcript (preserve user-owned tasks; replace unedited system tasks)
+
+The Meeting Summary page shows a subtle progress indicator during re-processing and updates each artefact in real time as it completes.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant PubSub
+    participant ML
+    participant GCS
+    participant AAI as AssemblyAI
+    participant LLM as OpenAI
+    participant Core
+    participant DB
+    participant App
+
+    PubSub-->>ML: Consume TranscriptionJob
+
+    Note over ML: audio.webm assembled from chunk sequence in Flow 9
+    ML->>GCS: Download audio.webm (fully assembled)
+    ML->>AAI: Batch transcribe (offline, higher accuracy)
+    AAI-->>ML: Full transcript (final segments with speaker labels)
+
+    ML->>Core: Replace all transcript segments
+    Core->>DB: Replace transcript segments
+    Core-->>App: WS: EntityChanged (transcript_segment)
+
+    ML->>LLM: Generate headline
+    ML->>Core: Set meeting headline
+    Core->>DB: UPDATE meeting (headline)
+    Core-->>App: WS: EntityChanged (meeting)
+
+    ML->>LLM: Generate summary + topics + finalise talking points
+    ML->>Core: Set synthesis artefacts (summary, topics, talking points)
+    Core->>DB: UPSERT synthesis
+    Core-->>App: WS: EntityChanged (meeting)
+
+    alt Task reconciliation enabled
+        ML->>LLM: Extract tasks
+        ML->>Core: Create system-generated tasks
+        Core->>DB: Replace unedited system tasks; preserve user-owned tasks
+        Core-->>App: WS: EntityChanged (task, updated)
+    else Task reconciliation disabled
+        Note over ML: Existing tasks remain unchanged
+    end
+
+    Note over App: All insights now final quality`} />
+
+### Flow 12: Transcription Processing Lifecycle
+
+The `transcriptions` table tracks processing status through a defined state machine: `pending` → `transcribing` → `synthesizing` → `completed` (or `failed`). The client uses this to show re-processing progress on the Meeting Summary page.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant ML
+    participant Core
+    participant DB
+    participant App
+
+    Note over ML: Post-meeting job begins
+
+    ML->>Core: Update transcription status → transcribing
+    Core->>DB: UPDATE transcription (status)
+    Core->>DB: INSERT transcription_status_history
+    Core-->>App: WS: EntityChanged (transcription)
+    Note over App: Progress indicator: "Re-processing transcript…"
+
+    Note over ML: Synthesis stage (headline, summary, topics, talking points)
+    ML->>Core: Update transcription status → synthesizing
+    Core->>DB: UPDATE transcription (status)
+    Core-->>App: WS: EntityChanged (transcription)
+
+    ML->>Core: Update transcription status → completed
+    Core->>DB: UPDATE transcription (status)
+    Core-->>App: WS: EntityChanged (transcription)
+    Note over App: Progress indicator removed. All artefacts final.`} />
+
+### Flow 13: Audio Playback (Signed URL Direct to GCS)
+
+Core generates a short-lived signed URL. The client streams audio directly from Cloud Storage, with standard HTTP range requests for seeking. The audio player appears on the **Transcript tab** of the Meeting Summary page. If the audio file is still being processed, the endpoint returns `404` and the client retries with exponential backoff.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant GCS
+
+    App->>Core: Request audio URL
+    alt Audio not yet available (still processing)
+        Core-->>App: 404
+        Note over App: Player disabled: "Audio is still being processed."
+        App->>App: Retry with exponential backoff (5s, 10s, 20s…)
+    else Audio ready
+        Core->>GCS: Generate signed URL (expiry: 1 hour)
+        Core-->>App: 200 (signed URL + expiry)
+        Note over App: Player enabled — full controls active
+    end
+
+    App->>GCS: Stream audio (Range header, signed URL)
+    GCS-->>App: 206 Partial Content
+    Note over App: HTML5 Audio element plays with seeking
+
+    App->>App: On timeupdate: highlight segment matching current playback position
+    App->>App: On segment click: seek audio to segment start
+
+    Note over App: === Signed URL expiry handling ===
+    App->>App: Timer fires before signed URL expires
+    App->>Core: Request audio URL
+    Core-->>App: 200 (fresh signed URL)
+    Note over App: Seamless URL rotation — no playback interruption`} />
+
+### Flow 14: Degraded Mode — Layered Resilience
+
+The system has backend and browser-local failure domains. Backend failures degrade gracefully; the OPFS shadow buffer protects audio when local buffering is available and healthy. Core reports recoverable health transitions with `RecordingHealthEvent` and fatal conditions with `RecordingErrorEvent`. Recovery is automatic where possible: when a broken backend link restores, Core sends a health transition and the client clears the warning. Gaps in GCS are filled via the gap upload sequence (Flow 16). Browser-local buffer failures are surfaced immediately because they weaken the durability guarantee.
+
+| Failure | What breaks | What still works | Error code |
+|---------|------------|------------------|------------|
+| App → Core (WS drops) | All commands, events, audio streaming to Core | OPFS shadow buffer captures all audio locally | Client-side `onclose` |
+| Core → GCS (storage fails) | Segment writes — audio gap accumulates in GCS | Audio still flows via WS to Core; OPFS captures all audio locally if healthy | `storage_unavailable` |
+| Core → ML (stream fails) | Transcription, talking points, tasks, speaker ID | Audio→GCS (or OPFS on WS drop), notes auto-save | `ml_unavailable` |
+| ML → AssemblyAI | Transcript segments | Audio→GCS, notes, voice embeddings | `transcoder_error` |
+| ML → OpenAI | Talking points, live task extraction, summaries | Transcript, speaker ID, audio→GCS | `insight_warning` |
+| Browser OPFS/quota | Local gap safety net | Direct streaming continues while network is healthy | `local_buffer_unavailable`, `local_buffer_full`, `local_buffer_corrupt_chunk` |
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant GCS
+    participant ML
+
+    Note over Core: ML WebSocket disconnects (timeout/error)
+    Core->>Core: Switch to GCS-only mode (audio still persisted)
+    Core-->>App: WS: RecordingHealthEvent (degraded: ml_unavailable)
+    Note over App: Banner: "Live insights paused — audio is still recording."<br/>Context panel freezes on last-received content
+
+    loop Audio continues
+        App->>Core: WS: Binary audio frame (with seq number)
+        Core->>GCS: Store chunk (by sequence number)
+        Note over Core: Audio chunks NOT forwarded to ML
+    end
+
+    Note over Core: ML connection restored
+    Core->>ML: Reconnect ML WebSocket (StreamStartEvent with speaker states + voice profiles)
+    ML->>ML: Reconstruct speaker_label → state map from pushed data
+    ML->>Core: GET /transcriptions/{id}/segments?after_ms=... (rebuild LLM context)
+    Core-->>ML: Recent transcript segments
+    ML-->>Core: WS: StreamReadyEvent
+    Core-->>App: WS: RecordingHealthEvent (healthy: ml recovered)
+    Note over App: Banner clears. Live insights resume.
+    Note over Core: Resume forwarding audio to ML via WebSocket`} />
+
+The diagram above shows the `ml_unavailable` path in detail. The remaining failure domains follow the same notification pattern:
+
+**App → Core WS drop:** The browser's WebSocket `onclose` event fires. The OPFS shadow buffer captures all audio produced during the outage. On reconnect, the client sends `ResumeRecordingCommand` and Flow 16 backfills any missing GCS chunks before audio forwarding to ML resumes.
+
+**Core → GCS failure:** Segment writes fail — Core sends `RecordingHealthEvent (degraded: storage_unavailable)`. Audio continues flowing through the WebSocket; the OPFS shadow buffer captures the gap locally if healthy. On GCS recovery, Core sends `RecordingHealthEvent (recovered: storage)` with a gap plan and gap chunks are uploaded via Flow 16.
+
+**ML → AssemblyAI failure:** Transcript segments stop arriving. Core sends `RecordingHealthEvent (degraded: transcoder_error)`. Voice embeddings may be delayed depending on provider state. Audio and notes continue. Missing transcript is rebuilt during post-meeting processing from the full audio in GCS.
+
+**ML → OpenAI failure:** Talking points and live task extraction stop. Core sends `RecordingHealthEvent (degraded: insight_warning)`. Transcript and speaker ID are unaffected. Missing insights and system tasks are rebuilt during post-meeting processing.
+
+### Flow 15: Audio Silence Detection
+
+Two layers detect audio problems: the **browser** catches microphone issues locally, and **Core** catches broken streams server-side.
+
+**Client-side (primary):** The browser monitors the `MediaStream` via Web Audio API `AnalyserNode`. If the RMS level falls below a threshold for 10 consecutive seconds, the client shows an inline notice. No server round-trip needed — this is purely a UX signal. Clears automatically when audio levels recover or the first transcript segment arrives.
+
+**Server-side (secondary):** Core tracks time since the last audio chunk was received on the WebSocket. If no chunks arrive for 10 seconds while a session is active, Core sends a `RecordingErrorEvent`. This catches the case where the browser believes it's sending audio but the WebSocket stream is silently broken.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+
+    Note over App: === Client-side detection ===
+    App->>App: AnalyserNode monitors MediaStream RMS
+    App->>App: RMS below threshold for 10s
+    Note over App: Inline notice: "We're not detecting audio.<br/>Check your microphone."
+
+    alt Audio levels recover
+        App->>App: RMS above threshold
+        Note over App: Notice clears automatically
+    else First transcript segment arrives
+        Note over App: Notice clears (system is hearing audio)
+    end
+
+    Note over App: === Server-side detection ===
+    Note over Core: No audio chunks received for 10s<br/>while session is active
+    Core-->>App: WS: RecordingErrorEvent (no_audio_detected)
+    Note over App: Inline notice (if not already showing)`} />
+
+### Flow 16: Audio Gap Recovery
+
+When a connectivity gap occurs — either the App→Core WebSocket drops or Core cannot write to GCS — the OPFS shadow buffer accumulates audio produced during the outage. On recovery, Core returns a range-based gap plan: the highest contiguous audio frame sequence plus missing sequence ranges. The client reads those ranges from OPFS and uploads missing chunks via REST. Core verifies checksums, stores or merges them into segment objects, and deduplicates by `(meeting_id, sequence, checksum)` — chunks already stored are skipped. This same flow runs at session stop time if any gaps remain (see Flow 9).
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Worker as OPFS Worker
+    participant Core
+    participant GCS
+
+    Note over App,Core: WS reconnect or GCS recovery
+
+    App->>Core: WS: ResumeRecordingCommand (last_client_seq)
+    Core-->>App: WS: RecordingResumedEvent (gap plan: highest contiguous seq + missing ranges)
+
+    Note over App: Compare missing ranges with OPFS buffer
+
+    opt Gaps exist
+        App->>Worker: Request buffered chunks for missing ranges
+        Worker-->>App: Audio chunks from OPFS shadow buffer
+
+        loop For each gap chunk
+            App->>Core: Upload gap chunk (with seq number)
+            Core->>GCS: Store chunk (keyed by sequence number)
+            Core-->>App: 200
+        end
+    end
+
+    Core-->>App: WS: GapUploadComplete (highest contiguous seq + remaining ranges)
+    Note over App: Banner: "Reconnected. Live transcript continues from here.<br/>The full transcript (including the gap) will regenerate when the meeting ends."
+    Note over Core: Resume forwarding audio to ML`} />
+
+### Flow 17: Server-Side Inactivity Timeout — **New**
+
+If no audio chunks arrive for a configurable period (default: 5 minutes) while a recording session is active, Core treats the session as abandoned and triggers the same stop sequence as Flow 9. This covers the case where the user closes their laptop lid, loses power, or otherwise disappears without explicitly stopping — the WebSocket heartbeat timeout (~60 seconds) transitions the connection to closed, but the recording resource would remain in `active` state indefinitely without this secondary timeout. The inactivity timeout prevents abandoned sessions from blocking the concurrent-session guard.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant Core
+    participant ML
+    participant GCS
+
+    Note over Core: No audio chunks received for 5 minutes<br/>while session is active (heartbeat already failed)
+    Core->>Core: Mark session as abandoned
+    Core->>ML: WS: DrainCommand (reason: connection_closed)
+    ML-->>Core: WS: StreamDrainedEvent
+    Core->>GCS: GCS Compose (whatever segment objects exist)
+    Core->>Core: Publish TranscriptionJob via outbox
+    Note over Core: Post-meeting processing runs on<br/>whatever audio reached GCS`} />
+
+### Flow 18: Background Tab Audio Continuity — **New**
+
+Chrome and other browsers aggressively throttle background tabs — JavaScript timers are capped at 1 execution per minute, and some WebSocket activity may be delayed. However, `MediaRecorder` itself runs on a browser-internal thread and is **not** throttled when the tab is backgrounded. The critical design choice: all audio chunk processing (sequence numbering, OPFS writes, and WebSocket sends) runs in a dedicated **Web Worker**, which is exempt from background tab throttling. The main thread only receives notifications for UI updates.
+
+This means audio capture and transmission continue uninterrupted when the user switches to another tab. The page title changes to "● Recording…" so the user can find the tab.
+
+### Flow 19: Batched Gap Upload — **New**
+
+When a large connectivity gap occurs, the client uploads gap chunks in batches rather than one-at-a-time. Core returns missing sequence ranges rather than large per-sequence arrays. The client reads chunks from OPFS in batches of 50, uploads each batch as a single multipart request to `POST /meetings/{id}/recording/chunks`, and uses `remaining_missing_ranges` in the response to drive the next batch. A determinate progress indicator shows upload progress on the Meeting Summary page. If the browser closes mid-upload after capture has stopped, the upload can resume from where it left off on next page load until `gap_upload_deadline_at`. After that deadline, Core composes a degraded audio version from the chunks it has and rejects late chunks for that sealed `audio_version`.
+
+### Flow 20: Soft-Deleted Meeting During Post-Processing — **New**
+
+Meetings are soft-deleted (flagged with `deleted_at`, not removed from the database). If a user soft-deletes a meeting while post-meeting processing is running, ML's write-back calls to Core REST will encounter a soft-deleted resource. Core handles this gracefully: write-back endpoints (`PUT /transcriptions/{id}/segments`, `PUT /meetings/{id}/synthesis`, `PATCH /transcriptions/{id}/status`, task reconciliation endpoints) check `deleted_at` and return `204 No Content` without writing new derived artefacts. ML treats this as success (no retry). The post-meeting processing completes silently. This avoids 404 errors, unnecessary retries, DLQ noise, and post-delete derived-content creation.
+
+### Flow 21: File Upload & Audio Standardization
+
+When a user uploads an existing audio file (e.g. voice memo, MP3, WAV), Core securely sniffs the magic numbers to validate the format. The file is then passed to an Audio Standardization worker which uses `ffmpeg` to transcode the audio into a canonical 16kHz mono `audio/webm;codecs=opus` format. This ensures that the ML pipeline and UI playback always consume a predictable, optimized format without adding latency to the user's upload request.
+
+<Mermaid chart={`sequenceDiagram
+    autonumber
+    participant App
+    participant Core
+    participant Worker as FFmpeg Worker
+    participant DB
+    participant GCS
+    participant PubSub
+
+    App->>Core: POST /meetings/{id}/audio (multipart file)
+    Core->>Core: Magic-number validation
+    Core-->>App: 202 Accepted
+    Note over App: UI shows "Processing Audio..."
+
+    Core->>Worker: Enqueue standardization task
+    Worker->>Worker: FFmpeg transcode to 16kHz mono Opus/WebM
+    Worker->>GCS: Store standardized audio.webm
+    Worker->>DB: INSERT audio_objects (storage_path, metadata)
+    Worker->>PubSub: Publish TranscriptionJob via outbox
+    Note over Worker: Standardized file flows into ML processing (Flow 11)
+`} />
+
+---
+
+## Design Decisions
+
+Key architectural choices and their rationale. These are the "why" behind the flows above.
+
+| Decision | Rationale |
+|----------|-----------|
+| **Dual-write (WS + async DB)** | Stream to client via WebSocket for minimum latency (~200ms). Persist to DB asynchronously so a DB hiccup doesn't block the live experience. |
+| **Echo-suppressed optimistic mutations** | Client updates local state immediately (optimistic), sends via REST, then suppresses the returning WebSocket `EntityChanged` event using a session identifier. Gives instant UI feedback without double-rendering. |
+| **WebSocket for Core↔ML** | Audio flows upstream as binary frames and insights flow downstream as CloudEvents text frames on the same long-lived WebSocket. Supports bidirectional control events (DrainCommand, BackpressureEvent), replay cursors for reconnection, and speaker state push — capabilities that would require a separate control channel with HTTP streaming. Core acts as a protocol bridge: browser-facing WebSocket on the client side, service-to-service WebSocket on the ML side. |
+| **OPFS always-on shadow buffer** | Every audio chunk is written to the browser's Origin Private File System via `createSyncAccessHandle()` in a dedicated Web Worker before (or instead of) being sent to Core. The buffer runs unconditionally — it captures audio regardless of Core or GCS connectivity. This separates audio capture (which must never fail) from transport (which can be retried). The buffer is cleared only after Core confirms all chunks are safely in GCS. |
+| **Segment-based GCS writes + hierarchical compose** | Browser audio frames remain 100ms for low-latency ML, but Core aggregates frames into storage segments (default 2s, tunable 1-5s) keyed by sequence range (`meetings/{id}/segments/{start_seq:08d}-{end_seq:08d}.webm`). The manifest preserves frame-level gap recovery while reducing GCS object count and compose fan-in. At session end, Core composes segment objects into final `audio.webm` using GCS Compose — hierarchically in groups of ≤32 for recordings that exceed GCS's 32-object compose limit. |
+| **GCS as the indestructible recording** | Audio always reaches GCS eventually, even across connectivity failures, because the OPFS shadow buffer guarantees local capture. Everything else (transcript, insights, tasks) can be rebuilt from the audio during post-meeting processing. |
+| **Task reconciliation for live recordings** | Post-meeting re-processing replaces transcript segments, regenerates synthesis, and reconciles system-generated tasks from the final transcript. User-created tasks and user-edited system tasks are preserved; unedited system tasks from the live session can be replaced or removed. This keeps final tasks consistent with final transcript quality without clobbering user work. |
+| **Transcription status state machine** | `pending → transcribing → synthesizing → completed` gives the client granular progress without polling. Each transition fires an `EntityChanged` event. Fewer states reduce complexity while still distinguishing the two user-visible phases: transcript generation and insight synthesis. |
+| **Signed URL with client-side rotation** | Client streams audio directly from GCS (no Core proxy). Signed URLs expire after 1 hour. Client sets a timer to refresh before expiry for seamless playback. |
+| **Dual-layer silence detection** | Client-side `AnalyserNode` catches mic issues instantly (no latency). Server-side chunk timeout catches broken streams the client can't detect. Neither alone covers both cases. |
+| **Concurrent session as pre-condition (not a separate flow)** | The check is a guard on Flow 1, not an independent workflow. Client checks on page load; Core enforces atomically before starting a session. |
+| **Batched LLM query (talking points + tasks)** | A single structured output call extracts both talking points and tasks from the same prompt. The rolling transcript buffer is loaded once into the prompt cache; adding a second extraction task to the same query costs almost nothing vs. a separate call. |
+| **Rolling transcript buffer with prompt caching** | ML appends each finalised segment to an in-memory buffer. Each call to the LLM sends `[system instructions] [schema] [anchor] [recent window] [latest segment] [existing task list]`. OpenAI caches from the prompt start, so the cached region (`[system] + [schema] + [anchor]`) grows as the anchor grows. When the context budget is exceeded, segments are dropped from the **oldest non-anchored position** (between anchor and recent window) — never from the front. Dropping from the front would change the content right after the static prefix, invalidating the entire transcript cache. Dropping from the middle preserves the cached prefix and keeps the most recent context intact. The existing task list in the dynamic suffix lets the LLM deduplicate naturally — it returns only tasks not already in the list, eliminating the need for a separate semantic similarity step. |
+| **Speaker state externalised to `meeting_speaker_states`** | The in-memory `speaker_label → state` map is mirrored to Postgres on meaningful transitions (`matched`, `exhausted`, `manual`). Core pushes current speaker states and voice profiles to ML on every session start and WebSocket reconnect (via `StreamStartEvent`), so ML reconstructs its map without a pull endpoint. Attempts are tracked in-memory only; an unmatched speaker restarting at 0 on recovery is acceptable since it retries a bounded number of times before exhausting again. Manual overrides written by Core (Flows 7/8) are immediately visible on any reconnect, so user resolutions are never lost or re-overridden by voice matching. |
+| **Progressive speaker matching with lock-on** | ML tries to match each diarised speaker to an enrolled voice profile. Once a confident match is found, the speaker label is locked — no further voice comparison is done for that speaker. Unknown speakers fail fast after a bounded number of attempts. Manual state (set by user labelling) takes precedence and cannot be overridden by voice matching. Voice profile enrichment from session embeddings is deferred to post-meeting processing. |
+| **Sticky session affinity (not a backplane)** | Load balancer routes all WebSocket frames for a session to the same Core pod. No pod-to-pod event routing exists today. This is a known scaling constraint documented separately as a problem statement. |
+| **Session not resumable after tab close (v1)** | OPFS data persists beyond tab close, but the recording session does not. If the user closes the tab, the session ends and post-meeting processing runs on whatever audio reached GCS. Session resume is a future enhancement, captured as a separate problem statement. |
+| **WebSocket heartbeat (30s ping/pong)** | Detects zombie connections in seconds rather than waiting for TCP timeout (minutes). Two missed pongs trigger the client-side OPFS-bridges-the-gap path (Flow 16). |
+| **Tiered integrity checks** | Hot-path audio frames use CRC32C for fast corruption detection at high frequency. Higher-integrity flows — OPFS manifest validation, post-stop gap upload batches, composition manifests, and final `audio.webm` versioning — include SHA-256. CRC32C protects the low-latency stream; SHA-256 protects durable artefacts and replayable recovery operations. |
+| **Pre-warm AssemblyAI on mic permission** | The upstream streaming session opens when the browser grants mic access, not when the first audio chunk arrives. Saves ~500–800ms on first-segment latency. |
+| **Sequential post-meeting pipeline** | Post-meeting processing is always sequential: batch transcription first (replaces live segments with higher-accuracy results), then synthesis (headline, summary, topics, talking points). Synthesis depends on the final transcript, so the stages cannot be parallelised. Task extraction is skipped for live recordings (tasks were captured during the session). Each stage updates the transcription status, giving the client granular progress. |
+| **Tunable insight cadence** | LLM insight extraction is cadence-based by default: run after either a time threshold or final-segment threshold, whichever comes first (default 30s or 5 final segments). The thresholds are delivered in `insight_policy`, can be tuned per environment, and preserve a fast path for obvious action-item utterances. This protects cost and rate limits while keeping the contract stable. |
+| **GCS segment lifecycle: 24h TTL after compose** | Once `audio.webm` is composed, segment objects (`segments/{start_seq}-{end_seq}.webm`) are no longer needed. A GCS lifecycle rule deletes them 24 hours after composition. The delay provides a safety window for debugging or re-composition. |
+
+---
+
+## Boundary Inventory
+
+Every boundary shown in the diagrams above. Each becomes a contract on the [Contracts](contracts) page.
+
+| Boundary | Flows | From → To | Protocol | Data shape |
+|----------|-------|-----------|----------|------------|
+| Meeting CRUD | 1, 4 | App → Core | REST | Create meeting (live recording); patch meeting notes (echo-suppressed) |
+| Recording commands | 1, 9 | App → Core | WebSocket | `StartRecordingCommand`, `StopRecordingCommand` |
+| Audio streaming | 2 | App → Core → ML | WS (binary) → ML WS (binary) | Raw audio chunks (sequence-numbered, Core enriches with ml_session_id) |
+| Live insights | 3a, 3b | ML → Core → App | ML WS (CloudEvents) → Browser WS | Talking points, tasks, embeddings, speaker matches, speaker exhausted |
+| Task CRUD | 5, 6 | App → Core | REST | Task create/update/delete (idempotent create, echo-suppressed; cascading sub-task nesting) |
+| Person creation | 8 | App → Core | REST | Create person |
+| Speaker labels | 7, 8 | App → Core | REST | Speaker-to-person assignment, meeting-scoped (always references an existing person) |
+| Notes auto-save | 4 | App → Core | REST | Meeting notes patch (debounced, echo-suppressed) |
+| OPFS gap upload | 9, 16, 19 | App → Core | REST | Range-planned, sequence-numbered audio chunks from OPFS shadow buffer; Core deduplicates by sequence and checksum |
+| Recording health | 14, 16 | Core → App | WebSocket | `RecordingHealthEvent` for recoverable health transitions; `RecordingErrorEvent` for fatal/user-actionable failures |
+| Duration warning | 10 | Core → App | WebSocket | `RecordingDurationWarningEvent` |
+| Concurrent session check | 1 | App → Core | REST | Active session read (read-only guard, no mutation) |
+| Transcription status | 12 | ML → Core → App | REST → WebSocket | Transcription status transitions + `EntityChanged (transcription)` |
+| Signed URL | 13 | App → Core → GCS | REST → GCS signed URL | Signed URL fetch (404 while processing, 200 when ready; 1-hour expiry, client-side rotation) |
+| Post-meeting trigger | 9, 10 | Core → ML | Pub/Sub | `TranscriptionJob` with `audio_version` and task reconciliation policy, published after drain completes and audio is composed |
+| Synthesis write-back | 11 | ML → Core | REST | Transcript segments replace-all; meeting headline; synthesis artefacts (summary, topics, talking points); system-generated tasks |

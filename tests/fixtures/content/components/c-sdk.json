@@ -1,0 +1,7 @@
+{
+  "id": "c-sdk",
+  "productId": "p-sdk",
+  "name": "@acme/storefront",
+  "repo": "acme/storefront-sdk",
+  "order": 8
+}

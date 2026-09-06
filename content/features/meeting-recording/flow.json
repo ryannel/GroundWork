@@ -1,0 +1,1934 @@
+{
+  "nodes": [
+    {
+      "id": "upload-app",
+      "label": "Choose an audio file",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Processing starts; the same finalization pipeline used after live stop produces the final meeting."
+    },
+    {
+      "id": "upload-core",
+      "label": "Accept and standardize audio",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M01. Source: data-flow Flow 21 and milestone 01. /audio versus /upload is unresolved; these two contracts describe alternatives."
+    },
+    {
+      "id": "upload-ml",
+      "label": "Queue final rebuild",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M01. Source: data-flow Flow 21 and milestone 01. /audio versus /upload is unresolved; these two contracts describe alternatives."
+    },
+    {
+      "id": "upload-db",
+      "label": "Upload and job records",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M01. Source: data-flow Flow 21 and milestone 01. /audio versus /upload is unresolved; these two contracts describe alternatives.",
+      "tables": [
+        "audio_objects",
+        "transcriptions",
+        "meetings"
+      ]
+    },
+    {
+      "id": "upload-gcs",
+      "label": "Durable source audio",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M01. Source: data-flow Flow 21 and milestone 01. /audio versus /upload is unresolved; these two contracts describe alternatives."
+    },
+    {
+      "id": "tasks-app",
+      "label": "Manage and find tasks",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Create, edit, complete, delete, search and filter consistently; an edit promotes a system task to user ownership."
+    },
+    {
+      "id": "tasks-core",
+      "label": "Apply task ownership rules",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M02. Subtasks are displayed; subtask creation is outside this milestone. Source: milestone 02 and task contract."
+    },
+    {
+      "id": "tasks-db",
+      "label": "Tasks and subtasks",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M02. Subtasks are displayed; subtask creation is outside this milestone. Source: milestone 02 and task contract.",
+      "tables": [
+        "tasks"
+      ]
+    },
+    {
+      "id": "notes-library-app",
+      "label": "Edit context-linked notes",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "The same note components serve /notes, meeting detail and people detail, with search, tags and context linking."
+    },
+    {
+      "id": "notes-library-db",
+      "label": "Context-linked notes",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M03. Source: milestone 03. Note CRUD contracts are absent from the bet contract pages; no endpoint was invented.",
+      "tables": [
+        "notes"
+      ]
+    },
+    {
+      "id": "notes-library-core",
+      "label": "Persist note changes",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M03. Source: milestone 03. Note CRUD contracts are absent from the bet contract pages; no endpoint was invented."
+    },
+    {
+      "id": "start-app",
+      "label": "Request microphone capture",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Permission granted, no concurrent session, ML pre-warmed: the banner changes from Connecting to Recording."
+    },
+    {
+      "id": "start-core",
+      "label": "Create meeting; check guard",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M04, M11. Source: data-flow Flow 1. Permission denial is blocking and creates no session. Browser and Core both guard concurrency. Mic only; desktop scope."
+    },
+    {
+      "id": "start-ml",
+      "label": "Pre-warm live transcription",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M04, M11. Source: data-flow Flow 1. Permission denial is blocking and creates no session. Browser and Core both guard concurrency. Mic only; desktop scope."
+    },
+    {
+      "id": "start-db",
+      "label": "Meeting and session",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 2,
+      "description": "M04, M11. Source: data-flow Flow 1. Permission denial is blocking and creates no session. Browser and Core both guard concurrency. Mic only; desktop scope.",
+      "tables": [
+        "recordings",
+        "meetings"
+      ]
+    },
+    {
+      "id": "start-aai",
+      "label": "Open provider session",
+      "kind": "external",
+      "component": "c-wl-aai",
+      "col": 3,
+      "row": 0,
+      "description": "M04, M11. Source: data-flow Flow 1. Permission denial is blocking and creates no session. Browser and Core both guard concurrency. Mic only; desktop scope."
+    },
+    {
+      "id": "listen-app",
+      "label": "Capture and render transcript",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Interim segments appear and are revised in place; final transcript latency target is within 2 seconds of speech."
+    },
+    {
+      "id": "listen-core",
+      "label": "Forward frames and segments",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement."
+    },
+    {
+      "id": "listen-ml",
+      "label": "Transcribe streaming audio",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement."
+    },
+    {
+      "id": "listen-db",
+      "label": "Live transcript revisions",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement.",
+      "tables": [
+        "recordings",
+        "transcript_segments"
+      ]
+    },
+    {
+      "id": "listen-opfs",
+      "label": "Unacknowledged audio",
+      "kind": "store",
+      "component": "c-wl-opfs",
+      "col": 0,
+      "row": 1,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement.",
+      "tables": [
+        "opfs_chunks"
+      ]
+    },
+    {
+      "id": "listen-gcs",
+      "label": "Durable audio segments",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "listen-aai",
+      "label": "Streaming transcription",
+      "kind": "external",
+      "component": "c-wl-aai",
+      "col": 3,
+      "row": 0,
+      "description": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement."
+    },
+    {
+      "id": "buffer-app",
+      "label": "Trim acknowledged chunks",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Core stores contiguous sequence ranges; the browser trims only the audio confirmed durable in GCS."
+    },
+    {
+      "id": "buffer-core",
+      "label": "Track contiguous storage",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M05. Source: audio contract and Flow 2. Frame size is 100ms; GCS segments default to 2 seconds. Highest received sequence must not be treated as highest contiguous stored sequence."
+    },
+    {
+      "id": "buffer-db",
+      "label": "Recording progress",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M05. Source: audio contract and Flow 2. Frame size is 100ms; GCS segments default to 2 seconds. Highest received sequence must not be treated as highest contiguous stored sequence.",
+      "tables": [
+        "recordings"
+      ]
+    },
+    {
+      "id": "buffer-opfs",
+      "label": "Local audio safety net",
+      "kind": "store",
+      "component": "c-wl-opfs",
+      "col": 0,
+      "row": 1,
+      "description": "M05. Source: audio contract and Flow 2. Frame size is 100ms; GCS segments default to 2 seconds. Highest received sequence must not be treated as highest contiguous stored sequence.",
+      "tables": [
+        "opfs_chunks"
+      ]
+    },
+    {
+      "id": "buffer-gcs",
+      "label": "Contiguous stored segments",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M05. Source: audio contract and Flow 2. Frame size is 100ms; GCS segments default to 2 seconds. Highest received sequence must not be treated as highest contiguous stored sequence.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "degraded-app",
+      "label": "Show recording health",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Recoverable health warnings distinguish ML, transcription, insights, storage and local-buffer failures. Available capture paths continue."
+    },
+    {
+      "id": "degraded-ml",
+      "label": "Signal stream backpressure",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M05, M11. Source: Flow 14 and infrastructure. If local buffering is unavailable, healthy direct transport can continue, but offline losslessness is no longer guaranteed."
+    },
+    {
+      "id": "degraded-core",
+      "label": "Report recoverable failure",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M05, M11. Source: Flow 14 and infrastructure. If local buffering is unavailable, healthy direct transport can continue, but offline losslessness is no longer guaranteed."
+    },
+    {
+      "id": "degraded-opfs",
+      "label": "Available local audio",
+      "kind": "store",
+      "component": "c-wl-opfs",
+      "col": 0,
+      "row": 1,
+      "description": "M05, M11. Source: Flow 14 and infrastructure. If local buffering is unavailable, healthy direct transport can continue, but offline losslessness is no longer guaranteed.",
+      "tables": [
+        "opfs_chunks"
+      ]
+    },
+    {
+      "id": "degraded-gcs",
+      "label": "Available cloud audio",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M05, M11. Source: Flow 14 and infrastructure. If local buffering is unavailable, healthy direct transport can continue, but offline losslessness is no longer guaranteed.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "live-notes-app",
+      "label": "Write and autosave notes",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Debounced saves persist meeting notes; finalization preserves them and notes remain editable afterward."
+    },
+    {
+      "id": "live-notes-core",
+      "label": "Save notes; suppress echo",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M06. Source: Flow 4 and milestone 06. Milestone 06 excludes rich text although the UI design describes a rich-text scratchpad. This route uses meetings.notes, not the reusable context-linked notes table."
+    },
+    {
+      "id": "live-notes-db",
+      "label": "Private meeting notes",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M06. Source: Flow 4 and milestone 06. Milestone 06 excludes rich text although the UI design describes a rich-text scratchpad. This route uses meetings.notes, not the reusable context-linked notes table.",
+      "tables": [
+        "meetings"
+      ]
+    },
+    {
+      "id": "talking-points-app",
+      "label": "Read draft talking points",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Draft talking points arrive without interrupting capture and are replaced by final synthesis after stop."
+    },
+    {
+      "id": "talking-points-core",
+      "label": "Persist and broadcast",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M07. Source: Flow 3a. Insight cadence defaults to 30s or 5 final segments, with an action-item fast path."
+    },
+    {
+      "id": "talking-points-ml",
+      "label": "Extract at insight cadence",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M07. Source: Flow 3a. Insight cadence defaults to 30s or 5 final segments, with an action-item fast path."
+    },
+    {
+      "id": "talking-points-db",
+      "label": "Draft talking points",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M07. Source: Flow 3a. Insight cadence defaults to 30s or 5 final segments, with an action-item fast path.",
+      "tables": [
+        "talking_points",
+        "talking_point_segments"
+      ]
+    },
+    {
+      "id": "talking-points-openai",
+      "label": "Generate talking points",
+      "kind": "external",
+      "component": "c-wl-openai",
+      "col": 3,
+      "row": 1,
+      "description": "M07. Source: Flow 3a. Insight cadence defaults to 30s or 5 final segments, with an action-item fast path."
+    },
+    {
+      "id": "live-tasks-app",
+      "label": "Edit live tasks",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Live tasks appear; user-created tasks and edited system tasks become user-owned and survive final reconciliation."
+    },
+    {
+      "id": "live-tasks-core",
+      "label": "Preserve user ownership",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M08. Source: Flow 3a, Flows 5–6, milestone 08. The milestone’s field-level ownership wording differs from the contract’s whole-task source promotion."
+    },
+    {
+      "id": "live-tasks-ml",
+      "label": "Extract draft tasks",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M08. Source: Flow 3a, Flows 5–6, milestone 08. The milestone’s field-level ownership wording differs from the contract’s whole-task source promotion."
+    },
+    {
+      "id": "live-tasks-db",
+      "label": "User and system tasks",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M08. Source: Flow 3a, Flows 5–6, milestone 08. The milestone’s field-level ownership wording differs from the contract’s whole-task source promotion.",
+      "tables": [
+        "tasks"
+      ]
+    },
+    {
+      "id": "live-tasks-openai",
+      "label": "Generate task candidates",
+      "kind": "external",
+      "component": "c-wl-openai",
+      "col": 3,
+      "row": 1,
+      "description": "M08. Source: Flow 3a, Flows 5–6, milestone 08. The milestone’s field-level ownership wording differs from the contract’s whole-task source promotion."
+    },
+    {
+      "id": "speaker-match-app",
+      "label": "Display speaker identity",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Matching locks on when confident; bounded unsuccessful attempts exhaust; manual assignments take precedence."
+    },
+    {
+      "id": "speaker-match-ml",
+      "label": "Bounded speaker matching",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M09. Source: Flow 3b and person contract. Speaker-state table names disagree between flow and schema; voice vectors stay service-internal."
+    },
+    {
+      "id": "speaker-match-core",
+      "label": "Persist matched speaker",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M09. Source: Flow 3b and person contract. Speaker-state table names disagree between flow and schema; voice vectors stay service-internal."
+    },
+    {
+      "id": "speaker-match-db",
+      "label": "Speaker identity records",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M09. Source: Flow 3b and person contract. Speaker-state table names disagree between flow and schema; voice vectors stay service-internal.",
+      "tables": [
+        "meeting_speaker_labels",
+        "people",
+        "transcript_segments",
+        "meeting_speaker_states"
+      ]
+    },
+    {
+      "id": "label-speaker-app",
+      "label": "Choose or create a person",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "All segments for that meeting-scoped speaker reflect the chosen person; ML receives the manual state."
+    },
+    {
+      "id": "label-speaker-core",
+      "label": "Assign all speaker segments",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M09. Source: Flows 7–8. Person records are user-scoped; matching may not override manual assignments."
+    },
+    {
+      "id": "label-speaker-ml",
+      "label": "Respect manual assignment",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M09. Source: Flows 7–8. Person records are user-scoped; matching may not override manual assignments."
+    },
+    {
+      "id": "label-speaker-db",
+      "label": "Person and speaker labels",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M09. Source: Flows 7–8. Person records are user-scoped; matching may not override manual assignments.",
+      "tables": [
+        "meeting_speaker_labels",
+        "people",
+        "transcript_segments",
+        "meeting_speaker_states"
+      ]
+    },
+    {
+      "id": "finalize-app",
+      "label": "Display final artefacts",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Batch transcription replaces live segments, then synthesis and task reconciliation use the final transcript while preserving user work."
+    },
+    {
+      "id": "finalize-core",
+      "label": "Replace and persist results",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed."
+    },
+    {
+      "id": "finalize-ml",
+      "label": "Transcript → synthesis → tasks",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed."
+    },
+    {
+      "id": "finalize-db",
+      "label": "Final meeting artefacts",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed.",
+      "tables": [
+        "transcriptions",
+        "transcript_segments",
+        "synthesis",
+        "topics",
+        "topic_segments",
+        "talking_points",
+        "talking_point_segments",
+        "tasks",
+        "meetings",
+        "transcription_status_history"
+      ]
+    },
+    {
+      "id": "finalize-gcs",
+      "label": "Read composed audio",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "finalize-aai",
+      "label": "Batch transcription",
+      "kind": "external",
+      "component": "c-wl-aai",
+      "col": 3,
+      "row": 0,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed."
+    },
+    {
+      "id": "finalize-openai",
+      "label": "Synthesis and task candidates",
+      "kind": "external",
+      "component": "c-wl-openai",
+      "col": 3,
+      "row": 1,
+      "description": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed."
+    },
+    {
+      "id": "review-app",
+      "label": "Review final meeting",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Headline, summary, topics, talking points, tasks and notes load from durable records after refresh."
+    },
+    {
+      "id": "review-core",
+      "label": "Read persisted artefacts",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M01, M04. Source: UI design, Flow 12 and entity read contracts. Processing/failure remain explicit states."
+    },
+    {
+      "id": "review-db",
+      "label": "Final meeting records",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M01, M04. Source: UI design, Flow 12 and entity read contracts. Processing/failure remain explicit states.",
+      "tables": [
+        "transcriptions",
+        "transcript_segments",
+        "synthesis",
+        "topics",
+        "talking_points",
+        "tasks",
+        "meetings"
+      ]
+    },
+    {
+      "id": "playback-app",
+      "label": "Play and seek by segment",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Playback streams directly from GCS; the active segment is highlighted and selecting a segment seeks to its start."
+    },
+    {
+      "id": "playback-core",
+      "label": "Issue signed playback URL",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M10. Source: Flow 13 and UI design. A 404 means unavailable/processing; signed URLs last one hour and are refreshed before expiry. Controls include ±15s and 0.5×/1×/1.5×/2×."
+    },
+    {
+      "id": "playback-db",
+      "label": "Audio and transcript",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M10. Source: Flow 13 and UI design. A 404 means unavailable/processing; signed URLs last one hour and are refreshed before expiry. Controls include ±15s and 0.5×/1×/1.5×/2×.",
+      "tables": [
+        "audio_objects",
+        "transcript_segments"
+      ]
+    },
+    {
+      "id": "playback-gcs",
+      "label": "Stream audio to browser",
+      "kind": "store",
+      "component": "c-wl-gcs",
+      "col": 2,
+      "row": 1,
+      "description": "M10. Source: Flow 13 and UI design. A 404 means unavailable/processing; signed URLs last one hour and are refreshed before expiry. Controls include ±15s and 0.5×/1×/1.5×/2×."
+    },
+    {
+      "id": "limits-app",
+      "label": "Warn and show stop state",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Warn 10 minutes before the default four-hour stop; show no-audio and background-tab behavior; enforce one active recording."
+    },
+    {
+      "id": "limits-core",
+      "label": "Enforce duration and guards",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "M11. Source: Flows 10, 15, 17–18 and UI edge cases. Inactivity timeout is five minutes. Browser capability support is an open question, not certified by this import."
+    },
+    {
+      "id": "limits-db",
+      "label": "Session limits and history",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "M11. Source: Flows 10, 15, 17–18 and UI edge cases. Inactivity timeout is five minutes. Browser capability support is an open question, not certified by this import.",
+      "tables": [
+        "recordings",
+        "recording_event_history"
+      ]
+    },
+    {
+      "id": "replay-app",
+      "label": "Restore view after reconnect",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Replay uses the event cursor; an expired five-minute replay window triggers a full REST re-fetch."
+    },
+    {
+      "id": "replay-core",
+      "label": "Replay or request re-fetch",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "Source: infrastructure connection/reconnection semantics. Sticky Core pod affinity remains a known v1 limitation."
+    },
+    {
+      "id": "replay-ml",
+      "label": "Inspect live session state",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "Source: infrastructure connection/reconnection semantics. Sticky Core pod affinity remains a known v1 limitation."
+    },
+    {
+      "id": "replay-db",
+      "label": "Current recording",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "Source: infrastructure connection/reconnection semantics. Sticky Core pod affinity remains a known v1 limitation.",
+      "tables": [
+        "recordings"
+      ]
+    },
+    {
+      "id": "deleted-app",
+      "label": "Keep deleted meeting absent",
+      "kind": "external",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "description": "Finalization must not recreate deleted meeting data; documented write-backs acknowledge with no new writes."
+    },
+    {
+      "id": "deleted-ml",
+      "label": "Attempt final write-back",
+      "kind": "worker",
+      "component": "c-wl-ml",
+      "col": 2,
+      "row": 0,
+      "description": "Source: Flow 20 and write-back contracts. Normal delete is blocked during active recording; this covers later post-processing races."
+    },
+    {
+      "id": "deleted-core",
+      "label": "Acknowledge without writes",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "description": "Source: Flow 20 and write-back contracts. Normal delete is blocked during active recording; this covers later post-processing races."
+    },
+    {
+      "id": "deleted-db",
+      "label": "Soft-delete guard",
+      "kind": "store",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "description": "Source: Flow 20 and write-back contracts. Normal delete is blocked during active recording; this covers later post-processing races.",
+      "tables": [
+        "synthesis",
+        "tasks",
+        "meetings"
+      ]
+    },
+    {
+      "id": "start-guard",
+      "label": "Active recording exists?",
+      "kind": "decision",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 1,
+      "description": "Atomic per-user guard before opening another live session.",
+      "logic": {
+        "expression": "user has an active recording",
+        "branches": [
+          {
+            "edgeId": "start-guard-conflict",
+            "when": "Yes",
+            "then": "Reject start with session_conflict; retain existing recording."
+          },
+          {
+            "edgeId": "start-core-ml",
+            "when": "No",
+            "then": "Create and pre-warm the ML session."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reconnect-app",
+      "label": "Resume the connection",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "kind": "external",
+      "description": "Capture continues during transport loss; on reconnect send the last client sequence."
+    },
+    {
+      "id": "reconnect-local",
+      "label": "Retained OPFS audio",
+      "component": "c-wl-opfs",
+      "col": 0,
+      "row": 1,
+      "kind": "store",
+      "description": "Only unacknowledged chunks remain available for gap repair.",
+      "tables": [
+        "opfs_chunks"
+      ]
+    },
+    {
+      "id": "reconnect-plan",
+      "label": "Read durable gap ranges",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "kind": "process",
+      "description": "Resume reports highest contiguous stored sequence and missing ranges; GET refreshes the plan."
+    },
+    {
+      "id": "reconnect-db",
+      "label": "Recording continuity",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "kind": "store",
+      "description": "Durable sequence and gap state. Contract/schema field disagreement is preserved in Data model.",
+      "tables": [
+        "recordings"
+      ]
+    },
+    {
+      "id": "reconnect-gaps",
+      "label": "Recoverable gaps remain?",
+      "component": "c-wl-core",
+      "col": 2,
+      "row": 0,
+      "kind": "decision",
+      "description": "Recover only chunks that still exist in OPFS. Unrecoverable gaps require visible diagnostics.",
+      "logic": {
+        "expression": "missing ranges intersect retained OPFS chunks",
+        "explanation": "A missing range alone is not a recovery guarantee. The local chunks must still exist and pass integrity checks.",
+        "branches": [
+          {
+            "edgeId": "reconnect-edge-6",
+            "when": "Yes",
+            "then": "Upload only retained missing ranges."
+          },
+          {
+            "edgeId": "reconnect-edge-12",
+            "when": "No recoverable range",
+            "then": "Trim only confirmed audio; expose any unrecoverable gaps."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reconnect-upload",
+      "label": "Upload retained chunks",
+      "component": "c-wl-app",
+      "col": 3,
+      "row": 0,
+      "kind": "process",
+      "description": "Read matching ranges from OPFS and upload multipart chunks with required SHA-256 metadata."
+    },
+    {
+      "id": "reconnect-repair",
+      "label": "Verify and deduplicate",
+      "component": "c-wl-core",
+      "col": 4,
+      "row": 0,
+      "kind": "process",
+      "description": "Deduplicate by meeting, sequence and checksum; reject invalid parts; update missing ranges."
+    },
+    {
+      "id": "reconnect-gcs",
+      "label": "Persist repaired segments",
+      "component": "c-wl-gcs",
+      "col": 4,
+      "row": 1,
+      "kind": "store",
+      "description": "Store or merge recovered frames into sequence-range segment objects.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "reconnect-ack",
+      "label": "Confirm durable progress",
+      "component": "c-wl-core",
+      "col": 5,
+      "row": 1,
+      "kind": "process",
+      "description": "Advance contiguous acknowledgement only after durable storage."
+    },
+    {
+      "id": "reconnect-trim",
+      "label": "Trim acknowledged audio",
+      "component": "c-wl-app",
+      "col": 5,
+      "row": 2,
+      "kind": "process",
+      "description": "Release only confirmed local chunks; retain remaining gaps for another retry."
+    },
+    {
+      "id": "stop-app",
+      "label": "Stop microphone capture",
+      "component": "c-wl-app",
+      "col": 0,
+      "row": 0,
+      "kind": "external",
+      "description": "Send last_client_sequence and OPFS manifest SHA-256 with StopRecordingCommand."
+    },
+    {
+      "id": "stop-persist",
+      "label": "Persist stop intent",
+      "component": "c-wl-core",
+      "col": 1,
+      "row": 0,
+      "kind": "process",
+      "description": "Move active → stopping and commit coordinator/outbox state before asynchronous work."
+    },
+    {
+      "id": "stop-db",
+      "label": "Stop state and history",
+      "component": "c-wl-db",
+      "col": 1,
+      "row": 1,
+      "kind": "store",
+      "description": "Durable state transition, history and outbox. History schema disagreement remains explicit.",
+      "tables": [
+        "recordings",
+        "recording_status_history",
+        "recording_event_history"
+      ]
+    },
+    {
+      "id": "stop-drain",
+      "label": "Request ML drain",
+      "component": "c-wl-core",
+      "col": 2,
+      "row": 0,
+      "kind": "process",
+      "description": "Use WebSocket DrainCommand; REST is the cleanup fallback. Session-terminated Pub/Sub also coordinates drain."
+    },
+    {
+      "id": "stop-ml",
+      "label": "Flush final live segments",
+      "component": "c-wl-ml",
+      "col": 3,
+      "row": 0,
+      "kind": "worker",
+      "description": "Close upstream transcription, flush final segments, then emit StreamDrainedEvent; timeout is handled by stop coordination."
+    },
+    {
+      "id": "stop-gaps",
+      "label": "Wait for remaining gaps",
+      "component": "c-wl-core",
+      "col": 4,
+      "row": 0,
+      "kind": "decision",
+      "description": "RecordingStoppedEvent confirms capture stopped and provides gap ranges and a deadline.",
+      "logic": {
+        "expression": "missing ranges remain and gap-upload deadline has not expired",
+        "branches": [
+          {
+            "edgeId": "stop-edge-6",
+            "when": "Yes",
+            "then": "Wait for recoverable local audio and report the gap plan."
+          },
+          {
+            "edgeId": "stop-edge-9",
+            "when": "No gaps or deadline reached",
+            "then": "Attempt composition; record any unrecoverable gap or failure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "stop-repair",
+      "label": "Send remaining OPFS chunks",
+      "component": "c-wl-app",
+      "col": 4,
+      "row": 1,
+      "kind": "process",
+      "description": "Upload recoverable audio before the gap-upload deadline."
+    },
+    {
+      "id": "stop-local",
+      "label": "Retained local audio",
+      "component": "c-wl-opfs",
+      "col": 3,
+      "row": 1,
+      "kind": "store",
+      "description": "Chunks remain until GCS confirms receipt.",
+      "tables": [
+        "opfs_chunks"
+      ]
+    },
+    {
+      "id": "stop-compose",
+      "label": "Compose durable audio",
+      "component": "c-wl-core",
+      "col": 5,
+      "row": 0,
+      "kind": "process",
+      "description": "Persist composition manifest; compose groups of at most 32 objects; unavailable chunks remain diagnosable."
+    },
+    {
+      "id": "stop-gcs",
+      "label": "Final audio and manifest",
+      "component": "c-wl-gcs",
+      "col": 5,
+      "row": 1,
+      "kind": "store",
+      "description": "Composed audio.webm, generation, audio_version and SHA-256.",
+      "tables": [
+        "gcs_segments"
+      ]
+    },
+    {
+      "id": "stop-dispatch",
+      "label": "Publish finalization job",
+      "component": "c-wl-core",
+      "col": 6,
+      "row": 0,
+      "kind": "process",
+      "description": "Only after composition succeeds publish TranscriptionJob through the outbox."
+    },
+    {
+      "id": "stop-audio",
+      "label": "Final audio reference",
+      "component": "c-wl-db",
+      "col": 6,
+      "row": 1,
+      "kind": "store",
+      "description": "Durable reference for rebuild and playback.",
+      "tables": [
+        "audio_objects"
+      ]
+    },
+    {
+      "id": "stop-worker",
+      "label": "Run shared finalization",
+      "component": "c-wl-ml",
+      "col": 7,
+      "row": 0,
+      "kind": "worker",
+      "description": "Same pipeline as upload: batch transcript, synthesis and configured task reconciliation."
+    },
+    {
+      "id": "reconnect-unrecoverable",
+      "label": "Expose unresolved gaps",
+      "kind": "process",
+      "component": "c-wl-core",
+      "col": 2,
+      "row": 2,
+      "description": "When no local range can be recovered, expose remaining missing audio rather than promising losslessness. Only the confirmed watermark permits trimming."
+    }
+  ],
+  "edges": [
+    {
+      "id": "upload-app-core",
+      "to": "upload-core",
+      "contracts": [
+        "api-audio-post-meetings-id-audio",
+        "api-meeting-post-meetings",
+        "api-upload-milestone"
+      ],
+      "label": "REST",
+      "from": "upload-app"
+    },
+    {
+      "id": "upload-core-ml",
+      "to": "upload-ml",
+      "contracts": [
+        "api-transcription-transcription-jobs"
+      ],
+      "label": "Pub/Sub",
+      "async": true,
+      "from": "upload-core"
+    },
+    {
+      "id": "upload-internal-core-db",
+      "to": "upload-db",
+      "label": "read / persist",
+      "from": "upload-core"
+    },
+    {
+      "id": "upload-internal-core-gcs",
+      "to": "upload-gcs",
+      "label": "store / compose",
+      "from": "upload-core"
+    },
+    {
+      "id": "tasks-core-app",
+      "to": "tasks-app",
+      "contracts": [
+        "api-infrastructure-entitychangedevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "tasks-core"
+    },
+    {
+      "id": "tasks-app-core",
+      "to": "tasks-core",
+      "contracts": [
+        "api-task-get-meetings-id-tasks",
+        "api-task-get-tasks",
+        "api-task-post-tasks",
+        "api-task-get-tasks-id",
+        "api-task-patch-tasks-id",
+        "api-task-delete-tasks-id",
+        "api-task-get-tasks-id-sub-tasks"
+      ],
+      "label": "REST",
+      "from": "tasks-app"
+    },
+    {
+      "id": "tasks-internal-core-db",
+      "to": "tasks-db",
+      "label": "read / persist",
+      "from": "tasks-core"
+    },
+    {
+      "id": "notes-library-internal-core-db",
+      "to": "notes-library-db",
+      "label": "read / persist",
+      "from": "notes-library-core"
+    },
+    {
+      "id": "start-app-core",
+      "to": "start-core",
+      "contracts": [
+        "api-meeting-post-meetings",
+        "api-meeting-get-meetings",
+        "api-recording-startrecordingcommand"
+      ],
+      "label": "REST / WebSocket",
+      "from": "start-app"
+    },
+    {
+      "id": "start-core-app",
+      "to": "start-app",
+      "contracts": [
+        "api-recording-recordingstartedevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "start-core"
+    },
+    {
+      "id": "start-core-ml",
+      "to": "start-ml",
+      "contracts": [
+        "api-recording-post-meetings-id-live-session",
+        "api-recording-streamstartevent"
+      ],
+      "label": "REST / WebSocket",
+      "from": "start-guard"
+    },
+    {
+      "id": "start-ml-core",
+      "to": "start-core",
+      "contracts": [
+        "api-recording-streamreadyevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "start-ml"
+    },
+    {
+      "id": "start-internal-core-db",
+      "to": "start-db",
+      "label": "read / persist",
+      "from": "start-core"
+    },
+    {
+      "id": "start-internal-ml-aai",
+      "to": "start-aai",
+      "label": "transcription",
+      "from": "start-ml"
+    },
+    {
+      "id": "listen-app-core",
+      "to": "listen-core",
+      "contracts": [
+        "api-audio-browser-binary-audio-frame"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "listen-app"
+    },
+    {
+      "id": "listen-core-ml",
+      "to": "listen-ml",
+      "contracts": [
+        "api-audio-ml-binary-audio-frame"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "listen-core"
+    },
+    {
+      "id": "listen-ml-core",
+      "to": "listen-core",
+      "contracts": [
+        "api-audio-audiochunkackevent",
+        "api-transcription-post-transcriptions-id-segments",
+        "api-transcription-transcriptsegmentproducedevent"
+      ],
+      "label": "WebSocket / REST",
+      "from": "listen-ml"
+    },
+    {
+      "id": "listen-core-app",
+      "to": "listen-app",
+      "contracts": [
+        "api-transcription-transcriptsegmentevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "listen-core"
+    },
+    {
+      "id": "listen-internal-core-db",
+      "to": "listen-db",
+      "label": "read / persist",
+      "from": "listen-core"
+    },
+    {
+      "id": "listen-internal-app-opfs",
+      "to": "listen-opfs",
+      "label": "local durability",
+      "from": "listen-app"
+    },
+    {
+      "id": "listen-internal-core-gcs",
+      "to": "listen-gcs",
+      "label": "store / compose",
+      "from": "listen-core"
+    },
+    {
+      "id": "listen-internal-ml-aai",
+      "to": "listen-aai",
+      "label": "transcription",
+      "from": "listen-ml"
+    },
+    {
+      "id": "buffer-core-app",
+      "to": "buffer-app",
+      "contracts": [
+        "api-recording-audiostoredprogressevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "buffer-core"
+    },
+    {
+      "id": "buffer-internal-core-db",
+      "to": "buffer-db",
+      "label": "read / persist",
+      "from": "buffer-core"
+    },
+    {
+      "id": "buffer-internal-app-opfs",
+      "to": "buffer-opfs",
+      "label": "local durability",
+      "from": "buffer-app"
+    },
+    {
+      "id": "buffer-internal-core-gcs",
+      "to": "buffer-gcs",
+      "label": "store / compose",
+      "from": "buffer-core"
+    },
+    {
+      "id": "degraded-ml-core",
+      "to": "degraded-core",
+      "contracts": [
+        "api-audio-backpressureevent",
+        "api-audio-backpressureclearedevent",
+        "api-infrastructure-streamwarningevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "degraded-ml"
+    },
+    {
+      "id": "degraded-core-app",
+      "to": "degraded-app",
+      "contracts": [
+        "api-recording-recordinghealthevent",
+        "api-recording-recordingerrorevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "degraded-core"
+    },
+    {
+      "id": "degraded-internal-app-opfs",
+      "to": "degraded-opfs",
+      "label": "local durability",
+      "from": "degraded-app"
+    },
+    {
+      "id": "degraded-internal-core-gcs",
+      "to": "degraded-gcs",
+      "label": "store / compose",
+      "from": "degraded-core"
+    },
+    {
+      "id": "live-notes-core-app",
+      "to": "live-notes-app",
+      "contracts": [
+        "api-infrastructure-entitychangedevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "live-notes-core"
+    },
+    {
+      "id": "live-notes-app-core",
+      "to": "live-notes-core",
+      "contracts": [
+        "api-meeting-patch-meetings-id"
+      ],
+      "label": "REST",
+      "from": "live-notes-app"
+    },
+    {
+      "id": "live-notes-internal-core-db",
+      "to": "live-notes-db",
+      "label": "read / persist",
+      "from": "live-notes-core"
+    },
+    {
+      "id": "talking-points-app-core",
+      "to": "talking-points-core",
+      "contracts": [
+        "api-synthesis-get-meetings-id-talking-points"
+      ],
+      "label": "REST",
+      "from": "talking-points-app"
+    },
+    {
+      "id": "talking-points-ml-core",
+      "to": "talking-points-core",
+      "contracts": [
+        "api-synthesis-post-meetings-id-talking-points",
+        "api-synthesis-talkingpointproducedevent"
+      ],
+      "label": "REST / WebSocket",
+      "from": "talking-points-ml"
+    },
+    {
+      "id": "talking-points-core-app",
+      "to": "talking-points-app",
+      "contracts": [
+        "api-synthesis-talkingpointevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "talking-points-core"
+    },
+    {
+      "id": "talking-points-internal-core-db",
+      "to": "talking-points-db",
+      "label": "read / persist",
+      "from": "talking-points-core"
+    },
+    {
+      "id": "talking-points-internal-ml-openai",
+      "to": "talking-points-openai",
+      "label": "synthesis",
+      "from": "talking-points-ml"
+    },
+    {
+      "id": "live-tasks-app-core",
+      "to": "live-tasks-core",
+      "contracts": [
+        "api-task-post-tasks",
+        "api-task-patch-tasks-id",
+        "api-task-delete-tasks-id"
+      ],
+      "label": "REST",
+      "from": "live-tasks-app"
+    },
+    {
+      "id": "live-tasks-core-app",
+      "to": "live-tasks-app",
+      "contracts": [
+        "api-task-taskevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "live-tasks-core"
+    },
+    {
+      "id": "live-tasks-ml-core",
+      "to": "live-tasks-core",
+      "contracts": [
+        "api-task-taskproducedevent",
+        "api-task-post-tasks-ml"
+      ],
+      "label": "WebSocket / REST",
+      "from": "live-tasks-ml"
+    },
+    {
+      "id": "live-tasks-internal-core-db",
+      "to": "live-tasks-db",
+      "label": "read / persist",
+      "from": "live-tasks-core"
+    },
+    {
+      "id": "live-tasks-internal-ml-openai",
+      "to": "live-tasks-openai",
+      "label": "synthesis",
+      "from": "live-tasks-ml"
+    },
+    {
+      "id": "speaker-match-ml-core",
+      "to": "speaker-match-core",
+      "contracts": [
+        "api-person-speakermatchproducedevent",
+        "api-person-speakerexhaustedevent",
+        "api-transcription-segmentfeaturesproducedevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "speaker-match-ml"
+    },
+    {
+      "id": "speaker-match-core-ml",
+      "to": "speaker-match-ml",
+      "contracts": [
+        "api-person-post-voice-profiles-matches"
+      ],
+      "label": "REST",
+      "from": "speaker-match-core"
+    },
+    {
+      "id": "speaker-match-internal-core-db",
+      "to": "speaker-match-db",
+      "label": "read / persist",
+      "from": "speaker-match-core"
+    },
+    {
+      "id": "label-speaker-app-core",
+      "to": "label-speaker-core",
+      "contracts": [
+        "api-meeting-post-meetings-id-speaker-labels",
+        "api-person-get-people",
+        "api-person-post-people"
+      ],
+      "label": "REST",
+      "from": "label-speaker-app"
+    },
+    {
+      "id": "label-speaker-core-ml",
+      "to": "label-speaker-ml",
+      "contracts": [
+        "api-person-speakerstateupdatedevent",
+        "api-recording-post-meetings-id-live-session-speaker-states"
+      ],
+      "label": "WebSocket / REST",
+      "from": "label-speaker-core"
+    },
+    {
+      "id": "label-speaker-internal-core-db",
+      "to": "label-speaker-db",
+      "label": "read / persist",
+      "from": "label-speaker-core"
+    },
+    {
+      "id": "finalize-core-app",
+      "to": "finalize-app",
+      "contracts": [
+        "api-infrastructure-entitychangedevent",
+        "api-synthesis-synthesisupdatedevent",
+        "api-transcription-transcriptrevisedevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "finalize-core"
+    },
+    {
+      "id": "finalize-ml-core",
+      "to": "finalize-core",
+      "contracts": [
+        "api-synthesis-put-meetings-id-synthesis",
+        "api-task-put-meetings-id-tasks-system",
+        "api-transcription-put-transcriptions-id-segments",
+        "api-transcription-patch-transcriptions-id-status",
+        "api-meeting-patch-meetings-id-ml"
+      ],
+      "label": "REST",
+      "from": "finalize-ml"
+    },
+    {
+      "id": "finalize-core-ml",
+      "to": "finalize-ml",
+      "contracts": [
+        "api-transcription-transcription-jobs"
+      ],
+      "label": "Pub/Sub",
+      "async": true,
+      "from": "finalize-core"
+    },
+    {
+      "id": "finalize-internal-core-db",
+      "to": "finalize-db",
+      "label": "read / persist",
+      "from": "finalize-core"
+    },
+    {
+      "id": "finalize-internal-core-gcs",
+      "to": "finalize-gcs",
+      "label": "store / compose",
+      "from": "finalize-core"
+    },
+    {
+      "id": "finalize-internal-ml-aai",
+      "to": "finalize-aai",
+      "label": "transcription",
+      "from": "finalize-ml"
+    },
+    {
+      "id": "finalize-internal-ml-openai",
+      "to": "finalize-openai",
+      "label": "synthesis",
+      "from": "finalize-ml"
+    },
+    {
+      "id": "finalize-read-audio",
+      "to": "finalize-gcs",
+      "label": "download composed audio",
+      "from": "finalize-ml"
+    },
+    {
+      "id": "review-app-core",
+      "to": "review-core",
+      "contracts": [
+        "api-meeting-get-meetings-id",
+        "api-synthesis-get-meetings-id-synthesis",
+        "api-synthesis-get-meetings-id-talking-points",
+        "api-synthesis-get-meetings-id-topics",
+        "api-task-get-meetings-id-tasks",
+        "api-transcription-get-meetings-id-transcriptions",
+        "api-transcription-get-transcriptions-id",
+        "api-transcription-get-transcriptions-id-segments"
+      ],
+      "label": "REST",
+      "from": "review-app"
+    },
+    {
+      "id": "review-internal-core-db",
+      "to": "review-db",
+      "label": "read / persist",
+      "from": "review-core"
+    },
+    {
+      "id": "playback-app-core",
+      "to": "playback-core",
+      "contracts": [
+        "api-meeting-get-meetings-id-audio-url",
+        "api-transcription-get-transcriptions-id-segments"
+      ],
+      "label": "REST",
+      "from": "playback-app"
+    },
+    {
+      "id": "playback-internal-core-db",
+      "to": "playback-db",
+      "label": "read / persist",
+      "from": "playback-core"
+    },
+    {
+      "id": "playback-internal-core-gcs",
+      "to": "playback-gcs",
+      "label": "store / compose",
+      "from": "playback-core"
+    },
+    {
+      "id": "playback-direct-gcs",
+      "to": "playback-gcs",
+      "label": "stream signed audio directly",
+      "from": "playback-app"
+    },
+    {
+      "id": "limits-app-core",
+      "to": "limits-core",
+      "contracts": [
+        "api-meeting-get-meetings"
+      ],
+      "label": "REST",
+      "from": "limits-app"
+    },
+    {
+      "id": "limits-core-app",
+      "to": "limits-app",
+      "contracts": [
+        "api-recording-recordingstoppedevent",
+        "api-recording-recordingdurationwarningevent",
+        "api-recording-recordinghealthevent",
+        "api-recording-recordingerrorevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "limits-core"
+    },
+    {
+      "id": "limits-internal-core-db",
+      "to": "limits-db",
+      "label": "read / persist",
+      "from": "limits-core"
+    },
+    {
+      "id": "replay-core-app",
+      "to": "replay-app",
+      "contracts": [
+        "api-infrastructure-replayexpiredevent",
+        "api-infrastructure-authexpiringevent"
+      ],
+      "label": "WebSocket",
+      "async": true,
+      "from": "replay-core"
+    },
+    {
+      "id": "replay-app-core",
+      "to": "replay-core",
+      "contracts": [
+        "api-infrastructure-authrefreshcommand",
+        "api-meeting-get-meetings-id",
+        "api-transcription-get-transcriptions-id-segments"
+      ],
+      "label": "WebSocket / REST",
+      "from": "replay-app"
+    },
+    {
+      "id": "replay-core-ml",
+      "to": "replay-ml",
+      "contracts": [
+        "api-recording-get-meetings-id-live-session"
+      ],
+      "label": "REST",
+      "from": "replay-core"
+    },
+    {
+      "id": "replay-internal-core-db",
+      "to": "replay-db",
+      "label": "read / persist",
+      "from": "replay-core"
+    },
+    {
+      "id": "deleted-ml-core",
+      "to": "deleted-core",
+      "contracts": [
+        "api-synthesis-put-meetings-id-synthesis",
+        "api-task-put-meetings-id-tasks-system"
+      ],
+      "label": "REST",
+      "from": "deleted-ml"
+    },
+    {
+      "id": "deleted-internal-core-db",
+      "to": "deleted-db",
+      "label": "read / persist",
+      "from": "deleted-core"
+    },
+    {
+      "id": "start-check-guard",
+      "from": "start-core",
+      "to": "start-guard",
+      "label": "check user session"
+    },
+    {
+      "id": "start-guard-conflict",
+      "from": "start-guard",
+      "to": "start-app",
+      "label": "session_conflict",
+      "contracts": [
+        "api-recording-recordingerrorevent"
+      ]
+    },
+    {
+      "id": "reconnect-edge-1",
+      "from": "reconnect-app",
+      "to": "reconnect-local",
+      "label": "capture while disconnected"
+    },
+    {
+      "id": "reconnect-edge-2",
+      "from": "reconnect-app",
+      "to": "reconnect-plan",
+      "label": "Resume / gaps",
+      "contracts": [
+        "api-recording-resumerecordingcommand",
+        "api-recording-get-meetings-id-recording-missing-chunks"
+      ]
+    },
+    {
+      "id": "reconnect-edge-3",
+      "from": "reconnect-plan",
+      "to": "reconnect-app",
+      "label": "State / health",
+      "contracts": [
+        "api-recording-recordingresumedevent",
+        "api-recording-recordinghealthevent"
+      ]
+    },
+    {
+      "id": "reconnect-edge-4",
+      "from": "reconnect-plan",
+      "to": "reconnect-db",
+      "label": "read recording continuity"
+    },
+    {
+      "id": "reconnect-edge-5",
+      "from": "reconnect-plan",
+      "to": "reconnect-gaps",
+      "label": "inspect missing ranges"
+    },
+    {
+      "id": "reconnect-edge-6",
+      "from": "reconnect-gaps",
+      "to": "reconnect-upload",
+      "label": "yes: locally recoverable chunks"
+    },
+    {
+      "id": "reconnect-edge-7",
+      "from": "reconnect-local",
+      "to": "reconnect-upload",
+      "label": "read retained frame ranges"
+    },
+    {
+      "id": "reconnect-edge-8",
+      "from": "reconnect-upload",
+      "to": "reconnect-repair",
+      "label": "Gap upload",
+      "contracts": [
+        "api-recording-post-meetings-id-recording-chunks"
+      ]
+    },
+    {
+      "id": "reconnect-edge-9",
+      "from": "reconnect-repair",
+      "to": "reconnect-gcs",
+      "label": "store repaired segments"
+    },
+    {
+      "id": "reconnect-edge-10",
+      "from": "reconnect-gcs",
+      "to": "reconnect-ack",
+      "label": "storage confirmed"
+    },
+    {
+      "id": "reconnect-edge-11",
+      "from": "reconnect-ack",
+      "to": "reconnect-trim",
+      "label": "Stored",
+      "contracts": [
+        "api-recording-gapuploadcompleteevent"
+      ]
+    },
+    {
+      "id": "reconnect-edge-12",
+      "from": "reconnect-gaps",
+      "to": "reconnect-unrecoverable",
+      "label": "no local recovery"
+    },
+    {
+      "id": "stop-edge-1",
+      "from": "stop-app",
+      "to": "stop-persist",
+      "label": "stop command",
+      "contracts": [
+        "api-recording-stoprecordingcommand"
+      ]
+    },
+    {
+      "id": "stop-edge-2",
+      "from": "stop-persist",
+      "to": "stop-db",
+      "label": "commit state / outbox"
+    },
+    {
+      "id": "stop-edge-3",
+      "from": "stop-persist",
+      "to": "stop-drain",
+      "label": "after durable stop intent"
+    },
+    {
+      "id": "stop-edge-4",
+      "from": "stop-drain",
+      "to": "stop-ml",
+      "label": "drain; REST/PubSub alternatives",
+      "contracts": [
+        "api-recording-draincommand",
+        "api-recording-post-meetings-id-live-session-drain",
+        "api-recording-meeting-session-terminated-v1"
+      ]
+    },
+    {
+      "id": "stop-edge-5",
+      "from": "stop-ml",
+      "to": "stop-gaps",
+      "label": "drain complete",
+      "contracts": [
+        "api-recording-streamdrainedevent"
+      ]
+    },
+    {
+      "id": "stop-edge-6",
+      "from": "stop-gaps",
+      "to": "stop-repair",
+      "label": "capture stopped; gap plan",
+      "contracts": [
+        "api-recording-recordingstoppedevent"
+      ]
+    },
+    {
+      "id": "stop-edge-7",
+      "from": "stop-local",
+      "to": "stop-repair",
+      "label": "read retained missing ranges"
+    },
+    {
+      "id": "stop-edge-8",
+      "from": "stop-repair",
+      "to": "stop-compose",
+      "label": "verify and persist gap chunks",
+      "contracts": [
+        "api-recording-post-meetings-id-recording-chunks"
+      ]
+    },
+    {
+      "id": "stop-edge-9",
+      "from": "stop-gaps",
+      "to": "stop-compose",
+      "label": "no gaps or deadline reached"
+    },
+    {
+      "id": "stop-edge-10",
+      "from": "stop-compose",
+      "to": "stop-gcs",
+      "label": "hierarchical composition"
+    },
+    {
+      "id": "stop-edge-11",
+      "from": "stop-gcs",
+      "to": "stop-dispatch",
+      "label": "composition succeeds"
+    },
+    {
+      "id": "stop-edge-12",
+      "from": "stop-dispatch",
+      "to": "stop-audio",
+      "label": "persist final audio reference"
+    },
+    {
+      "id": "stop-edge-13",
+      "from": "stop-dispatch",
+      "to": "stop-worker",
+      "label": "outbox delivery",
+      "contracts": [
+        "api-transcription-transcription-jobs"
+      ]
+    },
+    {
+      "id": "notes-library-read-write",
+      "from": "notes-library-app",
+      "to": "notes-library-core",
+      "label": "note CRUD; contract not specified"
+    },
+    {
+      "id": "reconnect-edge-13",
+      "from": "reconnect-unrecoverable",
+      "to": "reconnect-trim",
+      "label": "confirmed audio only"
+    }
+  ]
+}

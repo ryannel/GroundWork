@@ -1,0 +1,46 @@
+/* Shared interaction feedback. Keep layout still and preserve each surface's identity. */
+.workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]) {
+  cursor: pointer;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease,
+    box-shadow 150ms ease, opacity 150ms ease, filter 150ms ease, transform 150ms ease;
+}
+
+@media (hover: hover) {
+  .workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(1.14);
+  }
+  .workbench-shell[data-workbench-theme="light"] :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(.96);
+  }
+  .workbench-shell :is(select, summary):hover { border-color: var(--border-strong); color: var(--fg); }
+}
+
+.workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):active {
+  opacity: .72;
+  transition-duration: 60ms;
+}
+.workbench-shell :is(button, select):disabled,
+.workbench-shell [aria-disabled="true"] { cursor: not-allowed; opacity: .45; }
+.workbench-shell :is(a[href], button, select, summary, [role="button"]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.workbench-shell .global-search { transition: border-color 150ms ease, box-shadow 150ms ease; }
+.workbench-shell .global-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.workbench-shell .search-results a:focus-visible { background: var(--accent-soft); outline-offset: -2px; }
+
+/* SVG shapes need their own feedback; moving a node would misalign its connectors. */
+.flow-canvas g[role="button"] > :is(path, rect),
+.flow-boundary > g > rect { transition: fill 150ms ease, stroke 150ms ease, stroke-width 150ms ease; }
+.flow-canvas g[role="button"]:is(:hover, :focus-visible) > :is(path, rect):not(.flow-boundary-hit) {
+  stroke: var(--accent);
+  stroke-width: 2px;
+}
+.flow-canvas g.flow-node:is(:hover, :focus-visible) { fill: var(--accent-soft); }
+.flow-boundary:is(:hover, :focus-visible) > g > rect { fill: var(--accent-soft); stroke: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .workbench-shell :is(a[href], button, select, summary, [role="button"]) { transition: none; }
+  .workbench-shell :is(a[href], button, select, summary, [role="button"]):is(:hover, :active) { transform: none !important; }
+}

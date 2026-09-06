@@ -1,0 +1,233 @@
+{
+  "nodes": [
+    {
+      "id": "sdk",
+      "label": "Storefront",
+      "kind": "external",
+      "component": "c-sdk",
+      "col": 0,
+      "row": 0,
+      "description": "Sends the selected shopper action to the cart service and presents the resulting cart."
+    },
+    {
+      "id": "cart",
+      "label": "Cart service",
+      "kind": "process",
+      "component": "c-cart-svc",
+      "col": 1,
+      "row": 0,
+      "description": "Handles the action’s API call. Reads return the saved cart; writes update its lines or address and save tax state before responding."
+    },
+    {
+      "id": "cartdb",
+      "label": "cart, cart_line",
+      "kind": "store",
+      "component": "c-cart-svc",
+      "col": 3,
+      "row": 2,
+      "tables": [
+        "cart",
+        "cart_line"
+      ],
+      "description": "Stores the cart and its line-level tax snapshot. Reads return that snapshot; writes save it after the tax decision or quote completes."
+    },
+    {
+      "id": "region",
+      "label": "Region complete?",
+      "kind": "decision",
+      "component": "c-cart-svc",
+      "col": 2,
+      "row": 0,
+      "description": "Choose whether the cart can request a destination-based tax quote.",
+      "logic": {
+        "expression": "hasRequiredRegion(cart.deliverTo)",
+        "explanation": "Check for a country plus any subdivision or postal code required for that destination. This condition represents validation, not just a non-empty country field.",
+        "branches": [
+          {
+            "edgeId": "e-region-quote",
+            "when": "Yes · required region details are present",
+            "then": "Request a tax quote for the cart lines and delivery region."
+          },
+          {
+            "edgeId": "e-region-placeholder",
+            "when": "No · required region details are missing",
+            "then": "Keep line tax null and show “calculated at checkout”."
+          }
+        ]
+      }
+    },
+    {
+      "id": "placeholder",
+      "label": "Set tax pending",
+      "kind": "process",
+      "component": "c-cart-svc",
+      "col": 3,
+      "row": 1,
+      "description": "Sets line tax, rate and rule ID to null and taxStatus to pending, then saves the cart. The storefront displays “calculated at checkout”."
+    },
+    {
+      "id": "quote",
+      "label": "Quote tax",
+      "kind": "process",
+      "component": "c-pricing-api",
+      "col": 3,
+      "row": 0,
+      "description": "Checks cached rates for the merchant, region and categories. On a miss, evaluates the current rules and caches the rates. Returns tax amounts and rule IDs to the cart service; it does not write the cart database."
+    },
+    {
+      "id": "cache",
+      "label": "Rate cache",
+      "kind": "store",
+      "component": "c-pricing-api",
+      "col": 4,
+      "row": 1,
+      "description": "Caches rates and rule IDs by merchant, region and category, with expiry at the next rule effective time. A hit returns these to Quote tax; a miss triggers rule evaluation. Rule-published events invalidate affected entries. The cache record schema is not documented yet."
+    },
+    {
+      "id": "rules",
+      "label": "Evaluate rules",
+      "kind": "process",
+      "component": "c-rules",
+      "col": 4,
+      "row": 0,
+      "description": "On a cache miss, reads the effective rules for this merchant, region and product category. Returns matching rates and rule IDs to Quote tax."
+    },
+    {
+      "id": "db",
+      "label": "tax_rules",
+      "kind": "store",
+      "component": "c-pricing-db",
+      "col": 5,
+      "row": 0,
+      "tables": [
+        "tax_rules"
+      ],
+      "description": "Reads the rule versions effective at quote time. Publishing appends a new version; old versions remain available for order audits."
+    },
+    {
+      "id": "console",
+      "label": "Rules console",
+      "kind": "external",
+      "component": "c-rules",
+      "col": 3,
+      "row": 0,
+      "description": "Lets finance edit and publish versioned tax rules."
+    },
+    {
+      "id": "publish",
+      "label": "Publish rule",
+      "kind": "process",
+      "component": "c-rules",
+      "col": 4,
+      "row": 0,
+      "description": "Validates the rule and saves a new version. Only after the save succeeds, emits the rule-published event and confirms publication to the console."
+    },
+    {
+      "id": "invalidate",
+      "label": "Invalidate cache",
+      "kind": "worker",
+      "component": "c-pricing-api",
+      "col": 3,
+      "row": 1,
+      "description": "Invalidates cached rates affected by the published rule."
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-sdk-cart",
+      "from": "sdk",
+      "to": "cart",
+      "contracts": [
+        "api-add-line",
+        "api-deliver-to",
+        "api-get-cart"
+      ]
+    },
+    {
+      "id": "e-cart-region",
+      "from": "cart",
+      "to": "region"
+    },
+    {
+      "id": "e-cart-db",
+      "from": "cart",
+      "to": "cartdb",
+      "label": "save after quote"
+    },
+    {
+      "id": "e-cart-read",
+      "from": "cart",
+      "to": "cartdb",
+      "label": "read cart"
+    },
+    {
+      "id": "e-placeholder-db",
+      "from": "placeholder",
+      "to": "cartdb",
+      "label": "save"
+    },
+    {
+      "id": "e-region-quote",
+      "from": "region",
+      "to": "quote",
+      "label": "yes",
+      "contracts": [
+        "api-quote"
+      ]
+    },
+    {
+      "id": "e-region-placeholder",
+      "from": "region",
+      "to": "placeholder",
+      "label": "no"
+    },
+    {
+      "id": "e-quote-cache",
+      "from": "quote",
+      "to": "cache",
+      "label": "lookup"
+    },
+    {
+      "id": "e-quote-rules",
+      "from": "quote",
+      "to": "rules",
+      "label": "on miss"
+    },
+    {
+      "id": "e-rules-db",
+      "from": "rules",
+      "to": "db",
+      "label": "read"
+    },
+    {
+      "id": "e-publish-db",
+      "from": "publish",
+      "to": "db",
+      "label": "persist rule"
+    },
+    {
+      "id": "e-console-publish",
+      "from": "console",
+      "to": "publish",
+      "contracts": [
+        "api-publish-rule"
+      ]
+    },
+    {
+      "id": "e-publish-invalidate",
+      "from": "publish",
+      "to": "invalidate",
+      "async": true,
+      "label": "after save",
+      "contracts": [
+        "api-rule-published"
+      ]
+    },
+    {
+      "id": "e-invalidate-cache",
+      "from": "invalidate",
+      "to": "cache",
+      "async": true
+    }
+  ]
+}

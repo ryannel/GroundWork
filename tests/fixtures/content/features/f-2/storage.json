@@ -1,0 +1,153 @@
+{
+  "tables": [
+    {
+      "id": "tax_rules",
+      "component": "c-pricing-db",
+      "name": "tax_rules",
+      "change": "added",
+      "note": "Append-only. A new version supersedes by (region, category, merchant) with a later effective_at.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "key": true,
+          "note": "r_{region}_{slug}_v{n}"
+        },
+        {
+          "name": "region",
+          "type": "text",
+          "note": "ISO 3166 country, optional subdivision"
+        },
+        {
+          "name": "category_id",
+          "type": "text",
+          "note": "null = all categories"
+        },
+        {
+          "name": "merchant_id",
+          "type": "text",
+          "note": "null = all merchants"
+        },
+        {
+          "name": "rate",
+          "type": "numeric(6,4)"
+        },
+        {
+          "name": "effective_at",
+          "type": "timestamptz"
+        },
+        {
+          "name": "supersedes",
+          "type": "text",
+          "note": "previous rule id"
+        },
+        {
+          "name": "created_by",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "id": "cart_line",
+      "component": "c-cart-svc",
+      "name": "cart_line",
+      "change": "updated",
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "key": true,
+          "change": "unchanged"
+        },
+        {
+          "name": "cart_id",
+          "type": "text",
+          "change": "unchanged"
+        },
+        {
+          "name": "net",
+          "type": "integer",
+          "change": "unchanged"
+        },
+        {
+          "name": "tax_amount",
+          "type": "integer",
+          "change": "added",
+          "note": "minor units; null until region known"
+        },
+        {
+          "name": "tax_rate",
+          "type": "numeric(6,4)",
+          "change": "added",
+          "note": "quoted rate snapshot; null while tax is pending"
+        },
+        {
+          "name": "tax_rule_id",
+          "type": "text",
+          "change": "added",
+          "note": "for the disclosure and audit"
+        },
+        {
+          "name": "tax_quoted_at",
+          "type": "timestamptz",
+          "change": "added"
+        }
+      ]
+    },
+    {
+      "id": "cart",
+      "component": "c-cart-svc",
+      "name": "cart",
+      "change": "updated",
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "key": true,
+          "change": "unchanged"
+        },
+        {
+          "name": "deliver_to_country",
+          "type": "text",
+          "change": "added"
+        },
+        {
+          "name": "deliver_to_subdivision",
+          "type": "text",
+          "change": "added"
+        },
+        {
+          "name": "deliver_to_postal",
+          "type": "text",
+          "change": "added"
+        },
+        {
+          "name": "tax_status",
+          "type": "text",
+          "change": "added",
+          "note": "\"quoted\" | \"pending\""
+        }
+      ]
+    },
+    {
+      "id": "storefront_tax_rate",
+      "component": "c-pricing-db",
+      "name": "storefront_tax_rate",
+      "change": "removed",
+      "note": "Flat per-storefront rate. Drop after the flat lookup endpoint is gone.",
+      "columns": [
+        {
+          "name": "storefront_id",
+          "type": "text",
+          "key": true,
+          "change": "removed"
+        },
+        {
+          "name": "rate",
+          "type": "numeric(6,4)",
+          "change": "removed"
+        }
+      ]
+    }
+  ]
+}

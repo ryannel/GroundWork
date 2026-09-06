@@ -1,0 +1,36 @@
+{
+  "problem": "Tax is currently a flat rate per storefront. Selling into the EU and US states with destination-based tax means we show the wrong total until checkout, and finance reconciles by hand.",
+  "outcome": "Every cart line carries a correct, explainable tax amount from the moment a ship-to region is known, and the rules that produced it can be changed without a deploy.",
+  "nonGoals": [
+    "Filing or remittance",
+    "Tax-exempt B2B accounts (separate feature)",
+    "Historical recalculation of past orders"
+  ],
+  "success": [
+    {
+      "id": "sc-parity",
+      "text": "Cart and checkout totals match for the same confirmed address and rule version",
+      "tests": [
+        "E2E-3"
+      ]
+    },
+    {
+      "id": "sc-nodeploy",
+      "text": "Rule change live in under 5 minutes, no deploy",
+      "tests": [
+        "E2E-4"
+      ]
+    },
+    {
+      "id": "sc-latency",
+      "text": "p95 added latency on cart recompute under 40ms",
+      "tests": [
+        "E2E-6"
+      ]
+    },
+    {
+      "id": "sc-explain",
+      "text": "Every tax line can be explained by a rule id"
+    }
+  ]
+}

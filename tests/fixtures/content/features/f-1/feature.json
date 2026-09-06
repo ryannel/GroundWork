@@ -1,0 +1,13 @@
+{
+  "id": "f-1",
+  "productId": "p-pricing",
+  "title": "Dynamic bundle pricing",
+  "summary": "Price bundles from component SKUs with rule-driven discounts.",
+  "stage": "designing",
+  "touches": [
+    "c-pricing-api",
+    "c-rules"
+  ],
+  "updatedAt": "2026-09-05T13:27:22.686Z",
+  "ownerId": "ryan-nel"
+}

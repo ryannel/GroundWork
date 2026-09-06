@@ -1,0 +1,11 @@
+{
+  "id": "f-5",
+  "productId": "p-checkout",
+  "title": "Split shipments",
+  "stage": "idea",
+  "touches": [
+    "c-checkout-api"
+  ],
+  "updatedAt": "2026-08-27T18:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

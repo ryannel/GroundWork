@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "problem": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "nonGoals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      }
+    },
+    "success": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "tests": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "problem",
+    "outcome"
+  ],
+  "additionalProperties": false
+}

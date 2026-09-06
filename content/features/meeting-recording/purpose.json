@@ -1,0 +1,62 @@
+{
+  "problem": "Users must record meetings elsewhere, export audio, then upload it to Wordloop. They get no live feedback and short conversations containing useful decisions are often never captured. This is the problem as stated in the active pitch, not a claim about today’s deployed implementation.",
+  "outcome": "Start Wordloop at the beginning of a meeting. Capture microphone audio in the desktop browser, see a live transcript, write private notes and work with live insights. After stop, rebuild a high-quality transcript, summary and tasks from durable audio through the same finalization path as uploads, preserving user-authored work.",
+  "nonGoals": [
+    "Recording from mobile browsers (this bet). MediaRecorder with reliable WebM chunk output and OPFS createSyncAccessHandle() are desktop browser capabilities. Mobile browsers have weaker support for both. This bet builds for desktop (Chrome/Edge primary, Safari 17+ best-effort). However, mobile recording is an important future capability — the architecture should not make choices that preclude it. If local audio buffering (OPFS) is not viable on mobile, the system should degrade to a direct-stream-only mode without the safety net. This is scoped deliberately so that a future mobile bet can extend the existing infrastructure rather than rebuild it.",
+    "Multi-device recording for a single meeting. One active recording session per meeting. Merging audio streams from multiple devices is not part of this bet.",
+    "Live collaboration on notes. Notes are a private per-user scratchpad. Real-time multi-user editing (like Google Docs) is not part of this bet.",
+    "Exporting or downloading the recording. The audio is stored in GCS and made available for playback via signed URL. Download/export as a feature is not part of this bet.",
+    "Custom vocabulary or transcription hints. AssemblyAI's default transcription model is used as-is. Custom vocabulary tuning or domain-specific language models are out of scope.",
+    "Pause/resume during a live recording. A recording runs continuously from start to stop. Pause introduces session-split complexity (multiple audio segments, transcript gap handling, timer semantics) that doesn't justify the cost for v1. Captured as a separate problem statement — users will want to \"go off record\" temporarily.",
+    "System audio capture (getDisplayMedia). This bet captures the user's microphone only. Capturing system audio (e.g., a Zoom call playing through speakers) requires display media permissions and a different audio routing pipeline. Captured as a separate problem statement — this is the natural next capability after mic-only recording.",
+    "No session recovery after tab close in v1. Sticky Core pod affinity is required; cross-pod backplane work remains separate.",
+    "This import does not certify delivery. The source labels the bet active; Groundwork uses building as the closest stage. All imported acceptance scenarios are planned because no live Wordloop test run was performed.",
+    "Audio losslessness is a source goal with bounded conditions: recoverable local chunks must still exist. OPFS failure, expired gap deadlines and tab closure are documented limitations."
+  ],
+  "success": [
+    {
+      "id": "success-latency",
+      "text": "Start recording in the browser and show transcript within 2 seconds of speech.",
+      "tests": [
+        "accept-start"
+      ]
+    },
+    {
+      "id": "success-durability",
+      "text": "Source target: no audio loss across connectivity failures. Verify zero gaps where OPFS chunks remain recoverable; surface unrecoverable loss explicitly.",
+      "tests": [
+        "accept-gap",
+        "accept-buffer-failure"
+      ]
+    },
+    {
+      "id": "success-final",
+      "text": "Final headline, summary, topics and talking points appear automatically when transcription status reaches completed.",
+      "tests": [
+        "accept-final"
+      ]
+    },
+    {
+      "id": "success-degraded",
+      "text": "Audio capture continues even if live ML or insights fail.",
+      "tests": [
+        "accept-degraded"
+      ]
+    },
+    {
+      "id": "success-session",
+      "text": "Enforce one active recording per user on both client and server.",
+      "tests": [
+        "accept-conflict"
+      ]
+    },
+    {
+      "id": "success-user-work",
+      "text": "Preserve private notes and user-owned task edits during finalization (milestones 06 and 08).",
+      "tests": [
+        "accept-notes",
+        "accept-tasks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "f-4",
+  "productId": "p-checkout",
+  "title": "Apple Pay express lane",
+  "stage": "exploring",
+  "touches": [
+    "c-checkout-api",
+    "c-payments",
+    "c-sdk"
+  ],
+  "updatedAt": "2026-08-20T18:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

@@ -1,0 +1,51 @@
+---
+title: "05 Live Audio Durability Recovery"
+description: "Live audio survives browser and network instability with clear health states."
+audience: engineers
+owner: product-platform
+status: active
+source_of_truth: meeting-recording bet
+---
+# 05 Live Audio Durability Recovery
+
+## Goal
+
+A live recording remains durable across normal connectivity interruptions, with recoverable audio gaps and clear health or degraded states for the user.
+
+## Why This Comes Now
+
+Once live recording feeds the final rebuild path, the next risk is losing source audio before finalization. Durability and recovery must be proven before layering notes, insights, tasks, speakers, and playback on top of the recording session.
+
+## Included Scope
+
+- Buffer live audio locally using the agreed browser durability mechanism.
+- Upload durable audio chunks to object storage as recording progresses.
+- Recover upload gaps after reconnect when local durable chunks are still available.
+- Show healthy, reconnecting, degraded, and failed recording states.
+- Preserve enough source audio for final rebuild after transient network failures.
+
+## Not Included
+
+- Private notes or generated live insights.
+- Speaker assignment, playback review, or final artifact editing.
+- Full hardening matrix for long sessions, no-audio detection, auto-stop, multi-tab guard, or browser capability gates.
+- Cross-device continuation of the same recording.
+
+## Domain Slices
+
+| # | Domain | Slice summary | Scaffold command | Complexity | Prerequisite |
+|---|---|---|---|---|---|
+| 1 | Core | Binary audio frame receipt, 2 s GCS segment storage, `highest_contiguous_sequence` tracking, gap detection, `POST /meetings/{id}/recording/chunks` for OPFS gap upload, `AudioStoredProgressEvent` | `./dev new slice meeting-recording 05-live-audio-durability-recovery core audio-durability` | L | Milestone 04 merged |
+| 2 | App | OPFS shadow buffer worker, `MediaRecorder` → OPFS → WebSocket send pipeline, `bufferedAmount` backpressure, gap upload on reconnect/stop, `RecordingHealthEvent` banner states | `./dev new slice meeting-recording 05-live-audio-durability-recovery app recording-durability-ui` | L | Slice 1 merged |
+| 3 | ML | Gap-tolerant audio input handling; tolerant behaviour when received sequences are non-contiguous | `./dev new slice meeting-recording 05-live-audio-durability-recovery ml transcription-recovery` | S | Milestone 04 merged |
+
+## Acceptance
+
+These criteria map to `tests/bets/meeting-recording/test_milestone_05_live_audio_durability_recovery.py`. Run via `./dev test bet meeting-recording`.
+
+- [ ] Live recording persists audio chunks while recording is active.
+- [ ] Uploaded chunks are tracked durably in object storage.
+- [ ] Temporary network loss shows a reconnecting or degraded state instead of silently losing audio.
+- [ ] Reconnect uploads locally buffered gaps when available.
+- [ ] Final rebuild includes recovered audio after a transient interruption.
+- [ ] Unrecoverable gaps are visible to the user and reflected in diagnostics.

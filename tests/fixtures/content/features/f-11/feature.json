@@ -1,0 +1,11 @@
+{
+  "id": "f-11",
+  "productId": "p-play",
+  "title": "Prompt versioning",
+  "stage": "shipped",
+  "touches": [
+    "c-prompts"
+  ],
+  "updatedAt": "2026-08-16T18:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Contracts",
+  "defaultOpen": true,
+  "pages": [
+    "index",
+    "infrastructure",
+    "meeting",
+    "recording",
+    "audio",
+    "transcription",
+    "synthesis",
+    "task",
+    "person"
+  ]
+}

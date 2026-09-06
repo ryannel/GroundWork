@@ -1,0 +1,12 @@
+{
+  "id": "f-9",
+  "productId": "p-cli",
+  "title": "gw feature new",
+  "summary": "Scaffold a feature folder and spec from the terminal.",
+  "stage": "building",
+  "touches": [
+    "c-cli"
+  ],
+  "updatedAt": "2026-09-04T06:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

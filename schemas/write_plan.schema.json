@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "checkoutId": {
+      "type": "string"
+    },
+    "ref": {
+      "type": "string"
+    },
+    "expectedRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expectedContext": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changes": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  },
+  "required": [
+    "expectedRevision",
+    "expectedContext",
+    "changes"
+  ],
+  "additionalProperties": false
+}

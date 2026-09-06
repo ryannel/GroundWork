@@ -1,0 +1,9 @@
+{
+  "id": "p-checkout",
+  "workspaceId": "w-ecom",
+  "slug": "checkout",
+  "name": "Checkout",
+  "kind": "service-system",
+  "description": "Payment, address and order placement.",
+  "order": 2
+}

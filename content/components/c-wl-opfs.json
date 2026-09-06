@@ -1,0 +1,9 @@
+{
+  "id": "c-wl-opfs",
+  "productId": "p-wordloop",
+  "name": "Audio buffer",
+  "description": "An internal part of App, using the browser’s Origin Private File System (OPFS). Temporarily retains microphone audio until Core confirms upload, allowing App to repair gaps after a disconnect. It is not a separate service.",
+  "order": 4,
+  "kind": "local-storage",
+  "parentId": "c-wl-app"
+}

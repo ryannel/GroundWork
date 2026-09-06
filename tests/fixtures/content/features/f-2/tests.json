@@ -1,0 +1,129 @@
+{
+  "cases": [
+    {
+      "id": "E2E-1",
+      "title": "Tax appears once a region is known",
+      "given": "Guest cart with two lines, no region",
+      "when": "Shopper sets deliver-to DE on the cart page",
+      "then": [
+        "Each line shows tax at 19%",
+        "Total includes tax",
+        "Disclosure names rule r_de_std"
+      ],
+      "steps": [
+        "j2",
+        "j4"
+      ],
+      "contracts": [
+        "api-deliver-to",
+        "api-quote",
+        "api-get-cart"
+      ],
+      "tables": [
+        "cart_line"
+      ],
+      "status": "passing"
+    },
+    {
+      "id": "E2E-2",
+      "title": "Placeholder until region",
+      "given": "Guest cart, no region",
+      "when": "Shopper adds an item before choosing a delivery region",
+      "then": [
+        "Tax line reads \"calculated at checkout\"",
+        "Total excludes tax",
+        "taxStatus is pending in the API"
+      ],
+      "steps": [
+        "j1"
+      ],
+      "contracts": [
+        "api-add-line",
+        "api-get-cart"
+      ],
+      "tables": [
+        "cart"
+      ],
+      "status": "passing"
+    },
+    {
+      "id": "E2E-3",
+      "title": "Checkout address changes the region",
+      "given": "Cart quoted for DE",
+      "when": "Shopper enters a FR address at checkout",
+      "then": [
+        "Cart recomputes at 20%",
+        "A delta toast shows the change",
+        "Order total equals cart total"
+      ],
+      "steps": [
+        "j5"
+      ],
+      "contracts": [
+        "api-deliver-to",
+        "api-quote"
+      ],
+      "status": "written"
+    },
+    {
+      "id": "E2E-4",
+      "title": "Rule change is live without deploy",
+      "given": "DE rate 19%, cart quoted",
+      "when": "Finance publishes DE 20% effective now",
+      "then": [
+        "Cache for DE is invalidated within 60s",
+        "Next recompute uses 20%",
+        "Old rule id still resolves for existing orders"
+      ],
+      "steps": [
+        "j6",
+        "j2"
+      ],
+      "contracts": [
+        "api-publish-rule",
+        "api-rule-published"
+      ],
+      "tables": [
+        "tax_rules"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2E-5",
+      "title": "Category-specific rate wins over standard",
+      "given": "DE standard 19%, DE books 7%",
+      "when": "Cart has one apparel and one book line",
+      "then": [
+        "Apparel taxed at 19%",
+        "Book taxed at 7%",
+        "Disclosure lists both rules"
+      ],
+      "steps": [
+        "j2",
+        "j4"
+      ],
+      "contracts": [
+        "api-quote",
+        "api-get-cart"
+      ],
+      "tables": [
+        "tax_rules"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2E-6",
+      "title": "Latency budget under load",
+      "given": "500 rps of cart mutations, warm cache",
+      "when": "Measured for 5 minutes",
+      "then": [
+        "p95 recompute under 40ms added",
+        "No 5xx from pricing-api"
+      ],
+      "contracts": [
+        "api-quote"
+      ],
+      "status": "planned"
+    }
+  ]
+}

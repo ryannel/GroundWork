@@ -1,0 +1,357 @@
+---
+title: "Infrastructure"
+description: "Cross-cutting API concerns — authentication, connections, CloudEvents, error format, Pub/Sub, and failure semantics."
+audience: engineers
+owner: product-platform
+last_reviewed: 2026-05-01
+review_frequency: P1M
+status: active
+source_of_truth: active bet design and implementation
+review_basis: git-history-bootstrap
+---
+# Infrastructure
+
+Shared semantics that apply across all entity contracts. Each entity page ([Meeting](meeting), [Recording](recording), [Audio](audio), [Transcription](transcription), [Synthesis](synthesis), [Task](task), [Person](person)) documents its own endpoints and events but relies on the conventions defined here.
+
+---
+
+## Core REST Semantics
+
+| Concern | Contract |
+|---|---|
+| Auth | User-facing calls require `bearerAuth` (Clerk JWT). ML write-back uses service-to-service auth (signed JWT or mTLS). |
+| User scoping | All resources are implicitly scoped to the authenticated user's `sub` claim. Queries return only that user's data; mutations on another user's resource return `403`. `user_id` never appears in request or response bodies — it is derived from the token. Service-auth calls include `user_id` in the request body when acting on behalf of a user. |
+| Trace context | All requests accept `traceparent` and `tracestate` headers. Core propagates trace context into WebSocket and Pub/Sub envelopes. |
+| Idempotency | All `POST` requests require `Idempotency-Key: <uuid>`. Retried requests return the original result with the same status code. |
+| Echo suppression | User mutations accept `Client-Session-Id: <uuid>`. WebSocket echoes caused by that client carry `sourceClientId` so the origin tab can discard them. |
+| Errors | All errors return `application/problem+json` with RFC 9457 fields: `type`, `title`, `status`, `detail`, `instance`, and optional field-level `errors[]`. |
+| Pagination | Cursor-based. Requests accept `cursor` and `limit` (default 20, max 100). Responses include `next_cursor`. |
+| Location header | All `201 Created` responses include a `Location` header pointing to the new resource. |
+| Rate limits | User-facing responses include `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset`. |
+
+---
+
+## ML REST Semantics
+
+| Concern | Contract |
+|---|---|
+| Auth | Service-to-service auth only. Core is the normal caller. Browser credentials are never accepted. |
+| Trace context | `traceparent` and `tracestate` accepted on every request and copied into downstream provider calls (AssemblyAI, OpenAI). |
+| Idempotency | Creating or draining sessions requires `Idempotency-Key: <uuid>`. |
+| Errors | `application/problem+json` with RFC 9457 fields. Validation errors include field-level `errors[]`. |
+| Timeouts | Session create: 20 seconds. Drain: 30 seconds before returning `202 Accepted`. Voice operations: 30 seconds. |
+| PII/audio handling | Raw audio is not persisted by ML unless explicitly part of a voice-profile enrichment operation. Live audio durability belongs to Core/GCS. |
+| Location header | All `201 Created` responses include a `Location` header. |
+
+---
+
+## Browser WebSocket Connection
+
+Core owns the only browser-facing WebSocket.
+
+| Concern | Contract |
+|---|---|
+| Endpoint | `GET /ws` upgrade |
+| Auth | `token=<jwt>` query parameter, or `Authorization: Bearer <jwt>` when the edge supports forwarding headers |
+| Client identity | `client_session_id=<uuid>` query parameter; copied into `sourceClientId` on echoes caused by that client |
+| Replay cursor | `last_event_sequence=<integer>` optional. Core replays durable events after this monotonic per-user WebSocket sequence when the replay buffer has not expired. CloudEvent `id` remains the idempotency key; it is not used for ordering. |
+| Replay buffer | Core retains the last **5 minutes** of durable events per user. If the client reconnects after the buffer has expired, it must do a full state re-fetch via REST. Core signals this by sending a `ReplayExpiredEvent` instead of replaying events. |
+| Token refresh | WebSocket auth uses a short-lived scoped connection token derived from the user's bearer token. Core sends `AuthExpiringEvent` before expiry. The client refreshes in-band with `AuthRefreshCommand`; if refresh fails, it reconnects with a fresh token and `last_event_sequence`. |
+| Message size | JSON text frames: 64 KiB. Binary audio frames: 1 MiB. |
+| Keepalive | Native WebSocket ping every 30 seconds; two missed pongs terminate the connection. |
+| Load balancing | Live recording requires affinity to one Core pod for the life of the socket. The ideal edge is Layer 4 or an equivalent connection-stable route. This is a known constraint — see the [backplane problem statement](/docs/work/problem-statements/backplane). |
+
+### Real-Time Pattern
+
+**Optimistic Mutation + Echo-Suppressed Streaming** for entity mutations. **Bidirectional recording streaming** for audio. REST remains the source of truth for writes; WebSocket events keep every open tab in sync and deliver low-latency recording artefacts.
+
+### CloudEvents Envelope
+
+Every text frame is a CloudEvents v1.0 structured JSON event.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-core/ws",
+  "type": "com.wordloop.entity.changed.v1",
+  "time": "2026-05-01T09:00:00Z",
+  "traceparent": "00-...",
+  "tracestate": "vendor=value",
+  "sourceClientId": "client-session-uuid",
+  "eventSequence": 1042,
+  "data": {}
+}
+```
+
+`sourceClientId` is present only when the event was caused by a specific UI session. The origin client discards matching echoes; other tabs and devices apply the event. `eventSequence` is a monotonic per-user WebSocket sequence used for replay, gap detection, and reconnect cursors.
+
+---
+
+## ML WebSocket Connection
+
+Core opens one WebSocket per ML live session after `POST /meetings/{id}/live-session` returns `websocket_url`. The browser never connects to ML directly — Core bridges the ML WebSocket to the browser WebSocket.
+
+| Concern | Contract |
+|---|---|
+| Endpoint | `GET /meetings/{meeting_id}/live-session/stream` upgrade |
+| Caller | Core only |
+| Auth | Service bearer token or mTLS identity. Browser credentials are never accepted. |
+| Trace context | Initial handshake includes `traceparent`; every CloudEvent also carries `traceparent`. |
+| Replay cursor | Core may reconnect with `last_ml_event_id` and `last_audio_sequence`. ML de-duplicates audio by sequence and resumes output after the cursor when possible. |
+| Keepalive | Native WebSocket ping every 30 seconds. Either side may close with code `1012` for service restart. |
+
+### Text Frame Envelope
+
+All text frames are CloudEvents v1.0 structured JSON.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-ml/ws",
+  "type": "com.wordloop.ml.transcript.segment.v1",
+  "time": "2026-05-01T09:03:05Z",
+  "traceparent": "00-...",
+  "data": {}
+}
+```
+
+---
+
+## Cache Invalidation
+
+### `EntityChangedEvent`
+
+Generic cache-invalidation signal for single-entity mutations. For bulk operations (transcript replacement, synthesis update), entity pages define specific event types.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-core/ws",
+  "type": "com.wordloop.entity.changed.v1",
+  "time": "2026-05-01T09:05:00Z",
+  "traceparent": "00-...",
+  "sourceClientId": "client-session-uuid",
+  "data": {
+    "entity": "meeting",
+    "action": "updated",
+    "id": "meeting-uuid",
+    "version": 42
+  }
+}
+```
+
+Valid entities: `meeting`, `person`, `task`, `note`, `transcription`, `transcript_segment`, `talking_point`, `synthesis`, `speaker_state`.
+
+Valid actions: `created`, `updated`, `deleted`.
+
+### `ReplayExpiredEvent` — **New**
+
+Sent when the client reconnects with a `last_event_sequence` that is older than the replay buffer (5 minutes). The client must do a full state re-fetch via REST.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-core/ws",
+  "type": "com.wordloop.replay.expired.v1",
+  "time": "2026-05-01T09:35:00Z",
+  "traceparent": "00-...",
+  "data": {
+    "last_event_sequence": 1042,
+    "buffer_ttl_seconds": 300,
+    "message": "Replay buffer expired. Full state re-fetch required."
+  }
+}
+```
+
+---
+
+### `AuthExpiringEvent` — **New**
+
+Sent before the scoped WebSocket connection token expires. The client should refresh in-band with `AuthRefreshCommand`; if that fails, reconnect with a fresh token and `last_event_sequence`.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-core/ws",
+  "type": "com.wordloop.auth.expiring.v1",
+  "time": "2026-05-01T09:50:00Z",
+  "traceparent": "00-...",
+  "eventSequence": 1043,
+  "data": {
+    "expires_at": "2026-05-01T10:00:00Z",
+    "refresh_before": "2026-05-01T09:55:00Z"
+  }
+}
+```
+
+### `AuthRefreshCommand` — **New**
+
+```json
+{
+  "specversion": "1.0",
+  "id": "command-uuid",
+  "source": "wordloop-app/ws",
+  "type": "com.wordloop.auth.refresh.v1",
+  "time": "2026-05-01T09:54:00Z",
+  "traceparent": "00-...",
+  "data": {
+    "connection_token": "new-short-lived-token",
+    "last_event_sequence": 1043
+  }
+}
+```
+
+## Browser Reconnection Rules
+
+| Scenario | Contract |
+|---|---|
+| Browser loses socket (< 5 min) | App reconnects with `last_event_sequence`. Core replays buffered events. If a recording is active, app also sends `ResumeRecordingCommand`. |
+| Browser loses socket (> 5 min) | Core sends `ReplayExpiredEvent`. App does a full REST re-fetch. If a recording is active, app sends `ResumeRecordingCommand` for range-based gap recovery. |
+| Audio frames duplicated after reconnect | Core de-duplicates by `(meeting_id, sequence)` and checksum. |
+| ML stream drops but Core socket remains | Core emits `RecordingHealthEvent { status: "degraded", domains: ["ml"], code: "ml_unavailable" }`; audio still writes to GCS. On recovery, emits `RecordingHealthEvent { status: "recovered", domains: ["ml"] }`. |
+| Core drains for deploy | Core sends `RecordingHealthEvent { code: "server_draining" }`, stops accepting new frames on that pod after a short grace period, and asks the client to reconnect with `last_event_sequence` plus `ResumeRecordingCommand`. OPFS gap repair restores missing audio frames on reconnect. |
+
+---
+
+## Pub/Sub Semantics
+
+Pub/Sub is for durable asynchronous work — not the live path. Live audio and ML outputs use WebSockets. Pub/Sub coordinates post-meeting processing, session termination/drain, and retryable background jobs. Individual topics are documented on their entity pages ([Transcription](transcription), [Recording](recording)).
+
+All Pub/Sub payloads are CloudEvents v1.0 JSON.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-core/pubsub",
+  "type": "com.wordloop.transcription.requested.v1",
+  "time": "2026-05-01T10:00:00Z",
+  "traceparent": "00-...",
+  "tracestate": "vendor=value",
+  "data": {}
+}
+```
+
+| Concern | Contract |
+|---|---|
+| Delivery | At least once. Consumers must de-duplicate by CloudEvents `id` and business idempotency keys. |
+| Ordering key | `meeting_id` for all topics. Ensures events for the same meeting are processed in order within a single subscriber. |
+| Publishing | Core publishes through a transactional outbox — the event is written to an outbox table within the same database transaction as the state change, then delivered by a background relay. This guarantees at-least-once delivery without two-phase commit. |
+| Traceability | `traceparent` is required whenever the originating HTTP/WebSocket request carried one. |
+
+### Dead-Letter and Retry Configuration
+
+| Setting | Value | Rationale |
+|---|---|---|
+| Max delivery attempts | 10 | Covers transient failures without infinite retry. |
+| Initial backoff | 1 second | Fast retry for network blips. |
+| Max backoff | 600 seconds (10 min) | Caps exponential growth. |
+| Backoff multiplier | 2 | Standard exponential. |
+| Dead-letter topic suffix | `-dlq` (e.g., `transcription-jobs-dlq`) | One DLQ per source topic. |
+| DLQ retention | 14 days | Enough time for manual investigation and replay. |
+| Ack deadline | 600 seconds | Long enough for batch transcription jobs. |
+
+When a message exhausts its retry budget, Pub/Sub forwards it to the dead-letter topic. The DLQ subscription has no automatic consumers — an operator (or future automated triage) reviews and replays failed messages.
+
+---
+
+## ML Stream Health
+
+### `StreamWarningEvent`
+
+Reports recoverable ML-side degradation that doesn't rise to backpressure. For audio-specific backpressure events, see [Audio](audio).
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-ml/ws",
+  "type": "com.wordloop.ml.stream.warning.v1",
+  "time": "2026-05-01T09:06:00Z",
+  "traceparent": "00-...",
+  "data": {
+    "meeting_id": "meeting-uuid",
+    "code": "insight_warning",
+    "message": "Talking points are delayed; transcription continues."
+  }
+}
+```
+
+---
+
+## ML Failure Semantics
+
+| Failure | Contract |
+|---|---|
+| ML WebSocket disconnects | Core reconnects with `last_audio_sequence` and `last_ml_event_id`. ML de-duplicates audio and resumes output when possible. Core sends `StreamStartEvent` with current speaker states and voice profiles on every reconnect. |
+| ML cannot reconnect | Core continues browser audio capture and GCS segment storage, then emits Core `RecordingHealthEvent { status: "degraded", code: "ml_unavailable" }`. |
+| Upstream transcription provider slows down | ML emits `BackpressureEvent`; Core preserves audio and may pause live insights. ML emits `BackpressureClearedEvent` on recovery. |
+| Speaker state changes while disconnected | Core persists the state to the database. On reconnect, Core sends `StreamStartEvent` with all current speaker states — ML reconstructs its in-memory map without needing a pull endpoint. |
+| ML pod restarts mid-session | Core detects the WebSocket drop and reconnects (possibly to a new pod). `StreamStartEvent` includes speaker states and voice profiles. ML fetches recent transcript segments from `GET /transcriptions/{id}/segments?after_ms=...` to rebuild its LLM context window, then resumes processing. Context quality degrades gracefully — the rolling buffer rebuilds over subsequent segments. |
+| Drain exceeds budget | ML returns REST `202 Accepted` status and later emits write-back results via Core REST as background completion finishes. |
+
+---
+
+## Event Versioning Policy
+
+All CloudEvents types use a `.v1` suffix (e.g., `com.wordloop.recording.start.v1`). The versioning policy:
+
+- **Additive changes** (new optional fields, new event types) do not require a version bump. Consumers must ignore unknown fields.
+- **Breaking changes** (removed fields, changed semantics, changed required fields) require a new version suffix (`.v2`). The old type continues to be emitted alongside the new type for one release cycle to allow consumer migration.
+- **Deprecation**: A deprecated event type is annotated in the contract docs but continues to fire until all known consumers have migrated.
+
+Consumers should be written defensively: parse known fields, ignore unknown fields, and tolerate missing optional fields.
+
+---
+
+## Observability Conventions
+
+Every service must include the following fields in structured log output for any operation related to a live recording session:
+
+| Field | When present | Source |
+|---|---|---|
+| `meeting_id` | Always | From the request or event |
+| `ml_session_id` | During active recording | From `RecordingStartedEvent` or ML session |
+| `sequence` | Audio chunk operations | From the chunk metadata |
+| `transcription_id` | Transcript operations | From the transcription resource |
+| `traceparent` | Always | From the incoming request/event |
+| `event_sequence` | Browser-facing WebSocket events | Assigned by Core |
+| `audio_version` | Composition, playback, transcription jobs | Recording composition manifest |
+| `gcs_object_generation` | GCS write/compose/read operations | Cloud Storage response |
+| `assemblyai_session_id` | Live and batch transcription provider calls | ML provider adapter |
+| `openai_request_id` | Insight and synthesis calls | ML provider adapter |
+
+These fields enable correlation of a single audio chunk or transcript segment across App → Core → ML → AssemblyAI → ML → Core → App, plus GCS writes and Pub/Sub messages.
+
+---
+
+## Recording Event History
+
+Core persists a `recording_event_history` table that logs every recording state transition and significant event:
+
+| Column | Type | Description |
+|---|---|---|
+| `id` | UUID | Event ID |
+| `meeting_id` | UUID | Meeting reference |
+| `event_type` | text | e.g., `started`, `stopped`, `error`, `gap_upload`, `compose_started`, `compose_completed` |
+| `from_status` | text | Previous recording status (nullable for initial events) |
+| `to_status` | text | New recording status |
+| `metadata` | jsonb | Event-specific data (health codes, gap ranges, sequence numbers, segment counts, audio versions, object generations) |
+| `created_at` | timestamptz | When the event occurred |
+
+This table is write-only during normal operation. It is the primary diagnostic tool for investigating recording issues in production.
+
+## Known Intentional Compromises
+
+| Compromise | Why accepted for this bet | Follow-up |
+|---|---|---|
+| Target-state docs ahead of generated specs | The bet documents the intended contract before implementation. | Update OpenAPI/AsyncAPI before code generation. |
+| Sticky Core session affinity | Avoids introducing a WebSocket backplane in v1. | Backplane problem statement. |
+| No active recording resume after tab close | Reduces session ownership and conflict complexity. | Session recovery problem statement. |
+| OPFS safety net is desktop-browser dependent | Keeps v1 focused on high-confidence desktop capture. | Mobile/direct-stream problem statement. |
+| ML write-back retry budget can still lose final artefacts | Accepted current platform constraint. | ML write-back resilience problem statement. |

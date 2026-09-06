@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
+          },
+          "actor": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "surface": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "branch": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "design": {
+            "type": "string",
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
+          },
+          "flow": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          },
+          "flowEdges": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          },
+          "result": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "actor",
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "steps"
+  ],
+  "additionalProperties": false
+}

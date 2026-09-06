@@ -1,0 +1,202 @@
+---
+title: "Audio"
+description: "Binary audio transport — frame formats, segment storage, ML forwarding, acknowledgement, and backpressure."
+audience: engineers
+owner: product-platform
+last_reviewed: 2026-05-01
+review_frequency: P1M
+status: active
+source_of_truth: active bet design and implementation
+review_basis: git-history-bootstrap
+---
+# Audio
+
+Audio chunks flow from the browser through Core to ML as binary WebSocket frames. This page covers the frame formats for both hops, segment-based GCS storage, ML acknowledgement, and backpressure signalling. For the recording lifecycle (start/stop/resume commands and events), see [Recording](recording). For shared connection semantics, see [Infrastructure](infrastructure).
+
+## REST File Uploads
+
+For batch file uploads (non-live recordings), audio files are sent via a standard multipart POST request. 
+
+### `POST /meetings/{id}/audio`
+
+| | |
+|---|---|
+| **Auth** | `bearerAuth` |
+| **Idempotency** | Required. Repeating the request with the same `Idempotency-Key` returns the cached response. |
+| **Response** | `202 Accepted` |
+
+#### Constraints & Validation
+- **Magic-Number Validation**: To maximize accessibility, we support a broad range of formats (MP3, WAV, M4A, MP4, WebM, OGG, FLAC). Validation relies on strict server-side magic-number content sniffing of the first 512 bytes, completely ignoring the client-provided `Content-Type` header.
+- **Limits**: The system enforces a hard limit of 1GB file size and 4 hours duration to protect ingestion workers.
+
+#### Problem Detail Responses (RFC-7807)
+If constraints are violated, the endpoint returns exact problem details:
+- `415 Unsupported Media Type`: Magic number did not match any accepted audio format.
+- `413 Payload Too Large`: The file exceeded the 1GB or 4-hour limit.
+- `409 Conflict`: The meeting already possesses an `audio_objects` record (strict overwrite protection).
+
+## Browser → Core: Binary Audio Frame
+
+Audio chunks are sent as binary WebSocket frames using a length-prefixed metadata envelope followed by raw audio bytes.
+
+```text
+uint32_be metadata_length
+utf8_json metadata
+raw_audio_bytes
+```
+
+Metadata schema:
+
+```json
+{
+  "type": "com.wordloop.recording.audio_chunk.v1",
+  "id": "chunk-event-uuid",
+  "traceparent": "00-...",
+  "meeting_id": "meeting-uuid",
+  "sequence": 1842,
+  "started_at_ms": 184200,
+  "duration_ms": 100,
+  "mime_type": "audio/webm",
+  "crc32c": "hex-encoded-crc32c"
+}
+```
+
+Core verifies the CRC32C checksum, appends the frame to the current GCS storage segment, enriches the metadata with `ml_session_id`, forwards the frame to ML over the ML WebSocket, and records the highest contiguous audio frame sequence. Duplicate sequences are acknowledged but not appended twice.
+
+## Segment-Based GCS Storage
+
+Browser audio is sequenced as 100ms frames for low-latency ML forwarding, but Core stores durable audio in aggregated GCS segment objects. The default segment target is 2 seconds of contiguous audio frames, tunable between 1 and 5 seconds. Segment object names include the covered sequence range: `meetings/{id}/segments/{start_seq:08d}-{end_seq:08d}.webm`.
+
+Core persists a composition manifest for every segment with: `audio_version`, `start_sequence`, `end_sequence`, `started_at_ms`, `duration_ms`, `object_name`, `object_generation`, `byte_count`, `crc32c`, and optional `sha256` when the segment was produced through a high-integrity recovery path. Gap recovery still operates at frame-sequence granularity; Core can merge recovered frames into a replacement segment and advance `audio_version` before final composition.
+
+At session end, Core composes segment objects into the final `audio.webm` using GCS Compose — hierarchically in groups of ≤32 for recordings that exceed GCS's 32-object compose limit. The final object gets its own `audio_version`, object generation, byte count, duration, and SHA-256 in the composition manifest.
+
+## OPFS Shadow Buffer
+
+Every audio chunk is simultaneously written to an always-on shadow buffer maintained by a dedicated Web Worker using the Origin Private File System (OPFS) `createSyncAccessHandle()` API. Each chunk carries a monotonically incrementing sequence number assigned in the browser. This buffer runs unconditionally — it captures audio regardless of Core or GCS connectivity. It is cleared only after Core confirms all chunks are safely in GCS.
+
+### OPFS Chunk Storage Format
+
+Each chunk is stored in OPFS with an integrity envelope so corrupted chunks can be detected during gap recovery:
+
+```text
+uint32_be crc32
+uint32_be audio_length
+raw_audio_bytes
+```
+
+The CRC32C is computed over the raw audio bytes. On read (during gap recovery), the reader verifies CRC32C before uploading. Chunks that fail CRC32C verification are skipped and reported as local-buffer corruption — the post-meeting batch transcription will handle any resulting audio gaps if the audio can still be composed.
+
+## Integrity Policy
+
+Wordloop uses a tiered integrity model:
+
+| Flow | Checksum | Rationale |
+|---|---|---|
+| Browser → Core live audio frame | CRC32C | Fast corruption detection on the hot path. |
+| Core → ML live audio frame | CRC32C | Preserves the browser frame integrity check while forwarding. |
+| OPFS per-chunk envelope | CRC32C | Cheap validation before reading local buffered audio. |
+| OPFS manifest and `StopRecordingCommand` manifest | SHA-256 | Detects tampering or manifest corruption before sealing audio. |
+| Batched gap upload | SHA-256 per uploaded part plus CRC32C metadata | Gap upload is replayable and post-stop; stronger integrity is worth the cost. |
+| Composition manifest and final `audio.webm` | SHA-256 | Durable artefact integrity and forensic debugging. |
+
+CRC32C is deliberately used for standard live flows where speed and frequency matter. SHA-256 is deliberately used where integrity is more important than latency: manifest validation, replayable recovery uploads, and final artefacts.
+
+## Core → ML: Binary Audio Frame
+
+Core enriches the browser's binary frame with `ml_session_id` before forwarding to ML. The binary framing structure is identical (length-prefixed metadata + raw audio), but the metadata schema differs from the browser→Core frame.
+
+```text
+uint32_be metadata_length
+utf8_json metadata
+raw_audio_bytes
+```
+
+Metadata schema:
+
+```json
+{
+  "type": "com.wordloop.ml.audio_chunk.v1",
+  "id": "chunk-event-uuid",
+  "traceparent": "00-...",
+  "meeting_id": "meeting-uuid",
+  "ml_session_id": "ml-session-uuid",
+  "sequence": 1842,
+  "started_at_ms": 184200,
+  "duration_ms": 100,
+  "mime_type": "audio/webm",
+  "crc32c": "hex-encoded-crc32c"
+}
+```
+
+ML acknowledges processed audio progress through `AudioChunkAckEvent`, not per-frame WebSocket acks. This avoids chatty acknowledgements while still letting Core detect lag.
+
+## ML → Core: `AudioChunkAckEvent`
+
+Reports processed audio progress. Core uses this for diagnostics and backpressure decisions.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-ml/ws",
+  "type": "com.wordloop.ml.audio_chunk.ack.v1",
+  "time": "2026-05-01T09:03:05Z",
+  "traceparent": "00-...",
+  "data": {
+    "meeting_id": "meeting-uuid",
+    "last_sequence_received": 1842,
+    "last_sequence_processed": 1841
+  }
+}
+```
+
+---
+
+## Backpressure
+
+### ML → Core: `BackpressureEvent`
+
+Tells Core that ML is falling behind. Core continues storing audio to GCS and may degrade live insights while preserving the recording.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-ml/ws",
+  "type": "com.wordloop.ml.backpressure.v1",
+  "time": "2026-05-01T09:05:00Z",
+  "traceparent": "00-...",
+  "data": {
+    "meeting_id": "meeting-uuid",
+    "reason": "provider_latency",
+    "retry_after_ms": 1000,
+    "queue_depth": 128
+  }
+}
+```
+
+### ML → Core: `BackpressureClearedEvent` — **New**
+
+Explicitly signals that ML has recovered from backpressure. Without this, Core must infer recovery from the absence of further `BackpressureEvent` messages or from `AudioChunkAckEvent` progress, which makes Core's state machine ambiguous.
+
+```json
+{
+  "specversion": "1.0",
+  "id": "event-uuid",
+  "source": "wordloop-ml/ws",
+  "type": "com.wordloop.ml.backpressure_cleared.v1",
+  "time": "2026-05-01T09:05:30Z",
+  "traceparent": "00-...",
+  "data": {
+    "meeting_id": "meeting-uuid",
+    "queue_depth": 0
+  }
+}
+```
+
+---
+
+## Client-Side Backpressure
+
+Core does not send an explicit backpressure event to the browser for normal client-side send pressure. Instead, the worker monitors `WebSocket.bufferedAmount` on the Core-facing connection. If `bufferedAmount` exceeds a configurable threshold (default: 5 MB), the worker pauses network sends but does **not** pause microphone capture or OPFS writes. `MediaRecorder` continues producing chunks, the worker continues assigning sequences and writing OPFS, and unsent chunks remain in the local send queue. When `bufferedAmount` drops below the resume threshold (default: 1 MB), the worker drains the queued chunks in sequence order. This uses browser-native WebSocket flow control without adding another protocol-level backpressure command.

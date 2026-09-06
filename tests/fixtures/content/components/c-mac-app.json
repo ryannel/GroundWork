@@ -1,0 +1,7 @@
+{
+  "id": "c-mac-app",
+  "productId": "p-mac",
+  "name": "app",
+  "repo": "ryannel/groundwork-mac",
+  "order": 9
+}

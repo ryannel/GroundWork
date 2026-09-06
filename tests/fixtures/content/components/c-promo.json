@@ -1,0 +1,7 @@
+{
+  "id": "c-promo",
+  "productId": "p-pricing",
+  "name": "promo-worker",
+  "repo": "acme/promo-worker",
+  "order": 2
+}

@@ -1,0 +1,8 @@
+{
+  "id": "p-mac",
+  "workspaceId": "w-gw",
+  "slug": "mac",
+  "name": "Groundwork for Mac",
+  "kind": "desktop-app",
+  "order": 4
+}

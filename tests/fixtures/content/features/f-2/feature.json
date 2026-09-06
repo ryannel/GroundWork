@@ -1,0 +1,15 @@
+{
+  "id": "f-2",
+  "productId": "p-pricing",
+  "title": "Tax rules by region",
+  "summary": "Compute the right tax for a cart line based on ship-to region, product category and merchant nexus, without slowing the cart.",
+  "stage": "building",
+  "touches": [
+    "c-pricing-api",
+    "c-rules",
+    "c-pricing-db",
+    "c-cart-svc"
+  ],
+  "updatedAt": "2026-09-04T18:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

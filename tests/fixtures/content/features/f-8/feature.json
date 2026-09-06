@@ -1,0 +1,11 @@
+{
+  "id": "f-8",
+  "productId": "p-mac",
+  "title": "Command palette",
+  "stage": "shipped",
+  "touches": [
+    "c-mac-app"
+  ],
+  "updatedAt": "2026-08-24T18:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

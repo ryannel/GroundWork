@@ -1,0 +1,7 @@
+{
+  "id": "c-rules",
+  "productId": "p-pricing",
+  "name": "rules-engine",
+  "repo": "acme/pricing-rules-engine",
+  "order": 1
+}

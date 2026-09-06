@@ -1,0 +1,17 @@
+{
+  "id": "meeting-recording",
+  "productId": "p-wordloop",
+  "title": "Meeting Recording",
+  "summary": "Record a meeting in the browser, preserve its audio, and rebuild a final transcript, insights and tasks through the same pipeline as uploads. Active bet imported from Wordloop; delivery and source conflicts are recorded in the companion review.",
+  "stage": "building",
+  "ownerId": "ryan-nel",
+  "touches": [
+    "c-wl-app",
+    "c-wl-core",
+    "c-wl-ml",
+    "c-wl-db",
+    "c-wl-opfs",
+    "c-wl-gcs"
+  ],
+  "updatedAt": "2026-09-05T20:35:56Z"
+}

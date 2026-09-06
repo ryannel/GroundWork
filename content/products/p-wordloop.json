@@ -1,0 +1,9 @@
+{
+  "id": "p-wordloop",
+  "workspaceId": "w-wordloop",
+  "slug": "meeting-intelligence",
+  "name": "Wordloop",
+  "kind": "service-system",
+  "description": "The browser experience and its Core and ML services. First real Groundwork import: the active Meeting Recording bet.",
+  "order": 0
+}

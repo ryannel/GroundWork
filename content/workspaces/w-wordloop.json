@@ -1,0 +1,9 @@
+{
+  "id": "w-wordloop",
+  "slug": "wordloop",
+  "name": "Wordloop",
+  "description": "Meeting intelligence: capture conversations, understand what was said, and preserve the work that follows.",
+  "hue": "var(--hue-teal)",
+  "createdAt": "2026-09-05T19:22:03Z",
+  "order": 0
+}

@@ -1,0 +1,8 @@
+{
+  "id": "p-cli",
+  "workspaceId": "w-gw",
+  "slug": "cli",
+  "name": "gw CLI",
+  "kind": "cli",
+  "order": 5
+}

@@ -1,0 +1,9 @@
+{
+  "id": "p-cart",
+  "workspaceId": "w-ecom",
+  "slug": "cart",
+  "name": "Shopping cart",
+  "kind": "service-system",
+  "description": "Cart state, merging and persistence.",
+  "order": 1
+}

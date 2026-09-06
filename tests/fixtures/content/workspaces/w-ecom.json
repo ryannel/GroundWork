@@ -1,0 +1,9 @@
+{
+  "id": "w-ecom",
+  "slug": "ecom",
+  "name": "E-commerce platform",
+  "description": "Storefront, cart, pricing and checkout for the retail business.",
+  "hue": "var(--hue-indigo)",
+  "createdAt": "2026-01-08T18:15:22.684Z",
+  "order": 0
+}

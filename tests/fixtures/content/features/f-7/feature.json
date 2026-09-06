@@ -1,0 +1,12 @@
+{
+  "id": "f-7",
+  "productId": "p-mac",
+  "title": "Offline drafts",
+  "stage": "exploring",
+  "touches": [
+    "c-mac-app",
+    "c-mac-helper"
+  ],
+  "updatedAt": "2026-09-05T06:15:22.686Z",
+  "ownerId": "ryan-nel"
+}

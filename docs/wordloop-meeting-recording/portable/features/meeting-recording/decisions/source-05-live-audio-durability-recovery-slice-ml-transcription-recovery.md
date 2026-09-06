@@ -1,0 +1,154 @@
+# Frozen source: 05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx
+
+---
+title: "ML — Transcription Recovery"
+description: "Gap-tolerant audio input handling, graceful degradation for non-contiguous sequences, backpressure recovery signalling, and session-level gap diagnostics."
+audience: engineers
+owner: product-platform
+status: active
+source_of_truth: meeting-recording bet
+---
+# ML — Transcription Recovery
+
+> **Owner**: ML Engineer
+> **Domain**: ml
+> **Complexity**: S
+> **Prerequisite**: Milestone 04 merged
+
+When this slice is complete, the ML streaming pipeline accepts non-contiguous audio frame sequences without crashing, logs gap events for observability, emits `BackpressureClearedEvent` when caught up after a gap, and reports session-level gap diagnostics on `StreamDrainedEvent` so Core can flag the transcription appropriately. The post-meeting batch transcription path (which operates on the fully composed `audio.webm`) is unaffected — this slice addresses only the live streaming path.
+
+> **Terminology:** In this slice, *segment* always refers to a transcript segment (a speaker-attributed text fragment). For GCS storage segments (aggregated audio frames), see the Core Audio Durability slice.
+
+## Required Capabilities
+
+### Gap-Tolerant Audio Input
+
+- [ ] The ML WebSocket audio handler accepts audio frames with non-contiguous sequence numbers without raising an exception or closing the WebSocket.
+- [ ] When ML detects a sequence gap (received sequence `N+k` when expecting `N+1`), it logs a structured warning: `{"event": "audio_sequence_gap", "meeting_id": "...", "expected_sequence": N+1, "received_sequence": N+k, "gap_size": k-1}`.
+- [ ] ML updates its internal `last_sequence_received` to the latest sequence regardless of gaps — it does not attempt to re-request or buffer missing frames.
+- [ ] ML forwards the received (post-gap) audio to AssemblyAI immediately — AssemblyAI's streaming protocol handles discontinuities internally.
+
+### Session-Level Gap Diagnostics
+
+ML tracks gap events at the session level for observability and downstream degradation signalling. Individual transcript segments are **not** tagged with quality metadata — a segment produced from post-gap audio is a valid transcription of the audio it received. Gaps manifest as **missing time coverage** (seconds of audio that were never transcribed live), not as degraded existing segments.
+
+- [ ] ML tracks a `gap_count` and `total_gap_frames` counter per live session, incremented on each detected sequence gap.
+- [ ] The `StreamDrainedEvent` includes `gap_count` and `total_gap_frames` in its payload so Core can set `transcriptions.is_degraded = true` when gaps occurred during the live session.
+- [ ] Core — not ML — is responsible for setting the `is_degraded` flag on the transcription resource. ML only reports the diagnostic data.
+- [ ] The post-meeting batch transcription from the fully composed `audio.webm` creates a new transcription with `is_degraded = false` (assuming gap recovery filled the audio). This is handled by the existing TranscriptionJob pipeline — no ML changes needed.
+
+### Backpressure Recovery Signal
+
+- [ ] After a gap, ML's audio processing queue may temporarily grow as post-gap frames arrive while AssemblyAI is still catching up. ML emits `BackpressureEvent` if its internal audio queue exceeds the configured depth threshold.
+- [ ] When the queue depth returns to zero (AssemblyAI has caught up), ML emits `BackpressureClearedEvent` — matching the contract in `contracts/audio.mdx`:
+  ```json
+  {
+    "specversion": "1.0",
+    "type": "com.wordloop.ml.backpressure_cleared.v1",
+    "data": {
+      "meeting_id": "meeting-uuid",
+      "queue_depth": 0
+    }
+  }
+  ```
+- [ ] Core uses `BackpressureClearedEvent` to transition from degraded ML health to recovered, clearing the client banner.
+
+### Insight Pipeline Resilience
+
+- [ ] The rolling transcript buffer (used for LLM insight extraction) continues appending segments produced from post-gap audio. The LLM context simply has a time discontinuity — no special handling is needed because the prompt already provides timestamp context for each segment.
+- [ ] If a gap exceeds 30 seconds of audio (based on `total_gap_frames * chunk_duration_ms`), ML emits `RecordingHealthEvent` to Core with `code: insight_warning` and `message: "Extended audio gap may affect insight quality."` This is a pipeline health signal (Layer 1), not a transcript quality signal — insight extraction continues.
+
+### Session Recovery (ML Pod Restart)
+
+- [ ] On ML WebSocket reconnect (Core sends a new `StreamStartEvent`), ML reconstructs its session state from the event payload: `speaker_states`, `voice_profiles`, `last_audio_sequence`, `last_ml_event_id`.
+- [ ] ML resets its `gap_count` and `total_gap_frames` counters on reconnect — the reconnect itself is a known discontinuity and is not counted as a gap.
+- [ ] ML requests recent transcript segments from Core (`GET /transcriptions/{id}/segments?after_ms=...`) to rebuild its LLM context buffer before processing new audio.
+
+## Dependencies
+
+- Milestone 04 (`live-transcript-to-final-rebuild`) must be merged — specifically the ML streaming session handler, AssemblyAI proxy, and `StreamStartEvent`/`StreamDrainedEvent` contracts.
+- The `BackpressureClearedEvent` contract from `contracts/audio.mdx` must be implemented.
+
+## Contract Extensions
+
+This slice adds new fields to existing event contracts. The following contracts must be updated:
+
+| Contract | Event | New Fields | Rationale |
+|---|---|---|---|
+| `recording.mdx` | `StreamDrainedEvent` | `gap_count: integer`, `total_gap_frames: integer` | Core uses these to set `transcriptions.is_degraded` |
+
+## Domain Notes
+
+### Pipeline Sequencing
+
+```
+Audio Frame (seq N+k, gap detected)
+    │
+    ├──► Log structured warning (audio_sequence_gap)
+    ├──► Increment gap_count, total_gap_frames
+    ├──► Update last_sequence_received = N+k
+    │
+    ├──► Forward audio to AssemblyAI (immediate, no buffering)
+    │       └──► AssemblyAI handles discontinuity internally
+    │
+    └──► If queue_depth > threshold:
+            Emit BackpressureEvent
+            └──► When queue_depth returns to 0:
+                    Emit BackpressureClearedEvent
+```
+
+### Degradation Model (ML's Role)
+
+ML participates in two of the three degradation layers but does not own either:
+
+| Layer | ML's Role | Owner |
+|---|---|---|
+| **Pipeline Health** (Layer 1) | Emits `BackpressureEvent`/`BackpressureClearedEvent` and `RecordingHealthEvent(insight_warning)` — Core relays to the app as health banners. | Core (owns `RecordingHealthEvent`) |
+| **Audio Completeness** (Layer 2) | N/A — ML does not track GCS storage. | Core (owns sequence tracking) |
+| **Transcript Coverage** (Layer 3) | Reports `gap_count`/`total_gap_frames` on `StreamDrainedEvent`. Core sets `transcriptions.is_degraded`. | Core (owns `transcriptions` table) |
+
+### Failure Modes
+
+| Scenario | ML Behaviour | Downstream Impact |
+|---|---|---|
+| Small gap (1–10 frames, < 1 second) | Log warning, forward next frame immediately | AssemblyAI handles internally; transcript may have a ~1s gap; post-meeting batch reprocessing covers it. |
+| Medium gap (10–300 frames, 1–30 seconds) | Log warning, forward next frame, increment gap counters | Transcript has a visible gap during live session. `is_degraded` set on drain. Post-meeting batch rebuild from composed audio repairs it. |
+| Large gap (> 300 frames, > 30 seconds) | Log warning, emit `insight_warning` health event, increment gap counters | Live insights may be lower quality due to missing context. `is_degraded` set on drain. Post-meeting batch rebuild repairs transcript. |
+| ML pod restart during gap | Reconnect via `StreamStartEvent`, rebuild context from Core | Gap counters reset; new gap counting starts from reconnect point. |
+
+## Test Cases
+
+### Gap tolerance
+
+| Test | Location | Assertion |
+|---|---|---|
+| `test_ml_handles_sequence_gap_without_error` | `test_ml` | Send frames 1–10, then send frame 15 (skipping 11–14). Verify the ML WebSocket remains open, the frame is forwarded to AssemblyAI, and subsequent frames (16, 17, ...) are processed normally. |
+| `test_ml_drain_includes_gap_diagnostics` | `test_ml` | Create a session with one gap (frames 11–14 skipped). Drain the session. Verify `StreamDrainedEvent` includes `gap_count: 1` and `total_gap_frames: 4`. |
+
+### Backpressure
+
+| Test | Location | Assertion |
+|---|---|---|
+| `test_ml_emits_backpressure_cleared_after_queue_drains` | `test_ml` | Simulate ML audio queue exceeding the depth threshold (e.g., by injecting a slow AssemblyAI mock). Verify `BackpressureEvent` is emitted. Allow the queue to drain. Verify `BackpressureClearedEvent` is emitted with `queue_depth: 0`. |
+
+### Insight resilience
+
+| Test | Location | Assertion |
+|---|---|---|
+| `test_ml_emits_insight_warning_on_large_gap` | `test_ml` | Send frames 1–10, skip frames 11–310 (simulating 30+ seconds of gap), send frame 311. Verify ML emits `RecordingHealthEvent` with `code: insight_warning` and continues processing frame 311 normally. |
+
+### Session recovery
+
+| Test | Location | Assertion |
+|---|---|---|
+| `test_ml_recovers_session_state_from_stream_start_event` | `test_ml` | Simulate a mid-session pod restart by sending a new `StreamStartEvent` with `speaker_states`, `voice_profiles`, and `last_audio_sequence`. Verify gap counters reset to 0, speaker states are reconstructed from the event payload, and ML requests recent transcript segments from Core (`GET /transcriptions/{id}/segments?after_ms=...`) to rebuild its LLM context buffer. |
+
+## Completion Checklist
+
+- [ ] Code merged and deployed
+- [ ] Bet progress tests pass (`./dev test bet meeting-recording`)
+- [ ] Permanent service tests implemented per [testing strategy](/docs/principles/foundations/testing)
+- [ ] Code review completed
+- [ ] API review completed (if new or modified API surfaces)
+- [ ] Testing review completed
+- [ ] System documentation updated (architecture, data flows, API reference, database reference, runbooks — as applicable)

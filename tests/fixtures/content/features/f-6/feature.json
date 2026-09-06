@@ -1,0 +1,11 @@
+{
+  "id": "f-6",
+  "productId": "p-sdk",
+  "title": "React Server Components support",
+  "stage": "shipped",
+  "touches": [
+    "c-sdk"
+  ],
+  "updatedAt": "2026-08-30T18:15:22.686Z",
+  "ownerId": "ada-lovelace"
+}

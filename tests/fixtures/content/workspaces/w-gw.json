@@ -1,0 +1,9 @@
+{
+  "id": "w-gw",
+  "slug": "groundwork",
+  "name": "Groundwork",
+  "description": "This tool. The Mac app and the CLI that drive it.",
+  "hue": "var(--hue-teal)",
+  "createdAt": "2026-08-06T18:15:22.686Z",
+  "order": 1
+}

@@ -1,6 +1,32 @@
-# The host-usage sidecar is the driver's own working file: D17 rules it
-# uncommitted. Everything else under .groundwork/ is committed — the capability
-# manifest, the waivers from D24, and the allowed-signers file from R4 — that
-# one has to be committed so a fresh clone can verify a seal with no keyring
-# setup.
-.groundwork/host-usage/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+runtime/
+*.tgz
+.groundwork/write.lock
+.groundwork/transaction.json
+
+# Local design explorations; shipped assets live under public/.
+output/

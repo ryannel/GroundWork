@@ -1,0 +1,9 @@
+{
+  "id": "p-pricing",
+  "workspaceId": "w-ecom",
+  "slug": "pricing",
+  "name": "Pricing",
+  "kind": "service-system",
+  "description": "Price computation, rules and promotions.",
+  "order": 0
+}

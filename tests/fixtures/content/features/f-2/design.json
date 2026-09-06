@@ -1,0 +1,18 @@
+{
+  "mockups": [
+    {
+      "id": "m-cart",
+      "kind": "live",
+      "title": "Cart totals with tax disclosure",
+      "ref": "tax-cart-totals",
+      "note": "Click the region to see the recompute and the disclosure."
+    },
+    {
+      "id": "m-console",
+      "kind": "figma",
+      "title": "Rules console",
+      "ref": "https://figma.com/file/placeholder/rules-console",
+      "note": "Finance-facing. Low fidelity for now."
+    }
+  ]
+}

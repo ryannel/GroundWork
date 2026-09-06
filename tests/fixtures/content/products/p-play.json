@@ -1,0 +1,8 @@
+{
+  "id": "p-play",
+  "workspaceId": "w-lab",
+  "slug": "playground",
+  "name": "Image playground",
+  "kind": "playground",
+  "order": 6
+}

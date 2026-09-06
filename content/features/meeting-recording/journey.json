@@ -1,0 +1,615 @@
+{
+  "steps": [
+    {
+      "id": "upload",
+      "actor": "User",
+      "action": "Upload an existing recording",
+      "result": "Processing starts; the same finalization pipeline used after live stop produces the final meeting.",
+      "surface": "New Meeting menu",
+      "design": "entry_point",
+      "note": "M01. Source: data-flow Flow 21 and milestone 01. /audio versus /upload is unresolved; these two contracts describe alternatives.",
+      "contracts": [
+        "api-meeting-post-meetings",
+        "api-audio-post-meetings-id-audio",
+        "api-upload-milestone",
+        "api-transcription-transcription-jobs"
+      ],
+      "branch": "Upload path",
+      "flow": [
+        "upload-app",
+        "upload-core",
+        "upload-ml",
+        "upload-db",
+        "upload-gcs"
+      ],
+      "flowEdges": [
+        "upload-app-core",
+        "upload-core-ml",
+        "upload-internal-core-db",
+        "upload-internal-core-gcs"
+      ]
+    },
+    {
+      "id": "tasks",
+      "actor": "User",
+      "action": "Manage tasks across meeting and task views",
+      "result": "Create, edit, complete, delete, search and filter consistently; an edit promotes a system task to user ownership.",
+      "surface": "Meeting overview",
+      "design": "meeting_summary",
+      "note": "M02. Subtasks are displayed; subtask creation is outside this milestone. Source: milestone 02 and task contract.",
+      "contracts": [
+        "api-task-get-tasks",
+        "api-task-get-meetings-id-tasks",
+        "api-task-post-tasks",
+        "api-task-get-tasks-id",
+        "api-task-patch-tasks-id",
+        "api-task-delete-tasks-id",
+        "api-task-get-tasks-id-sub-tasks",
+        "api-infrastructure-entitychangedevent"
+      ],
+      "branch": "Shared task foundation",
+      "flow": [
+        "tasks-app",
+        "tasks-core",
+        "tasks-db"
+      ],
+      "flowEdges": [
+        "tasks-core-app",
+        "tasks-app-core",
+        "tasks-internal-core-db"
+      ]
+    },
+    {
+      "id": "notes-library",
+      "actor": "User",
+      "action": "Write and find context-linked notes",
+      "result": "The same note components serve /notes, meeting detail and people detail, with search, tags and context linking.",
+      "surface": "Meeting overview",
+      "design": "meeting_summary",
+      "note": "M03. Source: milestone 03. Note CRUD contracts are absent from the bet contract pages; no endpoint was invented.",
+      "contracts": [],
+      "branch": "Shared note foundation",
+      "flow": [
+        "notes-library-app",
+        "notes-library-db",
+        "notes-library-core"
+      ],
+      "flowEdges": [
+        "notes-library-internal-core-db",
+        "notes-library-read-write"
+      ]
+    },
+    {
+      "id": "start",
+      "actor": "User",
+      "action": "Start a live microphone recording",
+      "result": "Permission granted, no concurrent session, ML pre-warmed: the banner changes from Connecting to Recording.",
+      "surface": "New Meeting menu",
+      "design": "entry_point",
+      "note": "M04, M11. Source: data-flow Flow 1. Permission denial is blocking and creates no session. Browser and Core both guard concurrency. Mic only; desktop scope.",
+      "contracts": [
+        "api-meeting-get-meetings",
+        "api-meeting-post-meetings",
+        "api-recording-startrecordingcommand",
+        "api-recording-post-meetings-id-live-session",
+        "api-recording-streamstartevent",
+        "api-recording-streamreadyevent",
+        "api-recording-recordingstartedevent",
+        "api-recording-recordingerrorevent"
+      ],
+      "flow": [
+        "start-app",
+        "start-core",
+        "start-ml",
+        "start-db",
+        "start-aai",
+        "start-guard"
+      ],
+      "flowEdges": [
+        "start-app-core",
+        "start-core-app",
+        "start-core-ml",
+        "start-ml-core",
+        "start-internal-core-db",
+        "start-internal-ml-aai",
+        "start-check-guard",
+        "start-guard-conflict"
+      ]
+    },
+    {
+      "id": "listen",
+      "actor": "User",
+      "action": "Speak and follow the live transcript",
+      "result": "Interim segments appear and are revised in place; final transcript latency target is within 2 seconds of speech.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M04, M05. Source: Flow 2. Stream and asynchronous persistence are separate; ML acknowledgement is not durable GCS acknowledgement.",
+      "contracts": [
+        "api-audio-browser-binary-audio-frame",
+        "api-audio-ml-binary-audio-frame",
+        "api-transcription-transcriptsegmentproducedevent",
+        "api-transcription-transcriptsegmentevent",
+        "api-transcription-post-transcriptions-id-segments",
+        "api-audio-audiochunkackevent"
+      ],
+      "flow": [
+        "listen-app",
+        "listen-core",
+        "listen-ml",
+        "listen-db",
+        "listen-opfs",
+        "listen-gcs",
+        "listen-aai"
+      ],
+      "flowEdges": [
+        "listen-app-core",
+        "listen-core-ml",
+        "listen-ml-core",
+        "listen-core-app",
+        "listen-internal-core-db",
+        "listen-internal-app-opfs",
+        "listen-internal-core-gcs",
+        "listen-internal-ml-aai"
+      ]
+    },
+    {
+      "id": "buffer",
+      "actor": "System",
+      "action": "Persist audio and release acknowledged local chunks",
+      "result": "Core stores contiguous sequence ranges; the browser trims only the audio confirmed durable in GCS.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M05. Source: audio contract and Flow 2. Frame size is 100ms; GCS segments default to 2 seconds. Highest received sequence must not be treated as highest contiguous stored sequence.",
+      "contracts": [
+        "api-recording-audiostoredprogressevent"
+      ],
+      "flow": [
+        "buffer-app",
+        "buffer-core",
+        "buffer-db",
+        "buffer-opfs",
+        "buffer-gcs"
+      ],
+      "flowEdges": [
+        "buffer-core-app",
+        "buffer-internal-core-db",
+        "buffer-internal-app-opfs",
+        "buffer-internal-core-gcs"
+      ]
+    },
+    {
+      "id": "reconnect",
+      "actor": "User",
+      "action": "Keep recording through a connection loss",
+      "result": "A degraded banner identifies the gap. Reconnect reports missing ranges and uploads recoverable OPFS audio; final rebuild includes recovered audio.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M05. Source: Flows 16, 19 and recording contract. A connectivity resume is not user pause/resume or recovery after tab close.",
+      "contracts": [
+        "api-recording-resumerecordingcommand",
+        "api-recording-get-meetings-id-recording-missing-chunks",
+        "api-recording-recordingresumedevent",
+        "api-recording-recordinghealthevent",
+        "api-recording-post-meetings-id-recording-chunks",
+        "api-recording-gapuploadcompleteevent"
+      ],
+      "branch": "Browser ↔ Core connection lost",
+      "flow": [
+        "reconnect-app",
+        "reconnect-local",
+        "reconnect-plan",
+        "reconnect-db",
+        "reconnect-gaps",
+        "reconnect-upload",
+        "reconnect-repair",
+        "reconnect-gcs",
+        "reconnect-ack",
+        "reconnect-trim",
+        "reconnect-unrecoverable"
+      ],
+      "flowEdges": [
+        "reconnect-edge-1",
+        "reconnect-edge-2",
+        "reconnect-edge-3",
+        "reconnect-edge-4",
+        "reconnect-edge-5",
+        "reconnect-edge-6",
+        "reconnect-edge-7",
+        "reconnect-edge-8",
+        "reconnect-edge-9",
+        "reconnect-edge-10",
+        "reconnect-edge-11",
+        "reconnect-edge-12",
+        "reconnect-edge-13"
+      ]
+    },
+    {
+      "id": "degraded",
+      "actor": "User",
+      "action": "Continue capture when a provider or local buffer fails",
+      "result": "Recoverable health warnings distinguish ML, transcription, insights, storage and local-buffer failures. Available capture paths continue.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M05, M11. Source: Flow 14 and infrastructure. If local buffering is unavailable, healthy direct transport can continue, but offline losslessness is no longer guaranteed.",
+      "contracts": [
+        "api-recording-recordinghealthevent",
+        "api-recording-recordingerrorevent",
+        "api-infrastructure-streamwarningevent",
+        "api-audio-backpressureevent",
+        "api-audio-backpressureclearedevent"
+      ],
+      "branch": "ML, provider, storage or OPFS failure",
+      "flow": [
+        "degraded-app",
+        "degraded-ml",
+        "degraded-core",
+        "degraded-opfs",
+        "degraded-gcs"
+      ],
+      "flowEdges": [
+        "degraded-ml-core",
+        "degraded-core-app",
+        "degraded-internal-app-opfs",
+        "degraded-internal-core-gcs"
+      ]
+    },
+    {
+      "id": "live-notes",
+      "actor": "User",
+      "action": "Write private notes while recording",
+      "result": "Debounced saves persist meeting notes; finalization preserves them and notes remain editable afterward.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M06. Source: Flow 4 and milestone 06. Milestone 06 excludes rich text although the UI design describes a rich-text scratchpad. This route uses meetings.notes, not the reusable context-linked notes table.",
+      "contracts": [
+        "api-meeting-patch-meetings-id",
+        "api-infrastructure-entitychangedevent"
+      ],
+      "flow": [
+        "live-notes-app",
+        "live-notes-core",
+        "live-notes-db"
+      ],
+      "flowEdges": [
+        "live-notes-core-app",
+        "live-notes-app-core",
+        "live-notes-internal-core-db"
+      ]
+    },
+    {
+      "id": "talking-points",
+      "actor": "User",
+      "action": "Follow draft talking points as the meeting develops",
+      "result": "Draft talking points arrive without interrupting capture and are replaced by final synthesis after stop.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M07. Source: Flow 3a. Insight cadence defaults to 30s or 5 final segments, with an action-item fast path.",
+      "contracts": [
+        "api-synthesis-talkingpointproducedevent",
+        "api-synthesis-talkingpointevent",
+        "api-synthesis-post-meetings-id-talking-points",
+        "api-synthesis-get-meetings-id-talking-points"
+      ],
+      "flow": [
+        "talking-points-app",
+        "talking-points-core",
+        "talking-points-ml",
+        "talking-points-db",
+        "talking-points-openai"
+      ],
+      "flowEdges": [
+        "talking-points-app-core",
+        "talking-points-ml-core",
+        "talking-points-core-app",
+        "talking-points-internal-core-db",
+        "talking-points-internal-ml-openai"
+      ]
+    },
+    {
+      "id": "live-tasks",
+      "actor": "User",
+      "action": "Capture and edit tasks during the meeting",
+      "result": "Live tasks appear; user-created tasks and edited system tasks become user-owned and survive final reconciliation.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M08. Source: Flow 3a, Flows 5–6, milestone 08. The milestone’s field-level ownership wording differs from the contract’s whole-task source promotion.",
+      "contracts": [
+        "api-task-taskproducedevent",
+        "api-task-taskevent",
+        "api-task-post-tasks-ml",
+        "api-task-post-tasks",
+        "api-task-patch-tasks-id",
+        "api-task-delete-tasks-id"
+      ],
+      "flow": [
+        "live-tasks-app",
+        "live-tasks-core",
+        "live-tasks-ml",
+        "live-tasks-db",
+        "live-tasks-openai"
+      ],
+      "flowEdges": [
+        "live-tasks-app-core",
+        "live-tasks-core-app",
+        "live-tasks-ml-core",
+        "live-tasks-internal-core-db",
+        "live-tasks-internal-ml-openai"
+      ]
+    },
+    {
+      "id": "speaker-match",
+      "actor": "System",
+      "action": "Match a diarized speaker to an enrolled person",
+      "result": "Matching locks on when confident; bounded unsuccessful attempts exhaust; manual assignments take precedence.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M09. Source: Flow 3b and person contract. Speaker-state table names disagree between flow and schema; voice vectors stay service-internal.",
+      "contracts": [
+        "api-transcription-segmentfeaturesproducedevent",
+        "api-person-speakermatchproducedevent",
+        "api-person-speakerexhaustedevent",
+        "api-person-post-voice-profiles-matches"
+      ],
+      "flow": [
+        "speaker-match-app",
+        "speaker-match-ml",
+        "speaker-match-core",
+        "speaker-match-db"
+      ],
+      "flowEdges": [
+        "speaker-match-ml-core",
+        "speaker-match-core-ml",
+        "speaker-match-internal-core-db"
+      ]
+    },
+    {
+      "id": "label-speaker",
+      "actor": "User",
+      "action": "Correct a speaker label or add a person",
+      "result": "All segments for that meeting-scoped speaker reflect the chosen person; ML receives the manual state.",
+      "surface": "Transcript tab",
+      "design": "meeting_transcript",
+      "note": "M09. Source: Flows 7–8. Person records are user-scoped; matching may not override manual assignments.",
+      "contracts": [
+        "api-person-get-people",
+        "api-person-post-people",
+        "api-meeting-post-meetings-id-speaker-labels",
+        "api-person-speakerstateupdatedevent",
+        "api-recording-post-meetings-id-live-session-speaker-states"
+      ],
+      "flow": [
+        "label-speaker-app",
+        "label-speaker-core",
+        "label-speaker-ml",
+        "label-speaker-db"
+      ],
+      "flowEdges": [
+        "label-speaker-app-core",
+        "label-speaker-core-ml",
+        "label-speaker-internal-core-db"
+      ]
+    },
+    {
+      "id": "stop",
+      "actor": "User",
+      "action": "Stop recording and save the meeting",
+      "result": "Capture stops, ML drains, gaps are repaired, audio is composed and the shared finalization job is published.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M04–05. Source: Flow 9. RecordingStoppedEvent confirms capture stopped, not audio composition or finalization. State/outbox writes precede asynchronous work.",
+      "contracts": [
+        "api-recording-stoprecordingcommand",
+        "api-recording-draincommand",
+        "api-recording-post-meetings-id-live-session-drain",
+        "api-recording-meeting-session-terminated-v1",
+        "api-recording-streamdrainedevent",
+        "api-recording-recordingstoppedevent",
+        "api-recording-post-meetings-id-recording-chunks",
+        "api-transcription-transcription-jobs"
+      ],
+      "flow": [
+        "stop-app",
+        "stop-persist",
+        "stop-db",
+        "stop-drain",
+        "stop-ml",
+        "stop-gaps",
+        "stop-repair",
+        "stop-local",
+        "stop-compose",
+        "stop-gcs",
+        "stop-dispatch",
+        "stop-audio",
+        "stop-worker"
+      ],
+      "flowEdges": [
+        "stop-edge-1",
+        "stop-edge-2",
+        "stop-edge-3",
+        "stop-edge-4",
+        "stop-edge-5",
+        "stop-edge-6",
+        "stop-edge-7",
+        "stop-edge-8",
+        "stop-edge-9",
+        "stop-edge-10",
+        "stop-edge-11",
+        "stop-edge-12",
+        "stop-edge-13"
+      ]
+    },
+    {
+      "id": "finalize",
+      "actor": "System",
+      "action": "Rebuild final artefacts from the durable audio",
+      "result": "Batch transcription replaces live segments, then synthesis and task reconciliation use the final transcript while preserving user work.",
+      "surface": "Meeting overview",
+      "design": "meeting_summary",
+      "note": "M01, M04, M08. Source: Flow 11 and task contract. Reconcile system tasks per M08; UI-design and the sequential-pipeline decision still say to skip them. No runtime completion is claimed.",
+      "contracts": [
+        "api-transcription-transcription-jobs",
+        "api-transcription-put-transcriptions-id-segments",
+        "api-transcription-patch-transcriptions-id-status",
+        "api-meeting-patch-meetings-id-ml",
+        "api-synthesis-put-meetings-id-synthesis",
+        "api-task-put-meetings-id-tasks-system",
+        "api-transcription-transcriptrevisedevent",
+        "api-synthesis-synthesisupdatedevent",
+        "api-infrastructure-entitychangedevent"
+      ],
+      "flow": [
+        "finalize-app",
+        "finalize-core",
+        "finalize-ml",
+        "finalize-db",
+        "finalize-gcs",
+        "finalize-aai",
+        "finalize-openai"
+      ],
+      "flowEdges": [
+        "finalize-core-app",
+        "finalize-ml-core",
+        "finalize-core-ml",
+        "finalize-internal-core-db",
+        "finalize-internal-core-gcs",
+        "finalize-internal-ml-aai",
+        "finalize-internal-ml-openai",
+        "finalize-read-audio"
+      ]
+    },
+    {
+      "id": "review",
+      "actor": "User",
+      "action": "Review the completed meeting",
+      "result": "Headline, summary, topics, talking points, tasks and notes load from durable records after refresh.",
+      "surface": "Meeting overview",
+      "design": "meeting_summary",
+      "note": "M01, M04. Source: UI design, Flow 12 and entity read contracts. Processing/failure remain explicit states.",
+      "contracts": [
+        "api-meeting-get-meetings-id",
+        "api-transcription-get-meetings-id-transcriptions",
+        "api-transcription-get-transcriptions-id",
+        "api-transcription-get-transcriptions-id-segments",
+        "api-synthesis-get-meetings-id-synthesis",
+        "api-synthesis-get-meetings-id-topics",
+        "api-synthesis-get-meetings-id-talking-points",
+        "api-task-get-meetings-id-tasks"
+      ],
+      "flow": [
+        "review-app",
+        "review-core",
+        "review-db"
+      ],
+      "flowEdges": [
+        "review-app-core",
+        "review-internal-core-db"
+      ]
+    },
+    {
+      "id": "playback",
+      "actor": "User",
+      "action": "Listen to audio and seek from the transcript",
+      "result": "Playback streams directly from GCS; the active segment is highlighted and selecting a segment seeks to its start.",
+      "surface": "Transcript tab",
+      "design": "meeting_transcript",
+      "note": "M10. Source: Flow 13 and UI design. A 404 means unavailable/processing; signed URLs last one hour and are refreshed before expiry. Controls include ±15s and 0.5×/1×/1.5×/2×.",
+      "contracts": [
+        "api-meeting-get-meetings-id-audio-url",
+        "api-transcription-get-transcriptions-id-segments"
+      ],
+      "flow": [
+        "playback-app",
+        "playback-core",
+        "playback-db",
+        "playback-gcs"
+      ],
+      "flowEdges": [
+        "playback-app-core",
+        "playback-internal-core-db",
+        "playback-internal-core-gcs",
+        "playback-direct-gcs"
+      ]
+    },
+    {
+      "id": "limits",
+      "actor": "User",
+      "action": "Receive duration, silence and browser-limit guidance",
+      "result": "Warn 10 minutes before the default four-hour stop; show no-audio and background-tab behavior; enforce one active recording.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "M11. Source: Flows 10, 15, 17–18 and UI edge cases. Inactivity timeout is five minutes. Browser capability support is an open question, not certified by this import.",
+      "contracts": [
+        "api-recording-recordingdurationwarningevent",
+        "api-recording-recordingstoppedevent",
+        "api-recording-recordinghealthevent",
+        "api-recording-recordingerrorevent",
+        "api-meeting-get-meetings"
+      ],
+      "branch": "Duration, silence, concurrency or browser limit",
+      "flow": [
+        "limits-app",
+        "limits-core",
+        "limits-db"
+      ],
+      "flowEdges": [
+        "limits-app-core",
+        "limits-core-app",
+        "limits-internal-core-db"
+      ]
+    },
+    {
+      "id": "replay",
+      "actor": "System",
+      "action": "Restore event state after reconnect or token rotation",
+      "result": "Replay uses the event cursor; an expired five-minute replay window triggers a full REST re-fetch.",
+      "surface": "Live recording",
+      "design": "active_recording",
+      "note": "Source: infrastructure connection/reconnection semantics. Sticky Core pod affinity remains a known v1 limitation.",
+      "contracts": [
+        "api-infrastructure-replayexpiredevent",
+        "api-infrastructure-authexpiringevent",
+        "api-infrastructure-authrefreshcommand",
+        "api-meeting-get-meetings-id",
+        "api-transcription-get-transcriptions-id-segments",
+        "api-recording-get-meetings-id-live-session"
+      ],
+      "branch": "Event replay or authentication expires",
+      "flow": [
+        "replay-app",
+        "replay-core",
+        "replay-ml",
+        "replay-db"
+      ],
+      "flowEdges": [
+        "replay-core-app",
+        "replay-app-core",
+        "replay-core-ml",
+        "replay-internal-core-db"
+      ]
+    },
+    {
+      "id": "deleted",
+      "actor": "System",
+      "action": "Discard final write-backs for a deleted meeting",
+      "result": "Finalization must not recreate deleted meeting data; documented write-backs acknowledge with no new writes.",
+      "surface": "Meeting overview",
+      "design": "meeting_summary",
+      "note": "Source: Flow 20 and write-back contracts. Normal delete is blocked during active recording; this covers later post-processing races.",
+      "contracts": [
+        "api-task-put-meetings-id-tasks-system",
+        "api-synthesis-put-meetings-id-synthesis"
+      ],
+      "branch": "Meeting soft-deleted during post-processing",
+      "flow": [
+        "deleted-app",
+        "deleted-ml",
+        "deleted-core",
+        "deleted-db"
+      ],
+      "flowEdges": [
+        "deleted-ml-core",
+        "deleted-internal-core-db"
+      ]
+    }
+  ]
+}

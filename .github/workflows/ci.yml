@@ -1,73 +1,23 @@
-name: CI
+name: Groundwork checks
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
-      - "claude/**"
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
-  go:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          # D37.1: a waiver's authority is its commit, and a shallow clone
-          # hides that commit — so every waiver would be ignored exactly where
-          # the gate runs.
-          fetch-depth: 0
-
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-
-      # The adapter seam's out-of-process half is proven against a node --test
-      # fixture pack. Without node those tests skip, and a skipped check reads
-      # as a green one — so CI installs node and the tests fail loudly there
-      # if it is ever missing.
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-
-      # These four steps gate: if one fails, the build fails.
-      - name: Check formatting
-        run: |
-          unformatted=$(gofmt -l .)
-          if [ -n "$unformatted" ]; then
-            echo "These files need gofmt:"
-            echo "$unformatted"
-            exit 1
-          fi
-
-      - name: Vet
-        run: go vet ./...
-
-      - name: Test
-        run: go test ./...
-
-      # The ledger checks run after the tests, on the ledgers this repo
-      # actually holds. check proves every finding records what caught it and
-      # what class it is. recur proves no class has reached the recurrence
-      # threshold without a decision naming it.
-      - name: Check the findings ledger
-        run: |
-          go run ./cmd/groundwork findings check
-          go run ./cmd/groundwork findings recur
-
-      # D23's gate: the battery version fails here when the rows have moved
-      # without anyone bumping the declared half. It reads the lock file and
-      # writes nothing.
-      - name: Check the battery version
-        run: go run ./cmd/groundwork verify version
-
-      # This step publishes the harness word count. It never gates.
-      - name: Publish word count
-        if: always()
-        continue-on-error: true
-        run: |
-          {
-            echo "## Harness word count"
-            echo
-            go run ./cmd/wordcount CLAUDE.md docs/ladder.md docs/execution-plan.md
-          } >> "$GITHUB_STEP_SUMMARY"
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

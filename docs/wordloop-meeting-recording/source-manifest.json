@@ -1,0 +1,1610 @@
+{
+  "importedAt": "2026-09-05T19:22:03Z",
+  "sourceRepository": "/Users/ryannel/Workspace/wordloop-platform",
+  "bet": "meeting-recording",
+  "sourceCommit": "0e99c42746b46968168e07a55d6029853559936a",
+  "documents": [
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/meta.json",
+      "snapshot": "docs/wordloop-meeting-recording/sources/meta.json",
+      "sha256": "63c127e0114c117f374627541e44c156efd76f7251b978ab1bb334f51470c19e"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/pitch.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/pitch.mdx",
+      "sha256": "28b9112885dee7282262a9b00d42daca43da58d32c8338ec7ab33983c01ae9d9"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/audio.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/audio.mdx",
+      "sha256": "c821a8fe453c114517081cb78232779af82822a8b32085b75a0ea70257fe67cf"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/index.mdx",
+      "sha256": "a7c4f6b7953ff9a5fcc160e95701c1e52883e2301f055e0149f4b4a23fce01e3"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/infrastructure.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/infrastructure.mdx",
+      "sha256": "5c67c5fb553936e6ba5f057bfa660591b852fbdec11c434189b1d3808ccf7582"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/meeting.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/meeting.mdx",
+      "sha256": "de51679e1cd30470ef415fa323ce8a8ea4f775600607e65e4f5f3e416a5b10d5"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/meta.json",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/meta.json",
+      "sha256": "b3a9c6ea1d5b8ce8de81929874a4cba11e9162006e8f25d4eb7ca280c4d9a396"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/person.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/person.mdx",
+      "sha256": "0ad9beffd086e2eb1a2f9773f32ded93c23e00d3e95a7bca0b91e4475f0b1657"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/recording.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/recording.mdx",
+      "sha256": "e76d1784f60703a39521c7b4744e92c0c2f712aa340a83d1872923a39ebb972f"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/synthesis.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/synthesis.mdx",
+      "sha256": "88976de56a4b69047708df9848fec0184cc9c68611c10ce17a06ec8b14862f4e"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/task.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/task.mdx",
+      "sha256": "7eb26b28a9c88192ea085a69b701b6d36ee71e3c4f45821903d6386d4332d854"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/contracts/transcription.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/contracts/transcription.mdx",
+      "sha256": "7c1759b108a7f48f0b9ac7569929ec66d25ee70ccf05a569d96b5e1a278c0bd2"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/data-flow.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/data-flow.mdx",
+      "sha256": "af088edc3e494bd94e83ccb4984cbd5ae0f663ea27447ab0f2da3265dd6ffd82"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/index.mdx",
+      "sha256": "f197b9579b6d1db6fb2cf6f04bbb4b7471864d36d89e59a678e0c761bfca08a1"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/meta.json",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/meta.json",
+      "sha256": "90f2000921dee62c425e07c15b4828be53539d84642b4954525836c7c9e17756"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sha256": "43b1ecf25f09ae1c07344f10274feb41af2215e8e4bd4320e29798e3b4b7bb48"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "sha256": "184dac92d7769b391792cbe2c52507fc73301a8ac095154760830d1206fbc82a"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "sha256": "dd3f7e9cbbf433257bf5cc55dc54078f9315fb3ee7f221efd6850116eae5311c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "sha256": "412596ada0c5225899c6f8cc0871fdbd0d64df5fff40f51068667614ffbe8ec2"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/02-reusable-task-components/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/02-reusable-task-components/index.mdx",
+      "sha256": "856c14839f3f6d1b7590900a5f7f4a2e8dec9e3d5032e1de0e2b8554a725705f"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "sha256": "c70012f594384f835d883bb1edf4c1b2be4b4c57fcb67576f542634076472f9e"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/03-reusable-note-components/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/03-reusable-note-components/index.mdx",
+      "sha256": "69f9ced685b1a0c250f1be7a47eb804d9c6c7674447818a61d455e9664b37efe"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "sha256": "a3812876f30d02b51059b346ac55cca7404e14f32f0e44dce4ae4cb3dc6718df"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sha256": "643f89a5ad5f55930cde4d538703c0c7d676baac2f06d05dc89d8d28f4fee203"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "sha256": "0f6fd1107f8ff5151b868841e756a4e5f5118263ff47ea6504a554a1a389e774"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/04-live-transcript-to-final-rebuild/slice-core-live-recording-session.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/04-live-transcript-to-final-rebuild/slice-core-live-recording-session.mdx",
+      "sha256": "fddf9e401b7a6264d0f0509aff0679ea4e6b2637d24592fc12142c59c1b6bbc3"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/04-live-transcript-to-final-rebuild/slice-ml-streaming-transcription.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/04-live-transcript-to-final-rebuild/slice-ml-streaming-transcription.mdx",
+      "sha256": "f0994e678bcbd240ebed8cac3ab0bf61662751ec626cb1eac07172411b3557d2"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sha256": "dd07c9e0f23eed64cc058b35ec6bcca9c58c8dbb0b77930a020810174b2334eb"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "sha256": "3c85c416c91d7a76a1a3ee8872b32d674473becc4bbc89939361fe66aaea9325"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "sha256": "28b756e87a14b469faadbc9f079f94721e571e6ff215e6acd96800d9ada6a052"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "sha256": "2c516ca8e4efebfa86928a5c4d933a701158e877a03d936dea7eb99e2eb98b7c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/06-live-notes/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/06-live-notes/index.mdx",
+      "sha256": "52d973a24c16425feeae7295793334ed3a563258838bc54a366c8a88ebb89dc0"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/07-live-talking-points/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/07-live-talking-points/index.mdx",
+      "sha256": "dc71afd75f527f50992f22c5364bd37af32d1b8d0375b435903bbfbfb45de544"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sha256": "46bd605eca482a1b58e3b2bf0e8555de4b75ed1a2ace5dddd79525b78c34d222"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/09-speaker-labelling/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/09-speaker-labelling/index.mdx",
+      "sha256": "107fa7f8b49eab901e75397b556ae706eb1419a4d67f2f534598431c4e61c79c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sha256": "7dacf5e250609a3494536b8d86c44271cfd529118775fb1b672aae7286aceb88"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/11-recording-hardening/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/11-recording-hardening/index.mdx",
+      "sha256": "0eaf750da792ea34f3c19b2882c3423866c2f4f7003d8671d3a4e373c0fa36c7"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/index.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/index.mdx",
+      "sha256": "781c813f24ac668865a9e846e3e9a3dae752a999ff72b555a2daa24a957b5c5c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/milestones/meta.json",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/milestones/meta.json",
+      "sha256": "430262fb3cf10f0b7c1694e29729f7ecb9b1d29e1d1e6476c89c2d5a7482f9b6"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/schemas/meta.json",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/schemas/meta.json",
+      "sha256": "eb38019fce4282bc00c7cdd4701083fa5ed039d5e6fb56639946724257f12db1"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/schemas/postgres.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/schemas/postgres.mdx",
+      "sha256": "b8b8e3c8be5f3abc38b033d84aa62c241633063fdaf19fbc300de37eee9c5763"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/content/docs/work/meeting-recording/tdd/ui-design.mdx",
+      "snapshot": "docs/wordloop-meeting-recording/sources/tdd/ui-design.mdx",
+      "sha256": "f41fa9de3c3546cb2f6fc9c7bcd86b481448d4688983896f4e165a6f387f70da"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/public/images/bets/meeting-recording/entry_point.png",
+      "snapshot": "public/images/wordloop/entry_point.png",
+      "sha256": "48ce30c3d85291ea13d836db21fe623a4a534d3109e204d397c4be41704cbc92"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/public/images/bets/meeting-recording/active_recording.png",
+      "snapshot": "public/images/wordloop/active_recording.png",
+      "sha256": "7558478e0dc942dd30b1311bb5e0aa019ffa0817a2fb55f7caeaf2d7cdfc3d5c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/public/images/bets/meeting-recording/meeting_summary.png",
+      "snapshot": "public/images/wordloop/meeting_summary.png",
+      "sha256": "6882aaecd17e9dfbbd3efddeb8d3dca58fe54925363d7948a677c84efae0d660"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs/public/images/bets/meeting-recording/meeting_transcript.png",
+      "snapshot": "public/images/wordloop/meeting_transcript.png",
+      "sha256": "ee5bdbce18bbea9eb2eea1cf0c8d622cb88e264b6a495771599d951cb79b9b4b"
+    }
+  ],
+  "itemSources": {
+    "api-audio-post-meetings-id-audio": "tdd/contracts/audio.mdx",
+    "api-audio-browser-binary-audio-frame": "tdd/contracts/audio.mdx",
+    "api-audio-ml-binary-audio-frame": "tdd/contracts/audio.mdx",
+    "api-audio-audiochunkackevent": "tdd/contracts/audio.mdx",
+    "api-audio-backpressureevent": "tdd/contracts/audio.mdx",
+    "api-audio-backpressureclearedevent": "tdd/contracts/audio.mdx",
+    "api-infrastructure-entitychangedevent": "tdd/contracts/infrastructure.mdx",
+    "api-infrastructure-replayexpiredevent": "tdd/contracts/infrastructure.mdx",
+    "api-infrastructure-authexpiringevent": "tdd/contracts/infrastructure.mdx",
+    "api-infrastructure-authrefreshcommand": "tdd/contracts/infrastructure.mdx",
+    "api-infrastructure-streamwarningevent": "tdd/contracts/infrastructure.mdx",
+    "api-meeting-post-meetings": "tdd/contracts/meeting.mdx",
+    "api-meeting-get-meetings": "tdd/contracts/meeting.mdx",
+    "api-meeting-get-meetings-id": "tdd/contracts/meeting.mdx",
+    "api-meeting-patch-meetings-id": "tdd/contracts/meeting.mdx",
+    "api-meeting-delete-meetings-id": "tdd/contracts/meeting.mdx",
+    "api-meeting-post-meetings-id-speaker-labels": "tdd/contracts/meeting.mdx",
+    "api-meeting-get-meetings-id-audio-url": "tdd/contracts/meeting.mdx",
+    "api-person-get-people": "tdd/contracts/person.mdx",
+    "api-person-post-people": "tdd/contracts/person.mdx",
+    "api-person-get-people-id": "tdd/contracts/person.mdx",
+    "api-person-patch-people-id": "tdd/contracts/person.mdx",
+    "api-person-delete-people-id": "tdd/contracts/person.mdx",
+    "api-person-speakerstateupdatedevent": "tdd/contracts/person.mdx",
+    "api-person-voiceprofilesupdatedevent": "tdd/contracts/person.mdx",
+    "api-person-speakermatchproducedevent": "tdd/contracts/person.mdx",
+    "api-person-speakerexhaustedevent": "tdd/contracts/person.mdx",
+    "api-person-post-voice-profiles-matches": "tdd/contracts/person.mdx",
+    "api-person-post-voice-profiles": "tdd/contracts/person.mdx",
+    "api-recording-get-meetings-id-recording": "tdd/contracts/recording.mdx",
+    "api-recording-get-meetings-id-recording-missing-chunks": "tdd/contracts/recording.mdx",
+    "api-recording-get-meetings-id-recording-chunk-inventory": "tdd/contracts/recording.mdx",
+    "api-recording-post-meetings-id-recording-chunks": "tdd/contracts/recording.mdx",
+    "api-recording-startrecordingcommand": "tdd/contracts/recording.mdx",
+    "api-recording-stoprecordingcommand": "tdd/contracts/recording.mdx",
+    "api-recording-resumerecordingcommand": "tdd/contracts/recording.mdx",
+    "api-recording-recordingstartedevent": "tdd/contracts/recording.mdx",
+    "api-recording-recordingresumedevent": "tdd/contracts/recording.mdx",
+    "api-recording-gapuploadcompleteevent": "tdd/contracts/recording.mdx",
+    "api-recording-recordingstoppedevent": "tdd/contracts/recording.mdx",
+    "api-recording-recordingdurationwarningevent": "tdd/contracts/recording.mdx",
+    "api-recording-recordinghealthevent": "tdd/contracts/recording.mdx",
+    "api-recording-recordingerrorevent": "tdd/contracts/recording.mdx",
+    "api-recording-audiostoredprogressevent": "tdd/contracts/recording.mdx",
+    "api-recording-post-meetings-id-live-session": "tdd/contracts/recording.mdx",
+    "api-recording-get-meetings-id-live-session": "tdd/contracts/recording.mdx",
+    "api-recording-post-meetings-id-live-session-drain": "tdd/contracts/recording.mdx",
+    "api-recording-post-meetings-id-live-session-speaker-states": "tdd/contracts/recording.mdx",
+    "api-recording-streamstartevent": "tdd/contracts/recording.mdx",
+    "api-recording-draincommand": "tdd/contracts/recording.mdx",
+    "api-recording-streamreadyevent": "tdd/contracts/recording.mdx",
+    "api-recording-streamdrainedevent": "tdd/contracts/recording.mdx",
+    "api-recording-meeting-session-terminated-v1": "tdd/contracts/recording.mdx",
+    "api-synthesis-get-meetings-id-synthesis": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-put-meetings-id-synthesis": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-get-meetings-id-talking-points": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-post-meetings-id-talking-points": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-get-meetings-id-topics": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-talkingpointevent": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-synthesisupdatedevent": "tdd/contracts/synthesis.mdx",
+    "api-synthesis-talkingpointproducedevent": "tdd/contracts/synthesis.mdx",
+    "api-task-get-meetings-id-tasks": "tdd/contracts/task.mdx",
+    "api-task-get-tasks": "tdd/contracts/task.mdx",
+    "api-task-post-tasks": "tdd/contracts/task.mdx",
+    "api-task-get-tasks-id": "tdd/contracts/task.mdx",
+    "api-task-patch-tasks-id": "tdd/contracts/task.mdx",
+    "api-task-delete-tasks-id": "tdd/contracts/task.mdx",
+    "api-task-get-tasks-id-sub-tasks": "tdd/contracts/task.mdx",
+    "api-task-post-tasks-id-sub-tasks": "tdd/contracts/task.mdx",
+    "api-task-put-meetings-id-tasks-system": "tdd/contracts/task.mdx",
+    "api-task-taskevent": "tdd/contracts/task.mdx",
+    "api-task-taskproducedevent": "tdd/contracts/task.mdx",
+    "api-transcription-get-meetings-id-transcriptions": "tdd/contracts/transcription.mdx",
+    "api-transcription-get-transcriptions-id": "tdd/contracts/transcription.mdx",
+    "api-transcription-get-transcriptions-id-segments": "tdd/contracts/transcription.mdx",
+    "api-transcription-post-transcriptions-id-segments": "tdd/contracts/transcription.mdx",
+    "api-transcription-put-transcriptions-id-segments": "tdd/contracts/transcription.mdx",
+    "api-transcription-patch-transcriptions-id-status": "tdd/contracts/transcription.mdx",
+    "api-transcription-transcriptsegmentevent": "tdd/contracts/transcription.mdx",
+    "api-transcription-transcriptrevisedevent": "tdd/contracts/transcription.mdx",
+    "api-transcription-transcriptsegmentproducedevent": "tdd/contracts/transcription.mdx",
+    "api-transcription-segmentfeaturesproducedevent": "tdd/contracts/transcription.mdx",
+    "api-transcription-post-transcription-jobs-id-run": "tdd/contracts/transcription.mdx",
+    "api-transcription-get-transcription-jobs-id": "tdd/contracts/transcription.mdx",
+    "api-transcription-transcription-jobs": "tdd/contracts/transcription.mdx",
+    "api-meeting-patch-meetings-id-ml": "tdd/contracts/meeting.mdx",
+    "api-task-post-tasks-ml": "tdd/contracts/task.mdx",
+    "api-upload-milestone": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx"
+  },
+  "testSources": {
+    "m01-acceptance-01": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-02": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-03": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-04": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-05": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-06": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-acceptance-07": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m01-app-01": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-02": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-03": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-04": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-05": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-06": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-07": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-08": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-09": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-10": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-11": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-12": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-13": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-14": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-15": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-16": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-17": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-18": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-19": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-20": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-21": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-22": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-23": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-24": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-25": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-26": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-27": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-28": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-29": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-30": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-31": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-32": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-33": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-34": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-35": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-36": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-37": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-38": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-39": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-40": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-41": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-42": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-43": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-44": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-45": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m01-app-46": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-app-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_system"
+    },
+    "m01-core-01": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-02": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-03": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-04": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-05": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-06": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-07": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-08": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-09": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-10": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-11": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-12": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-13": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-14": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-15": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-core-16": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m01-ml-01": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-02": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-03": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-04": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-05": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-06": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-07": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_system"
+    },
+    "m01-ml-08": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-09": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m01-ml-10": {
+      "source": "tdd/milestones/01-upload-finalizes-meeting/slice-ml-upload-finalizes-meeting.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m02-acceptance-01": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-02": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-03": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-04": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-05": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-06": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-07": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-08": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-09": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-acceptance-10": {
+      "source": "tdd/milestones/02-reusable-task-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m02-app-01": {
+      "source": "tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m02-app-02": {
+      "source": "tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m02-app-03": {
+      "source": "tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m02-app-04": {
+      "source": "tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m02-app-05": {
+      "source": "tdd/milestones/02-reusable-task-components/slice-app-task-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-acceptance-01": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-02": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-03": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-04": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-05": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-06": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-07": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-08": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-09": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-10": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-11": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-acceptance-12": {
+      "source": "tdd/milestones/03-reusable-note-components/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m03-app-01": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-02": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-03": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-04": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-05": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-06": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-07": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m03-app-08": {
+      "source": "tdd/milestones/03-reusable-note-components/slice-app-note-components.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-acceptance-01": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-02": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-03": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-04": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-05": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-06": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-acceptance-07": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/index.mdx",
+      "sourceChecked": true,
+      "kind": "milestone acceptance"
+    },
+    "m04-app-01": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-app-02": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-app-03": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-app-04": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-app-05": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-app-live-recording-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m04-core-01": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-core-live-recording-session.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m04-core-02": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-core-live-recording-session.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m04-core-03": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-core-live-recording-session.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m04-ml-01": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-ml-streaming-transcription.mdx",
+      "kind": "slice test table",
+      "location": "test_slice_ml_streaming_transcription.py"
+    },
+    "m04-ml-02": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-ml-streaming-transcription.mdx",
+      "kind": "slice test table",
+      "location": "test_slice_ml_streaming_transcription.py"
+    },
+    "m04-ml-03": {
+      "source": "tdd/milestones/04-live-transcript-to-final-rebuild/slice-ml-streaming-transcription.mdx",
+      "kind": "slice test table",
+      "location": "test_slice_ml_streaming_transcription.py"
+    },
+    "m05-acceptance-01": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-acceptance-02": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-acceptance-03": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-acceptance-04": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-acceptance-05": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-acceptance-06": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m05-app-01": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-02": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-03": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-04": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-05": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-06": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-07": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-08": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-09": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-10": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-11": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-12": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-13": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-app-14": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-app-recording-durability-ui.mdx",
+      "kind": "slice test table",
+      "location": "test_app"
+    },
+    "m05-core-01": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-02": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-03": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-04": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-05": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-06": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-07": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-08": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-09": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-10": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-11": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-12": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-13": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-14": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-15": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-16": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-core-17": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-core-audio-durability.mdx",
+      "kind": "slice test table",
+      "location": "test_core"
+    },
+    "m05-ml-01": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m05-ml-02": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m05-ml-03": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m05-ml-04": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m05-ml-05": {
+      "source": "tdd/milestones/05-live-audio-durability-recovery/slice-ml-transcription-recovery.mdx",
+      "kind": "slice test table",
+      "location": "test_ml"
+    },
+    "m06-acceptance-01": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m06-acceptance-02": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m06-acceptance-03": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m06-acceptance-04": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m06-acceptance-05": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m06-acceptance-06": {
+      "source": "tdd/milestones/06-live-notes/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-01": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-02": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-03": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-04": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-05": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m07-acceptance-06": {
+      "source": "tdd/milestones/07-live-talking-points/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-01": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-02": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-03": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-04": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-05": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-06": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m08-acceptance-07": {
+      "source": "tdd/milestones/08-live-tasks-and-reconciliation/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-01": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-02": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-03": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-04": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-05": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m09-acceptance-06": {
+      "source": "tdd/milestones/09-speaker-labelling/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-01": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-02": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-03": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-04": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-05": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m10-acceptance-06": {
+      "source": "tdd/milestones/10-audio-playback-and-review/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-01": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-02": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-03": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-04": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-05": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-06": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "m11-acceptance-07": {
+      "source": "tdd/milestones/11-recording-hardening/index.mdx",
+      "sourceChecked": false,
+      "kind": "milestone acceptance"
+    },
+    "accept-start": {
+      "source": "tdd/index.mdx success criteria; data-flow Flows 1–2",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-conflict": {
+      "source": "tdd/index.mdx; UI edge cases; recording contract",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-gap": {
+      "source": "tdd/contracts/audio.mdx; recording.mdx; milestone 05",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-degraded": {
+      "source": "tdd/index.mdx; data-flow Flow 14",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-buffer-failure": {
+      "source": "data-flow Flow 14; milestone 05 acceptance; conflicts in import review",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-final": {
+      "source": "tdd/index.mdx; milestones 01 and 04; Flow 11",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-notes": {
+      "source": "milestone 06 acceptance; Flow 4",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-tasks": {
+      "source": "milestone 08 acceptance; task contract; field-level ownership ambiguity remains in review",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-speaker": {
+      "source": "data-flow Flows 3b, 7–8; person contract",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-playback": {
+      "source": "UI design; data-flow Flow 13; milestone 10",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-limits": {
+      "source": "data-flow Flow 10; milestone 11",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-note-components": {
+      "source": "milestone 03 acceptance; endpoint contracts not provided in bet",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-replay": {
+      "source": "tdd/index.mdx; infrastructure reconnection rules",
+      "kind": "authored synthesis of source behavior; not executed"
+    },
+    "accept-deleted": {
+      "source": "data-flow Flow 20; task and synthesis contracts",
+      "kind": "authored synthesis of source behavior; not executed"
+    }
+  },
+  "testFiles": [
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_01_upload_finalizes_meeting.py",
+      "methods": 5,
+      "skipMarkers": 0,
+      "sha256": "f7c9aeca204fafb14fe11ed43dd8fae8ec74426f9c79e5a8b024ad77d3bf1bc4"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_02_reusable_task_components.py",
+      "methods": 12,
+      "skipMarkers": 0,
+      "sha256": "4c2ce20697aec8f48b549c5ce0c7e375527d652788de0f71481f7c24c89416d8"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_03_reusable_note_components.py",
+      "methods": 14,
+      "skipMarkers": 0,
+      "sha256": "a16974e1c3d2af64f6dd33611b1e9dec0a0083e5b23238b9e290b7d8fc5c377e"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_04_live_transcript_to_final_rebuild.py",
+      "methods": 5,
+      "skipMarkers": 0,
+      "sha256": "99a20bb6d87f3b53ec0ab83e1fdc84344d533d5cdb0a2f72ebd2b6cc0af57df8"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_05_live_audio_durability_recovery.py",
+      "methods": 6,
+      "skipMarkers": 0,
+      "sha256": "dfc6c256e29e9c268ad821ad295a6a4d15ecb027d4c4b5e5a1697fd296acc541"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_06_live_notes.py",
+      "methods": 6,
+      "skipMarkers": 0,
+      "sha256": "3af50732062f7d5845d10d7d513e4c15828915fc1ee289772267691cb55274f8"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_07_live_talking_points.py",
+      "methods": 5,
+      "skipMarkers": 0,
+      "sha256": "25f191bffa04d9f703d8ba54353e358542a8be45a248e9a263c3758a8c2bdff7"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_08_live_tasks_and_reconciliation.py",
+      "methods": 7,
+      "skipMarkers": 0,
+      "sha256": "d4a6b4aaa1637c10ce31dbe87ae74ba957a7dbfd5cb3720e4619c3934b4c2f0c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_09_speaker_labelling.py",
+      "methods": 6,
+      "skipMarkers": 0,
+      "sha256": "14213749eaf1e9c165b333b6f75e10993edccfc5d1d78af91afea01ff2b4fcf8"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_10_audio_playback_and_review.py",
+      "methods": 6,
+      "skipMarkers": 0,
+      "sha256": "bedf4c16a84d45036a8a7144e1ef7b9c3392529661161dd4d07eb6a2fbc045a6"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_milestone_11_recording_hardening.py",
+      "methods": 7,
+      "skipMarkers": 0,
+      "sha256": "882f08fda92a23dd8c8dda1b235d3df8c98d740ec8558cfbaeba9c7fffd871fe"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_app_live_recording_ui.py",
+      "methods": 5,
+      "skipMarkers": 1,
+      "sha256": "56a298798188fe0a1a80fc922fa1c04bfedea5f5f38c34c75e1ebf1b539ee3b3"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_app_note_components.py",
+      "methods": 9,
+      "skipMarkers": 0,
+      "sha256": "b307ee6f401babcfa6b45bf236be508d653c762beb4811bb598f093983b6197c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_app_recording_durability_ui.py",
+      "methods": 14,
+      "skipMarkers": 1,
+      "sha256": "17ec5f04cc8888ac7a48492c7cb4bedc3ae8b29793e391a70b10dc1c5536fdf3"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_app_task_components.py",
+      "methods": 6,
+      "skipMarkers": 0,
+      "sha256": "9478c75572889ac19c516050279e46c3b85d2339e21bd5c9d003478ab02fdec0"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_app_upload_finalizes_meeting.py",
+      "methods": 15,
+      "skipMarkers": 0,
+      "sha256": "c0723900700918884e59f04d3163fe609e635080a0cb9d840bd1ba5c6bdf8a97"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_core_audio_durability.py",
+      "methods": 17,
+      "skipMarkers": 1,
+      "sha256": "2ebc50c5e601d078f3350defe48775219db5979a9e937b7422fa66c9c868004c"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_core_live_recording_session.py",
+      "methods": 3,
+      "skipMarkers": 0,
+      "sha256": "4c3fd20cb91ef8992f4bc78a7e840a5e89092cc59a5ae98dc2f7703ee40874a7"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_core_upload_finalizes_meeting.py",
+      "methods": 12,
+      "skipMarkers": 0,
+      "sha256": "f97c3d48cb6c47b0966709a71a096ddb14d524796a434a0c2b81434219e270d2"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_ml_streaming_transcription.py",
+      "methods": 3,
+      "skipMarkers": 0,
+      "sha256": "caec4574503c80027c1c93ebdfaa173cb15592d2bcef742f3bdf9d5f7fa93022"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_ml_transcription_recovery.py",
+      "methods": 5,
+      "skipMarkers": 1,
+      "sha256": "ee402a5e582b9c1d8639ffc4a1c9592572bca1eaa9301e8afca68c575855b1e2"
+    },
+    {
+      "path": "/Users/ryannel/Workspace/wordloop-platform/tests/bets/meeting-recording/test_slice_ml_upload_finalizes_meeting.py",
+      "methods": 9,
+      "skipMarkers": 0,
+      "sha256": "0f4cb84dea5f0c3e893b4b0ca270b6b0b97b8f2db3106e4571f0bfbe172e1197"
+    }
+  ],
+  "counts": {
+    "journeys": 20,
+    "contracts": 88,
+    "tables": 21,
+    "scenarios": 226,
+    "milestones": 11
+  },
+  "storageSources": {
+    "recordings": "tdd/schemas/postgres.mdx",
+    "recording_status_history": "tdd/schemas/postgres.mdx",
+    "audio_objects": "tdd/schemas/postgres.mdx",
+    "meeting_speaker_labels": "tdd/schemas/postgres.mdx",
+    "people": "tdd/schemas/postgres.mdx",
+    "transcriptions": "tdd/schemas/postgres.mdx",
+    "transcript_segments": "tdd/schemas/postgres.mdx",
+    "synthesis": "tdd/schemas/postgres.mdx",
+    "topics": "tdd/schemas/postgres.mdx",
+    "topic_segments": "tdd/schemas/postgres.mdx",
+    "talking_points": "tdd/schemas/postgres.mdx",
+    "talking_point_segments": "tdd/schemas/postgres.mdx",
+    "tasks": "tdd/schemas/postgres.mdx",
+    "meetings": "tdd/schemas/postgres.mdx",
+    "idempotency_keys": "tdd/schemas/postgres.mdx",
+    "meeting_speaker_states": "tdd/data-flow.mdx",
+    "recording_event_history": "tdd/contracts/infrastructure.mdx",
+    "transcription_status_history": "tdd/milestones/01-upload-finalizes-meeting/slice-core-upload-finalizes-meeting.mdx",
+    "notes": "tdd/milestones/03-reusable-note-components/index.mdx",
+    "opfs_chunks": "tdd/contracts/audio.mdx",
+    "gcs_segments": "tdd/contracts/audio.mdx"
+  }
+}

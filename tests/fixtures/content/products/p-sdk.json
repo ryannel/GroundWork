@@ -1,0 +1,9 @@
+{
+  "id": "p-sdk",
+  "workspaceId": "w-ecom",
+  "slug": "storefront-sdk",
+  "name": "Storefront SDK",
+  "kind": "library",
+  "description": "Typed client for storefront apps.",
+  "order": 3
+}

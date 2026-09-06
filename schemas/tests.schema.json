@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "given": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "when": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "then": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "written",
+              "passing",
+              "failing"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          },
+          "tables": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "given",
+          "when",
+          "then"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "cases"
+  ],
+  "additionalProperties": false
+}

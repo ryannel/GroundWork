@@ -1,0 +1,12 @@
+{
+  "id": "f-3",
+  "productId": "p-cart",
+  "title": "Guest cart merge on sign-in",
+  "stage": "specced",
+  "touches": [
+    "c-cart-svc",
+    "c-cart-cache"
+  ],
+  "updatedAt": "2026-08-17T18:15:22.686Z",
+  "ownerId": "ada-lovelace"
+}

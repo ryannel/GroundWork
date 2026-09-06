@@ -1,0 +1,17 @@
+{
+  "title": "Milestones",
+  "defaultOpen": true,
+  "pages": [
+    "01-upload-finalizes-meeting",
+    "02-reusable-task-components",
+    "03-reusable-note-components",
+    "04-live-transcript-to-final-rebuild",
+    "05-live-audio-durability-recovery",
+    "06-live-notes",
+    "07-live-talking-points",
+    "08-live-tasks-and-reconciliation",
+    "09-speaker-labelling",
+    "10-audio-playback-and-review",
+    "11-recording-hardening"
+  ]
+}

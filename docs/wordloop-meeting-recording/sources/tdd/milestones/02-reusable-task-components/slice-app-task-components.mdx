@@ -1,0 +1,70 @@
+---
+title: "App — Reusable Task Components"
+description: "Shared task components deliver full CRUD and search on both the tasks page and meeting detail."
+audience: engineers
+owner: product-platform
+status: active
+source_of_truth: meeting-recording bet
+---
+# App — Reusable Task Components
+
+> **Owner**: app-engineer
+> **Domain**: app
+> **Complexity**: M
+> **Prerequisite**: Milestone 01 merged
+
+This app-domain slice delivers a unified set of reusable UI components (`TaskList`, `TaskItem`, `TaskForm`, `TaskSearch`) that power the global `/tasks` page and the meeting-scoped tasks section on the meeting detail page. When this slice is complete, users can seamlessly create, edit, delete, complete, and search tasks using the identical React Server Components and Client Components on both surfaces, ensuring a consistent user experience for all future task-related milestones.
+
+## Required Capabilities
+
+### Shared Components
+- [ ] Implement `TaskItem` component displaying title, status, assignee, due date, meeting link, and sub-task count.
+- [ ] Implement `TaskList` component that renders a collection of `TaskItem`s with empty/loading states.
+- [ ] Implement `TaskForm` component (dialog or inline) for creating and editing tasks.
+- [ ] Implement `TaskSearch` component for text search and status/assignment filtering.
+
+### Global Tasks Page (`/tasks`)
+- [ ] Use shared components to render all user tasks.
+- [ ] Support creating, editing, deleting, and toggling task status.
+- [ ] Support filtering by text, status (pending/completed), and assignment.
+
+### Meeting Detail Page (`/meetings/[id]`)
+- [ ] Use shared components to render tasks scoped to the specific meeting.
+- [ ] Support creating, editing, deleting, and toggling task status (automatically scoped to the meeting).
+- [ ] Support filtering by text, status, and assignment within the meeting scope.
+
+## Dependencies
+
+- Core slice for Tasks must already support CRUD operations via the API (delivered prior to this bet or as part of foundational work).
+- Milestone 01 (Upload Finalizes Meeting) merged to ensure the meeting context and data structures are stable.
+
+## UI States
+
+| State | Trigger Condition | Visual Representation |
+|---|---|---|
+| Empty State (Global) | No tasks exist for the user | Illustration and "Create your first task" button |
+| Empty State (Meeting) | No tasks exist for the meeting | "No tasks for this meeting" message and "Add task" button |
+| Loading | Fetching tasks from API | Skeleton UI matching `TaskItem` height |
+| Search No Results | Filter/search yields 0 tasks | "No tasks match your search" message with clear filters action |
+| Task Completed | User checks the status box | Strikethrough text, muted colors, checked icon |
+| Task Creation | User clicks "New Task" | Dialog or inline form appears with task fields |
+
+## Test Cases
+
+| Test | Location | Assertion |
+|---|---|---|
+| Create Task (Global) | `test_app` | Creating a task on `/tasks` correctly updates the UI and persists the task. |
+| Create Task (Meeting) | `test_app` | Creating a task on the meeting page correctly scopes it to the meeting and persists it. |
+| Toggle Status | `test_app` | Toggling a task's status immediately updates the UI (optimistic update) and persists. |
+| Delete Task | `test_app` | Deleting a task removes it from the list after confirmation. |
+| Search & Filter | `test_app` | Entering text in the search bar correctly filters the rendered `TaskList`. |
+
+## Completion Checklist
+
+- [ ] Code merged and deployed
+- [ ] Bet progress tests pass (`./dev test bet meeting-recording`)
+- [ ] Permanent service tests implemented per [testing strategy](/docs/principles/foundations/testing)
+- [ ] Code review completed
+- [ ] API review completed (if new or modified API surfaces)
+- [ ] Testing review completed
+- [ ] System documentation updated (architecture, data flows, API reference, database reference, runbooks — as applicable)

@@ -1,0 +1,7 @@
+{
+  "id": "c-cart-svc",
+  "productId": "p-cart",
+  "name": "cart-service",
+  "repo": "acme/cart-service",
+  "order": 4
+}

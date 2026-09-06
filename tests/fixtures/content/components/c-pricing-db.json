@@ -1,0 +1,7 @@
+{
+  "id": "c-pricing-db",
+  "productId": "p-pricing",
+  "name": "pricing-db",
+  "description": "Postgres, migrations in pricing-api",
+  "order": 3
+}

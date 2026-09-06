@@ -1,0 +1,568 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "checkoutId": {
+      "type": "string"
+    },
+    "ref": {
+      "type": "string"
+    },
+    "expectedRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expectedContext": {
+      "type": "string",
+      "minLength": 1
+    },
+    "featureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+    },
+    "delivery": {
+      "type": "object",
+      "properties": {
+        "deliverables": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "planned",
+                  "in-progress",
+                  "blocked",
+                  "done"
+                ]
+              },
+              "dependsOn": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              },
+              "acceptance": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "outcome": {
+                "type": "string",
+                "minLength": 1
+              },
+              "componentIds": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "status",
+              "dependsOn",
+              "acceptance",
+              "componentIds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "tasks": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "planned",
+                  "in-progress",
+                  "blocked",
+                  "done"
+                ]
+              },
+              "dependsOn": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              },
+              "acceptance": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "deliverableId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "componentId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "scope": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "prerequisites": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "contractIds": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "status",
+              "dependsOn",
+              "acceptance",
+              "deliverableId",
+              "componentId",
+              "scope",
+              "prerequisites",
+              "contractIds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "validation": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "testIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "file": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "command": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "entryPoint": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "environment": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "realDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "substitutedDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "level": {
+                    "type": "string",
+                    "const": "end-to-end"
+                  },
+                  "deliverableId": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "testIds",
+                  "realDependencyIds",
+                  "substitutedDependencyIds",
+                  "level",
+                  "deliverableId"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "testIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "file": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "command": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "entryPoint": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "environment": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "realDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "substitutedDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "level": {
+                    "type": "string",
+                    "const": "component-integration"
+                  },
+                  "taskId": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "testIds",
+                  "realDependencyIds",
+                  "substitutedDependencyIds",
+                  "level",
+                  "taskId"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "testIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "file": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "command": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "entryPoint": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "environment": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "realDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "substitutedDependencyIds": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "level": {
+                    "type": "string",
+                    "const": "unit"
+                  },
+                  "taskId": {
+                    "type": "string",
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "testIds",
+                  "realDependencyIds",
+                  "substitutedDependencyIds",
+                  "level",
+                  "taskId"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "undecomposedTasks": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "planned",
+                  "in-progress",
+                  "blocked",
+                  "done"
+                ]
+              },
+              "dependsOn": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              },
+              "acceptance": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "deliverableId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "status",
+              "dependsOn",
+              "acceptance"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "branches": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "branch": {
+                "type": "string",
+                "minLength": 1
+              },
+              "legacyTaskId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "taskId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            },
+            "required": [
+              "branch"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "evidence": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "legacyTaskId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "taskId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "validationId": {
+                "type": "string",
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "result": {
+                "type": "string",
+                "enum": [
+                  "unverified",
+                  "passed",
+                  "failed"
+                ]
+              },
+              "recordedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1
+              },
+              "testedRevision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "environment": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "description",
+              "result",
+              "recordedAt"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "deliverables",
+        "tasks",
+        "validation",
+        "undecomposedTasks",
+        "branches",
+        "evidence"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "expectedRevision",
+    "expectedContext",
+    "featureId",
+    "delivery"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,8 @@
+{
+  "id": "c-wl-db",
+  "productId": "p-wordloop",
+  "name": "Postgres",
+  "description": "Database used by Core for meetings, recording state, transcripts, and other durable records.",
+  "order": 3,
+  "kind": "database"
+}

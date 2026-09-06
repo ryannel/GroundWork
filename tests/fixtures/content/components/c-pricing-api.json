@@ -1,0 +1,7 @@
+{
+  "id": "c-pricing-api",
+  "productId": "p-pricing",
+  "name": "pricing-api",
+  "repo": "acme/pricing-api",
+  "order": 0
+}

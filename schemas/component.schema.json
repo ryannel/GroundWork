@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+        }
+      ]
+    },
+    "productId": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+        }
+      ]
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "service",
+        "module",
+        "database",
+        "object-storage",
+        "local-storage",
+        "queue",
+        "cache",
+        "external-service"
+      ]
+    },
+    "parentId": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+        }
+      ]
+    },
+    "dependsOn": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "allOf": [
+          {
+            "pattern": "\\S"
+          },
+          {
+            "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ]
+      }
+    },
+    "repo": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  },
+  "required": [
+    "id",
+    "productId",
+    "name"
+  ],
+  "additionalProperties": false
+}

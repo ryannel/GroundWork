@@ -1,0 +1,135 @@
+@import "./tokens.css";
+@import "./planning.css";
+@import "./workbench.css";
+@import "./directory.css";
+@import "./interactions.css";
+
+@layer base {
+  * { border-color: var(--border); }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "ss01", "cv11";
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent-soft); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border: 3px solid transparent; background-clip: padding-box; border-radius: 999px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* ---------- Ambient background + noise ---------- */
+.ambient {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; transform: translateZ(0);
+  background:
+    radial-gradient(60% 50% at 12% 0%,  var(--ambient-a) 0%, transparent 70%),
+    radial-gradient(50% 45% at 90% 15%, var(--ambient-b) 0%, transparent 70%),
+    radial-gradient(45% 45% at 60% 100%, var(--ambient-c) 0%, transparent 70%),
+    var(--bg);
+}
+.ambient::before {
+  content: ""; position: absolute; inset: 0; background: var(--vignette);
+}
+.ambient::after {
+  content: ""; position: absolute; inset: 0; opacity: var(--noise-opacity); mix-blend-mode: overlay;
+  background-image: var(--noise-image);
+  background-size: 200px 200px;
+}
+
+/* ---------- Glass surfaces ----------
+   glass-1 (cards, rows, panels) is a translucent fill with NO backdrop blur: it sits on a
+   static ambient gradient so blur adds nothing, and Chromium renders stale-band artifacts
+   on blurred elements inside scrolling content. Blur is reserved for glass-2/3, which
+   float over moving content (sticky bars, popovers, modals). Controls use `surface`. */
+@utility glass-1 {
+  background-color: var(--glass-fill-1);
+  background-image: var(--surface-texture);
+  background-size: 200px 200px;
+  border: 1px solid var(--glass-border-1);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-1);
+}
+@utility glass-2 {
+  background-color: var(--glass-fill-2);
+  background-image: var(--surface-texture);
+  background-size: 200px 200px;
+  border: 1px solid var(--glass-border-2);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-2);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  isolation: isolate;
+}
+@utility glass-3 {
+  background-color: var(--glass-fill-3);
+  background-image: var(--surface-texture);
+  background-size: 200px 200px;
+  border: 1px solid var(--glass-border-3);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-3);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  isolation: isolate;
+}
+/* Flat translucent surface for controls: no blur, no shadow */
+@utility surface {
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border-1);
+}
+@utility surface-strong {
+  background: var(--glass-fill-3);
+  border: 1px solid var(--glass-border-2);
+}
+/* For sticky/fixed glass bars: keep a persistent compositing layer so the blur
+   isn't rebuilt every frame as content scrolls beneath it (Chromium flicker). */
+@utility glass-sticky {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
+}
+/* Hover treatment for glass containers: no transform (transforms + backdrop-filter flicker). */
+@utility glass-interactive {
+  cursor: pointer;
+  transition: border-color 160ms ease-out, background-color 160ms ease-out, box-shadow 200ms var(--ease-out-quart);
+  &:hover { border-color: var(--glass-border-3); background: var(--glass-fill-2); box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-2); }
+}
+
+/* Identity hue helpers: set --hue on the element, get tints via these */
+@utility hue-fg     { color: hsl(var(--hue)); }
+@utility hue-bg     { background: hsl(var(--hue) / 0.12); }
+@utility hue-border { border-color: hsl(var(--hue) / 0.30); }
+@utility hue-dot    { background: hsl(var(--hue)); box-shadow: 0 0 0 3px hsl(var(--hue) / 0.18); }
+@utility hue-glow   { box-shadow: 0 0 40px -8px hsl(var(--hue) / 0.55); }
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+}
+
+@utility eyebrow {
+  font-size: var(--text-micro); line-height: var(--text-micro--line-height);
+  letter-spacing: var(--text-micro--letter-spacing); text-transform: uppercase;
+  font-weight: 500; color: var(--fg-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+@utility no-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+
+/* Cross-reference focus: the item a deep link points at. */
+@keyframes focus-flash {
+  0%   { box-shadow: inset 0 0 0 2px var(--accent); background-color: var(--accent-soft); }
+  60%  { box-shadow: inset 0 0 0 2px var(--accent); background-color: var(--accent-soft); }
+  100% { box-shadow: inset 0 0 0 1px var(--accent); background-color: transparent; }
+}
+.focus-flash { animation: focus-flash 2.4s ease-out 1 forwards; }
