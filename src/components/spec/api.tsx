@@ -1,52 +1,137 @@
+import { useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useDisclosures } from './use-disclosures'
 import type { Api, ApiContract } from '@/data/spec'
 import { q } from '@/data/store'
-import { ArrowRight, ChevronDown } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 import { cn } from '@/lib/cn'
-import { changeSummary } from './change-meta'
-import { LensNote, RefRow } from './refs'
-import { useFocus, useLens, useSpec } from './context'
+import { RefRow } from './refs'
+import { useFocus, useSpec } from './context'
 import { ResponseSchema } from './response-schema'
+import { componentScopeIds } from '@/data/component-structure'
+import { contractKind, groupContracts, contractNotes, apiOperations, apiProvider } from '@/data/api-reference'
 
-const endpointLabel = { added: 'New endpoint', updated: 'Modified endpoint', removed: 'Removed endpoint', unchanged: 'Unchanged endpoint', unspecified: 'Change not assessed' }
+const changeLabel = { added: 'Added', updated: 'Modified', removed: 'Removed', unchanged: 'Unchanged', unspecified: 'Not assessed' }
+const kindLabel = { http: 'HTTP API', messages: 'Outgoing messages', other: 'Other API contracts' }
+function Prose({ text }: { text: string }) {
+  return <>{text.split(/\n+|\s+(?=- [A-Z][\w -]+:)/).filter(Boolean).map((p, i) => <p key={i}>{p.replace(/^- /, '').split(/(`[^`]+`)/g).map((part, j) => part.startsWith('`') ? <code key={j}>{part.slice(1, -1)}</code> : part)}</p>)}</>
+}
 
-export function ApiContractCard({ c, open, onToggle, focus, compact = false }: { c: ApiContract; open: boolean; onToggle: () => void; focus?: string; compact?: boolean }) {
-  const { ix } = useSpec()
+export function ApiContractCard({ c, open, onToggle, focus, compact = false, grouped = false }: { c: ApiContract; open: boolean; onToggle: () => void; focus?: string; compact?: boolean; grouped?: boolean }) {
   const f = useFocus(c.id, compact ? undefined : focus)
-  const edge = ix.contractEdge[c.id]
-  const tests = ix.contractTests[c.id] ?? []
+  const message = contractKind(c) === 'messages'
+  const distinctName = c.name !== `${c.method} ${c.path}` && c.name !== c.path
   return <article ref={f} className={cn('api-contract', open && 'is-open', focus === c.id && !compact && 'focus-flash')}>
-    <button aria-expanded={open} onClick={onToggle} className="api-contract-toggle">
-      <span className={`endpoint-symbol schema-state-${c.change}`} aria-hidden="true">{c.change === 'added' ? '+' : c.change === 'removed' ? '−' : c.change === 'unspecified' ? '?' : c.change === 'unchanged' ? '=' : '~'}</span>
-      <code className={cn(c.change === 'removed' && 'line-through')}>{c.method} {c.path}</code>
-      <span className={`endpoint-status schema-state-${c.change}`}>{endpointLabel[c.change]}</span>
+    <button aria-expanded={open} aria-label={`${c.method ?? 'Contract'} ${c.path} · ${q.componentLabel(c.from)} to ${q.componentLabel(c.to)}`} onClick={onToggle} className="api-contract-toggle">
+      <span className={`api-method method-${c.method?.toLowerCase() ?? 'other'}`}>{c.method ?? 'API'}</span>
+      <span className="api-operation-label">{(!grouped || message) && <span className={cn('api-operation-name', c.change === 'removed' && 'line-through')}>{message ? c.name : <code>{c.path}</code>}</span>}{grouped && !message && distinctName && <span className="api-operation-name">{c.name}</span>}<span className="api-direction">{q.componentLabel(c.from)} → {q.componentLabel(c.to)}</span></span>
+      {c.change !== 'unspecified' && c.change !== 'unchanged' && <span className={`endpoint-status schema-state-${c.change}`}>{changeLabel[c.change]}</span>}
       <ChevronDown size={14} className={cn(open && 'rotate-180')} />
     </button>
-    {open && <div className="api-contract-body">
-      {c.responseSchema ? <ResponseSchema schema={c.responseSchema} /> : c.response ? <section className="api-example"><h4>Response example</h4><pre>{c.response}</pre><p>Field changes have not been specified.</p></section> : <p className="api-no-response">{c.method === 'EVENT' ? 'This event has a payload and no response body.' : 'No response schema specified.'}</p>}
-      {c.request && <details className="api-request"><summary>{c.method === 'EVENT' ? 'Event payload' : 'Request example'}</summary><pre>{c.request}</pre></details>}
-      {c.note && <p className="api-contract-note">{c.note}</p>}
-      {!compact && <RefRow cols={2} className="api-connections" groups={[
-        { label: 'In flow', refs: edge ? [{ kind: 'flow', id: ix.edge[edge].from }, { kind: 'flow', id: ix.edge[edge].to }] : [] },
-        { label: 'Used at', refs: (ix.contractSteps[c.id] ?? []).map(id => ({ kind: 'journey', id })) },
-        { label: 'Tested by', refs: tests.map(id => ({ kind: 'tests', id })), warn: c.change === 'removed' ? undefined : 'no linked test' },
-      ]} />}
+    {open && <ContractDetails c={c} compact={compact} />}
+  </article>
+}
+
+function ContractDetails({ c, compact = false }: { c: ApiContract; compact?: boolean }) {
+  const { ix, featureId } = useSpec()
+  const edge = ix.contractEdge[c.id]
+  const tests = ix.contractTests[c.id] ?? []
+  const notes = contractNotes(c.note)
+  const message = contractKind(c) === 'messages'
+  return <div className="api-contract-body">
+      <div className="api-detail-overview">
+        {message && <code className="api-message-address">{c.path}</code>}
+        {notes.description && <section className="api-behavior"><h4>Behavior</h4><Prose text={notes.description} /></section>}
+        {!!notes.facts.length && <dl className="api-facts">{notes.facts.map((fact, i) => <div key={i}><dt>{fact.label === 'Auth' ? 'Authentication' : fact.label === 'Query params' ? 'Query parameters' : fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>}
+        <p className="api-change-note">Change assessment: {changeLabel[c.change].toLowerCase()}.</p>
+        {!!c.changes?.length && <ul className="api-changes">{c.changes.map((change, i) => <li key={i}>{change}</li>)}</ul>}
+      </div>
+      {c.request && <details className="api-request" open={message}><summary>{message ? 'Message payload' : 'Request example'}</summary><pre>{c.request}</pre></details>}
+      {(!message || c.response || c.responseSchema) && <section className="api-response-section">{c.responseSchema ? <ResponseSchema schema={c.responseSchema} /> : c.response ? <div className="api-example"><h4>Response example</h4><pre>{c.response}</pre></div> : <p className="api-schema-gap">Response fields have not been documented.</p>}</section>}
+      {!compact && <details className="api-related"><summary>Usage, flow & tests{tests.length > 0 ? ` · ${tests.length} tests` : ''}</summary><p className="api-usage-note">{message ? `Sent by ${q.componentLabel(c.from)} · Received by ${q.componentLabel(c.to)}` : `Provided by ${q.componentLabel(c.to)} · Called by ${q.componentLabel(c.from)}`}</p><RefRow cols={1} className="api-connections" groups={[
+        { label: 'Flow', refs: edge ? [{ kind: 'flow', id: ix.edge[edge].from }, { kind: 'flow', id: ix.edge[edge].to }] : [] },
+        { label: 'Journey', refs: (ix.contractSteps[c.id] ?? []).map(id => ({ kind: 'journey', id })) },
+        { label: 'Tests', refs: tests.map(id => ({ kind: 'tests', id })), warn: c.change === 'removed' ? undefined : 'No linked test' },
+      ]} /></details>}
+      <footer className="api-contract-footer"><Link to={`/f/${featureId}/api/${c.id}`}>Contract: {c.id}</Link>{c.note && <details><summary>Original contract notes</summary><div className="api-source-notes">{c.note}</div></details>}</footer>
+    </div>
+}
+
+type Operation = ReturnType<typeof apiOperations>[number]
+function OperationCard({ operation, open, onToggle, focus }: { operation: Operation; open: boolean; onToggle: () => void; focus?: string }) {
+  const focused = operation.records.some(c => c.id === focus)
+  const ref = useFocus(operation.key, focused ? operation.key : undefined)
+  const changes = [...new Set(operation.records.flatMap(c => c.changes ?? []))]
+  return <article ref={ref} className={cn('api-contract', open && 'is-open', focused && 'focus-flash')}>
+    <button className="api-contract-toggle" aria-expanded={open} onClick={onToggle} aria-label={`${operation.method ?? 'Contract'} ${operation.path}`}>
+      <span className={`api-method method-${operation.method?.toLowerCase() ?? 'other'}`}>{operation.method ?? 'API'}</span>
+      <span className="api-operation-label">{operation.kind !== 'http' && <code className="api-operation-name">{operation.records[0].name}</code>}{changes.length > 0 && <span className="api-operation-change">{changes[0]}</span>}</span>
+      {operation.change !== 'unspecified' && <span className={`endpoint-status schema-state-${operation.change}`}>{operation.change === 'mixed' ? 'Review assessments' : changeLabel[operation.change]}</span>}
+      <ChevronDown size={14} className={cn(open && 'rotate-180')} />
+    </button>
+    {open && <div>
+      {operation.records.length === 1 ? <ContractDetails c={operation.records[0]} /> : <div className="api-usage-variants"><p>One operation, with {operation.records.length} documented access cases. Their authentication, fields, and examples are preserved below.</p>{operation.change === 'mixed' && <p>The source records disagree on change status. Review them before assigning one assessment to this operation.</p>}{operation.records.map(c => <details key={c.id} open={focus === c.id}><summary>{operation.kind === 'messages' ? `Received by ${q.componentLabel(c.to)}` : `Access from ${q.componentLabel(c.from)}`}{c.name !== `${c.method} ${c.path}` && ` · ${c.name}`}</summary><ContractDetails c={c} /></details>)}</div>}
     </div>}
   </article>
 }
 
 export function ApiSection({ data: full, focus }: { data: Api; focus?: string }) {
-  const lens = useLens('api')
-  const data = { contracts: lens ? full.contracts.filter(c => lens.has(c.id)) : full.contracts }
-  const { open, toggle, replace: setOpen } = useDisclosures([focus ?? data.contracts.find(c => c.change === 'updated')?.id ?? data.contracts[0]?.id].filter((id): id is string => !!id), focus)
-  const all = data.contracts.length > 0 && data.contracts.every(c => open.has(c.id))
-  const boundaries = [...new Set(data.contracts.map(c => `${c.from}→${c.to}`))]
-  return <div className="api-section">
-    <div className="api-section-summary"><span>{data.contracts.length} contracts · {changeSummary(data.contracts.map(c => c.change))}</span><LensNote shown={data.contracts.length} total={full.contracts.length} kind="contracts" /><button disabled={!data.contracts.length} onClick={() => setOpen(all ? new Set() : new Set(data.contracts.map(c => c.id)))}>{all ? 'Collapse all' : 'Expand all'}</button></div>
-    {!data.contracts.length && <p>No contracts in this scope. Choose All components to explore the full plan.</p>}
-    {boundaries.map(boundary => {
-      const [from, to] = boundary.split('→')
-      return <section key={boundary} className="api-boundary"><h3><span>{q.componentLabel(from)}</span><ArrowRight size={13} /><span>{q.componentLabel(to)}</span></h3>{data.contracts.filter(c => `${c.from}→${c.to}` === boundary).map(c => <ApiContractCard key={c.id} c={c} open={open.has(c.id)} onToggle={() => toggle(c.id)} focus={focus} />)}</section>
+  const { featureId } = useSpec()
+  const [params] = useSearchParams()
+  const selected = q.component(params.get('component') ?? '')
+  const allOperations = apiOperations(full.contracts)
+  const componentIds = [...new Set([...allOperations.map(op => op.provider), ...(full.guides ?? []).map(g => g.componentId)])].sort((a, b) => Number(allOperations.some(op => op.provider === b && op.kind === 'http')) - Number(allOperations.some(op => op.provider === a && op.kind === 'http')) || q.componentLabel(a).localeCompare(q.componentLabel(b)))
+  const focusedContract = full.contracts.find(c => c.id === focus)
+  const activeId = focusedContract ? apiProvider(focusedContract) : selected?.id ?? componentIds[0]
+  const scope = activeId ? componentScopeIds(activeId, q.components()) : new Set<string>()
+  const contracts = full.contracts.filter(c => scope.has(apiProvider(c)))
+  const operations = apiOperations(contracts)
+  const [view, setView] = useState({ focus, query: '', change: '' })
+  if (view.focus !== focus) setView({ focus, query: '', change: '' })
+  const { open, toggle, replace } = useDisclosures(focus ? [focus] : [], focus)
+  const query = view.query.trim().toLowerCase()
+  const visible = operations.filter(op => (!view.change || op.change === view.change) && (!query || op.records.some(c => [c.name, c.path, c.id, c.note, ...(c.changes ?? []), q.componentLabel(op.provider)].join(' ').toLowerCase().includes(query))))
+  const providers = componentIds.filter(id => scope.has(id))
+  const isOpen = (op: Operation) => op.records.some(c => open.has(c.id))
+  return <div className="api-section api-by-provider">
+    <nav className="api-component-guides" aria-label="Component APIs">{componentIds.map(id => <Link key={id} to={`/f/${featureId}/api?component=${encodeURIComponent(id)}`} aria-current={activeId === id ? 'page' : undefined}>{q.componentLabel(id)}</Link>)}</nav>
+    {!providers.length && <p className="api-empty">No component APIs have been documented for this feature yet.</p>}
+    {providers.map(provider => {
+      const provided = visible.filter(op => op.provider === provider)
+      const guide = full.guides?.find(g => g.componentId === provider)
+      return <section className="api-provider" key={provider}>
+        <header className="api-provider-heading"><h3>{q.componentLabel(provider)} API</h3><p>{q.component(provider)?.description}</p>
+          {guide && <details className="api-component-about"><summary>About {q.componentLabel(provider)} and this feature</summary><Prose text={guide.overview} /><h4>What this feature requires</h4><Prose text={guide.featureImpact} /></details>}
+        </header>
+        <div className="api-toolbar"><label className="api-search"><Search size={15} /><input type="search" aria-label="Search component APIs" placeholder="Find an endpoint or message…" value={view.query} onChange={e => setView({ ...view, query: e.target.value })} /></label><label>Change<select aria-label="Filter API changes" value={view.change} onChange={e => setView({ ...view, change: e.target.value })}><option value="">All changes</option>{Object.entries(changeLabel).map(([value, label]) => <option key={value} value={value}>{label}</option>)}<option value="mixed">Review assessments</option></select></label></div>
+        <div className="api-section-summary"><span role="status">{provided.length} operations & messages</span><button disabled={!operations.some(isOpen)} onClick={() => replace(new Set())}>Collapse details</button></div>
+        {!provided.length && <div className="api-empty"><h3>No matching API definitions</h3><p>Try another component, change status, or search.</p><button onClick={() => setView({ ...view, query: '', change: '' })}>Clear filters</button></div>}
+        {(['http', 'messages', 'other'] as const).map(kind => {
+          const surface = provided.filter(op => op.kind === kind)
+          if (!surface.length) return null
+          // Assign whole endpoints, not individual methods, to their first matching guide.
+          // Unlinked endpoints retain a resource group, so incomplete guides hide nothing.
+          const endpoints = groupContracts(surface.flatMap(op => op.records)).flatMap(resource => resource.endpoints.map(endpoint => ({ ...endpoint, resource: resource.name })))
+          const groups = new Map<string, { title: string; description?: string; endpoints: typeof endpoints }>()
+          for (const endpoint of endpoints) {
+            const capability = guide?.capabilities.find(cap => endpoint.contracts.some(c => cap.contractIds.includes(c.id)))
+            const key = capability ? `guide:${capability.id}` : `resource:${endpoint.resource}`
+            const group = groups.get(key) ?? { title: capability?.title ?? endpoint.resource, description: capability?.description, endpoints: [] }
+            group.endpoints.push(endpoint)
+            groups.set(key, group)
+          }
+          return <section key={kind} className="api-provider-surface" aria-label={kindLabel[kind]}>
+            {kind !== 'http' && <header><h4>{kindLabel[kind]}</h4>{kind === 'messages' && <p className="api-assessment-note">Messages this component sends. Receiving components and usage are documented in the details.</p>}</header>}
+            {[...groups].map(([key, group]) => <section key={key} className="api-resource">
+              <header><h4>{group.title}</h4>{group.description && <div className="api-resource-context"><Prose text={group.description} /></div>}</header>
+              {group.endpoints.map(endpoint => <div className="api-endpoint-group" key={endpoint.path}>
+                <h5 className="api-endpoint-path"><code>{endpoint.path}</code></h5>
+                {apiOperations(endpoint.contracts).map(op => <OperationCard key={op.key} operation={op} open={isOpen(op)} onToggle={() => { if (isOpen(op)) replace(new Set([...open].filter(id => !op.records.some(c => c.id === id)))); else toggle(op.records[0].id) }} focus={focus} />)}
+              </div>)}
+            </section>)}
+          </section>
+        })}
+      </section>
     })}
   </div>
 }

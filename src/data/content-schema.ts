@@ -37,7 +37,11 @@ export const apiContractSchema = z.strictObject({
   method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']).optional(), path: text,
   request: text.optional(), response: text.optional(), responseSchema: responseSchema.optional(), note: text.optional(),
 })
-export const apiSchema = z.strictObject({ contracts: z.array(apiContractSchema) })
+export const apiGuideSchema = z.strictObject({
+  componentId: id, overview: text, featureImpact: text,
+  capabilities: z.array(z.strictObject({ id, title: text, description: text, contractIds: ids })),
+})
+export const apiSchema = z.strictObject({ contracts: z.array(apiContractSchema), guides: z.array(apiGuideSchema).optional() })
 export const columnSchema = z.strictObject({ name: text, type: text, note: text.optional(), key: z.boolean().optional(), change: changeSchema.optional() })
 export const tableSchema = z.strictObject({ id, component: id, name: text, kind: z.enum(['table', 'object', 'local-file']).optional(), change: changeSchema, columns: z.array(columnSchema), note: text.optional() })
 export const storageSchema = z.strictObject({ tables: z.array(tableSchema) })

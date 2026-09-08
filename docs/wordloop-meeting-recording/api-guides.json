@@ -1,0 +1,149 @@
+[
+  {
+    "componentId": "c-wl-core",
+    "overview": "Core is the durable home for a meeting. It owns the meeting record, recorded audio, transcripts, insights, and action items. Its API gives those resources stable identities and saved state; it also coordinates recording and notifies clients when records change.",
+    "featureImpact": "Meeting Recording requires Core to accept uploaded and live audio, track processing and recovery, and make the resulting transcript and insights available for later review. User edits must survive replacement of machine-generated results. The contracts below describe that target behavior; unassessed entries still need comparison with the existing implementation.",
+    "capabilities": [
+      {
+        "id": "meeting-records",
+        "title": "A meeting is the parent record",
+        "description": "Create the meeting first. Its ID ties together the recording, transcript, insights, and tasks. The list API returns compact summaries; the detail API can expand selected related resources. Updates and deletion operate on this saved record.",
+        "contractIds": [
+          "api-meeting-post-meetings",
+          "api-meeting-get-meetings",
+          "api-meeting-get-meetings-id",
+          "api-meeting-patch-meetings-id",
+          "api-meeting-patch-meetings-id-ml",
+          "api-meeting-delete-meetings-id"
+        ]
+      },
+      {
+        "id": "audio-and-recovery",
+        "title": "Audio has its own recording lifecycle",
+        "description": "Audio upload, live recording state, and playback are separate concerns. Recording state tracks what has been received and which chunks are missing; recovery endpoints accept those missing chunks. Playback uses a temporary audio URL. The import names both /audio and /upload for upload, so that route needs reconciliation before implementation.",
+        "contractIds": [
+          "api-audio-post-meetings-id-audio",
+          "api-upload-milestone",
+          "api-recording-get-meetings-id-recording",
+          "api-recording-get-meetings-id-recording-missing-chunks",
+          "api-recording-post-meetings-id-recording-chunks",
+          "api-meeting-get-meetings-id-audio-url"
+        ]
+      },
+      {
+        "id": "transcripts-and-insights",
+        "title": "Processing results become readable resources",
+        "description": "A transcription exposes status and timed segments. Synthesis contains the headline, summary, topics, and talking points. Write-back operations save processing results into Core; read operations make them available to the product. Replacement events tell clients when to refresh a transcript or synthesis.",
+        "contractIds": [
+          "api-transcription-get-transcriptions-id",
+          "api-transcription-get-transcriptions-id-segments",
+          "api-transcription-patch-transcriptions-id-status",
+          "api-transcription-put-transcriptions-id-segments",
+          "api-synthesis-get-meetings-id-synthesis",
+          "api-synthesis-put-meetings-id-synthesis",
+          "api-transcription-transcriptrevisedevent",
+          "api-synthesis-synthesisupdatedevent"
+        ]
+      },
+      {
+        "id": "action-items",
+        "title": "Generated tasks can become user-owned work",
+        "description": "Action items can be listed within a meeting or across meetings. People can create, edit, complete, and delete them. The system-replacement operation reconciles generated items while preserving user-created and user-edited tasks; it is different from simply replacing the whole task list.",
+        "contractIds": [
+          "api-task-get-tasks",
+          "api-task-get-meetings-id-tasks",
+          "api-task-post-tasks",
+          "api-task-patch-tasks-id",
+          "api-task-delete-tasks-id",
+          "api-task-put-meetings-id-tasks-system"
+        ]
+      },
+      {
+        "id": "people-and-speakers",
+        "title": "A speaker label is not yet a person",
+        "description": "Transcript speaker labels identify voices within a recording. People are durable records. A speaker assignment connects the two, and Core preserves that mapping so a final transcript rebuild does not erase the user\u2019s assignment.",
+        "contractIds": [
+          "api-person-get-people",
+          "api-person-post-people",
+          "api-meeting-post-meetings-id-speaker-labels",
+          "api-person-speakerstateupdatedevent"
+        ]
+      }
+    ]
+  },
+  {
+    "componentId": "c-wl-ml",
+    "overview": "ML turns audio into language and structured meeting results. Its API exposes processing work: batch transcription jobs, live sessions, and voice-profile operations. It uses transcription and language-model providers, while durable meeting records and final results are written through Core.",
+    "featureImpact": "Meeting Recording needs both a complete pass over recorded audio and a live stream of provisional results. ML must expose progress, drain a live session cleanly when recording stops, and produce results that Core can persist. These are target capabilities; their implementation change assessments are tracked separately below.",
+    "capabilities": [
+      {
+        "id": "batch-jobs",
+        "title": "A transcription job processes a recording",
+        "description": "A job identifies one piece of batch processing work. The run endpoint provides deterministic execution control and the job endpoint exposes progress. The pipeline transcribes audio and then extracts meeting insights; saved results are delivered through Core\u2019s write-back APIs.",
+        "contractIds": [
+          "api-transcription-post-transcription-jobs-id-run",
+          "api-transcription-get-transcription-jobs-id"
+        ]
+      },
+      {
+        "id": "live-sessions",
+        "title": "A live session holds processing state",
+        "description": "A live session belongs to a meeting and maintains the state needed for streaming transcription. Starting or inspecting the session is different from editing the meeting. Draining asks processing to finish outstanding audio and final segments before the session ends; speaker-state updates provide context during the session.",
+        "contractIds": [
+          "api-recording-post-meetings-id-live-session",
+          "api-recording-get-meetings-id-live-session",
+          "api-recording-post-meetings-id-live-session-drain",
+          "api-recording-post-meetings-id-live-session-speaker-states"
+        ]
+      },
+      {
+        "id": "voice-profiles",
+        "title": "Voice profiles support speaker recognition",
+        "description": "A voice profile represents information used to recognize a voice. The profile and matching operations support speaker identification; they do not replace Core\u2019s person record or the user\u2019s assignment of a person to a transcript label.",
+        "contractIds": [
+          "api-person-post-voice-profiles",
+          "api-person-post-voice-profiles-matches"
+        ]
+      },
+      {
+        "id": "processing-messages",
+        "title": "Live results and health are messages",
+        "description": "ML sends transcript segments, provisional insights, and processing-health signals as work proceeds. Backpressure reports that processing is falling behind; recovery signals report when it catches up. These messages are the output of a live process, rather than additional HTTP endpoints.",
+        "contractIds": [
+          "api-transcription-transcriptsegmentproducedevent",
+          "api-synthesis-talkingpointproducedevent",
+          "api-task-taskproducedevent",
+          "api-audio-backpressureevent",
+          "api-audio-backpressureclearedevent",
+          "api-recording-streamdrainedevent"
+        ]
+      }
+    ]
+  },
+  {
+    "componentId": "c-wl-app",
+    "overview": "App is the browser experience for capturing and reviewing meetings. It owns microphone interaction, the local audio buffer, and what the user sees. This feature plan documents the messages App sends to the recording service; it does not define an HTTP API hosted by App.",
+    "featureImpact": "Meeting Recording needs the browser to start and stop recording, send audio, and resume after a connection interruption. Saved meeting data is retrieved through Core\u2019s API. The system flow describes how those calls and messages connect to the user journey.",
+    "capabilities": [
+      {
+        "id": "recording-controls",
+        "title": "User actions become recording commands",
+        "description": "Starting, stopping, and resuming are commands sent by the browser. A resume command carries local sequence information so the recording service can determine what audio is missing. The command requests a transition; stored recording state remains with Core.",
+        "contractIds": [
+          "api-recording-startrecordingcommand",
+          "api-recording-stoprecordingcommand",
+          "api-recording-resumerecordingcommand"
+        ]
+      },
+      {
+        "id": "audio-transport",
+        "title": "Audio frames carry identity and ordering",
+        "description": "The browser sends binary audio frames with metadata such as meeting ID and sequence number. That envelope lets the service associate and order audio chunks. A separate refresh command maintains the connection\u2019s authentication as recording continues.",
+        "contractIds": [
+          "api-audio-browser-binary-audio-frame",
+          "api-infrastructure-authrefreshcommand"
+        ]
+      }
+    ]
+  }
+]

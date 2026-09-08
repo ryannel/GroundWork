@@ -15,6 +15,17 @@ export async function installInstructions(root: string) {
   for (const file of await readdir(path.join(packageRoot, 'schemas'))) {
     if (file.endsWith('.json')) await atomicFile(root, `.groundwork/schemas/${file}`, await readFile(path.join(packageRoot, 'schemas', file), 'utf8'))
   }
+  const packageFile = await safePath(root, 'package.json')
+  const packageText = await readFile(packageFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
+  if (packageText) {
+    const pkg = JSON.parse(packageText)
+    pkg.scripts ??= {}
+    let changed = false
+    for (const [name, command] of Object.entries({ 'plans:start': 'groundwork-v2 start', 'plans:standalone': 'groundwork-v2 serve', 'plans:hub': 'groundwork-v2 hub' })) {
+      if (!(name in pkg.scripts)) { pkg.scripts[name] = command; changed = true }
+    }
+    if (changed) await atomicFile(root, 'package.json', JSON.stringify(pkg, null, 2) + '\n')
+  }
   const instruction = 'For Groundwork planning, read [.groundwork/GUIDE.md](.groundwork/GUIDE.md). Use the installed `groundwork-v2` CLI or MCP server and preserve checkout context and revision checks.'
   for (const name of ['AGENTS.md', 'CLAUDE.md']) {
     const file = await safePath(root, name)

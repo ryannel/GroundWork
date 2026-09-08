@@ -3,6 +3,7 @@ import { readFile, lstat } from 'node:fs/promises'
 import { watch } from 'node:fs'
 import path from 'node:path'
 import { randomBytes } from 'node:crypto'
+import { viewerIdentity } from './viewer-identity.ts'
 import { inventory, selectRoot } from './registry.ts'
 import { Conflict, readPlan, safePath } from './repository.ts'
 import { activity, digest, resolveRef } from './git.ts'
@@ -47,6 +48,7 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       const url = new URL(req.url!, `http://${req.headers.host}`)
       const checkoutId = url.searchParams.get('checkoutId') ?? undefined
       const ref = url.searchParams.get('ref') ?? undefined
+      if (req.method === 'GET' && url.pathname === '/api/viewer') return json(await viewerIdentity(options.root))
       if (req.method === 'GET' && url.pathname === '/api/session') return json({ token, mode: options.root ? 'standalone' : 'central' })
       if (req.method === 'GET' && url.pathname === '/api/projects') return json(await inventory(options.root))
       if (req.method === 'GET' && url.pathname === '/api/snapshot') return json(await snapshot(checkoutId, ref))
@@ -93,7 +95,7 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       }
       if (req.method !== 'GET' && req.method !== 'HEAD') return json({ error: 'Method not allowed' }, 405)
       if (url.pathname.startsWith('/api/')) return json({ error: 'Unknown API route' }, 404)
-      const relative = decodeURIComponent(url.pathname).slice(1) || 'index.html'
+      const relative = decodeURIComponent(url.pathname).slice(1).replace(/\/$/, '') || 'index.html'
       let file = await safePath(viewer, relative)
       if (!(await lstat(file).catch(() => null))?.isFile()) {
         if (path.extname(relative)) return json({ error: 'File not found' }, 404)

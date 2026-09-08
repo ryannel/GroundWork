@@ -14,7 +14,6 @@ export interface RuntimePlan {
 }
 interface RuntimeState { loading: boolean; mode: 'demo' | 'standalone' | 'central'; connected: boolean; plan: RuntimePlan | null; error: string | null; projects: Checkout[] }
 let state: RuntimeState = { loading: true, mode: 'standalone', connected: false, plan: null, error: null, projects: [] }
-let token = ''
 let apply: ((snapshot: ContentSnapshot) => void) | undefined
 const listeners = new Set<() => void>()
 const route = /^\/p\/([^/]+)(?:\/ref\/([^/]+))?/.exec(window.location.pathname)
@@ -36,7 +35,6 @@ export async function startRuntime() {
     const response = await fetch('/api/session')
     if (!response.ok) throw new Error('Groundwork service is unavailable')
     const session = await response.json()
-    token = session.token
     publish({ mode: session.mode, connected: true })
     await refreshProjects()
     if (session.mode === 'central' && !checkoutId) { publish({ loading: false }); setInterval(() => { void refreshProjects().catch(error => publish({ error: error.message })) }, 3000); return }
@@ -57,12 +55,4 @@ export async function startRuntime() {
       catch (error) { publish({ loading: false, mode: 'demo', error: String(error) }) }
     } else publish({ loading: false, error: (error as Error).message })
   }
-}
-export async function mutate(operation: string, args: Record<string, unknown>) {
-  const plan = state.plan
-  if (!plan || !plan.context.editable || state.error || !state.connected) throw new Error('Select a valid, connected working checkout before editing')
-  const response = await fetch(`/api/operations/${operation}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ ...args, checkoutId: plan.context.checkoutId, expectedRevision: plan.revision, expectedContext: plan.context.token }) })
-  const result = await response.json()
-  if (!response.ok) throw new Error(result.error ?? 'Write failed')
-  return result
 }

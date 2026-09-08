@@ -25,7 +25,7 @@ const files = {
 function sample() {
   return deliverySchema.parse({
     deliverables: [{ id: 'm1', title: 'Save an item', outcome: 'The user can save and retrieve an item', componentIds: ['ui', 'api'], status: 'done', acceptance: ['The item survives a reload'] }],
-    tasks: [{ id: 's1', deliverableId: 'm1', componentId: 'api', title: 'API persistence', scope: ['Persist requests through the API'], contractIds: ['save'], status: 'done', acceptance: ['The API writes and reads the record'] }],
+    tasks: [{ id: 's1', deliverableId: 'm1', componentId: 'api', title: 'API persistence', summary: 'A saved item can be read back through the API.', scope: ['Persist requests through the API'], contractIds: ['save'], status: 'done', acceptance: ['The API writes and reads the record'] }],
     validation: [
       { id: 'e2e', level: 'end-to-end', deliverableId: 'm1', title: 'Full save journey', testIds: ['journey'], file: 'tests/save-e2e.ts', command: 'npm run test:e2e', entryPoint: 'Browser save form', environment: 'UI, API and Postgres', realDependencyIds: ['ui', 'api', 'db'] },
       { id: 'service', level: 'component-integration', taskId: 's1', title: 'API boundary', testIds: ['boundary'], file: 'tests/save-service.ts', command: 'npm run test:service', entryPoint: 'POST /items', environment: 'Real API with containerised Postgres', realDependencyIds: ['api', 'db'] },
@@ -93,6 +93,7 @@ test('old task records stay readable and remain visibly undecomposed', () => {
 })
 test('existing milestone and slice documents retain identity, dependencies and proof on read', () => {
   const canonical = sample()
+  delete canonical.tasks[0].summary
   canonical.branches.push({ branch: 'main', taskId: 's1' })
   canonical.evidence.push({ ...proof('service', 'passed'), taskId: 's1' })
   const legacy = {
@@ -122,6 +123,7 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
   }
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: sample() })).status, 200)
   assert.equal((await readPlan(root)).delivery.f.tasks[0].componentId, 'api')
+  assert.equal((await readPlan(root)).delivery.f.tasks[0].summary, 'A saved item can be read back through the API.')
   const stored = JSON.parse((await readPlan(root)).files['features/f/delivery.json'])
   assert.equal(stored.tasks[0].deliverableId, 'm1')
   assert.equal('milestones' in stored || 'slices' in stored, false)

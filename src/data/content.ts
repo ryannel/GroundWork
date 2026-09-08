@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { documentSchemas, sectionSchemas, type FeatureRecord, type Member, type Project } from './content-schema.ts'
 import { componentPath, componentKindLabel } from './component-structure.ts'
+import { apiProvider } from './api-reference.ts'
 import { actionFlow } from './flow-context.ts'
 import type { Component, Db, Feature, Product, Workspace } from './model.ts'
 import type { FeatureSpec, SchemaField } from './spec.ts'
@@ -145,6 +146,18 @@ export function loadContent(documents: ContentDocuments, liveMockIds: readonly s
     for (const contract of sections.api) {
       componentRef(contract.from, `api.json:${contract.id}.from`); componentRef(contract.to, `api.json:${contract.id}.to`)
       fields(contract.responseSchema?.before, `api.json:${contract.id}.responseSchema.before`); fields(contract.responseSchema?.after, `api.json:${contract.id}.responseSchema.after`)
+    }
+    unique((spec.api?.guides ?? []).map(g => g.componentId), `${root}/api.json:guides.componentId`)
+    for (const guide of spec.api?.guides ?? []) {
+      componentRef(guide.componentId, 'api.json:guides.componentId')
+      unique(guide.capabilities.map(c => c.id), `${root}/api.json:guides.${guide.componentId}.capabilities`)
+      for (const capability of guide.capabilities) {
+        refs('api', capability.contractIds, `api.json:guides.${guide.componentId}.${capability.id}`)
+        for (const id of capability.contractIds) {
+          const contract = sections.api.find(c => c.id === id)
+          if (contract && apiProvider(contract) !== guide.componentId) issues.push(`${root}/api.json:guide ${guide.componentId}: contract ${id} belongs to another component's API`)
+        }
+      }
     }
     for (const table of sections.storage) { componentRef(table.component, `storage.json:${table.id}.component`); unique(table.columns.map(column => column.name), `${root}/storage.json:${table.id}.columns`) }
     for (const test of sections.tests) { refs('journey', test.steps, `tests.json:${test.id}.steps`); refs('api', test.contracts, `tests.json:${test.id}.contracts`); refs('storage', test.tables, `tests.json:${test.id}.tables`) }

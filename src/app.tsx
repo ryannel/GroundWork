@@ -11,6 +11,10 @@ const DesignSystemPage = lazy(() => import('./pages/design-system').then(module 
 
 export function App() {
   const runtime = useRuntime()
+  const projectName = runtime.plan?.manifest.name
+  useEffect(() => {
+    document.title = runtime.mode === 'central' && !checkoutId ? 'Groundwork Hub · All projects' : projectName ? `${projectName} · ${runtime.mode === 'central' ? 'Groundwork Hub' : 'Groundwork standalone'}` : 'Groundwork'
+  }, [runtime.mode, projectName])
   if (runtime.loading) return <main className="runtime-start" role="status"><h1>Groundwork</h1><p>Opening your plans…</p></main>
   if (runtime.mode === 'central' && !checkoutId) return <ProjectsPage />
   return (
@@ -20,7 +24,6 @@ export function App() {
         <Route path="/w/:slug" element={<WorkspacePage />} />
         <Route path="/w/:slug/:product" element={<ProductPage />} />
         <Route path="/f/:id" element={<FeaturePage />} />
-        <Route path="/f/:id/delivery" element={<DeliveryPage />} />
         <Route path="/f/:id/:section" element={<FeaturePage />} />
         <Route path="/f/:id/:section/:item" element={<FeaturePage />} />
         <Route path="/delivery" element={<DeliveryPage />} />
@@ -30,4 +33,4 @@ export function App() {
     </Routes>
   )
 }
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'

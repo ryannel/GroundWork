@@ -10,6 +10,7 @@ import { componentScopeIds, featureComponents, changesOverlap } from '@/data/com
 import { StageBadge } from '@/ui/badge'
 import { ChangeMark } from '@/components/spec/change'
 import { useRuntime } from '@/data/runtime'
+import { DeliveryPage } from './delivery'
 import { cn } from '@/lib/cn'
 
 const groups: { label: string; sections: SectionKind[] }[] = [
@@ -23,7 +24,7 @@ const questions: Record<SectionKind, string> = {
   journey: 'Follow the experience, from the first action to the final outcome.',
   design: 'Explore the screens and try the interactions behind the journey.',
   flow: 'Trace a user action through the components that make it happen.',
-  api: 'Inspect the contracts between components and what changes at each boundary.',
+  api: 'Explore each component’s API and the changes needed to support this feature.',
   storage: 'Understand what we store, who owns it, and how the schema changes.',
   tests: 'Separate what is covered from what has actually passed.',
 }
@@ -37,6 +38,7 @@ export function FeaturePage() {
   const f = q.features().find(x => x.id === id)
   const spec = f?.spec ?? {}
   const ix = buildIndex(spec)
+  const isDelivery = section === 'delivery'
   const target = sectionKinds.includes(section as SectionKind) ? section as SectionKind : undefined
   const allComponents = q.components()
   const participants = f ? featureComponents(f, allComponents) : []
@@ -44,7 +46,7 @@ export function FeaturePage() {
   const lens = lensComponent ? lensFor(spec, ix, componentScopeIds(lensComponent.id, allComponents)) : undefined
   useEffect(() => { if (!item) window.scrollTo({ top: 0 }) }, [id, section, item])
   if (!f) return <Navigate to="/" replace />
-  if (section && !target) return <Navigate to={`/f/${id}`} replace />
+  if (section && !target && !isDelivery) return <Navigate to={`/f/${id}`} replace />
   const product = q.product(f.productId)!
   const workspace = q.workspace(product.workspaceId)!
   const touches = f.touches.map(cid => q.component(cid)!).filter(Boolean)
@@ -70,7 +72,7 @@ export function FeaturePage() {
   const tableGaps = (spec.storage?.tables ?? []).filter(t => t.change !== 'removed' && !ix.tableTests[t.id]?.length)
   const gaps = ix.untestedSteps.length + ix.untestedContracts.length + ix.unprovenCriteria.length + tableGaps.length
   const present = sectionKinds.filter(k => spec[k])
-  const href = (k?: SectionKind) => {
+  const href = (k?: SectionKind | 'delivery') => {
     const query = new URLSearchParams()
     if (lens) query.set('component', lensComponent!.id)
     const trace = params.get('trace')
@@ -81,31 +83,31 @@ export function FeaturePage() {
   const currentIndex = target ? sectionKinds.indexOf(target) : -1
   const next = sectionKinds[currentIndex + 1]
   return <SpecContext.Provider value={{ featureId: id, spec, ix, lens, lensName: lens ? q.componentLabel(lensComponent!.id) : undefined }}>
-    <div className={cn("feature-workspace", !target && "is-overview", target && "is-focused", target === "flow" && "is-flow")}>
-      <label className="mobile-section-picker">Explore this feature<select value={target ?? ''} onChange={e => navigate(e.target.value === 'delivery' ? `/f/${id}/delivery` : href(e.target.value ? e.target.value as SectionKind : undefined))}><option value="">Overview</option>{groups.map(g => <optgroup key={g.label} label={g.label}>{g.sections.map(k => <option key={k} value={k}>{sectionMeta[k].label}{!spec[k] ? ' · Not drafted' : ''}</option>)}</optgroup>)}<option value="delivery">Deliverables & tasks</option></select></label>
+    <div className={cn("feature-workspace", !target && !isDelivery && "is-overview", (target || isDelivery) && "is-focused", target === "flow" && "is-flow")}>
+      <label className="mobile-section-picker">Explore this feature<select value={isDelivery ? 'delivery' : target ?? ''} onChange={e => navigate(href(e.target.value ? e.target.value as SectionKind | 'delivery' : undefined))}><option value="">Overview</option>{groups.map(g => <optgroup key={g.label} label={g.label}>{g.sections.map(k => <option key={k} value={k}>{sectionMeta[k].label}{!spec[k] ? ' · Not drafted' : ''}</option>)}</optgroup>)}<option value="delivery">Deliverables & tasks</option></select></label>
       <aside className="feature-nav">
         <Link to={`/w/${workspace.slug}/${product.slug}`} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
         <div className="eyebrow mb-3 mt-7">Feature plan</div>
-        <Link to={href()} aria-current={!target ? 'page' : undefined} className={cn('plan-nav-link', !target && 'is-active')}><LayoutDashboard size={16} />Overview</Link>
+        <Link to={href()} aria-current={!target && !isDelivery ? 'page' : undefined} className={cn('plan-nav-link', !target && !isDelivery && 'is-active')}><LayoutDashboard size={16} />Overview</Link>
         {groups.map(g => <div className="nav-group" key={g.label}><div className="eyebrow">{g.label}</div>{g.sections.map(k => {
           const m = sectionMeta[k]
           return <Link key={k} to={href(k)} aria-current={target === k ? 'page' : undefined} className={cn('plan-nav-link', target === k && 'is-active')}><m.icon className="size-4" /><span>{m.label}</span><span className="nav-count">{spec[k] ? sectionCount(spec, k) ?? <CheckCircle2 size={12} /> : <Circle size={10} />}</span></Link>
         })}</div>)}
-        <div className="nav-group"><div className="eyebrow">05 · Deliver</div><Link className="plan-nav-link" to={`/f/${id}/delivery`}><Layers size={16} />Deliverables & tasks</Link></div>
+        <div className="nav-group"><div className="eyebrow">05 · Deliver</div><Link className={cn("plan-nav-link", isDelivery && "is-active")} aria-current={isDelivery ? "page" : undefined} to={href("delivery")}><Layers size={16} />Deliverables & tasks</Link></div>
         <div className="nav-foot"><Layers size={15} /><span>{present.length} of 7 sections drafted<br /><small>Drafted does not mean validated</small></span></div>
       </aside>
       <div className="feature-main">
-        {target ? <><header className="feature-heading">
+        {target || isDelivery ? <><header className="feature-heading">
           <Link to={`/w/${workspace.slug}/${product.slug}`} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
           <span className="feature-id">{id.toUpperCase()}</span><h1>{f.title}</h1><StageBadge stage={f.stage} />
           <div className="feature-meta"><span className="meta-owner-label">Owner</span><span className="owner-avatar">{f.owner.split(' ').map(x => x[0]).join('')}</span><span>{f.owner}</span></div>
         </header>
-        <nav className="feature-tabs" aria-label="Feature sections">{([undefined, 'flow', 'api', 'storage', 'tests'] as const).map((k, i) => <Link key={k ?? 'overview'} to={href(k)} aria-current={target === k ? 'page' : undefined}>{['Overview', 'System flow', 'API contracts', 'Data model', 'Tests & coverage'][i]}</Link>)}</nav></> : <header className="feature-overview-header">
+        <nav className="feature-tabs" aria-label="Feature sections">{([undefined, 'flow', 'api', 'storage', 'tests', 'delivery'] as const).map((k, i) => <Link key={k ?? 'overview'} to={href(k)} aria-current={(isDelivery ? 'delivery' : target) === k ? 'page' : undefined}>{['Overview', 'System flow', 'API contracts', 'Data model', 'Tests & coverage', 'Delivery'][i]}</Link>)}</nav></> : <header className="feature-overview-header">
           <div className="feature-overview-kicker"><span className="feature-id">{id.toUpperCase()}</span><span>Feature plan</span><StageBadge stage={f.stage} /></div>
           <h1>{f.title}</h1>
           <div className="feature-overview-byline"><span className="owner-avatar" aria-hidden="true">{f.owner.split(' ').map(x => x[0]).join('')}</span><span>{f.owner}</span><span className="byline-divider" /><time dateTime={f.updatedAt} title={new Date(f.updatedAt).toLocaleString()}>Updated {relTime(f.updatedAt)}</time>{spec.journey && <Link className="primary-link" to={href(currentAction ? 'flow' : 'journey')}>{currentAction ? 'Continue system flow' : 'Explore the journey'}<ArrowRight size={15} /></Link>}</div>
         </header>}
-        {!target ? <div className="workbench-overview">
+        {isDelivery ? <DeliveryPage embedded /> : !target ? <div className="workbench-overview">
           <Link className="feature-delivery-callout" to={`/f/${id}/delivery`}><div><strong>Delivery plan</strong><p>{delivery?.deliverables.length ? `${delivery.deliverables.length} deliverables · ${delivery.tasks.length} component tasks · ${delivery.validation.length} validation plans` : "Divide the feature into user-visible deliverables and component tasks."}</p></div><ArrowRight size={20} /></Link>
           <div className="feature-intent-grid">
             <section className="feature-intent-panel" aria-labelledby="feature-intent-heading"><h2 id="feature-intent-heading">{spec.purpose?.outcome ? 'Intended outcome' : 'Feature intent'}</h2><p>{spec.purpose?.outcome ?? f.summary ?? 'Describe what should become better for the user and why it matters.'}</p>{spec.purpose && <Link to={href('purpose')}>Brief & success criteria<ArrowRight size={14} /></Link>}</section>
@@ -124,8 +126,8 @@ export function FeaturePage() {
           </section>
           <div className="overview-grid impact-grid"><section><div className="section-line"><h2>Structure & changes</h2><span>{touches.length} {touches.length === 1 ? 'planned change' : 'planned changes'}</span></div><p className="text-small text-fg-muted mb-4">Planned changes and the services or dependencies used by this plan. Selecting a service includes its internals.</p><FeatureArchitecture feature={f} components={participants} allComponents={allComponents} href={componentHref} /></section><section><div className="section-line"><h2>Connected work</h2><span>{related.length} {related.length === 1 ? 'feature' : 'features'}</span></div><p className="text-small text-fg-muted mb-4">Active plans with overlapping changes to components or their internals.</p><div className="related-list">{related.map(o => <Link key={o.id} to={`/f/${o.id}`}><span>{o.title}<small>{o.touches.filter(t => changesOverlap({ touches: [t] }, f, allComponents)).map(t => q.componentLabel(t)).join(', ')}</small></span><StageBadge stage={o.stage} /></Link>)}{!related.length && <p className="text-small text-fg-muted">No active plans touch these components.</p>}</div></section></div>
         </div> : <section className="focused-section" key={`${id}-${target}`}>
-          <div className="section-intro"><div><div className="eyebrow">{groups.find(g => g.sections.includes(target))?.label}</div><h2>{sectionMeta[target].label}</h2><p>{questions[target]}</p></div>{!['purpose', 'design'].includes(target) && <label className="component-filter">Component scope<select value={lens ? lensComponent!.id : ''} onChange={e => setParams(p => { const n = new URLSearchParams(p); if (e.target.value) n.set('component', e.target.value); else n.delete('component'); return n })}><option value="">All components</option><ComponentOptions components={participants} /></select></label>}</div>
-          {lens && <div className="scope-banner"><Layers size={15} /><span>{['purpose', 'design'].includes(target) ? `Showing full ${sectionMeta[target].label.toLowerCase()}. Component scope applies to journey, system, and tests.` : `Showing ${q.componentLabel(lensComponent!.id)} and its internals. Dependencies remain separate scopes.`}</span><button onClick={() => setParams(p => { const n = new URLSearchParams(p); n.delete('component'); return n })}>Clear scope</button></div>}
+          <div className="section-intro"><div><div className="eyebrow">{groups.find(g => g.sections.includes(target))?.label}</div><h2>{sectionMeta[target].label}</h2><p>{questions[target]}</p></div>{!['purpose', 'design', 'api'].includes(target) && <label className="component-filter">{target === 'api' ? 'API component' : 'Component scope'}<select value={lens ? lensComponent!.id : ''} onChange={e => setParams(p => { const n = new URLSearchParams(p); if (e.target.value) n.set('component', e.target.value); else n.delete('component'); return n })}><option value="">All components</option><ComponentOptions components={participants} /></select></label>}</div>
+          {lens && target !== 'api' && <div className="scope-banner"><Layers size={15} /><span>{['purpose', 'design'].includes(target) ? `Showing full ${sectionMeta[target].label.toLowerCase()}. Component scope applies to journey, system, and tests.` : `Showing ${q.componentLabel(lensComponent!.id)} and its internals. Dependencies remain separate scopes.`}</span><button onClick={() => setParams(p => { const n = new URLSearchParams(p); n.delete('component'); return n })}>Clear scope</button></div>}
           {spec[target] && Render ? <Render data={spec[target]} focus={item} /> : <div className="section-empty"><AlertCircle size={28} /><h3>{sectionMeta[target].label} has not been drafted</h3><p>{sectionMeta[target].blurb}</p><p className="text-small">Your AI assistant can populate this section from the feature intent and supporting context.</p>{populatedExample && <Link to={`/f/${populatedExample.id}/${target}`}>See {sectionMeta[target].label.toLowerCase()} in {populatedExample.title}<ArrowRight size={14} /></Link>}</div>}
           <footer className="section-footer"><Link to={currentIndex > 0 ? href(sectionKinds[currentIndex - 1]) : href()}><ArrowLeft size={14} />{currentIndex > 0 ? sectionMeta[sectionKinds[currentIndex - 1]].label : 'Overview'}</Link><Link to={next ? href(next) : href()}>{next ? sectionMeta[next].label : 'Back to overview'}<ArrowRight size={14} /></Link></footer>
         </section>}

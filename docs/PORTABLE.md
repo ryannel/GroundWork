@@ -4,13 +4,20 @@ Groundwork plans live in this repository under `.groundwork/plans/`. Commit them
 
 Run the installed CLI with `npx --no-install groundwork-v2`. Node 22.18 or newer is required. Do not install the older `groundwork-method` package.
 
+Planning and delivery updates are agent-managed through conversation. Use the CLI/MCP operations to create features, maintain deliverables and tasks, record progress, and attach validation evidence. The viewer is read-only: it displays these records without authoring forms or status controls. Search, filters, navigation, and prototype interactions only affect the view.
+
 ## Start here
 
-- `npx --no-install groundwork-v2 serve` starts the local viewer on port 4317.
+- `npm run plans:start` (or `npx --no-install groundwork-v2 start`) starts or reuses Groundwork Hub on port 4318 and prints this project's workspace URL. It registers the project locally if needed and preserves existing workspace grouping.
+- `npm run plans:standalone` (or `npx --no-install groundwork-v2 serve`) starts or reuses a standalone viewer on port 4317. It does not require a Hub or register the project.
+- `npm run plans:hub` (or `npx --no-install groundwork-v2 hub`) starts or reuses the Hub and prints its All projects URL. `dashboard` remains an alias.
+- `init` and `instructions` add these `plans:*` scripts when a package.json exists, without replacing existing scripts. Without an npm project, invoke the installed CLI directly.
+- The terminal that starts a server must stay open. Ctrl+C stops that server; stopping a Hub disconnects all of its project workspaces. A command that reuses a server prints the URL and exits. No background daemons or per-project app servers are launched.
+- Use `--port NUMBER` consistently for a different local port. Commands refuse to reuse a different project, configuration, unrelated service, or incompatible viewer on that port; they never silently allocate another server.
 - `npx --no-install groundwork-v2 read` returns the complete plan, current revision, checkout identity and Git activity.
 - `npx --no-install groundwork-v2 validate` checks documents and cross-references.
 - `npx --no-install groundwork-v2 register --workspace Personal` adds this checkout to the local central dashboard.
-- `npx --no-install groundwork-v2 dashboard` starts the consolidated viewer.
+- The optional Hub serves all registered projects through one server. Plans and assets remain in each repository; opening a workspace does not launch its application.
 - `npx --no-install groundwork-v2 mcp` exposes the same operations to your coding agent over stdio. Configure your MCP client to run `npx` with arguments `["--no-install", "groundwork-v2", "mcp", "/absolute/repository/path"]`. Add `--central` instead of the path for discovery across registered repositories.
 
 ## Portable files
@@ -45,6 +52,14 @@ The tests suffix is optional; when present, IDs must exist in tests.json. `brief
 
 Raster images go under `assets/`, with a relative reference such as `assets/screens/recording.png`. Names use letters, digits, hyphens and underscores. PNG, JPEG, WebP, GIF and AVIF are supported. Repository code and executable prototypes are never loaded by the viewer. Do not put schemas or unrelated files in the plans directory.
 
+## Explain each component's API
+
+The API view places capability context alongside its endpoints, with expandable methods. The longer component overview and feature impact are optional reading. Add `guides` alongside `contracts` in `api.json`. Each guide has `componentId`, an `overview` explaining the component's role and key concepts, `featureImpact` describing what this feature requires from it, and `capabilities` with stable `id`, plain-language `title`, `description`, and `contractIds` linking to the relevant contracts.
+
+Teach the concepts before the paths: for example, explain what a transcription job or live processing session represents, then link to the operations for starting and inspecting it. Distinguish target behavior from an assessed change to the existing implementation. Do not invent a current-versus-proposed comparison when the baseline has not been reviewed.
+
+Guides describe the HTTP/RPC API provided by the component and its outgoing messages. A contract's receiver provides an HTTP/RPC API; its sender publishes a message. Caller relationships belong in system flow and supporting usage details. A browser component may have only outgoing messages in this plan; do not imply it hosts an HTTP API.
+
 ## Editing safely
 
 Start with `read`, then retain its `revision` and `context.token`. Authoring operations require those values as `expectedRevision` and `expectedContext`. Use `call <operation> --input /path/to/request.json` with an argument file. The `write_plan` operation accepts a `changes` object mapping relative document paths to complete UTF-8 document strings, or null to delete a document. A complete candidate revision must validate before any change is applied.
@@ -64,14 +79,18 @@ The delivery hierarchy is **Feature → Deliverables → Tasks**. Each task is b
 A feature plan must explain how the work will be delivered, alongside its brief and technical design. Use `plan_delivery` through MCP or `call plan_delivery --input request.json` through the CLI. Use `write_plan` when changing delivery and test scenarios together in one transaction.
 
 1. Start with the smallest **deliverable** a user can experience. Describe its `outcome`, the `componentIds` that must work together, its acceptance criteria, and prerequisite deliverables. A deliverable is not a database, API, or UI phase: it brings the necessary pieces together to deliver value.
-2. Divide that deliverable into **tasks**. Each task has one `componentId`, a required `deliverableId`, explicit work `scope`, acceptance assertions, linked `contractIds`, and `dependsOn` links to other tasks or earlier deliverables. Use `prerequisites` for build steps such as regenerating clients after an API merges. A task may exercise a component's internal modules and infrastructure; its validation starts at the public boundary.
+2. Divide that deliverable into **tasks**. Each task has one `componentId`, a required `deliverableId`, a short plain-language `title` and `summary`, explicit work `scope`, acceptance assertions, linked `contractIds`, and `dependsOn` links to other tasks or earlier deliverables. Use `prerequisites` for build steps such as regenerating clients after an API merges. A task may exercise a component's internal modules and infrastructure; its validation starts at the public boundary.
 3. Define **validation** alongside the work. Deliverable validation has `level: "end-to-end"` and `deliverableId`. Task validation has `level: "component-integration"` and `taskId`. Use `level: "unit"` for complex isolated logic only. Link `testIds` to scenarios already defined in the feature's `tests.json`; do not duplicate those scenarios in delivery.json.
 4. Every validation plan names its public `entryPoint`, test `file`, runnable `command`, and `environment`. Name `realDependencyIds` and `substitutedDependencyIds` so the test boundary is explicit. Tests should exercise real service logic and containerised infrastructure or emulators. Substitute unavoidable external providers at their outer boundary, never the component under test or its internal layers.
 5. Record runs with `validationId`, result, timestamp, `testedRevision`, `environment`, and a result `reference`. A later failed or unverified report supersedes an earlier passing report. Equal-time conflicting reports are treated conservatively. Existing test status labels, commits, and agent statements alone do not establish delivery proof.
 
 This is the honeycomb approach: most coverage comes from component integration tests through APIs, events, or the component's public interaction surface, with real internals and infrastructure. A smaller set of end-to-end tests proves the deliverable's connected user journey. Focused unit tests support difficult pure logic; they cannot replace either level of proof.
 
-For example, Word Loop's first deliverable lets a user upload audio and receive a finalized meeting. Its Core task establishes schema, HTTP endpoints, events, and the outbox; ML consumes the job and writes back the results; App presents upload, processing, and finalized artifacts. Core boundary tests validate storage and events. ML boundary tests validate its pipeline and provider boundaries. App tests validate public interactions and observable API behaviour. The deliverable's end-to-end test then proves the whole upload-to-finalized-meeting outcome.
+A component is an owner, not a unit of sizing: a deliverable can contain several tasks in the same component. Each task delivers one independently verifiable behavior, including the schema, logic, API, and events needed for that behavior. Split work when it has unrelated outcomes, separate failure modes, or a list of independent endpoints. Do not make tasks for whole services ("all Core endpoints") or technical layers ("all database tables"). A task should be reviewable and verifiable without waiting for later tasks in the same component.
+
+Write a short verb-led title ("Accept a recording upload") and a one-sentence `summary` explaining what becomes possible. Keep `scope` to that behavior; put concrete assertions in `acceptance` and link the relevant contracts and test scenarios. Make dependencies specific to the capability needed, not "after Core". If a task still needs several distinct paragraphs to explain its purpose, split it again. Draft gaps are acceptable, but make them explicit rather than attaching a broad suite and claiming coverage.
+
+For example, the upload deliverable may include Core tasks to create a meeting, accept an upload, report processing status, replace transcript segments, and save a summary. Each includes its own persistence and API/event behavior. ML tasks handle transcription and synthesis separately. App tasks cover selecting and uploading a file, showing processing progress, and reading the results. Component checks exercise each behavior at its boundary; the deliverable's end-to-end check proves the connected journey.
 
 ### Delivery document shape
 
@@ -91,6 +110,7 @@ For example, Word Loop's first deliverable lets a user upload audio and receive 
     "deliverableId": "upload-finalizes-meeting",
     "componentId": "core",
     "title": "Accept and persist uploads",
+    "summary": "A valid recording is stored safely and queued for processing.",
     "scope": ["Accept the upload through the API and publish a durable processing job"],
     "contractIds": ["upload-api"],
     "status": "planned",

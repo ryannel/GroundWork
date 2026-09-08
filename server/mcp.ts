@@ -11,7 +11,7 @@ export function mcp(root?: string) {
       try { request = JSON.parse(line) } catch { send({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Invalid JSON' } }); return }
       if (request.id === undefined) return
       const reply = (result: unknown) => send({ jsonrpc: '2.0', id: request.id, result })
-      if (request.method === 'initialize') return reply({ protocolVersion: '2025-03-26', capabilities: { tools: {} }, serverInfo: { name: 'groundwork-v2', version: '0.3.0' }, instructions: 'Plans are repository-owned. Read before writing, preserve expectedRevision and expectedContext, and select checkouts explicitly. Ref views are read-only. Evidence and declared progress are separate.' })
+      if (request.method === 'initialize') return reply({ protocolVersion: '2025-03-26', capabilities: { tools: {} }, serverInfo: { name: 'groundwork-v2', version: '0.4.11' }, instructions: 'Plans are repository-owned. Read before writing, preserve expectedRevision and expectedContext, and select checkouts explicitly. Ref views are read-only. Evidence and declared progress are separate.' })
       if (request.method === 'ping') return reply({})
       if (request.method === 'tools/list') return reply({ tools: Object.entries(operationSchemas).map(([name, schema]) => ({ name, description: descriptions[name as OperationName], inputSchema: z.toJSONSchema(schema), annotations: { readOnlyHint: name === 'projects' || name === 'read_plan', destructiveHint: name === 'write_plan', openWorldHint: false } })) })
       if (request.method === 'tools/call') {

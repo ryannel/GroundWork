@@ -7,7 +7,7 @@ const ids = z.array(id).default([])
 export const deliveryStatusSchema = z.enum(['planned', 'in-progress', 'blocked', 'done'])
 const unit = z.strictObject({ id, title: text, status: deliveryStatusSchema, dependsOn: ids, acceptance: z.array(text).default([]) })
 export const deliverableSchema = unit.extend({ outcome: text.optional(), componentIds: ids })
-export const taskSchema = unit.extend({ deliverableId: id, componentId: id, scope: z.array(text).default([]), prerequisites: z.array(text).default([]), contractIds: ids })
+export const taskSchema = unit.extend({ deliverableId: id, componentId: id, summary: text.optional(), scope: z.array(text).default([]), prerequisites: z.array(text).default([]), contractIds: ids })
 const validation = z.strictObject({ id, title: text, testIds: ids, file: text.optional(), command: text.optional(), entryPoint: text.optional(), environment: text.optional(), realDependencyIds: ids, substitutedDependencyIds: ids, notes: text.optional() })
 export const validationSchema = z.discriminatedUnion('level', [
   validation.extend({ level: z.literal('end-to-end'), deliverableId: id }),

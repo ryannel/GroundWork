@@ -127,6 +127,95 @@
         ],
         "additionalProperties": false
       }
+    },
+    "guides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "componentId": {
+            "type": "string",
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
+          },
+          "overview": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "featureImpact": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "allOf": [
+                    {
+                      "pattern": "\\S"
+                    },
+                    {
+                      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                    }
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "contractIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "allOf": [
+                      {
+                        "pattern": "\\S"
+                      },
+                      {
+                        "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "description",
+                "contractIds"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "componentId",
+          "overview",
+          "featureImpact",
+          "capabilities"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [

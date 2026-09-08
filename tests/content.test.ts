@@ -105,3 +105,14 @@ test('chronological sorting uses actual timestamps even when offsets differ', ()
   const input = copy(); input['features/f-1/feature.json'].updatedAt = '2026-09-05T12:00:00+02:00'; input['features/f-2/feature.json'].updatedAt = '2026-09-05T10:30:00Z'
   assert.equal(createRepository(load(input)).q.features('p-pricing')[0].id, 'f-2')
 })
+
+test('component API guides validate their ownership, capability IDs, and contract links', () => {
+  const input = copy()
+  const api = input['features/f-2/api.json']
+  const contract = api.contracts.find((c: any) => c.from !== c.to && c.method !== 'EVENT')
+  api.guides = [{ componentId: contract.to, overview: 'This service owns the durable result.', featureImpact: 'This feature needs a result API.', capabilities: [{ id: 'result', title: 'Retrieve a result', description: 'The result can be read through the service API.', contractIds: [contract.id] }] }]
+  assert.doesNotThrow(() => load(input))
+  const missing = structuredClone(input); missing['features/f-2/api.json'].guides[0].capabilities[0].contractIds = ['unknown-contract']; rejects(missing, /unknown api reference/)
+  const wrongOwner = structuredClone(input); wrongOwner['features/f-2/api.json'].guides[0].componentId = contract.from; rejects(wrongOwner, /another component's API/)
+  const duplicate = structuredClone(input); duplicate['features/f-2/api.json'].guides.push(duplicate['features/f-2/api.json'].guides[0]); rejects(duplicate, /duplicate/i)
+})
