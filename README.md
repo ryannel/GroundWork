@@ -6,7 +6,7 @@ Portable repository plans with a live standalone viewer, a central local dashboa
 
 Groundwork now centres on repository-owned product plans and the **Feature → Deliverables → Tasks** workflow. Multiple repositories can appear together in one local dashboard, while each keeps its own plans and Git context.
 
-The previous rebuild is preserved at the [`v2` tag](https://github.com/ryannel/GroundWork/tree/v2), pointing to `22796e8cf06fa7c2ec0b45e5df0535211c508c94`. This implementation replaces the files on `main` in a follow-on commit, preserving the earlier history. Existing branches and release tags remain available. The `v2` tag names the archived direction; the current local package is `groundwork-v2` version `0.4.11`.
+The previous rebuild is preserved at the [`v2` tag](https://github.com/ryannel/GroundWork/tree/v2), pointing to `22796e8cf06fa7c2ec0b45e5df0535211c508c94`. This implementation replaces the files on `main` in a follow-on commit, preserving the earlier history. Existing branches and release tags remain available. The `v2` tag names the archived direction; the current local package is `groundwork-v2` version `0.4.12`.
 
 ## Develop the tooling
 
@@ -28,10 +28,10 @@ This package has not been published to npm. Build a local tarball:
 npm pack
 ```
 
-Copy `groundwork-v2-0.4.11.tgz` into the app's `vendor/` directory, then run there:
+Copy `groundwork-v2-0.4.12.tgz` into the app's `vendor/` directory, then run there:
 
 ```sh
-npm install --save-dev ./vendor/groundwork-v2-0.4.11.tgz
+npm install --save-dev ./vendor/groundwork-v2-0.4.12.tgz
 npx --no-install groundwork-v2 init --name "My app"
 npx --no-install groundwork-v2 start
 ```

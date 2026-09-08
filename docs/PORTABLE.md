@@ -60,6 +60,12 @@ Teach the concepts before the paths: for example, explain what a transcription j
 
 Guides describe the HTTP/RPC API provided by the component and its outgoing messages. A contract's receiver provides an HTTP/RPC API; its sender publishes a message. Caller relationships belong in system flow and supporting usage details. A browser component may have only outgoing messages in this plan; do not imply it hosts an HTTP API.
 
+## Explain the data model
+
+In `storage.json`, give each record a short `description` explaining what it represents and why this feature needs it. Use an optional `group` such as "Recording & audio" to place related records together within a store. These fields add context; `note` retains detailed constraints, source references, and unresolved model disagreements.
+
+The viewer groups records by their actual storage component and purpose. Records expand to show fields; fields expand to show their notes. Use `kind` to distinguish SQL tables, object records, and local files. Do not infer ownership from a service dependency or invent fields to fill a gap. Leave unknown schemas empty and describe the gap. Keep change status `unspecified` until the current implementation has been compared with the planned shape.
+
 ## Editing safely
 
 Start with `read`, then retain its `revision` and `context.token`. Authoring operations require those values as `expectedRevision` and `expectedContext`. Use `call <operation> --input /path/to/request.json` with an argument file. The `write_plan` operation accepts a `changes` object mapping relative document paths to complete UTF-8 document strings, or null to delete a document. A complete candidate revision must validate before any change is applied.

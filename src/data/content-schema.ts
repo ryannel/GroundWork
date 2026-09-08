@@ -43,7 +43,7 @@ export const apiGuideSchema = z.strictObject({
 })
 export const apiSchema = z.strictObject({ contracts: z.array(apiContractSchema), guides: z.array(apiGuideSchema).optional() })
 export const columnSchema = z.strictObject({ name: text, type: text, note: text.optional(), key: z.boolean().optional(), change: changeSchema.optional() })
-export const tableSchema = z.strictObject({ id, component: id, name: text, kind: z.enum(['table', 'object', 'local-file']).optional(), change: changeSchema, columns: z.array(columnSchema), note: text.optional() })
+export const tableSchema = z.strictObject({ id, component: id, name: text, description: text.optional(), group: text.optional(), kind: z.enum(['table', 'object', 'local-file']).optional(), change: changeSchema, columns: z.array(columnSchema), note: text.optional() })
 export const storageSchema = z.strictObject({ tables: z.array(tableSchema) })
 export const testCaseSchema = z.strictObject({ id, title: text, given: text, when: text, then: strings.min(1), status: testStatusSchema.optional(), steps: ids.optional(), contracts: ids.optional(), tables: ids.optional() })
 export const testsSchema = z.strictObject({ cases: z.array(testCaseSchema) })

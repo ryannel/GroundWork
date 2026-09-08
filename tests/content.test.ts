@@ -116,3 +116,20 @@ test('component API guides validate their ownership, capability IDs, and contrac
   const wrongOwner = structuredClone(input); wrongOwner['features/f-2/api.json'].guides[0].componentId = contract.from; rejects(wrongOwner, /another component's API/)
   const duplicate = structuredClone(input); duplicate['features/f-2/api.json'].guides.push(duplicate['features/f-2/api.json'].guides[0]); rejects(duplicate, /duplicate/i)
 })
+
+test('data model context remains optional and does not invent fields or change assessments', () => {
+  const input = copy()
+  const path = Object.keys(input).find(key => key.endsWith('/storage.json'))!
+  const record = input[path].tables[0]
+  record.description = 'A durable record used by this feature.'
+  record.group = 'Meeting records'
+  record.change = 'unspecified'
+  assert.doesNotThrow(() => load(input))
+  record.columns = []
+  assert.doesNotThrow(() => load(input))
+  record.description = ''
+  rejects(input, /storage.json/)
+  delete record.description
+  delete record.group
+  assert.doesNotThrow(() => load(input))
+})

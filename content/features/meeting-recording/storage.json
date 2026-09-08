@@ -92,7 +92,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot. Recording contract names highest_contiguous_sequence/missing_ranges/audio_version; this older SQL uses last_stored_sequence/gap_plan and omits some contract fields. See import review.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Recording & audio",
+      "description": "Tracks a live recording through capture, recovery, audio composition, and completion."
     },
     {
       "id": "recording_status_history",
@@ -132,7 +134,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Recording & audio",
+      "description": "Records recording status transitions. The plan also defines recording_event_history; the two models need reconciliation."
     },
     {
       "id": "audio_objects",
@@ -184,7 +188,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Recording & audio",
+      "description": "Stores metadata for a meeting’s audio object; the audio bytes live in object storage."
     },
     {
       "id": "meeting_speaker_labels",
@@ -248,7 +254,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Meetings & people",
+      "description": "Connects a speaker label in a meeting to a person, preserving the user’s speaker assignments."
     },
     {
       "id": "people",
@@ -342,7 +350,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Meetings & people",
+      "description": "People who can be identified in a meeting and assigned action items."
     },
     {
       "id": "transcriptions",
@@ -400,7 +410,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Tracks the transcription of a meeting and its processing state."
     },
     {
       "id": "transcript_segments",
@@ -488,7 +500,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Stores timed pieces of a transcript, including speaker and revision information."
     },
     {
       "id": "synthesis",
@@ -540,7 +554,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Stores the meeting’s generated headline, summary, and key points."
     },
     {
       "id": "topics",
@@ -598,7 +614,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Groups meeting content into named topics, with summaries and a distinction between live and final results."
     },
     {
       "id": "topic_segments",
@@ -620,7 +638,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Links a topic to the transcript segments that support it."
     },
     {
       "id": "talking_points",
@@ -678,7 +698,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Stores individual insights linked to a meeting and, when available, a topic."
     },
     {
       "id": "talking_point_segments",
@@ -700,7 +722,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Links a talking point to its supporting transcript segments."
     },
     {
       "id": "tasks",
@@ -782,7 +806,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Tasks & notes",
+      "description": "Action items generated from meetings or edited by users, with status, assignment, and parent-task links."
     },
     {
       "id": "meetings",
@@ -852,7 +878,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Meetings & people",
+      "description": "The saved meeting record: title, timing, source, and live notes. Related recording and processing data is linked by meeting ID."
     },
     {
       "id": "idempotency_keys",
@@ -898,7 +926,9 @@
         }
       ],
       "note": "Target schema copied from tdd/schemas/postgres.mdx; current implementation delta not assessed. Full SQL, indexes and rationale are retained in the source snapshot.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Request reliability",
+      "description": "Caches a request’s response under a user-scoped key so retries can replay the same result."
     },
     {
       "id": "meeting_speaker_states",
@@ -907,7 +937,9 @@
       "change": "unspecified",
       "columns": [],
       "note": "Data-flow uses meeting_speaker_states; the schema instead defines meeting_speaker_labels. Unresolved naming/model disagreement; fields intentionally not inferred.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Meetings & people",
+      "description": "A speaker-state record referenced by the flow. Its relationship to meeting_speaker_labels is unresolved; fields are not yet defined."
     },
     {
       "id": "recording_event_history",
@@ -952,7 +984,9 @@
         }
       ],
       "note": "Source: tdd/contracts/infrastructure.mdx, Recording Event History. Full event history is specified here; tdd/schemas/postgres.mdx separately defines recording_status_history. Their relationship needs reconciliation. State and outbox writes must precede asynchronous stop coordination.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Recording & audio",
+      "description": "Retains recording events and transition metadata for replay and diagnosis. Its overlap with recording_status_history remains unresolved."
     },
     {
       "id": "transcription_status_history",
@@ -982,7 +1016,9 @@
         }
       ],
       "note": "Source: milestone 01 Core slice, Schema Notes. Status CHECK values: pending, transcribing, synthesizing, completed, failed. Referenced but not defined by a CREATE TABLE in the bet schema page.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Transcripts & insights",
+      "description": "Records transcription progress and failure messages over time."
     },
     {
       "id": "notes",
@@ -991,7 +1027,9 @@
       "change": "unspecified",
       "columns": [],
       "note": "Reusable note components in milestone 03 operate on context-linked notes. This is distinct from meetings.notes used by milestone 06. The bet schema page does not define this table.",
-      "kind": "table"
+      "kind": "table",
+      "group": "Tasks & notes",
+      "description": "Reusable notes linked to meetings or people, separate from the live scratchpad in meetings.notes. Fields are not yet defined."
     },
     {
       "id": "opfs_chunks",
@@ -1014,7 +1052,9 @@
         }
       ],
       "note": "Local binary-file envelope, not a SQL table. Source: tdd/contracts/audio.mdx, OPFS Chunk Storage Format. Sequence numbers identify chunks; the per-chunk envelope is CRC32C + byte length + audio. SHA-256 applies to the manifest and gap upload, not an invented per-chunk stored field. Trim only after contiguous GCS acknowledgement. No session recovery after tab close in v1.",
-      "kind": "local-file"
+      "kind": "local-file",
+      "group": "Audio recovery",
+      "description": "Temporarily buffers captured audio in the browser until durable storage is acknowledged. Each chunk contains a checksum, byte length, and audio bytes."
     },
     {
       "id": "gcs_segments",
@@ -1064,7 +1104,9 @@
         }
       ],
       "note": "Logical object/manifest record, not a SQL table. Source: tdd/contracts/audio.mdx. 100ms frames aggregated into 2s segments (tunable 1–5s), then composed in groups of at most 32. SHA-256 is optional for normal segments and required for final audio. GCS segment cleanup is specified at 24h after composition.",
-      "kind": "object"
+      "kind": "object",
+      "group": "Recorded audio",
+      "description": "Describes stored audio segments and the manifest used to compose a recording, including sequence ranges, object identity, and integrity checks."
     }
   ]
 }

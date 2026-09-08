@@ -36,6 +36,16 @@
             "minLength": 1,
             "pattern": "\\S"
           },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "group": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
           "kind": {
             "type": "string",
             "enum": [
