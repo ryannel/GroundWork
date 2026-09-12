@@ -140,7 +140,7 @@ function DependencyGroup({ title, description, dependencies, showData = false, o
   return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} onSelect={onSelect} />)}</div></section>
 }
 
-export function ComponentInspector({ component, dependencies, consumers, isLocal, onSelect, onShowWork }: { component: Component; dependencies: Component[]; consumers: Component[]; isLocal: boolean; onSelect: (id: string) => void; onShowWork: (id: string) => void }) {
+export function ComponentInspector({ component, dependencies, consumers, isLocal, onShowWork }: { component: Component; dependencies: Component[]; consumers: Component[]; isLocal: boolean; onShowWork: (id: string) => void }) {
   const [tab, setTab] = useState<'overview' | 'api' | 'data'>('overview')
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
@@ -153,19 +153,22 @@ export function ComponentInspector({ component, dependencies, consumers, isLocal
   const datastores = dependencies.filter(dependency => datastoreKinds.has(componentKind(dependency)))
   const messaging = dependencies.filter(dependency => componentKind(dependency) === 'queue')
   const platforms = dependencies.filter(dependency => dependency.role === 'platform-service')
-  const serviceDependencies = dependencies.filter(dependency => !datastoreKinds.has(componentKind(dependency)) && componentKind(dependency) !== 'queue' && dependency.role !== 'platform-service')
   const hasApi = Boolean(api)
   const hasData = Boolean(component.data)
   const hasDataAndEvents = hasData || Boolean(component.messaging) || datastores.length > 0 || messaging.length > 0
-  const contextCount = datastores.length + messaging.length + platforms.length + serviceDependencies.length + consumers.length
+  const dependencyTypes = [
+    { label: 'product services', count: dependencies.filter(item => componentKind(item) === 'service' && item.role !== 'platform-service').length },
+    { label: 'platform capabilities', count: platforms.length },
+    { label: 'external providers', count: dependencies.filter(item => componentKind(item) === 'external-service' && item.role !== 'platform-service').length },
+    { label: 'runtime resources', count: datastores.length + messaging.length },
+  ].filter(item => item.count > 0)
   return <section className="component-inspector" aria-labelledby="component-inspector-heading">
     <header className="component-inspector-heading">
       <div className="component-inspector-identity">
         <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
         <span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span>
-        {component.description && <p>{component.description}</p>}
-        {component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}
       </div>
+      <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}</div>
       <div className="component-inspector-actions">
         {isLocal && <button onClick={() => onShowWork(component.id)}>View planned work <ArrowRight size={13} /></button>}
       </div>
@@ -174,16 +177,30 @@ export function ComponentInspector({ component, dependencies, consumers, isLocal
     <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
       <button role="tab" aria-selected={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button>
       <button role="tab" aria-selected={tab === 'api'} disabled={!hasApi} onClick={() => setTab('api')}>Interfaces{hasApi && <span>{api!.endpoints.length}</span>}</button>
-      <button role="tab" aria-selected={tab === 'data'} disabled={!hasDataAndEvents} onClick={() => setTab('data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
+      <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab('data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
     </div>
 
     {tab === 'overview' && <div className="component-overview-panel">
-      <div className="component-context-summary"><span><strong>{consumers.length}</strong> callers</span><span><strong>{dependencies.length}</strong> dependencies</span><span><strong>{datastores.length + messaging.length}</strong> resources</span></div>
-      {contextCount ? <div className="component-relationship-columns">
-        <DependencyGroup title="Used by" description="Services that rely on this component." dependencies={consumers} onSelect={onSelect} />
-        <DependencyGroup title="Calls and depends on" description="Business services and providers this component requires." dependencies={[...serviceDependencies, ...platforms]} onSelect={onSelect} />
-        <DependencyGroup title="State and messaging" description="Datastores and messaging infrastructure used at runtime." dependencies={[...datastores, ...messaging]} onSelect={onSelect} />
-      </div> : <div className="component-inspector-empty">No runtime relationships are recorded for this component.</div>}
+      <div className="component-position-grid">
+        <article>
+          <span className="component-position-direction">Incoming · called by</span>
+          <strong>{consumers.length ? `${consumers.length} ${consumers.length === 1 ? 'caller' : 'callers'}` : 'No recorded callers'}</strong>
+          <p>{consumers.length ? consumers.map(item => item.name).join(', ') : 'Nothing inside this mapped system is currently recorded as calling this component.'}</p>
+        </article>
+        <div className="component-position-arrow"><ArrowRight size={18} /></div>
+        <article className="is-selected">
+          <span>Selected</span>
+          <strong>{component.name}</strong>
+          <p>{componentKindLabel(component)}</p>
+        </article>
+        <div className="component-position-arrow"><ArrowRight size={18} /></div>
+        <article>
+          <span className="component-position-direction">Outgoing · depends on</span>
+          <strong>{dependencies.length ? `${dependencies.length} dependencies` : 'No recorded dependencies'}</strong>
+          <p>{dependencyTypes.length ? dependencyTypes.map(item => `${item.count} ${item.label}`).join(' · ') : 'No downstream services or resources are recorded.'}</p>
+        </article>
+      </div>
+      <p className="component-position-help">Use the diagram above to inspect an individual relationship. This summary explains direction without repeating every node.</p>
     </div>}
 
     {tab === 'api' && <section className="component-api-catalog is-full" aria-labelledby="component-api-heading">
@@ -212,7 +229,7 @@ export function ComponentInspector({ component, dependencies, consumers, isLocal
       {component.data && <section><header><Database size={16} /><div><span>Owned state</span><h4>{component.name} data</h4></div></header><DataCatalog component={component} /></section>}
       {component.messaging && <section><header><Radio size={16} /><div><span>Messages</span><h4>Published and consumed events</h4></div></header><MessagingCatalog component={component} /></section>}
       {(datastores.length > 0 || messaging.length > 0) && <section><header><Network size={16} /><div><span>Runtime resources</span><h4>Backing infrastructure</h4></div></header><div className="component-resource-columns"><DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData /><DependencyGroup title="Messaging infrastructure" description="Queues and topics used by this component." dependencies={messaging} showData /></div></section>}
-      {!hasDataAndEvents && <div className="component-inspector-empty">No datastore or message schema has been imported for this component.</div>}
+      {!hasDataAndEvents && <div className="component-absence-state"><Database size={20} /><div><h4>No directly owned data or events</h4><p>{component.name} has no datastore or message contract attached to it in the current catalog. This does not mean the service is stateless: follow its outgoing dependencies in the map to inspect data and events owned by downstream components.</p></div></div>}
     </div>}
   </section>
 }
