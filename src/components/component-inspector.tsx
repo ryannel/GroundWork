@@ -140,8 +140,7 @@ function DependencyGroup({ title, description, dependencies, showData = false, o
   return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} onSelect={onSelect} />)}</div></section>
 }
 
-export function ComponentInspector({ component, dependencies, isLocal, onShowWork }: { component: Component; dependencies: Component[]; isLocal: boolean; onShowWork: (id: string) => void }) {
-  const [tab, setTab] = useState<'api' | 'data' | null>(null)
+export function ComponentInspector({ component, dependencies, isLocal }: { component: Component; dependencies: Component[]; isLocal: boolean }) {
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
   const [selectedVersion, setSelectedVersion] = useState(versions.at(-1)?.id ?? 'all')
@@ -155,6 +154,8 @@ export function ComponentInspector({ component, dependencies, isLocal, onShowWor
   const hasApi = Boolean(api)
   const hasData = Boolean(component.data)
   const hasDataAndEvents = hasData || Boolean(component.messaging) || datastores.length > 0 || messaging.length > 0
+  const dataCount = (component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length
+  const [tab, setTab] = useState<'api' | 'data'>(hasApi ? 'api' : 'data')
   return <section className="component-inspector" aria-labelledby="component-inspector-heading">
     <header className="component-inspector-heading">
       <div className="component-inspector-identity">
@@ -162,17 +163,17 @@ export function ComponentInspector({ component, dependencies, isLocal, onShowWor
         <span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span>
       </div>
       <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}</div>
-      <div className="component-inspector-actions">
-        {isLocal && <button onClick={() => onShowWork(component.id)}>View planned work <ArrowRight size={13} /></button>}
-      </div>
     </header>
 
-    <div className="component-inspector-tabs">
-      <span>Explore this component</span>
-      <div role="tablist" aria-label={`${component.name} detail`}>
-        <button role="tab" aria-selected={tab === 'api'} disabled={!hasApi} onClick={() => setTab(tab === 'api' ? null : 'api')}>Interfaces{hasApi && <span>{api!.endpoints.length}</span>}</button>
-        <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab(tab === 'data' ? null : 'data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
-      </div>
+    <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
+      <button role="tab" aria-selected={tab === 'api'} onClick={() => setTab('api')}>
+        <span><strong>API & interfaces</strong><small>Explore endpoints, payloads, and source definitions</small></span>
+        <b>{api?.endpoints.length ?? 0}</b>
+      </button>
+      <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab('data')}>
+        <span><strong>Data & events</strong><small>Inspect stored records, messages, and delivery behavior</small></span>
+        <b>{dataCount}</b>
+      </button>
     </div>
 
     {tab === 'api' && <section className="component-api-catalog is-full" aria-labelledby="component-api-heading">
