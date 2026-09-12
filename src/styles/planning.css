@@ -409,7 +409,7 @@ button.change-row:hover { background:color-mix(in srgb,var(--change-color) 15%,t
 .system-neighborhood-toolbar>div:last-child button:disabled { opacity:.35; cursor:not-allowed; }
 .system-neighborhood-toolbar>div:last-child span { min-width:42px; text-align:center; }
 .system-neighborhood-map { max-height:560px; padding:14px 18px; border-bottom:1px solid var(--border); background:radial-gradient(circle at center,var(--accent-soft),transparent 42%),var(--bg); overflow:auto; overscroll-behavior:auto; touch-action:pan-x pan-y pinch-zoom; }
-.system-neighborhood-map svg { display:block; max-width:none; }
+.system-neighborhood-map svg { display:block; max-width:none; margin:0 auto; }
 .system-neighborhood-map path { fill:none; stroke:var(--fg-subtle); stroke-width:1.4; }
 .system-neighborhood-label { fill:var(--fg-subtle); font-size:9px; font-weight:600; letter-spacing:1px; }
 .system-neighborhood-empty { fill:var(--fg-subtle); font-size:11px; }
