@@ -124,23 +124,17 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
     const links: ForceLink[] = relationships.map(edge => ({ source: edge.from, target: edge.to }))
     const nextSimulation = forceSimulation<ForceNode>(physicsNodes)
       .force('links', forceLink<ForceNode, ForceLink>(links).id(node => node.id).distance(190).strength(.88))
-      .force('charge', forceManyBody<ForceNode>().strength(-430).distanceMax(620))
+      .force('charge', forceManyBody<ForceNode>().strength(-260).distanceMax(360))
       .force('collision', forceCollide<ForceNode>(nodeWidth * .62).strength(1).iterations(4))
-      .force('horizontal-shape', forceX<ForceNode>(node => node.seedX).strength(.035))
-      .force('vertical-shape', forceY<ForceNode>(node => node.seedY).strength(.025))
+      .force('horizontal-shape', forceX<ForceNode>(node => node.seedX).strength(.16))
+      .force('vertical-shape', forceY<ForceNode>(node => node.seedY).strength(.16))
       .alphaDecay(.07)
       .velocityDecay(.46)
 
     nextSimulation.stop()
-    for (let tick = 0; tick < 140; tick++) nextSimulation.tick()
     simulation.current = nextSimulation
     nextSimulation.on('tick', syncNodes)
-    setNodes(nextNodes.map(node => {
-      const forceNode = forceNodes.current.get(node.id)
-      return !forceNode || forceNode.x === undefined || forceNode.y === undefined
-        ? node
-        : { ...node, position: { x: forceNode.x - nodeWidth / 2, y: forceNode.y - nodeHeight / 2 } }
-    }))
+    setNodes(nextNodes)
   }, [relationships, setNodes, syncNodes])
 
   const runLayout = useCallback(async () => {
