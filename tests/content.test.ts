@@ -22,7 +22,23 @@ test('new workspace, product and draft feature are discoverable without UI regis
       endpoints: [{ id: 'read-item', name: 'Read item', method: 'GET', path: '/items/{id}', version: 'v1', response: 'Item' }],
       schemas: [{ id: 'Item', name: 'Item', kind: 'record', fields: [{ name: 'Id', type: 'string', required: true }] }],
     },
-    data: { technology: 'PostgreSQL', records: [{ id: 'items', name: 'Items', kind: 'record', fields: [{ name: 'Id', type: 'uuid', required: true }] }] },
+    data: {
+      technology: 'PostgreSQL', access: ['read', 'write'], gaps: ['Retention is not documented.'],
+      records: [{
+        id: 'items', name: 'Items', kind: 'record', keyPattern: 'primary key: id', ttl: null,
+        fields: [{ name: 'Id', type: 'uuid', required: true }],
+        evidence: [{ path: 'src/items.ts', lines: '10-20', claim: 'Defines the persisted item.', revision: 'abc123' }],
+      }],
+    },
+    messaging: {
+      messages: [{
+        id: 'item-created', name: 'ItemCreated', broker: 'Kafka', channel: 'items.created', direction: 'outbound',
+        fields: [{ name: 'id', type: 'uuid', required: true }],
+        delivery: { ordering: 'By item ID', retries: 'Three attempts', deadLetter: 'items.created.dlq' },
+        evidence: [{ path: 'src/events.ts', lines: '5-15', claim: 'Publishes ItemCreated.', revision: 'abc123' }],
+      }],
+      gaps: ['Consumer ownership is unknown.'],
+    },
   }
   input['features/f-new/feature.json'] = { id: 'f-new', productId: 'p-new', title: 'New plan', stage: 'idea', ownerId: 'ryan-nel', touches: ['c-new'], updatedAt: '2026-09-05T10:00:00Z' }
   input['features/f-new/purpose.json'] = { problem: 'A problem', outcome: 'A measurable outcome' }
@@ -32,6 +48,8 @@ test('new workspace, product and draft feature are discoverable without UI regis
   assert.equal(q.component('c-new')?.api?.endpoints[0].path, '/items/{id}')
   assert.equal(q.component('c-new')?.api?.schemas?.[0].fields[0].name, 'Id')
   assert.equal(q.component('c-new')?.data?.records[0].name, 'Items')
+  assert.equal(q.component('c-new')?.data?.records[0].keyPattern, 'primary key: id')
+  assert.equal(q.component('c-new')?.messaging?.messages[0].channel, 'items.created')
   assert.equal(q.components('p-new')[0].name, 'New component')
   assert.equal(q.featuresInWorkspace('w-new')[0].spec?.purpose?.outcome, 'A measurable outcome')
   assert.equal(q.features('p-new')[0].owner, 'Ryan Nel')

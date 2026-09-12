@@ -74,18 +74,31 @@ export const componentApiSchema = z.strictObject({
   }).optional(),
   endpoints: z.array(componentApiEndpointSchema), schemas: z.array(componentApiTypeSchema).optional(),
 })
+export const componentEvidenceSchema = z.strictObject({
+  path: text, lines: text, claim: text, revision: text,
+})
 export const componentDataSchema = z.strictObject({
-  technology: text.optional(),
+  technology: text.optional(), access: z.array(z.enum(['read', 'write'])).optional(), gaps: strings.optional(),
   records: z.array(z.strictObject({
     id, name: text, kind: z.enum(['document', 'record', 'keyspace', 'message']), description: text.optional(),
-    fields: z.array(componentApiFieldSchema),
+    keyPattern: text.optional(), ttl: text.nullable().optional(), fields: z.array(componentApiFieldSchema),
+    evidence: z.array(componentEvidenceSchema).optional(),
   })),
+})
+export const componentMessagingSchema = z.strictObject({
+  messages: z.array(z.strictObject({
+    id, name: text, broker: text, channel: text, direction: z.enum(['inbound', 'outbound']),
+    fields: z.array(componentApiFieldSchema),
+    delivery: z.strictObject({ ordering: text, retries: text, deadLetter: text }),
+    evidence: z.array(componentEvidenceSchema).optional(),
+  })),
+  gaps: strings.optional(),
 })
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
   role: z.enum(['business-service', 'platform-service', 'external-provider']).optional(),
-  api: componentApiSchema.optional(), data: componentDataSchema.optional(),
+  api: componentApiSchema.optional(), data: componentDataSchema.optional(), messaging: componentMessagingSchema.optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })
 export const featureSchema = z.strictObject({ id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: z.iso.datetime({ offset: true }) })
