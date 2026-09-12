@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "System import coverage",
+  "prompt": "Import the pricing system from Backstage into Groundwork. System Atlas has partial API and dependency coverage, and the implementation spans several repositories.",
+  "assertions": [
+    "The response identifies the authoritative Backstage System boundary before treating repositories or team workspaces as the system.",
+    "The response creates or explicitly specifies a per-component coverage manifest covering APIs, contracts, inbound, outbound, datastores, messaging, and revision freshness.",
+    "The response searches Groundwork, System Atlas, Backstage, and registries before proposing source repository inspection.",
+    "The response clones or delegates only repositories with missing or stale coverage rather than scanning every member repository.",
+    "Cross-repository workers are instructed to return normalized JSON with commit SHA and evidence instead of raw source dumps or long prose."
+  ]
+}

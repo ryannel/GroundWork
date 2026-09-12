@@ -1,0 +1,85 @@
+{
+  "expectations": [
+    {
+      "text": "The response refuses to invent stored fields or assume an API DTO is the Redis value schema.",
+      "passed": true,
+      "evidence": "Transcript/response line 3 says: 'I did not invent fields. I preserved the keyspace/record boundary and left the value structure unresolved.' The normalized example also keeps 'fields': [] rather than inventing a DTO (lines 25-34, especially line 32)."
+    },
+    {
+      "text": "The response preserves the observed key or keyspace name and its purpose.",
+      "passed": true,
+      "evidence": "The response keeps a Redis record under resources -> records with kind 'keyspace' and name 'Observed Redis key' (lines 20-34) and explicitly says it preserved the keyspace/record boundary (line 3)."
+    },
+    {
+      "text": "The response records access mode, key pattern, TTL, or source revision when evidence exists and marks unavailable values as gaps.",
+      "passed": true,
+      "evidence": "The normalized example records 'keyPattern' and 'ttl': null for the Redis record (lines 27-33) and adds an explicit gap entry for the unresolved schema at lines 39-43."
+    },
+    {
+      "text": "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+      "passed": true,
+      "evidence": "The missing-evidence handling section states: 'Evidence should include the repository-relative path, line range, claim, and full commit SHA.' (lines 53-54)."
+    },
+    {
+      "text": "The unresolved field structure is represented as an explicit gap while the record remains in the catalog.",
+      "passed": true,
+      "evidence": "The Redis record stays in resources.records (lines 20-35) and the unresolved field structure is captured in gaps with area 'resources.redis-cache.records.observed-keyspace.fields' and a reason explaining the missing schema (lines 39-43)."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 8,
+    "total_steps": 5,
+    "files_created": 3,
+    "errors_encountered": 0,
+    "output_chars": 1540,
+    "transcript_chars": 351
+  },
+  "timing": {
+    "executor_duration_seconds": 71.0,
+    "grader_duration_seconds": 0.0,
+    "total_duration_seconds": 71.0
+  },
+  "claims": [
+    {
+      "claim": "The response did not invent serialized fields and left the value structure unresolved.",
+      "type": "process",
+      "verified": true,
+      "evidence": "Line 3 states this directly, and the example record has 'fields': [] plus a matching gap entry (lines 32-43)."
+    },
+    {
+      "claim": "The response preserved the Redis record boundary inside the catalog model.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The Redis item remains under resources -> records with kind 'keyspace' (lines 20-35)."
+    },
+    {
+      "claim": "The response documented the evidence requirements for later backfilling.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The guidance explicitly requires repository-relative path, line range, claim, and full commit SHA (lines 53-54)."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+        "reason": "This can pass even if the response only repeats the requirement text without citing any actual repository evidence. A stronger check would require at least one concrete evidence entry with a repo-relative path, line range, claim, and commit SHA."
+      },
+      {
+        "reason": "The current assertions allow placeholder content like 'observed-keyspace' to pass without proving the key name came from source evidence. Add an assertion that the observed key/keyspace identifier matches an extracted source citation, or that the output explicitly marks the key name as unavailable if it was not recovered."
+      }
+    ],
+    "overall": "The eval verifies gap-handling language, but it is still easy to satisfy with a template. Add at least one assertion that forces a grounded source citation or a clearly marked missing key name."
+  }
+}

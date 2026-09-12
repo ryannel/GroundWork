@@ -12,12 +12,26 @@ test('new workspace, product and draft feature are discoverable without UI regis
   const input = copy()
   input['workspaces/w-new.json'] = { id: 'w-new', slug: 'new-space', name: 'New space', hue: 'var(--hue-teal)', createdAt: '2026-09-01T00:00:00Z' }
   input['products/p-new.json'] = { id: 'p-new', workspaceId: 'w-new', slug: 'new-product', name: 'New product', kind: 'library' }
-  input['components/c-new.json'] = { id: 'c-new', productId: 'p-new', name: 'New component' }
+  input['components/c-new.json'] = {
+    id: 'c-new', productId: 'p-new', name: 'New component',
+    ownership: 'internal', role: 'business-service',
+    api: {
+      name: 'New API', version: 'v1', sourceRevision: 'abc123',
+      versions: [{ id: 'v1', label: 'v1' }],
+      specification: { url: 'https://example.test/openapi', title: 'OpenAPI', availability: 'available' },
+      endpoints: [{ id: 'read-item', name: 'Read item', method: 'GET', path: '/items/{id}', version: 'v1', response: 'Item' }],
+      schemas: [{ id: 'Item', name: 'Item', kind: 'record', fields: [{ name: 'Id', type: 'string', required: true }] }],
+    },
+    data: { technology: 'PostgreSQL', records: [{ id: 'items', name: 'Items', kind: 'record', fields: [{ name: 'Id', type: 'uuid', required: true }] }] },
+  }
   input['features/f-new/feature.json'] = { id: 'f-new', productId: 'p-new', title: 'New plan', stage: 'idea', ownerId: 'ryan-nel', touches: ['c-new'], updatedAt: '2026-09-05T10:00:00Z' }
   input['features/f-new/purpose.json'] = { problem: 'A problem', outcome: 'A measurable outcome' }
   const { q } = createRepository(load(input))
   assert.equal(q.workspace('new-space')?.id, 'w-new')
   assert.equal(q.products('w-new')[0].slug, 'new-product')
+  assert.equal(q.component('c-new')?.api?.endpoints[0].path, '/items/{id}')
+  assert.equal(q.component('c-new')?.api?.schemas?.[0].fields[0].name, 'Id')
+  assert.equal(q.component('c-new')?.data?.records[0].name, 'Items')
   assert.equal(q.components('p-new')[0].name, 'New component')
   assert.equal(q.featuresInWorkspace('w-new')[0].spec?.purpose?.outcome, 'A measurable outcome')
   assert.equal(q.features('p-new')[0].owner, 'Ryan Nel')

@@ -1,0 +1,85 @@
+{
+  "expectations": [
+    {
+      "text": "The response identifies the authoritative Backstage System boundary before treating repositories or team workspaces as the system.",
+      "passed": true,
+      "evidence": "response.md says: \"Establish the authoritative Backstage System boundary for pricing before treating any repository or workspace as the system.\""
+    },
+    {
+      "text": "The response creates or explicitly specifies a per-component coverage manifest covering APIs, contracts, inbound, outbound, datastores, messaging, and revision freshness.",
+      "passed": true,
+      "evidence": "response.md says: \"Build `coverage.json` first, with one row per component and explicit cells for `membership`, `api`, `contracts`, `inbound`, `outbound`, `datastores`, `messaging`, and `revision` freshness.\""
+    },
+    {
+      "text": "The response searches Groundwork, System Atlas, Backstage, and registries before proposing source repository inspection.",
+      "passed": true,
+      "evidence": "response.md orders the evidence flow as Groundwork component records, System Atlas facts, Backstage entities, and repository registries, followed by: \"Only then inspect source\"."
+    },
+    {
+      "text": "The response clones or delegates only repositories with missing or stale coverage rather than scanning every member repository.",
+      "passed": true,
+      "evidence": "response.md says: \"Only then inspect source, and only for the unresolved or stale cells\" and \"Fan out one worker per unresolved repository.\""
+    },
+    {
+      "text": "Cross-repository workers are instructed to return normalized JSON with commit SHA and evidence instead of raw source dumps or long prose.",
+      "passed": false,
+      "evidence": "response.md instructs workers to return \"normalized JSON with full commit SHA, exact paths/lines, and explicit gaps,\" but it does not explicitly mention evidence fields or exclude raw source dumps/long prose."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 5,
+      "Write": 2,
+      "Bash": 1
+    },
+    "total_tool_calls": 6,
+    "total_steps": 3,
+    "errors_encountered": 0,
+    "output_chars": 1168,
+    "transcript_chars": 1061
+  },
+  "claims": [
+    {
+      "claim": "The plan uses Backstage as the source of truth for the pricing system boundary.",
+      "type": "process",
+      "verified": true,
+      "evidence": "response.md says: \"Use Backstage as the source of truth for the pricing system boundary.\""
+    },
+    {
+      "claim": "Repository inspection is limited to unresolved or stale coverage cells.",
+      "type": "process",
+      "verified": true,
+      "evidence": "response.md says: \"Only then inspect source, and only for the unresolved or stale cells.\""
+    },
+    {
+      "claim": "No repository clone or catalog write will be attempted in this evaluation run.",
+      "type": "process",
+      "verified": true,
+      "evidence": "response.md says: \"I will not clone repositories or modify catalog files in this evaluation run.\""
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Cross-repository workers are instructed to return normalized JSON with commit SHA and evidence instead of raw source dumps or long prose.",
+        "reason": "As written, a plan can satisfy this with a vague mention of \"normalized JSON\". Require explicit evidence fields or a concrete JSON schema so superficial prose does not pass."
+      },
+      {
+        "assertion": "The response searches Groundwork, System Atlas, Backstage, and registries before proposing source repository inspection.",
+        "reason": "This can be satisfied by a simple ordered list of source names. Requiring at least one concrete lookup artifact or query per source would make it more discriminating."
+      }
+    ],
+    "overall": "Mostly solid, but the worker-output assertion is too easy to satisfy without proving the intended structured handoff."
+  }
+}

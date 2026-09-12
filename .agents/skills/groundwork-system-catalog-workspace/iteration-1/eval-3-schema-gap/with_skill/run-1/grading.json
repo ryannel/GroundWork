@@ -1,0 +1,86 @@
+{
+  "expectations": [
+    {
+      "text": "The response refuses to invent stored fields or assume an API DTO is the Redis value schema.",
+      "passed": true,
+      "evidence": "Transcript says: 'Keep the observed keyspace in the catalog, record any known purpose/access/TTL, and leave the serialized fields empty until evidence is found.' The response itself says, 'I would not invent the Redis value schema' and 'leave `fields` empty until evidence is found.'"
+    },
+    {
+      "text": "The response preserves the observed key or keyspace name and its purpose.",
+      "passed": false,
+      "evidence": "The output uses placeholders instead of the observed identifier: 'name': '<observed redis key>' and 'id': 'observed-keyspace'. No actual key/keyspace name or purpose from evidence is preserved in the record."
+    },
+    {
+      "text": "The response records access mode, key pattern, TTL, or source revision when evidence exists and marks unavailable values as gaps.",
+      "passed": true,
+      "evidence": "The normalized example includes 'access': ['read'], 'keyPattern': '<observed key or pattern>', 'ttl': 'unknown', 'revision': 'unknown', and a 'gaps' entry for the unresolved fields. The missing-evidence section also says to 'record access mode and TTL only when evidence exists' and 'surface the unresolved shape as an explicit gap.'"
+    },
+    {
+      "text": "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+      "passed": false,
+      "evidence": "The response only says, 'When evidence is later found, include `path`, `lines`, `revision`, and a precise `claim`.' It does not require or mention a commit SHA in the actual catalog output."
+    },
+    {
+      "text": "The unresolved field structure is represented as an explicit gap while the record remains in the catalog.",
+      "passed": true,
+      "evidence": "The output includes a 'gaps' array with 'area': 'resources.redis-cache.records.observed-keyspace.fields' and keeps the record under 'resources' with 'fields': []."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 2,
+    "total": 5,
+    "pass_rate": 0.6
+  },
+  "execution_metrics": {
+    "tool_calls": 5,
+    "total_tool_calls": 5,
+    "total_steps": 3,
+    "files_created": 3,
+    "errors_encountered": 0,
+    "output_chars": 1614,
+    "transcript_chars": 375
+  },
+  "timing": {
+    "duration_ms": 71000,
+    "total_duration_seconds": 71.0
+  },
+  "claims": [
+    {
+      "claim": "The response avoids inventing the Redis value schema.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "It explicitly says 'I would not invent the Redis value schema' and leaves 'fields' empty."
+    },
+    {
+      "claim": "The response preserves the actual observed keyspace name and purpose.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The record only contains placeholders like '<observed redis key>' and 'observed-keyspace', so no evidence-backed keyspace name or purpose is preserved."
+    },
+    {
+      "claim": "The response requires repository evidence to include path, line range, claim, and commit SHA.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The text mentions path, lines, revision, and claim, but not commit SHA."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The response preserves the observed key or keyspace name and its purpose.",
+        "reason": "As written, a generic placeholder like '<observed redis key>' can satisfy the shape without preserving any evidence-backed identifier or purpose. Require the literal key/keyspace value from the source evidence, plus the purpose text."
+      },
+      {
+        "assertion": "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+        "reason": "This is partly prose-only in the current eval. Split it into a check that the catalog entry stores evidence fields, and a separate check that the evidence metadata includes commit SHA. Otherwise a response can mention provenance without actually encoding it."
+      }
+    ],
+    "overall": "Some assertions are discriminating, but the key-preservation and evidence-citation checks need tightening to avoid placeholder compliance."
+  }
+}

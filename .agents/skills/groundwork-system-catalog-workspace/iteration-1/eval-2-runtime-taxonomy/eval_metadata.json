@@ -1,0 +1,12 @@
+{
+  "eval_id": 2,
+  "eval_name": "Runtime taxonomy",
+  "prompt": "Document a service that calls LaunchDarkly, two internal APIs, and a partner payment API, and stores records in Redis.",
+  "assertions": [
+    "LaunchDarkly is classified as a platform capability with external ownership, not merely as a third-party business dependency.",
+    "The two internal APIs are classified as outbound business-service dependencies with internal ownership.",
+    "The partner payment API is classified as an external provider rather than a platform service.",
+    "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
+    "Direction, role, ownership, transport, and data shape remain separate fields or concepts."
+  ]
+}

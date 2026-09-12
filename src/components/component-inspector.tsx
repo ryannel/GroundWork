@@ -1,0 +1,172 @@
+import { useState } from 'react'
+import { ArrowRight, Boxes, ChevronDown, ChevronRight, Cloud, Database, ExternalLink, Network } from 'lucide-react'
+import type { Component } from '@/data/model'
+import { componentKind, componentKindLabel } from '@/data/component-structure'
+
+type ApiCatalog = NonNullable<Component['api']>
+type ApiEndpoint = ApiCatalog['endpoints'][number]
+type ApiType = NonNullable<ApiCatalog['schemas']>[number]
+
+function referencedSchemas(type: string, schemas: Map<string, ApiType>) {
+  const names = type.match(/[A-Za-z_][A-Za-z0-9_]*/g) ?? []
+  return [...new Set(names)].flatMap(name => {
+    const schema = schemas.get(name)
+    return schema ? [schema] : []
+  })
+}
+
+function SchemaExplorer({ type, schemas }: { type?: string; schemas: Map<string, ApiType> }) {
+  const roots = type ? referencedSchemas(type, schemas) : []
+  const [trail, setTrail] = useState<ApiType[]>(roots.slice(0, 1))
+  const current = trail.at(-1)
+  const openSchema = (schema: ApiType) => {
+    const existing = trail.findIndex(item => item.id === schema.id)
+    setTrail(existing >= 0 ? trail.slice(0, existing + 1) : [...trail, schema])
+  }
+
+  if (!type) return <div className="schema-browser-empty">No payload is documented for this endpoint.</div>
+  if (!current) return <div className="schema-browser-empty"><code>{type}</code><span>No structured fields were extracted for this type.</span></div>
+
+  return <div className="schema-browser">
+    {(trail.length > 1 || roots.length > 1) && <header className="schema-browser-context">
+      {trail.length > 1 && <nav aria-label="Schema path">{trail.map((schema, index) => <span key={schema.id}>{index > 0 && <ChevronRight size={11} />}<button onClick={() => setTrail(trail.slice(0, index + 1))} aria-current={index === trail.length - 1 ? 'page' : undefined}>{schema.name}</button></span>)}</nav>}
+      {roots.length > 1 && <div className="schema-root-switch" aria-label="Payload models">{roots.map(schema => <button key={schema.id} aria-pressed={current.id === schema.id} onClick={() => setTrail([schema])}>{schema.name}</button>)}</div>}
+    </header>}
+    <article className="schema-browser-model">
+      <header>
+        <div><strong>{current.name}</strong><span>{current.kind}{current.base ? ` · extends ${current.base}` : ''}</span></div>
+        {current.sourceUrl && <a href={current.sourceUrl} target="_blank" rel="noreferrer" title={current.source ?? current.name}>View source<ExternalLink size={11} /></a>}
+      </header>
+      {current.description && <p>{current.description}</p>}
+      {current.fields.length ? <div className="schema-browser-fields" role="table" aria-label={`${current.name} fields`}>
+        <div role="row" className="schema-browser-field-head"><span role="columnheader">Field</span><span role="columnheader">Type</span><span role="columnheader">Requirement</span></div>
+        {current.fields.map(field => {
+          const references = referencedSchemas(field.type, schemas)
+          return <div role="row" className="schema-browser-field" key={field.name}>
+            <span role="cell"><strong>{field.name}</strong>{field.description && <small>{field.description}</small>}</span>
+            <span role="cell">{references.length ? <button className="schema-type-link" onClick={() => openSchema(references[0])}><code>{field.type}</code><ArrowRight size={11} /></button> : <code>{field.type}</code>}</span>
+            <span role="cell" className={field.required ? 'is-required' : ''}>{field.required ? 'Required' : 'Optional'}</span>
+          </div>
+        })}</div> : <div className="schema-browser-no-fields">No fields were extracted for this {current.kind}.</div>}
+    </article>
+  </div>
+}
+
+function EndpointDetail({ endpoint, schemas }: { endpoint: ApiEndpoint; schemas: Map<string, ApiType> }) {
+  const [payload, setPayload] = useState<'request' | 'response'>('request')
+  const type = payload === 'request' ? endpoint.request : endpoint.response
+  return <article className="endpoint-reference">
+    <header className="endpoint-reference-heading">
+      <div className="endpoint-reference-title"><span className={`component-api-method method-${endpoint.method.toLowerCase()}`}>{endpoint.method}</span><div><h5>{endpoint.name}</h5><code>{endpoint.path}</code></div></div>
+      {endpoint.version && <span className="component-endpoint-version">{endpoint.version}</span>}
+    </header>
+    {endpoint.summary && <p className="endpoint-reference-summary">{endpoint.summary}</p>}
+    <div className="payload-tabs" role="tablist" aria-label="Payload structure">
+      <button role="tab" aria-selected={payload === 'request'} onClick={() => setPayload('request')}>Request</button>
+      <button role="tab" aria-selected={payload === 'response'} onClick={() => setPayload('response')}>Response</button>
+    </div>
+    <SchemaExplorer key={`${endpoint.id}-${payload}`} type={type} schemas={schemas} />
+    {endpoint.source && <footer className="component-endpoint-source"><span>Endpoint source</span><code>{endpoint.source}</code></footer>}
+  </article>
+}
+
+function DataCatalog({ component, compact = false }: { component: Component; compact?: boolean }) {
+  const data = component.data
+  if (!data) return <p className="component-data-gap">No data schema has been observed.</p>
+  return <div className={`component-data-catalog${compact ? ' is-compact' : ''}`}>
+    {data.technology && <div className="component-data-technology">{data.technology}</div>}
+    {data.records.map(record => <details key={record.id}>
+      <summary><span><strong>{record.name}</strong><small>{record.kind}</small></span><span>{record.fields.length} fields</span><ChevronDown size={13} /></summary>
+      <div className="component-data-record">
+        {record.description && <p>{record.description}</p>}
+        {record.fields.length ? <div className="schema-browser-fields">
+          <div className="schema-browser-field-head"><span>Field</span><span>Type</span><span>Requirement</span></div>
+          {record.fields.map(field => <div className="schema-browser-field" key={field.name}><span><strong>{field.name}</strong>{field.description && <small>{field.description}</small>}</span><code>{field.type}</code><span className={field.required ? 'is-required' : ''}>{field.required ? 'Required' : 'Optional'}</span></div>)}
+        </div> : <div className="component-data-gap">The record is observed, but its field structure has not been extracted.</div>}
+      </div>
+    </details>)}
+  </div>
+}
+
+function DependencyEntry({ dependency, showData = false }: { dependency: Component; showData?: boolean }) {
+  const kind = componentKind(dependency)
+  const Icon = ['database', 'cache', 'object-storage', 'local-storage'].includes(kind) ? Database : kind === 'external-service' ? Cloud : kind === 'service' ? Boxes : Network
+  const context = dependency.role === 'platform-service'
+    ? `${dependency.ownership === 'third-party' ? 'External' : 'Internal'} platform`
+    : dependency.role === 'external-provider'
+      ? 'External provider'
+      : dependency.ownership === 'third-party'
+        ? 'External service'
+        : dependency.kind === 'external-service'
+          ? 'Internal service'
+          : componentKindLabel(dependency)
+  const content = <><span className="component-repository-icon"><Icon size={15} /></span><span><small>{context}</small><strong>{dependency.name}</strong></span>{showData && <ChevronDown size={13} />}</>
+  return showData
+    ? <details className="component-infrastructure-entry"><summary>{content}</summary><DataCatalog component={dependency} compact /></details>
+    : <div className="component-dependency-entry">{content}</div>
+}
+
+function DependencyGroup({ title, description, dependencies, showData = false }: { title: string; description: string; dependencies: Component[]; showData?: boolean }) {
+  if (!dependencies.length) return null
+  return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} />)}</div></section>
+}
+
+export function ComponentInspector({ component, dependencies, consumers }: { component: Component; dependencies: Component[]; consumers: Component[] }) {
+  const api = component.api
+  const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
+  const [selectedVersion, setSelectedVersion] = useState(versions.at(-1)?.id ?? 'all')
+  const filteredEndpoints = api?.endpoints.filter(endpoint => selectedVersion === 'all' || endpoint.version === selectedVersion) ?? []
+  const [selectedEndpointId, setSelectedEndpointId] = useState(filteredEndpoints[0]?.id ?? '')
+  const selectedEndpoint = filteredEndpoints.find(endpoint => endpoint.id === selectedEndpointId) ?? filteredEndpoints[0]
+  const schemas = new Map((api?.schemas ?? []).map(schema => [schema.name, schema]))
+  const datastoreKinds = new Set(['database', 'cache', 'object-storage', 'local-storage'])
+  const datastores = dependencies.filter(dependency => datastoreKinds.has(componentKind(dependency)))
+  const messaging = dependencies.filter(dependency => componentKind(dependency) === 'queue')
+  const platforms = dependencies.filter(dependency => dependency.role === 'platform-service')
+  const serviceDependencies = dependencies.filter(dependency => !datastoreKinds.has(componentKind(dependency)) && componentKind(dependency) !== 'queue' && dependency.role !== 'platform-service')
+  const hasApi = Boolean(api)
+  const hasData = Boolean(component.data)
+  const contextCount = datastores.length + messaging.length + platforms.length + serviceDependencies.length + consumers.length
+  return <section className="component-inspector" aria-labelledby="component-inspector-heading">
+    <header className="component-inspector-heading">
+      <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
+      <span>{componentKindLabel(component)}</span>
+    </header>
+
+    <div className="component-inspector-grid">
+      <section className="component-api-catalog" aria-labelledby="component-api-heading">
+        <header>
+          <div><span>{hasApi ? 'API reference' : hasData ? 'Data at rest' : 'Interfaces'}</span><h4 id="component-api-heading">{api?.name ?? (hasData ? component.name : 'No interface catalog imported')}</h4></div>
+          {api && versions.length > 0 && <label className="component-version-picker"><span>Version</span><select value={selectedVersion} onChange={event => setSelectedVersion(event.target.value)}><option value="all">All versions</option>{versions.map(version => <option key={version.id} value={version.id}>{version.label}</option>)}</select></label>}
+        </header>
+        {api ? <>
+          <div className="component-api-meta">
+            <span><strong>{filteredEndpoints.length}</strong> {selectedVersion === 'all' ? 'endpoints' : `${selectedVersion} endpoints`}</span>
+            <span><strong>{api.schemas?.length ?? 0}</strong> schema types</span>
+            {api.sourceRevision && <span title={api.sourceRevision}>Revision {api.sourceRevision.slice(0, 8)}</span>}
+            {api.specification && <a href={api.specification.url} target="_blank" rel="noreferrer">{api.specification.title}<ExternalLink size={12} /></a>}
+          </div>
+          <div className="api-reference-browser">
+            <nav className="endpoint-index" aria-label={`${api.name} endpoints`}>{filteredEndpoints.map(endpoint => <button key={endpoint.id} aria-current={selectedEndpoint?.id === endpoint.id ? 'page' : undefined} onClick={() => setSelectedEndpointId(endpoint.id)}>
+              <span className={`component-api-method method-${endpoint.method.toLowerCase()}`}>{endpoint.method}</span>
+              <span><strong>{endpoint.name}</strong><code>{endpoint.path}</code></span>
+            </button>)}</nav>
+            <div className="endpoint-detail">{selectedEndpoint ? <EndpointDetail key={selectedEndpoint.id} endpoint={selectedEndpoint} schemas={schemas} /> : <div className="component-inspector-empty">No endpoints are available for this version.</div>}</div>
+          </div>
+        </> : hasData ? <DataCatalog component={component} /> : <div className="component-inspector-empty">No API, datastore, or message schema has been imported for this component.</div>}
+      </section>
+
+      <aside className="component-repositories" aria-labelledby="component-repositories-heading">
+        <header><span>Component context</span><h4 id="component-repositories-heading">Runtime context</h4></header>
+        <div className="component-context-summary"><span><strong>{consumers.length}</strong> callers</span><span><strong>{dependencies.length}</strong> dependencies</span><span><strong>{datastores.length + messaging.length}</strong> resources</span></div>
+        {contextCount ? <>
+          <DependencyGroup title="Callers" description="Components that call or require this component." dependencies={consumers} />
+          <DependencyGroup title="Dependencies" description="Business services and providers called by this component." dependencies={serviceDependencies} />
+          <DependencyGroup title="Platform capabilities" description="Operational services used by this component." dependencies={platforms} />
+          <DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData />
+          <DependencyGroup title="Messaging" description="Queues, topics, and data in motion." dependencies={messaging} showData />
+        </> : <div className="component-inspector-empty">No runtime relationships are recorded for this component.</div>}
+      </aside>
+    </div>
+  </section>
+}

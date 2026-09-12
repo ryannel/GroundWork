@@ -1,0 +1,78 @@
+{
+  "expectations": [
+    {
+      "text": "LaunchDarkly is classified as a platform capability with external ownership, not merely as a third-party business dependency.",
+      "passed": true,
+      "evidence": "In outputs/response.md under \"Classification dimensions\": \"LaunchDarkly — external platform-service, owned external, transported via sdk/http\". This classifies it as a platform capability with external ownership."
+    },
+    {
+      "text": "The two internal APIs are classified as outbound business-service dependencies with internal ownership.",
+      "passed": true,
+      "evidence": "In outputs/response.md: \"Internal API A — business-service, owned internal, transported via http\" and \"Internal API B — business-service, owned internal, transported via http\" under outbound dependencies."
+    },
+    {
+      "text": "The partner payment API is classified as an external provider rather than a platform service.",
+      "passed": true,
+      "evidence": "In outputs/response.md: \"Partner payment API — external-provider, owned external, transported via http\"."
+    },
+    {
+      "text": "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
+      "passed": true,
+      "evidence": "In outputs/response.md under \"Data at rest\": \"Redis — cache, accessed read/write, stores a separate keyspace/record shape\" and the normalized resource record defines a Redis cache resource with a records entry named \"service:records:{id}\"."
+    },
+    {
+      "text": "Direction, role, ownership, transport, and data shape remain separate fields or concepts.",
+      "passed": true,
+      "evidence": "The normalized example records keep these as separate keys/concepts: relation objects have distinct \"direction\", \"role\", \"ownership\", \"transport\", and \"operation\" fields, while Redis is modeled separately under \"resources\" with its own \"records\" block and keyPattern."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1
+  },
+  "execution_metrics": {
+    "tool_calls": 7,
+    "total_tool_calls": 7,
+    "total_steps": 3,
+    "files_created": 3,
+    "errors_encountered": 0,
+    "output_chars": 2694,
+    "transcript_chars": 397
+  },
+  "claims": [
+    {
+      "claim": "The output is a normalized catalog proposal covering LaunchDarkly, two internal APIs, a partner payment API, and Redis.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The transcript states this directly, and outputs/response.md contains sections for outbound dependencies, data at rest, and normalized example records covering those exact components."
+    },
+    {
+      "claim": "LaunchDarkly is modeled as an external platform-service.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "outputs/response.md: \"LaunchDarkly — external platform-service, owned external, transported via sdk/http\"."
+    },
+    {
+      "claim": "Redis value schema is fully resolved.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The output explicitly says under gaps: \"Redis value schema was not provided, so the serialized record fields remain unresolved.\""
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
+        "reason": "This passes even though the output explicitly leaves the Redis serialized field schema unresolved. Adding an assertion about concrete Redis value fields would better distinguish a complete taxonomy from a partial one."
+      }
+    ],
+    "overall": "Most assertions are solid and discriminating, but the Redis check could be strengthened to require more than a separate keyspace/record container."
+  }
+}

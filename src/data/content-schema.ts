@@ -55,7 +55,38 @@ export const featureSpecSchema = z.strictObject({
 export const workspaceSchema = z.strictObject({ id, slug, order, name: text, description: text.optional(), hue: text, createdAt: z.iso.datetime({ offset: true }) })
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
-export const componentSchema = z.strictObject({ id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(), repo: text.optional(), description: text.optional() })
+export const componentApiEndpointSchema = z.strictObject({
+  id, name: text, method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']), path: text,
+  version: text.optional(), summary: text.optional(), request: text.optional(), response: text.optional(), source: text.optional(),
+})
+export const componentApiFieldSchema = z.strictObject({
+  name: text, type: text, required: z.boolean(), description: text.optional(), line: z.number().int().positive().optional(),
+})
+export const componentApiTypeSchema = z.strictObject({
+  id: text, name: text, kind: z.enum(['class', 'record', 'enum']), base: text.optional(), description: text.optional(),
+  fields: z.array(componentApiFieldSchema), source: text.optional(), sourceUrl: z.url().optional(), sourceRevision: text.optional(),
+})
+export const componentApiSchema = z.strictObject({
+  name: text, version: text.optional(), versions: z.array(z.strictObject({ id: text, label: text })).optional(), sourceRevision: text.optional(),
+  specification: z.strictObject({
+    url: z.url(), title: text, availability: z.enum(['available', 'unavailable', 'unknown']),
+    kind: text.optional(), source: text.optional(), lastCheckedAt: z.iso.datetime({ offset: true }).optional(), lastStatus: z.number().int().nonnegative().optional(),
+  }).optional(),
+  endpoints: z.array(componentApiEndpointSchema), schemas: z.array(componentApiTypeSchema).optional(),
+})
+export const componentDataSchema = z.strictObject({
+  technology: text.optional(),
+  records: z.array(z.strictObject({
+    id, name: text, kind: z.enum(['document', 'record', 'keyspace', 'message']), description: text.optional(),
+    fields: z.array(componentApiFieldSchema),
+  })),
+})
+export const componentSchema = z.strictObject({
+  id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
+  repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
+  role: z.enum(['business-service', 'platform-service', 'external-provider']).optional(),
+  api: componentApiSchema.optional(), data: componentDataSchema.optional(),
+})
 export const memberSchema = z.strictObject({ id, name: text })
 export const featureSchema = z.strictObject({ id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: z.iso.datetime({ offset: true }) })
 export const projectSchema = z.strictObject({ schemaVersion: z.literal(1), viewerId: id.optional() })
