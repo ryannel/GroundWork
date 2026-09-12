@@ -140,8 +140,8 @@ function DependencyGroup({ title, description, dependencies, showData = false, o
   return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} onSelect={onSelect} />)}</div></section>
 }
 
-export function ComponentInspector({ component, dependencies, consumers, isLocal, onShowWork }: { component: Component; dependencies: Component[]; consumers: Component[]; isLocal: boolean; onShowWork: (id: string) => void }) {
-  const [tab, setTab] = useState<'overview' | 'api' | 'data'>('overview')
+export function ComponentInspector({ component, dependencies, isLocal, onShowWork }: { component: Component; dependencies: Component[]; isLocal: boolean; onShowWork: (id: string) => void }) {
+  const [tab, setTab] = useState<'api' | 'data' | null>(null)
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
   const [selectedVersion, setSelectedVersion] = useState(versions.at(-1)?.id ?? 'all')
@@ -152,16 +152,9 @@ export function ComponentInspector({ component, dependencies, consumers, isLocal
   const datastoreKinds = new Set(['database', 'cache', 'object-storage', 'local-storage'])
   const datastores = dependencies.filter(dependency => datastoreKinds.has(componentKind(dependency)))
   const messaging = dependencies.filter(dependency => componentKind(dependency) === 'queue')
-  const platforms = dependencies.filter(dependency => dependency.role === 'platform-service')
   const hasApi = Boolean(api)
   const hasData = Boolean(component.data)
   const hasDataAndEvents = hasData || Boolean(component.messaging) || datastores.length > 0 || messaging.length > 0
-  const dependencyTypes = [
-    { label: 'product services', count: dependencies.filter(item => componentKind(item) === 'service' && item.role !== 'platform-service').length },
-    { label: 'platform capabilities', count: platforms.length },
-    { label: 'external providers', count: dependencies.filter(item => componentKind(item) === 'external-service' && item.role !== 'platform-service').length },
-    { label: 'runtime resources', count: datastores.length + messaging.length },
-  ].filter(item => item.count > 0)
   return <section className="component-inspector" aria-labelledby="component-inspector-heading">
     <header className="component-inspector-heading">
       <div className="component-inspector-identity">
@@ -174,34 +167,13 @@ export function ComponentInspector({ component, dependencies, consumers, isLocal
       </div>
     </header>
 
-    <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
-      <button role="tab" aria-selected={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button>
-      <button role="tab" aria-selected={tab === 'api'} disabled={!hasApi} onClick={() => setTab('api')}>Interfaces{hasApi && <span>{api!.endpoints.length}</span>}</button>
-      <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab('data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
-    </div>
-
-    {tab === 'overview' && <div className="component-overview-panel">
-      <div className="component-position-grid">
-        <article>
-          <span className="component-position-direction">Incoming · called by</span>
-          <strong>{consumers.length ? `${consumers.length} ${consumers.length === 1 ? 'caller' : 'callers'}` : 'No recorded callers'}</strong>
-          <p>{consumers.length ? consumers.map(item => item.name).join(', ') : 'Nothing inside this mapped system is currently recorded as calling this component.'}</p>
-        </article>
-        <div className="component-position-arrow"><ArrowRight size={18} /></div>
-        <article className="is-selected">
-          <span>Selected</span>
-          <strong>{component.name}</strong>
-          <p>{componentKindLabel(component)}</p>
-        </article>
-        <div className="component-position-arrow"><ArrowRight size={18} /></div>
-        <article>
-          <span className="component-position-direction">Outgoing · depends on</span>
-          <strong>{dependencies.length ? `${dependencies.length} dependencies` : 'No recorded dependencies'}</strong>
-          <p>{dependencyTypes.length ? dependencyTypes.map(item => `${item.count} ${item.label}`).join(' · ') : 'No downstream services or resources are recorded.'}</p>
-        </article>
+    <div className="component-inspector-tabs">
+      <span>Explore this component</span>
+      <div role="tablist" aria-label={`${component.name} detail`}>
+        <button role="tab" aria-selected={tab === 'api'} disabled={!hasApi} onClick={() => setTab(tab === 'api' ? null : 'api')}>Interfaces{hasApi && <span>{api!.endpoints.length}</span>}</button>
+        <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab(tab === 'data' ? null : 'data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
       </div>
-      <p className="component-position-help">Use the diagram above to inspect an individual relationship. This summary explains direction without repeating every node.</p>
-    </div>}
+    </div>
 
     {tab === 'api' && <section className="component-api-catalog is-full" aria-labelledby="component-api-heading">
         <header>

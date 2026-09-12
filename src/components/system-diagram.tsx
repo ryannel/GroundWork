@@ -90,6 +90,6 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
     </div>
 
     </>}
-    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} consumers={consumers} isLocal={isLocal} onShowWork={onShowWork} />
+    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={isLocal} onShowWork={onShowWork} />
   </section>
 }
