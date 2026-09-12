@@ -9,7 +9,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
   const marker = useId().replace(/:/g, '')
   const [localFocus, setLocalFocus] = useState<string | null>(null)
   const [view, setView] = useState<'overview' | 'focus'>('overview')
-  const [contextZoom, setContextZoom] = useState(1.25)
+  const [contextZoom, setContextZoom] = useState(1)
   const { nodes, edges } = useMemo(() => systemGraph(components, allComponents), [components, allComponents])
   if (!nodes.length) return null
 
@@ -22,6 +22,8 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
   const consumers = edges.filter(edge => edge.to === selected.id).map(edge => nodes.find(node => node.id === edge.from)!)
   const isLocal = localIds.has(selected.id)
   const mapHeight = Math.max(210, Math.max(consumers.length, dependencies.length) * 72 + 68)
+  const contextFitScale = Math.min(1, 520 / mapHeight)
+  const contextScale = contextFitScale * contextZoom
   const centerY = mapHeight / 2
   const positions = (items: Component[]) => items.map((component, index) => ({
     component,
@@ -68,11 +70,11 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
         <button aria-label="Zoom out" disabled={contextZoom <= .75} onClick={() => setContextZoom(value => Math.max(.75, value - .25))}><ZoomOut size={14} /></button>
         <span>{Math.round(contextZoom * 100)}%</span>
         <button aria-label="Zoom in" disabled={contextZoom >= 1.75} onClick={() => setContextZoom(value => Math.min(1.75, value + .25))}><ZoomIn size={14} /></button>
-        <button aria-label="Reset zoom" onClick={() => setContextZoom(1.25)}><Maximize2 size={13} /></button>
+        <button aria-label="Reset zoom" onClick={() => setContextZoom(1)}><Maximize2 size={13} /></button>
       </div>
     </div>
     <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
-      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" style={{ width: 900 * contextZoom, height: mapHeight * contextZoom }}>
+      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" style={{ width: 900 * contextScale, height: mapHeight * contextScale }}>
         <defs><marker id={`${marker}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
         <text className="system-neighborhood-label" x="20" y="24">INCOMING · CALLERS</text>
         <text className="system-neighborhood-label" x="355" y="24">SELECTED COMPONENT</text>
