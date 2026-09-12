@@ -5,7 +5,7 @@ import { componentKindLabel, systemGraph } from '@/data/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
 
-export function SystemDiagram({ components, allComponents, selectedId, onSelect, onShowWork }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void; onShowWork: (id: string) => void }) {
+export function SystemDiagram({ components, allComponents, selectedId, onSelect }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void }) {
   const marker = useId().replace(/:/g, '')
   const [localFocus, setLocalFocus] = useState<string | null>(null)
   const [view, setView] = useState<'overview' | 'focus'>('overview')
@@ -90,6 +90,6 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
     </div>
 
     </>}
-    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={isLocal} onShowWork={onShowWork} />
+    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={isLocal} />
   </section>
 }

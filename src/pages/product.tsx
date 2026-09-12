@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, Database, Cloud } from 'lucide-react'
 import { useProduct, q, byUpdated } from '@/data/store'
@@ -13,7 +12,6 @@ export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
   const data = useProduct(slug, pslug)
   const [params, setParams] = useSearchParams()
-  const featureSection = useRef<HTMLElement>(null)
   if (!data) return <Navigate to={`/w/${slug}`} replace />
   const { workspace: w, product: p, active, ideas, shipped, components, incoming } = data
   const kind = kinds[p.kind]
@@ -45,11 +43,6 @@ export function ProductPage() {
     else next.set(key, value)
     return next
   }, { replace: true })
-  const showComponentWork = (id: string) => {
-    update('scope', id)
-    featureSection.current?.scrollIntoView({ block: 'start' })
-    featureSection.current?.focus({ preventScroll: true })
-  }
   const inspectComponent = (id: string) => update('component', id)
 
   return <div className="product-overview" style={hueStyle(kind.hueVar)}>
@@ -69,7 +62,7 @@ export function ProductPage() {
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
       <div className="board-section-heading"><div><div className="board-eyebrow">Architecture</div><h2 id="product-components-heading">Understand the system</h2><p>Trace where a service fits before opening its implementation details.</p></div></div>
-      <SystemDiagram components={componentList} allComponents={allComponents} selectedId={selectedComponent?.id} onSelect={inspectComponent} onShowWork={showComponentWork} />
+      <SystemDiagram components={componentList} allComponents={allComponents} selectedId={selectedComponent?.id} onSelect={inspectComponent} />
       {!components.length && <p className="board-empty">No system structure has been added yet.</p>}
     </section>
 
@@ -79,7 +72,7 @@ export function ProductPage() {
         <span>{allActive.length} active</span>
       </div>
     <div className={`workspace-work-layout product-work-layout${connections.length ? '' : ' is-solo'}`}>
-      <section className="workspace-feature-section product-feature-section" aria-labelledby="product-feature-heading" ref={featureSection} tabIndex={-1}>
+      <section className="workspace-feature-section product-feature-section" aria-labelledby="product-feature-heading">
         <div className="board-section-heading"><div><h3>Plans</h3><p>{view === 'active' && scopedIncoming ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products` : `Feature plans owned by ${p.name}.`}</p></div><label><span className="sr-only">Component scope</span><select value={scope?.id ?? 'all'} onChange={event => update('scope', event.target.value)}><option value="all">All components</option><ComponentOptions components={overviewComponents} /></select></label></div>
         <div className="board-work-tabs" role="group" aria-label="Product feature view">{views.map(item => <button key={item.id} aria-pressed={view === item.id} onClick={() => update('view', item.id)}><item.icon size={14} aria-hidden="true" />{item.label}<span>{item.rows.length}</span></button>)}</div>
         <div className="board-list-context"><p>{scope ? <>Touching <strong>{scope.name}</strong><button className="product-clear-filter" onClick={() => update('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button></> : 'Across this product'}{view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}</p><span aria-live="polite">{rows.length} {rows.length === 1 ? 'feature' : 'features'} · Latest updates first</span></div>
