@@ -362,6 +362,7 @@ button.change-row:hover { background:color-mix(in srgb,var(--change-color) 15%,t
 .system-view-switch button:hover { color:var(--fg); }
 .system-view-switch button[aria-pressed=true] { color:var(--fg); background:var(--surface); box-shadow:inset 0 1px 0 var(--surface-highlight); }
 .system-overview-map { position:relative; height:460px; border-bottom:1px solid var(--border); background:var(--bg); }
+.system-overview-map .react-flow { touch-action:pan-y pinch-zoom; }
 .system-overview-map .react-flow { background:radial-gradient(circle at center,var(--accent-soft),transparent 45%),var(--bg); }
 .system-overview-map .react-flow__background-pattern { fill:color-mix(in srgb,var(--fg-subtle) 22%,transparent); }
 .system-flow-node { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:10px; width:100%; height:100%; padding:10px 14px; border:1px solid var(--border-strong); border-top:3px solid var(--kind-color); border-radius:9px; color:var(--fg); background:var(--bg-elevated); box-shadow:var(--panel-shadow); }
@@ -407,7 +408,7 @@ button.change-row:hover { background:color-mix(in srgb,var(--change-color) 15%,t
 .system-neighborhood-toolbar>div:last-child button:hover:not(:disabled) { color:var(--fg); background:var(--surface); }
 .system-neighborhood-toolbar>div:last-child button:disabled { opacity:.35; cursor:not-allowed; }
 .system-neighborhood-toolbar>div:last-child span { min-width:42px; text-align:center; }
-.system-neighborhood-map { max-height:560px; padding:14px 18px; border-bottom:1px solid var(--border); background:radial-gradient(circle at center,var(--accent-soft),transparent 42%),var(--bg); overflow:auto; }
+.system-neighborhood-map { max-height:560px; padding:14px 18px; border-bottom:1px solid var(--border); background:radial-gradient(circle at center,var(--accent-soft),transparent 42%),var(--bg); overflow:auto; overscroll-behavior:auto; touch-action:pan-x pan-y pinch-zoom; }
 .system-neighborhood-map svg { display:block; max-width:none; }
 .system-neighborhood-map path { fill:none; stroke:var(--fg-subtle); stroke-width:1.4; }
 .system-neighborhood-label { fill:var(--fg-subtle); font-size:9px; font-weight:600; letter-spacing:1px; }

@@ -9,7 +9,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
   const marker = useId().replace(/:/g, '')
   const [localFocus, setLocalFocus] = useState<string | null>(null)
   const [view, setView] = useState<'overview' | 'focus'>('overview')
-  const [contextZoom, setContextZoom] = useState(1)
+  const [contextZoom, setContextZoom] = useState(1.25)
   const { nodes, edges } = useMemo(() => systemGraph(components, allComponents), [components, allComponents])
   if (!nodes.length) return null
 
@@ -68,7 +68,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
         <button aria-label="Zoom out" disabled={contextZoom <= .75} onClick={() => setContextZoom(value => Math.max(.75, value - .25))}><ZoomOut size={14} /></button>
         <span>{Math.round(contextZoom * 100)}%</span>
         <button aria-label="Zoom in" disabled={contextZoom >= 1.75} onClick={() => setContextZoom(value => Math.min(1.75, value + .25))}><ZoomIn size={14} /></button>
-        <button aria-label="Reset zoom" onClick={() => setContextZoom(1)}><Maximize2 size={13} /></button>
+        <button aria-label="Reset zoom" onClick={() => setContextZoom(1.25)}><Maximize2 size={13} /></button>
       </div>
     </div>
     <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
