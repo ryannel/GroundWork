@@ -1,4 +1,5 @@
 import { useId, useMemo, useState } from 'react'
+import { Maximize2, ZoomIn, ZoomOut } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { componentKindLabel, systemGraph } from '@/data/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
@@ -8,6 +9,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
   const marker = useId().replace(/:/g, '')
   const [localFocus, setLocalFocus] = useState<string | null>(null)
   const [view, setView] = useState<'overview' | 'focus'>('overview')
+  const [contextZoom, setContextZoom] = useState(1)
   const { nodes, edges } = useMemo(() => systemGraph(components, allComponents), [components, allComponents])
   if (!nodes.length) return null
 
@@ -60,12 +62,21 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
     </header>
 
     {view === 'overview' ? <SystemOverviewMap components={nodes} relationships={edges} focus={selected.id} onFocus={id => { if (id) { setLocalFocus(id); onSelect(id) } }} /> : <>
+    <div className="system-neighborhood-toolbar">
+      <div><strong>How to read this view</strong><span>Incoming callers rely on the selected component. Outgoing dependencies are services and resources it relies on.</span></div>
+      <div aria-label="Direct context zoom controls">
+        <button aria-label="Zoom out" disabled={contextZoom <= .75} onClick={() => setContextZoom(value => Math.max(.75, value - .25))}><ZoomOut size={14} /></button>
+        <span>{Math.round(contextZoom * 100)}%</span>
+        <button aria-label="Zoom in" disabled={contextZoom >= 1.75} onClick={() => setContextZoom(value => Math.min(1.75, value + .25))}><ZoomIn size={14} /></button>
+        <button aria-label="Reset zoom" onClick={() => setContextZoom(1)}><Maximize2 size={13} /></button>
+      </div>
+    </div>
     <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
-      <svg viewBox={`0 0 900 ${mapHeight}`} role="group">
+      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" style={{ width: 900 * contextZoom, height: mapHeight * contextZoom }}>
         <defs><marker id={`${marker}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
-        <text className="system-neighborhood-label" x="20" y="24">USED BY</text>
+        <text className="system-neighborhood-label" x="20" y="24">INCOMING · CALLERS</text>
         <text className="system-neighborhood-label" x="355" y="24">SELECTED COMPONENT</text>
-        <text className="system-neighborhood-label" x="690" y="24">DEPENDS ON</text>
+        <text className="system-neighborhood-label" x="690" y="24">OUTGOING · DEPENDENCIES</text>
         {consumerPositions.map(({ component, y }) => <path key={`consumer-${component.id}`} d={`M 210 ${y} C 280 ${y}, 285 ${centerY}, 355 ${centerY}`} markerEnd={`url(#${marker}-arrow)`} />)}
         {dependencyPositions.map(({ component, y }) => <path key={`dependency-${component.id}`} d={`M 545 ${centerY} C 615 ${centerY}, 620 ${y}, 690 ${y}`} markerEnd={`url(#${marker}-arrow)`} />)}
         {consumerPositions.map(({ component, y }) => mapNode(component, 20, y))}
@@ -77,6 +88,6 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect,
     </div>
 
     </>}
-    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} consumers={consumers} isLocal={isLocal} onSelect={id => { setLocalFocus(id); onSelect(id) }} onShowWork={onShowWork} />
+    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} consumers={consumers} isLocal={isLocal} onShowWork={onShowWork} />
   </section>
 }
