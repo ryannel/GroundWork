@@ -1,0 +1,12 @@
+{
+  "eval_id": 3,
+  "eval_name": "Unknown datastore schema",
+  "prompt": "Our catalog says a Redis key exists but we cannot find the serialized fields. Please complete the datastore schema anyway.",
+  "assertions": [
+    "The response refuses to invent stored fields or assume an API DTO is the Redis value schema.",
+    "The response preserves the observed key or keyspace name and its purpose.",
+    "The response records access mode, key pattern, TTL, or source revision when evidence exists and marks unavailable values as gaps.",
+    "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+    "The unresolved field structure is represented as an explicit gap while the record remains in the catalog."
+  ]
+}

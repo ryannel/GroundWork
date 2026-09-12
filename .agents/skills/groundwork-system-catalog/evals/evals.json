@@ -1,0 +1,45 @@
+{
+  "skill_name": "groundwork-system-catalog",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Import the pricing system from Backstage into Groundwork. System Atlas has partial API and dependency coverage, and the implementation spans several repositories.",
+      "expected_output": "The agent establishes the Backstage System boundary, builds a structured coverage manifest, reuses System Atlas before source research, then shallow-clones each repository selected for source analysis and fans extraction out to low-cost workers.",
+      "files": [],
+      "expectations": [
+        "The response identifies the authoritative Backstage System boundary before treating repositories or team workspaces as the system.",
+        "The response creates or explicitly specifies a per-component coverage manifest covering APIs, contracts, inbound, outbound, datastores, messaging, and revision freshness.",
+        "The response searches Groundwork, System Atlas, Backstage, and registries before proposing source repository inspection.",
+        "The response selects repositories from missing or stale coverage rather than cloning every member repository.",
+        "Once a repository is selected for source analysis, the response shallow-clones it and uses local search/tooling instead of GitHub MCP file-by-file browsing.",
+        "Cross-repository workers are instructed to return normalized JSON with commit SHA and evidence instead of raw source dumps or long prose."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Document a service that calls LaunchDarkly, two internal APIs, and a partner payment API, and stores records in Redis.",
+      "expected_output": "The agent classifies LaunchDarkly as an external platform capability, internal APIs as dependencies, the partner API as an external provider, and Redis as a datastore with a separate data-at-rest schema.",
+      "files": [],
+      "expectations": [
+        "LaunchDarkly is classified as a platform capability with external ownership, not merely as a third-party business dependency.",
+        "The two internal APIs are classified as outbound business-service dependencies with internal ownership.",
+        "The partner payment API is classified as an external provider rather than a platform service.",
+        "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
+        "Direction, role, ownership, transport, and data shape remain separate fields or concepts."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our catalog says a Redis key exists but we cannot find the serialized fields. Please complete the datastore schema anyway.",
+      "expected_output": "The agent records the observed keyspace, purpose, access mode, and evidence while leaving fields empty and surfacing an explicit extraction gap instead of inventing a schema.",
+      "files": [],
+      "expectations": [
+        "The response refuses to invent stored fields or assume an API DTO is the Redis value schema.",
+        "The response preserves the observed key or keyspace name and its purpose.",
+        "The response records access mode, key pattern, TTL, or source revision when evidence exists and marks unavailable values as gaps.",
+        "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
+        "The unresolved field structure is represented as an explicit gap while the record remains in the catalog."
+      ]
+    }
+  ]
+}

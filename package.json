@@ -19,7 +19,11 @@
     "schemas:check-portable": "node scripts/runtime-schemas.ts check"
   },
   "dependencies": {
+    "@types/d3-force": "^3.0.10",
+    "@xyflow/react": "^12.11.6",
     "clsx": "^2.1.1",
+    "d3-force": "^3.0.0",
+    "elkjs": "^0.12.0",
     "lucide-react": "^1.41.0",
     "motion": "^13.2.0",
     "react": "^19.2.8",

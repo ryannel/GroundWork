@@ -85,6 +85,382 @@
       "type": "string",
       "minLength": 1,
       "pattern": "\\S"
+    },
+    "ownership": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "third-party"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "business-service",
+        "platform-service",
+        "external-provider"
+      ]
+    },
+    "api": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sourceRevision": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "specification": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "availability": {
+              "type": "string",
+              "enum": [
+                "available",
+                "unavailable",
+                "unknown"
+              ]
+            },
+            "kind": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "lastCheckedAt": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
+            "lastStatus": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "url",
+            "title",
+            "availability"
+          ],
+          "additionalProperties": false
+        },
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "allOf": [
+                  {
+                    "pattern": "\\S"
+                  },
+                  {
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "PATCH",
+                  "DELETE",
+                  "EVENT",
+                  "RPC"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "request": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "response": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "method",
+              "path"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "class",
+                  "record",
+                  "enum"
+                ]
+              },
+              "base": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "type": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "line": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "type",
+                    "required"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri"
+              },
+              "sourceRevision": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "kind",
+              "fields"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "name",
+        "endpoints"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "technology": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "allOf": [
+                  {
+                    "pattern": "\\S"
+                  },
+                  {
+                    "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "document",
+                  "record",
+                  "keyspace",
+                  "message"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "type": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "line": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "type",
+                    "required"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "kind",
+              "fields"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "records"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [

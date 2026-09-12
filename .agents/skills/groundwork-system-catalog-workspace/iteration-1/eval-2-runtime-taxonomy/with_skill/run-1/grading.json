@@ -1,0 +1,77 @@
+{
+  "expectations": [
+    {
+      "text": "LaunchDarkly is classified as a platform capability with external ownership, not merely as a third-party business dependency.",
+      "passed": true,
+      "evidence": "In outputs/response.md under \"relations\", LaunchDarkly is listed with \"role\": \"platform-service\" and \"ownership\": \"external\". The top-level classification also says \"Dependencies: 1 platform capability\"."
+    },
+    {
+      "text": "The two internal APIs are classified as outbound business-service dependencies with internal ownership.",
+      "passed": true,
+      "evidence": "The response contains two outbound relations for \"internal-api-1\" and \"internal-api-2\", each with \"role\": \"business-service\" and \"ownership\": \"internal\"."
+    },
+    {
+      "text": "The partner payment API is classified as an external provider rather than a platform service.",
+      "passed": true,
+      "evidence": "The partner payment API relation is labeled \"role\": \"external-provider\" and \"ownership\": \"external\"."
+    },
+    {
+      "text": "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
+      "passed": true,
+      "evidence": "The response has a top-level resource with \"kind\": \"cache\" and \"technology\": \"Redis\", plus a nested \"records\" entry named \"observed Redis records\". The gaps section separately notes that the Redis key pattern and serialized record schema are unresolved."
+    },
+    {
+      "text": "Direction, role, ownership, transport, and data shape remain separate fields or concepts.",
+      "passed": true,
+      "evidence": "The response models these as distinct concepts: each relation has separate \"direction\", \"role\", \"ownership\", and \"transport\" fields, while resources use separate \"records\" and \"fields\" concepts."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 5,
+      "Write": 0,
+      "Bash": 0
+    },
+    "total_tool_calls": 5,
+    "total_steps": 4,
+    "errors_encountered": 0,
+    "output_chars": 3411,
+    "transcript_chars": 258
+  },
+  "timing": {
+    "executor_duration_seconds": 71,
+    "total_duration_seconds": 71
+  },
+  "claims": [
+    {
+      "claim": "The catalog proposal distinguishes outbound relations from stored resources.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The response separates \"relations\" from \"resources\" into distinct top-level sections."
+    },
+    {
+      "claim": "The Redis schema is not fully resolved.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The gaps section says \"Redis key pattern and serialized record schema were not provided.\""
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [
+      "component.identity is unresolved",
+      "Redis record fields/key pattern are unresolved"
+    ],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}
