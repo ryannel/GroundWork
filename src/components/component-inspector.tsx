@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Boxes, ChevronDown, ChevronRight, Cloud, Database, ExternalLink, Network } from 'lucide-react'
+import { ArrowRight, Boxes, ChevronDown, ChevronRight, Cloud, Database, ExternalLink, GitBranch, Network, Radio } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { componentKind, componentKindLabel } from '@/data/component-structure'
 
@@ -74,21 +74,50 @@ function DataCatalog({ component, compact = false }: { component: Component; com
   const data = component.data
   if (!data) return <p className="component-data-gap">No data schema has been observed.</p>
   return <div className={`component-data-catalog${compact ? ' is-compact' : ''}`}>
-    {data.technology && <div className="component-data-technology">{data.technology}</div>}
+    <div className="component-data-meta">
+      {data.technology && <span>{data.technology}</span>}
+      {data.access?.map(mode => <span key={mode}>{mode}</span>)}
+    </div>
     {data.records.map(record => <details key={record.id}>
-      <summary><span><strong>{record.name}</strong><small>{record.kind}</small></span><span>{record.fields.length} fields</span><ChevronDown size={13} /></summary>
+      <summary><span><strong>{record.name}</strong><small>{record.kind}{record.keyPattern ? ` · ${record.keyPattern}` : ''}</small></span><span>{record.fields.length} fields</span><ChevronDown size={13} /></summary>
       <div className="component-data-record">
         {record.description && <p>{record.description}</p>}
+        {record.ttl && <div className="component-data-fact"><strong>Retention</strong><span>{record.ttl}</span></div>}
         {record.fields.length ? <div className="schema-browser-fields">
           <div className="schema-browser-field-head"><span>Field</span><span>Type</span><span>Requirement</span></div>
           {record.fields.map(field => <div className="schema-browser-field" key={field.name}><span><strong>{field.name}</strong>{field.description && <small>{field.description}</small>}</span><code>{field.type}</code><span className={field.required ? 'is-required' : ''}>{field.required ? 'Required' : 'Optional'}</span></div>)}
         </div> : <div className="component-data-gap">The record is observed, but its field structure has not been extracted.</div>}
+        {record.evidence?.length ? <div className="component-data-evidence">{record.evidence.length} source {record.evidence.length === 1 ? 'reference' : 'references'}</div> : null}
       </div>
     </details>)}
+    {data.gaps?.length ? <div className="component-catalog-gaps"><strong>Known gaps</strong>{data.gaps.map(gap => <p key={gap}>{gap}</p>)}</div> : null}
   </div>
 }
 
-function DependencyEntry({ dependency, showData = false }: { dependency: Component; showData?: boolean }) {
+function MessagingCatalog({ component }: { component: Component }) {
+  const messaging = component.messaging
+  if (!messaging) return <p className="component-data-gap">No message contracts have been observed.</p>
+  return <div className="component-messaging-catalog">
+    {messaging.messages.map(message => <details key={message.id}>
+      <summary>
+        <span className={`message-direction is-${message.direction}`}>{message.direction}</span>
+        <span><strong>{message.name}</strong><small>{message.broker} · {message.channel}</small></span>
+        <span>{message.fields.length} {message.fields.length === 1 ? 'field' : 'fields'}</span>
+        <ChevronDown size={13} />
+      </summary>
+      <div className="component-message-detail">
+        <dl><div><dt>Ordering</dt><dd>{message.delivery.ordering}</dd></div><div><dt>Retries</dt><dd>{message.delivery.retries}</dd></div><div><dt>Dead letter</dt><dd>{message.delivery.deadLetter}</dd></div></dl>
+        {message.fields.length ? <div className="schema-browser-fields">
+          <div className="schema-browser-field-head"><span>Field</span><span>Type</span><span>Requirement</span></div>
+          {message.fields.map(field => <div className="schema-browser-field" key={field.name}><span><strong>{field.name}</strong>{field.description && <small>{field.description}</small>}</span><code>{field.type}</code><span className={field.required ? 'is-required' : ''}>{field.required ? 'Required' : 'Optional'}</span></div>)}
+        </div> : null}
+      </div>
+    </details>)}
+    {messaging.gaps?.length ? <div className="component-catalog-gaps"><strong>Known gaps</strong>{messaging.gaps.map(gap => <p key={gap}>{gap}</p>)}</div> : null}
+  </div>
+}
+
+function DependencyEntry({ dependency, showData = false, onSelect }: { dependency: Component; showData?: boolean; onSelect?: (id: string) => void }) {
   const kind = componentKind(dependency)
   const Icon = ['database', 'cache', 'object-storage', 'local-storage'].includes(kind) ? Database : kind === 'external-service' ? Cloud : kind === 'service' ? Boxes : Network
   const context = dependency.role === 'platform-service'
@@ -103,15 +132,16 @@ function DependencyEntry({ dependency, showData = false }: { dependency: Compone
   const content = <><span className="component-repository-icon"><Icon size={15} /></span><span><small>{context}</small><strong>{dependency.name}</strong></span>{showData && <ChevronDown size={13} />}</>
   return showData
     ? <details className="component-infrastructure-entry"><summary>{content}</summary><DataCatalog component={dependency} compact /></details>
-    : <div className="component-dependency-entry">{content}</div>
+    : <button className="component-dependency-entry" onClick={() => onSelect?.(dependency.id)}>{content}<ArrowRight size={13} /></button>
 }
 
-function DependencyGroup({ title, description, dependencies, showData = false }: { title: string; description: string; dependencies: Component[]; showData?: boolean }) {
+function DependencyGroup({ title, description, dependencies, showData = false, onSelect }: { title: string; description: string; dependencies: Component[]; showData?: boolean; onSelect?: (id: string) => void }) {
   if (!dependencies.length) return null
-  return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} />)}</div></section>
+  return <section className="component-dependency-group"><header><div><h5>{title}</h5><p>{description}</p></div><span>{dependencies.length}</span></header><div>{dependencies.map(dependency => <DependencyEntry key={dependency.id} dependency={dependency} showData={showData} onSelect={onSelect} />)}</div></section>
 }
 
-export function ComponentInspector({ component, dependencies, consumers }: { component: Component; dependencies: Component[]; consumers: Component[] }) {
+export function ComponentInspector({ component, dependencies, consumers, isLocal, onSelect, onShowWork }: { component: Component; dependencies: Component[]; consumers: Component[]; isLocal: boolean; onSelect: (id: string) => void; onShowWork: (id: string) => void }) {
+  const [tab, setTab] = useState<'overview' | 'api' | 'data'>('overview')
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
   const [selectedVersion, setSelectedVersion] = useState(versions.at(-1)?.id ?? 'all')
@@ -126,17 +156,39 @@ export function ComponentInspector({ component, dependencies, consumers }: { com
   const serviceDependencies = dependencies.filter(dependency => !datastoreKinds.has(componentKind(dependency)) && componentKind(dependency) !== 'queue' && dependency.role !== 'platform-service')
   const hasApi = Boolean(api)
   const hasData = Boolean(component.data)
+  const hasDataAndEvents = hasData || Boolean(component.messaging) || datastores.length > 0 || messaging.length > 0
   const contextCount = datastores.length + messaging.length + platforms.length + serviceDependencies.length + consumers.length
   return <section className="component-inspector" aria-labelledby="component-inspector-heading">
     <header className="component-inspector-heading">
-      <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
-      <span>{componentKindLabel(component)}</span>
+      <div className="component-inspector-identity">
+        <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
+        <span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span>
+        {component.description && <p>{component.description}</p>}
+        {component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}
+      </div>
+      <div className="component-inspector-actions">
+        {isLocal && <button onClick={() => onShowWork(component.id)}>View planned work <ArrowRight size={13} /></button>}
+      </div>
     </header>
 
-    <div className="component-inspector-grid">
-      <section className="component-api-catalog" aria-labelledby="component-api-heading">
+    <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
+      <button role="tab" aria-selected={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button>
+      <button role="tab" aria-selected={tab === 'api'} disabled={!hasApi} onClick={() => setTab('api')}>Interfaces{hasApi && <span>{api!.endpoints.length}</span>}</button>
+      <button role="tab" aria-selected={tab === 'data'} disabled={!hasDataAndEvents} onClick={() => setTab('data')}>Data & events{hasDataAndEvents && <span>{(component.data?.records.length ?? 0) + (component.messaging?.messages.length ?? 0) + datastores.length + messaging.length}</span>}</button>
+    </div>
+
+    {tab === 'overview' && <div className="component-overview-panel">
+      <div className="component-context-summary"><span><strong>{consumers.length}</strong> callers</span><span><strong>{dependencies.length}</strong> dependencies</span><span><strong>{datastores.length + messaging.length}</strong> resources</span></div>
+      {contextCount ? <div className="component-relationship-columns">
+        <DependencyGroup title="Used by" description="Services that rely on this component." dependencies={consumers} onSelect={onSelect} />
+        <DependencyGroup title="Calls and depends on" description="Business services and providers this component requires." dependencies={[...serviceDependencies, ...platforms]} onSelect={onSelect} />
+        <DependencyGroup title="State and messaging" description="Datastores and messaging infrastructure used at runtime." dependencies={[...datastores, ...messaging]} onSelect={onSelect} />
+      </div> : <div className="component-inspector-empty">No runtime relationships are recorded for this component.</div>}
+    </div>}
+
+    {tab === 'api' && <section className="component-api-catalog is-full" aria-labelledby="component-api-heading">
         <header>
-          <div><span>{hasApi ? 'API reference' : hasData ? 'Data at rest' : 'Interfaces'}</span><h4 id="component-api-heading">{api?.name ?? (hasData ? component.name : 'No interface catalog imported')}</h4></div>
+          <div><span>Interface catalog</span><h4 id="component-api-heading">{api?.name ?? 'No interface catalog imported'}</h4></div>
           {api && versions.length > 0 && <label className="component-version-picker"><span>Version</span><select value={selectedVersion} onChange={event => setSelectedVersion(event.target.value)}><option value="all">All versions</option>{versions.map(version => <option key={version.id} value={version.id}>{version.label}</option>)}</select></label>}
         </header>
         {api ? <>
@@ -153,20 +205,14 @@ export function ComponentInspector({ component, dependencies, consumers }: { com
             </button>)}</nav>
             <div className="endpoint-detail">{selectedEndpoint ? <EndpointDetail key={selectedEndpoint.id} endpoint={selectedEndpoint} schemas={schemas} /> : <div className="component-inspector-empty">No endpoints are available for this version.</div>}</div>
           </div>
-        </> : hasData ? <DataCatalog component={component} /> : <div className="component-inspector-empty">No API, datastore, or message schema has been imported for this component.</div>}
-      </section>
+        </> : <div className="component-inspector-empty">No API interface has been imported for this component.</div>}
+      </section>}
 
-      <aside className="component-repositories" aria-labelledby="component-repositories-heading">
-        <header><span>Component context</span><h4 id="component-repositories-heading">Runtime context</h4></header>
-        <div className="component-context-summary"><span><strong>{consumers.length}</strong> callers</span><span><strong>{dependencies.length}</strong> dependencies</span><span><strong>{datastores.length + messaging.length}</strong> resources</span></div>
-        {contextCount ? <>
-          <DependencyGroup title="Callers" description="Components that call or require this component." dependencies={consumers} />
-          <DependencyGroup title="Dependencies" description="Business services and providers called by this component." dependencies={serviceDependencies} />
-          <DependencyGroup title="Platform capabilities" description="Operational services used by this component." dependencies={platforms} />
-          <DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData />
-          <DependencyGroup title="Messaging" description="Queues, topics, and data in motion." dependencies={messaging} showData />
-        </> : <div className="component-inspector-empty">No runtime relationships are recorded for this component.</div>}
-      </aside>
-    </div>
+    {tab === 'data' && <div className="component-data-workspace">
+      {component.data && <section><header><Database size={16} /><div><span>Owned state</span><h4>{component.name} data</h4></div></header><DataCatalog component={component} /></section>}
+      {component.messaging && <section><header><Radio size={16} /><div><span>Messages</span><h4>Published and consumed events</h4></div></header><MessagingCatalog component={component} /></section>}
+      {(datastores.length > 0 || messaging.length > 0) && <section><header><Network size={16} /><div><span>Runtime resources</span><h4>Backing infrastructure</h4></div></header><div className="component-resource-columns"><DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData /><DependencyGroup title="Messaging infrastructure" description="Queues and topics used by this component." dependencies={messaging} showData /></div></section>}
+      {!hasDataAndEvents && <div className="component-inspector-empty">No datastore or message schema has been imported for this component.</div>}
+    </div>}
   </section>
 }

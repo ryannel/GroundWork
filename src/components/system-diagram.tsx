@@ -1,14 +1,12 @@
 import { useId, useMemo, useState } from 'react'
-import { ArrowRight, GitBranch } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { componentKindLabel, systemGraph } from '@/data/component-structure'
-import { ComponentIcon } from '@/components/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
 
-export function SystemDiagram({ components, allComponents, onSelect }: { components: Component[]; allComponents: Component[]; onSelect: (id: string) => void }) {
+export function SystemDiagram({ components, allComponents, selectedId, onSelect, onShowWork }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void; onShowWork: (id: string) => void }) {
   const marker = useId().replace(/:/g, '')
-  const [focus, setFocus] = useState<string | null>(null)
+  const [localFocus, setLocalFocus] = useState<string | null>(null)
   const [view, setView] = useState<'overview' | 'focus'>('overview')
   const { nodes, edges } = useMemo(() => systemGraph(components, allComponents), [components, allComponents])
   if (!nodes.length) return null
@@ -16,6 +14,7 @@ export function SystemDiagram({ components, allComponents, onSelect }: { compone
   const localIds = new Set(components.map(component => component.id))
   const relationshipCount = (id: string) => edges.filter(edge => edge.from === id || edge.to === id).length
   const defaultNode = [...nodes].sort((a, b) => relationshipCount(b.id) - relationshipCount(a.id))[0]
+  const focus = selectedId ?? localFocus
   const selected = nodes.find(component => component.id === focus) ?? defaultNode
   const dependencies = edges.filter(edge => edge.from === selected.id).map(edge => nodes.find(node => node.id === edge.to)!)
   const consumers = edges.filter(edge => edge.to === selected.id).map(edge => nodes.find(node => node.id === edge.from)!)
@@ -29,7 +28,7 @@ export function SystemDiagram({ components, allComponents, onSelect }: { compone
   const consumerPositions = positions(consumers)
   const dependencyPositions = positions(dependencies)
   const mapNode = (component: Component, x: number, y: number, primary = false) => {
-    const select = () => setFocus(component.id)
+    const select = () => { setLocalFocus(component.id); onSelect(component.id) }
     return <g key={component.id} className={`system-neighborhood-node${primary ? ' is-focus' : ''}`} transform={`translate(${x} ${y - 26})`} role="button" tabIndex={0} aria-label={`Inspect ${component.name}`} onClick={select} onKeyDown={event => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
@@ -42,36 +41,25 @@ export function SystemDiagram({ components, allComponents, onSelect }: { compone
     </g>
   }
 
-  const relationCard = (component: Component) => <button key={component.id} className="system-relation-card" onClick={() => setFocus(component.id)}>
-    <span className="system-relation-icon"><ComponentIcon component={component} size={16} /></span>
-    <span><strong>{component.name}</strong><small>{componentKindLabel(component)}{localIds.has(component.id) ? '' : ' · Other product'}</small></span>
-    <ArrowRight size={14} aria-hidden="true" />
-  </button>
-
   return <section className="system-explorer" aria-labelledby="system-explorer-heading">
     <header className="system-explorer-heading">
-      <div><h3 id="system-explorer-heading">Dependency explorer</h3><p>Select a component to inspect only its direct relationships.</p></div>
+      <div><h3 id="system-explorer-heading">Service landscape</h3><p>Arrows point from a caller to what it depends on. Select any node to follow its immediate context.</p></div>
       <div className="system-explorer-actions">
         <span>{nodes.length} components · {edges.length} relationships</span>
+        <label className="system-component-select">
+          <span>Inspect</span>
+          <select value={selected.id} onChange={event => { setLocalFocus(event.target.value); onSelect(event.target.value) }}>
+            {nodes.map(component => <option key={component.id} value={component.id}>{component.name} · {componentKindLabel(component)}</option>)}
+          </select>
+        </label>
         <div className="system-view-switch" aria-label="System map view">
-          <button aria-pressed={view === 'overview'} onClick={() => setView('overview')}>Overview</button>
-          <button aria-pressed={view === 'focus'} onClick={() => setView('focus')}>Focus</button>
+          <button aria-pressed={view === 'overview'} onClick={() => setView('overview')}>System map</button>
+          <button aria-pressed={view === 'focus'} onClick={() => setView('focus')}>Direct context</button>
         </div>
       </div>
     </header>
 
-    {view === 'overview' ? <SystemOverviewMap components={nodes} relationships={edges} focus={focus ?? undefined} onFocus={id => setFocus(id || null)} /> : <>
-    <div className="system-component-picker" role="list" aria-label="System components">
-      {nodes.map(component => {
-        const count = relationshipCount(component.id)
-        return <button key={component.id} role="listitem" className={component.id === selected.id ? 'is-selected' : ''} aria-pressed={component.id === selected.id} onClick={() => setFocus(component.id)}>
-          <ComponentIcon component={component} size={15} />
-          <span>{component.name}</span>
-          <small aria-label={`${count} direct ${count === 1 ? 'relationship' : 'relationships'}`}>{count}</small>
-        </button>
-      })}
-    </div>
-
+    {view === 'overview' ? <SystemOverviewMap components={nodes} relationships={edges} focus={selected.id} onFocus={id => { if (id) { setLocalFocus(id); onSelect(id) } }} /> : <>
     <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
       <svg viewBox={`0 0 900 ${mapHeight}`} role="group">
         <defs><marker id={`${marker}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
@@ -88,27 +76,7 @@ export function SystemDiagram({ components, allComponents, onSelect }: { compone
       </svg>
     </div>
 
-    <div className="system-relationship-lens">
-      <article className="system-focus-card">
-        <div className="system-focus-kicker"><ComponentIcon component={selected} size={18} /><span>{componentKindLabel(selected)}{isLocal ? '' : ' · Other product'}</span></div>
-        <h4>{selected.name}</h4>
-        {selected.description && <p>{selected.description}</p>}
-        {selected.repo && <div className="system-focus-repo"><GitBranch size={13} />{selected.repo}</div>}
-        <div className="system-focus-counts"><span><strong>{consumers.length}</strong> used by</span><span><strong>{dependencies.length}</strong> depends on</span></div>
-        {isLocal && <button className="system-focus-plans" onClick={() => onSelect(selected.id)}>View active plans <ArrowRight size={14} /></button>}
-      </article>
-
-      <section className="system-relation-group system-relation-consumers">
-        <header><span>Used by</span><small>Components that call or require {selected.name}</small></header>
-        {consumers.length ? <div>{consumers.map(relationCard)}</div> : <p>No recorded consumers.</p>}
-      </section>
-
-      <section className="system-relation-group system-relation-dependencies">
-        <header><span>Depends on</span><small>Components {selected.name} calls or requires</small></header>
-        {dependencies.length ? <div>{dependencies.map(relationCard)}</div> : <p>No recorded dependencies.</p>}
-      </section>
-    </div>
     </>}
-    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} consumers={consumers} />
+    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} consumers={consumers} isLocal={isLocal} onSelect={id => { setLocalFocus(id); onSelect(id) }} onShowWork={onShowWork} />
   </section>
 }
