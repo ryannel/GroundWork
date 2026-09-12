@@ -96,14 +96,9 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
   const simulation = useRef<Simulation<ForceNode, ForceLink> | null>(null)
   const forceNodes = useRef(new Map<string, ForceNode>())
   const frame = useRef<number | undefined>(undefined)
-  const focusWhenSettled = useRef(false)
-  const focusedId = useRef(focus)
+  const fitWhenReady = useRef(false)
   const [nodes, setNodes, onNodesChange] = useNodesState<SystemNode>([])
   const [layoutPending, setLayoutPending] = useState(true)
-
-  useEffect(() => {
-    focusedId.current = focus
-  }, [focus])
 
   const syncNodes = useCallback(() => {
     if (frame.current) cancelAnimationFrame(frame.current)
@@ -125,11 +120,6 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
       seedX: node.position.x + nodeWidth / 2,
       seedY: node.position.y + nodeHeight / 2,
     }))
-    const selectedNode = physicsNodes.find(node => node.id === focusedId.current)
-    if (selectedNode) {
-      selectedNode.fx = selectedNode.seedX
-      selectedNode.fy = selectedNode.seedY
-    }
     forceNodes.current = new Map(physicsNodes.map(node => [node.id, node]))
     const links: ForceLink[] = relationships.map(edge => ({ source: edge.from, target: edge.to }))
     const nextSimulation = forceSimulation<ForceNode>(physicsNodes)
@@ -141,12 +131,17 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
       .alphaDecay(.07)
       .velocityDecay(.46)
 
-    for (let tick = 0; tick < 60; tick++) nextSimulation.tick()
+    nextSimulation.stop()
+    for (let tick = 0; tick < 140; tick++) nextSimulation.tick()
     simulation.current = nextSimulation
     nextSimulation.on('tick', syncNodes)
-    syncNodes()
-    nextSimulation.alpha(.45).restart()
-  }, [relationships, syncNodes])
+    setNodes(nextNodes.map(node => {
+      const forceNode = forceNodes.current.get(node.id)
+      return !forceNode || forceNode.x === undefined || forceNode.y === undefined
+        ? node
+        : { ...node, position: { x: forceNode.x - nodeWidth / 2, y: forceNode.y - nodeHeight / 2 } }
+    }))
+  }, [relationships, setNodes, syncNodes])
 
   const runLayout = useCallback(async () => {
     const { default: ELK } = await import('elkjs/lib/elk.bundled.js')
@@ -173,11 +168,10 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
       data: { component, color: kindColors[componentKind(component)] },
       style: { width: nodeWidth, height: nodeHeight },
     }))
-    setNodes(nextNodes)
     setLayoutPending(false)
-    focusWhenSettled.current = true
+    fitWhenReady.current = true
     startSimulation(nextNodes)
-  }, [components, relationships, setNodes, startSimulation])
+  }, [components, relationships, startSimulation])
 
   useEffect(() => {
     void runLayout()
@@ -188,10 +182,9 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
   }, [runLayout])
 
   useEffect(() => {
-    if (layoutPending || !focusWhenSettled.current || !instance.current || !nodes.length) return
-    focusWhenSettled.current = false
-    const target = nodes.find(node => node.id === focusedId.current) ?? nodes[0]
-    requestAnimationFrame(() => instance.current?.setCenter(target.position.x + nodeWidth / 2, target.position.y + nodeHeight / 2, { duration: 260, zoom: .9 }))
+    if (layoutPending || !fitWhenReady.current || !instance.current || !nodes.length) return
+    fitWhenReady.current = false
+    requestAnimationFrame(() => instance.current?.fitView({ duration: 260, padding: .12, minZoom: .1, maxZoom: .9 }))
   }, [layoutPending, nodes])
 
   const nodeById = new Map(nodes.map(node => [node.id, node]))
@@ -237,7 +230,7 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
       onNodesChange={onNodesChange}
       nodesConnectable={false}
       elementsSelectable
-      minZoom={.35}
+      minZoom={.1}
       maxZoom={1.7}
       zoomOnScroll={false}
       panOnScroll={false}
@@ -252,7 +245,7 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
           forceNode.fx = node.position.x + nodeWidth / 2
           forceNode.fy = node.position.y + nodeHeight / 2
         }
-        focusWhenSettled.current = false
+        fitWhenReady.current = false
         simulation.current?.alphaTarget(.3).restart()
         onFocus(node.id)
       }}
@@ -268,7 +261,7 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
           forceNode.fx = node.position.x + nodeWidth / 2
           forceNode.fy = node.position.y + nodeHeight / 2
         }
-        focusWhenSettled.current = false
+        fitWhenReady.current = false
         simulation.current?.alphaTarget(0).alpha(.55).restart()
       }}
       onNodeContextMenu={(event, node) => {
@@ -278,7 +271,7 @@ export function SystemOverviewMap({ components, relationships, focus, onFocus }:
           forceNode.fx = null
           forceNode.fy = null
         }
-        focusWhenSettled.current = false
+        fitWhenReady.current = false
         simulation.current?.alphaTarget(0).alpha(.55).restart()
       }}
       proOptions={{ hideAttribution: true }}
