@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, Database, Cloud, TriangleAlert } from 'lucide-react'
 import { useProduct, q, byUpdated } from '@/data/store'
@@ -13,12 +14,13 @@ export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
   const data = useProduct(slug, pslug)
   const [params, setParams] = useSearchParams()
+  // Inspector URL changes must not restart the map's layout and simulation.
+  const componentList = useMemo(() => data?.components.map(c => c.component) ?? [], [data?.components])
   if (!data) return <Navigate to={`/w/${slug}`} replace />
   const { workspace: w, product: p, active, ideas, shipped, components, incoming } = data
   const kind = kinds[p.kind]
   const requestedScope = components.find(({ component }) => component.id === params.get('scope'))?.component
   const scope = requestedScope && componentAncestors(requestedScope.id, q.components())[0]
-  const componentList = components.map(c => c.component)
   const overviewComponents = componentList.filter(c => !c.parentId)
   const view = params.get('view') === 'ideas' ? 'ideas' : params.get('view') === 'shipped' ? 'shipped' : 'active'
   const allActive = [...active, ...incoming].sort(byUpdated)

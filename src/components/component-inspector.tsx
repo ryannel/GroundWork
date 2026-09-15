@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { ArrowRight, Boxes, ChevronDown, ChevronRight, Cloud, Database, ExternalLink, GitBranch, Network, Radio } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { componentKind, componentKindLabel } from '@/data/component-structure'
@@ -142,6 +142,7 @@ function DependencyGroup({ title, description, dependencies, showData = false, o
 }
 
 export function ComponentInspector({ component, dependencies, isLocal }: { component: Component; dependencies: Component[]; isLocal: boolean }) {
+  const inspectorId = useId()
   const coverage = componentCoverage(component)
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
@@ -164,21 +165,27 @@ export function ComponentInspector({ component, dependencies, isLocal }: { compo
         <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
         <div className="component-inspector-badges"><span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span><span className={`scan-status is-${coverage.status}`}>{scanStatusLabel(coverage.status)}</span></div>
       </div>
-      <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}<div className="component-scan-coverage" aria-label="Repository scan coverage">{(['dependencies', 'api', 'data', 'messaging'] as const).map(area => <span key={area} className={`is-${coverage.area(area)}`}>{area}<i>{coverage.area(area) === 'complete' ? 'complete' : coverage.area(area) === 'partial' ? 'partial' : 'unknown'}</i></span>)}</div></div>
+      <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}<div className="component-scan-coverage" aria-label="Repository scan coverage">{(['dependencies', 'api', 'data', 'messaging'] as const).map(area => <span key={area} className={`is-${coverage.area(area)}`}>{area === 'api' ? 'API' : area}<i>{coverage.area(area) === 'complete' ? 'complete' : coverage.area(area) === 'partial' ? 'partial' : 'unknown'}</i></span>)}</div></div>
     </header>
 
-    <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
-      <button role="tab" aria-selected={tab === 'api'} onClick={() => setTab('api')}>
+    <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`} onKeyDown={event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+      event.preventDefault()
+      const next = event.key === 'Home' ? 'api' : event.key === 'End' ? 'data' : tab === 'api' ? 'data' : 'api'
+      setTab(next)
+      event.currentTarget.querySelector<HTMLButtonElement>(`[data-detail-tab="${next}"]`)?.focus()
+    }}>
+      <button id={`${inspectorId}-api`} data-detail-tab="api" role="tab" tabIndex={tab === 'api' ? 0 : -1} aria-controls={`${inspectorId}-panel-api`} aria-selected={tab === 'api'} onClick={() => setTab('api')}>
         <span><strong>API & interfaces</strong><small>Explore endpoints, payloads, and source definitions</small></span>
         <b>{api?.endpoints.length ?? 0}<small> observed</small></b>
       </button>
-      <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab('data')}>
+      <button id={`${inspectorId}-data`} data-detail-tab="data" role="tab" tabIndex={tab === 'data' ? 0 : -1} aria-controls={`${inspectorId}-panel-data`} aria-selected={tab === 'data'} onClick={() => setTab('data')}>
         <span><strong>Data & events</strong><small>Inspect stored records, messages, and delivery behavior</small></span>
         <b>{dataCount}<small> observed</small></b>
       </button>
     </div>
 
-    {tab === 'api' && <section className="component-api-catalog is-full" aria-labelledby="component-api-heading">
+    {tab === 'api' && <section id={`${inspectorId}-panel-api`} role="tabpanel" className="component-api-catalog is-full" aria-labelledby={`${inspectorId}-api`}>
         <header>
           <div><span>Interface catalog</span><h4 id="component-api-heading">{api?.name ?? 'No interface catalog imported'}</h4></div>
           {api && versions.length > 0 && <label className="component-version-picker"><span>Version</span><select value={selectedVersion} onChange={event => setSelectedVersion(event.target.value)}><option value="all">All versions</option>{versions.map(version => <option key={version.id} value={version.id}>{version.label}</option>)}</select></label>}
@@ -197,10 +204,10 @@ export function ComponentInspector({ component, dependencies, isLocal }: { compo
             </button>)}</nav>
             <div className="endpoint-detail">{selectedEndpoint ? <EndpointDetail key={selectedEndpoint.id} endpoint={selectedEndpoint} schemas={schemas} /> : <div className="component-inspector-empty">No endpoints are available for this version.</div>}</div>
           </div>
-        </> : <div className="component-inspector-empty">{coverage.area('api') === 'complete' ? 'A completed scan found no API interface for this component.' : 'No API interface has been observed yet. API coverage is incomplete, so this is not evidence that the component has no interface.'}</div>}
+        </> : <div className="component-inspector-empty">{coverage.area('api') === 'complete' ? 'A completed scan found no API interface for this component.' : `API details for ${component.name} have not been imported. Coverage is unknown; this does not mean there is no API.`}</div>}
       </section>}
 
-    {tab === 'data' && <div className="component-data-workspace">
+    {tab === 'data' && <div id={`${inspectorId}-panel-data`} role="tabpanel" aria-labelledby={`${inspectorId}-data`} className="component-data-workspace">
       {component.data && <section><header><Database size={16} /><div><span>Owned state</span><h4>{component.name} data</h4></div></header><DataCatalog component={component} /></section>}
       {component.messaging && <section><header><Radio size={16} /><div><span>Messages</span><h4>Published and consumed events</h4></div></header><MessagingCatalog component={component} /></section>}
       {(datastores.length > 0 || messaging.length > 0) && <section><header><Network size={16} /><div><span>Runtime resources</span><h4>Backing infrastructure</h4></div></header><div className="component-resource-columns"><DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData /><DependencyGroup title="Messaging infrastructure" description="Queues and topics used by this component." dependencies={messaging} showData /></div></section>}

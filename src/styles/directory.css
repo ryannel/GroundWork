@@ -298,3 +298,18 @@
   .workbench-shell .is-overview .plan-index { padding:18px 0; }.workbench-shell .is-overview .plan-index-row { padding:0 12px; }.workbench-shell .is-overview .plan-index-group { font-size:18px; }
   .is-overview .impact-grid { gap:26px; }.is-overview .overview-change-summary a { margin-left:0; width:100%; }
 }
+
+/* Keep product context compact so the architecture starts closer to the fold. */
+.product-overview { gap:28px; }
+.product-overview .workspace-page-header>nav { margin-bottom:20px; }
+.product-overview .workspace-page-header { padding-bottom:18px; }
+.product-system-summary { margin-top:18px; padding-top:16px; gap:10px 20px; }
+.product-system-summary>div { white-space:normal; }
+.product-system-summary>p { max-width:none; }
+.catalog-scan-warning strong { font-size:12px; }
+.catalog-scan-warning span { font-size:11px; }
+@media(min-width:600px) and (max-width:900px) {
+  .product-overview .workspace-hero { flex-wrap:nowrap; gap:20px; }
+  .product-overview .workspace-hero .board-totals { flex-shrink:0; gap:14px; }
+  .product-overview .workspace-hero .board-totals>div+div { padding-left:14px; }
+}

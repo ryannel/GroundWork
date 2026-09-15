@@ -24,8 +24,6 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
   const isLocal = localIds.has(selected.id)
   const dependencyCoverage = componentCoverage(selected).area('dependencies')
   const mapHeight = Math.max(210, Math.max(consumers.length, dependencies.length) * 72 + 68)
-  const contextFitScale = Math.min(1, 520 / mapHeight)
-  const contextScale = contextFitScale * contextZoom
   const centerY = mapHeight / 2
   const positions = (items: Component[]) => items.map((component, index) => ({
     component,
@@ -49,9 +47,8 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
 
   return <section className="system-explorer" aria-labelledby="system-explorer-heading">
     <header className="system-explorer-heading">
-      <div><h3 id="system-explorer-heading">Service landscape</h3><p>Arrows point from a caller to what it depends on. Select any node to follow its immediate context.</p></div>
+      <div><h3 id="system-explorer-heading">Service landscape</h3><p>Arrows point from callers to their dependencies.</p><span className="system-graph-count">{nodes.length} components · {edges.length} relationships</span></div>
       <div className="system-explorer-actions">
-        <span>{nodes.length} components · {edges.length} relationships</span>
         <label className="system-component-select">
           <span>Inspect</span>
           <select value={selected.id} onChange={event => { setLocalFocus(event.target.value); onSelect(event.target.value) }}>
@@ -67,7 +64,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
 
     {view === 'overview' ? <SystemOverviewMap components={nodes} relationships={edges} focus={selected.id} onFocus={id => { if (id) { setLocalFocus(id); onSelect(id) } }} /> : <>
     <div className="system-neighborhood-toolbar">
-      <div><strong>How to read this view</strong><span>Incoming callers rely on the selected component. Outgoing dependencies are services and resources it relies on.</span></div>
+      <div><strong>{selected.name}</strong><span>{consumers.length} direct callers · {dependencies.length} direct dependencies</span></div>
       <div aria-label="Direct context zoom controls">
         <button aria-label="Zoom out" disabled={contextZoom <= .75} onClick={() => setContextZoom(value => Math.max(.75, value - .25))}><ZoomOut size={14} /></button>
         <span>{Math.round(contextZoom * 100)}%</span>
@@ -76,7 +73,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
       </div>
     </div>
     <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
-      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" style={{ width: 900 * contextScale, height: mapHeight * contextScale }}>
+      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" aria-label={`Callers and dependencies of ${selected.name}`} style={{ width: `${contextZoom * 100}%`, height: 'auto' }}>
         <defs><marker id={`${marker}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
         <text className="system-neighborhood-label" x="20" y="24">INCOMING · CALLERS</text>
         <text className="system-neighborhood-label" x="355" y="24">SELECTED COMPONENT</text>
@@ -89,6 +86,12 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         {!consumers.length && <text className="system-neighborhood-empty" x="115" y={centerY} textAnchor="middle">No callers observed</text>}
         {!dependencies.length && <text className="system-neighborhood-empty" x="785" y={centerY} textAnchor="middle">{dependencyCoverage === 'complete' ? 'No dependencies found' : 'No dependencies observed'}</text>}
       </svg>
+      <div className="system-neighborhood-mobile">
+        {[{ title: `Callers → ${selected.name}`, items: consumers, empty: 'No callers observed' }, { title: `${selected.name} → Dependencies`, items: dependencies, empty: dependencyCoverage === 'complete' ? 'No dependencies found' : 'No dependencies observed' }].map(group => <section key={group.title}>
+          <h4>{group.title}</h4>
+          {group.items.length ? group.items.map(component => <button key={component.id} onClick={() => { setLocalFocus(component.id); onSelect(component.id) }}><strong>{component.name}</strong><span>{componentKindLabel(component)}</span></button>) : <p>{group.empty}</p>}
+        </section>)}
+      </div>
     </div>
 
     </>}
