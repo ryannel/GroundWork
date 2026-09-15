@@ -94,11 +94,21 @@ export const componentMessagingSchema = z.strictObject({
   })),
   gaps: strings.optional(),
 })
+export const componentScanAreaSchema = z.enum(['not-scanned', 'partial', 'complete'])
+export const componentScanSchema = z.strictObject({
+  status: z.enum(['not-scanned', 'scanning', 'partial', 'complete', 'failed']),
+  scannedAt: z.iso.datetime({ offset: true }).optional(), revision: text.optional(), error: text.optional(),
+  coverage: z.strictObject({
+    dependencies: componentScanAreaSchema.optional(), api: componentScanAreaSchema.optional(),
+    data: componentScanAreaSchema.optional(), messaging: componentScanAreaSchema.optional(),
+  }).optional(),
+})
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
   role: z.enum(['business-service', 'platform-service', 'external-provider']).optional(),
   api: componentApiSchema.optional(), data: componentDataSchema.optional(), messaging: componentMessagingSchema.optional(),
+  scan: componentScanSchema.optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })
 export const featureSchema = z.strictObject({ id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: z.iso.datetime({ offset: true }) })

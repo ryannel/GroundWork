@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ArrowRight, Boxes, ChevronDown, ChevronRight, Cloud, Database, ExternalLink, GitBranch, Network, Radio } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { componentKind, componentKindLabel } from '@/data/component-structure'
+import { componentCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 
 type ApiCatalog = NonNullable<Component['api']>
 type ApiEndpoint = ApiCatalog['endpoints'][number]
@@ -141,6 +142,7 @@ function DependencyGroup({ title, description, dependencies, showData = false, o
 }
 
 export function ComponentInspector({ component, dependencies, isLocal }: { component: Component; dependencies: Component[]; isLocal: boolean }) {
+  const coverage = componentCoverage(component)
   const api = component.api
   const versions = api?.versions ?? (api?.version ? [{ id: api.version, label: api.version }] : [])
   const [selectedVersion, setSelectedVersion] = useState(versions.at(-1)?.id ?? 'all')
@@ -160,19 +162,19 @@ export function ComponentInspector({ component, dependencies, isLocal }: { compo
     <header className="component-inspector-heading">
       <div className="component-inspector-identity">
         <div><span>Selected component</span><h3 id="component-inspector-heading">{component.name}</h3></div>
-        <span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span>
+        <div className="component-inspector-badges"><span>{componentKindLabel(component)}{isLocal ? '' : ' · Other product'}</span><span className={`scan-status is-${coverage.status}`}>{scanStatusLabel(coverage.status)}</span></div>
       </div>
-      <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}</div>
+      <div className="component-inspector-summary">{component.description ? <p>{component.description}</p> : <p>No responsibility summary has been recorded.</p>}{component.repo && <div className="component-inspector-repo"><GitBranch size={12} />{component.repo}</div>}<div className="component-scan-coverage" aria-label="Repository scan coverage">{(['dependencies', 'api', 'data', 'messaging'] as const).map(area => <span key={area} className={`is-${coverage.area(area)}`}>{area}<i>{coverage.area(area) === 'complete' ? 'complete' : coverage.area(area) === 'partial' ? 'partial' : 'unknown'}</i></span>)}</div></div>
     </header>
 
     <div className="component-inspector-tabs" role="tablist" aria-label={`${component.name} detail`}>
       <button role="tab" aria-selected={tab === 'api'} onClick={() => setTab('api')}>
         <span><strong>API & interfaces</strong><small>Explore endpoints, payloads, and source definitions</small></span>
-        <b>{api?.endpoints.length ?? 0}</b>
+        <b>{api?.endpoints.length ?? 0}<small> observed</small></b>
       </button>
       <button role="tab" aria-selected={tab === 'data'} onClick={() => setTab('data')}>
         <span><strong>Data & events</strong><small>Inspect stored records, messages, and delivery behavior</small></span>
-        <b>{dataCount}</b>
+        <b>{dataCount}<small> observed</small></b>
       </button>
     </div>
 
@@ -195,14 +197,14 @@ export function ComponentInspector({ component, dependencies, isLocal }: { compo
             </button>)}</nav>
             <div className="endpoint-detail">{selectedEndpoint ? <EndpointDetail key={selectedEndpoint.id} endpoint={selectedEndpoint} schemas={schemas} /> : <div className="component-inspector-empty">No endpoints are available for this version.</div>}</div>
           </div>
-        </> : <div className="component-inspector-empty">No API interface has been imported for this component.</div>}
+        </> : <div className="component-inspector-empty">{coverage.area('api') === 'complete' ? 'A completed scan found no API interface for this component.' : 'No API interface has been observed yet. API coverage is incomplete, so this is not evidence that the component has no interface.'}</div>}
       </section>}
 
     {tab === 'data' && <div className="component-data-workspace">
       {component.data && <section><header><Database size={16} /><div><span>Owned state</span><h4>{component.name} data</h4></div></header><DataCatalog component={component} /></section>}
       {component.messaging && <section><header><Radio size={16} /><div><span>Messages</span><h4>Published and consumed events</h4></div></header><MessagingCatalog component={component} /></section>}
       {(datastores.length > 0 || messaging.length > 0) && <section><header><Network size={16} /><div><span>Runtime resources</span><h4>Backing infrastructure</h4></div></header><div className="component-resource-columns"><DependencyGroup title="Datastores" description="Data held at rest for this component." dependencies={datastores} showData /><DependencyGroup title="Messaging infrastructure" description="Queues and topics used by this component." dependencies={messaging} showData /></div></section>}
-      {!hasDataAndEvents && <div className="component-absence-state"><Database size={20} /><div><h4>No directly owned data or events</h4><p>{component.name} has no datastore or message contract attached to it in the current catalog. This does not mean the service is stateless: follow its outgoing dependencies in the map to inspect data and events owned by downstream components.</p></div></div>}
+      {!hasDataAndEvents && <div className="component-absence-state"><Database size={20} /><div><h4>{coverage.area('data') === 'complete' && coverage.area('messaging') === 'complete' && coverage.area('dependencies') === 'complete' ? 'No directly owned data or events found' : 'Data and events have not been established'}</h4><p>{coverage.area('data') === 'complete' && coverage.area('messaging') === 'complete' && coverage.area('dependencies') === 'complete' ? `The completed repository scan found no datastore or message contract associated with ${component.name}.` : `The current catalog has not completed its data, messaging, and dependency scan for ${component.name}. Missing entries are unknown, not confirmed absent.`}</p></div></div>}
     </div>}
   </section>
 }

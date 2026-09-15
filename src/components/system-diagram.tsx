@@ -4,6 +4,7 @@ import type { Component } from '@/data/model'
 import { componentKindLabel, systemGraph } from '@/data/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
+import { componentCoverage } from '@/data/catalog-coverage'
 
 export function SystemDiagram({ components, allComponents, selectedId, onSelect }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void }) {
   const marker = useId().replace(/:/g, '')
@@ -21,6 +22,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
   const dependencies = edges.filter(edge => edge.from === selected.id).map(edge => nodes.find(node => node.id === edge.to)!)
   const consumers = edges.filter(edge => edge.to === selected.id).map(edge => nodes.find(node => node.id === edge.from)!)
   const isLocal = localIds.has(selected.id)
+  const dependencyCoverage = componentCoverage(selected).area('dependencies')
   const mapHeight = Math.max(210, Math.max(consumers.length, dependencies.length) * 72 + 68)
   const contextFitScale = Math.min(1, 520 / mapHeight)
   const contextScale = contextFitScale * contextZoom
@@ -84,8 +86,8 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         {consumerPositions.map(({ component, y }) => mapNode(component, 20, y))}
         {mapNode(selected, 355, centerY, true)}
         {dependencyPositions.map(({ component, y }) => mapNode(component, 690, y))}
-        {!consumers.length && <text className="system-neighborhood-empty" x="115" y={centerY} textAnchor="middle">No consumers</text>}
-        {!dependencies.length && <text className="system-neighborhood-empty" x="785" y={centerY} textAnchor="middle">No dependencies</text>}
+        {!consumers.length && <text className="system-neighborhood-empty" x="115" y={centerY} textAnchor="middle">No callers observed</text>}
+        {!dependencies.length && <text className="system-neighborhood-empty" x="785" y={centerY} textAnchor="middle">{dependencyCoverage === 'complete' ? 'No dependencies found' : 'No dependencies observed'}</text>}
       </svg>
     </div>
 

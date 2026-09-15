@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, Database, Cloud } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, Database, Cloud, TriangleAlert } from 'lucide-react'
 import { useProduct, q, byUpdated } from '@/data/store'
 import { connectedProductIds } from '@/data/workspace-view'
 import { FeatureRow } from '@/components/feature-row'
@@ -7,6 +7,7 @@ import { ComponentOptions } from '@/components/component-structure'
 import { SystemDiagram } from '@/components/system-diagram'
 import { componentAncestors, componentKind, featureTouchesComponent, systemGraph } from '@/data/component-structure'
 import { kinds, hueStyle } from '@/lib/taxonomy'
+import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 
 export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
@@ -36,6 +37,7 @@ export function ProductPage() {
   const services = overviewComponents.filter(component => componentKind(component) === 'service').length
   const resources = overviewComponents.filter(component => ['database', 'cache', 'queue', 'object-storage', 'local-storage'].includes(componentKind(component))).length
   const external = graph.nodes.filter(component => componentKind(component) === 'external-service').length
+  const coverage = productCoverage(overviewComponents)
   const connections = allActive.filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0).filter(inScope)
   const update = (key: string, value: string) => setParams(previous => {
     const next = new URLSearchParams(previous)
@@ -53,15 +55,19 @@ export function ProductPage() {
         <dl className="board-totals"><div><dt>Active changes</dt><dd>{allActive.length}</dd></div><div><dt>Services</dt><dd>{services}</dd></div></dl>
       </div>
       <div className="product-system-summary" aria-label="System at a glance">
-        <div><Network size={16} /><span><strong>{graph.edges.length}</strong> runtime relationships</span></div>
-        <div><Database size={16} /><span><strong>{resources}</strong> data and messaging resources</span></div>
-        <div><Cloud size={16} /><span><strong>{external}</strong> external dependencies</span></div>
-        <p>Start with the map, then select a service to understand its role, callers, dependencies, interfaces, and data.</p>
+        <div><Network size={16} /><span><strong>{graph.edges.length}</strong> observed runtime relationships</span></div>
+        <div><Database size={16} /><span><strong>{resources}</strong> observed data and messaging resources</span></div>
+        <div><Cloud size={16} /><span><strong>{external}</strong> observed external dependencies</span></div>
+        <p>These counts reflect catalogued evidence, not proof that other relationships or resources do not exist.</p>
       </div>
     </header>
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
       <div className="board-section-heading"><div><div className="board-eyebrow">Architecture</div><h2 id="product-components-heading">Understand the system</h2><p>Trace where a service fits before opening its implementation details.</p></div></div>
+      {coverage.status !== 'complete' && <div className={`catalog-scan-warning is-${coverage.status}`} role="alert">
+        <TriangleAlert size={16} />
+        <div><strong>{coverage.status === 'not-scanned' ? 'This product has not been scanned' : coverage.status === 'scanning' ? 'Repository scan in progress' : coverage.status === 'failed' ? 'Repository scan failed' : coverage.status === 'partial' ? 'Repository scan incomplete' : scanStatusLabel(coverage.status)}</strong><span>Only known facts are shown. APIs, dependencies, data stores, and events may be missing.</span></div>
+      </div>}
       <SystemDiagram components={componentList} allComponents={allComponents} selectedId={selectedComponent?.id} onSelect={inspectComponent} />
       {!components.length && <p className="board-empty">No system structure has been added yet.</p>}
     </section>
