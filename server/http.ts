@@ -67,7 +67,7 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
         const heartbeat = setInterval(() => res.write(': keep-alive\n\n'), 15000)
         const root = await selectRoot(checkoutId, options.root).catch(() => null)
         let watcher: ReturnType<typeof watch> | undefined
-        if (root && !ref) try { watcher = watch(path.join(root, PLAN_DIRECTORY), { recursive: true }, () => { void tick() }); watcher.on('error', () => watcher?.close()) } catch { /* Periodic reconciliation covers missing directories and unavailable watchers. */ }
+        if (root && !ref) try { watcher = watch(path.join(root, '.groundwork'), { recursive: true }, () => { void tick() }); watcher.on('error', () => watcher?.close()) } catch { /* Periodic reconciliation covers missing directories and unavailable watchers. */ }
         res.on('close', () => { closed = true; clearInterval(timer); clearInterval(heartbeat); watcher?.close(); clients.delete(res) })
         return
       }

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "price-engine",
+    "slug": "price-engine",
+    "name": "Price Engine",
+    "kind": "service-system",
+    "description": "Price calculation system (APP-3791) in the Commercial Backbone."
+  },
+  {
+    "id": "product-configuration-facade",
+    "slug": "product-configuration-facade",
+    "name": "Product Configuration Facade",
+    "kind": "service-system",
+    "description": "Facade for product configuration data exposed by CPAM and PrinsIngestion."
+  }
+]

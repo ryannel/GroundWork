@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "featureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "ids": {
+      "minItems": 1,
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "assumptions": {
+      "default": [],
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      }
+    },
+    "expectedRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expectedContext": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checkoutId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "featureId",
+    "question",
+    "ids",
+    "assumptions",
+    "expectedRevision",
+    "expectedContext"
+  ],
+  "additionalProperties": false
+}

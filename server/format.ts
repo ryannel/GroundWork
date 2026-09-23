@@ -1,3 +1,6 @@
+import { scanManifestSchema } from '../src/data/scan-manifest.ts'
+import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '../src/data/knowledge.ts'
+import { digest } from './git.ts'
 import { z } from 'zod'
 import { loadContent, type ContentSnapshot } from '../src/data/content.ts'
 import { productSchema, purposeSchema } from '../src/data/content-schema.ts'
@@ -14,7 +17,7 @@ export type Files = Record<string, string>
 export interface Plan { manifest: z.infer<typeof manifestSchema>; snapshot: ContentSnapshot; delivery: Record<string, Delivery>; decisions: Record<string, string> }
 export const PLAN_DIRECTORY = '.groundwork/plans'
 export const assetPattern = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/
-export const documentPattern = /^(?:project\.json|(?:products|components|members)\/[a-zA-Z0-9_-]+\.json|features\/[a-zA-Z0-9_-]+\/(?:feature|journey|design|flow|api|storage|tests|delivery)\.json|features\/[a-zA-Z0-9_-]+\/brief\.md|(?:decisions|features\/[a-zA-Z0-9_-]+\/decisions)\/[a-zA-Z0-9_-]+\.md)$/
+export const documentPattern = /^(?:scan-manifests\/[a-f0-9]{64}\.json|project\.json|(?:products|components|members)\/[a-zA-Z0-9_-]+\.json|features\/[a-zA-Z0-9_-]+\/(?:feature|journey|design|flow|api|storage|tests|delivery)\.json|features\/[a-zA-Z0-9_-]+\/(?:baselines|assessments)\/[a-f0-9]{64}\.json|features\/[a-zA-Z0-9_-]+\/brief\.md|(?:decisions|features\/[a-zA-Z0-9_-]+\/decisions)\/[a-zA-Z0-9_-]+\.md)$/
 
 /** Brief prose has one authoritative location; the viewer is a projection. */
 export function parseBrief(markdown: string) {
@@ -53,6 +56,24 @@ export function parsePlan(files: Files): Plan {
       if (file.endsWith('/brief.md')) { documents[file.replace('brief.md', 'purpose.json')] = parseBrief(raw); continue }
       if (file.endsWith('.md')) { if (!raw.trim()) throw new Error('Decision cannot be blank'); decisions[file] = raw; continue }
       const value = JSON.parse(raw)
+      if (file.startsWith('scan-manifests/')) {
+        scanManifestSchema.parse(value)
+        if (digest(raw) !== file.split('/')[1].replace('.json', '')) throw new Error('Scan manifest content hash mismatch')
+        continue
+      }
+      if (file.includes('/assessments/')) {
+        const assessment = discoveryAssessmentSchema.parse(value)
+        if (assessment.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '') || !files[`features/${assessment.featureId}/baselines/${assessment.baselineId}.json`]) throw new Error('Assessment identity, hash or baseline mismatch')
+        if (Buffer.byteLength(raw) > 256 * 1024) throw new Error('Assessment exceeds 256 KiB')
+        continue
+      }
+      if (file.includes('/baselines/')) {
+        const packet = knowledgeBaselineSchema.parse(value)
+        if (packet.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '')) throw new Error('Baseline identity/content hash mismatch')
+        if (!files[`features/${packet.featureId}/feature.json`]) throw new Error('Baseline requires an existing feature')
+        if (Buffer.byteLength(raw) > 64 * 1024) throw new Error('Baseline exceeds 64 KiB')
+        continue
+      }
       if (file === 'project.json') manifest = manifestSchema.parse(value)
       else if (file.startsWith('products/')) documents[file] = { ...portableProductSchema.parse(value), workspaceId: 'project' }
       else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)

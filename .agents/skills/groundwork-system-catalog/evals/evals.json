@@ -3,42 +3,80 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Import the pricing system from Backstage into Groundwork. System Atlas has partial API and dependency coverage, and the implementation spans several repositories.",
-      "expected_output": "The agent establishes the Backstage System boundary, builds a structured coverage manifest, reuses System Atlas before source research, then shallow-clones each repository selected for source analysis and fans extraction out to low-cost workers.",
+      "prompt": "Add Price to the Commercial Backbone workspace. Its implementation spans three repositories and it calls a long chain of internal services, shared platform capabilities, and external providers.",
+      "expected_output": "The agent establishes the product from the three seed repositories, inventories its direct architecture, and records a clear dependency frontier without recursively scanning the whole organization.",
       "files": [],
       "expectations": [
-        "The response identifies the authoritative Backstage System boundary before treating repositories or team workspaces as the system.",
-        "The response creates or explicitly specifies a per-component coverage manifest covering APIs, contracts, inbound, outbound, datastores, messaging, and revision freshness.",
-        "The response searches Groundwork, System Atlas, Backstage, and registries before proposing source repository inspection.",
-        "The response selects repositories from missing or stale coverage rather than cloning every member repository.",
-        "Once a repository is selected for source analysis, the response shallow-clones it and uses local search/tooling instead of GitHub MCP file-by-file browsing.",
-        "Cross-repository workers are instructed to return normalized JSON with commit SHA and evidence instead of raw source dumps or long prose."
+        "The three seed repositories are treated as product evidence rather than as three products.",
+        "Direct runtime dependencies and infrastructure are recorded even when their source is not explored.",
+        "Known components in other products are linked without being reassigned or automatically rescanned.",
+        "Platform services, external providers, and deeper dependency chains become explicit stopping boundaries.",
+        "The result distinguishes catalog breadth, representative path depth, freshness, and unresolved boundaries."
       ]
     },
     {
       "id": 2,
-      "prompt": "Document a service that calls LaunchDarkly, two internal APIs, and a partner payment API, and stores records in Redis.",
-      "expected_output": "The agent classifies LaunchDarkly as an external platform capability, internal APIs as dependencies, the partner API as an external provider, and Redis as a datastore with a separate data-at-rest schema.",
+      "prompt": "Catalog this monorepo as a new product. It contains two deployable services, several shared libraries, PostgreSQL, Redis, Kafka topics, Terraform, and a documentation site.",
+      "expected_output": "The agent models deployable responsibilities and infrastructure without turning every package or composition asset into a runtime service.",
       "files": [],
       "expectations": [
-        "LaunchDarkly is classified as a platform capability with external ownership, not merely as a third-party business dependency.",
-        "The two internal APIs are classified as outbound business-service dependencies with internal ownership.",
-        "The partner payment API is classified as an external provider rather than a platform service.",
-        "Redis is represented as a datastore or cache with a separate data-at-rest record/keyspace schema.",
-        "Direction, role, ownership, transport, and data shape remain separate fields or concepts."
+        "Deployable services become components while ordinary shared libraries remain implementation detail.",
+        "PostgreSQL, Redis, and Kafka are represented with distinct infrastructure semantics.",
+        "Terraform is treated as supporting or composition evidence rather than a runtime caller.",
+        "The documentation site's placement is based on its observed runtime role and relationships.",
+        "Each requested catalog area receives an honest coverage result, including confirmed empty areas."
       ]
     },
     {
       "id": 3,
-      "prompt": "Our catalog says a Redis key exists but we cannot find the serialized fields. Please complete the datastore schema anyway.",
-      "expected_output": "The agent records the observed keyspace, purpose, access mode, and evidence while leaving fields empty and surfacing an explicit extraction gap instead of inventing a schema.",
+      "prompt": "Build a useful baseline for a service with 70 endpoints, 24 stored record types, and 15 messages. We need to understand the system, but tracing every handler would be too expensive.",
+      "expected_output": "The agent inventories the contracts broadly, selects a few high-value journeys, and leaves the remaining paths available for focused investigation.",
       "files": [],
       "expectations": [
-        "The response refuses to invent stored fields or assume an API DTO is the Redis value schema.",
-        "The response preserves the observed key or keyspace name and its purpose.",
-        "The response records access mode, key pattern, TTL, or source revision when evidence exists and marks unavailable values as gaps.",
-        "The response includes exact repository evidence requirements such as path, line range, claim, and commit SHA.",
-        "The unresolved field structure is represented as an explicit gap while the record remains in the catalog."
+        "Contract discovery is not reduced merely because exhaustive execution tracing is undesirable.",
+        "A small representative set of read, write, or asynchronous journeys is selected for deeper tracing.",
+        "Flow selection explains entry, decisions, state, boundaries, asynchronous handoffs, and important failures.",
+        "The result reports traced paths against known entry points separately from API coverage.",
+        "Untraced endpoints are not presented as failures or fabricated into placeholder flows."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Explore how Price calculates MSRP. The catalog already contains the endpoint, one configuration flow, several downstream references, and test locations. Do not spend time on unrelated pricing endpoints.",
+      "expected_output": "The agent reuses and checks existing knowledge, follows only the MSRP journey far enough to answer the question, and saves reusable evidence without broad rescanning.",
+      "files": [],
+      "expectations": [
+        "Relevant catalog knowledge is retrieved before source investigation.",
+        "Freshness is considered independently from the existence of citations.",
+        "Exploration follows the selected journey across necessary boundaries and stops when the question is answered.",
+        "Unrelated endpoints and dependencies do not become required work.",
+        "Focused findings preserve existing inventories and source provenance."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The source refers to a Redis key and a partner API, but neither has a matching Groundwork component and the serialized Redis fields cannot be found.",
+      "expected_output": "The agent preserves observed boundaries and partial data knowledge without inventing component identities or record fields.",
+      "files": [],
+      "expectations": [
+        "The Redis and partner references remain unresolved until their identities are known.",
+        "The observed keyspace, access semantics, and available evidence are retained.",
+        "Missing serialized fields are represented as a gap rather than copied from an unrelated DTO.",
+        "The partner boundary is not recursively explored unless it is necessary to answer the user's question.",
+        "Every persisted claim retains a pinned revision and exact source evidence."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Refresh the existing product catalog after a small source change to one handler and a dependency configuration file.",
+      "expected_output": "The agent checks freshness, narrows work where safe, widens review for the dependency change, and preserves unrelated catalog knowledge.",
+      "files": [],
+      "expectations": [
+        "The refresh starts from existing catalog identity and explicit source freshness.",
+        "The changed handler receives focused review while the dependency configuration change triggers broader caution.",
+        "Unchanged observations are not silently relabelled with the new revision.",
+        "Omitted records are not interpreted as deletions.",
+        "The report distinguishes refreshed observations from still-unchecked knowledge."
       ]
     }
   ]

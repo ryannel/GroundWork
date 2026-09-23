@@ -55,9 +55,13 @@ export const featureSpecSchema = z.strictObject({
 export const workspaceSchema = z.strictObject({ id, slug, order, name: text, description: text.optional(), hue: text, createdAt: z.iso.datetime({ offset: true }) })
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
+export const componentEvidenceSchema = z.strictObject({
+  path: text, lines: text, claim: text, revision: text, repository: text.optional(),
+})
 export const componentApiEndpointSchema = z.strictObject({
   id, name: text, method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']), path: text,
   version: text.optional(), summary: text.optional(), request: text.optional(), response: text.optional(), source: text.optional(),
+  evidence: z.array(componentEvidenceSchema).optional(),
 })
 export const componentApiFieldSchema = z.strictObject({
   name: text, type: text, required: z.boolean(), description: text.optional(), line: z.number().int().positive().optional(),
@@ -65,6 +69,7 @@ export const componentApiFieldSchema = z.strictObject({
 export const componentApiTypeSchema = z.strictObject({
   id: text, name: text, kind: z.enum(['class', 'record', 'enum']), base: text.optional(), description: text.optional(),
   fields: z.array(componentApiFieldSchema), source: text.optional(), sourceUrl: z.url().optional(), sourceRevision: text.optional(),
+  evidence: z.array(componentEvidenceSchema).optional(),
 })
 export const componentApiSchema = z.strictObject({
   name: text, version: text.optional(), versions: z.array(z.strictObject({ id: text, label: text })).optional(), sourceRevision: text.optional(),
@@ -73,9 +78,6 @@ export const componentApiSchema = z.strictObject({
     kind: text.optional(), source: text.optional(), lastCheckedAt: z.iso.datetime({ offset: true }).optional(), lastStatus: z.number().int().nonnegative().optional(),
   }).optional(),
   endpoints: z.array(componentApiEndpointSchema), schemas: z.array(componentApiTypeSchema).optional(),
-})
-export const componentEvidenceSchema = z.strictObject({
-  path: text, lines: text, claim: text, revision: text,
 })
 export const componentDataSchema = z.strictObject({
   technology: text.optional(), access: z.array(z.enum(['read', 'write'])).optional(), gaps: strings.optional(),
@@ -96,18 +98,61 @@ export const componentMessagingSchema = z.strictObject({
 })
 export const componentScanAreaSchema = z.enum(['not-scanned', 'partial', 'complete'])
 export const componentScanSchema = z.strictObject({
-  status: z.enum(['not-scanned', 'scanning', 'partial', 'complete', 'failed']),
+  status: z.enum(['not-scanned', 'scanning', 'partial', 'complete', 'failed']), sourceFingerprint: text.optional(),
   scannedAt: z.iso.datetime({ offset: true }).optional(), revision: text.optional(), error: text.optional(),
   coverage: z.strictObject({
     dependencies: componentScanAreaSchema.optional(), api: componentScanAreaSchema.optional(),
     data: componentScanAreaSchema.optional(), messaging: componentScanAreaSchema.optional(),
   }).optional(),
 })
+export const componentGapSchema = z.strictObject({ area: text, reason: text })
+const executionEvidenceSchema = componentEvidenceSchema.extend({
+  lines: z.string().regex(/^[1-9]\d*(?:-[1-9]\d*)?$/),
+  revision: z.string().regex(/^[a-f0-9]{40}$/),
+})
+export const executionFlowSchema = z.strictObject({
+  id, endpointId: id.optional(), trigger: z.discriminatedUnion('kind', [z.strictObject({ kind: z.literal('message'), messageId: id }), z.strictObject({ kind: z.literal('job'), jobId: id })]).optional(), name: text, summary: text,
+  sourceRevision: z.string().regex(/^[a-f0-9]{40}$/),
+  entryStepId: id,
+  steps: z.array(z.strictObject({
+    id, title: text,
+    kind: z.enum(['request', 'validation', 'decision', 'logic', 'dependency', 'data', 'message', 'response']),
+    description: text,
+    dataRecordIds: ids.optional(), messageIds: ids.optional(), dependencyIds: ids.optional(),
+    unresolvedDependencyNames: strings.optional(),
+    evidence: z.array(executionEvidenceSchema).min(1),
+  })).min(1),
+  transitions: z.array(z.strictObject({
+    id, from: id, to: id, label: text,
+    mode: z.enum(['sync', 'async']),
+    evidence: z.array(executionEvidenceSchema).min(1),
+  })),
+  gaps: strings,
+})
+export const componentUnresolvedDependencySchema = z.strictObject({
+  name: text, kind: text.optional(), transport: text.optional(), evidence: z.array(componentEvidenceSchema).min(1),
+})
+export const catalogFindingSchema = z.strictObject({
+  id, name: text.max(200), question: text.max(2000), answer: text.max(8000),
+  subjects: z.array(z.strictObject({ kind: z.enum(['component', 'endpoint', 'data', 'message', 'flow', 'schema', 'job']), id: text })).min(1).max(10),
+  boundary: text.max(4000), assumptions: strings.max(20),
+  repository: text, sourceRevision: z.string().regex(/^[a-f0-9]{40}$/),
+  evidence: z.array(executionEvidenceSchema).min(1).max(40),
+})
+export const retiredObservationSchema = z.strictObject({ kind: z.enum(['endpoint', 'schema', 'data', 'message', 'job', 'flow']), id, retiredAt: z.iso.datetime(), sourceRevision: z.string().regex(/^[a-f0-9]{40}$/), reason: text, evidence: z.array(executionEvidenceSchema).min(1), observation: z.record(z.string(), z.unknown()) })
+export const componentJobSchema = z.strictObject({ id, name: text, description: text, schedule: text.optional(), source: text.optional(), evidence: z.array(componentEvidenceSchema).min(1) })
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
   role: z.enum(['business-service', 'platform-service', 'external-provider']).optional(),
   api: componentApiSchema.optional(), data: componentDataSchema.optional(), messaging: componentMessagingSchema.optional(),
+  catalogChanges: z.array(z.strictObject({ kind: z.enum(['endpoint', 'schema', 'data', 'message', 'job', 'flow']), id, nameBefore: text, nameAfter: text, pathBefore: text.optional(), pathAfter: text.optional(), sourceRevision: z.string().regex(/^[a-f0-9]{40}$/), evidence: z.array(executionEvidenceSchema).min(1) })).optional(),
+  retiredObservations: z.array(retiredObservationSchema).optional(),
+  jobs: z.array(componentJobSchema).optional(),
+  executionFlows: z.array(executionFlowSchema).optional(),
+  findings: z.array(catalogFindingSchema).optional(),
+  sourcePath: text.optional(), sourceRevision: text.optional(), evidence: z.array(componentEvidenceSchema).optional(),
+  gaps: z.array(componentGapSchema).optional(), unresolvedDependencies: z.array(componentUnresolvedDependencySchema).optional(),
   scan: componentScanSchema.optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })

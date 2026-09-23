@@ -3,6 +3,7 @@ import { documentSchemas, sectionSchemas, type FeatureRecord, type Member, type 
 import { componentPath, componentKindLabel } from './component-structure.ts'
 import { apiProvider } from './api-reference.ts'
 import { actionFlow } from './flow-context.ts'
+import { executionFlowIssues } from './execution-flow.ts'
 import type { Component, Db, Feature, Product, Workspace } from './model.ts'
 import type { FeatureSpec, SchemaField } from './spec.ts'
 
@@ -67,6 +68,13 @@ export function loadContent(documents: ContentDocuments, liveMockIds: readonly s
   for (const product of products) has(workspaceById, product.workspaceId, `products/${product.id}.json:workspaceId`)
   for (const component of components) {
     const path = `components/${component.id}.json`
+    issues.push(...executionFlowIssues(component).map(issue => `${path}:executionFlows: ${issue}`))
+    unique((component.findings ?? []).map(finding => finding.id), `${path}:findings`)
+    for (const finding of component.findings ?? []) {
+      if (finding.repository !== component.repo) issues.push(`${path}:finding ${finding.id}: repository must match its component`)
+      for (const evidence of finding.evidence) if (evidence.revision !== finding.sourceRevision) issues.push(`${path}:finding ${finding.id}: inconsistent observation revision`)
+      // Missing subjects remain historical observations, never inferred active entities.
+    }
     has(productById, component.productId, `${path}:productId`)
     if (component.parentId) {
       has(componentById, component.parentId, `${path}:parentId`)

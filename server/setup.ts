@@ -15,6 +15,11 @@ export async function installInstructions(root: string) {
   for (const file of await readdir(path.join(packageRoot, 'schemas'))) {
     if (file.endsWith('.json')) await atomicFile(root, `.groundwork/schemas/${file}`, await readFile(path.join(packageRoot, 'schemas', file), 'utf8'))
   }
+  const catalogSkill = path.join(packageRoot, '.agents/skills/groundwork-system-catalog')
+  await atomicFile(root, '.agents/skills/groundwork-system-catalog/SKILL.md', await readFile(path.join(catalogSkill, 'SKILL.md'), 'utf8'))
+  for (const file of await readdir(path.join(catalogSkill, 'references'))) {
+    if (file.endsWith('.md')) await atomicFile(root, `.agents/skills/groundwork-system-catalog/references/${file}`, await readFile(path.join(catalogSkill, 'references', file), 'utf8'))
+  }
   const packageFile = await safePath(root, 'package.json')
   const packageText = await readFile(packageFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
   if (packageText) {
@@ -40,6 +45,7 @@ export async function installInstructions(root: string) {
 export async function initialise(root: string, options: { name?: string; id?: string; domain?: string; files?: Files; assets?: string } = {}) {
   await mkdir(root, { recursive: true })
   return withLock(root, async () => {
+    if (await lstat(await safePath(root, '.groundwork/project.json')).catch(() => null)) throw new Error('Catalog already exists; initialisation never overwrites it')
     const target = await safePath(root, PLAN_DIRECTORY)
     if (await lstat(target).catch(() => null)) throw new Error('Plans already exist. Initialisation never overwrites an existing plan directory.')
     const manifest = manifestSchema.parse({ schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}) })

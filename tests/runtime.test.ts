@@ -40,6 +40,7 @@ test('initialisation is portable, keeps existing instructions, and never overwri
   assert.equal(plan.snapshot.features.length, 0)
   assert.ok(!Object.values(plan.files).join().includes(root))
   assert.match(await readFile(path.join(root, 'AGENTS.md'), 'utf8'), /^Existing project rules/)
+  assert.match(await readFile(path.join(root, '.agents/skills/groundwork-system-catalog/SKILL.md'), 'utf8'), /prepare_repository_scan/)
   assert.equal(JSON.parse(plan.files['products/app.json']).workspaceId, undefined)
   await assert.rejects(initialise(root), /already exist/)
 })
@@ -143,8 +144,8 @@ test('HTTP requires authentication and local origin, retains last valid plans, a
 })
 test('Word Loop exports with brief criteria, unassessed deltas and screenshots preserved', async t => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-export-')); t.after(() => rm(root, { recursive: true, force: true }))
-  const source = path.resolve('content')
-  await exportLegacy(source, root, { name: 'Word Loop', assets: path.resolve('public/images'), supplement: path.resolve('docs/wordloop-meeting-recording/portable') })
+  const source = path.resolve('tests/fixtures/wordloop/content')
+  await exportLegacy(source, root, { name: 'Word Loop', assets: path.resolve('tests/fixtures/wordloop/images'), supplement: path.resolve('tests/fixtures/wordloop/provenance/portable') })
   const plan = await readPlan(root)
   const feature = plan.snapshot.features.find(f => f.id === 'meeting-recording')!
   assert.ok(feature)

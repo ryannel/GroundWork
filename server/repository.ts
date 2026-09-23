@@ -1,3 +1,4 @@
+import { decodeStorage, encodeStorage, physicalDocumentPattern } from './catalog-storage.ts'
 import { mkdir, readdir, readFile, rename, rm, lstat, realpath, open } from 'node:fs/promises'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
@@ -16,38 +17,39 @@ export async function safePath(root: string, relative: string) {
   }
   return current
 }
-export async function readFiles(root: string, ref?: string): Promise<Files> {
+export async function readStorageFiles(root: string, ref?: string): Promise<Files> {
   const files: Files = {}
+  const roots = ['.groundwork/plans', '.groundwork/catalog', '.groundwork/members', '.groundwork/project.json']
+  const accept = (name: string) => {
+    if (name.startsWith('.groundwork/plans/') && assetPattern.test(name.slice('.groundwork/plans/'.length))) return false
+    if (!physicalDocumentPattern.test(name)) throw new Error(`Unsupported catalog/planning file: ${name}`)
+    return true
+  }
   if (ref) {
     const sha = await resolveRef(root, ref)
-    const entries = (await git(root, ['ls-tree', '-r', '-z', sha, '--', PLAN_DIRECTORY])).split('\0').filter(Boolean)
+    const entries = (await git(root, ['ls-tree', '-r', '-z', sha, '--', ...roots])).split('\0').filter(Boolean)
     for (const entry of entries) {
-      const [meta, full] = entry.split('\t')
-      const name = full.slice(PLAN_DIRECTORY.length + 1)
-      if (!meta.startsWith('100644 ') && !meta.startsWith('100755 ')) throw new Error(`Unsupported Git file mode: ${full}`)
-      if (assetPattern.test(name)) continue
-      if (!documentPattern.test(name)) throw new Error(`Unsupported planning file: ${name}`)
-      files[name] = await gitRaw(root, ['show', `${sha}:${full}`])
+      const [meta, name] = entry.split('\t')
+      if (!meta.startsWith('100644 ') && !meta.startsWith('100755 ')) throw new Error(`Unsupported Git file mode: ${name}`)
+      if (accept(name)) files[name] = await gitRaw(root, ['show', `${sha}:${name}`])
     }
   } else {
-    const base = await safePath(root, PLAN_DIRECTORY)
-    async function visit(directory: string, prefix = '') {
-      for (const entry of await readdir(directory, { withFileTypes: true })) {
-        const name = prefix + entry.name
-        if (entry.isSymbolicLink()) throw new Error(`Symbolic links are not allowed: ${name}`)
-        if (entry.isDirectory()) await visit(path.join(directory, entry.name), name + '/')
-        else if (entry.isFile()) {
-          if (assetPattern.test(name)) continue
-          if (!documentPattern.test(name)) throw new Error(`Unsupported planning file: ${name}`)
-          const stat = await lstat(path.join(directory, entry.name))
-          if (stat.size > 2 * 1024 * 1024) throw new Error(`${name}: document exceeds 2 MB`)
-          files[name] = await readFile(path.join(directory, entry.name), 'utf8')
-        }
+    async function visit(name: string) {
+      const file = await safePath(root, name)
+      const stat = await lstat(file).catch(error => { if (error.code === 'ENOENT') return null; throw error })
+      if (!stat) return
+      if (stat.isDirectory()) for (const child of await readdir(file)) await visit(`${name}/${child}`)
+      else if (stat.isFile() && accept(name)) {
+        if (stat.size > 2 * 1024 * 1024) throw new Error(`${name}: document exceeds 2 MB`)
+        files[name] = await readFile(file, 'utf8')
       }
     }
-    await visit(base)
+    for (const name of roots) await visit(name)
   }
   return files
+}
+export async function readFiles(root: string, ref?: string): Promise<Files> {
+  return decodeStorage(await readStorageFiles(root, ref)).files
 }
 export const revision = (files: Files) => digest(JSON.stringify(Object.entries(files).sort(([a], [b]) => a.localeCompare(b))))
 async function durable(file: string, data: string) {
@@ -84,18 +86,18 @@ export async function withLock<T>(root: string, fn: () => Promise<T>, name = '.g
   }
   try { return await fn() } finally { await rm(lock, { force: true }) }
 }
-interface Journal { before: Files; after: Files; paths: string[] }
+interface Journal { version?: 2; before: Files; after: Files; paths: string[] }
 async function recoverUnlocked(root: string) {
   const file = await safePath(root, '.groundwork/transaction.json')
   const raw = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
   if (!raw) return
   const journal = JSON.parse(raw) as Journal
   for (const name of journal.paths) {
-    if (!documentPattern.test(name)) throw new Conflict('Invalid recovery journal')
-    const current = await readFile(await safePath(root, `${PLAN_DIRECTORY}/${name}`), 'utf8').catch(error => { if (error.code === 'ENOENT') return undefined; throw error })
+    if (!(journal.version === 2 ? physicalDocumentPattern : documentPattern).test(name)) throw new Conflict('Invalid recovery journal')
+    const current = await readFile(await safePath(root, journal.version === 2 ? name : `${PLAN_DIRECTORY}/${name}`), 'utf8').catch(error => { if (error.code === 'ENOENT') return undefined; throw error })
     if (current !== journal.before[name] && current !== journal.after[name]) throw new Conflict(`Recovery paused: ${name} was edited externally. The journal preserves both versions in .groundwork/transaction.json.`)
   }
-  for (const name of journal.paths) await atomicFile(root, `${PLAN_DIRECTORY}/${name}`, journal.before[name] ?? null)
+  for (const name of journal.paths) await atomicFile(root, journal.version === 2 ? name : `${PLAN_DIRECTORY}/${name}`, journal.before[name] ?? null)
   await rm(file)
 }
 export async function recover(root: string) { return withLock(root, () => recoverUnlocked(root)) }
@@ -122,11 +124,11 @@ export async function readPlan(root: string, ref?: string) {
     for (const name of ['write.lock', 'transaction.json']) if (await lstat(await safePath(root, `.groundwork/${name}`)).catch(() => null)) throw new Conflict('A plan write or recovery is pending; retaining the previous snapshot. Run groundwork-v2 recover if a writer was interrupted.')
   }
   const resolved = ref ? await resolveRef(root, ref) : undefined
-  const files = await readFiles(root, resolved)
+  const { files, layout } = decodeStorage(await readStorageFiles(root, resolved))
   const plan = parsePlan(files)
   const assets = await assetVersions(root, plan, resolved)
   if (!ref && (await context(root)).token !== ctx.token) throw new Conflict('The checkout changed while reading; retry')
-  return { ...plan, files, assets, revision: revision(files), context: { ...ctx, ref: ref ?? null, head: resolved ?? ctx.head, editable: !ref, token: ref ? digest(`${ctx.token}:${resolved}`) : ctx.token } }
+  return { ...plan, files, assets, layout, revision: revision(files), context: { ...ctx, ref: ref ?? null, head: resolved ?? ctx.head, editable: !ref, token: ref ? digest(`${ctx.token}:${resolved}`) : ctx.token } }
 }
 export interface WriteRequest { expectedRevision: string; expectedContext: string; changes: Record<string, string | null> }
 export async function writePlan(root: string, request: WriteRequest) {
@@ -142,25 +144,44 @@ export async function writePlan(root: string, request: WriteRequest) {
     for (const [name, value] of Object.entries(request.changes)) {
       if (!documentPattern.test(name) || (value !== null && typeof value !== 'string')) throw new Error(`Invalid document change: ${name}`)
       if (value !== null && Buffer.byteLength(value) > 2 * 1024 * 1024) throw new Error(`${name}: document exceeds 2 MB`)
+      if ((name.includes('/assessments/') || name.includes('/baselines/') || name.startsWith('scan-manifests/')) && before[name] && before[name] !== value) throw new Conflict('Retained discovery baselines and scan manifests are immutable; capture a new packet instead')
       if (value === null) delete after[name]; else after[name] = value
     }
     const candidate = parsePlan(after)
+    for (const previous of parsePlan(before).snapshot.components) {
+      const next = candidate.snapshot.components.find(component => component.id === previous.id)
+      for (const field of ['retiredObservations', 'catalogChanges'] as const) {
+        const retained = previous[field] ?? []
+        if (retained.length && JSON.stringify(next?.[field]?.slice(0, retained.length)) !== JSON.stringify(retained)) throw new Conflict('Retired observations and catalog rename history are append-only')
+      }
+    }
     await assetVersions(root, candidate)
     if (candidate.manifest.id !== parsePlan(before).manifest.id) throw new Conflict('A project ID is immutable after initialisation')
     if ((await context(root)).token !== ctx.token || revision(await readFiles(root)) !== revision(before)) throw new Conflict('Checkout changed during validation')
-    await atomicFile(root, '.groundwork/transaction.json', JSON.stringify({ before, after, paths }))
-    try {
-      for (const name of paths) {
-        const existing = await readFile(await safePath(root, `${PLAN_DIRECTORY}/${name}`), 'utf8').catch(error => { if (error.code === 'ENOENT') return undefined; throw error })
-        if (existing !== before[name]) throw new Conflict(`External edit detected: ${name}`)
-        await atomicFile(root, `${PLAN_DIRECTORY}/${name}`, after[name] ?? null)
-      }
-      if ((await context(root)).token !== ctx.token || revision(await readFiles(root)) !== revision(after)) throw new Conflict('Checkout changed during the write')
-      await rm(await safePath(root, '.groundwork/transaction.json'))
-    } catch (error) {
-      await recoverUnlocked(root) // Refuses to overwrite conflicting external changes.
-      throw error
-    }
-    return { revision: revision(after), context: ctx }
+    const storage = await readStorageFiles(root)
+    const { layout, files: latest } = decodeStorage(storage)
+    if (revision(latest) !== revision(before)) throw new Conflict('Catalog changed before storage write')
+    const nextStorage = encodeStorage(after, layout)
+    const canonical = decodeStorage(nextStorage).files
+    await transactStorage(root, storage, nextStorage, ctx.token)
+    return { revision: revision(canonical), context: ctx }
+
   })
+}
+
+/** Caller holds the workspace lock and has validated the full candidate. */
+export async function transactStorage(root: string, before: Files, after: Files, expectedContext?: string) {
+  const paths = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(name => before[name] !== after[name])
+  if (paths.some(name => !physicalDocumentPattern.test(name))) throw new Error('Invalid storage transaction path')
+  await atomicFile(root, '.groundwork/transaction.json', JSON.stringify({ version: 2, before, after, paths }))
+  try {
+    for (const name of paths) {
+      const current = await readFile(await safePath(root, name), 'utf8').catch(error => { if (error.code === 'ENOENT') return undefined; throw error })
+      if (current !== before[name]) throw new Conflict(`External edit detected: ${name}`)
+      await atomicFile(root, name, after[name] ?? null)
+    }
+    if (expectedContext && (await context(root)).token !== expectedContext) throw new Conflict('Checkout changed during the write')
+    if (revision(await readStorageFiles(root)) !== revision(after)) throw new Conflict('Storage changed during the write')
+    await rm(await safePath(root, '.groundwork/transaction.json'))
+  } catch (error) { await recoverUnlocked(root); throw error }
 }

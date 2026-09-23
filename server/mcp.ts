@@ -13,7 +13,11 @@ export function mcp(root?: string) {
       const reply = (result: unknown) => send({ jsonrpc: '2.0', id: request.id, result })
       if (request.method === 'initialize') return reply({ protocolVersion: '2025-03-26', capabilities: { tools: {} }, serverInfo: { name: 'groundwork-v2', version: '0.4.12' }, instructions: 'Plans are repository-owned. Read before writing, preserve expectedRevision and expectedContext, and select checkouts explicitly. Ref views are read-only. Evidence and declared progress are separate.' })
       if (request.method === 'ping') return reply({})
-      if (request.method === 'tools/list') return reply({ tools: Object.entries(operationSchemas).map(([name, schema]) => ({ name, description: descriptions[name as OperationName], inputSchema: z.toJSONSchema(schema), annotations: { readOnlyHint: name === 'projects' || name === 'read_plan', destructiveHint: name === 'write_plan', openWorldHint: false } })) })
+      if (request.method === 'tools/list') return reply({ tools: Object.entries(operationSchemas).map(([name, schema]) => ({ name, description: descriptions[name as OperationName], inputSchema: z.toJSONSchema(schema), annotations: {
+        readOnlyHint: ['read_scan_manifest', 'projects', 'read_plan', 'search_catalog', 'get_catalog_entity', 'get_discovery_context', 'get_discovery_baseline', 'check_catalog_freshness', 'prepare_repository_scan'].includes(name),
+        destructiveHint: ['reconcile_catalog', 'migrate_catalog', 'write_plan', 'apply_repository_scan', 'apply_catalog_investigation'].includes(name),
+        openWorldHint: name === 'prepare_repository_scan',
+      } })) })
       if (request.method === 'tools/call') {
         const name = request.params?.name
         if (typeof name !== 'string' || !Object.hasOwn(operationSchemas, name)) return send({ jsonrpc: '2.0', id: request.id, error: { code: -32602, message: 'Unknown tool' } })

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "dryRun": {
+      "default": true,
+      "type": "boolean"
+    },
+    "expectedRevision": {
+      "type": "string"
+    },
+    "expectedContext": {
+      "type": "string"
+    },
+    "checkoutId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "dryRun"
+  ],
+  "additionalProperties": false
+}

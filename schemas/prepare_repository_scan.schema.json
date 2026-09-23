@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "checkoutId": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "areas": {
+      "default": [
+        "dependencies",
+        "api",
+        "data",
+        "messaging"
+      ],
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "dependencies",
+          "api",
+          "data",
+          "messaging"
+        ]
+      }
+    },
+    "budgets": {
+      "default": {
+        "maxFiles": 1200,
+        "maxBytes": 20971520,
+        "maxFilesPerPacket": 80,
+        "maxPackets": 32
+      },
+      "type": "object",
+      "properties": {
+        "maxFiles": {
+          "default": 1200,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "maxBytes": {
+          "default": 20971520,
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 104857600
+        },
+        "maxFilesPerPacket": {
+          "default": 80,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 250
+        },
+        "maxPackets": {
+          "default": 32,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        }
+      },
+      "required": [
+        "maxFiles",
+        "maxBytes",
+        "maxFilesPerPacket",
+        "maxPackets"
+      ],
+      "additionalProperties": false
+    },
+    "incremental": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "minItems": 1,
+          "maxItems": 20,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "ids"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "repository",
+    "areas",
+    "budgets"
+  ],
+  "additionalProperties": false
+}

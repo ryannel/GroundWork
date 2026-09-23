@@ -1,4 +1,4 @@
-import type { Component } from './model'
+import type { Component } from './model.ts'
 
 export type ScanStatus = NonNullable<Component['scan']>['status'] | 'unknown'
 export type CoverageArea = 'dependencies' | 'api' | 'data' | 'messaging'
@@ -26,7 +26,7 @@ export const scanStatusLabel = (status: ScanStatus) => ({
   'not-scanned': 'Not scanned',
   scanning: 'Scan in progress',
   partial: 'Partially scanned',
-  complete: 'Scan complete',
+  complete: 'Catalog discovery complete',
   failed: 'Scan failed',
 })[status]
 
@@ -47,5 +47,17 @@ export function productCoverage(components: Component[]) {
             : statuses.some(status => status === 'partial') ? 'partial' as const
               : statuses.some(status => status === 'not-scanned') ? 'not-scanned' as const
                 : 'unknown' as const,
+  }
+}
+
+/** Scan coverage is independent of optional traces and subsequent source verification. */
+export function catalogKnowledgeState(component: Component) {
+  const coverage = componentCoverage(component)
+  const endpoints = component.api?.endpoints ?? []
+  const traced = new Set((component.executionFlows ?? []).map(flow => flow.endpointId))
+  return {
+    coverage: Object.fromEntries((['dependencies', 'api', 'data', 'messaging'] as const).map(area => [area, coverage.area(area)])),
+    investigation: { knownEndpoints: endpoints.length, tracedEndpoints: endpoints.filter(endpoint => traced.has(endpoint.id)).length, scope: 'Recorded paths only; alternative paths may be unexplored.' },
+    freshness: { status: 'unchecked' as const, observedRevision: component.sourceRevision ?? component.scan?.revision ?? null, reason: 'No source comparison or behavioral verification has been performed by this query.' },
   }
 }

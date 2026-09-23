@@ -1,12 +1,13 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm, writeFile, cp } from 'node:fs/promises'
+import { mkdtemp, rm, writeFile, cp, mkdir, realpath } from 'node:fs/promises'
 import path from 'node:path'
 import os from 'node:os'
 import { spawn } from 'node:child_process'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
 import { register, inventory } from '../server/registry.ts'
+import { operationSchemas } from '../server/operations.ts'
 
 async function command(module: 'cli' | 'mcp', args: string[], input = '') {
   return new Promise<string>((resolve, reject) => {
@@ -29,7 +30,7 @@ test('CLI and MCP return the same revision and use the same validated authoring 
     { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'create_feature', arguments: { id: 'feature', title: 'Adapter feature', productId: 'app', ownerId: 'owner', problem: 'A problem', outcome: 'An outcome', expectedRevision: read.revision, expectedContext: read.context.token } } },
   ].map(item => JSON.stringify(item)).join('\n') + '\n')).trim().split('\n').map(line => JSON.parse(line))
   assert.equal(replies[0].result.protocolVersion, '2025-03-26')
-  assert.equal(replies[1].result.tools.length, 8)
+  assert.deepEqual(replies[1].result.tools.map((tool: any) => tool.name).sort(), Object.keys(operationSchemas).sort())
   assert.equal(JSON.parse(replies[2].result.content[0].text).revision, read.revision)
   assert.equal(replies[3].result.isError, undefined)
   const updated = await readPlan(root)
@@ -47,13 +48,30 @@ test('different users organise identical plans independently and explicit clones
   await initialise(root, { name: 'Shared app' }); const original = await readPlan(root)
   await cp(root, clone, { recursive: true })
   process.env.GROUNDWORK_HOME = path.join(base, 'user-a')
-  await register(root, 'Work'); await register(clone, 'Experiments')
+  await register(root, 'Work', 'Application'); await register(clone, 'Experiments', 'Application clone')
   const a = await inventory()
   assert.equal(a.length, 2); assert.notEqual(a[0].checkoutId, a[1].checkoutId); assert.equal(a[0].projectId, a[1].projectId)
+  assert.deepEqual(a.map(item => item.product), ['Application', 'Application clone'])
+  assert.deepEqual(a.map(item => item.productPath), ['/w/project/app', '/w/project/app'])
   process.env.GROUNDWORK_HOME = path.join(base, 'user-b')
   assert.equal((await inventory()).length, 0)
-  await register(root, 'Personal')
+  await register(root, 'Personal', 'Shared app')
   const b = await inventory()
-  assert.equal(b.length, 1); assert.equal(b[0].workspace, 'Personal')
+  assert.equal(b.length, 1); assert.equal(b[0].workspace, 'Personal'); assert.equal(b[0].product, 'Shared app')
   assert.equal((await readPlan(root)).revision, original.revision)
+})
+test('repositories without plans can be grouped beneath a workspace product', async t => {
+  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-registry-source-')); t.after(() => rm(base, { recursive: true, force: true }))
+  const previous = process.env.GROUNDWORK_HOME
+  t.after(() => { if (previous === undefined) delete process.env.GROUNDWORK_HOME; else process.env.GROUNDWORK_HOME = previous })
+  process.env.GROUNDWORK_HOME = path.join(base, 'config')
+  const root = path.join(base, 'source')
+  await mkdir(root)
+  await register(root, 'Commercial Backbone', 'Price')
+  const [entry] = await inventory()
+  assert.equal(entry.workspace, 'Commercial Backbone')
+  assert.equal(entry.product, 'Price')
+  assert.equal(entry.repositoryRoot, await realpath(root))
+  assert.equal(entry.projectId, null)
+  assert.match(entry.error!, /project.json/)
 })
