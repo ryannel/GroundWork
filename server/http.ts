@@ -13,6 +13,7 @@ import { operate, isOperationName } from './operations.ts'
 import { packageRoot } from './setup.ts'
 import { InvalidInput, NotFound, statusFor } from './errors.ts'
 import { ContentError } from '../src/data/content.ts'
+import { CatalogIdError } from '../src/data/catalog-identity.ts'
 const mime: Record<string, string> = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.gif': 'image/gif', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.ico': 'image/x-icon',
@@ -30,7 +31,7 @@ const message = (error: unknown) => error instanceof Error ? error.message : Str
  * is 404. Anything else, including a plain `Error`, Git failures and programming faults, is 500.
  */
 export function httpStatus(error: unknown) {
-  if (error instanceof ZodError || error instanceof SyntaxError || error instanceof ContentError) return 400
+  if (error instanceof ZodError || error instanceof SyntaxError || error instanceof ContentError || error instanceof CatalogIdError) return 400
   const code = (error as { code?: unknown } | null)?.code
   if (code === 'ENOENT') return 404
   return statusFor(error)
@@ -191,7 +192,9 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       }
       if (req.method !== 'GET' && req.method !== 'HEAD') return json({ error: 'Method not allowed' }, 405)
       if (url.pathname.startsWith('/api/')) return json({ error: 'Unknown API route' }, 404)
-      const relative = decodeURIComponent(url.pathname).slice(1).replace(/\/$/, '') || 'index.html'
+      let decodedPath: string
+      try { decodedPath = decodeURIComponent(url.pathname) } catch { return json({ error: 'Malformed path' }, 400) }
+      const relative = decodedPath.slice(1).replace(/\/$/, '') || 'index.html'
       let file = await safePath(viewer, relative)
       if (!(await lstat(file).catch(() => null))?.isFile()) {
         if (path.extname(relative)) return json({ error: 'File not found' }, 404)

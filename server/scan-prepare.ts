@@ -31,7 +31,9 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
     repositoryPath: args.repository, targetRef: args.sourceRef, ids: args.incremental.ids,
     maxFiles: INCREMENTAL_MAX_FILES, maxBytes: INCREMENTAL_MAX_BYTES,
   }) : undefined
-  if (freshness && !freshness.targetRevision) throw new InvalidInput(`Cannot pin incremental source: ${'reason' in freshness ? freshness.reason : 'unknown target'}`)
+  if (freshness && !freshness.targetRevision) {
+    throw new InvalidInput(`Cannot pin incremental source: ${'reason' in freshness ? freshness.reason : 'unknown target'}`)
+  }
   const incremental: ScanMetadata['incremental'] = freshness ? { mode: incrementalMode(freshness), report: freshness } : undefined
   const changedPaths = new Set(freshness && 'changes' in freshness ? freshness.changes.flatMap(change => change.files) : [])
   const base = await sweepScans()

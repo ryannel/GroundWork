@@ -6,6 +6,9 @@ export const PLANS_DIR = `${GROUNDWORK_DIR}/plans`
 export const CATALOG_DIR = `${GROUNDWORK_DIR}/catalog`
 export const MEMBERS_DIR = `${GROUNDWORK_DIR}/members`
 export const PROJECT_FILE = `${GROUNDWORK_DIR}/project.json`
+/** Agent guide and JSON Schemas that `installInstructions` copies into a checkout. */
+export const GUIDE_FILE = `${GROUNDWORK_DIR}/GUIDE.md`
+export const SCHEMAS_DIR = `${GROUNDWORK_DIR}/schemas`
 /** Held while one process writes; never committed. */
 export const LOCK_FILE = `${GROUNDWORK_DIR}/write.lock`
 /** Before/after images of an in-flight write; its presence means recovery is pending. */

@@ -1,10 +1,12 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import type { Component, Feature } from '../src/data/model.ts'
-import { architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap, runtimeSystemGraph, systemGraph } from '../src/data/component-structure.ts'
+import {
+  architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap,
+  runtimeSystemGraph, systemGraph,
+} from '../src/data/component-structure.ts'
 import { buildIndex, lensFor } from '../src/data/spec-index.ts'
 import { loadContent } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 import { documents } from './fixtures.ts'
 import { components as catalog } from './fixtures/catalog.ts'
 
@@ -58,7 +60,7 @@ test('invalid containment and dependency references are rejected before renderin
   const check = (edit: (data: Record<string, any>) => void, error: RegExp) => {
     const input = structuredClone(documents) as Record<string, any>
     edit(input)
-    assert.throws(() => loadContent(input, livePrototypeIds), error)
+    assert.throws(() => loadContent(input), error)
   }
   const cart = 'components/c-cart-svc.json', cache = 'components/c-cart-cache.json'
   check(d => { d[cache].parentId = 'missing' }, /parentId: unknown reference/)
@@ -75,7 +77,7 @@ test('reciprocal runtime service dependencies are valid and do not become a cont
   const input = structuredClone(documents) as Record<string, any>
   input['components/c-cart-svc.json'].dependsOn = ['c-pricing-api']
   input['components/c-pricing-api.json'].dependsOn = ['c-cart-svc']
-  assert.doesNotThrow(() => loadContent(input, livePrototypeIds))
+  assert.doesNotThrow(() => loadContent(input))
 })
 
 
@@ -132,7 +134,10 @@ test('architecture map points inbound event brokers toward consumers and outboun
       { name: 'Azure Event Hubs', kind: 'event broker', evidence: [{ path: 'README.md', lines: '1', claim: 'Consumes notifications', revision: 'abc' }] },
     ],
     messaging: { messages: [
-      { id: 'notification', name: 'Notification', broker: 'Azure Event Hubs (Event Grid notification)', channel: 'notifications', direction: 'inbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+      {
+        id: 'notification', name: 'Notification', broker: 'Azure Event Hubs (Event Grid notification)', channel: 'notifications', direction: 'inbound',
+        fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' },
+      },
       { id: 'reply', name: 'Reply', broker: 'Kafka', channel: 'replies', direction: 'outbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
     ] },
   }

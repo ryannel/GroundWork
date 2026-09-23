@@ -67,15 +67,12 @@ test('project routes and refs are parsed, and malformed refs do not crash startu
 
 test('an unavailable API reports a disconnected state', async t => {
   const runtime = createRuntime('/')
-  let applied = false
-  runtime.attachSnapshot(() => { applied = true })
   t.mock.method(globalThis, 'fetch', async () => { throw new Error('Connection refused') })
   await runtime.startRuntime()
   assert.equal(runtime.getRuntime().loading, false)
   assert.equal(runtime.getRuntime().connected, false)
   assert.equal(runtime.getRuntime().error, 'Connection refused')
   assert.equal(runtime.getRuntime().plan, null)
-  assert.equal(applied, false)
 })
 
 test('a frontend-only HTML response or unknown session mode cannot become a demo', async t => {
@@ -204,8 +201,6 @@ test('only the latest startup can publish', async t => {
 test('runtime restarts close old streams, reject stale events and recover from malformed events', async t => {
   const streams = fakeEventSource(t)
   const runtime = createRuntime('/')
-  const snapshots: unknown[] = []
-  runtime.attachSnapshot(snapshot => snapshots.push(snapshot))
   t.mock.method(globalThis, 'fetch', async () => Response.json({ mode: 'standalone' }))
   await runtime.startRuntime()
   const first = streams.at(-1)!
@@ -230,7 +225,6 @@ test('runtime restarts close old streams, reject stale events and recover from m
   first.send({ plan: { snapshot: {} }, error: null })
   assert.equal(runtime.getRuntime().plan?.revision, 'r1')
   assert.equal(runtime.getRuntime().error, 'Invalid Groundwork event response')
-  assert.deepEqual(snapshots, [snapshot, snapshot])
 
   await runtime.startRuntime()
   assert.equal(first.closed, true)
@@ -241,7 +235,6 @@ test('runtime restarts close old streams, reject stale events and recover from m
   second.send({ plan: null, error: 'No plan is available' })
   assert.equal(runtime.getRuntime().plan, null)
   assert.equal(runtime.getRuntime().error, 'No plan is available')
-  assert.equal(snapshots.at(-1), null)
   second.onopen?.()
   assert.equal(runtime.getRuntime().error, 'No plan is available', 'reopening keeps plan errors')
   second.readyState = 2

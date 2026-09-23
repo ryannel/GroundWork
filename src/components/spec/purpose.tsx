@@ -39,7 +39,9 @@ export function PurposeSection({ data, focus }: { data: Purpose; focus?: string 
           {data.nonGoals && (
             <div>
               <Label>Out of scope</Label>
-              <ul className="grid gap-1.5">{data.nonGoals.map(s => <li key={s} className="flex gap-2 text-small text-fg-muted"><Ban className="mt-0.5 size-3.5 shrink-0 text-fg-subtle" />{s}</li>)}</ul>
+              <ul className="grid gap-1.5">{data.nonGoals.map(s => <li key={s} className="flex gap-2 text-small text-fg-muted">
+                <Ban className="mt-0.5 size-3.5 shrink-0 text-fg-subtle" />{s}
+              </li>)}</ul>
             </div>
           )}
         </div>

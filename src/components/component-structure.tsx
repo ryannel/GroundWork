@@ -21,10 +21,17 @@ export function ComponentOptions({ components }: { components: Component[] }) {
   })}</>
 }
 
-export function FeatureArchitecture({ feature, components, allComponents, href }: { feature: Feature; components: Component[]; allComponents: Component[]; href: (id: string) => string }) {
+export function FeatureArchitecture({ feature, components, allComponents, href }: {
+  feature: Feature; components: Component[]; allComponents: Component[]; href: (id: string) => string
+}) {
   return <div className="component-list">{componentTree(components).map(({ component: c, depth }) => {
     const direct = feature.touches.includes(c.id)
     const changed = featureTouchesComponent(feature, c.id, allComponents)
-    return <Link key={c.id} to={href(c.id)} style={{ marginInlineStart: depth * 20 }}><ComponentIcon component={c} size={15} /><span>{c.name}<small>{componentKindLabel(c)} · {direct ? 'Planned changes' : changed ? 'Changes within' : 'Used in this plan'}</small></span><ArrowRight size={14} /></Link>
+    const relation = direct ? 'Planned changes' : changed ? 'Changes within' : 'Used in this plan'
+    return <Link key={c.id} to={href(c.id)} style={{ marginInlineStart: depth * 20 }}>
+      <ComponentIcon component={c} size={15} />
+      <span>{c.name}<small>{componentKindLabel(c)} · {relation}</small></span>
+      <ArrowRight size={14} />
+    </Link>
   })}</div>
 }

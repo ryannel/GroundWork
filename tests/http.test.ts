@@ -160,3 +160,14 @@ test('only typed and schema errors are client errors; an untyped Error is a serv
   assert.equal(httpStatus(new InvalidInput('bad')), 400)
   assert.equal(httpStatus(new Error('unexpected')), 500)
 })
+test('a bad catalog ID, an unknown ref and a malformed static path are client errors', async t => {
+  const { app, token } = await fixture(t, true)
+  const call = (operation: string, args: unknown) => fetch(app.url + '/api/operations/' + operation, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(args),
+  })
+  const badId = await call('get_catalog_entity', { id: 'x' })
+  assert.equal(badId.status, 400, await badId.text())
+  const unknownRef = await call('read_plan', { ref: 'no-such-branch' })
+  assert.equal(unknownRef.status, 404, await unknownRef.text())
+  assert.equal((await fetch(app.url + '/%E0')).status, 400)
+})

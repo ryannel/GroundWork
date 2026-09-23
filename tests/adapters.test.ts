@@ -26,11 +26,12 @@ test('CLI and MCP return the same revision and use the same validated authoring 
   const root = await tempDir(t, 'groundwork-adapters-')
   await initialise(root, { name: 'Adapters' })
   const read = JSON.parse(await command('cli', ['read', root]))
+  const feature = { id: 'feature', title: 'Adapter feature', productId: 'app', ownerId: 'owner', problem: 'A problem', outcome: 'An outcome' }
   const replies = (await command('mcp', [root], [
     { jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'test', version: '1' } } },
     { jsonrpc: '2.0', id: 2, method: 'tools/list' },
     { jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'read_plan', arguments: {} } },
-    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'create_feature', arguments: { id: 'feature', title: 'Adapter feature', productId: 'app', ownerId: 'owner', problem: 'A problem', outcome: 'An outcome', ...guard(read) } } },
+    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'create_feature', arguments: { ...feature, ...guard(read) } } },
   ].map(item => JSON.stringify(item)).join('\n') + '\n')).trim().split('\n').map(line => JSON.parse(line))
   assert.equal(replies[0].result.protocolVersion, '2025-03-26')
   assert.deepEqual(replies[1].result.tools.map((tool: { name: string }) => tool.name).sort(), Object.keys(operationSchemas).sort())

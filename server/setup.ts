@@ -4,24 +4,26 @@ import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { InvalidInput, NotFound } from './errors.ts'
 import { assetPattern, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
-import { INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE } from './paths.ts'
+import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE, SCHEMAS_DIR } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
 import { readContentDirectory } from './content-files.ts'
 import { loadContent } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 
 // The same source runs under Node's TS support in development and as compiled JS in the package.
 export const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), import.meta.url.includes('/runtime/') ? '../..' : '..')
 export async function installInstructions(root: string) {
   const guide = await readFile(path.join(packageRoot, 'docs/PORTABLE.md'), 'utf8')
-  await atomicFile(root, '.groundwork/GUIDE.md', guide)
+  await atomicFile(root, GUIDE_FILE, guide)
   for (const file of await readdir(path.join(packageRoot, 'schemas'))) {
-    if (file.endsWith('.json')) await atomicFile(root, `.groundwork/schemas/${file}`, await readFile(path.join(packageRoot, 'schemas', file), 'utf8'))
+    if (!file.endsWith('.json')) continue
+    await atomicFile(root, `${SCHEMAS_DIR}/${file}`, await readFile(path.join(packageRoot, 'schemas', file), 'utf8'))
   }
   const catalogSkill = path.join(packageRoot, '.agents/skills/groundwork-system-catalog')
   await atomicFile(root, '.agents/skills/groundwork-system-catalog/SKILL.md', await readFile(path.join(catalogSkill, 'SKILL.md'), 'utf8'))
   for (const file of await readdir(path.join(catalogSkill, 'references'))) {
-    if (file.endsWith('.md')) await atomicFile(root, `.agents/skills/groundwork-system-catalog/references/${file}`, await readFile(path.join(catalogSkill, 'references', file), 'utf8'))
+    if (!file.endsWith('.md')) continue
+    const content = await readFile(path.join(catalogSkill, 'references', file), 'utf8')
+    await atomicFile(root, `.agents/skills/groundwork-system-catalog/references/${file}`, content)
   }
   const packageFile = await safePath(root, 'package.json')
   const packageText = await readFile(packageFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
@@ -29,16 +31,18 @@ export async function installInstructions(root: string) {
     const pkg = JSON.parse(packageText)
     pkg.scripts ??= {}
     let changed = false
-    for (const [name, command] of Object.entries({ 'plans:start': 'groundwork-v2 start', 'plans:standalone': 'groundwork-v2 serve', 'plans:hub': 'groundwork-v2 hub' })) {
+    const scripts = { 'plans:start': 'groundwork-v2 start', 'plans:standalone': 'groundwork-v2 serve', 'plans:hub': 'groundwork-v2 hub' }
+    for (const [name, command] of Object.entries(scripts)) {
       if (!(name in pkg.scripts)) { pkg.scripts[name] = command; changed = true }
     }
     if (changed) await atomicFile(root, 'package.json', JSON.stringify(pkg, null, 2) + '\n')
   }
-  const instruction = 'For Groundwork planning, read [.groundwork/GUIDE.md](.groundwork/GUIDE.md). Use the installed `groundwork-v2` CLI or MCP server and preserve checkout context and revision checks.'
+  const instruction = `For Groundwork planning, read [${GUIDE_FILE}](${GUIDE_FILE}). Use the installed \`groundwork-v2\` CLI or MCP server `
+    + 'and preserve checkout context and revision checks.'
   for (const name of ['AGENTS.md', 'CLAUDE.md']) {
     const file = await safePath(root, name)
     const before = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })
-    if (!before.includes('](.groundwork/GUIDE.md)')) await atomicFile(root, name, before + `\n\n## Groundwork planning\n\n${instruction}\n`)
+    if (!before.includes(`](${GUIDE_FILE})`)) await atomicFile(root, name, before + `\n\n## Groundwork planning\n\n${instruction}\n`)
   }
   const ignoreFile = await safePath(root, '.gitignore')
   const ignored = await readFile(ignoreFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })
@@ -52,7 +56,9 @@ export async function initialise(root: string, options: { name?: string; id?: st
     if (await lstat(await safePath(root, PROJECT_FILE)).catch(() => null)) throw new InvalidInput('Catalog already exists; initialisation never overwrites it')
     const target = await safePath(root, PLANS_DIR)
     if (await lstat(target).catch(() => null)) throw new InvalidInput('Plans already exist. Initialisation never overwrites an existing plan directory.')
-    const manifest = manifestSchema.parse({ schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}) })
+    const manifest = manifestSchema.parse({
+      schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}),
+    })
     const files = options.files ?? {
       'project.json': JSON.stringify(manifest, null, 2) + '\n',
       'products/app.json': JSON.stringify({ id: 'app', slug: 'app', name: manifest.name, kind: 'service-system' }, null, 2) + '\n',
@@ -99,9 +105,11 @@ function portableDesign(value: unknown) {
   return { ...design, mockups }
 }
 /** Explicitly export a legacy dataset; the source is never modified. */
-export async function exportLegacy(source: string, target: string, options: { name: string; id?: string; product?: string; assets?: string; supplement?: string }) {
+export async function exportLegacy(
+  source: string, target: string, options: { name: string; id?: string; product?: string; assets?: string; supplement?: string },
+) {
   const docs = await readContentDirectory(source)
-  const loaded = loadContent(docs, livePrototypeIds)
+  const loaded = loadContent(docs)
   const products = loaded.products.filter(p => !options.product || p.id === options.product)
   if (!products.length) throw new NotFound('No matching product to export')
   const workspaceIds = new Set(products.map(p => p.workspaceId))

@@ -59,7 +59,9 @@ export function HomePage() {
     </header>
     <section aria-labelledby="workspace-directory-heading">
       <div className="board-section-heading">
-        <h2 id="workspace-directory-heading">{plan ? 'Products' : 'Your workspaces'} <span className="section-count">{plan ? q.products().length : summaries.length}</span></h2>
+        <h2 id="workspace-directory-heading">
+          {plan ? 'Products' : 'Your workspaces'} <span className="section-count">{plan ? q.products().length : summaries.length}</span>
+        </h2>
       </div>
       {plan
         ? <div className="project-grid">{q.products().map(product => <Link className="project-card" to={`/w/project/${product.slug}`} key={product.id}>

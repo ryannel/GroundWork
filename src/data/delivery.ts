@@ -66,7 +66,11 @@ export function validateDelivery(featureId: string, plan: Delivery, snapshot: Co
   for (const deliverable of plan.deliverables) {
     unique(deliverable.componentIds, `component in ${deliverable.id}`)
     deliverable.componentIds.forEach(component)
-    for (const dependency of deliverable.dependsOn) if (!deliverables.has(dependency)) fail(`${deliverable.id}: deliverables depend on deliverables; their own tasks are implicit completion requirements`)
+    for (const dependency of deliverable.dependsOn) {
+      if (!deliverables.has(dependency)) {
+        fail(`${deliverable.id}: deliverables depend on deliverables; their own tasks are implicit completion requirements`)
+      }
+    }
   }
   for (const task of plan.tasks) {
     const parent = deliverables.get(task.deliverableId)
@@ -103,7 +107,9 @@ export function validateDelivery(featureId: string, plan: Delivery, snapshot: Co
     for (const testId of check.testIds) if (!feature.spec?.tests?.cases.some(t => t.id === testId)) fail(`${check.id}: unknown test ${testId}`)
     ;[...check.realDependencyIds, ...check.substitutedDependencyIds].forEach(component)
     if (check.realDependencyIds.some(id => check.substitutedDependencyIds.includes(id))) fail(`${check.id}: a dependency cannot be both real and substituted`)
-    if (check.level !== 'end-to-end' && check.substitutedDependencyIds.includes(tasks.get(check.taskId)!.componentId)) fail(`${check.id}: cannot substitute the component under test`)
+    if (check.level !== 'end-to-end' && check.substitutedDependencyIds.includes(tasks.get(check.taskId)!.componentId)) {
+      fail(`${check.id}: cannot substitute the component under test`)
+    }
   }
   for (const record of [...plan.branches, ...plan.evidence]) {
     if (record.legacyTaskId && !plan.undecomposedTasks.some(t => t.id === record.legacyTaskId)) fail(`unknown undecomposed task ${record.legacyTaskId}`)
@@ -113,7 +119,9 @@ export function validateDelivery(featureId: string, plan: Delivery, snapshot: Co
   for (const evidence of plan.evidence) {
     const check = plan.validation.find(v => v.id === evidence.validationId)
     if (evidence.validationId && !check) fail(`unknown evidence validation ${evidence.validationId}`)
-    if (evidence.taskId && check && (check.level === 'end-to-end' || check.taskId !== evidence.taskId)) fail(`${evidence.id}: evidence must belong to its validation's task`)
+    if (evidence.taskId && check && (check.level === 'end-to-end' || check.taskId !== evidence.taskId)) {
+      fail(`${evidence.id}: evidence must belong to its validation's task`)
+    }
   }
   unique(plan.evidence.map(e => e.id), 'evidence ID')
 }

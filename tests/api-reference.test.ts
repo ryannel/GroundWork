@@ -5,7 +5,10 @@ import type { ApiContract } from '../src/data/spec.ts'
 const c = (id: string, method: ApiContract['method'], path: string, from = 'app'): ApiContract => ({ id, method, path, name: `${method} ${path}`, from, to: 'core', change: 'unspecified' })
 
 test('groups HTTP operations by resource and exact endpoint without merging caller variants', () => {
-  const input = [c('update-ml', 'PATCH', '/meetings/{id}', 'ml'), c('list', 'GET', '/meetings'), c('update-app', 'PATCH', '/meetings/{id}'), c('create', 'POST', '/meetings'), c('task', 'GET', '/tasks')]
+  const input = [
+    c('update-ml', 'PATCH', '/meetings/{id}', 'ml'), c('list', 'GET', '/meetings'), c('update-app', 'PATCH', '/meetings/{id}'),
+    c('create', 'POST', '/meetings'), c('task', 'GET', '/tasks'),
+  ]
   const groups = groupContracts(input)
   assert.deepEqual(groups.map(g => g.name), ['Meetings', 'Tasks'])
   assert.equal(groups[0].endpoints.length, 2)
@@ -22,7 +25,8 @@ test('separates message and RPC contracts without claiming a transport', () => {
   assert.equal(contractResource({ ...c('audio', 'EVENT', 'audio'), note: 'Source: tdd/contracts/audio.mdx — Audio frame.' }), 'Audio')
 })
 test('extracts imported facts without truncating parameter values or behavior', () => {
-  const note = 'Read a compact meeting list. Auth: bearerAuth; Response: 200 MeetingList; Query params: expand (transcript, tasks), limit Source: tdd/contracts/meeting.mdx — GET /meetings. Target contract; change against the current implementation has not been assessed.'
+  const note = 'Read a compact meeting list. Auth: bearerAuth; Response: 200 MeetingList; Query params: expand (transcript, tasks), limit '
+    + 'Source: tdd/contracts/meeting.mdx — GET /meetings. Target contract; change against the current implementation has not been assessed.'
   const parsed = contractNotes(note)
   assert.equal(parsed.description, 'Read a compact meeting list.')
   assert.deepEqual(parsed.facts, [{ label: 'Auth', value: 'bearerAuth' }, { label: 'Response', value: '200 MeetingList' }, { label: 'Query params', value: 'expand (transcript, tasks), limit' }])

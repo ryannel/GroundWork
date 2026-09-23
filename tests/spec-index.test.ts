@@ -2,7 +2,6 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { buildIndex, refLabel } from '../src/data/spec-index.ts'
 import { loadContent } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 import type { FeatureSpec } from '../src/data/spec.ts'
 
 // Valid IDs that collide with Object.prototype members or sort ahead of other keys.
@@ -73,6 +72,6 @@ test('a validated plan with reserved-looking IDs indexes without throwing', () =
   for (const [section, value] of Object.entries(spec('toLocaleString', 'propertyIsEnumerable', 'hasOwnProperty', '2'))) {
     documents[`features/f/${section}.json`] = value
   }
-  const snapshot = loadContent(documents, livePrototypeIds)
+  const snapshot = loadContent(documents)
   assert.doesNotThrow(() => buildIndex(snapshot.features[0].spec!))
 })

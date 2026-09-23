@@ -4,7 +4,7 @@
 
 Evaluated 17 September 2026 against Order Platform revision `0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd`.
 
-Run `node scripts/catalog-evaluation.ts /path/to/catalog-owner` to repeat the assertions. Planning exercises run in a temporary copy, never in the production catalog.
+Planning exercises run in a temporary copy, never in the production catalog.
 
 ## Retrieval
 

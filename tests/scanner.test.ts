@@ -4,13 +4,17 @@ import type { TestContext } from 'node:test'
 import { access, chmod, mkdir, readFile, readdir, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { initialise } from '../server/setup.ts'
-import { applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan } from '../server/scanner.ts'
+import {
+  applyCatalogInvestigation, applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan, reconcileCatalog,
+} from '../server/scanner.ts'
+import { readScanManifest } from '../server/scan-manifests.ts'
+import { getDiscoveryBaseline, retainDiscoveryBaseline } from '../server/knowledge.ts'
 import { acquire } from '../server/scan-acquire.ts'
 import { readPlan, writePlan } from '../server/repository.ts'
 import { context, git } from '../server/git.ts'
 import { operate } from '../server/operations.ts'
 import type { queryCatalog } from '../server/catalog.ts'
-import { gitInit, guard, tempDir, withEnv } from './helpers.ts'
+import { gitInit, guard, sourceCatalogFixture, tempDir, withEnv } from './helpers.ts'
 
 async function repository(t: TestContext) {
   const root = await gitInit(await tempDir(t, 'groundwork-scan-source-'))
@@ -83,8 +87,12 @@ test('repository scans create bounded Git-free snapshots and apply one evidence-
         }],
       },
       executionFlows: [{
-        id: 'read-item', endpointId: 'get-item', name: 'Read item', summary: 'The source registers the read entry point; handler internals remain untraced.', sourceRevision: prepared.revision, entryStepId: 'request',
-        steps: [{ id: 'request', title: 'Receive item request', kind: 'request', description: 'Dispatches GET /items/:id to getItem.', evidence: [{ path: 'src/routes.ts', lines: '1', claim: 'Registers the read endpoint.', revision: prepared.revision }] }],
+        id: 'read-item', endpointId: 'get-item', name: 'Read item',
+        summary: 'The source registers the read entry point; handler internals remain untraced.', sourceRevision: prepared.revision, entryStepId: 'request',
+        steps: [{
+          id: 'request', title: 'Receive item request', kind: 'request', description: 'Dispatches GET /items/:id to getItem.',
+          evidence: [{ path: 'src/routes.ts', lines: '1', claim: 'Registers the read endpoint.', revision: prepared.revision }],
+        }],
         transitions: [], gaps: ['The fixture does not contain the handler implementation.'],
       }],
       coverage: { dependencies: 'complete', api: 'complete', data: 'complete', messaging: 'partial' },
@@ -241,7 +249,8 @@ test('refresh preserves an existing repository-wide component without Backstage 
   await git(source, ['add', '.'])
   await git(source, ['commit', '-m', 'Split implementation into library projects'])
   await mkdir(path.join(root, '.groundwork/plans/components'), { recursive: true })
-  await writeFile(path.join(root, '.groundwork/plans/components/catalog-api.json'), JSON.stringify({ id: 'catalog-api', productId: 'app', name: 'Catalog API', kind: 'service', repo: await realpath(source) }))
+  const component = { id: 'catalog-api', productId: 'app', name: 'Catalog API', kind: 'service', repo: await realpath(source) }
+  await writeFile(path.join(root, '.groundwork/plans/components/catalog-api.json'), JSON.stringify(component))
   const prepared = await prepareRepositoryScan(root, { repository: source })
   assert.deepEqual(prepared.projects.map((project: any) => [project.path, project.existingComponentId]), [['.', 'catalog-api']])
   assert.ok(prepared.packets.some((packet: any) => packet.files.includes('Api/Api.csproj')))
@@ -261,11 +270,24 @@ test('targeted investigation upserts preserve siblings and broad coverage, and r
   let prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   let plan = await readPlan(root)
   const citation = { path: 'src/routes.ts', lines: '1', claim: 'Registers the GET route.', revision: prepared.revision }
-  await applyRepositoryScan(root, { scanId: prepared.scanId, ...guard(plan), discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', api: { name: 'API', endpoints: [{ id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}', evidence: [citation] }, { id: 'sibling', name: 'Sibling contract', method: 'GET', path: '/sibling', evidence: [citation] }] }, coverage: { api: 'partial' }, gaps: [{ area: 'api', reason: 'Only the route registration is available.' }] }] })
+  const endpoints = [
+    { id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}', evidence: [citation] },
+    { id: 'sibling', name: 'Sibling contract', method: 'GET', path: '/sibling', evidence: [citation] },
+  ]
+  await applyRepositoryScan(root, { scanId: prepared.scanId, ...guard(plan), discoveries: [{
+    id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', api: { name: 'API', endpoints }, coverage: { api: 'partial' },
+    gaps: [{ area: 'api', reason: 'Only the route registration is available.' }],
+  }] })
   prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   plan = await readPlan(root)
   const before = structuredClone(plan.snapshot.components[0])
-  const args = { scanId: prepared.scanId, componentId: 'catalog-api', ...guard(plan), findings: [{ id: 'route-dispatch', name: 'Item route dispatch', question: 'Where does the item request enter?', answer: 'The router sends GET /items/:id to getItem.', subjects: [{ kind: 'endpoint', id: 'get-item' }], boundary: 'Route registration only; handler implementation is absent.', assumptions: ['Handler behavior needs further inspection.'], repository: prepared.repository, sourceRevision: prepared.revision, evidence: [citation] }] }
+  const finding = {
+    id: 'route-dispatch', name: 'Item route dispatch', question: 'Where does the item request enter?',
+    answer: 'The router sends GET /items/:id to getItem.', subjects: [{ kind: 'endpoint', id: 'get-item' }],
+    boundary: 'Route registration only; handler implementation is absent.', assumptions: ['Handler behavior needs further inspection.'],
+    repository: prepared.repository, sourceRevision: prepared.revision, evidence: [citation],
+  }
+  const args = { scanId: prepared.scanId, componentId: 'catalog-api', ...guard(plan), findings: [finding] }
   await assert.rejects(operate('apply_catalog_investigation', { ...args, expectedRevision: 'stale' }, root), /Stale/)
   await assert.rejects(operate('apply_catalog_investigation', { ...args, findings: [{ ...args.findings[0], repository: 'wrong/repo' }] }, root), /repository/)
   await assert.rejects(operate('apply_catalog_investigation', { ...args, findings: [{ ...args.findings[0], evidence: [{ ...citation, lines: '999' }] }] }, root), /outside/)
@@ -461,4 +483,146 @@ test('scan cleanup never follows symlinks and one broken scan does not block the
   const next = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   await assert.rejects(access(directory))
   await discardRepositoryScan({ scanId: next.scanId })
+})
+
+test('incremental preparation pins a narrowed work queue and prevents inventory replacement', async t => {
+  const f = await sourceCatalogFixture(t)
+  await f.commit('handler.ts', 'callHelper(2)\n')
+  const before = await readPlan(f.target)
+  const prepared = await prepareRepositoryScan(f.target, {
+    repository: f.source, sourceRef: 'HEAD', areas: ['api'], incremental: { ids: [f.ids[0]] },
+  })
+  t.after(() => discardRepositoryScan({ scanId: prepared.scanId }))
+  let applied: Awaited<ReturnType<typeof applyCatalogInvestigation>>
+  let after: Awaited<ReturnType<typeof readPlan>>
+
+  await t.test('preparation narrows the work queue to changed files at the pinned revision', async () => {
+    assert.equal(prepared.incremental?.mode, 'focused')
+    assert.equal(prepared.revision, await git(f.source, ['rev-parse', 'HEAD']))
+    assert.deepEqual(prepared.packets.flatMap(packet => packet.files), ['handler.ts'])
+    assert.equal(await readFile(path.join(prepared.sourcePath, 'helper.ts'), 'utf8'), 'return 1\n')
+  })
+  await t.test('an incremental scan cannot replace catalog inventories', async () => {
+    const discoveries = [{ id: 'service', productId: 'app', sourcePath: '.', name: 'Service', coverage: { api: 'complete' as const } }]
+    await assert.rejects(applyRepositoryScan(f.target, { scanId: prepared.scanId, ...guard(before), discoveries }), /cannot replace catalog inventories/)
+    assert.equal((await readPlan(f.target)).revision, before.revision)
+  })
+  await t.test('a focused investigation refreshes flows and leaves the API untouched', async () => {
+    const flow = structuredClone(f.component.executionFlows[0])
+    flow.sourceRevision = prepared.revision
+    flow.steps[0].evidence[0].revision = prepared.revision
+    applied = await applyCatalogInvestigation(f.target, { scanId: prepared.scanId, componentId: 'service', ...guard(before), flows: [flow] })
+    after = await readPlan(f.target)
+    assert.deepEqual(after.snapshot.components[0].api, before.snapshot.components[0].api)
+    assert.equal(after.snapshot.components[0].executionFlows![0].sourceRevision, prepared.revision)
+  })
+  await t.test('the retained manifest lists, pages and maps its sections', async () => {
+    const listing = await readScanManifest(f.target, {})
+    assert.equal(listing.total, 1)
+    assert.equal((listing.items[0] as { manifestId: string }).manifestId, applied.manifestId)
+    const fingerprints = await readScanManifest(f.target, { manifestId: applied.manifestId, section: 'dependencyFingerprints' })
+    assert.ok((fingerprints.items as { path: string }[]).some(file => file.path === 'package-lock.json'))
+    const files = await readScanManifest(f.target, { manifestId: applied.manifestId, section: 'files', limit: 1 })
+    assert.equal(files.items.length, 1)
+    assert.equal(files.nextOffset, 1)
+    const mappings = await readScanManifest(f.target, { manifestId: applied.manifestId, section: 'mappings' })
+    assert.ok((mappings.items as { entityId: string; path: string }[]).some(item => item.entityId === f.ids[1] && item.path === 'helper.ts'))
+  })
+  await t.test('manifests are immutable and content-addressed', async () => {
+    const name = `scan-manifests/${applied.manifestId}.json`
+    await assert.rejects(writePlan(f.target, { ...guard(after), changes: { [name]: null } }), /immutable/)
+    const forged = { [`scan-manifests/${'0'.repeat(64)}.json`]: after.files[name] }
+    await assert.rejects(writePlan(f.target, { ...guard(after), changes: forged }), /hash mismatch/)
+  })
+  await t.test('paging needs the catalog revision and fails once the catalog moves on', async () => {
+    await assert.rejects(readScanManifest(f.target, { offset: 1 }), /expectedRevision/)
+    await assert.rejects(readScanManifest(f.target, { expectedRevision: before.revision }), /Catalog changed/)
+  })
+  await t.test('manifests can be read at a historical ref', async () => {
+    const files = await readScanManifest(f.target, { manifestId: applied.manifestId, section: 'files' })
+    await gitInit(f.target)
+    await git(f.target, ['add', '.groundwork/plans'])
+    await git(f.target, ['commit', '-q', '-m', 'Retained manifest'])
+    const historical = await readScanManifest(f.target, { manifestId: applied.manifestId, section: 'files' }, 'HEAD')
+    assert.equal(historical.total, files.total)
+  })
+})
+
+test('incremental preparation expands for new entry points and excluded dependency changes', async t => {
+  const f = await sourceCatalogFixture(t)
+  await f.commit('new-controller.ts', 'export const route = "/new"\n')
+  await f.commit('package-lock.json', '{"version":2}\n')
+  const prepared = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD', areas: ['api'], incremental: { ids: f.ids } })
+  t.after(() => discardRepositoryScan({ scanId: prepared.scanId }))
+  assert.equal(prepared.incremental?.mode, 'broader-review')
+  assert.ok(prepared.packets.some(packet => packet.files.includes('new-controller.ts')))
+  assert.ok(prepared.packets.some(packet => packet.files.includes('helper.ts')))
+  assert.ok(prepared.incremental?.report.assessments.some(item => item.broaderReviewChanges.paths.includes('package-lock.json')))
+})
+
+test('unchanged incremental preparation creates no extraction work and requires an explicit target', async t => {
+  const f = await sourceCatalogFixture(t)
+  await assert.rejects(prepareRepositoryScan(f.target, { repository: f.source, incremental: { ids: f.ids } }), /explicit sourceRef/)
+  const prepared = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD', incremental: { ids: f.ids } })
+  t.after(() => discardRepositoryScan({ scanId: prepared.scanId }))
+  assert.equal(prepared.incremental?.mode, 'unchanged')
+  assert.deepEqual(prepared.packets, [])
+  assert.match(prepared.applyPolicy!, /No observations have been refreshed/)
+})
+
+test('incremental deletion review retains missing paths and missing history widens work', async t => {
+  const f = await sourceCatalogFixture(t)
+  await git(f.source, ['rm', 'handler.ts'])
+  await git(f.source, ['commit', '-m', 'Remove handler'])
+  const deleted = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD', incremental: { ids: [f.ids[0]] } })
+  t.after(() => discardRepositoryScan({ scanId: deleted.scanId }))
+  assert.deepEqual(deleted.changedPathsOutsideSnapshot, ['handler.ts'])
+  assert.equal(deleted.incremental?.report.status, 'review-required')
+  const p = await readPlan(f.target)
+  f.component.api.endpoints[0].evidence[0].revision = 'a'.repeat(40)
+  await writePlan(f.target, { ...guard(p), changes: { 'components/service.json': JSON.stringify(f.component) } })
+  const unknown = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD', areas: ['api'], incremental: { ids: [f.ids[0]] } })
+  t.after(() => discardRepositoryScan({ scanId: unknown.scanId }))
+  assert.equal(unknown.incremental?.mode, 'broader-review')
+  assert.equal(unknown.incremental?.report.status, 'unknown')
+  assert.ok(unknown.packets.some(packet => packet.files.includes('helper.ts')))
+})
+
+test('evidenced lifecycle changes preserve identities and retained facts while retiring dependent flows', async t => {
+  const f = await sourceCatalogFixture(t)
+  let p = await readPlan(f.target)
+  const feature = {
+    id: 'change', title: 'Change read contract', productId: 'app', ownerId: 'owner', problem: 'Read needs a new name.',
+    outcome: 'The consumer uses the new name.',
+  }
+  await operate('create_feature', { ...feature, ...guard(p) }, f.target)
+  p = await readPlan(f.target)
+  const baseline = await retainDiscoveryBaseline(f.target, { featureId: 'change', question: 'What read contract exists?', ids: f.ids, ...guard(p) })
+  await f.commit('handler.ts', '// Route renamed to /read-next\ncallHelper()\n')
+  let scan = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD' })
+  p = await readPlan(f.target)
+  const evidence = [{ path: 'handler.ts', lines: '1', claim: 'Route rename is recorded.', revision: scan.revision }]
+  const rename = [{ kind: 'endpoint' as const, id: 'read', name: 'Read next', path: '/read-next', evidence }]
+  await reconcileCatalog(f.target, { scanId: scan.scanId, componentId: 'service', ...guard(p), rename })
+  p = await readPlan(f.target)
+  assert.equal(p.snapshot.components[0].api!.endpoints[0].id, 'read')
+  assert.equal(p.snapshot.components[0].executionFlows![0].endpointId, 'read')
+  assert.equal(p.snapshot.components[0].catalogChanges![0].nameBefore, 'Read')
+  await f.commit('handler.ts', '// The read route has been removed.\n')
+  scan = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD' })
+  p = await readPlan(f.target)
+  const removal = { ...evidence[0], revision: scan.revision, claim: 'Route removed.' }
+  const retire = [{ kind: 'endpoint' as const, id: 'read', reason: 'Inspected removal of the route.', evidence: [removal] }]
+  await reconcileCatalog(f.target, { scanId: scan.scanId, componentId: 'service', ...guard(p), retire })
+  const after = await readPlan(f.target), c = after.snapshot.components[0]
+  assert.deepEqual(c.api!.endpoints, [])
+  assert.deepEqual(c.executionFlows, [])
+  assert.equal(c.retiredObservations!.length, 2)
+  assert.equal(c.retiredObservations!.find(item => item.kind === 'flow')!.observation.sourceRevision, f.revision)
+  const retained = await getDiscoveryBaseline(f.target, { featureId: 'change', baselineId: baseline.baselineId })
+  assert.ok(retained.reassessmentRequired)
+  assert.ok(retained.assessments.every(item => item.catalogState === 'removed'))
+  assert.equal(retained.baseline.observations[0].observation.name, 'Read')
+  const revived = { 'components/service.json': JSON.stringify({ ...c, api: f.component.api }) }
+  await assert.rejects(writePlan(f.target, { ...guard(after), changes: revived }), /Retired identity is still active/)
 })

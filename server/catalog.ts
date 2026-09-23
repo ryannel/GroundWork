@@ -10,12 +10,17 @@ import { digest } from './git.ts'
 import type { readPlan } from './repository.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
 
-const paging = { limit: z.number().int().min(1).max(50).default(10), maxBytes: z.number().int().min(4096).max(65536).default(32768), cursor: z.string().max(2048).optional() }
+const paging = {
+  limit: z.number().int().min(1).max(50).default(10), maxBytes: z.number().int().min(4096).max(65536).default(32768),
+  cursor: z.string().max(2048).optional(),
+}
 const cursorSchema = z.strictObject({ snapshot: z.string(), query: z.string(), offset: z.number().int().min(0) })
 const filters = { componentId: z.string().optional(), productId: z.string().optional(), kinds: z.array(z.enum(catalogKinds)).max(8).optional() }
 export const searchCatalogSchema = z.strictObject({ query: z.string().trim().max(2000).default(''), ...filters, ...paging })
 export const getCatalogEntitySchema = z.strictObject({ id: z.string().min(1).max(2000), ...paging })
-export const discoveryContextSchema = z.strictObject({ question: z.string().trim().min(1).max(2000), seeds: z.array(z.string().min(1).max(2000)).max(5).default([]), ...filters, ...paging })
+export const discoveryContextSchema = z.strictObject({
+  question: z.string().trim().min(1).max(2000), seeds: z.array(z.string().min(1).max(2000)).max(5).default([]), ...filters, ...paging,
+})
 type Plan = Awaited<ReturnType<typeof readPlan>>
 const clip = (text: string, length = 300) => text.length > length ? text.slice(0, length) + '…' : text
 /**
@@ -48,11 +53,15 @@ export function catalogLocation(entry: Entity): CatalogLocation {
 function summary(plan: Plan, entry: Entity) {
   const component = entry.component
   const product = plan.snapshot.products.find(product => product.id === component.productId)!
-  const evidence = (entry.kind === 'flow' ? (entry.raw.steps as NonNullable<Component['executionFlows']>[number]['steps']).flatMap(step => step.evidence) : entry.raw.evidence ?? []) as NonNullable<Component['evidence']>
+  type FlowSteps = NonNullable<Component['executionFlows']>[number]['steps']
+  const evidence = (entry.kind === 'flow'
+    ? (entry.raw.steps as FlowSteps).flatMap(step => step.evidence)
+    : entry.raw.evidence ?? []) as NonNullable<Component['evidence']>
   const sourceRevision = catalogSourceRevision(entry)
   const pointers = evidence.map(item => ({ repository: component.repo ?? null, ...item, url: sourceEvidenceUrl(component.repo, item) ?? null }))
   if (typeof entry.raw.source === 'string' && !pointers.some(pointer => pointer.path === entry.raw.source)) {
-    const start = { path: entry.raw.source, revision: sourceRevision ?? '', lines: '', claim: 'Starting location; inspect implementation before claiming behavior.' }
+    const claim = 'Starting location; inspect implementation before claiming behavior.'
+    const start = { path: entry.raw.source, revision: sourceRevision ?? '', lines: '', claim }
     const url = sourceRevision ? sourceEvidenceUrl(component.repo, { ...start, lines: '1', claim: '' }) ?? null : null
     pointers.unshift({ repository: component.repo ?? null, ...start, url })
   }
@@ -74,7 +83,9 @@ function summary(plan: Plan, entry: Entity) {
     location: `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}/w/project/${product.slug}?${params}`,
     source: { repository: component.repo ?? null, revision: sourceRevision },
     coverage: state.coverage,
-    investigation: traced === null ? (flow ? 'Recorded path; see gaps and source boundary' : state.investigation) : traced ? 'Recorded path; alternatives may be unexplored' : 'Not investigated',
+    investigation: traced === null
+      ? (flow ? 'Recorded path; see gaps and source boundary' : state.investigation)
+      : traced ? 'Recorded path; alternatives may be unexplored' : 'Not investigated',
     freshness: { ...state.freshness, observedRevision: sourceRevision },
     pointers: pointers.slice(0, 2).map(pointer => ({ ...pointer, claim: clip(pointer.claim), path: clip(pointer.path, 600) })),
     relations: entry.related.slice(0, 5).map(relation => ({ ...relation, reason: clip(relation.reason) })),
@@ -98,13 +109,22 @@ function rank(entries: Entity[], query: string): Ranked[] {
   }).filter(result => !terms.size || result.score > 0).sort((a, b) => b.score - a.score || a.entry.id.localeCompare(b.entry.id))
 }
 function filtered(entries: Entity[], args: { componentId?: string; productId?: string; kinds?: CatalogKind[] }) {
-  return entries.filter(entry => (!args.componentId || entry.component.id === args.componentId) && (!args.productId || entry.component.productId === args.productId) && (!args.kinds || args.kinds.includes(entry.kind)))
+  return entries.filter(entry => (!args.componentId || entry.component.id === args.componentId)
+    && (!args.productId || entry.component.productId === args.productId)
+    && (!args.kinds || args.kinds.includes(entry.kind)))
 }
 // Detail is lossless JSON-pointer sections; even unusually large strings have a continuation.
 export function detailParts(value: unknown, pointer = ''): Record<string, unknown>[] {
   if (Buffer.byteLength(JSON.stringify(value)) <= 2000) return [{ pointer, value }]
-  if (typeof value === 'string' && value.length > 1000) return Array.from({ length: Math.ceil(value.length / 256) }, (_, index) => ({ pointer, value: value.slice(index * 256, (index + 1) * 256), stringOffset: index * 256, stringLength: value.length }))
-  if (value && typeof value === 'object' && Object.keys(value).length) return Object.entries(value).flatMap(([key, child]) => detailParts(child, `${pointer}/${key.replace(/~/g, '~0').replace(/\//g, '~1')}`))
+  if (typeof value === 'string' && value.length > 1000) {
+    return Array.from({ length: Math.ceil(value.length / 256) }, (_, index) => ({
+      pointer, value: value.slice(index * 256, (index + 1) * 256), stringOffset: index * 256, stringLength: value.length,
+    }))
+  }
+  if (value && typeof value === 'object' && Object.keys(value).length) {
+    const escape = (key: string) => key.replace(/~/g, '~0').replace(/\//g, '~1')
+    return Object.entries(value).flatMap(([key, child]) => detailParts(child, `${pointer}/${escape(key)}`))
+  }
   return [{ pointer, value }]
 }
 

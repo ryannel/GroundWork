@@ -60,7 +60,13 @@ export function catalogKnowledgeState(component: Component) {
   const traced = new Set((component.executionFlows ?? []).map(flow => flow.endpointId))
   return {
     coverage: Object.fromEntries((['dependencies', 'api', 'data', 'messaging'] as const).map(area => [area, coverage.area(area)])),
-    investigation: { knownEndpoints: endpoints.length, tracedEndpoints: endpoints.filter(endpoint => traced.has(endpoint.id)).length, scope: 'Recorded paths only; alternative paths may be unexplored.' },
-    freshness: { status: 'unchecked' as const, observedRevision: component.sourceRevision ?? component.scan?.revision ?? null, reason: 'No source comparison or behavioral verification has been performed by this query.' },
+    investigation: {
+      knownEndpoints: endpoints.length, tracedEndpoints: endpoints.filter(endpoint => traced.has(endpoint.id)).length,
+      scope: 'Recorded paths only; alternative paths may be unexplored.',
+    },
+    freshness: {
+      status: 'unchecked' as const, observedRevision: component.sourceRevision ?? component.scan?.revision ?? null,
+      reason: 'No source comparison or behavioral verification has been performed by this query.',
+    },
   }
 }

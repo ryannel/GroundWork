@@ -18,11 +18,11 @@
     },
     "featureId": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
     },
     "unitId": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
     },
     "status": {
       "type": "string",

@@ -46,7 +46,10 @@ function FeatureIntent({ feature, spec, href }: { feature: Feature; spec: Featur
 function NextStepPanel({ spec, ix, href }: { spec: FeatureSpec; ix: SpecIndex; href: SectionHref }) {
   const next = featureNextStep(spec, ix)
   return <section className={cn('feature-next-panel', next.gaps > 0 && 'has-review-gaps')} aria-labelledby="feature-next-heading">
-    <div className="feature-next-label">{next.gaps ? <AlertCircle size={15} /> : <Layers size={15} />}<span>{next.gaps ? 'Needs evidence' : 'Next step'}</span></div>
+    <div className="feature-next-label">
+      {next.gaps ? <AlertCircle size={15} /> : <Layers size={15} />}
+      <span>{next.gaps ? 'Needs evidence' : 'Next step'}</span>
+    </div>
     <h2 id="feature-next-heading">{next.heading}</h2>
     <p>{next.body}</p>
     <Link to={href(next.section)}>{next.linkLabel}<ArrowRight size={14} /></Link>
@@ -142,7 +145,9 @@ function ConnectedWork({ feature, allComponents }: { feature: Feature; allCompon
     <p className="text-small text-fg-muted mb-4">Active plans with overlapping changes to components or their internals.</p>
     <div className="related-list">
       {related.map(o => <Link key={o.id} to={`/f/${o.id}`}>
-        <span>{o.title}<small>{o.touches.filter(t => changesOverlap({ touches: [t] }, feature, allComponents)).map(t => q.componentLabel(t)).join(', ')}</small></span>
+        <span>{o.title}<small>
+          {o.touches.filter(t => changesOverlap({ touches: [t] }, feature, allComponents)).map(t => q.componentLabel(t)).join(', ')}
+        </small></span>
         <StageBadge stage={o.stage} />
       </Link>)}
       {!related.length && <p className="text-small text-fg-muted">No active plans touch these components.</p>}
@@ -179,7 +184,9 @@ export function FeatureOverview({ feature, spec, ix, groups, href, componentHref
     <div className="overview-grid impact-grid">
       <section>
         <div className="section-line"><h2>Structure & changes</h2><span>{touches} {touches === 1 ? 'planned change' : 'planned changes'}</span></div>
-        <p className="text-small text-fg-muted mb-4">Planned changes and the services or dependencies used by this plan. Selecting a service includes its internals.</p>
+        <p className="text-small text-fg-muted mb-4">
+          Planned changes and the services or dependencies used by this plan. Selecting a service includes its internals.
+        </p>
         <FeatureArchitecture feature={feature} components={participants} allComponents={allComponents} href={componentHref} />
       </section>
       <ConnectedWork feature={feature} allComponents={allComponents} />
@@ -195,7 +202,9 @@ export function OverviewHeader({ feature, headingRef, updated, journeyLink }: {
   journeyLink?: { to: string; label: string }
 }) {
   return <header className="feature-overview-header">
-    <div className="feature-overview-kicker"><span className="feature-id">{feature.id.toUpperCase()}</span><span>Feature plan</span><StageBadge stage={feature.stage} /></div>
+    <div className="feature-overview-kicker">
+      <span className="feature-id">{feature.id.toUpperCase()}</span><span>Feature plan</span><StageBadge stage={feature.stage} />
+    </div>
     <h1 ref={headingRef} tabIndex={-1}>{feature.title}</h1>
     <div className="feature-overview-byline">
       <Avatar name={feature.owner} className="owner-avatar" /><span>{feature.owner}</span><span className="byline-divider" />

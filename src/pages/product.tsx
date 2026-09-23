@@ -7,7 +7,7 @@ import { connectedProductIds } from '@/data/workspace-view'
 import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
 import { ComponentOptions } from '@/components/component-structure'
 import { SystemDiagram } from '@/components/system-diagram'
-import { componentAncestors, featureTouchesComponent, runtimeSystemGraph } from '@/data/component-structure'
+import { componentAncestors, runtimeSystemGraph } from '@/data/component-structure'
 import { kinds, hueStyle } from '@/lib/taxonomy'
 import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 import { Breadcrumbs } from '@/components/breadcrumbs'
@@ -35,7 +35,8 @@ export function ProductPage() {
   const overviewComponents = componentList.filter(c => !c.parentId)
   const view = filter.get('view') === 'ideas' ? 'ideas' : filter.get('view') === 'shipped' ? 'shipped' : 'active'
   const allActive = [...active, ...incoming].sort(byUpdated)
-  const inScope = (feature: typeof active[number]) => !scope || featureTouchesComponent(feature, scope.id, query.components())
+  const scopeIds = scope && query.scope(scope.id)
+  const inScope = (feature: typeof active[number]) => !scopeIds || feature.touches.some(id => scopeIds.has(id))
   const activeRows = allActive.filter(inScope)
   const ideaRows = ideas.filter(inScope)
   const shippedRows = shipped.filter(inScope)
@@ -53,49 +54,97 @@ export function ProductPage() {
   const unresolvedCount = componentList.reduce((sum, component) => sum + (component.unresolvedDependencies?.length ?? 0), 0)
   const coverage = productCoverage(overviewComponents)
   const hasDelivery = allActive.length + ideas.length + shipped.length > 0
-  const connections = allActive.filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0).filter(inScope)
+  const connections = allActive
+    .filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0)
+    .filter(inScope)
+  const scanWarning = coverage.status === 'not-scanned' ? 'This product has not been scanned'
+    : coverage.status === 'scanning' ? 'Repository scan in progress'
+      : coverage.status === 'failed' ? 'Repository scan failed'
+        : coverage.status === 'partial' ? 'Repository scan incomplete'
+          : scanStatusLabel(coverage.status)
+  const plansSummary = view === 'active' && scopedIncoming
+    ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products`
+    : `Feature plans owned by ${p.name}.`
+  const scopeSummary = <p>
+    {scope
+      ? <>
+        Touching <strong>{scope.name}</strong>
+        <button className="product-clear-filter" onClick={() => filter.set('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button>
+      </>
+      : 'Across this product'}
+    {view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}
+  </p>
 
   return <div className="product-overview" style={hueStyle(kind.hueVar)}>
     <header className="workspace-page-header">
       <Breadcrumbs workspace={w} product={p} current={{ label: 'Product', name: p.name }} />
       <div className="workspace-hero">
-        <div className="workspace-page-title"><div><div className="board-eyebrow">Product <span>·</span> {kind.label}</div><h1>{p.name}</h1><p>{p.description ?? kind.blurb}</p></div></div>
+        <div className="workspace-page-title"><div>
+          <div className="board-eyebrow">Product <span>·</span> {kind.label}</div>
+          <h1>{p.name}</h1>
+          <p>{p.description ?? kind.blurb}</p>
+        </div></div>
       </div>
       <div className="product-system-facts" aria-label="Product architecture status">
         <span><strong>{overviewComponents.length}</strong> components</span>
         <span><Network size={14} aria-hidden="true" /><strong>{graph.edges.length}</strong> mapped relationships</span>
-        <span className={unresolvedCount ? 'has-unresolved' : ''}><TriangleAlert size={14} aria-hidden="true" /><strong>{unresolvedCount}</strong> awaiting classification</span>
+        <span className={unresolvedCount ? 'has-unresolved' : ''}>
+          <TriangleAlert size={14} aria-hidden="true" /><strong>{unresolvedCount}</strong> awaiting classification
+        </span>
         <span><strong>{coverage.complete}/{coverage.total}</strong> catalogued</span>
       </div>
     </header>
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
-      <div className="board-section-heading"><div><div className="board-eyebrow">Architecture</div><h2 id="product-components-heading">System architecture</h2><p>Start with the system map, then select a component to explore its overview, interfaces, data, and messages.</p></div></div>
+      <div className="board-section-heading"><div>
+        <div className="board-eyebrow">Architecture</div>
+        <h2 id="product-components-heading">System architecture</h2>
+        <p>Start with the system map, then select a component to explore its overview, interfaces, data, and messages.</p>
+      </div></div>
       {coverage.status !== 'complete' && <div className={`catalog-scan-warning is-${coverage.status}`} role="alert">
         <TriangleAlert size={16} />
-        <div><strong>{coverage.status === 'not-scanned' ? 'This product has not been scanned' : coverage.status === 'scanning' ? 'Repository scan in progress' : coverage.status === 'failed' ? 'Repository scan failed' : coverage.status === 'partial' ? 'Repository scan incomplete' : scanStatusLabel(coverage.status)}</strong><span>Only known facts are shown. APIs, dependencies, data stores, and events may be missing.</span></div>
+        <div>
+          <strong>{scanWarning}</strong>
+          <span>Only known facts are shown. APIs, dependencies, data stores, and events may be missing.</span>
+        </div>
       </div>}
       <SystemDiagram components={componentList} allComponents={allComponents} selectedId={selectedComponent?.id} onSelect={inspectComponent} />
       {!components.length && <p className="board-empty">No system structure has been added yet.</p>}
     </section>
 
     {!hasDelivery ? <section className="product-change-section product-change-empty" aria-labelledby="product-feature-heading">
-      <div><div className="board-eyebrow">Delivery</div><h2 id="product-feature-heading">No planned changes</h2><p>Feature plans connected to this product will appear here.</p></div>
+      <div>
+        <div className="board-eyebrow">Delivery</div>
+        <h2 id="product-feature-heading">No planned changes</h2>
+        <p>Feature plans connected to this product will appear here.</p>
+      </div>
       <span>0 active</span>
     </section> : <section className="product-change-section" aria-labelledby="product-feature-heading">
       <div className="product-change-heading">
-        <div><div className="board-eyebrow">Delivery</div><h2 id="product-feature-heading">Change activity</h2><p>Planned work that may alter this system and its boundaries.</p></div>
+        <div>
+          <div className="board-eyebrow">Delivery</div>
+          <h2 id="product-feature-heading">Change activity</h2>
+          <p>Planned work that may alter this system and its boundaries.</p>
+        </div>
         <span>{allActive.length} active</span>
       </div>
     <div className={`workspace-work-layout product-work-layout${connections.length ? '' : ' is-solo'}`}>
       <section className="workspace-feature-section product-feature-section" aria-labelledby="product-feature-heading">
-        <div className="board-section-heading"><div><h3>Plans</h3><p>{view === 'active' && scopedIncoming ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products` : `Feature plans owned by ${p.name}.`}</p></div><label><span className="sr-only">Component scope</span><select value={scope?.id ?? 'all'} onChange={event => filter.set('scope', event.target.value)}><option value="all">All components</option><ComponentOptions components={overviewComponents} /></select></label></div>
+        <div className="board-section-heading">
+          <div><h3>Plans</h3><p>{plansSummary}</p></div>
+          <label><span className="sr-only">Component scope</span>
+            <select value={scope?.id ?? 'all'} onChange={event => filter.set('scope', event.target.value)}>
+              <option value="all">All components</option>
+              <ComponentOptions components={overviewComponents} />
+            </select>
+          </label>
+        </div>
         <FeatureWorkList
           label="Product feature view"
           views={views}
           view={view}
           onView={id => filter.set('view', id)}
-          summary={<p>{scope ? <>Touching <strong>{scope.name}</strong><button className="product-clear-filter" onClick={() => filter.set('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button></> : 'Across this product'}{view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}</p>}
+          summary={scopeSummary}
           titleColumn="Feature / intent"
           rows={rows}
           renderRow={feature => <FeatureRow
@@ -118,7 +167,13 @@ export function ProductPage() {
       </section>
 
       {connections.length > 0 && <aside className="workspace-coordination" aria-labelledby="product-connections-heading">
-        <div className="coordination-heading"><span><GitFork size={17} /></span><div><h2 id="product-connections-heading">Across products</h2><p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p></div></div>
+        <div className="coordination-heading">
+          <span><GitFork size={17} /></span>
+          <div>
+            <h2 id="product-connections-heading">Across products</h2>
+            <p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p>
+          </div>
+        </div>
         <p className="coordination-intro">Work arriving here or reaching into another product.</p>
         {connections.length ? <div className="coordination-items">{connections.map(feature => {
           const isIncoming = feature.productId !== p.id

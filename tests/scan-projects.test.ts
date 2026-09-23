@@ -1,7 +1,9 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import type { TestContext } from 'node:test'
-import { catalogMetadata, detectProjects, filesForProject, isTestSegment, packetFiles, type DetectedProject, type InventoryFile } from '../server/scan-projects.ts'
+import {
+  catalogMetadata, detectProjects, filesForProject, isTestSegment, packetFiles, type DetectedProject, type InventoryFile,
+} from '../server/scan-projects.ts'
 import type { Component } from '../src/data/model.ts'
 import { tempDir, writeFiles } from './helpers.ts'
 

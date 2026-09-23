@@ -1,6 +1,7 @@
 import { lazy, useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useRuntime, checkoutId } from './data/runtime'
+import { routesKey } from './data/view-models'
 import { Layout } from './shell/layout'
 import { HomePage } from './pages/home'
 import { WorkspacePage } from './pages/workspace'
@@ -30,9 +31,8 @@ export function App() {
     <p>Start Groundwork Hub, then reload this page.</p>
     <button onClick={() => window.location.reload()}>Reload</button>
   </main>
-  // Keyed on the checkout only: plan edits re-render in place and keep scroll, focus and open panels.
   return (
-    <Routes key={runtime.plan?.context.token ?? 'unavailable'}>
+    <Routes key={routesKey(runtime.plan)}>
       <Route element={<Layout />}>
         {hub
           ? <Route index element={<ProjectsPage />} />

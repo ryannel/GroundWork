@@ -23,7 +23,8 @@ async function fixture(t: TestContext, gitRepo = false) {
 }
 async function feature(root: string, id = 'first') {
   const plan = await readPlan(root)
-  await operate('create_feature', { id, title: 'First feature', productId: 'app', ownerId: 'owner', problem: 'A user problem', outcome: 'A useful outcome', ...guard(plan) }, root)
+  const feature = { id, title: 'First feature', productId: 'app', ownerId: 'owner', problem: 'A user problem', outcome: 'A useful outcome' }
+  await operate('create_feature', { ...feature, ...guard(plan) }, root)
   return readPlan(root)
 }
 const request = (plan: Awaited<ReturnType<typeof readPlan>>, changes: Record<string, string | null>) => ({ ...guard(plan), changes })
@@ -45,7 +46,8 @@ test('briefs round-trip and structured specs keep their cross-reference validati
   const root = await fixture(t)
   const plan = await feature(root)
   assert.equal(plan.snapshot.features[0].spec!.purpose!.problem, 'A user problem')
-  await assert.rejects(writePlan(root, request(plan, { 'features/first/brief.md': renderBrief({ problem: 'Why', outcome: 'What', success: [{ id: 'result', text: 'Verified', tests: ['missing'] }] }) })), /unknown tests reference/)
+  const brief = renderBrief({ problem: 'Why', outcome: 'What', success: [{ id: 'result', text: 'Verified', tests: ['missing'] }] })
+  await assert.rejects(writePlan(root, request(plan, { 'features/first/brief.md': brief })), /unknown tests reference/)
   assert.equal((await readPlan(root)).revision, plan.revision)
 })
 test('transactions reject stale revisions, missing context and malformed candidates without changing disk', async t => {
@@ -107,8 +109,13 @@ test('externally created worktrees are discovered and identical IDs remain isola
 })
 test('delivery validates dependencies and recording Git links never declares completion', async t => {
   const root = await fixture(t, true), plan = await feature(root)
-  const delivery = deliverySchema.parse({ deliverables: [{ id: 'result', title: 'A useful result', status: 'planned', componentIds: ['api'] }], tasks: [{ id: 'task', deliverableId: 'result', componentId: 'api', title: 'Build it', status: 'planned', acceptance: ['A useful check'] }] })
-  await writePlan(root, request(plan, { 'components/api.json': JSON.stringify({ id: 'api', productId: 'app', name: 'API' }), 'features/first/delivery.json': JSON.stringify(delivery) }))
+  const delivery = deliverySchema.parse({
+    deliverables: [{ id: 'result', title: 'A useful result', status: 'planned', componentIds: ['api'] }],
+    tasks: [{ id: 'task', deliverableId: 'result', componentId: 'api', title: 'Build it', status: 'planned', acceptance: ['A useful check'] }],
+  })
+  await writePlan(root, request(plan, {
+    'components/api.json': JSON.stringify({ id: 'api', productId: 'app', name: 'API' }), 'features/first/delivery.json': JSON.stringify(delivery),
+  }))
   const next = await readPlan(root)
   await operate('link_branch', { featureId: 'first', taskId: 'task', branch: 'main', ...guard(next) }, root)
   assert.equal((await readPlan(root)).delivery.first.tasks[0].status, 'planned')

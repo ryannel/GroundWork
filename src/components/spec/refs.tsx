@@ -33,7 +33,10 @@ export function RefChip({ r, className, href, title }: { r: Ref; className?: str
   if (!got) return null
   const l = title ? { ...got, title } : got
   const link = (
-    <Link to={href ?? `${refHref(featureId, r)}${actionQuery}`} className={cn('text-fg-muted underline-offset-2 transition-colors hover:text-fg hover:underline', isIdent(r.kind) && 'font-mono text-[12px]', className)}>
+    <Link
+      to={href ?? `${refHref(featureId, r)}${actionQuery}`}
+      className={cn('text-fg-muted underline-offset-2 transition-colors hover:text-fg hover:underline', isIdent(r.kind) && 'font-mono text-[12px]', className)}
+    >
       {l.title}
     </Link>
   )
@@ -88,7 +91,10 @@ export function Links({ groups, className, trailing }: { groups: RefGroup[]; cla
   const n = shown.reduce((a, g) => a + g.refs.length, 0)
   if (!shown.length && !trailing) return null
   return <div className={className}>
-    {shown.length > 0 && <details className="connection-details"><summary>Explore {n} connection{n === 1 ? '' : 's'} · {shown.map(g => g.label.toLowerCase()).join(', ')}</summary><RefRow groups={groups} cols={2} /></details>}
+    {shown.length > 0 && <details className="connection-details">
+      <summary>Explore {n} connection{n === 1 ? '' : 's'} · {shown.map(g => g.label.toLowerCase()).join(', ')}</summary>
+      <RefRow groups={groups} cols={2} />
+    </details>}
     {trailing && <div className="mt-3 text-small text-accent">{trailing}</div>}
   </div>
 }

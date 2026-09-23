@@ -42,7 +42,8 @@ export function groupContracts(contracts: ApiContract[]) {
   return [...resources].sort(([a], [b]) => a.localeCompare(b)).map(([name, endpoints]) => ({ name,
     count: [...endpoints.values()].reduce((n, cs) => n + cs.length, 0),
     endpoints: [...endpoints].sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([path, cs]) => ({ path,
-      contracts: cs.sort((a, b) => methodOrder.indexOf(a.method ?? '') - methodOrder.indexOf(b.method ?? '') || a.from.localeCompare(b.from) || a.id.localeCompare(b.id)),
+      contracts: cs.sort((a, b) => methodOrder.indexOf(a.method ?? '') - methodOrder.indexOf(b.method ?? '')
+        || a.from.localeCompare(b.from) || a.id.localeCompare(b.id)),
     })),
   }))
 }
@@ -55,7 +56,8 @@ export function apiOperations(contracts: ApiContract[]) {
     const key = JSON.stringify([apiProvider(c), c.method ?? '', c.path])
     operations.set(key, [...(operations.get(key) ?? []), c])
   }
-  return [...operations].map(([key, records]) => ({ key, provider: apiProvider(records[0]), method: records[0].method, path: records[0].path, kind: contractKind(records[0]), records,
+  return [...operations].map(([key, records]) => ({
+    key, provider: apiProvider(records[0]), method: records[0].method, path: records[0].path, kind: contractKind(records[0]), records,
     change: records.every(c => c.change === records[0].change) ? records[0].change : 'mixed' as const,
   }))
 }

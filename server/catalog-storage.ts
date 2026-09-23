@@ -24,7 +24,10 @@ export function encodeStorage(files: Files, layout: Layout): Files {
       result[prefix + 'component.json'] = json(metadata)
       for (const [area, value] of Object.entries({ api, data, messaging })) if (value !== undefined) result[prefix + area + '.json'] = json(value)
       // Preserve an explicitly empty array separately from an omitted field.
-      if (findings !== undefined || executionFlows !== undefined) result[prefix + 'knowledge.json'] = json({ ...(findings !== undefined ? { findings } : {}), ...(executionFlows !== undefined ? { flowOrder: executionFlows.map((flow: { id: string }) => flow.id) } : {}) })
+      if (findings !== undefined || executionFlows !== undefined) {
+        const flowOrder = executionFlows === undefined ? undefined : executionFlows.map((flow: { id: string }) => flow.id)
+        result[prefix + 'knowledge.json'] = json({ ...(findings !== undefined ? { findings } : {}), ...(flowOrder !== undefined ? { flowOrder } : {}) })
+      }
       for (const flow of executionFlows ?? []) result[prefix + `flows/${flow.id}.json`] = json(flow)
     } else result[plans + name] = raw
   }
@@ -34,7 +37,9 @@ export function encodeStorage(files: Files, layout: Layout): Files {
 export function decodeStorage(physical: Files): { files: Files; layout: Layout } {
   const split = physical[layoutFile] !== undefined || physical[PROJECT_FILE] !== undefined
   if (!split) {
-    if (Object.keys(physical).some(name => !name.startsWith(plans))) throw new InvalidInput('Catalog files without a layout marker; repair or recover the migration')
+    if (Object.keys(physical).some(name => !name.startsWith(plans))) {
+      throw new InvalidInput('Catalog files without a layout marker; repair or recover the migration')
+    }
     return { layout: 'legacy', files: Object.fromEntries(Object.entries(physical).map(([name, raw]) => [name.slice(plans.length), raw])) }
   }
   if (!physical[PROJECT_FILE] || physical[layoutFile] === undefined || JSON.parse(physical[layoutFile]).version !== 1) {
@@ -45,7 +50,9 @@ export function decodeStorage(physical: Files): { files: Files; layout: Layout }
     if (name === layoutFile) continue
     if (name.startsWith(plans)) {
       const logical = name.slice(plans.length)
-      if (!/^(?:features\/|decisions\/)/.test(logical)) throw new InvalidInput('Mixed catalog authority: legacy catalog documents exist in plans; recover or reconcile explicitly')
+      if (!/^(?:features\/|decisions\/)/.test(logical)) {
+        throw new InvalidInput('Mixed catalog authority: legacy catalog documents exist in plans; recover or reconcile explicitly')
+      }
       files[logical] = raw
     } else if (name === PROJECT_FILE || name.startsWith(members)) files[name.slice(groundwork.length)] = raw
     else if (name.startsWith(`${catalog}products/`)) files[name.slice(catalog.length)] = raw
@@ -57,14 +64,22 @@ export function decodeStorage(physical: Files): { files: Files; layout: Layout }
     const prefix = `${components}${componentId}/`
     if (!physical[prefix + 'component.json']) throw new InvalidInput(`Missing component metadata: ${componentId}`)
     const component = JSON.parse(physical[prefix + 'component.json'])
-    for (const field of ['api', 'data', 'messaging', 'executionFlows', 'findings']) if (field in component) throw new InvalidInput(`Mixed component authority: ${componentId}.${field}`)
-    for (const area of ['api', 'data', 'messaging']) if (physical[prefix + area + '.json'] !== undefined) component[area] = JSON.parse(physical[prefix + area + '.json'])
+    for (const field of ['api', 'data', 'messaging', 'executionFlows', 'findings']) {
+      if (field in component) throw new InvalidInput(`Mixed component authority: ${componentId}.${field}`)
+    }
+    for (const area of ['api', 'data', 'messaging']) {
+      const areaFile = physical[prefix + area + '.json']
+      if (areaFile !== undefined) component[area] = JSON.parse(areaFile)
+    }
     const knowledge = physical[prefix + 'knowledge.json'] === undefined ? {} : JSON.parse(physical[prefix + 'knowledge.json'])
     if (Object.keys(knowledge).some(key => !['findings', 'flowOrder'].includes(key))) throw new InvalidInput('Unsupported component knowledge field')
     if ('findings' in knowledge) component.findings = knowledge.findings
     const flowFiles = Object.keys(physical).filter(name => name.startsWith(prefix + 'flows/'))
     if ('flowOrder' in knowledge) {
-      if (!Array.isArray(knowledge.flowOrder) || new Set(knowledge.flowOrder).size !== knowledge.flowOrder.length || flowFiles.length !== knowledge.flowOrder.length) throw new InvalidInput('Invalid flow inventory')
+      const order = knowledge.flowOrder
+      if (!Array.isArray(order) || new Set(order).size !== order.length || flowFiles.length !== order.length) {
+        throw new InvalidInput('Invalid flow inventory')
+      }
       component.executionFlows = knowledge.flowOrder.map((flowId: string) => {
         const name = prefix + `flows/${flowId}.json`
         if (!flowFiles.includes(name)) throw new InvalidInput('Missing flow document')

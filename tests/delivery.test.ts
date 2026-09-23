@@ -16,22 +16,46 @@ const files = {
   'components/api.json': JSON.stringify({ id: 'api', name: 'API', productId: 'app' }),
   'components/db.json': JSON.stringify({ id: 'db', name: 'Database', productId: 'app' }),
   'members/owner.json': JSON.stringify({ id: 'owner', name: 'Owner' }),
-  'features/f/feature.json': JSON.stringify({ id: 'f', title: 'A feature', productId: 'app', ownerId: 'owner', stage: 'building', touches: ['api', 'ui'], updatedAt: '2026-09-06T00:00:00Z' }),
+  'features/f/feature.json': JSON.stringify({
+    id: 'f', title: 'A feature', productId: 'app', ownerId: 'owner', stage: 'building', touches: ['api', 'ui'], updatedAt: '2026-09-06T00:00:00Z',
+  }),
   'features/f/api.json': JSON.stringify({ contracts: [{ id: 'save', name: 'Save', from: 'ui', to: 'api', path: '/items', method: 'POST', change: 'added' }] }),
-  'features/f/tests.json': JSON.stringify({ cases: [{ id: 'journey', title: 'User saves an item', given: 'A new item', when: 'The user saves it', then: ['It survives a reload'], status: 'passing' }, { id: 'boundary', title: 'API persists the item', given: 'A valid request', when: 'POST /items', then: ['Database contains the item'], contracts: ['save'], status: 'passing' }] }),
+  'features/f/tests.json': JSON.stringify({ cases: [
+    { id: 'journey', title: 'User saves an item', given: 'A new item', when: 'The user saves it', then: ['It survives a reload'], status: 'passing' },
+    {
+      id: 'boundary', title: 'API persists the item', given: 'A valid request', when: 'POST /items', then: ['Database contains the item'],
+      contracts: ['save'], status: 'passing',
+    },
+  ] }),
 }
 function sample() {
   return deliverySchema.parse({
-    deliverables: [{ id: 'm1', title: 'Save an item', outcome: 'The user can save and retrieve an item', componentIds: ['ui', 'api'], status: 'done', acceptance: ['The item survives a reload'] }],
-    tasks: [{ id: 's1', deliverableId: 'm1', componentId: 'api', title: 'API persistence', summary: 'A saved item can be read back through the API.', scope: ['Persist requests through the API'], contractIds: ['save'], status: 'done', acceptance: ['The API writes and reads the record'] }],
+    deliverables: [{
+      id: 'm1', title: 'Save an item', outcome: 'The user can save and retrieve an item', componentIds: ['ui', 'api'], status: 'done',
+      acceptance: ['The item survives a reload'],
+    }],
+    tasks: [{
+      id: 's1', deliverableId: 'm1', componentId: 'api', title: 'API persistence', summary: 'A saved item can be read back through the API.',
+      scope: ['Persist requests through the API'], contractIds: ['save'], status: 'done', acceptance: ['The API writes and reads the record'],
+    }],
     validation: [
-      { id: 'e2e', level: 'end-to-end', deliverableId: 'm1', title: 'Full save journey', testIds: ['journey'], file: 'tests/save-e2e.ts', command: 'npm run test:e2e', entryPoint: 'Browser save form', environment: 'UI, API and Postgres', realDependencyIds: ['ui', 'api', 'db'] },
-      { id: 'service', level: 'component-integration', taskId: 's1', title: 'API boundary', testIds: ['boundary'], file: 'tests/save-service.ts', command: 'npm run test:service', entryPoint: 'POST /items', environment: 'Real API with containerised Postgres', realDependencyIds: ['api', 'db'] },
+      {
+        id: 'e2e', level: 'end-to-end', deliverableId: 'm1', title: 'Full save journey', testIds: ['journey'], file: 'tests/save-e2e.ts',
+        command: 'npm run test:e2e', entryPoint: 'Browser save form', environment: 'UI, API and Postgres', realDependencyIds: ['ui', 'api', 'db'],
+      },
+      {
+        id: 'service', level: 'component-integration', taskId: 's1', title: 'API boundary', testIds: ['boundary'], file: 'tests/save-service.ts',
+        command: 'npm run test:service', entryPoint: 'POST /items', environment: 'Real API with containerised Postgres',
+        realDependencyIds: ['api', 'db'],
+      },
     ],
   })
 }
 const snapshot = parsePlan(files).snapshot
-const proof = (validationId: string, result: 'passed' | 'failed', time = '2026-09-06T01:00:00Z') => ({ id: `${validationId}-${result}`, validationId, result, description: 'Observed run', recordedAt: time, reference: 'artifacts/run.json', testedRevision: 'abc123', environment: 'Local test stack' })
+const proof = (validationId: string, result: 'passed' | 'failed', time = '2026-09-06T01:00:00Z') => ({
+  id: `${validationId}-${result}`, validationId, result, description: 'Observed run', recordedAt: time, reference: 'artifacts/run.json',
+  testedRevision: 'abc123', environment: 'Local test stack',
+})
 
 test('a deliverable groups owned component tasks and separates two levels of proof', () => {
   const plan = sample()
@@ -80,7 +104,10 @@ test('passing reports need provenance and conflicting latest reports fail closed
   assert.equal(validationResult(plan, plan.validation[1]).result, 'failed')
 })
 test('old task records stay readable and remain visibly undecomposed', () => {
-  const plan = parseDelivery({ milestones: [{ id: 'm', title: 'Old milestone', status: 'done' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'done' }], branches: [{ branch: 'main', taskId: 't' }], evidence: [{ ...proof('unused', 'passed'), validationId: undefined, taskId: 't' }] })
+  const plan = parseDelivery({
+    milestones: [{ id: 'm', title: 'Old milestone', status: 'done' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'done' }],
+    branches: [{ branch: 'main', taskId: 't' }], evidence: [{ ...proof('unused', 'passed'), validationId: undefined, taskId: 't' }],
+  })
   validateDelivery('f', plan, snapshot)
   assert.equal(plan.undecomposedTasks.length, 1)
   assert.equal(plan.tasks.length, 0)
@@ -117,7 +144,8 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
   const { token } = await (await fetch(server.url + '/api/session')).json() as { token: string }
   const post = async (operation: string, args: Record<string, unknown>) => {
     const current = await readPlan(root)
-    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ ...args, ...guard(current) }) })
+    const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers, body: JSON.stringify({ ...args, ...guard(current) }) })
   }
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: sample() })).status, 200)
   assert.equal((await readPlan(root)).delivery.f.tasks[0].componentId, 'api')
@@ -136,7 +164,10 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
 
 test('updating an old plan writes canonical names and preserves undecomposed work', async t => {
   const root = await tempDir(t, 'groundwork-delivery-migration-')
-  const source = JSON.stringify({ milestones: [{ id: 'm', title: 'Old milestone', status: 'planned' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'planned' }], branches: [{ branch: 'main', taskId: 't' }] })
+  const source = JSON.stringify({
+    milestones: [{ id: 'm', title: 'Old milestone', status: 'planned' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'planned' }],
+    branches: [{ branch: 'main', taskId: 't' }],
+  })
   await initialise(root, { files: { ...files, 'features/f/delivery.json': source } })
   const before = await readPlan(root)
   assert.equal(before.files['features/f/delivery.json'], source)

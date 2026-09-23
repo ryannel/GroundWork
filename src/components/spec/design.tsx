@@ -35,7 +35,9 @@ export function MockupCard({ m, focus }: { m: Mockup; focus?: string }) {
         )}
       </div>
       {m.kind === 'image' && !placeholder ? (
-        <a href={m.ref} target="_blank" rel="noreferrer" className="block bg-(--glass-fill-2) p-4"><img src={m.ref} alt={m.title} className="mx-auto h-auto max-h-[70vh] max-w-full object-contain" /></a>
+        <a href={m.ref} target="_blank" rel="noreferrer" className="block bg-(--glass-fill-2) p-4">
+          <img src={m.ref} alt={m.title} className="mx-auto h-auto max-h-[70vh] max-w-full object-contain" />
+        </a>
       ) : (
         <div className="grid h-40 place-items-center text-small text-fg-subtle">{placeholder
           ? 'Design reference not attached yet'

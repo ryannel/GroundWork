@@ -32,6 +32,15 @@ export function worstStatus<T extends FreshnessStatus>(statuses: Iterable<T>, fa
   return worst
 }
 
+type ComparedStatus = Exclude<FreshnessStatus, 'unchecked'>
+/** What to inspect next for each outcome of a source comparison. */
+const nextInspection: Record<ComparedStatus, string> = {
+  unknown: 'Make observed history available and repeat the check.',
+  'review-required': 'Inspect changed citations, configuration/dependency changes and source ancestry before reusing the observation.',
+  'impact-unknown': 'Review uncited changes and check other recorded repositories separately before deciding whether this observation can be reused.',
+  'unchanged-source-tree': 'The compared repository trees match. External dependencies, deployed settings and behavioral correctness remain unverified.',
+}
+
 /** Number of lines in a text file; a trailing newline ends the last line rather than starting another. */
 export function lineCount(text: string) {
   if (!text.length) return 0
@@ -48,12 +57,19 @@ function citations(value: unknown, fallback: string | null, result: Citation[] =
   if (typeof record.source === 'string' && revision) result.push({ path: record.source, revision, repository })
   for (const [key, child] of Object.entries(record)) {
     if (key === 'evidence' && Array.isArray(child)) for (const evidence of child) {
-      if (evidence && typeof evidence.path === 'string' && typeof evidence.revision === 'string') result.push({ path: evidence.path, revision: evidence.revision, lines: evidence.lines, repository: evidence.repository ?? repository })
+      if (!evidence || typeof evidence.path !== 'string' || typeof evidence.revision !== 'string') continue
+      result.push({ path: evidence.path, revision: evidence.revision, lines: evidence.lines, repository: evidence.repository ?? repository })
     } else if (key !== 'evidence') citations(child, revision, result, repository)
   }
   return result
 }
-export const broaderChange = (file: string) => /(?:^|\/)(?:[^/]*lock[^/]*|package\.json|[^/]*\.csproj|Directory\.[^/]+|appsettings[^/]*|[^/]*config[^/]*|[^/]*migration[^/]*|Startup\.[^/]+|Program\.[^/]+|[^/]*DependencyInjection[^/]*)$/i.test(file)
+/** File names whose change can alter behaviour outside the cited paths: lockfiles, manifests, configuration and startup. */
+const BROADER_CHANGE_NAMES = [
+  '[^/]*lock[^/]*', 'package\\.json', '[^/]*\\.csproj', 'Directory\\.[^/]+', 'appsettings[^/]*', '[^/]*config[^/]*',
+  '[^/]*migration[^/]*', 'Startup\\.[^/]+', 'Program\\.[^/]+', '[^/]*DependencyInjection[^/]*',
+]
+const broaderChangePattern = new RegExp(`(?:^|/)(?:${BROADER_CHANGE_NAMES.join('|')})$`, 'i')
+export const broaderChange = (file: string) => broaderChangePattern.test(file)
 
 /** Explicit, local, read-only Git comparison. It never fetches or treats citations as a complete dependency graph. */
 export async function checkCatalogFreshness(root: string, input: unknown, ref?: string) {
@@ -84,9 +100,14 @@ export async function compareCatalogSources(
     version: 1, catalogRevision: plan.revision, context: plan.context.token,
     checkedAt: new Date().toISOString(), repository, requestedTarget: args.targetRef,
     method: 'Immutable commit tree comparison; renames conservatively reported as deletion plus addition.',
-    scope: 'Entire source repository diff for each cited/observed revision; evidence paths map only known impact. Working-tree changes and remote/deployed behavior are excluded.',
+    scope: 'Entire source repository diff for each cited/observed revision; evidence paths map only known impact. '
+      + 'Working-tree changes and remote/deployed behavior are excluded.',
     behavioralVerification: 'not-performed', persisted: false,
-    limitations: ['Citations are not a complete dependency graph.', 'No remote fetch is performed; an available local target may lag its remote.', 'This check does not rewrite observations, mark the catalog current, or change a feature baseline.'],
+    limitations: [
+      'Citations are not a complete dependency graph.',
+      'No remote fetch is performed; an available local target may lag its remote.',
+      'This check does not rewrite observations, mark the catalog current, or change a feature baseline.',
+    ],
   }
   let source: string, target: string
   try {
@@ -94,10 +115,15 @@ export async function compareCatalogSources(
     const top = await realpath(await git(source, ['rev-parse', '--show-toplevel']))
     if (source !== top) throw new Error('repositoryPath must identify the source repository root')
     const origin = await git(source, ['remote', 'get-url', 'origin']).catch(() => source)
-    if (await repositoryKey(origin) !== repository && repositoryIdentity(source) !== repository) throw new Error('Source repository identity does not match the selected catalog entities')
+    if (await repositoryKey(origin) !== repository && repositoryIdentity(source) !== repository) {
+      throw new Error('Source repository identity does not match the selected catalog entities')
+    }
     target = await resolveRef(source, args.targetRef)
   } catch (error) {
-    return { ...envelope, status: 'unknown', targetRevision: null, reason: String((error as Error).message).slice(0, 1000), nextInspection: 'Provide a matching local repository with the observed commits and requested target available; fetch explicitly if required.', assessments: [] }
+    const nextInspection = 'Provide a matching local repository with the observed commits and requested target available; '
+      + 'fetch explicitly if required.'
+    const reason = String((error as Error).message).slice(0, 1000)
+    return { ...envelope, status: 'unknown', targetRevision: null, reason, nextInspection, assessments: [] }
   }
   const comparisons = new Map<string, Promise<{ available: boolean; files: string[]; ancestry: string }>>()
   const compare = (base: string) => {
@@ -105,8 +131,11 @@ export async function compareCatalogSources(
       if (!/^[a-f0-9]{40,64}$/.test(base)) return { available: false, files: [], ancestry: 'unknown' }
       try {
         const observed = await resolveRef(source, base)
-        const files = (await gitRaw(source, ['diff', '--no-ext-diff', '--no-textconv', '--no-renames', '--name-only', '-z', observed, target, '--'])).split('\0').filter(Boolean)
-        const ancestry = observed === target ? 'same-commit' : await git(source, ['merge-base', '--is-ancestor', observed, target]).then(() => 'descendant', () => 'not-known-to-be-descendant')
+        const diff = await gitRaw(source, ['diff', '--no-ext-diff', '--no-textconv', '--no-renames', '--name-only', '-z', observed, target, '--'])
+        const files = diff.split('\0').filter(Boolean)
+        const ancestry = observed === target
+          ? 'same-commit'
+          : await git(source, ['merge-base', '--is-ancestor', observed, target]).then(() => 'descendant', () => 'not-known-to-be-descendant')
         return { available: true, files, ancestry }
       } catch { return { available: false, files: [], ancestry: 'unknown' } }
     })())
@@ -124,7 +153,8 @@ export async function compareCatalogSources(
     const observedRevision = primary === repository ? entity.sourceRevision : null
     const allPointers = await Promise.all(citations(entity.raw, entity.sourceRevision, [], entity.repository ?? undefined)
       .map(async pointer => ({ ...pointer, repository: pointer.repository ? await repositoryKey(pointer.repository) : primary })))
-    const otherRepositories = [...new Set([primary, ...allPointers.map(pointer => pointer.repository)].filter((value): value is string => !!value && value !== repository))]
+    const cited = [primary, ...allPointers.map(pointer => pointer.repository)]
+    const otherRepositories = [...new Set(cited.filter((value): value is string => !!value && value !== repository))]
     const pointers = allPointers.filter(pointer => pointer.repository === repository)
     const unique = [...new Map(pointers.map(pointer => [JSON.stringify(pointer), pointer])).values()]
     const revisions = [...new Set([observedRevision, ...unique.map(pointer => pointer.revision)].filter((revision): revision is string => !!revision))]
@@ -150,7 +180,7 @@ export async function compareCatalogSources(
       const [start, end] = range ? [Number(range[1]), Number(range[2] ?? range[1])] : [0, 0]
       if (content === null || (pointer.lines && (!range || end < start || end > lineCount(content)))) invalidCitations.push(pointer.path)
     }
-    const status = worstStatus<FreshnessStatus>([
+    const status = worstStatus<ComparedStatus>([
       ...(missingHistory ? ['unknown' as const] : []),
       ...(invalidCitations.length || changedKnown.size || broad.size || divergence ? ['review-required' as const] : []),
       ...(changedRepository || otherRepositories.length ? ['impact-unknown' as const] : []),
@@ -162,7 +192,7 @@ export async function compareCatalogSources(
       unmappedChanges: unknownPaths.size, broaderReviewChanges: { count: broad.size, paths: [...broad].sort().slice(0, 10) },
       invalidCitations: { count: invalidCitations.length, paths: invalidCitations.slice(0, 10) },
       ancestry: divergence ? 'not-known-to-be-descendant' : missingHistory ? 'unknown' : 'same-or-descendant',
-      nextInspection: status === 'unknown' ? 'Make observed history available and repeat the check.' : status === 'review-required' ? 'Inspect changed citations, configuration/dependency changes and source ancestry before reusing the observation.' : status === 'impact-unknown' ? 'Review uncited changes and check other recorded repositories separately before deciding whether this observation can be reused.' : 'The compared repository trees match. External dependencies, deployed settings and behavioral correctness remain unverified.',
+      nextInspection: nextInspection[status],
     })
   }
   let remaining = args.maxFiles
@@ -170,17 +200,23 @@ export async function compareCatalogSources(
   for (const [base, pending] of comparisons) {
     const comparison = await pending
     const files = comparison.files.slice(0, remaining); remaining -= files.length
-    changes.push({ observedRevision: base, available: comparison.available, ancestry: comparison.ancestry, totalChangedFiles: comparison.files.length, files, omittedFiles: comparison.files.length - files.length })
+    changes.push({
+      observedRevision: base, available: comparison.available, ancestry: comparison.ancestry,
+      totalChangedFiles: comparison.files.length, files, omittedFiles: comparison.files.length - files.length,
+    })
   }
   const result = {
     ...envelope, targetRevision: target, status: worstStatus(assessments.map(item => item.status), 'unchanged-source-tree'), assessments, changes,
     limits: { maxFiles: args.maxFiles, maxBytes: args.maxBytes },
-    detail: 'Counts cover the full comparison. Omitted filenames can be inspected with git diff --no-renames --name-only <observedRevision> <targetRevision> -- in the identified source repository.',
+    detail: 'Counts cover the full comparison. Omitted filenames can be inspected with '
+      + 'git diff --no-renames --name-only <observedRevision> <targetRevision> -- in the identified source repository.',
   }
   while (Buffer.byteLength(JSON.stringify(result)) > args.maxBytes) {
     const change = [...changes].reverse().find(change => change.files.length)
     if (change) { change.files.pop(); change.omittedFiles++; continue }
-    const detail = assessments.flatMap(item => [item.knownImpact.paths, item.broaderReviewChanges.paths, item.invalidCitations.paths]).find(paths => paths.length)
+    const detail = assessments
+      .flatMap(item => [item.knownImpact.paths, item.broaderReviewChanges.paths, item.invalidCitations.paths])
+      .find(paths => paths.length)
     if (detail) { detail.pop(); continue }
     throw new InvalidInput('Freshness envelope exceeds maxBytes; select fewer entities or increase the limit')
   }

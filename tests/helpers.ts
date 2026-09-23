@@ -4,6 +4,10 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { git } from '../server/git.ts'
+import { initialise } from '../server/setup.ts'
+import { readPlan, writePlan } from '../server/repository.ts'
+import { checkCatalogFreshness } from '../server/catalog-freshness.ts'
+import { catalogId } from '../src/data/catalog-identity.ts'
 
 /** The repository checkout, for spawning source-mode children and reading fixtures from any working directory. */
 export const repoRoot = fileURLToPath(new URL('..', import.meta.url))
@@ -53,4 +57,43 @@ export function withEnv(t: TestContext, vars: Record<string, string | undefined>
   }
   apply(vars)
   t.after(() => apply(previous))
+}
+
+/**
+ * A committed source repository and a catalog whose `service` component cites it: one endpoint (handler.ts) and one
+ * flow (helper.ts). `check` runs a freshness check of both against HEAD; `commit` changes one source file.
+ */
+export async function sourceCatalogFixture(t: TestContext) {
+  const base = await tempDir(t, 'groundwork-freshness-')
+  const source = await gitInit(path.join(base, 'source')), target = path.join(base, 'catalog')
+  await writeFiles(source, {
+    'handler.ts': 'callHelper()\n', 'helper.ts': 'return 1\n', 'unmapped.ts': 'return true\n', 'package-lock.json': '{"version":1}\n',
+  })
+  const revision = await commitAll(source, 'Observed source')
+  await initialise(target, { id: 'freshness', name: 'Freshness' })
+  const p = await readPlan(target)
+  const endpoint = {
+    id: 'read', name: 'Read', method: 'GET', path: '/read', source: 'handler.ts',
+    evidence: [{ path: 'handler.ts', lines: '1', revision, claim: 'Calls helper.' }],
+  }
+  const helperStep = {
+    id: 'helper', title: 'Helper', kind: 'logic', description: 'Helper returns a value.',
+    evidence: [{ path: 'helper.ts', lines: '1', revision, claim: 'Returns a value.' }],
+  }
+  const flow = {
+    id: 'read-flow', endpointId: 'read', name: 'Read flow', summary: 'Handler uses helper.', sourceRevision: revision,
+    entryStepId: 'helper', steps: [helperStep], transitions: [], gaps: [],
+  }
+  const component = {
+    id: 'service', productId: 'app', name: 'Service', repo: source, sourceRevision: revision,
+    api: { name: 'API', endpoints: [endpoint] }, executionFlows: [flow],
+  }
+  await writePlan(target, { ...guard(p), changes: { 'components/service.json': JSON.stringify(component) } })
+  const ids = [catalogId('freshness', 'service', 'endpoint', 'read'), catalogId('freshness', 'service', 'flow', 'read-flow')]
+  const check = (patch = {}) => checkCatalogFreshness(target, { repositoryPath: source, targetRef: 'HEAD', ids, ...patch })
+  const commit = async (file: string, value: string) => {
+    await writeFile(path.join(source, file), value)
+    await commitAll(source, 'Changed source')
+  }
+  return { source, target, revision, component, ids, check, commit }
 }

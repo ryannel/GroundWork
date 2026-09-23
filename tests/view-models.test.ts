@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { buildIndex } from '../src/data/spec-index.ts'
 import type { FeatureSpec } from '../src/data/spec.ts'
 import type { Checkout } from '../src/data/runtime.ts'
-import { featureGaps, featureNextStep, invert, summarizeHubProducts, unlinkedBranches } from '../src/data/view-models.ts'
+import { featureGaps, featureNextStep, invert, routesKey, summarizeHubProducts, unlinkedBranches } from '../src/data/view-models.ts'
 import { taxRulesSpec } from './fixtures.ts'
 
 const next = (spec: FeatureSpec) => featureNextStep(spec, buildIndex(spec))
@@ -80,4 +80,11 @@ test('invert builds a reverse index that tolerates Object.prototype names as IDs
   assert.deepEqual(reversed.get('constructor'), ['t1'])
   assert.deepEqual(reversed.get('toString'), ['t2'])
   assert.equal(reversed.get('hasOwnProperty'), undefined)
+})
+
+test('the routes key follows the checkout, not the plan revision', () => {
+  const plan = (token: string, revision: string) => ({ revision, context: { token, revision } })
+  assert.equal(routesKey(plan('checkout-a', 'r1')), routesKey(plan('checkout-a', 'r2')))
+  assert.notEqual(routesKey(plan('checkout-a', 'r1')), routesKey(plan('checkout-b', 'r1')))
+  assert.equal(routesKey(null), 'unavailable')
 })

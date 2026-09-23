@@ -13,7 +13,11 @@ import type { FeatureSpec, SchemaField } from './spec.ts'
 export type ContentDocuments = Record<string, unknown>
 export class ContentError extends Error {
   issues: string[]
-  constructor(issues: string[]) { super(`Content validation failed:\n${issues.map(issue => `• ${issue}`).join('\n')}`); this.name = 'ContentError'; this.issues = issues }
+  constructor(issues: string[]) {
+    super(`Content validation failed:\n${issues.map(issue => `• ${issue}`).join('\n')}`)
+    this.name = 'ContentError'
+    this.issues = issues
+  }
 }
 export interface ContentSnapshot extends Db { project: Project; members: Member[] }
 
@@ -88,7 +92,6 @@ export interface ContentContext {
   workspaceById: Map<string, Workspace>
   productById: Map<string, Product>
   componentById: Map<string, Component>
-  liveMockIds: readonly string[]
 }
 
 function checker(issues: string[]) {
@@ -222,7 +225,8 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
     }
   }
   for (const edge of sections.edges) {
-    refs('flow', [edge.from, ...(edge.to !== edge.from ? [edge.to] : [])], `flow.json:${edge.id}`); refs('api', edge.contracts, `flow.json:${edge.id}.contracts`)
+    refs('flow', [edge.from, ...(edge.to !== edge.from ? [edge.to] : [])], `flow.json:${edge.id}`)
+    refs('api', edge.contracts, `flow.json:${edge.id}.contracts`)
     const from = nodeById.get(edge.from)?.component
     const to = nodeById.get(edge.to)?.component
     for (const id of edge.contracts ?? []) {
@@ -265,7 +269,7 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
   }
   for (const criterion of sections.purpose) refs('tests', criterion.tests, `purpose.json:${criterion.id}.tests`)
   for (const mock of sections.design) {
-    if (mock.kind === 'live' && !ctx.liveMockIds.includes(mock.ref)) issues.push(`${root}/design.json:${mock.id}: unregistered live prototype "${mock.ref}"`)
+    if (mock.kind === 'live') issues.push(`${root}/design.json:${mock.id}: live prototypes are not supported; use an image or an external URL`)
     if (mock.kind !== 'live' && !(mock.kind === 'image' && localImage.test(mock.ref)) && !isHttpUrl(mock.ref)) {
       issues.push(`${root}/design.json:${mock.id}: external reference must be an http(s) URL or a raster image under assets/ or /images/`)
     }
@@ -274,11 +278,11 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
 }
 
 export function contentContext(
-  parts: Pick<ContentSnapshot, 'project' | 'members' | 'workspaces' | 'products' | 'components'>, liveMockIds: readonly string[] = [],
+  parts: Pick<ContentSnapshot, 'project' | 'members' | 'workspaces' | 'products' | 'components'>,
 ): ContentContext {
   const { project, members, workspaces, products, components } = parts
   return {
-    project, workspaces, products, liveMockIds,
+    project, workspaces, products,
     memberById: new Map(members.map(member => [member.id, member])),
     workspaceById: new Map(workspaces.map(w => [w.id, w])),
     productById: new Map(products.map(p => [p.id, p])),
@@ -290,11 +294,11 @@ const displayOrder = (a: { order?: number; name: string }, b: { order?: number; 
   (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) || a.name.localeCompare(b.name)
 
 /** Load a whole revision before exposing any of it. Same entry point for browser and CLI. */
-export function loadContent(documents: ContentDocuments, liveMockIds: readonly string[] = []): ContentSnapshot {
+export function loadContent(documents: ContentDocuments): ContentSnapshot {
   const { parsed, issues } = parseDocuments(documents)
   if (issues.length || !parsed.project) throw new ContentError(issues)
   const { project, members, workspaces, products, components, records, specs } = parsed
-  const ctx = contentContext({ project, members, workspaces, products, components }, liveMockIds)
+  const ctx = contentContext({ project, members, workspaces, products, components })
   const recordIds = new Set(records.map(record => record.id))
   const features: Feature[] = records.map(record => {
     const spec = specs.get(record.id)

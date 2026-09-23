@@ -90,6 +90,11 @@ export async function inventory(standalone?: string) {
   const entries = []
   const seen = new Set<string>()
   for (const record of roots) {
+    const registered = { repositoryRoot: record.root, workspace: record.workspace, product: record.product, name: path.basename(record.root) }
+    const unreadable = (error: unknown) => ({
+      repositories: [record.root], components: [], productPath: null, projectId: record.projectId, planName: null, features: [],
+      error: (error as Error).message,
+    })
     try {
       for (const ctx of await discover(record.root)) {
         checkoutRoots.set(ctx.checkoutId, { root: ctx.root, registrationRoot: record.root, registryRoot: standalone ? null : configRoot() })
@@ -98,11 +103,15 @@ export async function inventory(standalone?: string) {
         try {
           const plan = await readPlan(ctx.root)
           const catalog = productCatalog(plan, record.product, record.root)
-          entries.push({ ...ctx, repositoryRoot: record.root, ...catalog, workspace: record.workspace, product: record.product, projectId: plan.manifest.id, name: path.basename(record.root), planName: plan.manifest.name, features: plan.snapshot.features.map(f => ({ id: f.id, title: f.title, stage: f.stage })), error: null as string | null })
-        } catch (error) { entries.push({ ...ctx, repositoryRoot: record.root, repositories: [record.root], components: [], productPath: null, workspace: record.workspace, product: record.product, projectId: record.projectId, name: path.basename(record.root), planName: null, features: [], error: (error as Error).message }) }
+          const features = plan.snapshot.features.map(f => ({ id: f.id, title: f.title, stage: f.stage }))
+          entries.push({
+            ...ctx, ...registered, ...catalog, projectId: plan.manifest.id, planName: plan.manifest.name, features, error: null as string | null,
+          })
+        } catch (error) { entries.push({ ...ctx, ...registered, ...unreadable(error) }) }
       }
     } catch (error) {
-      entries.push({ root: record.root, repositoryRoot: record.root, repositories: [record.root], components: [], productPath: null, checkoutId: '', branch: null, head: null, isGit: false, token: '', workspace: record.workspace, product: record.product, projectId: record.projectId, name: path.basename(record.root), planName: null, features: [], error: (error as Error).message })
+      const noCheckout = { root: record.root, checkoutId: '', branch: null, head: null, isGit: false, token: '' }
+      entries.push({ ...noCheckout, ...registered, ...unreadable(error) })
     }
   }
   return entries

@@ -64,8 +64,9 @@ test('pagination is bounded, complete, deterministic, and rejects changed query/
   assert.ok(ids.length > 50)
   const first = queryCatalog(plan, 'search_catalog', { query: '', limit: 3 })
   assert.deepEqual(first, queryCatalog(plan, 'search_catalog', { query: '', limit: 3 }))
-  assert.throws(() => queryCatalog({ ...plan, revision: 'changed' }, 'search_catalog', { query: '', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
-  assert.throws(() => queryCatalog({ ...plan, context: { ...plan.context, token: 'other-checkout' } }, 'search_catalog', { query: '', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
+  const next = { query: '', limit: 3, cursor: first.nextCursor }
+  assert.throws(() => queryCatalog({ ...plan, revision: 'changed' }, 'search_catalog', next), /snapshot or query changed/)
+  assert.throws(() => queryCatalog({ ...plan, context: { ...plan.context, token: 'other-checkout' } }, 'search_catalog', next), /snapshot or query changed/)
   assert.throws(() => queryCatalog(plan, 'search_catalog', { query: 'price', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
   for (const malformed of ['bnVsbA', 'e30', Buffer.from(JSON.stringify({ snapshot: 'x', query: 'y', offset: -1 })).toString('base64url')]) {
     assert.throws(() => queryCatalog(plan, 'search_catalog', { query: '', cursor: malformed }), /Invalid catalog cursor/)
@@ -89,9 +90,15 @@ test('exact details can be recovered without returning the component schema inve
 test('uncommitted observation A remains readable after B replaces/removes it; immutable baseline rejects writes', async t => {
   const { root } = await fixture(t)
   let plan = await readPlan(root)
-  await operate('create_feature', { id: 'pricing', title: 'Pricing change', productId: components[0].productId, ownerId: 'owner', problem: 'Investigate a price change', outcome: 'A justified plan', ...guard(plan) }, root)
+  const feature = {
+    id: 'pricing', title: 'Pricing change', productId: components[0].productId, ownerId: 'owner', problem: 'Investigate a price change',
+    outcome: 'A justified plan',
+  }
+  await operate('create_feature', { ...feature, ...guard(plan) }, root)
   plan = await readPlan(root)
-  const saved = await retainDiscoveryBaseline(root, { featureId: 'pricing', question: 'What is the MSRP entry point?', ids: [msrp], assumptions: ['Execution remains untraced.'], ...guard(plan) })
+  const saved = await retainDiscoveryBaseline(root, {
+    featureId: 'pricing', question: 'What is the MSRP entry point?', ids: [msrp], assumptions: ['Execution remains untraced.'], ...guard(plan),
+  })
   let baseline = await getDiscoveryBaseline(root, { featureId: 'pricing', baselineId: saved.baselineId })
   assert.equal(baseline.reassessmentRequired, false)
   plan = await readPlan(root)

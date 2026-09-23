@@ -45,7 +45,11 @@ function CheckPlan({ check, delivery, featureId }: { check: Validation; delivery
     {evidence && <div className="validation-evidence">
       <strong>Latest recorded evidence</strong>
       <p>{evidence.description}</p>
-      <small>{evidence.recordedAt}{evidence.testedRevision && ` · Revision ${evidence.testedRevision}`}{evidence.environment && ` · ${evidence.environment}`}</small>
+      <small>
+        {evidence.recordedAt}
+        {evidence.testedRevision && ` · Revision ${evidence.testedRevision}`}
+        {evidence.environment && ` · ${evidence.environment}`}
+      </small>
       {evidence.reference && <p>{evidence.reference}</p>}
     </div>}
   </article>
@@ -94,7 +98,9 @@ function TaskCard({ task, delivery, featureId }: { task: Task; delivery: Deliver
       {task.prerequisites.length > 0 && <details><summary>Build and integration prerequisites</summary><BulletList values={task.prerequisites} /></details>}
       <h5>API and event boundaries</h5>
       <div className="task-contracts">
-        {task.contractIds.map(id => <Link key={id} to={`/f/${featureId}/api/${id}`}>{contracts.find(c => c.id === id)?.name ?? id}<ArrowRight size={12} /></Link>)}
+        {task.contractIds.map(id => <Link key={id} to={`/f/${featureId}/api/${id}`}>
+          {contracts.find(c => c.id === id)?.name ?? id}<ArrowRight size={12} />
+        </Link>)}
         {!task.contractIds.length && <p>No public contracts linked yet.</p>}
       </div>
       <h5>Component validation</h5>
@@ -123,7 +129,10 @@ function DeliverableCard({ deliverable, index, delivery, featureId }: { delivera
     </summary>
     <div className="deliverable-body">
       <div className="deliverable-outcome">
-        <div><p className="board-eyebrow">User-visible value</p><h3>{deliverable.outcome ?? 'Define the outcome this deliverable unlocks for the user.'}</h3></div>
+        <div>
+          <p className="board-eyebrow">User-visible value</p>
+          <h3>{deliverable.outcome ?? 'Define the outcome this deliverable unlocks for the user.'}</h3>
+        </div>
         <Status unit={deliverable} />
       </div>
       <div className="deliverable-chain">Across {deliverable.componentIds.map(cid => q.componentLabel(cid)).join(' · ') || 'components not yet defined'}</div>
@@ -161,14 +170,21 @@ function FeatureDelivery({ feature, delivery, linkTitle }: { feature: Feature; d
       ? <p className="delivery-guide">Each deliverable is a user outcome. Open one to see the tasks that build it and the tests that prove it.</p>
       : <div className="central-empty">
         <h3>Shape the delivery</h3>
-        <p>Start with the smallest outcome a user can experience. Name the components that must work together, then define small tasks for each independently testable behavior within those components.</p>
+        <p>
+          Start with the smallest outcome a user can experience. Name the components that must work together, then define small tasks
+          for each independently testable behavior within those components.
+        </p>
         <p>Your coding agent can author the deliverable, tasks, and validation plans in this feature’s delivery.json using the Groundwork guide.</p>
       </div>}
-    {delivery?.deliverables.map((deliverable, index) => <DeliverableCard key={deliverable.id} deliverable={deliverable} index={index} delivery={delivery} featureId={feature.id} />)}
+    {delivery?.deliverables.map((deliverable, index) => <DeliverableCard
+      key={deliverable.id} deliverable={deliverable} index={index} delivery={delivery} featureId={feature.id}
+    />)}
     {!!delivery?.undecomposedTasks.length && <details className="legacy-delivery">
       <summary>{delivery.undecomposedTasks.length} earlier tasks · component decomposition needed</summary>
       <p>These records remain intact. Map implementation work to a component task before treating it as delivery proof.</p>
-      {delivery.undecomposedTasks.map(task => <div key={task.id}><strong>{task.title}</strong><small> · {task.status}</small><BulletList values={task.acceptance} /></div>)}
+      {delivery.undecomposedTasks.map(task => <div key={task.id}>
+        <strong>{task.title}</strong><small> · {task.status}</small><BulletList values={task.acceptance} />
+      </div>)}
     </details>}
     {!!unlinkedEvidence.length && <details className="legacy-delivery">
       <summary>Unlinked evidence and source records</summary>

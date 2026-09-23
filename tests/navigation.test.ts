@@ -1,11 +1,10 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { contentContext, validateFeatureSpec } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 import { snapshot } from './fixtures.ts'
 
 // loadContent already proves the fixture's links resolve; these tests exercise the feature rule on its own.
-const ctx = contentContext(snapshot, livePrototypeIds)
+const ctx = contentContext(snapshot)
 const feature = () => structuredClone(snapshot.features.find(f => f.id === 'f-2')!)
 
 test('every authored feature cross-reference has a real destination', () => {

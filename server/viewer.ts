@@ -24,7 +24,9 @@ export async function startViewer(options: { root?: string; standalone?: boolean
       throw new Error(`Cannot identify the viewer on port ${port}. Check that service or choose --port explicitly.`, { cause: error })
     }
     const found = await response.json().catch(() => null)
-    if (!response.ok || !found || Object.entries(expected).some(([key, value]) => found[key] !== value)) throw new Conflict(`Port ${port} belongs to another service, project, or older Groundwork viewer. Stop it or choose --port explicitly.`)
+    if (!response.ok || !found || Object.entries(expected).some(([key, value]) => found[key] !== value)) {
+      throw new Conflict(`Port ${port} belongs to another service, project, or older Groundwork viewer. Stop it or choose --port explicitly.`)
+    }
     return true
   }
   let app: Awaited<ReturnType<typeof serve>> | undefined

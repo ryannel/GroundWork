@@ -16,7 +16,10 @@ async function fixture(t: TestContext) {
   await initialise(root, { name: 'Migration' })
   const plan = await readPlan(root)
   await writePlan(root, { ...guard(plan), changes: {
-    'components/service.json': JSON.stringify({ id: 'service', productId: 'app', name: 'Service', api: { name: 'API', endpoints: [{ id: 'read', name: 'Read', method: 'GET', path: '/read' }] }, executionFlows: [], findings: [] })
+    'components/service.json': JSON.stringify({
+      id: 'service', productId: 'app', name: 'Service', api: { name: 'API', endpoints: [{ id: 'read', name: 'Read', method: 'GET', path: '/read' }] },
+      executionFlows: [], findings: [],
+    }),
   } })
   return root
 }

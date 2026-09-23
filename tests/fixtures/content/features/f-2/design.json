@@ -2,9 +2,9 @@
   "mockups": [
     {
       "id": "m-cart",
-      "kind": "live",
+      "kind": "wireframe",
       "title": "Cart totals with tax disclosure",
-      "ref": "tax-cart-totals",
+      "ref": "https://example.com/wireframes/tax-cart-totals",
       "note": "Click the region to see the recompute and the disclosure."
     },
     {

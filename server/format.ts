@@ -16,7 +16,9 @@ export type { Delivery } from '../src/data/delivery.ts'
 import { validateDelivery, type Delivery } from '../src/data/delivery.ts'
 import { parseDelivery } from '../src/data/delivery-legacy.ts'
 export type Files = Record<string, string>
-export interface Plan { manifest: z.infer<typeof manifestSchema>; snapshot: ContentSnapshot; delivery: Record<string, Delivery>; decisions: Record<string, string> }
+export interface Plan {
+  manifest: z.infer<typeof manifestSchema>; snapshot: ContentSnapshot; delivery: Record<string, Delivery>; decisions: Record<string, string>
+}
 export const PLAN_DIRECTORY = PLANS_DIR
 export const assetPattern = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/
 export const documentPattern = new RegExp(`^(?:${LOGICAL_DOCUMENT_SOURCE})$`)

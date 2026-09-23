@@ -36,8 +36,8 @@ None of the structural debt is urgent on its own. The defects are, and most of t
 | Shared data layer and runtime | 0 | 2 | 9 | 4 | 15 |
 | Heavy viewer components | 0 | 2 | 8 | 6 | 16 |
 | Pages, shell, UI, styles | 0 | 2 | 9 | 7 | 18 |
-| Tests, tooling, packaging, docs | 0 | 4 | 8 | 8 | 20 |
-| **Total** | **1** | **21** | **55** | **43** | **120** |
+| Tests, tooling, packaging, docs | 0 | 4 | 8 | 9 | 21 |
+| **Total** | **1** | **21** | **55** | **44** | **121** |
 
 Some findings appear in more than one slice because the same root cause surfaces in several files. Those are consolidated under "Cross-cutting themes" below.
 

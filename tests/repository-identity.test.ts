@@ -3,7 +3,11 @@ import { test } from 'node:test'
 import { githubRepository, hasCredentials, repositoryIdentity, stripCredentials } from '../src/data/repository-identity.ts'
 
 test('github forms collapse to lower-case owner/name', () => {
-  for (const value of ['https://github.com/Acme/API.git', 'ssh://git@github.com/acme/api', 'git@github.com:acme/api.git', 'github.com/acme/api/', 'Acme/API', 'https://x-access-token:ghs_secret@github.com/acme/api.git']) {
+  const forms = [
+    'https://github.com/Acme/API.git', 'ssh://git@github.com/acme/api', 'git@github.com:acme/api.git', 'github.com/acme/api/', 'Acme/API',
+    'https://x-access-token:ghs_secret@github.com/acme/api.git',
+  ]
+  for (const value of forms) {
     assert.equal(repositoryIdentity(value), 'acme/api', value)
     assert.equal(githubRepository(value), 'acme/api', value)
   }

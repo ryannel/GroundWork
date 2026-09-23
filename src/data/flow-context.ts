@@ -23,7 +23,8 @@ export function actionFlow(spec: FeatureSpec, action?: JourneyStep): { nodes: Fl
   const ids = new Set(action.flow ?? [])
   const nodes = (spec.flow?.nodes ?? []).filter(node => ids.has(node.id))
   const contracts = new Set((spec.api?.contracts ?? []).map(contract => contract.id))
-  const edges = (spec.flow?.edges ?? []).filter(edge => ids.has(edge.from) && ids.has(edge.to) && (!action.flowEdges || action.flowEdges.includes(edge.id))).flatMap(edge => {
+  const inAction = (edge: FlowEdge) => ids.has(edge.from) && ids.has(edge.to) && (!action.flowEdges || action.flowEdges.includes(edge.id))
+  const edges = (spec.flow?.edges ?? []).filter(inAction).flatMap(edge => {
     if (!edge.contracts?.length) return [edge]
     const used = edge.contracts.filter(id => contracts.has(id) && (!action.contracts || action.contracts.includes(id)))
     return used.length ? [{ ...edge, contracts: used }] : []
@@ -31,16 +32,23 @@ export function actionFlow(spec: FeatureSpec, action?: JourneyStep): { nodes: Fl
   return { nodes, edges }
 }
 
-export type FlowSelection = { kind: 'node'; node: FlowNode } | { kind: 'boundary'; edge: FlowEdge; contracts: ApiContract[]; selected?: string } | { kind: 'none' }
+export type FlowSelection =
+  | { kind: 'node'; node: FlowNode }
+  | { kind: 'boundary'; edge: FlowEdge; contracts: ApiContract[]; selected?: string }
+  | { kind: 'none' }
 
 /** Never substitute an unrelated API for a decision, store, process, or stale selection. */
-export function resolveFlowSelection(spec: FeatureSpec, action: JourneyStep | undefined, query: { node?: string; edge?: string; contract?: string }): FlowSelection {
+export function resolveFlowSelection(
+  spec: FeatureSpec, action: JourneyStep | undefined, query: { node?: string; edge?: string; contract?: string },
+): FlowSelection {
   const flow = actionFlow(spec, action)
   if (query.node) {
     const node = flow.nodes.find(node => node.id === query.node)
     return node ? { kind: 'node', node } : { kind: 'none' }
   }
-  const edge = query.edge ? flow.edges.find(edge => edge.id === query.edge) : query.contract ? flow.edges.find(edge => edge.contracts?.includes(query.contract!)) : undefined
+  const edge = query.edge
+    ? flow.edges.find(edge => edge.id === query.edge)
+    : query.contract ? flow.edges.find(edge => edge.contracts?.includes(query.contract!)) : undefined
   if (!edge?.contracts?.length) return { kind: 'none' }
   const contracts = (spec.api?.contracts ?? []).filter(c => edge.contracts!.includes(c.id))
   return contracts.length ? { kind: 'boundary', edge, contracts, selected: contracts.find(c => c.id === query.contract)?.id } : { kind: 'none' }

@@ -19,7 +19,7 @@ content/
     feature.json                       # metadata, ownerId, productId, touches
     purpose.json                       # problem, outcome, non-goals, success criteria
     journey.json                       # ordered user actions, screens and system references
-    design.json                        # screen references and registered live prototypes
+    design.json                        # screen references (images, Figma, wireframes)
     flow.json                          # nodes, decisions and service boundaries
     api.json                           # contracts and before/after response schemas
     storage.json                       # tables and field changes

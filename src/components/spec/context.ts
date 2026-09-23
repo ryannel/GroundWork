@@ -4,7 +4,11 @@ import type { FeatureSpec, SectionKind } from '@/data/spec'
 import type { Lens, Ref, SpecIndex } from '@/data/spec-index'
 
 /** Everything a section needs to cross-reference: the feature id (for URLs), the spec and its index. */
-export interface SpecCtx { featureId: string; spec: FeatureSpec; ix: SpecIndex; /** Component lens: when set, sections show only what touches it. */ lens?: Lens; lensName?: string }
+export interface SpecCtx {
+  featureId: string; spec: FeatureSpec; ix: SpecIndex
+  /** Component lens: when set, sections show only what touches it. */
+  lens?: Lens; lensName?: string
+}
 export const SpecContext = createContext<SpecCtx | null>(null)
 export const useSpec = () => {
   const c = useContext(SpecContext)

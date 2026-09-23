@@ -71,7 +71,11 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
       <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}><X size={16} /><span>Back to flow</span></button>
     </header>
     <div className="inspector-action-context"><small>FOR THIS ACTION · {action.actor}</small><p>{action.action}</p></div>
-    {node && <div className="inspector-node-heading"><h4>{node.label}</h4><code>{q.componentLabel(node.component ?? '')} · {q.componentType(node.component ?? '')}</code>{node.description && <p>{node.description}</p>}</div>}
+    {node && <div className="inspector-node-heading">
+      <h4>{node.label}</h4>
+      <code>{q.componentLabel(node.component ?? '')} · {q.componentType(node.component ?? '')}</code>
+      {node.description && <p>{node.description}</p>}
+    </div>}
     {selection.kind === 'boundary' && <BoundaryDetails key={`${action.id}:${selection.edge.id}:${selection.selected ?? ''}`} selection={selection} />}
     {selection.kind === 'node' && store && <StoreDetails key={node!.id} selection={selection} action={action} />}
     {decision && <section className="decision-logic">
@@ -85,12 +89,32 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
           return <article key={branch.edgeId} className={inAction ? 'is-current-outcome' : ''}>
             <div><strong>{branch.when}</strong><small>{inAction ? 'In this action' : 'Other outcome'}</small></div>
             <p>{branch.then}</p>
-            {target && (inAction ? <button onClick={() => onNode(target.id)}>{target.label}<ArrowRight size={13} /></button> : alternative ? <Link to={`/f/${featureId}/flow?trace=journey:${alternative.id}&node=${target.id}`}>Explore in: {alternative.action}<ArrowRight size={13} /></Link> : <span className="text-fg-muted">Next: {target.label}</span>)}
+            {target && (inAction
+              ? <button onClick={() => onNode(target.id)}>{target.label}<ArrowRight size={13} /></button>
+              : alternative
+                ? <Link to={`/f/${featureId}/flow?trace=journey:${alternative.id}&node=${target.id}`}>
+                  Explore in: {alternative.action}<ArrowRight size={13} />
+                </Link>
+                : <span className="text-fg-muted">Next: {target.label}</span>)}
           </article>
         })}</div>
       </> : <p className="inspector-empty">The condition and outcomes have not been documented for this decision.</p>}
     </section>}
-    {node && !decision && !store && <section className="processing-connections"><h5>Next in this action</h5>{outgoing.map(edge => <button key={edge.id} onClick={() => edge.contracts?.length ? onBoundary(edge.id) : onNode(edge.to)}><span>{ix.node[edge.to]?.label}<small>{edge.contracts?.length ? 'Inspect API contract' : edge.label ?? 'Inspect processing step'}</small></span><ArrowRight size={14} /></button>)}{!outgoing.length && <p>This is the end of the documented path for this action.</p>}</section>}
-    <section className="action-evidence"><h5>Tests for this action</h5>{tests.length ? tests.map(test => <Link key={test.id} to={`/f/${featureId}/tests/${test.id}?trace=journey:${action.id}`}><span>{test.title}</span><small>{test.status ?? 'planned'}</small></Link>) : <p>No tests are linked to this action yet.</p>}</section>
+    {node && !decision && !store && <section className="processing-connections">
+      <h5>Next in this action</h5>
+      {outgoing.map(edge => <button key={edge.id} onClick={() => edge.contracts?.length ? onBoundary(edge.id) : onNode(edge.to)}>
+        <span>{ix.node[edge.to]?.label}<small>{edge.contracts?.length ? 'Inspect API contract' : edge.label ?? 'Inspect processing step'}</small></span>
+        <ArrowRight size={14} />
+      </button>)}
+      {!outgoing.length && <p>This is the end of the documented path for this action.</p>}
+    </section>}
+    <section className="action-evidence">
+      <h5>Tests for this action</h5>
+      {tests.length
+        ? tests.map(test => <Link key={test.id} to={`/f/${featureId}/tests/${test.id}?trace=journey:${action.id}`}>
+          <span>{test.title}</span><small>{test.status ?? 'planned'}</small>
+        </Link>)
+        : <p>No tests are linked to this action yet.</p>}
+    </section>
   </aside>
 }

@@ -47,7 +47,10 @@ function CrossProductWork({ connections, components, scoped }: { connections: Fe
   return <aside className="workspace-coordination" aria-labelledby="workspace-connections-heading">
     <div className="coordination-heading">
       <span><GitFork size={17} /></span>
-      <div><h2 id="workspace-connections-heading">Across products</h2><p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p></div>
+      <div>
+        <h2 id="workspace-connections-heading">Across products</h2>
+        <p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p>
+      </div>
     </div>
     <p className="coordination-intro">Changes that reach beyond their owning product.</p>
     {connections.length ? <div className="coordination-items">{connections.map(feature => <Link key={feature.id} to={`/f/${feature.id}`} className="coordination-item">

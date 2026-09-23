@@ -13,7 +13,8 @@ try {
   const source = path.join(base, 'source'), clone = path.join(base, 'clone')
   await mkdir(path.join(source, 'vendor'), { recursive: true })
   await cp(packageFile, path.join(source, 'vendor/groundwork.tgz'))
-  await writeFile(path.join(source, 'package.json'), JSON.stringify({ name: 'package-smoke', private: true, devDependencies: { 'groundwork-v2': 'file:vendor/groundwork.tgz' } }))
+  const manifest = { name: 'package-smoke', private: true, devDependencies: { 'groundwork-v2': 'file:vendor/groundwork.tgz' } }
+  await writeFile(path.join(source, 'package.json'), JSON.stringify(manifest))
   await run(source, 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund'])
   const cli = ['node_modules/groundwork-v2/bin/groundwork-v2.js']
   await run(source, process.execPath, [...cli, 'init', '--name', 'Fresh clone'])
@@ -38,5 +39,6 @@ try {
     assert.equal(snapshot.plan.manifest.id, initial.manifest.id)
     assert.equal(snapshot.error, null)
   } finally { await app.close() }
-  console.log('Package smoke passed: install, init, commit, fresh clone, npm ci, identical portable plans, independent checkout identity, compiled HTTP viewer.')
+  console.log('Package smoke passed: install, init, commit, fresh clone, npm ci, identical portable plans, independent checkout identity, '
+    + 'compiled HTTP viewer.')
 } finally { await rm(base, { recursive: true, force: true }) }

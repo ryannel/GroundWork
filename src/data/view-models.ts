@@ -6,6 +6,14 @@ import type { FeatureSpec, SectionKind } from './spec.ts'
 import type { SpecIndex } from './spec-index.ts'
 import type { Delivery, Validation } from './delivery.ts'
 
+/**
+ * Key for the app's routes. It names the checkout only, so plan edits (new revisions) re-render in place and keep
+ * scroll, focus and open panels; switching checkout remounts.
+ */
+export function routesKey(plan: { context: { token: string } } | null | undefined): string {
+  return plan?.context.token ?? 'unavailable'
+}
+
 /** The registered-checkout fields the Hub list reads; structurally the runtime's Checkout. */
 export interface HubCheckout {
   checkoutId: string

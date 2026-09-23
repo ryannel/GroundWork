@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
+import { NotFound } from './errors.ts'
 const exec = promisify(execFile)
 /** A failed git invocation with a short message; the full stderr stays available for diagnosis. */
 export class GitError extends Error {
@@ -68,6 +69,12 @@ export async function activity(root: string) {
   const commits = await git(root, ['log', '-8', '--format=%h %s']).then(s => s.split('\n').filter(Boolean)).catch(() => [])
   return { branches, changes, commits }
 }
+/** Resolves a ref to a commit SHA; an unknown ref is NotFound. */
 export async function resolveRef(root: string, ref: string) {
-  return await git(root, ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`])
+  try {
+    return await git(root, ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`])
+  } catch (error) {
+    if (error instanceof GitError) throw new NotFound(`Unknown ref: ${ref}`, { cause: error })
+    throw error
+  }
 }

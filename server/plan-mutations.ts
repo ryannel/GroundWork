@@ -5,12 +5,13 @@
 import path from 'node:path'
 import { z } from 'zod'
 import { featureSchema, featureStageSchema } from '../src/data/content-schema.ts'
+import { idPattern } from '../src/data/schema-primitives.ts'
 import { deliverySchema, renderBrief, type Delivery } from './format.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
 
 type PlanState = { files: Record<string, string>; delivery: Record<string, Delivery> }
 type Changes = Record<string, string>
-const stableId = z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/)
+const stableId = z.string().regex(idPattern)
 const json = (value: unknown) => JSON.stringify(value, null, 2) + '\n'
 const featureFile = (featureId: string) => `features/${featureId}/feature.json`
 const deliveryFile = (featureId: string) => `features/${featureId}/delivery.json`

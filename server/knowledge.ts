@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { catalogIndex } from './catalog.ts'
 import { compareCatalogSources, worstStatus, type FreshnessStatus } from './catalog-freshness.ts'
 import { parseCatalogId } from '../src/data/catalog-identity.ts'
+import { idPattern } from '../src/data/schema-primitives.ts'
 import type { SourceObservation } from '../src/data/catalog-index.ts'
 import { digest } from './git.ts'
 import { readPlan, writePlan } from './repository.ts'
@@ -11,7 +12,7 @@ import {
 } from '../src/data/knowledge.ts'
 
 type Plan = Awaited<ReturnType<typeof readPlan>>
-const featureId = z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/)
+const featureId = z.string().regex(idPattern)
 export const retainDiscoveryBaselineSchema = z.strictObject({
   featureId,
   question: z.string().min(1).max(2000), ids: z.array(z.string().min(1)).min(1).max(10),

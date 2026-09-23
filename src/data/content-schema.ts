@@ -22,7 +22,9 @@ export const designSchema = z.strictObject({ mockups: z.array(mockupSchema) })
 export const flowNodeSchema = z.strictObject({
   id, label: text, kind: z.enum(['process', 'decision', 'worker', 'store', 'external', 'queue']), component: id.optional(),
   col: z.number().int().nonnegative(), row: z.number().int().nonnegative(), tables: ids.optional(), description: text.optional(),
-  logic: z.strictObject({ expression: text, explanation: text.optional(), branches: z.array(z.strictObject({ edgeId: id, when: text, then: text })) }).optional(),
+  logic: z.strictObject({
+    expression: text, explanation: text.optional(), branches: z.array(z.strictObject({ edgeId: id, when: text, then: text })),
+  }).optional(),
 })
 export const flowEdgeSchema = z.strictObject({ id, from: id, to: id, label: text.optional(), async: z.boolean().optional(), contracts: ids.optional() })
 export const flowSchema = z.strictObject({ nodes: z.array(flowNodeSchema), edges: z.array(flowEdgeSchema) })
@@ -42,11 +44,19 @@ export const apiGuideSchema = z.strictObject({
 })
 export const apiSchema = z.strictObject({ contracts: z.array(apiContractSchema), guides: z.array(apiGuideSchema).optional() })
 export const columnSchema = z.strictObject({ name: text, type: text, note: text.optional(), key: z.boolean().optional(), change: changeSchema.optional() })
-export const tableSchema = z.strictObject({ id, component: id, name: text, description: text.optional(), group: text.optional(), kind: z.enum(['table', 'object', 'local-file']).optional(), change: changeSchema, columns: z.array(columnSchema), note: text.optional() })
+export const tableSchema = z.strictObject({
+  id, component: id, name: text, description: text.optional(), group: text.optional(), kind: z.enum(['table', 'object', 'local-file']).optional(),
+  change: changeSchema, columns: z.array(columnSchema), note: text.optional(),
+})
 export const storageSchema = z.strictObject({ tables: z.array(tableSchema) })
-export const testCaseSchema = z.strictObject({ id, title: text, given: text, when: text, then: strings.min(1), status: testStatusSchema.optional(), steps: ids.optional(), contracts: ids.optional(), tables: ids.optional() })
+export const testCaseSchema = z.strictObject({
+  id, title: text, given: text, when: text, then: strings.min(1), status: testStatusSchema.optional(),
+  steps: ids.optional(), contracts: ids.optional(), tables: ids.optional(),
+})
 export const testsSchema = z.strictObject({ cases: z.array(testCaseSchema) })
-export const sectionSchemas = { purpose: purposeSchema, journey: journeySchema, design: designSchema, flow: flowSchema, api: apiSchema, storage: storageSchema, tests: testsSchema }
+export const sectionSchemas = {
+  purpose: purposeSchema, journey: journeySchema, design: designSchema, flow: flowSchema, api: apiSchema, storage: storageSchema, tests: testsSchema,
+}
 export const featureSpecSchema = z.strictObject({
   purpose: purposeSchema.optional(), journey: journeySchema.optional(), design: designSchema.optional(), flow: flowSchema.optional(),
   api: apiSchema.optional(), storage: storageSchema.optional(), tests: testsSchema.optional(),
@@ -111,7 +121,11 @@ export const evidenceSchema = componentEvidenceSchema.extend({
   revision: commitSha,
 })
 export const executionFlowSchema = z.strictObject({
-  id, endpointId: id.optional(), trigger: z.discriminatedUnion('kind', [z.strictObject({ kind: z.literal('message'), messageId: id }), z.strictObject({ kind: z.literal('job'), jobId: id })]).optional(), name: text, summary: text,
+  id, endpointId: id.optional(),
+  trigger: z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('message'), messageId: id }), z.strictObject({ kind: z.literal('job'), jobId: id }),
+  ]).optional(),
+  name: text, summary: text,
   sourceRevision: commitSha,
   entryStepId: id,
   steps: z.array(z.strictObject({
@@ -143,7 +157,9 @@ export const retiredObservationSchema = z.strictObject({
   kind: observationKindSchema, id, retiredAt: isoTimestamp, sourceRevision: commitSha, reason: text,
   evidence: z.array(evidenceSchema).min(1), observation: z.record(z.string(), z.unknown()),
 })
-export const componentJobSchema = z.strictObject({ id, name: text, description: text, schedule: text.optional(), source: text.optional(), evidence: z.array(componentEvidenceSchema).min(1) })
+export const componentJobSchema = z.strictObject({
+  id, name: text, description: text, schedule: text.optional(), source: text.optional(), evidence: z.array(componentEvidenceSchema).min(1),
+})
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
@@ -166,7 +182,10 @@ export const featureSchema = z.strictObject({
   id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: isoTimestamp,
 })
 export const projectSchema = z.strictObject({ schemaVersion: z.literal(1), viewerId: id.optional() })
-export const documentSchemas = { project: projectSchema, workspace: workspaceSchema, product: productSchema, component: componentSchema, member: memberSchema, feature: featureSchema, ...sectionSchemas }
+export const documentSchemas = {
+  project: projectSchema, workspace: workspaceSchema, product: productSchema, component: componentSchema, member: memberSchema, feature: featureSchema,
+  ...sectionSchemas,
+}
 export type FeatureRecord = z.infer<typeof featureSchema>
 export type Member = z.infer<typeof memberSchema>
 export type Project = z.infer<typeof projectSchema>

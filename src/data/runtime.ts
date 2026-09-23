@@ -24,7 +24,9 @@ export interface RuntimePlan {
   manifest: { id: string; name: string; domain?: string }
   snapshot: ContentSnapshot
   revision: string
-  context: { checkoutId: string; root: string; branch: string | null; head: string | null; ref: string | null; editable: boolean; token: string; isGit: boolean }
+  context: {
+    checkoutId: string; root: string; branch: string | null; head: string | null; ref: string | null; editable: boolean; token: string; isGit: boolean
+  }
   files: Record<string, string>
   delivery: Record<string, Delivery>
   decisions: Record<string, string>
@@ -71,7 +73,6 @@ const defaultTimers: Timers = {
 /** One viewer runtime per page location. Tests build fresh instances; the app uses the default one below. */
 export function createRuntime(pathname: string, timers: Timers = defaultTimers) {
   let state: RuntimeState = { loading: true, mode: 'standalone', connected: false, plan: null, error: null, projects: [] }
-  let apply: ((snapshot: ContentSnapshot | null) => void) | undefined
   const listeners = new Set<() => void>()
   let generation = 0
   let events: EventSource | undefined
@@ -85,7 +86,6 @@ export function createRuntime(pathname: string, timers: Timers = defaultTimers) 
 
   const subscribe = (callback: () => void) => { listeners.add(callback); return () => { listeners.delete(callback) } }
   const getRuntime = () => state
-  const attachSnapshot = (fn: (snapshot: ContentSnapshot | null) => void) => { apply = fn }
 
   /** At most one project request is in flight; a restart aborts it rather than letting it publish late. */
   function refreshProjects(): Promise<void> {
@@ -155,7 +155,6 @@ export function createRuntime(pathname: string, timers: Timers = defaultTimers) 
           const { plan, error } = parse(eventSchema, JSON.parse(event.data), 'Invalid Groundwork event response')
           // Only the envelope is checked; see the wire-protocol note above.
           const runtimePlan = plan as unknown as RuntimePlan | null
-          apply?.(runtimePlan?.snapshot ?? null)
           publish({ plan: runtimePlan, error, loading: false, connected: true })
         } catch (error) {
           publish({ loading: false, error: message(error) })
@@ -170,9 +169,9 @@ export function createRuntime(pathname: string, timers: Timers = defaultTimers) 
     }
   }
 
-  return { runtimeBase: route?.[0] ?? '/', checkoutId, selectedRef, subscribe, getRuntime, attachSnapshot, refreshProjects, startRuntime }
+  return { runtimeBase: route?.[0] ?? '/', checkoutId, selectedRef, subscribe, getRuntime, refreshProjects, startRuntime }
 }
 
 const runtime = createRuntime(typeof window === 'undefined' ? '/' : window.location.pathname)
-export const { runtimeBase, checkoutId, selectedRef, getRuntime, attachSnapshot, refreshProjects, startRuntime } = runtime
+export const { runtimeBase, checkoutId, selectedRef, getRuntime, refreshProjects, startRuntime } = runtime
 export const useRuntime = () => useSyncExternalStore(runtime.subscribe, runtime.getRuntime)

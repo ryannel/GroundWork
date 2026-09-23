@@ -5,7 +5,9 @@ import { architectureSystemGraph, componentKindLabel, isInfrastructureComponent,
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
 
-export function SystemDiagram({ components, allComponents, selectedId, onSelect }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void }) {
+export function SystemDiagram({ components, allComponents, selectedId, onSelect }: {
+  components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void
+}) {
   const [componentQuery, setComponentQuery] = useState('')
   const [pickerOpen, setPickerOpen] = useState(false)
   const picker = useRef<HTMLDivElement>(null)
@@ -62,7 +64,11 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         <div>
           <span>System map</span>
           <h3 id="architecture-map-heading">How the system fits together</h3>
-          <p>Runtime services and resources appear here, including isolated components with no known dependencies. Message arrows follow catalogued inbound and outbound contracts; their labels count contracts, not event traffic. Supporting assets are listed separately below.</p>
+          <p>
+            Runtime services and resources appear here, including isolated components with no known dependencies. Message arrows follow
+            catalogued inbound and outbound contracts; their labels count contracts, not event traffic. Supporting assets are listed
+            separately below.
+          </p>
         </div>
         <dl>
           <div><dt>Services</dt><dd>{serviceCount}</dd></div>
@@ -79,7 +85,10 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
           focus={graph.nodes.some(component => component.id === selected.id) ? selected.id : undefined}
           onFocus={focusMapComponent}
         />
-        : <div className="architecture-map-empty"><p>No runtime components have been catalogued for this product.</p><span>Supporting assets remain available in the component directory.</span></div>}
+        : <div className="architecture-map-empty">
+          <p>No runtime components have been catalogued for this product.</p>
+          <span>Supporting assets remain available in the component directory.</span>
+        </div>}
     </section>
 
     <section className="component-workspace" aria-labelledby="component-workspace-heading">
@@ -111,7 +120,9 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         </div>
       </header>
       <main className="component-workspace-detail">
-        <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={localIds.has(selected.id)} showIdentity onSelectComponent={onSelect} />
+        <ComponentInspector
+          key={selected.id} component={selected} dependencies={dependencies} isLocal={localIds.has(selected.id)} showIdentity onSelectComponent={onSelect}
+        />
       </main>
     </section>
   </div>
