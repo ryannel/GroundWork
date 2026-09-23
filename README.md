@@ -4,7 +4,7 @@ Portable repository plans with a live standalone viewer, a central local dashboa
 
 ## Repository layout
 
-- `src/` — viewer UI; `server/` — Hub, CLI, MCP and repository operations.
+- `src/` — viewer UI; `server/` — Hub, CLI, MCP and repository operations. Scanner inventory filtering and project/packet selection live in `server/scan-inventory.ts` and `server/scan-projects.ts`; scan lifecycle and catalog writes live in `server/scanner.ts`.
 - `schemas/` — generated content and operation schemas.
 - `tests/fixtures/` — sample plans and frozen migration evidence; never loaded automatically.
 - `public/` — shared viewer assets only.

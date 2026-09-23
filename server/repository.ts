@@ -78,7 +78,12 @@ export async function withLock<T>(root: string, fn: () => Promise<T>, name = '.g
         const { pid } = JSON.parse(await readFile(lock, 'utf8'))
         if (!Number.isInteger(pid) || pid <= 0) throw new Conflict('Invalid lock file; inspect it before recovery')
         try { process.kill(pid, 0) } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ESRCH') dead = true; else throw error }
-      } catch (error) { if (error instanceof Conflict) throw error }
+      } catch (error) {
+        if (error instanceof Conflict) throw error
+        if ((error as NodeJS.ErrnoException).code === 'ENOENT') continue
+        if (error instanceof SyntaxError) throw new Conflict('Invalid lock file; inspect it before recovery')
+        throw error
+      }
       if (dead) { await rm(lock, { force: true }); continue }
       if (attempt >= 50) throw new Conflict('Another Groundwork process is writing; retry shortly')
       await new Promise(resolve => setTimeout(resolve, 50))

@@ -1,5 +1,5 @@
 import { manifestChange } from './scan-manifests.ts'
-import { checkCatalogFreshness, sourceIdentity, broaderChange } from './catalog-freshness.ts'
+import { checkCatalogFreshness, sourceIdentity } from './catalog-freshness.ts'
 import { execFile } from 'node:child_process'
 import { randomUUID, createHash } from 'node:crypto'
 import { chmod, copyFile, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rename, rm, stat, writeFile } from 'node:fs/promises'
@@ -21,8 +21,11 @@ import {
 } from '../src/data/content-schema.ts'
 import { catalogIndex } from './catalog.ts'
 import { catalogId } from '../src/data/catalog-identity.ts'
+import type { Component } from '../src/data/model.ts'
 import { digest } from './git.ts'
 import { readPlan, writePlan } from './repository.ts'
+import { inventory } from './scan-inventory.ts'
+import { detectProjects, filesForProject, packetFiles, slug, type DetectedProject, type InventoryFile, type ScanArea } from './scan-projects.ts'
 
 const exec = promisify(execFile)
 const areaSchema = z.enum(['dependencies', 'api', 'data', 'messaging'])
@@ -86,11 +89,9 @@ export const applyRepositoryScanSchema = z.strictObject({
 
 export const discardRepositoryScanSchema = z.strictObject({ scanId: z.string().uuid() })
 
-type Area = z.infer<typeof areaSchema>
+type Area = ScanArea
 type Budgets = z.infer<typeof budgetsSchema>
 type Discovery = z.infer<typeof repositoryDiscoverySchema>
-interface InventoryFile { path: string; digest: string; bytes: number }
-interface DetectedProject { path: string; name: string; suggestedId: string; manifest: string; existingComponentId?: string }
 interface WorkPacket {
   id: string
   projectPath: string
@@ -121,34 +122,6 @@ interface ScanMetadata {
   packets: WorkPacket[]
   excluded: Record<string, number>
   incremental?: { mode: 'unchanged' | 'focused' | 'broader-review'; report: Awaited<ReturnType<typeof checkCatalogFreshness>> }
-}
-
-const generatedSegments = new Set([
-  '.git', '.next', '.nuxt', '.output', 'bin', 'build', 'coverage', 'dist', 'node_modules',
-  'obj', 'out', 'target', 'vendor',
-])
-const excludedNames = new Set([
-  'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lock', 'bun.lockb',
-  'composer.lock', 'cargo.lock', 'poetry.lock', 'gemfile.lock',
-])
-const binaryExtensions = new Set([
-  '.7z', '.a', '.avif', '.bin', '.bmp', '.class', '.dll', '.dylib', '.eot', '.exe', '.gif',
-  '.gz', '.ico', '.jar', '.jpeg', '.jpg', '.map', '.mp3', '.mp4', '.o', '.otf', '.pdf',
-  '.png', '.so', '.tar', '.tgz', '.ttf', '.wasm', '.webp', '.woff', '.woff2', '.zip',
-])
-const manifestNames = new Set([
-  'package.json', 'go.mod', 'cargo.toml', 'pyproject.toml', 'pom.xml', 'build.gradle',
-  'build.gradle.kts', 'composer.json', 'gemfile', 'mix.exs',
-])
-const identityNames = new Set([
-  'catalog-info.yaml', 'catalog-info.yml', 'backstage.yaml', 'backstage.yml', 'codeowners',
-  'readme.md', 'dockerfile', 'docker-compose.yml', 'docker-compose.yaml',
-])
-const laneTerms: Record<Area, RegExp> = {
-  dependencies: /(?:^|[/._-])(client|provider|adapter|dependency|dependencies|config|manifest|package)(?:[/._-]|$)/i,
-  api: /(?:^|[/._-])(api|openapi|swagger|graphql|proto|route|routes|router|controller|controllers|handler|handlers|endpoint|endpoints|dto|schema|interface|interfaces)(?:[/._-]|$)/i,
-  data: /(?:^|[/._-])(data|database|db|migration|migrations|schema|model|models|entity|entities|record|records|repository|repositories|storage|store|redis|sql|prisma)(?:[/._-]|$)/i,
-  messaging: /(?:^|[/._-])(event|events|message|messages|messaging|queue|queues|topic|topics|kafka|pubsub|publisher|publishers|consumer|consumers|producer|producers|asyncapi)(?:[/._-]|$)/i,
 }
 
 function scanBase() {
@@ -236,149 +209,6 @@ async function acquire(repository: string, ref: string | undefined, target: stri
   return { revision, repository: normalizeRepository(origin) }
 }
 
-function excludedReason(file: string) {
-  const lower = file.toLowerCase()
-  const segments = lower.split('/')
-  if (lower === 'agents.md' || lower === 'claude.md' || lower.startsWith('.agents/') || lower === '.github/copilot-instructions.md' || lower.startsWith('.github/agents/') || lower.startsWith('.github/instructions/')) return 'agent-instructions'
-  if (segments.some(segment => generatedSegments.has(segment))) return 'generated-or-vendored'
-  if (excludedNames.has(path.posix.basename(lower)) || lower.endsWith('.lock')) return 'lockfile'
-  if (lower.endsWith('.min.js') || lower.endsWith('.min.css') || lower.endsWith('.snap')) return 'generated-or-vendored'
-  if (binaryExtensions.has(path.posix.extname(lower))) return 'binary'
-  return null
-}
-
-async function inventory(acquisition: string, budgets: Budgets) {
-  const raw = (await command('git', ['ls-files', '--stage', '-z'], acquisition)).stdout
-  const entries = raw.split('\0').filter(Boolean).map(entry => {
-    const match = /^(\d+) ([a-f0-9]+) \d\t(.+)$/.exec(entry)
-    if (!match) throw new Error('Git returned an unsupported file inventory')
-    return { mode: match[1], digest: match[2], path: match[3] }
-  })
-  const excluded: Record<string, number> = {}
-  const candidates: InventoryFile[] = []
-  for (const entry of entries) {
-    const reason = entry.mode === '160000' ? 'submodule' : entry.mode === '120000' ? 'symlink' : excludedReason(entry.path)
-    if (reason) { excluded[reason] = (excluded[reason] ?? 0) + 1; continue }
-    if (entry.mode !== '100644' && entry.mode !== '100755') { excluded['unsupported-mode'] = (excluded['unsupported-mode'] ?? 0) + 1; continue }
-    const file = path.join(acquisition, ...entry.path.split('/'))
-    const info = await stat(file)
-    if (info.size > 1024 * 1024) { excluded.oversized = (excluded.oversized ?? 0) + 1; continue }
-    const head = await readFile(file).then(value => value.subarray(0, 4096))
-    if (head.includes(0)) { excluded.binary = (excluded.binary ?? 0) + 1; continue }
-    const text = head.toString('utf8')
-    if (text.startsWith('version https://git-lfs.github.com/spec/v1')) { excluded['git-lfs-pointer'] = (excluded['git-lfs-pointer'] ?? 0) + 1; continue }
-    if (/@generated|code generated .* do not edit|auto-generated file/i.test(text)) { excluded['generated-header'] = (excluded['generated-header'] ?? 0) + 1; continue }
-    candidates.push({ path: entry.path, digest: entry.digest, bytes: info.size })
-  }
-  const priority = (file: InventoryFile) => {
-    const name = path.posix.basename(file.path).toLowerCase()
-    if (identityNames.has(name) || manifestNames.has(name) || name.endsWith('.csproj')) return 0
-    if (Object.values(laneTerms).some(pattern => pattern.test(file.path))) return 1
-    return 2
-  }
-  candidates.sort((a, b) => priority(a) - priority(b) || a.path.localeCompare(b.path))
-  const files: InventoryFile[] = []
-  let bytes = 0
-  for (const file of candidates) {
-    if (files.length >= budgets.maxFiles || bytes + file.bytes > budgets.maxBytes) { excluded.budget = (excluded.budget ?? 0) + 1; continue }
-    files.push(file); bytes += file.bytes
-  }
-  const dependencies = entries.filter(entry => /^100(?:644|755)$/.test(entry.mode) && broaderChange(entry.path))
-  return { files, excluded, dependencyFingerprints: dependencies.slice(0, 10000).map(entry => ({ path: entry.path, digest: entry.digest })), omittedDependencyFingerprints: Math.max(0, dependencies.length - 10000) }
-}
-
-function slug(value: string) {
-  return value.toLowerCase().replace(/^@[^/]+\//, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'component'
-}
-
-async function detectProjects(acquisition: string, files: InventoryFile[], repository: string, existing: Awaited<ReturnType<typeof readPlan>>['snapshot']['components']) {
-  const catalog = files.find(file => file.path === 'catalog-info.yaml' || file.path === 'catalog-info.yml')
-  if (catalog) {
-    const source = await readFile(path.join(acquisition, catalog.path), 'utf8')
-    if (/^kind:\s*Component\s*$/mi.test(source)) {
-      const lines = source.split(/\r?\n/)
-      const start = lines.findIndex(line => /^metadata:\s*$/i.test(line))
-      const metadata: string[] = []
-      if (start >= 0) for (let index = start + 1; index < lines.length && (!lines[index].trim() || /^\s/.test(lines[index])); index++) metadata.push(lines[index])
-      const value = (key: string) => metadata.find(line => new RegExp(`^\\s+${key}:`, 'i').test(line))
-        ?.replace(new RegExp(`^\\s+${key}:\\s*`, 'i'), '').trim().replace(/^(['"])(.*)\1$/, '$2')
-      const title = value('title')
-      const name = value('name')
-      const displayName = title ?? name ?? repository.split('/').at(-1)!.replace(/\.git$/, '')
-      const match = existing.find(component => component.repo === repository && (component.sourcePath ?? '.') === '.')
-      return [{
-        path: '.',
-        name: displayName,
-        suggestedId: match?.id ?? slug(name ?? displayName),
-        manifest: catalog.path,
-        ...(match ? { existingComponentId: match.id } : {}),
-      }]
-    }
-  }
-  // A catalogued repository-wide component is an established boundary. Its
-  // library projects are implementation details, not newly discovered services.
-  const registered = existing.filter(component => component.repo === repository)
-  if (registered.length === 1 && (registered[0].sourcePath ?? '.') === '.') {
-    const component = registered[0]
-    const manifest = files.find(file => manifestNames.has(path.posix.basename(file.path).toLowerCase()) || file.path.endsWith('.sln'))
-    return [{ path: '.', name: component.name, suggestedId: component.id, existingComponentId: component.id, manifest: manifest?.path ?? 'README.md' }]
-  }
-  const manifests = files.filter(file => {
-    const name = path.posix.basename(file.path).toLowerCase()
-    return (manifestNames.has(name) || name.endsWith('.csproj'))
-      && !/(?:^|[./_-])tests?(?:[./_-]|$)/i.test(path.posix.dirname(file.path))
-  })
-  const roots = new Map<string, InventoryFile>()
-  for (const manifest of manifests) {
-    const root = path.posix.dirname(manifest.path)
-    if (!roots.has(root)) roots.set(root, manifest)
-  }
-  if (!roots.size) roots.set('.', { path: 'README.md', digest: '', bytes: 0 })
-  const projects: DetectedProject[] = []
-  for (const [root, manifest] of roots) {
-    let name = root === '.' ? repository.split('/').at(-1)!.replace(/\.git$/, '') : path.posix.basename(root)
-    if (path.posix.basename(manifest.path).toLowerCase() === 'package.json') {
-      const value = await readFile(path.join(acquisition, ...manifest.path.split('/')), 'utf8').then(JSON.parse).catch(() => null)
-      if (typeof value?.name === 'string') name = value.name
-    }
-    const sourcePath = root === '.' ? '.' : root
-    const match = existing.find(component => component.repo === repository && (component.sourcePath ?? '.') === sourcePath)
-    projects.push({
-      path: sourcePath,
-      name,
-      suggestedId: match?.id ?? slug(name),
-      manifest: manifest.path,
-      ...(match ? { existingComponentId: match.id } : {}),
-    })
-  }
-  const counts = new Map<string, number>()
-  for (const project of projects) counts.set(project.suggestedId, (counts.get(project.suggestedId) ?? 0) + 1)
-  for (const project of projects) {
-    if (!project.existingComponentId && counts.get(project.suggestedId)! > 1) project.suggestedId = `${project.suggestedId}-${digest(project.path).slice(0, 6)}`
-  }
-  return projects.sort((a, b) => a.path.localeCompare(b.path))
-}
-
-function filesForProject(files: InventoryFile[], project: DetectedProject, projects: DetectedProject[]) {
-  const prefix = project.path === '.' ? '' : `${project.path}/`
-  const descendants = projects
-    .filter(candidate => candidate.path !== project.path && (project.path === '.' || candidate.path.startsWith(prefix)))
-    .map(candidate => `${candidate.path}/`)
-  return files.filter(file => file.path.startsWith(prefix) && !descendants.some(child => file.path.startsWith(child)))
-}
-
-function packetFiles(files: InventoryFile[], area: Area, project: DetectedProject) {
-  const identity = files.filter(file => {
-    const name = path.posix.basename(file.path).toLowerCase()
-    return identityNames.has(name) || file.path === project.manifest
-  })
-  const relevant = files.filter(file =>
-    laneTerms[area].test(file.path)
-    && !/(?:^|\/)(?:[^/]*(?:\.tests?|tests?)|assets|fixtures|approvedresults)(?:\/|$)/i.test(file.path),
-  )
-  return [...new Set([...identity, ...relevant].map(file => file.path))]
-}
-
 async function readonlyTree(directory: string) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const target = path.join(directory, entry.name)
@@ -420,7 +250,8 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
     const acquired = await acquire(args.repository, freshness?.targetRevision ?? args.sourceRef, acquisition)
     const plan = await readPlan(root)
     if (freshness && (freshness.catalogRevision !== plan.revision || freshness.context !== plan.context.token)) throw new Error('Catalog changed during preparation; repeat incremental preparation')
-    const { files, excluded, dependencyFingerprints, omittedDependencyFingerprints } = await inventory(acquisition, args.budgets)
+    const trackedFiles = (await command('git', ['ls-files', '--stage', '-z'], acquisition)).stdout
+    const { files, excluded, dependencyFingerprints, omittedDependencyFingerprints } = await inventory(acquisition, args.budgets, trackedFiles)
     const components = await Promise.all(plan.snapshot.components.map(async component => ({ ...component, repo: component.repo ? await canonicalRepository(component.repo) : component.repo })))
     const projects = await detectProjects(acquisition, files, await canonicalRepository(acquired.repository), components)
     for (const file of files) {
@@ -551,6 +382,22 @@ function requireClaimEvidence(discovery: Discovery) {
   for (const dependency of discovery.unresolvedDependencies ?? []) if (!dependency.evidence.length) throw new Error(`${discovery.id}: unresolved dependency ${dependency.name} requires evidence`)
 }
 
+function requireRetainedInventory(previous: Component | undefined, discovery: Discovery) {
+  const requireRetained = (kind: string, before: { id: string }[] | undefined, after: { id: string }[] | undefined) => {
+    if (before?.some(item => !after?.some(next => next.id === item.id))) {
+      throw new Error(`Scan omitted active ${kind} records; use reconcile_catalog for evidenced retirement before replacing this inventory`)
+    }
+  }
+  if (discovery.coverage.api) {
+    requireRetained('endpoint', previous?.api?.endpoints, discovery.api?.endpoints)
+    requireRetained('schema', previous?.api?.schemas, discovery.api?.schemas)
+  }
+  if (discovery.coverage.data) requireRetained('data', previous?.data?.records, discovery.data?.records)
+  if (discovery.coverage.messaging) requireRetained('message', previous?.messaging?.messages, discovery.messaging?.messages)
+  if (discovery.executionFlows !== undefined) requireRetained('flow', previous?.executionFlows, discovery.executionFlows)
+  if (discovery.jobs !== undefined) requireRetained('job', previous?.jobs, discovery.jobs)
+}
+
 function retainedManifest(plan: Awaited<ReturnType<typeof readPlan>>, changes: Record<string, string>, metadata: ScanMetadata, mode: 'baseline' | 'investigation', scope: { componentId: string; sourcePath: string; areas: string[]; observationIds: string[] }[]) {
   if (!metadata.budgets || !metadata.dependencyFingerprints) throw new Error('Prepared scan predates durable manifests; prepare a new scan')
   return manifestChange(plan, changes, { version: 1, scannerVersion: metadata.scannerVersion,
@@ -571,6 +418,11 @@ export async function applyRepositoryScan(root: string, input: unknown) {
   if (plan.manifest.id !== metadata.targetProjectId || plan.context.checkoutId !== metadata.targetCheckoutId) throw new Error('Repository scan belongs to another Groundwork project or checkout')
   const productIds = new Set(plan.snapshot.products.map(product => product.id))
   const existingIds = new Set(plan.snapshot.components.map(component => component.id))
+  const repositoryIdentity = await canonicalRepository(metadata.repository)
+  const components = await Promise.all(plan.snapshot.components.map(async component => ({
+    component,
+    repositoryIdentity: component.repo ? await canonicalRepository(component.repo) : null,
+  })))
   const batchIds = new Set(args.discoveries.map(discovery => discovery.id))
   if (batchIds.size !== args.discoveries.length) throw new Error('Repository discoveries contain duplicate component IDs')
   if (new Set(args.discoveries.map(discovery => discovery.sourcePath)).size !== args.discoveries.length) throw new Error('Repository discoveries contain duplicate project paths')
@@ -581,30 +433,23 @@ export async function applyRepositoryScan(root: string, input: unknown) {
   ]))
   const globallyLimited = Object.hasOwn(metadata.excluded, 'budget') || Object.hasOwn(metadata.excluded, 'packet-budget')
   for (const discovery of args.discoveries) {
-    if (!metadata.projects.some(project => project.path === discovery.sourcePath)) throw new Error(`${discovery.id}: sourcePath was not detected by this scan`)
+    const project = metadata.projects.find(project => project.path === discovery.sourcePath)
+    if (!project) throw new Error(`${discovery.id}: sourcePath was not detected by this scan`)
     requireClaimEvidence(discovery)
     for (const flow of discovery.executionFlows ?? []) if (flow.sourceRevision !== metadata.revision) throw new Error(`${flow.id}: execution flow revision does not match the pinned scan revision`)
     await validateEvidence(directory, metadata, discovery)
     if (!productIds.has(discovery.productId)) throw new Error(`${discovery.id}: unknown product ${discovery.productId}`)
-    const collision = plan.snapshot.components.find(component => component.id === discovery.id)
-    if (collision && (!collision.repo || await canonicalRepository(collision.repo) !== await canonicalRepository(metadata.repository) || (collision.sourcePath ?? '.') !== discovery.sourcePath)) throw new Error(`${discovery.id}: component ID belongs to another repository or project path`)
-    const matches = await Promise.all(plan.snapshot.components.map(async component => component.repo && await canonicalRepository(component.repo) === await canonicalRepository(metadata.repository) && (component.sourcePath ?? '.') === discovery.sourcePath ? component : undefined))
-    const identityMatch = matches.find(Boolean)
+    const collision = components.find(item => item.component.id === discovery.id)
+    if (collision && (collision.repositoryIdentity !== repositoryIdentity || (collision.component.sourcePath ?? '.') !== discovery.sourcePath)) throw new Error(`${discovery.id}: component ID belongs to another repository or project path`)
+    const identityMatch = components.find(item => item.repositoryIdentity === repositoryIdentity && (item.component.sourcePath ?? '.') === discovery.sourcePath)?.component
     if (identityMatch && identityMatch.id !== discovery.id) throw new Error(`${discovery.id}: repository project already belongs to component ${identityMatch.id}`)
     for (const dependency of discovery.dependsOn ?? []) {
       if (dependency === discovery.id) throw new Error(`${discovery.id}: component cannot depend on itself`)
       if (!existingIds.has(dependency) && !batchIds.has(dependency)) throw new Error(`${discovery.id}: unresolved dependency ${dependency} must remain in unresolvedDependencies`)
     }
-    const projectFiles = filesForProject(metadata.files, { path: discovery.sourcePath } as DetectedProject, metadata.projects)
-    const previous = collision ? JSON.parse(plan.files[`components/${collision.id}.json`]) : {}
-    const retainedGroups: [string, { id: string }[] | undefined, { id: string }[] | undefined][] = [
-      ...(discovery.coverage.api ? [['endpoint', previous.api?.endpoints, discovery.api?.endpoints], ['schema', previous.api?.schemas, discovery.api?.schemas]] as [string, { id: string }[] | undefined, { id: string }[] | undefined][] : []),
-      ...(discovery.coverage.data ? [['data', previous.data?.records, discovery.data?.records]] as [string, { id: string }[] | undefined, { id: string }[] | undefined][] : []),
-      ...(discovery.coverage.messaging ? [['message', previous.messaging?.messages, discovery.messaging?.messages]] as [string, { id: string }[] | undefined, { id: string }[] | undefined][] : []),
-      ...(discovery.executionFlows ? [['flow', previous.executionFlows, discovery.executionFlows]] as [string, { id: string }[] | undefined, { id: string }[] | undefined][] : []),
-      ...(discovery.jobs ? [['job', previous.jobs, discovery.jobs]] as [string, { id: string }[] | undefined, { id: string }[] | undefined][] : []),
-    ]
-    for (const [kind, before, after] of retainedGroups) if (before?.some(item => !after?.some(next => next.id === item.id))) throw new Error(`Scan omitted active ${kind} records; use reconcile_catalog for evidenced retirement before replacing this inventory`)
+    const projectFiles = filesForProject(metadata.files, project, metadata.projects)
+    const previous = collision ? JSON.parse(plan.files[`components/${collision.component.id}.json`]) : {}
+    requireRetainedInventory(collision?.component, discovery)
     const coverage = { ...(previous.scan?.coverage ?? {}), ...discovery.coverage }
     const requested = new Set(metadata.areas)
     for (const area of requested) if (!discovery.coverage[area]) throw new Error(`${discovery.id}: missing ${area} coverage result`)

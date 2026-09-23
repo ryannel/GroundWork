@@ -6,7 +6,7 @@ import os from 'node:os'
 import { spawn } from 'node:child_process'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
-import { register, inventory } from '../server/registry.ts'
+import { register, unregister, inventory, selectRoot } from '../server/registry.ts'
 import { operationSchemas } from '../server/operations.ts'
 
 async function command(module: 'cli' | 'mcp', args: string[], input = '') {
@@ -55,9 +55,14 @@ test('different users organise identical plans independently and explicit clones
   assert.deepEqual(a.map(item => item.productPath), ['/w/project/app', '/w/project/app'])
   process.env.GROUNDWORK_HOME = path.join(base, 'user-b')
   assert.equal((await inventory()).length, 0)
+  await assert.rejects(selectRoot(a[0].checkoutId), /Unknown checkout/)
   await register(root, 'Personal', 'Shared app')
   const b = await inventory()
   assert.equal(b.length, 1); assert.equal(b[0].workspace, 'Personal'); assert.equal(b[0].product, 'Shared app')
+  assert.equal(await selectRoot(b[0].checkoutId), await realpath(root))
+  await unregister(root)
+  assert.equal((await inventory()).length, 0)
+  await assert.rejects(selectRoot(b[0].checkoutId), /Unknown checkout/)
   assert.equal((await readPlan(root)).revision, original.revision)
 })
 test('repositories without plans can be grouped beneath a workspace product', async t => {

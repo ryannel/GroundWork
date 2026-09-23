@@ -16,7 +16,7 @@ const legacyRegistrySchema = z.strictObject({
   projects: z.array(z.strictObject({ root: z.string(), workspace: z.string().min(1), projectId: z.string() })),
 })
 export const configRoot = () => path.resolve(process.env.GROUNDWORK_HOME ?? path.join(homedir(), '.config', 'groundwork-v2'))
-const checkoutRoots = new Map<string, string>()
+const checkoutRoots = new Map<string, { root: string; registrationRoot: string; registryRoot: string | null }>()
 const productKey = (value: string) => value.toLowerCase().replaceAll(/[^a-z0-9]+/g, '')
 function productCatalog(plan: Awaited<ReturnType<typeof readPlan>>, product: string, fallback: string) {
   const key = productKey(product)
@@ -63,14 +63,19 @@ export async function register(root: string, workspace = 'My projects', product?
   }, 'registry.lock')
 }
 export async function unregister(root: string) {
-  root = path.resolve(root)
+  root = await realpath(root).catch(error => {
+    if (error.code === 'ENOENT') return path.resolve(root)
+    throw error
+  })
   await mkdir(configRoot(), { recursive: true })
-  return withLock(configRoot(), async () => {
+  const result = await withLock(configRoot(), async () => {
     const config = await registry()
     config.projects = config.projects.filter(p => p.root !== root)
     await atomicFile(configRoot(), 'registry.json', JSON.stringify(config, null, 2) + '\n')
     return config
   }, 'registry.lock')
+  for (const [id, cached] of checkoutRoots) if (cached.registryRoot === configRoot() && cached.registrationRoot === root) checkoutRoots.delete(id)
+  return result
 }
 export async function inventory(standalone?: string) {
   const roots = standalone
@@ -81,7 +86,7 @@ export async function inventory(standalone?: string) {
   for (const record of roots) {
     try {
       for (const ctx of await discover(record.root)) {
-        checkoutRoots.set(ctx.checkoutId, ctx.root)
+        checkoutRoots.set(ctx.checkoutId, { root: ctx.root, registrationRoot: record.root, registryRoot: standalone ? null : configRoot() })
         if (seen.has(ctx.checkoutId)) continue
         seen.add(ctx.checkoutId)
         try {
@@ -99,12 +104,13 @@ export async function inventory(standalone?: string) {
 export async function selectRoot(checkoutId: string | undefined, standalone?: string) {
   if (!checkoutId && standalone) return (await context(standalone)).root
   if (!checkoutId) throw new Error('Unknown checkout. List projects and select a registered checkout ID.')
-  const cached = checkoutRoots.get(checkoutId)
-  if (cached) return cached
+  const registryRoot = standalone ? null : configRoot()
   const roots = standalone ? [{ root: standalone }] : (await registry()).projects
+  const cached = checkoutRoots.get(checkoutId)
+  if (cached?.registryRoot === registryRoot && roots.some(record => record.root === cached.registrationRoot)) return cached.root
   for (const record of roots) {
     for (const ctx of await discover(record.root)) {
-      checkoutRoots.set(ctx.checkoutId, ctx.root)
+      checkoutRoots.set(ctx.checkoutId, { root: ctx.root, registrationRoot: record.root, registryRoot })
       if (ctx.checkoutId === checkoutId) return ctx.root
     }
   }

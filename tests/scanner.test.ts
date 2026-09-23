@@ -174,6 +174,62 @@ test('large evidence lanes split into bounded packets instead of truncating cove
   await discardRepositoryScan({ scanId: prepared.scanId })
 })
 
+test('malformed project manifests fail scan preparation instead of hiding project identity', async t => {
+  const source = await repository(t)
+  const root = await target(t)
+  await rm(path.join(source, 'catalog-info.yaml'))
+  await writeFile(path.join(source, 'package.json'), '{invalid')
+  await git(source, ['add', '.'])
+  await git(source, ['commit', '-m', 'Malformed manifest'])
+  await assert.rejects(prepareRepositoryScan(root, { repository: source }), SyntaxError)
+})
+
+test('scan refresh cannot silently remove an active contract', async t => {
+  const source = await repository(t)
+  const root = await target(t)
+  const initial = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
+  let plan = await readPlan(root)
+  await applyRepositoryScan(root, {
+    scanId: initial.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token,
+    discoveries: [{
+      id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API',
+      api: { name: 'Catalog API', endpoints: [{
+        id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}',
+        evidence: [{ path: 'src/routes.ts', lines: '1', claim: 'Registers the route.', revision: initial.revision }],
+      }] },
+      coverage: { api: 'complete' },
+    }],
+  })
+  const refresh = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
+  plan = await readPlan(root)
+  await assert.rejects(applyRepositoryScan(root, {
+    scanId: refresh.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token,
+    discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'complete' } }],
+  }), /omitted active endpoint records/)
+  assert.equal((await readPlan(root)).snapshot.components[0].api?.endpoints.length, 1)
+  await discardRepositoryScan({ scanId: refresh.scanId })
+})
+
+test('nested projects receive separate packets without leaking files across boundaries', async t => {
+  const source = await repository(t)
+  const root = await target(t)
+  await rm(path.join(source, 'catalog-info.yaml'))
+  await mkdir(path.join(source, 'services/api'), { recursive: true })
+  await writeFile(path.join(source, 'services/api/package.json'), JSON.stringify({ name: '@example/child-api' }))
+  await writeFile(path.join(source, 'services/api/routes.ts'), "router.get('/child', getChild)\n")
+  await git(source, ['add', '.'])
+  await git(source, ['commit', '-m', 'Add nested API'])
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
+  assert.deepEqual(prepared.projects.map(project => project.path), ['.', 'services/api'])
+  const parent = prepared.packets.find(packet => packet.projectPath === '.')
+  const child = prepared.packets.find(packet => packet.projectPath === 'services/api')
+  assert.ok(parent?.files.includes('src/routes.ts'))
+  assert.ok(!parent?.files.includes('services/api/routes.ts'))
+  assert.ok(child?.files.includes('services/api/routes.ts'))
+  assert.ok(!child?.files.includes('src/routes.ts'))
+  await discardRepositoryScan({ scanId: prepared.scanId })
+})
+
 test('refresh preserves an existing repository-wide component without Backstage metadata', async t => {
   const source = await repository(t)
   const root = await target(t)

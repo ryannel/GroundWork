@@ -67,6 +67,9 @@ test('pagination is bounded, complete, deterministic, and rejects changed query/
   assert.throws(() => queryCatalog({ ...plan, revision: 'changed' }, 'search_catalog', { query: '', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
   assert.throws(() => queryCatalog({ ...plan, context: { ...plan.context, token: 'other-checkout' } }, 'search_catalog', { query: '', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
   assert.throws(() => queryCatalog(plan, 'search_catalog', { query: 'price', limit: 3, cursor: first.nextCursor }), /snapshot or query changed/)
+  for (const malformed of ['bnVsbA', 'e30', Buffer.from(JSON.stringify({ snapshot: 'x', query: 'y', offset: -1 })).toString('base64url')]) {
+    assert.throws(() => queryCatalog(plan, 'search_catalog', { query: '', cursor: malformed }), /Invalid catalog cursor/)
+  }
   assert.throws(() => queryCatalog(plan, 'search_catalog', { limit: 500 }), /50/)
   assert.deepEqual(await operate('search_catalog', { query: 'MSRP' }, root), queryCatalog(plan, 'search_catalog', { query: 'MSRP' }))
 })

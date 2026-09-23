@@ -51,6 +51,12 @@ export const operationSchemas = {
   discard_repository_scan: discardRepositoryScanSchema,
 }
 export type OperationName = keyof typeof operationSchemas
+type ParsedOperation = { [Name in OperationName]: { name: Name; args: z.output<(typeof operationSchemas)[Name]> } }[OperationName]
+
+function parseOperation(name: OperationName, input: unknown): ParsedOperation {
+  return { name, args: operationSchemas[name].parse(input) } as ParsedOperation
+}
+
 export const descriptions: Record<OperationName, string> = {
   assess_feature_discovery: 'Retain an explicit reassessment of a feature baseline against current catalog facts and optional local source targets. Source checks use the retained observations, even after catalog edits; no automatic readiness claim.',
   reconcile_catalog: 'Apply explicitly evidenced retirements or stable-ID renames from a pinned scan. Retirement preserves original observations and retires dependent active flows atomically; omission never retires an entity.',
@@ -75,8 +81,8 @@ export const descriptions: Record<OperationName, string> = {
   apply_repository_scan: 'Validate staged repository discoveries and source citations, then atomically update all scanned components under one revision guard.',
   discard_repository_scan: 'Delete a prepared repository scan and its temporary source snapshot without changing a Groundwork plan.',
 }
-export async function operate(name: OperationName, input: unknown, standalone?: string): Promise<unknown> {
-  const args = operationSchemas[name].parse(input) as Record<string, any>
+export async function operate(operationName: OperationName, input: unknown, standalone?: string): Promise<unknown> {
+  const { name, args } = parseOperation(operationName, input)
   if (name === 'projects') return inventory(standalone)
   if (name === 'discard_repository_scan') return discardRepositoryScan(args)
   const root = await selectRoot(args.checkoutId, standalone)
@@ -102,8 +108,8 @@ export async function operate(name: OperationName, input: unknown, standalone?: 
     return applyRepositoryScan(root, scan)
   }
   if (args.ref) throw new Error('Committed ref views are read-only; select a working checkout to edit')
-  const request: WriteRequest = { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: args.changes ?? {} }
-  if (name === 'write_plan') return writePlan(root, request)
+  if (name === 'write_plan') return writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: args.changes })
+  const request: WriteRequest = { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: {} }
   const plan = await readPlan(root)
   if (plan.revision !== request.expectedRevision || plan.context.token !== request.expectedContext) throw new Error('Stale edit: re-read the plan before changing it')
   if (name === 'create_worktree') {
@@ -125,7 +131,7 @@ export async function operate(name: OperationName, input: unknown, standalone?: 
       [`features/${args.featureId}/delivery.json`]: JSON.stringify(args.delivery, null, 2) + '\n',
       [file]: JSON.stringify({ ...JSON.parse(plan.files[file]), updatedAt: new Date().toISOString() }, null, 2) + '\n',
     }
-  } else {
+  } else if (name === 'link_branch' || name === 'record_progress') {
     const file = `features/${args.featureId}/feature.json`
     if (!plan.files[file]) throw new Error('Unknown feature')
     const delivery = structuredClone(plan.delivery[args.featureId] ?? deliverySchema.parse({}))
@@ -142,10 +148,15 @@ export async function operate(name: OperationName, input: unknown, standalone?: 
       if (args.evidence) delivery.evidence.push(args.evidence)
       if (!args.stage && !args.unitId && !args.evidence) throw new Error('Supply stage, a unit status, or evidence')
     }
+    const feature = featureSchema.parse(JSON.parse(plan.files[file]))
+    if (name === 'record_progress' && args.stage) feature.stage = args.stage
     request.changes = {
-      [file]: JSON.stringify({ ...JSON.parse(plan.files[file]), ...(args.stage ? { stage: args.stage } : {}), updatedAt: new Date().toISOString() }, null, 2) + '\n',
+      [file]: JSON.stringify({ ...feature, updatedAt: new Date().toISOString() }, null, 2) + '\n',
       [`features/${args.featureId}/delivery.json`]: JSON.stringify(delivery, null, 2) + '\n',
     }
+  } else {
+    const unhandled: never = name
+    return unhandled
   }
   return writePlan(root, request)
 }

@@ -1,15 +1,14 @@
 import { useMemo, useState } from 'react'
 import { createRepository } from './content'
-import { attachSnapshot } from './runtime'
+import { attachSnapshot, useRuntime } from './runtime'
 import { featureTouchesComponent } from './component-structure'
 import type { Component, Feature, Product, Workspace } from './model'
 import type { FeatureStage } from '@/lib/taxonomy'
 
 const empty = { project: { schemaVersion: 1 as const }, members: [], workspaces: [], products: [], components: [], features: [] }
 let repository = createRepository(empty)
-let db = repository.db
 export let q = repository.q
-attachSnapshot(snapshot => { repository = createRepository(snapshot); db = repository.db; q = repository.q })
+attachSnapshot(snapshot => { repository = createRepository(snapshot ?? empty); q = repository.q })
 
 export const ACTIVE_STAGES: FeatureStage[] = ['exploring', 'designing', 'specced', 'building']
 export const isActive = (f: Feature) => ACTIVE_STAGES.includes(f.stage)
@@ -28,13 +27,13 @@ export interface WorkspaceSummary {
   shipped: Feature[]
   lastActivity?: string
 }
-export function summarizeWorkspace(w: Workspace): WorkspaceSummary {
-  const products = q.products(w.id)
-  const feats = q.featuresInWorkspace(w.id)
+export function summarizeWorkspace(w: Workspace, query = q): WorkspaceSummary {
+  const products = query.products(w.id)
+  const feats = query.featuresInWorkspace(w.id)
   return {
     workspace: w,
     products,
-    componentCount: products.reduce((n, p) => n + q.components(p.id).length, 0),
+    componentCount: products.reduce((n, p) => n + query.components(p.id).length, 0),
     active: feats.filter(isActive),
     shipped: feats.filter(f => f.stage === 'shipped'),
     lastActivity: feats[0]?.updatedAt,
@@ -43,8 +42,10 @@ export function summarizeWorkspace(w: Workspace): WorkspaceSummary {
 
 export function useHome() {
   const [now] = useState(Date.now)
+  const snapshot = useRuntime().plan?.snapshot
   return useMemo(() => {
-    const summaries = db.workspaces.map(summarizeWorkspace)
+    const { db, q: query } = createRepository(snapshot ?? empty)
+    const summaries = db.workspaces.map(workspace => summarizeWorkspace(workspace, query))
     const inFlight = db.features.filter(isActive).sort(byUpdated)
     const since = now - 30 * 864e5
     const ideas = db.features.filter(f => f.stage === 'idea').sort(byUpdated)
@@ -66,14 +67,16 @@ export function useHome() {
         ideas: db.features.filter(f => f.stage === 'idea').length,
       },
     }
-  }, [now])
+  }, [now, snapshot])
 }
 
 export interface ComponentLoad { component: Component; product: Product; features: Feature[]; crossProduct: boolean }
 
 /** Everything the workspace page needs: products with their components and features, plus component load across the workspace. */
 export function useWorkspace(slug: string) {
+  const snapshot = useRuntime().plan?.snapshot
   return useMemo(() => {
+    const { db, q } = createRepository(snapshot ?? empty)
     const workspace = q.workspace(slug)
     if (!workspace) return undefined
     const products = q.products(workspace.id).map(product => {
@@ -100,12 +103,14 @@ export function useWorkspace(slug: string) {
     const shipped = all.filter(f => f.stage === 'shipped')
     const byStage = ACTIVE_STAGES.slice().reverse().map(stage => ({ stage, features: active.filter(f => f.stage === stage) })).filter(g => g.features.length)
     return { workspace, products, active, byStage, ideas, shipped, load, reaching, cold: active.filter(isCold).length, componentCount: products.reduce((n, p) => n + p.components.length, 0) }
-  }, [slug])
+  }, [slug, snapshot])
 }
 
 /** Product page: its features by stage, its components with load, and features from other products that touch it. */
 export function useProduct(workspaceSlug: string, productSlug: string) {
+  const snapshot = useRuntime().plan?.snapshot
   return useMemo(() => {
+    const { db, q } = createRepository(snapshot ?? empty)
     const workspace = q.workspace(workspaceSlug)
     const product = workspace && q.products(workspace.id).find(p => p.slug === productSlug)
     if (!workspace || !product) return undefined
@@ -124,7 +129,7 @@ export function useProduct(workspaceSlug: string, productSlug: string) {
       shipped: all.filter(f => f.stage === 'shipped'),
       cold: active.filter(isCold).length,
     }
-  }, [workspaceSlug, productSlug])
+  }, [workspaceSlug, productSlug, snapshot])
 }
 
 export function relTime(iso: string) {

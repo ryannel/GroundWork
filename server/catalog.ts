@@ -9,6 +9,7 @@ import { digest } from './git.ts'
 import { Conflict, readPlan } from './repository.ts'
 
 const paging = { limit: z.number().int().min(1).max(50).default(10), maxBytes: z.number().int().min(4096).max(65536).default(32768), cursor: z.string().max(2048).optional() }
+const cursorSchema = z.strictObject({ snapshot: z.string(), query: z.string(), offset: z.number().int().min(0) })
 const filters = { componentId: z.string().optional(), productId: z.string().optional(), kinds: z.array(z.enum(catalogKinds)).max(8).optional() }
 export const searchCatalogSchema = z.strictObject({ query: z.string().trim().max(2000).default(''), ...filters, ...paging })
 export const getCatalogEntitySchema = z.strictObject({ id: z.string().min(1).max(2000), ...paging })
@@ -17,8 +18,6 @@ type Plan = Awaited<ReturnType<typeof readPlan>>
 const clip = (text: string, length = 300) => text.length > length ? text.slice(0, length) + '…' : text
 const tokens = (text: string): string[] => (text.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().match(/[a-z0-9]+/g) ?? []).map(term => /^consum/.test(term) ? 'consume' : /^publish/.test(term) ? 'publish' : term.length > 4 && term.endsWith('s') ? term.slice(0, -1) : term)
 const stop = new Set('a an the is are how what when where do does can we to of for and or in on with it this that new add change'.split(' '))
-
-
 
 function summary(plan: Plan, entry: Entity) {
   const component = entry.component
@@ -96,10 +95,10 @@ export function queryCatalog(plan: Plan, operation: 'search_catalog' | 'get_cata
   const query = digest(JSON.stringify({ operation, ...binding }))
   let offset = 0
   if (cursor) {
-    let decoded: { snapshot: string; query: string; offset: number }
-    try { decoded = JSON.parse(Buffer.from(cursor, 'base64url').toString()) } catch { throw new Error('Invalid catalog cursor') }
+    let decoded: z.infer<typeof cursorSchema>
+    try { decoded = cursorSchema.parse(JSON.parse(Buffer.from(cursor, 'base64url').toString())) }
+    catch { throw new Error('Invalid catalog cursor') }
     if (decoded.snapshot !== snapshot || decoded.query !== query) throw new Conflict('Catalog snapshot or query changed; restart without the cursor')
-    if (!Number.isSafeInteger(decoded.offset) || decoded.offset < 0) throw new Error('Invalid catalog cursor offset')
     offset = decoded.offset
   }
   const entries = catalogIndex(plan)
