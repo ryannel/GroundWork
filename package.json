@@ -4,10 +4,10 @@
   "version": "0.4.12",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm start",
     "build": "npm run content:validate && npm run content:check-schemas && npm run schemas:check-portable && tsc -b && vite build && npm run build:runtime",
     "lint": "oxlint",
-    "preview": "vite preview",
+    "preview": "npm start",
     "test": "node --test tests/*.test.ts",
     "content:validate": "node scripts/content.ts",
     "content:schemas": "node scripts/content.ts schemas",
@@ -16,7 +16,8 @@
     "schemas:portable": "node scripts/runtime-schemas.ts",
     "prepack": "npm run build",
     "groundwork": "node bin/groundwork-v2.js",
-    "schemas:check-portable": "node scripts/runtime-schemas.ts check"
+    "schemas:check-portable": "node scripts/runtime-schemas.ts check",
+    "start": "npm run build && node bin/groundwork-v2.js hub"
   },
   "dependencies": {
     "@types/d3-force": "^3.0.10",
@@ -54,6 +55,7 @@
     "runtime",
     "dist",
     "schemas",
+    ".agents/skills/groundwork-system-catalog",
     "docs/PORTABLE.md",
     "README.md"
   ]

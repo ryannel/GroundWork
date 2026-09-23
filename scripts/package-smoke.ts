@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, cp, writeFile, rm } from 'node:fs/promises'
+import { mkdtemp, mkdir, cp, writeFile, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { execFile } from 'node:child_process'
@@ -6,7 +6,8 @@ import { promisify } from 'node:util'
 import assert from 'node:assert/strict'
 const exec = promisify(execFile)
 const base = await mkdtemp(path.join(tmpdir(), 'groundwork-package-'))
-const packageFile = path.resolve(process.argv[2] ?? 'groundwork-v2-0.2.0.tgz')
+const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
+const packageFile = path.resolve(process.argv[2] ?? `${manifest.name}-${manifest.version}.tgz`)
 const run = async (cwd: string, program: string, args: string[]) => (await exec(program, args, { cwd, maxBuffer: 4 * 1024 * 1024 })).stdout
 try {
   const source = path.join(base, 'source'), clone = path.join(base, 'clone')
