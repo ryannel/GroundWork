@@ -3,13 +3,15 @@ import assert from 'node:assert/strict'
 import { access, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { TestContext } from 'node:test'
+import type { z } from 'zod'
+import type { executionFlowSchema } from '../src/data/content-schema.ts'
 import { git } from '../server/git.ts'
 import { initialise } from '../server/setup.ts'
 import { readPlan, writePlan } from '../server/repository.ts'
-import { checkCatalogFreshness } from '../server/catalog-freshness.ts'
+import { checkCatalogFreshness, type compareCatalogSources } from '../server/catalog-freshness.ts'
 import { applyCatalogInvestigation, applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan, reconcileCatalog } from '../server/scanner.ts'
 import { assessFeatureDiscovery, getDiscoveryBaseline, retainDiscoveryBaseline } from '../server/knowledge.ts'
-import { readScanManifest } from '../server/scan-manifests.ts'
+import { readScanManifest, type ManifestScope } from '../server/scan-manifests.ts'
 import { catalogId } from '../src/data/catalog-identity.ts'
 import { operate } from '../server/operations.ts'
 import { commitAll, gitInit, guard, tempDir } from './helpers.ts'
@@ -40,7 +42,8 @@ test('unchanged trees are scoped source evidence; working tree edits are exclude
   assert.equal(result.persisted, false)
   assert.match(result.scope, /Working-tree changes.*excluded/)
   assert.ok(result.assessments.every(a => a.citationIntegrity === 'checked-at-observation'))
-  const routed = await operate('check_catalog_freshness', { repositoryPath: f.source, targetRef: f.revision, ids: f.ids }, f.target) as any
+  const routed = await operate('check_catalog_freshness', { repositoryPath: f.source, targetRef: f.revision, ids: f.ids }, f.target) as
+    Awaited<ReturnType<typeof checkCatalogFreshness>>
   assert.equal(routed.targetRevision, f.revision)
 })
 test('a changed known helper widens review while an unchanged handler retains unknown impact', async t => {
@@ -218,7 +221,7 @@ test('evidenced lifecycle changes preserve identities and retained facts while r
   const retained = await getDiscoveryBaseline(f.target, { featureId: 'change', baselineId: baseline.baselineId })
   assert.ok(retained.reassessmentRequired)
   assert.ok(retained.assessments.every(item => item.catalogState === 'removed'))
-  assert.equal((retained.baseline.observations[0].observation as any).name, 'Read')
+  assert.equal(retained.baseline.observations[0].observation.name, 'Read')
   await assert.rejects(writePlan(f.target, { ...guard(after), changes: { 'components/service.json': JSON.stringify({ ...c, api: f.component.api }) } }), /Retired identity is still active/)
 })
 
@@ -251,7 +254,7 @@ test('feature reassessment checks retained source facts even after catalog refre
   const checked = await assessFeatureDiscovery(f.target, { featureId: 'change', baselineId: baseline.baselineId, ...guard(p), sources: [{ repositoryPath: f.source, targetRef: 'HEAD', ids: [f.ids[0]] }] })
   assert.equal(checked.assessment.reassessmentRequired, true)
   assert.equal(checked.assessment.observations[0].sourceFreshness, 'review-required')
-  const check = checked.assessment.checks[0] as any
+  const check = checked.assessment.checks[0] as Awaited<ReturnType<typeof compareCatalogSources>>
   assert.equal(check.assessments[0].observedRevision, f.revision)
   assert.equal(check.targetRevision, target)
   const after = await readPlan(f.target)
@@ -265,7 +268,7 @@ test('cross-repository citations require pinned snapshots and freshness checks p
   const main = await prepareRepositoryScan(f.target, { repository: f.source, sourceRef: 'HEAD' })
   const secondary = await prepareRepositoryScan(f.target, { repository: shared.source, sourceRef: 'HEAD' })
   const p = await readPlan(f.target)
-  const flow = structuredClone(f.component.executionFlows[0]) as any
+  const flow = structuredClone(f.component.executionFlows[0]) as z.infer<typeof executionFlowSchema>
   flow.steps.push({ id: 'shared', title: 'Shared helper', kind: 'dependency', description: 'Read a shared helper at its own pinned revision.', evidence: [{ repository: secondary.repository, path: 'helper.ts', lines: '1', claim: 'Shared return value.', revision: secondary.revision }] })
   flow.transitions.push({ id: 'call', from: 'helper', to: 'shared', label: 'Follow shared dependency', mode: 'sync', evidence: flow.steps[0].evidence })
   const input = { scanId: main.scanId, componentId: 'service', ...guard(p), flows: [flow] }
@@ -275,7 +278,7 @@ test('cross-repository citations require pinned snapshots and freshness checks p
   // A supporting scan is borrowed, not consumed, and its manifest names only the cited project and observation.
   await access(secondary.sourcePath)
   await assert.rejects(access(main.sourcePath))
-  const supportingManifest = (await readScanManifest(f.target, { manifestId: applied.supportingManifestIds[0] })).items[0] as any
+  const supportingManifest = (await readScanManifest(f.target, { manifestId: applied.supportingManifestIds[0] })).items[0] as { scope: ManifestScope[] }
   assert.deepEqual(supportingManifest.scope, [{ componentId: 'service', sourcePath: '.', areas: [], observationIds: [f.ids[1]] }])
   await discardRepositoryScan({ scanId: secondary.scanId })
   const primaryCheck = await f.check({ ids: [f.ids[1]] })

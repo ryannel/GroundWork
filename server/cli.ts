@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
+import { pathToFileURL } from 'node:url'
 import { z } from 'zod'
 import { Conflict, InvalidInput } from './errors.ts'
 import { initialise, installInstructions, exportLegacy } from './setup.ts'
@@ -114,7 +115,8 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
   // start, hub, dashboard and serve
   const standalone = command === 'serve' || values.standalone === true
   const port = Number(string('port') ?? (standalone ? 4317 : 4318))
-  if (!Number.isInteger(port) || port < 0 || port > 65535) throw new UsageError(`${command}: invalid port ${string('port')}`)
+  // Reject 0 too: Number('') is 0, and a literal 0 asks the OS for a random port, silently defeating --port.
+  if (!Number.isInteger(port) || port < 1 || port > 65535) throw new UsageError(`${command}: invalid port ${string('port')}`)
   const hub = command === 'hub' || command === 'dashboard'
   const viewer = await startViewer({ root: hub ? undefined : root, standalone, port })
   out(`Groundwork ${standalone ? '· Standalone workspace' : 'Hub'} · ${viewer.reused ? 'using existing server' : 'started'}\n${viewer.url}`)
@@ -142,3 +144,5 @@ export async function run(argv = process.argv.slice(2)) {
     process.exitCode = exitCodeFor(error)
   }
 }
+// Runs when this file is executed directly (`node server/cli.ts ...`), not when it is only imported.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await run()

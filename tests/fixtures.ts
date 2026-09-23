@@ -1,4 +1,4 @@
-import { readContentDirectory } from '../scripts/content-files.ts'
+import { readContentDirectory } from '../server/content-files.ts'
 import { loadContent } from '../src/data/content.ts'
 import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 export const documents = await readContentDirectory(new URL('./fixtures/content', import.meta.url).pathname)

@@ -53,9 +53,9 @@ test('every server deep link round-trips through the viewer URL contract to the 
     else assert.deepEqual(target, { kind: entry.kind, id: entry.localId }, entry.id)
     if (entry.kind !== 'flow') continue
     // The inspector opens the triggering entity and selects this exact path among its recorded flows.
-    const raw = entry.raw as any
+    const raw = entry.raw as { endpointId?: string; trigger?: { kind: 'message' | 'job' } }
     const flows = raw.endpointId ? endpointFlows(component, location.apiEntity!)
-      : raw.trigger.kind === 'message' ? triggeredFlows(component, 'message', location.messagesEntity!)
+      : raw.trigger!.kind === 'message' ? triggeredFlows(component, 'message', location.messagesEntity!)
         : triggeredFlows(component, 'job', location.jobsEntity!)
     assert.equal(selectedFlow(flows, location.flow)?.id, entry.localId)
     if (raw.endpointId) assert.equal(location.apiView, 'flow')

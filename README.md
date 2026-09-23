@@ -21,7 +21,7 @@ npm run lint
 npm run build
 ```
 
-`npm start` builds the current code and starts or reuses Groundwork Hub at http://127.0.0.1:4318/. `npm run dev` and `npm run preview` use that same entry point. All viewers load registered repository plans through the Hub; a missing service shows a connection error instead of substituting example data. These commands build once, without hot reload; run them again after editing the viewer. Restart an existing Hub after changing server code.
+`npm start` builds the current code and starts or reuses Groundwork Hub at http://127.0.0.1:4318/. `npm run dev` starts or reuses the Hub from source on port 4318 and a Vite dev server with hot reload at http://localhost:5173/ that proxies `/api` to it; no build is needed, but restart it after changing server code. All viewers load registered repository plans through the Hub; a missing service shows a connection error instead of substituting example data.
 
 `npm run build` checks schemas, compiles the viewer and emits the Node runtime. Node 22.18+ is required. The Word Loop data in `tests/fixtures/wordloop/` is an explicit migration/test fixture, not a runtime fallback.
 

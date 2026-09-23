@@ -9,6 +9,7 @@ import { acquire } from '../server/scan-acquire.ts'
 import { readPlan, writePlan } from '../server/repository.ts'
 import { context, git } from '../server/git.ts'
 import { operate } from '../server/operations.ts'
+import type { queryCatalog } from '../server/catalog.ts'
 import { gitInit, guard, tempDir, withEnv } from './helpers.ts'
 
 async function repository(t: TestContext) {
@@ -40,7 +41,7 @@ async function target(t: TestContext) {
 test('repository scans create bounded Git-free snapshots and apply one evidence-backed component write', async t => {
   const source = await repository(t)
   const root = await target(t)
-  const prepared = await prepareRepositoryScan(root, { repository: source }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source })
   assert.notEqual(path.dirname(prepared.sourcePath), root)
   await assert.rejects(access(path.join(prepared.sourcePath, '.git')))
   await assert.rejects(access(path.join(prepared.sourcePath, 'ignored.txt')))
@@ -89,7 +90,7 @@ test('repository scans create bounded Git-free snapshots and apply one evidence-
       coverage: { dependencies: 'complete', api: 'complete', data: 'complete', messaging: 'partial' },
       gaps: [{ area: 'messaging.delivery', reason: 'Retry policy is configured outside this repository.' }],
     }],
-  }) as any
+  })
   assert.deepEqual(result.applied, ['catalog-api'])
   assert.match(result.manifestId, /^[a-f0-9]{64}$/)
   assert.ok((await readPlan(root)).files[`scan-manifests/${result.manifestId}.json`])
@@ -107,7 +108,7 @@ test('repository scans create bounded Git-free snapshots and apply one evidence-
 test('repository scan rejects fabricated evidence and can be discarded explicitly', async t => {
   const source = await repository(t)
   const root = await target(t)
-  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   const plan = await readPlan(root)
   await assert.rejects(applyRepositoryScan(root, {
     scanId: prepared.scanId,
@@ -152,7 +153,8 @@ test('scan operations accept central checkout routing without leaking it into st
   const source = await repository(t)
   const root = await target(t)
   const checkoutId = (await context(root)).checkoutId
-  const prepared = await operate('prepare_repository_scan', { checkoutId, repository: source, areas: ['api'] }, root) as any
+  const prepared = await operate('prepare_repository_scan', { checkoutId, repository: source, areas: ['api'] }, root) as
+    Awaited<ReturnType<typeof prepareRepositoryScan>>
   assert.equal(prepared.target.context.checkoutId, checkoutId)
   await operate('discard_repository_scan', { scanId: prepared.scanId }, root)
 })
@@ -164,7 +166,7 @@ test('large evidence lanes split into bounded packets instead of truncating cove
     repository: source,
     areas: ['api'],
     budgets: { maxFiles: 1200, maxBytes: 20 * 1024 * 1024, maxFilesPerPacket: 1, maxPackets: 32 },
-  }) as any
+  })
   assert.ok(prepared.packets.length > 1)
   assert.ok(prepared.packets.every((packet: any) => packet.files.length <= 1))
   assert.equal(prepared.limitsReached, false)
@@ -240,7 +242,7 @@ test('refresh preserves an existing repository-wide component without Backstage 
   await git(source, ['commit', '-m', 'Split implementation into library projects'])
   await mkdir(path.join(root, '.groundwork/plans/components'), { recursive: true })
   await writeFile(path.join(root, '.groundwork/plans/components/catalog-api.json'), JSON.stringify({ id: 'catalog-api', productId: 'app', name: 'Catalog API', kind: 'service', repo: await realpath(source) }))
-  const prepared = await prepareRepositoryScan(root, { repository: source }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source })
   assert.deepEqual(prepared.projects.map((project: any) => [project.path, project.existingComponentId]), [['.', 'catalog-api']])
   assert.ok(prepared.packets.some((packet: any) => packet.files.includes('Api/Api.csproj')))
   const plan = await readPlan(root)
@@ -256,11 +258,11 @@ test('refresh preserves an existing repository-wide component without Backstage 
 test('targeted investigation upserts preserve siblings and broad coverage, and repeat discovery retrieves the saved answer', async t => {
   const source = await repository(t)
   const root = await target(t)
-  let prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  let prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   let plan = await readPlan(root)
   const citation = { path: 'src/routes.ts', lines: '1', claim: 'Registers the GET route.', revision: prepared.revision }
   await applyRepositoryScan(root, { scanId: prepared.scanId, ...guard(plan), discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', api: { name: 'API', endpoints: [{ id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}', evidence: [citation] }, { id: 'sibling', name: 'Sibling contract', method: 'GET', path: '/sibling', evidence: [citation] }] }, coverage: { api: 'partial' }, gaps: [{ area: 'api', reason: 'Only the route registration is available.' }] }] })
-  prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   plan = await readPlan(root)
   const before = structuredClone(plan.snapshot.components[0])
   const args = { scanId: prepared.scanId, componentId: 'catalog-api', ...guard(plan), findings: [{ id: 'route-dispatch', name: 'Item route dispatch', question: 'Where does the item request enter?', answer: 'The router sends GET /items/:id to getItem.', subjects: [{ kind: 'endpoint', id: 'get-item' }], boundary: 'Route registration only; handler implementation is absent.', assumptions: ['Handler behavior needs further inspection.'], repository: prepared.repository, sourceRevision: prepared.revision, evidence: [citation] }] }
@@ -272,9 +274,10 @@ test('targeted investigation upserts preserve siblings and broad coverage, and r
   assert.deepEqual(plan.snapshot.components[0].api, before.api)
   assert.deepEqual(plan.snapshot.components[0].scan, before.scan)
   assert.deepEqual(plan.snapshot.components[0].gaps, before.gaps)
-  const result = await operate('get_discovery_context', { question: 'item route dispatch' }, root) as any
-  assert.ok(result.items.some((item: any) => item.kind === 'finding' && item.name === 'Item route dispatch'))
-  assert.ok(result.items.every((item: any) => item.freshness.status === 'unchecked'))
+  const result = await operate('get_discovery_context', { question: 'item route dispatch' }, root) as
+    Omit<Awaited<ReturnType<typeof queryCatalog>>, 'items'> & { items: { kind: string; name: string; freshness: { status: string } }[] }
+  assert.ok(result.items.some(item => item.kind === 'finding' && item.name === 'Item route dispatch'))
+  assert.ok(result.items.every(item => item.freshness.status === 'unchecked'))
 })
 
 async function write(root: string, changes: Record<string, string>) {
@@ -328,12 +331,12 @@ test('repository credentials are rejected as input and stripped from local origi
   await assert.rejects(prepareRepositoryScan(root, { repository: 'https://x-access-token:ghs_SECRET@github.com/acme/api.git' }), /credentials/)
   await git(source, ['remote', 'add', 'origin', 'https://x-access-token:ghs_SECRET@github.com/Acme/Api.git'])
   await write(root, { 'components/api.json': JSON.stringify({ id: 'api', productId: 'app', name: 'API', repo: 'github.com/Acme/Api' }) })
-  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   assert.equal(prepared.repository, 'acme/api')
   assert.ok(!(await readFile(path.join(path.dirname(prepared.sourcePath), 'scan.json'), 'utf8')).includes('ghs_SECRET'))
   // The existing component written as github.com/Acme/Api is recognised as the same repository.
   assert.equal(prepared.projects[0].existingComponentId, 'api')
-  const result = await apply(root, prepared.scanId, [{ id: 'api', productId: 'app', sourcePath: '.', name: 'API', coverage: { api: 'partial' } }]) as any
+  const result = await apply(root, prepared.scanId, [{ id: 'api', productId: 'app', sourcePath: '.', name: 'API', coverage: { api: 'partial' } }])
   assert.equal(result.repository, 'acme/api')
   const plan = await readPlan(root)
   assert.ok(!Object.values(plan.files).some(raw => raw.includes('ghs_SECRET')))
@@ -345,7 +348,7 @@ test('snapshots hold committed bytes, so evidence digests match with eol convers
   await writeFile(path.join(source, '.gitattributes'), '*.ts text eol=crlf\n')
   await git(source, ['add', '.gitattributes'])
   await git(source, ['commit', '-m', 'Check out TypeScript with CRLF'])
-  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   assert.equal(await readFile(path.join(prepared.sourcePath, 'src/routes.ts'), 'utf8'), "router.get('/items/:id', getItem)\n")
   await apply(root, prepared.scanId, [{
     id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API',
@@ -359,7 +362,7 @@ test('snapshots hold committed bytes, so evidence digests match with eol convers
 test('evidence ranges stop at the last line and source pointers must name snapshot files at the pinned revision', async t => {
   const source = await repository(t)
   const root = await target(t)
-  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   const endpoint = (patch: object) => ({
     id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'complete' },
     api: { name: 'Catalog API', endpoints: [{ id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}',
@@ -369,8 +372,8 @@ test('evidence ranges stop at the last line and source pointers must name snapsh
     evidence: [{ path: 'src/routes.ts', lines: '2', claim: 'Past the end of a one-line file.', revision: prepared.revision }],
   })]), /outside the scanned file/)
   await assert.rejects(apply(root, prepared.scanId, [endpoint({ source: 'src/missing.ts' })]), /source is not a file in the scan snapshot/)
-  const discovery = endpoint({ source: 'src/routes.ts' }) as any
-  discovery.api.sourceRevision = 'b'.repeat(40)
+  const base = endpoint({ source: 'src/routes.ts' })
+  const discovery = { ...base, api: { ...base.api, sourceRevision: 'b'.repeat(40) } }
   await assert.rejects(apply(root, prepared.scanId, [discovery]), /does not match the pinned scan revision/)
   await apply(root, prepared.scanId, [endpoint({ source: 'src/routes.ts' })])
 })
@@ -379,7 +382,7 @@ test('a partial-area rescan keeps other areas\' evidence and gaps and never repo
   const source = await repository(t)
   const root = await target(t)
   await write(root, { 'components/other.json': JSON.stringify({ id: 'other', productId: 'app', name: 'Other' }) })
-  const full = await prepareRepositoryScan(root, { repository: source }) as any
+  const full = await prepareRepositoryScan(root, { repository: source })
   const dependencyEvidence = [{ path: 'package.json', lines: '1', claim: 'Declares dependencies.', revision: full.revision }]
   await apply(root, full.scanId, [{
     id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', dependsOn: ['other'], evidence: dependencyEvidence,
@@ -390,7 +393,7 @@ test('a partial-area rescan keeps other areas\' evidence and gaps and never repo
   assert.equal(component.scan?.status, 'complete')
   await writeFile(path.join(source, 'src/routes.ts'), "router.get('/items/:id', getItem)\nrouter.get('/items', listItems)\n")
   await git(source, ['commit', '-am', 'Add list route'])
-  const partial = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const partial = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   assert.notEqual(partial.revision, full.revision)
   await apply(root, partial.scanId, [{
     id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'complete' },
@@ -411,7 +414,7 @@ test('packet budget exhaustion is reported and forbids complete coverage', async
   const root = await target(t)
   const prepared = await prepareRepositoryScan(root, {
     repository: source, budgets: { maxFiles: 1200, maxBytes: 20 * 1024 * 1024, maxFilesPerPacket: 80, maxPackets: 1 },
-  }) as any
+  })
   assert.equal(prepared.packets.length, 1)
   assert.equal(prepared.limitsReached, true)
   assert.equal(prepared.excluded['packet-budget'], 3)
@@ -426,7 +429,7 @@ test('scans are bound to their checkout and expire', async t => {
   const source = await repository(t)
   const root = await target(t)
   const other = await target(t)
-  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   const discovery = { id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'partial' } }
   await assert.rejects(apply(other, prepared.scanId, [discovery]), /another Groundwork project or checkout/)
   const metadataFile = path.join(path.dirname(prepared.sourcePath), 'scan.json')
@@ -444,18 +447,18 @@ test('scan cleanup never follows symlinks and one broken scan does not block the
   await isolatedScans(t)
   const outside = await tempDir(t, 'groundwork-outside-')
   await chmod(outside, 0o755)
-  const first = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const first = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   await symlink(outside, path.join(first.outputPath, 'evil'))
   await discardRepositoryScan({ scanId: first.scanId })
   assert.equal((await stat(outside)).mode & 0o777, 0o755)
   await assert.rejects(access(first.sourcePath))
 
-  const expired = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const expired = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   const directory = path.dirname(expired.sourcePath)
   await symlink(path.join(outside, 'missing'), path.join(expired.outputPath, 'dangling'))
   const metadata = JSON.parse(await readFile(path.join(directory, 'scan.json'), 'utf8'))
   await writeFile(path.join(directory, 'scan.json'), JSON.stringify({ ...metadata, expiresAt: new Date(Date.now() - 1000).toISOString() }))
-  const next = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
+  const next = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   await assert.rejects(access(directory))
   await discardRepositoryScan({ scanId: next.scanId })
 })

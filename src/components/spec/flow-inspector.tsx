@@ -54,12 +54,18 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
   const tests = (ix.stepTests[action.id] ?? []).map(id => ix.test[id]).filter(Boolean)
   const heading = useRef<HTMLHeadingElement>(null)
   const selectedId = selection.kind === 'node' ? selection.node.id : selection.edge.id
+  // Scroll/focus on every new selection, not on re-renders that keep the same selection; a ref tracks
+  // the selection the effect last handled since neither action.id nor selectedId is read in its body.
+  const selectionKey = `${action.id}:${selectedId}`
+  const handledSelection = useRef<string | undefined>(undefined)
   useEffect(() => {
+    if (handledSelection.current === selectionKey) return
+    handledSelection.current = selectionKey
     if (window.matchMedia('(max-width: 1200px)').matches) {
       heading.current?.scrollIntoView({ block: 'start' })
       heading.current?.focus({ preventScroll: true })
     }
-  }, [action.id, selectedId])
+  })
   return <aside className="api-inspector flow-inspector" aria-label={title} onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
     <header className="inspector-heading"><span><Icon size={19} /></span><h3 ref={heading} tabIndex={-1}>{title}</h3>
       <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}><X size={16} /><span>Back to flow</span></button>

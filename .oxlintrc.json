@@ -4,6 +4,7 @@
   "rules": {
     "react/rules-of-hooks": "error",
     "react/exhaustive-deps": "error",
+    "react/exhaustive-effect-dependencies": "error",
     "react/only-export-components": ["warn", { "allowConstantExport": true }],
     "react/jsx-key": "error",
     "react/jsx-no-target-blank": "error",

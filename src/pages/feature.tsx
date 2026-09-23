@@ -203,12 +203,17 @@ export function FeaturePage() {
   const context = useMemo<SpecCtx>(() => ({ featureId: id, spec, ix, lens, lensName }), [id, spec, ix, lens, lensName])
   const heading = useRef<HTMLHeadingElement>(null)
   // Before paint: start a new section at the top and move focus to its heading so screen readers announce it.
-  // A deep-linked item handles its own scroll and focus.
+  // A deep-linked item handles its own scroll and focus. A ref tracks the navigation this effect last
+  // handled, since id and section are not read in its body (only item is).
+  const navigationKey = `${id}:${section ?? ''}:${item ?? ''}`
+  const handledNavigation = useRef<string | undefined>(undefined)
   useLayoutEffect(() => {
+    if (handledNavigation.current === navigationKey) return
+    handledNavigation.current = navigationKey
     if (item) return
     window.scrollTo({ top: 0 })
     heading.current?.focus({ preventScroll: true })
-  }, [id, section, item])
+  })
 
   const isDelivery = section === 'delivery'
   const target = sectionKinds.includes(section as SectionKind) ? section as SectionKind : undefined

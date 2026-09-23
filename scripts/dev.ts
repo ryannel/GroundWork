@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-// server/cli.ts only exports its entry point (bin/ runs the compiled copy), so call it from source here.
-const hubEntry = "import { run } from './server/cli.ts'; await run(['hub', '--port', '4318'])"
-const hub = spawn(process.execPath, ['--input-type=module', '-e', hubEntry], { cwd: root, stdio: 'inherit' })
+// bin/ runs the compiled copy; here we run server/cli.ts straight from source, which starts the Hub
+// itself via its own `node server/cli.ts ...` main guard.
+const hub = spawn(process.execPath, ['server/cli.ts', 'hub', '--port', '4318'], { cwd: root, stdio: 'inherit' })
 hub.on('exit', code => { if (code) process.exit(code) })
 const vite = await createServer({ root })
 await vite.listen()

@@ -6,7 +6,7 @@ import { InvalidInput, NotFound } from './errors.ts'
 import { assetPattern, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
 import { INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
-import { readContentDirectory } from '../scripts/content-files.ts'
+import { readContentDirectory } from './content-files.ts'
 import { loadContent } from '../src/data/content.ts'
 import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 

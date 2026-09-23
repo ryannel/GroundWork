@@ -3,7 +3,9 @@ import assert from 'node:assert/strict'
 import {
   activeTab, clearRetiredSelection, dependencyContextLabel, emptyCatalogText, endpointEntries, endpointMatches, flowOrigin, followFlowLink,
   inspectorTabs, mentalModel, readableList, referencedSchemas, retiredSelection, returnToOrigin, schemaIndex, selectTab, tabAriaLabel,
+  type ApiType,
 } from '../src/data/inspector-model.ts'
+import type { Component } from '../src/data/model.ts'
 import { rovingTarget } from '../src/lib/use-roving-tabs.ts'
 
 const sha = 'b'.repeat(40)
@@ -15,7 +17,7 @@ test('schemas resolve by id; a shared name yields every candidate instead of the
   const v1 = { id: 'v1-order', name: 'Order', kind: 'record', fields: [field('total', 'int')] }
   const v2 = { id: 'v2-order', name: 'Order', kind: 'record', fields: [field('amount', 'Money')] }
   const money = { id: 'money', name: 'Money', kind: 'record', fields: [] }
-  const index = schemaIndex([v1, v2, money] as any)
+  const index = schemaIndex([v1, v2, money] as ApiType[])
   assert.equal(index.byId.get('v1-order'), v1)
   assert.deepEqual(referencedSchemas('List<Order>', index).map(schema => schema.id), ['v1-order', 'v2-order'])
   assert.deepEqual(referencedSchemas('Map<string, Money>', index).map(schema => schema.id), ['money'])
@@ -71,7 +73,7 @@ test('changing tab clears a retired selection so the chosen panel is shown', () 
   assert.equal(retiredSelection(component, next), undefined)
   assert.equal(next.catalog, 'api')
   assert.equal(next.apiEntity, 'live', 'active selections survive')
-  assert.deepEqual(selectTab({ ...base, id: 'x', name: 'X' } as any, {}, 'data'), { catalog: 'data', from: undefined })
+  assert.deepEqual(selectTab({ ...base, id: 'x', name: 'X' } as Component, {}, 'data'), { catalog: 'data', from: undefined })
 })
 
 test('the flow breadcrumb round-trips through the URL', () => {
@@ -93,7 +95,7 @@ test('the flow breadcrumb round-trips through the URL', () => {
 })
 
 test('dependency context labels distinguish platforms, providers and ownership', () => {
-  const dependency = (extra: object) => ({ ...base, id: 'd', name: 'D', ...extra }) as any
+  const dependency = (extra: object) => ({ ...base, id: 'd', name: 'D', ...extra }) as Component
   assert.equal(dependencyContextLabel(dependency({ role: 'platform-service', ownership: 'third-party' })), 'External platform')
   assert.equal(dependencyContextLabel(dependency({ role: 'platform-service' })), 'Internal platform')
   assert.equal(dependencyContextLabel(dependency({ role: 'external-provider' })), 'External provider')
@@ -113,16 +115,17 @@ test('the mental model is assembled from catalog records only', () => {
     messaging: { messages: [{ direction: 'outbound' }] },
     unresolvedDependencies: ['a', 'b', 'c', 'd', 'e'].map(name => ({ name, evidence })),
   }
-  const model = mentalModel(component, [{ name: 'Billing' }] as any)
+  // A deliberately incomplete dependency: mentalModel only reads its name for this label.
+  const model = mentalModel(component, [{ name: 'Billing' }] as unknown as Component[])
   assert.match(model.enters, /^Treat HTTP interfaces and event interfaces as the component's known entry points\./)
   assert.match(model.inside, /^The catalog shows read and write access to Postgres\./)
   assert.match(model.leaves, /^Mapped processing crosses into Billing, and the component also records outbound messages\./)
   assert.match(model.blindSpots!, /^a, b, c, and d and 1 more are referenced in source/)
-  const isolated = mentalModel({ ...base, id: 'x', name: 'X' } as any, [])
+  const isolated = mentalModel({ ...base, id: 'x', name: 'X' } as Component, [])
   assert.match(isolated.enters, /^No entry point has been established/)
   assert.match(isolated.leaves, /^No outgoing component or message boundary/)
   assert.equal(isolated.blindSpots, undefined)
-  assert.match(mentalModel({ ...base, id: 'x', name: 'X', messaging: { messages: [{ direction: 'outbound' }] } } as any, []).leaves,
+  assert.match(mentalModel({ ...base, id: 'x', name: 'X', messaging: { messages: [{ direction: 'outbound' }] } } as Component, []).leaves,
     /^No component dependency is currently mapped, but the component also records outbound messages\./)
 })
 

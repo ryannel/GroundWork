@@ -2,7 +2,7 @@
 import path from 'node:path'
 import { loadContent } from '../src/data/content.ts'
 import { livePrototypeIds } from '../src/data/live-prototypes.ts'
-import { readContentDirectory } from './content-files.ts'
+import { readContentDirectory } from '../server/content-files.ts'
 const root = path.resolve(import.meta.dirname, '..')
 try {
   const snapshot = loadContent(await readContentDirectory(path.resolve(process.argv[2] ?? path.join(root, 'tests/fixtures/wordloop/content'))), livePrototypeIds)

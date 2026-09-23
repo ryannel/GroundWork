@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { rm, symlink } from 'node:fs/promises'
 import path from 'node:path'
 import { gapArea, mergeComponent } from '../server/scan-baseline.ts'
+import type { Component } from '../src/data/model.ts'
 import { retirementCascade } from '../server/scan-lifecycle.ts'
 import { incrementalMode, planPackets, type FreshnessSummary } from '../server/scan-packets.ts'
 import type { DetectedProject, InventoryFile } from '../server/scan-projects.ts'
@@ -65,20 +66,20 @@ test('mergeComponent replaces only covered areas and downgrades completeness rec
     gaps: [{ area: 'api', reason: 'New API gap' }],
   })
   const context = { repository: 'acme/api', revision: next, order: 1, sourceFingerprint: 'f', scannedAt: new Date(0).toISOString() }
-  const merged = mergeComponent(previous, discovery, context) as any
+  const merged = mergeComponent(previous, discovery, context) as Component
   assert.deepEqual(merged.dependsOn, ['other'])
   assert.deepEqual(merged.evidence, evidence)
-  assert.deepEqual(merged.gaps.map((gap: any) => gap.reason), ['Old data gap', 'Component gap', 'New API gap'])
-  assert.deepEqual(merged.scan.coverage, { dependencies: 'partial', api: 'complete', data: 'partial', messaging: 'partial' })
-  assert.equal(merged.scan.status, 'partial')
+  assert.deepEqual(merged.gaps!.map(gap => gap.reason), ['Old data gap', 'Component gap', 'New API gap'])
+  assert.deepEqual(merged.scan!.coverage, { dependencies: 'partial', api: 'complete', data: 'partial', messaging: 'partial' })
+  assert.equal(merged.scan!.status, 'partial')
   // At the same revision, completeness recorded by an earlier scan still holds.
-  const same = mergeComponent(previous, discovery, { ...context, revision }) as any
-  assert.equal(same.scan.status, 'complete')
+  const same = mergeComponent(previous, discovery, { ...context, revision }) as Component
+  assert.equal(same.scan!.status, 'complete')
   // A dependency rescan replaces dependency results and component evidence together.
   const dependencies = repositoryDiscoverySchema.parse({ id: 'api', productId: 'app', sourcePath: '.', name: 'API', coverage: { dependencies: 'complete' } })
-  const replaced = mergeComponent(previous, dependencies, context) as any
+  const replaced = mergeComponent(previous, dependencies, context) as Component
   assert.deepEqual([replaced.dependsOn, replaced.evidence], [[], []])
-  assert.deepEqual(replaced.gaps.map((gap: any) => gap.reason), ['Old data gap', 'Old API gap'])
+  assert.deepEqual(replaced.gaps!.map(gap => gap.reason), ['Old data gap', 'Old API gap'])
 })
 
 test('gapArea reads the area prefix and treats other gaps as component-level', () => {
