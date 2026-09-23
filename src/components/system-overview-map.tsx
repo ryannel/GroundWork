@@ -17,7 +17,7 @@ import {
 } from '@xyflow/react'
 import { LayoutDashboard, Maximize2, Minimize2, Pin, PinOff } from 'lucide-react'
 import type { Component } from '@/data/model'
-import { componentKind, componentKindLabel } from '@/data/component-structure'
+import { componentKind, componentKindLabel, type ArchitectureEdge } from '@/data/component-structure'
 
 const kindColors = {
   service: '#a78bfa',
@@ -91,7 +91,7 @@ function edgePorts(source: SystemNode, target: SystemNode) {
 
 export function SystemOverviewMap({ components, relationships, observedStatus = new Map(), selectableIds, focus, onFocus }: {
   components: Component[]
-  relationships: { from: string; to: string }[]
+  relationships: ArchitectureEdge[]
   observedStatus?: Map<string, 'observed' | 'unresolved'>
   selectableIds?: Set<string>
   focus?: string
@@ -242,17 +242,25 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
     data: { ...node.data, isPinned: pinnedIds.has(node.id), onUnpin: releaseNodes },
     className: node.id === focus ? 'is-selected' : '',
   })), [nodes, focus, pinnedIds, releaseNodes])
-  const edges: Edge[] = visibleRelationships.flatMap(({ from, to }) => {
+  const edges: Edge[] = visibleRelationships.flatMap(({ from, to, messages }) => {
     const source = nodeById.get(from)
     const target = nodeById.get(to)
     if (!source || !target) return []
     const highlighted = !!focus && (from === focus || to === focus)
+    const label = messages
+      ? [messages.inbound && `${messages.inbound} in`, messages.outbound && `${messages.outbound} out`].filter(Boolean).join(' · ')
+      : undefined
     return [{
       id: `${from}-${to}`,
       source: from,
       target: to,
       ...edgePorts(source, target),
       type: 'default',
+      label,
+      labelStyle: { fill: 'var(--fg-muted)', fontSize: 10 },
+      labelBgStyle: { fill: 'var(--bg-elevated)' },
+      ariaLabel: messages ? `${label} message contracts between ${source.data.component.name} and ${target.data.component.name}` : undefined,
+      markerStart: messages?.inbound && messages.outbound ? { type: MarkerType.ArrowClosed, width: 15, height: 15 } : undefined,
       markerEnd: { type: MarkerType.ArrowClosed, width: 15, height: 15 },
       className: highlighted ? 'is-highlighted' : '',
     }]

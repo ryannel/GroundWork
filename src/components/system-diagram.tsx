@@ -41,7 +41,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         <div>
           <span>System map</span>
           <h3 id="architecture-map-heading">How the system fits together</h3>
-          <p>Runtime services and resources appear here, including isolated components with no known dependencies. Supporting assets are listed separately below.</p>
+          <p>Runtime services and resources appear here, including isolated components with no known dependencies. Message arrows follow catalogued inbound and outbound contracts; their labels count contracts, not event traffic. Supporting assets are listed separately below.</p>
         </div>
         <dl>
           <div><dt>Services</dt><dd>{serviceCount}</dd></div>

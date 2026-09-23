@@ -63,6 +63,7 @@ export function runtimeSystemGraph(components: Component[], allComponents: Compo
 }
 
 type ObservedInfrastructureStatus = 'observed' | 'unresolved'
+export type ArchitectureEdge = { from: string; to: string; messages?: { inbound: number; outbound: number } }
 
 function observedInfrastructureKind(kind = '', name = ''): Component['kind'] | undefined {
   const value = `${kind} ${name}`.toLowerCase()
@@ -81,7 +82,7 @@ function observedInfrastructureId(kind: Component['kind'], name: string) {
 /** Add source-observed infrastructure without promoting unmatched references into catalog components. */
 export function architectureSystemGraph(nodes: Component[], edges: { from: string; to: string }[]) {
   const mapNodes = new Map(nodes.map(component => [component.id, component]))
-  const mapEdges = new Map(edges.map(edge => [JSON.stringify([edge.from, edge.to]), edge]))
+  const mapEdges = new Map<string, ArchitectureEdge>(edges.map(edge => [JSON.stringify([edge.from, edge.to]), edge]))
   const status = new Map<string, ObservedInfrastructureStatus>()
   const existingByName = new Map(nodes.filter(isInfrastructureComponent).map(component => [component.name.toLowerCase(), component]))
 
@@ -97,24 +98,45 @@ export function architectureSystemGraph(nodes: Component[], edges: { from: strin
         kind,
         description: resourceStatus === 'unresolved'
           ? `Referenced by ${owner.name}, but not yet matched to a catalog component.`
-          : `Storage technology recorded for ${owner.name}.`,
+          : `Resource recorded for ${owner.name}.`,
       })
       status.set(id, resourceStatus)
     }
-    mapEdges.set(JSON.stringify([owner.id, id]), { from: owner.id, to: id })
+    const key = JSON.stringify([owner.id, id])
+    if (!mapEdges.has(key)) mapEdges.set(key, { from: owner.id, to: id })
+    return id
   }
 
   for (const owner of nodes.filter(component => !isInfrastructureComponent(component) && componentKind(component) !== 'external-service')) {
     const observedStorageKinds = new Set<Component['kind']>()
+    const brokers = new Map<string, string>()
     for (const dependency of owner.unresolvedDependencies ?? []) {
       const kind = observedInfrastructureKind(dependency.kind, dependency.name)
       if (!kind) continue
       if (infrastructureKinds.includes(kind as typeof infrastructureKinds[number])) observedStorageKinds.add(kind)
-      addResource(owner, dependency.name, kind, 'unresolved')
+      const id = addResource(owner, dependency.name, kind, 'unresolved')
+      if (kind === 'queue') brokers.set(dependency.name.toLowerCase(), id)
     }
     if (owner.data?.technology && ![...observedStorageKinds].some(kind => kind !== 'queue')) {
       const kind = observedInfrastructureKind('', owner.data.technology)
       if (kind && kind !== 'queue' && kind !== 'external-service') addResource(owner, owner.data.technology, kind, 'observed')
+    }
+    const messageCounts = new Map<string, { inbound: number; outbound: number }>()
+    for (const message of owner.messaging?.messages ?? []) {
+      const brokerName = message.broker.split(' (')[0]
+      const brokerId = brokers.get(brokerName.toLowerCase())
+        ?? addResource(owner, brokerName, 'queue', 'observed')
+      const counts = messageCounts.get(brokerId) ?? { inbound: 0, outbound: 0 }
+      counts[message.direction]++
+      messageCounts.set(brokerId, counts)
+    }
+    for (const [brokerId, messages] of messageCounts) {
+      mapEdges.delete(JSON.stringify([owner.id, brokerId]))
+      if (messages.inbound && !messages.outbound) {
+        mapEdges.set(JSON.stringify([brokerId, owner.id]), { from: brokerId, to: owner.id, messages })
+      } else {
+        mapEdges.set(JSON.stringify([owner.id, brokerId]), { from: owner.id, to: brokerId, messages })
+      }
     }
   }
 

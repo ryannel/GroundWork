@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import type { Component, Feature } from '../src/data/model.ts'
 import { architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap, runtimeSystemGraph, systemGraph } from '../src/data/component-structure.ts'
 import { buildIndex, lensFor } from '../src/data/spec-index.ts'
@@ -123,6 +124,50 @@ test('architecture system graph adds observed infrastructure without promoting i
   ])
   assert.equal(graph.status.get('observed-database-postgresql'), 'unresolved')
   assert.equal(graph.status.get('observed-local-storage-browser-origin-private-file-system-opfs'), 'observed')
+})
+test('architecture map points inbound event brokers toward consumers and outbound events toward brokers', () => {
+  const service: Component = {
+    id: 'facade', productId: 'product', name: 'Facade', kind: 'service',
+    unresolvedDependencies: [
+      { name: 'Azure Event Hubs', kind: 'event broker', evidence: [{ path: 'README.md', lines: '1', claim: 'Consumes notifications', revision: 'abc' }] },
+    ],
+    messaging: { messages: [
+      { id: 'notification', name: 'Notification', broker: 'Azure Event Hubs (Event Grid notification)', channel: 'notifications', direction: 'inbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+      { id: 'reply', name: 'Reply', broker: 'Kafka', channel: 'replies', direction: 'outbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+    ] },
+  }
+  const graph = architectureSystemGraph([service], [])
+  assert.deepEqual(graph.nodes.map(node => node.name), ['Facade', 'Azure Event Hubs', 'Kafka'])
+  assert.deepEqual(graph.edges, [
+    { from: 'observed-queue-azure-event-hubs', to: 'facade', messages: { inbound: 1, outbound: 0 } },
+    { from: 'facade', to: 'observed-queue-kafka', messages: { inbound: 0, outbound: 1 } },
+  ])
+  assert.equal(graph.status.get('observed-queue-azure-event-hubs'), 'unresolved')
+  assert.equal(graph.status.get('observed-queue-kafka'), 'observed')
+})
+test('architecture map shows a single bidirectional broker link when both directions are catalogued', () => {
+  const app: Component = {
+    id: 'app', productId: 'p', name: 'App', kind: 'service', dependsOn: ['broker'],
+    messaging: { messages: [
+      { id: 'consume', name: 'Consume', broker: 'Kafka', channel: 'input', direction: 'inbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+      { id: 'publish', name: 'Publish', broker: 'Kafka', channel: 'output', direction: 'outbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+    ] },
+  }
+  const broker: Component = { id: 'broker', productId: 'p', name: 'Kafka', kind: 'queue' }
+  const graph = architectureSystemGraph([app, broker], [{ from: 'app', to: 'broker' }])
+  assert.deepEqual(graph.edges, [{ from: 'app', to: 'broker', messages: { inbound: 1, outbound: 1 } }])
+  assert.equal(graph.nodes.length, 2)
+})
+test('product configuration facade map includes its catalogued inbound event sources', () => {
+  const catalog: Component[] = JSON.parse(readFileSync(new URL('./fixtures/catalog/components.json', import.meta.url), 'utf8'))
+  const facade = catalog.find(component => component.id === 'product-configuration-facade')!
+  const graph = architectureSystemGraph([facade], [])
+  assert.deepEqual(graph.edges.filter(edge => edge.messages).map(edge => [graph.nodes.find(node => node.id === edge.from)!.name, graph.nodes.find(node => node.id === edge.to)!.name, edge.messages]), [
+    ['Product Configuration Facade', 'Confluent Kafka', { inbound: 0, outbound: 15 }],
+    ['ICOE Kafka', 'Product Configuration Facade', { inbound: 2, outbound: 0 }],
+    ['Azure Event Hubs', 'Product Configuration Facade', { inbound: 6, outbound: 0 }],
+  ])
+  assert.equal(graph.nodes.filter(node => node.name === 'Azure Event Hubs').length, 1)
 })
 test('product map retains cross-product dependencies without pulling in their whole system', () => {
   const input = structuredClone(components)
