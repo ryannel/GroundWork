@@ -1,11 +1,17 @@
-import type { ID } from './model'
-import type { FeatureSpec, JourneyStep, Mockup, FlowNode, FlowEdge, ApiContract, Table, TestCase, Criterion, SectionKind } from './spec'
+import type { ID } from './model.ts'
+import type { FeatureSpec, JourneyStep, Mockup, FlowNode, FlowEdge, ApiContract, Table, TestCase, Criterion, SectionKind } from './spec.ts'
 
 /** A pointer to one item in one section. The unit of cross-referencing. */
 export interface Ref { kind: SectionKind; id: string }
 
+/**
+ * Every record below has a null prototype, so user IDs such as `toString` or `hasOwnProperty` never hit
+ * `Object.prototype` members. Build new ones with `table()`, never `{}`.
+ */
 export interface SpecIndex {
   step: Record<string, JourneyStep>
+  /** 1-based position of each journey step, in document order. */
+  stepOrder: ReadonlyMap<string, number>
   mockup: Record<string, Mockup>
   node: Record<string, FlowNode>
   edge: Record<string, FlowEdge>
@@ -39,8 +45,12 @@ export interface SpecIndex {
   unprovenCriteria: string[]
 }
 
-const byId = <T extends { id: string }>(xs: T[] | undefined) => Object.fromEntries((xs ?? []).map(x => [x.id, x])) as Record<string, T>
-const push = (m: Record<string, string[]>, k: string, v: string) => { (m[k] ??= []); if (!m[k].includes(v)) m[k].push(v) }
+const table = <T>(): Record<string, T> => Object.create(null) as Record<string, T>
+const byId = <T extends { id: string }>(xs: T[] | undefined) => { const m = table<T>(); for (const x of xs ?? []) m[x.id] = x; return m }
+const push = (m: Record<string, string[]>, k: string, v: string) => {
+  const list = Object.hasOwn(m, k) ? m[k] : (m[k] = [])
+  if (!list.includes(v)) list.push(v)
+}
 
 export function buildIndex(spec: FeatureSpec): SpecIndex {
   const steps = spec.journey?.steps ?? []
@@ -52,16 +62,19 @@ export function buildIndex(spec: FeatureSpec): SpecIndex {
   const criteria = spec.purpose?.success ?? []
 
   const ix: SpecIndex = {
-    step: byId(steps), mockup: byId(spec.design?.mockups), node: byId(nodes), edge: byId(edges),
+    step: byId(steps), stepOrder: new Map(steps.map((s, i) => [s.id, i + 1])),
+    mockup: byId(spec.design?.mockups), node: byId(nodes), edge: byId(edges),
     contract: byId(contracts), table: byId(tables), test: byId(tests), criterion: byId(criteria),
-    stepContracts: {}, stepTables: {}, stepTests: {}, mockupSteps: {}, nodeSteps: {}, nodeContracts: {},
-    contractEdge: {}, contractSteps: {}, contractTests: {}, tableNode: {}, tableSteps: {}, tableTests: {},
-    testSpans: {}, testCriteria: {}, testNodes: {}, testEdges: {},
+    stepContracts: table(), stepTables: table(), stepTests: table(), mockupSteps: table(), nodeSteps: table(), nodeContracts: table(),
+    contractEdge: table(), contractSteps: table(), contractTests: table(), tableNode: table(), tableSteps: table(), tableTests: table(),
+    testSpans: table(), testCriteria: table(), testNodes: table(), testEdges: table(),
     untestedSteps: [], untestedContracts: [], unprovenCriteria: [],
   }
 
   // Flow → api/storage
-  for (const e of edges) for (const c of e.contracts ?? []) { ix.contractEdge[c] = e.id; push(ix.nodeContracts, e.from, c); push(ix.nodeContracts, e.to, c) }
+  for (const e of edges) for (const c of e.contracts ?? []) {
+    ix.contractEdge[c] = e.id; push(ix.nodeContracts, e.from, c); push(ix.nodeContracts, e.to, c)
+  }
   for (const n of nodes) for (const t of n.tables ?? []) ix.tableNode[t] = n.id
 
   // Journey → design/flow, then transitively → api/storage
@@ -70,9 +83,13 @@ export function buildIndex(spec: FeatureSpec): SpecIndex {
     const path = s.flow ?? []
     for (const nid of path) {
       push(ix.nodeSteps, nid, s.id)
-      for (const t of ix.node[nid]?.tables ?? []) if (ix.table[t]?.change !== 'removed') { push(ix.stepTables, s.id, t); push(ix.tableSteps, t, s.id) }
+      for (const t of ix.node[nid]?.tables ?? []) {
+        if (ix.table[t]?.change !== 'removed') { push(ix.stepTables, s.id, t); push(ix.tableSteps, t, s.id) }
+      }
     }
-    const crossed = s.contracts ?? edges.filter(e => path.includes(e.from) && path.includes(e.to) && (!s.flowEdges || s.flowEdges.includes(e.id))).flatMap(e => e.contracts ?? [])
+    const crossed = s.contracts ?? edges
+      .filter(e => path.includes(e.from) && path.includes(e.to) && (!s.flowEdges || s.flowEdges.includes(e.id)))
+      .flatMap(e => e.contracts ?? [])
     for (const c of crossed) { push(ix.stepContracts, s.id, c); push(ix.contractSteps, c, s.id) }
   }
 
@@ -88,7 +105,8 @@ export function buildIndex(spec: FeatureSpec): SpecIndex {
     for (const cid of t.contracts ?? []) {
       push(ix.contractTests, cid, t.id)
       const c = ix.contract[cid]; if (c) { spans.add(c.from); spans.add(c.to) }
-      const eid = ix.contractEdge[cid]; if (eid) { te.add(eid); tn.add(ix.edge[eid].from); tn.add(ix.edge[eid].to) }
+      const eid = ix.contractEdge[cid]; const edge = eid ? ix.edge[eid] : undefined
+      if (eid && edge) { te.add(eid); tn.add(edge.from); tn.add(edge.to) }
     }
     for (const tid of t.tables ?? []) {
       push(ix.tableTests, tid, t.id)
@@ -112,7 +130,7 @@ export function buildIndex(spec: FeatureSpec): SpecIndex {
 /** Human label for a ref, used by chips and tooltips. */
 export function refLabel(ix: SpecIndex, r: Ref): { title: string; sub?: string } | undefined {
   switch (r.kind) {
-    case 'journey': { const s = ix.step[r.id]; const n = Object.keys(ix.step).indexOf(r.id) + 1; return s && { title: `Step ${n}`, sub: `${s.actor}: ${s.action}` } }
+    case 'journey': { const s = ix.step[r.id]; return s && { title: `Step ${ix.stepOrder.get(r.id)}`, sub: `${s.actor}: ${s.action}` } }
     case 'design': { const m = ix.mockup[r.id]; return m && { title: m.title, sub: m.kind } }
     case 'flow': { const n = ix.node[r.id]; return n && { title: n.label, sub: n.kind } }
     case 'api': { const c = ix.contract[r.id]; return c && { title: c.method ? `${c.method} ${c.path}` : c.path, sub: c.name } }

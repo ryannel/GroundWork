@@ -4,8 +4,12 @@ import { catalogIndex } from './catalog.ts'
 import { parsePlan } from './format.ts'
 import { digest } from './git.ts'
 import { readPlan } from './repository.ts'
+import type { ScanMetadata } from './scan-workspace.ts'
 
-export function manifestChange(plan: Awaited<ReturnType<typeof readPlan>>, changes: Record<string, string>, input: Omit<z.infer<typeof scanManifestSchema>, 'mappings' | 'note'>) {
+type Plan = Awaited<ReturnType<typeof readPlan>>
+export type ManifestScope = z.infer<typeof scanManifestSchema>['scope'][number]
+
+export function manifestChange(plan: Plan, changes: Record<string, string>, input: Omit<z.infer<typeof scanManifestSchema>, 'mappings' | 'note'>) {
   const candidate = { ...plan, ...parsePlan({ ...plan.files, ...changes }) }
   const components = new Set(input.scope.map(scope => scope.componentId))
   const mappings: z.infer<typeof scanManifestSchema>['mappings'] = []
@@ -23,6 +27,28 @@ export function manifestChange(plan: Awaited<ReturnType<typeof readPlan>>, chang
   if (Buffer.byteLength(raw) > 2 * 1024 * 1024) throw new Error('Scan manifest exceeds 2 MiB; prepare a smaller investigation')
   const manifestId = digest(raw)
   return { manifestId, file: `scan-manifests/${manifestId}.json`, raw }
+}
+
+/** The immutable provenance record for applying `metadata` to the catalog with `changes`. */
+export function scanManifest(plan: Plan, changes: Record<string, string>, metadata: ScanMetadata, mode: 'baseline' | 'investigation', scope: ManifestScope[]) {
+  return manifestChange(plan, changes, {
+    version: 1,
+    scannerVersion: metadata.scannerVersion,
+    scanId: metadata.id,
+    repository: metadata.repository,
+    sourceRevision: metadata.revision,
+    requestedRef: metadata.requestedRef,
+    preparedAt: metadata.createdAt,
+    appliedAt: new Date().toISOString(),
+    catalogRevisionBefore: plan.revision,
+    mode,
+    scope,
+    exclusions: metadata.excluded,
+    budgets: metadata.budgets,
+    files: metadata.files,
+    dependencyFingerprints: metadata.dependencyFingerprints,
+    omittedDependencyFingerprints: metadata.omittedDependencyFingerprints,
+  })
 }
 
 export const readScanManifestSchema = z.strictObject({

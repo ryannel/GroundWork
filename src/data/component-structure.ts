@@ -1,10 +1,11 @@
 import type { Component, Feature } from './model.ts'
 
+export type ComponentKind = NonNullable<Component['kind']>
 export const componentKinds = {
   service: 'Service', module: 'Module', database: 'Database', 'object-storage': 'Object storage',
   'local-storage': 'Local storage', queue: 'Queue', cache: 'Cache', 'external-service': 'External provider',
-}
-export const componentKind = (c: Component) => c.kind ?? 'module'
+} satisfies Record<ComponentKind, string>
+export const componentKind = (c: Component): ComponentKind => c.kind ?? 'module'
 export const componentKindLabel = (c: Component) => componentKinds[componentKind(c)]
 export const infrastructureKinds = ['database', 'object-storage', 'local-storage', 'queue', 'cache'] as const
 export const isInfrastructureComponent = (component: Component) => infrastructureKinds.includes(componentKind(component) as typeof infrastructureKinds[number])
@@ -13,27 +14,33 @@ export const componentGroup = (c: Component) => componentKind(c) === 'external-s
 
 /** Containment only. Depending on a resource never makes it part of the service. */
 export function componentScopeIds(id: string, components: Component[]): Set<string> {
+  const children = childrenByParent(components)
   const ids = new Set([id])
-  let size = 0
-  while (size !== ids.size) {
-    size = ids.size
-    for (const c of components) if (c.parentId && ids.has(c.parentId)) ids.add(c.id)
-  }
+  for (const current of ids) for (const child of children.get(current) ?? []) ids.add(child.id)
   return ids
 }
-export function componentAncestors(id: string, components: Component[]): Component[] {
+function childrenByParent(components: Component[]) {
+  const children = new Map<string, Component[]>()
+  for (const c of components) if (c.parentId) children.set(c.parentId, [...(children.get(c.parentId) ?? []), c])
+  return children
+}
+function ancestorsIn(byId: ReadonlyMap<string, Component>, id: string): Component[] {
   const path: Component[] = [], seen = new Set<string>()
-  let c = components.find(c => c.id === id)
-  while (c && !seen.has(c.id)) {
-    seen.add(c.id); path.unshift(c)
-    c = components.find(p => p.id === c?.parentId)
-  }
+  for (let c = byId.get(id); c && !seen.has(c.id); c = c.parentId ? byId.get(c.parentId) : undefined) { seen.add(c.id); path.unshift(c) }
   return path
+}
+export function componentAncestors(id: string, components: Component[]): Component[] {
+  return ancestorsIn(new Map(components.map(c => [c.id, c])), id)
 }
 export const componentPath = (id: string, components: Component[]) => componentAncestors(id, components).map(c => c.name).join(' / ')
 /** Project implementation details onto their top-level owners for a product overview. */
 export function systemGraph(components: Component[], allComponents: Component[] = components) {
-  const root = (id: string) => componentAncestors(id, allComponents)[0]
+  const byId = new Map(allComponents.map(c => [c.id, c]))
+  const roots = new Map<string, Component | undefined>()
+  const root = (id: string) => {
+    if (!roots.has(id)) roots.set(id, ancestorsIn(byId, id)[0])
+    return roots.get(id)
+  }
   const nodes = new Map<string, Component>()
   const edges = new Map<string, { from: string; to: string }>()
   for (const c of components) {
@@ -154,7 +161,8 @@ export function featureComponents(feature: Pick<Feature, 'touches' | 'spec'>, co
     ...(feature.spec?.api?.contracts.flatMap(c => [c.from, c.to]) ?? []),
     ...(feature.spec?.storage?.tables.map(t => t.component) ?? []),
   ])
-  for (const id of [...ids]) for (const parent of componentAncestors(id, components)) ids.add(parent.id)
+  const byId = new Map(components.map(c => [c.id, c]))
+  for (const id of [...ids]) for (const parent of ancestorsIn(byId, id)) ids.add(parent.id)
   return components.filter(c => ids.has(c.id))
 }
 export function changesOverlap(a: Pick<Feature, 'touches'>, b: Pick<Feature, 'touches'>, components: Component[]) {
@@ -162,11 +170,13 @@ export function changesOverlap(a: Pick<Feature, 'touches'>, b: Pick<Feature, 'to
 }
 export function componentTree(components: Component[]): { component: Component; depth: number }[] {
   const rows: { component: Component; depth: number }[] = [], seen = new Set<string>()
+  const children = childrenByParent(components)
+  const ids = new Set(components.map(c => c.id))
   const visit = (c: Component, depth: number) => {
     if (seen.has(c.id)) return
     seen.add(c.id); rows.push({ component: c, depth })
-    components.filter(child => child.parentId === c.id).forEach(child => visit(child, depth + 1))
+    for (const child of children.get(c.id) ?? []) visit(child, depth + 1)
   }
-  components.filter(c => !c.parentId || !components.some(p => p.id === c.parentId)).forEach(c => visit(c, 0))
+  components.filter(c => !c.parentId || !ids.has(c.parentId)).forEach(c => visit(c, 0))
   return rows
 }

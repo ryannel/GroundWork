@@ -1,8 +1,7 @@
 import { z } from 'zod'
+import { httpMethodSchema, id, isoTimestamp, observationKindSchema, sha1, text } from './schema-primitives.ts'
 
 // This is the source of truth for runtime validation, TypeScript types and JSON Schema.
-const text = z.string().min(1).regex(/\S/, 'Text cannot be blank')
-const id = text.regex(/^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$/, 'Use a URL-safe stable ID')
 const slug = text.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
 const ids = z.array(id)
 const order = z.number().int().nonnegative().optional()
@@ -34,7 +33,7 @@ export const schemaFieldSchema = z.strictObject({
 export const responseSchema = z.strictObject({ before: z.array(schemaFieldSchema).optional(), after: z.array(schemaFieldSchema).optional() })
 export const apiContractSchema = z.strictObject({
   id, name: text, change: changeSchema, changes: strings.optional(), from: id, to: id,
-  method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']).optional(), path: text,
+  method: httpMethodSchema.optional(), path: text,
   request: text.optional(), response: text.optional(), responseSchema: responseSchema.optional(), note: text.optional(),
 })
 export const apiGuideSchema = z.strictObject({
@@ -52,14 +51,14 @@ export const featureSpecSchema = z.strictObject({
   purpose: purposeSchema.optional(), journey: journeySchema.optional(), design: designSchema.optional(), flow: flowSchema.optional(),
   api: apiSchema.optional(), storage: storageSchema.optional(), tests: testsSchema.optional(),
 })
-export const workspaceSchema = z.strictObject({ id, slug, order, name: text, description: text.optional(), hue: text, createdAt: z.iso.datetime({ offset: true }) })
+export const workspaceSchema = z.strictObject({ id, slug, order, name: text, description: text.optional(), hue: text, createdAt: isoTimestamp })
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
 export const componentEvidenceSchema = z.strictObject({
   path: text, lines: text, claim: text, revision: text, repository: text.optional(),
 })
 export const componentApiEndpointSchema = z.strictObject({
-  id, name: text, method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']), path: text,
+  id, name: text, method: httpMethodSchema, path: text,
   version: text.optional(), summary: text.optional(), request: text.optional(), response: text.optional(), source: text.optional(),
   evidence: z.array(componentEvidenceSchema).optional(),
 })
@@ -75,7 +74,7 @@ export const componentApiSchema = z.strictObject({
   name: text, version: text.optional(), versions: z.array(z.strictObject({ id: text, label: text })).optional(), sourceRevision: text.optional(),
   specification: z.strictObject({
     url: z.url(), title: text, availability: z.enum(['available', 'unavailable', 'unknown']),
-    kind: text.optional(), source: text.optional(), lastCheckedAt: z.iso.datetime({ offset: true }).optional(), lastStatus: z.number().int().nonnegative().optional(),
+    kind: text.optional(), source: text.optional(), lastCheckedAt: isoTimestamp.optional(), lastStatus: z.number().int().nonnegative().optional(),
   }).optional(),
   endpoints: z.array(componentApiEndpointSchema), schemas: z.array(componentApiTypeSchema).optional(),
 })
@@ -99,7 +98,7 @@ export const componentMessagingSchema = z.strictObject({
 export const componentScanAreaSchema = z.enum(['not-scanned', 'partial', 'complete'])
 export const componentScanSchema = z.strictObject({
   status: z.enum(['not-scanned', 'scanning', 'partial', 'complete', 'failed']), sourceFingerprint: text.optional(),
-  scannedAt: z.iso.datetime({ offset: true }).optional(), revision: text.optional(), error: text.optional(),
+  scannedAt: isoTimestamp.optional(), revision: text.optional(), error: text.optional(),
   coverage: z.strictObject({
     dependencies: componentScanAreaSchema.optional(), api: componentScanAreaSchema.optional(),
     data: componentScanAreaSchema.optional(), messaging: componentScanAreaSchema.optional(),
@@ -108,11 +107,11 @@ export const componentScanSchema = z.strictObject({
 export const componentGapSchema = z.strictObject({ area: text, reason: text })
 const executionEvidenceSchema = componentEvidenceSchema.extend({
   lines: z.string().regex(/^[1-9]\d*(?:-[1-9]\d*)?$/),
-  revision: z.string().regex(/^[a-f0-9]{40}$/),
+  revision: sha1,
 })
 export const executionFlowSchema = z.strictObject({
   id, endpointId: id.optional(), trigger: z.discriminatedUnion('kind', [z.strictObject({ kind: z.literal('message'), messageId: id }), z.strictObject({ kind: z.literal('job'), jobId: id })]).optional(), name: text, summary: text,
-  sourceRevision: z.string().regex(/^[a-f0-9]{40}$/),
+  sourceRevision: sha1,
   entryStepId: id,
   steps: z.array(z.strictObject({
     id, title: text,
@@ -134,19 +133,25 @@ export const componentUnresolvedDependencySchema = z.strictObject({
 })
 export const catalogFindingSchema = z.strictObject({
   id, name: text.max(200), question: text.max(2000), answer: text.max(8000),
-  subjects: z.array(z.strictObject({ kind: z.enum(['component', 'endpoint', 'data', 'message', 'flow', 'schema', 'job']), id: text })).min(1).max(10),
+  subjects: z.array(z.strictObject({ kind: z.enum(['component', ...observationKindSchema.options]), id: text })).min(1).max(10),
   boundary: text.max(4000), assumptions: strings.max(20),
-  repository: text, sourceRevision: z.string().regex(/^[a-f0-9]{40}$/),
+  repository: text, sourceRevision: sha1,
   evidence: z.array(executionEvidenceSchema).min(1).max(40),
 })
-export const retiredObservationSchema = z.strictObject({ kind: z.enum(['endpoint', 'schema', 'data', 'message', 'job', 'flow']), id, retiredAt: z.iso.datetime(), sourceRevision: z.string().regex(/^[a-f0-9]{40}$/), reason: text, evidence: z.array(executionEvidenceSchema).min(1), observation: z.record(z.string(), z.unknown()) })
+export const retiredObservationSchema = z.strictObject({
+  kind: observationKindSchema, id, retiredAt: isoTimestamp, sourceRevision: sha1, reason: text,
+  evidence: z.array(executionEvidenceSchema).min(1), observation: z.record(z.string(), z.unknown()),
+})
 export const componentJobSchema = z.strictObject({ id, name: text, description: text, schedule: text.optional(), source: text.optional(), evidence: z.array(componentEvidenceSchema).min(1) })
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
   role: z.enum(['business-service', 'platform-service', 'external-provider']).optional(),
   api: componentApiSchema.optional(), data: componentDataSchema.optional(), messaging: componentMessagingSchema.optional(),
-  catalogChanges: z.array(z.strictObject({ kind: z.enum(['endpoint', 'schema', 'data', 'message', 'job', 'flow']), id, nameBefore: text, nameAfter: text, pathBefore: text.optional(), pathAfter: text.optional(), sourceRevision: z.string().regex(/^[a-f0-9]{40}$/), evidence: z.array(executionEvidenceSchema).min(1) })).optional(),
+  catalogChanges: z.array(z.strictObject({
+    kind: observationKindSchema, id, nameBefore: text, nameAfter: text, pathBefore: text.optional(), pathAfter: text.optional(),
+    sourceRevision: sha1, evidence: z.array(executionEvidenceSchema).min(1),
+  })).optional(),
   retiredObservations: z.array(retiredObservationSchema).optional(),
   jobs: z.array(componentJobSchema).optional(),
   executionFlows: z.array(executionFlowSchema).optional(),
@@ -156,7 +161,9 @@ export const componentSchema = z.strictObject({
   scan: componentScanSchema.optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })
-export const featureSchema = z.strictObject({ id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: z.iso.datetime({ offset: true }) })
+export const featureSchema = z.strictObject({
+  id, productId: id, title: text, summary: text.optional(), stage: featureStageSchema, touches: ids, ownerId: id, updatedAt: isoTimestamp,
+})
 export const projectSchema = z.strictObject({ schemaVersion: z.literal(1), viewerId: id.optional() })
 export const documentSchemas = { project: projectSchema, workspace: workspaceSchema, product: productSchema, component: componentSchema, member: memberSchema, feature: featureSchema, ...sectionSchemas }
 export type FeatureRecord = z.infer<typeof featureSchema>

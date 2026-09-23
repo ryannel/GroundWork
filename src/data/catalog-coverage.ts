@@ -1,8 +1,10 @@
+import type { z } from 'zod'
+import type { componentScanAreaSchema } from './content-schema.ts'
 import type { Component } from './model.ts'
 
 export type ScanStatus = NonNullable<Component['scan']>['status'] | 'unknown'
-export type CoverageArea = 'dependencies' | 'api' | 'data' | 'messaging'
-export type CoverageState = 'not-scanned' | 'partial' | 'complete'
+export type CoverageArea = keyof NonNullable<NonNullable<Component['scan']>['coverage']>
+export type CoverageState = z.infer<typeof componentScanAreaSchema>
 
 const areaHasEvidence = (component: Component, area: CoverageArea) => {
   if (area === 'dependencies') return component.dependsOn !== undefined
@@ -21,14 +23,15 @@ export function componentCoverage(component: Component) {
   return { status, area }
 }
 
-export const scanStatusLabel = (status: ScanStatus) => ({
+const scanStatusLabels = {
   unknown: 'Coverage unknown',
   'not-scanned': 'Not scanned',
   scanning: 'Scan in progress',
   partial: 'Partially scanned',
   complete: 'Catalog discovery complete',
   failed: 'Scan failed',
-})[status]
+} satisfies Record<ScanStatus, string>
+export const scanStatusLabel = (status: ScanStatus) => scanStatusLabels[status]
 
 export function productCoverage(components: Component[]) {
   const statuses = components.map(component => componentCoverage(component).status)

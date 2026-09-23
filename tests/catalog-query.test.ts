@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile, mkdtemp, rm } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import { queryCatalog, detailParts } from '../server/catalog.ts'
+import { queryCatalog, detailParts, normaliseTerm, searchWords } from '../server/catalog.ts'
 import { catalogId, parseCatalogId } from '../src/data/catalog-identity.ts'
 import { initialise } from '../server/setup.ts'
 import { readPlan, writePlan } from '../server/repository.ts'
@@ -43,7 +43,8 @@ test('evaluation: exact, paraphrase, traced path, consumer, ambiguity and missin
   const untraced = queryCatalog(plan, 'search_catalog', { query: 'MSRP', kinds: ['endpoint'] }).items as any[]
   assert.equal(untraced[0].investigation, 'Not investigated')
   assert.ok(untraced[0].pointers.some((p: any) => p.path.endsWith('PricesController.cs')))
-  assert.ok(untraced[0].relations.some((r: any) => r.reason === 'request contract'))
+  assert.ok(untraced[0].relations.some((r: any) => r.reason === 'request contract' && r.kind === 'contract' && !r.reverse))
+  assert.ok(!untraced[0].relations.some((r: any) => r.reason.startsWith('Referenced by schema')), 'a reverse link is never reversed again')
   const unknown = queryCatalog(plan, 'search_catalog', { query: 'quantum payroll' })
   assert.equal(unknown.total, 0)
   assert.match(unknown.uncertainty, /do not prove absence/)
@@ -104,4 +105,30 @@ test('uncommitted observation A remains readable after B replaces/removes it; im
   assert.equal(baseline.reassessmentRequired, true)
   plan = await readPlan(root)
   await assert.rejects(writePlan(root, { expectedRevision: plan.revision, expectedContext: plan.context.token, changes: { [saved.file]: null } }), /immutable/)
+})
+
+test('search normaliser splits identifiers and meets singular and plural forms', () => {
+  const cases: [string, string][] = [
+    ['apis', 'api'], ['jobs', 'job'], ['ids', 'id'], ['statuses', 'status'], ['status', 'status'], ['queries', 'query'],
+    ['addresses', 'address'], ['address', 'address'], ['boxes', 'box'], ['buses', 'bus'], ['responses', 'response'],
+    ['causes', 'cause'], ['analysis', 'analysis'], ['consumers', 'consume'], ['publishing', 'publish'],
+  ]
+  for (const [word, expected] of cases) assert.equal(normaliseTerm(word), expected, word)
+  assert.deepEqual(searchWords('HTTPServer getHTTPResponse v5Prices'), ['http', 'server', 'get', 'http', 'response', 'v5', 'prices'])
+})
+
+test('plural queries match singular catalog text and reasons quote the query word', async t => {
+  const { plan } = await fixture(t)
+  const singular = queryCatalog(plan, 'search_catalog', { query: 'price', limit: 50 })
+  const plural = queryCatalog(plan, 'search_catalog', { query: 'prices', limit: 50 })
+  assert.equal(plural.total, singular.total)
+  assert.ok((plural.items as any[]).every(item => item.matchReasons.includes('Text match: prices')))
+})
+
+test('a cursor survives a larger byte or item limit', async t => {
+  const { plan } = await fixture(t)
+  const first = queryCatalog(plan, 'search_catalog', { query: '', limit: 2 })
+  const next = queryCatalog(plan, 'search_catalog', { query: '', limit: 5, maxBytes: 65536, cursor: first.nextCursor! })
+  assert.equal(next.offset, 2)
+  assert.equal(next.items.length, 5)
 })

@@ -1,162 +1,237 @@
+import { z } from 'zod'
 import { migrateCatalog, migrateCatalogSchema } from './catalog-migration.ts'
 import { readScanManifest, readScanManifestSchema } from './scan-manifests.ts'
 import { checkCatalogFreshness, checkCatalogFreshnessSchema } from './catalog-freshness.ts'
-import { assessFeatureDiscovery, assessFeatureDiscoverySchema, retainDiscoveryBaseline, retainDiscoveryBaselineSchema, getDiscoveryBaseline, getDiscoveryBaselineSchema } from './knowledge.ts'
+import {
+  assessFeatureDiscovery, assessFeatureDiscoverySchema, retainDiscoveryBaseline, retainDiscoveryBaselineSchema,
+  getDiscoveryBaseline, getDiscoveryBaselineSchema,
+} from './knowledge.ts'
 import { queryCatalog, searchCatalogSchema, getCatalogEntitySchema, discoveryContextSchema } from './catalog.ts'
-import { z } from 'zod'
-import path from 'node:path'
-import { featureSchema, featureStageSchema } from '../src/data/content-schema.ts'
-import { readPlan, writePlan, type WriteRequest } from './repository.ts'
+import { readPlan, writePlan } from './repository.ts'
 import { selectRoot, inventory } from './registry.ts'
 import { activity, context, git } from './git.ts'
-import { deliverySchema, renderBrief } from './format.ts'
+import { InvalidInput } from './errors.ts'
 import {
-  reconcileCatalog,
-  reconcileCatalogSchema,
-  applyRepositoryScan,
-  applyCatalogInvestigation,
-  applyCatalogInvestigationSchema,
-  applyRepositoryScanSchema,
-  discardRepositoryScan,
-  discardRepositoryScanSchema,
-  prepareRepositoryScan,
-  prepareRepositoryScanSchema,
+  assertCurrent, createFeature, createFeatureFields, planDelivery, planDeliveryFields, recordProgress, recordProgressFields, recordProgressRules,
+  linkBranch, linkBranchFields, createWorktreeFields, createWorktreeRules,
+} from './plan-mutations.ts'
+import {
+  reconcileCatalog, reconcileCatalogSchema, applyRepositoryScan, applyCatalogInvestigation, applyCatalogInvestigationSchema,
+  applyRepositoryScanSchema, discardRepositoryScan, discardRepositoryScanSchema, prepareRepositoryScan, prepareRepositoryScanSchema,
 } from './scanner.ts'
+
 const selection = { checkoutId: z.string().optional(), ref: z.string().optional() }
 const checkoutSelection = { checkoutId: z.string().optional() }
 const expected = { expectedRevision: z.string().min(1), expectedContext: z.string().min(1) }
-const stableId = z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/)
-export const operationSchemas = {
-  assess_feature_discovery: assessFeatureDiscoverySchema.extend(checkoutSelection),
-  reconcile_catalog: reconcileCatalogSchema.extend(checkoutSelection),
-  migrate_catalog: migrateCatalogSchema.extend(checkoutSelection),
-  read_scan_manifest: readScanManifestSchema.extend(selection),
-  projects: z.strictObject({}),
-  read_plan: z.strictObject(selection),
-  check_catalog_freshness: checkCatalogFreshnessSchema.extend(selection),
-  retain_discovery_baseline: retainDiscoveryBaselineSchema.extend(checkoutSelection),
-  get_discovery_baseline: getDiscoveryBaselineSchema.extend(selection),
-  search_catalog: searchCatalogSchema.extend(selection),
-  get_catalog_entity: getCatalogEntitySchema.extend(selection),
-  get_discovery_context: discoveryContextSchema.extend(selection),
-  write_plan: z.strictObject({ ...selection, ...expected, changes: z.record(z.string(), z.string().nullable()) }),
-  create_feature: z.strictObject({ ...selection, ...expected, id: stableId, title: z.string().min(1), productId: stableId, ownerId: stableId, problem: z.string().min(1), outcome: z.string().min(1) }),
-  plan_delivery: z.strictObject({ ...selection, ...expected, featureId: stableId, delivery: deliverySchema }),
-  record_progress: z.strictObject({ ...selection, ...expected, featureId: stableId, unitId: stableId.optional(), status: z.enum(['planned', 'in-progress', 'blocked', 'done']).optional(), stage: featureStageSchema.optional(), evidence: deliverySchema.shape.evidence.unwrap().element.optional() }),
-  link_branch: z.strictObject({ ...selection, ...expected, featureId: stableId, legacyTaskId: stableId.optional(), taskId: stableId.optional(), branch: z.string().min(1) }),
-  create_worktree: z.strictObject({ ...selection, ...expected, branch: z.string().min(1), path: z.string().min(1), startRef: z.string().min(1) }),
-  prepare_repository_scan: z.strictObject({ ...checkoutSelection, ...prepareRepositoryScanSchema.shape }),
-  apply_catalog_investigation: applyCatalogInvestigationSchema.extend(checkoutSelection),
-  apply_repository_scan: z.strictObject({ ...checkoutSelection, ...applyRepositoryScanSchema.shape }),
-  discard_repository_scan: discardRepositoryScanSchema,
-}
-export type OperationName = keyof typeof operationSchemas
-type ParsedOperation = { [Name in OperationName]: { name: Name; args: z.output<(typeof operationSchemas)[Name]> } }[OperationName]
 
-function parseOperation(name: OperationName, input: unknown): ParsedOperation {
-  return { name, args: operationSchemas[name].parse(input) } as ParsedOperation
+type Plan = Awaited<ReturnType<typeof readPlan>>
+type Selection = { checkoutId?: string; ref?: string }
+/** Checkout selection is split from the payload once, before dispatch; the root is resolved only when an operation asks. */
+type Target = { root: () => Promise<string>; ref?: string; standalone?: string }
+type Payload<S extends z.ZodType> = Omit<z.output<S>, keyof Selection>
+type OperationDef<S extends z.ZodType> = {
+  schema: S
+  description: string
+  /** MCP hints: clients use them to decide whether to ask before running a tool. */
+  readOnly: boolean
+  destructive: boolean
+  idempotent?: boolean
+  openWorld?: boolean
+  run: (args: Payload<S>, target: Target) => Promise<unknown>
+}
+const define = <S extends z.ZodType>(definition: OperationDef<S>) => definition
+const read = { readOnly: true, destructive: false } as const
+
+async function writableRoot(target: Target) {
+  if (target.ref) throw new InvalidInput('Committed ref views are read-only; select a working checkout to edit')
+  return target.root()
+}
+type Guard = { expectedRevision: string; expectedContext: string }
+/** Reads the working plan, rejects a stale guard, and writes the changes the pure mutation returns. */
+function mutation<A extends Guard>(change: (plan: Plan, args: A, root: string) => Record<string, string> | Promise<Record<string, string>>) {
+  return async (args: A, target: Target) => {
+    const root = await writableRoot(target)
+    const plan = await readPlan(root)
+    assertCurrent(plan, args)
+    return writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: await change(plan, args, root) })
+  }
 }
 
-export const descriptions: Record<OperationName, string> = {
-  assess_feature_discovery: 'Retain an explicit reassessment of a feature baseline against current catalog facts and optional local source targets. Source checks use the retained observations, even after catalog edits; no automatic readiness claim.',
-  reconcile_catalog: 'Apply explicitly evidenced retirements or stable-ID renames from a pinned scan. Retirement preserves original observations and retires dependent active flows atomically; omission never retires an entity.',
-  migrate_catalog: 'Validate and dry-run the catalog storage migration (default). Apply with dryRun false and the returned revision/context. Preserves logical IDs and facts; historical layouts remain readable.',
-  read_scan_manifest: 'List retained scan manifests or page a manifest inventory/citation mapping. Immutable provenance, not verification of current behavior. Use expectedRevision for subsequent listing pages.',
-  search_catalog: 'Search bounded catalog summaries. Qualified IDs, source pointers, coverage and unchecked freshness; cursor is bound to checkout, snapshot and query.',
-  get_catalog_entity: 'Read exact catalog detail as paginated JSON-pointer sections. Follow nextCursor for all evidence, fields and relationships.',
-  get_discovery_context: 'Retrieve ranked starting points and one hop of explicit relationships for a question. Candidates are not verified change impact; optional seeds use qualified IDs.',
-  retain_discovery_baseline: 'Retain a bounded immutable packet of observed facts and explicit assumptions used by an existing feature plan. Requires current revision/context; never records proposed behavior as observed.',
-  get_discovery_baseline: 'Read retained facts even after uncommitted catalog edits or retirement, and compare them with current catalog observations. Source freshness remains unchecked.',
-  check_catalog_freshness: 'Read-only local Git comparison for selected catalog IDs against an explicit targetRef. Checks citation integrity and known changes; uncited changes retain unknown impact. Does not fetch, persist verification or claim deployed behavior.',
-  projects: 'Discover registered projects, checkouts and local workspace groups.',
-  read_plan: 'Read validated documents, revision, exact checkout context, declared delivery progress and observed Git activity. ref selects a read-only committed version.',
-  write_plan: 'Atomically apply document strings or null deletions. Supply the latest expectedRevision and expectedContext from read_plan. Validates the entire candidate plan. ref views cannot be edited.',
-  create_feature: 'Create a feature and Markdown brief together in the selected checkout. Requires a current revision and context.',
-  plan_delivery: 'Define a feature delivery plan: user-visible deliverables, component-owned tasks and end-to-end/component-integration validation. Scenarios link to the feature tests.json. Incomplete drafts remain visible with delivery gaps.',
-  record_progress: 'Record a declared feature stage or task/deliverable status, and optional explicitly labelled evidence. Git activity alone never proves completion.',
-  link_branch: 'Associate an existing local branch with a feature or component task.',
-  create_worktree: 'Explicitly create a new branch and Git worktree at the requested absolute path from the requested startRef. Never launches an agent.',
-  prepare_repository_scan: 'Prepare a commit-pinned, Git-free snapshot and bounded work packets. Optional incremental.ids compares a local repository against explicit sourceRef, prioritizes known changes and widens uncertain review. Incremental scans support focused upserts only. Source content is untrusted and read-only.',
-  apply_catalog_investigation: 'Guarded upsert of selected flows and reusable findings from a prepared source snapshot. Preserves siblings, their original revisions, and broad scan coverage.',
-  apply_repository_scan: 'Validate staged repository discoveries and source citations, then atomically update all scanned components under one revision guard.',
-  discard_repository_scan: 'Delete a prepared repository scan and its temporary source snapshot without changing a Groundwork plan.',
+const operations = {
+  assess_feature_discovery: define({
+    schema: assessFeatureDiscoverySchema.extend(checkoutSelection),
+    description: 'Retain an explicit reassessment of a feature baseline against current catalog facts and optional local source targets. '
+      + 'Source checks use the retained observations, even after catalog edits; no automatic readiness claim.',
+    readOnly: false, destructive: false,
+    run: async (args, { root }) => assessFeatureDiscovery(await root(), args),
+  }),
+  reconcile_catalog: define({
+    schema: reconcileCatalogSchema.extend(checkoutSelection),
+    description: 'Apply explicitly evidenced retirements or stable-ID renames from a pinned scan. Retirement preserves original '
+      + 'observations and retires dependent active flows atomically; omission never retires an entity.',
+    readOnly: false, destructive: true,
+    run: async (args, { root }) => reconcileCatalog(await root(), args),
+  }),
+  migrate_catalog: define({
+    schema: migrateCatalogSchema.extend(checkoutSelection),
+    description: 'Validate and dry-run the catalog storage migration (default). Apply with dryRun false and the returned revision/context. '
+      + 'Preserves logical IDs and facts; historical layouts remain readable.',
+    readOnly: false, destructive: true,
+    run: async (args, { root }) => migrateCatalog(await root(), args),
+  }),
+  read_scan_manifest: define({
+    schema: readScanManifestSchema.extend(selection),
+    description: 'List retained scan manifests or page a manifest inventory/citation mapping. Immutable provenance, not verification of '
+      + 'current behavior. Use expectedRevision for subsequent listing pages.',
+    ...read,
+    run: async (args, { root, ref }) => readScanManifest(await root(), args, ref),
+  }),
+  projects: define({
+    schema: z.strictObject({}),
+    description: 'Discover registered projects, checkouts and local workspace groups.',
+    ...read,
+    run: async (_args, { standalone }) => inventory(standalone),
+  }),
+  read_plan: define({
+    schema: z.strictObject(selection),
+    description: 'Read validated documents, revision, exact checkout context, declared delivery progress and observed Git activity. ref '
+      + 'selects a read-only committed version.',
+    ...read,
+    run: async (_args, { root, ref }) => { const selected = await root(); return { ...await readPlan(selected, ref), activity: await activity(selected) } },
+  }),
+  check_catalog_freshness: define({
+    schema: checkCatalogFreshnessSchema.extend(selection),
+    description: 'Read-only local Git comparison for selected catalog IDs against an explicit targetRef. Checks citation integrity and '
+      + 'known changes; uncited changes retain unknown impact. Does not fetch, persist verification or claim deployed behavior.',
+    ...read,
+    run: async (args, { root, ref }) => checkCatalogFreshness(await root(), args, ref),
+  }),
+  retain_discovery_baseline: define({
+    schema: retainDiscoveryBaselineSchema.extend(checkoutSelection),
+    description: 'Retain a bounded immutable packet of observed facts and explicit assumptions used by an existing feature plan. Requires '
+      + 'current revision/context; never records proposed behavior as observed.',
+    readOnly: false, destructive: false,
+    run: async (args, { root }) => retainDiscoveryBaseline(await root(), args),
+  }),
+  get_discovery_baseline: define({
+    schema: getDiscoveryBaselineSchema.extend(selection),
+    description: 'Read retained facts even after uncommitted catalog edits or retirement, and compare them with current catalog '
+      + 'observations. Source freshness remains unchecked.',
+    ...read,
+    run: async (args, { root, ref }) => getDiscoveryBaseline(await root(), args, ref),
+  }),
+  search_catalog: define({
+    schema: searchCatalogSchema.extend(selection),
+    description: 'Search bounded catalog summaries. Qualified IDs, source pointers, coverage and unchecked freshness; cursor is bound to '
+      + 'checkout, snapshot and query.',
+    ...read,
+    run: async (args, { root, ref }) => queryCatalog(await readPlan(await root(), ref), 'search_catalog', args),
+  }),
+  get_catalog_entity: define({
+    schema: getCatalogEntitySchema.extend(selection),
+    description: 'Read exact catalog detail as paginated JSON-pointer sections. Follow nextCursor for all evidence, fields and relationships.',
+    ...read,
+    run: async (args, { root, ref }) => queryCatalog(await readPlan(await root(), ref), 'get_catalog_entity', args),
+  }),
+  get_discovery_context: define({
+    schema: discoveryContextSchema.extend(selection),
+    description: 'Retrieve ranked starting points and one hop of explicit relationships for a question. Candidates are not verified change '
+      + 'impact; optional seeds use qualified IDs.',
+    ...read,
+    run: async (args, { root, ref }) => queryCatalog(await readPlan(await root(), ref), 'get_discovery_context', args),
+  }),
+  write_plan: define({
+    schema: z.strictObject({ ...selection, ...expected, changes: z.record(z.string(), z.string().nullable()) }),
+    description: 'Atomically apply document strings or null deletions. Supply the latest expectedRevision and expectedContext from '
+      + 'read_plan. Validates the entire candidate plan. ref views cannot be edited.',
+    readOnly: false, destructive: true,
+    run: async (args, target) => writePlan(await writableRoot(target), args),
+  }),
+  create_feature: define({
+    schema: z.strictObject({ ...selection, ...expected, ...createFeatureFields }),
+    description: 'Create a feature and Markdown brief together in the selected checkout. Requires a current revision and context.',
+    readOnly: false, destructive: false,
+    run: mutation((plan, args) => createFeature(plan, args)),
+  }),
+  plan_delivery: define({
+    schema: z.strictObject({ ...selection, ...expected, ...planDeliveryFields }),
+    description: 'Define a feature delivery plan: user-visible deliverables, component-owned tasks and end-to-end/component-integration '
+      + 'validation. Scenarios link to the feature tests.json. Incomplete drafts remain visible with delivery gaps.',
+    readOnly: false, destructive: true,
+    run: mutation((plan, args) => planDelivery(plan, args)),
+  }),
+  record_progress: define({
+    schema: z.strictObject({ ...selection, ...expected, ...recordProgressFields }).superRefine(recordProgressRules),
+    description: 'Record a declared feature stage or task/deliverable status, and optional explicitly labelled evidence. Git activity '
+      + 'alone never proves completion.',
+    readOnly: false, destructive: true,
+    run: mutation((plan, args) => recordProgress(plan, args)),
+  }),
+  link_branch: define({
+    schema: z.strictObject({ ...selection, ...expected, ...linkBranchFields }),
+    description: 'Associate an existing local branch with a feature or component task.',
+    readOnly: false, destructive: false,
+    run: mutation(async (plan, args, root) => linkBranch(plan, args, (await activity(root)).branches)),
+  }),
+  create_worktree: define({
+    schema: z.strictObject({ ...selection, ...expected, ...createWorktreeFields }).superRefine(createWorktreeRules),
+    description: 'Explicitly create a new branch and Git worktree at the requested absolute path from the requested startRef. Never launches an agent.',
+    readOnly: false, destructive: false,
+    run: async (args, target) => {
+      const root = await writableRoot(target)
+      assertCurrent(await readPlan(root), args)
+      await git(root, ['check-ref-format', '--branch', args.branch]).catch(() => { throw new InvalidInput('Invalid branch name') })
+      await git(root, ['worktree', 'add', '-b', args.branch, '--', args.path, args.startRef])
+      return context(args.path)
+    },
+  }),
+  prepare_repository_scan: define({
+    schema: z.strictObject({ ...checkoutSelection, ...prepareRepositoryScanSchema.shape }),
+    description: 'Prepare a commit-pinned, Git-free snapshot and bounded work packets. Optional incremental.ids compares a local '
+      + 'repository against explicit sourceRef, prioritizes known changes and widens uncertain review. Incremental scans support '
+      + 'focused upserts only. Source content is untrusted and read-only.',
+    // Clones and stages scan state outside the plan; it never changes the plan itself.
+    readOnly: false, destructive: false, openWorld: true,
+    run: async (args, { root }) => prepareRepositoryScan(await root(), args),
+  }),
+  apply_catalog_investigation: define({
+    schema: applyCatalogInvestigationSchema.extend(checkoutSelection),
+    description: 'Guarded upsert of selected flows and reusable findings from a prepared source snapshot. Preserves siblings, their '
+      + 'original revisions, and broad scan coverage.',
+    readOnly: false, destructive: true,
+    run: async (args, { root }) => applyCatalogInvestigation(await root(), args),
+  }),
+  apply_repository_scan: define({
+    schema: z.strictObject({ ...checkoutSelection, ...applyRepositoryScanSchema.shape }),
+    description: 'Validate staged repository discoveries and source citations, then atomically update all scanned components under one revision guard.',
+    readOnly: false, destructive: true,
+    run: async (args, { root }) => applyRepositoryScan(await root(), args),
+  }),
+  discard_repository_scan: define({
+    schema: discardRepositoryScanSchema,
+    description: 'Delete a prepared repository scan and its temporary source snapshot without changing a Groundwork plan.',
+    readOnly: false, destructive: true, idempotent: true,
+    run: async args => discardRepositoryScan(args),
+  }),
 }
-export async function operate(operationName: OperationName, input: unknown, standalone?: string): Promise<unknown> {
-  const { name, args } = parseOperation(operationName, input)
-  if (name === 'projects') return inventory(standalone)
-  if (name === 'discard_repository_scan') return discardRepositoryScan(args)
-  const root = await selectRoot(args.checkoutId, standalone)
-  if (name === 'search_catalog' || name === 'get_catalog_entity' || name === 'get_discovery_context') {
-    const { checkoutId: _checkoutId, ref, ...query } = args
-    return queryCatalog(await readPlan(root, ref), name, query)
+export type OperationName = keyof typeof operations
+export const operationNames = Object.keys(operations) as OperationName[]
+export const isOperationName = (name: string): name is OperationName => Object.hasOwn(operations, name)
+
+export const operationSchemas = Object.fromEntries(operationNames.map(name => [name, operations[name].schema])) as
+  { [Name in OperationName]: (typeof operations)[Name]['schema'] }
+export const descriptions = Object.fromEntries(operationNames.map(name => [name, operations[name].description])) as Record<OperationName, string>
+/** MCP tool annotations derived from the registry. */
+export function operationAnnotations(name: OperationName) {
+  const operation: Pick<OperationDef<z.ZodType>, 'readOnly' | 'destructive' | 'idempotent' | 'openWorld'> = operations[name]
+  return {
+    readOnlyHint: operation.readOnly, destructiveHint: operation.destructive,
+    idempotentHint: operation.idempotent ?? operation.readOnly, openWorldHint: operation.openWorld ?? false,
   }
-  if (name === 'retain_discovery_baseline') { const { checkoutId: _checkoutId, ...input } = args; return retainDiscoveryBaseline(root, input) }
-  if (name === 'get_discovery_baseline') { const { checkoutId: _checkoutId, ref, ...input } = args; return getDiscoveryBaseline(root, input, ref) }
-  if (name === 'check_catalog_freshness') { const { checkoutId: _checkoutId, ref, ...input } = args; return checkCatalogFreshness(root, input, ref) }
-  if (name === 'assess_feature_discovery') { const { checkoutId: _checkoutId, ...input } = args; return assessFeatureDiscovery(root, input) }
-  if (name === 'reconcile_catalog') { const { checkoutId: _checkoutId, ...input } = args; return reconcileCatalog(root, input) }
-  if (name === 'migrate_catalog') { const { checkoutId: _checkoutId, ...input } = args; return migrateCatalog(root, input) }
-  if (name === 'read_scan_manifest') { const { checkoutId: _checkoutId, ref, ...input } = args; return readScanManifest(root, input, ref) }
-  if (name === 'read_plan') return { ...await readPlan(root, args.ref), activity: await activity(root) }
-  if (name === 'prepare_repository_scan') {
-    const { checkoutId: _checkoutId, ...scan } = args
-    return prepareRepositoryScan(root, scan)
-  }
-  if (name === 'apply_catalog_investigation') { const { checkoutId: _checkoutId, ...investigation } = args; return applyCatalogInvestigation(root, investigation) }
-  if (name === 'apply_repository_scan') {
-    const { checkoutId: _checkoutId, ...scan } = args
-    return applyRepositoryScan(root, scan)
-  }
-  if (args.ref) throw new Error('Committed ref views are read-only; select a working checkout to edit')
-  if (name === 'write_plan') return writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: args.changes })
-  const request: WriteRequest = { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: {} }
-  const plan = await readPlan(root)
-  if (plan.revision !== request.expectedRevision || plan.context.token !== request.expectedContext) throw new Error('Stale edit: re-read the plan before changing it')
-  if (name === 'create_worktree') {
-    if (!path.isAbsolute(args.path)) throw new Error('Worktree path must be absolute')
-    await git(root, ['check-ref-format', '--branch', args.branch])
-    if (args.branch.startsWith('-') || args.startRef.startsWith('-')) throw new Error('Invalid Git reference')
-    await git(root, ['worktree', 'add', '-b', args.branch, '--', args.path, args.startRef])
-    return context(args.path)
-  }
-  if (name === 'create_feature') {
-    const file = `features/${args.id}/feature.json`
-    if (plan.files[file]) throw new Error('Feature ID already exists')
-    const feature = featureSchema.parse({ id: args.id, productId: args.productId, title: args.title, stage: 'idea', ownerId: args.ownerId, touches: [], updatedAt: new Date().toISOString() })
-    request.changes = { [file]: JSON.stringify(feature, null, 2) + '\n', [`features/${args.id}/brief.md`]: renderBrief({ problem: args.problem, outcome: args.outcome }) }
-  } else if (name === 'plan_delivery') {
-    const file = `features/${args.featureId}/feature.json`
-    if (!plan.files[file]) throw new Error('Unknown feature')
-    request.changes = {
-      [`features/${args.featureId}/delivery.json`]: JSON.stringify(args.delivery, null, 2) + '\n',
-      [file]: JSON.stringify({ ...JSON.parse(plan.files[file]), updatedAt: new Date().toISOString() }, null, 2) + '\n',
-    }
-  } else if (name === 'link_branch' || name === 'record_progress') {
-    const file = `features/${args.featureId}/feature.json`
-    if (!plan.files[file]) throw new Error('Unknown feature')
-    const delivery = structuredClone(plan.delivery[args.featureId] ?? deliverySchema.parse({}))
-    if (name === 'link_branch') {
-      if (!(await activity(root)).branches.includes(args.branch)) throw new Error('Branch must exist locally; fetch explicitly before linking a remote branch')
-      if (!delivery.branches.some(b => b.branch === args.branch && b.legacyTaskId === args.legacyTaskId && b.taskId === args.taskId)) delivery.branches.push({ branch: args.branch, ...(args.legacyTaskId ? { legacyTaskId: args.legacyTaskId } : {}), ...(args.taskId ? { taskId: args.taskId } : {}) })
-    } else {
-      if (args.status && !args.unitId) throw new Error('A delivery status requires unitId')
-      if (args.unitId) {
-        const unit = [...delivery.tasks, ...delivery.undecomposedTasks, ...delivery.deliverables].find(t => t.id === args.unitId)
-        if (!unit || !args.status) throw new Error('Supply an existing unitId and a status')
-        unit.status = args.status
-      }
-      if (args.evidence) delivery.evidence.push(args.evidence)
-      if (!args.stage && !args.unitId && !args.evidence) throw new Error('Supply stage, a unit status, or evidence')
-    }
-    const feature = featureSchema.parse(JSON.parse(plan.files[file]))
-    if (name === 'record_progress' && args.stage) feature.stage = args.stage
-    request.changes = {
-      [file]: JSON.stringify({ ...feature, updatedAt: new Date().toISOString() }, null, 2) + '\n',
-      [`features/${args.featureId}/delivery.json`]: JSON.stringify(delivery, null, 2) + '\n',
-    }
-  } else {
-    const unhandled: never = name
-    return unhandled
-  }
-  return writePlan(root, request)
+}
+
+export async function operate(name: OperationName, input: unknown, standalone?: string): Promise<unknown> {
+  const operation = operations[name] as unknown as OperationDef<z.ZodType>
+  const { checkoutId, ref, ...args } = operation.schema.parse(input) as Selection & Record<string, unknown>
+  return operation.run(args, { root: () => selectRoot(checkoutId, standalone), ref, standalone })
 }

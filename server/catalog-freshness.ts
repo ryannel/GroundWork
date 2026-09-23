@@ -1,6 +1,8 @@
 import path from 'node:path'
 import { realpath } from 'node:fs/promises'
 import { z } from 'zod'
+import { repositoryIdentity } from '../src/data/repository-identity.ts'
+import { isRepoRelativePath } from '../src/data/schema-primitives.ts'
 import { catalogIndex, catalogSourceRevision } from './catalog.ts'
 import { git, gitRaw, resolveRef } from './git.ts'
 import { readPlan } from './repository.ts'
@@ -11,10 +13,29 @@ export const checkCatalogFreshnessSchema = z.strictObject({
   maxFiles: z.number().int().min(0).max(200).default(50),
   maxBytes: z.number().int().min(8192).max(65536).default(32768),
 })
-export function sourceIdentity(value: string) {
-  const match = /^(?:https?:\/\/github\.com\/|ssh:\/\/(?:git@)?github\.com\/|git@github\.com:)?([\w.-]+\/[\w.-]+?)(?:\.git)?\/?$/.exec(value)
-  return match ? match[1].toLowerCase() : value.replace(/\.git$/, '')
+
+/** Comparison key for a repository: the shared identity, with local paths resolved through symlinks. */
+export async function repositoryKey(value: string) {
+  return repositoryIdentity(path.isAbsolute(value) ? await realpath(value).catch(() => value) : value)
 }
+
+/** Freshness statuses from least to most severe. Aggregates always report the most severe status. */
+export const freshnessSeverity = {
+  unchecked: 0, 'unchanged-source-tree': 1, 'impact-unknown': 2, 'review-required': 3, unknown: 4,
+} as const
+export type FreshnessStatus = keyof typeof freshnessSeverity
+export function worstStatus<T extends FreshnessStatus>(statuses: Iterable<T>, fallback: T): T {
+  let worst = fallback
+  for (const status of statuses) if (freshnessSeverity[status] > freshnessSeverity[worst]) worst = status
+  return worst
+}
+
+/** Number of lines in a text file; a trailing newline ends the last line rather than starting another. */
+export function lineCount(text: string) {
+  if (!text.length) return 0
+  return text.split(/\r?\n/).length - (/\r?\n$/.test(text) ? 1 : 0)
+}
+
 type Citation = { path: string; revision: string; lines?: string; repository?: string }
 function citations(value: unknown, fallback: string | null, result: Citation[] = [], repository?: string): Citation[] {
   if (Array.isArray(value)) { for (const item of value) citations(item, fallback, result, repository); return result }
@@ -30,7 +51,6 @@ function citations(value: unknown, fallback: string | null, result: Citation[] =
   }
   return result
 }
-const safeSourcePath = (value: string) => !!value && !path.isAbsolute(value) && !value.includes('\\') && !value.split('/').some(segment => !segment || segment === '.' || segment === '..')
 export const broaderChange = (file: string) => /(?:^|\/)(?:[^/]*lock[^/]*|package\.json|[^/]*\.csproj|Directory\.[^/]+|appsettings[^/]*|[^/]*config[^/]*|[^/]*migration[^/]*|Startup\.[^/]+|Program\.[^/]+|[^/]*DependencyInjection[^/]*)$/i.test(file)
 
 /** Explicit, local, read-only Git comparison. It never fetches or treats citations as a complete dependency graph. */
@@ -41,16 +61,16 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
   const args = checkCatalogFreshnessSchema.parse(input)
   if (new Set(args.ids).size !== args.ids.length) throw new Error('Duplicate freshness IDs')
   const selected = args.ids.map(id => { const entity = index.find(entity => entity.id === id); if (!entity) throw new Error(`Unknown catalog entity: ${id}`); return entity })
-  const normalize = async (repo: string) => sourceIdentity(path.isAbsolute(repo) ? await realpath(repo).catch(() => repo) : repo)
   const repositories = new Set(await Promise.all(selected.map(async entity => {
     const repo = args.repository ?? entity.component.repo
-    return repo && sourceIdentity(path.isAbsolute(repo) ? await realpath(repo).catch(() => repo) : repo)
+    return repo && repositoryKey(repo)
   })))
   if (repositories.size !== 1 || repositories.has(undefined)) throw new Error('Select entities with one known source repository per check')
   const repository = [...repositories][0]!
   if (args.repository) for (const entity of selected) {
-    const known = [entity.component.repo, ...citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo).map(pointer => pointer.repository)].filter((value): value is string => !!value)
-    if (!(await Promise.all(known.map(normalize))).includes(repository)) throw new Error('Selected repository is not recorded for this observation')
+    const pointers = citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo)
+    const known = [entity.component.repo, ...pointers.map(pointer => pointer.repository)].filter((value): value is string => !!value)
+    if (!(await Promise.all(known.map(repositoryKey))).includes(repository)) throw new Error('Selected repository is not recorded for this observation')
   }
   const envelope = {
     version: 1, catalogRevision: plan.revision, context: plan.context.token,
@@ -66,7 +86,7 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
     const top = await realpath(await git(source, ['rev-parse', '--show-toplevel']))
     if (source !== top) throw new Error('repositoryPath must identify the source repository root')
     const origin = await git(source, ['remote', 'get-url', 'origin']).catch(() => source)
-    if (sourceIdentity(origin) !== repository && sourceIdentity(source) !== repository) throw new Error('Source repository identity does not match the selected catalog entities')
+    if (await repositoryKey(origin) !== repository && repositoryIdentity(source) !== repository) throw new Error('Source repository identity does not match the selected catalog entities')
     target = await resolveRef(source, args.targetRef)
   } catch (error) {
     return { ...envelope, status: 'unknown', targetRevision: null, reason: String((error as Error).message).slice(0, 1000), nextInspection: 'Provide a matching local repository with the observed commits and requested target available; fetch explicitly if required.', assessments: [] }
@@ -92,9 +112,10 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
   }
   const assessments = []
   for (const entity of selected) {
-    const primary = entity.component.repo ? await normalize(entity.component.repo) : null
+    const primary = entity.component.repo ? await repositoryKey(entity.component.repo) : null
     const observedRevision = primary === repository ? catalogSourceRevision(entity) : null
-    const allPointers = await Promise.all(citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo).map(async pointer => ({ ...pointer, repository: pointer.repository ? await normalize(pointer.repository) : primary })))
+    const allPointers = await Promise.all(citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo)
+      .map(async pointer => ({ ...pointer, repository: pointer.repository ? await repositoryKey(pointer.repository) : primary })))
     const otherRepositories = [...new Set([primary, ...allPointers.map(pointer => pointer.repository)].filter((value): value is string => !!value && value !== repository))]
     const pointers = allPointers.filter(pointer => pointer.repository === repository)
     const unique = [...new Map(pointers.map(pointer => [JSON.stringify(pointer), pointer])).values()]
@@ -114,13 +135,18 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
       }
     }
     for (const pointer of unique) {
-      if (!safeSourcePath(pointer.path) || !/^[a-f0-9]{40,64}$/.test(pointer.revision)) { invalidCitations.push(pointer.path); continue }
+      if (!isRepoRelativePath(pointer.path) || !/^[a-f0-9]{40,64}$/.test(pointer.revision)) { invalidCitations.push(pointer.path); continue }
       if (!(await compare(pointer.revision)).available) continue
       const content = await blob(pointer.revision, pointer.path)
       const range = pointer.lines && /^([1-9]\d*)(?:-([1-9]\d*))?$/.exec(pointer.lines)
-      if (content === null || (pointer.lines && (!range || Number(range[2] ?? range[1]) < Number(range[1]) || Number(range[2] ?? range[1]) > content.split(/\r?\n/).length))) invalidCitations.push(pointer.path)
+      const [start, end] = range ? [Number(range[1]), Number(range[2] ?? range[1])] : [0, 0]
+      if (content === null || (pointer.lines && (!range || end < start || end > lineCount(content)))) invalidCitations.push(pointer.path)
     }
-    const status = missingHistory ? 'unknown' : invalidCitations.length || changedKnown.size || broad.size || divergence ? 'review-required' : changedRepository || otherRepositories.length ? 'impact-unknown' : 'unchanged-source-tree'
+    const status = worstStatus<FreshnessStatus>([
+      ...(missingHistory ? ['unknown' as const] : []),
+      ...(invalidCitations.length || changedKnown.size || broad.size || divergence ? ['review-required' as const] : []),
+      ...(changedRepository || otherRepositories.length ? ['impact-unknown' as const] : []),
+    ], 'unchanged-source-tree')
     assessments.push({
       id: entity.id, observedRevision, status, otherRepositories: otherRepositories.slice(0, 10), otherRepositoryCount: otherRepositories.length,
       citationIntegrity: missingHistory ? 'unknown' : invalidCitations.length ? 'invalid' : unique.length ? 'checked-at-observation' : 'no-citations',
@@ -138,7 +164,11 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
     const files = comparison.files.slice(0, remaining); remaining -= files.length
     changes.push({ observedRevision: base, available: comparison.available, ancestry: comparison.ancestry, totalChangedFiles: comparison.files.length, files, omittedFiles: comparison.files.length - files.length })
   }
-  const result = { ...envelope, targetRevision: target, status: assessments.some(item => item.status === 'unknown') ? 'unknown' : assessments.some(item => item.status === 'review-required') ? 'review-required' : assessments.some(item => item.status === 'impact-unknown') ? 'impact-unknown' : 'unchanged-source-tree', assessments, changes, limits: { maxFiles: args.maxFiles, maxBytes: args.maxBytes }, detail: 'Counts cover the full comparison. Omitted filenames can be inspected with git diff --no-renames --name-only <observedRevision> <targetRevision> -- in the identified source repository.' }
+  const result = {
+    ...envelope, targetRevision: target, status: worstStatus(assessments.map(item => item.status), 'unchanged-source-tree'), assessments, changes,
+    limits: { maxFiles: args.maxFiles, maxBytes: args.maxBytes },
+    detail: 'Counts cover the full comparison. Omitted filenames can be inspected with git diff --no-renames --name-only <observedRevision> <targetRevision> -- in the identified source repository.',
+  }
   while (Buffer.byteLength(JSON.stringify(result)) > args.maxBytes) {
     const change = [...changes].reverse().find(change => change.files.length)
     if (change) { change.files.pop(); change.omittedFiles++; continue }

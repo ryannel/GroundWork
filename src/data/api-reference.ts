@@ -1,7 +1,8 @@
 import type { ApiContract } from './spec.ts'
+import { httpMethods, httpVerbs } from './schema-primitives.ts'
 
 export type ContractKind = 'http' | 'messages' | 'other'
-export const contractKind = (c: ApiContract): ContractKind => c.method === 'EVENT' ? 'messages' : c.method && ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].includes(c.method) ? 'http' : 'other'
+export const contractKind = (c: ApiContract): ContractKind => c.method === 'EVENT' ? 'messages' : c.method && httpVerbs.includes(c.method) ? 'http' : 'other'
 const title = (value: string) => value.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
 /** Preserve the source verbatim; only recognize the import's explicit metadata markers. */
@@ -28,7 +29,7 @@ export function contractResource(c: ApiContract): string {
   }
   return 'Other contracts'
 }
-const methodOrder = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']
+const methodOrder: readonly string[] = httpMethods
 export function groupContracts(contracts: ApiContract[]) {
   const resources = new Map<string, Map<string, ApiContract[]>>()
   for (const c of contracts) {

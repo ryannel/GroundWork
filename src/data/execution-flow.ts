@@ -1,4 +1,6 @@
 import type { Component } from './model.ts'
+import { githubRepository } from './repository-identity.ts'
+import { isRepoRelativePath } from './schema-primitives.ts'
 
 export type ExecutionFlow = NonNullable<Component['executionFlows']>[number]
 export type ExecutionStep = ExecutionFlow['steps'][number]
@@ -31,7 +33,7 @@ export function executionFlowIssues(component: Component): string[] {
     for (const edge of flow.transitions) if (!ids.has(edge.from) || !ids.has(edge.to)) fail(`${edge.id}: transition leaves the flow`)
     for (const item of [...flow.steps, ...flow.transitions]) for (const evidence of item.evidence) {
       if ((!evidence.repository || evidence.repository === component.repo) && evidence.revision !== flow.sourceRevision) fail(`${item.id}: evidence revision differs from the flow revision`)
-      if (evidence.path.startsWith('/') || evidence.path.includes('\\') || evidence.path.split('/').some(part => part === '..' || !part)) fail(`${item.id}: evidence path must be repository-relative`)
+      if (!isRepoRelativePath(evidence.path)) fail(`${item.id}: evidence path must be repository-relative`)
       const [start, end = start] = evidence.lines.split('-').map(Number)
       if (start < 1 || end < start) fail(`${item.id}: invalid evidence line range`)
     }
@@ -51,8 +53,8 @@ export function executionFlowIssues(component: Component): string[] {
 export function sourceEvidenceUrl(repository: string | undefined, evidence: ExecutionStep['evidence'][number]) {
   repository = evidence.repository ?? repository
   if (!repository) return undefined
-  const match = /^(?:https?:\/\/github\.com\/|ssh:\/\/(?:git@)?github\.com\/|git@github\.com:)?([\w.-]+\/[\w.-]+?)(?:\.git)?$/.exec(repository)
-  if (!match) return undefined
+  const github = githubRepository(repository)
+  if (!github) return undefined
   const [start, end] = evidence.lines.split('-')
-  return `https://github.com/${match[1]}/blob/${evidence.revision}/${evidence.path.split('/').map(encodeURIComponent).join('/')}#L${start}${end ? `-L${end}` : ''}`
+  return `https://github.com/${github}/blob/${evidence.revision}/${evidence.path.split('/').map(encodeURIComponent).join('/')}#L${start}${end ? `-L${end}` : ''}`
 }

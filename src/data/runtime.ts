@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
-import type { ContentSnapshot } from './content'
-import type { Delivery } from './delivery'
+import { z } from 'zod'
+import type { ContentSnapshot } from './content.ts'
+import type { Delivery } from './delivery.ts'
 export interface Checkout {
   checkoutId: string
   root: string
@@ -29,95 +30,149 @@ export interface RuntimePlan {
   decisions: Record<string, string>
   activity: { branches: string[]; changes: string[]; commits: string[] }
 }
-interface RuntimeState { loading: boolean; mode: 'standalone' | 'central'; connected: boolean; plan: RuntimePlan | null; error: string | null; projects: Checkout[] }
-let state: RuntimeState = { loading: true, mode: 'standalone', connected: false, plan: null, error: null, projects: [] }
-let apply: ((snapshot: ContentSnapshot | null) => void) | undefined
-const listeners = new Set<() => void>()
-let generation = 0
-let projectRequest = 0
-let events: EventSource | undefined
-let projectPoll: ReturnType<typeof setInterval> | undefined
-const route = /^\/p\/([^/]+)(?:\/ref\/([^/]+))?/.exec(window.location.pathname)
-export const runtimeBase = route?.[0] ?? '/'
-export const checkoutId = route?.[1]
-export const selectedRef = route?.[2] ? decodeURIComponent(route[2]) : undefined
-const query = new URLSearchParams({ ...(checkoutId ? { checkoutId } : {}), ...(selectedRef ? { ref: selectedRef } : {}) }).toString()
-const publish = (patch: Partial<RuntimeState>) => { state = { ...state, ...patch }; for (const listener of listeners) listener() }
+export interface RuntimeState {
+  loading: boolean; mode: 'standalone' | 'central'; connected: boolean; plan: RuntimePlan | null; error: string | null; projects: Checkout[]
+}
+
+/*
+ * Wire protocol. The same-origin service already validated the plan with loadContent, so these schemas only
+ * check the envelope the viewer relies on and pass everything else through unchanged.
+ */
+const sessionSchema = z.looseObject({ mode: z.enum(['central', 'standalone']) })
+const checkoutSchema = z.looseObject({ checkoutId: z.string() })
+const planSchema = z.looseObject({
+  manifest: z.looseObject({ name: z.string() }),
+  snapshot: z.looseObject({
+    workspaces: z.array(z.unknown()), products: z.array(z.unknown()), components: z.array(z.unknown()), features: z.array(z.unknown()),
+  }),
+  revision: z.string(),
+  context: z.looseObject({ token: z.string() }),
+})
+const eventSchema = z.object({ plan: planSchema.nullable(), error: z.string().nullable() })
+const parse = <T>(schema: z.ZodType<T>, value: unknown, error: string) => {
+  const result = schema.safeParse(value)
+  if (!result.success) throw new Error(error)
+  return result.data
+}
+
+const POLL_MS = 3000
+const EVENT_SOURCE_CLOSED = 2 // EventSource.CLOSED: the browser will not reconnect on its own.
+const connectionLost = 'Connection lost. Showing the last received plan; reconnecting…'
+const connectionClosed = 'Connection closed by the Groundwork service. Reload the page to reconnect.'
 const message = (error: unknown) => error instanceof Error ? error.message : String(error)
-function isRuntimeEvent(value: unknown): value is { plan: RuntimePlan | null; error: string | null } {
-  if (!value || typeof value !== 'object' || !('plan' in value) || !('error' in value) ||
-    (value.error !== null && typeof value.error !== 'string')) return false
-  if (value.plan === null) return true
-  if (!value.plan || typeof value.plan !== 'object' || !('snapshot' in value.plan) ||
-    !value.plan.snapshot || typeof value.plan.snapshot !== 'object') return false
-  if (!('revision' in value.plan) || typeof value.plan.revision !== 'string' ||
-    !('context' in value.plan) || !value.plan.context || typeof value.plan.context !== 'object' ||
-    !('token' in value.plan.context) || typeof value.plan.context.token !== 'string' ||
-    !('manifest' in value.plan) || !value.plan.manifest || typeof value.plan.manifest !== 'object' ||
-    !('name' in value.plan.manifest) || typeof value.plan.manifest.name !== 'string') return false
-  return ['workspaces', 'products', 'components', 'features'].every(key =>
-    Array.isArray((value.plan as { snapshot: Record<string, unknown> }).snapshot[key]))
+const decode = (value: string | undefined) => { try { return value === undefined ? undefined : decodeURIComponent(value) } catch { return undefined } }
+
+type Timers = { set: (callback: () => void, ms: number) => unknown; clear: (handle: unknown) => void }
+const defaultTimers: Timers = {
+  set: (callback, ms) => setTimeout(callback, ms),
+  clear: handle => clearTimeout(handle as ReturnType<typeof setTimeout>),
 }
-export const useRuntime = () => useSyncExternalStore(callback => { listeners.add(callback); return () => { listeners.delete(callback) } }, () => state)
-export const getRuntime = () => state
-export function attachSnapshot(fn: (snapshot: ContentSnapshot | null) => void) { apply = fn }
-export async function refreshProjects() {
-  const current = generation
-  const request = ++projectRequest
-  try {
-    const response = await fetch('/api/projects')
-    if (!response.ok) throw new Error('Could not load registered projects')
-    const projects: unknown = await response.json()
-    if (!Array.isArray(projects)) throw new Error('Invalid registered projects response')
-    if (current === generation && request === projectRequest) publish({ projects, ...(!checkoutId ? { error: null } : {}) })
-  } catch (error) {
-    if (current === generation && request === projectRequest) throw error
-  }
-}
-export async function startRuntime() {
-  const current = ++generation
-  events?.close()
-  events = undefined
-  if (projectPoll !== undefined) clearInterval(projectPoll)
-  projectPoll = undefined
-  publish({ loading: true })
-  try {
-    const response = await fetch('/api/session')
-    if (current !== generation) return
-    if (!response.ok) throw new Error('Groundwork service is unavailable')
-    const session = await response.json()
-    if (current !== generation) return
-    if (session.mode !== 'central' && session.mode !== 'standalone') throw new Error('Invalid Groundwork service response')
-    publish({ mode: session.mode, connected: true })
-    if (session.mode === 'central') {
-      try { await refreshProjects() }
-      catch (error) { if (current === generation) publish({ error: message(error) }) }
-    }
-    if (current !== generation) return
-    if (session.mode === 'central' && !checkoutId) {
-      publish({ loading: false })
-      projectPoll = setInterval(() => { if (current !== generation) return; void refreshProjects().catch(error => {
-        if (current === generation) publish({ error: message(error) })
-      }) }, 3000)
-      return
-    }
-    events = new EventSource(`/api/events?${query}`)
-    events.onmessage = event => {
-      if (current !== generation) return
+
+/** One viewer runtime per page location. Tests build fresh instances; the app uses the default one below. */
+export function createRuntime(pathname: string, timers: Timers = defaultTimers) {
+  let state: RuntimeState = { loading: true, mode: 'standalone', connected: false, plan: null, error: null, projects: [] }
+  let apply: ((snapshot: ContentSnapshot | null) => void) | undefined
+  const listeners = new Set<() => void>()
+  let generation = 0
+  let events: EventSource | undefined
+  let projectPoll: unknown
+  let projectRequest: { generation: number; controller: AbortController; promise: Promise<void> } | undefined
+  const route = /^\/p\/([^/]+)(?:\/ref\/([^/]+))?/.exec(pathname)
+  const checkoutId = route?.[1]
+  const selectedRef = decode(route?.[2])
+  const query = new URLSearchParams({ ...(checkoutId ? { checkoutId } : {}), ...(selectedRef ? { ref: selectedRef } : {}) }).toString()
+  const publish = (patch: Partial<RuntimeState>) => { state = { ...state, ...patch }; for (const listener of listeners) listener() }
+
+  const subscribe = (callback: () => void) => { listeners.add(callback); return () => { listeners.delete(callback) } }
+  const getRuntime = () => state
+  const attachSnapshot = (fn: (snapshot: ContentSnapshot | null) => void) => { apply = fn }
+
+  /** At most one project request is in flight; a restart aborts it rather than letting it publish late. */
+  function refreshProjects(): Promise<void> {
+    const current = generation
+    if (projectRequest?.generation === current) return projectRequest.promise
+    projectRequest?.controller.abort()
+    const controller = new AbortController()
+    const promise = (async () => {
       try {
-        const data: unknown = JSON.parse(event.data)
-        if (!isRuntimeEvent(data)) throw new Error('Invalid Groundwork event response')
-        const { plan, error } = data
-        apply?.(plan?.snapshot ?? null)
-        publish({ plan, error, loading: false, connected: true })
+        const response = await fetch('/api/projects', { signal: controller.signal })
+        if (!response.ok) throw new Error('Could not load registered projects')
+        const projects = parse(z.array(checkoutSchema), await response.json(), 'Invalid registered projects response')
+        // Only the envelope is checked; see the wire-protocol note above.
+        if (current === generation) publish({ projects: projects as unknown as Checkout[], ...(!checkoutId ? { error: null } : {}) })
       } catch (error) {
-        publish({ loading: false, error: message(error) })
+        if (current === generation && !controller.signal.aborted) throw error
+      } finally {
+        if (projectRequest?.controller === controller) projectRequest = undefined
       }
-    }
-    events.onerror = () => {
-      if (current === generation) publish({ loading: false, connected: false, error: 'Connection lost. Showing the last received plan; reconnecting…' })
-    }
-  } catch (error) {
-    if (current === generation) publish({ loading: false, connected: false, error: message(error) })
+    })()
+    projectRequest = { generation: current, controller, promise }
+    return promise
   }
+
+  /** Self-scheduling: the next poll starts only after the previous one settles. */
+  async function pollProjects(current: number) {
+    if (current !== generation) return
+    try { await refreshProjects() }
+    catch (error) { if (current === generation) publish({ error: message(error) }) }
+    if (current === generation) projectPoll = timers.set(() => void pollProjects(current), POLL_MS)
+  }
+
+  async function startRuntime() {
+    const current = ++generation
+    events?.close()
+    events = undefined
+    if (projectPoll !== undefined) timers.clear(projectPoll)
+    projectPoll = undefined
+    projectRequest?.controller.abort()
+    projectRequest = undefined
+    publish({ loading: true })
+    try {
+      const response = await fetch('/api/session')
+      if (current !== generation) return
+      if (!response.ok) throw new Error('Groundwork service is unavailable')
+      const session = parse(sessionSchema, await response.json(), 'Invalid Groundwork service response')
+      if (current !== generation) return
+      publish({ mode: session.mode, connected: true })
+      if (session.mode === 'central' && !checkoutId) {
+        await pollProjects(current)
+        if (current === generation) publish({ loading: false })
+        return
+      }
+      if (session.mode === 'central') {
+        try { await refreshProjects() }
+        catch (error) { if (current === generation) publish({ error: message(error) }) }
+      }
+      if (current !== generation) return
+      const source = events = new EventSource(`/api/events?${query}`)
+      source.onopen = () => {
+        if (current !== generation) return
+        publish({ connected: true, ...(state.error === connectionLost || state.error === connectionClosed ? { error: null } : {}) })
+      }
+      source.onmessage = event => {
+        if (current !== generation) return
+        try {
+          const { plan, error } = parse(eventSchema, JSON.parse(event.data), 'Invalid Groundwork event response')
+          // Only the envelope is checked; see the wire-protocol note above.
+          const runtimePlan = plan as unknown as RuntimePlan | null
+          apply?.(runtimePlan?.snapshot ?? null)
+          publish({ plan: runtimePlan, error, loading: false, connected: true })
+        } catch (error) {
+          publish({ loading: false, error: message(error) })
+        }
+      }
+      source.onerror = () => {
+        if (current !== generation) return
+        publish({ loading: false, connected: false, error: source.readyState === EVENT_SOURCE_CLOSED ? connectionClosed : connectionLost })
+      }
+    } catch (error) {
+      if (current === generation) publish({ loading: false, connected: false, error: message(error) })
+    }
+  }
+
+  return { runtimeBase: route?.[0] ?? '/', checkoutId, selectedRef, subscribe, getRuntime, attachSnapshot, refreshProjects, startRuntime }
 }
+
+const runtime = createRuntime(typeof window === 'undefined' ? '/' : window.location.pathname)
+export const { runtimeBase, checkoutId, selectedRef, getRuntime, attachSnapshot, refreshProjects, startRuntime } = runtime
+export const useRuntime = () => useSyncExternalStore(runtime.subscribe, runtime.getRuntime)

@@ -1,26 +1,25 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { taxRulesSpec as spec } from './fixtures.ts'
+import { contentContext, validateFeatureSpec } from '../src/data/content.ts'
+import { livePrototypeIds } from '../src/data/live-prototypes.ts'
+import { snapshot } from './fixtures.ts'
+
+// loadContent already proves the fixture's links resolve; these tests exercise the feature rule on its own.
+const ctx = contentContext(snapshot, livePrototypeIds)
+const feature = () => structuredClone(snapshot.features.find(f => f.id === 'f-2')!)
 
 test('every authored feature cross-reference has a real destination', () => {
-  const check = (owner: string, refs: string[] | undefined, targets: { id: string }[] | undefined) => {
-    for (const id of refs ?? []) assert.ok(targets?.some(item => item.id === id), `${owner} links to missing ${id}`)
-  }
-  for (const step of spec.journey?.steps ?? []) {
-    check(step.id, step.flow, spec.flow?.nodes)
-    check(step.id, step.flowEdges, spec.flow?.edges)
-    check(step.id, step.contracts, spec.api?.contracts)
-    check(step.id, step.design ? [step.design] : [], spec.design?.mockups)
-  }
-  for (const edge of spec.flow?.edges ?? []) {
-    check(edge.id, [edge.from, edge.to], spec.flow?.nodes)
-    check(edge.id, edge.contracts, spec.api?.contracts)
-  }
-  for (const node of spec.flow?.nodes ?? []) check(node.id, node.tables, spec.storage?.tables)
-  for (const scenario of spec.tests?.cases ?? []) {
-    check(scenario.id, scenario.steps, spec.journey?.steps)
-    check(scenario.id, scenario.contracts, spec.api?.contracts)
-    check(scenario.id, scenario.tables, spec.storage?.tables)
-  }
-  for (const criterion of spec.purpose?.success ?? []) check(criterion.id, criterion.tests, spec.tests?.cases)
+  assert.deepEqual(validateFeatureSpec(feature(), ctx), [])
+})
+
+test('the feature rule reports each dangling link with its file and path', () => {
+  const broken = feature()
+  const spec = broken.spec!
+  spec.journey!.steps[0].flow = ['missing-node']
+  spec.tests!.cases[0].contracts = ['missing-contract']
+  spec.purpose!.success![0].tests = ['missing-test']
+  const issues = validateFeatureSpec(broken, ctx)
+  assert.ok(issues.includes(`features/f-2/journey.json:${spec.journey!.steps[0].id}.flow: unknown flow reference "missing-node"`), issues.join('\n'))
+  assert.ok(issues.includes(`features/f-2/tests.json:${spec.tests!.cases[0].id}.contracts: unknown api reference "missing-contract"`), issues.join('\n'))
+  assert.ok(issues.includes(`features/f-2/purpose.json:${spec.purpose!.success![0].id}.tests: unknown tests reference "missing-test"`), issues.join('\n'))
 })

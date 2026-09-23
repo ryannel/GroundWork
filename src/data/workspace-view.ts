@@ -1,4 +1,4 @@
-import type { Component, Feature } from './model'
+import type { Component, Feature } from './model.ts'
 
 /** Product scope includes owned work and changes entering the product from elsewhere. */
 export function featureInProduct(feature: Feature, productId: string, components: Component[]): boolean {

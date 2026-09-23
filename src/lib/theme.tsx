@@ -1,23 +1,36 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 
 import { ThemeContext, type ThemePref, type Skin } from './theme-context'
+// public/theme-init.js applies the same keys and values before first paint; keep them in sync.
 const KEY = 'gw-theme'
 const SKIN_KEY = 'gw-skin'
+
+function storedPref(): ThemePref {
+  try { const v = localStorage.getItem(KEY); if (v === 'light' || v === 'dark') return v } catch {}
+  return 'system'
+}
+function storedSkin(): Skin {
+  try { const v = localStorage.getItem(SKIN_KEY); if (v === 'grain' || v === 'glass') return v } catch {}
+  return 'glass'
+}
 
 function systemTheme(): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [pref, setPrefState] = useState<ThemePref>(() => {
-    try { const v = localStorage.getItem(KEY); if (v === 'light' || v === 'dark') return v } catch {}
-    return 'system'
-  })
+  const [pref, setPrefState] = useState<ThemePref>(storedPref)
   const [sys, setSys] = useState<'light' | 'dark'>(systemTheme)
-  const [skin, setSkin] = useState<Skin>(() => {
-    try { const v = localStorage.getItem(SKIN_KEY); if (v === 'grain' || v === 'glass') return v } catch {}
-    return 'glass'
-  })
+  const [skin, setSkin] = useState<Skin>(storedSkin)
+  // Keep other open tabs in sync with a change made here.
+  useEffect(() => {
+    const on = (event: StorageEvent) => {
+      if (event.key === KEY || event.key === null) setPrefState(storedPref())
+      if (event.key === SKIN_KEY || event.key === null) setSkin(storedSkin())
+    }
+    window.addEventListener('storage', on)
+    return () => window.removeEventListener('storage', on)
+  }, [])
   useEffect(() => {
     const root = document.documentElement
     if (skin === 'glass') delete root.dataset.skin

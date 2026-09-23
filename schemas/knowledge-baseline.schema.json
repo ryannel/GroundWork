@@ -80,6 +80,21 @@
                 },
                 "reason": {
                   "type": "string"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "owner",
+                    "dependency",
+                    "contract",
+                    "trace",
+                    "trigger",
+                    "step-ref",
+                    "subject"
+                  ]
+                },
+                "reverse": {
+                  "type": "boolean"
                 }
               },
               "required": [

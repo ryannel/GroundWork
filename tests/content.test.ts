@@ -165,3 +165,19 @@ test('data model context remains optional and does not invent fields or change a
   delete record.group
   assert.doesNotThrow(() => load(input))
 })
+test('every catalog timestamp accepts an explicit UTC offset', async () => {
+  const { retiredObservationSchema } = await import('../src/data/content-schema.ts')
+  const evidence = [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision: 'a'.repeat(40) }]
+  const retired = { kind: 'endpoint', id: 'old', sourceRevision: 'a'.repeat(40), reason: 'Removed', evidence, observation: {} }
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: '2026-09-01T10:00:00+02:00' }).success, true)
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: '2026-09-01T10:00:00Z' }).success, true)
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: 'yesterday' }).success, false)
+})
+test('validation collects issues from every concern before failing', () => {
+  const input = copy()
+  input['features/f-1/feature.json'].ownerId = 'missing'
+  input['products/p-cart.json'].workspaceId = 'missing'
+  input['components/c-rules.json'].dependsOn = ['c-rules']
+  assert.throws(() => load(input), error => error instanceof ContentError && error.issues.length >= 3 &&
+    /ownerId/.test(error.message) && /workspaceId/.test(error.message) && /cannot depend on itself/.test(error.message))
+})

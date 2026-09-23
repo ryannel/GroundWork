@@ -151,3 +151,24 @@ test('updating an old plan writes canonical names and preserves undecomposed wor
   assert.equal(stored.undecomposedTasks[0].status, 'in-progress')
   assert.equal(stored.branches[0].legacyTaskId, 't')
 })
+test('delivery text is validated like content text: blanks are rejected and values are never rewritten', () => {
+  const plan = deliverySchema.parse({ deliverables: [{ id: 'm1', title: '  padded  ', status: 'planned' }] })
+  assert.equal(plan.deliverables[0].title, '  padded  ')
+  assert.throws(() => deliverySchema.parse({ deliverables: [{ id: 'm1', title: '   ', status: 'planned' }] }), /blank/)
+  assert.throws(() => deliverySchema.parse({ deliverables: [{ id: 'toString', title: 'T', status: 'planned', dependsOn: [''] }] }))
+})
+test('delivery gaps stay linear on diamond-shaped plans and terminate on unvalidated cycles', () => {
+  const units = Array.from({ length: 40 }, (_, i) => ({
+    id: `u${i}`, deliverableId: 'm', componentId: 'api', title: `Task ${i}`, status: 'done',
+    // Every task depends on the two before it: naive recursion would take ~1.6^40 calls.
+    dependsOn: i > 1 ? [`u${i - 1}`, `u${i - 2}`] : [],
+  }))
+  const plan = deliverySchema.parse({ deliverables: [{ id: 'm', title: 'M', status: 'planned' }], tasks: units })
+  const started = performance.now()
+  assert.ok(deliveryGaps(plan, plan.tasks.at(-1)!).length)
+  assert.ok(performance.now() - started < 1000)
+  const cyclic = deliverySchema.parse({
+    deliverables: [{ id: 'a', title: 'A', status: 'done', dependsOn: ['b'] }, { id: 'b', title: 'B', status: 'done', dependsOn: ['a'] }],
+  })
+  assert.ok(deliveryGaps(cyclic, cyclic.deliverables[0]).includes('Dependency b is not complete with validation'))
+})

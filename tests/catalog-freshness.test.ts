@@ -259,6 +259,15 @@ test('cross-repository citations require pinned snapshots and freshness checks p
   await assert.rejects(applyCatalogInvestigation(f.target, input), /matching pinned sourceScans/)
   const applied = await applyCatalogInvestigation(f.target, { ...input, sourceScans: [secondary.scanId] })
   assert.equal(applied.supportingManifestIds.length, 1)
+  // A supporting scan is borrowed, not consumed, and its manifest names only the cited project and observation.
+  const { access } = await import('node:fs/promises')
+  await access(secondary.sourcePath)
+  await assert.rejects(access(main.sourcePath))
+  const { readScanManifest } = await import('../server/scan-manifests.ts')
+  const supportingManifest = (await readScanManifest(f.target, { manifestId: applied.supportingManifestIds[0] })).items[0] as any
+  assert.deepEqual(supportingManifest.scope, [{ componentId: 'service', sourcePath: '.', areas: [], observationIds: [f.ids[1]] }])
+  const { discardRepositoryScan } = await import('../server/scanner.ts')
+  await discardRepositoryScan({ scanId: secondary.scanId })
   const primaryCheck = await f.check({ ids: [f.ids[1]] })
   assert.equal(primaryCheck.assessments[0].citationIntegrity, 'checked-at-observation')
   assert.equal(primaryCheck.assessments[0].otherRepositoryCount, 1)
