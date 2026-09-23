@@ -1,25 +1,18 @@
 import { createContext, createElement, useContext, useMemo, useState, type ReactNode } from 'react'
 import { createRepository, type ContentSnapshot, type Repository, type RepositoryQueries } from './content.ts'
-import { attachSnapshot, useRuntime } from './runtime.ts'
+import { useRuntime } from './runtime.ts'
 import type { Component, Feature, Product, Workspace } from './model.ts'
 import type { FeatureStage } from '@/lib/taxonomy'
 
 const empty: ContentSnapshot = { project: { schemaVersion: 1 }, members: [], workspaces: [], products: [], components: [], features: [] }
 const repositories = new WeakMap<ContentSnapshot, Repository>()
-/** One repository per snapshot, shared by every hook and the legacy `q` export. */
+/** One repository per snapshot, shared by every hook. */
 export function repositoryFor(snapshot: ContentSnapshot | null | undefined): Repository {
   const key = snapshot ?? empty
   let repository = repositories.get(key)
   if (!repository) repositories.set(key, repository = createRepository(key))
   return repository
 }
-
-/**
- * @deprecated Read `useQuery()` (or `useRepository().q`) during render instead. This module-level binding is
- * reassigned on every revision without notifying React and is kept only until pages and components migrate.
- */
-export let q: RepositoryQueries = repositoryFor(empty).q
-attachSnapshot(snapshot => { q = repositoryFor(snapshot).q })
 
 const RepositoryContext = createContext<Repository | null>(null)
 /** Provides the repository for the current runtime snapshot (or an explicit one, e.g. in tests). */
@@ -56,7 +49,7 @@ export interface WorkspaceSummary {
   shipped: Feature[]
   lastActivity?: string
 }
-export function summarizeWorkspace(w: Workspace, query: RepositoryQueries = q): WorkspaceSummary {
+export function summarizeWorkspace(w: Workspace, query: RepositoryQueries): WorkspaceSummary {
   const products = query.products(w.id)
   const feats = query.featuresInWorkspace(w.id)
   return {

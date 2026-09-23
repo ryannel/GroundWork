@@ -1,17 +1,12 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 
-import { ThemeContext, type ThemePref, type Skin } from './theme-context'
-// public/theme-init.js applies the same keys and values before first paint; keep them in sync.
+import { ThemeContext, type ThemePref } from './theme-context'
+// public/theme-init.js applies the same key and values before first paint; keep them in sync.
 const KEY = 'gw-theme'
-const SKIN_KEY = 'gw-skin'
 
 function storedPref(): ThemePref {
   try { const v = localStorage.getItem(KEY); if (v === 'light' || v === 'dark') return v } catch {}
   return 'system'
-}
-function storedSkin(): Skin {
-  try { const v = localStorage.getItem(SKIN_KEY); if (v === 'grain' || v === 'glass') return v } catch {}
-  return 'glass'
 }
 
 function systemTheme(): 'light' | 'dark' {
@@ -21,22 +16,14 @@ function systemTheme(): 'light' | 'dark' {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [pref, setPrefState] = useState<ThemePref>(storedPref)
   const [sys, setSys] = useState<'light' | 'dark'>(systemTheme)
-  const [skin, setSkin] = useState<Skin>(storedSkin)
   // Keep other open tabs in sync with a change made here.
   useEffect(() => {
     const on = (event: StorageEvent) => {
       if (event.key === KEY || event.key === null) setPrefState(storedPref())
-      if (event.key === SKIN_KEY || event.key === null) setSkin(storedSkin())
     }
     window.addEventListener('storage', on)
     return () => window.removeEventListener('storage', on)
   }, [])
-  useEffect(() => {
-    const root = document.documentElement
-    if (skin === 'glass') delete root.dataset.skin
-    else root.dataset.skin = skin
-    try { if (skin === 'glass') localStorage.removeItem(SKIN_KEY); else localStorage.setItem(SKIN_KEY, skin) } catch {}
-  }, [skin])
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
@@ -52,6 +39,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     try { if (pref === 'system') localStorage.removeItem(KEY); else localStorage.setItem(KEY, pref) } catch {}
   }, [pref])
 
-  const value = useMemo(() => ({ pref, setPref: setPrefState, resolved: pref === 'system' ? sys : pref, skin, setSkin }), [pref, sys, skin])
+  const value = useMemo(() => ({ pref, setPref: setPrefState, resolved: pref === 'system' ? sys : pref }), [pref, sys])
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

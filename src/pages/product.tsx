@@ -4,18 +4,20 @@ import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes
 import { useProduct, useQuery, byUpdated } from '@/data/store'
 import { clearComponentScope } from '@/data/catalog-url'
 import { connectedProductIds } from '@/data/workspace-view'
-import { FeatureRow } from '@/components/feature-row'
+import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
 import { ComponentOptions } from '@/components/component-structure'
 import { SystemDiagram } from '@/components/system-diagram'
 import { componentAncestors, featureTouchesComponent, runtimeSystemGraph } from '@/data/component-structure'
 import { kinds, hueStyle } from '@/lib/taxonomy'
 import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { useUrlFilter } from '@/ui/use-url-filter'
 
 export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
   const data = useProduct(slug, pslug)
   const [params, setParams] = useSearchParams()
+  const filter = useUrlFilter({ scope: 'all', view: 'active' })
   // Inspector URL changes must not restart the map's layout and simulation.
   const componentList = useMemo(() => data?.components.map(c => c.component) ?? [], [data?.components])
   const query = useQuery()
@@ -28,18 +30,21 @@ export function ProductPage() {
   if (!data) return <Navigate to={`/w/${slug}`} replace />
   const { workspace: w, product: p, active, ideas, shipped, components, incoming } = data
   const kind = kinds[p.kind]
-  const requestedScope = components.find(({ component }) => component.id === params.get('scope'))?.component
+  const requestedScope = components.find(({ component }) => component.id === filter.get('scope'))?.component
   const scope = requestedScope && componentAncestors(requestedScope.id, query.components())[0]
   const overviewComponents = componentList.filter(c => !c.parentId)
-  const view = params.get('view') === 'ideas' ? 'ideas' : params.get('view') === 'shipped' ? 'shipped' : 'active'
+  const view = filter.get('view') === 'ideas' ? 'ideas' : filter.get('view') === 'shipped' ? 'shipped' : 'active'
   const allActive = [...active, ...incoming].sort(byUpdated)
   const inScope = (feature: typeof active[number]) => !scope || featureTouchesComponent(feature, scope.id, query.components())
+  const activeRows = allActive.filter(inScope)
+  const ideaRows = ideas.filter(inScope)
+  const shippedRows = shipped.filter(inScope)
+  const rows = view === 'ideas' ? ideaRows : view === 'shipped' ? shippedRows : activeRows
   const views = [
-    { id: 'active', label: 'Active', rows: allActive.filter(inScope), icon: Layers },
-    { id: 'ideas', label: 'Ideas', rows: ideas.filter(inScope), icon: Lightbulb },
-    { id: 'shipped', label: 'Shipped', rows: shipped.filter(inScope), icon: CheckCheck },
+    { id: 'active' as const, label: 'Active', count: activeRows.length, icon: Layers },
+    { id: 'ideas' as const, label: 'Ideas', count: ideaRows.length, icon: Lightbulb },
+    { id: 'shipped' as const, label: 'Shipped', count: shippedRows.length, icon: CheckCheck },
   ]
-  const rows = views.find(item => item.id === view)!.rows
   const scopedIncoming = incoming.filter(inScope).length
   const scopedOwned = active.filter(inScope).length
   const allComponents = query.components()
@@ -49,18 +54,12 @@ export function ProductPage() {
   const coverage = productCoverage(overviewComponents)
   const hasDelivery = allActive.length + ideas.length + shipped.length > 0
   const connections = allActive.filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0).filter(inScope)
-  const update = (key: string, value: string) => setParams(previous => {
-    const next = new URLSearchParams(previous)
-    if (value === 'all' || value === 'active') next.delete(key)
-    else next.set(key, value)
-    return next
-  }, { replace: true })
 
   return <div className="product-overview" style={hueStyle(kind.hueVar)}>
     <header className="workspace-page-header">
       <Breadcrumbs workspace={w} product={p} current={{ label: 'Product', name: p.name }} />
       <div className="workspace-hero">
-        <div className="workspace-page-title"><div><div className="board-eyebrow">Product <span>·</span> {kind.label}</div><h1 className="text-display">{p.name}</h1><p>{p.description ?? kind.blurb}</p></div></div>
+        <div className="workspace-page-title"><div><div className="board-eyebrow">Product <span>·</span> {kind.label}</div><h1>{p.name}</h1><p>{p.description ?? kind.blurb}</p></div></div>
       </div>
       <div className="product-system-facts" aria-label="Product architecture status">
         <span><strong>{overviewComponents.length}</strong> components</span>
@@ -90,27 +89,32 @@ export function ProductPage() {
       </div>
     <div className={`workspace-work-layout product-work-layout${connections.length ? '' : ' is-solo'}`}>
       <section className="workspace-feature-section product-feature-section" aria-labelledby="product-feature-heading">
-        <div className="board-section-heading"><div><h3>Plans</h3><p>{view === 'active' && scopedIncoming ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products` : `Feature plans owned by ${p.name}.`}</p></div><label><span className="sr-only">Component scope</span><select value={scope?.id ?? 'all'} onChange={event => update('scope', event.target.value)}><option value="all">All components</option><ComponentOptions components={overviewComponents} /></select></label></div>
-        <div className="board-work-tabs" role="group" aria-label="Product feature view">{views.map(item => <button key={item.id} aria-pressed={view === item.id} onClick={() => update('view', item.id)}><item.icon size={14} aria-hidden="true" />{item.label}<span>{item.rows.length}</span></button>)}</div>
-        <div className="board-list-context"><p>{scope ? <>Touching <strong>{scope.name}</strong><button className="product-clear-filter" onClick={() => update('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button></> : 'Across this product'}{view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}</p><span aria-live="polite">{rows.length} {rows.length === 1 ? 'feature' : 'features'} · Latest updates first</span></div>
-        {rows.length ? <div className="board-feature-list">
-          <div className="feature-list-labels" aria-hidden="true"><span>Feature / intent</span><span>Stage</span><span>Owner</span><span>Updated</span></div>
-          {rows.map(feature => <FeatureRow
+        <div className="board-section-heading"><div><h3>Plans</h3><p>{view === 'active' && scopedIncoming ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products` : `Feature plans owned by ${p.name}.`}</p></div><label><span className="sr-only">Component scope</span><select value={scope?.id ?? 'all'} onChange={event => filter.set('scope', event.target.value)}><option value="all">All components</option><ComponentOptions components={overviewComponents} /></select></label></div>
+        <FeatureWorkList
+          label="Product feature view"
+          views={views}
+          view={view}
+          onView={id => filter.set('view', id)}
+          summary={<p>{scope ? <>Touching <strong>{scope.name}</strong><button className="product-clear-filter" onClick={() => filter.set('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button></> : 'Across this product'}{view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}</p>}
+          titleColumn="Feature / intent"
+          rows={rows}
+          renderRow={feature => <FeatureRow
             key={feature.id}
             feature={feature}
             showProduct={false}
             context={feature.productId !== p.id ? `Incoming from ${query.product(feature.productId)?.name ?? 'another product'}` : undefined}
-          />)}
-        </div> : <div className="workspace-list-empty">
-          <Boxes size={24} />
-          <h3>{view === 'ideas' ? 'No ideas here yet' : view === 'shipped' ? 'Nothing shipped here yet' : 'No active plans here'}</h3>
-          <p>{scope
-            ? `${view === 'ideas' ? 'No ideas' : view === 'shipped' ? 'No shipped plans' : 'No active plans'} touch ${scope.name}.`
-            : view === 'active' ? 'Active plans will appear here, including work arriving from other products.'
-              : view === 'ideas' ? 'Early feature ideas for this product will appear here.'
-                : 'Completed feature plans for this product will appear here.'}</p>
-          {(scope || view !== 'active') && <button onClick={() => setParams({}, { replace: true })}>Show all active work <ArrowRight size={13} /></button>}
-        </div>}
+          />}
+          empty={<div className="workspace-list-empty">
+            <Boxes size={24} />
+            <h3>{view === 'ideas' ? 'No ideas here yet' : view === 'shipped' ? 'Nothing shipped here yet' : 'No active plans here'}</h3>
+            <p>{scope
+              ? `${view === 'ideas' ? 'No ideas' : view === 'shipped' ? 'No shipped plans' : 'No active plans'} touch ${scope.name}.`
+              : view === 'active' ? 'Active plans will appear here, including work arriving from other products.'
+                : view === 'ideas' ? 'Early feature ideas for this product will appear here.'
+                  : 'Completed feature plans for this product will appear here.'}</p>
+            {(scope || view !== 'active') && <button onClick={filter.reset}>Show all active work <ArrowRight size={13} /></button>}
+          </div>}
+        />
       </section>
 
       {connections.length > 0 && <aside className="workspace-coordination" aria-labelledby="product-connections-heading">
