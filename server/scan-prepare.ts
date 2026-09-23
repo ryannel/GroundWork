@@ -3,6 +3,7 @@ import { mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { discardRepositoryScanSchema, prepareRepositoryScanSchema } from '../src/data/scan-schema.ts'
 import { checkCatalogFreshness, repositoryKey } from './catalog-freshness.ts'
+import { Conflict, InvalidInput } from './errors.ts'
 import { readPlan } from './repository.ts'
 import { acquire, listTree, readBlobs } from './scan-acquire.ts'
 import { inventory } from './scan-inventory.ts'
@@ -25,12 +26,12 @@ async function writeSnapshot(directory: string, files: InventoryFile[], contents
 
 export async function prepareRepositoryScan(root: string, input: unknown) {
   const args = prepareRepositoryScanSchema.parse(input)
-  if (args.incremental && !args.sourceRef) throw new Error('Incremental preparation requires an explicit sourceRef and a matching local repository')
+  if (args.incremental && !args.sourceRef) throw new InvalidInput('Incremental preparation requires an explicit sourceRef and a matching local repository')
   const freshness = args.incremental ? await checkCatalogFreshness(root, {
     repositoryPath: args.repository, targetRef: args.sourceRef, ids: args.incremental.ids,
     maxFiles: INCREMENTAL_MAX_FILES, maxBytes: INCREMENTAL_MAX_BYTES,
   }) : undefined
-  if (freshness && !freshness.targetRevision) throw new Error(`Cannot pin incremental source: ${'reason' in freshness ? freshness.reason : 'unknown target'}`)
+  if (freshness && !freshness.targetRevision) throw new InvalidInput(`Cannot pin incremental source: ${'reason' in freshness ? freshness.reason : 'unknown target'}`)
   const incremental: ScanMetadata['incremental'] = freshness ? { mode: incrementalMode(freshness), report: freshness } : undefined
   const changedPaths = new Set(freshness && 'changes' in freshness ? freshness.changes.flatMap(change => change.files) : [])
   const base = await sweepScans()
@@ -45,7 +46,7 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
     const acquired = await acquire(args.repository, freshness?.targetRevision ?? args.sourceRef, acquisition)
     const plan = await readPlan(root)
     if (freshness && (freshness.catalogRevision !== plan.revision || freshness.context !== plan.context.token)) {
-      throw new Error('Catalog changed during preparation; repeat incremental preparation')
+      throw new Conflict('Catalog changed during preparation; repeat incremental preparation')
     }
     const tree = await listTree(acquisition, acquired.revision)
     const { files, contents, excluded, dependencyFingerprints, omittedDependencyFingerprints } = await inventory(

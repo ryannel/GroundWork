@@ -2,6 +2,7 @@ import { homedir } from 'node:os'
 import { lstat, mkdir, readFile, realpath } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
+import { InvalidInput, NotFound } from './errors.ts'
 import { NotInitialised } from './format.ts'
 import { atomicFile, readPlan, safePath, withLock } from './repository.ts'
 import { context, discover } from './git.ts'
@@ -40,10 +41,10 @@ export async function registry() {
   const raw = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
   if (!raw) return { version: 2 as const, projects: [] as z.infer<typeof registrySchema>['projects'] }
   let data: unknown
-  try { data = JSON.parse(raw) } catch (error) { throw new Error(`${file}: ${(error as Error).message}`, { cause: error }) }
+  try { data = JSON.parse(raw) } catch (error) { throw new InvalidInput(`${file}: ${(error as Error).message}`, { cause: error }) }
   const version = (data as { version?: unknown } | null)?.version
   const parsed = (version === 1 ? legacyRegistrySchema : registrySchema).safeParse(data)
-  if (!parsed.success) throw new Error(`${file}: ${z.prettifyError(parsed.error)}`, { cause: parsed.error })
+  if (!parsed.success) throw new InvalidInput(`${file}: ${z.prettifyError(parsed.error)}`, { cause: parsed.error })
   if (parsed.data.version === 2) return parsed.data
   const legacy = parsed.data
   return {
@@ -108,7 +109,7 @@ export async function inventory(standalone?: string) {
 }
 export async function selectRoot(checkoutId: string | undefined, standalone?: string) {
   if (!checkoutId && standalone) return (await context(standalone)).root
-  if (!checkoutId) throw new Error('Unknown checkout. List projects and select a registered checkout ID.')
+  if (!checkoutId) throw new NotFound('Unknown checkout. List projects and select a registered checkout ID.')
   const registryRoot = standalone ? null : configRoot()
   const roots = standalone ? [{ root: standalone }] : (await registry()).projects
   const cached = checkoutRoots.get(checkoutId)
@@ -124,5 +125,5 @@ export async function selectRoot(checkoutId: string | undefined, standalone?: st
       if (ctx.checkoutId === checkoutId) return ctx.root
     }
   }
-  throw new Error('Unknown checkout. List projects and select a registered checkout ID.')
+  throw new NotFound('Unknown checkout. List projects and select a registered checkout ID.')
 }

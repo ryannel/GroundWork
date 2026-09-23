@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { objectIdSchema, scanAreaSchema, scanBudgetsSchema } from '../src/data/scan-schema.ts'
 import { repoRelativePath } from '../src/data/schema-primitives.ts'
 import type { checkCatalogFreshness } from './catalog-freshness.ts'
+import { InvalidInput, NotFound } from './errors.ts'
 
 /** Prepared scans expire, and are swept, after this long. */
 export const SCAN_TTL_MS = 24 * 60 * 60 * 1000
@@ -66,7 +67,7 @@ async function ensureScanBase() {
 }
 
 export function scanDirectory(id: string) {
-  if (!scanIdSchema.safeParse(id).success) throw new Error('Invalid scan ID')
+  if (!scanIdSchema.safeParse(id).success) throw new InvalidInput('Invalid scan ID')
   return path.join(scanBase(), id)
 }
 
@@ -115,7 +116,7 @@ export async function readonlyTree(directory: string) {
 export async function loadScan(id: string): Promise<LoadedScan> {
   const directory = scanDirectory(id)
   const parsed = scanMetadataSchema.safeParse(JSON.parse(await readFile(path.join(directory, 'scan.json'), 'utf8')))
-  if (!parsed.success || parsed.data.id !== id) throw new Error('Invalid scan metadata; prepare a new scan')
-  if (Date.parse(parsed.data.expiresAt) < Date.now()) throw new Error('Repository scan expired; prepare a new scan')
+  if (!parsed.success || parsed.data.id !== id) throw new InvalidInput('Invalid scan metadata; prepare a new scan')
+  if (Date.parse(parsed.data.expiresAt) < Date.now()) throw new NotFound('Repository scan expired; prepare a new scan')
   return { directory, metadata: parsed.data }
 }

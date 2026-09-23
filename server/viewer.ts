@@ -1,4 +1,5 @@
 import { realpath } from 'node:fs/promises'
+import { Conflict, InvalidInput } from './errors.ts'
 import { serve } from './http.ts'
 import { inventory, register } from './registry.ts'
 import { viewerIdentity } from './viewer-identity.ts'
@@ -8,7 +9,7 @@ import { readPlan } from './repository.ts'
 export async function startViewer(options: { root?: string; standalone?: boolean; port?: number } = {}) {
   const root = options.root ? await realpath(options.root) : undefined
   if (root) await readPlan(root)
-  if (options.standalone && !root) throw new Error('Standalone mode requires a project directory')
+  if (options.standalone && !root) throw new InvalidInput('Standalone mode requires a project directory')
   const port = options.port ?? (options.standalone ? 4317 : 4318)
   const expected = await viewerIdentity(options.standalone ? root : undefined)
   const base = `http://127.0.0.1:${port}`
@@ -20,7 +21,7 @@ export async function startViewer(options: { root?: string; standalone?: boolean
       throw new Error(`Cannot identify the viewer on port ${port}. Check that service or choose --port explicitly.`)
     }
     const found = await response.json().catch(() => null)
-    if (!response.ok || !found || Object.entries(expected).some(([key, value]) => found[key] !== value)) throw new Error(`Port ${port} belongs to another service, project, or older Groundwork viewer. Stop it or choose --port explicitly.`)
+    if (!response.ok || !found || Object.entries(expected).some(([key, value]) => found[key] !== value)) throw new Conflict(`Port ${port} belongs to another service, project, or older Groundwork viewer. Stop it or choose --port explicitly.`)
     return true
   }
   let app: Awaited<ReturnType<typeof serve>> | undefined

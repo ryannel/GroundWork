@@ -3,6 +3,7 @@ import type { Component } from '../src/data/model.ts'
 import { applyCatalogInvestigationSchema, reconcileCatalogSchema, type LifecycleRetirement } from '../src/data/scan-schema.ts'
 import { catalogIndex } from './catalog.ts'
 import { repositoryKey } from './catalog-freshness.ts'
+import { Conflict, InvalidInput, NotFound } from './errors.ts'
 import { readPlan, writePlan } from './repository.ts'
 import { validateCitations, type Citation } from './scan-evidence.ts'
 import { scanManifest, type ManifestScope } from './scan-manifests.ts'
@@ -13,7 +14,7 @@ import { loadScan, removeScan, type LoadedScan } from './scan-workspace.ts'
 type Plan = Awaited<ReturnType<typeof readPlan>>
 
 function requireScanTarget(plan: Plan, scan: LoadedScan, message: string) {
-  if (plan.manifest.id !== scan.metadata.targetProjectId || plan.context.checkoutId !== scan.metadata.targetCheckoutId) throw new Error(message)
+  if (plan.manifest.id !== scan.metadata.targetProjectId || plan.context.checkoutId !== scan.metadata.targetCheckoutId) throw new InvalidInput(message)
 }
 
 /** The component must come from the scanned repository, and its project boundary must be one the scan detected. */
@@ -21,7 +22,7 @@ async function requireComponentSource(component: Component | undefined, scan: Lo
   const matches = component?.repo
     && await repositoryKey(component.repo) === await repositoryKey(scan.metadata.repository)
     && scan.metadata.projects.some(project => project.path === (component.sourcePath ?? '.'))
-  if (!matches) throw new Error(message)
+  if (!matches) throw new InvalidInput(message)
   return component!
 }
 
@@ -31,11 +32,11 @@ function upsert<T extends { id: string }>(before: T[], updates: T[]) {
 
 export async function applyCatalogInvestigation(root: string, input: unknown) {
   const args = applyCatalogInvestigationSchema.parse(input)
-  if (!args.flows.length && !args.findings.length && !args.jobs.length) throw new Error('Supply at least one investigated flow or finding')
+  if (!args.flows.length && !args.findings.length && !args.jobs.length) throw new InvalidInput('Supply at least one investigated flow or finding')
   const primary = await loadScan(args.scanId)
   const { metadata } = primary
   const plan = await readPlan(root)
-  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Error('Stale investigation; re-read and reconcile')
+  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Conflict('Stale investigation; re-read and reconcile')
   requireScanTarget(plan, primary, 'Scan belongs to another project or checkout')
   const component = await requireComponentSource(
     plan.snapshot.components.find(component => component.id === args.componentId), primary,
@@ -43,10 +44,10 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   )
   const boundary = component.sourcePath ?? '.'
   for (const group of [args.flows, args.findings, args.jobs]) {
-    if (new Set(group.map(item => item.id)).size !== group.length) throw new Error('Duplicate investigation IDs')
+    if (new Set(group.map(item => item.id)).size !== group.length) throw new InvalidInput('Duplicate investigation IDs')
   }
   for (const item of [...args.flows, ...args.findings]) {
-    if (item.sourceRevision !== metadata.revision) throw new Error('Investigation must use the pinned source revision')
+    if (item.sourceRevision !== metadata.revision) throw new InvalidInput('Investigation must use the pinned source revision')
   }
   const observationId = (kind: CatalogKind, id: string) => catalogId(plan.manifest.id, component.id, kind, id)
   const entities = new Set(catalogIndex(plan).map(entry => entry.id))
@@ -54,15 +55,15 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   for (const flow of args.flows) entities.add(observationId('flow', flow.id))
   const scannedRepository = await repositoryKey(metadata.repository)
   for (const finding of args.findings) {
-    if (await repositoryKey(finding.repository) !== scannedRepository) throw new Error('Finding repository differs from its source snapshot')
+    if (await repositoryKey(finding.repository) !== scannedRepository) throw new InvalidInput('Finding repository differs from its source snapshot')
     for (const subject of finding.subjects) {
-      if (!entities.has(observationId(subject.kind, subject.id))) throw new Error(`Unknown investigation subject: ${subject.id}`)
+      if (!entities.has(observationId(subject.kind, subject.id))) throw new NotFound(`Unknown investigation subject: ${subject.id}`)
     }
   }
   const supporting = await Promise.all(args.sourceScans.map(id => loadScan(id)))
   const sources = [primary, ...supporting]
   const sourceKeys = await Promise.all(sources.map(source => repositoryKey(source.metadata.repository)))
-  if (new Set(sourceKeys).size !== sourceKeys.length) throw new Error('Use one pinned scan per repository')
+  if (new Set(sourceKeys).size !== sourceKeys.length) throw new InvalidInput('Use one pinned scan per repository')
   for (const source of supporting) requireScanTarget(plan, source, 'Supporting source scan belongs to another checkout')
 
   const citations: { evidence: Citation; observationId: string }[] = [
@@ -76,10 +77,10 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   for (const { evidence, observationId } of citations) {
     const index = sourceKeys.indexOf(await repositoryKey(evidence.repository ?? metadata.repository))
     const source = sources[index]
-    if (!source) throw new Error('Cross-repository evidence requires a matching pinned sourceScans snapshot')
+    if (!source) throw new InvalidInput('Cross-repository evidence requires a matching pinned sourceScans snapshot')
     const citedBoundary = index === 0 ? boundary : source.metadata.projects.find(project =>
       filesForProject(source.metadata.files, project, source.metadata.projects).some(file => file.path === evidence.path))?.path
-    if (!citedBoundary) throw new Error('External evidence is outside prepared source boundaries')
+    if (!citedBoundary) throw new InvalidInput('External evidence is outside prepared source boundaries')
     await validateCitations(source, citedBoundary, [evidence])
     if (index > 0) {
       const observations = cited[index - 1].get(citedBoundary) ?? new Set<string>()
@@ -164,15 +165,15 @@ export async function reconcileCatalog(root: string, input: unknown) {
   const args = reconcileCatalogSchema.parse(input)
   const scan = await loadScan(args.scanId)
   const { metadata } = scan
-  if (!args.retire.length && !args.rename.length) throw new Error('Supply an evidenced retirement or rename')
+  if (!args.retire.length && !args.rename.length) throw new InvalidInput('Supply an evidenced retirement or rename')
   const plan = await readPlan(root)
-  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Error('Stale reconciliation; reread the catalog')
+  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Conflict('Stale reconciliation; reread the catalog')
   requireScanTarget(plan, scan, 'Scan belongs to another checkout')
   const component = await requireComponentSource(
     plan.snapshot.components.find(item => item.id === args.componentId), scan, 'Reconciliation source boundary mismatch',
   )
   const keys = [...args.retire, ...args.rename].map(item => `${item.kind}/${item.id}`)
-  if (new Set(keys).size !== keys.length) throw new Error('Conflicting lifecycle actions for one identity')
+  if (new Set(keys).size !== keys.length) throw new InvalidInput('Conflicting lifecycle actions for one identity')
   await validateCitations(scan, component.sourcePath ?? '.', [...args.retire, ...args.rename].flatMap(item => item.evidence))
   const next = structuredClone(component)
   const groups: Record<string, Observation[] | undefined> = {
@@ -182,13 +183,13 @@ export async function reconcileCatalog(root: string, input: unknown) {
   const retired = [...(next.retiredObservations ?? [])]
   const actions = retirementCascade(next, args.retire)
   if (args.rename.some(item => actions.some(action => action.kind === item.kind && action.id === item.id))) {
-    throw new Error('A renamed flow is also affected by retirement; reconcile explicitly')
+    throw new InvalidInput('A renamed flow is also affected by retirement; reconcile explicitly')
   }
   const retiredAt = new Date().toISOString()
   for (const action of actions) {
     const group = groups[action.kind]
     const index = group?.findIndex(item => item.id === action.id) ?? -1
-    if (!group || index < 0) throw new Error(`Unknown active ${action.kind}/${action.id}`)
+    if (!group || index < 0) throw new NotFound(`Unknown active ${action.kind}/${action.id}`)
     retired.push({
       kind: action.kind, id: action.id, retiredAt, sourceRevision: metadata.revision, reason: action.reason,
       evidence: action.evidence, observation: group[index] as unknown as Record<string, unknown>,
@@ -197,8 +198,8 @@ export async function reconcileCatalog(root: string, input: unknown) {
   }
   for (const action of args.rename) {
     const item = groups[action.kind]?.find(item => item.id === action.id)
-    if (!item) throw new Error(`Unknown active ${action.kind}/${action.id}`)
-    if (action.path && action.kind !== 'endpoint') throw new Error('Only endpoint renames can change a route path')
+    if (!item) throw new NotFound(`Unknown active ${action.kind}/${action.id}`)
+    if (action.path && action.kind !== 'endpoint') throw new InvalidInput('Only endpoint renames can change a route path')
     // Rename evidence is distinct from old implementation citations, particularly for flows.
     const paths = 'path' in item ? { pathBefore: item.path, ...(action.path ? { pathAfter: action.path } : {}) } : {}
     next.catalogChanges = [...(next.catalogChanges ?? []), {

@@ -2,6 +2,7 @@ import { mkdir, readFile, readdir, cp, rename, rm, lstat } from 'node:fs/promise
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
+import { InvalidInput, NotFound } from './errors.ts'
 import { assetPattern, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
 import { INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
@@ -48,9 +49,9 @@ export async function installInstructions(root: string) {
 export async function initialise(root: string, options: { name?: string; id?: string; domain?: string; files?: Files; assets?: string } = {}) {
   await mkdir(root, { recursive: true })
   return withLock(root, async () => {
-    if (await lstat(await safePath(root, PROJECT_FILE)).catch(() => null)) throw new Error('Catalog already exists; initialisation never overwrites it')
+    if (await lstat(await safePath(root, PROJECT_FILE)).catch(() => null)) throw new InvalidInput('Catalog already exists; initialisation never overwrites it')
     const target = await safePath(root, PLANS_DIR)
-    if (await lstat(target).catch(() => null)) throw new Error('Plans already exist. Initialisation never overwrites an existing plan directory.')
+    if (await lstat(target).catch(() => null)) throw new InvalidInput('Plans already exist. Initialisation never overwrites an existing plan directory.')
     const manifest = manifestSchema.parse({ schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}) })
     const files = options.files ?? {
       'project.json': JSON.stringify(manifest, null, 2) + '\n',
@@ -80,11 +81,11 @@ export async function initialise(root: string, options: { name?: string; id?: st
 async function assetFilter(assets: string, source: string) {
   const relative = path.relative(assets, source).split(path.sep).join('/')
   const stat = await lstat(source)
-  if (stat.isSymbolicLink()) throw new Error('Migration does not follow asset symlinks')
+  if (stat.isSymbolicLink()) throw new InvalidInput('Migration does not follow asset symlinks')
   if (relative && path.basename(source).startsWith('.')) return false
   if (stat.isDirectory()) return true
   if (!stat.isFile() || !assetPattern.test(`assets/${relative}`)) {
-    throw new Error(`Unsupported asset ${relative}: use png, jpg, webp, gif or avif files named with letters, digits, _ or -`)
+    throw new InvalidInput(`Unsupported asset ${relative}: use png, jpg, webp, gif or avif files named with letters, digits, _ or -`)
   }
   return true
 }
@@ -102,9 +103,9 @@ export async function exportLegacy(source: string, target: string, options: { na
   const docs = await readContentDirectory(source)
   const loaded = loadContent(docs, livePrototypeIds)
   const products = loaded.products.filter(p => !options.product || p.id === options.product)
-  if (!products.length) throw new Error('No matching product to export')
+  if (!products.length) throw new NotFound('No matching product to export')
   const workspaceIds = new Set(products.map(p => p.workspaceId))
-  if (workspaceIds.size > 1) throw new Error('Select a product with --product when exporting multiple legacy workspaces')
+  if (workspaceIds.size > 1) throw new InvalidInput('Select a product with --product when exporting multiple legacy workspaces')
   // Include referenced sibling products so cross-product component references survive.
   const keptProducts = loaded.products.filter(p => workspaceIds.has(p.workspaceId))
   const featureIds = new Set(loaded.features.filter(f => products.some(p => p.id === f.productId)).map(f => f.id))
@@ -124,11 +125,11 @@ export async function exportLegacy(source: string, target: string, options: { na
   if (options.supplement) {
     async function visit(directory: string, prefix = '') {
       for (const entry of await readdir(directory, { withFileTypes: true })) {
-        if (entry.isSymbolicLink()) throw new Error('Supplement symlinks are not supported')
+        if (entry.isSymbolicLink()) throw new InvalidInput('Supplement symlinks are not supported')
         const name = prefix + entry.name
         if (entry.isDirectory()) await visit(path.join(directory, entry.name), name + '/')
         else if (entry.isFile()) {
-          if (name in files) throw new Error(`Supplement would overwrite ${name}`)
+          if (name in files) throw new InvalidInput(`Supplement would overwrite ${name}`)
           files[name] = await readFile(path.join(directory, entry.name), 'utf8')
         }
       }

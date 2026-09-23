@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { scanManifestSchema } from '../src/data/scan-manifest.ts'
 import { catalogIndex } from './catalog.ts'
 import { parsePlan } from './format.ts'
+import { Conflict, InvalidInput, NotFound } from './errors.ts'
 import { digest } from './git.ts'
 import { readPlan } from './repository.ts'
 import type { ScanMetadata } from './scan-workspace.ts'
@@ -24,7 +25,7 @@ export function manifestChange(plan: Plan, changes: Record<string, string>, inpu
   const packet = scanManifestSchema.parse({ ...input, mappings: [...new Map(mappings.map(item => [JSON.stringify(item), item])).values()],
     note: 'Files describe the bounded prepared inventory, not proof every file was inspected. Mappings index citations at this revision, not a complete dependency graph. Scope records applied areas/observation IDs. No behavioral or deployed freshness verification is implied.' })
   const raw = JSON.stringify(packet) + '\n'
-  if (Buffer.byteLength(raw) > 2 * 1024 * 1024) throw new Error('Scan manifest exceeds 2 MiB; prepare a smaller investigation')
+  if (Buffer.byteLength(raw) > 2 * 1024 * 1024) throw new InvalidInput('Scan manifest exceeds 2 MiB; prepare a smaller investigation')
   const manifestId = digest(raw)
   return { manifestId, file: `scan-manifests/${manifestId}.json`, raw }
 }
@@ -60,9 +61,9 @@ export const readScanManifestSchema = z.strictObject({
 export async function readScanManifest(root: string, input: unknown, ref?: string) {
   const args = readScanManifestSchema.parse(input)
   const plan = await readPlan(root, ref)
-  if (args.expectedRevision && args.expectedRevision !== plan.revision) throw new Error('Catalog changed; restart manifest listing')
-  if (!args.manifestId && args.section !== 'summary') throw new Error('Select a manifestId for inventory or mapping pages')
-  if (!args.manifestId && args.offset && !args.expectedRevision) throw new Error('Supply expectedRevision when continuing a manifest listing')
+  if (args.expectedRevision && args.expectedRevision !== plan.revision) throw new Conflict('Catalog changed; restart manifest listing')
+  if (!args.manifestId && args.section !== 'summary') throw new InvalidInput('Select a manifestId for inventory or mapping pages')
+  if (!args.manifestId && args.offset && !args.expectedRevision) throw new InvalidInput('Supply expectedRevision when continuing a manifest listing')
   const entries = Object.entries(plan.files).filter(([file]) => file.startsWith('scan-manifests/')).sort(([a], [b]) => a.localeCompare(b))
   const summary = (file: string, raw: string) => {
     const { files, dependencyFingerprints, mappings, ...metadata } = scanManifestSchema.parse(JSON.parse(raw))
@@ -72,12 +73,12 @@ export async function readScanManifest(root: string, input: unknown, ref?: strin
   if (!args.manifestId) items = entries.map(([file, raw]) => summary(file, raw))
   else {
     const file = `scan-manifests/${args.manifestId}.json`, raw = plan.files[file]
-    if (!raw) throw new Error('Unknown scan manifest')
+    if (!raw) throw new NotFound('Unknown scan manifest')
     items = args.section === 'summary' ? [summary(file, raw)] : scanManifestSchema.parse(JSON.parse(raw))[args.section]
   }
   const result = { catalogRevision: plan.revision, manifestId: args.manifestId ?? null, section: args.section, total: items.length, items: items.slice(args.offset, args.offset + args.limit), nextOffset: null as number | null }
   while (Buffer.byteLength(JSON.stringify(result)) > 64000 && result.items.length) result.items.pop()
-  if (!result.items.length && args.offset < items.length) throw new Error('Manifest item exceeds response budget; inspect the stored manifest directly')
+  if (!result.items.length && args.offset < items.length) throw new InvalidInput('Manifest item exceeds response budget; inspect the stored manifest directly')
   result.nextOffset = args.offset + result.items.length < items.length ? args.offset + result.items.length : null
   return result
 }

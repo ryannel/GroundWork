@@ -2,6 +2,7 @@ import { catalogId } from '../src/data/catalog-identity.ts'
 import type { Component } from '../src/data/model.ts'
 import { applyRepositoryScanSchema, scanAreas, type RepositoryDiscovery, type ScanArea } from '../src/data/scan-schema.ts'
 import { repositoryKey } from './catalog-freshness.ts'
+import { Conflict, InvalidInput, NotFound } from './errors.ts'
 import { digest } from './git.ts'
 import { readPlan, writePlan } from './repository.ts'
 import { requireClaimEvidence, requireRetainedInventory, validateDiscoveryCitations } from './scan-evidence.ts'
@@ -79,7 +80,7 @@ export function mergeComponent(previous: Record<string, unknown> & Partial<Compo
   if (discovery.jobs !== undefined) next.jobs = discovery.jobs
   if (discovery.executionFlows !== undefined) next.executionFlows = discovery.executionFlows
   if ((next.dependsOn as unknown[] | undefined)?.length && !(next.evidence as unknown[]).length) {
-    throw new Error(`${discovery.id}: resolved dependencies require evidence`)
+    throw new InvalidInput(`${discovery.id}: resolved dependencies require evidence`)
   }
   return next
 }
@@ -89,15 +90,15 @@ export async function applyRepositoryScan(root: string, input: unknown) {
   const scan = await loadScan(args.scanId)
   const { directory, metadata } = scan
   if (metadata.incremental) {
-    throw new Error('Incremental scans cannot replace catalog inventories; '
+    throw new InvalidInput('Incremental scans cannot replace catalog inventories; '
       + 'use apply_catalog_investigation for flows/findings or prepare a baseline scan for reconciled contracts')
   }
   const plan = await readPlan(root)
   if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) {
-    throw new Error('Stale edit: re-read the plan before applying repository discoveries')
+    throw new Conflict('Stale edit: re-read the plan before applying repository discoveries')
   }
   if (plan.manifest.id !== metadata.targetProjectId || plan.context.checkoutId !== metadata.targetCheckoutId) {
-    throw new Error('Repository scan belongs to another Groundwork project or checkout')
+    throw new InvalidInput('Repository scan belongs to another Groundwork project or checkout')
   }
   const productIds = new Set(plan.snapshot.products.map(product => product.id))
   const existingIds = new Set(plan.snapshot.components.map(component => component.id))
@@ -107,9 +108,9 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     repository: component.repo ? await repositoryKey(component.repo) : null,
   })))
   const batchIds = new Set(args.discoveries.map(discovery => discovery.id))
-  if (batchIds.size !== args.discoveries.length) throw new Error('Repository discoveries contain duplicate component IDs')
+  if (batchIds.size !== args.discoveries.length) throw new InvalidInput('Repository discoveries contain duplicate component IDs')
   if (new Set(args.discoveries.map(discovery => discovery.sourcePath)).size !== args.discoveries.length) {
-    throw new Error('Repository discoveries contain duplicate project paths')
+    throw new InvalidInput('Repository discoveries contain duplicate project paths')
   }
   const changes: Record<string, string> = {}
   const nextOrder = new Map(plan.snapshot.products.map(product => [
@@ -122,32 +123,32 @@ export async function applyRepositoryScan(root: string, input: unknown) {
   const scannedAt = new Date().toISOString()
   for (const discovery of args.discoveries) {
     const project = metadata.projects.find(project => project.path === discovery.sourcePath)
-    if (!project) throw new Error(`${discovery.id}: sourcePath was not detected by this scan`)
+    if (!project) throw new InvalidInput(`${discovery.id}: sourcePath was not detected by this scan`)
     requireClaimEvidence(discovery)
     for (const flow of discovery.executionFlows ?? []) {
-      if (flow.sourceRevision !== metadata.revision) throw new Error(`${flow.id}: execution flow revision does not match the pinned scan revision`)
+      if (flow.sourceRevision !== metadata.revision) throw new InvalidInput(`${flow.id}: execution flow revision does not match the pinned scan revision`)
     }
     await validateDiscoveryCitations(scan, discovery)
-    if (!productIds.has(discovery.productId)) throw new Error(`${discovery.id}: unknown product ${discovery.productId}`)
+    if (!productIds.has(discovery.productId)) throw new NotFound(`${discovery.id}: unknown product ${discovery.productId}`)
     const collision = components.find(item => item.component.id === discovery.id)
     if (collision && (collision.repository !== scannedRepository || (collision.component.sourcePath ?? '.') !== discovery.sourcePath)) {
-      throw new Error(`${discovery.id}: component ID belongs to another repository or project path`)
+      throw new InvalidInput(`${discovery.id}: component ID belongs to another repository or project path`)
     }
     const identityMatch = components
       .find(item => item.repository === scannedRepository && (item.component.sourcePath ?? '.') === discovery.sourcePath)?.component
     if (identityMatch && identityMatch.id !== discovery.id) {
-      throw new Error(`${discovery.id}: repository project already belongs to component ${identityMatch.id}`)
+      throw new InvalidInput(`${discovery.id}: repository project already belongs to component ${identityMatch.id}`)
     }
     for (const dependency of discovery.dependsOn ?? []) {
-      if (dependency === discovery.id) throw new Error(`${discovery.id}: component cannot depend on itself`)
+      if (dependency === discovery.id) throw new InvalidInput(`${discovery.id}: component cannot depend on itself`)
       if (!existingIds.has(dependency) && !batchIds.has(dependency)) {
-        throw new Error(`${discovery.id}: unresolved dependency ${dependency} must remain in unresolvedDependencies`)
+        throw new InvalidInput(`${discovery.id}: unresolved dependency ${dependency} must remain in unresolvedDependencies`)
       }
     }
     requireRetainedInventory(collision?.component, discovery)
-    for (const area of metadata.areas) if (!discovery.coverage[area]) throw new Error(`${discovery.id}: missing ${area} coverage result`)
+    for (const area of metadata.areas) if (!discovery.coverage[area]) throw new InvalidInput(`${discovery.id}: missing ${area} coverage result`)
     if (budgetLimited && metadata.areas.some(area => discovery.coverage[area] === 'complete')) {
-      throw new Error(`${discovery.id}: budget-limited scan areas must report partial coverage`)
+      throw new InvalidInput(`${discovery.id}: budget-limited scan areas must report partial coverage`)
     }
     const previous = collision ? JSON.parse(plan.files[`components/${collision.component.id}.json`]) : {}
     const order = discovery.order ?? previous.order ?? nextOrder.get(discovery.productId)!

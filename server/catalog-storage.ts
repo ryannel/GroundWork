@@ -1,3 +1,4 @@
+import { InvalidInput } from './errors.ts'
 import { type Files } from './format.ts'
 import { CATALOG_DIR, GROUNDWORK_DIR, MEMBERS_DIR, PHYSICAL_DOCUMENT_SOURCE, PLANS_DIR, PROJECT_FILE } from './paths.ts'
 
@@ -33,45 +34,45 @@ export function encodeStorage(files: Files, layout: Layout): Files {
 export function decodeStorage(physical: Files): { files: Files; layout: Layout } {
   const split = physical[layoutFile] !== undefined || physical[PROJECT_FILE] !== undefined
   if (!split) {
-    if (Object.keys(physical).some(name => !name.startsWith(plans))) throw new Error('Catalog files without a layout marker; repair or recover the migration')
+    if (Object.keys(physical).some(name => !name.startsWith(plans))) throw new InvalidInput('Catalog files without a layout marker; repair or recover the migration')
     return { layout: 'legacy', files: Object.fromEntries(Object.entries(physical).map(([name, raw]) => [name.slice(plans.length), raw])) }
   }
   if (!physical[PROJECT_FILE] || physical[layoutFile] === undefined || JSON.parse(physical[layoutFile]).version !== 1) {
-    throw new Error('Unsupported or incomplete catalog layout')
+    throw new InvalidInput('Unsupported or incomplete catalog layout')
   }
   const files: Files = {}, componentIds = new Set<string>()
   for (const [name, raw] of Object.entries(physical)) {
     if (name === layoutFile) continue
     if (name.startsWith(plans)) {
       const logical = name.slice(plans.length)
-      if (!/^(?:features\/|decisions\/)/.test(logical)) throw new Error('Mixed catalog authority: legacy catalog documents exist in plans; recover or reconcile explicitly')
+      if (!/^(?:features\/|decisions\/)/.test(logical)) throw new InvalidInput('Mixed catalog authority: legacy catalog documents exist in plans; recover or reconcile explicitly')
       files[logical] = raw
     } else if (name === PROJECT_FILE || name.startsWith(members)) files[name.slice(groundwork.length)] = raw
     else if (name.startsWith(`${catalog}products/`)) files[name.slice(catalog.length)] = raw
     else if (name.startsWith(`${catalog}scans/`)) files[`scan-manifests/${name.split('/').at(-1)}`] = raw
     else if (name.startsWith(components)) componentIds.add(name.split('/')[3])
-    else throw new Error(`Unknown catalog document: ${name}`)
+    else throw new InvalidInput(`Unknown catalog document: ${name}`)
   }
   for (const componentId of componentIds) {
     const prefix = `${components}${componentId}/`
-    if (!physical[prefix + 'component.json']) throw new Error(`Missing component metadata: ${componentId}`)
+    if (!physical[prefix + 'component.json']) throw new InvalidInput(`Missing component metadata: ${componentId}`)
     const component = JSON.parse(physical[prefix + 'component.json'])
-    for (const field of ['api', 'data', 'messaging', 'executionFlows', 'findings']) if (field in component) throw new Error(`Mixed component authority: ${componentId}.${field}`)
+    for (const field of ['api', 'data', 'messaging', 'executionFlows', 'findings']) if (field in component) throw new InvalidInput(`Mixed component authority: ${componentId}.${field}`)
     for (const area of ['api', 'data', 'messaging']) if (physical[prefix + area + '.json'] !== undefined) component[area] = JSON.parse(physical[prefix + area + '.json'])
     const knowledge = physical[prefix + 'knowledge.json'] === undefined ? {} : JSON.parse(physical[prefix + 'knowledge.json'])
-    if (Object.keys(knowledge).some(key => !['findings', 'flowOrder'].includes(key))) throw new Error('Unsupported component knowledge field')
+    if (Object.keys(knowledge).some(key => !['findings', 'flowOrder'].includes(key))) throw new InvalidInput('Unsupported component knowledge field')
     if ('findings' in knowledge) component.findings = knowledge.findings
     const flowFiles = Object.keys(physical).filter(name => name.startsWith(prefix + 'flows/'))
     if ('flowOrder' in knowledge) {
-      if (!Array.isArray(knowledge.flowOrder) || new Set(knowledge.flowOrder).size !== knowledge.flowOrder.length || flowFiles.length !== knowledge.flowOrder.length) throw new Error('Invalid flow inventory')
+      if (!Array.isArray(knowledge.flowOrder) || new Set(knowledge.flowOrder).size !== knowledge.flowOrder.length || flowFiles.length !== knowledge.flowOrder.length) throw new InvalidInput('Invalid flow inventory')
       component.executionFlows = knowledge.flowOrder.map((flowId: string) => {
         const name = prefix + `flows/${flowId}.json`
-        if (!flowFiles.includes(name)) throw new Error('Missing flow document')
-        const flow = JSON.parse(physical[name]); if (flow.id !== flowId) throw new Error('Flow identity mismatch')
+        if (!flowFiles.includes(name)) throw new InvalidInput('Missing flow document')
+        const flow = JSON.parse(physical[name]); if (flow.id !== flowId) throw new InvalidInput('Flow identity mismatch')
         return flow
       })
-    } else if (flowFiles.length) throw new Error('Flow files require an ordered inventory')
-    if (component.id !== componentId) throw new Error('Component directory identity mismatch')
+    } else if (flowFiles.length) throw new InvalidInput('Flow files require an ordered inventory')
+    if (component.id !== componentId) throw new InvalidInput('Component directory identity mismatch')
     files[`components/${componentId}.json`] = JSON.stringify(component, null, 2) + '\n'
   }
   return { layout: 'catalog-v1', files }

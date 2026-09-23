@@ -4,6 +4,7 @@ import path from 'node:path'
 import { scanEvidenceSchema, type RepositoryDiscovery, type ScanEvidence } from '../src/data/scan-schema.ts'
 import type { Component } from '../src/data/model.ts'
 import { lineCount, repositoryKey } from './catalog-freshness.ts'
+import { InvalidInput } from './errors.ts'
 import { filesForProject } from './scan-projects.ts'
 import type { LoadedScan } from './scan-workspace.ts'
 
@@ -40,27 +41,27 @@ function blobDigest(content: Buffer, algorithm: 'sha1' | 'sha256') {
 export async function validateCitations(scan: LoadedScan, boundary: string, citations: Citation[], sources: string[] = []) {
   const { directory, metadata } = scan
   const project = metadata.projects.find(project => project.path === boundary)
-  if (!project) throw new Error(`${boundary}: project boundary was not detected by this scan`)
+  if (!project) throw new InvalidInput(`${boundary}: project boundary was not detected by this scan`)
   const known = new Set(filesForProject(metadata.files, project, metadata.projects).map(file => file.path))
-  for (const source of sources) if (!known.has(source)) throw new Error(`${source}: source is not a file in the scan snapshot`)
+  for (const source of sources) if (!known.has(source)) throw new InvalidInput(`${source}: source is not a file in the scan snapshot`)
   const scanned = await repositoryKey(metadata.repository)
   const lineCounts = new Map<string, number>()
   for (const evidence of scanEvidenceSchema.array().parse(citations)) {
     if (evidence.repository && await repositoryKey(evidence.repository) !== scanned) {
-      throw new Error('Evidence repository differs from the validated source snapshot')
+      throw new InvalidInput('Evidence repository differs from the validated source snapshot')
     }
-    if (evidence.revision !== metadata.revision) throw new Error(`${evidence.path}: evidence revision does not match the pinned scan revision`)
-    if (!known.has(evidence.path)) throw new Error(`${evidence.path}: evidence path is not part of the scan snapshot`)
+    if (evidence.revision !== metadata.revision) throw new InvalidInput(`${evidence.path}: evidence revision does not match the pinned scan revision`)
+    if (!known.has(evidence.path)) throw new InvalidInput(`${evidence.path}: evidence path is not part of the scan snapshot`)
     let lines = lineCounts.get(evidence.path)
     if (lines === undefined) {
       const raw = await readFile(path.join(directory, 'source', ...evidence.path.split('/')))
       const expected = metadata.files.find(file => file.path === evidence.path)!.digest
-      if (blobDigest(raw, expected.length === 64 ? 'sha256' : 'sha1') !== expected) throw new Error(`${evidence.path}: prepared source was modified`)
+      if (blobDigest(raw, expected.length === 64 ? 'sha256' : 'sha1') !== expected) throw new InvalidInput(`${evidence.path}: prepared source was modified`)
       lines = lineCount(raw.toString('utf8'))
       lineCounts.set(evidence.path, lines)
     }
     const [start, end = start] = evidence.lines.split('-').map(Number)
-    if (start < 1 || end < start || end > lines) throw new Error(`${evidence.path}:${evidence.lines}: evidence line range is outside the scanned file`)
+    if (start < 1 || end < start || end > lines) throw new InvalidInput(`${evidence.path}:${evidence.lines}: evidence line range is outside the scanned file`)
   }
 }
 
@@ -68,24 +69,24 @@ export async function validateCitations(scan: LoadedScan, boundary: string, cita
 export async function validateDiscoveryCitations(scan: LoadedScan, discovery: RepositoryDiscovery) {
   const { evidence, sources, revisions } = citationFields(discovery)
   for (const revision of revisions) {
-    if (revision !== scan.metadata.revision) throw new Error(`${discovery.id}: sourceRevision ${revision} does not match the pinned scan revision`)
+    if (revision !== scan.metadata.revision) throw new InvalidInput(`${discovery.id}: sourceRevision ${revision} does not match the pinned scan revision`)
   }
   await validateCitations(scan, discovery.sourcePath, evidence, sources)
 }
 
 export function requireClaimEvidence(discovery: RepositoryDiscovery) {
   const missing = (records: { id: string; evidence?: unknown[] }[] | undefined) => records?.find(record => !record.evidence?.length)
-  if (discovery.dependsOn?.length && !discovery.evidence?.length) throw new Error(`${discovery.id}: resolved dependencies require evidence`)
+  if (discovery.dependsOn?.length && !discovery.evidence?.length) throw new InvalidInput(`${discovery.id}: resolved dependencies require evidence`)
   const endpoint = missing(discovery.api?.endpoints)
-  if (endpoint) throw new Error(`${discovery.id}: API endpoint ${endpoint.id} requires evidence`)
+  if (endpoint) throw new InvalidInput(`${discovery.id}: API endpoint ${endpoint.id} requires evidence`)
   const schema = missing(discovery.api?.schemas)
-  if (schema) throw new Error(`${discovery.id}: API schema ${schema.id} requires evidence`)
+  if (schema) throw new InvalidInput(`${discovery.id}: API schema ${schema.id} requires evidence`)
   const record = missing(discovery.data?.records)
-  if (record) throw new Error(`${discovery.id}: data record ${record.id} requires evidence`)
+  if (record) throw new InvalidInput(`${discovery.id}: data record ${record.id} requires evidence`)
   const message = missing(discovery.messaging?.messages)
-  if (message) throw new Error(`${discovery.id}: message ${message.id} requires evidence`)
+  if (message) throw new InvalidInput(`${discovery.id}: message ${message.id} requires evidence`)
   for (const dependency of discovery.unresolvedDependencies ?? []) {
-    if (!dependency.evidence.length) throw new Error(`${discovery.id}: unresolved dependency ${dependency.name} requires evidence`)
+    if (!dependency.evidence.length) throw new InvalidInput(`${discovery.id}: unresolved dependency ${dependency.name} requires evidence`)
   }
 }
 
@@ -93,7 +94,7 @@ export function requireClaimEvidence(discovery: RepositoryDiscovery) {
 export function requireRetainedInventory(previous: Component | undefined, discovery: RepositoryDiscovery) {
   const requireRetained = (kind: string, before: { id: string }[] | undefined, after: { id: string }[] | undefined) => {
     if (before?.some(item => !after?.some(next => next.id === item.id))) {
-      throw new Error(`Scan omitted active ${kind} records; use reconcile_catalog for evidenced retirement before replacing this inventory`)
+      throw new InvalidInput(`Scan omitted active ${kind} records; use reconcile_catalog for evidenced retirement before replacing this inventory`)
     }
   }
   if (discovery.coverage.api) {
