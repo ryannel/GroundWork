@@ -18,6 +18,10 @@ export function useLens(kind: SectionKind): Set<string> | undefined {
 }
 export const refHref = (featureId: string, r: Ref) => `/f/${featureId}/${r.kind}/${r.id}`
 
+/** Smooth scrolling unless the user asked for reduced motion. */
+export const scrollBehavior = (): ScrollBehavior =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+
 /**
  * Focus: the item named in the URL. Scrolls it into view once and flashes a ring.
  * Returns the ref. The highlight class is derived from the selected ID by the caller.
@@ -26,7 +30,7 @@ export function useFocus<T extends HTMLElement = HTMLDivElement>(id: string, foc
   const el = useRef<T>(null)
   const on = focus === id
   useEffect(() => {
-    if (on && el.current) el.current.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    if (on && el.current) el.current.scrollIntoView({ block: 'center', behavior: scrollBehavior() })
   }, [on])
   return el
 }

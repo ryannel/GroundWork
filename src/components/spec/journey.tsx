@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import type { Journey } from '@/data/spec'
 import { ArrowRight, Split } from 'lucide-react'
@@ -21,10 +22,15 @@ export function JourneySection({ data, focus }: { data: Journey; focus?: string 
     }, { replace: true })
   }, [selectedTrace, trace, setParams])
   const mockup = selected?.design ? ix.mockup[selected.design] : undefined
+  const component = params.get('component')
+  const scopeQuery = lens && component ? `?${new URLSearchParams({ component })}` : ''
   return <div>
     <div className="flex flex-wrap gap-3 text-small text-fg-muted mb-5"><span>{steps.length} steps · {[...new Set(steps.map(s => s.actor))].join(' & ')}</span><LensNote shown={steps.length} total={data.steps.length} kind="steps" /></div>
     {selected ? <div className="journey-explorer">
-      <nav aria-label="Journey steps" className="journey-steps">{steps.map(s => <Link key={s.id} to={`/f/${featureId}/journey/${s.id}${lens ? `?component=${params.get('component')}` : ''}`} aria-current={selected.id === s.id ? 'step' : undefined} className="journey-step"><span className="step-number">{data.steps.indexOf(s) + 1}</span><span><small>{s.actor}</small><strong>{s.action}</strong></span></Link>)}</nav>
+      <nav aria-label="Journey steps" className="journey-steps">{steps.map(s => <Link key={s.id} to={`/f/${featureId}/journey/${s.id}${scopeQuery}`}
+        aria-current={selected.id === s.id ? 'step' : undefined} className="journey-step">
+        <span className="step-number">{data.steps.indexOf(s) + 1}</span><span><small>{s.actor}</small><strong>{s.action}</strong></span>
+      </Link>)}</nav>
       <article className="journey-detail" key={selected.id}>
         <div className="eyebrow">Step {data.steps.indexOf(selected) + 1} · {selected.actor}</div><h3>{selected.action}</h3><p>{selected.surface}</p>
         {selected.note && <p>{selected.note}</p>}
@@ -42,4 +48,3 @@ export function JourneySection({ data, focus }: { data: Journey; focus?: string 
     </div> : <p className="text-fg-muted text-small">No journey steps touch this component. Choose All components to see the full journey.</p>}
   </div>
 }
-import { useEffect } from 'react'

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import type { Flow, FlowNode } from '@/data/spec'
 import { actionFlow, resolveFlowAction, resolveFlowSelection } from '@/data/flow-context'
-import { q } from '@/data/store'
+import { useQuery } from '@/data/store'
 import { hueStyle } from '@/lib/taxonomy'
 import { cn } from '@/lib/cn'
 import { ArrowRight, Maximize2, Workflow } from 'lucide-react'
@@ -15,6 +15,7 @@ const laneHues = ['--hue-indigo', '--hue-teal', '--hue-amber', '--hue-magenta', 
 const W = 140, H = 56, GX = 100, GY = 100, PAD = 32
 
 export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
+  const q = useQuery()
   const { ix, spec, featureId } = useSpec()
   const [zoom, setZoom] = useState<'actual' | 'fit'>('actual')
   const canvas = useRef<HTMLDivElement>(null)
@@ -42,6 +43,13 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
     if (canonicalTrace) next.set('trace', canonicalTrace)
     navigate(`/f/${featureId}/flow?${next}`)
   }
+  const feature = q.features().find(f => f.id === featureId)
+  const setScope = (component: string) => setParams(previous => {
+    const next = new URLSearchParams(previous)
+    if (component) next.set('component', component)
+    else next.delete('component')
+    return next
+  })
   const selectNode = (id: string) => select('node', id)
   const selectBoundary = (id: string) => select('edge', id)
   const selectAction = (id: string) => {
@@ -71,7 +79,12 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
       <div className="flow-toolbar action-flow-toolbar">
         <h2>System flow</h2>
         <label>Action<select aria-label="User action" value={action.id} onChange={e => selectAction(e.target.value)}>{steps.map((step, index) => <option key={step.id} value={step.id}>{index + 1}. {step.action}</option>)}</select></label>
-        <label className="flow-scope"><span className="sr-only">Component scope</span><select aria-label="Component scope" value={params.get('component') ?? ''} onChange={e => setParams(previous => { const next = new URLSearchParams(previous); if (e.target.value) next.set('component', e.target.value); else next.delete('component'); return next })}><option value="">All components</option><ComponentOptions components={featureComponents(q.features().find(f => f.id === featureId)!, q.components())} /></select></label>
+        <label className="flow-scope"><span className="sr-only">Component scope</span>
+          <select aria-label="Component scope" value={params.get('component') ?? ''} onChange={e => setScope(e.target.value)}>
+            <option value="">All components</option>
+            {feature && <ComponentOptions components={featureComponents(feature, q.components())} />}
+          </select>
+        </label>
         <div className="flow-zoom" role="group" aria-label="Diagram size"><button className="flow-fit" aria-pressed={zoom === 'fit'} onClick={() => setZoom('fit')}><Maximize2 size={14} />Fit</button><button className="flow-fit" aria-pressed={zoom === 'actual'} onClick={() => setZoom('actual')}>Actual size</button></div>
       </div>
       <section className="flow-action-banner" aria-label="Current action"><div><span>Action {steps.indexOf(action) + 1} of {steps.length}</span><span>{action.actor}</span>{action.surface && <span>{action.surface}</span>}</div><h3>{action.action}</h3>{action.note && <p>{action.note}</p>}{action.result && <p className="flow-action-result"><strong>Result</strong> {action.result}</p>}<Link to={`/f/${featureId}/journey/${action.id}`}>View in user journey <ArrowRight size={12} /></Link></section>
@@ -99,7 +112,7 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
             const c = cs[0]
             const methodTag = cs.length > 2 ? `${cs.length} APIs` : cs.map(x => x.method ?? 'API').join(' · ')
             const tag = c ? [e.label, methodTag].filter(Boolean).join(' · ') : e.label
-            const w = tag ? tag.length * 6.6 + 10 : 0
+            const w = tag ? tag.length * 7.2 + 12 : 0
             return (
               <g key={e.id} className={cn('transition-opacity', dimE(e.id) && 'opacity-15', c && 'flow-boundary')} role={c ? 'button' : undefined} tabIndex={c ? 0 : undefined} aria-label={c ? `Inspect boundary: ${a.label} to ${b.label}` : undefined} aria-pressed={c ? selection.kind === 'boundary' && selection.edge.id === e.id : undefined} onClick={c ? () => selectBoundary(e.id) : undefined} onKeyDown={event => { if (c && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); selectBoundary(e.id) } }}>
                 {c && <path d={d} fill="none" stroke="transparent" strokeWidth={16} className="flow-boundary-hit" />}
@@ -108,7 +121,8 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
                   <g transform={`translate(${lx},${ly})`}>
                     <title>{c ? cs.map(x => x.name).join(', ') + ' · inspect boundary' : e.label}</title>
                     <rect x={-w / 2} y={-9} width={w} height={18} rx={c ? 4 : 9} fill='var(--bg-elevated)' stroke='var(--border)' />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize={10} fontWeight={c ? 600 : 400} letterSpacing={c ? 0.4 : 0} stroke="none" fill={c ? 'var(--accent)' : 'var(--fg-muted)'} fontFamily={c ? 'var(--font-mono)' : undefined}>{tag}</text>
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize={11} fontWeight={c ? 600 : 400} letterSpacing={c ? 0.4 : 0} stroke="none"
+                      fill={c ? 'var(--accent)' : 'var(--fg-muted)'} fontFamily={c ? 'var(--font-mono)' : undefined}>{tag}</text>
                   </g>
                 )}
               </g>
@@ -130,7 +144,9 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
                 <title>{n.label}{link ? ' · has storage records' : ''}</title>
                 {shape}
                 <text x={x + W / 2} y={y + H / 2} textAnchor="middle" dominantBaseline="middle" fontSize={12} fontWeight={500} fill="var(--fg)" stroke="none" fontFamily={n.kind === 'store' ? 'var(--font-mono)' : undefined}>{n.label}</text>
-                {n.component && <text x={x + W / 2} y={y + H + 20} textAnchor="middle" fontSize={10} fill="var(--fg-muted)" stroke="none">{q.componentLabel(n.component)}</text>}
+                {n.component && <text x={x + W / 2} y={y + H + 20} textAnchor="middle" fontSize={11} fill="var(--fg-muted)" stroke="none">
+                  {q.componentLabel(n.component)}
+                </text>}
               </g>
             )
           })}

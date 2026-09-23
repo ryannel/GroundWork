@@ -4,7 +4,7 @@ import { ArrowRight, Code2, Database, GitBranch, Workflow, X } from 'lucide-reac
 import type { JourneyStep } from '@/data/spec'
 import type { FlowSelection } from '@/data/flow-context'
 import { actionFlow } from '@/data/flow-context'
-import { q } from '@/data/store'
+import { useQuery } from '@/data/store'
 import { useSpec } from './context'
 import { ApiContractCard } from './api'
 import { TableCard } from './storage'
@@ -12,6 +12,7 @@ import { TableCard } from './storage'
 type Selected = Exclude<FlowSelection, { kind: 'none' }>
 
 function BoundaryDetails({ selection }: { selection: Extract<Selected, { kind: 'boundary' }> }) {
+  const q = useQuery()
   const { contracts, selected } = selection
   const [open, setOpen] = useState(selected ?? contracts[0]?.id)
   return <div className="inspector-contracts">{contracts.map(c => <div key={c.id}>
@@ -36,22 +37,23 @@ function StoreDetails({ selection, action }: { action: JourneyStep; selection: E
 
 export function FlowInspector({ action, selection, onNode, onBoundary, onClose }: {
   action: JourneyStep
-  selection: FlowSelection
+  selection: Selected
   onNode: (id: string) => void
   onBoundary: (id: string) => void
   onClose: () => void
 }) {
+  const q = useQuery()
   const { spec, ix, featureId } = useSpec()
   const node = selection.kind === 'node' ? selection.node : undefined
   const decision = node?.kind === 'decision'
   const store = node?.kind === 'store'
-  const title = selection.kind === 'boundary' ? 'API contract' : decision ? 'Decision logic' : store ? 'Database schema' : node ? 'Processing step' : 'Action details'
+  const title = selection.kind === 'boundary' ? 'API contract' : decision ? 'Decision logic' : store ? 'Database schema' : 'Processing step'
   const Icon = selection.kind === 'boundary' ? Code2 : decision ? GitBranch : store ? Database : Workflow
   const flow = actionFlow(spec, action)
   const outgoing = node ? flow.edges.filter(edge => edge.from === node.id) : []
   const tests = (ix.stepTests[action.id] ?? []).map(id => ix.test[id]).filter(Boolean)
   const heading = useRef<HTMLHeadingElement>(null)
-  const selectedId = selection.kind === 'node' ? selection.node.id : selection.kind === 'boundary' ? selection.edge.id : ''
+  const selectedId = selection.kind === 'node' ? selection.node.id : selection.edge.id
   useEffect(() => {
     if (window.matchMedia('(max-width: 1200px)').matches) {
       heading.current?.scrollIntoView({ block: 'start' })
@@ -59,7 +61,9 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
     }
   }, [action.id, selectedId])
   return <aside className="api-inspector flow-inspector" aria-label={title} onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
-    <header className="inspector-heading"><span><Icon size={19} /></span><h3 ref={heading} tabIndex={-1}>{title}</h3>{selection.kind !== 'none' && <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}><X size={16} /><span>Back to flow</span></button>}</header>
+    <header className="inspector-heading"><span><Icon size={19} /></span><h3 ref={heading} tabIndex={-1}>{title}</h3>
+      <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}><X size={16} /><span>Back to flow</span></button>
+    </header>
     <div className="inspector-action-context"><small>FOR THIS ACTION · {action.actor}</small><p>{action.action}</p></div>
     {node && <div className="inspector-node-heading"><h4>{node.label}</h4><code>{q.componentLabel(node.component ?? '')} · {q.componentType(node.component ?? '')}</code>{node.description && <p>{node.description}</p>}</div>}
     {selection.kind === 'boundary' && <BoundaryDetails key={`${action.id}:${selection.edge.id}:${selection.selected ?? ''}`} selection={selection} />}
@@ -81,7 +85,6 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
       </> : <p className="inspector-empty">The condition and outcomes have not been documented for this decision.</p>}
     </section>}
     {node && !decision && !store && <section className="processing-connections"><h5>Next in this action</h5>{outgoing.map(edge => <button key={edge.id} onClick={() => edge.contracts?.length ? onBoundary(edge.id) : onNode(edge.to)}><span>{ix.node[edge.to]?.label}<small>{edge.contracts?.length ? 'Inspect API contract' : edge.label ?? 'Inspect processing step'}</small></span><ArrowRight size={14} /></button>)}{!outgoing.length && <p>This is the end of the documented path for this action.</p>}</section>}
-    {selection.kind === 'none' && <div className="action-inspector-guide"><p>{action.note ?? 'Explore how this action moves through the system.'}</p><h5>Select something in the flow</h5><ul><li><GitBranch size={17} /><span>Decision<small>Condition and possible outcomes</small></span></li><li><Code2 size={17} /><span>Service boundary<small>Request and response contract</small></span></li><li><Database size={17} /><span>Database<small>Tables, fields and schema changes</small></span></li></ul></div>}
     <section className="action-evidence"><h5>Tests for this action</h5>{tests.length ? tests.map(test => <Link key={test.id} to={`/f/${featureId}/tests/${test.id}?trace=journey:${action.id}`}><span>{test.title}</span><small>{test.status ?? 'planned'}</small></Link>) : <p>No tests are linked to this action yet.</p>}</section>
   </aside>
 }

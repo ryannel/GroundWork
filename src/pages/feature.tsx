@@ -1,26 +1,30 @@
-import { useEffect, type ComponentType } from 'react'
+import { useLayoutEffect, useMemo, useRef, type ComponentType, type Ref } from 'react'
 import { Link, Navigate, useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowRight, ArrowLeft, LayoutDashboard, Circle, CheckCircle2, Layers, AlertCircle } from 'lucide-react'
-import { q, relTime, isActive } from '@/data/store'
-import { sectionKinds, type SectionKind } from '@/data/spec'
-import { buildIndex, lensFor } from '@/data/spec-index'
-import { sectionMeta, sectionRenderers, sectionCount, SpecContext } from '@/components/spec'
-import { ComponentOptions, FeatureArchitecture } from '@/components/component-structure'
-import { componentScopeIds, featureComponents, changesOverlap } from '@/data/component-structure'
-import { StageBadge } from '@/ui/badge'
-import { ChangeMark } from '@/components/spec/change'
+import type { Component, Feature, Product, Workspace } from '@/data/model'
+import { useQuery, relTime } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
-import { DeliveryPage } from './delivery'
-import { knowledgeBaselineSchema, baselineAssessments, discoveryAssessmentSchema } from '@/data/knowledge'
-import { cn } from '@/lib/cn'
+import { sectionKinds, type FeatureSpec, type SectionKind } from '@/data/spec'
+import { buildIndex, lensFor } from '@/data/spec-index'
+import { componentScopeIds, featureComponents } from '@/data/component-structure'
+import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '@/data/knowledge'
+import { sectionMeta, sectionRenderers, sectionCount, SpecContext } from '@/components/spec'
+import type { SpecCtx } from '@/components/spec/context'
+import { ComponentOptions } from '@/components/component-structure'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { StageBadge } from '@/ui/badge'
+import { Avatar } from '@/ui/avatar'
+import { cn } from '@/lib/cn'
+import { DeliveryPage } from './delivery'
+import { FeatureOverview, OverviewHeader, type Assessment, type Baseline, type SectionGroup, type SectionHref } from './feature-overview'
 
-const groups: { label: string; sections: SectionKind[] }[] = [
-  { label: '01 · Define', sections: ['purpose'] },
-  { label: '02 · Experience', sections: ['journey', 'design'] },
-  { label: '03 · Build', sections: ['flow', 'api', 'storage'] },
-  { label: '04 · Validate', sections: ['tests'] },
+const groups: SectionGroup[] = [
+  { label: 'Define', sections: ['purpose'] },
+  { label: 'Experience', sections: ['journey', 'design'] },
+  { label: 'Build', sections: ['flow', 'api', 'storage'] },
+  { label: 'Validate', sections: ['tests'] },
 ]
+const groupTitle = (group: SectionGroup) => `0${groups.indexOf(group) + 1} · ${group.label}`
 const questions: Record<SectionKind, string> = {
   purpose: 'What problem are we solving, and what does success look like?',
   journey: 'Follow the experience, from the first action to the final outcome.',
@@ -30,114 +34,232 @@ const questions: Record<SectionKind, string> = {
   storage: 'Understand what we store, who owns it, and how the schema changes.',
   tests: 'Separate what is covered from what has actually passed.',
 }
+const tabSections = ['flow', 'api', 'storage', 'tests'] as const satisfies SectionKind[]
+/** Sections whose content follows the component scope selector. */
+const scopedSections: SectionKind[] = ['journey', 'flow', 'tests']
+const emptySpec: FeatureSpec = {}
+const deliveryLabel = 'Deliverables & tasks'
+
+/** Discovery packets were validated by the service; parse once per plan revision, not on every render. */
+function useDiscovery(files: Record<string, string> | undefined, id: string) {
+  return useMemo(() => {
+    const entries = Object.entries(files ?? {})
+    const baselines: Baseline[] = entries
+      .filter(([file]) => file.startsWith(`features/${id}/baselines/`))
+      .map(([file, raw]) => ({ file, packet: knowledgeBaselineSchema.parse(JSON.parse(raw)) }))
+    const assessments: Assessment[] = entries
+      .filter(([file]) => file.startsWith(`features/${id}/assessments/`))
+      .map(([, raw]) => discoveryAssessmentSchema.parse(JSON.parse(raw)))
+      .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
+    return { baselines, assessments }
+  }, [files, id])
+}
+
+function FeatureNav({ spec, product, workspace, current, href }: {
+  spec: FeatureSpec
+  product: Product
+  workspace: Workspace
+  current: SectionKind | 'delivery' | undefined
+  href: SectionHref
+}) {
+  const navigate = useNavigate()
+  const present = sectionKinds.filter(k => spec[k])
+  const linkProps = (k: SectionKind | 'delivery' | undefined) => ({
+    to: href(k),
+    'aria-current': current === k ? 'page' as const : undefined,
+    className: cn('plan-nav-link', current === k && 'is-active'),
+  })
+  return <>
+    <label className="mobile-section-picker">Explore this feature
+      <select value={current ?? ''} onChange={e => navigate(href(e.target.value ? e.target.value as SectionKind | 'delivery' : undefined))}>
+        <option value="">Overview</option>
+        {groups.map(g => <optgroup key={g.label} label={groupTitle(g)}>
+          {g.sections.map(k => <option key={k} value={k}>{sectionMeta[k].label}{!spec[k] ? ' · Not drafted' : ''}</option>)}
+        </optgroup>)}
+        <option value="delivery">{deliveryLabel}</option>
+      </select>
+    </label>
+    <aside className="feature-nav">
+      <Link to={`/w/${workspace.slug}/${product.slug}`} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
+      <div className="eyebrow mb-3 mt-7">Feature plan</div>
+      <Link {...linkProps(undefined)}><LayoutDashboard size={16} />Overview</Link>
+      {groups.map(g => <div className="nav-group" key={g.label}>
+        <div className="eyebrow">{groupTitle(g)}</div>
+        {g.sections.map(k => {
+          const Icon = sectionMeta[k].icon
+          return <Link key={k} {...linkProps(k)}>
+            <Icon className="size-4" /><span>{sectionMeta[k].label}</span>
+            <span className="nav-count">{spec[k] ? sectionCount(spec, k) ?? <CheckCircle2 size={12} /> : <Circle size={10} />}</span>
+          </Link>
+        })}
+      </div>)}
+      <div className="nav-group">
+        <div className="eyebrow">05 · Deliver</div>
+        <Link {...linkProps('delivery')}><Layers size={16} />{deliveryLabel}</Link>
+      </div>
+      <div className="nav-foot"><Layers size={15} />
+        <span>{present.length} of {sectionKinds.length} sections drafted<br /><small>Drafted does not mean validated</small></span>
+      </div>
+    </aside>
+  </>
+}
+
+function FocusedHeader({ feature, product, workspace, current, href }: {
+  feature: Feature
+  product: Product
+  workspace: Workspace
+  current: SectionKind | 'delivery'
+  href: SectionHref
+}) {
+  const tabs = [
+    { key: undefined, label: 'Overview' },
+    ...tabSections.map(key => ({ key, label: sectionMeta[key].label })),
+    { key: 'delivery' as const, label: 'Delivery' },
+  ]
+  return <>
+    <header className="feature-heading">
+      <Link to={`/w/${workspace.slug}/${product.slug}`} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
+      <span className="feature-id">{feature.id.toUpperCase()}</span><h1>{feature.title}</h1><StageBadge stage={feature.stage} />
+      <div className="feature-meta">
+        <span className="meta-owner-label">Owner</span><Avatar name={feature.owner} className="owner-avatar" /><span>{feature.owner}</span>
+      </div>
+    </header>
+    <nav className="feature-tabs" aria-label="Feature sections">
+      {tabs.map(tab => <Link key={tab.key ?? 'overview'} to={href(tab.key)} aria-current={current === tab.key ? 'page' : undefined}>{tab.label}</Link>)}
+    </nav>
+  </>
+}
+
+function FocusedSection({ target, spec, item, lensId, lensName, participants, headingRef, href, exampleFeature }: {
+  target: SectionKind
+  spec: FeatureSpec
+  item?: string
+  lensId?: string
+  lensName?: string
+  participants: Component[]
+  headingRef: Ref<HTMLHeadingElement>
+  href: SectionHref
+  exampleFeature?: Feature
+}) {
+  const [, setParams] = useSearchParams()
+  const meta = sectionMeta[target]
+  const Render = sectionRenderers[target] as ComponentType<{ data: unknown; focus?: string }>
+  const index = sectionKinds.indexOf(target)
+  const previous = sectionKinds[index - 1]
+  const next = sectionKinds[index + 1]
+  const setScope = (component: string) => setParams(p => {
+    const n = new URLSearchParams(p)
+    if (component) n.set('component', component)
+    else n.delete('component')
+    return n
+  })
+  const scopeNote = scopedSections.includes(target)
+    ? `Showing ${lensName} and its internals. Dependencies remain separate scopes.`
+    : `Showing full ${meta.label.toLowerCase()}. Component scope applies to journey, system, and tests.`
+  return <section className="focused-section">
+    <div className="section-intro">
+      <div>
+        <div className="eyebrow">{groupTitle(groups.find(g => g.sections.includes(target))!)}</div>
+        <h2 ref={headingRef} tabIndex={-1}>{meta.label}</h2>
+        <p>{questions[target]}</p>
+      </div>
+      {scopedSections.includes(target) && <label className="component-filter">Component scope
+        <select value={lensId ?? ''} onChange={e => setScope(e.target.value)}>
+          <option value="">All components</option><ComponentOptions components={participants} />
+        </select>
+      </label>}
+    </div>
+    {lensName && target !== 'api' && target !== 'storage' && <div className="scope-banner">
+      <Layers size={15} /><span>{scopeNote}</span><button onClick={() => setScope('')}>Clear scope</button>
+    </div>}
+    {spec[target] ? <Render data={spec[target]} focus={item} /> : <div className="section-empty">
+      <AlertCircle size={28} />
+      <h3>{meta.label} has not been drafted</h3>
+      <p>{meta.blurb}</p>
+      <p className="text-small">Your AI assistant can populate this section from the feature intent and supporting context.</p>
+      {exampleFeature && <Link to={`/f/${exampleFeature.id}/${target}`}>See {meta.label.toLowerCase()} in {exampleFeature.title}<ArrowRight size={14} /></Link>}
+    </div>}
+    <footer className="section-footer">
+      <Link to={href(previous)}><ArrowLeft size={14} />{previous ? sectionMeta[previous].label : 'Overview'}</Link>
+      <Link to={href(next)}>{next ? sectionMeta[next].label : 'Back to overview'}<ArrowRight size={14} /></Link>
+    </footer>
+  </section>
+}
 
 export function FeaturePage() {
   const { id = '', section, item } = useParams()
-  const navigate = useNavigate()
+  const q = useQuery()
   const { plan } = useRuntime()
-  const delivery = id ? plan?.delivery[id] : undefined
-  const baselines = Object.entries(plan?.files ?? {}).filter(([file]) => file.startsWith(`features/${id}/baselines/`)).map(([file, raw]) => ({ file, packet: knowledgeBaselineSchema.parse(JSON.parse(raw)) }))
-  const assessments = Object.entries(plan?.files ?? {}).filter(([file]) => file.startsWith(`features/${id}/assessments/`)).map(([, raw]) => discoveryAssessmentSchema.parse(JSON.parse(raw))).sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
-  const [params, setParams] = useSearchParams()
-  const f = q.features().find(x => x.id === id)
-  const spec = f?.spec ?? {}
-  const ix = buildIndex(spec)
+  const [params] = useSearchParams()
+  const { baselines, assessments } = useDiscovery(plan?.files, id)
+  const feature = q.features().find(x => x.id === id)
+  const spec = feature?.spec ?? emptySpec
+  const ix = useMemo(() => buildIndex(spec), [spec])
+  const allComponents = q.components()
+  const participants = useMemo(() => feature ? featureComponents(feature, allComponents) : [], [feature, allComponents])
+  const lensComponent = participants.find(c => c.id === params.get('component'))
+  const lens = useMemo(() => lensComponent && lensFor(spec, ix, componentScopeIds(lensComponent.id, allComponents)), [spec, ix, lensComponent, allComponents])
+  const lensName = lensComponent && q.componentLabel(lensComponent.id)
+  const context = useMemo<SpecCtx>(() => ({ featureId: id, spec, ix, lens, lensName }), [id, spec, ix, lens, lensName])
+  const heading = useRef<HTMLHeadingElement>(null)
+  // Before paint: start a new section at the top and move focus to its heading so screen readers announce it.
+  // A deep-linked item handles its own scroll and focus.
+  useLayoutEffect(() => {
+    if (item) return
+    window.scrollTo({ top: 0 })
+    heading.current?.focus({ preventScroll: true })
+  }, [id, section, item])
+
   const isDelivery = section === 'delivery'
   const target = sectionKinds.includes(section as SectionKind) ? section as SectionKind : undefined
-  const allComponents = q.components()
-  const participants = f ? featureComponents(f, allComponents) : []
-  const lensComponent = participants.find(c => c.id === params.get('component'))
-  const lens = lensComponent ? lensFor(spec, ix, componentScopeIds(lensComponent.id, allComponents)) : undefined
-  useEffect(() => { if (!item) window.scrollTo({ top: 0 }) }, [id, section, item])
-  if (!f) return <Navigate to="/" replace />
+  const product = feature && q.product(feature.productId)
+  const workspace = product && q.workspace(product.workspaceId)
+  if (!feature || !product || !workspace) return <Navigate to="/" replace />
   if (section && !target && !isDelivery) return <Navigate to={`/f/${id}`} replace />
-  const product = q.product(f.productId)!
-  const workspace = q.workspace(product.workspaceId)!
-  const touches = f.touches.map(cid => q.component(cid)!).filter(Boolean)
-  const related = q.features().filter(o => o.id !== id && isActive(o) && changesOverlap(f, o, allComponents))
-  const populatedExample = q.features().find(other => other.id !== id && (!target || other.spec?.[target]))
-  const cases = spec.tests?.cases ?? []
-  const passing = cases.filter(c => c.status === 'passing').length
-  const currentAction = params.get('trace')?.startsWith('journey:') ? ix.step[params.get('trace')!.slice(8)] : undefined
-  const firstGap = ix.unprovenCriteria.length ? ix.criterion[ix.unprovenCriteria[0]]?.text : undefined
-  const componentHref = (componentId: string) => {
-    const includesComponent = (step: typeof currentAction) => step?.flow?.some(id => componentScopeIds(componentId, allComponents).has(ix.node[id]?.component ?? ''))
-    const action = includesComponent(currentAction) ? currentAction : spec.journey?.steps.find(includesComponent)
-    if (!action) {
-      const component = q.component(componentId)
-      const owner = component && q.product(component.productId)
-      const parent = owner && q.workspace(owner.workspaceId)
-      return owner && parent ? `/w/${parent.slug}/${owner.slug}?component=${encodeURIComponent(componentId)}` : href('flow')
-    }
-    const query = new URLSearchParams({ component: componentId })
-    if (action) query.set('trace', `journey:${action.id}`)
-    return `/f/${id}/flow?${query}`
-  }
-  const tableGaps = (spec.storage?.tables ?? []).filter(t => t.change !== 'removed' && !ix.tableTests[t.id]?.length)
-  const gaps = ix.untestedSteps.length + ix.untestedContracts.length + ix.unprovenCriteria.length + tableGaps.length
-  const present = sectionKinds.filter(k => spec[k])
-  const href = (k?: SectionKind | 'delivery') => {
+  const current = isDelivery ? 'delivery' : target
+  const trace = params.get('trace')
+  const currentAction = trace?.startsWith('journey:') ? ix.step[trace.slice(8)] : undefined
+  const href: SectionHref = k => {
     const query = new URLSearchParams()
-    if (lens) query.set('component', lensComponent!.id)
-    const trace = params.get('trace')
-    if (trace?.startsWith('journey:') && ix.step[trace.slice(8)]) query.set('trace', trace)
+    if (lensComponent) query.set('component', lensComponent.id)
+    if (currentAction) query.set('trace', `journey:${currentAction.id}`)
     return `/f/${id}${k ? `/${k}` : ''}${query.size ? `?${query}` : ''}`
   }
-  const Render = target ? sectionRenderers[target] as ComponentType<{ data: unknown; focus?: string }> : undefined
-  const currentIndex = target ? sectionKinds.indexOf(target) : -1
-  const next = sectionKinds[currentIndex + 1]
-  return <SpecContext.Provider value={{ featureId: id, spec, ix, lens, lensName: lens ? q.componentLabel(lensComponent!.id) : undefined }}>
-    <div className={cn("feature-workspace", !target && !isDelivery && "is-overview", (target || isDelivery) && "is-focused", target === "flow" && "is-flow")}>
-      <label className="mobile-section-picker">Explore this feature<select value={isDelivery ? 'delivery' : target ?? ''} onChange={e => navigate(href(e.target.value ? e.target.value as SectionKind | 'delivery' : undefined))}><option value="">Overview</option>{groups.map(g => <optgroup key={g.label} label={g.label}>{g.sections.map(k => <option key={k} value={k}>{sectionMeta[k].label}{!spec[k] ? ' · Not drafted' : ''}</option>)}</optgroup>)}<option value="delivery">Deliverables & tasks</option></select></label>
-      <aside className="feature-nav">
-        <Link to={`/w/${workspace.slug}/${product.slug}`} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
-        <div className="eyebrow mb-3 mt-7">Feature plan</div>
-        <Link to={href()} aria-current={!target && !isDelivery ? 'page' : undefined} className={cn('plan-nav-link', !target && !isDelivery && 'is-active')}><LayoutDashboard size={16} />Overview</Link>
-        {groups.map(g => <div className="nav-group" key={g.label}><div className="eyebrow">{g.label}</div>{g.sections.map(k => {
-          const m = sectionMeta[k]
-          return <Link key={k} to={href(k)} aria-current={target === k ? 'page' : undefined} className={cn('plan-nav-link', target === k && 'is-active')}><m.icon className="size-4" /><span>{m.label}</span><span className="nav-count">{spec[k] ? sectionCount(spec, k) ?? <CheckCircle2 size={12} /> : <Circle size={10} />}</span></Link>
-        })}</div>)}
-        <div className="nav-group"><div className="eyebrow">05 · Deliver</div><Link className={cn("plan-nav-link", isDelivery && "is-active")} aria-current={isDelivery ? "page" : undefined} to={href("delivery")}><Layers size={16} />Deliverables & tasks</Link></div>
-        <div className="nav-foot"><Layers size={15} /><span>{present.length} of 7 sections drafted<br /><small>Drafted does not mean validated</small></span></div>
-      </aside>
+  const componentHref = (componentId: string) => {
+    const scope = componentScopeIds(componentId, allComponents)
+    const includesComponent = (step: typeof currentAction) => step?.flow?.some(nodeId => scope.has(ix.node[nodeId]?.component ?? ''))
+    const action = includesComponent(currentAction) ? currentAction : spec.journey?.steps.find(includesComponent)
+    if (action) return `/f/${id}/flow?${new URLSearchParams({ component: componentId, trace: `journey:${action.id}` })}`
+    const component = q.component(componentId)
+    const owner = component && q.product(component.productId)
+    const parent = owner && q.workspace(owner.workspaceId)
+    return owner && parent ? `/w/${parent.slug}/${owner.slug}?component=${encodeURIComponent(componentId)}` : href('flow')
+  }
+  const exampleFeature = target && q.features().find(other => other.id !== id && other.spec?.[target])
+
+  return <SpecContext.Provider value={context}>
+    <div className={cn('feature-workspace', !current && 'is-overview', current && 'is-focused', target === 'flow' && 'is-flow')}>
+      <FeatureNav spec={spec} product={product} workspace={workspace} current={current} href={href} />
       <div className="feature-main">
-        <Breadcrumbs workspace={workspace} product={product} current={{ label: 'Feature', name: f.title }} className="feature-page-breadcrumb" />
-        {target || isDelivery ? <><header className="feature-heading">
-          <Link to={`/w/${workspace.slug}/${product.slug}`} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
-          <span className="feature-id">{id.toUpperCase()}</span><h1>{f.title}</h1><StageBadge stage={f.stage} />
-          <div className="feature-meta"><span className="meta-owner-label">Owner</span><span className="owner-avatar">{f.owner.split(' ').map(x => x[0]).join('')}</span><span>{f.owner}</span></div>
-        </header>
-        <nav className="feature-tabs" aria-label="Feature sections">{([undefined, 'flow', 'api', 'storage', 'tests', 'delivery'] as const).map((k, i) => <Link key={k ?? 'overview'} to={href(k)} aria-current={(isDelivery ? 'delivery' : target) === k ? 'page' : undefined}>{['Overview', 'System flow', 'API contracts', 'Data model', 'Tests & coverage', 'Delivery'][i]}</Link>)}</nav></> : <header className="feature-overview-header">
-          <div className="feature-overview-kicker"><span className="feature-id">{id.toUpperCase()}</span><span>Feature plan</span><StageBadge stage={f.stage} /></div>
-          <h1>{f.title}</h1>
-          <div className="feature-overview-byline"><span className="owner-avatar" aria-hidden="true">{f.owner.split(' ').map(x => x[0]).join('')}</span><span>{f.owner}</span><span className="byline-divider" /><time dateTime={f.updatedAt} title={new Date(f.updatedAt).toLocaleString()}>Updated {relTime(f.updatedAt)}</time>{spec.journey && <Link className="primary-link" to={href(currentAction ? 'flow' : 'journey')}>{currentAction ? 'Continue system flow' : 'Explore the journey'}<ArrowRight size={15} /></Link>}</div>
-        </header>}
-        {isDelivery ? <DeliveryPage embedded /> : !target ? <div className="workbench-overview">
-          <Link className="feature-delivery-callout" to={`/f/${id}/delivery`}><div><strong>Delivery plan</strong><p>{delivery?.deliverables.length ? `${delivery.deliverables.length} deliverables · ${delivery.tasks.length} component tasks · ${delivery.validation.length} validation plans` : "Divide the feature into user-visible deliverables and component tasks."}</p></div><ArrowRight size={20} /></Link>
-          <div className="feature-intent-grid">
-            <section className="feature-intent-panel" aria-labelledby="feature-intent-heading"><h2 id="feature-intent-heading">{spec.purpose?.outcome ? 'Intended outcome' : 'Feature intent'}</h2><p>{spec.purpose?.outcome ?? f.summary ?? 'Describe what should become better for the user and why it matters.'}</p>{spec.purpose && <Link to={href('purpose')}>Brief & success criteria<ArrowRight size={14} /></Link>}</section>
-            <section className={cn('feature-next-panel', gaps > 0 && 'has-review-gaps')} aria-labelledby="feature-next-heading"><div className="feature-next-label">{gaps ? <AlertCircle size={15} /> : <Layers size={15} />}<span>{gaps ? 'Needs evidence' : 'Next step'}</span></div><h2 id="feature-next-heading">{!spec.purpose ? 'Shape the brief' : gaps ? 'Close the validation gaps' : !cases.length ? 'Plan the validation' : passing < cases.length ? 'Review test evidence' : 'Review the plan'}</h2><p>{!spec.purpose ? 'Turn the intent into a clear outcome, scope, and success criteria.' : gaps ? `${gaps} ${gaps === 1 ? 'item has' : 'items have'} no linked test${firstGap ? `${gaps === 1 ? ': ' : '. One gap: '}${firstGap.replace(/[.!?]$/, '')}.` : '.'}` : !cases.length ? 'Connect tests to the outcomes and changes this feature promises.' : passing < cases.length ? `${cases.length - passing} of ${cases.length} tests are not marked passing yet.` : 'All listed tests are marked passing. Review the results alongside the intended outcome.'}</p><Link to={href(!spec.purpose ? 'purpose' : 'tests')}>{!spec.purpose ? 'Start with the brief' : 'Review tests & coverage'}<ArrowRight size={14} /></Link>{cases.length > 0 && <div className="feature-test-evidence"><CheckCircle2 size={14} /><span><strong>{passing} / {cases.length}</strong> tests marked passing</span></div>}</section>
-          </div>
-          {spec.api && <section className="overview-change-summary"><h2>API contract changes</h2>{(['added', 'updated', 'removed', 'unspecified'] as const).filter(change => change !== 'unspecified' || spec.api!.contracts.some(c => c.change === change)).map(change => <span key={change}><ChangeMark change={change} /> {spec.api!.contracts.filter(c => c.change === change).length}</span>)}<Link to={href('api')}>Inspect contracts & fields <ArrowRight size={14} /></Link></section>}
-          {!!assessments.length && <section className="explore-section"><h2>Discovery checks</h2><p>Checks preserve the baseline; they do not declare the feature ready to build. Recheck when the intended source target changes.</p>{assessments.map(check => <details className="catalog-notes" key={check.checkedAt}><summary>{check.reassessmentRequired ? 'Reassessment needed' : 'No change requiring review detected'} · {check.checkedAt}</summary><div>{check.observations.map(observation => <p key={observation.id}>{observation.id}: catalog {observation.catalogState}; source {observation.sourceFreshness}</p>)}<p>{check.note}</p>{check.checks.map((source, index) => <p key={index}>{String(source.repository)} · target {String(source.targetRevision ?? 'unavailable')} · {String(source.requestedTarget)}</p>)}</div></details>)}</section>}
-          {!!baselines.length && <section className="explore-section"><h2>Discovery baselines</h2><p>Facts retained when this plan was prepared. Catalog changes are compared below; source checks apply only to their recorded target and time.</p>{baselines.map(({ file, packet }) => <details className="catalog-notes" key={file}><summary>{packet.question} · {packet.observations.length} observations</summary><div><p>{plan && baselineAssessments(packet, plan.snapshot.components, plan.manifest.id).some(item => item.catalogState !== 'unchanged') ? 'Reassessment needed: retained catalog facts have changed or been removed.' : 'No catalog changes detected for these retained facts. Source behavior is not verified.'}</p><p>Captured {packet.capturedAt} · Catalog {packet.catalogRevision.slice(0, 8)}</p>{packet.assumptions.map((assumption, index) => <p key={index}>Assumption: {assumption}</p>)}{packet.observations.map(observation => <article key={observation.id}><h4>{observation.name}</h4><p>{observation.repository} · {observation.sourceRevision?.slice(0, 8)}</p><details><summary>Retained facts and evidence</summary><pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{JSON.stringify(observation.observation, null, 2)}</pre></details></article>)}</div></details>)}</section>}
-          <section className="explore-section">
-            <div className="section-line"><h2>Plan contents</h2><span>{present.length} / 7 sections drafted</span></div>
-            <div className="plan-index">{groups.map((g, i) => <div className="plan-index-row" key={g.label}>
-              <h3 className="plan-index-group"><span className="plan-number" aria-hidden="true">0{i + 1}</span>{['Define', 'Experience', 'Build', 'Validate'][i]}</h3>
-              <div className="plan-index-links">{g.sections.map((k, i) => {
-                const Icon = sectionMeta[k].icon
-                return <span className="plan-index-item" key={k}>{i > 0 && <ArrowRight size={13} aria-hidden="true" className="plan-index-arrow" />}<Link to={href(k)}><Icon className="size-3.5" aria-hidden="true" /><span>{sectionMeta[k].label}</span><small className={spec[k] ? 'is-drafted' : ''}>{spec[k] ? 'Drafted' : 'Not drafted'}</small></Link></span>
-              })}</div>
-            </div>)}</div>
-          </section>
-          <div className="overview-grid impact-grid"><section><div className="section-line"><h2>Structure & changes</h2><span>{touches.length} {touches.length === 1 ? 'planned change' : 'planned changes'}</span></div><p className="text-small text-fg-muted mb-4">Planned changes and the services or dependencies used by this plan. Selecting a service includes its internals.</p><FeatureArchitecture feature={f} components={participants} allComponents={allComponents} href={componentHref} /></section><section><div className="section-line"><h2>Connected work</h2><span>{related.length} {related.length === 1 ? 'feature' : 'features'}</span></div><p className="text-small text-fg-muted mb-4">Active plans with overlapping changes to components or their internals.</p><div className="related-list">{related.map(o => <Link key={o.id} to={`/f/${o.id}`}><span>{o.title}<small>{o.touches.filter(t => changesOverlap({ touches: [t] }, f, allComponents)).map(t => q.componentLabel(t)).join(', ')}</small></span><StageBadge stage={o.stage} /></Link>)}{!related.length && <p className="text-small text-fg-muted">No active plans touch these components.</p>}</div></section></div>
-        </div> : <section className="focused-section" key={`${id}-${target}`}>
-          <div className="section-intro"><div><div className="eyebrow">{groups.find(g => g.sections.includes(target))?.label}</div><h2>{sectionMeta[target].label}</h2><p>{questions[target]}</p></div>{!['purpose', 'design', 'api', 'storage'].includes(target) && <label className="component-filter">{target === 'api' ? 'API component' : 'Component scope'}<select value={lens ? lensComponent!.id : ''} onChange={e => setParams(p => { const n = new URLSearchParams(p); if (e.target.value) n.set('component', e.target.value); else n.delete('component'); return n })}><option value="">All components</option><ComponentOptions components={participants} /></select></label>}</div>
-          {lens && !['api', 'storage'].includes(target) && <div className="scope-banner"><Layers size={15} /><span>{['purpose', 'design'].includes(target) ? `Showing full ${sectionMeta[target].label.toLowerCase()}. Component scope applies to journey, system, and tests.` : `Showing ${q.componentLabel(lensComponent!.id)} and its internals. Dependencies remain separate scopes.`}</span><button onClick={() => setParams(p => { const n = new URLSearchParams(p); n.delete('component'); return n })}>Clear scope</button></div>}
-          {spec[target] && Render ? <Render data={spec[target]} focus={item} /> : <div className="section-empty"><AlertCircle size={28} /><h3>{sectionMeta[target].label} has not been drafted</h3><p>{sectionMeta[target].blurb}</p><p className="text-small">Your AI assistant can populate this section from the feature intent and supporting context.</p>{populatedExample && <Link to={`/f/${populatedExample.id}/${target}`}>See {sectionMeta[target].label.toLowerCase()} in {populatedExample.title}<ArrowRight size={14} /></Link>}</div>}
-          <footer className="section-footer"><Link to={currentIndex > 0 ? href(sectionKinds[currentIndex - 1]) : href()}><ArrowLeft size={14} />{currentIndex > 0 ? sectionMeta[sectionKinds[currentIndex - 1]].label : 'Overview'}</Link><Link to={next ? href(next) : href()}>{next ? sectionMeta[next].label : 'Back to overview'}<ArrowRight size={14} /></Link></footer>
-        </section>}
+        <Breadcrumbs workspace={workspace} product={product} current={{ label: 'Feature', name: feature.title }} className="feature-page-breadcrumb" />
+        {current
+          ? <FocusedHeader feature={feature} product={product} workspace={workspace} current={current} href={href} />
+          : <OverviewHeader
+            feature={feature}
+            headingRef={heading}
+            updated={relTime(feature.updatedAt)}
+            journeyLink={spec.journey && (currentAction
+              ? { to: href('flow'), label: 'Continue system flow' }
+              : { to: href('journey'), label: 'Explore the journey' })}
+          />}
+        {isDelivery
+          ? <DeliveryPage embedded headingRef={heading} />
+          : target
+            ? <FocusedSection key={`${id}-${target}`} target={target} spec={spec} item={item} lensId={lensComponent?.id} lensName={lensName} participants={participants}
+              headingRef={heading} href={href} exampleFeature={exampleFeature} />
+            : <FeatureOverview feature={feature} spec={spec} ix={ix} groups={groups} href={href} componentHref={componentHref}
+              participants={participants} allComponents={allComponents} delivery={plan?.delivery[id]} plan={plan}
+              baselines={baselines} assessments={assessments} />}
       </div>
     </div>
   </SpecContext.Provider>

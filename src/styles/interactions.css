@@ -6,14 +6,20 @@
     box-shadow 150ms ease, opacity 150ms ease, filter 150ms ease, transform 150ms ease;
 }
 
+/* Hover lifts controls: darker on light surfaces, brighter on dark ones (same theme switch as tokens.css). */
 @media (hover: hover) {
   .workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
-    filter: brightness(1.14);
-  }
-  .workbench-shell[data-workbench-theme="light"] :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
     filter: brightness(.96);
   }
+  :root[data-theme="dark"] .workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(1.14);
+  }
   .workbench-shell :is(select, summary):hover { border-color: var(--border-strong); color: var(--fg); }
+}
+@media (hover: hover) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(1.14);
+  }
 }
 
 .workbench-shell :is(a[href], button, select, summary, [role="button"]):not(:disabled):not([aria-disabled="true"]):active {

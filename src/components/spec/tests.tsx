@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import type { Tests, TestCase, TestStatus } from '@/data/spec'
 import type { Ref } from '@/data/spec-index'
-import { q } from '@/data/store'
+import { useQuery } from '@/data/store'
+import { invert } from '@/data/view-models'
 import { Badge } from '@/ui/badge'
 import { Tooltip } from '@/ui/tooltip'
 import { cn } from '@/lib/cn'
@@ -18,6 +19,7 @@ const status: Record<TestStatus, { label: string; tone: 'neutral' | 'info' | 'su
 }
 
 function Case({ c, focus }: { c: TestCase; focus?: string }) {
+  const q = useQuery()
   const { ix, featureId } = useSpec()
   const [params] = useSearchParams()
   const trace = params.get('trace')
@@ -63,10 +65,9 @@ function Case({ c, focus }: { c: TestCase; focus?: string }) {
 function Coverage({ cases }: { cases: TestCase[] }) {
   const { ix, spec, featureId } = useSpec()
   const [open, setOpen] = useState(true)
-  const invert = (m: Record<string, string[]>) => { const r: Record<string, string[]> = {}; for (const [t, xs] of Object.entries(m)) for (const x of xs) (r[x] ??= []).push(t); return r }
   const critTests = invert(ix.testCriteria)
   const rows: { group: string; r: Ref; tests: string[] }[] = [
-    ...(spec.purpose?.success ?? []).map(c => ({ group: 'Criteria', r: { kind: 'purpose' as const, id: c.id }, tests: critTests[c.id] ?? [] })),
+    ...(spec.purpose?.success ?? []).map(c => ({ group: 'Criteria', r: { kind: 'purpose' as const, id: c.id }, tests: critTests.get(c.id) ?? [] })),
     ...(spec.journey?.steps ?? []).map(s => ({ group: 'Steps', r: { kind: 'journey' as const, id: s.id }, tests: ix.stepTests[s.id] ?? [] })),
     ...(spec.api?.contracts ?? []).filter(c => c.change !== 'removed').map(c => ({ group: 'Contracts', r: { kind: 'api' as const, id: c.id }, tests: ix.contractTests[c.id] ?? [] })),
     ...(spec.storage?.tables ?? []).filter(t => t.change !== 'removed').map(t => ({ group: 'Tables', r: { kind: 'storage' as const, id: t.id }, tests: ix.tableTests[t.id] ?? [] })),
@@ -125,7 +126,12 @@ export function TestsSection({ data, focus }: { data: Tests; focus?: string }) {
   const lens = useLens('tests')
   const { ix, spec, featureId } = useSpec()
   const [params] = useSearchParams()
-  const missing: Ref[] = [...ix.unprovenCriteria.map(id => ({ kind: 'purpose' as const, id })), ...ix.untestedSteps.map(id => ({ kind: 'journey' as const, id })), ...ix.untestedContracts.map(id => ({ kind: 'api' as const, id })), ...(spec.storage?.tables ?? []).filter(t => t.change !== 'removed' && !ix.tableTests[t.id]?.length).map(t => ({ kind: 'storage' as const, id: t.id }))]
+  const missing: Ref[] = [
+    ...ix.unprovenCriteria.map(id => ({ kind: 'purpose' as const, id })),
+    ...ix.untestedSteps.map(id => ({ kind: 'journey' as const, id })),
+    ...ix.untestedContracts.map(id => ({ kind: 'api' as const, id })),
+    ...(spec.storage?.tables ?? []).filter(t => t.change !== 'removed' && !ix.tableTests[t.id]?.length).map(t => ({ kind: 'storage' as const, id: t.id })),
+  ]
   const cases = lens ? data.cases.filter(c => lens.has(c.id)) : data.cases
   const [filter, setFilter] = useState('all')
   const visible = focus ? cases : cases.filter(c => filter === 'all' || (c.status ?? 'planned') === filter)

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, ChevronDown, Search } from 'lucide-react'
 import type { Component } from '@/data/model'
 import { architectureSystemGraph, componentKindLabel, isInfrastructureComponent, runtimeSystemGraph } from '@/data/component-structure'
@@ -8,9 +8,29 @@ import { SystemOverviewMap } from '@/components/system-overview-map'
 export function SystemDiagram({ components, allComponents, selectedId, onSelect }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void }) {
   const [componentQuery, setComponentQuery] = useState('')
   const [pickerOpen, setPickerOpen] = useState(false)
+  const picker = useRef<HTMLDivElement>(null)
+  const pickerTrigger = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (!pickerOpen) return
+    // Popover contract: outside press or Escape anywhere closes it; Escape returns focus to the trigger.
+    const close = (returnFocus: boolean) => {
+      setPickerOpen(false)
+      setComponentQuery('')
+      if (returnFocus) pickerTrigger.current?.focus()
+    }
+    const onPointerDown = (event: PointerEvent) => { if (!picker.current?.contains(event.target as Node)) close(false) }
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); close(true) } }
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [pickerOpen])
   const graph = useMemo(() => runtimeSystemGraph(components, allComponents), [components, allComponents])
   const map = useMemo(() => architectureSystemGraph(graph.nodes, graph.edges), [graph])
   const selectableMapIds = useMemo(() => new Set(graph.nodes.map(component => component.id)), [graph.nodes])
+  const focusMapComponent = useCallback((id: string) => { if (id && selectableMapIds.has(id)) onSelect(id) }, [selectableMapIds, onSelect])
   const allNodes = [...graph.nodes, ...graph.supporting]
   if (!allNodes.length) return null
 
@@ -29,6 +49,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
     onSelect(id)
     setPickerOpen(false)
     setComponentQuery('')
+    pickerTrigger.current?.focus()
   }
   const componentButton = (component: Component) => <button key={component.id} aria-current={selected.id === component.id ? 'true' : undefined} onClick={() => selectComponent(component.id)}>
     <span><strong>{component.name}</strong><small>{componentKindLabel(component)}{localIds.has(component.id) ? '' : ' · Connected product'}</small></span>
@@ -50,15 +71,28 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
         </dl>
       </header>
       {map.nodes.length
-        ? <SystemOverviewMap components={map.nodes} relationships={map.edges} observedStatus={map.status} selectableIds={selectableMapIds} focus={graph.nodes.some(component => component.id === selected.id) ? selected.id : undefined} onFocus={id => { if (id && selectableMapIds.has(id)) onSelect(id) }} />
+        ? <SystemOverviewMap
+          components={map.nodes}
+          relationships={map.edges}
+          observedStatus={map.status}
+          selectableIds={selectableMapIds}
+          focus={graph.nodes.some(component => component.id === selected.id) ? selected.id : undefined}
+          onFocus={focusMapComponent}
+        />
         : <div className="architecture-map-empty"><p>No runtime components have been catalogued for this product.</p><span>Supporting assets remain available in the component directory.</span></div>}
     </section>
 
     <section className="component-workspace" aria-labelledby="component-workspace-heading">
       <header className="component-workspace-switcher">
         <div><span>Component workspace</span><h3 id="component-workspace-heading">Explore component details</h3></div>
-        <div className="component-picker">
-          <button className="component-picker-trigger" aria-expanded={pickerOpen} aria-controls="component-picker-menu" onClick={() => setPickerOpen(open => !open)}>
+        <div className="component-picker" ref={picker}>
+          <button
+            ref={pickerTrigger}
+            className="component-picker-trigger"
+            aria-expanded={pickerOpen}
+            aria-controls="component-picker-menu"
+            onClick={() => setPickerOpen(open => !open)}
+          >
             <span><small>Selected component</small><strong>{selected.name}</strong></span>
             <ChevronDown size={16} aria-hidden="true" />
           </button>
@@ -66,7 +100,7 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
             <label className="component-workspace-search">
               <Search size={16} aria-hidden="true" />
               <span className="sr-only">Find a component</span>
-              <input autoFocus type="search" value={componentQuery} onChange={event => setComponentQuery(event.target.value)} onKeyDown={event => { if (event.key === 'Escape') { setPickerOpen(false); setComponentQuery('') } }} placeholder="Find a component…" />
+              <input autoFocus type="search" value={componentQuery} onChange={event => setComponentQuery(event.target.value)} placeholder="Find a component…" />
             </label>
             <nav aria-label="Components">
               {!!runtimeComponents.length && <section><h4>Runtime components <span>{graph.nodes.length}</span></h4>{runtimeComponents.map(componentButton)}</section>}

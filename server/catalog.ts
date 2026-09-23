@@ -3,7 +3,8 @@ export { catalogIndex, catalogSourceRevision } from '../src/data/catalog-index.t
 import { z } from 'zod'
 import { catalogKinds, parseCatalogId, type CatalogKind } from '../src/data/catalog-identity.ts'
 import { catalogKnowledgeState } from '../src/data/catalog-coverage.ts'
-import { sourceEvidenceUrl } from '../src/data/execution-flow.ts'
+import { sourceEvidenceUrl, type ExecutionFlow } from '../src/data/execution-flow.ts'
+import { catalogLocationFor, writeCatalogLocation, type CatalogLocation } from '../src/data/catalog-url.ts'
 import type { Component } from '../src/data/model.ts'
 import { digest } from './git.ts'
 import type { readPlan } from './repository.ts'
@@ -37,6 +38,13 @@ const tokens = (text: string) => searchWords(text).map(normaliseTerm)
 /** Matched against the caller's words before normalisation. */
 const stop = new Set('a an the is are how what when where do does can we to of for and or in on with it this that new add change'.split(' '))
 
+/** Viewer deep link for one entity; the parameter contract lives in src/data/catalog-url.ts. */
+export function catalogLocation(entry: Entity): CatalogLocation {
+  if (entry.kind !== 'flow') return catalogLocationFor({ kind: entry.kind, id: entry.localId })
+  const flow = entry.raw as ExecutionFlow
+  return catalogLocationFor({ kind: 'flow', id: entry.localId, endpointId: flow.endpointId, trigger: flow.trigger })
+}
+
 function summary(plan: Plan, entry: Entity) {
   const component = entry.component
   const product = plan.snapshot.products.find(product => product.id === component.productId)!
@@ -59,21 +67,7 @@ function summary(plan: Plan, entry: Entity) {
     ...(entry.kind === 'message' ? component.messaging?.gaps ?? [] : []),
     ...(traced === false ? ['Execution path not investigated. Start at the endpoint source and follow relevant helpers, configuration and tests.'] : []),
   ]
-  const params = new URLSearchParams({ component: component.id })
-  if (entry.kind !== 'component') {
-    params.set('catalog', entry.kind === 'data' ? 'data' : entry.kind === 'message' ? 'messages' : 'api')
-    params.set(entry.kind === 'data' ? 'dataEntity' : entry.kind === 'message' ? 'messagesEntity' : 'apiEntity', flow ? String(flow.raw.endpointId) : entry.localId)
-    if (flow) params.set('apiView', 'flow')
-    const trigger = flow?.raw.trigger as { kind: string; messageId?: string; jobId?: string } | undefined
-    if (trigger || entry.kind === 'job') {
-      params.delete('apiEntity'); params.delete('apiView')
-      const tab = trigger?.kind === 'message' ? 'messages' : 'jobs'
-      params.set('catalog', tab); params.set(`${tab}Entity`, trigger?.messageId ?? trigger?.jobId ?? entry.localId)
-      if (flow) params.set('flow', flow.localId)
-    }
-    if (entry.kind === 'finding') { params.set('finding', entry.localId); params.delete('apiEntity') }
-    if (entry.kind === 'schema') { params.delete('apiEntity'); params.set('schema', entry.localId) }
-  }
+  const params = writeCatalogLocation(new URLSearchParams({ component: component.id }), catalogLocation(entry))
   return {
     id: entry.id, kind: entry.kind, name: clip(entry.name), description: clip(entry.description),
     componentId: component.id, productId: component.productId,
