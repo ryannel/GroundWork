@@ -3,19 +3,16 @@ import { readFile, lstat } from 'node:fs/promises'
 import { watch, type FSWatcher } from 'node:fs'
 import path from 'node:path'
 import { randomBytes, timingSafeEqual } from 'node:crypto'
-import { execFile } from 'node:child_process'
-import { promisify } from 'node:util'
 import { ZodError } from 'zod'
 import { viewerIdentity } from './viewer-identity.ts'
 import { inventory, selectRoot } from './registry.ts'
 import { readPlan, safePath } from './repository.ts'
-import { activity, digest, gitRaw, resolveRef } from './git.ts'
+import { activity, digest, gitBuffer, gitRaw, resolveRef } from './git.ts'
 import { assetPattern, PLAN_DIRECTORY } from './format.ts'
 import { operate, isOperationName } from './operations.ts'
 import { packageRoot } from './setup.ts'
 import { InvalidInput, NotFound, statusFor } from './errors.ts'
 import { ContentError } from '../src/data/content.ts'
-const exec = promisify(execFile)
 const mime: Record<string, string> = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.gif': 'image/gif', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.ico': 'image/x-icon',
@@ -30,23 +27,13 @@ const message = (error: unknown) => error instanceof Error ? error.message : Str
 
 /**
  * Status for a failed request. Typed errors map through statusFor; schema and JSON failures are 400 and a missing file
- * is 404. Many modules still reject input with a plain `Error`, so that stays 400. Errors from the system, Git or a
- * programming fault (anything with an errno/exit code, or a subclass such as TypeError or GitError) are 500.
+ * is 404. Anything else, including a plain `Error`, Git failures and programming faults, is 500.
  */
 export function httpStatus(error: unknown) {
   if (error instanceof ZodError || error instanceof SyntaxError || error instanceof ContentError) return 400
   const code = (error as { code?: unknown } | null)?.code
   if (code === 'ENOENT') return 404
-  const status = statusFor(error)
-  if (status !== 500) return status
-  return error instanceof Error && error.constructor === Error && code === undefined ? 400 : 500
-}
-
-/** Binary `git cat-file` with the same hardening as gitRaw, which only returns text. */
-async function gitBlob(root: string, spec: string) {
-  const env = { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' }
-  const args = ['-c', 'core.fsmonitor=false', '-c', 'core.hooksPath=/dev/null', '-C', root, 'cat-file', 'blob', spec]
-  return (await exec('git', args, { encoding: 'buffer', maxBuffer: 32 * 1024 * 1024, env })).stdout
+  return statusFor(error)
 }
 
 async function readBody(req: IncomingMessage): Promise<{ body: string } | { status: number; error: string }> {
@@ -198,7 +185,7 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
           const entry = await gitRaw(root, ['ls-tree', sha, '--', `${PLAN_DIRECTORY}/${name}`])
           if (!entry) throw new NotFound('Asset not found')
           if (!entry.startsWith('100644 ') && !entry.startsWith('100755 ')) throw new InvalidInput('Unsupported asset mode')
-          data = await gitBlob(root, `${sha}:${PLAN_DIRECTORY}/${name}`)
+          data = await gitBuffer(root, ['cat-file', 'blob', `${sha}:${PLAN_DIRECTORY}/${name}`], { maxBuffer: 32 * 1024 * 1024 })
         } else data = await readFile(await safePath(root, `${PLAN_DIRECTORY}/${name}`))
         res.writeHead(200, { 'Content-Type': mime[path.extname(name)] }); res.end(data); return
       }

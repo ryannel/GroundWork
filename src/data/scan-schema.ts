@@ -3,17 +3,17 @@ import {
   catalogFindingSchema,
   componentApiSchema,
   componentDataSchema,
-  componentEvidenceSchema,
   componentGapSchema,
   componentJobSchema,
   componentKindSchema,
   componentMessagingSchema,
   componentScanAreaSchema,
   componentUnresolvedDependencySchema,
+  evidenceSchema,
   executionFlowSchema,
 } from './content-schema.ts'
 import { hasCredentials } from './repository-identity.ts'
-import { id, observationKindSchema, repoRelativePath, text } from './schema-primitives.ts'
+import { commitSha, id, observationKindSchema, repoRelativePath, text } from './schema-primitives.ts'
 
 // Input schemas for the repository scan operations. They are shared by the runtime and the JSON-schema generator.
 
@@ -22,7 +22,7 @@ export const scanAreaSchema = z.enum(scanAreas)
 export type ScanArea = z.infer<typeof scanAreaSchema>
 
 /** A Git object ID: SHA-1 (40 hex) or SHA-256 (64 hex). Used for commits and blob digests. */
-export const objectIdSchema = z.string().regex(/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/, 'Use a full commit or object hash')
+export const objectIdSchema = commitSha
 
 /** A branch, tag or commit to scan. It never starts with `-`, so Git cannot read it as an option. */
 export const sourceRefSchema = z.string().trim().min(1).max(255)
@@ -41,11 +41,7 @@ export const scanBudgetsSchema = z.strictObject({
 }).default({ maxFiles: 1200, maxBytes: 20 * 1024 * 1024, maxFilesPerPacket: 80, maxPackets: 32 })
 export type ScanBudgets = z.infer<typeof scanBudgetsSchema>
 
-export const scanEvidenceSchema = componentEvidenceSchema.extend({
-  path: repoRelativePath,
-  lines: z.string().regex(/^[1-9]\d*(?:-[1-9]\d*)?$/, 'Use a line number or inclusive range such as 12-24'),
-  revision: objectIdSchema,
-})
+export const scanEvidenceSchema = evidenceSchema.extend({ path: repoRelativePath })
 export type ScanEvidence = z.infer<typeof scanEvidenceSchema>
 
 export const prepareRepositoryScanSchema = z.strictObject({

@@ -7,7 +7,13 @@ export function catalogId(project: string, component: string, kind: CatalogKind,
 export function parseCatalogId(value: string) {
   const parts = value.split('/')
   if (parts.length !== 4) throw new Error('Use a project/component/kind/entity catalog ID')
-  const [project, component, kind, entity] = parts.map(decodeURIComponent)
+  let decoded: string[]
+  try {
+    decoded = parts.map(decodeURIComponent)
+  } catch {
+    throw new Error('Invalid catalog ID')
+  }
+  const [project, component, kind, entity] = decoded
   if (!project || !component || !entity || !catalogKinds.includes(kind as CatalogKind) || catalogId(project, component, kind as CatalogKind, entity) !== value) throw new Error('Invalid catalog ID')
   return { project, component, kind: kind as CatalogKind, entity }
 }

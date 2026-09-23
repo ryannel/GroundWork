@@ -226,7 +226,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "entryStepId": {
             "type": "string",
@@ -356,7 +356,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -459,7 +459,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -601,7 +601,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "evidence": {
             "minItems": 1,
@@ -626,7 +626,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",

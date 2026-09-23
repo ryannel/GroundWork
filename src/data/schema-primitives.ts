@@ -6,7 +6,8 @@ import { z } from 'zod'
 export const text = z.string().min(1).regex(/\S/, 'Text cannot be blank')
 export const idPattern = /^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$/
 export const id = text.regex(idPattern, 'Use a URL-safe stable ID')
-export const sha1 = z.string().regex(/^[a-f0-9]{40}$/)
+/** A Git object ID: SHA-1 (40 hex) or SHA-256 (64 hex). Used for commits and blob digests. */
+export const commitSha = z.string().regex(/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/, 'Use a full commit or object hash')
 /** ISO 8601 date-time; UTC `Z` or an explicit offset. */
 export const isoTimestamp = z.iso.datetime({ offset: true })
 

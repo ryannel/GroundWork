@@ -3,7 +3,9 @@ import { realpath } from 'node:fs/promises'
 import { z } from 'zod'
 import { repositoryIdentity } from '../src/data/repository-identity.ts'
 import { isRepoRelativePath } from '../src/data/schema-primitives.ts'
-import { catalogIndex, catalogSourceRevision } from './catalog.ts'
+import { catalogIndex } from './catalog.ts'
+import { sourceObservation, type SourceObservation } from '../src/data/catalog-index.ts'
+import { InvalidInput, NotFound } from './errors.ts'
 import { git, gitRaw, resolveRef } from './git.ts'
 import { readPlan } from './repository.ts'
 
@@ -57,20 +59,26 @@ export const broaderChange = (file: string) => /(?:^|\/)(?:[^/]*lock[^/]*|packag
 export async function checkCatalogFreshness(root: string, input: unknown, ref?: string) {
   return compareCatalogSources(await readPlan(root, ref), input)
 }
-export async function compareCatalogSources(plan: Awaited<ReturnType<typeof readPlan>>, input: unknown, index = catalogIndex(plan)) {
+export async function compareCatalogSources(
+  plan: Awaited<ReturnType<typeof readPlan>>, input: unknown, observations: SourceObservation[] = catalogIndex(plan).map(sourceObservation),
+) {
   const args = checkCatalogFreshnessSchema.parse(input)
-  if (new Set(args.ids).size !== args.ids.length) throw new Error('Duplicate freshness IDs')
-  const selected = args.ids.map(id => { const entity = index.find(entity => entity.id === id); if (!entity) throw new Error(`Unknown catalog entity: ${id}`); return entity })
-  const repositories = new Set(await Promise.all(selected.map(async entity => {
-    const repo = args.repository ?? entity.component.repo
-    return repo && repositoryKey(repo)
+  if (new Set(args.ids).size !== args.ids.length) throw new InvalidInput('Duplicate freshness IDs')
+  const selected = args.ids.map(id => {
+    const observation = observations.find(item => item.id === id)
+    if (!observation) throw new NotFound(`Unknown catalog entity: ${id}`)
+    return observation
+  })
+  const repositories = new Set(await Promise.all(selected.map(async observation => {
+    const repo = args.repository ?? observation.repository
+    return repo ? repositoryKey(repo) : undefined
   })))
-  if (repositories.size !== 1 || repositories.has(undefined)) throw new Error('Select entities with one known source repository per check')
+  if (repositories.size !== 1 || repositories.has(undefined)) throw new InvalidInput('Select entities with one known source repository per check')
   const repository = [...repositories][0]!
-  if (args.repository) for (const entity of selected) {
-    const pointers = citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo)
-    const known = [entity.component.repo, ...pointers.map(pointer => pointer.repository)].filter((value): value is string => !!value)
-    if (!(await Promise.all(known.map(repositoryKey))).includes(repository)) throw new Error('Selected repository is not recorded for this observation')
+  if (args.repository) for (const observation of selected) {
+    const pointers = citations(observation.raw, observation.sourceRevision, [], observation.repository ?? undefined)
+    const known = [observation.repository, ...pointers.map(pointer => pointer.repository)].filter((value): value is string => !!value)
+    if (!(await Promise.all(known.map(repositoryKey))).includes(repository)) throw new InvalidInput('Selected repository is not recorded for this observation')
   }
   const envelope = {
     version: 1, catalogRevision: plan.revision, context: plan.context.token,
@@ -112,9 +120,9 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
   }
   const assessments = []
   for (const entity of selected) {
-    const primary = entity.component.repo ? await repositoryKey(entity.component.repo) : null
-    const observedRevision = primary === repository ? catalogSourceRevision(entity) : null
-    const allPointers = await Promise.all(citations(entity.raw, catalogSourceRevision(entity), [], entity.component.repo)
+    const primary = entity.repository ? await repositoryKey(entity.repository) : null
+    const observedRevision = primary === repository ? entity.sourceRevision : null
+    const allPointers = await Promise.all(citations(entity.raw, entity.sourceRevision, [], entity.repository ?? undefined)
       .map(async pointer => ({ ...pointer, repository: pointer.repository ? await repositoryKey(pointer.repository) : primary })))
     const otherRepositories = [...new Set([primary, ...allPointers.map(pointer => pointer.repository)].filter((value): value is string => !!value && value !== repository))]
     const pointers = allPointers.filter(pointer => pointer.repository === repository)
@@ -174,7 +182,7 @@ export async function compareCatalogSources(plan: Awaited<ReturnType<typeof read
     if (change) { change.files.pop(); change.omittedFiles++; continue }
     const detail = assessments.flatMap(item => [item.knownImpact.paths, item.broaderReviewChanges.paths, item.invalidCitations.paths]).find(paths => paths.length)
     if (detail) { detail.pop(); continue }
-    throw new Error('Freshness envelope exceeds maxBytes; select fewer entities or increase the limit')
+    throw new InvalidInput('Freshness envelope exceeds maxBytes; select fewer entities or increase the limit')
   }
   return result
 }

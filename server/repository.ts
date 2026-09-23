@@ -23,12 +23,12 @@ function absent<T>(error: NodeJS.ErrnoException, value: T): T {
 
 export async function safePath(root: string, relative: string) {
   const parts = relative ? relative.split(/[\\/]/) : []
-  if (!parts.length || path.isAbsolute(relative) || parts.some(part => !part || part === '.' || part === '..')) throw new Error('Invalid relative path')
+  if (!parts.length || path.isAbsolute(relative) || parts.some(part => !part || part === '.' || part === '..')) throw new InvalidInput('Invalid relative path')
   let current = await realpath(root)
   for (const part of parts) {
     current = path.join(current, part)
     const stat = await lstat(current).catch(error => absent(error, null))
-    if (stat?.isSymbolicLink()) throw new Error(`Symbolic links are not allowed: ${relative}`)
+    if (stat?.isSymbolicLink()) throw new InvalidInput(`Symbolic links are not allowed: ${relative}`)
   }
   return current
 }
@@ -39,7 +39,7 @@ export async function readStorageFiles(root: string, ref?: string): Promise<File
     // Leftovers of an interrupted atomicFile; `recover` removes them.
     if (TEMP_FILE_PATTERN.test(name)) return false
     if (name.startsWith(`${PLANS_DIR}/`) && assetPattern.test(name.slice(PLANS_DIR.length + 1))) return false
-    if (!physicalDocumentPattern.test(name)) throw new Error(`Unsupported catalog/planning file: ${name}`)
+    if (!physicalDocumentPattern.test(name)) throw new InvalidInput(`Unsupported catalog/planning file: ${name}`)
     return true
   }
   if (ref) {
@@ -47,7 +47,7 @@ export async function readStorageFiles(root: string, ref?: string): Promise<File
     const entries = (await git(root, ['ls-tree', '-r', '-z', sha, '--', ...STORAGE_ROOTS])).split('\0').filter(Boolean)
     for (const entry of entries) {
       const [meta, name] = entry.split('\t')
-      if (!meta.startsWith('100644 ') && !meta.startsWith('100755 ')) throw new Error(`Unsupported Git file mode: ${name}`)
+      if (!meta.startsWith('100644 ') && !meta.startsWith('100755 ')) throw new InvalidInput(`Unsupported Git file mode: ${name}`)
       if (accept(name)) files[name] = await gitRaw(root, ['show', `${sha}:${name}`])
     }
     return files
@@ -56,11 +56,11 @@ export async function readStorageFiles(root: string, ref?: string): Promise<File
   async function visit(name: string, file: string) {
     const stat = await lstat(file).catch(error => absent(error, null))
     if (!stat) return
-    if (stat.isSymbolicLink()) throw new Error(`Symbolic links are not allowed: ${name}`)
+    if (stat.isSymbolicLink()) throw new InvalidInput(`Symbolic links are not allowed: ${name}`)
     if (stat.isDirectory()) {
       for (const child of await readdir(file)) await visit(`${name}/${child}`, path.join(file, child))
     } else if (stat.isFile() && accept(name)) {
-      if (stat.size > MAX_DOCUMENT_BYTES) throw new Error(`${name}: document exceeds 2 MB`)
+      if (stat.size > MAX_DOCUMENT_BYTES) throw new InvalidInput(`${name}: document exceeds 2 MB`)
       files[name] = await readFile(file, 'utf8')
     }
   }
@@ -242,12 +242,12 @@ async function assetVersions(root: string, plan: Plan, ref?: string) {
     if (!assetPattern.test(mock.ref) || mock.ref in assets) continue
     if (ref) {
       const record = await git(root, ['ls-tree', ref, '--', `${PLANS_DIR}/${mock.ref}`])
-      if (!record.startsWith('100644 ') && !record.startsWith('100755 ')) throw new Error(`Missing or unsupported raster asset: ${mock.ref}`)
+      if (!record.startsWith('100644 ') && !record.startsWith('100755 ')) throw new InvalidInput(`Missing or unsupported raster asset: ${mock.ref}`)
       assets[mock.ref] = record.split(/[ \t]/)[2]
     } else {
       const file = await safePath(root, `${PLANS_DIR}/${mock.ref}`)
       const stat = await lstat(file).catch(() => null)
-      if (!stat?.isFile() || stat.size > 32 * 1024 * 1024) throw new Error(`Missing raster asset or larger than 32 MB: ${mock.ref}`)
+      if (!stat?.isFile() || stat.size > 32 * 1024 * 1024) throw new InvalidInput(`Missing raster asset or larger than 32 MB: ${mock.ref}`)
       assets[mock.ref] = digest(`${stat.mtimeMs}:${stat.ctimeMs}:${stat.size}`)
     }
   }

@@ -30,19 +30,21 @@ export function parseBrief(markdown: string) {
   for (const line of markdown.split(/\r?\n/)) {
     if (line.startsWith('## ')) {
       heading = line.slice(3).trim()
-      if (!['Problem', 'Outcome', 'Non-goals', 'Success criteria'].includes(heading) || heading in sections) throw new Error(`Unknown or duplicate brief heading: ${heading}`)
+      if (!['Problem', 'Outcome', 'Non-goals', 'Success criteria'].includes(heading) || heading in sections) {
+        throw new InvalidInput(`Unknown or duplicate brief heading: ${heading}`)
+      }
       sections[heading] = ''
     } else if (heading) sections[heading] += line + '\n'
-    else if (line.trim() && !line.startsWith('# ')) throw new Error('Brief prose must appear under a section heading')
+    else if (line.trim() && !line.startsWith('# ')) throw new InvalidInput('Brief prose must appear under a section heading')
   }
   const bullets = (key: string) => (sections[key] ?? '').split('\n').filter(line => line.trim()).map(line => {
-    if (!line.startsWith('- ')) throw new Error(`${key}: use one bullet per item`)
+    if (!line.startsWith('- ')) throw new InvalidInput(`${key}: use one bullet per item`)
     return line.slice(2)
   })
   return purposeSchema.parse({ problem: sections.Problem?.trim(), outcome: sections.Outcome?.trim(),
     nonGoals: bullets('Non-goals'), success: bullets('Success criteria').map(line => {
       const match = /^\[([a-zA-Z0-9_-]+)\] (.+?)(?: \{tests: ([a-zA-Z0-9_, -]+)\})?$/.exec(line)
-      if (!match) throw new Error('Success criteria: use - [stable-id] Criterion text {tests: test-id, another-id}')
+      if (!match) throw new InvalidInput('Success criteria: use - [stable-id] Criterion text {tests: test-id, another-id}')
       return { id: match[1], text: match[2], ...(match[3] ? { tests: match[3].split(',').map(id => id.trim()) } : {}) }
     }) })
 }
@@ -78,34 +80,39 @@ export function parsePlan(files: Files): Plan {
   const decisions: Record<string, string> = {}
   let manifest: Plan['manifest'] | undefined
   for (const [file, raw] of Object.entries(files)) {
-    if (!documentPattern.test(file)) throw new Error(`${file}: unsupported planning document`)
+    if (!documentPattern.test(file)) throw new InvalidInput(`${file}: unsupported planning document`)
     try {
       if (file.endsWith('/brief.md')) { documents[file.replace('brief.md', 'purpose.json')] = parseBrief(raw); continue }
-      if (file.endsWith('.md')) { if (!raw.trim()) throw new Error('Decision cannot be blank'); decisions[file] = raw; continue }
+      if (file.endsWith('.md')) { if (!raw.trim()) throw new InvalidInput('Decision cannot be blank'); decisions[file] = raw; continue }
       const value = JSON.parse(raw)
       if (file.startsWith('scan-manifests/')) {
         scanManifestSchema.parse(value)
-        if (digest(raw) !== file.split('/')[1].replace('.json', '')) throw new Error('Scan manifest content hash mismatch')
+        if (digest(raw) !== file.split('/')[1].replace('.json', '')) throw new InvalidInput('Scan manifest content hash mismatch')
         continue
       }
       if (file.includes('/assessments/')) {
         const assessment = discoveryAssessmentSchema.parse(value)
-        if (assessment.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '') || !files[`features/${assessment.featureId}/baselines/${assessment.baselineId}.json`]) throw new Error('Assessment identity, hash or baseline mismatch')
-        if (Buffer.byteLength(raw) > 256 * 1024) throw new Error('Assessment exceeds 256 KiB')
+        if (assessment.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '')
+          || !files[`features/${assessment.featureId}/baselines/${assessment.baselineId}.json`]) {
+          throw new InvalidInput('Assessment identity, hash or baseline mismatch')
+        }
+        if (Buffer.byteLength(raw) > 256 * 1024) throw new InvalidInput('Assessment exceeds 256 KiB')
         continue
       }
       if (file.includes('/baselines/')) {
         const packet = knowledgeBaselineSchema.parse(value)
-        if (packet.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '')) throw new Error('Baseline identity/content hash mismatch')
-        if (!files[`features/${packet.featureId}/feature.json`]) throw new Error('Baseline requires an existing feature')
-        if (Buffer.byteLength(raw) > 64 * 1024) throw new Error('Baseline exceeds 64 KiB')
+        if (packet.featureId !== file.split('/')[1] || digest(raw) !== file.split('/')[3].replace('.json', '')) {
+          throw new InvalidInput('Baseline identity/content hash mismatch')
+        }
+        if (!files[`features/${packet.featureId}/feature.json`]) throw new InvalidInput('Baseline requires an existing feature')
+        if (Buffer.byteLength(raw) > 64 * 1024) throw new InvalidInput('Baseline exceeds 64 KiB')
         continue
       }
       if (file === 'project.json') manifest = manifestSchema.parse(value)
       else if (file.startsWith('products/')) documents[file] = { ...portableProductSchema.parse(value), workspaceId: 'project' }
       else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)
       else documents[file] = value
-    } catch (error) { throw new Error(`${file}: ${error instanceof Error ? error.message : error}`) }
+    } catch (error) { throw new InvalidInput(`${file}: ${error instanceof Error ? error.message : error}`) }
   }
   if (!manifest) throw new NotInitialised('project.json: initialise this repository with groundwork-v2 init')
   documents['project.json'] = { schemaVersion: 1 }
@@ -113,8 +120,10 @@ export function parsePlan(files: Files): Plan {
   // Asset references stay relative on disk. The HTTP adapter adds checkout context.
   const snapshot = loadContent(documents)
   for (const feature of snapshot.features) for (const mock of feature.spec?.design?.mockups ?? []) {
-    if (mock.ref.startsWith('/')) throw new Error(`features/${feature.id}/design.json: use a repository-relative assets/ reference`)
+    if (mock.ref.startsWith('/')) throw new InvalidInput(`features/${feature.id}/design.json: use a repository-relative assets/ reference`)
   }
-  for (const [featureId, plan] of Object.entries(delivery)) validateDelivery(featureId, plan, snapshot)
+  for (const [featureId, plan] of Object.entries(delivery)) {
+    try { validateDelivery(featureId, plan, snapshot) } catch (error) { throw new InvalidInput(error instanceof Error ? error.message : String(error)) }
+  }
   return { manifest, snapshot, delivery, decisions }
 }

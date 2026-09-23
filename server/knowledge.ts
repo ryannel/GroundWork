@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { catalogIndex } from './catalog.ts'
 import { compareCatalogSources, worstStatus, type FreshnessStatus } from './catalog-freshness.ts'
 import { parseCatalogId } from '../src/data/catalog-identity.ts'
-import type { Entity, SourceObservation } from '../src/data/catalog-index.ts'
+import type { SourceObservation } from '../src/data/catalog-index.ts'
 import { digest } from './git.ts'
 import { readPlan, writePlan } from './repository.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
@@ -101,7 +101,7 @@ export async function assessFeatureDiscovery(root: string, input: z.input<typeof
       if (!observation) throw new InvalidInput('Source check IDs must belong to the retained baseline')
       return { id, repository: observation.repository, sourceRevision: observation.sourceRevision, raw: observation.observation }
     })
-    const check = await compareCatalogSources(plan, { ...source, maxFiles: 20, maxBytes: 16384 }, retained.map(sourceEntity))
+    const check = await compareCatalogSources(plan, { ...source, maxFiles: 20, maxBytes: 16384 }, retained)
     checks.push(check)
     for (const id of source.ids) {
       const observation = observations.find(item => item.id === id)!
@@ -124,15 +124,4 @@ export async function assessFeatureDiscovery(root: string, input: z.input<typeof
   const file = `features/${args.featureId}/assessments/${assessmentId}.json`
   const written = await writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes: { [file]: text } })
   return { ...written, assessmentId, assessment: packet }
-}
-
-/** Bridges a retained observation to the `Entity` shape that `compareCatalogSources` still takes. */
-function sourceEntity(observation: SourceObservation): Entity {
-  const identity = parseCatalogId(observation.id)
-  const repo = observation.repository ? { repo: observation.repository } : {}
-  const component = { id: identity.component, productId: identity.project, name: identity.component, order: 0, ...repo }
-  return {
-    id: observation.id, kind: identity.kind, localId: identity.entity, component, name: identity.entity, description: '',
-    raw: { ...observation.raw, sourceRevision: observation.sourceRevision }, related: [],
-  }
 }

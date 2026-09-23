@@ -8,7 +8,8 @@ import { setTimeout as delay } from 'node:timers/promises'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
 import { git } from '../server/git.ts'
-import { serve } from '../server/http.ts'
+import { httpStatus, serve } from '../server/http.ts'
+import { InvalidInput } from '../server/errors.ts'
 
 async function fixture(t: any, gitRepo = false) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-http-'))
@@ -160,4 +161,8 @@ test('close() ends open event streams and releases their resources', { timeout: 
   await app.close()
   await reader.cancel().catch(() => undefined)
   assert.equal(await settle(baseline), baseline)
+})
+test('only typed and schema errors are client errors; an untyped Error is a server fault', () => {
+  assert.equal(httpStatus(new InvalidInput('bad')), 400)
+  assert.equal(httpStatus(new Error('unexpected')), 500)
 })

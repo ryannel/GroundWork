@@ -181,3 +181,13 @@ test('validation collects issues from every concern before failing', () => {
   assert.throws(() => load(input), error => error instanceof ContentError && error.issues.length >= 3 &&
     /ownerId/.test(error.message) && /workspaceId/.test(error.message) && /cannot depend on itself/.test(error.message))
 })
+test('catalog revisions accept SHA-1 and SHA-256 commits and nothing shorter', async () => {
+  const { retiredObservationSchema } = await import('../src/data/content-schema.ts')
+  const retired = (revision: string) => ({
+    kind: 'endpoint', id: 'old', retiredAt: '2026-09-01T10:00:00Z', sourceRevision: revision, reason: 'Removed', observation: {},
+    evidence: [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision }],
+  })
+  assert.equal(retiredObservationSchema.safeParse(retired('a'.repeat(40))).success, true)
+  assert.equal(retiredObservationSchema.safeParse(retired('b'.repeat(64))).success, true)
+  assert.equal(retiredObservationSchema.safeParse(retired('c'.repeat(39))).success, false)
+})

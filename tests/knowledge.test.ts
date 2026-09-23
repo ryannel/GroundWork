@@ -8,7 +8,7 @@ import { readPlan } from '../server/repository.ts'
 import { operate } from '../server/operations.ts'
 import { Conflict, NotFound } from '../server/errors.ts'
 import { assessFeatureDiscovery, getDiscoveryBaseline, retainDiscoveryBaseline } from '../server/knowledge.ts'
-import { catalogId } from '../src/data/catalog-identity.ts'
+import { catalogId, parseCatalogId } from '../src/data/catalog-identity.ts'
 
 const components = JSON.parse(await readFile(new URL('./fixtures/catalog/components.json', import.meta.url), 'utf8'))
 const products = JSON.parse(await readFile(new URL('./fixtures/catalog/products.json', import.meta.url), 'utf8'))
@@ -47,4 +47,7 @@ test('a retained baseline stores typed relations and compares unchanged until th
   assert.equal(read.assessments[0].catalogState, 'unchanged')
   const assessed = await assessFeatureDiscovery(root, { featureId: 'pricing', baselineId: saved.baselineId, ...await guard(root) })
   assert.equal(assessed.assessment.reassessmentRequired, false)
+})
+test('malformed percent-encoding in a catalog ID is an invalid ID, not a URIError', () => {
+  assert.throws(() => parseCatalogId('p/c/endpoint/%E0%A4%A'), { message: 'Invalid catalog ID' })
 })

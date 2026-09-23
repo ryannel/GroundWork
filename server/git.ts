@@ -14,14 +14,22 @@ export class GitError extends Error {
     this.stderr = stderr
   }
 }
-export async function gitRaw(root: string, args: string[]) {
-  const options = { maxBuffer: 16 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' } }
+/** Runs git with hooks, fsmonitor, optional locks and prompts disabled; failures become a GitError. */
+async function run(root: string, args: string[], options: { encoding: 'utf8' | 'buffer'; maxBuffer: number }): Promise<string | Buffer> {
+  const env = { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' }
   try {
-    return (await exec('git', ['-c', 'core.fsmonitor=false', '-c', 'core.hooksPath=/dev/null', '-C', root, ...args], options)).stdout
+    return (await exec('git', ['-c', 'core.fsmonitor=false', '-c', 'core.hooksPath=/dev/null', '-C', root, ...args], { ...options, env })).stdout
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw error
     throw new GitError(args, String((error as { stderr?: unknown }).stderr ?? ''), { cause: error })
   }
+}
+export async function gitRaw(root: string, args: string[]) {
+  return await run(root, args, { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 }) as string
+}
+/** Binary output, such as a blob, through the same hardened invocation as gitRaw. */
+export async function gitBuffer(root: string, args: string[], { maxBuffer }: { maxBuffer: number }) {
+  return await run(root, args, { encoding: 'buffer', maxBuffer }) as Buffer
 }
 export async function git(root: string, args: string[]) { return (await gitRaw(root, args)).trimEnd() }
 export const digest = (text: string) => createHash('sha256').update(text).digest('hex')

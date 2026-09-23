@@ -1,10 +1,11 @@
 import { catalogIndex, catalogSourceRevision, relationKinds, type Entity } from './catalog-index.ts'
 import type { Component } from './model.ts'
 import { z } from 'zod'
+import { isoTimestamp } from './schema-primitives.ts'
 export const baselineHashSchema = z.string().regex(/^[a-f0-9]{64}$/)
 export const knowledgeBaselineSchema = z.strictObject({
   version: z.literal(1), featureId: z.string().min(1), question: z.string().min(1).max(2000),
-  catalogRevision: baselineHashSchema, context: baselineHashSchema, capturedAt: z.iso.datetime(),
+  catalogRevision: baselineHashSchema, context: baselineHashSchema, capturedAt: isoTimestamp,
   assumptions: z.array(z.string().min(1).max(2000)).max(20),
   observations: z.array(z.strictObject({
     id: z.string().min(1), name: z.string(), repository: z.string().nullable(),
@@ -53,7 +54,7 @@ export function baselineAssessments(baseline: z.infer<typeof knowledgeBaselineSc
   })
 }
 export const discoveryAssessmentSchema = z.strictObject({
-  version: z.literal(1), featureId: z.string(), baselineId: baselineHashSchema, checkedAt: z.iso.datetime(),
+  version: z.literal(1), featureId: z.string(), baselineId: baselineHashSchema, checkedAt: isoTimestamp,
   catalogRevision: baselineHashSchema, context: baselineHashSchema,
   observations: z.array(z.strictObject({ id: z.string(), catalogState: z.enum(['unchanged', 'changed', 'removed']), sourceFreshness: z.string() })),
   checks: z.array(z.record(z.string(), z.unknown())).max(10), reassessmentRequired: z.boolean(),
