@@ -1,21 +1,18 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { access, chmod, mkdtemp, mkdir, readFile, readdir, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
-import os from 'node:os'
+import type { TestContext } from 'node:test'
+import { access, chmod, mkdir, readFile, readdir, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { initialise } from '../server/setup.ts'
 import { applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan } from '../server/scanner.ts'
 import { acquire } from '../server/scan-acquire.ts'
-import { readPlan } from '../server/repository.ts'
+import { readPlan, writePlan } from '../server/repository.ts'
 import { context, git } from '../server/git.ts'
 import { operate } from '../server/operations.ts'
+import { gitInit, guard, tempDir, withEnv } from './helpers.ts'
 
-async function repository(t: any) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-scan-source-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
-  await git(root, ['init', '-b', 'main'])
-  await git(root, ['config', 'user.email', 'tests@example.invalid'])
-  await git(root, ['config', 'user.name', 'Groundwork tests'])
+async function repository(t: TestContext) {
+  const root = await gitInit(await tempDir(t, 'groundwork-scan-source-'))
   await mkdir(path.join(root, 'src'), { recursive: true })
   await mkdir(path.join(root, 'dist'), { recursive: true })
   await mkdir(path.join(root, 'Api.Tests'), { recursive: true })
@@ -34,9 +31,8 @@ async function repository(t: any) {
   return root
 }
 
-async function target(t: any) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-scan-target-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+async function target(t: TestContext) {
+  const root = await tempDir(t, 'groundwork-scan-target-')
   await initialise(root, { name: 'Catalog' })
   return root
 }
@@ -191,7 +187,7 @@ test('scan refresh cannot silently remove an active contract', async t => {
   const initial = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   let plan = await readPlan(root)
   await applyRepositoryScan(root, {
-    scanId: initial.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token,
+    scanId: initial.scanId, ...guard(plan),
     discoveries: [{
       id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API',
       api: { name: 'Catalog API', endpoints: [{
@@ -204,7 +200,7 @@ test('scan refresh cannot silently remove an active contract', async t => {
   const refresh = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   plan = await readPlan(root)
   await assert.rejects(applyRepositoryScan(root, {
-    scanId: refresh.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token,
+    scanId: refresh.scanId, ...guard(plan),
     discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'complete' } }],
   }), /omitted active endpoint records/)
   assert.equal((await readPlan(root)).snapshot.components[0].api?.endpoints.length, 1)
@@ -249,7 +245,7 @@ test('refresh preserves an existing repository-wide component without Backstage 
   assert.ok(prepared.packets.some((packet: any) => packet.files.includes('Api/Api.csproj')))
   const plan = await readPlan(root)
   await applyRepositoryScan(root, {
-    scanId: prepared.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token,
+    scanId: prepared.scanId, ...guard(plan),
     discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API',
       evidence: [{ path: 'Core/Core.csproj', lines: '1', claim: 'Includes a core implementation library.', revision: prepared.revision }],
       coverage: { dependencies: 'complete', api: 'complete', data: 'complete', messaging: 'complete' } }],
@@ -263,11 +259,11 @@ test('targeted investigation upserts preserve siblings and broad coverage, and r
   let prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
   let plan = await readPlan(root)
   const citation = { path: 'src/routes.ts', lines: '1', claim: 'Registers the GET route.', revision: prepared.revision }
-  await applyRepositoryScan(root, { scanId: prepared.scanId, expectedRevision: plan.revision, expectedContext: plan.context.token, discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', api: { name: 'API', endpoints: [{ id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}', evidence: [citation] }, { id: 'sibling', name: 'Sibling contract', method: 'GET', path: '/sibling', evidence: [citation] }] }, coverage: { api: 'partial' }, gaps: [{ area: 'api', reason: 'Only the route registration is available.' }] }] })
+  await applyRepositoryScan(root, { scanId: prepared.scanId, ...guard(plan), discoveries: [{ id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', api: { name: 'API', endpoints: [{ id: 'get-item', name: 'Get item', method: 'GET', path: '/items/{id}', evidence: [citation] }, { id: 'sibling', name: 'Sibling contract', method: 'GET', path: '/sibling', evidence: [citation] }] }, coverage: { api: 'partial' }, gaps: [{ area: 'api', reason: 'Only the route registration is available.' }] }] })
   prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
   plan = await readPlan(root)
   const before = structuredClone(plan.snapshot.components[0])
-  const args = { scanId: prepared.scanId, componentId: 'catalog-api', expectedRevision: plan.revision, expectedContext: plan.context.token, findings: [{ id: 'route-dispatch', name: 'Item route dispatch', question: 'Where does the item request enter?', answer: 'The router sends GET /items/:id to getItem.', subjects: [{ kind: 'endpoint', id: 'get-item' }], boundary: 'Route registration only; handler implementation is absent.', assumptions: ['Handler behavior needs further inspection.'], repository: prepared.repository, sourceRevision: prepared.revision, evidence: [citation] }] }
+  const args = { scanId: prepared.scanId, componentId: 'catalog-api', ...guard(plan), findings: [{ id: 'route-dispatch', name: 'Item route dispatch', question: 'Where does the item request enter?', answer: 'The router sends GET /items/:id to getItem.', subjects: [{ kind: 'endpoint', id: 'get-item' }], boundary: 'Route registration only; handler implementation is absent.', assumptions: ['Handler behavior needs further inspection.'], repository: prepared.repository, sourceRevision: prepared.revision, evidence: [citation] }] }
   await assert.rejects(operate('apply_catalog_investigation', { ...args, expectedRevision: 'stale' }, root), /Stale/)
   await assert.rejects(operate('apply_catalog_investigation', { ...args, findings: [{ ...args.findings[0], repository: 'wrong/repo' }] }, root), /repository/)
   await assert.rejects(operate('apply_catalog_investigation', { ...args, findings: [{ ...args.findings[0], evidence: [{ ...citation, lines: '999' }] }] }, root), /outside/)
@@ -283,23 +279,18 @@ test('targeted investigation upserts preserve siblings and broad coverage, and r
 
 async function write(root: string, changes: Record<string, string>) {
   const plan = await readPlan(root)
-  await (await import('../server/repository.ts')).writePlan(root, { expectedRevision: plan.revision, expectedContext: plan.context.token, changes })
+  await writePlan(root, { ...guard(plan), changes })
 }
 
 async function apply(root: string, scanId: string, discoveries: unknown[]) {
   const plan = await readPlan(root)
-  return applyRepositoryScan(root, { scanId, expectedRevision: plan.revision, expectedContext: plan.context.token, discoveries })
+  return applyRepositoryScan(root, { scanId, ...guard(plan), discoveries })
 }
 
-async function isolatedScans(t: any) {
-  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-scan-base-'))
-  const previous = process.env.GROUNDWORK_TMPDIR
-  process.env.GROUNDWORK_TMPDIR = base
-  t.after(async () => {
-    if (previous === undefined) delete process.env.GROUNDWORK_TMPDIR
-    else process.env.GROUNDWORK_TMPDIR = previous
-    await rm(base, { recursive: true, force: true })
-  })
+/** A scan directory of this test's own, so sweeps cannot see scans from other tests in this file. */
+async function isolatedScans(t: TestContext) {
+  const base = await tempDir(t, 'groundwork-scan-base-')
+  withEnv(t, { GROUNDWORK_TMPDIR: base })
   return base
 }
 
@@ -451,8 +442,7 @@ test('scan cleanup never follows symlinks and one broken scan does not block the
   const source = await repository(t)
   const root = await target(t)
   await isolatedScans(t)
-  const outside = await mkdtemp(path.join(os.tmpdir(), 'groundwork-outside-'))
-  t.after(() => rm(outside, { recursive: true, force: true }))
+  const outside = await tempDir(t, 'groundwork-outside-')
   await chmod(outside, 0o755)
   const first = await prepareRepositoryScan(root, { repository: source, areas: ['api'] }) as any
   await symlink(outside, path.join(first.outputPath, 'evil'))

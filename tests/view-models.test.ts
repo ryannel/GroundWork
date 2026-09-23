@@ -29,12 +29,12 @@ test('coverage gaps outrank test evidence and name the first unproven criterion'
 
 test('once covered, the next step follows the test evidence', () => {
   assert.equal(next({ purpose: { problem: 'p', outcome: 'o' } }).heading, 'Plan the validation')
-  const partly = next({ purpose, tests: { cases: [{ ...testCase('t1', 'passing'), criteria: ['c1'] }, testCase('t2', 'planned')] } })
+  const partly = next({ purpose, tests: { cases: [testCase('t1', 'passing'), testCase('t2', 'planned')] } })
   assert.equal(partly.gaps, 0)
   assert.equal(partly.heading, 'Review test evidence')
   assert.equal(partly.body, '1 of 2 tests are not marked passing yet.')
   assert.deepEqual([partly.cases, partly.passing], [2, 1])
-  const done = next({ purpose, tests: { cases: [{ ...testCase('t1', 'passing'), criteria: ['c1'] }] } })
+  const done = next({ purpose, tests: { cases: [testCase('t1', 'passing')] } })
   assert.equal(done.heading, 'Review the plan')
 })
 
@@ -70,8 +70,8 @@ test('hub products count each repository once through its primary checkout', () 
 
 test('unlinked branches exclude branches a delivery links, so an all-linked checkout lists none', () => {
   const delivery = { f1: { branches: [{ branch: 'feat/a' }] } } as never
-  assert.deepEqual(unlinkedBranches({ delivery, activity: { branches: ['main', 'feat/a'], changes: [], commits: [] } }), ['main'])
-  assert.deepEqual(unlinkedBranches({ delivery, activity: { branches: ['feat/a'], changes: [], commits: [] } }), [])
+  assert.deepEqual(unlinkedBranches({ delivery, activity: { branches: ['main', 'feat/a'] } }), ['main'])
+  assert.deepEqual(unlinkedBranches({ delivery, activity: { branches: ['feat/a'] } }), [])
 })
 
 test('invert builds a reverse index that tolerates Object.prototype names as IDs', () => {

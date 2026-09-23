@@ -1,28 +1,24 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises'
-import os from 'node:os'
+import { mkdir, writeFile } from 'node:fs/promises'
+import type { TestContext } from 'node:test'
 import path from 'node:path'
 import { request, type IncomingMessage } from 'node:http'
 import { setTimeout as delay } from 'node:timers/promises'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
-import { git } from '../server/git.ts'
 import { httpStatus, serve } from '../server/http.ts'
 import { InvalidInput } from '../server/errors.ts'
+import { commitAll, gitInit, guard, tempDir } from './helpers.ts'
 
-async function fixture(t: any, gitRepo = false) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-http-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+async function fixture(t: TestContext, gitRepo = false) {
+  const root = await tempDir(t, 'groundwork-http-')
   await initialise(root, { name: 'HTTP app' })
   if (gitRepo) {
     await mkdir(path.join(root, '.groundwork/plans/assets'), { recursive: true })
     await writeFile(path.join(root, '.groundwork/plans/assets/pixel.png'), Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x00, 0xff, 0xfe, 0x80]))
-    await git(root, ['init', '-b', 'main'])
-    await git(root, ['config', 'user.email', 'tests@example.invalid'])
-    await git(root, ['config', 'user.name', 'Groundwork tests'])
-    await git(root, ['add', '.'])
-    await git(root, ['commit', '-m', 'Initial plan'])
+    await gitInit(root)
+    await commitAll(root, 'Initial plan')
   }
   const viewerDirectory = path.join(root, 'viewer')
   await mkdir(viewerDirectory)
@@ -32,7 +28,6 @@ async function fixture(t: any, gitRepo = false) {
   const { token } = await (await fetch(app.url + '/api/session')).json() as { token: string }
   return { root, app, token }
 }
-const guard = (plan: Awaited<ReturnType<typeof readPlan>>) => ({ expectedRevision: plan.revision, expectedContext: plan.context.token })
 
 /** Sends a POST body in separate TCP writes so the server sees separate chunks. */
 function post(url: string, headers: Record<string, string | number>, parts: Buffer[]) {
@@ -151,8 +146,7 @@ test('event stream subscribers share one poller and watcher per checkout', { tim
 })
 
 test('close() ends open event streams and releases their resources', { timeout: 20000 }, async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-http-close-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-http-close-')
   await initialise(root, { name: 'Close app' })
   const baseline = watched()
   const app = await serve({ root, port: 0 })

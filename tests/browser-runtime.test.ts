@@ -92,7 +92,7 @@ test('a frontend-only HTML response or unknown session mode cannot become a demo
 test('a reachable Hub lists its registered projects and rejects malformed lists', async t => {
   const timers = manualTimers()
   const runtime = createRuntime('/', timers)
-  const projects = [{ name: 'Commercial Backbone', checkoutId: 'checkout', features: [] }]
+  const projects = [{ name: 'Retail Platform', checkoutId: 'checkout', features: [] }]
   let body: unknown = projects
   t.mock.method(globalThis, 'fetch', async (url: string) => Response.json(url === '/api/session' ? { mode: 'central' } : body))
   await runtime.startRuntime()

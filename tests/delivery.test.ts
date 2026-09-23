@@ -1,8 +1,5 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm } from 'node:fs/promises'
-import path from 'node:path'
-import os from 'node:os'
 import { deliverySchema, validateDelivery, deliveryGaps, validationResult } from '../src/data/delivery.ts'
 import { parseDelivery } from '../src/data/delivery-legacy.ts'
 import { parsePlan } from '../server/format.ts'
@@ -10,6 +7,7 @@ import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
 import { operate } from '../server/operations.ts'
 import { serve } from '../server/http.ts'
+import { guard, tempDir } from './helpers.ts'
 
 const files = {
   'project.json': JSON.stringify({ schemaVersion: 2, id: 'project', name: 'Test' }),
@@ -113,13 +111,13 @@ test('existing milestone and slice documents retain identity, dependencies and p
   assert.throws(() => deliverySchema.parse(JSON.parse(source)), /Unrecognized/)
 })
 test('HTTP delivery authoring persists tasks, checks boundaries, and records validation evidence', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-delivery-')); t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-delivery-')
   await initialise(root, { files })
   const server = await serve({ root, port: 0 }); t.after(() => server.close())
   const { token } = await (await fetch(server.url + '/api/session')).json() as { token: string }
   const post = async (operation: string, args: Record<string, unknown>) => {
     const current = await readPlan(root)
-    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ ...args, expectedRevision: current.revision, expectedContext: current.context.token }) })
+    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ ...args, ...guard(current) }) })
   }
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: sample() })).status, 200)
   assert.equal((await readPlan(root)).delivery.f.tasks[0].componentId, 'api')
@@ -130,19 +128,19 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
   const bad = sample(); bad.tasks[0].contractIds = ['nonexistent']
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: bad })).status, 400)
   const current = await readPlan(root)
-  await operate('record_progress', { featureId: 'f', unitId: 's1', status: 'done', evidence: proof('service', 'passed'), expectedRevision: current.revision, expectedContext: current.context.token }, root)
+  await operate('record_progress', { featureId: 'f', unitId: 's1', status: 'done', evidence: proof('service', 'passed'), ...guard(current) }, root)
   const after = await readPlan(root)
   assert.deepEqual(deliveryGaps(after.delivery.f, after.delivery.f.tasks[0]), [])
   assert.ok(deliveryGaps(after.delivery.f, after.delivery.f.deliverables[0]).length)
 })
 
 test('updating an old plan writes canonical names and preserves undecomposed work', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-delivery-migration-')); t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-delivery-migration-')
   const source = JSON.stringify({ milestones: [{ id: 'm', title: 'Old milestone', status: 'planned' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'planned' }], branches: [{ branch: 'main', taskId: 't' }] })
   await initialise(root, { files: { ...files, 'features/f/delivery.json': source } })
   const before = await readPlan(root)
   assert.equal(before.files['features/f/delivery.json'], source)
-  await operate('record_progress', { featureId: 'f', unitId: 't', status: 'in-progress', expectedRevision: before.revision, expectedContext: before.context.token }, root)
+  await operate('record_progress', { featureId: 'f', unitId: 't', status: 'in-progress', ...guard(before) }, root)
   const after = await readPlan(root)
   const stored = JSON.parse(after.files['features/f/delivery.json'])
   assert.equal('milestones' in stored || 'slices' in stored, false)

@@ -109,7 +109,7 @@ export async function atomicFile(root: string, relative: string, data: string | 
 }
 
 interface LockOwner { pid: number; host?: string; nonce?: string; startedAt?: number }
-const LOCK_ATTEMPTS = 50, LOCK_DELAY_MS = 50
+const LOCK_ATTEMPTS = 50, LOCK_DELAY_MS = 50, STALE_BREAKER_MS = 10_000
 async function readLockOwner(file: string): Promise<LockOwner | null> {
   const raw = await readFile(file, 'utf8').catch(error => absent(error, null))
   if (raw === null) return null
@@ -134,14 +134,25 @@ function isAlive(pid: number) {
 /** Only locks written on this host can be judged: a PID from another machine or container means nothing here. */
 const isStale = (owner: LockOwner) => (owner.host === undefined || owner.host === hostname()) && !isAlive(owner.pid)
 const sameOwner = (a: LockOwner, b: LockOwner) => a.pid === b.pid && a.nonce === b.nonce
-/** Moves the stale lock aside first, so two waiters breaking it at once cannot delete a lock one of them just took. */
+/**
+ * Breakers take a short-lived mutex and re-read the lock under it, so a lock is only ever removed while it still
+ * names the dead owner. Renaming the lock aside instead could briefly move a live lock that another waiter had just
+ * taken, letting a third waiter in while the second was still inside.
+ */
 async function breakStaleLock(lock: string, stale: LockOwner) {
-  const claimed = `${lock}.${randomUUID()}.tmp`
-  try { await rename(lock, claimed) } catch (error) { return absent(error as NodeJS.ErrnoException, undefined) }
-  const moved = await readLockOwner(claimed).catch(() => null)
-  // Another waiter replaced the stale lock between our read and rename: hand its fresh lock back.
-  if (!moved || !sameOwner(moved, stale)) await link(claimed, lock).catch(() => undefined)
-  await rm(claimed, { force: true })
+  const breaker = `${lock}.break`
+  try { await writeFile(breaker, String(process.pid), { flag: 'wx', mode: 0o600 }) } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
+    // Held only for one read and one unlink; an old file means its breaker crashed mid-break.
+    const held = await lstat(breaker).catch(() => null)
+    if (held && Date.now() - held.mtimeMs > STALE_BREAKER_MS) await rm(breaker, { force: true })
+    else await sleep(5)
+    return
+  }
+  try {
+    const current = await readLockOwner(lock).catch(() => null)
+    if (current && sameOwner(current, stale)) await rm(lock, { force: true })
+  } finally { await rm(breaker, { force: true }) }
 }
 async function acquireLock(lock: string): Promise<LockOwner> {
   const owner = { pid: process.pid, host: hostname(), nonce: randomUUID(), startedAt: Date.now() }

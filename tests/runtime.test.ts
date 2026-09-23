@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, readFile, writeFile, rm, symlink } from 'node:fs/promises'
-import os from 'node:os'
+import { mkdir, readFile, writeFile, symlink } from 'node:fs/promises'
+import type { TestContext } from 'node:test'
 import { get } from 'node:http'
 import path from 'node:path'
 import { initialise, exportLegacy } from '../server/setup.ts'
@@ -10,29 +10,26 @@ import { parsePlan, renderBrief, deliverySchema } from '../server/format.ts'
 import { operate } from '../server/operations.ts'
 import { git, context, discover } from '../server/git.ts'
 import { serve } from '../server/http.ts'
+import { commitAll, fixturePath, gitInit, guard, tempDir } from './helpers.ts'
 
-async function fixture(t: any, gitRepo = false) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-test-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+async function fixture(t: TestContext, gitRepo = false) {
+  const root = await tempDir(t, 'groundwork-test-')
   await initialise(root, { name: 'Test app' })
   if (gitRepo) {
-    await git(root, ['init', '-b', 'main'])
-    await git(root, ['config', 'user.email', 'tests@example.invalid'])
-    await git(root, ['config', 'user.name', 'Groundwork tests'])
-    await git(root, ['add', '.'])
-    await git(root, ['commit', '-m', 'Initial plan'])
+    await gitInit(root)
+    await commitAll(root, 'Initial plan')
   }
   return root
 }
 async function feature(root: string, id = 'first') {
   const plan = await readPlan(root)
-  await operate('create_feature', { id, title: 'First feature', productId: 'app', ownerId: 'owner', problem: 'A user problem', outcome: 'A useful outcome', expectedRevision: plan.revision, expectedContext: plan.context.token }, root)
+  await operate('create_feature', { id, title: 'First feature', productId: 'app', ownerId: 'owner', problem: 'A user problem', outcome: 'A useful outcome', ...guard(plan) }, root)
   return readPlan(root)
 }
-const request = (plan: Awaited<ReturnType<typeof readPlan>>, changes: Record<string, string | null>) => ({ expectedRevision: plan.revision, expectedContext: plan.context.token, changes })
+const request = (plan: Awaited<ReturnType<typeof readPlan>>, changes: Record<string, string | null>) => ({ ...guard(plan), changes })
 
 test('initialisation is portable, keeps existing instructions, and never overwrites plans', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-init-')); t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-init-')
   await writeFile(path.join(root, 'AGENTS.md'), 'Existing project rules.\n')
   await initialise(root, { name: 'My app', domain: 'https://tellourstory.xyz/' })
   const plan = await readPlan(root)
@@ -113,7 +110,7 @@ test('delivery validates dependencies and recording Git links never declares com
   const delivery = deliverySchema.parse({ deliverables: [{ id: 'result', title: 'A useful result', status: 'planned', componentIds: ['api'] }], tasks: [{ id: 'task', deliverableId: 'result', componentId: 'api', title: 'Build it', status: 'planned', acceptance: ['A useful check'] }] })
   await writePlan(root, request(plan, { 'components/api.json': JSON.stringify({ id: 'api', productId: 'app', name: 'API' }), 'features/first/delivery.json': JSON.stringify(delivery) }))
   const next = await readPlan(root)
-  await operate('link_branch', { featureId: 'first', taskId: 'task', branch: 'main', expectedRevision: next.revision, expectedContext: next.context.token }, root)
+  await operate('link_branch', { featureId: 'first', taskId: 'task', branch: 'main', ...guard(next) }, root)
   assert.equal((await readPlan(root)).delivery.first.tasks[0].status, 'planned')
   assert.deepEqual((await readPlan(root)).delivery.first.branches, [{ branch: 'main', taskId: 'task' }])
   delivery.tasks[0].dependsOn = ['task']
@@ -129,31 +126,47 @@ test('HTTP requires authentication and local origin, retains last valid plans, a
   const root = await fixture(t), plan = await feature(root)
   const app = await serve({ root, port: 0 }); t.after(() => app.close())
   assert.equal((await fetch(app.url + '/api/snapshot')).status, 200)
-  const { token } = await (await fetch(app.url + '/api/session')).json()
-  const data = request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'HTTP owner' }) })
-  const post = (headers: Record<string, string>) => fetch(app.url + '/api/operations/write_plan', { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) })
-  assert.equal((await post({})).status, 401)
-  assert.equal((await post({ Authorization: `Bearer ${token}`, Origin: 'https://evil.invalid' })).status, 403)
-  assert.equal((await post({ Authorization: `Bearer ${token}` })).status, 200)
-  assert.equal((await post({ Authorization: `Bearer ${token}` })).status, 409)
-  const valid = await (await fetch(app.url + '/api/snapshot')).json()
-  await writeFile(path.join(root, '.groundwork/plans/members/owner.json'), '{broken')
-  const invalid = await (await fetch(app.url + '/api/snapshot')).json()
-  assert.match(invalid.error, /owner.json/)
-  assert.equal(invalid.plan.revision, valid.plan.revision)
-  assert.equal((await fetch(app.url + '/api/asset?path=../README.md')).status, 400)
-  assert.equal((await fetch(app.url + '/api/asset?path=assets/secret.svg')).status, 400)
-  assert.equal(await new Promise(resolve => { get(app.url + '/api/snapshot', { headers: { Host: 'evil.invalid' } }, response => { response.resume(); resolve(response.statusCode) }) }), 403)
+
+  await t.test('writes need the session token and a local origin, and replays conflict', async () => {
+    const { token } = await (await fetch(app.url + '/api/session')).json() as { token: string }
+    const data = request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'HTTP owner' }) })
+    const post = (headers: Record<string, string>) => fetch(app.url + '/api/operations/write_plan', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data),
+    })
+    assert.equal((await post({})).status, 401)
+    assert.equal((await post({ Authorization: `Bearer ${token}`, Origin: 'https://evil.invalid' })).status, 403)
+    assert.equal((await post({ Authorization: `Bearer ${token}` })).status, 200)
+    assert.equal((await post({ Authorization: `Bearer ${token}` })).status, 409)
+  })
+  await t.test('a malformed edit reports its error alongside the last valid plan', async () => {
+    const valid = await (await fetch(app.url + '/api/snapshot')).json()
+    await writeFile(path.join(root, '.groundwork/plans/members/owner.json'), '{broken')
+    const invalid = await (await fetch(app.url + '/api/snapshot')).json()
+    assert.match(invalid.error, /owner.json/)
+    assert.equal(invalid.plan.revision, valid.plan.revision)
+  })
+  await t.test('assets are scoped to the plan directory and to raster files', async () => {
+    assert.equal((await fetch(app.url + '/api/asset?path=../README.md')).status, 400)
+    assert.equal((await fetch(app.url + '/api/asset?path=assets/secret.svg')).status, 400)
+  })
+  await t.test('a foreign Host header is refused', async () => {
+    const status = await new Promise(resolve => {
+      get(app.url + '/api/snapshot', { headers: { Host: 'evil.invalid' } }, response => { response.resume(); resolve(response.statusCode) })
+    })
+    assert.equal(status, 403)
+  })
 })
 test('Word Loop exports with brief criteria, unassessed deltas and screenshots preserved', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-export-')); t.after(() => rm(root, { recursive: true, force: true }))
-  const source = path.resolve('tests/fixtures/wordloop/content')
-  await exportLegacy(source, root, { name: 'Word Loop', assets: path.resolve('tests/fixtures/wordloop/images'), supplement: path.resolve('tests/fixtures/wordloop/provenance/portable') })
+  const root = await tempDir(t, 'groundwork-export-')
+  const source = fixturePath('wordloop/content')
+  await exportLegacy(source, root, {
+    name: 'Word Loop', assets: fixturePath('wordloop/images'), supplement: fixturePath('wordloop/provenance/portable'),
+  })
   const plan = await readPlan(root)
   const feature = plan.snapshot.features.find(f => f.id === 'meeting-recording')!
   assert.ok(feature)
   assert.equal(plan.delivery['meeting-recording'].deliverables.length, 11)
-  assert.ok(plan.delivery['meeting-recording'].tasks.length === 28)
+  assert.equal(plan.delivery['meeting-recording'].tasks.length, 28)
   assert.ok(Object.keys(plan.decisions).length > 20)
   assert.equal(feature.spec!.purpose!.success!.length, loadLegacyCriterionCount(await readFile(path.join(source, 'features/meeting-recording/purpose.json'), 'utf8')))
   assert.ok(feature.spec!.api!.contracts.some(c => c.change === 'unspecified'))
@@ -198,7 +211,7 @@ test('live events reconcile external edits, malformed revisions and recovery', {
 test('explicit worktree creation uses the requested branch and start ref without switching the current checkout', async t => {
   const root = await fixture(t, true), plan = await readPlan(root)
   const target = path.join(root, 'new-worktree')
-  await operate('create_worktree', { branch: 'codex/new-work', path: target, startRef: 'main', expectedRevision: plan.revision, expectedContext: plan.context.token }, root)
+  await operate('create_worktree', { branch: 'codex/new-work', path: target, startRef: 'main', ...guard(plan) }, root)
   assert.equal((await context(target)).branch, 'codex/new-work')
   assert.equal((await context(root)).branch, 'main')
   assert.equal((await readPlan(target)).manifest.id, plan.manifest.id)
@@ -210,7 +223,6 @@ test('portable assets require existing files, update versions when changed, and 
   const design = (ref: string) => JSON.stringify({ mockups: [{ id: 'screen', title: 'Screen', kind: 'image', ref }] })
   await assert.rejects(writePlan(root, request(plan, { [file]: design('/images/screen.png') })), /repository-relative/)
   await assert.rejects(writePlan(root, request(plan, { [file]: design('assets/screen.png') })), /Missing raster/)
-  const { mkdir } = await import('node:fs/promises')
   await mkdir(path.join(root, '.groundwork/plans/assets'))
   await writeFile(path.join(root, '.groundwork/plans/assets/screen.png'), Buffer.from([137, 80, 78, 71]))
   await writePlan(root, request(plan, { [file]: design('assets/screen.png') }))

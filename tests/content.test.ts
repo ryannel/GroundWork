@@ -2,6 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { ContentError, createRepository, loadContent } from '../src/data/content.ts'
 import { livePrototypeIds } from '../src/data/live-prototypes.ts'
+import { retiredObservationSchema } from '../src/data/content-schema.ts'
 import { documents } from './fixtures.ts'
 
 const copy = () => structuredClone(documents) as Record<string, any>
@@ -96,7 +97,7 @@ test('external design references reject unsafe protocols and live prototypes req
 test('member names and viewer identity resolve centrally', () => {
   const input = copy(); input['members/ryan-nel.json'].name = 'Renamed member'
   const { q } = createRepository(load(input))
-  assert.equal(q.viewer().name, 'Renamed member')
+  assert.equal(q.viewer()?.name, 'Renamed member')
   assert.ok(q.features().filter(f => f.ownerId === 'ryan-nel').every(f => f.owner === 'Renamed member'))
 })
 
@@ -166,7 +167,6 @@ test('data model context remains optional and does not invent fields or change a
   assert.doesNotThrow(() => load(input))
 })
 test('every catalog timestamp accepts an explicit UTC offset', async () => {
-  const { retiredObservationSchema } = await import('../src/data/content-schema.ts')
   const evidence = [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision: 'a'.repeat(40) }]
   const retired = { kind: 'endpoint', id: 'old', sourceRevision: 'a'.repeat(40), reason: 'Removed', evidence, observation: {} }
   assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: '2026-09-01T10:00:00+02:00' }).success, true)
@@ -182,7 +182,6 @@ test('validation collects issues from every concern before failing', () => {
     /ownerId/.test(error.message) && /workspaceId/.test(error.message) && /cannot depend on itself/.test(error.message))
 })
 test('catalog revisions accept SHA-1 and SHA-256 commits and nothing shorter', async () => {
-  const { retiredObservationSchema } = await import('../src/data/content-schema.ts')
   const retired = (revision: string) => ({
     kind: 'endpoint', id: 'old', retiredAt: '2026-09-01T10:00:00Z', sourceRevision: revision, reason: 'Removed', observation: {},
     evidence: [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision }],

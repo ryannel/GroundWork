@@ -1,14 +1,15 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, mkdir, readFile, rm, writeFile, appendFile, readdir } from 'node:fs/promises'
+import { mkdir, readFile, writeFile, appendFile, readdir } from 'node:fs/promises'
 import { spawn, spawnSync } from 'node:child_process'
 import os from 'node:os'
 import path from 'node:path'
+import type { TestContext } from 'node:test'
 import { Conflict, withLock } from '../server/repository.ts'
+import { repoRoot, tempDir } from './helpers.ts'
 
-async function workspace(t: { after: (fn: () => Promise<void>) => void }) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-lock-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+async function workspace(t: TestContext) {
+  const root = await tempDir(t, 'groundwork-lock-')
   await mkdir(path.join(root, '.groundwork'))
   return root
 }
@@ -42,17 +43,22 @@ test('contended acquisitions wait instead of seeing a half-written lock, and nev
   assert.deepEqual((await readdir(path.join(root, '.groundwork'))).filter(name => name.startsWith('write.lock')), [])
 })
 
-test('a lock left by a dead process is broken once, even by two waiters at the same time', async t => {
+test('a lock left by a dead process is broken once, even by several waiters at the same time', async t => {
   const root = await workspace(t)
-  await writeFile(lockFile(root), JSON.stringify({ pid: deadPid(), host: os.hostname(), nonce: 'crashed' }))
-  let inside = 0, overlaps = 0
-  const guarded = () => withLock(root, async () => {
-    if (++inside > 1) overlaps++
-    await new Promise(resolve => setTimeout(resolve, 5))
-    inside--
-  })
-  await Promise.all([guarded(), guarded(), guarded()])
-  assert.equal(overlaps, 0)
+  // A breaker that moves a live lock aside lets a third waiter in beside its holder. With six waiters and a
+  // 20 ms hold that happens in most rounds, so ten rounds catch it reliably rather than now and then.
+  for (let round = 0; round < 10; round++) {
+    await writeFile(lockFile(root), JSON.stringify({ pid: deadPid(), host: os.hostname(), nonce: `crashed-${round}` }))
+    let inside = 0, overlaps = 0
+    const guarded = () => withLock(root, async () => {
+      if (++inside > 1) overlaps++
+      await new Promise(resolve => setTimeout(resolve, 20))
+      inside--
+    })
+    await Promise.all(Array.from({ length: 6 }, guarded))
+    assert.equal(overlaps, 0, `round ${round}`)
+  }
+  assert.deepEqual((await readdir(path.join(root, '.groundwork'))).filter(name => name.startsWith('write.lock')), [])
   // Locks written before nonces existed are still recognised.
   await writeFile(lockFile(root), JSON.stringify({ pid: deadPid() }))
   assert.equal(await withLock(root, async () => 'ran'), 'ran')
@@ -79,7 +85,7 @@ test('separate processes exclude each other', { timeout: 30000 }, async t => {
     })`
   await appendFile(log, '')
   await Promise.all(['a', 'b', 'c'].map(id => new Promise<void>((resolve, reject) => {
-    const child = spawn(process.execPath, ['--input-type=module', '-e', worker, root, log, id], { cwd: path.resolve('.'), stdio: ['ignore', 'ignore', 'pipe'] })
+    const child = spawn(process.execPath, ['--input-type=module', '-e', worker, root, log, id], { cwd: repoRoot, stdio: ['ignore', 'ignore', 'pipe'] })
     let stderr = ''
     child.stderr.on('data', chunk => { stderr += chunk })
     child.on('error', reject)

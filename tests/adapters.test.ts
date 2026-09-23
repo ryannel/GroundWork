@@ -1,8 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm, writeFile, cp, mkdir, realpath } from 'node:fs/promises'
+import { writeFile, cp, mkdir, realpath } from 'node:fs/promises'
 import path from 'node:path'
-import os from 'node:os'
 import { spawn } from 'node:child_process'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
@@ -11,11 +10,12 @@ import { operationSchemas } from '../server/operations.ts'
 import { main, exitCodeFor, formatError, UsageError } from '../server/cli.ts'
 import { Conflict } from '../server/errors.ts'
 import { z } from 'zod'
+import { guard, repoRoot, tempDir, withEnv } from './helpers.ts'
 
 async function command(module: 'cli' | 'mcp', args: string[], input = '') {
   return new Promise<string>((resolve, reject) => {
     const invocation = module === 'cli' ? 'main(process.argv.slice(1)).catch(e=>{console.error(e.message);process.exitCode=1})' : 'mcp(process.argv[1])'
-    const child = spawn(process.execPath, ['--input-type=module', '-e', `import { ${module === 'cli' ? 'main' : 'mcp'} } from './server/${module}.ts'; ${invocation}`, ...args], { cwd: path.resolve('.') })
+    const child = spawn(process.execPath, ['--input-type=module', '-e', `import { ${module === 'cli' ? 'main' : 'mcp'} } from './server/${module}.ts'; ${invocation}`, ...args], { cwd: repoRoot })
     let stdout = '', stderr = ''
     child.stdout.on('data', chunk => { stdout += chunk }); child.stderr.on('data', chunk => { stderr += chunk })
     child.on('error', reject); child.on('exit', code => code ? reject(new Error(stderr)) : resolve(stdout))
@@ -23,34 +23,32 @@ async function command(module: 'cli' | 'mcp', args: string[], input = '') {
   })
 }
 test('CLI and MCP return the same revision and use the same validated authoring operations', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-adapters-')); t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-adapters-')
   await initialise(root, { name: 'Adapters' })
   const read = JSON.parse(await command('cli', ['read', root]))
   const replies = (await command('mcp', [root], [
     { jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'test', version: '1' } } },
     { jsonrpc: '2.0', id: 2, method: 'tools/list' },
     { jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'read_plan', arguments: {} } },
-    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'create_feature', arguments: { id: 'feature', title: 'Adapter feature', productId: 'app', ownerId: 'owner', problem: 'A problem', outcome: 'An outcome', expectedRevision: read.revision, expectedContext: read.context.token } } },
+    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'create_feature', arguments: { id: 'feature', title: 'Adapter feature', productId: 'app', ownerId: 'owner', problem: 'A problem', outcome: 'An outcome', ...guard(read) } } },
   ].map(item => JSON.stringify(item)).join('\n') + '\n')).trim().split('\n').map(line => JSON.parse(line))
   assert.equal(replies[0].result.protocolVersion, '2025-03-26')
-  assert.deepEqual(replies[1].result.tools.map((tool: any) => tool.name).sort(), Object.keys(operationSchemas).sort())
+  assert.deepEqual(replies[1].result.tools.map((tool: { name: string }) => tool.name).sort(), Object.keys(operationSchemas).sort())
   assert.equal(JSON.parse(replies[2].result.content[0].text).revision, read.revision)
   assert.equal(replies[3].result.isError, undefined)
   const updated = await readPlan(root)
   assert.equal(updated.snapshot.features[0].title, 'Adapter feature')
   const argsFile = path.join(root, 'request.json')
-  await writeFile(argsFile, JSON.stringify({ featureId: 'feature', stage: 'exploring', expectedRevision: updated.revision, expectedContext: updated.context.token }))
+  await writeFile(argsFile, JSON.stringify({ featureId: 'feature', stage: 'exploring', ...guard(updated) }))
   await command('cli', ['call', 'record_progress', '--root', root, '--input', argsFile])
   assert.equal((await readPlan(root)).snapshot.features[0].stage, 'exploring')
 })
 test('different users organise identical plans independently and explicit clones remain separate', async t => {
-  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-registry-')); t.after(() => rm(base, { recursive: true, force: true }))
-  const previous = process.env.GROUNDWORK_HOME
-  t.after(() => { if (previous === undefined) delete process.env.GROUNDWORK_HOME; else process.env.GROUNDWORK_HOME = previous })
+  const base = await tempDir(t, 'groundwork-registry-')
   const root = path.join(base, 'app'), clone = path.join(base, 'clone')
   await initialise(root, { name: 'Shared app' }); const original = await readPlan(root)
   await cp(root, clone, { recursive: true })
-  process.env.GROUNDWORK_HOME = path.join(base, 'user-a')
+  withEnv(t, { GROUNDWORK_HOME: path.join(base, 'user-a') })
   await register(root, 'Work', 'Application'); await register(clone, 'Experiments', 'Application clone')
   const a = await inventory()
   assert.equal(a.length, 2); assert.notEqual(a[0].checkoutId, a[1].checkoutId); assert.equal(a[0].projectId, a[1].projectId)
@@ -69,23 +67,21 @@ test('different users organise identical plans independently and explicit clones
   assert.equal((await readPlan(root)).revision, original.revision)
 })
 test('repositories without plans can be grouped beneath a workspace product', async t => {
-  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-registry-source-')); t.after(() => rm(base, { recursive: true, force: true }))
-  const previous = process.env.GROUNDWORK_HOME
-  t.after(() => { if (previous === undefined) delete process.env.GROUNDWORK_HOME; else process.env.GROUNDWORK_HOME = previous })
-  process.env.GROUNDWORK_HOME = path.join(base, 'config')
+  const base = await tempDir(t, 'groundwork-registry-source-')
+  withEnv(t, { GROUNDWORK_HOME: path.join(base, 'config') })
   const root = path.join(base, 'source')
   await mkdir(root)
-  await register(root, 'Commercial Backbone', 'Price')
+  await register(root, 'Retail Platform', 'Pricing')
   const [entry] = await inventory()
-  assert.equal(entry.workspace, 'Commercial Backbone')
-  assert.equal(entry.product, 'Price')
+  assert.equal(entry.workspace, 'Retail Platform')
+  assert.equal(entry.product, 'Pricing')
   assert.equal(entry.repositoryRoot, await realpath(root))
   assert.equal(entry.projectId, null)
   assert.match(entry.error!, /project.json/)
 })
 
 test('CLI arguments are parsed strictly and errors are short, with a distinct exit code for conflicts', async t => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-cli-')); t.after(() => rm(root, { recursive: true, force: true }))
+  const root = await tempDir(t, 'groundwork-cli-')
   await initialise(root, { name: 'CLI' })
   const lines: string[] = []
   const out = (line: string) => { lines.push(line) }
@@ -104,9 +100,9 @@ test('CLI arguments are parsed strictly and errors are short, with a distinct ex
   assert.match(formatError(invalid.error), /name/)
 })
 test('the binary explains how to build when the runtime is missing', async t => {
-  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-bin-')); t.after(() => rm(base, { recursive: true, force: true }))
+  const base = await tempDir(t, 'groundwork-bin-')
   await mkdir(path.join(base, 'bin'))
-  await cp(path.resolve('bin/groundwork-v2.js'), path.join(base, 'bin/groundwork-v2.js'))
+  await cp(path.join(repoRoot, 'bin/groundwork-v2.js'), path.join(base, 'bin/groundwork-v2.js'))
   await writeFile(path.join(base, 'package.json'), '{"type":"module"}')
   const result = await new Promise<{ code: number | null; stderr: string }>((resolve, reject) => {
     const child = spawn(process.execPath, [path.join(base, 'bin/groundwork-v2.js'), 'help'])

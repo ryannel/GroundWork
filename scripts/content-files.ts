@@ -10,7 +10,7 @@ export async function readContentDirectory(root: string): Promise<ContentDocumen
       else if (entry.isFile() && entry.name.endsWith('.json')) {
         const relative = path.relative(root, file).split(path.sep).join('/')
         try { files[relative] = JSON.parse(await readFile(file, 'utf8')) }
-        catch (error) { throw new Error(`${relative}: ${error instanceof Error ? error.message : error}`) }
+        catch (error) { throw new Error(`${relative}: ${error instanceof Error ? error.message : error}`, { cause: error }) }
       }
     }
   }

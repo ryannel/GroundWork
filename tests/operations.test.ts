@@ -1,15 +1,14 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm } from 'node:fs/promises'
-import path from 'node:path'
+import type { TestContext } from 'node:test'
 import { operate } from '../server/operations.ts'
 import { queryCatalog } from '../server/catalog.ts'
 import { readPlan } from '../server/repository.ts'
 import { initialise } from '../server/setup.ts'
+import { guard, tempDir } from './helpers.ts'
 
-async function fixture(t: { after: (callback: () => Promise<void>) => void }) {
-  const root = await mkdtemp(path.join(process.cwd(), '.operations-test-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
+async function fixture(t: TestContext) {
+  const root = await tempDir(t, 'groundwork-operations-')
   await initialise(root, { name: 'Test app' })
   return root
 }
@@ -26,7 +25,6 @@ test('operation parsing preserves query defaults, trims input and rejects unexpe
 test('write and progress dispatch preserve typed payloads and reject committed-ref edits', async t => {
   const root = await fixture(t)
   const before = await readPlan(root)
-  const guard = (plan: typeof before) => ({ expectedRevision: plan.revision, expectedContext: plan.context.token })
   await assert.rejects(operate('create_feature', {
     ...guard(before), ref: 'main', id: 'f', title: 'Feature', productId: 'app', ownerId: 'owner', problem: 'Problem', outcome: 'Outcome',
   }, root), /read-only/)

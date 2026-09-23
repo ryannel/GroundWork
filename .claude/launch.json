@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "Groundwork Hub", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 4318 }
+    { "name": "Groundwork viewer (dev, hot reload)", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 5173 },
+    { "name": "Groundwork Hub (production build)", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 4318 }
   ]
 }

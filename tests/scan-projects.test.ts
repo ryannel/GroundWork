@@ -1,22 +1,17 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises'
-import os from 'node:os'
-import path from 'node:path'
+import type { TestContext } from 'node:test'
 import { catalogMetadata, detectProjects, filesForProject, isTestSegment, packetFiles, type DetectedProject, type InventoryFile } from '../server/scan-projects.ts'
 import type { Component } from '../src/data/model.ts'
+import { tempDir, writeFiles } from './helpers.ts'
 
 const file = (value: string): InventoryFile => ({ path: value, digest: 'a'.repeat(40), bytes: 1 })
 const project = (value: string, manifest = `${value === '.' ? '' : `${value}/`}package.json`): DetectedProject =>
   ({ path: value, name: value, suggestedId: value, manifest })
 
-async function snapshot(t: any, contents: Record<string, string>) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-projects-'))
-  t.after(() => rm(root, { recursive: true, force: true }))
-  for (const [name, text] of Object.entries(contents)) {
-    await mkdir(path.dirname(path.join(root, name)), { recursive: true })
-    await writeFile(path.join(root, name), text)
-  }
+async function snapshot(t: TestContext, contents: Record<string, string>) {
+  const root = await tempDir(t, 'groundwork-projects-')
+  await writeFiles(root, contents)
   return { root, files: Object.keys(contents).map(file) }
 }
 

@@ -1,16 +1,16 @@
 [
   {
-    "id": "price-engine",
-    "slug": "price-engine",
-    "name": "Price Engine",
+    "id": "pricing",
+    "slug": "pricing",
+    "name": "Pricing",
     "kind": "service-system",
-    "description": "Price calculation system (APP-3791) in the Commercial Backbone."
+    "description": "Price calculation for bicycle configurations, carts and accessories."
   },
   {
-    "id": "product-configuration-facade",
-    "slug": "product-configuration-facade",
-    "name": "Product Configuration Facade",
+    "id": "catalogue-gateway",
+    "slug": "catalogue-gateway",
+    "name": "Catalogue Gateway",
     "kind": "service-system",
-    "description": "Facade for product configuration data exposed by CPAM and PrinsIngestion."
+    "description": "Bicycle model and option data published to storefronts and partners."
   }
 ]

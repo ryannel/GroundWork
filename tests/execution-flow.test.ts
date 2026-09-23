@@ -17,7 +17,7 @@ const fixture = (): Component => componentSchema.parse({
 test('execution flows link to catalog records and retain a pinned source revision', () => {
   const component = fixture()
   assert.deepEqual(executionFlowIssues(component), [])
-  assert.equal(sourceEvidenceUrl('volvo-cars/product-configuration-facade', evidence[0]), `https://github.com/volvo-cars/product-configuration-facade/blob/${revision}/Api/Upload.cs#L10-L20`)
+  assert.equal(sourceEvidenceUrl('example/catalogue-gateway', evidence[0]), `https://github.com/example/catalogue-gateway/blob/${revision}/Api/Upload.cs#L10-L20`)
   assert.equal(sourceEvidenceUrl('https://example.com/repo', evidence[0]), undefined)
 })
 test('execution flows reject dangling catalog references and broken graph boundaries', () => {

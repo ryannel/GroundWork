@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import ELK from 'elkjs/lib/elk.bundled.js'
+import type { ElkLabel } from 'elkjs'
 import {
   edgeHandles, fallbackGridPositions, layoutSignature, messageEdgeLabel, portSide, relationshipId, systemMapLayout,
 } from '../src/lib/system-map-layout.ts'
@@ -108,7 +109,7 @@ test('ELK edge sections and labels convert to SVG routes with centred labels', a
   const routes = edgeRoutes(layout)
   assert.deepEqual(Object.keys(routes), ['e'], 'edges without a positioned label are left to the default renderer')
   assert.match(routes.e.path, /^M [\d.]+ [\d.]+( L [\d.]+ [\d.]+)+$/)
-  const label = layout.edges![0].labels![0]
+  const label: ElkLabel = layout.edges![0].labels![0]
   assert.equal(routes.e.labelX, label.x! + 20)
   assert.equal(routes.e.labelY, label.y! + 10)
 })

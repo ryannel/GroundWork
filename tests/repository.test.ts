@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { chmod, mkdir, mkdtemp, readFile, rm, stat, writeFile, lstat } from 'node:fs/promises'
+import type { TestContext } from 'node:test'
+import { chmod, mkdir, readFile, rm, stat, writeFile, lstat } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
 import os from 'node:os'
 import path from 'node:path'
@@ -13,14 +14,9 @@ import { parseBrief, renderBrief, briefProblem } from '../server/format.ts'
 import { InvalidInput } from '../server/errors.ts'
 import { context, discover, git, GitError } from '../server/git.ts'
 import { operate } from '../server/operations.ts'
+import { commitAll, gitInit, guard, tempDir as temp } from './helpers.ts'
 
-type T = { after: (fn: () => Promise<void>) => void }
-async function temp(t: T, prefix = 'groundwork-repository-') {
-  const root = await mkdtemp(path.join(os.tmpdir(), prefix))
-  t.after(() => rm(root, { recursive: true, force: true }))
-  return root
-}
-async function fixture(t: T) {
+async function fixture(t: TestContext) {
   const root = await temp(t)
   await initialise(root, { name: 'Repository tests' })
   return root
@@ -69,7 +65,7 @@ test('temp files left by an interrupted write are ignored by readers and removed
   const leftovers = [`${owner}.${randomUUID()}.tmp`, `.groundwork/project.json.${randomUUID()}.tmp`]
   for (const name of leftovers) await writeFile(path.join(root, name), '{"partial":')
   const plan = await readPlan(root)
-  await writePlan(root, { expectedRevision: plan.revision, expectedContext: plan.context.token, changes: {
+  await writePlan(root, { ...guard(plan), changes: {
     'members/owner.json': JSON.stringify({ id: 'owner', name: 'Still writable' }),
   } })
   await recover(root)
@@ -130,7 +126,7 @@ test('initialise skips hidden asset files, rejects unsupported ones and never le
   // Documents that parse but reference a missing asset are caught by reading the result back.
   const plan = await readPlan(good)
   await operate('create_feature', { id: 'shots', title: 'Shots', productId: 'app', ownerId: 'owner', problem: 'P', outcome: 'O',
-    expectedRevision: plan.revision, expectedContext: plan.context.token }, good)
+    ...guard(plan) }, good)
   const files = { ...(await readPlan(good)).files,
     'features/shots/design.json': JSON.stringify({ mockups: [{ id: 'screen', title: 'Screen', kind: 'image', ref: 'assets/missing.png' }] }) }
   const unreadable = path.join(base, 'unreadable')
@@ -185,8 +181,8 @@ test('renderBrief is the inverse of parseBrief, and refuses text it cannot round
 
 test('discover skips worktrees whose directory is gone; context reads branch and head', async t => {
   const root = await temp(t)
-  await git(root, ['init', '-b', 'main'])
-  await git(root, ['-c', 'user.name=Tests', '-c', 'user.email=t@example.invalid', 'commit', '--allow-empty', '-m', 'Start'])
+  await gitInit(root)
+  await commitAll(root, 'Start')
   const ctx = await context(root)
   assert.equal(ctx.branch, 'main')
   assert.match(ctx.head!, /^[0-9a-f]{40}$/)

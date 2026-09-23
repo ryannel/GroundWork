@@ -1,7 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm, symlink } from 'node:fs/promises'
-import os from 'node:os'
+import { rm, symlink } from 'node:fs/promises'
 import path from 'node:path'
 import { gapArea, mergeComponent } from '../server/scan-baseline.ts'
 import { retirementCascade } from '../server/scan-lifecycle.ts'
@@ -10,6 +9,7 @@ import type { DetectedProject, InventoryFile } from '../server/scan-projects.ts'
 import { redact } from '../server/scan-acquire.ts'
 import { lineCount, repositoryKey, worstStatus } from '../server/catalog-freshness.ts'
 import { repositoryDiscoverySchema, sourceRefSchema } from '../src/data/scan-schema.ts'
+import { tempDir } from './helpers.ts'
 
 const revision = 'a'.repeat(40)
 const next = 'b'.repeat(40)
@@ -134,8 +134,7 @@ test('worstStatus orders unknown above review-required above impact-unknown abov
 test('repositoryKey folds GitHub forms together and resolves local symlinks', async t => {
   const keys = await Promise.all(['github.com/Acme/Api', 'https://GitHub.com/acme/api.git', 'git@github.com:acme/api.git', 'Acme/Api'].map(repositoryKey))
   assert.deepEqual(new Set(keys), new Set(['acme/api']))
-  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-key-'))
-  t.after(() => rm(base, { recursive: true, force: true }))
+  const base = await tempDir(t, 'groundwork-key-')
   await symlink(base, `${base}-link`)
   t.after(() => rm(`${base}-link`, { force: true }))
   assert.equal(await repositoryKey(`${base}-link`), await repositoryKey(base))

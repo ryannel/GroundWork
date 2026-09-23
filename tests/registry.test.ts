@@ -1,20 +1,17 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdir, mkdtemp, realpath, rm, writeFile } from 'node:fs/promises'
-import os from 'node:os'
+import type { TestContext } from 'node:test'
+import { mkdir, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { initialise } from '../server/setup.ts'
 import { inventory, register, registry, selectRoot } from '../server/registry.ts'
 import { context, git } from '../server/git.ts'
+import { commitAll, gitInit, tempDir, withEnv } from './helpers.ts'
 
-async function home(t: { after: (fn: () => Promise<void> | void) => void }) {
-  const base = await realpath(await mkdtemp(path.join(os.tmpdir(), 'groundwork-registry-')))
-  const previous = process.env.GROUNDWORK_HOME
-  process.env.GROUNDWORK_HOME = path.join(base, 'config')
-  t.after(async () => {
-    if (previous === undefined) delete process.env.GROUNDWORK_HOME; else process.env.GROUNDWORK_HOME = previous
-    await rm(base, { recursive: true, force: true })
-  })
+/** A registry of this test's own; tests/setup.ts already keeps the suite away from the real one. */
+async function home(t: TestContext) {
+  const base = await tempDir(t, 'groundwork-registry-')
+  withEnv(t, { GROUNDWORK_HOME: path.join(base, 'config') })
   return base
 }
 
@@ -33,9 +30,8 @@ test('a cached checkout whose worktree was removed is no longer selected', async
   const base = await home(t)
   const root = path.join(base, 'repo'), worktree = path.join(base, 'worktree')
   await initialise(root, { name: 'Repo' })
-  await git(root, ['init', '-b', 'main'])
-  await git(root, ['add', '.'])
-  await git(root, ['-c', 'user.name=Tests', '-c', 'user.email=t@example.invalid', 'commit', '-m', 'Plan'])
+  await gitInit(root)
+  await commitAll(root, 'Plan')
   await git(root, ['worktree', 'add', '-b', 'side', worktree])
   await register(root)
   const entry = (await inventory()).find(item => item.root === worktree)!

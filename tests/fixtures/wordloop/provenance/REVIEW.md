@@ -1,5 +1,7 @@
 # Meeting Recording — first real bet in Groundwork
 
+> **Archive note (September 2026).** The frozen source documents (`sources/`) and the companion files `source-manifest.json`, `delivery-plan.json`, `task-breakdown.json` and `api-guides.json` have been removed from this repository: no export or test reads them, and the manifest recorded local machine paths. Links to them below are historical. The legacy `content/`, the screenshots in `images/` (the entry point screenshot is now a reduced thumbnail) and the portable supplement in `portable/` remain and are what the export test uses.
+
 Groundwork can hold this bet’s product intent and connected technical specification. It cannot yet hold its delivery structure, evidence provenance or unresolved decisions as first-class data. The import makes those limits visible without making up missing facts.
 
 [Open the imported bet](http://localhost:5174/f/meeting-recording) · [Start with recovery](http://localhost:5174/f/meeting-recording/flow?trace=journey%3Areconnect) · [Original screens](http://localhost:5174/f/meeting-recording/design/active_recording)

@@ -30,7 +30,10 @@ try {
   const { serve } = await import(path.join(clone, 'node_modules/groundwork-v2/runtime/server/http.js'))
   const app = await serve({ root: clone, port: 0 })
   try {
-    assert.equal((await fetch(app.url)).status, 200)
+    // The only check that the packed, prebuilt viewer is served; npm test uses a stub page instead of dist/.
+    const page = await fetch(app.url)
+    assert.equal(page.status, 200)
+    assert.match(await page.text(), /<div id="root">/)
     const snapshot = await (await fetch(app.url + '/api/snapshot')).json() as { plan: { manifest: { id: string } }; error: string | null }
     assert.equal(snapshot.plan.manifest.id, initial.manifest.id)
     assert.equal(snapshot.error, null)
