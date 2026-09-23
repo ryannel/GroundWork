@@ -1,12 +1,14 @@
 # System knowledge evaluation
 
-Evaluated 17 September 2026 against Commercial Backbone revision `aecc976cc84371eb8c8a415254e540fab75435cae93ad1cd8b9ccffb89baf279`.
+**History — evaluation notes, superseded by the shipped contract.** For the current catalog discovery contract, see [`../CATALOG_DISCOVERY.md`](../CATALOG_DISCOVERY.md).
+
+Evaluated 17 September 2026 against Order Platform revision `0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd`.
 
 Run `node scripts/catalog-evaluation.ts /path/to/catalog-owner` to repeat the assertions. Planning exercises run in a temporary copy, never in the production catalog.
 
 ## Retrieval
 
-All eight scenarios passed: exact MSRP lookup, paraphrased MSRP behavior, full-features upload, tax-event consumption, pending invalidation processing, market authorization, ambiguous price search, and missing quantum-payroll knowledge. Expected records appeared within the first five results where applicable. Ambiguous searches preserved multiple candidates; missing knowledge returned no invented match. Discovery packets retained uncertainty and stayed below the 32 KiB bound (largest observed: 17,274 bytes).
+All eight scenarios passed: exact quote-total lookup, paraphrased quote total behavior, full-features upload, tax-event consumption, pending invalidation processing, market authorization, ambiguous price search, and missing quantum-payroll knowledge. Expected records appeared within the first five results where applicable. Ambiguous searches preserved multiple candidates; missing knowledge returned no invented match. Discovery packets retained uncertainty and stayed below the 32 KiB bound (largest observed: 17,274 bytes).
 
 This single local sample took 82–134.8 ms to read and query the catalog, and 6.5–10.9 ms when reusing an already loaded projection. This is not a persistent-cache benchmark or evidence of end-to-end agent speedup. Broad queries still include irrelevant candidates; narrowing by component and record kind is useful.
 
@@ -15,9 +17,9 @@ This single local sample took 82–134.8 ms to read and query the catalog, and 6
 Two hypothetical drafts exercised feature creation, immutable discovery retention, delivery planning and explicit reassessment:
 
 - Carry upload correlation through the facade API, storage and Kafka.
-- Introduce an explicit MSRP pricing policy.
+- Introduce an explicit quote pricing policy.
 
-Both retained endpoint/flow facts, named assumptions and product unknowns, and put component-owned discovery before dependent implementation. They included boundary and end-to-end validation plans and rollback considerations. These are evaluation drafts, not approved requirements or executed source-system tests. No evaluation features were added to Commercial Backbone.
+Both retained endpoint/flow facts, named assumptions and product unknowns, and put component-owned discovery before dependent implementation. They included boundary and end-to-end validation plans and rollback considerations. These are evaluation drafts, not approved requirements or executed source-system tests. No evaluation features were added to Order Platform.
 
 ## Live evidence and integrity
 

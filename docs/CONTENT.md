@@ -29,7 +29,7 @@ schemas/                               # generated JSON Schemas for each documen
 
 `project.json` owns the format version for the whole directory. Unsupported versions fail explicitly. Entity filenames and feature folder names must match their IDs. All section files are optional: omit a section that has not been drafted. Never insert invented test results to make a draft appear complete.
 
-The app discovers JSON documents automatically. Adding a workspace, product or feature needs no route, page component, import list or seed edit. Development updates appear through Vite; a production build contains a snapshot of the validated content and must be rebuilt to publish later edits.
+This `content/` directory is not loaded automatically by the running app. `groundwork-v2 export` reads it and writes a portable plan under `.groundwork/plans/`, which the viewer then loads live from the Hub. Adding a workspace, product or feature needs no route, page component, import list or seed edit; running `export` again picks up the change.
 
 ## Authoring a feature
 
@@ -38,7 +38,7 @@ The app discovers JSON documents automatically. Adding a workspace, product or f
 3. Create `content/features/<id>/feature.json`, using an existing product and member ID. `touches` lists components being changed, including components owned by other products in the same workspace. It is distinct from every participant in a system flow.
 4. Add the relevant section files. Local references point to IDs inside this feature; component references point to global component IDs.
 5. Set `updatedAt` to the real time of the content revision in ISO 8601 with a timezone. Do not regenerate timestamps at application startup.
-6. Run `npm run content:validate`, `npm test`, and `npm run build`. Review changed JSON and resulting UI before publishing the revision. Multi-file edits should be validated together as one revision; the loader never exposes a partially validated revision.
+6. Run `npm run content:validate -- content` to validate this directory (the bare `npm run content:validate`, with no path, validates the bundled Word Loop fixture instead), then `npm test`. Review the changed JSON, then run `groundwork-v2 export` and review the resulting plan in the viewer before publishing the revision. Multi-file edits should be validated together as one revision; the loader never exposes a partially validated revision.
 
 Minimal feature metadata (replace the example ID and timestamp):
 
@@ -75,16 +75,16 @@ The lifecycle is `idea`, `exploring`, `designing`, `specced`, `building`, `shipp
 `src/data/content-schema.ts` is the source of truth. TypeScript domain types are inferred from these schemas. `npm run content:schemas` regenerates editor/AI JSON Schemas; `npm run content:check-schemas` detects stale generated files. Do not edit generated schema files directly. An AI tool can use the appropriate file in `schemas/` as its structured-output contract, then run whole-directory validation to check relationships that JSON Schema cannot express.
 
 ```sh
-npm run content:validate                       # current repository content
-npm run content:validate -- /path/to/candidate  # a complete candidate revision
+npm run content:validate                       # validates the bundled Word Loop fixture (no path given)
+npm run content:validate -- /path/to/candidate  # validates a complete candidate revision
 npm run content:schemas                        # after changing the model
 npm test
-npm run build                                 # validates content and generated schemas first
+npm run build                                 # validates the fixture and generated schemas first
 ```
 
 Errors include the source file, item or property and broken reference. Unknown properties are rejected so typos cannot silently disappear. A malformed or unsupported revision must be corrected before it is used. The loader accepts unknown input and returns a typed snapshot only after structure and relationship validation succeed.
 
-`src/data/content.ts` contains the environment-independent loader and repository factory. `src/data/store.ts` adapts Vite's file discovery to that boundary and provides view selectors. A future persistence/API adapter should return the same validated documents rather than duplicating page-specific models. Persist authored facts; keep counts, incoming work, activity sorting, coverage and reverse references derived.
+`src/data/content.ts` contains the environment-independent loader and repository factory. `src/data/store.ts` provides the repository to the running app from the Hub API response and adds view selectors; it no longer discovers `content/` files itself. Persist authored facts; keep counts, incoming work, activity sorting, coverage and reverse references derived.
 
 `viewerId` is optional: omit it for a blank system with no member records. When present it must name an existing member. It is local presentation configuration, not an authentication or authorization mechanism. Cross-workspace references are currently rejected deliberately; supporting them later requires an explicit model and permission design.
 

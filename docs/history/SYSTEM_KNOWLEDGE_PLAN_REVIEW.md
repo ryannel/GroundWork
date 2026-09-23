@@ -1,5 +1,7 @@
 # Review of the system knowledge plan
 
+**History — design review, superseded by the shipped contract.** For the current catalog discovery contract, see [`../CATALOG_DISCOVERY.md`](../CATALOG_DISCOVERY.md).
+
 Reviewed 2026-09-16 against [SYSTEM_KNOWLEDGE_PLAN.md](SYSTEM_KNOWLEDGE_PLAN.md). This document records recommendations; it does not amend the plan or implement runtime changes.
 
 ## Review approach and verdict
@@ -86,7 +88,7 @@ Expose consumer/job starting points through existing messaging and source eviden
 
 ### Establish a small evaluation set before B1
 
-Blind and product reviews both found that one MSRP lookup could pass without proving discovery quality. Create a fixed, independently checked set across both products:
+Blind and product reviews both found that one quote-total lookup could pass without proving discovery quality. Create a fixed, independently checked set across both products:
 
 - Exact entity lookup and a paraphrased feature question without entity seeds.
 - Ambiguous candidates and a question for which knowledge is missing.
@@ -110,7 +112,7 @@ Do not remove guarded writes, provenance, uncertainty or historical readability 
 
 1. **Define the B1 contract and fixtures:** qualified IDs, bounded response envelope, snapshot/cursor rules, expected discovery results.
 2. **Ship focused retrieval and human navigation:** current JSON, honest coverage/depth/freshness, exact entity/source links, recoverable omitted context.
-3. **Prove one complete loop:** investigate MSRP at a pinned revision, persist a useful result without losing siblings, retain the small baseline used by a feature plan, and answer a follow-up from it. Respect existing same-revision validation until its replacement is explicitly implemented.
+3. **Prove one complete loop:** investigate the quote total at a pinned revision, persist a useful result without losing siblings, retain the small baseline used by a feature plan, and answer a follow-up from it. Respect existing same-revision validation until its replacement is explicitly implemented.
 4. **Add safe lifecycle and scoped freshness:** retirement/rename reconciliation, source identity, scoped verification, guarded targeted writes; add a consumer demonstration and generalized trigger support when needed.
 5. **Migrate storage and extend planning:** retain the existing proposed dry run, recovery, compatibility and mixed-authority protections; add plan reassessment against explicit observation dependencies.
 

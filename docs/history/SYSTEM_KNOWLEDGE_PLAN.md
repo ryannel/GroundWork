@@ -1,6 +1,8 @@
 # System knowledge for exploration and just-in-time planning
 
-Status: reviewed implementation delivered and exercised across both products; acceptance evidence and remaining operational limits are recorded below. See [CATALOG_DISCOVERY.md](CATALOG_DISCOVERY.md) for the shipped contract and limitations. Revised 2026-09-16 after clarifying that exhaustive extraction is not the goal. This plan supersedes the earlier requirement to trace every endpoint during a baseline scan. Commercial Backbone was migrated on 2026-09-17 and targeted MSRP, consumer and background-job discoveries were saved without broad rescans.
+**History — design plan, superseded by the shipped contract.** For the current catalog discovery contract, see [`../CATALOG_DISCOVERY.md`](../CATALOG_DISCOVERY.md). This document is kept for the reasoning behind that design; do not treat it as current.
+
+Status: reviewed implementation delivered and exercised across both products; acceptance evidence and remaining operational limits are recorded below. See [CATALOG_DISCOVERY.md](../CATALOG_DISCOVERY.md) for the shipped contract and limitations. Revised 2026-09-16 after clarifying that exhaustive extraction is not the goal. This plan supersedes the earlier requirement to trace every endpoint during a baseline scan. Order Platform was migrated on 2026-09-17 and targeted quote total, consumer and background-job discoveries were saved without broad rescans.
 
 ## Goal
 
@@ -12,13 +14,13 @@ The catalog records observed knowledge. Feature plans record proposed changes an
 
 ## Original storage and baseline
 
-The Commercial Backbone catalog is owned by `/Users/RNEL/Workspace/price-engine`, including both Price Engine and Product Configuration Facade. Implementation repositories are referenced by repository identity and commit; their catalog documents are not automatically copied into each implementation repository.
+The Order Platform catalog is owned by `/home/user/workspace/pricing-engine`, including both Pricing Engine and Order Configuration Facade. Implementation repositories are referenced by repository identity and commit; their catalog documents are not automatically copied into each implementation repository.
 
 The original format stored project metadata, products, components, members and feature plans together under `.groundwork/plans/`. `server/format.ts` defines that common root. The scanner writes `components/<id>.json` through the same guarded transaction layer used for feature plans. The directory name described the legacy storage bundle, not the meaning of the API and flow data.
 
-For example, `.groundwork/plans/components/gpe-pretax.json` is UTF-8, schema-validated JSON containing `api.endpoints`, `api.schemas`, `executionFlows`, `data.records`, `messaging.messages`, dependencies, source revisions, evidence and gaps. JSON files are authoritative and Git-reviewable; the viewer renders a projection. `read_plan` currently retrieves the combined bundle. File presence does not mean changes have been committed.
+For example, `.groundwork/plans/components/pricing-pretax.json` is UTF-8, schema-validated JSON containing `api.endpoints`, `api.schemas`, `executionFlows`, `data.records`, `messaging.messages`, dependencies, source revisions, evidence and gaps. JSON files are authoritative and Git-reviewable; the viewer renders a projection. `read_plan` currently retrieves the combined bundle. File presence does not mean changes have been committed.
 
-At preparation, Price Engine has 41 catalogued endpoint entries and 7 traced endpoint paths; the facade has 58 entries and 1 traced path. Those counts describe investigation depth, not whether the catalogs are useful. Existing generic "scan complete" labels should be replaced with explicit dimensions. Standalone consumers and scheduled jobs also need first-class entry points; the present flow schema requires an endpoint ID.
+At preparation, Pricing Engine has 41 catalogued endpoint entries and 7 traced endpoint paths; the facade has 58 entries and 1 traced path. Those counts describe investigation depth, not whether the catalogs are useful. Existing generic "scan complete" labels should be replaced with explicit dimensions. Standalone consumers and scheduled jobs also need first-class entry points; the present flow schema requires an endpoint ID.
 
 ## What we retain
 
@@ -92,7 +94,7 @@ The context packet contains the relevant entities/contracts, existing flows, kno
 
 In the UI, distinguish contract discovery from trace depth and freshness. Retain a Data flow view with an explicit "not investigated yet" state and source pointers when there is no trace. Do not hide the tab or imply a bug. Replace ambiguous completion badges without discarding existing facts or automatically downgrading all contracts.
 
-Acceptance: querying MSRP retrieves its endpoint and source location, relevant existing context and the missing trace clearly, without loading all 348 Price Engine schemas. Unrelated components are omitted or separately pageable. Browser and MCP agree on IDs, evidence and coverage. No trace is presented as current merely because the component was scanned recently.
+Acceptance: querying the quote total retrieves its endpoint and source location, relevant existing context and the missing trace clearly, without loading all 348 Pricing Engine schemas. Unrelated components are omitted or separately pageable. Browser and MCP agree on IDs, evidence and coverage. No trace is presented as current merely because the component was scanned recently.
 
 Main areas: `server/operations.ts`, `server/mcp.ts`, `src/data/content.ts`, new query module, component/catalog UI, shared coverage selectors.
 
@@ -102,7 +104,7 @@ Introduce versioned catalog readers/writers, qualified references, source pointe
 
 Provide explicit migration with a dry run, entity/reference counts, candidate validation and a recoverable journal. Preserve IDs, evidence, gaps, assets and feature links. Retain legacy readers for older checkouts and committed refs. Reject ambiguous mixed authority rather than silently merging two layouts, and stop legacy writers from recreating migrated catalog copies. Preserve revision guards, locking and recovery across the complete workspace.
 
-Acceptance: migrate a copy of Commercial Backbone, verify equivalent query results and working links, repeat without duplication, and recover an interrupted migration. Historical refs remain readable. Live migration follows these checks. Existing evidence is not relabelled as newly verified.
+Acceptance: migrate a copy of Order Platform, verify equivalent query results and working links, repeat without duplication, and recover an interrupted migration. Historical refs remain readable. Live migration follows these checks. Existing evidence is not relabelled as newly verified.
 
 Main areas: `server/format.ts`, `server/repository.ts`, `server/setup.ts`, `server/http.ts`, schemas, `src/data/runtime.ts`, export/asset/watch/recovery paths and portability docs.
 
@@ -124,7 +126,7 @@ Given a bounded context packet and a concrete question, prepare work only for th
 
 Return findings with citations, scoped traces, uncertainty and the next necessary investigation when blocked. Reconcile findings by stable identity and save reusable knowledge under a revision guard. Retain unaffected current knowledge. Source-version-aware merges must preserve original citations; the existing scan apply requirement for all evidence to use one SHA needs an explicit evolution before mixed-revision reuse is accepted. Conflicting observations stay visible for reconciliation rather than silently overwriting one another.
 
-Acceptance: use the untraced MSRP endpoint as the first end-to-end slice: retrieve context, inspect its implementation/tests, save a useful flow and findings, then answer a follow-up using that knowledge. A second feature involving a Kafka consumer exercises the non-HTTP trigger. These are targeted demonstrations, not a mandate to trace all remaining endpoints.
+Acceptance: use the untraced quote-total endpoint as the first end-to-end slice: retrieve context, inspect its implementation/tests, save a useful flow and findings, then answer a follow-up using that knowledge. A second feature involving a Kafka consumer exercises the non-HTTP trigger. These are targeted demonstrations, not a mandate to trace all remaining endpoints.
 
 Main areas: scanner prepare/apply, knowledge transaction validation, context queries, flow UI and scanning/discovery skill.
 
@@ -140,15 +142,15 @@ Main areas: `src/data/delivery.ts`, feature schemas, planning operations, contex
 
 ### B6 — Evaluate and refine using both products
 
-Use Price Engine and Product Configuration Facade for exploration tasks (locate an API, explain a main journey, find a record's users) and planning tasks (MSRP change, message evolution, configuration-dependent behavior). Record cold and warm discovery results: relevance, correctness, missing critical facts, source files read, context size and time to an evidence-backed plan. Establish baselines and agree performance targets from these measurements rather than inventing a speedup claim.
+Use Pricing Engine and Order Configuration Facade for exploration tasks (locate an API, explain a main journey, find a record's users) and planning tasks (quote-total change, message evolution, configuration-dependent behavior). Record cold and warm discovery results: relevance, correctness, missing critical facts, source files read, context size and time to an evidence-backed plan. Establish baselines and agree performance targets from these measurements rather than inventing a speedup claim.
 
 Acceptance: previously saved discoveries reduce repeat investigation, changed sources are not silently reused, and a bounded query exposes uncertainty instead of producing an unsupported answer. Compare targeted refresh against a bounded full-source review for the same question. Use observed bottlenecks to prioritize more source pointers, traces, identity resolution or a persistent index. Do not measure success by maximizing extracted records.
 
 ## Implementation checkpoint — 2026-09-17
 
-Following the review, logical IDs and snapshot-bound bounded query contracts landed without a directory migration. CLI/MCP retrieval, independent coverage/depth/freshness presentation, contextual entity/source links, targeted flow/finding upserts, and immutable feature baseline packets are implemented. The live MSRP investigation demonstrates retrieval → pinned source inspection → guarded write-back → repeat retrieval. Tests demonstrate retained baseline readability across uncommitted catalog replacement/removal. No speculative live feature was created for that test.
+Following the review, logical IDs and snapshot-bound bounded query contracts landed without a directory migration. CLI/MCP retrieval, independent coverage/depth/freshness presentation, contextual entity/source links, targeted flow/finding upserts, and immutable feature baseline packets are implemented. The live quote-total investigation demonstrates retrieval → pinned source inspection → guarded write-back → repeat retrieval. Tests demonstrate retained baseline readability across uncommitted catalog replacement/removal. No speculative live feature was created for that test.
 
-The subsequent increments now provide: explicit Git freshness checks, incremental work preparation, durable scan manifests, versioned split catalog storage with dry-run/recovery and legacy readers, message/job flow triggers, cross-repository pinned evidence, explicit retirement/rename reconciliation, and retained feature-source reassessments. Commercial Backbone migration preserved 676 entities and 1,138 relationships; the later consumer/job investigation added three catalog entities. Live APIs remain 41 Price Engine and 58 facade entries. No real feature proposal was invented or published.
+The subsequent increments now provide: explicit Git freshness checks, incremental work preparation, durable scan manifests, versioned split catalog storage with dry-run/recovery and legacy readers, message/job flow triggers, cross-repository pinned evidence, explicit retirement/rename reconciliation, and retained feature-source reassessments. Order Platform migration preserved 676 entities and 1,138 relationships; the later consumer/job investigation added three catalog entities. Live APIs remain 41 Pricing Engine and 58 facade entries. No real feature proposal was invented or published.
 
 B6 evidence is in [SYSTEM_KNOWLEDGE_EVALUATION.md](SYSTEM_KNOWLEDGE_EVALUATION.md). Two hypothetical delivery plans were built only in a temporary copy, with retained facts, component-owned tasks, assumptions, discovery prerequisites, integration/end-to-end validation plans and rollback considerations. Source-system tests were not executed or claimed passing. Explicit freshness checks can flag a plan; there is no automatic observation of an unseen source or deployed change.
 

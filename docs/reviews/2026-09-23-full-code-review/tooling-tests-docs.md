@@ -7,7 +7,7 @@ The test suite is better than most. Its 140 tests check behaviour, not implement
 - `npm test` depends on a prior `npm run build`.
 - The agent-facing contract shipped to every consumer project disagrees with the zod schemas. This contract is the catalog skill's `taxonomy.md`, `normalized-output.md` and `validate_output.py`.
 - Packaging installs the whole React/ELK/lucide stack as runtime `dependencies`, although the compiled runtime imports only `zod`.
-- Fixtures, docs and the skill evals carry what appears to be third-party organisation data (`volvo-cars/*` repos, internal system names, `/Users/...` paths). Someone should confirm this is cleared for the public GitHub remote.
+- Fixtures, docs and the skill evals carry what appears to be third-party organisation data (`<org>/*` repos, internal system names, `/Users/...` paths). Someone should confirm this is cleared for the public GitHub remote.
 
 ## Findings
 
@@ -55,7 +55,7 @@ The test suite is better than most. Its 140 tests check behaviour, not implement
 ### [HIGH] Test fixtures, docs and skill evals appear to contain third-party organisation data and local user paths
 - **File**: tests/fixtures/catalog/components.json (343 KB), tests/fixtures/catalog/products.json, scripts/catalog-evaluation.ts:12-20, docs/SYSTEM_KNOWLEDGE_PLAN.md:15, docs/CATALOG_DISCOVERY.md:63, .agents/skills/groundwork-system-catalog/evals/evals.json:6, tests/execution-flow.test.ts:20, tests/fixtures/wordloop/provenance/source-manifest.json
 - **Category**: security
-- **Problem**: The catalog fixture is a full scan of four repositories: `"repo": "volvo-cars/gpe-price"`, `volvo-cars/product-configuration-facade`, `volvo-cars/gpe-pretax` and `volvo-cars/gpe-price-event-dispatcher`. It has 82 endpoints, controller paths such as `PricesController.cs` and schema names. `products.json` names "Price calculation system (APP-3791) in the Commercial Backbone" and internal systems "CPAM and PrinsIngestion". The docs record a "live MSRP example … GPE Price at `5b5b143f…`" and `/Users/RNEL/Workspace/price-engine`. The wordloop provenance holds dozens of `/Users/ryannel/Workspace/...` paths. `evals.json` ships in the npm tarball and contains a "Commercial Backbone" scenario. The origin is `github.com/ryannel/GroundWork` with an MIT LICENSE.
+- **Problem**: The catalog fixture is a full scan of four repositories: `"repo": "<org>/<repo>"`, `<org>/<repo>`, `<org>/<repo>` and `<org>/<repo>`. It has 82 endpoints, controller paths such as `PricesController.cs` and schema names. `products.json` names "Price calculation system (<internal id>) in the <internal platform>" and internal systems "<internal system> and <internal system>". The docs record a "live MSRP example … <internal service> at `5b5b143f…`" and `/Users/<user>/Workspace/price-engine`. The wordloop provenance holds dozens of `/Users/<user>/Workspace/...` paths. `evals.json` ships in the npm tarball and contains a "<internal platform>" scenario. The origin is `github.com/ryannel/GroundWork` with an MIT LICENSE.
 - **Impact**: If these repositories are not public, the fixture discloses an employer's internal service architecture, endpoints and source layout in a personal repository. It also ships part of it in the package. It is also brittle: tests and `catalog-evaluation.ts` hard-code these IDs.
 - **Recommendation**: Confirm with the data owner whether this may be published. Either way, replace `tests/fixtures/catalog` with a synthetic catalog that keeps the same structural properties: 4 components, several with long endpoint lists, one event dispatcher with no endpoints, and a "MSRP"-style paraphrase target. Scrub the absolute paths. Keep design-history docs that cite real systems out of the shipped repo (see the design-history docs finding below).
 
@@ -170,7 +170,7 @@ The test suite is better than most. Its 140 tests check behaviour, not implement
 ### [LOW] Unwired, hard-coded `scripts/catalog-evaluation.ts` duplicates a test
 - **File**: scripts/catalog-evaluation.ts:12-44
 - **Category**: architecture
-- **Problem**: The script is not in package.json or CI. It needs a private "Commercial Backbone catalog root" and hard-codes scenario IDs (`gpe-price/endpoint/post-api-v5-prices-calculate-msrp`, …). It overlaps the `evaluation:` test in `catalog-query.test.ts:28-52`, and it leaves a `groundwork-planning-evaluation-*` temp dir behind on purpose. It is type-checked but otherwise dead.
+- **Problem**: The script is not in package.json or CI. It needs a private "<internal platform> catalog root" and hard-codes scenario IDs (`gpe-price/endpoint/post-api-v5-prices-calculate-msrp`, …). It overlaps the `evaluation:` test in `catalog-query.test.ts:28-52`, and it leaves a `groundwork-planning-evaluation-*` temp dir behind on purpose. It is type-checked but otherwise dead.
 - **Impact**: Dead code tied to private data. Its assertions and the test's can diverge.
 - **Recommendation**: Delete it, or move it to a private tooling repo. If the latency numbers matter, turn it into a `test:bench` against the synthetic fixture from the third-party data finding.
 
@@ -184,7 +184,7 @@ The test suite is better than most. Its 140 tests check behaviour, not implement
 ### [LOW] Word Loop fixture carries ~1 MB that no code or test reads
 - **File**: tests/fixtures/wordloop/provenance/{sources/, api-guides.json, delivery-plan.json, task-breakdown.json, source-manifest.json}, tests/fixtures/wordloop/images/wordloop/entry_point.png
 - **Category**: testing
-- **Problem**: The fixture is 2.2 MB and 97 files. `exportLegacy` and the tests consume only `content/` (424 KB), `images/` (780 KB) and `provenance/portable/` (308 KB). `provenance/sources/` (464 KB) and the four top-level provenance JSONs (about 165 KB) are referenced only from `REVIEW.md`. `source-manifest.json` contains absolute `/Users/ryannel/...` paths. `entry_point.png` alone is 600 KB, and the test only checks that asset files are non-empty (runtime.test.ts:157).
+- **Problem**: The fixture is 2.2 MB and 97 files. `exportLegacy` and the tests consume only `content/` (424 KB), `images/` (780 KB) and `provenance/portable/` (308 KB). `provenance/sources/` (464 KB) and the four top-level provenance JSONs (about 165 KB) are referenced only from `REVIEW.md`. `source-manifest.json` contains absolute `/Users/<user>/...` paths. `entry_point.png` alone is 600 KB, and the test only checks that asset files are non-empty (runtime.test.ts:157).
 - **Impact**: Repo weight and noise. Private path disclosure.
 - **Recommendation**: Move the provenance-only material to an archive branch or release asset, and replace the 600 KB PNG with a tiny valid PNG. The fixture keeps its migration value.
 
@@ -224,7 +224,7 @@ The test suite is better than most. Its 140 tests check behaviour, not implement
 ## Suggested refactor plan for this slice
 1. **Make the suite hermetic and typed.** Add `tests/setup.ts` via `--import` (git config isolation, `GROUNDWORK_HOME`/`GROUNDWORK_TMPDIR`) and `tsconfig.test.json` referenced from `tsconfig.json`. Fix the 10 type errors, and switch app/node configs to `strict: true` (0 errors today).
 2. **Fix the agent contract shipped to consumers.** Use `third-party` in taxonomy.md, delete or regenerate `validate_output.py`, and document `jobs`/`sourceScans` plus the freshness and discovery ops. Add a test that validates the doc examples against the zod schemas. Narrow `files`.
-3. **Resolve the data-provenance question.** Replace the `volvo-cars` catalog fixture with a synthetic one, scrub `/Users/...` paths, and move the SYSTEM_KNOWLEDGE_* docs out of `docs/`. Delete or privatise `catalog-evaluation.ts`.
+3. **Resolve the data-provenance question.** Replace the `<org>` catalog fixture with a synthetic one, scrub `/Users/...` paths, and move the SYSTEM_KNOWLEDGE_* docs out of `docs/`. Delete or privatise `catalog-evaluation.ts`.
 4. **Decouple tests from build output.** Inject `viewerDirectory` into `startViewer`, so `npm ci && npm test` passes on a fresh clone.
 5. **CI hardening.** Add a Node 22.18/24 matrix, a `test:package` job running `npm pack` + `package-smoke.ts`, and a coverage job with branch thresholds.
 6. **Packaging.** Move everything but `zod` to devDependencies, and give the bin shim a friendly "not built" message.
