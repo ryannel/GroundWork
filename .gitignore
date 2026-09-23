@@ -30,3 +30,7 @@ runtime/
 
 # Local design explorations; shipped assets live under public/.
 output/
+
+# Generated review captures and skill evaluation runs.
+artifacts/
+.agents/skills/*-workspace/

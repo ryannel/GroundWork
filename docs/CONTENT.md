@@ -1,3 +1,7 @@
+# Legacy import format
+
+This guide describes the input format for `groundwork-v2 export`. Active project plans live in each repository’s `.groundwork/plans/`; see [the portable guide](PORTABLE.md). The `content/` paths below are relative to an export source directory.
+
 # AI-authored content
 
 Groundwork is a viewer for plans authored by an AI assistant. The UI provides search, filtering, navigation and inspection. Creation and editing happen through content documents, not forms. This revision uses local files; it does not claim to provide an AI chat service, authentication, a database or a write API.
@@ -64,7 +68,7 @@ The lifecycle is `idea`, `exploring`, `designing`, `specced`, `building`, `shipp
 - Use `change: "unspecified"` when importing a target contract or storage record without a verified implementation baseline. This is distinct from `unchanged`. Only use `added`/`updated`/`removed` when the source supports that classification. Contract `responseSchema.before` and `.after` contain complete field trees. The viewer computes added, removed, updated and unchanged fields; do not duplicate the computed diff in content.
 - Tests reference journey steps, contracts and tables. Success criteria reference tests. Reverse links, coverage gaps and product coordination lists are derived rather than maintained manually.
 - IDs for section items are unique within their section and feature. Field names are unique within each parent. Global entity IDs are unique within their entity collection; product slugs are unique within their workspace.
-- External design references must be HTTP(S) URLs. Raster images can also reference portable assets under `/images/` (PNG, JPEG, WebP, GIF or AVIF); place those files in `public/images/`. Image references render inline. Live prototypes reference code plugins registered in `src/data/live-prototypes.ts` and `src/mocks/index.tsx`. A new interactive renderer requires code; ordinary briefs, flows, APIs, schemas, tests and external screen references do not.
+- External design references must be HTTP(S) URLs. Raster images can also reference portable assets under `/images/` (PNG, JPEG, WebP, GIF or AVIF); pass the containing image directory with `export --assets`. Image references render inline. Live prototypes reference code plugins registered in `src/data/live-prototypes.ts` and `src/mocks/index.tsx`. A new interactive renderer requires code; ordinary briefs, flows, APIs, schemas, tests and external screen references do not.
 
 ## Validation and maintenance
 
@@ -84,7 +88,7 @@ Errors include the source file, item or property and broken reference. Unknown p
 
 `viewerId` is optional: omit it for a blank system with no member records. When present it must name an existing member. It is local presentation configuration, not an authentication or authorization mechanism. Cross-workspace references are currently rejected deliberately; supporting them later requires an explicit model and permission design.
 
-The live `content/` directory contains the imported Wordloop Meeting Recording bet. See [the import review](wordloop-meeting-recording/REVIEW.md) for provenance, delivery structure and known source disagreements. A new blank project needs only `project.json`. Example planning data is isolated in `tests/fixtures/content/` and is never loaded by the app. Marked-passing tests are authored evidence labels, not live test execution results. No test runner or external deployment is triggered by viewing a plan.
+The `tests/fixtures/wordloop/` directory preserves the imported Wordloop Meeting Recording test fixture. See [the import review](../tests/fixtures/wordloop/provenance/REVIEW.md) for provenance, delivery structure and known source disagreements. A new blank project needs only `project.json`. Example planning data is isolated in `tests/fixtures/content/` and is never loaded by the app. Marked-passing tests are authored evidence labels, not live test execution results. No test runner or external deployment is triggered by viewing a plan.
 
 
 ## System structure: ownership and dependencies

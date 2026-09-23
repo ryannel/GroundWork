@@ -17,7 +17,7 @@ try {
     }
     console.log('Content schemas are up to date.')
   } else {
-    const snapshot = loadContent(await readContentDirectory(path.resolve(process.argv[2] ?? path.join(root, 'content'))), livePrototypeIds)
+    const snapshot = loadContent(await readContentDirectory(path.resolve(process.argv[2] ?? path.join(root, 'tests/fixtures/wordloop/content'))), livePrototypeIds)
     console.log(`Valid content: ${snapshot.workspaces.length} workspaces, ${snapshot.products.length} products, ${snapshot.components.length} components, ${snapshot.features.length} features.`)
   }
 } catch (error) { console.error(error instanceof Error ? error.message : error); process.exitCode = 1 }
