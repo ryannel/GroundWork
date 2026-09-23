@@ -63,7 +63,10 @@ test('concurrent writers cannot both apply the same revision', async t => {
   const root = await fixture(t), plan = await readPlan(root)
   const results = await Promise.allSettled(['One', 'Two'].map(name => writePlan(root, request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name }) }))))
   assert.equal(results.filter(r => r.status === 'fulfilled').length, 1)
-  assert.equal(results.filter(r => r.status === 'rejected').length, 1)
+  const rejected = results.filter(r => r.status === 'rejected')
+  assert.equal(rejected.length, 1)
+  // The loser must lose on the revision check, not on a lock or recovery error.
+  assert.ok(rejected[0].reason instanceof Conflict && /Stale edit/.test(rejected[0].reason.message), rejected[0].reason)
   assert.ok(['One', 'Two'].includes((await readPlan(root)).snapshot.members[0].name))
 })
 test('interrupted writes restore before-images and preserve unrelated external changes', async t => {

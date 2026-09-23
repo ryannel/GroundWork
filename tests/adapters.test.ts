@@ -8,6 +8,9 @@ import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
 import { register, unregister, inventory, selectRoot } from '../server/registry.ts'
 import { operationSchemas } from '../server/operations.ts'
+import { main, exitCodeFor, formatError, UsageError } from '../server/cli.ts'
+import { Conflict } from '../server/errors.ts'
+import { z } from 'zod'
 
 async function command(module: 'cli' | 'mcp', args: string[], input = '') {
   return new Promise<string>((resolve, reject) => {
@@ -79,4 +82,39 @@ test('repositories without plans can be grouped beneath a workspace product', as
   assert.equal(entry.repositoryRoot, await realpath(root))
   assert.equal(entry.projectId, null)
   assert.match(entry.error!, /project.json/)
+})
+
+test('CLI arguments are parsed strictly and errors are short, with a distinct exit code for conflicts', async t => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-cli-')); t.after(() => rm(root, { recursive: true, force: true }))
+  await initialise(root, { name: 'CLI' })
+  const lines: string[] = []
+  const out = (line: string) => { lines.push(line) }
+  await assert.rejects(main(['read', root, '--reff', 'main'], out), error => error instanceof UsageError && /Unknown option '--reff'/.test(error.message))
+  await assert.rejects(main(['read', root, 'extra'], out), /unexpected argument extra/)
+  await assert.rejects(main(['read', root, '--root', root], out), /not both/)
+  await assert.rejects(main(['serve', root, '--port', 'abc'], out), /invalid port abc/)
+  await assert.rejects(main(['nonsense'], out), error => error instanceof UsageError && /Unknown command: nonsense/.test(error.message))
+  await main(['init', '--help'], out)
+  assert.match(lines.pop()!, /portable repository planning/)
+  await main(['read', `--root=${root}`], out)
+  assert.match(JSON.parse(lines.pop()!).revision, /^[0-9a-f]{64}$/)
+  assert.deepEqual([new UsageError('x'), new Conflict('x'), new Error('x')].map(exitCodeFor), [2, 3, 1])
+  const invalid = z.strictObject({ name: z.string() }).safeParse({ name: 1 })
+  assert.doesNotMatch(formatError(invalid.error), /^\[/)
+  assert.match(formatError(invalid.error), /name/)
+})
+test('the binary explains how to build when the runtime is missing', async t => {
+  const base = await mkdtemp(path.join(os.tmpdir(), 'groundwork-bin-')); t.after(() => rm(base, { recursive: true, force: true }))
+  await mkdir(path.join(base, 'bin'))
+  await cp(path.resolve('bin/groundwork-v2.js'), path.join(base, 'bin/groundwork-v2.js'))
+  await writeFile(path.join(base, 'package.json'), '{"type":"module"}')
+  const result = await new Promise<{ code: number | null; stderr: string }>((resolve, reject) => {
+    const child = spawn(process.execPath, [path.join(base, 'bin/groundwork-v2.js'), 'help'])
+    let stderr = ''
+    child.stderr.on('data', chunk => { stderr += chunk })
+    child.on('error', reject)
+    child.on('exit', code => resolve({ code, stderr }))
+  })
+  assert.equal(result.code, 1)
+  assert.match(result.stderr, /Run npm run build first/)
 })

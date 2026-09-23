@@ -2,10 +2,12 @@ import { mkdir, readFile, readdir, cp, rename, rm, lstat } from 'node:fs/promise
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
-import { PLAN_DIRECTORY, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
-import { atomicFile, safePath, withLock } from './repository.ts'
+import { assetPattern, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
+import { INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE } from './paths.ts'
+import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
 import { readContentDirectory } from '../scripts/content-files.ts'
 import { loadContent } from '../src/data/content.ts'
+import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 
 // The same source runs under Node's TS support in development and as compiled JS in the package.
 export const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), import.meta.url.includes('/runtime/') ? '../..' : '..')
@@ -38,15 +40,16 @@ export async function installInstructions(root: string) {
     if (!before.includes('](.groundwork/GUIDE.md)')) await atomicFile(root, name, before + `\n\n## Groundwork planning\n\n${instruction}\n`)
   }
   const ignoreFile = await safePath(root, '.gitignore')
-  let ignore = await readFile(ignoreFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })
-  for (const entry of ['node_modules/', '.groundwork/write.lock', '.groundwork/transaction.json', '.groundwork/init-*', '.groundwork/**/*.tmp']) if (!ignore.split('\n').includes(entry)) ignore += `\n${entry}\n`
-  await atomicFile(root, '.gitignore', ignore)
+  const ignored = await readFile(ignoreFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })
+  let ignore = ignored
+  for (const entry of IGNORED_PATHS) if (!ignore.split('\n').includes(entry)) ignore += `\n${entry}\n`
+  if (ignore !== ignored) await atomicFile(root, '.gitignore', ignore)
 }
 export async function initialise(root: string, options: { name?: string; id?: string; domain?: string; files?: Files; assets?: string } = {}) {
   await mkdir(root, { recursive: true })
   return withLock(root, async () => {
-    if (await lstat(await safePath(root, '.groundwork/project.json')).catch(() => null)) throw new Error('Catalog already exists; initialisation never overwrites it')
-    const target = await safePath(root, PLAN_DIRECTORY)
+    if (await lstat(await safePath(root, PROJECT_FILE)).catch(() => null)) throw new Error('Catalog already exists; initialisation never overwrites it')
+    const target = await safePath(root, PLANS_DIR)
     if (await lstat(target).catch(() => null)) throw new Error('Plans already exist. Initialisation never overwrites an existing plan directory.')
     const manifest = manifestSchema.parse({ schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}) })
     const files = options.files ?? {
@@ -55,20 +58,49 @@ export async function initialise(root: string, options: { name?: string; id?: st
       'members/owner.json': JSON.stringify({ id: 'owner', name: 'Project owner' }, null, 2) + '\n',
     }
     parsePlan(files)
-    const staging = `.groundwork/init-${randomUUID()}`
+    const staging = `${INIT_STAGING_PREFIX}${randomUUID()}`
     try {
       for (const [name, data] of Object.entries(files)) await atomicFile(root, `${staging}/${name}`, data)
-      if (options.assets) await cp(options.assets, await safePath(root, `${staging}/assets`), { recursive: true, dereference: false, filter: async source => { if ((await lstat(source)).isSymbolicLink()) throw new Error('Migration does not follow asset symlinks'); return true } })
+      if (options.assets) {
+        const assets = path.resolve(options.assets)
+        await cp(assets, await safePath(root, `${staging}/assets`), { recursive: true, dereference: false, filter: source => assetFilter(assets, source) })
+      }
       await rename(await safePath(root, staging), target)
     } finally { await rm(await safePath(root, staging), { recursive: true, force: true }) }
+    // Prove the result is readable before reporting success; otherwise leave the folder as it was.
+    try { await readPlanUnlocked(root) } catch (error) {
+      await rm(target, { recursive: true, force: true })
+      throw error
+    }
     await installInstructions(root)
     return { root, project: parsePlan(files).manifest }
   })
 }
+/** Copies directories and raster assets; skips hidden files such as .DS_Store; rejects anything the reader would refuse. */
+async function assetFilter(assets: string, source: string) {
+  const relative = path.relative(assets, source).split(path.sep).join('/')
+  const stat = await lstat(source)
+  if (stat.isSymbolicLink()) throw new Error('Migration does not follow asset symlinks')
+  if (relative && path.basename(source).startsWith('.')) return false
+  if (stat.isDirectory()) return true
+  if (!stat.isFile() || !assetPattern.test(`assets/${relative}`)) {
+    throw new Error(`Unsupported asset ${relative}: use png, jpg, webp, gif or avif files named with letters, digits, _ or -`)
+  }
+  return true
+}
+/** Rewrites legacy /images/ mockup references to portable assets/ references; other text is left alone. */
+function portableDesign(value: unknown) {
+  const design = value as { mockups?: { ref?: unknown }[] }
+  if (!Array.isArray(design?.mockups)) return value
+  const mockups = design.mockups.map(mock => typeof mock?.ref === 'string' && mock.ref.startsWith('/images/')
+    ? { ...mock, ref: `assets/${mock.ref.slice('/images/'.length)}` }
+    : mock)
+  return { ...design, mockups }
+}
 /** Explicitly export a legacy dataset; the source is never modified. */
 export async function exportLegacy(source: string, target: string, options: { name: string; id?: string; product?: string; assets?: string; supplement?: string }) {
   const docs = await readContentDirectory(source)
-  const loaded = loadContent(docs, ['tax-cart-totals'])
+  const loaded = loadContent(docs, livePrototypeIds)
   const products = loaded.products.filter(p => !options.product || p.id === options.product)
   if (!products.length) throw new Error('No matching product to export')
   const workspaceIds = new Set(products.map(p => p.workspaceId))
@@ -87,7 +119,7 @@ export async function exportLegacy(source: string, target: string, options: { na
     if (name.startsWith('components/') && !keptProducts.some(p => p.id === (value as { productId: string }).productId)) continue
     if (name.startsWith('features/') && !featureIds.has(name.split('/')[1])) continue
     if (name.endsWith('/purpose.json')) files[name.replace('purpose.json', 'brief.md')] = renderBrief(value as Parameters<typeof renderBrief>[0])
-    else files[name] = JSON.stringify(value, null, 2).replaceAll('/images/', 'assets/') + '\n'
+    else files[name] = JSON.stringify(name.endsWith('/design.json') ? portableDesign(value) : value, null, 2) + '\n'
   }
   if (options.supplement) {
     async function visit(directory: string, prefix = '') {

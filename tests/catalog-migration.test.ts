@@ -9,6 +9,7 @@ import { migrateCatalog } from '../server/catalog-migration.ts'
 import { encodeStorage } from '../server/catalog-storage.ts'
 import { queryCatalog } from '../server/catalog.ts'
 import { git } from '../server/git.ts'
+import { Conflict } from '../server/errors.ts'
 async function fixture(t: any) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'groundwork-migrate-'))
   t.after(() => rm(root, { recursive: true, force: true }))
@@ -27,7 +28,7 @@ test('catalog migration preserves query facts, split writes, historical refs and
   const dry = await migrateCatalog(root, {})
   assert.equal(dry.status, 'dry-run')
   assert.equal((await readPlan(root)).layout, 'legacy')
-  await assert.rejects(migrateCatalog(root, { dryRun: false }), /revision and context/)
+  await assert.rejects(migrateCatalog(root, { dryRun: false }), error => error instanceof Conflict && /revision and context/.test(error.message))
   const applied = await migrateCatalog(root, { dryRun: false, expectedRevision: dry.expectedRevision, expectedContext: dry.expectedContext })
   assert.equal(applied.status, 'migrated')
   const migrated = await readPlan(root)
