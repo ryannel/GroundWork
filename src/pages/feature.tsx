@@ -11,7 +11,9 @@ import { StageBadge } from '@/ui/badge'
 import { ChangeMark } from '@/components/spec/change'
 import { useRuntime } from '@/data/runtime'
 import { DeliveryPage } from './delivery'
+import { knowledgeBaselineSchema, baselineAssessments, discoveryAssessmentSchema } from '@/data/knowledge'
 import { cn } from '@/lib/cn'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 const groups: { label: string; sections: SectionKind[] }[] = [
   { label: '01 · Define', sections: ['purpose'] },
@@ -34,6 +36,8 @@ export function FeaturePage() {
   const navigate = useNavigate()
   const { plan } = useRuntime()
   const delivery = id ? plan?.delivery[id] : undefined
+  const baselines = Object.entries(plan?.files ?? {}).filter(([file]) => file.startsWith(`features/${id}/baselines/`)).map(([file, raw]) => ({ file, packet: knowledgeBaselineSchema.parse(JSON.parse(raw)) }))
+  const assessments = Object.entries(plan?.files ?? {}).filter(([file]) => file.startsWith(`features/${id}/assessments/`)).map(([, raw]) => discoveryAssessmentSchema.parse(JSON.parse(raw))).sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
   const [params, setParams] = useSearchParams()
   const f = q.features().find(x => x.id === id)
   const spec = f?.spec ?? {}
@@ -97,6 +101,7 @@ export function FeaturePage() {
         <div className="nav-foot"><Layers size={15} /><span>{present.length} of 7 sections drafted<br /><small>Drafted does not mean validated</small></span></div>
       </aside>
       <div className="feature-main">
+        <Breadcrumbs workspace={workspace} product={product} current={{ label: 'Feature', name: f.title }} className="feature-page-breadcrumb" />
         {target || isDelivery ? <><header className="feature-heading">
           <Link to={`/w/${workspace.slug}/${product.slug}`} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
           <span className="feature-id">{id.toUpperCase()}</span><h1>{f.title}</h1><StageBadge stage={f.stage} />
@@ -114,6 +119,8 @@ export function FeaturePage() {
             <section className={cn('feature-next-panel', gaps > 0 && 'has-review-gaps')} aria-labelledby="feature-next-heading"><div className="feature-next-label">{gaps ? <AlertCircle size={15} /> : <Layers size={15} />}<span>{gaps ? 'Needs evidence' : 'Next step'}</span></div><h2 id="feature-next-heading">{!spec.purpose ? 'Shape the brief' : gaps ? 'Close the validation gaps' : !cases.length ? 'Plan the validation' : passing < cases.length ? 'Review test evidence' : 'Review the plan'}</h2><p>{!spec.purpose ? 'Turn the intent into a clear outcome, scope, and success criteria.' : gaps ? `${gaps} ${gaps === 1 ? 'item has' : 'items have'} no linked test${firstGap ? `${gaps === 1 ? ': ' : '. One gap: '}${firstGap.replace(/[.!?]$/, '')}.` : '.'}` : !cases.length ? 'Connect tests to the outcomes and changes this feature promises.' : passing < cases.length ? `${cases.length - passing} of ${cases.length} tests are not marked passing yet.` : 'All listed tests are marked passing. Review the results alongside the intended outcome.'}</p><Link to={href(!spec.purpose ? 'purpose' : 'tests')}>{!spec.purpose ? 'Start with the brief' : 'Review tests & coverage'}<ArrowRight size={14} /></Link>{cases.length > 0 && <div className="feature-test-evidence"><CheckCircle2 size={14} /><span><strong>{passing} / {cases.length}</strong> tests marked passing</span></div>}</section>
           </div>
           {spec.api && <section className="overview-change-summary"><h2>API contract changes</h2>{(['added', 'updated', 'removed', 'unspecified'] as const).filter(change => change !== 'unspecified' || spec.api!.contracts.some(c => c.change === change)).map(change => <span key={change}><ChangeMark change={change} /> {spec.api!.contracts.filter(c => c.change === change).length}</span>)}<Link to={href('api')}>Inspect contracts & fields <ArrowRight size={14} /></Link></section>}
+          {!!assessments.length && <section className="explore-section"><h2>Discovery checks</h2><p>Checks preserve the baseline; they do not declare the feature ready to build. Recheck when the intended source target changes.</p>{assessments.map(check => <details className="catalog-notes" key={check.checkedAt}><summary>{check.reassessmentRequired ? 'Reassessment needed' : 'No change requiring review detected'} · {check.checkedAt}</summary><div>{check.observations.map(observation => <p key={observation.id}>{observation.id}: catalog {observation.catalogState}; source {observation.sourceFreshness}</p>)}<p>{check.note}</p>{check.checks.map((source, index) => <p key={index}>{String(source.repository)} · target {String(source.targetRevision ?? 'unavailable')} · {String(source.requestedTarget)}</p>)}</div></details>)}</section>}
+          {!!baselines.length && <section className="explore-section"><h2>Discovery baselines</h2><p>Facts retained when this plan was prepared. Catalog changes are compared below; source checks apply only to their recorded target and time.</p>{baselines.map(({ file, packet }) => <details className="catalog-notes" key={file}><summary>{packet.question} · {packet.observations.length} observations</summary><div><p>{plan && baselineAssessments(packet, plan.snapshot.components, plan.manifest.id).some(item => item.catalogState !== 'unchanged') ? 'Reassessment needed: retained catalog facts have changed or been removed.' : 'No catalog changes detected for these retained facts. Source behavior is not verified.'}</p><p>Captured {packet.capturedAt} · Catalog {packet.catalogRevision.slice(0, 8)}</p>{packet.assumptions.map((assumption, index) => <p key={index}>Assumption: {assumption}</p>)}{packet.observations.map(observation => <article key={observation.id}><h4>{observation.name}</h4><p>{observation.repository} · {observation.sourceRevision?.slice(0, 8)}</p><details><summary>Retained facts and evidence</summary><pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{JSON.stringify(observation.observation, null, 2)}</pre></details></article>)}</div></details>)}</section>}
           <section className="explore-section">
             <div className="section-line"><h2>Plan contents</h2><span>{present.length} / 7 sections drafted</span></div>
             <div className="plan-index">{groups.map((g, i) => <div className="plan-index-row" key={g.label}>

@@ -6,8 +6,10 @@ export const componentKinds = {
 }
 export const componentKind = (c: Component) => c.kind ?? 'module'
 export const componentKindLabel = (c: Component) => componentKinds[componentKind(c)]
+export const infrastructureKinds = ['database', 'object-storage', 'local-storage', 'queue', 'cache'] as const
+export const isInfrastructureComponent = (component: Component) => infrastructureKinds.includes(componentKind(component) as typeof infrastructureKinds[number])
 export const componentGroup = (c: Component) => componentKind(c) === 'external-service' ? 'External providers'
-  : ['database', 'object-storage', 'local-storage', 'queue', 'cache'].includes(componentKind(c)) ? 'Infrastructure' : 'Services & components'
+  : isInfrastructureComponent(c) ? 'Infrastructure' : 'Services & components'
 
 /** Containment only. Depending on a resource never makes it part of the service. */
 export function componentScopeIds(id: string, components: Component[]): Set<string> {
@@ -47,6 +49,76 @@ export function systemGraph(components: Component[], allComponents: Component[] 
     edges.set(JSON.stringify([from.id, to.id]), { from: from.id, to: to.id })
   }
   return { nodes: [...nodes.values()], edges: [...edges.values()] }
+}
+/** Runtime topology excludes supporting modules while retaining isolated services and resources. */
+export function runtimeSystemGraph(components: Component[], allComponents: Component[] = components) {
+  const graph = systemGraph(components, allComponents)
+  const nodes = graph.nodes.filter(component => componentKind(component) !== 'module')
+  const nodeIds = new Set(nodes.map(component => component.id))
+  return {
+    nodes,
+    edges: graph.edges.filter(edge => nodeIds.has(edge.from) && nodeIds.has(edge.to)),
+    supporting: graph.nodes.filter(component => !nodeIds.has(component.id)),
+  }
+}
+
+type ObservedInfrastructureStatus = 'observed' | 'unresolved'
+
+function observedInfrastructureKind(kind = '', name = ''): Component['kind'] | undefined {
+  const value = `${kind} ${name}`.toLowerCase()
+  if (/cache|redis|memcached/.test(value)) return 'cache'
+  if (/queue|broker|pub.?sub|kafka|rabbitmq|sqs/.test(value)) return 'queue'
+  if (/object.?storage|\bgcs\b|cloud storage|\bs3\b|blob storage/.test(value)) return 'object-storage'
+  if (/local.?storage|\bopfs\b|local file|\bmdx files?\b/.test(value)) return 'local-storage'
+  if (/database|postgres|mysql|mariadb|mongodb|dynamodb|spanner|cockroach/.test(value)) return 'database'
+  if (/external.?service|external provider/.test(value)) return 'external-service'
+}
+
+function observedInfrastructureId(kind: Component['kind'], name: string) {
+  return `observed-${kind}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
+}
+
+/** Add source-observed infrastructure without promoting unmatched references into catalog components. */
+export function architectureSystemGraph(nodes: Component[], edges: { from: string; to: string }[]) {
+  const mapNodes = new Map(nodes.map(component => [component.id, component]))
+  const mapEdges = new Map(edges.map(edge => [JSON.stringify([edge.from, edge.to]), edge]))
+  const status = new Map<string, ObservedInfrastructureStatus>()
+  const existingByName = new Map(nodes.filter(isInfrastructureComponent).map(component => [component.name.toLowerCase(), component]))
+
+  const addResource = (owner: Component, name: string, kind: Component['kind'], resourceStatus: ObservedInfrastructureStatus) => {
+    const existing = existingByName.get(name.toLowerCase())
+    const id = existing?.id ?? observedInfrastructureId(kind, name)
+    if (!mapNodes.has(id)) {
+      mapNodes.set(id, {
+        id,
+        productId: owner.productId,
+        order: owner.order,
+        name,
+        kind,
+        description: resourceStatus === 'unresolved'
+          ? `Referenced by ${owner.name}, but not yet matched to a catalog component.`
+          : `Storage technology recorded for ${owner.name}.`,
+      })
+      status.set(id, resourceStatus)
+    }
+    mapEdges.set(JSON.stringify([owner.id, id]), { from: owner.id, to: id })
+  }
+
+  for (const owner of nodes.filter(component => !isInfrastructureComponent(component) && componentKind(component) !== 'external-service')) {
+    const observedStorageKinds = new Set<Component['kind']>()
+    for (const dependency of owner.unresolvedDependencies ?? []) {
+      const kind = observedInfrastructureKind(dependency.kind, dependency.name)
+      if (!kind) continue
+      if (infrastructureKinds.includes(kind as typeof infrastructureKinds[number])) observedStorageKinds.add(kind)
+      addResource(owner, dependency.name, kind, 'unresolved')
+    }
+    if (owner.data?.technology && ![...observedStorageKinds].some(kind => kind !== 'queue')) {
+      const kind = observedInfrastructureKind('', owner.data.technology)
+      if (kind && kind !== 'queue' && kind !== 'external-service') addResource(owner, owner.data.technology, kind, 'observed')
+    }
+  }
+
+  return { nodes: [...mapNodes.values()], edges: [...mapEdges.values()], status }
 }
 export const featureTouchesComponent = (feature: Pick<Feature, 'touches'>, id: string, components: Component[]) => {
   const scope = componentScopeIds(id, components)

@@ -2,11 +2,12 @@
 @import "./planning.css";
 @import "./workbench.css";
 @import "./directory.css";
+@import "./catalog.css";
 @import "./interactions.css";
 
 @layer base {
   * { border-color: var(--border); }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html { min-height: 100%; overflow-y: auto; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   body {
     margin: 0;
     background: var(--bg);
@@ -18,6 +19,7 @@
     font-feature-settings: "ss01", "cv11";
     min-height: 100dvh;
     overflow-x: hidden;
+    overflow-y: auto;
   }
   ::selection { background: var(--accent-soft); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }

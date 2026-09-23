@@ -4,10 +4,16 @@ import { FeatureRow } from '@/components/feature-row'
 import { Layers, LayoutGrid, Lightbulb, Clock3 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useRuntime } from '@/data/runtime'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export function HomePage() {
   const { summaries, inFlight, ideas } = useHome()
-  const { plan } = useRuntime()
+  const { plan, projects, mode } = useRuntime()
+  const registration = mode === 'central' && plan
+    ? projects.find(project => project.checkoutId === plan.context.checkoutId)
+    : undefined
+  const registeredWorkspace = registration && q.workspaces().find(item => item.name === registration.workspace)
+  const registeredProduct = registeredWorkspace && q.products(registeredWorkspace.id).find(item => item.name === registration.product)
   const [params, setParams] = useSearchParams()
   const workspace = summaries.some(s => s.workspace.id === params.get('workspace')) ? params.get('workspace')! : 'all'
   const view = params.get('view') === 'ideas' ? 'ideas' : params.get('view') === 'quiet' ? 'quiet' : 'active'
@@ -25,6 +31,9 @@ export function HomePage() {
     { id: 'quiet' as const, label: 'No recent update', count: quiet.length, icon: Clock3 },
   ]
   return <div className="workspace-board">
+    {plan && (registeredWorkspace && registeredProduct
+      ? <Breadcrumbs workspace={registeredWorkspace} product={registeredProduct} current={{ label: 'Repository', name: plan.manifest.name }} />
+      : <Breadcrumbs current={{ label: 'Repository', name: plan.manifest.name }} />)}
     <header className="board-heading"><div><div className="board-eyebrow"><LayoutGrid size={13} />{plan ? 'This repository' : 'Your portfolio'}</div><h1>{plan ? plan.manifest.name : 'Workspaces'}<span>.</span></h1><p>{plan ? 'Feature plans and delivery, alongside your source.' : 'Products, plans, and the work connecting them.'}</p></div><dl className="board-totals"><div><dt>Active features</dt><dd>{inFlight.length}</dd></div><div><dt>Ideas to explore</dt><dd>{ideas.length}</dd></div></dl></header>
     <section aria-labelledby="workspace-directory-heading">
       <div className="board-section-heading"><h2 id="workspace-directory-heading">{plan ? 'Products' : 'Your workspaces'} <span className="section-count">{plan ? q.products().length : summaries.length}</span></h2></div>

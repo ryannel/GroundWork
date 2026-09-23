@@ -38,7 +38,7 @@ export function DesignSystemPage() {
       <div className="mb-16">
         <div className="eyebrow mb-3">Groundwork · Design system</div>
         <h1 className="max-w-2xl text-display font-display">Clear structure. Distinct identity. Considered details.</h1>
-        <p className="mt-4 max-w-xl text-fg-muted">A shared visual language for workspaces, products and feature plans. Kinds and stages are defined in <code className="font-mono text-[13px]">taxonomy.ts</code>, so adding a product kind never touches components.</p>
+        <p className="mt-4 max-w-xl text-fg-muted">Workspace and product pages share the Hub palette, spacious headings, and quiet product cards. Feature plans use a denser workbench layout. Kinds and stages are defined in <code className="font-mono text-[13px]">taxonomy.ts</code>, so adding a product kind never touches components.</p>
       </div>
 
       <div className="flex flex-col gap-16">

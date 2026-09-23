@@ -16,9 +16,10 @@ export function App() {
     document.title = runtime.mode === 'central' && !checkoutId ? 'Groundwork Hub · All projects' : projectName ? `${projectName} · ${runtime.mode === 'central' ? 'Groundwork Hub' : 'Groundwork standalone'}` : 'Groundwork'
   }, [runtime.mode, projectName])
   if (runtime.loading) return <main className="runtime-start" role="status"><h1>Groundwork</h1><p>Opening your plans…</p></main>
+  if (runtime.error && !runtime.plan && !runtime.connected) return <main className="runtime-start" role="alert"><h1>Groundwork is unavailable</h1><p>{runtime.error}</p><p>Start Groundwork Hub, then reload this page.</p><button onClick={() => window.location.reload()}>Reload</button></main>
   if (runtime.mode === 'central' && !checkoutId) return <ProjectsPage />
   return (
-    <Routes key={`${runtime.plan?.context.token ?? "demo"}:${runtime.plan?.revision ?? "empty"}`}>
+    <Routes key={`${runtime.plan?.context.token ?? "unavailable"}:${runtime.plan?.revision ?? "empty"}`}>
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="/w/:slug" element={<WorkspacePage />} />

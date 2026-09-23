@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import type { Component, Feature } from '../src/data/model.ts'
-import { componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap, systemGraph } from '../src/data/component-structure.ts'
+import { architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap, runtimeSystemGraph, systemGraph } from '../src/data/component-structure.ts'
 import { buildIndex, lensFor } from '../src/data/spec-index.ts'
 import { loadContent } from '../src/data/content.ts'
 import { livePrototypeIds } from '../src/data/live-prototypes.ts'
@@ -90,6 +90,39 @@ test('product system graph rolls internals into owners and deduplicates shared d
     { from: 'core', to: 'postgres' }, { from: 'core', to: 'provider' }, { from: 'core', to: 'app' },
   ])
   assert.equal(graph.edges.some(e => e.from === e.to), false)
+})
+test('runtime system graph separates supporting modules without hiding isolated services', () => {
+  const runtime: Component = { id: 'runtime', name: 'Runtime', productId: 'product', kind: 'service' }
+  const isolated: Component = { id: 'docs', name: 'Docs', productId: 'product', kind: 'service', dependsOn: [] }
+  const supporting: Component = { id: 'platform', name: 'Platform', productId: 'product', kind: 'module', dependsOn: ['runtime', 'docs'] }
+  const graph = runtimeSystemGraph([runtime, isolated, supporting])
+  assert.deepEqual(graph.nodes.map(component => component.id), ['runtime', 'docs'])
+  assert.deepEqual(graph.supporting.map(component => component.id), ['platform'])
+  assert.deepEqual(graph.edges, [])
+})
+test('architecture system graph adds observed infrastructure without promoting it to a component', () => {
+  const app: Component = {
+    id: 'app', name: 'App', productId: 'product', kind: 'service',
+    data: { technology: 'Browser Origin Private File System (OPFS)', access: ['read', 'write'], records: [] },
+  }
+  const core: Component = {
+    id: 'core', name: 'Core', productId: 'product', kind: 'service',
+    unresolvedDependencies: [
+      { name: 'PostgreSQL', kind: 'database', transport: 'TCP', evidence: [{ path: 'db.go', lines: '1', claim: 'Connects to Postgres', revision: 'abc' }] },
+      { name: 'Events', kind: 'message broker', transport: 'Pub/Sub', evidence: [{ path: 'events.go', lines: '1', claim: 'Publishes events', revision: 'abc' }] },
+    ],
+  }
+  const graph = architectureSystemGraph([app, core], [])
+  assert.deepEqual(graph.nodes.map(component => [component.name, component.kind]), [
+    ['App', 'service'], ['Core', 'service'], ['Browser Origin Private File System (OPFS)', 'local-storage'], ['PostgreSQL', 'database'], ['Events', 'queue'],
+  ])
+  assert.deepEqual(graph.edges, [
+    { from: 'app', to: 'observed-local-storage-browser-origin-private-file-system-opfs' },
+    { from: 'core', to: 'observed-database-postgresql' },
+    { from: 'core', to: 'observed-queue-events' },
+  ])
+  assert.equal(graph.status.get('observed-database-postgresql'), 'unresolved')
+  assert.equal(graph.status.get('observed-local-storage-browser-origin-private-file-system-opfs'), 'observed')
 })
 test('product map retains cross-product dependencies without pulling in their whole system', () => {
   const input = structuredClone(components)

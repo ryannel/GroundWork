@@ -6,6 +6,7 @@ import { q } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
 import { CheckoutMenu } from './repository-bar'
 import { cn } from '@/lib/cn'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export function TopBar() {
   const { resolved, setPref } = useTheme()
@@ -26,7 +27,7 @@ export function TopBar() {
   const results = query.trim() ? q.features().filter(f => `${f.title} ${q.product(f.productId)?.name}`.toLowerCase().includes(query.trim().toLowerCase())) : []
   return <header className="app-topbar"><div className="app-topbar-inner">
     {mode === 'central' ? <a href="/" className="app-brand" aria-label="Groundwork Hub" title="Back to Groundwork Hub"><span><Layers size={17} /></span><span className="brand-wordmark">groundwork</span></a> : <span className="app-brand" title={plan ? 'Groundwork standalone viewer' : 'Groundwork'}><span><Layers size={17} /></span><span className="brand-wordmark">groundwork</span></span>}
-    {plan ? <div className="header-project">{pathname === '/' ? <span aria-current="page" title={plan.manifest.name}>{plan.manifest.name}</span> : <Link to="/" title="Project overview">{plan.manifest.name}</Link>}{mode === 'standalone' && <small>Standalone</small>}</div> : product && workspace ? <nav className="workbench-breadcrumb" aria-label="Workspace and product"><Link to={`/w/${workspace.slug}`}><small>{plan ? 'Project' : 'Workspace'}</small>{workspace.name}</Link><Link to={`/w/${workspace.slug}/${product.slug}`}><small>Product</small>{product.name}</Link></nav> : <NavLink to="/" end className={({ isActive }) => cn('top-nav', isActive && 'selected')}>{plan ? 'Project' : 'Workspaces'}</NavLink>}
+    {plan ? <div className="header-project">{pathname === '/' ? <span aria-current="page" title={plan.manifest.name}>{plan.manifest.name}</span> : <Link to="/" title="Project overview">{plan.manifest.name}</Link>}{mode === 'standalone' && <small>Standalone</small>}</div> : product && workspace ? <Breadcrumbs workspace={workspace} product={product} className="topbar-breadcrumb" /> : <NavLink to="/" end className={({ isActive }) => cn('top-nav', isActive && 'selected')}>{plan ? 'Project' : 'Workspaces'}</NavLink>}
     <div className="global-search" onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false) }}><Search size={14} /><input ref={input} aria-label="Find a feature" aria-controls={focused && query.trim() ? 'feature-search-results' : undefined} placeholder="Find a feature…" value={query} onFocus={() => setFocused(true)} onKeyDown={e => {
       if (e.key === 'Escape') closeSearch()
       if (e.key === 'ArrowDown' && results.length) { e.preventDefault(); resultList.current?.querySelector('a')?.focus() }

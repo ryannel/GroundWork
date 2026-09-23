@@ -17,10 +17,17 @@
 .central-workspace > h2 { font-size: 18px; margin-bottom: 18px; }
 .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
 .project-card { position: relative; border: 1px solid var(--border); background: var(--glass-fill-1); border-radius: 14px; padding: 25px; }
-.project-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .project-card h3 { font-size: 23px; letter-spacing: -.025em; }
-.project-card-heading a { color: var(--accent); padding: 5px; border-radius: 6px; border: 1px solid var(--border); }
-.project-branch { display: flex; align-items: center; gap: 7px; margin-top: 15px; font-size: 12px; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+.product-card,.workspace-product-card { position:relative; color:inherit; border:1px solid var(--border); background:var(--glass-fill-1); border-radius:14px; padding:25px; }
+.product-card { display:block; }
+.product-card-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.product-card-heading small,.product-card-kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.08em; font-size:10px; }
+.product-card-heading h3 { font-size: 25px; letter-spacing: -.025em; margin-top: 5px; }
+.product-open { display:grid; place-items:center; color:var(--accent); padding:5px; border-radius:6px; border:1px solid var(--border); }
+.product-repository-count { display:flex; align-items:baseline; gap:5px; color:var(--fg-muted); font-size:12px; margin-bottom:20px; }
+.product-repository-count strong { color:var(--fg); font-size:14px; font-weight:600; }
+.product-repository-count span { margin:0 2px; }
 .project-path { font-size: 11px; color: var(--fg-muted); margin: 8px 0 22px; overflow-wrap: anywhere; }
 .project-counts { display: flex; gap: 22px; border-top: 1px solid var(--border); padding: 19px 0; font-size: 12px; color: var(--fg-muted); }
 .project-counts strong { color: var(--fg); font-size: 22px; margin-right: 3px; }
@@ -53,7 +60,7 @@
 .evidence-record p { margin: 6px 0; }
 .evidence-passed { border-color: #4d9e7f; }
 .evidence-failed { border-color: #c86b65; }
-@media(max-width: 760px) { .central-board, .delivery-board { padding: 24px 18px; } .central-brand { margin-bottom: 40px; } .project-grid, .delivery-grid { grid-template-columns: 1fr; } .repository-bar { padding: 10px 16px; gap: 8px; } .checkout-path { display: none !important; } .repository-bar select { max-width: 230px; } }
+@media(max-width: 760px) { .central-board, .delivery-board { padding: 24px 18px; } .central-brand { margin-bottom: 40px; } .project-grid, .product-grid, .delivery-grid { grid-template-columns: 1fr; } .repository-bar { padding: 10px 16px; gap: 8px; } .checkout-path { display: none !important; } .repository-bar select { max-width: 230px; } }
 /* Deliverables express user value; their nested tasks express the implementation boundary. */
 .delivery-back { display:inline-block; margin-top:18px; font-size:13px; color:var(--accent); }
 .feature-delivery-heading { display:flex; justify-content:space-between; gap:18px; align-items:baseline; margin-bottom:18px; }
@@ -102,11 +109,9 @@
 
 .workspace-mode { border:1px solid var(--border); border-radius:5px; padding:4px 8px; color:var(--accent); font-size:11px; }
 
-/* Stretch the native project link without nesting the individual feature links. */
-.project-open::after { content:""; position:absolute; inset:0; z-index:1; border-radius:14px; }
-.project-card:has(.project-open:hover) { border-color:var(--accent); }
-.project-open:focus-visible { outline:none; }
-.project-open:focus-visible::after { outline:2px solid var(--accent); outline-offset:3px; }
+.product-card[href],.workspace-product-card[href] { cursor:pointer; }
+.product-card[href]:hover,.workspace-product-card[href]:hover { border-color:var(--accent); background:var(--glass-fill-2); }
+.product-card[href]:focus-visible,.workspace-product-card[href]:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .project-features a { position:relative; z-index:2; }
 .project-features a:hover { color:var(--accent); }
 

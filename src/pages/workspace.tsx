@@ -1,10 +1,10 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes } from 'lucide-react'
 import { useWorkspace, q } from '@/data/store'
 import { featureInProduct, connectedProductIds } from '@/data/workspace-view'
 import { FeatureRow } from '@/components/feature-row'
-import { kinds, hueStyle } from '@/lib/taxonomy'
-import { WorkspaceEmblem } from '@/components/workspace-emblem'
+import { kinds } from '@/lib/taxonomy'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export function WorkspacePage() {
   const { slug = '' } = useParams()
@@ -29,11 +29,11 @@ export function WorkspacePage() {
     { id: 'ideas', label: 'Ideas', count: ideaRows.length, icon: Lightbulb },
     { id: 'shipped', label: 'Shipped', count: shippedRows.length, icon: CheckCheck },
   ]
-  return <div className="workspace-overview" style={hueStyle(w.hue)}>
+  return <div className="workspace-overview">
     <header className="workspace-page-header">
-      <nav aria-label="Breadcrumb" className="workspace-breadcrumb"><Link to="/">Workspaces</Link><ChevronRight size={13} /><span aria-current="page">{w.name}</span></nav>
+      <Breadcrumbs workspace={w} current={{ label: 'Workspace', name: w.name }} />
       <div className="workspace-hero">
-        <div className="workspace-page-title"><WorkspaceEmblem workspace={w} size="large" /><div><div className="board-eyebrow">Workspace <span>·</span> {products.length} products</div><h1 className="text-display">{w.name}</h1>{w.description && <p>{w.description}</p>}</div></div>
+        <div className="workspace-page-title"><div><div className="board-eyebrow">Workspace <span>·</span> {products.length} {products.length === 1 ? 'product' : 'products'}</div><h1 className="text-display">{w.name}</h1>{w.description && <p>{w.description}</p>}</div></div>
         <dl className="board-totals"><div><dt>Active features</dt><dd>{active.length}</dd></div><div><dt>Cross-product</dt><dd>{connected.length}</dd></div></dl>
       </div>
     </header>
@@ -41,10 +41,9 @@ export function WorkspacePage() {
     <section className="workspace-product-section" aria-labelledby="workspace-products-heading">
       <div className="board-section-heading"><h2 id="workspace-products-heading">Products <span className="section-count">{products.length}</span></h2><span className="workspace-section-note">Open a product to explore its features</span></div>
       <div className="workspace-product-grid">{products.map(({ product, components: ownedComponents, active: ownedActive }) => {
-        const Icon = kinds[product.kind].icon
         const incoming = active.filter(feature => feature.productId !== product.id && featureInProduct(feature, product.id, components)).length
-        return <Link key={product.id} to={`/w/${w.slug}/${product.slug}`} className="workspace-product-card" style={hueStyle(kinds[product.kind].hueVar)}>
-          <div className="workspace-product-top"><span className="product-symbol"><Icon size={19} strokeWidth={1.6} /></span><ArrowUpRight size={16} className="product-open-icon" /></div>
+        return <Link key={product.id} to={`/w/${w.slug}/${product.slug}`} className="workspace-product-card">
+          <div className="workspace-product-top"><span className="product-card-kicker">Product</span><span className="product-open" aria-hidden="true"><ArrowUpRight size={22} /></span></div>
           <h3>{product.name}</h3><p>{product.description ?? kinds[product.kind].blurb}</p>
           <div className="product-card-meta"><span>{ownedComponents.some(c => c.kind === 'service') ? `${ownedComponents.filter(c => c.kind === 'service').length} services` : `${ownedComponents.filter(c => !c.parentId).length} components`}</span><span>{kinds[product.kind].label}</span></div>
           <footer><span title="Active features owned by this product"><strong>{ownedActive.length}</strong> active {ownedActive.length === 1 ? 'feature' : 'features'}</span>{incoming > 0 && <span className="product-shared" title="Active features from other products that touch components here"><GitFork size={12} /><strong>{incoming}</strong> incoming</span>}</footer>

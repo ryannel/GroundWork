@@ -1,14 +1,15 @@
 import { useMemo } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, ChevronRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, Database, Cloud, TriangleAlert } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, TriangleAlert } from 'lucide-react'
 import { useProduct, q, byUpdated } from '@/data/store'
 import { connectedProductIds } from '@/data/workspace-view'
 import { FeatureRow } from '@/components/feature-row'
 import { ComponentOptions } from '@/components/component-structure'
 import { SystemDiagram } from '@/components/system-diagram'
-import { componentAncestors, componentKind, featureTouchesComponent, systemGraph } from '@/data/component-structure'
+import { componentAncestors, featureTouchesComponent, runtimeSystemGraph } from '@/data/component-structure'
 import { kinds, hueStyle } from '@/lib/taxonomy'
 import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
@@ -34,12 +35,11 @@ export function ProductPage() {
   const scopedIncoming = incoming.filter(inScope).length
   const scopedOwned = active.filter(inScope).length
   const allComponents = q.components()
-  const graph = systemGraph(componentList, allComponents)
+  const graph = runtimeSystemGraph(componentList, allComponents)
   const selectedComponent = graph.nodes.find(component => component.id === params.get('component'))
-  const services = overviewComponents.filter(component => componentKind(component) === 'service').length
-  const resources = overviewComponents.filter(component => ['database', 'cache', 'queue', 'object-storage', 'local-storage'].includes(componentKind(component))).length
-  const external = graph.nodes.filter(component => componentKind(component) === 'external-service').length
+  const unresolvedCount = componentList.reduce((sum, component) => sum + (component.unresolvedDependencies?.length ?? 0), 0)
   const coverage = productCoverage(overviewComponents)
+  const hasDelivery = allActive.length + ideas.length + shipped.length > 0
   const connections = allActive.filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0).filter(inScope)
   const update = (key: string, value: string) => setParams(previous => {
     const next = new URLSearchParams(previous)
@@ -47,25 +47,24 @@ export function ProductPage() {
     else next.set(key, value)
     return next
   }, { replace: true })
-  const inspectComponent = (id: string) => update('component', id)
+  const inspectComponent = (id: string) => setParams(previous => { const next = new URLSearchParams(previous); for (const key of [...next.keys()]) if (/^(catalog|schema|api|data|messages)/.test(key)) next.delete(key); next.set('component', id); return next }, { preventScrollReset: true })
 
   return <div className="product-overview" style={hueStyle(kind.hueVar)}>
     <header className="workspace-page-header">
-      <nav aria-label="Breadcrumb" className="workspace-breadcrumb"><Link to="/">Workspaces</Link><ChevronRight size={13} /><Link to={`/w/${w.slug}`}>{w.name}</Link><ChevronRight size={13} /><span aria-current="page">{p.name}</span></nav>
+      <Breadcrumbs workspace={w} product={p} current={{ label: 'Product', name: p.name }} />
       <div className="workspace-hero">
-        <div className="workspace-page-title"><span className="workspace-emblem workspace-emblem-large" aria-hidden="true"><kind.icon strokeWidth={1.6} /></span><div><div className="board-eyebrow">Product <span>·</span> {kind.label}</div><h1 className="text-display">{p.name}</h1><p>{p.description ?? kind.blurb}</p></div></div>
-        <dl className="board-totals"><div><dt>Active changes</dt><dd>{allActive.length}</dd></div><div><dt>Services</dt><dd>{services}</dd></div></dl>
+        <div className="workspace-page-title"><div><div className="board-eyebrow">Product <span>·</span> {kind.label}</div><h1 className="text-display">{p.name}</h1><p>{p.description ?? kind.blurb}</p></div></div>
       </div>
-      <div className="product-system-summary" aria-label="System at a glance">
-        <div><Network size={16} /><span><strong>{graph.edges.length}</strong> observed runtime relationships</span></div>
-        <div><Database size={16} /><span><strong>{resources}</strong> observed data and messaging resources</span></div>
-        <div><Cloud size={16} /><span><strong>{external}</strong> observed external dependencies</span></div>
-        <p>These counts reflect catalogued evidence, not proof that other relationships or resources do not exist.</p>
+      <div className="product-system-facts" aria-label="Product architecture status">
+        <span><strong>{overviewComponents.length}</strong> components</span>
+        <span><Network size={14} aria-hidden="true" /><strong>{graph.edges.length}</strong> mapped relationships</span>
+        <span className={unresolvedCount ? 'has-unresolved' : ''}><TriangleAlert size={14} aria-hidden="true" /><strong>{unresolvedCount}</strong> awaiting classification</span>
+        <span><strong>{coverage.complete}/{coverage.total}</strong> catalogued</span>
       </div>
     </header>
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
-      <div className="board-section-heading"><div><div className="board-eyebrow">Architecture</div><h2 id="product-components-heading">Understand the system</h2><p>Trace where a service fits before opening its implementation details.</p></div></div>
+      <div className="board-section-heading"><div><div className="board-eyebrow">Architecture</div><h2 id="product-components-heading">System architecture</h2><p>Start with the system map, then select a component to explore its overview, interfaces, data, and messages.</p></div></div>
       {coverage.status !== 'complete' && <div className={`catalog-scan-warning is-${coverage.status}`} role="alert">
         <TriangleAlert size={16} />
         <div><strong>{coverage.status === 'not-scanned' ? 'This product has not been scanned' : coverage.status === 'scanning' ? 'Repository scan in progress' : coverage.status === 'failed' ? 'Repository scan failed' : coverage.status === 'partial' ? 'Repository scan incomplete' : scanStatusLabel(coverage.status)}</strong><span>Only known facts are shown. APIs, dependencies, data stores, and events may be missing.</span></div>
@@ -74,7 +73,10 @@ export function ProductPage() {
       {!components.length && <p className="board-empty">No system structure has been added yet.</p>}
     </section>
 
-    <section className="product-change-section" aria-labelledby="product-feature-heading">
+    {!hasDelivery ? <section className="product-change-section product-change-empty" aria-labelledby="product-feature-heading">
+      <div><div className="board-eyebrow">Delivery</div><h2 id="product-feature-heading">No planned changes</h2><p>Feature plans connected to this product will appear here.</p></div>
+      <span>0 active</span>
+    </section> : <section className="product-change-section" aria-labelledby="product-feature-heading">
       <div className="product-change-heading">
         <div><div className="board-eyebrow">Delivery</div><h2 id="product-feature-heading">Change activity</h2><p>Planned work that may alter this system and its boundaries.</p></div>
         <span>{allActive.length} active</span>
@@ -98,6 +100,6 @@ export function ProductPage() {
         <div className="coordination-footnote">Follow these plans to coordinate changes between products.</div>
       </aside>}
     </div>
-    </section>
+    </section>}
   </div>
 }

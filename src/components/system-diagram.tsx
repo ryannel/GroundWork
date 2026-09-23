@@ -1,100 +1,84 @@
-import { useId, useMemo, useState } from 'react'
-import { Maximize2, ZoomIn, ZoomOut } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { ArrowRight, ChevronDown, Search } from 'lucide-react'
 import type { Component } from '@/data/model'
-import { componentKindLabel, systemGraph } from '@/data/component-structure'
+import { architectureSystemGraph, componentKindLabel, isInfrastructureComponent, runtimeSystemGraph } from '@/data/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
-import { componentCoverage } from '@/data/catalog-coverage'
 
 export function SystemDiagram({ components, allComponents, selectedId, onSelect }: { components: Component[]; allComponents: Component[]; selectedId?: string; onSelect: (id: string) => void }) {
-  const marker = useId().replace(/:/g, '')
-  const [localFocus, setLocalFocus] = useState<string | null>(null)
-  const [view, setView] = useState<'overview' | 'focus'>('overview')
-  const [contextZoom, setContextZoom] = useState(1)
-  const { nodes, edges } = useMemo(() => systemGraph(components, allComponents), [components, allComponents])
-  if (!nodes.length) return null
+  const [componentQuery, setComponentQuery] = useState('')
+  const [pickerOpen, setPickerOpen] = useState(false)
+  const graph = useMemo(() => runtimeSystemGraph(components, allComponents), [components, allComponents])
+  const map = useMemo(() => architectureSystemGraph(graph.nodes, graph.edges), [graph])
+  const selectableMapIds = useMemo(() => new Set(graph.nodes.map(component => component.id)), [graph.nodes])
+  const allNodes = [...graph.nodes, ...graph.supporting]
+  if (!allNodes.length) return null
 
   const localIds = new Set(components.map(component => component.id))
-  const relationshipCount = (id: string) => edges.filter(edge => edge.from === id || edge.to === id).length
-  const defaultNode = [...nodes].sort((a, b) => relationshipCount(b.id) - relationshipCount(a.id))[0]
-  const focus = selectedId ?? localFocus
-  const selected = nodes.find(component => component.id === focus) ?? defaultNode
-  const dependencies = edges.filter(edge => edge.from === selected.id).map(edge => nodes.find(node => node.id === edge.to)!)
-  const consumers = edges.filter(edge => edge.to === selected.id).map(edge => nodes.find(node => node.id === edge.from)!)
-  const isLocal = localIds.has(selected.id)
-  const dependencyCoverage = componentCoverage(selected).area('dependencies')
-  const mapHeight = Math.max(210, Math.max(consumers.length, dependencies.length) * 72 + 68)
-  const centerY = mapHeight / 2
-  const positions = (items: Component[]) => items.map((component, index) => ({
-    component,
-    y: 58 + (mapHeight - 96) * (index + .5) / items.length,
-  }))
-  const consumerPositions = positions(consumers)
-  const dependencyPositions = positions(dependencies)
-  const mapNode = (component: Component, x: number, y: number, primary = false) => {
-    const select = () => { setLocalFocus(component.id); onSelect(component.id) }
-    return <g key={component.id} className={`system-neighborhood-node${primary ? ' is-focus' : ''}`} transform={`translate(${x} ${y - 26})`} role="button" tabIndex={0} aria-label={`Inspect ${component.name}`} onClick={select} onKeyDown={event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        select()
-      }
-    }}>
-      <rect width="190" height="52" rx="9" />
-      <text x="95" y="22" textAnchor="middle">{component.name.length > 23 ? `${component.name.slice(0, 22)}…` : component.name}</text>
-      <text className="system-neighborhood-kind" x="95" y="38" textAnchor="middle">{componentKindLabel(component)}</text>
-    </g>
+  const relationshipCount = (id: string) => graph.edges.filter(edge => edge.from === id || edge.to === id).length
+  const defaultNode = [...graph.nodes, ...graph.supporting].sort((a, b) => relationshipCount(b.id) - relationshipCount(a.id))[0]
+  const selected = allNodes.find(component => component.id === selectedId) ?? defaultNode
+  const dependencies = graph.edges.filter(edge => edge.from === selected.id).map(edge => graph.nodes.find(node => node.id === edge.to)!)
+  const query = componentQuery.trim().toLowerCase()
+  const matches = (component: Component) => `${component.name} ${component.description ?? ''} ${componentKindLabel(component)}`.toLowerCase().includes(query)
+  const runtimeComponents = graph.nodes.filter(matches)
+  const supportingComponents = graph.supporting.filter(matches)
+  const serviceCount = graph.nodes.filter(component => !isInfrastructureComponent(component)).length
+  const infrastructureCount = map.nodes.filter(isInfrastructureComponent).length
+  const selectComponent = (id: string) => {
+    onSelect(id)
+    setPickerOpen(false)
+    setComponentQuery('')
   }
+  const componentButton = (component: Component) => <button key={component.id} aria-current={selected.id === component.id ? 'true' : undefined} onClick={() => selectComponent(component.id)}>
+    <span><strong>{component.name}</strong><small>{componentKindLabel(component)}{localIds.has(component.id) ? '' : ' · Connected product'}</small></span>
+    <ArrowRight size={14} aria-hidden="true" />
+  </button>
 
-  return <section className="system-explorer" aria-labelledby="system-explorer-heading">
-    <header className="system-explorer-heading">
-      <div><h3 id="system-explorer-heading">Service landscape</h3><p>Arrows point from callers to their dependencies.</p><span className="system-graph-count">{nodes.length} components · {edges.length} relationships</span></div>
-      <div className="system-explorer-actions">
-        <label className="system-component-select">
-          <span>Inspect</span>
-          <select value={selected.id} onChange={event => { setLocalFocus(event.target.value); onSelect(event.target.value) }}>
-            {nodes.map(component => <option key={component.id} value={component.id}>{component.name} · {componentKindLabel(component)}</option>)}
-          </select>
-        </label>
-        <div className="system-view-switch" aria-label="System map view">
-          <button aria-pressed={view === 'overview'} onClick={() => setView('overview')}>System map</button>
-          <button aria-pressed={view === 'focus'} onClick={() => setView('focus')}>Direct context</button>
+  return <div className="architecture-explorer">
+    <section className="architecture-map-section" aria-labelledby="architecture-map-heading">
+      <header className="architecture-map-heading">
+        <div>
+          <span>System map</span>
+          <h3 id="architecture-map-heading">How the system fits together</h3>
+          <p>Runtime services and resources appear here, including isolated components with no known dependencies. Supporting assets are listed separately below.</p>
         </div>
-      </div>
-    </header>
+        <dl>
+          <div><dt>Services</dt><dd>{serviceCount}</dd></div>
+          <div><dt>Infrastructure</dt><dd>{infrastructureCount}</dd></div>
+          <div><dt>Relationships</dt><dd>{map.edges.length}</dd></div>
+        </dl>
+      </header>
+      {map.nodes.length
+        ? <SystemOverviewMap components={map.nodes} relationships={map.edges} observedStatus={map.status} selectableIds={selectableMapIds} focus={graph.nodes.some(component => component.id === selected.id) ? selected.id : undefined} onFocus={id => { if (id && selectableMapIds.has(id)) onSelect(id) }} />
+        : <div className="architecture-map-empty"><p>No runtime components have been catalogued for this product.</p><span>Supporting assets remain available in the component directory.</span></div>}
+    </section>
 
-    {view === 'overview' ? <SystemOverviewMap components={nodes} relationships={edges} focus={selected.id} onFocus={id => { if (id) { setLocalFocus(id); onSelect(id) } }} /> : <>
-    <div className="system-neighborhood-toolbar">
-      <div><strong>{selected.name}</strong><span>{consumers.length} direct callers · {dependencies.length} direct dependencies</span></div>
-      <div aria-label="Direct context zoom controls">
-        <button aria-label="Zoom out" disabled={contextZoom <= .75} onClick={() => setContextZoom(value => Math.max(.75, value - .25))}><ZoomOut size={14} /></button>
-        <span>{Math.round(contextZoom * 100)}%</span>
-        <button aria-label="Zoom in" disabled={contextZoom >= 1.75} onClick={() => setContextZoom(value => Math.min(1.75, value + .25))}><ZoomIn size={14} /></button>
-        <button aria-label="Reset zoom" onClick={() => setContextZoom(1)}><Maximize2 size={13} /></button>
-      </div>
-    </div>
-    <div className="system-neighborhood-map" role="region" aria-label={`Direct dependency map for ${selected.name}`}>
-      <svg viewBox={`0 0 900 ${mapHeight}`} role="group" aria-label={`Callers and dependencies of ${selected.name}`} style={{ width: `${contextZoom * 100}%`, height: 'auto' }}>
-        <defs><marker id={`${marker}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
-        <text className="system-neighborhood-label" x="20" y="24">INCOMING · CALLERS</text>
-        <text className="system-neighborhood-label" x="355" y="24">SELECTED COMPONENT</text>
-        <text className="system-neighborhood-label" x="690" y="24">OUTGOING · DEPENDENCIES</text>
-        {consumerPositions.map(({ component, y }) => <path key={`consumer-${component.id}`} d={`M 210 ${y} C 280 ${y}, 285 ${centerY}, 355 ${centerY}`} markerEnd={`url(#${marker}-arrow)`} />)}
-        {dependencyPositions.map(({ component, y }) => <path key={`dependency-${component.id}`} d={`M 545 ${centerY} C 615 ${centerY}, 620 ${y}, 690 ${y}`} markerEnd={`url(#${marker}-arrow)`} />)}
-        {consumerPositions.map(({ component, y }) => mapNode(component, 20, y))}
-        {mapNode(selected, 355, centerY, true)}
-        {dependencyPositions.map(({ component, y }) => mapNode(component, 690, y))}
-        {!consumers.length && <text className="system-neighborhood-empty" x="115" y={centerY} textAnchor="middle">No callers observed</text>}
-        {!dependencies.length && <text className="system-neighborhood-empty" x="785" y={centerY} textAnchor="middle">{dependencyCoverage === 'complete' ? 'No dependencies found' : 'No dependencies observed'}</text>}
-      </svg>
-      <div className="system-neighborhood-mobile">
-        {[{ title: `Callers → ${selected.name}`, items: consumers, empty: 'No callers observed' }, { title: `${selected.name} → Dependencies`, items: dependencies, empty: dependencyCoverage === 'complete' ? 'No dependencies found' : 'No dependencies observed' }].map(group => <section key={group.title}>
-          <h4>{group.title}</h4>
-          {group.items.length ? group.items.map(component => <button key={component.id} onClick={() => { setLocalFocus(component.id); onSelect(component.id) }}><strong>{component.name}</strong><span>{componentKindLabel(component)}</span></button>) : <p>{group.empty}</p>}
-        </section>)}
-      </div>
-    </div>
-
-    </>}
-    <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={isLocal} />
-  </section>
+    <section className="component-workspace" aria-labelledby="component-workspace-heading">
+      <header className="component-workspace-switcher">
+        <div><span>Component workspace</span><h3 id="component-workspace-heading">Explore component details</h3></div>
+        <div className="component-picker">
+          <button className="component-picker-trigger" aria-expanded={pickerOpen} aria-controls="component-picker-menu" onClick={() => setPickerOpen(open => !open)}>
+            <span><small>Selected component</small><strong>{selected.name}</strong></span>
+            <ChevronDown size={16} aria-hidden="true" />
+          </button>
+          {pickerOpen && <div id="component-picker-menu" className="component-picker-menu">
+            <label className="component-workspace-search">
+              <Search size={16} aria-hidden="true" />
+              <span className="sr-only">Find a component</span>
+              <input autoFocus type="search" value={componentQuery} onChange={event => setComponentQuery(event.target.value)} onKeyDown={event => { if (event.key === 'Escape') { setPickerOpen(false); setComponentQuery('') } }} placeholder="Find a component…" />
+            </label>
+            <nav aria-label="Components">
+              {!!runtimeComponents.length && <section><h4>Runtime components <span>{graph.nodes.length}</span></h4>{runtimeComponents.map(componentButton)}</section>}
+              {!!supportingComponents.length && <section><h4>Supporting assets <span>{graph.supporting.length}</span></h4>{supportingComponents.map(componentButton)}</section>}
+              {!runtimeComponents.length && !supportingComponents.length && <p>No components match “{componentQuery}”.</p>}
+            </nav>
+          </div>}
+        </div>
+      </header>
+      <main className="component-workspace-detail">
+        <ComponentInspector key={selected.id} component={selected} dependencies={dependencies} isLocal={localIds.has(selected.id)} showIdentity onSelectComponent={onSelect} />
+      </main>
+    </section>
+  </div>
 }
