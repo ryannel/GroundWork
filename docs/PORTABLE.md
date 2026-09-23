@@ -84,7 +84,7 @@ The viewer groups records by their actual storage component and purpose. Records
 
 Start with `read`, then retain its `revision` and `context.token`. Authoring operations require those values as `expectedRevision` and `expectedContext`. Use `call <operation> --input /path/to/request.json` with an argument file. The `write_plan` operation accepts a `changes` object mapping relative document paths to complete UTF-8 document strings, or null to delete a document. A complete candidate revision must validate before any change is applied.
 
-The other operations are `projects`, `read_plan`, `create_feature`, `plan_delivery`, `record_progress`, `link_branch`, `create_worktree`, `prepare_repository_scan`, `apply_repository_scan`, and `discard_repository_scan`. Run `mcp` and request `tools/list` to discover their full JSON schemas. CLI and MCP share the same validation and transaction implementation.
+Core planning operations also include `projects`, `read_plan`, `create_feature`, `plan_delivery`, `record_progress`, `link_branch`, and `create_worktree`. Catalog operations (`prepare_repository_scan`, `apply_repository_scan`, `discard_repository_scan`, `apply_catalog_investigation`, `search_catalog`, `get_catalog_entity`, `get_discovery_context`, `check_catalog_freshness`, `reconcile_catalog`, `migrate_catalog`, `read_scan_manifest`, `assess_feature_discovery`, `retain_discovery_baseline`, `get_discovery_baseline`) are described in [Focused system discovery](#focused-system-discovery) below. Run `mcp` and request `tools/list` to discover every operation's full JSON schema. CLI and MCP share the same validation and transaction implementation.
 
 ## Import repositories through conversation
 
@@ -112,7 +112,7 @@ Select `checkoutId` explicitly when using the central service. Re-read after a s
 
 Direct file editing is also supported. Validate after a coherent edit. The viewer retains the previous valid plan during malformed intermediate revisions. Coordinating concurrent agents should use the transactional tools. Groundwork serialises its own writers using a checkout-local lock. It detects conflicting external edits and refuses destructive recovery; filesystem editors do not participate in the lock.
 
-After an interrupted tool write, run `recover`. A journal in `.groundwork/transaction.json` preserves the before and after documents. If another editor changed an affected document, recovery pauses and the journal must be reconciled manually. Never discard a recovery journal without inspecting those versions.
+After an interrupted tool write, run `recover`. A journal in `.groundwork/transaction.json` preserves the before and after documents. Recovery rolls back to the before-images and removes the journal; it does not complete the interrupted write, so re-read and re-apply the change afterward. Only the paths the interrupted write actually touched are restored — an unrelated document changed by someone else meanwhile is left alone. `recover` also clears any temp files the interrupted write left behind. If another editor changed an affected document, recovery pauses and the journal must be reconciled manually. Never discard a recovery journal without inspecting those versions.
 
 ## Feature → Deliverables → Tasks
 

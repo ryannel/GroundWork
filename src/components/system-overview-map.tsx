@@ -1,6 +1,11 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { createMapSimulation, nodeWidth, nodeHeight, pinNode, type ForceNode } from '@/lib/system-map-physics'
-import { systemMapLayout } from '@/lib/system-map-layout'
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import {
+  createMapSimulation, DRAG_ALPHA, DRAG_ALPHA_TARGET, nodeHeight, nodeWidth, pinNode, RELEASE_ALPHA, type ForceNode,
+} from '@/lib/system-map-physics'
+import {
+  edgeHandles, fallbackGridPositions, layoutSignature, messageEdgeLabel, portSide, relationshipId, systemMapLayout, type PortSide,
+} from '@/lib/system-map-layout'
+import { layoutGraph } from '@/lib/elk'
 import {
   Background,
   Controls,
@@ -12,49 +17,78 @@ import {
   useNodesState,
   type Edge,
   type Node,
+  type NodeMouseHandler,
   type NodeProps,
+  type OnNodeDrag,
   type ReactFlowInstance,
 } from '@xyflow/react'
 import { LayoutDashboard, Maximize2, Minimize2, Pin, PinOff } from 'lucide-react'
 import type { Component } from '@/data/model'
-import { componentKind, componentKindLabel, type ArchitectureEdge } from '@/data/component-structure'
+import { componentKind, componentKindLabel, componentKinds, type ArchitectureEdge } from '@/data/component-structure'
 
-const kindColors = {
-  service: '#a78bfa',
-  module: '#94a3b8',
-  database: '#60a5fa',
-  'object-storage': '#38bdf8',
-  'local-storage': '#22d3ee',
-  queue: '#2dd4bf',
-  cache: '#f59e0b',
-  'external-service': '#f472b6',
-}
+type ObservedStatus = 'observed' | 'unresolved'
+/** Module constant: a fresh default Map on every render would change identity each time. */
+const EMPTY_STATUS: ReadonlyMap<string, ObservedStatus> = new Map()
+
+/** Fit after a (re)layout, never zooming in past a readable card size. */
+const LAYOUT_FIT = { duration: 260, padding: .16, minZoom: .1, maxZoom: .9 }
+/** Fit on container resize (including expand/collapse) without moving any card. */
+const RESIZE_FIT = { padding: .1, maxZoom: 1 }
+const MIN_ZOOM = .1
+const MAX_ZOOM = 1.7
+const ARROW = { type: MarkerType.ArrowClosed, width: 15, height: 15 }
+const EDGE_LABEL_STYLE = { fill: 'var(--fg-muted)', fontSize: 10 }
+const EDGE_LABEL_BG_STYLE = { fill: 'var(--bg-elevated)' }
+const NODE_STYLE = { width: nodeWidth, height: nodeHeight }
+const MINIMAP_STYLE = { width: 120, height: 80 }
+const PRO_OPTIONS = { hideAttribution: true }
+/** Kind colours live in the `.kind-*` CSS classes; cards and minimap rects carry the class and read the variable. */
+const MINIMAP_NODE_COLOR = 'var(--kind-color)'
+const FOCUSABLE = [
+  'button:not(:disabled)', 'a[href]', 'input:not(:disabled)', 'select:not(:disabled)', 'textarea:not(:disabled)',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
 
 interface SystemNodeData extends Record<string, unknown> {
   component: Component
-  color: string
-  observedStatus?: 'observed' | 'unresolved'
+  observedStatus?: ObservedStatus
   selectable: boolean
-  isPinned?: boolean
-  onUnpin?: (id: string) => void
+  isPinned: boolean
+  onUnpin: (id: string) => void
 }
-
 type SystemNode = Node<SystemNodeData, 'system'>
+/** Layout state holds geometry only; what a card shows is merged in `displayNodes`. */
+type LayoutNode = Node<Record<string, unknown>, 'system'>
+/** ELK positions, or a plain grid when the layout chunk fails to load (offline, runtime upgraded under an open tab). */
+async function placeComponents(components: Component[], relationships: ArchitectureEdge[]) {
+  try {
+    const graph = await layoutGraph(systemMapLayout(components, relationships))
+    return { positions: new Map(graph.children?.map(node => [node.id, { x: node.x ?? 0, y: node.y ?? 0 }])), failed: false }
+  } catch (error) {
+    console.error('System map layout failed', error)
+    return { positions: fallbackGridPositions(components.map(component => component.id)), failed: true }
+  }
+}
+const kindClass = (component: Component) => `kind-${componentKind(component)}`
+const minimapNodeClass = (node: SystemNode) => kindClass(node.data.component)
+
+const handles = [
+  [Position.Left, 'left'],
+  [Position.Right, 'right'],
+  [Position.Top, 'top'],
+  [Position.Bottom, 'bottom'],
+] as const
 
 const SystemMapNode = memo(function SystemMapNode({ data }: NodeProps<SystemNode>) {
-  const handles = [
-    [Position.Left, 'left'],
-    [Position.Right, 'right'],
-    [Position.Top, 'top'],
-    [Position.Bottom, 'bottom'],
-  ] as const
-  return <div className="system-flow-node" style={{ '--kind-color': data.color } as CSSProperties}>
+  const label = componentKindLabel(data.component)
+  const status = data.observedStatus === 'unresolved' ? ' · unmatched' : data.observedStatus === 'observed' ? ' · observed' : ''
+  return <div className="system-flow-node">
     {handles.flatMap(([position, side]) => [
       <Handle key={`target-${side}`} id={`target-${side}`} type="target" position={position} isConnectable={false} />,
       <Handle key={`source-${side}`} id={`source-${side}`} type="source" position={position} isConnectable={false} />,
     ])}
-    <i aria-label={componentKindLabel(data.component)} title={componentKindLabel(data.component)} />
-    <span><strong>{data.component.name}</strong><small>{componentKindLabel(data.component)}{data.observedStatus === 'unresolved' ? ' · unmatched' : data.observedStatus === 'observed' ? ' · observed' : ''}</small></span>
+    <i aria-label={label} title={label} />
+    <span><strong>{data.component.name}</strong><small>{label}{status}</small></span>
     {data.isPinned && <button
       type="button"
       className="system-node-unpin nodrag nopan"
@@ -64,7 +98,7 @@ const SystemMapNode = memo(function SystemMapNode({ data }: NodeProps<SystemNode
       onClick={event => {
         event.stopPropagation()
         event.currentTarget.closest<HTMLElement>('.react-flow__node')?.focus()
-        data.onUnpin?.(data.component.id)
+        data.onUnpin(data.component.id)
       }}
     ><Pin size={14} aria-hidden="true" /></button>}
   </div>
@@ -72,28 +106,11 @@ const SystemMapNode = memo(function SystemMapNode({ data }: NodeProps<SystemNode
 
 const nodeTypes = { system: SystemMapNode }
 
-function edgePorts(source: SystemNode, target: SystemNode) {
-  const sourceX = source.position.x + nodeWidth / 2
-  const sourceY = source.position.y + nodeHeight / 2
-  const targetX = target.position.x + nodeWidth / 2
-  const targetY = target.position.y + nodeHeight / 2
-  const dx = targetX - sourceX
-  const dy = targetY - sourceY
-  if (Math.abs(dx) >= Math.abs(dy)) {
-    return dx >= 0
-      ? { sourceHandle: 'source-right', targetHandle: 'target-left' }
-      : { sourceHandle: 'source-left', targetHandle: 'target-right' }
-  }
-  return dy >= 0
-    ? { sourceHandle: 'source-bottom', targetHandle: 'target-top' }
-    : { sourceHandle: 'source-top', targetHandle: 'target-bottom' }
-}
-
-export function SystemOverviewMap({ components, relationships, observedStatus = new Map(), selectableIds, focus, onFocus }: {
+export function SystemOverviewMap({ components, relationships, observedStatus = EMPTY_STATUS, selectableIds, focus, onFocus }: {
   components: Component[]
   relationships: ArchitectureEdge[]
-  observedStatus?: Map<string, 'observed' | 'unresolved'>
-  selectableIds?: Set<string>
+  observedStatus?: ReadonlyMap<string, ObservedStatus>
+  selectableIds?: ReadonlySet<string>
   focus?: string
   onFocus: (id: string) => void
 }) {
@@ -103,17 +120,30 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
   const [expanded, setExpanded] = useState(false)
   const simulation = useRef<ReturnType<typeof createMapSimulation> | null>(null)
   const forceNodes = useRef(new Map<string, ForceNode>())
-  const layoutVersion = useRef(0)
   const dragging = useRef<string | null>(null)
   const fitWhenReady = useRef(false)
-  const [nodes, setNodes, onNodesChange] = useNodesState<SystemNode>([])
-  const [layoutPending, setLayoutPending] = useState(true)
+  const [nodes, setNodes, onNodesChange] = useNodesState<LayoutNode>([])
+  // "Auto layout" asks for a new run of the same structure; pending and failure are derived from the last finished run.
+  const [layoutRun, setLayoutRun] = useState(0)
+  const [finishedLayout, setFinishedLayout] = useState<{ request: string; failed: boolean }>()
   const [pinnedIds, setPinnedIds] = useState<Set<string>>(() => new Set())
   const [hiddenKinds, setHiddenKinds] = useState<Set<string>>(() => new Set())
   const availableKinds = useMemo(() => [...new Set(components.map(componentKind))], [components])
   const visibleComponents = useMemo(() => components.filter(component => !hiddenKinds.has(componentKind(component))), [components, hiddenKinds])
   const visibleIds = useMemo(() => new Set(visibleComponents.map(component => component.id)), [visibleComponents])
-  const visibleRelationships = useMemo(() => relationships.filter(({ from, to }) => visibleIds.has(from) && visibleIds.has(to)), [relationships, visibleIds])
+  const visibleRelationships = useMemo(
+    () => relationships.filter(({ from, to }) => visibleIds.has(from) && visibleIds.has(to)),
+    [relationships, visibleIds],
+  )
+  // Layout runs when the structure changes, not when a parent re-creates equal arrays or changes node styling.
+  const layoutKey = useMemo(() => layoutSignature(visibleComponents, visibleRelationships), [visibleComponents, visibleRelationships])
+  const layoutRequest = `${layoutRun}:${layoutKey}`
+  const layoutPending = finishedLayout?.request !== layoutRequest
+  const layoutFailed = !layoutPending && !!finishedLayout?.failed
+  const layoutInput = useRef({ components: visibleComponents, relationships: visibleRelationships })
+  useLayoutEffect(() => {
+    layoutInput.current = { components: visibleComponents, relationships: visibleRelationships }
+  }, [visibleComponents, visibleRelationships])
 
   useEffect(() => {
     if (!expanded) return
@@ -124,10 +154,12 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') { event.preventDefault(); setExpanded(false) }
       if (event.key !== 'Tab') return
-      const controls = [...(mapElement.current?.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], select, [tabindex="0"]') ?? [])].filter(element => element.getClientRects().length)
-      const first = controls[0], last = controls.at(-1)
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+      const controls = [...(mapElement.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? [])].filter(element => element.getClientRects().length)
+      if (!controls.length) return
+      const index = controls.indexOf(document.activeElement as HTMLElement)
+      // Wrap at either end, and pull focus back in if it has escaped the dialog.
+      if (event.shiftKey && index <= 0) { event.preventDefault(); controls.at(-1)!.focus() }
+      else if (!event.shiftKey && (index === -1 || index === controls.length - 1)) { event.preventDefault(); controls[0].focus() }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => {
@@ -140,11 +172,10 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
   useEffect(() => {
     const element = mapElement.current
     if (!element) return
-    // Fit on container resize, including expand/collapse, without moving any nodes.
     let frame: number
     const observer = new ResizeObserver(() => {
       cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(() => { void instance.current?.fitView({ padding: .1, maxZoom: 1 }) })
+      frame = requestAnimationFrame(() => { void instance.current?.fitView(RESIZE_FIT) })
     })
     observer.observe(element)
     return () => { observer.disconnect(); cancelAnimationFrame(frame) }
@@ -163,7 +194,7 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
       return next
     })
     fitWhenReady.current = false
-    simulation.current?.alphaTarget(0).alpha(.55).restart()
+    simulation.current?.alphaTarget(0).alpha(RELEASE_ALPHA).restart()
   }, [])
 
   const syncNodes = useCallback(() => {
@@ -178,7 +209,7 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
     }))
   }, [setNodes])
 
-  const startSimulation = useCallback((nextNodes: SystemNode[]) => {
+  const startSimulation = useCallback((nextNodes: LayoutNode[], nextRelationships: ArchitectureEdge[]) => {
     simulation.current?.stop()
     const physicsNodes: ForceNode[] = nextNodes.map(node => ({
       id: node.id,
@@ -188,159 +219,189 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
       seedY: node.position.y + nodeHeight / 2,
     }))
     forceNodes.current = new Map(physicsNodes.map(node => [node.id, node]))
-    const nextSimulation = createMapSimulation(physicsNodes, visibleRelationships)
+    const nextSimulation = createMapSimulation(physicsNodes, nextRelationships)
     simulation.current = nextSimulation
     nextSimulation.on('tick', syncNodes)
     setPinnedIds(new Set())
     setNodes(nextNodes)
-  }, [visibleRelationships, setNodes, syncNodes])
+  }, [setNodes, syncNodes])
 
-  const runLayout = useCallback(async () => {
-    const version = ++layoutVersion.current
-    simulation.current?.stop()
-    dragging.current = null
-    const { default: ELK } = await import('elkjs/lib/elk.bundled.js')
-    if (version !== layoutVersion.current) return
-    setLayoutPending(true)
-    const graph = await new ELK().layout(systemMapLayout(visibleComponents, visibleRelationships))
-    if (version !== layoutVersion.current) return
-    const positions = new Map(graph.children?.map(node => [node.id, { x: node.x ?? 0, y: node.y ?? 0 }]))
-    const nextNodes: SystemNode[] = visibleComponents.map(component => ({
-      id: component.id,
-      type: 'system',
-      position: positions.get(component.id) ?? { x: 0, y: 0 },
-      data: { component, color: kindColors[componentKind(component)], observedStatus: observedStatus.get(component.id), selectable: selectableIds?.has(component.id) ?? true },
-      style: { width: nodeWidth, height: nodeHeight },
-    }))
-    setLayoutPending(false)
-    fitWhenReady.current = true
-    startSimulation(nextNodes)
-  }, [observedStatus, selectableIds, startSimulation, visibleComponents, visibleRelationships])
-
-  const cancelLayout = useCallback(() => {
-    simulation.current?.stop()
-    layoutVersion.current++
-  }, [])
-
+  const stopSimulation = useCallback(() => simulation.current?.stop(), [])
   useEffect(() => {
-    void runLayout()
-    return cancelLayout
-  }, [runLayout, cancelLayout])
+    let active = true
+    const { components: layoutComponents, relationships: layoutRelationships } = layoutInput.current
+    stopSimulation()
+    void placeComponents(layoutComponents, layoutRelationships).then(({ positions, failed }) => {
+      if (!active) return
+      const nextNodes: LayoutNode[] = layoutComponents.map(component => ({
+        id: component.id,
+        type: 'system',
+        position: positions.get(component.id) ?? { x: 0, y: 0 },
+        data: {},
+        style: NODE_STYLE,
+      }))
+      fitWhenReady.current = true
+      startSimulation(nextNodes, layoutRelationships)
+      setFinishedLayout({ request: layoutRequest, failed })
+    })
+    return () => {
+      active = false
+      stopSimulation()
+    }
+  }, [layoutRequest, startSimulation, stopSimulation])
 
   useEffect(() => {
     if (layoutPending || !fitWhenReady.current || !instance.current || !nodes.length || nodes.some(node => !node.measured?.width)) return
     const frame = requestAnimationFrame(() => {
       fitWhenReady.current = false
-      void instance.current?.fitView({ duration: 260, padding: .16, minZoom: .1, maxZoom: .9 })
+      void instance.current?.fitView(LAYOUT_FIT)
     })
     return () => cancelAnimationFrame(frame)
   }, [layoutPending, nodes])
 
-  const nodeById = new Map(nodes.map(node => [node.id, node]))
-  const displayNodes = useMemo(() => nodes.map(node => ({
-    ...node,
-    data: { ...node.data, isPinned: pinnedIds.has(node.id), onUnpin: releaseNodes },
-    className: node.id === focus ? 'is-selected' : '',
-  })), [nodes, focus, pinnedIds, releaseNodes])
-  const edges: Edge[] = visibleRelationships.flatMap(({ from, to, messages }) => {
-    const source = nodeById.get(from)
-    const target = nodeById.get(to)
-    if (!source || !target) return []
-    const highlighted = !!focus && (from === focus || to === focus)
-    const label = messages
-      ? [messages.inbound && `${messages.inbound} in`, messages.outbound && `${messages.outbound} out`].filter(Boolean).join(' · ')
-      : undefined
-    return [{
-      id: `${from}-${to}`,
-      source: from,
-      target: to,
-      ...edgePorts(source, target),
-      type: 'default',
-      label,
-      labelStyle: { fill: 'var(--fg-muted)', fontSize: 10 },
-      labelBgStyle: { fill: 'var(--bg-elevated)' },
-      ariaLabel: messages ? `${label} message contracts between ${source.data.component.name} and ${target.data.component.name}` : undefined,
-      markerStart: messages?.inbound && messages.outbound ? { type: MarkerType.ArrowClosed, width: 15, height: 15 } : undefined,
-      markerEnd: { type: MarkerType.ArrowClosed, width: 15, height: 15 },
-      className: highlighted ? 'is-highlighted' : '',
-    }]
-  })
+  const componentById = useMemo(() => new Map(components.map(component => [component.id, component])), [components])
+  // Card data is independent of position, so memo(SystemMapNode) holds for cards that do not move on a tick.
+  const nodeData = useMemo(() => new Map(components.map(component => [component.id, {
+    component,
+    observedStatus: observedStatus.get(component.id),
+    selectable: selectableIds?.has(component.id) ?? true,
+    isPinned: pinnedIds.has(component.id),
+    onUnpin: releaseNodes,
+  } satisfies SystemNodeData])), [components, observedStatus, selectableIds, pinnedIds, releaseNodes])
+  const displayNodes = useMemo(() => nodes.flatMap((node): SystemNode[] => {
+    const data = nodeData.get(node.id)
+    if (!data) return []
+    return [{ ...node, data, className: `${kindClass(data.component)}${node.id === focus ? ' is-selected' : ''}` }]
+  }), [nodes, nodeData, focus])
+
+  // Edges are rebuilt only when a port pair or the focus changes, not on every simulation tick.
+  const positionById = new Map(nodes.map(node => [node.id, node.position]))
+  const sides = visibleRelationships.map(({ from, to }) => {
+    const source = positionById.get(from)
+    const target = positionById.get(to)
+    return source && target ? portSide(source, target) : ''
+  }).join(',')
+  const edges = useMemo(() => {
+    const portSides = sides.split(',') as (PortSide | '')[]
+    return visibleRelationships.flatMap(({ from, to, messages }, index): Edge[] => {
+      const side = portSides[index]
+      if (!side) return []
+      const label = messageEdgeLabel(messages)
+      const names = `${componentById.get(from)?.name ?? from} and ${componentById.get(to)?.name ?? to}`
+      return [{
+        id: relationshipId(from, to),
+        source: from,
+        target: to,
+        ...edgeHandles(side),
+        type: 'default',
+        label,
+        labelStyle: EDGE_LABEL_STYLE,
+        labelBgStyle: EDGE_LABEL_BG_STYLE,
+        ariaLabel: messages ? `${label} message contracts between ${names}` : undefined,
+        markerStart: messages?.inbound && messages.outbound ? ARROW : undefined,
+        markerEnd: ARROW,
+        className: focus && (from === focus || to === focus) ? 'is-highlighted' : '',
+      }]
+    })
+  }, [sides, focus, visibleRelationships, componentById])
+
   const toggleKind = (kind: string) => setHiddenKinds(current => {
     const next = new Set(current)
     if (next.has(kind)) next.delete(kind)
     else next.add(kind)
     return next
   })
+  const onInit = useCallback((flow: ReactFlowInstance<SystemNode, Edge>) => { instance.current = flow }, [])
+  const onNodeClick = useCallback<NodeMouseHandler<SystemNode>>((_, node) => { if (node.data.selectable) onFocus(node.id) }, [onFocus])
+  const onPaneClick = useCallback(() => onFocus(''), [onFocus])
+  const onNodeDragStart = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
+    dragging.current = node.id
+    const forceNode = forceNodes.current.get(node.id)
+    if (forceNode) {
+      pinNode(forceNode, node.position)
+      setPinnedIds(current => new Set(current).add(node.id))
+    }
+    fitWhenReady.current = false
+    simulation.current?.alpha(DRAG_ALPHA).alphaTarget(DRAG_ALPHA_TARGET).restart()
+    if (node.data.selectable) onFocus(node.id)
+  }, [onFocus])
+  const onNodeDrag = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
+    const forceNode = forceNodes.current.get(node.id)
+    if (forceNode) pinNode(forceNode, node.position)
+  }, [])
+  const onNodeDragStop = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
+    dragging.current = null
+    const forceNode = forceNodes.current.get(node.id)
+    if (forceNode) pinNode(forceNode, node.position)
+    fitWhenReady.current = false
+    simulation.current?.alphaTarget(0).restart()
+  }, [])
+  const onNodeContextMenu = useCallback<NodeMouseHandler<SystemNode>>((event, node) => {
+    event.preventDefault()
+    releaseNodes(node.id)
+  }, [releaseNodes])
 
   return <>{expanded && <button type="button" className="system-overview-backdrop" aria-label="Collapse system map" onClick={() => setExpanded(false)} />}
-  <div ref={mapElement} className={`system-overview-map${expanded ? ' is-expanded' : ''}`} role={expanded ? 'dialog' : undefined} aria-modal={expanded ? true : undefined} aria-label="Full dependency map">
+  <div
+    ref={mapElement}
+    className={`system-overview-map${expanded ? ' is-expanded' : ''}`}
+    role={expanded ? 'dialog' : undefined}
+    aria-modal={expanded ? true : undefined}
+    aria-label={expanded ? 'Full dependency map' : undefined}
+  >
     {layoutPending && <div className="system-overview-loading">Arranging the system…</div>}
     <div className="system-overview-toolbar">
       <div className="system-overview-kind-legend" aria-label="Show component types">
-        {availableKinds.map(kind => {
-          const component = components.find(item => componentKind(item) === kind)!
-          const visible = !hiddenKinds.has(kind)
-          return <button key={kind} type="button" className={`kind-${kind}`} aria-pressed={visible} onClick={() => toggleKind(kind)}><i />{componentKindLabel(component)}</button>
-        })}
+        {availableKinds.map(kind => <button
+          key={kind} type="button" className={`kind-${kind}`} aria-pressed={!hiddenKinds.has(kind)} onClick={() => toggleKind(kind)}
+        >
+          <i />{componentKinds[kind]}
+        </button>)}
       </div>
       <div className="system-overview-layout-actions">
-        <button className="system-auto-layout" disabled={layoutPending || !pinnedIds.size} onClick={() => releaseNodes()}><PinOff size={13} />Release all{pinnedIds.size > 0 && ` (${pinnedIds.size})`}</button>
-        <button className="system-auto-layout" disabled={layoutPending} onClick={() => void runLayout()}><LayoutDashboard size={13} />Auto layout</button>
-        <button ref={expandButton} className="system-auto-layout" aria-label={expanded ? 'Collapse map' : 'Expand map'} title={expanded ? 'Collapse map (Esc)' : 'Expand map'} onClick={() => setExpanded(value => !value)}>{expanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}<span>{expanded ? 'Collapse' : 'Expand'}</span></button>
+        {layoutFailed && <span role="status">Automatic layout unavailable · showing a grid</span>}
+        <button className="system-auto-layout" disabled={layoutPending || !pinnedIds.size} onClick={() => releaseNodes()}>
+          <PinOff size={13} />Release all{pinnedIds.size > 0 && ` (${pinnedIds.size})`}
+        </button>
+        <button className="system-auto-layout" disabled={layoutPending} onClick={() => setLayoutRun(run => run + 1)}>
+          <LayoutDashboard size={13} />{layoutFailed ? 'Retry layout' : 'Auto layout'}
+        </button>
+        <button
+          ref={expandButton}
+          className="system-auto-layout"
+          aria-label={expanded ? 'Collapse map' : 'Expand map'}
+          title={expanded ? 'Collapse map (Esc)' : 'Expand map'}
+          onClick={() => setExpanded(value => !value)}
+        >{expanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}<span>{expanded ? 'Collapse' : 'Expand'}</span></button>
       </div>
     </div>
     <ReactFlow<SystemNode, Edge>
       nodes={displayNodes}
       edges={edges}
       nodeTypes={nodeTypes}
-      onInit={flow => { instance.current = flow }}
+      onInit={onInit}
       onNodesChange={onNodesChange}
       nodesConnectable={false}
       elementsSelectable
       multiSelectionKeyCode={null}
       selectionOnDrag={false}
       autoPanOnNodeDrag={false}
-      minZoom={.1}
-      maxZoom={1.7}
+      minZoom={MIN_ZOOM}
+      maxZoom={MAX_ZOOM}
       zoomOnScroll={false}
       panOnScroll={false}
       preventScrolling={false}
       zoomOnPinch
-      onNodeClick={(_, node) => { if (node.data.selectable) onFocus(node.id) }}
-      onPaneClick={() => onFocus('')}
-      onNodeDragStart={(_, node) => {
-        dragging.current = node.id
-        const forceNode = forceNodes.current.get(node.id)
-        if (forceNode) {
-          pinNode(forceNode, node.position)
-          setPinnedIds(current => new Set(current).add(node.id))
-        }
-        fitWhenReady.current = false
-        simulation.current?.alpha(.35).alphaTarget(.25).restart()
-        if (node.data.selectable) onFocus(node.id)
-      }}
-      onNodeDrag={(_, node) => {
-        const forceNode = forceNodes.current.get(node.id)
-        if (!forceNode) return
-        pinNode(forceNode, node.position)
-      }}
-      onNodeDragStop={(_, node) => {
-        dragging.current = null
-        const forceNode = forceNodes.current.get(node.id)
-        if (forceNode) {
-          pinNode(forceNode, node.position)
-        }
-        fitWhenReady.current = false
-        simulation.current?.alphaTarget(0).restart()
-      }}
-      onNodeContextMenu={(event, node) => {
-        event.preventDefault()
-        releaseNodes(node.id)
-      }}
-      proOptions={{ hideAttribution: true }}
+      onNodeClick={onNodeClick}
+      onPaneClick={onPaneClick}
+      onNodeDragStart={onNodeDragStart}
+      onNodeDrag={onNodeDrag}
+      onNodeDragStop={onNodeDragStop}
+      onNodeContextMenu={onNodeContextMenu}
+      proOptions={PRO_OPTIONS}
     >
       <Background gap={24} size={1} />
-      <MiniMap pannable zoomable style={{ width: 120, height: 80 }} nodeColor={node => (node.data as SystemNodeData).color} />
+      <MiniMap<SystemNode> pannable zoomable style={MINIMAP_STYLE} nodeColor={MINIMAP_NODE_COLOR} nodeClassName={minimapNodeClass} />
       <Controls showInteractive={false} />
     </ReactFlow>
   </div></>

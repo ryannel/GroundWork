@@ -9,7 +9,9 @@ const fixture = (): Component => componentSchema.parse({
   id: 'facade', productId: 'product', name: 'Facade', order: 0,
   api: { name: 'Facade API', endpoints: [{ id: 'upload', name: 'Upload', method: 'POST', path: '/upload' }] },
   data: { records: [{ id: 'blob', name: 'Uploaded data', kind: 'document', fields: [] }] },
-  executionFlows: [{ id: 'upload-flow', endpointId: 'upload', name: 'Upload data', summary: 'Upload and store data.', sourceRevision: revision, entryStepId: 'receive', gaps: ['Infrastructure policy is not traced.'], steps: [
+  executionFlows: [{
+    id: 'upload-flow', endpointId: 'upload', name: 'Upload data', summary: 'Upload and store data.', sourceRevision: revision,
+    entryStepId: 'receive', gaps: ['Infrastructure policy is not traced.'], steps: [
     { id: 'receive', title: 'Receive upload', kind: 'request', description: 'Receives the request.', evidence },
     { id: 'store', title: 'Store blob', kind: 'data', description: 'Stores the upload.', dataRecordIds: ['blob'], evidence },
   ], transitions: [{ id: 'save', from: 'receive', to: 'store', label: 'Valid request', mode: 'sync', evidence }] }],
@@ -17,7 +19,7 @@ const fixture = (): Component => componentSchema.parse({
 test('execution flows link to catalog records and retain a pinned source revision', () => {
   const component = fixture()
   assert.deepEqual(executionFlowIssues(component), [])
-  assert.equal(sourceEvidenceUrl('volvo-cars/product-configuration-facade', evidence[0]), `https://github.com/volvo-cars/product-configuration-facade/blob/${revision}/Api/Upload.cs#L10-L20`)
+  assert.equal(sourceEvidenceUrl('example/catalogue-gateway', evidence[0]), `https://github.com/example/catalogue-gateway/blob/${revision}/Api/Upload.cs#L10-L20`)
   assert.equal(sourceEvidenceUrl('https://example.com/repo', evidence[0]), undefined)
 })
 test('execution flows reject dangling catalog references and broken graph boundaries', () => {
@@ -29,7 +31,10 @@ test('execution flows reject dangling catalog references and broken graph bounda
   flow.steps[1].unresolvedDependencyNames = ['missing']
   flow.transitions[0].to = 'outside'
   const issues = executionFlowIssues(component).join('\n')
-  for (const fragment of ['unknown endpoint', 'unknown data record', 'unknown message', 'unknown dependency', 'unknown unresolved dependency', 'transition leaves', 'unreachable']) assert.match(issues, new RegExp(fragment))
+  const fragments = [
+    'unknown endpoint', 'unknown data record', 'unknown message', 'unknown dependency', 'unknown unresolved dependency', 'transition leaves', 'unreachable',
+  ]
+  for (const fragment of fragments) assert.match(issues, new RegExp(fragment))
 })
 test('execution flow evidence must use the flow revision and valid repository-relative ranges', () => {
   const component = fixture(), flow = component.executionFlows![0]
@@ -52,7 +57,8 @@ test('cycles terminate during validation, while duplicate identities are rejecte
 test('consumer and job flows use owned non-HTTP triggers without fabricating endpoints', () => {
   const component = fixture(), flow = component.executionFlows![0]
   delete flow.endpointId
-  component.messaging = { messages: [{ id: 'updated', name: 'Updated', broker: 'Kafka', channel: 'updates', direction: 'inbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } }] }
+  const delivery = { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' }
+  component.messaging = { messages: [{ id: 'updated', name: 'Updated', broker: 'Kafka', channel: 'updates', direction: 'inbound', fields: [], delivery }] }
   flow.trigger = { kind: 'message', messageId: 'updated' }
   assert.deepEqual(executionFlowIssues(component), [])
   component.messaging.messages[0].direction = 'outbound'

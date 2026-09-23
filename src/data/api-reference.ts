@@ -1,7 +1,8 @@
 import type { ApiContract } from './spec.ts'
+import { httpMethods, httpVerbs } from './schema-primitives.ts'
 
 export type ContractKind = 'http' | 'messages' | 'other'
-export const contractKind = (c: ApiContract): ContractKind => c.method === 'EVENT' ? 'messages' : c.method && ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].includes(c.method) ? 'http' : 'other'
+export const contractKind = (c: ApiContract): ContractKind => c.method === 'EVENT' ? 'messages' : c.method && httpVerbs.includes(c.method) ? 'http' : 'other'
 const title = (value: string) => value.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
 /** Preserve the source verbatim; only recognize the import's explicit metadata markers. */
@@ -28,7 +29,7 @@ export function contractResource(c: ApiContract): string {
   }
   return 'Other contracts'
 }
-const methodOrder = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'EVENT', 'RPC']
+const methodOrder: readonly string[] = httpMethods
 export function groupContracts(contracts: ApiContract[]) {
   const resources = new Map<string, Map<string, ApiContract[]>>()
   for (const c of contracts) {
@@ -41,7 +42,8 @@ export function groupContracts(contracts: ApiContract[]) {
   return [...resources].sort(([a], [b]) => a.localeCompare(b)).map(([name, endpoints]) => ({ name,
     count: [...endpoints.values()].reduce((n, cs) => n + cs.length, 0),
     endpoints: [...endpoints].sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([path, cs]) => ({ path,
-      contracts: cs.sort((a, b) => methodOrder.indexOf(a.method ?? '') - methodOrder.indexOf(b.method ?? '') || a.from.localeCompare(b.from) || a.id.localeCompare(b.id)),
+      contracts: cs.sort((a, b) => methodOrder.indexOf(a.method ?? '') - methodOrder.indexOf(b.method ?? '')
+        || a.from.localeCompare(b.from) || a.id.localeCompare(b.id)),
     })),
   }))
 }
@@ -54,7 +56,8 @@ export function apiOperations(contracts: ApiContract[]) {
     const key = JSON.stringify([apiProvider(c), c.method ?? '', c.path])
     operations.set(key, [...(operations.get(key) ?? []), c])
   }
-  return [...operations].map(([key, records]) => ({ key, provider: apiProvider(records[0]), method: records[0].method, path: records[0].path, kind: contractKind(records[0]), records,
+  return [...operations].map(([key, records]) => ({
+    key, provider: apiProvider(records[0]), method: records[0].method, path: records[0].path, kind: contractKind(records[0]), records,
     change: records.every(c => c.change === records[0].change) ? records[0].change : 'mixed' as const,
   }))
 }

@@ -8,7 +8,10 @@ const components: Component[] = [
   { id: 'cart-api', productId: 'cart', name: 'Cart API' },
   { id: 'cart-db', productId: 'cart', name: 'Cart database' },
 ]
-const feature: Feature = { id: 'tax', productId: 'pricing', title: 'Tax rules', stage: 'building', owner: 'Ryan', updatedAt: '2026-09-05', touches: ['pricing-api', 'cart-api', 'cart-db', 'missing'] }
+const feature: Feature = {
+  id: 'tax', productId: 'pricing', title: 'Tax rules', stage: 'building', ownerId: 'ryan', owner: 'Ryan', updatedAt: '2026-09-05',
+  touches: ['pricing-api', 'cart-api', 'cart-db', 'missing'],
+}
 
 test('product scope includes owned work and incoming work through components', () => {
   assert.equal(featureInProduct(feature, 'all', components), true)

@@ -1,7 +1,9 @@
 import { homedir } from 'node:os'
-import { mkdir, readFile, realpath } from 'node:fs/promises'
+import { lstat, mkdir, readFile, realpath } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
+import { InvalidInput, NotFound } from './errors.ts'
+import { NotInitialised } from './format.ts'
 import { atomicFile, readPlan, safePath, withLock } from './repository.ts'
 import { context, discover } from './git.ts'
 const registrationSchema = z.strictObject({
@@ -35,12 +37,16 @@ function productCatalog(plan: Awaited<ReturnType<typeof readPlan>>, product: str
 }
 export async function registry() {
   await mkdir(configRoot(), { recursive: true })
-  const raw = await readFile(await safePath(configRoot(), 'registry.json'), 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
+  const file = await safePath(configRoot(), 'registry.json')
+  const raw = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
   if (!raw) return { version: 2 as const, projects: [] as z.infer<typeof registrySchema>['projects'] }
-  const data = JSON.parse(raw)
-  const current = registrySchema.safeParse(data)
-  if (current.success) return current.data
-  const legacy = legacyRegistrySchema.parse(data)
+  let data: unknown
+  try { data = JSON.parse(raw) } catch (error) { throw new InvalidInput(`${file}: ${(error as Error).message}`, { cause: error }) }
+  const version = (data as { version?: unknown } | null)?.version
+  const parsed = (version === 1 ? legacyRegistrySchema : registrySchema).safeParse(data)
+  if (!parsed.success) throw new InvalidInput(`${file}: ${z.prettifyError(parsed.error)}`, { cause: parsed.error })
+  if (parsed.data.version === 2) return parsed.data
+  const legacy = parsed.data
   return {
     version: 2 as const,
     projects: legacy.projects.map(project => ({ ...project, product: project.workspace })),
@@ -49,7 +55,7 @@ export async function registry() {
 export async function register(root: string, workspace = 'My projects', product?: string) {
   root = await realpath(root)
   const plan = await readPlan(root).catch(error => {
-    if ((error as Error).message.includes('project.json')) return null
+    if (error instanceof NotInitialised) return null
     throw error
   })
   await mkdir(configRoot(), { recursive: true })
@@ -84,6 +90,11 @@ export async function inventory(standalone?: string) {
   const entries = []
   const seen = new Set<string>()
   for (const record of roots) {
+    const registered = { repositoryRoot: record.root, workspace: record.workspace, product: record.product, name: path.basename(record.root) }
+    const unreadable = (error: unknown) => ({
+      repositories: [record.root], components: [], productPath: null, projectId: record.projectId, planName: null, features: [],
+      error: (error as Error).message,
+    })
     try {
       for (const ctx of await discover(record.root)) {
         checkoutRoots.set(ctx.checkoutId, { root: ctx.root, registrationRoot: record.root, registryRoot: standalone ? null : configRoot() })
@@ -92,27 +103,36 @@ export async function inventory(standalone?: string) {
         try {
           const plan = await readPlan(ctx.root)
           const catalog = productCatalog(plan, record.product, record.root)
-          entries.push({ ...ctx, repositoryRoot: record.root, ...catalog, workspace: record.workspace, product: record.product, projectId: plan.manifest.id, name: path.basename(record.root), planName: plan.manifest.name, features: plan.snapshot.features.map(f => ({ id: f.id, title: f.title, stage: f.stage })), error: null as string | null })
-        } catch (error) { entries.push({ ...ctx, repositoryRoot: record.root, repositories: [record.root], components: [], productPath: null, workspace: record.workspace, product: record.product, projectId: record.projectId, name: path.basename(record.root), planName: null, features: [], error: (error as Error).message }) }
+          const features = plan.snapshot.features.map(f => ({ id: f.id, title: f.title, stage: f.stage }))
+          entries.push({
+            ...ctx, ...registered, ...catalog, projectId: plan.manifest.id, planName: plan.manifest.name, features, error: null as string | null,
+          })
+        } catch (error) { entries.push({ ...ctx, ...registered, ...unreadable(error) }) }
       }
     } catch (error) {
-      entries.push({ root: record.root, repositoryRoot: record.root, repositories: [record.root], components: [], productPath: null, checkoutId: '', branch: null, head: null, isGit: false, token: '', workspace: record.workspace, product: record.product, projectId: record.projectId, name: path.basename(record.root), planName: null, features: [], error: (error as Error).message })
+      const noCheckout = { root: record.root, checkoutId: '', branch: null, head: null, isGit: false, token: '' }
+      entries.push({ ...noCheckout, ...registered, ...unreadable(error) })
     }
   }
   return entries
 }
 export async function selectRoot(checkoutId: string | undefined, standalone?: string) {
   if (!checkoutId && standalone) return (await context(standalone)).root
-  if (!checkoutId) throw new Error('Unknown checkout. List projects and select a registered checkout ID.')
+  if (!checkoutId) throw new NotFound('Unknown checkout. List projects and select a registered checkout ID.')
   const registryRoot = standalone ? null : configRoot()
   const roots = standalone ? [{ root: standalone }] : (await registry()).projects
   const cached = checkoutRoots.get(checkoutId)
-  if (cached?.registryRoot === registryRoot && roots.some(record => record.root === cached.registrationRoot)) return cached.root
+  if (cached?.registryRoot === registryRoot && roots.some(record => record.root === cached.registrationRoot)) {
+    if (await lstat(cached.root).then(stat => stat.isDirectory(), () => false)) return cached.root
+    checkoutRoots.delete(checkoutId)
+  }
   for (const record of roots) {
-    for (const ctx of await discover(record.root)) {
+    // One moved or deleted registration must not hide the others.
+    const checkouts = await discover(record.root).catch(() => [])
+    for (const ctx of checkouts) {
       checkoutRoots.set(ctx.checkoutId, { root: ctx.root, registrationRoot: record.root, registryRoot })
       if (ctx.checkoutId === checkoutId) return ctx.root
     }
   }
-  throw new Error('Unknown checkout. List projects and select a registered checkout ID.')
+  throw new NotFound('Unknown checkout. List projects and select a registered checkout ID.')
 }

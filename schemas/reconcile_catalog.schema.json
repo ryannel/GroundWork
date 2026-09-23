@@ -9,7 +9,15 @@
     },
     "componentId": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+        }
+      ]
     },
     "expectedRevision": {
       "type": "string",
@@ -39,12 +47,21 @@
           },
           "id": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
           },
           "reason": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 4000
+            "maxLength": 4000,
+            "pattern": "\\S"
           },
           "evidence": {
             "minItems": 1,
@@ -56,11 +73,11 @@
                 "path": {
                   "type": "string",
                   "minLength": 1,
-                  "pattern": "\\S"
+                  "maxLength": 4096
                 },
                 "lines": {
                   "type": "string",
-                  "pattern": "^\\d+(?:-\\d+)?$"
+                  "pattern": "^[1-9]\\d*(?:-[1-9]\\d*)?$"
                 },
                 "claim": {
                   "type": "string",
@@ -69,8 +86,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "minLength": 1,
-                  "pattern": "\\S"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",
@@ -117,15 +133,25 @@
           },
           "id": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
           },
           "name": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "pattern": "\\S"
           },
           "path": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "pattern": "\\S"
           },
           "evidence": {
             "minItems": 1,
@@ -137,11 +163,11 @@
                 "path": {
                   "type": "string",
                   "minLength": 1,
-                  "pattern": "\\S"
+                  "maxLength": 4096
                 },
                 "lines": {
                   "type": "string",
-                  "pattern": "^\\d+(?:-\\d+)?$"
+                  "pattern": "^[1-9]\\d*(?:-[1-9]\\d*)?$"
                 },
                 "claim": {
                   "type": "string",
@@ -150,8 +176,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "minLength": 1,
-                  "pattern": "\\S"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",

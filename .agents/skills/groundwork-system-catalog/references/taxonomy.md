@@ -29,9 +29,9 @@ payments, insurance, shipping, credit, or vehicle data.
 ## Ownership
 
 - `internal`: owned or operated inside the organization.
-- `external`: operated outside the organization.
+- `third-party`: operated outside the organization.
 
-Ownership does not determine role. LaunchDarkly is external ownership with platform role.
+Ownership does not determine role. LaunchDarkly is third-party ownership with platform role.
 An internally hosted identity service is internal ownership with platform role.
 
 ## Infrastructure

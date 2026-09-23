@@ -1,6 +1,6 @@
 # Catalog discovery and retained planning evidence
 
-Observed knowledge now has an explicit catalog layout. `migrate_catalog` moves project/member metadata to `.groundwork/`, products and split component documents to `.groundwork/catalog/`, and retained scan manifests to `.groundwork/catalog/scans/`. Feature plans, retained discovery packets, assessments and assets remain under `.groundwork/plans/`. Legacy bundles and historical refs remain readable. `read_plan` and guarded logical writes keep their compatibility projection. Commercial Backbone has been migrated after copy verification.
+Observed knowledge now has an explicit catalog layout. `migrate_catalog` moves project/member metadata to `.groundwork/`, products and split component documents to `.groundwork/catalog/`, and retained scan manifests to `.groundwork/catalog/scans/`. Feature plans, retained discovery packets, assessments and assets remain under `.groundwork/plans/`. Legacy bundles and historical refs remain readable. `read_plan` and guarded logical writes keep their compatibility projection.
 
 ## Retrieve a useful starting point
 
@@ -13,7 +13,7 @@ CLI calls and MCP use the same operation schemas. For CLI, put arguments in a JS
 Example discovery arguments:
 
 ```json
-{"question":"manufacturer suggested retail price of a vehicle","kinds":["endpoint","flow","finding"],"limit":5,"maxBytes":32768}
+{"question":"recommended retail price of a product","kinds":["endpoint","flow","finding"],"limit":5,"maxBytes":32768}
 ```
 
 IDs have four URI-encoded segments: `project/component/kind/entity`. Component IDs use the component ID again as the entity segment. Schema IDs may contain encoded slashes. IDs do not depend on a disk path. Returned `location` is a viewer path for the selected checkout/ref; use it on the current Hub origin.
@@ -56,11 +56,9 @@ Call `retain_discovery_baseline` with an existing `featureId`, `question`, quali
 
 The packet is immutable through guarded writes, validated against its content hash and visible on the feature overview. `get_discovery_baseline` takes `featureId` and `baselineId`, optionally a committed `ref`. It returns original facts plus a comparison with current catalog observations. Changed or removed facts require reassessment; original evidence remains readable even if neither state was committed. Unrelated catalog edits do not alone invalidate the packet. Source freshness stays unchecked: this is a catalog comparison, not automatic source monitoring.
 
-## Validation and first example
+## Validation
 
-`tests/catalog-query.test.ts` covers exact/paraphrased MSRP retrieval, the facade upload path, a consumer starting point, ambiguous pricing candidates, absent knowledge, recoverable bounded detail, invalidated cursors, and an uncommitted A→B baseline. `tests/scanner.test.ts` exercises guarded finding write-back, invalid citations, preserved siblings/coverage, and repeat retrieval.
-
-The live MSRP example adds `calculate-msrp` and `msrp-pricing-policy` to GPE Price at `5b5b143f4e9cfb27d5c15698e74639d1f5276b94`. It preserves the existing 17 endpoints and configuration flow. The follow-up “MSRP pricing policy” retrieves the finding first in a five-result packet (~16 KiB), with uncertainty and source pointers. Source integration/unit tests were located, not executed; Groundwork's own tests validate the storage/query workflow. No speculative feature was added to the live backlog to demonstrate baseline retention.
+`tests/catalog-query.test.ts` covers exact/paraphrased retail-price retrieval, the facade upload path, a consumer starting point, ambiguous pricing candidates, absent knowledge, recoverable bounded detail, invalidated cursors, and an uncommitted A→B baseline. `tests/scanner.test.ts` exercises guarded finding write-back, invalid citations, preserved siblings/coverage, and repeat retrieval.
 
 
 ## Incremental preparation

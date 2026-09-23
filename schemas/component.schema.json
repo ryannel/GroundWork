@@ -839,7 +839,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "evidence": {
             "minItems": 1,
@@ -863,7 +863,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",
@@ -923,11 +923,11 @@
           "retiredAt": {
             "type": "string",
             "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "reason": {
             "type": "string",
@@ -956,7 +956,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",
@@ -1178,7 +1178,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "entryStepId": {
             "type": "string",
@@ -1308,7 +1308,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -1411,7 +1411,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -1509,11 +1509,11 @@
                   "enum": [
                     "component",
                     "endpoint",
+                    "schema",
                     "data",
                     "message",
-                    "flow",
-                    "schema",
-                    "job"
+                    "job",
+                    "flow"
                   ]
                 },
                 "id": {
@@ -1551,7 +1551,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "evidence": {
             "minItems": 1,
@@ -1576,7 +1576,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",

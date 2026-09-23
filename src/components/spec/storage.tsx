@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useDisclosures } from './use-disclosures'
 import type { Storage, Table } from '@/data/spec'
-import { q } from '@/data/store'
+import { useQuery } from '@/data/store'
 import { Key, ChevronDown, Search } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { changeMeta } from './change-meta'
@@ -20,21 +20,41 @@ export function TableCard({ t, open, onToggle, focus, compact = false }: { t: Ta
   const node = ix.tableNode[t.id]
   return <div ref={f} className={cn('model-record', compact && 'store-table-compact', focus === t.id && !compact && 'focus-flash')}>
     <button aria-expanded={open} onClick={onToggle} className="model-record-toggle" aria-label={`${t.name} · ${t.columns.length} fields`}>
-      <span className="model-record-label"><code className={cn(removed && 'line-through')}>{t.name}</code>{t.description && <span>{t.description}</span>}<small>{recordLabels[recordKind]} · {t.columns.length ? `${t.columns.length} fields` : 'Fields not documented'}</small></span>
+      <span className="model-record-label">
+        <code className={cn(removed && 'line-through')}>{t.name}</code>
+        {t.description && <span>{t.description}</span>}
+        <small>{recordLabels[recordKind]} · {t.columns.length ? `${t.columns.length} fields` : 'Fields not documented'}</small>
+      </span>
       {t.change !== 'unspecified' && <span className={`endpoint-status schema-state-${t.change}`}>{changeMeta[t.change].label}</span>}
       <ChevronDown size={15} className={cn(open && 'rotate-180')} />
     </button>
     {open && <div className="model-record-body">
-      <p className="model-assessment">Schema change: {changeMeta[t.change].label.toLowerCase()}.{t.change === 'unspecified' && ' This is the planned shape; it has not been compared with the implementation.'}</p>
+      <p className="model-assessment">
+        Schema change: {changeMeta[t.change].label.toLowerCase()}.
+        {t.change === 'unspecified' && ' This is the planned shape; it has not been compared with the implementation.'}
+      </p>
       {t.columns.length ? <section aria-label={`Fields in ${t.name}`} className="model-fields">
         <h5>{recordKind === 'table' ? 'Columns' : 'Fields'}<span>Expand a field for its constraints and notes.</span></h5>
         {t.columns.map(c => {
           const ch = c.change ?? t.change
-          const label = <><span className={cn('model-field-name', ch === 'removed' && 'line-through')}>{c.key && <span title="Key marker in the plan" aria-label="Key field"><Key size={12} /></span>}<code>{c.name}</code></span><code className="model-field-type">{c.type}</code>{ch !== 'unspecified' && ch !== 'unchanged' && <span className={`endpoint-status schema-state-${ch}`}>{changeMeta[ch].label}</span>}</>
-          return c.note ? <details className="model-field" key={c.name}><summary>{label}<ChevronDown size={13} /></summary><div className="model-field-notes">{c.note.split(/\s+--\s*/).filter(Boolean).map((note, i) => <p key={i}>{note.replace(/^--\s*/, '')}</p>)}</div></details> : <div className="model-field model-field-plain" key={c.name}>{label}</div>
+          const keyMarker = c.key && <span title="Key marker in the plan" aria-label="Key field"><Key size={12} /></span>
+          const state = ch !== 'unspecified' && ch !== 'unchanged' && <span className={`endpoint-status schema-state-${ch}`}>{changeMeta[ch].label}</span>
+          const label = <>
+            <span className={cn('model-field-name', ch === 'removed' && 'line-through')}>{keyMarker}<code>{c.name}</code></span>
+            <code className="model-field-type">{c.type}</code>
+            {state}
+          </>
+          if (!c.note) return <div className="model-field model-field-plain" key={c.name}>{label}</div>
+          const notes = c.note.split(/\s+--\s*/).filter(Boolean)
+          return <details className="model-field" key={c.name}>
+            <summary>{label}<ChevronDown size={13} /></summary>
+            <div className="model-field-notes">{notes.map((note, i) => <p key={i}>{note.replace(/^--\s*/, '')}</p>)}</div>
+          </details>
         })}
       </section> : <p className="model-schema-gap">This record is referenced by the plan, but its fields have not been defined.</p>}
-      {t.note && (t.columns.length ? <details className="model-notes"><summary>Schema notes & source</summary><p>{t.note}</p></details> : <p className="model-schema-gap">{t.note}</p>)}
+      {t.note && (t.columns.length
+        ? <details className="model-notes"><summary>Schema notes & source</summary><p>{t.note}</p></details>
+        : <p className="model-schema-gap">{t.note}</p>)}
       {!compact && <><details className="model-notes"><summary>Usage & tests · {(ix.tableTests[t.id] ?? []).length} linked tests</summary><RefRow cols={1} groups={[
         { label: 'System flow', refs: node ? [{ kind: 'flow', id: node }] : [] },
         { label: 'Journey', refs: (ix.tableSteps[t.id] ?? []).map(id => ({ kind: 'journey', id })) },
@@ -44,7 +64,10 @@ export function TableCard({ t, open, onToggle, focus, compact = false }: { t: Ta
   </div>
 }
 
+const groupOf = (t: Table) => t.group ?? recordLabels[t.kind ?? 'table']
+
 export function StorageSection({ data: full, focus }: { data: Storage; focus?: string }) {
+  const q = useQuery()
   const { featureId } = useSpec()
   const [params] = useSearchParams()
   const focused = full.tables.find(t => t.id === focus)
@@ -56,18 +79,50 @@ export function StorageSection({ data: full, focus }: { data: Storage; focus?: s
   const [view, setView] = useState({ selected, focus, query: '', change: '' })
   if (view.selected !== selected || view.focus !== focus) setView({ selected, focus, query: '', change: '' })
   const query = view.query.trim().toLowerCase()
-  const data = full.tables.filter(t => scoped.includes(t.component) && (!view.change || t.change === view.change) && (!query || [t.id, t.name, t.description, t.group, ...t.columns.flatMap(c => [c.name, c.type])].join(' ').toLowerCase().includes(query)))
+  const matches = (t: Table) => !query || [t.id, t.name, t.description, t.group, ...t.columns.flatMap(c => [c.name, c.type])].join(' ').toLowerCase().includes(query)
+  const data = full.tables.filter(t => scoped.includes(t.component) && (!view.change || t.change === view.change) && matches(t))
   const { open, toggle, replace } = useDisclosures(focus ? [focus] : [], focus)
   return <div className="model-section">
-    <nav className="api-component-guides" aria-label="Data stores"><Link to={`/f/${featureId}/storage`} aria-current={!selected ? 'page' : undefined}>All stores</Link>{stores.map(id => <Link key={id} to={`/f/${featureId}/storage?component=${encodeURIComponent(id)}`} aria-current={selected && scoped.length === 1 && scoped[0] === id ? 'page' : undefined}>{q.componentLabel(id)}</Link>)}</nav>
-    <div className="api-toolbar"><label className="api-search"><Search size={15} /><input type="search" aria-label="Search data model" placeholder="Find a record or field…" value={view.query} onChange={e => setView({ ...view, query: e.target.value })} /></label><label>Change<select aria-label="Filter schema changes" value={view.change} onChange={e => setView({ ...view, change: e.target.value })}><option value="">All changes</option>{Object.entries(changeMeta).map(([value, meta]) => <option key={value} value={value}>{meta.label}</option>)}</select></label></div>
-    <div className="api-section-summary"><span role="status">{data.length} {data.length === 1 ? 'record' : 'records'} · {data.reduce((n, t) => n + t.columns.length, 0)} fields</span><button disabled={!data.some(t => open.has(t.id))} onClick={() => replace(new Set())}>Collapse details</button></div>
-    {!data.length && <div className="api-empty"><h3>No records in this view</h3><p>{!scoped.length && selected ? `No stored records are assigned to ${q.componentLabel(selected)} or its internals in this plan. Select a data store above to explore its model.` : 'Try another record name, field, or change filter.'}</p>{(view.query || view.change) && <button onClick={() => setView({ ...view, query: '', change: '' })}>Clear filters</button>}</div>}
+    <nav className="api-component-guides" aria-label="Data stores">
+      <Link to={`/f/${featureId}/storage`} aria-current={!selected ? 'page' : undefined}>All stores</Link>
+      {stores.map(id => <Link key={id} to={`/f/${featureId}/storage?component=${encodeURIComponent(id)}`}
+        aria-current={selected && scoped.length === 1 && scoped[0] === id ? 'page' : undefined}>{q.componentLabel(id)}</Link>)}
+    </nav>
+    <div className="api-toolbar">
+      <label className="api-search"><Search size={15} />
+        <input type="search" aria-label="Search data model" placeholder="Find a record or field…" value={view.query}
+          onChange={e => setView({ ...view, query: e.target.value })} />
+      </label>
+      <label>Change<select aria-label="Filter schema changes" value={view.change} onChange={e => setView({ ...view, change: e.target.value })}>
+        <option value="">All changes</option>
+        {Object.entries(changeMeta).map(([value, meta]) => <option key={value} value={value}>{meta.label}</option>)}
+      </select></label>
+    </div>
+    <div className="api-section-summary">
+      <span role="status">{data.length} {data.length === 1 ? 'record' : 'records'} · {data.reduce((n, t) => n + t.columns.length, 0)} fields</span>
+      <button disabled={!data.some(t => open.has(t.id))} onClick={() => replace(new Set())}>Collapse details</button>
+    </div>
+    {!data.length && <div className="api-empty">
+      <h3>No records in this view</h3>
+      <p>{!scoped.length && selected
+        ? `No stored records are assigned to ${q.componentLabel(selected)} or its internals in this plan. Select a data store above to explore its model.`
+        : 'Try another record name, field, or change filter.'}</p>
+      {(view.query || view.change) && <button onClick={() => setView({ ...view, query: '', change: '' })}>Clear filters</button>}
+    </div>}
     {scoped.map(cid => {
       const records = data.filter(t => t.component === cid).sort((a, b) => a.name.localeCompare(b.name))
       if (!records.length) return null
-      const groups = [...new Set(records.map(t => t.group ?? recordLabels[t.kind ?? 'table']))].sort()
-      return <section key={cid} className="model-store"><header><h3>{componentPath(cid, components)}</h3><p>{q.component(cid)?.description}</p></header>{groups.map(group => <section key={group} className="model-group"><h4>{group}<span>{records.filter(t => (t.group ?? recordLabels[t.kind ?? 'table']) === group).length}</span></h4>{records.filter(t => (t.group ?? recordLabels[t.kind ?? 'table']) === group).map(t => <TableCard key={t.id} t={t} open={open.has(t.id)} onToggle={() => toggle(t.id)} focus={focus} />)}</section>)}</section>
+      const groups = [...new Set(records.map(groupOf))].sort()
+      return <section key={cid} className="model-store">
+        <header><h3>{componentPath(cid, components)}</h3><p>{q.component(cid)?.description}</p></header>
+        {groups.map(group => {
+          const inGroup = records.filter(t => groupOf(t) === group)
+          return <section key={group} className="model-group">
+            <h4>{group}<span>{inGroup.length}</span></h4>
+            {inGroup.map(t => <TableCard key={t.id} t={t} open={open.has(t.id)} onToggle={() => toggle(t.id)} focus={focus} />)}
+          </section>
+        })}
+      </section>
     })}
   </div>
 }

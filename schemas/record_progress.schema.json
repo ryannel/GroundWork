@@ -18,11 +18,11 @@
     },
     "featureId": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
     },
     "unitId": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+      "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
     },
     "status": {
       "type": "string",
@@ -49,23 +49,56 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          "minLength": 1,
+          "allOf": [
+            {
+              "pattern": "\\S"
+            },
+            {
+              "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            }
+          ]
         },
         "legacyTaskId": {
           "type": "string",
-          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          "minLength": 1,
+          "allOf": [
+            {
+              "pattern": "\\S"
+            },
+            {
+              "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            }
+          ]
         },
         "taskId": {
           "type": "string",
-          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          "minLength": 1,
+          "allOf": [
+            {
+              "pattern": "\\S"
+            },
+            {
+              "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            }
+          ]
         },
         "validationId": {
           "type": "string",
-          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          "minLength": 1,
+          "allOf": [
+            {
+              "pattern": "\\S"
+            },
+            {
+              "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            }
+          ]
         },
         "description": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "result": {
           "type": "string",
@@ -82,15 +115,18 @@
         },
         "reference": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "testedRevision": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "environment": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         }
       },
       "required": [

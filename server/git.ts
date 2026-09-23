@@ -2,9 +2,35 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
+import { NotFound } from './errors.ts'
 const exec = promisify(execFile)
+/** A failed git invocation with a short message; the full stderr stays available for diagnosis. */
+export class GitError extends Error {
+  readonly args: string[]
+  readonly stderr: string
+  constructor(args: string[], stderr: string, options?: ErrorOptions) {
+    const detail = stderr.split('\n').map(line => line.replace(/^(?:fatal|error): /, '').trim()).find(Boolean)
+    super(`git ${args[0] ?? ''} failed${detail ? `: ${detail}` : ''}`, options)
+    this.args = args
+    this.stderr = stderr
+  }
+}
+/** Runs git with hooks, fsmonitor, optional locks and prompts disabled; failures become a GitError. */
+async function run(root: string, args: string[], options: { encoding: 'utf8' | 'buffer'; maxBuffer: number }): Promise<string | Buffer> {
+  const env = { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' }
+  try {
+    return (await exec('git', ['-c', 'core.fsmonitor=false', '-c', 'core.hooksPath=/dev/null', '-C', root, ...args], { ...options, env })).stdout
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw error
+    throw new GitError(args, String((error as { stderr?: unknown }).stderr ?? ''), { cause: error })
+  }
+}
 export async function gitRaw(root: string, args: string[]) {
-  return (await exec('git', ['-c', 'core.fsmonitor=false', '-c', 'core.hooksPath=/dev/null', '-C', root, ...args], { maxBuffer: 16 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' } })).stdout
+  return await run(root, args, { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 }) as string
+}
+/** Binary output, such as a blob, through the same hardened invocation as gitRaw. */
+export async function gitBuffer(root: string, args: string[], { maxBuffer }: { maxBuffer: number }) {
+  return await run(root, args, { encoding: 'buffer', maxBuffer }) as Buffer
 }
 export async function git(root: string, args: string[]) { return (await gitRaw(root, args)).trimEnd() }
 export const digest = (text: string) => createHash('sha256').update(text).digest('hex')
@@ -12,18 +38,28 @@ export async function context(root: string) {
   root = await realpath(root)
   let branch: string | null = null, head: string | null = null, isGit = false
   try {
-    await git(root, ['rev-parse', '--show-toplevel']); isGit = true
-    branch = await git(root, ['symbolic-ref', '--quiet', '--short', 'HEAD']).catch(() => null)
-    head = await git(root, ['rev-parse', '--verify', 'HEAD']).catch(() => null)
-  } catch { /* Uninitialised application folders are supported. */ }
+    // One process for the common case: a repository with at least one commit.
+    const [, sha, symbolic] = (await git(root, ['rev-parse', '--show-toplevel', 'HEAD', '--symbolic-full-name', 'HEAD'])).split('\n')
+    isGit = true
+    head = sha
+    branch = symbolic?.startsWith('refs/heads/') ? symbolic.slice('refs/heads/'.length) : null
+  } catch {
+    try {
+      await git(root, ['rev-parse', '--show-toplevel']); isGit = true
+      branch = await git(root, ['symbolic-ref', '--quiet', '--short', 'HEAD']).catch(() => null)
+      head = await git(root, ['rev-parse', '--verify', 'HEAD']).catch(() => null)
+    } catch { /* Uninitialised application folders are supported. */ }
+  }
   return { root, branch, head, isGit, checkoutId: digest(root).slice(0, 20), token: digest(JSON.stringify([root, branch, head])) }
 }
+/** Every worktree of the repository at `root`. Worktrees whose directory has gone (prunable) are skipped. */
 export async function discover(root: string) {
   const ctx = await context(root)
   if (!ctx.isGit) return [ctx]
   const output = await git(root, ['worktree', 'list', '--porcelain', '-z'])
   const paths = output.split('\0').filter(line => line.startsWith('worktree ')).map(line => line.slice(9))
-  return await Promise.all(paths.map(path => context(path)))
+  const settled = await Promise.allSettled(paths.map(path => context(path)))
+  return settled.flatMap(result => result.status === 'fulfilled' ? [result.value] : [])
 }
 export async function activity(root: string) {
   const ctx = await context(root)
@@ -33,6 +69,12 @@ export async function activity(root: string) {
   const commits = await git(root, ['log', '-8', '--format=%h %s']).then(s => s.split('\n').filter(Boolean)).catch(() => [])
   return { branches, changes, commits }
 }
+/** Resolves a ref to a commit SHA; an unknown ref is NotFound. */
 export async function resolveRef(root: string, ref: string) {
-  return await git(root, ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`])
+  try {
+    return await git(root, ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`])
+  } catch (error) {
+    if (error instanceof GitError) throw new NotFound(`Unknown ref: ${ref}`, { cause: error })
+    throw error
+  }
 }

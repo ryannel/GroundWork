@@ -1,11 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { ContentError, createRepository, loadContent } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
+import { retiredObservationSchema } from '../src/data/content-schema.ts'
 import { documents } from './fixtures.ts'
 
 const copy = () => structuredClone(documents) as Record<string, any>
-const load = (data: Record<string, unknown>) => loadContent(data, livePrototypeIds)
+const load = (data: Record<string, unknown>) => loadContent(data)
 const rejects = (data: Record<string, unknown>, message: RegExp) => assert.throws(() => load(data), error => error instanceof ContentError && message.test(error.message))
 
 test('new workspace, product and draft feature are discoverable without UI registration', () => {
@@ -89,14 +89,16 @@ test('schema fields are unique within each parent, including nested objects', ()
   const input = copy(); const schema = input['features/f-2/api.json'].contracts.find((c: any) => c.id === 'api-quote').responseSchema.after
   schema.push(structuredClone(schema[0])); rejects(input, /responseSchema.after: duplicate/)
 })
-test('external design references reject unsafe protocols and live prototypes require registration', () => {
-  const input = copy(); input['features/f-2/design.json'].mockups[0].ref = 'missing-renderer'; rejects(input, /unregistered live prototype/)
+test('external design references reject unsafe protocols and live prototypes', () => {
+  const input = copy()
+  input['features/f-2/design.json'].mockups[0] = { id: 'm-cart', kind: 'live', title: 'Live', ref: 'tax-cart-totals' }
+  rejects(input, /live prototypes are not supported/)
   input['features/f-2/design.json'].mockups[0] = { id: 'd-cart', kind: 'image', title: 'Example', ref: 'javascript:alert(1)' }; rejects(input, /http\(s\) URL/)
 })
 test('member names and viewer identity resolve centrally', () => {
   const input = copy(); input['members/ryan-nel.json'].name = 'Renamed member'
   const { q } = createRepository(load(input))
-  assert.equal(q.viewer().name, 'Renamed member')
+  assert.equal(q.viewer()?.name, 'Renamed member')
   assert.ok(q.features().filter(f => f.ownerId === 'ryan-nel').every(f => f.owner === 'Renamed member'))
 })
 
@@ -142,7 +144,11 @@ test('component API guides validate their ownership, capability IDs, and contrac
   const input = copy()
   const api = input['features/f-2/api.json']
   const contract = api.contracts.find((c: any) => c.from !== c.to && c.method !== 'EVENT')
-  api.guides = [{ componentId: contract.to, overview: 'This service owns the durable result.', featureImpact: 'This feature needs a result API.', capabilities: [{ id: 'result', title: 'Retrieve a result', description: 'The result can be read through the service API.', contractIds: [contract.id] }] }]
+  const capability = { id: 'result', title: 'Retrieve a result', description: 'The result can be read through the service API.', contractIds: [contract.id] }
+  api.guides = [{
+    componentId: contract.to, overview: 'This service owns the durable result.', featureImpact: 'This feature needs a result API.',
+    capabilities: [capability],
+  }]
   assert.doesNotThrow(() => load(input))
   const missing = structuredClone(input); missing['features/f-2/api.json'].guides[0].capabilities[0].contractIds = ['unknown-contract']; rejects(missing, /unknown api reference/)
   const wrongOwner = structuredClone(input); wrongOwner['features/f-2/api.json'].guides[0].componentId = contract.from; rejects(wrongOwner, /another component's API/)
@@ -164,4 +170,28 @@ test('data model context remains optional and does not invent fields or change a
   delete record.description
   delete record.group
   assert.doesNotThrow(() => load(input))
+})
+test('every catalog timestamp accepts an explicit UTC offset', async () => {
+  const evidence = [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision: 'a'.repeat(40) }]
+  const retired = { kind: 'endpoint', id: 'old', sourceRevision: 'a'.repeat(40), reason: 'Removed', evidence, observation: {} }
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: '2026-09-01T10:00:00+02:00' }).success, true)
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: '2026-09-01T10:00:00Z' }).success, true)
+  assert.equal(retiredObservationSchema.safeParse({ ...retired, retiredAt: 'yesterday' }).success, false)
+})
+test('validation collects issues from every concern before failing', () => {
+  const input = copy()
+  input['features/f-1/feature.json'].ownerId = 'missing'
+  input['products/p-cart.json'].workspaceId = 'missing'
+  input['components/c-rules.json'].dependsOn = ['c-rules']
+  assert.throws(() => load(input), error => error instanceof ContentError && error.issues.length >= 3 &&
+    /ownerId/.test(error.message) && /workspaceId/.test(error.message) && /cannot depend on itself/.test(error.message))
+})
+test('catalog revisions accept SHA-1 and SHA-256 commits and nothing shorter', async () => {
+  const retired = (revision: string) => ({
+    kind: 'endpoint', id: 'old', retiredAt: '2026-09-01T10:00:00Z', sourceRevision: revision, reason: 'Removed', observation: {},
+    evidence: [{ path: 'src/a.ts', lines: '1-2', claim: 'Removed.', revision }],
+  })
+  assert.equal(retiredObservationSchema.safeParse(retired('a'.repeat(40))).success, true)
+  assert.equal(retiredObservationSchema.safeParse(retired('b'.repeat(64))).success, true)
+  assert.equal(retiredObservationSchema.safeParse(retired('c'.repeat(39))).success, false)
 })

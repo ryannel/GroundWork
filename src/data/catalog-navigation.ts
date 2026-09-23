@@ -21,7 +21,10 @@ export function endpointGroup(endpoint: Api['endpoints'][number]) {
 
 export function filterCatalog(entries: CatalogEntry[], query: string, group = 'all') {
   const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
-  return entries.filter(entry => (group === 'all' || entry.group === group) && terms.every(term => `${entry.name} ${entry.group} ${entry.detail} ${entry.search}`.toLocaleLowerCase().includes(term)))
+  return entries.filter(entry => {
+    const text = `${entry.name} ${entry.group} ${entry.detail} ${entry.search}`.toLocaleLowerCase()
+    return (group === 'all' || entry.group === group) && terms.every(term => text.includes(term))
+  })
 }
 
 export function catalogSelection(entries: CatalogEntry[], selectedId: string) {

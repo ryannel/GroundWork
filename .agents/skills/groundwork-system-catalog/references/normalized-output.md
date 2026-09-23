@@ -6,14 +6,14 @@ or `unresolvedDependencies`.
 
 ```json
 {
-  "id": "product-configuration-facade",
-  "productId": "product-configuration",
+  "id": "order-configuration-facade",
+  "productId": "order-configuration",
   "sourcePath": ".",
-  "name": "Product configuration facade",
+  "name": "Order configuration facade",
   "kind": "service",
   "ownership": "internal",
   "role": "business-service",
-  "dependsOn": ["vehicle-data-service"],
+  "dependsOn": ["inventory-service"],
   "unresolvedDependencies": [{
     "name": "feature-flags",
     "kind": "sdk",
@@ -26,7 +26,7 @@ or `unresolvedDependencies`.
     }]
   }],
   "api": {
-    "name": "Product configuration API",
+    "name": "Order configuration API",
     "endpoints": [{
       "id": "get-configuration",
       "name": "Get configuration",
@@ -41,6 +41,18 @@ or `unresolvedDependencies`.
       }]
     }]
   },
+  "jobs": [{
+    "id": "reindex-catalog",
+    "name": "Reindex catalog",
+    "description": "Nightly job that rebuilds the search index from persisted configuration.",
+    "schedule": "0 3 * * *",
+    "evidence": [{
+      "path": "src/jobs/reindex.ts",
+      "lines": "8-19",
+      "claim": "Registers a scheduled job that rebuilds the search index.",
+      "revision": "full-commit-sha"
+    }]
+  }],
   "executionFlows": [],
   "coverage": {
     "dependencies": "complete",
@@ -67,7 +79,9 @@ or `unresolvedDependencies`.
 - Evidence paths are relative to the snapshot root.
 - Evidence lines use `N` or inclusive `N-M`.
 - Evidence revision is the full commit returned by `prepare_repository_scan`.
-- API, data, messaging, and execution-flow objects use the schemas returned by Groundwork.
+- API, data, messaging, `jobs`, and execution-flow objects use the schemas returned by
+  Groundwork. `jobs` records a component's owned scheduled or triggered work; a non-HTTP
+  execution flow references one by `id` through `trigger: {kind: "job", jobId}`.
 - Each requested coverage area must be `complete`, `partial`, or `not-scanned`.
 - `complete` with no records means the area was searched and no interface was found.
 - API coverage describes contract discovery independently of execution depth. The example
@@ -136,17 +150,20 @@ revalidating it. All supplied flow evidence must match the prepared revision. Re
 retained traces for a same-revision replacement where feasible. If current tooling cannot
 safely merge different source revisions within the requested scope, report that limitation
 and preserve valid existing knowledge rather than repinning citations or dropping sibling
-flows. Source freshness and future incremental reuse need explicit verification support.
+flows. Use `check_catalog_freshness` to verify source freshness explicitly, and
+`prepare_repository_scan`'s `incremental` option to narrow or widen preparation from a
+diff; see [the focused investigation contract](#focused-investigation-contract) below.
 
 
 ## Focused investigation contract
 
 `apply_catalog_investigation` accepts `scanId`, `componentId`, `expectedRevision`,
-`expectedContext`, and `flows`/`findings` arrays (at least one nonempty). Flows use the
-execution-flow schema above and upsert by ID. Omission preserves siblings; it neither
-retires entities nor verifies their freshness. The operation validates source identity,
-pinned revisions, citation bytes/ranges and links, then writes atomically. Broad catalog
-coverage and outstanding component gaps stay unchanged.
+`expectedContext`, and `jobs`/`flows`/`findings`/`sourceScans` arrays (at least one of
+`jobs`, `flows`, or `findings` nonempty). Flows use the execution-flow schema above and
+upsert by ID; `jobs` upserts owned scheduled or triggered work by `id`. Omission preserves
+siblings; it neither retires entities nor verifies their freshness. The operation validates
+source identity, pinned revisions, citation bytes/ranges and links, then writes atomically.
+Broad catalog coverage and outstanding component gaps stay unchanged.
 
 A reusable finding has `id`, `name`, `question`, `answer`, `subjects` (kind/id pairs within
 the component), `boundary`, `assumptions`, `repository`, `sourceRevision` and `evidence`.

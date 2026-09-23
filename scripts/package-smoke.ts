@@ -13,7 +13,8 @@ try {
   const source = path.join(base, 'source'), clone = path.join(base, 'clone')
   await mkdir(path.join(source, 'vendor'), { recursive: true })
   await cp(packageFile, path.join(source, 'vendor/groundwork.tgz'))
-  await writeFile(path.join(source, 'package.json'), JSON.stringify({ name: 'package-smoke', private: true, devDependencies: { 'groundwork-v2': 'file:vendor/groundwork.tgz' } }))
+  const manifest = { name: 'package-smoke', private: true, devDependencies: { 'groundwork-v2': 'file:vendor/groundwork.tgz' } }
+  await writeFile(path.join(source, 'package.json'), JSON.stringify(manifest))
   await run(source, 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund'])
   const cli = ['node_modules/groundwork-v2/bin/groundwork-v2.js']
   await run(source, process.execPath, [...cli, 'init', '--name', 'Fresh clone'])
@@ -30,10 +31,14 @@ try {
   const { serve } = await import(path.join(clone, 'node_modules/groundwork-v2/runtime/server/http.js'))
   const app = await serve({ root: clone, port: 0 })
   try {
-    assert.equal((await fetch(app.url)).status, 200)
+    // The only check that the packed, prebuilt viewer is served; npm test uses a stub page instead of dist/.
+    const page = await fetch(app.url)
+    assert.equal(page.status, 200)
+    assert.match(await page.text(), /<div id="root">/)
     const snapshot = await (await fetch(app.url + '/api/snapshot')).json() as { plan: { manifest: { id: string } }; error: string | null }
     assert.equal(snapshot.plan.manifest.id, initial.manifest.id)
     assert.equal(snapshot.error, null)
   } finally { await app.close() }
-  console.log('Package smoke passed: install, init, commit, fresh clone, npm ci, identical portable plans, independent checkout identity, compiled HTTP viewer.')
+  console.log('Package smoke passed: install, init, commit, fresh clone, npm ci, identical portable plans, independent checkout identity, '
+    + 'compiled HTTP viewer.')
 } finally { await rm(base, { recursive: true, force: true }) }

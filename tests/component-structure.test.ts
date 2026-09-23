@@ -1,12 +1,14 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
 import type { Component, Feature } from '../src/data/model.ts'
-import { architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap, runtimeSystemGraph, systemGraph } from '../src/data/component-structure.ts'
+import {
+  architectureSystemGraph, componentScopeIds, componentPath, componentTree, featureComponents, featureTouchesComponent, changesOverlap,
+  runtimeSystemGraph, systemGraph,
+} from '../src/data/component-structure.ts'
 import { buildIndex, lensFor } from '../src/data/spec-index.ts'
 import { loadContent } from '../src/data/content.ts'
-import { livePrototypeIds } from '../src/data/live-prototypes.ts'
 import { documents } from './fixtures.ts'
+import { components as catalog } from './fixtures/catalog.ts'
 
 const components: Component[] = [
   { id: 'app', productId: 'p', name: 'App', kind: 'service', dependsOn: ['core'] },
@@ -58,7 +60,7 @@ test('invalid containment and dependency references are rejected before renderin
   const check = (edit: (data: Record<string, any>) => void, error: RegExp) => {
     const input = structuredClone(documents) as Record<string, any>
     edit(input)
-    assert.throws(() => loadContent(input, livePrototypeIds), error)
+    assert.throws(() => loadContent(input), error)
   }
   const cart = 'components/c-cart-svc.json', cache = 'components/c-cart-cache.json'
   check(d => { d[cache].parentId = 'missing' }, /parentId: unknown reference/)
@@ -75,7 +77,7 @@ test('reciprocal runtime service dependencies are valid and do not become a cont
   const input = structuredClone(documents) as Record<string, any>
   input['components/c-cart-svc.json'].dependsOn = ['c-pricing-api']
   input['components/c-pricing-api.json'].dependsOn = ['c-cart-svc']
-  assert.doesNotThrow(() => loadContent(input, livePrototypeIds))
+  assert.doesNotThrow(() => loadContent(input))
 })
 
 
@@ -132,7 +134,10 @@ test('architecture map points inbound event brokers toward consumers and outboun
       { name: 'Azure Event Hubs', kind: 'event broker', evidence: [{ path: 'README.md', lines: '1', claim: 'Consumes notifications', revision: 'abc' }] },
     ],
     messaging: { messages: [
-      { id: 'notification', name: 'Notification', broker: 'Azure Event Hubs (Event Grid notification)', channel: 'notifications', direction: 'inbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
+      {
+        id: 'notification', name: 'Notification', broker: 'Azure Event Hubs (Event Grid notification)', channel: 'notifications', direction: 'inbound',
+        fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' },
+      },
       { id: 'reply', name: 'Reply', broker: 'Kafka', channel: 'replies', direction: 'outbound', fields: [], delivery: { ordering: 'Unknown', retries: 'Unknown', deadLetter: 'Unknown' } },
     ] },
   }
@@ -158,14 +163,14 @@ test('architecture map shows a single bidirectional broker link when both direct
   assert.deepEqual(graph.edges, [{ from: 'app', to: 'broker', messages: { inbound: 1, outbound: 1 } }])
   assert.equal(graph.nodes.length, 2)
 })
-test('product configuration facade map includes its catalogued inbound event sources', () => {
-  const catalog: Component[] = JSON.parse(readFileSync(new URL('./fixtures/catalog/components.json', import.meta.url), 'utf8'))
-  const facade = catalog.find(component => component.id === 'product-configuration-facade')!
-  const graph = architectureSystemGraph([facade], [])
-  assert.deepEqual(graph.edges.filter(edge => edge.messages).map(edge => [graph.nodes.find(node => node.id === edge.from)!.name, graph.nodes.find(node => node.id === edge.to)!.name, edge.messages]), [
-    ['Product Configuration Facade', 'Confluent Kafka', { inbound: 0, outbound: 15 }],
-    ['ICOE Kafka', 'Product Configuration Facade', { inbound: 2, outbound: 0 }],
-    ['Azure Event Hubs', 'Product Configuration Facade', { inbound: 6, outbound: 0 }],
+test('a gateway map includes its catalogued inbound event sources, one node per broker', () => {
+  const gateway = catalog.find(component => component.id === 'catalogue-gateway')!
+  const graph = architectureSystemGraph([gateway], [])
+  const name = (id: string) => graph.nodes.find(node => node.id === id)!.name
+  assert.deepEqual(graph.edges.filter(edge => edge.messages).map(edge => [name(edge.from), name(edge.to), edge.messages]), [
+    ['Catalogue Gateway', 'Kafka', { inbound: 0, outbound: 15 }],
+    ['Partner Kafka', 'Catalogue Gateway', { inbound: 2, outbound: 0 }],
+    ['Azure Event Hubs', 'Catalogue Gateway', { inbound: 6, outbound: 0 }],
   ])
   assert.equal(graph.nodes.filter(node => node.name === 'Azure Event Hubs').length, 1)
 })

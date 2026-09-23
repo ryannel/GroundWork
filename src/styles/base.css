@@ -38,69 +38,21 @@
     radial-gradient(45% 45% at 60% 100%, var(--ambient-c) 0%, transparent 70%),
     var(--bg);
 }
-.ambient::before {
-  content: ""; position: absolute; inset: 0; background: var(--vignette);
-}
 .ambient::after {
   content: ""; position: absolute; inset: 0; opacity: var(--noise-opacity); mix-blend-mode: overlay;
   background-image: var(--noise-image);
   background-size: 200px 200px;
 }
 
-/* ---------- Glass surfaces ----------
-   glass-1 (cards, rows, panels) is a translucent fill with NO backdrop blur: it sits on a
-   static ambient gradient so blur adds nothing, and Chromium renders stale-band artifacts
-   on blurred elements inside scrolling content. Blur is reserved for glass-2/3, which
-   float over moving content (sticky bars, popovers, modals). Controls use `surface`. */
-@utility glass-1 {
-  background-color: var(--glass-fill-1);
-  background-image: var(--surface-texture);
-  background-size: 200px 200px;
-  border: 1px solid var(--glass-border-1);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-1);
-}
-@utility glass-2 {
-  background-color: var(--glass-fill-2);
-  background-image: var(--surface-texture);
-  background-size: 200px 200px;
-  border: 1px solid var(--glass-border-2);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-2);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
-  isolation: isolate;
-}
+/* ---------- Glass popover ----------
+   Blur is reserved for surfaces that float over moving content (the tooltip). */
 @utility glass-3 {
   background-color: var(--glass-fill-3);
-  background-image: var(--surface-texture);
-  background-size: 200px 200px;
   border: 1px solid var(--glass-border-3);
   box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-3);
   backdrop-filter: blur(40px) saturate(160%);
   -webkit-backdrop-filter: blur(40px) saturate(160%);
   isolation: isolate;
-}
-/* Flat translucent surface for controls: no blur, no shadow */
-@utility surface {
-  background: var(--glass-fill-2);
-  border: 1px solid var(--glass-border-1);
-}
-@utility surface-strong {
-  background: var(--glass-fill-3);
-  border: 1px solid var(--glass-border-2);
-}
-/* For sticky/fixed glass bars: keep a persistent compositing layer so the blur
-   isn't rebuilt every frame as content scrolls beneath it (Chromium flicker). */
-@utility glass-sticky {
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-  backface-visibility: hidden;
-  contain: layout paint;
-}
-/* Hover treatment for glass containers: no transform (transforms + backdrop-filter flicker). */
-@utility glass-interactive {
-  cursor: pointer;
-  transition: border-color 160ms ease-out, background-color 160ms ease-out, box-shadow 200ms var(--ease-out-quart);
-  &:hover { border-color: var(--glass-border-3); background: var(--glass-fill-2); box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-2); }
 }
 
 /* Identity hue helpers: set --hue on the element, get tints via these */
@@ -108,13 +60,6 @@
 @utility hue-bg     { background: hsl(var(--hue) / 0.12); }
 @utility hue-border { border-color: hsl(var(--hue) / 0.30); }
 @utility hue-dot    { background: hsl(var(--hue)); box-shadow: 0 0 0 3px hsl(var(--hue) / 0.18); }
-@utility hue-glow   { box-shadow: 0 0 40px -8px hsl(var(--hue) / 0.55); }
-
-@utility font-display {
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  letter-spacing: var(--display-tracking);
-}
 
 @utility eyebrow {
   font-size: var(--text-micro); line-height: var(--text-micro--line-height);
@@ -125,8 +70,6 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
-@utility no-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
 
 /* Cross-reference focus: the item a deep link points at. */
 @keyframes focus-flash {

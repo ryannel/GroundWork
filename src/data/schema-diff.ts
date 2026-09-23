@@ -1,4 +1,4 @@
-import type { Change, ResponseSchema, SchemaField } from './spec'
+import type { Change, ResponseSchema, SchemaField } from './spec.ts'
 
 export interface SchemaLine {
   key: string
@@ -33,9 +33,12 @@ export function diffResponseSchema(schema: ResponseSchema): SchemaLine[] {
       const old = oldByName.get(name), current = newByName.get(name)
       const field = current ?? old!
       const key = `${parent}.${name}`
-      const change: Exclude<Change, 'unspecified'> = !old ? 'added' : !current ? 'removed' : old.type !== current.type || !!old.optional !== !!current.optional ? 'updated' : 'unchanged'
+      const change: Exclude<Change, 'unspecified'> = !old ? 'added'
+        : !current ? 'removed'
+          : old.type !== current.type || !!old.optional !== !!current.optional ? 'updated' : 'unchanged'
       const structural = old && current && shape(old) !== shape(current)
-      lines.push({ key, name, depth, change, before: change === 'updated' ? (structural ? declaration(old!) : opening(old!)) : undefined, after: structural ? declaration(current!) : opening(field), note: field.note })
+      const before = change === 'updated' ? (structural ? declaration(old!) : opening(old!)) : undefined
+      lines.push({ key, name, depth, change, before, after: structural ? declaration(current!) : opening(field), note: field.note })
       if (structural) {
         // Retain both old and proposed child definitions when a field changes container kind.
         if (old.fields) {
@@ -51,7 +54,10 @@ export function diffResponseSchema(schema: ResponseSchema): SchemaLine[] {
       } else if (field.fields) {
         visit(old?.fields ?? [], current?.fields ?? [], key, depth + 1)
         const suffixChanged = old && current && closing(old) !== closing(current)
-        lines.push({ key: `${key}:close`, depth, change: change === 'updated' && !suffixChanged ? 'unchanged' : change, before: suffixChanged ? closing(old) : undefined, after: closing(field) })
+        lines.push({
+          key: `${key}:close`, depth, change: change === 'updated' && !suffixChanged ? 'unchanged' : change,
+          before: suffixChanged ? closing(old) : undefined, after: closing(field),
+        })
       }
     }
   }

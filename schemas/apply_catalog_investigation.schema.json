@@ -19,7 +19,15 @@
     },
     "componentId": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+        }
+      ]
     },
     "expectedRevision": {
       "type": "string",
@@ -218,7 +226,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "entryStepId": {
             "type": "string",
@@ -348,7 +356,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -451,7 +459,7 @@
                       },
                       "revision": {
                         "type": "string",
-                        "pattern": "^[a-f0-9]{40}$"
+                        "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                       },
                       "repository": {
                         "type": "string",
@@ -551,11 +559,11 @@
                   "enum": [
                     "component",
                     "endpoint",
+                    "schema",
                     "data",
                     "message",
-                    "flow",
-                    "schema",
-                    "job"
+                    "job",
+                    "flow"
                   ]
                 },
                 "id": {
@@ -593,7 +601,7 @@
           },
           "sourceRevision": {
             "type": "string",
-            "pattern": "^[a-f0-9]{40}$"
+            "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
           },
           "evidence": {
             "minItems": 1,
@@ -618,7 +626,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",

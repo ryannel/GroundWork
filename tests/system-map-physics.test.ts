@@ -47,3 +47,10 @@ test('overlapping cards separate without moving a pinned card', () => {
   assert.equal(nodes[0].y, 100)
   assert.ok(Math.abs(nodes[1].y! - nodes[0].y!) >= 62)
 })
+
+test('relationships to cards that are not on the map are ignored', () => {
+  const nodes = [node('a', 0, 0), node('b', 400, 0)]
+  const simulation = createMapSimulation(nodes, [{ from: 'a', to: 'b' }, { from: 'a', to: 'hidden' }])
+  simulation.alpha(.35).tick(10)
+  for (const n of nodes) assert.ok(Number.isFinite(n.x) && Number.isFinite(n.y))
+})

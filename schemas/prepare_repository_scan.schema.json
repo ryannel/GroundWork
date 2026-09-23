@@ -7,11 +7,14 @@
     },
     "repository": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 2048
     },
     "sourceRef": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 255,
+      "pattern": "^(?!-)[^\\s\\0~^:?*[\\\\]+$"
     },
     "areas": {
       "default": [

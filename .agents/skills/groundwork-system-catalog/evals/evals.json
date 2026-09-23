@@ -3,7 +3,7 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Add Price to the Commercial Backbone workspace. Its implementation spans three repositories and it calls a long chain of internal services, shared platform capabilities, and external providers.",
+      "prompt": "Add Pricing to the Order Platform workspace. Its implementation spans three repositories and it calls a long chain of internal services, shared platform capabilities, and external providers.",
       "expected_output": "The agent establishes the product from the three seed repositories, inventories its direct architecture, and records a clear dependency frontier without recursively scanning the whole organization.",
       "files": [],
       "expectations": [
@@ -42,8 +42,8 @@
     },
     {
       "id": 4,
-      "prompt": "Explore how Price calculates MSRP. The catalog already contains the endpoint, one configuration flow, several downstream references, and test locations. Do not spend time on unrelated pricing endpoints.",
-      "expected_output": "The agent reuses and checks existing knowledge, follows only the MSRP journey far enough to answer the question, and saves reusable evidence without broad rescanning.",
+      "prompt": "Explore how Pricing calculates the quote total. The catalog already contains the endpoint, one configuration flow, several downstream references, and test locations. Do not spend time on unrelated pricing endpoints.",
+      "expected_output": "The agent reuses and checks existing knowledge, follows only the quote-total journey far enough to answer the question, and saves reusable evidence without broad rescanning.",
       "files": [],
       "expectations": [
         "Relevant catalog knowledge is retrieved before source investigation.",

@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/cn'
-import { kinds, stages, hueStyle, type ProductKind, type FeatureStage } from '@/lib/taxonomy'
+import { stages, hueStyle, type FeatureStage } from '@/lib/taxonomy'
 
 type Tone = 'neutral' | 'accent' | 'success' | 'warning' | 'danger' | 'info'
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -30,17 +30,13 @@ export function Badge({ tone = 'neutral', hue, dot, leading, className, style, c
       style={hue ? { ...hueStyle(hue), ...style } : style}
       {...rest}
     >
-      {dot && <span className={cn('size-1.5 rounded-full', hue ? 'bg-current' : 'bg-current')} />}
+      {dot && <span className="size-1.5 rounded-full bg-current" />}
       {leading}
       {children}
     </span>
   )
 }
 
-export function KindBadge({ kind, className }: { kind: ProductKind; className?: string }) {
-  const k = kinds[kind]
-  return <Badge hue={k.hueVar} leading={<k.icon />} className={className}>{k.label}</Badge>
-}
 export function StageBadge({ stage, className }: { stage: FeatureStage; className?: string }) {
   return <Badge hue={stages[stage].hueVar} dot className={className}>{stages[stage].label}</Badge>
 }

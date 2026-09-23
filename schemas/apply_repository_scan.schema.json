@@ -26,15 +26,32 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
           },
           "productId": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+            "minLength": 1,
+            "allOf": [
+              {
+                "pattern": "\\S"
+              },
+              {
+                "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              }
+            ]
           },
           "sourcePath": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 4096
           },
           "name": {
             "type": "string",
@@ -81,7 +98,15 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+              "minLength": 1,
+              "allOf": [
+                {
+                  "pattern": "\\S"
+                },
+                {
+                  "pattern": "^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+                }
+              ]
             }
           },
           "unresolvedDependencies": {
@@ -1026,7 +1051,7 @@
                 },
                 "sourceRevision": {
                   "type": "string",
-                  "pattern": "^[a-f0-9]{40}$"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "entryStepId": {
                   "type": "string",
@@ -1156,7 +1181,7 @@
                             },
                             "revision": {
                               "type": "string",
-                              "pattern": "^[a-f0-9]{40}$"
+                              "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                             },
                             "repository": {
                               "type": "string",
@@ -1259,7 +1284,7 @@
                             },
                             "revision": {
                               "type": "string",
-                              "pattern": "^[a-f0-9]{40}$"
+                              "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                             },
                             "repository": {
                               "type": "string",
@@ -1318,11 +1343,11 @@
                 "path": {
                   "type": "string",
                   "minLength": 1,
-                  "pattern": "\\S"
+                  "maxLength": 4096
                 },
                 "lines": {
                   "type": "string",
-                  "pattern": "^\\d+(?:-\\d+)?$"
+                  "pattern": "^[1-9]\\d*(?:-[1-9]\\d*)?$"
                 },
                 "claim": {
                   "type": "string",
@@ -1331,8 +1356,7 @@
                 },
                 "revision": {
                   "type": "string",
-                  "minLength": 1,
-                  "pattern": "\\S"
+                  "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
                 },
                 "repository": {
                   "type": "string",

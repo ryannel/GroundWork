@@ -27,7 +27,7 @@
         "./src/*"
       ]
     },
-    "strictNullChecks": true
+    "strict": true
   },
   "include": [
     "src"

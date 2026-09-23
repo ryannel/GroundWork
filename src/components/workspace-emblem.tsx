@@ -1,11 +1,9 @@
-import { Aperture, Blocks, Command, Layers } from 'lucide-react'
-import type { Workspace } from '@/data/model'
-import { hueStyle } from '@/lib/taxonomy'
+import { Layers } from 'lucide-react'
+import type { Product, Workspace } from '@/data/model'
+import { hueStyle, kinds } from '@/lib/taxonomy'
 
-const icons = { ecom: Blocks, groundwork: Command, 'image-lab': Aperture }
-
-/** One workspace identity, reused from its directory card to its page header. */
-export function WorkspaceEmblem({ workspace, size = 'default' }: { workspace: Workspace; size?: 'default' | 'large' }) {
-  const Icon = icons[workspace.slug as keyof typeof icons] ?? Layers
-  return <span className={`workspace-emblem workspace-emblem-${size}`} style={hueStyle(workspace.hue)} aria-hidden="true"><Icon strokeWidth={1.5} /></span>
+/** One workspace identity: its hue, with the icon of its first product's kind. */
+export function WorkspaceEmblem({ workspace, products }: { workspace: Workspace; products: Product[] }) {
+  const Icon = products[0] ? kinds[products[0].kind].icon : Layers
+  return <span className="workspace-emblem" style={hueStyle(workspace.hue)} aria-hidden="true"><Icon strokeWidth={1.5} /></span>
 }
