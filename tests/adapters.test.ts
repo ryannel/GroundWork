@@ -103,10 +103,10 @@ test('CLI arguments are parsed strictly and errors are short, with a distinct ex
 test('the binary explains how to build when the runtime is missing', async t => {
   const base = await tempDir(t, 'groundwork-bin-')
   await mkdir(path.join(base, 'bin'))
-  await cp(path.join(repoRoot, 'bin/groundwork-v2.js'), path.join(base, 'bin/groundwork-v2.js'))
+  await cp(path.join(repoRoot, 'bin/groundwork.js'), path.join(base, 'bin/groundwork.js'))
   await writeFile(path.join(base, 'package.json'), '{"type":"module"}')
   const result = await new Promise<{ code: number | null; stderr: string }>((resolve, reject) => {
-    const child = spawn(process.execPath, [path.join(base, 'bin/groundwork-v2.js'), 'help'])
+    const child = spawn(process.execPath, [path.join(base, 'bin/groundwork.js'), 'help'])
     let stderr = ''
     child.stderr.on('data', chunk => { stderr += chunk })
     child.on('error', reject)

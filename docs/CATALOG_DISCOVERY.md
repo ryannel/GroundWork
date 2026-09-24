@@ -4,7 +4,7 @@ Observed knowledge now has an explicit catalog layout. `migrate_catalog` moves p
 
 ## Retrieve a useful starting point
 
-CLI calls and MCP use the same operation schemas. For CLI, put arguments in a JSON file and use `groundwork-v2 call <operation> --root <catalog-owner> --input <file>`. Central MCP callers select `checkoutId`; read operations can select a committed `ref`.
+CLI calls and MCP use the same operation schemas. For CLI, put arguments in a JSON file and use `groundwork call <operation> --root <catalog-owner> --input <file>`. Central MCP callers select `checkoutId`; read operations can select a committed `ref`.
 
 - `search_catalog`: `query`, optional `componentId`, `productId`, `kinds`.
 - `get_discovery_context`: `question`, optional qualified `seeds` and the same filters. Returns ranked text matches and one hop of explicit relationships from the first five candidates. Matching topics or similar names never establishes a dependency.

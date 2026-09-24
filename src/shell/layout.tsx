@@ -50,7 +50,7 @@ export function Layout() {
       {runtime.error && !hub && <aside className="runtime-error" role="alert">
         <strong>{runtime.plan ? 'Showing the last valid plan' : 'This repository needs attention'}</strong>
         <pre>{runtime.error}</pre>
-        {!runtime.plan && <p>In the app folder, run <code>npx --no-install groundwork-v2 init</code> to set up planning.</p>}
+        {!runtime.plan && <p>In the app folder, run <code>npx --no-install groundwork init</code> to set up planning.</p>}
       </aside>}
       <main ref={main} id="main-content" tabIndex={-1} className={feature ? 'workbench-content' : 'directory-content'}>
         <ErrorBoundary resetKey={pathname}>

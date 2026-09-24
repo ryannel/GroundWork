@@ -1,5 +1,5 @@
 import { homedir } from 'node:os'
-import { lstat, mkdir, readFile, realpath } from 'node:fs/promises'
+import { lstat, mkdir, readFile, realpath, rename } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
 import { InvalidInput, NotFound } from './errors.ts'
@@ -17,7 +17,13 @@ const legacyRegistrySchema = z.strictObject({
   version: z.literal(1),
   projects: z.array(z.strictObject({ root: z.string(), workspace: z.string().min(1), projectId: z.string() })),
 })
-export const configRoot = () => path.resolve(process.env.GROUNDWORK_HOME ?? path.join(homedir(), '.config', 'groundwork-v2'))
+export const configRoot = () => path.resolve(process.env.GROUNDWORK_HOME ?? path.join(homedir(), '.config', 'groundwork'))
+// Registrations made while the package was named groundwork-v2 move to the new location once.
+async function prepareConfigRoot() {
+  const legacy = path.join(homedir(), '.config', 'groundwork-v2')
+  if (!process.env.GROUNDWORK_HOME && !await lstat(configRoot()).catch(() => null) && await lstat(legacy).catch(() => null)) await rename(legacy, configRoot())
+  await mkdir(configRoot(), { recursive: true })
+}
 const checkoutRoots = new Map<string, { root: string; registrationRoot: string; registryRoot: string | null }>()
 const productKey = (value: string) => value.toLowerCase().replaceAll(/[^a-z0-9]+/g, '')
 function productCatalog(plan: Awaited<ReturnType<typeof readPlan>>, product: string, fallback: string) {
@@ -36,7 +42,7 @@ function productCatalog(plan: Awaited<ReturnType<typeof readPlan>>, product: str
   return { components, repositories: [...new Set(repositories.length ? repositories : [fallback])], productPath }
 }
 export async function registry() {
-  await mkdir(configRoot(), { recursive: true })
+  await prepareConfigRoot()
   const file = await safePath(configRoot(), 'registry.json')
   const raw = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error })
   if (!raw) return { version: 2 as const, projects: [] as z.infer<typeof registrySchema>['projects'] }
@@ -58,7 +64,7 @@ export async function register(root: string, workspace = 'My projects', product?
     if (error instanceof NotInitialised) return null
     throw error
   })
-  await mkdir(configRoot(), { recursive: true })
+  await prepareConfigRoot()
   return withLock(configRoot(), async () => {
     const config = await registry()
     const record = { root, workspace, product: product ?? plan?.manifest.name ?? path.basename(root), projectId: plan?.manifest.id ?? null }
@@ -73,7 +79,7 @@ export async function unregister(root: string) {
     if (error.code === 'ENOENT') return path.resolve(root)
     throw error
   })
-  await mkdir(configRoot(), { recursive: true })
+  await prepareConfigRoot()
   const result = await withLock(configRoot(), async () => {
     const config = await registry()
     config.projects = config.projects.filter(p => p.root !== root)

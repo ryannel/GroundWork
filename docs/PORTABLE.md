@@ -2,23 +2,23 @@
 
 Groundwork plans live in this repository under `.groundwork/plans/`. Commit them with the implementation. The package supplies the viewer, CLI and MCP server. Plans remain readable and editable while Groundwork is stopped.
 
-Run the installed CLI with `npx --no-install groundwork-v2`. Node 22.18 or newer is required. Do not install the older `groundwork-method` package.
+Run the installed CLI with `npx --no-install groundwork`. Node 22.18 or newer is required. Do not install the older `groundwork-method` package.
 
 Planning and delivery updates are agent-managed through conversation. Use the CLI/MCP operations to create features, maintain deliverables and tasks, record progress, and attach validation evidence. The viewer is read-only: it displays these records without authoring forms or status controls. Search, filters, navigation, and prototype interactions only affect the view.
 
 ## Start here
 
-- `npm run plans:start` (or `npx --no-install groundwork-v2 start`) starts or reuses Groundwork Hub on port 4318 and prints this project's workspace URL. It registers the project locally if needed and preserves existing workspace grouping.
-- `npm run plans:standalone` (or `npx --no-install groundwork-v2 serve`) starts or reuses a standalone viewer on port 4317. It does not require a Hub or register the project.
-- `npm run plans:hub` (or `npx --no-install groundwork-v2 hub`) starts or reuses the Hub and prints its All projects URL. `dashboard` remains an alias.
+- `npm run plans:start` (or `npx --no-install groundwork start`) starts or reuses Groundwork Hub on port 4318 and prints this project's workspace URL. It registers the project locally if needed and preserves existing workspace grouping.
+- `npm run plans:standalone` (or `npx --no-install groundwork serve`) starts or reuses a standalone viewer on port 4317. It does not require a Hub or register the project.
+- `npm run plans:hub` (or `npx --no-install groundwork hub`) starts or reuses the Hub and prints its All projects URL. `dashboard` remains an alias.
 - `init` and `instructions` add these `plans:*` scripts when a package.json exists, without replacing existing scripts. Without an npm project, invoke the installed CLI directly.
 - The terminal that starts a server must stay open. Ctrl+C stops that server; stopping a Hub disconnects all of its project workspaces. A command that reuses a server prints the URL and exits. No background daemons or per-project app servers are launched.
 - Use `--port NUMBER` consistently for a different local port. Commands refuse to reuse a different project, configuration, unrelated service, or incompatible viewer on that port; they never silently allocate another server.
-- `npx --no-install groundwork-v2 read` returns the complete plan, current revision, checkout identity and Git activity.
-- `npx --no-install groundwork-v2 validate` checks documents and cross-references.
-- `npx --no-install groundwork-v2 register --workspace Personal --product "My product"` adds this repository beneath a local workspace and product.
+- `npx --no-install groundwork read` returns the complete plan, current revision, checkout identity and Git activity.
+- `npx --no-install groundwork validate` checks documents and cross-references.
+- `npx --no-install groundwork register --workspace Personal --product "My product"` adds this repository beneath a local workspace and product.
 - The Hub serves all registered projects through one server. Plans and assets remain in each repository; opening a workspace does not launch its application.
-- `npx --no-install groundwork-v2 mcp` exposes the same operations to your coding agent over stdio. Configure your MCP client to run `npx` with arguments `["--no-install", "groundwork-v2", "mcp", "/absolute/repository/path"]`. Add `--central` instead of the path for discovery across registered repositories.
+- `npx --no-install groundwork mcp` exposes the same operations to your coding agent over stdio. Configure your MCP client to run `npx` with arguments `["--no-install", "groundwork", "mcp", "/absolute/repository/path"]`. Add `--central` instead of the path for discovery across registered repositories.
 
 ## Execution flows
 
@@ -204,7 +204,7 @@ Older generic `tasks` without component ownership are preserved as `undecomposed
 
 ## Local configuration
 
-Workspace, product and repository groups live under `GROUNDWORK_HOME`, or `~/.config/groundwork-v2` by default. They are not written into repository plans. Linked Git worktrees are discovered automatically and shown as checkout variants of their registered repository; independent clones must be registered explicitly. Project-scoped navigation keeps reused feature IDs separate.
+Workspace, product and repository groups live under `GROUNDWORK_HOME`, or `~/.config/groundwork` by default. An existing `~/.config/groundwork-v2` directory is moved there on first use. They are not written into repository plans. Linked Git worktrees are discovered automatically and shown as checkout variants of their registered repository; independent clones must be registered explicitly. Project-scoped navigation keeps reused feature IDs separate.
 
 Groundwork uses **component** for an architectural responsibility or runtime boundary and **repository** for its source location. A product contains components. Several components can share a monorepo by using different `sourcePath` values, while components backed by separate repositories each record their own `repo`. Repository and checkout details provide provenance; they do not replace the product/component architecture.
 

@@ -27,7 +27,7 @@ export async function handleMessage(line: string, root?: string): Promise<Record
   if (request.id === undefined) return null
   const reply = (result: unknown) => ({ jsonrpc: '2.0', id: request.id, result })
   if (request.method === 'initialize') {
-    return reply({ protocolVersion: '2025-03-26', capabilities: { tools: {} }, serverInfo: { name: 'groundwork-v2', version }, instructions })
+    return reply({ protocolVersion: '2025-03-26', capabilities: { tools: {} }, serverInfo: { name: 'groundwork', version }, instructions })
   }
   if (request.method === 'ping') return reply({})
   if (request.method === 'tools/list') {

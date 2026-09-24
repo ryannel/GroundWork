@@ -37,7 +37,7 @@ export function ProjectsPage() {
     {!projects.length && <section className="central-empty">
       <h2>Bring your first repository</h2>
       <p>Register repositories beneath a workspace and product. Plans stay with their source.</p>
-      <pre>npx --no-install groundwork-v2 register --workspace Personal --product "My product"</pre>
+      <pre>npx --no-install groundwork register --workspace Personal --product "My product"</pre>
       <p>The Hub will pick it up automatically.</p>
     </section>}
     {workspaces.map(workspace => <section className="central-workspace" key={workspace.name}>

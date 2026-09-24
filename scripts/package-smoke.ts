@@ -13,10 +13,10 @@ try {
   const source = path.join(base, 'source'), clone = path.join(base, 'clone')
   await mkdir(path.join(source, 'vendor'), { recursive: true })
   await cp(packageFile, path.join(source, 'vendor/groundwork.tgz'))
-  const manifest = { name: 'package-smoke', private: true, devDependencies: { 'groundwork-v2': 'file:vendor/groundwork.tgz' } }
+  const manifest = { name: 'package-smoke', private: true, devDependencies: { 'groundwork': 'file:vendor/groundwork.tgz' } }
   await writeFile(path.join(source, 'package.json'), JSON.stringify(manifest))
   await run(source, 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund'])
-  const cli = ['node_modules/groundwork-v2/bin/groundwork-v2.js']
+  const cli = ['node_modules/groundwork/bin/groundwork.js']
   await run(source, process.execPath, [...cli, 'init', '--name', 'Fresh clone'])
   const initial = JSON.parse(await run(source, process.execPath, [...cli, 'read']))
   await run(source, 'git', ['init', '-b', 'main'])
@@ -28,7 +28,7 @@ try {
   assert.equal(fresh.manifest.id, initial.manifest.id)
   assert.equal(fresh.revision, initial.revision)
   assert.notEqual(fresh.context.checkoutId, initial.context.checkoutId)
-  const { serve } = await import(path.join(clone, 'node_modules/groundwork-v2/runtime/server/http.js'))
+  const { serve } = await import(path.join(clone, 'node_modules/groundwork/runtime/server/http.js'))
   const app = await serve({ root: clone, port: 0 })
   try {
     // The only check that the packed, prebuilt viewer is served; npm test uses a stub page instead of dist/.

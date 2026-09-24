@@ -22,7 +22,7 @@ export interface Plan {
 export const PLAN_DIRECTORY = PLANS_DIR
 export const assetPattern = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/
 export const documentPattern = new RegExp(`^(?:${LOGICAL_DOCUMENT_SOURCE})$`)
-/** The folder has no project manifest yet; `groundwork-v2 init` creates one. */
+/** The folder has no project manifest yet; `groundwork init` creates one. */
 export class NotInitialised extends NotFound {}
 
 /** Brief prose has one authoritative location; the viewer is a projection. */
@@ -116,7 +116,7 @@ export function parsePlan(files: Files): Plan {
       else documents[file] = value
     } catch (error) { throw new InvalidInput(`${file}: ${error instanceof Error ? error.message : error}`) }
   }
-  if (!manifest) throw new NotInitialised('project.json: initialise this repository with groundwork-v2 init')
+  if (!manifest) throw new NotInitialised('project.json: initialise this repository with groundwork init')
   documents['project.json'] = { schemaVersion: 1 }
   documents['workspaces/project.json'] = { id: 'project', slug: 'project', name: manifest.name, hue: 'var(--hue-teal)', createdAt: '2026-01-01T00:00:00Z' }
   // Asset references stay relative on disk. The HTTP adapter adds checkout context.

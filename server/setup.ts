@@ -31,18 +31,24 @@ export async function installInstructions(root: string) {
     const pkg = JSON.parse(packageText)
     pkg.scripts ??= {}
     let changed = false
-    const scripts = { 'plans:start': 'groundwork-v2 start', 'plans:standalone': 'groundwork-v2 serve', 'plans:hub': 'groundwork-v2 hub' }
+    for (const [name, command] of Object.entries(pkg.scripts)) {
+      // Scripts written while the package was named groundwork-v2 call the renamed CLI.
+      if (typeof command === 'string' && /^groundwork-v2(\s|$)/.test(command)) { pkg.scripts[name] = command.replace(/^groundwork-v2/, 'groundwork'); changed = true }
+    }
+    const scripts = { 'plans:start': 'groundwork start', 'plans:standalone': 'groundwork serve', 'plans:hub': 'groundwork hub' }
     for (const [name, command] of Object.entries(scripts)) {
       if (!(name in pkg.scripts)) { pkg.scripts[name] = command; changed = true }
     }
     if (changed) await atomicFile(root, 'package.json', JSON.stringify(pkg, null, 2) + '\n')
   }
-  const instruction = `For Groundwork planning, read [${GUIDE_FILE}](${GUIDE_FILE}). Use the installed \`groundwork-v2\` CLI or MCP server `
+  const instruction = `For Groundwork planning, read [${GUIDE_FILE}](${GUIDE_FILE}). Use the installed \`groundwork\` CLI or MCP server `
     + 'and preserve checkout context and revision checks.'
+  const legacyInstruction = instruction.replace('`groundwork`', '`groundwork-v2`')
   for (const name of ['AGENTS.md', 'CLAUDE.md']) {
     const file = await safePath(root, name)
     const before = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })
-    if (!before.includes(`](${GUIDE_FILE})`)) await atomicFile(root, name, before + `\n\n## Groundwork planning\n\n${instruction}\n`)
+    if (before.includes(legacyInstruction)) await atomicFile(root, name, before.replace(legacyInstruction, instruction))
+    else if (!before.includes(`](${GUIDE_FILE})`)) await atomicFile(root, name, before + `\n\n## Groundwork planning\n\n${instruction}\n`)
   }
   const ignoreFile = await safePath(root, '.gitignore')
   const ignored = await readFile(ignoreFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return ''; throw error })

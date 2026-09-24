@@ -33,12 +33,20 @@ This package has not been published to npm. Build a local tarball:
 npm pack
 ```
 
-Copy the resulting `groundwork-v2-<version>.tgz` (`npm pack` prints its filename) into the app's `vendor/` directory, then run there:
+Copy the resulting `groundwork-<version>.tgz` (`npm pack` prints its filename) into the app's `vendor/` directory, then run there:
 
 ```sh
-npm install --save-dev ./vendor/groundwork-v2-<version>.tgz
-npx --no-install groundwork-v2 init --name "My app"
-npx --no-install groundwork-v2 start
+npm install --save-dev ./vendor/groundwork-<version>.tgz
+npx --no-install groundwork init --name "My app"
+npx --no-install groundwork start
+```
+
+Before 0.5.0 the package was named `groundwork-v2`. To upgrade a project that installed it, replace the dependency and refresh its instructions. This rewrites scripts and agent notes that still call `groundwork-v2`:
+
+```sh
+npm uninstall groundwork-v2
+npm install --save-dev ./vendor/groundwork-<version>.tgz
+npx --no-install groundwork instructions
 ```
 
 Keep the tarball, lockfile and `.groundwork/plans/` in the application repository so a fresh clone can run `npm ci` and open the same committed plans. The compiled viewer and styles come from the package. Do not copy the Groundwork source into the app.
@@ -48,11 +56,11 @@ The first consumer is `../tellourstory`, intended for https://tellourstory.xyz/.
 ## Central dashboard and agent access
 
 ```sh
-npx --no-install groundwork-v2 register --workspace Personal --product "My product"
-npx --no-install groundwork-v2 dashboard
-npx --no-install groundwork-v2 read
-npx --no-install groundwork-v2 validate
-npx --no-install groundwork-v2 mcp
+npx --no-install groundwork register --workspace Personal --product "My product"
+npx --no-install groundwork dashboard
+npx --no-install groundwork read
+npx --no-install groundwork validate
+npx --no-install groundwork mcp
 ```
 
 The central dashboard groups registered repositories by workspace and product using local configuration. Linked Git worktrees appear as checkout variants of their repository rather than separate products. Each checkout has its own URL and explicit branch context. A branch selector opens committed refs without switching the working copy. Independent clones need explicit registration. Git activity is observed locally; the service never fetches or publishes.
@@ -66,17 +74,17 @@ See [the portable authoring guide](docs/PORTABLE.md) for the format, MCP setup a
 The [Word Loop import review](tests/fixtures/wordloop/provenance/REVIEW.md) records source disagreements and evidence limitations. The portable supplement preserves 11 deliverables, 28 component tasks and frozen source records. To export it into a new test repository without changing the original docs:
 
 ```sh
-node bin/groundwork-v2.js export --source tests/fixtures/wordloop/content --target /tmp/wordloop-groundwork \
+node bin/groundwork.js export --source tests/fixtures/wordloop/content --target /tmp/wordloop-groundwork \
   --name "Word Loop" --assets tests/fixtures/wordloop/images \
   --supplement tests/fixtures/wordloop/provenance/portable
-node bin/groundwork-v2.js start /tmp/wordloop-groundwork
+node bin/groundwork.js start /tmp/wordloop-groundwork
 ```
 
 Tests exercise schema and reference validation, migration, concurrent writers, stale revisions, branch switches, interrupted transactions, external edits, worktree discovery, origin/token checks and filesystem isolation. Local HTTP integration tests require permission to bind a localhost port.
 
 ## Hub and project startup
 
-From a project with Groundwork installed, run `npm run plans:start` to start or reuse Groundwork Hub and get the URL for that project's workspace. Run `groundwork-v2 instructions` after upgrading to add the project scripts without replacing existing commands.
+From a project with Groundwork installed, run `npm run plans:start` to start or reuse Groundwork Hub and get the URL for that project's workspace. Run `groundwork instructions` after upgrading to add the project scripts without replacing existing commands.
 
 `npm run plans:hub` opens the Hub entry point; `npm run plans:standalone` starts a project-only viewer without a Hub. Commands print a clickable URL. The terminal that starts the server owns its lifetime; keep it open and press Ctrl+C to stop it. Later commands reuse the same server and exit. The default ports are 4318 for Hub and 4317 for standalone; use `--port` explicitly when needed.
 

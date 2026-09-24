@@ -1,7 +1,7 @@
 {
-  "name": "groundwork-v2",
+  "name": "groundwork",
   "private": true,
-  "version": "0.4.12",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev.ts",
@@ -14,9 +14,9 @@
     "build:runtime": "tsc -p tsconfig.runtime.json",
     "schemas:portable": "node scripts/schemas.ts",
     "prepack": "npm run build",
-    "groundwork": "node bin/groundwork-v2.js",
+    "groundwork": "node bin/groundwork.js",
     "schemas:check-portable": "node scripts/schemas.ts check",
-    "start": "npm run build && node bin/groundwork-v2.js hub",
+    "start": "npm run build && node bin/groundwork.js hub",
     "test:package": "npm pack && node scripts/package-smoke.ts",
     "schemas": "node scripts/schemas.ts",
     "schemas:check": "node scripts/schemas.ts check"
@@ -46,7 +46,7 @@
     "vite": "^8.2.2"
   },
   "bin": {
-    "groundwork-v2": "bin/groundwork-v2.js"
+    "groundwork": "bin/groundwork.js"
   },
   "engines": {
     "node": ">=22.18.0"

@@ -60,7 +60,7 @@ const commands: Record<string, { options: Options; positionals: number }> = {
 }
 function parse(command: string, args: string[]) {
   const spec = Object.hasOwn(commands, command) ? commands[command] : undefined
-  if (!spec) throw new UsageError(`Unknown command: ${command}. Run groundwork-v2 help to list commands.`)
+  if (!spec) throw new UsageError(`Unknown command: ${command}. Run groundwork help to list commands.`)
   let parsed
   try {
     parsed = parseArgs({ args, options: { ...spec.options, help: { type: 'boolean', short: 'h' } }, allowPositionals: true, strict: true })

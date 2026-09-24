@@ -279,7 +279,7 @@ export async function readPlanUnlocked(root: string, ref?: string) {
   return { ...plan, files, assets, layout, revision: revision(files), context: planContext(ctx, ref, resolved) }
 }
 const READ_ATTEMPTS = 10, READ_DELAY_MS = 20
-const PENDING = 'A plan write or recovery is pending; retaining the previous snapshot. Run groundwork-v2 recover if a writer was interrupted.'
+const PENDING = 'A plan write or recovery is pending; retaining the previous snapshot. Run groundwork recover if a writer was interrupted.'
 /** Whether a writer is active, and a stamp of the .groundwork directory, which changes whenever the lock or journal comes or goes. */
 async function writeState(root: string) {
   const [directory, lock, journal] = await Promise.all([GROUNDWORK_DIR, LOCK_FILE, JOURNAL_FILE]

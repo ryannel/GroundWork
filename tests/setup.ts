@@ -2,7 +2,7 @@
  * Loaded before every test file (`node --test --import ./tests/setup.ts`). It makes the suite hermetic:
  * git ignores the developer's global and system config (commit signing, templates, hooks paths, autocrlf),
  * commits get a fixed identity, and the Groundwork registry and scan directories live in a per-process
- * temp dir instead of ~/.config/groundwork-v2 and the shared os.tmpdir()/groundwork-scans.
+ * temp dir instead of ~/.config/groundwork and the shared os.tmpdir()/groundwork-scans.
  * Child processes spawned by tests inherit the same environment.
  */
 import { mkdtempSync, rmSync } from 'node:fs'

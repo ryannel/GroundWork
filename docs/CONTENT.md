@@ -1,6 +1,6 @@
 # Legacy import format
 
-This guide describes the input format for `groundwork-v2 export`. Active project plans live in each repository’s `.groundwork/plans/`; see [the portable guide](PORTABLE.md). The `content/` paths below are relative to an export source directory.
+This guide describes the input format for `groundwork export`. Active project plans live in each repository’s `.groundwork/plans/`; see [the portable guide](PORTABLE.md). The `content/` paths below are relative to an export source directory.
 
 # AI-authored content
 
@@ -29,7 +29,7 @@ schemas/                               # generated JSON Schemas for each documen
 
 `project.json` owns the format version for the whole directory. Unsupported versions fail explicitly. Entity filenames and feature folder names must match their IDs. All section files are optional: omit a section that has not been drafted. Never insert invented test results to make a draft appear complete.
 
-This `content/` directory is not loaded automatically by the running app. `groundwork-v2 export` reads it and writes a portable plan under `.groundwork/plans/`, which the viewer then loads live from the Hub. Adding a workspace, product or feature needs no route, page component, import list or seed edit; running `export` again picks up the change.
+This `content/` directory is not loaded automatically by the running app. `groundwork export` reads it and writes a portable plan under `.groundwork/plans/`, which the viewer then loads live from the Hub. Adding a workspace, product or feature needs no route, page component, import list or seed edit; running `export` again picks up the change.
 
 ## Authoring a feature
 
@@ -38,7 +38,7 @@ This `content/` directory is not loaded automatically by the running app. `groun
 3. Create `content/features/<id>/feature.json`, using an existing product and member ID. `touches` lists components being changed, including components owned by other products in the same workspace. It is distinct from every participant in a system flow.
 4. Add the relevant section files. Local references point to IDs inside this feature; component references point to global component IDs.
 5. Set `updatedAt` to the real time of the content revision in ISO 8601 with a timezone. Do not regenerate timestamps at application startup.
-6. Run `npm run content:validate -- content` to validate this directory (the bare `npm run content:validate`, with no path, validates the bundled Word Loop fixture instead), then `npm test`. Review the changed JSON, then run `groundwork-v2 export` and review the resulting plan in the viewer before publishing the revision. Multi-file edits should be validated together as one revision; the loader never exposes a partially validated revision.
+6. Run `npm run content:validate -- content` to validate this directory (the bare `npm run content:validate`, with no path, validates the bundled Word Loop fixture instead), then `npm test`. Review the changed JSON, then run `groundwork export` and review the resulting plan in the viewer before publishing the revision. Multi-file edits should be validated together as one revision; the loader never exposes a partially validated revision.
 
 Minimal feature metadata (replace the example ID and timestamp):
 
