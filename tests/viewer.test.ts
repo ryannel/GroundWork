@@ -11,6 +11,8 @@ import { tempDir, withEnv } from './helpers.ts'
 test('projects share one Hub while standalone startup stays isolated', async t => {
   const temp = await tempDir(t, 'groundwork-viewer-')
   withEnv(t, { GROUNDWORK_HOME: path.join(temp, 'config') })
+  await mkdir(path.join(temp, 'config'), { recursive: true })
+  await writeFile(path.join(temp, 'config/registry.json'), '{"version":2,"projects":[]}\n')
   // A stub viewer page, so the test does not depend on a prior `npm run build` producing dist/.
   const viewerDirectory = path.join(temp, 'viewer')
   await mkdir(viewerDirectory)

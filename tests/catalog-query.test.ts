@@ -10,6 +10,7 @@ import { retainDiscoveryBaseline, getDiscoveryBaseline } from '../server/knowled
 import { catalogFiles, components, msrpEndpoint } from './fixtures/catalog.ts'
 import { guard, tempDir } from './helpers.ts'
 import type { Relation } from '../src/data/catalog-index.ts'
+import { productRoute } from '../src/data/view-models.ts'
 
 /** The fields of a catalog search summary these tests read. */
 type Summary = {
@@ -65,7 +66,7 @@ test('a shared used catalog links to the product selected by the caller', async 
       { productId: string; productIds: string[]; location: string }[]
     assert.equal(item.productId, user.id)
     assert.deepEqual(item.productIds, [owner.id, user.id])
-    assert.match(item.location, /\/w\/project\/consumer\?/)
+    assert.ok(item.location.includes(`${productRoute(plan.repository.id, 'consumer')}?`))
   }
 })
 test('pagination is bounded, complete, deterministic, and rejects changed query/snapshot/checkout', async t => {

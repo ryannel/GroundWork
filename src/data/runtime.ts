@@ -5,6 +5,18 @@ import type { ContentSnapshot } from './content.ts'
 import type { Delivery } from './delivery.ts'
 export interface Checkout {
   checkoutId: string
+  registryVersion: 2 | 3
+  /** The repository checked out here; a source checkout can point to a product in another home. */
+  repositoryId: string
+  homeRepositoryId: string | null
+  productId: string | null
+  productRefs: { repository: string; product: string; slug: string; name: string; path: string; workspaceNames: string[];
+    componentIds: string[]; componentKeys: string[]; declaredRepositories: string[];
+    features: { id: string; title: string; stage: string }[] }[]
+  workspaceNames: string[]
+  preferred: boolean
+  authoritativeHome: boolean
+  cloneDisagreement?: { status: 'different' | 'diverged' | 'unknown'; heads: { root: string; head: string | null }[] } | null
   root: string
   repositoryRoot: string
   repositories: string[]

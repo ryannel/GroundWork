@@ -58,6 +58,15 @@ test('workspace and product views match the direct scope calculation', () => {
   assert.equal(productView(repository, 'ecom', 'missing'), undefined)
 })
 
+test('a product route resolves by home repository and slug without a workspace parent', () => {
+  const product = { ...snapshot.products[0], workspaceId: undefined }
+  const repository = createRepository({ ...snapshot, homeRepository: 'acme/home', workspaces: [], products: [product] })
+  const view = productView(repository, 'acme/home', product.slug)
+  assert.equal(view?.product.id, product.id)
+  assert.equal(view?.workspace, undefined)
+  assert.equal(productView(repository, 'acme/other', product.slug), undefined)
+})
+
 test('the home view counts cold work against the supplied clock', () => {
   const repository = repositoryFor(snapshot)
   const latest = Math.max(...snapshot.features.map((f: Feature) => Date.parse(f.updatedAt)))

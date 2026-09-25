@@ -5,8 +5,10 @@ import { pathToFileURL } from 'node:url'
 import { z } from 'zod'
 import { Conflict, InvalidInput } from './errors.ts'
 import { initialise, installInstructions, exportLegacy } from './setup.ts'
-import { inventory, register, unregister } from './registry.ts'
+import { inventory, register, unregister, previewHubMigration, migrateHubRegistry, previewFolderRegistration, registerFolder } from './registry.ts'
+import type { LabelMappings } from './registry-v3.ts'
 import { readPlan, recover } from './repository.ts'
+import { validateAllHomes } from './validate-all.ts'
 import { startViewer } from './viewer.ts'
 import { mcp } from './mcp.ts'
 import { operate, operationSchemas, type OperationName } from './operations.ts'
@@ -19,10 +21,13 @@ const help = `Groundwork — portable repository planning
   serve [path] [--port 4317]        Run the standalone viewer
   dashboard [--port 4318]           Alias for hub
   register [path] [--workspace NAME] [--product NAME]
+  registry-preview [--mappings FILE] Preview v2 labels and v3 identities
+  registry-migrate --mappings FILE --confirm
+  register-folder [path] [--select FILE] [--depth 2]
   unregister [path]
   projects                         List projects and discovered worktrees
   read [path] [--ref BRANCH]        Read documents, revision and context
-  validate [path]                   Validate a complete repository plan
+  validate [path] [--all]           Validate one home or ownership across every loaded home
   recover [path]                    Recover an interrupted write and remove leftover temp files
   instructions [path]               Refresh guide/schema files and instruction links
   call OPERATION --input FILE       Call an authoring operation with JSON arguments
@@ -48,10 +53,13 @@ const commands: Record<string, { options: Options; positionals: number }> = {
   dashboard: { options: { port: text }, positionals: 0 },
   serve: { options: { root: text, port: text }, positionals: 1 },
   register: { options: { root: text, workspace: text, product: text }, positionals: 1 },
+  'registry-preview': { options: { mappings: text }, positionals: 0 },
+  'registry-migrate': { options: { mappings: text, confirm: flag }, positionals: 0 },
+  'register-folder': { options: { root: text, select: text, depth: text }, positionals: 1 },
   unregister: { options: { root: text }, positionals: 1 },
   projects: { options: {}, positionals: 0 },
   read: { options: { root: text, ref: text }, positionals: 1 },
-  validate: { options: { root: text }, positionals: 1 },
+  validate: { options: { root: text, all: flag }, positionals: 1 },
   recover: { options: { root: text }, positionals: 1 },
   instructions: { options: { root: text }, positionals: 1 },
   call: { options: { root: text, central: flag, input: text }, positionals: 1 },
@@ -89,12 +97,32 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
   const print = (value: unknown) => out(JSON.stringify(value, null, 2))
   if (command === 'init') return print(await initialise(root, { name: string('name'), domain: string('domain'), id: string('id') }))
   if (command === 'register') return print(await register(root, string('workspace'), string('product')))
+  if (command === 'registry-preview' || command === 'registry-migrate') {
+    const file = string('mappings')
+    const mappings = file ? JSON.parse(await readFile(file, 'utf8')) as LabelMappings : {}
+    if (command === 'registry-preview') return print(await previewHubMigration(mappings))
+    if (!file) throw new UsageError('registry-migrate: --mappings is required')
+    return print(await migrateHubRegistry(mappings, values.confirm === true))
+  }
+  if (command === 'register-folder') {
+    const depth = string('depth') === undefined ? 2 : Number(string('depth'))
+    const selected = string('select')
+    if (!selected) return print(await previewFolderRegistration(root, depth))
+    const roots = JSON.parse(await readFile(selected, 'utf8')) as string[]
+    if (!Array.isArray(roots) || roots.some(item => typeof item !== 'string')) throw new UsageError('register-folder: --select must contain a JSON array of root paths')
+    return print(await registerFolder(root, roots, depth))
+  }
   if (command === 'unregister') return print(await unregister(root))
   if (command === 'projects') return print(await inventory())
   if (command === 'read') return print(await operate('read_plan', { ref: string('ref') }, root))
   if (command === 'validate') {
+    if (values.all) {
+      if (string('root') || positionals.length) throw new UsageError('validate --all: omit a repository path')
+      return print(await validateAllHomes())
+    }
     const plan = await readPlan(root)
-    return print({ valid: true, project: plan.manifest, features: plan.snapshot.features.length, revision: plan.revision })
+    return print({ valid: true, project: plan.manifest, features: plan.snapshot.features.length, revision: plan.revision,
+      warnings: plan.repository.warning ? [plan.repository.warning] : [] })
   }
   if (command === 'recover') { await recover(root); return print({ recovered: true }) }
   if (command === 'instructions') { await installInstructions(root); return print({ installed: true }) }

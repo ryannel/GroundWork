@@ -1,6 +1,8 @@
-import { ArrowUpRight } from 'lucide-react'
+import { AlertTriangle, ArrowUpRight } from 'lucide-react'
 import { useRuntime } from '@/data/runtime'
 import { summarizeHubProducts, type HubProduct } from '@/data/view-models'
+
+const cloneStatus = { different: 'default branch commits differ', diverged: 'default branches diverged', unknown: 'clone history could not be compared' }
 
 function ProductSummary({ product }: { product: HubProduct }) {
   const content = <>
@@ -17,10 +19,15 @@ function ProductSummary({ product }: { product: HubProduct }) {
       <span><strong>{product.ideas}</strong> ideas</span>
       <span><strong>{product.shipped}</strong> shipped</span>
     </div>
+    {!!product.cloneWarnings.length && <p className="product-clone-warning">
+      <AlertTriangle size={14} aria-hidden="true" style={{ color: 'var(--warning)' }} />{' '}
+      <strong>Clone differences:</strong>{' '}
+      {product.cloneWarnings.map(warning => `${warning.repository}: ${cloneStatus[warning.status]}`).join('; ')}
+    </p>}
   </>
   // Products open in their own checkout's viewer, outside this router's basename.
   return product.href
-    ? <a className="product-card product-summary-card" href={product.href} aria-label={`Open ${product.name}`}>{content}</a>
+    ? <a className="product-card product-summary-card" href={product.href} aria-label={`Open ${product.name}${product.cloneWarnings.length ? '; clone differences reported' : ''}`}>{content}</a>
     : <article className="product-card product-summary-card">{content}</article>
 }
 
@@ -36,13 +43,13 @@ export function ProjectsPage() {
     {error && <p className="runtime-error" role="alert">{error}</p>}
     {!projects.length && <section className="central-empty">
       <h2>Bring your first repository</h2>
-      <p>Register repositories beneath a workspace and product. Plans stay with their source.</p>
-      <pre>npx --no-install groundwork-v2 register --workspace Personal --product "My product"</pre>
+      <p>Register a folder to discover its repositories. Products are read from their home repositories.</p>
+      <pre>npx --no-install groundwork-v2 register .</pre>
       <p>The Hub will pick it up automatically.</p>
     </section>}
     {workspaces.map(workspace => <section className="central-workspace" key={workspace.name}>
       <h2>{workspace.name}</h2>
-      <div className="product-grid">{workspace.products.map(product => <ProductSummary key={product.name} product={product} />)}</div>
+      <div className="product-grid">{workspace.products.map(product => <ProductSummary key={product.id} product={product} />)}</div>
     </section>)}
     <footer className="central-footer">Plans travel with the repository. Workspace organisation stays on this computer.</footer>
   </div>

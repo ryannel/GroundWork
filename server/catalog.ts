@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { catalogKinds, parseCatalogId, type CatalogKind } from '../src/data/catalog-identity.ts'
 import { catalogKnowledgeState } from '../src/data/catalog-coverage.ts'
 import { sourceEvidenceUrl, type ExecutionFlow } from '../src/data/execution-flow.ts'
+import { productRoute } from '../src/data/view-models.ts'
 import { catalogLocationFor, writeCatalogLocation, type CatalogLocation } from '../src/data/catalog-url.ts'
 import type { Component } from '../src/data/model.ts'
 import { digest } from './git.ts'
@@ -82,7 +83,7 @@ function summary(plan: Plan, entry: Entity, selectedProductId?: string) {
   return {
     id: entry.id, aliases: entry.aliases, kind: entry.kind, name: clip(entry.name), description: clip(entry.description),
     componentId: component.id, productId, productIds: entry.productIds,
-    location: product ? `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}/w/project/${product.slug}?${params}` : null,
+    location: product ? `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}${productRoute(plan.repository.id, product.slug)}?${params}` : null,
     source: { repository: component.repo ?? null, revision: sourceRevision },
     coverage: state.coverage,
     investigation: traced === null

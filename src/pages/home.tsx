@@ -6,6 +6,7 @@ import { WorkspaceCard } from '@/components/workspace-card'
 import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { useUrlFilter } from '@/ui/use-url-filter'
+import { productRoute } from '@/data/view-models'
 
 type HomeView = 'active' | 'ideas' | 'quiet'
 const emptyText: Record<HomeView, string> = {
@@ -64,7 +65,9 @@ export function HomePage() {
         </h2>
       </div>
       {plan
-        ? <div className="project-grid">{q.products().map(product => <Link className="project-card" to={`/w/project/${product.slug}`} key={product.id}>
+        ? <div className="project-grid">{q.products().map(product => <Link className="project-card" to={plan.identity.repository?.id
+          ? productRoute(plan.identity.repository.id, product.slug)
+          : `/w/${q.workspace(product.workspaceId)?.slug ?? 'project'}/${product.slug}`} key={product.id}>
           <h3>{product.name}</h3>
           <p className="project-path">{product.description ?? 'Features, architecture, and the work ahead.'}</p>
           <div className="project-counts">
@@ -73,12 +76,12 @@ export function HomePage() {
           </div>
         </Link>)}</div>
         : <div className="workspace-directory">{summaries.map(s => <WorkspaceCard key={s.workspace.id} s={s} />)}</div>}
-      {!summaries.length && <div className="board-empty">
+      {!plan && !summaries.length && <div className="board-empty">
         <strong>No workspaces yet</strong>
         <p>Your AI assistant can add a workspace and populate its products and feature plans.</p>
       </div>}
     </section>
-    {summaries.length > 0 && <section className="board-work" aria-labelledby="board-work-heading">
+    {(plan || summaries.length > 0) && <section className="board-work" aria-labelledby="board-work-heading">
       <div className="board-section-heading">
         <div><h2 id="board-work-heading">Feature work</h2><p>Across your products, from first idea to release.</p></div>
         {!plan && <label><span className="sr-only">Workspace</span>

@@ -28,7 +28,7 @@ export function ProductPage() {
     next.set('component', id)
     return next
   }, { preventScrollReset: true }), [setParams])
-  if (!data) return <Navigate to={`/w/${slug}`} replace />
+  if (!data) return <Navigate to="/" replace />
   const { workspace: w, product: p, active, ideas, shipped, components, incoming } = data
   const kind = kinds[p.kind]
   const requestedScope = components.find(({ component }) => component.id === filter.get('scope'))?.component

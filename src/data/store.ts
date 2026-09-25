@@ -2,6 +2,7 @@ import { createContext, createElement, useContext, useMemo, useState, type React
 import { createRepository, type ContentSnapshot, type Repository, type RepositoryQueries } from './content.ts'
 import { useRuntime } from './runtime.ts'
 import type { Component, Feature, Product, Workspace } from './model.ts'
+import { repositoryIdentity } from './repository-identity.ts'
 import type { FeatureStage } from '@/lib/taxonomy'
 
 const empty: ContentSnapshot = { project: { schemaVersion: 1 }, members: [], workspaces: [], products: [], components: [], features: [] }
@@ -127,9 +128,11 @@ export function workspaceView({ q: query }: Repository, slug: string, now = Date
 
 /** Product page: its features by stage, its components with load, and features from other products that touch it. */
 export function productView({ db, q: query }: Repository, workspaceSlug: string, productSlug: string, now = Date.now()) {
-  const workspace = query.workspace(workspaceSlug)
-  const product = workspace && query.products(workspace.id).find(p => p.slug === productSlug)
-  if (!workspace || !product) return undefined
+  const homeRoute = db.homeRepository && repositoryIdentity(workspaceSlug) === repositoryIdentity(db.homeRepository)
+  const workspace = homeRoute ? undefined : query.workspace(workspaceSlug)
+  const product = (homeRoute ? query.products() : workspace ? query.products(workspace.id) : [])
+    .find(p => p.slug === productSlug)
+  if (!product) return undefined
   const all = query.features(product.id)
   const active = all.filter(isActive)
   const activeAnywhere = db.features.filter(isActive)

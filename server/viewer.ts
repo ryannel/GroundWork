@@ -4,6 +4,18 @@ import { serve } from './http.ts'
 import { inventory, register } from './registry.ts'
 import { viewerIdentity } from './viewer-identity.ts'
 import { readPlan } from './repository.ts'
+import { NotInitialised } from './format.ts'
+
+type InventoryEntry = Awaited<ReturnType<typeof inventory>>[number]
+/** A source checkout opens the owning home; the route's checkout ID must be able to read that home's plan. */
+export function viewerProjectRoute(entry: InventoryEntry, entries: InventoryEntry[], sourceOnly: boolean) {
+  if (entry.productPath && entry.homeRepositoryId && entry.homeRepositoryId !== entry.repositoryId) {
+    const owner = entries.find(candidate => candidate.repositoryId === entry.homeRepositoryId && candidate.authoritativeHome && !candidate.error)
+    if (!owner) throw new Error('The owning product home is not available in the Hub')
+    return `/p/${owner.checkoutId}${entry.productPath}`
+  }
+  return sourceOnly ? '' : `/p/${entry.checkoutId}${entry.productPath ?? '/'}`
+}
 
 /**
  * A fixed local port is the rendezvous point; never allocate another server silently.
@@ -11,7 +23,11 @@ import { readPlan } from './repository.ts'
  */
 export async function startViewer(options: { root?: string; standalone?: boolean; port?: number; viewerDirectory?: string } = {}) {
   const root = options.root ? await realpath(options.root) : undefined
-  if (root) await readPlan(root)
+  let sourceOnly = false
+  if (root) await readPlan(root).catch(error => {
+    if (!options.standalone && error instanceof NotInitialised) { sourceOnly = true; return }
+    throw error
+  })
   if (options.standalone && !root) throw new InvalidInput('Standalone mode requires a project directory')
   const port = options.port ?? (options.standalone ? 4317 : 4318)
   const expected = await viewerIdentity(options.standalone ? root : undefined)
@@ -39,10 +55,11 @@ export async function startViewer(options: { root?: string; standalone?: boolean
   try {
     let url = app?.url ?? base
     if (root && !options.standalone) {
-      let entry = (await inventory()).find(p => p.root === root && !p.error)
-      if (!entry) { await register(root); entry = (await inventory()).find(p => p.root === root && !p.error) }
+      let entries = await inventory()
+      let entry = entries.find(p => p.root === root && (!p.error || p.productPath))
+      if (!entry) { await register(root); entries = await inventory(); entry = entries.find(p => p.root === root && (!p.error || p.productPath)) }
       if (!entry) throw new Error('Could not register the project workspace')
-      url += `/p/${entry.checkoutId}/`
+      url += viewerProjectRoute(entry, entries, sourceOnly)
     }
     return { url, app, reused: !app, mode: expected.mode }
   } catch (error) { await app?.close(); throw error }

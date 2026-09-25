@@ -63,6 +63,9 @@ test('project routes and refs are parsed, and malformed refs do not crash startu
   const malformed = createRuntime('/p/abc/ref/%E0')
   assert.equal(malformed.checkoutId, 'abc')
   assert.equal(malformed.selectedRef, undefined)
+  const product = createRuntime('/p/abc/ref/feature%2Fx/r/acme%2Fhome/price%20engine')
+  assert.equal(product.runtimeBase, '/p/abc/ref/feature%2Fx')
+  assert.equal(product.selectedRef, 'feature/x')
 })
 
 test('an unavailable API reports a disconnected state', async t => {

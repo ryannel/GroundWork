@@ -75,9 +75,9 @@ export const productRepositorySchema = z.strictObject({
  * Read-tolerant product: every legacy field plus the fields a migrated home writes. Readers accept both forms;
  * writes still produce `productSchema`, so a teammate on an older release can still read what this one writes.
  */
-export const productReadSchema = productSchema.extend({
-  schemaVersion: z.literal(documentVersions.product.current).optional(), domain: z.url().optional(),
-  repositories: z.array(productRepositorySchema).optional(),
+export const productReadSchema = productSchema.omit({ workspaceId: true }).extend({
+  workspaceId: id.optional(), schemaVersion: z.literal(documentVersions.product.current).optional(),
+  domain: z.url().optional(), repositories: z.array(productRepositorySchema).optional(),
 })
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
 export const componentEvidenceSchema = z.strictObject({

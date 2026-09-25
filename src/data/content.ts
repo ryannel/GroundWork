@@ -223,10 +223,13 @@ export function validateStructure(ctx: ContentContext): string[] {
     if (workspace.slug !== workspace.id && ctx.workspaceById.has(workspace.slug)) {
       issues.push(`workspaces/${workspace.id}: slug conflicts with another workspace ID`)
     }
-    unique(ctx.products.filter(p => p.workspaceId === workspace.id).map(p => p.slug), `workspaces/${workspace.id}/products.slug`)
   }
+  // Viewer paths identify a product by its home repository and slug, independent of Hub workspace views.
+  unique(ctx.products.map(p => p.slug), 'products.slug')
   if (ctx.project.viewerId) has(ctx.memberById, ctx.project.viewerId, 'project.json:viewerId')
-  for (const product of ctx.products) has(ctx.workspaceById, product.workspaceId, `products/${product.id}.json:workspaceId`)
+  for (const product of ctx.products) if (product.workspaceId) {
+    has(ctx.workspaceById, product.workspaceId, `products/${product.id}.json:workspaceId`)
+  }
   issues.push(...validateProductRepositories(ctx.products))
   return issues
 }
@@ -353,7 +356,9 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
     has(ctx.componentById, id, `${root}/${path}`)
     const memberWorkspaces = ctx.membershipByComponent.get(id)?.productIds
       .map(productId => ctx.productById.get(productId)?.workspaceId) ?? []
-    if (workspaceId && ctx.componentById.has(id) && !memberWorkspaces.includes(workspaceId)) {
+    if (ctx.componentById.has(id) && (workspaceId
+      ? !memberWorkspaces.includes(workspaceId)
+      : !(ctx.membershipByComponent.get(id)?.productIds.length))) {
       issues.push(`${root}/${path}: component "${id}" belongs to another workspace`)
     }
   }
@@ -528,7 +533,7 @@ export function createRepository(snapshot: ContentSnapshot) {
   }
   const q = {
     workspaces: () => snapshot.workspaces,
-    workspace: (idOrSlug: string) => workspaces.get(idOrSlug),
+    workspace: (idOrSlug?: string) => idOrSlug ? workspaces.get(idOrSlug) : undefined,
     products: (workspaceId?: string) => workspaceId ? snapshot.products.filter(p => p.workspaceId === workspaceId) : snapshot.products,
     product: (id: string) => products.get(id),
     productRepositories: (id: string) => {

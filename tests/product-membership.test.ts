@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { catalogIndex } from '../src/data/catalog-index.ts'
-import { componentMembership, createRepository, pathPatternCovers, pathPatternsOverlap, productRepositories } from '../src/data/content.ts'
+import { componentMembership, createRepository, loadContent, pathPatternCovers, pathPatternsOverlap, productRepositories } from '../src/data/content.ts'
 import { parsePlan } from '../server/format.ts'
 
 const source = { layout: 'catalog-v3' as const,
@@ -29,6 +29,8 @@ test('monorepo products own disjoint paths and shared used repositories remain v
     'components/utils.json': component('utils', 'acme/common-utils', '.'),
   }
   const plan = parsePlan(files, source)
+  assert.deepEqual(plan.snapshot.workspaces, [], 'a v3 home does not create a repository-local workspace')
+  assert.equal(plan.snapshot.products[0].workspaceId, undefined)
   const { q } = createRepository(plan.snapshot)
   assert.deepEqual(q.components('price').map(item => item.id), ['price-api', 'price-lib', 'utils'])
   assert.deepEqual(q.components('tax').map(item => item.id), ['tax-api', 'utils'])
@@ -37,6 +39,19 @@ test('monorepo products own disjoint paths and shared used repositories remain v
   assert.equal(q.componentOwner('price-api')?.slug, 'price-display', 'slug is display and routing, not identity')
   assert.deepEqual(catalogIndex(plan).find(item => item.component.id === 'utils' && item.kind === 'component')?.productIds,
     ['price', 'tax'])
+})
+
+test('v3 products load without a repository-local workspace and their slugs are unique within a home', () => {
+  const documents = {
+    'project.json': { schemaVersion: 1 },
+    'products/a.json': { schemaVersion: 3, id: 'a', slug: 'api', name: 'API', kind: 'service-system', repositories: [] },
+  }
+  const snapshot = loadContent(documents, 'acme/home')
+  assert.deepEqual(snapshot.workspaces, [])
+  assert.equal(snapshot.products[0].workspaceId, undefined)
+  assert.throws(() => loadContent({ ...documents,
+    'products/b.json': { schemaVersion: 3, id: 'b', slug: 'api', name: 'Other API', kind: 'service-system', repositories: [] },
+  }, 'acme/home'), /products.slug: duplicate/)
 })
 
 test('overlapping owned paths are rejected without requiring a catalog', () => {

@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useRuntime } from '@/data/runtime'
+import { productRoute } from '@/data/view-models'
 
 interface BreadcrumbsProps {
   workspace?: { name: string; slug: string }
@@ -10,7 +11,7 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ workspace, product, current, className = '' }: BreadcrumbsProps) {
-  const { mode } = useRuntime()
+  const { mode, plan } = useRuntime()
   const currentIsHierarchyItem = current?.label === 'Workspace' || current?.label === 'Product'
   return <nav aria-label="Breadcrumb" className={`breadcrumbs ${className}`.trim()}>
     {mode === 'central'
@@ -22,11 +23,13 @@ export function Breadcrumbs({ workspace, product, current, className = '' }: Bre
         ? <span className="breadcrumb-entity" aria-current="page">{workspace.name}</span>
         : <Link to={`/w/${workspace.slug}`} className="breadcrumb-entity">{workspace.name}</Link>}
     </>}
-    {product && workspace && <>
+    {product && <>
       <ChevronRight aria-hidden="true" />
       {current?.label === 'Product'
         ? <span className="breadcrumb-entity" aria-current="page">{product.name}</span>
-        : <Link to={`/w/${workspace.slug}/${product.slug}`} className="breadcrumb-entity">{product.name}</Link>}
+        : <Link to={workspace ? `/w/${workspace.slug}/${product.slug}`
+          : plan?.identity.repository?.id ? productRoute(plan.identity.repository.id, product.slug) : '/'}
+          className="breadcrumb-entity">{product.name}</Link>}
     </>}
     {current && !currentIsHierarchyItem && <>
       <ChevronRight aria-hidden="true" />

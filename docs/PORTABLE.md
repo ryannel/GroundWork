@@ -8,15 +8,18 @@ Planning and delivery updates are agent-managed through conversation. Use the CL
 
 ## Start here
 
-- `npm run plans:start` (or `npx --no-install groundwork-v2 start`) starts or reuses Groundwork Hub on port 4318 and prints this project's workspace URL. It registers the project locally if needed and preserves existing workspace grouping.
+- `npm run plans:start` (or `npx --no-install groundwork-v2 start`) starts or reuses Groundwork Hub on port 4318 and prints this repository's product URL. It registers the checkout locally if needed.
 - `npm run plans:standalone` (or `npx --no-install groundwork-v2 serve`) starts or reuses a standalone viewer on port 4317. It does not require a Hub or register the project.
 - `npm run plans:hub` (or `npx --no-install groundwork-v2 hub`) starts or reuses the Hub and prints its All projects URL. `dashboard` remains an alias.
 - `init` and `instructions` add these `plans:*` scripts when a package.json exists, without replacing existing scripts. Without an npm project, invoke the installed CLI directly.
-- The terminal that starts a server must stay open. Ctrl+C stops that server; stopping a Hub disconnects all of its project workspaces. A command that reuses a server prints the URL and exits. No background daemons or per-project app servers are launched.
+- The terminal that starts a server must stay open. Ctrl+C stops that server; stopping a Hub disconnects its open views. A command that reuses a server prints the URL and exits. No background daemons or per-project app servers are launched.
 - Use `--port NUMBER` consistently for a different local port. Commands refuse to reuse a different project, configuration, unrelated service, or incompatible viewer on that port; they never silently allocate another server.
 - `npx --no-install groundwork-v2 read` returns the complete plan, current revision, checkout identity and Git activity.
-- `npx --no-install groundwork-v2 validate` checks documents and cross-references.
-- `npx --no-install groundwork-v2 register --workspace Personal --product "My product"` adds this repository beneath a local workspace and product.
+- `npx --no-install groundwork-v2 validate` checks this home's documents and cross-references. `validate --all` also checks repository ownership across every home the Hub can load and reports which homes were covered.
+- `npx --no-install groundwork-v2 register-folder /path/to/Workspace` previews Git repositories under a folder. Save the selected root paths as a JSON array and pass `--select /path/to/selection.json` to register just those checkouts. Products come from their home repositories.
+- Existing v2 Hub registries remain readable. `registry-preview` lists display labels and candidate fixed product IDs; `registry-migrate --mappings /path/to/mappings.json --confirm` writes `registry-v3.json` after each label is mapped. The v2 file remains in place.
+
+  The mappings file is a JSON object whose keys are the `key` values from `registry-preview`, for example `"[\"Personal Projects\",\"Word Loop\"]": {"repository":"ryannel/wordloop-platform","product":"app"}`. If distinct homes share a label, the preview supplies `registrationKeys` that include each root; map those individually.
 - The Hub serves all registered projects through one server. Plans and assets remain in each repository; opening a workspace does not launch its application.
 - `npx --no-install groundwork-v2 mcp` exposes the same operations to your coding agent over stdio. Configure your MCP client to run `npx` with arguments `["--no-install", "groundwork-v2", "mcp", "/absolute/repository/path"]`. Add `--central` instead of the path for discovery across registered repositories.
 
@@ -207,7 +210,7 @@ Older generic `tasks` without component ownership are preserved as `undecomposed
 
 ## Local configuration
 
-Workspace, product and repository groups live under `GROUNDWORK_HOME`, or `~/.config/groundwork-v2` by default. They are not written into repository plans. Linked Git worktrees are discovered automatically and shown as checkout variants of their registered repository; independent clones must be registered explicitly. Project-scoped navigation keeps reused feature IDs separate.
+The Hub's local checkout list and workspace views live under `GROUNDWORK_HOME`, or `~/.config/groundwork-v2` by default. Products and their repository membership live in home repositories; a workspace view can include the same product in several groups. Linked Git worktrees are discovered automatically and shown as checkout variants of their registered repository; independent clones must be registered explicitly. Repository-scoped navigation keeps reused feature IDs separate.
 
 Groundwork uses **component** for an architectural responsibility or runtime boundary and **repository** for its source location. A product contains components. Several components can share a monorepo by using different `sourcePath` values, while components backed by separate repositories each record their own `repo`. Repository and checkout details provide provenance; they do not replace the product/component architecture.
 

@@ -192,7 +192,9 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
       if (file === 'project.json') manifest = manifestSchema.parse(value)
       else if (file.startsWith('products/')) {
         const { schemaVersion: _version, ...product } = portableProductReadSchema.parse(value)
-        documents[file] = { ...product, workspaceId: 'project' }
+        // Pre-migration homes still need the synthetic workspace for their parked plans. A v3 product has no
+        // workspace parent: the Hub groups it through local registry views, not through a field in this document.
+        documents[file] = source.layout === 'catalog-v3' ? product : { ...product, workspaceId: 'project' }
       } else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)
       else {
         if (file.startsWith('components/')) componentFiles.push(file)
@@ -221,7 +223,11 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
     documents[file] = rest
   }
   documents['project.json'] = { schemaVersion: 1 }
-  documents['workspaces/project.json'] = { id: 'project', slug: 'project', name: manifest.name, hue: 'var(--hue-teal)', createdAt: '2026-01-01T00:00:00Z' }
+  if (source.layout !== 'catalog-v3') {
+    documents['workspaces/project.json'] = {
+      id: 'project', slug: 'project', name: manifest.name, hue: 'var(--hue-teal)', createdAt: '2026-01-01T00:00:00Z',
+    }
+  }
   // Asset references stay relative on disk. The HTTP adapter adds checkout context.
   let snapshot: ContentSnapshot
   try { snapshot = loadContent(documents, source.repository?.id) } catch (error) {

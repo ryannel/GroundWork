@@ -1,9 +1,10 @@
 import { useLayoutEffect, useMemo, useRef, type ComponentType, type Ref } from 'react'
 import { Link, Navigate, useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowRight, ArrowLeft, LayoutDashboard, Circle, CheckCircle2, Layers, AlertCircle } from 'lucide-react'
-import type { Component, Feature, Product, Workspace } from '@/data/model'
+import type { Component, Feature, Product } from '@/data/model'
 import { useQuery, relTime } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
+import { productRoute } from '@/data/view-models'
 import { sectionKinds, type FeatureSpec, type SectionKind } from '@/data/spec'
 import { buildIndex, lensFor } from '@/data/spec-index'
 import { componentScopeIds, featureComponents } from '@/data/component-structure'
@@ -55,10 +56,10 @@ function useDiscovery(files: Record<string, string> | undefined, id: string) {
   }, [files, id])
 }
 
-function FeatureNav({ spec, product, workspace, current, href }: {
+function FeatureNav({ spec, product, productHref, current, href }: {
   spec: FeatureSpec
   product: Product
-  workspace: Workspace
+  productHref: string
   current: SectionKind | 'delivery' | undefined
   href: SectionHref
 }) {
@@ -80,7 +81,7 @@ function FeatureNav({ spec, product, workspace, current, href }: {
       </select>
     </label>
     <aside className="feature-nav">
-      <Link to={`/w/${workspace.slug}/${product.slug}`} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
+      <Link to={productHref} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
       <div className="eyebrow mb-3 mt-7">Feature plan</div>
       <Link {...linkProps(undefined)}><LayoutDashboard size={16} />Overview</Link>
       {groups.map(g => <div className="nav-group" key={g.label}>
@@ -104,10 +105,10 @@ function FeatureNav({ spec, product, workspace, current, href }: {
   </>
 }
 
-function FocusedHeader({ feature, product, workspace, current, href }: {
+function FocusedHeader({ feature, product, productHref, current, href }: {
   feature: Feature
   product: Product
-  workspace: Workspace
+  productHref: string
   current: SectionKind | 'delivery'
   href: SectionHref
 }) {
@@ -118,7 +119,7 @@ function FocusedHeader({ feature, product, workspace, current, href }: {
   ]
   return <>
     <header className="feature-heading">
-      <Link to={`/w/${workspace.slug}/${product.slug}`} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
+      <Link to={productHref} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
       <span className="feature-id">{feature.id.toUpperCase()}</span><h1>{feature.title}</h1><StageBadge stage={feature.stage} />
       <div className="feature-meta">
         <span className="meta-owner-label">Owner</span><Avatar name={feature.owner} className="owner-avatar" /><span>{feature.owner}</span>
@@ -219,7 +220,10 @@ export function FeaturePage() {
   const target = sectionKinds.includes(section as SectionKind) ? section as SectionKind : undefined
   const product = feature && q.product(feature.productId)
   const workspace = product && q.workspace(product.workspaceId)
-  if (!feature || !product || !workspace) return <Navigate to="/" replace />
+  if (!feature || !product) return <Navigate to="/" replace />
+  const homeRepository = plan?.identity.repository?.id
+  const productHref = workspace ? `/w/${workspace.slug}/${product.slug}`
+    : homeRepository ? productRoute(homeRepository, product.slug) : '/'
   if (section && !target && !isDelivery) return <Navigate to={`/f/${id}`} replace />
   const current = isDelivery ? 'delivery' : target
   const trace = params.get('trace')
@@ -237,17 +241,19 @@ export function FeaturePage() {
     if (action) return `/f/${id}/flow?${new URLSearchParams({ component: componentId, trace: `journey:${action.id}` })}`
     const owner = q.componentOwner(componentId)
     const parent = owner && q.workspace(owner.workspaceId)
-    return owner && parent ? `/w/${parent.slug}/${owner.slug}?component=${encodeURIComponent(componentId)}` : href('flow')
+    const ownerHref = owner && (parent ? `/w/${parent.slug}/${owner.slug}`
+      : homeRepository ? productRoute(homeRepository, owner.slug) : undefined)
+    return ownerHref ? `${ownerHref}?component=${encodeURIComponent(componentId)}` : href('flow')
   }
   const exampleFeature = target && q.features().find(other => other.id !== id && other.spec?.[target])
 
   return <SpecContext.Provider value={context}>
     <div className={cn('feature-workspace', !current && 'is-overview', current && 'is-focused', target === 'flow' && 'is-flow')}>
-      <FeatureNav spec={spec} product={product} workspace={workspace} current={current} href={href} />
+      <FeatureNav spec={spec} product={product} productHref={productHref} current={current} href={href} />
       <div className="feature-main">
         <Breadcrumbs workspace={workspace} product={product} current={{ label: 'Feature', name: feature.title }} className="feature-page-breadcrumb" />
         {current
-          ? <FocusedHeader feature={feature} product={product} workspace={workspace} current={current} href={href} />
+          ? <FocusedHeader feature={feature} product={product} productHref={productHref} current={current} href={href} />
           : <OverviewHeader
             feature={feature}
             headingRef={heading}
