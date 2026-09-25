@@ -33,8 +33,6 @@ test('each command accepts only its own number of positional arguments', async (
 
 test('options that take a value require one, and required options are enforced', async () => {
   await assert.rejects(run(['init', '--name']), usage(/^init: .*--name/))
-  await assert.rejects(run(['export', '--target', 'out', '--name', 'N']), usage(/export: --source is required/))
-  await assert.rejects(run(['export', '--source', 'in', '--target', 'out']), usage(/export: --name is required/))
 })
 
 test('call needs a listed operation, one scope and an input file', async () => {

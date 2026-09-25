@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev.ts",
-    "build": "npm run content:validate && npm run schemas:check && tsc -b && vite build && npm run build:runtime",
+    "build": "npm run schemas && tsc -b && vite build && npm run build:runtime",
     "lint": "oxlint",
     "test": "node --test --import ./tests/setup.ts tests/*.test.ts",
-    "content:validate": "node scripts/content.ts",
     "content:schemas": "node scripts/schemas.ts",
     "content:check-schemas": "node scripts/schemas.ts check",
     "build:runtime": "tsc -p tsconfig.runtime.json",

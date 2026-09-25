@@ -2,12 +2,10 @@ import { mkdir, readFile, readdir, cp, rename, rm, lstat } from 'node:fs/promise
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
-import { InvalidInput, NotFound } from './errors.ts'
-import { assetPattern, manifestSchema, parsePlan, renderBrief, assertLegacyWriteForms, type Files } from './format.ts'
+import { InvalidInput } from './errors.ts'
+import { assetPattern, manifestSchema, parsePlan, assertLegacyWriteForms, type Files } from './format.ts'
 import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE, SCHEMAS_DIR } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
-import { readContentDirectory } from './content-files.ts'
-import { loadContent } from '../src/data/content.ts'
 import { identitySlug, repositoryName } from '../src/data/repository-identity.ts'
 import { context } from './git.ts'
 
@@ -106,55 +104,4 @@ async function assetFilter(assets: string, source: string) {
     throw new InvalidInput(`Unsupported asset ${relative}: use png, jpg, webp, gif or avif files named with letters, digits, _ or -`)
   }
   return true
-}
-/** Rewrites legacy /images/ mockup references to portable assets/ references; other text is left alone. */
-function portableDesign(value: unknown) {
-  const design = value as { mockups?: { ref?: unknown }[] }
-  if (!Array.isArray(design?.mockups)) return value
-  const mockups = design.mockups.map(mock => typeof mock?.ref === 'string' && mock.ref.startsWith('/images/')
-    ? { ...mock, ref: `assets/${mock.ref.slice('/images/'.length)}` }
-    : mock)
-  return { ...design, mockups }
-}
-/** Explicitly export a legacy dataset; the source is never modified. */
-export async function exportLegacy(
-  source: string, target: string, options: { name: string; id?: string; product?: string; assets?: string; supplement?: string },
-) {
-  const docs = await readContentDirectory(source)
-  const loaded = loadContent(docs)
-  const products = loaded.products.filter(p => !options.product || p.id === options.product)
-  if (!products.length) throw new NotFound('No matching product to export')
-  const workspaceIds = new Set(products.map(p => p.workspaceId))
-  if (workspaceIds.size > 1) throw new InvalidInput('Select a product with --product when exporting multiple legacy workspaces')
-  // Include referenced sibling products so cross-product component references survive.
-  const keptProducts = loaded.products.filter(p => workspaceIds.has(p.workspaceId))
-  const featureIds = new Set(loaded.features.filter(f => products.some(p => p.id === f.productId)).map(f => f.id))
-  const files: Files = { 'project.json': JSON.stringify({ schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name }, null, 2) + '\n' }
-  for (const [name, value] of Object.entries(docs)) {
-    if (name === 'project.json' || name.startsWith('workspaces/')) continue
-    if (name.startsWith('products/')) {
-      const product = keptProducts.find(p => name === `products/${p.id}.json`)
-      if (product) { const { workspaceId: _workspaceId, ...portable } = product; files[name] = JSON.stringify(portable, null, 2) + '\n' }
-      continue
-    }
-    if (name.startsWith('components/') && !keptProducts.some(p => p.id === (value as { productId: string }).productId)) continue
-    if (name.startsWith('features/') && !featureIds.has(name.split('/')[1])) continue
-    if (name.endsWith('/purpose.json')) files[name.replace('purpose.json', 'brief.md')] = renderBrief(value as Parameters<typeof renderBrief>[0])
-    else files[name] = JSON.stringify(name.endsWith('/design.json') ? portableDesign(value) : value, null, 2) + '\n'
-  }
-  if (options.supplement) {
-    async function visit(directory: string, prefix = '') {
-      for (const entry of await readdir(directory, { withFileTypes: true })) {
-        if (entry.isSymbolicLink()) throw new InvalidInput('Supplement symlinks are not supported')
-        const name = prefix + entry.name
-        if (entry.isDirectory()) await visit(path.join(directory, entry.name), name + '/')
-        else if (entry.isFile()) {
-          if (name in files) throw new InvalidInput(`Supplement would overwrite ${name}`)
-          files[name] = await readFile(path.join(directory, entry.name), 'utf8')
-        }
-      }
-    }
-    await visit(options.supplement)
-  }
-  return initialise(target, { files, assets: options.assets })
 }

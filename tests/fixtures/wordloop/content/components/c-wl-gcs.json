@@ -1,8 +1,0 @@
-{
-  "id": "c-wl-gcs",
-  "productId": "p-wordloop",
-  "name": "Object storage",
-  "description": "Google Cloud Storage (GCS). Holds uploaded audio, recording segments, manifests, and composed recordings.",
-  "order": 5,
-  "kind": "object-storage"
-}

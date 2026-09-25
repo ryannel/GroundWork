@@ -4,12 +4,11 @@ import { parseArgs } from 'node:util'
 import { pathToFileURL } from 'node:url'
 import { z } from 'zod'
 import { Conflict, InvalidInput } from './errors.ts'
-import { initialise, installInstructions, exportLegacy } from './setup.ts'
+import { initialise, installInstructions } from './setup.ts'
 import { inventory, register, unregister, previewHubMigration, migrateHubRegistry, previewFolderRegistration, registerFolder } from './registry.ts'
 import type { LabelMappings } from './registry-v3.ts'
 import { readPlan, recover } from './repository.ts'
 import { validateAllHomes } from './validate-all.ts'
-import { readCatalogCache, refreshCatalogCache } from './catalog-cache.ts'
 import { startViewer } from './viewer.ts'
 import { mcp } from './mcp.ts'
 import { operate, operationSchemas, type OperationName } from './operations.ts'
@@ -27,9 +26,6 @@ const help = `Groundwork — portable repository planning
   register-folder [path] [--select FILE] [--depth 2]
   unregister [path]
   projects                         List projects and discovered worktrees
-  cache-status --repository ID     Show the pinned on-request catalog cache
-  cache-refresh --repository ID --remote URL [--commits FILE]
-                                   Explicitly fetch only Groundwork data and commit history
   read [path] [--ref BRANCH]        Read documents, revision and context
   validate [path] [--all]           Validate one home or ownership across every loaded home
   recover [path]                    Recover an interrupted write and remove leftover temp files
@@ -37,11 +33,10 @@ const help = `Groundwork — portable repository planning
   call OPERATION --input FILE       Call an authoring operation with JSON arguments
        [--root PATH | --central]    Repository scope defaults to the current folder
   mcp [path] [--central]            Run the stdio MCP adapter
-  export --source CONTENT --target PATH --name NAME [--product ID] [--assets IMAGES]
 
 Operations: ${Object.keys(operationSchemas).join(', ')}
 Use read before mutations. Pass expectedRevision and expectedContext back unchanged.
-No commands push, publish, or launch agents. Catalog cache refresh fetches only on explicit request.
+No commands push, publish, or launch agents.
 Exit codes: 1 failure, 2 command-line mistake, 3 conflict (re-read and retry).
 `
 /** A mistake in the command line itself: unknown command or option, missing value, extra argument. */
@@ -62,15 +57,12 @@ const commands: Record<string, { options: Options; positionals: number }> = {
   'register-folder': { options: { root: text, select: text, depth: text }, positionals: 1 },
   unregister: { options: { root: text }, positionals: 1 },
   projects: { options: {}, positionals: 0 },
-  'cache-status': { options: { repository: text }, positionals: 0 },
-  'cache-refresh': { options: { repository: text, remote: text, commits: text }, positionals: 0 },
   read: { options: { root: text, ref: text }, positionals: 1 },
   validate: { options: { root: text, all: flag }, positionals: 1 },
   recover: { options: { root: text }, positionals: 1 },
   instructions: { options: { root: text }, positionals: 1 },
   call: { options: { root: text, central: flag, input: text }, positionals: 1 },
   mcp: { options: { root: text, central: flag }, positionals: 1 },
-  export: { options: { source: text, target: text, name: text, id: text, product: text, assets: text, supplement: text }, positionals: 0 },
 }
 function parse(command: string, args: string[]) {
   const spec = Object.hasOwn(commands, command) ? commands[command] : undefined
@@ -120,15 +112,6 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
   }
   if (command === 'unregister') return print(await unregister(root))
   if (command === 'projects') return print(await inventory())
-  if (command === 'cache-status') return print(await readCatalogCache(required('repository')))
-  if (command === 'cache-refresh') {
-    const file = string('commits')
-    const recordedCommits = file ? JSON.parse(await readFile(file, 'utf8')) as string[] : undefined
-    if (recordedCommits && (!Array.isArray(recordedCommits) || recordedCommits.some(commit => typeof commit !== 'string'))) {
-      throw new UsageError('cache-refresh: --commits must contain a JSON array of commit hashes')
-    }
-    return print(await refreshCatalogCache({ repository: required('repository'), remote: required('remote'), recordedCommits }))
-  }
   if (command === 'read') return print(await operate('read_plan', { ref: string('ref') }, root))
   if (command === 'validate') {
     if (values.all) {
@@ -149,12 +132,6 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
     return print(await operate(name as OperationName, input, values.central ? undefined : root))
   }
   if (command === 'mcp') return mcp(values.central ? undefined : root)
-  if (command === 'export') {
-    const assets = string('assets')
-    return print(await exportLegacy(path.resolve(required('source')), path.resolve(required('target')), {
-      name: required('name'), id: string('id'), product: string('product'), supplement: string('supplement'), assets: assets ? path.resolve(assets) : undefined,
-    }))
-  }
   // start, hub, dashboard and serve
   const standalone = command === 'serve' || values.standalone === true
   const port = Number(string('port') ?? (standalone ? 4317 : 4318))

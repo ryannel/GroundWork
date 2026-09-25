@@ -1,8 +1,0 @@
-{
-  "id": "c-wl-openai",
-  "productId": "p-wordloop",
-  "name": "OpenAI",
-  "description": "External provider used by ML for summaries, talking points, and task extraction.",
-  "order": 7,
-  "kind": "external-service"
-}

@@ -66,7 +66,7 @@ export const workspaceSchema = z.strictObject({ id, slug, order, name: text, des
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
 /** A product's repository membership in the migrated form: which repositories, or paths inside them, it owns or uses. */
 export const productRepositorySchema = z.strictObject({
-  repository: text, role: z.enum(['owned', 'used']),
+  repository: text, role: z.enum(['owned', 'used']), catalog: z.enum(['source', 'local']).optional(),
   paths: z.array(text.refine(value => value === '.' || isRepoRelativePath(value.replaceAll('*', 'x')),
     'Repository-relative path pattern required')).optional(),
   aliases: strings.optional(),

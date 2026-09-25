@@ -1,9 +1,0 @@
-{
-  "id": "c-wl-ops",
-  "productId": "p-wordloop",
-  "name": "Diagnostics",
-  "description": "Service-authenticated inspection of recording and ML state, grouped with Core’s operational tooling. These contract callers are not another deployed microservice.",
-  "order": 8,
-  "kind": "module",
-  "parentId": "c-wl-core"
-}

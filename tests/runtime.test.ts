@@ -4,13 +4,13 @@ import { mkdir, readFile, writeFile, symlink } from 'node:fs/promises'
 import type { TestContext } from 'node:test'
 import { get } from 'node:http'
 import path from 'node:path'
-import { initialise, exportLegacy } from '../server/setup.ts'
+import { initialise } from '../server/setup.ts'
 import { readPlan, writePlan, recover, Conflict } from '../server/repository.ts'
 import { parsePlan, renderBrief, deliverySchema } from '../server/format.ts'
 import { operate } from '../server/operations.ts'
 import { git, context, discover } from '../server/git.ts'
 import { serve } from '../server/http.ts'
-import { commitAll, fixturePath, gitInit, guard, tempDir } from './helpers.ts'
+import { commitAll, gitInit, guard, tempDir } from './helpers.ts'
 
 async function fixture(t: TestContext, gitRepo = false) {
   const root = await tempDir(t, 'groundwork-test-')
@@ -163,24 +163,6 @@ test('HTTP requires authentication and local origin, retains last valid plans, a
     assert.equal(status, 403)
   })
 })
-test('Word Loop exports with brief criteria, unassessed deltas and screenshots preserved', async t => {
-  const root = await tempDir(t, 'groundwork-export-')
-  const source = fixturePath('wordloop/content')
-  await exportLegacy(source, root, {
-    name: 'Word Loop', assets: fixturePath('wordloop/images'), supplement: fixturePath('wordloop/provenance/portable'),
-  })
-  const plan = await readPlan(root)
-  const feature = plan.snapshot.features.find(f => f.id === 'meeting-recording')!
-  assert.ok(feature)
-  assert.equal(plan.delivery['meeting-recording'].deliverables.length, 11)
-  assert.equal(plan.delivery['meeting-recording'].tasks.length, 28)
-  assert.ok(Object.keys(plan.decisions).length > 20)
-  assert.equal(feature.spec!.purpose!.success!.length, loadLegacyCriterionCount(await readFile(path.join(source, 'features/meeting-recording/purpose.json'), 'utf8')))
-  assert.ok(feature.spec!.api!.contracts.some(c => c.change === 'unspecified'))
-  for (const mock of feature.spec!.design!.mockups ?? []) if (mock.ref.startsWith('assets/')) assert.ok((await readFile(path.join(root, '.groundwork/plans', mock.ref))).length)
-})
-function loadLegacyCriterionCount(raw: string) { return JSON.parse(raw).success.length }
-
 test('live events reconcile external edits, malformed revisions and recovery', { timeout: 15000 }, async t => {
   const root = await fixture(t)
   const app = await serve({ root, port: 0 }); t.after(() => app.close())

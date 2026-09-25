@@ -1,8 +1,0 @@
-{
-  "id": "c-wl-aai",
-  "productId": "p-wordloop",
-  "name": "AssemblyAI",
-  "description": "External provider used by ML for live and batch transcription.",
-  "order": 6,
-  "kind": "external-service"
-}

@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 runtime/
+schemas/
 *.tgz
 .groundwork/write.lock
 .groundwork/transaction.json

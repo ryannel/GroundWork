@@ -27,12 +27,8 @@ export function ProductRepositories({ product, resolved }: { product: Product; r
         {!!entry.paths?.length && <p className="mt-2 text-xs text-fg-muted">Paths: {entry.paths.join(', ')}</p>}
         {!!entry.aliases?.length && <p className="mt-1 text-xs text-fg-muted">Earlier names: {entry.aliases.join(', ')}</p>}
         {result?.repositories.filter(catalog => catalog.repository === entry.repository).map(catalog => <div key={catalog.repository} className="mt-3 border-t border-border pt-3 text-xs">
-          <p><strong>Catalog read:</strong> {catalog.source?.label ?? 'Source catalog not loaded'}
-            {catalog.resolution.areas.some(area => area.provenance.catalog === 'local') && <>; local from {catalog.local.label}</>}</p>
+          <p><strong>Catalog read:</strong> {catalog.selected === 'local' ? `Local from ${catalog.local.label}` : catalog.source?.label ?? 'Source catalog not loaded'}</p>
           <p>{catalog.components.length} catalog {catalog.components.length === 1 ? 'component' : 'components'} resolved for this product.</p>
-          {catalog.resolution.areas.some(area => area.provenance.reason === 'local-newer') && <p role="status">
-            Newer local areas are available to propose to this repository with <code>propose_local_catalog</code>.
-          </p>}
           {!!catalog.resolution.warnings.length && <details className="mt-2"><summary role="status">{catalog.resolution.warnings.length} catalog revision {catalog.resolution.warnings.length === 1 ? 'conflict' : 'conflicts'} need review</summary><ul className="mt-1 grid gap-1">
             {catalog.resolution.warnings.map((warning, index) => <li key={`${warning.componentId}:${warning.kind}:${warning.id}:${index}`}>
               {warning.componentId} · {warning.kind}/{warning.id}: {warning.status} ordering
