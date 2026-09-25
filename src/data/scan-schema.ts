@@ -54,7 +54,9 @@ export const prepareRepositoryScanSchema = z.strictObject({
 
 export const repositoryDiscoverySchema = z.strictObject({
   id,
-  productId: id,
+  // An unmigrated home still persists productId on components. The apply operation resolves an omitted value
+  // against product ownership and writes that legacy field until migration can write the new component form.
+  productId: id.optional(),
   sourcePath: repoRelativePath,
   name: z.string().trim().min(1),
   order: z.number().int().optional(),

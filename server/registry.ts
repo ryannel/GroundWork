@@ -6,6 +6,7 @@ import { InvalidInput, NotFound } from './errors.ts'
 import { NotInitialised } from './format.ts'
 import { atomicFile, readPlan, safePath, withLock } from './repository.ts'
 import { context, discover } from './git.ts'
+import { componentMembership, productRepositories } from '../src/data/content.ts'
 const registrationSchema = z.strictObject({
   root: z.string(),
   workspace: z.string().min(1),
@@ -29,9 +30,11 @@ function productCatalog(plan: Awaited<ReturnType<typeof readPlan>>, product: str
   const matchedWorkspace = matchedProduct && plan.snapshot.workspaces.find(item => item.id === matchedProduct.workspaceId)
   const productIds = new Set(matched.map(item => item.id))
   const components = plan.snapshot.components
-    .filter(component => productIds.has(component.productId))
+    .filter(component => componentMembership(component, plan.snapshot.products, plan.repository.id).productIds
+      .some(productId => productIds.has(productId)))
     .map(component => ({ id: component.id, name: component.name, repository: component.repo ?? null, sourcePath: component.sourcePath ?? '.' }))
-  const repositories = components.flatMap(component => component.repository ? [component.repository] : [])
+  const repositories = matched.flatMap(item => productRepositories(item, plan.snapshot.products, plan.snapshot.components, plan.repository.id)
+    .map(entry => entry.repository))
   const productPath = matchedProduct && matchedWorkspace ? `/w/${matchedWorkspace.slug}/${matchedProduct.slug}` : null
   return { components, repositories: [...new Set(repositories.length ? repositories : [fallback])], productPath }
 }

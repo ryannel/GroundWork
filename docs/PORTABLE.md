@@ -100,8 +100,11 @@ changing their contract.
 
 The coordinator combines the results and calls `apply_repository_scan` once. Groundwork
 verifies cited files and line ranges, resolves component identity by repository plus
-project path, and performs one revision-guarded transaction. An ambiguous product
-placement is resolved in chat before writing. Limits produce partial coverage and
+project path, and performs one revision-guarded transaction. A discovery may omit
+`productId` when product ownership uniquely covers its repository path. An unmigrated
+home still writes `productId` in its legacy component documents; if ownership is not
+unique, the discovery must supply an existing product ID. Ambiguous placement is
+resolved in chat before writing. Limits produce partial coverage and
 explicit gaps rather than unbounded scans.
 
 Successful applies remove their temporary snapshot. Use `discard_repository_scan` for an

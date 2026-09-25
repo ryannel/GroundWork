@@ -4,8 +4,9 @@ import {
   type CatalogKind, type LegacyIdMap, type LegacyIdProjection,
 } from './catalog-identity.ts'
 import { componentRepositories, referenceLabel, resolveComponentReference } from './component-reference.ts'
+import { componentMembership } from './content.ts'
 import { identitySlug, repositoryIdentity } from './repository-identity.ts'
-import type { Component } from './model.ts'
+import type { Component, Product } from './model.ts'
 
 /**
  * The storage layout a home was read from. Only a migrated (`catalog-v3`) home qualifies its catalog IDs by
@@ -27,6 +28,8 @@ export type RelationKind = typeof relationKinds[number]
 export type Relation = { id: string; kind: RelationKind; reverse: boolean; reason: string; unresolved?: boolean }
 export type Entity = {
   id: string; kind: CatalogKind; localId: string; component: Component
+  productIds: string[]
+  ownedBy: string | null
   /** The entity's other ID forms: the migrated `repository/component/kind/entity` one, or the legacy ones it replaced. */
   aliases: string[]
   name: string; description: string; raw: Record<string, unknown>; related: Relation[]
@@ -42,7 +45,7 @@ const reversible = new Set<RelationKind>(['contract', 'trigger', 'step-ref', 'su
  */
 export interface IndexedPlan {
   manifest: { id: string }
-  snapshot: { components: Component[] }
+  snapshot: { components: Component[]; products?: Product[] }
   repository?: { id: string }
   legacyIds?: LegacyIdMap
   layout?: CatalogLayout
@@ -112,6 +115,7 @@ export function catalogIndex(plan: IndexedPlan) {
     return { id: catalogId(scope, target, 'component', target), unresolved: true }
   }
   for (const component of plan.snapshot.components) {
+    const membership = componentMembership(component, plan.snapshot.products ?? [], home)
     const repository = component.repo ? repositoryIdentity(component.repo) : home
     const scope = canonicalScope(repository)
     const id = (kind: CatalogKind, entity: string) => catalogId(scope, component.id, kind, entity)
@@ -132,7 +136,8 @@ export function catalogIndex(plan: IndexedPlan) {
           : [entryId, ...(repository ? [catalogId(repository, component.id, kind, localId)] : [])]
       const aliases = [...new Set(forms)].filter(alias => alias !== entryId)
       const entry: Entity = {
-        id: entryId, kind, localId, component, aliases, name: String(raw.name ?? raw.id), description, raw, related: [],
+        id: entryId, kind, localId, component, aliases, productIds: membership.productIds, ownedBy: membership.ownedBy,
+        name: String(raw.name ?? raw.id), description, raw, related: [],
       }
       if (kind !== 'component') relate(entry, id('component', component.id), 'owner', 'Owned by component')
       entries.push(entry)

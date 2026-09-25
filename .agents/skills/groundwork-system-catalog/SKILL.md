@@ -97,7 +97,12 @@ omission is not deletion. Evidenced retirement and rename use `reconcile_catalog
 
 Establish workspace and product placement before component writes. Scan application is
 currently repository-atomic rather than product-atomic, so a multi-repository import must
-be coordinated as one intent and any partial result reported plainly.
+be coordinated as one intent and any partial result reported plainly. The preparation
+response lists the home repository and each product's repository declarations. A
+discovery may omit `productId` when exactly one product owns its repository path;
+Groundwork resolves that owner. For an unmigrated home with no unique owner, supply the
+intended existing product ID or resolve the ambiguity before applying. Groundwork still
+writes the legacy `productId` field there until migration.
 
 ## Outcome
 

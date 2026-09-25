@@ -11,6 +11,7 @@ import { componentAncestors, runtimeSystemGraph } from '@/data/component-structu
 import { kinds, hueStyle } from '@/lib/taxonomy'
 import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { ProductRepositories } from '@/components/product-repositories'
 import { useUrlFilter } from '@/ui/use-url-filter'
 
 export function ProductPage() {
@@ -94,6 +95,8 @@ export function ProductPage() {
         <span><strong>{coverage.complete}/{coverage.total}</strong> catalogued</span>
       </div>
     </header>
+
+    <ProductRepositories product={p} />
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
       <div className="board-section-heading"><div>

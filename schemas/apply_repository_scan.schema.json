@@ -1437,7 +1437,6 @@
         },
         "required": [
           "id",
-          "productId",
           "sourcePath",
           "name",
           "coverage"

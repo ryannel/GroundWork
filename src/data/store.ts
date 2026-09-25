@@ -112,7 +112,10 @@ export function workspaceView({ q: query }: Repository, slug: string, now = Date
       return { component, product, features, crossProduct: features.some(f => f.productId !== product.id) }
     }),
   ).filter(l => l.features.length > 0).sort((a, b) => b.features.length - a.features.length)
-  const reaching = active.filter(f => f.touches.some(id => query.component(id)?.productId !== f.productId))
+  const reaching = active.filter(f => {
+    const own = new Set(query.components(f.productId).map(component => component.id))
+    return f.touches.some(id => !own.has(id))
+  })
   return {
     workspace, products, active, byStage: byStage(active), load, reaching,
     ideas: all.filter(f => f.stage === 'idea'),

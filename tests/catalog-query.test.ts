@@ -50,6 +50,24 @@ test('evaluation: exact, paraphrase, traced path, consumer, ambiguity and missin
   const ambiguous = summaries(queryCatalog(plan, 'search_catalog', { query: 'price', kinds: ['endpoint'], limit: 50 }))
   assert.ok(new Set(ambiguous.map(item => item.componentId)).size > 1)
 })
+test('a shared used catalog links to the product selected by the caller', async t => {
+  const { plan } = await fixture(t)
+  const owner = { ...plan.snapshot.products[0], repositories: [{ repository: 'acme/shared', role: 'owned' as const }] }
+  const user = { ...owner, id: 'consumer', slug: 'consumer', name: 'Consumer',
+    repositories: [{ repository: 'acme/shared', role: 'used' as const }] }
+  const shared = { ...plan.snapshot.components[0], repo: 'acme/shared', sourcePath: '.', productId: undefined }
+  const scoped = { ...plan, snapshot: { ...plan.snapshot, products: [owner, user], components: [shared] } }
+  for (const [operation, args] of [
+    ['search_catalog', { query: '', componentId: shared.id, productId: user.id }],
+    ['get_discovery_context', { question: shared.name, componentId: shared.id, productId: user.id }],
+  ] as const) {
+    const [item] = queryCatalog(scoped, operation, args).items as
+      { productId: string; productIds: string[]; location: string }[]
+    assert.equal(item.productId, user.id)
+    assert.deepEqual(item.productIds, [owner.id, user.id])
+    assert.match(item.location, /\/w\/project\/consumer\?/)
+  }
+})
 test('pagination is bounded, complete, deterministic, and rejects changed query/snapshot/checkout', async t => {
   const { root, plan } = await fixture(t)
   const ids: string[] = []

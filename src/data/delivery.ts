@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { ContentSnapshot } from './content.ts'
+import { componentMembership, type ContentSnapshot } from './content.ts'
 import { componentScopeIds } from './component-structure.ts'
 import { id, isoTimestamp, text } from './schema-primitives.ts'
 const ids = z.array(id).default([])
@@ -61,7 +61,10 @@ export function validateDelivery(featureId: string, plan: Delivery, snapshot: Co
   const workspaceId = snapshot.products.find(p => p.id === feature.productId)?.workspaceId
   const component = (componentId: string) => {
     const match = snapshot.components.find(c => c.id === componentId)
-    if (!match || snapshot.products.find(p => p.id === match.productId)?.workspaceId !== workspaceId) fail(`unknown component ${componentId}`)
+    const membership = match && componentMembership(match, snapshot.products, snapshot.homeRepository)
+    if (!match || !membership?.productIds.some(id => snapshot.products.find(p => p.id === id)?.workspaceId === workspaceId)) {
+      fail(`unknown component ${componentId}`)
+    }
   }
   for (const deliverable of plan.deliverables) {
     unique(deliverable.componentIds, `component in ${deliverable.id}`)

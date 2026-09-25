@@ -1,4 +1,5 @@
 import { catalogId } from '../src/data/catalog-identity.ts'
+import { componentMembership } from '../src/data/content.ts'
 import type { Component } from '../src/data/model.ts'
 import { applyRepositoryScanSchema, scanAreas, type RepositoryDiscovery, type ScanArea } from '../src/data/scan-schema.ts'
 import { repositoryKey } from './catalog-freshness.ts'
@@ -27,6 +28,8 @@ export interface ScanContext {
   repository: string
   revision: string
   order: number
+  /** Resolved ownership for a legacy component write; migrated components omit this field. */
+  productId?: string
   sourceFingerprint: string
   scannedAt: string
 }
@@ -52,7 +55,8 @@ export function mergeComponent(previous: Record<string, unknown> & Partial<Compo
   const next: Record<string, unknown> = {
     ...previous,
     id: discovery.id,
-    productId: discovery.productId,
+    ...((context.productId ?? discovery.productId ?? previous.productId)
+      ? { productId: context.productId ?? discovery.productId ?? previous.productId } : {}),
     order: context.order,
     name: discovery.name,
     ...(discovery.kind ? { kind: discovery.kind } : {}),
@@ -134,7 +138,6 @@ export async function applyRepositoryScan(root: string, input: unknown) {
       if (flow.sourceRevision !== metadata.revision) throw new InvalidInput(`${flow.id}: execution flow revision does not match the pinned scan revision`)
     }
     await validateDiscoveryCitations(scan, discovery)
-    if (!productIds.has(discovery.productId)) throw new NotFound(`${discovery.id}: unknown product ${discovery.productId}`)
     const collision = components.find(item => item.component.id === discovery.id)
     if (collision && (collision.repository !== scannedRepository || (collision.component.sourcePath ?? '.') !== discovery.sourcePath)) {
       throw new InvalidInput(`${discovery.id}: component ID belongs to another repository or project path`)
@@ -150,6 +153,24 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     if (!collision && !identityMatch && discovery.id !== project.derivedId) {
       throw new InvalidInput(`${discovery.id}: a new component takes the ID derived from its manifest name and folder, ${project.derivedId}`)
     }
+    const selectedProductId = discovery.productId ?? collision?.component.productId
+    if (selectedProductId && !productIds.has(selectedProductId)) {
+      throw new NotFound(`${discovery.id}: unknown product ${selectedProductId}`)
+    }
+    const membership = componentMembership(
+      { repo: scannedRepository, sourcePath: discovery.sourcePath, productId: selectedProductId },
+      plan.snapshot.products, plan.repository?.id,
+    )
+    if (membership.conflictingOwners.length) {
+      throw new InvalidInput(`${discovery.id}: several products own this repository path: ${membership.conflictingOwners.join(', ')}`)
+    }
+    if (selectedProductId && membership.ownedBy && selectedProductId !== membership.ownedBy) {
+      throw new InvalidInput(`${discovery.id}: productId ${selectedProductId} disagrees with owner ${membership.ownedBy}`)
+    }
+    const productId = membership.ownedBy ?? selectedProductId
+    if (!productId && plan.layout !== 'catalog-v3') {
+      throw new InvalidInput(`${discovery.id}: productId is required because no unique product owns ${scannedRepository}:${discovery.sourcePath}`)
+    }
     for (const dependency of discovery.dependsOn ?? []) {
       if (dependency === discovery.id) throw new InvalidInput(`${discovery.id}: component cannot depend on itself`)
       if (!existingIds.has(dependency) && !batchIds.has(dependency)) {
@@ -162,13 +183,14 @@ export async function applyRepositoryScan(root: string, input: unknown) {
       throw new InvalidInput(`${discovery.id}: budget-limited scan areas must report partial coverage`)
     }
     const previous = collision ? JSON.parse(plan.files[`components/${collision.component.id}.json`]) : {}
-    const order = discovery.order ?? previous.order ?? nextOrder.get(discovery.productId)!
-    if (discovery.order === undefined && previous.order === undefined) nextOrder.set(discovery.productId, order + 1)
+    const order = discovery.order ?? previous.order ?? (productId ? nextOrder.get(productId) : undefined) ?? 1
+    if (productId && discovery.order === undefined && previous.order === undefined) nextOrder.set(productId, order + 1)
     const projectFiles = filesForProject(metadata.files, project, metadata.projects)
     const next = mergeComponent(previous, discovery, {
       repository: metadata.repository,
       revision: metadata.revision,
       order,
+      productId,
       sourceFingerprint: digest(JSON.stringify(projectFiles.map(file => [file.path, file.digest]))),
       scannedAt,
     })

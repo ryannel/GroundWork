@@ -73,7 +73,10 @@ or `unresolvedDependencies`.
 ## Rules
 
 - `sourcePath` must equal a project path returned by `prepare_repository_scan`.
-- `id`, `productId`, and every `dependsOn` value are Groundwork IDs. A `dependsOn` value is
+- `id`, an included `productId`, and every `dependsOn` value are Groundwork IDs. `productId`
+  is optional in the scan payload when one product owns this repository path. Include it
+  when an unmigrated home cannot resolve a unique owner; Groundwork retains it in the
+  legacy component document. A `dependsOn` value is
   the bare local ID of a component in the same catalog; Groundwork resolves it to the
   repository that component belongs to, and reports it as unresolved when nothing does.
 - A new component takes the ID `prepare_repository_scan` derives for its project

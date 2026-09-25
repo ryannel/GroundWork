@@ -203,7 +203,7 @@ const operations = {
   }),
   apply_repository_scan: define({
     schema: z.strictObject({ ...checkoutSelection, ...applyRepositoryScanSchema.shape }),
-    description: 'Validate staged repository discoveries and source citations, then atomically update all scanned components under one revision guard.',
+    description: 'Validate staged repository discoveries and source citations, resolve omitted productId from unique ownership when possible, then atomically update all scanned components under one revision guard.',
     readOnly: false, destructive: true,
     run: async (args, { root }) => applyRepositoryScan(await root(), args),
   }),

@@ -8,6 +8,8 @@ import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
 import { readContentDirectory } from './content-files.ts'
 import { loadContent } from '../src/data/content.ts'
+import { identitySlug, repositoryName } from '../src/data/repository-identity.ts'
+import { context } from './git.ts'
 
 // The same source runs under Node's TS support in development and as compiled JS in the package.
 export const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), import.meta.url.includes('/runtime/') ? '../..' : '..')
@@ -59,9 +61,17 @@ export async function initialise(root: string, options: { name?: string; id?: st
     const manifest = manifestSchema.parse({
       schemaVersion: 2, id: options.id ?? randomUUID(), name: options.name ?? path.basename(root), ...(options.domain ? { domain: options.domain } : {}),
     })
+    // A Git checkout has a repository name shared by its clones, even when their folder names differ. Until the
+    // migration removes project.json, the product still uses the legacy on-disk shape without `repositories`.
+    // Non-Git application folders retain their historical `app` product because they have no repository identity.
+    const checkout = await context(root)
+    const name = repositoryName(checkout.repository.id)
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'app'
+    const productId = checkout.isGit ? options.id ?? identitySlug(name) : 'app'
+    const productSlug = checkout.isGit ? slug : 'app'
     const files = options.files ?? {
       'project.json': JSON.stringify(manifest, null, 2) + '\n',
-      'products/app.json': JSON.stringify({ id: 'app', slug: 'app', name: manifest.name, kind: 'service-system' }, null, 2) + '\n',
+      [`products/${productId}.json`]: JSON.stringify({ id: productId, slug: productSlug, name: manifest.name, kind: 'service-system' }, null, 2) + '\n',
       'members/owner.json': JSON.stringify({ id: 'owner', name: 'Project owner' }, null, 2) + '\n',
     }
     // Initialisation stages the legacy layout, so supplied documents are held to the same forms a write is.

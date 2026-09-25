@@ -235,8 +235,7 @@ export function FeaturePage() {
     const includesComponent = (step: typeof currentAction) => step?.flow?.some(nodeId => scope.has(ix.node[nodeId]?.component ?? ''))
     const action = includesComponent(currentAction) ? currentAction : spec.journey?.steps.find(includesComponent)
     if (action) return `/f/${id}/flow?${new URLSearchParams({ component: componentId, trace: `journey:${action.id}` })}`
-    const component = q.component(componentId)
-    const owner = component && q.product(component.productId)
+    const owner = q.componentOwner(componentId)
     const parent = owner && q.workspace(owner.workspaceId)
     return owner && parent ? `/w/${parent.slug}/${owner.slug}?component=${encodeURIComponent(componentId)}` : href('flow')
   }

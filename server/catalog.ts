@@ -50,9 +50,11 @@ export function catalogLocation(entry: Entity): CatalogLocation {
   return catalogLocationFor({ kind: 'flow', id: entry.localId, endpointId: flow.endpointId, trigger: flow.trigger })
 }
 
-function summary(plan: Plan, entry: Entity) {
+function summary(plan: Plan, entry: Entity, selectedProductId?: string) {
   const component = entry.component
-  const product = plan.snapshot.products.find(product => product.id === component.productId)!
+  const productId = selectedProductId && entry.productIds.includes(selectedProductId)
+    ? selectedProductId : entry.ownedBy ?? entry.productIds[0] ?? null
+  const product = plan.snapshot.products.find(product => product.id === productId)
   type FlowSteps = NonNullable<Component['executionFlows']>[number]['steps']
   const evidence = (entry.kind === 'flow'
     ? (entry.raw.steps as FlowSteps).flatMap(step => step.evidence)
@@ -79,8 +81,8 @@ function summary(plan: Plan, entry: Entity) {
   const params = writeCatalogLocation(new URLSearchParams({ component: component.id }), catalogLocation(entry))
   return {
     id: entry.id, aliases: entry.aliases, kind: entry.kind, name: clip(entry.name), description: clip(entry.description),
-    componentId: component.id, productId: component.productId,
-    location: `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}/w/project/${product.slug}?${params}`,
+    componentId: component.id, productId, productIds: entry.productIds,
+    location: product ? `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}/w/project/${product.slug}?${params}` : null,
     source: { repository: component.repo ?? null, revision: sourceRevision },
     coverage: state.coverage,
     investigation: traced === null
@@ -110,7 +112,7 @@ function rank(entries: Entity[], query: string): Ranked[] {
 }
 function filtered(entries: Entity[], args: { componentId?: string; productId?: string; kinds?: CatalogKind[] }) {
   return entries.filter(entry => (!args.componentId || entry.component.id === args.componentId)
-    && (!args.productId || entry.component.productId === args.productId)
+    && (!args.productId || entry.productIds.includes(args.productId))
     && (!args.kinds || args.kinds.includes(entry.kind)))
 }
 // Detail is lossless JSON-pointer sections; even unusually large strings have a continuation.
@@ -203,7 +205,8 @@ export function queryCatalog(plan: Plan, operation: CatalogOperation, input: unk
   }
   const total = parts?.length ?? ranked.length
   // Summaries are built for the page window only.
-  const item = (index: number) => parts ? parts[index] : { ...summary(plan, ranked[index].entry), matchReasons: ranked[index].reasons.slice(0, 5) }
+  const item = (index: number) => parts ? parts[index] : { ...summary(plan, ranked[index].entry,
+    query.operation === 'get_catalog_entity' ? undefined : query.args.productId), matchReasons: ranked[index].reasons.slice(0, 5) }
   if (offset > total) throw new InvalidInput('Catalog cursor is out of range')
   const page: unknown[] = []
   const envelope = (nextOffset: number) => ({

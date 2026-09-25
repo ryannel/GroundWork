@@ -134,7 +134,7 @@ test('a v3 home with no origin still loads, under a provisional identity', async
   assert.equal(plan.snapshot.components.length, 2)
 })
 
-test('the single-product fallback never claims a component of a repository the product only uses', () => {
+test('explicit product declarations do not claim repositories or paths they do not own', () => {
   const product = JSON.stringify({
     schemaVersion: 3, id: 'price', slug: 'price', name: 'Price', kind: 'service-system',
     repositories: [{ repository: 'volvo-cars/gpe-pretax', role: 'owned', paths: ['src/api'] }, { repository: 'volvo-cars/utils', role: 'used' }],
@@ -145,15 +145,14 @@ test('the single-product fallback never claims a component of a repository the p
   })
   const source = { layout: 'catalog-v3' as const, repository: { id: 'volvo-cars/price-engine', origin: null, provisional: false } }
   const productOf = (component: Record<string, unknown>) => parsePlan(files(component), source).snapshot.components[0].productId
-  // The home's own repository, a declared component with no repository, and an owned repository outside the
-  // declared paths all belong to the home's only product.
-  assert.equal(productOf({ repo: 'volvo-cars/price-engine', sourcePath: 'src' }), 'price')
-  assert.equal(productOf({}), 'price')
+  // Explicit declarations govern v3 membership, including for the home's own repository.
+  assert.equal(productOf({ repo: 'volvo-cars/price-engine', sourcePath: 'src' }), undefined)
+  assert.equal(productOf({}), undefined)
   assert.equal(productOf({ repo: 'volvo-cars/gpe-pretax', sourcePath: 'src/api' }), 'price')
-  assert.equal(productOf({ repo: 'volvo-cars/gpe-pretax', sourcePath: 'libs/other' }), 'price')
-  // A used repository's components come from that repository's catalog; attributing them here would be a guess.
-  assert.throws(() => productOf({ repo: 'volvo-cars/utils', sourcePath: 'src' }), /productId/)
-  assert.throws(() => productOf({ repo: 'volvo-cars/unrelated', sourcePath: 'src' }), /productId/)
+  assert.equal(productOf({ repo: 'volvo-cars/gpe-pretax', sourcePath: 'libs/other' }), undefined)
+  // Used and unrelated repositories can have a catalog here without an owning product.
+  assert.equal(productOf({ repo: 'volvo-cars/utils', sourcePath: 'src' }), undefined)
+  assert.equal(productOf({ repo: 'volvo-cars/unrelated', sourcePath: 'src' }), undefined)
 })
 
 test('an empty checkout is still uninitialised rather than a v3 home', async t => {
@@ -333,19 +332,14 @@ test('initialisation refuses the migrated document forms, exactly as a write doe
   assert.deepEqual(plan.snapshot.components.map(component => `${component.id}:${component.productId}`), ['service:app'])
 })
 
-test('a component no product owns is reported by name rather than as a missing field', async t => {
+test('a catalog component can load without a product that owns it', async t => {
   const root = await homeFixture(t, 'v3', 'git@github.com:volvo-cars/price-engine.git')
   const orphan = { id: 'orphan', name: 'Orphan', kind: 'service', repo: 'volvo-cars/unrelated', sourcePath: 'src/api' }
   await mkdir(path.join(root, '.groundwork/catalog/components/orphan'), { recursive: true })
   await writeFile(path.join(root, '.groundwork/catalog/components/orphan/component.json'), JSON.stringify(orphan, null, 2) + '\n')
-  // Phase 3 gives a catalog without an owning product its own model; until then the reader has to say what is wrong.
-  await assert.rejects(readPlan(root), error => {
-    assert.ok(error instanceof InvalidInput)
-    assert.match(error.message, /components\/orphan\.json: no product in this home owns volvo-cars\/unrelated path "src\/api"/)
-    assert.match(error.message, /productId cannot be derived/)
-    assert.match(error.message, /price-engine, product-configuration-facade/)
-    return true
-  })
+  const plan = await readPlan(root)
+  const loaded = plan.snapshot.components.find(component => component.id === 'orphan')
+  assert.equal(loaded?.productId, undefined)
 })
 
 test('a plans-only home with no project manifest loads as v3, and says so when a document is missing', async t => {

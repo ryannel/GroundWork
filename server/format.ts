@@ -5,8 +5,9 @@ import {
 import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '../src/data/knowledge.ts'
 import { digest } from './git.ts'
 import { z } from 'zod'
-import { ContentError, loadContent, type ContentSnapshot } from '../src/data/content.ts'
-import { productReadSchema, productSchema, purposeSchema, type productRepositorySchema } from '../src/data/content-schema.ts'
+import { ContentError, componentMembership, loadContent, type ContentSnapshot } from '../src/data/content.ts'
+import { productReadSchema, productSchema, purposeSchema } from '../src/data/content-schema.ts'
+import type { Component, Product } from '../src/data/model.ts'
 import { identitySlug, repositoryIdentity, repositoryName, type RepositoryIdentity } from '../src/data/repository-identity.ts'
 import { InvalidInput, NotFound } from './errors.ts'
 import type { Layout } from './catalog-storage.ts'
@@ -92,35 +93,6 @@ export function renderBrief(purpose: Purpose) {
   return `# Feature brief\n\n## Problem\n\n${purpose.problem}\n\n## Outcome\n\n${purpose.outcome}\n\n`
     + `## Non-goals\n\n${nonGoals}\n\n## Success criteria\n\n${success}\n`
 }
-type ProductRepository = z.infer<typeof productRepositorySchema>
-/** Whether an owned-path declaration covers a component's source path. `*` matches within one path segment. */
-function covers(pattern: string, sourcePath: string): boolean {
-  const clean = (value: string) => value.replace(/^\.?\//, '').replace(/\/+$/, '')
-  const expression = new RegExp(`^${clean(pattern).replaceAll(/[.*+?^${}()|[\]\\]/g, match => match === '*' ? '[^/]*' : `\\${match}`)}(?:/|$)`)
-  return expression.test(clean(sourcePath))
-}
-/**
- * A migrated home records membership on the product, not the component. Until Phase 3 gives that its own model, the
- * reader derives the `productId` every downstream consumer still expects, from the product that owns the component's
- * repository and path; a home with exactly one product needs no declaration for what the home itself owns.
- */
-function derivedProductId(component: Record<string, unknown>, ownership: Map<string, ProductRepository[]>, productIds: string[], home?: string) {
-  const repo = typeof component.repo === 'string' ? repositoryIdentity(component.repo) : undefined
-  const sourcePath = typeof component.sourcePath === 'string' ? component.sourcePath : ''
-  let owned = false
-  for (const [productId, repositories] of ownership) {
-    for (const entry of repositories) {
-      if (entry.role !== 'owned' || repo === undefined || repositoryIdentity(entry.repository) !== repo) continue
-      if (!entry.paths?.length || entry.paths.some(path => covers(path, sourcePath))) return productId
-      owned = true
-    }
-  }
-  // The single-product fallback only covers what this home is responsible for: a declared component with no
-  // repository, its own repository, or one an owned declaration already claims. A component of a *used*
-  // repository belongs to whichever product declares it, and guessing would attribute it to the wrong one.
-  if (productIds.length !== 1) return undefined
-  return repo === undefined || repo === home || owned ? productIds[0] : undefined
-}
 /**
  * Refuses a migrated-only document form on the write path. Readers accept both forms, so a home that merged a
  * branch from either side of the migration still loads, but until the migration phase every write must stay a
@@ -161,19 +133,6 @@ export function assertLegacyWriteForms(files: Files, source: PlanSource = {}) {
   if (source.layout === 'catalog-v3') return
   for (const [name, raw] of Object.entries(files)) assertLegacyWriteForm(name, raw)
 }
-/**
- * Why a component's product could not be derived. Membership is the product's declaration in Phase 3; until then
- * every consumer of the snapshot needs a `productId`, so an unowned component is reported by name rather than
- * failing later as a missing field.
- */
-function unownedComponent(file: string, component: Record<string, unknown>, productIds: string[]): string {
-  const repo = typeof component.repo === 'string' ? component.repo : undefined
-  const sourcePath = typeof component.sourcePath === 'string' && component.sourcePath ? ` path "${component.sourcePath}"` : ''
-  const where = repo ? `${repo}${sourcePath}` : 'this component'
-  const products = productIds.length ? `The products in this home are ${productIds.join(', ')}.` : 'This home declares no product.'
-  return `${file}: no product in this home owns ${where}, so its productId cannot be derived. ${products} `
-    + 'List the repository under a product\'s repositories, or keep the component in the catalog of the home whose product owns it.'
-}
 /** The document names a set of unresolved references points at, so a home read as v3 can say what it is missing. */
 const referenceDirectory: Record<string, string> = { productId: 'products', ownerId: 'members', viewerId: 'members', parentId: 'components' }
 /**
@@ -196,7 +155,6 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
   const documents: Record<string, unknown> = {}
   const delivery: Record<string, Delivery> = {}
   const decisions: Record<string, string> = {}
-  const ownership = new Map<string, ProductRepository[]>()
   const componentFiles: string[] = []
   const manifests: ScanManifest[] = []
   const retained: { id: string; repository: string | null }[] = []
@@ -233,9 +191,7 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
       }
       if (file === 'project.json') manifest = manifestSchema.parse(value)
       else if (file.startsWith('products/')) {
-        // The migrated fields are accepted and then set aside: later phases give them meaning, this one only loads them.
-        const { schemaVersion: _version, domain: _domain, repositories, ...product } = portableProductReadSchema.parse(value)
-        if (repositories) ownership.set(product.id, repositories)
+        const { schemaVersion: _version, ...product } = portableProductReadSchema.parse(value)
         documents[file] = { ...product, workspaceId: 'project' }
       } else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)
       else {
@@ -251,16 +207,16 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
     if (!source.repository) throw new NotInitialised('This home has no project.json; read it through a checkout so its repository identity is available')
     manifest = manifestSchema.parse({ schemaVersion: 2, id: identitySlug(source.repository.id), name: repositoryName(source.repository.id) })
   }
-  const productIds = Object.keys(documents).filter(name => name.startsWith('products/')).map(name => name.slice('products/'.length, -5))
+  const products = Object.entries(documents).filter(([name]) => name.startsWith('products/')).map(([, value]) => value as Product)
   for (const file of componentFiles) {
     const component = documents[file]
     if (!component || typeof component !== 'object' || Array.isArray(component)) continue
     // `schemaVersion` marks the migrated form; the legacy documents beside it in a merged branch simply lack it.
     const { schemaVersion: _version, ...rest } = component as Record<string, unknown>
     if (rest.productId === undefined) {
-      const productId = derivedProductId(rest, ownership, productIds, source.repository?.id)
-      if (productId === undefined) throw new InvalidInput(unownedComponent(file, rest, productIds))
-      rest.productId = productId
+      const membership = componentMembership(rest as Component, products, source.repository?.id)
+      if (membership.conflictingOwners.length) throw new InvalidInput(`${file}: overlapping product ownership: ${membership.conflictingOwners.join(', ')}`)
+      if (membership.ownedBy) rest.productId = membership.ownedBy
     }
     documents[file] = rest
   }

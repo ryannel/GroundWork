@@ -1,6 +1,6 @@
 import type { z } from 'zod'
 import {
-  componentReadSchema, featureSchema, memberSchema, productSchema, projectSchema, sectionSchemas, workspaceSchema,
+  componentReadSchema, featureSchema, memberSchema, productReadSchema, projectSchema, sectionSchemas, workspaceSchema,
   type FeatureRecord, type Member, type Project,
 } from './content-schema.ts'
 import { componentRepositories, referenceKey, resolveComponentReference } from './component-reference.ts'
@@ -8,7 +8,8 @@ import { componentKindLabel } from './component-structure.ts'
 import { apiProvider } from './api-reference.ts'
 import { actionFlow } from './flow-context.ts'
 import { executionFlowIssues } from './execution-flow.ts'
-import type { Component, Db, Feature, Product, Workspace } from './model.ts'
+import { isProvisional, parseRemote, repositoryIdentity } from './repository-identity.ts'
+import type { Component, Db, Feature, Product, ProductRepository, Workspace } from './model.ts'
 import type { FeatureSpec, SchemaField } from './spec.ts'
 
 export type ContentDocuments = Record<string, unknown>
@@ -20,7 +21,111 @@ export class ContentError extends Error {
     this.issues = issues
   }
 }
-export interface ContentSnapshot extends Db { project: Project; members: Member[] }
+export interface ContentSnapshot extends Db { project: Project; members: Member[]; homeRepository?: string }
+
+/** A product can own a whole repository or selected directory patterns within it. `*` matches within one path segment. */
+const sameRepository = (left: string, right: string) => repositoryIdentity(left) === repositoryIdentity(right)
+/** Aliases are repository identity facts shared by every product in the loaded home. */
+const resolvedRepository = (value: string, products: Product[]) => {
+  let current = repositoryIdentity(value)
+  const seen = new Set<string>()
+  while (true) {
+    if (seen.has(current)) return [...seen].sort()[0]
+    seen.add(current)
+    const entry = products.flatMap(product => product.repositories ?? []).find(candidate =>
+      candidate.aliases?.some(alias => sameRepository(alias, current)))
+    if (!entry) break
+    current = repositoryIdentity(entry.repository)
+  }
+  return current
+}
+const pathSegments = (value: string) => value === '.' ? [] : value.replace(/^\.\//, '').split('/')
+const segmentMatches = (pattern: string, value: string) =>
+  new RegExp(`^${pattern.split('*').map(part => part.replace(/[|\\{}()[\]^$+?.]/g, '\\$&')).join('.*')}$`).test(value)
+export const pathPatternCovers = (pattern: string, sourcePath = '.') => {
+  const expected = pathSegments(pattern), actual = pathSegments(sourcePath)
+  return expected.length <= actual.length && expected.every((segment, index) => segmentMatches(segment, actual[index]))
+}
+/** Whether two per-segment `*` patterns can match any common directory name. */
+function segmentPatternsOverlap(left: string, right: string) {
+  const alphabet = [...new Set([...left.replaceAll('*', ''), ...right.replaceAll('*', ''), '\0'])]
+  const queue: [number, number][] = [[0, 0]], seen = new Set<string>()
+  for (let offset = 0; offset < queue.length; offset++) {
+    const [a, b] = queue[offset], key = `${a}:${b}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    if (a === left.length && b === right.length) return true
+    if (left[a] === '*') queue.push([a + 1, b])
+    if (right[b] === '*') queue.push([a, b + 1])
+    for (const character of alphabet) {
+      const nextA = left[a] === '*' ? a : left[a] === character ? a + 1 : -1
+      const nextB = right[b] === '*' ? b : right[b] === character ? b + 1 : -1
+      if (nextA >= 0 && nextB >= 0) queue.push([nextA, nextB])
+    }
+  }
+  return false
+}
+export const pathPatternsOverlap = (left: string, right: string) => {
+  const a = pathSegments(left), b = pathSegments(right)
+  return a.slice(0, Math.min(a.length, b.length)).every((segment, index) => segmentPatternsOverlap(segment, b[index]))
+}
+const repositoryEntryMatches = (entry: ProductRepository, repository: string, products: Product[]) =>
+  resolvedRepository(entry.repository, products) === resolvedRepository(repository, products)
+const repositoryEntryCovers = (entry: ProductRepository, sourcePath?: string) =>
+  !entry.paths?.length || entry.paths.some(pattern => pathPatternCovers(pattern, sourcePath))
+
+/** Membership is derived from the product's declarations. Legacy products keep their component `productId` meaning. */
+export function componentMembership(
+  component: Pick<Component, 'repo' | 'sourcePath' | 'productId'>,
+  products: Product[], homeRepository?: string,
+): { ownedBy: string | null; usedBy: string[]; productIds: string[]; conflictingOwners: string[] } {
+  const repository = component.repo ?? homeRepository
+  const declaredOwners: string[] = [], legacyOwners: string[] = [], used: string[] = []
+  for (const product of products) {
+    if (component.repo === undefined && component.productId === product.id) { legacyOwners.push(product.id); continue }
+    if (component.repo === undefined && component.productId !== undefined) continue
+    const declared = product.repositories
+    if (declared) {
+      if (!repository) continue
+      for (const entry of declared) {
+        if (!repositoryEntryMatches(entry, repository, products) || !repositoryEntryCovers(entry, component.sourcePath)) continue
+        const target = entry.role === 'owned' ? declaredOwners : used
+        if (!target.includes(product.id)) target.push(product.id)
+      }
+    } else if (component.productId === product.id) legacyOwners.push(product.id)
+  }
+  // A pre-migration product can remain beside a migrated declaration after a branch merge. The new declaration
+  // owns the path; the old component productId is only the fallback when no declaration claims it.
+  const owned = declaredOwners.length ? declaredOwners : legacyOwners
+  if (!owned.length && products.length === 1 && products[0].repositories === undefined
+    && repository && homeRepository && sameRepository(repository, homeRepository)) {
+    const sole = products[0]
+    owned.push(sole.id)
+  }
+  const productIds = [...new Set([...owned, ...used])]
+  return { ownedBy: owned.length === 1 ? owned[0] : null, usedBy: used, productIds, conflictingOwners: owned.length > 1 ? owned : [] }
+}
+export const productComponents = (snapshot: Pick<ContentSnapshot, 'products' | 'components' | 'homeRepository'>, productId: string,
+  includeUsed = true) => snapshot.components.filter(component => {
+    const membership = componentMembership(component, snapshot.products, snapshot.homeRepository)
+    return membership.ownedBy === productId || includeUsed && membership.usedBy.includes(productId)
+  })
+/** What a legacy product shows as owned before its repositories are written by migration. */
+export function productRepositories(product: Product, products: Product[], components: Component[], homeRepository?: string): ProductRepository[] {
+  if (product.repositories) return product.repositories
+  const repositories = new Map<string, ProductRepository>()
+  // A sole legacy product implicitly owns its home repository even before a scan has produced a component there.
+  // Scanning an external repository must not make that structural ownership disappear from the UI.
+  if (products.length === 1 && homeRepository) {
+    repositories.set(repositoryIdentity(homeRepository), { repository: repositoryIdentity(homeRepository), role: 'owned' })
+  }
+  for (const component of components) {
+    if (component.productId !== product.id) continue
+    const repository = component.repo ?? homeRepository
+    if (repository) repositories.set(repositoryIdentity(repository), { repository: repositoryIdentity(repository), role: 'owned' })
+  }
+  return [...repositories.values()]
+}
 
 /** Documents parsed into typed buckets; nothing cross-referenced yet. */
 interface ParsedDocuments {
@@ -71,7 +176,7 @@ export function parseDocuments(documents: ContentDocuments): { parsed: ParsedDoc
     else if (entityFile) {
       const [, folder, id] = entityFile
       if (folder === 'workspaces') entity(parsed.workspaces, 'workspace', file, id, parseWith(workspaceSchema, file, input, issues))
-      else if (folder === 'products') entity(parsed.products, 'product', file, id, parseWith(productSchema, file, input, issues))
+      else if (folder === 'products') entity(parsed.products, 'product', file, id, parseWith(productReadSchema, file, input, issues))
       else if (folder === 'components') entity(parsed.components, 'component', file, id, parseWith(componentReadSchema, file, input, issues))
       else entity(parsed.members, 'member', file, id, parseWith(memberSchema, file, input, issues))
     } else if (featureFile) {
@@ -93,6 +198,8 @@ export interface ContentContext {
   workspaceById: Map<string, Workspace>
   productById: Map<string, Product>
   componentById: Map<string, Component>
+  membershipByComponent: Map<string, ReturnType<typeof componentMembership>>
+  homeRepository?: string
   /** Which repository each catalogued component belongs to, so a reference can be resolved to one. */
   componentRepository: Map<string, string | undefined>
 }
@@ -120,7 +227,53 @@ export function validateStructure(ctx: ContentContext): string[] {
   }
   if (ctx.project.viewerId) has(ctx.memberById, ctx.project.viewerId, 'project.json:viewerId')
   for (const product of ctx.products) has(ctx.workspaceById, product.workspaceId, `products/${product.id}.json:workspaceId`)
+  issues.push(...validateProductRepositories(ctx.products))
   return issues
+}
+
+/** Ownership is checked even when no catalog exists: product declarations are the structure. */
+export function validateProductRepositories(products: Product[]): string[] {
+  const issues: string[] = []
+  const claims: { productId: string; repository: string; pattern: string }[] = []
+  const aliases = new Map<string, string>()
+  for (const product of products) for (const [index, entry] of (product.repositories ?? []).entries()) {
+    const path = `products/${product.id}.json:repositories.${index}`
+    for (const value of [entry.repository, ...(entry.aliases ?? [])]) {
+      if (!parseRemote(value) && !isProvisional(value)) issues.push(`${path}: unknown repository identity ${value}`)
+    }
+    for (const alias of entry.aliases ?? []) {
+      const key = repositoryIdentity(alias), target = repositoryIdentity(entry.repository)
+      const previous = aliases.get(key)
+      if (previous && previous !== target) issues.push(`${path}: alias ${key} names both ${previous} and ${target}`)
+      aliases.set(key, target)
+    }
+    if (new Set(entry.paths ?? []).size !== (entry.paths ?? []).length) issues.push(`${path}: duplicate path pattern`)
+    if (entry.role === 'owned') {
+      for (const pattern of entry.paths?.length ? entry.paths : ['.']) {
+        claims.push({ productId: product.id, repository: resolvedRepository(entry.repository, products), pattern })
+      }
+    }
+  }
+  for (const start of aliases.keys()) {
+    const seen = new Set<string>()
+    let current: string | undefined = start
+    while (current && aliases.has(current)) {
+      if (seen.has(current)) {
+        issues.push(`products.repositories: repository alias cycle involving ${[...seen].join(' → ')}`)
+        break
+      }
+      seen.add(current)
+      current = aliases.get(current)
+    }
+  }
+  for (let index = 0; index < claims.length; index++) for (const next of claims.slice(index + 1)) {
+    const claim = claims[index]
+    if (claim.productId !== next.productId && claim.repository === next.repository
+      && pathPatternsOverlap(claim.pattern, next.pattern)) {
+      issues.push(`products/${claim.productId}.json and products/${next.productId}.json: overlapping ownership of ${claim.repository} (${claim.pattern} and ${next.pattern})`)
+    }
+  }
+  return [...new Set(issues)]
 }
 
 /** Catalog integrity for one component: findings, containment, dependencies and execution flows. */
@@ -137,11 +290,20 @@ export function validateComponent(component: Component, ctx: ContentContext): st
     }
     // Missing subjects remain historical observations, never inferred active entities.
   }
-  has(ctx.productById, component.productId, `${path}:productId`)
+  if (component.productId) has(ctx.productById, component.productId, `${path}:productId`)
+  const membership = ctx.membershipByComponent.get(component.id)
+  if (membership?.conflictingOwners.length) issues.push(`${path}: overlapping product ownership: ${membership.conflictingOwners.join(', ')}`)
   if (component.parentId) {
     has(ctx.componentById, component.parentId, `${path}:parentId`)
     const parent = ctx.componentById.get(component.parentId)
-    if (parent && parent.productId !== component.productId) issues.push(`${path}:parentId: parent must belong to the same product`)
+    if (parent) {
+      const childProducts = membership?.productIds ?? []
+      const parentProducts = ctx.membershipByComponent.get(parent.id)?.productIds ?? []
+      if ((childProducts.length || parentProducts.length)
+        && !childProducts.some(productId => parentProducts.includes(productId))) {
+        issues.push(`${path}:parentId: parent must belong to the same product`)
+      }
+    }
     if (parent?.kind && !['service', 'module'].includes(parent.kind)) issues.push(`${path}:parentId: only a service or module can contain components`)
     if (component.kind === 'service' || component.kind === 'external-service') {
       issues.push(`${path}:parentId: services and external providers must be top-level; use dependsOn for dependencies`)
@@ -155,7 +317,7 @@ export function validateComponent(component: Component, ctx: ContentContext): st
   }
   // Two references that resolve to the same component are one dependency, whichever form each was written in.
   unique((component.dependsOn ?? []).map(reference => referenceKey(reference, ctx.componentRepository)), `${path}:dependsOn`)
-  const workspaceId = ctx.productById.get(component.productId)?.workspaceId
+  const workspaceIds = new Set(membership?.productIds.map(id => ctx.productById.get(id)?.workspaceId) ?? [])
   for (const reference of component.dependsOn ?? []) {
     const resolved = resolveComponentReference(reference, ctx.componentRepository)
     // A bare name can only mean a component of this catalog, so an unknown one is an error. A qualified reference
@@ -166,7 +328,9 @@ export function validateComponent(component: Component, ctx: ContentContext): st
     }
     if (resolved.component === component.id) issues.push(`${path}:dependsOn: cannot depend on itself`)
     const dependency = ctx.componentById.get(resolved.component)
-    if (dependency && ctx.productById.get(dependency.productId)?.workspaceId !== workspaceId) {
+    const dependencyWorkspaceIds = ctx.membershipByComponent.get(dependency?.id ?? '')?.productIds
+      .map(id => ctx.productById.get(id)?.workspaceId) ?? []
+    if (dependency && workspaceIds.size && !dependencyWorkspaceIds.some(id => workspaceIds.has(id))) {
       issues.push(`${path}:dependsOn: dependency belongs to another workspace`)
     }
   }
@@ -187,8 +351,11 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
   const workspaceId = ctx.productById.get(feature.productId)?.workspaceId
   const componentRef = (id: string, path: string) => {
     has(ctx.componentById, id, `${root}/${path}`)
-    const owner = ctx.productById.get(ctx.componentById.get(id)?.productId ?? '')
-    if (owner && workspaceId && owner.workspaceId !== workspaceId) issues.push(`${root}/${path}: component "${id}" belongs to another workspace`)
+    const memberWorkspaces = ctx.membershipByComponent.get(id)?.productIds
+      .map(productId => ctx.productById.get(productId)?.workspaceId) ?? []
+    if (workspaceId && ctx.componentById.has(id) && !memberWorkspaces.includes(workspaceId)) {
+      issues.push(`${root}/${path}: component "${id}" belongs to another workspace`)
+    }
   }
   for (const id of feature.touches) componentRef(id, 'feature.json:touches')
   const spec = feature.spec ?? {}
@@ -299,6 +466,8 @@ export function contentContext(
     productById: new Map(products.map(p => [p.id, p])),
     componentById: new Map(components.map(c => [c.id, c])),
     componentRepository: componentRepositories(components, homeRepository),
+    membershipByComponent: new Map(components.map(component => [component.id, componentMembership(component, products, homeRepository)])),
+    homeRepository,
   }
 }
 
@@ -322,7 +491,7 @@ export function loadContent(documents: ContentDocuments, homeRepository?: string
   for (const feature of features) issues.push(...validateFeatureSpec(feature, ctx))
   if (issues.length) throw new ContentError(issues)
   return {
-    project, members, features,
+    project, members, features, homeRepository,
     workspaces: workspaces.sort(displayOrder), products: products.sort(displayOrder), components: components.sort(displayOrder),
   }
 }
@@ -331,6 +500,7 @@ export function loadContent(documents: ContentDocuments, homeRepository?: string
 export function createRepository(snapshot: ContentSnapshot) {
   const products = new Map(snapshot.products.map(p => [p.id, p]))
   const components = new Map(snapshot.components.map(c => [c.id, c]))
+  const memberships = new Map(snapshot.components.map(c => [c.id, componentMembership(c, snapshot.products, snapshot.homeRepository)]))
   const workspaces = new Map(snapshot.workspaces.flatMap(w => [[w.id, w], [w.slug, w]] as const))
   const children = new Map<string, Component[]>()
   for (const c of snapshot.components) if (c.parentId) children.set(c.parentId, [...(children.get(c.parentId) ?? []), c])
@@ -361,7 +531,12 @@ export function createRepository(snapshot: ContentSnapshot) {
     workspace: (idOrSlug: string) => workspaces.get(idOrSlug),
     products: (workspaceId?: string) => workspaceId ? snapshot.products.filter(p => p.workspaceId === workspaceId) : snapshot.products,
     product: (id: string) => products.get(id),
-    components: (productId?: string) => productId ? snapshot.components.filter(c => c.productId === productId) : snapshot.components,
+    productRepositories: (id: string) => {
+      const product = products.get(id)
+      return product ? productRepositories(product, snapshot.products, snapshot.components, snapshot.homeRepository) : []
+    },
+    componentOwner: (id: string) => products.get(memberships.get(id)?.ownedBy ?? ''),
+    components: (productId?: string) => productId ? productComponents(snapshot, productId) : snapshot.components,
     component: (id: string) => components.get(id),
     scope,
     ancestors,

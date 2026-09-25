@@ -110,7 +110,13 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
       limitsReached: Object.hasOwn(excluded, 'budget') || Object.hasOwn(excluded, 'packet-budget'),
       target: {
         project: plan.manifest,
-        products: plan.snapshot.products.map(product => ({ id: product.id, name: product.name, kind: product.kind, description: product.description })),
+        repository: plan.repository?.id,
+        products: plan.snapshot.products.map(product => ({
+          id: product.id, name: product.name, kind: product.kind, description: product.description,
+          // Ownership, rather than the home folder or a free-text label, decides product placement. Legacy homes
+          // may have no declarations yet; in that case apply needs an explicit productId unless ownership is unique.
+          repositories: product.repositories,
+        })),
         revision: plan.revision,
         context: plan.context,
       },

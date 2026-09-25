@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { documentVersions } from './document-versions.ts'
-import { commitSha, httpMethodSchema, id, isoTimestamp, observationKindSchema, text } from './schema-primitives.ts'
+import { commitSha, httpMethodSchema, id, isoTimestamp, observationKindSchema, text, isRepoRelativePath } from './schema-primitives.ts'
 
 // This is the source of truth for runtime validation, TypeScript types and JSON Schema.
 const slug = text.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
@@ -66,7 +66,10 @@ export const workspaceSchema = z.strictObject({ id, slug, order, name: text, des
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
 /** A product's repository membership in the migrated form: which repositories, or paths inside them, it owns or uses. */
 export const productRepositorySchema = z.strictObject({
-  repository: text, role: z.enum(['owned', 'used']), paths: strings.optional(), aliases: strings.optional(),
+  repository: text, role: z.enum(['owned', 'used']),
+  paths: z.array(text.refine(value => value === '.' || isRepoRelativePath(value.replaceAll('*', 'x')),
+    'Repository-relative path pattern required')).optional(),
+  aliases: strings.optional(),
 })
 /**
  * Read-tolerant product: every legacy field plus the fields a migrated home writes. Readers accept both forms;
@@ -217,6 +220,7 @@ export const executionFlowReadSchema = executionFlowSchema.extend({ steps: z.arr
  * release can still read them.
  */
 export const componentReadSchema = componentSchema.extend({
+  productId: id.optional(),
   schemaVersion: z.literal(documentVersions.component.current).optional(),
   dependsOn: componentReferences.optional(),
   executionFlows: z.array(executionFlowReadSchema).optional(),
