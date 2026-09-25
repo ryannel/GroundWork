@@ -7,10 +7,13 @@ import type { executionFlowSchema } from '../src/data/content-schema.ts'
 import { git } from '../server/git.ts'
 import { readPlan, writePlan } from '../server/repository.ts'
 import type { checkCatalogFreshness } from '../server/catalog-freshness.ts'
-import { applyCatalogInvestigation, discardRepositoryScan, prepareRepositoryScan } from '../server/scanner.ts'
+import { applyCatalogInvestigation, discardRepositoryScan, prepareRepositoryScan as prepareRepositoryScanRaw } from '../server/scanner.ts'
 import { readScanManifest, type ManifestScope } from '../server/scan-manifests.ts'
 import { operate } from '../server/operations.ts'
 import { guard, sourceCatalogFixture } from './helpers.ts'
+
+const prepareRepositoryScan = (root: string, input: Record<string, unknown>) =>
+  prepareRepositoryScanRaw(root, { destination: 'local', ...input })
 
 test('unchanged trees are scoped source evidence; working tree edits are excluded', async t => {
   const f = await sourceCatalogFixture(t)

@@ -83,6 +83,18 @@ test('mergeComponent replaces only covered areas and downgrades completeness rec
   assert.deepEqual(replaced.gaps!.map(gap => gap.reason), ['Old data gap', 'Old API gap'])
 })
 
+test('a migrated baseline dates an explicit jobs inventory at the observed commit and project tree', () => {
+  const discovery = repositoryDiscoverySchema.parse({
+    id: 'api', sourcePath: '.', name: 'API', coverage: { api: 'partial' }, jobs: [],
+  })
+  const tree = { treeId: 'a'.repeat(40), coveredPathsKey: 'paths' }
+  const merged = mergeComponent({}, discovery, {
+    repository: 'acme/api', revision: next, order: 1, sourceFingerprint: 'f', scannedAt: new Date(0).toISOString(),
+    persistProductId: false, projectTree: tree,
+  }) as Component
+  assert.deepEqual(merged.scan?.areaRevisions?.jobs, { revision: next, ...tree })
+})
+
 test('gapArea reads the area prefix and treats other gaps as component-level', () => {
   assert.deepEqual(['api', 'API.auth', 'messaging/delivery', 'data:ttl', 'apis', 'general'].map(gapArea), ['api', 'api', 'messaging', 'data', 'dependencies', 'dependencies'])
 })

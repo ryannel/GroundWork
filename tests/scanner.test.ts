@@ -5,7 +5,7 @@ import { access, chmod, mkdir, readFile, readdir, realpath, rm, stat, symlink, w
 import path from 'node:path'
 import { initialise } from '../server/setup.ts'
 import {
-  applyCatalogInvestigation, applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan, reconcileCatalog,
+  applyCatalogInvestigation, applyRepositoryScan, discardRepositoryScan, prepareRepositoryScan as prepareRepositoryScanRaw, reconcileCatalog,
 } from '../server/scanner.ts'
 import { readScanManifest } from '../server/scan-manifests.ts'
 import { getDiscoveryBaseline, retainDiscoveryBaseline } from '../server/knowledge.ts'
@@ -15,6 +15,9 @@ import { context, git } from '../server/git.ts'
 import { operate } from '../server/operations.ts'
 import type { queryCatalog } from '../server/catalog.ts'
 import { gitInit, guard, sourceCatalogFixture, tempDir, withEnv } from './helpers.ts'
+
+const prepareRepositoryScan = (root: string, input: Record<string, unknown>) =>
+  prepareRepositoryScanRaw(root, { destination: 'local', ...input })
 
 async function repository(t: TestContext) {
   const root = await gitInit(await tempDir(t, 'groundwork-scan-source-'))
@@ -161,7 +164,7 @@ test('scan operations accept central checkout routing without leaking it into st
   const source = await repository(t)
   const root = await target(t)
   const checkoutId = (await context(root)).checkoutId
-  const prepared = await operate('prepare_repository_scan', { checkoutId, repository: source, areas: ['api'] }, root) as
+  const prepared = await operate('prepare_repository_scan', { checkoutId, repository: source, areas: ['api'], destination: 'local' }, root) as
     Awaited<ReturnType<typeof prepareRepositoryScan>>
   assert.equal(prepared.target.context.checkoutId, checkoutId)
   await operate('discard_repository_scan', { scanId: prepared.scanId }, root)
@@ -453,7 +456,7 @@ test('scans are bound to their checkout and expire', async t => {
   const other = await target(t)
   const prepared = await prepareRepositoryScan(root, { repository: source, areas: ['api'] })
   const discovery = { id: 'catalog-api', productId: 'app', sourcePath: '.', name: 'Catalog API', coverage: { api: 'partial' } }
-  await assert.rejects(apply(other, prepared.scanId, [discovery]), /another Groundwork project or checkout/)
+  await assert.rejects(apply(other, prepared.scanId, [discovery]), /another Groundwork home or checkout/)
   const metadataFile = path.join(path.dirname(prepared.sourcePath), 'scan.json')
   const metadata = JSON.parse(await readFile(metadataFile, 'utf8'))
   await writeFile(metadataFile, JSON.stringify({ ...metadata, expiresAt: new Date(Date.now() - 1000).toISOString() }))

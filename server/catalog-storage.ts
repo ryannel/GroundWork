@@ -16,13 +16,14 @@ const products = `${PRODUCTS_DIR}/`, localCatalogs = `${LOCAL_CATALOGS_DIR}/`
 const legacyProjectFile = `${PLANS_DIR}/project.json`
 
 export function encodeStorage(files: Files, layout: Layout): Files {
-  // Only migration writes the v3 layout, and it arrives with the last phase; until then every write stays legacy.
-  if (layout === 'catalog-v3') throw new InvalidInput('This release reads the v3 layout but does not write it; migrate the home with a release that does')
   if (layout === 'legacy') return Object.fromEntries(Object.entries(files).map(([name, raw]) => [plans + name, raw]))
-  const result: Files = { [layoutFile]: layoutText }
+  const result: Files = layout === 'catalog-v3' ? {} : { [layoutFile]: layoutText }
   for (const [name, raw] of Object.entries(files)) {
-    if (name === 'project.json' || name.startsWith('members/')) result[groundwork + name] = raw
-    else if (name.startsWith('products/')) result[catalog + name] = raw
+    if (name === 'project.json') {
+      if (layout === 'catalog-v3') throw new InvalidInput('A v3 catalog has no project manifest')
+      result[groundwork + name] = raw
+    } else if (name.startsWith('members/')) result[groundwork + name] = raw
+    else if (name.startsWith('products/')) result[(layout === 'catalog-v3' ? groundwork : catalog) + name] = raw
     else if (name.startsWith('scan-manifests/')) result[`${catalog}scans/${name.split('/')[1]}`] = raw
     else if (name.startsWith('components/')) {
       const component = JSON.parse(raw)
@@ -42,6 +43,22 @@ export function encodeStorage(files: Files, layout: Layout): Files {
   return result
 }
 
+/** The same component/scans format under a home-owned local catalog directory. */
+export function encodeCatalogAt(files: Files, directory: string): Files {
+  if (Object.keys(files).some(name => !name.startsWith('components/') && !name.startsWith('scan-manifests/'))) {
+    throw new InvalidInput('A local catalog can contain only components and scan manifests')
+  }
+  return Object.fromEntries(Object.entries(encodeStorage(files, 'catalog-v3')).map(([name, raw]) =>
+    [directory + name.slice(CATALOG_DIR.length), raw]))
+}
+
+/** Logical component and manifest documents for one physical source or local catalog. */
+export function decodeCatalogAt(physical: Files, directory: string): Files {
+  const mapped = Object.fromEntries(Object.entries(physical).filter(([name]) => name.startsWith(`${directory}/`))
+    .map(([name, raw]) => [`${CATALOG_DIR}${name.slice(directory.length)}`, raw]))
+  return decodeVersion3(mapped)
+}
+
 /**
  * The stored form of a home, split into the logical documents and the facts only the layout holds. `legacyIds` is
  * the raw `legacy-ids.json` of a migrated home; it is not a planning document, so it stays out of `files` and out
@@ -52,7 +69,10 @@ export function decodeStorage(physical: Files): { files: Files; layout: Layout; 
   if (!split) {
     // A migrated home is marked by its legacy ID map, so a legacy manifest beside it is a pre-migration branch
     // that was merged afterwards, not a half-applied migration.
-    if (physical[LEGACY_IDS_FILE] === undefined && (physical[legacyProjectFile] !== undefined || !Object.keys(physical).length)) {
+    const sourceCatalogOnly = Object.keys(physical).length > 0 && Object.keys(physical).every(name =>
+      name.startsWith(`${catalog}components/`) || name.startsWith(`${catalog}scans/`))
+    if (physical[LEGACY_IDS_FILE] === undefined && !sourceCatalogOnly
+      && (physical[legacyProjectFile] !== undefined || !Object.keys(physical).length)) {
       // The legacy manifest is what makes a home legacy, not the absence of anything else: a v3 home can hold
       // nothing but plan documents. An empty checkout stays legacy so it is still reported as uninitialised.
       if (Object.keys(physical).some(name => !name.startsWith(plans))) {

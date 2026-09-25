@@ -7,7 +7,8 @@ import {
 import { catalogIndex, catalogLookup } from './catalog.ts'
 import { repositoryKey } from './catalog-freshness.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
-import { readPlan, writePlan } from './repository.ts'
+import { readPlan, writePlan, writeCatalogTarget } from './repository.ts'
+import { requirePreparedDestination } from './scan-destination.ts'
 import { validateCitations, type Citation } from './scan-evidence.ts'
 import { scanManifest, type ManifestScope } from './scan-manifests.ts'
 import { investigationCoverage } from './scan-policy.ts'
@@ -38,9 +39,9 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   if (!args.flows.length && !args.findings.length && !args.jobs.length) throw new InvalidInput('Supply at least one investigated flow or finding')
   const primary = await loadScan(args.scanId)
   const { metadata } = primary
-  const plan = await readPlan(root)
-  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Conflict('Stale investigation; re-read and reconcile')
-  requireScanTarget(plan, primary, 'Scan belongs to another project or checkout')
+  const { home, destination, target } = await requirePreparedDestination(root, metadata, args)
+  const plan = { ...target.plan, files: target.files, layout: target.layout, revision: target.revision,
+    repository: target.source.repository }
   const component = await requireComponentSource(
     plan.snapshot.components.find(component => component.id === args.componentId), primary,
     'Investigation source does not match the component repository and boundary',
@@ -67,7 +68,7 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   const sources = [primary, ...supporting]
   const sourceKeys = await Promise.all(sources.map(source => repositoryKey(source.metadata.repository)))
   if (new Set(sourceKeys).size !== sourceKeys.length) throw new InvalidInput('Use one pinned scan per repository')
-  for (const source of supporting) requireScanTarget(plan, source, 'Supporting source scan belongs to another checkout')
+  for (const source of supporting) requireScanTarget(home, source, 'Supporting source scan belongs to another checkout')
 
   const citations: { evidence: Citation; observationId: string }[] = [
     ...args.flows.flatMap(flow => [...flow.steps, ...flow.transitions].flatMap(item => item.evidence)
@@ -93,11 +94,21 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
   // Job `source` pointers name files in the investigated component, like freshness citations.
   await validateCitations(primary, boundary, [], args.jobs.flatMap(job => job.source ? [job.source] : []))
 
+  const tree = metadata.projectTrees?.find(item => item.sourcePath === boundary)
+  const observedFlows = plan.layout === 'catalog-v3' && tree ? args.flows.map(flow => ({ ...flow,
+    treeId: tree.treeId, coveredPathsKey: tree.coveredPathsKey })) : args.flows
+  const observedFindings = plan.layout === 'catalog-v3' && tree ? args.findings.map(finding => ({ ...finding,
+    treeId: tree.treeId, coveredPathsKey: tree.coveredPathsKey })) : args.findings
   const next = {
     ...component,
     ...(args.jobs.length ? { jobs: upsert(component.jobs ?? [], args.jobs) } : {}),
-    executionFlows: upsert(component.executionFlows ?? [], args.flows),
-    findings: upsert(component.findings ?? [], args.findings),
+    executionFlows: upsert(component.executionFlows ?? [], observedFlows),
+    findings: upsert(component.findings ?? [], observedFindings),
+    ...(plan.layout === 'catalog-v3' && args.jobs.length ? { scan: {
+      ...(component.scan ?? { status: 'partial' }),
+      areaRevisions: { ...(component.scan?.areaRevisions ?? {}), jobs: { revision: metadata.revision,
+        ...(tree ? { treeId: tree.treeId, coveredPathsKey: tree.coveredPathsKey } : {}) } },
+    } } : {}),
   }
   const changes: Record<string, string> = { [`components/${component.id}.json`]: JSON.stringify(next, null, 2) + '\n' }
   const manifest = scanManifest(plan, changes, metadata, 'investigation', [{
@@ -121,7 +132,8 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
     changes[supportingManifest.file] = supportingManifest.raw
     supportingManifestIds.push(supportingManifest.manifestId)
   })
-  const result = await writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
+  const result = await writeCatalogTarget(destination.root, destination.repository, destination.kind,
+    { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
   // Supporting scans stay available until they expire or are discarded; only the primary scan is consumed.
   const cleanupError = await removeScan(primary.directory).then(() => null).catch(error => String(error))
   return {
@@ -169,9 +181,9 @@ export async function reconcileCatalog(root: string, input: unknown) {
   const scan = await loadScan(args.scanId)
   const { metadata } = scan
   if (!args.retire.length && !args.rename.length) throw new InvalidInput('Supply an evidenced retirement or rename')
-  const plan = await readPlan(root)
-  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) throw new Conflict('Stale reconciliation; reread the catalog')
-  requireScanTarget(plan, scan, 'Scan belongs to another checkout')
+  const { destination, target } = await requirePreparedDestination(root, metadata, args)
+  const plan = { ...target.plan, files: target.files, layout: target.layout, revision: target.revision,
+    repository: target.source.repository }
   const component = await requireComponentSource(
     plan.snapshot.components.find(item => item.id === args.componentId), scan, 'Reconciliation source boundary mismatch',
   )
@@ -189,6 +201,7 @@ export async function reconcileCatalog(root: string, input: unknown) {
     throw new InvalidInput('A renamed flow is also affected by retirement; reconcile explicitly')
   }
   const retiredAt = new Date().toISOString()
+  const tree = metadata.projectTrees?.find(item => item.sourcePath === (component.sourcePath ?? '.'))
   for (const action of actions) {
     const group = groups[action.kind]
     const index = group?.findIndex(item => item.id === action.id) ?? -1
@@ -196,6 +209,7 @@ export async function reconcileCatalog(root: string, input: unknown) {
     retired.push({
       kind: action.kind, id: action.id, retiredAt, sourceRevision: metadata.revision, reason: action.reason,
       evidence: action.evidence, observation: group[index] as unknown as Record<string, unknown>,
+      ...(plan.layout === 'catalog-v3' && tree ? { treeId: tree.treeId, coveredPathsKey: tree.coveredPathsKey } : {}),
     })
     group.splice(index, 1)
   }
@@ -221,7 +235,8 @@ export async function reconcileCatalog(root: string, input: unknown) {
     observationIds: [...actions, ...args.rename].map(item => catalogId(plan.manifest.id, component.id, item.kind, item.id)),
   }])
   changes[manifest.file] = manifest.raw
-  const result = await writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
+  const result = await writeCatalogTarget(destination.root, destination.repository, destination.kind,
+    { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
   const cleanup = await removeScan(scan.directory).then(() => 'complete').catch(() => 'deferred')
   return {
     ...result,

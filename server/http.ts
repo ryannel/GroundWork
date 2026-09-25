@@ -11,6 +11,7 @@ import { activity, digest, gitBuffer, gitRaw, resolveRef } from './git.ts'
 import { assetPattern, PLAN_DIRECTORY } from './format.ts'
 import { operate, isOperationName } from './operations.ts'
 import { packageRoot } from './setup.ts'
+import { resolveProductCatalog } from './product-catalog.ts'
 import { InvalidInput, NotFound, statusFor } from './errors.ts'
 import { ContentError } from '../src/data/content.ts'
 import { CatalogIdError } from '../src/data/catalog-identity.ts'
@@ -153,6 +154,15 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       // so it does not protect against other programs on this machine; Host/Origin checks keep remote sites out.
       if (req.method === 'GET' && url.pathname === '/api/session') return json({ token, mode: options.root ? 'standalone' : 'central' })
       if (req.method === 'GET' && url.pathname === '/api/projects') return json(await inventory(options.root))
+      if (req.method === 'GET' && url.pathname === '/api/product-catalog') {
+        const productId = url.searchParams.get('productId')
+        if (!checkoutId || !productId) throw new InvalidInput('Select a checkout and product for catalog resolution')
+        const root = await selectRoot(checkoutId, options.root)
+        const entries = await inventory(options.root)
+        const clones = Object.fromEntries(entries.filter(entry => entry.preferred && entry.repositoryId && !entry.error)
+          .map(entry => [entry.repositoryId!, entry.root]))
+        return json(await resolveProductCatalog(root, productId, clones, root, { homeRef: ref }))
+      }
       if (req.method === 'GET' && url.pathname === '/api/snapshot') return json(await snapshot(checkoutId, ref))
       if (req.method === 'GET' && url.pathname === '/api/events') {
         res.writeHead(200, { 'Content-Type': 'text/event-stream', Connection: 'keep-alive' })

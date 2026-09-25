@@ -47,6 +47,11 @@ export function Layout() {
       <div className="ambient" aria-hidden />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <TopBar />
+      {runtime.plan && <p className="read-provenance" aria-label="Catalog source">
+        {runtime.plan.identity.repository?.id ?? runtime.plan.manifest.id}@{runtime.plan.context.ref ?? runtime.plan.context.branch ?? 'detached'}
+        {runtime.plan.context.head && <> · <code>{runtime.plan.context.head.slice(0, 12)}</code></>}
+        {' · '}{runtime.plan.context.editable ? 'working tree' : 'committed revision'}
+      </p>}
       {runtime.error && !hub && <aside className="runtime-error" role="alert">
         <strong>{runtime.plan ? 'Showing the last valid plan' : 'This repository needs attention'}</strong>
         <pre>{runtime.error}</pre>

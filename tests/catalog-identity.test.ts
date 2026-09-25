@@ -19,7 +19,7 @@ import type { Component } from '../src/data/model.ts'
 import { assertLegacyWriteForm, parsePlan } from '../server/format.ts'
 import { derivedComponentId, detectProjects, matchComponent, matchComponents, type InventoryFile } from '../server/scan-projects.ts'
 import { initialise } from '../server/setup.ts'
-import { discardRepositoryScan, prepareRepositoryScan } from '../server/scanner.ts'
+import { discardRepositoryScan, prepareRepositoryScan as prepareRepositoryScanRaw } from '../server/scanner.ts'
 // Not a registered operation: the entry point stays internal until v3 writes are enabled.
 import { componentIdentityChange, reconcileComponentIdentity } from '../server/scan-lifecycle.ts'
 import { SCANNER_VERSION, type ScanMetadata } from '../server/scan-workspace.ts'
@@ -30,6 +30,9 @@ import { digest } from '../server/git.ts'
 import { operationSchemas, operate } from '../server/operations.ts'
 import { git } from '../server/git.ts'
 import { gitInit, guard, homeFixture, repoRoot, tempDir, writeFiles } from './helpers.ts'
+
+const prepareRepositoryScan = (root: string, input: Record<string, unknown>) =>
+  prepareRepositoryScanRaw(root, { destination: 'local', ...input })
 
 const component = (overrides: Record<string, unknown> = {}): Component => ({
   id: 'gpe-price', productId: 'app', order: 0, name: 'Price', repo: 'volvo-cars/price-engine',

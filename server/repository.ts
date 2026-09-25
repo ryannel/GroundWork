@@ -2,13 +2,15 @@ import { link, lstat, mkdir, open, readdir, readFile, realpath, rename, rm, writ
 import { hostname } from 'node:os'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
-import { decodeStorage, encodeStorage, physicalDocumentPattern, type Layout } from './catalog-storage.ts'
+import { decodeStorage, encodeStorage, decodeCatalogAt, encodeCatalogAt, physicalDocumentPattern, type Layout } from './catalog-storage.ts'
 import { Conflict, InvalidInput } from './errors.ts'
 import { assetPattern, documentPattern, parsePlan, type Files, type Plan } from './format.ts'
 import { catalogIdentity } from '../src/data/catalog-index.ts'
+import { repositoryIdentity } from '../src/data/repository-identity.ts'
 import { context, digest, git, gitRaw, resolveRef } from './git.ts'
 import {
-  GROUNDWORK_DIR, JOURNAL_FILE, LOCK_FILE, MAX_DOCUMENT_BYTES, MEMBERS_DIR, CATALOG_DIR, LOCAL_CATALOGS_DIR, PLANS_DIR, PRODUCTS_DIR,
+  GROUNDWORK_DIR, JOURNAL_FILE, LOCK_FILE, MAX_DOCUMENT_BYTES, MEMBERS_DIR, CATALOG_DIR, LOCAL_CATALOGS_DIR, LEGACY_IDS_FILE, PLANS_DIR, PRODUCTS_DIR,
+  localCatalogDirectory,
   STORAGE_ROOTS, TEMP_FILE_PATTERN,
 } from './paths.ts'
 import { validateTransition, type Changes } from './transitions.ts'
@@ -338,15 +340,78 @@ export async function writePlan(root: string, request: WriteRequest) {
     const storage = await readStorageFiles(root)
     const decoded = decodeStorage(storage)
     const { layout, files: before, legacyIds } = decoded
+    if (layout === 'catalog-v3') throw new InvalidInput('This release reads the v3 layout but does not write it; migrate the home with a release that does')
     if (ctx.token !== expectedContext || planRevision(decoded, ctx.repository) !== expectedRevision) {
       throw new Conflict('Stale edit: re-read the selected checkout and reapply your changes')
     }
     const { after, plan } = validateTransition(before, changes, { repository: ctx.repository, layout, legacyIds })
     await assetVersions(root, plan)
     const next = encodeStorage(after, layout)
+    // A plan write must not erase local catalogs or the immutable migration map, which are outside its logical files.
+    for (const [name, raw] of Object.entries(storage)) if (name.startsWith(`${LOCAL_CATALOGS_DIR}/`) || name === LEGACY_IDS_FILE) next[name] = raw
     // commit() re-checks the context and every changed path against `storage` before it writes anything.
     await commit(storage, next, ctx.token)
     return { revision: planRevision(decodeStorage(next), ctx.repository), context: planContext(ctx) }
+  })
+}
+
+export type CatalogDestinationKind = 'source' | 'local'
+/** Logical documents and a guard for one physical catalog. A legacy local destination remains the home plan. */
+function catalogState(storage: Files, ctx: Context, kind: CatalogDestinationKind, repository: string) {
+  const canonical = repositoryIdentity(repository)
+  if (kind === 'source') {
+    if (repositoryIdentity(ctx.repository.id) !== canonical) throw new InvalidInput(`Checkout is not repository ${canonical}`)
+    const decoded = decodeStorage(storage)
+    // A repository with no Groundwork files becomes a source-only v3 catalog when the first scan is applied.
+    const layout = !Object.keys(storage).length ? 'catalog-v3' as const : decoded.layout
+    const files = decoded.files
+    const source = { repository: ctx.repository, layout, legacyIds: decoded.legacyIds }
+    return { kind, repository: canonical, files, layout, source, plan: parsePlan(files, source),
+      revision: planRevision({ files, layout, legacyIds: decoded.legacyIds }, ctx.repository), context: ctx }
+  }
+  const home = decodeStorage(storage)
+  if (home.layout !== 'catalog-v3') {
+    const source = { repository: ctx.repository, layout: home.layout, legacyIds: home.legacyIds }
+    return { kind, repository: canonical, files: home.files, layout: home.layout, source,
+      plan: parsePlan(home.files, source), revision: planRevision(home, ctx.repository), context: ctx }
+  }
+  const files = decodeCatalogAt(storage, localCatalogDirectory(canonical))
+  const source = { repository: { id: canonical, origin: null, provisional: canonical.startsWith('local:') }, layout: 'catalog-v3' as const }
+  return { kind, repository: canonical, files, layout: 'catalog-v3' as const, source,
+    plan: parsePlan(files, source), revision: digest(JSON.stringify([revision(files), 'local-catalog-v3', canonical])), context: ctx }
+}
+
+/** Read a source catalog or a named home's local catalog as normalized logical documents. */
+export async function readCatalogTarget(root: string, repository: string, kind: CatalogDestinationKind, ref?: string) {
+  const ctx = await context(root)
+  const resolved = ref ? await resolveRef(root, ref) : undefined
+  const state = catalogState(await readStorageFiles(root, resolved), ctx, kind, repository)
+  return { ...state, context: planContext(ctx, ref, resolved) }
+}
+
+/** Guarded catalog write. Legacy layouts keep their old physical forms; v3 source/local catalogs use split files. */
+export async function writeCatalogTarget(root: string, repository: string, kind: CatalogDestinationKind, request: WriteRequest) {
+  if (!request.expectedRevision || !request.expectedContext) throw new InvalidInput('Catalog writes require revision and checkout context')
+  return withTransaction(root, async commit => {
+    const ctx = await context(root)
+    const storage = await readStorageFiles(root)
+    const state = catalogState(storage, ctx, kind, repository)
+    if (state.revision !== request.expectedRevision || ctx.token !== request.expectedContext) {
+      throw new Conflict('Catalog destination changed since preparation; prepare a new scan')
+    }
+    const { after } = validateTransition(state.files, request.changes, state.source)
+    let next: Files
+    if (kind === 'local' && state.layout === 'catalog-v3') {
+      const directory = localCatalogDirectory(repository)
+      next = Object.fromEntries(Object.entries(storage).filter(([name]) => !name.startsWith(`${directory}/`)))
+      Object.assign(next, encodeCatalogAt(after, directory))
+    } else {
+      next = encodeStorage(after, state.layout)
+      for (const [name, raw] of Object.entries(storage)) if (name.startsWith(`${LOCAL_CATALOGS_DIR}/`) || name === LEGACY_IDS_FILE) next[name] = raw
+    }
+    await commit(storage, next, ctx.token)
+    const updated = catalogState(next, ctx, kind, repository)
+    return { revision: updated.revision, context: planContext(ctx) }
   })
 }
 

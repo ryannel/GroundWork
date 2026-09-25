@@ -1,16 +1,16 @@
 import { z } from 'zod'
 import { adaptScanManifest, parseScanManifest, scanManifestSchema } from '../src/data/scan-manifest.ts'
 import { catalogIndex } from './catalog.ts'
-import { parsePlan } from './format.ts'
+import { parsePlan, type Files, type Plan } from './format.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
 import { digest } from './git.ts'
 import { readPlan } from './repository.ts'
 import type { ScanMetadata } from './scan-workspace.ts'
 
-type Plan = Awaited<ReturnType<typeof readPlan>>
+type ManifestPlan = Plan & { files: Files; revision: string; layout: 'legacy' | 'catalog-v1' | 'catalog-v3'; repository?: { id: string } }
 export type ManifestScope = z.infer<typeof scanManifestSchema>['scope'][number]
 
-export function manifestChange(plan: Plan, changes: Record<string, string>, input: Omit<z.infer<typeof scanManifestSchema>, 'mappings' | 'note'>) {
+export function manifestChange(plan: ManifestPlan, changes: Record<string, string>, input: Omit<z.infer<typeof scanManifestSchema>, 'mappings' | 'note'>) {
   // The candidate is read the way the home itself was, so its layout decides which ID form the mappings record.
   const candidate = { ...plan, ...parsePlan({ ...plan.files, ...changes }, plan.source) }
   const components = new Set(input.scope.map(scope => scope.componentId))
@@ -36,7 +36,7 @@ export function manifestChange(plan: Plan, changes: Record<string, string>, inpu
 }
 
 /** The immutable provenance record for applying `metadata` to the catalog with `changes`. */
-export function scanManifest(plan: Plan, changes: Record<string, string>, metadata: ScanMetadata, mode: 'baseline' | 'investigation', scope: ManifestScope[]) {
+export function scanManifest(plan: ManifestPlan, changes: Record<string, string>, metadata: ScanMetadata, mode: 'baseline' | 'investigation', scope: ManifestScope[]) {
   return manifestChange(plan, changes, {
     version: 1,
     scannerVersion: metadata.scannerVersion,

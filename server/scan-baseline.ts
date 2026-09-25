@@ -3,9 +3,10 @@ import { componentMembership } from '../src/data/content.ts'
 import type { Component } from '../src/data/model.ts'
 import { applyRepositoryScanSchema, scanAreas, type RepositoryDiscovery, type ScanArea } from '../src/data/scan-schema.ts'
 import { repositoryKey } from './catalog-freshness.ts'
-import { Conflict, InvalidInput, NotFound } from './errors.ts'
+import { InvalidInput, NotFound } from './errors.ts'
 import { digest } from './git.ts'
-import { readPlan, writePlan } from './repository.ts'
+import { writeCatalogTarget } from './repository.ts'
+import { requirePreparedDestination } from './scan-destination.ts'
 import { requireClaimEvidence, requireRetainedInventory, validateDiscoveryCitations } from './scan-evidence.ts'
 import { scanManifest } from './scan-manifests.ts'
 import { filesForProject, matchComponents } from './scan-projects.ts'
@@ -32,6 +33,9 @@ export interface ScanContext {
   productId?: string
   sourceFingerprint: string
   scannedAt: string
+  persistProductId?: boolean
+  coveredTrees?: Partial<Record<ScanArea, { treeId: string; coveredPathsKey: string }>>
+  projectTree?: { treeId: string; coveredPathsKey: string }
 }
 
 /**
@@ -76,13 +80,23 @@ export function mergeComponent(previous: Record<string, unknown> & Partial<Compo
       coverage,
     },
   }
+  if (context.persistProductId === false) {
+    delete next.productId
+    next.schemaVersion = 3
+    const previousRevisions = previous.scan?.areaRevisions ?? {}
+    const areaRevisions = { ...previousRevisions } as Record<string, unknown>
+    for (const area of scanned) areaRevisions[area] = { revision: context.revision, ...context.coveredTrees?.[area] }
+    if (discovery.jobs !== undefined) areaRevisions.jobs = { revision: context.revision, ...context.projectTree }
+    ;(next.scan as Record<string, unknown>).areaRevisions = areaRevisions
+  }
   if (dependencies) {
     next.dependsOn = discovery.dependsOn ?? []
     next.unresolvedDependencies = discovery.unresolvedDependencies ?? []
   }
   for (const area of ['api', 'data', 'messaging'] as const) if (discovery.coverage[area]) next[area] = discovery[area]
   if (discovery.jobs !== undefined) next.jobs = discovery.jobs
-  if (discovery.executionFlows !== undefined) next.executionFlows = discovery.executionFlows
+  if (discovery.executionFlows !== undefined) next.executionFlows = context.persistProductId === false && context.projectTree
+    ? discovery.executionFlows.map(flow => ({ ...flow, ...context.projectTree })) : discovery.executionFlows
   if ((next.dependsOn as unknown[] | undefined)?.length && !(next.evidence as unknown[]).length) {
     throw new InvalidInput(`${discovery.id}: resolved dependencies require evidence`)
   }
@@ -97,14 +111,10 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     throw new InvalidInput('Incremental scans cannot replace catalog inventories; '
       + 'use apply_catalog_investigation for flows/findings or prepare a baseline scan for reconciled contracts')
   }
-  const plan = await readPlan(root)
-  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) {
-    throw new Conflict('Stale edit: re-read the plan before applying repository discoveries')
-  }
-  if (plan.manifest.id !== metadata.targetProjectId || plan.context.checkoutId !== metadata.targetCheckoutId) {
-    throw new InvalidInput('Repository scan belongs to another Groundwork project or checkout')
-  }
-  const productIds = new Set(plan.snapshot.products.map(product => product.id))
+  const { home, destination, target } = await requirePreparedDestination(root, metadata, args)
+  const plan = { ...target.plan, files: target.files, layout: target.layout, revision: target.revision,
+    repository: target.source.repository }
+  const productIds = new Set(home.snapshot.products.map(product => product.id))
   const existingIds = new Set(plan.snapshot.components.map(component => component.id))
   const scannedRepository = await repositoryKey(metadata.repository)
   const components = await Promise.all(plan.snapshot.components.map(async component => ({
@@ -122,9 +132,9 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     throw new InvalidInput('Repository discoveries contain duplicate project paths')
   }
   const changes: Record<string, string> = {}
-  const nextOrder = new Map(plan.snapshot.products.map(product => [
+  const nextOrder = new Map(home.snapshot.products.map(product => [
     product.id,
-    plan.snapshot.components
+    home.snapshot.components
       .filter(component => component.productId === product.id)
       .reduce((maximum, component) => Math.max(maximum, component.order ?? 0), 0) + 1,
   ]))
@@ -159,7 +169,7 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     }
     const membership = componentMembership(
       { repo: scannedRepository, sourcePath: discovery.sourcePath, productId: selectedProductId },
-      plan.snapshot.products, plan.repository?.id,
+      home.snapshot.products, home.repository?.id,
     )
     if (membership.conflictingOwners.length) {
       throw new InvalidInput(`${discovery.id}: several products own this repository path: ${membership.conflictingOwners.join(', ')}`)
@@ -193,6 +203,10 @@ export async function applyRepositoryScan(root: string, input: unknown) {
       productId,
       sourceFingerprint: digest(JSON.stringify(projectFiles.map(file => [file.path, file.digest]))),
       scannedAt,
+      persistProductId: plan.layout !== 'catalog-v3',
+      coveredTrees: Object.fromEntries((metadata.coveredTrees ?? []).filter(tree => tree.sourcePath === discovery.sourcePath)
+        .map(tree => [tree.area, { treeId: tree.treeId, coveredPathsKey: tree.coveredPathsKey }])),
+      projectTree: metadata.projectTrees?.find(tree => tree.sourcePath === discovery.sourcePath),
     })
     changes[`components/${discovery.id}.json`] = JSON.stringify(next, null, 2) + '\n'
   }
@@ -203,7 +217,8 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     observationIds: (item.executionFlows ?? []).map(flow => catalogId(plan.manifest.id, item.id, 'flow', flow.id)),
   })))
   changes[manifest.file] = manifest.raw
-  const result = await writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
+  const result = await writeCatalogTarget(destination.root, destination.repository, destination.kind,
+    { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
   const cleanupError = await removeScan(directory).then(() => null).catch(error => error instanceof Error ? error.message : String(error))
   return {
     ...result,

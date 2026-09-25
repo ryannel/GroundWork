@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, TriangleAlert } from 'lucide-react'
 import { useProduct, useQuery, byUpdated } from '@/data/store'
+import { useRuntime } from '@/data/runtime'
 import { clearComponentScope } from '@/data/catalog-url'
 import { connectedProductIds } from '@/data/workspace-view'
 import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
@@ -12,16 +13,29 @@ import { kinds, hueStyle } from '@/lib/taxonomy'
 import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ProductRepositories } from '@/components/product-repositories'
+import { useResolvedCatalog } from '@/ui/use-resolved-catalog'
+import { qualifyViewerComponents, selectViewerComponentId } from '@/ui/qualified-components'
 import { useUrlFilter } from '@/ui/use-url-filter'
 
 export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
   const data = useProduct(slug, pslug)
+  const { plan } = useRuntime()
+  const resolvedCatalog = useResolvedCatalog(data?.product.id ?? '')
   const [params, setParams] = useSearchParams()
   const filter = useUrlFilter({ scope: 'all', view: 'active' })
   // Inspector URL changes must not restart the map's layout and simulation.
-  const componentList = useMemo(() => data?.components.map(c => c.component) ?? [], [data?.components])
   const query = useQuery()
+  const homeRepository = plan?.identity.repository?.id ?? resolvedCatalog.result?.homeRepository ?? ''
+  const resolvedComponents = useMemo(() => (resolvedCatalog.result?.repositories ?? []).flatMap(repository =>
+    repository.components.map(component => ({ ...component, repo: component.repo ?? repository.repository }))), [resolvedCatalog.result])
+  const allComponents = useMemo(() => qualifyViewerComponents(query.components(), homeRepository, resolvedComponents),
+    [query, homeRepository, resolvedComponents])
+  const componentList = useMemo(() => {
+    const ids = new Set([...(data?.components.map(entry => entry.component) ?? []), ...resolvedComponents]
+      .map(component => selectViewerComponentId(allComponents, component.repo ?? homeRepository, component.id)))
+    return allComponents.filter(component => ids.has(component.id))
+  }, [data?.components, resolvedComponents, allComponents, homeRepository])
   // A new component starts with a clean catalog: stale entity, flow, finding and filter params must not carry over.
   const inspectComponent = useCallback((id: string) => setParams(previous => {
     const next = clearComponentScope(previous)
@@ -49,7 +63,6 @@ export function ProductPage() {
   ]
   const scopedIncoming = incoming.filter(inScope).length
   const scopedOwned = active.filter(inScope).length
-  const allComponents = query.components()
   const graph = runtimeSystemGraph(componentList, allComponents)
   const selectedComponent = graph.nodes.find(component => component.id === params.get('component'))
   const unresolvedCount = componentList.reduce((sum, component) => sum + (component.unresolvedDependencies?.length ?? 0), 0)
@@ -96,7 +109,7 @@ export function ProductPage() {
       </div>
     </header>
 
-    <ProductRepositories product={p} />
+    <ProductRepositories product={p} resolved={resolvedCatalog} />
 
     <section className="product-components-section" aria-labelledby="product-components-heading">
       <div className="board-section-heading"><div>

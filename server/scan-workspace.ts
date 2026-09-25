@@ -30,12 +30,28 @@ export const scanMetadataSchema = z.strictObject({
   revision: objectIdSchema,
   targetProjectId: z.string().min(1),
   targetCheckoutId: z.string().min(1),
+  homeRevision: z.string().min(1).optional(),
+  homeContext: z.string().min(1).optional(),
+  /** Absent only on scans prepared by an older release; those retain their home-catalog destination. */
+  destination: z.strictObject({
+    kind: z.enum(['source', 'local']),
+    root: z.string().min(1),
+    repository: z.string().min(1),
+    checkoutId: z.string().min(1),
+    revision: z.string().min(1),
+    context: z.string().min(1),
+  }).optional(),
   areas: z.array(scanAreaSchema).min(1),
   files: z.array(inventoryFileSchema),
   projects: z.array(z.strictObject({
     path: repoRelativePath, name: z.string(), suggestedId: z.string().min(1), derivedId: z.string().min(1),
     manifest: z.string(), existingComponentId: z.string().optional(),
   })),
+  coveredTrees: z.array(z.strictObject({
+    sourcePath: repoRelativePath, area: scanAreaSchema, treeId: objectIdSchema, coveredPathsKey: z.string().min(1),
+  })).optional(),
+  projectTrees: z.array(z.strictObject({ sourcePath: repoRelativePath, treeId: objectIdSchema,
+    coveredPathsKey: z.string().min(1) })).optional(),
   packets: z.array(z.strictObject({
     id: z.string().min(1), projectPath: repoRelativePath, componentId: z.string().min(1), area: scanAreaSchema,
     files: z.array(repoRelativePath), availableFiles: z.number().int().nonnegative(), outputPath: z.string().min(1),

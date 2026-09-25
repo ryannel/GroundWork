@@ -9,7 +9,9 @@ import { acquire, listTree, readBlobs } from './scan-acquire.ts'
 import { inventory } from './scan-inventory.ts'
 import { incrementalMode, planPackets } from './scan-packets.ts'
 import { incrementalApplyPolicy, incrementalReviewNote, workerContract } from './scan-policy.ts'
-import { detectProjects, type InventoryFile } from './scan-projects.ts'
+import { detectProjects, filesForProject, type InventoryFile } from './scan-projects.ts'
+import { chooseScanDestination } from './scan-destination.ts'
+import { coveredPathsKey, coveredTreeId } from './catalog-history.ts'
 import { readonlyTree, removeScan, SCAN_TTL_MS, SCANNER_VERSION, scanDirectory, sweepScans, type ScanMetadata } from './scan-workspace.ts'
 
 /** Freshness limits for the incremental check that narrows a preparation. */
@@ -47,6 +49,7 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
     await mkdir(path.join(temporary, 'output'), { recursive: true, mode: 0o700 })
     const acquired = await acquire(args.repository, freshness?.targetRevision ?? args.sourceRef, acquisition)
     const plan = await readPlan(root)
+    const { destination, warnings } = await chooseScanDestination(root, args.repository, acquired.repository, args.destination)
     if (freshness && (freshness.catalogRevision !== plan.revision || freshness.context !== plan.context.token)) {
       throw new Conflict('Catalog changed during preparation; repeat incremental preparation')
     }
@@ -64,6 +67,19 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
       outputDirectory: path.join(directory, 'output'),
       incremental: incremental && { mode: incremental.mode, changedPaths },
     })
+    const coveredTrees = (await Promise.all(projects.flatMap(project => args.areas.map(async area => {
+      const paths = [...new Set(packets.filter(packet => packet.projectPath === project.path && packet.area === area)
+        .flatMap(packet => packet.files))]
+      if (!paths.length) return null
+      return { sourcePath: project.path, area, coveredPathsKey: coveredPathsKey(paths),
+        treeId: await coveredTreeId(acquisition, acquired.revision, paths) }
+    })))).filter(item => item !== null)
+    const projectTrees = (await Promise.all(projects.map(async project => {
+      const paths = filesForProject(files, project, projects).map(file => file.path)
+      if (!paths.length) return null
+      return { sourcePath: project.path, coveredPathsKey: coveredPathsKey(paths),
+        treeId: await coveredTreeId(acquisition, acquired.revision, paths) }
+    }))).filter(item => item !== null)
     if (skipped) excluded['packet-budget'] = skipped
     const createdAt = new Date()
     const metadata: ScanMetadata = {
@@ -80,9 +96,14 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
       revision: acquired.revision,
       targetProjectId: plan.manifest.id,
       targetCheckoutId: plan.context.checkoutId,
+      homeRevision: plan.revision,
+      homeContext: plan.context.token,
+      destination,
       areas: args.areas,
       files,
       projects,
+      coveredTrees,
+      projectTrees,
       packets,
       excluded,
       ...(incremental ? { incremental } : {}),
@@ -102,6 +123,8 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
       } : {}),
       repository: acquired.repository,
       revision: acquired.revision,
+      destination,
+      warnings,
       sourcePath: path.join(directory, 'source'),
       outputPath: path.join(directory, 'output'),
       projects,
@@ -117,8 +140,11 @@ export async function prepareRepositoryScan(root: string, input: unknown) {
           // may have no declarations yet; in that case apply needs an explicit productId unless ownership is unique.
           repositories: product.repositories,
         })),
-        revision: plan.revision,
-        context: plan.context,
+        revision: destination.revision,
+        context: destination.kind === 'local' ? plan.context : { ...plan.context, root: destination.root,
+          checkoutId: destination.checkoutId, token: destination.context },
+        homeRevision: plan.revision,
+        homeContext: plan.context,
       },
       workerContract,
     }

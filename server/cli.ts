@@ -9,6 +9,7 @@ import { inventory, register, unregister, previewHubMigration, migrateHubRegistr
 import type { LabelMappings } from './registry-v3.ts'
 import { readPlan, recover } from './repository.ts'
 import { validateAllHomes } from './validate-all.ts'
+import { readCatalogCache, refreshCatalogCache } from './catalog-cache.ts'
 import { startViewer } from './viewer.ts'
 import { mcp } from './mcp.ts'
 import { operate, operationSchemas, type OperationName } from './operations.ts'
@@ -26,6 +27,9 @@ const help = `Groundwork — portable repository planning
   register-folder [path] [--select FILE] [--depth 2]
   unregister [path]
   projects                         List projects and discovered worktrees
+  cache-status --repository ID     Show the pinned on-request catalog cache
+  cache-refresh --repository ID --remote URL [--commits FILE]
+                                   Explicitly fetch only Groundwork data and commit history
   read [path] [--ref BRANCH]        Read documents, revision and context
   validate [path] [--all]           Validate one home or ownership across every loaded home
   recover [path]                    Recover an interrupted write and remove leftover temp files
@@ -37,7 +41,7 @@ const help = `Groundwork — portable repository planning
 
 Operations: ${Object.keys(operationSchemas).join(', ')}
 Use read before mutations. Pass expectedRevision and expectedContext back unchanged.
-No commands push, fetch, publish, or launch agents.
+No commands push, publish, or launch agents. Catalog cache refresh fetches only on explicit request.
 Exit codes: 1 failure, 2 command-line mistake, 3 conflict (re-read and retry).
 `
 /** A mistake in the command line itself: unknown command or option, missing value, extra argument. */
@@ -58,6 +62,8 @@ const commands: Record<string, { options: Options; positionals: number }> = {
   'register-folder': { options: { root: text, select: text, depth: text }, positionals: 1 },
   unregister: { options: { root: text }, positionals: 1 },
   projects: { options: {}, positionals: 0 },
+  'cache-status': { options: { repository: text }, positionals: 0 },
+  'cache-refresh': { options: { repository: text, remote: text, commits: text }, positionals: 0 },
   read: { options: { root: text, ref: text }, positionals: 1 },
   validate: { options: { root: text, all: flag }, positionals: 1 },
   recover: { options: { root: text }, positionals: 1 },
@@ -114,6 +120,15 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
   }
   if (command === 'unregister') return print(await unregister(root))
   if (command === 'projects') return print(await inventory())
+  if (command === 'cache-status') return print(await readCatalogCache(required('repository')))
+  if (command === 'cache-refresh') {
+    const file = string('commits')
+    const recordedCommits = file ? JSON.parse(await readFile(file, 'utf8')) as string[] : undefined
+    if (recordedCommits && (!Array.isArray(recordedCommits) || recordedCommits.some(commit => typeof commit !== 'string'))) {
+      throw new UsageError('cache-refresh: --commits must contain a JSON array of commit hashes')
+    }
+    return print(await refreshCatalogCache({ repository: required('repository'), remote: required('remote'), recordedCommits }))
+  }
   if (command === 'read') return print(await operate('read_plan', { ref: string('ref') }, root))
   if (command === 'validate') {
     if (values.all) {

@@ -1,5 +1,7 @@
 import { z } from 'zod'
 import { migrateCatalog, migrateCatalogSchema } from './catalog-migration.ts'
+import { readCatalogCache, refreshCatalogCache } from './catalog-cache.ts'
+import { proposeLocalCatalog } from './catalog-proposal.ts'
 import { readScanManifest, readScanManifestSchema } from './scan-manifests.ts'
 import { checkCatalogFreshness, checkCatalogFreshnessSchema } from './catalog-freshness.ts'
 import {
@@ -58,6 +60,28 @@ function mutation<A extends Guard>(change: (plan: Plan, args: A, root: string) =
 }
 
 const operations = {
+  read_catalog_cache: define({
+    schema: z.strictObject({ repository: z.string().min(1) }),
+    description: 'Read a previously fetched repository catalog cache and its pinned default-branch revision. Never fetches or refreshes.',
+    ...read,
+    run: async args => readCatalogCache(args.repository),
+  }),
+  refresh_catalog_cache: define({
+    schema: z.strictObject({ repository: z.string().min(1), remote: z.string().min(1),
+      recordedCommits: z.array(z.string()).max(100).optional() }),
+    description: 'On explicit request, fetch a repository default branch and recorded commit history into the read-only Hub cache. '
+      + 'Accepts only a treeless fetch and validates cached Groundwork documents. Never checks out code, commits or pushes.',
+    readOnly: false, destructive: false, openWorld: true,
+    run: async args => refreshCatalogCache(args),
+  }),
+  propose_local_catalog: define({
+    schema: z.strictObject({ ...checkoutSelection, productId: z.string().min(1), repository: z.string().min(1),
+      sourceRoot: z.string().min(1), apply: z.boolean().optional(), expectedProposalId: z.string().optional() }),
+    description: 'Preview newer local catalog units against a selected writable source clone. An explicit apply requires the '
+      + 'preview proposalId and writes only guarded uncommitted source catalog files for review; never commits or pushes.',
+    readOnly: false, destructive: false,
+    run: async (args, { root }) => proposeLocalCatalog({ ...args, homeRoot: await root() }),
+  }),
   assess_feature_discovery: define({
     schema: assessFeatureDiscoverySchema.extend(checkoutSelection),
     description: 'Retain an explicit reassessment of a feature baseline against current catalog facts and optional local source targets. '

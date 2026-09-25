@@ -1,6 +1,7 @@
 .runtime-start { max-width: 800px; margin: 100px auto; padding: 32px; }
 .runtime-error { margin: 16px 24px; border: 1px solid #a77935; border-radius: 8px; padding: 16px 22px; color: var(--fg); background: var(--glass-fill-2); }
 .runtime-error pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; margin-top: 8px; }
+.read-provenance { margin:0; padding:5px 24px; border-bottom:1px solid var(--border); color:var(--fg-muted); font:11px/1.4 var(--font-mono); overflow-wrap:anywhere; }
 .central-board { max-width: 1400px; margin: auto; padding: 38px 48px; }
 .central-heading h1, .delivery-board h1 { font-size: clamp(32px, 4vw, 54px); letter-spacing: -.045em; line-height: 1.12; margin: 13px 0 18px; }
 .central-heading h1 span, .delivery-board h1 span { color: var(--accent); }

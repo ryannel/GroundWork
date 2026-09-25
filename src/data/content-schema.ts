@@ -211,8 +211,18 @@ export const componentSchema = z.strictObject({
  */
 export const componentReferenceSchema = z.union([id, z.strictObject({ repository: text, component: id })])
 const componentReferences = z.array(componentReferenceSchema)
+const scanTreeFields = { treeId: text.optional(), coveredPathsKey: text.optional() }
+const areaRevisionSchema = z.strictObject({ revision: commitSha, ...scanTreeFields })
+export const componentScanReadSchema = componentScanSchema.extend({
+  areaRevisions: z.strictObject({
+    dependencies: areaRevisionSchema.optional(), api: areaRevisionSchema.optional(), data: areaRevisionSchema.optional(),
+    messaging: areaRevisionSchema.optional(), jobs: areaRevisionSchema.optional(),
+  }).optional(),
+})
 const executionFlowStepReadSchema = executionFlowStepSchema.extend({ dependencyIds: componentReferences.optional() })
-export const executionFlowReadSchema = executionFlowSchema.extend({ steps: z.array(executionFlowStepReadSchema).min(1) })
+export const executionFlowReadSchema = executionFlowSchema.extend({ steps: z.array(executionFlowStepReadSchema).min(1), ...scanTreeFields })
+export const catalogFindingReadSchema = catalogFindingSchema.extend(scanTreeFields)
+export const retiredObservationReadSchema = retiredObservationSchema.extend(scanTreeFields)
 /**
  * Read-tolerant component: every legacy field plus what a migrated home writes, namely its own `schemaVersion`,
  * structured `{repository, component}` references in `dependsOn` and flow `dependencyIds`, and the identity changes
@@ -223,7 +233,10 @@ export const componentReadSchema = componentSchema.extend({
   productId: id.optional(),
   schemaVersion: z.literal(documentVersions.component.current).optional(),
   dependsOn: componentReferences.optional(),
+  scan: componentScanReadSchema.optional(),
   executionFlows: z.array(executionFlowReadSchema).optional(),
+  findings: z.array(catalogFindingReadSchema).optional(),
+  retiredObservations: z.array(retiredObservationReadSchema).optional(),
   identityChanges: z.array(componentIdentityChangeSchema).optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })

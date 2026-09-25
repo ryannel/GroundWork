@@ -47,6 +47,8 @@ export type ScanEvidence = z.infer<typeof scanEvidenceSchema>
 export const prepareRepositoryScanSchema = z.strictObject({
   repository: scanRepositorySchema,
   sourceRef: sourceRefSchema.optional(),
+  /** The home passed to the operation is the local destination; source names a writable scanned checkout. */
+  destination: z.enum(['source', 'local']).optional(),
   areas: z.array(scanAreaSchema).min(1).default([...scanAreas]),
   budgets: scanBudgetsSchema,
   incremental: z.strictObject({ ids: z.array(z.string().min(1)).min(1).max(20) }).optional(),

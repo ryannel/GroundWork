@@ -1,3 +1,5 @@
+import { parseRemote } from '../src/data/repository-identity.ts'
+
 /** On-disk layout of a Groundwork checkout. Every module that touches `.groundwork` names paths from here. */
 export const GROUNDWORK_DIR = '.groundwork'
 /** Feature documents, decisions and raster assets (and, in the legacy layout, the whole catalog). */
@@ -8,6 +10,16 @@ export const CATALOG_DIR = `${GROUNDWORK_DIR}/catalog`
 export const PRODUCTS_DIR = `${GROUNDWORK_DIR}/products`
 /** A v3 home's catalogs of *other* repositories, one directory per repository host and path. */
 export const LOCAL_CATALOGS_DIR = `${GROUNDWORK_DIR}/local-catalogs`
+/** Portable physical path of another repository's catalog, using its canonical host and path. */
+export function localCatalogDirectory(repository: string) {
+  const remote = parseRemote(repository)
+  const value = remote ? `${remote.host}/${remote.path}`
+    : repository.startsWith('local:') ? `local/${repository.slice('local:'.length)}` : ''
+  const segments = value.split('/')
+  if (segments.length < 2 || segments.some(segment => !/^(?:[a-zA-Z0-9][a-zA-Z0-9._:-]*|\[[0-9a-fA-F:.]+\](?::[0-9]+)?)$/.test(segment)
+    || segment === '..' || segment === '.')) throw new Error(`Invalid repository identity for local catalog: ${repository}`)
+  return `${LOCAL_CATALOGS_DIR}/${segments.join('/')}`
+}
 /** The immutable legacy ID map a migrated home keeps so content-addressed records still resolve. */
 export const LEGACY_IDS_FILE = `${GROUNDWORK_DIR}/legacy-ids.json`
 export const MEMBERS_DIR = `${GROUNDWORK_DIR}/members`

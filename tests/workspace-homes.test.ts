@@ -304,7 +304,7 @@ test('writes still produce the legacy forms in every layout that can be written'
     /does not write it/,
   )
   assert.equal(JSON.parse(await readFile(path.join(migrated, '.groundwork/members/owner.json'), 'utf8')).name, 'Project owner')
-  assert.throws(() => encodeStorage({}, 'catalog-v3'), InvalidInput)
+  assert.deepEqual(encodeStorage({}, 'catalog-v3'), {}, 'Phase 5 may encode a source-only catalog without a project manifest')
 })
 
 test('initialisation refuses the migrated document forms, exactly as a write does', async t => {
