@@ -4,6 +4,7 @@ import { useRuntime } from '../data/runtime.ts'
 
 export interface CatalogRepositoryView {
   repository: string
+  selected: 'source' | 'local'
   source: { label: string } | null
   local: { label: string }
   components: Component[]

@@ -5,8 +5,6 @@ import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
 import { documentSchemas } from '../src/data/content-schema.ts'
-import { scanManifestSchema } from '../src/data/scan-manifest.ts'
-import { discoveryAssessmentSchema, knowledgeBaselineSchema } from '../src/data/knowledge.ts'
 import { deliverySchema, manifestSchema, portableProductSchema } from '../server/format.ts'
 import { operationSchemas } from '../server/operations.ts'
 
@@ -14,7 +12,6 @@ const directory = path.resolve(import.meta.dirname, '../schemas')
 const groups: Record<string, Record<string, z.ZodType>> = {
   content: documentSchemas,
   portable: {
-    'discovery-assessment': discoveryAssessmentSchema, 'scan-manifest': scanManifestSchema, 'knowledge-baseline': knowledgeBaselineSchema,
     'portable-project': manifestSchema, 'portable-product': portableProductSchema, delivery: deliverySchema,
   },
   operations: operationSchemas,

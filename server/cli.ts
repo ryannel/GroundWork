@@ -7,7 +7,7 @@ import { Conflict, InvalidInput } from './errors.ts'
 import { initialise, installInstructions } from './setup.ts'
 import { inventory, register, unregister, previewHubMigration, migrateHubRegistry, previewFolderRegistration, registerFolder } from './registry.ts'
 import type { LabelMappings } from './registry-v3.ts'
-import { readPlan, recover } from './repository.ts'
+import { readPlan, readCatalogTarget, recover } from './repository.ts'
 import { validateAllHomes } from './validate-all.ts'
 import { startViewer } from './viewer.ts'
 import { mcp } from './mcp.ts'
@@ -27,6 +27,8 @@ const help = `Groundwork — portable repository planning
   unregister [path]
   projects                         List projects and discovered worktrees
   read [path] [--ref BRANCH]        Read documents, revision and context
+  read-catalog [path] --repository ID [--local] [--ref BRANCH]
+                                   Read catalog documents and their write guard
   validate [path] [--all]           Validate one home or ownership across every loaded home
   recover [path]                    Recover an interrupted write and remove leftover temp files
   instructions [path]               Refresh guide/schema files and instruction links
@@ -58,6 +60,7 @@ const commands: Record<string, { options: Options; positionals: number }> = {
   unregister: { options: { root: text }, positionals: 1 },
   projects: { options: {}, positionals: 0 },
   read: { options: { root: text, ref: text }, positionals: 1 },
+  'read-catalog': { options: { root: text, repository: text, local: flag, ref: text }, positionals: 1 },
   validate: { options: { root: text, all: flag }, positionals: 1 },
   recover: { options: { root: text }, positionals: 1 },
   instructions: { options: { root: text }, positionals: 1 },
@@ -113,6 +116,11 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
   if (command === 'unregister') return print(await unregister(root))
   if (command === 'projects') return print(await inventory())
   if (command === 'read') return print(await operate('read_plan', { ref: string('ref') }, root))
+  if (command === 'read-catalog') {
+    const catalog = await readCatalogTarget(root, required('repository'), values.local ? 'local' : 'source', string('ref'))
+    return print({ repository: catalog.repository, destination: catalog.kind, revision: catalog.revision,
+      context: catalog.context, components: catalog.plan.snapshot.components })
+  }
   if (command === 'validate') {
     if (values.all) {
       if (string('root') || positionals.length) throw new UsageError('validate --all: omit a repository path')

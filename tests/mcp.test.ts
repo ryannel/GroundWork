@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { handleMessage } from '../server/mcp.ts'
-import type { operationAnnotations } from '../server/operations.ts'
+import { operationNames, type operationAnnotations } from '../server/operations.ts'
 
 const call = (message: unknown) => handleMessage(typeof message === 'string' ? message : JSON.stringify(message))
 // handleMessage's reply shape depends on the request; each call site names only the fields it reads.
@@ -30,17 +30,17 @@ test('initialize reports the package version and tool annotations come from the 
     { jsonrpc: '2.0', id: 2, method: 'tools/list' },
   )
   const hints = Object.fromEntries(list.result.tools.map(tool => [tool.name, tool.annotations]))
-  assert.equal(hints.discard_repository_scan.destructiveHint, true)
+  assert.deepEqual(operationNames.filter(name => name.includes('catalog')),
+    ['write_catalog', 'check_catalog_freshness', 'search_catalog', 'get_catalog_entity'])
+  assert.equal(hints.write_catalog.destructiveHint, true)
   assert.equal(hints.plan_delivery.destructiveHint, true)
-  assert.equal(hints.prepare_repository_scan.readOnlyHint, false)
-  assert.equal(hints.prepare_repository_scan.openWorldHint, true)
   assert.deepEqual(hints.search_catalog, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false })
   assert.equal(hints.create_feature.destructiveHint, false)
 })
 
 test('tool failures are reported as tool errors with their message', async () => {
   const reply = await rpc<{ result: { isError: boolean; content: { text: string }[] } }>(
-    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'discard_repository_scan', arguments: { scanId: 'not-a-uuid' } } },
+    { jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'write_catalog', arguments: {} } },
   )
   assert.equal(reply.result.isError, true)
   assert.ok(reply.result.content[0].text.length > 0)

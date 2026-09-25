@@ -4,14 +4,12 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import { repositoryIdentity } from '../src/data/repository-identity.ts'
 import { decodeStorage, encodeStorage, layoutFile, physicalDocumentPattern } from '../server/catalog-storage.ts'
-import { repositoryKey } from '../server/catalog-freshness.ts'
 import { InvalidInput } from '../server/errors.ts'
 import { NotInitialised, parsePlan } from '../server/format.ts'
 import { context, git, originUrl } from '../server/git.ts'
 import { readPlan, readStorageFiles, writePlan } from '../server/repository.ts'
-import { acquire } from '../server/scan-acquire.ts'
 import { initialise } from '../server/setup.ts'
-import { commitAll, gitInit, guard, homeFixture, tempDir } from './helpers.ts'
+import { gitInit, guard, homeFixture, tempDir } from './helpers.ts'
 
 test('the legacy layout loads unchanged and reports its repository identity', async t => {
   const root = await homeFixture(t, 'legacy', 'git@github.com:Volvo-Cars/Legacy-Home.git')
@@ -189,21 +187,6 @@ test('a multi-url origin is identified by the url git fetches from', async t => 
   assert.equal((await context(root)).repository.id, 'ghe.example.com/acme/api')
 })
 
-test('acquiring a clone without an origin yields the same provisional identity a checkout would', async t => {
-  const source = await gitInit(await tempDir(t, 'groundwork-source-'))
-  await writeFile(path.join(source, 'README.md'), '# Source\n')
-  await commitAll(source)
-  const target = path.join(await tempDir(t, 'groundwork-target-'), 'clone')
-  const acquired = await acquire(source, undefined, target)
-  assert.equal(acquired.repository, (await context(source)).repository.id)
-  assert.equal(acquired.repository, `local:${path.basename(source).toLowerCase()}`)
-  // A provisional identity is already normalised, so reading it again must not turn `local:` into a host.
-  assert.equal(repositoryIdentity(acquired.repository), acquired.repository)
-  // Catalog comparisons resolve a checkout path the same way, so a stored path still matches the acquired identity.
-  assert.equal(await repositoryKey(source), acquired.repository)
-  assert.equal(await repositoryKey(acquired.repository), acquired.repository)
-})
-
 test('local catalog paths accept a host with a port and never a traversal', () => {
   const document = 'components/api--src/component.json'
   assert.ok(physicalDocumentPattern.test(`.groundwork/local-catalogs/ghe.example.com:2222/acme/api/${document}`))
@@ -296,15 +279,12 @@ test('writes still produce the legacy forms in every layout that can be written'
   assert.equal(Object.keys(splitStorage).filter(file => file.startsWith('.groundwork/products/')).length, 0)
   assert.equal((await readPlan(split)).layout, 'catalog-v1')
 
-  // Nothing writes the v3 layout yet, so a v3 home is read-only in this release.
+  // Current homes write planning documents without a project manifest.
   const migrated = await homeFixture(t, 'v3', 'git@github.com:volvo-cars/price-engine.git')
   const plan = await readPlan(migrated)
-  await assert.rejects(
-    writePlan(migrated, { ...guard(plan), changes: { 'members/owner.json': '{"id":"owner","name":"Owner"}' } }),
-    /does not write it/,
-  )
-  assert.equal(JSON.parse(await readFile(path.join(migrated, '.groundwork/members/owner.json'), 'utf8')).name, 'Project owner')
-  assert.deepEqual(encodeStorage({}, 'catalog-v3'), {}, 'Phase 5 may encode a source-only catalog without a project manifest')
+  await writePlan(migrated, { ...guard(plan), changes: { 'members/owner.json': '{"id":"owner","name":"Owner"}' } })
+  assert.equal(JSON.parse(await readFile(path.join(migrated, '.groundwork/members/owner.json'), 'utf8')).name, 'Owner')
+  assert.deepEqual(encodeStorage({}, 'catalog-v3'), {})
 })
 
 test('initialisation refuses the migrated document forms, exactly as a write does', async t => {

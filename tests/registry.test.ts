@@ -136,6 +136,10 @@ test('v3 source-only checkout resolves its owning product without matching regis
   await gitInit(homeRoot); await git(homeRoot, ['remote', 'add', 'origin', 'git@github.com:acme/price.git'])
   await initialise(homeRoot, { name: 'Price' })
   await gitInit(source); await git(source, ['remote', 'add', 'origin', 'git@github.com:acme/source.git'])
+  const productFile = path.join(homeRoot, '.groundwork/products/price.json')
+  const product = JSON.parse(await readFile(productFile, 'utf8'))
+  product.repositories.push({ repository: 'acme/source', role: 'owned' }, { repository: 'acme/unregistered', role: 'owned' })
+  await writeFile(productFile, JSON.stringify(product))
   const plan = await readPlan(homeRoot)
   await writePlan(homeRoot, { ...guard(plan), changes: {
     'components/source.json': JSON.stringify({ id: 'source', name: 'Source', productId: 'price', repo: 'acme/source' }),

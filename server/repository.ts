@@ -340,7 +340,6 @@ export async function writePlan(root: string, request: WriteRequest) {
     const storage = await readStorageFiles(root)
     const decoded = decodeStorage(storage)
     const { layout, files: before, legacyIds } = decoded
-    if (layout === 'catalog-v3') throw new InvalidInput('This release reads the v3 layout but does not write it; migrate the home with a release that does')
     if (ctx.token !== expectedContext || planRevision(decoded, ctx.repository) !== expectedRevision) {
       throw new Conflict('Stale edit: re-read the selected checkout and reapply your changes')
     }

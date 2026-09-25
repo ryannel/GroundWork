@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import path from 'node:path'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { validateAllHomes, validateClonedPaths, validateCrossHomeOwnership } from '../server/validate-all.ts'
 import { main } from '../server/cli.ts'
 import { initialise } from '../server/setup.ts'
@@ -34,7 +34,7 @@ test('validate --all covers a home discovered in a linked default-branch worktre
   assert.equal(result.coveredHomes[0].root, main)
 })
 
-test('validate --all derives ownership from components in unmigrated homes', async t => {
+test('validate --all detects shared repository ownership declared by separate homes', async t => {
   const base = await tempDir(t, 'groundwork-validate-legacy-overlap-')
   const config = path.join(base, 'config')
   const checkouts: Record<string, string[]> = {}
@@ -42,11 +42,10 @@ test('validate --all derives ownership from components in unmigrated homes', asy
     const root = await gitInit(path.join(base, id))
     await git(root, ['remote', 'add', 'origin', `git@github.com:acme/${id}.git`])
     await initialise(root, { name: id })
-    const directory = path.join(root, '.groundwork/plans/components')
-    await mkdir(directory, { recursive: true })
-    await writeFile(path.join(directory, `${id}-api.json`), JSON.stringify({
-      id: `${id}-api`, productId: id, name: id, repo: 'acme/shared', sourcePath: '.',
-    }))
+    const file = path.join(root, `.groundwork/products/${id}.json`)
+    const product = JSON.parse(await readFile(file, 'utf8'))
+    product.repositories.push({ repository: 'acme/shared', role: 'owned' })
+    await writeFile(file, JSON.stringify(product))
     checkouts[`acme/${id}`] = [root]
   }
   await mkdir(config)

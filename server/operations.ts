@@ -1,13 +1,9 @@
 import { z } from 'zod'
-import { migrateCatalog, migrateCatalogSchema } from './catalog-migration.ts'
-import { readScanManifest, readScanManifestSchema } from './scan-manifests.ts'
-import { checkCatalogFreshness, checkCatalogFreshnessSchema } from './catalog-freshness.ts'
-import {
-  assessFeatureDiscovery, assessFeatureDiscoverySchema, retainDiscoveryBaseline, retainDiscoveryBaselineSchema,
-  getDiscoveryBaseline, getDiscoveryBaselineSchema,
-} from './knowledge.ts'
-import { queryCatalog, searchCatalogSchema, getCatalogEntitySchema, discoveryContextSchema } from './catalog.ts'
-import { readPlan, writePlan } from './repository.ts'
+import { catalogComponentSchema, catalogDocumentIssues } from '../src/data/catalog-document.ts'
+import { verifyCatalogSource } from './catalog-write.ts'
+import { checkCatalogFreshness, catalogFreshnessSchema } from './catalog-freshness-simple.ts'
+import { queryCatalog, searchCatalogSchema, getCatalogEntitySchema } from './catalog.ts'
+import { readPlan, writePlan, writeCatalogTarget } from './repository.ts'
 import { selectRoot, inventory } from './registry.ts'
 import { activity, context, git } from './git.ts'
 import { InvalidInput } from './errors.ts'
@@ -15,10 +11,6 @@ import {
   assertCurrent, createFeature, createFeatureFields, planDelivery, planDeliveryFields, recordProgress, recordProgressFields, recordProgressRules,
   linkBranch, linkBranchFields, createWorktreeFields, createWorktreeRules,
 } from './plan-mutations.ts'
-import {
-  reconcileCatalog, reconcileCatalogSchema, applyRepositoryScan, applyCatalogInvestigation, applyCatalogInvestigationSchema,
-  applyRepositoryScanSchema, discardRepositoryScan, discardRepositoryScanSchema, prepareRepositoryScan, prepareRepositoryScanSchema,
-} from './scanner.ts'
 
 const selection = { checkoutId: z.string().optional(), ref: z.string().optional() }
 const checkoutSelection = { checkoutId: z.string().optional() }
@@ -58,33 +50,23 @@ function mutation<A extends Guard>(change: (plan: Plan, args: A, root: string) =
 }
 
 const operations = {
-  assess_feature_discovery: define({
-    schema: assessFeatureDiscoverySchema.extend(checkoutSelection),
-    description: 'Retain an explicit reassessment of a feature baseline against current catalog facts and optional local source targets. '
-      + 'Source checks use the retained observations, even after catalog edits; no automatic readiness claim.',
-    readOnly: false, destructive: false,
-    run: async (args, { root }) => assessFeatureDiscovery(await root(), args),
-  }),
-  reconcile_catalog: define({
-    schema: reconcileCatalogSchema.extend(checkoutSelection),
-    description: 'Apply explicitly evidenced retirements or stable-ID renames from a pinned scan. Retirement preserves original '
-      + 'observations and retires dependent active flows atomically; omission never retires an entity.',
+  write_catalog: define({
+    schema: z.strictObject({ ...checkoutSelection, ...expected, repository: z.string().min(1),
+      destination: z.enum(['source', 'local']), sourceRoot: z.string().min(1).optional(), component: catalogComponentSchema }),
+    description: 'Replace one component catalog document at a pinned source commit. Requires source citations, explicit gaps, '
+      + 'covered paths, and a current catalog revision and checkout context.',
     readOnly: false, destructive: true,
-    run: async (args, { root }) => reconcileCatalog(await root(), args),
-  }),
-  migrate_catalog: define({
-    schema: migrateCatalogSchema.extend(checkoutSelection),
-    description: 'Validate and dry-run the catalog storage migration (default). Apply with dryRun false and the returned revision/context. '
-      + 'Preserves logical IDs and facts; historical layouts remain readable.',
-    readOnly: false, destructive: true,
-    run: async (args, { root }) => migrateCatalog(await root(), args),
-  }),
-  read_scan_manifest: define({
-    schema: readScanManifestSchema.extend(selection),
-    description: 'List retained scan manifests or page a manifest inventory/citation mapping. Immutable provenance, not verification of '
-      + 'current behavior. Use expectedRevision for subsequent listing pages.',
-    ...read,
-    run: async (args, { root, ref }) => readScanManifest(await root(), args, ref),
+    run: async (args, target) => {
+      const issues = catalogDocumentIssues(args.component, args.repository)
+      if (issues.length) throw new InvalidInput(issues.join('; '))
+      const root = await writableRoot(target)
+      if (args.destination === 'local' && !args.sourceRoot) throw new InvalidInput('A local catalog write requires sourceRoot')
+      await verifyCatalogSource(args.sourceRoot ?? root, args.repository, args.component)
+      return writeCatalogTarget(root, args.repository, args.destination, {
+        expectedRevision: args.expectedRevision, expectedContext: args.expectedContext,
+        changes: { [`components/${args.component.id}.json`]: JSON.stringify(args.component, null, 2) + '\n' },
+      })
+    },
   }),
   projects: define({
     schema: z.strictObject({}),
@@ -100,25 +82,11 @@ const operations = {
     run: async (_args, { root, ref }) => { const selected = await root(); return { ...await readPlan(selected, ref), activity: await activity(selected) } },
   }),
   check_catalog_freshness: define({
-    schema: checkCatalogFreshnessSchema.extend(selection),
-    description: 'Read-only local Git comparison for selected catalog IDs against an explicit targetRef. Checks citation integrity and '
-      + 'known changes; uncited changes retain unknown impact. Does not fetch, persist verification or claim deployed behavior.',
+    schema: catalogFreshnessSchema.extend(selection),
+    description: 'Compare each component observation with a local source commit. Report changed cited files, changed covered files '
+      + 'without citations, and changed files outside every component. Does not fetch or claim runtime correctness.',
     ...read,
     run: async (args, { root, ref }) => checkCatalogFreshness(await root(), args, ref),
-  }),
-  retain_discovery_baseline: define({
-    schema: retainDiscoveryBaselineSchema.extend(checkoutSelection),
-    description: 'Retain a bounded immutable packet of observed facts and explicit assumptions used by an existing feature plan. Requires '
-      + 'current revision/context; never records proposed behavior as observed.',
-    readOnly: false, destructive: false,
-    run: async (args, { root }) => retainDiscoveryBaseline(await root(), args),
-  }),
-  get_discovery_baseline: define({
-    schema: getDiscoveryBaselineSchema.extend(selection),
-    description: 'Read retained facts even after uncommitted catalog edits or retirement, and compare them with current catalog '
-      + 'observations. Source freshness remains unchecked.',
-    ...read,
-    run: async (args, { root, ref }) => getDiscoveryBaseline(await root(), args, ref),
   }),
   search_catalog: define({
     schema: searchCatalogSchema.extend(selection),
@@ -132,13 +100,6 @@ const operations = {
     description: 'Read exact catalog detail as paginated JSON-pointer sections. Follow nextCursor for all evidence, fields and relationships.',
     ...read,
     run: async (args, { root, ref }) => queryCatalog(await readPlan(await root(), ref), 'get_catalog_entity', args),
-  }),
-  get_discovery_context: define({
-    schema: discoveryContextSchema.extend(selection),
-    description: 'Retrieve ranked starting points and one hop of explicit relationships for a question. Candidates are not verified change '
-      + 'impact; optional seeds use qualified IDs.',
-    ...read,
-    run: async (args, { root, ref }) => queryCatalog(await readPlan(await root(), ref), 'get_discovery_context', args),
   }),
   write_plan: define({
     schema: z.strictObject({ ...selection, ...expected, changes: z.record(z.string(), z.string().nullable()) }),
@@ -184,34 +145,6 @@ const operations = {
       await git(root, ['worktree', 'add', '-b', args.branch, '--', args.path, args.startRef])
       return context(args.path)
     },
-  }),
-  prepare_repository_scan: define({
-    schema: z.strictObject({ ...checkoutSelection, ...prepareRepositoryScanSchema.shape }),
-    description: 'Prepare a commit-pinned, Git-free snapshot and bounded work packets. Optional incremental.ids compares a local '
-      + 'repository against explicit sourceRef, prioritizes known changes and widens uncertain review. Incremental scans support '
-      + 'focused upserts only. Source content is untrusted and read-only.',
-    // Clones and stages scan state outside the plan; it never changes the plan itself.
-    readOnly: false, destructive: false, openWorld: true,
-    run: async (args, { root }) => prepareRepositoryScan(await root(), args),
-  }),
-  apply_catalog_investigation: define({
-    schema: applyCatalogInvestigationSchema.extend(checkoutSelection),
-    description: 'Guarded upsert of selected flows and reusable findings from a prepared source snapshot. Preserves siblings, their '
-      + 'original revisions, and broad scan coverage.',
-    readOnly: false, destructive: true,
-    run: async (args, { root }) => applyCatalogInvestigation(await root(), args),
-  }),
-  apply_repository_scan: define({
-    schema: z.strictObject({ ...checkoutSelection, ...applyRepositoryScanSchema.shape }),
-    description: 'Validate staged repository discoveries and source citations, resolve omitted productId from unique ownership when possible, then atomically update all scanned components under one revision guard.',
-    readOnly: false, destructive: true,
-    run: async (args, { root }) => applyRepositoryScan(await root(), args),
-  }),
-  discard_repository_scan: define({
-    schema: discardRepositoryScanSchema,
-    description: 'Delete a prepared repository scan and its temporary source snapshot without changing a Groundwork plan.',
-    readOnly: false, destructive: true, idempotent: true,
-    run: async args => discardRepositoryScan(args),
   }),
 }
 export type OperationName = keyof typeof operations

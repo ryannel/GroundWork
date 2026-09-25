@@ -201,6 +201,8 @@ export const componentSchema = z.strictObject({
   executionFlows: z.array(executionFlowSchema).optional(),
   findings: z.array(catalogFindingSchema).optional(),
   sourcePath: text.optional(), sourceRevision: text.optional(), evidence: z.array(componentEvidenceSchema).optional(),
+  observedAt: isoTimestamp.optional(), covers: z.array(text.refine(isRepoRelativePath)).optional(),
+  areaGaps: z.strictObject({ dependencies: strings, api: strings, data: strings, messaging: strings, jobs: strings, flows: strings }).optional(),
   gaps: z.array(componentGapSchema).optional(), unresolvedDependencies: z.array(componentUnresolvedDependencySchema).optional(),
   scan: componentScanSchema.optional(),
 })

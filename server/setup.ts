@@ -4,10 +4,11 @@ import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { InvalidInput } from './errors.ts'
 import { assetPattern, manifestSchema, parsePlan, assertLegacyWriteForms, type Files } from './format.ts'
-import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE, SCHEMAS_DIR } from './paths.ts'
+import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PRODUCTS_DIR, PROJECT_FILE, SCHEMAS_DIR } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
 import { identitySlug, repositoryName } from '../src/data/repository-identity.ts'
 import { context } from './git.ts'
+import { encodeStorage } from './catalog-storage.ts'
 
 // The same source runs under Node's TS support in development and as compiled JS in the package.
 export const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), import.meta.url.includes('/runtime/') ? '../..' : '..')
@@ -54,6 +55,45 @@ export async function initialise(root: string, options: { name?: string; id?: st
   await mkdir(root, { recursive: true })
   return withLock(root, async () => {
     if (await lstat(await safePath(root, PROJECT_FILE)).catch(() => null)) throw new InvalidInput('Catalog already exists; initialisation never overwrites it')
+    const checkout = await context(root)
+    if (checkout.isGit) {
+      if (await lstat(await safePath(root, PRODUCTS_DIR)).catch(() => null)
+        || await lstat(await safePath(root, PLANS_DIR)).catch(() => null)) {
+        throw new InvalidInput('Groundwork documents already exist; initialisation never overwrites them')
+      }
+      const name = repositoryName(checkout.repository.id)
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'app'
+      const productId = options.id ?? identitySlug(name)
+      const files = options.files ?? {
+        [`products/${productId}.json`]: JSON.stringify({ id: productId, slug, name: options.name ?? name,
+          kind: 'service-system', ...(options.domain ? { domain: options.domain } : {}),
+          repositories: [{ repository: checkout.repository.id, role: 'owned' }] }, null, 2) + '\n',
+        'members/owner.json': JSON.stringify({ id: 'owner', name: 'Project owner' }, null, 2) + '\n',
+      }
+      const source = { repository: checkout.repository, layout: 'catalog-v3' as const }
+      const plan = parsePlan(files, source)
+      const physical = encodeStorage(files, 'catalog-v3')
+      const written: string[] = []
+      try {
+        for (const [name, data] of Object.entries(physical)) {
+          if (await lstat(await safePath(root, name)).catch(() => null)) throw new InvalidInput(`${name} already exists`)
+          await atomicFile(root, name, data)
+          written.push(name)
+        }
+        if (options.assets) {
+          const assets = path.resolve(options.assets)
+          await cp(assets, await safePath(root, `${PLANS_DIR}/assets`), { recursive: true, dereference: false,
+            filter: source => assetFilter(assets, source) })
+        }
+        await readPlanUnlocked(root)
+      } catch (error) {
+        for (const name of written.reverse()) await atomicFile(root, name, null)
+        if (options.assets) await rm(await safePath(root, `${PLANS_DIR}/assets`), { recursive: true, force: true })
+        throw error
+      }
+      await installInstructions(root)
+      return { root, project: plan.manifest }
+    }
     const target = await safePath(root, PLANS_DIR)
     if (await lstat(target).catch(() => null)) throw new InvalidInput('Plans already exist. Initialisation never overwrites an existing plan directory.')
     const manifest = manifestSchema.parse({
@@ -62,7 +102,6 @@ export async function initialise(root: string, options: { name?: string; id?: st
     // A Git checkout has a repository name shared by its clones, even when their folder names differ. Until the
     // migration removes project.json, the product still uses the legacy on-disk shape without `repositories`.
     // Non-Git application folders retain their historical `app` product because they have no repository identity.
-    const checkout = await context(root)
     const name = repositoryName(checkout.repository.id)
     const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'app'
     const productId = checkout.isGit ? options.id ?? identitySlug(name) : 'app'

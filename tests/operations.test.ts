@@ -17,7 +17,6 @@ test('operation parsing preserves query defaults, trims input and rejects unexpe
   const root = await fixture(t)
   const plan = await readPlan(root)
   assert.deepEqual(await operate('search_catalog', { query: '   ' }, root), queryCatalog(plan, 'search_catalog', { query: '' }))
-  assert.deepEqual(await operate('get_discovery_context', { question: 'app' }, root), queryCatalog(plan, 'get_discovery_context', { question: 'app' }))
   await assert.rejects(operate('search_catalog', { query: '', expectedRevision: plan.revision }, root), /Unrecognized key/)
   await assert.rejects(operate('record_progress', { featureId: 'f', stage: 'invalid' }, root), /Invalid option/)
 })

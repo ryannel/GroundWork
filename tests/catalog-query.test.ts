@@ -4,11 +4,10 @@ import type { TestContext } from 'node:test'
 import { queryCatalog, detailParts, normaliseTerm, searchWords } from '../server/catalog.ts'
 import { catalogId, parseCatalogId } from '../src/data/catalog-identity.ts'
 import { initialise } from '../server/setup.ts'
-import { readPlan, writePlan } from '../server/repository.ts'
+import { readPlan } from '../server/repository.ts'
 import { operate } from '../server/operations.ts'
-import { retainDiscoveryBaseline, getDiscoveryBaseline } from '../server/knowledge.ts'
-import { catalogFiles, components, msrpEndpoint } from './fixtures/catalog.ts'
-import { guard, tempDir } from './helpers.ts'
+import { catalogFiles, msrpEndpoint } from './fixtures/catalog.ts'
+import { tempDir } from './helpers.ts'
 import type { Relation } from '../src/data/catalog-index.ts'
 import { productRoute } from '../src/data/view-models.ts'
 
@@ -106,32 +105,6 @@ test('exact details can be recovered without returning the component schema inve
   assert.equal(large.map(part => part.value).join(''), '🐈'.repeat(20000))
   assert.deepEqual(parseCatalogId(catalogId('p', 'c', 'schema', 'A/B')), { scope: 'p', component: 'c', kind: 'schema', entity: 'A/B' })
 })
-test('uncommitted observation A remains readable after B replaces/removes it; immutable baseline rejects writes', async t => {
-  const { root } = await fixture(t)
-  let plan = await readPlan(root)
-  const feature = {
-    id: 'pricing', title: 'Pricing change', productId: components[0].productId, ownerId: 'owner', problem: 'Investigate a price change',
-    outcome: 'A justified plan',
-  }
-  await operate('create_feature', { ...feature, ...guard(plan) }, root)
-  plan = await readPlan(root)
-  const saved = await retainDiscoveryBaseline(root, {
-    featureId: 'pricing', question: 'What is the MSRP entry point?', ids: [msrp], assumptions: ['Execution remains untraced.'], ...guard(plan),
-  })
-  let baseline = await getDiscoveryBaseline(root, { featureId: 'pricing', baselineId: saved.baselineId })
-  assert.equal(baseline.reassessmentRequired, false)
-  plan = await readPlan(root)
-  const component = JSON.parse(plan.files['components/price-service.json'])
-  component.api.endpoints = component.api.endpoints.filter((item: { id: string }) => item.id !== msrpEndpoint)
-  await writePlan(root, { ...guard(plan), changes: { 'components/price-service.json': JSON.stringify(component) } })
-  baseline = await getDiscoveryBaseline(root, { featureId: 'pricing', baselineId: saved.baselineId })
-  assert.equal(baseline.baseline.observations[0].observation.name, 'Calculate MSRP')
-  assert.equal(baseline.assessments[0].catalogState, 'removed')
-  assert.equal(baseline.reassessmentRequired, true)
-  plan = await readPlan(root)
-  await assert.rejects(writePlan(root, { ...guard(plan), changes: { [saved.file]: null } }), /immutable/)
-})
-
 test('search normaliser splits identifiers and meets singular and plural forms', () => {
   const cases: [string, string][] = [
     ['apis', 'api'], ['jobs', 'job'], ['ids', 'id'], ['statuses', 'status'], ['status', 'status'], ['queries', 'query'],
