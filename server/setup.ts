@@ -3,7 +3,7 @@ import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { InvalidInput, NotFound } from './errors.ts'
-import { assetPattern, manifestSchema, parsePlan, renderBrief, type Files } from './format.ts'
+import { assetPattern, manifestSchema, parsePlan, renderBrief, assertLegacyWriteForms, type Files } from './format.ts'
 import { GUIDE_FILE, INIT_STAGING_PREFIX, IGNORED_PATHS, PLANS_DIR, PROJECT_FILE, SCHEMAS_DIR } from './paths.ts'
 import { atomicFile, readPlanUnlocked, safePath, withLock } from './repository.ts'
 import { readContentDirectory } from './content-files.ts'
@@ -64,6 +64,8 @@ export async function initialise(root: string, options: { name?: string; id?: st
       'products/app.json': JSON.stringify({ id: 'app', slug: 'app', name: manifest.name, kind: 'service-system' }, null, 2) + '\n',
       'members/owner.json': JSON.stringify({ id: 'owner', name: 'Project owner' }, null, 2) + '\n',
     }
+    // Initialisation stages the legacy layout, so supplied documents are held to the same forms a write is.
+    assertLegacyWriteForms(files)
     parsePlan(files)
     const staging = `${INIT_STAGING_PREFIX}${randomUUID()}`
     try {

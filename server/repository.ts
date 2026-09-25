@@ -7,7 +7,8 @@ import { Conflict, InvalidInput } from './errors.ts'
 import { assetPattern, documentPattern, parsePlan, type Files, type Plan } from './format.ts'
 import { context, digest, git, gitRaw, resolveRef } from './git.ts'
 import {
-  GROUNDWORK_DIR, JOURNAL_FILE, LOCK_FILE, MAX_DOCUMENT_BYTES, MEMBERS_DIR, CATALOG_DIR, PLANS_DIR, STORAGE_ROOTS, TEMP_FILE_PATTERN,
+  GROUNDWORK_DIR, JOURNAL_FILE, LOCK_FILE, MAX_DOCUMENT_BYTES, MEMBERS_DIR, CATALOG_DIR, LOCAL_CATALOGS_DIR, PLANS_DIR, PRODUCTS_DIR,
+  STORAGE_ROOTS, TEMP_FILE_PATTERN,
 } from './paths.ts'
 import { validateTransition, type Changes } from './transitions.ts'
 
@@ -230,7 +231,7 @@ async function removeOrphanedTemps(root: string) {
       else if (entry.isFile() && TEMP_FILE_PATTERN.test(entry.name)) await rm(await safePath(root, name), { force: true })
     }
   }
-  for (const directory of [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR]) await sweep(directory, true)
+  for (const directory of [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR, PRODUCTS_DIR, LOCAL_CATALOGS_DIR]) await sweep(directory, true)
   // Top-level temps belong to project.json or the journal; staged lock files belong to live contenders and stay.
   const lockName = path.basename(LOCK_FILE)
   const entries = await readdir(await safePath(root, GROUNDWORK_DIR), { withFileTypes: true }).catch(error => absent(error, []))
@@ -273,10 +274,11 @@ export async function readPlanUnlocked(root: string, ref?: string) {
   const ctx = await context(root)
   const resolved = ref ? await resolveRef(root, ref) : undefined
   const { files, layout } = decodeStorage(await readStorageFiles(root, resolved))
-  const plan = parsePlan(files)
+  const plan = parsePlan(files, { repository: ctx.repository, layout })
   const assets = await assetVersions(root, plan, resolved)
   if (!ref && (await context(root)).token !== ctx.token) throw new Conflict('The checkout changed while reading; retry')
-  return { ...plan, files, assets, layout, revision: revision(files), context: planContext(ctx, ref, resolved) }
+  // The repository identity sits beside the manifest ID: one names the repository, the other the documents in it.
+  return { ...plan, files, assets, layout, repository: ctx.repository, revision: revision(files), context: planContext(ctx, ref, resolved) }
 }
 const READ_ATTEMPTS = 10, READ_DELAY_MS = 20
 const PENDING = 'A plan write or recovery is pending; retaining the previous snapshot. Run groundwork-v2 recover if a writer was interrupted.'
@@ -322,7 +324,7 @@ export async function writePlan(root: string, request: WriteRequest) {
     if (ctx.token !== expectedContext || revision(before) !== expectedRevision) {
       throw new Conflict('Stale edit: re-read the selected checkout and reapply your changes')
     }
-    const { after, plan } = validateTransition(before, changes)
+    const { after, plan } = validateTransition(before, changes, { repository: ctx.repository, layout })
     await assetVersions(root, plan)
     const next = encodeStorage(after, layout)
     // commit() re-checks the context and every changed path against `storage` before it writes anything.

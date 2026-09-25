@@ -1,12 +1,12 @@
 import path from 'node:path'
 import { realpath } from 'node:fs/promises'
 import { z } from 'zod'
-import { repositoryIdentity } from '../src/data/repository-identity.ts'
+import { deriveRepositoryIdentity, repositoryIdentity } from '../src/data/repository-identity.ts'
 import { isRepoRelativePath } from '../src/data/schema-primitives.ts'
 import { catalogIndex } from './catalog.ts'
 import { sourceObservation, type SourceObservation } from '../src/data/catalog-index.ts'
 import { InvalidInput, NotFound } from './errors.ts'
-import { git, gitRaw, resolveRef } from './git.ts'
+import { git, gitRaw, originUrl, resolveRef } from './git.ts'
 import { readPlan } from './repository.ts'
 
 export const checkCatalogFreshnessSchema = z.strictObject({
@@ -16,9 +16,14 @@ export const checkCatalogFreshnessSchema = z.strictObject({
   maxBytes: z.number().int().min(8192).max(65536).default(32768),
 })
 
-/** Comparison key for a repository: the shared identity, with local paths resolved through symlinks. */
+/**
+ * Comparison key for a repository: the shared identity. A local path is not an identity, so a checkout is resolved
+ * through symlinks and then through its own origin, exactly as acquisition and `context()` derive it.
+ */
 export async function repositoryKey(value: string) {
-  return repositoryIdentity(path.isAbsolute(value) ? await realpath(value).catch(() => value) : value)
+  if (!path.isAbsolute(value)) return repositoryIdentity(value)
+  const root = await realpath(value).catch(() => value)
+  return deriveRepositoryIdentity(await originUrl(root).catch(() => null), root).id
 }
 
 /** Freshness statuses from least to most severe. Aggregates always report the most severe status. */
@@ -114,8 +119,7 @@ export async function compareCatalogSources(
     source = await realpath(args.repositoryPath)
     const top = await realpath(await git(source, ['rev-parse', '--show-toplevel']))
     if (source !== top) throw new Error('repositoryPath must identify the source repository root')
-    const origin = await git(source, ['remote', 'get-url', 'origin']).catch(() => source)
-    if (await repositoryKey(origin) !== repository && repositoryIdentity(source) !== repository) {
+    if (await repositoryKey(source) !== repository && repositoryIdentity(source) !== repository) {
       throw new Error('Source repository identity does not match the selected catalog entities')
     }
     target = await resolveRef(source, args.targetRef)

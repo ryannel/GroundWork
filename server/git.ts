@@ -3,6 +3,7 @@ import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import { NotFound } from './errors.ts'
+import { deriveRepositoryIdentity } from '../src/data/repository-identity.ts'
 const exec = promisify(execFile)
 /** A failed git invocation with a short message; the full stderr stays available for diagnosis. */
 export class GitError extends Error {
@@ -34,6 +35,18 @@ export async function gitBuffer(root: string, args: string[], { maxBuffer }: { m
 }
 export async function git(root: string, args: string[]) { return (await gitRaw(root, args)).trimEnd() }
 export const digest = (text: string) => createHash('sha256').update(text).digest('hex')
+/**
+ * Reads every configured `origin` URL, in order. `git config --get` reports the *last* value, while a remote with
+ * several URLs fetches from the *first*; `git remote get-url` would report the first but also apply this machine's
+ * `url.*.insteadOf` rewrites, so a teammate's clone would derive a different identity for the same repository.
+ */
+export const ORIGIN_URL_ARGS = ['config', '--get-all', 'remote.origin.url']
+/** The fetch URL among the values `ORIGIN_URL_ARGS` prints: the first one. */
+export const firstOriginUrl = (output: string) => output.split('\n').map(line => line.trim()).find(Boolean) ?? null
+/** The `origin` URL Git fetches from, or null when the clone has none. Other remotes are never consulted. */
+export async function originUrl(root: string): Promise<string | null> {
+  return firstOriginUrl(await gitRaw(root, ORIGIN_URL_ARGS).catch(() => ''))
+}
 export async function context(root: string) {
   root = await realpath(root)
   let branch: string | null = null, head: string | null = null, isGit = false
@@ -50,7 +63,9 @@ export async function context(root: string) {
       head = await git(root, ['rev-parse', '--verify', 'HEAD']).catch(() => null)
     } catch { /* Uninitialised application folders are supported. */ }
   }
-  return { root, branch, head, isGit, checkoutId: digest(root).slice(0, 20), token: digest(JSON.stringify([root, branch, head])) }
+  // The checkout ID stays a digest of the path: it names this clone, while the repository identity names the repository.
+  const repository = deriveRepositoryIdentity(isGit ? await originUrl(root) : null, root)
+  return { root, branch, head, isGit, repository, checkoutId: digest(root).slice(0, 20), token: digest(JSON.stringify([root, branch, head])) }
 }
 /** Every worktree of the repository at `root`. Worktrees whose directory has gone (prunable) are skipped. */
 export async function discover(root: string) {

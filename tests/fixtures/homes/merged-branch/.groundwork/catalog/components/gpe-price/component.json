@@ -1,0 +1,8 @@
+{
+  "id": "gpe-price",
+  "productId": "legacy-product",
+  "name": "GPE Price",
+  "kind": "service",
+  "repo": "volvo-cars/gpe-price",
+  "sourcePath": "src"
+}

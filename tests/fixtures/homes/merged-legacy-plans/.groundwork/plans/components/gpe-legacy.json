@@ -1,0 +1,8 @@
+{
+  "id": "gpe-legacy",
+  "productId": "legacy-product",
+  "name": "GPE Legacy",
+  "kind": "service",
+  "repo": "volvo-cars/gpe-legacy",
+  "sourcePath": "src"
+}

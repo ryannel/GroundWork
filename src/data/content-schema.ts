@@ -63,6 +63,17 @@ export const featureSpecSchema = z.strictObject({
 })
 export const workspaceSchema = z.strictObject({ id, slug, order, name: text, description: text.optional(), hue: text, createdAt: isoTimestamp })
 export const productSchema = z.strictObject({ id, workspaceId: id, slug, order, name: text, kind: productKindSchema, description: text.optional() })
+/** A product's repository membership in the migrated form: which repositories, or paths inside them, it owns or uses. */
+export const productRepositorySchema = z.strictObject({
+  repository: text, role: z.enum(['owned', 'used']), paths: strings.optional(), aliases: strings.optional(),
+})
+/**
+ * Read-tolerant product: every legacy field plus the fields a migrated home writes. Readers accept both forms;
+ * writes still produce `productSchema`, so a teammate on an older release can still read what this one writes.
+ */
+export const productReadSchema = productSchema.extend({
+  schemaVersion: z.literal(3).optional(), domain: z.url().optional(), repositories: z.array(productRepositorySchema).optional(),
+})
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
 export const componentEvidenceSchema = z.strictObject({
   path: text, lines: text, claim: text, revision: text, repository: text.optional(),

@@ -4,6 +4,12 @@ export const GROUNDWORK_DIR = '.groundwork'
 export const PLANS_DIR = `${GROUNDWORK_DIR}/plans`
 /** Split catalog documents (products, components, scans) in the catalog-v1 layout. */
 export const CATALOG_DIR = `${GROUNDWORK_DIR}/catalog`
+/** Products in the v3 layout; the legacy and split layouts keep them inside the plans or catalog directory. */
+export const PRODUCTS_DIR = `${GROUNDWORK_DIR}/products`
+/** A v3 home's catalogs of *other* repositories, one directory per repository host and path. */
+export const LOCAL_CATALOGS_DIR = `${GROUNDWORK_DIR}/local-catalogs`
+/** The immutable legacy ID map a migrated home keeps so content-addressed records still resolve. */
+export const LEGACY_IDS_FILE = `${GROUNDWORK_DIR}/legacy-ids.json`
 export const MEMBERS_DIR = `${GROUNDWORK_DIR}/members`
 export const PROJECT_FILE = `${GROUNDWORK_DIR}/project.json`
 /** Agent guide and JSON Schemas that `installInstructions` copies into a checkout. */
@@ -16,7 +22,7 @@ export const JOURNAL_FILE = `${GROUNDWORK_DIR}/transaction.json`
 /** Prefix of the staging directory `initialise` renames into place. */
 export const INIT_STAGING_PREFIX = `${GROUNDWORK_DIR}/init-`
 /** Every path that holds catalog or planning documents. */
-export const STORAGE_ROOTS = [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR, PROJECT_FILE] as const
+export const STORAGE_ROOTS = [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR, PRODUCTS_DIR, LOCAL_CATALOGS_DIR, PROJECT_FILE, LEGACY_IDS_FILE] as const
 /** Entries Groundwork adds to a repository's .gitignore. */
 export const IGNORED_PATHS = ['node_modules/', LOCK_FILE, JOURNAL_FILE, `${INIT_STAGING_PREFIX}*`, `${GROUNDWORK_DIR}/**/*.tmp`] as const
 
@@ -25,6 +31,12 @@ export const MAX_DOCUMENT_BYTES = 2 * 1024 * 1024
 export const TEMP_FILE_PATTERN = /\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.tmp$/
 
 const id = '[a-zA-Z0-9_-]+'
+/** One path segment of a repository identity used as a directory name under local-catalogs/; never `.` or `..`. */
+const repositorySegment = '[a-zA-Z0-9][a-zA-Z0-9._-]*'
+/** A bracketed IPv6 literal, the form a normalised identity spells an IPv6 host in: `[2001:db8::1]`. */
+const ipv6Segment = '\\[[0-9a-fA-F.]*:[0-9a-fA-F:.]*\\]'
+/** The host segment of a repository identity, which keeps a non-default port, as `ghe.example.com:2222`. */
+const repositoryHost = `(?:${repositorySegment}|${ipv6Segment})(?::[0-9]+)?`
 /** Unanchored source of a logical planning document path; both document patterns compose from it. */
 export const LOGICAL_DOCUMENT_SOURCE = [
   'scan-manifests/[a-f0-9]{64}\\.json',
@@ -35,11 +47,16 @@ export const LOGICAL_DOCUMENT_SOURCE = [
   `features/${id}/brief\\.md`,
   `(?:decisions|features/${id}/decisions)/${id}\\.md`,
 ].join('|')
-/** Unanchored source of a physical document path in either storage layout. */
+/** Unanchored source of the documents in a catalog directory, shared by `catalog/` and every `local-catalogs/<repository>/`. */
+export const CATALOG_DOCUMENT_SOURCE = 'scans/[a-f0-9]{64}\\.json'
+  + `|components/${id}/(?:component|api|data|messaging|knowledge)\\.json|components/${id}/flows/${id}\\.json`
+/** Unanchored source of a physical document path in any storage layout. */
 export const PHYSICAL_DOCUMENT_SOURCE = [
   `\\.groundwork/plans/(?:${LOGICAL_DOCUMENT_SOURCE})`,
   '\\.groundwork/project\\.json',
+  '\\.groundwork/legacy-ids\\.json',
   `\\.groundwork/members/${id}\\.json`,
-  `\\.groundwork/catalog/(?:layout\\.json|products/${id}\\.json|scans/[a-f0-9]{64}\\.json`
-    + `|components/${id}/(?:component|api|data|messaging|knowledge)\\.json|components/${id}/flows/${id}\\.json)`,
+  `\\.groundwork/products/${id}\\.json`,
+  `\\.groundwork/catalog/(?:layout\\.json|products/${id}\\.json|${CATALOG_DOCUMENT_SOURCE})`,
+  `\\.groundwork/local-catalogs/${repositoryHost}(?:/${repositorySegment})+/(?:${CATALOG_DOCUMENT_SOURCE})`,
 ].join('|')

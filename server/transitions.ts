@@ -1,5 +1,5 @@
 import { Conflict, InvalidInput } from './errors.ts'
-import { documentPattern, parsePlan, type Files, type Plan } from './format.ts'
+import { documentPattern, parsePlan, assertLegacyWriteForms, type Files, type Plan, type PlanSource } from './format.ts'
 import { MAX_DOCUMENT_BYTES } from './paths.ts'
 
 export type Changes = Record<string, string | null>
@@ -10,7 +10,7 @@ const retained = (name: string) => name.includes('/assessments/') || name.includ
  * retained baselines, assessments and scan manifests are immutable; retired observations and catalog rename
  * history are append-only; the project ID never changes. Pure: no filesystem or git access.
  */
-export function validateTransition(before: Files, changes: Changes): { after: Files; plan: Plan } {
+export function validateTransition(before: Files, changes: Changes, source: PlanSource = {}): { after: Files; plan: Plan } {
   if (!changes || typeof changes !== 'object' || Array.isArray(changes)) throw new InvalidInput('Writes require a changes object')
   const entries = Object.entries(changes)
   if (!entries.length) throw new InvalidInput('No changes supplied')
@@ -23,8 +23,11 @@ export function validateTransition(before: Files, changes: Changes): { after: Fi
     }
     if (value === null) delete after[name]; else after[name] = value
   }
-  const plan = parsePlan(after)
-  const previous = parsePlan(before)
+  // Only the changed documents are held to the legacy forms. Documents already on disk, such as those a branch
+  // from the other side of the migration merged in, are read as they are rather than rewritten or refused.
+  assertLegacyWriteForms(Object.fromEntries(entries.filter(([, value]) => value !== null) as [string, string][]), source)
+  const plan = parsePlan(after, source)
+  const previous = parsePlan(before, source)
   for (const component of previous.snapshot.components) {
     const next = plan.snapshot.components.find(item => item.id === component.id)
     for (const field of ['retiredObservations', 'catalogChanges'] as const) {

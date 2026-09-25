@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 3,
+  "id": "pretax-api--src-api",
+  "name": "Pretax API",
+  "kind": "service",
+  "repo": "volvo-cars/gpe-pretax",
+  "sourcePath": "src/api"
+}

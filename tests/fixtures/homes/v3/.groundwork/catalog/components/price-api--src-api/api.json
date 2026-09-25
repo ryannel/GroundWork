@@ -1,0 +1,11 @@
+{
+  "name": "Price API",
+  "endpoints": [
+    {
+      "id": "prices",
+      "name": "Prices",
+      "method": "GET",
+      "path": "/prices"
+    }
+  ]
+}

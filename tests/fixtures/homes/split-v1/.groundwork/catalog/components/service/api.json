@@ -1,0 +1,11 @@
+{
+  "name": "Service API",
+  "endpoints": [
+    {
+      "id": "read",
+      "name": "Read",
+      "method": "GET",
+      "path": "/read"
+    }
+  ]
+}

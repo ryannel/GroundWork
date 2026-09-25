@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 3,
+  "id": "price-engine",
+  "slug": "price-engine",
+  "name": "Price Engine",
+  "kind": "service-system",
+  "domain": "https://backstage.example.com/catalog/default/system/price",
+  "repositories": [
+    {
+      "repository": "volvo-cars/price-engine",
+      "role": "owned"
+    },
+    {
+      "repository": "volvo-cars/gpe-pretax",
+      "role": "owned",
+      "paths": [
+        "src/api",
+        "libs/pretax-*"
+      ]
+    },
+    {
+      "repository": "volvo-cars/utils",
+      "role": "used",
+      "aliases": [
+        "volvo-cars/common-utils"
+      ]
+    }
+  ]
+}

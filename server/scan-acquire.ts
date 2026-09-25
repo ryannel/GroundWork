@@ -1,8 +1,9 @@
 import { execFile } from 'node:child_process'
 import { realpath } from 'node:fs/promises'
-import { hasCredentials, repositoryIdentity } from '../src/data/repository-identity.ts'
+import { deriveRepositoryIdentity, hasCredentials, repositoryIdentity } from '../src/data/repository-identity.ts'
 import { sourceRefSchema } from '../src/data/scan-schema.ts'
 import { InvalidInput } from './errors.ts'
+import { ORIGIN_URL_ARGS, firstOriginUrl } from './git.ts'
 import { parseTree } from './scan-inventory.ts'
 
 /** Acquisition commands are killed after this long, so an unreachable host cannot hang the operation. */
@@ -114,10 +115,10 @@ export async function acquire(repository: string, ref: string | undefined, targe
     await git(['checkout', '--detach', '--quiet', 'FETCH_HEAD'], target)
   } else await git(['checkout', '--detach', '--quiet'], target)
   const revision = (await git(['rev-parse', '--verify', 'HEAD^{commit}'], target)).trim()
-  const origin = local
-    ? await git(['remote', 'get-url', 'origin'], local).then(value => value.trim()).catch(() => local)
-    : repository
-  return { revision, repository: repositoryIdentity(origin) }
+  if (!local) return { revision, repository: repositoryIdentity(repository) }
+  // The same derivation a checkout uses, so a clone without an origin gets the same `local:` identity either way.
+  const origin = firstOriginUrl(await git([...ORIGIN_URL_ARGS], local).catch(() => ''))
+  return { revision, repository: deriveRepositoryIdentity(origin, local).id }
 }
 
 /** Every committed file at `revision`, with blob sizes. */

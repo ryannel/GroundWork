@@ -1,0 +1,19 @@
+{
+  "id": "service",
+  "productId": "app",
+  "name": "Service",
+  "kind": "service",
+  "repo": "volvo-cars/legacy-home",
+  "sourcePath": "src/service",
+  "api": {
+    "name": "Service API",
+    "endpoints": [
+      {
+        "id": "read",
+        "name": "Read",
+        "method": "GET",
+        "path": "/read"
+      }
+    ]
+  }
+}

@@ -2,15 +2,19 @@ import { scanManifestSchema } from '../src/data/scan-manifest.ts'
 import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '../src/data/knowledge.ts'
 import { digest } from './git.ts'
 import { z } from 'zod'
-import { loadContent, type ContentSnapshot } from '../src/data/content.ts'
-import { productSchema, purposeSchema } from '../src/data/content-schema.ts'
+import { ContentError, loadContent, type ContentSnapshot } from '../src/data/content.ts'
+import { productReadSchema, productSchema, purposeSchema, type productRepositorySchema } from '../src/data/content-schema.ts'
+import { identitySlug, repositoryIdentity, repositoryName, type RepositoryIdentity } from '../src/data/repository-identity.ts'
 import { InvalidInput, NotFound } from './errors.ts'
-import { LOGICAL_DOCUMENT_SOURCE, PLANS_DIR } from './paths.ts'
+import type { Layout } from './catalog-storage.ts'
+import { LOGICAL_DOCUMENT_SOURCE, PLANS_DIR, PROJECT_FILE } from './paths.ts'
 
 const id = z.string().regex(/^(?!(?:constructor|prototype|__proto__)$)[a-zA-Z0-9][a-zA-Z0-9_-]*$/)
 const text = z.string().trim().min(1)
 export const manifestSchema = z.strictObject({ schemaVersion: z.literal(2), id, name: text, domain: z.url().optional() })
 export const portableProductSchema = productSchema.omit({ workspaceId: true })
+/** What readers accept for a product: the legacy form and the migrated one. Writes keep using `portableProductSchema`. */
+export const portableProductReadSchema = productReadSchema.omit({ workspaceId: true })
 export { deliverySchema } from '../src/data/delivery.ts'
 export type { Delivery } from '../src/data/delivery.ts'
 import { validateDelivery, type Delivery } from '../src/data/delivery.ts'
@@ -19,6 +23,8 @@ export type Files = Record<string, string>
 export interface Plan {
   manifest: z.infer<typeof manifestSchema>; snapshot: ContentSnapshot; delivery: Record<string, Delivery>; decisions: Record<string, string>
 }
+/** What a home's documents alone cannot say: which repository they live in, and which layout they were read from. */
+export interface PlanSource { repository?: RepositoryIdentity; layout?: Layout }
 export const PLAN_DIRECTORY = PLANS_DIR
 export const assetPattern = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/
 export const documentPattern = new RegExp(`^(?:${LOGICAL_DOCUMENT_SOURCE})$`)
@@ -76,10 +82,102 @@ export function renderBrief(purpose: Purpose) {
   return `# Feature brief\n\n## Problem\n\n${purpose.problem}\n\n## Outcome\n\n${purpose.outcome}\n\n`
     + `## Non-goals\n\n${nonGoals}\n\n## Success criteria\n\n${success}\n`
 }
-export function parsePlan(files: Files): Plan {
+type ProductRepository = z.infer<typeof productRepositorySchema>
+/** Whether an owned-path declaration covers a component's source path. `*` matches within one path segment. */
+function covers(pattern: string, sourcePath: string): boolean {
+  const clean = (value: string) => value.replace(/^\.?\//, '').replace(/\/+$/, '')
+  const expression = new RegExp(`^${clean(pattern).replaceAll(/[.*+?^${}()|[\]\\]/g, match => match === '*' ? '[^/]*' : `\\${match}`)}(?:/|$)`)
+  return expression.test(clean(sourcePath))
+}
+/**
+ * A migrated home records membership on the product, not the component. Until Phase 3 gives that its own model, the
+ * reader derives the `productId` every downstream consumer still expects, from the product that owns the component's
+ * repository and path; a home with exactly one product needs no declaration for what the home itself owns.
+ */
+function derivedProductId(component: Record<string, unknown>, ownership: Map<string, ProductRepository[]>, productIds: string[], home?: string) {
+  const repo = typeof component.repo === 'string' ? repositoryIdentity(component.repo) : undefined
+  const sourcePath = typeof component.sourcePath === 'string' ? component.sourcePath : ''
+  let owned = false
+  for (const [productId, repositories] of ownership) {
+    for (const entry of repositories) {
+      if (entry.role !== 'owned' || repo === undefined || repositoryIdentity(entry.repository) !== repo) continue
+      if (!entry.paths?.length || entry.paths.some(path => covers(path, sourcePath))) return productId
+      owned = true
+    }
+  }
+  // The single-product fallback only covers what this home is responsible for: a declared component with no
+  // repository, its own repository, or one an owned declaration already claims. A component of a *used*
+  // repository belongs to whichever product declares it, and guessing would attribute it to the wrong one.
+  if (productIds.length !== 1) return undefined
+  return repo === undefined || repo === home || owned ? productIds[0] : undefined
+}
+/**
+ * Refuses a migrated-only document form on the write path. Readers accept both forms, so a home that merged a
+ * branch from either side of the migration still loads, but until the migration phase every write must stay a
+ * document an older release can read: a product with no `schemaVersion`, `domain` or `repositories`, and a
+ * component that still carries its own `productId`.
+ */
+export function assertLegacyWriteForm(file: string, raw: string) {
+  let value: unknown
+  try { value = JSON.parse(raw) } catch { return } // parsePlan reports the syntax error itself, with its own message.
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return
+  const document = value as Record<string, unknown>
+  const reject = (detail: string) => {
+    throw new InvalidInput(`${file}: ${detail}; this release writes only the legacy forms, so teammates on an older release can still read them`)
+  }
+  if (file.startsWith('products/')) {
+    const result = portableProductSchema.safeParse(document)
+    if (!result.success) reject(result.error.issues.map(issue => issue.message).join('; '))
+  } else if (file.startsWith('components/')) {
+    if ('schemaVersion' in document) reject('a component cannot declare schemaVersion yet')
+    if (document.productId === undefined) reject('a component must name its productId')
+  }
+}
+/**
+ * The write-path form check for a whole document set. `validateTransition` applies it to the documents a write
+ * changes, and `initialise` to the documents it stages, so neither path can create a migrated-only form.
+ */
+export function assertLegacyWriteForms(files: Files, source: PlanSource = {}) {
+  if (source.layout === 'catalog-v3') return
+  for (const [name, raw] of Object.entries(files)) assertLegacyWriteForm(name, raw)
+}
+/**
+ * Why a component's product could not be derived. Membership is the product's declaration in Phase 3; until then
+ * every consumer of the snapshot needs a `productId`, so an unowned component is reported by name rather than
+ * failing later as a missing field.
+ */
+function unownedComponent(file: string, component: Record<string, unknown>, productIds: string[]): string {
+  const repo = typeof component.repo === 'string' ? component.repo : undefined
+  const sourcePath = typeof component.sourcePath === 'string' && component.sourcePath ? ` path "${component.sourcePath}"` : ''
+  const where = repo ? `${repo}${sourcePath}` : 'this component'
+  const products = productIds.length ? `The products in this home are ${productIds.join(', ')}.` : 'This home declares no product.'
+  return `${file}: no product in this home owns ${where}, so its productId cannot be derived. ${products} `
+    + 'List the repository under a product\'s repositories, or keep the component in the catalog of the home whose product owns it.'
+}
+/** The document names a set of unresolved references points at, so a home read as v3 can say what it is missing. */
+const referenceDirectory: Record<string, string> = { productId: 'products', ownerId: 'members', viewerId: 'members', parentId: 'components' }
+/**
+ * Explains that a home with no project manifest is being read as the migrated layout, and names the documents its
+ * content refers to but does not contain. Without it, a v3 home that is simply incomplete reports only reference
+ * errors, where an unmigrated one would have said the repository was never initialised.
+ */
+function version3Reading(documents: Record<string, unknown>, issues: string[]): string {
+  const missing = new Set<string>()
+  for (const issue of issues) {
+    const match = /:([a-zA-Z]+)(?:\.\d+)?: unknown reference "([^"]+)"$/.exec(issue)
+    const directory = match && referenceDirectory[match[1]]
+    if (directory && !(`${directory}/${match[2]}.json` in documents)) missing.add(`${directory}/${match[2]}.json`)
+  }
+  return `This home has no ${PROJECT_FILE}, so Groundwork reads it as the migrated (v3) layout and takes its identity from the repository`
+    + (missing.size ? `. It is missing ${[...missing].sort().join(', ')}` : '')
+    + `. Add the missing documents, or run groundwork-v2 init if this checkout was never a Groundwork home.`
+}
+export function parsePlan(files: Files, source: PlanSource = {}): Plan {
   const documents: Record<string, unknown> = {}
   const delivery: Record<string, Delivery> = {}
   const decisions: Record<string, string> = {}
+  const ownership = new Map<string, ProductRepository[]>()
+  const componentFiles: string[] = []
   let manifest: Plan['manifest'] | undefined
   for (const [file, raw] of Object.entries(files)) {
     if (!documentPattern.test(file)) throw new InvalidInput(`${file}: unsupported planning document`)
@@ -111,16 +209,47 @@ export function parsePlan(files: Files): Plan {
         continue
       }
       if (file === 'project.json') manifest = manifestSchema.parse(value)
-      else if (file.startsWith('products/')) documents[file] = { ...portableProductSchema.parse(value), workspaceId: 'project' }
-      else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)
-      else documents[file] = value
+      else if (file.startsWith('products/')) {
+        // The migrated fields are accepted and then set aside: later phases give them meaning, this one only loads them.
+        const { schemaVersion: _version, domain: _domain, repositories, ...product } = portableProductReadSchema.parse(value)
+        if (repositories) ownership.set(product.id, repositories)
+        documents[file] = { ...product, workspaceId: 'project' }
+      } else if (file.endsWith('/delivery.json')) delivery[file.split('/')[1]] = parseDelivery(value)
+      else {
+        if (file.startsWith('components/')) componentFiles.push(file)
+        documents[file] = value
+      }
     } catch (error) { throw new InvalidInput(`${file}: ${error instanceof Error ? error.message : error}`) }
   }
-  if (!manifest) throw new NotInitialised('project.json: initialise this repository with groundwork-v2 init')
+  const derived = !manifest
+  if (!manifest) {
+    if (source.layout !== 'catalog-v3') throw new NotInitialised('project.json: initialise this repository with groundwork-v2 init')
+    // A migrated home has no manifest: its identity is the repository's, and its name is the repository's name.
+    if (!source.repository) throw new NotInitialised('This home has no project.json; read it through a checkout so its repository identity is available')
+    manifest = manifestSchema.parse({ schemaVersion: 2, id: identitySlug(source.repository.id), name: repositoryName(source.repository.id) })
+  }
+  const productIds = Object.keys(documents).filter(name => name.startsWith('products/')).map(name => name.slice('products/'.length, -5))
+  for (const file of componentFiles) {
+    const component = documents[file]
+    if (!component || typeof component !== 'object' || Array.isArray(component)) continue
+    // `schemaVersion` marks the migrated form; the legacy documents beside it in a merged branch simply lack it.
+    const { schemaVersion: _version, ...rest } = component as Record<string, unknown>
+    if (rest.productId === undefined) {
+      const productId = derivedProductId(rest, ownership, productIds, source.repository?.id)
+      if (productId === undefined) throw new InvalidInput(unownedComponent(file, rest, productIds))
+      rest.productId = productId
+    }
+    documents[file] = rest
+  }
   documents['project.json'] = { schemaVersion: 1 }
   documents['workspaces/project.json'] = { id: 'project', slug: 'project', name: manifest.name, hue: 'var(--hue-teal)', createdAt: '2026-01-01T00:00:00Z' }
   // Asset references stay relative on disk. The HTTP adapter adds checkout context.
-  const snapshot = loadContent(documents)
+  let snapshot: ContentSnapshot
+  try { snapshot = loadContent(documents) } catch (error) {
+    // A home read as v3 has no manifest to name the documents it expects, so say so before the reference errors.
+    if (derived && error instanceof ContentError) throw new ContentError([version3Reading(documents, error.issues), ...error.issues])
+    throw error
+  }
   for (const feature of snapshot.features) for (const mock of feature.spec?.design?.mockups ?? []) {
     if (mock.ref.startsWith('/')) throw new InvalidInput(`features/${feature.id}/design.json: use a repository-relative assets/ reference`)
   }

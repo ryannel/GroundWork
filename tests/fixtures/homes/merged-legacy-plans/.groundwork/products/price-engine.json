@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 3,
+  "id": "price-engine",
+  "slug": "price-engine",
+  "name": "Price Engine",
+  "kind": "service-system",
+  "repositories": [
+    {
+      "repository": "volvo-cars/price-engine",
+      "role": "owned"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 3,
+  "id": "product-configuration-facade",
+  "slug": "pcf",
+  "name": "Product Configuration Facade",
+  "kind": "service-system",
+  "repositories": [
+    {
+      "repository": "volvo-cars/product-configuration-facade",
+      "role": "owned"
+    }
+  ]
+}

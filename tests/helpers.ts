@@ -1,5 +1,5 @@
 import type { TestContext } from 'node:test'
-import { mkdtemp, realpath, rm, writeFile, mkdir } from 'node:fs/promises'
+import { cp, mkdtemp, realpath, rm, writeFile, mkdir } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -35,6 +35,15 @@ export async function gitInit(root: string) {
   return root
 }
 
+/** A copy of a `tests/fixtures/homes/<name>` tree in a fresh git repository, optionally with a configured origin. */
+export async function homeFixture(t: TestContext, name: string, origin?: string) {
+  const root = await tempDir(t, `groundwork-${name}-`)
+  await cp(fixturePath(`homes/${name}`), root, { recursive: true })
+  await gitInit(root)
+  if (origin) await git(root, ['remote', 'add', 'origin', origin])
+  return root
+}
+
 /** Stages everything and commits it; returns the new HEAD revision. */
 export async function commitAll(root: string, message = 'Fixture') {
   await git(root, ['add', '-A'])
@@ -65,7 +74,8 @@ export function withEnv(t: TestContext, vars: Record<string, string | undefined>
  */
 export async function sourceCatalogFixture(t: TestContext) {
   const base = await tempDir(t, 'groundwork-freshness-')
-  const source = await gitInit(path.join(base, 'source')), target = path.join(base, 'catalog')
+  // An origin-less checkout takes a provisional `local:<folder>` identity, so separate sources need separate folder names.
+  const source = await gitInit(path.join(base, `source-${path.basename(base).slice(-6)}`)), target = path.join(base, 'catalog')
   await writeFiles(source, {
     'handler.ts': 'callHelper()\n', 'helper.ts': 'return 1\n', 'unmapped.ts': 'return true\n', 'package-lock.json': '{"version":1}\n',
   })
