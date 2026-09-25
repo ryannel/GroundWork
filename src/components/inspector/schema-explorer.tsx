@@ -55,7 +55,7 @@ export function SchemaExplorer({ type, rootId, index }: { type?: string; rootId?
   }
 
   if (!type && !root) return <div className="schema-browser-empty">No payload is documented for this endpoint.</div>
-  if (!current) return <div className="schema-browser-empty"><code>{type}</code><span>No structured fields were extracted for this type.</span></div>
+  if (!current) return <div className="schema-browser-empty">{type}</div>
 
   return <div className="schema-browser">
     {(trail.length > 1 || roots.length > 1) && <header className="schema-browser-context">

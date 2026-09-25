@@ -17,14 +17,18 @@ test('freshness identifies changed citations, uncovered entries and uncatalogued
     expectedRevision: target.revision, expectedContext: target.context.token,
     component: { id: 'handler', name: 'Handler', repo: 'volvo-cars/price-engine', sourceRevision: revision,
       observedAt, covers: ['src'], areaGaps: gaps,
-      evidence: [{ path: 'src/handler.ts', lines: '1', claim: 'Defines handler.', revision }] } }, root)
+      evidence: [{ path: 'src/handler.ts', lines: '1', claim: 'Defines handler.', revision }],
+      api: { name: 'Handler API', endpoints: [{ id: 'process', name: 'Process', method: 'POST', path: '/process',
+        evidence: [{ path: 'src/handler.ts', lines: '1', claim: 'Handles requests.', revision }] }] } } }, root)
   await writeFiles(root, { 'src/handler.ts': 'export const handler = 2\n', 'src/helper.ts': 'export const helper = 2\n',
     'scripts/build.ts': 'export const build = 2\n' })
   await commitAll(root, 'Changed code')
   const report = await operate('check_catalog_freshness', { repository: 'volvo-cars/price-engine',
-    sourceRoot: root, targetRef: 'HEAD' }, root) as { assessments: { changedCitations: string[]; changedCoveredFiles: string[] }[];
+    sourceRoot: root, targetRef: 'HEAD' }, root) as {
+      assessments: { changedCitations: string[]; entriesToReview: string[]; changedCoveredFiles: string[] }[];
       uncataloguedFiles: string[]; status: string }
   assert.deepEqual(report.assessments[0].changedCitations, ['src/handler.ts'])
+  assert.deepEqual(report.assessments[0].entriesToReview, ['component handler', 'endpoint process'])
   assert.deepEqual(report.assessments[0].changedCoveredFiles, ['src/helper.ts'])
   assert.deepEqual(report.uncataloguedFiles, ['scripts/build.ts'])
   assert.equal(report.status, 'unknown', 'older fixture components without coverage keep the aggregate uncertain')

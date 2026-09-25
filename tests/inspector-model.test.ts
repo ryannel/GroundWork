@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import {
   activeTab, dependencyContextLabel, emptyCatalogText, endpointEntries, endpointMatches, flowOrigin, followFlowLink,
-  inspectorTabs, mentalModel, readableList, referencedSchemas, returnToOrigin, schemaIndex, selectTab, tabAriaLabel,
+  inspectorTabs, mentalModel, messageFlows, readableList, referencedSchemas, returnToOrigin, schemaIndex, selectTab, tabAriaLabel,
   type ApiType,
 } from '../src/data/inspector-model.ts'
 import type { Component } from '../shared/model.ts'
@@ -80,6 +80,16 @@ test('the flow breadcrumb round-trips through the URL', () => {
   assert.equal(flowOrigin(component, 'messages:missing'), undefined)
   assert.equal(flowOrigin(component, 'nonsense'), undefined)
   assert.equal(flowOrigin(component, 'overview:x'), undefined)
+})
+
+test('message details find both inbound triggers and outbound publications in recorded flows', () => {
+  const component = { ...base, id: 'c', name: 'C', executionFlows: [
+    { id: 'consumer', trigger: { kind: 'message', messageId: 'received' }, steps: [] },
+    { id: 'publisher', endpointId: 'upload', steps: [{ id: 'publish', messageIds: ['sent'] }] },
+  ] } as unknown as Component
+  assert.deepEqual(messageFlows(component, 'received').map(flow => flow.id), ['consumer'])
+  assert.deepEqual(messageFlows(component, 'sent').map(flow => flow.id), ['publisher'])
+  assert.deepEqual(messageFlows(component, 'missing'), [])
 })
 
 test('dependency context labels distinguish platforms, providers and ownership', () => {

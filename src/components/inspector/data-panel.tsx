@@ -3,7 +3,7 @@ import { Database } from 'lucide-react'
 import { isDatastore } from '@/data/inspector-model'
 import { DataCatalog } from './data-catalog'
 import { LinkedInfrastructure } from './dependencies'
-import { EmptyCatalog } from './provenance'
+import { EmptyCatalog } from './catalog-content'
 import type { CatalogPanelProps } from './use-catalog-location'
 
 export function DataPanel({ component, dependencies }: Pick<CatalogPanelProps, 'component' | 'dependencies'>) {

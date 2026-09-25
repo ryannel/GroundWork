@@ -84,8 +84,8 @@ const operations = {
   }),
   check_catalog_freshness: define({
     schema: catalogFreshnessSchema.extend(selection),
-    description: 'Compare each component observation with a local source commit. Report changed cited files, changed covered files '
-      + 'without citations, and changed files outside every component. Does not fetch or claim runtime correctness.',
+    description: 'Compare each component observation with a local source commit. Name entries citing changed files, changed covered files '
+      + 'without citations, and files outside every component. Does not fetch or claim runtime correctness.',
     ...read,
     run: async (args, { root, ref }) => checkCatalogFreshness(await root(), args, ref),
   }),

@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { Radio } from 'lucide-react'
-import { followFlowLink, isBroker, messageEntries, triggeredFlows } from '@/data/inspector-model'
+import { followFlowLink, isBroker, messageEntries, messageFlows } from '@/data/inspector-model'
 import { CatalogBrowser } from '../catalog-browser'
 import { LinkedInfrastructure } from './dependencies'
 import { ContextFlows } from './flows'
-import { CatalogGaps, EmptyCatalog, SourceEvidence } from './provenance'
+import { CatalogGaps, EmptyCatalog, SourceEvidence } from './catalog-content'
 import { RecordFields } from './schema-explorer'
 import type { CatalogPanelProps } from './use-catalog-location'
 
@@ -41,7 +41,7 @@ export function MessagesPanel({ component, dependencies, location, navigate, onS
       <SourceEvidence repository={component.repo} evidence={message.evidence} />
       <ContextFlows
         component={component}
-        flows={triggeredFlows(component, 'message', message.id)}
+        flows={messageFlows(component, message.id)}
         dependencies={dependencies}
         flowId={location.flow}
         onFlowChange={flow => navigate({ flow }, 'replace')}

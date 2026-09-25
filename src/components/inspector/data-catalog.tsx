@@ -3,7 +3,7 @@ import type { Component } from '@shared/model'
 import { recordEntries } from '@/data/inspector-model'
 import { CatalogBrowser } from '../catalog-browser'
 import { RecordFields } from './schema-explorer'
-import { CatalogGaps, SourceEvidence } from './provenance'
+import { CatalogGaps, SourceEvidence } from './catalog-content'
 
 /** A component's records. The full catalog keeps its state in the URL; a compact one embedded in a dependency does not. */
 export function DataCatalog({ component, compact = false }: { component: Component; compact?: boolean }) {
@@ -15,10 +15,10 @@ export function DataCatalog({ component, compact = false }: { component: Compone
     return <article className="catalog-record-detail">
       <header><span>{record.kind}</span><h4>{record.name}</h4></header>
       {record.description && <p>{record.description}</p>}
-      <dl>
-        <div><dt>Key / location</dt><dd><code>{record.keyPattern ?? 'Not documented'}</code></dd></div>
-        <div><dt>Retention</dt><dd>{record.ttl ?? 'Not documented'}</dd></div>
-      </dl>
+      {(record.keyPattern || record.ttl) && <dl>
+        {record.keyPattern && <div><dt>Key / location</dt><dd><code>{record.keyPattern}</code></dd></div>}
+        {record.ttl && <div><dt>Retention</dt><dd>{record.ttl}</dd></div>}
+      </dl>}
       <RecordFields fields={record.fields} />
       <SourceEvidence repository={component.repo} evidence={record.evidence} />
     </article>

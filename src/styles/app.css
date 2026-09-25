@@ -1373,6 +1373,12 @@ button.change-row:hover { background:color-mix(in srgb,var(--change-color) 15%,t
 .catalog-notes strong { display:block; color:var(--fg); font-size:12px; overflow-wrap:anywhere; }
 .catalog-notes p { margin-top:5px; color:var(--fg-muted); line-height:1.7; }
 .catalog-notes code { display:block; margin-top:6px; color:var(--fg-subtle); font-size:var(--text-micro); overflow-wrap:anywhere; }
+.catalog-source-links { margin-top:16px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; }
+.catalog-source-links>span { display:block; margin-bottom:8px; color:var(--fg-muted); }
+.catalog-source-links ul { display:grid; gap:10px; }
+.catalog-source-links li { min-width:0; }
+.catalog-source-links a { display:inline-flex; align-items:center; gap:4px; color:var(--accent); overflow-wrap:anywhere; }
+.catalog-source-links small { display:block; margin-top:3px; color:var(--fg-muted); line-height:1.5; }
 .catalog-panel .schema-browser-field-head,.catalog-panel .schema-browser-field { grid-template-columns:minmax(0,1fr) minmax(0,.9fr) 80px; font-size:12px; padding:11px 14px; }
 .catalog-panel .schema-browser-field strong { font-size:12px; }
 .catalog-panel .schema-browser-field small { font-size:11px; }
@@ -1494,7 +1500,7 @@ button.change-row:hover { background:color-mix(in srgb,var(--change-color) 15%,t
 }
 .catalog-linked-schema { border: 1px solid var(--border); border-radius: 12px; margin-block: 1rem; }
 .catalog-linked-schema > button { padding: .8rem 1rem; color: var(--fg-muted); }
-.component-endpoint-source a, .catalog-notes a { color: var(--accent); overflow-wrap: anywhere; }
+.component-endpoint-source a { color: var(--accent); overflow-wrap: anywhere; }
 
 /* interactions */
 /* Shared interaction feedback. Keep layout still and preserve each surface's identity. */

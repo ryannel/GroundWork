@@ -5,7 +5,7 @@ import { endpointEntries, endpointFlows, endpointMatches, followFlowLink, schema
 import { CatalogBrowser } from '../catalog-browser'
 import { EndpointDetail } from './endpoint-detail'
 import { EndpointFlows } from './flows'
-import { EmptyCatalog, SourceEvidence } from './provenance'
+import { EmptyCatalog, SourceEvidence } from './catalog-content'
 import { SchemaExplorer } from './schema-explorer'
 import type { CatalogPanelProps } from './use-catalog-location'
 
@@ -75,7 +75,10 @@ export function ApiPanel({ component, dependencies, location, navigate, onSelect
       <div className="catalog-panel-heading">
         <div>
           <h4>Interface catalog</h4>
-          <p>{api.schemas?.length ?? 0} schema types{api.sourceRevision ? ` · Revision ${api.sourceRevision.slice(0, 8)}` : ''}</p>
+          {(!!api.schemas?.length || api.sourceRevision) && <p>
+            {!!api.schemas?.length && `${api.schemas.length} schema types`}
+            {api.sourceRevision && `${api.schemas?.length ? ' · ' : ''}Revision ${api.sourceRevision.slice(0, 8)}`}
+          </p>}
         </div>
         {api.specification && <a href={api.specification.url} target="_blank" rel="noreferrer">{api.specification.title}<ExternalLink size={13} /></a>}
       </div>

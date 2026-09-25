@@ -27,26 +27,28 @@ export async function checkCatalogFreshness(root: string, input: unknown, ref?: 
     const parsed = catalogComponentSchema.safeParse(component)
     if (!parsed.success) {
       assessments.push({ componentId: component.id, status: 'unknown', reason: 'Catalog document lacks source commit, coverage or area gaps',
-        changedCitations: [], changedCoveredFiles: [], gaps: null })
+        changedCitations: [], entriesToReview: [], changedCoveredFiles: [], gaps: null })
       continue
     }
     const document = parsed.data
     const exists = await git(args.sourceRoot, ['rev-parse', '--verify', `${document.sourceRevision}^{commit}`]).catch(() => null)
     if (exists !== document.sourceRevision) {
       assessments.push({ componentId: document.id, status: 'unknown', reason: 'Observed commit is unavailable in the local clone',
-        changedCitations: [], changedCoveredFiles: [], gaps: document.areaGaps })
+        changedCitations: [], entriesToReview: [], changedCoveredFiles: [], gaps: document.areaGaps })
       continue
     }
     const changed = (await gitRaw(args.sourceRoot, ['diff', '--no-ext-diff', '--no-textconv', '--no-renames', '--name-only', '-z',
       document.sourceRevision, target, '--'])).split('\0').filter(file => !!file && !file.startsWith('.groundwork/'))
     for (const file of changed) allChanged.add(file)
-    const cited = new Set(catalogCitations(document).map(item => item.path))
+    const citations = catalogCitations(document)
+    const cited = new Set(citations.map(item => item.path))
     const covered = (file: string) => document.covers.some(pattern => pathPatternCovers(pattern, file))
     const changedCitations = changed.filter(file => cited.has(file)).sort()
+    const entriesToReview = [...new Set(citations.filter(item => changedCitations.includes(item.path)).map(item => item.label))].sort()
     const changedCoveredFiles = changed.filter(file => covered(file) && !cited.has(file)).sort()
     assessments.push({ componentId: document.id, observedRevision: document.sourceRevision,
       observedAt: document.observedAt, status: changedCitations.length || changedCoveredFiles.length ? 'review-required' : 'current',
-      changedCitations, changedCoveredFiles, gaps: document.areaGaps })
+      changedCitations, entriesToReview, changedCoveredFiles, gaps: document.areaGaps })
   }
   const covers = components.flatMap(component => {
     const parsed = catalogComponentSchema.safeParse(component)

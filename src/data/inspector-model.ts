@@ -82,6 +82,10 @@ export const endpointFlows = (component: Component, endpointId: string) =>
 export const triggeredFlows = (component: Component, kind: 'message' | 'job', id: string) =>
   (component.executionFlows ?? []).filter(flow => flow.trigger?.kind === kind
     && (flow.trigger.kind === 'message' ? flow.trigger.messageId : flow.trigger.jobId) === id)
+export const messageFlows = (component: Component, id: string) =>
+  (component.executionFlows ?? []).filter(flow =>
+    (flow.trigger?.kind === 'message' && flow.trigger.messageId === id)
+    || flow.steps.some(step => step.messageIds?.includes(id)))
 export const selectedFlow = (flows: ExecutionFlows, id?: string) => flows.find(flow => flow.id === id) ?? flows[0]
 
 export interface FlowOrigin { tab: CatalogBrowserKey; id: string; name: string; label: string }

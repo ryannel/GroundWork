@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { followFlowLink, jobEntries, triggeredFlows } from '@/data/inspector-model'
 import { CatalogBrowser } from '../catalog-browser'
 import { ContextFlows } from './flows'
-import { SourceEvidence } from './provenance'
+import { SourceEvidence } from './catalog-content'
 import type { CatalogPanelProps } from './use-catalog-location'
 
 export function JobsPanel({ component, dependencies, location, navigate, onSelectComponent }: CatalogPanelProps) {

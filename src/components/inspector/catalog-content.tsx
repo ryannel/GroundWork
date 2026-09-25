@@ -5,19 +5,18 @@ import { emptyCatalogText } from '@/data/inspector-model'
 
 export function SourceEvidence({ evidence, repository }: { evidence?: Component['evidence']; repository?: string }) {
   if (!evidence?.length) return null
-  return <details className="catalog-notes">
-    <summary>Source evidence · {evidence.length}<ChevronDown size={14} /></summary>
-    <div>{evidence.map((source, index) => {
+  return <div className="catalog-source-links" aria-label="Source evidence">
+    <span>Source</span>
+    <ul>{evidence.map((source, index) => {
       const url = sourceEvidenceUrl(repository, source)
-      return <article key={index}>
-        <strong>{url
+      return <li key={index}>
+        {url
           ? <a href={url} target="_blank" rel="noreferrer">{source.path}:{source.lines}<ExternalLink size={12} /></a>
-          : `${source.path}:${source.lines}`}</strong>
-        <p>{source.claim}</p>
-        <code>Revision {source.revision}</code>
-      </article>
-    })}</div>
-  </details>
+          : <code>{source.path}:{source.lines}</code>}
+        <small>{source.claim}</small>
+      </li>
+    })}</ul>
+  </div>
 }
 
 export function CatalogGaps({ gaps }: { gaps?: string[] }) {

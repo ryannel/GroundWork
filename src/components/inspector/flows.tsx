@@ -31,10 +31,10 @@ export function EndpointFlows({ component, flows, dependencies, flowId, onFlowCh
   </>
 }
 
-/** The recorded paths triggered by a message or job, collapsed unless the URL points at one of them. */
+/** Recorded paths related to a message or job, collapsed unless the URL points at one of them. */
 export function ContextFlows({ component, flows, dependencies, flowId, onFlowChange, onNavigate, onSelectComponent }: FlowsProps) {
   const flow = selectedFlow(flows, flowId)
-  if (!flow) return <p className="component-data-gap">Data flow not investigated yet. Start at the source evidence to inspect this entry point.</p>
+  if (!flow) return null
   return <details className="catalog-notes" open={flows.some(item => item.id === flowId) || undefined}>
     <summary>Data flow · {flows.length} recorded {flows.length === 1 ? 'path' : 'paths'}<ChevronDown size={14} /></summary>
     <div>
