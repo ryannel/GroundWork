@@ -1,23 +1,22 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { catalogIndex } from '../src/data/catalog-index.ts'
-import { componentMembership, createRepository, loadContent, pathPatternCovers, pathPatternsOverlap, productRepositories } from '../src/data/content.ts'
+import { catalogIndex } from '../shared/catalog-index.ts'
+import { componentMembership, createRepository, loadContent, pathPatternCovers, pathPatternsOverlap } from '../shared/content.ts'
 import { parsePlan } from '../server/format.ts'
 
-const source = { layout: 'catalog-v3' as const,
-  repository: { id: 'acme/home', origin: 'git@github.com:acme/home.git', provisional: false } }
+const source = { repository: { id: 'acme/home', origin: 'git@github.com:acme/home.git', provisional: false } }
 const product = (id: string, repositories: unknown[], slug = id) => JSON.stringify({
-  schemaVersion: 3, id, slug, name: id, kind: 'service-system', repositories,
+  id, slug, name: id, kind: 'service-system', repositories,
 })
 const component = (id: string, repository: string, sourcePath: string) => JSON.stringify({
-  schemaVersion: 3, id, name: id, repo: repository, sourcePath,
+  id, name: id, repo: repository, sourcePath,
 })
 
 test('monorepo products own disjoint paths and shared used repositories remain visible in each product', () => {
   const files = {
     'products/price.json': product('price', [
       { repository: 'acme/mono', role: 'owned', paths: ['services/price', 'libs/price-*'] },
-      { repository: 'acme/utils', role: 'used', aliases: ['acme/common-utils'] },
+      { repository: 'acme/utils', role: 'used' },
     ], 'price-display'),
     'products/tax.json': product('tax', [
       { repository: 'acme/mono', role: 'owned', paths: ['services/tax'] },
@@ -26,10 +25,10 @@ test('monorepo products own disjoint paths and shared used repositories remain v
     'components/price-api.json': component('price-api', 'acme/mono', 'services/price/api'),
     'components/tax-api.json': component('tax-api', 'acme/mono', 'services/tax/api'),
     'components/price-lib.json': component('price-lib', 'acme/mono', 'libs/price-core'),
-    'components/utils.json': component('utils', 'acme/common-utils', '.'),
+    'components/utils.json': component('utils', 'acme/utils', '.'),
   }
   const plan = parsePlan(files, source)
-  assert.deepEqual(plan.snapshot.workspaces, [], 'a v3 home does not create a repository-local workspace')
+  assert.deepEqual(plan.snapshot.workspaces, [], 'a repository home does not create a workspace')
   assert.equal(plan.snapshot.products[0].workspaceId, undefined)
   const { q } = createRepository(plan.snapshot)
   assert.deepEqual(q.components('price').map(item => item.id), ['price-api', 'price-lib', 'utils'])
@@ -41,16 +40,16 @@ test('monorepo products own disjoint paths and shared used repositories remain v
     ['price', 'tax'])
 })
 
-test('v3 products load without a repository-local workspace and their slugs are unique within a home', () => {
+test('products load without a repository-local workspace and their slugs are unique within a home', () => {
   const documents = {
-    'project.json': { schemaVersion: 1 },
-    'products/a.json': { schemaVersion: 3, id: 'a', slug: 'api', name: 'API', kind: 'service-system', repositories: [] },
+    'project.json': {},
+    'products/a.json': { id: 'a', slug: 'api', name: 'API', kind: 'service-system', repositories: [] },
   }
   const snapshot = loadContent(documents, 'acme/home')
   assert.deepEqual(snapshot.workspaces, [])
   assert.equal(snapshot.products[0].workspaceId, undefined)
   assert.throws(() => loadContent({ ...documents,
-    'products/b.json': { schemaVersion: 3, id: 'b', slug: 'api', name: 'Other API', kind: 'service-system', repositories: [] },
+    'products/b.json': { id: 'b', slug: 'api', name: 'Other API', kind: 'service-system', repositories: [] },
   }, 'acme/home'), /products.slug: duplicate/)
 })
 
@@ -63,14 +62,6 @@ test('overlapping owned paths are rejected without requiring a catalog', () => {
   assert.equal(pathPatternsOverlap('services/price', 'services/tax'), false)
   assert.equal(pathPatternsOverlap('libs/price-*', 'libs/price-core'), true)
   assert.equal(pathPatternCovers('libs/price-*', 'libs/price-core/src'), true)
-})
-
-test('repository alias cycles cannot make ownership depend on the lookup starting point', () => {
-  const files = {
-    'products/a.json': product('a', [{ repository: 'acme/a', role: 'owned', aliases: ['acme/b'] }]),
-    'products/b.json': product('b', [{ repository: 'acme/b', role: 'owned', aliases: ['acme/a'] }]),
-  }
-  assert.throws(() => parsePlan(files, source), /repository alias cycle/)
 })
 
 test('parent validation compares product membership for used repositories', () => {
@@ -92,42 +83,14 @@ test('parent validation compares product membership for used repositories', () =
   assert.throws(() => parsePlan(disjoint, source), /parent must belong to the same product/)
 })
 
-test('product and catalog are valid independently, while legacy membership remains derived from productId', () => {
+test('product and catalog are valid independently without inferred membership', () => {
   const onlyProduct = parsePlan({ 'products/app.json': product('app', [{ repository: 'acme/source', role: 'owned' }]) }, source)
   assert.deepEqual(onlyProduct.snapshot.components, [])
-  const onlyCatalog = parsePlan({ 'components/service.json': component('service', 'acme/source', 'src') }, source)
-  assert.equal(onlyCatalog.snapshot.components[0].productId, undefined)
+  const onlyCatalog = parsePlan({ 'products/other.json': product('other', []), 'components/service.json': component('service', 'acme/source', 'src') }, source)
   assert.deepEqual(componentMembership(onlyCatalog.snapshot.components[0], [], source.repository.id).productIds, [])
   const explicitEmpty = parsePlan({
     'products/app.json': product('app', []),
     'components/home.json': component('home', 'acme/home', 'src'),
   }, source)
-  assert.equal(explicitEmpty.snapshot.components[0].productId, undefined,
-    'an explicit empty declaration does not silently claim the home repository')
-  const legacy = parsePlan({
-    'products/app.json': JSON.stringify({ id: 'app', slug: 'app', name: 'App', kind: 'service-system' }),
-    'components/service.json': JSON.stringify({ id: 'service', productId: 'app', name: 'Service', repo: 'acme/source' }),
-  }, source)
-  assert.equal(legacy.snapshot.components[0].productId, 'app')
-  assert.deepEqual(createRepository(legacy.snapshot).q.components('app').map(item => item.id), ['service'])
-  assert.deepEqual(productRepositories(legacy.snapshot.products[0], legacy.snapshot.products,
-    legacy.snapshot.components, source.repository.id), [
-    { repository: 'acme/home', role: 'owned' }, { repository: 'acme/source', role: 'owned' },
-  ])
-  const freshLegacy = parsePlan({
-    'products/app.json': JSON.stringify({ id: 'app', slug: 'app', name: 'App', kind: 'service-system' }),
-    'components/home.json': JSON.stringify({ id: 'home', name: 'Home', repo: 'acme/home' }),
-  }, source)
-  assert.equal(freshLegacy.snapshot.components[0].productId, 'app', 'sole legacy product derives home ownership in memory')
-})
-
-test('a sole legacy product keeps home ownership after an external repository is scanned', () => {
-  const plan = parsePlan({
-    'products/api.json': JSON.stringify({ id: 'api', slug: 'api', name: 'API', kind: 'service-system' }),
-    'components/external.json': JSON.stringify({ id: 'external', productId: 'api', name: 'External', repo: 'acme/external' }),
-  }, source)
-  assert.deepEqual(createRepository(plan.snapshot).q.productRepositories('api'), [
-    { repository: 'acme/home', role: 'owned' }, { repository: 'acme/external', role: 'owned' },
-  ])
-  assert.equal(componentMembership({ repo: 'acme/home', sourcePath: 'src' }, plan.snapshot.products, source.repository.id).ownedBy, 'api')
+  assert.deepEqual(createRepository(explicitEmpty.snapshot).q.components('app'), [])
 })

@@ -3,9 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import { ArrowRight, Layers, CheckCircle2, FlaskConical } from 'lucide-react'
 import { useRuntime, type RuntimePlan } from '@/data/runtime'
 import { useQuery } from '@/data/store'
-import type { Feature } from '@/data/model'
-import { deliveryGaps, validationResult, type Delivery, type Deliverable, type Task, type Validation } from '@/data/delivery'
-import { unlinkedBranches, validationLevelLabel } from '@/data/view-models'
+import type { Feature } from '@shared/model'
+import { deliveryGaps, validationResult, type Delivery, type Deliverable, type Task, type Validation } from '@shared/delivery'
+import { unlinkedBranches, validationLevelLabel } from '@shared/view-models'
 import { InlineMarkdown } from '@/ui/inline-markdown'
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`
@@ -72,7 +72,7 @@ function TaskCard({ task, delivery, featureId }: { task: Task; delivery: Deliver
   const q = useQuery()
   const checks = delivery.validation.filter(v => v.level !== 'end-to-end' && v.taskId === task.id)
   const contracts = q.features().find(f => f.id === featureId)?.spec?.api?.contracts ?? []
-  const dependencies = [...delivery.tasks, ...delivery.deliverables, ...delivery.undecomposedTasks]
+  const dependencies = [...delivery.tasks, ...delivery.deliverables]
   return <details className="component-task" id={task.id}>
     <summary>
       <span className="task-summary">
@@ -125,7 +125,7 @@ function DeliverableCard({ deliverable, index, delivery, featureId }: { delivera
         <strong>{deliverable.title.replace(/^\d+[ .·:-]+/, '')}</strong>
         <small>{plural(tasks.length, 'task')} · {checks.length} end-to-end {checks.length === 1 ? 'check' : 'checks'}</small>
       </span>
-      <span className="deliverable-state">{deliverable.status}</span>
+      <span className="deliverable-state">{deliverable.status.replaceAll('-', ' ')}</span>
     </summary>
     <div className="deliverable-body">
       <div className="deliverable-outcome">
@@ -164,7 +164,7 @@ function FeatureDelivery({ feature, delivery, linkTitle }: { feature: Feature; d
   return <section className="feature-delivery">
     <div className="feature-delivery-heading">
       <div><p className="board-eyebrow">Feature</p><h3>{linkTitle ? <Link to={`/f/${feature.id}/delivery`}>{feature.title}</Link> : feature.title}</h3></div>
-      <span>{delivery?.deliverables.length ?? 0} deliverables</span>
+      <span>{plural(delivery?.deliverables.length ?? 0, 'deliverable')}</span>
     </div>
     {delivery?.deliverables.length
       ? <p className="delivery-guide">Each deliverable is a user outcome. Open one to see the tasks that build it and the tests that prove it.</p>
@@ -174,19 +174,12 @@ function FeatureDelivery({ feature, delivery, linkTitle }: { feature: Feature; d
           Start with the smallest outcome a user can experience. Name the components that must work together, then define small tasks
           for each independently testable behavior within those components.
         </p>
-        <p>Your coding agent can author the deliverable, tasks, and validation plans in this feature’s delivery.json using the Groundwork guide.</p>
+        <p>Ask your agent to break this feature into deliverables, component tasks, and validation plans.</p>
       </div>}
     {delivery?.deliverables.map((deliverable, index) => <DeliverableCard
       key={deliverable.id} deliverable={deliverable} index={index} delivery={delivery} featureId={feature.id}
     />)}
-    {!!delivery?.undecomposedTasks.length && <details className="legacy-delivery">
-      <summary>{delivery.undecomposedTasks.length} earlier tasks · component decomposition needed</summary>
-      <p>These records remain intact. Map implementation work to a component task before treating it as delivery proof.</p>
-      {delivery.undecomposedTasks.map(task => <div key={task.id}>
-        <strong>{task.title}</strong><small> · {task.status}</small><BulletList values={task.acceptance} />
-      </div>)}
-    </details>}
-    {!!unlinkedEvidence.length && <details className="legacy-delivery">
+    {!!unlinkedEvidence.length && <details className="unlinked-evidence">
       <summary>Unlinked evidence and source records</summary>
       <p>These records are preserved but do not prove a deliverable or task validation plan.</p>
       {unlinkedEvidence.map(e => <p key={e.id}><strong>{e.result}</strong> · {e.description}</p>)}
@@ -221,6 +214,12 @@ export function DeliveryPage({ embedded = false, headingRef }: { embedded?: bool
   const { plan } = useRuntime()
   if (!plan) return <div className="runtime-start">Delivery is available for repository plans.</div>
   const features = q.features().filter(f => !id || f.id === id)
+  const hasDelivery = (feature: Feature) => {
+    const delivery = plan.delivery[feature.id]
+    return delivery && [delivery.deliverables, delivery.tasks, delivery.validation, delivery.evidence].some(items => items.length)
+  }
+  const planned = id ? features : features.filter(hasDelivery)
+  const awaitingPlan = id ? [] : features.filter(feature => !hasDelivery(feature))
   return <div className={embedded ? 'delivery-board delivery-embedded' : 'delivery-board'}>
     {embedded
       ? <header className="section-intro"><div>
@@ -230,13 +229,20 @@ export function DeliveryPage({ embedded = false, headingRef }: { embedded?: bool
       </div></header>
       : <header>
         <p className="board-eyebrow">{plan.manifest.name} / {id ? features[0]?.title ?? 'Feature' : 'Delivery'}</p>
-        <h1>From feature to working software<span>.</span></h1>
+        <h1>Delivery</h1>
         <p>{intro}</p>
         {id && <Link className="delivery-back" to={`/f/${id}`}>← Back to feature plan</Link>}
       </header>}
     <div className="delivery-grid">
       <section aria-label="Deliverables and component tasks">
-        {features.map(feature => <FeatureDelivery key={feature.id} feature={feature} delivery={plan.delivery[feature.id]} linkTitle={!id} />)}
+        {planned.map(feature => <FeatureDelivery key={feature.id} feature={feature} delivery={plan.delivery[feature.id]} linkTitle={!id} />)}
+        {!!awaitingPlan.length && <details className="delivery-awaiting" open={!planned.length}>
+          <summary>Awaiting a delivery plan <span>{awaitingPlan.length}</span></summary>
+          <p>Ask your agent to define the smallest user outcome, the component tasks that build it, and the checks that prove it.</p>
+          <nav aria-label="Features awaiting delivery plans">
+            {awaitingPlan.map(feature => <Link key={feature.id} to={`/f/${feature.id}/delivery`}>{feature.title}<ArrowRight size={14} /></Link>)}
+          </nav>
+        </details>}
         {!features.length && <div className="central-empty">
           <p>No feature plans yet.</p>
           <p>Talk with your agent to plan a feature. Its deliverables and tasks will appear here.</p>

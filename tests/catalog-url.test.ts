@@ -1,11 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { catalogIndex } from '../src/data/catalog-index.ts'
-import { catalogKinds } from '../src/data/catalog-identity.ts'
+import { catalogIndex } from '../shared/catalog-index.ts'
+import { catalogKinds } from '../shared/catalog-identity.ts'
 import {
   CATALOG_PARAMS, catalogHistory, catalogTargetOf, clearComponentScope, entityParam, focusEntity, readCatalogLocation, writeCatalogLocation,
-} from '../src/data/catalog-url.ts'
-import { endpointFlows, retiredSelection, selectedFlow, triggeredFlows } from '../src/data/inspector-model.ts'
+} from '../shared/catalog-url.ts'
+import { endpointFlows, selectedFlow, triggeredFlows } from '../src/data/inspector-model.ts'
 import { catalogLocation } from '../server/catalog.ts'
 
 const sha = 'a'.repeat(40)
@@ -35,10 +35,6 @@ const component: any = {
     flow('consume-order-placed', { trigger: { kind: 'message', messageId: 'order-placed' } }),
     flow('sweep', { trigger: { kind: 'job', jobId: 'nightly-sweep' } }),
   ],
-  findings: [{
-    id: 'why-retry', name: 'Retries', question: 'Why retry?', answer: 'Because.', subjects: [{ kind: 'endpoint', id: 'post-orders' }],
-    boundary: 'Only the API', assumptions: [], repository: 'example/orders', sourceRevision: sha, evidence,
-  }],
 }
 const entries = catalogIndex({ manifest: { id: 'project' }, snapshot: { components: [component] } })
 
@@ -62,15 +58,15 @@ test('every server deep link round-trips through the viewer URL contract to the 
   }
 })
 
-test('switching components clears every catalog parameter, including finding, flow and jobs state', () => {
+test('switching components clears every catalog parameter, including flow and jobs state', () => {
   const stale = new URLSearchParams({
-    component: 'a', scope: 'x', view: 'ideas', finding: 'F', flow: 'fl', jobsEntity: 'j', jobsQuery: 'q', jobsGroup: 'g',
+    component: 'a', scope: 'x', view: 'ideas', flow: 'fl', jobsEntity: 'j', jobsQuery: 'q', jobsGroup: 'g',
     catalog: 'api', apiEntity: 'e', apiMethod: 'GET', messagesDirection: 'inbound', schema: 's', from: 'api:e',
   })
   const next = clearComponentScope(stale)
   assert.deepEqual([...next.keys()], ['component', 'scope', 'view'])
   for (const key of CATALOG_PARAMS) assert.equal(next.has(key), false, key)
-  assert.equal(stale.get('finding'), 'F', 'the input is not mutated')
+  assert.equal(stale.get('flow'), 'fl', 'the input is not mutated')
 })
 
 test('tabs, views, searches and filters replace history; selecting an entity pushes it', () => {
@@ -78,7 +74,7 @@ test('tabs, views, searches and filters replace history; selecting an entity pus
   assert.equal(catalogHistory({ apiQuery: 'order', catalog: 'api' }), 'replace')
   assert.equal(catalogHistory({ apiView: 'flow', from: undefined }), 'replace')
   assert.equal(catalogHistory({ apiMethod: 'GET' }), 'replace')
-  assert.equal(catalogHistory({ catalog: 'api', dataEntity: undefined }), 'replace', 'clearing a retired selection is not navigation')
+  assert.equal(catalogHistory({ catalog: 'api', dataEntity: undefined }), 'replace', 'clearing a selection is not navigation')
   assert.equal(catalogHistory({ catalog: 'api', apiEntity: 'post-orders' }), 'push')
   assert.equal(catalogHistory({ ...focusEntity('messages', 'order-placed'), from: 'api:post-orders' }), 'push')
 })
@@ -96,11 +92,7 @@ test('focusing an entity clears the search and filters that could hide it', () =
   assert.deepEqual(Object.keys(focusEntity('api', 'e')).sort(), ['apiEntity', 'apiGroup', 'apiMethod', 'apiQuery', 'apiVersion', 'catalog'])
 })
 
-test('retired schemas are addressed by the schema parameter like active ones', () => {
+test('schemas and flows have stable URL parameters', () => {
   assert.equal(entityParam('schema'), 'schema')
   assert.equal(entityParam('flow'), 'flow')
-  const retiredSchema = { kind: 'schema', id: 'old-request', reason: 'Removed', sourceRevision: sha, evidence, observation: {} }
-  const retired = { ...component, retiredObservations: [retiredSchema] }
-  assert.equal(retiredSelection(retired, readCatalogLocation(new URLSearchParams('catalog=api&schema=old-request')))?.id, 'old-request')
-  assert.equal(retiredSelection(retired, readCatalogLocation(new URLSearchParams('catalog=api&apiEntity=old-request'))), undefined)
 })

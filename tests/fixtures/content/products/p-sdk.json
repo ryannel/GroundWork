@@ -5,5 +5,11 @@
   "name": "Storefront SDK",
   "kind": "library",
   "description": "Typed client for storefront apps.",
-  "order": 3
+  "order": 3,
+  "repositories": [
+    {
+      "repository": "acme/storefront-sdk",
+      "role": "owned"
+    }
+  ]
 }

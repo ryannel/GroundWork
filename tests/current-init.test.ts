@@ -16,7 +16,6 @@ test('init in a Git checkout writes repository products without a project manife
   const product = JSON.parse(await readFile(path.join(root, '.groundwork/products/example.json'), 'utf8'))
   assert.deepEqual(product.repositories, [{ repository: 'acme/example', role: 'owned' }])
   const plan = await readPlan(root)
-  assert.equal(plan.layout, 'catalog-v3')
   assert.equal(plan.repository.id, (await context(root)).repository.id)
   await writePlan(root, { ...guard(plan), changes: { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'Renamed owner' }) } })
   assert.equal((await readPlan(root)).snapshot.members[0].name, 'Renamed owner')

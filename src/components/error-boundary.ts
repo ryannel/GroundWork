@@ -3,7 +3,12 @@
  */
 import { Component, createElement, type ErrorInfo, type ReactNode } from 'react'
 
-const CHUNK_LOAD_ERROR = /Failed to fetch dynamically imported module|error loading dynamically imported module|Importing a module script failed|Unable to preload CSS/i
+const CHUNK_LOAD_ERROR = new RegExp([
+  'Failed to fetch dynamically imported module',
+  'error loading dynamically imported module',
+  'Importing a module script failed',
+  'Unable to preload CSS',
+].join('|'), 'i')
 
 /** A lazy route whose hashed chunk no longer exists, usually because the viewer was rebuilt while this tab stayed open. */
 export function isChunkLoadError(error: unknown): boolean {

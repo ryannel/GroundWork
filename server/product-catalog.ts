@@ -1,12 +1,8 @@
 import path from 'node:path'
-import { componentMembership, productRepositories } from '../src/data/content.ts'
-import { repositoryIdentity } from '../src/data/repository-identity.ts'
-import type { Component } from '../src/data/model.ts'
+import { componentMembership, productRepositories } from '../shared/content.ts'
+import { repositoryIdentity } from '../shared/repository-identity.ts'
+import type { Component } from '../shared/model.ts'
 import { readProductCatalogPlan, type CatalogReadSource } from './catalog-branches.ts'
-import {
-  catalogCandidateFromComponents, materializeResolvedCatalog, resolveCatalogForProduct,
-  type CatalogCandidate, type ResolvedCatalog, type ResolvedDetail,
-} from './catalog-resolution.ts'
 import { InvalidInput, NotFound } from './errors.ts'
 import { readCatalogTarget, readPlan } from './repository.ts'
 
@@ -14,10 +10,8 @@ export interface ProductCatalogRepository {
   repository: string
   selected: 'source' | 'local'
   source: CatalogReadSource | null
-  local: CatalogReadSource
-  resolution: ResolvedCatalog
+  local: CatalogReadSource | null
   components: Component[]
-  incompatible: ResolvedDetail[]
 }
 
 /** A product selects one catalog per repository. Source is the default; local must be declared. */
@@ -69,15 +63,8 @@ export async function resolveProductCatalog(
     ).productIds.includes(productId)
     const components = (selected === 'source' ? sourceRead?.plan.snapshot.components : localRead?.plan.snapshot.components)
       ?.filter(belongs) ?? []
-    const candidate = catalogCandidateFromComponents(repository, components,
-      selected === 'local' ? homeRepository : undefined)
-    const empty: CatalogCandidate = { repository, units: [] }
-    const resolution = resolveCatalogForProduct(homeRepository,
-      selected === 'source' ? candidate : empty, selected === 'local' ? candidate : null,
-      { relation: () => 'unknown' })
-    const materialized = materializeResolvedCatalog(resolution)
-    repositories.push({ repository, selected, source: sourceRead?.source ?? null, local: homeRead.source,
-      resolution, components: materialized.components, incompatible: materialized.incompatible })
+    repositories.push({ repository, selected, source: sourceRead?.source ?? null,
+      local: selected === 'local' ? homeRead.source : null, components })
   }
   return { productId, homeRepository, repositories }
 }

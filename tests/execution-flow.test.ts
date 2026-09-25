@@ -1,13 +1,13 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { componentSchema } from '../src/data/content-schema.ts'
-import { componentRepositories } from '../src/data/component-reference.ts'
-import { executionFlowIssues, sourceEvidenceUrl } from '../src/data/execution-flow.ts'
-import type { Component } from '../src/data/model.ts'
+import { componentSchema } from '../shared/content-schema.ts'
+import { componentRepositories } from '../shared/component-reference.ts'
+import { executionFlowIssues, sourceEvidenceUrl } from '../shared/execution-flow.ts'
+import type { Component } from '../shared/model.ts'
 const revision = 'a'.repeat(40)
 const evidence = [{ path: 'Api/Upload.cs', lines: '10-20', claim: 'Stores an uploaded file before returning.', revision }]
 const fixture = (): Component => componentSchema.parse({
-  id: 'facade', productId: 'product', name: 'Facade', order: 0,
+  id: 'facade', name: 'Facade', order: 0,
   api: { name: 'Facade API', endpoints: [{ id: 'upload', name: 'Upload', method: 'POST', path: '/upload' }] },
   data: { records: [{ id: 'blob', name: 'Uploaded data', kind: 'document', fields: [] }] },
   executionFlows: [{
@@ -20,7 +20,8 @@ const fixture = (): Component => componentSchema.parse({
 test('execution flows link to catalog records and retain a pinned source revision', () => {
   const component = fixture()
   assert.deepEqual(executionFlowIssues(component), [])
-  assert.equal(sourceEvidenceUrl('example/catalogue-gateway', evidence[0]), `https://github.com/example/catalogue-gateway/blob/${revision}/Api/Upload.cs#L10-L20`)
+  assert.equal(sourceEvidenceUrl('example/catalogue-gateway', evidence[0]),
+    `https://github.com/example/catalogue-gateway/blob/${revision}/Api/Upload.cs#L10-L20`)
   assert.equal(sourceEvidenceUrl('https://example.com/repo', evidence[0]), undefined)
 })
 test('execution flows reject dangling catalog references and broken graph boundaries', () => {
@@ -69,7 +70,8 @@ test('consumer and job flows use owned non-HTTP triggers without fabricating end
   assert.deepEqual(executionFlowIssues(component), [])
   flow.endpointId = 'upload'
   assert.match(executionFlowIssues(component).join('\n'), /exactly one/)
-  delete flow.endpointId; delete flow.trigger
+  delete flow.endpointId;
+  delete flow.trigger
   assert.match(executionFlowIssues(component).join('\n'), /exactly one/)
 })
 

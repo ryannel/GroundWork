@@ -1,6 +1,5 @@
 {
   "id": "c-mac-helper",
-  "productId": "p-mac",
   "name": "sync-helper",
   "repo": "ryannel/groundwork-mac",
   "order": 10

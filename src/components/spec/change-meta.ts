@@ -1,4 +1,4 @@
-import type { Change } from '@/data/spec'
+import type { Change } from '@shared/spec'
 
 /** The one vocabulary for change assessments: every badge, filter, legend and mark reads its label and glyph here. */
 export const changeMeta: Record<Change, { label: string; glyph: string }> = {

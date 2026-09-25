@@ -1,6 +1,6 @@
 {
   "id": "c-assets",
-  "productId": "p-play",
   "name": "asset-store",
-  "order": 14
+  "order": 14,
+  "repo": "fixture/p-play"
 }

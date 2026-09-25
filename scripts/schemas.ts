@@ -4,15 +4,15 @@
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
-import { documentSchemas } from '../src/data/content-schema.ts'
-import { deliverySchema, manifestSchema, portableProductSchema } from '../server/format.ts'
+import { documentSchemas } from '../shared/content-schema.ts'
+import { deliverySchema } from '../server/format.ts'
 import { operationSchemas } from '../server/operations.ts'
 
 const directory = path.resolve(import.meta.dirname, '../schemas')
 const groups: Record<string, Record<string, z.ZodType>> = {
   content: documentSchemas,
   portable: {
-    'portable-project': manifestSchema, 'portable-product': portableProductSchema, delivery: deliverySchema,
+    delivery: deliverySchema,
   },
   operations: operationSchemas,
 }
@@ -46,4 +46,5 @@ try {
   }
   if (problems.length) throw new Error(`${problems.join('\n')}\nRun npm run schemas to regenerate schemas/.`)
   console.log(check ? `All ${expected.size} schemas are up to date.` : `Wrote ${expected.size} schemas.`)
-} catch (error) { console.error(error instanceof Error ? error.message : error); process.exitCode = 1 }
+} catch (error) { console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1 }

@@ -21,7 +21,7 @@ async function fixture(t: TestContext) {
   await initialise(root, { name: 'Repository tests' })
   return root
 }
-const owner = '.groundwork/plans/members/owner.json'
+const owner = '.groundwork/members/owner.json'
 const exists = (file: string) => lstat(file).then(() => true, () => false)
 
 test('an external edit found before writing refuses cleanly and leaves no journal', async t => {
@@ -47,12 +47,12 @@ test('a failed write rolls back only what it wrote and removes its journal', asy
   assert.deepEqual(await readStorageFiles(root), storage)
 })
 
-test('a journal of changed paths only (version 3) recovers an interrupted write', async t => {
+test('a journal of changed paths recovers an interrupted write', async t => {
   const root = await fixture(t)
   const plan = await readPlan(root)
   const before = await readStorageFiles(root)
   const changed = JSON.stringify({ id: 'owner', name: 'Half written' })
-  const journal = { version: 3, paths: [owner], before: { [owner]: before[owner] }, after: { [owner]: changed } }
+  const journal = { paths: [owner], before: { [owner]: before[owner] }, after: { [owner]: changed } }
   await writeFile(path.join(root, '.groundwork/transaction.json'), JSON.stringify(journal))
   await writeFile(path.join(root, owner), changed)
   await assert.rejects(readPlan(root), /pending/)
@@ -62,7 +62,7 @@ test('a journal of changed paths only (version 3) recovers an interrupted write'
 
 test('temp files left by an interrupted write are ignored by readers and removed by recover', async t => {
   const root = await fixture(t)
-  const leftovers = [`${owner}.${randomUUID()}.tmp`, `.groundwork/project.json.${randomUUID()}.tmp`]
+  const leftovers = [`${owner}.${randomUUID()}.tmp`, `.groundwork/products/app.json.${randomUUID()}.tmp`]
   for (const name of leftovers) await writeFile(path.join(root, name), '{"partial":')
   const plan = await readPlan(root)
   await writePlan(root, { ...guard(plan), changes: {
@@ -78,7 +78,7 @@ test('readPlan waits for a short write instead of failing at once', async t => {
   const lock = path.join(root, '.groundwork/write.lock')
   await writeFile(lock, JSON.stringify({ pid: process.pid, host: os.hostname(), nonce: 'test' }))
   setTimeout(() => { void rm(lock) }, 80)
-  assert.equal((await readPlan(root)).manifest.name, 'Repository tests')
+  assert.equal((await readPlan(root)).snapshot.products[0].name, 'Repository tests')
 })
 
 test('writes keep file modes, use the default mode for new files and 0600 only when asked', async t => {
@@ -134,17 +134,12 @@ test('initialise skips hidden asset files, rejects unsupported ones and never le
   assert.equal(await exists(path.join(unreadable, '.groundwork/plans')), false)
 })
 
-test('validateTransition enforces cross-version rules without touching disk', async t => {
+test('validateTransition enforces current document rules without touching disk', async t => {
   const root = await fixture(t)
   const { files } = await readPlan(root)
   assert.throws(() => validateTransition(files, {}), error => error instanceof InvalidInput && /No changes/.test(error.message))
   assert.throws(() => validateTransition(files, { '../escape.json': '{}' }), InvalidInput)
   assert.throws(() => validateTransition(files, { 'members/big.json': 'x'.repeat(2 * 1024 * 1024 + 1) }), /exceeds 2 MB/)
-  const manifest = JSON.parse(files['project.json'])
-  assert.throws(() => validateTransition(files, { 'project.json': JSON.stringify({ ...manifest, id: 'other' }) }), error =>
-    error instanceof Conflict && /project ID is immutable/.test(error.message))
-  const scan = `scan-manifests/${'a'.repeat(64)}.json`
-  assert.throws(() => validateTransition({ ...files, [scan]: '{}' }, { [scan]: null }), error => error instanceof Conflict && /immutable/.test(error.message))
   const { after, plan } = validateTransition(files, { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'Next' }) })
   assert.equal(plan.snapshot.members[0].name, 'Next')
   assert.notEqual(after, files)

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { Design, Mockup } from '@/data/spec'
+import type { Design, Mockup } from '@shared/spec'
 import { ExternalLink, Frame, Image, PenLine, Play } from 'lucide-react'
 import { Badge } from '@/ui/badge'
 import { cn } from '@/lib/cn'
@@ -30,8 +30,10 @@ export function MockupCard({ m, focus }: { m: Mockup; focus?: string }) {
             {steps.map(id => <RefChip key={id} r={{ kind: 'journey', id }} />)}
           </span>
         )}
-        {m.kind !== 'live' && !placeholder && (
-          <a href={m.ref} target="_blank" rel="noreferrer" className="ml-auto flex items-center gap-1 text-small text-fg-muted hover:text-fg">Open <ExternalLink className="size-3.5" /></a>
+        {!placeholder && m.kind === 'image' && (
+          <a href={m.ref} target="_blank" rel="noreferrer" className="ml-auto flex items-center gap-1 text-small text-fg-muted hover:text-fg">
+            Open image <ExternalLink className="size-3.5" />
+          </a>
         )}
       </div>
       {m.kind === 'image' && !placeholder ? (
@@ -39,9 +41,18 @@ export function MockupCard({ m, focus }: { m: Mockup; focus?: string }) {
           <img src={m.ref} alt={m.title} className="mx-auto h-auto max-h-[70vh] max-w-full object-contain" />
         </a>
       ) : (
-        <div className="grid h-40 place-items-center text-small text-fg-subtle">{placeholder
-          ? 'Design reference not attached yet'
-          : m.kind === 'live' ? 'Live prototypes are not rendered in this viewer' : `External ${k.label.toLowerCase()} · open the reference to explore`}</div>
+        <div className="mockup-reference">{placeholder
+          ? <p>Design reference not attached yet</p>
+          : <>
+            <k.icon size={24} aria-hidden="true" />
+            <p>{m.kind === 'live'
+              ? 'Explore the interactions in the linked prototype.'
+              : `This ${k.label.toLowerCase()} is available as an external reference.`}</p>
+            <a href={m.ref} target="_blank" rel="noreferrer">
+              Open {m.kind === 'live' ? 'prototype' : k.label.toLowerCase()}
+              <ExternalLink size={14} aria-hidden="true" />
+            </a>
+          </>}</div>
       )}
       {m.note && <p className="border-t border-border px-3 py-2 text-small text-fg-muted">{m.note}</p>}
     </div>
@@ -55,7 +66,8 @@ export function DesignSection({ data, focus }: { data: Design; focus?: string })
   return <div className="grid gap-5">
     <nav aria-label="Screens" className="flex flex-wrap gap-2">{data.mockups.map(m => <Link key={m.id} to={`/f/${featureId}/design/${m.id}`}
       aria-current={selected.id === m.id ? 'page' : undefined}
-      className={cn('rounded-sm border px-4 py-2 text-small', selected.id === m.id ? 'border-accent bg-accent-soft text-accent' : 'border-border text-fg-muted')}>
+      className={cn('rounded-sm border px-4 py-2 text-small', selected.id === m.id
+        ? 'border-accent bg-accent-soft text-accent' : 'border-border text-fg-muted')}>
       {m.title}
     </Link>)}</nav>
     <MockupCard key={selected.id} m={selected} />

@@ -1,17 +1,17 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { createRepository, type ContentSnapshot } from '../src/data/content.ts'
-import { featureTouchesComponent, componentPath } from '../src/data/component-structure.ts'
+import { createRepository, type ContentSnapshot } from '../shared/content.ts'
+import { featureTouchesComponent, componentPath } from '../shared/component-structure.ts'
 import { homeView, isActive, productView, repositoryFor, workspaceView } from '../src/data/store.ts'
-import type { Component, Feature } from '../src/data/model.ts'
+import type { Component, Feature } from '../shared/model.ts'
 import { snapshot } from './fixtures.ts'
 
 const nested: Component[] = [
-  { id: 'app', productId: 'p', name: 'App', kind: 'service' },
-  { id: 'capture', productId: 'p', name: 'Capture', kind: 'module', parentId: 'app' },
-  { id: 'buffer', productId: 'p', name: 'Buffer', kind: 'local-storage', parentId: 'capture' },
-  { id: 'loop-a', productId: 'p', name: 'Loop A', parentId: 'loop-b' },
-  { id: 'loop-b', productId: 'p', name: 'Loop B', parentId: 'loop-a' },
+  { id: 'app', name: 'App', kind: 'service' },
+  { id: 'capture', name: 'Capture', kind: 'module', parentId: 'app' },
+  { id: 'buffer', name: 'Buffer', kind: 'local-storage', parentId: 'capture' },
+  { id: 'loop-a', name: 'Loop A', parentId: 'loop-b' },
+  { id: 'loop-b', name: 'Loop B', parentId: 'loop-a' },
 ]
 const nestedSnapshot: ContentSnapshot = {
   ...snapshot, workspaces: [], products: [], features: [], components: nested,

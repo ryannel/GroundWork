@@ -1,20 +1,22 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { deliverySchema, validateDelivery, deliveryGaps, validationResult } from '../src/data/delivery.ts'
-import { parseDelivery } from '../src/data/delivery-legacy.ts'
+import { deliverySchema, validateDelivery, deliveryGaps, validationResult } from '../shared/delivery.ts'
 import { parsePlan } from '../server/format.ts'
 import { initialise } from '../server/setup.ts'
 import { readPlan } from '../server/repository.ts'
 import { operate } from '../server/operations.ts'
 import { serve } from '../server/http.ts'
-import { guard, tempDir } from './helpers.ts'
+import { register } from '../server/registry.ts'
+import { git, context } from '../server/git.ts'
+import path from 'node:path'
+import { gitInit, guard, tempDir, withEnv } from './helpers.ts'
 
 const files = {
-  'project.json': JSON.stringify({ schemaVersion: 2, id: 'project', name: 'Test' }),
-  'products/app.json': JSON.stringify({ id: 'app', name: 'App', slug: 'app', kind: 'service-system' }),
-  'components/ui.json': JSON.stringify({ id: 'ui', name: 'UI', productId: 'app' }),
-  'components/api.json': JSON.stringify({ id: 'api', name: 'API', productId: 'app' }),
-  'components/db.json': JSON.stringify({ id: 'db', name: 'Database', productId: 'app' }),
+  'products/app.json': JSON.stringify({ id: 'app', name: 'App', slug: 'app', kind: 'service-system', repositories: [{ repository: 'acme/delivery',
+    role: 'owned' }] }),
+  'components/ui.json': JSON.stringify({ id: 'ui', name: 'UI', repo: 'acme/delivery' }),
+  'components/api.json': JSON.stringify({ id: 'api', name: 'API', repo: 'acme/delivery' }),
+  'components/db.json': JSON.stringify({ id: 'db', name: 'Database', repo: 'acme/delivery' }),
   'members/owner.json': JSON.stringify({ id: 'owner', name: 'Owner' }),
   'features/f/feature.json': JSON.stringify({
     id: 'f', title: 'A feature', productId: 'app', ownerId: 'owner', stage: 'building', touches: ['api', 'ui'], updatedAt: '2026-09-06T00:00:00Z',
@@ -51,7 +53,7 @@ function sample() {
     ],
   })
 }
-const snapshot = parsePlan(files).snapshot
+const snapshot = parsePlan(files, { repository: { id: 'acme/delivery', origin: 'git@github.com:acme/delivery.git', provisional: false } }).snapshot
 const proof = (validationId: string, result: 'passed' | 'failed', time = '2026-09-06T01:00:00Z') => ({
   id: `${validationId}-${result}`, validationId, result, description: 'Observed run', recordedAt: time, reference: 'artifacts/run.json',
   testedRevision: 'abc123', environment: 'Local test stack',
@@ -81,12 +83,15 @@ test('component ownership, API boundaries, scenario references and test topology
   for (const [edit, message] of [
     [(p: ReturnType<typeof sample>) => { p.tasks[0].componentId = 'missing' }, /unknown component/],
     [(p: ReturnType<typeof sample>) => { p.tasks[0].componentId = 'db' }, /component chain/],
-    [(p: ReturnType<typeof sample>) => { p.deliverables[0].componentIds.push('db'); p.tasks[0].componentId = 'db' }, /contract save/],
+    [(p: ReturnType<typeof sample>) => { p.deliverables[0].componentIds.push('db');
+      p.tasks[0].componentId = 'db' }, /contract save/],
     [(p: ReturnType<typeof sample>) => { p.validation[0].testIds = ['missing'] }, /unknown test/],
     [(p: ReturnType<typeof sample>) => { p.validation[1].substitutedDependencyIds = ['api'] }, /both real and substituted/],
     [(p: ReturnType<typeof sample>) => { p.tasks[0].deliverableId = 'missing' }, /unknown deliverable/],
     [(p: ReturnType<typeof sample>) => { p.evidence.push({ ...proof('e2e', 'passed'), taskId: 's1' }) }, /evidence must belong/],
-  ] as const) { const plan = sample(); edit(plan); assert.throws(() => validateDelivery('f', plan, snapshot), message) }
+  ] as const) { const plan = sample();
+    edit(plan);
+    assert.throws(() => validateDelivery('f', plan, snapshot), message) }
 })
 test('implicit deliverable completion dependencies cannot deadlock tasks', () => {
   const plan = sample()
@@ -103,49 +108,21 @@ test('passing reports need provenance and conflicting latest reports fail closed
   plan.evidence.push(proof('service', 'failed'))
   assert.equal(validationResult(plan, plan.validation[1]).result, 'failed')
 })
-test('old task records stay readable and remain visibly undecomposed', () => {
-  const plan = parseDelivery({
-    milestones: [{ id: 'm', title: 'Old milestone', status: 'done' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'done' }],
-    branches: [{ branch: 'main', taskId: 't' }], evidence: [{ ...proof('unused', 'passed'), validationId: undefined, taskId: 't' }],
-  })
-  validateDelivery('f', plan, snapshot)
-  assert.equal(plan.undecomposedTasks.length, 1)
-  assert.equal(plan.tasks.length, 0)
-  assert.equal(plan.branches[0].legacyTaskId, 't')
-  assert.equal(plan.evidence[0].legacyTaskId, 't')
-  assert.ok(deliveryGaps(plan, plan.deliverables[0]).includes('Divide the deliverable into component tasks'))
-  assert.deepEqual(parseDelivery(plan), plan)
-})
-test('existing milestone and slice documents retain identity, dependencies and proof on read', () => {
-  const canonical = sample()
-  delete canonical.tasks[0].summary
-  canonical.branches.push({ branch: 'main', taskId: 's1' })
-  canonical.evidence.push({ ...proof('service', 'passed'), taskId: 's1' })
-  const legacy = {
-    milestones: canonical.deliverables,
-    slices: canonical.tasks.map(({ deliverableId, ...task }) => ({ ...task, milestoneId: deliverableId })),
-    tasks: [],
-    validation: canonical.validation.map(v => v.level === 'end-to-end' ? { ...v, deliverableId: undefined, milestoneId: v.deliverableId } : { ...v, taskId: undefined, sliceId: v.taskId }),
-    branches: [{ branch: 'main', sliceId: 's1' }],
-    evidence: canonical.evidence.map(({ taskId, ...e }) => ({ ...e, sliceId: taskId })),
-  }
-  const source = JSON.stringify(legacy)
-  const plan = parsePlan({ ...files, 'features/f/delivery.json': source }).delivery.f
-  assert.deepEqual(plan, canonical)
-  assert.deepEqual(deliveryGaps(plan, plan.tasks[0]), [])
-  assert.ok(deliveryGaps(plan, plan.deliverables[0]).length)
-  assert.throws(() => parseDelivery({ ...legacy, deliverables: [] }), /Unrecognized/)
-  assert.throws(() => deliverySchema.parse(JSON.parse(source)), /Unrecognized/)
-})
 test('HTTP delivery authoring persists tasks, checks boundaries, and records validation evidence', async t => {
   const root = await tempDir(t, 'groundwork-delivery-')
+  withEnv(t, { GROUNDWORK_HOME: path.join(root, 'config') })
+  await gitInit(root)
+  await git(root, ['remote', 'add', 'origin', 'git@github.com:acme/delivery.git'])
   await initialise(root, { files })
-  const server = await serve({ root, port: 0 }); t.after(() => server.close())
+  await register(root)
+  const checkoutId = (await context(root)).checkoutId
+  const server = await serve({ port: 0 });
+  t.after(() => server.close())
   const { token } = await (await fetch(server.url + '/api/session')).json() as { token: string }
   const post = async (operation: string, args: Record<string, unknown>) => {
     const current = await readPlan(root)
     const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers, body: JSON.stringify({ ...args, ...guard(current) }) })
+    return fetch(server.url + '/api/operations/' + operation, { method: 'POST', headers, body: JSON.stringify({ checkoutId, ...args, ...guard(current) }) })
   }
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: sample() })).status, 200)
   assert.equal((await readPlan(root)).delivery.f.tasks[0].componentId, 'api')
@@ -153,7 +130,8 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
   const stored = JSON.parse((await readPlan(root)).files['features/f/delivery.json'])
   assert.equal(stored.tasks[0].deliverableId, 'm1')
   assert.equal('milestones' in stored || 'slices' in stored, false)
-  const bad = sample(); bad.tasks[0].contractIds = ['nonexistent']
+  const bad = sample();
+  bad.tasks[0].contractIds = ['nonexistent']
   assert.equal((await post('plan_delivery', { featureId: 'f', delivery: bad })).status, 400)
   const current = await readPlan(root)
   await operate('record_progress', { featureId: 'f', unitId: 's1', status: 'done', evidence: proof('service', 'passed'), ...guard(current) }, root)
@@ -162,24 +140,6 @@ test('HTTP delivery authoring persists tasks, checks boundaries, and records val
   assert.ok(deliveryGaps(after.delivery.f, after.delivery.f.deliverables[0]).length)
 })
 
-test('updating an old plan writes canonical names and preserves undecomposed work', async t => {
-  const root = await tempDir(t, 'groundwork-delivery-migration-')
-  const source = JSON.stringify({
-    milestones: [{ id: 'm', title: 'Old milestone', status: 'planned' }], tasks: [{ id: 't', milestoneId: 'm', title: 'Old task', status: 'planned' }],
-    branches: [{ branch: 'main', taskId: 't' }],
-  })
-  await initialise(root, { files: { ...files, 'features/f/delivery.json': source } })
-  const before = await readPlan(root)
-  assert.equal(before.files['features/f/delivery.json'], source)
-  await operate('record_progress', { featureId: 'f', unitId: 't', status: 'in-progress', ...guard(before) }, root)
-  const after = await readPlan(root)
-  const stored = JSON.parse(after.files['features/f/delivery.json'])
-  assert.equal('milestones' in stored || 'slices' in stored, false)
-  assert.equal(stored.deliverables[0].id, 'm')
-  assert.equal(stored.tasks.length, 0)
-  assert.equal(stored.undecomposedTasks[0].status, 'in-progress')
-  assert.equal(stored.branches[0].legacyTaskId, 't')
-})
 test('delivery text is validated like content text: blanks are rejected and values are never rewritten', () => {
   const plan = deliverySchema.parse({ deliverables: [{ id: 'm1', title: '  padded  ', status: 'planned' }] })
   assert.equal(plan.deliverables[0].title, '  padded  ')

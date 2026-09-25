@@ -17,7 +17,8 @@ export function WorkspaceCard({ s }: { s: WorkspaceSummary }) {
     <h3>{w.name}</h3>
     <p className="workspace-purpose">{w.description ?? 'Products and feature plans in this workspace.'}</p>
     <div className="workspace-products" aria-label={productNames}>
-      {products.map(p => { const Icon = kinds[p.kind].icon; return <span key={p.id}><Icon size={12} aria-hidden="true" />{p.name}</span> })}
+      {products.map(p => { const Icon = kinds[p.kind].icon;
+        return <span key={p.id}><Icon size={12} aria-hidden="true" />{p.name}</span> })}
       {!products.length && <span>No products yet</span>}
     </div>
     <footer>

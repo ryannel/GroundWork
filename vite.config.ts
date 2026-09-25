@@ -26,7 +26,7 @@ function chunkBudget(): Plugin {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), chunkBudget()],
-  resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } },
+  resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src'), '@shared': path.resolve(import.meta.dirname, 'shared') } },
   build: { chunkSizeWarningLimit: 1500 },
   server: {
     // `npm run dev`: the viewer hot-reloads here while API calls go to the Hub started from source on its fixed port.

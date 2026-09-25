@@ -5,7 +5,8 @@ import { diffResponseSchema } from '../src/data/schema-diff.ts'
 test('shows added, removed, updated and unchanged fields in their parent context', () => {
   const rows = diffResponseSchema({
     before: [{ name: 'id', type: 'string' }, { name: 'lines', type: 'array', fields: [{ name: 'tax', type: 'number' }, { name: 'legacy', type: 'string' }] }],
-    after: [{ name: 'id', type: 'string' }, { name: 'lines', type: 'array', fields: [{ name: 'tax', type: 'number | null' }, { name: 'ruleId', type: 'string' }] }],
+    after: [{ name: 'id', type: 'string' }, { name: 'lines', type: 'array', fields: [{ name: 'tax', type: 'number | null' }, { name: 'ruleId',
+      type: 'string' }] }],
   })
   assert.equal(rows.find(r => r.key === '$.id')?.change, 'unchanged')
   assert.equal(rows.find(r => r.key === '$.lines')?.change, 'unchanged')
@@ -29,7 +30,8 @@ test('new and deleted endpoints propagate changes into nested fields', () => {
   }
 })
 test('optional and container type changes retain old and new declarations', () => {
-  const rows = diffResponseSchema({ before: [{ name: 'data', type: 'string' }], after: [{ name: 'data', type: 'object', optional: true, fields: [{ name: 'id', type: 'string' }] }] })
+  const rows = diffResponseSchema({ before: [{ name: 'data', type: 'string' }], after: [{ name: 'data', type: 'object', optional: true,
+    fields: [{ name: 'id', type: 'string' }] }] })
   assert.equal(rows[1].before, 'data: string')
   assert.equal(rows[1].after, 'data?: object')
   assert.ok(rows.some(r => r.name === 'id' && r.change === 'added'))

@@ -1,9 +1,0 @@
-{
-  "schemaVersion": 3,
-  "id": "price-api--src-api",
-  "name": "Price API",
-  "kind": "service",
-  "repo": "volvo-cars/price-engine",
-  "sourcePath": "src/api",
-  "sourceRevision": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4"
-}

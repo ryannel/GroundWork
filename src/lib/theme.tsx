@@ -5,7 +5,8 @@ import { ThemeContext, type ThemePref } from './theme-context'
 const KEY = 'gw-theme'
 
 function storedPref(): ThemePref {
-  try { const v = localStorage.getItem(KEY); if (v === 'light' || v === 'dark') return v } catch {}
+  try { const v = localStorage.getItem(KEY);
+    if (v === 'light' || v === 'dark') return v } catch {}
   return 'system'
 }
 

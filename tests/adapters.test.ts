@@ -15,10 +15,13 @@ import { guard, repoRoot, tempDir, withEnv } from './helpers.ts'
 async function command(module: 'cli' | 'mcp', args: string[], input = '') {
   return new Promise<string>((resolve, reject) => {
     const invocation = module === 'cli' ? 'main(process.argv.slice(1)).catch(e=>{console.error(e.message);process.exitCode=1})' : 'mcp(process.argv[1])'
-    const child = spawn(process.execPath, ['--input-type=module', '-e', `import { ${module === 'cli' ? 'main' : 'mcp'} } from './server/${module}.ts'; ${invocation}`, ...args], { cwd: repoRoot })
+    const child = spawn(process.execPath, ['--input-type=module', '-e',
+      `import { ${module === 'cli' ? 'main' : 'mcp'} } from './server/${module}.ts'; ${invocation}`, ...args], { cwd: repoRoot })
     let stdout = '', stderr = ''
-    child.stdout.on('data', chunk => { stdout += chunk }); child.stderr.on('data', chunk => { stderr += chunk })
-    child.on('error', reject); child.on('exit', code => code ? reject(new Error(stderr)) : resolve(stdout))
+    child.stdout.on('data', chunk => { stdout += chunk });
+    child.stderr.on('data', chunk => { stderr += chunk })
+    child.on('error', reject);
+    child.on('exit', code => code ? reject(new Error(stderr)) : resolve(stdout))
     child.stdin.end(input)
   })
 }
@@ -44,47 +47,49 @@ test('CLI and MCP return the same revision and use the same validated authoring 
   await command('cli', ['call', 'record_progress', '--root', root, '--input', argsFile])
   assert.equal((await readPlan(root)).snapshot.features[0].stage, 'exploring')
 })
-test('different users organise identical plans independently and explicit clones remain separate', async t => {
+test('different users have independent registries and checkouts remain separate', async t => {
   const base = await tempDir(t, 'groundwork-registry-')
   const root = path.join(base, 'app'), clone = path.join(base, 'clone')
-  await initialise(root, { name: 'Shared app' }); const original = await readPlan(root)
+  await mkdir(root)
+  await initialise(root, { name: 'Shared app' });
+  const original = await readPlan(root)
   await cp(root, clone, { recursive: true })
   withEnv(t, { GROUNDWORK_HOME: path.join(base, 'user-a') })
   await mkdir(path.join(base, 'user-a'), { recursive: true })
-  await writeFile(path.join(base, 'user-a/registry.json'), '{"version":2,"projects":[]}\n')
-  await register(root, 'Work', 'Application'); await register(clone, 'Experiments', 'Application clone')
+  await writeFile(path.join(base, 'user-a/registry.json'), '{"checkouts":{},"workspaces":[]}\n')
+  await register(root, 'Work', 'app');
+  await register(clone, 'Work', 'app')
   const a = await inventory()
-  assert.equal(a.length, 2); assert.notEqual(a[0].checkoutId, a[1].checkoutId); assert.equal(a[0].projectId, a[1].projectId)
-  assert.deepEqual(a.map(item => item.product), ['Application', 'Application clone'])
-  assert.deepEqual(a.map(item => item.productPath), ['/w/project/app', '/w/project/app'])
+  assert.equal(a.length, 2);
+  assert.notEqual(a[0].checkoutId, a[1].checkoutId)
+  assert.deepEqual(a.map(item => item.product), ['app', 'clone'])
   process.env.GROUNDWORK_HOME = path.join(base, 'user-b')
   assert.equal((await inventory()).length, 0)
   await assert.rejects(selectRoot(a[0].checkoutId), /Unknown checkout/)
   await mkdir(path.join(base, 'user-b'), { recursive: true })
-  await writeFile(path.join(base, 'user-b/registry.json'), '{"version":2,"projects":[]}\n')
+  await writeFile(path.join(base, 'user-b/registry.json'), '{"checkouts":{},"workspaces":[]}\n')
   await register(root, 'Personal', 'Shared app')
   const b = await inventory()
-  assert.equal(b.length, 1); assert.equal(b[0].workspace, 'Personal'); assert.equal(b[0].product, 'Shared app')
+  assert.equal(b.length, 1);
+  assert.equal(b[0].workspace, 'Personal');
+    assert.equal(b[0].product, 'Shared app')
   assert.equal(await selectRoot(b[0].checkoutId), await realpath(root))
   await unregister(root)
   assert.equal((await inventory()).length, 0)
   await assert.rejects(selectRoot(b[0].checkoutId), /Unknown checkout/)
   assert.equal((await readPlan(root)).revision, original.revision)
 })
-test('repositories without plans can be grouped beneath a workspace product', async t => {
+test('source repositories without plans can be registered for catalog reads', async t => {
   const base = await tempDir(t, 'groundwork-registry-source-')
   withEnv(t, { GROUNDWORK_HOME: path.join(base, 'config') })
-  await mkdir(path.join(base, 'config'), { recursive: true })
-  await writeFile(path.join(base, 'config/registry.json'), '{"version":2,"projects":[]}\n')
   const root = path.join(base, 'source')
   await mkdir(root)
-  await register(root, 'Retail Platform', 'Pricing')
+  await register(root)
   const [entry] = await inventory()
-  assert.equal(entry.workspace, 'Retail Platform')
-  assert.equal(entry.product, 'Pricing')
+  assert.equal(entry.workspace, 'My projects')
+  assert.equal(entry.productRefs.length, 0)
   assert.equal(entry.repositoryRoot, await realpath(root))
   assert.equal(entry.projectId, null)
-  assert.match(entry.error!, /project.json/)
 })
 
 test('CLI arguments are parsed strictly and errors are short, with a distinct exit code for conflicts', async t => {
@@ -95,7 +100,7 @@ test('CLI arguments are parsed strictly and errors are short, with a distinct ex
   await assert.rejects(main(['read', root, '--reff', 'main'], out), error => error instanceof UsageError && /Unknown option '--reff'/.test(error.message))
   await assert.rejects(main(['read', root, 'extra'], out), /unexpected argument extra/)
   await assert.rejects(main(['read', root, '--root', root], out), /not both/)
-  await assert.rejects(main(['serve', root, '--port', 'abc'], out), /invalid port abc/)
+  await assert.rejects(main(['hub', '--port', 'abc'], out), /invalid port abc/)
   await assert.rejects(main(['nonsense'], out), error => error instanceof UsageError && /Unknown command: nonsense/.test(error.message))
   await main(['init', '--help'], out)
   assert.match(lines.pop()!, /portable repository planning/)

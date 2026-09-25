@@ -1,213 +1,225 @@
-import { useCallback, useMemo } from 'react'
-import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes, X, Network, TriangleAlert } from 'lucide-react'
-import { useProduct, useQuery, byUpdated } from '@/data/store'
+import { useCallback, useEffect, useMemo } from 'react'
+import { Link, Navigate, useParams, useSearchParams, useLocation } from 'react-router-dom'
+import { ArrowRight, Layers, Lightbulb, CheckCheck, Boxes, Search, Network, TriangleAlert, X } from 'lucide-react'
 import { useRuntime } from '@/data/runtime'
-import { clearComponentScope } from '@/data/catalog-url'
-import { connectedProductIds } from '@/data/workspace-view'
-import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
+import { useProduct, useQuery } from '@/data/store'
+import { clearComponentScope } from '@shared/catalog-url'
+import { productWork, type WorkInvolvement } from '@/data/product-work'
+import { FeatureRow, FeatureWorkList, FeatureImpact } from '@/components/feature-row'
 import { ComponentOptions } from '@/components/component-structure'
 import { SystemDiagram } from '@/components/system-diagram'
-import { componentAncestors, runtimeSystemGraph } from '@/data/component-structure'
-import { kinds, hueStyle } from '@/lib/taxonomy'
-import { productCoverage, scanStatusLabel } from '@/data/catalog-coverage'
+import { componentAncestors, runtimeSystemGraph } from '@shared/component-structure'
+import { kinds, hueStyle, stages } from '@/lib/taxonomy'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ProductRepositories } from '@/components/product-repositories'
-import { useResolvedCatalog } from '@/ui/use-resolved-catalog'
+import { useProductCatalog } from '@/ui/use-product-catalog'
 import { qualifyViewerComponents, selectViewerComponentId } from '@/ui/qualified-components'
+import { buildIndex } from '@shared/spec-index'
+import { sectionKinds } from '@shared/spec'
+import { featureNextStep } from '@shared/view-models'
+import type { Feature } from '@shared/model'
 import { useUrlFilter } from '@/ui/use-url-filter'
+
+const planningStages = ['exploring', 'designing', 'specced', 'building'] as const
+
+function ProductPlanRow({ feature, productId }: { feature: Feature; productId: string }) {
+  const { plan } = useRuntime()
+  const delivery = plan?.delivery[feature.id]
+  const blocked = delivery?.tasks.filter(task => task.status === 'blocked').length ?? 0
+  const spec = feature.spec ?? {}
+  const next = featureNextStep(spec, buildIndex(spec))
+  const drafted = sectionKinds.filter(key => spec[key]).length
+  return <div className="product-plan-entry">
+    <FeatureRow feature={feature} showProduct={false} detail={<FeatureImpact feature={feature} productId={productId} />} />
+    <div className="product-plan-progress">
+      <span title="Drafted sections describe the plan; they do not indicate validation or delivery progress.">
+        {drafted} of {sectionKinds.length} sections drafted
+      </span>
+      {!!delivery?.tasks.length && <span>{delivery.tasks.filter(task => task.status === 'done').length} of {delivery.tasks.length} tasks marked done</span>}
+      {feature.stage !== 'shipped' && <Link
+        className={blocked ? 'has-blocked-work' : undefined}
+        to={`/f/${feature.id}/${blocked ? 'delivery' : next.section}`}
+      >{blocked ? `${blocked} blocked ${blocked === 1 ? 'task' : 'tasks'}` : next.heading}<ArrowRight size={12} /></Link>}
+    </div>
+  </div>
+}
 
 export function ProductPage() {
   const { slug = '', product: pslug = '' } = useParams()
   const data = useProduct(slug, pslug)
   const { plan } = useRuntime()
-  const resolvedCatalog = useResolvedCatalog(data?.product.id ?? '')
+  const resolvedCatalog = useProductCatalog(data?.product.id ?? '')
   const [params, setParams] = useSearchParams()
-  const filter = useUrlFilter({ scope: 'all', view: 'active' })
-  // Inspector URL changes must not restart the map's layout and simulation.
+  const filter = useUrlFilter({ scope: 'all', view: 'active', stage: 'all', involvement: 'all', search: '' })
+  const area = params.get('area') === 'work' ? 'work' : 'architecture'
+  const { hash } = useLocation()
+  const componentId = params.get('component')
+  const areaHref = (next: 'architecture' | 'work') => {
+    const updated = new URLSearchParams(params)
+    if (next === 'architecture') updated.delete('area')
+    else updated.set('area', next)
+    return { search: updated.toString() ? `?${updated}` : '' }
+  }
+  const resetWork = () => setParams(previous => {
+    const next = new URLSearchParams(previous)
+    for (const key of ['scope', 'view', 'stage', 'involvement', 'search']) next.delete(key)
+    return next
+  }, { replace: true })
+  useEffect(() => {
+    if (componentId && hash === '#component-details' && area === 'architecture') {
+      document.getElementById('component-details')?.scrollIntoView({ block: 'start' })
+    }
+  }, [componentId, area, hash])
+  // Keep the architecture mounted and stable while viewing work or inspecting a contract.
   const query = useQuery()
   const homeRepository = plan?.identity.repository?.id ?? resolvedCatalog.result?.homeRepository ?? ''
   const resolvedComponents = useMemo(() => (resolvedCatalog.result?.repositories ?? []).flatMap(repository =>
     repository.components.map(component => ({ ...component, repo: component.repo ?? repository.repository }))), [resolvedCatalog.result])
   const allComponents = useMemo(() => qualifyViewerComponents(query.components(), homeRepository, resolvedComponents),
     [query, homeRepository, resolvedComponents])
+  // The graph needs unique viewer IDs when two repositories use the same local component ID.
   const componentList = useMemo(() => {
-    const ids = new Set([...(data?.components.map(entry => entry.component) ?? []), ...resolvedComponents]
+    const ids = new Set([...data?.components.map(entry => entry.component) ?? [], ...resolvedComponents]
       .map(component => selectViewerComponentId(allComponents, component.repo ?? homeRepository, component.id)))
     return allComponents.filter(component => ids.has(component.id))
   }, [data?.components, resolvedComponents, allComponents, homeRepository])
-  // A new component starts with a clean catalog: stale entity, flow, finding and filter params must not carry over.
   const inspectComponent = useCallback((id: string) => setParams(previous => {
     const next = clearComponentScope(previous)
     next.set('component', id)
     return next
   }, { preventScrollReset: true }), [setParams])
   if (!data) return <Navigate to="/" replace />
-  const { workspace: w, product: p, active, ideas, shipped, components, incoming } = data
+  const { workspace: w, product: p, active, incoming } = data
   const kind = kinds[p.kind]
-  const requestedScope = components.find(({ component }) => component.id === filter.get('scope'))?.component
-  const scope = requestedScope && componentAncestors(requestedScope.id, query.components())[0]
+  const requestedScope = componentList.find(component => component.id === filter.get('scope'))
+  const scope = requestedScope && componentAncestors(requestedScope.id, allComponents)[0]
   const overviewComponents = componentList.filter(c => !c.parentId)
   const view = filter.get('view') === 'ideas' ? 'ideas' : filter.get('view') === 'shipped' ? 'shipped' : 'active'
-  const allActive = [...active, ...incoming].sort(byUpdated)
-  const scopeIds = scope && query.scope(scope.id)
-  const inScope = (feature: typeof active[number]) => !scopeIds || feature.touches.some(id => scopeIds.has(id))
-  const activeRows = allActive.filter(inScope)
-  const ideaRows = ideas.filter(inScope)
-  const shippedRows = shipped.filter(inScope)
-  const rows = view === 'ideas' ? ideaRows : view === 'shipped' ? shippedRows : activeRows
+  const stage = planningStages.find(item => item === filter.get('stage'))
+  const involvement: WorkInvolvement = ['owned', 'incoming', 'shared'].includes(filter.get('involvement'))
+    ? filter.get('involvement') as WorkInvolvement : 'all'
+  const work = productWork(query.features(), allComponents, query.products(), p.id, {
+    status: view,
+    stage,
+    involvement,
+    componentIds: scope ? query.scope(scope.id) : undefined,
+    search: filter.get('search'),
+  })
   const views = [
-    { id: 'active' as const, label: 'Active', count: activeRows.length, icon: Layers },
-    { id: 'ideas' as const, label: 'Ideas', count: ideaRows.length, icon: Lightbulb },
-    { id: 'shipped' as const, label: 'Shipped', count: shippedRows.length, icon: CheckCheck },
+    { id: 'active' as const, label: 'Active', count: work.counts.active, icon: Layers },
+    { id: 'ideas' as const, label: 'Ideas', count: work.counts.ideas, icon: Lightbulb },
+    { id: 'shipped' as const, label: 'Shipped', count: work.counts.shipped, icon: CheckCheck },
   ]
-  const scopedIncoming = incoming.filter(inScope).length
-  const scopedOwned = active.filter(inScope).length
   const graph = runtimeSystemGraph(componentList, allComponents)
-  const selectedComponent = graph.nodes.find(component => component.id === params.get('component'))
+  const selectedComponent = [...graph.nodes, ...graph.supporting].find(component => component.id === componentId)
   const unresolvedCount = componentList.reduce((sum, component) => sum + (component.unresolvedDependencies?.length ?? 0), 0)
-  const coverage = productCoverage(overviewComponents)
-  const hasDelivery = allActive.length + ideas.length + shipped.length > 0
-  const connections = allActive
-    .filter(feature => feature.productId !== p.id || connectedProductIds(feature, allComponents).length > 0)
-    .filter(inScope)
-  const scanWarning = coverage.status === 'not-scanned' ? 'This product has not been scanned'
-    : coverage.status === 'scanning' ? 'Repository scan in progress'
-      : coverage.status === 'failed' ? 'Repository scan failed'
-        : coverage.status === 'partial' ? 'Repository scan incomplete'
-          : scanStatusLabel(coverage.status)
-  const plansSummary = view === 'active' && scopedIncoming
-    ? `${scopedOwned} owned by ${p.name} · ${scopedIncoming} incoming from other products`
-    : `Feature plans owned by ${p.name}.`
-  const scopeSummary = <p>
-    {scope
-      ? <>
-        Touching <strong>{scope.name}</strong>
-        <button className="product-clear-filter" onClick={() => filter.set('scope', 'all')} aria-label="Clear component filter"><X size={12} /></button>
-      </>
-      : 'Across this product'}
-    {view === 'active' && scopedIncoming > 0 && <span> · Includes incoming work</span>}
-  </p>
+  const hasFilters = !!scope || !!stage || involvement !== 'all' || !!filter.get('search') || view !== 'active'
 
   return <div className="product-overview" style={hueStyle(kind.hueVar)}>
-    <header className="workspace-page-header">
+    <header className="workspace-page-header product-header">
       <Breadcrumbs workspace={w} product={p} current={{ label: 'Product', name: p.name }} />
-      <div className="workspace-hero">
-        <div className="workspace-page-title"><div>
-          <div className="board-eyebrow">Product <span>·</span> {kind.label}</div>
+      <div className="workspace-page-title">
+        <div>
+          <div className="board-eyebrow">{kind.label}</div>
           <h1>{p.name}</h1>
           <p>{p.description ?? kind.blurb}</p>
-        </div></div>
+        </div>
       </div>
-      <div className="product-system-facts" aria-label="Product architecture status">
-        <span><strong>{overviewComponents.length}</strong> components</span>
-        <span><Network size={14} aria-hidden="true" /><strong>{graph.edges.length}</strong> mapped relationships</span>
-        <span className={unresolvedCount ? 'has-unresolved' : ''}>
-          <TriangleAlert size={14} aria-hidden="true" /><strong>{unresolvedCount}</strong> awaiting classification
-        </span>
-        <span><strong>{coverage.complete}/{coverage.total}</strong> catalogued</span>
-      </div>
+      <nav className="product-navigation" aria-label="Product pages">
+        <Link to={areaHref('architecture')} aria-current={area === 'architecture' ? 'page' : undefined} onClick={() => window.scrollTo({ top: 0 })}>
+          <Network size={16} aria-hidden="true" />Architecture
+        </Link>
+        <Link to={areaHref('work')} aria-current={area === 'work' ? 'page' : undefined} onClick={() => window.scrollTo({ top: 0 })}>
+          <Layers size={16} aria-hidden="true" />Work
+          <span className="product-nav-count" aria-label={`${active.length + incoming.length} active features`}>
+            {active.length + incoming.length}
+          </span>
+        </Link>
+      </nav>
     </header>
 
     <ProductRepositories product={p} resolved={resolvedCatalog} />
 
-    <section className="product-components-section" aria-labelledby="product-components-heading">
-      <div className="board-section-heading"><div>
-        <div className="board-eyebrow">Architecture</div>
-        <h2 id="product-components-heading">System architecture</h2>
-        <p>Start with the system map, then select a component to explore its overview, interfaces, data, and messages.</p>
-      </div></div>
-      {coverage.status !== 'complete' && <div className={`catalog-scan-warning is-${coverage.status}`} role="alert">
-        <TriangleAlert size={16} />
-        <div>
-          <strong>{scanWarning}</strong>
-          <span>Only known facts are shown. APIs, dependencies, data stores, and events may be missing.</span>
-        </div>
-      </div>}
+    <section className="product-page-body" aria-labelledby="product-architecture-heading" hidden={area !== 'architecture'}>
+      <div className="product-view-heading">
+        <div><h2 id="product-architecture-heading">Architecture</h2><p>Explore the components, connections and contracts that make up {p.name}.</p></div>
+        {!!componentList.length && <a href="#component-details" className="board-action" onClick={event => {
+          event.preventDefault()
+          const target = document.getElementById('component-details')
+          target?.scrollIntoView({ block: 'start' })
+          target?.focus({ preventScroll: true })
+        }}>Component directory<ArrowRight size={14} /></a>}
+      </div>
+      <div className="product-system-facts" aria-label="Product architecture status">
+        <span><strong>{overviewComponents.length}</strong> {overviewComponents.length === 1 ? 'component' : 'components'}</span>
+        <span><strong>{graph.edges.length}</strong> direct dependencies</span>
+        <span><strong>{resolvedComponents.length}</strong> catalog documents</span>
+        {!!unresolvedCount && <span className="has-unresolved">
+          <TriangleAlert size={13} aria-hidden="true" /><strong>{unresolvedCount}</strong> awaiting classification
+        </span>}
+      </div>
       <SystemDiagram components={componentList} allComponents={allComponents} selectedId={selectedComponent?.id} onSelect={inspectComponent} />
-      {!components.length && <p className="board-empty">No system structure has been added yet.</p>}
     </section>
 
-    {!hasDelivery ? <section className="product-change-section product-change-empty" aria-labelledby="product-feature-heading">
-      <div>
-        <div className="board-eyebrow">Delivery</div>
-        <h2 id="product-feature-heading">No planned changes</h2>
-        <p>Feature plans connected to this product will appear here.</p>
-      </div>
-      <span>0 active</span>
-    </section> : <section className="product-change-section" aria-labelledby="product-feature-heading">
-      <div className="product-change-heading">
-        <div>
-          <div className="board-eyebrow">Delivery</div>
-          <h2 id="product-feature-heading">Change activity</h2>
-          <p>Planned work that may alter this system and its boundaries.</p>
-        </div>
-        <span>{allActive.length} active</span>
-      </div>
-    <div className={`workspace-work-layout product-work-layout${connections.length ? '' : ' is-solo'}`}>
-      <section className="workspace-feature-section product-feature-section" aria-labelledby="product-feature-heading">
-        <div className="board-section-heading">
-          <div><h3>Plans</h3><p>{plansSummary}</p></div>
-          <label><span className="sr-only">Component scope</span>
-            <select value={scope?.id ?? 'all'} onChange={event => filter.set('scope', event.target.value)}>
-              <option value="all">All components</option>
-              <ComponentOptions components={overviewComponents} />
-            </select>
-          </label>
-        </div>
+    <section className="product-page-body product-work-page" aria-labelledby="product-work-heading" hidden={area !== 'work'}>
+      <div className="product-view-heading"><div>
+        <h2 id="product-work-heading">Feature work</h2>
+        <p>Plans owned by {p.name}, plus changes from other products that affect it.</p>
+      </div></div>
+      {work.relevant.length ? <>
         <FeatureWorkList
-          label="Product feature view"
+          label="Feature status"
           views={views}
           view={view}
-          onView={id => filter.set('view', id)}
-          summary={scopeSummary}
-          titleColumn="Feature / intent"
-          rows={rows}
-          renderRow={feature => <FeatureRow
-            key={feature.id}
-            feature={feature}
-            showProduct={false}
-            context={feature.productId !== p.id ? `Incoming from ${query.product(feature.productId)?.name ?? 'another product'}` : undefined}
-          />}
+          onView={id => setParams(previous => {
+            const next = new URLSearchParams(previous)
+            next.set('view', id)
+            next.delete('stage')
+            return next
+          }, { replace: true })}
+          controls={<label className="work-search">
+            <Search size={15} aria-hidden="true" />
+            <span className="sr-only">Search feature work</span>
+            <input type="search" placeholder="Find a feature…" value={filter.get('search')} onChange={event => filter.set('search', event.target.value)} />
+          </label>}
+          summary={<div className="work-filters">
+            <label><span className="sr-only">Product involvement</span>
+              <select aria-label="Product involvement" value={involvement} onChange={event => filter.set('involvement', event.target.value)}>
+              <option value="all">All relevant work</option>
+              <option value="owned">Owned by {p.name}</option>
+              <option value="incoming">From other products</option>
+              <option value="shared">Involves other products</option>
+            </select></label>
+            <label><span className="sr-only">Component scope</span>
+              <select value={scope?.id ?? 'all'} onChange={event => filter.set('scope', event.target.value)}>
+                <option value="all">All components</option><ComponentOptions components={overviewComponents} />
+              </select>
+            </label>
+            {view === 'active' && <label><span className="sr-only">Planning stage</span>
+              <select value={stage ?? 'all'} onChange={event => filter.set('stage', event.target.value)}>
+                <option value="all">All stages</option>
+                {planningStages.map(item => <option key={item} value={item}>
+                  {stages[item].label} ({work.active.filter(feature => feature.stage === item).length})
+                </option>)}
+              </select>
+            </label>}
+            {hasFilters && <button className="work-reset" onClick={resetWork}><X size={13} />Clear filters</button>}
+          </div>}
+          titleColumn="Feature"
+          rows={work.rows}
+          renderRow={feature => <ProductPlanRow key={feature.id} feature={feature} productId={p.id} />}
           empty={<div className="workspace-list-empty">
-            <Boxes size={24} />
-            <h3>{view === 'ideas' ? 'No ideas here yet' : view === 'shipped' ? 'Nothing shipped here yet' : 'No active plans here'}</h3>
-            <p>{scope
-              ? `${view === 'ideas' ? 'No ideas' : view === 'shipped' ? 'No shipped plans' : 'No active plans'} touch ${scope.name}.`
-              : view === 'active' ? 'Active plans will appear here, including work arriving from other products.'
-                : view === 'ideas' ? 'Early feature ideas for this product will appear here.'
-                  : 'Completed feature plans for this product will appear here.'}</p>
-            {(scope || view !== 'active') && <button onClick={filter.reset}>Show all active work <ArrowRight size={13} /></button>}
+            <Search size={22} />
+            <h3>No features match this view</h3>
+            <p>Adjust the status, product involvement or component filters to see more work.</p>
+            <button onClick={resetWork}>Show all active work<ArrowRight size={13} /></button>
           </div>}
         />
-      </section>
-
-      {connections.length > 0 && <aside className="workspace-coordination" aria-labelledby="product-connections-heading">
-        <div className="coordination-heading">
-          <span><GitFork size={17} /></span>
-          <div>
-            <h2 id="product-connections-heading">Across products</h2>
-            <p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p>
-          </div>
-        </div>
-        <p className="coordination-intro">Work arriving here or reaching into another product.</p>
-        {connections.length ? <div className="coordination-items">{connections.map(feature => {
-          const isIncoming = feature.productId !== p.id
-          const destinations = isIncoming
-            ? p.name
-            : connectedProductIds(feature, allComponents).map(id => query.product(id)?.name).filter(Boolean).join(', ')
-          return <Link key={feature.id} to={`/f/${feature.id}`} className="coordination-item">
-            <div className="product-connection-direction">{isIncoming ? 'Incoming change' : 'Outgoing change'}</div>
-            <h3>{feature.title}<ArrowUpRight size={14} /></h3>
-            <div className="coordination-route">
-              <span>{query.product(feature.productId)?.name}</span><ArrowRight size={12} aria-label="touches" /><span>{destinations}</span>
-            </div>
-            <span className="coordination-owner">{feature.owner}</span>
-          </Link>
-        })}</div> : <div className="coordination-empty">No active plans cross product boundaries{scope ? ' in this component' : ' here'}.</div>}
-        <div className="coordination-footnote">Follow these plans to coordinate changes between products.</div>
-      </aside>}
-    </div>
-    </section>}
+      </> : <div className="product-work-empty">
+        <Boxes size={28} aria-hidden="true" />
+        <h3>No feature plans yet</h3>
+        <p>Describe a change to your agent to start a plan. Its purpose, affected components and delivery progress will appear here.</p>
+      </div>}
+    </section>
   </div>
 }

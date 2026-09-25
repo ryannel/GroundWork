@@ -1,5 +1,5 @@
-import { catalogCitations, type CatalogComponent } from '../src/data/catalog-document.ts'
-import { repositoryIdentity } from '../src/data/repository-identity.ts'
+import { catalogCitations, type CatalogComponent } from '../shared/catalog-document.ts'
+import { repositoryIdentity } from '../shared/repository-identity.ts'
 import { InvalidInput } from './errors.ts'
 import { context, git, gitRaw } from './git.ts'
 

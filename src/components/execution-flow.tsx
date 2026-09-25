@@ -5,9 +5,9 @@ import {
   Background, BaseEdge, Controls, EdgeLabelRenderer, Handle, MarkerType, Position, ReactFlow,
   type Edge, type EdgeProps, type Node, type NodeProps,
 } from '@xyflow/react'
-import type { Component } from '@/data/model'
-import { sourceEvidenceUrl, type ExecutionFlow, type ExecutionStep } from '@/data/execution-flow'
-import { referenceComponent, referenceLabel } from '@/data/component-reference'
+import type { Component } from '@shared/model'
+import { sourceEvidenceUrl, type ExecutionFlow, type ExecutionStep } from '@shared/execution-flow'
+import { referenceComponent, referenceLabel } from '@shared/component-reference'
 import { edgeRoutes, layoutGraph, type EdgeRoute } from '@/lib/elk'
 
 /** Step card size, shared by the ELK input and the rendered node. */

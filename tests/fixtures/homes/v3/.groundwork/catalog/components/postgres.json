@@ -1,0 +1,6 @@
+{
+  "id": "postgres",
+  "name": "Postgres",
+  "kind": "database",
+  "repo": "volvo-cars/price-engine"
+}

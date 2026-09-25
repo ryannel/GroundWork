@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ChevronDown, Search } from 'lucide-react'
-import type { Api, ApiContract } from '@/data/spec'
+import type { Api, ApiContract } from '@shared/spec'
 import { useQuery } from '@/data/store'
-import { componentScopeIds } from '@/data/component-structure'
-import { contractKind, groupContracts, contractNotes, apiOperations, apiProvider } from '@/data/api-reference'
+import { componentScopeIds } from '@shared/component-structure'
+import { contractKind, groupContracts, contractNotes, apiOperations, apiProvider } from '@shared/api-reference'
 import { cn } from '@/lib/cn'
 import { Prose } from '@/ui/inline-markdown'
 import { useDisclosures } from './use-disclosures'
@@ -44,7 +44,9 @@ export function ApiContractCard({ c, open, onToggle, focus, compact = false, gro
         {grouped && !message && distinctName && <span className="api-operation-name">{c.name}</span>}
         <span className="api-direction">{route}</span>
       </span>
-      {c.change !== 'unspecified' && c.change !== 'unchanged' && <span className={`endpoint-status schema-state-${c.change}`}>{changeMeta[c.change].label}</span>}
+      {c.change !== 'unspecified' && c.change !== 'unchanged' && <span className={`endpoint-status schema-state-${c.change}`}>
+        {changeMeta[c.change].label}
+      </span>}
       <ChevronDown size={14} className={cn(open && 'rotate-180')} />
     </button>
     {open && <ContractDetails c={c} compact={compact} />}
@@ -215,13 +217,17 @@ export function ApiSection({ data: full, focus }: { data: Api; focus?: string })
           return <section key={kind} className="api-provider-surface" aria-label={kindLabel[kind]}>
             {kind !== 'http' && <header>
               <h4>{kindLabel[kind]}</h4>
-              {kind === 'messages' && <p className="api-assessment-note">Messages this component sends. Receiving components and usage are documented in the details.</p>}
+              {kind === 'messages' && <p className="api-assessment-note">
+                Messages this component sends. Receiving components and usage are documented in the details.
+              </p>}
             </header>}
             {[...groups].map(([key, group]) => <section key={key} className="api-resource">
               <header><h4>{group.title}</h4>{group.description && <div className="api-resource-context"><Prose text={group.description} /></div>}</header>
               {group.endpoints.map(endpoint => <div className="api-endpoint-group" key={endpoint.path}>
                 <h5 className="api-endpoint-path"><code>{endpoint.path}</code></h5>
-                {apiOperations(endpoint.contracts).map(op => <OperationCard key={op.key} operation={op} open={isOpen(op)} onToggle={() => toggleOperation(op)} focus={focus} />)}
+                {apiOperations(endpoint.contracts).map(op => <OperationCard
+                  key={op.key} operation={op} open={isOpen(op)} onToggle={() => toggleOperation(op)} focus={focus}
+                />)}
               </div>)}
             </section>)}
           </section>

@@ -31,7 +31,8 @@ test('contended acquisitions wait instead of seeing a half-written lock, and nev
   let inside = 0, overlaps = 0, entered = 0
   for (let round = 0; round < 10; round++) {
     const results = await Promise.allSettled(Array.from({ length: 4 }, () => withLock(root, async () => {
-      inside++; entered++
+      inside++;
+      entered++
       if (inside > 1) overlaps++
       await new Promise(resolve => setImmediate(resolve))
       inside--

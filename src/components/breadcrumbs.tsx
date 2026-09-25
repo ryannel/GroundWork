@@ -1,7 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useRuntime } from '@/data/runtime'
-import { productRoute } from '@/data/view-models'
+import { productRoute } from '@shared/view-models'
 
 interface BreadcrumbsProps {
   workspace?: { name: string; slug: string }
@@ -11,7 +11,11 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ workspace, product, current, className = '' }: BreadcrumbsProps) {
-  const { mode, plan } = useRuntime()
+  const { mode, plan, projects } = useRuntime()
+  // Repository-local workspaces are not the Hub's workspace grouping.
+  const hubWorkspace = mode === 'central' && product
+    ? projects.find(project => project.checkoutId === plan?.context.checkoutId)?.workspace
+    : undefined
   const currentIsHierarchyItem = current?.label === 'Workspace' || current?.label === 'Product'
   return <nav aria-label="Breadcrumb" className={`breadcrumbs ${className}`.trim()}>
     {mode === 'central'
@@ -19,7 +23,9 @@ export function Breadcrumbs({ workspace, product, current, className = '' }: Bre
       : <Link to="/" className="breadcrumb-link">Workspaces</Link>}
     {workspace && <>
       <ChevronRight aria-hidden="true" />
-      {current?.label === 'Workspace'
+      {hubWorkspace
+        ? <a href={`/?${new URLSearchParams({ workspace: hubWorkspace })}`} className="breadcrumb-entity">{hubWorkspace}</a>
+        : current?.label === 'Workspace'
         ? <span className="breadcrumb-entity" aria-current="page">{workspace.name}</span>
         : <Link to={`/w/${workspace.slug}`} className="breadcrumb-entity">{workspace.name}</Link>}
     </>}

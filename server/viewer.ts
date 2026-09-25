@@ -1,5 +1,5 @@
 import { realpath } from 'node:fs/promises'
-import { Conflict, InvalidInput } from './errors.ts'
+import { Conflict } from './errors.ts'
 import { serve } from './http.ts'
 import { inventory, register } from './registry.ts'
 import { viewerIdentity } from './viewer-identity.ts'
@@ -21,16 +21,16 @@ export function viewerProjectRoute(entry: InventoryEntry, entries: InventoryEntr
  * A fixed local port is the rendezvous point; never allocate another server silently.
  * `viewerDirectory` overrides the built viewer in `dist/` (tests serve a stub page so they do not need a build).
  */
-export async function startViewer(options: { root?: string; standalone?: boolean; port?: number; viewerDirectory?: string } = {}) {
+export async function startViewer(options: { root?: string; port?: number; viewerDirectory?: string } = {}) {
   const root = options.root ? await realpath(options.root) : undefined
   let sourceOnly = false
   if (root) await readPlan(root).catch(error => {
-    if (!options.standalone && error instanceof NotInitialised) { sourceOnly = true; return }
+    if (error instanceof NotInitialised) { sourceOnly = true;
+      return }
     throw error
   })
-  if (options.standalone && !root) throw new InvalidInput('Standalone mode requires a project directory')
-  const port = options.port ?? (options.standalone ? 4317 : 4318)
-  const expected = await viewerIdentity(options.standalone ? root : undefined)
+  const port = options.port ?? 4318
+  const expected = await viewerIdentity()
   const base = `http://127.0.0.1:${port}`
   const probe = async () => {
     let response: Response
@@ -47,20 +47,23 @@ export async function startViewer(options: { root?: string; standalone?: boolean
   }
   let app: Awaited<ReturnType<typeof serve>> | undefined
   if (!port || !await probe()) {
-    try { app = await serve({ root: options.standalone ? root : undefined, port, viewerDirectory: options.viewerDirectory }) }
+    try { app = await serve({ port, viewerDirectory: options.viewerDirectory }) }
     catch (error) {
       if ((error as NodeJS.ErrnoException).code !== 'EADDRINUSE' || !await probe()) throw error
     }
   }
   try {
     let url = app?.url ?? base
-    if (root && !options.standalone) {
+    if (root) {
       let entries = await inventory()
       let entry = entries.find(p => p.root === root && (!p.error || p.productPath))
-      if (!entry) { await register(root); entries = await inventory(); entry = entries.find(p => p.root === root && (!p.error || p.productPath)) }
+      if (!entry) { await register(root);
+        entries = await inventory();
+        entry = entries.find(p => p.root === root && (!p.error || p.productPath)) }
       if (!entry) throw new Error('Could not register the project workspace')
       url += viewerProjectRoute(entry, entries, sourceOnly)
     }
     return { url, app, reused: !app, mode: expected.mode }
-  } catch (error) { await app?.close(); throw error }
+  } catch (error) { await app?.close();
+    throw error }
 }

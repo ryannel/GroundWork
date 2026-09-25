@@ -8,7 +8,8 @@ function manualTimers() {
   let next = 0
   return {
     pending,
-    set: (callback: () => void) => { pending.set(++next, callback); return next },
+    set: (callback: () => void) => { pending.set(++next, callback);
+      return next },
     clear: (handle: unknown) => { pending.delete(handle as number) },
     /** Runs the one scheduled poll and waits for it to settle. */
     async fire() {
@@ -30,8 +31,10 @@ class FakeEventSource {
   readyState = 0
   closed = false
   url: string
-  constructor(url: string) { this.url = url; FakeEventSource.streams.push(this) }
-  close() { this.closed = true; this.readyState = 2 }
+  constructor(url: string) { this.url = url;
+    FakeEventSource.streams.push(this) }
+  close() { this.closed = true;
+    this.readyState = 2 }
   send(data: unknown) { this.onmessage?.({ data: JSON.stringify(data) }) }
 }
 function fakeEventSource(t: TestContext) {
@@ -203,11 +206,11 @@ test('only the latest startup can publish', async t => {
 
 test('runtime restarts close old streams, reject stale events and recover from malformed events', async t => {
   const streams = fakeEventSource(t)
-  const runtime = createRuntime('/')
-  t.mock.method(globalThis, 'fetch', async () => Response.json({ mode: 'standalone' }))
+  const runtime = createRuntime('/p/checkout')
+  t.mock.method(globalThis, 'fetch', async (url: string) => Response.json(url === '/api/session' ? { mode: 'central' } : [{ checkoutId: 'checkout' }]))
   await runtime.startRuntime()
   const first = streams.at(-1)!
-  assert.equal(first.url, '/api/events?')
+  assert.equal(first.url, '/api/events?checkoutId=checkout')
   const snapshot = { workspaces: [], products: [], components: [], features: [] }
   const plan = { snapshot, revision: 'r1', context: { token: 'checkout' }, manifest: { name: 'Test' }, identity: { manifest: { id: 'test' } } }
   first.send({ plan, error: null })

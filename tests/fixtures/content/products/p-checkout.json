@@ -5,5 +5,15 @@
   "name": "Checkout",
   "kind": "service-system",
   "description": "Payment, address and order placement.",
-  "order": 2
+  "order": 2,
+  "repositories": [
+    {
+      "repository": "acme/checkout-api",
+      "role": "owned"
+    },
+    {
+      "repository": "acme/payments-adapter",
+      "role": "owned"
+    }
+  ]
 }

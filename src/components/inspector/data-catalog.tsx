@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { Component } from '@/data/model'
+import type { Component } from '@shared/model'
 import { recordEntries } from '@/data/inspector-model'
 import { CatalogBrowser } from '../catalog-browser'
 import { RecordFields } from './schema-explorer'

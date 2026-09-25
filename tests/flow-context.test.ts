@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { actionFlow, resolveFlowAction, resolveFlowSelection } from '../src/data/flow-context.ts'
+import { actionFlow, resolveFlowAction, resolveFlowSelection } from '../shared/flow-context.ts'
 import { taxRulesSpec as spec } from './fixtures.ts'
 
 const delivery = spec.journey!.steps.find(step => step.id === 'j2')!

@@ -1,11 +1,10 @@
 import { useSyncExternalStore } from 'react'
 import { z } from 'zod'
-import type { CatalogIdentity } from './catalog-index.ts'
-import type { ContentSnapshot } from './content.ts'
-import type { Delivery } from './delivery.ts'
+import type { CatalogIdentity } from '../../shared/catalog-index.ts'
+import type { ContentSnapshot } from '../../shared/content.ts'
+import type { Delivery } from '../../shared/delivery.ts'
 export interface Checkout {
   checkoutId: string
-  registryVersion: 2 | 3
   /** The repository checked out here; a source checkout can point to a product in another home. */
   repositoryId: string
   homeRepositoryId: string | null
@@ -16,7 +15,6 @@ export interface Checkout {
   workspaceNames: string[]
   preferred: boolean
   authoritativeHome: boolean
-  cloneDisagreement?: { status: 'different' | 'diverged' | 'unknown'; heads: { root: string; head: string | null }[] } | null
   root: string
   repositoryRoot: string
   repositories: string[]
@@ -48,14 +46,14 @@ export interface RuntimePlan {
   activity: { branches: string[]; changes: string[]; commits: string[] }
 }
 export interface RuntimeState {
-  loading: boolean; mode: 'standalone' | 'central'; connected: boolean; plan: RuntimePlan | null; error: string | null; projects: Checkout[]
+  loading: boolean; mode: 'central'; connected: boolean; plan: RuntimePlan | null; error: string | null; projects: Checkout[]
 }
 
 /*
  * Wire protocol. The same-origin service already validated the plan with loadContent, so these schemas only
  * check the envelope the viewer relies on and pass everything else through unchanged.
  */
-const sessionSchema = z.looseObject({ mode: z.enum(['central', 'standalone']) })
+const sessionSchema = z.looseObject({ mode: z.literal('central') })
 const checkoutSchema = z.looseObject({ checkoutId: z.string() })
 const planSchema = z.looseObject({
   manifest: z.looseObject({ name: z.string() }),
@@ -88,7 +86,7 @@ const defaultTimers: Timers = {
 
 /** One viewer runtime per page location. Tests build fresh instances; the app uses the default one below. */
 export function createRuntime(pathname: string, timers: Timers = defaultTimers) {
-  let state: RuntimeState = { loading: true, mode: 'standalone', connected: false, plan: null, error: null, projects: [] }
+  let state: RuntimeState = { loading: true, mode: 'central', connected: false, plan: null, error: null, projects: [] }
   const listeners = new Set<() => void>()
   let generation = 0
   let events: EventSource | undefined
@@ -98,9 +96,11 @@ export function createRuntime(pathname: string, timers: Timers = defaultTimers) 
   const checkoutId = route?.[1]
   const selectedRef = decode(route?.[2])
   const query = new URLSearchParams({ ...(checkoutId ? { checkoutId } : {}), ...(selectedRef ? { ref: selectedRef } : {}) }).toString()
-  const publish = (patch: Partial<RuntimeState>) => { state = { ...state, ...patch }; for (const listener of listeners) listener() }
+  const publish = (patch: Partial<RuntimeState>) => { state = { ...state, ...patch };
+    for (const listener of listeners) listener() }
 
-  const subscribe = (callback: () => void) => { listeners.add(callback); return () => { listeners.delete(callback) } }
+  const subscribe = (callback: () => void) => { listeners.add(callback);
+    return () => { listeners.delete(callback) } }
   const getRuntime = () => state
 
   /** At most one project request is in flight; a restart aborts it rather than letting it publish late. */

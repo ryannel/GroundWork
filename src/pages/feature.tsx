@@ -1,14 +1,13 @@
 import { useLayoutEffect, useMemo, useRef, type ComponentType, type Ref } from 'react'
 import { Link, Navigate, useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { ArrowRight, ArrowLeft, LayoutDashboard, Circle, CheckCircle2, Layers, AlertCircle } from 'lucide-react'
-import type { Component, Feature, Product } from '@/data/model'
+import type { Component, Feature, Product } from '@shared/model'
 import { useQuery, relTime } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
-import { productRoute } from '@/data/view-models'
-import { sectionKinds, type FeatureSpec, type SectionKind } from '@/data/spec'
-import { buildIndex, lensFor } from '@/data/spec-index'
-import { componentScopeIds, featureComponents } from '@/data/component-structure'
-import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '@/data/knowledge'
+import { productRoute } from '@shared/view-models'
+import { sectionKinds, type FeatureSpec, type SectionKind } from '@shared/spec'
+import { buildIndex, lensFor } from '@shared/spec-index'
+import { componentScopeIds, featureComponents } from '@shared/component-structure'
 import { sectionMeta, sectionRenderers, sectionCount, SpecContext } from '@/components/spec'
 import type { SpecCtx } from '@/components/spec/context'
 import { ComponentOptions } from '@/components/component-structure'
@@ -17,7 +16,7 @@ import { StageBadge } from '@/ui/badge'
 import { Avatar } from '@/ui/avatar'
 import { cn } from '@/lib/cn'
 import { DeliveryPage } from './delivery'
-import { FeatureOverview, OverviewHeader, type Assessment, type Baseline, type SectionGroup, type SectionHref } from './feature-overview'
+import { FeatureOverview, OverviewHeader, type SectionGroup, type SectionHref } from './feature-overview'
 
 const groups: SectionGroup[] = [
   { label: 'Define', sections: ['purpose'] },
@@ -35,26 +34,10 @@ const questions: Record<SectionKind, string> = {
   storage: 'Understand what we store, who owns it, and how the schema changes.',
   tests: 'Separate what is covered from what has actually passed.',
 }
-const tabSections = ['flow', 'api', 'storage', 'tests'] as const satisfies SectionKind[]
 /** Sections whose content follows the component scope selector. */
 const scopedSections: SectionKind[] = ['journey', 'flow', 'tests']
 const emptySpec: FeatureSpec = {}
 const deliveryLabel = 'Deliverables & tasks'
-
-/** Discovery packets were validated by the service; parse once per plan revision, not on every render. */
-function useDiscovery(files: Record<string, string> | undefined, id: string) {
-  return useMemo(() => {
-    const entries = Object.entries(files ?? {})
-    const baselines: Baseline[] = entries
-      .filter(([file]) => file.startsWith(`features/${id}/baselines/`))
-      .map(([file, raw]) => ({ file, packet: knowledgeBaselineSchema.parse(JSON.parse(raw)) }))
-    const assessments: Assessment[] = entries
-      .filter(([file]) => file.startsWith(`features/${id}/assessments/`))
-      .map(([, raw]) => discoveryAssessmentSchema.parse(JSON.parse(raw)))
-      .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
-    return { baselines, assessments }
-  }, [files, id])
-}
 
 function FeatureNav({ spec, product, productHref, current, href }: {
   spec: FeatureSpec
@@ -81,7 +64,7 @@ function FeatureNav({ spec, product, productHref, current, href }: {
       </select>
     </label>
     <aside className="feature-nav">
-      <Link to={productHref} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
+      <Link to={`${productHref}?area=work`} className="back-product"><ArrowLeft size={14} />{product.name}</Link>
       <div className="eyebrow mb-3 mt-7">Feature plan</div>
       <Link {...linkProps(undefined)}><LayoutDashboard size={16} />Overview</Link>
       {groups.map(g => <div className="nav-group" key={g.label}>
@@ -105,29 +88,21 @@ function FeatureNav({ spec, product, productHref, current, href }: {
   </>
 }
 
-function FocusedHeader({ feature, product, productHref, current, href }: {
+function FocusedHeader({ feature, product, productHref }: {
   feature: Feature
   product: Product
   productHref: string
-  current: SectionKind | 'delivery'
-  href: SectionHref
 }) {
-  const tabs = [
-    { key: undefined, label: 'Overview' },
-    ...tabSections.map(key => ({ key, label: sectionMeta[key].label })),
-    { key: 'delivery' as const, label: 'Delivery' },
-  ]
   return <>
     <header className="feature-heading">
-      <Link to={productHref} aria-label={`Back to ${product.name}`}><ArrowLeft size={16} /></Link>
+      <Link to={`${productHref}?area=work`} aria-label={`Back to ${product.name} work`}><ArrowLeft size={16} /></Link>
       <span className="feature-id">{feature.id.toUpperCase()}</span><h1>{feature.title}</h1><StageBadge stage={feature.stage} />
       <div className="feature-meta">
         <span className="meta-owner-label">Owner</span><Avatar name={feature.owner} className="owner-avatar" /><span>{feature.owner}</span>
+        <time dateTime={feature.updatedAt} title={new Date(feature.updatedAt).toLocaleString()}>Updated {relTime(feature.updatedAt)}</time>
       </div>
     </header>
-    <nav className="feature-tabs" aria-label="Feature sections">
-      {tabs.map(tab => <Link key={tab.key ?? 'overview'} to={href(tab.key)} aria-current={current === tab.key ? 'page' : undefined}>{tab.label}</Link>)}
-    </nav>
+
   </>
 }
 
@@ -182,7 +157,7 @@ function FocusedSection({ target, spec, item, lensId, lensName, participants, he
     </div>}
     <footer className="section-footer">
       <Link to={href(previous)}><ArrowLeft size={14} />{previous ? sectionMeta[previous].label : 'Overview'}</Link>
-      <Link to={href(next)}>{next ? sectionMeta[next].label : 'Back to overview'}<ArrowRight size={14} /></Link>
+      <Link to={href(next ?? 'delivery')}>{next ? sectionMeta[next].label : deliveryLabel}<ArrowRight size={14} /></Link>
     </footer>
   </section>
 }
@@ -192,7 +167,6 @@ export function FeaturePage() {
   const q = useQuery()
   const { plan } = useRuntime()
   const [params] = useSearchParams()
-  const { baselines, assessments } = useDiscovery(plan?.files, id)
   const feature = q.features().find(x => x.id === id)
   const spec = feature?.spec ?? emptySpec
   const ix = useMemo(() => buildIndex(spec), [spec])
@@ -253,23 +227,20 @@ export function FeaturePage() {
       <div className="feature-main">
         <Breadcrumbs workspace={workspace} product={product} current={{ label: 'Feature', name: feature.title }} className="feature-page-breadcrumb" />
         {current
-          ? <FocusedHeader feature={feature} product={product} productHref={productHref} current={current} href={href} />
+          ? <FocusedHeader feature={feature} product={product} productHref={productHref} />
           : <OverviewHeader
             feature={feature}
             headingRef={heading}
             updated={relTime(feature.updatedAt)}
-            journeyLink={spec.journey && (currentAction
-              ? { to: href('flow'), label: 'Continue system flow' }
-              : { to: href('journey'), label: 'Explore the journey' })}
           />}
         {isDelivery
           ? <DeliveryPage embedded headingRef={heading} />
           : target
-            ? <FocusedSection key={`${id}-${target}`} target={target} spec={spec} item={item} lensId={lensComponent?.id} lensName={lensName} participants={participants}
+            ? <FocusedSection key={`${id}-${target}`} target={target} spec={spec} item={item}
+              lensId={lensComponent?.id} lensName={lensName} participants={participants}
               headingRef={heading} href={href} exampleFeature={exampleFeature} />
             : <FeatureOverview feature={feature} spec={spec} ix={ix} groups={groups} href={href} componentHref={componentHref}
-              participants={participants} allComponents={allComponents} delivery={plan?.delivery[id]} plan={plan}
-              baselines={baselines} assessments={assessments} />}
+              participants={participants} allComponents={allComponents} delivery={plan?.delivery[id]} />}
       </div>
     </div>
   </SpecContext.Provider>

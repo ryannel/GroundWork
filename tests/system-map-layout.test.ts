@@ -6,8 +6,8 @@ import {
   edgeHandles, fallbackGridPositions, layoutSignature, messageEdgeLabel, portSide, relationshipId, systemMapLayout,
 } from '../src/lib/system-map-layout.ts'
 import { edgeRoutes } from '../src/lib/elk.ts'
-import { nodeHeight, nodeWidth } from '../src/lib/system-map-physics.ts'
-import type { Component } from '../src/data/model.ts'
+import { nodeHeight, nodeWidth } from '../src/lib/system-map-layout.ts'
+import type { Component } from '../shared/model.ts'
 
 const components: Component[] = ['App', 'Core', 'ML', 'Postgres', 'Object storage', 'AssemblyAI', 'OpenAI'].map((name, order) => ({
   id: `node-${order}`, name, order, productId: 'product',

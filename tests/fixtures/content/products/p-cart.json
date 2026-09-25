@@ -5,5 +5,15 @@
   "name": "Shopping cart",
   "kind": "service-system",
   "description": "Cart state, merging and persistence.",
-  "order": 1
+  "order": 1,
+  "repositories": [
+    {
+      "repository": "acme/cart-cache",
+      "role": "owned"
+    },
+    {
+      "repository": "acme/cart-service",
+      "role": "owned"
+    }
+  ]
 }

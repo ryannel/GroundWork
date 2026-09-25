@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import type { Journey } from '@/data/spec'
+import type { Journey } from '@shared/spec'
 import { ArrowRight, Split } from 'lucide-react'
 import { LensNote, RefRow } from './refs'
 import { useLens, useSpec } from './context'
@@ -54,7 +54,9 @@ export function JourneySection({ data, focus }: { data: Journey; focus?: string 
         ]} />
         {params.has('step') && <button
           className="text-small mt-4"
-          onClick={() => setParams(p => { const n = new URLSearchParams(p); n.delete('step'); return n })}
+          onClick={() => setParams(p => { const n = new URLSearchParams(p);
+            n.delete('step');
+            return n })}
         >Reset selection</button>}
       </article>
     </div> : <p className="text-fg-muted text-small">No journey steps touch this component. Choose All components to see the full journey.</p>}

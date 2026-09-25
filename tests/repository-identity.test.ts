@@ -3,7 +3,7 @@ import { test } from 'node:test'
 import {
   deriveRepositoryIdentity, githubRepository, hasCredentials, identitySlug, isProvisional, provisionalIdentity, repositoryIdentity,
   repositoryName, stripCredentials,
-} from '../src/data/repository-identity.ts'
+} from '../shared/repository-identity.ts'
 
 test('github forms collapse to lower-case owner/name', () => {
   const forms = [

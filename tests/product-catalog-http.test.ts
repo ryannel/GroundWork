@@ -5,17 +5,20 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { serve } from '../server/http.ts'
 import { context, git } from '../server/git.ts'
 import { initialise } from '../server/setup.ts'
-import { gitInit, tempDir } from './helpers.ts'
+import { register } from '../server/registry.ts'
+import { gitInit, tempDir, withEnv } from './helpers.ts'
 
 test('the Hub exposes resolved product catalog and read provenance on request', async t => {
   const base = await tempDir(t, 'groundwork-product-http-')
   const root = await gitInit(path.join(base, 'home'))
   await git(root, ['remote', 'add', 'origin', 'git@github.com:acme/home.git'])
+  withEnv(t, { GROUNDWORK_HOME: path.join(base, 'config') })
   await initialise(root, { name: 'Home' })
+  await register(root)
   const viewerDirectory = path.join(base, 'viewer')
   await mkdir(viewerDirectory)
   await writeFile(path.join(viewerDirectory, 'index.html'), '<!doctype html><title>Test</title>')
-  const app = await serve({ root, port: 0, viewerDirectory })
+  const app = await serve({ port: 0, viewerDirectory })
   t.after(() => app.close())
   const checkoutId = (await context(root)).checkoutId
   const response = await fetch(`${app.url}/api/product-catalog?${new URLSearchParams({ checkoutId, productId: 'home' })}`)

@@ -1,4 +1,4 @@
-import type { Component } from './model.ts'
+import type { Component } from '../../shared/model.ts'
 
 type Api = NonNullable<Component['api']>
 export type CatalogEntry = { id: string; name: string; group: string; detail: string; search: string; badge?: string; annotation?: string }

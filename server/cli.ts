@@ -5,8 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { z } from 'zod'
 import { Conflict, InvalidInput } from './errors.ts'
 import { initialise, installInstructions } from './setup.ts'
-import { inventory, register, unregister, previewHubMigration, migrateHubRegistry, previewFolderRegistration, registerFolder } from './registry.ts'
-import type { LabelMappings } from './registry-v3.ts'
+import { inventory, register, unregister, previewFolderRegistration, registerFolder } from './registry.ts'
 import { readPlan, readCatalogTarget, recover } from './repository.ts'
 import { validateAllHomes } from './validate-all.ts'
 import { startViewer } from './viewer.ts'
@@ -16,13 +15,9 @@ const help = `Groundwork — portable repository planning
 
   init [path] --name NAME [--domain URL]
   start [path] [--port 4318]        Start/reuse Hub and print this project’s URL
-  start [path] --standalone         Use a standalone viewer instead
   hub [--port 4318]                 Start/reuse the shared multi-project Hub
-  serve [path] [--port 4317]        Run the standalone viewer
   dashboard [--port 4318]           Alias for hub
   register [path] [--workspace NAME] [--product NAME]
-  registry-preview [--mappings FILE] Preview v2 labels and v3 identities
-  registry-migrate --mappings FILE --confirm
   register-folder [path] [--select FILE] [--depth 2]
   unregister [path]
   projects                         List projects and discovered worktrees
@@ -49,13 +44,10 @@ type Options = Record<string, typeof text | typeof flag>
 const commands: Record<string, { options: Options; positionals: number }> = {
   help: { options: {}, positionals: 0 },
   init: { options: { root: text, name: text, domain: text, id: text }, positionals: 1 },
-  start: { options: { root: text, port: text, standalone: flag }, positionals: 1 },
+  start: { options: { root: text, port: text }, positionals: 1 },
   hub: { options: { port: text }, positionals: 0 },
   dashboard: { options: { port: text }, positionals: 0 },
-  serve: { options: { root: text, port: text }, positionals: 1 },
   register: { options: { root: text, workspace: text, product: text }, positionals: 1 },
-  'registry-preview': { options: { mappings: text }, positionals: 0 },
-  'registry-migrate': { options: { mappings: text, confirm: flag }, positionals: 0 },
   'register-folder': { options: { root: text, select: text, depth: text }, positionals: 1 },
   unregister: { options: { root: text }, positionals: 1 },
   projects: { options: {}, positionals: 0 },
@@ -92,25 +84,21 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
     if (!value) throw new UsageError(`${command}: --${key} is required`)
     return value
   }
-  if (command === 'help' || values.help) { out(help); return }
+  if (command === 'help' || values.help) { out(help);
+    return }
   if (command !== 'call' && string('root') && positionals.length) throw new UsageError(`${command}: pass the path or --root, not both`)
   const root = path.resolve(string('root') ?? (command === 'call' ? undefined : positionals[0]) ?? '.')
   const print = (value: unknown) => out(JSON.stringify(value, null, 2))
   if (command === 'init') return print(await initialise(root, { name: string('name'), domain: string('domain'), id: string('id') }))
   if (command === 'register') return print(await register(root, string('workspace'), string('product')))
-  if (command === 'registry-preview' || command === 'registry-migrate') {
-    const file = string('mappings')
-    const mappings = file ? JSON.parse(await readFile(file, 'utf8')) as LabelMappings : {}
-    if (command === 'registry-preview') return print(await previewHubMigration(mappings))
-    if (!file) throw new UsageError('registry-migrate: --mappings is required')
-    return print(await migrateHubRegistry(mappings, values.confirm === true))
-  }
   if (command === 'register-folder') {
     const depth = string('depth') === undefined ? 2 : Number(string('depth'))
     const selected = string('select')
     if (!selected) return print(await previewFolderRegistration(root, depth))
     const roots = JSON.parse(await readFile(selected, 'utf8')) as string[]
-    if (!Array.isArray(roots) || roots.some(item => typeof item !== 'string')) throw new UsageError('register-folder: --select must contain a JSON array of root paths')
+    if (!Array.isArray(roots) || roots.some(item => typeof item !== 'string')) {
+      throw new UsageError('register-folder: --select must contain a JSON array of root paths')
+    }
     return print(await registerFolder(root, roots, depth))
   }
   if (command === 'unregister') return print(await unregister(root))
@@ -130,8 +118,10 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
     return print({ valid: true, project: plan.manifest, features: plan.snapshot.features.length, revision: plan.revision,
       warnings: plan.repository.warning ? [plan.repository.warning] : [] })
   }
-  if (command === 'recover') { await recover(root); return print({ recovered: true }) }
-  if (command === 'instructions') { await installInstructions(root); return print({ installed: true }) }
+  if (command === 'recover') { await recover(root);
+    return print({ recovered: true }) }
+  if (command === 'instructions') { await installInstructions(root);
+    return print({ installed: true }) }
   if (command === 'call') {
     const name = positionals[0]
     if (!name || !Object.hasOwn(operationSchemas, name)) throw new UsageError('call: choose an operation listed in help')
@@ -140,18 +130,15 @@ export async function main(argv = process.argv.slice(2), out: (line: string) => 
     return print(await operate(name as OperationName, input, values.central ? undefined : root))
   }
   if (command === 'mcp') return mcp(values.central ? undefined : root)
-  // start, hub, dashboard and serve
-  const standalone = command === 'serve' || values.standalone === true
-  const port = Number(string('port') ?? (standalone ? 4317 : 4318))
+  // start, hub and dashboard
+  const port = Number(string('port') ?? 4318)
   // Reject 0 too: Number('') is 0, and a literal 0 asks the OS for a random port, silently defeating --port.
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new UsageError(`${command}: invalid port ${string('port')}`)
   const hub = command === 'hub' || command === 'dashboard'
-  const viewer = await startViewer({ root: hub ? undefined : root, standalone, port })
-  out(`Groundwork ${standalone ? '· Standalone workspace' : 'Hub'} · ${viewer.reused ? 'using existing server' : 'started'}\n${viewer.url}`)
+  const viewer = await startViewer({ root: hub ? undefined : root, port })
+  out(`Groundwork Hub · ${viewer.reused ? 'using existing server' : 'started'}\n${viewer.url}`)
   if (viewer.app) {
-    out(standalone
-      ? 'Keep this terminal open. Ctrl+C stops this viewer.'
-      : 'Keep this terminal open. Other projects reuse this Hub. Ctrl+C stops the Hub for all open workspaces.')
+    out('Keep this terminal open. Other projects reuse this Hub. Ctrl+C stops the Hub for all open workspaces.')
     for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => { void viewer.app!.close().then(() => process.exit(0)) })
   }
 }

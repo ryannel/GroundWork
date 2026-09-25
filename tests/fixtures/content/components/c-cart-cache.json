@@ -1,6 +1,5 @@
 {
   "id": "c-cart-cache",
-  "productId": "p-cart",
   "name": "cart-cache",
   "repo": "acme/cart-cache",
   "order": 5

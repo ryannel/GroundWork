@@ -1,9 +1,9 @@
 import { ComponentOptions } from '@/components/component-structure'
-import { componentAncestors, componentScopeIds, featureComponents } from '@/data/component-structure'
+import { componentAncestors, componentScopeIds, featureComponents } from '@shared/component-structure'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import type { Flow, FlowNode } from '@/data/spec'
-import { actionFlow, resolveFlowAction, resolveFlowSelection } from '@/data/flow-context'
+import type { Flow, FlowNode } from '@shared/spec'
+import { actionFlow, resolveFlowAction, resolveFlowSelection } from '@shared/flow-context'
 import { useQuery } from '@/data/store'
 import { hueStyle } from '@/lib/taxonomy'
 import { cn } from '@/lib/cn'
@@ -17,7 +17,7 @@ const W = 140, H = 56, GX = 100, GY = 100, PAD = 32
 export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
   const q = useQuery()
   const { ix, spec, featureId } = useSpec()
-  const [zoom, setZoom] = useState<'actual' | 'fit'>('actual')
+  const [zoom, setZoom] = useState<'actual' | 'fit'>('fit')
   const canvas = useRef<HTMLDivElement>(null)
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
@@ -40,7 +40,9 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
   }, [canonicalTrace, params, setParams])
   const select = (kind?: 'node' | 'edge', id?: string) => {
     const next = new URLSearchParams(params)
-    next.delete('node'); next.delete('edge'); next.delete('contract')
+    next.delete('node');
+    next.delete('edge');
+      next.delete('contract')
     if (kind && id) next.set(kind, id)
     if (canonicalTrace) next.set('trace', canonicalTrace)
     navigate(`/f/${featureId}/flow?${next}`)
@@ -58,7 +60,10 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
     const next = new URLSearchParams()
     next.set('trace', `journey:${id}`)
     const component = params.get('component')
-    if (component && steps.find(step => step.id === id)?.flow?.some(nodeId => componentScopeIds(component, q.components()).has(ix.node[nodeId]?.component ?? ''))) next.set('component', component)
+    if (component && steps.find(step => step.id === id)?.flow?.some(nodeId =>
+      componentScopeIds(component, q.components()).has(ix.node[nodeId]?.component ?? ''))) {
+      next.set('component', component)
+    }
     navigate(`/f/${featureId}/flow?${next}`)
   }
   const columns = [...new Set(visible.nodes.map(node => node.col))].sort((a, b) => a - b)
@@ -156,7 +161,8 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
                 aria-pressed={c ? selection.kind === 'boundary' && selection.edge.id === e.id : undefined}
                 onClick={c ? () => selectBoundary(e.id) : undefined}
                 onKeyDown={event => {
-                  if (c && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); selectBoundary(e.id) }
+                  if (c && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault();
+                    selectBoundary(e.id) }
                 }}
               >
                 {c && <path d={d} fill="none" stroke="transparent" strokeWidth={16} className="flow-boundary-hit" />}
@@ -191,7 +197,8 @@ export function FlowSection({ data, focus }: { data: Flow; focus?: string }) {
                 role="button"
                 tabIndex={0}
                 aria-label={`Inspect ${n.label}`}
-                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectNode(n.id) } }}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
+                  selectNode(n.id) } }}
                 onClick={() => selectNode(n.id)}
                 fill={isFocus ? 'var(--accent-soft)' : 'var(--bg-elevated)'}
                 stroke={isFocus ? 'var(--accent)' : 'var(--border-strong)'}

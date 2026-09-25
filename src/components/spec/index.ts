@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 import { Target, Footprints, PenTool, Workflow, Braces, Database, FlaskConical } from 'lucide-react'
-import type { FeatureSpec, SectionKind } from '@/data/spec'
+import type { FeatureSpec, SectionKind } from '@shared/spec'
 import { PurposeSection } from './purpose'
 import { JourneySection } from './journey'
 import { DesignSection } from './design'

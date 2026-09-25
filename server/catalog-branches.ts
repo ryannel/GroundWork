@@ -1,4 +1,4 @@
-import { repositoryIdentity } from '../src/data/repository-identity.ts'
+import { repositoryIdentity } from '../shared/repository-identity.ts'
 import { InvalidInput } from './errors.ts'
 import { NotInitialised } from './format.ts'
 import { context, git } from './git.ts'
@@ -36,15 +36,16 @@ export async function readProductCatalogPlan(root: string, editingRoot: string) 
     if (!(error instanceof NotInitialised)) throw error
     // A source repository may be cloned before its first shared catalog. It is still a valid empty candidate.
     const target = await readCatalogTarget(root, ctx.repository.id, 'source', selected?.ref)
-    return { ...target.plan, repository: ctx.repository, context: target.context, files: target.files, layout: target.layout }
+    return { ...target.plan, repository: ctx.repository, context: target.context, files: target.files }
   })
+  const readCommit = ownCheckout ? ctx.head : selected!.commit
   const source: CatalogReadSource = {
     repository: repositoryIdentity(ctx.repository.id),
     branch: ownCheckout ? ctx.branch : selected!.branch,
     commit: ownCheckout ? ctx.head : selected!.commit,
     workingTree: ownCheckout,
     label: `${repositoryIdentity(ctx.repository.id)}@${ownCheckout ? ctx.branch ?? 'detached' : selected!.branch}`
-      + `${ownCheckout ? ' (working tree)' : ''}${(ownCheckout ? ctx.head : selected!.commit) ? ` ${(ownCheckout ? ctx.head : selected!.commit)!.slice(0, 12)}` : ''}`,
+      + `${ownCheckout ? ' (working tree)' : ''}${readCommit ? ` ${readCommit.slice(0, 12)}` : ''}`,
   }
   return { plan, source }
 }

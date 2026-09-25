@@ -1,0 +1,18 @@
+{
+  "id": "pretax-api--src-api",
+  "name": "Pretax API",
+  "kind": "service",
+  "repo": "volvo-cars/gpe-pretax",
+  "sourcePath": "src/api",
+  "api": {
+    "name": "Pretax API",
+    "endpoints": [
+      {
+        "id": "prices",
+        "name": "Prices",
+        "method": "GET",
+        "path": "/prices"
+      }
+    ]
+  }
+}

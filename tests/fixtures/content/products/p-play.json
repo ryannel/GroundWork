@@ -4,5 +4,11 @@
   "slug": "playground",
   "name": "Image playground",
   "kind": "playground",
-  "order": 6
+  "order": 6,
+  "repositories": [
+    {
+      "repository": "fixture/p-play",
+      "role": "owned"
+    }
+  ]
 }

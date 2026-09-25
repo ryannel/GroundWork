@@ -1,6 +1,7 @@
 import type { ElkNode } from 'elkjs/lib/elk-api'
-import type { Component } from '../data/model.ts'
-import { nodeWidth, nodeHeight } from './system-map-physics.ts'
+import type { Component } from '../../shared/model.ts'
+export const nodeWidth = 220
+export const nodeHeight = 62
 
 /** Space between neighbouring cards and between disconnected islands, in pixels. */
 const NODE_SPACING = 80

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { Component } from '@/data/model'
+import type { Component } from '@shared/model'
 import { mentalModel } from '@/data/inspector-model'
 
 const SHOWN_FLOWS = 4

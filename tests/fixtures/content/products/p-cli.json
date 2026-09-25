@@ -4,5 +4,11 @@
   "slug": "cli",
   "name": "gw CLI",
   "kind": "cli",
-  "order": 5
+  "order": 5,
+  "repositories": [
+    {
+      "repository": "ryannel/gw",
+      "role": "owned"
+    }
+  ]
 }

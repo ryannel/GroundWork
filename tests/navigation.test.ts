@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { contentContext, validateFeatureSpec } from '../src/data/content.ts'
+import { contentContext, validateFeatureSpec } from '../shared/content.ts'
 import { snapshot } from './fixtures.ts'
 
 // loadContent already proves the fixture's links resolve; these tests exercise the feature rule on its own.

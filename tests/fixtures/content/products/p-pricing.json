@@ -5,5 +5,23 @@
   "name": "Pricing",
   "kind": "service-system",
   "description": "Price computation, rules and promotions.",
-  "order": 0
+  "order": 0,
+  "repositories": [
+    {
+      "repository": "acme/pricing-api",
+      "role": "owned"
+    },
+    {
+      "repository": "acme/pricing-rules-engine",
+      "role": "owned"
+    },
+    {
+      "repository": "acme/promo-worker",
+      "role": "owned"
+    },
+    {
+      "repository": "fixture/p-pricing",
+      "role": "owned"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
-import type { Component } from '../data/model.ts'
-import type { ComponentReference } from '../data/component-reference.ts'
-import { repositoryIdentity } from '../data/repository-identity.ts'
+import type { Component } from '../../shared/model.ts'
+import type { ComponentReference } from '../../shared/component-reference.ts'
+import { repositoryIdentity } from '../../shared/repository-identity.ts'
 
 /** A viewer-only ID. The tuple keeps repository and local component ID distinct even if either contains `#`. */
 export const viewerComponentId = (repository: string, localId: string) =>

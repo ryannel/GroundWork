@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { catalogComponentSchema, catalogDocumentIssues } from '../src/data/catalog-document.ts'
+import { catalogComponentSchema, catalogDocumentIssues } from '../shared/catalog-document.ts'
 import { verifyCatalogSource } from './catalog-write.ts'
-import { checkCatalogFreshness, catalogFreshnessSchema } from './catalog-freshness-simple.ts'
+import { checkCatalogFreshness, catalogFreshnessSchema } from './catalog-freshness.ts'
 import { queryCatalog, searchCatalogSchema, getCatalogEntitySchema } from './catalog.ts'
 import { readPlan, writePlan, writeCatalogTarget } from './repository.ts'
 import { selectRoot, inventory } from './registry.ts'
@@ -19,7 +19,7 @@ const expected = { expectedRevision: z.string().min(1), expectedContext: z.strin
 type Plan = Awaited<ReturnType<typeof readPlan>>
 type Selection = { checkoutId?: string; ref?: string }
 /** Checkout selection is split from the payload once, before dispatch; the root is resolved only when an operation asks. */
-type Target = { root: () => Promise<string>; ref?: string; standalone?: string }
+type Target = { root: () => Promise<string>; ref?: string }
 type Payload<S extends z.ZodType> = Omit<z.output<S>, keyof Selection>
 type OperationDef<S extends z.ZodType> = {
   schema: S
@@ -72,14 +72,15 @@ const operations = {
     schema: z.strictObject({}),
     description: 'Discover registered projects, checkouts and local workspace groups.',
     ...read,
-    run: async (_args, { standalone }) => inventory(standalone),
+    run: async () => inventory(),
   }),
   read_plan: define({
     schema: z.strictObject(selection),
     description: 'Read validated documents, revision, exact checkout context, declared delivery progress and observed Git activity. ref '
       + 'selects a read-only committed version.',
     ...read,
-    run: async (_args, { root, ref }) => { const selected = await root(); return { ...await readPlan(selected, ref), activity: await activity(selected) } },
+    run: async (_args, { root, ref }) => { const selected = await root();
+      return { ...await readPlan(selected, ref), activity: await activity(selected) } },
   }),
   check_catalog_freshness: define({
     schema: catalogFreshnessSchema.extend(selection),
@@ -163,9 +164,9 @@ export function operationAnnotations(name: OperationName) {
   }
 }
 
-export async function operate(name: OperationName, input: unknown, standalone?: string): Promise<unknown> {
+export async function operate(name: OperationName, input: unknown, scopeRoot?: string): Promise<unknown> {
   if (!isOperationName(name)) throw new InvalidInput(`Unknown operation: ${name}`)
   const operation = operations[name] as unknown as OperationDef<z.ZodType>
   const { checkoutId, ref, ...args } = operation.schema.parse(input) as Selection & Record<string, unknown>
-  return operation.run(args, { root: () => selectRoot(checkoutId, standalone), ref, standalone })
+  return operation.run(args, { root: () => scopeRoot ? Promise.resolve(scopeRoot) : selectRoot(checkoutId), ref })
 }

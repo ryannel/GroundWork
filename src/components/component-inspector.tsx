@@ -1,10 +1,10 @@
 import { useId, useMemo } from 'react'
 import { ArrowRight, GitBranch } from 'lucide-react'
-import type { Component } from '@/data/model'
-import { componentKindLabel } from '@/data/component-structure'
-import type { CatalogTab } from '@/data/catalog-url'
+import type { Component } from '@shared/model'
+import { componentKindLabel } from '@shared/component-structure'
+import type { CatalogTab } from '@shared/catalog-url'
 import {
-  activeTab, clearRetiredSelection, flowOrigin, inspectorTabs, retiredSelection, returnToOrigin, selectTab, tabAriaLabel,
+  activeTab, flowOrigin, inspectorTabs, returnToOrigin, selectTab, tabAriaLabel,
 } from '@/data/inspector-model'
 import { useRovingTabs } from '@/lib/use-roving-tabs'
 import { useCatalogLocation, type CatalogPanelProps } from './inspector/use-catalog-location'
@@ -13,7 +13,6 @@ import { ApiPanel } from './inspector/api-panel'
 import { DataPanel } from './inspector/data-panel'
 import { MessagesPanel } from './inspector/messages-panel'
 import { JobsPanel } from './inspector/jobs-panel'
-import { CoverageReport, Findings, RetiredRecords } from './inspector/provenance'
 
 const panelClass: Record<CatalogTab, string> = {
   overview: 'component-overview-panel',
@@ -42,7 +41,6 @@ export function ComponentInspector({ component, dependencies, isLocal, showIdent
   const tabs = useMemo(() => inspectorTabs(component), [component])
   const tabIds = useMemo(() => tabs.map(item => item.id), [tabs])
   const tab = activeTab(tabs, location.catalog)
-  const retired = retiredSelection(component, location)
   const origin = flowOrigin(component, location.from)
   const { onKeyDown, tabProps } = useRovingTabs(tabIds, tab, next => navigate(selectTab(component, location, next)))
   return <section className="component-inspector" aria-label={`${component.name} catalog`}>
@@ -60,9 +58,6 @@ export function ComponentInspector({ component, dependencies, isLocal, showIdent
       </div>
     </header>}
 
-    <RetiredRecords component={component} selection={retired} onBrowseActive={() => navigate(clearRetiredSelection(component, location))} />
-    <Findings component={component} findingId={location.finding} />
-
     <div className="component-inspector-tabs catalog-tabs" role="tablist" aria-label={`${component.name} detail`} onKeyDown={onKeyDown}>
       {tabs.map(item => <button
         key={item.id}
@@ -77,11 +72,8 @@ export function ComponentInspector({ component, dependencies, isLocal, showIdent
       <span>Opened from the data flow for <strong>{origin.name}</strong></span>
       <button className="execution-return" onClick={() => navigate(returnToOrigin(origin))}>Back to {origin.label} · Data flow<ArrowRight size={14} /></button>
     </div>}
-    {/* A selected retired record replaces the panels until a tab or "Browse active records" clears it. */}
-    {!retired && <section id={`${inspectorId}-panel-${tab}`} role="tabpanel" className={panelClass[tab]} aria-labelledby={`${inspectorId}-${tab}`}>
+    <section id={`${inspectorId}-panel-${tab}`} role="tabpanel" className={panelClass[tab]} aria-labelledby={`${inspectorId}-${tab}`}>
       <ActivePanel tab={tab} component={component} dependencies={dependencies} location={location} navigate={navigate} onSelectComponent={onSelectComponent} />
-    </section>}
-
-    <CoverageReport component={component} />
+    </section>
   </section>
 }

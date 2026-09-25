@@ -1,6 +1,6 @@
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import type { Component } from '@/data/model'
-import { componentKind } from '@/data/component-structure'
+import type { Component } from '@shared/model'
+import { componentKind } from '@shared/component-structure'
 import { dependencyContextLabel } from '@/data/inspector-model'
 import { ComponentKindIcon } from '../component-kind-icon'
 import { DataCatalog } from './data-catalog'

@@ -4,5 +4,11 @@
   "slug": "mac",
   "name": "Groundwork for Mac",
   "kind": "desktop-app",
-  "order": 4
+  "order": 4,
+  "repositories": [
+    {
+      "repository": "ryannel/groundwork-mac",
+      "role": "owned"
+    }
+  ]
 }

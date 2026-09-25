@@ -1,5 +1,4 @@
 {
-  "schemaVersion": 3,
   "id": "price-engine",
   "slug": "price-engine",
   "name": "Price Engine",
@@ -20,10 +19,7 @@
     },
     {
       "repository": "volvo-cars/utils",
-      "role": "used",
-      "aliases": [
-        "volvo-cars/common-utils"
-      ]
+      "role": "used"
     }
   ]
 }

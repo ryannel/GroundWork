@@ -5,20 +5,23 @@ import type { TestContext } from 'node:test'
 import { get } from 'node:http'
 import path from 'node:path'
 import { initialise } from '../server/setup.ts'
-import { readPlan, writePlan, recover, Conflict } from '../server/repository.ts'
+import { readPlan, readStorageFiles, writePlan, recover, Conflict } from '../server/repository.ts'
 import { parsePlan, renderBrief, deliverySchema } from '../server/format.ts'
 import { operate } from '../server/operations.ts'
 import { git, context, discover } from '../server/git.ts'
 import { serve } from '../server/http.ts'
-import { commitAll, gitInit, guard, tempDir } from './helpers.ts'
+import { register } from '../server/registry.ts'
+import { commitAll, gitInit, guard, tempDir, withEnv } from './helpers.ts'
 
 async function fixture(t: TestContext, gitRepo = false) {
   const root = await tempDir(t, 'groundwork-test-')
-  await initialise(root, { name: 'Test app' })
+  withEnv(t, { GROUNDWORK_HOME: path.join(root, 'config') })
   if (gitRepo) {
     await gitInit(root)
-    await commitAll(root, 'Initial plan')
+    await git(root, ['remote', 'add', 'origin', 'git@github.com:acme/runtime.git'])
   }
+  await initialise(root, { name: 'Test app', id: 'app' })
+  if (gitRepo) await commitAll(root, 'Initial plan')
   return root
 }
 async function feature(root: string, id = 'first') {
@@ -34,11 +37,11 @@ test('initialisation is portable, keeps existing instructions, and never overwri
   await writeFile(path.join(root, 'AGENTS.md'), 'Existing project rules.\n')
   await initialise(root, { name: 'My app', domain: 'https://tellourstory.xyz/' })
   const plan = await readPlan(root)
-  assert.equal(plan.manifest.domain, 'https://tellourstory.xyz/')
+  assert.equal(plan.snapshot.products[0].domain, 'https://tellourstory.xyz/')
   assert.equal(plan.snapshot.features.length, 0)
   assert.ok(!Object.values(plan.files).join().includes(root))
   assert.match(await readFile(path.join(root, 'AGENTS.md'), 'utf8'), /^Existing project rules/)
-  assert.match(await readFile(path.join(root, '.agents/skills/groundwork-system-catalog/SKILL.md'), 'utf8'), /prepare_repository_scan/)
+  assert.match(await readFile(path.join(root, '.agents/skills/groundwork-system-catalog/SKILL.md'), 'utf8'), /write_catalog/)
   assert.equal(JSON.parse(plan.files['products/app.json']).workspaceId, undefined)
   await assert.rejects(initialise(root), /already exist/)
 })
@@ -60,7 +63,8 @@ test('transactions reject stale revisions, missing context and malformed candida
 })
 test('concurrent writers cannot both apply the same revision', async t => {
   const root = await fixture(t), plan = await readPlan(root)
-  const results = await Promise.allSettled(['One', 'Two'].map(name => writePlan(root, request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name }) }))))
+  const results = await Promise.allSettled(['One', 'Two'].map(name => writePlan(root, request(plan,
+    { 'members/owner.json': JSON.stringify({ id: 'owner', name }) }))))
   assert.equal(results.filter(r => r.status === 'fulfilled').length, 1)
   const rejected = results.filter(r => r.status === 'rejected')
   assert.equal(rejected.length, 1)
@@ -70,16 +74,19 @@ test('concurrent writers cannot both apply the same revision', async t => {
 })
 test('interrupted writes restore before-images and preserve unrelated external changes', async t => {
   const root = await fixture(t), plan = await readPlan(root)
-  const name = 'members/owner.json', after = { ...plan.files, [name]: JSON.stringify({ id: 'owner', name: 'After' }) }
-  await writeFile(path.join(root, '.groundwork/transaction.json'), JSON.stringify({ before: plan.files, after, paths: [name] }))
-  await writeFile(path.join(root, '.groundwork/plans', name), after[name])
+  const name = '.groundwork/members/owner.json'
+  const before = await readStorageFiles(root)
+  const changed = JSON.stringify({ id: 'owner', name: 'After' })
+  const journal = { before: { [name]: before[name] }, after: { [name]: changed }, paths: [name] }
+  await writeFile(path.join(root, '.groundwork/transaction.json'), JSON.stringify(journal))
+  await writeFile(path.join(root, name), changed)
   await assert.rejects(readPlan(root), /recovery is pending/)
   await recover(root)
   assert.equal((await readPlan(root)).revision, plan.revision)
-  await writeFile(path.join(root, '.groundwork/transaction.json'), JSON.stringify({ before: plan.files, after, paths: [name] }))
-  await writeFile(path.join(root, '.groundwork/plans', name), 'external edit')
+  await writeFile(path.join(root, '.groundwork/transaction.json'), JSON.stringify(journal))
+  await writeFile(path.join(root, name), 'external edit')
   await assert.rejects(recover(root), /Recovery paused/)
-  assert.equal(await readFile(path.join(root, '.groundwork/plans', name), 'utf8'), 'external edit')
+  assert.equal(await readFile(path.join(root, name), 'utf8'), 'external edit')
   assert.ok(await readFile(path.join(root, '.groundwork/transaction.json'), 'utf8'))
 })
 test('branch switches invalidate context and committed refs stay separate and read-only', async t => {
@@ -114,7 +121,7 @@ test('delivery validates dependencies and recording Git links never declares com
     tasks: [{ id: 'task', deliverableId: 'result', componentId: 'api', title: 'Build it', status: 'planned', acceptance: ['A useful check'] }],
   })
   await writePlan(root, request(plan, {
-    'components/api.json': JSON.stringify({ id: 'api', productId: 'app', name: 'API' }), 'features/first/delivery.json': JSON.stringify(delivery),
+    'components/api.json': JSON.stringify({ id: 'api', repo: 'acme/runtime', name: 'API' }), 'features/first/delivery.json': JSON.stringify(delivery),
   }))
   const next = await readPlan(root)
   await operate('link_branch', { featureId: 'first', taskId: 'task', branch: 'main', ...guard(next) }, root)
@@ -126,17 +133,20 @@ test('delivery validates dependencies and recording Git links never declares com
 test('plan traversal and symlink reads are rejected', async t => {
   const root = await fixture(t), plan = await readPlan(root)
   await assert.rejects(writePlan(root, request(plan, { '../escape.json': '{}' })), /Invalid document/)
-  await symlink(path.join(root, 'README.md'), path.join(root, '.groundwork/plans/leak.json'))
+  await symlink(path.join(root, 'README.md'), path.join(root, '.groundwork/members/leak.json'))
   await assert.rejects(readPlan(root), /Symbolic links/)
 })
 test('HTTP requires authentication and local origin, retains last valid plans, and scopes assets', async t => {
   const root = await fixture(t), plan = await feature(root)
-  const app = await serve({ root, port: 0 }); t.after(() => app.close())
-  assert.equal((await fetch(app.url + '/api/snapshot')).status, 200)
+  await register(root)
+  const checkoutId = (await context(root)).checkoutId
+  const app = await serve({ port: 0 });
+  t.after(() => app.close())
+  assert.equal((await fetch(app.url + `/api/snapshot?checkoutId=${checkoutId}`)).status, 200)
 
   await t.test('writes need the session token and a local origin, and replays conflict', async () => {
     const { token } = await (await fetch(app.url + '/api/session')).json() as { token: string }
-    const data = request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'HTTP owner' }) })
+    const data = { checkoutId, ...request(plan, { 'members/owner.json': JSON.stringify({ id: 'owner', name: 'HTTP owner' }) }) }
     const post = (headers: Record<string, string>) => fetch(app.url + '/api/operations/write_plan', {
       method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data),
     })
@@ -146,9 +156,9 @@ test('HTTP requires authentication and local origin, retains last valid plans, a
     assert.equal((await post({ Authorization: `Bearer ${token}` })).status, 409)
   })
   await t.test('a malformed edit reports its error alongside the last valid plan', async () => {
-    const valid = await (await fetch(app.url + '/api/snapshot')).json()
-    await writeFile(path.join(root, '.groundwork/plans/members/owner.json'), '{broken')
-    const invalid = await (await fetch(app.url + '/api/snapshot')).json()
+    const valid = await (await fetch(app.url + `/api/snapshot?checkoutId=${checkoutId}`)).json()
+    await writeFile(path.join(root, '.groundwork/members/owner.json'), '{broken')
+    const invalid = await (await fetch(app.url + `/api/snapshot?checkoutId=${checkoutId}`)).json()
     assert.match(invalid.error, /owner.json/)
     assert.equal(invalid.plan.revision, valid.plan.revision)
   })
@@ -158,23 +168,29 @@ test('HTTP requires authentication and local origin, retains last valid plans, a
   })
   await t.test('a foreign Host header is refused', async () => {
     const status = await new Promise(resolve => {
-      get(app.url + '/api/snapshot', { headers: { Host: 'evil.invalid' } }, response => { response.resume(); resolve(response.statusCode) })
+      get(app.url + `/api/snapshot?checkoutId=${checkoutId}`, { headers: { Host: 'evil.invalid' } }, response => { response.resume();
+        resolve(response.statusCode) })
     })
     assert.equal(status, 403)
   })
 })
 test('live events reconcile external edits, malformed revisions and recovery', { timeout: 15000 }, async t => {
   const root = await fixture(t)
-  const app = await serve({ root, port: 0 }); t.after(() => app.close())
-  const abort = new AbortController(); t.after(() => abort.abort())
-  const stream = await fetch(app.url + '/api/events', { signal: abort.signal })
+  await register(root)
+  const checkoutId = (await context(root)).checkoutId
+  const app = await serve({ port: 0 });
+  t.after(() => app.close())
+  const abort = new AbortController();
+  t.after(() => abort.abort())
+  const stream = await fetch(app.url + `/api/events?checkoutId=${checkoutId}`, { signal: abort.signal })
   const reader = stream.body!.getReader()
   let buffer = ''
   async function nextEvent() {
     for (;;) {
       const boundary = buffer.indexOf('\n\n')
       if (boundary >= 0) {
-        const frame = buffer.slice(0, boundary); buffer = buffer.slice(boundary + 2)
+        const frame = buffer.slice(0, boundary);
+        buffer = buffer.slice(boundary + 2)
         if (frame.startsWith('data: ')) return JSON.parse(frame.slice(6))
       } else {
         const next = await reader.read()
@@ -185,7 +201,7 @@ test('live events reconcile external edits, malformed revisions and recovery', {
   }
   const initial = await nextEvent()
   assert.equal(initial.error, null)
-  const file = path.join(root, '.groundwork/plans/members/owner.json')
+  const file = path.join(root, '.groundwork/members/owner.json')
   await writeFile(file, '{broken')
   let invalid = await nextEvent()
   while (!invalid.error) invalid = await nextEvent()

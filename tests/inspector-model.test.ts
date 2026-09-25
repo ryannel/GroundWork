@@ -1,11 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import {
-  activeTab, clearRetiredSelection, dependencyContextLabel, emptyCatalogText, endpointEntries, endpointMatches, flowOrigin, followFlowLink,
-  inspectorTabs, mentalModel, readableList, referencedSchemas, retiredSelection, returnToOrigin, schemaIndex, selectTab, tabAriaLabel,
+  activeTab, dependencyContextLabel, emptyCatalogText, endpointEntries, endpointMatches, flowOrigin, followFlowLink,
+  inspectorTabs, mentalModel, readableList, referencedSchemas, returnToOrigin, schemaIndex, selectTab, tabAriaLabel,
   type ApiType,
 } from '../src/data/inspector-model.ts'
-import type { Component } from '../src/data/model.ts'
+import type { Component } from '../shared/model.ts'
 import { rovingTarget } from '../src/lib/use-roving-tabs.ts'
 
 const sha = 'b'.repeat(40)
@@ -45,35 +45,23 @@ test('endpoint entries search referenced schema fields and mark traced endpoints
   assert.ok(endpointMatches(component.api.endpoints[1]))
 })
 
-test('tab counts show a dash until an area is established, and jobs appear only when catalogued', () => {
+test('tab counts show catalogued entries and jobs appear only when catalogued', () => {
   const empty: any = { ...base, id: 'c', name: 'C', api: { name: 'a', endpoints: [] } }
-  assert.deepEqual(inspectorTabs(empty).map(tab => [tab.id, tab.count]), [['overview', null], ['api', '—'], ['data', '—'], ['messages', '—']])
-  const scanned: any = { ...empty, scan: { status: 'complete' }, jobs: [{ id: 'j', name: 'J', description: '', evidence }] }
+  assert.deepEqual(inspectorTabs(empty).map(tab => [tab.id, tab.count]), [['overview', null], ['api', 0], ['data', 0], ['messages', 0]])
+  const scanned: any = { ...empty, jobs: [{ id: 'j', name: 'J', description: '', evidence }] }
   const tabs = inspectorTabs(scanned)
   assert.deepEqual(tabs.map(tab => [tab.id, tab.count]), [['overview', null], ['api', 0], ['data', 0], ['messages', 0], ['jobs', 1]])
   assert.equal(tabAriaLabel(tabs[1]), 'Interfaces: 0 catalogued')
-  assert.equal(tabAriaLabel(inspectorTabs(empty)[2]), 'Data: not yet established')
+  assert.equal(tabAriaLabel(inspectorTabs(empty)[2]), 'Data: 0 catalogued')
   assert.equal(activeTab(tabs, 'jobs'), 'jobs')
   assert.equal(activeTab(inspectorTabs(empty), 'jobs'), 'overview', 'a tab the component lacks falls back to the overview')
   assert.equal(activeTab(tabs, undefined), 'overview')
 })
 
-test('changing tab clears a retired selection so the chosen panel is shown', () => {
-  const component: any = {
-    ...base, id: 'c', name: 'C',
-    retiredObservations: [
-      { kind: 'data', id: 'old-table', reason: 'Dropped', sourceRevision: sha, evidence, observation: { name: 'old' } },
-      { kind: 'flow', id: 'old-flow', reason: 'Gone', sourceRevision: sha, evidence, observation: {} },
-    ],
-  }
-  const location = { catalog: 'data', dataEntity: 'old-table', flow: 'old-flow', apiEntity: 'live' }
-  assert.equal(retiredSelection(component, location)?.id, 'old-table')
-  assert.deepEqual(clearRetiredSelection(component, location), { dataEntity: undefined, flow: undefined })
-  const next = { ...location, ...selectTab(component, location, 'api') }
-  assert.equal(retiredSelection(component, next), undefined)
-  assert.equal(next.catalog, 'api')
-  assert.equal(next.apiEntity, 'live', 'active selections survive')
-  assert.deepEqual(selectTab({ ...base, id: 'x', name: 'X' } as Component, {}, 'data'), { catalog: 'data', from: undefined })
+test('changing tabs preserves entity selection and clears flow origin', () => {
+  const component = { ...base, id: 'c', name: 'C' } as Component
+  assert.deepEqual(selectTab(component, { dataEntity: 'table', from: 'api:endpoint' }, 'data'),
+    { dataEntity: 'table', catalog: 'data', from: undefined })
 })
 
 test('the flow breadcrumb round-trips through the URL', () => {
@@ -125,14 +113,14 @@ test('the mental model is assembled from catalog records only', () => {
   assert.match(isolated.enters, /^No entry point has been established/)
   assert.match(isolated.leaves, /^No outgoing component or message boundary/)
   assert.equal(isolated.blindSpots, undefined)
-  assert.match(mentalModel({ ...base, id: 'x', name: 'X', messaging: { messages: [{ direction: 'outbound' }] } } as Component, []).leaves,
+  assert.match(mentalModel({ ...base, id: 'x', name: 'X', messaging: { messages: [{ direction: 'outbound' }] } } as unknown as Component, []).leaves,
     /^No component dependency is currently mapped, but the component also records outbound messages\./)
 })
 
-test('empty tabs distinguish a complete scan from an area not yet investigated', () => {
+test('empty tabs describe uncatalogued areas', () => {
   const component: any = { ...base, id: 'c', name: 'C' }
   assert.equal(emptyCatalogText(component, 'api', 'interfaces').title, 'Interfaces not yet catalogued')
-  assert.equal(emptyCatalogText({ ...component, scan: { status: 'complete' } }, 'api', 'interfaces').title, 'No interfaces found in the scan')
+  assert.equal(emptyCatalogText({ ...component, scan: { status: 'complete' } }, 'api', 'interfaces').title, 'Interfaces not yet catalogued')
 })
 
 test('roving tabs wrap with arrows, jump with Home/End and ignore other keys', () => {

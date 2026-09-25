@@ -1,10 +1,6 @@
 import { configRoot } from './registry.ts'
-import { digest, context } from './git.ts'
+import { digest } from './git.ts'
 
-export const viewerIdentity = async (root?: string) => ({
-  service: 'groundwork-viewer', protocol: 1,
-  mode: root ? 'standalone' : 'central',
-  registry: digest(configRoot()),
-  checkoutId: root ? (await context(root)).checkoutId : null,
+export const viewerIdentity = async () => ({
+  service: 'groundwork-viewer', protocol: 1, mode: 'central', registry: digest(configRoot()),
 })
-

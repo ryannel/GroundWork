@@ -46,7 +46,6 @@ test('ports must be whole numbers from 1 to 65535', async () => {
   for (const port of ['abc', '-1', '0', '65536', '1.5']) {
     await assert.rejects(run(['hub', `--port=${port}`]), usage(new RegExp(`hub: invalid port ${port.replace('.', '\\.')}`)), port)
   }
-  await assert.rejects(run(['serve', '.', '--port', 'abc']), usage(/serve: invalid port abc/))
 })
 
 test('an empty --port value is rejected instead of silently starting on a random port', async () => {

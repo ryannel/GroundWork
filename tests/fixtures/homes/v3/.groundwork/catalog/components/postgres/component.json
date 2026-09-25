@@ -1,7 +1,0 @@
-{
-  "schemaVersion": 3,
-  "id": "postgres",
-  "name": "Postgres",
-  "kind": "database",
-  "repo": "volvo-cars/price-engine"
-}

@@ -1,4 +1,4 @@
-import type { Change, ResponseSchema, SchemaField } from './spec.ts'
+import type { Change, ResponseSchema, SchemaField } from '../../shared/spec.ts'
 
 export interface SchemaLine {
   key: string

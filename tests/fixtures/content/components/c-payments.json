@@ -1,6 +1,5 @@
 {
   "id": "c-payments",
-  "productId": "p-checkout",
   "name": "payments-adapter",
   "repo": "acme/payments-adapter",
   "order": 7

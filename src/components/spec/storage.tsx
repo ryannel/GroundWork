@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useDisclosures } from './use-disclosures'
-import type { Storage, Table } from '@/data/spec'
+import type { Storage, Table } from '@shared/spec'
 import { useQuery } from '@/data/store'
 import { Key, ChevronDown, Search } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { changeMeta } from './change-meta'
 import { RefRow } from './refs'
 import { useFocus, useSpec } from './context'
-import { componentPath, componentScopeIds } from '@/data/component-structure'
+import { componentPath, componentScopeIds } from '@shared/component-structure'
 
 const recordLabels = { table: 'SQL table', object: 'Object record', 'local-file': 'Local file' }
 
@@ -55,7 +55,8 @@ export function TableCard({ t, open, onToggle, focus, compact = false }: { t: Ta
       {t.note && (t.columns.length
         ? <details className="model-notes"><summary>Schema notes & source</summary><p>{t.note}</p></details>
         : <p className="model-schema-gap">{t.note}</p>)}
-      {!compact && <><details className="model-notes"><summary>Usage & tests · {(ix.tableTests[t.id] ?? []).length} linked tests</summary><RefRow cols={1} groups={[
+      {!compact && <><details className="model-notes">
+        <summary>Usage & tests · {(ix.tableTests[t.id] ?? []).length} linked tests</summary><RefRow cols={1} groups={[
         { label: 'System flow', refs: node ? [{ kind: 'flow', id: node }] : [] },
         { label: 'Journey', refs: (ix.tableSteps[t.id] ?? []).map(id => ({ kind: 'journey', id })) },
         { label: 'Tests', refs: (ix.tableTests[t.id] ?? []).map(id => ({ kind: 'tests', id })), warn: removed ? undefined : 'No linked test' },
@@ -79,7 +80,9 @@ export function StorageSection({ data: full, focus }: { data: Storage; focus?: s
   const [view, setView] = useState({ selected, focus, query: '', change: '' })
   if (view.selected !== selected || view.focus !== focus) setView({ selected, focus, query: '', change: '' })
   const query = view.query.trim().toLowerCase()
-  const matches = (t: Table) => !query || [t.id, t.name, t.description, t.group, ...t.columns.flatMap(c => [c.name, c.type])].join(' ').toLowerCase().includes(query)
+  const matches = (t: Table) => !query || [
+    t.id, t.name, t.description, t.group, ...t.columns.flatMap(c => [c.name, c.type]),
+  ].join(' ').toLowerCase().includes(query)
   const data = full.tables.filter(t => scoped.includes(t.component) && (!view.change || t.change === view.change) && matches(t))
   const { open, toggle, replace } = useDisclosures(focus ? [focus] : [], focus)
   return <div className="model-section">

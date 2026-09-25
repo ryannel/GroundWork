@@ -1,8 +1,8 @@
-import { AlertTriangle, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 import { useRuntime } from '@/data/runtime'
-import { summarizeHubProducts, type HubProduct } from '@/data/view-models'
-
-const cloneStatus = { different: 'default branch commits differ', diverged: 'default branches diverged', unknown: 'clone history could not be compared' }
+import { summarizeHubProducts, type HubProduct } from '@shared/view-models'
 
 function ProductSummary({ product }: { product: HubProduct }) {
   const content = <>
@@ -19,26 +19,24 @@ function ProductSummary({ product }: { product: HubProduct }) {
       <span><strong>{product.ideas}</strong> ideas</span>
       <span><strong>{product.shipped}</strong> shipped</span>
     </div>
-    {!!product.cloneWarnings.length && <p className="product-clone-warning">
-      <AlertTriangle size={14} aria-hidden="true" style={{ color: 'var(--warning)' }} />{' '}
-      <strong>Clone differences:</strong>{' '}
-      {product.cloneWarnings.map(warning => `${warning.repository}: ${cloneStatus[warning.status]}`).join('; ')}
-    </p>}
   </>
   // Products open in their own checkout's viewer, outside this router's basename.
   return product.href
-    ? <a className="product-card product-summary-card" href={product.href} aria-label={`Open ${product.name}${product.cloneWarnings.length ? '; clone differences reported' : ''}`}>{content}</a>
+    ? <a className="product-card product-summary-card" href={product.href} aria-label={`Open ${product.name}`}>{content}</a>
     : <article className="product-card product-summary-card">{content}</article>
 }
 
 export function ProjectsPage() {
   const { projects, error } = useRuntime()
-  const workspaces = summarizeHubProducts(projects)
+  const [params] = useSearchParams()
+  const selectedWorkspace = params.get('workspace')
+  const workspaces = summarizeHubProducts(projects).filter(workspace => !selectedWorkspace || workspace.name === selectedWorkspace)
   return <div className="central-board">
+    {selectedWorkspace && <Breadcrumbs workspace={{ name: selectedWorkspace, slug: '' }} current={{ label: 'Workspace', name: selectedWorkspace }} />}
     <header className="central-heading">
-      <p className="board-eyebrow">All products</p>
-      <h1>Groundwork Hub<span>.</span></h1>
-      <p>Workspaces group products. Products contain architectural components; source repositories show where those components live.</p>
+      <p className="board-eyebrow">{selectedWorkspace ? 'Workspace' : 'Your engineering workspace'}</p>
+      <h1>{selectedWorkspace ?? 'Your products'}</h1>
+      <p>Understand your systems. Explore their architecture, inspect contracts, and plan what comes next.</p>
     </header>
     {error && <p className="runtime-error" role="alert">{error}</p>}
     {!projects.length && <section className="central-empty">
@@ -48,9 +46,10 @@ export function ProjectsPage() {
       <p>The Hub will pick it up automatically.</p>
     </section>}
     {workspaces.map(workspace => <section className="central-workspace" key={workspace.name}>
-      <h2>{workspace.name}</h2>
+      {!selectedWorkspace && <h2>{workspace.name}</h2>}
       <div className="product-grid">{workspace.products.map(product => <ProductSummary key={product.id} product={product} />)}</div>
     </section>)}
+    {selectedWorkspace && !workspaces.length && <p className="central-empty">No products are registered in this workspace.</p>}
     <footer className="central-footer">Plans travel with the repository. Workspace organisation stays on this computer.</footer>
   </div>
 }

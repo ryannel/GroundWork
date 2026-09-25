@@ -13,8 +13,8 @@ import { operate, isOperationName } from './operations.ts'
 import { packageRoot } from './setup.ts'
 import { resolveProductCatalog } from './product-catalog.ts'
 import { InvalidInput, NotFound, statusFor } from './errors.ts'
-import { ContentError } from '../src/data/content.ts'
-import { CatalogIdError } from '../src/data/catalog-identity.ts'
+import { ContentError } from '../shared/content.ts'
+import { CatalogIdError } from '../shared/catalog-identity.ts'
 const mime: Record<string, string> = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.gif': 'image/gif', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.ico': 'image/x-icon',
@@ -53,7 +53,7 @@ async function readBody(req: IncomingMessage): Promise<{ body: string } | { stat
   catch { return { status: 400, error: 'Request body is not valid UTF-8' } }
 }
 
-export async function serve(options: { root?: string; port?: number; viewerDirectory?: string } = {}) {
+export async function serve(options: { port?: number; viewerDirectory?: string } = {}) {
   const token = randomBytes(32).toString('hex')
   const expectedAuthorization = Buffer.from(`Bearer ${token}`)
   const authorized = (header: string | undefined) => {
@@ -63,13 +63,14 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
   const viewer = options.viewerDirectory ?? path.join(packageRoot, 'dist')
   const lastValid = new Map<string, unknown>()
   const remember = (key: string, value: unknown) => {
-    lastValid.delete(key); lastValid.set(key, value)
+    lastValid.delete(key);
+    lastValid.set(key, value)
     if (lastValid.size > REMEMBERED_SNAPSHOTS) lastValid.delete(lastValid.keys().next().value!)
   }
   const snapshot = async (checkoutId?: string, ref?: string) => {
     const key = `${checkoutId ?? ''}:${ref ?? ''}`
     try {
-      const root = await selectRoot(checkoutId, options.root)
+      const root = await selectRoot(checkoutId)
       const plan = await readPlan(root, ref)
       const observed = await activity(root)
       for (const feature of plan.snapshot.features) for (const mock of feature.spec?.design?.mockups ?? []) {
@@ -93,7 +94,11 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
     const immutable = !!ref && /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/i.test(ref)
     const channel: Channel = {
       subscribers: new Set(), latest: null,
-      close: () => { closed = true; clearInterval(timer); clearInterval(heartbeat); watcher?.close(); channels.delete(key) },
+      close: () => { closed = true;
+        clearInterval(timer);
+        clearInterval(heartbeat);
+        watcher?.close();
+        channels.delete(key) },
     }
     const broadcast = (frame: string) => { for (const res of channel.subscribers) res.write(frame) }
     const tick = async () => {
@@ -103,14 +108,16 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
         const result = await snapshot(checkoutId, ref)
         if (closed) return
         const data = JSON.stringify(result), hash = digest(data)
-        if (hash !== previous) { previous = hash; channel.latest = data; broadcast(`data: ${data}\n\n`) }
+        if (hash !== previous) { previous = hash;
+          channel.latest = data;
+          broadcast(`data: ${data}\n\n`) }
         if (immutable && !result.error) clearInterval(timer)
       } finally { busy = false }
     }
     const timer = setInterval(() => { void tick() }, POLL_MS)
     const heartbeat = setInterval(() => broadcast(': keep-alive\n\n'), HEARTBEAT_MS)
     void tick()
-    if (!ref) void selectRoot(checkoutId, options.root).then(root => {
+    if (!ref) void selectRoot(checkoutId).then(root => {
       if (closed) return
       try {
         watcher = watch(path.join(root, '.groundwork'), { recursive: true }, () => { void tick() })
@@ -123,7 +130,8 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
   const subscribe = (res: ServerResponse, checkoutId?: string, ref?: string) => {
     const key = `${checkoutId ?? ''}:${ref ?? ''}`
     let channel = channels.get(key)
-    if (!channel) { channel = openChannel(key, checkoutId, ref); channels.set(key, channel) }
+    if (!channel) { channel = openChannel(key, checkoutId, ref);
+      channels.set(key, channel) }
     const subscribed = channel
     subscribed.subscribers.add(res)
     if (subscribed.latest) res.write(`data: ${subscribed.latest}\n\n`)
@@ -139,7 +147,8 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
     res.setHeader('Cache-Control', 'no-store')
     res.setHeader('Referrer-Policy', 'no-referrer')
     res.setHeader('Content-Security-Policy', csp)
-    const json = (value: unknown, status = 200) => { res.writeHead(status, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(value)) }
+    const json = (value: unknown, status = 200) => { res.writeHead(status, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(value)) }
     try {
       const address = server.address()
       const port = typeof address === 'object' && address ? address.port : 0
@@ -149,16 +158,16 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       const url = new URL(req.url!, `http://${req.headers.host}`)
       const checkoutId = url.searchParams.get('checkoutId') ?? undefined
       const ref = url.searchParams.get('ref') ?? undefined
-      if (req.method === 'GET' && url.pathname === '/api/viewer') return json(await viewerIdentity(options.root))
+      if (req.method === 'GET' && url.pathname === '/api/viewer') return json(await viewerIdentity())
       // Threat model: the token is a CSRF guard for browsers, not authentication. Any local process can fetch it here,
       // so it does not protect against other programs on this machine; Host/Origin checks keep remote sites out.
-      if (req.method === 'GET' && url.pathname === '/api/session') return json({ token, mode: options.root ? 'standalone' : 'central' })
-      if (req.method === 'GET' && url.pathname === '/api/projects') return json(await inventory(options.root))
+      if (req.method === 'GET' && url.pathname === '/api/session') return json({ token, mode: 'central' })
+      if (req.method === 'GET' && url.pathname === '/api/projects') return json(await inventory())
       if (req.method === 'GET' && url.pathname === '/api/product-catalog') {
         const productId = url.searchParams.get('productId')
         if (!checkoutId || !productId) throw new InvalidInput('Select a checkout and product for catalog resolution')
-        const root = await selectRoot(checkoutId, options.root)
-        const entries = await inventory(options.root)
+        const root = await selectRoot(checkoutId)
+        const entries = await inventory()
         const clones = Object.fromEntries(entries.filter(entry => entry.preferred && entry.repositoryId && !entry.error)
           .map(entry => [entry.repositoryId!, entry.root]))
         return json(await resolveProductCatalog(root, productId, clones, root, { homeRef: ref }))
@@ -168,7 +177,8 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
         res.writeHead(200, { 'Content-Type': 'text/event-stream', Connection: 'keep-alive' })
         res.write(': connected\n\n')
         const unsubscribe = subscribe(res, checkoutId, ref)
-        const cleanup = () => { unsubscribe(); clients.delete(res) }
+        const cleanup = () => { unsubscribe();
+          clients.delete(res) }
         clients.set(res, cleanup)
         res.on('close', cleanup)
         return
@@ -184,12 +194,12 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
           if (read.status === 413) res.setHeader('Connection', 'close')
           return json({ error: read.error }, read.status)
         }
-        return json(await operate(name, JSON.parse(read.body), options.root))
+        return json(await operate(name, JSON.parse(read.body)))
       }
       if (req.method === 'GET' && url.pathname === '/api/asset') {
         const name = url.searchParams.get('path') ?? ''
         if (!assetPattern.test(name)) return json({ error: 'Unsupported raster asset path' }, 400)
-        const root = await selectRoot(checkoutId, options.root)
+        const root = await selectRoot(checkoutId)
         let data: Buffer
         if (ref) {
           const sha = await resolveRef(root, ref).catch(() => { throw new NotFound('Unknown ref') })
@@ -198,7 +208,9 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
           if (!entry.startsWith('100644 ') && !entry.startsWith('100755 ')) throw new InvalidInput('Unsupported asset mode')
           data = await gitBuffer(root, ['cat-file', 'blob', `${sha}:${PLAN_DIRECTORY}/${name}`], { maxBuffer: 32 * 1024 * 1024 })
         } else data = await readFile(await safePath(root, `${PLAN_DIRECTORY}/${name}`))
-        res.writeHead(200, { 'Content-Type': mime[path.extname(name)] }); res.end(data); return
+        res.writeHead(200, { 'Content-Type': mime[path.extname(name)] });
+        res.end(data);
+          return
       }
       if (req.method !== 'GET' && req.method !== 'HEAD') return json({ error: 'Method not allowed' }, 405)
       if (url.pathname.startsWith('/api/')) return json({ error: 'Unknown API route' }, 404)
@@ -217,10 +229,12 @@ export async function serve(options: { root?: string; port?: number; viewerDirec
       else res.end()
     }
   })
-  await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(options.port ?? 4317, '127.0.0.1', resolve) })
+  await new Promise<void>((resolve, reject) => { server.once('error', reject);
+    server.listen(options.port ?? 4318, '127.0.0.1', resolve) })
   const address = server.address() as { port: number }
   const close = async () => {
-    for (const [client, cleanup] of clients) { cleanup(); client.end() }
+    for (const [client, cleanup] of clients) { cleanup();
+      client.end() }
     server.closeAllConnections()
     await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()))
   }

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Code2, Database, GitBranch, Workflow, X } from 'lucide-react'
-import type { JourneyStep } from '@/data/spec'
-import type { FlowSelection } from '@/data/flow-context'
-import { actionFlow } from '@/data/flow-context'
+import type { JourneyStep } from '@shared/spec'
+import type { FlowSelection } from '@shared/flow-context'
+import { actionFlow } from '@shared/flow-context'
 import { useQuery } from '@/data/store'
 import { useSpec } from './context'
 import { ApiContractCard } from './api'
@@ -30,7 +30,9 @@ function StoreDetails({ selection, action }: { action: JourneyStep; selection: E
       const next = new Set(previous)
       if (next.has(table.id)) next.delete(table.id); else next.add(table.id)
       return next
-    })} /><Link className="inspector-detail-link" to={`/f/${featureId}/storage/${table.id}?trace=journey:${action.id}`}>Open {table.name} in data model <ArrowRight size={12} /></Link></div>)}
+    })} /><Link className="inspector-detail-link" to={`/f/${featureId}/storage/${table.id}?trace=journey:${action.id}`}>
+      Open {table.name} in data model <ArrowRight size={12} />
+    </Link></div>)}
     {!tables.length && <p className="inspector-empty">No database schema is documented for this store yet.</p>}
   </div>
 }
@@ -66,9 +68,12 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
       heading.current?.focus({ preventScroll: true })
     }
   })
-  return <aside className="api-inspector flow-inspector" aria-label={title} onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
+  return <aside className="api-inspector flow-inspector" aria-label={title} onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation();
+    onClose() } }}>
     <header className="inspector-heading"><span><Icon size={19} /></span><h3 ref={heading} tabIndex={-1}>{title}</h3>
-      <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}><X size={16} /><span>Back to flow</span></button>
+      <button className="inspector-close" aria-label="Close selection" title="Close details (Esc)" onClick={onClose}>
+        <X size={16} /><span>Back to flow</span>
+      </button>
     </header>
     <div className="inspector-action-context"><small>FOR THIS ACTION · {action.actor}</small><p>{action.action}</p></div>
     {node && <div className="inspector-node-heading">
@@ -85,7 +90,8 @@ export function FlowInspector({ action, selection, onNode, onBoundary, onClose }
           const edge = ix.edge[branch.edgeId]
           const target = edge && ix.node[edge.to]
           const inAction = flow.edges.some(e => e.id === branch.edgeId)
-          const alternative = !inAction && spec.journey?.steps.find(step => step.id !== action.id && step.flow?.includes(node.id) && step.flow.includes(edge?.to))
+          const alternative = !inAction && spec.journey?.steps.find(step => step.id !== action.id
+            && step.flow?.includes(node.id) && step.flow.includes(edge?.to))
           return <article key={branch.edgeId} className={inAction ? 'is-current-outcome' : ''}>
             <div><strong>{branch.when}</strong><small>{inAction ? 'In this action' : 'Other outcome'}</small></div>
             <p>{branch.then}</p>

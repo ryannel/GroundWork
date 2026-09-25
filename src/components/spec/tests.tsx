@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import type { Tests, TestCase, TestStatus } from '@/data/spec'
-import type { Ref } from '@/data/spec-index'
+import type { Tests, TestCase, TestStatus } from '@shared/spec'
+import type { Ref } from '@shared/spec-index'
 import { useQuery } from '@/data/store'
-import { invert } from '@/data/view-models'
+import { invert } from '@shared/view-models'
 import { Badge } from '@/ui/badge'
 import { Tooltip } from '@/ui/tooltip'
 import { cn } from '@/lib/cn'
@@ -51,7 +51,9 @@ function Case({ c, focus }: { c: TestCase; focus?: string }) {
             { label: 'Contracts', refs: (c.contracts ?? []).map(id => ({ kind: 'api', id })) },
             { label: 'Tables', refs: (c.tables ?? []).map(id => ({ kind: 'storage', id })) },
           ]}
-          trailing={ix.testNodes[c.id]?.length > 0 && <Link to={`/f/${featureId}/flow?trace=${encodeURIComponent(action)}`} className="hover:text-fg">Open related system flow →</Link>}
+          trailing={ix.testNodes[c.id]?.length > 0 && <Link
+            to={`/f/${featureId}/flow?trace=${encodeURIComponent(action)}`} className="hover:text-fg"
+          >Open related system flow →</Link>}
         />
       </div>
     </div>
@@ -79,13 +81,15 @@ function Coverage({ cases }: { cases: TestCase[] }) {
   let lastGroup = ''
   return (
     <div className="overflow-hidden rounded-md border border-border">
-      <button aria-expanded={open} onClick={() => setOpen(o => !o)} className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-small hover:bg-(--glass-fill-2)">
+      <button aria-expanded={open} onClick={() => setOpen(o => !o)}
+        className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-small hover:bg-(--glass-fill-2)">
         <span className="font-medium">Test links · all tests</span>
         <span className={gaps ? 'text-warning' : 'text-fg-subtle'}>{gaps ? `${gaps} without a test` : 'all items have a linked test'}</span>
         <ChevronDown className={cn('ml-auto size-4 text-fg-subtle transition-transform', open && 'rotate-180')} />
       </button>
       {open && (
-        <div className="overflow-x-auto border-t border-border"><p className="px-4 py-3 text-small text-fg-muted">Dots show linked tests and their status. A link alone does not verify the item.</p>
+        <div className="overflow-x-auto border-t border-border">
+          <p className="px-4 py-3 text-small text-fg-muted">Dots show linked tests and their status. A link alone does not verify the item.</p>
           <table className="w-full text-small">
             <thead>
               <tr className="text-fg-subtle">
@@ -146,7 +150,9 @@ export function TestsSection({ data, focus }: { data: Tests; focus?: string }) {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-center gap-3 text-small text-fg-muted">
         <span>{cases.length} cases</span>
-        {counts.map(([k, n]) => <span key={k} className="flex items-center gap-1.5"><span className={cn('size-1.5 rounded-full', status[k].dot)} />{n} {status[k].label.toLowerCase()}</span>)}
+        {counts.map(([k, n]) => <span key={k} className="flex items-center gap-1.5">
+          <span className={cn('size-1.5 rounded-full', status[k].dot)} />{n} {status[k].label.toLowerCase()}
+        </span>)}
         <LensNote shown={cases.length} total={data.cases.length} kind="cases" />
       </div>
       {!lens && missing.length > 0 && <div className="rounded-md border border-warning-border bg-warning-bg p-4">

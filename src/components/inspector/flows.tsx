@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react'
-import type { Component } from '@/data/model'
+import type { Component } from '@shared/model'
 import { selectedFlow, type ExecutionFlows } from '@/data/inspector-model'
 import { ExecutionFlowExplorer, type FlowCatalogTarget } from '../execution-flow'
 

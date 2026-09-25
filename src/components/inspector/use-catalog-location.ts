@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import type { Component } from '@/data/model'
-import { catalogHistory, readCatalogLocation, writeCatalogLocation, type CatalogHistory, type CatalogLocation } from '@/data/catalog-url'
+import type { Component } from '@shared/model'
+import { catalogHistory, readCatalogLocation, writeCatalogLocation, type CatalogHistory, type CatalogLocation } from '@shared/catalog-url'
 
 export type NavigateCatalog = (patch: CatalogLocation, history?: CatalogHistory) => void
 

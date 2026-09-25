@@ -1,9 +1,6 @@
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import {
-  createMapSimulation, DRAG_ALPHA, DRAG_ALPHA_TARGET, nodeHeight, nodeWidth, pinNode, RELEASE_ALPHA, type ForceNode,
-} from '@/lib/system-map-physics'
-import {
-  edgeHandles, fallbackGridPositions, layoutSignature, messageEdgeLabel, portSide, relationshipId, systemMapLayout, type PortSide,
+  edgeHandles, fallbackGridPositions, layoutSignature, messageEdgeLabel, nodeHeight, nodeWidth, portSide, relationshipId, systemMapLayout, type PortSide,
 } from '@/lib/system-map-layout'
 import { layoutGraph } from '@/lib/elk'
 import {
@@ -23,8 +20,8 @@ import {
   type ReactFlowInstance,
 } from '@xyflow/react'
 import { LayoutDashboard, Maximize2, Minimize2, Pin, PinOff } from 'lucide-react'
-import type { Component } from '@/data/model'
-import { componentKind, componentKindLabel, componentKinds, type ArchitectureEdge } from '@/data/component-structure'
+import type { Component } from '@shared/model'
+import { componentKind, componentKindLabel, componentKinds, type ArchitectureEdge } from '@shared/component-structure'
 
 type ObservedStatus = 'observed' | 'unresolved'
 /** Module constant: a fresh default Map on every render would change identity each time. */
@@ -118,9 +115,7 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
   const mapElement = useRef<HTMLDivElement>(null)
   const expandButton = useRef<HTMLButtonElement>(null)
   const [expanded, setExpanded] = useState(false)
-  const simulation = useRef<ReturnType<typeof createMapSimulation> | null>(null)
-  const forceNodes = useRef(new Map<string, ForceNode>())
-  const dragging = useRef<string | null>(null)
+  const layoutPositions = useRef(new Map<string, { x: number; y: number }>())
   const fitWhenReady = useRef(false)
   const [nodes, setNodes, onNodesChange] = useNodesState<LayoutNode>([])
   // "Auto layout" asks for a new run of the same structure; pending and failure are derived from the last finished run.
@@ -152,14 +147,17 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
     document.body.style.overflow = 'hidden'
     trigger?.focus()
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { event.preventDefault(); setExpanded(false) }
+      if (event.key === 'Escape') { event.preventDefault();
+        setExpanded(false) }
       if (event.key !== 'Tab') return
       const controls = [...(mapElement.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? [])].filter(element => element.getClientRects().length)
       if (!controls.length) return
       const index = controls.indexOf(document.activeElement as HTMLElement)
       // Wrap at either end, and pull focus back in if it has escaped the dialog.
-      if (event.shiftKey && index <= 0) { event.preventDefault(); controls.at(-1)!.focus() }
-      else if (!event.shiftKey && (index === -1 || index === controls.length - 1)) { event.preventDefault(); controls[0].focus() }
+      if (event.shiftKey && index <= 0) { event.preventDefault();
+        controls.at(-1)!.focus() }
+      else if (!event.shiftKey && (index === -1 || index === controls.length - 1)) { event.preventDefault();
+        controls[0].focus() }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => {
@@ -178,61 +176,25 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
       frame = requestAnimationFrame(() => { void instance.current?.fitView(RESIZE_FIT) })
     })
     observer.observe(element)
-    return () => { observer.disconnect(); cancelAnimationFrame(frame) }
+    return () => { observer.disconnect();
+      cancelAnimationFrame(frame) }
   }, [])
 
   const releaseNodes = useCallback((id?: string) => {
-    for (const node of forceNodes.current.values()) {
-      if (id && node.id !== id) continue
-      node.fx = null
-      node.fy = null
-    }
-    setPinnedIds(current => {
-      if (!id) return new Set()
-      const next = new Set(current)
-      next.delete(id)
-      return next
-    })
-    fitWhenReady.current = false
-    simulation.current?.alphaTarget(0).alpha(RELEASE_ALPHA).restart()
-  }, [])
-
-  const syncNodes = useCallback(() => {
-    // D3 already ticks on animation frames. React Flow owns the pointer-driven node.
+    setPinnedIds(current => id ? new Set([...current].filter(pinned => pinned !== id)) : new Set())
     setNodes(current => current.map(node => {
-      if (node.id === dragging.current) return node
-      const forceNode = forceNodes.current.get(node.id)
-      if (!forceNode || forceNode.x === undefined || forceNode.y === undefined) return node
-      const position = { x: forceNode.x - nodeWidth / 2, y: forceNode.y - nodeHeight / 2 }
-      if (position.x === node.position.x && position.y === node.position.y) return node
-      return { ...node, position }
+      if (id && node.id !== id) return node
+      return { ...node, position: layoutPositions.current.get(node.id) ?? node.position }
     }))
+    fitWhenReady.current = false
   }, [setNodes])
 
-  const startSimulation = useCallback((nextNodes: LayoutNode[], nextRelationships: ArchitectureEdge[]) => {
-    simulation.current?.stop()
-    const physicsNodes: ForceNode[] = nextNodes.map(node => ({
-      id: node.id,
-      x: node.position.x + nodeWidth / 2,
-      y: node.position.y + nodeHeight / 2,
-      seedX: node.position.x + nodeWidth / 2,
-      seedY: node.position.y + nodeHeight / 2,
-    }))
-    forceNodes.current = new Map(physicsNodes.map(node => [node.id, node]))
-    const nextSimulation = createMapSimulation(physicsNodes, nextRelationships)
-    simulation.current = nextSimulation
-    nextSimulation.on('tick', syncNodes)
-    setPinnedIds(new Set())
-    setNodes(nextNodes)
-  }, [setNodes, syncNodes])
-
-  const stopSimulation = useCallback(() => simulation.current?.stop(), [])
   useEffect(() => {
     let active = true
     const { components: layoutComponents, relationships: layoutRelationships } = layoutInput.current
-    stopSimulation()
     void placeComponents(layoutComponents, layoutRelationships).then(({ positions, failed }) => {
       if (!active) return
+      layoutPositions.current = positions
       const nextNodes: LayoutNode[] = layoutComponents.map(component => ({
         id: component.id,
         type: 'system',
@@ -241,14 +203,12 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
         style: NODE_STYLE,
       }))
       fitWhenReady.current = true
-      startSimulation(nextNodes, layoutRelationships)
+      setPinnedIds(new Set())
+      setNodes(nextNodes)
       setFinishedLayout({ request: layoutRequest, failed })
     })
-    return () => {
-      active = false
-      stopSimulation()
-    }
-  }, [layoutRequest, startSimulation, stopSimulation])
+    return () => { active = false }
+  }, [layoutRequest, setNodes])
 
   useEffect(() => {
     if (layoutPending || !fitWhenReady.current || !instance.current || !nodes.length || nodes.some(node => !node.measured?.width)) return
@@ -315,27 +275,10 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
   const onNodeClick = useCallback<NodeMouseHandler<SystemNode>>((_, node) => { if (node.data.selectable) onFocus(node.id) }, [onFocus])
   const onPaneClick = useCallback(() => onFocus(''), [onFocus])
   const onNodeDragStart = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
-    dragging.current = node.id
-    const forceNode = forceNodes.current.get(node.id)
-    if (forceNode) {
-      pinNode(forceNode, node.position)
-      setPinnedIds(current => new Set(current).add(node.id))
-    }
+    setPinnedIds(current => new Set(current).add(node.id))
     fitWhenReady.current = false
-    simulation.current?.alpha(DRAG_ALPHA).alphaTarget(DRAG_ALPHA_TARGET).restart()
     if (node.data.selectable) onFocus(node.id)
   }, [onFocus])
-  const onNodeDrag = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
-    const forceNode = forceNodes.current.get(node.id)
-    if (forceNode) pinNode(forceNode, node.position)
-  }, [])
-  const onNodeDragStop = useCallback<OnNodeDrag<SystemNode>>((_, node) => {
-    dragging.current = null
-    const forceNode = forceNodes.current.get(node.id)
-    if (forceNode) pinNode(forceNode, node.position)
-    fitWhenReady.current = false
-    simulation.current?.alphaTarget(0).restart()
-  }, [])
   const onNodeContextMenu = useCallback<NodeMouseHandler<SystemNode>>((event, node) => {
     event.preventDefault()
     releaseNodes(node.id)
@@ -395,8 +338,6 @@ export function SystemOverviewMap({ components, relationships, observedStatus = 
       onNodeClick={onNodeClick}
       onPaneClick={onPaneClick}
       onNodeDragStart={onNodeDragStart}
-      onNodeDrag={onNodeDrag}
-      onNodeDragStop={onNodeDragStop}
       onNodeContextMenu={onNodeContextMenu}
       proOptions={PRO_OPTIONS}
     >

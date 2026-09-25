@@ -35,3 +35,7 @@ output/
 # Generated review captures and skill evaluation runs.
 artifacts/
 .agents/skills/*-workspace/
+
+# Agent scratch notes stay outside the repository.
+docs/design-review/
+docs/WORKSPACES-BUILD.md

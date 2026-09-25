@@ -1,6 +1,6 @@
 {
   "id": "c-prompts",
-  "productId": "p-play",
   "name": "prompt-library",
-  "order": 13
+  "order": 13,
+  "repo": "fixture/p-play"
 }

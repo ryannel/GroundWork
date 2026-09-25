@@ -21,7 +21,8 @@ function useDirectoryScroll(main: RefObject<HTMLElement | null>, feature: boolea
     history.scrollRestoration = 'manual'
     const save = () => { scrollPositions.set(currentKey.current, window.scrollY) }
     window.addEventListener('scroll', save, { passive: true })
-    return () => { window.removeEventListener('scroll', save); history.scrollRestoration = previous }
+    return () => { window.removeEventListener('scroll', save);
+      history.scrollRestoration = previous }
   }, [])
   useLayoutEffect(() => {
     currentKey.current = key

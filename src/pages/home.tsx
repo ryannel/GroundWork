@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { Layers, LayoutGrid, Lightbulb, Clock3 } from 'lucide-react'
+import { Layers, LayoutGrid, Lightbulb, Clock3, ArrowRight } from 'lucide-react'
 import { useHome, useQuery, isCold, STALE_DAYS } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
 import { WorkspaceCard } from '@/components/workspace-card'
 import { FeatureRow, FeatureWorkList } from '@/components/feature-row'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { useUrlFilter } from '@/ui/use-url-filter'
-import { productRoute } from '@/data/view-models'
+import { productRoute } from '@shared/view-models'
 
 type HomeView = 'active' | 'ideas' | 'quiet'
 const emptyText: Record<HomeView, string> = {
@@ -50,7 +50,7 @@ export function HomePage() {
     <header className="board-heading">
       <div>
         <div className="board-eyebrow"><LayoutGrid size={13} />{plan ? 'This repository' : 'Workspaces'}</div>
-        <h1>{plan ? plan.manifest.name : 'Workspaces'}<span>.</span></h1>
+        <h1>{plan ? plan.manifest.name : 'Workspaces'}</h1>
         <p>{plan ? 'Feature plans and delivery, alongside your source.' : 'Products, plans, and the work connecting them.'}</p>
       </div>
       <dl className="board-totals">
@@ -71,8 +71,8 @@ export function HomePage() {
           <h3>{product.name}</h3>
           <p className="project-path">{product.description ?? 'Features, architecture, and the work ahead.'}</p>
           <div className="project-counts">
-            <span><strong>{q.features(product.id).length}</strong> feature plans</span>
-            <span><strong>{q.components(product.id).length}</strong> components</span>
+            <span><strong>{q.features(product.id).length}</strong> feature {q.features(product.id).length === 1 ? 'plan' : 'plans'}</span>
+            <span><strong>{q.components(product.id).length}</strong> {q.components(product.id).length === 1 ? 'component' : 'components'}</span>
           </div>
         </Link>)}</div>
         : <div className="workspace-directory">{summaries.map(s => <WorkspaceCard key={s.workspace.id} s={s} />)}</div>}
@@ -84,6 +84,7 @@ export function HomePage() {
     {(plan || summaries.length > 0) && <section className="board-work" aria-labelledby="board-work-heading">
       <div className="board-section-heading">
         <div><h2 id="board-work-heading">Feature work</h2><p>Across your products, from first idea to release.</p></div>
+        {plan && <Link className="board-action" to="/delivery">Delivery overview<ArrowRight size={14} /></Link>}
         {!plan && <label><span className="sr-only">Workspace</span>
           <select value={workspace} onChange={event => filter.set('workspace', event.target.value)}>
             <option value="all">All workspaces</option>

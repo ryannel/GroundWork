@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import type { Component } from '../src/data/model.ts'
-import { runtimeSystemGraph } from '../src/data/component-structure.ts'
+import type { Component } from '../shared/model.ts'
+import { runtimeSystemGraph } from '../shared/component-structure.ts'
 import { qualifyViewerComponents, selectViewerComponentId, viewerComponentId } from '../src/ui/qualified-components.ts'
 
 const component = (id: string, repo?: string, patch: Partial<Component> = {}): Component => ({

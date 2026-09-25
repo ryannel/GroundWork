@@ -1,11 +1,11 @@
 import { createContext, createElement, useContext, useMemo, useState, type ReactNode } from 'react'
-import { createRepository, type ContentSnapshot, type Repository, type RepositoryQueries } from './content.ts'
+import { createRepository, type ContentSnapshot, type Repository, type RepositoryQueries } from '../../shared/content.ts'
 import { useRuntime } from './runtime.ts'
-import type { Component, Feature, Product, Workspace } from './model.ts'
-import { repositoryIdentity } from './repository-identity.ts'
+import type { Component, Feature, Product, Workspace } from '../../shared/model.ts'
+import { repositoryIdentity } from '../../shared/repository-identity.ts'
 import type { FeatureStage } from '@/lib/taxonomy'
 
-const empty: ContentSnapshot = { project: { schemaVersion: 1 }, members: [], workspaces: [], products: [], components: [], features: [] }
+const empty: ContentSnapshot = { project: {}, members: [], workspaces: [], products: [], components: [], features: [] }
 const repositories = new WeakMap<ContentSnapshot, Repository>()
 /** One repository per snapshot, shared by every hook. */
 export function repositoryFor(snapshot: ContentSnapshot | null | undefined): Repository {

@@ -1,6 +1,5 @@
 {
   "id": "c-cli",
-  "productId": "p-cli",
   "name": "gw",
   "repo": "ryannel/gw",
   "order": 11

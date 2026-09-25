@@ -25,11 +25,9 @@ test('a product uses its explicit local catalog and defaults other repositories 
   assert.equal(pretax.source, null)
   assert.equal(pretax.components[0].id, 'pretax-api--src-api')
   assert.equal(pretax.components[0].api?.endpoints[0].id, 'prices')
-  assert.ok(pretax.resolution.areas.every(item => item.provenance.catalog === 'local'))
   const own = result.repositories[1]
   assert.equal(own.selected, 'source')
   assert.equal(own.components.length, 2)
-  assert.ok(own.resolution.areas.every(item => item.provenance.catalog === 'source'))
   assert.deepEqual(result.repositories[2].components, [], 'a missing local clone does not trigger a fetch')
   const other = await resolveProductCatalog(home, 'product-configuration-facade', {}, home)
   assert.deepEqual(other.repositories.map(item => item.repository), ['volvo-cars/product-configuration-facade'])
@@ -40,15 +38,15 @@ test('a committed product view reads its selected local catalog at that commit',
   const home = await homeFixture(t, 'v3', 'git@github.com:volvo-cars/price-engine.git')
   await selectLocalPretax(home)
   const ref = await commitAll(home, 'Selected local catalog')
-  const api = path.join(home, '.groundwork/local-catalogs/github.com/volvo-cars/gpe-pretax/components/pretax-api--src-api/api.json')
-  const changed = JSON.parse(await readFile(api, 'utf8')) as { endpoints: { id: string }[] }
-  changed.endpoints[0].id = 'later-working-tree'
+  const api = path.join(home, '.groundwork/local-catalogs/github.com/volvo-cars/gpe-pretax/components/pretax-api--src-api.json')
+  const changed = JSON.parse(await readFile(api, 'utf8')) as { api: { endpoints: { id: string }[] } }
+  changed.api.endpoints[0].id = 'later-working-tree'
   await writeFile(api, JSON.stringify(changed))
   const historical = await resolveProductCatalog(home, 'price-engine', {}, home, { homeRef: ref })
   const pretax = historical.repositories[0]
   assert.equal(pretax.components[0].api?.endpoints[0].id, 'prices')
-  assert.equal(pretax.local.commit, ref)
-  assert.equal(pretax.local.workingTree, false)
+  assert.equal(pretax.local?.commit, ref)
+  assert.equal(pretax.local?.workingTree, false)
   const current = await resolveProductCatalog(home, 'price-engine', {}, home)
   assert.equal(current.repositories[0].components[0].api?.endpoints[0].id, 'later-working-tree')
 })

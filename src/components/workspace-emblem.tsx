@@ -1,5 +1,5 @@
 import { Layers } from 'lucide-react'
-import type { Product, Workspace } from '@/data/model'
+import type { Product, Workspace } from '@shared/model'
 import { hueStyle, kinds } from '@/lib/taxonomy'
 
 /** One workspace identity: its hue, with the icon of its first product's kind. */

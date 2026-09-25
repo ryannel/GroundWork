@@ -1,8 +1,9 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { contractKind, contractResource, contractNotes, groupContracts, apiOperations, apiProvider } from '../src/data/api-reference.ts'
-import type { ApiContract } from '../src/data/spec.ts'
-const c = (id: string, method: ApiContract['method'], path: string, from = 'app'): ApiContract => ({ id, method, path, name: `${method} ${path}`, from, to: 'core', change: 'unspecified' })
+import { contractKind, contractResource, contractNotes, groupContracts, apiOperations, apiProvider } from '../shared/api-reference.ts'
+import type { ApiContract } from '../shared/spec.ts'
+const c = (id: string, method: ApiContract['method'], path: string, from = 'app'): ApiContract => ({ id, method, path, name: `${method} ${path}`,
+  from, to: 'core', change: 'unspecified' })
 
 test('groups HTTP operations by resource and exact endpoint without merging caller variants', () => {
   const input = [
@@ -29,7 +30,8 @@ test('extracts imported facts without truncating parameter values or behavior', 
     + 'Source: tdd/contracts/meeting.mdx — GET /meetings. Target contract; change against the current implementation has not been assessed.'
   const parsed = contractNotes(note)
   assert.equal(parsed.description, 'Read a compact meeting list.')
-  assert.deepEqual(parsed.facts, [{ label: 'Auth', value: 'bearerAuth' }, { label: 'Response', value: '200 MeetingList' }, { label: 'Query params', value: 'expand (transcript, tasks), limit' }])
+  assert.deepEqual(parsed.facts, [{ label: 'Auth', value: 'bearerAuth' }, { label: 'Response', value: '200 MeetingList' },
+    { label: 'Query params', value: 'expand (transcript, tasks), limit' }])
   assert.match(parsed.source!, /^tdd\/contracts\/meeting.mdx/)
   assert.equal(contractNotes('A payload with no metadata.').description, 'A payload with no metadata.')
   assert.deepEqual(contractNotes().facts, [])

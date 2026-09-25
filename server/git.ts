@@ -3,7 +3,7 @@ import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import { NotFound } from './errors.ts'
-import { deriveRepositoryIdentity } from '../src/data/repository-identity.ts'
+import { deriveRepositoryIdentity } from '../shared/repository-identity.ts'
 const exec = promisify(execFile)
 /** A failed git invocation with a short message; the full stderr stays available for diagnosis. */
 export class GitError extends Error {
@@ -58,7 +58,8 @@ export async function context(root: string) {
     branch = symbolic?.startsWith('refs/heads/') ? symbolic.slice('refs/heads/'.length) : null
   } catch {
     try {
-      await git(root, ['rev-parse', '--show-toplevel']); isGit = true
+      await git(root, ['rev-parse', '--show-toplevel']);
+      isGit = true
       branch = await git(root, ['symbolic-ref', '--quiet', '--short', 'HEAD']).catch(() => null)
       head = await git(root, ['rev-parse', '--verify', 'HEAD']).catch(() => null)
     } catch { /* Uninitialised application folders are supported. */ }

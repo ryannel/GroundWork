@@ -14,5 +14,6 @@ await vite.listen()
 vite.printUrls()
 console.log('Open the Vite URL above for hot reload. Ctrl+C stops both servers.')
 for (const signal of ['SIGINT', 'SIGTERM'] as const) {
-  process.once(signal, () => { hub.kill(signal); void vite.close().then(() => process.exit(0)) })
+  process.once(signal, () => { hub.kill(signal);
+    void vite.close().then(() => process.exit(0)) })
 }

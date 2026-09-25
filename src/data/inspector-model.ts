@@ -1,8 +1,7 @@
-import type { Component } from './model.ts'
+import type { Component } from '../../shared/model.ts'
 import { endpointGroup, type CatalogEntry } from './catalog-navigation.ts'
-import { componentCoverage, type CoverageArea } from './catalog-coverage.ts'
-import { componentKind, componentKindLabel } from './component-structure.ts'
-import { browserParam, catalogBrowsers, entityParam, focusEntity, type CatalogBrowserKey, type CatalogLocation, type CatalogTab } from './catalog-url.ts'
+import { componentKind, componentKindLabel } from '../../shared/component-structure.ts'
+import { browserParam, catalogBrowsers, focusEntity, type CatalogBrowserKey, type CatalogLocation, type CatalogTab } from '../../shared/catalog-url.ts'
 
 /** Pure view logic for the component inspector; the React components only render what these return. */
 export type ApiCatalog = NonNullable<Component['api']>
@@ -10,7 +9,6 @@ export type ApiEndpoint = ApiCatalog['endpoints'][number]
 export type ApiType = NonNullable<ApiCatalog['schemas']>[number]
 export type ApiField = ApiType['fields'][number]
 export type ExecutionFlows = NonNullable<Component['executionFlows']>
-export type RetiredObservation = NonNullable<Component['retiredObservations']>[number]
 
 /* Schemas: ids are unique, names are not (versioned APIs, namespaces), so a name resolves to every candidate. */
 export interface SchemaIndex { byId: ReadonlyMap<string, ApiType>; byName: ReadonlyMap<string, readonly ApiType[]> }
@@ -59,17 +57,14 @@ export const jobEntries = (jobs: NonNullable<Component['jobs']>): CatalogEntry[]
 
 /* Tabs */
 export interface InspectorTab { id: CatalogTab; label: string; description: string; count: number | '—' | null }
-/** A count of zero is shown as '—' (not yet established) unless the scan covered that area completely. */
 export function inspectorTabs(component: Component): InspectorTab[] {
-  const coverage = componentCoverage(component)
-  const count = (value: number, area: CoverageArea | null) => value > 0 || (area && coverage.area(area) === 'complete') ? value : '—'
   return [
     { id: 'overview', label: 'Overview', description: 'Responsibility & scope', count: null },
-    { id: 'api', label: 'Interfaces', description: 'Endpoints & payloads', count: count(component.api?.endpoints.length ?? 0, 'api') },
-    { id: 'data', label: 'Data', description: 'Records & storage', count: count(component.data?.records.length ?? 0, 'data') },
-    { id: 'messages', label: 'Messages', description: 'Channels & delivery', count: count(component.messaging?.messages.length ?? 0, 'messaging') },
+    { id: 'api', label: 'Interfaces', description: 'Endpoints & payloads', count: component.api?.endpoints.length ?? 0 },
+    { id: 'data', label: 'Data', description: 'Records & storage', count: component.data?.records.length ?? 0 },
+    { id: 'messages', label: 'Messages', description: 'Channels & delivery', count: component.messaging?.messages.length ?? 0 },
     ...component.jobs?.length
-      ? [{ id: 'jobs', label: 'Jobs', description: 'Background entry points', count: count(component.jobs.length, null) } as const]
+      ? [{ id: 'jobs', label: 'Jobs', description: 'Background entry points', count: component.jobs.length } as const]
       : [],
   ]
 }
@@ -78,21 +73,8 @@ export const activeTab = (tabs: readonly InspectorTab[], requested?: string): Ca
 export const tabAriaLabel = ({ label, count }: InspectorTab) =>
   count === null ? label : `${label}: ${count === '—' ? 'not yet established' : `${count} catalogued`}`
 
-/* Retired records are addressed by the same parameter as their active kind. */
-export function retiredSelection(component: Component, location: CatalogLocation): RetiredObservation | undefined {
-  return component.retiredObservations?.find(item => location[entityParam(item.kind)] === item.id)
-}
-/** Clears every parameter that points at a retired record, so the active catalog becomes visible again. */
-export function clearRetiredSelection(component: Component, location: CatalogLocation): CatalogLocation {
-  const patch: CatalogLocation = {}
-  for (const item of component.retiredObservations ?? []) {
-    const param = entityParam(item.kind)
-    if (location[param] === item.id) patch[param] = undefined
-  }
-  return patch
-}
-export const selectTab = (component: Component, location: CatalogLocation, tab: CatalogTab): CatalogLocation =>
-  ({ ...clearRetiredSelection(component, location), catalog: tab, from: undefined })
+export const selectTab = (_component: Component, location: CatalogLocation, tab: CatalogTab): CatalogLocation =>
+  ({ ...location, catalog: tab, from: undefined })
 
 /* Execution flows and the "Back to …" breadcrumb, carried in the URL as `from=<tab>:<id>`. */
 export const endpointFlows = (component: Component, endpointId: string) =>
@@ -178,19 +160,18 @@ export function mentalModel(component: Component, dependencies: readonly Compone
   const blindSpots = unresolved.length
     ? `${readableList(unresolved.slice(0, 4).map(dependency => dependency.name))}${unresolved.length > 4 ? ` and ${unresolved.length - 4} more` : ''} `
       + `${unresolved.length === 1 ? 'is' : 'are'} referenced in source but not yet matched to a component. `
-      + 'Review Catalog coverage below before making boundary decisions.'
+      + 'Check source citations and documented gaps before making boundary decisions.'
     : undefined
   return { enters, inside, leaves, blindSpots }
 }
 
-/** Wording for an empty tab: a complete scan found nothing, otherwise the area is simply not established yet. */
+/** A missing area is unknown until its gap list was explicitly checked. */
 export function emptyCatalogText(component: Component, area: 'api' | 'data' | 'messaging', label: string) {
-  return componentCoverage(component).area(area) === 'complete'
-    ? { title: `No ${label} found in the scan`, body: `The repository scan did not identify ${label} for ${component.name}.` }
-    : {
-      title: `${label[0].toUpperCase() + label.slice(1)} not yet catalogued`,
-      body: `This area has not been fully investigated for ${component.name}. Missing details do not mean the component has no ${label}.`,
-    }
+  if (component.areaGaps?.[area]?.length === 0) {
+    return { title: `No ${label} recorded`, body: `The checked catalog records no ${label} for ${component.name}.` }
+  }
+  return { title: `${label[0].toUpperCase() + label.slice(1)} not yet catalogued`,
+    body: `Review the source and recorded gaps for ${component.name} before drawing conclusions about ${label}.` }
 }
 
 /** An endpoint's first evidence, or its declared source file at the catalog revision. */

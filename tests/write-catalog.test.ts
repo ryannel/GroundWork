@@ -22,7 +22,7 @@ test('write_catalog replaces one cited component with a guarded atomic write', a
   const plan = await readPlan(root)
   assert.equal(plan.snapshot.components.find(item => item.id === component.id)?.observedAt, observedAt)
   await assert.rejects(operate('write_catalog', { repository: 'volvo-cars/price-engine', destination: 'source', component,
-    expectedRevision: target.revision, expectedContext: target.context.token }, root), /changed since preparation/)
+    expectedRevision: target.revision, expectedContext: target.context.token }, root), /Catalog destination changed/)
 })
 
 test('write_catalog requires a source citation on every entry at the observation commit', async t => {

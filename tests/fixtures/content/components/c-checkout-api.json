@@ -1,6 +1,5 @@
 {
   "id": "c-checkout-api",
-  "productId": "p-checkout",
   "name": "checkout-api",
   "repo": "acme/checkout-api",
   "order": 6

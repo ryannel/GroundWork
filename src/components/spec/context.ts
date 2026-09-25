@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { FeatureSpec, SectionKind } from '@/data/spec'
-import type { Lens, Ref, SpecIndex } from '@/data/spec-index'
+import type { FeatureSpec, SectionKind } from '@shared/spec'
+import type { Lens, Ref, SpecIndex } from '@shared/spec-index'
 
 /** Everything a section needs to cross-reference: the feature id (for URLs), the spec and its index. */
 export interface SpecCtx {

@@ -1,8 +1,8 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { buildIndex, refLabel } from '../src/data/spec-index.ts'
-import { loadContent } from '../src/data/content.ts'
-import type { FeatureSpec } from '../src/data/spec.ts'
+import { buildIndex, refLabel } from '../shared/spec-index.ts'
+import { loadContent } from '../shared/content.ts'
+import type { FeatureSpec } from '../shared/spec.ts'
 
 // Valid IDs that collide with Object.prototype members or sort ahead of other keys.
 const spec = (a: string, b: string, contract: string, step: string): FeatureSpec => ({
@@ -61,11 +61,11 @@ test('step labels follow journey order even for numeric IDs', () => {
 
 test('a validated plan with reserved-looking IDs indexes without throwing', () => {
   const documents: Record<string, unknown> = {
-    'project.json': { schemaVersion: 1 },
+    'project.json': {},
     'workspaces/w.json': { id: 'w', slug: 'w', name: 'W', hue: 'var(--hue-teal)', createdAt: '2026-09-01T00:00:00Z' },
-    'products/p.json': { id: 'p', workspaceId: 'w', slug: 'p', name: 'P', kind: 'library' },
-    'components/client.json': { id: 'client', productId: 'p', name: 'Client' },
-    'components/server.json': { id: 'server', productId: 'p', name: 'Server' },
+    'products/p.json': { id: 'p', workspaceId: 'w', slug: 'p', name: 'P', kind: 'library', repositories: [{ repository: 'acme/reserved', role: 'owned' }] },
+    'components/client.json': { id: 'client', repo: 'acme/reserved', name: 'Client' },
+    'components/server.json': { id: 'server', repo: 'acme/reserved', name: 'Server' },
     'members/m.json': { id: 'm', name: 'M' },
     'features/f/feature.json': { id: 'f', productId: 'p', title: 'F', stage: 'specced', touches: ['client'], ownerId: 'm', updatedAt: '2026-09-05T10:00:00Z' },
   }

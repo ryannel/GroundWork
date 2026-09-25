@@ -1,4 +1,4 @@
-import type { ResponseSchema as Schema } from '@/data/spec'
+import type { ResponseSchema as Schema } from '@shared/spec'
 import { diffResponseSchema } from '@/data/schema-diff'
 import { changeMeta } from './change-meta'
 
@@ -9,7 +9,8 @@ export function ResponseSchema({ schema }: { schema: Schema }) {
   const notes = lines.filter(line => line.note)
   return <section className="response-schema" aria-label="Response schema with field changes">
     <header><h4>Response schema</h4><span>Current <span aria-hidden="true">→</span> Proposed</span></header>
-    <div className="schema-legend" aria-label="Field change legend">{Object.entries(states).map(([state, meta]) => <span key={state} className={`schema-state-${state}`}>
+    <div className="schema-legend" aria-label="Field change legend">{Object.entries(states).map(([state, meta]) =>
+      <span key={state} className={`schema-state-${state}`}>
       <b aria-hidden="true">{meta.glyph}</b> {meta.label}
     </span>)}</div>
     <div className="schema-scroll" tabIndex={0} role="region" aria-label="Complete response schema, scroll horizontally for long fields">
@@ -22,7 +23,9 @@ export function ResponseSchema({ schema }: { schema: Schema }) {
         <span className="schema-line-content" style={{ paddingInlineStart: `${line.depth * 2}ch` }}>
           {line.change !== 'unchanged' && <span className="sr-only">{states[line.change].label}: </span>}
           {sharedName && <span>{prefix}</span>}
-          {line.before && line.before !== line.after && <><del>{sharedName ? line.before.slice(prefix.length) : line.before}</del><span aria-label=" becomes "> → </span></>}
+          {line.before && line.before !== line.after && <>
+            <del>{sharedName ? line.before.slice(prefix.length) : line.before}</del><span aria-label=" becomes "> → </span>
+          </>}
           {line.change === 'removed' ? <del>{line.after}</del> : <span>{sharedName ? line.after.slice(prefix.length) : line.after}</span>}
         </span>{'\n'}
       </span>})}</code></pre>

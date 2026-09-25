@@ -23,8 +23,8 @@ test('validate --all covers a home discovered in a linked default-branch worktre
   await git(main, ['worktree', 'add', '-q', '-b', 'side', side])
   await initialise(main, { name: 'Worktree Home' })
   await mkdir(config)
-  await writeFile(path.join(config, 'registry-v3.json'), JSON.stringify({
-    version: 3, checkouts: { 'acme/worktree-home': [side] }, workspaces: [],
+  await writeFile(path.join(config, 'registry.json'), JSON.stringify({
+    checkouts: { 'acme/worktree-home': [side] }, workspaces: [],
   }))
   const previous = process.env.GROUNDWORK_HOME
   process.env.GROUNDWORK_HOME = config
@@ -49,7 +49,7 @@ test('validate --all detects shared repository ownership declared by separate ho
     checkouts[`acme/${id}`] = [root]
   }
   await mkdir(config)
-  await writeFile(path.join(config, 'registry-v3.json'), JSON.stringify({ version: 3, checkouts, workspaces: [] }))
+  await writeFile(path.join(config, 'registry.json'), JSON.stringify({ checkouts, workspaces: [] }))
   const previous = process.env.GROUNDWORK_HOME
   process.env.GROUNDWORK_HOME = config
   t.after(() => { if (previous === undefined) delete process.env.GROUNDWORK_HOME; else process.env.GROUNDWORK_HOME = previous })
@@ -77,8 +77,8 @@ test('cross-home validation compares ownership by repository and reports the hom
   await git(source, ['remote', 'add', 'origin', 'git@github.com:acme/source.git'])
   await initialise(home, { name: 'Home' })
   await mkdir(config)
-  await writeFile(path.join(config, 'registry-v3.json'), JSON.stringify({
-    version: 3, checkouts: { 'acme/home': [home], 'acme/source': [source] }, workspaces: [],
+  await writeFile(path.join(config, 'registry.json'), JSON.stringify({
+    checkouts: { 'acme/home': [home], 'acme/source': [source] }, workspaces: [],
   }))
   const previous = process.env.GROUNDWORK_HOME
   process.env.GROUNDWORK_HOME = config
@@ -111,8 +111,8 @@ test('validation warns when a home has only a provisional repository identity', 
   assert.match(single.warnings[0], /provisional identity/)
 
   await mkdir(config)
-  await writeFile(path.join(config, 'registry-v3.json'), JSON.stringify({
-    version: 3, checkouts: { 'local:home': [home] }, workspaces: [],
+  await writeFile(path.join(config, 'registry.json'), JSON.stringify({
+    checkouts: { 'local:home': [home] }, workspaces: [],
   }))
   const previous = process.env.GROUNDWORK_HOME
   process.env.GROUNDWORK_HOME = config

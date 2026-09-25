@@ -1,9 +1,9 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Layers, Lightbulb, CheckCheck, GitFork, Boxes } from 'lucide-react'
 import { useWorkspace, useQuery } from '@/data/store'
-import type { Component, Feature, Product } from '@/data/model'
+import type { Component, Feature, Product } from '@shared/model'
 import { featureInProduct, connectedProductIds } from '@/data/workspace-view'
-import { FeatureWorkList } from '@/components/feature-row'
+import { FeatureRow, FeatureWorkList, FeatureImpact } from '@/components/feature-row'
 import { kinds } from '@/lib/taxonomy'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { useUrlFilter } from '@/ui/use-url-filter'
@@ -23,6 +23,7 @@ function ProductCard({ workspaceSlug, product, owned, active, incoming }: {
   incoming: number
 }) {
   const services = owned.filter(c => c.kind === 'service').length
+  const components = owned.filter(c => !c.parentId).length
   return <Link to={`/w/${workspaceSlug}/${product.slug}`} className="workspace-product-card">
     <div className="workspace-product-top">
       <span className="product-card-kicker">Product</span>
@@ -30,7 +31,7 @@ function ProductCard({ workspaceSlug, product, owned, active, incoming }: {
     </div>
     <h3>{product.name}</h3><p>{product.description ?? kinds[product.kind].blurb}</p>
     <div className="product-card-meta">
-      <span>{services ? `${services} services` : `${owned.filter(c => !c.parentId).length} components`}</span>
+      <span>{services ? `${services} ${services === 1 ? 'service' : 'services'}` : `${components} ${components === 1 ? 'component' : 'components'}`}</span>
       <span>{kinds[product.kind].label}</span>
     </div>
     <footer>
@@ -42,47 +43,25 @@ function ProductCard({ workspaceSlug, product, owned, active, incoming }: {
   </Link>
 }
 
-function CrossProductWork({ connections, components, scoped }: { connections: Feature[]; components: Component[]; scoped: boolean }) {
-  const q = useQuery()
-  return <aside className="workspace-coordination" aria-labelledby="workspace-connections-heading">
-    <div className="coordination-heading">
-      <span><GitFork size={17} /></span>
-      <div>
-        <h2 id="workspace-connections-heading">Across products</h2>
-        <p>{connections.length} active {connections.length === 1 ? 'feature' : 'features'}</p>
-      </div>
-    </div>
-    <p className="coordination-intro">Changes that reach beyond their owning product.</p>
-    {connections.length ? <div className="coordination-items">{connections.map(feature => <Link key={feature.id} to={`/f/${feature.id}`} className="coordination-item">
-      <h3>{feature.title}<ArrowUpRight size={14} /></h3>
-      <div className="coordination-route">
-        <span>{q.product(feature.productId)?.name}</span>
-        <ArrowRight size={12} aria-label="touches" />
-        <span>{connectedProductIds(feature, components).map(id => q.product(id)?.name).filter(Boolean).join(', ')}</span>
-      </div>
-      <span className="coordination-owner">{feature.owner}</span>
-    </Link>)}</div> : <div className="coordination-empty">No active features cross product boundaries{scoped ? ' in this scope' : ''}.</div>}
-    <div className="coordination-footnote">Follow these plans to coordinate changes between products.</div>
-  </aside>
-}
-
 export function WorkspacePage() {
   const q = useQuery()
   const { slug = '' } = useParams()
   const ws = useWorkspace(slug)
-  const filter = useUrlFilter({ product: 'all', view: 'active' })
+  const filter = useUrlFilter({ product: 'all', view: 'active', involvement: 'all' })
   if (!ws) return <Navigate to="/" replace />
   const { workspace: w, products, active, ideas, shipped } = ws
   const components = q.components()
   const scope = products.find(p => p.product.id === filter.get('product'))?.product
   const productFilter = scope?.id ?? 'all'
   const view: WorkspaceView = filter.get('view') === 'ideas' ? 'ideas' : filter.get('view') === 'shipped' ? 'shipped' : 'active'
-  const inScope = (feature: Feature) => featureInProduct(feature, productFilter, components)
+  const sharedOnly = filter.get('involvement') === 'shared'
+  const inScope = (feature: Feature) => featureInProduct(feature, productFilter, components, q.products())
+    && (!sharedOnly || connectedProductIds(feature, components, q.products()).length > 0)
   const activeRows = active.filter(inScope)
   const ideaRows = ideas.filter(inScope)
   const shippedRows = shipped.filter(inScope)
   const rows = view === 'ideas' ? ideaRows : view === 'shipped' ? shippedRows : activeRows
-  const connected = active.filter(feature => connectedProductIds(feature, components).length > 0)
+  const connected = active.filter(feature => connectedProductIds(feature, components, q.products()).length > 0)
   const views = [
     { id: 'active' as const, label: 'Active', count: activeRows.length, icon: Layers },
     { id: 'ideas' as const, label: 'Ideas', count: ideaRows.length, icon: Lightbulb },
@@ -99,7 +78,7 @@ export function WorkspacePage() {
         </div></div>
         <dl className="board-totals">
           <div><dt>Active features</dt><dd>{active.length}</dd></div>
-          <div><dt>Cross-product</dt><dd>{connected.length}</dd></div>
+          <div><dt>Multi-product plans</dt><dd>{connected.length}</dd></div>
         </dl>
       </div>
     </header>
@@ -107,7 +86,7 @@ export function WorkspacePage() {
     <section className="workspace-product-section" aria-labelledby="workspace-products-heading">
       <div className="board-section-heading">
         <h2 id="workspace-products-heading">Products <span className="section-count">{products.length}</span></h2>
-        <span className="workspace-section-note">Open a product to explore its features</span>
+        <span className="workspace-section-note">Architecture, contracts, and planned work</span>
       </div>
       <div className="workspace-product-grid">{products.map(({ product, components: owned, active: ownedActive }) => <ProductCard
         key={product.id}
@@ -115,12 +94,12 @@ export function WorkspacePage() {
         product={product}
         owned={owned}
         active={ownedActive.length}
-        incoming={active.filter(feature => feature.productId !== product.id && featureInProduct(feature, product.id, components)).length}
+        incoming={active.filter(feature => feature.productId !== product.id && featureInProduct(feature, product.id, components, q.products())).length}
       />)}</div>
       {!products.length && <p className="board-empty">No products in this workspace yet.</p>}
     </section>
 
-    <div className="workspace-work-layout">
+    <div className="workspace-work-layout is-unified">
       <section className="workspace-feature-section" aria-labelledby="workspace-feature-heading">
         <div className="board-section-heading">
           <div><h2 id="workspace-feature-heading">Feature work</h2><p>From exploration to release.</p></div>
@@ -136,18 +115,26 @@ export function WorkspacePage() {
           views={views}
           view={view}
           onView={id => filter.set('view', id)}
-          summary={<p>{scope ? `Owned by or touching ${scope.name}` : 'Across all products'}</p>}
+          summary={<div className="work-filters"><label>
+            <span className="sr-only">Product involvement</span>
+            <select value={sharedOnly ? 'shared' : 'all'} onChange={event => filter.set('involvement', event.target.value)}>
+              <option value="all">All work</option>
+              <option value="shared">Involves multiple products</option>
+            </select>
+          </label></div>}
           titleColumn="Feature / owning product"
           rows={rows}
+          renderRow={feature => <FeatureRow key={feature.id} feature={feature} detail={<FeatureImpact feature={feature} />} />}
           empty={<div className="workspace-list-empty">
             <Boxes size={24} />
             <h3>{emptyHeading[view]}</h3>
-            <p>{scope ? 'Try another product or return to the full workspace.' : 'This view will show feature plans as they reach this stage.'}</p>
-            {(scope || view !== 'active') && <button onClick={filter.reset}>Show all active work <ArrowRight size={13} /></button>}
+            <p>{scope
+              ? 'Try another product or return to the full workspace.'
+              : 'Plan a feature with your agent to connect upcoming work to this workspace.'}</p>
+            {(scope || sharedOnly || view !== 'active') && <button onClick={filter.reset}>Show all active work <ArrowRight size={13} /></button>}
           </div>}
         />
       </section>
-      <CrossProductWork connections={connected.filter(inScope)} components={components} scoped={!!scope} />
     </div>
   </div>
 }

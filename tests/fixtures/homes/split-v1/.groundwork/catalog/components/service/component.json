@@ -1,8 +1,0 @@
-{
-  "id": "service",
-  "productId": "app",
-  "name": "Service",
-  "kind": "service",
-  "repo": "volvo-cars/split-home",
-  "sourcePath": "src/service"
-}

@@ -1,34 +1,32 @@
 import type { Ref } from 'react'
-import type { z } from 'zod'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, Layers, AlertCircle } from 'lucide-react'
-import type { Component, Feature } from '@/data/model'
-import type { Delivery } from '@/data/delivery'
-import type { RuntimePlan } from '@/data/runtime'
-import type { FeatureSpec, SectionKind } from '@/data/spec'
-import type { SpecIndex } from '@/data/spec-index'
+import type { Component, Feature } from '@shared/model'
+import type { Delivery } from '@shared/delivery'
+import type { FeatureSpec, SectionKind } from '@shared/spec'
+import type { SpecIndex } from '@shared/spec-index'
 import { useQuery, isActive } from '@/data/store'
-import { changesOverlap } from '@/data/component-structure'
-import { baselineAssessments, type discoveryAssessmentSchema, type knowledgeBaselineSchema } from '@/data/knowledge'
-import { featureNextStep } from '@/data/view-models'
+import { changesOverlap } from '@shared/component-structure'
+import { featureNextStep } from '@shared/view-models'
 import { sectionMeta } from '@/components/spec'
 import { ChangeMark } from '@/components/spec/change'
 import { FeatureArchitecture } from '@/components/component-structure'
+import { FeatureRow, FeatureRows } from '@/components/feature-row'
 import { StageBadge } from '@/ui/badge'
 import { Avatar } from '@/ui/avatar'
 import { cn } from '@/lib/cn'
 
 export type SectionHref = (section?: SectionKind | 'delivery') => string
 export interface SectionGroup { label: string; sections: SectionKind[] }
-export type Baseline = { file: string; packet: z.infer<typeof knowledgeBaselineSchema> }
-export type Assessment = z.infer<typeof discoveryAssessmentSchema>
 
 function DeliveryCallout({ featureId, delivery }: { featureId: string; delivery?: Delivery }) {
   return <Link className="feature-delivery-callout" to={`/f/${featureId}/delivery`}>
     <div>
       <strong>Delivery plan</strong>
       <p>{delivery?.deliverables.length
-        ? `${delivery.deliverables.length} deliverables · ${delivery.tasks.length} component tasks · ${delivery.validation.length} validation plans`
+        ? `${delivery.deliverables.length} ${delivery.deliverables.length === 1 ? 'deliverable' : 'deliverables'} · `
+          + `${delivery.tasks.length} component ${delivery.tasks.length === 1 ? 'task' : 'tasks'} · `
+          + `${delivery.validation.length} validation ${delivery.validation.length === 1 ? 'plan' : 'plans'}`
         : 'Divide the feature into user-visible deliverables and component tasks.'}</p>
     </div>
     <ArrowRight size={20} />
@@ -69,52 +67,6 @@ function ApiChangeSummary({ api, href }: { api: NonNullable<FeatureSpec['api']>;
   </section>
 }
 
-function DiscoveryChecks({ assessments }: { assessments: Assessment[] }) {
-  return <section className="explore-section">
-    <h2>Discovery checks</h2>
-    <p>Checks preserve the baseline; they do not declare the feature ready to build. Recheck when the intended source target changes.</p>
-    {assessments.map(check => <details className="catalog-notes" key={check.checkedAt}>
-      <summary>{check.reassessmentRequired ? 'Reassessment needed' : 'No change requiring review detected'} · {check.checkedAt}</summary>
-      <div>
-        {check.observations.map(observation => <p key={observation.id}>
-          {observation.id}: catalog {observation.catalogState}; source {observation.sourceFreshness}
-        </p>)}
-        <p>{check.note}</p>
-        {check.checks.map((source, index) => <p key={index}>
-          {String(source.repository)} · target {String(source.targetRevision ?? 'unavailable')} · {String(source.requestedTarget)}
-        </p>)}
-      </div>
-    </details>)}
-  </section>
-}
-
-function DiscoveryBaselines({ baselines, plan }: { baselines: Baseline[]; plan: RuntimePlan }) {
-  const changed = (packet: Baseline['packet']) =>
-    baselineAssessments(packet, plan.snapshot.components, plan.identity).some(item => item.catalogState !== 'unchanged')
-  return <section className="explore-section">
-    <h2>Discovery baselines</h2>
-    <p>Facts retained when this plan was prepared. Catalog changes are compared below; source checks apply only to their recorded target and time.</p>
-    {baselines.map(({ file, packet }) => <details className="catalog-notes" key={file}>
-      <summary>{packet.question} · {packet.observations.length} observations</summary>
-      <div>
-        <p>{changed(packet)
-          ? 'Reassessment needed: retained catalog facts have changed or been removed.'
-          : 'No catalog changes detected for these retained facts. Source behavior is not verified.'}</p>
-        <p>Captured {packet.capturedAt} · Catalog {packet.catalogRevision.slice(0, 8)}</p>
-        {packet.assumptions.map((assumption, index) => <p key={index}>Assumption: {assumption}</p>)}
-        {packet.observations.map(observation => <article key={observation.id}>
-          <h4>{observation.name}</h4>
-          <p>{observation.repository} · {observation.sourceRevision?.slice(0, 8)}</p>
-          <details>
-            <summary>Retained facts and evidence</summary>
-            <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{JSON.stringify(observation.observation, null, 2)}</pre>
-          </details>
-        </article>)}
-      </div>
-    </details>)}
-  </section>
-}
-
 function PlanIndex({ spec, groups, href }: { spec: FeatureSpec; groups: SectionGroup[]; href: SectionHref }) {
   const drafted = groups.flatMap(g => g.sections).filter(k => spec[k]).length
   const total = groups.flatMap(g => g.sections).length
@@ -140,22 +92,25 @@ function PlanIndex({ spec, groups, href }: { spec: FeatureSpec; groups: SectionG
 function ConnectedWork({ feature, allComponents }: { feature: Feature; allComponents: Component[] }) {
   const q = useQuery()
   const related = q.features().filter(o => o.id !== feature.id && isActive(o) && changesOverlap(feature, o, allComponents))
-  return <section>
+  return <section className="connected-work">
     <div className="section-line"><h2>Connected work</h2><span>{related.length} {related.length === 1 ? 'feature' : 'features'}</span></div>
     <p className="text-small text-fg-muted mb-4">Active plans with overlapping changes to components or their internals.</p>
-    <div className="related-list">
-      {related.map(o => <Link key={o.id} to={`/f/${o.id}`}>
-        <span>{o.title}<small>
-          {o.touches.filter(t => changesOverlap({ touches: [t] }, feature, allComponents)).map(t => q.componentLabel(t)).join(', ')}
-        </small></span>
-        <StageBadge stage={o.stage} />
-      </Link>)}
+    <div>
+      {!!related.length && <FeatureRows
+        rows={related}
+        titleColumn="Feature / shared components"
+        renderRow={other => <FeatureRow
+          key={other.id}
+          feature={other}
+          context={other.touches.filter(t => changesOverlap({ touches: [t] }, feature, allComponents)).map(t => q.componentLabel(t)).join(', ')}
+        />}
+      />}
       {!related.length && <p className="text-small text-fg-muted">No active plans touch these components.</p>}
     </div>
   </section>
 }
 
-export function FeatureOverview({ feature, spec, ix, groups, href, componentHref, participants, allComponents, delivery, plan, baselines, assessments }: {
+export function FeatureOverview({ feature, spec, ix, groups, href, componentHref, participants, allComponents, delivery }: {
   feature: Feature
   spec: FeatureSpec
   ix: SpecIndex
@@ -165,21 +120,16 @@ export function FeatureOverview({ feature, spec, ix, groups, href, componentHref
   participants: Component[]
   allComponents: Component[]
   delivery?: Delivery
-  plan: RuntimePlan | null
-  baselines: Baseline[]
-  assessments: Assessment[]
 }) {
   const q = useQuery()
   const touches = feature.touches.filter(id => q.component(id)).length
   return <div className="workbench-overview">
-    <DeliveryCallout featureId={feature.id} delivery={delivery} />
     <div className="feature-intent-grid">
       <FeatureIntent feature={feature} spec={spec} href={href} />
       <NextStepPanel spec={spec} ix={ix} href={href} />
     </div>
+    <DeliveryCallout featureId={feature.id} delivery={delivery} />
     {spec.api && <ApiChangeSummary api={spec.api} href={href} />}
-    {!!assessments.length && <DiscoveryChecks assessments={assessments} />}
-    {!!baselines.length && plan && <DiscoveryBaselines baselines={baselines} plan={plan} />}
     <PlanIndex spec={spec} groups={groups} href={href} />
     <div className="overview-grid impact-grid">
       <section>
@@ -195,11 +145,10 @@ export function FeatureOverview({ feature, spec, ix, groups, href, componentHref
 }
 
 /** Overview title block; the heading takes focus when the overview opens. */
-export function OverviewHeader({ feature, headingRef, updated, journeyLink }: {
+export function OverviewHeader({ feature, headingRef, updated }: {
   feature: Feature
   headingRef: Ref<HTMLHeadingElement>
   updated: string
-  journeyLink?: { to: string; label: string }
 }) {
   return <header className="feature-overview-header">
     <div className="feature-overview-kicker">
@@ -209,7 +158,6 @@ export function OverviewHeader({ feature, headingRef, updated, journeyLink }: {
     <div className="feature-overview-byline">
       <Avatar name={feature.owner} className="owner-avatar" /><span>{feature.owner}</span><span className="byline-divider" />
       <time dateTime={feature.updatedAt} title={new Date(feature.updatedAt).toLocaleString()}>Updated {updated}</time>
-      {journeyLink && <Link className="primary-link" to={journeyLink.to}>{journeyLink.label}<ArrowRight size={15} /></Link>}
     </div>
   </header>
 }

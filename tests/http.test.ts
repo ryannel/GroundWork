@@ -6,27 +6,32 @@ import path from 'node:path'
 import { request, type IncomingMessage } from 'node:http'
 import { setTimeout as delay } from 'node:timers/promises'
 import { initialise } from '../server/setup.ts'
+import { register } from '../server/registry.ts'
+import { context } from '../server/git.ts'
 import { readPlan } from '../server/repository.ts'
 import { httpStatus, serve } from '../server/http.ts'
 import { InvalidInput } from '../server/errors.ts'
-import { commitAll, gitInit, guard, tempDir } from './helpers.ts'
+import { commitAll, gitInit, guard, tempDir, withEnv } from './helpers.ts'
 
 async function fixture(t: TestContext, gitRepo = false) {
   const root = await tempDir(t, 'groundwork-http-')
-  await initialise(root, { name: 'HTTP app' })
+  withEnv(t, { GROUNDWORK_HOME: path.join(root, 'config') })
+  await gitInit(root)
+  await initialise(root, { name: 'HTTP app', id: 'app' })
   if (gitRepo) {
     await mkdir(path.join(root, '.groundwork/plans/assets'), { recursive: true })
     await writeFile(path.join(root, '.groundwork/plans/assets/pixel.png'), Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x00, 0xff, 0xfe, 0x80]))
-    await gitInit(root)
     await commitAll(root, 'Initial plan')
   }
   const viewerDirectory = path.join(root, 'viewer')
   await mkdir(viewerDirectory)
   await writeFile(path.join(viewerDirectory, 'index.html'), '<!doctype html><title>viewer</title>')
-  const app = await serve({ root, port: 0, viewerDirectory })
+  await register(root)
+  const checkoutId = (await context(root)).checkoutId
+  const app = await serve({ port: 0, viewerDirectory })
   t.after(() => app.close())
   const { token } = await (await fetch(app.url + '/api/session')).json() as { token: string }
-  return { root, app, token }
+  return { root, app, token, checkoutId }
 }
 
 /** Sends a POST body in separate TCP writes so the server sees separate chunks. */
@@ -38,16 +43,18 @@ function post(url: string, headers: Record<string, string | number>, parts: Buff
     })
     req.on('error', reject)
     void (async () => {
-      for (const [index, part] of parts.entries()) { if (index) await delay(50); req.write(part) }
+      for (const [index, part] of parts.entries()) { if (index) await delay(50);
+        req.write(part) }
       req.end()
     })()
   })
 }
 
 test('a multi-byte character split across chunks is decoded intact', async t => {
-  const { root, app, token } = await fixture(t)
+  const { root, app, token, checkoutId } = await fixture(t)
   const name = 'Zoë 日本'
-  const body = Buffer.from(JSON.stringify({ ...guard(await readPlan(root)), changes: { 'members/owner.json': JSON.stringify({ id: 'owner', name }) } }))
+  const body = Buffer.from(JSON.stringify({ checkoutId, ...guard(await readPlan(root)),
+    changes: { 'members/owner.json': JSON.stringify({ id: 'owner', name }) } }))
   const split = body.indexOf(Buffer.from('日')) + 1
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'Content-Length': body.length }
   const response = await post(app.url + '/api/operations/write_plan', headers, [body.subarray(0, split), body.subarray(split)])
@@ -56,10 +63,13 @@ test('a multi-byte character split across chunks is decoded intact', async t => 
 })
 
 test('POST bodies are bounded, must be UTF-8, and statuses separate input, conflicts and missing things', async t => {
-  const { root, app, token } = await fixture(t)
+  const { root, app, token, checkoutId } = await fixture(t)
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-  const call = (operation: string, body: string | Buffer, extra: Record<string, string | number> = {}) =>
-    post(app.url + '/api/operations/' + operation, { ...headers, 'Content-Length': Buffer.byteLength(body), ...extra }, [Buffer.from(body)])
+  const call = (operation: string, body: string | Buffer, extra: Record<string, string | number> = {}) => {
+    let value = body
+    try { value = JSON.stringify({ checkoutId, ...JSON.parse(body.toString()) }) } catch { /* Test malformed input as supplied. */ }
+    return post(app.url + '/api/operations/' + operation, { ...headers, 'Content-Length': Buffer.byteLength(value), ...extra }, [Buffer.from(value)])
+  }
   assert.equal((await post(app.url + '/api/operations/write_plan', { ...headers, 'Content-Length': 5 * 1024 * 1024 }, [])).status, 413)
   assert.equal((await call('write_plan', Buffer.from([0x7b, 0xff, 0x7d]))).status, 400)
   assert.equal((await call('write_plan', '{not json')).status, 400)
@@ -123,7 +133,9 @@ test('event streams that disconnect early leave no timers or watchers behind', {
   await Promise.all(Array.from({ length: 5 }, () => new Promise<void>(resolve => {
     const req = request(app.url + '/api/events')
     req.on('error', () => resolve())
-    req.on('response', response => { response.destroy(); req.destroy(); resolve() })
+    req.on('response', response => { response.destroy();
+      req.destroy();
+      resolve() })
     req.end()
   })))
   assert.equal(await settle(baseline), baseline)
@@ -147,9 +159,12 @@ test('event stream subscribers share one poller and watcher per checkout', { tim
 
 test('close() ends open event streams and releases their resources', { timeout: 20000 }, async t => {
   const root = await tempDir(t, 'groundwork-http-close-')
+  withEnv(t, { GROUNDWORK_HOME: path.join(root, 'config') })
+  await gitInit(root)
   await initialise(root, { name: 'Close app' })
+  await register(root)
   const baseline = watched()
-  const app = await serve({ root, port: 0 })
+  const app = await serve({ port: 0 })
   const controller = new AbortController()
   const reader = await firstEvent(app.url + '/api/events', controller.signal)
   await app.close()
@@ -161,9 +176,10 @@ test('only typed and schema errors are client errors; an untyped Error is a serv
   assert.equal(httpStatus(new Error('unexpected')), 500)
 })
 test('a bad catalog ID, an unknown ref and a malformed static path are client errors', async t => {
-  const { app, token } = await fixture(t, true)
+  const { app, token, checkoutId } = await fixture(t, true)
   const call = (operation: string, args: unknown) => fetch(app.url + '/api/operations/' + operation, {
-    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(args),
+    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ checkoutId,
+      ...(args as Record<string, unknown>) }),
   })
   const badId = await call('get_catalog_entity', { id: 'x' })
   assert.equal(badId.status, 400, await badId.text())

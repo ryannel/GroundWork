@@ -10,7 +10,8 @@ export function CheckoutMenu() {
   const { context, activity } = plan
   const branchHref = (ref?: string) => `/p/${context.checkoutId}${ref ? `/ref/${encodeURIComponent(ref)}` : ''}/`
   return <details className="checkout-menu" ref={menu} onKeyDown={event => {
-    if (event.key === 'Escape') { menu.current!.open = false; menu.current?.querySelector('summary')?.focus() }
+    if (event.key === 'Escape') { menu.current!.open = false;
+      menu.current?.querySelector('summary')?.focus() }
   }} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false }}>
     <summary aria-label="Checkout details">
       <GitBranch size={14} />

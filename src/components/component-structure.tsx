@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import type { Component, Feature } from '@/data/model'
+import type { Component, Feature } from '@shared/model'
 import {
   componentAncestors, componentGroup, componentKind, componentKindLabel, componentPath, componentTree, featureTouchesComponent,
-} from '@/data/component-structure'
+} from '@shared/component-structure'
 import { ComponentKindIcon } from './component-kind-icon'
 
 const groups = ['Services & components', 'Infrastructure', 'External providers']

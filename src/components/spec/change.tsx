@@ -1,4 +1,4 @@
-import type { Change } from '@/data/spec'
+import type { Change } from '@shared/spec'
 import { cn } from '@/lib/cn'
 import { changeMeta } from './change-meta'
 

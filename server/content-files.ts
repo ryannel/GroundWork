@@ -1,6 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
-import type { ContentDocuments } from '../src/data/content.ts'
+import type { ContentDocuments } from '../shared/content.ts'
 export async function readContentDirectory(root: string): Promise<ContentDocuments> {
   const files: ContentDocuments = {}
   async function visit(directory: string) {

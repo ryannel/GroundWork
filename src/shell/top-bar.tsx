@@ -5,6 +5,7 @@ import { useTheme } from '@/lib/theme-context'
 import type { ThemePref } from '@/lib/theme-context'
 import { useQuery } from '@/data/store'
 import { useRuntime } from '@/data/runtime'
+import { navigationSearch } from '@/data/navigation-search'
 import { cn } from '@/lib/cn'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CheckoutMenu } from './checkout-menu'
@@ -26,7 +27,7 @@ function ThemeButton() {
 }
 
 /** ARIA 1.2 combobox: the input owns a listbox of feature links; arrow keys move into it, Escape returns. */
-function FeatureSearch() {
+function GlobalSearch() {
   const q = useQuery()
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
@@ -35,43 +36,53 @@ function FeatureSearch() {
   const navigate = useNavigate()
   const listId = useId()
   const term = query.trim().toLowerCase()
-  const results = term ? q.features().filter(f => `${f.title} ${q.product(f.productId)?.name}`.toLowerCase().includes(term)) : []
+  const results = navigationSearch(term, { products: q.products(), workspaces: q.workspaces(), components: q.components(), features: q.features() })
   const expanded = focused && !!term
-  const closeSearch = () => { setQuery(''); setFocused(false) }
+  const closeSearch = () => { setQuery('');
+    setFocused(false) }
   return <div className="global-search" onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false) }}>
     <Search size={14} />
     <input
       ref={input}
       role="combobox"
-      aria-label="Find a feature"
+      aria-label="Search products, components, features"
       aria-autocomplete="list"
       aria-expanded={expanded}
       aria-controls={listId}
-      placeholder="Find a feature…"
+      placeholder="Search your workspace…"
       value={query}
       onFocus={() => setFocused(true)}
-      onChange={e => { setQuery(e.target.value); setFocused(true) }}
+      onChange={e => { setQuery(e.target.value);
+        setFocused(true) }}
       onKeyDown={e => {
         if (e.key === 'Escape') closeSearch()
-        if (e.key === 'ArrowDown' && results.length) { e.preventDefault(); resultList.current?.querySelector('a')?.focus() }
-        if (e.key === 'Enter' && results[0]) { e.preventDefault(); navigate(`/f/${results[0].id}`); closeSearch(); input.current?.blur() }
+        if (e.key === 'ArrowDown' && results.length) { e.preventDefault();
+          resultList.current?.querySelector('a')?.focus() }
+        if (e.key === 'Enter' && results[0]) { e.preventDefault();
+          navigate(results[0].href);
+          closeSearch();
+          input.current?.blur() }
       }}
     />
     {/* Mounted permanently so the count is announced when results change. */}
-    <span className="sr-only" role="status">{expanded ? `${results.length} matching features` : ''}</span>
-    <div ref={resultList} id={listId} role="listbox" aria-label="Matching features" className="search-results" hidden={!expanded} onKeyDown={e => {
+    <span className="sr-only" role="status">{expanded ? `${results.length} matching results` : ''}</span>
+    <div ref={resultList} id={listId} role="listbox" aria-label="Search results" className="search-results" hidden={!expanded} onKeyDown={e => {
       const links = Array.from(resultList.current?.querySelectorAll('a') ?? [])
       const index = links.indexOf(document.activeElement as HTMLAnchorElement)
-      if (e.key === 'ArrowDown') { e.preventDefault(); links[Math.min(index + 1, links.length - 1)]?.focus() }
-      if (e.key === 'ArrowUp') { e.preventDefault(); if (index <= 0) input.current?.focus(); else links[index - 1]?.focus() }
-      if (e.key === 'Escape') { e.preventDefault(); input.current?.focus(); closeSearch() }
+      if (e.key === 'ArrowDown') { e.preventDefault();
+        links[Math.min(index + 1, links.length - 1)]?.focus() }
+      if (e.key === 'ArrowUp') { e.preventDefault();
+        if (index <= 0) input.current?.focus(); else links[index - 1]?.focus() }
+      if (e.key === 'Escape') { e.preventDefault();
+        input.current?.focus();
+        closeSearch() }
     }}>
       {expanded && <>
-        <div className="eyebrow" aria-hidden="true">{results.length} matching features</div>
-        {results.map(f => <Link key={f.id} role="option" aria-selected={false} to={`/f/${f.id}`} onClick={closeSearch}>
-          {f.title}<small>{q.product(f.productId)?.name}</small>
+        <div className="eyebrow" aria-hidden="true">{results.length} matching results</div>
+        {results.map(f => <Link key={f.id} role="option" aria-selected={false} to={f.href} onClick={closeSearch}>
+          {f.title}<small>{f.context}</small>
         </Link>)}
-        {!results.length && <p>No matches. Try a feature or product name.</p>}
+        {!results.length && <p>No matches. Try a product, component, or feature name.</p>}
       </>}
     </div>
   </div>
@@ -79,7 +90,7 @@ function FeatureSearch() {
 
 export function TopBar() {
   const q = useQuery()
-  const { plan, mode } = useRuntime()
+  const { plan } = useRuntime()
   const { pathname } = useLocation()
   const { id } = useParams()
   const feature = id ? q.features().find(f => f.id === id) : undefined
@@ -87,20 +98,17 @@ export function TopBar() {
   const workspace = product && q.workspace(product.workspaceId)
   const brand = <><span><Layers size={17} /></span><span className="brand-wordmark">groundwork</span></>
   return <header className="app-topbar"><div className="app-topbar-inner">
-    {mode === 'central'
-      ? <a href="/" className="app-brand" aria-label="Groundwork Hub" title="Back to Groundwork Hub">{brand}</a>
-      : <span className="app-brand" title={plan ? 'Groundwork standalone viewer' : 'Groundwork'}>{brand}</span>}
+    <a href="/" className="app-brand" aria-label="Groundwork Hub" title="Back to Groundwork Hub">{brand}</a>
     {plan
       ? <div className="header-project">
         {pathname === '/'
           ? <span aria-current="page" title={plan.manifest.name}>{plan.manifest.name}</span>
           : <Link to="/" title="Project overview">{plan.manifest.name}</Link>}
-        {mode === 'standalone' && <small>Standalone</small>}
       </div>
       : product && workspace
         ? <Breadcrumbs workspace={workspace} product={product} className="topbar-breadcrumb" />
         : <NavLink to="/" end className={({ isActive }) => cn('top-nav', isActive && 'selected')}>Workspaces</NavLink>}
-    {plan && <FeatureSearch />}
+    {plan && <GlobalSearch />}
     <CheckoutMenu />
     <ThemeButton />
   </div></header>

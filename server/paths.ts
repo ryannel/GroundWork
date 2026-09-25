@@ -1,14 +1,14 @@
-import { parseRemote } from '../src/data/repository-identity.ts'
+import { parseRemote } from '../shared/repository-identity.ts'
 
 /** On-disk layout of a Groundwork checkout. Every module that touches `.groundwork` names paths from here. */
 export const GROUNDWORK_DIR = '.groundwork'
-/** Feature documents, decisions and raster assets (and, in the legacy layout, the whole catalog). */
+/** Feature documents, decisions and raster assets. */
 export const PLANS_DIR = `${GROUNDWORK_DIR}/plans`
-/** Split catalog documents (products, components, scans) in the catalog-v1 layout. */
+/** Source catalog documents. */
 export const CATALOG_DIR = `${GROUNDWORK_DIR}/catalog`
-/** Products in the v3 layout; the legacy and split layouts keep them inside the plans or catalog directory. */
+/** Product documents. */
 export const PRODUCTS_DIR = `${GROUNDWORK_DIR}/products`
-/** A v3 home's catalogs of *other* repositories, one directory per repository host and path. */
+/** Local catalogs of other repositories, one directory per repository host and path. */
 export const LOCAL_CATALOGS_DIR = `${GROUNDWORK_DIR}/local-catalogs`
 /** Portable physical path of another repository's catalog, using its canonical host and path. */
 export function localCatalogDirectory(repository: string) {
@@ -20,10 +20,7 @@ export function localCatalogDirectory(repository: string) {
     || segment === '..' || segment === '.')) throw new Error(`Invalid repository identity for local catalog: ${repository}`)
   return `${LOCAL_CATALOGS_DIR}/${segments.join('/')}`
 }
-/** The immutable legacy ID map a migrated home keeps so content-addressed records still resolve. */
-export const LEGACY_IDS_FILE = `${GROUNDWORK_DIR}/legacy-ids.json`
 export const MEMBERS_DIR = `${GROUNDWORK_DIR}/members`
-export const PROJECT_FILE = `${GROUNDWORK_DIR}/project.json`
 /** Agent guide and JSON Schemas that `installInstructions` copies into a checkout. */
 export const GUIDE_FILE = `${GROUNDWORK_DIR}/GUIDE.md`
 export const SCHEMAS_DIR = `${GROUNDWORK_DIR}/schemas`
@@ -34,7 +31,7 @@ export const JOURNAL_FILE = `${GROUNDWORK_DIR}/transaction.json`
 /** Prefix of the staging directory `initialise` renames into place. */
 export const INIT_STAGING_PREFIX = `${GROUNDWORK_DIR}/init-`
 /** Every path that holds catalog or planning documents. */
-export const STORAGE_ROOTS = [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR, PRODUCTS_DIR, LOCAL_CATALOGS_DIR, PROJECT_FILE, LEGACY_IDS_FILE] as const
+export const STORAGE_ROOTS = [PLANS_DIR, CATALOG_DIR, MEMBERS_DIR, PRODUCTS_DIR, LOCAL_CATALOGS_DIR] as const
 /** Entries Groundwork adds to a repository's .gitignore. */
 export const IGNORED_PATHS = ['node_modules/', LOCK_FILE, JOURNAL_FILE, `${INIT_STAGING_PREFIX}*`, `${GROUNDWORK_DIR}/**/*.tmp`] as const
 
@@ -51,24 +48,18 @@ const ipv6Segment = '\\[[0-9a-fA-F.]*:[0-9a-fA-F:.]*\\]'
 const repositoryHost = `(?:${repositorySegment}|${ipv6Segment})(?::[0-9]+)?`
 /** Unanchored source of a logical planning document path; both document patterns compose from it. */
 export const LOGICAL_DOCUMENT_SOURCE = [
-  'scan-manifests/[a-f0-9]{64}\\.json',
-  'project\\.json',
   `(?:products|components|members)/${id}\\.json`,
   `features/${id}/(?:feature|journey|design|flow|api|storage|tests|delivery)\\.json`,
-  `features/${id}/(?:baselines|assessments)/[a-f0-9]{64}\\.json`,
   `features/${id}/brief\\.md`,
   `(?:decisions|features/${id}/decisions)/${id}\\.md`,
 ].join('|')
-/** Unanchored source of the documents in a catalog directory, shared by `catalog/` and every `local-catalogs/<repository>/`. */
-export const CATALOG_DOCUMENT_SOURCE = 'scans/[a-f0-9]{64}\\.json'
-  + `|components/${id}/(?:component|api|data|messaging|knowledge)\\.json|components/${id}/flows/${id}\\.json`
-/** Unanchored source of a physical document path in any storage layout. */
+/** A physical component document in either catalog destination. */
+export const CATALOG_DOCUMENT_SOURCE = `components/${id}\\.json`
 export const PHYSICAL_DOCUMENT_SOURCE = [
-  `\\.groundwork/plans/(?:${LOGICAL_DOCUMENT_SOURCE})`,
-  '\\.groundwork/project\\.json',
-  '\\.groundwork/legacy-ids\\.json',
+  `\\.groundwork/plans/(?:features/${id}/(?:feature|journey|design|flow|api|storage|tests|delivery)\\.json`
+    + `|features/${id}/brief\\.md|(?:decisions|features/${id}/decisions)/${id}\\.md)`,
   `\\.groundwork/members/${id}\\.json`,
   `\\.groundwork/products/${id}\\.json`,
-  `\\.groundwork/catalog/(?:layout\\.json|products/${id}\\.json|${CATALOG_DOCUMENT_SOURCE})`,
-  `\\.groundwork/local-catalogs/${repositoryHost}(?:/${repositorySegment})+/(?:${CATALOG_DOCUMENT_SOURCE})`,
+  `\\.groundwork/catalog/${CATALOG_DOCUMENT_SOURCE}`,
+  `\\.groundwork/local-catalogs/${repositoryHost}(?:/${repositorySegment})+/${CATALOG_DOCUMENT_SOURCE}`,
 ].join('|')

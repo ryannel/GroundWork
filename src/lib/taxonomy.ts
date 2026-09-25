@@ -1,14 +1,16 @@
 import type { z } from 'zod'
-import type { productKindSchema, featureStageSchema } from '@/data/content-schema'
+import type { productKindSchema, featureStageSchema } from '@shared/content-schema'
 import { Boxes, MonitorSmartphone, Terminal, Sparkles, Library, type LucideIcon } from 'lucide-react'
 
 /** Product kinds. Adding a kind = add an entry here + a --kind-* hue in tokens.css. */
 export type ProductKind = z.infer<typeof productKindSchema>
 export const kinds: Record<ProductKind, { label: string; hueVar: string; icon: LucideIcon; blurb: string }> = {
   'service-system': { label: 'Service system', hueVar: 'var(--kind-service-system)', icon: Boxes, blurb: 'A set of services and repos that ship together.' },
-  'desktop-app':    { label: 'Desktop app',    hueVar: 'var(--kind-desktop-app)',    icon: MonitorSmartphone, blurb: 'A native or Electron app installed on a machine.' },
+  'desktop-app':    { label: 'Desktop app',    hueVar: 'var(--kind-desktop-app)',    icon: MonitorSmartphone,
+    blurb: 'A native or Electron app installed on a machine.' },
   'cli':            { label: 'CLI',            hueVar: 'var(--kind-cli)',            icon: Terminal, blurb: 'A command-line tool.' },
-  'playground':     { label: 'Playground',     hueVar: 'var(--kind-playground)',     icon: Sparkles, blurb: 'An exploratory space for images, video, and experiments.' },
+  'playground':     { label: 'Playground',     hueVar: 'var(--kind-playground)',     icon: Sparkles,
+    blurb: 'An exploratory space for images, video, and experiments.' },
   'library':        { label: 'Library',        hueVar: 'var(--kind-library)',        icon: Library, blurb: 'Shared code consumed by other products.' },
 }
 export const kindList = Object.keys(kinds) as ProductKind[]

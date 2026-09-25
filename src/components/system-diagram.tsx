@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, ChevronDown, Search } from 'lucide-react'
-import type { Component } from '@/data/model'
-import { architectureSystemGraph, componentKindLabel, isInfrastructureComponent, runtimeSystemGraph } from '@/data/component-structure'
+import type { Component } from '@shared/model'
+import { architectureSystemGraph, componentKindLabel, isInfrastructureComponent, runtimeSystemGraph } from '@shared/component-structure'
 import { ComponentInspector } from '@/components/component-inspector'
 import { SystemOverviewMap } from '@/components/system-overview-map'
 
@@ -21,7 +21,8 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
       if (returnFocus) pickerTrigger.current?.focus()
     }
     const onPointerDown = (event: PointerEvent) => { if (!picker.current?.contains(event.target as Node)) close(false) }
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); close(true) } }
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault();
+      close(true) } }
     document.addEventListener('pointerdown', onPointerDown)
     document.addEventListener('keydown', onKeyDown)
     return () => {
@@ -53,7 +54,8 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
     setComponentQuery('')
     pickerTrigger.current?.focus()
   }
-  const componentButton = (component: Component) => <button key={component.id} aria-current={selected.id === component.id ? 'true' : undefined} onClick={() => selectComponent(component.id)}>
+  const componentButton = (component: Component) => <button key={component.id}
+    aria-current={selected.id === component.id ? 'true' : undefined} onClick={() => selectComponent(component.id)}>
     <span><strong>{component.name}</strong><small>{componentKindLabel(component)}{localIds.has(component.id) ? '' : ' · Connected product'}</small></span>
     <ArrowRight size={14} aria-hidden="true" />
   </button>
@@ -62,13 +64,12 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
     <section className="architecture-map-section" aria-labelledby="architecture-map-heading">
       <header className="architecture-map-heading">
         <div>
-          <span>System map</span>
-          <h3 id="architecture-map-heading">How the system fits together</h3>
-          <p>
-            Runtime services and resources appear here, including isolated components with no known dependencies. Message arrows follow
-            catalogued inbound and outbound contracts; their labels count contracts, not event traffic. Supporting assets are listed
-            separately below.
-          </p>
+          <h3 id="architecture-map-heading">How the product fits together</h3>
+          <p>Select a component to inspect its responsibility and contracts.</p>
+          <details className="map-reading-guide"><summary>How to read this map</summary>
+            <p>Services and resources include isolated components. Message arrows show catalogued inbound and outbound contracts, not live traffic.
+              Supporting assets are available in the component picker.</p>
+          </details>
         </div>
         <dl>
           <div><dt>Services</dt><dd>{serviceCount}</dd></div>
@@ -89,11 +90,21 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
           <p>No runtime components have been catalogued for this product.</p>
           <span>Supporting assets remain available in the component directory.</span>
         </div>}
+      <div className="map-selection-summary" aria-live="polite">
+        <div><span>{componentKindLabel(selected)}</span><strong>{selected.name}</strong>
+          <p>{selected.description ?? 'Inspect this component to explore its catalogued responsibility and contracts.'}</p>
+        </div>
+        <button onClick={() => {
+          const detail = document.getElementById('component-details')
+          detail?.scrollIntoView({ block: 'start' })
+          detail?.focus({ preventScroll: true })
+        }}>Inspect component<ArrowRight size={14} /></button>
+      </div>
     </section>
 
-    <section className="component-workspace" aria-labelledby="component-workspace-heading">
+    <section id="component-details" tabIndex={-1} className="component-workspace" aria-labelledby="component-workspace-heading">
       <header className="component-workspace-switcher">
-        <div><span>Component workspace</span><h3 id="component-workspace-heading">Explore component details</h3></div>
+        <div><h3 id="component-workspace-heading">Component explorer</h3><p>Responsibility, contracts, and source evidence</p></div>
         <div className="component-picker" ref={picker}>
           <button
             ref={pickerTrigger}
@@ -112,18 +123,22 @@ export function SystemDiagram({ components, allComponents, selectedId, onSelect 
               <input autoFocus type="search" value={componentQuery} onChange={event => setComponentQuery(event.target.value)} placeholder="Find a component…" />
             </label>
             <nav aria-label="Components">
-              {!!runtimeComponents.length && <section><h4>Runtime components <span>{graph.nodes.length}</span></h4>{runtimeComponents.map(componentButton)}</section>}
-              {!!supportingComponents.length && <section><h4>Supporting assets <span>{graph.supporting.length}</span></h4>{supportingComponents.map(componentButton)}</section>}
+              {!!runtimeComponents.length && <section>
+                <h4>Runtime components <span>{graph.nodes.length}</span></h4>{runtimeComponents.map(componentButton)}
+              </section>}
+              {!!supportingComponents.length && <section>
+                <h4>Supporting assets <span>{graph.supporting.length}</span></h4>{supportingComponents.map(componentButton)}
+              </section>}
               {!runtimeComponents.length && !supportingComponents.length && <p>No components match “{componentQuery}”.</p>}
             </nav>
           </div>}
         </div>
       </header>
-      <main className="component-workspace-detail">
+      <div className="component-workspace-detail">
         <ComponentInspector
           key={selected.id} component={selected} dependencies={dependencies} isLocal={localIds.has(selected.id)} showIdentity onSelectComponent={onSelect}
         />
-      </main>
+      </div>
     </section>
   </div>
 }

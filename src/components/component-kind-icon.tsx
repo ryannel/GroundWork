@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { Boxes, Cloud, Database, HardDrive, Layers, Network, type LucideIcon, type LucideProps } from 'lucide-react'
-import type { ComponentKind } from '@/data/component-structure'
+import type { ComponentKind } from '@shared/component-structure'
 
 /** One icon per component kind, shared by every screen that shows a component. */
 const icons = {
