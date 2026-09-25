@@ -1,8 +1,9 @@
 import type { z } from 'zod'
 import {
-  componentSchema, featureSchema, memberSchema, productSchema, projectSchema, sectionSchemas, workspaceSchema,
+  componentReadSchema, featureSchema, memberSchema, productSchema, projectSchema, sectionSchemas, workspaceSchema,
   type FeatureRecord, type Member, type Project,
 } from './content-schema.ts'
+import { componentRepositories, referenceKey, resolveComponentReference } from './component-reference.ts'
 import { componentKindLabel } from './component-structure.ts'
 import { apiProvider } from './api-reference.ts'
 import { actionFlow } from './flow-context.ts'
@@ -71,7 +72,7 @@ export function parseDocuments(documents: ContentDocuments): { parsed: ParsedDoc
       const [, folder, id] = entityFile
       if (folder === 'workspaces') entity(parsed.workspaces, 'workspace', file, id, parseWith(workspaceSchema, file, input, issues))
       else if (folder === 'products') entity(parsed.products, 'product', file, id, parseWith(productSchema, file, input, issues))
-      else if (folder === 'components') entity(parsed.components, 'component', file, id, parseWith(componentSchema, file, input, issues))
+      else if (folder === 'components') entity(parsed.components, 'component', file, id, parseWith(componentReadSchema, file, input, issues))
       else entity(parsed.members, 'member', file, id, parseWith(memberSchema, file, input, issues))
     } else if (featureFile) {
       const [, featureId, kind] = featureFile
@@ -92,6 +93,8 @@ export interface ContentContext {
   workspaceById: Map<string, Workspace>
   productById: Map<string, Product>
   componentById: Map<string, Component>
+  /** Which repository each catalogued component belongs to, so a reference can be resolved to one. */
+  componentRepository: Map<string, string | undefined>
 }
 
 function checker(issues: string[]) {
@@ -125,7 +128,7 @@ export function validateComponent(component: Component, ctx: ContentContext): st
   const issues: string[] = []
   const { has, unique } = checker(issues)
   const path = `components/${component.id}.json`
-  issues.push(...executionFlowIssues(component).map(issue => `${path}:executionFlows: ${issue}`))
+  issues.push(...executionFlowIssues(component, ctx.componentRepository).map(issue => `${path}:executionFlows: ${issue}`))
   unique((component.findings ?? []).map(finding => finding.id), `${path}:findings`)
   for (const finding of component.findings ?? []) {
     if (finding.repository !== component.repo) issues.push(`${path}:finding ${finding.id}: repository must match its component`)
@@ -150,12 +153,19 @@ export function validateComponent(component: Component, ctx: ContentContext): st
       seen.add(ancestor.id); ancestor = ctx.componentById.get(ancestor.parentId ?? '')
     }
   }
-  unique(component.dependsOn ?? [], `${path}:dependsOn`)
+  // Two references that resolve to the same component are one dependency, whichever form each was written in.
+  unique((component.dependsOn ?? []).map(reference => referenceKey(reference, ctx.componentRepository)), `${path}:dependsOn`)
   const workspaceId = ctx.productById.get(component.productId)?.workspaceId
-  for (const dependencyId of component.dependsOn ?? []) {
-    has(ctx.componentById, dependencyId, `${path}:dependsOn`)
-    if (dependencyId === component.id) issues.push(`${path}:dependsOn: cannot depend on itself`)
-    const dependency = ctx.componentById.get(dependencyId)
+  for (const reference of component.dependsOn ?? []) {
+    const resolved = resolveComponentReference(reference, ctx.componentRepository)
+    // A bare name can only mean a component of this catalog, so an unknown one is an error. A qualified reference
+    // names another repository's component, which this home need not hold; it stays unresolved instead.
+    if (!resolved.resolved) {
+      if (typeof reference === 'string') has(ctx.componentById, reference, `${path}:dependsOn`)
+      continue
+    }
+    if (resolved.component === component.id) issues.push(`${path}:dependsOn: cannot depend on itself`)
+    const dependency = ctx.componentById.get(resolved.component)
     if (dependency && ctx.productById.get(dependency.productId)?.workspaceId !== workspaceId) {
       issues.push(`${path}:dependsOn: dependency belongs to another workspace`)
     }
@@ -279,6 +289,7 @@ export function validateFeatureSpec(feature: Feature, ctx: ContentContext): stri
 
 export function contentContext(
   parts: Pick<ContentSnapshot, 'project' | 'members' | 'workspaces' | 'products' | 'components'>,
+  homeRepository?: string,
 ): ContentContext {
   const { project, members, workspaces, products, components } = parts
   return {
@@ -287,6 +298,7 @@ export function contentContext(
     workspaceById: new Map(workspaces.map(w => [w.id, w])),
     productById: new Map(products.map(p => [p.id, p])),
     componentById: new Map(components.map(c => [c.id, c])),
+    componentRepository: componentRepositories(components, homeRepository),
   }
 }
 
@@ -294,11 +306,11 @@ const displayOrder = (a: { order?: number; name: string }, b: { order?: number; 
   (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) || a.name.localeCompare(b.name)
 
 /** Load a whole revision before exposing any of it. Same entry point for browser and CLI. */
-export function loadContent(documents: ContentDocuments): ContentSnapshot {
+export function loadContent(documents: ContentDocuments, homeRepository?: string): ContentSnapshot {
   const { parsed, issues } = parseDocuments(documents)
   if (issues.length || !parsed.project) throw new ContentError(issues)
   const { project, members, workspaces, products, components, records, specs } = parsed
-  const ctx = contentContext({ project, members, workspaces, products, components })
+  const ctx = contentContext({ project, members, workspaces, products, components }, homeRepository)
   const recordIds = new Set(records.map(record => record.id))
   const features: Feature[] = records.map(record => {
     const spec = specs.get(record.id)

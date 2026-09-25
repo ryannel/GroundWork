@@ -76,6 +76,21 @@ test('cross-product references work within a workspace; cross-workspace referenc
   const input = copy(); input['features/f-1/feature.json'].touches.push('c-cart-svc'); assert.doesNotThrow(() => load(input))
   input['features/f-1/feature.json'].touches.push('c-cli'); rejects(input, /another workspace/)
 })
+test('structured references to declared components use the home repository identity', () => {
+  const input = copy()
+  const home = 'acme/catalog-home'
+  input['components/postgres.json'] = { id: 'postgres', productId: 'p-cart', name: 'Postgres' }
+  const service = input['components/c-cart-svc.json']
+  service.dependsOn = [{ repository: home, component: 'postgres' }]
+  assert.doesNotThrow(() => loadContent(input, home))
+
+  service.dependsOn = ['postgres', { repository: home, component: 'postgres' }]
+  assert.throws(() => loadContent(input, home), /dependsOn: duplicate/)
+
+  service.dependsOn = [{ repository: home, component: 'c-cart-svc' }]
+  input['components/c-cart-svc.json'].repo = home
+  assert.throws(() => loadContent(input, home), /dependsOn: cannot depend on itself/)
+})
 test('section links, decision outcomes and API boundaries must target the right objects', () => {
   const missing = copy(); missing['features/f-2/tests.json'].cases[0].steps = ['missing']; rejects(missing, /unknown journey reference/)
   const decision = copy(); decision['features/f-2/flow.json'].nodes.find((n: any) => n.id === 'region').logic.branches[0].edgeId = 'e-sdk-cart'; rejects(decision, /branch must leave/)

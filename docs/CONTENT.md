@@ -99,7 +99,7 @@ A component can have:
 
 - `kind`: `service`, `module`, `database`, `object-storage`, `local-storage`, `queue`, `cache`, or `external-service`. Existing records without a kind render as modules.
 - `parentId`: the service or module it is **part of**. Parents and children belong to the same product. Containment can nest, but cannot cycle. Services and external providers are top-level records.
-- `dependsOn`: the IDs it **uses**. Dependencies may cross products within the workspace and may be reciprocal. They do not establish ownership or imply planned changes. Self-dependencies, duplicates and missing references are rejected.
+- `dependsOn`: the components it **uses**, as bare local IDs. Dependencies may cross products within the workspace and may be reciprocal. They do not establish ownership or imply planned changes. Self-dependencies, duplicates and missing references are rejected. A bare name is resolved against the catalog, which records which repository each component belongs to; a migrated home may also store `{"repository": "volvo-cars/price-engine", "component": "gpe-pretax"}`, which is read everywhere but written only after migration. A reference nothing answers to is kept as written and shown as unresolved.
 
 For example, Wordloop's App, Core and ML are services. The audio buffer is local storage inside App. Core depends on Postgres, object storage and ML. ML depends on Core, object storage, AssemblyAI and OpenAI. Postgres and object storage are infrastructure; AssemblyAI and OpenAI are external providers. A shared resource has one record and multiple dependents rather than being copied under each service.
 

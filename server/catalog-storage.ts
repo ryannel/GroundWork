@@ -1,5 +1,6 @@
 import { InvalidInput } from './errors.ts'
 import { type Files } from './format.ts'
+import type { CatalogLayout } from '../src/data/catalog-index.ts'
 import {
   CATALOG_DIR, GROUNDWORK_DIR, LEGACY_IDS_FILE, LOCAL_CATALOGS_DIR, MEMBERS_DIR, PHYSICAL_DOCUMENT_SOURCE, PLANS_DIR, PRODUCTS_DIR, PROJECT_FILE,
 } from './paths.ts'
@@ -7,7 +8,7 @@ import {
 export const layoutFile = `${CATALOG_DIR}/layout.json`
 export const layoutText = '{"version":1}\n'
 /** `legacy`: everything under plans/. `catalog-v1`: the split catalog beside project.json. `catalog-v3`: no project manifest at all. */
-export type Layout = 'legacy' | 'catalog-v1' | 'catalog-v3'
+export type Layout = CatalogLayout
 export const physicalDocumentPattern = new RegExp(`^(?:${PHYSICAL_DOCUMENT_SOURCE})$`)
 const plans = `${PLANS_DIR}/`, catalog = `${CATALOG_DIR}/`, members = `${MEMBERS_DIR}/`, groundwork = `${GROUNDWORK_DIR}/`
 const components = `${CATALOG_DIR}/components/`
@@ -41,7 +42,12 @@ export function encodeStorage(files: Files, layout: Layout): Files {
   return result
 }
 
-export function decodeStorage(physical: Files): { files: Files; layout: Layout } {
+/**
+ * The stored form of a home, split into the logical documents and the facts only the layout holds. `legacyIds` is
+ * the raw `legacy-ids.json` of a migrated home; it is not a planning document, so it stays out of `files` and out
+ * of the revision the catalog hashes.
+ */
+export function decodeStorage(physical: Files): { files: Files; layout: Layout; legacyIds?: string } {
   const split = physical[layoutFile] !== undefined || physical[PROJECT_FILE] !== undefined
   if (!split) {
     // A migrated home is marked by its legacy ID map, so a legacy manifest beside it is a pre-migration branch
@@ -54,7 +60,7 @@ export function decodeStorage(physical: Files): { files: Files; layout: Layout }
       }
       return { layout: 'legacy', files: Object.fromEntries(Object.entries(physical).map(([name, raw]) => [name.slice(plans.length), raw])) }
     }
-    return { layout: 'catalog-v3', files: decodeVersion3(physical) }
+    return { layout: 'catalog-v3', files: decodeVersion3(physical), legacyIds: physical[LEGACY_IDS_FILE] }
   }
   if (!physical[PROJECT_FILE] || physical[layoutFile] === undefined || JSON.parse(physical[layoutFile]).version !== 1) {
     throw new InvalidInput('Unsupported or incomplete catalog layout')

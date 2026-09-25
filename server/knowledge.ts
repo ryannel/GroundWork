@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { catalogIndex } from './catalog.ts'
+import { catalogIndex, catalogLookup } from './catalog.ts'
 import { compareCatalogSources, worstStatus, type FreshnessStatus } from './catalog-freshness.ts'
 import { parseCatalogId } from '../src/data/catalog-identity.ts'
 import { idPattern } from '../src/data/schema-primitives.ts'
@@ -43,7 +43,7 @@ export async function retainDiscoveryBaseline(root: string, input: z.input<typeo
   if (!plan.snapshot.features.some(feature => feature.id === args.featureId)) throw new NotFound('Unknown feature')
   assertCurrent(plan, args, 'Stale baseline; retrieve current evidence before retaining it')
   if (new Set(args.ids).size !== args.ids.length) throw new InvalidInput('Duplicate baseline entities')
-  const index = new Map(catalogIndex(plan).map(entry => [entry.id, entry]))
+  const index = catalogLookup(catalogIndex(plan))
   const observations = args.ids.map(id => {
     parseCatalogId(id)
     const entry = index.get(id)
@@ -66,7 +66,7 @@ export async function getDiscoveryBaseline(root: string, input: z.input<typeof g
   const args = getDiscoveryBaselineSchema.parse(input)
   const plan = await readPlan(root, ref)
   const baseline = retainedBaseline(plan, args.featureId, args.baselineId)
-  const assessments = baselineAssessments(baseline, plan.snapshot.components, plan.manifest.id)
+  const assessments = baselineAssessments(baseline, plan.snapshot.components, plan)
   const prefix = `features/${args.featureId}/assessments/`
   const retainedChecks = Object.entries(plan.files)
     .filter(([file]) => file.startsWith(prefix))
@@ -90,21 +90,24 @@ export async function assessFeatureDiscovery(root: string, input: z.input<typeof
   const args = assessFeatureDiscoverySchema.parse(input), plan = await readPlan(root)
   assertCurrent(plan, args, 'Stale feature assessment; reread the catalog')
   const baseline = retainedBaseline(plan, args.featureId, args.baselineId)
-  const observations = baselineAssessments(baseline, plan.snapshot.components, plan.manifest.id)
+  const observations = baselineAssessments(baseline, plan.snapshot.components, plan)
+  const lookup = catalogLookup(catalogIndex(plan))
+  const canonicalId = (id: string) => lookup.get(id)?.id ?? id
   const checks: Record<string, unknown>[] = [], seen = new Set<string>()
   for (const source of args.sources) {
     // Source checks read the retained observation, not the current catalog, so later catalog edits cannot hide a change.
     const retained: SourceObservation[] = source.ids.map(id => {
-      const key = `${id}:${source.repository ?? 'primary'}`
+      // Either ID form names the same retained observation in a migrated or unmigrated home.
+      const observation = baseline.observations.find(item => canonicalId(item.id) === canonicalId(id))
+      if (!observation) throw new InvalidInput('Source check IDs must belong to the retained baseline')
+      const key = `${observation.id}:${source.repository ?? 'primary'}`
       if (seen.has(key)) throw new InvalidInput('A retained observation may be checked once per repository per assessment')
       seen.add(key)
-      const observation = baseline.observations.find(item => item.id === id)
-      if (!observation) throw new InvalidInput('Source check IDs must belong to the retained baseline')
-      return { id, repository: observation.repository, sourceRevision: observation.sourceRevision, raw: observation.observation }
+      return { id: observation.id, repository: observation.repository, sourceRevision: observation.sourceRevision, raw: observation.observation }
     })
-    const check = await compareCatalogSources(plan, { ...source, maxFiles: 20, maxBytes: 16384 }, retained)
+    const check = await compareCatalogSources(plan, { ...source, ids: retained.map(item => item.id), maxFiles: 20, maxBytes: 16384 }, retained)
     checks.push(check)
-    for (const id of source.ids) {
+    for (const { id } of retained) {
       const observation = observations.find(item => item.id === id)!
       // An observation keeps the most severe status any check reported.
       const status: FreshnessStatus = check.assessments.find(item => item.id === id)?.status ?? 'unknown'

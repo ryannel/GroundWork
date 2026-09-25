@@ -1,4 +1,7 @@
-import { scanManifestSchema } from '../src/data/scan-manifest.ts'
+import { parseScanManifest, recordScanManifestScopes, type ScanManifest } from '../src/data/scan-manifest.ts'
+import {
+  emptyLegacyIdMap, parseCatalogId, parseLegacyIdMap, recordLegacyScope, type LegacyIdMap,
+} from '../src/data/catalog-identity.ts'
 import { knowledgeBaselineSchema, discoveryAssessmentSchema } from '../src/data/knowledge.ts'
 import { digest } from './git.ts'
 import { z } from 'zod'
@@ -22,9 +25,16 @@ import { parseDelivery } from '../src/data/delivery-legacy.ts'
 export type Files = Record<string, string>
 export interface Plan {
   manifest: z.infer<typeof manifestSchema>; snapshot: ContentSnapshot; delivery: Record<string, Delivery>; decisions: Record<string, string>
+  /** Which repository each legacy catalog ID belonged to, so a stored ID still resolves after the migration. */
+  legacyIds: LegacyIdMap
+  /** What the documents were read with, so a derived plan can be re-parsed the same way rather than as a bare home. */
+  source: PlanSource
 }
-/** What a home's documents alone cannot say: which repository they live in, and which layout they were read from. */
-export interface PlanSource { repository?: RepositoryIdentity; layout?: Layout }
+/**
+ * What a home's documents alone cannot say: which repository they live in, which layout they were read from, and
+ * the raw `legacy-ids.json` a migrated home stores. An unmigrated home has no such file; its map is derived.
+ */
+export interface PlanSource { repository?: RepositoryIdentity; layout?: Layout; legacyIds?: string }
 export const PLAN_DIRECTORY = PLANS_DIR
 export const assetPattern = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/
 export const documentPattern = new RegExp(`^(?:${LOGICAL_DOCUMENT_SOURCE})$`)
@@ -115,7 +125,8 @@ function derivedProductId(component: Record<string, unknown>, ownership: Map<str
  * Refuses a migrated-only document form on the write path. Readers accept both forms, so a home that merged a
  * branch from either side of the migration still loads, but until the migration phase every write must stay a
  * document an older release can read: a product with no `schemaVersion`, `domain` or `repositories`, and a
- * component that still carries its own `productId`.
+ * component that still carries its own `productId`, names no repository in a dependency and records no
+ * `identityChanges`.
  */
 export function assertLegacyWriteForm(file: string, raw: string) {
   let value: unknown
@@ -131,8 +142,17 @@ export function assertLegacyWriteForm(file: string, raw: string) {
   } else if (file.startsWith('components/')) {
     if ('schemaVersion' in document) reject('a component cannot declare schemaVersion yet')
     if (document.productId === undefined) reject('a component must name its productId')
+    if (document.identityChanges !== undefined) reject('a component cannot record identityChanges yet')
+    if (qualifiedReferences(document.dependsOn)) reject('a component cannot name the repository of a dependency yet')
+    const flows = Array.isArray(document.executionFlows) ? document.executionFlows : []
+    for (const flow of flows as Record<string, unknown>[]) {
+      const steps = Array.isArray(flow?.steps) ? flow.steps as Record<string, unknown>[] : []
+      if (steps.some(step => qualifiedReferences(step?.dependencyIds))) reject('a flow step cannot name the repository of a dependency yet')
+    }
   }
 }
+/** The migrated `{repository, component}` reference form, which only a migrated home may store. */
+const qualifiedReferences = (value: unknown) => Array.isArray(value) && value.some(item => !!item && typeof item === 'object')
 /**
  * The write-path form check for a whole document set. `validateTransition` applies it to the documents a write
  * changes, and `initialise` to the documents it stages, so neither path can create a migrated-only form.
@@ -178,6 +198,8 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
   const decisions: Record<string, string> = {}
   const ownership = new Map<string, ProductRepository[]>()
   const componentFiles: string[] = []
+  const manifests: ScanManifest[] = []
+  const retained: { id: string; repository: string | null }[] = []
   let manifest: Plan['manifest'] | undefined
   for (const [file, raw] of Object.entries(files)) {
     if (!documentPattern.test(file)) throw new InvalidInput(`${file}: unsupported planning document`)
@@ -186,7 +208,7 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
       if (file.endsWith('.md')) { if (!raw.trim()) throw new InvalidInput('Decision cannot be blank'); decisions[file] = raw; continue }
       const value = JSON.parse(raw)
       if (file.startsWith('scan-manifests/')) {
-        scanManifestSchema.parse(value)
+        manifests.push(parseScanManifest(raw))
         if (digest(raw) !== file.split('/')[1].replace('.json', '')) throw new InvalidInput('Scan manifest content hash mismatch')
         continue
       }
@@ -206,6 +228,7 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
         }
         if (!files[`features/${packet.featureId}/feature.json`]) throw new InvalidInput('Baseline requires an existing feature')
         if (Buffer.byteLength(raw) > 64 * 1024) throw new InvalidInput('Baseline exceeds 64 KiB')
+        retained.push(...packet.observations)
         continue
       }
       if (file === 'project.json') manifest = manifestSchema.parse(value)
@@ -245,7 +268,7 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
   documents['workspaces/project.json'] = { id: 'project', slug: 'project', name: manifest.name, hue: 'var(--hue-teal)', createdAt: '2026-01-01T00:00:00Z' }
   // Asset references stay relative on disk. The HTTP adapter adds checkout context.
   let snapshot: ContentSnapshot
-  try { snapshot = loadContent(documents) } catch (error) {
+  try { snapshot = loadContent(documents, source.repository?.id) } catch (error) {
     // A home read as v3 has no manifest to name the documents it expects, so say so before the reference errors.
     if (derived && error instanceof ContentError) throw new ContentError([version3Reading(documents, error.issues), ...error.issues])
     throw error
@@ -256,5 +279,32 @@ export function parsePlan(files: Files, source: PlanSource = {}): Plan {
   for (const [featureId, plan] of Object.entries(delivery)) {
     try { validateDelivery(featureId, plan, snapshot) } catch (error) { throw new InvalidInput(error instanceof Error ? error.message : String(error)) }
   }
-  return { manifest, snapshot, delivery, decisions }
+  return {
+    manifest, snapshot, delivery, decisions, source,
+    legacyIds: legacyIdMap(source, manifest.id, snapshot.components, manifests, retained),
+  }
+}
+
+/**
+ * Which repository each legacy catalog ID belonged to. A migrated home stores the answer; an unmigrated one has it
+ * only implicitly, so it is derived in memory from what the home already records — each component's `repo`, each
+ * scan manifest's repository, and the repository each retained baseline observation was taken from. It is read
+ * here and written only by the migration.
+ */
+function legacyIdMap(
+  source: PlanSource, scope: string, components: ContentSnapshot['components'],
+  manifests: ScanManifest[], retained: { id: string; repository: string | null }[],
+): LegacyIdMap {
+  if (source.legacyIds !== undefined) return parseLegacyIdMap(source.legacyIds)
+  const map = emptyLegacyIdMap()
+  for (const component of components) recordLegacyScope(map, scope, component.id,
+    component.repo ? repositoryIdentity(component.repo) : source.repository?.id)
+  for (const manifest of manifests) recordScanManifestScopes(map, manifest, scope)
+  for (const observation of retained) {
+    try {
+      const parsed = parseCatalogId(observation.id)
+      recordLegacyScope(map, parsed.scope, parsed.component, observation.repository)
+    } catch { /* Not a catalog ID; the map has nothing to say about it. */ }
+  }
+  return map
 }

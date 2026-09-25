@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { componentSchema } from '../src/data/content-schema.ts'
+import { componentRepositories } from '../src/data/component-reference.ts'
 import { executionFlowIssues, sourceEvidenceUrl } from '../src/data/execution-flow.ts'
 import type { Component } from '../src/data/model.ts'
 const revision = 'a'.repeat(40)
@@ -70,4 +71,21 @@ test('consumer and job flows use owned non-HTTP triggers without fabricating end
   assert.match(executionFlowIssues(component).join('\n'), /exactly one/)
   delete flow.endpointId; delete flow.trigger
   assert.match(executionFlowIssues(component).join('\n'), /exactly one/)
+})
+
+test('a step may cite a dependency in either reference form, and an unresolved one stays explicit', () => {
+  const component = fixture() as Component & { dependsOn?: unknown[] }
+  component.dependsOn = [{ repository: 'acme/db', component: 'db' }, 'cache']
+  component.executionFlows![0].steps[1].dependencyIds = ['db', { repository: 'acme/cache', component: 'cache' }]
+  const repositories = componentRepositories(
+    [component as Component, { id: 'db', repo: 'acme/db' } as Component, { id: 'cache', repo: 'acme/cache' } as Component],
+    'acme/facade',
+  )
+  // Both forms resolve to the same catalogued component, so neither is reported as undeclared.
+  assert.deepEqual(executionFlowIssues(component as Component, repositories), [])
+  // Without the catalog to resolve against, the forms are compared as written rather than assumed equivalent.
+  assert.match(executionFlowIssues(component as Component).join('\n'), /unknown dependency db/)
+  // A reference the catalog cannot place stays unresolved, so it cannot stand in for a declared one.
+  component.executionFlows![0].steps[1].dependencyIds = [{ repository: 'someone/else', component: 'db' }]
+  assert.match(executionFlowIssues(component as Component, repositories).join('\n'), /unknown dependency someone\/else#db/)
 })

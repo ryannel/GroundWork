@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { z } from 'zod'
+import type { CatalogIdentity } from './catalog-index.ts'
 import type { ContentSnapshot } from './content.ts'
 import type { Delivery } from './delivery.ts'
 export interface Checkout {
@@ -22,6 +23,8 @@ export interface Checkout {
 }
 export interface RuntimePlan {
   manifest: { id: string; name: string; domain?: string }
+  /** Which IDs this catalog answers to, so the viewer resolves an entry exactly as the service does. */
+  identity: CatalogIdentity
   snapshot: ContentSnapshot
   revision: string
   context: {
@@ -44,6 +47,7 @@ const sessionSchema = z.looseObject({ mode: z.enum(['central', 'standalone']) })
 const checkoutSchema = z.looseObject({ checkoutId: z.string() })
 const planSchema = z.looseObject({
   manifest: z.looseObject({ name: z.string() }),
+  identity: z.looseObject({ manifest: z.looseObject({ id: z.string() }) }),
   snapshot: z.looseObject({
     workspaces: z.array(z.unknown()), products: z.array(z.unknown()), components: z.array(z.unknown()), features: z.array(z.unknown()),
   }),

@@ -1,5 +1,5 @@
-import { catalogIndex, catalogSourceRevision, type Entity } from '../src/data/catalog-index.ts'
-export { catalogIndex, catalogSourceRevision } from '../src/data/catalog-index.ts'
+import { catalogIndex, catalogLookup, catalogSourceRevision, type Entity } from '../src/data/catalog-index.ts'
+export { catalogIndex, catalogLookup, catalogSourceRevision } from '../src/data/catalog-index.ts'
 import { z } from 'zod'
 import { catalogKinds, parseCatalogId, type CatalogKind } from '../src/data/catalog-identity.ts'
 import { catalogKnowledgeState } from '../src/data/catalog-coverage.ts'
@@ -78,7 +78,7 @@ function summary(plan: Plan, entry: Entity) {
   ]
   const params = writeCatalogLocation(new URLSearchParams({ component: component.id }), catalogLocation(entry))
   return {
-    id: entry.id, kind: entry.kind, name: clip(entry.name), description: clip(entry.description),
+    id: entry.id, aliases: entry.aliases, kind: entry.kind, name: clip(entry.name), description: clip(entry.description),
     componentId: component.id, productId: component.productId,
     location: `/p/${plan.context.checkoutId}${plan.context.ref ? `/ref/${encodeURIComponent(plan.context.ref)}` : ''}/w/project/${product.slug}?${params}`,
     source: { repository: component.repo ?? null, revision: sourceRevision },
@@ -146,8 +146,16 @@ function parseQuery(operation: CatalogOperation, input: unknown): Query {
 export function queryCatalog(plan: Plan, operation: CatalogOperation, input: unknown) {
   const query = parseQuery(operation, input)
   const { cursor, limit, maxBytes, ...binding } = query.args
+  // plan.revision covers the legacy ID map as well as the documents, so changing it invalidates every cursor.
   const snapshot = digest(`${plan.revision}:${plan.context.token}`)
-  const queryHash = digest(JSON.stringify({ operation, ...binding }))
+  const entries = catalogIndex(plan)
+  const lookup = catalogLookup(entries)
+  // A cursor binds the query, not the ID form it was written in, so either form of one ID continues the same page.
+  const canonicalId = (id: string) => lookup.get(id)?.id ?? id
+  const bound = query.operation === 'get_catalog_entity' ? { ...binding, id: canonicalId(query.args.id) }
+    : query.operation === 'get_discovery_context' ? { ...binding, seeds: query.args.seeds.map(canonicalId) }
+      : binding
+  const queryHash = digest(JSON.stringify({ operation, ...bound }))
   let offset = 0
   if (cursor) {
     let decoded: z.infer<typeof cursorSchema>
@@ -156,16 +164,18 @@ export function queryCatalog(plan: Plan, operation: CatalogOperation, input: unk
     if (decoded.snapshot !== snapshot || decoded.query !== queryHash) throw new Conflict('Catalog snapshot or query changed; restart without the cursor')
     offset = decoded.offset
   }
-  const entries = catalogIndex(plan)
   let parts: Record<string, unknown>[] | undefined
   let ranked: Ranked[] = []
   let totalCandidates: number
   if (query.operation === 'get_catalog_entity') {
     parseCatalogId(query.args.id)
-    const entry = entries.find(entry => entry.id === query.args.id)
+    const entry = lookup.get(query.args.id)
     if (!entry) throw new NotFound('Catalog entity not found in the selected snapshot')
     const source = { repository: entry.component.repo ?? null, revision: catalogSourceRevision(entry) }
-    const detail = { entity: entry.raw, source, relations: entry.related, knowledge: catalogKnowledgeState(entry.component), gaps: entry.component.gaps ?? [] }
+    const detail = {
+      id: entry.id, aliases: entry.aliases, entity: entry.raw, source, relations: entry.related,
+      knowledge: catalogKnowledgeState(entry.component), gaps: entry.component.gaps ?? [],
+    }
     parts = detailParts(detail)
     totalCandidates = 1
   } else if (query.operation === 'search_catalog') {
@@ -173,18 +183,19 @@ export function queryCatalog(plan: Plan, operation: CatalogOperation, input: unk
     totalCandidates = ranked.length
   } else {
     const eligible = filtered(entries, query.args)
+    const withinScope = catalogLookup(eligible)
     const results = rank(eligible, query.args.question)
     totalCandidates = results.length
     const seeds = query.args.seeds.map(id => {
       parseCatalogId(id)
-      const entry = eligible.find(entry => entry.id === id)
+      const entry = withinScope.get(id)
       if (!entry) throw new NotFound(`Seed not found within the selected scope: ${id}`)
       return { entry, score: 1000, reasons: ['Explicit seed'] }
     })
     const ordered = [...seeds, ...results]
     // One hop, only from the top five candidates. No implicit transitive impact claims.
     const related = ordered.slice(0, 5).flatMap(result => result.entry.related.flatMap(relation => {
-      const entry = eligible.find(entry => entry.id === relation.id)
+      const entry = withinScope.get(relation.id)
       return entry ? [{ entry, score: 0, reasons: [relation.reason, `Linked from ${result.entry.id}`] }] : []
     }))
     const seen = new Set<string>()

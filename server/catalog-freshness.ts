@@ -86,7 +86,8 @@ export async function compareCatalogSources(
   const args = checkCatalogFreshnessSchema.parse(input)
   if (new Set(args.ids).size !== args.ids.length) throw new InvalidInput('Duplicate freshness IDs')
   const selected = args.ids.map(id => {
-    const observation = observations.find(item => item.id === id)
+    // Either ID form resolves: a caller may hold the legacy ID a document stored or the migrated one.
+    const observation = observations.find(item => item.id === id || item.aliases?.includes(id))
     if (!observation) throw new NotFound(`Unknown catalog entity: ${id}`)
     return observation
   })

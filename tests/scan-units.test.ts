@@ -15,7 +15,8 @@ import { tempDir } from './helpers.ts'
 const revision = 'a'.repeat(40)
 const next = 'b'.repeat(40)
 const file = (value: string): InventoryFile => ({ path: value, digest: revision, bytes: 1 })
-const project = (value: string): DetectedProject => ({ path: value, name: value, suggestedId: value === '.' ? 'root' : value, manifest: 'package.json' })
+const project = (value: string): DetectedProject =>
+  ({ path: value, name: value, suggestedId: value === '.' ? 'root' : value, derivedId: value === '.' ? 'root' : value, manifest: 'package.json' })
 
 test('planPackets splits lanes by maxFilesPerPacket and counts packets beyond maxPackets', () => {
   const files = ['package.json', 'src/routes.ts', 'src/route-a.ts', 'src/route-b.ts'].map(file)

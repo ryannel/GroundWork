@@ -1,7 +1,10 @@
+import type { z } from 'zod'
 import { catalogId, type CatalogKind } from '../src/data/catalog-identity.ts'
 import type { Component } from '../src/data/model.ts'
-import { applyCatalogInvestigationSchema, reconcileCatalogSchema, type LifecycleRetirement } from '../src/data/scan-schema.ts'
-import { catalogIndex } from './catalog.ts'
+import {
+  applyCatalogInvestigationSchema, reconcileCatalogSchema, reconcileComponentIdentitySchema, type LifecycleRetirement,
+} from '../src/data/scan-schema.ts'
+import { catalogIndex, catalogLookup } from './catalog.ts'
 import { repositoryKey } from './catalog-freshness.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
 import { readPlan, writePlan } from './repository.ts'
@@ -9,7 +12,7 @@ import { validateCitations, type Citation } from './scan-evidence.ts'
 import { scanManifest, type ManifestScope } from './scan-manifests.ts'
 import { investigationCoverage } from './scan-policy.ts'
 import { filesForProject } from './scan-projects.ts'
-import { loadScan, removeScan, type LoadedScan } from './scan-workspace.ts'
+import { loadScan, removeScan, type LoadedScan, type ScanMetadata } from './scan-workspace.ts'
 
 type Plan = Awaited<ReturnType<typeof readPlan>>
 
@@ -50,7 +53,7 @@ export async function applyCatalogInvestigation(root: string, input: unknown) {
     if (item.sourceRevision !== metadata.revision) throw new InvalidInput('Investigation must use the pinned source revision')
   }
   const observationId = (kind: CatalogKind, id: string) => catalogId(plan.manifest.id, component.id, kind, id)
-  const entities = new Set(catalogIndex(plan).map(entry => entry.id))
+  const entities = new Set(catalogLookup(catalogIndex(plan)).keys())
   for (const job of args.jobs) entities.add(observationId('job', job.id))
   for (const flow of args.flows) entities.add(observationId('flow', flow.id))
   const scannedRepository = await repositoryKey(metadata.repository)
@@ -225,6 +228,93 @@ export async function reconcileCatalog(root: string, input: unknown) {
     manifestId: manifest.manifestId,
     retired: actions.map(item => `${item.kind}/${item.id}`),
     renamed: args.rename.map(item => `${item.kind}/${item.id}`),
+    cleanup,
+  }
+}
+
+/**
+ * The documents a component-identity reconciliation writes, and the change it records. Pure, so the rules can be
+ * checked against a migrated home even though this release cannot write one.
+ */
+export function componentIdentityChange(
+  plan: Plan, metadata: ScanMetadata,
+  args: z.infer<typeof reconcileComponentIdentitySchema>, recordedAt = new Date().toISOString(),
+) {
+  const component = plan.snapshot.components.find(item => item.id === args.componentId)
+  if (!component) throw new NotFound(`Unknown component: ${args.componentId}`)
+  const project = metadata.projects.find(project => project.path === args.sourcePath)
+  if (!project) throw new InvalidInput('sourcePath was not detected by this scan')
+  const previousSourcePath = component.sourcePath ?? '.'
+  if (previousSourcePath === args.sourcePath && project.derivedId === component.id) {
+    throw new InvalidInput('Component identity already matches this project; nothing to reconcile')
+  }
+  const owner = plan.snapshot.components.find(item => item.id !== component.id && item.repo === component.repo
+    && (item.sourcePath ?? '.') === args.sourcePath)
+  if (owner) throw new InvalidInput(`Repository project already belongs to component ${owner.id}`)
+  const change = {
+    previousId: component.id, previousSourcePath, id: project.derivedId, sourcePath: args.sourcePath,
+    recordedAt, reason: args.reason, sourceRevision: metadata.revision, evidence: args.evidence,
+  }
+  const stored = JSON.parse(plan.files[`components/${component.id}.json`]) as Record<string, unknown>
+  const next = {
+    ...stored,
+    sourcePath: args.sourcePath,
+    identityChanges: [...(component.identityChanges ?? []), change],
+  }
+  const changes: Record<string, string> = { [`components/${component.id}.json`]: JSON.stringify(next, null, 2) + '\n' }
+  // The observation the record covers is the component entry itself, under whichever ID form this home makes canonical.
+  const entry = catalogIndex(plan).find(item => item.kind === 'component' && item.component.id === component.id)
+  const manifest = scanManifest(plan, changes, metadata, 'investigation', [{
+    componentId: component.id, sourcePath: args.sourcePath, areas: [],
+    observationIds: [entry?.id ?? catalogId(plan.manifest.id, component.id, 'component', component.id)],
+  }])
+  changes[manifest.file] = manifest.raw
+  return { component, change, changes, manifest }
+}
+
+/**
+ * Records a renamed or moved build project against the component that already describes it. Nothing about the
+ * catalogued observations changes: the component keeps its ID, takes the project's new source path, and gains the
+ * identity change that lets the next scan recognise it rather than catalogue the project again.
+ *
+ * An identity change has no legacy representation: an older release validates components against a strict schema
+ * and would refuse the whole document, so it may only be written into a migrated home. This release cannot write
+ * one either, because it does not write the v3 layout at all, so the operation is **not registered** as a tool,
+ * CLI command or published schema yet. This is the entry point the phase that enables v3 writes registers; until
+ * then only `componentIdentityChange` above is exercised, and the read path already honours a recorded change, so
+ * a home migrated by a later release is understood by every scan this one runs.
+ */
+export async function reconcileComponentIdentity(root: string, input: unknown) {
+  const args = reconcileComponentIdentitySchema.parse(input)
+  const scan = await loadScan(args.scanId)
+  const { metadata } = scan
+  const plan = await readPlan(root)
+  if (plan.revision !== args.expectedRevision || plan.context.token !== args.expectedContext) {
+    throw new Conflict('Stale identity reconciliation; reread the catalog')
+  }
+  requireScanTarget(plan, scan, 'Scan belongs to another project or checkout')
+  if (plan.layout !== 'catalog-v3') {
+    throw new InvalidInput('Recording a component identity change stores a field an older release would refuse to read, '
+      + 'so it is available once this home is migrated. Until then, keep the component\'s sourcePath as it is, or apply '
+      + 'the moved project as a new component.')
+  }
+  const component = plan.snapshot.components.find(item => item.id === args.componentId)
+  if (!component) throw new NotFound(`Unknown component: ${args.componentId}`)
+  if (!component.repo || await repositoryKey(component.repo) !== await repositoryKey(metadata.repository)) {
+    throw new InvalidInput('Component belongs to another repository than the scanned one')
+  }
+  await validateCitations(scan, args.sourcePath, args.evidence)
+  const { change, changes, manifest } = componentIdentityChange(plan, metadata, args)
+  const result = await writePlan(root, { expectedRevision: args.expectedRevision, expectedContext: args.expectedContext, changes })
+  const cleanup = await removeScan(scan.directory).then(() => 'complete').catch(() => 'deferred')
+  return {
+    ...result,
+    manifestId: manifest.manifestId,
+    componentId: component.id,
+    identityChange: {
+      previousId: change.previousId, previousSourcePath: change.previousSourcePath, id: change.id, sourcePath: change.sourcePath,
+    },
+    note: 'The component keeps its catalog ID. Later scans match this project by the recorded change before treating it as new.',
     cleanup,
   }
 }

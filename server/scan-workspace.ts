@@ -9,7 +9,7 @@ import { InvalidInput, NotFound } from './errors.ts'
 
 /** Prepared scans expire, and are swept, after this long. */
 export const SCAN_TTL_MS = 24 * 60 * 60 * 1000
-export const SCANNER_VERSION = 2
+export const SCANNER_VERSION = 3
 
 const scanIdSchema = z.string().uuid()
 const inventoryFileSchema = z.strictObject({ path: repoRelativePath, digest: objectIdSchema, bytes: z.number().int().nonnegative() })
@@ -33,7 +33,8 @@ export const scanMetadataSchema = z.strictObject({
   areas: z.array(scanAreaSchema).min(1),
   files: z.array(inventoryFileSchema),
   projects: z.array(z.strictObject({
-    path: repoRelativePath, name: z.string(), suggestedId: z.string().min(1), manifest: z.string(), existingComponentId: z.string().optional(),
+    path: repoRelativePath, name: z.string(), suggestedId: z.string().min(1), derivedId: z.string().min(1),
+    manifest: z.string(), existingComponentId: z.string().optional(),
   })),
   packets: z.array(z.strictObject({
     id: z.string().min(1), projectPath: repoRelativePath, componentId: z.string().min(1), area: scanAreaSchema,

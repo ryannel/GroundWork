@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { documentVersions } from './document-versions.ts'
 import { commitSha, httpMethodSchema, id, isoTimestamp, observationKindSchema, text } from './schema-primitives.ts'
 
 // This is the source of truth for runtime validation, TypeScript types and JSON Schema.
@@ -72,7 +73,8 @@ export const productRepositorySchema = z.strictObject({
  * writes still produce `productSchema`, so a teammate on an older release can still read what this one writes.
  */
 export const productReadSchema = productSchema.extend({
-  schemaVersion: z.literal(3).optional(), domain: z.url().optional(), repositories: z.array(productRepositorySchema).optional(),
+  schemaVersion: z.literal(documentVersions.product.current).optional(), domain: z.url().optional(),
+  repositories: z.array(productRepositorySchema).optional(),
 })
 export const componentKindSchema = z.enum(['service', 'module', 'database', 'object-storage', 'local-storage', 'queue', 'cache', 'external-service'])
 export const componentEvidenceSchema = z.strictObject({
@@ -131,6 +133,14 @@ export const evidenceSchema = componentEvidenceSchema.extend({
   lines: z.string().regex(/^[1-9]\d*(?:-[1-9]\d*)?$/, 'Use a line number or inclusive range such as 12-24'),
   revision: commitSha,
 })
+export const executionFlowStepSchema = z.strictObject({
+  id, title: text,
+  kind: z.enum(['request', 'validation', 'decision', 'logic', 'dependency', 'data', 'message', 'response']),
+  description: text,
+  dataRecordIds: ids.optional(), messageIds: ids.optional(), dependencyIds: ids.optional(),
+  unresolvedDependencyNames: strings.optional(),
+  evidence: z.array(evidenceSchema).min(1),
+})
 export const executionFlowSchema = z.strictObject({
   id, endpointId: id.optional(),
   trigger: z.discriminatedUnion('kind', [
@@ -139,14 +149,7 @@ export const executionFlowSchema = z.strictObject({
   name: text, summary: text,
   sourceRevision: commitSha,
   entryStepId: id,
-  steps: z.array(z.strictObject({
-    id, title: text,
-    kind: z.enum(['request', 'validation', 'decision', 'logic', 'dependency', 'data', 'message', 'response']),
-    description: text,
-    dataRecordIds: ids.optional(), messageIds: ids.optional(), dependencyIds: ids.optional(),
-    unresolvedDependencyNames: strings.optional(),
-    evidence: z.array(evidenceSchema).min(1),
-  })).min(1),
+  steps: z.array(executionFlowStepSchema).min(1),
   transitions: z.array(z.strictObject({
     id, from: id, to: id, label: text,
     mode: z.enum(['sync', 'async']),
@@ -171,6 +174,16 @@ export const retiredObservationSchema = z.strictObject({
 export const componentJobSchema = z.strictObject({
   id, name: text, description: text, schedule: text.optional(), source: text.optional(), evidence: z.array(componentEvidenceSchema).min(1),
 })
+/**
+ * A build project that was renamed or moved. The component keeps the document ID it already had; the change records
+ * the ID and path a scan of the new location derives, so a later scan matches the project instead of cataloguing it
+ * again. Only a migrated home stores it: an older release validates components against a strict schema and would
+ * refuse the whole document, and no legacy field can carry the same fact.
+ */
+export const componentIdentityChangeSchema = z.strictObject({
+  previousId: id, previousSourcePath: text, id, sourcePath: text, recordedAt: isoTimestamp, reason: text,
+  sourceRevision: commitSha, evidence: z.array(evidenceSchema).min(1),
+})
 export const componentSchema = z.strictObject({
   id, productId: id, order, name: text, kind: componentKindSchema.optional(), parentId: id.optional(), dependsOn: ids.optional(),
   repo: text.optional(), description: text.optional(), ownership: z.enum(['internal', 'third-party']).optional(),
@@ -187,6 +200,27 @@ export const componentSchema = z.strictObject({
   sourcePath: text.optional(), sourceRevision: text.optional(), evidence: z.array(componentEvidenceSchema).optional(),
   gaps: z.array(componentGapSchema).optional(), unresolvedDependencies: z.array(componentUnresolvedDependencySchema).optional(),
   scan: componentScanSchema.optional(),
+})
+/**
+ * A stored reference to a component: the migrated form names the repository, because components are qualified by
+ * repository rather than by product, and the legacy form is the bare local name. Both are read; only the bare form
+ * is written until a home is migrated.
+ */
+export const componentReferenceSchema = z.union([id, z.strictObject({ repository: text, component: id })])
+const componentReferences = z.array(componentReferenceSchema)
+const executionFlowStepReadSchema = executionFlowStepSchema.extend({ dependencyIds: componentReferences.optional() })
+export const executionFlowReadSchema = executionFlowSchema.extend({ steps: z.array(executionFlowStepReadSchema).min(1) })
+/**
+ * Read-tolerant component: every legacy field plus what a migrated home writes, namely its own `schemaVersion`,
+ * structured `{repository, component}` references in `dependsOn` and flow `dependencyIds`, and the identity changes
+ * a renamed or moved build project records. Writes still produce `componentSchema`, so a teammate on an older
+ * release can still read them.
+ */
+export const componentReadSchema = componentSchema.extend({
+  schemaVersion: z.literal(documentVersions.component.current).optional(),
+  dependsOn: componentReferences.optional(),
+  executionFlows: z.array(executionFlowReadSchema).optional(),
+  identityChanges: z.array(componentIdentityChangeSchema).optional(),
 })
 export const memberSchema = z.strictObject({ id, name: text })
 export const featureSchema = z.strictObject({

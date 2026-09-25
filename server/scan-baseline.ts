@@ -7,7 +7,7 @@ import { digest } from './git.ts'
 import { readPlan, writePlan } from './repository.ts'
 import { requireClaimEvidence, requireRetainedInventory, validateDiscoveryCitations } from './scan-evidence.ts'
 import { scanManifest } from './scan-manifests.ts'
-import { filesForProject } from './scan-projects.ts'
+import { filesForProject, matchComponents } from './scan-projects.ts'
 import { loadScan, removeScan } from './scan-workspace.ts'
 
 type Coverage = NonNullable<NonNullable<Component['scan']>['coverage']>
@@ -107,6 +107,11 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     component,
     repository: component.repo ? await repositoryKey(component.repo) : null,
   })))
+  // Which component each detected project already belongs to, decided once for the whole scan so that one
+  // component cannot be claimed by two projects and a path a component left long ago cannot capture a new one.
+  const inRepository = components.filter(item => item.repository === scannedRepository)
+    .map(item => ({ ...item.component, repo: scannedRepository }) as Component)
+  const identityMatches = matchComponents(inRepository, scannedRepository, metadata.projects)
   const batchIds = new Set(args.discoveries.map(discovery => discovery.id))
   if (batchIds.size !== args.discoveries.length) throw new InvalidInput('Repository discoveries contain duplicate component IDs')
   if (new Set(args.discoveries.map(discovery => discovery.sourcePath)).size !== args.discoveries.length) {
@@ -134,10 +139,16 @@ export async function applyRepositoryScan(root: string, input: unknown) {
     if (collision && (collision.repository !== scannedRepository || (collision.component.sourcePath ?? '.') !== discovery.sourcePath)) {
       throw new InvalidInput(`${discovery.id}: component ID belongs to another repository or project path`)
     }
-    const identityMatch = components
-      .find(item => item.repository === scannedRepository && (item.component.sourcePath ?? '.') === discovery.sourcePath)?.component
+    // A recorded identity change is matched before a project counts as new, so a renamed or moved build project
+    // keeps the component it already had instead of being catalogued twice.
+    const identityMatch = identityMatches.get(discovery.sourcePath)
     if (identityMatch && identityMatch.id !== discovery.id) {
       throw new InvalidInput(`${discovery.id}: repository project already belongs to component ${identityMatch.id}`)
+    }
+    // A new component takes the ID derived from the project's manifest name and folder, so a clean scan and an
+    // incremental scan of the same commit agree on it. An existing component keeps the ID it already has.
+    if (!collision && !identityMatch && discovery.id !== project.derivedId) {
+      throw new InvalidInput(`${discovery.id}: a new component takes the ID derived from its manifest name and folder, ${project.derivedId}`)
     }
     for (const dependency of discovery.dependsOn ?? []) {
       if (dependency === discovery.id) throw new InvalidInput(`${discovery.id}: component cannot depend on itself`)

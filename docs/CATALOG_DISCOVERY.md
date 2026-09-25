@@ -16,7 +16,7 @@ Example discovery arguments:
 {"question":"recommended retail price of a product","kinds":["endpoint","flow","finding"],"limit":5,"maxBytes":32768}
 ```
 
-IDs have four URI-encoded segments: `project/component/kind/entity`. Component IDs use the component ID again as the entity segment. Schema IDs may contain encoded slashes. IDs do not depend on a disk path. Returned `location` is a viewer path for the selected checkout/ref; use it on the current Hub origin.
+IDs have four URI-encoded segments. The first is the repository identity (`volvo-cars%2Fprice-engine`) in a migrated home and the project's manifest ID in one that has not been migrated; the rest are `component/kind/entity`. Both forms resolve in every lookup, cursor and freshness check, and each result carries its other form in `aliases`. IDs stored before a migration are never rewritten, and an ID the legacy ID map cannot place stays unchanged and is shown as unresolved. Component IDs use the component ID again as the entity segment. Schema IDs may contain encoded slashes. IDs do not depend on a disk path. Returned `location` is a viewer path for the selected checkout/ref; use it on the current Hub origin.
 
 Responses include a catalog revision, checkout context and combined snapshot token. These are not source Git revisions or retained historical snapshots. A cursor is bound to the snapshot, operation and arguments, including limits. Repeat the same arguments with `cursor: nextCursor`. If the checkout, catalog, ref target or query changes, restart without the cursor. Unknown IDs and out-of-scope seeds fail explicitly.
 

@@ -231,6 +231,7 @@ export function operationAnnotations(name: OperationName) {
 }
 
 export async function operate(name: OperationName, input: unknown, standalone?: string): Promise<unknown> {
+  if (!isOperationName(name)) throw new InvalidInput(`Unknown operation: ${name}`)
   const operation = operations[name] as unknown as OperationDef<z.ZodType>
   const { checkoutId, ref, ...args } = operation.schema.parse(input) as Selection & Record<string, unknown>
   return operation.run(args, { root: () => selectRoot(checkoutId, standalone), ref, standalone })

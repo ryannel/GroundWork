@@ -2,9 +2,10 @@ import { link, lstat, mkdir, open, readdir, readFile, realpath, rename, rm, writ
 import { hostname } from 'node:os'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
-import { decodeStorage, encodeStorage, physicalDocumentPattern } from './catalog-storage.ts'
+import { decodeStorage, encodeStorage, physicalDocumentPattern, type Layout } from './catalog-storage.ts'
 import { Conflict, InvalidInput } from './errors.ts'
 import { assetPattern, documentPattern, parsePlan, type Files, type Plan } from './format.ts'
+import { catalogIdentity } from '../src/data/catalog-index.ts'
 import { context, digest, git, gitRaw, resolveRef } from './git.ts'
 import {
   GROUNDWORK_DIR, JOURNAL_FILE, LOCK_FILE, MAX_DOCUMENT_BYTES, MEMBERS_DIR, CATALOG_DIR, LOCAL_CATALOGS_DIR, PLANS_DIR, PRODUCTS_DIR,
@@ -72,6 +73,15 @@ export async function readFiles(root: string, ref?: string): Promise<Files> {
   return decodeStorage(await readStorageFiles(root, ref)).files
 }
 export const revision = (files: Files) => digest(JSON.stringify(Object.entries(files).sort(([a], [b]) => a.localeCompare(b))))
+/**
+ * The revision a plan is read and guarded by. It covers the logical documents and the facts outside them that
+ * catalog IDs derive from: the storage layout, the home's own repository identity and the stored `legacy-ids.json`.
+ * That file is not a planning document, so without folding it in, changing the legacy map would leave every
+ * snapshot token, cursor and pending write valid while the IDs and aliases they were taken with had changed.
+ */
+export const planRevision = (
+  decoded: { files: Files; layout: Layout; legacyIds?: string }, repository?: { id: string },
+) => digest(JSON.stringify([revision(decoded.files), decoded.layout, repository?.id ?? null, decoded.legacyIds ?? null]))
 
 async function durable(file: string, data: string, mode: number | undefined) {
   const handle = await open(file, 'wx', mode ?? 0o666)
@@ -273,12 +283,18 @@ function planContext(ctx: Context, ref?: string, resolved?: string) {
 export async function readPlanUnlocked(root: string, ref?: string) {
   const ctx = await context(root)
   const resolved = ref ? await resolveRef(root, ref) : undefined
-  const { files, layout } = decodeStorage(await readStorageFiles(root, resolved))
-  const plan = parsePlan(files, { repository: ctx.repository, layout })
+  const decoded = decodeStorage(await readStorageFiles(root, resolved))
+  const { files, layout, legacyIds } = decoded
+  const plan = parsePlan(files, { repository: ctx.repository, layout, legacyIds })
   const assets = await assetVersions(root, plan, resolved)
   if (!ref && (await context(root)).token !== ctx.token) throw new Conflict('The checkout changed while reading; retry')
   // The repository identity sits beside the manifest ID: one names the repository, the other the documents in it.
-  return { ...plan, files, assets, layout, repository: ctx.repository, revision: revision(files), context: planContext(ctx, ref, resolved) }
+  return {
+    ...plan, files, assets, layout, repository: ctx.repository,
+    // The serialisable form of what decides an entry's IDs, so the viewer resolves them exactly as the service does.
+    identity: catalogIdentity({ manifest: plan.manifest, repository: ctx.repository, layout, legacyIds: plan.legacyIds }),
+    revision: planRevision(decoded, ctx.repository), context: planContext(ctx, ref, resolved),
+  }
 }
 const READ_ATTEMPTS = 10, READ_DELAY_MS = 20
 const PENDING = 'A plan write or recovery is pending; retaining the previous snapshot. Run groundwork-v2 recover if a writer was interrupted.'
@@ -320,16 +336,17 @@ export async function writePlan(root: string, request: WriteRequest) {
   return withTransaction(root, async commit => {
     const ctx = await context(root)
     const storage = await readStorageFiles(root)
-    const { layout, files: before } = decodeStorage(storage)
-    if (ctx.token !== expectedContext || revision(before) !== expectedRevision) {
+    const decoded = decodeStorage(storage)
+    const { layout, files: before, legacyIds } = decoded
+    if (ctx.token !== expectedContext || planRevision(decoded, ctx.repository) !== expectedRevision) {
       throw new Conflict('Stale edit: re-read the selected checkout and reapply your changes')
     }
-    const { after, plan } = validateTransition(before, changes, { repository: ctx.repository, layout })
+    const { after, plan } = validateTransition(before, changes, { repository: ctx.repository, layout, legacyIds })
     await assetVersions(root, plan)
     const next = encodeStorage(after, layout)
     // commit() re-checks the context and every changed path against `storage` before it writes anything.
     await commit(storage, next, ctx.token)
-    return { revision: revision(decodeStorage(next).files), context: planContext(ctx) }
+    return { revision: planRevision(decodeStorage(next), ctx.repository), context: planContext(ctx) }
   })
 }
 

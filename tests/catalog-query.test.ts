@@ -85,7 +85,7 @@ test('exact details can be recovered without returning the component schema inve
   assert.throws(() => queryCatalog(plan, 'get_catalog_entity', { id: msrp.replace('catalog/', 'other/') }), /not found/)
   const large = detailParts({ example: '🐈'.repeat(20000) })
   assert.equal(large.map(part => part.value).join(''), '🐈'.repeat(20000))
-  assert.deepEqual(parseCatalogId(catalogId('p', 'c', 'schema', 'A/B')), { project: 'p', component: 'c', kind: 'schema', entity: 'A/B' })
+  assert.deepEqual(parseCatalogId(catalogId('p', 'c', 'schema', 'A/B')), { scope: 'p', component: 'c', kind: 'schema', entity: 'A/B' })
 })
 test('uncommitted observation A remains readable after B replaces/removes it; immutable baseline rejects writes', async t => {
   const { root } = await fixture(t)

@@ -206,7 +206,7 @@ test('runtime restarts close old streams, reject stale events and recover from m
   const first = streams.at(-1)!
   assert.equal(first.url, '/api/events?')
   const snapshot = { workspaces: [], products: [], components: [], features: [] }
-  const plan = { snapshot, revision: 'r1', context: { token: 'checkout' }, manifest: { name: 'Test' } }
+  const plan = { snapshot, revision: 'r1', context: { token: 'checkout' }, manifest: { name: 'Test' }, identity: { manifest: { id: 'test' } } }
   first.send({ plan, error: null })
   assert.equal(runtime.getRuntime().plan?.revision, 'r1')
   first.onerror?.()

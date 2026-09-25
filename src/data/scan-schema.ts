@@ -115,3 +115,18 @@ export const reconcileCatalogSchema = z.strictObject({
   })).max(20).default([]),
 })
 export type LifecycleRetirement = z.infer<typeof reconcileCatalogSchema>['retire'][number]
+
+/**
+ * Records that a catalogued component's build project was renamed or moved. The component keeps its ID; the new
+ * local ID and source path are recorded so a later scan matches this component instead of treating the project as
+ * newly discovered. `sourcePath` must be a project the pinned scan detected.
+ */
+export const reconcileComponentIdentitySchema = z.strictObject({
+  scanId: z.string().uuid(),
+  componentId: id,
+  sourcePath: repoRelativePath,
+  reason: text.max(4000),
+  evidence: z.array(scanEvidenceSchema).min(1).max(20),
+  expectedRevision: z.string().min(1),
+  expectedContext: z.string().min(1),
+})

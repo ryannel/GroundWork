@@ -4,7 +4,7 @@ import { decodeStorage, encodeStorage } from './catalog-storage.ts'
 import { parsePlan } from './format.ts'
 import { Conflict } from './errors.ts'
 import { context } from './git.ts'
-import { readPlan, readStorageFiles, revision, withTransaction } from './repository.ts'
+import { planRevision, readPlan, readStorageFiles, revision, withTransaction } from './repository.ts'
 export const migrateCatalogSchema = z.strictObject({
   dryRun: z.boolean().default(true), expectedRevision: z.string().optional(), expectedContext: z.string().optional(),
 })
@@ -15,7 +15,7 @@ export async function migrateCatalog(root: string, input: unknown) {
   const args = migrateCatalogSchema.parse(input)
   const plan = await readPlan(root)
   const before = await readStorageFiles(root)
-  if (revision(decodeStorage(before).files) !== plan.revision) throw new Conflict('Catalog changed during migration preparation; repeat the dry run')
+  if (planRevision(decodeStorage(before), plan.repository) !== plan.revision) throw new Conflict('Catalog changed during migration preparation; repeat the dry run')
   const after = encodeStorage(plan.files, 'catalog-v1')
   const candidate = decodeStorage(after)
   const parsed = parsePlan(candidate.files)
@@ -39,6 +39,6 @@ export async function migrateCatalog(root: string, input: unknown) {
       throw new Conflict('Catalog changed before migration; repeat dry run')
     }
     await commit(before, after, plan.context.token)
-    return { ...report, status: 'migrated', revision: revision(candidate.files) }
+    return { ...report, status: 'migrated', revision: planRevision(candidate, plan.repository) }
   })
 }

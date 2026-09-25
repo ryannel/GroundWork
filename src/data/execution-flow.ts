@@ -1,12 +1,18 @@
 import type { Component } from './model.ts'
+import { referenceKey, referenceLabel, type ComponentReference } from './component-reference.ts'
 import { githubRepository } from './repository-identity.ts'
 import { isRepoRelativePath } from './schema-primitives.ts'
 
 export type ExecutionFlow = NonNullable<Component['executionFlows']>[number]
 export type ExecutionStep = ExecutionFlow['steps'][number]
 
-/** Flow links belong to the component catalog, independently of feature-planning diagrams. */
-export function executionFlowIssues(component: Component): string[] {
+/**
+ * Flow links belong to the component catalog, independently of feature-planning diagrams. `repositories` says which
+ * repository each catalogued component belongs to, so a step may cite a dependency in whichever form the component
+ * declares it: a bare name and a `{repository, component}` reference that resolve to the same component are the
+ * same dependency. Without it, and for a reference nothing resolves, the forms are compared as written.
+ */
+export function executionFlowIssues(component: Component, repositories?: Map<string, string | undefined>): string[] {
   const issues: string[] = []
   const unique = (values: string[], name: string) => { if (new Set(values).size !== values.length) issues.push(`duplicate ${name}`) }
   const active = {
@@ -36,7 +42,13 @@ export function executionFlowIssues(component: Component): string[] {
     for (const step of flow.steps) {
       for (const id of step.dataRecordIds ?? []) if (!component.data?.records.some(record => record.id === id)) fail(`${step.id}: unknown data record ${id}`)
       for (const id of step.messageIds ?? []) if (!component.messaging?.messages.some(message => message.id === id)) fail(`${step.id}: unknown message ${id}`)
-      for (const id of step.dependencyIds ?? []) if (!component.dependsOn?.includes(id)) fail(`${step.id}: unknown dependency ${id}`)
+      const key = (reference: ComponentReference) => referenceKey(reference, repositories)
+      const declared = new Set((component.dependsOn ?? []).map(key))
+      for (const reference of step.dependencyIds ?? []) {
+        // A step may only cite a dependency the component declares. Equivalence is decided by what each reference
+        // resolves to, so the two forms of one dependency match and an unresolved one stays explicit.
+        if (!declared.has(key(reference))) fail(`${step.id}: unknown dependency ${referenceLabel(reference)}`)
+      }
       for (const name of step.unresolvedDependencyNames ?? []) {
         if (!component.unresolvedDependencies?.some(dependency => dependency.name === name)) fail(`${step.id}: unknown unresolved dependency ${name}`)
       }

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { scanManifestSchema } from '../src/data/scan-manifest.ts'
+import { adaptScanManifest, parseScanManifest, scanManifestSchema } from '../src/data/scan-manifest.ts'
 import { catalogIndex } from './catalog.ts'
 import { parsePlan } from './format.ts'
 import { Conflict, InvalidInput, NotFound } from './errors.ts'
@@ -11,7 +11,8 @@ type Plan = Awaited<ReturnType<typeof readPlan>>
 export type ManifestScope = z.infer<typeof scanManifestSchema>['scope'][number]
 
 export function manifestChange(plan: Plan, changes: Record<string, string>, input: Omit<z.infer<typeof scanManifestSchema>, 'mappings' | 'note'>) {
-  const candidate = { ...plan, ...parsePlan({ ...plan.files, ...changes }) }
+  // The candidate is read the way the home itself was, so its layout decides which ID form the mappings record.
+  const candidate = { ...plan, ...parsePlan({ ...plan.files, ...changes }, plan.source) }
   const components = new Set(input.scope.map(scope => scope.componentId))
   const mappings: z.infer<typeof scanManifestSchema>['mappings'] = []
   const visit = (value: unknown, entityId: string) => {
@@ -69,8 +70,19 @@ export async function readScanManifest(root: string, input: unknown, ref?: strin
   if (!args.manifestId && args.section !== 'summary') throw new InvalidInput('Select a manifestId for inventory or mapping pages')
   if (!args.manifestId && args.offset && !args.expectedRevision) throw new InvalidInput('Supply expectedRevision when continuing a manifest listing')
   const entries = Object.entries(plan.files).filter(([file]) => file.startsWith('scan-manifests/')).sort(([a], [b]) => a.localeCompare(b))
+  /**
+   * The stored bytes are validated at whatever version they were written and then read in the layout's canonical
+   * ID form. Only a migrated home qualifies its IDs by repository; an unmigrated one keeps the legacy IDs its
+   * documents and manifests hold, which is also the form `manifestChange` writes. Only this in-memory view is
+   * adapted: the record itself is content-addressed, so its file keeps the exact bytes its name hashes, and the
+   * IDs the map cannot place stay as they are.
+   */
+  const view = (raw: string) => {
+    const manifest = parseScanManifest(raw)
+    return plan.layout === 'catalog-v3' ? adaptScanManifest(manifest, plan.legacyIds) : manifest
+  }
   const summary = (file: string, raw: string) => {
-    const { files, dependencyFingerprints, mappings, ...metadata } = scanManifestSchema.parse(JSON.parse(raw))
+    const { files, dependencyFingerprints, mappings, ...metadata } = view(raw)
     const counts = { files: files.length, dependencyFingerprints: dependencyFingerprints.length, mappings: mappings.length }
     return { manifestId: file.split('/')[1].replace('.json', ''), ...metadata, counts }
   }
@@ -79,7 +91,7 @@ export async function readScanManifest(root: string, input: unknown, ref?: strin
   else {
     const file = `scan-manifests/${args.manifestId}.json`, raw = plan.files[file]
     if (!raw) throw new NotFound('Unknown scan manifest')
-    items = args.section === 'summary' ? [summary(file, raw)] : scanManifestSchema.parse(JSON.parse(raw))[args.section]
+    items = args.section === 'summary' ? [summary(file, raw)] : view(raw)[args.section]
   }
   const result = {
     catalogRevision: plan.revision, manifestId: args.manifestId ?? null, section: args.section, total: items.length,

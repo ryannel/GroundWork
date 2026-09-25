@@ -90,7 +90,7 @@ function DiscoveryChecks({ assessments }: { assessments: Assessment[] }) {
 
 function DiscoveryBaselines({ baselines, plan }: { baselines: Baseline[]; plan: RuntimePlan }) {
   const changed = (packet: Baseline['packet']) =>
-    baselineAssessments(packet, plan.snapshot.components, plan.manifest.id).some(item => item.catalogState !== 'unchanged')
+    baselineAssessments(packet, plan.snapshot.components, plan.identity).some(item => item.catalogState !== 'unchanged')
   return <section className="explore-section">
     <h2>Discovery baselines</h2>
     <p>Facts retained when this plan was prepared. Catalog changes are compared below; source checks apply only to their recorded target and time.</p>

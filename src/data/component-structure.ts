@@ -1,4 +1,5 @@
 import type { Component, Feature } from './model.ts'
+import { componentRepositories, resolveComponentReference } from './component-reference.ts'
 
 export type ComponentKind = NonNullable<Component['kind']>
 export const componentKinds = {
@@ -48,8 +49,12 @@ export function systemGraph(components: Component[], allComponents: Component[] 
     if (owner) nodes.set(owner.id, owner)
   }
   const localIds = new Set(nodes.keys())
-  for (const c of allComponents) for (const id of c.dependsOn ?? []) {
-    const from = root(c.id), to = root(id)
+  const repositories = componentRepositories(allComponents)
+  for (const c of allComponents) for (const reference of c.dependsOn ?? []) {
+    const dependency = resolveComponentReference(reference, repositories)
+    // An unresolved reference has no node to draw; it stays visible in the catalog, not in the topology.
+    if (!dependency.resolved) continue
+    const from = root(c.id), to = root(dependency.component)
     if (!from || !to || from.id === to.id || (!localIds.has(from.id) && !localIds.has(to.id))) continue
     nodes.set(from.id, from)
     nodes.set(to.id, to)

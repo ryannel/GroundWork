@@ -73,7 +73,22 @@ or `unresolvedDependencies`.
 ## Rules
 
 - `sourcePath` must equal a project path returned by `prepare_repository_scan`.
-- `id`, `productId`, and every `dependsOn` value are Groundwork IDs.
+- `id`, `productId`, and every `dependsOn` value are Groundwork IDs. A `dependsOn` value is
+  the bare local ID of a component in the same catalog; Groundwork resolves it to the
+  repository that component belongs to, and reports it as unresolved when nothing does.
+- A new component takes the ID `prepare_repository_scan` derives for its project
+  (`derivedId`, which `suggestedId` repeats for a project no component covers yet): the
+  manifest name for a project at the repository root, otherwise the manifest name, `--`,
+  and the folder with `/` written as `-`, for example `api--services-price`. The encoding
+  never folds two projects together, so anything that would be ambiguous takes a `_`
+  escape: `services-price` as a folder is `services_hprice`, `price.v2` is `price_dv2`,
+  `price_v2` is `price_uv2`, and case is kept as written. Send the `derivedId` verbatim
+  rather than composing it yourself. The folder is always included below the root, so
+  adding a same-named project later never changes an ID that was already derived. An
+  existing component keeps the ID it already has.
+- A build project that was renamed or moved is detected at its new path, so it looks like a
+  new project. Apply it under the `derivedId` of that path, or leave it out and report the
+  move; recording the move against the existing component is not available yet.
 - Unmapped runtime references belong in `unresolvedDependencies`, never fabricated
   components.
 - Evidence paths are relative to the snapshot root.
@@ -171,8 +186,11 @@ Subject kinds are component, endpoint, schema, data, message or flow. Sources mu
 the prepared repository/revision. A test pointer establishes where to inspect, not that
 the test passed. Findings are searchable and shown under Investigated questions.
 
-Use qualified IDs returned by queries: `project/component/kind/entity`, with URI-encoded
-segments. Queries return bounded summaries and continuations. `get_catalog_entity` returns
+Use qualified IDs exactly as queries return them. An ID has four URI-encoded segments:
+`repository/component/kind/entity` in a migrated home and `project/component/kind/entity`
+in one that has not been migrated, where `repository` is an identity such as
+`volvo-cars%2Fprice-engine`. Both forms resolve, and results list an entity's other form
+under `aliases`; never construct or convert an ID yourself. Queries return bounded summaries and continuations. `get_catalog_entity` returns
 JSON-pointer sections; retrieve all pages for complete detail and concatenate any sliced
 strings at their indicated offsets. A changed snapshot or query invalidates its cursor.
 

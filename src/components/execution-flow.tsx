@@ -7,6 +7,7 @@ import {
 } from '@xyflow/react'
 import type { Component } from '@/data/model'
 import { sourceEvidenceUrl, type ExecutionFlow, type ExecutionStep } from '@/data/execution-flow'
+import { referenceComponent, referenceLabel } from '@/data/component-reference'
 import { edgeRoutes, layoutGraph, type EdgeRoute } from '@/lib/elk'
 
 /** Step card size, shared by the ELK input and the rendered node. */
@@ -172,9 +173,12 @@ export function ExecutionFlowExplorer({ component, flow, dependencies, onNavigat
           {selected.messageIds?.map(id => <button key={id} onClick={() => onNavigate({ tab: 'messages', id })}>
             Message · {component.messaging?.messages.find(message => message.id === id)?.name}<ArrowRight size={13} />
           </button>)}
-          {selected.dependencyIds?.map(id => <button key={id} onClick={() => onSelectComponent?.(id)} disabled={!onSelectComponent}>
-            Dependency · {dependencies.find(item => item.id === id)?.name ?? id}<ArrowRight size={13} />
-          </button>)}
+          {selected.dependencyIds?.map(reference => {
+            const id = referenceComponent(reference), label = referenceLabel(reference)
+            return <button key={label} onClick={() => onSelectComponent?.(id)} disabled={!onSelectComponent}>
+              Dependency · {dependencies.find(item => item.id === id)?.name ?? label}<ArrowRight size={13} />
+            </button>
+          })}
           {selected.unresolvedDependencyNames?.map(name => <div className="execution-unresolved" key={name}>
             <strong>{name}</strong><span>External dependency · awaiting a component match</span>
           </div>)}

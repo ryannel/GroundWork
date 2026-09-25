@@ -1,4 +1,8 @@
-import { catalogIndex, catalogSourceRevision, relationKinds, type Entity } from './catalog-index.ts'
+import {
+  catalogIndex, catalogLookup, catalogSourceRevision, indexedScope, relationKinds, type CatalogScope, type Entity,
+} from './catalog-index.ts'
+import { componentRepositories, referenceKey } from './component-reference.ts'
+import { parseCatalogId } from './catalog-identity.ts'
 import type { Component } from './model.ts'
 import { z } from 'zod'
 import { isoTimestamp } from './schema-primitives.ts'
@@ -11,7 +15,11 @@ export const knowledgeBaselineSchema = z.strictObject({
     id: z.string().min(1), name: z.string(), repository: z.string().nullable(),
     sourceRevision: z.string().nullable(), observation: z.record(z.string(), z.unknown()),
     // kind/reverse are absent in baselines retained before relations were typed; those compare as changed.
-    relations: z.array(z.strictObject({ id: z.string(), reason: z.string(), kind: z.enum(relationKinds).optional(), reverse: z.boolean().optional() })),
+    relations: z.array(z.strictObject({
+      id: z.string(), reason: z.string(), kind: z.enum(relationKinds).optional(), reverse: z.boolean().optional(),
+      // Retained as written when no catalogued component answered to the reference; it never counts as a change.
+      unresolved: z.boolean().optional(),
+    })),
     componentGaps: z.array(z.strictObject({ area: z.string(), reason: z.string() })),
   })).min(1).max(10),
 })
@@ -36,17 +44,62 @@ const canonical = (value: unknown) => JSON.stringify(value, (_key, item: unknown
   ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0))
   : item)
 /** Relations compare by target, kind and direction; display text and order do not count. */
-const relationKeys = (relations: { id: string; kind?: string; reverse?: boolean }[]) =>
-  canonical(relations.map(relation => [relation.id, relation.kind ?? null, relation.reverse ?? null]).sort((a, b) => canonical(a).localeCompare(canonical(b))))
+const relationKeys = (relations: { id: string; kind?: string; reverse?: boolean }[], lookup: ReturnType<typeof catalogLookup>) =>
+  canonical(relations.map(relation => {
+    let id = lookup.get(relation.id)?.id ?? relation.id
+    if (!lookup.has(relation.id)) {
+      // A bare unresolved name was scoped to the old project ID and later to the synthetic v3 ID. Neither has a
+      // catalog entry to alias, so compare its bare name while retaining a structured repository's distinct scope.
+      try {
+        const parsed = parseCatalogId(id)
+        if (!parsed.scope.includes('/') && !parsed.scope.startsWith('local:')) id = `?/${parsed.component}/${parsed.kind}/${parsed.entity}`
+      } catch { /* An unresolved non-catalog reference keeps its exact spelling. */ }
+    }
+    return [id, relation.kind ?? null, relation.reverse ?? null]
+  })
+    .sort((a, b) => canonical(a).localeCompare(canonical(b))))
+/** Only the two fields that can change representation during migration are compared by resolved reference. */
+function comparableObservation(observation: Record<string, unknown>, kind: Entity['kind'], repositories: Map<string, string | undefined>) {
+  const reference = (value: unknown) => {
+    if (typeof value === 'string') return referenceKey(value, repositories)
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      const item = value as Record<string, unknown>
+      if (typeof item.repository === 'string' && typeof item.component === 'string') {
+        return referenceKey({ repository: item.repository, component: item.component }, repositories)
+      }
+    }
+    return value
+  }
+  if (kind === 'component' && Array.isArray(observation.dependsOn)) {
+    return { ...observation, dependsOn: observation.dependsOn.map(reference) }
+  }
+  if (kind === 'flow' && Array.isArray(observation.steps)) {
+    return { ...observation, steps: observation.steps.map(value => {
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return value
+      const step = value as Record<string, unknown>
+      return Array.isArray(step.dependencyIds) ? { ...step, dependencyIds: step.dependencyIds.map(reference) } : step
+    }) }
+  }
+  return observation
+}
 
-export function baselineAssessments(baseline: z.infer<typeof knowledgeBaselineSchema>, components: Component[], projectId: string) {
-  const index = new Map(catalogIndex({ manifest: { id: projectId }, snapshot: { components } }).map(entry => [entry.id, entry]))
+/** Which catalog a baseline is compared against: a bare legacy project ID, a plan, or a plan's identity projection. */
+export type BaselineScope = CatalogScope
+/**
+ * Compares a retained baseline against the current catalog. Retained IDs are looked up in every form a catalog
+ * entry answers to, so a baseline captured before the migration still finds its entry afterwards.
+ */
+export function baselineAssessments(baseline: z.infer<typeof knowledgeBaselineSchema>, components: Component[], scope: BaselineScope) {
+  const index = catalogLookup(catalogIndex({ ...indexedScope(scope), snapshot: { components } }))
+  const identity = indexedScope(scope)
+  const repositories = componentRepositories(components, identity.repository?.id)
   return baseline.observations.map(retained => {
     const entry = index.get(retained.id)
     const current = entry && entityObservation(entry)
     const unchanged = !!current
-      && canonical(current.observation) === canonical(retained.observation)
-      && relationKeys(current.relations) === relationKeys(retained.relations)
+      && canonical(comparableObservation(current.observation, entry.kind, repositories))
+        === canonical(comparableObservation(retained.observation, entry.kind, repositories))
+      && relationKeys(current.relations, index) === relationKeys(retained.relations, index)
       && canonical(current.componentGaps) === canonical(retained.componentGaps)
       && current.repository === retained.repository
       && current.sourceRevision === retained.sourceRevision

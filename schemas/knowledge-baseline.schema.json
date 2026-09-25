@@ -95,6 +95,9 @@
                 },
                 "reverse": {
                   "type": "boolean"
+                },
+                "unresolved": {
+                  "type": "boolean"
                 }
               },
               "required": [

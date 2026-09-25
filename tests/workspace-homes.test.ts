@@ -58,6 +58,17 @@ test('a v3 home loads without a project manifest, deriving it from the repositor
   assert.ok(storage['.groundwork/legacy-ids.json'])
 })
 
+test('changing the stored legacy ID map invalidates the plan revision', async t => {
+  const root = await homeFixture(t, 'v3', 'git@github.com:volvo-cars/price-engine.git')
+  const before = await readPlan(root)
+  const file = path.join(root, '.groundwork/legacy-ids.json')
+  const map = JSON.parse(await readFile(file, 'utf8')) as { version: number; ids: Record<string, string> }
+  map.ids['old/component/component/component'] = 'new/component/component/component'
+  await writeFile(file, JSON.stringify(map) + '\n')
+  const after = await readPlan(root)
+  assert.notEqual(after.revision, before.revision)
+})
+
 test('a pre-migration branch merged after migration keeps both document forms readable', async t => {
   const root = await homeFixture(t, 'merged-branch', 'ssh://git@ghe.example.com:22/Volvo-Cars/Price.git')
   const plan = await readPlan(root)
