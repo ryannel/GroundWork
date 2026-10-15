@@ -12,3 +12,6 @@ Groundwork) in Next.js and TypeScript.
   service is one kind of component (alongside stores, topics and apps), not a level.
 - Write for the reader in plain British English. Titles name things; the
   line under a title says what is true.
+- Skills for agents live in `.agents/skills/` (`.claude/skills` and `.github/skills` link to it). To answer a
+  question about the systems, use `groundwork-ask`: the map first (`npm run map`), then the cited code. To scan
+  repos into the map, `groundwork-scan`; to write a plan, `groundwork-plan`.

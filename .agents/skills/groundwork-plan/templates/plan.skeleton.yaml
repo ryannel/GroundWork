@@ -1,0 +1,153 @@
+# Groundwork plan skeleton. Copy to workspaces/<ws>/plans/<plan>/plan.yaml, then replace every TODO.
+#
+# Rules you must not break (see .agents/skills/groundwork-schema):
+#   - A plan is an overlay. Today lives in the system model (workspaces/<ws>/domains/…); never copy it here.
+#   - Every delta (new endpoint, field, store, step, handler step; any change of behaviour) is an op in changes[].ops,
+#     and every op targets an id in the system model at `baseline`, or one this plan adds.
+#   - Ids are <prefix>:<kebab-slug>, named by meaning, never numbered, never renamed.
+#   - Flow steps are <flow-id>#<verb-slug>. Fields are addressed <schema-id>#<field_name>.
+#   - Dates are quoted strings: "2026-10-01".
+#   - No colour, position, status or counts: all of that is derived.
+
+baseline: TODO-40-hex-groundwork-commit # `git rev-parse HEAD` once today is confirmed
+
+meta:
+  id: my-feature # TODO = the folder name plans/<plan>/
+  title: 'TODO: Verb the thing' # what ships, in the customer's words
+  version: '0.1'
+  date: '2026-10-01' # TODO: today, quoted
+  status: draft # draft | review | approved
+  authors: ['TODO: team names']
+  appetite: 'TODO: 4 weeks · 2 milestones'
+  repos: ['TODO-org/TODO-repo'] # repos the work lands in
+
+# ─────────────────────────────────────────────── why
+problem:
+  summary: >-
+    TODO: the press-release paragraph. What ships, for whom, why now. Two to four sentences.
+  why: >-
+    TODO: the evidence in its own words: numbers, quotes, ticket counts. What happens today instead.
+  goals:
+    - 'TODO: an observable outcome, not a feature'
+  non_goals:
+    - 'TODO: the thing someone will ask for that we are not doing'
+  metrics:
+    - { name: 'TODO: metric', today: 'TODO: value today', target: 'TODO: target' }
+  scenarios:
+    - id: sc:first-story # TODO: sc:<memorable-slug>
+      title: 'TODO: A short human title'
+      story: >-
+        TODO: a named person, a concrete date or amount, what they do and what happens.
+      flows: [flow:TODO-today] # flows in the model, or ones this plan adds
+  glossary:
+    - {
+        term: 'TODO-term',
+        means: 'TODO: plain meaning. Every acronym or jargon word in the plan goes here.',
+      }
+
+# The teams in the room. Components, stores, contracts, flows and handlers come from the model.
+teams:
+  - { id: team:TODO-owner, name: 'TODO: Owner team' }
+  - { id: team:product, name: 'Product' } # deciders are teams too
+
+# ─────────────────────────────────────────────── the ledger
+changes:
+  - id: chg:first-change # TODO: chg:<what-changes>
+    title: 'TODO: sentence-case summary of the change'
+    why: 'TODO: why, citing [[sc:first-story]] or a decision.'
+    decisions: [dec:first-decision]
+    rollout: 'TODO: flag, migration, backfill, order, rollback.'
+    ops:
+      - { modify: 'sch:TODO#status', set: { type: 'enum(active, paused, closed)' } }
+      - modify: h:TODO-handler # what runs changes: append steps, or set the whole tree
+        append:
+          steps:
+            - if: 'TODO: the condition in plain words'
+              then:
+                - { publish: msg:TODO, does: 'TODO: what it tells whom' }
+
+# ─────────────────────────────────────────────── how we prove it
+tests:
+  - id: tst:first-test
+    level: service # unit | service | contract | integration | e2e
+    name: 'TODO: what it checks'
+    given: 'TODO'
+    when: 'TODO'
+    then: 'TODO: observable result'
+    proves: [chg:first-change]
+    walks: ['flow:TODO-today#TODO-step'] # steps or whole flows
+    owner: team:TODO-owner
+    env: ci # local | ci | staging | prod
+
+# ─────────────────────────────────────────────── how we build it
+milestones:
+  - {
+      id: ms:skeleton,
+      name: 'M1 · Walking skeleton',
+      exit: 'TODO: what works end to end when this is done',
+    }
+
+# execution:                             # when persistence, events or a read path change; see groundwork-plan
+#   summary: 'TODO'
+#   paths:
+#     - name: 'TODO'
+#       steps:
+#         - { label: 'TODO', detail: 'TODO, citing [[id]]' }
+
+work_items:
+  - id: wi:first-item
+    title: 'TODO: issue title'
+    team: team:TODO-owner
+    size: S # XS S M L XL
+    milestone: ms:skeleton
+    implements: [chg:first-change]
+    verified_by: [tst:first-test] # each must prove one of `implements`
+    depends_on: []
+    repo: 'TODO-org/TODO-repo'
+    body: |
+      TODO: what to build, and **Done when** …
+
+# ─────────────────────────────────────────────── decide and commit
+decisions:
+  - id: dec:first-decision
+    title: 'TODO: the choice, stated as a decision'
+    status: proposed # proposed | accepted | rejected | superseded
+    context: 'TODO'
+    decision: 'TODO'
+    consequences: 'TODO'
+    options:
+      - { name: 'TODO: the alternative', why_not: 'TODO' }
+
+risks:
+  - {
+      id: risk:first-risk,
+      statement: 'TODO: what could go wrong',
+      likelihood: med,
+      impact: med,
+      roam: owned,
+      owner: team:TODO-owner,
+      mitigation: 'TODO',
+      about: [chg:first-change],
+    }
+
+questions:
+  - {
+      id: q:first-question,
+      question: 'TODO?',
+      decider: team:product,
+      decide_by: '2026-10-15',
+      status: open,
+      blocks: [chg:first-change],
+    }
+
+commitment: [] # filled in the room: { team: team:x, confidence: 1-5, note: '…' }
+
+story:
+  chapters:
+    why: { headline: 'TODO: what is true, in one sentence.', recap: ['TODO', 'TODO'] }
+    today: { headline: 'TODO', recap: ['TODO', 'TODO'] }
+    new: { headline: 'TODO', recap: ['TODO', 'TODO'] }
+    changes: { headline: 'TODO', recap: ['TODO', 'TODO'] }
+    prove: { headline: 'TODO', recap: ['TODO', 'TODO'] }
+    build: { headline: 'TODO', recap: ['TODO', 'TODO'] }
+    commit: { headline: 'TODO', recap: ['TODO', 'TODO'] }
