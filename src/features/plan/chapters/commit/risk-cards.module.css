@@ -1,7 +1,9 @@
 @layer components {
   .cards {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(26rem, 100%), 1fr));
     gap: var(--s-3);
+    align-items: start;
     margin-block-start: var(--s-6);
   }
 
@@ -68,5 +70,19 @@
   .mitigation {
     margin: 0;
     color: var(--fg-2);
+  }
+
+  .card[data-team-slot] {
+    position: relative;
+  }
+
+  .card[data-team-slot]::before {
+    position: absolute;
+    inset-block: var(--s-3);
+    inset-inline-start: -1px;
+    width: 3px;
+    border-radius: var(--r-1);
+    background: var(--team);
+    content: '';
   }
 }

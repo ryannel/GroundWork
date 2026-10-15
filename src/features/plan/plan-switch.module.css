@@ -1,0 +1,105 @@
+@layer components {
+  .trigger {
+    display: grid;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    margin-left: calc(var(--s-1) - var(--s-4));
+    border-radius: var(--r-pill);
+    color: var(--fg-3);
+    place-items: center;
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+  }
+
+  .caret {
+    width: 0;
+    height: 0;
+    border-top: var(--s-1) solid currentcolor;
+    border-right: var(--s-1) solid transparent;
+    border-left: var(--s-1) solid transparent;
+  }
+
+  .dialog {
+    width: min(32rem, 92vw);
+    margin: var(--s-16) auto auto;
+    padding: var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    box-shadow: var(--shadow-3);
+
+    &::backdrop {
+      background: var(--bg-overlay);
+    }
+  }
+
+  .head {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 var(--s-2);
+    padding: 0 var(--s-1);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .input {
+    width: 100%;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+  }
+
+  .list {
+    display: grid;
+    max-height: 50vh;
+    margin: var(--s-2) 0 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  .plan {
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+    justify-content: space-between;
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--r-2);
+    color: var(--fg-1);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--bg-2);
+    }
+
+    &[aria-current='page'] {
+      background: var(--accent-soft);
+    }
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .stage {
+    flex: none;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .none {
+    padding: var(--s-3);
+    color: var(--fg-2);
+  }
+}

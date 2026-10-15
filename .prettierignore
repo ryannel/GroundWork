@@ -8,3 +8,4 @@ next-env.d.ts
 # Authored data, kept as written
 workspaces/*/plans/
 schema/
+workspaces/*/MAP.md

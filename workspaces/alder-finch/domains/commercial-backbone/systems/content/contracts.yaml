@@ -1,0 +1,130 @@
+components:
+  - id: svc:translation-hub
+    origin: seeded
+    summary:
+      Turns a published product into translation jobs per locale, calls the vendor, and publishes the
+      translations back.
+    sources:
+      - repo: alder-finch/translation-hub
+        path: app/main.py
+        commit: 7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b
+        lines: [1, 60]
+  - id: svc:translation-vendor
+    origin: seeded
+    summary: Machine translation with human review for the four locales; 24-hour SLA on review.
+  - id: svc:reviews-graph
+    origin: seeded
+    summary:
+      Extends `Product` with `reviews`. It only knows a product by its `id`, not its `sku`, so a request
+      that arrives with a `sku` must first ask the product subgraph for the `id`. Batches with DataLoader.
+    sources:
+      - repo: alder-finch/content
+        path: reviews-subgraph/schema.graphql
+        commit: 3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+        lines: [1, 40]
+stores:
+  - id: st:translation-db
+    origin: seeded
+    name: translation-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:translation-hub
+    does: Translation jobs and results per locale
+  - id: st:reviews-db
+    origin: seeded
+    name: reviews-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:reviews-graph
+    does: Customer reviews and ratings
+interfaces:
+  - id: if:translation-vendor-api
+    origin: seeded
+    service: svc:translation-vendor
+    protocol: rest
+    summary: LinguaCloud's job API.
+    endpoints:
+      - id: api:vendor-translate
+        sig: POST /v2/jobs
+        request: sch:product-translation
+        response: sch:product-translation
+        auth: API key
+        idempotent: false
+schemas:
+  - id: sch:product-translation
+    origin: seeded
+    name: ProductTranslation
+    kind: record
+    store: st:translation-db
+    summary: One row per SKU and locale with the translated copy.
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+        ref: sch:product#sku
+      - name: locale
+        type: enum(de, nl, fr, sv)
+        required: true
+        key: true
+      - name: name
+        type: string
+        required: true
+      - name: description
+        type: text
+      - name: lead_time_text
+        type: string
+        note: Translated by hand, per locale. Often stale.
+      - name: status
+        type: enum(pending, machine, reviewed)
+        required: true
+        default: pending
+  - id: sch:review
+    origin: seeded
+    name: Review
+    kind: record
+    store: st:reviews-db
+    summary: One customer review of one product.
+    fields:
+      - name: id
+        type: uuid
+        required: true
+        key: true
+      - name: product_id
+        type: uuid
+        required: true
+        note: "The product's `id`, not its `sku`: Content never learned the SKU."
+      - name: rating
+        type: int
+        required: true
+      - name: title
+        type: string
+      - name: body
+        type: string
+        required: true
+      - name: author
+        type: string
+        required: true
+      - name: created_at
+        type: timestamptz
+        required: true
+subgraphs:
+  - id: sg:reviews
+    origin: seeded
+    name: Reviews subgraph
+    graph: graph:storefront
+    service: svc:reviews-graph
+    summary:
+      Extends `Product` with `reviews`. Knows a product only by `id`, so it is asked after the product
+      subgraph has returned one.
+    batching: dataloader
+    cache_control_default: 300
+    timeout_ms: 600
+    observed:
+      latency_ms: 40
+      source: Grafana · gateway → subgraph p50, last 30 days
+    sources:
+      - repo: alder-finch/content
+        path: reviews-subgraph/schema.graphql
+        commit: 3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+        lines: [1, 40]

@@ -89,6 +89,7 @@ export function EventLine({
   return (
     <details
       className={styles.line}
+      data-event={data.id}
       data-search={data.search}
       data-status={data.status ?? 'existing'}
       open={open}

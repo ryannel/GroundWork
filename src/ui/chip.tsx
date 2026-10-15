@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import styles from './chip.module.css';
+import { Glyph } from './icon';
 
 export type ChipStatus = 'existing' | 'added' | 'modified' | 'deprecated' | 'removed';
 
@@ -27,7 +28,7 @@ export function Chip({ id, label, glyph, status = 'existing', mono = false, chil
     >
       {glyph === undefined ? null : (
         <span aria-hidden="true" className={styles.glyph}>
-          {glyph}
+          <Glyph glyph={glyph} />
         </span>
       )}
       <span className={styles.label}>{label}</span>

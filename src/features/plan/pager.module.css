@@ -37,4 +37,62 @@
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
   }
+
+  .end {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-4);
+    align-items: center;
+    justify-content: space-between;
+    margin-left: auto;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .endWords {
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .endLinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      border-color: var(--accent-line);
+    }
+
+    &[data-primary] {
+      border-color: transparent;
+      background: var(--accent);
+      color: var(--on-accent);
+
+      &:hover {
+        background: var(--accent-hover);
+      }
+    }
+  }
+
+  @media print {
+    .pager {
+      display: none;
+    }
+  }
 }

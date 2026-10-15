@@ -1,0 +1,23 @@
+id: flow:view-cart
+origin: seeded
+name: Open the mini cart
+actor: Shopper
+trigger: The shopper presses the cart icon in the header.
+outcome: The shopper sees their lines, the subtotal and *Delivery 3–5 working days*.
+steps:
+  - id: flow:view-cart#open
+    from: svc:storefront-web
+    to: svc:graph-gateway
+    via: gql:cart-summary
+    case: hit
+    action: Ask for the cart
+    screen: scr:mini-cart
+    logic:
+      "Private, and a POST: the edge cannot cache it, so the gateway is the outermost layer. The customer and
+      cart fetches always run; the product pieces for the lines come from the gateway's entity cache."
+  - id: flow:view-cart#render
+    from: svc:graph-gateway
+    to: svc:storefront-web
+    via: internal
+    action: Show the lines
+    screen: scr:mini-cart#lines

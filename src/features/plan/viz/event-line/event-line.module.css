@@ -30,6 +30,10 @@
     opacity: 0.8;
   }
 
+  .line[data-current] {
+    background: var(--bg-1);
+  }
+
   .sum {
     display: flex;
     flex-wrap: wrap;

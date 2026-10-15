@@ -67,5 +67,7 @@
     max-width: var(--measure);
     margin-top: var(--s-2);
     color: var(--fg-2);
+    font-size: var(--fs-16);
+    line-height: 1.6;
   }
 }

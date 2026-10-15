@@ -59,6 +59,11 @@ function nextTheme(theme: Theme): Theme {
   return ORDER[(ORDER.indexOf(theme) + 1) % ORDER.length] ?? 'system';
 }
 
+/** Step to the next theme, as the button does; the T key uses it. */
+export function cycleTheme(): void {
+  chooseTheme(nextTheme(readTheme()));
+}
+
 // One button that steps through system, light and dark, showing the current choice and remembering it in this
 // browser. The root layout applies the stored choice before paint.
 export function ThemeToggle() {

@@ -7,6 +7,8 @@ interface Walker {
   readonly toggleMode?: () => void;
   /** The title of the stop one step away, or null at the end; the pager offers it. */
   readonly beside?: (by: -1 | 1) => string | null;
+  /** Where the walk stands, in words; the progress strip shows it. */
+  readonly here?: () => string | null;
 }
 
 let active: Walker | null = null;
@@ -54,6 +56,11 @@ export function walkToggle(): boolean {
 /** The title of the walk's stop one step away, or null when there is none and the step leaves the screen. */
 export function walkBeside(by: -1 | 1): string | null {
   return active?.beside?.(by) ?? null;
+}
+
+/** Where the walk on the screen stands, or null when nothing is walked. */
+export function walkHere(): string | null {
+  return active?.here?.() ?? null;
 }
 
 /** Notes that the reader is leaving for a screen by stepping, so a walk there opens at the near end. */

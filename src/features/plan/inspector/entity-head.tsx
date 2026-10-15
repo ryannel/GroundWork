@@ -29,9 +29,12 @@ const unsigned = (summary: string): string => summary.replace(/^[+~×−-]\s+/, 
 export function EntityHead({
   view,
   today,
+  heading: Heading = 'h2',
 }: {
   readonly view: EntityView;
   readonly today: boolean;
+  /** h1 on the thing's own page; h2 in the inspector. */
+  readonly heading?: 'h1' | 'h2';
 }) {
   const isNew = view.status === 'added';
   return (
@@ -42,7 +45,7 @@ export function EntityHead({
           <Badge tone={TONES[view.status]}>{view.status}</Badge>
         )}
       </p>
-      <h2 className={styles.name}>{view.name}</h2>
+      <Heading className={styles.name}>{view.name}</Heading>
       <code className={styles.id}>{view.id}</code>
       {view.owner.length === 0 ? null : (
         <div className={styles.meta}>

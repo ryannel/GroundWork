@@ -21,7 +21,8 @@ first paint. Stylelint rejects raw colours and sizes anywhere else. Layers, lowe
 - `--r-1…4`, `--r-pill`: radii.
 - `--ease`, `--t-1…3`: one curve, 120/200/320ms, zero under reduced motion.
 - `--z-raised|sticky|overlay|popover`: stacking.
-- `--topbar-h`, `--rail-w`, `--rail-marker`, `--rail-mark`, `--inspector-w`, `--stage-max`, `--measure`: layout.
+- `--topbar-h`, `--rail-w`, `--rail-marker`, `--rail-mark`, `--inspector-w`, `--drawer-w`, `--sheet-h`, `--tray-w`,
+  `--stage-max`, `--measure`: layout.
 
 ## The frame
 
@@ -30,13 +31,23 @@ Every page sits in the same frame, taken from the plan viewer:
 - `AppShell({ bar, rail?, overlays?, children })`: the bar on top, a rail on the left when there is one, and the
   stage, centred, at most `--stage-max` wide. An open inspector narrows the page on a wide window instead of
   covering it.
-- `AppBar({ trail?, title?, note?, children? })`: the brand, the trail to where you are (“›” between crumbs), the
-  page's name with an optional mono note such as a version, then actions and the theme.
+- `AppBar({ lead?, trail?, title?, note?, after?, children? })`: the brand, the trail to where you are (“›”
+  between crumbs), the page's name with an optional mono note such as a version and `after` it (a plan's switch
+  caret), then actions and the theme in `BarActions`, which fold behind a More button below 56rem.
 - `NavRail({ label, groups, children? })`: groups with a circled marker, a title and a count, each opening to its
   items. The current group is open and filled; side groups (Reference, Plans) sit apart under a rule. In a plan the
   groups are chapters; in a workspace they are the landscape, each domain with its systems, and the plans.
 
 The home page has the bar and stage but no rail. The trail lives in the bar, never in the page body.
+
+Below 56rem, on a phone, the frame folds:
+
+- The rail becomes a drawer. `AppShell` holds it in `RailDrawer`, and the shell puts `RailToggle` in the bar's
+  `lead`. The toggle opens the drawer over the page with the current page in focus; a tap outside, `Esc`, a link
+  followed or a wider window puts it away. On a wide window the drawer is `display: contents` and the rail is the
+  grid's first cell as before.
+- The inspector rises from the bottom as a sheet, `--sheet-h` tall, with a grab handle, instead of a side panel.
+- The stage's padding tightens, and a drawing in a `ZoomPane` keeps its size and scrolls sideways in its frame.
 
 ## Primitives (`src/ui`)
 
@@ -52,8 +63,11 @@ Variants are data attributes (`data-tone`, `data-status`, `data-variant`), never
   `captionHidden` the caption is for screen readers only, when a `SectionHeading` already names it.
 - `Icon`, `Glyph`: line drawings for each kind of thing; `Glyph` draws a text glyph (▣, ⛁) as its icon when it has one.
 - `Kbd`: a key or shortcut.
-- `Legend`, `LEGENDS`: a strip explaining the glyphs, line styles and status swatches a drawing uses; presets for
+- `Legend`, `LEGENDS`: a boxed strip explaining the glyphs, line styles and status swatches a drawing uses; presets for
   map, sequence, status, types, graph and walk.
+- `Menu` (client): a pill button that opens a panel beneath it; a click outside, a link followed or `Esc` closes
+  it. `useDismiss` gives the same closing to anything that opens in place.
+- `BarActions` (client): the bar's actions in a row, or behind a More button on a narrow window.
 - `Markdown`, `InlineMarkdown`: plan prose (paragraphs, lists, quotes, bold, em, code, links, `[[id]]`) rendered
   as React, never as HTML; `renderRef` draws each citation.
 - `PageHeader`: the top of every page's stage, in this order: the name of the thing as the `h1`, one line on what
@@ -84,3 +98,14 @@ Their logic is pure and tested: `src/application/plan-chips.ts` (`chipInfo`, `ch
 `questionTitle`, `statusWord`), `src/shared/markdown.ts` (`parseMarkdown`, `parseInline`,
 `inlineText`, `shortUrl`) and `src/shared/plain-text.ts` (`plain`, `plainTitle`, `cutAtWord`, `clip`) for text
 flattened to words in titles, summaries and search.
+
+## Plan viewer behaviour
+
+- A card with `data-team-slot` gets a team-colour stripe down its left edge.
+- The pager says “Next · Chapter N” when the next screen opens a chapter (`Neighbours.opens`). On the last screen of
+  the story it shows an end-of-plan card instead (`Neighbours.end`).
+- The palette (`searchPalette`, `paletteGroups`) filters by type, highlights matches, and finds fields and steps as
+  parts of their parent.
+- Each screen's content sits inside `ChapterBoundary`, so a screen that fails to draw shows a warning, not a blank
+  page.
+- When printed, only the stage is shown, in the light scheme; the pager and chrome are hidden.

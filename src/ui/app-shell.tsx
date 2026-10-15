@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import styles from './app-shell.module.css';
+import { RailDrawer } from './rail-drawer.client';
 
 interface AppShellProps {
   /** The bar across the top. */
@@ -19,7 +20,7 @@ export function AppShell({ bar, rail, overlays, children }: AppShellProps) {
     <div className={styles.shell}>
       {bar}
       <div className={styles.body} data-rail={rail === undefined ? undefined : ''}>
-        {rail}
+        {rail === undefined ? null : <RailDrawer>{rail}</RailDrawer>}
         <main className={styles.stage}>{children}</main>
       </div>
       {overlays}

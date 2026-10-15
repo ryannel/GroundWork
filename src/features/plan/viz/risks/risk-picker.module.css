@@ -1,0 +1,38 @@
+@layer components {
+  .picker {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .picker [data-off] {
+    display: none;
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-3);
+    align-items: baseline;
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .hint {
+    color: var(--fg-3);
+  }
+
+  .clear {
+    padding: var(--s-1) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .clear:hover {
+    border-color: var(--accent);
+  }
+}

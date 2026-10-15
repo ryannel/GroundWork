@@ -36,7 +36,7 @@ function Switch({ shows, show }: { readonly shows: readonly Show[]; readonly sho
   const name = useId();
   if (shows.length < 2) return null;
   return (
-    <div aria-label="Show the system" className={styles.seg} role="radiogroup">
+    <div aria-label="Show the system" className={styles.seg} data-cycle="" role="radiogroup">
       {SHOWS.filter((s) => shows.includes(s)).map((s) => (
         <span className={styles.choice} key={s}>
           <input

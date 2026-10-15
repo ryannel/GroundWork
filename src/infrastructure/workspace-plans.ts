@@ -1,29 +1,57 @@
 import 'server-only';
 
+import type { Issue } from '@/application/plan/check-context';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 import { listPlans, readPlan, readStatus } from './plan-store';
 
-/** A plan that passed the schema, with the GitHub state of its work items. */
+/** A plan that passed the schema and its cross-references, with the GitHub state of its work items. */
 export interface LoadedPlan {
   readonly slug: string;
   readonly plan: Plan;
   readonly status: IssueStatus;
 }
 
-/** The plan at plans/<slug>, null when there is none. A plan the schema rejects stops the build. */
-export async function readLoadedPlan(workspace: string, slug: string): Promise<LoadedPlan | null> {
-  const slugs = await listPlans(workspace);
-  if (!slugs.includes(slug)) return null;
-  const { plan, errors } = await readPlan(workspace, slug);
-  if (plan === null) {
-    const found = errors.map((e) => `${e.path}: ${e.message}`).join('; ');
-    throw new Error(`${workspace}/plans/${slug}/plan.yaml is not a valid plan: ${found}`);
-  }
-  return { slug, plan, status: await readStatus(workspace, slug) };
+/** A plan that is there but cannot be shown: what is wrong, each naming its place in plan.yaml. */
+export interface BrokenPlan {
+  readonly slug: string;
+  readonly title: string | null;
+  readonly errors: readonly Issue[];
+  readonly warnings: readonly Issue[];
 }
 
+export type PlanState =
+  | { readonly loaded: LoadedPlan; readonly broken: null }
+  | { readonly loaded: null; readonly broken: BrokenPlan };
+
+/** The plan at plans/<slug>, loaded or broken; null when there is none. */
+export async function readPlanState(
+  workspace: string,
+  slug: string,
+  root?: string,
+): Promise<PlanState | null> {
+  const slugs = await listPlans(workspace, root);
+  if (!slugs.includes(slug)) return null;
+  const { plan, errors, warnings } = await readPlan(
+    workspace,
+    slug,
+    root === undefined ? {} : { root },
+  );
+  if (plan === null || errors.length > 0) {
+    const title = plan?.meta.title ?? null;
+    return { loaded: null, broken: { slug, title, errors, warnings } };
+  }
+  return { loaded: { slug, plan, status: await readStatus(workspace, slug, root) }, broken: null };
+}
+
+/** The plan at plans/<slug>, null when there is none or it has errors. */
+export async function readLoadedPlan(workspace: string, slug: string): Promise<LoadedPlan | null> {
+  const state = await readPlanState(workspace, slug);
+  return state?.loaded ?? null;
+}
+
+/** The plans that can be shown; a broken one shows its errors on its own page, not in the lists. */
 export async function readLoadedPlans(workspace: string): Promise<LoadedPlan[]> {
   const slugs = await listPlans(workspace);
   const plans = await Promise.all(slugs.map(async (slug) => readLoadedPlan(workspace, slug)));

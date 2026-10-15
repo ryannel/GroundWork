@@ -136,6 +136,14 @@ function interfaceLabel(get: Core['get'], n: Anything | undefined): string | und
   return ver === undefined ? base : `${base} ${ver}`;
 }
 
+/** A handler reads as its component and what starts it: "Pricing · Get price". */
+function handlerLabel(get: Core['get'], n: Anything | undefined): string {
+  const on = String(prop(n, 'on'));
+  const svc = str(prop(get(String(prop(n, 'component'))), 'name'));
+  const what = labelOf(get(on), on);
+  return svc === undefined ? what : `${svc} · ${what}`;
+}
+
 function labelling(get: Core['get']): Core['label'] {
   return (id) => {
     const n = get(id);
@@ -145,6 +153,7 @@ function labelling(get: Core['get']): Core['label'] {
     if (type === 'message' && version !== undefined && version !== '') {
       return `${String(name)} ${version}`;
     }
+    if (type === 'handler') return handlerLabel(get, n);
     if (type === 'interface' && (name === undefined || name === null || name === '')) {
       const label = interfaceLabel(get, n);
       if (label !== undefined) return label;

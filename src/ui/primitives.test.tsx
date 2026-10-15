@@ -24,7 +24,8 @@ describe('Chip', () => {
     const chip = screen.getByRole('button', { name: /Orders/ });
     expect(chip.dataset.inspect).toBe('orders');
     expect(chip.dataset.status).toBe('added');
-    expect(chip.textContent).toBe('▣Orders');
+    expect(chip.textContent).toBe('Orders');
+    expect(chip.querySelector('svg')).not.toBeNull();
   });
 
   it('defaults to an existing thing in body type', () => {

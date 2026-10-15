@@ -80,6 +80,11 @@ export function useStops(stops: readonly StopName[]): {
         return true;
       },
       beside: (by) => list.current[latest.current + by]?.title ?? null,
+      here: () => {
+        const stop = list.current[latest.current];
+        const count = `${String(latest.current + 1)} of ${String(list.current.length)}`;
+        return stop === undefined ? null : `${stop.title} · ${count}`;
+      },
     });
   }, [go, many]);
 

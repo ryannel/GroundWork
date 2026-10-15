@@ -1,0 +1,54 @@
+id: flow:price-change-purge
+origin: seeded
+name: A price change purges every cache
+actor: System
+trigger: Pricing publishes a new price for a SKU and region.
+outcome:
+  The next shopper sees the new price within seconds, and every cache layer refills with it. In the
+  rare race below, one refill can bring the old price back for up to five minutes.
+steps:
+  - id: flow:price-change-purge#publish
+    from: svc:pricing
+    to: st:price-events
+    via: msg:price-published
+    action: Announce the price
+    reads:
+      - sch:price
+  - id: flow:price-change-purge#evict-redis
+    from: st:price-events
+    to: svc:pricing-graph
+    via: msg:price-published
+    action: Purge the price key
+    purges:
+      - st:price-redis
+    logic: Deletes `price:{sku}:{market}` in [[st:price-redis]]. The next resolve calls Pricing and refills.
+  - id: flow:price-change-purge#take-event
+    from: st:price-events
+    to: svc:cache-purger
+    via: msg:price-published
+    action: Take the event
+    logic:
+      'One purge per SKU, debounced for 2 s across regions. [[flow:price-change-purge#evict-redis]] and this
+      step consume the same event in parallel. Redis is purged first and the edge second, only because of that
+      debounce. If the edge purge landed first, the next miss would refill Fastly from the stale Redis entry
+      (up to 5 min, the Redis time to live). The soft purge limits that: Fastly keeps the old object as
+      stale-while-revalidate for 30 s, so it fetches the page again once Redis has been purged.'
+  - id: flow:price-change-purge#purge-edge
+    from: svc:cache-purger
+    to: svc:fastly
+    via: api:fastly-purge
+    action: Purge the surrogate key
+    purges:
+      - st:edge-cache
+    logic:
+      'Every cached object tagged with the SKU goes: ProductPage for every market, every SearchResults page
+      that listed it.'
+    fails: Retried for a minute; after that the edge serves the old price until its time is up (10 minutes at most).
+  - id: flow:price-change-purge#purge-gateway
+    from: svc:cache-purger
+    to: svc:graph-gateway
+    via: api:gateway-invalidate
+    action: Purge the Product entity
+    purges:
+      - st:gateway-entity-cache
+    logic: Drops every cached entity piece for the SKU in [[st:gateway-entity-cache]].

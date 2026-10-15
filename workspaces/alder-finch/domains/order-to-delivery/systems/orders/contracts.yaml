@@ -1,0 +1,184 @@
+components:
+  - id: svc:order-capture
+    origin: seeded
+    summary:
+      Creates the order from the checkout session in one transaction and publishes `order.placed` from an
+      outbox.
+    sources:
+      - repo: alder-finch/orders
+        path: capture/src/main/kotlin/orders/CaptureController.kt
+        commit: 2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a
+        lines: [24, 118]
+  - id: svc:oms
+    origin: seeded
+    summary: Owns the order status after capture; serves order lookups to the storefront and customer care.
+    sources:
+      - repo: alder-finch/orders
+        path: oms/src/main/kotlin/orders/oms/OrderStatusService.kt
+        commit: 2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a
+        lines: [15, 160]
+stores:
+  - id: st:orders-db
+    origin: seeded
+    name: orders-db
+    kind: database
+    tech: Postgres 16
+    owner: svc:order-capture
+    does: Orders and their lines; shared with the OMS
+    access:
+      - svc: svc:oms
+        mode: readwrite
+  - id: st:order-events
+    origin: seeded
+    name: orders.events
+    kind: topic
+    tech: Kafka
+    owner: svc:order-capture
+    does: order.placed, order.updated
+interfaces:
+  - id: if:orders-rest
+    origin: seeded
+    service: svc:order-capture
+    protocol: rest
+    endpoints:
+      - id: api:orders-create
+        sig: POST /orders
+        request: sch:checkout-session
+        response: sch:order
+        auth: service token
+        idempotent: true
+      - id: api:orders-cancel
+        sig: POST /orders/{id}/cancel
+        auth: staff SSO
+        idempotent: true
+  - id: if:oms-rest
+    origin: seeded
+    service: svc:oms
+    protocol: rest
+    endpoints:
+      - id: api:oms-get-order
+        sig: GET /orders/{number}
+        response: sch:order-view
+        auth: service token
+        idempotent: true
+      - id: api:oms-allocate
+        sig: POST /orders/{id}/allocation
+        request: sch:order-line
+        response: sch:order
+        auth: service token
+        idempotent: true
+schemas:
+  - id: sch:order
+    origin: seeded
+    name: Order
+    kind: record
+    store: st:orders-db
+    fields:
+      - name: id
+        type: uuid
+        required: true
+        key: true
+      - name: status
+        type: enum(placed, allocated, shipped, delivered, cancelled)
+        required: true
+        default: placed
+      - name: cancel_reason
+        type: enum(customer, fraud, no_stock)
+      - name: number
+        type: string
+        required: true
+        unique: true
+        note: 'What the shopper sees: AF-2026-…'
+      - name: country
+        type: string
+        required: true
+      - name: shipping_cents
+        type: int
+        required: true
+      - name: total_cents
+        type: int
+        required: true
+      - name: payment_method
+        type: enum(card, paylater, instalments)
+        required: true
+      - name: address
+        type: Address
+        required: true
+  - id: sch:order-line
+    origin: seeded
+    name: OrderLine
+    kind: record
+    store: st:orders-db
+    fields:
+      - name: id
+        type: uuid
+        required: true
+        key: true
+      - name: order_id
+        type: uuid
+        required: true
+        ref: sch:order#id
+      - name: sku
+        type: string
+        required: true
+      - name: qty
+        type: int
+        required: true
+      - name: fc
+        type: enum(berlin, malmo, lyon)
+        note: Set by allocation.
+      - name: reservation_id
+        type: uuid
+        note: Empty for orders placed unreserved.
+      - name: unit_cents
+        type: int
+        required: true
+  - id: sch:order-placed-v1
+    origin: seeded
+    name: order.placed v1
+    kind: payload
+    fields:
+      - name: order_id
+        type: uuid
+        required: true
+      - name: country
+        type: string
+        required: true
+      - name: lines
+        type: OrderLine[]
+        required: true
+      - name: reserved
+        type: bool
+        required: true
+        note: True when every line has a reservation. Allocation skips these.
+      - name: number
+        type: string
+        required: true
+      - name: payment_method
+        type: string
+        required: true
+      - name: placed_at
+        type: timestamptz
+        required: true
+      - name: address
+        type: Address
+        required: true
+      - name: total_cents
+        type: int
+        required: true
+messages:
+  - id: msg:order-placed
+    origin: seeded
+    name: order.placed
+    version: v1
+    topic: st:order-events
+    payload: sch:order-placed-v1
+    producer: svc:order-capture
+    consumers:
+      - svc:allocation
+      - svc:oms
+      - svc:notifier
+      - svc:financing-gateway
+      - svc:billing
+    key: order_id
+    semantics: At least once from an outbox.

@@ -1,0 +1,29 @@
+id: flow:index-product
+origin: seeded
+name: Index a product for search
+actor: System
+trigger: A product, price or stock event arrives.
+outcome: The search document for each locale is current.
+steps:
+  - id: flow:index-product#product
+    from: st:catalog-events
+    to: svc:search-indexer
+    via: msg:product-published
+    action: Take the product
+    writes:
+      - sch:search-document
+  - id: flow:index-product#price
+    from: st:price-events
+    to: svc:search-indexer
+    via: msg:price-published
+    action: Take the price
+    writes:
+      - sch:search-document
+  - id: flow:index-product#stock
+    from: st:fulfilment-events
+    to: svc:search-indexer
+    via: msg:stock-changed
+    action: Take stock
+    logic: '`in_stock` is true if any FC has stock. The indexer does not know which.'
+    writes:
+      - sch:search-document

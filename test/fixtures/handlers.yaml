@@ -1,0 +1,116 @@
+# A small system with handlers, used by the handler tests. Validates clean.
+meta: { id: handlers, title: 'Prices (handlers fixture)', status: draft }
+
+problem: { summary: 'How a price is worked out, and who hears when it changes.' }
+
+teams:
+  - { id: team:shop, name: Shop }
+  - { id: team:pricing, name: Pricing }
+
+services:
+  - { id: svc:shop, name: Shop, team: team:shop, kind: ui }
+  - { id: svc:pricing, name: Pricing, team: team:pricing, kind: service }
+  - { id: svc:fx, name: FX, team: team:pricing, kind: service }
+  - { id: svc:search, name: Search, team: team:shop, kind: service }
+
+stores:
+  - { id: st:pricing-db, name: pricing-db, kind: database, owner: svc:pricing }
+  - { id: st:price-events, name: price.events, kind: topic, owner: svc:pricing }
+
+schemas:
+  - {
+      id: sch:price-rule,
+      name: PriceRule,
+      kind: record,
+      store: st:pricing-db,
+      fields: [{ name: id, type: uuid }],
+    }
+  - { id: sch:price, name: Price, kind: dto, fields: [{ name: amount, type: money }] }
+  - {
+      id: sch:price-changed,
+      name: PriceChanged,
+      kind: payload,
+      fields: [{ name: sku, type: string }],
+    }
+
+interfaces:
+  - id: if:pricing-rest
+    service: svc:pricing
+    protocol: rest
+    endpoints: [{ id: api:pricing-get-price, sig: 'GET /prices/{sku}', response: sch:price }]
+  - id: if:fx-rest
+    service: svc:fx
+    protocol: rest
+    endpoints: [{ id: api:fx-get-rate, sig: 'GET /rates/{currency}' }]
+
+messages:
+  - id: msg:price-changed
+    name: PriceChanged
+    topic: st:price-events
+    payload: sch:price-changed
+    producer: svc:pricing
+    consumers: [svc:search]
+
+flows:
+  - id: flow:price
+    name: Show a price
+    steps:
+      - {
+          id: flow:price#ask,
+          from: svc:shop,
+          to: svc:pricing,
+          via: api:pricing-get-price,
+          action: Asks for the price,
+        }
+      - {
+          id: flow:price#rate,
+          from: svc:pricing,
+          to: svc:fx,
+          via: api:fx-get-rate,
+          action: Converts it,
+        }
+
+handlers:
+  - id: h:pricing-get-price
+    on: api:pricing-get-price
+    component: svc:pricing
+    summary: "Looks up the SKU's price for one country, applying the active rules."
+    origin: seeded
+    steps:
+      - { read: sch:price-rule, from: st:pricing-db, does: Loads the active rules }
+      - if: the SKU has a manual price
+        then:
+          - { does: Uses the manual price as is }
+        else:
+          - each: rule, in priority order
+            do:
+              - { does: "Applies the rule's adjustment" }
+          - { call: api:fx-get-rate, when: the country prices in another currency }
+      - { write: sch:price-rule, to: st:pricing-db, async: true }
+      - { publish: msg:price-changed, when: the price changed }
+      - { return: sch:price }
+    fails:
+      - { when: the SKU is unknown, result: 404 not_found }
+  - id: h:fx-get-rate
+    on: api:fx-get-rate
+    component: svc:fx
+    origin: extracted
+    sources: [{ repo: github.com/example/fx, path: src/rates.ts, lines: [10, 30], commit: 3f9c2e1 }]
+    steps:
+      - { does: Reads the rate from memory }
+      - { return: the rate }
+  - id: h:search-reindex
+    on: msg:price-changed
+    component: svc:search
+    steps:
+      - retry: on a timeout
+        times: 3
+        do:
+          - { call: api:pricing-get-price }
+  - id: h:nightly
+    on: 'job:0 2 * * *'
+    component: svc:search
+    steps:
+      - parallel:
+          - [{ call: api:fx-get-rate }]
+          - [{ wait: five minutes }, { does: Logs that it is done }]

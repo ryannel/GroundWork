@@ -1,0 +1,33 @@
+@layer components {
+  .readAs {
+    display: inline-flex;
+    flex: none;
+    gap: var(--s-2);
+    align-items: center;
+    padding: 0 var(--s-1) 0 var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+    font-size: var(--fs-12);
+
+    &[data-on] {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+    }
+  }
+
+  .word {
+    color: var(--fg-3);
+    white-space: nowrap;
+  }
+
+  .select {
+    max-width: 12rem;
+    padding: var(--s-1) var(--s-1);
+    border: 0;
+    background: transparent;
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+}

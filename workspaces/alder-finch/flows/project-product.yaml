@@ -1,0 +1,40 @@
+id: flow:project-product
+origin: seeded
+name: Update the read copy of a product
+actor: System
+trigger: '`product.published` for a SKU.'
+outcome: The product subgraph serves the new copy and the edge no longer holds the old page.
+steps:
+  - id: flow:project-product#publish
+    from: svc:pim
+    to: st:catalog-events
+    via: msg:product-published
+    action: Announce the product
+  - id: flow:project-product#project
+    from: st:catalog-events
+    to: svc:product-graph
+    via: msg:product-published
+    action: Update the read copy
+    writes:
+      - sch:catalog-product
+  - id: flow:project-product#take-event
+    from: st:catalog-events
+    to: svc:cache-purger
+    via: msg:product-published
+    action: Take the event
+    logic: One purge per SKU, sent to Fastly and to the gateway below.
+  - id: flow:project-product#purge-edge
+    from: svc:cache-purger
+    to: svc:fastly
+    via: api:fastly-purge
+    action: Purge the surrogate key
+    purges:
+      - st:edge-cache
+  - id: flow:project-product#purge-gateway
+    from: svc:cache-purger
+    to: svc:graph-gateway
+    via: api:gateway-invalidate
+    action: Purge the Product entity
+    purges:
+      - st:gateway-entity-cache
+    logic: Drops the cached `name` and `imageUrl` pieces for the SKU in [[st:gateway-entity-cache]].

@@ -29,5 +29,28 @@
     max-width: var(--stage-max);
     margin: 0 auto;
     padding: var(--s-8) var(--s-6) var(--s-16);
+
+    @media (width < 56rem) {
+      padding: var(--s-6) var(--s-4) var(--s-10);
+    }
+  }
+
+  /* On paper the page is the stage alone: no bar, rail or overlays, and the full width of the sheet. */
+  @media print {
+    .shell > :not(.body),
+    .body > :not(.stage) {
+      display: none;
+    }
+
+    .body,
+    .body[data-rail] {
+      display: block;
+      padding-right: 0;
+    }
+
+    .stage {
+      max-width: none;
+      padding: 0;
+    }
   }
 }

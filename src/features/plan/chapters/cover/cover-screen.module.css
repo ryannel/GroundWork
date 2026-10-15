@@ -44,6 +44,7 @@
   .stat {
     display: grid;
     gap: var(--s-1);
+    align-content: start;
     padding: var(--s-3) var(--s-4);
     border: 1px solid var(--line-1);
     border-radius: var(--r-3);
@@ -51,11 +52,11 @@
   }
 
   .name {
-    color: var(--fg-3);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
-    letter-spacing: var(--tracking-caps);
-    text-transform: uppercase;
+    color: var(--fg-1);
+    font-family: var(--font-display);
+    font-size: var(--fs-16);
+    font-weight: 600;
+    line-height: var(--lh-snug);
   }
 
   .was,
@@ -66,21 +67,22 @@
   }
 
   .was {
-    color: var(--fg-3);
-    text-decoration: line-through;
+    color: var(--fg-2);
   }
 
   .after {
-    color: var(--fg-1);
+    color: var(--st-add-fg);
     font-weight: 600;
   }
 
   .when {
     min-width: 3.5rem;
     color: var(--fg-3);
+    font-family: var(--font-mono);
     font-size: var(--fs-12);
     font-weight: 400;
-    text-decoration: none;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
   }
 
   .door {

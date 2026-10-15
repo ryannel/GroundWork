@@ -1,0 +1,35 @@
+id: flow:checkout-address
+origin: seeded
+name: Give the address and place the order
+actor: Shopper
+trigger: The shopper reaches the address step.
+outcome: The order exists with a billing address.
+steps:
+  - id: flow:checkout-address#form
+    from: svc:storefront-web
+    to: svc:storefront-bff
+    via: api:bff-checkout-step
+    action: Submit the address
+    screen: scr:checkout-address#address
+  - id: flow:checkout-address#store
+    from: svc:storefront-bff
+    to: svc:checkout
+    via: api:checkout-step
+    action: Store the address
+    writes:
+      - sch:checkout-session
+  - id: flow:checkout-address#create
+    from: svc:checkout
+    to: svc:order-capture
+    via: api:orders-create
+    action: Create the order
+    logic: After payment. The delivery address becomes the billing address; there is nowhere else to put one.
+    writes:
+      - sch:order
+  - id: flow:checkout-address#publish
+    from: svc:order-capture
+    to: st:order-events
+    via: msg:order-placed
+    action: Announce the order
+    reads:
+      - sch:order

@@ -45,6 +45,7 @@ const GLYPHS: Readonly<Record<EntityType, string>> = {
   operation: '⬡',
   interaction: '☝',
   userJourney: '➜',
+  handler: 'ƒ',
 };
 
 export function glyphOf(id: string): string {

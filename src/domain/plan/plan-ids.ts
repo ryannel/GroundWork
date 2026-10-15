@@ -27,6 +27,7 @@ export const ID_PREFIXES = {
   gql: 'operation',
   ui: 'interaction',
   uj: 'userJourney',
+  h: 'handler',
 } as const;
 
 export type IdPrefix = keyof typeof ID_PREFIXES;
@@ -59,6 +60,7 @@ export const ADD_TYPES = {
   operation: null,
   interaction: null,
   userJourney: null,
+  handler: null,
   field: 'schema',
   endpoint: 'interface',
   step: 'flow',
@@ -81,6 +83,7 @@ export const SYSTEM_COLLECTIONS = {
   graphs: 'graph',
   subgraphs: 'subgraph',
   operations: 'operation',
+  handlers: 'handler',
 } as const;
 
 /** Plan-level collections outside the system graphs: plan key → type. */
@@ -177,6 +180,8 @@ export const REFS: Readonly<Record<RefOwner, readonly RefSpec[]>> = {
     ['supporting_steps[]', ['step']],
   ],
   userJourney: [['interactions[]', ['interaction']]],
+  /** `on` and the ids inside the step tree are checked by check-handlers, which reads the tree. */
+  handler: [['component', ['service']]],
   region: [['reads[]', ['schema', 'field']]],
   change: [['decisions[]', ['decision']]],
   test: [

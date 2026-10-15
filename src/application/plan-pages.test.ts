@@ -8,7 +8,7 @@ import { findPage, neighboursOf, outlineOf, pageHref, planHref, screenParams } f
 import { entityView, glyphOf, typeWord } from './plan-pages-entity';
 import { hashFor, idToToken, inspectedIn, tokenToId } from './plan-pages-hash';
 import { keyOf } from './plan-pages-screens';
-import { paletteEntries, searchPalette } from './plan-pages-search';
+import { paletteEntries, paletteGroups, searchPalette } from './plan-pages-search';
 
 vi.mock('server-only', () => ({}));
 
@@ -75,6 +75,21 @@ describe('the outline', () => {
     if (first === undefined || last === undefined) throw new Error('empty outline');
     expect(neighboursOf(outline, first).previous).toBeNull();
     expect(neighboursOf(outline, last).next).toBeNull();
+  });
+
+  it("names the chapter the next screen opens, and closes the plan on the story's last screen", () => {
+    const cover = outline.pages[0];
+    if (cover === undefined) throw new Error('empty outline');
+    expect(neighboursOf(outline, cover).opens?.number).toBe('1');
+    expect(neighboursOf(outline, cover).end).toBeNull();
+    const story = outline.pages.filter((p) => p.chapter !== 'ref' && p.chapter !== 'versions');
+    const last = story.at(-1);
+    if (last === undefined) throw new Error('no story');
+    const around = neighboursOf(outline, last);
+    expect(around.end).toBe('/shop/');
+    expect(around.opens).toBeNull();
+    const ref = outline.pages.find((p) => p.chapter === 'ref');
+    if (ref !== undefined) expect(neighboursOf(outline, ref).end).toBeNull();
   });
 
   it('leaves the cover out of the static screen params', () => {
@@ -153,8 +168,23 @@ describe('searchPalette', () => {
     expect(searchPalette(entries, 'zzzzzz')).toEqual([]);
   });
 
-  it('does not list steps or fields', () => {
-    expect(entries.some((entry) => entry.target.includes('#'))).toBe(false);
+  it('finds steps and fields by name, saying whose they are', () => {
+    const step = entries.find((entry) => entry.target === 'flow:cancel#request');
+    expect(step?.kind).toBe('part');
+    expect(step?.hint).toMatch(/^step 1 of /);
+    expect(
+      entries.some((entry) => entry.kind === 'part' && entry.hint.startsWith('field of ')),
+    ).toBe(true);
+  });
+
+  it('filters by type, and offers a filter for each type but not for parts', () => {
+    const groups = paletteGroups(entries);
+    expect(groups[0]?.key).toBe('screen');
+    expect(groups.some((g) => g.key === 'service' && g.label === 'Services')).toBe(true);
+    expect(groups.some((g) => g.key === 'step' || g.key === 'field')).toBe(false);
+    const services = searchPalette(entries, '', 'service');
+    expect(services.length).toBeGreaterThan(0);
+    expect(services.every((entry) => entry.group === 'service')).toBe(true);
   });
 });
 

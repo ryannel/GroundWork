@@ -3,6 +3,7 @@ import { ROAM_GLOSS } from '@/application/plan-risk-words';
 import { searchText } from '@/application/plan-story-ref';
 import {
   bySeverity,
+  cellOf,
   handlingOf,
   isResolved,
   levelsText,
@@ -49,6 +50,7 @@ function rowOf(model: Model, r: Risk) {
       no: (
         <button
           className={styles.number}
+          data-cell={cellOf(r)}
           data-facts={riskFacts(model, r)}
           data-inspect={r.id}
           type="button"

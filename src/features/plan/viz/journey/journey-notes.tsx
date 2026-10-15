@@ -1,11 +1,13 @@
 import type { Model } from '@/application/plan/derive';
 import type { JourneyComparison as Comparison } from '@/application/plan/journey';
+import { changeMarkers } from '@/application/plan-viz-flow-changes';
 import { comparisonOf } from '@/application/plan-viz-journey-compare';
 import { rolloutNotes } from '@/application/plan-viz-journey-outline';
 import { journeyMarkerText, type JourneyMode, stepIn } from '@/application/plan-viz-journey-words';
 import type { StepNode } from '@/domain/plan/plan-graph';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { ModelText } from '@/features/plan/common/model-text';
+import { PinAhead } from '@/features/plan/tray/pin-ahead.client';
 
 import { JourneyComparison } from './journey-comparison';
 import { JourneyMark } from './journey-mark';
@@ -53,6 +55,20 @@ function Rollout({ model, notes }: { readonly model: Model; readonly notes: read
   );
 }
 
+interface AheadProps {
+  readonly model: Model;
+  readonly flowId: string;
+  readonly stepId: string;
+}
+
+/** On today's walk, a ◇ for a step the plan revisits; reading it pins what changes to the tray. */
+function Ahead({ model, flowId, stepId }: AheadProps) {
+  const marks = changeMarkers(model, flowId);
+  const ids = marks.pins[stepId] ?? [];
+  if (ids.length === 0) return null;
+  return <PinAhead ids={ids} reasons={marks.reasons[stepId] ?? []} />;
+}
+
 /**
  * What a journey adds under a step: a disclosure of how the plan changes it, what the plan says about retiring it,
  * and the evidence for the step itself.
@@ -74,6 +90,7 @@ export function JourneyStepNotes({ model, comparison, stepId, mode, omitChange }
           <JourneyComparison model={model} view={view} />
         </details>
       ) : null}
+      {mode === 'asIs' ? <Ahead flowId={comparison.id} model={model} stepId={stepId} /> : null}
       <Rollout model={model} notes={rolloutNotes(model, comparison.id, stepId)} />
       {step === null ? null : <StepEvidence model={model} step={step} />}
     </div>

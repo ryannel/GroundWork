@@ -7,6 +7,7 @@ import {
   riskFacts,
   statementOf,
 } from '@/application/plan-viz-risks';
+import { teamIndex } from '@/application/plan-viz-teams';
 import type { Risk } from '@/domain/plan/plan.generated';
 import { ModelInline } from '@/features/plan/common/model-text';
 import { NamedChip, NamedChips } from '@/features/plan/common/named-chip';
@@ -21,6 +22,7 @@ function RiskCard({ model, r }: { readonly model: Model; readonly r: Risk }) {
       className={styles.card}
       data-facts={riskFacts(model, r)}
       data-resolved={isResolved(r) ? '' : undefined}
+      data-team-slot={r.owner === undefined ? undefined : teamIndex(model, r.owner)}
     >
       <h4 className={styles.head}>
         <button className={styles.title} data-inspect={r.id} type="button">

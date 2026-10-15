@@ -15,6 +15,28 @@
     &[data-open] {
       display: flex;
     }
+
+    /* On a phone it rises from the bottom as a sheet, leaving the top of the page in sight. */
+    @media (width < 56rem) {
+      top: auto;
+      left: 0;
+      width: 100%;
+      height: var(--sheet-h);
+      border-top: 1px solid var(--line-2);
+      border-left: 0;
+      border-radius: var(--r-4) var(--r-4) 0 0;
+      box-shadow: var(--shadow-3);
+
+      &::before {
+        flex: none;
+        width: var(--s-10);
+        height: var(--s-1);
+        margin: var(--s-2) auto 0;
+        border-radius: var(--r-pill);
+        background: var(--line-3);
+        content: '';
+      }
+    }
   }
 
   .note {

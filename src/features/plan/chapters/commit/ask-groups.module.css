@@ -1,7 +1,9 @@
 @layer components {
   .groups {
     display: grid;
-    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
+    gap: var(--s-4);
+    align-items: start;
   }
 
   .group {
@@ -108,5 +110,19 @@
   .faint {
     color: var(--fg-3);
     font-size: var(--fs-12);
+  }
+
+  .group[data-team-slot] {
+    position: relative;
+  }
+
+  .group[data-team-slot]::before {
+    position: absolute;
+    inset-block: var(--s-3);
+    inset-inline-start: -1px;
+    width: 3px;
+    border-radius: var(--r-1);
+    background: var(--team);
+    content: '';
   }
 }

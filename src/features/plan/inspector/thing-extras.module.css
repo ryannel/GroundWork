@@ -1,0 +1,49 @@
+@layer components {
+  .extra {
+    display: grid;
+    gap: var(--s-2);
+    min-width: 0;
+  }
+
+  .summary {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .tools {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .title {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  .repo {
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .body {
+    max-height: 40vh;
+    margin: 0 0 var(--s-2);
+    padding: var(--s-3);
+    overflow: auto;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    white-space: pre-wrap;
+  }
+}

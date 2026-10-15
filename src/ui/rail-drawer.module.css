@@ -1,0 +1,75 @@
+@layer components {
+  .toggle {
+    display: none;
+    flex: none;
+    width: var(--s-8);
+    height: var(--s-8);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: none;
+    color: var(--fg-2);
+    cursor: pointer;
+    place-items: center;
+
+    &:hover,
+    &[aria-expanded='true'] {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    & svg {
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-width: 1.4;
+    }
+  }
+
+  .drawer {
+    display: contents;
+  }
+
+  .scrim {
+    display: none;
+  }
+
+  @media (width < 56rem) {
+    .toggle {
+      display: grid;
+    }
+
+    .drawer {
+      position: fixed;
+      z-index: var(--z-overlay);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: var(--drawer-w);
+      overflow-y: auto;
+      border-right: 1px solid var(--line-2);
+      background: var(--bg-0);
+      box-shadow: var(--shadow-3);
+      transform: translateX(-100%);
+      visibility: hidden;
+      transition:
+        transform var(--t-3) var(--ease),
+        visibility 0s linear var(--t-3);
+
+      &[data-open] {
+        transform: none;
+        visibility: visible;
+        transition: transform var(--t-3) var(--ease);
+      }
+    }
+
+    .scrim[data-open] {
+      position: fixed;
+      z-index: var(--z-overlay);
+      display: block;
+      inset: 0;
+      border: 0;
+      background: var(--bg-overlay);
+      cursor: default;
+    }
+  }
+}

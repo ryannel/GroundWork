@@ -8,6 +8,7 @@ import {
 import { checkDecisions } from '@/application/plan/check-decisions';
 import { checkDelivery } from '@/application/plan/check-delivery';
 import { checkFederation } from '@/application/plan/check-federation';
+import { checkHandlers } from '@/application/plan/check-handlers';
 import { checkMessageKeys } from '@/application/plan/check-messages';
 import {
   checkFields,
@@ -54,6 +55,7 @@ const GRAPH_CHECKS: ((ctx: CheckContext, rep: Report) => void)[] = [
   checkFederation,
   checkScreens,
   checkNavigation,
+  checkHandlers,
 ];
 
 export interface ValidateOptions {

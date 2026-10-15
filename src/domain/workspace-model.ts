@@ -1,0 +1,100 @@
+// The system model: how the systems of a workspace work today. It sits beside the structure
+// (domains/<d>/systems/<s>/system.yaml) as contracts.yaml per system, story.yaml, flows/ and journeys/,
+// and is read in plan shape so the plan views can draw it.
+import type {
+  Concept,
+  Flow,
+  Graph,
+  Interaction,
+  Interface,
+  Message,
+  Operation,
+  Schema,
+  Screen,
+  Service,
+  Source,
+  Stage,
+  Store,
+  Subgraph,
+  UserJourney,
+} from './plan/plan.generated';
+
+/** Where a fact came from: a scan of the code, the demo seed, or a person. */
+export type Origin = 'extracted' | 'seeded' | 'curated';
+
+/** The lines of code a fact was read from. The permalink is derived, never stored. */
+export interface CodeSource {
+  /** org/name on GitHub, as system.yaml lists repos (alder-finch/pricing); host/org/name elsewhere. */
+  readonly repo: string;
+  readonly path: string;
+  readonly commit: string;
+  readonly lines?: readonly [number, number];
+  readonly symbol?: string;
+  readonly label?: string;
+  readonly note?: string;
+}
+
+/** Who said a fact and where it lives in the code. Kept per id, for top-level and nested facts alike. */
+export interface Attribution {
+  readonly origin: Origin;
+  readonly sources: readonly CodeSource[];
+}
+
+/** What a system's contracts.yaml adds to one of its components. */
+export interface ComponentDetail {
+  readonly id: string;
+  readonly kind?: Service['kind'];
+  readonly summary?: string;
+  readonly sources?: Source[];
+}
+
+export interface SystemContracts {
+  /** The workspace system id, without `sys:`. */
+  readonly system: string;
+  readonly components: readonly ComponentDetail[];
+  readonly stores: readonly Store[];
+  readonly interfaces: readonly Interface[];
+  readonly schemas: readonly Schema[];
+  readonly messages: readonly Message[];
+  readonly screens: readonly Screen[];
+  readonly graphs: readonly Graph[];
+  readonly subgraphs: readonly Subgraph[];
+  readonly operations: readonly Operation[];
+}
+
+export interface Story {
+  readonly summary: string | null;
+  readonly concepts: readonly Concept[];
+  readonly stages: readonly Stage[];
+}
+
+/** The high-water mark of one repo: the commit the system model reflects. From scans/<repo>.yaml. */
+export interface Scan {
+  readonly repo: string;
+  readonly branch: string;
+  readonly head: string;
+  readonly scannedAt: string;
+  readonly scanner: string;
+  /** Blob sha per file that produced facts. */
+  readonly files: Readonly<Record<string, string>>;
+  readonly facts: number;
+}
+
+export interface WorkspaceModel {
+  readonly story: Story;
+  readonly flows: readonly Flow[];
+  readonly journeys: readonly UserJourney[];
+  readonly interactions: readonly Interaction[];
+  readonly contracts: readonly SystemContracts[];
+  readonly attribution: Readonly<Record<string, Attribution>>;
+  readonly scans: readonly Scan[];
+}
+
+/** A GitHub permalink for a code source: blob/<commit>/<path>#L<from>-L<to>. */
+export function permalinkOf(source: CodeSource): string {
+  const host = source.repo.split('/').length > 2 ? source.repo : `github.com/${source.repo}`;
+  const base = `https://${host}/blob/${source.commit}/${source.path}`;
+  if (source.lines === undefined) return base;
+  const [from, to] = source.lines;
+  return from === to ? `${base}#L${String(from)}` : `${base}#L${String(from)}-L${String(to)}`;
+}

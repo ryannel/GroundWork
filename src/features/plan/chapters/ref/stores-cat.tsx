@@ -8,6 +8,7 @@ import {
   teamsWhere,
 } from '@/application/plan-story-ref';
 import { storeFacts, storeGroups } from '@/application/plan-story-ref-system';
+import { teamIndex, teamOf } from '@/application/plan-viz-teams';
 import type { StoreNode } from '@/domain/plan/plan-graph';
 import { ModelInline } from '@/features/plan/common/model-text';
 
@@ -28,6 +29,11 @@ const LAYER: Readonly<Record<string, string>> = {
   gateway: 'gateway cache',
   subgraph: 'cache in the subgraph',
 };
+
+function teamSlotOf(model: Model, id: string): number | undefined {
+  const team = teamOf(model, id);
+  return team === null ? undefined : teamIndex(model, team);
+}
 
 function StoreCard({
   model,
@@ -55,6 +61,7 @@ function StoreCard({
         model.label(s.owner),
         s.notes,
       )}
+      slot={teamSlotOf(model, s.id)}
       teams={teamsWhere(model, (cut) => inCut(model, cut, s.id) || users.some((u) => cut.has(u)))}
     >
       <div>

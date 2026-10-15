@@ -178,7 +178,7 @@ export function WorkItemCard({
         teamName(model, w.team),
         w.milestone === undefined ? '' : model.label(w.milestone),
       )}
-      data-slot={teamSlot(model, w)}
+      data-team-slot={teamSlot(model, w)}
     >
       <FactsLine critical={isCritical} model={model} w={w} />
       <TitleLine model={model} revision={revision} w={w} />

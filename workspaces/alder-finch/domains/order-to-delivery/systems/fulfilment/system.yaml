@@ -37,16 +37,6 @@ components:
     type: external
     tech: Carrier API
     does: Delivers parcels in all four countries
-  - id: svc:oversell-report
-    name: Oversell report
-    type: job
-    tech: Python · cron 03:00
-    does: Lists orders that could not be allocated for stock
-    talks_to:
-      - to: svc:wms
-        via: api
-      - to: svc:order-capture
-        via: api
   - id: svc:inventory-graph
     name: Inventory graph service
     type: service
@@ -97,3 +87,11 @@ components:
     type: database
     tech: Postgres 15
     does: Promises, cutoffs and lead times
+  - id: svc:reservation-sweep
+    name: Reservation sweep
+    type: job
+    tech: Python · cron every minute
+    does: Releases reservations past their expiry
+    talks_to:
+      - to: st:wms-db
+        via: data

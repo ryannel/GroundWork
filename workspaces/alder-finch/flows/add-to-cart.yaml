@@ -1,0 +1,24 @@
+id: flow:add-to-cart
+origin: seeded
+name: Add to cart
+actor: Shopper
+trigger: The shopper presses **Add to cart**.
+outcome: The mini cart opens with the line and *Delivery 3–5 working days*.
+steps:
+  - id: flow:add-to-cart#press
+    from: svc:storefront-web
+    to: svc:graph-gateway
+    via: gql:add-to-cart
+    action: Add the line
+    screen: scr:pdp#add-to-cart
+    logic:
+      'A mutation: the edge passes it through, the gateway does not cache it. The cart subgraph re-reads the
+      price from Pricing and writes the cart.'
+    fails: The button shows *Try again*; the cart is unchanged.
+  - id: flow:add-to-cart#show
+    from: svc:graph-gateway
+    to: svc:storefront-web
+    via: internal
+    action: Open the mini cart
+    screen: scr:mini-cart#summary
+    logic: The mutation's response fills the mini cart; `estimatedDelivery` is the cart subgraph's static text.

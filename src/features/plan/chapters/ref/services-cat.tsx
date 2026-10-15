@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { type Show, fadesIn, inCut, searchText, teamsWhere } from '@/application/plan-story-ref';
 import { servicesByTeam, serviceFacts } from '@/application/plan-story-ref-system';
-import { teamName } from '@/application/plan-viz-teams';
+import { teamIndex, teamName } from '@/application/plan-viz-teams';
 import type { ServiceNode } from '@/domain/plan/plan-graph';
 import { ModelInline } from '@/features/plan/common/model-text';
 
@@ -33,6 +33,7 @@ function ServiceCard({
     <Card
       faded={fadesIn(model, show, s.id)}
       search={searchText(s.name, s.id, s.kind, s.tech, teamName(model, s.team), s.summary, s.does)}
+      slot={teamIndex(model, s.team)}
       teams={teamsWhere(model, (cut) => inCut(model, cut, s.id))}
     >
       <div>

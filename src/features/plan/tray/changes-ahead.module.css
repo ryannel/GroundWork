@@ -1,0 +1,120 @@
+@layer components {
+  .tray {
+    position: fixed;
+    z-index: var(--z-sticky);
+    right: var(--s-4);
+    bottom: var(--s-4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--s-2);
+    max-width: calc(100vw - var(--s-8));
+  }
+
+  /* beside an open inspector on a wide window; under its sheet on a phone */
+  @media (width >= 56rem) {
+    [data-inspector][data-open] ~ .tray {
+      right: calc(var(--inspector-w) + var(--s-4));
+    }
+  }
+
+  @media (width < 56rem) {
+    [data-inspector][data-open] ~ .tray {
+      display: none;
+    }
+  }
+
+  .pill {
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+    color: var(--accent-fg);
+    font-size: var(--fs-13);
+    box-shadow: var(--shadow-2);
+    cursor: pointer;
+
+    &:hover,
+    &[aria-expanded='true'] {
+      background: var(--accent-soft);
+    }
+  }
+
+  .panel {
+    width: min(var(--tray-w), calc(100vw - var(--s-8)));
+    max-height: 60vh;
+    padding: var(--s-3) var(--s-4);
+    overflow-y: auto;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    box-shadow: var(--shadow-3);
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-3);
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--fs-14);
+    font-weight: 600;
+  }
+
+  .clear {
+    border: 0;
+    background: none;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--fg-1);
+    }
+  }
+
+  .note {
+    margin: var(--s-1) 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .rows {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+
+    &[data-seen] {
+      color: var(--fg-2);
+    }
+  }
+
+  .mark {
+    flex: none;
+    width: var(--s-4);
+    color: var(--accent-fg);
+    text-align: center;
+
+    .row[data-seen] & {
+      color: var(--fg-3);
+    }
+  }
+
+  .go {
+    margin-left: auto;
+    color: var(--accent-fg);
+    font-size: var(--fs-12);
+  }
+}

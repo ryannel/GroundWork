@@ -22,6 +22,10 @@ export const sev = (r: Risk): number => (levelAt(r.likelihood) + 1) * (levelAt(r
 /** "medium × high". */
 export const levelsText = (r: Risk): string => `${word(r.likelihood)} × ${word(r.impact)}`;
 
+/** The grid cell a risk sits in, as "likelihood impact": "med high". A level the plan leaves out counts as low. */
+export const cellOf = (r: Pick<Risk, 'likelihood' | 'impact'>): string =>
+  `${LEVELS[levelAt(r.likelihood)] ?? 'low'} ${LEVELS[levelAt(r.impact)] ?? 'low'}`;
+
 /** The shade of a cell, 1 to 4 by severity. */
 export function shade(severity: number): number {
   if (severity >= 9) return 4;

@@ -1,0 +1,51 @@
+@layer components {
+  .menu {
+    position: relative;
+    flex: none;
+  }
+
+  .button {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+
+    &:hover,
+    &[aria-expanded='true'] {
+      border-color: var(--line-3);
+      color: var(--fg-1);
+    }
+  }
+
+  .caret {
+    width: 0;
+    height: 0;
+    border-top: var(--s-1) solid currentcolor;
+    border-right: var(--s-1) solid transparent;
+    border-left: var(--s-1) solid transparent;
+  }
+
+  .panel {
+    position: absolute;
+    z-index: var(--z-popover);
+    top: calc(100% + var(--s-2));
+    right: 0;
+    width: max-content;
+    min-width: 16rem;
+    max-width: min(26rem, 90vw);
+    max-height: 70vh;
+    padding: var(--s-2);
+    overflow-y: auto;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    box-shadow: var(--shadow-2);
+  }
+}

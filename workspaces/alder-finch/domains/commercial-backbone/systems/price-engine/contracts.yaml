@@ -1,0 +1,181 @@
+components:
+  - id: svc:price-rules-admin
+    origin: seeded
+    summary: Internal console over [[if:pricing-rest]].
+    sources:
+      - repo: alder-finch/pricing
+        path: console/src/views/Rules.vue
+        commit: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c
+        lines: [1, 80]
+  - id: svc:pricing
+    origin: seeded
+    summary: Holds list prices and promotions; answers price lookups over REST and publishes `price.published`.
+    sources:
+      - repo: alder-finch/pricing
+        path: src/main/kotlin/pricing/Application.kt
+        commit: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c
+  - id: svc:pricing-graph
+    origin: seeded
+    summary:
+      'Extends `Product` with `price`. Resolves it by calling [[api:pricing-get-price]] and caches the
+      answer in Redis per SKU and market, purged on `price.published`. One call per product: it does not
+      batch.'
+    sources:
+      - repo: alder-finch/pricing
+        path: subgraph/src/main/kotlin/pricing/graph/ProductResolver.kt
+        commit: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c
+        lines: [10, 90]
+stores:
+  - id: st:pricing-db
+    origin: seeded
+    name: pricing-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:pricing
+    does: List prices, rules, promotions
+  - id: st:price-events
+    origin: seeded
+    name: pricing.events
+    kind: topic
+    tech: Kafka
+    owner: svc:pricing
+    does: price.published
+  - id: st:price-redis
+    origin: seeded
+    name: price cache
+    kind: cache
+    tech: Redis 7
+    owner: svc:pricing-graph
+    does: Price per sku and market, 5 min, purged on price.published
+    layer: subgraph
+    granularity: entity
+    keyed_by: sku · market
+    purge: key per sku and market
+    invalidated_by:
+      - msg:price-published
+    observed:
+      hit_ratio: 0.97
+      latency_ms:
+        hit: 2
+        miss: 35
+interfaces:
+  - id: if:pricing-rest
+    origin: seeded
+    service: svc:pricing
+    protocol: rest
+    endpoints:
+      - id: api:pricing-get-price
+        sig: GET /prices/{sku}?country=
+        response: sch:price
+        auth: service token
+        idempotent: true
+      - id: api:pricing-set-rule
+        sig: PUT /rules/{id}
+        auth: staff SSO
+        idempotent: true
+schemas:
+  - id: sch:price
+    origin: seeded
+    name: Price
+    kind: record
+    store: st:pricing-db
+    summary: List price per SKU and country.
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+        ref: sch:product#sku
+      - name: country
+        type: enum(DE, FR, NL, SE)
+        required: true
+        key: true
+      - name: list_cents
+        type: int
+        required: true
+      - name: currency
+        type: enum(EUR, SEK)
+        required: true
+      - name: promo_cents
+        type: int
+        note: Active promotion, if any.
+      - name: region
+        type: enum(DE-N, DE-S, NL, FR, SE-S, SE-N)
+        required: true
+        key: true
+  - id: sch:price-published-v1
+    origin: seeded
+    name: price.published v1
+    kind: payload
+    fields:
+      - name: sku
+        type: string
+        required: true
+      - name: country
+        type: string
+        required: true
+      - name: list_cents
+        type: int
+        required: true
+      - name: promo_cents
+        type: int
+      - name: currency
+        type: string
+        required: true
+      - name: region
+        type: string
+        required: true
+messages:
+  - id: msg:price-published
+    origin: seeded
+    name: price.published
+    version: v1
+    topic: st:price-events
+    payload: sch:price-published-v1
+    producer: svc:pricing
+    consumers:
+      - svc:search-indexer
+      - svc:storefront-bff
+      - svc:pricing-graph
+      - svc:cache-purger
+    key: sku, country
+    semantics: At least once. The BFF keeps a 60-second cache.
+screens:
+  - id: scr:price-rules-console
+    origin: seeded
+    name: Price rules
+    service: svc:price-rules-admin
+    kind: page
+    route: /rules
+    device: desktop
+    summary: Analysts set list prices and per-country rules.
+    image: assets/price-rules-console.svg
+    regions:
+      - id: scr:price-rules-console#rules
+        name: Rules table
+        shows: 'One row per rule: country, category, margin, promotion.'
+        reads:
+          - sch:price
+        at:
+          x: 2
+          y: 18
+          w: 96
+          h: 76
+subgraphs:
+  - id: sg:pricing
+    origin: seeded
+    name: Pricing subgraph
+    graph: graph:storefront
+    service: svc:pricing-graph
+    summary: Extends `Product` with `price`; owns `Money`.
+    batching: none
+    cache_control_default: 300
+    timeout_ms: 500
+    observed:
+      latency_ms: 70
+      source: Grafana · gateway → subgraph p50, last 30 days
+    sources:
+      - repo: alder-finch/pricing
+        path: subgraph/src/main/resources/schema.graphqls
+        commit: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c
+        lines: [1, 40]

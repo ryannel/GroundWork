@@ -1,5 +1,24 @@
 /* Generated from schema/plan.schema.json by tools/generate-plan-types.ts. Do not edit: run `npm run generate`. */
 
+export type HandlerSource = CodeSource | Source;
+/**
+ * how the fact was made: read from code by a scan, seeded by hand for a demo, or written by a person
+ */
+export type Origin = 'extracted' | 'seeded' | 'curated';
+export type HandlerStep =
+  | HandlerDoes
+  | HandlerCall
+  | HandlerPublish
+  | HandlerRead
+  | HandlerWrite
+  | HandlerIf
+  | HandlerEach
+  | HandlerParallel
+  | HandlerRetry
+  | HandlerTry
+  | HandlerReturn
+  | HandlerWait;
+export type HandlerSteps = HandlerStep[];
 export type Op = OpAdd | OpModify | OpDeprecate | OpRemove;
 export type OpAdd =
   | {
@@ -74,6 +93,10 @@ export type OpAdd =
   | {
       add: 'operation';
       value: Operation;
+    }
+  | {
+      add: 'handler';
+      value: Handler;
     };
 export type Level3 = 'low' | 'med' | 'high';
 
@@ -119,6 +142,10 @@ export interface Plan {
    * the GraphQL documents the front end sends (queries and mutations); the query plan is derived from them
    */
   operations?: Operation[];
+  /**
+   * what runs when an endpoint is called, a message consumed, a schedule fires or a person acts
+   */
+  handlers?: Handler[];
   changes?: Change[];
   tests?: Test[];
   milestones?: Milestone[];
@@ -950,6 +977,358 @@ export interface Operation {
    * when the front end sends it (fired when the page loads, when the button is pressed, …)
    */
   trigger?: 'load' | 'click' | 'scroll' | 'submit' | 'interval';
+}
+/**
+ * what runs when something arrives at a component, as a short tree of steps
+ */
+export interface Handler {
+  id: string;
+  on: string;
+  component: string;
+  /**
+   * markdown; may cite [[id]]
+   */
+  summary?: string;
+  /**
+   * where the handler lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+  steps: HandlerSteps;
+  fails?: HandlerFail[];
+}
+/**
+ * a place in code; the permalink is derived from it
+ */
+export interface CodeSource {
+  /**
+   * the repository, e.g. github.com/alder-finch/pricing
+   */
+  repo: string;
+  /**
+   * the file, from the repository root
+   */
+  path: string;
+  /**
+   * [from, to], both inclusive
+   *
+   * @minItems 2
+   * @maxItems 2
+   */
+  lines: [number, number];
+  /**
+   * the commit the lines were read at
+   */
+  commit: string;
+  /**
+   * the function or class, e.g. PriceController.getPrice
+   */
+  symbol?: string;
+}
+/**
+ * work done in place
+ */
+export interface HandlerDoes {
+  /**
+   * what the step does, in plain words
+   */
+  does: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * calls an endpoint and waits for it
+ */
+export interface HandlerCall {
+  call: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * publishes a message
+ */
+export interface HandlerPublish {
+  publish: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * reads a schema from a store
+ */
+export interface HandlerRead {
+  read: string;
+  from: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * writes a schema to a store
+ */
+export interface HandlerWrite {
+  write: string;
+  to: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * a fork
+ */
+export interface HandlerIf {
+  if: string;
+  then: HandlerSteps;
+  else?: HandlerSteps;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * a loop
+ */
+export interface HandlerEach {
+  each: string;
+  do: HandlerSteps;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * branches at once
+ */
+export interface HandlerParallel {
+  /**
+   * branches that run at once
+   *
+   * @minItems 1
+   */
+  parallel: [HandlerSteps, ...HandlerSteps[]];
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * tries the steps again when they fail
+ */
+export interface HandlerRetry {
+  /**
+   * what is retried, or on what
+   */
+  retry: string;
+  times?: number;
+  do: HandlerSteps;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * steps with a fallback when they fail
+ */
+export interface HandlerTry {
+  try: HandlerSteps;
+  catch: HandlerSteps;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * what the handler answers
+ */
+export interface HandlerReturn {
+  /**
+   * a schema id, or what comes back in plain words
+   */
+  return: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+/**
+ * a pause
+ */
+export interface HandlerWait {
+  /**
+   * a timer or a schedule
+   */
+  wait: string;
+  /**
+   * what the step does, in plain words
+   */
+  does?: string;
+  /**
+   * a guard in plain words: the step runs only when this holds
+   */
+  when?: string;
+  /**
+   * true when the handler does not wait for the step to finish
+   */
+  async?: boolean;
+  /**
+   * where the step lives in code
+   */
+  sources?: HandlerSource[];
+  origin?: Origin;
+}
+export interface HandlerFail {
+  when: string;
+  /**
+   * what the caller gets, e.g. 404 not_found
+   */
+  result: string;
+  sources?: HandlerSource[];
 }
 export interface Change {
   id: string;

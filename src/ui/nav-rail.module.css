@@ -12,8 +12,9 @@
     @media (width < 56rem) {
       position: static;
       height: auto;
+      min-height: 100%;
+      overflow-y: visible;
       border-right: 0;
-      border-bottom: 1px solid var(--line-1);
     }
   }
 

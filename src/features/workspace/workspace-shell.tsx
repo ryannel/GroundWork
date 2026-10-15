@@ -4,6 +4,7 @@ import type { NavGroup } from '@/application/workspace-nav';
 import { AppBar } from '@/ui/app-bar';
 import { AppShell } from '@/ui/app-shell';
 import { NavRail } from '@/ui/nav-rail';
+import { RailToggle } from '@/ui/rail-drawer.client';
 
 interface Crumb {
   readonly label: string;
@@ -21,7 +22,7 @@ interface WorkspaceShellProps {
 export function WorkspaceShell({ nav, trail, title, children }: WorkspaceShellProps) {
   return (
     <AppShell
-      bar={<AppBar title={title} trail={trail} />}
+      bar={<AppBar lead={<RailToggle label="Show the workspace" />} title={title} trail={trail} />}
       rail={<NavRail groups={nav} label="Workspace" />}
     >
       {children}

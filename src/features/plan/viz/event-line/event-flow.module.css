@@ -24,8 +24,13 @@
     color: var(--accent-fg);
   }
 
-  .mono {
+  .label {
     font-family: var(--font-mono);
+  }
+
+  .name[data-status='removed'] .label {
+    color: var(--fg-3);
+    text-decoration: line-through;
   }
 
   .version {

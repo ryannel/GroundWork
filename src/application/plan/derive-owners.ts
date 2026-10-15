@@ -80,6 +80,9 @@ function namedOwner(n: PlanNode): string | null {
     case 'graph': {
       return n.gateway;
     }
+    case 'handler': {
+      return n.component;
+    }
     default: {
       return null;
     }

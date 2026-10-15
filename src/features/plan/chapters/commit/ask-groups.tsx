@@ -9,7 +9,7 @@ import {
   titleOf,
 } from '@/application/plan-viz-decision';
 import { shortDate } from '@/application/plan-viz-state';
-import { teamName } from '@/application/plan-viz-teams';
+import { teamIndex, teamName } from '@/application/plan-viz-teams';
 import { ModelInline } from '@/features/plan/common/model-text';
 import { NamedChips } from '@/features/plan/common/named-chip';
 import { TeamDot } from '@/features/plan/common/team-dot';
@@ -76,7 +76,10 @@ function AskItem({ model, e }: ItemProps) {
 function Group({ model, group }: { readonly model: Model; readonly group: AskGroup }) {
   const { decider, items } = group;
   return (
-    <section className={styles.group}>
+    <section
+      className={styles.group}
+      data-team-slot={decider === null ? undefined : teamIndex(model, decider)}
+    >
       <header className={styles.head}>
         {decider === null ? (
           <span className={styles.faint}>No decider named</span>

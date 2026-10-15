@@ -5,6 +5,7 @@ import { createDiff } from '@/application/plan/derive-diff';
 import { createDomain } from '@/application/plan/derive-domain';
 import { createEdges } from '@/application/plan/derive-edges';
 import { createGlossary } from '@/application/plan/derive-glossary';
+import { createHandlers } from '@/application/plan/derive-handlers';
 import { createHealth } from '@/application/plan/derive-health';
 import { createLadder } from '@/application/plan/derive-ladder';
 import { createOwners } from '@/application/plan/derive-owners';
@@ -40,6 +41,7 @@ function compose(plan: Plan, options: DeriveOptions) {
   const words = createWords(core);
   const { diff, opSummary, versions } = createDiff(core, words);
   const edges = createEdges(core);
+  const handlers = createHandlers(core);
   const coverage = createCoverage(core);
   const register = createRegister(core);
   const delivery = createDelivery(core, register, options.status ?? {});
@@ -68,6 +70,7 @@ function compose(plan: Plan, options: DeriveOptions) {
     core,
     owners,
     edges,
+    handlers,
     coverage,
     register,
     delivery,
@@ -115,6 +118,7 @@ export function derive(plan: Plan, options: DeriveOptions = {}) {
     publishPoints: edges.publishPoints,
     consumePoints: edges.consumePoints,
     consumersEffective: edges.consumersEffective,
+    ...c.handlers,
     touchedBy: coverage.touchedBy,
     coverage: coverage.coverage,
     spans: coverage.spans,

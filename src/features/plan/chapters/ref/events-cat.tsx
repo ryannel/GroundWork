@@ -11,6 +11,7 @@ import {
 import { sortEvents } from '@/application/plan-viz-events';
 import type { MessageNode } from '@/domain/plan/plan-graph';
 import { EventLine } from '@/features/plan/viz/event-line/event-line';
+import { EventSteps } from '@/features/plan/viz/event-line/event-steps.client';
 
 import { type CatProps, Group, Pages, RefChip, rowAttrs } from './catalogue-bits';
 
@@ -50,7 +51,29 @@ function EventRow({
   );
 }
 
-/** Messages on topics, grouped by the topic. */
+function EventGroups({ model, show }: { readonly model: Model; readonly show: Show }) {
+  const groups = topicGroups(model, show);
+  const events = groups.flatMap(([, messages]) =>
+    messages.map((m) => ({ key: m.id, title: model.label(m.id) })),
+  );
+  return (
+    <EventSteps events={events}>
+      {groups.map(([topic, messages]) => (
+        <Group
+          count={messages.length}
+          key={topic}
+          title={<RefChip id={topic} model={model} quiet={show !== 'diff'} />}
+        >
+          {messages.map((m) => (
+            <EventRow key={m.id} m={m} model={model} show={show} />
+          ))}
+        </Group>
+      ))}
+    </EventSteps>
+  );
+}
+
+/** Messages on topics, grouped by the topic; → and ← open one event at a time. */
 export function EventsCat({ model, teams }: CatProps) {
   return (
     <Pages
@@ -59,17 +82,9 @@ export function EventsCat({ model, teams }: CatProps) {
       empty="No events."
       noun="events"
       render={(show) =>
-        topicGroups(model, show).map(([topic, messages]) => (
-          <Group
-            count={messages.length}
-            key={topic}
-            title={<RefChip id={topic} model={model} quiet={show !== 'diff'} />}
-          >
-            {messages.map((m) => (
-              <EventRow key={m.id} m={m} model={model} show={show} />
-            ))}
-          </Group>
-        ))
+        topicGroups(model, show).length === 0
+          ? []
+          : [<EventGroups key="events" model={model} show={show} />]
       }
       teams={teams}
     />

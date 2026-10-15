@@ -92,7 +92,9 @@ export function MilestoneCard({
       data-facts={msFacts(st)}
     >
       <header className={styles.head}>
-        <span aria-hidden="true">◆</span>
+        <span aria-hidden="true" className={styles.mark}>
+          ◆
+        </span>
         <button className={styles.name} data-inspect={msId} type="button">
           {st.short}
         </button>

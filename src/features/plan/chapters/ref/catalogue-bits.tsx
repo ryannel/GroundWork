@@ -143,14 +143,17 @@ interface CardProps {
   readonly teams: string;
   /** Unchanged and untouched by the plan: shown quietly in the diff. */
   readonly faded?: boolean;
+  /** The owning team's colour slot, drawn as a stripe. */
+  readonly slot?: number | undefined;
   readonly children: ReactNode;
 }
 
-export function Card({ search, teams, faded = false, children }: CardProps) {
+export function Card({ search, teams, faded = false, slot, children }: CardProps) {
   return (
     <article
       className={styles.card}
       data-faded={faded ? '' : undefined}
+      data-team-slot={slot}
       {...rowAttrs(search, teams)}
     >
       {children}

@@ -1,0 +1,27 @@
+@layer components {
+  .jump {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    padding: var(--s-2) var(--s-4);
+    border-bottom: 1px solid var(--line-1);
+    font-size: var(--fs-12);
+
+    &[data-on] {
+      background: var(--accent-soft);
+    }
+  }
+
+  .word {
+    color: var(--fg-3);
+  }
+
+  .select {
+    padding: var(--s-0) var(--s-1);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+  }
+}

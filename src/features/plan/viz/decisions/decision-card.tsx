@@ -12,6 +12,7 @@ import {
   titleOf,
 } from '@/application/plan-viz-decision';
 import { stateTone, stateWord } from '@/application/plan-viz-state';
+import { teamIndex } from '@/application/plan-viz-teams';
 import { ModelInline, ModelText } from '@/features/plan/common/model-text';
 import { NamedChips } from '@/features/plan/common/named-chip';
 import { Badge } from '@/ui/badge';
@@ -67,7 +68,11 @@ export function DecisionCard({ model, e }: DecisionCardProps) {
   const ties = tiesOf(model, e);
   const why = isDecision(e) ? firstSentenceMd(e.context) : '';
   return (
-    <article className={styles.card} data-state={state}>
+    <article
+      className={styles.card}
+      data-state={state}
+      data-team-slot={e.decider === undefined ? undefined : teamIndex(model, e.decider)}
+    >
       <h4 className={styles.head}>
         <button className={styles.title} data-inspect={e.id} type="button">
           <span className={styles.ref}>

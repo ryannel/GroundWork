@@ -87,6 +87,23 @@
     }
   }
 
+  /* On a phone a drawing keeps its size and scrolls sideways in its frame, rather than shrinking past reading. */
+  @media (width < 56rem) {
+    .shell:not([data-full]) .view {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+
+    .shell:not([data-full]) .pan {
+      width: max-content;
+      max-width: none;
+
+      > * {
+        max-width: none;
+      }
+    }
+  }
+
   .inline {
     padding: var(--s-1) var(--s-2);
     border-bottom: 1px solid var(--line-1);

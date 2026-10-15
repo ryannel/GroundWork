@@ -32,6 +32,8 @@ const NEIGHBOURS: Neighbours = {
   },
   previousChapter: null,
   nextChapter: null,
+  opens: null,
+  end: null,
 };
 
 const step = (by: -1 | 1): boolean => {

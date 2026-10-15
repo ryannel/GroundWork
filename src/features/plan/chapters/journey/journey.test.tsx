@@ -3,8 +3,10 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import type { ReactElement } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
+import type { Page } from '@/application/plan-pages';
 import { PLANS, bodiesIn } from '@/features/plan/chapters/chapter-kit';
 import { JourneyChapter } from '@/features/plan/chapters/journey/journey-chapter';
+import { Pager } from '@/features/plan/pager.client';
 
 vi.mock('server-only', () => ({}));
 
@@ -16,6 +18,13 @@ vi.mock('@/features/plan/plan-model', async (original) => ({
 }));
 
 const { planData } = await import('@/infrastructure/plan-data');
+
+const page = (title: string): Page => ({
+  chapter: 'journey',
+  screen: title,
+  title,
+  href: `/${title}/`,
+});
 
 async function bodiesOf(plan: string) {
   return bodiesIn(await planData({ workspace: 'alder-finch', plan }), 'journey');
@@ -84,6 +93,31 @@ describe('journey chapter', () => {
     expect(globalThis.location.search).toContain('mode=today');
     fireEvent.click(screen.getByRole('button', { name: 'With this plan' }));
     expect(globalThis.location.search).toContain('mode=plan');
+  });
+
+  it('turns the pager into Next step and Previous step while the walk has steps', async () => {
+    const neighbours = {
+      previous: page('Before'),
+      next: page('After'),
+      previousChapter: null,
+      nextChapter: null,
+      opens: null,
+      end: null,
+    };
+    await draw(
+      <>
+        <JourneyChapter {...await screenOf('stock-reservation', 'sc-last-tent')} />
+        <Pager neighbours={neighbours} />
+      </>,
+    );
+    expect(await screen.findByText(/^Step 1 of \d+ in this scenario$/u)).toBeTruthy();
+    const next = await screen.findByRole('button', { name: /next step/i });
+    expect(screen.getByRole('link', { name: /before/i })).toBeTruthy();
+    act(() => {
+      fireEvent.click(next);
+    });
+    expect(screen.getByText(/^Step 2 of \d+ in this scenario$/u)).toBeTruthy();
+    expect(screen.getByRole('button', { name: /previous step/i })).toBeTruthy();
   });
 
   it('shows the flow picked from the scenario’s list', async () => {

@@ -1,0 +1,63 @@
+@layer components {
+  .wrap {
+    position: relative;
+    flex: none;
+    margin-left: auto;
+  }
+
+  .more {
+    display: none;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    color: var(--fg-2);
+    place-items: center;
+
+    &:hover,
+    &[aria-expanded='true'] {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    & svg {
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-width: 1.4;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  @media (width < 56rem) {
+    .more {
+      display: grid;
+    }
+
+    .actions {
+      position: absolute;
+      z-index: var(--z-popover);
+      top: calc(100% + var(--s-2));
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      width: max-content;
+      min-width: 16rem;
+      max-width: 90vw;
+      padding: var(--s-3);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-3);
+      background: var(--bg-1);
+      box-shadow: var(--shadow-2);
+
+      /* Hidden, not removed: a dialog an action owns can still open from its key. */
+      &:not([data-open]) {
+        visibility: hidden;
+      }
+    }
+  }
+}

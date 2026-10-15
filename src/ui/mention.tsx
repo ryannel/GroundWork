@@ -1,4 +1,5 @@
 import type { ChipStatus } from './chip';
+import { Glyph } from './icon';
 import styles from './mention.module.css';
 
 interface MentionProps {
@@ -25,7 +26,7 @@ export function Mention({ id, label, glyph, status = 'existing', mono = false }:
   const icon =
     glyph === undefined ? null : (
       <span aria-hidden="true" className={styles.glyph}>
-        {glyph}
+        <Glyph glyph={glyph} />
       </span>
     );
   if (label.length <= ONE_LINE)

@@ -1,0 +1,89 @@
+components:
+  - id: svc:financing-gateway
+    origin: seeded
+    summary:
+      One adapter per partner. Asks for a quote during checkout and confirms the loan after the order is
+      captured.
+    sources:
+      - repo: alder-finch/financing-gateway
+        path: src/main/java/financing/GatewayResource.java
+        commit: 0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e
+        lines: [20, 140]
+stores:
+  - id: st:financing-db
+    origin: seeded
+    name: financing-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:financing-gateway
+    does: Quotes and loans per order
+interfaces:
+  - id: if:financing-rest
+    origin: seeded
+    service: svc:financing-gateway
+    protocol: rest
+    endpoints:
+      - id: api:financing-quote
+        sig: POST /quotes
+        request: sch:financing-quote
+        response: sch:financing-quote
+        auth: service token
+        idempotent: true
+      - id: api:financing-confirm
+        sig: POST /quotes/{id}/confirm
+        response: sch:financing-quote
+        auth: service token
+        idempotent: true
+  - id: if:paylater-partner-api
+    origin: seeded
+    service: svc:paylater-partner
+    protocol: rest
+    summary: Nordbank PayLater merchant API.
+    endpoints:
+      - id: api:nordbank-quote
+        sig: POST /merchant/v3/sessions
+        auth: mTLS
+        idempotent: true
+      - id: api:nordbank-confirm
+        sig: POST /merchant/v3/sessions/{id}/authorize
+        auth: mTLS
+        idempotent: true
+  - id: if:instalments-bank-api
+    origin: seeded
+    service: svc:instalments-bank
+    protocol: https
+    summary: Fjordbank's instalment loan API.
+    endpoints:
+      - id: api:fjordbank-quote
+        sig: GetInstalmentOffer
+        auth: certificate
+        idempotent: true
+schemas:
+  - id: sch:financing-quote
+    origin: seeded
+    name: FinancingQuote
+    kind: record
+    store: st:financing-db
+    fields:
+      - name: id
+        type: uuid
+        required: true
+        key: true
+      - name: checkout_session_id
+        type: uuid
+        required: true
+        ref: sch:checkout-session#id
+      - name: partner
+        type: enum(nordbank, fjordbank)
+        required: true
+      - name: amount_cents
+        type: int
+        required: true
+        note: The cart subtotal. Shipping is charged to the card separately today.
+      - name: instalments
+        type: int
+        required: true
+      - name: status
+        type: enum(quoted, confirmed, declined)
+        required: true
+        default: quoted

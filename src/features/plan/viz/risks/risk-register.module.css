@@ -13,7 +13,21 @@
   }
 
   .fold > summary {
+    list-style: none;
     cursor: pointer;
+  }
+
+  .fold > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .fold > summary::before {
+    content: '▸';
+    color: var(--fg-3);
+  }
+
+  .fold[open] > summary::before {
+    content: '▾';
   }
 
   .count {

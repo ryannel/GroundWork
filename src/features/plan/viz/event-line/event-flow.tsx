@@ -64,8 +64,14 @@ export function EventFlow({ model, data, self, groupTopic = false }: FlowProps) 
           </span>
         </>
       )}
-      <button className={styles.name} data-inspect={data.id} title="Open the event" type="button">
-        <span className={styles.mono}>{data.name}</span>
+      <button
+        className={styles.name}
+        data-inspect={data.id}
+        data-status={data.status ?? 'existing'}
+        title="Open the event"
+        type="button"
+      >
+        <span className={styles.label}>{data.name}</span>
         {data.version === '' ? null : <span className={styles.version}> {data.version}</span>}
       </button>
       <span aria-hidden="true" className={styles.arrow}>

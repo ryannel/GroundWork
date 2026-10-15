@@ -1,0 +1,38 @@
+id: flow:issue-invoice
+origin: seeded
+name: Issue the invoice
+actor: System
+trigger: '`order.placed` arrives at Billing.'
+outcome: The invoice PDF is stored and attached to the confirmation email.
+steps:
+  - id: flow:issue-invoice#consume
+    from: st:order-events
+    to: svc:billing
+    via: msg:order-placed
+    action: Take the order
+    reads:
+      - sch:order-placed-v1
+  - id: flow:issue-invoice#render
+    from: svc:billing
+    to: svc:billing
+    via: internal
+    action: Render the PDF
+    screen: scr:invoice-pdf
+    logic: From the invoice template for the country. `bill_to` is the delivery address.
+    writes:
+      - sch:invoice
+  - id: flow:issue-invoice#send
+    from: svc:billing
+    to: svc:notifier
+    via: api:notifier-send
+    action: Attach to the confirmation email
+  - id: flow:issue-invoice#reissue
+    from: svc:billing
+    to: svc:billing
+    via: internal
+    action: Re-issue by hand when a customer emails a VAT number
+    logic:
+      A Billing agent runs a script that copies the invoice, adds the VAT number to the address block and
+      sends a new email. 410 times a quarter.
+    writes:
+      - sch:invoice

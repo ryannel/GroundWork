@@ -1,0 +1,57 @@
+components:
+  - id: svc:notifier
+    origin: seeded
+    summary: Templates for confirmation, shipped and delivered emails, rendered per locale.
+    sources:
+      - repo: alder-finch/notifier
+        path: app/templates/__init__.py
+        commit: 3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+        lines: [1, 40]
+interfaces:
+  - id: if:notifier-rest
+    origin: seeded
+    service: svc:notifier
+    protocol: rest
+    endpoints:
+      - id: api:notifier-send
+        sig: POST /notifications
+        auth: service token
+        idempotent: true
+screens:
+  - id: scr:email-order-confirmation
+    origin: seeded
+    name: Order confirmation email
+    service: svc:notifier
+    kind: email
+    device: any
+    summary: Sent on `order.placed`. The delivery line is template text.
+    image: assets/email-order-confirmation.svg
+    regions:
+      - id: scr:email-order-confirmation#header
+        name: Header
+        shows: '*Thanks, Anna. Order AF-2026-48213.*'
+        reads:
+          - sch:order#number
+        at:
+          x: 6
+          y: 6
+          w: 88
+          h: 18
+      - id: scr:email-order-confirmation#lines
+        name: Lines
+        shows: What was ordered and the totals.
+        reads:
+          - sch:order-line
+        at:
+          x: 6
+          y: 26
+          w: 88
+          h: 40
+      - id: scr:email-order-confirmation#delivery
+        name: Delivery
+        shows: '*Delivery 3–5 working days.* From the template.'
+        at:
+          x: 6
+          y: 68
+          w: 88
+          h: 12

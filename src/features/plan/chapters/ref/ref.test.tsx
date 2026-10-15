@@ -8,6 +8,7 @@ import { RefChapter } from '@/features/plan/chapters/ref/ref-chapter';
 vi.mock('server-only', () => ({}));
 vi.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(globalThis.location.search),
+  usePathname: () => globalThis.location.pathname,
 }));
 
 const { planData } = await import('@/infrastructure/plan-data');

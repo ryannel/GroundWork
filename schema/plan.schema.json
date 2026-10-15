@@ -112,6 +112,13 @@
       },
       "description": "the GraphQL documents the front end sends (queries and mutations); the query plan is derived from them"
     },
+    "handlers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/handler"
+      },
+      "description": "what runs when an endpoint is called, a message consumed, a schedule fires or a person acts"
+    },
     "changes": {
       "type": "array",
       "items": {
@@ -329,7 +336,7 @@
     },
     "id_any": {
       "type": "string",
-      "pattern": "^(?:team|sys|svc|st|sch|if|api|msg|flow|chg|tst|wi|ms|dec|risk|q|sc|scr|graph|sg|gql|ui|uj):[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z0-9_-]+)?$",
+      "pattern": "^(?:team|sys|svc|st|sch|if|api|msg|flow|chg|tst|wi|ms|dec|risk|q|sc|scr|graph|sg|gql|ui|uj|h):[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z0-9_-]+)?$",
       "description": "any plan id"
     },
     "id_node": {
@@ -1705,6 +1712,22 @@
             },
             "value": {
               "$ref": "#/$defs/operation"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "handler"
+            },
+            "value": {
+              "$ref": "#/$defs/handler"
             }
           }
         }
@@ -3092,6 +3115,678 @@
             "interval"
           ],
           "description": "when the front end sends it (fired when the page loads, when the button is pressed, \u2026)"
+        }
+      }
+    },
+    "id_h": {
+      "type": "string",
+      "pattern": "^h:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "h:<handler-slug>"
+    },
+    "handlerOn": {
+      "type": "string",
+      "pattern": "^(?:(?:api|msg|ui):[a-z0-9]+(?:-[a-z0-9]+)*|job:\\S.*)$",
+      "description": "what starts the handler: an endpoint (api:), a consumed message (msg:), a schedule (job:<cron or name>) or an interaction on a screen (ui:)"
+    },
+    "origin": {
+      "enum": [
+        "extracted",
+        "seeded",
+        "curated"
+      ],
+      "description": "how the fact was made: read from code by a scan, seeded by hand for a demo, or written by a person"
+    },
+    "codeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo",
+        "path",
+        "lines",
+        "commit"
+      ],
+      "description": "a place in code; the permalink is derived from it",
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1,
+          "description": "the repository, e.g. github.com/alder-finch/pricing"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "the file, from the repository root"
+        },
+        "lines": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "description": "[from, to], both inclusive"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,40}$",
+          "description": "the commit the lines were read at"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1,
+          "description": "the function or class, e.g. PriceController.getPrice"
+        }
+      }
+    },
+    "handlerSource": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/codeSource"
+        },
+        {
+          "$ref": "#/$defs/source"
+        }
+      ]
+    },
+    "handlerFail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "when",
+        "result"
+      ],
+      "properties": {
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the caller gets, e.g. 404 not_found"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          }
+        }
+      }
+    },
+    "handler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "on",
+        "component",
+        "steps"
+      ],
+      "description": "what runs when something arrives at a component, as a short tree of steps",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_h"
+        },
+        "on": {
+          "$ref": "#/$defs/handlerOn"
+        },
+        "component": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the handler lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "steps": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "fails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerFail"
+          }
+        }
+      }
+    },
+    "handlerSteps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/handlerStep"
+      }
+    },
+    "handlerStep": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/handlerDoes"
+        },
+        {
+          "$ref": "#/$defs/handlerCall"
+        },
+        {
+          "$ref": "#/$defs/handlerPublish"
+        },
+        {
+          "$ref": "#/$defs/handlerRead"
+        },
+        {
+          "$ref": "#/$defs/handlerWrite"
+        },
+        {
+          "$ref": "#/$defs/handlerIf"
+        },
+        {
+          "$ref": "#/$defs/handlerEach"
+        },
+        {
+          "$ref": "#/$defs/handlerParallel"
+        },
+        {
+          "$ref": "#/$defs/handlerRetry"
+        },
+        {
+          "$ref": "#/$defs/handlerTry"
+        },
+        {
+          "$ref": "#/$defs/handlerReturn"
+        },
+        {
+          "$ref": "#/$defs/handlerWait"
+        }
+      ]
+    },
+    "handlerDoes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "does"
+      ],
+      "description": "work done in place",
+      "properties": {
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerCall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "call"
+      ],
+      "description": "calls an endpoint and waits for it",
+      "properties": {
+        "call": {
+          "$ref": "#/$defs/id_api"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerPublish": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publish"
+      ],
+      "description": "publishes a message",
+      "properties": {
+        "publish": {
+          "$ref": "#/$defs/id_msg"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerRead": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read",
+        "from"
+      ],
+      "description": "reads a schema from a store",
+      "properties": {
+        "read": {
+          "$ref": "#/$defs/id_schemaOrField"
+        },
+        "from": {
+          "$ref": "#/$defs/id_st"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "write",
+        "to"
+      ],
+      "description": "writes a schema to a store",
+      "properties": {
+        "write": {
+          "$ref": "#/$defs/id_schemaOrField"
+        },
+        "to": {
+          "$ref": "#/$defs/id_st"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerIf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "if",
+        "then"
+      ],
+      "description": "a fork",
+      "properties": {
+        "if": {
+          "type": "string",
+          "minLength": 1
+        },
+        "then": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "else": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerEach": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "each",
+        "do"
+      ],
+      "description": "a loop",
+      "properties": {
+        "each": {
+          "type": "string",
+          "minLength": 1
+        },
+        "do": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerParallel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parallel"
+      ],
+      "description": "branches at once",
+      "properties": {
+        "parallel": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/handlerSteps"
+          },
+          "description": "branches that run at once"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerRetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retry",
+        "do"
+      ],
+      "description": "tries the steps again when they fail",
+      "properties": {
+        "retry": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what is retried, or on what"
+        },
+        "times": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "do": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerTry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "try",
+        "catch"
+      ],
+      "description": "steps with a fallback when they fail",
+      "properties": {
+        "try": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "catch": {
+          "$ref": "#/$defs/handlerSteps"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerReturn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "return"
+      ],
+      "description": "what the handler answers",
+      "properties": {
+        "return": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a schema id, or what comes back in plain words"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "handlerWait": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wait"
+      ],
+      "description": "a pause",
+      "properties": {
+        "wait": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a timer or a schedule"
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1,
+          "description": "what the step does, in plain words"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "description": "a guard in plain words: the step runs only when this holds"
+        },
+        "async": {
+          "type": "boolean",
+          "description": "true when the handler does not wait for the step to finish"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/handlerSource"
+          },
+          "description": "where the step lives in code"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
         }
       }
     }

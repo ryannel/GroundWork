@@ -1,10 +1,11 @@
 // @vitest-environment happy-dom
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { derive } from '@/application/plan/derive';
 import {
   bySeverity,
+  cellOf,
   handlingOf,
   levelsText,
   riskFacts,
@@ -14,6 +15,7 @@ import {
   shade,
 } from '@/application/plan-viz-risks';
 import { RiskMatrix } from '@/features/plan/viz/risks/risk-matrix';
+import { RiskPicker } from '@/features/plan/viz/risks/risk-picker.client';
 import { RiskRegister } from '@/features/plan/viz/risks/risk-register';
 
 vi.mock('server-only', () => ({}));
@@ -136,5 +138,70 @@ describe('RiskRegister', () => {
     const { container } = render(<RiskRegister ids={['risk:big']} model={model} />);
     expect(container.querySelector('details')).toBeNull();
     expect(container.querySelectorAll('table')).toHaveLength(1);
+  });
+});
+
+const shownRows = (root: HTMLElement) =>
+  [...root.querySelectorAll('tr')].filter(
+    (tr) => tr.querySelector('[data-cell]') !== null && tr.closest('[data-off]') === null,
+  );
+
+describe('RiskPicker', () => {
+  async function picker() {
+    const { model } = await withRisks();
+    const ids = model.plan.risks!.map((r) => r.id);
+    return render(
+      <RiskPicker
+        grid={<RiskMatrix ids={ids} model={model} pick />}
+        register={<RiskRegister ids={ids} model={model} />}
+      />,
+    );
+  }
+
+  it('names the cell a risk sits in, a missing level as low', () => {
+    expect(cellOf({ likelihood: 'high', impact: 'med' })).toBe('high med');
+    expect(cellOf({})).toBe('low low');
+  });
+
+  it('gives a button only to the cells with risks', async () => {
+    const { container } = await picker();
+    expect(
+      [...container.querySelectorAll<HTMLElement>('[data-pick]')].map((b) => b.dataset.pick),
+    ).toEqual(['high high', 'med high', 'low low']);
+    expect(screen.getByText(/Pick a cell/)).toBeTruthy();
+  });
+
+  it('filters the register to a cell, counts it, and clears', async () => {
+    const { container } = await picker();
+    fireEvent.click(container.querySelector('[data-pick="high high"]')!);
+    expect(shownRows(container).map((tr) => tr.textContent)).toEqual([
+      expect.stringContaining('A big one.'),
+    ]);
+    expect(container.querySelector('[data-pick="high high"]')?.getAttribute('aria-pressed')).toBe(
+      'true',
+    );
+    expect(
+      container
+        .querySelector('[data-likelihood="low"][data-impact="low"]')
+        ?.hasAttribute('data-dim'),
+    ).toBe(true);
+    expect(container.querySelector('details')?.hasAttribute('data-off')).toBe(true);
+    expect(container.textContent).toContain('1 of 3 risks: high likelihood, high impact');
+    fireEvent.click(screen.getByRole('button', { name: 'Clear filter' }));
+    expect(shownRows(container)).toHaveLength(3);
+    expect(container.querySelector('[data-dim]')).toBeNull();
+    expect(screen.queryByText('Clear filter')).toBeNull();
+  });
+
+  it('opens a fold when its risk is picked and clears on a second click', async () => {
+    const { container } = await picker();
+    const gone = container.querySelector<HTMLElement>('[data-pick="med high"]')!;
+    fireEvent.click(gone);
+    expect(container.querySelector('details')?.open).toBe(true);
+    expect(shownRows(container).map((tr) => tr.textContent)).toEqual([
+      expect.stringContaining('Gone now.'),
+    ]);
+    fireEvent.click(gone);
+    expect(shownRows(container)).toHaveLength(3);
   });
 });

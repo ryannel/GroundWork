@@ -14,6 +14,14 @@
     color-scheme: dark;
   }
 
+  /* Paper is white, whatever the screen's theme. */
+  @media print {
+    &,
+    &[data-theme] {
+      color-scheme: light;
+    }
+  }
+
   /* Surfaces: page → panel → raised → hover */
   --bg-0: light-dark(#fafafa, #0b0b0e);
   --bg-1: light-dark(#fff, #131317);
@@ -145,6 +153,9 @@
   --rail-marker: 22px;
   --rail-mark: 16px;
   --inspector-w: 420px;
+  --drawer-w: min(300px, 86vw);
+  --sheet-h: 72dvh;
+  --tray-w: 360px;
   --stage-max: 1080px;
   --measure: 68ch;
 
@@ -285,6 +296,61 @@
   * {
     scrollbar-color: var(--line-2) transparent;
     scrollbar-width: thin;
+  }
+}
+
+/* A thing that belongs to a team wears its hue as --team, for a stripe or a dot drawn by its own module. */
+@layer base {
+  [data-team-slot='1'] {
+    --team: var(--team-1);
+  }
+
+  [data-team-slot='2'] {
+    --team: var(--team-2);
+  }
+
+  [data-team-slot='3'] {
+    --team: var(--team-3);
+  }
+
+  [data-team-slot='4'] {
+    --team: var(--team-4);
+  }
+
+  [data-team-slot='5'] {
+    --team: var(--team-5);
+  }
+
+  [data-team-slot='6'] {
+    --team: var(--team-6);
+  }
+
+  [data-team-slot='7'] {
+    --team: var(--team-7);
+  }
+
+  [data-team-slot='8'] {
+    --team: var(--team-8);
+  }
+
+  [data-team-slot='9'] {
+    --team: var(--team-9);
+  }
+
+  [data-team-slot='10'] {
+    --team: var(--team-10);
+  }
+
+  [data-team-slot='11'] {
+    --team: var(--team-11);
+  }
+
+  [data-team-slot='12'] {
+    --team: var(--team-12);
+  }
+
+  [data-team-slot='13'] {
+    --team: var(--team-13);
   }
 }
 

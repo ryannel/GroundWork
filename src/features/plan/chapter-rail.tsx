@@ -1,12 +1,20 @@
 import { planHref, type Outline, type Page } from '@/application/plan-pages';
 import { NavRail } from '@/ui/nav-rail';
 
+import { RailCut, type RailHidden } from './progress/rail-cut.client';
 import { MarkRead, ReadCount, Tick } from './rail-marks.client';
 
 // The plan as a story: each chapter opens to its screens, the current one already open. Reference and Versions
 // sit apart, below the story. Each screen carries a mark: the one being read, the ones read before this session,
-// and the rest.
-export function ChapterRail({ outline, page }: { readonly outline: Outline; readonly page: Page }) {
+// and the rest. While reading as one team, the rail lists only that team's screens.
+interface RailProps {
+  readonly outline: Outline;
+  readonly page: Page;
+  /** The screens each team's lens leaves out of the rail. */
+  readonly hidden?: RailHidden;
+}
+
+export function ChapterRail({ outline, page, hidden }: RailProps) {
   const plan = planHref(outline);
   return (
     <NavRail
@@ -38,6 +46,7 @@ export function ChapterRail({ outline, page }: { readonly outline: Outline; read
       label="Chapters"
     >
       <MarkRead href={page.href} plan={plan} />
+      {hidden === undefined ? null : <RailCut hidden={hidden} />}
     </NavRail>
   );
 }

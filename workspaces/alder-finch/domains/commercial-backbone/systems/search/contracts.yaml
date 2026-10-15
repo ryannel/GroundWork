@@ -1,0 +1,94 @@
+components:
+  - id: svc:search-indexer
+    origin: seeded
+    summary: Consumes product, price and stock events and writes one search document per SKU and locale.
+    sources:
+      - repo: alder-finch/search
+        path: indexer/main.go
+        commit: 9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d
+        lines: [30, 120]
+  - id: svc:search-api
+    origin: seeded
+    summary: The search subgraph calls it for `Query.search` and returns the hits.
+    sources:
+      - repo: alder-finch/search
+        path: api/main.go
+        commit: 9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d
+        lines: [1, 50]
+  - id: svc:search-graph
+    origin: seeded
+    summary:
+      Owns `Query.search`. Returns each hit as a `Product` reference and also its `name` and `imageUrl`
+      straight from the search index (`@provides`), so a result list needs no second fetch.
+    sources:
+      - repo: alder-finch/search
+        path: subgraph/schema.graphqls
+        commit: 9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d
+        lines: [1, 40]
+stores:
+  - id: st:search-index
+    origin: seeded
+    name: search-index
+    kind: database
+    tech: OpenSearch
+    owner: svc:search-indexer
+    does: One document per SKU and locale
+interfaces:
+  - id: if:search-rest
+    origin: seeded
+    service: svc:search-api
+    protocol: rest
+    endpoints:
+      - id: api:search-query
+        sig: GET /search?q=&locale=&first=
+        auth: service token
+        idempotent: true
+        summary: Returns skus, names and image urls; the subgraph turns them into Product references.
+schemas:
+  - id: sch:search-document
+    origin: seeded
+    name: SearchDocument
+    kind: record
+    store: st:search-index
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+        ref: sch:product#sku
+      - name: locale
+        type: string
+        required: true
+        key: true
+      - name: name
+        type: string
+        required: true
+      - name: price_cents
+        type: int
+        required: true
+      - name: in_stock
+        type: bool
+        required: true
+        note: From stock.changed, any FC.
+      - name: lead_time_text
+        type: string
+subgraphs:
+  - id: sg:search
+    origin: seeded
+    name: Search subgraph
+    graph: graph:storefront
+    service: svc:search-graph
+    summary:
+      Owns `Query.search`; provides `name` and `imageUrl` on the hits it returns. It holds only a reference
+      to `Product` by `sku`.
+    batching: none
+    cache_control_default: 120
+    timeout_ms: 600
+    observed:
+      latency_ms: 45
+      source: Grafana · gateway → subgraph p50, last 30 days
+    sources:
+      - repo: alder-finch/search
+        path: subgraph/schema.graphqls
+        commit: 9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d
+        lines: [1, 40]

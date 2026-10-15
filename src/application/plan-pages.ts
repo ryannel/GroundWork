@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 
 import { screensFor, type ChapterKey } from './plan-pages-screens';
+import { workspaceHref } from './workspace-paths';
 
 export type { ChapterKey } from './plan-pages-screens';
 
@@ -133,6 +134,10 @@ export interface Neighbours {
   /** The first screen of the chapter before and after this one. */
   readonly previousChapter: Page | null;
   readonly nextChapter: Page | null;
+  /** The story chapter the next screen opens, when it is another one; the pager says "Next · Chapter N". */
+  readonly opens: Chapter | null;
+  /** On the story's last screen, the workspace's address: the pager closes the plan instead of turning the page. */
+  readonly end: string | null;
 }
 
 /** "Your part" reads one team's share, so it is reached from the cover's team links and the pager steps over it. */
@@ -143,11 +148,27 @@ export function neighboursOf(outline: Outline, page: Page): Neighbours {
   const at = pages.findIndex((p) => p.href === page.href);
   const chapters = outline.chapters;
   const c = chapters.findIndex((chapter) => chapter.key === page.chapter);
+  const next = pages[at + 1] ?? null;
   return {
     previous: at > 0 ? (pages[at - 1] ?? null) : null,
-    next: pages[at + 1] ?? null,
+    next,
     previousChapter: c > 0 ? (chapters[c - 1]?.pages[0] ?? null) : null,
     nextChapter: chapters[c + 1]?.pages[0] ?? null,
+    ...aheadOf(outline, page, next),
+  };
+}
+
+/** What lies past this screen: another story chapter, or, after the story's last screen, the end of the plan. */
+function aheadOf(
+  outline: Outline,
+  page: Page,
+  next: Page | null,
+): Pick<Neighbours, 'opens' | 'end'> {
+  const ahead = outline.chapters.find((chapter) => chapter.key === next?.chapter) ?? null;
+  const story = !SIDE.has(page.chapter);
+  return {
+    opens: ahead !== null && ahead.key !== page.chapter && !ahead.side ? ahead : null,
+    end: story && (ahead === null || ahead.side) ? workspaceHref(outline.workspace) : null,
   };
 }
 

@@ -1,4 +1,5 @@
 import { type Core, type ElementStatus, modeOf } from '@/application/plan/derive-core';
+import { putHandlerEdges } from '@/application/plan/derive-handler-edges';
 import { memo } from '@/application/plan/derive-values';
 import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
@@ -17,6 +18,8 @@ export interface Edge {
   write: boolean;
   fanout?: boolean;
   steps: string[];
+  /** The handlers whose calls, publishes, reads or writes draw this edge. */
+  handlers?: string[];
   /** Set in diff mode only. */
   status?: ElementStatus;
 }
@@ -90,6 +93,7 @@ interface Seen {
   fanout?: boolean;
   read?: boolean;
   write?: boolean;
+  handler?: string;
 }
 
 type Put = (e: Seen, stepId?: string) => void;
@@ -101,6 +105,12 @@ const dataMode = (e: Edge): Edge['mode'] => {
   if (e.read && e.write) return 'readwrite';
   return e.read ? 'read' : 'write';
 };
+
+const withHandler = (
+  list: string[] | undefined,
+  handler: string | undefined,
+): string[] | undefined =>
+  handler === undefined || list?.includes(handler) === true ? list : [...(list ?? []), handler];
 
 /** Collects edges, merging those with the same ends (and message or api). */
 function edgeSet(): { put: Put; list: () => Edge[] } {
@@ -124,6 +134,8 @@ function edgeSet(): { put: Put; list: () => Edge[] } {
     if (e.read === true) cur.read = true;
     if (e.write === true) cur.write = true;
     if (stepId !== undefined && !cur.steps.includes(stepId)) cur.steps.push(stepId);
+    const handlers = withHandler(cur.handlers, e.handler);
+    if (handlers !== undefined) cur.handlers = handlers;
   };
   const list = (): Edge[] =>
     [...map.values()].map((e) => (e.kind === 'data' ? { ...e, mode: dataMode(e) } : e));
@@ -178,6 +190,7 @@ export function createEdges(core: Core) {
     apiEdges(core, g, set.put);
     messageEdges(g, set.put);
     dataEdges(core, g, set.put);
+    putHandlerEdges(g, set.put);
     return set.list();
   });
 

@@ -1,0 +1,133 @@
+@layer components {
+  .dialog {
+    width: min(48rem, 94vw);
+    max-height: 86vh;
+    margin: var(--s-12) auto auto;
+    padding: var(--s-6);
+    overflow-y: auto;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    box-shadow: var(--shadow-3);
+
+    &::backdrop {
+      background: var(--bg-overlay);
+    }
+  }
+
+  .close {
+    float: right;
+  }
+
+  .x {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--r-pill);
+    color: var(--fg-2);
+    place-items: center;
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+  }
+
+  .heading {
+    margin: 0 0 var(--s-3);
+    font-family: var(--font-display);
+    font-size: var(--fs-16);
+
+    &:not(:first-of-type) {
+      margin-top: var(--s-6);
+    }
+  }
+
+  .keys {
+    display: grid;
+    gap: var(--s-1) var(--s-6);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: 0;
+  }
+
+  .row {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: 6rem 1fr;
+    align-items: center;
+    padding: var(--s-1) 0;
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .combo {
+    display: flex;
+    gap: var(--s-1);
+  }
+
+  .label {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .symbols {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .stages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin: 0;
+    padding: var(--s-1) var(--s-3);
+    list-style: none;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .stage {
+    white-space: nowrap;
+  }
+
+  .note {
+    margin: var(--s-4) 0 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .help {
+    display: inline-flex;
+    flex: none;
+    gap: var(--s-2);
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    color: var(--fg-2);
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    & svg {
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-width: 1.5;
+    }
+  }
+
+  .helpWord {
+    display: none;
+
+    @media (width < 56rem) {
+      display: inline;
+      padding-right: var(--s-2);
+      font-size: var(--fs-13);
+    }
+  }
+}

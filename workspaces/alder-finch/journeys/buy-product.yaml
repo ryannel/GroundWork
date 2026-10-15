@@ -1,0 +1,88 @@
+journey:
+  id: uj:buy-product
+  origin: seeded
+  name: Find a product and place an order
+  actor: Shopper
+  interactions:
+    - ui:search-product
+    - ui:add-to-cart
+    - ui:checkout
+    - ui:payment
+    - ui:place-order
+interactions:
+  - id: ui:search-product
+    origin: seeded
+    name: Open the product
+    from:
+      - scr:search-results#tiles
+    to: scr:pdp
+    trigger: click
+    effect: navigate
+    supporting_steps:
+      - flow:browse-product#open
+    evidence:
+      file: assets/search-results.svg
+      note: 'Drawn example: a result tile opens its product page.'
+  - id: ui:add-to-cart
+    origin: seeded
+    name: Add to cart
+    from:
+      - scr:pdp#add-to-cart
+    to: scr:cart
+    trigger: click
+    effect: navigate
+    supporting_steps:
+      - flow:add-to-cart#press
+      - flow:add-to-cart#show
+    evidence:
+      file: assets/pdp.svg
+      note: 'Drawn example: Add to cart stores the line and shows the cart.'
+  - id: ui:checkout
+    origin: seeded
+    name: Checkout
+    from:
+      - scr:cart#summary
+    to: scr:checkout-delivery
+    trigger: click
+    effect: navigate
+    supporting_steps:
+      - flow:checkout#address
+    evidence:
+      file: assets/cart.svg
+      note: 'Drawn example: Checkout opens the delivery and address screen.'
+  - id: ui:payment
+    origin: seeded
+    name: Continue to payment
+    from:
+      - scr:checkout-delivery
+    to: scr:checkout-payment
+    trigger: submit
+    effect: navigate
+    condition: The shopper supplies an address and chooses delivery.
+    supporting_steps:
+      - flow:checkout#session
+      - flow:checkout#delivery
+      - flow:checkout#quote
+    evidence:
+      file: assets/checkout-delivery.svg
+      note: 'Drawn example: Continue to payment opens the payment screen.'
+  - id: ui:place-order
+    origin: seeded
+    name: Place order
+    from:
+      - scr:checkout-payment#pay
+    to: scr:email-order-confirmation
+    trigger: submit
+    effect: output
+    condition: Payment succeeds and the order is created.
+    result: The shopper receives an order confirmation email.
+    supporting_steps:
+      - flow:checkout#pay
+      - flow:checkout#place
+      - flow:checkout#authorise
+      - flow:checkout#create
+      - flow:checkout#capture
+      - flow:checkout#confirmation
+    evidence:
+      file: assets/checkout-payment.svg
+      note: 'Drawn example: Place order leads to the confirmation email after a successful order.'

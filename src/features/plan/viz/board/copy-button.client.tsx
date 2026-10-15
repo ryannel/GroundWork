@@ -29,7 +29,7 @@ export function CopyButton({ text, children, title, variant = 'default' }: CopyB
       size="sm"
       variant={variant}
     >
-      {done ? 'Copied' : children}
+      <span aria-live="polite">{done ? 'Copied ✓' : children}</span>
     </Button>
   );
 }

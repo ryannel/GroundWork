@@ -1,0 +1,293 @@
+components:
+  - id: svc:pim-admin
+    origin: seeded
+    summary: The internal product editor. Writes only through [[if:pim-rest]].
+    sources:
+      - repo: alder-finch/pim
+        path: editor/src/App.tsx
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 40]
+  - id: svc:pim
+    origin: seeded
+    summary: Holds every product and attribute; publishes `product.published` whenever a product changes.
+    sources:
+      - repo: alder-finch/pim
+        path: api/src/main/java/pim/PimApplication.java
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+  - id: svc:enrichment
+    origin: seeded
+    summary:
+      Runs the completeness rules (weight, dimensions, images, hazard class) after every save and marks the
+      product publishable or not.
+    sources:
+      - repo: alder-finch/pim
+        path: worker/src/main/java/pim/enrich/CompletenessWorker.java
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [22, 140]
+  - id: svc:catalog-api
+    origin: seeded
+    summary: A read-optimised projection of the PIM for the storefront; rebuilt from `product.published`.
+    sources:
+      - repo: alder-finch/pim
+        path: read-api/src/main/java/catalog/CatalogReadApplication.java
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+  - id: svc:product-graph
+    origin: seeded
+    summary:
+      The catalogue's read copy as a subgraph. Owns the `Product` entity, its `id` and `sku` keys and the
+      `product` root field. Batches catalogue reads with DataLoader.
+    sources:
+      - repo: alder-finch/pim
+        path: subgraph/src/schema.graphql
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 70]
+stores:
+  - id: st:pim-db
+    origin: seeded
+    name: pim-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:pim
+    does: Products, attributes, completeness
+    access:
+      - svc: svc:enrichment
+        mode: readwrite
+  - id: st:catalog-events
+    origin: seeded
+    name: catalog.events
+    kind: topic
+    tech: Kafka
+    owner: svc:pim
+    does: product.published and friends
+  - id: st:catalog-read-db
+    origin: seeded
+    name: catalog-read-db
+    kind: database
+    tech: Postgres 15
+    owner: svc:catalog-api
+    does: Read projection of published products
+    access:
+      - svc: svc:product-graph
+        mode: readwrite
+interfaces:
+  - id: if:pim-rest
+    origin: seeded
+    service: svc:pim
+    protocol: rest
+    summary: The PIM's write and read API, used by the editor.
+    endpoints:
+      - id: api:pim-save-product
+        sig: PUT /products/{sku}
+        request: sch:product
+        response: sch:product
+        auth: staff SSO
+        idempotent: true
+      - id: api:pim-get-product
+        sig: GET /products/{sku}
+        response: sch:product
+        auth: staff SSO
+        idempotent: true
+  - id: if:catalog-read
+    origin: seeded
+    service: svc:catalog-api
+    protocol: rest
+    endpoints:
+      - id: api:catalog-get-product
+        sig: GET /catalog/{locale}/{sku}
+        response: sch:product
+        auth: service token
+        idempotent: true
+schemas:
+  - id: sch:product
+    origin: seeded
+    name: Product
+    kind: record
+    store: st:pim-db
+    summary: One row per SKU; attributes as columns and a JSON bag.
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+      - name: name
+        type: string
+        required: true
+        note: Source language (DE).
+      - name: weight_g
+        type: int
+        note: Needed for shipping cost; 11% of products still lack it.
+      - name: dimensions_mm
+        type: int[3]
+      - name: hazard_class
+        type: enum(none, battery, aerosol)
+        required: true
+      - name: lead_time_text
+        type: string
+        note: Typed by the category manager, e.g. *3–5 working days*. The source of today's promise.
+      - name: publishable
+        type: bool
+        required: true
+        note: Set by the enrichment worker.
+    sources:
+      - repo: alder-finch/pim
+        path: api/src/main/resources/db/migration/V12__products.sql
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 40]
+  - id: sch:product-published-v1
+    origin: seeded
+    name: product.published v1
+    kind: payload
+    summary: The whole product, every time it changes.
+    fields:
+      - name: sku
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: true
+      - name: weight_g
+        type: int
+      - name: lead_time_text
+        type: string
+      - name: publishable
+        type: bool
+        required: true
+      - name: published_at
+        type: timestamptz
+        required: true
+  - id: sch:catalog-product
+    origin: seeded
+    name: CatalogProduct
+    kind: record
+    store: st:catalog-read-db
+    summary: The read copy per SKU and locale that the product subgraph serves.
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+      - name: locale
+        type: string
+        required: true
+        key: true
+      - name: name
+        type: string
+        required: true
+      - name: images
+        type: uri[]
+        required: true
+      - name: lead_time_days
+        type: int
+        note: Typed by the category manager years ago; 3 for almost everything. The source of `Product.leadTimeDays`.
+      - name: publishable
+        type: bool
+        required: true
+      - name: lead_time_text
+        type: string
+    sources:
+      - repo: alder-finch/pim
+        path: subgraph/db/V3__catalog_product.sql
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 30]
+  - id: sch:product-published-v2
+    origin: seeded
+    name: product.published v2
+    kind: payload
+    fields:
+      - name: sku
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: true
+      - name: lead_time_days
+        type: int
+      - name: publishable
+        type: bool
+        required: true
+      - name: published_at
+        type: timestamptz
+        required: true
+messages:
+  - id: msg:product-published
+    origin: seeded
+    name: product.published
+    version: v1
+    topic: st:catalog-events
+    payload: sch:product-published-v1
+    producer: svc:pim
+    consumers:
+      - svc:catalog-api
+      - svc:translation-hub
+      - svc:pricing
+      - svc:search-indexer
+      - svc:product-graph
+      - svc:cache-purger
+    key: sku
+    semantics: At least once. The whole product every time.
+screens:
+  - id: scr:pim-product-editor
+    origin: seeded
+    name: Product editor
+    service: svc:pim-admin
+    kind: page
+    route: /products/{sku}
+    device: desktop
+    summary: Where a category manager creates and enriches a product. The lead-time field is typed by hand.
+    image: assets/pim-product-editor.svg
+    regions:
+      - id: scr:pim-product-editor#attributes
+        name: Attributes
+        shows: Name, weight, dimensions, hazard class, images, with the completeness checklist beside them.
+        reads:
+          - sch:product
+        at:
+          x: 24
+          y: 18
+          w: 50
+          h: 62
+      - id: scr:pim-product-editor#lead-time
+        name: Lead time
+        shows: A free-text field, *3–5 working days*, copied into every locale by translation.
+        reads:
+          - sch:product#lead_time_text
+        at:
+          x: 24
+          y: 82
+          w: 50
+          h: 10
+      - id: scr:pim-product-editor#side
+        name: Status panel
+        shows: Publishable or not, last published, and the missing attributes.
+        reads:
+          - sch:product#publishable
+        at:
+          x: 76
+          y: 18
+          w: 22
+          h: 74
+    sources:
+      - repo: alder-finch/pim
+        path: editor/src/pages/ProductEditor.tsx
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 220]
+subgraphs:
+  - id: sg:product
+    origin: seeded
+    name: Product subgraph
+    graph: graph:storefront
+    service: svc:product-graph
+    summary:
+      'Catalogue entities: `Product` (owner of both keys), `id`, `name`, `leadTimeDays` and the `product`
+      root.'
+    batching: dataloader
+    cache_control_default: 3600
+    timeout_ms: 800
+    observed:
+      latency_ms: 28
+      source: Grafana · gateway → subgraph p50, last 30 days
+    sources:
+      - repo: alder-finch/pim
+        path: subgraph/src/schema.graphql
+        commit: 9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3
+        lines: [1, 70]

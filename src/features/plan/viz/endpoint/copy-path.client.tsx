@@ -17,7 +17,7 @@ export function CopyPath({ text }: { readonly text: string }) {
   };
   return (
     <button className={styles.copy} onClick={copy} title={`Copy ${text}`} type="button">
-      {done ? 'Copied' : 'Copy path'}
+      <span aria-live="polite">{done ? 'Copied ✓' : 'Copy path'}</span>
     </button>
   );
 }

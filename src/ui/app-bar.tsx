@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import styles from './app-bar.module.css';
+import { BarActions } from './bar-actions.client';
 import { Brand } from './brand';
 import { ThemeToggle } from './theme-toggle.client';
 
@@ -17,14 +18,19 @@ interface AppBarProps {
   readonly title?: string;
   /** A quiet note after the title, such as a version. */
   readonly note?: string | undefined;
-  /** Actions before the theme, such as search. */
+  /** Things that belong to the title, such as a switch to another plan. */
+  readonly after?: ReactNode;
+  /** Actions before the theme, such as search. On a narrow window they fold behind a More button. */
   readonly children?: ReactNode;
+  /** Before the brand, such as the button that opens the rail on a phone. */
+  readonly lead?: ReactNode;
 }
 
 // The bar across the top of every page: the brand, the trail to where you are, the page's name, then actions.
-export function AppBar({ trail = [], title, note, children }: AppBarProps) {
+export function AppBar({ trail = [], title, note, after, children, lead }: AppBarProps) {
   return (
     <header className={styles.bar}>
+      {lead}
       <Brand />
       {trail.length === 0 ? null : (
         <nav aria-label="Trail" className={styles.trail}>
@@ -41,10 +47,11 @@ export function AppBar({ trail = [], title, note, children }: AppBarProps) {
         {title}
         {note === undefined ? null : <span className={styles.note}> {note}</span>}
       </p>
-      <div className={styles.actions}>
+      {after}
+      <BarActions>
         {children}
         <ThemeToggle />
-      </div>
+      </BarActions>
     </header>
   );
 }

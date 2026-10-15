@@ -1,5 +1,5 @@
 import type { Model } from '@/application/plan/derive';
-import { teamName } from '@/application/plan-viz-teams';
+import { teamIndex, teamName } from '@/application/plan-viz-teams';
 import { VOTE_MAX, voteSummary, voteTileList, type VoteTile } from '@/application/plan-viz-vote';
 import { ModelText } from '@/features/plan/common/model-text';
 import { TeamDot } from '@/features/plan/common/team-dot';
@@ -45,6 +45,7 @@ function Tile({
       className={styles.tile}
       data-low={tile.low ? '' : undefined}
       data-missing={score === null ? '' : undefined}
+      data-team-slot={teamIndex(model, team)}
     >
       <div className={styles.who}>
         <TeamDot model={model} named teamId={team} />

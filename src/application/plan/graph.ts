@@ -40,6 +40,7 @@ function systemOfScreens(plan: Partial<SystemSource>) {
     graphs: plan.graphs ?? [],
     subgraphs: plan.subgraphs ?? [],
     operations: plan.operations ?? [],
+    handlers: plan.handlers ?? [],
   };
 }
 
@@ -134,6 +135,7 @@ function emptyLists(): Lists {
     graphs: [],
     subgraphs: [],
     operations: [],
+    handlers: [],
   };
 }
 
@@ -158,6 +160,7 @@ function fillPlain(b: Build, system: Partial<SystemSource>): void {
   add(lists.graphs, flat(system.graphs, ['graph', 'graphs'], o));
   add(lists.subgraphs, flat(system.subgraphs, ['subgraph', 'subgraphs'], o));
   add(lists.operations, flat(system.operations, ['operation', 'operations'], o));
+  add(lists.handlers, flat(system.handlers, ['handler', 'handlers'], o));
 }
 
 function fillSchemas(b: Build, system: Partial<SystemSource>): void {

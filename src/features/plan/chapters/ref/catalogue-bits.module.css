@@ -47,6 +47,20 @@
     &[data-faded] {
       opacity: 0.7;
     }
+
+    &[data-team-slot] {
+      position: relative;
+    }
+
+    &[data-team-slot]::before {
+      position: absolute;
+      inset-block: var(--s-3);
+      inset-inline-start: -1px;
+      width: 3px;
+      border-radius: var(--r-1);
+      background: var(--team);
+      content: '';
+    }
   }
 
   .facts {

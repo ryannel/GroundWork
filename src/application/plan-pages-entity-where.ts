@@ -48,6 +48,12 @@ const CATALOGUE: Partial<Readonly<Record<EntityType, string>>> = {
   operation: 'operations',
 };
 
+/** The Reference screen that lists things of the id's kind, or undefined. */
+export function catalogueOf(id: string): string | undefined {
+  const type = typeOf(id);
+  return type === null ? undefined : CATALOGUE[type];
+}
+
 const labelOf = (number: string | null, title: string): string =>
   number === null ? title : `${number} · ${title}`;
 
@@ -62,8 +68,7 @@ export function placesOf(model: Model, outline: Outline, id: string): EntityPlac
         ? []
         : [{ label: labelOf(chapter.number, chapter.title), title: page.title, href: page.href }];
     });
-  const type = typeOf(id);
-  const screen = type === null ? undefined : CATALOGUE[type];
+  const screen = catalogueOf(id);
   const ref = outline.chapters.find((chapter) => chapter.key === 'ref');
   const page = ref?.pages.find((p) => p.screen === screen);
   return ref === undefined || page === undefined

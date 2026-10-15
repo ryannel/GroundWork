@@ -68,5 +68,8 @@ describe('event line', () => {
     if (gone === undefined) return;
     const { container } = render(<EventLine id={gone.id} model={model} />);
     expect(container.textContent).toContain('Removed');
+    expect(
+      container.querySelector<HTMLElement>(`button[data-inspect="${gone.id}"]`)?.dataset.status,
+    ).toBe('removed');
   });
 });

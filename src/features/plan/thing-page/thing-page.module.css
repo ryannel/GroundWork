@@ -1,0 +1,41 @@
+@layer components {
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-12);
+  }
+
+  .back {
+    color: var(--accent-fg);
+  }
+
+  .place {
+    flex: 1;
+    color: var(--fg-3);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+
+    @media (width <= 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .article {
+    display: grid;
+    gap: var(--s-4);
+    min-width: 0;
+  }
+
+  .sheet {
+    display: grid;
+    gap: var(--s-4);
+  }
+}

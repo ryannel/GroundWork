@@ -1,11 +1,16 @@
 // @vitest-environment happy-dom
-import { cleanup, render } from '@testing-library/react';
+import { act, cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ChangesChapter } from '@/features/plan/chapters/changes/changes-chapter';
 import { PLANS, bodiesIn } from '@/features/plan/chapters/chapter-kit';
+import { walkBeside, walkMove } from '@/features/plan/walk-keys';
 
 vi.mock('server-only', () => ({}));
+vi.mock('next/navigation', async (original) => ({
+  ...(await original<object>()),
+  usePathname: () => '/w/plans/p/changes/ledger/',
+}));
 
 const { planData } = await import('@/infrastructure/plan-data');
 
@@ -34,6 +39,21 @@ describe('changes chapter', () => {
     if (ledger === undefined) throw new Error('no ledger');
     const { container } = render(<ChangesChapter {...ledger} />);
     expect(container.textContent).toContain('By component');
+  });
+
+  it('steps between the ledger’s groupings and keeps the one shown in the address', async () => {
+    globalThis.history.replaceState(null, '', '/w/plans/p/changes/ledger/');
+    const bodies = await bodiesOf('storefront-graph');
+    const ledger = bodies.find((b) => b.page.screen === 'ledger');
+    if (ledger === undefined) throw new Error('no ledger');
+    render(<ChangesChapter {...ledger} />);
+    expect(walkBeside(1)).toBe('By team');
+    act(() => {
+      walkMove(1);
+    });
+    expect(new URLSearchParams(globalThis.location.search).get('stop')).toBe('team');
+    expect(screen.getByRole<HTMLInputElement>('radio', { name: 'By team' }).checked).toBe(true);
+    expect(walkBeside(1)).toBeNull();
   });
 
   it('has a graph screen only where the plan changes a graph', async () => {

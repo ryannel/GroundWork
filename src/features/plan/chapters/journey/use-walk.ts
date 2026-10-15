@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { entryOf, positionOf, stopBeside, type Walk } from '@/application/plan-story-journey-walk';
 import type { JourneyMode } from '@/application/plan-viz-journey-words';
 import { setParam } from '@/features/plan/lens.client';
-import { arrivedFrom, holdKeys } from '@/features/plan/walk-keys';
+import { arrivedFrom, holdKeys, walkMoved } from '@/features/plan/walk-keys';
 
 // Where the reader is on a scenario's walk lives in the address, as `?step=` and `?mode=today|plan`, so a place
 // can be shared and survives a reload.
@@ -26,6 +26,12 @@ function placeFromAddress(walk: Walk, href: string): Place {
   const mode: JourneyMode = search.get('mode') === 'plan' ? 'toBe' : 'asIs';
   const named = positionOf(walk, search.get('step') ?? '');
   return { index: named === -1 ? entryOf(walk, mode, arrivedFrom(href)) : named, mode };
+}
+
+/** The title of the stop one step away in the reader's view, or null at the walk's end; the pager offers it. */
+function titleBeside(walk: Walk, at: Place, by: -1 | 1): string | null {
+  const index = stopBeside(walk, at, by);
+  return index === null ? null : (walk.titles[at.mode][index] ?? null);
 }
 
 interface WalkInput {
@@ -55,6 +61,7 @@ export function useWalk({ walk, href, before }: WalkInput) {
     const at = walk.positions[place.index];
     setParam('step', at === undefined ? null : (at.stepId ?? at.flowId));
     setParam('mode', MODE_WORDS[place.mode]);
+    walkMoved();
   }, [walk, place]);
 
   useEffect(
@@ -68,6 +75,8 @@ export function useWalk({ walk, href, before }: WalkInput) {
         toggleMode: () => {
           go({ ...latest.current, mode: latest.current.mode === 'asIs' ? 'toBe' : 'asIs' });
         },
+        beside: (by) => titleBeside(walk, latest.current, by),
+        here: () => walk.titles[latest.current.mode][latest.current.index] ?? null,
       }),
     [walk, go],
   );

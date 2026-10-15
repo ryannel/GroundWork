@@ -1,0 +1,20 @@
+journey:
+  id: uj:revisit-product
+  origin: seeded
+  name: Return to a product from the cart
+  actor: Shopper
+  interactions:
+    - ui:cart-product
+    - ui:add-to-cart
+interactions:
+  - id: ui:cart-product
+    origin: seeded
+    name: Open the product
+    from:
+      - scr:cart#lines
+    to: scr:pdp
+    trigger: click
+    effect: navigate
+    evidence:
+      file: assets/cart.svg
+      note: 'Drawn example: a product name in the cart opens its product page.'

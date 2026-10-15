@@ -1,0 +1,30 @@
+id: flow:track-order
+origin: seeded
+name: Track an order
+actor: Shopper
+trigger: The shopper opens *Where is my order*.
+outcome: The shopper sees the status and, once shipped, the carrier's tracking link.
+steps:
+  - id: flow:track-order#open
+    from: svc:storefront-web
+    to: svc:storefront-bff
+    via: api:bff-order
+    action: Look up the order
+    screen: scr:order-tracking#lookup
+  - id: flow:track-order#oms
+    from: svc:storefront-bff
+    to: svc:oms
+    via: api:oms-get-order
+    action: Read the order
+    reads:
+      - sch:order
+      - sch:order-line
+  - id: flow:track-order#show
+    from: svc:storefront-bff
+    to: svc:storefront-web
+    via: internal
+    action: Show the status
+    screen: scr:order-tracking#status
+    logic: Status and lines. No date until the carrier has the parcel, so most shoppers contact us instead.
+    reads:
+      - sch:order-view

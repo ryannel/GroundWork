@@ -1,0 +1,18 @@
+interactions:
+  - id: ui:header-cart
+    origin: seeded
+    name: Cart
+    from:
+      - scr:pdp
+      - scr:search-results
+      - scr:checkout-delivery
+      - scr:checkout-payment
+      - scr:order-tracking
+    to: scr:cart
+    trigger: click
+    effect: navigate
+    evidence:
+      file: assets/pdp.svg
+      note:
+        'Drawn example: the same Cart link appears in the storefront header on product, search, checkout and
+        tracking screens.'

@@ -7,6 +7,7 @@ import type {
   Field,
   Flow,
   Graph,
+  Handler,
   Interaction,
   Interface,
   Message,
@@ -61,6 +62,7 @@ export type SubgraphNode = Subgraph & NodeMeta<'subgraph'>;
 export type OperationNode = Operation & NodeMeta<'operation'>;
 export type InteractionNode = Interaction & NodeMeta<'interaction'>;
 export type UserJourneyNode = UserJourney & NodeMeta<'userJourney'>;
+export type HandlerNode = Handler & NodeMeta<'handler'>;
 
 export type PlanNode =
   | TeamNode
@@ -80,7 +82,8 @@ export type PlanNode =
   | SubgraphNode
   | OperationNode
   | InteractionNode
-  | UserJourneyNode;
+  | UserJourneyNode
+  | HandlerNode;
 
 export interface SystemGraph {
   readonly byId: Map<string, PlanNode>;
@@ -103,6 +106,7 @@ export interface SystemGraph {
   readonly graphs: GraphNode[];
   readonly subgraphs: SubgraphNode[];
   readonly operations: OperationNode[];
+  readonly handlers: HandlerNode[];
   get: (id: string | null | undefined) => PlanNode | undefined;
   has: (id: string) => boolean;
 }
@@ -123,6 +127,7 @@ export interface SystemSource {
   graphs: Graph[];
   subgraphs: Subgraph[];
   operations: Operation[];
+  handlers: Handler[];
 }
 
 export type OpKind = 'add' | 'modify' | 'deprecate' | 'remove';
