@@ -1,0 +1,118 @@
+@layer components {
+  .empty {
+    margin: 0;
+    color: var(--fg-3);
+  }
+
+  .team {
+    display: grid;
+    gap: var(--s-2);
+    margin-block-end: var(--s-4);
+  }
+
+  .team[data-dim] {
+    opacity: 0.6;
+  }
+
+  .teamHead {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .teamName {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .count {
+    flex: 1;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .item {
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+  }
+
+  .summary {
+    display: flex;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-2) var(--s-3);
+    cursor: pointer;
+  }
+
+  .order {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .main {
+    display: grid;
+    flex: 1;
+    gap: var(--s-1);
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .meta {
+    display: flex;
+    gap: var(--s-3);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .preview {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3);
+    border-block-start: 1px solid var(--line-1);
+  }
+
+  .head {
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+
+  .repo {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .body {
+    margin: 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    white-space: pre-wrap;
+  }
+
+  .show {
+    justify-self: start;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--accent-fg);
+    font: inherit;
+    cursor: pointer;
+  }
+}

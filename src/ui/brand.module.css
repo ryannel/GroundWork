@@ -1,0 +1,41 @@
+@layer components {
+  .brand {
+    display: flex;
+    flex: none;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-1);
+    font-family: var(--font-display);
+    font-size: var(--fs-16);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .mark {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    border-radius: var(--r-2);
+    background: var(--accent);
+    color: var(--on-accent);
+    place-items: center;
+
+    & svg {
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.5;
+    }
+  }
+
+  .brand:hover .mark {
+    background: var(--accent-hover);
+  }
+
+  @media (width <= 600px) {
+    .wordmark {
+      display: none;
+    }
+  }
+}

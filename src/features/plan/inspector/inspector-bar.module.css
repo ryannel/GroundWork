@@ -1,0 +1,53 @@
+@layer components {
+  .bar {
+    display: flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .crumbs {
+    display: flex;
+    flex: 1;
+    gap: var(--s-1);
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+  }
+
+  .crumb {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    min-width: 0;
+  }
+
+  .step {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-2);
+    font: inherit;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--accent-fg);
+      text-decoration: underline;
+    }
+  }
+
+  .sep {
+    color: var(--fg-3);
+  }
+
+  .current {
+    overflow: hidden;
+    color: var(--fg-1);
+    text-overflow: ellipsis;
+  }
+}

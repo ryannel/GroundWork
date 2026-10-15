@@ -1,0 +1,114 @@
+@layer components {
+  .catalogue {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+  }
+
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+  }
+
+  .choice {
+    position: relative;
+    display: inline-flex;
+
+    & label {
+      padding: var(--s-1) var(--s-3);
+      border-radius: var(--r-2);
+      color: var(--fg-2);
+      font-size: var(--fs-13);
+    }
+  }
+
+  .radio {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked + label {
+      background: var(--accent-soft);
+      color: var(--accent-fg);
+      font-weight: 600;
+    }
+
+    &:focus-visible + label {
+      outline: 2px solid var(--accent-fg);
+    }
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .search {
+    display: inline-flex;
+
+    & input {
+      min-width: 16rem;
+      padding: var(--s-1) var(--s-3);
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-2);
+      background: var(--bg-1);
+      color: var(--fg-1);
+      font: inherit;
+      font-size: var(--fs-13);
+    }
+  }
+
+  .hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .lens {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-13);
+    color: var(--fg-2);
+  }
+
+  .everyone {
+    padding: var(--s-1) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: transparent;
+    color: var(--accent-fg);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .body {
+    display: grid;
+    gap: var(--s-5);
+
+    & [hidden] {
+      display: none;
+    }
+  }
+
+  .none {
+    margin: 0;
+    padding: var(--s-5);
+    border: 1px dashed var(--line-2);
+    border-radius: var(--r-3);
+    color: var(--fg-3);
+    text-align: center;
+  }
+}

@@ -1,0 +1,50 @@
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    min-width: 0;
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: baseline;
+    margin: 0;
+    font-size: var(--fs-16);
+  }
+
+  .num {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .mark {
+    color: var(--st-mod-fg);
+    cursor: help;
+  }
+
+  .changes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .label {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .sentence {
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+  }
+}

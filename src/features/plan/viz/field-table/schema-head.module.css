@@ -1,0 +1,59 @@
+@layer components {
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--s-2);
+  }
+
+  .title,
+  .sum,
+  .where {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .where {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .schema {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .sum {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .faint {
+    color: var(--fg-3);
+  }
+
+  .counts [data-count='add'] {
+    color: var(--st-add-fg);
+  }
+
+  .counts [data-count='mod'] {
+    color: var(--st-mod-fg);
+  }
+
+  .counts [data-count='dep'] {
+    color: var(--st-dep-fg);
+  }
+
+  .counts [data-count='rem'] {
+    color: var(--st-rem-fg);
+  }
+}

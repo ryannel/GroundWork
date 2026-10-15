@@ -1,0 +1,51 @@
+@layer components {
+  .absence {
+    margin: var(--s-5);
+    padding: var(--s-5);
+    border: 1px dashed var(--line-3);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+  }
+
+  .absence h3 {
+    margin: 0 0 var(--s-2);
+    font-size: var(--fs-16);
+  }
+
+  .absence p {
+    margin: 0 0 var(--s-2);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .muted {
+    color: var(--fg-3);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+  }
+
+  .actions button {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-13);
+    cursor: pointer;
+  }
+
+  .actions button:hover {
+    background: var(--bg-2);
+  }
+
+  .actions button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

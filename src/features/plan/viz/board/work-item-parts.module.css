@@ -1,0 +1,44 @@
+@layer components {
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-12);
+    color: var(--fg-2);
+  }
+
+  .state[data-state='done'] {
+    color: var(--fg-3);
+  }
+
+  .issue {
+    color: var(--accent-fg);
+    font-family: var(--font-mono);
+  }
+
+  .size {
+    padding: 0 var(--s-1);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    font-family: var(--font-mono);
+  }
+
+  .ms {
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .critical {
+    padding: 0 var(--s-2);
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-pill);
+    background: var(--accent-soft);
+    color: var(--accent-fg);
+  }
+}

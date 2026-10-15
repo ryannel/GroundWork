@@ -1,0 +1,10 @@
+@layer components {
+  /* drawn at its own size: the pane around it scrolls when it is wider than the page */
+  .svg {
+    display: block;
+    max-width: none;
+    margin: 0 auto;
+    overflow: visible;
+    font-family: var(--font-body);
+  }
+}

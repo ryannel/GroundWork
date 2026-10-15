@@ -1,0 +1,91 @@
+@layer components {
+  .outline {
+    padding: var(--s-3) var(--s-5);
+    border-bottom: 1px solid var(--line-1);
+    font-size: var(--fs-13);
+  }
+
+  .outline > summary {
+    color: var(--fg-2);
+    cursor: pointer;
+  }
+
+  .count {
+    margin-left: var(--s-2);
+    color: var(--fg-3);
+  }
+
+  .hint {
+    margin: var(--s-2) 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2);
+    width: 100%;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid transparent;
+    border-radius: var(--r-2);
+    background: transparent;
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .step:hover {
+    background: var(--bg-2);
+  }
+
+  .step:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  [data-current] > .step {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+  }
+
+  .number {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .gap {
+    display: grid;
+    gap: var(--s-1);
+    margin: var(--s-1) 0 var(--s-2) var(--s-3);
+    padding: var(--s-2) var(--s-3);
+    border-left: 2px dashed var(--line-3);
+    background: var(--bg-0);
+  }
+
+  .gap > span {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .gap button {
+    padding: var(--s-1) 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent-fg);
+    font: inherit;
+    font-size: var(--fs-12);
+    text-align: left;
+    cursor: pointer;
+  }
+}

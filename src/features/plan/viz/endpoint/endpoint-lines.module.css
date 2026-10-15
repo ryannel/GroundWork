@@ -1,0 +1,44 @@
+@layer components {
+  .lines {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: var(--s-16) minmax(0, 1fr);
+    gap: var(--s-3);
+
+    dt {
+      color: var(--fg-3);
+      font-size: var(--fs-12);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  .shape {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .by {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+}

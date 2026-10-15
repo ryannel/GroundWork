@@ -1,0 +1,610 @@
+# A small worked example: one team, one field, two screens. Same fictional retailer as plans/delivery-promise
+# (Alder & Finch); repos overlap on purpose so the Library can show "shares repos with".
+
+meta:
+  id: invoice-vat-number
+  title: "Let business customers add a VAT number and print it on the invoice"
+  version: "1.1"
+  date: "2026-09-29"
+  start: "2026-09-28"
+  status: approved
+  authors: ["Billing"]
+  appetite: "2 weeks · 1 milestone"
+  repos: [alder-finch/storefront, alder-finch/checkout, alder-finch/orders, alder-finch/billing]
+  revisions:
+    - version: "1.0"
+      status: approved
+      date: "2026-09-25"
+      approved_on: "2026-09-25"
+      approved_by: "@dana-whitfield"
+    - version: "1.1"
+      status: proposed
+      date: "2026-09-29"
+      summary: Print the VAT number on the packing slip as well as the invoice
+      by: ["team:orders"]
+      pr: 52
+
+problem:
+  summary: >-
+    Business customers (clubs, schools, outdoor guides) cannot give us a VAT number at checkout. Billing adds it
+    by hand after an email, re-issues the invoice PDF, and the first invoice stays wrong in the customer's inbox.
+  why: >-
+    **410 invoices were re-issued last quarter** for a missing VAT number, each one a Billing ticket and an
+    email thread. Dutch and German business buyers cannot reclaim VAT without it on the original invoice, and
+    three schools told us they buy elsewhere for that reason.
+  goals:
+    - "A business customer types a VAT number once at checkout and it is on the first invoice."
+    - "Billing stops re-issuing invoices for this reason."
+  non_goals:
+    - "Validating the VAT number against the EU VIES register in real time ([[dec:format-check-only]])."
+    - "Reverse-charge VAT for cross-border business sales. The amount of VAT does not change."
+    - "Business accounts, net terms or purchase orders."
+  metrics:
+    - { name: "Invoices re-issued for a missing VAT number", today: "410 / quarter", target: "under 20 / quarter" }
+    - { name: "Orders with a VAT number", today: "0% (added by hand after)", target: "3% of orders in DE and NL" }
+  scenarios:
+    - id: sc:school-order
+      title: "A school in Utrecht orders 30 sleeping bags"
+      story: >-
+        The teacher ticks **Buying for a business?** on the address step, types *NL123456789B01*, and the
+        confirmation email's invoice shows it under the billing address. No email to Billing.
+      flows: [flow:checkout-address, flow:issue-invoice]
+  glossary:
+    - { term: "VAT number", means: "The tax identifier a business shows on invoices to reclaim VAT: *DE123456789*, *NL123456789B01*, *FR12345678901*, *SE123456789001*." }
+    - { term: "Invoice", means: "The PDF attached to the confirmation email; the legal record of the sale." }
+    - { term: "VIES", means: "The EU's VAT number lookup service. Slow and often down; we do not call it ([[dec:format-check-only]])." }
+
+domain:
+  summary: "An **order** gets a **billing identity**: the person or business the invoice names. The VAT number is part of it."
+  concepts:
+    - id: con:billing-identity
+      name: Billing identity
+      terms: [billing identity, invoice address, bill-to]
+      means: "Who the invoice is made out to: name, address and, for a business, the VAT number."
+      born_in: svc:checkout
+      aka:
+        - { in: svc:checkout, as: billing, at: "sch:checkout-session#billing" }
+        - { in: svc:order-capture, as: billing, at: "sch:order#billing" }
+        - { in: svc:billing, as: Invoice.bill_to, at: "sch:invoice#bill_to" }
+      introduced_by: [chg:checkout-vat-field]
+  stages:
+    - { id: stage:buy, name: Buy, summary: "Address and payment.", services: [{ svc: svc:storefront-web }, { svc: svc:storefront-bff, from: [svc:storefront-web] }, { svc: svc:checkout, from: [svc:storefront-bff] }], flows: [flow:checkout-address] }
+    - { id: stage:capture, name: Capture, summary: "The order exists.", services: [{ svc: svc:order-capture, from: [svc:checkout] }], flows: [flow:checkout-address] }
+    - { id: stage:bill, name: Bill, summary: "The invoice is made and sent.", services: [{ svc: svc:billing, from: [svc:order-capture] }, { svc: svc:notifier, from: [svc:billing] }], flows: [flow:issue-invoice] }
+
+teams:
+  - { id: team:billing, name: "Billing", channel: "#team-billing", colour: 7 }
+  - { id: team:checkout, name: "Checkout", channel: "#team-checkout", colour: 1 }
+  - { id: team:storefront, name: "Storefront", channel: "#team-storefront", colour: 2 }
+  - { id: team:orders, name: "Orders", channel: "#team-orders", colour: 3 }
+  - { id: team:notifications, name: "Notifications", channel: "#team-notifications", colour: 10 }
+
+services:
+  - id: svc:storefront-web
+    name: Storefront
+    team: team:storefront
+    kind: ui
+    tech: "Next.js"
+    does: "The shop: product pages, cart, checkout"
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/app/%5Blocale%5D/checkout/address/page.tsx#L1-L140" }]
+  - id: svc:storefront-bff
+    name: Storefront BFF
+    team: team:storefront
+    kind: service
+    tech: "Node · GraphQL"
+    does: "Shapes checkout data for the pages"
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/bff/src/checkout.resolvers.ts#L1-L80" }]
+  - id: svc:checkout
+    name: Checkout
+    team: team:checkout
+    kind: service
+    tech: "Go"
+    does: "Turns a cart into a paid order"
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/checkout/steps/address.go#L1-L96" }]
+  - id: svc:order-capture
+    name: Order capture
+    team: team:orders
+    kind: service
+    tech: "Kotlin · Spring Boot"
+    does: "Records the order and announces it"
+    sources: [{ url: "https://github.com/alder-finch/orders/blob/2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a/capture/src/main/kotlin/orders/CaptureController.kt#L24-L118" }]
+  - id: svc:billing
+    name: Billing
+    team: team:billing
+    kind: service
+    tech: "Python · FastAPI · WeasyPrint"
+    does: "Makes the invoice PDF for every order"
+    summary: "Consumes `order.placed`, renders the invoice from a template, stores it and asks the notifier to attach it."
+    sources: [{ url: "https://github.com/alder-finch/billing/blob/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0/app/invoice.py#L1-L120" }]
+  - id: svc:notifier
+    name: Notifier
+    team: team:notifications
+    kind: service
+    tech: "Python · FastAPI"
+    does: "Sends order emails"
+    sources: [{ url: "https://github.com/alder-finch/notifier/blob/3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b/app/templates/__init__.py#L1-L40" }]
+
+stores:
+  - { id: st:cart-cache, name: cart-cache, kind: cache, tech: "Redis", owner: svc:checkout, does: "Checkout sessions" }
+  - { id: st:orders-db, name: orders-db, kind: database, tech: "Postgres 16", owner: svc:order-capture, does: "Orders and their lines" }
+  - { id: st:order-events, name: orders.events, kind: topic, tech: "Kafka", owner: svc:order-capture, does: "order.placed" }
+  - { id: st:billing-db, name: billing-db, kind: database, tech: "Postgres 15", owner: svc:billing, does: "Invoices and their PDFs" }
+
+schemas:
+  - id: sch:checkout-session
+    name: CheckoutSession
+    kind: record
+    store: st:cart-cache
+    fields:
+      - { name: id, type: uuid, required: true }
+      - { name: address, type: Address, required: true, note: "Delivery address. Also used as the billing address today." }
+      - { name: total_cents, type: int, required: true }
+  - id: sch:order
+    name: Order
+    kind: record
+    store: st:orders-db
+    fields:
+      - { name: id, type: uuid, required: true }
+      - { name: number, type: string, required: true }
+      - { name: address, type: Address, required: true }
+      - { name: total_cents, type: int, required: true }
+  - id: sch:order-placed-v1
+    name: order.placed v1
+    kind: payload
+    fields:
+      - { name: order_id, type: uuid, required: true }
+      - { name: number, type: string, required: true }
+      - { name: address, type: Address, required: true }
+      - { name: total_cents, type: int, required: true }
+  - id: sch:invoice
+    name: Invoice
+    kind: record
+    store: st:billing-db
+    fields:
+      - { name: id, type: uuid, required: true }
+      - { name: order_id, type: uuid, required: true }
+      - { name: number, type: string, required: true, note: "Sequential per country, by law." }
+      - { name: bill_to, type: Address, required: true, note: "Copied from the delivery address." }
+      - { name: pdf_key, type: string, required: true }
+      - { name: reissued_from, type: uuid, note: "Set when Billing re-issues by hand." }
+
+interfaces:
+  - id: if:bff-graphql
+    service: svc:storefront-bff
+    protocol: graphql
+    endpoints:
+      - { id: api:bff-checkout-step, sig: "mutation checkoutStep(sessionId, input)", response: sch:checkout-session, auth: "shopper session", idempotent: true }
+  - id: if:checkout-rest
+    service: svc:checkout
+    protocol: rest
+    endpoints:
+      - { id: api:checkout-step, sig: "POST /sessions/{id}/steps/address", request: sch:checkout-session, response: sch:checkout-session, auth: "service token", idempotent: true }
+  - id: if:orders-rest
+    service: svc:order-capture
+    protocol: rest
+    endpoints:
+      - { id: api:orders-create, sig: "POST /orders", request: sch:checkout-session, response: sch:order, auth: "service token", idempotent: true }
+  - id: if:notifier-rest
+    service: svc:notifier
+    protocol: rest
+    endpoints:
+      - { id: api:notifier-send, sig: "POST /notifications", auth: "service token", idempotent: true }
+
+messages:
+  - id: msg:order-placed
+    name: order.placed
+    version: v1
+    topic: st:order-events
+    payload: sch:order-placed-v1
+    producer: svc:order-capture
+    consumers: [svc:billing]
+    semantics: "At least once from an outbox, keyed by order id."
+
+flows:
+  - id: flow:checkout-address
+    name: Give the address and place the order
+    actor: Shopper
+    trigger: "The shopper reaches the address step."
+    outcome: "The order exists with a billing address."
+    steps:
+      - id: flow:checkout-address#form
+        from: svc:storefront-web
+        to: svc:storefront-bff
+        via: api:bff-checkout-step
+        action: Submit the address
+        screen: scr:checkout-address#address
+      - id: flow:checkout-address#store
+        from: svc:storefront-bff
+        to: svc:checkout
+        via: api:checkout-step
+        action: Store the address
+        writes: [sch:checkout-session]
+      - id: flow:checkout-address#create
+        from: svc:checkout
+        to: svc:order-capture
+        via: api:orders-create
+        action: Create the order
+        logic: "After payment. The delivery address becomes the billing address; there is nowhere else to put one."
+        writes: [sch:order]
+      - id: flow:checkout-address#publish
+        from: svc:order-capture
+        to: st:order-events
+        via: msg:order-placed
+        action: Announce the order
+        reads: [sch:order]
+  - id: flow:issue-invoice
+    name: Issue the invoice
+    actor: System
+    trigger: "`order.placed` arrives at Billing."
+    outcome: "The invoice PDF is stored and attached to the confirmation email."
+    steps:
+      - id: flow:issue-invoice#consume
+        from: st:order-events
+        to: svc:billing
+        via: msg:order-placed
+        action: Take the order
+        reads: [sch:order-placed-v1]
+      - id: flow:issue-invoice#render
+        from: svc:billing
+        to: svc:billing
+        via: internal
+        action: Render the PDF
+        screen: scr:invoice-pdf
+        logic: "From the invoice template for the country. `bill_to` is the delivery address."
+        writes: [sch:invoice]
+      - id: flow:issue-invoice#send
+        from: svc:billing
+        to: svc:notifier
+        via: api:notifier-send
+        action: Attach to the confirmation email
+      - id: flow:issue-invoice#reissue
+        from: svc:billing
+        to: svc:billing
+        via: internal
+        action: Re-issue by hand when a customer emails a VAT number
+        logic: "A Billing agent runs a script that copies the invoice, adds the VAT number to the address block and sends a new email. 410 times a quarter."
+        writes: [sch:invoice]
+
+screens:
+  - id: scr:checkout-address
+    name: Checkout · address
+    service: svc:storefront-web
+    kind: page
+    route: /{locale}/checkout/address
+    device: desktop
+    summary: "The delivery address form. No place for a company or a VAT number."
+    image: assets/checkout-address.svg
+    regions:
+      - id: scr:checkout-address#address
+        name: Address form
+        shows: "Name, street, postcode, city, country and the **Continue** button."
+        reads: ["sch:checkout-session#address"]
+        at: { x: 2, y: 14, w: 62, h: 60 }
+      - id: scr:checkout-address#summary
+        name: Order summary
+        shows: "Lines and total."
+        reads: ["sch:checkout-session#total_cents"]
+        at: { x: 66, y: 14, w: 32, h: 40 }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/app/%5Blocale%5D/checkout/address/page.tsx#L1-L140" }]
+  - id: scr:invoice-pdf
+    name: Invoice PDF
+    service: svc:billing
+    kind: print
+    device: any
+    summary: "The invoice attached to the confirmation email. Bill-to is the delivery address."
+    image: assets/invoice-pdf.svg
+    regions:
+      - id: scr:invoice-pdf#bill-to
+        name: Bill to
+        shows: "Name and delivery address. No company, no VAT number."
+        reads: ["sch:invoice#bill_to"]
+        at: { x: 8, y: 16, w: 44, h: 16 }
+      - id: scr:invoice-pdf#lines
+        name: Lines and totals
+        shows: "Items, net, VAT per rate, total."
+        at: { x: 8, y: 36, w: 84, h: 50 }
+    sources: [{ url: "https://github.com/alder-finch/billing/blob/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0/app/templates/invoice_de.html#L1-L90" }]
+
+changes:
+  - id: chg:checkout-vat-field
+    title: "Checkout asks *Buying for a business?* and takes a company name and VAT number"
+    why: "The VAT number has to be asked for where the address is ([[sc:school-order]]). A format check is enough ([[dec:format-check-only]])."
+    decisions: [dec:format-check-only]
+    rollout: "Behind the `vat_number` flag in all four countries at once. The field is optional, so consumer orders are unaffected."
+    ops:
+      - add: schema
+        value:
+          id: sch:billing-identity
+          name: BillingIdentity
+          kind: dto
+          summary: "Who the invoice names."
+          fields:
+            - { name: company, type: string }
+            - { name: vat_number, type: string, note: "Format-checked per country prefix; stored upper-case without spaces." }
+            - { name: address, type: Address, required: true }
+      - add: field
+        into: sch:checkout-session
+        value: { name: billing, type: BillingIdentity, note: "Defaults to the delivery address with no company." }
+      - add: field
+        into: sch:order
+        value: { name: billing, type: BillingIdentity, required: true }
+      - add: field
+        into: sch:order-placed-v1
+        value: { name: billing, type: BillingIdentity, note: "Optional, so Billing can deploy after Orders." }
+      - modify: "flow:checkout-address#store"
+        set:
+          logic: "Stores the address and, if the box is ticked, the company and VAT number. Rejects a VAT number whose format does not match the country."
+      - modify: "flow:checkout-address#create"
+        set:
+          logic: "After payment. Copies `billing` onto the order; without it, the delivery address with no company."
+      - modify: scr:checkout-address
+        set:
+          summary: "The delivery address form, with a business toggle that reveals company and VAT number."
+          image: assets/checkout-address-tobe.svg
+          figma: "https://www.figma.com/design/AF2storefront/Storefront?node-id=120-18"
+          mockup: mockups/walking.html
+      - add: region
+        into: scr:checkout-address
+        value:
+          id: scr:checkout-address#business
+          name: Business fields
+          shows: "**Buying for a business?** toggle; when on, *Company* and *VAT number* with inline format help (*NL123456789B01*)."
+          reads: ["sch:checkout-session#billing"]
+          at: { x: 2, y: 56, w: 62, h: 18 }
+      - modify: "scr:checkout-address#address"
+        set:
+          at: { x: 2, y: 14, w: 62, h: 40 }
+          shows: "Name, street, postcode, city, country. The **Continue** button moves below the business fields."
+  - id: chg:invoice-prints-vat
+    title: "The first invoice shows the company and VAT number, so the re-issue script can go"
+    why: "With the number on the order, the first invoice is right, and nobody needs the script that patches invoices by hand."
+    rollout: "A template change in all four countries. The script is deleted two weeks after launch, once the re-issue tickets stop."
+    ops:
+      - modify: "sch:invoice#bill_to"
+        set:
+          type: BillingIdentity
+          note: "Copied from `order.placed`. Company and VAT number when present."
+      - modify: "flow:issue-invoice#render"
+        set:
+          logic: "From the template per country. Company above the name, *VAT no.* under the address when present."
+      - modify: "scr:invoice-pdf"
+        set:
+          summary: "The invoice attached to the confirmation email. Bill-to names the business when there is one."
+          image: assets/invoice-pdf-tobe.svg
+      - modify: "scr:invoice-pdf#bill-to"
+        set:
+          shows: "Company, name, address and *VAT no. NL123456789B01* when the order has one."
+      - deprecate: "flow:issue-invoice#reissue"
+      - deprecate: "sch:invoice#reissued_from"
+
+  - id: chg:packing-slip-vat
+    title: "The packing slip shows the company and VAT number too"
+    why: "Some schools reconcile deliveries against the packing slip, not the invoice, and asked to see the VAT number there."
+    rollout: "Packing-slip template change in all four countries, behind the same flag as the invoice."
+    decisions: [dec:slip-reads-billing]
+    ops:
+      - modify: "svc:order-capture"
+        set:
+          summary: "Records the order, announces it, and prints the packing slip; the slip names the business and its VAT number when the order has one."
+      - add: interface
+        value:
+          id: if:billing-rest
+          service: svc:billing
+          protocol: rest
+          endpoints:
+            - { id: api:billing-bill-to, sig: "GET /invoices/{order_id}/bill-to", response: sch:invoice, auth: "service token", idempotent: true }
+      - add: flow
+        value:
+          id: flow:print-slip
+          name: Print the packing slip
+          actor: Warehouse
+          trigger: "The warehouse prints the day's slips in a batch."
+          outcome: "Each slip names the business and its VAT number when the order has one."
+          steps:
+            - id: flow:print-slip#load
+              from: svc:order-capture
+              to: st:orders-db
+              via: internal
+              action: Load the batch of orders
+              reads: [sch:order]
+            - id: flow:print-slip#bill-to
+              from: svc:order-capture
+              to: svc:billing
+              via: api:billing-bill-to
+              action: Ask Billing for the bill-to block
+              logic: "One call per slip, so the slip matches the invoice after any correction Billing makes."
+              reads: [sch:invoice]
+            - id: flow:print-slip#print
+              from: svc:order-capture
+              to: svc:order-capture
+              via: internal
+              action: Print the slip
+              logic: "Company on line 1 and *VAT no.* under the ship-to address when present."
+
+tests:
+  - id: tst:vat-format
+    level: unit
+    name: "A VAT number is format-checked per country"
+    given: "Country NL"
+    when: "*NL123456789B01*, *nl 1234 5678 9 b01* and *DE123456789* are submitted"
+    then: "The first two are accepted and stored as NL123456789B01; the third is rejected with `vat_number_format`"
+    proves: [chg:checkout-vat-field]
+    walks: ["flow:checkout-address#store"]
+    owner: team:checkout
+    env: ci
+  - id: tst:order-carries-billing
+    level: contract
+    name: "order.placed carries the billing identity and Billing renders it"
+    given: "An order with company *Montessori Utrecht* and VAT NL123456789B01"
+    when: "Billing consumes `order.placed`"
+    then: "The PDF's bill-to block has the company on line 1 and *VAT no. NL123456789B01* under the address"
+    proves: [chg:checkout-vat-field, chg:invoice-prints-vat]
+    walks: ["flow:checkout-address#create", "flow:checkout-address#publish", "flow:issue-invoice#consume", "flow:issue-invoice#render"]
+    owner: team:billing
+    env: ci
+  - id: tst:slip-shows-vat
+    level: contract
+    name: "The packing slip prints the company and VAT number"
+    given: "An order with company *Montessori Utrecht* and VAT NL123456789B01"
+    when: "Order capture prints the packing slip"
+    then: "The slip's ship-to block has the company on line 1 and *VAT no. NL123456789B01* under it"
+    proves: [chg:packing-slip-vat]
+    walks: ["flow:print-slip#print"]
+    owner: team:orders
+    env: ci
+  - id: tst:consumer-unchanged
+    level: integration
+    name: "A consumer order is unchanged"
+    given: "The business toggle off"
+    when: "The order is placed and invoiced"
+    then: "`billing.company` is empty and the PDF is byte-identical to today's for the same order"
+    proves: [chg:checkout-vat-field, chg:invoice-prints-vat]
+    walks: ["flow:checkout-address#store", "flow:issue-invoice#render"]
+    owner: team:billing
+    env: ci
+  - id: tst:school-e2e
+    level: e2e
+    name: "The Utrecht school's first invoice is right"
+    given: "Staging, NL, business toggle on"
+    when: "The order is placed"
+    then: "The confirmation email's PDF names the school and its VAT number; no Billing ticket"
+    proves: [chg:checkout-vat-field, chg:invoice-prints-vat]
+    walks: ["flow:checkout-address#form", "flow:checkout-address#store", "flow:checkout-address#create", "flow:issue-invoice#render", "flow:issue-invoice#send"]
+    owner: team:billing
+    env: staging
+
+milestones:
+  - id: ms:live
+    name: "M1 · Live in all four countries"
+    exit: "[[tst:school-e2e]] passes in staging; the flag is on; re-issue tickets are watched for two weeks."
+    due: "2026-10-16"
+
+execution:
+  summary: "One field travels from the address form to the PDF. Nothing else changes."
+  paths:
+    - name: Business customer
+      summary: "Ticks the box, types the number."
+      steps:
+        - { label: Collect, detail: "Format check per country ([[flow:checkout-address#store]])." }
+        - { label: Carry, detail: "Onto the order and into `order.placed` ([[flow:checkout-address#create]])." }
+        - { label: Print, detail: "Company and VAT number on the first PDF ([[flow:issue-invoice#render]])." }
+    - name: Consumer
+      summary: "Box off. Nothing changes."
+      steps:
+        - { label: Collect, detail: "`billing` defaults to the delivery address." }
+        - { label: Print, detail: "Same PDF as today ([[tst:consumer-unchanged]])." }
+  caveats:
+    - "A wrong-but-well-formed VAT number still gets printed; VIES is out of scope ([[dec:format-check-only]])."
+
+work_items:
+  - id: wi:checkout-vat
+    title: "Checkout: billing identity on the session and the order request; format check"
+    team: team:checkout
+    size: S
+    milestone: ms:live
+    implements: [chg:checkout-vat-field]
+    verified_by: [tst:vat-format]
+    depends_on: []
+    repo: alder-finch/checkout
+    issue_type: feature
+  - id: wi:storefront-vat
+    title: "Storefront: business toggle, company and VAT fields on the address step"
+    team: team:storefront
+    size: S
+    milestone: ms:live
+    implements: [chg:checkout-vat-field]
+    verified_by: [tst:school-e2e]
+    depends_on: [wi:checkout-vat]
+    repo: alder-finch/storefront
+    issue_type: story
+    body: "Build from the Figma on [[scr:checkout-address]]."
+  - id: wi:orders-billing
+    title: "Orders: billing column and order.placed field"
+    team: team:orders
+    size: S
+    milestone: ms:live
+    implements: [chg:checkout-vat-field]
+    verified_by: [tst:order-carries-billing]
+    depends_on: []
+    repo: alder-finch/orders
+    issue_type: feature
+  - id: wi:billing-template
+    title: "Billing: bill-to from order.placed; template change; delete the re-issue script"
+    team: team:billing
+    size: S
+    milestone: ms:live
+    implements: [chg:invoice-prints-vat]
+    verified_by: [tst:order-carries-billing, tst:consumer-unchanged]
+    depends_on: [wi:orders-billing]
+    repo: alder-finch/billing
+    issue_type: feature
+  - id: wi:packing-slip-vat
+    title: "Orders: company and VAT number on the packing slip"
+    team: team:orders
+    size: S
+    milestone: ms:live
+    implements: [chg:packing-slip-vat]
+    verified_by: [tst:slip-shows-vat]
+    depends_on: [wi:orders-billing]
+    repo: alder-finch/orders
+    issue_type: feature
+
+decisions:
+  - id: dec:format-check-only
+    title: "Check the VAT number's format, not its existence"
+    status: accepted
+    decider: team:billing
+    decided_on: "2026-09-26"
+    reversibility: two-way
+    context: "VIES is down several hours a month and takes 2–8 seconds. The legal duty to verify falls on reverse-charge sales, which we do not make."
+    decision: "A regex per country at checkout. No VIES call."
+    consequences: "A typo gets printed and Billing re-issues as today, but rarely."
+    options:
+      - { name: "Call VIES at checkout", why_not: "A 2–8 second step with a 3% failure rate on the path that makes money." }
+      - { name: "Check VIES asynchronously and warn", why_not: "Extra UI for a problem we have not seen yet." }
+  - id: dec:slip-reads-billing
+    title: "The packing slip asks Billing for the VAT number at print time"
+    status: accepted
+    decider: team:orders
+    decided_on: "2026-09-29"
+    reversibility: two-way
+    context: "The warehouse prints slips in batches hours after the order. Orders wanted the slip to match the invoice exactly, including any correction Billing makes after the order is placed."
+    decision: "Order capture calls Billing's invoice API for the bill-to block when it prints each slip, instead of reading the copy on the order."
+    consequences: "Every slip print depends on Billing being up; a Billing outage stops the warehouse printing."
+    options:
+      - { name: "Print from the billing identity already on the order", why_not: "Misses corrections Billing makes after the order is placed." }
+      - { name: "Leave the VAT number off the slip", why_not: "Three schools asked for it on the slip." }
+
+risks:
+  - id: risk:template-regression
+    statement: "The template change shifts the layout for consumers in one country."
+    likelihood: low
+    impact: med
+    roam: mitigated
+    owner: team:billing
+    mitigation: "[[tst:consumer-unchanged]] compares PDFs byte for byte in all four countries."
+    about: [chg:invoice-prints-vat]
+
+questions:
+  - id: q:vat-on-tracking
+    question: "Should the tracking page and the order history show the VAT number too?"
+    decider: team:storefront
+    status: open
+    answer: "Not for v1; Billing's tickets are about the invoice."
+
+commitment:
+  - { team: team:billing, confidence: 5, note: "A template and a deletion." }
+  - { team: team:checkout, confidence: 5, note: "One struct and a regex." }
+  - { team: team:storefront, confidence: 4, note: "Four locales of copy and a Figma to follow." }
+  - { team: team:orders, confidence: 5, note: "A JSON column and one new key." }
+
+story:
+  chapters:
+    why: { headline: "410 invoices a quarter are re-issued for one missing line.", recap: ["Business buyers need their VAT number on the first invoice.", "One optional field at checkout fixes it."] }
+    today: { headline: "The delivery address is the billing address, because there is nowhere else.", recap: ["Billing patches invoices by hand with a script.", "Four teams touch the path from form to PDF."] }
+    runs: { headline: "The invoice is made from the delivery address, so a person patches it afterwards.", recap: ["The address goes onto the order, the order goes out as order.placed, and Billing renders the PDF from it.", "The re-issue step is a human running a script."] }
+    new: { headline: "The order gets a billing identity: company, VAT number and address.", recap: ["It rides inside order.placed as an optional field."] }
+    changes: { headline: "A VAT number reaches the invoice: two changes, four teams, one script deprecated.", recap: ["Checkout collects; Billing prints; the re-issue script is deprecated."] }
+    prove: { headline: "A format test, a contract test, and a byte-for-byte check that consumers see no change.", recap: ["One staging run plays the Utrecht school's order end to end."] }
+    build: { headline: "Everything ships at once: two weeks, one milestone, all four countries.", recap: ["Checkout and Orders first; Storefront and Billing after."] }
+    commit: { headline: "The one decision: check the format, never call VIES.", recap: ["Everyone is at 4 or 5."] }

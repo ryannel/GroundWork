@@ -1,0 +1,25 @@
+id: allotment-log
+name: Allotment log
+team: team:me
+repos:
+  - ryannel/allotment-log
+components:
+  - id: svc:allotment-app
+    name: Allotment app
+    type: website
+    tech: SvelteKit
+    does: Logs what I sowed, where and when
+    talks_to:
+      - to: st:allotment-db
+        via: data
+      - to: svc:weather-api
+        via: api
+  - id: st:allotment-db
+    name: allotment-db
+    type: database
+    tech: SQLite
+    does: Beds, sowings and harvests
+  - id: svc:weather-api
+    name: Met Office DataPoint
+    type: external
+    does: Daily frost and rain forecast

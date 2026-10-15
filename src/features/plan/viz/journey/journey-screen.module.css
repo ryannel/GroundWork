@@ -1,0 +1,15 @@
+@layer components {
+  .screen {
+    display: grid;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+
+    & > summary {
+      color: var(--fg-1);
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}

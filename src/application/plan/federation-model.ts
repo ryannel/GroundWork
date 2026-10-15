@@ -1,0 +1,112 @@
+import type { Core } from '@/application/plan/derive-core';
+import { memo, uniq } from '@/application/plan/derive-values';
+import { blastRadius, fieldOwners } from '@/application/plan/federation-blast';
+import { type CacheCase, cachePath } from '@/application/plan/federation-cache';
+import { federatedFanout } from '@/application/plan/federation-fanout';
+import { queryPlan } from '@/application/plan/federation-plan';
+import { responsePolicy } from '@/application/plan/federation-policy';
+import { parentOf, typeOf } from '@/application/plan/ids';
+import type { SystemGraph } from '@/domain/plan/plan-graph';
+
+export interface PlanSummary {
+  fetches: number;
+  roundTrips: number;
+  subgraphs: string[];
+  maxAge: number;
+  scope: 'public' | 'private';
+  cacheable: boolean;
+}
+
+const cacheCase = (kase: string | undefined): CacheCase =>
+  kase === 'hit' || kase === 'miss' ? kase : 'cold';
+
+/** Queries over the federated graphs; each takes a mode (default to-be) and is memoised. */
+export function createFederation(core: Core) {
+  const { asIs, toBe } = core;
+  const graphFor = (mode: string | undefined): SystemGraph => core.graphOf(mode);
+
+  const queryPlanIn = memo((opId: string, mode?: string) => queryPlan(graphFor(mode), opId));
+  const responsePolicyIn = memo((opId: string, mode?: string) =>
+    responsePolicy(graphFor(mode), opId),
+  );
+  const cachePathIn = memo((id: string, mode?: string, kase?: string) =>
+    cachePath(graphFor(mode), id, cacheCase(kase)),
+  );
+  const blastRadiusIn = memo((opId: string, mode?: string) => blastRadius(graphFor(mode), opId));
+  const fieldOwnersIn = memo((typeId: string, mode?: string) =>
+    fieldOwners(graphFor(mode), typeId),
+  );
+
+  /** What a step reaches once its via is expanded, in the graph holding the step (the other one if only there). */
+  const fanoutOf = memo((stepId: string, mode?: string) => {
+    const wanted = graphFor(mode);
+    const g = [wanted, asIs, toBe].find((x) => x.has(stepId)) ?? wanted;
+    const step = g.get(stepId);
+    return step?.$type === 'step' ? federatedFanout(g, step) : undefined;
+  });
+
+  const teamsBehind = (opId: string, mode?: string): string[] => queryPlanIn(opId, mode).teams;
+
+  const planSummary = (opId: string, mode?: string): PlanSummary | null => {
+    if (!graphFor(mode).has(opId)) return null;
+    const plan = queryPlanIn(opId, mode);
+    const policy = responsePolicyIn(opId, mode);
+    return {
+      fetches: plan.fetches.length,
+      roundTrips: plan.roundTrips,
+      subgraphs: uniq(plan.fetches.map((f) => f.subgraph)),
+      maxAge: policy.maxAge,
+      scope: policy.scope,
+      cacheable: policy.cacheable,
+    };
+  };
+
+  return {
+    queryPlan: queryPlanIn,
+    responsePolicy: responsePolicyIn,
+    cachePath: cachePathIn,
+    blastRadius: blastRadiusIn,
+    fieldOwners: fieldOwnersIn,
+    fanoutOf,
+    teamsBehind,
+    planSummary,
+  };
+}
+
+type Plans = Pick<ReturnType<typeof createFederation>, 'queryPlan'>;
+
+/** Which operations touch a screen, a field or a subgraph, by their query plans. */
+export function createOperationLookups(core: Core, plans: Plans) {
+  const graphFor = (mode: string | undefined): SystemGraph => core.graphOf(mode);
+  const queryPlanIn = plans.queryPlan;
+
+  const operationsOf = memo((id: string, mode?: string): string[] => {
+    const isScreen = typeOf(id) === 'screen';
+    return graphFor(mode)
+      .operations.filter((o) =>
+        (o.screens ?? []).some((x) => x === id || (isScreen && parentOf(x) === id)),
+      )
+      .map((o) => o.id);
+  });
+
+  const operationsSelecting = memo((id: string, mode?: string): string[] =>
+    graphFor(mode)
+      .operations.filter((o) =>
+        queryPlanIn(o.id, mode).selected.some(
+          (x) => x.addedByRouter === null && (x.field === id || parentOf(x.field) === id),
+        ),
+      )
+      .map((o) => o.id),
+  );
+
+  const operationsOn = memo((sgId: string, mode?: string): string[] =>
+    graphFor(mode)
+      .operations.filter((o) => queryPlanIn(o.id, mode).fetches.some((f) => f.subgraph === sgId))
+      .map((o) => o.id),
+  );
+
+  return { operationsOf, operationsSelecting, operationsOn };
+}
+
+export type Federation = ReturnType<typeof createFederation> &
+  ReturnType<typeof createOperationLookups>;

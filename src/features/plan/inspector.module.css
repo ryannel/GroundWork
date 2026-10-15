@@ -1,0 +1,25 @@
+@layer components {
+  .inspector {
+    position: fixed;
+    z-index: var(--z-popover);
+    top: var(--topbar-h);
+    right: 0;
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    width: min(var(--inspector-w), 100vw);
+    border-left: 1px solid var(--line-2);
+    background: var(--bg-1);
+    box-shadow: var(--shadow-2);
+
+    &[data-open] {
+      display: flex;
+    }
+  }
+
+  .note {
+    margin: 0;
+    padding: var(--s-4);
+    color: var(--fg-2);
+  }
+}

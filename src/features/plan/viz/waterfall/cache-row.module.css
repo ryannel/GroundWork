@@ -1,0 +1,54 @@
+@layer components {
+  .layer {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+
+  .struck {
+    text-decoration-color: var(--fg-2);
+    opacity: 0.7;
+
+    & * {
+      text-decoration: line-through;
+    }
+  }
+
+  .meta {
+    color: var(--fg-2);
+  }
+
+  .why {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+    color: var(--fg-1);
+  }
+
+  .per {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .item {
+    &[data-state='hit'] {
+      color: var(--accent-fg);
+      font-weight: 600;
+    }
+
+    &[data-state='skipped'] {
+      color: var(--fg-3);
+    }
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

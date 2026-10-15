@@ -1,0 +1,47 @@
+@layer components {
+  .gaps {
+    display: grid;
+    gap: var(--s-2);
+    margin-block-start: var(--s-4);
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--fs-16);
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .wrap {
+    overflow-x: auto;
+  }
+
+  .table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    text-align: left;
+  }
+
+  .table tr[data-dim] {
+    opacity: 0.5;
+  }
+
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

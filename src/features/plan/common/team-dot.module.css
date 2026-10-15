@@ -1,0 +1,93 @@
+@layer components {
+  .dot {
+    display: inline-block;
+    flex: none;
+    width: var(--s-3);
+    height: var(--s-3);
+    border-radius: var(--r-pill);
+    background: var(--team-8);
+    vertical-align: middle;
+  }
+
+  .dot[data-ring] {
+    outline: 2px solid var(--fg-3);
+    outline-offset: 0;
+  }
+
+  .dot[data-slot='1'] {
+    background: var(--team-1);
+  }
+
+  .dot[data-slot='2'] {
+    background: var(--team-2);
+  }
+
+  .dot[data-slot='3'] {
+    background: var(--team-3);
+  }
+
+  .dot[data-slot='4'] {
+    background: var(--team-4);
+  }
+
+  .dot[data-slot='5'] {
+    background: var(--team-5);
+  }
+
+  .dot[data-slot='6'] {
+    background: var(--team-6);
+  }
+
+  .dot[data-slot='7'] {
+    background: var(--team-7);
+  }
+
+  .dot[data-slot='8'] {
+    background: var(--team-8);
+  }
+
+  .dot[data-slot='9'] {
+    background: var(--team-9);
+  }
+
+  .dot[data-slot='10'] {
+    background: var(--team-10);
+  }
+
+  .dot[data-slot='11'] {
+    background: var(--team-11);
+  }
+
+  .dot[data-slot='12'] {
+    background: var(--team-12);
+  }
+
+  .dot[data-slot='13'] {
+    background: var(--team-13);
+  }
+
+  .name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .tag {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: var(--s-0) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+
+    &:hover {
+      border-color: var(--accent-line);
+    }
+  }
+}

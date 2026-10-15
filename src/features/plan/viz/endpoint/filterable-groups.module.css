@@ -1,0 +1,35 @@
+@layer components {
+  .stack {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .filter {
+    width: 100%;
+    max-width: calc(var(--s-16) * 6);
+    min-height: 32px;
+    padding: 0 var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+  }
+
+  .group {
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    overflow: hidden;
+  }
+
+  .list {
+    display: grid;
+  }
+
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

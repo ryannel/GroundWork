@@ -1,0 +1,82 @@
+@layer components {
+  .labels {
+    pointer-events: none;
+  }
+
+  .backing {
+    fill: var(--bg-0);
+    opacity: 0.92;
+  }
+
+  .row {
+    cursor: pointer;
+  }
+
+  .badge {
+    fill: var(--bg-1);
+    stroke: var(--edge-strong);
+    stroke-width: 1.1;
+  }
+
+  .number {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+
+  .text {
+    fill: var(--fg-1);
+    font-size: var(--fs-12);
+    dominant-baseline: middle;
+  }
+
+  .mark {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .row[data-implicit='true'] .text {
+    fill: var(--fg-2);
+    font-style: italic;
+  }
+
+  .row[data-walk='walked'] .text,
+  .row[data-walk='tocome'] .text {
+    fill: var(--fg-2);
+  }
+
+  .row[data-walk='current'] .badge {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  .row[data-walk='current'] .number {
+    fill: var(--on-accent);
+  }
+
+  .row[data-walk='current'] .text {
+    fill: var(--accent-fg);
+    font-weight: 500;
+  }
+
+  .row[data-state='added'] .text {
+    fill: var(--st-add-fg);
+  }
+
+  .row[data-state='modified'] .text {
+    fill: var(--st-mod-fg);
+  }
+
+  .row[data-state='removed'] .text {
+    fill: var(--st-rem-fg);
+    text-decoration: line-through;
+  }
+
+  .row[data-state='removed'] .badge {
+    stroke-dasharray: 2 2;
+  }
+}

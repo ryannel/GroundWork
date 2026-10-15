@@ -1,0 +1,38 @@
+@layer components {
+  .stores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .store {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .store[data-shared] {
+    border-color: var(--line-3);
+  }
+
+  .head,
+  .shared,
+  .records {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

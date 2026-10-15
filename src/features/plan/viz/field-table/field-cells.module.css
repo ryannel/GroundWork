@@ -1,0 +1,155 @@
+@layer components {
+  .gut {
+    width: var(--s-6);
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    text-align: center;
+  }
+
+  .gut[data-status='added'] {
+    color: var(--st-add-fg);
+  }
+
+  .gut[data-status='modified'] {
+    color: var(--st-mod-fg);
+  }
+
+  .gut[data-status='deprecated'] {
+    color: var(--st-dep-fg);
+  }
+
+  .gut[data-status='removed'] {
+    color: var(--st-rem-fg);
+  }
+
+  .field,
+  .req {
+    white-space: nowrap;
+  }
+
+  .key,
+  .changedBy {
+    min-width: var(--s-16);
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-13);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .name[data-status='removed'] {
+    color: var(--st-rem-fg);
+    text-decoration: line-through;
+  }
+
+  .note {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .field .note {
+    min-width: calc(var(--s-16) * 3);
+    white-space: normal;
+  }
+
+  .note:empty {
+    display: none;
+  }
+
+  .was {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .faint {
+    color: var(--fg-3);
+  }
+
+  .lifecycle {
+    color: var(--st-dep-fg);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .rollout {
+    margin-top: var(--s-1);
+    font-size: var(--fs-12);
+  }
+
+  .required {
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font: inherit;
+    font-size: var(--fs-12);
+    white-space: nowrap;
+  }
+
+  button.badge {
+    cursor: pointer;
+  }
+
+  .badgeGlyph {
+    display: inline-flex;
+    color: var(--fg-3);
+  }
+
+  .number {
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--s-5);
+    height: var(--s-5);
+    border-radius: var(--r-pill);
+    background: var(--bg-3);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .changeKey {
+    display: grid;
+    gap: var(--s-1);
+    margin: var(--s-2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .changeKey li {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .srOnly {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

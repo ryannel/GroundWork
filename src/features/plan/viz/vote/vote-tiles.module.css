@@ -1,0 +1,86 @@
+@layer components {
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--s-3);
+  }
+
+  .tile {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+  }
+
+  .tile[data-low] {
+    border-color: var(--st-mod-line);
+    background: var(--st-mod-bg);
+  }
+
+  .tile[data-missing] {
+    border-style: dashed;
+  }
+
+  .who {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .team {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .score {
+    color: var(--fg-2);
+  }
+
+  .value {
+    color: var(--fg-1);
+    font-size: var(--fs-28);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .of,
+  .faint,
+  .notYet {
+    color: var(--fg-3);
+  }
+
+  .notYet {
+    font-size: var(--fs-20);
+  }
+
+  .pips {
+    display: flex;
+    gap: var(--s-1);
+  }
+
+  .pip {
+    inline-size: var(--s-3);
+    block-size: var(--s-3);
+    border: 1px solid var(--line-3);
+    border-radius: var(--r-pill);
+  }
+
+  .pip[data-on] {
+    border-color: var(--accent-fg);
+    background: var(--accent-fg);
+  }
+
+  .tile[data-low] .pip[data-on] {
+    border-color: var(--st-mod-fg);
+    background: var(--st-mod-fg);
+  }
+}

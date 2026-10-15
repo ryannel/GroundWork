@@ -1,0 +1,62 @@
+@layer components {
+  .list {
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+  }
+
+  .line {
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .line[data-status='added'],
+  .bare[data-status='added'] {
+    border-left: 3px solid var(--st-add);
+  }
+
+  .line[data-status='modified'],
+  .bare[data-status='modified'] {
+    border-left: 3px solid var(--st-mod);
+  }
+
+  .line[data-status='deprecated'],
+  .bare[data-status='deprecated'] {
+    border-left: 3px solid var(--st-dep);
+  }
+
+  .line[data-status='removed'],
+  .bare[data-status='removed'] {
+    border-left: 3px solid var(--st-rem);
+    opacity: 0.8;
+  }
+
+  .sum {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-2) var(--s-3);
+  }
+
+  summary.sum {
+    cursor: pointer;
+  }
+
+  .facts {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .faint {
+    color: var(--fg-3);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+}

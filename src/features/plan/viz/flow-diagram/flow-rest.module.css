@@ -1,0 +1,13 @@
+@layer components {
+  .line,
+  .fold {
+    margin: 0;
+    padding: var(--s-2) var(--s-2) 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .fold summary {
+    cursor: pointer;
+  }
+}

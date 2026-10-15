@@ -1,0 +1,63 @@
+@layer components {
+  .body {
+    fill: var(--bg-1);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .body[data-state='added'] {
+    fill: var(--st-add-bg);
+    stroke: var(--st-add);
+    stroke-width: 1.5;
+  }
+
+  .body[data-touched='true'] {
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .body[data-lens-off='true'] {
+    opacity: 0.5;
+  }
+
+  .band {
+    fill: none;
+    stroke: var(--line-2);
+    stroke-width: 1;
+  }
+
+  .cap {
+    fill: var(--bg-3);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .cap[data-touched='true'] {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .cap[data-state='added'] {
+    stroke: var(--st-add);
+  }
+
+  .cap[data-lens-off='true'] {
+    opacity: 0.5;
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-anchor: middle;
+  }
+
+  .kind {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: 0.06em;
+    text-anchor: middle;
+  }
+}

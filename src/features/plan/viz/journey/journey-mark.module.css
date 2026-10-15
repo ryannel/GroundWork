@@ -1,0 +1,23 @@
+@layer components {
+  .mark {
+    display: inline-block;
+    margin-top: var(--s-1);
+    color: var(--st-mod-fg);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .mark[data-kind='added'] {
+    color: var(--st-add-fg);
+  }
+
+  .mark[data-kind='removed'] {
+    color: var(--st-rem-fg);
+    font-weight: 600;
+  }
+
+  .mark[data-kind='same'] {
+    color: var(--fg-3);
+  }
+}

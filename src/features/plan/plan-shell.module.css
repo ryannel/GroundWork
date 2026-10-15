@@ -1,0 +1,30 @@
+@layer components {
+  .shell {
+    min-height: 100vh;
+    background: var(--bg-0);
+  }
+
+  /* The open inspector takes the right of a wide window, so the page narrows beside it instead of under it. */
+  @media (width >= 72rem) {
+    .shell:has([data-inspector][data-open]) .body {
+      padding-right: var(--inspector-w);
+    }
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    align-items: start;
+
+    @media (width < 56rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .stage {
+    width: 100%;
+    max-width: var(--stage-max);
+    margin: 0 auto;
+    padding: var(--s-8) var(--s-6) var(--s-16);
+  }
+}

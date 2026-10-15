@@ -1,0 +1,25 @@
+# Checks staged files only, in parallel. CI runs the full, uncached `npm run check`.
+glob_matcher: doublestar
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: '**/*.{ts,tsx,mts,mjs,css}'
+      run: node tools/lint-changed.ts {staged_files}
+    styles:
+      glob: 'src/**/*.css'
+      run: npx stylelint --cache --cache-location node_modules/.cache/stylelint/ {staged_files}
+    format:
+      run: npx prettier --check --cache --cache-location node_modules/.cache/prettier.json --ignore-unknown {staged_files}
+    types:
+      glob: '**/*.{ts,tsx,mts}'
+      run: npx tsc --noEmit
+    tests:
+      glob: 'src/**/*.{ts,tsx,css}'
+      run: npx vitest related --run --project unit --passWithNoTests {staged_files}
+
+pre-push:
+  commands:
+    check:
+      run: npm run check

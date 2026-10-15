@@ -1,0 +1,44 @@
+@layer components {
+  .test {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: baseline;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-12);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .test:hover {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+  }
+
+  .glyph {
+    display: inline-flex;
+    color: var(--fg-3);
+  }
+
+  .level {
+    color: var(--fg-3);
+    font-variant-caps: all-small-caps;
+  }
+
+  .none {
+    color: var(--fg-3);
+  }
+
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

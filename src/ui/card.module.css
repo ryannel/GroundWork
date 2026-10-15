@@ -1,0 +1,21 @@
+@layer components {
+  .card {
+    display: block;
+    padding: var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--accent);
+    }
+  }
+
+  .title {
+    margin: 0 0 var(--s-2);
+    font-size: var(--fs-16);
+  }
+}

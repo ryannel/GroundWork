@@ -1,0 +1,37 @@
+@layer components {
+  .section,
+  .fold {
+    margin-block-start: var(--s-6);
+  }
+
+  .heading {
+    margin: 0 0 var(--s-3);
+    font-size: var(--fs-14);
+  }
+
+  .fold > summary {
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    cursor: pointer;
+  }
+
+  .fold[open] > summary {
+    margin-block-end: var(--s-3);
+  }
+
+  .note {
+    margin: 0 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .rule {
+    margin: 0;
+    padding: var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

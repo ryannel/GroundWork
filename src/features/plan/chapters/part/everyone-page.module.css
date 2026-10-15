@@ -1,0 +1,54 @@
+@layer components {
+  .teams {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    max-width: 72ch;
+    list-style: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto 10rem 1fr auto;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+
+    &:hover {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+    }
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .bits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+  }
+
+  .bit {
+    font-size: var(--fs-13);
+
+    &[data-tone='warn'] {
+      color: var(--st-mod-fg);
+      font-weight: 600;
+    }
+
+    &[data-tone='quiet'] {
+      color: var(--fg-3);
+    }
+  }
+
+  .go {
+    color: var(--fg-3);
+  }
+}

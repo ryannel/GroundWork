@@ -1,0 +1,56 @@
+@layer components {
+  .section {
+    margin-block-start: var(--s-6);
+  }
+
+  .heading {
+    margin: 0 0 var(--s-3);
+    font-size: var(--fs-14);
+  }
+
+  .open {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-13);
+    list-style: none;
+  }
+
+  .open > li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-3);
+    align-items: baseline;
+  }
+
+  .name {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .number {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .line {
+    margin: var(--s-4) 0 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

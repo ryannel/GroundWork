@@ -1,0 +1,33 @@
+@layer components {
+  .strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-block-start: var(--s-3);
+  }
+
+  .plays {
+    margin: 0 0 var(--s-4);
+    font-size: var(--fs-13);
+  }
+
+  .board {
+    display: grid;
+    gap: var(--s-3);
+    margin-block-end: var(--s-4);
+  }
+
+  .fold {
+    margin-block-start: var(--s-6);
+  }
+
+  .fold > summary {
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    cursor: pointer;
+  }
+
+  .fold[open] > summary {
+    margin-block-end: var(--s-4);
+  }
+}

@@ -1,0 +1,41 @@
+@layer components {
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-12);
+  }
+
+  .n {
+    min-width: 18px;
+    color: var(--fg-3);
+  }
+
+  .action {
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+  }
+
+  .touch {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-2);
+  }
+
+  .mark {
+    color: var(--st-mod-fg);
+    cursor: help;
+  }
+}

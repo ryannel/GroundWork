@@ -1,0 +1,80 @@
+@layer components {
+  .head {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .title {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .runs {
+    color: var(--fg-3);
+  }
+
+  .envs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+  }
+
+  .flag[data-loud] {
+    font-weight: 600;
+  }
+
+  .tests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .empty[data-state='outlined'] {
+    padding: 0 var(--s-2);
+    border: 1px dashed var(--line-2);
+    border-radius: var(--r-2);
+  }
+
+  .loud {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: 0 var(--s-2);
+    border: 2px solid var(--st-mod-line);
+    border-radius: var(--r-2);
+    background: var(--st-mod-bg);
+    color: var(--st-mod-fg);
+    font-weight: 600;
+  }
+
+  .warn {
+    display: inline-flex;
+  }
+
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

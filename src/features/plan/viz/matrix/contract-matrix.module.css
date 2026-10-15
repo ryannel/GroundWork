@@ -1,0 +1,78 @@
+@layer components {
+  .wrap {
+    overflow-x: auto;
+  }
+
+  .matrix {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .matrix th,
+  .cell {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .matrix tr[data-dim] {
+    opacity: 0.5;
+  }
+
+  .cell[data-gap] {
+    background: var(--bg-1);
+    text-align: center;
+  }
+
+  .corner,
+  .axis,
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .axis {
+    display: block;
+  }
+
+  .test {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .via {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: baseline;
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .list section[data-dim] {
+    opacity: 0.5;
+  }
+
+  .consumer {
+    margin: 0 0 var(--s-2);
+  }
+
+  .provider {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-2) 0 var(--s-2) var(--s-4);
+    border-inline-start: 2px solid var(--line-2);
+  }
+
+  .empty,
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

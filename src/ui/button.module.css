@@ -1,0 +1,48 @@
+@layer components {
+  .button {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    height: 32px;
+    padding: 0 var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    font-size: var(--fs-13);
+    font-weight: 500;
+    transition: background var(--t-1) var(--ease);
+  }
+
+  .button[data-variant='default'] {
+    background: var(--bg-1);
+
+    &:hover {
+      background: var(--bg-2);
+    }
+  }
+
+  .button[data-variant='primary'] {
+    border-color: transparent;
+    background: var(--accent);
+    color: var(--on-accent);
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+  }
+
+  .button[data-variant='ghost'] {
+    border-color: transparent;
+    color: var(--fg-2);
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+  }
+
+  .button[data-size='sm'] {
+    height: 26px;
+    padding: 0 var(--s-2);
+    font-size: var(--fs-12);
+  }
+}

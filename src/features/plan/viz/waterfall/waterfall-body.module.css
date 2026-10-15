@@ -1,0 +1,40 @@
+@layer components {
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .caption {
+    max-width: 78ch;
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    min-width: 520px;
+    margin: 0;
+    padding: 0;
+    overflow: clip;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    list-style: none;
+  }
+
+  .summary {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @container (width <= 620px) {
+    .rows {
+      min-width: 0;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+@layer components {
+  .head {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .cell {
+    min-width: 0;
+    border-bottom: 1px solid var(--line-2);
+    background: var(--bg-1);
+  }
+
+  .head > .cell:nth-child(-n + 3) {
+    position: sticky;
+    left: 0;
+  }
+
+  .cell[data-label] {
+    padding: var(--s-2);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    text-align: end;
+    text-transform: uppercase;
+  }
+
+  .head > .cell[data-label='idx'] {
+    left: var(--gut);
+  }
+
+  .head > .cell[data-label='act'] {
+    left: calc(var(--gut) + 32px);
+    text-align: start;
+  }
+
+  .part,
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    align-items: center;
+    min-width: 0;
+    margin: var(--s-2) var(--s-1);
+    padding: var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--node-bg);
+    color: var(--fg-1);
+    text-align: center;
+  }
+
+  .part {
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent-line);
+    }
+
+    &[data-store] {
+      border-style: dashed;
+    }
+
+    &[data-status='added'] {
+      border-color: var(--st-add-line);
+      background: var(--st-add-bg);
+    }
+
+    &[data-status='modified'] {
+      border-color: var(--st-mod-line);
+      background: var(--st-mod-bg);
+    }
+
+    &[data-status='deprecated'] {
+      border-color: var(--st-dep-line);
+      background: var(--st-dep-bg);
+    }
+
+    &[data-status='removed'] {
+      border-color: var(--st-rem-line);
+      color: var(--st-rem-fg);
+      text-decoration: line-through;
+    }
+  }
+
+  .name {
+    max-width: 100%;
+    font-size: var(--fs-13);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .type {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    text-transform: uppercase;
+  }
+
+  .team {
+    display: none;
+  }
+
+  /* with many columns the type caption goes, and the team's dot stands in for the team */
+  .head[data-dense] .type {
+    display: none;
+  }
+
+  .head[data-dense] .team {
+    display: inline;
+  }
+}

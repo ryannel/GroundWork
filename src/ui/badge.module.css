@@ -1,0 +1,49 @@
+@layer components {
+  .badge {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    height: 20px;
+    padding: 0 var(--s-2);
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge[data-tone='neutral'] {
+    border-color: var(--line-2);
+    color: var(--fg-2);
+  }
+
+  .badge[data-tone='accent'] {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-fg);
+  }
+
+  .badge[data-tone='added'] {
+    border-color: var(--st-add);
+    background: var(--st-add);
+    color: var(--fg-inverse);
+  }
+
+  .badge[data-tone='modified'] {
+    border-color: var(--st-mod-line);
+    background: var(--st-mod-bg);
+    color: var(--st-mod-fg);
+  }
+
+  .badge[data-tone='deprecated'] {
+    border-color: var(--st-dep-line);
+    background: var(--st-dep-bg);
+    color: var(--st-dep-fg);
+  }
+
+  .badge[data-tone='removed'] {
+    border-style: dashed;
+    border-color: var(--st-rem-line);
+    color: var(--st-rem-fg);
+  }
+}

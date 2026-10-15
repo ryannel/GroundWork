@@ -1,0 +1,33 @@
+@layer components {
+  .key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin: var(--s-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .n {
+    display: inline-grid;
+    place-items: center;
+    width: var(--s-4);
+    height: var(--s-4);
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-pill);
+    background: var(--accent-soft);
+    color: var(--accent-fg);
+    font-size: var(--fs-12);
+  }
+
+  .level {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

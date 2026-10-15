@@ -1,0 +1,47 @@
+@layer components {
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+  }
+
+  .move {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .move[data-by='next'] {
+    text-align: end;
+  }
+
+  .move:disabled {
+    color: var(--fg-3);
+    cursor: default;
+  }
+
+  .move:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .word {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .title {
+    overflow: hidden;
+    font-size: var(--fs-14);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

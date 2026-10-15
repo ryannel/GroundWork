@@ -1,0 +1,89 @@
+@layer components {
+  .card {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    font-size: var(--fs-13);
+  }
+
+  .head {
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .title {
+    color: var(--fg-2);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+    color: var(--fg-2);
+  }
+
+  .state {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .bar {
+    display: inline-flex;
+    gap: var(--s-1);
+  }
+
+  .bar span {
+    inline-size: var(--s-2);
+    block-size: var(--s-2);
+    background: var(--line-2);
+  }
+
+  .bar span[data-done] {
+    background: var(--accent-fg);
+  }
+
+  .card[data-done] .title {
+    color: var(--fg-3);
+  }
+
+  .exit,
+  .waits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .eyebrow {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    text-transform: uppercase;
+  }
+
+  .chip {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .sum {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

@@ -1,0 +1,59 @@
+@layer components {
+  .layer {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+
+  .meta {
+    color: var(--fg-2);
+  }
+
+  .band {
+    display: flex;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-1) var(--s-3);
+    border-top: 1px solid var(--line-1);
+    background: var(--bg-2);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: 0.03em;
+    text-transform: lowercase;
+  }
+
+  .writes {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    margin-left: auto;
+    text-transform: none;
+  }
+
+  .fill {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+    align-items: center;
+  }
+
+  .store {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .then {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .return {
+    position: relative;
+    display: block;
+    height: 0;
+    border-top: 2px dashed var(--accent-line);
+  }
+}

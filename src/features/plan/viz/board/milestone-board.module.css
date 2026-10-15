@@ -1,0 +1,12 @@
+@layer components {
+  .board {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

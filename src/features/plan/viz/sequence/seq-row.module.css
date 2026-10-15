@@ -1,0 +1,74 @@
+@layer components {
+  .row {
+    --tint: transparent;
+
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+
+    &[data-step] {
+      cursor: pointer;
+    }
+
+    &[data-walk='current'] {
+      --tint: var(--accent-soft);
+    }
+
+    &[data-status='added'] {
+      --tint: var(--st-add-bg);
+    }
+
+    &[data-status='modified'] {
+      --tint: var(--st-mod-bg);
+    }
+
+    &[data-status='deprecated'] {
+      --tint: var(--st-dep-bg);
+    }
+
+    &[data-walk='walked'] {
+      color: var(--fg-3);
+    }
+  }
+
+  /* the cells hold an opaque colour so what scrolls under the left ones is hidden, and the tint lies over it */
+  .gut,
+  .idx,
+  .act,
+  .lanes {
+    min-width: 0;
+    border-bottom: 1px solid var(--line-1);
+    background-color: var(--bg-0);
+    background-image: linear-gradient(var(--tint), var(--tint));
+  }
+
+  .gut,
+  .idx,
+  .act {
+    position: sticky;
+    left: 0;
+  }
+
+  .idx {
+    left: var(--gut);
+    padding: var(--s-2) var(--s-2) 0 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-align: end;
+  }
+
+  .act {
+    left: calc(var(--gut) + 32px);
+    padding: var(--s-2) var(--s-3) var(--s-2) 0;
+  }
+
+  .row[data-new] .idx {
+    color: var(--st-add-fg);
+    font-weight: 700;
+  }
+
+  .row[data-kind='group'] .act {
+    padding-block: var(--s-1);
+  }
+}

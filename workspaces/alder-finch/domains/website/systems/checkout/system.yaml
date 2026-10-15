@@ -1,0 +1,36 @@
+id: checkout
+name: Checkout
+team: team:checkout
+repos:
+  - alder-finch/checkout
+components:
+  - id: svc:cart
+    name: Cart
+    type: service
+    tech: Go
+    does: Holds what a shopper has picked
+  - id: svc:checkout
+    name: Checkout
+    type: service
+    tech: Go
+    does: Turns a cart into a paid order
+    talks_to:
+      - to: svc:financing-gateway
+        via: api
+      - to: svc:payments
+        via: api
+      - to: svc:order-capture
+        via: api
+  - id: svc:cart-graph
+    name: Cart graph service
+    type: service
+    tech: Go · gqlgen
+    does: Owns Cart and the add-to-cart mutation
+    talks_to:
+      - to: svc:pricing
+        via: api
+  - id: st:cart-cache
+    name: cart-cache
+    type: database
+    tech: Redis
+    does: Carts and checkout sessions, 30-day TTL

@@ -1,0 +1,22 @@
+@layer components {
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    max-width: 360px;
+    margin-inline: auto;
+    padding-bottom: var(--s-4);
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .line {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .line strong {
+    color: var(--fg-1);
+    font-weight: 500;
+  }
+}

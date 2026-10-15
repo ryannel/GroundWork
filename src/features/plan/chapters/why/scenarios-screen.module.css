@@ -1,0 +1,105 @@
+@layer components {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: var(--s-4);
+    margin-bottom: var(--s-4);
+  }
+
+  .cards[data-count='2'],
+  .cards[data-count='4'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (width <= 900px) {
+    .cards[data-count='2'],
+    .cards[data-count='4'] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .card {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+    min-width: 0;
+    padding: var(--s-5);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .title {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-16);
+  }
+
+  .quoteMark {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+  }
+
+  .titleButton {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--fg-1);
+    cursor: pointer;
+    font: inherit;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .titleButton:hover {
+    color: var(--accent);
+  }
+
+  .story {
+    font-size: var(--fs-14);
+  }
+
+  .story p {
+    margin: 0;
+  }
+
+  .flows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line-1);
+  }
+
+  .flowsLabel {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .flow {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .tag[data-new] {
+    border-style: dashed;
+    color: var(--fg-1);
+  }
+}

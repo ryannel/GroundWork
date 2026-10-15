@@ -1,0 +1,35 @@
+@layer components {
+  .page {
+    max-width: var(--stage-max);
+    margin: 0 auto;
+    padding: var(--s-8) var(--s-4);
+  }
+
+  .section {
+    margin-top: var(--s-8);
+  }
+
+  .domains {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .purpose {
+    margin: 0 0 var(--s-2);
+  }
+
+  .size {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--fg-3);
+  }
+}

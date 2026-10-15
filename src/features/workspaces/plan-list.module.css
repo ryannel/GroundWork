@@ -1,0 +1,87 @@
+@layer components {
+  .groups {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .groupName {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    margin: 0 0 var(--s-1);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    font-weight: 600;
+
+    &::before {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--r-pill);
+      background: var(--fg-3);
+      content: '';
+    }
+  }
+
+  .group[data-group='decide'] .groupName::before {
+    background: var(--st-mod);
+  }
+
+  .group[data-group='delivery'] .groupName::before {
+    background: var(--accent);
+  }
+
+  .group[data-group='delivered'] .groupName::before {
+    background: var(--st-add);
+  }
+
+  .plans {
+    display: grid;
+    margin: 0 calc(-1 * var(--s-2));
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan {
+    display: grid;
+    gap: var(--s-0);
+    padding: var(--s-2);
+    border-radius: var(--r-2);
+    color: var(--fg-1);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--bg-2);
+    }
+  }
+
+  .title {
+    font-weight: 500;
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+
+    &[data-late='true'] {
+      color: var(--st-mod-fg);
+    }
+  }
+
+  .bar {
+    display: flex;
+    gap: var(--s-0);
+    max-width: 16rem;
+    margin-top: var(--s-1);
+
+    & > span {
+      flex: 1;
+      height: 4px;
+      border-radius: var(--r-pill);
+      background: var(--line-2);
+    }
+
+    & > span[data-done='true'] {
+      background: var(--accent);
+    }
+  }
+}

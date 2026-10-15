@@ -1,0 +1,16 @@
+@layer components {
+  .title {
+    color: var(--fg-1);
+    font-family: var(--font-display);
+    font-size: var(--fs-14);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "wi:billing-template": {
+    "state": "open",
+    "url": "https://github.com/alder-finch/billing/issues/58"
+  },
+  "wi:checkout-vat": {
+    "closed_at": "2026-09-30T14:12:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/checkout/issues/41"
+  },
+  "wi:orders-billing": {
+    "closed_at": "2026-10-01T09:40:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/orders/issues/87"
+  },
+  "wi:storefront-vat": {
+    "state": "open",
+    "url": "https://github.com/alder-finch/storefront/issues/112"
+  }
+}

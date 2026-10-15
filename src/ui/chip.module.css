@@ -1,0 +1,79 @@
+@layer components {
+  .chip {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    min-height: 26px;
+    padding: var(--s-0) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+    text-align: left;
+    transition: border-color var(--t-1) var(--ease);
+
+    &:hover {
+      border-color: var(--accent-line);
+    }
+  }
+
+  .glyph {
+    flex: none;
+    width: 14px;
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-align: center;
+  }
+
+  .label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .chip[data-mono] .label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .chip[data-status='existing'] {
+    border-color: var(--line-2);
+  }
+
+  .chip[data-status='added'] {
+    border-color: var(--st-add-line);
+    background: var(--st-add-bg);
+  }
+
+  .chip[data-status='modified'] {
+    border-color: var(--st-mod-line);
+  }
+
+  .chip[data-status='deprecated'] {
+    border-style: dashed;
+    border-color: var(--st-dep-line);
+    text-decoration: line-through;
+  }
+
+  .chip[data-status='removed'] {
+    border-style: dashed;
+    border-color: var(--st-rem-line);
+    background: transparent;
+    color: var(--st-rem-fg);
+  }
+
+  /* The thing open in the inspector, wherever the page cites it. */
+  .chip[data-picked] {
+    outline: 2px solid var(--accent-line);
+    outline-offset: 1px;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+    min-width: 0;
+  }
+}

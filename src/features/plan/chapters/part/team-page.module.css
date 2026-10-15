@@ -1,0 +1,26 @@
+@layer components {
+  .stack {
+    display: grid;
+    gap: var(--s-6);
+    margin-top: var(--s-6);
+  }
+
+  .fold {
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .tests {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .test {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+}

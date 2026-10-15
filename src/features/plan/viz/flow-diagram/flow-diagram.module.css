@@ -1,0 +1,9 @@
+@layer components {
+  .frame {
+    padding: var(--s-2) var(--s-2) var(--s-1);
+    overflow-x: auto;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+  }
+}

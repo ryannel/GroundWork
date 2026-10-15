@@ -1,0 +1,2217 @@
+# Alder & Finch's storefront graph: the same fictional EU outdoor retailer as plans/delivery-promise, and the plan
+# that comes after it. By now plans/delivery-promise has shipped. The Promise service and `promise.changed` run
+# today, the graph gateway below has replaced the storefront BFF that plan names, the cart service is the cart
+# subgraph, and the catalog read API is the product subgraph. Seven subgraphs (product, search, pricing,
+# inventory, cart, customer, reviews) sit behind Apollo Router, which sits behind Fastly. This plan puts the
+# delivery promise into the graph without losing the edge cache: a new promise subgraph, one new field, one query
+# split in two, one field deprecated and then removed, and the price moved to a new pricing subgraph with a
+# progressive @override. Teams, repos, commit links and screenshots are fictional; the `sources` follow the
+# permalink format but point at repositories that do not exist.
+#
+# Written against docs/09-design-federated-graph.md v2 (§2 model, §6 example): `graphs`, `subgraphs`,
+# `operations`, `schemas[].kind: graph-type`, the field extensions, flat cache props on stores, `case` and
+# `purges` on steps. The documents are parsed; paths, variables and plans are derived, never authored twice.
+
+meta:
+  id: storefront-graph
+  title: "Show the delivery promise through the graph"
+  version: "0.2"
+  date: "2026-10-02"
+  start: "2026-10-19"
+  status: draft
+  authors: ["Storefront", "Fulfilment", "Catalog", "Pricing"]
+  appetite: "8 weeks · 3 milestones"
+  repos:
+    - alder-finch/storefront-graph
+    - alder-finch/storefront
+    - alder-finch/pim
+    - alder-finch/pricing
+    - alder-finch/fulfilment
+    - alder-finch/checkout
+    - alder-finch/customers
+    - alder-finch/search
+    - alder-finch/content
+
+# ─────────────────────────────────────────────── chapter 1: Why
+problem:
+  summary: >-
+    The product page is one GraphQL operation, **ProductPage**. Three subgraphs answer it through the gateway, and
+    the edge keeps each answer for ten minutes, so 92 % of product-page requests never reach the gateway. Fulfilment
+    now computes the delivery promise ([[sch:delivery-promise]]). It is per region and moves with stock, yet the page
+    still shows the static `leadTimeDays` from the catalogue. This plan adds a **promise subgraph** and a
+    `Product.deliveryPromise` field, and splits the page: ProductPage stays as it is, and a new **ProductPromise**
+    operation carries the promise. ProductPromise is public, has the region in its edge key and lives for 60
+    seconds. In the same window the price moves to a new pricing subgraph with a progressive `@override`, and
+    `leadTimeDays` is removed.
+  why: >-
+    The first attempt (branch `pdp-promise-spike`, August) added `deliveryPromise` to ProductPage. The field needs
+    the warehouse from `stock`, so the page grew a third round trip. It also broke the reason for the page's 600 s
+    edge override ("stock is in or out only"): the page now showed a per-region date, so its life had to fall to 60 s
+    and `region` joined every page's key. Responses varied by region and went stale every minute. In the DE canary
+    the edge hit ratio fell from **92 % to 58 %** within an hour and gateway p95 rose from 95 ms to **310 ms**. The
+    canary was rolled back the same afternoon. The promise is wanted on the page ([[sc:anna-malmo]]); the cache is
+    wanted more. Nobody could say, from the repositories, which subgraph owned which field or which cache the spike
+    had broken, which is why this plan draws it.
+  goals:
+    - "A shopper sees *Get it by Thu 8 Oct* on the product page and the mini cart, for their region, within a minute of a stock change."
+    - "ProductPage's edge hit ratio stays at or above 90 % and its query plan does not change."
+    - "The promise reaches the page through the graph, not through a side REST call from the page."
+    - "`price` is served by the pricing-v2 subgraph for every request by M3, with no change a shopper can see."
+    - "`leadTimeDays` is gone from the graph by M3, once no client selects it. iOS ≤ 4.2 cannot be forced to update and is the open case ([[q:ios-lead-time]])."
+  non_goals:
+    - "The promise on search-result tiles. Six regions × every listing page is a different cache problem ([[dec:no-promise-on-tiles]])."
+    - "Checkout and the order. The promise is already frozen on the order by plans/delivery-promise; this plan stops at the mini cart."
+    - "Moving pricing or inventory data into the gateway's entity cache beyond what it caches today."
+    - "`@defer`. It would keep the region in the page's key and the third round trip on every miss ([[dec:split-query]])."
+  metrics:
+    - { name: "ProductPage edge hit ratio", today: "92 % (30 days)", target: "≥ 90 % with the promise on the page" }
+    - { name: "ProductPromise edge hit ratio", today: "n/a (new)", target: "≥ 80 % with the region in the key" }
+    - { name: "Gateway p95 for ProductPage on a miss", today: "95 ms", target: "unchanged" }
+    - { name: "Time from stock change to the page showing a new promise", today: "n/a (static text)", target: "under 60 s" }
+    - { name: "Operations selecting `leadTimeDays` (registry field usage)", today: "3", target: "0 by M3, if iOS ≤ 4.2 is settled ([[q:ios-lead-time]])" }
+  scenarios:
+    - id: sc:anna-malmo
+      title: "Anna in Malmö sees Thursday without waiting for it"
+      story: >-
+        Anna opens the Fjäll 2 tent from Malmö. The hero, price and stock paint from the edge in 15 ms, as today.
+        A moment later the delivery line fills in: **Get it by Thu 8 Oct · order by 14:00 Mon**, answered by the
+        edge from the copy cached for Sweden-south. She adds the tent to the cart and the mini cart repeats
+        Thursday on the line.
+      flows: [flow:browse-product, flow:add-to-cart]
+    - id: sc:berlin-sells-out
+      title: "Berlin sells out and the page says Monday within a minute"
+      story: >-
+        At 11:40 the last Berlin tent is picked for someone else. Fulfilment publishes `promise.changed`; the
+        purger purges the SKU at the edge, for every region at once, and in the gateway's entity cache. Anna's next
+        look at the page says **Get it by Mon 12 Oct**. ProductPage was not touched.
+      flows: [flow:sync-stock, flow:promise-change-purge]
+    - id: sc:storefront-dev
+      title: "Priya adds a field and sees who she is about to call"
+      story: >-
+        Priya on Storefront wants `deliveryPromise` on the cart lines. The plan shows that `CartLine.product` is a
+        reference by `sku` the cart subgraph cannot fill, so the gateway asks the product subgraph, the inventory
+        subgraph (for `stock { fc }`, which the promise needs) and then the promise subgraph: four teams, one more
+        round trip. She did not have to read seven repos.
+      flows: [flow:view-cart]
+  glossary:
+    - { term: "operation", means: "A named query or mutation the front end sends, word for word. Its document is parsed, so fields, variables and the query plan are derived, not written twice ([[gql:product-page]])." }
+    - { term: "mutation", means: "An operation that changes data ([[gql:add-to-cart]]). Sent as POST, never cached, and its root fields run one after another." }
+    - { term: "the graph", means: "The one GraphQL schema the storefront talks to, composed from the subgraphs ([[graph:storefront]])." }
+    - { term: "gateway", means: "The service every operation goes through. It works out which subgraphs answer which fields, runs the fetches and merges the result ([[svc:graph-gateway]])." }
+    - { term: "subgraph", means: "One service's slice of the graph, owned by one team ([[sg:product]]). Always written as subgraph · the service that serves it · its team." }
+    - { term: "owns a field", means: "The subgraph that resolves a field. Two or more may, if the field is shareable or one of them has taken it over with an override." }
+    - { term: "key", means: "The fields that identify one entity (here `sku`), so the gateway can ask another subgraph for *that product*. Shown ⚿." }
+    - { term: "round trip", means: "One level of the query plan: fetches that must wait for the keys the previous level returned. Fetches in one level run in parallel." }
+    - { term: "fetch", means: "One request from the gateway to one subgraph. An operation is a handful of fetches in two or three round trips." }
+    - { term: "cache layer", means: "A place an answer can be remembered: at the edge, in the gateway, or inside a subgraph. The cache path lists them outermost first." }
+    - { term: "edge", means: "Fastly, in front of the gateway. It answers persisted GETs without touching the graph ([[st:edge-cache]])." }
+    - { term: "hit", means: "A cache layer has the answer, so nothing below it runs." }
+    - { term: "miss", means: "A cache layer does not have the answer, so the request falls through to the next layer." }
+    - { term: "fills", means: "On the way back, a layer that missed stores the answer it just saw, so the next request hits." }
+    - { term: "emptied by", means: "The event or call that purges an entry before its time is up, such as `price.published` reaching the cache purger." }
+    - { term: "serves stale", means: "A layer may answer with an entry past its time while it refreshes, or when the layer below is down." }
+    - { term: "private field", means: "A field whose answer depends on who is signed in (`auth`). One selected private field makes the whole response uncacheable at a shared layer. *Per region* is not private: a region is just part of the key." }
+    - { term: "persisted operation", means: "The client sends an id instead of the document, so the request can be a GET the edge is allowed to cache." }
+    - { term: "batched", means: "Many lookups sent as one call (*12 lines in 1 call*) by a loader inside the subgraph. Unbatched, a list becomes one query per row." }
+    - { term: "surrogate key", means: "A tag Fastly attaches to a cached object (here the SKU), so one purge call removes every object that mentions it, in every region." }
+
+domain:
+  summary: >-
+    A **product** is read by the storefront through **the graph**: the catalogue owns its name and images, Pricing
+    its price, Fulfilment its stock, and Content its reviews. Each is joined to the product by a **key**: `sku`
+    for most, `id` for reviews. A **cart** belongs to the signed-in customer. The **delivery promise** exists in
+    Fulfilment already; this plan makes it a field of the product, served by a subgraph of its own.
+  concepts:
+    - id: con:product
+      name: Product
+      terms: [product, SKU, item]
+      means: "Something we sell. In the graph it is one type with fields from four (soon five) subgraphs, joined by `sku`."
+      born_in: svc:pim
+      aka:
+        - { in: svc:product-graph, as: Product, at: sch:gql-product, note: "The graph type; the piece every subgraph extends." }
+        - { in: svc:product-graph, as: CatalogProduct, at: sch:catalog-product, note: "The read copy behind the product subgraph." }
+        - { in: svc:pricing, as: Price, at: sch:price }
+        - { in: svc:inventory-graph, as: StockSnapshot, at: sch:stock-snapshot }
+    - id: con:delivery-promise
+      name: Delivery promise
+      terms: [promise, delivery promise, delivery date]
+      means: "The date a product arrives in a region if ordered before the cutoff. Computed by Fulfilment; this plan puts it on the product in the graph."
+      born_in: svc:promise
+      relates: [{ to: con:product, as: "is for one" }, { to: con:region, as: "holds for one" }]
+      aka:
+        - { in: svc:promise, as: DeliveryPromise, at: sch:delivery-promise }
+      introduced_by: [chg:promise-subgraph]
+    - id: con:cart
+      name: Cart
+      terms: [cart, basket, mini cart]
+      means: "What a shopper has picked. Owned by the cart subgraph and reached through the signed-in customer; its lines reference products by `sku`."
+      born_in: svc:cart-graph
+      relates: [{ to: con:product, as: "holds many" }]
+      aka:
+        - { in: svc:cart-graph, as: Cart, at: sch:gql-cart }
+        - { in: svc:cart-graph, as: Cart, at: sch:cart, note: "The Redis record behind the type." }
+    - id: con:region
+      name: Region
+      terms: [region, delivery region]
+      means: "The area a price and a promise are given for. ProductPromise takes it as a variable, which puts it in the edge key: six regions are six cached copies, not a private response."
+      born_in: svc:customer-graph
+  stages:
+    - id: stage:ask
+      name: Ask
+      summary: "The page sends an operation; the edge or the gateway answers."
+      services:
+        - { svc: svc:storefront-web }
+        - { svc: svc:fastly }
+        - { svc: svc:graph-gateway }
+        - { svc: svc:cache-purger, from: [svc:pricing, svc:wms, svc:pim] }
+      flows: [flow:browse-product, flow:search-results, flow:add-to-cart, flow:view-cart]
+    - id: stage:answer
+      name: Answer
+      summary: "The subgraphs each resolve their fields."
+      services:
+        - { svc: svc:product-graph, from: [svc:pim] }
+        - { svc: svc:search-graph, from: [svc:search-api] }
+        - { svc: svc:pricing-graph, from: [svc:pricing] }
+        - { svc: svc:inventory-graph, from: [svc:wms] }
+        - { svc: svc:cart-graph }
+        - { svc: svc:customer-graph }
+        - { svc: svc:reviews-graph }
+      flows: [flow:price-change-purge, flow:sync-stock, flow:project-product]
+    - id: stage:source
+      name: Source
+      summary: "The systems of record the subgraphs read from or project."
+      services:
+        - { svc: svc:pim }
+        - { svc: svc:pricing }
+        - { svc: svc:wms }
+        - { svc: svc:search-api }
+        - { svc: svc:promise }
+      flows: []
+
+# ─────────────────────────────────────────────── chapter 2: The system today
+teams:
+  - { id: team:storefront, name: "Storefront", channel: "#team-storefront", colour: 2 }
+  - { id: team:catalog, name: "Catalog", channel: "#team-catalog", colour: 5 }
+  - { id: team:pricing, name: "Pricing", channel: "#team-pricing", colour: 6 }
+  - { id: team:fulfilment, name: "Fulfilment", channel: "#team-fulfilment", colour: 4 }
+  - { id: team:checkout, name: "Checkout", channel: "#team-checkout", colour: 1 }
+  - { id: team:customers, name: "Customers", channel: "#team-customers", colour: 12 }
+  - { id: team:discovery, name: "Discovery", channel: "#team-discovery", colour: 7 }
+  - { id: team:content, name: "Content", channel: "#team-content", colour: 8 }
+  - { id: team:product, name: "Product management", channel: "#product-commerce", colour: 11 }
+
+services:
+  # ── Ask
+  - id: svc:storefront-web
+    name: Storefront
+    team: team:storefront
+    kind: ui
+    tech: "Next.js · Apollo Client"
+    does: "The shop: product pages, search, the mini cart"
+    summary: "Server-rendered pages in four locales. Every data need is a named operation against [[graph:storefront]]; queries go out as persisted GETs so the edge can cache them."
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/graphql/client.ts#L1-L60", note: "persisted-query link, GET for queries" }]
+  - id: svc:fastly
+    name: Fastly
+    team: team:storefront
+    kind: external
+    tech: "CDN"
+    does: "Serves cached graph responses at the edge"
+    summary: "The edge in front of the gateway. Its cache is [[st:edge-cache]]; its purge API is [[if:fastly-api]]."
+  - id: svc:graph-gateway
+    name: Graph gateway
+    team: team:storefront
+    kind: service
+    tech: "Apollo Router 1.x"
+    does: "Composes the graph and routes each operation to its subgraphs"
+    summary: "Works out which subgraphs answer each operation, runs the fetches and merges the result. Keeps an entity cache in Redis (one entry per subgraph, type and key). Owns the graph: composition runs in its repo on every subgraph publish."
+    sources:
+      - { url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/router.yaml#L1-L80", note: "gateway config: persisted queries, entity cache, headers" }
+      - { url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.yaml#L1-L30", note: "the seven subgraphs" }
+  - id: svc:cache-purger
+    name: Cache purger
+    team: team:storefront
+    kind: job
+    tech: "Go · Kafka consumer"
+    does: "Turns catalog, price and stock events into edge and gateway purges"
+    summary: "Consumes `product.published`, `price.published` and `stock.changed` and purges the SKU's surrogate key at Fastly and the Product entity in the gateway's cache."
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/purger/main.go#L20-L140" }]
+  # ── Answer
+  - id: svc:product-graph
+    name: Product graph service
+    team: team:catalog
+    kind: service
+    tech: "Node · Apollo Server"
+    does: "Serves Product, its name, images and lead time"
+    summary: "The catalogue's read copy as a subgraph. Owns the `Product` entity, its `id` and `sku` keys and the `product` root field. Batches catalogue reads with DataLoader."
+    sources: [{ url: "https://github.com/alder-finch/pim/blob/9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3/subgraph/src/schema.graphql#L1-L70" }]
+  - id: svc:search-graph
+    name: Search graph service
+    team: team:discovery
+    kind: service
+    tech: "Go · gqlgen"
+    does: "Owns the search root and answers it from the search API"
+    summary: "Owns `Query.search`. Returns each hit as a `Product` reference and also its `name` and `imageUrl` straight from the search index (`@provides`), so a result list needs no second fetch."
+    sources: [{ url: "https://github.com/alder-finch/search/blob/9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d/subgraph/schema.graphqls#L1-L40" }]
+  - id: svc:pricing-graph
+    name: Pricing graph service
+    team: team:pricing
+    kind: service
+    tech: "Kotlin · GraphQL Kotlin"
+    does: "Adds price to Product by calling Pricing"
+    summary: "Extends `Product` with `price`. Resolves it by calling [[api:pricing-get-price]] and caches the answer in Redis per SKU and market, purged on `price.published`. One call per product: it does not batch."
+    sources: [{ url: "https://github.com/alder-finch/pricing/blob/8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c/subgraph/src/main/kotlin/pricing/graph/ProductResolver.kt#L10-L90" }]
+  - id: svc:inventory-graph
+    name: Inventory graph service
+    team: team:fulfilment
+    kind: service
+    tech: "Python · Strawberry"
+    does: "Adds stock to Product from a Redis snapshot"
+    summary: "Extends `Product` with `stock`. Keeps one snapshot per SKU in Redis, written from `stock.changed`; never calls the WMS on the request path."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/inventory-subgraph/app/schema.py#L1-L60" }]
+  - id: svc:cart-graph
+    name: Cart graph service
+    team: team:checkout
+    kind: service
+    tech: "Go · gqlgen"
+    does: "Owns Cart and the add-to-cart mutation"
+    summary: "Owns the `Cart` entity and the `addToCart` mutation, and makes the cart a field of `Customer`. Lines hold the SKU and a price re-read from Pricing at add time; `product` on a line is a bare reference by `sku` the gateway completes. Batches with DataLoader."
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/cart-subgraph/schema.graphqls#L1-L50" }]
+  - id: svc:customer-graph
+    name: Customer graph service
+    team: team:customers
+    kind: service
+    tech: "Java · DGS"
+    does: "Owns the signed-in customer: email, region, saved address"
+    summary: "Owns `Customer` and the `me` root field, which needs the shopper session. Everything reached through `me` is therefore private."
+    sources: [{ url: "https://github.com/alder-finch/customers/blob/0f1e2d3c4b5a69788796a5b4c3d2e1f0a9b8c7d6/subgraph/src/main/resources/schema/customer.graphqls#L1-L30" }]
+  - id: svc:reviews-graph
+    name: Reviews graph service
+    team: team:content
+    kind: service
+    tech: "Node · Apollo Server"
+    does: "Adds customer reviews to Product"
+    summary: "Extends `Product` with `reviews`. It only knows a product by its `id`, not its `sku`, so a request that arrives with a `sku` must first ask the product subgraph for the `id`. Batches with DataLoader."
+    sources: [{ url: "https://github.com/alder-finch/content/blob/3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b/reviews-subgraph/schema.graphql#L1-L40" }]
+  # ── Source
+  - id: svc:pim
+    name: PIM API
+    team: team:catalog
+    kind: service
+    tech: "Java · Spring Boot"
+    does: "Source of truth for products and their attributes"
+    summary: "Publishes `product.published` whenever a product changes; the product subgraph projects it."
+    sources: [{ url: "https://github.com/alder-finch/pim/blob/9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3/api/src/main/java/pim/PimApplication.java" }]
+  - id: svc:pricing
+    name: Pricing
+    team: team:pricing
+    kind: service
+    tech: "Kotlin · Ktor"
+    does: "Prices every SKU for every region"
+    summary: "Holds list prices and promotions; answers price lookups over REST and publishes `price.published`."
+    sources: [{ url: "https://github.com/alder-finch/pricing/blob/8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c/src/main/kotlin/pricing/Application.kt" }]
+  - id: svc:wms
+    name: WMS
+    team: team:fulfilment
+    kind: service
+    tech: "Manhattan Active · our integration layer"
+    does: "Stock, picking and shipping in the three warehouses"
+    summary: "Publishes `stock.changed` per SKU and FC."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/wms/events/stock.py#L1-L40" }]
+  - id: svc:search-api
+    name: Search API
+    team: team:discovery
+    kind: service
+    tech: "Go · OpenSearch"
+    does: "Answers search and listing queries"
+    summary: "The search subgraph calls it for `Query.search` and returns the hits."
+    sources: [{ url: "https://github.com/alder-finch/search/blob/9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d/api/main.go#L1-L50" }]
+  - id: svc:promise
+    name: Promise
+    team: team:fulfilment
+    kind: service
+    tech: "Python · FastAPI · Kafka consumer"
+    does: "Computes and publishes the delivery promise per SKU and region"
+    summary: "Built by plans/delivery-promise. Holds one promise per SKU and region in [[st:promise-db]], serves [[api:promise-get]], publishes `promise.changed` when a date moves. Not in the graph today."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/promise/app/main.py#L1-L80" }]
+
+stores:
+  # ── cache layers, outermost first
+  - id: st:edge-cache
+    name: edge cache
+    kind: cache
+    tech: "Fastly"
+    owner: svc:fastly
+    does: "Caches persisted GET responses at the edge"
+    layer: edge
+    granularity: response
+    keyed_by: "operation id · variables · Accept-Language"
+    stale: { while_revalidate: 30, if_error: 3600 }
+    access: [{ svc: svc:cache-purger, mode: write }]
+    purge: "surrogate key per sku, sent by the cache purger"
+    invalidated_by: [msg:price-published, msg:product-published, msg:stock-changed]
+    observed: { hit_ratio: 0.92, latency_ms: { hit: 15, miss: 120 } }
+    notes: "Only operations the client sends as GET with a persisted id are cacheable; mutations and POSTs pass through. 92 % is ProductPage over the last 30 days; SearchResults sits at about 71 %."
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/fastly/vcl/graph.vcl#L1-L90", note: "cache key = operation id + sorted variables + Accept-Language; surrogate keys from the gateway's response header" }]
+  - id: st:gateway-entity-cache
+    name: gateway entity cache
+    kind: cache
+    tech: "Apollo Router entity caching · Redis 7"
+    owner: svc:graph-gateway
+    does: "Remembers entity pieces per subgraph, so a fetch can be skipped"
+    layer: gateway
+    granularity: entity
+    keyed_by: "subgraph · type · key fields · selection hash · scope"
+    access: [{ svc: svc:cache-purger, mode: write }]
+    purge: "entity type and key (sku) through the gateway's invalidation endpoint"
+    invalidated_by: [msg:price-published, msg:product-published, msg:stock-changed]
+    observed: { hit_ratio: 0.62, latency_ms: { hit: 8, miss: 95 } }
+    notes: "Caches per entity, not per response, so it answers `pricing: hit · inventory: miss` inside one operation. Entries honour each subgraph's `cache_control` and keep private data apart by scope."
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/router.yaml#L40-L72" }]
+  - id: st:price-redis
+    name: price cache
+    kind: cache
+    tech: "Redis 7"
+    owner: svc:pricing-graph
+    does: "Price per sku and market, 5 min, purged on price.published"
+    layer: subgraph
+    granularity: entity
+    keyed_by: "sku · market"
+    purge: "key per sku and market"
+    invalidated_by: [msg:price-published]
+    observed: { hit_ratio: 0.97, latency_ms: { hit: 2, miss: 35 } }
+  # ── stores of record
+  - id: st:stock-redis
+    name: stock snapshot
+    kind: cache
+    tech: "Redis 7"
+    owner: svc:inventory-graph
+    does: "One stock snapshot per sku, written from stock.changed"
+    notes: "A Redis used as a projection of `stock.changed`, not as a cache layer on the read path. It never falls through to the WMS."
+  - { id: st:catalog-read-db, name: catalog-read-db, kind: database, tech: "Postgres 15", owner: svc:product-graph, does: "Read projection of published products" }
+  - { id: st:catalog-events, name: catalog.events, kind: topic, tech: "Kafka", owner: svc:pim, does: "product.published" }
+  - { id: st:pricing-db, name: pricing-db, kind: database, tech: "Postgres 15", owner: svc:pricing, does: "List prices, rules, promotions" }
+  - { id: st:price-events, name: pricing.events, kind: topic, tech: "Kafka", owner: svc:pricing, does: "price.published" }
+  - { id: st:fulfilment-events, name: fulfilment.events, kind: topic, tech: "Kafka", owner: svc:wms, does: "stock.changed, promise.changed" }
+  - { id: st:cart-cache, name: cart-cache, kind: cache, tech: "Redis 7", owner: svc:cart-graph, does: "Carts, 30-day TTL; the store of record for a cart", notes: "A Redis used as the primary store, not as a cache layer on the read path." }
+  - { id: st:customer-db, name: customer-db, kind: database, tech: "Postgres 15", owner: svc:customer-graph, does: "Customers, addresses, consents" }
+  - { id: st:reviews-db, name: reviews-db, kind: database, tech: "Postgres 15", owner: svc:reviews-graph, does: "Customer reviews and ratings" }
+  - { id: st:promise-db, name: promise-db, kind: database, tech: "Postgres 15", owner: svc:promise, does: "Promises, cutoffs and lead times" }
+
+schemas:
+  # ── records behind the subgraphs
+  - id: sch:catalog-product
+    name: CatalogProduct
+    kind: record
+    store: st:catalog-read-db
+    summary: "The read copy per SKU and locale that the product subgraph serves."
+    fields:
+      - { name: sku, type: string, required: true, key: true }
+      - { name: locale, type: string, required: true, key: true }
+      - { name: name, type: string, required: true }
+      - { name: images, type: "uri[]", required: true }
+      - { name: lead_time_days, type: int, note: "Typed by the category manager years ago; 3 for almost everything. The source of `Product.leadTimeDays`." }
+      - { name: publishable, type: bool, required: true }
+    sources: [{ url: "https://github.com/alder-finch/pim/blob/9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3/subgraph/db/V3__catalog_product.sql#L1-L30" }]
+  - id: sch:price
+    name: Price
+    kind: record
+    store: st:pricing-db
+    summary: "List price per SKU and region."
+    fields:
+      - { name: sku, type: string, required: true, key: true, ref: "sch:catalog-product#sku" }
+      - { name: region, type: "enum(DE-N, DE-S, NL, FR, SE-S, SE-N)", required: true, key: true }
+      - { name: list_cents, type: int, required: true }
+      - { name: promo_cents, type: int }
+      - { name: currency, type: "enum(EUR, SEK)", required: true }
+  - id: sch:stock-snapshot
+    name: StockSnapshot
+    kind: record
+    store: st:stock-redis
+    summary: "What the inventory subgraph knows about a SKU: the sum over FCs and which FCs have it."
+    fields:
+      - { name: sku, type: string, required: true, key: true, ref: "sch:catalog-product#sku" }
+      - { name: available, type: int, required: true }
+      - { name: fcs, type: "string[]", required: true }
+      - { name: updated_at, type: timestamptz, required: true }
+  - id: sch:cart
+    name: Cart
+    kind: record
+    store: st:cart-cache
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: customer_id, type: uuid, ref: "sch:customer#id" }
+      - { name: region, type: string, required: true }
+      - { name: lines, type: "CartLine[]", required: true, note: "id, sku, qty, unit_cents" }
+      - { name: subtotal_cents, type: int, required: true }
+      - { name: currency, type: string, required: true }
+      - { name: estimated_delivery_text, type: string, note: "*3–5 working days*, from the largest `leadTimeDays` across lines. Static." }
+      - { name: status, type: "enum(open, checked_out)", required: true, default: open }
+  - id: sch:customer
+    name: Customer
+    kind: record
+    store: st:customer-db
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: email, type: string, required: true, unique: true }
+      - { name: region, type: string, note: "From the saved address; falls back to the IP region at the router." }
+      - { name: saved_address, type: Address }
+  - id: sch:delivery-promise
+    name: DeliveryPromise
+    kind: record
+    store: st:promise-db
+    summary: "The current promise for one SKU in one region. Owned by Fulfilment since plans/delivery-promise."
+    fields:
+      - { name: sku, type: string, required: true, key: true, ref: "sch:catalog-product#sku" }
+      - { name: region, type: "enum(DE-N, DE-S, NL, FR, SE-S, SE-N)", required: true, key: true }
+      - { name: promised_date, type: date, required: true }
+      - { name: order_by, type: timestamptz, required: true }
+      - { name: confidence, type: "enum(high, low)", required: true }
+      - { name: computed_at, type: timestamptz, required: true }
+  - id: sch:review
+    name: Review
+    kind: record
+    store: st:reviews-db
+    summary: "One customer review of one product."
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: product_id, type: uuid, required: true, note: "The product's `id`, not its `sku`: Content never learned the SKU." }
+      - { name: rating, type: int, required: true }
+      - { name: title, type: string }
+      - { name: body, type: string, required: true }
+      - { name: author, type: string, required: true }
+      - { name: created_at, type: timestamptz, required: true }
+  # ── payloads
+  - id: sch:product-published-v2
+    name: product.published v2
+    kind: payload
+    fields:
+      - { name: sku, type: string, required: true }
+      - { name: name, type: string, required: true }
+      - { name: lead_time_days, type: int }
+      - { name: publishable, type: bool, required: true }
+      - { name: published_at, type: timestamptz, required: true }
+  - id: sch:price-published-v1
+    name: price.published v1
+    kind: payload
+    fields:
+      - { name: sku, type: string, required: true }
+      - { name: region, type: string, required: true }
+      - { name: list_cents, type: int, required: true }
+      - { name: promo_cents, type: int }
+      - { name: currency, type: string, required: true }
+  - id: sch:stock-changed-v1
+    name: stock.changed v1
+    kind: payload
+    fields:
+      - { name: sku, type: string, required: true }
+      - { name: fc, type: string, required: true }
+      - { name: available, type: int, required: true }
+  - id: sch:promise-changed-v1
+    name: promise.changed v1
+    kind: payload
+    summary: "One SKU, all regions, whenever any date moves."
+    fields:
+      - { name: sku, type: string, required: true }
+      - { name: promises, type: "RegionPromise[]", required: true, note: "region, promised_date, order_by, confidence" }
+      - { name: computed_at, type: timestamptz, required: true }
+  # ── graph types: who owns which field
+  - id: sch:gql-query
+    name: Query
+    kind: graph-type
+    graph: graph:storefront
+    root: query
+    summary: "The root. Each root field belongs to the subgraph the gateway asks first."
+    fields:
+      - { name: product, args: "sku: ID!", type: "Product", subgraphs: [sg:product] }
+      - { name: search, args: "q: String!, first: Int", type: "[Product!]!", subgraphs: [sg:search], via: api:search-query, provides: ["sch:gql-product#name", "sch:gql-product#imageUrl"], cache_control: { max_age: 120 }, note: "The search subgraph asks the search API and returns each hit with its name and image, so a result list is one fetch." }
+      - { name: me, type: "Customer", subgraphs: [sg:customer], auth: "shopper session", note: "Everything selected through `me` is private to the session." }
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.graphql#L1-L40", note: "composed SDL, Query" }]
+  - id: sch:gql-mutation
+    name: Mutation
+    kind: graph-type
+    graph: graph:storefront
+    root: mutation
+    fields:
+      - { name: addToCart, args: "sku: ID!, qty: Int!", type: "Cart!", subgraphs: [sg:cart], via: api:pricing-get-price, auth: "shopper session", note: "Re-reads the price from Pricing so the cart never trusts the page." }
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.graphql#L42-L60" }]
+  - id: sch:gql-product
+    name: Product
+    kind: graph-type
+    graph: graph:storefront
+    keys:
+      - { fields: [sku], in: [sg:product, sg:pricing, sg:inventory, sg:cart, sg:search] }
+      - { fields: [id], in: [sg:product, sg:reviews] }
+    summary: "The product as the front end sees it. Four subgraphs contribute fields: product, pricing and inventory join by `sku`, reviews by `id`. The cart and search subgraphs are in the `sku` list because they hold a reference to a product, not a product: they own none of its fields. Whether the gateway may ask them for one by `sku`, or they should be stubs it never fetches from, is open ([[q:cart-search-key-stubs]])."
+    fields:
+      - { name: sku, type: "ID!", subgraphs: [sg:product], note: "The key. The product, pricing and inventory subgraphs can be asked for a product by it; the cart and search subgraphs only hold it ([[q:cart-search-key-stubs]]). The catalogue copy is `sch:catalog-product#sku`." }
+      - { name: id, type: "ID!", subgraphs: [sg:product], note: "The catalogue's internal id. Content only knows reviews by this." }
+      - { name: name, type: "String!", subgraphs: [sg:product], cache_control: { max_age: 3600 }, note: "From the catalogue copy (`sch:catalog-product#name`) in the product subgraph. The search subgraph declares it @external and provides it on `Query.search` hits from its index, so a search result needs no second fetch; asked for a Product by key, only the product subgraph answers." }
+      - { name: imageUrl, type: "String", subgraphs: [sg:product], cache_control: { max_age: 3600 }, note: "The first image: `sch:catalog-product#images` in the product subgraph; search provides it on `Query.search` hits." }
+      - { name: price, type: "Money!", subgraphs: [sg:pricing], reads: ["sch:price#list_cents", "sch:price#promo_cents", "sch:price#currency"], via: api:pricing-get-price, cache: [{ at: st:price-redis, ttl: 300 }], cache_control: { max_age: 300 }, note: "For the market of the request's locale. Public: the edge key varies on `Accept-Language`." }
+      - { name: stock, type: "Stock!", subgraphs: [sg:inventory], reads: ["sch:stock-snapshot#available", "sch:stock-snapshot#fcs"], cache_control: { max_age: 30 } }
+      - { name: leadTimeDays, type: "Int", subgraphs: [sg:product], reads: ["sch:catalog-product#lead_time_days"], usage: { clients: ["web", "ios ≤ 4.2"], per_day: "1.2M", last_seen: "2026-09-30", source: "https://studio.apollographql.com/graph/alderfinch-storefront/fields/Product.leadTimeDays" }, note: "Static; the same number in every region. The plan deprecates it, then removes it." }
+      - { name: reviews, type: "[Review!]!", subgraphs: [sg:reviews], reads: ["sch:review#rating", "sch:review#title", "sch:review#body", "sch:review#author"], cache_control: { max_age: 300 } }
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.graphql#L62-L110", note: "`type Product @key(fields: \"sku\") @key(fields: \"id\")` with `@join__field(graph:)` per field" }]
+  - id: sch:gql-money
+    name: Money
+    kind: graph-type
+    graph: graph:storefront
+    summary: "A value type: amount in minor units and the currency. Pricing's; resolved inside the fetch that returns a price, so it has no key."
+    fields:
+      - { name: amount, type: "Int!", subgraphs: [sg:pricing] }
+      - { name: currency, type: "String!", subgraphs: [sg:pricing] }
+  - id: sch:gql-stock
+    name: Stock
+    kind: graph-type
+    graph: graph:storefront
+    fields:
+      - { name: available, type: "Int!", subgraphs: [sg:inventory], reads: ["sch:stock-snapshot#available"] }
+      - { name: fc, type: "String", subgraphs: [sg:inventory], reads: ["sch:stock-snapshot#fcs"], note: "The warehouse that would ship it first. Only the admin tooling selects it today." }
+  - id: sch:gql-review
+    name: Review
+    kind: graph-type
+    graph: graph:storefront
+    fields:
+      - { name: rating, type: "Int!", subgraphs: [sg:reviews], reads: ["sch:review#rating"] }
+      - { name: title, type: "String", subgraphs: [sg:reviews], reads: ["sch:review#title"] }
+      - { name: body, type: "String!", subgraphs: [sg:reviews], reads: ["sch:review#body"] }
+      - { name: author, type: "String!", subgraphs: [sg:reviews], reads: ["sch:review#author"] }
+  - id: sch:gql-customer
+    name: Customer
+    kind: graph-type
+    graph: graph:storefront
+    keys:
+      - { fields: [id], in: [sg:customer, sg:cart] }
+    summary: "The signed-in shopper. The cart belongs to it, which is why a cart is only ever reached through `me`."
+    fields:
+      - { name: id, type: "ID!", subgraphs: [sg:customer], reads: ["sch:customer#id"] }
+      - { name: email, type: "String!", subgraphs: [sg:customer], reads: ["sch:customer#email"] }
+      - { name: region, type: "String!", subgraphs: [sg:customer], reads: ["sch:customer#region"], note: "Saved address first, IP region second. The storefront passes it as the `region` variable." }
+      - { name: savedAddress, type: "String", subgraphs: [sg:customer], reads: ["sch:customer#saved_address"] }
+      - { name: cart, type: "Cart", subgraphs: [sg:cart], reads: ["sch:cart#id"] }
+  - id: sch:gql-cart
+    name: Cart
+    kind: graph-type
+    graph: graph:storefront
+    summary: "Everything on a cart is reached through the signed-in customer."
+    fields:
+      - { name: id, type: "ID!", subgraphs: [sg:cart], reads: ["sch:cart#id"] }
+      - { name: lines, type: "[CartLine!]!", subgraphs: [sg:cart], reads: ["sch:cart#lines"] }
+      - { name: subtotalCents, type: "Int!", subgraphs: [sg:cart], reads: ["sch:cart#subtotal_cents"] }
+      - { name: currency, type: "String!", subgraphs: [sg:cart], reads: ["sch:cart#currency"] }
+      - { name: estimatedDelivery, type: "String", subgraphs: [sg:cart], reads: ["sch:cart#estimated_delivery_text"], usage: { clients: ["web"], per_day: "310k", last_seen: "2026-09-30", source: "https://studio.apollographql.com/graph/alderfinch-storefront/fields/Cart.estimatedDelivery" }, note: "*3–5 working days*. Computed by the cart subgraph from the lines' `leadTimeDays`. Static." }
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/cart-subgraph/schema.graphqls#L1-L50" }]
+  - id: sch:gql-cart-line
+    name: CartLine
+    kind: graph-type
+    graph: graph:storefront
+    fields:
+      - { name: id, type: "ID!", subgraphs: [sg:cart] }
+      - { name: sku, type: "ID!", subgraphs: [sg:cart] }
+      - { name: qty, type: "Int!", subgraphs: [sg:cart] }
+      - { name: unitCents, type: "Int!", subgraphs: [sg:cart], note: "The price at add time, from the cart record; not re-resolved by Pricing." }
+      - { name: product, type: "Product!", subgraphs: [sg:cart], note: "A bare reference `{ sku }`; the gateway fetches the rest from the subgraphs that own it." }
+
+graphs:
+  - id: graph:storefront
+    name: Storefront graph
+    gateway: svc:graph-gateway
+    registry: "https://studio.apollographql.com/graph/alderfinch-storefront"
+    summary: >-
+      One schema for the shop, composed from seven subgraphs by Apollo Router. The storefront is its only client.
+      Fastly sits in front for persisted GETs, and the gateway keeps an entity cache of its own. Every subgraph is a
+      service owned by its team; a `Product` is four of them joined by `sku` and a fifth joined by `id`.
+    sources:
+      - { url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.yaml#L1-L30" }
+      - { url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/supergraph.graphql#L1-L160", note: "the composed SDL, checked in by CI" }
+
+subgraphs:
+  - id: sg:product
+    name: Product subgraph
+    graph: graph:storefront
+    service: svc:product-graph
+    summary: "Catalogue entities: `Product` (owner of both keys), `id`, `name`, `leadTimeDays` and the `product` root."
+    batching: dataloader
+    cache_control_default: 3600
+    timeout_ms: 800
+    observed: { latency_ms: 28, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/pim/blob/9c1e4b7a2d3f5061728394a5b6c7d8e9f0a1b2c3/subgraph/src/schema.graphql#L1-L70" }]
+  - id: sg:search
+    name: Search subgraph
+    graph: graph:storefront
+    service: svc:search-graph
+    summary: "Owns `Query.search`; provides `name` and `imageUrl` on the hits it returns. It holds only a reference to `Product` by `sku`."
+    batching: none
+    cache_control_default: 120
+    timeout_ms: 600
+    observed: { latency_ms: 45, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/search/blob/9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d/subgraph/schema.graphqls#L1-L40" }]
+  - id: sg:pricing
+    name: Pricing subgraph
+    graph: graph:storefront
+    service: svc:pricing-graph
+    summary: "Extends `Product` with `price`; owns `Money`."
+    batching: none
+    cache_control_default: 300
+    timeout_ms: 500
+    observed: { latency_ms: 70, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/pricing/blob/8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c/subgraph/src/main/resources/schema.graphqls#L1-L40" }]
+  - id: sg:inventory
+    name: Inventory subgraph
+    graph: graph:storefront
+    service: svc:inventory-graph
+    summary: "Extends `Product` with `stock`; owns `Stock`."
+    batching: dataloader
+    cache_control_default: 30
+    timeout_ms: 300
+    observed: { latency_ms: 35, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/inventory-subgraph/app/schema.py#L1-L60" }]
+  - id: sg:cart
+    name: Cart subgraph
+    graph: graph:storefront
+    service: svc:cart-graph
+    summary: "Owns `Cart`, `CartLine`, `Customer.cart` and `addToCart`. It holds only a reference to `Product` by `sku`: a line's `product` is a bare reference."
+    batching: dataloader
+    cache_control_default: 0
+    timeout_ms: 500
+    observed: { latency_ms: 22, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/cart-subgraph/schema.graphqls#L1-L50" }]
+  - id: sg:customer
+    name: Customer subgraph
+    graph: graph:storefront
+    service: svc:customer-graph
+    summary: "Owns `Customer` and `me`. Everything it serves is private."
+    batching: none
+    cache_control_default: 0
+    timeout_ms: 400
+    observed: { latency_ms: 18, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/customers/blob/0f1e2d3c4b5a69788796a5b4c3d2e1f0a9b8c7d6/subgraph/src/main/resources/schema/customer.graphqls#L1-L30" }]
+  - id: sg:reviews
+    name: Reviews subgraph
+    graph: graph:storefront
+    service: svc:reviews-graph
+    summary: "Extends `Product` with `reviews`. Knows a product only by `id`, so it is asked after the product subgraph has returned one."
+    batching: dataloader
+    cache_control_default: 300
+    timeout_ms: 600
+    observed: { latency_ms: 40, source: "Grafana · gateway → subgraph p50, last 30 days" }
+    sources: [{ url: "https://github.com/alder-finch/content/blob/3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b/reviews-subgraph/schema.graphql#L1-L40" }]
+
+interfaces:
+  - id: if:storefront-graph
+    service: svc:graph-gateway
+    protocol: graphql
+    summary: "`POST /graphql` and persisted `GET /graphql?extensions=…`. The only API the storefront calls; what it asks is in `operations`."
+    sources: [{ url: "https://github.com/alder-finch/storefront-graph/blob/a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e/router.yaml#L1-L20" }]
+  - id: if:gateway-admin
+    service: svc:graph-gateway
+    protocol: rest
+    summary: "The gateway's invalidation endpoint, called by the cache purger."
+    endpoints:
+      - { id: api:gateway-invalidate, sig: "POST /invalidate", summary: "Drop cached entities of a type with this key (sku).", auth: "service token", idempotent: true }
+  - id: if:fastly-api
+    service: svc:fastly
+    protocol: rest
+    endpoints:
+      - { id: api:fastly-purge, sig: "POST /service/{id}/purge/{surrogate_key}", auth: "API token", idempotent: true }
+  - id: if:pricing-rest
+    service: svc:pricing
+    protocol: rest
+    endpoints:
+      - { id: api:pricing-get-price, sig: "GET /prices/{sku}?market=", response: sch:price, auth: "service token", idempotent: true }
+  - id: if:search-rest
+    service: svc:search-api
+    protocol: rest
+    endpoints:
+      - { id: api:search-query, sig: "GET /search?q=&locale=&first=", auth: "service token", idempotent: true, summary: "Returns skus, names and image urls; the subgraph turns them into Product references." }
+  - id: if:promise-rest
+    service: svc:promise
+    protocol: rest
+    summary: "Lookups for checkout and the PIM. The graph does not call it today."
+    endpoints:
+      - { id: api:promise-get, sig: "GET /promises/{sku}?region=", response: sch:delivery-promise, auth: "service token", idempotent: true }
+
+operations:
+  - id: gql:product-page
+    name: ProductPage
+    kind: query
+    graph: graph:storefront
+    screens: [scr:pdp#hero, scr:pdp#price, scr:pdp#stock]
+    client: svc:storefront-web
+    method: GET
+    persisted: apq
+    trigger: load
+    summary: "Sent once when the page is server-rendered; the hero, price and stock come from it. The edge keeps it longer than stock changes: the page shows only *In stock* or not, and the purger removes the cached page when stock moves."
+    document: |
+      query ProductPage($sku: ID!) {
+        product(sku: $sku) {
+          sku
+          name
+          imageUrl
+          price { amount currency }
+          stock { available }
+          leadTimeDays
+        }
+      }
+    cache:
+      - { at: st:edge-cache, ttl: 600, key: { operation: id, variables: [sku], headers: [Accept-Language] }, reason: "Stock is shown as in or out only and `stock.changed` purges the page by sku, so ten minutes is acceptable, although the cache rules alone would give 30 s." }
+    plan_check: { fetches: 3, round_trips: 2, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/ProductPage/plan" }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/pdp/queries.ts#L10-L30" }]
+  - id: gql:product-reviews
+    name: ProductReviews
+    kind: query
+    graph: graph:storefront
+    screens: [scr:pdp#reviews]
+    client: svc:storefront-web
+    method: GET
+    persisted: apq
+    trigger: scroll
+    summary: "Sent when the reviews scroll into view. The reviews subgraph only knows a product by `id`, so the product subgraph is asked first."
+    document: |
+      query ProductReviews($sku: ID!) {
+        product(sku: $sku) {
+          sku
+          reviews { rating title body author }
+        }
+      }
+    cache:
+      - { at: st:edge-cache, ttl: 300, key: { operation: id, variables: [sku], headers: [Accept-Language] } }
+    plan_check: { fetches: 2, round_trips: 2, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/ProductReviews/plan" }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/pdp/reviews.ts#L1-L30" }]
+  - id: gql:search-results
+    name: SearchResults
+    kind: query
+    graph: graph:storefront
+    screens: [scr:search-results#tiles]
+    client: svc:storefront-web
+    method: GET
+    persisted: apq
+    trigger: load
+    summary: "Sent on page load, and again with a larger `first` when the shopper asks for more. One fetch: the search subgraph provides the name and image of every hit itself."
+    document: |
+      query SearchResults($q: String!, $first: Int) {
+        search(q: $q, first: $first) {
+          sku
+          name
+          imageUrl
+        }
+      }
+    cache:
+      - { at: st:edge-cache, ttl: 120, key: { operation: id, variables: [q, first], headers: [Accept-Language] } }
+    plan_check: { fetches: 1, round_trips: 1, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/SearchResults/plan" }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/search/queries.ts#L1-L40" }]
+  - id: gql:add-to-cart
+    name: AddToCart
+    kind: mutation
+    graph: graph:storefront
+    screens: [scr:pdp#add-to-cart]
+    client: svc:storefront-web
+    method: POST
+    persisted: safelist
+    trigger: click
+    summary: "Sent when the button is pressed. The response feeds the mini cart directly, with no second query."
+    document: |
+      mutation AddToCart($sku: ID!, $qty: Int!) {
+        addToCart(sku: $sku, qty: $qty) {
+          id
+          lines { id sku qty unitCents }
+          subtotalCents
+          currency
+          estimatedDelivery
+        }
+      }
+    writes: [sch:cart]
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/cart/mutations.ts#L1-L30" }]
+  - id: gql:cart-summary
+    name: CartSummary
+    kind: query
+    graph: graph:storefront
+    screens: [scr:mini-cart]
+    client: svc:storefront-web
+    method: POST
+    persisted: safelist
+    trigger: click
+    summary: "Sent when the mini cart opens from the header. Private, because the cart is reached through `me`, so nothing above the gateway caches it."
+    document: |
+      query CartSummary {
+        me {
+          cart {
+            id
+            lines {
+              id
+              qty
+              unitCents
+              product { sku name imageUrl }
+            }
+            subtotalCents
+            currency
+            estimatedDelivery
+          }
+        }
+      }
+    cache:
+      - { at: st:gateway-entity-cache, key: "subgraph · type · sku · scope" }
+    plan_check: { fetches: 3, round_trips: 3, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/CartSummary/plan" }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/cart/queries.ts#L1-L40" }]
+
+messages:
+  - id: msg:product-published
+    name: product.published
+    version: v2
+    topic: st:catalog-events
+    payload: sch:product-published-v2
+    producer: svc:pim
+    consumers: [svc:product-graph, svc:cache-purger]
+    key: sku
+    semantics: "At least once. The whole product every time."
+  - id: msg:price-published
+    name: price.published
+    version: v1
+    topic: st:price-events
+    payload: sch:price-published-v1
+    producer: svc:pricing
+    consumers: [svc:pricing-graph, svc:cache-purger]
+    key: "sku, region"
+    semantics: "At least once."
+  - id: msg:stock-changed
+    name: stock.changed
+    version: v1
+    topic: st:fulfilment-events
+    payload: sch:stock-changed-v1
+    producer: svc:wms
+    consumers: [svc:inventory-graph, svc:cache-purger, svc:promise]
+    semantics: "At least once per SKU and FC."
+  - id: msg:promise-changed
+    name: promise.changed
+    version: v1
+    topic: st:fulfilment-events
+    payload: sch:promise-changed-v1
+    producer: svc:promise
+    consumers: [svc:pim]
+    key: sku
+    semantics: "At least once, compacted. Published only when a date or confidence moved."
+
+# ─────────────────────────────────────────────── chapter 3: How it runs today
+flows:
+  - id: flow:browse-product
+    name: Look at a product
+    actor: Shopper
+    trigger: "The shopper opens a product page."
+    outcome: "The shopper sees the product, its price for their market, stock, *ships in 3 days*, and the reviews as they scroll."
+    steps:
+      - id: flow:browse-product#open
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:product-page
+        case: cold
+        action: Ask for the product
+        screen: scr:pdp
+        logic: "The server-rendered page sends ProductPage as a persisted GET. On a cold path the edge misses and the gateway asks the product subgraph first, then pricing and inventory in parallel by `sku`."
+        fails: "If the gateway is down, the edge serves the expired copy for 30 s. Without one, the page shows an error state, never a blank hero."
+      - id: flow:browse-product#render
+        from: svc:graph-gateway
+        to: svc:storefront-web
+        via: internal
+        action: Render the page
+        screen: scr:pdp#stock
+        logic: "The stock region shows *In stock · ships in 3 days* from `stock.available` and `leadTimeDays`. The response carries `Surrogate-Key: <sku>`, so the next shopper in the market hits the edge."
+      - id: flow:browse-product#reviews
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:product-reviews
+        case: cold
+        action: Ask for the reviews on scroll
+        screen: scr:pdp#reviews
+        logic: "A second persisted GET once the reviews scroll into view. The reviews subgraph only knows a product by `id`, so the gateway asks the product subgraph for it first."
+        fails: "The reviews region stays a skeleton; nothing else on the page waits for it."
+  - id: flow:search-results
+    name: Search and scroll
+    actor: Shopper
+    trigger: "The shopper searches for *tent*."
+    outcome: "Tiles with image and name; more appear when she asks."
+    steps:
+      - id: flow:search-results#open
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:search-results
+        case: miss
+        action: Ask for the first page
+        screen: scr:search-results#tiles
+        logic: "The search subgraph calls the search API and returns the hits with their names and images: one fetch, because it provides those fields itself."
+      - id: flow:search-results#more
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:search-results
+        case: miss
+        action: Ask for more
+        screen: scr:search-results#tiles
+        logic: "The same operation with a larger `first`. Rarely an edge hit: every page size is its own key."
+      - id: flow:search-results#render
+        from: svc:graph-gateway
+        to: svc:storefront-web
+        via: internal
+        action: Show the tiles
+        screen: scr:search-results#tiles
+  - id: flow:add-to-cart
+    name: Add to cart
+    actor: Shopper
+    trigger: "The shopper presses **Add to cart**."
+    outcome: "The mini cart opens with the line and *Delivery 3–5 working days*."
+    steps:
+      - id: flow:add-to-cart#press
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:add-to-cart
+        action: Add the line
+        screen: scr:pdp#add-to-cart
+        logic: "A mutation: the edge passes it through, the gateway does not cache it. The cart subgraph re-reads the price from Pricing and writes the cart."
+        fails: "The button shows *Try again*; the cart is unchanged."
+      - id: flow:add-to-cart#show
+        from: svc:graph-gateway
+        to: svc:storefront-web
+        via: internal
+        action: Open the mini cart
+        screen: scr:mini-cart#summary
+        logic: "The mutation's response fills the mini cart; `estimatedDelivery` is the cart subgraph's static text."
+  - id: flow:view-cart
+    name: Open the mini cart
+    actor: Shopper
+    trigger: "The shopper presses the cart icon in the header."
+    outcome: "The shopper sees their lines, the subtotal and *Delivery 3–5 working days*."
+    steps:
+      - id: flow:view-cart#open
+        from: svc:storefront-web
+        to: svc:graph-gateway
+        via: gql:cart-summary
+        case: hit
+        action: Ask for the cart
+        screen: scr:mini-cart
+        logic: "Private, and a POST: the edge cannot cache it, so the gateway is the outermost layer. The customer and cart fetches always run; the product pieces for the lines come from the gateway's entity cache."
+      - id: flow:view-cart#render
+        from: svc:graph-gateway
+        to: svc:storefront-web
+        via: internal
+        action: Show the lines
+        screen: scr:mini-cart#lines
+  - id: flow:price-change-purge
+    name: A price change purges every cache
+    actor: System
+    trigger: "Pricing publishes a new price for a SKU and region."
+    outcome: "The next shopper sees the new price within seconds, and every cache layer refills with it. In the rare race below, one refill can bring the old price back for up to five minutes."
+    steps:
+      - id: flow:price-change-purge#publish
+        from: svc:pricing
+        to: st:price-events
+        via: msg:price-published
+        action: Announce the price
+        reads: [sch:price]
+      - id: flow:price-change-purge#evict-redis
+        from: st:price-events
+        to: svc:pricing-graph
+        via: msg:price-published
+        action: Purge the price key
+        purges: [st:price-redis]
+        logic: "Deletes `price:{sku}:{market}` in [[st:price-redis]]. The next resolve calls Pricing and refills."
+      - id: flow:price-change-purge#take-event
+        from: st:price-events
+        to: svc:cache-purger
+        via: msg:price-published
+        action: Take the event
+        logic: "One purge per SKU, debounced for 2 s across regions. [[flow:price-change-purge#evict-redis]] and this step consume the same event in parallel. Redis is purged first and the edge second, only because of that debounce. If the edge purge landed first, the next miss would refill Fastly from the stale Redis entry (up to 5 min, the Redis time to live). The soft purge limits that: Fastly keeps the old object as stale-while-revalidate for 30 s, so it fetches the page again once Redis has been purged."
+      - id: flow:price-change-purge#purge-edge
+        from: svc:cache-purger
+        to: svc:fastly
+        via: api:fastly-purge
+        action: Purge the surrogate key
+        purges: [st:edge-cache]
+        logic: "Every cached object tagged with the SKU goes: ProductPage for every market, every SearchResults page that listed it."
+        fails: "Retried for a minute; after that the edge serves the old price until its time is up (10 minutes at most)."
+      - id: flow:price-change-purge#purge-gateway
+        from: svc:cache-purger
+        to: svc:graph-gateway
+        via: api:gateway-invalidate
+        action: Purge the Product entity
+        purges: [st:gateway-entity-cache]
+        logic: "Drops every cached entity piece for the SKU in [[st:gateway-entity-cache]]."
+  - id: flow:sync-stock
+    name: Keep stock in sync
+    actor: System
+    trigger: "Stock moves in a warehouse."
+    outcome: "The inventory subgraph's snapshot is rewritten and the edge copies of the page are purged."
+    steps:
+      - id: flow:sync-stock#publish
+        from: svc:wms
+        to: st:fulfilment-events
+        via: msg:stock-changed
+        action: Announce the change
+      - id: flow:sync-stock#snapshot
+        from: st:fulfilment-events
+        to: svc:inventory-graph
+        via: msg:stock-changed
+        action: Rewrite the snapshot
+        logic: "Sum over FCs, list the FCs with stock, overwrite the key. This is the only writer of [[st:stock-redis]]."
+        writes: [sch:stock-snapshot]
+      - id: flow:sync-stock#take-event
+        from: st:fulfilment-events
+        to: svc:cache-purger
+        via: msg:stock-changed
+        action: Take the event
+        logic: "One purge per SKU, sent to Fastly and to the gateway below ([[flow:price-change-purge#purge-edge]] is the same call). Stock changes are the noisiest cause: 60 % of all purges."
+      - id: flow:sync-stock#purge-edge
+        from: svc:cache-purger
+        to: svc:fastly
+        via: api:fastly-purge
+        action: Purge the surrogate key
+        purges: [st:edge-cache]
+        logic: "ProductPage for the SKU in every market goes, so the 600 s life is only a backstop."
+      - id: flow:sync-stock#purge-gateway
+        from: svc:cache-purger
+        to: svc:graph-gateway
+        via: api:gateway-invalidate
+        action: Purge the Product entity
+        purges: [st:gateway-entity-cache]
+        logic: "Drops the SKU's cached `stock` pieces in [[st:gateway-entity-cache]]."
+  - id: flow:project-product
+    name: Update the read copy of a product
+    actor: System
+    trigger: "`product.published` for a SKU."
+    outcome: "The product subgraph serves the new copy and the edge no longer holds the old page."
+    steps:
+      - id: flow:project-product#publish
+        from: svc:pim
+        to: st:catalog-events
+        via: msg:product-published
+        action: Announce the product
+      - id: flow:project-product#project
+        from: st:catalog-events
+        to: svc:product-graph
+        via: msg:product-published
+        action: Update the read copy
+        writes: [sch:catalog-product]
+      - id: flow:project-product#take-event
+        from: st:catalog-events
+        to: svc:cache-purger
+        via: msg:product-published
+        action: Take the event
+        logic: "One purge per SKU, sent to Fastly and to the gateway below."
+      - id: flow:project-product#purge-edge
+        from: svc:cache-purger
+        to: svc:fastly
+        via: api:fastly-purge
+        action: Purge the surrogate key
+        purges: [st:edge-cache]
+      - id: flow:project-product#purge-gateway
+        from: svc:cache-purger
+        to: svc:graph-gateway
+        via: api:gateway-invalidate
+        action: Purge the Product entity
+        purges: [st:gateway-entity-cache]
+        logic: "Drops the cached `name` and `imageUrl` pieces for the SKU in [[st:gateway-entity-cache]]."
+
+screens:
+  - id: scr:pdp
+    name: Product page
+    service: svc:storefront-web
+    kind: page
+    route: /{locale}/p/{sku}
+    device: desktop
+    summary: "One operation, [[gql:product-page]], fills the hero, price and stock; [[gql:product-reviews]] fills the reviews on scroll. The delivery text is the catalogue's static `leadTimeDays`."
+    image: assets/pdp.svg
+    regions:
+      - id: scr:pdp#hero
+        name: Hero
+        shows: "Gallery and name."
+        reads: ["sch:gql-product#name", "sch:gql-product#imageUrl"]
+        at: { x: 2, y: 14, w: 50, h: 70 }
+      - id: scr:pdp#price
+        name: Price
+        shows: "The price for the shopper's market."
+        reads: ["sch:gql-product#price"]
+        at: { x: 55, y: 26, w: 43, h: 10 }
+      - id: scr:pdp#stock
+        name: Stock and delivery
+        shows: "*In stock · ships in 3 days*. The number is `leadTimeDays`, the same in every region."
+        reads: ["sch:gql-product#stock", "sch:gql-product#leadTimeDays"]
+        at: { x: 55, y: 38, w: 43, h: 8 }
+      - id: scr:pdp#add-to-cart
+        name: Add to cart
+        shows: "Size picker and the **Add to cart** button."
+        at: { x: 55, y: 48, w: 43, h: 14 }
+      - id: scr:pdp#reviews
+        name: Reviews
+        shows: "Average rating and the latest reviews."
+        reads: ["sch:gql-product#reviews"]
+        at: { x: 55, y: 66, w: 43, h: 26 }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/app/%5Blocale%5D/p/%5Bsku%5D/page.tsx#L1-L90" }]
+  - id: scr:search-results
+    name: Search results
+    service: svc:storefront-web
+    kind: page
+    route: /{locale}/search
+    device: desktop
+    summary: "Tiles from [[gql:search-results]]. A tile is an image and a name; price and stock are on the product page."
+    image: assets/search-results.svg
+    regions:
+      - id: scr:search-results#facets
+        name: Facets
+        shows: "Category, size, colour, price, in stock."
+        at: { x: 2, y: 14, w: 20, h: 80 }
+      - id: scr:search-results#tiles
+        name: Result tiles
+        shows: "Image and name. No price, stock or delivery text."
+        reads: ["sch:gql-product#name", "sch:gql-product#imageUrl"]
+        at: { x: 24, y: 14, w: 74, h: 80 }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/app/%5Blocale%5D/search/page.tsx#L1-L120" }]
+  - id: scr:mini-cart
+    name: Mini cart
+    service: svc:storefront-web
+    kind: sheet
+    device: any
+    summary: "Slides in after add-to-cart or from the header. [[gql:cart-summary]] fills it."
+    image: assets/mini-cart.svg
+    regions:
+      - id: scr:mini-cart#lines
+        name: Lines
+        shows: "Each line with image, name, qty and unit price."
+        reads: ["sch:gql-cart#lines"]
+        at: { x: 2, y: 14, w: 62, h: 80 }
+      - id: scr:mini-cart#summary
+        name: Summary
+        shows: "Subtotal and *Delivery 3–5 working days*."
+        reads: ["sch:gql-cart#subtotalCents", "sch:gql-cart#estimatedDelivery"]
+        at: { x: 66, y: 14, w: 32, h: 30 }
+      - id: scr:mini-cart#checkout
+        name: Checkout
+        shows: "The **Checkout** button."
+        at: { x: 66, y: 46, w: 32, h: 8 }
+    sources: [{ url: "https://github.com/alder-finch/storefront/blob/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e/apps/web/src/cart/MiniCart.tsx#L1-L80" }]
+
+# ─────────────────────────────────────────────── chapters 4–5: What's new and what changes
+changes:
+  # ── Fulfilment: the promise joins the graph
+  - id: chg:promise-subgraph
+    title: "Fulfilment serves a promise subgraph that adds deliveryPromise to Product"
+    why: >-
+      The promise exists ([[sch:delivery-promise]]), but the page can reach it only through a side call. As a field
+      on `Product`, it can be asked for by every operation that already has a `sku`. Fulfilment serves it from the
+      Promise service, not from the inventory subgraph, so ownership and the cache stay with the team that computes
+      it ([[dec:promise-own-subgraph]]). The field `@requires` the warehouse from `stock { fc }`. That costs a round
+      trip wherever the field is selected, so ProductPage must not select it.
+    decisions: [dec:promise-own-subgraph, dec:region-in-key]
+    rollout: >-
+      Publish the subgraph to the registry and compose it in CI (M1); the field exists in the graph before any
+      operation selects it. `region` is an argument, so the answer for a region is public and cacheable, and the
+      field never reads the region from the session.
+    ops:
+      - add: subgraph
+        value:
+          id: sg:promise
+          name: Promise subgraph
+          graph: graph:storefront
+          service: svc:promise
+          summary: "Extends `Product` with `deliveryPromise`; owns `DeliveryPromise`. Needs the warehouse from the inventory subgraph (`@requires`)."
+          batching: dataloader
+          cache_control_default: 60
+          timeout_ms: 400
+      - add: store
+        value:
+          id: st:promise-redis
+          name: promise cache
+          kind: cache
+          tech: "Redis 7"
+          owner: svc:promise
+          does: "Promise per sku and region, 60 s"
+          layer: subgraph
+          granularity: entity
+          keyed_by: "sku · region"
+          purge: "keys for the sku, deleted by the Promise service before it publishes promise.changed"
+          observed: { latency_ms: { hit: 2, miss: 40 } }
+      - add: schema
+        value:
+          id: sch:gql-delivery-promise
+          name: DeliveryPromise
+          kind: graph-type
+          graph: graph:storefront
+          summary: "The date, the cutoff and how sure we are. Public: it is computed for the region the caller names."
+          fields:
+            - { name: date, type: "Date!", subgraphs: [sg:promise], reads: ["sch:delivery-promise#promised_date"] }
+            - { name: orderBy, type: "DateTime!", subgraphs: [sg:promise], reads: ["sch:delivery-promise#order_by"] }
+            - { name: confidence, type: "Confidence!", subgraphs: [sg:promise], reads: ["sch:delivery-promise#confidence"] }
+      - modify: sch:gql-product
+        set:
+          keys:
+            - { fields: [sku], in: [sg:product, sg:pricing, sg:inventory, sg:cart, sg:search, sg:promise] }
+            - { fields: [id], in: [sg:product, sg:reviews] }
+      - add: field
+        into: sch:gql-product
+        value: { name: deliveryPromise, args: "region: Region!", type: "DeliveryPromise", subgraphs: [sg:promise], requires: ["sch:gql-stock#fc"], reads: ["sch:delivery-promise#promised_date", "sch:delivery-promise#order_by", "sch:delivery-promise#confidence"], cache: [{ at: st:promise-redis, ttl: 60 }], cache_control: { max_age: 60 }, note: "Empty when no stock anywhere, so the type stays nullable ([[risk:non-null-promise]]). Public: the region is an argument and part of the edge key ([[dec:region-in-key]])." }
+  # ── Fulfilment and Storefront: a moved promise purges the edge
+  - id: chg:purge-on-promise
+    title: "promise.changed purges the SKU at the edge and in the gateway, for every region"
+    why: >-
+      ProductPromise lives at the edge for 60 s per region ([[chg:split-product-page]]). A 60-second life alone means
+      Anna can see Thursday for a minute after Berlin sold out ([[sc:berlin-sells-out]]). The purger already
+      turns price and stock events into purges by SKU; the promise event joins them ([[dec:purge-and-ttl]]).
+      One surrogate-key purge per SKU drops all six regional copies ([[q:surrogate-purge-regions]]).
+    decisions: [dec:purge-and-ttl]
+    rollout: "The purger consumes `promise.changed` from M1; the caches below list it. After each purge it asks the Promise service for the three busiest regions to warm the cache. The 60-second life is the backstop if the purger is down."
+    ops:
+      - modify: msg:promise-changed
+        append: { consumers: [svc:cache-purger] }
+      - modify: st:edge-cache
+        append: { invalidated_by: [msg:promise-changed] }
+      - modify: st:gateway-entity-cache
+        append: { invalidated_by: [msg:promise-changed] }
+      - add: flow
+        value:
+          id: flow:promise-change-purge
+          name: A moved promise purges every cache
+          actor: System
+          trigger: "Fulfilment publishes `promise.changed` for a SKU."
+          outcome: "Within seconds neither the edge nor the gateway serves the old promise for the SKU in any region. ProductPage's copy is purged too and refilled unchanged."
+          steps:
+            - id: flow:promise-change-purge#evict-redis
+              from: svc:promise
+              to: svc:promise
+              via: internal
+              action: Purge the promise keys
+              purges: [st:promise-redis]
+              logic: "Deletes `promise:{sku}:*` in [[st:promise-redis]] before publishing, so a refill after the purge cannot read the old value."
+            - id: flow:promise-change-purge#publish
+              from: svc:promise
+              to: st:fulfilment-events
+              via: msg:promise-changed
+              action: Announce the moved promise
+              reads: [sch:delivery-promise]
+            - id: flow:promise-change-purge#take-event
+              from: st:fulfilment-events
+              to: svc:cache-purger
+              via: msg:promise-changed
+              action: Take the event
+            - id: flow:promise-change-purge#purge-edge
+              from: svc:cache-purger
+              to: svc:fastly
+              via: api:fastly-purge
+              action: Purge the surrogate key
+              purges: [st:edge-cache]
+              logic: "One call per SKU purges ProductPromise in every region, because all six copies carry the SKU. ProductPage carries it too and is refilled unchanged."
+              fails: "Retried for a minute; after that the 60-second life is the backstop."
+            - id: flow:promise-change-purge#purge-gateway
+              from: svc:cache-purger
+              to: svc:graph-gateway
+              via: api:gateway-invalidate
+              action: Purge the Product entity
+              purges: [st:gateway-entity-cache]
+              logic: "Drops the cached promise pieces for the SKU, so the mini cart's lines are right too."
+            - id: flow:promise-change-purge#warm
+              from: svc:cache-purger
+              to: svc:promise
+              via: api:promise-get
+              action: Warm the promise for the SKU
+              logic: "Reads the promise for the SKU in the three busiest regions, so the first shopper after the purge finds [[st:promise-redis]] filled instead of paying for a 40 ms miss."
+              reads: [sch:delivery-promise]
+              fails: "Skipped; the first shopper in each region fills the cache, as before."
+  # ── Pricing: price moves to a new subgraph, step one
+  - id: chg:price-v2-expand
+    title: "Pricing adds a pricing-v2 subgraph that can serve price, at 0 % of requests"
+    why: >-
+      The Kotlin pricing subgraph resolves one product at a time and cannot batch. A Go rewrite batches the
+      lookups and shares the same Redis. Moving a field between subgraphs is a migration, not an edit
+      ([[dec:price-progressive-override]]): first the new subgraph claims the field with `@override` at 0 %, so
+      the graph still composes and no request moves.
+    decisions: [dec:price-progressive-override]
+    rollout: "Publish pricing-v2 with `@override(from: \"pricing\", label: \"percent(0)\")`. Nothing a shopper can see changes."
+    ops:
+      - add: service
+        value:
+          id: svc:pricing-graph-v2
+          name: Pricing graph service v2
+          team: team:pricing
+          kind: service
+          tech: "Go · gqlgen"
+          does: "Adds price to Product, batched"
+          summary: "Replaces the Kotlin pricing subgraph. Resolves `price` for many products in one call to [[api:pricing-get-price]]; shares [[st:price-redis]]."
+      - add: subgraph
+        value:
+          id: sg:pricing-v2
+          name: Pricing subgraph v2
+          graph: graph:storefront
+          service: svc:pricing-graph-v2
+          summary: "Takes over `price` and `Money` from the pricing subgraph, progressively."
+          batching: dataloader
+          cache_control_default: 300
+          timeout_ms: 500
+      - modify: st:price-redis
+        append: { access: [{ svc: svc:pricing-graph-v2, mode: readwrite }] }
+      - modify: msg:price-published
+        append: { consumers: [svc:pricing-graph-v2] }
+      - modify: sch:gql-product
+        set:
+          keys:
+            - { fields: [sku], in: [sg:product, sg:pricing, sg:pricing-v2, sg:inventory, sg:cart, sg:search, sg:promise] }
+            - { fields: [id], in: [sg:product, sg:reviews] }
+      - modify: "sch:gql-money#amount"
+        append: { subgraphs: [sg:pricing-v2] }
+        set: { shareable: true }
+      - modify: "sch:gql-money#currency"
+        append: { subgraphs: [sg:pricing-v2] }
+        set: { shareable: true }
+      - modify: "sch:gql-product#price"
+        append: { subgraphs: [sg:pricing-v2] }
+        set: { override: { from: sg:pricing, percent: 0 } }
+  # ── Catalog: the old number is on its way out
+  - id: chg:deprecate-lead-time
+    title: "Product.leadTimeDays is deprecated in favour of deliveryPromise"
+    why: "Two delivery answers on one type are one too many. The registry shows three operations select it today, all the storefront's, plus an iOS version nobody can force to update."
+    rollout: "`@deprecated(reason: \"Use deliveryPromise\")` in the product subgraph's SDL; registry field-usage alerts at zero before M3 removes it."
+    ops:
+      - deprecate: "sch:gql-product#leadTimeDays"
+        replaced_by: "sch:gql-product#deliveryPromise"
+      - modify: "sch:catalog-product#lead_time_days"
+        set:
+          note: "No longer served by the subgraph once nothing selects `leadTimeDays`; the column is dropped in M3."
+  # ── Storefront: the page asks twice
+  - id: chg:split-product-page
+    title: "The product page sends a second, public operation, ProductPromise, with the region in its edge key"
+    why: >-
+      Adding `deliveryPromise` to ProductPage grew its query plan from two round trips to three and put the region
+      into every page's key. The cache rules alone give ProductPage a 30 s life; it has a 600 s override because
+      stock is shown only as in or out. A date that changes per region breaks that reason, and the edge hit ratio
+      fell to 58 % in August. So ProductPage stays exactly as it is, and a second operation asks only for the
+      promise ([[dec:split-query]]). That operation is not private: *per region* is public, so `region` goes into
+      the edge key and Fastly keeps six copies for 60 s ([[dec:region-in-key]]). Private is a cache hint the
+      customer subgraph sets on `me`; the plan derives it from `auth`.
+    decisions: [dec:split-query, dec:region-in-key]
+    rollout: >-
+      Behind the `pdp_promise_graph` flag, country by country, Sweden first. The second operation is sent after first
+      paint and never blocks the hero. Registered as a persisted query so the client sends an id and the edge can cache the GET.
+    ops:
+      - add: operation
+        value:
+          id: gql:product-promise
+          name: ProductPromise
+          kind: query
+          graph: graph:storefront
+          screens: [scr:pdp#delivery]
+          client: svc:storefront-web
+          method: GET
+          persisted: apq
+          trigger: load
+          summary: "Sent after first paint, from the client. Public: the region is a variable, so it is part of the edge key and nothing in the answer depends on who is signed in."
+          document: |
+            query ProductPromise($sku: ID!, $region: Region!) {
+              product(sku: $sku) {
+                sku
+                deliveryPromise(region: $region) { date orderBy confidence }
+              }
+            }
+          cache:
+            - { at: st:edge-cache, ttl: 60, key: { operation: id, variables: [sku, region], headers: [Accept-Language] }, reason: "The cache rules alone give 30 s, because of `stock { fc }`, which the gateway fetches only to feed `@requires`. `promise.changed` and `stock.changed` purge the SKU on every move, so 60 s is acceptable." }
+          plan_check: { fetches: 3, round_trips: 3, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/ProductPromise/plan" }
+      - modify: scr:pdp
+        set:
+          summary: "Three operations: [[gql:product-page]] fills the hero, price and stock from the edge; [[gql:product-promise]] fills the delivery line a moment later; [[gql:product-reviews]] fills the reviews on scroll."
+          image: assets/pdp-tobe.svg
+          figma: "https://www.figma.com/design/AF2storefront/Storefront?node-id=88-1201"
+          mockup: mockups/walking.html
+      - add: region
+        into: scr:pdp
+        value:
+          id: scr:pdp#delivery
+          name: Delivery line
+          shows: "*Get it by Thu 8 Oct · order by 14:00 Mon*. A skeleton line until ProductPromise answers; *Delivery date on request* when there is no promise."
+          reads: ["sch:gql-product#deliveryPromise"]
+          at: { x: 55, y: 46, w: 43, h: 8 }
+      - modify: "scr:pdp#add-to-cart"
+        set:
+          at: { x: 55, y: 56, w: 43, h: 14 }
+      - modify: "scr:pdp#reviews"
+        set:
+          at: { x: 55, y: 72, w: 43, h: 22 }
+      - add: step
+        into: flow:browse-product
+        after: "flow:browse-product#open"
+        value:
+          id: flow:browse-product#promise
+          from: svc:storefront-web
+          to: svc:graph-gateway
+          via: gql:product-promise
+          case: miss
+          action: Ask for the promise
+          screen: scr:pdp#delivery
+          logic: "From the client after first paint. The edge answers from the copy for the shopper's region; on a miss, product, then inventory for the warehouse, then the promise subgraph: three round trips, once a minute per region."
+          fails: "The delivery line shows *Delivery date on request*; the hero, price and stock are already on screen."
+  # ── Storefront: the page stops reading the old number
+  - id: chg:pdp-drops-lead-time
+    title: "ProductPage stops selecting leadTimeDays; the stock region says only *In stock*"
+    why: "The edge key does not change and neither does the query plan (product, then pricing and inventory in parallel). The document just loses one field."
+    decisions: [dec:split-query]
+    rollout: "With `pdp_promise_graph`. A new persisted-query id is registered; the old one keeps answering until M3."
+    ops:
+      - modify: gql:product-page
+        set:
+          document: |
+            query ProductPage($sku: ID!) {
+              product(sku: $sku) {
+                sku
+                name
+                imageUrl
+                price { amount currency }
+                stock { available }
+              }
+            }
+      - modify: "flow:browse-product#render"
+        set:
+          logic: "The stock region shows *In stock*; the delivery line is a skeleton until [[flow:browse-product#promise]] answers. The response still carries `Surrogate-Key: <sku>`."
+      - modify: "scr:pdp#stock"
+        set:
+          name: Stock
+          shows: "*In stock*. The delivery text has moved to its own line."
+          reads: ["sch:gql-product#stock"]
+  # ── Storefront: the cart lines carry it
+  - id: chg:cart-shows-promise
+    title: "AddToCart and CartSummary return the promise per line; the cart's static text is deprecated"
+    why: >-
+      `CartLine.product` is a bare reference by `sku` ([[sch:gql-cart-line#product]]) the cart subgraph cannot
+      fill, so the gateway asks the product subgraph for the name and image, the inventory subgraph for the
+      warehouse the promise needs, and then the promise subgraph ([[sc:storefront-dev]]). CartSummary is private
+      because it goes through `me`; the gateway's entity cache answers the repeated products per sku. The
+      cart subgraph's *3–5 working days* is computed from `leadTimeDays` and is replaced by the per-line dates.
+    rollout: "With `pdp_promise_graph`. Both operations are private already, so no edge change. The region comes from the customer's saved address or the shopper's market, passed as a variable."
+    ops:
+      - modify: gql:cart-summary
+        set:
+          document: |
+            query CartSummary($region: Region!) {
+              me {
+                cart {
+                  id
+                  lines {
+                    id
+                    qty
+                    unitCents
+                    product { sku name imageUrl deliveryPromise(region: $region) { date } }
+                  }
+                  subtotalCents
+                  currency
+                  estimatedDelivery
+                }
+              }
+            }
+          plan_check: { fetches: 5, round_trips: 4, source: "https://studio.apollographql.com/graph/alderfinch-storefront/operations/CartSummary/plan" }
+      - modify: gql:add-to-cart
+        set:
+          document: |
+            mutation AddToCart($sku: ID!, $qty: Int!, $region: Region!) {
+              addToCart(sku: $sku, qty: $qty) {
+                id
+                lines {
+                  id sku qty unitCents
+                  product { deliveryPromise(region: $region) { date } }
+                }
+                subtotalCents
+                currency
+                estimatedDelivery
+              }
+            }
+      - deprecate: "sch:gql-cart#estimatedDelivery"
+        replaced_by: "sch:gql-product#deliveryPromise"
+      - modify: "flow:add-to-cart#show"
+        set:
+          logic: "The mutation's response fills the mini cart; each line shows its own *Get it by*."
+      - modify: scr:mini-cart
+        set:
+          summary: "Slides in after add-to-cart or from the header. Each line shows its promise."
+          image: assets/mini-cart-tobe.svg
+          mockup: mockups/walking.html
+          figma: "https://www.figma.com/design/AF2storefront/Storefront?node-id=88-1402"
+      - modify: "scr:mini-cart#lines"
+        set:
+          shows: "Each line with image, name, qty, unit price and *Get it by Thu 8 Oct*."
+          reads: ["sch:gql-cart#lines", "sch:gql-product#deliveryPromise"]
+  # ── Pricing: price moves, step two
+  - id: chg:price-v2-migrate
+    title: "Ten percent of price requests are served by pricing-v2"
+    why: "The override label goes from 0 to 10 %: the gateway sends that share of `price` fetches to the new subgraph. The shopper sees the same prices; Pricing compares the two subgraphs' answers per request for a week before going further."
+    decisions: [dec:price-progressive-override]
+    rollout: "Set the percentage in the registry, not in code; rollback is setting it to 0. 10 % → 50 % → 100 % are steps of this window, recorded in the registry's history; the plan keeps the first rung."
+    ops:
+      - modify: "sch:gql-product#price"
+        set: { override: { from: sg:pricing, percent: 10 } }
+  # ── Catalog: remove
+  - id: chg:retire-lead-time
+    title: "Remove leadTimeDays from the graph and the catalogue"
+    why: "Once the registry shows zero selections for 14 days there is no reason to keep serving it."
+    rollout: "M3 + 14 clean days. The product subgraph drops the field and the read copy drops the column. The old ProductPage persisted id is unregistered in the same PR."
+    ops:
+      - remove: "sch:gql-product#leadTimeDays"
+      - remove: "sch:catalog-product#lead_time_days"
+      - modify: "flow:project-product#project"
+        set:
+          logic: "Projects the product without `lead_time_days`; the column and the field are gone."
+  # ── Checkout: remove the static text
+  - id: chg:retire-cart-static-text
+    title: "Remove Cart.estimatedDelivery and the cart's static text"
+    why: "The per-line dates say it better, and the field's only job was to repeat a number that is gone."
+    rollout: "M3, after the registry shows no selections of `Cart.estimatedDelivery`. The cart subgraph deletes its resolver and the Redis field."
+    ops:
+      - modify: gql:cart-summary
+        set:
+          document: |
+            query CartSummary($region: Region!) {
+              me {
+                cart {
+                  id
+                  lines {
+                    id
+                    qty
+                    unitCents
+                    product { sku name imageUrl deliveryPromise(region: $region) { date } }
+                  }
+                  subtotalCents
+                  currency
+                }
+              }
+            }
+      - modify: gql:add-to-cart
+        set:
+          document: |
+            mutation AddToCart($sku: ID!, $qty: Int!, $region: Region!) {
+              addToCart(sku: $sku, qty: $qty) {
+                id
+                lines {
+                  id sku qty unitCents
+                  product { deliveryPromise(region: $region) { date } }
+                }
+                subtotalCents
+                currency
+              }
+            }
+      - remove: "sch:gql-cart#estimatedDelivery"
+      - remove: "sch:cart#estimated_delivery_text"
+      - modify: "scr:mini-cart#summary"
+        set:
+          shows: "Subtotal. The delivery dates are on the lines."
+          reads: ["sch:gql-cart#subtotalCents"]
+  # ── Pricing: price moves, step three
+  - id: chg:price-v2-contract
+    title: "pricing-v2 owns price; the old pricing subgraph is deprecated"
+    why: "At 100 % for two weeks with identical answers, the override is removed and the old subgraph stops owning anything. Cache ownership follows: the price cache and its purging belong to the new service."
+    decisions: [dec:price-progressive-override]
+    rollout: "Publish pricing-v2 without the override and the old subgraph without the field, in that order. The Kotlin service is deleted the quarter after."
+    ops:
+      - modify: "sch:gql-product#price"
+        drop: { subgraphs: [sg:pricing] }
+        set: { override: null }
+      - modify: sch:gql-product
+        set:
+          keys:
+            - { fields: [sku], in: [sg:product, sg:pricing-v2, sg:inventory, sg:cart, sg:search, sg:promise] }
+            - { fields: [id], in: [sg:product, sg:reviews] }
+      - modify: "sch:gql-money#amount"
+        drop: { subgraphs: [sg:pricing] }
+      - modify: "sch:gql-money#currency"
+        drop: { subgraphs: [sg:pricing] }
+      - modify: msg:price-published
+        drop: { consumers: [svc:pricing-graph] }
+      - modify: "flow:price-change-purge#evict-redis"
+        set: { to: svc:pricing-graph-v2 }
+      - modify: st:price-redis
+        set: { owner: svc:pricing-graph-v2 }
+      - deprecate: sg:pricing
+        replaced_by: sg:pricing-v2
+
+# ─────────────────────────────────────────────── chapter 6: How we prove it
+tests:
+  - id: tst:promise-subgraph-contract
+    level: contract
+    name: "The promise subgraph resolves Product by sku and returns deliveryPromise for the region it is given"
+    given: "An `_entities` request for `Product { sku: \"FJ2-TENT\", stock: { fc: \"BER\" } }` and `region: SE-S`"
+    when: "The promise subgraph answers"
+    then: "`deliveryPromise` is `{ date: 2026-10-08, orderBy: 2026-10-05T14:00+02:00, confidence: high }`; for a SKU with no stock it is `null` and no error; the answer does not change with the session"
+    proves: [chg:promise-subgraph]
+    walks: ["sg:promise", "flow:browse-product#promise"]
+    owner: team:fulfilment
+    env: ci
+  - id: tst:inventory-requires-contract
+    level: contract
+    name: "The inventory subgraph returns stock { fc } for a batch of Product keys"
+    given: "Forty `Product { sku }` representations"
+    when: "The inventory subgraph answers `_entities`"
+    then: "Forty stocks with their warehouse from the snapshot in one fetch; no WMS call"
+    proves: [chg:promise-subgraph]
+    walks: ["sg:inventory", "flow:sync-stock#snapshot"]
+    owner: team:fulfilment
+    env: ci
+  - id: tst:composition
+    level: service
+    name: "The graph composes with the promise and pricing-v2 subgraphs and its query plans are what the registry says"
+    given: "The nine published subgraph schemas"
+    when: "Composition runs in the gateway repo's CI, then the registry plans the five operations"
+    then: "No composition errors; ProductPage keeps 3 fetches in 2 round trips; ProductPromise is 3 fetches in 3 round trips; SearchResults is 1 fetch; the `@override` on price is accepted"
+    proves: [chg:promise-subgraph, chg:price-v2-expand]
+    walks: ["gql:product-page", "gql:product-promise", "gql:search-results"]
+    owner: team:storefront
+    env: ci
+  - id: tst:promise-purge
+    level: integration
+    name: "promise.changed purges the SKU at the edge in every region and in the gateway within 5 s"
+    given: "Warm edge copies of ProductPromise for FJ2-TENT in SE-S and DE-N, and a warm gateway entity cache"
+    when: "`promise.changed` for FJ2-TENT is published"
+    then: "Both regional copies are misses on the next request and return the new date; the gateway's promise piece is gone; ProductPage is refilled unchanged"
+    proves: [chg:purge-on-promise]
+    walks: ["flow:promise-change-purge#evict-redis", "flow:promise-change-purge#purge-edge", "flow:promise-change-purge#purge-gateway", "gql:product-promise"]
+    owner: team:storefront
+    env: staging
+  - id: tst:purger-contract
+    level: contract
+    name: "The purger turns promise.changed into one Fastly purge and one gateway purge per SKU"
+    given: "A `promise.changed` event for FJ2-TENT with three regions changed"
+    when: "The purger consumes it against fakes of the Fastly and gateway APIs"
+    then: "Exactly one `POST /purge/FJ2-TENT` and one `POST /invalidate` for type Product, key FJ2-TENT; a failed call is retried for a minute"
+    proves: [chg:purge-on-promise]
+    walks: ["flow:promise-change-purge#publish", "flow:promise-change-purge#take-event", "flow:promise-change-purge#purge-edge", "flow:promise-change-purge#purge-gateway"]
+    owner: team:storefront
+    env: ci
+  - id: tst:pricing-v2-contract
+    level: contract
+    name: "pricing-v2 returns the same price as the pricing subgraph for a batch of Product keys"
+    given: "Forty `Product { sku }` representations and a Swedish market"
+    when: "Both pricing subgraphs answer `_entities`"
+    then: "Forty identical prices from each, in one fetch from pricing-v2; pricing-v2 reads and fills the same Redis keys"
+    proves: [chg:price-v2-expand]
+    walks: ["sg:pricing-v2"]
+    owner: team:pricing
+    env: ci
+  - id: tst:lead-time-deprecated
+    level: unit
+    name: "leadTimeDays is marked deprecated with a reason"
+    given: "The product subgraph's SDL"
+    when: "Introspected"
+    then: "`Product.leadTimeDays` has `@deprecated(reason: \"Use deliveryPromise\")`"
+    proves: [chg:deprecate-lead-time]
+    walks: ["sg:product"]
+    owner: team:catalog
+    env: ci
+  - id: tst:product-page-plan
+    level: contract
+    name: "The new ProductPage document keeps the same query plan and the same edge key"
+    given: "The old and new ProductPage documents"
+    when: "Both are planned and sent through staging Fastly"
+    then: "Same fetch tree (3 fetches, 2 round trips); `leadTimeDays` absent from the new one; the new persisted id is a HIT on the second request"
+    proves: [chg:pdp-drops-lead-time]
+    walks: ["gql:product-page"]
+    owner: team:storefront
+    env: staging
+  - id: tst:product-promise-edge-key
+    level: integration
+    name: "ProductPromise is public and cached at the edge per region for 60 s"
+    given: "Fastly staging in front of the gateway"
+    when: "ProductPromise is sent twice for the same sku from SE-S, then once from DE-N, then ProductPage twice"
+    then: "No response carries `Cache-Control: private`; the second SE-S request is an edge HIT; DE-N is a MISS with a different date; the second ProductPage is a HIT"
+    proves: [chg:split-product-page]
+    walks: ["gql:product-promise", "gql:product-page"]
+    owner: team:storefront
+    env: staging
+  - id: tst:region-from-market
+    level: unit
+    name: "The region variable falls back to the shopper's market when there is no saved address"
+    given: "A session in the SE market with no saved address"
+    when: "The front end picks `region` for the promise"
+    then: "`region` is SE-S, never empty"
+    proves: [chg:split-product-page]
+    walks: ["flow:view-cart#render"]
+    owner: team:storefront
+    env: ci
+  - id: tst:pdp-renders-promise
+    level: service
+    name: "The product page paints from ProductPage and fills the delivery line from ProductPromise"
+    given: "A tent in Berlin, a shopper in Malmö, `pdp_promise_graph` on for SE"
+    when: "The page renders"
+    then: "The hero, price and *In stock* are in the server HTML; the delivery line is a skeleton; after ProductPromise it reads *Få det tors 8 okt · beställ före 14:00 mån*"
+    proves: [chg:split-product-page, chg:pdp-drops-lead-time]
+    walks: ["flow:browse-product#open", "flow:browse-product#promise", "flow:browse-product#render"]
+    owner: team:storefront
+    env: ci
+  - id: tst:cart-stub-contract
+    level: contract
+    name: "The cart subgraph returns product as a bare reference and the gateway completes the promise"
+    given: "A cart with two lines"
+    when: "AddToCart is planned and run"
+    then: "The cart fetch returns `product { __typename sku }` only; the inventory and promise subgraphs are asked for both skus in one fetch each; `deliveryPromise.date` per line"
+    proves: [chg:cart-shows-promise]
+    walks: ["sg:cart", "flow:add-to-cart#press"]
+    owner: team:checkout
+    env: ci
+  - id: tst:cart-summary-private
+    level: integration
+    name: "CartSummary is never cached at the edge and its product pieces come from the gateway cache"
+    given: "A signed-in shopper with two lines, a warm gateway entity cache"
+    when: "CartSummary is sent twice"
+    then: "Both responses are edge PASS with `Cache-Control: private`; the second has no fetch to the product subgraph for the two skus; each line carries its date; the query plan is 4 round trips cold"
+    proves: [chg:cart-shows-promise]
+    walks: ["flow:view-cart#open", "gql:cart-summary"]
+    owner: team:storefront
+    env: staging
+  - id: tst:price-override-10
+    level: integration
+    name: "With the override at 10 %, one request in ten is served by pricing-v2 and prices do not differ"
+    given: "The override set to 10 % in staging with the shadow comparison on"
+    when: "A thousand ProductPage requests run"
+    then: "About a hundred `price` fetches go to pricing-v2; the shadow comparison finds zero differences; p95 for those fetches is lower"
+    proves: [chg:price-v2-migrate]
+    walks: ["gql:product-page", "sg:pricing-v2"]
+    owner: team:pricing
+    env: staging
+  - id: tst:retire-nothing-selects-lead-time
+    level: integration
+    name: "No operation selects leadTimeDays for 14 days"
+    given: "Registry field usage for `Product.leadTimeDays`"
+    when: "M2 has been live for 14 days"
+    then: "Zero requests; the old ProductPage persisted id has had zero hits"
+    proves: [chg:retire-lead-time]
+    walks: ["flow:browse-product#open", "flow:project-product#project"]
+    owner: team:catalog
+    env: prod
+  - id: tst:retire-cart-text
+    level: contract
+    name: "Cart.estimatedDelivery is gone and the mini cart still renders"
+    given: "The cart subgraph SDL and the registry usage for the field"
+    when: "Composition runs without the field"
+    then: "No composition errors; zero selections in the last 14 days; the mini cart shows dates on the lines and no summary text"
+    proves: [chg:retire-cart-static-text]
+    walks: ["sg:cart", "gql:cart-summary"]
+    owner: team:checkout
+    env: ci
+  - id: tst:price-contract-clean
+    level: integration
+    name: "With the override removed pricing-v2 serves every price and the old subgraph serves none"
+    given: "Production traffic for 14 days at 100 %"
+    when: "The override is removed and the old subgraph publishes without `price`"
+    then: "Zero fetches reach the old pricing subgraph; `price.published` still purges the price cache once, in the new service's Redis client"
+    proves: [chg:price-v2-contract]
+    walks: ["sg:pricing-v2", "flow:price-change-purge#evict-redis"]
+    owner: team:pricing
+    env: prod
+  - id: tst:anna-end-to-end
+    level: e2e
+    name: "Anna's tent: Thursday on the page and the cart, Monday a minute after Berlin sells out"
+    given: "Staging with a Berlin-only tent, a Malmö shopper, Fastly in front"
+    when: "She opens the page, adds to cart, and the last Berlin tent is picked for someone else"
+    then: "The page paints from the edge, the delivery line says Thursday, the mini cart line says Thursday; after `promise.changed` the next page view says Monday within 60 s and the edge hit ratio for ProductPage is unchanged"
+    proves: [chg:promise-subgraph, chg:split-product-page, chg:purge-on-promise, chg:cart-shows-promise]
+    walks: ["flow:browse-product#open", "flow:browse-product#promise", "flow:browse-product#render", "flow:add-to-cart#press", "flow:add-to-cart#show", "flow:promise-change-purge#publish", "flow:promise-change-purge#purge-edge"]
+    owner: team:product
+    env: staging
+
+# ─────────────────────────────────────────────── chapter 7: How we build it
+milestones:
+  - id: ms:promise-in-graph
+    name: "M1 · The promise is in the graph"
+    exit: "The promise subgraph is composed, `promise.changed` purges the edge and the gateway ([[tst:promise-purge]]), and pricing-v2 is published at 0 %. Nothing shopper-facing."
+    due: "2026-11-06"
+  - id: ms:pdp-shows-it
+    name: "M2 · Sweden sees it"
+    exit: "In SE the product page and the mini cart show the promise; ProductPage's edge hit ratio is read for two weeks and stays ≥ 90 % ([[tst:anna-end-to-end]]); ten percent of price requests run on pricing-v2."
+    due: "2026-11-27"
+  - id: ms:lead-time-retired
+    name: "M3 · The old number is gone"
+    exit: "All countries switched; `leadTimeDays` and the cart's static text removed ([[tst:retire-nothing-selects-lead-time]]); pricing-v2 owns `price` alone."
+    due: "2026-12-11"
+
+execution:
+  summary: >-
+    One new subgraph, one new field, and the page asks twice: a question about the product the edge keeps for ten
+    minutes, and a question about its promise the edge keeps for a minute per region. The old number is
+    deprecated the day the new one is on the page and removed two weeks after nothing selects it. Alongside,
+    the price changes hands between subgraphs in three small steps.
+  paths:
+    - name: The promise reaches the page
+      summary: "Through the graph, in its own operation, kept at the edge by region."
+      steps:
+        - { label: Compose, detail: "The promise subgraph publishes; the gateway composes it ([[sg:promise]])." }
+        - { label: Ask, detail: "The page sends ProductPromise after first paint ([[flow:browse-product#promise]])." }
+        - { label: Answer, detail: "Edge copy for the region, else product, inventory, promise ([[gql:product-promise]])." }
+        - { label: Purge, detail: "`promise.changed` purges the SKU everywhere ([[flow:promise-change-purge]])." }
+    - name: The price changes hands
+      summary: "Expand, migrate, remove: no request is ever unowned."
+      steps:
+        - { label: Expand, detail: "pricing-v2 claims `price` at 0 % ([[chg:price-v2-expand]])." }
+        - { label: Migrate, detail: "The override label rises to 10 % and beyond ([[chg:price-v2-migrate]])." }
+        - { label: Remove, detail: "The override and the old ownership go ([[chg:price-v2-contract]])." }
+  caveats:
+    - "ProductPromise is three round trips on a miss; the edge, not the graph, carries the traffic."
+    - "A shopper whose region is unknown gets no promise and *Delivery date on request*, never a wrong region's date."
+    - "Surrogate-key purging across regions is assumed to work as it does for price; [[q:surrogate-purge-regions]] checks that before M2."
+
+work_items:
+  - id: wi:promise-subgraph
+    title: "Promise service: serve the promise subgraph (Product.deliveryPromise, DeliveryPromise, Redis cache)"
+    team: team:fulfilment
+    size: L
+    milestone: ms:promise-in-graph
+    implements: [chg:promise-subgraph]
+    verified_by: [tst:promise-subgraph-contract, tst:inventory-requires-contract]
+    depends_on: []
+    repo: alder-finch/fulfilment
+    issue_type: feature
+    body: |
+      Add a federation endpoint to the Promise service: `extend type Product @key(fields: "sku") { deliveryPromise(region: Region!): DeliveryPromise @requires(fields: "stock { fc }") }`.
+      Redis cache per sku+region, 60 s, deleted on `promise.changed` before publish. `cacheControl(maxAge: 60)` on the field.
+      Publish to the registry from CI.
+
+      **Done when** the contract test passes against the published schema and the entity resolver answers 40 keys in under 40 ms p99.
+  - id: wi:compose-promise
+    title: "Gateway: compose the promise subgraph; composition check in CI"
+    team: team:storefront
+    size: S
+    milestone: ms:promise-in-graph
+    implements: [chg:promise-subgraph]
+    verified_by: [tst:composition]
+    depends_on: [wi:promise-subgraph]
+    repo: alder-finch/storefront-graph
+    issue_type: task
+  - id: wi:purge-promise
+    title: "Cache purger: consume promise.changed; purge the SKU at Fastly and the gateway"
+    team: team:storefront
+    size: S
+    milestone: ms:promise-in-graph
+    implements: [chg:purge-on-promise]
+    verified_by: [tst:promise-purge, tst:purger-contract]
+    depends_on: [wi:compose-promise]
+    repo: alder-finch/storefront-graph
+    issue_type: feature
+  - id: wi:pricing-v2
+    title: "Pricing: build and publish the pricing-v2 subgraph at 0 %"
+    team: team:pricing
+    size: L
+    milestone: ms:promise-in-graph
+    implements: [chg:price-v2-expand]
+    verified_by: [tst:pricing-v2-contract, tst:composition]
+    depends_on: []
+    repo: alder-finch/pricing
+    issue_type: feature
+    body: "Go subgraph with a batched `_entities` resolver for `price`, the same Redis keys and purging on `price.published`. Published with the override label at 0 %."
+  - id: wi:product-promise-query
+    title: "Storefront: ProductPromise operation, persisted GET with the region in the key, sent after first paint"
+    team: team:storefront
+    size: M
+    milestone: ms:pdp-shows-it
+    implements: [chg:split-product-page]
+    verified_by: [tst:product-promise-edge-key, tst:region-from-market]
+    depends_on: [wi:compose-promise, wi:purge-promise]
+    repo: alder-finch/storefront
+    issue_type: feature
+    body: "Register the persisted query; the VCL key adds `region` for this operation only; the response carries `Surrogate-Key: <sku>`."
+  - id: wi:pdp-promise-line
+    title: "Storefront: PDP delivery line from ProductPromise; ProductPage drops leadTimeDays"
+    team: team:storefront
+    size: M
+    milestone: ms:pdp-shows-it
+    implements: [chg:split-product-page, chg:pdp-drops-lead-time]
+    verified_by: [tst:pdp-renders-promise, tst:product-page-plan]
+    depends_on: [wi:product-promise-query]
+    repo: alder-finch/storefront
+    issue_type: story
+    body: "Build from the Figma on [[scr:pdp]]. Skeleton line until the promise answers; *Delivery date on request* when there is no promise. Behind the `pdp_promise_graph` flag, country by country."
+  - id: wi:deprecate-lead-time
+    title: "Product subgraph: @deprecated on leadTimeDays; registry usage alert"
+    team: team:catalog
+    size: XS
+    milestone: ms:pdp-shows-it
+    implements: [chg:deprecate-lead-time]
+    verified_by: [tst:lead-time-deprecated]
+    depends_on: [wi:compose-promise]
+    repo: alder-finch/pim
+    issue_type: task
+  - id: wi:cart-promise
+    title: "Storefront: AddToCart and CartSummary select deliveryPromise per line; mini cart shows it"
+    team: team:storefront
+    size: S
+    milestone: ms:pdp-shows-it
+    implements: [chg:cart-shows-promise]
+    verified_by: [tst:cart-summary-private]
+    depends_on: [wi:product-promise-query]
+    repo: alder-finch/storefront
+    issue_type: story
+  - id: wi:cart-stub-contract
+    title: "Cart subgraph: contract test that product is a bare reference and the gateway completes it"
+    team: team:checkout
+    size: S
+    milestone: ms:pdp-shows-it
+    implements: [chg:cart-shows-promise]
+    verified_by: [tst:cart-stub-contract]
+    depends_on: [wi:compose-promise]
+    repo: alder-finch/checkout
+    issue_type: task
+  - id: wi:price-migrate
+    title: "Pricing: raise the price override to 10 % with the shadow comparison"
+    team: team:pricing
+    size: S
+    milestone: ms:pdp-shows-it
+    implements: [chg:price-v2-migrate]
+    verified_by: [tst:price-override-10]
+    depends_on: [wi:pricing-v2]
+    repo: alder-finch/pricing
+    issue_type: task
+    body: "Needs [[dec:price-progressive-override]] accepted."
+  - id: wi:e2e-anna
+    title: "Staging run: Anna's tent end to end with Fastly in front"
+    team: team:product
+    size: M
+    milestone: ms:pdp-shows-it
+    implements: [chg:split-product-page, chg:cart-shows-promise, chg:purge-on-promise]
+    verified_by: [tst:anna-end-to-end]
+    depends_on: [wi:pdp-promise-line, wi:cart-promise, wi:purge-promise]
+    repo: alder-finch/storefront
+    issue_type: task
+  - id: wi:retire-lead-time
+    title: "Product subgraph and read copy: remove leadTimeDays and the column"
+    team: team:catalog
+    size: S
+    milestone: ms:lead-time-retired
+    implements: [chg:retire-lead-time]
+    verified_by: [tst:retire-nothing-selects-lead-time]
+    depends_on: [wi:deprecate-lead-time, wi:e2e-anna]
+    repo: alder-finch/pim
+    issue_type: task
+    body: "After 14 clean days in the registry. The old ProductPage persisted id is unregistered in the same PR."
+  - id: wi:retire-cart-text
+    title: "Cart subgraph: delete the estimatedDelivery resolver and the Redis field"
+    team: team:checkout
+    size: XS
+    milestone: ms:lead-time-retired
+    implements: [chg:retire-cart-static-text]
+    verified_by: [tst:retire-cart-text]
+    depends_on: [wi:cart-promise, wi:e2e-anna]
+    repo: alder-finch/checkout
+    issue_type: task
+  - id: wi:price-contract
+    title: "Pricing: remove the override and the field from the old subgraph; move the price cache"
+    team: team:pricing
+    size: M
+    milestone: ms:lead-time-retired
+    implements: [chg:price-v2-contract]
+    verified_by: [tst:price-contract-clean]
+    depends_on: [wi:price-migrate, wi:e2e-anna]
+    repo: alder-finch/pricing
+    issue_type: task
+
+# ─────────────────────────────────────────────── chapter 8: What we're committing to
+decisions:
+  - id: dec:promise-own-subgraph
+    title: "The promise is its own subgraph, served by the Promise service"
+    status: accepted
+    decider: team:fulfilment
+    decided_on: "2026-09-24"
+    reversibility: one-way
+    context: "The field could live in the inventory subgraph (same team) or the product subgraph could call the promise API."
+    decision: "An eighth subgraph on the Promise service. The team that computes the promise owns the field and its cache."
+    consequences: "One more subgraph to compose, one more fetch in any query plan that selects the field, and a `@requires` on `stock { fc }` that adds a round trip wherever the field is selected."
+    options:
+      - { name: "A field in the inventory subgraph", why_not: "Inventory would have to call Promise per request or copy its data; two services for one fact." }
+      - { name: "The product subgraph calls the promise API", why_not: "Catalog would own a field it cannot explain, and the region would have to reach the product subgraph." }
+  - id: dec:region-in-key
+    title: "deliveryPromise is public: the region is a variable and part of the edge key"
+    status: accepted
+    decider: team:storefront
+    decided_on: "2026-09-24"
+    reversibility: two-way
+    context: "*Per region* feels private, and the first sketch made the field private and read the region from the session. But nothing in the answer depends on who is signed in; it depends on a region the caller names."
+    decision: "`deliveryPromise(region: Region!)` is public. ProductPromise takes `region` as a variable and the edge key includes it, so Fastly keeps six copies for 60 s. Private is a cache hint the customer subgraph sets on `me` (`Query.me` carries `auth`, from which the plan derives it); a region argument sets none."
+    consequences: "ProductPromise is cacheable at the edge and at the gateway; its hit ratio is bounded by six regions × SKUs per minute. The page must know the shopper's region; the customer's saved address is passed in by the storefront."
+  - id: dec:split-query
+    title: "The product page asks twice: ProductPage (long edge life) and ProductPromise (60 s, per region)"
+    status: accepted
+    decider: team:storefront
+    decided_on: "2026-09-29"
+    reversibility: one-way
+    context: "The August spike added the field to ProductPage and the edge hit ratio fell from 92 % to 58 % within an hour. It added a third round trip and put the region in every page key. The 600 s override could not stay, because its reason (stock is in or out only) no longer held once the page showed a per-region date. The alternatives were tried on paper ([[q:defer-or-split]])."
+    decision: "ProductPage keeps its document, key and query plan. A second persisted query asks for the promise after first paint, public, with the region in its edge key and a 60-second life."
+    consequences: "Two operations per page view; the delivery line paints a moment later than the hero. One-way because the page's data layer is built around the pair and the old single-query id is unregistered."
+    options:
+      - { name: "One operation with the promise and a 60 s edge life", why_not: "The 600 s override's reason no longer holds with a per-region date on the page, so the whole page would expire every minute and vary by region: the hit ratio would sit near 60 %, as the spike showed." }
+      - { name: "`@defer` the promise in ProductPage", why_not: "`@defer` keeps the promise in ProductPage's document, so `region` is still in the page's edge key (six copies of every page) and the third round trip still runs on every edge miss. Fastly also cannot cache a multipart response." }
+      - { name: "The page calls the promise REST API directly", why_not: "A second API in the storefront is what the graph exists to avoid; the page would need the region too." }
+  - id: dec:purge-and-ttl
+    title: "promise.changed purges the SKU at the edge; the 60 s life is the backstop"
+    status: accepted
+    decider: team:storefront
+    decided_on: "2026-09-29"
+    reversibility: two-way
+    context: "A 10-second life would be fresh enough and need no purger work, but would send six times the traffic to the graph on every region's miss."
+    decision: "A 60 s life plus a purge by surrogate key per SKU, through the existing purger, at Fastly and in the gateway."
+    consequences: "The purger consumes one more topic; the promise subgraph's load is bounded by distinct sku+region pairs per minute."
+  - id: dec:price-progressive-override
+    title: "Price moves to pricing-v2 with a progressive @override: expand, migrate, remove"
+    status: proposed
+    decider: team:pricing
+    decide_by: "2026-11-13"
+    reversibility: two-way
+    context: "The pricing subgraph cannot batch. Either it is rewritten in place, or a second subgraph takes the field over."
+    decision: "pricing-v2 claims `price` with `@override(from: \"pricing\")` at 0 %, the label is raised to 10 % and then to 100 %, and the old ownership is removed last. Three changes in three milestones."
+    consequences: "For a while two subgraphs can answer; composition picks one per request. Rollback is the percentage, not a deploy."
+    options:
+      - { name: "Rewrite the Kotlin subgraph in place", why_not: "No way to compare old and new on live traffic, and rollback is a deploy." }
+  - id: dec:no-promise-on-tiles
+    title: "Search-result tiles do not show the promise in v1"
+    status: deferred
+    decider: team:product
+    decide_by: "2026-12-04"
+    reversibility: two-way
+    context: "A tile is an image and a name, answered in one fetch because the search subgraph provides both. The promise needs three more fetches per page of results, six regions over."
+    decision: "Deferred until M3 numbers for the PDP are in. If wanted, it is a second public operation per page of tiles with the region in its key."
+    consequences: "The tiles keep saying nothing about when."
+
+risks:
+  - id: risk:edge-hit-ratio
+    statement: "Putting the region in ProductPromise's key splits it six ways; the edge hit ratio for the promise is lower than ProductPage's, and someone 'fixes' it by selecting deliveryPromise in ProductPage."
+    likelihood: med
+    impact: high
+    roam: mitigated
+    owner: team:storefront
+    mitigation: "The validator's query-plan check names the third round trip when a document selects the field; a CI check on the persisted-query manifest refuses it in ProductPage; the edge hit ratio per operation is on the launch dashboard with an 85 % alert on ProductPage and 70 % on ProductPromise."
+    about: [chg:split-product-page]
+  - id: risk:non-null-promise
+    statement: "Someone makes `deliveryPromise` required; when the promise subgraph is slow or down, the whole `product` comes back empty and ProductPromise returns nothing at all."
+    likelihood: low
+    impact: med
+    roam: mitigated
+    owner: team:fulfilment
+    mitigation: "The field stays optional (nullable). The query plan shows how far a failure reaches: if Promise fails, only `deliveryPromise` comes back empty. [[tst:promise-subgraph-contract]] pins the optional type."
+    about: [chg:promise-subgraph]
+  - id: risk:cart-round-trips
+    statement: "CartSummary goes from three round trips to four when the promise joins the lines, and the mini cart feels slow."
+    likelihood: med
+    impact: med
+    roam: mitigated
+    owner: team:storefront
+    mitigation: "The gateway's entity cache answers the product, inventory and promise pieces per sku; [[tst:cart-summary-private]] pins the second request to no product fetch."
+    about: [chg:cart-shows-promise]
+  - id: risk:override-window
+    statement: "While price is overridden, the two pricing subgraphs disagree on a price and nobody notices which one answered."
+    likelihood: low
+    impact: high
+    roam: mitigated
+    owner: team:pricing
+    mitigation: "A shadow comparison runs per request while the label is above 0 and below 100; [[tst:price-override-10]] requires zero differences before the next rung."
+    about: [chg:price-v2-migrate, chg:price-v2-expand]
+  - id: risk:promise-subgraph-down
+    statement: "The promise subgraph goes down while the product page is open."
+    likelihood: low
+    impact: low
+    roam: accepted
+    owner: team:storefront
+    accepted_by: dec:split-query
+    mitigation: "ProductPromise is its own operation: the hero, price and stock paint regardless; the delivery line says *Delivery date on request*."
+    about: [chg:split-product-page]
+  - id: risk:old-ios-lead-time
+    statement: "iOS ≤ 4.2 still selects `leadTimeDays` and cannot be forced to update, so the field never reaches zero selections and removing it in M3 breaks those apps."
+    likelihood: med
+    impact: med
+    roam: owned
+    owner: team:storefront
+    mitigation: "The registry's usage by client is on the launch dashboard. M3 removes the field only after [[q:ios-lead-time]] is answered: either the old versions are below a share we accept, or the field keeps answering them with a frozen value."
+    about: [chg:deprecate-lead-time, chg:retire-lead-time]
+
+questions:
+  - id: q:defer-or-split
+    question: "Split the page into two operations, or @defer the promise inside ProductPage?"
+    decider: team:storefront
+    status: resolved
+    answered_by: dec:split-query
+    answer: "Split. Fastly cannot cache a multipart response."
+  - id: q:surrogate-purge-regions
+    question: "Does one surrogate-key purge per SKU drop ProductPromise for all six regions, or do we need sku+region keys?"
+    decider: team:storefront
+    decide_by: "2026-11-20"
+    status: open
+    blocks: [chg:purge-on-promise]
+    answer: "Fastly says yes (surrogate keys are per object, and all six copies carry the SKU). To be confirmed in staging with the purge log."
+  - id: q:plan-check-evidence
+    question: "Does the registry's query plan for ProductPromise and CartSummary match the derived 3 and 4 round trips, once `@requires` is composed?"
+    decider: team:storefront
+    decide_by: "2026-11-13"
+    status: open
+    blocks: [chg:cart-shows-promise]
+    answer: "Unknown until the promise subgraph is published; the numbers in `plan_check` are the registry's today for ProductPage, and an estimate for the other two."
+  - id: q:cart-search-key-stubs
+    question: "Should the cart and search subgraphs declare the `sku` key as `resolvable: false`, since they hold only a reference to a product?"
+    decider: team:storefront
+    decide_by: "2026-11-13"
+    status: open
+    blocks: [chg:cart-shows-promise]
+    answer: "Probably. `CartLine.product` and the hits on `Query.search` carry a bare `sku`, and neither subgraph can return a product from it, yet the key lists them as subgraphs the gateway can ask. In Federation 2 a key with `resolvable: false` is never fetched from, so the gateway would plan CartSummary through the product, pricing, inventory and promise subgraphs alone, as the 4 round trips in `plan_check` assume; with the key resolvable it may plan a fetch into the cart or search subgraph. The schema here lists the subgraphs but has no field for the flag, so the answer is read off the composed supergraph and the lists follow it."
+  - id: q:ios-lead-time
+    question: "What do iOS ≤ 4.2 apps see when `leadTimeDays` is removed, given they cannot be forced to update?"
+    decider: team:storefront
+    decide_by: "2026-11-27"
+    status: open
+    blocks: [chg:retire-lead-time]
+    answer: "Unknown. The registry lists iOS ≤ 4.2 among the clients that select it, but not their share of the 1.2M requests a day, and the target of zero selections cannot be met while they are installed. The choice is to accept breaking old versions below an agreed share, or to keep answering them with a frozen value."
+  - id: q:promise-requires-fc
+    question: "Can the promise subgraph get the warehouse without the `@requires` round trip?"
+    decider: team:fulfilment
+    decide_by: "2026-11-04"
+    status: open
+    blocks: [chg:promise-subgraph]
+    answer: "Unknown. `@requires(fields: \"stock { fc }\")` makes the gateway fetch the warehouse from inventory first. `fc` is the same in every region and the promise is stored per sku and region ([[sch:delivery-promise]] holds no warehouse), so the inventory fetch asks for something the region argument does not change. It is paid on every miss of ProductPromise and CartSummary, which is why ProductPage must not select the field. If the Promise service can read the warehouse for a sku itself, the `@requires` and one round trip leave every plan that selects the field; if it cannot, the round trip stays and the 60 s edge life is what pays for it."
+  - id: q:promise-ttl
+    question: "Is 60 s the right edge life for ProductPromise, given the purge does the real work?"
+    decider: team:fulfilment
+    status: open
+    answer: "Fulfilment proposes 60 s; a longer life only matters if the purger is down."
+
+commitment:
+  - { team: team:fulfilment, confidence: 4, note: "The subgraph is a thin layer over data we have. `@requires` on the warehouse is the one new federation feature we use." }
+  - { team: team:storefront, confidence: 3, note: "The gateway, the purger, two operations and the page. The edge hit ratio is ours to keep." }
+  - { team: team:catalog, confidence: 5, note: "One deprecation and one removal." }
+  - { team: team:checkout, confidence: 4, note: "A contract test and a resolver to delete." }
+  - { team: team:pricing, confidence: 3, note: "A new subgraph and a three-step migration; the shadow comparison is what makes it safe." }
+  - { team: team:customers, confidence: 5, note: "The region is passed in by the page; we change nothing." }
+  - { team: team:discovery, confidence: 5, note: "Nothing changes for the search subgraph; `@provides` keeps SearchResults at one fetch." }
+  - { team: team:content, confidence: 5, note: "Nothing changes; reviews stay keyed by `id`." }
+  - { team: team:product, confidence: 4, note: "The tiles are deferred; the page is what the June test wanted." }
+
+story:
+  chapters:
+    why:
+      headline: "The promise is wanted on the page; the edge cache is wanted more."
+      recap:
+        - "The August spike put the promise in ProductPage and cut the edge hit ratio from 92 % to 58 % in an hour."
+        - "A field, a subgraph and a split: the page asks twice, and the promise lives at the edge for a minute per region."
+    today:
+      headline: "The graph is seven subgraphs behind three cache layers, and a Product is five teams' data joined by SKU and id."
+      recap:
+        - "ProductPage is five fields from three subgraphs, kept at the edge for 600 s, though the stock it shows is only good for 30 s."
+        - "Every field has one owner. The grid of types by subgraph shows who, which no single repository does."
+    runs:
+      headline: "A cold product page is one root fetch and two entity fetches; a price change is a surrogate-key purge at the edge and a purge in the gateway."
+      recap:
+        - "Search is one fetch, because the search subgraph provides the name and image itself."
+        - "The cart is private because it is reached through `me`; the gateway's entity cache keeps its products."
+    new:
+      headline: "A promise subgraph adds a public field with the region in its key, and the price moves to a new subgraph."
+      recap:
+        - "ProductPromise is cached at the edge per region for 60 s and purged by promise.changed."
+        - "price moves to pricing-v2 with an override: expand, migrate, remove."
+    changes:
+      headline: "The page asks twice, the promise joins the graph and the price changes subgraph: eleven changes in the systems of five teams."
+      recap:
+        - "ProductPage's document shrinks by one field and its query plan does not change."
+        - "The edge and the gateway now purge on promise.changed; price takes three steps to its new home."
+    prove:
+      headline: "A contract test per subgraph, a composition check, and one staging run with Fastly in front."
+      recap:
+        - "ProductPromise is cached per region and never private; ProductPage is still cached."
+        - "promise.changed purges every region's copy within 5 s."
+    build:
+      headline: "Compose first, switch Sweden on second, remove the old number third."
+      recap:
+        - "M1 composes the subgraph and the purge, and publishes pricing-v2 at 0 % without showing anything."
+        - "M2 is Sweden with the edge hit ratio read for two weeks; M3 removes leadTimeDays and finishes the price move."
+    commit:
+      headline: "The price override waits for Pricing's yes; four other decisions are accepted."
+      recap:
+        - "The split is one-way: the single-query id is unregistered."
+        - "Storefront and Pricing are at 3; everyone else at 4 or 5."

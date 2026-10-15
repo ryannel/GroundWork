@@ -1,0 +1,73 @@
+@layer components {
+  .table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--fs-14);
+  }
+
+  .table th,
+  .cell {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .table thead th {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .table tr[data-kind='new'] {
+    background: var(--st-add-bg);
+  }
+
+  .table tr[data-kind='lost'] {
+    background: var(--st-dep-bg);
+  }
+
+  .caption,
+  .hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .op {
+    display: grid;
+    gap: var(--s-1);
+    justify-items: start;
+    font-weight: 500;
+  }
+
+  .name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .note,
+  .same {
+    margin-left: var(--s-2);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .note {
+    margin-left: 0;
+  }
+
+  .was {
+    color: var(--st-rem-fg);
+  }
+}

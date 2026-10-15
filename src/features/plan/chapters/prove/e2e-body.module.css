@@ -1,0 +1,11 @@
+@layer components {
+  .body {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+  }
+}

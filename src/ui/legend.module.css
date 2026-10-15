@@ -1,0 +1,80 @@
+@layer components {
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    align-items: center;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .title {
+    color: var(--fg-3);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .item {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .glyph {
+    display: inline-flex;
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+  }
+
+  .line {
+    width: var(--s-5);
+    border-top: var(--edge-w) solid var(--edge-strong);
+
+    &[data-line='dashed'] {
+      border-top-style: dashed;
+    }
+
+    &[data-line='dotted'] {
+      border-top-style: dotted;
+    }
+  }
+
+  .swatch {
+    width: var(--s-3);
+    height: var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    background: var(--bg-1);
+
+    &[data-swatch='add'] {
+      border-color: var(--st-add-line);
+      background: var(--st-add-bg);
+    }
+
+    &[data-swatch='mod'] {
+      border-color: var(--st-mod-line);
+      background: var(--st-mod-bg);
+    }
+
+    &[data-swatch='dep'] {
+      border-style: dashed;
+      border-color: var(--st-dep-line);
+      background: var(--st-dep-bg);
+    }
+
+    &[data-swatch='rem'] {
+      border-style: dashed;
+      border-color: var(--st-rem-line);
+      background: transparent;
+    }
+
+    &[data-swatch='dim'] {
+      opacity: 0.4;
+    }
+
+    &[data-swatch='cur'] {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@layer components {
+  .context {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+
+    & summary {
+      color: var(--fg-1);
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  .order {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

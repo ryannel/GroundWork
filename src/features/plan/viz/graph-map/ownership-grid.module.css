@@ -1,0 +1,141 @@
+@layer components {
+  .figure {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--fs-13);
+  }
+
+  .corner,
+  .head,
+  .type,
+  .cell {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .corner {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .head {
+    min-width: 140px;
+    font-weight: 500;
+  }
+
+  .head[data-status='added'] {
+    background: var(--st-add-bg);
+  }
+
+  .head[data-status='deprecated'],
+  .head[data-status='removed'] {
+    background: var(--st-dep-bg);
+  }
+
+  .status {
+    display: block;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .type {
+    min-width: 180px;
+    font-weight: 500;
+  }
+
+  .summary {
+    display: block;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .callout {
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .callout p {
+    margin: var(--s-1) 0 0;
+    max-width: 40ch;
+    color: var(--fg-2);
+  }
+
+  .head[data-dim],
+  .cell[data-dim] {
+    opacity: 0.4;
+  }
+
+  .cell {
+    display: table-cell;
+  }
+
+  .fieldWrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+    padding: var(--s-0) 0;
+  }
+
+  .field {
+    padding: var(--s-0) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .field[data-state='new'] {
+    border-color: var(--st-add-line);
+    background: var(--st-add-bg);
+    color: var(--st-add-fg);
+  }
+
+  .field[data-state='was'],
+  .field[data-state='gone'] {
+    border-color: var(--st-rem-line);
+    color: var(--st-rem-fg);
+    text-decoration: line-through;
+  }
+
+  .mark,
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .empty {
+    color: var(--fg-3);
+  }
+
+  .key,
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

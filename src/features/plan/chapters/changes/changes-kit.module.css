@@ -1,0 +1,78 @@
+@layer components {
+  .decisions {
+    display: grid;
+    gap: var(--s-2);
+    max-width: 72ch;
+  }
+
+  .decision {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .icon {
+    color: var(--fg-3);
+  }
+
+  .decisionBody {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2);
+  }
+
+  .kicker,
+  .label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .sentence {
+    flex-basis: 100%;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .more {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .journey {
+    margin: 0;
+  }
+
+  .button {
+    display: inline-block;
+    padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    text-decoration: none;
+  }
+
+  .button:hover {
+    border-color: var(--accent-line);
+  }
+
+  .block {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+}

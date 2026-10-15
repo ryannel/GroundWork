@@ -1,0 +1,21 @@
+@layer components {
+  .story {
+    max-width: 72ch;
+  }
+
+  .label {
+    margin-block: var(--s-5) var(--s-2);
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .adds {
+    margin-block-start: var(--s-4);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

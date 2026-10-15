@@ -1,0 +1,26 @@
+@layer components {
+  .toggle {
+    display: grid;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: none;
+    color: var(--fg-2);
+    cursor: pointer;
+    place-items: center;
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    & svg {
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.4;
+    }
+  }
+}

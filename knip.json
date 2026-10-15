@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["src/app/**/{page,layout,not-found,error}.tsx", "**/*.test.{ts,tsx}"],
+  "project": ["src/**/*.{ts,tsx}", "test/**/*.ts", "eslint/**/*.mjs"],
+  "ignoreExportsUsedInFile": { "interface": true, "type": true }
+}

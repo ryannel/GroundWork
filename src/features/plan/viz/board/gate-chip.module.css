@@ -1,0 +1,35 @@
+@layer components {
+  .chip {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    max-inline-size: 100%;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .chip[data-late] {
+    border-color: var(--st-rem-line);
+  }
+
+  .ref {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+  }
+
+  .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .date {
+    color: var(--fg-3);
+  }
+}

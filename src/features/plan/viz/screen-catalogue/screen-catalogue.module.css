@@ -1,0 +1,48 @@
+@layer components {
+  .catalogue {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+  }
+
+  .key {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+
+  .actor {
+    margin: 0;
+    font-size: var(--fs-16);
+  }
+
+  .cluster {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .caption {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .note {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-style: italic;
+  }
+}

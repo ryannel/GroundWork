@@ -1,0 +1,44 @@
+@layer components {
+  .pair {
+    display: grid;
+    gap: var(--s-1);
+    font-size: var(--fs-14);
+  }
+
+  .half {
+    display: grid;
+    grid-template-columns: var(--s-12) 1fr;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--r-2);
+  }
+
+  .half[data-tone='was'] {
+    border: 1px dashed var(--st-rem-line);
+    color: var(--st-rem-fg);
+  }
+
+  .half[data-tone='now'] {
+    background: var(--st-add-bg);
+    color: var(--st-add-fg);
+  }
+
+  .version {
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    opacity: 0.8;
+  }
+
+  .none {
+    opacity: 0.7;
+  }
+
+  .half del {
+    text-decoration: line-through;
+  }
+
+  .half ins {
+    font-weight: 600;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,83 @@
+@layer components {
+  .folds {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .fold {
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+  }
+
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: var(--s-3);
+    font-size: var(--fs-14);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .rows {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0 var(--s-3) var(--s-3);
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: var(--fs-13);
+  }
+
+  .name {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .number {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .meta {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-2);
+  }
+
+  .when {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

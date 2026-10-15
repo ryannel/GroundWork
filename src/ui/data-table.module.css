@@ -1,0 +1,49 @@
+@layer components {
+  .frame {
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+
+    & th,
+    & td {
+      padding: var(--s-2) var(--s-3);
+      border-bottom: 1px solid var(--line-1);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    & th {
+      color: var(--fg-3);
+      font-size: var(--fs-12);
+      font-weight: 500;
+    }
+  }
+
+  .caption {
+    padding-bottom: var(--s-2);
+    color: var(--fg-2);
+    text-align: left;
+  }
+
+  @container (width < 520px) {
+    .table thead {
+      display: none;
+    }
+
+    .table tr,
+    .table td {
+      display: block;
+    }
+
+    .table td::before {
+      content: attr(data-label);
+      display: block;
+      color: var(--fg-3);
+      font-size: var(--fs-12);
+    }
+  }
+}

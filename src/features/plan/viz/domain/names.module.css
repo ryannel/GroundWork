@@ -1,0 +1,63 @@
+@layer components {
+  .table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .table th,
+  .cell {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .table thead th {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .cell[data-born] {
+    background: var(--accent-soft);
+  }
+
+  .name {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-align: start;
+  }
+
+  .lines .name {
+    display: inline;
+  }
+
+  .lines {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .key {
+    margin: var(--s-2) 0 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}

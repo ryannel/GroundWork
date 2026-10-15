@@ -1,0 +1,33 @@
+@layer components {
+  .track {
+    display: block;
+    overflow: visible;
+  }
+
+  .first {
+    fill: var(--accent);
+  }
+
+  .then {
+    fill: var(--accent-line);
+    stroke: var(--bg-1);
+
+    &[data-skipped] {
+      fill: transparent;
+      stroke: var(--line-3);
+      stroke-dasharray: 3 2;
+    }
+  }
+
+  .track[data-skipped] .first {
+    fill: transparent;
+    stroke: var(--line-3);
+    stroke-dasharray: 3 2;
+  }
+
+  .ms {
+    fill: var(--fg-3);
+    font-size: var(--fs-12);
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,71 @@
+@layer components {
+  .teams {
+    display: grid;
+    gap: var(--s-6);
+  }
+
+  .team {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-16);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .waits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .kicker {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .export {
+    margin-block-start: var(--s-8);
+  }
+
+  .export > summary {
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    cursor: pointer;
+  }
+
+  .hint {
+    margin-inline-start: var(--s-2);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .note {
+    margin: var(--s-3) 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

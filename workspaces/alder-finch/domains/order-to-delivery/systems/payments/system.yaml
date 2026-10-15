@@ -1,0 +1,22 @@
+id: payments
+name: Payments
+team: team:payments
+components:
+  - id: svc:payments
+    name: Payments
+    type: service
+    tech: Java · Quarkus
+    does: Authorises and captures card payments
+    talks_to:
+      - to: svc:psp
+        via: api
+  - id: svc:psp
+    name: Nordpay
+    type: external
+    tech: Payment service provider
+    does: Charges the shopper's card
+  - id: st:payments-db
+    name: payments-db
+    type: database
+    tech: Postgres 15
+    does: Authorisations and captures

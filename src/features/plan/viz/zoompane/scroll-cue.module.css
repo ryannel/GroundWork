@@ -1,0 +1,39 @@
+@layer components {
+  .cue {
+    position: relative;
+  }
+
+  .note {
+    margin: 0 0 var(--s-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  /* the edge fades with a mask, so nothing is drawn over the content */
+  .box {
+    overflow-x: auto;
+
+    &[data-tall] {
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    &[data-more-right] {
+      mask-image: linear-gradient(to right, rgb(0 0 0) calc(100% - var(--s-8)), transparent);
+    }
+
+    &[data-more-left] {
+      mask-image: linear-gradient(to right, transparent, rgb(0 0 0) var(--s-8));
+    }
+
+    &[data-more-left][data-more-right] {
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        rgb(0 0 0) var(--s-8),
+        rgb(0 0 0) calc(100% - var(--s-8)),
+        transparent
+      );
+    }
+  }
+}

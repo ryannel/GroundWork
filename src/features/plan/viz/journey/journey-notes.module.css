@@ -1,0 +1,37 @@
+@layer components {
+  .notes {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+
+  .compare > summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-3);
+    cursor: pointer;
+  }
+
+  .compare > summary span:last-child {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .fold {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .fold > summary {
+    cursor: pointer;
+  }
+
+  .rollout {
+    padding: var(--s-3) var(--s-4);
+    border-left: 3px solid var(--line-3);
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

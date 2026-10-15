@@ -1,0 +1,30 @@
+@layer components {
+  .badge {
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+  }
+
+  .badge > span {
+    padding: 0 var(--s-2);
+  }
+
+  .badge > span:last-child {
+    border-left: 1px solid var(--line-1);
+    background: var(--bg-2);
+    color: var(--fg-2);
+  }
+
+  .badge[data-side='new'] > span:first-child {
+    background: var(--st-add-bg);
+    color: var(--st-add-fg);
+  }
+
+  .badge[data-side='old'] > span:first-child {
+    background: var(--st-dep-bg);
+    color: var(--st-dep-fg);
+  }
+}

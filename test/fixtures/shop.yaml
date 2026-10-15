@@ -1,0 +1,469 @@
+meta: { id: shop, title: 'Shop graph', status: draft, date: '2026-10-02' }
+problem: { summary: 'A small federated shop graph for the model tests.' }
+teams:
+  - { id: team:web, name: Web }
+  - { id: team:catalog, name: Catalog }
+  - { id: team:discovery, name: Discovery }
+  - { id: team:pricing, name: Pricing }
+  - { id: team:fulfil, name: Fulfilment }
+  - { id: team:checkout, name: Checkout }
+  - { id: team:content, name: Content }
+services:
+  - { id: svc:web, name: Web, team: team:web, kind: ui }
+  - { id: svc:gateway, name: Gateway, team: team:web, kind: service }
+  - { id: svc:purger, name: Purger, team: team:web, kind: service }
+  - { id: svc:product-graph, name: Product graph, team: team:catalog, kind: service }
+  - { id: svc:search-graph, name: Search graph, team: team:discovery, kind: service }
+  - { id: svc:pricing-graph, name: Pricing graph, team: team:pricing, kind: service }
+  - { id: svc:pricing-api, name: Pricing API, team: team:pricing, kind: service }
+  - { id: svc:inventory-graph, name: Inventory graph, team: team:fulfil, kind: service }
+  - { id: svc:cart-graph, name: Cart graph, team: team:checkout, kind: service }
+  - { id: svc:reviews-graph, name: Reviews graph, team: team:content, kind: service }
+stores:
+  - { id: st:catalog-db, name: catalog-db, kind: database, owner: svc:product-graph }
+  - { id: st:pricing-db, name: pricing-db, kind: database, owner: svc:pricing-api }
+  - { id: st:stock-db, name: stock-db, kind: database, owner: svc:inventory-graph }
+  - { id: st:cart-db, name: cart-db, kind: database, owner: svc:cart-graph }
+  - {
+      id: st:price-topic,
+      name: price-topic,
+      kind: topic,
+      owner: svc:pricing-api,
+      access: [{ svc: svc:purger, mode: read }],
+    }
+  - id: st:edge-cache
+    name: edge cache
+    kind: cache
+    owner: svc:gateway
+    layer: edge
+    granularity: response
+    keyed_by: 'operation id · variables'
+    invalidated_by: [msg:price-published]
+    observed: { hit_ratio: 0.9, latency_ms: { hit: 15, miss: 120 } }
+    access: [{ svc: svc:purger, mode: write }]
+  - {
+      id: st:entity-cache,
+      name: entity cache,
+      kind: cache,
+      owner: svc:gateway,
+      layer: gateway,
+      granularity: entity,
+    }
+  - {
+      id: st:price-redis,
+      name: price-redis,
+      kind: cache,
+      owner: svc:pricing-graph,
+      layer: subgraph,
+    }
+schemas:
+  - {
+      id: sch:catalog-product,
+      name: CatalogProduct,
+      kind: record,
+      store: st:catalog-db,
+      fields:
+        [
+          { name: sku, type: string },
+          { name: name, type: string },
+          { name: lead_time_days, type: int },
+        ],
+    }
+  - {
+      id: sch:price,
+      name: Price,
+      kind: record,
+      store: st:pricing-db,
+      fields: [{ name: amount_cents, type: int }],
+    }
+  - {
+      id: sch:stock-level,
+      name: StockLevel,
+      kind: record,
+      store: st:stock-db,
+      fields: [{ name: available, type: int }, { name: fc, type: string }],
+    }
+  - {
+      id: sch:cart,
+      name: Cart,
+      kind: record,
+      store: st:cart-db,
+      fields: [{ name: id, type: uuid }, { name: lines, type: json }],
+    }
+  - {
+      id: sch:price-published,
+      name: price.published,
+      kind: payload,
+      fields: [{ name: sku, type: string }],
+    }
+  - id: sch:gql-query
+    name: Query
+    kind: graph-type
+    graph: graph:shop
+    root: query
+    fields:
+      - {
+          name: product,
+          args: 'sku: ID!',
+          type: 'Product',
+          subgraphs: [sg:product],
+          cache_control: { max_age: 3600 },
+        }
+      - {
+          name: search,
+          args: 'q: String!',
+          type: '[Product!]!',
+          subgraphs: [sg:search],
+          provides: ['sch:gql-product#name'],
+          cache_control: { max_age: 600 },
+        }
+      - { name: cart, args: 'id: ID!', type: 'Cart', subgraphs: [sg:cart], auth: 'shopper session' }
+  - id: sch:gql-mutation
+    name: Mutation
+    kind: graph-type
+    graph: graph:shop
+    root: mutation
+    fields:
+      - { name: addToCart, args: 'sku: ID!, qty: Int!', type: 'Cart!', subgraphs: [sg:cart] }
+  - id: sch:gql-product
+    name: Product
+    kind: graph-type
+    graph: graph:shop
+    keys:
+      - { fields: [sku], in: [sg:product, sg:pricing, sg:inventory, sg:cart, sg:search] }
+      - { fields: [id], in: [sg:product, sg:reviews] }
+    fields:
+      - { name: sku, type: 'ID!', reads: ['sch:catalog-product#sku'] }
+      - { name: id, type: 'ID!', subgraphs: [sg:product] }
+      - {
+          name: name,
+          type: 'String!',
+          subgraphs: [sg:product],
+          reads: ['sch:catalog-product#name'],
+          cache_control: { max_age: 3600 },
+        }
+      - {
+          name: price,
+          type: 'Money!',
+          subgraphs: [sg:pricing],
+          reads: ['sch:price#amount_cents'],
+          via: api:pricing-price,
+          cache: [{ at: st:price-redis, ttl: 30 }],
+          cache_control: { max_age: 300 },
+        }
+      - {
+          name: stock,
+          type: 'Stock!',
+          subgraphs: [sg:inventory],
+          reads: ['sch:stock-level#available'],
+          cache_control: { max_age: 30 },
+        }
+      - {
+          name: reviews,
+          type: '[Review!]',
+          subgraphs: [sg:reviews],
+          cache_control: { max_age: 600 },
+        }
+      - {
+          name: leadTimeDays,
+          type: 'Int',
+          subgraphs: [sg:product],
+          reads: ['sch:catalog-product#lead_time_days'],
+          usage: { clients: [web], per_day: '1.2M', last_seen: '2026-09-30' },
+        }
+  - id: sch:gql-money
+    name: Money
+    kind: graph-type
+    graph: graph:shop
+    fields:
+      [
+        { name: amount, type: 'Int!', subgraphs: [sg:pricing, sg:cart], shareable: true },
+        { name: currency, type: 'String!', subgraphs: [sg:pricing, sg:cart], shareable: true },
+      ]
+  - id: sch:gql-stock
+    name: Stock
+    kind: graph-type
+    graph: graph:shop
+    fields:
+      [
+        { name: available, type: 'Int!', subgraphs: [sg:inventory] },
+        { name: fc, type: 'String', subgraphs: [sg:inventory] },
+      ]
+  - id: sch:gql-review
+    name: Review
+    kind: graph-type
+    graph: graph:shop
+    fields: [{ name: stars, type: 'Int!', subgraphs: [sg:reviews] }]
+  - id: sch:gql-cart
+    name: Cart
+    kind: graph-type
+    graph: graph:shop
+    keys: [{ fields: [id], in: [sg:cart] }]
+    fields:
+      - { name: id, type: 'ID!', reads: ['sch:cart#id'] }
+      - { name: lines, type: '[CartLine!]!', subgraphs: [sg:cart], reads: ['sch:cart#lines'] }
+      - { name: subtotal, type: 'Money!', subgraphs: [sg:cart] }
+  - id: sch:gql-cart-line
+    name: CartLine
+    kind: graph-type
+    graph: graph:shop
+    fields:
+      [
+        { name: qty, type: 'Int!', subgraphs: [sg:cart] },
+        { name: product, type: 'Product!', subgraphs: [sg:cart] },
+      ]
+interfaces:
+  - { id: if:graph, service: svc:gateway, protocol: graphql }
+  - {
+      id: if:pricing-rest,
+      service: svc:pricing-api,
+      protocol: rest,
+      endpoints: [{ id: api:pricing-price, sig: 'GET /prices/{sku}', response: sch:price }],
+    }
+messages:
+  - {
+      id: msg:price-published,
+      name: price.published,
+      topic: st:price-topic,
+      payload: sch:price-published,
+      producer: svc:pricing-api,
+      consumers: [svc:purger],
+    }
+graphs:
+  - { id: graph:shop, name: Shop graph, gateway: svc:gateway }
+subgraphs:
+  - {
+      id: sg:product,
+      name: Product,
+      graph: graph:shop,
+      service: svc:product-graph,
+      batching: dataloader,
+    }
+  - { id: sg:search, name: Search, graph: graph:shop, service: svc:search-graph }
+  - {
+      id: sg:pricing,
+      name: Pricing,
+      graph: graph:shop,
+      service: svc:pricing-graph,
+      batching: dataloader,
+    }
+  - {
+      id: sg:inventory,
+      name: Inventory,
+      graph: graph:shop,
+      service: svc:inventory-graph,
+      batching: none,
+    }
+  - { id: sg:cart, name: Cart, graph: graph:shop, service: svc:cart-graph }
+  - { id: sg:reviews, name: Reviews, graph: graph:shop, service: svc:reviews-graph }
+operations:
+  - id: gql:product-page
+    name: ProductPage
+    kind: query
+    graph: graph:shop
+    screens: [scr:pdp#hero]
+    client: svc:web
+    method: GET
+    persisted: apq
+    trigger: load
+    document: |
+      query ProductPage($sku: ID!) {
+        product(sku: $sku) { ...Hero price { amount currency } stock { available } leadTimeDays }
+      }
+      fragment Hero on Product { sku title: name }
+    cache:
+      - { at: st:edge-cache, ttl: 600, reason: 'stock is shown as in/out only' }
+      - { at: st:entity-cache }
+    plan_check: { fetches: 3, round_trips: 2 }
+  - id: gql:search
+    name: Search
+    kind: query
+    graph: graph:shop
+    screens: [scr:pdp]
+    method: GET
+    document: 'query Search($q: String!) { search(q: $q) { sku name stock { available } } }'
+  - id: gql:search-reviews
+    name: SearchReviews
+    kind: query
+    graph: graph:shop
+    method: GET
+    document: 'query SearchReviews($q: String!) { search(q: $q) { sku reviews { stars } } }'
+  - id: gql:cart-summary
+    name: CartSummary
+    kind: query
+    graph: graph:shop
+    screens: [scr:pdp#cart]
+    method: GET
+    document: 'query CartSummary($id: ID!) { cart(id: $id) { id lines { qty product { sku name price { amount } } } subtotal { amount } } }'
+    cache: [{ at: st:entity-cache }]
+  - id: gql:add-to-cart
+    name: AddToCart
+    kind: mutation
+    graph: graph:shop
+    screens: [scr:pdp#cart]
+    document: 'mutation AddToCart($sku: ID!) { addToCart(sku: $sku, qty: 1) { id lines { qty } } }'
+    writes: [sch:cart]
+screens:
+  - id: scr:pdp
+    name: Product page
+    service: svc:web
+    image: assets/pdp.png
+    regions: [{ id: 'scr:pdp#hero', name: Hero }, { id: 'scr:pdp#cart', name: Add to cart }]
+flows:
+  - id: flow:browse
+    name: Look at a product
+    steps:
+      - {
+          id: 'flow:browse#open',
+          from: svc:web,
+          to: svc:gateway,
+          via: gql:product-page,
+          case: cold,
+          action: Ask for the product,
+          screen: 'scr:pdp#hero',
+        }
+  - id: flow:add
+    name: Add to cart
+    steps:
+      - {
+          id: 'flow:add#add',
+          from: svc:web,
+          to: svc:gateway,
+          via: gql:add-to-cart,
+          action: Add it,
+          screen: 'scr:pdp#cart',
+        }
+  - id: flow:price-purge
+    name: Empty the edge on a price change
+    steps:
+      - {
+          id: 'flow:price-purge#publish',
+          from: svc:pricing-api,
+          to: st:price-topic,
+          via: msg:price-published,
+          action: Publish the price,
+        }
+      - {
+          id: 'flow:price-purge#consume',
+          from: st:price-topic,
+          to: svc:purger,
+          via: msg:price-published,
+          action: Hear it,
+        }
+      - {
+          id: 'flow:price-purge#purge',
+          from: svc:purger,
+          to: st:edge-cache,
+          via: internal,
+          action: Purge the edge,
+          purges: [st:edge-cache],
+        }
+changes:
+  - id: chg:promise
+    title: Show the delivery promise through the graph
+    ops:
+      - add: service
+        value: { id: svc:promise-graph, name: Promise graph, team: team:fulfil, kind: service }
+      - add: subgraph
+        value: { id: sg:promise, name: Promise, graph: graph:shop, service: svc:promise-graph }
+      - modify: sch:gql-product
+        set:
+          keys:
+            - {
+                fields: [sku],
+                in: [sg:product, sg:pricing, sg:inventory, sg:cart, sg:search, sg:promise],
+              }
+            - { fields: [id], in: [sg:product, sg:reviews] }
+      - add: field
+        into: sch:gql-product
+        value:
+          {
+            name: deliveryPromise,
+            type: 'String',
+            subgraphs: [sg:promise],
+            requires: ['sch:gql-stock#fc'],
+            cache_control: { max_age: 60 },
+          }
+      - modify: gql:product-page
+        set:
+          document: |
+            query ProductPage($sku: ID!) {
+              product(sku: $sku) { ...Hero price { amount currency } stock { available } deliveryPromise }
+            }
+            fragment Hero on Product { sku title: name }
+          plan_check: { fetches: 4, round_trips: 3 }
+      - deprecate: 'sch:gql-product#leadTimeDays'
+        replaced_by: 'sch:gql-product#deliveryPromise'
+  - id: chg:price-expand
+    title: Pricing v2 serves price next to Pricing
+    ops:
+      - add: service
+        value:
+          { id: svc:pricing-v2-graph, name: Pricing v2 graph, team: team:pricing, kind: service }
+      - add: subgraph
+        value:
+          { id: sg:pricing-v2, name: Pricing v2, graph: graph:shop, service: svc:pricing-v2-graph }
+      - modify: sch:gql-product
+        set:
+          keys:
+            - {
+                fields: [sku],
+                in:
+                  [
+                    sg:product,
+                    sg:pricing,
+                    sg:inventory,
+                    sg:cart,
+                    sg:search,
+                    sg:promise,
+                    sg:pricing-v2,
+                  ],
+              }
+            - { fields: [id], in: [sg:product, sg:reviews] }
+      - modify: 'sch:gql-money#amount'
+        append: { subgraphs: [sg:pricing-v2] }
+      - modify: 'sch:gql-money#currency'
+        append: { subgraphs: [sg:pricing-v2] }
+      - modify: 'sch:gql-product#price'
+        append: { subgraphs: [sg:pricing-v2] }
+        set: { override: { from: sg:pricing, percent: 10 } }
+      - modify: st:price-redis
+        append: { access: [{ svc: svc:pricing-v2-graph, mode: read }] }
+  - id: chg:price-migrate
+    title: All price traffic to Pricing v2
+    ops:
+      - modify: 'sch:gql-product#price'
+        set: { override: { from: sg:pricing, percent: 100 } }
+  - id: chg:price-contract
+    title: Pricing stops serving price
+    ops:
+      - modify: 'sch:gql-money#amount'
+        drop: { subgraphs: [sg:pricing] }
+      - modify: 'sch:gql-money#currency'
+        drop: { subgraphs: [sg:pricing] }
+      - modify: 'sch:gql-product#price'
+        drop: { subgraphs: [sg:pricing] }
+        set: { override: null, cache: [{ at: st:price-redis, ttl: 60 }] }
+tests:
+  - {
+      id: tst:promise-e2e,
+      level: e2e,
+      name: PDP shows the promise,
+      proves: [chg:promise],
+      walks: [flow:browse],
+    }
+  - {
+      id: tst:pricing-v2-contract,
+      level: contract,
+      name: rover subgraph check pricing-v2,
+      proves: [chg:price-expand, chg:price-migrate, chg:price-contract],
+      walks: [sg:pricing-v2],
+    }
+work_items:
+  - { id: wi:promise, title: Promise subgraph, team: team:fulfil, implements: [chg:promise] }
+  - {
+      id: wi:pricing-v2,
+      title: Pricing v2,
+      team: team:pricing,
+      implements: [chg:price-expand, chg:price-migrate, chg:price-contract],
+    }

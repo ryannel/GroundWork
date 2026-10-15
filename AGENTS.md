@@ -1,7 +1,14 @@
-# Repository agent instructions
+# Working on Groundwork
 
-Implement against the single current Groundwork format in `docs/WORKSPACES.md`. Keep feature planning and delivery central, and preserve the established UI unless the task calls for a specific change.
+Groundwork shows the systems a company runs (workspace › domain › system › component) and the plans that change
+them. It is a rebuild of Plan Atlas (`/Users/RNEL/Workspace/plan-atlas`; tag `pre-rebuild` holds the old
+Groundwork) in Next.js and TypeScript.
 
-Keep scratch notes, review transcripts, and build handoff files outside this repository. Use a temporary directory for agent working documents. Do not stage or commit files under `docs/design-review/` or `docs/WORKSPACES-BUILD.md`.
-
-Before staging, inspect `git status` and preserve unrelated working tree changes. Run the relevant type check and tests for code changes. Do not migrate external workspace homes as part of ordinary repository cleanup.
+- Read `docs/architecture.md` before adding a file. The lint config enforces it; do not disable rules to get past
+  it.
+- While working, run `npm run lint:changed` and `npm test`. Before handing back, `npm run check` and
+  `npm run build` must pass.
+- One word per idea. The levels are workspace, domain, system and component, and nothing else. A
+  service is one kind of component (alongside stores, topics and apps), not a level.
+- Write for the reader in plain British English. Titles name things; the
+  line under a title says what is true.

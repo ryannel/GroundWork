@@ -1,0 +1,114 @@
+@layer components {
+  .card {
+    fill: var(--node-bg);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .card[data-state='added'] {
+    fill: var(--st-add-bg);
+    stroke: var(--st-add);
+    stroke-width: 1.5;
+  }
+
+  .card[data-touched='true'] {
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .card[data-lens-off='true'] {
+    opacity: 0.5;
+  }
+
+  .stripe {
+    fill: var(--fg-3);
+  }
+
+  .stripe[data-ring='true'] {
+    stroke: var(--fg-1);
+    stroke-width: 1;
+  }
+
+  .stripe[data-team='1'] {
+    fill: var(--team-1);
+  }
+
+  .stripe[data-team='2'] {
+    fill: var(--team-2);
+  }
+
+  .stripe[data-team='3'] {
+    fill: var(--team-3);
+  }
+
+  .stripe[data-team='4'] {
+    fill: var(--team-4);
+  }
+
+  .stripe[data-team='5'] {
+    fill: var(--team-5);
+  }
+
+  .stripe[data-team='6'] {
+    fill: var(--team-6);
+  }
+
+  .stripe[data-team='7'] {
+    fill: var(--team-7);
+  }
+
+  .stripe[data-team='8'] {
+    fill: var(--team-8);
+  }
+
+  .stripe[data-team='9'] {
+    fill: var(--team-9);
+  }
+
+  .stripe[data-team='10'] {
+    fill: var(--team-10);
+  }
+
+  .stripe[data-team='11'] {
+    fill: var(--team-11);
+  }
+
+  .stripe[data-team='12'] {
+    fill: var(--team-12);
+  }
+
+  .stripe[data-team='13'] {
+    fill: var(--team-13);
+  }
+
+  .stripe[data-state='modified'] {
+    fill: var(--st-mod);
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .kind {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: 0.06em;
+    dominant-baseline: middle;
+  }
+
+  .fresh {
+    fill: var(--st-add-fg);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    dominant-baseline: middle;
+  }
+
+  .divider {
+    stroke: var(--line-2);
+    stroke-width: 1;
+  }
+}

@@ -1,0 +1,76 @@
+@layer components {
+  .svg {
+    display: block;
+    max-width: none;
+    color: var(--fg-3);
+  }
+
+  .box {
+    fill: var(--node-bg);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-size: var(--fs-14);
+    font-weight: 600;
+  }
+
+  .meta {
+    fill: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .note {
+    fill: var(--fg-3);
+    font-size: var(--fs-12);
+    font-style: italic;
+  }
+
+  .path {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.5;
+  }
+
+  .head {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.5;
+  }
+
+  .line[data-output] .path {
+    stroke-dasharray: 5 4;
+  }
+
+  .pill {
+    fill: var(--bg-1);
+    stroke: var(--line-2);
+    stroke-width: 1;
+  }
+
+  .label {
+    fill: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .screen[data-dim],
+  .line[data-dim] {
+    opacity: 0.25;
+  }
+
+  .screen[data-lit] .box {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .line[data-lit] .path {
+    color: var(--accent);
+    stroke-width: 2.5;
+  }
+
+  .line[data-shared-line]:not([data-show]) {
+    display: none;
+  }
+}

@@ -1,0 +1,18 @@
+@layer components {
+  .list {
+    position: relative;
+    max-height: 390px;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    list-style: none;
+    scrollbar-gutter: stable;
+  }
+
+  @media print {
+    .list {
+      max-height: none;
+      overflow: visible;
+    }
+  }
+}

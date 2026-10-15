@@ -1,0 +1,295 @@
+/* "Signal" design tokens (plan-atlas SPEC §4). Components use these through var(); stylelint rejects raw
+   colours and sizes elsewhere. Each colour is light-dark(light, dark): the OS decides, unless <html data-theme>
+   forces one. Layers, lowest first: base resets, shared components, per-screen styles, focus rings. */
+@layer base, components, story, focus;
+
+:root {
+  color-scheme: light dark;
+
+  &[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  &[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  /* Surfaces: page → panel → raised → hover */
+  --bg-0: light-dark(#fafafa, #0b0b0e);
+  --bg-1: light-dark(#fff, #131317);
+  --bg-2: light-dark(#f4f4f5, #1b1b21);
+  --bg-3: light-dark(#efeff1, #222229);
+  --bg-overlay: light-dark(rgb(24 24 32 / 28%), rgb(5 5 8 / 62%));
+
+  /* Text */
+  --fg-1: light-dark(#111113, #f2f2f5);
+  --fg-2: light-dark(#52525b, #a1a1aa);
+  --fg-3: light-dark(#666670, #8b8b95);
+  --fg-inverse: light-dark(#fff, #0b0b0e);
+
+  /* Lines */
+  --line-1: light-dark(#e8e8eb, #24242b);
+  --line-2: light-dark(#dadadf, #32323b);
+  --line-3: light-dark(#c4c4cc, #45454f);
+
+  /* Accent: the only colour that is not a status or a team */
+  --accent: light-dark(#4f4fe8, #7c7cff);
+  --accent-hover: light-dark(#3f3fd6, #9494ff);
+  --accent-fg: light-dark(#3a3ac8, #b9b9ff);
+  --accent-soft: light-dark(rgb(79 79 232 / 8%), rgb(124 124 255 / 12%));
+  --accent-line: light-dark(rgb(79 79 232 / 32%), rgb(124 124 255 / 38%));
+  --on-accent: light-dark(#fff, #0b0b0e);
+  --focus: light-dark(#4f4fe8, #9a9aff);
+
+  /* Status: the only use of green, amber and rose */
+  --st-add: light-dark(#15803d, #4ade80);
+  --st-add-fg: light-dark(#166534, #86efac);
+  --st-add-bg: light-dark(rgb(22 163 74 / 9%), rgb(74 222 128 / 10%));
+  --st-add-line: light-dark(rgb(22 163 74 / 36%), rgb(74 222 128 / 34%));
+  --st-mod: light-dark(#d97706, #fbbf24);
+  --st-mod-fg: light-dark(#92400e, #fcd34d);
+  --st-mod-bg: light-dark(rgb(217 119 6 / 9%), rgb(251 191 36 / 10%));
+  --st-mod-line: light-dark(rgb(217 119 6 / 38%), rgb(251 191 36 / 34%));
+  --st-dep: light-dark(#e11d48, #fb7185);
+  --st-dep-fg: light-dark(#be123c, #fda4af);
+  --st-dep-bg: light-dark(rgb(225 29 72 / 7%), rgb(251 113 133 / 10%));
+  --st-dep-line: light-dark(rgb(225 29 72 / 38%), rgb(251 113 133 / 38%));
+  --st-rem: light-dark(#e11d48, #fb7185);
+  --st-rem-fg: light-dark(#a3324f, #e08a98);
+  --st-rem-line: light-dark(rgb(225 29 72 / 28%), rgb(251 113 133 / 30%));
+
+  /* Teams: a stripe, a dot or a lane tint only. Slots 9–13 are drawn as rings. */
+  --team-1: light-dark(#3b6fe0, #6e9bff);
+  --team-2: light-dark(#0e9f8d, #2fc7b4);
+  --team-3: light-dark(#8354e8, #b08cff);
+  --team-4: light-dark(#dd7a1f, #f2994a);
+  --team-5: light-dark(#d0458f, #ec72b6);
+  --team-6: light-dark(#1c9dd0, #5cc8f0);
+  --team-7: light-dark(#8e8a2a, #b8b45a);
+  --team-8: light-dark(#64748b, #9aa6b8);
+  --team-9: light-dark(#2e8f8a, #6fb3b0);
+  --team-10: light-dark(#b05e4a, #c98a7a);
+  --team-11: light-dark(#6e8a1e, #9db04e);
+  --team-12: light-dark(#5b6b8c, #8290a8);
+  --team-13: light-dark(#8a7346, #b7a27a);
+  --team-tint: 6%;
+
+  /* Diagrams */
+  --dot-grid: light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 4%));
+  --edge: light-dark(#a6a6b0, #5a5a66);
+  --edge-strong: light-dark(#52525b, #a1a1aa);
+  --node-bg: light-dark(#fff, #16161b);
+
+  /* Elevation */
+  --shade-1: light-dark(rgb(20 20 40 / 6%), rgb(0 0 0 / 40%));
+  --shade-2: light-dark(rgb(20 20 40 / 10%), rgb(0 0 0 / 45%));
+  --shade-3: light-dark(rgb(20 20 40 / 18%), rgb(0 0 0 / 60%));
+  --shadow-1: 0 1px 2px var(--shade-1);
+  --shadow-2: 0 8px 24px var(--shade-2), 0 1px 2px var(--shade-1);
+  --shadow-3: 0 24px 64px var(--shade-3), 0 2px 6px var(--shade-1);
+
+  /* Type: Instrument Sans for display and UI, Inter for body, JetBrains Mono for ids */
+  --font-display: var(--font-instrument), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SF Mono', menlo, consolas, monospace;
+  --fs-12: 0.75rem;
+  --fs-13: 0.8125rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-20: 1.25rem;
+  --fs-28: 1.75rem;
+  --fs-40: 2.5rem;
+  --fs-inline-mono: 0.9em;
+  --fs-inline-glyph: 0.85em;
+  --lh-tight: 1.15;
+  --lh-snug: 1.3;
+  --lh-body: 1.55;
+  --tracking-display: -0.02em;
+  --tracking-caps: 0.08em;
+
+  /* Space: 4px grid */
+  --s-0: 2px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Radius */
+  --r-1: 4px;
+  --r-2: 6px;
+  --r-3: 10px;
+  --r-4: 14px;
+  --r-pill: 999px;
+
+  /* Motion: one curve, three durations */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-1: 120ms;
+  --t-2: 200ms;
+  --t-3: 320ms;
+
+  /* Stacking */
+  --z-raised: 1;
+  --z-sticky: 10;
+  --z-overlay: 100;
+  --z-popover: 200;
+
+  /* Layout */
+  --topbar-h: 52px;
+  --rail-w: 256px;
+  --inspector-w: 420px;
+  --stage-max: 1080px;
+  --measure: 68ch;
+
+  /* Diagram geometry: 8px grid */
+  --grid: 8px;
+  --node-h: 40px;
+  --node-r: 8px;
+  --edge-w: 1.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-1: 0ms;
+    --t-2: 0ms;
+    --t-3: 0ms;
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    font-size: var(--fs-14);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    color: var(--fg-1);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--fs-40);
+    line-height: var(--lh-tight);
+  }
+
+  h2 {
+    font-size: var(--fs-28);
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: var(--fs-20);
+    line-height: var(--lh-snug);
+  }
+
+  h4 {
+    font-size: var(--fs-16);
+    line-height: var(--lh-snug);
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--accent-fg);
+    text-decoration: none;
+    text-underline-offset: 3px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    color: inherit;
+    font: inherit;
+  }
+
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.45;
+    }
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  code {
+    padding: 1px 5px;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-1);
+    background: var(--bg-2);
+    font-size: var(--fs-inline-mono);
+  }
+
+  pre {
+    margin: 0;
+    font-size: var(--fs-12);
+    white-space: pre-wrap;
+  }
+
+  time,
+  td {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg-1);
+  }
+
+  * {
+    scrollbar-color: var(--line-2) transparent;
+    scrollbar-width: thin;
+  }
+}
+
+/* Focus rings sit in the top layer so nothing can remove them. */
+@layer focus {
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

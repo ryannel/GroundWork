@@ -1,0 +1,55 @@
+@layer components {
+  .stack {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .wave {
+    display: grid;
+    gap: var(--s-3);
+    padding-inline-start: var(--s-4);
+    border-inline-start: 2px solid var(--line-2);
+  }
+
+  .wave[data-done] {
+    border-inline-start-color: var(--st-add);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: baseline;
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+  }
+
+  summary.head {
+    cursor: pointer;
+  }
+
+  .n {
+    display: inline-grid;
+    place-items: center;
+    inline-size: var(--s-6);
+    block-size: var(--s-6);
+    border-radius: var(--r-4);
+    background: var(--bg-3);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .hint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}

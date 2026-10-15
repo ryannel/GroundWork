@@ -1,0 +1,16 @@
+@layer components {
+  .mark {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .fresh {
+    fill: var(--st-add-fg);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    dominant-baseline: middle;
+  }
+}

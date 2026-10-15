@@ -1,0 +1,22 @@
+@layer components {
+  /* a box around the rows it holds, sharing the drawing's columns */
+  .frame {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+
+    &[data-frame='fails'] {
+      border-style: dashed;
+    }
+
+    &[data-current] {
+      border-color: var(--accent-line);
+    }
+
+    & & {
+      margin-block: var(--s-1);
+    }
+  }
+}

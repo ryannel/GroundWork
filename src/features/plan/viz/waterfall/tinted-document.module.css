@@ -1,0 +1,72 @@
+@layer components {
+  .document {
+    margin: 0;
+    overflow-x: auto;
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    line-height: 1.5;
+  }
+
+  .name {
+    font-weight: 600;
+
+    &[data-router] {
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0.55;
+    }
+
+    &[data-slot='1'] {
+      color: var(--team-1);
+    }
+
+    &[data-slot='2'] {
+      color: var(--team-2);
+    }
+
+    &[data-slot='3'] {
+      color: var(--team-3);
+    }
+
+    &[data-slot='4'] {
+      color: var(--team-4);
+    }
+
+    &[data-slot='5'] {
+      color: var(--team-5);
+    }
+
+    &[data-slot='6'] {
+      color: var(--team-6);
+    }
+
+    &[data-slot='7'] {
+      color: var(--team-7);
+    }
+
+    &[data-slot='8'] {
+      color: var(--team-8);
+    }
+
+    &[data-slot='9'] {
+      color: var(--team-9);
+    }
+
+    &[data-slot='10'] {
+      color: var(--team-10);
+    }
+
+    &[data-slot='11'] {
+      color: var(--team-11);
+    }
+
+    &[data-slot='12'] {
+      color: var(--team-12);
+    }
+
+    &[data-slot='13'] {
+      color: var(--team-13);
+    }
+  }
+}

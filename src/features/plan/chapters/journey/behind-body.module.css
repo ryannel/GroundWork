@@ -1,0 +1,64 @@
+@layer components {
+  .sent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .top {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .fold {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    font-size: var(--fs-14);
+
+    & summary {
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  .purges {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-2) 0;
+    padding: 0;
+    list-style: none;
+
+    & li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      align-items: center;
+    }
+  }
+
+  .call {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    margin: 0;
+    font-size: var(--fs-14);
+  }
+
+  .change {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+}

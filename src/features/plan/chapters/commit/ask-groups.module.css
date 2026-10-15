@@ -1,0 +1,112 @@
+@layer components {
+  .groups {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .group {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+  }
+
+  .head {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .team {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: grid;
+    gap: var(--s-2);
+    padding-block-start: var(--s-3);
+    border-block-start: 1px solid var(--line-1);
+  }
+
+  .item:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .text {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .number {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .when {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    color: var(--fg-2);
+  }
+
+  .blocks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .default {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    color: var(--fg-2);
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

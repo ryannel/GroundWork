@@ -1,0 +1,49 @@
+@layer components {
+  .table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--fs-14);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .table thead th {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .table tr[data-status='added'] {
+    background: var(--st-add-bg);
+  }
+
+  .table tr[data-status='removed'] {
+    background: var(--st-dep-bg);
+  }
+
+  .small,
+  .was {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .rollout {
+    margin: var(--s-1) 0 0;
+    font-size: var(--fs-12);
+  }
+
+  .impact {
+    margin: var(--s-3) 0 0;
+  }
+}

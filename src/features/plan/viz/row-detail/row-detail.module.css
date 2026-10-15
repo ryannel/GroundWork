@@ -1,0 +1,92 @@
+@layer components {
+  .cell {
+    position: relative;
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    vertical-align: top;
+  }
+
+  .cell[data-align='end'] {
+    text-align: right;
+  }
+
+  .cell[data-align='center'] {
+    text-align: center;
+  }
+
+  .button {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-0);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .button[aria-expanded='true'] {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-fg);
+  }
+
+  .glyph {
+    display: inline-flex;
+    color: var(--fg-3);
+  }
+
+  .n {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+
+  .card {
+    position: absolute;
+    z-index: var(--z-popover);
+    display: none;
+    min-width: var(--s-16);
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    box-shadow: var(--shadow-2);
+    font-size: var(--fs-12);
+    text-align: left;
+  }
+
+  .button:hover + .card,
+  .button:focus-visible + .card {
+    display: grid;
+  }
+
+  .more {
+    color: var(--fg-3);
+  }
+
+  .detail td {
+    padding: var(--s-2) var(--s-3) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-1);
+  }
+
+  .panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--s-16), 1fr));
+    gap: var(--s-3);
+  }
+
+  .panel {
+    min-width: 0;
+  }
+
+  .heading {
+    margin: 0 0 var(--s-1);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+}

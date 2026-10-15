@@ -1,0 +1,83 @@
+@layer components {
+  .card {
+    position: fixed;
+    z-index: var(--z-popover);
+    top: var(--hc-top, 0);
+    left: var(--hc-left, 0);
+    display: none;
+    gap: var(--s-1);
+    width: min(300px, calc(100vw - 16px));
+    padding: var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    box-shadow: var(--shadow-2);
+    font-size: var(--fs-13);
+    pointer-events: none;
+
+    &[data-open] {
+      display: grid;
+    }
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .kind {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .name {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  .team {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .lines {
+    display: grid;
+    gap: var(--s-0);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    list-style: none;
+
+    & li:is([data-change='added'], [data-change='add']) {
+      color: var(--st-add-fg);
+    }
+
+    & li[data-change='modified'] {
+      color: var(--st-mod-fg);
+    }
+
+    & li:is([data-change='deprecated'], [data-change='deprecate']) {
+      color: var(--st-dep-fg);
+    }
+
+    & li:is([data-change='removed'], [data-change='remove']) {
+      color: var(--st-rem-fg);
+    }
+  }
+
+  .summary {
+    color: var(--fg-2);
+  }
+
+  .foot {
+    padding-top: var(--s-1);
+    border-top: 1px solid var(--line-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

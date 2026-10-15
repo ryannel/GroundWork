@@ -1,0 +1,24 @@
+@layer components {
+  .empty {
+    padding: var(--s-4);
+    border: 1px dashed var(--line-2);
+    border-radius: var(--r-3);
+    color: var(--fg-2);
+  }
+
+  .unwalked {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+    margin: 0 0 var(--s-4);
+  }
+
+  .kicker {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+}

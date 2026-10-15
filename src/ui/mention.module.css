@@ -1,0 +1,73 @@
+@layer components {
+  .mention {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &[role='button'],
+    &[data-mono] {
+      white-space: normal;
+    }
+
+    &:focus-visible {
+      border-radius: var(--r-1);
+      outline: 2px solid var(--accent-line);
+      outline-offset: 2px;
+    }
+  }
+
+  .head {
+    white-space: nowrap;
+  }
+
+  .glyph {
+    margin-right: var(--s-0);
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-inline-glyph);
+  }
+
+  .name {
+    color: var(--fg-1);
+    text-decoration: underline solid var(--line-3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .mention[data-mono] .name {
+    font-family: var(--font-mono);
+    font-size: var(--fs-inline-mono);
+  }
+
+  .mention:hover .name,
+  .mention:focus-visible .name {
+    color: var(--accent-fg);
+    text-decoration-color: var(--accent);
+  }
+
+  .mention:hover .glyph,
+  .mention:focus-visible .glyph {
+    color: var(--accent-fg);
+  }
+
+  /* The thing open in the inspector, wherever the page cites it. */
+  .mention[data-picked] {
+    border-radius: var(--r-1);
+    background: var(--accent-soft);
+  }
+
+  .mention[data-status='added'] :is(.glyph, .name) {
+    color: var(--st-add-fg);
+  }
+
+  .mention:is([data-status='removed'], [data-status='deprecated']) .name {
+    text-decoration-line: line-through;
+  }
+}

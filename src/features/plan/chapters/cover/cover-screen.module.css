@@ -1,0 +1,130 @@
+@layer components {
+  .ask {
+    display: grid;
+    gap: var(--s-2);
+    max-width: 72ch;
+  }
+
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: baseline;
+    justify-content: space-between;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-left: 3px solid var(--accent-line);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+
+    &[data-tone='warn'] {
+      border-left-color: var(--st-mod);
+    }
+  }
+
+  .text {
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .go {
+    color: var(--accent);
+    font-size: var(--fs-13);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--s-3);
+    margin: var(--s-6) 0 0;
+  }
+
+  .stat {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .name {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .was,
+  .after {
+    display: flex;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .was {
+    color: var(--fg-3);
+    text-decoration: line-through;
+  }
+
+  .after {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  .when {
+    min-width: 3.5rem;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .door {
+    display: grid;
+    gap: var(--s-2);
+    margin-top: var(--s-6);
+    padding: var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .doorHead {
+    margin: 0;
+    font-size: var(--fs-14);
+  }
+
+  .teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .team {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    color: var(--fg-1);
+
+    &:hover {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+    }
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

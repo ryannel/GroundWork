@@ -1,0 +1,69 @@
+@layer components {
+  .edges,
+  .ports {
+    pointer-events: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: var(--edge-strong);
+    stroke-width: 1.5;
+  }
+
+  .head {
+    fill: var(--edge-strong);
+  }
+
+  .edge[data-kind='msg'] .line {
+    stroke-dasharray: 6 4;
+  }
+
+  .edge[data-kind='data'] .line {
+    stroke-dasharray: 2 4;
+    stroke-linecap: round;
+  }
+
+  .edge[data-walk='walked'] {
+    opacity: 0.45;
+  }
+
+  .edge[data-walk='tocome'] {
+    opacity: 0.6;
+  }
+
+  .edge[data-walk='current'] .line {
+    stroke: var(--accent);
+    stroke-width: 2.25;
+  }
+
+  .edge[data-walk='current'] .head {
+    fill: var(--accent);
+  }
+
+  .edge[data-state='added'] .line {
+    stroke: var(--st-add);
+  }
+
+  .edge[data-state='added'] .head {
+    fill: var(--st-add);
+  }
+
+  .edge[data-state='removed'] .line {
+    stroke: var(--st-rem-line);
+    stroke-dasharray: 3 3;
+  }
+
+  .edge[data-state='removed'] .head {
+    fill: var(--st-rem-line);
+  }
+
+  .edge[data-state='added'][data-walk='current'] .line {
+    stroke-width: 2.5;
+  }
+
+  .port {
+    fill: var(--node-bg);
+    stroke: var(--edge-strong);
+    stroke-width: 1.5;
+  }
+}

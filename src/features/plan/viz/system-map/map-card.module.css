@@ -1,0 +1,68 @@
+@layer components {
+  .card {
+    fill: var(--node-bg);
+    stroke: var(--line-3);
+    stroke-width: 1;
+
+    &[data-external='true'] {
+      stroke-dasharray: 5 3;
+    }
+
+    &[data-part='true'] {
+      fill: var(--bg-1);
+    }
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .role {
+    fill: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .kind {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: 0.06em;
+    dominant-baseline: middle;
+  }
+
+  .divider {
+    stroke: var(--line-2);
+    stroke-width: 1;
+  }
+
+  .row {
+    cursor: pointer;
+  }
+
+  .sig {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    dominant-baseline: middle;
+
+    &[data-more] {
+      font-style: italic;
+    }
+  }
+
+  .count {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-anchor: end;
+    dominant-baseline: middle;
+  }
+
+  .port {
+    fill: var(--node-bg);
+    stroke: var(--edge-strong);
+    stroke-width: 1.5;
+  }
+}

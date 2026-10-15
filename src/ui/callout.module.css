@@ -1,0 +1,24 @@
+@layer components {
+  .callout {
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-left-width: 3px;
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-2);
+  }
+
+  .callout[data-tone='note'] {
+    border-left-color: var(--accent);
+  }
+
+  .callout[data-tone='warning'] {
+    border-left-color: var(--st-mod);
+  }
+
+  .title {
+    margin-bottom: var(--s-1);
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+}

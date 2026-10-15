@@ -1,0 +1,156 @@
+@layer components {
+  .shell {
+    overflow: clip;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+
+    &[data-full] {
+      position: fixed;
+      z-index: var(--z-overlay);
+      inset: var(--topbar-h) 0 0;
+      display: flex;
+      flex-direction: column;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    padding: var(--s-1) var(--s-2);
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-1);
+
+    .shell:not([data-full]) & [data-zoom] {
+      display: none;
+    }
+  }
+
+  .group {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .tool {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    height: 24px;
+    padding: 0 var(--s-2);
+    border-radius: var(--r-2);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    &[data-zoom='reset'] {
+      justify-content: center;
+      min-width: 48px;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    &[data-expand] {
+      margin-left: auto;
+    }
+  }
+
+  .icon {
+    flex: none;
+  }
+
+  .view {
+    position: relative;
+    min-width: 0;
+  }
+
+  .pan {
+    max-width: 100%;
+
+    > * {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .inline {
+    padding: var(--s-1) var(--s-2);
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-1);
+  }
+
+  .shell[data-full] .view {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--bg-0);
+    cursor: grab;
+    touch-action: none;
+
+    &[data-panning] {
+      cursor: grabbing;
+    }
+  }
+
+  .shell[data-full] .pan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none;
+    transform-origin: 0 0;
+    will-change: transform;
+
+    > * {
+      width: var(--zoom-w);
+      max-width: none;
+      height: var(--zoom-h);
+    }
+  }
+
+  /* a drawing that is read, not panned: expanded it scrolls */
+  .shell[data-scroll][data-full] .view {
+    overflow: auto;
+    padding: var(--s-4);
+    cursor: auto;
+    touch-action: auto;
+  }
+
+  .shell[data-scroll][data-full] .pan {
+    position: static;
+    transform: none;
+
+    > * {
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .partial,
+  .hint {
+    margin: 0;
+    padding: var(--s-1) var(--s-3);
+    border-top: 1px solid var(--line-1);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .legend {
+    border-top: 1px solid var(--line-1);
+    background: var(--bg-1);
+  }
+}

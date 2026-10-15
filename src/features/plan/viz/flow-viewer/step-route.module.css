@@ -1,0 +1,20 @@
+@layer components {
+  .route {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .chips {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .label {
+    color: var(--fg-2);
+  }
+}

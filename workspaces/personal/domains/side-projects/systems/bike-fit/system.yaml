@@ -1,0 +1,16 @@
+id: bike-fit
+name: Bike fit
+team: team:me
+repos:
+  - ryannel/bike-fit
+components:
+  - id: svc:bike-fit-cli
+    name: Bike fit CLI
+    type: job
+    tech: Python
+    does: Works out saddle height and reach from body measurements
+  - id: lib:geometry
+    name: Frame geometry
+    type: library
+    tech: Python
+    does: Frame sizes for the bikes I own

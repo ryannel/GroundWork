@@ -1,0 +1,28 @@
+@layer components {
+  .screen {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .lede {
+    max-width: var(--measure);
+    margin: var(--s-2) 0 0;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .missing {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-14);
+  }
+}

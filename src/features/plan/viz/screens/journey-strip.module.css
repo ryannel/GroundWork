@@ -1,0 +1,123 @@
+@layer components {
+  .strip {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-1);
+  }
+
+  .k {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .legs {
+    display: flex;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    scrollbar-width: thin;
+  }
+
+  .leg {
+    position: relative;
+    flex: none;
+  }
+
+  .leg + .leg::before {
+    content: '→';
+    position: absolute;
+    top: 26px;
+    left: -12px;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .btn {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    align-items: flex-start;
+    width: 112px;
+    padding: var(--s-1);
+    border: 1px solid transparent;
+    border-radius: var(--r-2);
+    background: transparent;
+    color: var(--fg-2);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--line-2);
+      background: var(--bg-2);
+    }
+  }
+
+  .leg[data-current] .btn {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--fg-1);
+  }
+
+  .thumb {
+    display: block;
+    width: 104px;
+    height: 60px;
+    overflow: hidden;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    background: var(--bg-2);
+    line-height: 0;
+  }
+
+  .thumb[data-narrow] {
+    width: 40px;
+    margin-left: var(--s-6);
+  }
+
+  .leg[data-status='added'] .thumb {
+    border-color: var(--st-add-line);
+  }
+
+  .leg[data-status='modified'] .thumb {
+    border-color: var(--st-mod-line);
+  }
+
+  .leg[data-current] .thumb {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-1);
+  }
+
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .blank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--fg-3);
+  }
+
+  .name {
+    max-width: 104px;
+    font-size: var(--fs-12);
+    line-height: 1.25;
+  }
+}

@@ -1,0 +1,16 @@
+@layer components {
+  .copy {
+    min-height: 24px;
+    padding: 0 var(--s-2);
+    border: 1px solid transparent;
+    border-radius: var(--r-2);
+    background: transparent;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+
+    &:hover {
+      border-color: var(--line-2);
+      color: var(--fg-1);
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@layer components {
+  .group {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--fs-14);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .gate {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    align-items: center;
+  }
+
+  .meta,
+  .held {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .also {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

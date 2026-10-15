@@ -1,0 +1,86 @@
+@layer components {
+  .head {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .kind {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .name {
+    margin: 0;
+    font-size: var(--fs-20);
+  }
+
+  .id {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    overflow-wrap: anywhere;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    margin-top: var(--s-1);
+  }
+
+  .metaLabel {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .note {
+    margin: 0;
+    color: var(--st-add-fg);
+    font-size: var(--fs-13);
+  }
+
+  .lines {
+    display: grid;
+    gap: var(--s-1);
+    margin: var(--s-2) 0 0;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    list-style: none;
+
+    & li {
+      display: grid;
+      gap: var(--s-2);
+      grid-template-columns: 1ch minmax(0, 1fr);
+    }
+
+    & li:is([data-change='added'], [data-change='add']) {
+      color: var(--st-add-fg);
+    }
+
+    & li[data-change='modified'] {
+      color: var(--st-mod-fg);
+    }
+
+    & li:is([data-change='deprecated'], [data-change='deprecate']) {
+      color: var(--st-dep-fg);
+    }
+
+    & li:is([data-change='removed'], [data-change='remove']) {
+      color: var(--st-rem-fg);
+    }
+  }
+
+  .sign {
+    font-weight: 600;
+  }
+}

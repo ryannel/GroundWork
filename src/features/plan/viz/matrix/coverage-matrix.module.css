@@ -1,0 +1,42 @@
+@layer components {
+  .wrap {
+    overflow-x: auto;
+  }
+
+  .matrix {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .matrix th {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-2);
+    color: var(--fg-2);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .change {
+    text-align: left;
+  }
+
+  .matrix tfoot th,
+  .matrix tfoot td {
+    padding: var(--s-2) var(--s-3);
+    border-top: 1px solid var(--line-2);
+    color: var(--fg-2);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  .matrix tfoot th {
+    text-align: left;
+  }
+
+  .empty,
+  .key {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

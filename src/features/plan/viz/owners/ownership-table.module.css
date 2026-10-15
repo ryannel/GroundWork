@@ -1,0 +1,64 @@
+@layer components {
+  .wrap {
+    overflow-x: auto;
+  }
+
+  .table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .table th {
+    padding: var(--s-2) var(--s-3);
+    border-block-end: 1px solid var(--line-2);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  .table tr[data-dim] {
+    opacity: 0.55;
+  }
+
+  .head {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .name {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .channel {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .vote {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vote[data-low] {
+    color: var(--st-rem-fg);
+    font-weight: 600;
+  }
+
+  .tests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--fg-3);
+  }
+}

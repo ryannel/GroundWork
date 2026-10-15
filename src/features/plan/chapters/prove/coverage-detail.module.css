@@ -1,0 +1,12 @@
+@layer components {
+  .detail {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .tests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+}

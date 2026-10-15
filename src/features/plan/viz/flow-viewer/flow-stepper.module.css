@@ -1,0 +1,67 @@
+@layer components {
+  .stepper {
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+    justify-content: center;
+    padding: var(--s-3) var(--s-4);
+  }
+
+  .arrow {
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-13);
+    cursor: pointer;
+  }
+
+  .arrow:disabled {
+    color: var(--fg-3);
+    cursor: default;
+  }
+
+  .arrow:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 1px solid var(--line-3);
+    border-radius: var(--r-pill);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .dot[data-state='walked'] {
+    background: var(--line-3);
+  }
+
+  .dot[data-state='current'] {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .dot[data-marked] {
+    border-color: var(--st-mod);
+  }
+
+  .dot:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

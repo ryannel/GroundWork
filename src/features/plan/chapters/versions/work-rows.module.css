@@ -1,0 +1,65 @@
+@layer components {
+  .rows {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+  }
+
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .title {
+    font-size: var(--fs-14);
+    font-weight: 500;
+  }
+
+  .fact {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .tag {
+    padding: 0 var(--s-2);
+    border: 1px solid var(--st-mod-line);
+    border-radius: var(--r-pill);
+    background: var(--st-mod-bg);
+    color: var(--st-mod-fg);
+    font-size: var(--fs-12);
+    font-weight: 500;
+  }
+
+  .tag[data-pending] {
+    border-style: dashed;
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-fg);
+  }
+
+  .why {
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .inferred {
+    padding: 0 var(--s-1);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

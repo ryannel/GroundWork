@@ -1,0 +1,32 @@
+@layer components {
+  .remember {
+    display: grid;
+    gap: var(--s-3);
+    max-width: 54rem;
+    margin-top: var(--s-12);
+    padding: var(--s-5) var(--s-6);
+    border: 1px solid var(--line-1);
+    border-left: 3px solid var(--accent-line);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    padding-left: var(--s-5);
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+    line-height: var(--lh-body);
+  }
+}

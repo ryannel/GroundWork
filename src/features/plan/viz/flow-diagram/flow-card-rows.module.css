@@ -1,0 +1,93 @@
+@layer components {
+  .endpoint {
+    cursor: pointer;
+  }
+
+  .port {
+    fill: var(--accent);
+    stroke: var(--node-bg);
+    stroke-width: 2;
+  }
+
+  .sig {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    dominant-baseline: middle;
+  }
+
+  .endpoint[data-added='true'] .sig {
+    fill: var(--st-add-fg);
+  }
+
+  .endpoint[data-added='true'] .port {
+    fill: var(--st-add);
+  }
+
+  .self {
+    cursor: pointer;
+  }
+
+  .num {
+    fill: var(--bg-1);
+    stroke: var(--edge-strong);
+    stroke-width: 1.1;
+  }
+
+  .numText {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+
+  .text {
+    fill: var(--fg-1);
+    font-size: var(--fs-12);
+    dominant-baseline: middle;
+  }
+
+  .mark {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .self[data-walk='walked'] .text,
+  .self[data-walk='tocome'] .text {
+    fill: var(--fg-2);
+  }
+
+  .self[data-walk='current'] .num {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  .self[data-walk='current'] .numText {
+    fill: var(--on-accent);
+  }
+
+  .self[data-walk='current'] .text {
+    fill: var(--accent-fg);
+    font-weight: 500;
+  }
+
+  .self[data-state='added'] .text {
+    fill: var(--st-add-fg);
+  }
+
+  .self[data-state='modified'] .text {
+    fill: var(--st-mod-fg);
+  }
+
+  .self[data-state='removed'] .text {
+    fill: var(--st-rem-fg);
+    text-decoration: line-through;
+  }
+
+  .self[data-state='removed'] .num {
+    stroke-dasharray: 2 2;
+  }
+}

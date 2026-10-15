@@ -1,0 +1,105 @@
+@layer components {
+  .figure {
+    --plot: 26rem;
+
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+    inline-size: min(100%, var(--plot));
+  }
+
+  .figure[data-size='sm'] {
+    --plot: 14rem;
+  }
+
+  .plot {
+    display: grid;
+    gap: var(--s-1);
+    font-size: var(--fs-12);
+    color: var(--fg-3);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 4.5rem repeat(3, 1fr);
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .figure[data-size='sm'] .row {
+    grid-template-columns: 3rem repeat(3, 1fr);
+  }
+
+  .axisY,
+  .axisX {
+    font-style: italic;
+  }
+
+  .axisX {
+    text-align: end;
+  }
+
+  .rowLabel,
+  .colLabel {
+    text-align: center;
+  }
+
+  .cell {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    place-content: center center;
+    min-block-size: 3.5rem;
+    padding: var(--s-1);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+  }
+
+  .cell[data-shade='2'] {
+    background: var(--bg-1);
+  }
+
+  .cell[data-shade='3'] {
+    background: var(--bg-2);
+  }
+
+  .cell[data-shade='4'] {
+    background: var(--bg-3);
+  }
+
+  .dot {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--fg-1);
+    border-radius: var(--r-pill);
+    background: var(--fg-1);
+    color: var(--bg-0);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .dot[data-resolved] {
+    background: transparent;
+    color: var(--fg-2);
+  }
+
+  .dot[data-focus='faint'] {
+    opacity: 0.35;
+  }
+
+  .dot[data-focus='self'] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

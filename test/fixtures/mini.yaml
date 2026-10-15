@@ -1,0 +1,431 @@
+# A tiny but complete plan used by the test suites. Validates clean.
+meta:
+  id: mini
+  title: 'Pause (mini fixture)'
+  version: '1.0'
+  date: '2026-10-01'
+  status: draft
+  authors: ['tests']
+  appetite: '2 weeks'
+
+problem:
+  summary: 'Members can pause instead of cancel; see [[flow:pause]].'
+  why: '38% of cancellers wanted a break.'
+  goals: ['Pause for up to 3 months']
+  non_goals: ['Pausing trials']
+  metrics: [{ name: churn, today: '4%', target: '3%' }]
+  scenarios:
+    - { id: sc:trip, title: 'Going on a trip', story: 'Ana pauses.', flows: [flow:pause] }
+  glossary:
+    - { term: dual-publish, means: 'Publish v1 and v2 side by side until consumers migrate.' }
+    - { term: outbox, means: 'Table of events written in the same transaction.' }
+
+teams:
+  - { id: team:web, name: Web, channel: '#team-web' }
+  - { id: team:subs, name: Subscriptions, channel: '#team-subs' }
+  - { id: team:billing, name: Billing }
+  - { id: team:platform, name: Platform }
+
+services:
+  - { id: svc:web, name: Web app, team: team:web, kind: ui }
+  - { id: svc:subs, name: Subscriptions, team: team:subs, kind: service, tech: Kotlin }
+  - { id: svc:billing, name: Billing, team: team:billing, kind: service, tech: Go }
+  - { id: svc:analytics, name: Analytics, team: team:platform, kind: service }
+
+stores:
+  - { id: st:subs-db, name: subs-db, kind: database, tech: Postgres, owner: svc:subs }
+  - {
+      id: st:billing-db,
+      name: billing-db,
+      kind: database,
+      owner: svc:billing,
+      access: [{ svc: svc:analytics, mode: read }],
+    }
+  - { id: st:sub-events, name: subscription.events, kind: topic, tech: Kafka, owner: svc:subs }
+
+schemas:
+  - id: sch:subscription
+    name: Subscription
+    kind: record
+    store: st:subs-db
+    fields:
+      - { name: id, type: uuid, required: true }
+      - { name: status, type: 'enum(active, cancelled)', required: true }
+  - id: sch:cancel-request
+    name: CancelRequest
+    kind: dto
+    fields: [{ name: reason, type: string }]
+  - id: sch:status-changed-v1
+    name: StatusChanged
+    kind: payload
+    fields: [{ name: subscription_id, type: uuid }, { name: status, type: string }]
+  - id: sch:invoice
+    name: Invoice
+    kind: record
+    store: st:billing-db
+    fields: [{ name: id, type: uuid }, { name: amount, type: money }]
+
+interfaces:
+  - id: if:subs-rest
+    service: svc:subs
+    protocol: rest
+    version: v1
+    endpoints:
+      - {
+          id: api:subs-cancel,
+          sig: 'POST /subscriptions/{id}/cancel',
+          request: sch:cancel-request,
+          response: sch:subscription,
+          auth: member-session,
+          idempotent: false,
+        }
+
+messages:
+  - id: msg:status-changed-v1
+    name: subscription.status.changed
+    version: v1
+    topic: st:sub-events
+    payload: sch:status-changed-v1
+    producer: svc:subs
+    consumers: [svc:billing, svc:analytics]
+
+flows:
+  - id: flow:cancel
+    name: Cancel a subscription
+    actor: Member
+    steps:
+      - {
+          id: flow:cancel#request,
+          from: svc:web,
+          to: svc:subs,
+          via: api:subs-cancel,
+          action: 'Request cancel',
+          writes: [sch:subscription],
+        }
+      - {
+          id: flow:cancel#publish,
+          from: svc:subs,
+          to: st:sub-events,
+          via: msg:status-changed-v1,
+          action: 'Publish status change',
+        }
+      - {
+          id: flow:cancel#to-billing,
+          from: st:sub-events,
+          to: svc:billing,
+          via: msg:status-changed-v1,
+          action: 'Billing stops charging',
+          beat: 'Fan out',
+        }
+      - {
+          id: flow:cancel#to-analytics,
+          from: st:sub-events,
+          to: svc:analytics,
+          via: msg:status-changed-v1,
+          action: 'Analytics records churn',
+          beat: 'Fan out',
+        }
+      - {
+          id: flow:cancel#legacy-email,
+          from: svc:subs,
+          to: st:subs-db,
+          via: internal,
+          action: 'Queue legacy email',
+          writes: [sch:subscription],
+        }
+  - id: flow:billing-run
+    name: Nightly billing run
+    actor: Scheduler
+    steps:
+      - {
+          id: flow:billing-run#select-due,
+          from: svc:billing,
+          to: st:billing-db,
+          via: internal,
+          action: 'Select due',
+          reads: [sch:invoice],
+        }
+      - {
+          id: flow:billing-run#charge,
+          from: svc:billing,
+          to: st:billing-db,
+          via: internal,
+          action: 'Charge',
+          writes: [sch:invoice],
+        }
+
+changes:
+  - id: chg:pause-api
+    title: 'Add the pause endpoint and paused status'
+    why: 'Members need a way to pause; see [[dec:version-event]].'
+    ops:
+      - add: schema
+        value:
+          {
+            id: sch:pause-request,
+            name: PauseRequest,
+            kind: dto,
+            fields: [{ name: until, type: date }],
+          }
+      - add: endpoint
+        into: if:subs-rest
+        value:
+          {
+            id: api:subs-pause,
+            sig: 'POST /subscriptions/{id}/pause',
+            request: sch:pause-request,
+            response: sch:subscription,
+          }
+      - { modify: 'sch:subscription#status', set: { type: 'enum(active, paused, cancelled)' } }
+      - { add: field, into: sch:subscription, value: { name: pause_until, type: 'date?' } }
+      - add: flow
+        value:
+          id: flow:pause
+          name: Pause a subscription
+          actor: Member
+          steps:
+            - {
+                id: flow:pause#request,
+                from: svc:web,
+                to: svc:subs,
+                via: api:subs-pause,
+                action: 'Request pause',
+                writes: [sch:subscription],
+              }
+            - {
+                id: flow:pause#publish,
+                from: svc:subs,
+                to: st:sub-events,
+                via: msg:status-changed-v2,
+                action: 'Publish paused',
+              }
+  - id: chg:status-event-v2
+    title: 'Version the status event to v2; dual-publish'
+    decisions: [dec:version-event]
+    ops:
+      - {
+          add: schema,
+          value:
+            {
+              id: sch:status-changed-v2,
+              name: StatusChanged,
+              kind: payload,
+              fields:
+                [
+                  { name: subscription_id, type: uuid },
+                  { name: status, type: string },
+                  { name: pause_until, type: 'date?' },
+                ],
+            },
+        }
+      - add: message
+        value:
+          {
+            id: msg:status-changed-v2,
+            name: subscription.status.changed,
+            version: v2,
+            topic: st:sub-events,
+            payload: sch:status-changed-v2,
+            producer: svc:subs,
+            consumers: [svc:billing, svc:analytics],
+            supersedes: msg:status-changed-v1,
+          }
+      - add: step
+        into: flow:cancel
+        after: 'flow:cancel#publish'
+        value:
+          {
+            id: 'flow:cancel#publish-v2',
+            from: svc:subs,
+            to: st:sub-events,
+            via: msg:status-changed-v2,
+            action: 'Publish v2',
+          }
+      - { modify: 'flow:cancel#to-billing', set: { via: msg:status-changed-v2 } }
+      - { deprecate: msg:status-changed-v1, replaced_by: msg:status-changed-v2 }
+  - id: chg:analytics-v2
+    title: 'Analytics consumes v2'
+    ops:
+      - { modify: 'flow:cancel#to-analytics', set: { via: msg:status-changed-v2 } }
+      - { modify: msg:status-changed-v1, drop: { consumers: [svc:analytics] } }
+  - id: chg:skip-paused
+    title: 'Billing run skips paused subscriptions'
+    ops:
+      - add: step
+        into: flow:billing-run
+        after: 'flow:billing-run#select-due'
+        value:
+          {
+            id: 'flow:billing-run#log-skipped',
+            from: svc:billing,
+            to: st:billing-db,
+            via: internal,
+            action: 'Log skipped',
+            writes: [sch:invoice],
+          }
+      - { modify: 'flow:billing-run#select-due', set: { logic: 'Filter status = active only.' } }
+      - { modify: st:billing-db, append: { access: [{ svc: svc:subs, mode: read }] } }
+  - id: chg:retire-email
+    title: 'Retire the legacy email step'
+    ops:
+      - { remove: 'flow:cancel#legacy-email' }
+
+tests:
+  - {
+      id: tst:pause-contract,
+      level: contract,
+      name: 'Pause contract',
+      proves: [chg:pause-api],
+      walks: ['flow:pause#request'],
+      owner: team:subs,
+      env: ci,
+      given: 'an active sub',
+      when: 'POST pause',
+      then: '200 and status paused',
+    }
+  - {
+      id: tst:pause-e2e,
+      level: e2e,
+      name: 'Pause end to end',
+      proves: [chg:pause-api, chg:status-event-v2],
+      walks: [flow:pause],
+      owner: team:web,
+      env: staging,
+    }
+  - {
+      id: tst:v2-unit,
+      level: unit,
+      name: 'v2 serialises',
+      proves: [chg:status-event-v2],
+      owner: team:subs,
+      env: local,
+    }
+  - {
+      id: tst:analytics-v2,
+      level: service,
+      name: 'Analytics reads v2',
+      proves: [chg:analytics-v2],
+      walks: ['flow:cancel#publish-v2', 'flow:cancel#to-analytics'],
+      owner: team:platform,
+      env: ci,
+    }
+  - {
+      id: tst:skip-unit,
+      level: unit,
+      name: 'Skips paused',
+      proves: [chg:skip-paused],
+      owner: team:billing,
+      env: local,
+    }
+  - {
+      id: tst:no-email,
+      level: integration,
+      name: 'No legacy email',
+      proves: [chg:retire-email],
+      walks: ['flow:cancel#legacy-email'],
+      owner: team:subs,
+      env: ci,
+    }
+
+milestones:
+  - { id: ms:skeleton, name: 'Walking skeleton', exit: 'Pause works end to end in staging.' }
+  - { id: ms:migrate, name: 'Consumers migrated' }
+  - { id: ms:cleanup, name: 'Cleanup' }
+
+work_items:
+  - {
+      id: wi:pause-endpoint,
+      title: 'Pause endpoint',
+      team: team:subs,
+      size: M,
+      milestone: ms:skeleton,
+      implements: [chg:pause-api],
+      verified_by: [tst:pause-contract, tst:pause-e2e],
+      repo: 'org/subs',
+      body: 'Build [[api:subs-pause]].',
+    }
+  - {
+      id: wi:v2-event,
+      title: 'Publish v2',
+      team: team:subs,
+      size: S,
+      milestone: ms:skeleton,
+      implements: [chg:status-event-v2],
+      verified_by: [tst:v2-unit],
+    }
+  - {
+      id: wi:billing-v2,
+      title: 'Billing consumes v2',
+      team: team:billing,
+      size: M,
+      milestone: ms:migrate,
+      implements: [chg:status-event-v2],
+      depends_on: [wi:v2-event],
+    }
+  - {
+      id: wi:analytics-v2,
+      title: 'Analytics consumes v2',
+      team: team:platform,
+      size: L,
+      milestone: ms:migrate,
+      implements: [chg:analytics-v2],
+      verified_by: [tst:analytics-v2],
+      depends_on: [wi:v2-event],
+    }
+  - {
+      id: wi:skip,
+      title: 'Skip paused',
+      team: team:billing,
+      size: XS,
+      milestone: ms:migrate,
+      implements: [chg:skip-paused],
+      depends_on: [wi:pause-endpoint],
+    }
+  - {
+      id: wi:retire,
+      title: 'Retire legacy email',
+      team: team:subs,
+      size: S,
+      milestone: ms:cleanup,
+      implements: [chg:retire-email],
+      depends_on: [wi:billing-v2, wi:analytics-v2],
+    }
+
+decisions:
+  - {
+      id: dec:version-event,
+      title: 'Version the event',
+      status: accepted,
+      decider: team:subs,
+      decided_on: 2026-09-20,
+      reversibility: one-way,
+      options: [{ name: 'Add a field to v1', why_not: 'Old consumers break on paused.' }],
+    }
+
+risks:
+  - {
+      id: risk:v1-consumer,
+      statement: 'A v1 consumer is missed.',
+      likelihood: med,
+      impact: high,
+      roam: mitigated,
+      owner: team:subs,
+      about: [msg:status-changed-v1],
+    }
+
+questions:
+  - {
+      id: q:trial-pause,
+      question: 'Can trials pause?',
+      decider: team:subs,
+      decide_by: '2026-10-10',
+      status: open,
+      blocks: [chg:pause-api],
+    }
+
+commitment:
+  - { team: team:billing, confidence: 4 }
+
+story:
+  chapters:
+    why: { headline: 'Cancel is the only exit today.', recap: ['38% wanted a break'] }

@@ -1,0 +1,56 @@
+@layer components {
+  .svg {
+    display: block;
+    max-width: none;
+    overflow: visible;
+    font-family: var(--font-body);
+  }
+
+  .band {
+    fill: var(--bg-1);
+    stroke: var(--line-1);
+    stroke-width: 1;
+  }
+
+  .bandName,
+  .bandDue {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .bandDue {
+    text-anchor: end;
+  }
+
+  .edge {
+    fill: none;
+    stroke: var(--line-3);
+    stroke-width: 1.25;
+  }
+
+  .edge[data-kind='critical'] {
+    stroke: var(--accent);
+    stroke-width: 2.25;
+  }
+
+  .edge[data-kind='violation'] {
+    stroke: var(--st-rem);
+    stroke-dasharray: 5 4;
+    stroke-width: 1.75;
+  }
+
+  .head {
+    fill: var(--line-3);
+  }
+
+  .head[data-kind='critical'] {
+    fill: var(--accent);
+  }
+
+  .head[data-kind='violation'] {
+    fill: var(--st-rem);
+  }
+}

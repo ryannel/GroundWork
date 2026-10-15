@@ -1,0 +1,40 @@
+@layer components {
+  .pager {
+    display: flex;
+    gap: var(--s-4);
+    justify-content: space-between;
+    margin-top: var(--s-12);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line-1);
+  }
+
+  .link {
+    display: grid;
+    gap: var(--s-1);
+    max-width: 20rem;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent-line);
+    }
+
+    &[data-next] {
+      margin-left: auto;
+      text-align: right;
+    }
+  }
+
+  .direction {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+}

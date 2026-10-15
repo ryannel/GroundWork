@@ -1,0 +1,75 @@
+@layer components {
+  .card {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+  }
+
+  .card[data-state='superseded'],
+  .card[data-state='rejected'] {
+    color: var(--fg-3);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    margin: 0;
+    font-size: var(--fs-14);
+  }
+
+  .title {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ref {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .why {
+    margin: 0;
+    color: var(--fg-2);
+  }
+
+  .said {
+    padding-left: var(--s-3);
+    border-left: 2px solid var(--accent-line);
+  }
+
+  .costs {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .rowLabel {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

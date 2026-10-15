@@ -1,0 +1,7 @@
+@layer components {
+  .router {
+    border-block-end: 1px dotted var(--accent-fg);
+    color: var(--accent-fg);
+    cursor: help;
+  }
+}

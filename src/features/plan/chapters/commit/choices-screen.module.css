@@ -1,0 +1,26 @@
+@layer components {
+  .section {
+    margin-block-start: var(--s-6);
+  }
+
+  .heading {
+    margin: 0 0 var(--s-3);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--fg-2);
+  }
+
+  .heading[data-tone='pending'] {
+    color: var(--st-mod);
+  }
+
+  .heading[data-tone='ok'] {
+    color: var(--st-add);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+  }
+}

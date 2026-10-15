@@ -1,0 +1,47 @@
+@layer components {
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+  }
+
+  .group {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .label {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .button {
+    height: 24px;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: transparent;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--bg-2);
+      color: var(--fg-1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    &[aria-pressed='true'] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--fg-1);
+    }
+  }
+}

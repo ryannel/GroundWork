@@ -1,0 +1,50 @@
+@layer components {
+  .ledger {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .group {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    padding-bottom: var(--s-1);
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+  }
+
+  button.name {
+    cursor: pointer;
+  }
+
+  .quiet {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .count {
+    margin-left: auto;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .empty {
+    padding: var(--s-6);
+    color: var(--fg-3);
+    text-align: center;
+  }
+}

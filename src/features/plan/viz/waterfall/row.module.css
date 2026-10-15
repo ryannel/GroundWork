@@ -1,0 +1,100 @@
+@layer components {
+  .row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(230px, 1.1fr) minmax(0, 2.4fr) minmax(120px, 0.8fr);
+    gap: var(--s-3);
+    align-items: start;
+    padding: var(--s-2) var(--s-3);
+    border-top: 1px solid var(--line-1);
+    border-left: 3px solid transparent;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    &[data-kind='hinge'],
+    &[data-kind='fill'] {
+      background: var(--bg-2);
+    }
+
+    &[data-kind='fill'] {
+      border-top-style: dashed;
+    }
+
+    &[data-kind='cache'][data-state='hit'],
+    &[data-lens='mine'] {
+      background: var(--accent-soft);
+      border-left-color: var(--accent);
+    }
+
+    &[data-state='skipped'] {
+      opacity: 0.42;
+    }
+
+    &[data-lens='faded'] {
+      opacity: 0.35;
+    }
+
+    &[data-change='add'] {
+      background: var(--st-add-bg);
+      border-left-color: var(--st-add);
+    }
+
+    &[data-change='moved'] {
+      background: var(--st-mod-bg);
+      border-left-color: var(--st-mod);
+    }
+
+    &[data-change='gone'] {
+      border-left-color: var(--st-rem);
+      opacity: 0.7;
+    }
+
+    &[data-today] {
+      background: var(--st-add-bg);
+      opacity: 0.8;
+    }
+  }
+
+  .who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+    align-items: center;
+    min-width: 0;
+  }
+
+  .what {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    min-width: 0;
+    font-size: var(--fs-13);
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: var(--s-6);
+    min-width: 0;
+  }
+
+  .row[data-change='gone'] .who,
+  .row[data-change='gone'] .what {
+    text-decoration: line-through;
+  }
+
+  /* a narrow waterfall (the inspector, a flow stop) stacks each row and drops the bars, never the marks */
+  @container (width <= 620px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-1);
+    }
+
+    .row[data-kind='fetch'] .track {
+      display: none;
+    }
+  }
+}

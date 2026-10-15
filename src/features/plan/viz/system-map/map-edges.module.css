@@ -1,0 +1,64 @@
+@layer components {
+  .edges {
+    pointer-events: none;
+  }
+
+  .edge {
+    transition: opacity 120ms;
+
+    &[data-muted='true'] {
+      opacity: 0.12;
+    }
+
+    &[data-dim='true'] {
+      opacity: 0.25;
+    }
+
+    &[data-trace='dim'] {
+      opacity: 0.1;
+    }
+  }
+
+  .line {
+    fill: none;
+    stroke: var(--edge-strong);
+    stroke-width: 1.5;
+
+    .edge[data-kind='msg'] & {
+      stroke-dasharray: 6 4;
+    }
+
+    .edge[data-kind='data'] & {
+      stroke-dasharray: 2 4;
+      stroke-linecap: round;
+    }
+
+    .edge[data-noted='true'] & {
+      stroke: var(--fg-3);
+    }
+
+    .edge[data-trace='hot'] & {
+      stroke: var(--accent);
+      stroke-width: 2.25;
+    }
+  }
+
+  .reach {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 10;
+    pointer-events: stroke;
+  }
+
+  .head {
+    fill: var(--edge-strong);
+
+    .edge[data-noted='true'] & {
+      fill: var(--fg-3);
+    }
+
+    .edge[data-trace='hot'] & {
+      fill: var(--accent);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@layer components {
+  .dag {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: center;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .teamsTitle {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .none {
+    color: var(--fg-3);
+  }
+}

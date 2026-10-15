@@ -1,0 +1,107 @@
+@layer components {
+  .pyramid {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .empty {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr) auto auto;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--r-2);
+    font-size: var(--fs-13);
+  }
+
+  .row[data-focus] {
+    background: var(--accent-soft);
+  }
+
+  .level {
+    color: var(--fg-2);
+    font-weight: 600;
+  }
+
+  .barCell {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bar {
+    display: block;
+    block-size: var(--s-3);
+    border-radius: var(--r-pill);
+    background: var(--accent-line);
+  }
+
+  .bar[data-size='1'] {
+    inline-size: 10%;
+  }
+
+  .bar[data-size='2'] {
+    inline-size: 20%;
+  }
+
+  .bar[data-size='3'] {
+    inline-size: 30%;
+  }
+
+  .bar[data-size='4'] {
+    inline-size: 40%;
+  }
+
+  .bar[data-size='5'] {
+    inline-size: 50%;
+  }
+
+  .bar[data-size='6'] {
+    inline-size: 60%;
+  }
+
+  .bar[data-size='7'] {
+    inline-size: 70%;
+  }
+
+  .bar[data-size='8'] {
+    inline-size: 80%;
+  }
+
+  .bar[data-size='9'] {
+    inline-size: 90%;
+  }
+
+  .bar[data-size='10'] {
+    inline-size: 100%;
+  }
+
+  .count {
+    color: var(--fg-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .note {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  a.note {
+    text-decoration: underline;
+  }
+
+  @media (width <= 720px) {
+    .row {
+      grid-template-columns: 5rem minmax(0, 1fr);
+    }
+
+    .count,
+    .note {
+      grid-column: 2;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+@layer components {
+  .layer {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+
+  .key {
+    margin-right: var(--s-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .fields,
+  .reads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+    align-items: center;
+  }
+
+  .field {
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-1);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    line-height: 20px;
+
+    &[data-router] {
+      border-style: dashed;
+      background: transparent;
+      opacity: 0.6;
+      font-style: italic;
+    }
+  }
+
+  button.field {
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent-line);
+      color: var(--accent-fg);
+    }
+  }
+
+  .routed {
+    display: inline-flex;
+    gap: var(--s-0);
+    align-items: baseline;
+  }
+
+  .for {
+    margin-left: var(--s-0);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .nothing,
+  .blast {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .read {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+
+    &[data-skipped] {
+      opacity: 0.45;
+    }
+  }
+
+  .batch {
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-1);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    line-height: 20px;
+
+    &[data-warn] {
+      border-color: var(--st-mod-line);
+      background: var(--st-mod-bg);
+      color: var(--st-mod-fg);
+    }
+  }
+
+  .sign {
+    display: inline-grid;
+    place-items: center;
+    width: var(--s-5);
+    height: var(--s-5);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-13);
+    font-weight: 700;
+
+    &[data-kind='add'] {
+      border: 1px solid var(--st-add-line);
+      background: var(--st-add-bg);
+      color: var(--st-add-fg);
+    }
+
+    &[data-kind='gone'] {
+      border: 1px solid var(--st-rem-line);
+      color: var(--st-rem-fg);
+    }
+  }
+
+  .was {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    color: var(--st-mod-fg);
+    font-size: var(--fs-12);
+  }
+}

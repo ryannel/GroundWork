@@ -1,0 +1,37 @@
+@layer components {
+  .shape {
+    fill: var(--bg-1);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .shape[data-kind='topic'] {
+    fill: var(--bg-2);
+    stroke-dasharray: 5 3;
+  }
+
+  .cap {
+    fill: var(--bg-3);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .chevron {
+    fill: none;
+    stroke: var(--fg-3);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .role {
+    fill: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+}

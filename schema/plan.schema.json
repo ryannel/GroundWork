@@ -1,0 +1,3099 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plan-atlas.dev/schema/plan.schema.json",
+  "title": "Plan Atlas plan.yaml",
+  "description": "Base arrays describe the system as it is today; every delta is an op inside changes[]. See SPEC.md \u00a71.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "problem",
+    "teams",
+    "services"
+  ],
+  "properties": {
+    "meta": {
+      "$ref": "#/$defs/meta"
+    },
+    "problem": {
+      "$ref": "#/$defs/problem"
+    },
+    "domain": {
+      "$ref": "#/$defs/domain"
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/team"
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/system"
+      },
+      "description": "a system is several deployables (services) of one team that are built, run and changed together; the system map draws it as one card with its services inside"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/service"
+      }
+    },
+    "stores": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/store"
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/schema"
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interface"
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/message"
+      }
+    },
+    "flows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flow"
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/screen"
+      },
+      "description": "what people see today: pages, modals, emails, pushes, prints, each with a screenshot and named regions; the to-be look is set by ops"
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interaction"
+      },
+      "description": "Recorded screen interactions independent of system flows; shared navigation has several from screens or regions"
+    },
+    "user_journeys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/userJourney"
+      },
+      "description": "Ordered paths through recorded interactions; every adjacent interaction connects through the same screen"
+    },
+    "graphs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/graph"
+      },
+      "description": "federated GraphQL graphs: the gateway that composes and routes them"
+    },
+    "subgraphs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/subgraph"
+      },
+      "description": "who contributes to a graph: each subgraph is served by one service"
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      },
+      "description": "the GraphQL documents the front end sends (queries and mutations); the query plan is derived from them"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test"
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/milestone"
+      }
+    },
+    "execution": {
+      "$ref": "#/$defs/execution"
+    },
+    "work_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/workItem"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk"
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    },
+    "commitment": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/commitment"
+      }
+    },
+    "story": {
+      "$ref": "#/$defs/story"
+    }
+  },
+  "$defs": {
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "paths"
+      ],
+      "description": "Plain-language account of how the plan plays out; chapter 4 opens on it (How it plays out).",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "markdown; explain how the design works, including what stays unchanged"
+        },
+        "paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "steps"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string",
+                "description": "markdown; the condition or outcome of this path"
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "detail"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "markdown; may cite [[id]]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "caveats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "markdown; a material limitation or unresolved implementation detail"
+          }
+        }
+      }
+    },
+    "id_team": {
+      "type": "string",
+      "pattern": "^team:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "team:<kebab-slug>"
+    },
+    "id_sys": {
+      "type": "string",
+      "pattern": "^sys:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "sys:<kebab-slug>"
+    },
+    "id_svc": {
+      "type": "string",
+      "pattern": "^svc:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "svc:<kebab-slug>"
+    },
+    "id_st": {
+      "type": "string",
+      "pattern": "^st:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "st:<kebab-slug>"
+    },
+    "id_sch": {
+      "type": "string",
+      "pattern": "^sch:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "sch:<kebab-slug>"
+    },
+    "id_if": {
+      "type": "string",
+      "pattern": "^if:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "if:<kebab-slug>"
+    },
+    "id_api": {
+      "type": "string",
+      "pattern": "^api:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "api:<kebab-slug>"
+    },
+    "id_msg": {
+      "type": "string",
+      "pattern": "^msg:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "msg:<kebab-slug>"
+    },
+    "id_flow": {
+      "type": "string",
+      "pattern": "^flow:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "flow:<kebab-slug>"
+    },
+    "id_chg": {
+      "type": "string",
+      "pattern": "^chg:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "chg:<kebab-slug>"
+    },
+    "id_tst": {
+      "type": "string",
+      "pattern": "^tst:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "tst:<kebab-slug>"
+    },
+    "id_wi": {
+      "type": "string",
+      "pattern": "^wi:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "wi:<kebab-slug>"
+    },
+    "id_ms": {
+      "type": "string",
+      "pattern": "^ms:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "ms:<kebab-slug>"
+    },
+    "id_dec": {
+      "type": "string",
+      "pattern": "^dec:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "dec:<kebab-slug>"
+    },
+    "id_risk": {
+      "type": "string",
+      "pattern": "^risk:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "risk:<kebab-slug>"
+    },
+    "id_q": {
+      "type": "string",
+      "pattern": "^q:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "q:<kebab-slug>"
+    },
+    "id_sc": {
+      "type": "string",
+      "pattern": "^sc:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "sc:<kebab-slug>"
+    },
+    "id_step": {
+      "type": "string",
+      "pattern": "^flow:[a-z0-9]+(?:-[a-z0-9]+)*#[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "flow:<flow-slug>#<step-slug>"
+    },
+    "id_field": {
+      "type": "string",
+      "pattern": "^sch:[a-z0-9]+(?:-[a-z0-9]+)*#[A-Za-z_][A-Za-z0-9_]*$",
+      "description": "sch:<schema-slug>#<field_name>"
+    },
+    "id_any": {
+      "type": "string",
+      "pattern": "^(?:team|sys|svc|st|sch|if|api|msg|flow|chg|tst|wi|ms|dec|risk|q|sc|scr|graph|sg|gql|ui|uj):[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z0-9_-]+)?$",
+      "description": "any plan id"
+    },
+    "id_node": {
+      "type": "string",
+      "pattern": "^(?:svc|st):[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "svc:* or st:*"
+    },
+    "id_via": {
+      "type": "string",
+      "pattern": "^(?:(?:api|msg|gql):[a-z0-9]+(?:-[a-z0-9]+)*|internal)$",
+      "description": "api:*, msg:*, gql:* or \"internal\""
+    },
+    "id_schemaOrField": {
+      "type": "string",
+      "pattern": "^sch:[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z_][A-Za-z0-9_]*)?$",
+      "description": "sch:* or sch:*#field"
+    },
+    "id_walk": {
+      "type": "string",
+      "pattern": "^(?:flow:[a-z0-9]+(?:-[a-z0-9]+)*(?:#[a-z0-9]+(?:-[a-z0-9]+)*)?|(?:gql|sg):[a-z0-9]+(?:-[a-z0-9]+)*)$",
+      "description": "flow:*, flow:*#step, gql:* (the steps that call the operation) or sg:* (the steps whose fan-out reaches the subgraph)"
+    },
+    "id_versioned": {
+      "type": "string",
+      "pattern": "^(?:sys|svc|st|sch|if|api|msg|flow):[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "a top-level system id"
+    },
+    "fieldName": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+      "description": "field name (snake_case or camelCase)"
+    },
+    "md": {
+      "type": "string",
+      "description": "markdown; may cite [[id]]"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "level3": {
+      "enum": [
+        "low",
+        "med",
+        "high"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "start": {
+          "$ref": "#/$defs/date",
+          "description": "when delivery starts (YYYY-MM-DD); milestone due dates count from here"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "review",
+            "approved",
+            "committed"
+          ],
+          "description": "the plan's lifecycle: draft, review, approved (the room said yes). 'committed' is the old name for approved and still reads as it, with a warning"
+        },
+        "revisions": {
+          "type": "array",
+          "description": "the revision ledger: one entry per proposed revision, oldest first; the newest approved entry is the canonical plan, snapshotted at plans/<slug>/revisions/<version>.yaml (tools/revision.mjs)",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["version", "status", "date"],
+            "properties": {
+              "version": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)*$", "description": "major.minor, e.g. 1.1; a scope change (goals, non-goals, milestones) is a new major" },
+              "status": { "enum": ["proposed", "approved", "rejected"] },
+              "date": { "$ref": "#/$defs/date", "description": "when proposed (YYYY-MM-DD)" },
+              "summary": { "type": "string", "description": "one line: what this revision changes and why it is proposed" },
+              "why": { "type": "string", "description": "the proposer's reasoning in two or three sentences: what is wrong without it and why this way; the revision page leads with it" },
+              "work": {
+                "type": "array",
+                "description": "the proposer's word on what happens to work items the revision touches; the page infers the rest and marks it as inferred",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["item", "action"],
+                  "properties": {
+                    "item": { "type": "string", "pattern": "^wi:", "description": "the work item" },
+                    "action": { "enum": ["rework", "keep", "drop", "new"], "description": "rework: it changes (reopened when done); keep: it stands as it is; drop: it goes; new: it is added" },
+                    "note": { "type": "string", "description": "what changes for it, in a sentence" }
+                  }
+                }
+              },
+              "by": { "type": "array", "items": { "type": "string" }, "description": "who proposes it: team ids (team:…) or names" },
+              "pr": { "type": "integer", "minimum": 1, "description": "the pull request that proposed it" },
+              "approved_on": { "$ref": "#/$defs/date" },
+              "approved_by": { "type": "string", "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$", "description": "a GitHub handle such as @ryannel: whoever merged the pull request. One person answers for it; there is no sign-off across teams" },
+              "rejected_on": { "$ref": "#/$defs/date" },
+              "rejected_by": { "type": "string", "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$", "description": "a GitHub handle such as @ryannel: whoever closed the pull request" },
+              "reason": { "type": "string", "description": "why it was approved or rejected, in a sentence or two; a rejection without one leaves the history unexplained" },
+              "approval_pr": { "type": "integer", "minimum": 1, "description": "the pull request that approved or rejected it; leave it out when that is the pull request that proposed it (`pr`)" }
+            }
+          }
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "appetite": {
+          "type": "string"
+        },
+        "repos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "description": "GitHub repos in scope, \"org/name\"; discovery starts here"
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "today": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_sc"
+        },
+        "title": {
+          "type": "string"
+        },
+        "story": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_flow"
+          }
+        }
+      }
+    },
+    "glossaryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "term",
+        "means"
+      ],
+      "properties": {
+        "term": {
+          "type": "string"
+        },
+        "means": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        }
+      }
+    },
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "why": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scenario"
+          }
+        },
+        "glossary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/glossaryEntry"
+          }
+        }
+      }
+    },
+    "team": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_team"
+        },
+        "name": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "colour": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 13,
+          "description": "the team's slot in the app's thirteen-colour team palette (--team-1 to --team-13; 9 to 13 are drawn with a ring). Give a team the same slot in every plan, and no two teams in one plan the same while a slot is free"
+        }
+      }
+    },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "team"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_sys"
+        },
+        "name": {
+          "type": "string",
+          "description": "what people call the whole thing (often the repo or Backstage system name, in words)"
+        },
+        "team": {
+          "$ref": "#/$defs/id_team"
+        },
+        "does": {
+          "type": "string",
+          "description": "the role of the whole system in plain words, \u2264 10 words; shown at the top of its card"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; why these services belong together (shared repo, store, release). May cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence it is one system: the Backstage spec.system line, the shared repo or the shared store"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "team",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "name": {
+          "type": "string"
+        },
+        "team": {
+          "$ref": "#/$defs/id_team"
+        },
+        "system": {
+          "$ref": "#/$defs/id_sys",
+          "description": "the system this deployable is part of; same team, same stage. The system map draws it as a row inside the system's card"
+        },
+        "kind": {
+          "enum": [
+            "ui",
+            "service",
+            "job",
+            "external"
+          ]
+        },
+        "tech": {
+          "type": "string"
+        },
+        "does": {
+          "type": "string",
+          "description": "its role in plain words a newcomer understands: what it does for the business, \u2264 10 words, sentence case, no jargon or code names. Shown on the system map card"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "storeAccess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "svc",
+        "mode"
+      ],
+      "properties": {
+        "svc": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "mode": {
+          "enum": [
+            "read",
+            "write",
+            "readwrite"
+          ]
+        }
+      }
+    },
+    "store": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_st"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "database",
+            "cache",
+            "topic",
+            "queue",
+            "warehouse",
+            "bucket"
+          ]
+        },
+        "tech": {
+          "type": "string"
+        },
+        "does": {
+          "type": "string",
+          "description": "its role in plain words a newcomer understands: what it holds or carries, and for whom, \u2264 10 words, sentence case, no jargon or code names. Shown on the system map card"
+        },
+        "owner": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "access": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/storeAccess"
+          }
+        },
+        "layer": {
+          "enum": [
+            "edge",
+            "gateway",
+            "subgraph"
+          ],
+          "description": "kind: cache: where the layer sits on the cache path (outermost first)"
+        },
+        "granularity": {
+          "enum": [
+            "response",
+            "entity"
+          ],
+          "description": "kind: cache: whole responses, or per entity per subgraph fetch (Apollo Router entity caching)"
+        },
+        "keyed_by": {
+          "type": "string",
+          "description": "kind: cache: what the key is made of, in words"
+        },
+        "stale": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "while_revalidate": {
+              "type": "number",
+              "minimum": 0
+            },
+            "if_error": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "description": "seconds it may serve stale"
+        },
+        "purge": {
+          "type": "string",
+          "description": "how an entry is emptied (surrogate key per sku, POST /invalidate)"
+        },
+        "invalidated_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_msg"
+          },
+          "description": "events that empty it (a shortcut; a flow step with purges: says who does it)"
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "measured numbers, not settings",
+          "properties": {
+            "hit_ratio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "latency_ms": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hit": {
+                  "type": "number"
+                },
+                "miss": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/fieldName"
+        },
+        "type": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "boolean",
+          "description": "part of the record's identity (primary key)"
+        },
+        "ref": {
+          "$ref": "#/$defs/id_schemaOrField",
+          "description": "a reference to another record: sch:* (its key) or sch:*#field"
+        },
+        "default": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ],
+          "description": "the value used when the field is left out"
+        },
+        "unique": {
+          "type": "boolean",
+          "description": "no two records share the value"
+        },
+        "args": {
+          "type": "string",
+          "description": "GraphQL arguments, verbatim (e.g. \"sku: ID!\")"
+        },
+        "subgraphs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_sg"
+          },
+          "description": "the subgraphs that resolve the field; required unless it is a key field"
+        },
+        "shareable": {
+          "type": "boolean",
+          "description": "@shareable: two or more subgraphs resolve it"
+        },
+        "provides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_field"
+          },
+          "description": "@provides: fields of the return type this subgraph can resolve on the same fetch"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_field"
+          },
+          "description": "@requires: fields the gateway must fetch first and send along"
+        },
+        "override": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "from"
+          ],
+          "description": "@override: this field moves from another subgraph; percent = progressive override (null once the move is contracted)",
+          "properties": {
+            "from": {
+              "$ref": "#/$defs/id_sg"
+            },
+            "percent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          },
+          "description": "the record fields the owning subgraph reads"
+        },
+        "via": {
+          "$ref": "#/$defs/id_api",
+          "description": "an endpoint the resolver calls"
+        },
+        "cache": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cacheUse"
+          },
+          "description": "data caches the resolver reads first"
+        },
+        "cache_control": {
+          "$ref": "#/$defs/cacheControl"
+        },
+        "auth": {
+          "type": "string",
+          "description": "who may read it; non-empty makes the field private"
+        },
+        "batched": {
+          "type": "boolean",
+          "description": "overrides the subgraph's batching for this field"
+        },
+        "usage": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "registry field usage (evidence for a deprecation)",
+          "properties": {
+            "clients": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "per_day": {
+              "type": [
+                "string",
+                "number"
+              ]
+            },
+            "last_seen": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "note": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_sch"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "record",
+            "dto",
+            "payload",
+            "graph-type"
+          ]
+        },
+        "store": {
+          "$ref": "#/$defs/id_st"
+        },
+        "graph": {
+          "$ref": "#/$defs/id_graph",
+          "description": "kind: graph-type only: the graph the type belongs to"
+        },
+        "root": {
+          "enum": [
+            "query",
+            "mutation"
+          ],
+          "description": "kind: graph-type only: Query or Mutation"
+        },
+        "keys": {
+          "type": "array",
+          "description": "kind: graph-type only: entity keys; `in` = the subgraphs that can be asked for the entity by that key (stub contributors included)",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "fields",
+              "in"
+            ],
+            "properties": {
+              "fields": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/fieldName"
+                }
+              },
+              "in": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/id_sg"
+                }
+              }
+            }
+          }
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "const": "graph-type"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "graph"
+            ]
+          },
+          "else": {
+            "properties": {
+              "graph": false,
+              "root": false,
+              "keys": false,
+              "fields": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "args": false,
+                    "subgraphs": false,
+                    "shareable": false,
+                    "provides": false,
+                    "requires": false,
+                    "override": false,
+                    "reads": false,
+                    "via": false,
+                    "cache": false,
+                    "cache_control": false,
+                    "auth": false,
+                    "batched": false,
+                    "usage": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "endpointError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "code": {
+          "type": "string"
+        },
+        "when": {
+          "type": "string"
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sig"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_api"
+        },
+        "sig": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "request": {
+          "$ref": "#/$defs/id_sch"
+        },
+        "response": {
+          "$ref": "#/$defs/id_sch"
+        },
+        "auth": {
+          "type": "string"
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/endpointError"
+          }
+        },
+        "supersedes": {
+          "$ref": "#/$defs/id_api"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "service",
+        "protocol"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_if"
+        },
+        "service": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "protocol": {
+          "enum": [
+            "rest",
+            "grpc",
+            "graphql",
+            "https"
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/id_if"
+        },
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/endpoint"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "topic",
+        "producer"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_msg"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "topic": {
+          "$ref": "#/$defs/id_st"
+        },
+        "payload": {
+          "$ref": "#/$defs/id_sch"
+        },
+        "producer": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "consumers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_svc"
+          }
+        },
+        "key": {
+          "type": "string",
+          "description": "the payload field the message is keyed by (its partition key), e.g. sku"
+        },
+        "semantics": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/id_msg"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "from",
+        "to",
+        "via",
+        "action"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_step"
+        },
+        "from": {
+          "$ref": "#/$defs/id_node"
+        },
+        "to": {
+          "$ref": "#/$defs/id_node"
+        },
+        "via": {
+          "$ref": "#/$defs/id_via"
+        },
+        "action": {
+          "type": "string"
+        },
+        "logic": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          }
+        },
+        "writes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          }
+        },
+        "fails": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "beat": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        },
+        "screen": {
+          "$ref": "#/$defs/id_screenOrRegion",
+          "description": "the screen (or region) the person is on when this step happens; makes the flow a UI journey"
+        },
+        "case": {
+          "enum": [
+            "hit",
+            "miss",
+            "cold"
+          ],
+          "description": "via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
+        },
+        "purges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_st"
+          },
+          "description": "cache stores this step empties (the acting service must own them or have access)"
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "steps"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_flow"
+        },
+        "name": {
+          "type": "string"
+        },
+        "actor": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "op_add": {
+      "type": "object",
+      "required": [
+        "add"
+      ],
+      "discriminator": {
+        "propertyName": "add"
+      },
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "service"
+            },
+            "value": {
+              "$ref": "#/$defs/service"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "system"
+            },
+            "value": {
+              "$ref": "#/$defs/system"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "store"
+            },
+            "value": {
+              "$ref": "#/$defs/store"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "schema"
+            },
+            "value": {
+              "$ref": "#/$defs/schema"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value",
+            "into"
+          ],
+          "properties": {
+            "add": {
+              "const": "field"
+            },
+            "value": {
+              "$ref": "#/$defs/field"
+            },
+            "into": {
+              "$ref": "#/$defs/id_sch"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "interface"
+            },
+            "value": {
+              "$ref": "#/$defs/interface"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value",
+            "into"
+          ],
+          "properties": {
+            "add": {
+              "const": "endpoint"
+            },
+            "value": {
+              "$ref": "#/$defs/endpoint"
+            },
+            "into": {
+              "$ref": "#/$defs/id_if"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "message"
+            },
+            "value": {
+              "$ref": "#/$defs/message"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "flow"
+            },
+            "value": {
+              "$ref": "#/$defs/flow"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value",
+            "into"
+          ],
+          "properties": {
+            "add": {
+              "const": "step"
+            },
+            "value": {
+              "$ref": "#/$defs/step"
+            },
+            "into": {
+              "$ref": "#/$defs/id_flow"
+            },
+            "after": {
+              "$ref": "#/$defs/id_step"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "screen"
+            },
+            "value": {
+              "$ref": "#/$defs/screen"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value",
+            "into"
+          ],
+          "properties": {
+            "add": {
+              "const": "region"
+            },
+            "value": {
+              "$ref": "#/$defs/region"
+            },
+            "into": {
+              "$ref": "#/$defs/id_scr"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "graph"
+            },
+            "value": {
+              "$ref": "#/$defs/graph"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "subgraph"
+            },
+            "value": {
+              "$ref": "#/$defs/subgraph"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "interaction"
+            },
+            "value": {
+              "$ref": "#/$defs/interaction"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "userJourney"
+            },
+            "value": {
+              "$ref": "#/$defs/userJourney"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "add",
+            "value"
+          ],
+          "properties": {
+            "add": {
+              "const": "operation"
+            },
+            "value": {
+              "$ref": "#/$defs/operation"
+            }
+          }
+        }
+      ]
+    },
+    "op_modify": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modify"
+      ],
+      "properties": {
+        "modify": {
+          "$ref": "#/$defs/id_any"
+        },
+        "set": {
+          "type": "object",
+          "minProperties": 1,
+          "description": "scalar/whole-value replacement per prop"
+        },
+        "append": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1
+          },
+          "description": "list props: values appended"
+        },
+        "drop": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1
+          },
+          "description": "list props: values removed"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "set"
+          ]
+        },
+        {
+          "required": [
+            "append"
+          ]
+        },
+        {
+          "required": [
+            "drop"
+          ]
+        }
+      ]
+    },
+    "op_deprecate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deprecate"
+      ],
+      "properties": {
+        "deprecate": {
+          "$ref": "#/$defs/id_any"
+        },
+        "replaced_by": {
+          "$ref": "#/$defs/id_any"
+        }
+      }
+    },
+    "op_remove": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "remove"
+      ],
+      "properties": {
+        "remove": {
+          "$ref": "#/$defs/id_any"
+        }
+      }
+    },
+    "op": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/op_add"
+        },
+        {
+          "$ref": "#/$defs/op_modify"
+        },
+        {
+          "$ref": "#/$defs/op_deprecate"
+        },
+        {
+          "$ref": "#/$defs/op_remove"
+        }
+      ]
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "ops"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_chg"
+        },
+        "title": {
+          "type": "string"
+        },
+        "why": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_dec"
+          }
+        },
+        "rollout": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/op"
+          },
+          "minItems": 1
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links"
+        }
+      }
+    },
+    "test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "level",
+        "name",
+        "proves"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_tst"
+        },
+        "level": {
+          "enum": [
+            "unit",
+            "service",
+            "contract",
+            "integration",
+            "e2e"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "given": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "when": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "then": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "proves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_chg"
+          }
+        },
+        "walks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_walk"
+          }
+        },
+        "owner": {
+          "$ref": "#/$defs/id_team"
+        },
+        "env": {
+          "enum": [
+            "local",
+            "ci",
+            "staging",
+            "prod"
+          ]
+        }
+      }
+    },
+    "milestone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_ms"
+        },
+        "name": {
+          "type": "string"
+        },
+        "exit": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "due": {
+          "$ref": "#/$defs/date",
+          "description": "target date for the milestone exit (YYYY-MM-DD)"
+        }
+      }
+    },
+    "workItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "team",
+        "implements"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_wi"
+        },
+        "title": {
+          "type": "string"
+        },
+        "team": {
+          "$ref": "#/$defs/id_team"
+        },
+        "size": {
+          "enum": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        "milestone": {
+          "$ref": "#/$defs/id_ms"
+        },
+        "implements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_chg"
+          }
+        },
+        "verified_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_tst"
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_wi"
+          }
+        },
+        "repo": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "github_issue": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "GitHub issue number in `repo`; written back by tools/export-issues.mjs, never authored by hand"
+        },
+        "issue_type": {
+          "enum": [
+            "task",
+            "story",
+            "feature",
+            "bug"
+          ],
+          "description": "which issue template (.github/ISSUE_TEMPLATE/<type>.yml) the exported issue uses; default task"
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "why_not": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_dec"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "accepted",
+            "deferred",
+            "rejected",
+            "superseded"
+          ],
+          "description": "deferred: deliberately left until after this plan; set decide_by as the date to revisit it"
+        },
+        "decider": {
+          "$ref": "#/$defs/id_team",
+          "description": "the one team accountable for the call"
+        },
+        "decide_by": {
+          "$ref": "#/$defs/date",
+          "description": "when a proposed decision must be accepted; when a deferred one is revisited"
+        },
+        "decided_on": {
+          "$ref": "#/$defs/date",
+          "description": "when it was accepted or rejected"
+        },
+        "reversibility": {
+          "enum": [
+            "one-way",
+            "two-way"
+          ],
+          "description": "one-way: costly or impossible to undo once shipped; two-way: can be changed later at low cost"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_dec"
+          },
+          "description": "decisions this one replaces (they are marked superseded)"
+        },
+        "context": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "decision": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "consequences": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/option"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_risk"
+        },
+        "statement": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "likelihood": {
+          "$ref": "#/$defs/level3"
+        },
+        "impact": {
+          "$ref": "#/$defs/level3"
+        },
+        "roam": {
+          "enum": [
+            "resolved",
+            "owned",
+            "accepted",
+            "mitigated"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/id_team"
+        },
+        "mitigation": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "about": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_any"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links"
+        },
+        "accepted_by": {
+          "$ref": "#/$defs/id_dec",
+          "description": "with roam: accepted, the decision that knowingly accepts this risk as a trade-off"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_q"
+        },
+        "question": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "decider": {
+          "$ref": "#/$defs/id_team"
+        },
+        "decide_by": {
+          "$ref": "#/$defs/date"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved"
+          ]
+        },
+        "answer": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_any"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links"
+        },
+        "answered_by": {
+          "$ref": "#/$defs/id_dec",
+          "description": "the decision that answers this question; the question stays open until that decision is accepted"
+        }
+      }
+    },
+    "commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "team"
+      ],
+      "properties": {
+        "team": {
+          "$ref": "#/$defs/id_team"
+        },
+        "confidence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "note": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "headline": {
+          "type": "string"
+        },
+        "recap": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "story": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "chapters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "why": {
+              "$ref": "#/$defs/chapter"
+            },
+            "today": {
+              "$ref": "#/$defs/chapter"
+            },
+            "runs": {
+              "$ref": "#/$defs/chapter"
+            },
+            "new": {
+              "$ref": "#/$defs/chapter"
+            },
+            "changes": {
+              "$ref": "#/$defs/chapter"
+            },
+            "prove": {
+              "$ref": "#/$defs/chapter"
+            },
+            "build": {
+              "$ref": "#/$defs/chapter"
+            },
+            "commit": {
+              "$ref": "#/$defs/chapter"
+            }
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url"
+      ],
+      "description": "Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a doc, a dashboard",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "type": "string",
+          "description": "shown instead of the URL; defaults to repo \u00b7 path#line for GitHub blob links"
+        },
+        "note": {
+          "type": "string",
+          "description": "markdown; what the reader will find there"
+        }
+      }
+    },
+    "id_con": {
+      "type": "string",
+      "pattern": "^con:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "con:<kebab-slug>"
+    },
+    "id_stage": {
+      "type": "string",
+      "pattern": "^stage:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "stage:<kebab-slug>"
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The business language and the path data takes, before any system detail. Rendered as chapter 2's opening screens.",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "markdown; the narrative of how the domain's things are born and fan out. May cite [[id]]"
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/concept"
+          }
+        },
+        "stages": {
+          "type": "array",
+          "description": "in the order data moves through them",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      }
+    },
+    "concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "means"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_con"
+        },
+        "name": {
+          "type": "string",
+          "description": "the business word, singular (Order line)"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "other words that mean the same thing in prose; the plural of name is added automatically"
+        },
+        "means": {
+          "type": "string",
+          "description": "markdown; what it is in business terms. The first sentence is the tooltip. May cite [[id]]"
+        },
+        "born_in": {
+          "$ref": "#/$defs/id_svc",
+          "description": "the system of record: where its id is minted"
+        },
+        "part_of": {
+          "$ref": "#/$defs/id_con"
+        },
+        "relates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "to",
+              "as"
+            ],
+            "properties": {
+              "to": {
+                "$ref": "#/$defs/id_con"
+              },
+              "as": {
+                "type": "string",
+                "description": "verb phrase read as '<name> <as> <to>', e.g. 'is selected by'"
+              }
+            }
+          }
+        },
+        "aka": {
+          "type": "array",
+          "description": "what each system calls it",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "in",
+              "as"
+            ],
+            "properties": {
+              "in": {
+                "$ref": "#/$defs/id_svc"
+              },
+              "as": {
+                "type": "string",
+                "description": "the local name"
+              },
+              "at": {
+                "type": "string",
+                "description": "the schema, field or store that holds it"
+              },
+              "note": {
+                "type": "string",
+                "description": "markdown; may cite [[id]]"
+              }
+            }
+          }
+        },
+        "introduced_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_chg"
+          },
+          "description": "set when the plan introduces the concept"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        }
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_stage"
+        },
+        "name": {
+          "type": "string",
+          "description": "a short verb or noun (Shop, Pick, Pay)"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "svc"
+            ],
+            "properties": {
+              "svc": {
+                "$ref": "#/$defs/id_svc"
+              },
+              "from": {
+                "type": "array",
+                "description": "what this service reads from when no flow or topic access already says so (service, topic, interface or endpoint); drawn as a line on the system map",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_flow"
+          },
+          "description": "optional; flows are otherwise placed by the stage of the service that acts in most of their steps"
+        }
+      }
+    },
+    "id_ui": {
+      "type": "string",
+      "pattern": "^ui:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "ui:<interaction-slug>"
+    },
+    "id_uj": {
+      "type": "string",
+      "pattern": "^uj:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "uj:<journey-slug>"
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "from",
+        "to",
+        "trigger",
+        "effect"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_ui"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The control or trigger in plain words"
+        },
+        "from": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id_screenOrRegion"
+          }
+        },
+        "to": {
+          "$ref": "#/$defs/id_screenOrRegion"
+        },
+        "trigger": {
+          "enum": [
+            "click",
+            "submit",
+            "scroll",
+            "system"
+          ]
+        },
+        "effect": {
+          "enum": [
+            "navigate",
+            "update",
+            "output"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supporting_steps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id_step"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "file",
+            "note"
+          ],
+          "properties": {
+            "file": {
+              "$ref": "#/$defs/assetPath"
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What the local drawn example records; do not claim production evidence"
+            }
+          }
+        }
+      }
+    },
+    "userJourney": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "interactions"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_uj"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interactions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id_ui"
+          },
+          "description": "Ordered interaction IDs; a repeat is permitted when a journey revisits a screen"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        }
+      }
+    },
+    "id_scr": {
+      "type": "string",
+      "pattern": "^scr:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "scr:<screen-slug>"
+    },
+    "id_region": {
+      "type": "string",
+      "pattern": "^scr:[a-z0-9]+(?:-[a-z0-9]+)*#[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "scr:<screen-slug>#<region-slug>"
+    },
+    "id_screenOrRegion": {
+      "type": "string",
+      "pattern": "^scr:[a-z0-9]+(?:-[a-z0-9]+)*(?:#[a-z0-9]+(?:-[a-z0-9]+)*)?$",
+      "description": "scr:* or scr:*#region"
+    },
+    "assetPath": {
+      "type": "string",
+      "pattern": "^(?!/|[a-z]+:)(?!.*\\.\\.)[A-Za-z0-9_./-]+\\.(png|jpg|jpeg|gif|webp|svg|html)$",
+      "description": "a file under the plan's folder, relative to plan.yaml (assets/product-page.png, mockups/walking.html); never a URL"
+    },
+    "regionBox": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "w": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "h": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "description": "where the region sits on the image, in percent of its width/height (x,y = top-left corner)"
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "description": "A named part of a screen: a block the reader can point at (the price, the delivery line, the Pay button). Regions are what ops change and what steps point at",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_region"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shows": {
+          "type": "string",
+          "description": "markdown; what the region shows and where the data comes from; may cite [[id]]"
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          },
+          "description": "the records or fields the region displays"
+        },
+        "at": {
+          "$ref": "#/$defs/regionBox"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "screen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "service"
+      ],
+      "description": "A screen a person sees: a page, a modal, an email, a push notification, a printed document. `image` is what it looks like (a screenshot today; a wireframe or export of the design in the to-be, set by a modify op). Steps point at the screen (or one of its regions) they happen on, which is how a flow becomes a UI journey",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_scr"
+        },
+        "name": {
+          "type": "string"
+        },
+        "service": {
+          "$ref": "#/$defs/id_svc",
+          "description": "the kind: ui service that serves it (or the service that sends it, for an email or push)"
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "modal",
+            "sheet",
+            "email",
+            "push",
+            "print"
+          ],
+          "default": "page"
+        },
+        "route": {
+          "type": "string",
+          "description": "the path or deep link, e.g. /p/{sku}, app://orders/{id}"
+        },
+        "device": {
+          "enum": [
+            "desktop",
+            "mobile",
+            "handheld",
+            "any"
+          ],
+          "description": "what the image was taken on"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "image": {
+          "$ref": "#/$defs/assetPath",
+          "description": "screenshot of the screen today (as-is); a modify op sets the to-be picture (wireframe, design export)"
+        },
+        "figma": {
+          "type": "string",
+          "format": "uri",
+          "description": "the design file or frame; usually set by a modify op in the to-be"
+        },
+        "mockup": {
+          "$ref": "#/$defs/assetPath",
+          "description": "a walking mockup: a static HTML file under the plan folder, opened at #<screen-id> (see tools/mockup.mjs and the plan-atlas-mockup skill)"
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "id_graph": {
+      "type": "string",
+      "pattern": "^graph:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "graph:<kebab-slug>"
+    },
+    "id_sg": {
+      "type": "string",
+      "pattern": "^sg:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "sg:<kebab-slug>"
+    },
+    "id_gql": {
+      "type": "string",
+      "pattern": "^gql:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "gql:<kebab-slug>"
+    },
+    "cacheUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at"
+      ],
+      "description": "a cache layer attached to what it caches: on an operation, an edge/gateway override; on a graph field, a data cache the resolver reads first",
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/id_st"
+        },
+        "ttl": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds; on an operation an override of the derived max-age (give a reason)"
+        },
+        "key": {
+          "description": "what the layer keys on: free text, or { operation: id|hash, variables: all|[names], headers: [names] }",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "operation": {
+                  "enum": [
+                    "id",
+                    "hash"
+                  ]
+                },
+                "variables": {
+                  "oneOf": [
+                    {
+                      "const": "all"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "headers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "description": "why the override is acceptable"
+        }
+      }
+    },
+    "cacheControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_age"
+      ],
+      "description": "the cache hint the subgraph returns for the field (@cacheControl)",
+      "properties": {
+        "max_age": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds"
+        },
+        "scope": {
+          "enum": [
+            "public",
+            "private"
+          ]
+        }
+      }
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "gateway"
+      ],
+      "description": "A federated GraphQL graph. The gateway is an ordinary service; its team owns the graph",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_graph"
+        },
+        "name": {
+          "type": "string"
+        },
+        "gateway": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "registry": {
+          "type": "string",
+          "format": "uri",
+          "description": "schema registry / query-plan explorer"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "subgraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "graph",
+        "service"
+      ],
+      "description": "A subgraph: the unit of ownership in federation, served by one service",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_sg"
+        },
+        "name": {
+          "type": "string"
+        },
+        "graph": {
+          "$ref": "#/$defs/id_graph"
+        },
+        "service": {
+          "$ref": "#/$defs/id_svc"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "batching": {
+          "enum": [
+            "dataloader",
+            "none"
+          ],
+          "description": "request-scoped batching of entity lookups; none makes a list fetch an N+1"
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "latency_ms": { "type": "number", "minimum": 0, "description": "p50 of one fetch to this subgraph, in ms (a measurement, not a setting); lets the waterfall draw bars to scale" },
+            "source": { "type": "string" }
+          },
+          "description": "numbers from monitoring, not settings"
+        },
+        "cache_control_default": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds; the max-age a field without a hint takes (0 = uncacheable)"
+        },
+        "timeout_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "graph",
+        "document"
+      ],
+      "description": "A GraphQL document the front end sends; paths, variables and the query plan are derived from it",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_gql"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "query",
+            "mutation",
+            "subscription"
+          ]
+        },
+        "graph": {
+          "$ref": "#/$defs/id_graph"
+        },
+        "screens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_screenOrRegion"
+          },
+          "description": "the screens or regions that issue it"
+        },
+        "client": {
+          "$ref": "#/$defs/id_svc",
+          "description": "the caller (default: the screens' service)"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ],
+          "description": "the edge cannot cache POST"
+        },
+        "persisted": {
+          "enum": [
+            "apq",
+            "safelist",
+            "none"
+          ]
+        },
+        "document": {
+          "type": "string",
+          "description": "the operation verbatim"
+        },
+        "cache": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cacheUse"
+          },
+          "description": "edge / gateway layers in front of it; ttl here is an override with a reason"
+        },
+        "plan_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "the registry's query plan, to check the derived one against",
+          "properties": {
+            "fetches": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "round_trips": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "source": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "writes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          },
+          "description": "a mutation's root resolver writes (checked against the root field's subgraph service)"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links; every as-is entity should have one"
+        },
+        "trigger": {
+          "enum": [
+            "load",
+            "click",
+            "scroll",
+            "submit",
+            "interval"
+          ],
+          "description": "when the front end sends it (fired when the page loads, when the button is pressed, \u2026)"
+        }
+      }
+    }
+  }
+}

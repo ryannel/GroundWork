@@ -1,0 +1,23 @@
+@layer components {
+  .hit {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-2);
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .hit:hover {
+    background: var(--accent-soft);
+  }
+
+  .hit:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+  }
+}

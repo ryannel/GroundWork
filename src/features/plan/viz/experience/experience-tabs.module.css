@@ -1,0 +1,49 @@
+@layer components {
+  .nav {
+    display: flex;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line-1);
+  }
+
+  .moment {
+    flex: 1 0 150px;
+    max-width: 290px;
+    min-height: 64px;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .moment span,
+  .moment strong {
+    display: block;
+  }
+
+  .moment span {
+    margin-bottom: var(--s-2);
+    font-size: var(--fs-12);
+  }
+
+  .moment strong {
+    font-size: var(--fs-13);
+    font-weight: 500;
+  }
+
+  .moment[data-current] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--fg-1);
+  }
+
+  .moment:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

@@ -1,0 +1,25 @@
+@layer components {
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-12);
+    text-decoration: none;
+
+    &:hover {
+      border-color: var(--line-3);
+      background: var(--bg-2);
+    }
+  }
+}

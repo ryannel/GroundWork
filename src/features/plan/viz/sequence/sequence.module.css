@@ -1,0 +1,76 @@
+@layer components {
+  /* the drawing scrolls sideways inside its frame rather than widening the page around it */
+  .figure {
+    margin: 0;
+    contain: inline-size;
+  }
+
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .seq {
+    --idx-w: 32px;
+    --gut: 0;
+    --part-min: 96px;
+
+    display: grid;
+    grid-template-columns: var(--gut) var(--idx-w) minmax(150px, 280px) minmax(min-content, 1fr);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    min-width: min-content;
+    font-size: var(--fs-13);
+    overflow: clip;
+
+    &[data-gut='0'] {
+      --gut: 0px;
+    }
+
+    &[data-gut='1'] {
+      --gut: 32px;
+    }
+
+    &[data-gut='2'] {
+      --gut: 56px;
+    }
+
+    &[data-gut='3'] {
+      --gut: 80px;
+    }
+
+    &[data-gut='4'] {
+      --gut: 104px;
+    }
+
+    &[data-gut='5'] {
+      --gut: 128px;
+    }
+
+    &[data-min='84'] {
+      --part-min: 84px;
+    }
+
+    &[data-min='96'] {
+      --part-min: 96px;
+    }
+
+    &[data-min='120'] {
+      --part-min: 120px;
+    }
+
+    &[data-min='144'] {
+      --part-min: 144px;
+    }
+
+    &[data-min='176'] {
+      --part-min: 176px;
+    }
+
+    &[data-min='208'] {
+      --part-min: 208px;
+    }
+  }
+}

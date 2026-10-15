@@ -1,0 +1,23 @@
+@layer components {
+  .trunks {
+    pointer-events: none;
+  }
+
+  .trunk {
+    fill: none;
+    stroke: var(--line-3);
+    stroke-width: 1.25;
+
+    &[data-kind='msg'] {
+      stroke-dasharray: 4 3;
+    }
+
+    &[data-trace='hot'] {
+      stroke: var(--accent);
+    }
+
+    &[data-trace='dim'] {
+      opacity: 0.2;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@layer components {
+  .band {
+    fill: var(--bg-1);
+    stroke: var(--line-1);
+    stroke-width: 1;
+  }
+
+  .head {
+    fill: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .number {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+  }
+}

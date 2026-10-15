@@ -1,0 +1,47 @@
+@layer components {
+  .pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-3);
+  }
+
+  @container (width >= 520px) {
+    .pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .counterpart {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .shown {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .side {
+    min-width: 0;
+    font-size: var(--fs-13);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .side > strong {
+    display: block;
+    margin-bottom: var(--s-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 500;
+  }
+
+  .side p {
+    margin: 0;
+  }
+
+  .side p + p {
+    margin-top: var(--s-2);
+  }
+}

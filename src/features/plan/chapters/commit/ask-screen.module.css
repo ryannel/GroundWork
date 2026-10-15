@@ -1,0 +1,14 @@
+@layer components {
+  .sub {
+    margin: var(--s-6) 0 var(--s-3);
+    font-size: var(--fs-14);
+  }
+
+  .closing {
+    margin: var(--s-6) 0 0;
+    padding-block-start: var(--s-4);
+    border-block-start: 1px solid var(--line-1);
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+  }
+}

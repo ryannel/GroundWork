@@ -1,7 +1,0 @@
-{
-  "id": "c-pricing-db",
-  "name": "pricing-db",
-  "description": "Postgres, migrations in pricing-api",
-  "order": 3,
-  "repo": "fixture/p-pricing"
-}

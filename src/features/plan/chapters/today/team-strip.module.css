@@ -1,0 +1,47 @@
+@layer components {
+  .teams {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .team {
+    display: grid;
+    grid-template-columns: minmax(10rem, 14rem) 7rem 1fr auto;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+  }
+
+  .idle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-2) var(--s-3);
+  }
+
+  .name,
+  .systems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+
+  .channel {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+}

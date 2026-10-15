@@ -1,0 +1,72 @@
+@layer components {
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+    margin-block-start: var(--s-6);
+  }
+
+  .card {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+  }
+
+  .card[data-resolved] {
+    color: var(--fg-3);
+  }
+
+  .head {
+    margin: 0;
+    font-size: var(--fs-14);
+  }
+
+  .title {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .number {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+    margin: 0;
+    color: var(--fg-2);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .key {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .mitigation {
+    margin: 0;
+    color: var(--fg-2);
+  }
+}

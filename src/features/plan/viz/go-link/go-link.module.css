@@ -1,0 +1,20 @@
+@layer components {
+  .go {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--accent-fg);
+    font-size: var(--fs-12);
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+    }
+  }
+}

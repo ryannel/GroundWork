@@ -1,0 +1,44 @@
+@layer components {
+  .register {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .heading {
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    margin: 0 0 var(--s-2);
+    font-size: var(--fs-14);
+  }
+
+  .fold > summary {
+    cursor: pointer;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-weight: 400;
+  }
+
+  .number {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--accent-fg);
+    font-family: var(--font-mono);
+    font-size: var(--fs-13);
+    cursor: pointer;
+  }
+
+  .statement {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+}

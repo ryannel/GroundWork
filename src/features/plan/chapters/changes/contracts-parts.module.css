@@ -1,0 +1,33 @@
+@layer components {
+  .notes {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding-left: var(--s-5);
+  }
+
+  .rets {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ret {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-14);
+  }
+
+  .shapes {
+    display: grid;
+    gap: var(--s-5);
+  }
+}

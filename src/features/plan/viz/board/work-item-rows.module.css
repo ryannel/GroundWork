@@ -1,0 +1,18 @@
+@layer components {
+  .rows {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .rows[data-no-state] .head span:first-child {
+    display: none;
+  }
+}

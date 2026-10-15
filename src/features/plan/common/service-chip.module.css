@@ -1,0 +1,15 @@
+@layer components {
+  .svc {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .svc[data-dim] {
+    opacity: 0.55;
+  }
+
+  .svc[data-quiet] {
+    opacity: 0.75;
+  }
+}

@@ -1,0 +1,46 @@
+@layer components {
+  .walk {
+    display: grid;
+    gap: var(--s-4);
+    align-content: start;
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-5);
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .field select {
+    min-width: 220px;
+    max-width: 100%;
+    padding: var(--s-1) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+  }
+
+  .progress {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .note {
+    color: var(--fg-3);
+    font-size: var(--fs-14);
+  }
+}

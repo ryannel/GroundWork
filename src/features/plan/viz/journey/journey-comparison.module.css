@@ -1,0 +1,76 @@
+@layer components {
+  .panel {
+    min-width: 0;
+    margin: var(--s-4) 0;
+    padding: var(--s-4);
+    border: 1px solid var(--line-2);
+    border-left: 3px solid var(--st-mod);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    container-type: inline-size;
+  }
+
+  .panel[data-kind='added'] {
+    border-left-color: var(--st-add);
+  }
+
+  .panel[data-kind='removed'] {
+    border-left-color: var(--st-rem);
+  }
+
+  .panel[data-kind='same'] {
+    border-left-color: var(--line-3);
+  }
+
+  .heading {
+    margin-bottom: var(--s-3);
+  }
+
+  .note {
+    margin: 0 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    line-height: 1.5;
+  }
+
+  .fold {
+    margin-top: var(--s-4);
+    font-size: var(--fs-12);
+  }
+
+  .fold > summary {
+    color: var(--fg-2);
+    cursor: pointer;
+  }
+
+  .item {
+    margin-top: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line-1);
+  }
+
+  .item > p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+    margin: 0 0 var(--s-3);
+  }
+
+  .muted {
+    color: var(--fg-3);
+  }
+
+  .reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+  }
+
+  .unchanged {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

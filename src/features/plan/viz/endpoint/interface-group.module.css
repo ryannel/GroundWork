@@ -1,0 +1,49 @@
+@layer components {
+  .group {
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    overflow: hidden;
+  }
+
+  .head {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-2);
+    background: var(--bg-2);
+  }
+
+  .title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font-weight: 600;
+
+    &:hover {
+      color: var(--accent-fg);
+    }
+  }
+
+  .facts {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .summary {
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .list {
+    display: grid;
+  }
+}

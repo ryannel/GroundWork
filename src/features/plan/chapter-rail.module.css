@@ -1,0 +1,109 @@
+@layer components {
+  .rail {
+    position: sticky;
+    top: var(--topbar-h);
+    height: calc(100vh - var(--topbar-h));
+    padding: var(--s-4) var(--s-3);
+    overflow-y: auto;
+    border-right: 1px solid var(--line-1);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+  }
+
+  .chapter[data-side] {
+    margin-top: var(--s-2);
+    border-top: 1px solid var(--line-1);
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-2);
+    border-radius: var(--r-2);
+    color: var(--fg-1);
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--bg-2);
+    }
+  }
+
+  .number {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
+    background: var(--bg-0);
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chapter[data-current] .number {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .title {
+    line-height: 1.3;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .screens {
+    display: grid;
+    margin: 0 0 var(--s-2);
+    padding: 0 0 0 var(--s-6);
+    list-style: none;
+  }
+
+  .screen {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--r-1);
+    color: var(--fg-2);
+
+    &:hover {
+      color: var(--fg-1);
+    }
+
+    &[aria-current='page'] {
+      background: var(--accent-soft);
+      color: var(--fg-1);
+      font-weight: 600;
+    }
+  }
+
+  .tick {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    text-align: center;
+  }
+
+  .screen[aria-current='page'] .tick {
+    color: var(--accent-fg);
+  }
+
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

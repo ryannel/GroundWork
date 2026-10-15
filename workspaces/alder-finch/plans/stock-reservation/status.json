@@ -1,0 +1,37 @@
+{
+  "wi:allocation-skip": {
+    "closed_at": "2026-08-05T16:12:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/fulfilment/issues/120"
+  },
+  "wi:checkout-reserve": {
+    "closed_at": "2026-08-04T13:48:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/checkout/issues/64"
+  },
+  "wi:e2e": {
+    "closed_at": "2026-08-06T11:40:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/fulfilment/issues/121"
+  },
+  "wi:orders-confirm": {
+    "closed_at": "2026-08-03T09:30:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/orders/issues/96"
+  },
+  "wi:remove-report": {
+    "closed_at": "2026-08-27T14:02:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/fulfilment/issues/122"
+  },
+  "wi:sweep": {
+    "closed_at": "2026-07-31T10:05:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/fulfilment/issues/119"
+  },
+  "wi:wms-reservations": {
+    "closed_at": "2026-07-29T15:20:00Z",
+    "state": "closed",
+    "url": "https://github.com/alder-finch/fulfilment/issues/118"
+  }
+}

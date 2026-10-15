@@ -1,0 +1,52 @@
+id: alder-finch
+name: Alder & Finch
+description: The shop, its back office and everything between an order and the door.
+teams:
+  - id: team:catalog
+    name: Catalog
+    colour: 5
+  - id: team:content
+    name: Content & Translation
+    colour: 8
+  - id: team:pricing
+    name: Pricing
+    colour: 6
+  - id: team:discovery
+    name: Discovery
+    colour: 7
+  - id: team:storefront
+    name: Storefront
+    colour: 2
+  - id: team:checkout
+    name: Checkout
+    colour: 1
+  - id: team:financing
+    name: Financing
+    colour: 9
+  - id: team:payments
+    name: Payments
+    colour: 12
+  - id: team:orders
+    name: Orders
+    colour: 3
+  - id: team:fulfilment
+    name: Fulfilment
+    colour: 4
+  - id: team:notifications
+    name: Notifications
+    colour: 10
+  - id: team:product
+    name: Product management
+    colour: 11
+  - id: team:legal
+    name: Legal
+    colour: 13
+  - id: team:billing
+    name: Billing
+    colour: 7
+  - id: team:customer-care
+    name: Customer care
+    colour: 12
+  - id: team:customers
+    name: Customers
+    colour: 12

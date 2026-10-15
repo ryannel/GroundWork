@@ -1,0 +1,54 @@
+@layer components {
+  .flow {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    min-width: 0;
+  }
+
+  .arrow {
+    color: var(--fg-3);
+  }
+
+  .name {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font-size: var(--fs-13);
+    cursor: pointer;
+  }
+
+  .name:hover {
+    color: var(--accent-fg);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  .version {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+  }
+
+  .cons {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .off {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+}

@@ -1,41 +1,8 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+.next
+out
+coverage
+*.tsbuildinfo
+next-env.d.ts
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-runtime/
-schemas/
-*.tgz
-.groundwork/write.lock
-.groundwork/transaction.json
-
-# Local design explorations; shipped assets live under public/.
-output/
-
-# Generated review captures and skill evaluation runs.
-artifacts/
-.agents/skills/*-workspace/
-
-# Agent scratch notes stay outside the repository.
-docs/design-review/
-docs/WORKSPACES-BUILD.md
+.env*

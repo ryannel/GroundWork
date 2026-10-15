@@ -1,0 +1,8 @@
+@layer components {
+  .cell {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    align-items: center;
+  }
+}

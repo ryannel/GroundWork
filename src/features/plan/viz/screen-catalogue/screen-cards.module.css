@@ -1,0 +1,55 @@
+@layer components {
+  .all {
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .all > summary {
+    padding: var(--s-3) var(--s-4);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+    padding: var(--s-4);
+  }
+
+  .app {
+    margin: 0 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--s-4);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    min-width: 0;
+  }
+
+  .card p {
+    margin: 0;
+  }
+
+  .meta,
+  .summary {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .unlinked {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-style: italic;
+  }
+}

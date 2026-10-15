@@ -1,6 +1,0 @@
-{
-  "id": "c-payments",
-  "name": "payments-adapter",
-  "repo": "acme/payments-adapter",
-  "order": 7
-}

@@ -1,0 +1,21 @@
+@layer components {
+  .bar {
+    position: sticky;
+    z-index: var(--z-sticky);
+    top: 0;
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+    height: var(--topbar-h);
+    padding: 0 var(--s-4);
+    border-bottom: 1px solid var(--line-2);
+    background: var(--bg-1);
+  }
+
+  .middle {
+    flex: 1;
+    min-width: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

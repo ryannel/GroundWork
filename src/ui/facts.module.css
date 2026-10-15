@@ -1,0 +1,16 @@
+@layer components {
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & li + li::before {
+      margin-right: var(--s-2);
+      color: var(--fg-3);
+      content: '·';
+    }
+  }
+}

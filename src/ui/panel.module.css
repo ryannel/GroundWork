@@ -1,0 +1,14 @@
+@layer components {
+  .panel {
+    padding: var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    box-shadow: var(--shadow-1);
+  }
+
+  .title {
+    margin-bottom: var(--s-3);
+    font-size: var(--fs-16);
+  }
+}

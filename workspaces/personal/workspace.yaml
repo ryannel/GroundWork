@@ -1,0 +1,7 @@
+id: personal
+name: Personal
+description: My own projects, kept apart from work.
+private: true
+teams:
+  - id: team:me
+    name: Me

@@ -1,0 +1,44 @@
+@layer components {
+  .flows,
+  .steps {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .flow {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .steps {
+    padding-left: var(--s-5);
+  }
+
+  .step {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    align-items: center;
+  }
+
+  .who {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .newHead {
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .rest {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+}

@@ -1,0 +1,77 @@
+@layer components {
+  .pipe {
+    fill: var(--bg-2);
+    stroke: var(--line-3);
+    stroke-width: 1;
+    stroke-dasharray: 5 3;
+  }
+
+  .pipe[data-state='added'] {
+    fill: var(--st-add-bg);
+    stroke: var(--st-add);
+    stroke-width: 1.5;
+  }
+
+  .pipe[data-touched='true'] {
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .pipe[data-lens-off='true'] {
+    opacity: 0.5;
+  }
+
+  .cap {
+    fill: var(--bg-3);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .cap[data-touched='true'] {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .cap[data-state='added'] {
+    stroke: var(--st-add);
+  }
+
+  .cap[data-lens-off='true'] {
+    opacity: 0.5;
+  }
+
+  .chevron {
+    fill: none;
+    stroke: var(--fg-3);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .chevron[data-touched='true'] {
+    stroke: var(--accent);
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-anchor: middle;
+  }
+
+  .eventText {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-anchor: middle;
+  }
+
+  .event {
+    cursor: pointer;
+  }
+
+  .event[data-added='true'] .eventText {
+    fill: var(--st-add-fg);
+  }
+}

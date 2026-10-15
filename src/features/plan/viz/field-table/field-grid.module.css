@@ -1,0 +1,112 @@
+@layer components {
+  .scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-13);
+  }
+
+  .table th {
+    padding: var(--s-1) var(--s-3);
+    border-bottom: 1px solid var(--line-2);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .table td {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    vertical-align: top;
+  }
+
+  .table tr[data-status='added'] {
+    background: var(--st-add-bg);
+  }
+
+  .table tr[data-status='modified'] {
+    background: var(--st-mod-bg);
+  }
+
+  .table tr[data-status='deprecated'] {
+    background: var(--st-dep-bg);
+  }
+
+  .table tr[data-status='removed'] {
+    background: var(--st-rem-bg);
+    color: var(--fg-3);
+  }
+
+  .type {
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .type del {
+    margin-right: var(--s-2);
+    color: var(--fg-3);
+  }
+
+  .type ins {
+    text-decoration: none;
+  }
+
+  .nest,
+  .more {
+    display: inline-flex;
+    gap: var(--s-1);
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .more {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .caret {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .foldRow td {
+    background: var(--bg-1);
+  }
+
+  .nested td {
+    padding: var(--s-2) var(--s-3) var(--s-3) var(--s-8);
+    background: var(--bg-1);
+  }
+
+  .filter {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    margin-bottom: var(--s-2);
+    padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    color: var(--fg-3);
+  }
+
+  .filter input {
+    flex: 1;
+    border: 0;
+    background: none;
+    color: var(--fg-1);
+    font: inherit;
+  }
+}

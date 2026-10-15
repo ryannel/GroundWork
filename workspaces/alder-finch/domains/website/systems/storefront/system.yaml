@@ -1,0 +1,32 @@
+id: storefront
+name: Storefront
+team: team:storefront
+repos:
+  - alder-finch/storefront
+components:
+  - id: svc:storefront-web
+    name: Storefront
+    type: website
+    tech: Next.js
+    does: 'The shop: product pages, cart, checkout, order tracking'
+    talks_to:
+      - to: svc:storefront-bff
+        via: api
+      - to: svc:graph-gateway
+        via: api
+  - id: svc:storefront-bff
+    name: Storefront BFF
+    type: service
+    tech: Node · GraphQL
+    does: Shapes catalogue, price, cart and order data for the pages
+    talks_to:
+      - to: svc:catalog-api
+        via: api
+      - to: svc:pricing
+        via: api
+      - to: svc:cart
+        via: api
+      - to: svc:checkout
+        via: api
+      - to: svc:oms
+        via: api

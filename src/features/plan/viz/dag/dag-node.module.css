@@ -1,0 +1,131 @@
+@layer components {
+  .card {
+    fill: var(--node-bg);
+    stroke: var(--line-3);
+    stroke-width: 1;
+  }
+
+  .node[data-critical] .card {
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .node[data-dim] {
+    opacity: 0.45;
+  }
+
+  .stripe {
+    fill: var(--fg-3);
+  }
+
+  .stripe[data-slot='1'] {
+    fill: var(--team-1);
+  }
+
+  .stripe[data-slot='2'] {
+    fill: var(--team-2);
+  }
+
+  .stripe[data-slot='3'] {
+    fill: var(--team-3);
+  }
+
+  .stripe[data-slot='4'] {
+    fill: var(--team-4);
+  }
+
+  .stripe[data-slot='5'] {
+    fill: var(--team-5);
+  }
+
+  .stripe[data-slot='6'] {
+    fill: var(--team-6);
+  }
+
+  .stripe[data-slot='7'] {
+    fill: var(--team-7);
+  }
+
+  .stripe[data-slot='8'] {
+    fill: var(--team-8);
+  }
+
+  .stripe[data-slot='9'] {
+    fill: var(--team-9);
+  }
+
+  .stripe[data-slot='10'] {
+    fill: var(--team-10);
+  }
+
+  .stripe[data-slot='11'] {
+    fill: var(--team-11);
+  }
+
+  .stripe[data-slot='12'] {
+    fill: var(--team-12);
+  }
+
+  .stripe[data-slot='13'] {
+    fill: var(--team-13);
+  }
+
+  .title {
+    fill: var(--fg-1);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .node[data-done] .title {
+    fill: var(--fg-3);
+  }
+
+  .team {
+    fill: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .sub {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+  }
+
+  .state {
+    fill: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .state[data-state='done'] {
+    fill: var(--fg-3);
+  }
+
+  .state[data-state='open'] {
+    fill: var(--accent);
+  }
+
+  .wait {
+    fill: var(--bg-2);
+    stroke: var(--st-mod);
+    stroke-width: 1.5;
+  }
+
+  .wait[data-late] {
+    stroke: var(--st-rem);
+  }
+
+  .mark {
+    fill: var(--fg-1);
+    font-size: var(--fs-12);
+    font-weight: 700;
+    text-anchor: middle;
+  }
+
+  .count {
+    fill: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-anchor: end;
+  }
+}

@@ -1,0 +1,27 @@
+@layer components {
+  .muted {
+    color: var(--fg-3);
+  }
+
+  .list {
+    margin: 0;
+    padding-left: var(--s-5);
+  }
+
+  .properties {
+    margin: 0;
+  }
+
+  .properties > div {
+    margin-top: var(--s-2);
+  }
+
+  .properties dt {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .properties dd {
+    margin: 0;
+  }
+}

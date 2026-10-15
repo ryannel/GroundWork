@@ -1,0 +1,73 @@
+@layer components {
+  .screen {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .lede {
+    max-width: var(--measure);
+    margin: var(--s-2) 0 0;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-4);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    color: inherit;
+    font-size: var(--fs-14);
+    text-decoration: none;
+  }
+
+  .card:hover {
+    border-color: var(--accent-line);
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .version {
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .hint {
+    margin-left: auto;
+    color: var(--accent-fg);
+    font-size: var(--fs-13);
+  }
+
+  .summary {
+    font-weight: 500;
+  }
+
+  .rejection {
+    color: var(--st-rem-fg);
+  }
+
+  .fact {
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .faint {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+  }
+}

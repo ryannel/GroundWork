@@ -1,0 +1,34 @@
+@layer components {
+  .hz {
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--st-mod-line);
+    border-radius: var(--r-3);
+    background: var(--st-mod-bg);
+  }
+
+  .heading {
+    margin: 0 0 var(--s-2);
+    font-size: var(--fs-14);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-13);
+  }
+
+  .says,
+  .why {
+    color: var(--fg-2);
+  }
+}

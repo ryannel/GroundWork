@@ -1,0 +1,30 @@
+@layer components {
+  .stepper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    justify-content: space-between;
+    margin-top: var(--s-3);
+  }
+
+  .button {
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-2);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-12);
+    cursor: pointer;
+  }
+
+  .button:hover {
+    border-color: var(--accent-line);
+    color: var(--accent-fg);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
