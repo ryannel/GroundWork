@@ -4,7 +4,6 @@
     background: var(--bg-0);
   }
 
-  /* The open inspector takes the right of a wide window, so the page narrows beside it instead of under it. */
   @media (width >= 72rem) {
     .shell:has([data-inspector][data-open]) .body {
       padding-right: var(--inspector-w);
@@ -13,11 +12,15 @@
 
   .body {
     display: grid;
-    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
 
-    @media (width < 56rem) {
-      grid-template-columns: minmax(0, 1fr);
+    &[data-rail] {
+      grid-template-columns: var(--rail-w) minmax(0, 1fr);
+
+      @media (width < 56rem) {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
   }
 

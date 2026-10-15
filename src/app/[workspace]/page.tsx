@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { planCardOf } from '@/application/plan-footprint';
 import { landscapeOf } from '@/application/workspace-landscape';
+import { workspaceNavOf } from '@/application/workspace-nav';
 import { findWorkspace } from '@/application/workspace-paths';
 import { LandscapePage } from '@/features/workspace';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
@@ -24,5 +25,12 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
   if (workspace === null) notFound();
   const loaded = await readLoadedPlans(workspace.id);
   const plans = loaded.map((plan) => planCardOf(workspace.id, plan));
-  return <LandscapePage folder={workspace.id} landscape={landscapeOf(workspace)} plans={plans} />;
+  return (
+    <LandscapePage
+      folder={workspace.id}
+      landscape={landscapeOf(workspace)}
+      nav={workspaceNavOf(workspace, plans, {})}
+      plans={plans}
+    />
+  );
 }

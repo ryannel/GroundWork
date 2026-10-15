@@ -1,8 +1,6 @@
-import Link from 'next/link';
-
 import { planHref, type Outline, type Page } from '@/application/plan-pages';
+import { NavRail } from '@/ui/nav-rail';
 
-import styles from './chapter-rail.module.css';
 import { MarkRead, ReadCount, Tick } from './rail-marks.client';
 
 // The plan as a story: each chapter opens to its screens, the current one already open. Reference and Versions
@@ -11,47 +9,35 @@ import { MarkRead, ReadCount, Tick } from './rail-marks.client';
 export function ChapterRail({ outline, page }: { readonly outline: Outline; readonly page: Page }) {
   const plan = planHref(outline);
   return (
-    <nav aria-label="Chapters" className={styles.rail}>
-      <MarkRead href={page.href} plan={plan} />
-      {outline.chapters.map((chapter) => (
-        <details
-          className={styles.chapter}
-          data-current={chapter.key === page.chapter ? '' : undefined}
-          data-side={chapter.side ? '' : undefined}
-          key={chapter.key}
-          open={chapter.key === page.chapter}
-        >
-          <summary className={styles.summary}>
-            <span className={styles.number}>{chapter.number ?? '◦'}</span>
-            <span className={styles.title}>{chapter.title}</span>
-            {chapter.number === null ? null : (
-              <span className={styles.count}>
+    <NavRail
+      groups={outline.chapters.map((chapter) => ({
+        key: chapter.key,
+        marker: chapter.number ?? '◦',
+        title: chapter.title,
+        current: chapter.key === page.chapter,
+        open: chapter.key === page.chapter,
+        side: chapter.side,
+        ...(chapter.number === null
+          ? {}
+          : {
+              count: (
                 <ReadCount
                   current={page.href}
                   hrefs={chapter.pages.map((p) => p.href)}
                   plan={plan}
                 />
-              </span>
-            )}
-          </summary>
-          <ol className={styles.screens}>
-            {chapter.pages.map((screen) => (
-              <li key={screen.href}>
-                <Link
-                  aria-current={screen.href === page.href ? 'page' : undefined}
-                  className={styles.screen}
-                  href={screen.href}
-                >
-                  <span aria-hidden="true" className={styles.tick}>
-                    <Tick current={screen.href === page.href} href={screen.href} plan={plan} />
-                  </span>
-                  <span className={styles.name}>{screen.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </details>
-      ))}
-    </nav>
+              ),
+            }),
+        items: chapter.pages.map((screen) => ({
+          href: screen.href,
+          title: screen.title,
+          current: screen.href === page.href,
+          mark: <Tick current={screen.href === page.href} href={screen.href} plan={plan} />,
+        })),
+      }))}
+      label="Chapters"
+    >
+      <MarkRead href={page.href} plan={plan} />
+    </NavRail>
   );
 }

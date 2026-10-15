@@ -142,6 +142,8 @@
   /* Layout */
   --topbar-h: 52px;
   --rail-w: 256px;
+  --rail-marker: 22px;
+  --rail-mark: 16px;
   --inspector-w: 420px;
   --stage-max: 1080px;
   --measure: 68ch;

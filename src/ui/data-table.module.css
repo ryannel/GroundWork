@@ -27,6 +27,15 @@
     padding-bottom: var(--s-2);
     color: var(--fg-2);
     text-align: left;
+
+    &[data-hidden] {
+      position: absolute;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
   }
 
   @container (width < 520px) {

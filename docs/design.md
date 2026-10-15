@@ -21,7 +21,22 @@ first paint. Stylelint rejects raw colours and sizes anywhere else. Layers, lowe
 - `--r-1…4`, `--r-pill`: radii.
 - `--ease`, `--t-1…3`: one curve, 120/200/320ms, zero under reduced motion.
 - `--z-raised|sticky|overlay|popover`: stacking.
-- `--topbar-h`, `--rail-w`, `--inspector-w`, `--stage-max`, `--measure`: layout.
+- `--topbar-h`, `--rail-w`, `--rail-marker`, `--rail-mark`, `--inspector-w`, `--stage-max`, `--measure`: layout.
+
+## The frame
+
+Every page sits in the same frame, taken from the plan viewer:
+
+- `AppShell({ bar, rail?, overlays?, children })`: the bar on top, a rail on the left when there is one, and the
+  stage, centred, at most `--stage-max` wide. An open inspector narrows the page on a wide window instead of
+  covering it.
+- `AppBar({ trail?, title?, note?, children? })`: the brand, the trail to where you are (“›” between crumbs), the
+  page's name with an optional mono note such as a version, then actions and the theme.
+- `NavRail({ label, groups, children? })`: groups with a circled marker, a title and a count, each opening to its
+  items. The current group is open and filled; side groups (Reference, Plans) sit apart under a rule. In a plan the
+  groups are chapters; in a workspace they are the landscape, each domain with its systems, and the plans.
+
+The home page has the bar and stage but no rail. The trail lives in the bar, never in the page body.
 
 ## Primitives (`src/ui`)
 
@@ -33,15 +48,16 @@ Variants are data attributes (`data-tone`, `data-status`, `data-variant`), never
 - `Card`: a whole-card link to what it names.
 - `Facts`: a quiet row of facts (sizes, counts, owners) separated by “·”.
 - `Chip`, `ChipList`: `<button data-inspect={id}>` with a type glyph and a status; the inspector catches its clicks.
-- `DataTable`: a captioned table that folds to labelled rows when its own width is under 520px.
+- `DataTable`: a captioned table that folds to labelled rows when its own width is under 520px. With
+  `captionHidden` the caption is for screen readers only, when a `SectionHeading` already names it.
 - `Icon`, `Glyph`: line drawings for each kind of thing; `Glyph` draws a text glyph (▣, ⛁) as its icon when it has one.
 - `Kbd`: a key or shortcut.
 - `Legend`, `LEGENDS`: a strip explaining the glyphs, line styles and status swatches a drawing uses; presets for
   map, sequence, status, types, graph and walk.
 - `Markdown`, `InlineMarkdown`: plan prose (paragraphs, lists, quotes, bold, em, code, links, `[[id]]`) rendered
   as React, never as HTML; `renderRef` draws each citation.
-- `PageHeader`: the top of every page, always in this order: a breadcrumb to its parents, the name of the thing as
-  the `h1`, one line on what it is or what is true of it, then `Facts`.
+- `PageHeader`: the top of every page's stage, in this order: the name of the thing as the `h1`, one line on what
+  it is or what is true of it, then `Facts`. Its trail is only for a crumb inside a plan chapter.
 - `Panel`: a raised section with an optional title.
 - `SectionHeading`: a section's name as an `h2` (a short noun such as “Domains”), with an optional one-line
   description.

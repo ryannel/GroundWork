@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { domainViewOf } from '@/application/workspace-domain';
 import { landscapeOf } from '@/application/workspace-landscape';
+import { workspaceNavOf } from '@/application/workspace-nav';
 import { systemViewOf } from '@/application/workspace-system';
 import type { Workspace } from '@/domain/workspace';
 
@@ -63,7 +64,7 @@ const shop: Workspace = {
 
 describe('LandscapePage', () => {
   it('draws the domains and links each system', () => {
-    render(<LandscapePage folder="shop" landscape={landscapeOf(shop)} />);
+    render(<LandscapePage folder="shop" landscape={landscapeOf(shop)} nav={[]} />);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Shop');
     expect(screen.getByRole('img').getAttribute('aria-label')).toContain('systems in each domain');
     expect(screen.getAllByText('Price to Search (api)')).toHaveLength(2);
@@ -73,7 +74,9 @@ describe('LandscapePage', () => {
   });
 
   it('says how to add a domain when there are none', () => {
-    render(<LandscapePage folder="shop" landscape={landscapeOf({ ...shop, domains: [] })} />);
+    render(
+      <LandscapePage folder="shop" landscape={landscapeOf({ ...shop, domains: [] })} nav={[]} />,
+    );
     expect(screen.getByText('No domains yet')).toBeTruthy();
     expect(screen.getByText('workspaces/shop/domains/')).toBeTruthy();
   });
@@ -81,7 +84,12 @@ describe('LandscapePage', () => {
 
 describe('DomainPage', () => {
   it('lists who runs each system', () => {
-    render(<DomainPage view={domainViewOf(shop, 'sales')!} />);
+    render(
+      <DomainPage
+        nav={workspaceNavOf(shop, [], { domain: 'sales' })}
+        view={domainViewOf(shop, 'sales')!}
+      />,
+    );
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Sales');
     expect(screen.getByRole('link', { name: 'Shop' }).getAttribute('href')).toMatch(/^\/shop\/?$/);
     expect(screen.getAllByText('Alpha').length).toBeGreaterThan(0);
@@ -90,9 +98,10 @@ describe('DomainPage', () => {
 
 describe('SystemPage', () => {
   const view = systemViewOf(shop, { domain: 'sales', system: 'price' })!;
+  const nav = workspaceNavOf(shop, [], { domain: 'sales', system: 'price' });
 
   it('names the owner and links the systems it talks to', () => {
-    render(<SystemPage view={view} />);
+    render(<SystemPage nav={nav} view={view} />);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Price');
     expect(screen.getByText('Run by Alpha')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Index (Search)' }).getAttribute('href')).toMatch(
@@ -103,10 +112,11 @@ describe('SystemPage', () => {
   });
 
   it('shows the plans landing on it, or says none do', () => {
-    const { rerender } = render(<SystemPage parts={[]} view={view} />);
+    const { rerender } = render(<SystemPage nav={nav} parts={[]} view={view} />);
     expect(screen.getByText('No plan changes this system.')).toBeTruthy();
     rerender(
       <SystemPage
+        nav={nav}
         parts={[{ id: 'p', title: 'New prices', href: '/shop/plans/p/', workItems: 4, done: 2 }]}
         view={view}
       />,

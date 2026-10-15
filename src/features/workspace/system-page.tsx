@@ -1,16 +1,18 @@
 import Link from 'next/link';
 
+import type { NavGroup } from '@/application/workspace-nav';
 import type { ComponentRow, SystemView } from '@/application/workspace-system';
-import { AppBar } from '@/ui/app-bar';
 import { Badge } from '@/ui/badge';
 import { Card } from '@/ui/card';
 import { DataTable } from '@/ui/data-table';
 import { Facts } from '@/ui/facts';
+import { Legend } from '@/ui/legend';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
 
 import { Diagram } from './diagram';
 import styles from './system-page.module.css';
+import { WorkspaceShell } from './workspace-shell';
 
 // One plan's part for this system: the work items going to its repos.
 interface PlanPart {
@@ -23,66 +25,75 @@ interface PlanPart {
 
 interface SystemPageProps {
   readonly view: SystemView;
+  readonly nav: readonly NavGroup[];
   /** The plans landing on this system; leave out until plans are read, and the section is not drawn. */
   readonly parts?: readonly PlanPart[];
 }
 
-export function SystemPage({ view, parts }: SystemPageProps) {
+export function SystemPage({ view, nav, parts }: SystemPageProps) {
   return (
-    <>
-      <AppBar />
-      <main className={styles.page}>
-        <PageHeader
-          description={view.description}
-          title={view.name}
-          trail={[{ label: 'Workspaces', href: '/' }, ...view.trail]}
-          meta={
-            <Facts items={view.facts}>
-              {view.repos.map((repo) => (
-                <code key={repo}>{repo}</code>
-              ))}
-            </Facts>
-          }
+    <WorkspaceShell
+      nav={nav}
+      title={view.name}
+      trail={[{ label: 'Workspaces', href: '/' }, ...view.trail]}
+    >
+      <PageHeader
+        description={view.description}
+        title={view.name}
+        meta={
+          <Facts items={view.facts}>
+            {view.repos.map((repo) => (
+              <code key={repo}>{repo}</code>
+            ))}
+          </Facts>
+        }
+      />
+      {parts === undefined ? null : <Plans parts={parts} />}
+      <section className={styles.section}>
+        <SectionHeading title="Connections">
+          <p>Systems that call in are on the left, the ones it calls on the right.</p>
+        </SectionHeading>
+        <Diagram
+          diagram={view.diagram}
+          label={`The components of ${view.name} and their connections`}
         />
-        {parts === undefined ? null : <Plans parts={parts} />}
-        <section className={styles.section}>
-          <SectionHeading title="Connections">
-            <p>Systems that call in are on the left, the ones it calls on the right.</p>
-          </SectionHeading>
-          <Diagram
-            diagram={view.diagram}
-            label={`The components of ${view.name} and their connections`}
-          />
-        </section>
-        <section className={styles.section}>
-          <DataTable
-            caption="Components"
-            columns={[
-              { key: 'component', label: 'Component' },
-              { key: 'type', label: 'Type' },
-              { key: 'does', label: 'Does' },
-              { key: 'talksTo', label: 'Talks to' },
-            ]}
-            rows={view.components.map((component) => ({
-              key: component.id,
-              cells: {
-                component: (
-                  <>
-                    {component.name} <code className={styles.id}>{component.id}</code>
-                  </>
-                ),
-                type:
-                  component.tech === null
-                    ? component.type
-                    : `${component.type} · ${component.tech}`,
-                does: component.does ?? '',
-                talksTo: <TalksTo component={component} />,
-              },
-            }))}
-          />
-        </section>
-      </main>
-    </>
+        <Legend
+          items={[
+            { line: 'solid', label: 'call or message' },
+            { line: 'dashed', label: 'outside this system' },
+          ]}
+        />
+      </section>
+      <section className={styles.section}>
+        <SectionHeading title="Components">
+          <p>What each component does and what it talks to.</p>
+        </SectionHeading>
+        <DataTable
+          caption="Components"
+          captionHidden
+          columns={[
+            { key: 'component', label: 'Component' },
+            { key: 'type', label: 'Type' },
+            { key: 'does', label: 'Does' },
+            { key: 'talksTo', label: 'Talks to' },
+          ]}
+          rows={view.components.map((component) => ({
+            key: component.id,
+            cells: {
+              component: (
+                <>
+                  {component.name} <code className={styles.id}>{component.id}</code>
+                </>
+              ),
+              type:
+                component.tech === null ? component.type : `${component.type} · ${component.tech}`,
+              does: component.does ?? '',
+              talksTo: <TalksTo component={component} />,
+            },
+          }))}
+        />
+      </section>
+    </WorkspaceShell>
   );
 }
 

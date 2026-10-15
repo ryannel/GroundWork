@@ -16,16 +16,20 @@ interface Row {
 
 interface DataTableProps {
   readonly caption: string;
+  /** Keep the caption for screen readers only, when a heading above already names the table. */
+  readonly captionHidden?: boolean;
   readonly columns: readonly Column[];
   readonly rows: readonly Row[];
 }
 
 // Folds to labelled rows when its own container is narrow; data-label carries the column name.
-export function DataTable({ caption, columns, rows }: DataTableProps) {
+export function DataTable({ caption, captionHidden = false, columns, rows }: DataTableProps) {
   return (
     <div className={styles.frame}>
       <table className={styles.table}>
-        <caption className={styles.caption}>{caption}</caption>
+        <caption className={styles.caption} data-hidden={captionHidden ? '' : undefined}>
+          {caption}
+        </caption>
         <thead>
           <tr>
             {columns.map((column) => (

@@ -1,10 +1,4 @@
 @layer components {
-  .page {
-    max-width: var(--stage-max);
-    margin: 0 auto;
-    padding: var(--s-8) var(--s-4);
-  }
-
   .list {
     display: grid;
     gap: var(--s-6);
