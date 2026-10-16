@@ -54,7 +54,7 @@ export const RESERVED_PAGES: readonly string[] = [
 ];
 
 /** Page names beside the systems at /<workspace>/<domain>/<name>/, so no system may take one. */
-export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows'];
+export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows', 'map', 'language', 'interfaces'];
 
 function reservedDomains(workspace: Workspace): readonly string[] {
   return [

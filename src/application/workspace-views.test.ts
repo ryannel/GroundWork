@@ -144,6 +144,11 @@ describe('domainViewOf', () => {
     expect(view.neighbours.reachedBy.map((n) => n.id)).toContain('checkout');
     expect(view.catalogue.apis.length).toBeGreaterThan(0);
     expect(view.catalogue.events.map((e) => e.head.id)).toContain('msg:order-placed');
+    expect(view.counts.systems).toBe(6);
+    expect(view.counts.flows).toBe(view.flows.length);
+    expect(view.counts.events).toBe(view.catalogue.events.length);
+    expect(view.teams.every((t) => t.slot > 0)).toBe(true);
+    expect(view.systems.every((s) => s.components > 0)).toBe(true);
   });
 
   it('returns null for an unknown domain', async () => {

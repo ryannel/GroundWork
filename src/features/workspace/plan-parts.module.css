@@ -12,4 +12,36 @@
     margin: 0;
     color: var(--fg-3);
   }
+
+  .bar {
+    display: block;
+    width: 100%;
+    height: var(--s-1);
+    margin-bottom: var(--s-2);
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--r-pill);
+    appearance: none;
+    background: var(--bg-3);
+
+    &::-webkit-progress-bar {
+      background: var(--bg-3);
+    }
+
+    &::-webkit-progress-value {
+      border-radius: var(--r-pill);
+      background: var(--accent);
+    }
+
+    &::-moz-progress-bar {
+      border-radius: var(--r-pill);
+      background: var(--accent);
+    }
+  }
+
+  .progress {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
 }

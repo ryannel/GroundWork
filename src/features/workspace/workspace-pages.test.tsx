@@ -4,6 +4,7 @@ import path from 'node:path';
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { domainDiagramOf } from '@/application/domain-diagram';
 import { domainViewOf } from '@/application/workspace-domain';
 import { landscapeOf } from '@/application/workspace-landscape';
 import { systemModelOf } from '@/application/workspace-model';
@@ -13,9 +14,11 @@ import { systemViewOf } from '@/application/workspace-system';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
-import { DomainPage, LandscapePage, SystemPage } from './index';
+import { CatalogueList, DomainOverview, DomainPage, LandscapePage, SystemPage } from './index';
 
 vi.mock('server-only', () => ({}));
+let pathname = '/alder-finch/order-to-delivery/';
+vi.mock('next/navigation', () => ({ usePathname: () => pathname }));
 
 afterEach(cleanup);
 
@@ -102,46 +105,79 @@ describe('LandscapePage', () => {
 });
 
 describe('DomainPage', () => {
-  it('shows its edges, its systems and what it offers as chips the inspector opens', async () => {
+  it('names the domain, counts what it holds and opens each way to read it as a tab', async () => {
     const { workspace, model } = await alder();
-    const { container } = render(
+    pathname = '/alder-finch/order-to-delivery/flows/some-flow/';
+    render(
       <DomainPage
         nav={workspaceNavOf(workspace, [], { domain: 'order-to-delivery' })}
+        view={domainViewOf(workspace, model, 'order-to-delivery')!}
+        words={3}
+      >
+        <p>the tab</p>
+      </DomainPage>,
+    );
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Order to delivery');
+    expect(screen.getByText('the tab')).toBeTruthy();
+    const tabs = screen.getByRole('navigation', { name: 'Ways to read Order to delivery' });
+    const current = tabs.querySelector('[aria-current="page"]');
+    expect(current?.textContent).toMatch(/^Flows\d+$/);
+    expect(tabs.textContent).toMatch(/Language3/);
+    const numbers = screen.getByRole('list', { name: 'Order to delivery in numbers' });
+    expect(numbers.textContent).toMatch(/6systems/);
+    expect(screen.getByRole('list', { name: 'Teams' }).children.length).toBeGreaterThan(0);
+  });
+});
+
+describe('DomainOverview', () => {
+  it('puts its plans first, then how its systems fit, each system and the busiest flows', async () => {
+    const { workspace, model } = await alder();
+    const view = domainViewOf(workspace, model, 'order-to-delivery')!;
+    render(
+      <DomainOverview
+        diagram={domainDiagramOf(workspace, model, 'order-to-delivery')}
+        parts={[{ id: 'p', title: 'A plan', href: '/p/', workItems: 4, done: 1 }]}
+        view={view}
+        words={{
+          summary: 'What it is about.',
+          words: [{ id: 'con:x', label: 'Order', glyph: '◆' }],
+        }}
+      />,
+    );
+    const titles = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent);
+    expect(titles.slice(0, 3)).toEqual(['Plans', 'How the systems work together', 'Systems']);
+    expect(titles).toContain('Busiest flows');
+    expect(titles).toContain('Language');
+    expect(screen.getByText('1 of 4 work items done')).toBeTruthy();
+    const hrefs = screen
+      .getAllByRole('link', { name: /Payments/ })
+      .map((a) => a.getAttribute('href'));
+    expect(hrefs.some((h) => /^\/alder-finch\/order-to-delivery\/payments\/?$/.test(h ?? ''))).toBe(
+      true,
+    );
+    expect(screen.getByText('What it is about.')).toBeTruthy();
+  });
+
+  it('says when no plan changes the domain', async () => {
+    const { workspace, model } = await alder();
+    render(
+      <DomainOverview
+        diagram={domainDiagramOf(workspace, model, 'order-to-delivery')}
         parts={[]}
         view={domainViewOf(workspace, model, 'order-to-delivery')!}
       />,
     );
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Order to delivery');
-    const hrefs = screen
-      .getAllByRole('link', { name: 'Checkout' })
-      .map((a) => a.getAttribute('href'));
-    expect(hrefs.some((h) => /^\/alder-finch\/website\/checkout\/?$/.test(h ?? ''))).toBe(true);
-    expect(inspectable(container, 'msg:order-placed')).not.toBeNull();
     expect(screen.getByText('No plan changes this domain yet.')).toBeTruthy();
   });
+});
 
-  it('puts its plans first, lists its flows beside the one drawn, and shows only user journeys as cards', async () => {
+describe('CatalogueList', () => {
+  it('folds each row to a count, with every name a chip the inspector opens', async () => {
     const { workspace, model } = await alder();
     const view = domainViewOf(workspace, model, 'order-to-delivery')!;
-    render(
-      <DomainPage
-        flows={<p>the flows</p>}
-        nav={workspaceNavOf(workspace, [], { domain: 'order-to-delivery' })}
-        parts={[]}
-        view={view}
-      />,
-    );
-    const titles = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent);
-    expect(titles[0]).toBe('Plans');
-    expect(titles).toContain('Flows');
-    expect(titles).toContain('User journeys');
-    expect(screen.getByText('the flows')).toBeTruthy();
-    expect(view.flows.length).toBeGreaterThan(0);
-    expect(
-      view.flows.every((f) => f.href.startsWith('/alder-finch/order-to-delivery/flows/')),
-    ).toBe(true);
-    expect(screen.queryByText('Flow')).toBeNull();
-    expect(screen.getByText('All journeys and flows in the workspace →')).toBeTruthy();
+    const { container } = render(<CatalogueList catalogue={view.catalogue} />);
+    expect(inspectable(container, 'msg:order-placed')).not.toBeNull();
+    expect(container.querySelector('#calls details summary')).not.toBeNull();
   });
 });
 

@@ -7,6 +7,9 @@
   }
 
   .tab {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: baseline;
     padding: var(--s-2) var(--s-3);
     border-bottom: 2px solid transparent;
     color: var(--fg-2);
@@ -23,5 +26,11 @@
       border-bottom-color: var(--accent);
       color: var(--fg-1);
     }
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    font-variant-numeric: tabular-nums;
   }
 }

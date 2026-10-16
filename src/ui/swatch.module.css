@@ -1,0 +1,62 @@
+@layer components {
+  .swatch {
+    display: inline-block;
+    flex: none;
+    width: var(--s-2);
+    height: var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--fg-3);
+  }
+
+  .swatch[data-slot='1'] {
+    background: var(--team-1);
+  }
+
+  .swatch[data-slot='2'] {
+    background: var(--team-2);
+  }
+
+  .swatch[data-slot='3'] {
+    background: var(--team-3);
+  }
+
+  .swatch[data-slot='4'] {
+    background: var(--team-4);
+  }
+
+  .swatch[data-slot='5'] {
+    background: var(--team-5);
+  }
+
+  .swatch[data-slot='6'] {
+    background: var(--team-6);
+  }
+
+  .swatch[data-slot='7'] {
+    background: var(--team-7);
+  }
+
+  .swatch[data-slot='8'] {
+    background: var(--team-8);
+  }
+
+  .swatch[data-slot='9'] {
+    background: var(--team-9);
+  }
+
+  .swatch[data-slot='10'] {
+    background: var(--team-10);
+  }
+
+  .swatch[data-slot='11'] {
+    background: var(--team-11);
+  }
+
+  .swatch[data-slot='12'] {
+    background: var(--team-12);
+  }
+
+  .swatch[data-slot='13'] {
+    background: var(--team-13);
+  }
+}

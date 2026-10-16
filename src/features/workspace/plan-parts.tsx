@@ -23,7 +23,15 @@ export function PlanParts({
       {parts.map((part) => (
         <li key={part.id}>
           <Card href={part.href} title={part.title}>
-            <Badge tone="accent">{progress(part)}</Badge>
+            {part.workItems === 0 ? null : (
+              <progress
+                aria-label={`${part.title}: work done here`}
+                className={styles.bar}
+                max={part.workItems}
+                value={part.done}
+              />
+            )}
+            <p className={styles.progress}>{progress(part)}</p>
           </Card>
         </li>
       ))}

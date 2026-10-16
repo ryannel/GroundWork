@@ -1,31 +1,39 @@
 @layer components {
-  .section {
-    margin-top: var(--s-10);
-  }
-
-  .purpose {
-    margin: 0;
-    color: var(--fg-1);
-  }
-
-  .systems {
+  .meta {
     display: grid;
     gap: var(--s-3);
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin-top: var(--s-2);
+  }
+
+  .teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .does {
-    margin: 0 0 var(--s-2);
-    color: var(--fg-1);
+  .team {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
+    padding: var(--s-1) var(--s-2);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-pill);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
   }
 
-  .about {
-    margin: 0;
-    color: var(--fg-3);
-    font-size: var(--fs-12);
-    overflow-wrap: anywhere;
+  .tabs {
+    position: sticky;
+    z-index: var(--z-raised);
+    top: var(--topbar-h);
+    margin-top: calc(var(--s-8) * -1 + var(--s-4));
+    background: var(--bg-0);
+  }
+
+  .body {
+    padding-top: var(--s-6);
   }
 }

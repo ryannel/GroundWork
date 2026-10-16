@@ -1,74 +1,74 @@
 import type { ReactNode } from 'react';
 
-import type { PlanPart } from '@/application/plan-footprint';
-import type { DomainSystemCard, DomainView } from '@/application/workspace-domain';
+import type { DomainView } from '@/application/workspace-domain';
 import type { NavGroup } from '@/application/workspace-nav';
-import { Card } from '@/ui/card';
-import { Facts } from '@/ui/facts';
 import { PageHeader } from '@/ui/page-header';
-import { SectionHeading } from '@/ui/section-heading';
+import { PathTabs } from '@/ui/path-tabs.client';
+import { Stats } from '@/ui/stats';
+import { Swatch } from '@/ui/swatch';
 
-import { CatalogueList } from './catalogue-list';
 import styles from './domain-page.module.css';
-import { JourneysHere } from './journey-cards';
-import { NeighbourList } from './neighbour-list';
-import { PlanParts } from './plan-parts';
 import { WorkspaceShell } from './workspace-shell';
 
 interface DomainPageProps {
   readonly view: DomainView;
   readonly nav: readonly NavGroup[];
-  /** The map of the domain's components and their neighbours, drawn by the route. */
-  readonly map?: ReactNode;
-  /** The list of flows with a step here, beside the one chosen; drawn by the route. */
-  readonly flows?: ReactNode;
-  /** The words the domain owns and what each system calls them; drawn by the route. */
-  readonly language?: ReactNode;
-  /** The plans landing on the domain's systems; leave out and the section is not drawn. */
-  readonly parts?: readonly PlanPart[];
+  /** How many words the domain owns; 0 when it has written none down. */
+  readonly words?: number;
+  /** The tab being read: the overview, the flows, the map, the language or the interfaces. */
+  readonly children?: ReactNode;
   readonly overlays?: ReactNode;
   readonly actions?: ReactNode;
 }
 
-function SystemCards({ systems }: { readonly systems: readonly DomainSystemCard[] }) {
+function tabsOf(view: DomainView, words: number) {
+  const { href, counts } = view;
+  const kept = counts.calls + counts.events + counts.stores;
+  return [
+    { href, label: 'Overview' },
+    ...(counts.flows === 0 ? [] : [{ href: `${href}flows/`, label: 'Flows', count: counts.flows }]),
+    { href: `${href}map/`, label: 'Map', count: counts.components },
+    ...(words === 0 ? [] : [{ href: `${href}language/`, label: 'Language', count: words }]),
+    ...(kept === 0 ? [] : [{ href: `${href}interfaces/`, label: 'Interfaces', count: kept }]),
+  ];
+}
+
+function statsOf(view: DomainView, words: number) {
+  const { href, counts } = view;
+  const all = [
+    {
+      value: counts.systems,
+      label: counts.systems === 1 ? 'system' : 'systems',
+      href: `${href}#systems`,
+    },
+    { value: counts.components, label: 'components', href: `${href}map/` },
+    { value: counts.flows, label: 'flows', href: `${href}flows/` },
+    { value: words, label: 'words', href: `${href}language/` },
+    { value: counts.calls, label: 'calls', href: `${href}interfaces/#calls` },
+    { value: counts.events, label: 'events', href: `${href}interfaces/#events` },
+    { value: counts.stores, label: 'stores', href: `${href}interfaces/#stores` },
+  ];
+  return all.filter((stat, at) => at < 2 || stat.value > 0);
+}
+
+function Teams({ view }: { readonly view: DomainView }) {
+  if (view.teams.length === 0) return null;
   return (
-    <ul className={styles.systems}>
-      {systems.map((system) => (
-        <li key={system.id}>
-          <Card href={system.href} title={system.name}>
-            {system.does === '' ? null : <p className={styles.does}>{system.does}</p>}
-            <p className={styles.about}>{system.about.join(' · ')}</p>
-          </Card>
+    <ul aria-label="Teams" className={styles.teams}>
+      {view.teams.map((team) => (
+        <li className={styles.team} key={team.name}>
+          <Swatch slot={team.slot} />
+          {team.name}
         </li>
       ))}
     </ul>
   );
 }
 
-function Section({
-  title,
-  says,
-  children,
-}: {
-  readonly title: string;
-  readonly says: string;
-  readonly children: ReactNode;
-}) {
-  return (
-    <section className={styles.section}>
-      <SectionHeading title={title}>
-        <p>{says}</p>
-      </SectionHeading>
-      {children}
-    </section>
-  );
-}
-
-// One domain, in the order a newcomer learns it: what it is for, the plans that would change it, where it ends,
-// the map of its components, the flows and user journeys through it, each system, the words it owns, and what it
-// offers, announces and keeps. A domain can carry hundreds of flows, so they are a list beside the one drawn, not a wall of cards.
+// One domain: its name, what it is for, how big it is and who runs it, then a tab for each way to read it. The
+// overview comes first; the flows, the map, the words and the interfaces each have their own address.
 export function DomainPage(props: DomainPageProps) {
-  const { view, nav, map, flows, language, parts, overlays, actions } = props;
+  const { view, nav, words = 0, children, overlays, actions } = props;
   return (
     <WorkspaceShell
       actions={actions}
@@ -80,59 +80,20 @@ export function DomainPage(props: DomainPageProps) {
         { label: view.workspace.name, href: view.workspace.href },
       ]}
     >
-      <PageHeader description={view.headline} meta={<Facts items={view.facts} />} title={view.name}>
-        {view.purpose === null ? null : <p className={styles.purpose}>{view.purpose}</p>}
-      </PageHeader>
-      {parts === undefined ? null : (
-        <Section says="What may change here." title="Plans">
-          <PlanParts parts={parts} where="this domain" />
-        </Section>
-      )}
-      <Section
-        says="The systems just outside the domain, and which way the work goes."
-        title="Edges"
-      >
-        <NeighbourList name={view.name} neighbours={view.neighbours} />
-      </Section>
-      {map === undefined || map === null ? null : (
-        <Section
-          says="Each component in the domain, grouped by system. Dotted cards sit outside it, one step away. Click any card or line to see what it is."
-          title="Map"
-        >
-          {map}
-        </Section>
-      )}
-      {flows === undefined || flows === null || view.flows.length === 0 ? null : (
-        <Section
-          says="The work with steps in this domain, grouped by the system it comes in through, most steps here first. Step through each flow on the drawing, or read it as a sequence."
-          title="Flows"
-        >
-          {flows}
-        </Section>
-      )}
-      <Section
-        says="The user journeys with steps in this domain, most steps here first. Open one to walk it end to end."
-        title="User journeys"
-      >
-        <JourneysHere all={view.allJourneys} cards={view.journeys} />
-      </Section>
-      <Section says="What each system does, who runs it and where its code is." title="Systems">
-        <SystemCards systems={view.systems} />
-      </Section>
-      {language === undefined || language === null ? null : (
-        <Section
-          says="The words this domain owns: what each means, where it is created, and what each system calls it. Click a word to see it."
-          title="Language"
-        >
-          {language}
-        </Section>
-      )}
-      <Section
-        says="The calls the domain answers, the events it announces and the data it keeps. Click a name to see it."
-        title="Interfaces, events and data"
-      >
-        <CatalogueList catalogue={view.catalogue} />
-      </Section>
+      <PageHeader
+        description={view.purpose ?? view.headline}
+        meta={
+          <div className={styles.meta}>
+            <Stats label={`${view.name} in numbers`} stats={statsOf(view, words)} />
+            <Teams view={view} />
+          </div>
+        }
+        title={view.name}
+      />
+      <div className={styles.tabs}>
+        <PathTabs label={`Ways to read ${view.name}`} tabs={tabsOf(view, words)} />
+      </div>
+      <div className={styles.body}>{children}</div>
     </WorkspaceShell>
   );
 }

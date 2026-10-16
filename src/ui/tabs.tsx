@@ -2,9 +2,11 @@ import Link from 'next/link';
 
 import styles from './tabs.module.css';
 
-interface Tab {
+export interface Tab {
   readonly href: string;
   readonly label: string;
+  /** How many things the tab holds, shown quietly after its label. */
+  readonly count?: number;
 }
 
 interface TabsProps {
@@ -25,6 +27,9 @@ export function Tabs({ label, tabs, current }: TabsProps) {
           key={tab.href}
         >
           {tab.label}
+          {tab.count === undefined ? null : (
+            <span className={styles.count}>{String(tab.count)}</span>
+          )}
         </Link>
       ))}
     </nav>

@@ -7,8 +7,8 @@
     padding: 0;
     list-style: none;
 
-    & li + li::before {
-      margin-right: var(--s-2);
+    & li:not(:last-child)::after {
+      margin-left: var(--s-2);
       color: var(--fg-3);
       content: '·';
     }

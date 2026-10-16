@@ -7,11 +7,18 @@
   .block {
     display: grid;
     gap: var(--s-2);
+    scroll-margin-top: calc(var(--topbar-h) + var(--s-12));
   }
 
   .title {
     margin: 0;
     font-size: var(--fs-16);
+  }
+
+  .total {
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+    font-weight: 400;
   }
 
   .says {
@@ -24,27 +31,58 @@
     display: grid;
     margin: 0;
     padding: 0;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
     list-style: none;
+
+    & > li + li {
+      border-top: 1px solid var(--line-1);
+    }
   }
 
   .row {
     display: grid;
     gap: var(--s-2) var(--s-4);
-    grid-template-columns: minmax(10rem, 16rem) 1fr;
-    align-items: baseline;
-    padding-block: var(--s-2);
-    border-block-start: 1px solid var(--line-1);
+    grid-template-columns: minmax(10rem, 18rem) 1fr auto;
+    align-items: center;
+    padding: var(--s-2) var(--s-3);
+  }
+
+  .fold > summary {
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      background: var(--bg-2);
+    }
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    white-space: nowrap;
+
+    &::after {
+      margin-left: var(--s-2);
+      content: '▸';
+    }
+
+    .fold[open] &::after {
+      content: '▾';
+    }
+  }
+
+  .items {
+    padding: 0 var(--s-3) var(--s-3);
   }
 
   .head {
     min-width: 0;
-  }
-
-  .body {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--s-2);
   }
 
   .note {
