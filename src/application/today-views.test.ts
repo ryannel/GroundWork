@@ -2,6 +2,7 @@ import path from 'node:path';
 
 import { describe, expect, it, vi } from 'vitest';
 
+import { keyJourneysOf } from '@/application/key-journeys';
 import { domainScopeOf, workspaceScopeOf } from '@/application/model-scope';
 import { systemMapOf } from '@/application/system-map';
 import { mapMarkdownOf } from '@/application/system-map-md';
@@ -29,16 +30,28 @@ async function alder() {
 }
 
 describe('the rail of a workspace read today', () => {
-  it('lists the journeys and marks the one being walked', async () => {
+  it('counts every journey, names the key ones and marks the one being walked', async () => {
     const { workspace, model } = await alder();
+    const all = todayJourneysOf(model);
     const first = workspaceNavOf(workspace, [], { today: model, section: 'journeys' });
     const journeys = first.find((group) => group.key === 'journeys')!;
-    const key = journeys.items[0]!.href.split('/').at(-2)!;
-    const nav = workspaceNavOf(workspace, [], { today: model, section: 'journeys', key });
+    expect(journeys.count).toBe(String(all.length));
+    expect(journeys.items.map((item) => item.title)).toEqual(
+      keyJourneysOf(workspace, model).picked.map((k) => k.journey.title),
+    );
+    const named = new Set(journeys.items.map((item) => item.title));
+    const other = all.find((j) => !named.has(j.title))!;
+    const nav = workspaceNavOf(workspace, [], {
+      today: model,
+      section: 'journeys',
+      key: other.key,
+    });
     const open = nav.find((group) => group.key === 'journeys')!;
     expect(open.current).toBe(true);
-    expect(open.count).toBe(String(open.items.length));
-    expect(open.items.filter((item) => item.current)).toHaveLength(1);
+    expect(open.items).toHaveLength(journeys.items.length + 1);
+    expect(open.items.filter((item) => item.current).map((item) => item.title)).toEqual([
+      other.title,
+    ]);
   });
 
   it('lists the kinds of reference and marks the one being read', async () => {

@@ -128,7 +128,9 @@ A domain page and a system page are each a layout, and each flow through them is
 can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that
 flow. The flow's address is its id without `flow:`. The domain's layout sits in the route group `(overview)` so
 it does not wrap its systems' pages. Both pages put their plans first; their flows are a searchable list, and
-only user journeys are cards, at most six, with a link to them all.
+only user journeys are cards, at most six, with a link to them all. That link is the journeys index, which lists every journey
+and flow as one line, to be narrowed by words or by domain, never as cards. The sidebar counts every journey but names only
+the key ones, and the one being read.
 
 `plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, `flows` cannot be
 a system id, and `assets`,

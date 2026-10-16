@@ -1,0 +1,121 @@
+@layer components {
+  .finder {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+    margin-top: var(--s-6);
+  }
+
+  .bar {
+    position: sticky;
+    z-index: var(--z-raised);
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-3) 0;
+    background: var(--bg-0);
+  }
+
+  .find,
+  .domain {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--node-bg);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-13);
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+  }
+
+  .find {
+    flex: 1 1 18rem;
+    max-width: 32rem;
+  }
+
+  .shown {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .heading {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+    font-weight: 600;
+  }
+
+  .count {
+    color: var(--fg-3);
+    font-weight: 400;
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    list-style: none;
+
+    & li + li {
+      border-top: 1px solid var(--line-1);
+    }
+  }
+
+  .row {
+    display: grid;
+    gap: var(--s-1) var(--s-4);
+    grid-template-columns: minmax(12rem, 22rem) minmax(10rem, 14rem) minmax(0, 1fr);
+    align-items: baseline;
+    padding: var(--s-2) var(--s-3);
+    color: inherit;
+    font-size: var(--fs-13);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--bg-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+    }
+
+    @media (width < 900px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .title {
+    color: var(--fg-1);
+    font-weight: 500;
+  }
+
+  .claim,
+  .who {
+    color: var(--fg-3);
+  }
+
+  .who {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -34,7 +34,7 @@ export default async function JourneysRoute({ params }: { readonly params: Promi
         { label: workspace.name, href: workspaceHref(workspace.id) },
       ]}
     >
-      <TodayJourneys model={today.model} workspace={workspace.id} />
+      <TodayJourneys model={today.model} workspace={workspace} />
     </WorkspaceShell>
   );
 }

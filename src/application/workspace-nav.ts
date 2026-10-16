@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import type { Workspace } from '@/domain/workspace';
 
+import { keyJourneysOf } from './key-journeys';
 import { todayJourneysOf } from './today-journeys';
 import { journeyHref, journeysHref, referenceHref, referenceKindHref } from './today-reader';
 import { referenceOf } from './today-reference';
@@ -74,7 +75,7 @@ export function workspaceNavOf(
       })),
     };
   });
-  const today = [journeysGroup(workspace.id, here), referenceGroup(workspace.id, here)];
+  const today = [journeysGroup(workspace, here), referenceGroup(workspace.id, here)];
   if (plans.length === 0) return [landscape, ...domains, ...today];
   const planGroup: NavGroup = {
     key: 'plans',
@@ -90,19 +91,27 @@ export function workspaceNavOf(
   return [landscape, ...domains, ...today, planGroup];
 }
 
-function journeysGroup(workspace: string, here: NavHere): NavGroup {
+// The journeys group counts them all but names only the key ones, and the one being read: a workspace can run
+// thousands, and the index is where they are found.
+function journeysGroup(workspace: Workspace, here: NavHere): NavGroup {
   const current = here.section === 'journeys';
   const journeys = here.today === undefined ? [] : todayJourneysOf(here.today);
+  const key =
+    here.today === undefined
+      ? []
+      : keyJourneysOf(workspace, here.today).picked.map((k) => k.journey);
+  const reading = journeys.find((j) => current && j.key === here.key);
+  const named = reading === undefined || key.includes(reading) ? key : [...key, reading];
   return {
     key: 'journeys',
     marker: 'J',
     title: 'Journeys',
-    href: journeysHref(workspace),
+    href: journeysHref(workspace.id),
     ...(journeys.length === 0 ? {} : { count: String(journeys.length) }),
     current,
     open: current,
-    items: journeys.map((journey) => ({
-      href: journeyHref(workspace, journey.key),
+    items: named.map((journey) => ({
+      href: journeyHref(workspace.id, journey.key),
       title: journey.title,
       current: current && journey.key === here.key,
     })),
