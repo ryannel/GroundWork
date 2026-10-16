@@ -4,49 +4,65 @@ description: The shop, its back office and everything between an order and the d
 teams:
   - id: team:catalog
     name: Catalog
+    channel: '#team-catalog'
     colour: 5
   - id: team:content
     name: Content & Translation
+    channel: '#team-content'
     colour: 8
   - id: team:pricing
     name: Pricing
+    channel: '#team-pricing'
     colour: 6
   - id: team:discovery
     name: Discovery
+    channel: '#team-discovery'
     colour: 7
   - id: team:storefront
     name: Storefront
+    channel: '#team-storefront'
     colour: 2
   - id: team:checkout
     name: Checkout
+    channel: '#team-checkout'
     colour: 1
   - id: team:financing
     name: Financing
+    channel: '#team-financing'
     colour: 9
   - id: team:payments
     name: Payments
+    channel: '#team-payments'
     colour: 12
   - id: team:orders
     name: Orders
+    channel: '#team-orders'
     colour: 3
   - id: team:fulfilment
     name: Fulfilment
+    channel: '#team-fulfilment'
     colour: 4
   - id: team:notifications
     name: Notifications
+    channel: '#team-notifications'
     colour: 10
   - id: team:product
     name: Product management
+    channel: '#product-commerce'
     colour: 11
   - id: team:legal
     name: Legal
+    channel: '#legal-commerce'
     colour: 13
   - id: team:billing
     name: Billing
+    channel: '#team-billing'
     colour: 7
   - id: team:customer-care
     name: Customer care
+    channel: '#customer-care'
     colour: 12
   - id: team:customers
     name: Customers
+    channel: '#team-customers'
     colour: 12

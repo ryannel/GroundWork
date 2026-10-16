@@ -33,7 +33,12 @@ async function readWorkspace(folder: string): Promise<Workspace> {
     name: file.name,
     description: file.description ?? null,
     isPrivate: file.private,
-    teams: file.teams.map(({ id, name, colour }) => ({ id, name, colour: colour ?? null })),
+    teams: file.teams.map(({ id, name, colour, channel }) => ({
+      id,
+      name,
+      colour: colour ?? null,
+      channel: channel ?? null,
+    })),
     domains,
   };
   const { errors } = checkWorkspace(workspace);

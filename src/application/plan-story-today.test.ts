@@ -64,8 +64,8 @@ describe('graph story', () => {
 
 describe('what each stop claims', () => {
   it('names the team that runs the most, or says none does', async () => {
-    expect(systemStops(await load('invoice-vat-number'))[0]?.headline).toBe(
-      'Storefront runs the most of it: two of the six components; four other teams run the rest.',
+    expect(systemStops(await load('stock-reservation'))[0]?.headline).toBe(
+      'Fulfilment runs the most of it: three of the six components; two other teams run the rest.',
     );
     expect(systemStops(await load('delivery-promise'))[0]?.headline).toMatch(/^No one team/u);
   });

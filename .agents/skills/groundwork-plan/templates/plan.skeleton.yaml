@@ -3,13 +3,11 @@
 # Rules you must not break (see .agents/skills/groundwork-schema):
 #   - A plan is an overlay. Today lives in the system model (workspaces/<ws>/domains/…); never copy it here.
 #   - Every delta (new endpoint, field, store, step, handler step; any change of behaviour) is an op in changes[].ops,
-#     and every op targets an id in the system model at `baseline`, or one this plan adds.
+#     and every op targets an id in the system model today, or one this plan adds.
 #   - Ids are <prefix>:<kebab-slug>, named by meaning, never numbered, never renamed.
 #   - Flow steps are <flow-id>#<verb-slug>. Fields are addressed <schema-id>#<field_name>.
 #   - Dates are quoted strings: "2026-10-01".
 #   - No colour, position, status or counts: all of that is derived.
-
-baseline: TODO-40-hex-groundwork-commit # `git rev-parse HEAD` once today is confirmed
 
 meta:
   id: my-feature # TODO = the folder name plans/<plan>/

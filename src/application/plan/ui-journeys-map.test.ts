@@ -247,7 +247,8 @@ describe('todayScreenMap: recorded order', () => {
       ['scr:checkout-address', 'scr:invoice-pdf'],
       ['scr:invoice-pdf', 'scr:checkout-address'],
     ]);
-    expect(map.nodes[0]?.records.map((r) => [r.stepId, r.stopIndex, r.visitIndex])).toEqual([
+    const address = map.nodes.find((n) => n.id === 'scr:checkout-address');
+    expect(address?.records.map((r) => [r.stepId, r.stopIndex, r.visitIndex])).toEqual([
       ['flow:checkout-address#form', 0, 0],
       ['flow:checkout-address#create', 2, 1],
     ]);

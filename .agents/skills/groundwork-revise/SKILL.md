@@ -43,8 +43,8 @@ below say what to do by hand until they exist.
    Check the keys against `meta.revisions` in `schema/plan.schema.json`.
 
 4. **Edit the plan**: ops in `changes[]`, work items, questions. **Never renumber or rename ids**: ids are how
-   before and after are matched. Today stays in the model; deltas are ops. If the model moved since the plan's
-   `baseline`, re-read the drifted targets and move `baseline` in the same revision.
+   before and after are matched. Today stays in the model; deltas are ops. If the plan's cover says today has
+   changed under it, re-read those targets and run `npm run plan:base -- check <plan>` in the same revision.
 5. **Check it**: `npm test`, then open the plan in `npm run dev` and read the new version's page. Compare with the
    approved snapshot by eye or with `git diff --no-index workspaces/<ws>/plans/<plan>/revisions/<v>.yaml
 workspaces/<ws>/plans/<plan>/plan.yaml`. No new warnings.

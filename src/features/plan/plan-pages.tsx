@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import type { BaseInfo } from '@/application/plan/plan-base';
 import type { PlanCard } from '@/application/plan-footprint';
 import type { Outline } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
@@ -19,6 +20,8 @@ interface PlanPageProps {
   readonly versions?: VersionsData | null;
   /** Every plan of the workspace, for the plan switcher. */
   readonly plans?: readonly PlanCard[];
+  /** Where the plan's today comes from. */
+  readonly base?: BaseInfo;
 }
 
 /** A plan's cover, or one of its screens, inside the viewer shell. Null when the screen is not in the plan. */
@@ -30,6 +33,7 @@ export function PlanPage({
   screen = 'cover',
   versions = null,
   plans = [],
+  base,
 }: PlanPageProps) {
   const page = outline.pages.find((p) => p.chapter === chapter && p.screen === screen);
   if (page === undefined) return null;
@@ -42,7 +46,9 @@ export function PlanPage({
       plans={plans}
       workspaceName={workspaceName}
     >
-      <ChapterBoundary key={page.href}>{body({ model, outline, page, versions })}</ChapterBoundary>
+      <ChapterBoundary key={page.href}>
+        {body({ model, outline, page, versions, ...(base === undefined ? {} : { base }) })}
+      </ChapterBoundary>
       <Remember model={model} outline={outline} page={page} />
     </PlanShell>
   );

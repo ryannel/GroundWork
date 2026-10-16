@@ -39,6 +39,8 @@ export interface Team {
   readonly name: string;
   /** One of the team hues, 1 to 13. */
   readonly colour: number | null;
+  /** Where to reach the team, such as a chat channel. */
+  readonly channel: string | null;
 }
 
 export interface Workspace {

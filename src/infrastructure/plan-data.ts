@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { derive, type Model } from '@/application/plan/derive';
+import type { BaseInfo } from '@/application/plan/plan-base';
 import { planCardOf, type PlanCard } from '@/application/plan-footprint';
 import { outlineOf, screenParams, type Outline } from '@/application/plan-pages';
 import { findWorkspace } from '@/application/workspace-paths';
@@ -20,6 +21,8 @@ export interface PlanData {
   readonly outline: Outline;
   /** Every plan of the workspace, for the plan switcher. */
   readonly plans: readonly PlanCard[];
+  /** Where the plan's today comes from, and whether today has moved under it. */
+  readonly base: BaseInfo;
 }
 
 /** Every plan of every workspace, for generateStaticParams; a broken one too, so its cover can say what is wrong. */
@@ -86,6 +89,7 @@ async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
     model,
     outline: outlineOf(model, { workspace, slug: plan }),
     plans: await planCards(workspace),
+    base: loaded.base,
   };
 }
 

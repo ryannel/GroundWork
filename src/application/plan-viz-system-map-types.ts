@@ -143,7 +143,10 @@ export interface DrawnNode {
     readonly tip: string;
     readonly landed: readonly ('L' | 'R')[];
   } | null;
+  /** A folded system's parts, listed; empty when open, as its parts are cards of their own. */
   readonly parts: readonly DrawnPart[];
+  /** How many parts a system has, open or folded. */
+  readonly partCount: number;
   /** A system folded to one card listing its parts. */
   readonly folded: boolean;
 }

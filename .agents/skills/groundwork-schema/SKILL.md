@@ -24,7 +24,9 @@ workspaces/<ws>/
   domains/<d>/systems/<s>/contracts.yaml stores, interfaces, schemas, messages, screens     the scan
   domains/<d>/systems/<s>/handlers.yaml  what runs on each endpoint, message, job, action    the scan
   scans/<org>/<name>.yaml                each repo's high-water mark                        tools/scan-mark.ts
-  plans/<plan>/plan.yaml                 baseline, changes, reasoning                       people
+  plans/<plan>/plan.yaml                 changes, context, reasoning                        people
+  plans/<plan>/base.lock.json            what an open plan fitted in today                  npm run plan:base -- check
+  plans/<plan>/base.yaml                 a shipped plan's frozen today                      npm run plan:base -- land
   MAP.md                                 the agents' map                                    npm run map -- md
 ```
 
@@ -34,11 +36,11 @@ app, job or external party (`svc:`), or a store (`st:`).
 ## Ground rules
 
 1. **The model is today; a plan is an overlay.** The system model describes production as it runs now, with no
-   plan present. A plan names its `baseline` (the Groundwork commit it read the model at) and lists what changes
-   as ops in `changes[].ops`. It never copies today: the app projects today onto the plan's footprint. The four
-   older plans still carry their own copy of today; new plans must not.
+   plan present. A plan lists what changes as ops in `changes[].ops`, and in `context` any ids it relies on but
+   does not otherwise name. It never copies today: an open plan reads today live, drawing the part its ops,
+   prose and `context` name, and a landed plan reads the `base.yaml` frozen when it shipped.
 2. **Ops**: `add`, `modify` (`set` / `append` / `drop`), `deprecate` (+ `replaced_by`), `remove`. They apply in
-   ledger order (changes top to bottom, ops top to bottom). An op may target any id in the model at the baseline,
+   ledger order (changes top to bottom, ops top to bottom). An op may target any id in the plan's today,
    or one added earlier in the ledger. An op that targets an id added later is an error.
 3. **Ids**: `<prefix>:<kebab-slug>`; flow steps `flow:<slug>#<slug>`; fields `sch:<slug>#<field_name>`. Unique
    across the workspace, meaningful, never numbered, never renamed. Quote ids containing `#`. Extracted ids
@@ -93,21 +95,21 @@ app, job or external party (`svc:`), or a store (`st:`).
 
 ## What is derived (never author it)
 
-| Derived                                                          | From                                                                                         |
-| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| status per entity, before and after, the to-be system            | ops applied in ledger order over the model at the baseline                                   |
-| a plan's today                                                   | the model projected onto what the plan's ops touch, one hop around, and the flows through it |
-| drift                                                            | ops whose targets changed or vanished since the baseline                                     |
-| connections, call trees, who calls whom and when                 | handler steps (`call`, `publish`, `read`, `write`, their guards and loops)                   |
-| edges, the components × stores grid, layout, lanes, team colours | flow steps, handlers, store `owner` and `access`                                             |
-| migration ladder (expand, migrate, deprecate, retire)            | `supersedes`, `deprecate`, `remove`, implementing work items                                 |
-| coverage and gaps                                                | `tests[].proves`, `level`, `walks`, step `via`                                               |
-| critical path, build waves, milestone-order violations           | `depends_on`, `size`, `milestone`                                                            |
-| blockers, overdue questions, the decision register               | `questions[].blocks`, `decide_by`, decisions and their citations                             |
-| done ticks and milestone progress                                | `plans/<plan>/status.json`, never the plan                                                   |
-| query plans, fan-out, cache paths, blast radius                  | operation documents, graph-type fields, subgraphs, caches                                    |
-| journey strips, before and after pictures, screens that change   | screens, step `screen`, ops on `scr:` ids                                                    |
-| staleness ("as of 3f9c2e1, 37 commits behind")                   | `scans/<org>/<name>.yaml` against the repo's branch                                          |
+| Derived                                                          | From                                                                                                                 |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| status per entity, before and after, the to-be system            | ops applied in ledger order over the plan's today                                                                    |
+| a plan's today                                                   | the model's entities the plan names (ops, prose, `context`), and everything they name in turn, landed plans excepted |
+| drift                                                            | ops whose targets changed or vanished since `base.lock.json`                                                         |
+| connections, call trees, who calls whom and when                 | handler steps (`call`, `publish`, `read`, `write`, their guards and loops)                                           |
+| edges, the components × stores grid, layout, lanes, team colours | flow steps, handlers, store `owner` and `access`                                                                     |
+| migration ladder (expand, migrate, deprecate, retire)            | `supersedes`, `deprecate`, `remove`, implementing work items                                                         |
+| coverage and gaps                                                | `tests[].proves`, `level`, `walks`, step `via`                                                                       |
+| critical path, build waves, milestone-order violations           | `depends_on`, `size`, `milestone`                                                                                    |
+| blockers, overdue questions, the decision register               | `questions[].blocks`, `decide_by`, decisions and their citations                                                     |
+| done ticks and milestone progress                                | `plans/<plan>/status.json`, never the plan                                                                           |
+| query plans, fan-out, cache paths, blast radius                  | operation documents, graph-type fields, subgraphs, caches                                                            |
+| journey strips, before and after pictures, screens that change   | screens, step `screen`, ops on `scr:` ids                                                                            |
+| staleness ("as of 3f9c2e1, 37 commits behind")                   | `scans/<org>/<name>.yaml` against the repo's branch                                                                  |
 
 Never write `status: new`, `seq`, colours, positions, "changed" flags, counts, a "before" copy of a step, or a copy
 of something the model already holds.

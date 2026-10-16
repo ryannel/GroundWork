@@ -60,9 +60,10 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
       concepts: [...model.story.concepts],
       stages: [...model.story.stages],
     },
-    teams: workspace.teams.map(({ id, name, colour }) => ({
+    teams: workspace.teams.map(({ id, name, colour, channel }) => ({
       id,
       name,
+      ...(channel === null ? {} : { channel }),
       ...(colour === null ? {} : { colour }),
     })),
     systems: systems.map((system) => ({

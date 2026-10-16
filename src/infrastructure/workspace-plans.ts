@@ -1,6 +1,7 @@
 import 'server-only';
 
 import type { Issue } from '@/application/plan/check-context';
+import type { BaseInfo } from '@/application/plan/plan-base';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
@@ -11,6 +12,8 @@ export interface LoadedPlan {
   readonly slug: string;
   readonly plan: Plan;
   readonly status: IssueStatus;
+  /** Where the plan's today comes from and whether today has moved under it. */
+  readonly base: BaseInfo;
 }
 
 /** A plan that is there but cannot be shown: what is wrong, each naming its place in plan.yaml. */
@@ -33,7 +36,7 @@ export async function readPlanState(
 ): Promise<PlanState | null> {
   const slugs = await listPlans(workspace, root);
   if (!slugs.includes(slug)) return null;
-  const { plan, errors, warnings } = await readPlan(
+  const { plan, errors, warnings, base } = await readPlan(
     workspace,
     slug,
     root === undefined ? {} : { root },
@@ -42,7 +45,10 @@ export async function readPlanState(
     const title = plan?.meta.title ?? null;
     return { loaded: null, broken: { slug, title, errors, warnings } };
   }
-  return { loaded: { slug, plan, status: await readStatus(workspace, slug, root) }, broken: null };
+  return {
+    loaded: { slug, plan, status: await readStatus(workspace, slug, root), base },
+    broken: null,
+  };
 }
 
 /** The plan at plans/<slug>, null when there is none or it has errors. */

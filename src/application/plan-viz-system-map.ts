@@ -181,6 +181,7 @@ function drawNode(kit: Kit, box: Box): DrawnNode {
     rows: rowsOf(kit, box),
     more: moreOf(kit, box),
     parts: partsOf(kit, box),
+    partCount: box.parts.length,
     folded: box.list,
   };
 }

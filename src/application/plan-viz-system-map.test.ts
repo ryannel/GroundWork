@@ -54,6 +54,10 @@ describe('system map layout', () => {
     expect(open?.nodes.filter((n) => n.system === system.id).length).toBeGreaterThan(0);
     expect(folded?.nodes.filter((n) => n.system === system.id).length).toBe(0);
     expect(folded?.nodes.find((n) => n.id === system.id)?.folded).toBe(true);
+    const inside = open?.nodes.filter((n) => n.system === system.id && n.part).length;
+    expect(inside).toBeGreaterThan(0);
+    expect(system.partCount).toBe(inside);
+    expect(folded?.nodes.find((n) => n.id === system.id)?.partCount).toBe(inside);
   });
 
   it('dims everything outside a team lens', async () => {

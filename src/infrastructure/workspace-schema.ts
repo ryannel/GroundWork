@@ -36,7 +36,12 @@ export const workspaceFile = z.strictObject({
   private: z.boolean().default(false),
   teams: z
     .array(
-      z.strictObject({ id, name: z.string(), colour: z.number().int().min(1).max(13).optional() }),
+      z.strictObject({
+        id,
+        name: z.string(),
+        colour: z.number().int().min(1).max(13).optional(),
+        channel: z.string().optional(),
+      }),
     )
     .default([]),
 });

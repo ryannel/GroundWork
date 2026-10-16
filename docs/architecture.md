@@ -60,7 +60,17 @@ structure stays the source of a component's name, tech and what it does.
   `check-handlers.ts` validates them; `derive-handler-edges.ts` turns their calls, publishes, reads and writes
   into edges merged into `edges()`; `derive-handlers.ts` gives the Model `handlerEdges`, `handlersOf` and
   `callTree`.
-- `src/infrastructure/plan-store.ts` reads plans, revisions and status, and validates them against the schema.
+- A plan holds no copy of today. It lists its changes as ops and, under `context`, the ids it relies on but
+  names nowhere else. `src/application/plan/plan-base.ts` reads a plan onto its base:
+  - an open plan's base is today, live from the system model, cut to the part the plan names (`scopeOf`: what
+    its versions name, and everything that names in turn, with a graph's root types trimmed to fields in reach);
+  - a landed plan's base is `base.yaml`, frozen from today when it shipped, so it reads against the system it
+    changed.
+    `base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target; when today moves
+    under them, the cover names the drift. `npm run plan:base -- check <plan>` validates and writes the lock;
+    `-- land <plan>` writes `base.yaml` and drops the lock. `src/infrastructure/plan-base-store.ts` loads both.
+- `src/infrastructure/plan-store.ts` reads plans, revisions and status onto their base, and validates them against
+  the schema.
 - The plan viewer is one feature, `src/features/plan/`, with subfolders per chapter. Charts that know the model
   stay in the feature; `ui` stays model-agnostic.
 

@@ -18,7 +18,7 @@ const workspace = (domains: Workspace['domains']): Workspace => ({
   name: 'W',
   description: null,
   isPrivate: false,
-  teams: [{ id: 'team:a', name: 'A', colour: null }],
+  teams: [{ id: 'team:a', name: 'A', colour: null, channel: null }],
   domains,
 });
 

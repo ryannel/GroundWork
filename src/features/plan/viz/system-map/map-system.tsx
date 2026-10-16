@@ -65,9 +65,9 @@ function PartRow({
 
 /** A system: components built and run as one. Open, its parts are cards inside the frame; folded, it lists them. */
 export function MapSystem({ node, onFold }: MapSystemProps) {
-  const count = node.parts.length;
+  const count = node.partCount;
   const first = node.head;
-  const parts = `${String(count)} ${count === 1 ? 'PART' : 'PARTS'}`;
+  const eyebrow = `${String(count)}-PART SYSTEM`;
   return (
     <>
       <rect
@@ -81,7 +81,7 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
       <Hit h={node.h} inspect={node.id} label={node.name} w={node.w} x={0} y={0} />
       <FlowGlyph glyph="⧉" x={20} y={9} />
       <text className={styles.eyebrow} x={34} y={14.5}>
-        {node.lens === 'out' ? 'OUTSIDE' : `SYSTEM · ${parts}`}
+        {node.lens === 'out' ? 'OUTSIDE' : eyebrow}
       </text>
       {node.lines.map((t, i) => (
         <text key={t} className={styles.name} x={20} y={SYS_NAME + i * LINE}>

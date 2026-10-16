@@ -120,7 +120,7 @@ export function approvedOn(model: Model): string {
 }
 
 export interface AskLink {
-  readonly chapter: 'commit' | 'build';
+  readonly chapter: 'commit' | 'build' | 'today';
   readonly screen: string;
   readonly label: string;
 }

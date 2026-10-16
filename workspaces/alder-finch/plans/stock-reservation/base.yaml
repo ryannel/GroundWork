@@ -1,0 +1,237 @@
+# Today as this plan found it, kept now the plan has landed. Today has moved on since; see the workspace.
+landed_on: "2026-07-17"
+
+teams:
+  - { id: team:checkout, name: "Checkout", channel: "#team-checkout", colour: 1 }
+  - { id: team:orders, name: "Orders", channel: "#team-orders", colour: 3 }
+  - { id: team:fulfilment, name: "Fulfilment", channel: "#team-fulfilment", colour: 4 }
+  - { id: team:customer-care, name: "Customer care", channel: "#customer-care", colour: 12 }
+
+systems:
+  - id: sys:fulfilment
+    name: "Fulfilment platform"
+    team: team:fulfilment
+    does: "Stock, allocation and the WMS wrapper"
+    summary: "The WMS integration layer, the allocation worker and the batch jobs deploy from one repo."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/catalog-info.yaml#L3-L12" }]
+
+services:
+  - id: svc:checkout
+    name: Checkout
+    team: team:checkout
+    kind: service
+    tech: "Go"
+    does: "Turns a cart into a paid order"
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/checkout/steps/payment.go#L1-L140" }]
+  - id: svc:cart
+    name: Cart
+    team: team:checkout
+    kind: service
+    tech: "Go"
+    does: "Holds what a shopper has picked"
+    sources: [{ url: "https://github.com/alder-finch/checkout/blob/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f/cart/main.go#L1-L60" }]
+  - id: svc:order-capture
+    name: Order capture
+    team: team:orders
+    kind: service
+    tech: "Kotlin · Spring Boot"
+    does: "Records the order and announces it"
+    sources: [{ url: "https://github.com/alder-finch/orders/blob/2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a/capture/src/main/kotlin/orders/CaptureController.kt#L24-L118" }]
+  - id: svc:wms
+    name: WMS
+    team: team:fulfilment
+    system: sys:fulfilment
+    kind: service
+    tech: "Manhattan Active · our integration layer"
+    does: "Stock, picking and shipping in the three warehouses"
+    summary: "Our layer over Manhattan. Exposes stock and shipments; Manhattan itself is not changed by this plan."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/wms/api/routes.py#L1-L80" }]
+  - id: svc:allocation
+    name: Allocation worker
+    team: team:fulfilment
+    system: sys:fulfilment
+    kind: job
+    tech: "Python · Kafka consumer"
+    does: "Picks the warehouse that ships each order line"
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/allocation/allocate.py#L40-L210" }]
+  - id: svc:oversell-report
+    name: Oversell report
+    team: team:fulfilment
+    system: sys:fulfilment
+    kind: job
+    tech: "Python · cron 03:00"
+    does: "Lists orders that could not be allocated for stock"
+    summary: "Emails Customer care a CSV of orders to cancel. The safety net this plan removes."
+    sources: [{ url: "https://github.com/alder-finch/fulfilment/blob/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a/jobs/oversell_report.py#L1-L60" }]
+
+stores:
+  - { id: st:cart-cache, name: cart-cache, kind: cache, tech: "Redis", owner: svc:cart, does: "Carts and checkout sessions, 30-day TTL", access: [{ svc: svc:checkout, mode: readwrite }] }
+  - { id: st:orders-db, name: orders-db, kind: database, tech: "Postgres 16", owner: svc:order-capture, does: "Orders and their lines" }
+  - { id: st:order-events, name: orders.events, kind: topic, tech: "Kafka", owner: svc:order-capture, does: "order.placed" }
+  - { id: st:wms-db, name: wms-db, kind: database, tech: "Manhattan · Oracle", owner: svc:wms, does: "Stock and shipments per warehouse", access: [{ svc: svc:allocation, mode: readwrite }, { svc: svc:oversell-report, mode: read }] }
+
+schemas:
+  - id: sch:checkout-session
+    name: CheckoutSession
+    kind: record
+    store: st:cart-cache
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: lines, type: "CartLine[]", required: true, note: "sku, qty" }
+      - { name: country, type: string, required: true }
+      - { name: step, type: "enum(address, delivery, payment, placed)", required: true }
+  - id: sch:order
+    name: Order
+    kind: record
+    store: st:orders-db
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: status, type: "enum(placed, allocated, shipped, delivered, cancelled)", required: true, default: placed }
+      - { name: cancel_reason, type: "enum(customer, fraud, no_stock)" }
+  - id: sch:order-line
+    name: OrderLine
+    kind: record
+    store: st:orders-db
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: order_id, type: uuid, required: true, ref: "sch:order#id" }
+      - { name: sku, type: string, required: true }
+      - { name: qty, type: int, required: true }
+      - { name: fc, type: "enum(berlin, malmo, lyon)", note: "Set by allocation." }
+  - id: sch:order-placed-v1
+    name: order.placed v1
+    kind: payload
+    fields:
+      - { name: order_id, type: uuid, required: true }
+      - { name: country, type: string, required: true }
+      - { name: lines, type: "OrderLine[]", required: true }
+  - id: sch:stock-level
+    name: StockLevel
+    kind: record
+    store: st:wms-db
+    fields:
+      - { name: sku, type: string, required: true, key: true }
+      - { name: fc, type: string, required: true, key: true }
+      - { name: on_hand, type: int, required: true }
+      - { name: allocated, type: int, required: true, note: "Taken by allocation after capture. Nothing holds stock before that." }
+  - id: sch:shipment
+    name: Shipment
+    kind: record
+    store: st:wms-db
+    fields:
+      - { name: id, type: uuid, required: true, key: true }
+      - { name: order_id, type: uuid, required: true, ref: "sch:order#id" }
+      - { name: fc, type: string, required: true }
+      - { name: lines, type: "ShipmentLine[]", required: true }
+  - id: sch:oversell-row
+    name: OversellRow
+    kind: dto
+    summary: "One line of the 03:00 CSV: order, SKU, qty short."
+    fields:
+      - { name: order_id, type: uuid, required: true }
+      - { name: sku, type: string, required: true }
+      - { name: short, type: int, required: true }
+
+interfaces:
+  - id: if:orders-rest
+    service: svc:order-capture
+    protocol: rest
+    endpoints:
+      - { id: api:orders-create, sig: "POST /orders", request: sch:checkout-session, response: sch:order, auth: "service token", idempotent: true }
+      - { id: api:orders-cancel, sig: "POST /orders/{id}/cancel", auth: "staff SSO", idempotent: true }
+  - id: if:wms-rest
+    service: svc:wms
+    protocol: rest
+    endpoints:
+      - { id: api:wms-stock, sig: "GET /stock/{sku}", response: sch:stock-level, auth: "service token", idempotent: true }
+      - { id: api:wms-create-shipment, sig: "POST /shipments", request: sch:shipment, response: sch:shipment, auth: "service token", idempotent: true }
+
+messages:
+  - id: msg:order-placed
+    name: order.placed
+    version: v1
+    topic: st:order-events
+    payload: sch:order-placed-v1
+    producer: svc:order-capture
+    consumers: [svc:allocation]
+    key: order_id
+    semantics: "At least once from an outbox."
+
+flows:
+  - id: flow:reserve
+    name: Pay and place the order
+    actor: Shopper
+    trigger: "The shopper reaches the payment step."
+    outcome: "An order exists. Whether stock exists for it is found out later."
+    steps:
+      - id: flow:reserve#payment-step
+        from: svc:checkout
+        to: svc:checkout
+        via: internal
+        action: Enter the payment step
+        logic: "Nothing checks stock here. The product page's *in stock* flag was the last look."
+        writes: ["sch:checkout-session#step"]
+      - id: flow:reserve#create
+        from: svc:checkout
+        to: svc:order-capture
+        via: api:orders-create
+        action: Create the order after payment
+        writes: [sch:order, sch:order-line]
+      - id: flow:reserve#publish
+        from: svc:order-capture
+        to: st:order-events
+        via: msg:order-placed
+        action: Announce the order
+        reads: [sch:order]
+  - id: flow:allocate
+    name: Allocate the order
+    actor: System
+    trigger: "`order.placed` arrives."
+    outcome: "Each line has a warehouse, or the order waits for the oversell report."
+    steps:
+      - id: flow:allocate#consume
+        from: st:order-events
+        to: svc:allocation
+        via: msg:order-placed
+        action: Take the order
+        reads: [sch:order-placed-v1]
+      - id: flow:allocate#choose
+        from: svc:allocation
+        to: svc:wms
+        via: api:wms-stock
+        action: Find a warehouse with stock
+        logic: "Nearest fulfilment centre (FC) with `on_hand - allocated >= qty`. First come, first served, minutes after payment."
+        reads: [sch:stock-level]
+        fails: "No FC has it: the line is left unallocated for the 03:00 report."
+      - id: flow:allocate#shipment
+        from: svc:allocation
+        to: svc:wms
+        via: api:wms-create-shipment
+        action: Create the shipment and take the stock
+        writes: [sch:shipment, "sch:stock-level#allocated"]
+  - id: flow:oversell-report
+    name: Find and cancel oversold orders
+    actor: Customer care
+    trigger: "03:00 every day."
+    outcome: "Oversold orders are cancelled by hand and the shopper is refunded."
+    steps:
+      - id: flow:oversell-report#scan
+        from: svc:oversell-report
+        to: svc:wms
+        via: api:wms-stock
+        action: List unallocated lines older than an hour
+        reads: [sch:stock-level]
+      - id: flow:oversell-report#email
+        from: svc:oversell-report
+        to: svc:oversell-report
+        via: internal
+        action: Email the CSV to Customer care
+        logic: "One [[sch:oversell-row]] per short line."
+      - id: flow:oversell-report#cancel
+        from: svc:oversell-report
+        to: svc:order-capture
+        via: api:orders-cancel
+        action: Cancel each order
+        logic: "By hand, from the CSV, with reason `no_stock`. Refund and apology email follow."
+        writes: ["sch:order#status", "sch:order#cancel_reason"]
+

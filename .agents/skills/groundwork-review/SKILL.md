@@ -34,10 +34,10 @@ the critical path with `meta.appetite`.
 ## Look for
 
 - **Overlay purity.** A new plan with its own `services`, `stores`, `schemas`, `interfaces`, `messages`, `flows`,
-  `screens` or `handlers`: Blocker; today lives in the model, and planned behaviour is an op. In the four older
-  plans that still carry today, future tense or new behaviour in today's `logic`, `summary` or `type` is a Blocker.
-- **Baseline and drift.** A plan without `baseline`, or one the app flags as drifted (an op whose target changed
-  or vanished since): Major; re-read the targets, fix the ops, move `baseline`.
+  `screens` or `handlers`: Blocker; today lives in the model, and planned behaviour is an op.
+- **Lock and drift.** An open plan without `base.lock.json`, or one whose cover says today has changed under it
+  (an op whose target changed or vanished since the lock): Major; re-read the targets, fix the ops, run
+  `npm run plan:base -- check <plan>`. A shipped plan without `base.yaml`: Minor; land it.
 - **Attribution and freshness.** Every component, endpoint, store, message and handler the plan touches cites code
   in the model, and the citation points at the thing it claims (a controller for an endpoint, a migration for a
   record). A repo behind its branch tip, or never scanned, under a change: Major; run

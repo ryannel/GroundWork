@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import type { Model } from '@/application/plan/derive';
+import type { BaseInfo } from '@/application/plan/plan-base';
 import type { ChapterKey, Outline, Page } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
 
@@ -21,6 +22,8 @@ export interface BodyProps {
   readonly page: Page;
   /** The plan's revisions, read for the versions chapter only. */
   readonly versions?: VersionsData | null;
+  /** Where the plan's today comes from; the cover says so. */
+  readonly base?: BaseInfo;
 }
 
 type Body = (props: BodyProps) => ReactNode;

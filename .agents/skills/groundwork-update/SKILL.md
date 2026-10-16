@@ -21,8 +21,8 @@ state,closedAt,url`, and write `workspaces/<ws>/plans/<plan>/status.json` in its
    milestones moved, questions opened or resolved, work items added, removed or moved between milestones, ops
    added or removed. Plan Atlas's semantic `diff.mjs` is not ported yet (TODO).
 3. **What changed underneath.** `git diff <ref> -- workspaces/<ws>/domains workspaces/<ws>/flows` for the system
-   model, and `workspaces/<ws>/scans/` for re-scans since. Any change to an id the plan's ops target is drift:
-   the plan was written against a different today (its `baseline`). Flag these separately; someone must say so
+   model, and `workspaces/<ws>/scans/` for re-scans since. Any change to an id the plan's ops target is drift,
+   and the plan's cover names it when `base.lock.json` no longer matches. Flag these separately; someone must say so
    out loud.
 4. **Health.** `npm test`, and the plan's pages under `npm run dev`: open and overdue questions, untested
    changes, gaps. Read `questions[].blocks` and `decide_by` to name the blockers.

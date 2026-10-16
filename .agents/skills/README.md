@@ -5,8 +5,8 @@ with a `SKILL.md` (its frontmatter `name` and `description` decide when it loads
 nudges, not tutorials: the conventions, the loop, the tools, and where facts go.
 
 The system model (workspace › domain › system › component, with contracts and handlers) is what is true today,
-extracted from code by scans and corrected by people. Plans are overlays: ops on the model's ids against a
-`baseline`, never a copy of today.
+extracted from code by scans and corrected by people. Plans are overlays: ops on the model's ids, read onto today
+while open and onto a frozen copy once landed, never a copy of today.
 
 | Skill                 | Use it to                                                                                                                                                       | Tools it leans on                                                                          |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -15,7 +15,7 @@ extracted from code by scans and corrected by people. Plans are overlays: ops on
 | `groundwork-ask/`     | Answer questions about the systems from the map first, then the cited code, and say when a repo's map is stale.                                                 | `npm run map`, `MAP.md`, `git`                                                             |
 | `groundwork-plan/`    | Write a plan as an overlay: footprint from the map, fill gaps with a scan, ops on system ids (including `h:` handlers), the reasoning, the room.                | `npm run map`, `groundwork-scan`, `npm test`                                               |
 | `groundwork-schema/`  | Ground rules, what is derived and what the validator checks (`SKILL.md`; fields live in `schema/`), op recipes (`cookbook.md`).                                 | `npm test`                                                                                 |
-| `groundwork-review/`  | Review a plan before the session: overlay purity, drift from its baseline, attribution and freshness, the newcomer walk, findings as YAML fixes.                | `npm test`, `tools/sources.ts --check`, `npm run map -- repos`                             |
+| `groundwork-review/`  | Review a plan before the session: overlay purity, drift from its lock, attribution and freshness, the newcomer walk, findings as YAML fixes.                    | `npm test`, `tools/sources.ts --check`, `npm run map -- repos`                             |
 | `groundwork-revise/`  | Revise a plan through git: propose a version in the revision ledger, edit ops with stable ids, open the PR; later approve or reject. A human merges.            | `git`, `gh`                                                                                |
 | `groundwork-issues/`  | File work items as GitHub issues in dependency order and write the numbers back.                                                                                | `gh`                                                                                       |
 | `groundwork-update/`  | Weekly update: issue state into `status.json`, what changed in the plan and underneath it, health, a note of 200 words at most for a human to post.             | `gh`, `git`                                                                                |

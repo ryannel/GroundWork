@@ -42,8 +42,8 @@ const shop: Workspace = {
   description: 'Everything we sell.',
   isPrivate: false,
   teams: [
-    { id: 'team:a', name: 'Alpha', colour: 1 },
-    { id: 'team:b', name: 'Beta', colour: null },
+    { id: 'team:a', name: 'Alpha', colour: 1, channel: null },
+    { id: 'team:b', name: 'Beta', colour: null, channel: null },
   ],
   domains: [
     {

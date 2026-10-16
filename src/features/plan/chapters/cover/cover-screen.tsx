@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Model } from '@/application/plan/derive';
 import type { Outline } from '@/application/plan-pages';
 import { coverOf } from '@/application/plan-story-cover';
+import { baseLine } from '@/application/plan-story-cover-base';
 import type { AskLine, AskLink } from '@/application/plan-story-cover-standing';
 import { teamName } from '@/application/plan-viz-teams';
 import { ModelInline, ModelText } from '@/features/plan/common/model-text';
@@ -92,15 +93,16 @@ function Door({ model, outline }: { readonly model: Model; readonly outline: Out
 }
 
 // What ships and why, what the room is asked to do now, and a door to each team's part.
-export function CoverScreen({ model, outline }: BodyProps) {
+export function CoverScreen({ model, outline, base }: BodyProps) {
   const cover = coverOf(model);
+  const line = base === undefined ? null : baseLine(base, (id) => model.label(id));
   return (
     <>
       <PageHeader
         description={<ModelText model={model} text={cover.summary} />}
         title={cover.title}
       />
-      <Ask lines={cover.ask} outline={outline} />
+      <Ask lines={line === null ? cover.ask : [...cover.ask, line]} outline={outline} />
       <Stats model={model} />
       <Door model={model} outline={outline} />
     </>

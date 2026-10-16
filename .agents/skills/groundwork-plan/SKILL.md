@@ -1,6 +1,6 @@
 ---
 name: groundwork-plan
-description: Plan a cross-team change in Groundwork and write it as an overlay on the system model (workspaces/<ws>/plans/<plan>/plan.yaml) - a baseline, changes as ops on system ids (including handlers), and the plan's own reasoning (why, decisions, risks, tests, work, milestones). Use when someone brings a feature idea and asks to plan it, to see what it touches, or to extend an existing plan. Fills gaps in the system model with groundwork-explore first, confirms facts with the people in plain language, validates.
+description: Plan a cross-team change in Groundwork and write it as an overlay on the system model (workspaces/<ws>/plans/<plan>/plan.yaml) - changes as ops on system ids (including handlers), and the plan's own reasoning (why, decisions, risks, tests, work, milestones). Use when someone brings a feature idea and asks to plan it, to see what it touches, or to extend an existing plan. Fills gaps in the system model with groundwork-explore first, confirms facts with the people in plain language, validates.
 ---
 
 # Plan a change
@@ -49,7 +49,8 @@ Ask for these in one message, then start:
    (a permalink from `show`). Walk today's flows and handlers the feature will touch and ask "is this really how it
    works?" Corrections go to the model as `curated` entries or `system.yaml` edits, not to the plan.
 4. **Write the plan with them** ([template](templates/plan.skeleton.yaml)):
-   - `baseline`: the Groundwork repo commit the plan reads the system model at (`git rev-parse HEAD` after step 3).
+   - `context`: ids the plan relies on but does not change and names nowhere else (a flow it must not break, a
+     consumer of a message it alters). Everything the ops and prose name is drawn from today already.
    - Why (`problem`): the press-release paragraph, evidence, metrics with today → target in plain words a product
      manager could read aloud (no parameter names, status codes or store names), non-goals, two scenarios.
    - The change ledger: `changes[]`, each a reviewable delta, ideally one owning team, as ops on system ids.
@@ -92,7 +93,7 @@ changes:
               then: [{ return: 422 no_vat_rule }]
 ```
 
-- **Every op targets an id in the system model** at the baseline, or one the plan adds. `add` brings in something
+- **Every op targets an id in the system model** as it stands today, or one the plan adds. `add` brings in something
   new; `modify` with `set`, `append` or `drop` changes something that exists; `deprecate … replaced_by` and
   `remove` retire. Recipes in [the cookbook](../groundwork-schema/cookbook.md).
 - **Handlers change like anything else**: `add: handler` for a new endpoint's or consumer's logic,
@@ -101,11 +102,14 @@ changes:
   [handlers.md](../groundwork-explore/handlers.md). A new call between components is a `call` step in a handler,
   plus the endpoint if it is new.
 - **Never copy today.** No `services`, `stores`, `schemas`, `interfaces`, `messages`, `flows`, `screens` or
-  `handlers` at the top level of a new plan: those live in the model. `teams` lists the teams in the room.
-  The four plans in `workspaces/alder-finch/plans/` predate the model and still carry their own today; do not
-  copy them as examples for that part.
-- If the model moved since the baseline, the app flags drift on ops whose targets changed or vanished. Re-read
-  them, update the ops, and move `baseline` forward.
+  `handlers` at the top level of a plan: those live in the model, and the app reads an open plan onto today
+  live. `teams` lists the teams in the room; a team the plan does not list is drawn from today.
+- **Lock what the plan fitted.** `npm run plan:base -- check <plan>` validates the plan on today and writes
+  `base.lock.json`, a fingerprint of everything its `modify`, `remove` and `after` ops target. When the model moves
+  under one of those targets, the plan's cover says so and names them. Re-read them, fix the ops, and run `check`
+  again to move the lock forward.
+- **Land it when it ships.** `npm run plan:base -- land <plan>` freezes today's part of the model into
+  `base.yaml` and drops the lock, so a shipped plan keeps reading against the system it changed, not today.
 
 ## Conventions
 
@@ -155,11 +159,8 @@ every workspace. Until `tools/validate-workspace.ts` exists (a TODO in
 npm test                                     # the plan and model tests read workspaces/
 npm run dev                                  # then open /<ws>/plans/<plan>/ and walk every chapter
 node tools/sources.ts workspaces/<ws>        # the model's facts still cite code
+npm run plan:base -- check <plan>            # fits today; writes base.lock.json
 ```
-
-Overlay plans (a `baseline` and no copy of today) are being built in the app now. Until they land, the schema
-may still ask for `services` and refuse `baseline`; keep the plan as an overlay anyway, note it in the hand-back,
-and do not paste today into it to make it pass.
 
 ## Done when
 
