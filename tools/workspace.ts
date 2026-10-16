@@ -24,6 +24,7 @@ import { parseArgs } from 'node:util';
 
 import { stringify } from 'yaml';
 
+import { languageWarnings } from '@/application/workspace-language';
 import { systemModelOf } from '@/application/workspace-model';
 import { listPlans } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
@@ -169,7 +170,7 @@ The systems ${name} runs today, and the plans that change them, for [Groundwork]
 
 - \`workspace.yaml\`: the teams and the actors who use the systems.
 - \`domains/<domain>/systems/<system>/\`: each system, its components and its contracts, read from the code.
-- \`flows/\`, \`journeys/\`, \`story.yaml\`: how the systems work together today.
+- \`flows/\`, \`journeys/\`, \`story.yaml\` and each domain's \`language.yaml\`: how the systems work together today, and the words they use.
 - \`scans/<org>/<repo>.yaml\`: the commit each code repo was last read at.
 - \`plans/<plan>/\`: the plans, each put onto today's model.
 
@@ -253,8 +254,11 @@ async function check(given: string): Promise<void> {
   const model = await readWorkspaceModel(workspace);
   const today = await checkPlanData(systemModelOf(workspace, model).plan);
   for (const issue of today.errors) console.error(`today: ${issue.path}: ${issue.message}`);
-  if (values.warnings)
+  const language = languageWarnings(workspace, model);
+  if (values.warnings) {
     for (const issue of today.warnings) console.warn(`today: ${issue.path}: ${issue.message}`);
+    for (const issue of language) console.warn(`language: ${issue}`);
+  }
   const slugs = await listPlans(workspace.id);
   const states = await Promise.all(slugs.map(async (slug) => readPlanState(workspace.id, slug)));
   const broken = states.flatMap((state) => (state?.broken ? [state.broken] : []));
@@ -267,8 +271,12 @@ async function check(given: string): Promise<void> {
     count(workspace.domains.length, 'domain'),
     count(systems, 'system'),
     count(model.flows.length, 'flow'),
+    count(
+      model.languages.reduce((sum, { concepts }) => sum + concepts.length, 0),
+      'concept',
+    ),
     `${String(read)} of ${count(slugs.length, 'plan')} read`,
-    count(today.warnings.length, 'warning'),
+    count(today.warnings.length + language.length, 'warning'),
   ];
   console.log(`${workspace.id}: ${counts.join(', ')}`);
   if (broken.length > 0 || today.errors.length > 0) process.exitCode = 1;

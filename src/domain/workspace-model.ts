@@ -68,6 +68,14 @@ export interface Story {
   readonly stages: readonly Stage[];
 }
 
+/** A domain's language: the words its systems use and what each means. From domains/<domain>/language.yaml. */
+export interface DomainLanguage {
+  readonly domain: string;
+  /** The domain told in its own words. */
+  readonly summary: string | null;
+  readonly concepts: readonly Concept[];
+}
+
 /** The high-water mark of one repo: the commit the system model reflects. From scans/<repo>.yaml. */
 export interface Scan {
   readonly repo: string;
@@ -82,6 +90,8 @@ export interface Scan {
 
 export interface WorkspaceModel {
   readonly story: Story;
+  /** One per domain that has a language.yaml, in domain order. */
+  readonly languages: readonly DomainLanguage[];
   readonly flows: readonly Flow[];
   readonly journeys: readonly UserJourney[];
   readonly interactions: readonly Interaction[];

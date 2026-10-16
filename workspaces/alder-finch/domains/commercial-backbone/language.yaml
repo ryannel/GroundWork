@@ -1,0 +1,41 @@
+# The words commercial-backbone uses and what each means. A word lives in the domain where it is born.
+
+concepts:
+  - id: con:product
+    origin: seeded
+    name: Product
+    terms:
+      - product
+      - SKU
+      - item
+      - article
+    means:
+      'Something we sell: one SKU with its attributes, translations and images. Created in the PIM; every other system
+      keeps a copy.'
+    born_in: svc:pim
+    aka:
+      - in: svc:pim
+        as: Product
+        at: sch:product
+      - in: svc:catalog-api
+        as: CatalogProduct
+        at: sch:catalog-product
+        note: Read copy per locale.
+      - in: svc:translation-hub
+        as: ProductTranslation
+        at: sch:product-translation
+        note: One row per product and locale.
+      - in: svc:pricing
+        as: Price
+        at: sch:price
+        note: Pricing only knows the SKU and its price points.
+      - in: svc:search-indexer
+        as: SearchDocument
+        at: sch:search-document
+      - in: svc:storefront-bff
+        as: ProductView
+        at: sch:product-view
+      - in: svc:wms
+        as: StockLevel
+        at: sch:stock-level
+        note: The warehouse knows the SKU as a stock position per FC.

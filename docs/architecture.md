@@ -19,9 +19,10 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
 ```
 <workspace>/workspace.yaml            format, teams, the people (actors) who use the systems, and key journeys
   domains/<domain>/domain.yaml
-    systems/<system>/system.yaml      components and what they talk to
+    language.yaml                     the domain's words: summary and concepts (system model)
+    systems/<system>/system.yaml      purpose, components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
-  story.yaml                          summary, concepts and stages (system model)
+  story.yaml                          summary and stages across domains (system model)
   flows/<flow>.yaml                   one flow per file (system model)
   journeys/<journey>.yaml             a user journey and its interactions (system model)
   assets/                             screen drawings cited by journeys
@@ -62,6 +63,12 @@ symbol?}`; the permalink is derived, never stored (a bare `{url}` is still read,
 `contracts.yaml` holds a system's stores, interfaces, schemas, messages, screens, graphs, subgraphs and
 operations, plus `components:` detail (kind, summary, sources) for components named in `system.yaml`. The
 structure stays the source of a component's name, tech and what it does.
+
+A system is a bounded context: one team and one language. A domain's `language.yaml` holds the words its systems
+use, each a concept with what it means, where it is born (`born_in`, a component, so its home system follows) and
+what each other system calls it (`aka`). A word lives in the domain where it is born; `npm run workspace -- check`
+warns when it does not (`src/application/workspace-language.ts`). Every domain's words join today's
+`domain.concepts`, so plans and views read one language.
 
 - `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,
   nested ids included) and `Scan` (a repo's high-water mark).

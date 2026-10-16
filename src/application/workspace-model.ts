@@ -57,7 +57,7 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
     problem: { summary: workspace.description ?? `How the systems of ${workspace.name} work.` },
     domain: {
       ...(model.story.summary === null ? {} : { summary: model.story.summary }),
-      concepts: [...model.story.concepts],
+      concepts: [...model.story.concepts, ...model.languages.flatMap(({ concepts }) => concepts)],
       stages: [...model.story.stages],
     },
     teams: workspace.teams.map(({ id, name, colour, channel }) => ({

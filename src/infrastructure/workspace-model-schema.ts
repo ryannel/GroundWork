@@ -56,6 +56,11 @@ export const storyFile = z.strictObject({
   stages: entries,
 });
 
+export const languageFile = z.strictObject({
+  summary: z.string().optional(),
+  concepts: entries,
+});
+
 export const journeyFile = z.strictObject({
   journey: z.unknown().optional(),
   interactions: entries,

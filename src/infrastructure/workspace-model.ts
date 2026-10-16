@@ -8,13 +8,26 @@ import type { z } from 'zod';
 
 import type { Flow, Interaction, UserJourney } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
-import type { Scan, Story, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';
+import type {
+  DomainLanguage,
+  Scan,
+  Story,
+  SystemContracts,
+  WorkspaceModel,
+} from '@/domain/workspace-model';
 
 import { workspaceFolder } from './workspace-folders';
 import { type Reading, readingOf } from './workspace-model-facts';
-import { contractsFile, journeyFile, scanFile, storyFile } from './workspace-model-schema';
+import {
+  contractsFile,
+  journeyFile,
+  languageFile,
+  scanFile,
+  storyFile,
+} from './workspace-model-schema';
 
-// workspaces/<workspace>/story.yaml                 summary, concepts, stages
+// workspaces/<workspace>/story.yaml                 summary, stages (and concepts that belong to no domain)
+//   domains/<domain>/language.yaml                  the domain's summary and concepts
 //   flows/<flow>.yaml                               one flow per file
 //   journeys/<journey>.yaml                         a user journey and its interactions
 //   domains/<domain>/systems/<system>/contracts.yaml what the system's components offer and keep
@@ -34,6 +47,12 @@ export async function readWorkspaceModel(
   const journeys = await readEach(path.join(folder, 'journeys'), async (raw, file) =>
     readJourney(raw, file, reading),
   );
+  const languages: DomainLanguage[] = [];
+  for (const domain of workspace.domains) {
+    const file = path.join(folder, 'domains', domain.id, 'language.yaml');
+    const language = await readLanguage(domain.id, file, reading);
+    if (language !== null) languages.push(language);
+  }
   const contracts: SystemContracts[] = [];
   for (const domain of workspace.domains) {
     for (const system of domain.systems) {
@@ -44,6 +63,7 @@ export async function readWorkspaceModel(
   const scans = await readEach(path.join(folder, 'scans'), scanOf);
   return {
     story,
+    languages,
     flows,
     journeys: journeys.flatMap(({ journey }) => (journey === undefined ? [] : [journey])),
     interactions: journeys.flatMap(({ interactions }) => interactions),
@@ -60,6 +80,21 @@ async function readStory(folder: string, reading: Reading): Promise<Story> {
     summary: data.summary ?? null,
     concepts: await reading.in(file).facts('concept', data.concepts),
     stages: await reading.in(file).facts('stage', data.stages),
+  };
+}
+
+async function readLanguage(
+  domain: string,
+  file: string,
+  reading: Reading,
+): Promise<DomainLanguage | null> {
+  const raw = await readFile(file, 'utf8').catch(() => null);
+  if (raw === null) return null;
+  const data = parsed(file, languageFile, parse(raw) ?? {});
+  return {
+    domain,
+    summary: data.summary ?? null,
+    concepts: await reading.in(file).facts('concept', data.concepts),
   };
 }
 
