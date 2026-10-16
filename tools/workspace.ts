@@ -1,27 +1,38 @@
 // Make and register workspaces. A workspace is its own repo: its system model and its plans, kept anywhere on disk.
 //   npm run workspace -- new <folder> --id <id> --name <name> [--description <text>] [--private]
 //       make a workspace repo in <folder> (missing or empty), commit it, and register it here
-//   npm run workspace -- add <folder>
-//       register a workspace repo that is already on this machine, such as a fresh clone
+//   npm run workspace -- add <folder | repo URL> [--folder <folder>]
+//       register a workspace repo: one already on this machine, or a repo URL, which is cloned into
+//       .workspaces/<name> (or --folder) and listed by URL so that pull can fetch it again
+//   npm run workspace -- pull
+//       clone every listed repo not yet on this machine and fast-forward the rest; the way to set up a fresh
+//       Groundwork checkout from a groundwork.local.yaml, and to bring every workspace up to date
+//   npm run workspace -- remove <id>
+//       stop reading a workspace; its folder or clone is left where it is
 //   npm run workspace -- check <folder> [--warnings]
 //       read the workspace and its model of today, check every reference in the model resolves, and read every
 //       plan onto it, as the app does; exits 1 on any error. --warnings lists the model's warnings too
 //   npm run workspace -- list
 //       the workspaces this checkout reads, and where each one is
-// Registering writes the folder into groundwork.local.yaml (git-ignored, one per machine) and links Groundwork's
+// Registering writes the folder or repo into groundwork.local.yaml (git-ignored, one per machine) and links Groundwork's
 // skills into the workspace repo as .agents/skills, .claude/skills and .github/skills, which its .gitignore keeps
 // out of git. Restart `npm run dev` after registering: Next does not watch folders outside this checkout.
 import { execFileSync } from 'node:child_process';
-import { lstat, mkdir, readdir, readFile, symlink, writeFile } from 'node:fs/promises';
+import { lstat, mkdir, readdir, symlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 
-import { parse, stringify } from 'yaml';
+import { stringify } from 'yaml';
 
 import { systemModelOf } from '@/application/workspace-model';
 import { listPlans } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
-import { registeredAt } from '@/infrastructure/workspace-folders';
+import {
+  folderOf,
+  type LocalEntry,
+  readLocal,
+  registeredAt,
+} from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readPlanState } from '@/infrastructure/workspace-plans';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
@@ -38,6 +49,7 @@ const { positionals, values } = parseArgs({
     id: { type: 'string' },
     name: { type: 'string' },
     description: { type: 'string' },
+    folder: { type: 'string' },
     private: { type: 'boolean', default: false },
     warnings: { type: 'boolean', default: false },
   },
@@ -51,24 +63,33 @@ async function validate(folder: string): Promise<string> {
   return workspace.id;
 }
 
-async function localFile(): Promise<Record<string, unknown>> {
-  const text = await readFile(LOCAL, 'utf8').catch(() => null);
-  const data: unknown = text === null ? {} : parse(text);
-  return typeof data === 'object' && data !== null ? { ...data } : {};
+const HEADER =
+  '# The workspaces this checkout reads, besides the examples in workspaces/. One per machine; not in git.\n' +
+  '# Each is a folder on this machine, or `repo: <url>` (with an optional `folder:`), which\n' +
+  '# `npm run workspace -- pull` clones into .workspaces/. `bundled: false` leaves the examples out.\n' +
+  '# Written by `npm run workspace`; copy it to another checkout and run pull to read the same workspaces.\n';
+
+async function writeLocal(workspaces: readonly LocalEntry[], bundled: boolean): Promise<void> {
+  await writeFile(
+    LOCAL,
+    HEADER + stringify({ ...(bundled ? {} : { bundled: false }), workspaces }),
+  );
 }
 
-async function register(folder: string): Promise<void> {
-  const local = await localFile();
-  const listed = Array.isArray(local.workspaces) ? local.workspaces.map(String) : [];
-  const known = listed.map((each) => path.resolve(HOME, each));
-  if (!known.includes(folder)) {
-    const header =
-      '# The workspace repos this checkout reads, besides the examples in workspaces/. One per machine; not in git.\n' +
-      '# Written by `npm run workspace`; `bundled: false` leaves the examples out.\n';
-    const next = { ...local, workspaces: [...listed, folder] };
-    await writeFile(LOCAL, header + stringify(next));
-  }
+const where = (entry: LocalEntry): string => path.resolve(HOME, folderOf(entry));
+
+async function register(entry: LocalEntry): Promise<void> {
+  const { workspaces, bundled } = await readLocal(HOME);
+  if (!workspaces.some((each) => where(each) === where(entry)))
+    await writeLocal([...workspaces, entry], bundled);
   await registeredAt(HOME, { local: true });
+}
+
+/** Whether `given` names a repo to clone rather than a folder on this machine. */
+const isRepo = (given: string): boolean => given.includes('://') || /^[\w.-]+@[\w.-]+:/.test(given);
+
+function git(args: readonly string[], cwd = HOME): void {
+  execFileSync('git', args, { cwd, stdio: 'inherit' });
 }
 
 async function linkSkills(folder: string): Promise<void> {
@@ -87,11 +108,45 @@ async function linkSkills(folder: string): Promise<void> {
 }
 
 async function add(given: string): Promise<void> {
-  const folder = path.resolve(given);
+  let entry: LocalEntry = path.resolve(given);
+  if (isRepo(given)) {
+    entry = values.folder === undefined ? { repo: given } : { repo: given, folder: values.folder };
+    const into = where(entry);
+    const there = await readdir(into).catch(() => null);
+    if (there === null) git(['clone', '--', given, into]);
+    else if (there.length > 0) console.log(`${into} is already there; using it as it is`);
+  }
+  const folder = where(entry);
   const id = await validate(folder);
-  await register(folder);
+  await register(entry);
   await linkSkills(folder);
   console.log(`registered ${id} at ${folder}; restart npm run dev to see it at /${id}/`);
+}
+
+async function pull(): Promise<void> {
+  const { workspaces } = await readLocal(HOME);
+  for (const entry of workspaces) {
+    if (typeof entry === 'string') continue;
+    const into = where(entry);
+    const there = await lstat(into).catch(() => null);
+    console.log(`${entry.repo} → ${path.relative(HOME, into)}`);
+    if (there === null) git(['clone', '--', entry.repo, into]);
+    else git(['pull', '--ff-only'], into);
+  }
+  await Promise.all(workspaces.map(async (entry) => linkSkills(where(entry))));
+  await list();
+}
+
+async function remove(id: string): Promise<void> {
+  const found = await registeredAt(HOME, { local: true });
+  const folder = found.get(id);
+  if (folder === undefined) throw new Error(`no workspace ${id} is registered`);
+  const { workspaces, bundled } = await readLocal(HOME);
+  const kept = workspaces.filter((entry) => where(entry) !== folder);
+  if (kept.length === workspaces.length)
+    throw new Error(`${id} is an example in workspaces/; set bundled: false to leave them out`);
+  await writeLocal(kept, bundled);
+  console.log(`no longer reading ${id}; its folder is still at ${folder}`);
 }
 
 function workspaceYaml(id: string, name: string): string {
@@ -118,10 +173,11 @@ The systems ${name} runs today, and the plans that change them, for [Groundwork]
 - \`scans/<org>/<repo>.yaml\`: the commit each code repo was last read at.
 - \`plans/<plan>/\`: the plans, each put onto today's model.
 
-To view it, clone Groundwork beside this repo and register it:
+To view it, clone Groundwork and, in that checkout, link this repo by its URL (Groundwork clones it into
+\`.workspaces/\`) or by the folder you keep it in:
 
 \`\`\`sh
-npm run workspace -- add ../${repo}
+npm run workspace -- add <this repo's URL>   # or: npm run workspace -- add ../${repo}
 npm run dev
 \`\`\`
 `;
@@ -226,13 +282,17 @@ async function list(): Promise<void> {
 const [command, folder] = positionals;
 if (command === 'list') {
   await list();
+} else if (command === 'pull') {
+  await pull();
+} else if (command === 'remove' && folder !== undefined) {
+  await remove(folder);
 } else if (command === 'check' && folder !== undefined) {
   await check(folder);
 } else if ((command === 'new' || command === 'add') && folder !== undefined) {
   await (command === 'new' ? make(folder) : add(folder));
 } else {
   console.error(
-    'usage: npm run workspace -- <new|add|check> <folder> | list; see the head of tools/workspace.ts',
+    'usage: npm run workspace -- new|add|check <folder> | remove <id> | pull | list; see tools/workspace.ts',
   );
   process.exitCode = 1;
 }

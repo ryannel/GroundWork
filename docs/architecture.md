@@ -40,14 +40,17 @@ it for a workspace's folder by id:
 - `GROUNDWORK_WORKSPACES`, when set, names the only workspace folders read (separated by `:`, or `;` on Windows).
   A company's build uses it so that its site carries no other workspace: `private: true` only keeps a workspace
   off the lists, and a static build holds every workspace it read.
-- Otherwise the examples in `workspaces/`, and the folders `groundwork.local.yaml` lists. That file is
-  git-ignored, one per machine; `bundled: false` leaves the examples out. Tests ignore it and read only the
-  examples.
+- Otherwise the examples in `workspaces/`, and the workspaces `groundwork.local.yaml` lists. That file is
+  git-ignored, one per checkout, so whoever clones Groundwork links the workspaces they want. An entry is a folder
+  on this machine, or `repo: <url>` with an optional `folder:`, cloned into `.workspaces/<name>` (git-ignored)
+  by `npm run workspace -- pull`; a listed repo that is not cloned yet is an error that says to pull.
+  `bundled: false` leaves the examples out. Tests ignore the file and read only the examples.
 - A listed folder without a `workspace.yaml`, two folders with one id, or a local file with unknown keys is an
   error, never skipped. A workspace's id is the `id` in its `workspace.yaml`, whatever its folder is called.
 
-`npm run workspace -- new|add|check|list` makes a workspace repo, registers one, reads one as the app does, and
-lists what is registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks people through it.
+`npm run workspace -- new|add|pull|remove|check|list` makes a workspace repo, links one by folder or repo URL,
+clones or fast-forwards the linked repos, stops reading one, reads one as the app does, and lists what is
+registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks people through it.
 Registering links Groundwork's skills into the workspace repo, git-ignored there. The list is read once per
 process, so restart `npm run dev` after registering; Next does not watch folders outside its checkout either.
 

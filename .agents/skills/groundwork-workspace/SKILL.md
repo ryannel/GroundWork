@@ -68,14 +68,20 @@ name,description,primaryLanguage,isArchived`), leave out archived and personal r
 9. **Hand over** to [groundwork-scan](../groundwork-scan/SKILL.md) to read the repos into components, contracts and
    handlers, each fact with its sources.
 
-## Register one that exists
+## Link one that exists
 
-Someone has cloned a workspace repo and the app does not show it:
+Someone has a fresh Groundwork checkout, or a workspace repo the app does not show. Link it by its repo URL, and
+Groundwork clones it into `.workspaces/<name>` (git-ignored) and remembers the URL; or by a folder already on this
+machine, which suits someone who also works on the workspace repo beside Groundwork:
 
 ```bash
-npm run workspace -- add ../<id>-groundwork   # checks it, registers it, links the skills into it
-npm run workspace -- list                     # what this checkout reads, and where
+npm run workspace -- add git@github.com:<org>/<id>-groundwork.git   # clones it, checks it, registers it
+npm run workspace -- add ../<id>-groundwork                         # a folder already on this machine
+npm run workspace -- pull     # clone what is missing and fast-forward the linked repos
+npm run workspace -- list     # what this checkout reads, and where
+npm run workspace -- remove <id>                                    # stop reading one; its folder stays
 ```
 
-Then restart `npm run dev`. `add` refuses a folder without a `workspace.yaml`, and two folders with the same id;
-fix the folder rather than working round it.
+Each also links these skills into the workspace. Restart `npm run dev` afterwards. `add` refuses a folder without
+a `workspace.yaml`, and two folders with the same id; fix the folder rather than working round it. To set up
+another checkout with the same workspaces, copy `groundwork.local.yaml` across and run `pull`.

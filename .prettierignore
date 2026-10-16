@@ -9,3 +9,4 @@ next-env.d.ts
 workspaces/*/plans/
 schema/
 workspaces/*/MAP.md
+.workspaces
