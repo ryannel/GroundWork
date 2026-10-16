@@ -25,7 +25,12 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
       systemsOf(workspace).flatMap((system) => system.repos),
       (repo) => `repo ${repo}: listed by two systems; a repo belongs to one system`,
     ),
+    ...repeated(
+      workspace.actors.map((actor) => actor.id),
+      (id) => `actor ${id}: the id is used twice`,
+    ),
     ...teamProblems(workspace),
+    ...actorProblems(workspace),
     ...connectionProblems(workspace),
   ];
   const warnings = [
@@ -84,5 +89,14 @@ function connectionProblems(workspace: Workspace): readonly string[] {
         (connection) =>
           `component ${component.id}: talks to ${connection.to}, which no system holds`,
       ),
+  );
+}
+
+function actorProblems(workspace: Workspace): readonly string[] {
+  const components = new Set(componentsOf(workspace).map((component) => component.id));
+  return workspace.actors.flatMap((actor) =>
+    actor.uses
+      .filter((id) => !components.has(id))
+      .map((id) => `actor ${actor.id}: uses ${id}, which no system holds`),
   );
 }

@@ -1,0 +1,53 @@
+@layer components {
+  .lines {
+    pointer-events: none;
+  }
+
+  .line {
+    transition: opacity 120ms;
+
+    &[data-lit='dim'] {
+      opacity: 0.12;
+    }
+  }
+
+  .path {
+    fill: none;
+    stroke: var(--edge-strong);
+    stroke-width: 1.5;
+    pointer-events: stroke;
+
+    .line[data-kind='msg'] & {
+      stroke-dasharray: 6 4;
+    }
+
+    .line[data-kind='data'] & {
+      stroke-dasharray: 2 4;
+      stroke-linecap: round;
+    }
+
+    .line[data-kind='use'] & {
+      stroke: var(--fg-3);
+    }
+
+    .line[data-lit='hot'] & {
+      stroke: var(--accent);
+      stroke-width: 2.25;
+    }
+  }
+
+  .head {
+    fill: var(--edge-strong);
+  }
+
+  .label {
+    fill: var(--fg-1);
+    font-size: var(--fs-12);
+    text-anchor: middle;
+    dominant-baseline: middle;
+    paint-order: stroke;
+    stroke: var(--bg-0);
+    stroke-width: 4;
+    stroke-linejoin: round;
+  }
+}

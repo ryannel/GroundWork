@@ -43,12 +43,23 @@ export interface Team {
   readonly channel: string | null;
 }
 
+/** Someone outside the systems who uses them: a shopper, a category manager, warehouse staff. */
+export interface Actor {
+  readonly id: string;
+  readonly name: string;
+  /** Who they are, in a line. */
+  readonly summary: string | null;
+  /** The components they use, beyond those the flows they start already show. */
+  readonly uses: readonly string[];
+}
+
 export interface Workspace {
   readonly id: string;
   readonly name: string;
   readonly description: string | null;
   readonly isPrivate: boolean;
   readonly teams: readonly Team[];
+  readonly actors: readonly Actor[];
   readonly domains: readonly Domain[];
 }
 
@@ -58,4 +69,11 @@ export function systemsOf(workspace: Workspace): readonly System[] {
 
 export function componentsOf(workspace: Workspace): readonly Component[] {
   return systemsOf(workspace).flatMap((system) => system.components);
+}
+
+/** What a system is for, in the words of its namesake component, or of its first own component that says. */
+export function systemDoes(system: System): string {
+  const says = system.components.filter((c) => c.type !== 'external' && c.does !== null);
+  const lead = says.find((c) => c.name === system.name) ?? says.find((c) => c.type === 'service');
+  return (lead ?? says[0])?.does ?? '';
 }

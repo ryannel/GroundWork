@@ -18,6 +18,7 @@ const shop: Workspace = {
   description: null,
   isPrivate: false,
   teams: [],
+  actors: [],
   domains: [
     { id: 'sales', name: 'Sales', purpose: null, systems: [system('price', 'Price')] },
     {

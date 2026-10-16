@@ -44,4 +44,14 @@ export const workspaceFile = z.strictObject({
       }),
     )
     .default([]),
+  actors: z
+    .array(
+      z.strictObject({
+        id: id.refine((value) => value.startsWith('actor:'), 'an actor id starts with actor:'),
+        name: z.string(),
+        summary: z.string().optional(),
+        uses: z.array(id).default([]),
+      }),
+    )
+    .default([]),
 });

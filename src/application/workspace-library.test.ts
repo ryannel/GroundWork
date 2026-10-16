@@ -10,6 +10,7 @@ const workspace = (id: string, isPrivate: boolean, systems: number): Workspace =
   description: null,
   isPrivate,
   teams: [],
+  actors: [],
   domains: [
     {
       id: 'd',

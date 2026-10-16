@@ -1,0 +1,250 @@
+@layer components {
+  .box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    box-sizing: border-box;
+    height: 100%;
+    padding: var(--s-3) var(--s-4);
+    overflow: hidden;
+    border: 1px solid var(--line-3);
+    border-radius: var(--r-3);
+    background: var(--node-bg);
+    box-shadow: var(--shadow-1);
+    transition:
+      opacity 120ms,
+      border-color 120ms;
+
+    &[data-kind='actor'] {
+      border-radius: var(--r-4);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--bg-1);
+    }
+
+    &[data-kind='external'] {
+      padding: 0;
+      border-style: dashed;
+      background: var(--bg-1);
+    }
+
+    &[data-kind='frame'] {
+      padding: var(--s-3) var(--s-4);
+      border-color: var(--line-2);
+      background: var(--bg-1);
+      box-shadow: none;
+    }
+
+    &[data-kind='system'] {
+      padding: 0;
+    }
+
+    &[data-kind='domain']:hover {
+      border-color: var(--accent-line);
+    }
+
+    &[data-lit='hot'] {
+      border-color: var(--accent);
+    }
+
+    &[data-lit='dim'] {
+      opacity: 0.35;
+    }
+  }
+
+  .cover {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+      border-radius: var(--r-3);
+    }
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    box-sizing: border-box;
+    height: 100%;
+    padding: var(--s-3) var(--s-4) var(--s-3) var(--s-5);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--bg-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+    }
+  }
+
+  .eyebrow {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .name {
+    position: relative;
+    color: var(--fg-1);
+    font-family: var(--font-display);
+    font-size: var(--fs-16);
+    font-weight: 600;
+    line-height: var(--lh-tight);
+    text-decoration: none;
+
+    &:is(a):hover {
+      color: var(--accent-fg);
+      text-decoration: underline;
+    }
+  }
+
+  .text {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    line-height: var(--lh-snug);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+
+    .box:is([data-kind='actor'], [data-kind='external'], [data-kind='system']) & {
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+  }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    pointer-events: none;
+  }
+
+  .dots {
+    display: flex;
+    gap: var(--s-1);
+  }
+
+  .more {
+    color: var(--accent-fg);
+    font-size: var(--fs-12);
+  }
+
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  .fold {
+    padding: var(--s-0) var(--s-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--node-bg);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--fg-1);
+    }
+  }
+
+  .team {
+    width: var(--s-2);
+    height: var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--fg-3);
+
+    .card > & {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: var(--s-1);
+      height: auto;
+      border-radius: 0;
+    }
+  }
+
+  .team[data-team='1'] {
+    background: var(--team-1);
+  }
+
+  .team[data-team='2'] {
+    background: var(--team-2);
+  }
+
+  .team[data-team='3'] {
+    background: var(--team-3);
+  }
+
+  .team[data-team='4'] {
+    background: var(--team-4);
+  }
+
+  .team[data-team='5'] {
+    background: var(--team-5);
+  }
+
+  .team[data-team='6'] {
+    background: var(--team-6);
+  }
+
+  .team[data-team='7'] {
+    background: var(--team-7);
+  }
+
+  .team[data-team='8'] {
+    background: var(--team-8);
+  }
+
+  .team[data-team='9'] {
+    background: var(--team-9);
+  }
+
+  .team[data-team='10'] {
+    background: var(--team-10);
+  }
+
+  .team[data-team='11'] {
+    background: var(--team-11);
+  }
+
+  .team[data-team='12'] {
+    background: var(--team-12);
+  }
+
+  .team[data-team='13'] {
+    background: var(--team-13);
+  }
+}

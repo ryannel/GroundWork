@@ -17,7 +17,7 @@ deployable microservice, worker or job), a **store** (a database), a **topic** (
 user-facing app. Say "service" only when you mean that kind; say "component" when you mean any of them.
 
 ```
-workspaces/<workspace>/workspace.yaml
+workspaces/<workspace>/workspace.yaml   teams, and the people (actors) who use the systems
   domains/<domain>/domain.yaml
     systems/<system>/system.yaml      components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
@@ -48,6 +48,26 @@ structure stays the source of a component's name, tech and what it does.
   no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or
   stores) and derives it, so every plan view can draw today. A test proves the alder-finch document has no
   validation errors, draws every component and resolves every flow step.
+
+### The landscape
+
+A workspace's front page draws one canvas (`src/features/workspace/landscape-map.client.tsx`). Folded, each
+domain is a box and the lines between them are the context map; open one and its systems take its place, as in a
+C4 system landscape. Components appear only on domain, system and plan pages.
+
+- People sit in a band along the top, outside services (external components) along the bottom, each placed
+  under the middle of what it connects to. Actors are listed in `workspace.yaml` (`actor:` ids, with the
+  systems they `use`); flow actors other than "System" are added.
+- `landscape-map-input.ts` gathers the boxes and component links from today's model; `landscape-map-rollup.ts`
+  rolls every link up to whatever box shows its ends, so a line between two folded domains stands for all the
+  calls, events and reads between them.
+- `landscape-map-layout.ts` places the boxes; an open domain is one column of systems. `landscape-map-route.ts`
+  runs lines square: through the channel under the people or over the outside services, and through the corridor
+  beside an open domain, so no line crosses a system. `landscape-map-path.ts` gives each line its own lane in
+  every channel and corridor; the layout is drawn twice, the second time with room for the lanes the first
+  needed.
+- Resting on a box or line lights what it connects to and names what the lines carry; "Light up" lights the
+  boxes and lines a journey or flow crosses.
 
 ### Plans
 

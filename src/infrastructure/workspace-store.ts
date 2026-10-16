@@ -39,6 +39,12 @@ async function readWorkspace(folder: string): Promise<Workspace> {
       colour: colour ?? null,
       channel: channel ?? null,
     })),
+    actors: file.actors.map(({ id, name, summary, uses }) => ({
+      id,
+      name,
+      summary: summary ?? null,
+      uses,
+    })),
     domains,
   };
   const { errors } = checkWorkspace(workspace);

@@ -66,3 +66,20 @@ teams:
     name: Customers
     channel: '#team-customers'
     colour: 12
+actors:
+  - id: actor:shopper
+    name: Shopper
+    summary: Finds a product, buys it and waits for it at the door.
+    uses: [svc:storefront-web]
+  - id: actor:category-manager
+    name: Category manager
+    summary: Puts products into the range and keeps their details right.
+    uses: [svc:pim-admin]
+  - id: actor:pricing-analyst
+    name: Pricing analyst
+    summary: Sets the rules that price each product.
+    uses: [svc:price-rules-admin]
+  - id: actor:warehouse-staff
+    name: Warehouse staff
+    summary: Pick, pack and hand each order to the carrier.
+    uses: [svc:wms]

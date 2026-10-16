@@ -2,13 +2,13 @@ import path from 'node:path';
 
 import { describe, expect, it, vi } from 'vitest';
 
-import type { Component, Workspace } from '@/domain/workspace';
+import { type Component, type Workspace, systemDoes } from '@/domain/workspace';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 import { neighboursOf } from './today-neighbours';
 import { domainViewOf } from './workspace-domain';
-import { landscapeOf, systemDoes } from './workspace-landscape';
+import { landscapeOf } from './workspace-landscape';
 import { systemModelOf } from './workspace-model';
 import { domainPaths, findWorkspace, systemPaths } from './workspace-paths';
 import { systemViewOf } from './workspace-system';
@@ -45,6 +45,7 @@ const shop: Workspace = {
     { id: 'team:a', name: 'Alpha', colour: 1, channel: null },
     { id: 'team:b', name: 'Beta', colour: null, channel: null },
   ],
+  actors: [],
   domains: [
     {
       id: 'sales',
@@ -96,7 +97,7 @@ const shop: Workspace = {
 };
 
 describe('landscapeOf', () => {
-  it('says what the workspace runs, and gives each domain its systems and its part in the journeys', async () => {
+  it('says what the workspace runs, draws its domains in order of the work, and names who runs what', async () => {
     const { workspace, model } = await alder();
     const view = landscapeOf(workspace, model);
     expect(view.headline).toMatch(/^Alder & Finch runs 14 systems in 3 domains/);
@@ -109,12 +110,19 @@ describe('landscapeOf', () => {
     ]);
     expect(view.journeys.slice(0, 2).map((j) => j.kind)).toEqual(['journey', 'journey']);
     expect(view.journeys.every((j) => j.href.startsWith('/alder-finch/journeys/'))).toBe(true);
-    const website = view.domains.find((d) => d.id === 'website')!;
+    expect(view.map.domains.map((d) => d.id)).toEqual([
+      'domain:commercial-backbone',
+      'domain:website',
+      'domain:order-to-delivery',
+    ]);
+    const website = view.map.domains.find((d) => d.id === 'domain:website')!;
     expect(website.href).toBe('/alder-finch/website/');
-    expect(website.role).toMatch(/^In 2 user journeys and \d+ flows$/);
-    expect(website.systems.find((s) => s.id === 'checkout')?.does).toBe(
+    expect(website.systems.find((s) => s.id === 'sys:checkout')?.does).toBe(
       'Turns a cart into a paid order',
     );
+    const checkout = view.teams.find((t) => t.id === 'team:checkout')!;
+    expect(checkout.slot).toBe(1);
+    expect(checkout.systems.map((s) => s.href)).toContain('/alder-finch/website/checkout/');
   });
 
   it('says only what it runs when the workspace says nothing of itself', async () => {

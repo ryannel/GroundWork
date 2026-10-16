@@ -28,6 +28,7 @@ const shop: Workspace = {
   description: null,
   isPrivate: false,
   teams: [],
+  actors: [],
   domains: [
     {
       id: 'members',

@@ -1,9 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import { workspaceScopeOf } from '@/application/model-scope';
 import { landscapeOf } from '@/application/workspace-landscape';
 import { workspaceNavOf } from '@/application/workspace-nav';
-import { TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
+import { TodayOverlays, TodaySearch } from '@/features/plan';
 import { LandscapePage } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
@@ -29,9 +28,6 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
       actions={<TodaySearch />}
       folder={workspace.id}
       landscape={landscapeOf(workspace, today.model)}
-      map={
-        <TodayMap model={today.model} scope={workspaceScopeOf(workspace)} workspace={workspace} />
-      }
       nav={workspaceNavOf(workspace, plans, { today: today.model })}
       overlays={<TodayOverlays depth={0} workspace={workspace} />}
       plans={plans}

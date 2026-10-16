@@ -4,10 +4,10 @@ import { andList } from '@/application/plan-viz-ladder-order';
 import { type Catalogue, catalogueOf } from '@/application/today-catalogue';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
-import type { Workspace } from '@/domain/workspace';
+import { type Workspace, systemDoes } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { roleOf, systemDoes } from './workspace-landscape';
+import { roleOf } from './workspace-landscape';
 import { systemHref, teamOf, workspaceHref } from './workspace-paths';
 
 // A domain page teaches how its systems work together: what the domain is for, the map of its components with the

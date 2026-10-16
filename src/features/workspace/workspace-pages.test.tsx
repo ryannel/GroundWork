@@ -31,13 +31,12 @@ const inspectable = (container: HTMLElement, id: string): Element | null =>
   container.querySelector(`[data-inspect="${id}"]`);
 
 describe('LandscapePage', () => {
-  it('says what is true, draws the map it is given, and links journeys and domains', async () => {
+  it('says what is true, draws the landscape, and links journeys, domains and teams', async () => {
     const { workspace, model } = await alder();
     render(
       <LandscapePage
         folder="alder-finch"
         landscape={landscapeOf(workspace, model)}
-        map={<p>the map</p>}
         nav={[]}
         overlays={<p>the inspector</p>}
         plans={[]}
@@ -45,7 +44,8 @@ describe('LandscapePage', () => {
     );
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Alder & Finch');
     expect(screen.getByText(/^Alder & Finch runs 14 systems in 3 domains/)).toBeTruthy();
-    expect(screen.getByText('the map')).toBeTruthy();
+    expect(screen.getByRole('img', { name: /people, domains and outside services/ })).toBeTruthy();
+    expect(screen.getByText('#team-checkout')).toBeTruthy();
     expect(screen.getByText('the inspector')).toBeTruthy();
     const buy = screen
       .getAllByRole('link')

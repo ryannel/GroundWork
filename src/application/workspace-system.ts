@@ -6,10 +6,9 @@ import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
 import { type RepoRow, reposOf } from '@/application/today-repos';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
 import type { SystemModel } from '@/application/workspace-model';
-import type { Workspace } from '@/domain/workspace';
+import { type Workspace, systemDoes } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { systemDoes } from './workspace-landscape';
 import { domainHref, teamOf, workspaceHref } from './workspace-paths';
 
 // A system page teaches how one system works: what it does and who runs it, how fresh our reading of its code is,

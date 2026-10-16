@@ -19,12 +19,27 @@ const workspace = (domains: Workspace['domains']): Workspace => ({
   description: null,
   isPrivate: false,
   teams: [{ id: 'team:a', name: 'A', colour: null, channel: null }],
+  actors: [],
   domains,
 });
 
 const via = (to: string, kind: 'api' | 'message') => ({ to, via: kind });
 
 describe('checkWorkspace', () => {
+  it('names an actor used twice, or one who uses a component no system holds', () => {
+    const map: Workspace = {
+      ...workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s')] }]),
+      actors: [
+        { id: 'actor:a', name: 'A', summary: null, uses: ['s:c'] },
+        { id: 'actor:a', name: 'A', summary: null, uses: ['gone'] },
+      ],
+    };
+    expect(checkWorkspace(map).errors).toEqual([
+      'actor actor:a: the id is used twice',
+      'actor actor:a: uses gone, which no system holds',
+    ]);
+  });
+
   it('passes a sound map', () => {
     expect(
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s')] }])),

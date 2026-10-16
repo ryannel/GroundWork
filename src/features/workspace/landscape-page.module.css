@@ -9,45 +9,110 @@
     border-top: 1px solid var(--line-2);
   }
 
-  .domains {
+  .teams {
     display: grid;
-    gap: var(--s-3);
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     margin: 0;
     padding: 0;
+    border-top: 1px solid var(--line-1);
     list-style: none;
   }
 
-  .purpose {
-    margin: 0 0 var(--s-3);
-    color: var(--fg-1);
-  }
-
-  .systems {
+  .team {
     display: grid;
-    gap: var(--s-1);
-    margin: 0 0 var(--s-3);
-    padding: 0;
+    grid-template-columns: 14rem 1fr auto;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--line-1);
     font-size: var(--fs-13);
-    list-style: none;
   }
 
-  .system {
+  .who {
+    display: inline-flex;
+    gap: var(--s-2);
+    align-items: center;
     color: var(--fg-1);
     font-weight: 600;
   }
 
-  .does {
-    color: var(--fg-2);
+  .dot {
+    width: var(--s-2);
+    height: var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--fg-3);
+  }
 
-    &::before {
-      content: ' · ';
+  .runs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+  }
+
+  .system {
+    color: var(--fg-2);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent-fg);
+      text-decoration: underline;
     }
   }
 
-  .size {
-    margin: 0;
+  .channel {
     color: var(--fg-3);
+    font-family: var(--font-mono);
     font-size: var(--fs-12);
+  }
+
+  .dot[data-team='1'] {
+    background: var(--team-1);
+  }
+
+  .dot[data-team='2'] {
+    background: var(--team-2);
+  }
+
+  .dot[data-team='3'] {
+    background: var(--team-3);
+  }
+
+  .dot[data-team='4'] {
+    background: var(--team-4);
+  }
+
+  .dot[data-team='5'] {
+    background: var(--team-5);
+  }
+
+  .dot[data-team='6'] {
+    background: var(--team-6);
+  }
+
+  .dot[data-team='7'] {
+    background: var(--team-7);
+  }
+
+  .dot[data-team='8'] {
+    background: var(--team-8);
+  }
+
+  .dot[data-team='9'] {
+    background: var(--team-9);
+  }
+
+  .dot[data-team='10'] {
+    background: var(--team-10);
+  }
+
+  .dot[data-team='11'] {
+    background: var(--team-11);
+  }
+
+  .dot[data-team='12'] {
+    background: var(--team-12);
+  }
+
+  .dot[data-team='13'] {
+    background: var(--team-13);
   }
 }

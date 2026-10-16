@@ -195,6 +195,7 @@ describe('footprints', () => {
     description: '',
     isPrivate: false,
     teams: [],
+    actors: [],
     domains: [
       {
         id: 'sales',
