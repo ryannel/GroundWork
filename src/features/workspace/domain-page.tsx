@@ -22,6 +22,8 @@ interface DomainPageProps {
   readonly map?: ReactNode;
   /** The list of flows with a step here, beside the one chosen; drawn by the route. */
   readonly flows?: ReactNode;
+  /** The words the domain owns and what each system calls them; drawn by the route. */
+  readonly language?: ReactNode;
   /** The plans landing on the domain's systems; leave out and the section is not drawn. */
   readonly parts?: readonly PlanPart[];
   readonly overlays?: ReactNode;
@@ -63,9 +65,10 @@ function Section({
 }
 
 // One domain, in the order a newcomer learns it: what it is for, the plans that would change it, where it ends,
-// the map of its components, the flows and user journeys through it, each system, and what it offers, announces
-// and keeps. A domain can carry hundreds of flows, so they are a list beside the one drawn, not a wall of cards.
-export function DomainPage({ view, nav, map, flows, parts, overlays, actions }: DomainPageProps) {
+// the map of its components, the flows and user journeys through it, each system, the words it owns, and what it
+// offers, announces and keeps. A domain can carry hundreds of flows, so they are a list beside the one drawn, not a wall of cards.
+export function DomainPage(props: DomainPageProps) {
+  const { view, nav, map, flows, language, parts, overlays, actions } = props;
   return (
     <WorkspaceShell
       actions={actions}
@@ -116,6 +119,14 @@ export function DomainPage({ view, nav, map, flows, parts, overlays, actions }: 
       <Section says="What each system does, who runs it and where its code is." title="Systems">
         <SystemCards systems={view.systems} />
       </Section>
+      {language === undefined || language === null ? null : (
+        <Section
+          says="The words this domain owns: what each means, where it is created, and what each system calls it. Click a word to see it."
+          title="Language"
+        >
+          {language}
+        </Section>
+      )}
       <Section
         says="The calls the domain answers, the events it announces and the data it keeps. Click a name to see it."
         title="Interfaces, events and data"

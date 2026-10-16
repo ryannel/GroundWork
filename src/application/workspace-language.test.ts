@@ -2,7 +2,7 @@ import path from 'node:path';
 
 import { describe, expect, it, vi } from 'vitest';
 
-import { languageWarnings } from './workspace-language';
+import { domainWordsOf, languageWarnings } from './workspace-language';
 import { systemModelOf } from './workspace-model';
 
 vi.mock('server-only', () => ({}));
@@ -34,5 +34,12 @@ describe('a domain language', () => {
     expect(languageWarnings(workspace, moved)).toEqual([
       "con:product is born in svc:pim, in commercial-backbone; write it in domains/commercial-backbone/language.yaml, not website's",
     ]);
+  });
+
+  it('gives each domain only its own words, and nothing where none are written', () => {
+    const words = domainWordsOf(read.languages, 'commercial-backbone');
+    expect(words?.concepts).toContain('con:product');
+    expect(words?.concepts).not.toContain('con:reservation');
+    expect(domainWordsOf(read.languages, 'nowhere')).toBeNull();
   });
 });

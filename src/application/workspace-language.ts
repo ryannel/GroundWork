@@ -2,7 +2,7 @@
 // the domain of the system whose component mints its id.
 
 import type { Workspace } from '@/domain/workspace';
-import type { WorkspaceModel } from '@/domain/workspace-model';
+import type { DomainLanguage, WorkspaceModel } from '@/domain/workspace-model';
 
 /** The domain each component sits in, by component id. */
 function domainsByComponent(workspace: Workspace): Map<string, string> {
@@ -25,4 +25,21 @@ export function languageWarnings(workspace: Workspace, model: WorkspaceModel): s
       ];
     }),
   );
+}
+
+export interface DomainWords {
+  /** The domain told in its own words; empty when its language.yaml has none. */
+  readonly summary: string;
+  /** The ids of the words the domain owns, as written. */
+  readonly concepts: readonly string[];
+}
+
+/** The words one domain owns; null when it has written none down. */
+export function domainWordsOf(
+  languages: readonly DomainLanguage[],
+  domain: string,
+): DomainWords | null {
+  const language = languages.find((each) => each.domain === domain);
+  if (language === undefined || language.concepts.length === 0) return null;
+  return { summary: language.summary ?? '', concepts: language.concepts.map((c) => c.id) };
 }

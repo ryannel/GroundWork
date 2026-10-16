@@ -5,6 +5,7 @@ import {
   type NamesPlan,
   domainView,
   namesPlan,
+  narrowedTo,
 } from '@/application/plan-viz-domain';
 import { teamOf } from '@/application/plan-viz-teams';
 import { EntityChip } from '@/features/plan/common/entity-chip';
@@ -17,6 +18,8 @@ export interface NamesProps {
   readonly model: Model;
   /** Only what runs today. */
   readonly today?: boolean;
+  /** Only these concepts, by id. */
+  readonly only?: readonly string[];
 }
 
 function Cell({ cell, name }: { readonly cell: NameCell; readonly name: string }) {
@@ -124,8 +127,8 @@ function Line({ model, line }: { readonly model: Model; readonly line: NameLine 
  * What each system calls the same thing: a table where concepts share names across systems, otherwise one
  * sentence per concept with a second name. Nothing when no concept has one.
  */
-export function Names({ model, today = false }: NamesProps) {
-  const names = namesPlan(model, domainView(model, today));
+export function Names({ model, today = false, only }: NamesProps) {
+  const names = namesPlan(model, narrowedTo(domainView(model, today), only));
   if (names.kind === 'none') return null;
   if (names.kind === 'table') return <Table model={model} names={names} />;
   return (

@@ -1,5 +1,10 @@
 import type { Model } from '@/application/plan/derive';
-import { type ConceptCard, conceptCards, domainView } from '@/application/plan-viz-domain';
+import {
+  type ConceptCard,
+  conceptCards,
+  domainView,
+  narrowedTo,
+} from '@/application/plan-viz-domain';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { ModelText } from '@/features/plan/common/model-text';
 
@@ -9,6 +14,8 @@ export interface ConceptCardsProps {
   readonly model: Model;
   /** Only what runs today: no concept the plan introduces. */
   readonly today?: boolean;
+  /** Only these concepts, by id. */
+  readonly only?: readonly string[];
 }
 
 function Card({ model, card }: { readonly model: Model; readonly card: ConceptCard }) {
@@ -40,8 +47,8 @@ function Card({ model, card }: { readonly model: Model; readonly card: ConceptCa
 }
 
 /** One card per concept: what it means, where it is created, what it is part of and relates to. */
-export function ConceptCards({ model, today = false }: ConceptCardsProps) {
-  const cards = conceptCards(domainView(model, today));
+export function ConceptCards({ model, today = false, only }: ConceptCardsProps) {
+  const cards = conceptCards(narrowedTo(domainView(model, today), only));
   if (cards.length === 0) return null;
   return (
     <ul className={styles.cards}>

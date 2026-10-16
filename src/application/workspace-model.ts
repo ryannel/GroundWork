@@ -13,6 +13,7 @@ import {
 import type {
   Attribution,
   ComponentDetail,
+  DomainLanguage,
   Scan,
   SystemContracts,
   WorkspaceModel,
@@ -25,6 +26,8 @@ export interface SystemModel {
   readonly attribution: Readonly<Record<string, Attribution>>;
   /** The commit each repo was last read at. */
   readonly scans: readonly Scan[];
+  /** Each domain's words, from its language.yaml. */
+  readonly languages: readonly DomainLanguage[];
 }
 
 const SERVICE_KIND: Record<ComponentType, Service['kind'] | null> = {
@@ -44,7 +47,13 @@ const STORE_KIND: Partial<Record<ComponentType, Store['kind']>> = {
 
 export function systemModelOf(workspace: Workspace, model: WorkspaceModel): SystemModel {
   const plan = systemPlanOf(workspace, model);
-  return { plan, model: derive(plan), attribution: model.attribution, scans: model.scans };
+  return {
+    plan,
+    model: derive(plan),
+    attribution: model.attribution,
+    scans: model.scans,
+    languages: model.languages,
+  };
 }
 
 function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {

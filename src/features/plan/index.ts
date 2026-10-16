@@ -9,3 +9,4 @@ export { TodayCatalogue, TodayReference } from './today/reference-pages';
 export { TodayMap } from './today/today-map';
 export { FlowList } from './today/flow-list.client';
 export { TodayFlow } from './today/today-flows';
+export { TodayLanguage } from './today/today-language';

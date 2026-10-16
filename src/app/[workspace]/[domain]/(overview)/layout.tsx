@@ -4,9 +4,10 @@ import type { ReactNode } from 'react';
 import { domainScopeOf } from '@/application/model-scope';
 import { partsFor, type PlanPart } from '@/application/plan-footprint';
 import { domainViewOf } from '@/application/workspace-domain';
+import { domainWordsOf } from '@/application/workspace-language';
 import { workspaceNavOf } from '@/application/workspace-nav';
 import { domainPaths } from '@/application/workspace-paths';
-import { FlowList, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
+import { FlowList, TodayLanguage, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { DomainPage } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
@@ -53,6 +54,7 @@ export default async function DomainLayout({ params, children }: Props) {
   const { workspace, today, plans } = data;
   const loaded = await readLoadedPlans(workspace.id);
   const systems = workspace.domains.find((d) => d.id === domain)?.systems ?? [];
+  const words = domainWordsOf(today.languages, domain);
   const parts = merged(
     systems.flatMap((s) => partsFor(workspace, { domain, system: s.id }, loaded)),
   );
@@ -60,6 +62,7 @@ export default async function DomainLayout({ params, children }: Props) {
     <DomainPage
       actions={<TodaySearch />}
       flows={<FlowList flows={view.flows}>{children}</FlowList>}
+      language={words === null ? null : <TodayLanguage model={today.model} words={words} />}
       map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
       nav={workspaceNavOf(workspace, plans, { domain, today: today.model })}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}

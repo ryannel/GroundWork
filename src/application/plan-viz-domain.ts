@@ -104,6 +104,13 @@ function relationsOf(
   return out;
 }
 
+/** The domain narrowed to some of its concepts, such as one workspace domain's words; all of them when not given. */
+export function narrowedTo(view: DomainView, only: readonly string[] | undefined): DomainView {
+  if (only === undefined) return view;
+  const keep = new Set(only);
+  return { ...view, concepts: view.concepts.filter((c) => keep.has(c.id)) };
+}
+
 /** One card per concept: name, meaning, where it is created, relations. */
 export function conceptCards(domain: DomainView): ConceptCard[] {
   const known = new Set(domain.concepts.map((c) => c.id));
