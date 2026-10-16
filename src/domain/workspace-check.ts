@@ -53,10 +53,20 @@ export const RESERVED_PAGES: readonly string[] = [
   'assets',
 ];
 
+/** Page names beside the systems at /<workspace>/<domain>/<name>/, so no system may take one. */
+export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows'];
+
 function reservedDomains(workspace: Workspace): readonly string[] {
-  return workspace.domains
-    .filter((domain) => RESERVED_PAGES.includes(domain.id))
-    .map((domain) => `domain ${domain.id}: the id is reserved for the ${domain.id} pages`);
+  return [
+    ...workspace.domains
+      .filter((domain) => RESERVED_PAGES.includes(domain.id))
+      .map((domain) => `domain ${domain.id}: the id is reserved for the ${domain.id} pages`),
+    ...systemsOf(workspace)
+      .filter((system) => RESERVED_SYSTEM_PAGES.includes(system.id))
+      .map(
+        (system) => `system ${system.id}: the id is reserved for the domain's ${system.id} pages`,
+      ),
+  ];
 }
 
 function repeated(values: readonly string[], problem: (value: string) => string): string[] {

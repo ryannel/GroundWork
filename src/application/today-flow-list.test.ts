@@ -13,7 +13,7 @@ const someFlow = shop.asIs.flows[0]!;
 const focus = new Set([someFlow.steps[0]!.to]);
 
 describe('flowEntriesOf', () => {
-  const entries = flowEntriesOf(shop, focus, (id) => `/f/${id}/`);
+  const entries = flowEntriesOf(shop, { focus, hrefOf: (id) => `/f/${id}/` });
 
   it('keeps only the flows with a step in the focus, most steps there first', () => {
     expect(entries.map((e) => e.id)).toContain(someFlow.id);
@@ -28,5 +28,10 @@ describe('flowEntriesOf', () => {
     expect(found.entry).toBe(shop.label(someFlow.steps[0]!.to));
     expect(found.href).toBe(`/f/${someFlow.id}/`);
     expect(found.terms).toContain(found.entry.toLowerCase());
+  });
+
+  it('groups by whatever the caller names', () => {
+    const grouped = flowEntriesOf(shop, { focus, hrefOf: (id) => id, groupOf: () => 'Shop' });
+    expect(new Set(grouped.map((e) => e.entry))).toEqual(new Set(['Shop']));
   });
 });

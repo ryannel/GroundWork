@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import type { JourneyCard } from '@/application/today-scope';
 import { Badge } from '@/ui/badge';
 import { Card } from '@/ui/card';
@@ -44,5 +46,32 @@ export function JourneyCards({ cards }: { readonly cards: readonly JourneyCard[]
         </li>
       ))}
     </ul>
+  );
+}
+
+/** Most user journeys a domain or system page shows before pointing at the full list. */
+const MOST_JOURNEYS_HERE = 6;
+
+// The user journeys with steps in a domain or system, busiest first and capped, with the way to all of them. Its
+// flows are listed beside the drawing, so they are not repeated here.
+export function JourneysHere({
+  cards,
+  all,
+}: {
+  readonly cards: readonly JourneyCard[];
+  readonly all: string;
+}) {
+  const people = cards.filter((card) => card.kind === 'journey');
+  return (
+    <>
+      {people.length === 0 ? (
+        <p className={styles.none}>No user journey has a step here yet.</p>
+      ) : (
+        <JourneyCards cards={people.slice(0, MOST_JOURNEYS_HERE)} />
+      )}
+      <p className={styles.more}>
+        <Link href={all}>All journeys and flows in the workspace →</Link>
+      </p>
+    </>
   );
 }

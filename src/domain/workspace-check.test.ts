@@ -88,6 +88,10 @@ describe('checkWorkspace', () => {
     ]);
     expect(warnings).toEqual(['system s: has no components yet']);
     expect(
+      checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('flows')] }]))
+        .errors,
+    ).toContain("system flows: the id is reserved for the domain's flows pages");
+    expect(
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [] }])).warnings,
     ).toEqual(['domain d: has no systems yet']);
   });

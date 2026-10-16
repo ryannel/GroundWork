@@ -2,13 +2,15 @@ import { domainScopeOf } from '@/application/model-scope';
 import type { Model } from '@/application/plan/derive';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { type Catalogue, catalogueOf } from '@/application/today-catalogue';
+import { type FlowEntry, flowEntriesOf } from '@/application/today-flow-list';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
+import { journeysHref } from '@/application/today-reader';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
 import { type Workspace, systemDoes } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
 import { roleOf } from './workspace-landscape';
-import { systemHref, teamOf, workspaceHref } from './workspace-paths';
+import { domainFlowHref, systemHref, teamOf, workspaceHref } from './workspace-paths';
 
 // A domain page teaches how its systems work together: what the domain is for, the map of its components with the
 // systems one step outside, the journeys that run through it, each system, and what it offers, announces and keeps.
@@ -30,6 +32,10 @@ export interface DomainView {
   readonly purpose: string | null;
   readonly facts: readonly string[];
   readonly journeys: readonly JourneyCard[];
+  /** Where every journey and flow is listed. */
+  readonly allJourneys: string;
+  /** The flows with a step here, grouped by the system they come in through. */
+  readonly flows: readonly FlowEntry[];
   readonly systems: readonly DomainSystemCard[];
   readonly neighbours: Neighbours;
   readonly catalogue: Catalogue;
@@ -57,6 +63,12 @@ export function domainViewOf(workspace: Workspace, model: Model, id: string): Do
   const scope = domainScopeOf(workspace, id);
   if (domain === undefined || scope === null) return null;
   const journeys = journeyCardsOf(model, workspace.id, scope);
+  const homes = new Map(
+    domain.systems.flatMap((system) => [
+      [`sys:${system.id}`, system.name] as const,
+      ...system.components.map((c) => [c.id, system.name] as const),
+    ]),
+  );
   const neighbours = neighboursOf(workspace, new Set(domain.systems.map((s) => s.id)));
   const outside = new Set([...neighbours.reaches, ...neighbours.reachedBy].map((n) => n.id)).size;
   const teams = [...new Set(domain.systems.map((s) => teamOf(workspace, s.team)?.name ?? null))];
@@ -76,6 +88,12 @@ export function domainViewOf(workspace: Workspace, model: Model, id: string): Do
       runBy(named),
     ],
     journeys,
+    allJourneys: journeysHref(workspace.id),
+    flows: flowEntriesOf(model, {
+      focus: scope.focus,
+      hrefOf: (flow) => domainFlowHref(workspace.id, domain.id, flow),
+      groupOf: (part) => homes.get(part) ?? model.label(part),
+    }),
     systems: domain.systems.map((system) => ({
       id: system.id,
       name: system.name,

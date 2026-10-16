@@ -106,6 +106,7 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | `/`                                                 | the workspaces                       |
 | `/[workspace]/`                                     | the landscape of one workspace       |
 | `/[workspace]/[domain]/`                            | one domain                           |
+| `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open       |
 | `/[workspace]/[domain]/[system]/`                   | one system                           |
 | `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open       |
 | `/[workspace]/journeys/`                            | the journeys through the systems     |
@@ -123,11 +124,14 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images         |
 | `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                |
 
-A system page is a layout and each flow through it is a page under it, so a system can run hundreds of flows:
-the page carries only the flow being read, and choosing another fetches just that flow. The flow's address is its
-id without `flow:`.
+A domain page and a system page are each a layout, and each flow through them is a page under it, so a domain
+can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that
+flow. The flow's address is its id without `flow:`. The domain's layout sits in the route group `(overview)` so
+it does not wrap its systems' pages. Both pages put their plans first; their flows are a searchable list, and
+only user journeys are cards, at most six, with a link to them all.
 
-`plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, and `assets`,
+`plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, `flows` cannot be
+a system id, and `assets`,
 `mockups`, `things` and `revisions` cannot be
 chapters. Screens render on the server. The step, lens and open inspector are client state in the URL. Entity chips render as
 `<button data-inspect="id">`; one client inspector catches clicks, fetches `plan.json` once (by a relative URL,

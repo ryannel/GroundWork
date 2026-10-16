@@ -3,6 +3,7 @@ import { catalogueOf, type CatalogueRow } from '@/application/today-catalogue';
 import { type ComponentCard, componentCardsOf } from '@/application/today-components';
 import { type FlowEntry, flowEntriesOf } from '@/application/today-flow-list';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
+import { journeysHref } from '@/application/today-reader';
 import { type RepoRow, reposOf } from '@/application/today-repos';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
 import type { SystemModel } from '@/application/workspace-model';
@@ -32,6 +33,8 @@ export interface SystemView {
   readonly journeys: readonly JourneyCard[];
   /** The flows with a step here, most steps here first. */
   readonly flows: readonly FlowEntry[];
+  /** Where every journey and flow is listed. */
+  readonly allJourneys: string;
   readonly components: readonly ComponentCard[];
   /** Each store it keeps, with the records in it. */
   readonly data: readonly CatalogueRow[];
@@ -53,9 +56,11 @@ export function systemViewOf(
   const { model } = today;
   const does = systemDoes(system).replace(/\.$/, '');
   const team = teamOf(workspace, system.team);
-  const flows = flowEntriesOf(model, scope.focus, (flow) =>
-    systemFlowHref({ workspace: workspace.id, domain: domain.id, system: system.id }, flow),
-  );
+  const flows = flowEntriesOf(model, {
+    focus: scope.focus,
+    hrefOf: (flow) =>
+      systemFlowHref({ workspace: workspace.id, domain: domain.id, system: system.id }, flow),
+  });
   return {
     trail: [
       { label: workspace.name, href: workspaceHref(workspace.id) },
@@ -73,6 +78,7 @@ export function systemViewOf(
     repos: reposOf(workspace, today, system.id),
     journeys: journeyCardsOf(model, workspace.id, scope),
     flows,
+    allJourneys: journeysHref(workspace.id),
     components: componentCardsOf(model, scope),
     data: catalogueOf(model, scope).data,
     neighbours: neighboursOf(workspace, new Set([system.id])),

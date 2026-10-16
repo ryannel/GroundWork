@@ -3,12 +3,6 @@
     margin-top: var(--s-10);
   }
 
-  .apart {
-    margin-top: var(--s-12);
-    padding-top: var(--s-8);
-    border-top: 1px solid var(--line-2);
-  }
-
   .about {
     margin: 0;
     color: var(--fg-2);

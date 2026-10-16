@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 import { domainScopeOf } from '@/application/model-scope';
 import { partsFor, type PlanPart } from '@/application/plan-footprint';
 import { domainViewOf } from '@/application/workspace-domain';
 import { workspaceNavOf } from '@/application/workspace-nav';
 import { domainPaths } from '@/application/workspace-paths';
-import { TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
+import { FlowList, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { DomainPage } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
@@ -37,7 +38,13 @@ function merged(parts: readonly PlanPart[]): PlanPart[] {
   return [...by.values()];
 }
 
-export default async function DomainRoute({ params }: { readonly params: Promise<Params> }) {
+interface Props {
+  readonly params: Promise<Params>;
+  readonly children: ReactNode;
+}
+
+// The domain, with the flow chosen in the list drawn beside it; each flow is its own page under flows/.
+export default async function DomainLayout({ params, children }: Props) {
   const { workspace: id, domain } = await params;
   const data = await todayData(id);
   const scope = data === null ? null : domainScopeOf(data.workspace, domain);
@@ -52,6 +59,7 @@ export default async function DomainRoute({ params }: { readonly params: Promise
   return (
     <DomainPage
       actions={<TodaySearch />}
+      flows={<FlowList flows={view.flows}>{children}</FlowList>}
       map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
       nav={workspaceNavOf(workspace, plans, { domain, today: today.model })}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}

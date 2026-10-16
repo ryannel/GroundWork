@@ -10,7 +10,7 @@ import { SectionHeading } from '@/ui/section-heading';
 
 import { CatalogueList } from './catalogue-list';
 import { ComponentCards } from './component-cards';
-import { JourneyCards } from './journey-cards';
+import { JourneysHere } from './journey-cards';
 import { NeighbourList } from './neighbour-list';
 import { PlanParts } from './plan-parts';
 import styles from './system-page.module.css';
@@ -85,8 +85,9 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
   );
 }
 
-// One system, in the order a newcomer learns it: its job and owner, how fresh our reading of its code is, where it
-// ends, the map, the flows through it, each component, the data it keeps, and the plans that would change it.
+// One system, in the order a newcomer learns it: its job and owner, the plans that would change it, how fresh our
+// reading of its code is, where it ends, the map, the flows through it, each component, the data it keeps, and the
+// user journeys that pass through it.
 export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: SystemPageProps) {
   return (
     <WorkspaceShell
@@ -99,6 +100,11 @@ export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: 
       <PageHeader description={view.headline} meta={<Facts items={view.facts} />} title={view.name}>
         <p className={styles.about}>{view.about}.</p>
       </PageHeader>
+      {parts === undefined ? null : (
+        <Section says="What may change here." title="Plans">
+          <PlanParts parts={parts} where="this system" />
+        </Section>
+      )}
       <Section
         says="Where its code lives, and whether what this page says has been read from it."
         title="Code"
@@ -124,19 +130,11 @@ export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: 
         </Section>
       )}
       <Section
-        says="The journeys and flows that pass through it. Open one to walk it end to end."
-        title="Journeys"
+        says="The user journeys that pass through it. Open one to walk it end to end."
+        title="User journeys"
       >
-        <JourneyCards cards={view.journeys} />
+        <JourneysHere all={view.allJourneys} cards={view.journeys} />
       </Section>
-      {parts === undefined ? null : (
-        <section className={styles.apart}>
-          <SectionHeading title="Plans">
-            <p>What may change here.</p>
-          </SectionHeading>
-          <PlanParts parts={parts} where="this system" />
-        </section>
-      )}
     </WorkspaceShell>
   );
 }

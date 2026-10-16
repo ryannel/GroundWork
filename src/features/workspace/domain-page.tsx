@@ -10,7 +10,7 @@ import { SectionHeading } from '@/ui/section-heading';
 
 import { CatalogueList } from './catalogue-list';
 import styles from './domain-page.module.css';
-import { JourneyCards } from './journey-cards';
+import { JourneysHere } from './journey-cards';
 import { NeighbourList } from './neighbour-list';
 import { PlanParts } from './plan-parts';
 import { WorkspaceShell } from './workspace-shell';
@@ -20,6 +20,8 @@ interface DomainPageProps {
   readonly nav: readonly NavGroup[];
   /** The map of the domain's components and their neighbours, drawn by the route. */
   readonly map?: ReactNode;
+  /** The list of flows with a step here, beside the one chosen; drawn by the route. */
+  readonly flows?: ReactNode;
   /** The plans landing on the domain's systems; leave out and the section is not drawn. */
   readonly parts?: readonly PlanPart[];
   readonly overlays?: ReactNode;
@@ -60,9 +62,10 @@ function Section({
   );
 }
 
-// One domain, in the order a newcomer learns it: what it is for and where it ends, the map of its components,
-// the journeys through it, each system, what it offers, announces and keeps, and the plans that would change it.
-export function DomainPage({ view, nav, map, parts, overlays, actions }: DomainPageProps) {
+// One domain, in the order a newcomer learns it: what it is for, the plans that would change it, where it ends,
+// the map of its components, the flows and user journeys through it, each system, and what it offers, announces
+// and keeps. A domain can carry hundreds of flows, so they are a list beside the one drawn, not a wall of cards.
+export function DomainPage({ view, nav, map, flows, parts, overlays, actions }: DomainPageProps) {
   return (
     <WorkspaceShell
       actions={actions}
@@ -77,6 +80,11 @@ export function DomainPage({ view, nav, map, parts, overlays, actions }: DomainP
       <PageHeader description={view.headline} meta={<Facts items={view.facts} />} title={view.name}>
         {view.purpose === null ? null : <p className={styles.purpose}>{view.purpose}</p>}
       </PageHeader>
+      {parts === undefined ? null : (
+        <Section says="What may change here." title="Plans">
+          <PlanParts parts={parts} where="this domain" />
+        </Section>
+      )}
       <Section
         says="The systems just outside the domain, and which way the work goes."
         title="Edges"
@@ -91,11 +99,19 @@ export function DomainPage({ view, nav, map, parts, overlays, actions }: DomainP
           {map}
         </Section>
       )}
+      {flows === undefined || flows === null || view.flows.length === 0 ? null : (
+        <Section
+          says="The work with steps in this domain, grouped by the system it comes in through, most steps here first. Step through each flow on the drawing, or read it as a sequence."
+          title="Flows"
+        >
+          {flows}
+        </Section>
+      )}
       <Section
-        says="The journeys and flows with steps in this domain, most steps here first. Open one to walk it."
-        title="Journeys"
+        says="The user journeys with steps in this domain, most steps here first. Open one to walk it end to end."
+        title="User journeys"
       >
-        <JourneyCards cards={view.journeys} />
+        <JourneysHere all={view.allJourneys} cards={view.journeys} />
       </Section>
       <Section says="What each system does, who runs it and where its code is." title="Systems">
         <SystemCards systems={view.systems} />
@@ -106,14 +122,6 @@ export function DomainPage({ view, nav, map, parts, overlays, actions }: DomainP
       >
         <CatalogueList catalogue={view.catalogue} />
       </Section>
-      {parts === undefined ? null : (
-        <section className={styles.apart}>
-          <SectionHeading title="Plans">
-            <p>What may change here.</p>
-          </SectionHeading>
-          <PlanParts parts={parts} where="this domain" />
-        </section>
-      )}
     </WorkspaceShell>
   );
 }

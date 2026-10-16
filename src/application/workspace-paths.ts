@@ -24,6 +24,10 @@ export function systemFlowHref(
   return `${systemHref(options)}flows/${flowSlug(flow)}/`;
 }
 
+export function domainFlowHref(workspace: string, domain: string, flow: string): string {
+  return `${domainHref(workspace, domain)}flows/${flowSlug(flow)}/`;
+}
+
 export function teamOf(workspace: Workspace, id: string | null): Team | null {
   return workspace.teams.find((team) => team.id === id) ?? null;
 }

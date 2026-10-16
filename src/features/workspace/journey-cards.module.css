@@ -52,4 +52,18 @@
     color: var(--fg-3);
     font-size: var(--fs-12);
   }
+
+  .more {
+    margin: var(--s-4) 0 0;
+    font-size: var(--fs-13);
+
+    & a {
+      color: var(--accent-fg);
+      text-decoration: none;
+    }
+
+    & a:hover {
+      text-decoration: underline;
+    }
+  }
 }

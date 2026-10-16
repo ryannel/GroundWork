@@ -119,6 +119,30 @@ describe('DomainPage', () => {
     expect(inspectable(container, 'msg:order-placed')).not.toBeNull();
     expect(screen.getByText('No plan changes this domain yet.')).toBeTruthy();
   });
+
+  it('puts its plans first, lists its flows beside the one drawn, and shows only user journeys as cards', async () => {
+    const { workspace, model } = await alder();
+    const view = domainViewOf(workspace, model, 'order-to-delivery')!;
+    render(
+      <DomainPage
+        flows={<p>the flows</p>}
+        nav={workspaceNavOf(workspace, [], { domain: 'order-to-delivery' })}
+        parts={[]}
+        view={view}
+      />,
+    );
+    const titles = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent);
+    expect(titles[0]).toBe('Plans');
+    expect(titles).toContain('Flows');
+    expect(titles).toContain('User journeys');
+    expect(screen.getByText('the flows')).toBeTruthy();
+    expect(view.flows.length).toBeGreaterThan(0);
+    expect(
+      view.flows.every((f) => f.href.startsWith('/alder-finch/order-to-delivery/flows/')),
+    ).toBe(true);
+    expect(screen.queryByText('Flow')).toBeNull();
+    expect(screen.getByText('All journeys and flows in the workspace →')).toBeTruthy();
+  });
 });
 
 describe('SystemPage', () => {
