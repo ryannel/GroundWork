@@ -69,12 +69,18 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
   const first = node.head;
   return (
     <>
-      <rect className={styles.card} height={node.h} rx={11} width={node.w} />
+      <rect
+        className={styles.card}
+        data-out={node.lens === 'out'}
+        height={node.h}
+        rx={11}
+        width={node.w}
+      />
       <MapStripe h={node.h} r={4.5} slot={node.teamSlot} />
       <Hit h={node.h} inspect={node.id} label={node.name} w={node.w} x={0} y={0} />
       <FlowGlyph glyph="⧉" x={20} y={9} />
       <text className={styles.eyebrow} x={34} y={14.5}>
-        {`SYSTEM · ${String(count)} ${count === 1 ? 'PART' : 'PARTS'}`}
+        {`${node.lens === 'out' ? 'OUTSIDE · ' : ''}SYSTEM · ${String(count)} ${count === 1 ? 'PART' : 'PARTS'}`}
       </text>
       {node.lines.map((t, i) => (
         <text key={t} className={styles.name} x={20} y={SYS_NAME + i * LINE}>

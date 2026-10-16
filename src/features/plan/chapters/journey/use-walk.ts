@@ -20,12 +20,13 @@ const trimmed = (path: string): string => (path.endsWith('/') ? path.slice(0, -1
 
 // While the app moves between screens the walk is drawn before the address changes, so the address is read only
 // when it is this screen's.
-function placeFromAddress(walk: Walk, href: string): Place {
-  const own = trimmed(globalThis.location.pathname).endsWith(trimmed(href));
+function placeFromAddress(walk: Walk, input: WalkInput): Place {
+  const own = trimmed(globalThis.location.pathname).endsWith(trimmed(input.href));
   const search = new URLSearchParams(own ? globalThis.location.search : '');
-  const mode: JourneyMode = search.get('mode') === 'plan' ? 'toBe' : 'asIs';
+  const plan = input.today !== true && search.get('mode') === 'plan';
+  const mode: JourneyMode = plan ? 'toBe' : 'asIs';
   const named = positionOf(walk, search.get('step') ?? '');
-  return { index: named === -1 ? entryOf(walk, mode, arrivedFrom(href)) : named, mode };
+  return { index: named === -1 ? entryOf(walk, mode, arrivedFrom(input.href)) : named, mode };
 }
 
 /** The title of the stop one step away in the reader's view, or null at the walk's end; the pager offers it. */
@@ -40,11 +41,14 @@ interface WalkInput {
   readonly href: string;
   /** Runs ahead of every move. */
   readonly before: () => void;
+  /** Outside any plan: today only, so there is no view to switch or keep in the address. */
+  readonly today?: boolean | undefined;
 }
 
 /** The reader's place on the walk, and the ways to move it. */
-export function useWalk({ walk, href, before }: WalkInput) {
-  const [place, setPlace] = useState(() => placeFromAddress(walk, href));
+export function useWalk(input: WalkInput) {
+  const { walk, before, today = false } = input;
+  const [place, setPlace] = useState(() => placeFromAddress(walk, input));
   const latest = useRef(place);
 
   const go = useCallback(
@@ -60,9 +64,9 @@ export function useWalk({ walk, href, before }: WalkInput) {
   useEffect(() => {
     const at = walk.positions[place.index];
     setParam('step', at === undefined ? null : (at.stepId ?? at.flowId));
-    setParam('mode', MODE_WORDS[place.mode]);
+    if (!today) setParam('mode', MODE_WORDS[place.mode]);
     walkMoved();
-  }, [walk, place]);
+  }, [walk, place, today]);
 
   useEffect(
     () =>
@@ -72,13 +76,17 @@ export function useWalk({ walk, href, before }: WalkInput) {
           if (index !== null) go({ ...latest.current, index });
           return index !== null;
         },
-        toggleMode: () => {
-          go({ ...latest.current, mode: latest.current.mode === 'asIs' ? 'toBe' : 'asIs' });
-        },
+        ...(today
+          ? {}
+          : {
+              toggleMode: () => {
+                go({ ...latest.current, mode: latest.current.mode === 'asIs' ? 'toBe' : 'asIs' });
+              },
+            }),
         beside: (by) => titleBeside(walk, latest.current, by),
         here: () => walk.titles[latest.current.mode][latest.current.index] ?? null,
       }),
-    [walk, go],
+    [walk, go, today],
   );
 
   return { place, go };

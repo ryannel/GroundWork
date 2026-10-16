@@ -43,8 +43,19 @@ function contextOf(input: SystemMapInput, show: MapShow, agg: Aggregate): Contex
   return { input, agg, show, nodes, label: (id) => input.labels[id] ?? id };
 }
 
-/** The lens team's cards stay bright, those they talk to stay readable, the rest dim. */
+/** In a scoped map the focus stays bright and every neighbour is drawn as outside it. */
+function focusOf(focus: readonly string[]): Pick<Kit, 'lens' | 'off'> {
+  const on = new Set(focus);
+  const off = (id: string): boolean => !on.has(id);
+  return { off, lens: (id) => (off(id) ? 'out' : 'on') };
+}
+
 function lensOf(ctx: Context, agg: Aggregate, cols: Columns): Pick<Kit, 'lens' | 'off'> {
+  return ctx.input.focus === null ? teamLensOf(ctx, agg, cols) : focusOf(ctx.input.focus);
+}
+
+/** The lens team's cards stay bright, those they talk to stay readable, the rest dim. */
+function teamLensOf(ctx: Context, agg: Aggregate, cols: Columns): Pick<Kit, 'lens' | 'off'> {
   const lens = ctx.input.lens;
   const off = (id: string): boolean => lens !== null && (ctx.nodes.get(id)?.team ?? null) !== lens;
   const host = (id: string): string => agg.hostOfSat.get(id) ?? id;
@@ -191,7 +202,8 @@ function drawLine(kit: Kit, r: Route): DrawnLine {
     ty: r.ty,
     into: r.into,
     noted: l.noted,
-    dim: kit.off(l.a) && kit.off(l.b) && kit.ctx.input.lens !== null,
+    dim:
+      kit.off(l.a) && kit.off(l.b) && (kit.ctx.input.lens !== null || kit.ctx.input.focus !== null),
     inspect: ref,
     label: tip.split('\n')[0] ?? tip,
     tip,

@@ -15,6 +15,8 @@ export interface CatProps {
   readonly model: Model;
   /** Every team's name, by id. */
   readonly teams: Readonly<Record<string, string>>;
+  /** Read outside any plan: one page as the system runs today, with no switch and no status. */
+  readonly today?: boolean | undefined;
 }
 
 /** The attributes a row carries so the filter box and the team lens can find it. */
@@ -234,16 +236,21 @@ interface PagesProps {
   /** True for a catalogue that reads differently today and with the plan. */
   readonly modes: boolean;
   readonly search?: boolean;
+  /** Outside any plan: only today's page. */
+  readonly today?: boolean | undefined;
 }
 
 /** A catalogue in the shell: one page per mode, or one page for all. */
-export function Pages({ noun, teams, render, empty, modes, search = true }: PagesProps) {
+export function Pages(props: PagesProps) {
+  const { noun, teams, render, empty, modes, search = true, today = false } = props;
   const body = (show: Show): ReactNode => {
     const blocks = render(show);
     return blocks.length === 0 ? <Empty>{empty}</Empty> : blocks;
   };
-  const bodies: Partial<Record<Show, ReactNode>> = modes
-    ? Object.fromEntries(SHOWS.map((s) => [s, body(s)]))
-    : { diff: body('diff') };
+  const many: readonly Show[] = modes ? SHOWS : ['diff'];
+  const shows: readonly Show[] = today ? ['asis'] : many;
+  const bodies: Partial<Record<Show, ReactNode>> = Object.fromEntries(
+    shows.map((s) => [s, body(s)]),
+  );
   return <Catalogue bodies={bodies} noun={noun} search={search} teams={teams} />;
 }

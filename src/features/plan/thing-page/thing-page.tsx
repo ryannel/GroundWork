@@ -102,7 +102,7 @@ export function ThingPage({ model, outline, workspaceName, plans = [], id }: Thi
         <ThingRegister
           id={id}
           model={model}
-          outline={outline}
+          base={`${planHref(outline)}things/`}
           siblings={siblings}
           title={home?.chapter === 'ref' ? home.title : capital(view.type)}
         />

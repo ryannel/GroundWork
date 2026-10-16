@@ -76,9 +76,10 @@ function Row({
 }
 
 /** What the front end asks the graph for, by screen. */
-export function OperationsCat({ model, teams }: CatProps) {
+export function OperationsCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No operations."

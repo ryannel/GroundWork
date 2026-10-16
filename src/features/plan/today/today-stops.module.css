@@ -1,0 +1,30 @@
+@layer components {
+  .lead {
+    display: grid;
+    gap: var(--s-2);
+    margin-block-end: var(--s-4);
+  }
+
+  .headline {
+    margin: 0;
+    color: var(--fg-1);
+    font-size: var(--fs-16);
+    font-weight: 600;
+  }
+
+  .lede {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .body {
+    display: grid;
+    gap: var(--s-4);
+    margin-block-start: var(--s-4);
+  }
+
+  .body[hidden] {
+    display: none;
+  }
+}

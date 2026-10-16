@@ -59,6 +59,11 @@ const groupsIn = (groups: readonly EntityGroup[], today: boolean) =>
     <Group key={group.label} label={group.label} refs={visible(group.refs, today)} />
   ));
 
+/** What a thing points at or is pointed at by, as chips under each label. */
+export function EntityGroups({ groups }: { readonly groups: readonly EntityGroup[] }) {
+  return <div className={styles.details}>{groupsIn(groups, true)}</div>;
+}
+
 // Everything the plan says about one thing. Its chips carry data-inspect, so the open inspector hops to them.
 export function EntityDetails({ model, view, today, image }: EntityDetailsProps) {
   return (

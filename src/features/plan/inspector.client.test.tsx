@@ -2,6 +2,8 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
+import { planReaderOf } from '@/application/plan-pages-things';
+
 import { Inspector } from './inspector.client';
 
 vi.mock('server-only', () => ({}));
@@ -30,7 +32,7 @@ describe('Inspector', () => {
     render(
       <>
         {chip('svc:subs')}
-        <Inspector plan={at} src="plan.json" />
+        <Inspector reader={planReaderOf(at, 'plan.json')} />
       </>,
     );
     expect(screen.queryByRole('heading')).toBeNull();
@@ -45,7 +47,7 @@ describe('Inspector', () => {
 
   it('hops to a thing inside the panel, steps back and closes', async () => {
     globalThis.history.pushState(null, '', '/#i-flow-cancel');
-    render(<Inspector plan={at} src="plan.json" />);
+    render(<Inspector reader={planReaderOf(at, 'plan.json')} />);
     expect(await screen.findByRole('heading', { level: 2 })).toBeTruthy();
     const hop = screen.getAllByRole('button').find((b) => b.dataset.inspect === 'svc:subs');
     if (hop === undefined) throw new Error('no chip to hop to');
@@ -63,7 +65,7 @@ describe('Inspector', () => {
 
   it('says so when the plan has no such thing', async () => {
     globalThis.history.pushState(null, '', '/#i-svc-nope');
-    render(<Inspector plan={at} src="plan.json" />);
+    render(<Inspector reader={planReaderOf(at, 'plan.json')} />);
     expect(await screen.findByText(/nothing called svc:nope/i)).toBeTruthy();
   });
 
@@ -75,7 +77,7 @@ describe('Inspector', () => {
     });
     Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } });
     globalThis.history.pushState(null, '', '/#i-svc-subs');
-    render(<Inspector plan={at} src="plan.json" />);
+    render(<Inspector reader={planReaderOf(at, 'plan.json')} />);
     await screen.findByRole('heading', { level: 2 });
     const today = screen.getByRole('radio', { name: 'today' });
     expect(today).toHaveProperty('checked', false);
@@ -95,7 +97,7 @@ describe('Inspector', () => {
     render(
       <>
         {chip('svc:subs')}
-        <Inspector plan={at} src="plan.json" />
+        <Inspector reader={planReaderOf(at, 'plan.json')} />
       </>,
     );
     const target = screen.getByText('svc:subs');

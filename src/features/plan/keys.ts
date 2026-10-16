@@ -51,8 +51,13 @@ export function keyAction(press: KeyPress): KeyAction | null {
   return action;
 }
 
+interface Shortcut {
+  readonly keys: readonly string[];
+  readonly label: string;
+}
+
 /** The keys as the cheat sheet lists them, in the order a reader needs them. */
-export const SHORTCUTS: readonly { readonly keys: readonly string[]; readonly label: string }[] = [
+export const SHORTCUTS: readonly Shortcut[] = [
   { keys: ['→', 'j'], label: 'Next screen or step' },
   { keys: ['←', 'k'], label: 'Previous screen or step' },
   { keys: ['⇧J'], label: 'Next chapter' },
@@ -65,6 +70,16 @@ export const SHORTCUTS: readonly { readonly keys: readonly string[]; readonly la
     label: 'Switch a walk between today and the plan, or a reference page between its views',
   },
   { keys: ['⌥'], label: 'Hold to see today on a What changes screen' },
+  { keys: ['?'], label: 'This list' },
+  { keys: ['Esc'], label: 'Close the dialog, menu or inspector on top' },
+];
+
+/** The keys that mean something outside a plan, worded for the workspace. */
+export const TODAY_SHORTCUTS: readonly Shortcut[] = [
+  { keys: ['→', 'j'], label: 'Next step of a walk or stop' },
+  { keys: ['←', 'k'], label: 'Previous step of a walk or stop' },
+  { keys: ['/', '⌘K'], label: 'Search the workspace' },
+  { keys: ['T'], label: 'Theme: system, light or dark' },
   { keys: ['?'], label: 'This list' },
   { keys: ['Esc'], label: 'Close the dialog, menu or inspector on top' },
 ];

@@ -179,9 +179,10 @@ function blocks(model: Model, show: Show): ReactNode[] {
 }
 
 /** Records by the store that holds them, request and event bodies, and the graph's types. */
-export function SchemasCat({ model, teams }: CatProps) {
+export function SchemasCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       empty="No schemas."
       model={model}
       modes

@@ -1,190 +1,84 @@
-import type { Component, ConnectionKind, Domain, System, Workspace } from '@/domain/workspace';
-import { componentHomes, wiresOf, type Home, type Wire } from '@/domain/workspace-links';
+import { systemScopeOf } from '@/application/model-scope';
+import type { Model } from '@/application/plan/derive';
+import { catalogueOf, type CatalogueRow } from '@/application/today-catalogue';
+import { type ComponentCard, componentCardsOf } from '@/application/today-components';
+import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
+import { type RepoRow, reposOf } from '@/application/today-repos';
+import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
+import type { SystemModel } from '@/application/workspace-model';
+import type { Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import {
-  layoutDiagram,
-  type Diagram,
-  type DiagramEdgeInput,
-  type DiagramNodeInput,
-} from './workspace-diagram';
-import { domainHref, systemHref, teamOf, workspaceHref } from './workspace-paths';
+import { systemDoes } from './workspace-landscape';
+import { domainHref, teamOf, workspaceHref } from './workspace-paths';
 
-export interface Target {
-  readonly label: string;
-  /** The other system's page, or null inside this system. */
-  readonly href: string | null;
-  readonly via: ConnectionKind;
-}
-
-export interface ComponentRow {
-  readonly id: string;
-  readonly name: string;
-  readonly type: Component['type'];
-  readonly tech: string | null;
-  readonly does: string | null;
-  readonly talksTo: readonly Target[];
-}
+// A system page teaches how one system works: what it does and who runs it, how fresh our reading of its code is,
+// the map of its components with what is one step outside, the flows through it step by step, and each component
+// with what it offers, calls, announces, hears and keeps.
 
 export interface SystemView {
   readonly trail: readonly { readonly label: string; readonly href: string }[];
   readonly name: string;
-  /** Who runs the system. */
-  readonly description: string;
-  /** Short facts for the line under the description. */
+  readonly headline: string;
+  /** "Run by the Checkout team, in the Website domain" */
+  readonly about: string;
   readonly facts: readonly string[];
-  readonly repos: readonly string[];
-  readonly components: readonly ComponentRow[];
-  readonly diagram: Diagram;
+  readonly repos: readonly RepoRow[];
+  readonly journeys: readonly JourneyCard[];
+  /** The flows with a step here, most steps here first. */
+  readonly flows: readonly string[];
+  readonly components: readonly ComponentCard[];
+  /** Each store it keeps, with the records in it. */
+  readonly data: readonly CatalogueRow[];
+  readonly neighbours: Neighbours;
 }
 
-interface Context {
-  readonly workspace: Workspace;
-  readonly system: System;
-  readonly homes: ReadonlyMap<string, Home>;
+const runBy = (team: string): string => `Run by the ${team} team`;
+
+function flowsThrough(model: Model, focus: ReadonlySet<string>): string[] {
+  return model.asIs.flows
+    .map((f) => ({
+      id: f.id,
+      here: f.steps.filter((s) => focus.has(s.from) || focus.has(s.to)).length,
+    }))
+    .filter((f) => f.here > 0)
+    .toSorted((a, b) => b.here - a.here)
+    .map((f) => f.id);
 }
 
+/** A system's page, read from the model of today; null when the domain holds no such system. */
 export function systemViewOf(
   workspace: Workspace,
+  today: SystemModel,
   path: { readonly domain: string; readonly system: string },
 ): SystemView | null {
-  const domain = workspace.domains.find((candidate) => candidate.id === path.domain);
-  const system = domain?.systems.find((candidate) => candidate.id === path.system);
-  if (domain === undefined || system === undefined) return null;
-  const context: Context = { workspace, system, homes: componentHomes(workspace.domains) };
+  const domain = workspace.domains.find((each) => each.id === path.domain);
+  const system = domain?.systems.find((each) => each.id === path.system);
+  const scope = systemScopeOf(workspace, path.system);
+  if (domain === undefined || system === undefined || scope === null) return null;
+  const { model } = today;
+  const does = systemDoes(system).replace(/\.$/, '');
   const team = teamOf(workspace, system.team);
+  const flows = flowsThrough(model, scope.focus);
   return {
     trail: [
       { label: workspace.name, href: workspaceHref(workspace.id) },
       { label: domain.name, href: domainHref(workspace.id, domain.id) },
     ],
     name: system.name,
-    description: team === null ? 'No team runs this yet' : `Run by ${team.name}`,
-    facts: [plural(system.components.length, 'component'), plural(system.repos.length, 'repo')],
-    repos: system.repos,
-    components: system.components.map((component) => ({
-      id: component.id,
-      name: component.name,
-      type: component.type,
-      tech: component.tech,
-      does: component.does,
-      talksTo: component.talksTo.map((connection) =>
-        targetOf(context, connection.to, connection.via),
-      ),
-    })),
-    diagram: diagramOf(context),
+    headline:
+      does === '' ? `${system.name} is a system in ${domain.name}.` : `${system.name}: ${does}.`,
+    about: `${team === null ? 'No team runs it yet' : runBy(team.name)}, in the ${domain.name} domain`,
+    facts: [
+      plural(system.components.length, 'component'),
+      plural(system.repos.length, 'repo'),
+      plural(flows.length, 'flow'),
+    ],
+    repos: reposOf(workspace, today, system.id),
+    journeys: journeyCardsOf(model, workspace.id, scope),
+    flows,
+    components: componentCardsOf(model, scope),
+    data: catalogueOf(model, scope).data,
+    neighbours: neighboursOf(workspace, new Set([system.id])),
   };
-}
-
-function targetOf(context: Context, to: string, via: ConnectionKind): Target {
-  const home = context.homes.get(to);
-  const found = home === undefined ? null : find(context.workspace, home);
-  const component = found?.system.components.find((candidate) => candidate.id === to);
-  const label = component?.name ?? to;
-  if (found === null || found.system.id === context.system.id) return { label, href: null, via };
-  return {
-    label: `${label} (${found.system.name})`,
-    href: systemHref({
-      workspace: context.workspace.id,
-      domain: found.domain.id,
-      system: found.system.id,
-    }),
-    via,
-  };
-}
-
-function find(workspace: Workspace, home: Home): { domain: Domain; system: System } | null {
-  const domain = workspace.domains.find((candidate) => candidate.id === home.domain);
-  const system = domain?.systems.find((candidate) => candidate.id === home.system);
-  return domain === undefined || system === undefined ? null : { domain, system };
-}
-
-interface Ends {
-  readonly from: string;
-  readonly to: string;
-  readonly caller: string | null;
-  readonly callee: string | null;
-}
-
-// A wire drawn on this system's diagram: from or to one of its components.
-function endsOf(context: Context, own: ReadonlySet<string>, wire: Wire): Ends | null {
-  const target = context.homes.get(wire.to)?.system;
-  if (target === undefined) return null;
-  if (wire.system === context.system.id) {
-    return own.has(wire.to)
-      ? { from: `c:${wire.component}`, to: `c:${wire.to}`, caller: null, callee: null }
-      : { from: `c:${wire.component}`, to: `s:${target}`, caller: null, callee: target };
-  }
-  if (!own.has(wire.to)) return null;
-  return { from: `s:${wire.system}`, to: `c:${wire.to}`, caller: wire.system, callee: null };
-}
-
-// Components in the middle; the systems that call in on the left, the systems they talk to on the right.
-function diagramOf(context: Context): Diagram {
-  const own = new Set(context.system.components.map((component) => component.id));
-  const edges = new Map<string, { from: string; to: string; via: ConnectionKind[] }>();
-  const callees = new Set<string>();
-  const callers = new Set<string>();
-  for (const wire of wiresOf(context.workspace.domains)) {
-    const ends = endsOf(context, own, wire);
-    if (ends === null) continue;
-    if (ends.callee !== null) callees.add(ends.callee);
-    if (ends.caller !== null) callers.add(ends.caller);
-    const key = `${ends.from}>${ends.to}`;
-    const edge = edges.get(key) ?? { from: ends.from, to: ends.to, via: [] };
-    if (!edge.via.includes(wire.via)) edge.via.push(wire.via);
-    edges.set(key, edge);
-  }
-  const systemNode = (id: string) => outsideNode(context, id);
-  return layoutDiagram(
-    [
-      quietColumn(
-        'callers',
-        'Calls in',
-        [...callers].filter((id) => !callees.has(id)).flatMap(systemNode),
-      ),
-      {
-        id: context.system.id,
-        label: context.system.name,
-        href: null,
-        quiet: false,
-        nodes: context.system.components.map((component) => componentNode(context, component)),
-      },
-      quietColumn('callees', 'Talks to', [...callees].flatMap(systemNode)),
-    ].filter((column) => column.nodes.length > 0 || column.id === context.system.id),
-    [...edges.values()] satisfies DiagramEdgeInput[],
-  );
-}
-
-function quietColumn(id: string, label: string, nodes: readonly DiagramNodeInput[]) {
-  return { id, label, href: null, quiet: true, nodes };
-}
-
-function componentNode(context: Context, component: Component): DiagramNodeInput {
-  return {
-    id: `c:${component.id}`,
-    label: component.name,
-    detail: component.tech === null ? component.type : `${component.type} · ${component.tech}`,
-    href: null,
-    team: teamOf(context.workspace, context.system.team)?.colour ?? null,
-    quiet: false,
-  };
-}
-
-function outsideNode(context: Context, id: string): DiagramNodeInput[] {
-  const domain = context.workspace.domains.find((candidate) =>
-    candidate.systems.some((system) => system.id === id),
-  );
-  const system = domain?.systems.find((candidate) => candidate.id === id);
-  if (domain === undefined || system === undefined) return [];
-  return [
-    {
-      id: `s:${id}`,
-      label: system.name,
-      detail: domain.name,
-      href: systemHref({ workspace: context.workspace.id, domain: domain.id, system: id }),
-      team: teamOf(context.workspace, system.team)?.colour ?? null,
-      quiet: true,
-    },
-  ];
 }

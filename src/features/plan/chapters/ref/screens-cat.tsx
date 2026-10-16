@@ -10,9 +10,10 @@ interface ScreensProps extends CatProps {
 }
 
 /** What people see, grouped by the app that serves it. */
-export function ScreensCat({ model, teams, base }: ScreensProps) {
+export function ScreensCat({ model, teams, base, today }: ScreensProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No screens yet. For the plan’s author: add screens: with a screenshot per page."

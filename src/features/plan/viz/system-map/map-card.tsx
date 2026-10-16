@@ -91,6 +91,7 @@ export function MapCard({ node }: { readonly node: DrawnNode }) {
       <rect
         className={styles.card}
         data-external={node.external}
+        data-out={node.lens === 'out'}
         data-part={node.part}
         height={node.h}
         rx={node.part ? 7 : 9}

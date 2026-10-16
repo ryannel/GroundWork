@@ -61,8 +61,8 @@ describe('checkWorkspace', () => {
       ]),
     );
     expect(errors).toEqual([
-      'domain plans: the id is reserved for the plan pages',
-      'domain plans: the id is reserved for the plan pages',
+      'domain plans: the id is reserved for the plans pages',
+      'domain plans: the id is reserved for the plans pages',
       'domain plans: the id is used twice',
       'system s: the id is used twice',
       'component s:c: the id is used twice',

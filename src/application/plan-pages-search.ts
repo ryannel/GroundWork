@@ -5,7 +5,8 @@ import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 import type { Outline } from './plan-pages';
 import { glyphOf, typeWord } from './plan-pages-entity';
 
-// What the palette can find: every screen of the plan, and every thing in it that the inspector can open.
+// What the palette can find: every screen of the plan (or page of the workspace), and every thing the inspector
+// can open.
 
 export interface PaletteEntry {
   /** A field or step is a part: it is found by name but ranks after the things themselves. */
@@ -68,16 +69,38 @@ const thingEntry = (model: Model, id: string): PaletteEntry => {
   };
 };
 
-export function paletteEntries(model: Model, outline: Outline): PaletteEntry[] {
-  const screens = outline.pages.map((page): PaletteEntry => ({
+/** The screens of a plan, as the palette lists them before anything is typed. */
+export function outlineScreens(outline: Outline): PaletteEntry[] {
+  return outline.pages.map((page) =>
+    screenEntry({
+      href: page.href,
+      title: page.title,
+      hint: outline.chapters.find((c) => c.key === page.chapter)?.title ?? '',
+      key: page.chapter,
+    }),
+  );
+}
+
+/** A page the palette can go to: its address, its title, and the words beside it. */
+export function screenEntry(page: {
+  readonly href: string;
+  readonly title: string;
+  readonly hint: string;
+  readonly key?: string;
+}): PaletteEntry {
+  return {
     kind: 'screen',
     group: 'screen',
     target: page.href,
     label: page.title,
-    hint: outline.chapters.find((c) => c.key === page.chapter)?.title ?? '',
+    hint: page.hint,
     glyph: '§',
-    haystack: `${page.title} ${page.chapter}`.toLowerCase(),
-  }));
+    haystack: `${page.title} ${page.key ?? page.hint}`.toLowerCase(),
+  };
+}
+
+/** The pages given, then every thing in the model the inspector can open. */
+export function paletteEntries(model: Model, screens: readonly PaletteEntry[]): PaletteEntry[] {
   const ids = new Set([
     ...model.asIs.byId.keys(),
     ...model.toBe.byId.keys(),

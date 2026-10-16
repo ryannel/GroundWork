@@ -1,0 +1,53 @@
+@layer components {
+  .sides {
+    display: grid;
+    gap: var(--s-4) var(--s-8);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  .side {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+
+  .title {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+
+  .list {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-13);
+    list-style: none;
+
+    & a {
+      color: var(--accent-fg);
+      font-weight: 600;
+    }
+  }
+
+  .place {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .how {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+
+    &::before {
+      content: '· ';
+    }
+  }
+
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+  }
+}

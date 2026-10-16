@@ -5,7 +5,7 @@ export interface LegendItem {
   readonly label: string;
   readonly glyph?: string;
   readonly line?: 'solid' | 'dashed' | 'dotted';
-  readonly swatch?: 'add' | 'mod' | 'dep' | 'rem' | 'dim' | 'cur' | 'plain';
+  readonly swatch?: 'add' | 'mod' | 'dep' | 'rem' | 'dim' | 'cur' | 'out' | 'plain';
 }
 
 function Mark({ item }: { readonly item: LegendItem }) {

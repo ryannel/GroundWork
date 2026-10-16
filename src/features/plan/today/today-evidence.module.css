@@ -1,0 +1,35 @@
+@layer components {
+  .list {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-13);
+    list-style: none;
+
+    & a {
+      color: var(--accent-fg);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .line {
+    display: grid;
+    gap: var(--s-0);
+  }
+
+  .repo {
+    font-weight: 600;
+  }
+
+  .meta,
+  .note,
+  .none {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .none {
+    margin: 0;
+  }
+}

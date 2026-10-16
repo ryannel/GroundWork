@@ -10,9 +10,10 @@ import { StatusCell } from './status-cell';
 const HEAD = ['flow', 'actor', 'steps', 'teams', 'outcome'];
 
 /** Every flow in one table. */
-export function FlowsCat({ model, teams }: CatProps) {
+export function FlowsCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No flows."

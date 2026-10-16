@@ -7,6 +7,10 @@
       opacity: 0.7;
     }
 
+    &[data-lens='out'] {
+      opacity: 0.8;
+    }
+
     &[data-lens='off'] {
       opacity: 0.3;
     }

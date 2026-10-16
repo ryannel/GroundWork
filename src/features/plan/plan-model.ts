@@ -4,15 +4,16 @@ import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 // The browser reads plan.json once, however many things ask for it (the inspector, the palette), and works the
-// rest out with the same derive() the build used. It resolves to null when the plan cannot be had.
+// rest out with the same derive() the build used. It resolves to null when the plan cannot be had. A workspace's
+// model.json is the same document of today, with no work items and so no status.
 
 interface Payload {
   readonly plan: Plan;
-  readonly status: IssueStatus;
+  readonly status?: IssueStatus | null;
 }
 
 const isPayload = (value: unknown): value is Payload =>
-  typeof value === 'object' && value !== null && 'plan' in value && 'status' in value;
+  typeof value === 'object' && value !== null && 'plan' in value;
 
 const loaded = new Map<string, Promise<Model | null>>();
 
@@ -21,7 +22,8 @@ async function fetchModel(src: string): Promise<Model | null> {
     const response = await fetch(src);
     if (!response.ok) return null;
     const body: unknown = await response.json();
-    return isPayload(body) ? derive(body.plan, { status: body.status }) : null;
+    if (!isPayload(body)) return null;
+    return derive(body.plan, { status: body.status ?? {} });
   } catch {
     return null;
   }

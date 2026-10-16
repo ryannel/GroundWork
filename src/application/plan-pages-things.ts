@@ -4,6 +4,7 @@ import { typeOf } from '@/application/plan/ids';
 import { planHref, type Neighbours, type Outline, type Page, type PlanAddress } from './plan-pages';
 import { catalogueOf } from './plan-pages-entity-where';
 import { idToToken } from './plan-pages-hash';
+import type { Reader } from './today-reader';
 
 // Every thing the inspector can open, bar the parts of a thing, also has a page of its own at
 // /<workspace>/plans/<plan>/things/<token>/, beside the others of its kind: the services with the services.
@@ -52,8 +53,22 @@ export function siblingsOf(model: Model, id: string): string[] {
   return thingIds(model).filter((x) => typeOf(x) === type && parentOf(x) === parent);
 }
 
+/** A thing's page under a base that ends in a slash: a plan's things/, or a workspace's. */
+export const thingAt = (base: string, id: string): string => `${base}${idToToken(id)}/`;
+
 export function thingHref(at: PlanAddress, id: string): string {
-  return `${planHref(at)}things/${idToToken(id)}/`;
+  return thingAt(`${planHref(at)}things/`, id);
+}
+
+/** How the inspector, palette and thing pages read a plan: its plan.json at `modelSrc`, its pages under it. */
+export function planReaderOf(at: PlanAddress, modelSrc: string): Reader {
+  return {
+    mode: 'plan',
+    modelSrc,
+    thingBase: `${planHref(at)}things/`,
+    assetBase: planHref(at),
+    plan: { workspace: at.workspace, slug: at.slug },
+  };
 }
 
 /** The screen a thing's page belongs under: its Reference catalogue, else the cover. */

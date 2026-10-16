@@ -1,0 +1,49 @@
+@layer components {
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kind {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2);
+    margin: 0 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+  }
+
+  .ends {
+    display: grid;
+    gap: var(--s-1) var(--s-3);
+    grid-template-columns: max-content 1fr;
+    margin: 0;
+    font-size: var(--fs-13);
+
+    & dt {
+      color: var(--fg-3);
+    }
+
+    & dd {
+      margin: 0;
+      color: var(--fg-1);
+    }
+  }
+
+  .here {
+    margin: var(--s-3) 0 0;
+    color: var(--accent-fg);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .none {
+    margin: 0;
+    color: var(--fg-3);
+  }
+}

@@ -55,12 +55,14 @@ function useCard(src: string, target: HTMLElement | null): EntityCard | null {
   return read !== null && read.id === id ? read.card : null;
 }
 
-function Body({ card }: { readonly card: EntityCard }) {
+function Body({ card, today }: { readonly card: EntityCard; readonly today: boolean }) {
   return (
     <>
       <p className={styles.kind}>
         <span aria-hidden="true">{card.glyph}</span> {card.type}
-        {card.status === 'existing' ? null : <Badge tone={TONES[card.status]}>{card.status}</Badge>}
+        {today || card.status === 'existing' ? null : (
+          <Badge tone={TONES[card.status]}>{card.status}</Badge>
+        )}
       </p>
       <p className={styles.name}>{card.name}</p>
       {card.team === null ? null : <p className={styles.team}>Owned by {card.team}</p>}
@@ -73,7 +75,9 @@ function Body({ card }: { readonly card: EntityCard }) {
           ))}
         </ul>
       )}
-      {card.inPlan === null ? null : <p className={styles.team}>In this plan: {card.inPlan}</p>}
+      {today || card.inPlan === null ? null : (
+        <p className={styles.team}>In this plan: {card.inPlan}</p>
+      )}
       {card.summary === null ? null : <p className={styles.summary}>{card.summary}</p>}
       <p className={styles.foot}>Click to inspect</p>
     </>
@@ -81,8 +85,15 @@ function Body({ card }: { readonly card: EntityCard }) {
 }
 
 // A glance at a cited thing while the pointer or focus rests on it, as Plan Atlas gives. It never takes focus and
-// is hidden from assistive tech, which reads the thing's own name and opens it with Enter.
-export function HoverCard({ src }: { readonly src: string }) {
+// is hidden from assistive tech, which reads the thing's own name and opens it with Enter. Read as today, it shows
+// no status and nothing a plan does.
+export function HoverCard({
+  src,
+  today = false,
+}: {
+  readonly src: string;
+  readonly today?: boolean;
+}) {
   const target = useHoverTarget();
   const card = useCard(src, target);
   const ref = useRef<HTMLDivElement>(null);
@@ -92,7 +103,7 @@ export function HoverCard({ src }: { readonly src: string }) {
   }, [shown, target, card]);
   return (
     <div aria-hidden="true" className={styles.card} data-open={shown ? '' : undefined} ref={ref}>
-      {shown ? <Body card={card} /> : null}
+      {shown ? <Body card={card} today={today} /> : null}
     </div>
   );
 }

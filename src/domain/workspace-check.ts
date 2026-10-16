@@ -39,10 +39,19 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
   return { errors, warnings };
 }
 
+/** Page names beside the domains at /<workspace>/<name>/, so no domain may take one. */
+export const RESERVED_PAGES: readonly string[] = [
+  'plans',
+  'journeys',
+  'reference',
+  'things',
+  'assets',
+];
+
 function reservedDomains(workspace: Workspace): readonly string[] {
   return workspace.domains
-    .filter((domain) => domain.id === 'plans')
-    .map(() => 'domain plans: the id is reserved for the plan pages');
+    .filter((domain) => RESERVED_PAGES.includes(domain.id))
+    .map((domain) => `domain ${domain.id}: the id is reserved for the ${domain.id} pages`);
 }
 
 function repeated(values: readonly string[], problem: (value: string) => string): string[] {

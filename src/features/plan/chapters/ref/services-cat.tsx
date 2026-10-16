@@ -64,9 +64,10 @@ function ServiceCard({
 }
 
 /** Every service, grouped by the team that owns it. */
-export function ServicesCat({ model, teams }: CatProps) {
+export function ServicesCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No components."

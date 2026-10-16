@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import type { BarVersions, PlanBar } from '@/application/plan-bar';
 import type { Outline } from '@/application/plan-pages';
+import { outlineScreens } from '@/application/plan-pages-search';
 import { Badge } from '@/ui/badge';
 import { Menu } from '@/ui/menu.client';
 
@@ -60,7 +61,7 @@ export function PlanActions({ bar, outline, src }: PlanActionsProps) {
       </span>
       {bar.versions === null ? null : <VersionMenu versions={bar.versions} />}
       <ReadAs teams={bar.teams} />
-      <Palette outline={outline} src={src} />
+      <Palette screens={outlineScreens(outline)} src={src} />
       <HelpButton />
     </>
   );

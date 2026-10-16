@@ -66,24 +66,38 @@ structure stays the source of a component's name, tech and what it does.
 
 ### Routes
 
-| Route                                               | Page                                |
-| --------------------------------------------------- | ----------------------------------- |
-| `/`                                                 | the workspaces                      |
-| `/[workspace]/`                                     | the landscape of one workspace      |
-| `/[workspace]/[domain]/`                            | one domain                          |
-| `/[workspace]/[domain]/[system]/`                   | one system                          |
-| `/[workspace]/plans/[plan]/`                        | a plan's cover                      |
-| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                |
-| `/[workspace]/plans/[plan]/things/[thing]/`         | one thing of a plan, as a page      |
-| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser   |
-| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser |
-| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images        |
-| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages               |
+| Route                                               | Page                                 |
+| --------------------------------------------------- | ------------------------------------ |
+| `/`                                                 | the workspaces                       |
+| `/[workspace]/`                                     | the landscape of one workspace       |
+| `/[workspace]/[domain]/`                            | one domain                           |
+| `/[workspace]/[domain]/[system]/`                   | one system                           |
+| `/[workspace]/journeys/`                            | the journeys through the systems     |
+| `/[workspace]/journeys/[key]/`                      | one journey, walked step by step     |
+| `/[workspace]/reference/`                           | the kinds of thing the systems hold  |
+| `/[workspace]/reference/[kind]/`                    | the catalogue of one kind            |
+| `/[workspace]/things/[thing]/`                      | one thing as it runs today           |
+| `/[workspace]/model.json`                           | the workspace today, for the browser |
+| `/[workspace]/assets/[...file]`                     | the workspace's images               |
+| `/[workspace]/plans/[plan]/`                        | a plan's cover                       |
+| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                 |
+| `/[workspace]/plans/[plan]/things/[thing]/`         | one thing of a plan, as a page       |
+| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser    |
+| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser  |
+| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images         |
+| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                |
 
-`plans` is reserved and cannot be a domain id, and `assets`, `mockups`, `things` and `revisions` cannot be
+`plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, and `assets`,
+`mockups`, `things` and `revisions` cannot be
 chapters. Screens render on the server. The step, lens and open inspector are client state in the URL. Entity chips render as
 `<button data-inspect="id">`; one client inspector catches clicks, fetches `plan.json` once (by a relative URL,
 so it works under any base path) and works out the rest in the browser, so no page inlines the plan.
+
+Outside any plan, the journeys and reference teach the systems as they run today, drawn from the model of
+today. A journey's key is a user journey's id (`uj-…`) or a flow group's key from `journeyGroups`; its walk is the
+plan's, with the arrow keys, steady layout and remembered sections, but as-is only: no `?mode`, no `d` toggle, no
+comparison or rollout notes. The reference lists only the kinds with entries and shows each catalogue with no
+`?show` modes and no status.
 
 A plan that fails to load or has errors still gets its cover, which shows `PlanErrors`: each error and warning
 with its path, and the way back to the workspace. Its other screens are not built, and the workspace's lists leave
@@ -93,6 +107,14 @@ Every thing the inspector can show, except the parts of one (fields, steps and r
 `things/<token>/`, built by `topThingIds`. It shows the same body as the inspector, with the others of its kind
 down the side, the pager and keys stepping through them, Copy link and the today / with-this-plan switch. The
 inspector's bar links to it with Open as page.
+
+The workspace's own pages read today, outside any plan. They fetch `/<workspace>/model.json`, the system model
+as a plan-shaped document with no work and so no status, and pass the inspector, palette, hover cards and keys a
+`Reader` (`todayReaderOf`): where the model is, where thing pages live (`/<workspace>/things/`) and what images
+resolve against (`/<workspace>/`, so `assets/x.svg` is served from `workspaces/<ws>/assets/`). A plan builds its
+own `Reader` with `planReaderOf`. Read today, there is no today / with-this-plan switch, no versions, no
+status and no "in this plan"; a thing's page there also says where it sits (domain › system › component), what it
+works with, the flows it takes part in and the code that says so, with who said it and the commit.
 
 The team lens is the search parameter `?team=<id>` (with or without the `team:` prefix), and the catalogues'
 mode is `?show=asis|tobe|diff`. A static export has one file per route, so each page is built once for everyone

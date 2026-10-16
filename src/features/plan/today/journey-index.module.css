@@ -1,0 +1,56 @@
+@layer components {
+  .section {
+    margin-top: var(--s-8);
+  }
+
+  .stage {
+    margin-top: var(--s-6);
+  }
+
+  .stageTitle {
+    margin: 0 0 var(--s-3);
+    color: var(--fg-2);
+    font-size: var(--fs-14);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .claim {
+    margin: 0 0 var(--s-2);
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    font-size: var(--fs-13);
+  }
+
+  .fact {
+    display: grid;
+    gap: var(--s-2);
+    grid-template-columns: 5rem 1fr;
+
+    & dt {
+      color: var(--fg-3);
+    }
+
+    & dd {
+      margin: 0;
+    }
+  }
+
+  .empty {
+    margin: var(--s-6) 0 0;
+    color: var(--fg-3);
+  }
+}

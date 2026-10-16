@@ -26,6 +26,7 @@ interface Build {
   readonly comparison: JourneyComparison;
   readonly base: string;
   readonly omitChange: string | undefined;
+  readonly today: boolean;
 }
 
 function notes(build: Build, mode: JourneyMode, stepId: string) {
@@ -36,6 +37,7 @@ function notes(build: Build, mode: JourneyMode, stepId: string) {
       model={build.model}
       omitChange={build.omitChange}
       stepId={stepId}
+      today={build.today}
     />
   );
 }
@@ -106,12 +108,20 @@ interface ModesInput {
   /** Ids the reader may ask for that are not steps of the flow. */
   readonly extraIds?: readonly string[];
   readonly omitChange?: string | undefined;
+  /** Outside any plan: the steps as they run, with nothing about change. */
+  readonly today?: boolean | undefined;
 }
 
 /** Both views of a flow, ready to draw: the journey's whole picture, built once. */
 export function journeyModes(model: Model, input: ModesInput): JourneyShellProps['modes'] {
   const comparison = journeyComparison(model, input.flowId);
-  const build: Build = { model, comparison, base: input.base, omitChange: input.omitChange };
+  const build: Build = {
+    model,
+    comparison,
+    base: input.base,
+    omitChange: input.omitChange,
+    today: input.today ?? false,
+  };
   const extra = input.extraIds ?? [];
   return { asIs: modeView(build, 'asIs', extra), toBe: modeView(build, 'toBe', extra) };
 }

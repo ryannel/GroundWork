@@ -1,139 +1,142 @@
-import Link from 'next/link';
+import type { ReactNode } from 'react';
 
+import type { PlanPart } from '@/application/plan-footprint';
+import type { RepoRow } from '@/application/today-repos';
 import type { NavGroup } from '@/application/workspace-nav';
-import type { ComponentRow, SystemView } from '@/application/workspace-system';
-import { Badge } from '@/ui/badge';
-import { Card } from '@/ui/card';
-import { DataTable } from '@/ui/data-table';
+import type { SystemView } from '@/application/workspace-system';
 import { Facts } from '@/ui/facts';
-import { Legend } from '@/ui/legend';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
 
-import { Diagram } from './diagram';
+import { CatalogueList } from './catalogue-list';
+import { ComponentCards } from './component-cards';
+import { JourneyCards } from './journey-cards';
+import { NeighbourList } from './neighbour-list';
+import { PlanParts } from './plan-parts';
 import styles from './system-page.module.css';
 import { WorkspaceShell } from './workspace-shell';
-
-// One plan's part for this system: the work items going to its repos.
-interface PlanPart {
-  readonly id: string;
-  readonly title: string;
-  readonly href: string;
-  readonly workItems: number;
-  readonly done: number;
-}
 
 interface SystemPageProps {
   readonly view: SystemView;
   readonly nav: readonly NavGroup[];
-  /** The plans landing on this system; leave out until plans are read, and the section is not drawn. */
+  /** The map of the system's components and their neighbours, drawn by the route. */
+  readonly map?: ReactNode;
+  /** The flows through the system, step by step, drawn by the route. */
+  readonly flows?: ReactNode;
+  /** The plans landing on this system; leave out and the section is not drawn. */
   readonly parts?: readonly PlanPart[];
+  readonly overlays?: ReactNode;
+  readonly actions?: ReactNode;
 }
 
-export function SystemPage({ view, nav, parts }: SystemPageProps) {
+function Section(props: {
+  readonly title: string;
+  readonly says: string;
+  readonly children: ReactNode;
+}) {
   return (
-    <WorkspaceShell
-      nav={nav}
-      title={view.name}
-      trail={[{ label: 'Workspaces', href: '/' }, ...view.trail]}
-    >
-      <PageHeader
-        description={view.description}
-        title={view.name}
-        meta={
-          <Facts items={view.facts}>
-            {view.repos.map((repo) => (
-              <code key={repo}>{repo}</code>
-            ))}
-          </Facts>
-        }
-      />
-      {parts === undefined ? null : <Plans parts={parts} />}
-      <section className={styles.section}>
-        <SectionHeading title="Connections">
-          <p>Systems that call in are on the left, the ones it calls on the right.</p>
-        </SectionHeading>
-        <Diagram
-          diagram={view.diagram}
-          label={`The components of ${view.name} and their connections`}
-        />
-        <Legend
-          items={[
-            { line: 'solid', label: 'call or message' },
-            { line: 'dashed', label: 'outside this system' },
-          ]}
-        />
-      </section>
-      <section className={styles.section}>
-        <SectionHeading title="Components">
-          <p>What each component does and what it talks to.</p>
-        </SectionHeading>
-        <DataTable
-          caption="Components"
-          captionHidden
-          columns={[
-            { key: 'component', label: 'Component' },
-            { key: 'type', label: 'Type' },
-            { key: 'does', label: 'Does' },
-            { key: 'talksTo', label: 'Talks to' },
-          ]}
-          rows={view.components.map((component) => ({
-            key: component.id,
-            cells: {
-              component: (
-                <>
-                  {component.name} <code className={styles.id}>{component.id}</code>
-                </>
-              ),
-              type:
-                component.tech === null ? component.type : `${component.type} · ${component.tech}`,
-              does: component.does ?? '',
-              talksTo: <TalksTo component={component} />,
-            },
-          }))}
-        />
-      </section>
-    </WorkspaceShell>
+    <section className={styles.section}>
+      <SectionHeading title={props.title}>
+        <p>{props.says}</p>
+      </SectionHeading>
+      {props.children}
+    </section>
   );
 }
 
-function TalksTo({ component }: { readonly component: ComponentRow }) {
-  if (component.talksTo.length === 0) return <span className={styles.none}>Nothing</span>;
+function Repos({ repos }: { readonly repos: readonly RepoRow[] }) {
+  if (repos.length === 0)
+    return <p className={styles.none}>No repo is named for this system yet.</p>;
   return (
-    <ul className={styles.targets}>
-      {component.talksTo.map((target, index) => (
-        <li key={`${target.label}-${target.via}-${String(index)}`}>
-          {target.href === null ? target.label : <Link href={target.href}>{target.label}</Link>}{' '}
-          <Badge>{target.via}</Badge>
+    <ul className={styles.repos}>
+      {repos.map((repo) => (
+        <li className={styles.repo} data-scanned={repo.scanned} key={repo.repo}>
+          <a className={styles.name} href={repo.href}>
+            {repo.repo}
+          </a>
+          <span className={styles.read}>{repo.read}</span>
+          <span className={styles.cited}>{repo.cited}</span>
         </li>
       ))}
     </ul>
   );
 }
 
-function Plans({ parts }: { readonly parts: readonly PlanPart[] }) {
+function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flows'>) {
   return (
-    <section className={styles.section}>
-      <SectionHeading title="Plans">
-        <p>Plans whose changes or work items land on this system.</p>
-      </SectionHeading>
-      {parts.length === 0 ? (
-        <p className={styles.empty}>No plan changes this system.</p>
-      ) : (
-        <ul className={styles.plans}>
-          {parts.map((part) => (
-            <li key={part.id}>
-              <Card href={part.href} title={part.title}>
-                <Badge tone="accent">
-                  {part.workItems === 0
-                    ? 'Changes here, no work items yet'
-                    : `${String(part.done)} of ${String(part.workItems)} work items done`}
-                </Badge>
-              </Card>
-            </li>
-          ))}
-        </ul>
+    <>
+      {map === undefined || map === null ? null : (
+        <Section
+          says="Its components, with what calls them and what they call. Dotted cards sit outside it, one step away. Click any card or line to see what it is."
+          title="Map"
+        >
+          {map}
+        </Section>
       )}
-    </section>
+      {flows === undefined || flows === null || view.flows.length === 0 ? null : (
+        <Section
+          says="The flows with steps here, most steps here first: who calls whom, in order."
+          title="Flows"
+        >
+          {flows}
+        </Section>
+      )}
+    </>
+  );
+}
+
+// One system, in the order a newcomer learns it: its job and owner, how fresh our reading of its code is, where it
+// ends, the map, the flows through it, each component, the data it keeps, and the plans that would change it.
+export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: SystemPageProps) {
+  return (
+    <WorkspaceShell
+      actions={actions}
+      nav={nav}
+      overlays={overlays}
+      title={view.name}
+      trail={[{ label: 'Workspaces', href: '/' }, ...view.trail]}
+    >
+      <PageHeader description={view.headline} meta={<Facts items={view.facts} />} title={view.name}>
+        <p className={styles.about}>{view.about}.</p>
+      </PageHeader>
+      <Section
+        says="Where its code lives, and whether what this page says has been read from it."
+        title="Code"
+      >
+        <Repos repos={view.repos} />
+      </Section>
+      <Section says="The systems just outside it, and which way the work goes." title="Edges">
+        <NeighbourList name={view.name} neighbours={view.neighbours} />
+      </Section>
+      <Drawn flows={flows} map={map} view={view} />
+      <Section
+        says="What each component does, what it is called on, what it calls, what it announces and hears, and what it keeps."
+        title="Components"
+      >
+        <ComponentCards cards={view.components} />
+      </Section>
+      {view.data.length === 0 ? null : (
+        <Section
+          says="Its stores and the records in each. Click a record to see its fields."
+          title="Data"
+        >
+          <CatalogueList catalogue={{ apis: [], events: [], data: view.data }} />
+        </Section>
+      )}
+      <Section
+        says="The journeys and flows that pass through it. Open one to walk it end to end."
+        title="Journeys"
+      >
+        <JourneyCards cards={view.journeys} />
+      </Section>
+      {parts === undefined ? null : (
+        <section className={styles.apart}>
+          <SectionHeading title="Plans">
+            <p>What may change here.</p>
+          </SectionHeading>
+          <PlanParts parts={parts} where="this system" />
+        </section>
+      )}
+    </WorkspaceShell>
   );
 }

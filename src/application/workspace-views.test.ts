@@ -1,12 +1,27 @@
-import { describe, expect, it } from 'vitest';
+import path from 'node:path';
+
+import { describe, expect, it, vi } from 'vitest';
 
 import type { Component, Workspace } from '@/domain/workspace';
+import { readWorkspaceModel } from '@/infrastructure/workspace-model';
+import { readWorkspaces } from '@/infrastructure/workspace-store';
 
-import { layoutDiagram } from './workspace-diagram';
+import { neighboursOf } from './today-neighbours';
 import { domainViewOf } from './workspace-domain';
-import { landscapeOf } from './workspace-landscape';
+import { landscapeOf, systemDoes } from './workspace-landscape';
+import { systemModelOf } from './workspace-model';
 import { domainPaths, findWorkspace, systemPaths } from './workspace-paths';
 import { systemViewOf } from './workspace-system';
+
+vi.mock('server-only', () => ({}));
+
+const root = path.resolve(import.meta.dirname, '../../workspaces');
+
+async function alder() {
+  const workspace = findWorkspace(await readWorkspaces(root), 'alder-finch')!;
+  const today = systemModelOf(workspace, await readWorkspaceModel(workspace, root));
+  return { workspace, today, model: today.model };
+}
 
 const component = (
   id: string,
@@ -80,120 +95,96 @@ const shop: Workspace = {
   ],
 };
 
-const box = (id: string) => ({
-  id,
-  label: id,
-  detail: null,
-  href: null,
-  team: null,
-  quiet: false,
-});
-
 describe('landscapeOf', () => {
-  it('draws every domain with its systems and the links between them', () => {
-    const view = landscapeOf(shop);
-    expect(view.description).toBe('Everything we sell.');
-    expect(view.facts).toEqual(['3 domains', '3 systems', '4 connections, 3 across domains']);
-    expect(view.diagram.groups.map((group) => group.href)).toEqual([
-      '/shop/sales/',
-      '/shop/find/',
-      '/shop/misc/',
+  it('says what the workspace runs, and gives each domain its systems and its part in the journeys', async () => {
+    const { workspace, model } = await alder();
+    const view = landscapeOf(workspace, model);
+    expect(view.headline).toMatch(/^Alder & Finch runs 14 systems in 3 domains/);
+    expect(view.facts).toEqual([
+      '3 domains',
+      '14 systems',
+      '61 components',
+      '2 user journeys',
+      '19 flows',
     ]);
-    expect(view.diagram.nodes.find((node) => node.id === 'price')).toMatchObject({
-      href: '/shop/sales/price/',
-      detail: 'Alpha',
-      team: 1,
-    });
-    expect(view.diagram.edges).toHaveLength(4);
-    expect(view.domains[2]?.size).toBe('0 systems');
+    expect(view.journeys.slice(0, 2).map((j) => j.kind)).toEqual(['journey', 'journey']);
+    expect(view.journeys.every((j) => j.href.startsWith('/alder-finch/journeys/'))).toBe(true);
+    const website = view.domains.find((d) => d.id === 'website')!;
+    expect(website.href).toBe('/alder-finch/website/');
+    expect(website.role).toMatch(/^In 2 user journeys and \d+ flows$/);
+    expect(website.systems.find((s) => s.id === 'checkout')?.does).toBe(
+      'Turns a cart into a paid order',
+    );
   });
 
-  it('leaves the description out when the workspace has none', () => {
-    expect(landscapeOf({ ...shop, description: null }).description).toBeNull();
+  it('says only what it runs when the workspace says nothing of itself', async () => {
+    const { workspace, model } = await alder();
+    expect(landscapeOf({ ...workspace, description: null }, model).headline).toBe(
+      'Alder & Finch runs 14 systems in 3 domains.',
+    );
   });
 });
 
 describe('domainViewOf', () => {
-  it('shows the domain and, drawn quiet, the systems outside it', () => {
-    const view = domainViewOf(shop, 'sales');
-    expect(view?.description).toBe('Taking money.');
-    expect(view?.facts).toEqual(['2 systems', '2 teams', '1 connected system in other domains']);
-    expect(view?.systems.map((row) => row.team)).toEqual(['Alpha', 'Beta']);
-    expect(view?.diagram.groups.map((group) => group.id)).toEqual(['sales', 'callees']);
-    expect(view?.diagram.nodes.find((node) => node.id === 'search')).toMatchObject({
-      quiet: true,
-      detail: 'Find',
-    });
+  it('teaches the domain: its edges, journeys through it, systems and what it offers', async () => {
+    const { workspace, model } = await alder();
+    const view = domainViewOf(workspace, model, 'order-to-delivery')!;
+    expect(view.headline).toMatch(/^Order to delivery’s 6 systems take part in /);
+    expect(view.purpose).toMatch(/^From a paid order/);
+    expect(view.journeys.every((j) => j.here !== null)).toBe(true);
+    expect(view.systems.map((s) => s.href)).toContain('/alder-finch/order-to-delivery/payments/');
+    expect(view.neighbours.reachedBy.map((n) => n.id)).toContain('checkout');
+    expect(view.catalogue.apis.length).toBeGreaterThan(0);
+    expect(view.catalogue.events.map((e) => e.head.id)).toContain('msg:order-placed');
   });
 
-  it('puts systems that only call in on the left, and names a domain without a purpose', () => {
-    const view = domainViewOf(shop, 'find');
-    expect(view?.description).toBeNull();
-    expect(view?.systems[0]?.team).toBe('No team');
-    expect(view?.diagram.groups.map((group) => group.id)).toEqual(['find', 'callees']);
-    const empty = domainViewOf(
-      {
-        ...shop,
-        domains: [
-          shop.domains[0]!,
-          {
-            ...shop.domains[1]!,
-            systems: [{ ...shop.domains[1]!.systems[0]!, components: [component('queue')] }],
-          },
-        ],
-      },
-      'find',
-    );
-    expect(empty?.diagram.groups.map((group) => group.id)).toEqual(['callers', 'find']);
-  });
-
-  it('returns null for an unknown domain', () => {
-    expect(domainViewOf(shop, 'nope')).toBeNull();
+  it('returns null for an unknown domain', async () => {
+    const { workspace, model } = await alder();
+    expect(domainViewOf(workspace, model, 'nope')).toBeNull();
   });
 });
 
 describe('systemViewOf', () => {
-  it('names the owner and links each connection to the other system', () => {
-    const view = systemViewOf(shop, { domain: 'sales', system: 'price' });
-    expect(view?.description).toBe('Run by Alpha');
-    expect(view?.facts).toEqual(['2 components', '1 repo']);
-    expect(view?.trail.map((step) => step.href)).toEqual(['/shop/', '/shop/sales/']);
-    expect(view?.components[0]?.talksTo).toEqual([
-      { label: 'DB', href: null, via: 'data' },
-      { label: 'QUEUE (Search)', href: '/shop/find/search/', via: 'message' },
-      { label: 'QUEUE (Search)', href: '/shop/find/search/', via: 'api' },
+  it('teaches the system: its job, owner, code, flows and components', async () => {
+    const { workspace, today } = await alder();
+    const view = systemViewOf(workspace, today, { domain: 'website', system: 'checkout' })!;
+    expect(view.headline).toBe('Checkout: Turns a cart into a paid order.');
+    expect(view.about).toMatch(/^Run by the .+ team, in the Website domain$/);
+    expect(view.trail.map((step) => step.href)).toEqual(['/alder-finch/', '/alder-finch/website/']);
+    expect(view.repos).toEqual([
+      expect.objectContaining({ repo: 'alder-finch/checkout', scanned: false }),
     ]);
-    expect(view?.diagram.groups.map((group) => group.id)).toEqual(['callers', 'price', 'callees']);
-    expect(view?.diagram.nodes.find((node) => node.id === 'c:db')?.detail).toBe('service');
-    expect(view?.diagram.edges.find((edge) => edge.id === 'c:api>s:search')?.via).toEqual([
-      'message',
-      'api',
-    ]);
+    expect(view.repos[0]?.read).toMatch(/^Not scanned yet/);
+    expect(view.flows.length).toBeGreaterThan(0);
+    expect(view.components.map((c) => c.chip.id)).toContain('svc:checkout');
+    const checkout = view.components.find((c) => c.chip.id === 'svc:checkout')!;
+    expect(checkout.calls.length).toBeGreaterThan(0);
+    expect(checkout.offers.every((o) => o.calls.length === 0)).toBe(true);
+    expect(view.data.map((d) => d.head.id)).toContain('st:cart-cache');
   });
 
-  it('says when no team owns it, and keeps unknown targets as plain text', () => {
-    const lost: Workspace = {
-      ...shop,
-      domains: [
-        {
-          ...shop.domains[1]!,
-          systems: [
-            {
-              ...shop.domains[1]!.systems[0]!,
-              components: [component('queue', [{ to: 'gone', via: 'api' }])],
-            },
-          ],
-        },
-      ],
-    };
-    const view = systemViewOf(lost, { domain: 'find', system: 'search' });
-    expect(view?.description).toBe('No team runs this yet');
-    expect(view?.components[0]?.talksTo).toEqual([{ label: 'gone', href: null, via: 'api' }]);
+  it('returns null for an unknown system or domain', async () => {
+    const { workspace, today } = await alder();
+    expect(systemViewOf(workspace, today, { domain: 'website', system: 'payments' })).toBeNull();
+    expect(systemViewOf(workspace, today, { domain: 'nope', system: 'checkout' })).toBeNull();
   });
+});
 
-  it('returns null for an unknown system or domain', () => {
-    expect(systemViewOf(shop, { domain: 'find', system: 'price' })).toBeNull();
-    expect(systemViewOf(shop, { domain: 'nope', system: 'price' })).toBeNull();
+describe('a small workspace', () => {
+  it('names a system by its namesake component and finds its neighbours each way', () => {
+    expect(systemDoes(shop.domains[0]!.systems[0]!)).toBe('');
+    const named = { ...shop.domains[0]!.systems[1]!, name: 'WEB' };
+    expect(systemDoes({ ...named, components: [{ ...named.components[0]!, does: 'Sells' }] })).toBe(
+      'Sells',
+    );
+    const near = neighboursOf(shop, new Set(['price']));
+    expect(near.reaches).toEqual([
+      expect.objectContaining({ id: 'search', place: 'Find domain', how: 'messages and calls' }),
+    ]);
+    expect(near.reachedBy.map((n) => [n.id, n.how])).toEqual([
+      ['cart', 'calls'],
+      ['search', 'messages'],
+    ]);
   });
 });
 
@@ -205,84 +196,5 @@ describe('paths', () => {
       domain: 'find',
       system: 'search',
     });
-  });
-});
-
-describe('layoutDiagram', () => {
-  it('curves forwards, backwards and round a loop, and skips unknown ends', () => {
-    const diagram = layoutDiagram(
-      [
-        { id: 'one', label: 'One', href: null, quiet: false, nodes: [box('a'), box('b')] },
-        { id: 'two', label: 'Two', href: null, quiet: false, nodes: [box('c')] },
-      ],
-      [
-        { from: 'a', to: 'c', via: ['api'] },
-        { from: 'c', to: 'a', via: ['api'] },
-        { from: 'a', to: 'b', via: ['data'] },
-        { from: 'a', to: 'x', via: ['data'] },
-      ],
-    );
-    expect(diagram.edges.map((edge) => edge.path)).toEqual([
-      'M 200 66 C 252 66, 252 66, 304 66',
-      'M 304 66 C 252 66, 252 66, 200 66',
-      'M 200 66 C 240 66, 240 122, 200 122',
-    ]);
-    expect(diagram.edges[0]?.description).toBe('a to c (api)');
-    expect(diagram.width).toBe(544);
-  });
-
-  it('runs an arrow that would cross a column in a lane under the columns', () => {
-    const diagram = layoutDiagram(
-      [
-        { id: 'one', label: 'One', href: null, quiet: false, nodes: [box('a')] },
-        { id: 'two', label: 'Two', href: null, quiet: false, nodes: [box('b')] },
-        { id: 'three', label: 'Three', href: null, quiet: false, nodes: [box('c')] },
-      ],
-      [
-        { from: 'a', to: 'c', via: ['api'] },
-        { from: 'c', to: 'a', via: ['message'] },
-      ],
-    );
-    expect(diagram.edges.map((edge) => edge.path)).toEqual([
-      'M 200 66 H 228 V 114 H 556 V 66 H 584',
-      'M 584 66 H 550 V 124 H 234 V 66 H 200',
-    ]);
-    expect(diagram.height).toBe(132);
-  });
-
-  it('shortens a long name, keeps it whole as the title, and drops a detail that repeats it', () => {
-    const [node, repeat] = layoutDiagram(
-      [
-        {
-          id: 'one',
-          label: 'One',
-          href: null,
-          quiet: false,
-          nodes: [{ ...box('a'), label: 'A very long system name indeed', detail: 'x' }],
-        },
-        {
-          id: 'two',
-          label: 'Two',
-          href: null,
-          quiet: false,
-          nodes: [{ ...box('b'), detail: 'b' }],
-        },
-      ],
-      [],
-    ).nodes;
-    expect(node?.label).toBe('A very long system…');
-    expect(node?.title).toBe('A very long system name indeed');
-    expect(repeat?.detail).toBeNull();
-  });
-
-  it('draws nothing for no columns', () => {
-    expect(layoutDiagram([], []).width).toBe(0);
-  });
-});
-
-describe('findWorkspace', () => {
-  it('finds a workspace by id, or null', () => {
-    expect(findWorkspace([shop], 'shop')).toBe(shop);
-    expect(findWorkspace([shop], 'nope')).toBeNull();
   });
 });

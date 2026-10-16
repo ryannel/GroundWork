@@ -32,7 +32,13 @@ const shop: Workspace = {
 describe('workspaceNavOf', () => {
   it('opens the domain being read and marks the system', () => {
     const nav = workspaceNavOf(shop, [], { domain: 'find', system: 'index' });
-    expect(nav.map((group) => group.title)).toEqual(['Landscape', 'Sales', 'Find']);
+    expect(nav.map((group) => group.title)).toEqual([
+      'Landscape',
+      'Sales',
+      'Find',
+      'Journeys',
+      'Reference',
+    ]);
     const find = nav[2]!;
     expect(find).toMatchObject({
       marker: '2',
@@ -50,5 +56,19 @@ describe('workspaceNavOf', () => {
     const nav = workspaceNavOf(shop, plans, {});
     expect(nav[0]!.current).toBe(true);
     expect(nav.at(-1)).toMatchObject({ title: 'Plans', side: true, open: true, count: '1' });
+  });
+
+  it('marks the journeys or reference being read, not the landscape', () => {
+    const nav = workspaceNavOf(shop, [], { section: 'reference', key: 'stores' });
+    expect(nav.find((group) => group.title === 'Reference')).toMatchObject({
+      current: true,
+      open: true,
+      href: '/shop/reference/',
+    });
+    expect(nav[0]!.current).toBe(false);
+    expect(nav.find((group) => group.title === 'Journeys')).toMatchObject({
+      current: false,
+      href: '/shop/journeys/',
+    });
   });
 });

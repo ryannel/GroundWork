@@ -7,7 +7,7 @@ import { Kbd } from '@/ui/kbd';
 import { Legend, LEGENDS, type LegendItem } from '@/ui/legend';
 
 import styles from './cheat-sheet.module.css';
-import { SHORTCUTS } from './keys';
+import { SHORTCUTS, TODAY_SHORTCUTS } from './keys';
 
 export const CHEAT_EVENT = 'plan:cheat';
 
@@ -52,12 +52,22 @@ const STAGES: readonly {
   { word: 'Delivered', tone: 'added', says: 'every work item is done' },
 ];
 
-function Sheet() {
+const TODAY_SYMBOLS = SYMBOLS.filter((block) => block.title !== 'In this plan');
+const TODAY_THINGS = new Set(['change', 'work item', 'milestone', 'decision', 'risk', 'question']);
+
+function Sheet({ today }: { readonly today: boolean }) {
+  const symbols = today
+    ? TODAY_SYMBOLS.map((block) =>
+        block.title === 'Things'
+          ? { ...block, items: block.items.filter((item) => !TODAY_THINGS.has(item.label)) }
+          : block,
+      )
+    : SYMBOLS;
   return (
     <>
       <h2 className={styles.heading}>Keyboard shortcuts</h2>
       <dl className={styles.keys}>
-        {SHORTCUTS.map((s) => (
+        {(today ? TODAY_SHORTCUTS : SHORTCUTS).map((s) => (
           <div className={styles.row} key={s.label}>
             <dt className={styles.combo}>
               {s.keys.map((k) => (
@@ -70,26 +80,31 @@ function Sheet() {
       </dl>
       <h2 className={styles.heading}>Symbols</h2>
       <div className={styles.symbols}>
-        {SYMBOLS.map((block) => (
+        {symbols.map((block) => (
           <Legend items={block.items} key={block.title} title={block.title} />
         ))}
-        <ul aria-label="Where a plan stands" className={styles.stages}>
-          {STAGES.map((s) => (
-            <li className={styles.stage} key={s.word}>
-              <Badge tone={s.tone}>{s.word}</Badge> {s.says}
-            </li>
-          ))}
-        </ul>
+        {today ? null : (
+          <ul aria-label="Where a plan stands" className={styles.stages}>
+            {STAGES.map((s) => (
+              <li className={styles.stage} key={s.word}>
+                <Badge tone={s.tone}>{s.word}</Badge> {s.says}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <p className={styles.note}>
-        Click a name to inspect it; rest the pointer on it for its kind and status.
+        {today
+          ? 'Click a name to inspect it; rest the pointer on it to see what it is.'
+          : 'Click a name to inspect it; rest the pointer on it for its kind and status.'}
       </p>
     </>
   );
 }
 
-// Every key and every symbol the plan viewer uses, in one dialog. ? opens and closes it; Esc closes it.
-export function CheatSheet() {
+// Every key and every symbol the plan viewer uses, in one dialog. ? opens and closes it; Esc closes it. Read as
+// today, it leaves out what only a plan has: chapters, versions, plan stages and statuses.
+export function CheatSheet({ today = false }: { readonly today?: boolean }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [shown, setShown] = useState(false);
   useEffect(() => {
@@ -121,7 +136,7 @@ export function CheatSheet() {
           ✕
         </button>
       </form>
-      {shown ? <Sheet /> : null}
+      {shown ? <Sheet today={today} /> : null}
     </dialog>
   );
 }

@@ -1,10 +1,13 @@
 import { notFound } from 'next/navigation';
 
-import { partsFor, planCardOf } from '@/application/plan-footprint';
+import { systemScopeOf } from '@/application/model-scope';
+import { partsFor } from '@/application/plan-footprint';
 import { workspaceNavOf } from '@/application/workspace-nav';
-import { findWorkspace, systemPaths } from '@/application/workspace-paths';
+import { systemPaths } from '@/application/workspace-paths';
 import { systemViewOf } from '@/application/workspace-system';
+import { TodayFlows, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { SystemPage } from '@/features/workspace';
+import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
@@ -22,16 +25,20 @@ export async function generateStaticParams(): Promise<Params[]> {
 
 export default async function SystemRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain, system } = await params;
-  const workspace = findWorkspace(await readWorkspaces(), id);
-  const view = workspace === null ? null : systemViewOf(workspace, { domain, system });
-  if (workspace === null || view === null) notFound();
+  const data = await todayData(id);
+  const scope = data === null ? null : systemScopeOf(data.workspace, system);
+  const view = data === null ? null : systemViewOf(data.workspace, data.today, { domain, system });
+  if (data === null || scope === null || view === null) notFound();
+  const { workspace, today, plans } = data;
   const loaded = await readLoadedPlans(workspace.id);
-  const parts = partsFor(workspace, { domain, system }, loaded);
-  const plans = loaded.map((plan) => planCardOf(workspace.id, plan));
   return (
     <SystemPage
-      nav={workspaceNavOf(workspace, plans, { domain, system })}
-      parts={parts}
+      actions={<TodaySearch />}
+      flows={<TodayFlows flows={view.flows} model={today.model} />}
+      map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
+      nav={workspaceNavOf(workspace, plans, { domain, system, today: today.model })}
+      overlays={<TodayOverlays depth={2} workspace={workspace} />}
+      parts={partsFor(workspace, { domain, system }, loaded)}
       view={view}
     />
   );

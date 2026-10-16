@@ -140,5 +140,6 @@ export function systemMapInput(model: Model, lens: string | null = null): System
     interfaceOf: interfaces,
     labels: labelsOf(model, ids),
     lens,
+    focus: null,
   };
 }

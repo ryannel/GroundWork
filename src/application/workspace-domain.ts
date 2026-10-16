@@ -1,116 +1,93 @@
-import type { Domain, System, Workspace } from '@/domain/workspace';
-import { systemLinks, type Link } from '@/domain/workspace-links';
+import { domainScopeOf } from '@/application/model-scope';
+import type { Model } from '@/application/plan/derive';
+import { andList } from '@/application/plan-viz-ladder-order';
+import { type Catalogue, catalogueOf } from '@/application/today-catalogue';
+import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
+import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
+import type { Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { layoutDiagram, type Diagram, type DiagramNodeInput } from './workspace-diagram';
+import { roleOf, systemDoes } from './workspace-landscape';
 import { systemHref, teamOf, workspaceHref } from './workspace-paths';
 
-export interface DomainSystemRow {
+// A domain page teaches how its systems work together: what the domain is for, the map of its components with the
+// systems one step outside, the journeys that run through it, each system, and what it offers, announces and keeps.
+
+export interface DomainSystemCard {
   readonly id: string;
   readonly name: string;
   readonly href: string;
-  readonly team: string;
-  readonly components: number;
+  readonly does: string;
+  /** "Checkout team · 4 components · alder-finch/checkout" */
+  readonly about: readonly string[];
 }
 
 export interface DomainView {
   readonly workspace: { readonly name: string; readonly href: string };
   readonly name: string;
+  readonly headline: string;
   /** What the domain is for, in its own words. */
-  readonly description: string | null;
-  /** Short facts for the line under the description. */
+  readonly purpose: string | null;
   readonly facts: readonly string[];
-  readonly systems: readonly DomainSystemRow[];
-  readonly diagram: Diagram;
+  readonly journeys: readonly JourneyCard[];
+  readonly systems: readonly DomainSystemCard[];
+  readonly neighbours: Neighbours;
+  readonly catalogue: Catalogue;
 }
 
-interface Located {
-  readonly domain: Domain;
-  readonly system: System;
+function headlineOf(name: string, view: { systems: number; role: string | null; outside: number }) {
+  const systems = plural(view.systems, 'system');
+  const role =
+    view.role === null ? 'take part in no journey yet' : `take part ${lowerIn(view.role)}`;
+  const outside =
+    view.outside === 0 ? '' : `, and work with ${plural(view.outside, 'system')} in other domains`;
+  return `${name}’s ${systems} ${role}${outside}.`;
 }
 
-export function domainViewOf(workspace: Workspace, domainId: string): DomainView | null {
-  const domain = workspace.domains.find((candidate) => candidate.id === domainId);
-  if (domain === undefined) return null;
-  const located = new Map<string, Located>(
-    workspace.domains.flatMap((home) =>
-      home.systems.map((system) => [system.id, { domain: home, system }]),
-    ),
-  );
-  const inside = new Set(domain.systems.map((system) => system.id));
-  const links = systemLinks(workspace.domains).filter(
-    (link) => inside.has(link.from) || inside.has(link.to),
-  );
-  const outside = outsideOf(links, inside);
-  const node = (id: string): DiagramNodeInput[] => {
-    const found = located.get(id);
-    return found === undefined ? [] : [nodeOf(workspace, found, !inside.has(id))];
-  };
-  const teams = new Set(domain.systems.map((system) => system.team));
+function runBy(teams: readonly string[]): string {
+  if (teams.length === 0) return 'No team named';
+  return `Run by the ${andList(teams)} ${teams.length === 1 ? 'team' : 'teams'}`;
+}
+
+const lowerIn = (role: string): string => role.replace(/^In /, 'in ');
+
+/** A domain's page, read from the model of today; null when the workspace has no such domain. */
+export function domainViewOf(workspace: Workspace, model: Model, id: string): DomainView | null {
+  const domain = workspace.domains.find((each) => each.id === id);
+  const scope = domainScopeOf(workspace, id);
+  if (domain === undefined || scope === null) return null;
+  const journeys = journeyCardsOf(model, workspace.id, scope);
+  const neighbours = neighboursOf(workspace, new Set(domain.systems.map((s) => s.id)));
+  const outside = new Set([...neighbours.reaches, ...neighbours.reachedBy].map((n) => n.id)).size;
+  const teams = [...new Set(domain.systems.map((s) => teamOf(workspace, s.team)?.name ?? null))];
+  const named = teams.filter((t): t is string => t !== null);
   return {
     workspace: { name: workspace.name, href: workspaceHref(workspace.id) },
     name: domain.name,
-    description: domain.purpose,
+    headline: headlineOf(domain.name, {
+      systems: domain.systems.length,
+      role: roleOf(domain, journeys),
+      outside,
+    }),
+    purpose: domain.purpose,
     facts: [
       plural(domain.systems.length, 'system'),
-      plural(teams.size, 'team'),
-      `${plural(outside.callers.length + outside.callees.length, 'connected system')} in other domains`,
+      plural(domain.systems.flatMap((s) => s.components).length, 'component'),
+      runBy(named),
     ],
+    journeys,
     systems: domain.systems.map((system) => ({
       id: system.id,
       name: system.name,
       href: systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
-      team: teamOf(workspace, system.team)?.name ?? 'No team',
-      components: system.components.length,
+      does: systemDoes(system),
+      about: [
+        teamOf(workspace, system.team)?.name ?? 'No team',
+        plural(system.components.length, 'component'),
+        ...system.repos,
+      ],
     })),
-    diagram: layoutDiagram(
-      [
-        column({
-          id: 'callers',
-          label: 'Calls in from other domains',
-          nodes: outside.callers.flatMap(node),
-        }),
-        {
-          id: domain.id,
-          label: domain.name,
-          href: null,
-          quiet: false,
-          nodes: domain.systems.flatMap((system) => node(system.id)),
-        },
-        column({
-          id: 'callees',
-          label: 'Other domains it talks to',
-          nodes: outside.callees.flatMap(node),
-        }),
-      ].filter((entry) => entry.nodes.length > 0 || entry.id === domain.id),
-      links,
-    ),
-  };
-}
-
-// A system outside the domain sits on the right if the domain talks to it, otherwise on the left.
-function outsideOf(links: readonly Link[], inside: ReadonlySet<string>) {
-  const callees = [
-    ...new Set(links.filter((link) => inside.has(link.from)).map((link) => link.to)),
-  ].filter((id) => !inside.has(id));
-  const callers = [
-    ...new Set(links.filter((link) => inside.has(link.to)).map((link) => link.from)),
-  ].filter((id) => !inside.has(id) && !callees.includes(id));
-  return { callers, callees };
-}
-
-function column(options: { id: string; label: string; nodes: readonly DiagramNodeInput[] }) {
-  return { ...options, href: null, quiet: true };
-}
-
-function nodeOf(workspace: Workspace, found: Located, quiet: boolean): DiagramNodeInput {
-  const team = teamOf(workspace, found.system.team);
-  return {
-    id: found.system.id,
-    label: found.system.name,
-    detail: quiet ? found.domain.name : (team?.name ?? null),
-    href: systemHref({ workspace: workspace.id, domain: found.domain.id, system: found.system.id }),
-    team: team?.colour ?? null,
-    quiet,
+    neighbours,
+    catalogue: catalogueOf(model, scope),
   };
 }

@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useSyncExternalStore } from 'react';
 
-import type { PlanAddress } from '@/application/plan-pages';
+import type { Reader } from '@/application/today-reader';
 
 import { HoverCard } from './inspector/hover-card.client';
 import { Thing } from './inspector/thing.client';
@@ -32,16 +32,18 @@ const onKey = (event: KeyboardEvent): void => {
     close();
 };
 
+const loading = (reader: Reader): string =>
+  reader.mode === 'plan' ? 'Loading the plan…' : 'Loading how the systems work…';
+
 interface InspectorProps {
-  /** Where plan.json is, relative to the page. */
-  readonly src: string;
-  /** Which plan this is, for the addresses of its pages and pictures. */
-  readonly plan: PlanAddress;
+  /** Where the model is, relative to the page, and the addresses of its pages and pictures. */
+  readonly reader: Reader;
 }
 
 // One host for every chip on the page: a click on [data-inspect] opens that thing, and resting on one shows a
-// card. The plan is fetched the first time something asks, and the open id lives in the address hash.
-export function Inspector({ src, plan }: InspectorProps) {
+// card. The model (a plan, or a workspace today) is fetched the first time something asks, and the open id lives
+// in the address hash.
+export function Inspector({ reader }: InspectorProps) {
   const id = useSyncExternalStore(subscribe, openId, serverOpenId);
   usePicked(id);
 
@@ -64,12 +66,12 @@ export function Inspector({ src, plan }: InspectorProps) {
         data-open={id === null ? undefined : ''}
       >
         {id === null ? null : (
-          <Suspense fallback={<p className={styles.note}>Loading the plan…</p>}>
-            <Thing id={id} key={id} plan={plan} src={src} />
+          <Suspense fallback={<p className={styles.note}>{loading(reader)}</p>}>
+            <Thing id={id} key={id} reader={reader} />
           </Suspense>
         )}
       </aside>
-      <HoverCard src={src} />
+      <HoverCard src={reader.modelSrc} today={reader.mode === 'today'} />
     </>
   );
 }

@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 
-import { planCardOf } from '@/application/plan-footprint';
+import { workspaceScopeOf } from '@/application/model-scope';
 import { landscapeOf } from '@/application/workspace-landscape';
 import { workspaceNavOf } from '@/application/workspace-nav';
-import { findWorkspace } from '@/application/workspace-paths';
+import { TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { LandscapePage } from '@/features/workspace';
-import { readLoadedPlans } from '@/infrastructure/workspace-plans';
+import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 interface Params {
@@ -21,15 +21,19 @@ export async function generateStaticParams(): Promise<Params[]> {
 
 export default async function WorkspaceRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const workspace = findWorkspace(await readWorkspaces(), id);
-  if (workspace === null) notFound();
-  const loaded = await readLoadedPlans(workspace.id);
-  const plans = loaded.map((plan) => planCardOf(workspace.id, plan));
+  const data = await todayData(id);
+  if (data === null) notFound();
+  const { workspace, today, plans } = data;
   return (
     <LandscapePage
+      actions={<TodaySearch />}
       folder={workspace.id}
-      landscape={landscapeOf(workspace)}
-      nav={workspaceNavOf(workspace, plans, {})}
+      landscape={landscapeOf(workspace, today.model)}
+      map={
+        <TodayMap model={today.model} scope={workspaceScopeOf(workspace)} workspace={workspace} />
+      }
+      nav={workspaceNavOf(workspace, plans, { today: today.model })}
+      overlays={<TodayOverlays depth={0} workspace={workspace} />}
       plans={plans}
     />
   );

@@ -74,9 +74,10 @@ function EventGroups({ model, show }: { readonly model: Model; readonly show: Sh
 }
 
 /** Messages on topics, grouped by the topic; → and ← open one event at a time. */
-export function EventsCat({ model, teams }: CatProps) {
+export function EventsCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No events."

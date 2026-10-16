@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { Suspense, use, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 
-import type { Outline } from '@/application/plan-pages';
 import {
   paletteEntries,
   paletteGroups,
@@ -74,13 +73,47 @@ function Filters({ groups, total, filter, pick }: FiltersProps) {
   );
 }
 
-interface ResultsProps {
+interface PaletteProps {
+  /** Where the model is, relative to the page. */
   readonly src: string;
-  readonly outline: Outline;
+  /** The pages it can go to, listed before anything is typed. */
+  readonly screens: readonly PaletteEntry[];
+  /** Today's palette searches the workspace, not a plan. */
+  readonly today?: boolean;
+  /** Whether it draws its own Search button; without one, `/` and the bar's PaletteButton open it. */
+  readonly trigger?: boolean;
+}
+
+interface ResultsProps extends Pick<PaletteProps, 'src' | 'screens'> {
+  readonly words: Words;
   readonly done: () => void;
 }
 
-function Results({ src, outline, done }: ResultsProps) {
+interface Words {
+  readonly what: string;
+  readonly loading: string;
+  readonly failed: string;
+  readonly none: string;
+  readonly placeholder: string;
+}
+
+const PLAN_WORDS: Words = {
+  what: 'Search the plan',
+  loading: 'Loading the plan…',
+  failed: 'The plan could not be loaded.',
+  none: 'Nothing in the plan matches.',
+  placeholder: 'Find a screen, component, change, decision…',
+};
+
+const TODAY_WORDS: Words = {
+  what: 'Search the workspace',
+  loading: 'Loading how the systems work…',
+  failed: 'How the systems work today could not be loaded.',
+  none: 'Nothing in the workspace matches.',
+  placeholder: 'Find a page, component, API, event, flow…',
+};
+
+function Results({ src, screens, words, done }: ResultsProps) {
   const router = useRouter();
   const model = use(pendingModel(src).model);
   const [query, setQuery] = useState('');
@@ -90,8 +123,8 @@ function Results({ src, outline, done }: ResultsProps) {
   useEffect(() => {
     input.current?.focus();
   }, []);
-  if (model === null) return <p className={styles.note}>The plan could not be loaded.</p>;
-  const entries = paletteEntries(model, outline);
+  if (model === null) return <p className={styles.note}>{words.failed}</p>;
+  const entries = paletteEntries(model, screens);
   const found = searchPalette(entries, query, filter);
   const choose = (entry: PaletteEntry | undefined): void => {
     if (entry === undefined) return;
@@ -110,14 +143,14 @@ function Results({ src, outline, done }: ResultsProps) {
     <>
       <input
         aria-controls="palette-results"
-        aria-label="Search the plan"
+        aria-label={words.what}
         className={styles.input}
         onChange={(event) => {
           setQuery(event.target.value);
           setActive(0);
         }}
         onKeyDown={onKey}
-        placeholder="Find a screen, component, change, decision…"
+        placeholder={words.placeholder}
         ref={input}
         type="search"
         value={query}
@@ -151,14 +184,28 @@ function Results({ src, outline, done }: ResultsProps) {
             </button>
           </li>
         ))}
-        {found.length === 0 ? <li className={styles.note}>Nothing in the plan matches.</li> : null}
+        {found.length === 0 ? <li className={styles.note}>{words.none}</li> : null}
       </ul>
     </>
   );
 }
 
-// Finds screens and things in the plan from the same model the inspector reads, then goes there.
-export function Palette({ src, outline }: { readonly src: string; readonly outline: Outline }) {
+/** The bar's Search button: opens the palette wherever it is mounted. */
+export function PaletteButton() {
+  return (
+    <button
+      className={styles.trigger}
+      onClick={() => globalThis.dispatchEvent(new Event(PALETTE_EVENT))}
+      type="button"
+    >
+      Search <Kbd keys="/" />
+    </button>
+  );
+}
+
+// Finds screens and things from the same model the inspector reads, then goes there.
+export function Palette({ src, screens, today = false, trigger = true }: PaletteProps) {
+  const words = today ? TODAY_WORDS : PLAN_WORDS;
   const dialog = useRef<HTMLDialogElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -181,17 +228,9 @@ export function Palette({ src, outline }: { readonly src: string; readonly outli
 
   return (
     <>
-      <button
-        className={styles.trigger}
-        onClick={() => {
-          setShown(true);
-        }}
-        type="button"
-      >
-        Search <Kbd keys="/" />
-      </button>
+      {trigger ? <PaletteButton /> : null}
       <dialog
-        aria-label="Search the plan"
+        aria-label={words.what}
         className={styles.dialog}
         onClose={() => {
           setShown(false);
@@ -199,13 +238,14 @@ export function Palette({ src, outline }: { readonly src: string; readonly outli
         ref={dialog}
       >
         {shown ? (
-          <Suspense fallback={<p className={styles.note}>Loading the plan…</p>}>
+          <Suspense fallback={<p className={styles.note}>{words.loading}</p>}>
             <Results
               done={() => {
                 setShown(false);
               }}
-              outline={outline}
+              screens={screens}
               src={src}
+              words={words}
             />
           </Suspense>
         ) : null}

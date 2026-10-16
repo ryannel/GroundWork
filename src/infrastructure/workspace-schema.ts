@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { RESERVED_PAGES } from '@/domain/workspace-check';
+
 const id = z.string().regex(/^[a-z0-9][a-z0-9:-]*$/, 'ids are lower-case, with - and :');
 
 const componentFile = z.strictObject({
@@ -22,7 +24,7 @@ export const systemFile = z.strictObject({
 });
 
 export const domainFile = z.strictObject({
-  id: id.refine((value) => value !== 'plans', 'plans is reserved for the plan pages'),
+  id: id.refine((value) => !RESERVED_PAGES.includes(value), 'the id is reserved for a page'),
   name: z.string(),
   purpose: z.string().optional(),
 });

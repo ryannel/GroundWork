@@ -94,9 +94,10 @@ function StoreCard({
 }
 
 /** Databases, warehouses and caches, then the topics and queues that only carry events. */
-export function StoresCat({ model, teams }: CatProps) {
+export function StoresCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No stores."

@@ -73,6 +73,8 @@ export interface SystemMapInput {
   readonly labels: Readonly<Record<string, string>>;
   /** The team whose view it is: the rest are dimmed, its neighbours kept readable. */
   readonly lens: string | null;
+  /** The components and systems a scoped map is about: the rest are drawn as outside. Null for the whole map. */
+  readonly focus: readonly string[] | null;
 }
 
 /** Which layers are drawn. */
@@ -86,7 +88,8 @@ export interface MapShow {
 export const SHOW_ALL: MapShow = { parts: true, ifs: true, topics: true, stores: true };
 export const SHOW_OVERVIEW: MapShow = { parts: false, ifs: false, topics: false, stores: false };
 
-export type LensState = 'on' | 'near' | 'off' | null;
+/** How a card sits against the lens or the focus: `out` is a neighbour outside the focus. */
+export type LensState = 'on' | 'near' | 'off' | 'out' | null;
 
 export interface DrawnRow {
   readonly id: string;

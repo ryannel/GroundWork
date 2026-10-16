@@ -8,7 +8,7 @@ import { findPage, neighboursOf, outlineOf, pageHref, planHref, screenParams } f
 import { entityView, glyphOf, typeWord } from './plan-pages-entity';
 import { hashFor, idToToken, inspectedIn, tokenToId } from './plan-pages-hash';
 import { keyOf } from './plan-pages-screens';
-import { paletteEntries, paletteGroups, searchPalette } from './plan-pages-search';
+import { outlineScreens, paletteEntries, paletteGroups, searchPalette } from './plan-pages-search';
 
 vi.mock('server-only', () => ({}));
 
@@ -149,7 +149,7 @@ describe('entityView', () => {
 });
 
 describe('searchPalette', () => {
-  const entries = paletteEntries(model, outline);
+  const entries = paletteEntries(model, outlineScreens(outline));
 
   it('offers screens before anything is typed', () => {
     const found = searchPalette(entries, '');

@@ -27,9 +27,16 @@ function focusOf(stop: string | null): LineFilter {
 interface MapPaneProps {
   readonly input: SystemMapInput;
   readonly focus: LineFilter;
+  readonly outside: string | null;
 }
 
-function MapPane({ input, focus }: MapPaneProps) {
+function keyOf(outside: string | null): readonly LegendItem[] {
+  return outside === null
+    ? KEY
+    : [...KEY.slice(0, -1), { label: outside, swatch: 'out' }, ...KEY.slice(-1)];
+}
+
+function MapPane({ input, focus, outside }: MapPaneProps) {
   const map = useSystemMap(input, focus);
   const { drawing } = map;
   if (drawing === null) return null;
@@ -38,7 +45,7 @@ function MapPane({ input, focus }: MapPaneProps) {
       h={drawing.h}
       inline={<MapStages bands={drawing.bands} />}
       label="System map, full screen"
-      legend={<Legend items={KEY} />}
+      legend={<Legend items={keyOf(outside)} />}
       tools={<MapToolbar map={map} />}
       w={drawing.w}
       what="the map"
@@ -56,9 +63,15 @@ function MapPane({ input, focus }: MapPaneProps) {
   );
 }
 
+interface SystemMapViewProps {
+  readonly input: SystemMapInput;
+  /** What the dotted cards of a scoped map are, for the key: "outside this domain, one step away". */
+  readonly outside?: string | null;
+}
+
 /** The system map: what the reader chose to see, drawn and traced as the pointer moves. A stop of the page can pick the lines. */
-export function SystemMapView({ input }: { readonly input: SystemMapInput }) {
+export function SystemMapView({ input, outside }: SystemMapViewProps) {
   const stop = useStopFocus();
   const focus = focusOf(stop);
-  return <MapPane focus={focus} input={input} key={focus} />;
+  return <MapPane focus={focus} input={input} key={focus} outside={outside ?? null} />;
 }

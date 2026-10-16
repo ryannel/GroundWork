@@ -54,7 +54,25 @@ export async function readPlanFile(
   at: { workspace: string; slug: string; kind: PlanFolder },
   segments: readonly string[],
 ): Promise<Buffer | null> {
-  const base = folderOf(at.workspace, at.slug, at.kind);
+  return readUnder(folderOf(at.workspace, at.slug, at.kind), segments);
+}
+
+const assetsOf = (workspace: string): string => path.join(root(), workspace, 'assets');
+
+/** Every file under a workspace's assets/, the images its system model cites, as path segments. */
+export async function listWorkspaceAssets(workspace: string): Promise<string[][]> {
+  return walk(assetsOf(workspace), []);
+}
+
+/** One of a workspace's assets, or null when it is not there. */
+export async function readWorkspaceAsset(
+  workspace: string,
+  segments: readonly string[],
+): Promise<Buffer | null> {
+  return readUnder(assetsOf(workspace), segments);
+}
+
+async function readUnder(base: string, segments: readonly string[]): Promise<Buffer | null> {
   const file = path.join(base, ...segments);
   if (!file.startsWith(base + path.sep)) return null;
   return readFile(file).catch(() => null);

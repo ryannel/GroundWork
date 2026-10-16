@@ -1,0 +1,20 @@
+@layer components {
+  .cards {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .headline {
+    margin: 0 0 var(--s-2);
+  }
+
+  .lede {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-13);
+  }
+}

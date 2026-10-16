@@ -95,6 +95,7 @@ export function positionOf(walk: Walk, id: string): number {
 export function progressOf(
   walk: Walk,
   at: { readonly index: number; readonly mode: JourneyMode },
+  whole = 'scenario',
 ): string {
   const missing = new Set(walk.missing[at.mode]);
   const counts = (i: number): boolean => {
@@ -105,6 +106,6 @@ export function progressOf(
   const n = steps.indexOf(at.index);
   if (walk.positions[at.index]?.stepId === null) return 'No recorded steps';
   if (n === -1) return 'Not in this view';
-  const where = Object.keys(walk.flows).length > 1 ? ' in this scenario' : '';
+  const where = Object.keys(walk.flows).length > 1 ? ` in this ${whole}` : '';
   return `Step ${String(n + 1)} of ${String(steps.length)}${where}`;
 }

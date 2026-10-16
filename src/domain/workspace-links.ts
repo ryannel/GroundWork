@@ -36,7 +36,7 @@ export interface Wire {
   readonly via: ConnectionKind;
 }
 
-export function wiresOf(domains: readonly Domain[]): readonly Wire[] {
+function wiresOf(domains: readonly Domain[]): readonly Wire[] {
   return domains.flatMap((domain) => domain.systems.flatMap(systemWires));
 }
 

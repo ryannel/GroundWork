@@ -1,29 +1,53 @@
 @layer components {
   .section {
-    margin-top: var(--s-8);
+    margin-top: var(--s-10);
+  }
+
+  .apart {
+    margin-top: var(--s-12);
+    padding-top: var(--s-8);
+    border-top: 1px solid var(--line-2);
   }
 
   .domains {
     display: grid;
     gap: var(--s-3);
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .purpose {
-    margin: 0 0 var(--s-2);
+    margin: 0 0 var(--s-3);
+    color: var(--fg-1);
+  }
+
+  .systems {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0 0 var(--s-3);
+    padding: 0;
+    font-size: var(--fs-13);
+    list-style: none;
+  }
+
+  .system {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  .does {
+    color: var(--fg-2);
+
+    &::before {
+      content: ' · ';
+    }
   }
 
   .size {
     margin: 0;
-    color: var(--fg-2);
-    font-size: var(--fs-12);
-  }
-
-  .empty {
-    margin: 0;
     color: var(--fg-3);
+    font-size: var(--fs-12);
   }
 }

@@ -78,6 +78,12 @@
       opacity: 0.4;
     }
 
+    &[data-swatch='out'] {
+      border-style: dotted;
+      border-color: var(--fg-3);
+      background: transparent;
+    }
+
     &[data-swatch='cur'] {
       border-color: var(--accent-line);
       background: var(--accent-soft);

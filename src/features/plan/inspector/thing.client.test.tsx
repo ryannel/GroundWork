@@ -3,6 +3,8 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { Suspense } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
+import { planReaderOf } from '@/application/plan-pages-things';
+import { todayReaderOf, type Reader } from '@/application/today-reader';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 import { Thing } from './thing.client';
@@ -47,11 +49,11 @@ beforeAll(() => {
 
 afterEach(cleanup);
 
-async function show(id: string): Promise<void> {
+async function show(id: string, reader: Reader = planReaderOf(at, 'plan.json')): Promise<void> {
   await act(async () => {
     render(
       <Suspense fallback={<p>loading</p>}>
-        <Thing id={id} plan={at} src="plan.json" />
+        <Thing id={id} reader={reader} />
       </Suspense>,
     );
     await new Promise((resolve) => setTimeout(resolve, 50));
@@ -94,5 +96,14 @@ describe('Thing', () => {
     expect(issue.textContent).toContain('Pause endpoint');
     expect(issue.textContent).toMatch(/closed 4 Mar/);
     expect(issue.querySelector('a')?.getAttribute('href')).toBe('https://x/1');
+  });
+
+  it('reads today with no versions, no switch and its own page under the workspace', async () => {
+    await show('svc:subs', todayReaderOf('w', 0));
+    const link = await screen.findByRole('link', { name: 'Open as page' });
+    expect(link.getAttribute('href')).toBe('/w/things/svc-subs');
+    expect(screen.queryByRole('combobox', { name: 'As at' })).toBeNull();
+    expect(screen.queryByRole('radio')).toBeNull();
+    expect(document.body.textContent).not.toMatch(/\bplan\b/i);
   });
 });

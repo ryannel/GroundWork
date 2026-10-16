@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation';
 import { use, useMemo, useState, useTransition } from 'react';
 
 import type { Model } from '@/application/plan/derive';
-import { outlineOf, planHref, type PlanAddress } from '@/application/plan-pages';
+import { outlineOf } from '@/application/plan-pages';
 import { entityView } from '@/application/plan-pages-entity';
-import { placesOf } from '@/application/plan-pages-entity-where';
-import { thingHref, topThingIds } from '@/application/plan-pages-things';
+import { placesOf, type EntityPlace } from '@/application/plan-pages-entity-where';
+import { thingAt, topThingIds } from '@/application/plan-pages-things';
 import { assetUrl } from '@/application/plan-viz-screens';
+import type { Reader } from '@/application/today-reader';
 import { pendingModel } from '@/features/plan/plan-model';
 
 import { EntityDetails } from './entity-details';
@@ -22,37 +23,44 @@ import { ViewSwitch } from './view-switch.client';
 
 interface ThingProps {
   readonly id: string;
-  readonly src: string;
-  readonly plan: PlanAddress;
+  /** Where the model is and where its pages and pictures are; a plan's reader also names the plan. */
+  readonly reader: Reader;
 }
 
 interface ThingViewProps {
   readonly id: string;
   readonly model: Model;
-  readonly plan: PlanAddress;
+  readonly reader: Reader;
   /** The version it is shown at, null for the one being read. */
   readonly version: string | null;
 }
 
-// The thing as it is today or with the plan, then where the story tells it.
-function ThingView({ id, model, plan, version }: ThingViewProps) {
+const placesIn = (model: Model, reader: Reader, id: string): EntityPlace[] =>
+  reader.plan === undefined ? [] : placesOf(model, outlineOf(model, reader.plan), id);
+
+function missing(reader: Reader, version: string | null, id: string): string {
+  if (reader.mode === 'today') return `Nothing called ${id} runs today.`;
+  const where = version === null ? 'The plan has' : `Version ${version} had`;
+  return `${where} nothing called ${id}.`;
+}
+
+// The thing as it is today or with the plan, then where the story tells it. Today's reader has only today.
+function ThingView({ id, model, reader, version }: ThingViewProps) {
   const [today, setToday] = useState(false);
   const routed: unknown = usePathname();
   const here = typeof routed === 'string' ? routed : '';
   const view = useMemo(() => entityView(model, id), [model, id]);
-  const places = useMemo(() => placesOf(model, outlineOf(model, plan), id), [model, plan, id]);
-  if (view === null) {
-    const where = version === null ? 'The plan has' : `Version ${version} had`;
-    return <p className={styles.note}>{`${where} nothing called ${id}.`}</p>;
-  }
-  const showToday = today && !view.planLevel;
+  const places = useMemo(() => placesIn(model, reader, id), [model, reader, id]);
+  if (view === null) return <p className={styles.note}>{missing(reader, version, id)}</p>;
+  const switchable = reader.mode === 'plan' && !view.planLevel;
+  const showToday = reader.mode === 'today' || (today && switchable);
   return (
     <>
-      {view.planLevel ? null : <ViewSwitch onChange={setToday} today={showToday} />}
+      {switchable ? <ViewSwitch onChange={setToday} today={showToday} /> : null}
       <div className={styles.body}>
         <EntityHead today={showToday} view={view} />
         <EntityDetails
-          image={view.image === null ? null : assetUrl(planHref(plan), view.image)}
+          image={view.image === null ? null : assetUrl(reader.assetBase, view.image)}
           model={model}
           today={showToday}
           view={view}
@@ -61,7 +69,7 @@ function ThingView({ id, model, plan, version }: ThingViewProps) {
         <EntityPlaces
           here={here}
           mentionedIn={view.mentionedIn}
-          mentionedParts={view.mentionedParts}
+          mentionedParts={reader.mode === 'today' ? [] : view.mentionedParts}
           places={places}
           sources={view.sources}
         />
@@ -71,17 +79,21 @@ function ThingView({ id, model, plan, version }: ThingViewProps) {
 }
 
 // What the inspector shows for one id: the bar, the version it is read at, then the thing. A new id remounts it,
-// so the switch starts on the plan, at the version being read, each time.
-export function Thing({ id, src, plan }: ThingProps) {
-  const head = use(pendingModel(src).model);
+// so the switch starts on the plan, at the version being read, each time. Today has no versions.
+export function Thing({ id, reader }: ThingProps) {
+  const head = use(pendingModel(reader.modelSrc).model);
   const [version, setVersion] = useState<string | null>(null);
   const [, startTransition] = useTransition();
-  const shown = version === null ? head : use(pendingModel(revisionSrc(src, version)).model);
+  const shown =
+    version === null ? head : use(pendingModel(revisionSrc(reader.modelSrc, version)).model);
   const page = useMemo(
-    () => (head !== null && topThingIds(head).includes(id) ? thingHref(plan, id) : null),
-    [head, plan, id],
+    () => (head !== null && topThingIds(head).includes(id) ? thingAt(reader.thingBase, id) : null),
+    [head, reader.thingBase, id],
   );
-  if (head === null) return <p className={styles.note}>The plan could not be loaded.</p>;
+  if (head === null) {
+    const what = reader.mode === 'plan' ? 'The plan' : 'How the systems work today';
+    return <p className={styles.note}>{`${what} could not be loaded.`}</p>;
+  }
   const jump = (next: string | null): void => {
     startTransition(() => {
       setVersion(next);
@@ -90,11 +102,11 @@ export function Thing({ id, src, plan }: ThingProps) {
   return (
     <>
       <InspectorBar id={id} model={head} page={page} />
-      <VersionJump model={head} onChange={jump} value={version} />
+      {reader.mode === 'plan' ? <VersionJump model={head} onChange={jump} value={version} /> : null}
       {shown === null ? (
         <p className={styles.note}>{`No copy of version ${version ?? ''} was kept.`}</p>
       ) : (
-        <ThingView id={id} key={version ?? ''} model={shown} plan={plan} version={version} />
+        <ThingView id={id} key={version ?? ''} model={shown} reader={reader} version={version} />
       )}
     </>
   );

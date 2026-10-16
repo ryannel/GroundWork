@@ -1,5 +1,37 @@
 @layer components {
   .section {
-    margin-top: var(--s-8);
+    margin-top: var(--s-10);
+  }
+
+  .apart {
+    margin-top: var(--s-12);
+    padding-top: var(--s-8);
+    border-top: 1px solid var(--line-2);
+  }
+
+  .purpose {
+    margin: 0;
+    color: var(--fg-1);
+  }
+
+  .systems {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .does {
+    margin: 0 0 var(--s-2);
+    color: var(--fg-1);
+  }
+
+  .about {
+    margin: 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+    overflow-wrap: anywhere;
   }
 }

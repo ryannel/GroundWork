@@ -5,6 +5,7 @@ import { planBarOf } from '@/application/plan-bar';
 import type { PlanCard } from '@/application/plan-footprint';
 import { neighboursOf, type Neighbours, type Outline, type Page } from '@/application/plan-pages';
 import { crumbOf, teamHidden, teamPages, teamPlaces } from '@/application/plan-pages-team';
+import { planReaderOf } from '@/application/plan-pages-things';
 import { workspaceHref } from '@/application/workspace-paths';
 import { AppBar } from '@/ui/app-bar';
 import { AppShell } from '@/ui/app-shell';
@@ -65,7 +66,9 @@ export function PlanShell({
       }
       overlays={
         <>
-          <Inspector plan={{ workspace: outline.workspace, slug: outline.slug }} src={src} />
+          <Inspector
+            reader={planReaderOf({ workspace: outline.workspace, slug: outline.slug }, src)}
+          />
           <LensCarry />
           <CheatSheet />
           <ChangesAhead

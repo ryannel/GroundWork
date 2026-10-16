@@ -28,6 +28,8 @@ export interface ScenarioWalkProps {
   readonly heads: Readonly<Record<string, ReactNode>>;
   /** The scenario's story, under the heading. */
   readonly context: ReactNode;
+  /** Outside any plan: walked as it runs today, with no switch and nothing about change. */
+  readonly today?: boolean | undefined;
 }
 
 function ignore(): void {
@@ -42,15 +44,17 @@ function FlowList({
   flows,
   current,
   onPick,
+  whole,
 }: {
   readonly flows: ScenarioWalkProps['flows'];
   readonly current: string;
   readonly onPick: (id: string) => void;
+  readonly whole: string;
 }) {
   if (flows.length < 2) return null;
   return (
     <label className={styles.field}>
-      <span>Flow in this scenario</span>
+      <span>Flow in this {whole}</span>
       <select
         onChange={(event) => {
           onPick(event.target.value);
@@ -68,7 +72,8 @@ function FlowList({
 }
 
 function Walking({ model, props }: { readonly model: Model; readonly props: ScenarioWalkProps }) {
-  const { flows, base, heads, context } = props;
+  const { flows, base, heads, context, today = false } = props;
+  const whole = today ? 'journey' : 'scenario';
   const walk = useMemo(
     () =>
       walkOf(
@@ -78,11 +83,11 @@ function Walking({ model, props }: { readonly model: Model; readonly props: Scen
     [model, flows],
   );
   const { root, before } = useSteady();
-  const { place, go } = useWalk({ walk, href: props.href, before });
+  const { place, go } = useWalk({ walk, href: props.href, before, today });
   const at = walk.positions[place.index] ?? { flowId: flows[0]?.id ?? '', stepId: null };
   const modes = useMemo(
-    () => journeyModes(model, { flowId: at.flowId, base, extraIds: [at.flowId] }),
-    [model, at.flowId, base],
+    () => journeyModes(model, { flowId: at.flowId, base, extraIds: [at.flowId], today }),
+    [model, at.flowId, base, today],
   );
   const toStep = (id: string): void => {
     const index = walk.positions.findIndex((p) => (p.stepId ?? p.flowId) === id);
@@ -100,12 +105,14 @@ function Walking({ model, props }: { readonly model: Model; readonly props: Scen
             const first = walk.stops[place.mode].find((i) => walk.positions[i]?.flowId === id);
             if (first !== undefined) go({ ...place, index: first });
           }}
+          whole={whole}
         />
         <p aria-live="polite" className={styles.progress}>
-          {progressOf(walk, place)}
+          {progressOf(walk, place, whole)}
         </p>
       </div>
       <JourneyView
+        asIsOnly={today}
         flow={{
           keys: false,
           view: flowViewOf(),
@@ -122,6 +129,7 @@ function Walking({ model, props }: { readonly model: Model; readonly props: Scen
         stepId={at.stepId ?? at.flowId}
       />
       <WalkNav
+        many={whole}
         onGo={(index) => {
           go({ ...place, index });
         }}

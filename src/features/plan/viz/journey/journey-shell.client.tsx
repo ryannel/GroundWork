@@ -74,14 +74,17 @@ export interface JourneyViewProps {
   readonly onMode: (mode: JourneyMode) => void;
   readonly onStep: (stepId: string) => void;
   readonly flow?: FlowChoice | undefined;
+  /** Outside any plan: today only, with no switch. */
+  readonly asIsOnly?: boolean | undefined;
 }
 
 /** The journey drawn at a place someone else keeps. */
-export function JourneyView({ modes, mode, stepId, onMode, onStep, flow }: JourneyViewProps) {
+export function JourneyView(props: JourneyViewProps) {
+  const { modes, mode, stepId, onMode, onStep, flow, asIsOnly = false } = props;
   const view = modes[mode];
   return (
     <div>
-      <JourneyModes mode={mode} onMode={onMode} />
+      {asIsOnly ? null : <JourneyModes mode={mode} onMode={onMode} />}
       <JourneyOutline current={stepId} items={view.outline} onPick={onStep} />
       <Body flow={flow} key={mode} onMode={onMode} onStep={onStep} stepId={stepId} view={view} />
     </div>

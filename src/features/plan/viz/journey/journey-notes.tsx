@@ -20,19 +20,28 @@ export interface NotesProps {
   readonly mode: JourneyMode;
   /** A change the page already gives as its headline. */
   readonly omitChange?: string | undefined;
+  /** Outside any plan: the step as it runs, with nothing about change. */
+  readonly today?: boolean | undefined;
 }
 
-const sourceNote = (n: number): string => {
-  if (n === 0) return 'Recorded in the plan. No direct source is recorded for this step.';
+const sourceNote = (n: number, today: boolean): string => {
+  if (n === 0)
+    return `Recorded in the ${today ? 'system model' : 'plan'}. No direct source is recorded for this step.`;
   const are = n === 1 ? 'source is' : 'sources are';
   return `${String(n)} direct ${are} recorded for this step.`;
 };
 
-function StepEvidence({ model, step }: { readonly model: Model; readonly step: StepNode }) {
+interface EvidenceProps {
+  readonly model: Model;
+  readonly step: StepNode;
+  readonly today: boolean;
+}
+
+function StepEvidence({ model, step, today }: EvidenceProps) {
   return (
     <details className={styles.fold} data-keep="evidence">
       <summary>Evidence</summary>
-      <p>{sourceNote(step.sources?.length ?? 0)}</p>
+      <p>{sourceNote(step.sources?.length ?? 0, today)}</p>
       {step.fails === undefined || step.fails === '' ? (
         <p>No failure behaviour is recorded for this step.</p>
       ) : null}
@@ -73,7 +82,21 @@ function Ahead({ model, flowId, stepId }: AheadProps) {
  * What a journey adds under a step: a disclosure of how the plan changes it, what the plan says about retiring it,
  * and the evidence for the step itself.
  */
-export function JourneyStepNotes({ model, comparison, stepId, mode, omitChange }: NotesProps) {
+export function JourneyStepNotes(props: NotesProps) {
+  return props.today === true ? <TodayNotes {...props} /> : <PlanNotes {...props} />;
+}
+
+/** Outside any plan a step has only its evidence. */
+function TodayNotes({ model, comparison, stepId, mode }: NotesProps) {
+  const step = stepIn(comparison.rows.find((r) => r.id === stepId) ?? null, mode);
+  return (
+    <div className={styles.notes}>
+      {step === null ? null : <StepEvidence model={model} step={step} today />}
+    </div>
+  );
+}
+
+function PlanNotes({ model, comparison, stepId, mode, omitChange }: NotesProps) {
   const row = comparison.rows.find((r) => r.id === stepId) ?? null;
   const step = stepIn(row, mode);
   const marked = row !== null && journeyMarkerText(row, mode) !== '';
@@ -92,7 +115,7 @@ export function JourneyStepNotes({ model, comparison, stepId, mode, omitChange }
       ) : null}
       {mode === 'asIs' ? <Ahead flowId={comparison.id} model={model} stepId={stepId} /> : null}
       <Rollout model={model} notes={rolloutNotes(model, comparison.id, stepId)} />
-      {step === null ? null : <StepEvidence model={model} step={step} />}
+      {step === null ? null : <StepEvidence model={model} step={step} today={false} />}
     </div>
   );
 }

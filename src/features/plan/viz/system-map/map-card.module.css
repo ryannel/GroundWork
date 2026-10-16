@@ -11,6 +11,12 @@
     &[data-part='true'] {
       fill: var(--bg-1);
     }
+
+    &[data-out='true'] {
+      fill: var(--bg-1);
+      stroke-dasharray: 1 3;
+      stroke-linecap: round;
+    }
   }
 
   .name {

@@ -49,9 +49,10 @@ function Interface({
 }
 
 /** Every endpoint, grouped by the interface that serves it. */
-export function ApisCat({ model, teams }: CatProps) {
+export function ApisCat({ model, teams, today }: CatProps) {
   return (
     <Pages
+      today={today}
       model={model}
       modes
       empty="No APIs."
