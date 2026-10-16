@@ -185,6 +185,7 @@ describe('a small workspace', () => {
     expect(systemDoes({ ...named, components: [{ ...named.components[0]!, does: 'Sells' }] })).toBe(
       'Sells',
     );
+    expect(systemDoes({ ...named, purpose: 'Takes orders' })).toBe('Takes orders');
     const near = neighboursOf(shop, new Set(['price']));
     expect(near.reaches).toEqual([
       expect.objectContaining({ id: 'search', place: 'Find domain', how: 'messages and calls' }),

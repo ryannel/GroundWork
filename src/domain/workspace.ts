@@ -22,6 +22,8 @@ export interface Component {
 export interface System {
   readonly id: string;
   readonly name: string;
+  /** What the system is for, in a sentence; when absent its components say. */
+  readonly purpose?: string | null;
   readonly team: string | null;
   readonly repos: readonly string[];
   readonly components: readonly Component[];
@@ -73,8 +75,9 @@ export function componentsOf(workspace: Workspace): readonly Component[] {
   return systemsOf(workspace).flatMap((system) => system.components);
 }
 
-/** What a system is for, in the words of its namesake component, or of its first own component that says. */
+/** What a system is for: its purpose, else the words of its namesake component, or of its first own component that says. */
 export function systemDoes(system: System): string {
+  if (system.purpose !== undefined && system.purpose !== null) return system.purpose;
   const says = system.components.filter((c) => c.type !== 'external' && c.does !== null);
   const lead = says.find((c) => c.name === system.name) ?? says.find((c) => c.type === 'service');
   return (lead ?? says[0])?.does ?? '';

@@ -67,6 +67,7 @@ async function readSystem(folder: string): Promise<System> {
   return {
     id: file.id,
     name: file.name,
+    purpose: file.purpose ?? null,
     team: file.team ?? null,
     repos: file.repos,
     components: file.components.map((component) => ({

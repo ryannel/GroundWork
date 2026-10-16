@@ -18,6 +18,7 @@ const componentFile = z.strictObject({
 export const systemFile = z.strictObject({
   id: id.refine((value) => !RESERVED_SYSTEM_PAGES.includes(value), 'the id is reserved for a page'),
   name: z.string(),
+  purpose: z.string().optional(),
   team: id.optional(),
   repos: z.array(z.string()).default([]),
   components: z.array(componentFile).default([]),
