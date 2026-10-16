@@ -12,6 +12,18 @@ export function systemHref(options: { workspace: string; domain: string; system:
   return `/${options.workspace}/${options.domain}/${options.system}/`;
 }
 
+/** A flow's part of its address: its id without the `flow:` every flow id starts with. */
+export function flowSlug(id: string): string {
+  return id.replace(/^flow:/, '');
+}
+
+export function systemFlowHref(
+  options: { workspace: string; domain: string; system: string },
+  flow: string,
+): string {
+  return `${systemHref(options)}flows/${flowSlug(flow)}/`;
+}
+
 export function teamOf(workspace: Workspace, id: string | null): Team | null {
   return workspace.teams.find((team) => team.id === id) ?? null;
 }

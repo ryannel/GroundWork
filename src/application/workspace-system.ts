@@ -1,7 +1,7 @@
 import { systemScopeOf } from '@/application/model-scope';
-import type { Model } from '@/application/plan/derive';
 import { catalogueOf, type CatalogueRow } from '@/application/today-catalogue';
 import { type ComponentCard, componentCardsOf } from '@/application/today-components';
+import { type FlowEntry, flowEntriesOf } from '@/application/today-flow-list';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
 import { type RepoRow, reposOf } from '@/application/today-repos';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
@@ -9,7 +9,7 @@ import type { SystemModel } from '@/application/workspace-model';
 import { type Workspace, systemDoes } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { domainHref, teamOf, workspaceHref } from './workspace-paths';
+import { domainHref, systemFlowHref, teamOf, workspaceHref } from './workspace-paths';
 
 // A system page teaches how one system works: what it does and who runs it, how fresh our reading of its code is,
 // the map of its components with what is one step outside, the flows through it step by step, and each component
@@ -31,7 +31,7 @@ export interface SystemView {
   readonly repos: readonly RepoRow[];
   readonly journeys: readonly JourneyCard[];
   /** The flows with a step here, most steps here first. */
-  readonly flows: readonly string[];
+  readonly flows: readonly FlowEntry[];
   readonly components: readonly ComponentCard[];
   /** Each store it keeps, with the records in it. */
   readonly data: readonly CatalogueRow[];
@@ -39,17 +39,6 @@ export interface SystemView {
 }
 
 const runBy = (team: string): string => `Run by the ${team} team`;
-
-function flowsThrough(model: Model, focus: ReadonlySet<string>): string[] {
-  return model.asIs.flows
-    .map((f) => ({
-      id: f.id,
-      here: f.steps.filter((s) => focus.has(s.from) || focus.has(s.to)).length,
-    }))
-    .filter((f) => f.here > 0)
-    .toSorted((a, b) => b.here - a.here)
-    .map((f) => f.id);
-}
 
 /** A system's page, read from the model of today; null when the domain holds no such system. */
 export function systemViewOf(
@@ -64,7 +53,9 @@ export function systemViewOf(
   const { model } = today;
   const does = systemDoes(system).replace(/\.$/, '');
   const team = teamOf(workspace, system.team);
-  const flows = flowsThrough(model, scope.focus);
+  const flows = flowEntriesOf(model, scope.focus, (flow) =>
+    systemFlowHref({ workspace: workspace.id, domain: domain.id, system: system.id }, flow),
+  );
   return {
     trail: [
       { label: workspace.name, href: workspaceHref(workspace.id) },

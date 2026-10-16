@@ -102,6 +102,7 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | `/[workspace]/`                                     | the landscape of one workspace       |
 | `/[workspace]/[domain]/`                            | one domain                           |
 | `/[workspace]/[domain]/[system]/`                   | one system                           |
+| `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open       |
 | `/[workspace]/journeys/`                            | the journeys through the systems     |
 | `/[workspace]/journeys/[key]/`                      | one journey, walked step by step     |
 | `/[workspace]/reference/`                           | the kinds of thing the systems hold  |
@@ -116,6 +117,10 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser  |
 | `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images         |
 | `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                |
+
+A system page is a layout and each flow through it is a page under it, so a system can run hundreds of flows:
+the page carries only the flow being read, and choosing another fetches just that flow. The flow's address is its
+id without `flow:`.
 
 `plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, and `assets`,
 `mockups`, `things` and `revisions` cannot be

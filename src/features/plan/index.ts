@@ -7,4 +7,5 @@ export { TodayJourneys } from './today/journey-index';
 export { TodayJourney } from './today/journey-walk';
 export { TodayCatalogue, TodayReference } from './today/reference-pages';
 export { TodayMap } from './today/today-map';
-export { TodayFlows } from './today/today-flows';
+export { FlowList } from './today/flow-list.client';
+export { TodayFlow } from './today/today-flows';
