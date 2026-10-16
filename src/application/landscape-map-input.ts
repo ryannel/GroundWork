@@ -152,20 +152,32 @@ function domainOf(workspace: Workspace, model: Model, domain: Domain): MapDomain
   };
 }
 
-function pathsOf(workspace: Workspace, model: Model): MapPath[] {
+function pathsOf(workspace: Workspace, model: Model, keys: readonly string[]): MapPath[] {
   const flows = new Map(model.asIs.flows.map((f) => [f.id, f]));
-  return todayJourneysOf(model).map((j) => ({
-    key: j.key,
-    title: j.title,
-    kind: j.kind,
-    href: journeyHref(workspace.id, j.key),
-    actor: actorIdOf(workspace.actors, j.actor),
-    pairs: j.flows.flatMap((id) => flows.get(id)?.steps ?? []).map((s) => [s.from, s.to] as const),
-  }));
+  const journeys = new Map(todayJourneysOf(model).map((j) => [j.key, j]));
+  return keys
+    .flatMap((key) => journeys.get(key) ?? [])
+    .map((j) => ({
+      key: j.key,
+      title: j.title,
+      kind: j.kind,
+      href: journeyHref(workspace.id, j.key),
+      actor: actorIdOf(workspace.actors, j.actor),
+      pairs: j.flows
+        .flatMap((id) => flows.get(id)?.steps ?? [])
+        .map((s) => [s.from, s.to] as const),
+    }));
 }
 
-/** Everything the landscape canvas needs, from the workspace and its model of today. */
-export function landscapeMapInput(workspace: Workspace, model: Model): LandscapeMapInput {
+/**
+ * Everything the landscape canvas needs, from the workspace and its model of today. Only the journeys named by key,
+ * the workspace's key journeys, can be lit on it.
+ */
+export function landscapeMapInput(
+  workspace: Workspace,
+  model: Model,
+  keys: readonly string[],
+): LandscapeMapInput {
   const ordered = workspace.domains
     .map((domain, at) => ({ domain, at, rank: stageRank(model, domain) }))
     .toSorted((a, b) => (a.rank === b.rank ? a.at - b.at : a.rank - b.rank))
@@ -185,6 +197,6 @@ export function landscapeMapInput(workspace: Workspace, model: Model): Landscape
     externals,
     links: [...actorLinks(workspace, model), ...componentLinks(model)],
     homes,
-    paths: pathsOf(workspace, model),
+    paths: pathsOf(workspace, model, keys),
   };
 }

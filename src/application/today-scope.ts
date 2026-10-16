@@ -61,6 +61,8 @@ export interface JourneyCard {
   readonly systems: readonly string[];
   /** How much of it runs in the scope, when the scope is not the whole workspace. */
   readonly here: string | null;
+  /** Why the code suggests it as a key journey, when it does. */
+  readonly why?: string | null;
 }
 
 function stepsIn(model: Model, flows: readonly string[], scope: ModelScope): number {
@@ -87,6 +89,14 @@ function cardOf(model: Model, workspace: string, at: { j: TodayJourney; scope: M
         ? null
         : `${String(here)} of its ${String(j.steps)} steps run in ${scope.name}`,
   };
+}
+
+/** One journey's card, read across the whole workspace. */
+export function journeyCardOf(model: Model, workspace: string, j: TodayJourney): JourneyCard {
+  return cardOf(model, workspace, {
+    j,
+    scope: { kind: 'workspace', id: workspace, name: '', focus: new Set() },
+  });
 }
 
 const KIND_ORDER = { journey: 0, flow: 1 } as const;

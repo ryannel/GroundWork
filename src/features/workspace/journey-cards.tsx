@@ -37,6 +37,9 @@ export function JourneyCards({ cards }: { readonly cards: readonly JourneyCard[]
               <dd>{card.through}</dd>
             </dl>
             {card.here === null ? null : <p className={styles.here}>{card.here}</p>}
+            {card.why === undefined || card.why === null ? null : (
+              <p className={styles.why}>{card.why}</p>
+            )}
           </Card>
         </li>
       ))}

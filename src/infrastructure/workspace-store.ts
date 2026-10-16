@@ -46,6 +46,7 @@ async function readWorkspace(folder: string): Promise<Workspace> {
       uses,
     })),
     domains,
+    keyJourneys: file.key_journeys,
   };
   const { errors } = checkWorkspace(workspace);
   if (errors.length > 0) throw new Error(`${folder}:\n${errors.join('\n')}`);

@@ -17,7 +17,7 @@ deployable microservice, worker or job), a **store** (a database), a **topic** (
 user-facing app. Say "service" only when you mean that kind; say "component" when you mean any of them.
 
 ```
-workspaces/<workspace>/workspace.yaml   teams, and the people (actors) who use the systems
+workspaces/<workspace>/workspace.yaml   teams, the people (actors) who use the systems, and key journeys
   domains/<domain>/domain.yaml
     systems/<system>/system.yaml      components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
@@ -58,6 +58,11 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 - People sit in a band along the top, outside services (external components) along the bottom, each placed
   under the middle of what it connects to. Actors are listed in `workspace.yaml` (`actor:` ids, with the
   systems they `use`); flow actors other than "System" are added.
+- The page leads with the plans, then the canvas, then a handful of **key journeys**, the only journeys at this
+  level: a real estate runs thousands of flows, which belong to the domains and systems they run through.
+  `src/application/key-journeys.ts` suggests up to six from the model, each next one the journey reaching the most
+  systems not yet reached, preferring those a person starts. A `key_journeys:` list of user journey or flow ids in
+  `workspace.yaml` replaces the suggestion. Only key journeys can be lit on the canvas.
 - `landscape-map-input.ts` gathers the boxes and component links from today's model; `landscape-map-rollup.ts`
   rolls every link up to whatever box shows its ends, so a line between two folded domains stands for all the
   calls, events and reads between them.

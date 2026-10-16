@@ -46,4 +46,10 @@
     margin: 0;
     color: var(--fg-3);
   }
+
+  .why {
+    margin: var(--s-3) 0 0;
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
 }

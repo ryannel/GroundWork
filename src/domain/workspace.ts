@@ -61,6 +61,8 @@ export interface Workspace {
   readonly teams: readonly Team[];
   readonly actors: readonly Actor[];
   readonly domains: readonly Domain[];
+  /** The journeys a person picked to lead the workspace, by user journey or flow id; none and the code suggests them. */
+  readonly keyJourneys?: readonly string[];
 }
 
 export function systemsOf(workspace: Workspace): readonly System[] {

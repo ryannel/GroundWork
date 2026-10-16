@@ -3,10 +3,22 @@
     margin-top: var(--s-10);
   }
 
-  .apart {
-    margin-top: var(--s-12);
-    padding-top: var(--s-8);
-    border-top: 1px solid var(--line-2);
+  .plans {
+    margin-top: var(--s-8);
+  }
+
+  .more {
+    margin: var(--s-4) 0 0;
+    font-size: var(--fs-13);
+
+    & a {
+      color: var(--accent-fg);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .teams {

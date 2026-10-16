@@ -54,4 +54,5 @@ export const workspaceFile = z.strictObject({
       }),
     )
     .default([]),
+  key_journeys: z.array(z.string()).default([]),
 });

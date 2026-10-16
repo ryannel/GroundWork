@@ -57,6 +57,36 @@ describe('LandscapePage', () => {
     expect(screen.getByText('No plans yet.')).toBeTruthy();
   });
 
+  it('puts the plans first, and leads with key journeys the code suggests', async () => {
+    const { workspace, model } = await alder();
+    const landscape = landscapeOf(workspace, model);
+    render(<LandscapePage folder="alder-finch" landscape={landscape} nav={[]} plans={[]} />);
+    expect(screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)).toEqual([
+      'Plans',
+      'Landscape',
+      'Key journeys',
+      'Teams',
+    ]);
+    expect(screen.getByText(/^Suggested from the code/)).toBeTruthy();
+    expect(screen.getAllByText(/, across \d+ domains?\.$/)).toHaveLength(
+      landscape.key.cards.length,
+    );
+    expect(
+      screen.getByRole('link', { name: /^All \d+ journeys and flows/ }).getAttribute('href'),
+    ).toMatch(/^\/alder-finch\/journeys\/?$/);
+  });
+
+  it('leads with the key journeys a person named, and says which it cannot find', async () => {
+    const { workspace, model } = await alder();
+    const first = model.asIs.flows[0]!;
+    const landscape = landscapeOf({ ...workspace, keyJourneys: [first.id, 'flow:nowhere'] }, model);
+    render(<LandscapePage folder="alder-finch" landscape={landscape} nav={[]} />);
+    expect(landscape.key.cards.map((c) => c.title)).toEqual([first.name]);
+    expect(landscape.map.paths.map((p) => p.title)).toEqual([first.name]);
+    expect(screen.getByText(/named in workspace\.yaml/)).toBeTruthy();
+    expect(screen.getByText(/“flow:nowhere”/)).toBeTruthy();
+  });
+
   it('says how to add a domain when there are none', async () => {
     const { workspace, model } = await alder();
     render(

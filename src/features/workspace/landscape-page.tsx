@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import type { PlanCard } from '@/application/plan-footprint';
 import type { Landscape, TeamRow } from '@/application/workspace-landscape';
 import type { NavGroup } from '@/application/workspace-nav';
+import { plural } from '@/shared/text';
 import { Callout } from '@/ui/callout';
 import { Facts } from '@/ui/facts';
 import { PageHeader } from '@/ui/page-header';
@@ -49,6 +50,36 @@ function Teams({ teams }: { readonly teams: readonly TeamRow[] }) {
   );
 }
 
+function KeyJourneys({ landscape }: { readonly landscape: Landscape }) {
+  const { key } = landscape;
+  return (
+    <section className={styles.section}>
+      <SectionHeading title="Key journeys">
+        <p>
+          {key.source === 'code'
+            ? 'Suggested from the code: together they reach the most systems, and a person starts them where one does. Name your own under key_journeys in workspace.yaml.'
+            : 'The journeys this workspace leads with, named in workspace.yaml.'}{' '}
+          Each domain and system lists every flow that runs through it.
+        </p>
+      </SectionHeading>
+      {key.unknown.length === 0 ? null : (
+        <Callout title="Some key journeys are not in the model">
+          <p>
+            workspace.yaml names {key.unknown.map((name) => `“${name}”`).join(', ')}, which no user
+            journey or flow matches.
+          </p>
+        </Callout>
+      )}
+      <JourneyCards cards={key.cards} />
+      <p className={styles.more}>
+        <Link href={landscape.allJourneys}>
+          All {plural(landscape.journeys.length, 'journey and flow', 'journeys and flows')} →
+        </Link>
+      </p>
+    </section>
+  );
+}
+
 function Empty({ folder }: { readonly folder: string }) {
   return (
     <Callout title="No domains yet">
@@ -60,8 +91,8 @@ function Empty({ folder }: { readonly folder: string }) {
   );
 }
 
-// The whole workspace, in the order a newcomer learns it: who uses which domain and how the domains connect, the
-// journeys that carry the work, the teams that run it, and, set apart, what may change.
+// The whole workspace: first what may change, then how it runs today, in the order a newcomer learns it: who uses
+// which domain and how the domains connect, the key journeys, and the teams that run it.
 export function LandscapePage(props: LandscapePageProps) {
   const { landscape, folder, nav, plans, overlays, actions } = props;
   return (
@@ -77,6 +108,14 @@ export function LandscapePage(props: LandscapePageProps) {
         meta={<Facts items={landscape.facts} />}
         title={landscape.name}
       />
+      {plans === undefined ? null : (
+        <section className={styles.plans}>
+          <SectionHeading title="Plans">
+            <p>What may change. Each plan shows its own picture of the systems after it lands.</p>
+          </SectionHeading>
+          <PlanCards plans={plans} />
+        </section>
+      )}
       {landscape.map.domains.length === 0 ? (
         <Empty folder={folder} />
       ) : (
@@ -85,20 +124,13 @@ export function LandscapePage(props: LandscapePageProps) {
             <SectionHeading title="Landscape">
               <p>
                 Who uses the systems, the domains they sit in, and the outside services they rely
-                on. Open a domain to see its systems, or light up a journey to see the way it takes.
+                on. Open a domain to see its systems, or light up a key journey to see the way it
+                takes.
               </p>
             </SectionHeading>
             <LandscapeMap input={landscape.map} />
           </section>
-          <section className={styles.section}>
-            <SectionHeading title="Journeys">
-              <p>
-                How work moves across the systems, from what sets it off to how it ends. Open one to
-                walk it.
-              </p>
-            </SectionHeading>
-            <JourneyCards cards={landscape.journeys} />
-          </section>
+          <KeyJourneys landscape={landscape} />
           <section className={styles.section}>
             <SectionHeading title="Teams">
               <p>Who runs which systems, and where to reach them.</p>
@@ -106,14 +138,6 @@ export function LandscapePage(props: LandscapePageProps) {
             <Teams teams={landscape.teams} />
           </section>
         </>
-      )}
-      {plans === undefined ? null : (
-        <section className={styles.apart}>
-          <SectionHeading title="Plans">
-            <p>What may change. Each plan shows its own picture of the systems after it lands.</p>
-          </SectionHeading>
-          <PlanCards plans={plans} />
-        </section>
       )}
     </WorkspaceShell>
   );

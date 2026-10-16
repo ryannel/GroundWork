@@ -1,12 +1,14 @@
+import { type KeyJourneys, keyJourneysOf } from '@/application/key-journeys';
 import { landscapeMapInput, type LandscapeMapInput } from '@/application/landscape-map-input';
 import { workspaceScopeOf } from '@/application/model-scope';
 import type { Model } from '@/application/plan/derive';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { teamIndex } from '@/application/plan-viz-teams';
-import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
+import { type JourneyCard, journeyCardOf, journeyCardsOf } from '@/application/today-scope';
 import { componentsOf, type Domain, systemsOf, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
+import { journeysHref } from './today-reader';
 import { systemHref } from './workspace-paths';
 
 // The landscape teaches the whole workspace: what is true of it in one line, the canvas of who uses which domain
@@ -29,6 +31,14 @@ export interface Landscape {
   /** The people, domains and outside services, and how they connect. */
   readonly map: LandscapeMapInput;
   readonly journeys: readonly JourneyCard[];
+  /** The journeys the workspace leads with, and whether a person or the code picked them. */
+  readonly key: {
+    readonly source: KeyJourneys['source'];
+    readonly cards: readonly JourneyCard[];
+    readonly unknown: readonly string[];
+  };
+  /** Where every journey and flow is listed. */
+  readonly allJourneys: string;
   readonly teams: readonly TeamRow[];
 }
 
@@ -75,6 +85,7 @@ function teamsOf(workspace: Workspace, model: Model): TeamRow[] {
 /** The landscape of a workspace, read from its model of today. */
 export function landscapeOf(workspace: Workspace, model: Model): Landscape {
   const journeys = journeyCardsOf(model, workspace.id, workspaceScopeOf(workspace));
+  const key = keyJourneysOf(workspace, model);
   return {
     name: workspace.name,
     headline: headlineOf(workspace),
@@ -85,8 +96,21 @@ export function landscapeOf(workspace: Workspace, model: Model): Landscape {
       plural(model.asIs.userJourneys.length, 'user journey'),
       plural(model.asIs.flows.length, 'flow'),
     ],
-    map: landscapeMapInput(workspace, model),
+    map: landscapeMapInput(
+      workspace,
+      model,
+      key.picked.map((k) => k.journey.key),
+    ),
     journeys,
+    allJourneys: journeysHref(workspace.id),
+    key: {
+      source: key.source,
+      cards: key.picked.map((k) => ({
+        ...journeyCardOf(model, workspace.id, k.journey),
+        why: k.why,
+      })),
+      unknown: key.unknown,
+    },
     teams: teamsOf(workspace, model),
   };
 }
