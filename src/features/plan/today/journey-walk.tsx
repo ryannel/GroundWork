@@ -96,7 +96,7 @@ export function TodayJourney({ workspace, model, journey: key }: TodayJourneyPro
   const journey = todayJourneysOf(model).find((j) => j.key === key);
   if (journey === undefined) return null;
   const many = journey.flows.length > 1;
-  const actor = journey.actor === '' ? '' : ` ${journey.actor}.`;
+  const actor = journey.actor === '' ? '' : ` Started by: ${journey.actor}.`;
   return (
     <>
       <PageHeader description={`${journeyClaim(journey)}${actor}`} title={journey.title} />

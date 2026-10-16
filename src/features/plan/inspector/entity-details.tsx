@@ -70,7 +70,7 @@ export function EntityDetails({ model, view, today, image }: EntityDetailsProps)
     <div className={styles.details}>
       {image === null ? null : (
         <a className={styles.picture} href={image} rel="noreferrer" target="_blank">
-          <PlanImage alt={`${view.name}, as drawn in the plan`} src={image} />
+          <PlanImage alt={`A drawing of ${view.name}`} src={image} />
         </a>
       )}
       {view.text === null ? null : (

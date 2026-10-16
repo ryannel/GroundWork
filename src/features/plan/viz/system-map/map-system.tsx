@@ -67,6 +67,7 @@ function PartRow({
 export function MapSystem({ node, onFold }: MapSystemProps) {
   const count = node.parts.length;
   const first = node.head;
+  const parts = `${String(count)} ${count === 1 ? 'PART' : 'PARTS'}`;
   return (
     <>
       <rect
@@ -80,7 +81,7 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
       <Hit h={node.h} inspect={node.id} label={node.name} w={node.w} x={0} y={0} />
       <FlowGlyph glyph="⧉" x={20} y={9} />
       <text className={styles.eyebrow} x={34} y={14.5}>
-        {`${node.lens === 'out' ? 'OUTSIDE · ' : ''}SYSTEM · ${String(count)} ${count === 1 ? 'PART' : 'PARTS'}`}
+        {node.lens === 'out' ? 'OUTSIDE' : `SYSTEM · ${parts}`}
       </text>
       {node.lines.map((t, i) => (
         <text key={t} className={styles.name} x={20} y={SYS_NAME + i * LINE}>

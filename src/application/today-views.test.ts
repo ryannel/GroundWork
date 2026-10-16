@@ -64,7 +64,7 @@ describe('scopes', () => {
     expect(outsideOf(whole)).toBeNull();
     const website = domainScopeOf(workspace, 'website')!;
     expect(mapScopeOf(workspace, website).focus).toContain('sys:checkout');
-    expect(mapScopeOf(workspace, website).places['sys:pim']).toBe('Commercial backbone domain');
+    expect(mapScopeOf(workspace, website).places['sys:pim']).toBe('Commercial backbone');
     expect(outsideOf(website)).toBe('outside this domain, one step away');
     expect(domainScopeOf(workspace, 'nowhere')).toBeNull();
   });

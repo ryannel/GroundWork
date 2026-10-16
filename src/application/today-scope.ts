@@ -23,11 +23,11 @@ export function chipRefOf(model: Model, id: string): ChipRef {
   return { id, label, glyph, mono };
 }
 
-/** "Website domain" for each `sys:` id, for the cards of a map. */
+/** The domain name ("Website") under each `sys:` id, for the cards of a map. */
 function placesOf(workspace: Workspace): Record<string, string> {
   return Object.fromEntries(
     workspace.domains.flatMap((domain) =>
-      domain.systems.map((system) => [`sys:${system.id}`, `${domain.name} domain`]),
+      domain.systems.map((system) => [`sys:${system.id}`, domain.name]),
     ),
   );
 }

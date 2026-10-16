@@ -16,6 +16,12 @@ import { domainHref, teamOf, workspaceHref } from './workspace-paths';
 // the map of its components with what is one step outside, the flows through it step by step, and each component
 // with what it offers, calls, announces, hears and keeps.
 
+// "Turns a cart into an order" reads as a sentence after the name; anything else keeps the colon.
+const claimOf = (name: string, does: string): string =>
+  /^[A-Z][a-z]+s\b/u.test(does)
+    ? `${name} ${does.charAt(0).toLowerCase()}${does.slice(1)}.`
+    : `${name}: ${does}.`;
+
 export interface SystemView {
   readonly trail: readonly { readonly label: string; readonly href: string }[];
   readonly name: string;
@@ -67,7 +73,7 @@ export function systemViewOf(
     ],
     name: system.name,
     headline:
-      does === '' ? `${system.name} is a system in ${domain.name}.` : `${system.name}: ${does}.`,
+      does === '' ? `${system.name} is a system in ${domain.name}.` : claimOf(system.name, does),
     about: `${team === null ? 'No team runs it yet' : runBy(team.name)}, in the ${domain.name} domain`,
     facts: [
       plural(system.components.length, 'component'),

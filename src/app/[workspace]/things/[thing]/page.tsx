@@ -37,7 +37,7 @@ export default async function TodayThingRoute({ params }: { readonly params: Pro
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, {})}
+      nav={workspaceNavOf(workspace, plans, { today: today.model })}
       overlays={<TodayOverlays depth={2} workspace={workspace} />}
       title={today.model.label(thing)}
       trail={[

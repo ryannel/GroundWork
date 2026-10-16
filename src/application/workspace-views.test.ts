@@ -148,7 +148,7 @@ describe('systemViewOf', () => {
   it('teaches the system: its job, owner, code, flows and components', async () => {
     const { workspace, today } = await alder();
     const view = systemViewOf(workspace, today, { domain: 'website', system: 'checkout' })!;
-    expect(view.headline).toBe('Checkout: Turns a cart into a paid order.');
+    expect(view.headline).toBe('Checkout turns a cart into a paid order.');
     expect(view.about).toMatch(/^Run by the .+ team, in the Website domain$/);
     expect(view.trail.map((step) => step.href)).toEqual(['/alder-finch/', '/alder-finch/website/']);
     expect(view.repos).toEqual([
