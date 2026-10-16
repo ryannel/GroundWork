@@ -67,7 +67,7 @@ describe('LandscapeMap', () => {
     fireEvent.pointerOver(screen.getByText('Shopper'));
     expect(lit(container, 'hot')).toBeGreaterThan(0);
     expect(screen.getByText('Carrier').closest<HTMLElement>('[data-lit]')?.dataset.lit).toBe('dim');
-    fireEvent.pointerLeave(screen.getByRole('img').parentElement!);
+    fireEvent.pointerLeave(screen.getByRole('img').parentElement!.parentElement!);
     expect(lit(container, 'hot')).toBe(0);
     fireEvent.click(screen.getByRole('button', { name: 'Fold' }));
     expect(screen.queryByRole('link', { name: /Cart/ })).toBeNull();

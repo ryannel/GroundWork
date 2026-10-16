@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { type RefObject, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import type { LandscapeMapInput, MapPath } from '@/application/landscape-map-input';
 import { drawLandscape } from '@/application/landscape-map-layout';
@@ -76,6 +76,41 @@ function useResting(
   return [resting, setResting];
 }
 
+// Narrower than this and the words in the boxes are too small to read, so the canvas scrolls instead.
+const READABLE = 760;
+
+/** Shrinks the drawing to fit the page, set on the DOM because a style prop is not allowed. */
+function useFit(
+  refs: {
+    readonly frame: RefObject<HTMLElement | null>;
+    readonly stage: RefObject<HTMLElement | null>;
+  },
+  size: { readonly w: number; readonly h: number },
+): void {
+  const { frame, stage } = refs;
+  const { w, h } = size;
+  useLayoutEffect(() => {
+    const outer = frame.current;
+    const inner = stage.current;
+    if (outer === null || inner === null) return;
+    const fit = (): void => {
+      const s = Math.min(1, Math.max(outer.clientWidth, READABLE) / w);
+      inner.style.setProperty('transform', `scale(${String(s)})`);
+      inner.style.setProperty('width', `${String(w)}px`);
+      inner.style.setProperty('height', `${String(h)}px`);
+      inner.style.setProperty('margin-right', `${String(w * s - w)}px`);
+      inner.style.setProperty('margin-bottom', `${String(h * s - h)}px`);
+    };
+    fit();
+    if (typeof ResizeObserver !== 'function') return;
+    const watch = new ResizeObserver(fit);
+    watch.observe(outer);
+    return () => {
+      watch.disconnect();
+    };
+  }, [frame, stage, w, h]);
+}
+
 function PathPicker(props: {
   readonly paths: readonly MapPath[];
   readonly chosen: MapPath | null;
@@ -124,6 +159,7 @@ function PathPicker(props: {
 export function LandscapeMap({ input }: { readonly input: LandscapeMapInput }) {
   const [open, setOpen] = useState<ReadonlySet<string>>(new Set());
   const canvas = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useResting(canvas);
   const [pathKey, setPathKey] = useState('');
   const drawing = useMemo(() => drawLandscape(input, open), [input, open]);
@@ -137,6 +173,7 @@ export function LandscapeMap({ input }: { readonly input: LandscapeMapInput }) {
     if (lighting === null) return undefined;
     return lighting.lines.has(id) ? 'hot' : 'dim';
   };
+  useFit({ frame: canvas, stage }, { w: drawing.width, h: drawing.height });
   const names = new Map(drawing.nodes.map((n) => [n.id, n.name]));
   const toggle = (id: string): void => {
     const next = new Set(open);
@@ -171,43 +208,33 @@ export function LandscapeMap({ input }: { readonly input: LandscapeMapInput }) {
         <PathPicker chosen={path} onChoose={setPathKey} paths={input.paths} />
       </div>
       <div className={styles.scroll} ref={canvas}>
-        <svg
-          aria-label="The people, domains and outside services, and how they connect"
-          className={styles.canvas}
-          height={drawing.height}
-          role="img"
-          viewBox={`0 0 ${String(drawing.width)} ${String(drawing.height)}`}
-          width={drawing.width}
-        >
+        <div className={styles.stage} ref={stage}>
           {drawing.nodes
             .filter((n) => n.kind === 'frame')
             .map((n) => (
-              <LandscapeBox
-                key={n.id}
-                lit={undefined}
-                node={n}
-
-                onToggle={toggle}
-              />
+              <LandscapeBox key={n.id} lit={undefined} node={n} onToggle={toggle} />
             ))}
-          <LandscapeLines
-            labelled={path === null}
-            lines={drawing.lines}
-            lit={lineLit}
-            name={(id) => names.get(id) ?? id}
-          />
+          <svg
+            aria-label="The people, domains and outside services, and how they connect"
+            className={styles.canvas}
+            height={drawing.height}
+            role="img"
+            viewBox={`0 0 ${String(drawing.width)} ${String(drawing.height)}`}
+            width={drawing.width}
+          >
+            <LandscapeLines
+              labelled={path === null}
+              lines={drawing.lines}
+              lit={lineLit}
+              name={(id) => names.get(id) ?? id}
+            />
+          </svg>
           {drawing.nodes
             .filter((n) => n.kind !== 'frame')
             .map((n) => (
-              <LandscapeBox
-                key={n.id}
-                lit={boxLit(n.id, n.kind)}
-                node={n}
-
-                onToggle={toggle}
-              />
+              <LandscapeBox key={n.id} lit={boxLit(n.id, n.kind)} node={n} onToggle={toggle} />
             ))}
-        </svg>
+        </div>
       </div>
       <figcaption className={styles.caption}>
         <Legend items={LEGEND} />

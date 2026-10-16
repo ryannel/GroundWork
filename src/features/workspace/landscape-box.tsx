@@ -101,18 +101,29 @@ function Body({ node, onToggle }: Pick<BoxProps, 'node' | 'onToggle'>) {
   }
 }
 
-// One box on the landscape, drawn as HTML inside the svg so its text wraps and its links and buttons work.
+/** Puts a box where the drawing says; it is moved with the DOM because a style prop is not allowed. */
+function placed(node: LandNode) {
+  return (el: HTMLDivElement | null): void => {
+    if (el === null) return;
+    el.style.setProperty('left', `${String(node.x)}px`);
+    el.style.setProperty('top', `${String(node.y)}px`);
+    el.style.setProperty('width', `${String(node.w)}px`);
+    el.style.setProperty('height', `${String(node.h)}px`);
+  };
+}
+
+// One box on the landscape, drawn as HTML over the lines so its text wraps and its links and buttons work.
+// It sits outside the svg because WebKit does not scale or place HTML inside a foreignObject properly.
 export function LandscapeBox({ node, lit, onToggle }: BoxProps) {
   return (
-    <foreignObject height={node.h} width={node.w} x={node.x} y={node.y}>
-      <div
-        className={styles.box}
-        data-kind={node.kind}
-        data-lit={lit}
-        data-box={node.kind === 'frame' ? undefined : node.id}
-      >
-        <Body node={node} onToggle={onToggle} />
-      </div>
-    </foreignObject>
+    <div
+      className={styles.box}
+      data-box={node.kind === 'frame' ? undefined : node.id}
+      data-kind={node.kind}
+      data-lit={lit}
+      ref={placed(node)}
+    >
+      <Body node={node} onToggle={onToggle} />
+    </div>
   );
 }

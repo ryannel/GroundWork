@@ -67,13 +67,17 @@
     background-size: var(--s-4) var(--s-4);
   }
 
-  /* Shrinks to fit the page down to a size that can still be read, and scrolls past that. */
+  /* Drawn at full size and scaled to fit the page down to a size that can still be read; scrolls past that. */
+  .stage {
+    position: relative;
+    transform-origin: 0 0;
+  }
+
   .canvas {
+    position: absolute;
+    inset: 0;
     display: block;
-    min-width: 760px;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
+    overflow: visible;
   }
 
   .caption {
