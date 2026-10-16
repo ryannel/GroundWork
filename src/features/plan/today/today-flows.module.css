@@ -1,50 +1,8 @@
 @layer components {
-  .folds {
-    display: grid;
-    gap: var(--s-6);
-  }
-
   .flow {
     display: flex;
     flex-direction: column;
     gap: var(--s-3);
-  }
-
-  .head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--s-2) var(--s-3);
-    cursor: pointer;
-  }
-
-  .name {
-    display: inline-flex;
-    align-items: baseline;
-    gap: var(--s-2);
-    color: var(--fg-1);
-    font-size: var(--fs-16);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .glyph {
-    color: var(--fg-3);
-    font-size: var(--fs-13);
-  }
-
-  .says,
-  .toggle {
-    color: var(--fg-2);
-    font-size: var(--fs-13);
-  }
-
-  .toggle {
-    color: var(--accent);
-  }
-
-  .flow[open] .toggle {
-    display: none;
   }
 
   .ends {

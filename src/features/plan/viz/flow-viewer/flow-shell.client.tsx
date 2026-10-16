@@ -3,6 +3,7 @@
 import { type ReactNode, useRef, useState } from 'react';
 
 import type { FlowView } from '@/application/plan-viz-flow-key';
+import { keepChoice, keptChoice } from '@/features/plan/kept';
 
 import styles from './flow-shell.module.css';
 import { FlowStepper, type StepperStop } from './flow-stepper';
@@ -39,7 +40,14 @@ export interface FlowShellProps {
   readonly stepKeys?: boolean;
   /** Fold the drawing away under this name, with its own previous and next in place of the stepper. */
   readonly fold?: string | undefined;
+  /** Remember the view the reader picks under this name, and open on it next time. */
+  readonly keep?: string | undefined;
 }
+
+const viewOf = (keep: string | undefined, view: FlowView): FlowView => {
+  const kept = keep === undefined ? undefined : keptChoice(keep);
+  return kept === 'diagram' || kept === 'sequence' ? kept : view;
+};
 
 const NAMES: Readonly<Record<FlowView, string>> = { diagram: 'Flow diagram', sequence: 'Sequence' };
 
@@ -122,9 +130,10 @@ export function FlowShell({
   onView,
   stepKeys = true,
   fold,
+  keep,
 }: FlowShellProps) {
   const root = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState<FlowView>(view);
+  const [shown, setShown] = useState<FlowView>(() => viewOf(keep, view));
   const { current, go, move } = useFlowStop({ count: stops.length, start, stop, onStop });
   useStepClicks(root, { onGo: go, onMove: stepKeys ? move : undefined });
   const at = stops[current];
@@ -135,6 +144,7 @@ export function FlowShell({
       keys={keys}
       onPick={(v) => {
         setShown(v);
+        if (keep !== undefined) keepChoice(keep, v);
         onView?.(v);
       }}
       shown={shown}

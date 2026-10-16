@@ -75,7 +75,7 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
       )}
       {flows === undefined || flows === null || view.flows.length === 0 ? null : (
         <Section
-          says="The flows with steps here, most steps here first: who calls whom, in order."
+          says="The work that runs through it, most steps here first. Step through each flow on the drawing, or read it as a sequence."
           title="Flows"
         >
           {flows}

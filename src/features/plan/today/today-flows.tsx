@@ -1,44 +1,33 @@
 import type { Model } from '@/application/plan/derive';
 import { flowSteps } from '@/application/plan/flow-steps';
 import { countOf } from '@/application/plan-viz-text';
-import { Sequence } from '@/features/plan/viz/sequence/sequence';
-import { Glyph } from '@/ui/icon';
+import { FlowViewer } from '@/features/plan/viz/flow-viewer/flow-viewer';
 import { InlineMarkdown } from '@/ui/markdown';
 
+import { FlowChooser } from './flow-chooser.client';
 import styles from './today-flows.module.css';
 
 interface TodayFlowsProps {
   readonly model: Model;
   /** The flows to draw, by id, in the order to read them. */
   readonly flows: readonly string[];
-  /** How many to open at first; the rest wait behind "Show steps". */
-  readonly open?: number;
+  /** Where the workspace's pictures are served from. */
+  readonly base: string;
 }
 
-function Fold({
+function Flow({
   model,
   id,
-  open,
+  base,
 }: {
   readonly model: Model;
   readonly id: string;
-  readonly open: boolean;
+  readonly base: string;
 }) {
   const node = model.asIs.get(id);
   if (node?.$type !== 'flow') return null;
-  const count = flowSteps(model, id, 'asIs').length;
   return (
-    <details className={styles.flow} open={open}>
-      <summary className={styles.head}>
-        <button className={styles.name} data-inspect={id} type="button">
-          <span aria-hidden="true" className={styles.glyph}>
-            <Glyph glyph="➜" />
-          </span>
-          {node.name}
-        </button>
-        <span className={styles.says}>{countOf(count, 'step')}</span>
-        <span className={styles.toggle}>Show steps</span>
-      </summary>
+    <div className={styles.flow}>
       {node.trigger === undefined && node.outcome === undefined ? null : (
         <p className={styles.ends}>
           {node.trigger === undefined ? null : (
@@ -53,20 +42,34 @@ function Fold({
           )}
         </p>
       )}
-      <Sequence flowId={id} mode="asIs" model={model} />
-    </details>
+      <FlowViewer
+        keep="flow-view"
+        base={base}
+        compact
+        flowId={id}
+        markers={false}
+        mode="asIs"
+        model={model}
+      />
+    </div>
   );
 }
 
-// The flows that run through a domain or a system, each as a sequence of who calls whom, step by step. The first
-// few are open; the rest fold away behind their name.
-export function TodayFlows({ model, flows, open = 1 }: TodayFlowsProps) {
-  if (flows.length === 0) return null;
-  return (
-    <div className={styles.folds}>
-      {flows.map((id, i) => (
-        <Fold id={id} key={id} model={model} open={i < open} />
-      ))}
-    </div>
-  );
+// The flows that run through a system, one at a time: the flow drawn on the system with the step it is at lit, or
+// as a sequence of who calls whom, walked step by step.
+export function TodayFlows({ model, flows, base }: TodayFlowsProps) {
+  const drawn = flows.flatMap((id) => {
+    const node = model.asIs.get(id);
+    if (node?.$type !== 'flow') return [];
+    return [
+      {
+        id,
+        name: node.name,
+        says: countOf(flowSteps(model, id, 'asIs').length, 'step'),
+        body: <Flow base={base} id={id} model={model} />,
+      },
+    ];
+  });
+  if (drawn.length === 0) return null;
+  return <FlowChooser flows={drawn} />;
 }
